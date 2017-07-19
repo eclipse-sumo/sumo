@@ -27,8 +27,8 @@ if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
     import sumolib  # noqa
-    from sumolib.output import parse, parse_fast
-    from sumolib.miscutils import Statistics
+    from sumolib.output import parse  # noqa
+    from sumolib.miscutils import Statistics  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 

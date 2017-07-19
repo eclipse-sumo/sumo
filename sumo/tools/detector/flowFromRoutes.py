@@ -21,11 +21,10 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 import math
-import string
 import sys
 import os
 
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser, handler
 from optparse import OptionParser
 
 import detector
@@ -56,7 +55,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
 
     def addRouteFlow(self, route, flow):
         for edge in self._routes[route]:
-            if not edge in self._edgeFlow:
+            if edge not in self._edgeFlow:
                 self._edgeFlow[edge] = 0
             self._edgeFlow[edge] += flow
 

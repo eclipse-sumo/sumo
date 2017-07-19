@@ -22,7 +22,6 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 import sys
 import os
-import itertools
 import random
 from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))

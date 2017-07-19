@@ -25,11 +25,9 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import random
-import string
 import sys
 import heapq
-from collections import defaultdict
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser, handler
 from optparse import OptionParser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.output

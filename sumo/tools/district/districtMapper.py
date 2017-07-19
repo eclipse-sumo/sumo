@@ -7,8 +7,8 @@
 @date    2007-07-26
 @version $Id$
 
-Maps the geometry of the districts of two networks by calculating 
-translation and scale parameters from junctions which have been 
+Maps the geometry of the districts of two networks by calculating
+translation and scale parameters from junctions which have been
 identified by the user as reference points.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
@@ -22,7 +22,6 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import absolute_import
 from __future__ import print_function
-import math
 from xml.sax import make_parser, handler
 from optparse import OptionParser
 

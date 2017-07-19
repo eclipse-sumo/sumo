@@ -19,9 +19,8 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import absolute_import
 from __future__ import print_function
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser, handler
 from optparse import OptionParser
-import math
 
 
 # written into the net. All members are "private".
