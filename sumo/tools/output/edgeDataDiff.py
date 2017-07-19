@@ -24,7 +24,7 @@ import sys
 from collections import defaultdict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse
-from sumolib.miscutils import uMax, Statistics
+from sumolib.miscutils import Statistics
 
 
 def write_diff(orig, new, out):

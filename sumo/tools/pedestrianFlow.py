@@ -20,13 +20,13 @@ from __future__ import absolute_import
 import os
 import sys
 import random
-import datetime
 from optparse import OptionParser
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(tools)
-    from sumolib.miscutils import Colorgen
+    import sumolib  # noqa
+    from sumolib.miscutils import Colorgen  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
@@ -70,7 +70,7 @@ def randomOrFixed(value, offset=0.2):
 
 
 def write_ped(f, index, options, depart, edges):
-    if options.color == None:
+    if options.color is None:
         color = ''
     elif options.color == "random":
         color = ' color="%s"' % Colorgen(("random", 1, 1))()

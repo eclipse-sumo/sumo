@@ -21,7 +21,7 @@ from optparse import OptionParser
 import os
 import sys
 from numpy import *
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser, handler
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 

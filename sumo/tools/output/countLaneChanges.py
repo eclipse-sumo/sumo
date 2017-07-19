@@ -21,7 +21,6 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-from collections import defaultdict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from xml.sax import parse, handler
 

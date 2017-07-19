@@ -1,5 +1,4 @@
-#!/usr/bin/python
-#-*- encoding: utf-8 -*-
+#!/usr/bin/env python
 """
 @file    generateMeanDataDefinitions.py
 @author  Karol Stosiek
@@ -51,8 +50,8 @@ def generate_mean_data_xml(detectors_xml,
         meandata_element = meandata_xml.createElement(detectors_output_type)
         meandata_element.setAttribute("id", detector_id)
         meandata_element.setAttribute("freq", str(detectors_frequency))
-        meandata_element.setAttribute("file", detector_id
-                                      + detectors_suffix + ".xml")
+        meandata_element.setAttribute("file", detector_id +
+                                      detectors_suffix + ".xml")
         meandata_xml.documentElement.appendChild(meandata_element)
 
     return meandata_xml
@@ -67,8 +66,8 @@ if __name__ == "__main__":
 
         if (provided_options.detector_file is None or
                 provided_options.detector_file is ""):
-            logging.fatal("Invalid input file. \n"
-                          + option_parser.format_help())
+            logging.fatal("Invalid input file. \n" +
+                          option_parser.format_help())
             exit()
         return xml.dom.minidom.parse(provided_options.detector_file)
 
@@ -77,8 +76,8 @@ if __name__ == "__main__":
             Checks if the detector type is one of e1, e2 or e3. """
 
         if provided_options.detector_type not in ('e1', 'e2', 'e3'):
-            logging.fatal("Invalid detector type.\n"
-                          + option_parser.format_help())
+            logging.fatal("Invalid detector type.\n" +
+                          option_parser.format_help())
             exit()
         return provided_options.detector_type
 

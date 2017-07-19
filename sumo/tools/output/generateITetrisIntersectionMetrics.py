@@ -32,7 +32,7 @@ def getBasicStats(net, lanesInfo, T):
     for tl in net._tlss:
         tlID = tl._id
         mQueueLen = []
-  #      mWaitTime = []
+#       mWaitTime = []
         nbStops = []
         tWaitTime = []
         seenLanes = set()
@@ -43,8 +43,8 @@ def getBasicStats(net, lanesInfo, T):
             seenLanes.add(lane)
             mQueueLenInfo = sum(lanesInfo[lane.getID()]['mQueueLen'])
             mQueueLen.append(mQueueLenInfo)
-  #              mWaitTimeInfo = mean(lanesInfo[lane.getID()]['mWaitTime'])
-  #              mWaitTime.append(mWaitTimeInfo)
+#           mWaitTimeInfo = mean(lanesInfo[lane.getID()]['mWaitTime'])
+#           mWaitTime.append(mWaitTimeInfo)
             nbStopsInfo = sum(lanesInfo[lane.getID()]['nbStops'])
             nbStops.append(nbStopsInfo)
             tWaitTimeInfo = sum(lanesInfo[lane.getID()]['tWaitTime'])
@@ -115,13 +115,13 @@ class E2OutputReader(handler.ContentHandler):
             if laneID not in self._lanes:
                 self._lanes[laneID] = {}
                 self._lanes[laneID]['mQueueLen'] = []
- #               self._lanes[laneID]['mWaitTime'] = []
+#               self._lanes[laneID]['mWaitTime'] = []
                 self._lanes[laneID]['nbStops'] = []
                 self._lanes[laneID]['tWaitTime'] = []
             if float(attrs['end']) < 100000000:
                 self._lanes[laneID]['mQueueLen'].append(
                     float(attrs['jamLengthInMetersSum']))
- #               self._lanes[laneID]['mWaitTime'].append(float(attrs['meanHaltingDuration']))
+#               self._lanes[laneID]['mWaitTime'].append(float(attrs['meanHaltingDuration']))
                 self._lanes[laneID]['nbStops'].append(
                     float(attrs['startedHalts']))
                 self._lanes[laneID]['tWaitTime'].append(

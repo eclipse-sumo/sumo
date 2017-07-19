@@ -26,7 +26,6 @@ import sumolib
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(tools)
-    from sumolib.miscutils import Colorgen
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
