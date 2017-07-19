@@ -423,6 +423,9 @@ public:
      */
     bool joinSelectedJunctions(GNEUndoList* undoList);
 
+    /// @brief clear invalid crossings
+    bool cleanInvalidCrossings(GNEUndoList* undoList);
+
     /// @brief removes junctions that have no edges
     void removeSolitaryJunctions(GNEUndoList* undoList);
 

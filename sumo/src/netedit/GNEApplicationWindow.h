@@ -245,6 +245,9 @@ public:
     /// @brief called if the user selects Processing->join junctions
     long onCmdJoinJunctions(FXObject*, FXSelector, void*);
 
+    /// @brief called if the user selects Processing->clear invalid crossings
+    long onCmdCleanInvalidCrossings(FXObject*, FXSelector, void*);
+
     /// @brief called if the user selects Processing->Configure Options
     long onCmdOptions(FXObject*, FXSelector, void*);
     /// @}

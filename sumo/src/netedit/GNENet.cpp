@@ -1324,6 +1324,63 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
 }
 
 
+bool 
+GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
+    // obtain current net's crossings
+    std::vector<GNECrossing*> myNetCrossings;
+    for (auto it = myJunctions.begin(); it != myJunctions.end(); it++) {
+        myNetCrossings.reserve(myNetCrossings.size() + it->second->getGNECrossings().size());
+        myNetCrossings.insert(myNetCrossings.end(), it->second->getGNECrossings().begin(), it->second->getGNECrossings().end());
+    }
+    // obtain invalid crossigns
+    std::vector<GNECrossing*> myInvalidCrossings;
+    for (auto i = myNetCrossings.begin(); i != myNetCrossings.end(); i++) {
+        if ((*i)->getNBCrossing()->valid == false) {
+            myInvalidCrossings.push_back(*i);
+        }
+    }
+    
+    if (myInvalidCrossings.empty()) {
+        // show warning in gui testing debug mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
+        }
+        // open a dialog informing that there is no crossing to remove
+        FXMessageBox::warning(getApp(), MBOX_OK, 
+            ("Clear " + toString(SUMO_TAG_CROSSING) + "s").c_str(), "%s",
+            ("There is no " + toString(SUMO_TAG_CROSSING) + " to remove").c_str());
+        // show warning in gui testing debug mode
+        WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'ESC'");
+    } else {
+        std::string plural = myInvalidCrossings.size() == 1? ("") : ("s");
+        // show warning in gui testing debug mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Opening FXMessageBox of type 'question'");
+        }
+        // Ask confirmation to user
+        FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
+            ("Clear " + toString(SUMO_TAG_CROSSING) + "s").c_str(), "%s",
+            ("Clear " + toString(SUMO_TAG_CROSSING) + plural + " will be removed. Continue?").c_str());
+            if (answer != 1) { // 1:yes, 2:no, 4:esc
+                // write warning if netedit is running in testing mode
+                if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
+                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                }
+                else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
+                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                }
+            } else {
+                undoList->p_begin("Clean " + toString(SUMO_TAG_CROSSING) + "s");
+                for(auto i = myInvalidCrossings.begin(); i != myInvalidCrossings.end(); i++) {
+                    deleteCrossing((*i), undoList);
+                }
+                undoList->p_end();
+            }
+    }
+    return 1;
+}
+
+
 void
 GNENet::removeSolitaryJunctions(GNEUndoList* undoList) {
     undoList->p_begin("Clean " + toString(SUMO_TAG_JUNCTION) + "s");

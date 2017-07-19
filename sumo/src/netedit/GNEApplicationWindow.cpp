@@ -169,6 +169,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_CLEAN_JUNCTIONS,            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_JOIN_JUNCTIONS,             GNEApplicationWindow::onCmdJoinJunctions),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_JOIN_JUNCTIONS,             GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEAN_INVALID_CROSSINGS,    GNEApplicationWindow::onCmdCleanInvalidCrossings),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_CLEAN_INVALID_CROSSINGS,    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPTIONS,                    GNEApplicationWindow::onCmdOptions),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                   GNEApplicationWindow::onCmdEditViewport),
 };
@@ -489,6 +491,9 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myProcessingMenu,
                       "Join Selected Junctions\tF7\tJoins selected junctions into a single junction.",
                       GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), this, MID_GNE_JOIN_JUNCTIONS);
+    new FXMenuCommand(myProcessingMenu,
+                      "Clean invalid crossings\tF8\tClear invalid crossings.",
+                      GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), this, MID_GNE_CLEAN_INVALID_CROSSINGS);
     new FXMenuCommand(myProcessingMenu,
                       "Options\tF10\t\tConfigure Processing Options.",
                       GUIIconSubSys::getIcon(ICON_OPTIONS), this, MID_GNE_OPTIONS);
@@ -1238,6 +1243,17 @@ GNEApplicationWindow::onCmdJoinJunctions(FXObject*, FXSelector, void*) {
         WRITE_WARNING("Key F7 (Join junctions) pressed");
     }
     myNet->joinSelectedJunctions(myUndoList);
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdCleanInvalidCrossings(FXObject*, FXSelector, void*) {
+    // show extra information for tests
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Key F8 (Clean invalid crossings) pressed");
+    }
+    myNet->cleanInvalidCrossings(myUndoList);
     return 1;
 }
 
