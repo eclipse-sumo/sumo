@@ -26,7 +26,6 @@ import sumolib  # noqa
 from sumolib.visualization import helpers
 
 
-
 def main(args=None):
     """The main function; parses options and plots"""
     # ---------- build and read options ----------

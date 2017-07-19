@@ -19,7 +19,6 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 
 
-
 class RGBAColor:
 
     def __init__(self, r, g, b, a=None):

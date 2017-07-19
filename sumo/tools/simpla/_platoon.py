@@ -240,7 +240,7 @@ class Platoon(object):
         if cfg.VERBOSITY >= 2:
             report("Platoon '%s' splits (newly formed platoon is '%s'):\n" % (self._ID, pltn.getID()) +
                    "Platoon '%s': %s\nPlatoon '%s': %s" % (self._ID, str([veh.getID() for veh in self._vehicles]),
-                                                             pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()])), 1)
+                                                           pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()])), 1)
         return pltn
 
     def join(self, pltn):

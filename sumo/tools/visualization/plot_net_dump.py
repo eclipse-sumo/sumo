@@ -36,7 +36,6 @@ import matplotlib.pyplot as plt
 import matplotlib
 
 
-
 class WeightsReader(ContentHandler):
 
     """Reads the dump file"""

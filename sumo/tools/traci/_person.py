@@ -229,9 +229,9 @@ class PersonDomain(Domain):
         """
         duration *= 1000
         self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE, personID,
-                                       1 + 4 + # compound
-                                       1 + 4 + # stage type
-                                       1 + 4 + # duration
+                                       1 + 4 +  # compound
+                                       1 + 4 +  # stage type
+                                       1 + 4 +  # duration
                                        1 + 4 + len(description) +
                                        1 + 4 + len(stopID))
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
@@ -254,13 +254,13 @@ class PersonDomain(Domain):
         if isinstance(edges, str):
             edges = [edgeList]
         self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE, personID,
-                                       1 + 4 + # compound
-                                       1 + 4 + # stageType
+                                       1 + 4 +  # compound
+                                       1 + 4 +  # stageType
                                        1 + 4 + \
                                        sum(map(len, edges)) + 4 * len(edges) +
-                                       1 + 8 + # arrivalPos
-                                       1 + 4 + # duration
-                                       1 + 8 + # speed
+                                       1 + 8 +  # arrivalPos
+                                       1 + 4 +  # duration
+                                       1 + 8 +  # speed
                                        1 + 4 + len(stopID)
                                        )
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 6)
@@ -281,8 +281,8 @@ class PersonDomain(Domain):
         The lines parameter should be a space-separated list of line ids
         """
         self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE, personID,
-                                       1 + 4 + # compound
-                                       1 + 4 + # stage type
+                                       1 + 4 +  # compound
+                                       1 + 4 +  # stage type
                                        1 + 4 + len(toEdge) +
                                        1 + 4 + len(lines) +
                                        1 + 4 + len(stopID))

@@ -24,7 +24,7 @@ testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
 neteditTestRoot = os.path.join(
     os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
 sys.path.append(neteditTestRoot)
-import neteditTestFunctions as netedit
+import neteditTestFunctions as netedit  # noqa
 
 # Open netedit without search the pink square reference
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--new'])

@@ -41,6 +41,7 @@ import detector
 DEBUG = False
 PULL_FLOW = True
 
+
 class Vertex:
 
     def __init__(self):
@@ -530,7 +531,7 @@ class Net:
                 key = tuple([e.label for e in route.edges if e.kind == "real"])
                 surplus = route.frequency - self._routeRestriction.get(key, sys.maxsize)
                 if surplus > 0:
-                    if options.verbose and DEBUG: 
+                    if options.verbose and DEBUG:
                         print("route '%s' surplus=%s" % (" ".join(key), surplus))
                     removed = True
                     for e in route.edges:
@@ -542,7 +543,6 @@ class Net:
             if deleteRoute:
                 edge.routes = [r for r in edge.routes if not r in deleteRoute]
         return removed
-
 
     def writeRoutes(self, routeOut, suffix=""):
         totalFlow = 0

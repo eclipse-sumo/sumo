@@ -994,7 +994,7 @@ class Vessel():
                 center_in_ego_coords = self.transform_coord_to_ego(center_in_global_coords,
                                                                    omega, offset)
 
-                # ### WHY INTEGERS ???? !!!! ####### 
+                # ### WHY INTEGERS ???? !!!! #######
                 # center_in_ego_coords    = (int(center_in_ego_coords[0]),
                 #                           int(center_in_ego_coords[1]))
 
@@ -1826,7 +1826,7 @@ class AdAStar():
 #            real    0m1.781s mit Grundlast
 #            user    0m1.751s
 #            sys     0m0.027s
-# 
+#
 #   tuples
 #            real    0m0.335s mit Grundlast
 #            user    0m0.302s
@@ -2521,7 +2521,7 @@ class Flaeche():
 
             self.draw.arc(global_box_left,
                           int(90 - angle + current_rot_deg),
-                          int(90 + current_rot_deg),  'red')  #end_angle, start_angle
+                          int(90 + current_rot_deg),  'red')  # end_angle, start_angle
 
             self.draw.arc(global_box_right,
                           int(-90 + current_rot_deg),
@@ -2649,16 +2649,16 @@ if __name__ == '__main__':
 #                    node_data =self.flaeche.get_node_data((nn.cell_x_id,nn.cell_y_id)),
 #                    sector    =nn.sector_id,
 #                    tt        =current_node.tt + nn.durration,
-# 
+#
 #                    dd        =sn_dd,#
-# 
+#
 # dd        =self.vessel.guess_best_way_to_point(
 #                                 from_point = (nn.cell_x_id, nn.cell_y_id),
 #                                 omega_from = nn.angle,
 # to_point   = self.flaeche.get_cell_center((self.end[0],
 # self.end[1])),
 # guess='best')[-1],
-# 
+#
 # dd        = self.get_distance_between_points((nn[0], nn[1]),
 # (self.end[0], self.end[1])) /speed,
 #                    reached_by_angle = nn.angle,
