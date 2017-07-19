@@ -20,7 +20,6 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import absolute_import
 import sys
-import os
 import re
 from optparse import OptionParser
 

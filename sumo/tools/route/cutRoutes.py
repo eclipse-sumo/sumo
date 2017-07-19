@@ -34,8 +34,8 @@ import sort_routes
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
-    from sumolib.output import parse, parse_fast
-    from sumolib.net import readNet
+    from sumolib.output import parse  # noqa
+    from sumolib.net import readNet  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
@@ -64,15 +64,15 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
     optParser.add_option("-d", "--disconnected-action", type='choice', default='discard',
                          choices=['discard', 'keep'],  # XXX 'split', 'longest'
                          help="How to deal with routes that are disconnected in the subnetwork. If 'keep' is chosen a disconnected route generates several routes in the subnetwork corresponding to its parts.")
-    #optParser.add_option("--orig-weights", help="weight file for the original network for extrapolating new departure times")
+    # optParser.add_option("--orig-weights", help="weight file for the original network for extrapolating new departure times")
     options, args = optParser.parse_args()
     try:
         options.network = args[0]
         options.routeFiles = args[1:]
     except:
         sys.exit(USAGE.replace('%prog', os.path.basename(__file__)))
-    if ((options.trips_output is None and options.routes_output is None)
-            or (options.trips_output is not None and options.routes_output is not None)):
+    if ((options.trips_output is None and options.routes_output is None) or
+            (options.trips_output is not None and options.routes_output is not None)):
         sys.exit(
             "Exactly one of the options --trips-output or --routes-output must be given")
     else:
@@ -120,7 +120,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
             # loop over different route parts
             for ix_part, ix_interval in enumerate(route_parts):
                 fromIndex, toIndex = ix_interval
-                #print("(fromIndex,toIndex) = (%d,%d)"%(fromIndex,toIndex))
+                # print("(fromIndex,toIndex) = (%d,%d)"%(fromIndex,toIndex))
                 # check for minimum length
                 if toIndex - fromIndex + 1 < options.min_length:
                     too_short += 1
@@ -198,7 +198,7 @@ def getFirstIndex(areaEdges, edges):
 
 
 def missingEdges(areaEdges, edges, missingEdgeOccurences):
-    ''' 
+    '''
     Returns a list of intervals corresponding to the overlapping parts of the route with the area
     '''
     # store present edge-intervals
@@ -206,7 +206,7 @@ def missingEdges(areaEdges, edges, missingEdgeOccurences):
     start = 0
     lastEdgePresent = False  # assert: first edge is always in areaEdges
     for j, edge in enumerate(edges):
-        if not edge in areaEdges:
+        if edge not in areaEdges:
             if lastEdgePresent:
                 # this is the end of a present interval
                 route_intervals.append((start, j - 1))

@@ -29,9 +29,9 @@ from optparse import OptionParser
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
-    from sumolib.output import parse, parse_fast
-    from sumolib.net import readNet
-    from sumolib.miscutils import Statistics
+    from sumolib.output import parse  # noqa
+    from sumolib.net import readNet  # noqa
+    from sumolib.miscutils import Statistics  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 

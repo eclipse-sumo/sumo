@@ -103,13 +103,13 @@ def main(args):
             print("parsing %s" % routefile)
             if options.standalone:
                 for route in parse(routefile, 'route'):
-                    #print("found veh", vehicle.id)
+                    # print("found veh", vehicle.id)
                     generate_poly(net, unique_id(route.id), options.colorgen(),
                                   options.layer, options.geo,
                                   route.edges.split(), options.blur, outf)
             else:
                 for vehicle in parse(routefile, 'vehicle'):
-                    #print("found veh", vehicle.id)
+                    # print("found veh", vehicle.id)
                     generate_poly(net, unique_id(vehicle.id), options.colorgen(),
                                   options.layer, options.geo,
                                   vehicle.route[0].edges.split(), options.blur, outf)

@@ -67,8 +67,8 @@ def get_options(args=None):
         optParser.print_help()
         sys.exit()
 
-    if ((options.offset is None and options.interval is None)
-            or (options.offset is not None and options.interval is not None)):
+    if ((options.offset is None and options.interval is None) or
+            (options.offset is not None and options.interval is not None)):
         print(
             "Either one of the options --depart-offset or --depart-interval must be given")
         sys.exit()
@@ -185,8 +185,8 @@ def main(options):
                             arrivalEdge = obj.route[0].edges.split()[-1]
 
                 # modify departure time
-                if ((departEdge is None or departEdge in options.depart_edges)
-                        and (arrivalEdge is None or arrivalEdge in options.arrival_edges)):
+                if ((departEdge is None or departEdge in options.depart_edges) and
+                        (arrivalEdge is None or arrivalEdge in options.arrival_edges)):
                     if options.offset is not None:
                         # shift by offset
                         if obj.name in ['trip', 'vehicle']:

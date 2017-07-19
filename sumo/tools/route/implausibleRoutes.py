@@ -6,7 +6,7 @@
 @version $Id$
 
 Find routes that are implausible due to:
- - being longer than the shortest path between the first and last edge 
+ - being longer than the shortest path between the first and last edge
  - being longer than the air-distance between the first and the last edge
 
 The script computes an implausibility-score from configurable factors and
@@ -33,9 +33,9 @@ if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
     import sumolib  # noqa
-    from sumolib.output import parse, parse_fast
-    from sumolib.net import readNet
-    from sumolib.miscutils import Statistics, euclidean, Colorgen
+    from sumolib.output import parse  # noqa
+    from sumolib.net import readNet  # noqa
+    from sumolib.miscutils import Statistics, euclidean, Colorgen  # noqa
     from route2poly import generate_poly
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
@@ -148,9 +148,9 @@ def main():
     implausibleRoutesStats = Statistics("implausiblity above threshold")
     for rID in sorted(routeInfos.keys()):
         ri = routeInfos[rID]
-        ri.implausibility = (options.airdist_ratio_factor * ri.airDistRatio
-                             + options.detour_factor * ri.detour
-                             + options.detour_ratio_factor * ri.detourRatio)
+        ri.implausibility = (options.airdist_ratio_factor * ri.airDistRatio +
+                             options.detour_factor * ri.detour +
+                             options.detour_ratio_factor * ri.detourRatio)
         allRoutesStats.add(ri.implausibility, rID)
         if ri.implausibility > options.threshold:
             implausible.append((ri.implausibility, rID, ri))
@@ -165,7 +165,7 @@ def main():
     if options.ignore_routes is not None:
         numImplausible = len(implausible)
         ignored = set([r.strip() for r in open(options.ignore_routes)])
-        implausible = [r for r in implausible if not r in ignored]
+        implausible = [r for r in implausible if r not in ignored]
         print("Loadeded %s routes to ignore. Reducing implausible from %s to %s" % (
             len(ignored), numImplausible, len(implausible)))
 

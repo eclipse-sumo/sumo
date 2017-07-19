@@ -33,7 +33,6 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 import os
-import string
 import sys
 try:
     from StringIO import StringIO
@@ -172,7 +171,7 @@ class RouteReader(handler.ContentHandler):
                 if key in camelCase:
                     key = camelCase[key]
                     self._changed = True
-                if not key in deletedKeys[name]:
+                if key not in deletedKeys[name]:
                     self._out.write(' %s="%s"' % (key, saxutils.escape(value)))
             if name != 'route':
                 if name in ["ride", "stop", "walk"]:

@@ -59,7 +59,7 @@ class RouteReader(handler.ContentHandler):
         if name == 'route':
             route = array.array('L')
             for edge in self._routeString.split():
-                if not edge in self._edges:
+                if edge not in self._edges:
                     self._edges[edge] = len(self._edges)
                 route.append(self._edges[edge])
             self._routes[self._routeID] = route
@@ -289,9 +289,9 @@ if options.districts:
             route = routes[routeID]
             source = sources[route[0]]
             sink = sinks[route[-1]]
-            if not source in routeMatrix:
+            if source not in routeMatrix:
                 routeMatrix[source] = {}
-            if not sink in routeMatrix[source]:
+            if sink not in routeMatrix[source]:
                 routeMatrix[source][sink] = []
             routeMatrix[source][sink].append(routeID)
 else:
@@ -303,14 +303,14 @@ match = {}
 totalMatch = 0
 totalIdentical = 0
 for source in sorted(routeMatrix1):
-    if not source in routeMatrix2:
+    if source not in routeMatrix2:
         if options.verbose:
             print(
                 "Warning! No routes starting at %s in second route set" % source)
         continue
     for sink in sorted(routeMatrix1[source]):
         routeIDs1 = routeMatrix1[source][sink]
-        if not sink in routeMatrix2[source]:
+        if sink not in routeMatrix2[source]:
             if options.verbose:
                 print("Warning! No routes starting at %s and ending at %s in second route set" % (
                     source, sink))
@@ -325,7 +325,7 @@ for source in sorted(routeMatrix1):
                 if routes1[oldID] == routes1[id1]:
                     similarityMatrix[id1] = similarityMatrix[oldID]
                     break
-            if not id1 in similarityMatrix:
+            if id1 not in similarityMatrix:
                 similarityMatrix[id1] = {}
                 for id2 in routeIDs2:
                     similarityMatrix[id1][id2] = compare(

@@ -20,8 +20,6 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 import sys
-import os
-import re
 from xml.dom import pulldom
 from xml.sax import handler
 from xml.sax import make_parser
@@ -151,8 +149,8 @@ def main(args=None):
         outfile = open(options.outfile, 'w')
         # copy header
         for line in open(options.routefile):
-            if (line.find('<routes') == 0
-                    or line.find('<additional') == 0):
+            if (line.find('<routes') == 0 or
+                    line.find('<additional') == 0):
                 break
             else:
                 outfile.write(line)
