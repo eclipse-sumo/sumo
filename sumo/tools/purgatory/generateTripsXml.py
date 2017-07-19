@@ -22,7 +22,6 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 import os
-import string
 import sys
 import operator
 import math
@@ -30,7 +29,7 @@ import datetime
 import random
 import bz2
 import StringIO
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser, handler
 from optparse import OptionParser
 
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "assign"))

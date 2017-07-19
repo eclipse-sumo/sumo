@@ -61,31 +61,31 @@ parser.add_option("--seed",        "-s", action="store",
 #
 ok = True
 print("checking parameters...")
-if (options.routefile == None):
+if (options.routefile is None):
     print("you have to specify route")
     ok = False
 
-if (options.netfile == None and (options.nodefile == None or options.edgefile == None)):
+if (options.netfile is None and (options.nodefile is None or options.edgefile is None)):
     print("you have to specify either net or node and edge")
     ok = False
 
-if (options.begintime == None):
+if (options.begintime is None):
     print("you have to specify begin")
     ok = False
 
-if (options.endtime == None):
+if (options.endtime is None):
     print("you have to specify end")
     ok = False
 
-if (options.penetration == None):
+if (options.penetration is None):
     print("you have to specify penetration")
     ok = False
 
-if (options.seed == None):
+if (options.seed is None):
     print("no seed specified - defaulting to 0")
     options.seed = 0
 
-if (ok == False):
+if (not ok):
     sys.exit(1)
 
 print("done")
@@ -94,35 +94,35 @@ print("done")
 # check: all files exist / parameters correct?
 #
 print("files exist?")
-if (options.nodefile != None):
-    if (os.path.isfile(options.nodefile) == False):
+if (options.nodefile is not None):
+    if (os.path.isfile(options.nodefile) is False):
         print("file does not exist:", options.nodefile)
         ok = False
 
-if (options.edgefile != None):
-    if (os.path.isfile(options.edgefile) == False):
+if (options.edgefile is not None):
+    if (os.path.isfile(options.edgefile) is False):
         print("file does not exist:", options.edgefile)
         ok = False
 
-if (options.routefile != None):
-    if (os.path.isfile(options.routefile) == False):
+if (options.routefile is not None):
+    if (os.path.isfile(options.routefile) is False):
         print("file does not exist:", options.routefile)
         ok = False
 
-if (options.netfile != None):
-    if (os.path.isfile(options.netfile) == False):
+if (options.netfile is not None):
+    if (os.path.isfile(options.netfile) is False):
         print("file does not exist:", options.netfile)
         ok = False
 
-if (os.path.isfile(netconvert) == False):
+if (os.path.isfile(netconvert) is False):
     print("file does not exist:", netconvert)
     ok = False
 
-if (os.path.isfile(sumo) == False):
+if (os.path.isfile(sumo) is False):
     print("file does not exist:", sumo)
     ok = False
 
-if (os.path.isfile(exporter) == False):
+if (os.path.isfile(exporter) is False):
     print("file does not exist:", exporter)
     ok = False
 
@@ -131,7 +131,7 @@ for val in options.penetration:
         print("penetration must be in [0,1]")
         ok = False
 
-if (ok == False):
+if (not ok):
     sys.exit(1)
 
 print("done")
@@ -143,28 +143,28 @@ print("done")
 #
 # create netfile if does not exist
 #
-if (options.netfile == None):
+if (options.netfile is None):
     os.system(netconvert + " -n=" + options.nodefile + " -e=" +
               options.edgefile + " --output-file=net.xml --disable-normalize-node-positions")
-    if (os.path.isfile("net.xml") == False):
+    if (os.path.isfile("net.xml") is False):
         print("error creating net.xml")
         sys.exit(1)
     os.system(netconvert + " -n=" + options.nodefile + " -e=" +
               options.edgefile + " --output-file=net-normalized.xml")
-    if (os.path.isfile("net-normalized.xml") == False):
+    if (os.path.isfile("net-normalized.xml") is False):
         print("error creating net-normalized.xml")
         sys.exit(1)
 
 #
 # create netstate
 #
-if (options.netfile == None):
+if (options.netfile is None):
     netfile = "net.xml"
 else:
     netfile = options.netfile
 os.system(sumo + " -n " + netfile + " -r " + options.routefile +
           " --netstate-dump netstate.xml -b " + str(options.begintime) + " -e " + str(options.endtime))
-if (os.path.isfile("netstate.xml") == False):
+if (os.path.isfile("netstate.xml") is False):
     print("error creating netstate.xml")
     sys.exit(1)
 
@@ -176,7 +176,7 @@ for penetration in options.penetration:
         "start: generation tracefile with penetration level of " + str(penetration))
     os.system("java -jar " + exporter + " ns2 -n " + netfile + " -t netstate.xml -m mobility_" + str(penetration) + ".tcl -a activity_" + str(penetration) +
               ".tcl -c config_" + str(penetration) + ".tcl -p " + str(penetration) + " -s " + str(options.seed) + " -b " + str(options.begintime) + " -e " + str(options.endtime))
-    if (os.path.isfile("mobility_" + str(penetration) + ".tcl") == False or os.path.isfile("activity_" + str(penetration) + ".tcl") == False or os.path.isfile("config_" + str(penetration) + ".tcl") == False):
+    if (os.path.isfile("mobility_" + str(penetration) + ".tcl") is False or os.path.isfile("activity_" + str(penetration) + ".tcl") is False or os.path.isfile("config_" + str(penetration) + ".tcl") is False):
         print("error creating mobility, activity, config")
         sys.exit(1)
     else:

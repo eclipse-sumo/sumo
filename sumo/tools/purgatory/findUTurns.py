@@ -6,7 +6,7 @@
 @date    2008-04-16
 @version $Id$
 
-Determines the number of U turns in a route file by comparing 
+Determines the number of U turns in a route file by comparing
 the edge ids of successive edges for "negation". This works wherever the sumo network
 was imported from a data source which uses bidirectional street definitions
 (OSM, NavTeq). In this case the unidirectional edges receive the original ID in
@@ -16,7 +16,7 @@ ID in the reverse direction by convention.
 XXX repair is not working. DUAROUTER with --remove-loops should be used for that purpose
 
 Optional this script can also remove
-U turns at the start and the end of a route and output the 
+U turns at the start and the end of a route and output the
 modified routes.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
@@ -30,7 +30,6 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import absolute_import
 from __future__ import print_function
-import os
 import sys
 
 from xml.sax import make_parser, handler

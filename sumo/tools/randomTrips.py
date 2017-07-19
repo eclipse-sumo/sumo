@@ -25,7 +25,6 @@ import os
 import sys
 import random
 import bisect
-import datetime
 import subprocess
 from collections import defaultdict
 import math
@@ -189,9 +188,9 @@ class RandomTripGenerator:
             else:
                 destCoord = sink_edge.getToNode().getCoord()
 
-            coords = ([source_edge.getFromNode().getCoord()]
-                      + [e.getFromNode().getCoord() for e in intermediate]
-                      + [destCoord])
+            coords = ([source_edge.getFromNode().getCoord()] +
+                      [e.getFromNode().getCoord() for e in intermediate] +
+                      [destCoord])
             distance = sum([euclidean(p, q)
                             for p, q in zip(coords[:-1], coords[1:])])
             if distance >= min_distance and (max_distance is None or distance < max_distance):
@@ -214,11 +213,11 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden):
         if options.lanes:
             prob *= edge.getLaneNumber()
         prob *= (edge.getSpeed() ** options.speed_exponent)
-        if (options.fringe_factor != 1.0
-                and not options.pedestrians
-                and fringe_bonus is not None
-                and edge.getSpeed() > options.fringe_threshold
-                and edge.is_fringe(getattr(edge, fringe_bonus))):
+        if (options.fringe_factor != 1.0 and
+                not options.pedestrians and
+                fringe_bonus is not None and
+                edge.getSpeed() > options.fringe_threshold and
+                edge.is_fringe(getattr(edge, fringe_bonus))):
             prob *= options.fringe_factor
         return prob
     return edge_probability

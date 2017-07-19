@@ -23,11 +23,9 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import random
-import string
 import sys
 
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser
 from optparse import OptionParser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
@@ -47,7 +45,7 @@ def _addNewPredecessor(edge, updatePred, newPreds):
             return
     pred = updatePred
     if options.noloops:
-        while pred != None:
+        while pred is not None:
             if pred.edge == edge:
                 return
             pred = pred.pred
@@ -64,8 +62,8 @@ def update(vertex, edge):
     updateIndex = 0
     predIndex = 0
     while len(newPreds) < options.k\
-        and (updateIndex < len(updatePreds)
-             or predIndex < len(vertex.preds)):
+        and (updateIndex < len(updatePreds) or
+             predIndex < len(vertex.preds)):
         if predIndex == len(vertex.preds):
             _addNewPredecessor(edge, updatePreds[updateIndex], newPreds)
             updateIndex += 1
