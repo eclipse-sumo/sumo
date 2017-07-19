@@ -1187,9 +1187,9 @@ GNENet::requireRecompute() {
 
 
 bool
-GNENet::netHasCrossings() const {
-    for (std::map<std::string, NBNode*>::const_iterator i = myNetBuilder->getNodeCont().begin(); i != myNetBuilder->getNodeCont().end() ; i++) {
-        if (i->second->getCrossings().size() > 0) {
+GNENet::netHasGNECrossings() const {
+    for (auto n : myJunctions) {
+        if (n.second->getGNECrossings().size() > 0) {
             return true;
         }
     }
@@ -1329,10 +1329,10 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
-        // open a dialog informing that there is no crossing to remove
+        // open a dialog informing that there isn't crossing to remove
         FXMessageBox::warning(getApp(), MBOX_OK, 
             ("Clear " + toString(SUMO_TAG_CROSSING) + "s").c_str(), "%s",
-            ("There is no " + toString(SUMO_TAG_CROSSING) + " to remove").c_str());
+            ("There is no invalid " + toString(SUMO_TAG_CROSSING) + "s to remove").c_str());
         // show warning in gui testing debug mode
         WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'ESC'");
     } else {

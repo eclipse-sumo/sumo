@@ -66,7 +66,7 @@ public:
     GNEJunction(NBNode& nbn, GNENet* net, bool loaded = false);
 
     /// @brief Destructor
-    virtual ~GNEJunction();
+    ~GNEJunction();
 
     /// @name inherited from GUIGlObject
     /// @{

@@ -199,6 +199,11 @@ public:
         return myNetworkHaveCrossings;
     }
 
+    /// @brief enable crossing in networks
+    void setHaveNetworkCrossings(bool value) {
+        myNetworkHaveCrossings = value;
+    }
+
     /**
      * @brief transforms loaded coordinates
      * handles projections, offsets (using GeoConvHelper) and import of height data (using NBHeightMapper)

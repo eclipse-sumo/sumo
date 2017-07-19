@@ -74,6 +74,11 @@ void GNEChange_Crossing::undo() {
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
+        // check if after rebuild crossing net has GNECrossings
+        if (myNet->netHasGNECrossings() == false) {
+            // change flag of NetBuilder (For build GNECrossing)
+            myNet->getNetBuilder()->setHaveNetworkCrossings(false);
+        }
         // Update view
         myNet->getViewNet()->update();
     } else {
@@ -84,6 +89,8 @@ void GNEChange_Crossing::undo() {
         }
         // add crossing of NBNode
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, mySelected);
+        // change flag of NetBuilder (For build GNECrossing)
+        myNet->getNetBuilder()->setHaveNetworkCrossings(true);
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
         // check if created GNECrossing must be selected
@@ -111,6 +118,8 @@ void GNEChange_Crossing::redo() {
         }
         // add crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
+        // change flag of NetBuilder (For build GNECrossing)
+        myNet->getNetBuilder()->setHaveNetworkCrossings(true);
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
         // check if created GNECrossing must be selected
@@ -134,6 +143,11 @@ void GNEChange_Crossing::redo() {
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
+        // check if after rebuild crossing net has GNECrossings
+        if(myNet->netHasGNECrossings() == false) {
+            // change flag of NetBuilder (For build GNECrossing)
+            myNet->getNetBuilder()->setHaveNetworkCrossings(false);
+        }
         // Update view
         myNet->getViewNet()->update();
     }

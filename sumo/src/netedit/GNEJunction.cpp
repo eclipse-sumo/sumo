@@ -345,6 +345,7 @@ GNEJunction::addIncomingGNEEdge(GNEEdge* edge) {
 }
 
 
+
 void
 GNEJunction::addOutgoingGNEEdge(GNEEdge* edge) {
     // Check if outgoing edge was already inserted

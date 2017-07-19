@@ -440,8 +440,8 @@ public:
     /// @brief inform the net about the need for recomputation
     void requireRecompute();
 
-    /// @brief check if net has crossings
-    bool netHasCrossings() const;
+    /// @brief check if net has GNECrossings
+    bool netHasGNECrossings() const;
 
     /// @brief get pointer to the main App
     FXApp* getApp();
