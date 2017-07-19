@@ -20,16 +20,6 @@ the Free Software Foundation; either version 3 of the License, or
 
 import sys
 import unittest
-import numpy
-import math
-import main
-
-from commons import StarNodeC, ANList
-
-from unittest_constants import VISUAL, lost, finished, afinished, unfinished, devel_skip, devel_run, broken, visual, known_bug, debugging
-
-from unittest_utils import skip_all_but_selected, assertAlmostEqualTupleList
-
 import unittest_flaeche
 import unittest_vessel
 import unittest_dijkstra
@@ -42,7 +32,7 @@ def notes():
 
     continue developing the step
 
-    make a test where there are no points left in the 
+    make a test where there are no points left in the
     open list but the destinaition is not found
 
     """

@@ -21,7 +21,7 @@ the Free Software Foundation; either version 3 of the License, or
 import math
 
 from commons import NodeDataHandler, StarNode, DNList
-#from commons import StarNode as DijkstraNode
+# from commons import StarNode as DijkstraNode
 
 
 class Dijkstra():
@@ -152,7 +152,7 @@ class Dijkstra():
         for nn in suspicious_nodes:
             # is in closed_list -> ignore
             closedDNL = DNList(self.closed_nodes_list, 'tuple')
-            if not nn in closedDNL:
+            if nn not in closedDNL:
 
                 # skip if blocked
                 if self.flaeche.is_blocked(nn):
@@ -170,7 +170,7 @@ class Dijkstra():
                 openDNL = DNList(self.open_nodes_list, 'tuple')
                 # returns None if not in list
                 some_open_node = openDNL.get_by_tuple(nn)
-                if some_open_node != None:
+                if some_open_node is not None:
                     if sus_node.full_costs < some_open_node.full_costs:
                         self.open_nodes_list.remove(some_open_node)
                         self.open_nodes_list.append(sus_node)
@@ -207,9 +207,9 @@ class Dijkstra():
             pass
 
     def rebuild_path(self, some_node=None):
-        if self.reached_dest_node == None:
+        if self.reached_dest_node is None:
             raise StandardError("algorithm must be run first successfully")
-        elif some_node == None:
+        elif some_node is None:
             some_node = self.reached_dest_node
 #        print some_node.get_coords()
         self.path[0:0] = [some_node]
@@ -223,7 +223,7 @@ class Dijkstra():
         self.flaeche.vis_add_end(self.end)
         for xx in range(self.flaeche.cluster_length_x):
             for yy in range(self.flaeche.cluster_length_y):
-                if self.flaeche.cluster[xx][yy] != None:
+                if self.flaeche.cluster[xx][yy] is not None:
                     if self.flaeche.cluster[xx][yy].is_blocked:
                         self.flaeche.vis_add_blocked((xx, yy))
 
@@ -252,7 +252,7 @@ class Dijkstra():
             self.flaeche.vis_add_closed(nn)
         for xx in range(self.flaeche.cluster_length_x):
             for yy in range(self.flaeche.cluster_length_y):
-                if self.flaeche.cluster[xx][yy] != None:
+                if self.flaeche.cluster[xx][yy] is not None:
                     if self.flaeche.cluster[xx][yy][NodeDataHandler.is_blocked]:
                         self.flaeche.vis_add_blocked((xx, yy))
         self.flaeche.vis_show(step_num=step)
@@ -269,7 +269,7 @@ class Dijkstra():
         del(nn)
         for xx in range(self.flaeche.cluster_length_x):
             for yy in range(self.flaeche.cluster_length_y):
-                if self.flaeche.cluster[xx][yy] != None:
+                if self.flaeche.cluster[xx][yy] is not None:
                     if self.flaeche.cluster[xx][yy][NodeDataHandler.is_blocked]:
                         self.flaeche.vis_add_blocked((xx, yy))
         for nn in DNList(self.path).get_tuples():

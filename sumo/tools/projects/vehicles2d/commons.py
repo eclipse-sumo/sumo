@@ -81,8 +81,8 @@ class StarNodeC(StarNode):
             reached_by_angle)
         self.costs_till_here = costs_till_here
         self.estimated_remaining_costs = estimated_remaining_costs
-        self.full_costs = (self.costs_till_here
-                           + self.estimated_remaining_costs)
+        self.full_costs = (self.costs_till_here +
+                           self.estimated_remaining_costs)
         self.previous_node = previous_node
         self.in_between_nodes = in_between_nodes
 
@@ -125,8 +125,8 @@ class ANList():
 
     def get_by_tuple(self, tuple):
         for nn in self.data:
-            if (nn.x_id == tuple[0] and nn.y_id == tuple[1]
-                    and nn.sector_id == tuple[2]):
+            if (nn.x_id == tuple[0] and nn.y_id == tuple[1] and
+                    nn.sector_id == tuple[2]):
                 return nn
 
     def get_min_node(self, pop=False):
