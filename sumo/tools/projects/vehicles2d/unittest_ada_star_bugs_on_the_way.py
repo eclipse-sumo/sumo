@@ -19,15 +19,14 @@ the Free Software Foundation; either version 3 of the License, or
 
 import sys
 import unittest
-import numpy
 import math
 import main
 
 
-from commons import ANList, StarNodeC, reduce_angle_to_get_smalles_postive_equivialent
+from commons import ANList
 # StarNode,  DNList,
 
-from unittest_constants import VISUAL, lost, finished, afinished, unfinished, devel_skip, devel_run, broken, visual, known_bug, debugging
+from unittest_constants import VISUAL, finished, devel_skip, devel_run, broken
 
 
 class someTestcase_ada_star_bugs(unittest.TestCase):
@@ -468,7 +467,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         The radius is pretty much the vertical distance
         between the start and destination so the vessel moves
         allong its turning circle and then moves straight
-        forward (horisontally) to destination. 
+        forward (horisontally) to destination.
 
         In this configuration the vessel leaves the canvas partially.
         This should be impossible in the future.
@@ -517,7 +516,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         The radius is pretty much the vertical distance
         between the start and destination so the vessel moves
         allong its turning circle and then moves straight
-        forward (horisontally) to destination. 
+        forward (horisontally) to destination.
 
         In this configuration the vessel does not leave the canvas
         at all, hence it should allways pass in the future.
@@ -565,7 +564,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         The radius is pretty much the vertical distance
         between the start and destination so the vessel moves
         allong its turning circle and then moves straight
-        forward (horisontally) to destination. 
+        forward (horisontally) to destination.
 
         In this configuration the vessel  __does_leave_the_canvas__.
         Hence it shall fail somewhen in the future.
@@ -618,7 +617,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         The radius is pretty much the vertical distance
         between the start and destination so the vessel moves
         allong its turning circle and then moves straight
-        forward (horisontally) to destination. 
+        forward (horisontally) to destination.
 
         In this configuration the vessel  __never_leaves_the_canvas__.
         Hence it __should_allways_pass__ in the future.
@@ -696,7 +695,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         """ unclear bug
 
         this combo and end point combo does not work,
-        algo seaches for ever and finally 
+        algo seaches for ever and finally
         ends with an error after some 2.5 min  """
         visual = VISUAL
         visual = True
@@ -719,7 +718,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         """ unclear bug
 
         this combo and end point combo does not work,
-        algo seaches for ever and finally 
+        algo seaches for ever and finally
         ends with an error after some 2.5 min  """
         visual = VISUAL
         visual = True
@@ -742,7 +741,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         """ unclear bug
 
         this combo and end point combo does not work,
-        algo seaches for ever and finally 
+        algo seaches for ever and finally
         ends with an error after some 2.5 min  """
         visual = VISUAL
         visual = True
@@ -758,7 +757,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
 
         myD = main.AdAStar(vessel=vessel, start_node=start, end_node=end)
 
-####### surgery cut ####
+# ###### surgery cut ####
         if False:
 
             myD.step()
@@ -769,7 +768,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
             assert False
 
 
-####### surgery glue ####
+# ###### surgery glue ####
 
         myD.run()
 
@@ -787,12 +786,12 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
 # (-10, 10), ( 0, 0)])
         vessel.r = 20
 
-       ## blocked_nodes = [(xx, 15) for xx in range(10, 28)]
-       # blocked_nodes = [(xx, 15) for xx in range(7, 28)]
-       # myFlaeche.load_node_data(blocked_nodes)
+        # blocked_nodes = [(xx, 15) for xx in range(10, 28)]
+        # blocked_nodes = [(xx, 15) for xx in range(7, 28)]
+        # myFlaeche.load_node_data(blocked_nodes)
 
         # start = (3,  11, 8)  # cell coordinates
-        #end   = (16, 19, 0)
+        # end   = (16, 19, 0)
 
         start = (5,  20, 8)  # cell coordinates
         end = (22, 19, 0)
@@ -811,7 +810,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
 # myD.run(verbose=True, visual=visual) #        myD.run(visual=visual)
 
 
-####### surgery cut ####
+# ###### surgery cut ####
         if False:
 
             myD.step()
@@ -825,7 +824,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
             #        self.assertEqual(myD_step_zero.get_closed_nodes('tuples'), [])
 
 
-####### surgery glue ####
+# ###### surgery glue ####
 
         myD.run()
         if False:
@@ -842,7 +841,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
                 myD.draw_path(vessel=vessel)
 
     @unittest.skipIf(broken, 'done')
-##################
+# #################
 #    @unittest.skipIf(devel_run, 'done')
     def test_get_reachable_center_points_spooky(self):
         visual = VISUAL
@@ -864,7 +863,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
                                                     vessel.rotation,
                                                     )
 #                                                    test_result='get_all_center_points')
-#!!                                                  test_result='get_zone_zero_center_points')
+# !!                                                  test_result='get_zone_zero_center_points')
 #                                                    test_result='get_zone_one_center_points')
 #                                                    test_result='get_zone_two_center_points')
 #                                                    test_result='get_zone_three_center_points')
@@ -919,7 +918,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
             main.make_movie(myFlaeche.output)
 
 
-##############
+# #############
 #     this test is not realy usefull now, because it catches an error for
 #     both: not giving the coorrect coordinates or giving coordinates without angle
 #     Maybe make the teste better later or remove in 2016 :-)
@@ -993,7 +992,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         """ unclear bug
 
         this combo and end point combo does not work,
-        algo seaches for ever and finally 
+        algo seaches for ever and finally
         ends with an error after some 2.5 min  """
         visual = VISUAL
         visual = True
@@ -1016,7 +1015,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         """ unclear bug
 
         this combo and end point combo does not work,
-        algo seaches for ever and finally 
+        algo seaches for ever and finally
         ends with an error after some 2.5 min  """
         visual = VISUAL
         visual = True
@@ -1039,7 +1038,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         """ unclear bug
 
         this combo and end point combo does not work,
-        algo seaches for ever and finally 
+        algo seaches for ever and finally
         ends with an error after some 2.5 min  """
         visual = VISUAL
         visual = True
@@ -1055,7 +1054,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
 
         myD = main.AdAStar(vessel=vessel, start_node=start, end_node=end)
 
-####### surgery cut ####
+# ###### surgery cut ####
         if False:
 
             myD.step()
@@ -1066,7 +1065,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
             assert False
 
 
-####### surgery glue ####
+# ###### surgery glue ####
 
         myD.run()
 
@@ -1084,12 +1083,12 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
 # (-10, 10), ( 0, 0)])
         vessel.r = 20
 
-       ## blocked_nodes = [(xx, 15) for xx in range(10, 28)]
-       # blocked_nodes = [(xx, 15) for xx in range(7, 28)]
-       # myFlaeche.load_node_data(blocked_nodes)
+        # blocked_nodes = [(xx, 15) for xx in range(10, 28)]
+        # blocked_nodes = [(xx, 15) for xx in range(7, 28)]
+        # myFlaeche.load_node_data(blocked_nodes)
 
         # start = (3,  11, 8)  # cell coordinates
-        #end   = (16, 19, 0)
+        # end   = (16, 19, 0)
 
         start = (5,  20, 8)  # cell coordinates
         end = (22, 19, 0)
@@ -1108,7 +1107,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
 # myD.run(verbose=True, visual=visual) #        myD.run(visual=visual)
 
 
-####### surgery cut ####
+# ###### surgery cut ####
         if False:
 
             myD.step()
@@ -1122,7 +1121,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
             #        self.assertEqual(myD_step_zero.get_closed_nodes('tuples'), [])
 
 
-####### surgery glue ####
+# ###### surgery glue ####
 
         myD.run()
         if False:
@@ -1139,7 +1138,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
                 myD.draw_path(vessel=vessel)
 
     @unittest.skipIf(broken, 'done')
-##################
+# #################
 #    @unittest.skipIf(devel_run, 'done')
     def test_get_reachable_center_points_spooky(self):
         visual = VISUAL
@@ -1161,7 +1160,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
                                                     vessel.rotation,
                                                     )
 #                                                    test_result='get_all_center_points')
-#!!                                                  test_result='get_zone_zero_center_points')
+# !!                                                  test_result='get_zone_zero_center_points')
 #                                                    test_result='get_zone_one_center_points')
 #                                                    test_result='get_zone_two_center_points')
 #                                                    test_result='get_zone_three_center_points')
@@ -1216,8 +1215,8 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
             main.make_movie(myFlaeche.output)
 
 
-##############
-#     this test is not realy usefull now, because it catches an error for
+# #############
+#     this test is not really useful now, because it catches an error for
 #     both: not giving the coorrect coordinates or giving coordinates without angle
 #     Maybe make the teste better later or remove in 2016 :-)
 

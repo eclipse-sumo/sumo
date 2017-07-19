@@ -18,9 +18,7 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 
-import sys
 import unittest
-import numpy
 import math
 import main
 
@@ -28,11 +26,11 @@ import main
 from commons import ANList, StarNodeC, reduce_angle_to_get_smalles_postive_equivialent
 # StarNode,  DNList,
 
-from unittest_constants import VISUAL, lost, finished, afinished, unfinished, devel_skip, devel_run, broken, visual, known_bug, debugging
+from unittest_constants import VISUAL, finished, devel_run, broken, visual
 
 
 class someTestcase_ada_star(unittest.TestCase):
-    ########### adastar #######################################
+    # ########## adastar #######################################
 
     @unittest.skipIf(finished, 'done')
     def test_adastar_nodes_id_creation(self):
@@ -194,10 +192,10 @@ class someTestcase_ada_star(unittest.TestCase):
         """make sure that only each node id is only once in the list
            should be already managed in the initalization
            keep a 'global'/class list with all nodes
-           
+
            * handling alternation after creation - maybe function_closurures
            * overwriting the append function
-           
+
            """
 
         """make sure that only nodes from the same AdAStar are added"""
@@ -207,10 +205,10 @@ class someTestcase_ada_star(unittest.TestCase):
         # this does not work - not too urgent now
         # self.assertRaises(AssertionError, main.AdAStar.ANList, [myDN_1, myDN_2, 1] )
 
-        """insert a few nodes into the list, and iter over them returning 
+        """insert a few nodes into the list, and iter over them returning
            the distance traveled"""  # to be done when needed
 
-        """insert a few nodes into the list, and iter over them returning 
+        """insert a few nodes into the list, and iter over them returning
            the total distance """   # to be done when needed
 
     @unittest.skipIf(finished, 'done')
@@ -617,7 +615,7 @@ class someTestcase_ada_star(unittest.TestCase):
                                  output='result_ada_star_full_run_straight')
         vessel = main.Vessel(myFlaeche,
                              # wrong orientation of the vessel shape
-                             #[(0, 0), (40, 40), (40, 200), (-40, 200), (-40, 40), ( 0, 0)])
+                             # [(0, 0), (40, 40), (40, 200), (-40, 200), (-40, 40), ( 0, 0)])
                              [(0, 0), (-40, 40), (-140, 40), (-140, -40), (-40, -40), (0, 0)])
         vessel.r = 20
         vessel.speed = 10
@@ -649,7 +647,7 @@ class someTestcase_ada_star(unittest.TestCase):
             xdim=500, ydim=500, scale=10, output='result_ada_star')
         vessel = main.Vessel(myFlaeche,
                              # wrong orientation of the vessel shape
-                             #[(0, 0), (40, 40), (40, 200), (-40, 200), (-40, 40), ( 0, 0)])
+                             # [(0, 0), (40, 40), (40, 200), (-40, 200), (-40, 40), ( 0, 0)])
                              [(0, 0), (-40, 40), (-140, 40), (-140, -40), (-40, -40), (0, 0)])
         vessel.r = 20
 

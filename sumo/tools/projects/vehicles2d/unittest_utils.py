@@ -17,15 +17,6 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import sys
-import unittest
-import numpy
-import math
-import main
-
-
-from unittest_constants import VISUAL, lost, finished, afinished, unfinished, devel_skip, devel_run, broken, visual, known_bug, debugging
-
 
 def skip_all_but_selected():
     global lost, finished, afinished, unfinished, devel_skip, devel_run, broken, visual
@@ -43,8 +34,8 @@ def skip_all_but_selected():
 
 
 def assertAlmostEqualTupleList(not_self, result, expected_result):
-    if (len(result) == 0 or len(expected_result) == 0
-            or len(result) != len(expected_result)):
+    if (len(result) == 0 or len(expected_result) == 0 or
+            len(result) != len(expected_result)):
         assert False, "lists have differing length or length of zero"
 
     for ii in range(len(result)):

@@ -24,9 +24,9 @@ import math
 import numpy
 import main
 
-from unittest_constants import VISUAL, lost, finished, afinished, unfinished, devel_skip, devel_run, broken, visual, known_bug, debugging
+from unittest_constants import VISUAL, finished, devel_run
 
-from unittest_utils import skip_all_but_selected, assertAlmostEqualTupleList
+from unittest_utils import assertAlmostEqualTupleList
 
 
 class testCaseVessel(unittest.TestCase):
@@ -1596,7 +1596,7 @@ class testCaseVessel(unittest.TestCase):
             (295.0, 285.0), (295.0, 295.0), (295.0, 305.0), (295.0, 315.0),
             (295.0, 325.0), (295.0, 335.0),
             (305.0, 275.0), (305.0, 285.0), (305.0, 295.0),
-            #(305.0, 305.0),
+            # (305.0, 305.0),
             (305.0, 315.0), (305.0, 325.0),
             (315.0, 275.0), (315.0, 285.0), (315.0, 295.0), (315.0, 305.0),
             (325.0, 275.0), (325.0, 285.0), (325.0, 295.0), (325.0, 305.0)]

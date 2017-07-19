@@ -17,17 +17,14 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import sys
 import unittest
-import numpy
-import math
 import main
 
 
 from commons import StarNode, DNList
 from dijkstra_base import Dijkstra
 
-from unittest_constants import VISUAL, lost, finished, afinished, unfinished, devel_skip, devel_run, broken, visual, known_bug, debugging
+from unittest_constants import VISUAL, finished, devel_run
 
 
 class someTestcaseDD(unittest.TestCase):
@@ -113,10 +110,10 @@ class someTestcaseDD(unittest.TestCase):
         """make sure that only each node id is only once in the list
            should be already managed in the initalization
            keep a 'global'/class list with all nodes
-           
+
            * handling alternation after creation - maybe function_closurures
            * overwriting the append function
-           
+
            """
 
         """make sure that only nodes from the same Dijkstra are added"""
@@ -126,10 +123,10 @@ class someTestcaseDD(unittest.TestCase):
         # this does not work - not too urgent now
         # self.assertRaises(AssertionError, Dijkstra.DNList, [myDN_1, myDN_2, 1] )
 
-        """insert a few nodes into the list, and iter over them returning 
+        """insert a few nodes into the list, and iter over them returning
            the distance traveled"""  # to be done when needed
 
-        """insert a few nodes into the list, and iter over them returning 
+        """insert a few nodes into the list, and iter over them returning
            the total distance """   # to be done when needed
 
         # return myId 22
@@ -379,7 +376,7 @@ class someTestcaseDD(unittest.TestCase):
         myFlaeche = main.Flaeche(xdim=30, ydim=30, scale=1)
         myD = Dijkstra(myFlaeche, (10, 10), (20, 10))
         self.assertEqual(myD.get_distance_to_end((15, 10)), 5)
-        #self.assertEqual(myD.get_distance_to_end((15, 15)), 1.41421 * 5)
+        # self.assertEqual(myD.get_distance_to_end((15, 15)), 1.41421 * 5)
         # reach the end
         self.assertEqual(myD.get_distance_to_end((20, 10)), 0)
         self.assertEqual(myD.get_distance_to_end((20, 20)), 10)  # negaive root

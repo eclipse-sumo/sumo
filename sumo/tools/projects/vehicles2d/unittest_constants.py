@@ -19,7 +19,7 @@ the Free Software Foundation; either version 3 of the License, or
 
 
 VISUAL = False
-#VISUAL = True
+# VISUAL = True
 
 # skip short cuts
 lost = True
