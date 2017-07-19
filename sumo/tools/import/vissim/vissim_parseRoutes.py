@@ -7,7 +7,7 @@
 @version $Id$
 
 
-Parses routes given in the Vissim file (first parameter) as (in-)flows and 
+Parses routes given in the Vissim file (first parameter) as (in-)flows and
  route decisions.
 
 The read flows are saved as <OUTPUT_PREFIX>.flows.xml

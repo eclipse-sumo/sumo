@@ -137,7 +137,7 @@ def parse_vehicle_types(xmldoc, acc_d, length_d):
 
 
 # FIXME: not necessarily nicely done
-#	name doesn't fit functionality
+# name doesn't fit functionality
 def is_verbinder(xmldoc):
     """checks if a given link is a verbinder"""
     # simple implementation of static variable
@@ -219,8 +219,8 @@ def set_probability(routes_by_start_d, flow_d):
             route["probability"] = np.zeros_like(absolute_flow)
             zero_comp_flow_sel = cumulated_flow == 0.
             route["probability"][~zero_comp_flow_sel] = \
-                (route["rel_flow"][~zero_comp_flow_sel, 1]
-                 / cumulated_flow[~zero_comp_flow_sel])
+                (route["rel_flow"][~zero_comp_flow_sel, 1] /
+                 cumulated_flow[~zero_comp_flow_sel])
 
 # VISSIM BUG!!: Relative Zuflüsse mit dem Wert 1.0 gehen bei der
 # Konversion von .inp zu .inpx verloren

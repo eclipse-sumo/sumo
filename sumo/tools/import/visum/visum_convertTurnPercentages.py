@@ -24,10 +24,8 @@ from __future__ import print_function
 
 
 import os
-import string
 import sys
-import StringIO
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser
 
 sys.path.append(
     os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../../lib"))

@@ -25,7 +25,7 @@ from __future__ import print_function
 
 import sys
 import os
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser
 
 sys.path.append(
     os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../../lib"))
@@ -63,7 +63,7 @@ for line in fd:
         for e in fN._outgoing:
             if e._id == strID or e._id == "-" + strID:
                 me = e
-        if me == None:
+        if me is None:
             print("Not found " + line)
         else:
             l = str(me._id) + "_0"

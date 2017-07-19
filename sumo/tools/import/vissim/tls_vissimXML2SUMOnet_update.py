@@ -53,8 +53,8 @@ def get_conn_verb_rel(conn_tab, from_to_tab):
     for conn in conn_tab:
         if ':' not in conn['from']:
             link = from_to_tab[
-                (from_to_tab['f_link'] == conn['from'].split("[")[0])
-                & (from_to_tab['t_link'] == conn['to'].split("[")[0])]
+                (from_to_tab['f_link'] == conn['from'].split("[")[0]) &
+                (from_to_tab['t_link'] == conn['to'].split("[")[0])]
             if len(link) > 0:
                 if link["_link"][0] in conn_link_d:
                     conn_link_d[link["_link"][0]].append(conn['via'])
@@ -286,8 +286,8 @@ def get_sg_connection_data(
                                     check = False
                             print("".join([link, "[", str(split_len), "]"]))
                             connection = conn_tab[(conn_tab["from"] == "".join(
-                                [link, "[", str(split_len), "]"]))
-                                & (conn_tab["fromLane"] == lane)][0]
+                                [link, "[", str(split_len), "]"])) &
+                                (conn_tab["fromLane"] == lane)][0]
                     else:
                         connection = conn_tab[
                             (conn_tab["via"] ==

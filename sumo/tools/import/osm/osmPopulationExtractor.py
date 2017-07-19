@@ -7,7 +7,7 @@
 @date    2013-02-08
 @version $Id$
 
-This script is to 
+This script is to
 - extract the popoulation data from a given Open Street Map (OSM).
 - match the population data from OSM and BSA (with csv format)
 The redundant information is removed and saved in the output file *_redundantOSMData.txt.
@@ -27,8 +27,7 @@ from __future__ import print_function
 
 import os
 import sys
-import math
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser, handler
 from optparse import OptionParser
 
 
@@ -301,19 +300,19 @@ def main():
                 bsaTotalCount += 1
 
                 for n in net._nodes:
-                    if n.name == None and n not in noneList:
+                    if n.name is None and n not in noneList:
                         noneList.append(n)
                     # and n.name not in areasList:
-                    elif n.name != None and name == n.name:
+                    elif n.name is not None and name == n.name:
                         matchedCount += 1
                         fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (
                             name, area, pop, lat, lon, n.name, n.attribute, n.population, n.lat, n.lon)).encode(options.encoding))
 
                 for r in net._relations:
-                    if r.name == None and r not in noneList:
+                    if r.name is None and r not in noneList:
                         noneList.append(r)
                     # and r.name not in areasList:
-                    elif r.name != None and name == r.name:
+                    elif r.name is not None and name == r.name:
                         matchedCount += 1
                         fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\tNone\tNone\n" % (
                             name, area, pop, lat, lon, r.name, r.attribute, r.population)).encode(options.encoding))
