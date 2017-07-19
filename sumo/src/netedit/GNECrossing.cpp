@@ -292,6 +292,8 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             for (std::vector<std::string>::iterator i = NBEdgeIDs.begin(); i != NBEdgeIDs.end(); i++) {
                 myCrossing->edges.push_back(myNet->retrieveEdge(*i)->getNBEdge());
             }
+            // update geometry of parent junction
+            myParentJunction->updateGeometry();
             break;
         }
         case SUMO_ATTR_WIDTH:

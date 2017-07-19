@@ -358,25 +358,11 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
         }
     }
 
-    // delete crossings vinculated with this edge
-    std::vector<GNECrossing*> crossingsJunctionSource = edge->getGNEJunctionSource()->getGNECrossings();
-    for(std::vector<GNECrossing*>::const_iterator i = crossingsJunctionSource.begin(); i != crossingsJunctionSource.end(); i++) {
-        // if at least one of the edges of junction to remove belongs to a crossing of the source junction, delete it
-        if((*i)->checkEdgeBelong(edge)) {
-            deleteCrossing((*i), undoList);
-        }
-    }
-    std::vector<GNECrossing*> crossingsJunctionDestiny = edge->getGNEJunctionDestiny()->getGNECrossings();
-    for(std::vector<GNECrossing*>::const_iterator i = crossingsJunctionDestiny.begin(); i != crossingsJunctionDestiny.end(); i++) {
-        // if at least one of the edges of junction to remove belongs to a crossing of the destiny junction, delete it
-        if((*i)->checkEdgeBelong(edge)) {
-            deleteCrossing((*i), undoList);
-        }
-    }
+    // remove edge from crossings related with this edge
+    edge->getGNEJunctionSource()->removeEdgeFromCrossings(edge, undoList);
+    edge->getGNEJunctionDestiny()->removeEdgeFromCrossings(edge, undoList);
 
-    // invalidate junction (saving connections)
-    edge->getGNEJunctionSource()->removeFromCrossings(edge, undoList);
-    edge->getGNEJunctionDestiny()->removeFromCrossings(edge, undoList);
+    // invalidate junctions
     edge->getGNEJunctionSource()->setLogicValid(false, undoList);
     edge->getGNEJunctionDestiny()->setLogicValid(false, undoList);
 
@@ -471,8 +457,6 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
         }
         
         // invalidate junctions (saving connections)
-        edge->getGNEJunctionSource()->removeFromCrossings(edge, undoList);
-        edge->getGNEJunctionDestiny()->removeFromCrossings(edge, undoList);
         edge->getGNEJunctionSource()->setLogicValid(false, undoList);
         edge->getGNEJunctionDestiny()->setLogicValid(false, undoList);
 

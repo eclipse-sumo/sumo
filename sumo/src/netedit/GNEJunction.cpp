@@ -510,7 +510,7 @@ GNEJunction::updateShapesAndGeometries() {
         // Update edge geometry
         (*i)->updateGeometry();
     }
-    // Finally update geometry of this edge
+    // Finally update geometry of this junction
     updateGeometry();
     // Update view to show the new shapes
     if (myNet->getViewNet()) {
@@ -607,13 +607,25 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
 }
 
 void
-GNEJunction::removeFromCrossings(GNEEdge* edge, GNEUndoList* undoList) {
-    // @todo implement GNEChange_Crossing
-    UNUSED_PARAMETER(undoList);
-    for (auto c : myNBNode.getCrossingsIncludingInvalid()) {
-        EdgeSet edgeSet(c->edges.begin(), c->edges.end());
+GNEJunction::removeEdgeFromCrossings(GNEEdge* edge, GNEUndoList* undoList) {
+    // obtain a copy of GNECrossing of junctions
+    auto copyOfGNECrossings = myGNECrossings;
+    // iterate over copy of GNECrossings
+    for (auto c : copyOfGNECrossings) {
+        // obtain the set of edges vinculated with the crossing (due it works as ID)
+        EdgeSet edgeSet(c->getNBCrossing()->edges.begin(), c->getNBCrossing()->edges.end());
+        // If this edge is part of the set of edges of crossing
         if (edgeSet.count(edge->getNBEdge()) == 1) {
-            myNBNode.removeCrossing(c->edges);
+            // delete crossing if this is their last edge
+            if ((c->getNBCrossing()->edges.size() == 1) && (c->getNBCrossing()->edges.front() == edge->getNBEdge())) {
+                myNet->deleteCrossing(c, undoList);
+            }
+            else {
+                // remove this edge of the edge's attribute of crossing (note: This can invalidate the crossing)
+                std::vector<std::string> edges = GNEAttributeCarrier::parse<std::vector<std::string>>(c->getAttribute(SUMO_ATTR_EDGES));
+                edges.erase(std::find(edges.begin(), edges.end(), edge->getID()));
+                c->setAttribute(SUMO_ATTR_EDGES, joinToString(edges, " "), undoList);
+            }
         }
     }
 }

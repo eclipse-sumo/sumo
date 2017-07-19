@@ -224,7 +224,7 @@ public:
     void invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedConnection = NBConnection::InvalidConnection);
 
     /// @brief removes the given edge from all pedestrian crossings
-    void removeFromCrossings(GNEEdge* edge, GNEUndoList* undoList);
+    void removeEdgeFromCrossings(GNEEdge* edge, GNEUndoList* undoList);
 
     /// @brief whether this junction has a valid logic
     bool isLogicValid();
