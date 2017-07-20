@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSChargingStation.h
+/// @file    MSChargingStation.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez

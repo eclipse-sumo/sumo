@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    Polygon.cpp
+/// @file    SUMOPolygon.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann

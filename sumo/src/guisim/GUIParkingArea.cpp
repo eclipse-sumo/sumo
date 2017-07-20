@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    GUIParkingArea.h
+/// @file    GUIParkingArea.cpp
 /// @author  Mirco Sturari
 /// @author  Jakob Erdmann
 /// @date    Tue, 19.01.2016

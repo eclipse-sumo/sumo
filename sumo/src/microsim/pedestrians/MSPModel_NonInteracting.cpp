@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSPModel_NonInteracting.h
+/// @file    MSPModel_NonInteracting.cpp
 /// @author  Jakob Erdmann
 /// @date    Mon, 13 Jan 2014
 /// @version $Id$

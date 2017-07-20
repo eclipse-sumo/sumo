@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    SUMOSAXAttributesImpl_Cached.cpp
+/// @file    SUMOSAXAttributesImpl_Cached.h
 /// @author  Jakob Erdmann
 /// @date    Dec 2016
 /// @version $Id$

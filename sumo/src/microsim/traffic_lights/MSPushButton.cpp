@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSPushButton.h
+/// @file    MSPushButton.cpp
 /// @author  Federico Caselli
 /// @date    2015-07-15
 /// @version $Id$

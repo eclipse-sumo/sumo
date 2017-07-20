@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSLCM_SL2015.h
+/// @file    MSLCM_SL2015.cpp
 /// @author  Jakob Erdmann
 /// @date    Tue, 06.10.2015
 /// @version $Id$

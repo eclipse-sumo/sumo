@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCI_MultiEntryExit.h
+/// @file    TraCI_MultiEntryExit.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann

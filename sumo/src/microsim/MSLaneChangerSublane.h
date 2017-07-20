@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSLaneChangerSublane.cpp
+/// @file    MSLaneChangerSublane.h
 /// @author  Jakob Erdmann
 /// @date    Oct 2015
 /// @version $Id$

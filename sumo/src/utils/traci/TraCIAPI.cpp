@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCIAPI.h
+/// @file    TraCIAPI.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann

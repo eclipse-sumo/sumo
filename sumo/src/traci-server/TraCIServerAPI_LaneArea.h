@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCIServerAPI_AreaDetector.h
+/// @file    TraCIServerAPI_LaneArea.h
 /// @author  Mario Krumnow
 /// @author  Michael Behrisch
 /// @date    15.09.2013

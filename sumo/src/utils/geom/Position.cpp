@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    Position.h
+/// @file    Position.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Axel Wegener

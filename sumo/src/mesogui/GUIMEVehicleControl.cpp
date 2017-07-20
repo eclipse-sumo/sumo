@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    GUIMEVehicleControl.h
+/// @file    GUIMEVehicleControl.cpp
 /// @author  Jakob Erdmann
 /// @date    Okt 2012
 /// @version $Id$

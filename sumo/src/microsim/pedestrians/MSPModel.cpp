@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSPModel.h
+/// @file    MSPModel.cpp
 /// @author  Jakob Erdmann
 /// @date    Mon, 13 Jan 2014
 /// @version $Id$

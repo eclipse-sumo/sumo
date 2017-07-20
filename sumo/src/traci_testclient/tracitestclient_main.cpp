@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    tracitestclient_main.h
+/// @file    tracitestclient_main.cpp
 /// @author  Friedemann Wesner
 /// @author  Axel Wegener
 /// @author  Michael Behrisch

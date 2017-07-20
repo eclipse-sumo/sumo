@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    SUMOTime.h
+/// @file    SUMOTime.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch

@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    SUMOSAXAttributes.h
+/// @file    SUMOSAXAttributes.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch

@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    NIXMLTrafficLightsHandler.h
+/// @file    NIXMLTrafficLightsHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann

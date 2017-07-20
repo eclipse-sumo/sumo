@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSLCM_LC2013.h
+/// @file    MSLCM_LC2013.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Friedemann Wesner

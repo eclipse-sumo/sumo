@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    AGFrame.cpp
+/// @file    AGFrame.h
 /// @author  Walter Bamberger
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 13 Sept 2010

@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSSOTLPolicyStimulus.h
+/// @file    MSSOTLPolicy3DStimulus.h
 /// @author  Riccardo Belletti
 /// @date    Mar 2014
 /// @version $Id$

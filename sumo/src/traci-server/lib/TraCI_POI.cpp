@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCI_POI.h
+/// @file    TraCI_POI.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann

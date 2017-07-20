@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSSOTLCongestionPolicy.h
+/// @file    MSSOTLCongestionPolicy.cpp
 /// @author  Alessio Bonfietti
 /// @author  Riccardo Belletti
 /// @date    Feb 2014

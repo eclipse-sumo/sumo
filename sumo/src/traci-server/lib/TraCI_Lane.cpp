@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCI_Lane.h
+/// @file    TraCI_Lane.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann

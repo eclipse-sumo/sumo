@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCI_InductionLoop.h
+/// @file    TraCI_InductionLoop.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann

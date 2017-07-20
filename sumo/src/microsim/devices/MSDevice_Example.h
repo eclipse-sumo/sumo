@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSDevice_Example.cpp
+/// @file    MSDevice_Example.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    11.06.2013

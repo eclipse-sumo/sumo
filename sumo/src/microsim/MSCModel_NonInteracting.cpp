@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSCModel_NonInteracting.h
+/// @file    MSCModel_NonInteracting.cpp
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Tue, 29 July 2014

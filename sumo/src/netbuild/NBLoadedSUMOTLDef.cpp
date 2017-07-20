@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    NBLoadedSUMOTLDef.h
+/// @file    NBLoadedSUMOTLDef.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann

@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    GNEDetectorE1.cpp
+/// @file    GNEDetector.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 /// @version $Id$

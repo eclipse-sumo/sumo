@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCIServerAPI_AreaDetector.cpp
+/// @file    TraCIServerAPI_LaneArea.cpp
 /// @author  Mario Krumnow
 /// @author  Robbin Blokpoel
 /// @author  Daniel Krajzewicz

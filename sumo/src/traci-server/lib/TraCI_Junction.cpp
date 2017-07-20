@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCI_Junction.h
+/// @file    TraCI_Junction.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann

@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    GNEAdditionalHandler
+/// @file    GNEAdditionalHandler.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 /// @version $Id$

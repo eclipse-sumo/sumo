@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    AGMain.cpp
+/// @file    activitygen_main.cpp
 /// @author  Piotr Woznica
 /// @author  Walter Bamberger
 /// @author  Daniel Krajzewicz

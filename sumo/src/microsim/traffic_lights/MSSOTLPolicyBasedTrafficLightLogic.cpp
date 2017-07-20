@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSSOTLPolicyBasedTrafficLightLogic.h
+/// @file    MSSOTLPolicyBasedTrafficLightLogic.cpp
 /// @author  Alessio Bonfietti
 /// @author  Riccardo Belletti
 /// @date    2014-03-20

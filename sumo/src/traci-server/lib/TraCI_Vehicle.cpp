@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCI_Vehicle.h
+/// @file    TraCI_Vehicle.cpp
 /// @author  Jakob Erdmann
 /// @date    15.03.2017
 /// @version $Id$

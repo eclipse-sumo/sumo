@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSStopOut.h
+/// @file    MSStopOut.cpp
 /// @author  Jakob Erdmann
 /// @date    Wed, 21.12.2016
 /// @version $Id$

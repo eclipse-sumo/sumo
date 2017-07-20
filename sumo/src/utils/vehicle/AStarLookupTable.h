@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    LandmarkLookupTable.h
+/// @file    AStarLookupTable.h
 /// @author  Jakob Erdmann
 /// @date    July 2017
 /// @version $Id$

@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    GNEShapeh
+/// @file    GNEShape.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2017
 /// @version $Id$

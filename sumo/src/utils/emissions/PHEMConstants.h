@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    PHEMConstants.cpp
+/// @file    PHEMConstants.h
 /// @author  Nikolaus Furian
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 13.06.2013

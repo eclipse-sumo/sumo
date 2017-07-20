@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSSOTLMarchingPolicy.h
+/// @file    MSSOTLMarchingPolicy.cpp
 /// @author  Alessio Bonfietti
 /// @author  Riccardo Belletti
 /// @author  Federico Caselli

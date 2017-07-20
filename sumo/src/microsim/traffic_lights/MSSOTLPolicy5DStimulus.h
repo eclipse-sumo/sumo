@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSSOTLPolicyStimulus.h
+/// @file    MSSOTLPolicy5DStimulus.h
 /// @author  Riccardo Belletti
 /// @author  Simone Bacchilega
 /// @date    2014-09-30
