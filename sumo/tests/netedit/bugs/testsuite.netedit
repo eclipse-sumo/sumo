@@ -13,6 +13,9 @@ ticket2948
 # Crash when activating 'join-junctions' and the results node has the same position as other
 ticket3071
 
+# Crash changing Junction From/To of a GNEEdge with a associated GNECrossing 
+ticket3149
+
 # Crash during undo/redo of a discarded crossing
 ticket3201
 
