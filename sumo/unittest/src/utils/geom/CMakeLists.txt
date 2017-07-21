@@ -1,8 +1,7 @@
-SET(testgeom_STAT_SRCS
+add_executable(testgeom
    BoundaryTest.cpp
    GeoConvHelperTest.cpp
    PositionVectorTest.cpp
    GeomHelperTest.cpp
 )
-
-add_library(testgeom STATIC ${testgeom_STAT_SRCS})
+target_link_libraries(testgeom -Wl,--start-group ${commonlibs} -Wl,--end-group ${GTEST_BOTH_LIBRARIES} pthread)

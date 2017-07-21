@@ -1,10 +1,8 @@
-SET(testcommon_STAT_SRCS
+add_executable(testcommon
    StringTokenizerTest.cpp
    StringUtilsTest.cpp
    TplConvertTest.cpp
    RGBColorTest.cpp
    ValueTimeLineTest.cpp
-   CommandMock.h
 )
-
-add_library(testcommon STATIC ${testcommon_STAT_SRCS})
+target_link_libraries(testcommon -Wl,--start-group ${commonlibs} -Wl,--end-group ${GTEST_BOTH_LIBRARIES} pthread)

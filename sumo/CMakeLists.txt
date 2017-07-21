@@ -185,13 +185,15 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 set(commonlibs
         utils_distribution utils_shapes utils_options
         utils_xml utils_geom utils_common utils_importio utils_iodevices foreign_tcpip ${XercesC_LIBRARY_RELEASE} ${PROJ_LIBRARY})
-
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     set(commonlibs
             ${commonlibs} ws2_32)
 endif ()
+set(commonvehiclelibs
+        utils_emissions foreign_phemlight utils_vehicle ${commonlibs} ${FOX_LIBRARY})
 
 add_subdirectory(src)
 if (GTEST_FOUND)
   add_subdirectory(unittest)
 endif()
+

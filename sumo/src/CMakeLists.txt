@@ -1,6 +1,3 @@
-set(commonvehiclelibs
-        utils_emissions foreign_phemlight utils_vehicle ${commonlibs} ${FOX_LIBRARY})
-
 set(netconvertlibs
         netwrite netimport netbuild foreign_eulerspiral ${GDAL_LIBRARY} netimport_vissim netimport_vissim_typeloader netimport_vissim_tempstructs ${commonlibs})
 

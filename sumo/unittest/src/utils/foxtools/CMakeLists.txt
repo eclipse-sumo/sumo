@@ -1,5 +1,4 @@
-SET(testfoxtools_STAT_SRCS
+add_executable(testfoxtools
    FXWorkerThreadTest.cpp
 )
-
-add_library(testfoxtools STATIC ${testfoxtools_STAT_SRCS})
+target_link_libraries(testfoxtools ${FOX_LIBRARY} -Wl,--start-group ${commonlibs} -Wl,--end-group ${GTEST_BOTH_LIBRARIES} pthread)
