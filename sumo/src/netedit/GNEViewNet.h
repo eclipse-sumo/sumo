@@ -493,6 +493,9 @@ private:
     /// @brief delete all currently selected junctions
     void deleteSelectedJunctions();
 
+    /// @brief delete all currently selected lanes
+    void deleteSelectedLanes();
+
     /// @brief delete all currently selected edges
     void deleteSelectedEdges();
 

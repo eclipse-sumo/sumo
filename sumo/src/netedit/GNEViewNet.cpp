@@ -920,11 +920,12 @@ GNEViewNet::hotkeyDel() {
         setStatusBarText("Cannot delete in this mode");
     } else {
         myUndoList->p_begin("delete selection");
-        deleteSelectedJunctions();
-        deleteSelectedEdges();
-        deleteSelectedAdditionals();
-        deleteSelectedCrossings();
         deleteSelectedConnections();
+        deleteSelectedCrossings();
+        deleteSelectedAdditionals();
+        deleteSelectedLanes();
+        deleteSelectedEdges();
+        deleteSelectedJunctions();
         myUndoList->p_end();
     }
 }
@@ -2001,75 +2002,106 @@ GNEViewNet::updateModeSpecificControls() {
 
 void
 GNEViewNet::deleteSelectedJunctions() {
-    myUndoList->p_begin("delete selected " + toString(SUMO_TAG_JUNCTION) + "s");
     std::vector<GNEJunction*> junctions = myNet->retrieveJunctions(true);
-    for (std::vector<GNEJunction*>::iterator it = junctions.begin(); it != junctions.end(); it++) {
-        myNet->deleteJunction(*it, myUndoList);
+    if (junctions.size() > 0) {
+        std::string plural = junctions.size() == 1 ? ("") : ("s");
+        myUndoList->p_begin("delete selected " + toString(SUMO_TAG_JUNCTION) + plural);
+        for (auto i : junctions) {
+            myNet->deleteJunction(i, myUndoList);
+        }
+        myUndoList->p_end();
     }
-    myUndoList->p_end();
+}
+
+
+void
+GNEViewNet::deleteSelectedLanes() {
+    std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
+    if(lanes.size() > 0) {
+        std::string plural = lanes.size() == 1? (""): ("s");
+        myUndoList->p_begin("delete selected " + toString(SUMO_TAG_LANE) + plural);
+        for (auto i : lanes) {
+            myNet->deleteLane(i, myUndoList);
+        }
+        myUndoList->p_end();
+    }
 }
 
 
 void
 GNEViewNet::deleteSelectedEdges() {
-    if (mySelectEdges) {
-        myUndoList->p_begin("delete selected " + toString(SUMO_TAG_EDGE) + "s");
-        std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
-        for (std::vector<GNEEdge*>::iterator it = edges.begin(); it != edges.end(); it++) {
-            myNet->deleteEdge(*it, myUndoList);
+    std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
+    if (edges.size() > 0) {
+        std::string plural = edges.size() == 1 ? ("") : ("s");
+        myUndoList->p_begin("delete selected " + toString(SUMO_TAG_EDGE) + plural);
+        for (auto i : edges) {
+            myNet->deleteEdge(i, myUndoList);
         }
-    } else {
-        myUndoList->p_begin("delete selected " + toString(SUMO_TAG_LANE) + "s");
-        std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
-        for (std::vector<GNELane*>::iterator it = lanes.begin(); it != lanes.end(); it++) {
-            myNet->deleteLane(*it, myUndoList);
-        }
+        myUndoList->p_end();
     }
-    myUndoList->p_end();
 }
 
 
 void
 GNEViewNet::deleteSelectedAdditionals() {
-    myUndoList->p_begin("delete selected " + toString(SUMO_TAG_VIEWSETTINGS_ADDITIONALS));
     std::vector<GNEAdditional*> additionals = myNet->retrieveAdditionals(true);
-    for (std::vector<GNEAdditional*>::iterator it = additionals.begin(); it != additionals.end(); it++) {
-        getViewParent()->getAdditionalFrame()->removeAdditional(*it);
+    if (additionals.size() > 0) {
+        std::string plural = additionals.size() == 1 ? ("") : ("s");
+        myUndoList->p_begin("delete selected additional" + plural);
+        for (auto i : additionals) {
+            getViewParent()->getAdditionalFrame()->removeAdditional(i);
+        }
+        myUndoList->p_end();
     }
-    myUndoList->p_end();
 }
 
 
 
 void 
 GNEViewNet::deleteSelectedCrossings() {
-    myUndoList->p_begin("delete selected " + toString(SUMO_TAG_CROSSING) + "s");
+    // obtain selected crossings
     std::vector<GNEJunction*> junctions = myNet->retrieveJunctions();
-    for (std::vector<GNEJunction*>::iterator i = junctions.begin(); i != junctions.end(); i++) {
-        std::vector<GNECrossing*> crossings = (*i)->getGNECrossings();
-        for (std::vector<GNECrossing*>::const_iterator j = crossings.begin(); j != crossings.end(); j++) {
-            if(gSelected.isSelected(GLO_CROSSING, (*j)->getGlID())) {
-                myNet->deleteCrossing((*j), myUndoList);
+    std::vector<GNECrossing*> crossings;
+    for (auto i : junctions) {
+        for (auto j : i->getGNECrossings()) {
+            if (gSelected.isSelected(GLO_CROSSING, j->getGlID())) {
+                crossings.push_back(j);
             }
         }
     }
-    myUndoList->p_end();
+    // remove selected crossings
+    if (crossings.size() > 0) {
+        std::string plural = crossings.size() == 1 ? ("") : ("s");
+        myUndoList->p_begin("delete selected " + toString(SUMO_TAG_CROSSING) + "s");
+        for (auto i : crossings) {
+            myNet->deleteCrossing(i, myUndoList);
+        }
+        myUndoList->p_end();
+    }
 }
 
 
 void 
 GNEViewNet::deleteSelectedConnections() {
-    myUndoList->p_begin("delete selected " + toString(SUMO_TAG_CONNECTION) + "s");
+    // obtain selected connections
     std::vector<GNEEdge*> edges = myNet->retrieveEdges();
-    for (std::vector<GNEEdge*>::iterator i = edges.begin(); i != edges.end(); i++) {
-        std::vector<GNEConnection*> connections = (*i)->getGNEConnections();
-        for (std::vector<GNEConnection*>::const_iterator j = connections.begin(); j != connections.end(); j++) {
-            if(gSelected.isSelected(GLO_CONNECTION, (*j)->getGlID())) {
-                myNet->deleteConnection((*j), myUndoList);
+    std::vector<GNEConnection*> connections;
+    for (auto i : edges) {
+        for (auto j : i->getGNEConnections()) {
+            if (gSelected.isSelected(GLO_CONNECTION, j->getGlID())) {
+                connections.push_back(j);
             }
         }
     }
-    myUndoList->p_end();
+    // remove selected connections
+    if (connections.size() > 0) {
+        std::string plural = connections.size() == 1 ? ("") : ("s");
+        myUndoList->p_begin("delete selected " + toString(SUMO_TAG_CONNECTION) + plural);
+        for (auto i : connections) {
+            myNet->deleteConnection(i, myUndoList);
+        }
+        myUndoList->p_end();
+    }
 }
 
 
