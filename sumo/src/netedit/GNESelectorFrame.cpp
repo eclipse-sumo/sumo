@@ -276,7 +276,9 @@ GNESelectorFrame::onCmdSave(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdClear(FXObject*, FXSelector, void*) {
+    myViewNet->getUndoList()->p_begin("clear selection");
     myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), gSelected.getSelected(), true), true);
+    myViewNet->getUndoList()->p_end();
     myViewNet->update();
     return 1;
 }
@@ -284,26 +286,51 @@ GNESelectorFrame::onCmdClear(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
+    // declare a set to save unselected elements
+    std::set<GUIGlID> unselectedIDs;
+    // iterate over all junctions to obtain unselected
     std::set<GUIGlID> ids = myViewNet->getNet()->getGlIDs(GLO_JUNCTION);
-    for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        gSelected.toggleSelection(*it);
+    for (auto it : ids) {
+        if(gSelected.isSelected(GLO_JUNCTION, it) == false) {
+            unselectedIDs.insert(it);
+        }
+        
     }
-    ids = myViewNet->getNet()->getGlIDs(myViewNet->selectEdges() ? GLO_EDGE : GLO_LANE);
-    for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        gSelected.toggleSelection(*it);
+    // iterate over all edges or lanes (Depending of checkbox) to obtain unselected
+    GUIGlObjectType currentEdgeOrLane = myViewNet->selectEdges() ? GLO_EDGE : GLO_LANE;
+    ids = myViewNet->getNet()->getGlIDs(currentEdgeOrLane);
+    for (auto it : ids) {
+        if (gSelected.isSelected(currentEdgeOrLane, it) == false) {
+            unselectedIDs.insert(it);
+        }
+
     }
+    // iterate over all additionals to obtain unselected
     ids = myViewNet->getNet()->getGlIDs(GLO_ADDITIONAL);
-    for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        gSelected.toggleSelection(*it);
+    for (auto it : ids) {
+        if (gSelected.isSelected(GLO_ADDITIONAL, it) == false) {
+            unselectedIDs.insert(it);
+        }
     }
+    // iterate over all connections to obtain unselected
     ids = myViewNet->getNet()->getGlIDs(GLO_CONNECTION);
-    for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        gSelected.toggleSelection(*it);
+    for (auto it : ids) {
+        if (gSelected.isSelected(GLO_CONNECTION, it) == false) {
+            unselectedIDs.insert(it);
+        }
     }
+    // iterate over all crossings to obtain unselected
     ids = myViewNet->getNet()->getGlIDs(GLO_CROSSING);
-    for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        gSelected.toggleSelection(*it);
+    for (auto it : ids) {
+        if (gSelected.isSelected(GLO_CROSSING, it) == false) {
+            unselectedIDs.insert(it);
+        }
     }
+    // invert selection cleaning current selection and selecting set "unselectedIDs"
+    myViewNet->getUndoList()->p_begin("invert selection");
+    myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), gSelected.getSelected(), true), true);
+    myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), unselectedIDs, std::set<GUIGlID>(), true), true);
+    myViewNet->getUndoList()->p_end();
     myViewNet->update();
     return 1;
 }
