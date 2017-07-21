@@ -16,8 +16,11 @@ ticket3071
 # When grid is shown, new edges do not use existing junctions 
 ticket3271
 
-# snap to grid is not working when moving junctions
+# Snap to grid is not working when moving junctions
 ticket3278
+
+# Defining split crossings is broken again
+ticket3288
 
 # Recomputing a Net without crossing disable all new created crossings 
 ticket3292
