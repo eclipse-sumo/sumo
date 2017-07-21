@@ -20,9 +20,7 @@ if (BUILD_GRPC)
             ${ProtoSources}
             ${ProtoGRPCSources}
             )
-    add_library(microsim_pedestrians STATIC ${microsim_pedestrians_STAT_SRCS} ${remote_model})
-else ()
-    add_library(microsim_pedestrians STATIC ${microsim_pedestrians_STAT_SRCS})
 endif (BUILD_GRPC)
 
-
+add_library(microsim_pedestrians STATIC ${microsim_pedestrians_STAT_SRCS} ${remote_model})
+set_property(TARGET microsim_pedestrians PROPERTY PROJECT_LABEL "z_microsim_pedestrians")
