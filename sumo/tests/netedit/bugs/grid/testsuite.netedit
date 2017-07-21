@@ -1,0 +1,5 @@
+# When grid is shown, new edges do not use existing junctions 
+ticket3271
+
+# Snap to grid is not working when moving junctions
+ticket3278
