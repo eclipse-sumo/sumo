@@ -51,8 +51,7 @@ _IGNORE = set(["binstate.sumo", "binstate.sumo.meso", "image.tools"])
 _KEYWORDS = "HeadURL Id LastChangedBy LastChangedDate LastChangedRevision"
 
 SEPARATOR = "/****************************************************************************/\n"
-LICENSE_HEADER = """
-/****************************************************************************/
+LICENSE_HEADER = """/****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
@@ -110,13 +109,20 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 idx += 1
                 while lines[idx].split()[:1] == ["//"]:
                     idx += 1
-                if self._fix and lines[idx].startswith("///") and lines[idx+1] == SEPARATOR:
-                    lines[idx] = "//" + lines[idx][3:]
-                    haveFixed = True
                 if lines[idx] != SEPARATOR:
                     print(self._file, "missing license start", idx, lines[idx].rstrip())
+                year = lines[idx + 2][17:21]
+                license = LICENSE_HEADER.replace("2001", year)
+                if "".join(lines[idx:idx+12]) != license:
+                    print(self._file, "invalid license")
+                    if options.verbose:
+                        print("".join(lines[idx:idx+12]))
+                        print(license)
             else:
-                print(self._file, "header does not start")
+                if len(lines) == 0:
+                    print(self._file, "is empty")
+                else:
+                    print(self._file, "header does not start")
             if haveFixed:
                 open(self._file, "w").write("".join(lines))
 

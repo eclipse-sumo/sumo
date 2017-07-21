@@ -1,4 +1,3 @@
-
 /****************************************************************************/
 /// @file    ShapeHandler.h
 /// @author  Jakob Erdmann
@@ -54,8 +53,6 @@ class ShapeContainer;
  *  be loaded from network descriptions.
  */
 class ShapeHandler : public SUMOSAXHandler {
-public:
-
 public:
     /** @brief Constructor
      *

@@ -5,7 +5,7 @@
 /// @author  Michael Behrisch
 /// @date    Sept 2002
 /// @version $Id$
-/// @brief
+///
 // A virtual class that allows to steer the visual output in dependence to
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
