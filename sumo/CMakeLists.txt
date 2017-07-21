@@ -83,8 +83,6 @@ if (APPLE)
             message(STATUS "Brew detected: ${BREW_PREFIX}")
         endif ()
     endif ()
-
-
 endif (APPLE)
 
 find_package(XercesC REQUIRED)
@@ -137,7 +135,7 @@ endif (X11_FOUND)
 #find_package(OpenGL REQUIRED)
 
 find_package(FFMPEG)
-
+find_package(GTest)
 
 #find_package(PythonLibs REQUIRED)
 #if (PYTHONLIBS_FOUND)
@@ -181,4 +179,19 @@ if (APPLE AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     SET(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -stdlib=libc++")
 endif (APPLE AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 
+include_directories(${CMAKE_BINARY_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
+set(commonlibs
+        utils_distribution utils_shapes utils_options
+        utils_xml utils_geom utils_common utils_importio utils_iodevices foreign_tcpip ${XercesC_LIBRARY_RELEASE} ${PROJ_LIBRARY})
+
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+    set(commonlibs
+            ${commonlibs} ws2_32)
+endif ()
+
 add_subdirectory(src)
+if (GTEST_FOUND)
+  add_subdirectory(unittest)
+endif()
