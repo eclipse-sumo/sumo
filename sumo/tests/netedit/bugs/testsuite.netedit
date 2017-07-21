@@ -1,3 +1,6 @@
+# Folder with bugs related to crossings
+crossings
+
 # Loading a net.xml with prohibitions and deleting edges fails 
 ticket1711
 
@@ -13,23 +16,11 @@ ticket2948
 # Crash when activating 'join-junctions' and the results node has the same position as other
 ticket3071
 
-# Crash changing Junction From/To of a GNEEdge with a associated GNECrossing 
-ticket3149
-
-# Crash during undo/redo of a discarded crossing
-ticket3201
-
 # When grid is shown, new edges do not use existing junctions 
 ticket3271
 
 # Snap to grid is not working when moving junctions
 ticket3278
-
-# Defining split crossings is broken again
-ticket3288
-
-# Recomputing a Net without crossing disable all new created crossings 
-ticket3292
 
 # In revision [24081] was solved a bug, that provoke a crash 
 # when the position of a node was changed using inspector node,

@@ -1,0 +1,11 @@
+# Defining split crossings is broken again
+ticket3288
+
+# Recomputing a Net without crossing disable all new created crossings 
+ticket3292
+
+# Crash changing Junction From/To of a GNEEdge with a associated GNECrossing 
+ticket3149
+
+# Crash during undo/redo of a discarded crossing
+ticket3201
