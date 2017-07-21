@@ -4,7 +4,7 @@
 /// @date    April 2016
 /// @version $Id$
 ///
-/// A abstract class for editing additional elements
+// A abstract class for editing additional elements
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors

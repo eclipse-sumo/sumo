@@ -4,7 +4,7 @@
 /// @date    Nov 2015
 /// @version $Id$
 ///
-/// A class for visualizing busStop geometry (adapted from GUILaneWrapper)
+// A class for visualizing busStop geometry (adapted from GUILaneWrapper)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors

@@ -4,7 +4,7 @@
 /// @date    Feb 2017
 /// @version $Id$
 ///
-/// Dialog for edit rerouter intervals
+// Dialog for edit rerouter intervals
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors

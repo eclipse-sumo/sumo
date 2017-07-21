@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @brief @file    GUIPerspectiveChanger.h
-/// @brief @author  Daniel Krajzewicz
-/// @brief @author  Jakob Erdmann
-/// @brief @author  Michael Behrisch
-/// @brief @date    Sept 2002
-/// @brief @version $Id$
+/// @file    GUIPerspectiveChanger.h
+/// @author  Daniel Krajzewicz
+/// @author  Jakob Erdmann
+/// @author  Michael Behrisch
+/// @date    Sept 2002
+/// @version $Id$
 /// @brief
 // A virtual class that allows to steer the visual output in dependence to
 /****************************************************************************/

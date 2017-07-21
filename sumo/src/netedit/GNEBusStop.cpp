@@ -4,7 +4,7 @@
 /// @date    Nov 2015
 /// @version $Id$
 ///
-/// A lane area vehicles can halt at (GNE version)
+// A lane area vehicles can halt at (GNE version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors

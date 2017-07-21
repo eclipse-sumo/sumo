@@ -9,7 +9,7 @@
 /// @date    2008/04/07
 /// @version $Id$
 ///
-/// A test execution class
+// A test execution class
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2008-2017 DLR (http://www.dlr.de/) and contributors

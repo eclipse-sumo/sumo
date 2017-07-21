@@ -4,7 +4,7 @@
 /// @date    March 2017
 /// @version $Id$
 ///
-/// Dialog for edit calibrator flows
+// Dialog for edit calibrator flows
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors

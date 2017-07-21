@@ -4,7 +4,7 @@
 /// @date    Dec 2015
 /// @version $Id$
 ///
-/// A abstract class to define common parameters of lane area in which vehicles can halt (GNE version)
+// A abstract class to define common parameters of lane area in which vehicles can halt (GNE version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors

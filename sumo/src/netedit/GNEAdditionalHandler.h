@@ -4,7 +4,7 @@
 /// @date    Nov 2015
 /// @version $Id$
 ///
-/// Builds trigger objects for netedit
+// Builds trigger objects for netedit
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors

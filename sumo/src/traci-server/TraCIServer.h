@@ -12,7 +12,7 @@
 /// @date    2007/10/24
 /// @version $Id$
 ///
-/// TraCI server used to control sumo by a remote TraCI client
+// TraCI server used to control sumo by a remote TraCI client
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors

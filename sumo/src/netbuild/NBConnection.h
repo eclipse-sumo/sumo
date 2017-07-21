@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @brief @file    NBConnection.h
-/// @brief @author  Daniel Krajzewicz
-/// @brief @author  Jakob Erdmann
-/// @brief @author  Sascha Krieg
-/// @brief @date    Sept 2002
-/// @brief @version $Id$
+/// @file    NBConnection.h
+/// @author  Daniel Krajzewicz
+/// @author  Jakob Erdmann
+/// @author  Sascha Krieg
+/// @date    Sept 2002
+/// @version $Id$
 ///
 // The class holds a description of a connection between two edges
 /****************************************************************************/

@@ -14,7 +14,7 @@
 /// @date    2007/10/24
 /// @version $Id$
 ///
-/// holds codes used for TraCI
+// holds codes used for TraCI
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2007-2017 DLR (http://www.dlr.de/) and contributors

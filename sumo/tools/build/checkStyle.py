@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 """
-@file    checkSvnProps.py
+@file    checkStyle.py
 @author  Michael Behrisch
 @date    2010-08-29
 @version $Id$
 
-Checks svn property settings for all files.
+Checks svn property settings for all files and pep8 for python
+as well as file headers.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2010-2017 DLR (http://www.dlr.de/) and contributors
@@ -35,7 +36,7 @@ try:
 except ImportError:
     HAVE_AUTOPEP = False
 
-_SOURCE_EXT = [".h", ".cpp", ".py", ".pl", ".java", ".am"]
+_SOURCE_EXT = [".h", ".cpp", ".py", ".pl", ".java", ".am", ".cs"]
 _TESTDATA_EXT = [".xml", ".prog", ".csv",
                  ".complex", ".dfrouter", ".duarouter", ".jtrrouter", ".marouter",
                  ".astar", ".chrouter", ".internal", ".tcl", ".txt",
@@ -49,6 +50,23 @@ _VS_EXT = [".vsprops", ".sln", ".vcproj",
 _IGNORE = set(["binstate.sumo", "binstate.sumo.meso", "image.tools"])
 _KEYWORDS = "HeadURL Id LastChangedBy LastChangedDate LastChangedRevision"
 
+SEPARATOR = "/****************************************************************************/\n"
+LICENSE_HEADER = """
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+// Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors
+/****************************************************************************/
+//
+//   This file is part of SUMO.
+//   SUMO is free software: you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation, either version 3 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+"""
+
+
 
 class PropertyReader(xml.sax.handler.ContentHandler):
 
@@ -61,6 +79,46 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         self._value = ""
         self._hadEOL = False
         self._hadKeywords = False
+
+    def checkFileHeader(self, ext):
+        haveFixed = False
+        if ext in (".cpp", ".h"):
+            lines = open(self._file).readlines()
+            if lines and lines[0] == SEPARATOR:
+                fileRef = "/// @file    %s\n" % os.path.basename(self._file)
+                if lines[1] != fileRef:
+                    print(self._file, "broken @file reference", lines[1].rstrip())
+                    if self._fix and lines[1].startswith("/// @file"):
+                        lines[1] = fileRef
+                        haveFixed = True
+                s = lines[2].split()
+                if s[:2] != ["///", "@author"]:
+                    print(self._file, "broken @author reference", s)
+                idx = 3
+                while lines[idx].split()[:2] == ["///", "@author"]:
+                    idx += 1
+                s = lines[idx].split()
+                if s[:2] != ["///", "@date"]:
+                    print(self._file, "broken @date reference", s)
+                idx += 1
+                s = lines[idx].split()
+                if s[:2] != ["///", "@version"]:
+                    print(self._file, "broken @version reference", s)
+                idx += 1
+                if lines[idx] != "///\n":
+                    print(self._file, "missing empty line", idx, lines[idx].rstrip())
+                idx += 1
+                while lines[idx].split()[:1] == ["//"]:
+                    idx += 1
+                if self._fix and lines[idx].startswith("///") and lines[idx+1] == SEPARATOR:
+                    lines[idx] = "//" + lines[idx][3:]
+                    haveFixed = True
+                if lines[idx] != SEPARATOR:
+                    print(self._file, "missing license start", idx, lines[idx].rstrip())
+            else:
+                print(self._file, "header does not start")
+            if haveFixed:
+                open(self._file, "w").write("".join(lines))
 
     def startElement(self, name, attrs):
         if name == 'target':
@@ -115,6 +173,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                         codecs.open(self._file, 'r', 'utf8').read()
                     except UnicodeDecodeError as e:
                         print(self._file, e)
+                    self.checkFileHeader(ext)
             if ext in _VS_EXT:
                 if name == 'property' and self._property == "svn:eol-style" and self._value != "CRLF"\
                    or name == "target" and not self._hadEOL:
@@ -143,8 +202,6 @@ optParser.add_option("-v", "--verbose", action="store_true",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-f", "--fix", action="store_true",
                      default=False, help="fix invalid svn properties")
-optParser.add_option("-r", "--recheck",
-                     default=sumoRoot, help="fully recheck all files in given dir")
 (options, args) = optParser.parse_args()
 seen = set()
 if len(args) > 0:
@@ -159,32 +216,31 @@ for svnRoot in svnRoots:
         print("checking", svnRoot)
     output = subprocess.check_output(["svn", "pl", "-v", "-R", "--xml", svnRoot])
     xml.sax.parseString(output, PropertyReader(options.fix))
-
-if options.verbose:
-    print("re-checking tree at", options.recheck)
-for root, dirs, files in os.walk(options.recheck):
-    for name in files:
-        ext = os.path.splitext(name)[1]
-        if name not in _IGNORE:
-            if ext in _SOURCE_EXT or ext in _TESTDATA_EXT or ext in _VS_EXT:
-                fullName = os.path.join(root, name)
-                if fullName in seen or subprocess.call(["svn", "ls", fullName], stdout=open(os.devnull, 'w'), stderr=subprocess.STDOUT):
-                    continue
-                print(fullName, "svn:eol-style")
-                if options.fix:
-                    if ext in _VS_EXT:
+    if options.verbose:
+        print("re-checking tree at", svnRoot)
+    for root, dirs, files in os.walk(svnRoot):
+        for name in files:
+            ext = os.path.splitext(name)[1]
+            if name not in _IGNORE:
+                if ext in _SOURCE_EXT or ext in _TESTDATA_EXT or ext in _VS_EXT:
+                    fullName = os.path.join(root, name)
+                    if fullName in seen or subprocess.call(["svn", "ls", fullName], stdout=open(os.devnull, 'w'), stderr=subprocess.STDOUT):
+                        continue
+                    print(fullName, "svn:eol-style")
+                    if options.fix:
+                        if ext in _VS_EXT:
+                            subprocess.call(
+                                ["svn", "ps", "svn:eol-style", "CRLF", fullName])
+                        else:
+                            if os.name == "posix":
+                                subprocess.call(["sed", "-i", 's/\r$//', fullName])
+                            subprocess.call(
+                                ["svn", "ps", "svn:eol-style", "LF", fullName])
+                if ext in _SOURCE_EXT:
+                    print(fullName, "svn:keywords")
+                    if options.fix:
                         subprocess.call(
-                            ["svn", "ps", "svn:eol-style", "CRLF", fullName])
-                    else:
-                        if os.name == "posix":
-                            subprocess.call(["sed", "-i", 's/\r$//', fullName])
-                        subprocess.call(
-                            ["svn", "ps", "svn:eol-style", "LF", fullName])
-            if ext in _SOURCE_EXT:
-                print(fullName, "svn:keywords")
-                if options.fix:
-                    subprocess.call(
-                        ["svn", "ps", "svn:keywords", _KEYWORDS, fullName])
-    for ignoreDir in ['.svn', 'foreign', 'contributed', 'texttesttmp']:
-        if ignoreDir in dirs:
-            dirs.remove(ignoreDir)
+                            ["svn", "ps", "svn:keywords", _KEYWORDS, fullName])
+        for ignoreDir in ['.svn', 'foreign', 'contributed', 'texttesttmp']:
+            if ignoreDir in dirs:
+                dirs.remove(ignoreDir)

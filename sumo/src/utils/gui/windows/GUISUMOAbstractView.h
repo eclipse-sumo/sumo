@@ -1,11 +1,11 @@
 /****************************************************************************/
-///@brief @file    GUISUMOAbstractView.h
-///@brief @author  Daniel Krajzewicz
-///@brief @author  Jakob Erdmann
-///@brief @author  Michael Behrisch
-///@brief @author  Andreas Gaubatz
-///@brief @date    Sept 2002
-///@brief @version $Id$
+/// @file    GUISUMOAbstractView.h
+/// @author  Daniel Krajzewicz
+/// @author  Jakob Erdmann
+/// @author  Michael Behrisch
+/// @author  Andreas Gaubatz
+/// @date    Sept 2002
+/// @version $Id$
 ///
 // The base class for a view
 /****************************************************************************/

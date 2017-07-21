@@ -4,7 +4,7 @@
 /// @date    April 2016
 /// @version $Id$
 ///
-/// A class for edit phases of Variable Speed Signals
+// A class for edit phases of Variable Speed Signals
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors
