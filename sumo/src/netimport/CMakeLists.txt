@@ -41,6 +41,7 @@ set(netimport_STAT_SRCS
 )
 
 add_library(netimport STATIC ${netimport_STAT_SRCS})
+set_property(TARGET netimport PROPERTY PROJECT_LABEL "z_netimport")
 
 add_custom_command(OUTPUT typemap.h
                    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/typemap.py

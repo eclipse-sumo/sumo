@@ -66,3 +66,4 @@ set(microsim_traffic_lights_STAT_SRCS
 )
 
 add_library(microsim_traffic_lights STATIC ${microsim_traffic_lights_STAT_SRCS})
+set_property(TARGET microsim_traffic_lights PROPERTY PROJECT_LABEL "z_microsim_traffic_lights")

@@ -29,3 +29,4 @@ set(router_STAT_SRCS
 )
 
 add_library(router STATIC ${router_STAT_SRCS})
+set_property(TARGET router PROPERTY PROJECT_LABEL "z_router")

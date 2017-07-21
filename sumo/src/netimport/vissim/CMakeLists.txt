@@ -8,3 +8,4 @@ set(netimport_vissim_STAT_SRCS
 )
 
 add_library(netimport_vissim STATIC ${netimport_vissim_STAT_SRCS})
+set_property(TARGET netimport_vissim PROPERTY PROJECT_LABEL "z_netimport_vissim")

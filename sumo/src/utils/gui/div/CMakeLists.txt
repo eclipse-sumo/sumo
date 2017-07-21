@@ -24,3 +24,4 @@ set(utils_gui_div_STAT_SRCS
 )
 
 add_library(utils_gui_div STATIC ${utils_gui_div_STAT_SRCS})
+set_property(TARGET utils_gui_div PROPERTY PROJECT_LABEL "z_utils_gui_div")

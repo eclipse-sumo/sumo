@@ -12,3 +12,4 @@ set(activitygen_activities_STAT_SRCS
 )
 
 add_library(activitygen_activities STATIC ${activitygen_activities_STAT_SRCS})
+set_property(TARGET activitygen_activities PROPERTY PROJECT_LABEL "z_activitygen_activities")

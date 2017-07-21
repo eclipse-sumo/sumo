@@ -30,3 +30,4 @@ set(utils_xml_STAT_SRCS
 )
 
 add_library(utils_xml STATIC ${utils_xml_STAT_SRCS})
+set_property(TARGET utils_xml PROPERTY PROJECT_LABEL "z_utils_xml")

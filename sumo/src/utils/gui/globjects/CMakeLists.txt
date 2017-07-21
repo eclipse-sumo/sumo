@@ -18,3 +18,4 @@ set(utils_gui_globjects_STAT_SRCS
 )
 
 add_library(utils_gui_globjects STATIC ${utils_gui_globjects_STAT_SRCS})
+set_property(TARGET utils_gui_globjects PROPERTY PROJECT_LABEL "z_utils_gui_globjects")

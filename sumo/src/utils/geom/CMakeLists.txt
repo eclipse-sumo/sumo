@@ -19,3 +19,4 @@ set(utils_geom_STAT_SRCS
 )
 
 add_library(utils_geom STATIC ${utils_geom_STAT_SRCS})
+set_property(TARGET utils_geom PROPERTY PROJECT_LABEL "z_utils_geom")

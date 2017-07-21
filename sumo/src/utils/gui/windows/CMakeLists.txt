@@ -19,3 +19,4 @@ set(utils_gui_windows_STAT_SRCS
 )
 
 add_library(utils_gui_windows STATIC ${utils_gui_windows_STAT_SRCS})
+set_property(TARGET utils_gui_windows PROPERTY PROJECT_LABEL "z_utils_gui_windows")

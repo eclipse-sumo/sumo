@@ -6,3 +6,4 @@ set(foreign_tcpip_STAT_SRCS
 )
 
 add_library(foreign_tcpip STATIC ${foreign_tcpip_STAT_SRCS})
+set_property(TARGET foreign_tcpip PROPERTY PROJECT_LABEL "z_foreign_tcpip")

@@ -26,3 +26,4 @@ set(microsim_cfmodels_STAT_SRCS
 )
 
 add_library(microsim_cfmodels STATIC ${microsim_cfmodels_STAT_SRCS})
+set_property(TARGET microsim_cfmodels PROPERTY PROJECT_LABEL "z_microsim_cfmodels")

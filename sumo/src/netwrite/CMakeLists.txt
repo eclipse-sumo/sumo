@@ -16,3 +16,4 @@ set(netwrite_STAT_SRCS
 )
 
 add_library(netwrite STATIC ${netwrite_STAT_SRCS})
+set_property(TARGET netwrite PROPERTY PROJECT_LABEL "z_netwrite")

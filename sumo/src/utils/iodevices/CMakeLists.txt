@@ -21,3 +21,4 @@ set(utils_iodevices_STAT_SRCS
 )
 
 add_library(utils_iodevices STATIC ${utils_iodevices_STAT_SRCS})
+set_property(TARGET utils_iodevices PROPERTY PROJECT_LABEL "z_utils_iodevices")

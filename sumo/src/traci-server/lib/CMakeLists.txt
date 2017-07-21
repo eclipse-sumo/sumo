@@ -24,3 +24,4 @@ set(traciserver_lib_STAT_SRCS
         )
 
 add_library(traciserver_lib STATIC ${traciserver_lib_STAT_SRCS})
+set_property(TARGET traciserver_lib PROPERTY PROJECT_LABEL "z_traciserver_lib")

@@ -30,3 +30,4 @@ set(activitygen_city_STAT_SRCS
 )
 
 add_library(activitygen_city STATIC ${activitygen_city_STAT_SRCS})
+set_property(TARGET activitygen_city PROPERTY PROJECT_LABEL "z_activitygen_city")

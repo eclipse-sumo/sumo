@@ -26,3 +26,4 @@ set(microsim_devices_STAT_SRCS
 )
 
 add_library(microsim_devices STATIC ${microsim_devices_STAT_SRCS})
+set_property(TARGET microsim_devices PROPERTY PROJECT_LABEL "z_microsim_devices")

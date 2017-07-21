@@ -13,3 +13,4 @@ set(od_STAT_SRCS
 )
 
 add_library(od STATIC ${od_STAT_SRCS})
+set_property(TARGET od PROPERTY PROJECT_LABEL "z_od")

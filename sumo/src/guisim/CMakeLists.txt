@@ -53,6 +53,7 @@ SET(guisim_STAT_SRCS
 )
 
 add_library(guisim STATIC ${guisim_STAT_SRCS})
+set_property(TARGET guisim PROPERTY PROJECT_LABEL "z_guisim")
 
 
 ########### install files ###############

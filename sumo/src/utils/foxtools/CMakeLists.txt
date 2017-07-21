@@ -35,3 +35,4 @@ set(utils_foxtools_STAT_SRCS
 )
 
 add_library(utils_foxtools STATIC ${utils_foxtools_STAT_SRCS})
+set_property(TARGET utils_foxtools PROPERTY PROJECT_LABEL "z_utils_foxtools")

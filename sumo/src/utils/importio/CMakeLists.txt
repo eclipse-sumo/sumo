@@ -6,3 +6,4 @@ set(utils_importio_STAT_SRCS
 )
 
 add_library(utils_importio STATIC ${utils_importio_STAT_SRCS})
+set_property(TARGET utils_importio PROPERTY PROJECT_LABEL "z_utils_importio")

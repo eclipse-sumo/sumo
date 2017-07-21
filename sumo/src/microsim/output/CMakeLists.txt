@@ -46,3 +46,4 @@ set(microsim_output_STAT_SRCS
 )
 
 add_library(microsim_output STATIC ${microsim_output_STAT_SRCS})
+set_property(TARGET microsim_output PROPERTY PROJECT_LABEL "z_microsim_output")

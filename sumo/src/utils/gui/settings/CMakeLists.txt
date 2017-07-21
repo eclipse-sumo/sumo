@@ -10,6 +10,7 @@ set(utils_gui_settings_STAT_SRCS
 )
 
 add_library(utils_gui_settings STATIC ${utils_gui_settings_STAT_SRCS})
+set_property(TARGET utils_gui_settings PROPERTY PROJECT_LABEL "z_utils_gui_settings")
 
 
 ########### install files ###############

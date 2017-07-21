@@ -25,3 +25,4 @@ set(gui_STAT_SRCS
 )
 
 add_library(gui STATIC ${gui_STAT_SRCS})
+set_property(TARGET gui PROPERTY PROJECT_LABEL "z_gui")

@@ -12,3 +12,4 @@ set(microsim_actions_STAT_SRCS
 )
 
 add_library(microsim_actions STATIC ${microsim_actions_STAT_SRCS})
+set_property(TARGET microsim_actions PROPERTY PROJECT_LABEL "z_microsim_actions")

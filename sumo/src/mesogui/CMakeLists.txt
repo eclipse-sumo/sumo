@@ -11,6 +11,7 @@ SET(mesogui_STAT_SRCS
 )
 
 add_library(mesogui STATIC ${mesogui_STAT_SRCS})
+set_property(TARGET mesogui PROPERTY PROJECT_LABEL "z_mesogui")
 
 
 ########### install files ###############

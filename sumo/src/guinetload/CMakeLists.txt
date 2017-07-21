@@ -11,6 +11,7 @@ SET(guinetload_STAT_SRCS
 )
 
 add_library(guinetload STATIC ${guinetload_STAT_SRCS})
+set_property(TARGET guinetload PROPERTY PROJECT_LABEL "z_guinetload")
 
 
 ########### install files ###############

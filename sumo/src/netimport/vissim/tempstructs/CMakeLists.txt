@@ -52,3 +52,4 @@ set(netimport_vissim_tempstructs_STAT_SRCS
 )
 
 add_library(netimport_vissim_tempstructs STATIC ${netimport_vissim_tempstructs_STAT_SRCS})
+set_property(TARGET netimport_vissim_tempstructs PROPERTY PROJECT_LABEL "z_netimport_vissim_tempstructs")

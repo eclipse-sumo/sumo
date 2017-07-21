@@ -17,6 +17,7 @@ SET(mesosim_STAT_SRCS
 )
 
 add_library(mesosim STATIC ${mesosim_STAT_SRCS})
+set_property(TARGET mesosim PROPERTY PROJECT_LABEL "z_mesosim")
 
 
 ########### install files ###############

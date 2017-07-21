@@ -58,3 +58,4 @@ set(netbuild_STAT_SRCS
         NBPTLine.cpp NBPTLine.h NBPTLineCont.cpp NBPTLineCont.h)
 
 add_library(netbuild STATIC ${netbuild_STAT_SRCS})
+set_property(TARGET netbuild PROPERTY PROJECT_LABEL "z_netbuild")

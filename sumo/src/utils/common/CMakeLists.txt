@@ -46,3 +46,4 @@ set(utils_common_STAT_SRCS
 )
 
 add_library(utils_common STATIC ${utils_common_STAT_SRCS})
+set_property(TARGET utils_common PROPERTY PROJECT_LABEL "z_utils_common")

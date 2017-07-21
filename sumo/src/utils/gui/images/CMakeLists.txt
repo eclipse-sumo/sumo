@@ -10,3 +10,4 @@ set(utils_gui_images_STAT_SRCS
 )
 
 add_library(utils_gui_images STATIC ${utils_gui_images_STAT_SRCS})
+set_property(TARGET utils_gui_images PROPERTY PROJECT_LABEL "z_utils_gui_images")

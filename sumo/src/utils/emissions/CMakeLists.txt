@@ -19,3 +19,4 @@ set(utils_emissions_STAT_SRCS
 )
 
 add_library(utils_emissions STATIC ${utils_emissions_STAT_SRCS})
+set_property(TARGET utils_emissions PROPERTY PROJECT_LABEL "z_utils_emissions")

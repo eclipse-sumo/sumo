@@ -19,6 +19,7 @@ SET(netload_STAT_SRCS
 )
 
 add_library(netload STATIC ${netload_STAT_SRCS})
+set_property(TARGET netload PROPERTY PROJECT_LABEL "z_netload")
 
 
 ########### install files ###############

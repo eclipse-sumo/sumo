@@ -112,3 +112,4 @@ set(netimport_vissim_typeloader_STAT_SRCS
 )
 
 add_library(netimport_vissim_typeloader STATIC ${netimport_vissim_typeloader_STAT_SRCS})
+set_property(TARGET netimport_vissim_typeloader PROPERTY PROJECT_LABEL "z_netimport_vissim_typeloader")
