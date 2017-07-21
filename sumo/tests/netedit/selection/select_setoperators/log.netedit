@@ -70,6 +70,7 @@ Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 13 connections, 12 Ad
 Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 14 connections, 12 Additionals, 0 Crossings
 Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 15 connections, 12 Additionals, 0 Crossings
 Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 12 Additionals, 0 Crossings
+Warning: Selected 41 elements in GNEChange_Selection
 Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 16 connections, 12 Additionals, 0 Crossings
 Warning: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 16 connections, 12 Additionals, 0 Crossings
 Warning: Current selection: 2 Junctions, 8 Edges, 0 Lanes, 16 connections, 12 Additionals, 0 Crossings
@@ -111,6 +112,7 @@ Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 3 connections, 0 Addi
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 2 connections, 0 Additionals, 0 Crossings
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 1 connections, 0 Additionals, 0 Crossings
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Deselected 41 elements in GNEChange_Selection
 Warning: Key DEL (delete) pressed
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
@@ -153,6 +155,7 @@ Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 13 connections, 12 Ad
 Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 14 connections, 12 Additionals, 0 Crossings
 Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 15 connections, 12 Additionals, 0 Crossings
 Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 12 Additionals, 0 Crossings
+Warning: Selected 41 elements in GNEChange_Selection
 Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 16 connections, 12 Additionals, 0 Crossings
 Warning: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 16 connections, 12 Additionals, 0 Crossings
 Warning: Current selection: 2 Junctions, 8 Edges, 0 Lanes, 16 connections, 12 Additionals, 0 Crossings
@@ -210,50 +213,50 @@ Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 3 Addi
 Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings
 Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings
 Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Selected 17 elements in GNEChange_Selection
-Warning: Current selection: 2 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 7 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 6 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 5 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 4 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 3 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 2 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 1 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings
+Warning: Selected 15 elements in GNEChange_Selection
+Warning: Current selection: 0 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 7 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 6 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 5 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 4 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 3 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Deselected 15 elements in GNEChange_Selection
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
 Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 1 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 2 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 3 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 4 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 5 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 6 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 7 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 8 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 9 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 10 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 11 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 12 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 13 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 14 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 15 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 1 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 2 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 3 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 4 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 5 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 6 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 7 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 8 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 9 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 10 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 11 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 12 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 13 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 14 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 15 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
+Warning: Selected 26 elements in GNEChange_Selection
 Warning: Key DEL (delete) pressed
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
@@ -295,7 +298,7 @@ Warning: Deleting unreferenced connection 'from7_1to1_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '5' from net
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
@@ -303,12 +306,12 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Warning: Removing edge '1' from net
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Setting new attribute type 'priority' into junction 'A'
-Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing junction 'A' from net
-Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
@@ -316,19 +319,19 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '6' from net
-Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Removing edge '2' from net
-Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Setting new attribute type 'priority' into junction 'B'
-Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing junction 'B' from net
-Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
@@ -337,7 +340,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '7' from net
-Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -345,12 +348,12 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Removing edge '3' from net
-Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Setting new attribute type 'priority' into junction 'C'
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing junction 'C' from net
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
@@ -358,19 +361,19 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '8' from net
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_2detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Removing edge '4' from net
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Setting new attribute type 'priority' into junction 'D'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing junction 'D' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding junction 'D' into net
 Warning: Selected 1 elements in GNEChange_Selection

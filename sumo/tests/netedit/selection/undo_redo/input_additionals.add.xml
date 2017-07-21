@@ -1,15 +1,15 @@
 <additionals>
     <busStop id="busStop_3_1_0" lane="3_1" startPos="0.20" endPos="10.20"/>
-    <e3Detector id="e3Detector_0" freq="100.00" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" x="36.00" y="62.00">
+    <e3Detector id="e3Detector_0" freq="100.00" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="100.00">
         <detEntry lane="6_1" pos="36.66"/>
     </e3Detector>
-    <e3Detector id="e3Detector_1" freq="100.00" file="e3Detector_1.txt" timeThreshold="1.00" speedThreshold="1.39" x="62.00" y="62.00">
+    <e3Detector id="e3Detector_1" freq="100.00" file="e3Detector_1.txt" timeThreshold="1.00" speedThreshold="1.39" x="100.00" y="100.00">
         <detExit lane="2_1" pos="4.87"/>
     </e3Detector>
-    <e3Detector id="e3Detector_2" freq="100.00" file="e3Detector_2.txt" timeThreshold="1.00" speedThreshold="1.39" x="62.00" y="38.00">
+    <e3Detector id="e3Detector_2" freq="100.00" file="e3Detector_2.txt" timeThreshold="1.00" speedThreshold="1.39" x="100.00" y="0.00">
         <detEntry lane="4_1" pos="6.40"/>
     </e3Detector>
-    <e3Detector id="e3Detector_3" freq="100.00" file="e3Detector_3.txt" timeThreshold="1.00" speedThreshold="1.39" x="36.00" y="38.00">
+    <e3Detector id="e3Detector_3" freq="100.00" file="e3Detector_3.txt" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
         <detExit lane="7_2" pos="36.48"/>
     </e3Detector>
 </additionals>

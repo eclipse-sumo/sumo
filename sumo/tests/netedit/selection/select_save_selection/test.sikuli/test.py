@@ -3,7 +3,7 @@
 @file    test.py
 @author  Pablo Alvarez Lopez
 @date    2016-11-25
-@version $Id$
+@version $Id: test.py 25267 2017-07-19 10:41:16Z behrisch $
 
 python script used by sikulix for testing netedit
 
@@ -29,16 +29,11 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
-# select edges that allow 'passenger'
+# go to select mode
 netedit.selectMode()
-netedit.focusOnFrame()
-for x in range(0, 9):
-    netedit.typeTab()
-netedit.pasteIntoTextField("allow")
-netedit.typeTab()
-netedit.typeTab()
-netedit.pasteIntoTextField("passenger")
-netedit.typeEnter()
+
+# select all edges that allow passengers
+netedit.selectItems("Net Element", "edge", "allow", "passenger")
 
 # save selection
 netedit.focusOnFrame()

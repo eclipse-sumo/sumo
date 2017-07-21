@@ -38,13 +38,7 @@ Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Addi
 Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
 Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
 Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
-Warning: Selected 18 elements in GNEChange_Selection
+Warning: Selected 12 elements in GNEChange_Selection
 Warning: Key DEL (delete) pressed
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
@@ -86,10 +80,10 @@ Warning: Removing connection '7_1->1_1' from edge '7'
 Warning: Deleting unreferenced connection 'from7_1to1_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Current selection: 1 Junctions, 7 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 7 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '6' from net
-Warning: Current selection: 1 Junctions, 7 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 7 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
@@ -97,89 +91,69 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
-Warning: Current selection: 1 Junctions, 6 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 6 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '2' from net
-Warning: Current selection: 1 Junctions, 6 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 6 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Current selection: 1 Junctions, 5 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 5 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '8' from net
-Warning: Current selection: 1 Junctions, 5 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 5 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
-Warning: Current selection: 1 Junctions, 4 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 4 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '4' from net
-Warning: Current selection: 1 Junctions, 4 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 4 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Current selection: 1 Junctions, 3 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 3 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '5' from net
-Warning: Current selection: 1 Junctions, 3 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 3 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
-Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '1' from net
-Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '7' from net
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Removing busStop 'busStop_3_1_0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '3' from net
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing junction 'Center' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing e3Detector 'e3Detector_2' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing e3Detector 'e3Detector_3' in GNEChange_Additional
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
-Warning: Selected 1 elements in GNEChange_Selection
-Warning: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
-Warning: Selected 1 elements in GNEChange_Selection
-Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
-Warning: Selected 1 elements in GNEChange_Selection
-Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Warning: Selected 1 elements in GNEChange_Selection
 Warning: Adding junction 'Center' into net
 Warning: Selected 1 elements in GNEChange_Selection
 Warning: Adding edge '3' from net
@@ -371,23 +345,7 @@ Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '3' from net
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing junction 'Center' from net
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing e3Detector 'e3Detector_2' in GNEChange_Additional
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing e3Detector 'e3Detector_3' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
-Warning: Selected 1 elements in GNEChange_Selection
-Warning: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
-Warning: Selected 1 elements in GNEChange_Selection
-Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
-Warning: Selected 1 elements in GNEChange_Selection
-Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Warning: Selected 1 elements in GNEChange_Selection
 Warning: Adding junction 'Center' into net
 Warning: Selected 1 elements in GNEChange_Selection
 Warning: Adding edge '3' from net

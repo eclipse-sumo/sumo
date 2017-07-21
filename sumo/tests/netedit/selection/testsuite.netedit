@@ -1,8 +1,8 @@
 # default values of selection
 select_default
 
-# filtering for edges that allow 'passenger' should also match edges that allow 'all' or 'all' (combined)
-select_allow_all
+# save selection
+select_save_selection
 
 # try to select elements with wrong parameters
 wrong_parameters
