@@ -1,0 +1,35 @@
++++ running this Java
++++ trying to run SikuliX
++++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\Sikulix\sikulix.jar -run test.sikuli
+TestFunctions: Netedit opened sucesfully
+TestFunctions: 'reference.png' found
+[log]  TYPE "#F5."
+[log]  TYPE "s"
+[log] CLICK on L(354,197)@S(0)[0,0 1680x1050] (221 msec)
+[log] CLICK on L(464,197)@S(0)[0,0 1680x1050] (220 msec)
+[log]  TYPE "#F7."
+[log]  TYPE "#F5."
+[log] CLICK on L(569,197)@S(0)[0,0 1680x1050] (220 msec)
+[log] CLICK on L(684,197)@S(0)[0,0 1680x1050] (220 msec)
+[log]  TYPE "#F7."
+[log]  TYPE "#F5."
+[log] CLICK on L(359,325)@S(0)[0,0 1680x1050] (220 msec)
+[log] CLICK on L(454,325)@S(0)[0,0 1680x1050] (220 msec)
+[log]  TYPE "#F7."
+[log]  TYPE "#F5."
+[log] CLICK on L(644,317)@S(0)[0,0 1680x1050] (220 msec)
+[log] CLICK on L(754,317)@S(0)[0,0 1680x1050] (220 msec)
+[log] CLICK on L(854,317)@S(0)[0,0 1680x1050] (220 msec)
+[log] CLICK on L(644,422)@S(0)[0,0 1680x1050] (220 msec)
+[log] CLICK on L(754,422)@S(0)[0,0 1680x1050] (220 msec)
+[log] CLICK on L(854,422)@S(0)[0,0 1680x1050] (221 msec)
+[log] CLICK on L(644,537)@S(0)[0,0 1680x1050] (220 msec)
+[log] CLICK on L(754,537)@S(0)[0,0 1680x1050] (220 msec)
+[log] CLICK on L(854,537)@S(0)[0,0 1680x1050] (220 msec)
+[log]  TYPE "#F7."
+[log]  TYPE "#F5."
+[log] ( Strg+Umschalt )  TYPE "d"
+[log] ( Strg )  TYPE "s"
+[log] ( Strg )  TYPE "q"
+TestFunctions: Netedit closed successfully
+[log] TestFunctions: Netedit already closed

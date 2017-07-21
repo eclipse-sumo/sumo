@@ -1,0 +1,16 @@
+<additionals>
+    <busStop id="busStop_-gneE3_0_1" lane="-gneE3_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_-gneE4_0_2" lane="-gneE4_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_-gneE5_0_3" lane="-gneE5_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_-gneE6_0_4" lane="-gneE6_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_-gneE7_0_5" lane="-gneE7_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_gneE2_0_0" lane="gneE2_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_gneE4_0_7" lane="gneE4_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_gneE5_0_8" lane="gneE5_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_gneE6_0_9" lane="gneE6_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="busStop_gneE7_0_6" lane="gneE7_0" startPos="2.5" endPos="7.5"/>
+    <e3Detector id="e3Detector_0" freq="100" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" x="60" y="50">
+        <detEntry lane="gneE14_0" pos="5"/>
+        <detExit lane="gneE9_0" pos="5"/>
+    </e3Detector>
+</additionals>

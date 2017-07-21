@@ -1,0 +1,5 @@
+# crash when activating 'join-junctions' and triggering recomputation
+ticket2327
+
+# Crash when activating 'join-junctions' and the results node has the same position as other
+ticket3071
