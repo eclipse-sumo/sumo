@@ -8,7 +8,7 @@
 // A device which stands as an implementation example and which outputs movereminder calls
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 200132014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2013-2017 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
