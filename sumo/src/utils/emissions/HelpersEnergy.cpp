@@ -69,7 +69,7 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
     const double mass = param->find(SUMO_ATTR_VEHICLEMASS)->second;
 
     // calculate potential energy difference
-    double energyDiff = mass * 9.81 * slope * SPEED2DIST(v);
+    double energyDiff = mass * 9.81 * sin(DEG2RAD(slope)) * SPEED2DIST(v);
 
     // kinetic energy difference of vehicle
     energyDiff += 0.5 * mass * (v * v - lastV * lastV);
