@@ -124,7 +124,8 @@ class TrafficLightsDomain(Domain):
     def getRedYellowGreenState(self, tlsID):
         """getRedYellowGreenState(string) -> string
 
-        Returns the named tl's state as a tuple of light definitions from rRgGyYoO, for red, green, yellow, off, where lower case letters mean that the stream has to decelerate.
+        Returns the named tl's state as a tuple of light definitions from
+        rugGyYoO, for red, yed-yellow, green, yellow, off, where lower case letters mean that the stream has to decelerate.
         """
         return self._getUniversal(tc.TL_RED_YELLOW_GREEN_STATE, tlsID)
 
@@ -180,10 +181,26 @@ class TrafficLightsDomain(Domain):
     def setRedYellowGreenState(self, tlsID, state):
         """setRedYellowGreenState(string, string) -> None
 
-        Sets the named tl's state as a tuple of light definitions from rRgGyYoO, for red, green, yellow, off, where lower case letters mean that the stream has to decelerate.
+        Sets the named tl's state as a tuple of light definitions from
+        rugGyYuoO, for red, red-yellow, green, yellow, off, where lower case letters mean that the stream has to decelerate.
         """
         self._connection._sendStringCmd(
             tc.CMD_SET_TL_VARIABLE, tc.TL_RED_YELLOW_GREEN_STATE, tlsID, state)
+
+    def setLinkState(self, tlsID, tlsLinkIndex, state):
+        """setLinkState(string, string, int, string) -> None
+        Sets the state for the given tls and link index. The state must be one
+        of rRgGyYoOu for red, red-yellow, green, yellow, off, where lower case letters mean that the stream has to decelerate.
+        The link index is shown the gui when setting the appropriate junctino
+        visualization optin.
+        """
+        fullState = list(self.getRedYellowGreenState(tlsID))
+        if tlsLinkIndex >= len(state):
+            raise TraCIException("Invalid tlsLinkIndex %s for tls '%s' with maximum index %s." % (
+                tlsLinkIndex, tlsID, len(state) - 1))
+        else:
+            fullState[tlsLinkIndex] = state
+            self.setRedYellowGreenState(tlsID, ''.join(fullState))
 
     def setPhase(self, tlsID, index):
         """setPhase(string, integer) -> None
