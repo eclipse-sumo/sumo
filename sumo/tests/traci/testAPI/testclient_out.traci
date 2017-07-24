@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Jul 14 12:01:56 2017
+TraCITestClient output file. Date: Mon Jul 24 21:36:33 2017
 
 
 -> Command sent: <SimulationStep>:
@@ -22,7 +22,7 @@ testAPI:
     approachedLane=e_shape0_0 hasPrio=1 isOpen=1 hasFoe=0 approachedInternal=:n_m7_3_0 state=M direction=l length=19.06
   route:
     add:
-    getIDList: e_u1 r1
+    getIDList: e_m4 e_u1 r1
   vehicleType:
     getIDList: DEFAULT_PEDTYPE DEFAULT_VEHTYPE stilts t1
     getEmergencyDecel: 9.90
@@ -54,6 +54,8 @@ testAPI:
     moveToXY, simStep:
     getRoadID: e_m4
     getLaneID: e_m4_2
+    edges: e_m3 e_m4 e_m5 e_m6 e_shape1 e_vu2 e_m6 e_shape0 e_o1 e_o0
+    edges: e_m4
     edges: e_m3 e_m4 e_m5 e_m6 e_shape1 e_vu2 e_m6 e_shape0 e_o1 e_o0
     add:
     getIDList: 0 1

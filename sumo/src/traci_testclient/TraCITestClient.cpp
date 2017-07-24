@@ -707,6 +707,9 @@ TraCITestClient::testAPI() {
     std::vector<std::string> edges;
     edges.push_back("e_u1");
     route.add("e_u1", edges);
+    edges.clear();
+    edges.push_back("e_m4");
+    route.add("e_m4", edges);
     answerLog << "    getIDList: " << joinToString(route.getIDList(), " ") << "\n";
 
     answerLog << "  vehicleType:\n";
@@ -770,6 +773,11 @@ TraCITestClient::testAPI() {
     answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
     answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
     vehicle.changeTarget("0", "e_o0");
+    std::vector<std::string> edges2 = vehicle.getEdges("0");
+    answerLog << "    edges: " << joinToString(edges2, " ") << "\n";
+    vehicle.setRouteID("0", "e_m4");
+    answerLog << "    edges: " << joinToString(vehicle.getEdges("0"), " ") << "\n";
+    vehicle.setRoute("0", edges2);
     answerLog << "    edges: " << joinToString(vehicle.getEdges("0"), " ") << "\n";
     answerLog << "    add:\n";
     vehicle.add("1", "e_u1");

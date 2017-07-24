@@ -2492,6 +2492,31 @@ TraCIAPI::VehicleScope::changeTarget(const std::string& vehicleID, const std::st
 }
 
 void
+TraCIAPI::VehicleScope::setRouteID(const std::string& vehicleID, const std::string& routeID) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(routeID);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_ROUTE_ID, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
+
+
+void
+TraCIAPI::VehicleScope::setRoute(const std::string& vehicleID, const std::vector<std::string>& edges) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRINGLIST);
+    content.writeInt((int)edges.size());
+    for (int i = 0; i < (int)edges.size(); ++i) {
+        content.writeString(edges[i]);
+    }
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_ROUTE, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
+
+
+void
 TraCIAPI::VehicleScope::moveTo(const std::string& vehicleID, const std::string& laneID, double position) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
