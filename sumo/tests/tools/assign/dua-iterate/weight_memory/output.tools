@@ -1,101 +1,101 @@
 Loading configuration... done.
 > Executing step 0
 >> Running router on input_trips.trips.xml
->>> Begin time: 2017-05-20 11:59:43.275398
->>> End time: 2017-05-20 11:59:43.390696
->>> Duration: 0:00:00.115298
+>>> Begin time: 2017-07-24 11:27:11.752828
+>>> End time: 2017-07-24 11:27:11.976343
+>>> Duration: 0:00:00.223515
 <<
 >> Running simulation
->>> Begin time: 2017-05-20 11:59:43.390802
->>> End time: 2017-05-20 11:59:43.476429
->>> Duration: 0:00:00.085627
+>>> Begin time: 2017-07-24 11:27:11.976409
+>>> End time: 2017-07-24 11:27:12.249779
+>>> Duration: 0:00:00.273370
 <<
 >> Smoothing edge weights
 >>> Updated 4 edges
 >>> Decayed 0 unseen edges
 >>> Error avg:0 mean:0
 >>> Absolute Error avg:0 mean:0
-< Step 0 ended (duration: 0:00:00.203174)
+< Step 0 ended (duration: 0:00:00.498735)
 ------------------
 
 Loading configuration... done.
 > Executing step 1
 >> Running router on input_trips_000.rou.alt.xml
->>> Begin time: 2017-05-20 11:59:43.482736
->>> End time: 2017-05-20 11:59:43.532132
->>> Duration: 0:00:00.049396
+>>> Begin time: 2017-07-24 11:27:12.418949
+>>> End time: 2017-07-24 11:27:12.643649
+>>> Duration: 0:00:00.224700
 <<
 >> Running simulation
->>> Begin time: 2017-05-20 11:59:43.532236
->>> End time: 2017-05-20 11:59:43.611027
->>> Duration: 0:00:00.078791
+>>> Begin time: 2017-07-24 11:27:12.643726
+>>> End time: 2017-07-24 11:27:12.868613
+>>> Duration: 0:00:00.224887
 <<
 >> Smoothing edge weights
 >>> Updated 7 edges
 >>> Decayed 0 unseen edges
->>> Error avg:0.63 mean:0
->>> Absolute Error avg:0.632857142857 mean:0.01
-< Step 1 ended (duration: 0:00:00.129556)
+>>> Error avg:0.151428571429 mean:0
+>>> Absolute Error avg:0.205714285714 mean:0.02
+< Step 1 ended (duration: 0:00:00.450400)
 ------------------
 
 Loading configuration... done.
 > Executing step 2
 >> Running router on input_trips_001.rou.alt.xml
->>> Begin time: 2017-05-20 11:59:43.617681
->>> End time: 2017-05-20 11:59:43.673259
->>> Duration: 0:00:00.055578
+>>> Begin time: 2017-07-24 11:27:13.069089
+>>> End time: 2017-07-24 11:27:13.308086
+>>> Duration: 0:00:00.238997
 <<
 >> Running simulation
->>> Begin time: 2017-05-20 11:59:43.673365
->>> End time: 2017-05-20 11:59:43.747394
->>> Duration: 0:00:00.074029
+>>> Begin time: 2017-07-24 11:27:13.308172
+>>> End time: 2017-07-24 11:27:13.512654
+>>> Duration: 0:00:00.204482
 <<
 >> Smoothing edge weights
 >>> Updated 7 edges
 >>> Decayed 0 unseen edges
->>> Error avg:0.321445953552 mean:0
->>> Absolute Error avg:0.322874132623 mean:0.00499862675089
-< Step 2 ended (duration: 0:00:00.130900)
+>>> Error avg:0.0771532848696 mean:0
+>>> Absolute Error avg:0.1042623269 mean:0.0100053361793
+< Step 2 ended (duration: 0:00:00.444253)
 ------------------
 
 Loading configuration... done.
 > Executing step 3
 >> Running router on input_trips_002.rou.alt.xml
->>> Begin time: 2017-05-20 11:59:43.751675
->>> End time: 2017-05-20 11:59:43.820944
->>> Duration: 0:00:00.069269
+>>> Begin time: 2017-07-24 11:27:13.669214
+>>> End time: 2017-07-24 11:27:13.927063
+>>> Duration: 0:00:00.257849
 <<
 >> Running simulation
->>> Begin time: 2017-05-20 11:59:43.821048
->>> End time: 2017-05-20 11:59:43.904842
->>> Duration: 0:00:00.083794
+>>> Begin time: 2017-07-24 11:27:13.927125
+>>> End time: 2017-07-24 11:27:14.134320
+>>> Duration: 0:00:00.207195
 <<
 >> Smoothing edge weights
 >>> Updated 7 edges
 >>> Decayed 0 unseen edges
->>> Error avg:0.215800780403 mean:0
->>> Absolute Error avg:0.21675281265 mean:0.003332112863
-< Step 3 ended (duration: 0:00:00.154284)
+>>> Error avg:0.0517685722283 mean:0
+>>> Absolute Error avg:0.0698337742764 mean:0.006671411414
+< Step 3 ended (duration: 0:00:00.465733)
 ------------------
 
 Loading configuration... done.
 > Executing step 4
 >> Running router on input_trips_003.rou.alt.xml
->>> Begin time: 2017-05-20 11:59:43.916649
->>> End time: 2017-05-20 11:59:43.996221
->>> Duration: 0:00:00.079572
+>>> Begin time: 2017-07-24 11:27:14.319348
+>>> End time: 2017-07-24 11:27:14.572773
+>>> Duration: 0:00:00.253425
 <<
 >> Running simulation
->>> Begin time: 2017-05-20 11:59:43.996330
->>> End time: 2017-05-20 11:59:44.112210
->>> Duration: 0:00:00.115880
+>>> Begin time: 2017-07-24 11:27:14.572846
+>>> End time: 2017-07-24 11:27:14.777525
+>>> Duration: 0:00:00.204679
 <<
 >> Smoothing edge weights
 >>> Updated 7 edges
 >>> Decayed 0 unseen edges
->>> Error avg:0.16242458791 mean:0
->>> Absolute Error avg:0.163138579427 mean:0.00249897030932
-< Step 4 ended (duration: 0:00:00.196825)
+>>> Error avg:0.0389532130095 mean:0
+>>> Absolute Error avg:0.0524993077179 mean:0.00500400399406
+< Step 4 ended (duration: 0:00:00.458876)
 ------------------
 
-dua-iterate ended (duration: 0:00:00.844581)
+dua-iterate ended (duration: 0:00:03.144286)
