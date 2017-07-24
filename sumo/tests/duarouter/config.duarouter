@@ -9,6 +9,7 @@ copy_test_path:input_net.net.xml
 copy_test_path:input_net2.net.xml
 copy_test_path:input_districts.taz.xml
 copy_test_path:input_additional.add.xml
+copy_test_path:lookuptable
 
 [collate_file]
 routes:routes.rou.xml
@@ -16,6 +17,7 @@ alts:routes.rou.alt.xml
 vtypes:vtypes.rou.xml
 cfg:config.cfg
 log:log.txt
+landmarks:landmarks.csv
 
 [run_dependent_text]
 errors:The length does not include*{LINES 1}

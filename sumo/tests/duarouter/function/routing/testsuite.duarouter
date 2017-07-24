@@ -11,3 +11,12 @@ traveltime_always_checks_vehspeed
 # - tests/duarouter establishes the base line
 # - tests/duarouter.chrouter must produce the same results
 chrouter
+
+# landmark routing
+astar_landmark
+
+# landmark routing with saving
+astar_landmark_save
+
+# landmark routing with taz
+astar_landmark_taz
