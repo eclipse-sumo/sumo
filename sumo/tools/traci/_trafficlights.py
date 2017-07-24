@@ -115,6 +115,9 @@ _RETURN_VALUE_FUNC = {tc.TL_RED_YELLOW_GREEN_STATE: Storage.readString,
 
 class TrafficLightsDomain(Domain):
 
+    Phase = Phase
+    Logic = Logic
+
     def __init__(self):
         Domain.__init__(self, "trafficlights", tc.CMD_GET_TL_VARIABLE, tc.CMD_SET_TL_VARIABLE,
                         tc.CMD_SUBSCRIBE_TL_VARIABLE, tc.RESPONSE_SUBSCRIBE_TL_VARIABLE,

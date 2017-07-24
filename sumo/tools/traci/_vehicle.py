@@ -425,7 +425,7 @@ class VehicleDomain(Domain):
     def getSpeedDeviation(self, vehID):
         """getSpeedDeviation(string) -> double
 
-        Returns the maximum speed deviation of the vehicle type.
+        Returns the standard deviation for the speed factor of the vehicle type.
         """
         return self._getUniversal(tc.VAR_SPEED_DEVIATION, vehID)
 
