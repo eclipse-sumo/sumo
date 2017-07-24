@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r24744
+SUMO duarouter Version dev-SVN-r25302
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.
@@ -79,6 +79,8 @@ Processing Options:
                                        --all-pairs-output)
   --astar.landmark-distances FILE    Initialize lookup table for astar
                                        ALT-variant from the given file
+  --astar.save-landmark-distances FILE  Save lookup table for astar ALT-variant to
+                                       the given file
   --gawron.beta FLOAT                Use FLOAT as Gawron's beta
   --gawron.a FLOAT                   Use FLOAT as Gawron's a
   --keep-all-routes                  Save routes with near zero probability

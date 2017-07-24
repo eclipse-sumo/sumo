@@ -123,6 +123,9 @@
         <!-- Initialize lookup table for astar ALT-variant from the given file -->
         <astar.landmark-distances value="" type="FILE"/>
 
+        <!-- Save lookup table for astar ALT-variant to the given file -->
+        <astar.save-landmark-distances value="" type="FILE"/>
+
         <!-- Use FLOAT as Gawron&apos;s beta -->
         <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT"/>
 
