@@ -658,7 +658,30 @@ def selectAdditionalChild(numTabs, childNumber):
     # use TAB to select additional child
     typeTab()
 
-
+# fix stoppingPlaces
+def fixStoppingPlace(solution, cancel = False):
+    # select bullet depending of solution
+    if (solution == "saveInvalids"):
+        for x in range(0, 3):
+            typeInvertTab()
+        typeSpace()
+    elif (solution == "fixPositions"):
+        for x in range(0, 2):
+            typeInvertTab()
+        typeSpace()
+    elif (solution == "selectInvalids"):
+        typeInvertTab()
+        typeSpace()
+    else:
+        for x in range(0, 4):
+            typeInvertTab()
+    # Save additionals or cancel
+    if(cancel):
+        typeTwoKeys("c", Key.ALT)
+    else:
+        typeTwoKeys("a", Key.ALT)
+    
+    
 #################################################
 # delete
 #################################################
