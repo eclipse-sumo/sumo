@@ -2,12 +2,12 @@
     <conflict begin="5.50" end="12.50" ego="ego1" foe="foe1">
         <minTTC time="NA" value="NA" position="NA"/>
         <maxDRAC time="NA" value="NA" position="NA"/>
-        <minPET time="9.48" value="1.90" position="100.05,50.75"/>
+        <minPET time="9.98" value="2.46" position="100.52,50.23"/>
     </conflict>
     <conflict begin="6.30" end="13.30" ego="ego1" foe="foe2">
         <minTTC time="NA" value="NA" position="NA"/>
         <maxDRAC time="NA" value="NA" position="NA"/>
-        <minPET time="9.48" value="1.03" position="100.05,50.75"/>
+        <minPET time="9.98" value="1.59" position="100.52,50.23"/>
     </conflict>
     <conflict begin="7.10" end="14.20" ego="ego1" foe="foe3">
         <minTTC time="7.10" value="2.23" position="108.05,48.35"/>

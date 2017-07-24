@@ -1,7 +1,7 @@
 <SSMLog>
     <conflict begin="6.20" end="14.20" ego="ego1" foe="foe1">
-        <minTTC time="7.40" value="1.79" position="98.81,49.78"/>
-        <maxDRAC time="6.20" value="6.59" position="98.81,49.78"/>
-        <minPET time="9.44" value="0.67" position="98.81,49.78"/>
+        <minTTC time="7.30" value="1.87" position="99.40,50.14"/>
+        <maxDRAC time="6.20" value="6.43" position="99.40,50.14"/>
+        <minPET time="9.52" value="0.82" position="99.40,50.14"/>
     </conflict>
 </SSMLog>

@@ -32,4 +32,5 @@ multilane
 # merging on adjacent lanes
 # stopped vehicles
 # lane changing
+# removing foe during (crossing) encounter
 more_cases_TODO
