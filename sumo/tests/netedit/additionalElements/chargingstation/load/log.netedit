@@ -40,8 +40,20 @@ Warning: Adding chargingStation 'chargingStation_22' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_23' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_24' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_25' in GNEChange_Additional
+Warning: Adding chargingStation 'chargingStation_26' in GNEChange_Additional
+Warning: Adding chargingStation 'chargingStation_27' in GNEChange_Additional
+Warning: Adding chargingStation 'chargingStation_28' in GNEChange_Additional
+Warning: Adding chargingStation 'chargingStation_29' in GNEChange_Additional
+Warning: Adding chargingStation 'chargingStation_30' in GNEChange_Additional
+Warning: Adding chargingStation 'chargingStation_31' in GNEChange_Additional
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: Deleting unreferenced chargingStation 'chargingStation_31'
+Warning: Deleting unreferenced chargingStation 'chargingStation_30'
+Warning: Deleting unreferenced chargingStation 'chargingStation_29'
+Warning: Deleting unreferenced chargingStation 'chargingStation_28'
+Warning: Deleting unreferenced chargingStation 'chargingStation_27'
+Warning: Deleting unreferenced chargingStation 'chargingStation_26'
 Warning: Deleting unreferenced chargingStation 'chargingStation_25'
 Warning: Deleting unreferenced chargingStation 'chargingStation_24'
 Warning: Deleting unreferenced chargingStation 'chargingStation_23'

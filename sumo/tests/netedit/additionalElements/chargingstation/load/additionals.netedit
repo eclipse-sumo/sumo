@@ -15,4 +15,10 @@
     <chargingStation id="chargingStation_23" lane="gneE1_0" startPos="44.00" endPos="46.00" name="chargingStation" friendlyPos="0" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5.00"/>
     <chargingStation id="chargingStation_24" lane="gneE1_0" startPos="46.00" endPos="48.00" name="chargingStation" friendlyPos="0" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5.00"/>
     <chargingStation id="chargingStation_25" lane="gneE1_0" startPos="48.00" endPos="50.00" name="chargingStation" friendlyPos="1" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5.00"/>
+    <chargingStation id="chargingStation_26" lane="gneE1_0" startPos="5.00" endPos="10.00" name="chargingStation" friendlyPos="0" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5.00"/>
+    <chargingStation id="chargingStation_27" lane="gneE1_0" startPos="15.00" endPos="20.00" name="chargingStation" friendlyPos="1" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5.00"/>
+    <chargingStation id="chargingStation_28" lane="gneE1_0" startPos="30.00" endPos="40.00" name="chargingStation" friendlyPos="1" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5.00"/>
+    <chargingStation id="chargingStation_29" lane="gneE1_0" startPos="49.90" endPos="50.00" name="chargingStation" friendlyPos="1" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5.00"/>
+    <chargingStation id="chargingStation_30" lane="gneE1_0" startPos="19.90" endPos="20.00" name="chargingStation" friendlyPos="1" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5.00"/>
+    <chargingStation id="chargingStation_31" lane="gneE1_0" startPos="19.90" endPos="20.00" name="chargingStation" friendlyPos="1" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5.00"/>
 </additionals>
