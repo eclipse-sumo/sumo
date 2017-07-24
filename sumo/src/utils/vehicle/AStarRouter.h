@@ -302,13 +302,18 @@ public:
                     std::cout << "   follower=" << followerInfo->edge->getID() << " OEF=" << oldEffort << " TT=" << traveltime << " HR=" << heuristic_remaining << " HT=" << followerInfo->heuristicTime << "\n";
 #endif
                     followerInfo->prev = minimumInfo;
-                    if (oldEffort == std::numeric_limits<double>::max() || mayRevisit) {
+                    if (oldEffort == std::numeric_limits<double>::max()) {
                         myFrontierList.push_back(followerInfo);
                         push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
                     } else {
-                        push_heap(myFrontierList.begin(),
-                                  find(myFrontierList.begin(), myFrontierList.end(), followerInfo) + 1,
-                                  myComparator);
+                        std::vector<EdgeInfo*>::iterator fi = find(myFrontierList.begin(), myFrontierList.end(), followerInfo);
+                        if (fi == myFrontierList.end()) {
+                            assert(mayRevisit);
+                            myFrontierList.push_back(followerInfo);
+                            push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
+                        } else {
+                            push_heap(myFrontierList.begin(), fi + 1, myComparator);
+                        }
                     }
                 }
             }
