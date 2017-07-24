@@ -306,7 +306,7 @@ public:
                         myFrontierList.push_back(followerInfo);
                         push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
                     } else {
-                        std::vector<EdgeInfo*>::iterator fi = find(myFrontierList.begin(), myFrontierList.end(), followerInfo);
+                        typename std::vector<EdgeInfo*>::iterator fi = find(myFrontierList.begin(), myFrontierList.end(), followerInfo);
                         if (fi == myFrontierList.end()) {
                             assert(mayRevisit);
                             myFrontierList.push_back(followerInfo);
