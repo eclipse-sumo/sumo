@@ -16,6 +16,9 @@ boarding_duration_no_extension
 # person with a single walk
 walk
 
+# person with a single walk defined by route-id
+walk_routeID
+
 # person with a single walk with given duration
 walk_duration
 
