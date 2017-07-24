@@ -302,12 +302,8 @@ Position
 GNEEdge::moveGeometry(const Position& oldPos, const Position& newPos, bool relative) {
     PositionVector geom = myNBEdge.getGeometry();
     bool changed = changeGeometry(geom, getMicrosimID(), oldPos, newPos, relative);
-    if (changed) {
         setGeometry(geom, false);
         return newPos;
-    } else {
-        return oldPos;
-    }
 }
 
 

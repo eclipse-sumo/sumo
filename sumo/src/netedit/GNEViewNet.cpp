@@ -124,8 +124,14 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
 FXIMPLEMENT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewNetMap))
 
 // ===========================================================================
+// static
+// ===========================================================================
+const double GNEViewNet::MINIMUMMOVING_RADIUS = 4;
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
+
 GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app,
                        GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
                        FXGLVisual* glVis, FXGLCanvas* share, FXToolBar* toolBar) :
@@ -455,12 +461,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     pointed = 0;
                     break;
             }
-        }
-
-        // check if there is anoter object in an hypotetic 
-        GUIGlObject* objectInSnappedToGridPosition = GUIGlObjectStorage::gIDStorage.getObjectBlocking(getObjectAtPosition(snapToActiveGrid(getPositionInformation())));
-        if((pointed_junction == NULL) && (objectInSnappedToGridPosition != NULL) && (objectInSnappedToGridPosition->getType() == GLO_JUNCTION)) {
-            pointed_junction = (GNEJunction*)objectInSnappedToGridPosition;
         }
 
         // decide what to do based on mode
@@ -848,7 +848,11 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
             Position offsetPosition = myMovingReference - getPositionInformation();
             myJunctionToMove->moveJunctionGeometry2D(snapToActiveGrid(myMovingOriginalPosition - offsetPosition));
         } else if (myEdgeToMove) {
-            myMovingOriginalPosition = myEdgeToMove->moveGeometry(myMovingOriginalPosition, getPositionInformation());
+            Position newPosition = getPositionInformation();
+            if((newPosition.distanceTo2D(myEdgeToMove->getGNEJunctionSource()->getPositionInView()) >= MINIMUMMOVING_RADIUS) &&
+               (newPosition.distanceTo2D(myEdgeToMove->getGNEJunctionDestiny()->getPositionInView()) >= MINIMUMMOVING_RADIUS)) {
+                myMovingOriginalPosition = myEdgeToMove->moveGeometry(myMovingOriginalPosition, getPositionInformation());
+            }
         } else if (myAdditionalToMove) {
             // If additional is placed over lane, move it across it
             if (myAdditionalToMove->getLane()) {
