@@ -60,7 +60,7 @@ netedit.modifyBoolAttribute(7)
 netedit.moveMode()
 
 # try to move busStop to right (must be blocked)
-netedit.moveElement(match, 250, 275, 350, 275)
+netedit.moveElement(match, 250, 270, 350, 270)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -75,7 +75,7 @@ netedit.modifyBoolAttribute(7)
 netedit.moveMode()
 
 # move busStop to right (must be allowed)
-netedit.moveElement(match, 250, 275, 350, 275)
+netedit.moveElement(match, 250, 270, 350, 270)
 
 # Check undos and redos
 netedit.undo(match, 5)

@@ -4,11 +4,11 @@ Warning: Setting new attribute startPos '19.58' into busStop 'busStop_gneE0_0_0'
 Warning: Setting new attribute endPos '29.58' into busStop 'busStop_gneE0_0_0'
 Warning: Setting new attribute blockMovement 'true' into busStop 'busStop_gneE0_0_0'
 Warning: Setting new attribute blockMovement 'false' into busStop 'busStop_gneE0_0_0'
-Warning: Setting new attribute startPos '27.16' into busStop 'busStop_gneE0_0_0'
-Warning: Setting new attribute endPos '37.16' into busStop 'busStop_gneE0_0_0'
+Warning: Setting new attribute startPos '27.13' into busStop 'busStop_gneE0_0_0'
+Warning: Setting new attribute endPos '37.13' into busStop 'busStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '29.58' into busStop 'busStop_gneE0_0_0'
-Warning: Setting previous attribute startPos '19.58' into busStop 'busStop_gneE0_0_0'
+Warning: Setting previous attribute endPos '29.55' into busStop 'busStop_gneE0_0_0'
+Warning: Setting previous attribute startPos '19.55' into busStop 'busStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '1' into busStop 'busStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -28,8 +28,8 @@ Warning: Setting new attribute blockMovement 'true' into busStop 'busStop_gneE0_
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'false' into busStop 'busStop_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute startPos '27.16' into busStop 'busStop_gneE0_0_0'
-Warning: Setting new attribute endPos '37.16' into busStop 'busStop_gneE0_0_0'
+Warning: Setting new attribute startPos '27.13' into busStop 'busStop_gneE0_0_0'
+Warning: Setting new attribute endPos '37.13' into busStop 'busStop_gneE0_0_0'
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced busStop 'busStop_gneE0_0_0'

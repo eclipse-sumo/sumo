@@ -21,8 +21,16 @@ Warning: Adding busStop 'busStop_12' in GNEChange_Additional
 Warning: Adding busStop 'busStop_13' in GNEChange_Additional
 Warning: Adding busStop 'busStop_14' in GNEChange_Additional
 Warning: Adding busStop 'busStop_15' in GNEChange_Additional
+Warning: Adding busStop 'busStop_16' in GNEChange_Additional
+Warning: Adding busStop 'busStop_17' in GNEChange_Additional
+Warning: Adding busStop 'busStop_18' in GNEChange_Additional
+Warning: Adding busStop 'busStop_19' in GNEChange_Additional
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: Deleting unreferenced busStop 'busStop_19'
+Warning: Deleting unreferenced busStop 'busStop_18'
+Warning: Deleting unreferenced busStop 'busStop_17'
+Warning: Deleting unreferenced busStop 'busStop_16'
 Warning: Deleting unreferenced busStop 'busStop_15'
 Warning: Deleting unreferenced busStop 'busStop_14'
 Warning: Deleting unreferenced busStop 'busStop_13'

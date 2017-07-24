@@ -4,4 +4,6 @@
     <busStop id="busStop_gneE0_0_2" lane="gneE0_0" startPos="29.90" endPos="39.90" name="busStop" friendlyPos="1" lines="Line0 Line1 Line2 "/>
     <busStop id="busStop_gneE0_0_3" lane="gneE0_0" startPos="42.40" endPos="72.40" name="busStop" friendlyPos="1" lines="Line0 Line1 Line2 "/>
     <busStop id="busStop_gneE0_0_4" lane="gneE0_0" startPos="-26.60" endPos="3.40" name="busStop" friendlyPos="1" lines="Line0 Line1 Line2 "/>
+    <busStop id="busStop_gneE1_0_5" lane="gneE1_0" startPos="45.60" endPos="50.00" name="busStop" friendlyPos="0" lines="Line0 Line1 Line2 "/>
+    <busStop id="busStop_gneE1_0_6" lane="gneE1_0" startPos="7.50" endPos="7.60" name="busStop" friendlyPos="0" lines="Line0 Line1 Line2 "/>
 </additionals>

@@ -71,21 +71,39 @@ netedit.modifyAdditionalDefaultValue(12, "30")
 # change reference to "reference left"
 netedit.modifyAdditionalDefaultValue(10, "reference left")
 
-# create a busStop in mode "reference left" forcing poisition
+# create a busStop in mode "reference left"
 netedit.leftClick(match, 500, 250)
 
 # change reference to "reference right"
 netedit.modifyAdditionalDefaultValue(10, "reference right")
 
-# create a busStop in mode "reference right" forcing position
+# create a busStop in mode "reference right"
 netedit.leftClick(match, 110, 250)
 
+# disable friendlyPos
+netedit.modifyAdditionalDefaultBoolValue(3)
+
+# change reference to "reference left"
+netedit.modifyAdditionalDefaultValue(10, "reference left")
+
+# create a busStop in mode "reference left" without friendlyPos
+netedit.leftClick(match, 120, 215)
+
+# change reference to "reference right"
+netedit.modifyAdditionalDefaultValue(10, "reference right")
+
+# create a busStop in mode "reference right" without friendlyPos
+netedit.leftClick(match, 500, 215)
+
 # Check undo redo
-netedit.undo(match, 5)
-netedit.redo(match, 5)
+netedit.undo(match, 7)
+netedit.redo(match, 7)
 
 # save additionals
 netedit.saveAdditionals()
+
+# Fix stopping places position
+netedit.fixStoppingPlace("fixPositions")
 
 # save newtork
 netedit.saveNetwork()
