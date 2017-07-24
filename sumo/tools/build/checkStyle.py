@@ -113,7 +113,11 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     print(self._file, "missing license start", idx, lines[idx].rstrip())
                 year = lines[idx + 2][17:21]
                 license = LICENSE_HEADER.replace("2001", year)
-                if "".join(lines[idx:idx+12]) != license:
+                if "module" in lines[idx + 3]:
+                    fileLicense = "".join(lines[idx:idx+3]) + "".join(lines[idx+5:idx+14])
+                else:
+                    fileLicense = "".join(lines[idx:idx+12])
+                if fileLicense != license:
                     print(self._file, "invalid license")
                     if options.verbose:
                         print("".join(lines[idx:idx+12]))
