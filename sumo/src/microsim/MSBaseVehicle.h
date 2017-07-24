@@ -364,6 +364,14 @@ public:
     }
 
 
+    /** @brief Returns the vehicle's width
+     * @return vehicle's width
+     */
+    inline double getWidth() const {
+        return myType->getWidth();
+    }
+
+
     /** @brief Returns the precomputed factor by which the driver wants to be faster than the speed limit
      * @return Speed limit factor
      */
