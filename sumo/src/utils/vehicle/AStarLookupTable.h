@@ -99,7 +99,7 @@ private:
 template<class E, class V>
 class LandmarkLookupTable : public AbstractLookupTable<E, V> {
 public:
-    LandmarkLookupTable(const std::string& filename, const std::vector<E*>& edges, SUMOAbstractRouter<E, V>* router, const V* defaultVehicle) {
+    LandmarkLookupTable(const std::string& filename, const std::vector<E*>& edges, SUMOAbstractRouter<E, V>* router, const V* defaultVehicle, const std::string& outfile) {
         myFirstNonInternal = -1;
         std::map<std::string, int> numericID;
         for (E* e : edges) {
@@ -114,6 +114,13 @@ public:
         if (!strm.good()) {
             throw ProcessError("Could not load landmark-lookup-table from '" + filename + "'.");
         }
+        std::ofstream* ostrm = 0;
+        if (!outfile.empty()) {
+            ostrm = new std::ofstream(outfile.c_str());
+            if (!ostrm->good()) {
+                throw ProcessError("Could not open file '" + outfile + "' for writing.");
+            }
+        }
         std::string line;
         int numLandMarks = 0;
         while (std::getline(strm, line)) {
@@ -123,9 +130,13 @@ public:
             //std::cout << "'" << line << "'" << "\n";
             StringTokenizer st(line);
             if (st.size() == 1) {
-                myLandmarks[st.get(0)] = numLandMarks++;
+                const std::string lm = st.get(0);
+                myLandmarks[lm] = numLandMarks++;
                 myFromLandmarkDists.push_back(std::vector<double>(0));
                 myToLandmarkDists.push_back(std::vector<double>(0));
+                if (ostrm != 0) {
+                    (*ostrm) << lm << "\n";
+                }
             } else {
                 assert(st.size() == 4); 
                 const std::string lm = st.get(0);
@@ -143,7 +154,6 @@ public:
             WRITE_WARNING("No landmarks in '" + filename + "', falling back to standard A*.");
             return;
         }
-        std::ofstream* ostrm = 0;
         for (int i = 0; i < (int)myLandmarks.size(); ++i) {
             if ((int)myFromLandmarkDists[i].size() != edges.size() - myFirstNonInternal) {
                 const std::string landmarkID = getLandmark(i);
@@ -163,9 +173,9 @@ public:
                     WRITE_WARNING("Not all network edges were found in the lookup table '" + filename + "' for landmark '" + landmarkID + "'. Saving missing values to '" + missing + "'.");
                     if (ostrm == 0) {
                         ostrm = new std::ofstream(missing.c_str());
-                    }
-                    if (!ostrm->good()) {
-                        throw ProcessError("Could not open file '" + missing + "' for writing.");
+                        if (!ostrm->good()) {
+                            throw ProcessError("Could not open file '" + missing + "' for writing.");
+                        }
                     }
                 } else {
                     throw ProcessError("Not all network edges were found in the lookup table '" + filename + "' for landmark '" + landmarkID + "'.");

@@ -130,7 +130,12 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 if (oc.isSet("astar.all-distances")) {
                     lookup = new AStar::FLT(oc.getString("astar.all-distances"), (int)ROEdge::getAllEdges().size());
                 } else if (oc.isSet("astar.landmark-distances")) {
-                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), 0, 0);
+                    CHRouterWrapper<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> > router(
+                        ROEdge::getAllEdges(), true, &ROEdge::getTravelTimeStatic,
+                        begin, end, std::numeric_limits<int>::max(), 1);
+                    ROVehicle defaultVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
+                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), &router, &defaultVehicle, 
+                        oc.isSet("astar.save-landmark-distances") ? oc.getString("astar.save-landmark-distances") : "");
                 }
                 router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, lookup);
             } else {
@@ -139,7 +144,12 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 if (oc.isSet("astar.all-distances")) {
                     lookup = new AStar::FLT(oc.getString("astar.all-distances"), (int)ROEdge::getAllEdges().size());
                 } else if (oc.isSet("astar.landmark-distances")) {
-                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), 0, 0);
+                    CHRouterWrapper<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> > router(
+                        ROEdge::getAllEdges(), true, &ROEdge::getTravelTimeStatic,
+                        begin, end, std::numeric_limits<int>::max(), 1);
+                    ROVehicle defaultVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
+                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), &router, &defaultVehicle,
+                        oc.isSet("astar.save-landmark-distances") ? oc.getString("astar.save-landmark-distances") : "");
                 }
                 router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, lookup);
             }

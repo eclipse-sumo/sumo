@@ -108,6 +108,9 @@ RODUAFrame::addImportOptions() {
 
     oc.doRegister("astar.landmark-distances", new Option_FileName());
     oc.addDescription("astar.landmark-distances", "Processing", "Initialize lookup table for astar ALT-variant from the given file");
+
+    oc.doRegister("astar.save-landmark-distances", new Option_FileName());
+    oc.addDescription("astar.save-landmark-distances", "Processing", "Save lookup table for astar ALT-variant to the given file");
 }
 
 
@@ -196,6 +199,10 @@ RODUAFrame::checkOptions() {
     if (oc.getBool("bulk-routing") && (oc.getString("routing-algorithm") == "CH" || oc.getString("routing-algorithm") == "CHWrapper")) {
         WRITE_ERROR("Routing algorithm '" + oc.getString("routing-algorithm") + "' does not support bulk routing.");
         return false;
+    }
+
+    if (oc.isDefault("routing-algorithm") && (oc.isSet("astar.all-distances") || oc.isSet("astar.landmark-distances") || oc.isSet("astar.save-landmark-distances"))) {
+        oc.set("routing-algorithm", "astar");
     }
 
     if (oc.getString("route-choice-method") != "gawron" && oc.getString("route-choice-method") != "logit") {
