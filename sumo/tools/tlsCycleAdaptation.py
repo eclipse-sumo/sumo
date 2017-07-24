@@ -93,7 +93,7 @@ def getFlows(net, routeFiles, tlsList, begin, verbose):
             print ("route file:%s" % file)
         for veh in sumolib.output.parse(file, 'vehicle'):
             route = veh.route[0]
-            if int(veh.depart) < end and int(veh.depart) >= begin:
+            if float(veh.depart) < end and float(veh.depart) >= begin:
                 for tls in tlsList:
                     connsList = tls.getConnections()
                     # c: [[inLane, outLane, linkNo],[],..]
