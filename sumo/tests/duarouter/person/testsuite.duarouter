@@ -4,6 +4,9 @@ basic
 # use edges instead of from and to
 edges
 
+# use routeID instead of edges
+routeID
+
 # person with a type
 vtype
 unconnected
