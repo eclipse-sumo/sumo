@@ -178,11 +178,21 @@ RORouteHandler::myStartElement(int element,
         }
         case SUMO_TAG_PERSONTRIP:
         case SUMO_TAG_WALK: {
-            if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+            if (attrs.hasAttribute(SUMO_ATTR_EDGES) || attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
                 // XXX allow --repair?
                 bool ok = true;
-                myActiveRoute.clear();
-                parseEdges(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, " walk for person '" + myVehicleParameter->id + "'");
+                if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) { 
+                    const std::string routeID = attrs.get<std::string>(SUMO_ATTR_ROUTE, myVehicleParameter->id.c_str(), ok);
+                    RORouteDef* routeDef = myNet.getRouteDef(routeID);
+                    const RORoute* route = routeDef != 0 ? routeDef->getFirstRoute() : 0;
+                    if (route == 0) {
+                        throw ProcessError("The route '" + routeID + "' for walk of person '" + myVehicleParameter->id + "' is not known.");
+                    }
+                    myActiveRoute = route->getEdgeVector();
+                } else { 
+                    myActiveRoute.clear();
+                    parseEdges(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, " walk for person '" + myVehicleParameter->id + "'");
+                }
                 const char* const objId = myVehicleParameter->id.c_str();
                 const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, objId, ok, -1);
                 if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {

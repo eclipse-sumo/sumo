@@ -1,14 +1,15 @@
 <routes>
-    <route id="r0" edges="beg middle end"/>
+    <route id="forward" edges="beg middle end"/>
+    <route id="backward" edges="end middle beg"/>
 
     <person id="p0" depart="0">
-        <walk route="r0"/>
+        <walk route="forward"/>
     </person>
     <person id="p1" depart="0">
-        <walk route="r0"/>
+        <walk route="backward"/>
     </person>
     <person id="p2" depart="0">
-        <walk route="r0" departPos="0" arrivalPos="random"/>
+        <walk route="forward" departPos="0" arrivalPos="random"/>
     </person>
 
 </routes>
