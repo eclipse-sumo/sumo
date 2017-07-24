@@ -513,8 +513,6 @@ MSDevice_SSM::updateEncounter(Encounter* e, FoeInfo* foeInfo) {
         updatePassedEncounter(e, foeInfo, eInfo);
 //        return;
     } else {
-        // TODO: reset entry and exit times after reclassification to pre-conflict, eventually
-
         // Estimate times until a possible conflict / collision
         // Not all are used for all types of encounters:
         // Follow/lead situation doesn't need them at all, currently (might change if more SSMs are implemented).
@@ -690,8 +688,6 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
 
 void
 MSDevice_SSM::computeSSMs(EncounterApproachInfo& eInfo) const {
-    // TODO: log the conflict point coordinates!
-
 #ifdef DEBUG_SSM
     Encounter* e = eInfo.encounter;
     std::cout << SIMTIME << " computeSSMs() for vehicles '"
@@ -762,8 +758,14 @@ MSDevice_SSM::determinePET(EncounterApproachInfo& eInfo) const {
             std::cout << "PET for crossing encounter already calculated as " << e->PET.second
                     << std::endl;
 #endif
+            // pet must have been calculated already
             assert(e->PET.first.second != INVALID);
-            return; // pet must have been calculated already
+            // Reset entry and exit times two allow an eventual subsequent re-use
+            e->egoConflictEntryTime = INVALID;
+            e->egoConflictExitTime = INVALID;
+            e->foeConflictEntryTime = INVALID;
+            e->foeConflictExitTime = INVALID;
+            return;
         }
 
         // this situation should have emerged from one of the following
@@ -968,6 +970,9 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
 
 double
 MSDevice_SSM::computeTTC(double gap, double followerSpeed, double leaderSpeed) const {
+    // TODO: in merging or crossing situations, the TTC may be lower than the one computed here for following situations
+    // More specifically, the followers conflict time entry should be less than the leaders conflict exit time.
+    // For merging conflicts, the minimum has to be taken from the two if a collision at merge was predicted.
 #ifdef DEBUG_SSM
     std::cout << "computeTTC() with gap="<<gap<<", followerSpeed="<<followerSpeed<<", leaderSpeed="<<leaderSpeed
                  << std::endl;
@@ -984,7 +989,7 @@ double
 MSDevice_SSM::computeDRAC(double gap, double followerSpeed, double leaderSpeed) const {
     // TODO: in merging or crossing situations, the DRAC may be lower than the one computed here for following situations
     // More specifically, the followers conflict time entry should be less than the leaders conflict exit time.
-    // For merging conflicts, the minimum has to be taken from the two if a collsion at merge was predicted.
+    // For merging conflicts, the minimum has to be taken from the two if a collision at merge was predicted.
 #ifdef DEBUG_SSM
     std::cout << "computeDRAC() with gap="<<gap<<", followerSpeed="<<followerSpeed<<", leaderSpeed="<<leaderSpeed
                  << std::endl;
@@ -1030,7 +1035,6 @@ MSDevice_SSM::checkConflictEntryAndExit(EncounterApproachInfo& eInfo) {
     }
     if (e->foeConflictEntryTime == INVALID && eInfo.foeConflictEntryDist < 0. && prevFoeConflictEntryDist >= 0) {
         // foe must have entered the conflict in the last step. Determine exact entry time
-        assert(e->foeConflictEntryTime == INVALID);
         e->foeConflictEntryTime = SIMTIME - TS + MSCFModel::passingTime(-e->foeDistsToConflict.back(), 0., -eInfo.foeConflictEntryDist, e->foe->getPreviousSpeed(), e->foe->getSpeed());
 #ifdef DEBUG_SSM
         std::cout << "    foe entered conflict area at t=" << e->foeConflictEntryTime << std::endl;
@@ -1038,7 +1042,6 @@ MSDevice_SSM::checkConflictEntryAndExit(EncounterApproachInfo& eInfo) {
     }
     if (e->egoConflictExitTime == INVALID && eInfo.egoConflictExitDist < 0 && prevEgoConflictExitDist >= 0){
         // ego must have left the conflict area in the last step. Determine exact exit time
-        assert(e->egoConflictExitTime == INVALID);
         e->egoConflictExitTime = SIMTIME - TS + MSCFModel::passingTime(-prevEgoConflictExitDist, 0., -eInfo.egoConflictExitDist, e->ego->getPreviousSpeed(), e->ego->getSpeed());
 #ifdef DEBUG_SSM
         std::cout << "    ego left conflict area at t=" << e->egoConflictExitTime << std::endl;
@@ -1046,7 +1049,6 @@ MSDevice_SSM::checkConflictEntryAndExit(EncounterApproachInfo& eInfo) {
     }
     if (e->foeConflictExitTime == INVALID && eInfo.foeConflictExitDist < 0 && prevFoeConflictExitDist >= 0){
         // foe must have left the conflict area in the last step. Determine exact exit time
-        assert(e->foeConflictExitTime == INVALID);
         e->foeConflictExitTime = SIMTIME - TS + MSCFModel::passingTime(-prevFoeConflictExitDist, 0., -eInfo.foeConflictExitDist, e->foe->getPreviousSpeed(), e->foe->getSpeed());
 #ifdef DEBUG_SSM
         std::cout << "    foe left conflict area at t=" << e->foeConflictExitTime << std::endl;
@@ -1126,10 +1128,13 @@ MSDevice_SSM::updatePassedEncounter(Encounter* e, FoeInfo* foeInfo, EncounterApp
         std::cout << "    Encounter was previously classified as a crossing situation of type " << lastPotentialConflictType << "." << std::endl;
 #endif
         // For passed encounters, the xxxConflictAreaLength variables are not determined before -> we use the stored values.
-        if (eInfo.egoConflictAreaLength == INVALID) eInfo.egoConflictAreaLength = e->foeConflictLane->getWidth();
-        if (eInfo.foeConflictAreaLength == INVALID) eInfo.foeConflictAreaLength = e->egoConflictLane->getWidth();
 
-        // TODO: foe might not exist anymore... could result in an invalid pointer access below -> test!
+        // TODO: foe might not exist anymore... could result in an invalid pointer access below -> test!?
+
+        // TODO: This could also more precisely be calculated wrt the angle of the crossing *at the conflict point*
+        if (eInfo.egoConflictAreaLength == INVALID) eInfo.egoConflictAreaLength = e->foe->getWidth();
+        if (eInfo.foeConflictAreaLength == INVALID) eInfo.foeConflictAreaLength = e->ego->getWidth();
+
         eInfo.egoConflictEntryDist = e->egoDistsToConflict.back() - e->ego->getLastStepDist();
         eInfo.egoConflictExitDist = eInfo.egoConflictEntryDist + eInfo.egoConflictAreaLength + e->ego->getLength();
         eInfo.foeConflictEntryDist = e->foeDistsToConflict.back() - e->foe->getLastStepDist();
@@ -1474,31 +1479,86 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                 foeDistToConflictLane -= offset;
                 // find the distances to the conflict from the junction entry for both vehicles
                 // for the ego
-                // TODO: determine distance to foe based on its lateral position and width instead of distance to lane
-                double distToConflictFromJunctionEntry = INVALID;
+                double egoDistToConflictFromJunctionEntry = INVALID;
                 while (foeConflictLane != 0 && foeConflictLane->isInternal()) {
-                    distToConflictFromJunctionEntry = egoEntryLink->getLengthsBeforeCrossing(foeConflictLane);
-                    if (distToConflictFromJunctionEntry != INVALID) break; // found correct foeConflictLane
+                    egoDistToConflictFromJunctionEntry = egoEntryLink->getLengthsBeforeCrossing(foeConflictLane);
+                    if (egoDistToConflictFromJunctionEntry != INVALID) {
+                        // found correct foeConflictLane
+                        egoDistToConflictFromJunctionEntry += 0.5*(foeConflictLane->getWidth() - e->foe->getVehicleType().getWidth());
+                        break;
+                    }
                     foeConflictLane = foeConflictLane->getCanonicalSuccessorLane();
                     assert(foeConflictLane != 0 && foeConflictLane->isInternal()); // this loop should be ended by the break! Otherwise the lanes do not cross, which should be the case here.
                 }
-                assert(distToConflictFromJunctionEntry != INVALID);
-                eInfo.egoConflictEntryDist = egoDistToConflictLane + distToConflictFromJunctionEntry;
+                assert(egoDistToConflictFromJunctionEntry != INVALID);
+
                 // for the foe
-                // TODO: determine distance to ego based on its lateral position and width instead of distance to lane
-                distToConflictFromJunctionEntry = -INVALID;
+                double foeDistToConflictFromJunctionEntry = INVALID;
+                foeDistToConflictFromJunctionEntry = INVALID;
                 while (egoConflictLane != 0 && egoConflictLane->isInternal()) {
-                    distToConflictFromJunctionEntry = foeEntryLink->getLengthsBeforeCrossing(egoConflictLane);
-                    if (distToConflictFromJunctionEntry != INVALID) break; // found correct foeConflictLane
+                    foeDistToConflictFromJunctionEntry = foeEntryLink->getLengthsBeforeCrossing(egoConflictLane);
+                    if (foeDistToConflictFromJunctionEntry != INVALID) {
+                        // found correct egoConflictLane
+                        foeDistToConflictFromJunctionEntry += 0.5*(egoConflictLane->getWidth() - e->ego->getVehicleType().getWidth());
+                        break;
+                    }
                     egoConflictLane = egoConflictLane->getCanonicalSuccessorLane();
                     assert(egoConflictLane != 0 && egoConflictLane->isInternal()); // this loop should be ended by the break! Otherwise the lanes do not cross, which should be the case here.
                 }
-                assert(distToConflictFromJunctionEntry != INVALID);
-                eInfo.foeConflictEntryDist = foeDistToConflictLane + distToConflictFromJunctionEntry;
+                assert(foeDistToConflictFromJunctionEntry != INVALID);
 
-                // TODO: This should more precisely be calculated in reference to the width of the vehicles, their lateral positions and the angle of the crossing. This may also imply different values for ego and foe.
-                eInfo.egoConflictAreaLength = foeConflictLane->getWidth();
-                eInfo.foeConflictAreaLength = egoConflictLane->getWidth();
+                // Take into account the lateral position for the exact determination of the conflict point
+                // whether lateral position increases or decreases conflict distance depends on lane angles at conflict
+                // -> conflictLaneOrientation in {-1,+1}
+                // First, measure the angle between the two connection lines (straight lines from junction entry point to junction exit point)
+                Position egoEntryPos = egoEntryLink->getViaLane()->getShape().front();
+                Position egoExitPos = egoEntryLink->getCorrespondingExitLink()->getInternalLaneBefore()->getShape().back();
+                PositionVector egoConnectionLine(egoEntryPos, egoExitPos);
+                Position foeEntryPos = foeEntryLink->getViaLane()->getShape().front();
+                Position foeExitPos = foeEntryLink->getCorrespondingExitLink()->getInternalLaneBefore()->getShape().back();
+                PositionVector foeConnectionLine(foeEntryPos, foeExitPos);
+                double angle = std::fmod(egoConnectionLine.rotationAtOffset(0.) - foeConnectionLine.rotationAtOffset(0.), (2*PI));
+                if (angle < 0) angle+=2*PI;
+                assert(angle>=0); assert(angle<=2*PI);
+                if (angle > PI) angle-=2*PI;
+                assert(angle>=-PI); assert(angle<=PI);
+                // Determine orientation of the connection lines. (Positive values mean that the ego vehicle approaches from the foe's left side.)
+                double crossingOrientation = (angle<0)-(angle>0);
+
+                // Adjust conflict dist to lateral positions
+                // TODO: This could more precisely be calculated wrt the angle of the crossing *at the conflict point*
+                egoDistToConflictFromJunctionEntry -= crossingOrientation*e->foe->getLateralPositionOnLane();
+                foeDistToConflictFromJunctionEntry += crossingOrientation*e->ego->getLateralPositionOnLane();
+
+                // Complete entry distances
+                eInfo.egoConflictEntryDist = egoDistToConflictLane + egoDistToConflictFromJunctionEntry;
+                eInfo.foeConflictEntryDist = foeDistToConflictLane + foeDistToConflictFromJunctionEntry;
+
+
+#ifdef DEBUG_SSM
+                std::cout << "    Determined exact conflict distances for crossing conflict."
+                        <<"\n    crossingOrientation=" << crossingOrientation
+                        <<", egoCrossingAngle="<<egoConnectionLine.rotationAtOffset(0.)
+                        <<", foeCrossingAngle="<<foeConnectionLine.rotationAtOffset(0.)
+                        <<", relativeAngle="<<angle
+                        <<" (foe from "<< (crossingOrientation > 0?"right":"left")
+                        <<"\n    resulting offset for conflict entry distance:"
+                        <<"\n     ego=" << crossingOrientation*e->foe->getLateralPositionOnLane()
+                        <<", foe=" << crossingOrientation*e->ego->getLateralPositionOnLane()
+                        <<"\n    resulting entry distances:"
+                        <<"\n     ego=" << eInfo.egoConflictEntryDist
+                        <<", foe=" << eInfo.foeConflictEntryDist
+                        << std::endl;
+#endif
+
+                // TODO: This could also more precisely be calculated wrt the angle of the crossing *at the conflict point*
+                eInfo.egoConflictAreaLength = e->foe->getWidth();
+                eInfo.foeConflictAreaLength = e->ego->getWidth();
+
+                // resulting exit distances
+                eInfo.egoConflictExitDist = eInfo.egoConflictEntryDist + eInfo.egoConflictAreaLength + e->ego->getLength();
+                eInfo.foeConflictExitDist = eInfo.foeConflictEntryDist + eInfo.foeConflictAreaLength + e->foe->getLength();
+
 #ifdef DEBUG_SSM
                 std::cout << "real egoConflictLane: '" << (egoConflictLane == 0 ? "NULL" : egoConflictLane->getID()) << "'\n"
                         << "real foeConflictLane: '" << (foeConflictLane == 0 ? "NULL" : foeConflictLane->getID()) << "'\n"
@@ -1620,8 +1680,14 @@ MSDevice_SSM::flushConflicts(bool flushAll) {
 
 void
 MSDevice_SSM::writeOutConflict(Encounter* e) {
+    // TODO: Allow converting the output back to the original CRS (add option device.ssm.geo)
 
-// TODO: modify trajectory option: "all", "conflictPoints", ("position" && "speed" == "vehState"), "SSMs"!
+    // Some useful snippets for that (from MSFCDExport.cpp):
+//    const bool useGeo = OptionsCont::getOptions().getBool("device.ssm.geo");
+//    if (useGeo) {
+//        myOutputFile->setPrecision(gPrecisionGeo);
+//        GeoConvHelper::getFinal().cartesian2geo(pos);
+//    }
 
 #ifdef DEBUG_SSM
     std::cout << SIMTIME << " writeOutConflict() of vehicles '"
@@ -1837,7 +1903,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
         assert(edge->getToJunction() == edge->getFromJunction());
 
         const MSJunction* junction = edge->getToJunction();
-        // Collect vehicles on the junction (TODO: Consider the case that this is an internal junction / the vehicles lane is the second part of a two-piece internal lane!!!)
+        // Collect vehicles on the junction
         getVehiclesOnJunction(junction, distToConflictLane, lane, foeCollector);
         seenJunctions.insert(junction);
 
@@ -2059,7 +2125,7 @@ MSDevice_SSM::getVehiclesOnJunction(const MSJunction* junction, double egoDistTo
         const MSLane::VehCont& vehicles = lane->getVehiclesSecure();
 
         // Add FoeInfos (XXX: for some situations, a vehicle may be collected twice. Then the later finding overwrites the earlier in foeCollector.
-        // This could lead to neglecting a conflict when determining foeConflictLane later.)
+        // This could lead to neglecting a conflict when determining foeConflictLane later.) -> TODO: test with twice intersecting routes
         for (MSLane::VehCont::const_iterator vi = vehicles.begin(); vi != vehicles.end(); ++vi) {
             FoeInfo* c = new FoeInfo();
             c->egoConflictLane = egoConflictLane;
