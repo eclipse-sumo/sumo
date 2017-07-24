@@ -4,6 +4,12 @@ Warning: Adding containerStop 'containerStop_gneE0_0_1' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_gneE0_0_2' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_gneE0_0_3' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_gneE0_0_4' in GNEChange_Additional
+Warning: Adding containerStop 'containerStop_gneE1_0_5' in GNEChange_Additional
+Warning: Adding containerStop 'containerStop_gneE1_0_6' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing containerStop 'containerStop_gneE1_0_6' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing containerStop 'containerStop_gneE1_0_5' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing containerStop 'containerStop_gneE0_0_4' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -24,8 +30,16 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding containerStop 'containerStop_gneE0_0_3' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding containerStop 'containerStop_gneE0_0_4' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding containerStop 'containerStop_gneE1_0_5' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding containerStop 'containerStop_gneE1_0_6' in GNEChange_Additional
+Warning: Setting new attribute endPos '50.00' into containerStop 'containerStop_gneE1_0_5'
+Warning: Setting new attribute startPos '7.50' into containerStop 'containerStop_gneE1_0_6'
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: Deleting unreferenced containerStop 'containerStop_gneE1_0_6'
+Warning: Deleting unreferenced containerStop 'containerStop_gneE1_0_5'
 Warning: Deleting unreferenced containerStop 'containerStop_gneE0_0_4'
 Warning: Deleting unreferenced containerStop 'containerStop_gneE0_0_3'
 Warning: Deleting unreferenced containerStop 'containerStop_gneE0_0_2'

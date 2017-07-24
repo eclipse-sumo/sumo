@@ -21,8 +21,16 @@ Warning: Adding containerStop 'containerStop_12' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_13' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_14' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_15' in GNEChange_Additional
+Warning: Adding containerStop 'containerStop_16' in GNEChange_Additional
+Warning: Adding containerStop 'containerStop_17' in GNEChange_Additional
+Warning: Adding containerStop 'containerStop_18' in GNEChange_Additional
+Warning: Adding containerStop 'containerStop_19' in GNEChange_Additional
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: Deleting unreferenced containerStop 'containerStop_19'
+Warning: Deleting unreferenced containerStop 'containerStop_18'
+Warning: Deleting unreferenced containerStop 'containerStop_17'
+Warning: Deleting unreferenced containerStop 'containerStop_16'
 Warning: Deleting unreferenced containerStop 'containerStop_15'
 Warning: Deleting unreferenced containerStop 'containerStop_14'
 Warning: Deleting unreferenced containerStop 'containerStop_13'
