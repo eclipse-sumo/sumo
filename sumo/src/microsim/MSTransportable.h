@@ -440,6 +440,11 @@ public:
     /// @brief the current speed of the transportable
     virtual double getSpeed() const;
 
+    /// @brief the current speed factor of the transportable (where applicable)
+    virtual double getSpeedFactor() const {
+        return 1;
+    }
+
     /// @brief the current stage type of the transportable
     StageType getCurrentStageType() const {
         return (*myStep)->getStageType();

@@ -381,5 +381,16 @@ MSPerson::routeOutput(OutputDevice& os) const {
     os.lf();
 }
 
+
+double 
+MSPerson::getSpeedFactor() const {
+    if (getCurrentStageType() == MOVING_WITHOUT_VEHICLE) {
+        MSPersonStage_Walking* walkingStage =  dynamic_cast<MSPersonStage_Walking*>(*myStep);
+        assert(walkingStage != 0);
+        return walkingStage->getMaxSpeed() / myVType->getMaxSpeed();
+    }
+    return 1;
+}
+
 /****************************************************************************/
 

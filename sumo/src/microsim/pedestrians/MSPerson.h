@@ -298,6 +298,9 @@ public:
         return false;
     }
 
+    double getSpeedFactor() const; 
+
+
 private:
     /// @brief Invalidated copy constructor.
     MSPerson(const MSPerson&);
