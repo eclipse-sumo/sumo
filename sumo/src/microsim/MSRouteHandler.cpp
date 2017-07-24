@@ -231,7 +231,15 @@ MSRouteHandler::myStartElement(int element,
                     double departPos = 0;
                     double arrivalPos = 0;
                     MSStoppingPlace* bs = 0;
-                    if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+                    if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
+                        const std::string routeID = attrs.get<std::string>(SUMO_ATTR_ROUTE, myVehicleParameter->id.c_str(), ok);
+                        const MSRoute* route = MSRoute::dictionary(routeID, &myParsingRNG);
+                        if (route == 0) {
+                            throw ProcessError("The route '" + routeID + "' for walk of person '" + myVehicleParameter->id + "' is not known.");
+                        }
+                        myActiveRoute = route->getEdges();
+                        parseWalkPositions(attrs, myVehicleParameter->id, myActiveRoute.front(), myActiveRoute.back(), departPos, arrivalPos, bs, ok);
+                    } else if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
                         MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
                         parseWalkPositions(attrs, myVehicleParameter->id, myActiveRoute.front(), myActiveRoute.back(), departPos, arrivalPos, bs, ok);
                     } else {
