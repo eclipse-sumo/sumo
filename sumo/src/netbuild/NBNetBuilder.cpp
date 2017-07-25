@@ -317,7 +317,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (!myNetworkHaveCrossings) {
         // recheck whether we had crossings in the input
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            if (i->second->getCrossings().size() > 0) {
+            if (i->second->getCrossingsIncludingInvalid().size() > 0) {
                 myNetworkHaveCrossings = true;
                 break;
             }

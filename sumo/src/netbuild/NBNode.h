@@ -583,7 +583,7 @@ public:
     void buildWalkingAreas(int cornerDetail);
 
     /// @brief build crossings, and walkingareas. Also removes invalid loaded crossings if wished
-    void buildCrossingsAndWalkingAreas(bool discardInvalid = true);
+    void buildCrossingsAndWalkingAreas();
 
     /// @brief return all edges that lie clockwise between the given edges
     EdgeVector edgesBetween(const NBEdge* e1, const NBEdge* e2) const;

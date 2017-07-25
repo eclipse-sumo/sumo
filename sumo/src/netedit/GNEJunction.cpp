@@ -120,13 +120,13 @@ GNEJunction::rebuildGNECrossings() {
     // rebuild GNECrossings only if create crossings and walkingAreas in net is enabled
     if (myNet->getNetBuilder()->haveNetworkCrossings()) {
         // build new NBNode::Crossings and walking areas
-        myNBNode.buildCrossingsAndWalkingAreas(false);
+        myNBNode.buildCrossingsAndWalkingAreas();
         // create a vector to keep retrieved and created crossings
         std::vector<GNECrossing*> retrievedCrossings;
         // iterate over NBNode::Crossings of GNEJunction
         for (auto c : myNBNode.getCrossingsIncludingInvalid()) {
             // retrieve existent GNECrossing, or create it
-            GNECrossing* retrievedGNECrossing = retrieveGNECrossing(myNBNode.getCrossing(c->id));
+            GNECrossing* retrievedGNECrossing = retrieveGNECrossing(c);
             retrievedCrossings.push_back(retrievedGNECrossing);
             // check if previously this GNECrossings exists, and if true, remove it from myGNECrossings
             std::vector<GNECrossing*>::iterator retrievedExists = std::find(myGNECrossings.begin(), myGNECrossings.end(), retrievedGNECrossing);

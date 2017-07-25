@@ -2022,23 +2022,23 @@ NBNode::forbidsPedestriansAfter(std::vector<std::pair<NBEdge*, bool> > normalize
 
 
 void
-NBNode::buildCrossingsAndWalkingAreas(bool discardInvalid) {
+NBNode::buildCrossingsAndWalkingAreas() {
     buildCrossings();
     buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"));
     // ensure that all crossings are properly connected
-    if (discardInvalid) {
-        for (auto crossing : myCrossings) {
-            if (crossing->valid && (crossing->prevWalkingArea == "" || crossing->nextWalkingArea == "")) {
+    for (auto crossing : myCrossings) {
+        if (crossing->prevWalkingArea == "" || crossing->nextWalkingArea == "" || !crossing->valid) {
+            if (crossing->valid) {
                 WRITE_WARNING("Discarding invalid crossing '" + crossing->id + "' at junction '" + getID() + "' with edges '" + toString(crossing->edges) + "' (no walkingarea found).");
-                for (std::vector<WalkingArea>::iterator it_wa = myWalkingAreas.begin(); it_wa != myWalkingAreas.end(); it_wa++) {
-                    if ((*it_wa).nextCrossing == crossing->id) {
-                        (*it_wa).nextCrossing = "";
-                    }
-                }
-                crossing->valid = false;
-                crossing->prevWalkingArea = "";
-                crossing->nextWalkingArea = "";
             }
+            for (std::vector<WalkingArea>::iterator it_wa = myWalkingAreas.begin(); it_wa != myWalkingAreas.end(); it_wa++) {
+                if ((*it_wa).nextCrossing == crossing->id) {
+                    (*it_wa).nextCrossing = "";
+                }
+            }
+            crossing->valid = false;
+            crossing->prevWalkingArea = "";
+            crossing->nextWalkingArea = "";
         }
     }
 }
@@ -2496,6 +2496,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
         if (prev.nextWalkingArea == "") {
             if (next.prevWalkingArea != "") {
                 WRITE_WARNING("Invalid pedestrian topology: crossing '" + prev.id + "' has no target.");
+                prev.valid = false;
                 continue;
             }
             WalkingArea wa(":" + getID() + "_w" + toString(index++), prev.width);
