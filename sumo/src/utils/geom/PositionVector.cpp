@@ -308,10 +308,13 @@ PositionVector::slopeDegreeAtOffset(double pos) const {
 Position
 PositionVector::positionAtOffset(const Position& p1, const Position& p2, double pos, double lateralOffset) {
     const double dist = p1.distanceTo(p2);
-    if (pos < 0 || dist < pos) {
+    if (pos < 0. || dist < pos) {
         return Position::INVALID;
     }
     if (lateralOffset != 0) {
+        if (dist == 0.) {
+            return Position::INVALID;
+        }
         const Position offset = sideOffset(p1, p2, -lateralOffset); // move in the same direction as Position::move2side
         if (pos == 0.) {
             return p1 + offset;
