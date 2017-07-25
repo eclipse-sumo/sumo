@@ -345,8 +345,9 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
             // but, what if such an edge does not exist? By now, we'll determine it
             // geometrically
             NBEdge* s = counterIncomingEdges.find(best1)->second;
-            if (GeomHelper::getMinAngleDiff(best1->getAngleAtNode(&n), s->getAngleAtNode(&n)) > 180 - 45 
-                    || (s->getPriority() == best1->getPriority() && hasDifferentPriorities(incoming, best1))) {
+            const double minAngleDiff = GeomHelper::getMinAngleDiff(best1->getAngleAtNode(&n), s->getAngleAtNode(&n));
+            if (minAngleDiff > 180 - 45 
+                    || (minAngleDiff > 75 && s->getPriority() == best1->getPriority() && hasDifferentPriorities(incoming, best1))) {
                 s->setJunctionPriority(&n, NBEdge::PRIORITY_ROAD);
             }
         }
