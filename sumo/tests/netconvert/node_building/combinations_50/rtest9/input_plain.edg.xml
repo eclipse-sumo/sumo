@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 25 Jul 2017 03:26:35 PM CEST by Netedit Version dev-SVN-r25325
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net2.net.xml"/>
+        <plain-output-prefix value="/scr2/sip-svn-trunk/projects/tapas/debug/mitte_2010/debug/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-53500554" from="61050794" to="61050789" name="Behrenstrasse" priority="-4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="-53500609" from="61050789" to="61050787" name="Glinkastrasse" priority="-4" numLanes="2" speed="13.89" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="-572713710" from="727608522" to="61050789" name="B2 / Glinkastrasse" priority="-1" numLanes="2" speed="13.89" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="-724151417" from="61050789" to="61050774" name="B2 / Behrenstrasse" priority="-1" numLanes="2" speed="13.89" shape="41494.21,36869.13 41471.77,36867.41 41433.02,36864.93 41388.81,36861.47" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="53500554" from="61050789" to="61050794" name="Behrenstrasse" priority="-4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="53500609" from="61050787" to="61050789" name="Glinkastrasse" priority="-4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="572713710" from="61050789" to="727608522" name="B2 / Glinkastrasse" priority="-1" numLanes="2" speed="13.89" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="810268295" from="61050774" to="61050789" name="B2 / Behrenstrasse" priority="-1" numLanes="2" speed="13.89" shape="41388.81,36861.47 41433.02,36864.93 41471.77,36867.41 41494.21,36869.13" disallow="tram rail_urban rail rail_electric ship"/>
+</edges>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 25 Jul 2017 03:26:35 PM CEST by Netedit Version dev-SVN-r25325
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net2.net.xml"/>
+        <plain-output-prefix value="/scr2/sip-svn-trunk/projects/tapas/debug/mitte_2010/debug/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<nodes version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-348988.12,-5782727.78" convBoundary="41388.81,36769.88,41545.15,36942.75" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="61050774" x="41388.81" y="36861.47" type="priority"/>
+    <node id="61050787" x="41503.53" y="36769.88" type="traffic_light" tl="61050787"/>
+    <node id="61050789" x="41494.21" y="36869.13" type="priority"/>
+    <node id="61050794" x="41545.15" y="36870.22" type="dead_end"/>
+    <node id="727608522" x="41486.35" y="36942.75" type="dead_end"/>
+</nodes>
