@@ -81,7 +81,7 @@ ssm2:ssm_ego.xml
 
 [run_dependent_text]
 output:^Performance:{->}^Vehicles:
-output:Building Contraction Hierarchy{[->]}done.
+output:Building Contraction Hierarchy{[->]}Simulation ended
 output:answered [0-9]* queries{REPLACE answered (NUMBER) queries}
 output:ms answering queries
 output:answered [0-9]* queries{REPLACE answered (NUMBER) queries}
