@@ -612,7 +612,7 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, double oldPos,
     myMoveNotifications.push_back(makeMoveNotification(veh, oldPos, newPos, newSpeed, vehInfo));
 
     // determine whether vehicle has moved beyond the detector's end
-    bool vehPassedDetectorEnd = relPos - veh.getVehicleType().getLength() >= vehInfo.exitOffset;
+    bool vehPassedDetectorEnd = - vehInfo.exitOffset <= newPos - veh.getVehicleType().getLength();
 
     if (vehPassedDetectorEnd) {
 #ifdef DEBUG_E2_NOTIFY_MOVE
@@ -644,10 +644,10 @@ MSE2Collector::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminde
             // Entered lane is not part of the detector
             VehicleInfoMap::iterator vi = myVehicleInfos.find(veh.getID());
             // Determine exit offset, where vehicle left the detector
-            double exitOffset = myOffsets[vi->second->currentOffsetIndex] + vi->second->currentLane->getLength();
-            vi->second->exitOffset = MIN2(vi->second->exitOffset, exitOffset);
+            double exitOffset = vi->second->entryOffset - myOffsets[vi->second->currentOffsetIndex] - vi->second->currentLane->getLength();
+            vi->second->exitOffset = MAX2(vi->second->exitOffset, exitOffset);
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
-            std::cout << SIMTIME << " Vehicle '" << veh.getID() << "' leaves the detector. Exit offset = " << exitOffset << std::endl;
+            std::cout << SIMTIME << " Vehicle '" << veh.getID() << "' leaves the detector. Exit offset = " << vi->second->exitOffset << std::endl;
 #endif
         }
 
@@ -734,7 +734,8 @@ MSE2Collector::makeVehicleInfo(const SUMOVehicle& veh, const MSLane* enteredLane
               << "\nentry lane offset (lane begin from detector begin) = " << entryOffset
               << std::endl;
 #endif
-    return new VehicleInfo(veh.getID(), veh.getVehicleType().getID(), veh.getVehicleType().getLength(), veh.getVehicleType().getMinGap(), enteredLane, entryOffset, j, myDetectorLength, distToDetectorEnd, onDetector);
+    return new VehicleInfo(veh.getID(), veh.getVehicleType().getID(), veh.getVehicleType().getLength(), veh.getVehicleType().getMinGap(), enteredLane, entryOffset, j,
+               myOffsets[j]-myDetectorLength, distToDetectorEnd, onDetector);
 }
 
 void
@@ -909,7 +910,7 @@ MSE2Collector::makeMoveNotification(const SUMOVehicle& veh, double oldPos, doubl
 
     // XXX: Fulfulling the specifications of the documentation (lengthOnDetector = time integral
     //      over length of the vehicle's part on the detector) would be much more cumbersome.
-    double distToExit = vehInfo.exitOffset - vehInfo.entryOffset - newPos;
+    double distToExit = -vehInfo.exitOffset - newPos;
     // Eventually decrease further to account for the front reaching out
     lengthOnDetector = MAX2(0., lengthOnDetector + MIN2(0., distToExit));
 
@@ -1097,7 +1098,7 @@ MSE2Collector::calculateTimeLossAndTimeOnDetector(const SUMOVehicle& veh, double
     // speed at detector entry
     double entrySpeed = MSCFModel::speedAfterTime(entryTime, veh.getPreviousSpeed(), newPos - oldPos);
     // Calculate time spent on detector until reaching newPos or a detector exit
-    double exitPos = MIN2(newPos, vi.exitOffset + vi.length - vi.entryOffset);
+    double exitPos = MIN2(newPos, -vi.exitOffset + vi.length);
     assert(entryPos < exitPos);
 
     // calculate vehicle's time spent on the detector

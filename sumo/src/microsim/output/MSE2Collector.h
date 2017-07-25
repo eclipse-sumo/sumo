@@ -91,7 +91,7 @@ public:
      *         (may it be temporarily), the entry in myVehicles is discarded, i.e. all information on the vehicle is reset.
     */
     struct VehicleInfo {
-        /** @note Constructor expects an _entryLane argument corresponding to a lane, which is part of the detector.
+        /** @note Constructor expects an entryLane argument corresponding to a lane, which is part of the detector.
         */
         VehicleInfo(std::string id, std::string type, double length, double minGap, const MSLane* entryLane, double entryOffset,
                     std::size_t currentOffsetIndex, double exitOffset, double distToDetectorEnd, bool onDetector) :
@@ -112,6 +112,7 @@ public:
             lastAccel(0),
             lastSpeed(0),
             lastPos(0) {
+            assert(exitOffset < 0);
         }
         virtual ~VehicleInfo() {};
         /// vehicle's ID
