@@ -225,7 +225,7 @@ public:
         }
         // loop
         int num_visited = 0;
-        const double mayRevisit = myLookupTable != 0 && !myLookupTable->consistent();
+        const bool mayRevisit = myLookupTable != 0 && !myLookupTable->consistent();
         const double speed = MIN2(vehicle->getMaxSpeed(), myMaxSpeed * vehicle->getChosenSpeedFactor());
         while (!myFrontierList.empty()) {
             num_visited += 1;
