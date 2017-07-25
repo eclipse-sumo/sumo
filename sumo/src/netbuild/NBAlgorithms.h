@@ -255,6 +255,9 @@ private:
      */
     static bool samePriority(const NBEdge* const e1, const NBEdge* const e2);
 
+    /// @brief return whether the priorite attribute can be used to distinguish the edges
+    static bool hasDifferentPriorities(const EdgeVector& edges, const NBEdge* excluded);
+
 };
 
 #endif

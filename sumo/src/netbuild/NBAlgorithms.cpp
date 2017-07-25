@@ -334,7 +334,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
         std::sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_opposite_direction_sorter(*i, &n, true));
         counterOutgoingEdges[*i] = *outgoing.begin();
     }
-    //std::cout << "n=" << n.getID() << " best=" << best->getID() << " bestIncoming=" << toString(bestIncoming) << "\n incoming=" << toString(incoming) << "\n outgoing=" << toString(outgoing) << "\n";
+    //std::cout << "n=" << n.getID() << " best=" << best->getID() << " bestIncoming=" << toString(bestIncoming) << "\n incoming=" << toString(incoming) << "\n outgoing=" << toString(outgoing) << "\n mainExplicit=" << mainDirectionExplicit << " counterBest=" << counterIncomingEdges.find(bestIncoming[0])->second->getID() << "\n";
     // ok, let's try
     // 1) there is one best incoming road
     if (bestIncoming.size() == 1) {
@@ -345,7 +345,8 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
             // but, what if such an edge does not exist? By now, we'll determine it
             // geometrically
             NBEdge* s = counterIncomingEdges.find(best1)->second;
-            if (GeomHelper::getMinAngleDiff(best1->getAngleAtNode(&n), s->getAngleAtNode(&n)) > 180 - 45) {
+            if (GeomHelper::getMinAngleDiff(best1->getAngleAtNode(&n), s->getAngleAtNode(&n)) > 180 - 45 
+                    || (s->getPriority() == best1->getPriority() && hasDifferentPriorities(incoming, best1))) {
                 s->setJunctionPriority(&n, NBEdge::PRIORITY_ROAD);
             }
         }
@@ -430,6 +431,21 @@ NBEdgePriorityComputer::samePriority(const NBEdge* const e1, const NBEdge* const
         return false;
     }
     return (int) e1->getNumLanes() == (int) e2->getNumLanes();
+}
+
+
+bool
+NBEdgePriorityComputer::hasDifferentPriorities(const EdgeVector& edges, const NBEdge* excluded) {
+    if (edges.size() < 2) {
+        return false;
+    }
+    int prio = edges[0] == excluded ? edges[1]->getPriority() : edges[0]->getPriority();
+    for (auto e : edges) {
+        if (e != excluded && e->getPriority() != prio) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
