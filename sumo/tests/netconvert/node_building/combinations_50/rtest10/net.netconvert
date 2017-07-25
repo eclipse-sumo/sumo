@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Jul 25 17:56:05 2017 by SUMO netconvert Version dev-SVN-r25337
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <check-lane-foes.all value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-392670.92,-5820431.99" convBoundary="0.00,0.00,109.53,135.58" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id=":61057980_0" function="internal">
+        <lane id=":61057980_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="4.89" shape="59.96,59.37 59.11,60.38 58.75,61.45 58.89,62.56 59.53,63.72"/>
+    </edge>
+    <edge id=":61057980_1" function="internal">
+        <lane id=":61057980_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="17.88" shape="45.08,45.84 49.40,51.79 52.96,55.61 55.74,57.32 57.74,56.92"/>
+    </edge>
+    <edge id=":61057980_2" function="internal">
+        <lane id=":61057980_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="22.99" shape="45.08,45.84 47.55,49.09 50.78,52.88 54.77,57.62 59.53,63.72"/>
+    </edge>
+    <edge id=":61057980_3" function="internal">
+        <lane id=":61057980_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="22.77" shape="42.31,47.92 46.60,52.38 49.67,56.00 52.70,60.02 56.88,65.69"/>
+        <lane id=":61057980_3_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="22.77" shape="39.98,50.26 44.24,54.69 47.24,58.23 50.17,62.13 54.23,67.66"/>
+    </edge>
+    <edge id=":61057981_0" function="internal">
+        <lane id=":61057981_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="4.82" shape="65.84,49.61 67.32,49.39 68.17,49.72 68.42,50.61 68.06,52.05"/>
+    </edge>
+
+    <edge id="-53595346" from="61057980" to="61057981" name="Otto-Braun-Strasse" priority="-5">
+        <lane id="-53595346_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="10.91" shape="57.74,56.92 65.84,49.61"/>
+    </edge>
+    <edge id="53595343" from="61057974" to="61057980" name="B2 / Otto-Braun-Strasse" priority="-1" spreadType="center" shape="26.20,18.34 28.28,20.52 33.20,28.20 47.23,49.04 54.31,62.24">
+        <lane id="53595343_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="33.40" shape="26.20,18.34 28.28,20.52 33.20,28.20 45.08,45.84"/>
+    </edge>
+    <edge id="53595346" from="61057981" to="61057980" name="Otto-Braun-Strasse" priority="-5">
+        <lane id="53595346_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="10.91" shape="68.06,52.05 59.96,59.37"/>
+    </edge>
+    <edge id="764250195" from="gneJ0" to="61057980" name="Tunnel Alexanderplatz" priority="-1" spreadType="center" shape="0.00,0.00 20.96,27.36 39.04,46.99 54.31,62.24">
+        <lane id="764250195_0" index="0" allow="emergency vip passenger hov taxi bus coach delivery truck trailer custom1" speed="13.89" length="64.12" shape="1.31,-1.00 22.22,26.30 40.23,45.85 42.31,47.92"/>
+        <lane id="764250195_1" index="1" allow="emergency vip passenger hov taxi bus coach delivery truck trailer custom1" speed="13.89" length="64.12" shape="-1.31,1.00 19.70,28.42 37.85,48.13 39.98,50.26"/>
+    </edge>
+    <edge id="857669950" from="61057980" to="817135714" name="B2 / Otto-Braun-Strasse" priority="-1" spreadType="center" shape="54.31,62.24 64.10,75.38 109.53,135.58">
+        <lane id="857669950_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="87.50" shape="59.53,63.72 66.74,73.40 112.16,133.59"/>
+        <lane id="857669950_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="87.50" shape="56.88,65.69 64.10,75.38 109.53,135.58"/>
+        <lane id="857669950_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="87.50" shape="54.23,67.66 61.46,77.36 106.90,137.57"/>
+    </edge>
+
+    <junction id="61057974" type="dead_end" x="26.20" y="18.34" incLanes="" intLanes="" shape="25.04,19.44 27.36,17.24"/>
+    <junction id="61057980" type="priority" x="54.31" y="62.24" incLanes="53595346_0 53595343_0 764250195_0 764250195_1" intLanes=":61057980_0_0 :61057980_1_0 :61057980_2_0 :61057980_3_0 :61057980_3_1" shape="52.95,68.62 60.81,62.76 61.03,60.55 56.67,55.73 46.50,45.08 43.66,46.60 43.44,46.79 38.84,51.39">
+        <request index="0" response="00100" foes="00100" cont="0"/>
+        <request index="1" response="00000" foes="00000" cont="0"/>
+        <request index="2" response="00000" foes="00001" cont="0"/>
+        <request index="3" response="00000" foes="00000" cont="0"/>
+        <request index="4" response="00000" foes="00000" cont="0"/>
+    </junction>
+    <junction id="61057981" type="priority" x="66.95" y="50.83" incLanes="-53595346_0" intLanes=":61057981_0_0" shape="66.98,50.87 64.77,48.42 66.92,50.79">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="817135714" type="dead_end" x="109.53" y="135.58" incLanes="857669950_0 857669950_1 857669950_2" intLanes="" shape="113.44,132.63 105.62,138.53"/>
+    <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-2.58,1.98 2.58,-1.98"/>
+
+    <connection from="-53595346" to="53595346" fromLane="0" toLane="0" via=":61057981_0_0" dir="t" state="M"/>
+    <connection from="53595343" to="-53595346" fromLane="0" toLane="0" via=":61057980_1_0" dir="r" state="M"/>
+    <connection from="53595343" to="857669950" fromLane="0" toLane="0" via=":61057980_2_0" dir="s" state="M"/>
+    <connection from="53595346" to="857669950" fromLane="0" toLane="0" via=":61057980_0_0" dir="r" state="m"/>
+    <connection from="764250195" to="857669950" fromLane="0" toLane="1" via=":61057980_3_0" dir="s" state="M"/>
+    <connection from="764250195" to="857669950" fromLane="1" toLane="2" via=":61057980_3_1" dir="s" state="M"/>
+
+    <connection from=":61057980_0" to="857669950" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":61057980_1" to="-53595346" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":61057980_2" to="857669950" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":61057980_3" to="857669950" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":61057980_3" to="857669950" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from=":61057981_0" to="53595346" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

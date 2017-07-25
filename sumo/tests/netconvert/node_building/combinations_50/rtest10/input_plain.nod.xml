@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 25 Jul 2017 05:51:35 PM CEST by Netedit Version dev-SVN-r25325
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="mitte.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="mitte.net.xml"/>
+        <plain-output-prefix value="/scr2/sip-svn-trunk/projects/tapas/debug/mitte_2010/debug/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<nodes version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-348988.12,-5782727.78" convBoundary="43365.08,37299.47,43792.33,37839.79" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="61057974" x="43709.00" y="37722.55" type="dead_end"/>
+    <node id="61057980" x="43737.11" y="37766.45" type="priority"/>
+    <node id="61057981" x="43749.75" y="37755.04" type="dead_end"/>
+    <node id="817135714" x="43792.33" y="37839.79" type="dead_end"/>
+    <node id="838609113" x="43365.08" y="37299.47" type="dead_end"/>
+    <node id="gneJ0" x="43682.80" y="37704.21" type="dead_end"/>
+</nodes>

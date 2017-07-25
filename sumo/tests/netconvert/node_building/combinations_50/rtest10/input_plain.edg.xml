@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 25 Jul 2017 05:51:35 PM CEST by Netedit Version dev-SVN-r25325
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="mitte.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="mitte.net.xml"/>
+        <plain-output-prefix value="/scr2/sip-svn-trunk/projects/tapas/debug/mitte_2010/debug/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-53595346" from="61057980" to="61057981" name="Otto-Braun-Strasse" priority="-5" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="53595343" from="61057974" to="61057980" name="B2 / Otto-Braun-Strasse" priority="-1" numLanes="1" speed="13.89" shape="43709.00,37722.55 43711.08,37724.73 43716.00,37732.41 43730.03,37753.25 43737.11,37766.45" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="53595346" from="61057981" to="61057980" name="Otto-Braun-Strasse" priority="-5" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="764250195" from="gneJ0" to="61057980" name="Tunnel Alexanderplatz" priority="-1" numLanes="2" speed="13.89" shape="43682.80,37704.21 43703.76,37731.57 43721.84,37751.20 43737.11,37766.45" spreadType="center" allow="emergency vip passenger hov taxi bus coach delivery truck trailer custom1"/>
+    <edge id="857669950" from="61057980" to="817135714" name="B2 / Otto-Braun-Strasse" priority="-1" numLanes="3" speed="13.89" shape="43737.11,37766.45 43746.90,37779.59 43792.33,37839.79" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+</edges>

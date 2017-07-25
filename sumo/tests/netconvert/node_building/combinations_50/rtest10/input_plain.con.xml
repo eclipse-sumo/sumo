@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 25 Jul 2017 05:50:05 PM CEST by Netedit Version dev-SVN-r25325
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="mitte.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="mitte.net.xml"/>
+        <plain-output-prefix value="/scr2/sip-svn-trunk/projects/tapas/debug/mitte_2010/debug/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="53595343" to="-53595346" fromLane="0" toLane="0"/>
+    <connection from="53595343" to="857669950" fromLane="0" toLane="0"/>
+
+    <connection from="53595346" to="857669950" fromLane="0" toLane="0"/>
+
+    <connection from="764250195" to="857669950" fromLane="0" toLane="1"/>
+    <connection from="764250195" to="857669950" fromLane="1" toLane="2"/>
+
+</connections>
