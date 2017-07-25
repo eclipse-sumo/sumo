@@ -590,7 +590,7 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, double oldPos,
 
 #ifdef DEBUG_E2_NOTIFY_MOVE
     std::cout << "\n" << SIMTIME
-              << " MSE2Collector::notifyMove()"
+              << " MSE2Collector::notifyMove() (detID = " << myID << "on lane '" << myLane->getID() << "')"
               << " called by vehicle '" << vehID << "'"
               << " at relative position " << relPos
               << ", distToDetectorEnd = " << vehInfo.distToDetectorEnd << std::endl;
@@ -609,14 +609,25 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, double oldPos,
         myNumberOfSeenVehicles++;
     }
 
-    myMoveNotifications.push_back(makeMoveNotification(veh, oldPos, newPos, newSpeed, vehInfo));
 
     // determine whether vehicle has moved beyond the detector's end
     bool vehPassedDetectorEnd = - vehInfo.exitOffset <= newPos - veh.getVehicleType().getLength();
 
+    // determine whether vehicle has been on the detector at all
+    bool vehicleEnteredLaneAfterDetector = vehPassedDetectorEnd && (-vehInfo.exitOffset <= oldPos - veh.getVehicleType().getLength());
+    // ... if not, dont create any notification at all
+    if (vehicleEnteredLaneAfterDetector) {
+#ifdef DEBUG_E2_NOTIFY_MOVE
+        std::cout << "Vehicle entered lane behind detector." << std::endl;
+#endif
+    } else {
+        myMoveNotifications.push_back(makeMoveNotification(veh, oldPos, newPos, newSpeed, vehInfo));
+    }
+
+
     if (vehPassedDetectorEnd) {
 #ifdef DEBUG_E2_NOTIFY_MOVE
-        std::cout << "Vehicle has left the detector along a junction." << std::endl;
+        std::cout << "Vehicle has left the detector longitudinally." << std::endl;
 #endif
         // Vehicle is beyond the detector, unsubscribe and register removal from myVehicleInfos
         myLeftVehicles.insert(vehID);
@@ -630,7 +641,8 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, double oldPos,
 bool
 MSE2Collector::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
-    std::cout << "\n" << SIMTIME << " notifyLeave() called by vehicle '" << veh.getID() << "'" << std::endl;
+    std::cout << "\n" << SIMTIME << " notifyLeave() (detID = " << myID << "on lane '" << myLane->getID() << "')"
+             << "called by vehicle '" << veh.getID() << "'" << std::endl;
 #endif
 
     if (reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
@@ -669,7 +681,8 @@ MSE2Collector::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminde
 bool
 MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /* reason */, const MSLane* enteredLane) {
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
-    std::cout << "\n" << SIMTIME << " notifyEnter() called by vehicle '" << veh.getID()
+    std::cout << "\n" << SIMTIME << " notifyEnter() (detID = " << myID << "on lane '" << myLane->getID() << "')"
+              << "called by vehicle '" << veh.getID()
               << "' entering lane '" << (enteredLane != 0 ? enteredLane->getID() : "NULL") << "'" << std::endl;
 #endif
 
@@ -707,6 +720,8 @@ MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /* rea
         // but don't add a second subscription for another lane
         return false;
     }
+
+
 
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
     std::cout << SIMTIME << " Adding VehicleInfo for vehicle '" << veh.getID() << "'." << std::endl;
