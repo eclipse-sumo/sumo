@@ -33,8 +33,8 @@ Warning: Created connection 'from8_3to1_1' in retrieveGNEConnection()
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Removing busStop 'busStop_3_2_0' in GNEChange_Additional
-Warning: Removing crossing from junction 'Center'
-Warning: Deleting unreferenced crossing ':Center_c1' in rebuildGNECrossings()
+Warning: Setting new attribute edges '7' into crossing ':Center_c1'
+Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges '7' (no walkingarea found).
 Warning: Removing connection '6_1->4_3' from edge '6'
 Warning: Deleting unreferenced connection 'from6_1to4_3' in removeConnection()
 Warning: Removing connection '6_1->1_1' from edge '6'
@@ -150,6 +150,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' in
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '4'
 Warning: Adding busStop 'busStop_8_2_1' in GNEChange_Additional
 Warning: Adding crossing into junction 'Center'
+Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding edge '3' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
@@ -207,15 +208,13 @@ Warning: Adding connection '6_1->1_1' into edge '6'
 Warning: Created connection 'from6_1to1_1' in retrieveGNEConnection()
 Warning: Adding connection '6_1->4_3' into edge '6'
 Warning: Created connection 'from6_1to4_3' in retrieveGNEConnection()
-Warning: Adding crossing into junction 'Center'
+Warning: Setting previous attribute edges '3 7' into crossing ':Center_c1'
 Warning: Adding busStop 'busStop_3_2_0' in GNEChange_Additional
 Warning: Key F5 (Compute) pressed
-Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
-Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing busStop 'busStop_3_2_0' in GNEChange_Additional
-Warning: Removing crossing from junction 'Center'
-Warning: Deleting unreferenced crossing ':Center_c1' in rebuildGNECrossings()
+Warning: Setting new attribute edges '7' into crossing ':Center_c1'
+Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges '7' (no walkingarea found).
 Warning: Removing connection '6_1->4_3' from edge '6'
 Warning: Deleting unreferenced connection 'from6_1to4_3' in removeConnection()
 Warning: Removing connection '6_1->1_1' from edge '6'
@@ -274,7 +273,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge '3' from net
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing crossing from junction 'Center'
-Warning: Deleting unreferenced crossing ':Center_c0' in rebuildGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in rebuildGNECrossings()
 Warning: Removing busStop 'busStop_8_2_1' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
@@ -354,4 +353,5 @@ Warning: Deleting unreferenced junction 'A' in GNENet destructor
 Warning: Deleting unreferenced junction 'B' in GNENet destructor
 Warning: Deleting unreferenced junction 'C' in GNENet destructor
 Warning: Deleting unreferenced junction 'Center' in GNENet destructor
+Warning: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
 Warning: Deleting net builder in GNENet destructor

@@ -37,9 +37,9 @@ Warning: Setting new attribute disallow 'emergency authority army vip passenger 
 Warning: Setting new attribute disallow 'emergency authority army vip passenger hov bus coach tram rail_urban rail rail_electric motorcycle moped pedestrian custom1' into lane 'gneE2_1'
 Warning: Setting new attribute disallow 'emergency authority army vip passenger hov bus coach tram rail_urban rail rail_electric motorcycle moped pedestrian custom1' into edge 'gneE2'
 Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
-Warning: Value 'dummyShap' for attribute shape of edge isn't valid
+Warning: Value 'dummyShape' for attribute shape of edge isn't valid
 Warning: Key F5 (Compute) pressed
-Warning: Setting new attribute shape '13.112,16.22 34.19,16.1' into edge 'gneE2'
+Warning: Setting new attribute shape '13.112,16.22 34.19,16.11' into edge 'gneE2'
 Warning: Key F5 (Compute) pressed
 Warning: Value '' for attribute length of edge isn't valid
 Warning: Value '' for attribute length of edge isn't valid
@@ -82,10 +82,10 @@ Warning: Value '14,15.5' for attribute shapeEnd of edge isn't valid
 Warning: Setting new attribute shapeEnd '' into edge 'gneE2'
 Warning: Setting new attribute shapeEnd '34,15.5' into edge 'gneE2'
 Warning: Key F5 (Compute) pressed
-Warning: Found angle of 141.29 degrees at edge 'gneE2', segment 0
+Warning: Found angle of 141.26 degrees at edge 'gneE2', segment 0
 Warning: Found sharp turn with radius 0.40 at the start of edge 'gneE2'.
-Warning: Found angle of 107.25 degrees at edge 'gneE2', segment 1
-Warning: Found sharp turn with radius 0.46 at the end of edge 'gneE2'.
+Warning: Found angle of 107.00 degrees at edge 'gneE2', segment 1
+Warning: Found sharp turn with radius 0.47 at the end of edge 'gneE2'.
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute shapeEnd '' into edge 'gneE2'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -156,7 +156,7 @@ Warning: Setting new attribute disallow 'emergency authority army vip passenger 
 Warning: Setting new attribute disallow 'emergency authority army vip passenger hov bus coach tram rail_urban rail rail_electric motorcycle moped pedestrian custom1' into lane 'gneE2_1'
 Warning: Setting new attribute disallow 'emergency authority army vip passenger hov bus coach tram rail_urban rail rail_electric motorcycle moped pedestrian custom1' into edge 'gneE2'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute shape '13.112,16.22 34.19,16.1' into edge 'gneE2'
+Warning: Setting new attribute shape '13.112,16.22 34.19,16.11' into edge 'gneE2'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute length '40' into edge 'gneE2'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -191,10 +191,10 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute shapeEnd '' into edge 'gneE2'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute shapeEnd '34,15.5' into edge 'gneE2'
-Warning: Found angle of 141.29 degrees at edge 'gneE2', segment 0
+Warning: Found angle of 141.26 degrees at edge 'gneE2', segment 0
 Warning: Found sharp turn with radius 0.40 at the start of edge 'gneE2'.
-Warning: Found angle of 107.25 degrees at edge 'gneE2', segment 1
-Warning: Found sharp turn with radius 0.46 at the end of edge 'gneE2'.
+Warning: Found angle of 107.00 degrees at edge 'gneE2', segment 1
+Warning: Found sharp turn with radius 0.47 at the end of edge 'gneE2'.
 Warning: Deleting unreferenced busStop 'busStop6'
 Warning: Deleting unreferenced busStop 'busStop5'
 Warning: Deleting unreferenced busStop 'busStop4'

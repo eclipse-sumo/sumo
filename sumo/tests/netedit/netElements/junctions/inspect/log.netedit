@@ -72,7 +72,7 @@ Warning: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
 Warning: Value 'gneJ1' for attribute id of junction isn't valid
 Warning: Setting new attribute id '' into junction 'gneJ0'
 Warning: Setting new attribute id 'OwnID' into junction ''
-Warning: Setting new attribute pos '20.00,50.0' into junction 'OwnID'
+Warning: Setting new attribute pos '20.00,50.00' into junction 'OwnID'
 Warning: Setting new attribute type 'allway_stop' into junction 'OwnID'
 Warning: Setting new attribute type 'allway_stop' into junction 'gneJ1'
 Warning: Setting new attribute type 'allway_stop' into junction 'gneJ2'
@@ -91,7 +91,7 @@ Warning: Setting new attribute type 'unregulated' into junction 'gneJ17'
 Warning: Setting new attribute type 'internal' into junction 'gneJ19'
 Warning: Setting new attribute type 'dead_end' into junction 'gneJ13'
 Warning: Key F5 (Compute) pressed
-Warning: Setting new attribute shape '52.85,50.00 50.54,43.93 50.50,43.16 46.01,38.46 45.53,38.12 39.59,35.4' into junction 'gneJ18'
+Warning: Setting new attribute shape '52.85,50.00 50.54,43.93 50.50,43.16 46.01,38.46 45.53,38.12 39.59,35.49' into junction 'gneJ18'
 Warning: Setting new attribute radius '2' into junction 'gneJ17'
 Warning: Setting new attribute keepClear 'false' into junction 'gneJ17'
 Warning: Key F5 (Compute) pressed
@@ -149,7 +149,7 @@ Warning: Setting new attribute id '' into junction 'gneJ0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute id 'OwnID' into junction ''
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '20.00,50.0' into junction 'OwnID'
+Warning: Setting new attribute pos '20.00,50.00' into junction 'OwnID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute type 'allway_stop' into junction 'OwnID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -183,7 +183,7 @@ Warning: Setting new attribute type 'internal' into junction 'gneJ19'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute type 'dead_end' into junction 'gneJ13'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute shape '52.85,50.00 50.54,43.93 50.50,43.16 46.01,38.46 45.53,38.12 39.59,35.4' into junction 'gneJ18'
+Warning: Setting new attribute shape '52.85,50.00 50.54,43.93 50.50,43.16 46.01,38.46 45.53,38.12 39.59,35.49' into junction 'gneJ18'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute radius '2' into junction 'gneJ17'
 Warning: Keys Ctrl + Y (Redo) pressed

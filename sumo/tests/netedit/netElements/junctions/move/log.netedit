@@ -70,9 +70,9 @@ Warning: Connection '-gneE14_0->-gneE19_0' has a grade of 28.28%.
 Warning: Connection '-gneE17_0->gneE19_0' has a grade of 60.42%.
 Warning: Connection '-gneE18_0->gneE19_0' has a grade of 13.29%.
 Warning: Connection 'gneE13_0->-gneE19_0' has a grade of 13.48%.
-Warning: Setting new attribute pos '120,20.' into junction 'gneJ13'
+Warning: Setting new attribute pos '120,20.2' into junction 'gneJ13'
 Warning: Connection '-gneE14_0->-gneE19_0' has a grade of 28.28%.
-Warning: Connection '-gneE17_0->gneE19_0' has a grade of 65.58%.
+Warning: Connection '-gneE17_0->gneE19_0' has a grade of 64.45%.
 Warning: Connection '-gneE18_0->gneE19_0' has a grade of 13.29%.
 Warning: Connection 'gneE13_0->-gneE19_0' has a grade of 13.48%.
 Warning: Deleting unreferenced edge '-gneE10' in GNENet destructor
