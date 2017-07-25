@@ -265,19 +265,7 @@ NBNodeTypeComputer::computeSingleNodeType(NBNode* node) {
 void
 NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont& nc) {
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* n = (*i).second;
-        // preset all junction's edge priorities to zero
-        for (EdgeVector::iterator j = n->myAllEdges.begin(); j != n->myAllEdges.end(); ++j) {
-            (*j)->setJunctionPriority(n, NBEdge::MINOR_ROAD);
-        }
-        // check if the junction is not a real junction
-        if (n->myIncomingEdges.size() == 1 && n->myOutgoingEdges.size() == 1) {
-            continue;
-        }
-        // compute the priorities on junction when needed
-        if (n->myType != NODETYPE_RIGHT_BEFORE_LEFT) {
-            setPriorityJunctionPriorities(*n);
-        }
+        computeEdgePrioritiesSingleNode((*i).second);
     }
 }
 
@@ -290,6 +278,7 @@ NBEdgePriorityComputer::computeEdgePrioritiesSingleNode(NBNode* node) {
     }
     // check if the junction is not a real junction
     if (node->myIncomingEdges.size() == 1 && node->myOutgoingEdges.size() == 1) {
+        return;
     }
     // compute the priorities on junction when needed
     if (node->getType() != NODETYPE_RIGHT_BEFORE_LEFT) {
