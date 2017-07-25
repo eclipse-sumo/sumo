@@ -76,11 +76,19 @@ public:
     void setIsMultipleStopPositions(bool multipleStopPositions);
     double getLength();
     void setEdgeId(std::string edgeId);
+    void registerAdditionalEdge(std::string wayId, std::string edgeId);
 private:
     const std::string myPTStopId;
     Position myPosition;
     std::string myEdgeId;
-    const std::string myOrigEdgeId;
+    std::map<std::string,std::string> myAdditionalEdgeCandidates;
+public:
+    const std::map<std::string, std::string>& getMyAdditionalEdgeCandidates() const;
+private:
+    std::string myOrigEdgeId;
+public:
+    void setMyOrigEdgeId(const std::string& myOrigEdgeId);
+private:
     const double myPTStopLength;
     const std::string myName;
     std::string myLaneId;

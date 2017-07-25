@@ -40,7 +40,6 @@ public:
     */
     bool insert(NBPTStop* ptStop);
 
-
     /// @brief Retrieve a previously inserted pt stop
     NBPTStop* get(std::string id);
 

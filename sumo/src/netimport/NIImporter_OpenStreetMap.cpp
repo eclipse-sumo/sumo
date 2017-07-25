@@ -347,16 +347,19 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         NIOSMNode* n = myOSMNodes.find(i)->second;
 
         if (n->ptStopPostion) {
-            Position ptPos(n->lon, n->lat, n->ele);
-            if (!NBNetBuilder::transformCoordinate(ptPos)) {
-                WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
+            NBPTStop * existingPtStop = sc.get(toString(n->id));
+            if (existingPtStop != nullptr){
+                existingPtStop->registerAdditionalEdge(toString(e->id), id);
+            } else {
+                Position ptPos(n->lon, n->lat, n->ele);
+                if (!NBNetBuilder::transformCoordinate(ptPos)) {
+                    WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
+                }
+                NBPTStop* ptStop = new NBPTStop(toString(n->id), ptPos, id, toString(e->id), n->ptStopLength, n->name,
+                                                n->permissions);
+
+                sc.insert(ptStop);
             }
-            NBPTStop* ptStop = new NBPTStop(toString(n->id), ptPos, id, toString(e->id), n->ptStopLength, n->name,
-                                            n->permissions);
-
-            sc.insert(ptStop);
-
-
         }
         Position pos(n->lon, n->lat, n->ele);
         shape.push_back(pos);

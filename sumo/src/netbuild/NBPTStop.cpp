@@ -123,3 +123,12 @@ double NBPTStop::getLength() {
 void NBPTStop::setEdgeId(std::string edgeId) {
     myEdgeId = edgeId;
 }
+void NBPTStop::registerAdditionalEdge(std::string wayId, std::string edgeId) {
+    myAdditionalEdgeCandidates[wayId] = edgeId;
+}
+const std::map<std::string, std::string>& NBPTStop::getMyAdditionalEdgeCandidates() const {
+    return myAdditionalEdgeCandidates;
+}
+void NBPTStop::setMyOrigEdgeId(const std::string& myOrigEdgeId) {
+    NBPTStop::myOrigEdgeId = myOrigEdgeId;
+}

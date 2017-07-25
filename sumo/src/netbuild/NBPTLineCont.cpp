@@ -54,16 +54,19 @@ NBPTLineCont::insert(NBPTLine* pLine) {
     myPTLines.push_back(pLine);
 }
 void NBPTLineCont::process(NBEdgeCont& cont) {
-    for (std::vector<NBPTLine*>::iterator it = myPTLines.begin(); it != myPTLines.end(); it++) {
-        std::vector<NBPTStop*> stops = (*it)->getStops();
-        for (std::vector<NBPTStop*>::iterator it2 = stops.begin(); it2 != stops.end(); it2++) {
-            //get the corresponding and one of the two adjacent ways
-            std::string origId = (*it2)->getOrigEdgeId();
+    for (auto& myPTLine : myPTLines) {
+        std::vector<NBPTStop*> stops = myPTLine->getStops();
+        std::vector<std::string> waysIds = myPTLine->getMyWays();
+        auto waysIdsIt = waysIds.begin();
 
-            std::vector<std::string> waysIds = (*it)->getMyWays();
-            std::vector<std::string>::iterator waysIdsIt = waysIds.begin();
+        for (auto& stop : stops) {
+            //get the corresponding and one of the two adjacent ways
+            std::string origId = stop->getOrigEdgeId();
+
+
+
             if (waysIds.size() <= 1) {
-                WRITE_WARNING("Cannot revise pt stop localization for pt line: " + (*it)->getName()
+                WRITE_WARNING("Cannot revise pt stop localization for pt line: " + myPTLine->getName()
                                       + ", which consist of one way only. Ignoring!");
                 continue;
             }
@@ -72,15 +75,36 @@ void NBPTLineCont::process(NBEdgeCont& cont) {
                     break;
                 }
             }
+            if (waysIdsIt == waysIds.end()){
+                for (auto& edgeCand : stop->getMyAdditionalEdgeCandidates() ){
+                    bool found = false;
+                    waysIdsIt =  waysIds.begin();
+                    for (; waysIdsIt != waysIds.end(); waysIdsIt++) {
+                        if ((*waysIdsIt) == edgeCand.first) {
+                            stop->setEdgeId(edgeCand.second);
+                            stop->setMyOrigEdgeId(edgeCand.first);
+                            origId = edgeCand.first;
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (found){
+                        break;
+                    }
+                }
+            }
+
+
             if (waysIdsIt == waysIds.end()) {
-                WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + (*it)->getName()
+                WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
                                       + ". Ignoring!");
+                waysIdsIt = waysIds.begin();
                 continue;
             }
 
-            std::vector<long long int>* way = (*it)->getWaysNodes(origId);
+            std::vector<long long int>* way = myPTLine->getWaysNodes(origId);
             if (way == 0) {
-                WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + (*it)->getName()
+                WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
                                       + ". Ignoring!");
                 continue;
             }
@@ -88,9 +112,9 @@ void NBPTLineCont::process(NBEdgeCont& cont) {
             int dir = FWD;
             if (waysIdsIt == (waysIds.end() - 1)) {
                 std::string adjId = *(waysIdsIt - 1);
-                std::vector<long long int>* way2 = (*it)->getWaysNodes(adjId);
+                std::vector<long long int>* way2 = myPTLine->getWaysNodes(adjId);
                 if (way2 == 0) {
-                    WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + (*it)->getName()
+                    WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
                                           + ". Ignoring!");
                     continue;
                 }
@@ -103,16 +127,16 @@ void NBPTLineCont::process(NBEdgeCont& cont) {
                 } else if (wayEnds == way2Begins || wayEnds == way2Ends){
                     dir = BWD;
                 } else {
-                    WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + (*it)->getName()
+                    WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
                                           + ". Ignoring!");
                     continue;
                 }
 
             } else {
                 std::string adjId = *(waysIdsIt + 1);
-                std::vector<long long int>* way2 = (*it)->getWaysNodes(adjId);
+                std::vector<long long int>* way2 = myPTLine->getWaysNodes(adjId);
                 if (way2 == 0) {
-                    WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + (*it)->getName()
+                    WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
                                           + ". Ignoring!");
                     continue;
                 }
@@ -125,26 +149,26 @@ void NBPTLineCont::process(NBEdgeCont& cont) {
                 } else if (wayEnds == way2Begins || wayEnds == way2Ends){
                     dir = FWD;
                 } else {
-                    WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + (*it)->getName()
+                    WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
                                           + ". Ignoring!");
                     continue;
                 }
             }
 
 
-            std::string edgeId = (*it2)->getEdgeId();
+            std::string edgeId = stop->getEdgeId();
             NBEdge * current = cont.getByID(edgeId);
             int assingedTo = edgeId.at(0) == '-' ? BWD : FWD;
 
             if (dir != assingedTo) {
                 NBEdge * reverse = NBPTStopCont::getReverseEdge(current);
-                if (reverse == 0) {
-                    WRITE_WARNING("Could not re-assign PT stop: " + (*it2)->getID()  + " probably broken osm file");
+                if (reverse == nullptr) {
+                    WRITE_WARNING("Could not re-assign PT stop: " + stop->getID()  + " probably broken osm file");
                     continue;
                 }
-                (*it2)->setEdgeId(reverse->getID());
-                NBPTStopCont::findLaneAndComputeBusStopExtend(*it2,cont);
-                WRITE_WARNING("PT stop: " + (*it2)->getID() + " has been moved to edge: " + reverse->getID());
+                stop->setEdgeId(reverse->getID());
+                NBPTStopCont::findLaneAndComputeBusStopExtend(stop,cont);
+                WRITE_WARNING("PT stop: " + stop->getID() + " has been moved to edge: " + reverse->getID());
             }
 
         }
