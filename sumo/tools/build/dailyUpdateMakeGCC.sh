@@ -83,7 +83,7 @@ fi
 echo "--" >> $STATUSLOG
 basename $MAKEALLLOG >> $STATUSLOG
 export CXXFLAGS="$CXXFLAGS -Wall -W -pedantic -Wno-long-long -Wformat -Wformat-security"
-./configure --prefix=$PREFIX/sumo --program-suffix=A --with-python \
+./configure --prefix=$PREFIX/sumo --program-suffix=A --with-python --with-ffmpeg \
   $CONFIGURE_OPT &> $MAKEALLLOG || (echo "configure with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
 if make >> $MAKEALLLOG 2>&1; then
   make install >> $MAKEALLLOG 2>&1 || (echo "make install with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)

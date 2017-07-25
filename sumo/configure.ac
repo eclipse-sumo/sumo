@@ -378,6 +378,9 @@ fi
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for ffmpeg
 AC_ARG_WITH([ffmpeg], [AS_HELP_STRING([--with-ffmpeg],[enable ffmpeg-based features.])])
+if test x"$with_ffmpeg" == x; then
+    with_ffmpeg=no
+fi
 if test x$with_ffmpeg != xno; then
   save_cppflags=$CPPFLAGS
   CPPFLAGS="$CPPFLAGS -I/usr/include/ffmpeg -I/usr/local/include"
