@@ -2494,7 +2494,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
             std::cout << "  checkIntermediate: prev=" << prev.id << " next=" << next.id << " prev.nextWA=" << prev.nextWalkingArea << "\n";
         }
         if (prev.nextWalkingArea == "") {
-            if (next.prevWalkingArea != "") {
+            if (next.prevWalkingArea != "" || &prev == &next) {
                 WRITE_WARNING("Invalid pedestrian topology: crossing '" + prev.id + "' has no target.");
                 prev.valid = false;
                 continue;
