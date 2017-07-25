@@ -521,7 +521,7 @@
     </xsd:complexType>
 
     <xsd:complexType name="vTypeDistributionType">
-        <xsd:sequence>
+        <xsd:sequence minOccurs="0">
             <xsd:element name="vType" type="vTypeType" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
