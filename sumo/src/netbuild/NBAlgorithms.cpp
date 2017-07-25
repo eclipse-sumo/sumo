@@ -329,11 +329,12 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
     incoming = n.myIncomingEdges;
     outgoing = n.myOutgoingEdges;
     for (i = bestIncoming.begin(); i != bestIncoming.end(); ++i) {
-        std::sort(incoming.begin(), incoming.end(), NBContHelper::edge_opposite_direction_sorter(*i, &n));
+        std::sort(incoming.begin(), incoming.end(), NBContHelper::edge_opposite_direction_sorter(*i, &n, true));
         counterIncomingEdges[*i] = *incoming.begin();
-        std::sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_opposite_direction_sorter(*i, &n));
+        std::sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_opposite_direction_sorter(*i, &n, true));
         counterOutgoingEdges[*i] = *outgoing.begin();
     }
+    //std::cout << "n=" << n.getID() << " best=" << best->getID() << " bestIncoming=" << toString(bestIncoming) << "\n incoming=" << toString(incoming) << "\n outgoing=" << toString(outgoing) << "\n";
     // ok, let's try
     // 1) there is one best incoming road
     if (bestIncoming.size() == 1) {

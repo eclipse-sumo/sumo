@@ -181,8 +181,11 @@ public:
          * @param[in] e The edge to which the sorting relates
          * @param[in] n The node to consider
          */
-        explicit edge_opposite_direction_sorter(const NBEdge* const e, const NBNode* const n)
-            : myNode(n) {
+        explicit edge_opposite_direction_sorter(const NBEdge* const e, const NBNode* const n, bool regardPriority) : 
+            myNode(n),
+            myEdge(e),
+            myRegardPriority(regardPriority)
+        {
             myAngle = getEdgeAngleAt(e, n);
         }
 
@@ -192,7 +195,11 @@ public:
          * @return Which edge is more opposite to the related one
          */
         int operator()(NBEdge* e1, NBEdge* e2) const {
-            return getDiff(e1) > getDiff(e2);
+            if (!myRegardPriority || e1->getPriority() == e2->getPriority() || e1 == myEdge || e2 == myEdge) {
+                return getDiff(e1) > getDiff(e2);
+            } else {
+                return e1->getPriority() > e2->getPriority();
+            }
         }
 
     protected:
@@ -219,11 +226,18 @@ public:
         }
 
     private:
-        /// @brief The angle of the related edge at the given node
-        double myAngle;
 
         /// @brief The related node
         const NBNode* const myNode;
+
+        /// @brief the reference edge
+        const NBEdge* const myEdge;
+
+        /// @brief The angle of the related edge at the given node
+        double myAngle;
+
+        /// @brief Whether edge priority may override closer angles
+        bool myRegardPriority;
 
     private:
         /// @brief Invalidated assignment operator

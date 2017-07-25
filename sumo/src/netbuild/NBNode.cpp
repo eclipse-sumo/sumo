@@ -1226,7 +1226,7 @@ NBNode::getOppositeIncoming(NBEdge* e) const {
         return 0;
     }
     if (e->getToNode() == this) {
-        sort(edges.begin(), edges.end(), NBContHelper::edge_opposite_direction_sorter(e, this));
+        sort(edges.begin(), edges.end(), NBContHelper::edge_opposite_direction_sorter(e, this, false));
     } else {
         sort(edges.begin(), edges.end(), NBContHelper::edge_similar_direction_sorter(e));
     }
