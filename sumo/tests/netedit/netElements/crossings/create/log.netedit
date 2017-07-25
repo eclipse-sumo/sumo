@@ -19,8 +19,12 @@ Warning: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Warning: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '100.00'
 Warning: Adding crossing into junction 'Center'
 Warning: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
+Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Key F5 (Compute) pressed
+Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
 Warning: Adding crossing into junction 'Center'
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Key F5 (Compute) pressed
@@ -47,6 +51,7 @@ Warning: removing crossing from junction 'Center'
 Warning: Deleting unreferenced crossing ':Center_c2' in rebuildGNECrossings()
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: removing crossing from junction 'Center'
+Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
 Warning: Deleting unreferenced crossing ':Center_c1' in rebuildGNECrossings()
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: removing crossing from junction 'Center'
@@ -55,6 +60,7 @@ Warning: Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding crossing into junction 'Center'
 Warning: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
+Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding crossing into junction 'Center'

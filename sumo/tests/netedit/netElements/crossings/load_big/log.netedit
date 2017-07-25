@@ -309,6 +309,7 @@ Warning: Lane '82659290#2_8' is not connected from any incoming edge at junction
 Warning: Lane '82659290#2_9' is not connected from any incoming edge at junction '295705005'.
 Warning: Lane '82659290#2_10' is not connected from any incoming edge at junction '295705005'.
 Warning: Lane '85255869#0_8' is not connected from any incoming edge at junction '26708008'.
+Warning: Invalid pedestrian topology: crossing ':31154724_c0' has no target.
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '1615477665' does not have any roads.
 Warning: The rail crossing '1673527106' does not have any roads.
@@ -338,6 +339,8 @@ Warning: The rail crossing '506357654' does not have any roads.
 Warning: The rail crossing '506357655' does not have any roads.
 Warning: The rail crossing '997027037' does not have any roads.
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
+Warning: Invalid pedestrian topology: crossing ':31154724_c0' has no target.
+Warning: Invalid pedestrian topology: crossing ':31154724_c0' has no target.
 Warning: Ambiguity in turnarounds computation at junction '1130114721'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
@@ -649,6 +652,7 @@ Warning: Lane '82659290#2_8' is not connected from any incoming edge at junction
 Warning: Lane '82659290#2_9' is not connected from any incoming edge at junction '295705005'.
 Warning: Lane '82659290#2_10' is not connected from any incoming edge at junction '295705005'.
 Warning: Lane '85255869#0_8' is not connected from any incoming edge at junction '26708008'.
+Warning: Invalid pedestrian topology: crossing ':31154724_c0' has no target.
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '1615477665' does not have any roads.
 Warning: The rail crossing '1673527106' does not have any roads.
@@ -678,3 +682,5 @@ Warning: The rail crossing '506357654' does not have any roads.
 Warning: The rail crossing '506357655' does not have any roads.
 Warning: The rail crossing '997027037' does not have any roads.
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
+Warning: Invalid pedestrian topology: crossing ':31154724_c0' has no target.
+Warning: Invalid pedestrian topology: crossing ':31154724_c0' has no target.

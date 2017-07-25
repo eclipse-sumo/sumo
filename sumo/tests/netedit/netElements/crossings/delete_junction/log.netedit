@@ -28,6 +28,7 @@ Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '100.00'
 Warning: Removing crossing from junction 'Center'
+Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
 Warning: Deleting unreferenced crossing ':Center_c0' in rebuildGNECrossings()
 Warning: Removing crossing from junction 'Center'
 Warning: Deleting unreferenced crossing ':Center_c1' in rebuildGNECrossings()
@@ -229,6 +230,7 @@ Warning: Adding connection '2_1->6_1' into edge '2'
 Warning: Created connection 'from2_1to6_1' in retrieveGNEConnection()
 Warning: Adding crossing into junction 'Center'
 Warning: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
+Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Adding crossing into junction 'Center'
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()

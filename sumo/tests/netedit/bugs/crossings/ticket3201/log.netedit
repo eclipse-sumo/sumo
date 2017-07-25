@@ -23,7 +23,6 @@ Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Key F5 (Compute) pressed
 Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
-Warning: Discarding invalid crossing ':Center_c0' at junction 'Center' with edges '3' (no walkingarea found).
 Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
 Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
 Warning: Adding crossing into junction 'Center'
@@ -31,7 +30,6 @@ Warning: Invalid pedestrian topology: crossing ':Center_c1' has no target.
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Key F5 (Compute) pressed
 Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
-Warning: Discarding invalid crossing ':Center_c0' at junction 'Center' with edges '8' (no walkingarea found).
 Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
 Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -53,7 +51,6 @@ Warning: Adding crossing into junction 'Center'
 Warning: Invalid pedestrian topology: crossing ':Center_c1' has no target.
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
-Warning: Discarding invalid crossing ':Center_c0' at junction 'Center' with edges '8' (no walkingarea found).
 Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
 Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
 Warning: Deleting unreferenced edge '1' in GNENet destructor
