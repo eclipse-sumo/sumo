@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 25 Jul 2017 02:12:59 PM CEST by Netedit Version dev-SVN-r25325
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="../mitte.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="../mitte.net.xml"/>
+        <plain-output-prefix value="/scr1/sumoD/tests/netconvert/node_building/combinations_50/test4/input_edges"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-53500509" from="61052071" to="61052096" name="Stralauer Strasse" priority="-2" numLanes="2" speed="13.89" shape="43132.59,36914.00 43146.04,36908.14 43158.84,36903.41" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="-724296805" from="cluster_61052062_61052063" to="61052071" name="Molkenmarkt" priority="-2" numLanes="2" speed="13.89" shape="43077.24,36989.78 43095.73,36966.00 43114.86,36941.10 43132.59,36914.00" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="-733322203" from="817155994" to="61052071" name="Stralauer Strasse" priority="-3" numLanes="1" speed="13.89" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="53500509" from="61052096" to="61052071" name="Stralauer Strasse" priority="-2" numLanes="3" speed="13.89" shape="43158.84,36903.41 43146.04,36908.14 43132.59,36914.00" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="724296804" from="61052071" to="cluster_61052062_61052063" name="Molkenmarkt" priority="-2" numLanes="4" speed="13.89" shape="43132.59,36914.00 43114.86,36941.10 43095.73,36966.00 43077.24,36989.78" disallow="tram rail_urban rail rail_electric ship"/>
+</edges>
