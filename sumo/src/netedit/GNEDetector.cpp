@@ -59,11 +59,12 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double pos, double freq, const std::string& filename) :
+GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double pos, double freq, const std::string& filename, bool friendlyPos) :
     GNEAdditional(id, viewNet, tag, icon),
     myPositionOverLane(pos / lane->getLaneParametricLength()),
     myFreq(freq),
-    myFilename(filename) {
+    myFilename(filename),
+    myFriendlyPosition(friendlyPos) {
     // This additional belongs to a Lane
     myLane = lane;
 }

@@ -61,8 +61,8 @@
 // ===========================================================================
 
 GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename,
-                             bool cont, const double timeThreshold, double speedThreshold, double jamThreshold) :
-    GNEDetector(id, viewNet, SUMO_TAG_E2DETECTOR, ICON_E2, lane, pos, freq, filename),
+                             bool cont, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos) :
+    GNEDetector(id, viewNet, SUMO_TAG_E2DETECTOR, ICON_E2, lane, pos, freq, filename, friendlyPos),
     myRelativeLength(length / lane->getLaneParametricLength()),
     myCont(cont),
     myTimeThreshold(timeThreshold),

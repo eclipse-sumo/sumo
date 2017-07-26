@@ -257,10 +257,11 @@ public:
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      * @param[in] splitByType If set, the collected values will be additionally reported on per-vehicle type base.
+     * @param[in] friendlyPos enable or disable friendly position
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static bool buildDetectorE1(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double freq, const std::string& filename, bool splitByType);
+    static bool buildDetectorE1(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double freq, const std::string& filename, bool splitByType, bool friendlyPos);
 
     /**@brief Builds a lane Area Detector (E2)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -275,11 +276,12 @@ public:
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] jamThreshold The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
+     * @param[in] friendlyPos enable or disable friendly position
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
     static bool buildDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, double freq, const std::string& filename,
-                                bool cont, const double timeThreshold, double speedThreshold, double jamThreshold);
+                                bool cont, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos);
 
     /**@brief Builds a multi entry exit detector (E3)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -301,10 +303,11 @@ public:
      * @param[in] E3Parent pointer to E3 detector parent
      * @param[in] lane The lane in which the entry detector is placed on
      * @param[in] pos position of the entry detector on the lane
+     * @param[in] friendlyPos enable or disable friendly position
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (invalid parent or lane)
      */
-    static bool buildDetectorEntry(GNEViewNet* viewNet, bool allowUndoRedo, GNEDetectorE3* E3Parent, GNELane* lane, double pos);
+    static bool buildDetectorEntry(GNEViewNet* viewNet, bool allowUndoRedo, GNEDetectorE3* E3Parent, GNELane* lane, double pos, bool friendlyPos);
 
     /**@brief Builds a exit detector (E3)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -312,10 +315,11 @@ public:
      * @param[in] E3Parent pointer to E3 detector parent
      * @param[in] lane The lane in which the exit detector is placed on
      * @param[in] pos position of the exit detector on the lane
+     * @param[in] friendlyPos enable or disable friendly position
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the exit detector can not be added to the net (invalid parent or lane
      */
-    static bool buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo, GNEDetectorE3* E3Parent, GNELane* lane, double pos);
+    static bool buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo, GNEDetectorE3* E3Parent, GNELane* lane, double pos, bool friendlyPos);
 
     /**@brief builds a microscopic calibrator
      * @param[in] viewNet viewNet in which element will be inserted

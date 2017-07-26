@@ -58,9 +58,10 @@ public:
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] speedThreshold The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
+     * @param[in] friendlyPos enable or disable friendly positions
      */
     GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename,
-                  bool cont, const double timeThreshold, double speedThreshold, double jamThreshold);
+                  bool cont, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos);
 
     /// @brief Destructor
     ~GNEDetectorE2();

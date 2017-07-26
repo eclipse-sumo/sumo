@@ -51,8 +51,9 @@ public:
      * @param[in] parent pointer to GNEDetectorE3 of this Entry belongs
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] pos position of the detector on the lane
+     * @param[in] friendlyPos enable or disable friendly positions
      */
-    GNEDetectorEntry(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, double pos);
+    GNEDetectorEntry(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, double pos, bool friendlyPos);
 
     /// @brief destructor
     ~GNEDetectorEntry();
