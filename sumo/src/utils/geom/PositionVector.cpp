@@ -1104,6 +1104,29 @@ PositionVector::operator!=(const PositionVector& v2) const {
     return static_cast<vp>(*this) != static_cast<vp>(v2);
 }
 
+PositionVector
+PositionVector::operator-(const PositionVector& v2) const {
+    if(length()!=v2.length()) WRITE_ERROR("Trying to substract PositionVectors of different lengths.");
+    PositionVector pv;
+    auto i1 = begin();
+    auto i2 = v2.begin();
+    while (i1 != end()){
+        pv.add(*i1-*i2);
+    }
+    return pv;
+}
+
+PositionVector
+PositionVector::operator+(const PositionVector& v2) const {
+    if(length()!=v2.length()) WRITE_ERROR("Trying to substract PositionVectors of different lengths.");
+    PositionVector pv;
+    auto i1 = begin();
+    auto i2 = v2.begin();
+    while (i1 != end()){
+        pv.add(*i1+*i2);
+    }
+    return pv;
+}
 
 bool
 PositionVector::hasElevation() const {
