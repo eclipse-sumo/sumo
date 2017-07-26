@@ -92,9 +92,6 @@ GNEDetectorE2::updateGeometry() {
     // Get shape of lane parent
     myShape = myLane->getShape();
 
-    // Move shape to side
-    myShape.move2side(1.65 * offsetSign);
-
     // Cut shape using as delimitators fixed start position and fixed end position
     double startPosFixed = (myPositionOverLane < 0) ? 0 : myPositionOverLane;
     double endPosFixed = ((myPositionOverLane + myRelativeLength) > 1) ? 1 : (myPositionOverLane + myRelativeLength);
