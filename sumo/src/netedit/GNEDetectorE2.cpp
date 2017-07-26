@@ -245,6 +245,8 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
             return toString(mySpeedThreshold);
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             return toString(myJamThreshold);
+        case SUMO_ATTR_FRIENDLY_POS:
+            return toString(myFriendlyPosition);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlocked);
         default:
@@ -269,6 +271,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
+        case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             updateGeometry();
@@ -324,6 +327,8 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
+        case SUMO_ATTR_FRIENDLY_POS:
+            return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:
@@ -371,6 +376,10 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             myJamThreshold = parse<double>(value);
+            break;
+        case SUMO_ATTR_FRIENDLY_POS:
+            myFriendlyPosition = parse<bool>(value);
+            getViewNet()->update();
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlocked = parse<bool>(value);

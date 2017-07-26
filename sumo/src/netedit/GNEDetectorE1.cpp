@@ -226,6 +226,8 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
             return myFilename;
         case SUMO_ATTR_SPLIT_VTYPE:
             return toString(mySplitByType);
+        case SUMO_ATTR_FRIENDLY_POS:
+            return toString(myFriendlyPosition);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlocked);
         default:
@@ -246,6 +248,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_SPLIT_VTYPE:
+        case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             updateGeometry();
@@ -280,6 +283,8 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidFilename(value);
         case SUMO_ATTR_SPLIT_VTYPE:
             return canParse<bool>(value);
+        case SUMO_ATTR_FRIENDLY_POS:
+            return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:
@@ -313,6 +318,10 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_SPLIT_VTYPE:
             mySplitByType = parse<bool>(value);
+            break;
+        case SUMO_ATTR_FRIENDLY_POS:
+            myFriendlyPosition = parse<bool>(value);
+            getViewNet()->update();
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlocked = parse<bool>(value);

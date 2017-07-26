@@ -156,6 +156,9 @@ protected:
     /// @brief The path to the output file
     std::string myFilename;
 
+    /// @brief Flag for friendly position
+    bool myFriendlyPosition;
+
     /// @name members and functions relative to detector icon
     /// @{
     /// @brief set Rotation of block Icon
