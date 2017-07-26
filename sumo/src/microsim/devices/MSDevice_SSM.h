@@ -7,7 +7,7 @@
 /// @version $Id$
 ///
 // An SSM-device logs encounters / conflicts of the carrying vehicle with other surrounding vehicles.
-// XXX: Do not use! Implementation is not complete, yet.
+// XXX: Preliminary implementation. Use with care. Especially rerouting vehicles could be problematic.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2013-2017 DLR (http://www.dlr.de/) and contributors
@@ -101,17 +101,24 @@ public:
         // Other vehicle is on an edge that has a sequence of successors leading to an internal edge that crosses the ego vehicle's edge at a junction
         // and the estimated arrival vehicle at the merge point is earlier for the foe than for the ego
         ENCOUNTER_TYPE_CROSSING_FOLLOWER = 11, //!< ENCOUNTER_TYPE_CROSSING_FOLLOWER
+        // TODO: use ENTERED types for indicating an ongoing conflict.
+        // The encounter is a possible crossing conflict, and the ego vehicle has entered the conflict area
+        ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA = 12, //!< ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA
+        // The encounter is a possible crossing conflict, and the foe vehicle has entered the conflict area
+        ENCOUNTER_TYPE_FOE_ENTERED_CONFLICT_AREA = 13, //!< ENCOUNTER_TYPE_FOE_ENTERED_CONFLICT_AREA
         // The encounter has been a possible crossing conflict, but the ego vehicle has left the conflict area
-        ENCOUNTER_TYPE_EGO_PASSED_CP = 12, //!< ENCOUNTER_TYPE_EGO_PASSED_CP
+        ENCOUNTER_TYPE_EGO_LEFT_CONFLICT_AREA = 14, //!< ENCOUNTER_TYPE_EGO_LEFT_CONFLICT_AREA
         // The encounter has been a possible crossing conflict, but the foe vehicle has left the conflict area
-        ENCOUNTER_TYPE_FOE_PASSED_CP = 13, //!< ENCOUNTER_TYPE_FOE_PASSED_CP
+        ENCOUNTER_TYPE_FOE_LEFT_CONFLICT_AREA = 15, //!< ENCOUNTER_TYPE_FOE_LEFT_CONFLICT_AREA
+        // The encounter has been a possible crossing conflict, and both vehicles have entered the conflict area (one must have already left, otherwise this must be a collision)
+        ENCOUNTER_TYPE_BOTH_ENTERED_CONFLICT_AREA = 16, //!< ENCOUNTER_TYPE_BOTH_ENTERED_CONFLICT_AREA
         // The encounter has been a possible crossing conflict, but both vehicle have left the conflict area
-        ENCOUNTER_TYPE_BOTH_PASSED_CP = 14, //!< ENCOUNTER_TYPE_BOTH_PASSED_CP
+        ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA = 17, //!< ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA
         // FOLLOWING_PASSED and MERGING_PASSED are reserved to achieve that these encounter types may be tracked longer (see updatePassedEncounter)
         // The encounter has been a following situation, but is not active any more
-        ENCOUNTER_TYPE_FOLLOWING_PASSED = 15, //!< ENCOUNTER_TYPE_FOLLOWING_PASSED
+        ENCOUNTER_TYPE_FOLLOWING_PASSED = 18, //!< ENCOUNTER_TYPE_FOLLOWING_PASSED
         // The encounter has been a merging situation, but is not active any more
-        ENCOUNTER_TYPE_MERGING_PASSED = 16, //!< ENCOUNTER_TYPE_FOLLOWING_PASSED
+        ENCOUNTER_TYPE_MERGING_PASSED = 19, //!< ENCOUNTER_TYPE_FOLLOWING_PASSED
         // Collision (currently unused, might be differentiated further)
         ENCOUNTER_TYPE_COLLISION = 111 //!< ENCOUNTER_TYPE_COLLISION
     };
@@ -174,11 +181,6 @@ private:
         /// @brief Remaining extra time (decreases after an encounter ended)
         double remainingExtraTime;
 
-        /// @brief Last determined conflict lane of the ego vehicle for the encounter
-        const MSLane* egoConflictLane;
-        /// @brief Last determined conflict lane of the foe vehicle for the encounter
-        const MSLane* foeConflictLane;
-
         /// @brief Times when the ego vehicle entered/left the conflict area. Currently only applies for crossing situations. Used for PET calculation. (May be defined for merge conflicts in the future)
         double egoConflictEntryTime, egoConflictExitTime;
         /// @brief Times when the foe vehicle entered/left the conflict area. Currently only applies for crossing situations. Used for PET calculation. (May be defined for merge conflicts in the future)
@@ -207,6 +209,10 @@ private:
         /// @brief All values for DRAC
         std::vector<double> DRACspan;
 
+        /// @brief Cross sections at which a PET shall be calculated for the corresponding vehicle
+        std::vector<std::pair<std::pair<const MSLane*, double>, double> > egoPETCrossSections;
+        std::vector<std::pair<std::pair<const MSLane*, double>, double> > foePETCrossSections;
+
         /// @name Extremal values for the SSMs (as < <time,value>,Position>-pairs)
         /// @{
         std::pair<std::pair<double, double>,Position> minTTC;
@@ -231,8 +237,6 @@ private:
         EncounterApproachInfo(Encounter* e);
         Encounter* encounter;
         EncounterType type;
-        const MSLane* egoConflictLane;
-        const MSLane* foeConflictLane;
         Position conflictPoint;
         double egoConflictEntryDist;
         double foeConflictEntryDist;
@@ -249,6 +253,8 @@ private:
         double ttc;
         double drac;
         std::pair<double,double> pet;
+        std::pair<const MSLane*, double> egoConflictEntryCrossSection;
+        std::pair<const MSLane*, double> foeConflictEntryCrossSection;
     };
 
 
@@ -303,6 +309,11 @@ public:
 private:
     void update();
     void writeOutConflict(Encounter* e);
+
+    /// @brief convert SUMO-positions to geo coordinates (in place)
+    static void toGeo(Position& x);
+    /// @brief convert SUMO-positions to geo coordinates (in place)
+    static void toGeo(PositionVector& x);
 
 public:
     /** @brief Clean up remaining devices instances
@@ -403,9 +414,10 @@ private:
      * @param trajectories Flag indicating whether complete trajectories should be saved for an encounter (if false only extremal values are logged)
      * @param range Detection range. For vehicles closer than this distance from the ego vehicle, SSMs are traced
      * @param extraTime Extra time in seconds to be logged after a conflict is over
+     * @param useGeoCoords Whether coordinates should be written out in the original coordinate reference system or as sumo's x,y values
      */
     MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::map<std::string, double> thresholds,
-            bool trajectories, double range, double extraTime);
+            bool trajectories, double range, double extraTime, bool useGeoCoords);
 
     /** @brief Finds encounters for which the foe vehicle has disappeared from range.
      *         remainingExtraTime is decreased until it reaches zero, which triggers closing the encounter.
@@ -447,6 +459,8 @@ private:
      *         this may be the case because the foe is out of the detection range but the encounter
      *         is still in extra time (in this case foeInfo==0), or because the foe does not head for a lane conflicting with
      *         the route of the ego vehicle.
+     *         It is also used for an ongoing crossing conflict, where only the covered distances are traced
+     *         until the situation is over. (A crossing conflict is ongoing, if one vehicle entered the conflict area)
      *         Writes the type of encounter which is determined for the current state into eInfo. And if appropriate some
      *         information concerning vehicles positions in relation to a crossed crossing point (for PET calculation).
      */
@@ -487,7 +501,8 @@ private:
 
 
     /** @brief Checks whether ego or foe have entered or left the conflict area in the last step and eventually writes
-     *         the corresponding entry or exit times to eInfo.encounter.
+     *         the corresponding entry or exit times to eInfo.encounter. For ongoing crossing conflicts, it also manages
+     *         the evolution of the conflict type.
      *  @param[in/out] eInfo  Info structure for the current state of the encounter.
      *  @note The times are to be used for SSM computation in computeSSMs(), e.g. in determinePET()
      */
@@ -557,6 +572,7 @@ private:
     static std::string getOutputFilename(const SUMOVehicle& v, std::string deviceID);
     static double getDetectionRange(const SUMOVehicle& v);
     static double getExtraTime(const SUMOVehicle& v);
+    static bool useGeoCoords(const SUMOVehicle& v, std::string deviceID);
     static bool requestsTrajectories(const SUMOVehicle& v);
     static bool getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceID,
                                         std::map<std::string, double>& thresholds);
@@ -575,6 +591,8 @@ private:
     double myRange;
     /// Extra time in seconds to be logged after a conflict is over
     double myExtraTime;
+    /// Whether to use the original coordinate system for output
+    bool myUseGeoCoords;
     /// Flags for switching on / off comutation of different SSMs, derived from myMeasures
     bool myComputeTTC, myComputeDRAC, myComputePET;
     MSVehicle* myHolderMS;
