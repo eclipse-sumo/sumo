@@ -9,8 +9,8 @@
         <conflictPoint values="99.23,49.46 99.23,49.46 99.23,49.46 99.23,49.46 99.23,49.46 99.23,49.46 99.23,49.46 99.23,49.46"/>
         <TTCSpan values="1.61 1.38 NA NA NA NA NA NA"/>
         <minTTC time="8.00" value="1.38" position="99.23,49.46"/>
-        <DRACSpan values="6.80 4.65 NA NA NA NA NA NA"/>
-        <maxDRAC time="7.00" value="6.80" position="99.23,49.46"/>
+        <DRACSpan values="NA NA NA NA NA NA NA NA"/>
+        <maxDRAC time="NA" value="NA" position="NA"/>
         <minPET time="10.49" value="1.13" position="99.23,49.46"/>
     </conflict>
 </SSMLog>
