@@ -552,11 +552,21 @@ private:
     double computeTTC(double gap, double followerSpeed, double leaderSpeed) const;
 
 
-    /** @brief Computes the DRAC (deceleration to avoid a collision) as defined, e.g., in Mahmud et al. (2016, Application of proximal surrogate indicators for safety evaluation)
+    /** @brief Computes the DRAC (deceleration to avoid a collision) for a lead/follow situation as defined,
+     *         e.g., in Mahmud et al. (2016, Application of proximal surrogate indicators for safety evaluation)
      *         for two vehicles with a given gap. Returns INVALID if no deceleration is required by the follower to avoid a crash.
      */
-    double computeDRAC(double gap, double followerSpeed, double leaderSpeed) const;
+    static double computeDRAC(double gap, double followerSpeed, double leaderSpeed);
 
+    /** @brief Computes the DRAC a crossing situation, determining the minimal constant deceleration needed
+     *         for one of the vehicles to reach the conflict area after the other if the latter continues with
+     *         constant speed.
+     *         Returns INVALID if no deceleration is required by the follower to avoid a crash.
+     *  @param[in] d1,d2 The dsitances to the conflict area entry
+     *  @param[in] v1,v2 The current speeds
+     *  @param[in] t1,t2 The estimated conflict exit times (including extrapolation of current deceleration)
+     */
+    static double computeDRAC(double d1, double d2, double v1, double v2, double t1, double t2);
 
     /** @brief make a string of a double vector and treat a special value as invalid ("NA")
      *

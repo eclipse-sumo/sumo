@@ -864,6 +864,7 @@ MSDevice_SSM::determinePET(EncounterApproachInfo& eInfo) const {
 
 void
 MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
+    // TODO: check for myComputeTTC, myComputeDRAC, before doing calculations
 
     Encounter* e = eInfo.encounter;
     const EncounterType& type = eInfo.type;
@@ -973,27 +974,27 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
         }
     } else if (type == ENCOUNTER_TYPE_CROSSING_FOLLOWER
             || type == ENCOUNTER_TYPE_FOE_ENTERED_CONFLICT_AREA) {
+        drac = computeDRAC(eInfo.egoConflictEntryDist,eInfo.foeConflictEntryDist,e->ego->getSpeed(),e->foe->getSpeed(),
+                eInfo.egoEstimatedConflictExitTime, eInfo.foeEstimatedConflictExitTime);
         if (eInfo.egoEstimatedConflictEntryTime <= eInfo.foeEstimatedConflictExitTime) {
             // follower's predicted arrival at the crossing area is earlier than the leader's predicted exit -> collision predicted
             double gap = eInfo.egoConflictEntryDist;
-            drac = computeDRAC(gap, e->ego->getSpeed(), 0.);
             ttc = computeTTC(gap, e->ego->getSpeed(), 0.);
         } else {
             // encounter is expected to happen without collision
             ttc = INVALID;
-            drac = INVALID;
         }
     } else if (type == ENCOUNTER_TYPE_CROSSING_LEADER
             || type == ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA) {
+        drac = computeDRAC(eInfo.egoConflictEntryDist,eInfo.foeConflictEntryDist,e->ego->getSpeed(),e->foe->getSpeed(),
+                eInfo.egoEstimatedConflictExitTime, eInfo.foeEstimatedConflictExitTime);
         if (eInfo.foeEstimatedConflictEntryTime <= eInfo.egoEstimatedConflictExitTime) {
             // follower's predicted arrival at the crossing area is earlier than the leader's predicted exit -> collision predicted
             double gap = eInfo.foeConflictEntryDist;
-            drac = computeDRAC(gap, e->foe->getSpeed(), 0.);
             ttc = computeTTC(gap, e->foe->getSpeed(), 0.);
         } else {
             // encounter is expected to happen without collision
             ttc = INVALID;
-            drac = INVALID;
         }
     } else {
 #ifdef DEBUG_SSM
@@ -1028,20 +1029,44 @@ MSDevice_SSM::computeTTC(double gap, double followerSpeed, double leaderSpeed) c
 
 
 double
-MSDevice_SSM::computeDRAC(double gap, double followerSpeed, double leaderSpeed) const {
-    // TODO: in merging or crossing situations, the DRAC may be lower than the one computed here for following situations
-    // More specifically, the followers conflict time entry should be less than the leaders conflict exit time.
-    // For merging conflicts, the minimum has to be taken from the two if a collision at merge was predicted.
+MSDevice_SSM::computeDRAC(double gap, double followerSpeed, double leaderSpeed) {
 #ifdef DEBUG_SSM
     std::cout << "computeDRAC() with gap="<<gap<<", followerSpeed="<<followerSpeed<<", leaderSpeed="<<leaderSpeed
                  << std::endl;
 #endif
-    if (gap <= 0.) return INVALID; // collision already happend
+    if (gap <= 0.) return INVALID; // collision!
     double dv = followerSpeed - leaderSpeed;
     if (dv <= 0.) return INVALID; // no collision
     assert(followerSpeed > 0.);
     double timeHeadway = gap/followerSpeed;
     return dv/timeHeadway;
+}
+
+double
+MSDevice_SSM::computeDRAC(double d1, double d2, double v1, double v2, double t1, double t2) {
+#ifdef DEBUG_SSM
+    std::cout << "computeDRAC() with d1="<<d1<<", d2="<<d2<<", v1="<<v1<<", v2="<<v2
+            <<", t1="<<(t1==INVALID?"NA":toString(t1))<<", t2="<<(t2==INVALID?"NA":toString(t2))
+                 << std::endl;
+#endif
+    if (d1<=0. && d2<=0.) return INVALID; // both already entered conflict area
+
+    double drac=0;
+    if (d1>0. && t1 != INVALID && d2>0. && t2 != INVALID){
+        drac = MIN2(2*(v1 - d1/t2)/t2, 2*(v2 - d2/t1)/t1);
+    } else if (d1>0. && t2 != INVALID) {
+        drac = 2*(v1 - d1/t2)/t2;
+    } else if (d2>0. && t1 != INVALID) { // d2>0.
+        drac = 2*(v2 - d2/t1)/t1;
+    } else {
+        // TODO: there might still be situations to cover,
+        // since t1==INVALID indicates that the first vehicle is extrapolated
+        // to stop before the conflict exit, which may still mean *on the conflict area*,
+        // This is ignored so far.
+        return INVALID;
+    }
+
+    return drac > 0?drac:INVALID;
 }
 
 void
