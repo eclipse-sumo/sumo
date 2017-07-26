@@ -71,23 +71,8 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-    /**@brief change the position of the element geometry without saving in undoList
-     * @param[in] newPosition new position of geometry
-     * @note should't be called in drawGL(...) functions to avoid smoothness issues
-     */
-    void moveGeometry(const Position &newPosition);
-
-    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-     * @param[in] oldPos the old position of additional
-     * @param[in] undoList The undoList on which to register changes
-     */
-    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
-
     /// @brief update pre-computed geometry information
     void updateGeometry();
-
-    /// @brief Returns position of additional in view
-    Position getPositionInView() const;
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -123,9 +108,6 @@ public:
     /// @}
 
 private:
-    /// @brief position over Lane
-    double myPositionOverLane;
-
     /// @brief pointer to E3 parent
     GNEDetectorE3* myE3Parent;
 
@@ -136,19 +118,19 @@ private:
     GNEDetectorExit(const GNEDetectorExit&);
 
     /// @brief Invalidated assignment operator.
-    GNEDetectorExit& operator=(const GNEDetectorExit&);
+    GNEDetectorExit& operator=(const GNEDetectorExit&) = delete;
 
     /// @brief Invalidated get filename
-    const std::string &getFilename() const;
+    const std::string &getFilename() const = delete;
 
     /// @brief Invalidated set frequency
-    int getFrequency() const;
+    int getFrequency() const = delete;
 
     /// @brief Invalidated set filename
-    void setFrequency(double freq);
+    void setFrequency(double freq) = delete;
 
     /// @brief Invalidated
-    void setFilename(const std::string &filename);
+    void setFilename(const std::string &filename) = delete;
 };
 
 

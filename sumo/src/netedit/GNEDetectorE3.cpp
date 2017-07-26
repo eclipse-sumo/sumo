@@ -138,7 +138,7 @@ GNEDetectorE3::moveGeometry(const Position &newPosition) {
 
 
 void
-GNEDetectorE3::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+GNEDetectorE3::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(myPosition.x()), true, toString(oldPos.x())));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(myPosition.y()), true, toString(oldPos.y())));

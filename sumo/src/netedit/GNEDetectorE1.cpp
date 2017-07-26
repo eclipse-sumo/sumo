@@ -61,8 +61,7 @@
 // ===========================================================================
 
 GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, bool splitByType) :
-    GNEDetector(id, viewNet, SUMO_TAG_E1DETECTOR, ICON_E1, lane, freq, filename),
-    myPositionOverLane(pos / lane->getLaneParametricLength()),
+    GNEDetector(id, viewNet, SUMO_TAG_E1DETECTOR, ICON_E1, lane, pos, freq, filename),
     mySplitByType(splitByType) {
     // Update geometry;
     updateGeometry();
@@ -114,12 +113,6 @@ GNEDetectorE1::updateGeometry() {
 }
 
 
-Position
-GNEDetectorE1::getPositionInView() const {
-    return myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length());
-}
-
-
 void
 GNEDetectorE1::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const {
     // Write parameters
@@ -147,37 +140,6 @@ GNEDetectorE1::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
     }
     // Close tag
     device.closeTag();
-}
-
-
-void
-GNEDetectorE1::moveGeometry(const Position &newPosition) {
-	// First we need to change the absolute new positions to a relative positions
-    double lenghtDifference = 0;
-    if(myLane->getLaneShapeLength() > 0) {
-        lenghtDifference = myLane->getLaneParametricLength() / myLane->getLaneShapeLength();
-    }
-    double relativePos = newPosition.x() / myLane->getLaneParametricLength() * lenghtDifference;
-    // check if detector can be moved
-    if (myPositionOverLane + relativePos < 0) {
-        myPositionOverLane = 0;
-    } else if ((myPositionOverLane + relativePos) > 1) {
-        myPositionOverLane = 1;
-    } else {
-        myPositionOverLane += relativePos;
-    }
-    // Update geometry
-    updateGeometry();
-}
-
-
-void
-GNEDetectorE1::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-    undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(toString(myPositionOverLane * myLane->getLaneParametricLength())), true, toString(oldPos.x())));
-    undoList->p_end();
-    // Refresh element
-    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
@@ -347,7 +309,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLane(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPositionOverLane = parse<double>(value) / myLane->getShape().length();
+            myPositionOverLane = floor(parse<double>(value) / myLane->getLaneParametricLength() * 1000) / 1000;
             updateGeometry();
             getViewNet()->update();
             break;

@@ -73,23 +73,8 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-    /**@brief change the position of the element geometry without saving in undoList
-     * @param[in] newPosition new position of geometry
-     * @note should't be called in drawGL(...) functions to avoid smoothness issues
-     */
-    void moveGeometry(const Position &newPosition);
-
-    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-     * @param[in] oldPos the old position of additional
-     * @param[in] undoList The undoList on which to register changes
-     */
-    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
-
     /// @brief update pre-computed geometry information
     void updateGeometry();
-
-    /// @brief Returns position of additional in view
-    Position getPositionInView() const;
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -128,12 +113,6 @@ protected:
     /// @brief attribute length 
     double myLength; 
 
-    /// @brief The relative [0,1] start position this E2 detector is located at
-    double myPositionOverLane;
-
-    /// @brief The relative [0,1] end position this E2 detector is located at
-    double myLenght;
-
     /// @brief attribute to enable or disable splitByType
     bool myCont;
 
@@ -151,10 +130,10 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNEDetectorE2(const GNEDetectorE2&);
+    GNEDetectorE2(const GNEDetectorE2&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEDetectorE2& operator=(const GNEDetectorE2&);
+    GNEDetectorE2& operator=(const GNEDetectorE2&) = delete;
 };
 
 #endif

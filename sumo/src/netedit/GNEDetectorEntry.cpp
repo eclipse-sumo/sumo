@@ -61,8 +61,7 @@
 // ===========================================================================
 
 GNEDetectorEntry::GNEDetectorEntry(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, double pos) :
-    GNEDetector(parent->generateEntryID(), viewNet, SUMO_TAG_DET_ENTRY, ICON_E3ENTRY, lane, 0, ""),
-    myPositionOverLane(pos / lane->getLaneParametricLength()),
+    GNEDetector(parent->generateEntryID(), viewNet, SUMO_TAG_DET_ENTRY, ICON_E3ENTRY, lane, pos, 0, ""),
     myE3Parent(parent) {
     // Update geometry
     updateGeometryByParent();
@@ -107,42 +106,6 @@ GNEDetectorEntry::updateGeometryByParent() {
 
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);
-}
-
-void
-GNEDetectorEntry::moveGeometry(const Position &newPosition) {
-	// First we need to change the absolute new positions to a relative positions
-    double lenghtDifference = 0;
-    if(myLane->getLaneShapeLength() > 0) {
-        lenghtDifference = myLane->getLaneParametricLength() / myLane->getLaneShapeLength();
-    }
-    double relativePos = newPosition.x() / myLane->getLaneParametricLength() * lenghtDifference;
-    // check if detector can be moved
-    if (myPositionOverLane + relativePos < 0) {
-        myPositionOverLane = 0;
-    } else if ((myPositionOverLane + relativePos) > 1) {
-        myPositionOverLane = 1;
-    } else {
-        myPositionOverLane += relativePos;
-    }
-    // Update geometry
-    updateGeometry();
-}
-
-
-void
-GNEDetectorEntry::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-    undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(toString(myPositionOverLane * myLane->getLaneParametricLength())), true, toString(oldPos.x())));
-    undoList->p_end();
-    // Refresh element
-    myViewNet->getNet()->refreshAdditional(this);
-}
-
-
-Position
-GNEDetectorEntry::getPositionInView() const {
-    return myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length());
 }
 
 
