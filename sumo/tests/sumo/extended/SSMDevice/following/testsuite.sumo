@@ -7,8 +7,17 @@ foe_fast_follower
 # Ego vehicle is inserted with higher speed behind foe and foe brakes.	
 ego_fast_follower_leader_breaking
 
+# Ego vehicle is inserted with higher speed behind foe and foe brakes and then parks.	
+ego_fast_follower_leader_parking
+
 # Foe vehicle is inserted with higher speed behind ego and ego brakes.
 foe_fast_follower_leader_braking
+
+# Foe vehicle is inserted with higher speed behind ego and ego brakes and then parks.
+foe_fast_follower_leader_parking1
+
+# Foe vehicle is inserted with higher speed behind ego and ego brakes and then parks. Then foe parks and accelerates again. Results in two conflicts.
+foe_fast_follower_leader_parking2
 
 # Ego vehicle is inserted with higher speed as leader. --> no conflict expected.
 ego_fast_leader

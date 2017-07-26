@@ -23,14 +23,4 @@ following
 # use net2.net.xml with two lanes on major and test some encounter cases there
 # 
 multilane
-
-# varying step-length
-# euler/ballistic
-# several foes
-# special network topology (recurrent, double intersection)
-# several equipped vehicles
-# merging on adjacent lanes
-# stopped vehicles
-# lane changing
-# removing foe during (crossing) encounter
-more_cases_TODO
+recurrent_net

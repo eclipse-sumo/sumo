@@ -23,6 +23,14 @@ adjacent_four_vehs
 # Ego vehicle turning left has to wait with foes in opposite direction (Crossing conflict).
 ego_left_three_foes
 
+# Ego vehicle turning left has to wait with foes in opposite direction (Crossing conflict).
+# Here, 'foe1' has ssm device as well.
+ego_left_three_foes_two_equipped
+
+# Ego vehicle turning left has to wait with foes in opposite direction (Crossing conflict).
+# Here, 'foe1' has ssm device as well, saving conflicts to same file as 'ego'.
+ego_left_three_foes_two_equipped_same_file
+
 # Crossing conflict. Both going straight, ego on minor. PET should be exactly as for ego_major
 ego_minor
 

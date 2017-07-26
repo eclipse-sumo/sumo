@@ -456,7 +456,7 @@
         <!-- Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. -->
         <device.ssm.thresholds value="" type="STR"/>
 
-        <!-- Specifies whether trajectories will be logged (if false, only the extremal values and times are reported). -->
+        <!-- Specifies whether trajectories will be logged (if false, only the extremal values and times are reported, this is the default). -->
         <device.ssm.trajectories value="false" type="BOOL"/>
 
         <!-- Specifies the detection range in meters (default is 50.00m.). For vehicles below this distance from the equipped vehicle, SSM values are traced. -->
@@ -464,6 +464,9 @@
 
         <!-- Specifies the time in seconds to be logged after a conflict is over (default is 5.00secs.). Required &gt;0 if PET is to be calculated for crossing conflicts. -->
         <device.ssm.extratime value="5" type="FLOAT"/>
+
+        <!-- Whether to use coordinates of the original reference system in output (default is false). -->
+        <device.ssm.geo value="false" type="BOOL"/>
 
     </ssm_device>
 

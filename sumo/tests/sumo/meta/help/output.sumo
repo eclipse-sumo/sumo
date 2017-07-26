@@ -301,7 +301,8 @@ SSM Device Options:
                                          will be logged.
   --device.ssm.trajectories            Specifies whether trajectories will be
                                          logged (if false, only the extremal
-                                         values and times are reported).
+                                         values and times are reported, this is
+                                         the default).
   --device.ssm.range FLOAT             Specifies the detection range in meters
                                          (default is 50.00m.). For vehicles
                                          below this distance from the equipped
@@ -311,6 +312,9 @@ SSM Device Options:
                                          (default is 5.00secs.). Required >0 if
                                          PET is to be calculated for crossing
                                          conflicts.
+  --device.ssm.geo                     Whether to use coordinates of the
+                                         original reference system in output
+                                         (default is false).
 
 Bluelight Device Options:
   --device.bluelight.probability FLOAT  The probability for a vehicle to have a

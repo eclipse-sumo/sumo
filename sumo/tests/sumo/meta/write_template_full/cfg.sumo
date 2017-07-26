@@ -176,9 +176,10 @@
         <device.ssm.deterministic value="false" type="BOOL" help="The &apos;ssm&apos; devices are set deterministic using a fraction of 1000"/>
         <device.ssm.measures value="" type="STR" help="Specifies which measures will be logged (as a space seperated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;))."/>
         <device.ssm.thresholds value="" type="STR" help="Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged."/>
-        <device.ssm.trajectories value="false" type="BOOL" help="Specifies whether trajectories will be logged (if false, only the extremal values and times are reported)."/>
+        <device.ssm.trajectories value="false" type="BOOL" help="Specifies whether trajectories will be logged (if false, only the extremal values and times are reported, this is the default)."/>
         <device.ssm.range value="50" type="FLOAT" help="Specifies the detection range in meters (default is 50.00m.). For vehicles below this distance from the equipped vehicle, SSM values are traced."/>
         <device.ssm.extratime value="5" type="FLOAT" help="Specifies the time in seconds to be logged after a conflict is over (default is 5.00secs.). Required &gt;0 if PET is to be calculated for crossing conflicts."/>
+        <device.ssm.geo value="false" type="BOOL" help="Whether to use coordinates of the original reference system in output (default is false)."/>
     </ssm_device>
 
     <bluelight_device>
