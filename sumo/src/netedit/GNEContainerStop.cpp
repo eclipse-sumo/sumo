@@ -377,12 +377,12 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLane(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPosRelative = floor(parse<double>(value) / myLane->getLaneParametricLength()*1000)/1000;
+            myStartPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
             updateGeometry();
             getViewNet()->update();
             break;
         case SUMO_ATTR_ENDPOS:
-            myEndPosRelative = floor(parse<double>(value) / myLane->getLaneParametricLength()*1000)/1000;
+            myEndPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
             updateGeometry();
             getViewNet()->update();
             break;

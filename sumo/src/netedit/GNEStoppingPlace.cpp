@@ -133,7 +133,9 @@ GNEStoppingPlace::areStoppingPlacesPositionsFixed() {
     if(myFriendlyPosition) {
         return true;
     } else {
-        return (myStartPosRelative >= 0) && (myEndPosRelative <= 1) && 
+        // floors are needed to avoid precision problems
+        return ((floor(myStartPosRelative * 1000) / 1000) >= 0) &&
+               ((floor(myEndPosRelative * 1000) / 1000) <= 1) &&
                ((getAbsoluteEndPosition() - getAbsoluteStartPosition()) >= POSITION_EPS);
     }
 }

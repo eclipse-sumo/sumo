@@ -345,7 +345,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLane(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPositionOverLane = floor(parse<double>(value) / myLane->getLaneParametricLength() * 1000) / 1000;
+            myPositionOverLane = parse<double>(value) / myLane->getLaneParametricLength();
             updateGeometry();
             getViewNet()->update();
             break;
@@ -353,7 +353,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFreq = parse<double>(value);
             break;
         case SUMO_ATTR_LENGTH:
-            myRelativeLength = floor(parse<double>(value) / myLane->getLaneParametricLength() * 1000) / 1000;
+            myRelativeLength = parse<double>(value) / myLane->getLaneParametricLength();
             updateGeometry();
             getViewNet()->update();
             break;

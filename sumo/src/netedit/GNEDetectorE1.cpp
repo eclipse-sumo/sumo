@@ -301,7 +301,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLane(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPositionOverLane = floor(parse<double>(value) / myLane->getLaneParametricLength() * 1000) / 1000;
+            myPositionOverLane = parse<double>(value) / myLane->getLaneParametricLength();
             updateGeometry();
             getViewNet()->update();
             break;

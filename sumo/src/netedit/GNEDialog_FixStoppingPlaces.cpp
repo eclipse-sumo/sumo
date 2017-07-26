@@ -210,8 +210,8 @@ GNEDialog_FixStoppingPlaces::onCmdAccept(FXObject*, FXSelector, void*) {
         for(std::vector<GNEAdditional*>::iterator i = myInvalidStoppingPlacesAndE2.begin(); i != myInvalidStoppingPlacesAndE2.end(); i++) {
             GNEStoppingPlace *stoppingPlace = dynamic_cast<GNEStoppingPlace*>(*i);
             if(stoppingPlace != NULL) {
-                double startPos = stoppingPlace->getAbsoluteStartPosition();
-                double endPos = stoppingPlace->getAbsoluteEndPosition();
+                double startPos = GNEAttributeCarrier::parse<double>(stoppingPlace->getAttribute(SUMO_ATTR_STARTPOS));
+                double endPos = GNEAttributeCarrier::parse<double>(stoppingPlace->getAttribute(SUMO_ATTR_ENDPOS));
                 // fix start and end positions using checkAndFixStoppinPlacePosition
                 GNEAdditionalHandler::checkAndFixStoppinPlacePosition(startPos, endPos, stoppingPlace->getLane()->getLaneParametricLength(), POSITION_EPS, true);
                 stoppingPlace->setAttribute(SUMO_ATTR_STARTPOS, toString(startPos), myViewNet->getUndoList());
