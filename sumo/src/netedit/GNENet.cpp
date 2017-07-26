@@ -85,7 +85,7 @@
 #include "GNEViewParent.h"
 #include "GNERerouter.h"
 #include "GNEAdditionalHandler.h"
-#include "GNEDialog_FixStoppingPlaces.h"
+#include "GNEDialog_FixAdditionalPositions.h"
 
 
 FXIMPLEMENT_ABSTRACT(GNENet::GNEChange_ReplaceEdgeInTLS, GNEChange, NULL, 0)
@@ -798,11 +798,11 @@ GNENet::saveAdditionals(const std::string& filename, bool volatileOptionsEnabled
             invalidDetectors.push_back(detector);
         }
     }
-    // if there are invalid StoppingPlaces or detectors, open GNEDialog_FixStoppingPlaces
+    // if there are invalid StoppingPlaces or detectors, open GNEDialog_FixAdditionalPositions
     if(invalidStoppingPlaces.size() > 0 || invalidDetectors.size() > 0) {
         // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions 
-        if(GNEDialog_FixStoppingPlaces(myViewNet, invalidStoppingPlaces, invalidDetectors).execute() == 0) {
+        if(GNEDialog_FixAdditionalPositions(myViewNet, invalidStoppingPlaces, invalidDetectors).execute() == 0) {
             // Here a console message
             ;
         } else {

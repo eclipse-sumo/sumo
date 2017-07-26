@@ -171,7 +171,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNEDetectorExit.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEDialog_About.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEDialog_AllowDisallow.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEDialog_FixStoppingPlaces.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEDialog_FixAdditionalPositions.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEDialog_Wizard.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEEdge.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEFrame.cpp" />
@@ -255,7 +255,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNEDetectorExit.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEDialog_About.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEDialog_AllowDisallow.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEDialog_FixStoppingPlaces.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEDialog_FixAdditionalPositions.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEDialog_Wizard.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEEdge.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEEvent_NetworkLoaded.h" />

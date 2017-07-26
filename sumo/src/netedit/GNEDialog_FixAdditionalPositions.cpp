@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    GNEDialog_FixStoppingPlaces.cpp
+/// @file    GNEDialog_FixAdditionalPositions.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2017
-/// @version $Id$
+/// @version $Id: GNEDialog_FixAdditionalPositions.cpp 25373 2017-07-26 13:06:32Z palcraft $
 ///
 // Dialog used to fix invalid stopping places
 /****************************************************************************/
@@ -35,7 +35,7 @@
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 
-#include "GNEDialog_FixStoppingPlaces.h"
+#include "GNEDialog_FixAdditionalPositions.h"
 #include "GNEAdditional.h"
 #include "GNEStoppingPlace.h"
 #include "GNELane.h"
@@ -50,20 +50,20 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEDialog_FixStoppingPlaces) GNEDialog_FixStoppingPlacesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,                  GNEDialog_FixStoppingPlaces::onCmdSelectOption),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,   GNEDialog_FixStoppingPlaces::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,   GNEDialog_FixStoppingPlaces::onCmdCancel),
+FXDEFMAP(GNEDialog_FixAdditionalPositions) GNEDialog_FixAdditionalPositionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,                  GNEDialog_FixAdditionalPositions::onCmdSelectOption),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,   GNEDialog_FixAdditionalPositions::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,   GNEDialog_FixAdditionalPositions::onCmdCancel),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDialog_FixStoppingPlaces, FXDialogBox, GNEDialog_FixStoppingPlacesMap, ARRAYNUMBER(GNEDialog_FixStoppingPlacesMap))
+FXIMPLEMENT(GNEDialog_FixAdditionalPositions, FXDialogBox, GNEDialog_FixAdditionalPositionsMap, ARRAYNUMBER(GNEDialog_FixAdditionalPositionsMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEDialog_FixStoppingPlaces::GNEDialog_FixStoppingPlaces(GNEViewNet *viewNet, const std::vector<GNEStoppingPlace*> &invalidStoppingPlaces, const std::vector<GNEDetector*> &invalidDetectors) :
+GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet *viewNet, const std::vector<GNEStoppingPlace*> &invalidStoppingPlaces, const std::vector<GNEDetector*> &invalidDetectors) :
     FXDialogBox(viewNet->getApp(), ("Fix stoppingPlaces positions"), GUIDesignDialogBoxExplicit, 0, 0, 458, 300, 0, 0, 0, 0),
     myViewNet(viewNet),
     myInvalidStoppingPlaces(invalidStoppingPlaces),
@@ -187,12 +187,12 @@ GNEDialog_FixStoppingPlaces::GNEDialog_FixStoppingPlaces(GNEViewNet *viewNet, co
 }
 
 
-GNEDialog_FixStoppingPlaces::~GNEDialog_FixStoppingPlaces() {
+GNEDialog_FixAdditionalPositions::~GNEDialog_FixAdditionalPositions() {
 }
 
 
 long 
-GNEDialog_FixStoppingPlaces::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
+GNEDialog_FixAdditionalPositions::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
     if(obj == myOptionA) {
         myOptionA->setCheck(true);
         myOptionB->setCheck(false);
@@ -224,7 +224,7 @@ GNEDialog_FixStoppingPlaces::onCmdSelectOption(FXObject* obj, FXSelector, void*)
 
 
 long
-GNEDialog_FixStoppingPlaces::onCmdAccept(FXObject*, FXSelector, void*) {
+GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
     if(myOptionA->getCheck() == TRUE) {
         myViewNet->getUndoList()->p_begin(toString(SUMO_ATTR_FRIENDLY_POS) +" of invalid additionals");
         // iterate over invalid stopping places to enable friendly position
@@ -313,7 +313,7 @@ GNEDialog_FixStoppingPlaces::onCmdAccept(FXObject*, FXSelector, void*) {
 
 
 long
-GNEDialog_FixStoppingPlaces::onCmdCancel(FXObject*, FXSelector, void*) {
+GNEDialog_FixAdditionalPositions::onCmdCancel(FXObject*, FXSelector, void*) {
     // Stop Modal (abort saving)
     getApp()->stopModal(this, FALSE);
     return 1;

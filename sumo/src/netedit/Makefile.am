@@ -32,7 +32,7 @@ GNEViewParent.h GNEViewParent.cpp \
 GNEDialog_About.h GNEDialog_About.cpp \
 GNEDialog_Wizard.h GNEDialog_Wizard.cpp \
 GNEDialog_AllowDisallow.h GNEDialog_AllowDisallow.cpp \
-GNEDialog_FixStoppingPlaces.h GNEDialog_FixStoppingPlaces.cpp \
+GNEDialog_FixAdditionalPositions.h GNEDialog_FixAdditionalPositions.cpp \
 GNEAdditionalDialog.h GNEAdditionalDialog.cpp \
 GNEChange.h GNEChange.cpp \
 GNEChange_Junction.h GNEChange_Junction.cpp \

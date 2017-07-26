@@ -36,8 +36,8 @@ set(netedit_SRCS
    GNEDialog_Wizard.cpp
    GNEDialog_AllowDisallow.h
    GNEDialog_AllowDisallow.cpp
-   GNEDialog_FixStoppingPlaces.h
-   GNEDialog_FixStoppingPlaces.cpp
+   GNEDialog_FixAdditionalPositions.h
+   GNEDialog_FixAdditionalPositions.cpp
    GNEAdditionalDialog.h
    GNEAdditionalDialog.cpp
    GNEChange.h

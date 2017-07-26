@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    GNEDialog_FixStoppingPlaces.h
+/// @file    GNEDialog_FixAdditionalPositions.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2017
-/// @version $Id$
+/// @version $Id: GNEDialog_FixAdditionalPositions.h 25372 2017-07-26 12:36:05Z palcraft $
 ///
 // Dialog used to fix invalid stopping places
 /****************************************************************************/
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef GNEDialog_FixStoppingPlaces_h
-#define GNEDialog_FixStoppingPlaces_h
+#ifndef GNEDialog_FixAdditionalPositions_h
+#define GNEDialog_FixAdditionalPositions_h
 
 // ===========================================================================
 // included modules
@@ -44,19 +44,19 @@ class GNEViewNet;
 // ===========================================================================
 
 /**
- * @class GNEDialog_FixStoppingPlaces
+ * @class GNEDialog_FixAdditionalPositions
  * @brief Dialog for edit rerouters
  */
-class GNEDialog_FixStoppingPlaces : public FXDialogBox {
+class GNEDialog_FixAdditionalPositions : public FXDialogBox {
     /// @brief FOX-declaration
-    FXDECLARE(GNEDialog_FixStoppingPlaces)
+    FXDECLARE(GNEDialog_FixAdditionalPositions)
 
 public:
     /// @brief Constructor
-    GNEDialog_FixStoppingPlaces(GNEViewNet *viewNet, const std::vector<GNEStoppingPlace*> &invalidStoppingPlaces, const std::vector<GNEDetector*> &invalidDetectors);
+    GNEDialog_FixAdditionalPositions(GNEViewNet *viewNet, const std::vector<GNEStoppingPlace*> &invalidStoppingPlaces, const std::vector<GNEDetector*> &invalidDetectors);
 
     /// @brief destructor
-    ~GNEDialog_FixStoppingPlaces();
+    ~GNEDialog_FixAdditionalPositions();
 
     /// @name FOX-callbacks
     /// @{
@@ -72,7 +72,7 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNEDialog_FixStoppingPlaces() {}
+    GNEDialog_FixAdditionalPositions() {}
 
     /// @brief view net
     GNEViewNet *myViewNet;
@@ -106,10 +106,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEDialog_FixStoppingPlaces(const GNEDialog_FixStoppingPlaces&) = delete;
+    GNEDialog_FixAdditionalPositions(const GNEDialog_FixAdditionalPositions&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEDialog_FixStoppingPlaces& operator=(const GNEDialog_FixStoppingPlaces&) = delete;
+    GNEDialog_FixAdditionalPositions& operator=(const GNEDialog_FixAdditionalPositions&) = delete;
 };
 
 #endif
