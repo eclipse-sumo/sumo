@@ -129,7 +129,7 @@ GNEDetectorE1::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
     } else {
         device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     }
-    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * myLane->getLaneParametricLength());
+    device.writeAttr(SUMO_ATTR_POSITION, getAbsolutePositionOverLane());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
     if (!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
@@ -219,7 +219,7 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return toString(myLane->getAttribute(SUMO_ATTR_ID));
         case SUMO_ATTR_POSITION:
-            return toString(myPositionOverLane * myLane->getLaneParametricLength());
+            return toString(getAbsolutePositionOverLane());
         case SUMO_ATTR_FREQUENCY:
             return toString(myFreq);
         case SUMO_ATTR_FILE:
@@ -273,15 +273,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            if(canParse<double>(value)) {
-                // obtain relative new start position
-                double newStartPos = parse<double>(value) / myLane->getLaneParametricLength();
-                if((newStartPos < 0) || (newStartPos > 1)) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }               
+            return canParse<double>(value);
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_FILE:

@@ -63,7 +63,7 @@
 GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename,
                              bool cont, const double timeThreshold, double speedThreshold, double jamThreshold) :
     GNEDetector(id, viewNet, SUMO_TAG_E2DETECTOR, ICON_E2, lane, pos, freq, filename),
-    myLength(length),
+    myRelativeLength(length / lane->getLaneParametricLength()),
     myCont(cont),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
@@ -86,14 +86,22 @@ GNEDetectorE2::updateGeometry() {
     myShapeRotations.clear();
     myShapeLengths.clear();
 
+    // Get value of option "lefthand"
+    double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+
     // Get shape of lane parent
     myShape = myLane->getShape();
 
-    // Cut shape using as delimitators from start position and end position
-    myShape = myShape.getSubpart(myPositionOverLane * myShape.length() , (myPositionOverLane + myLength) * myShape.length());
+    // Move shape to side
+    myShape.move2side(1.65 * offsetSign);
+
+    // Cut shape using as delimitators fixed start position and fixed end position
+    double startPosFixed = (myPositionOverLane < 0) ? 0 : myPositionOverLane;
+    double endPosFixed = ((myPositionOverLane + myRelativeLength) > 1) ? 1 : (myPositionOverLane + myRelativeLength);
+    myShape = myShape.getSubpart(startPosFixed * myShape.length(), endPosFixed * myShape.length());
 
     // Get number of parts of the shape
-    int numberOfSegments = (int) myShape.size() - 1;
+    int numberOfSegments = (int)myShape.size() - 1;
 
     // If number of segments is more than 0
     if (numberOfSegments >= 0) {
@@ -115,7 +123,7 @@ GNEDetectorE2::updateGeometry() {
             myShapeLengths.push_back(f.distanceTo(s));
 
             // Save rotation (angle) of the vector constructed by points f and s
-            myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
+            myShapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)PI);
         }
     }
 
@@ -152,8 +160,8 @@ GNEDetectorE2::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
     } else {
         device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     }
-    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * myLane->getLaneParametricLength());
-    device.writeAttr(SUMO_ATTR_LENGTH, (myLength - myPositionOverLane) * myLane->getLaneParametricLength());
+    device.writeAttr(SUMO_ATTR_POSITION, getAbsolutePositionOverLane());
+    device.writeAttr(SUMO_ATTR_LENGTH, myRelativeLength * myLane->getLaneParametricLength());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
     if (!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
@@ -222,11 +230,11 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return toString(myLane->getAttribute(SUMO_ATTR_ID));
         case SUMO_ATTR_POSITION:
-            return toString(myPositionOverLane * myLane->getLaneParametricLength());
+            return toString(getAbsolutePositionOverLane());
         case SUMO_ATTR_FREQUENCY:
             return toString(myFreq);
         case SUMO_ATTR_LENGTH:
-            return toString(myLength * myLane->getLaneParametricLength());
+            return toString(myRelativeLength * myLane->getLaneParametricLength());
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_CONT:
@@ -287,15 +295,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            if(canParse<double>(value)) {
-                // obtain relative new start position
-                double newlanePos = parse<double>(value) / myLane->getLaneParametricLength();
-                if((newlanePos < 0) || ((newlanePos + myLength) > 1)) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
+            return canParse<double>(value);
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_LENGTH:
@@ -345,7 +345,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLane(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPositionOverLane = parse<double>(value) / myLane->getShape().length();
+            myPositionOverLane = floor(parse<double>(value) / myLane->getLaneParametricLength() * 1000) / 1000;
             updateGeometry();
             getViewNet()->update();
             break;
@@ -353,7 +353,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFreq = parse<double>(value);
             break;
         case SUMO_ATTR_LENGTH:
-            myLength = parse<double>(value) / myLane->getShape().length();
+            myRelativeLength = floor(parse<double>(value) / myLane->getLaneParametricLength() * 1000) / 1000;
             updateGeometry();
             getViewNet()->update();
             break;

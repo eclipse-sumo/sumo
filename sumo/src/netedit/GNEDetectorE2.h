@@ -110,8 +110,8 @@ public:
     /// @}
 
 protected:
-    /// @brief attribute length 
-    double myLength; 
+    /// @brief relative length [0,1]
+    double myRelativeLength; 
 
     /// @brief attribute to enable or disable splitByType
     bool myCont;

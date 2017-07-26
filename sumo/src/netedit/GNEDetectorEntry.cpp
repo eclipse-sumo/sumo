@@ -197,7 +197,7 @@ GNEDetectorEntry::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return toString(myLane->getAttribute(SUMO_ATTR_ID));
         case SUMO_ATTR_POSITION:
-            return toString(myPositionOverLane * myLane->getLaneParametricLength());
+            return toString(getAbsolutePositionOverLane());
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlocked);
         default:
@@ -241,15 +241,7 @@ GNEDetectorEntry::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            if(canParse<double>(value)) {
-                // obtain relative new start position
-                double newStartPos = parse<double>(value) / myLane->getLaneParametricLength();
-                if((newStartPos < 0) || (newStartPos > 1)) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
+            return canParse<double>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:
@@ -267,7 +259,7 @@ GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLane(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPositionOverLane = parse<double>(value) / myLane->getShape().length();
+            myPositionOverLane = floor(parse<double>(value) / myLane->getLaneParametricLength() * 1000) / 1000;
             updateGeometry();
             getViewNet()->update();
             break;
