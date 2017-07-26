@@ -1,0 +1,24 @@
+<SSMLog>
+    <SSMLog>
+        <conflict begin="5.50" end="12.50" ego="foe1" foe="ego">
+            <minTTC time="NA" value="NA" position="NA"/>
+            <maxDRAC time="NA" value="NA" position="NA"/>
+            <minPET time="9.98" value="2.46" position="100.52,50.23"/>
+        </conflict>
+    </SSMLog>
+    <conflict begin="5.50" end="12.50" ego="ego" foe="foe1">
+        <minTTC time="NA" value="NA" position="NA"/>
+        <maxDRAC time="NA" value="NA" position="NA"/>
+        <minPET time="9.98" value="2.46" position="100.52,50.23"/>
+    </conflict>
+    <conflict begin="6.30" end="13.30" ego="ego" foe="foe2">
+        <minTTC time="NA" value="NA" position="NA"/>
+        <maxDRAC time="NA" value="NA" position="NA"/>
+        <minPET time="9.98" value="1.59" position="100.52,50.23"/>
+    </conflict>
+    <conflict begin="7.10" end="14.20" ego="ego" foe="foe3">
+        <minTTC time="7.10" value="2.23" position="108.05,48.35"/>
+        <maxDRAC time="7.10" value="2.37" position="108.05,48.35"/>
+        <minPET time="NA" value="NA" position="NA"/>
+    </conflict>
+</SSMLog>
