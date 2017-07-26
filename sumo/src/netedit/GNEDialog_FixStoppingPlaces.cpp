@@ -82,7 +82,7 @@ GNEDialog_FixStoppingPlaces::GNEDialog_FixStoppingPlaces(GNEViewNet *viewNet, co
     // clear table
     myTable->clearItems();
     // set number of rows
-    myTable->setTableSize(int(myInvalidStoppingPlaces.size()), 3);
+    myTable->setTableSize(int(myInvalidStoppingPlaces.size() + myInvalidDetectors.size()), 3);
     // Configure list
     myTable->setVisibleColumns(4);
     myTable->setColumnWidth(0, GUIDesignTableIconCellWidth);
@@ -144,7 +144,7 @@ GNEDialog_FixStoppingPlaces::GNEDialog_FixStoppingPlaces(GNEViewNet *viewNet, co
             errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
         }
         GNEDetectorE2* E2Detector = dynamic_cast<GNEDetectorE2*>(i);
-        if((E2Detector != NULL) && (E2Detector->getAbsolutePositionOverLane() + E2Detector->getAbsoluteLenght())) {
+        if((E2Detector != NULL) && ((E2Detector->getAbsolutePositionOverLane() + E2Detector->getAbsoluteLenght()) > i->getLane()->getLaneParametricLength())) {
             errorLenght = (toString(SUMO_ATTR_LENGTH) + " > lanes's length");
         }
 
