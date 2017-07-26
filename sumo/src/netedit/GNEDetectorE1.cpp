@@ -84,8 +84,9 @@ GNEDetectorE1::updateGeometry() {
     // clear Shape
     myShape.clear();
 
-    // Get shape of lane parent
-    myShape.push_back(myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length()));
+    // obtain position over lane
+    double fixedPositionOverLane = myPositionOverLane > 1? 1 : myPositionOverLane < 0 ? 0 : myPositionOverLane;
+    myShape.push_back(myLane->getShape().positionAtOffset(fixedPositionOverLane * myLane->getShape().length()));
 
     // Obtain first position
     Position f = myShape[0] - Position(1, 0);
@@ -94,7 +95,7 @@ GNEDetectorE1::updateGeometry() {
     Position s = myShape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myPositionOverLane * myLane->getShape().length()) * -1);
+    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane * myLane->getShape().length()) * -1);
 
     // Set offset of logo
     myDetectorLogoOffset = Position(1, 0);

@@ -89,17 +89,18 @@ GNEDetectorExit::updateGeometryByParent() {
     // clear Shape
     myShape.clear();
 
-    // Get shape of lane parent
-    myShape.push_back(myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length()));
+    // obtain position over lane
+    double fixedPositionOverLane = myPositionOverLane > 1 ? 1 : myPositionOverLane < 0 ? 0 : myPositionOverLane;
+    myShape.push_back(myLane->getShape().positionAtOffset(fixedPositionOverLane * myLane->getShape().length()));
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myPositionOverLane * myLane->getShape().length()) * -1);
-
-    // Set offset of logo
-    myDetectorLogoOffset = Position(-2, 0);
+    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane * myLane->getShape().length()) * -1);
 
     // Set block icon position
     myBlockIconPosition = myShape.getLineCenter();
+
+    // Set offset of logo
+    myDetectorLogoOffset = Position(-2, 0);
 
     // Set block icon rotation, and using their rotation for logo
     setBlockIconRotation(myLane);
