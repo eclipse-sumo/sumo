@@ -67,6 +67,9 @@ public:
      */
     void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 
+    /// @brief check if Position of detector is fixed
+    bool isDetectorPositionFixed() const;
+
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information

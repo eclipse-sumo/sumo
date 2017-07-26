@@ -178,6 +178,23 @@ GNEDetectorE2::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
 }
 
 
+bool GNEDetectorE2::isDetectorPositionFixed() const {
+    // with friendly position enabled position are "always fixed"
+    if (myFriendlyPosition) {
+        return true;
+    }
+    else {
+        // floors are needed to avoid precision problems
+        return ((floor(myPositionOverLane * 1000) / 1000) >= 0) && ((floor((myPositionOverLane + myRelativeLength) * 1000) / 1000) <= 1);
+    }
+}
+
+
+double GNEDetectorE2::getAbsoluteLenght() const {
+    return myRelativeLength * myLane->getLaneParametricLength();
+}
+
+
 void
 GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Start drawing adding an gl identificator

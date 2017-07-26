@@ -413,7 +413,24 @@ public:
     * @param[in] friendlyPos Attribute of stoppingPlace
     * @return true if the stoppingPlace position is valid, false in otherweise
     */
-    static bool checkAndFixStoppinPlacePosition(double& startPos, double& endPos, const double laneLength, const double minLength, const bool friendlyPos);
+    static bool fixStoppinPlacePosition(double& startPos, double& endPos, const double laneLength, const double minLength, const bool friendlyPos);
+
+    /**@brief check if the position of a detector over a lane is valid
+    * @param[in] pos pos position of detector
+    * @param[in] laneLength Length of the lane
+    * @param[in] friendlyPos Attribute of detector
+    * @return true if the detector position is valid, false in otherweise
+    */
+    static bool checkAndFixDetectorPositionPosition(double& pos, const double laneLength, const bool friendlyPos);
+
+    /**@brief check if the position of a detector over a lane is valid
+    * @param[in] startPos Start position of detector
+    * @param[in] length length of detector
+    * @param[in] laneLength Length of the lane
+    * @param[in] friendlyPos Attribute of detector
+    * @return true if the detector position is valid, false in otherweise
+    */
+    static bool fixE2DetectorPositionPosition(double& pos, double &length, const double laneLength, const bool friendlyPos);
 
     /**@brief reset last Tag and clear non-valid Additionals (For example, created E3 withouts Entry/Exit childs)
      * @note must be called after a XML parsing

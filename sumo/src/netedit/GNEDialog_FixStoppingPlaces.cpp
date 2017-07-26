@@ -44,6 +44,7 @@
 #include "GNEChange_Selection.h"
 #include "GNEChange_Attribute.h"
 #include "GNEAdditionalHandler.h"
+#include "GNEDetectorE2.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -62,10 +63,11 @@ FXIMPLEMENT(GNEDialog_FixStoppingPlaces, FXDialogBox, GNEDialog_FixStoppingPlace
 // member method definitions
 // ===========================================================================
 
-GNEDialog_FixStoppingPlaces::GNEDialog_FixStoppingPlaces(GNEViewNet *viewNet, std::vector<GNEAdditional*> invalidStoppingPlacesAndE2) :
+GNEDialog_FixStoppingPlaces::GNEDialog_FixStoppingPlaces(GNEViewNet *viewNet, const std::vector<GNEStoppingPlace*> &invalidStoppingPlaces, const std::vector<GNEDetector*> &invalidDetectors) :
     FXDialogBox(viewNet->getApp(), ("Fix stoppingPlaces positions"), GUIDesignDialogBoxExplicit, 0, 0, 458, 300, 0, 0, 0, 0),
     myViewNet(viewNet),
-    myInvalidStoppingPlacesAndE2(invalidStoppingPlacesAndE2) {
+    myInvalidStoppingPlaces(invalidStoppingPlaces),
+    myInvalidDetectors(invalidDetectors) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(ICON_BUSSTOP));
     // create main frame
@@ -80,7 +82,7 @@ GNEDialog_FixStoppingPlaces::GNEDialog_FixStoppingPlaces(GNEViewNet *viewNet, st
     // clear table
     myTable->clearItems();
     // set number of rows
-    myTable->setTableSize(int(myInvalidStoppingPlacesAndE2.size()), 3);
+    myTable->setTableSize(int(myInvalidStoppingPlaces.size()), 3);
     // Configure list
     myTable->setVisibleColumns(4);
     myTable->setColumnWidth(0, GUIDesignTableIconCellWidth);
@@ -93,36 +95,66 @@ GNEDialog_FixStoppingPlaces::GNEDialog_FixStoppingPlaces(GNEViewNet *viewNet, st
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
     FXTableItem* item = 0;
-    // iterate over values
-    for (std::vector<GNEAdditional*>::iterator i = myInvalidStoppingPlacesAndE2.begin(); i != myInvalidStoppingPlacesAndE2.end(); i++) {
+    // iterate over stopping places
+    for (auto i : myInvalidStoppingPlaces) {
         // Set icon
-        item = new FXTableItem("", (*i)->getIcon());
+        item = new FXTableItem("", i->getIcon());
         item->setIconPosition(FXTableItem::CENTER_X);
         myTable->setItem(indexRow, 0, item);
         // Set ID
-        item = new FXTableItem((*i)->getID().c_str());
+        item = new FXTableItem(i->getID().c_str());
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 1, item);
         // Set conflict
-        if(dynamic_cast<GNEStoppingPlace*>(*i) != NULL) {
-            GNEStoppingPlace *stoppingPlace = dynamic_cast<GNEStoppingPlace*>(*i);
-            std::string errorStartPosition, errorEndPosition, separator;
-            // check start position
-            if(stoppingPlace->getAbsoluteStartPosition() < 0) {
-                errorStartPosition = (toString(SUMO_ATTR_STARTPOS) + " < 0");
-            }
-            // check end position
-            if(stoppingPlace->getAbsoluteEndPosition() > stoppingPlace->getLane()->getLaneParametricLength()) {
-                errorEndPosition = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
-            }
-            // check separator
-            if((errorStartPosition.size() > 0) && (errorEndPosition.size() > 0)) {
-                separator = " and ";
-            }
-            item = new FXTableItem((errorStartPosition + separator + errorEndPosition).c_str());
-            item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
-            myTable->setItem(indexRow, 2, item);
+        std::string errorStartPosition, errorEndPosition, separator;
+        // check start position
+        if(i->getAbsoluteStartPosition() < 0) {
+            errorStartPosition = (toString(SUMO_ATTR_STARTPOS) + " < 0");
         }
+        // check end position
+        if(i->getAbsoluteEndPosition() > i->getLane()->getLaneParametricLength()) {
+            errorEndPosition = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
+        }
+        // check separator
+        if((errorStartPosition.size() > 0) && (errorEndPosition.size() > 0)) {
+            separator = " and ";
+        }
+        item = new FXTableItem((errorStartPosition + separator + errorEndPosition).c_str());
+        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
+        myTable->setItem(indexRow, 2, item);
+        // Update index
+        indexRow++;
+    }
+    // iterate over detectors
+    for (auto i : myInvalidDetectors) {
+        // Set icon
+        item = new FXTableItem("", i->getIcon());
+        item->setIconPosition(FXTableItem::CENTER_X);
+        myTable->setItem(indexRow, 0, item);
+        // Set ID
+        item = new FXTableItem(i->getID().c_str());
+        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
+        myTable->setItem(indexRow, 1, item);
+        // Set conflict
+        std::string errorPosition, errorLenght, separator;
+        // check position over lane
+        if (i->getAbsolutePositionOverLane() < 0) {
+            errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+        } else if (i->getAbsolutePositionOverLane() > i->getLane()->getLaneParametricLength()) {
+            errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+        }
+        GNEDetectorE2* E2Detector = dynamic_cast<GNEDetectorE2*>(i);
+        if((E2Detector != NULL) && (E2Detector->getAbsolutePositionOverLane() + E2Detector->getAbsoluteLenght())) {
+            errorLenght = (toString(SUMO_ATTR_LENGTH) + " > lanes's length");
+        }
+
+        // check separator
+        if ((errorPosition.size() > 0) && (errorLenght.size() > 0)) {
+            separator = " and ";
+        }
+        item = new FXTableItem((errorPosition + separator + errorLenght).c_str());
+        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
+        myTable->setItem(indexRow, 2, item);
         // Update index
         indexRow++;
     }
@@ -133,15 +165,15 @@ GNEDialog_FixStoppingPlaces::GNEDialog_FixStoppingPlaces(GNEViewNet *viewNet, st
     // create Vertical Frame for left options
     FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
     myOptionA = new FXRadioButton(RadioButtonsLeft, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
-                                      this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                  this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myOptionC = new FXRadioButton(RadioButtonsLeft, "Save invalid positions\t\tSave stopping places and E2 detectors with invalid positions",
-                                      this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                  this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Vertical Frame for right options
     FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
     myOptionB = new FXRadioButton(RadioButtonsRight, "Fix positions and save\t\tPosition of stopping places and E2 detectors will be fixed",
-                                      this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                  this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myOptionD = new FXRadioButton(RadioButtonsRight, "Select invalid additionals\t\tCancel saving of additionals and select invalid stopping places and E2 detectors",
-                                      this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                  this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option a as default
     myOptionA->setCheck(true);
     // create dialog buttons bot centered
@@ -193,33 +225,60 @@ GNEDialog_FixStoppingPlaces::onCmdSelectOption(FXObject* obj, FXSelector, void*)
 
 long
 GNEDialog_FixStoppingPlaces::onCmdAccept(FXObject*, FXSelector, void*) {
-
     if(myOptionA->getCheck() == TRUE) {
         myViewNet->getUndoList()->p_begin(toString(SUMO_ATTR_FRIENDLY_POS) +" of invalid additionals");
-        // iterate over invalid stopping places and E2 to enable friendly position
-        for(std::vector<GNEAdditional*>::iterator i = myInvalidStoppingPlacesAndE2.begin(); i != myInvalidStoppingPlacesAndE2.end(); i++) {
+        // iterate over invalid stopping places to enable friendly position
+        for (auto i = myInvalidStoppingPlaces.begin(); i != myInvalidStoppingPlaces.end(); i++) {
+            (*i)->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+        }
+        // iterate over invalid detectors to enable friendly position
+        for (auto i = myInvalidDetectors.begin(); i != myInvalidDetectors.end(); i++) {
             (*i)->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
         }
         myViewNet->getUndoList()->p_end();
-        // stop modal with TRUE
+        // stop modal with TRUE (continue saving)
         getApp()->stopModal(this, TRUE);
         return 1;
     } else if(myOptionB->getCheck() == TRUE) {
         myViewNet->getUndoList()->p_begin("Fixed positions of invalid additionals");
-        // iterate over invalid stopping places and E2 to fix positions
-        for(std::vector<GNEAdditional*>::iterator i = myInvalidStoppingPlacesAndE2.begin(); i != myInvalidStoppingPlacesAndE2.end(); i++) {
+        // iterate over invalid stopping places to fix positions
+        for(auto i = myInvalidStoppingPlaces.begin(); i != myInvalidStoppingPlaces.end(); i++) {
             GNEStoppingPlace *stoppingPlace = dynamic_cast<GNEStoppingPlace*>(*i);
             if(stoppingPlace != NULL) {
+                // obtain start and end position
                 double startPos = GNEAttributeCarrier::parse<double>(stoppingPlace->getAttribute(SUMO_ATTR_STARTPOS));
                 double endPos = GNEAttributeCarrier::parse<double>(stoppingPlace->getAttribute(SUMO_ATTR_ENDPOS));
-                // fix start and end positions using checkAndFixStoppinPlacePosition
-                GNEAdditionalHandler::checkAndFixStoppinPlacePosition(startPos, endPos, stoppingPlace->getLane()->getLaneParametricLength(), POSITION_EPS, true);
+                // fix start and end positions using fixStoppinPlacePosition
+                GNEAdditionalHandler::fixStoppinPlacePosition(startPos, endPos, stoppingPlace->getLane()->getLaneParametricLength(), POSITION_EPS, true);
+                // set new start and end positions
                 stoppingPlace->setAttribute(SUMO_ATTR_STARTPOS, toString(startPos), myViewNet->getUndoList());
                 stoppingPlace->setAttribute(SUMO_ATTR_ENDPOS, toString(endPos), myViewNet->getUndoList());
             }
         }
+        // iterate over invalid detectors
+        for (auto i = myInvalidDetectors.begin(); i != myInvalidDetectors.end(); i++) {
+            GNEDetectorE2 *E2Detector = dynamic_cast<GNEDetectorE2*>(*i);
+            // Check if we're handling a E2 detector o a E1/Entry/Exit
+            if (E2Detector != NULL) {
+                // obtain position and lenght
+                double pos = GNEAttributeCarrier::parse<double>(E2Detector->getAttribute(SUMO_ATTR_POSITION));
+                double length = GNEAttributeCarrier::parse<double>(E2Detector->getAttribute(SUMO_ATTR_LENGTH));
+                // fix pos and lenght using fixE2DetectorPositionPosition
+                GNEAdditionalHandler::fixE2DetectorPositionPosition(pos, length, E2Detector->getLane()->getLaneParametricLength(), true);
+                // set new position and length
+                E2Detector->setAttribute(SUMO_ATTR_POSITION, toString(pos), myViewNet->getUndoList());
+                E2Detector->setAttribute(SUMO_ATTR_LENGTH, toString(length), myViewNet->getUndoList());
+            } else {
+                // obtain position
+                double pos = GNEAttributeCarrier::parse<double>(E2Detector->getAttribute(SUMO_ATTR_POSITION));
+                // fix pos and lenght  checkAndFixDetectorPositionPosition
+                GNEAdditionalHandler::checkAndFixDetectorPositionPosition(pos, E2Detector->getLane()->getLaneParametricLength(), true);
+                // set new position
+                E2Detector->setAttribute(SUMO_ATTR_POSITION, toString(pos), myViewNet->getUndoList());
+            }
+        }
          myViewNet->getUndoList()->p_end();
-        // stop modal with TRUE
+        // stop modal with TRUE (continue saving)
         getApp()->stopModal(this, TRUE);
         return 1;
     } else if(myOptionC->getCheck() == TRUE) {
@@ -231,28 +290,31 @@ GNEDialog_FixStoppingPlaces::onCmdAccept(FXObject*, FXSelector, void*) {
         myViewNet->getUndoList()->p_begin("select invalid additionals");
         // clear previous selection
         myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), gSelected.getSelected(), true), true);
-        // iterate over invalid stopping places and E2 to select it
-        for(std::vector<GNEAdditional*>::iterator i = myInvalidStoppingPlacesAndE2.begin(); i != myInvalidStoppingPlacesAndE2.end(); i++) {
+        // iterate over invalid stopping places to select it
+        for(auto i = myInvalidStoppingPlaces.begin(); i != myInvalidStoppingPlaces.end(); i++) {
+            GLIDsToSelect.insert((*i)->getGlID());
+        }
+        // iterate over invalid detectors to enable to select it
+        for (auto i = myInvalidDetectors.begin(); i != myInvalidDetectors.end(); i++) {
             GLIDsToSelect.insert((*i)->getGlID());
         }
         myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), GLIDsToSelect, std::set<GUIGlID>(), true), true);
         myViewNet->getUndoList()->p_end();
         myViewNet->update();
-        // stop modal with FALSE
+        // stop modal with FALSE (abort saving)
         getApp()->stopModal(this, FALSE);
         return 0;
     } else {
-        // stop modal with FALSE
+        // stop modal with FALSE (abort saving)
         getApp()->stopModal(this, FALSE);
         return 0;
     }
-
 }
 
 
 long
 GNEDialog_FixStoppingPlaces::onCmdCancel(FXObject*, FXSelector, void*) {
-    // Stop Modal
+    // Stop Modal (abort saving)
     getApp()->stopModal(this, FALSE);
     return 1;
 }

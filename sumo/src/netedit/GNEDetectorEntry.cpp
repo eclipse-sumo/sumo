@@ -122,6 +122,18 @@ GNEDetectorEntry::writeAdditional(OutputDevice&, bool) const {
 }
 
 
+bool GNEDetectorEntry::isDetectorPositionFixed() const {
+    // with friendly position enabled position are "always fixed"
+    if (myFriendlyPosition) {
+        return true;
+    }
+    else {
+        // floors are needed to avoid precision problems
+        return ((floor(myPositionOverLane * 1000) / 1000) >= 0) && ((floor(myPositionOverLane * 1000) / 1000) <= 1);
+    }
+}
+
+
 void
 GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
     // Start drawing adding gl identificator

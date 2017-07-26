@@ -128,7 +128,7 @@ GNEStoppingPlace::getAbsoluteEndPosition() const {
 
 
 bool 
-GNEStoppingPlace::areStoppingPlacesPositionsFixed() {
+GNEStoppingPlace::areStoppingPlacesPositionsFixed() const {
     // with friendly position enabled position are "always fixed"
     if(myFriendlyPosition) {
         return true;

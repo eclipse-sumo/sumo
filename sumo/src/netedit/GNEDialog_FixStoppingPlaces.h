@@ -35,7 +35,8 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNEAdditional;
+class GNEStoppingPlace;
+class GNEDetector;
 class GNEViewNet;
 
 // ===========================================================================
@@ -52,7 +53,7 @@ class GNEDialog_FixStoppingPlaces : public FXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEDialog_FixStoppingPlaces(GNEViewNet *viewNet, std::vector<GNEAdditional*> invalidStoppingPlacesAndE2);
+    GNEDialog_FixStoppingPlaces(GNEViewNet *viewNet, const std::vector<GNEStoppingPlace*> &invalidStoppingPlaces, const std::vector<GNEDetector*> &invalidDetectors);
 
     /// @brief destructor
     ~GNEDialog_FixStoppingPlaces();
@@ -76,10 +77,13 @@ protected:
     /// @brief view net
     GNEViewNet *myViewNet;
 
-    /// @brief vector with the invalid stoppingplaces and E2
-    std::vector<GNEAdditional*> myInvalidStoppingPlacesAndE2;
+    /// @brief vector with the invalid stoppingplaces
+    std::vector<GNEStoppingPlace*> myInvalidStoppingPlaces;
 
-    /// @brief list with the stoppingPlaces and E2
+    /// @brief vector with the invalid stoppingplaces
+    std::vector<GNEDetector*> myInvalidDetectors;
+
+    /// @brief list with the stoppingPlaces and detectors
     FXTable *myTable;
 
     /// @brief Option "Activate friendlyPos and save"
@@ -102,10 +106,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEDialog_FixStoppingPlaces(const GNEDialog_FixStoppingPlaces&);
+    GNEDialog_FixStoppingPlaces(const GNEDialog_FixStoppingPlaces&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEDialog_FixStoppingPlaces& operator=(const GNEDialog_FixStoppingPlaces&);
+    GNEDialog_FixStoppingPlaces& operator=(const GNEDialog_FixStoppingPlaces&) = delete;
 };
 
 #endif

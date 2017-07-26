@@ -69,6 +69,9 @@ public:
      */
     virtual void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const = 0;
 
+    /// @brief check if Position of detector is fixed
+    virtual bool isDetectorPositionFixed() const = 0;
+
     /// @brief returns the aggregation period the values the detector collects shall be summed up.
     double getFrequency() const;
 

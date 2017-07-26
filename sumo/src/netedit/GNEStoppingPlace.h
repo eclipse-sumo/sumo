@@ -79,7 +79,7 @@ public:
     double getAbsoluteEndPosition() const;
 
     /// @brief check if Position of stoppingPlace are fixed
-    bool areStoppingPlacesPositionsFixed();
+    bool areStoppingPlacesPositionsFixed() const;
 
     /// @name Functions related with geometry of element
     /// @{

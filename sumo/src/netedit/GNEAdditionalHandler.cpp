@@ -514,7 +514,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
         } else if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!checkAndFixStoppinPlacePosition(startPos, endPos, lane->getLaneParametricLength(), POSITION_EPS, friendlyPosition)) {
+        } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getLaneParametricLength(), POSITION_EPS, friendlyPosition)) {
             // Write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if (buildBusStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition)) {
@@ -547,7 +547,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
         } else if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!checkAndFixStoppinPlacePosition(startPos, endPos, lane->getLaneParametricLength(), POSITION_EPS, friendlyPosition)) {
+        } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getLaneParametricLength(), POSITION_EPS, friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if (buildContainerStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition)) {
@@ -583,7 +583,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
         } else if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!checkAndFixStoppinPlacePosition(startPos, endPos, lane->getLaneParametricLength(), POSITION_EPS, friendlyPosition)) {
+        } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getLaneParametricLength(), POSITION_EPS, friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if (buildChargingStation(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition)) {
@@ -1322,7 +1322,7 @@ GNEAdditionalHandler::getPosition(double pos, GNELane& lane, bool friendlyPos , 
 
 
 bool
-GNEAdditionalHandler::checkAndFixStoppinPlacePosition(double& startPos, double& endPos, const double laneLength, const double minLength,  const bool friendlyPos) {
+GNEAdditionalHandler::fixStoppinPlacePosition(double& startPos, double& endPos, const double laneLength, const double minLength,  const bool friendlyPos) {
     if (minLength > laneLength) {
         return false;
     }
@@ -1358,6 +1358,20 @@ GNEAdditionalHandler::checkAndFixStoppinPlacePosition(double& startPos, double& 
 }
 
 
+bool GNEAdditionalHandler::checkAndFixDetectorPositionPosition(double & pos, const double laneLength, const bool friendlyPos) {
+    if ((pos < 0) || (pos > laneLength)) {
+        if (!friendlyPos) {
+            return false;
+        } else if(pos < 0) {
+            pos = 0;
+        } else if (pos > laneLength) {
+            pos = laneLength;
+        }
+    }
+    return true;
+}
+
+
 GNECalibratorFlow::TypeOfFlow
 GNEAdditionalHandler::getTypeOfFlowDistribution(std::string flowID, double vehsPerHour, double period, double probability) {
     if ((vehsPerHour == -1) && (period == -1) && (probability == -1)) {
@@ -1383,6 +1397,25 @@ GNEAdditionalHandler::getTypeOfFlowDistribution(std::string flowID, double vehsP
             return GNECalibratorFlow::GNE_CALIBRATORFLOW_INVALID;
         }
     }
+}
+
+
+bool GNEAdditionalHandler::fixE2DetectorPositionPosition(double & pos, double & length, const double laneLength, const bool friendlyPos) {
+    if ((pos < 0) || ((pos + length) > laneLength)) {
+        if (!friendlyPos) {
+            return false;
+        }
+        else if (pos < 0) {
+            pos = 0;
+        }
+        else if (pos > laneLength) {
+            pos = laneLength;
+            length = 0;
+        } else if ((pos + length) > laneLength){
+            length = laneLength - pos;
+        }
+    }
+    return true;
 }
 
 

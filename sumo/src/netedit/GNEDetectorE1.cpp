@@ -144,6 +144,18 @@ GNEDetectorE1::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
 }
 
 
+bool GNEDetectorE1::isDetectorPositionFixed() const {
+    // with friendly position enabled position are "always fixed"
+    if (myFriendlyPosition) {
+        return true;
+    }
+    else {
+        // floors are needed to avoid precision problems
+        return ((floor(myPositionOverLane * 1000) / 1000) >= 0) && ((floor(myPositionOverLane * 1000) / 1000) <= 1);
+    }
+}
+
+
 void
 GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     // get values

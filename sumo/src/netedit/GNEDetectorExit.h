@@ -64,6 +64,9 @@ public:
      */
     void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 
+    /// @brief check if Position of detector is fixed
+    bool isDetectorPositionFixed() const;
+
     /// @brief get E3 Detector parent
     GNEDetectorE3* getE3Parent() const;
 

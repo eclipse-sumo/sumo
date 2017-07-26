@@ -785,23 +785,24 @@ GNENet::save(OptionsCont& oc) {
 
 void
 GNENet::saveAdditionals(const std::string& filename, bool volatileOptionsEnabled) {
-    // obtain invalid stopping places and E2 detectors
-    std::vector<GNEAdditional*> invalidStoppingPlacesAndE2;
-    for (GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
-        GNEStoppingPlace* stoppingPlace = dynamic_cast<GNEStoppingPlace*>(i->second);
-        GNEDetectorE2* detectorE2 = dynamic_cast<GNEDetectorE2*>(i->second);
-
+    // obtain invalid stopping places and detectors
+    std::vector<GNEStoppingPlace*> invalidStoppingPlaces;
+    std::vector<GNEDetector*> invalidDetectors;
+    for (auto i : myAdditionals) {
+        GNEStoppingPlace* stoppingPlace = dynamic_cast<GNEStoppingPlace*>(i.second);
+        GNEDetector* detector = dynamic_cast<GNEDetector*>(i.second);
+        // check if has to be fixed
         if((stoppingPlace != NULL) && (stoppingPlace->areStoppingPlacesPositionsFixed() == false)) {
-            invalidStoppingPlacesAndE2.push_back(i->second);
-        } else if((detectorE2 != NULL) /*&& (stoppingPlace->areStoppingPlacesPositionsFixed() == false) */) {
-            invalidStoppingPlacesAndE2.push_back(i->second);
+            invalidStoppingPlaces.push_back(stoppingPlace);
+        } else if((detector != NULL) && (detector->isDetectorPositionFixed() == false)) {
+            invalidDetectors.push_back(detector);
         }
     }
-    // if there are invalid StoppingPlaces and E2 detectors, open GNEDialog_FixStoppingPlaces
-    if(invalidStoppingPlacesAndE2.size() > 0) {
+    // if there are invalid StoppingPlaces or detectors, open GNEDialog_FixStoppingPlaces
+    if(invalidStoppingPlaces.size() > 0 || invalidDetectors.size() > 0) {
         // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions 
-        if(GNEDialog_FixStoppingPlaces(myViewNet, invalidStoppingPlacesAndE2).execute() == 0) {
+        if(GNEDialog_FixStoppingPlaces(myViewNet, invalidStoppingPlaces, invalidDetectors).execute() == 0) {
             // Here a console message
             ;
         } else {
