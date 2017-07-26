@@ -97,7 +97,7 @@ GNECalibrator::moveGeometry(const Position &) {
 
 
 void
-GNECalibrator::commmitGeometryMoving(const Position&, GNEUndoList*) {
+GNECalibrator::commitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved currently
 }
 

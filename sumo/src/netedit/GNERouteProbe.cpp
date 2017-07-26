@@ -145,7 +145,7 @@ GNERouteProbe::moveGeometry(const Position&) {
 
 
 void
-GNERouteProbe::commmitGeometryMoving(const Position&, GNEUndoList*) {
+GNERouteProbe::commitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved
 }
 

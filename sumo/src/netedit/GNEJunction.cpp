@@ -470,7 +470,7 @@ GNEJunction::moveJunctionGeometry2D(Position pos2D) {
 }
 
 void
-GNEJunction::commmitGeometryMoving(const Position &oldPos, GNEUndoList* undoList) {
+GNEJunction::commitGeometryMoving(const Position &oldPos, GNEUndoList* undoList) {
     if (isValid(SUMO_ATTR_POSITION, toString(myNBNode.getPosition()))) {
         undoList->p_begin("position of " + toString(getTag()));
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myNBNode.getPosition()), true, toString(oldPos)));

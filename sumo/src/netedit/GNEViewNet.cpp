@@ -751,7 +751,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
     } else if (myJunctionToMove) {
         // position is already up to date but we must register with myUndoList
         if (!mergeJunctions(myJunctionToMove)) {
-            myJunctionToMove->commmitGeometryMoving(myMovingOriginalPosition, myUndoList);
+            myJunctionToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
         }
         myJunctionToMove = 0;
     } else if (myEdgeToMove) {
@@ -760,7 +760,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
         myEdgeToMove->setAttribute(SUMO_ATTR_SHAPE, newShape, myUndoList);
         myEdgeToMove = 0;
     } else if (myAdditionalToMove) {
-        myAdditionalToMove->commmitGeometryMoving(myMovingOriginalPosition, myUndoList);
+        myAdditionalToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
         myAdditionalToMove = 0;
     } else if (myMovingSelection) {
         // positions and shapes are already up to date but we must register with myUndoList
@@ -769,7 +769,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
         if(myOriginPostionOfMovedJunctions.size() > 0) {
             myUndoList->p_begin("position of selected elements");
             for(std::map<GNEJunction*, Position>::const_iterator i = myOriginPostionOfMovedJunctions.begin(); i != myOriginPostionOfMovedJunctions.end(); i++) {
-                i->first->commmitGeometryMoving(i->second, myUndoList);
+                i->first->commitGeometryMoving(i->second, myUndoList);
             }
             myUndoList->p_end();
             myOriginPostionOfMovedJunctions.clear();

@@ -143,7 +143,7 @@ GNEVaporizer::moveGeometry(const Position&) {
 
 
 void
-GNEVaporizer::commmitGeometryMoving(const Position&, GNEUndoList*) {
+GNEVaporizer::commitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved
 }
 

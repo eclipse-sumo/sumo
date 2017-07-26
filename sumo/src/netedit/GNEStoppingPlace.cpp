@@ -105,7 +105,7 @@ GNEStoppingPlace::moveGeometry(const Position &newPosition) {
 
 
 void
-GNEStoppingPlace::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+GNEStoppingPlace::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(getAbsoluteStartPosition()), true, toString(oldPos.x())));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(getAbsoluteEndPosition()), true, toString(oldPos.y())));

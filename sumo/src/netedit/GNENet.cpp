@@ -728,7 +728,7 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
     Position oldPos = moved->getNBNode()->getPosition();
     moved->moveJunctionGeometry(target->getNBNode()->getPosition());
     // register the move with undolist (must happend within the undo group)
-    moved->commmitGeometryMoving(oldPos, undoList);
+    moved->commitGeometryMoving(oldPos, undoList);
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector incoming = moved->getNBNode()->getIncomingEdges();
     for (EdgeVector::const_iterator it = incoming.begin(); it != incoming.end(); it++) {

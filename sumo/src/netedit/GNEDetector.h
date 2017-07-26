@@ -49,14 +49,15 @@ class GNEDetector : public GNEAdditional {
 public:
     /**@brief Constructor.
      * @param[in] id Gl-id of the detector (Must be unique)
-     * @param[in] lane Lane of this detector belongs
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
      * @param[in] icon GUIIcon associated to the detector
+     * @param[in] lane Lane of this detector belongs
+     * @param[in] pos position of the detector on the lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double freq, const std::string& filename);
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double pos, double freq, const std::string& filename);
 
     /// @brief Destructor
     ~GNEDetector();
@@ -84,25 +85,28 @@ public:
      */
     void setFilename(const std::string &filename);
 
+    /// @brief get absolute position over Lane
+    double getAbsolutePositionOverLane() const;
+
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
      * @param[in] newPosition new position of geometry
      * @note should't be called in drawGL(...) functions to avoid smoothness issues
      */
-    virtual void moveGeometry(const Position &newPosition) = 0;
+    void moveGeometry(const Position &newPosition);
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
      * @param[in] oldPos the old position of additional
      * @param[in] undoList The undoList on which to register changes
      */
-    virtual void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) = 0;
+    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 
     /// @brief Returns position of additional in view
-    virtual Position getPositionInView() const = 0;
+    Position getPositionInView() const;
     /// @}
 
     /// @name inherited from GUIGLObject
@@ -143,6 +147,9 @@ public:
     /// @}
 
 protected:
+    /// @brief position of detector over Lane
+    double myPositionOverLane;
+
     /// @brief The aggregation period the values the detector collects shall be summed up.
     double myFreq;
 
@@ -163,10 +170,10 @@ private:
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief Invalidate return position of additional
-    const Position& getPosition() const;
+    const Position& getPosition() const = delete;
 
     /// @brief Invalidate set new position in the view
-    void setPosition(const Position& pos);
+    void setPosition(const Position& pos) = delete;
 };
 
 #endif

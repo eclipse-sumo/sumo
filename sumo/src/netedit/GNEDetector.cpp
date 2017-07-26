@@ -59,8 +59,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double freq, const std::string& filename) :
+GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double pos, double freq, const std::string& filename) :
     GNEAdditional(id, viewNet, tag, icon),
+    myPositionOverLane(pos / lane->getLaneParametricLength()),
     myFreq(freq),
     myFilename(filename) {
     // This additional belongs to a Lane
@@ -99,6 +100,36 @@ GNEDetector::setFilename(const std::string &filename) {
     myFilename = filename;
 }
 
+double GNEDetector::getAbsolutePositionOverLane() const {
+    return myPositionOverLane * myLane->getLaneParametricLength();
+}
+
+
+void GNEDetector::moveGeometry(const Position & newPosition) {
+    // First we need to change the absolute new position to a relative position
+    double lenghtDifference = 0;
+    if (myLane->getLaneShapeLength() > 0) {
+        lenghtDifference = myLane->getLaneParametricLength() / myLane->getLaneShapeLength();
+    }
+    double relativePos = newPosition.x() / myLane->getLaneParametricLength() * lenghtDifference;
+    // change relative position position over lane
+    myPositionOverLane += relativePos;
+    // Update geometry
+    updateGeometry();
+}
+
+
+void GNEDetector::commitGeometryMoving(const Position & oldPos, GNEUndoList * undoList) {
+    undoList->p_begin("position of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(getAbsolutePositionOverLane()), true, toString(oldPos.x())));
+    undoList->p_end();
+    // Refresh element
+    myViewNet->getNet()->refreshAdditional(this);
+}
+
+Position GNEDetector::getPositionInView() const {
+    return myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length());
+}
 
 const std::string&
 GNEDetector::getParentName() const {

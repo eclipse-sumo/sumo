@@ -130,7 +130,7 @@ GNEVariableSpeedSign::moveGeometry(const Position &newPosition) {
 
 
 void
-GNEVariableSpeedSign::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+GNEVariableSpeedSign::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(oldPos)));
     undoList->p_end();

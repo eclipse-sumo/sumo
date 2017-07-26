@@ -105,7 +105,7 @@ public:
      * @param[in] oldPos the old position of additional
      * @param[in] undoList The undoList on which to register changes
      */
-    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
     void updateGeometry();
