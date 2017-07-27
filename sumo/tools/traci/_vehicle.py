@@ -558,7 +558,9 @@ class VehicleDomain(Domain):
     def getLeader(self, vehID, dist=0.):
         """getLeader(string, double) -> (string, double)
 
-        Return the leading vehicle id together with the distance.
+        Return the leading vehicle id together with the distance. The distance
+        is measured from the front + minGap to the back of the leader, so it does not include the
+        minGap of the vehicle.
         The dist parameter defines the maximum lookahead, 0 calculates a lookahead from the brake gap.
         Note that the returned leader may be farther away than the given dist.
         """
