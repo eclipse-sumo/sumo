@@ -142,6 +142,8 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
     { "max",            NIImporter_OpenDrive::OPENDRIVE_ATTR_MAX },
     { "sOffset",        NIImporter_OpenDrive::OPENDRIVE_ATTR_SOFFSET },
     { "name",           NIImporter_OpenDrive::OPENDRIVE_ATTR_NAME },
+    // towards xodr v1.4 speed:unit
+    { "unit",           NIImporter_OpenDrive::OPENDRIVE_ATTR_UNIT },
 
     { "",               NIImporter_OpenDrive::OPENDRIVE_ATTR_NOTHING }
 };
@@ -1509,6 +1511,7 @@ NIImporter_OpenDrive::myStartElement(int element,
             int majorVersion = attrs.get<int>(OPENDRIVE_ATTR_REVMAJOR, 0, ok);
             int minorVersion = attrs.get<int>(OPENDRIVE_ATTR_REVMINOR, 0, ok);
             if (majorVersion != 1 || minorVersion != 2) {
+                // TODO: leave note of exceptions
                 WRITE_WARNING("Given openDrive file '" + getFileName() + "' uses version " + toString(majorVersion) + "." + toString(minorVersion) + ";\n Version 1.2 is supported.");
             }
         }
@@ -1732,6 +1735,19 @@ NIImporter_OpenDrive::myStartElement(int element,
             if (myElementStack.size() >= 2 && myElementStack[myElementStack.size() - 1] == OPENDRIVE_TAG_LANE) {
                 double speed = attrs.get<double>(OPENDRIVE_ATTR_MAX, myCurrentEdge.id.c_str(), ok);
                 double pos = attrs.get<double>(OPENDRIVE_ATTR_SOFFSET, myCurrentEdge.id.c_str(), ok);
+                // required for xodr v1.4
+                const std::string unit = attrs.getOpt<std::string>(OPENDRIVE_ATTR_UNIT, myCurrentEdge.id.c_str(), ok, "", false);
+                // now convert the speed to reasonable default SI [m/s]
+                if (!unit.empty()) {
+                    // something to be done at all ?
+                    if (unit == "km/h") {
+                        speed /= 3.6;
+                    }
+                    if (unit == "mph") {
+                        speed *= 1.609344 / 3.6;
+                    }
+                    // IGNORING unknown units.
+                }
                 myCurrentEdge.laneSections.back().lanesByDir[myCurrentLaneDirection].back().speeds.push_back(std::make_pair(pos, speed));
             }
         }

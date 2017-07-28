@@ -160,7 +160,8 @@ protected:
         OPENDRIVE_ATTR_TO,
         OPENDRIVE_ATTR_MAX,
         OPENDRIVE_ATTR_SOFFSET,
-        OPENDRIVE_ATTR_NAME
+        OPENDRIVE_ATTR_NAME,
+        OPENDRIVE_ATTR_UNIT    // xodr v1.4
     };
 
 
