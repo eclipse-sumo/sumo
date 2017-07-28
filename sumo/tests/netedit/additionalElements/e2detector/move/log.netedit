@@ -1,27 +1,27 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
-Warning: Setting new attribute pos '12.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting new attribute pos '11.70' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Setting new attribute pos '17.00' into e2Detector 'e2Detector_gneE0_0_0'
-Warning: Setting new attribute pos '27.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting new attribute pos '26.85' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Setting new attribute pos '17.00' into e2Detector 'e2Detector_gneE0_0_0'
-Warning: Setting new attribute pos '1.00' into e2Detector 'e2Detector_gneE0_0_0'
-Warning: Setting new attribute pos '16.00' into e2Detector 'e2Detector_gneE0_0_0'
-Warning: Setting new attribute pos '39.00' into e2Detector 'e2Detector_gneE0_0_0'
-Warning: Setting new attribute pos '24.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting new attribute pos '-0.88' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting new attribute pos '14.27' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting new attribute pos '46.39' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting new attribute pos '31.24' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '39.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting previous attribute pos '46.39' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '16.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting previous attribute pos '14.27' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '1.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting previous attribute pos '-0.88' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '17.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '27.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting previous attribute pos '26.85' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '17.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '12.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting previous attribute pos '11.70' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '17.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -30,21 +30,21 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '12.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting new attribute pos '11.70' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '17.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '27.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting new attribute pos '26.85' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '17.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '1.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting new attribute pos '-0.88' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '16.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting new attribute pos '14.27' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '39.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting new attribute pos '46.39' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '24.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Setting new attribute pos '31.24' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

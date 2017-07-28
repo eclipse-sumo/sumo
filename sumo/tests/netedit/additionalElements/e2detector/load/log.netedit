@@ -56,8 +56,23 @@ Warning: Adding e2Detector 'E2_33' in GNEChange_Additional
 Warning: Format of optional float attribute 'jamThreshold' of e2Detector with ID 'E2_34' is invalid; Cannot be negative; Default value '10.00' will be used.
 Warning: Adding e2Detector 'E2_34' in GNEChange_Additional
 Warning: Adding e2Detector 'E2_35' in GNEChange_Additional
+Warning: Optional bool attribute 'friendlyPos' of e2Detector with ID 'E2_36' is missing; Default value '0' will be used.
+Warning: Adding e2Detector 'E2_36' in GNEChange_Additional
+Warning: Format of optional bool attribute 'friendlyPos' of e2Detector with ID 'E2_37' is invalid; Default value '0' will be used.
+Warning: Adding e2Detector 'E2_37' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_38' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_39' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_40' in GNEChange_Additional
+Warning: Format of optional float attribute 'length' of e2Detector with ID 'E2_41' is invalid; Cannot be negative; Default value '10.00' will be used.
+Warning: Adding e2Detector 'E2_41' in GNEChange_Additional
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: Deleting unreferenced e2Detector 'E2_41'
+Warning: Deleting unreferenced e2Detector 'E2_40'
+Warning: Deleting unreferenced e2Detector 'E2_39'
+Warning: Deleting unreferenced e2Detector 'E2_38'
+Warning: Deleting unreferenced e2Detector 'E2_37'
+Warning: Deleting unreferenced e2Detector 'E2_36'
 Warning: Deleting unreferenced e2Detector 'E2_35'
 Warning: Deleting unreferenced e2Detector 'E2_34'
 Warning: Deleting unreferenced e2Detector 'E2_33'

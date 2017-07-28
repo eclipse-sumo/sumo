@@ -8,8 +8,8 @@ Warning: Value 'dummy lane' for attribute lane of e2Detector isn't valid
 Warning: Setting new attribute lane 'gneE0_0' into e2Detector 'correctID'
 Warning: Setting new attribute lane 'gneE2_1' into e2Detector 'correctID'
 Warning: Setting new attribute lane 'gneE2_0' into e2Detector 'correctID'
-Warning: Value '-5' for attribute pos of e2Detector isn't valid
-Warning: Value '400' for attribute pos of e2Detector isn't valid
+Warning: Setting new attribute pos '-5' into e2Detector 'correctID'
+Warning: Setting new attribute pos '400' into e2Detector 'correctID'
 Warning: Setting new attribute pos '20' into e2Detector 'correctID'
 Warning: Setting new attribute length '10' into e2Detector 'correctID'
 Warning: Value '-5' for attribute length of e2Detector isn't valid
@@ -30,6 +30,9 @@ Warning: Setting new attribute speedThreshold '6.3' into e2Detector 'correctID'
 Warning: Setting new attribute jamThreshold '10' into e2Detector 'correctID'
 Warning: Value '-8' for attribute jamThreshold of e2Detector isn't valid
 Warning: Setting new attribute jamThreshold '12.5' into e2Detector 'correctID'
+Warning: Setting new attribute friendlyPos 'true' into e2Detector 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute friendlyPos '0' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute jamThreshold '10.00' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -57,6 +60,10 @@ Warning: Setting previous attribute length '10.00' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute length '10.00' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute pos '400.00' into e2Detector 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute pos '-5.00' into e2Detector 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '17.40' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE2_1' into e2Detector 'correctID'
@@ -71,8 +78,6 @@ Warning: Removing e2Detector 'e2Detector_gneE2_1_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing e2Detector 'e2Detector_gneE2_1_0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding e2Detector 'e2Detector_gneE2_1_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -85,6 +90,10 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE2_1' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE2_0' into e2Detector 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute pos '-5' into e2Detector 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute pos '400' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '20' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -114,7 +123,7 @@ Warning: Setting new attribute jamThreshold '10' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute jamThreshold '12.5' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute friendlyPos 'true' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

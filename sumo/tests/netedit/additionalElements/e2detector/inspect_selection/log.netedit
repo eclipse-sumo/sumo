@@ -1,5 +1,7 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Optional bool attribute 'friendlyPos' of e2Detector with ID 'E2_A' is missing; Default value '0' will be used.
 Warning: Adding e2Detector 'E2_A' in GNEChange_Additional
+Warning: Optional bool attribute 'friendlyPos' of e2Detector with ID 'E2_B' is missing; Default value '0' will be used.
 Warning: Adding e2Detector 'E2_B' in GNEChange_Additional
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
@@ -8,6 +10,7 @@ Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Addi
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
+Warning: Selected 6 elements in GNEChange_Selection
 Warning: Value '-12' for attribute length of e2Detector isn't valid
 Warning: Setting new attribute length '7' into e2Detector 'E2_A'
 Warning: Setting new attribute length '7' into e2Detector 'E2_B'
@@ -25,6 +28,8 @@ Warning: Setting new attribute speedThreshold '4' into e2Detector 'E2_B'
 Warning: Value '-6' for attribute jamThreshold of e2Detector isn't valid
 Warning: Setting new attribute jamThreshold '8.5' into e2Detector 'E2_A'
 Warning: Setting new attribute jamThreshold '8.5' into e2Detector 'E2_B'
+Warning: Setting new attribute friendlyPos 'true' into e2Detector 'E2_A'
+Warning: Setting new attribute friendlyPos 'true' into e2Detector 'E2_B'
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced e2Detector 'E2_B'

@@ -104,9 +104,15 @@ netedit.modifyAdditionalDefaultValue(7, "15.5")
 # create E2 with different jam threshold
 netedit.leftClick(match, 350, 220)
 
+# Change friendlyPos
+netedit.modifyAdditionalDefaultBoolValue(8)
+
+# create E2 with different friendlyPos
+netedit.leftClick(match, 450, 220)
+
 # Check undo redo
-netedit.undo(match, 7)
-netedit.redo(match, 7)
+netedit.undo(match, 8)
+netedit.redo(match, 8)
 
 # save additionals
 netedit.saveAdditionals()

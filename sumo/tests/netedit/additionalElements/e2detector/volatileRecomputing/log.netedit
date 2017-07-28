@@ -1,7 +1,13 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e2Detector 'E2_01' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_02' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_03' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_04' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_05' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_06' in GNEChange_Additional
 Warning: Adding e2Detector 'E2_07' in GNEChange_Additional
 Warning: Adding e2Detector 'E2_08' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_09' in GNEChange_Additional
 Warning: Adding e2Detector 'E2_10' in GNEChange_Additional
 Warning: Adding e2Detector 'E2_11' in GNEChange_Additional
 Warning: Adding e2Detector 'E2_12' in GNEChange_Additional
@@ -22,12 +28,6 @@ Warning: Adding e2Detector 'E2_26' in GNEChange_Additional
 Warning: Adding e2Detector 'E2_27' in GNEChange_Additional
 Warning: Adding e2Detector 'E2_28' in GNEChange_Additional
 Warning: Adding e2Detector 'E2_29' in GNEChange_Additional
-Warning: Adding e2Detector 'E2_30' in GNEChange_Additional
-Warning: Adding e2Detector 'E2_31' in GNEChange_Additional
-Warning: Adding e2Detector 'E2_32' in GNEChange_Additional
-Warning: Adding e2Detector 'E2_33' in GNEChange_Additional
-Warning: Adding e2Detector 'E2_34' in GNEChange_Additional
-Warning: Adding e2Detector 'E2_35' in GNEChange_Additional
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'Yes'
@@ -147,12 +147,6 @@ Warning: Adding lane 'gneE0_0' into edge
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing lane 'gneE0_0' from edge
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Deleting unreferenced e2Detector 'E2_35'
-Warning: Deleting unreferenced e2Detector 'E2_34'
-Warning: Deleting unreferenced e2Detector 'E2_33'
-Warning: Deleting unreferenced e2Detector 'E2_32'
-Warning: Deleting unreferenced e2Detector 'E2_31'
-Warning: Deleting unreferenced e2Detector 'E2_30'
 Warning: Deleting unreferenced e2Detector 'E2_29'
 Warning: Deleting unreferenced e2Detector 'E2_28'
 Warning: Deleting unreferenced e2Detector 'E2_27'
@@ -173,8 +167,14 @@ Warning: Deleting unreferenced e2Detector 'E2_13'
 Warning: Deleting unreferenced e2Detector 'E2_12'
 Warning: Deleting unreferenced e2Detector 'E2_11'
 Warning: Deleting unreferenced e2Detector 'E2_10'
+Warning: Deleting unreferenced e2Detector 'E2_09'
 Warning: Deleting unreferenced e2Detector 'E2_08'
 Warning: Deleting unreferenced e2Detector 'E2_07'
+Warning: Deleting unreferenced e2Detector 'E2_06'
+Warning: Deleting unreferenced e2Detector 'E2_05'
+Warning: Deleting unreferenced e2Detector 'E2_04'
+Warning: Deleting unreferenced e2Detector 'E2_03'
+Warning: Deleting unreferenced e2Detector 'E2_02'
 Warning: Deleting unreferenced e2Detector 'E2_01'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

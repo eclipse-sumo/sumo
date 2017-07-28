@@ -11,6 +11,9 @@ Warning: Invalid input parameter of e2Detector: 'speedThreshold' cannot be negat
 Warning: Adding e2Detector 'e2Detector_gneE1_0_5' in GNEChange_Additional
 Warning: Invalid input parameter of e2Detector: 'jamThreshold' cannot be negative
 Warning: Adding e2Detector 'e2Detector_gneE1_0_6' in GNEChange_Additional
+Warning: Adding e2Detector 'e2Detector_gneE1_0_7' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing e2Detector 'e2Detector_gneE1_0_7' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing e2Detector 'e2Detector_gneE1_0_6' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -39,8 +42,11 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding e2Detector 'e2Detector_gneE1_0_5' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding e2Detector 'e2Detector_gneE1_0_6' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding e2Detector 'e2Detector_gneE1_0_7' in GNEChange_Additional
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: Deleting unreferenced e2Detector 'e2Detector_gneE1_0_7'
 Warning: Deleting unreferenced e2Detector 'e2Detector_gneE1_0_6'
 Warning: Deleting unreferenced e2Detector 'e2Detector_gneE1_0_5'
 Warning: Deleting unreferenced e2Detector 'e2Detector_gneE1_0_4'

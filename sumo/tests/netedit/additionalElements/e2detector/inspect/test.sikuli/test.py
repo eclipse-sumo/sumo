@@ -137,12 +137,12 @@ netedit.modifyAttribute(9, "-8")
 # Change parameter 9 with a valid value
 netedit.modifyAttribute(9, "12.5")
 
-# click over an empty area
-netedit.leftClick(match, 0, 0)
+# Change boolean parameter 10
+netedit.modifyBoolAttribute(10)
 
 # Check undos and redos
-netedit.undo(match, 23)
-netedit.redo(match, 23)
+netedit.undo(match, 24)
+netedit.redo(match, 24)
 
 # save additionals
 netedit.saveAdditionals()

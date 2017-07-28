@@ -74,6 +74,9 @@ netedit.modifyAttribute(5, "-6")
 # Set valid jam speed treshold
 netedit.modifyAttribute(5, "8.5")
 
+# Set friendlyPos
+netedit.modifyBoolAttribute(6)
+
 # save additionals
 netedit.saveAdditionals()
 
