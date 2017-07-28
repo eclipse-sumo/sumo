@@ -1,11 +1,11 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
-Warning: Setting new attribute pos '27.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '26.85' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Setting new attribute blockMovement 'true' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Setting new attribute blockMovement 'false' into e1Detector 'e1Detector_gneE0_0_0'
-Warning: Setting new attribute pos '34.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '34.43' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '27.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting previous attribute pos '26.85' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '1' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -17,13 +17,13 @@ Warning: Removing e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '27.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '26.85' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'false' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '34.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '34.43' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced e1Detector 'e1Detector_gneE0_0_0'

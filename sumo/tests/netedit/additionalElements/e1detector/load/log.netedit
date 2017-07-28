@@ -22,12 +22,23 @@ Warning: Adding e1Detector 'E1_14' in GNEChange_Additional
 Warning: Adding e1Detector 'E1_15' in GNEChange_Additional
 Warning: Adding e1Detector 'E1_16' in GNEChange_Additional
 Warning: Optional bool attribute 'splitByType' of e1Detector with ID 'E1_17' is missing; Default value '0' will be used.
+Warning: Optional bool attribute 'friendlyPos' of e1Detector with ID 'E1_17' is missing; Default value '0' will be used.
 Warning: Adding e1Detector 'E1_17' in GNEChange_Additional
 Warning: Format of optional bool attribute 'splitByType' of e1Detector with ID 'E1_18' is invalid; Default value '0' will be used.
 Warning: Adding e1Detector 'E1_18' in GNEChange_Additional
 Warning: Adding e1Detector 'E1_19' in GNEChange_Additional
+Warning: Optional bool attribute 'friendlyPos' of e1Detector with ID 'E1_20' is missing; Default value '0' will be used.
+Warning: Adding e1Detector 'E1_20' in GNEChange_Additional
+Warning: Format of optional bool attribute 'friendlyPos' of e1Detector with ID 'E1_21' is invalid; Default value '0' will be used.
+Warning: Adding e1Detector 'E1_21' in GNEChange_Additional
+Warning: Adding e1Detector 'E1_22' in GNEChange_Additional
+Warning: Adding e1Detector 'E1_23' in GNEChange_Additional
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: Deleting unreferenced e1Detector 'E1_23'
+Warning: Deleting unreferenced e1Detector 'E1_22'
+Warning: Deleting unreferenced e1Detector 'E1_21'
+Warning: Deleting unreferenced e1Detector 'E1_20'
 Warning: Deleting unreferenced e1Detector 'E1_19'
 Warning: Deleting unreferenced e1Detector 'E1_18'
 Warning: Deleting unreferenced e1Detector 'E1_17'

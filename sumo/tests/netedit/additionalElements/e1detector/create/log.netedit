@@ -3,6 +3,9 @@ Warning: Adding e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
 Warning: Invalid input parameter of e1Detector: 'freq' cannot be negative
 Warning: Adding e1Detector 'e1Detector_gneE0_0_1' in GNEChange_Additional
 Warning: Adding e1Detector 'e1Detector_gneE0_0_2' in GNEChange_Additional
+Warning: Adding e1Detector 'e1Detector_gneE0_0_3' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing e1Detector 'e1Detector_gneE0_0_3' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing e1Detector 'e1Detector_gneE0_0_2' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -15,8 +18,11 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding e1Detector 'e1Detector_gneE0_0_1' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding e1Detector 'e1Detector_gneE0_0_2' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding e1Detector 'e1Detector_gneE0_0_3' in GNEChange_Additional
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: Deleting unreferenced e1Detector 'e1Detector_gneE0_0_3'
 Warning: Deleting unreferenced e1Detector 'e1Detector_gneE0_0_2'
 Warning: Deleting unreferenced e1Detector 'e1Detector_gneE0_0_1'
 Warning: Deleting unreferenced e1Detector 'e1Detector_gneE0_0_0'

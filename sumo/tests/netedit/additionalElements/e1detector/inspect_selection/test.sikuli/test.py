@@ -44,8 +44,18 @@ netedit.leftClick(match, 150, 240)
 # Try to set invalid frecuency
 netedit.modifyAttribute(0, "-30")
 
-# set frecuency
+# set vaild frecuency
 netedit.modifyAttribute(0, "20")
+
+# Change split by type
+netedit.modifyBoolAttribute(1)
+
+# Change friendly pos
+netedit.modifyBoolAttribute(2)
+
+# Check undos and redos
+netedit.undo(match, 3)
+netedit.redo(match, 3)
 
 # save additionals
 netedit.saveAdditionals()

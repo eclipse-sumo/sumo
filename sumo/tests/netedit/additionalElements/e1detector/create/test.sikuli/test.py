@@ -50,15 +50,21 @@ netedit.modifyAdditionalDefaultValue(2, "150")
 # create E1 with different frequency
 netedit.leftClick(match, 250, 250)
 
-# Change split by tipe
+# Change split by type
 netedit.modifyAdditionalDefaultBoolValue(3)
 
 # create E1 with different split by type
 netedit.leftClick(match, 300, 250)
 
+# Change friendlyPos
+netedit.modifyAdditionalDefaultBoolValue(4)
+
+# create E1 with different split by type
+netedit.leftClick(match, 350, 250)
+
 # Check undo redo
-netedit.undo(match, 3)
-netedit.redo(match, 3)
+netedit.undo(match, 4)
+netedit.redo(match, 4)
 
 # save additionals
 netedit.saveAdditionals()

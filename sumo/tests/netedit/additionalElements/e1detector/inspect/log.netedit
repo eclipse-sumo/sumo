@@ -8,8 +8,8 @@ Warning: Value 'dummy lane' for attribute lane of e1Detector isn't valid
 Warning: Setting new attribute lane 'gneE0_0' into e1Detector 'correctID'
 Warning: Setting new attribute lane 'gneE2_1' into e1Detector 'correctID'
 Warning: Setting new attribute lane 'gneE2_0' into e1Detector 'correctID'
-Warning: Value '-5' for attribute pos of e1Detector isn't valid
-Warning: Value '400' for attribute pos of e1Detector isn't valid
+Warning: Setting new attribute pos '-5' into e1Detector 'correctID'
+Warning: Setting new attribute pos '400' into e1Detector 'correctID'
 Warning: Setting new attribute pos '20' into e1Detector 'correctID'
 Warning: Setting new attribute freq '100' into e1Detector 'correctID'
 Warning: Value '-100' for attribute freq of e1Detector isn't valid
@@ -19,6 +19,9 @@ Warning: Value '%%%&&%$%$' for attribute file of e1Detector isn't valid
 Warning: Setting new attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector 'correctID'
 Warning: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'correctID'
 Warning: Setting new attribute splitByType 'true' into e1Detector 'correctID'
+Warning: Setting new attribute friendlyPos 'true' into e1Detector 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute friendlyPos '0' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute splitByType '0' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -32,27 +35,23 @@ Warning: Setting previous attribute freq '100.00' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute freq '100.00' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute pos '400.00' into e1Detector 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute pos '-5.00' into e1Detector 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '17.40' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE2_1' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE0_0' into e1Detector 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute lane 'gneE2_1' into e1Detector 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute id 'e1Detector_gneE2_1_0' into e1Detector 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing e1Detector 'e1Detector_gneE2_1_1' in GNEChange_Additional
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Adding e1Detector 'e1Detector_gneE2_1_1' in GNEChange_Additional
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute id 'correctID' into e1Detector 'e1Detector_gneE2_1_0'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute lane 'gneE0_0' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE2_1' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE2_0' into e1Detector 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute pos '-5' into e1Detector 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute pos '400' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '20' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -67,6 +66,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute splitByType 'true' into e1Detector 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute friendlyPos 'true' into e1Detector 'correctID'
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
