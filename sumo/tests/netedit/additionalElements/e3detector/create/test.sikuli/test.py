@@ -84,13 +84,13 @@ netedit.leftClick(match, 500, 100)
 netedit.changeAdditional("detEntry")
 
 # Create Entry detectors for all E3 detectors except for the first
-netedit.selectAdditionalChild(4, 1)
+netedit.selectAdditionalChild(6, 1)
 netedit.leftClick(match, 50, 200)
-netedit.selectAdditionalChild(4, 1)
+netedit.selectAdditionalChild(6, 1)
 netedit.leftClick(match, 200, 250)
-netedit.selectAdditionalChild(4, 1)
+netedit.selectAdditionalChild(6, 1)
 netedit.leftClick(match, 350, 200)
-netedit.selectAdditionalChild(4, 1)
+netedit.selectAdditionalChild(6, 1)
 netedit.leftClick(match, 500, 250)
 
 # Check undo redo

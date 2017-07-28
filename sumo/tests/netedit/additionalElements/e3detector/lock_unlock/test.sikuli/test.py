@@ -45,7 +45,7 @@ netedit.leftClick(match, 250, 250)
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector E3 (for saving)
-netedit.selectAdditionalChild(4, 0)
+netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(match, 400, 250)
 
 # change to move mode

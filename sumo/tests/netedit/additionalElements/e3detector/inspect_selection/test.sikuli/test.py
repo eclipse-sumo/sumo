@@ -38,7 +38,7 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect E2s
+# inspect E3s
 netedit.leftClick(match, 150, 250)
 
 # Set invalid freq

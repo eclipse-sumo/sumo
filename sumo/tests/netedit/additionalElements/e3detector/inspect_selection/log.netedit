@@ -12,6 +12,7 @@ Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Addi
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings
+Warning: Selected 8 elements in GNEChange_Selection
 Warning: Value '-30' for attribute freq of e3Detector isn't valid
 Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_B'

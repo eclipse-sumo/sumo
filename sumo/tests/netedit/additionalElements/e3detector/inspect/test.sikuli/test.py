@@ -48,9 +48,9 @@ netedit.leftClick(match, 450, 100)
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector E3 (for saving)
-netedit.selectAdditionalChild(4, 0)
+netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(match, 100, 200)
-netedit.selectAdditionalChild(4, 1)
+netedit.selectAdditionalChild(6, 1)
 netedit.leftClick(match, 400, 300)
 
 # go to inspect mode
