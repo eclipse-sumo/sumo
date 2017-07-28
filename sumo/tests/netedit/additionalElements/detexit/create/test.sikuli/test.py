@@ -48,13 +48,18 @@ netedit.changeAdditional("detExit")
 netedit.leftClick(match, 50, 200)
 
 # Create four Exit detectors
-netedit.selectAdditionalChild(4, 0)
+netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(match, 50, 200)
-netedit.selectAdditionalChild(4, 0)
+netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(match, 200, 200)
-netedit.selectAdditionalChild(4, 0)
+netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(match, 350, 200)
-netedit.selectAdditionalChild(4, 0)
+
+# Change friendlyPos
+netedit.modifyAdditionalDefaultBoolValue(1)
+
+# create exit detector with different friendly pos
+netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(match, 500, 200)
 
 # Check undo redo

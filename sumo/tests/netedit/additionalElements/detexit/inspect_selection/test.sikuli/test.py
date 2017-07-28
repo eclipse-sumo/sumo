@@ -38,10 +38,15 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect Emtry
+# inspect exit
 netedit.leftClick(match, 150, 250)
 
-# Nothing to change
+# Change friendly position
+netedit.modifyBoolAttribute(0)
+
+# Check undos and redos
+netedit.undo(match, 1)
+netedit.redo(match, 1)
 
 # save additionals
 netedit.saveAdditionals()

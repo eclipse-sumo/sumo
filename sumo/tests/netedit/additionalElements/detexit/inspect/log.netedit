@@ -7,6 +7,9 @@ Warning: Value '' for attribute lane of detExit isn't valid
 Warning: Value 'dummy position' for attribute pos of detExit isn't valid
 Warning: Value '' for attribute pos of detExit isn't valid
 Warning: Setting new attribute pos '25' into detExit 'e3Detector_0detExit0'
+Warning: Setting new attribute friendlyPos 'true' into detExit 'e3Detector_0detExit0'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute friendlyPos '0' into detExit 'e3Detector_0detExit0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '29.50' into detExit 'e3Detector_0detExit0'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -20,6 +23,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '25' into detExit 'e3Detector_0detExit0'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute friendlyPos 'true' into detExit 'e3Detector_0detExit0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

@@ -27,7 +27,7 @@ netedit.leftClick(match, 250, 50)
 netedit.changeAdditional("detExit")
 
 # Create Exit detector
-netedit.selectAdditionalChild(4, 0)
+netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(match, 100, 200)
 
 # change to move mode
@@ -43,7 +43,7 @@ netedit.inspectMode()
 netedit.leftClick(match, 200, 200)
 
 # block additional
-netedit.modifyBoolAttribute(2)
+netedit.modifyBoolAttribute(3)
 
 # change to move mode
 netedit.moveMode()
@@ -58,7 +58,7 @@ netedit.inspectMode()
 netedit.leftClick(match, 200, 200)
 
 # unblock additional
-netedit.modifyBoolAttribute(2)
+netedit.modifyBoolAttribute(3)
 
 # change to move mode
 netedit.moveMode()

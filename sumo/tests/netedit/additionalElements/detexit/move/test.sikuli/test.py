@@ -45,7 +45,7 @@ netedit.leftClick(match, 250, 50)
 netedit.changeAdditional("detExit")
 
 # Create Exit detector
-netedit.selectAdditionalChild(4, 0)
+netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(match, 100, 200)
 
 # apply zoom out

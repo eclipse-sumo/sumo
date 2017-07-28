@@ -8,11 +8,23 @@ Warning: Essential string attribute 'pos' of detExit is missing; detExit cannot 
 Warning: Format of essential string attribute 'pos' of detExit is invalid; detExit cannot be created
 Warning: Format of essential string attribute 'pos' of detExit is invalid; detExit cannot be created
 Warning: Invalid position for detExit.
-Warning: Invalid position for detExit.
 Warning: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
+Warning: Optional bool attribute 'friendlyPos' of detExit is missing; Default value '0' will be used.
 Warning: Adding detExit 'e3Detector_0detExit2' in GNEChange_Additional
+Warning: Format of optional bool attribute 'friendlyPos' of detExit is invalid; Default value '0' will be used.
+Warning: Adding detExit 'e3Detector_0detExit3' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_0detExit4' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_0detExit5' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_0detExit6' in GNEChange_Additional
+Warning: Optional bool attribute 'friendlyPos' of detExit is missing; Default value '0' will be used.
+Warning: Adding detExit 'e3Detector_0detExit7' in GNEChange_Additional
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit7'
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit6'
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit5'
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit4'
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit3'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit2'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit1'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'

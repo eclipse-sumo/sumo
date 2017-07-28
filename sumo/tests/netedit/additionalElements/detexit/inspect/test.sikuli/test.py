@@ -45,7 +45,7 @@ netedit.leftClick(match, 250, 400)
 netedit.changeAdditional("detExit")
 
 # Create Exit detector E3
-netedit.selectAdditionalChild(4, 0)
+netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(match, 200, 200)
 
 # go to inspect mode
@@ -72,12 +72,12 @@ netedit.modifyAttribute(1, "")
 # Change parameter 1 with a valid value (different position X)
 netedit.modifyAttribute(1, "25")
 
-# go to a empty area
-netedit.leftClick(match, 0, 0)
+# Change boolean parameter 1
+netedit.modifyBoolAttribute(2)
 
 # Check undos and redos
-netedit.undo(match, 4)
-netedit.redo(match, 4)
+netedit.undo(match, 5)
+netedit.redo(match, 5)
 
 # save additionals
 netedit.saveAdditionals()

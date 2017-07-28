@@ -1,7 +1,7 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '100.00'
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Warning: Invalid input parameter of e3Detector: A e3Detector must be selected before insertion of detExit.
+Warning: Invalid input parameter of detExit: A e3Detector must be selected before insertion of detExit.
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit2' in GNEChange_Additional
