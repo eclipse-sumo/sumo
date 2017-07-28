@@ -107,7 +107,7 @@ GNEDetectorE1::updateGeometry() {
     myBlockIconOffset = Position(-1, 0);
 
     // Set block icon rotation, and using their rotation for logo
-    setBlockIconRotation(myLane);
+    setBlockIconRotation();
 
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);

@@ -242,10 +242,8 @@ protected:
 
     /// @name members and functions relative to block icon
     /// @{
-    /**@brief set Rotation of block Icon
-     * @note must be called in updateGeometry() after setting of Shape, and use parameter "lane" if additional is placed over a lane
-     */
-    void setBlockIconRotation(GNELane* lane = NULL);
+    /// @brief set Rotation of block Icon (must be called in updateGeometry() function)
+    void setBlockIconRotation();
 
     /// @brief draw lock icon
     void drawLockIcon(double size = 0.5) const;

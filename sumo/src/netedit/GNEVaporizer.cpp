@@ -101,7 +101,8 @@ GNEVaporizer::updateGeometry() {
     myNumberOfLanes = int(myEdge->getLanes().size());
 
     // Get shape of lane parent
-    myShape.push_back(firstLane->getShape().positionAtOffset(5));
+    double offset = firstLane->getShape().length() < 2.5? firstLane->getShape().length() : 2.5;
+    myShape.push_back(firstLane->getShape().positionAtOffset(offset));
 
     // Obtain first position
     Position f = myShape[0] - Position(1, 0);
@@ -110,7 +111,7 @@ GNEVaporizer::updateGeometry() {
     Position s = myShape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(firstLane->getShape().rotationDegreeAtOffset(5) * -1);
+    myShapeRotations.push_back(firstLane->getShape().rotationDegreeAtOffset(offset) * -1);
 
     // Set block icon position
     myBlockIconPosition = myShape.getLineCenter();
@@ -119,7 +120,7 @@ GNEVaporizer::updateGeometry() {
     myBlockIconOffset = Position(1.1, (-3.06) - myRelativePositionY);
 
     // Set block icon rotation, and using their rotation for logo
-    setBlockIconRotation(firstLane);
+    setBlockIconRotation();
 
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);

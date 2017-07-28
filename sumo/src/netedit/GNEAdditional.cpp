@@ -253,14 +253,14 @@ GNEAdditional::getCenteringBoundary() const {
 
 
 void
-GNEAdditional::setBlockIconRotation(GNELane* lane) {
+GNEAdditional::setBlockIconRotation() {
     if (myShape.size() > 0 && myShape.length() != 0) {
         // If length of the shape is distint to 0, Obtain rotation of center of shape
         myBlockIconRotation = myShape.rotationDegreeAtOffset((myShape.length() / 2.)) - 90;
-    } else if (lane != NULL) {
+    } else if (myLane != NULL) {
         // If additional is over a lane, set rotation in the position over lane
         double posOverLane = myLane->getShape().nearest_offset_to_point2D(getPositionInView());
-        myBlockIconRotation = lane->getShape().rotationDegreeAtOffset(posOverLane) - 90;
+        myBlockIconRotation = myLane->getShape().rotationDegreeAtOffset(posOverLane) - 90;
     } else {
         // In other case, rotation is 0
         myBlockIconRotation = 0;

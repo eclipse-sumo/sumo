@@ -100,7 +100,7 @@ GNEContainerStop::updateGeometry() {
     myBlockIconPosition = myShape.getLineCenter();
 
     // Set block icon rotation, and using their rotation for sign
-    setBlockIconRotation(myLane);
+    setBlockIconRotation();
 
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);
