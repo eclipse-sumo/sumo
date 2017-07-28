@@ -179,6 +179,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
                 device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
             }
             device.writeAttr(SUMO_ATTR_POSITION, (*i)->getAttribute(SUMO_ATTR_POSITION));
+            device.writeAttr(SUMO_ATTR_FRIENDLY_POS, (*i)->getAttribute(SUMO_ATTR_FRIENDLY_POS));
             device.closeTag();
         }
 
@@ -197,6 +198,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
                 device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
             }
             device.writeAttr(SUMO_ATTR_POSITION, (*i)->getAttribute(SUMO_ATTR_POSITION));
+            device.writeAttr(SUMO_ATTR_FRIENDLY_POS, (*i)->getAttribute(SUMO_ATTR_FRIENDLY_POS));
             device.closeTag();
         }
 

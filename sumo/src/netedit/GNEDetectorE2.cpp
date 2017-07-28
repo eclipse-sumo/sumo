@@ -167,6 +167,7 @@ GNEDetectorE2::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
     device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, myTimeThreshold);
     device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
     device.writeAttr(SUMO_ATTR_JAM_DIST_THRESHOLD, myJamThreshold);
+    device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     if (myBlocked) {
         device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
     }
