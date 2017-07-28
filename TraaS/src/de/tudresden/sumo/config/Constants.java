@@ -27,6 +27,12 @@ package de.tudresden.sumo.config;
 
 public class Constants {
 	
+	public static final int CMD_SETORDER = 0x03;
+
+	public static final int COPY = 0x88;
+
+	public static final int VAR_ACCUMULATED_WAITING_TIME = 0x87;
+	
 	public static final int DEPARTFLAG_SPEED_RANDOM = -0x02;
 	
 	public static final int RESPONSE_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE = 0xe1;

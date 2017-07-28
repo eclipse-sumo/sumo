@@ -241,7 +241,7 @@ public class Person {
 	 */
 
 	public static SumoCommand getNextEdge(String personID){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_MINGAP, personID, Constants.RESPONSE_GET_PERSON_VARIABLE, Constants.TYPE_DOUBLE);
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_MINGAP, personID, Constants.RESPONSE_GET_PERSON_VARIABLE, Constants.TYPE_STRING);
 	}
 	
 	/**
@@ -254,7 +254,7 @@ public class Person {
 	 */
 
 	public static SumoCommand getEdges(String personID){
-		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_NEXT_EDGE, personID, Constants.RESPONSE_GET_PERSON_VARIABLE, Constants.TYPE_STRING);
+		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_NEXT_EDGE, personID, Constants.RESPONSE_GET_PERSON_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 	
 	/**

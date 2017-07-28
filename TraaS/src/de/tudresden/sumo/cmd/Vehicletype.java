@@ -86,7 +86,7 @@ public class Vehicletype {
 	 */
 
 	public static SumoCommand getLateralAlignment(String typeID){
-		return new SumoCommand(Constants.CMD_GET_VEHICLETYPE_VARIABLE, Constants.VAR_LATALIGNMENT, typeID, Constants.RESPONSE_GET_VEHICLETYPE_VARIABLE, Constants.TYPE_DOUBLE);
+		return new SumoCommand(Constants.CMD_GET_VEHICLETYPE_VARIABLE, Constants.VAR_LATALIGNMENT, typeID, Constants.RESPONSE_GET_VEHICLETYPE_VARIABLE, Constants.TYPE_STRING);
 	}
 	
 	/**
@@ -482,5 +482,15 @@ public class Vehicletype {
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_WIDTH, typeID, width);
 	}
 
-
+	/**
+	 *  Duplicates the vType with ID origTypeID. The newly created vType is assigned the ID newTypeID
+	 * @param typeID type id
+	 * @param newTypeID newTypeID
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setWidth(String typeID, String newTypeID){
+		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.COPY, typeID, newTypeID);
+	}
+	
+	        
 }

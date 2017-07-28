@@ -686,6 +686,17 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_VEHICLECLASS, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_STRING);
 	}
 
+
+	/**
+	 * Returns the vehicle class.
+	 * @param vehID id of the vehicle
+	 * @return vehicle class
+	 */
+
+	public static SumoCommand getAccumulatedWaitingTime(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ACCUMULATED_WAITING_TIME, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
 	/**
 	 * Returns the vehicle's width (in m).
 	 * @param vehID id of the vehicle
@@ -695,7 +706,7 @@ public class Vehicle {
 	public static SumoCommand getWidth(String vehID){
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_WIDTH, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
-
+	
 	
 	/**
 	 * isStopped
