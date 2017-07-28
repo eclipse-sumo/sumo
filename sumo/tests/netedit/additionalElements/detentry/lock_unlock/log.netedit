@@ -2,12 +2,12 @@ Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Addi
 Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '100.00'
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Warning: Setting new attribute pos '30.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '29.35' into detEntry 'e3Detector_0detEntry0'
 Warning: Setting new attribute blockMovement 'true' into detEntry 'e3Detector_0detEntry0'
 Warning: Setting new attribute blockMovement 'false' into detEntry 'e3Detector_0detEntry0'
-Warning: Setting new attribute pos '26.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '25.29' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '30.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting previous attribute pos '29.35' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '1' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -23,13 +23,13 @@ Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '30.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '29.35' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'false' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '26.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '25.29' into detEntry 'e3Detector_0detEntry0'
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'

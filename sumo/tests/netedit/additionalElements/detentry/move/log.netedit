@@ -3,28 +3,28 @@ Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '100.00'
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Current Viewport values: 25.00, 0.00, 70.00. Zoom = '280.00'
-Warning: Setting new attribute pos '38.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '38.30' into detEntry 'e3Detector_0detEntry0'
 Warning: Setting new attribute pos '33.00' into detEntry 'e3Detector_0detEntry0'
-Warning: Setting new attribute pos '23.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '23.15' into detEntry 'e3Detector_0detEntry0'
 Warning: Setting new attribute pos '33.00' into detEntry 'e3Detector_0detEntry0'
-Warning: Setting new attribute pos '51.00' into detEntry 'e3Detector_0detEntry0'
-Warning: Setting new attribute pos '34.00' into detEntry 'e3Detector_0detEntry0'
-Warning: Setting new attribute pos '2.00' into detEntry 'e3Detector_0detEntry0'
-Warning: Setting new attribute pos '18.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '50.88' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '34.21' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '2.09' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '18.76' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '2.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting previous attribute pos '2.09' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '34.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting previous attribute pos '34.21' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '51.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting previous attribute pos '50.88' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '33.00' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '23.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting previous attribute pos '23.15' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '33.00' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '38.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting previous attribute pos '38.30' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '33.00' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -36,21 +36,21 @@ Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '38.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '38.30' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '33.00' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '23.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '23.15' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '33.00' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '51.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '50.88' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '34.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '34.21' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '2.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '2.09' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '18.00' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute pos '18.76' into detEntry 'e3Detector_0detEntry0'
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'

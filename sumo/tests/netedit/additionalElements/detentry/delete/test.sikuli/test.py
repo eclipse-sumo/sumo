@@ -48,11 +48,11 @@ netedit.leftClick(match, 200, 50)
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector for E3 3
-netedit.selectAdditionalChild(4, 2)
+netedit.selectAdditionalChild(6, 2)
 netedit.leftClick(match, 75, 200)
 
 # Create Entry detectors for E3 4
-netedit.selectAdditionalChild(4, 3)
+netedit.selectAdditionalChild(6, 3)
 netedit.leftClick(match, 250, 200)
 
 # Change to delete

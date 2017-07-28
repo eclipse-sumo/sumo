@@ -47,14 +47,19 @@ netedit.changeAdditional("detEntry")
 # try to create Entry without select child
 netedit.leftClick(match, 50, 200)
 
-# Create four Entry detectors
-netedit.selectAdditionalChild(4, 0)
+# Create three Entry detectors
+netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(match, 50, 200)
-netedit.selectAdditionalChild(4, 0)
+netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(match, 200, 200)
-netedit.selectAdditionalChild(4, 0)
+netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(match, 350, 200)
-netedit.selectAdditionalChild(4, 0)
+
+# Change friendlyPos
+netedit.modifyAdditionalDefaultBoolValue(1)
+
+# create entry detector with different friendly pos
+netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(match, 500, 200)
 
 # Check undo redo
