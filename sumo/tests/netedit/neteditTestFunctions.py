@@ -215,9 +215,6 @@ def getReferenceMatch(neProcess, waitTime):
 
 def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchReference=True, waitTime=DELAY_REFERENCE):
     setup(testRoot)
-    # disable Caps Lock
-    if(Env.isLockOn(Key.CAPS_LOCK) == False):
-        type(Key.CAPS_LOCK)
     # Open netedit
     neteditProcess = Popen(extraParameters, debugInformation)
     atexit.register(quit, neteditProcess, False, False)
