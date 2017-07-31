@@ -718,6 +718,10 @@ MSNet::writeOutput() {
         od.writeAttr("ended", myVehicleControl->getEndedVehicleNo());
         od.writeAttr("meanWaitingTime", meanWaitingTime);
         od.writeAttr("meanTravelTime", meanTravelTime);
+        od.writeAttr("halting", getHaltingVehicleNumber());
+        std::pair<double, double> meanSpeed = getVehicleMeanSpeeds();
+        od.writeAttr("meanSpeed", meanSpeed.first);
+        od.writeAttr("meanSpeedRelative", meanSpeed.second);
         if (myLogExecutionTime) {
             od.writeAttr("duration", mySimStepDuration);
         }
@@ -1023,6 +1027,39 @@ MSNet::checkElevation() {
         }
     }
     return false;
+}
+
+
+int 
+MSNet::getHaltingVehicleNumber() const {
+    int result = 0;
+    for (MSVehicleControl::constVehIt it = myVehicleControl->loadedVehBegin(); it != myVehicleControl->loadedVehEnd(); ++it) {
+        const SUMOVehicle* veh = it->second;
+        if ((veh->isOnRoad() || veh->isRemoteControlled()) && veh->getSpeed() < SUMO_const_haltingSpeed)  {
+            result++;
+        }
+    }
+    return result;
+}
+
+std::pair<double, double>
+MSNet::getVehicleMeanSpeeds() const {
+    double speedSum = 0;
+    double relSpeedSum = 0;
+    int count = 0;
+    for (MSVehicleControl::constVehIt it = myVehicleControl->loadedVehBegin(); it != myVehicleControl->loadedVehEnd(); ++it) {
+        const SUMOVehicle* veh = it->second;
+        if ((veh->isOnRoad() || veh->isRemoteControlled()) && !veh->isStopped()) {
+            count++;
+            speedSum += veh->getSpeed();
+            relSpeedSum += veh->getSpeed() / veh->getEdge()->getSpeedLimit();
+        }
+    }
+    if (count > 0) {
+        return std::make_pair(speedSum / count, relSpeedSum / count);
+    } else {
+        return std::make_pair(-1, -1);
+    }
 }
 
 /****************************************************************************/

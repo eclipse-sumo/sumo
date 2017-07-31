@@ -701,6 +701,14 @@ protected:
     /// @brief check all lanes for elevation data
     bool checkElevation();
 
+    /// @brief count number of standing vehicles in the network
+    int getHaltingVehicleNumber() const;
+
+    /// @brief get current absolute and relative mean vehicle speed in the network
+    std::pair<double, double> getVehicleMeanSpeeds() const;
+    double getVehicleMeanSpeed() const { return getVehicleMeanSpeeds().first; }
+    double getVehicleMeanSpeedRelative() const { return getVehicleMeanSpeeds().second; }
+
 protected:
     /// @brief Unique instance of MSNet
     static MSNet* myInstance;
