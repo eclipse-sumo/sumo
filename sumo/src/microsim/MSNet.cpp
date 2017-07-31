@@ -709,10 +709,15 @@ MSNet::writeOutput() {
         const double meanWaitingTime = departedVehiclesNumber != 0 ? myVehicleControl->getTotalDepartureDelay() / (double) departedVehiclesNumber : -1.;
         int endedVehicleNumber = myVehicleControl->getEndedVehicleNo();
         const double meanTravelTime = endedVehicleNumber != 0 ? myVehicleControl->getTotalTravelTime() / (double) endedVehicleNumber : -1.;
-        od.openTag("step").writeAttr("time", time2string(myStep)).writeAttr("loaded", myVehicleControl->getLoadedVehicleNo())
-        .writeAttr("inserted", myVehicleControl->getDepartedVehicleNo()).writeAttr("running", myVehicleControl->getRunningVehicleNo())
-        .writeAttr("waiting", myInserter->getWaitingVehicleNo()).writeAttr("ended", myVehicleControl->getEndedVehicleNo())
-        .writeAttr("meanWaitingTime", meanWaitingTime).writeAttr("meanTravelTime", meanTravelTime);
+        od.openTag("step");
+        od.writeAttr("time", time2string(myStep));
+        od.writeAttr("loaded", myVehicleControl->getLoadedVehicleNo());
+        od.writeAttr("inserted", myVehicleControl->getDepartedVehicleNo());
+        od.writeAttr("running", myVehicleControl->getRunningVehicleNo());
+        od.writeAttr("waiting", myInserter->getWaitingVehicleNo());
+        od.writeAttr("ended", myVehicleControl->getEndedVehicleNo());
+        od.writeAttr("meanWaitingTime", meanWaitingTime);
+        od.writeAttr("meanTravelTime", meanTravelTime);
         if (myLogExecutionTime) {
             od.writeAttr("duration", mySimStepDuration);
         }
