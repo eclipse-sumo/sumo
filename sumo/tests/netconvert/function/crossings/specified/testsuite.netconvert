@@ -71,3 +71,6 @@ discard_no_internal
 
 # discard all crossings
 discard_no_internal2
+
+# .tll.xml and .con.xml file are inconsistent
+inconsistent_tll
