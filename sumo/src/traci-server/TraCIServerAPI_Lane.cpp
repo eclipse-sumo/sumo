@@ -40,6 +40,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSTransportable.h>
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
 #include "TraCIServerAPI_Lane.h"
@@ -355,6 +356,17 @@ TraCIServerAPI_Lane::StoringVisitor::add(const MSLane* const l) const {
             for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
                 if (myShape.distance2D((*j)->getPosition()) <= myRange) {
                     myIDs.insert((*j)->getID());
+                }
+            }
+            l->releaseVehicles();
+        }
+        break;
+        case CMD_GET_PERSON_VARIABLE: {
+            const MSLane::VehCont& vehs = l->getVehiclesSecure();
+            std::vector<MSTransportable*> persons = l->getEdge().getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
+            for (auto p : persons) {
+                if (myShape.distance2D(p->getPosition()) <= myRange) {
+                    myIDs.insert(p->getID());
                 }
             }
             l->releaseVehicles();
