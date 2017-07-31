@@ -6,6 +6,7 @@
         <node-files value="input_net.nod.xml"/>
         <edge-files value="input_net.edg.xml"/>
         <connection-files value="input_net.con.xml"/>
+        <tllogic-files value="input_net.tll.xml"/>
     </input>
 
     <output>
