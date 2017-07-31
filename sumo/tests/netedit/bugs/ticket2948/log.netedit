@@ -76,23 +76,24 @@ Warning: Key ESC (abort) pressed
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 5 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 6 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 7 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 7 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 7 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 7 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 7 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 7 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 7 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 7 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 7 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 7 Junctions, 9 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 3 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 3 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 3 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 4 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 5 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 5 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 6 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 6 Junctions, 9 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 6 Junctions, 10 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Current selection: 7 Junctions, 10 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Current selection: 7 Junctions, 11 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Current selection: 7 Junctions, 12 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Selected 19 elements in GNEChange_Selection
 Warning: Adding TLS into junction 'gneJ0'
 Warning: Setting new attribute type 'traffic_light' into junction 'gneJ0'
 Warning: Adding TLS into junction 'gneJ1'
@@ -187,6 +188,8 @@ Warning: Removing TLS from junction 'gneJ1'
 Warning: Setting previous attribute type 'traffic_light' into junction 'gneJ0'
 Warning: Removing TLS from junction 'gneJ0'
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Deselected 19 elements in GNEChange_Selection
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE5'
 Warning: Deleting unreferenced connection 'from-gneE5_0to-gneE4_0' in clearGNEConnections()
@@ -261,30 +264,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Removing edge 'gneE1' from net
 Warning: Removing junction 'gneJ2' from net
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE0'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
-Warning: Removing edge '-gneE0' from net
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
-Warning: Removing edge 'gneE0' from net
-Warning: Removing junction 'gneJ1' from net
-Warning: Removing junction 'gneJ0' from net
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Adding junction 'gneJ0' into net
-Warning: Adding junction 'gneJ1' into net
-Warning: Adding edge 'gneE0' from net
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Warning: Adding edge '-gneE0' from net
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE0'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding junction 'gneJ2' into net
 Warning: Adding edge 'gneE1' from net
@@ -350,6 +329,8 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Selected 19 elements in GNEChange_Selection
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding TLS into junction 'gneJ0'
 Warning: Setting new attribute type 'traffic_light' into junction 'gneJ0'

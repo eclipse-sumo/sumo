@@ -13,12 +13,12 @@ Warning: Created connection 'fromgneE5_0togneE6_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE5_0to-gneE3_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE5_0togneE4_0' in retrieveGNEConnection()
 Warning: Current Viewport values: 0.00, 0.00, 50.00. Zoom = '100.00'
-Warning: Setting new attribute pos '25.00,50.0' into junction 'gneJ6'
+Warning: Setting new attribute pos '25.00,50.00' into junction 'gneJ6'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '0.00,0.00' into junction 'gneJ6'
 Warning: Key F5 (Compute) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '25.00,50.0' into junction 'gneJ6'
+Warning: Setting new attribute pos '25.00,50.00' into junction 'gneJ6'
 Warning: Deleting unreferenced edge '-gneE3' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE3_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE4' in GNENet destructor

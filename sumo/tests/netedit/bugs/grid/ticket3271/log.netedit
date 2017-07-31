@@ -41,21 +41,17 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Adding junction 'gneJ1' into net
-Warning: Adding edge 'gneE2' from net
-Warning: Removing connection '1_1->5_1' from edge '1'
-Warning: Deleting unreferenced connection 'from1_1to5_1' in removeConnection()
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Warning: Adding junction 'gneJ2' into net
+Warning: Adding edge 'gneE2' from net
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
+Warning: Adding junction 'gneJ3' into net
 Warning: Adding edge 'gneE3' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
-Warning: Created connection 'from1_0togneE2_0' in retrieveGNEConnection()
-Warning: Created connection 'from1_1to5_1' in retrieveGNEConnection()
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Warning: Created connection 'from2_1to6_1' in retrieveGNEConnection()
 Warning: Created connection 'from3_1to7_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE0_0to6_0' in retrieveGNEConnection()
@@ -66,7 +62,6 @@ Warning: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced edge '1' in GNENet destructor
 Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'from1_0togneE2_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from1_1to5_1' in GNEEdge destructor
 Warning: Deleting unreferenced edge '2' in GNENet destructor
 Warning: Deleting unreferenced lane '2_0' in GNEEdge destructor
@@ -133,4 +128,5 @@ Warning: Deleting unreferenced junction 'D' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
