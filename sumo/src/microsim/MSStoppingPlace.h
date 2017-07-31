@@ -42,6 +42,7 @@
 // class declarations
 // ===========================================================================
 class MSLane;
+class MSEdge;
 class SUMOVehicle;
 class MSTransportable;
 class Position;
