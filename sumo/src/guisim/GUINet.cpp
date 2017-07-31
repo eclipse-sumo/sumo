@@ -418,7 +418,7 @@ GUIParameterTableWindow*
 GUINet::getParameterWindow(GUIMainWindow& app,
                            GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 29);
+        new GUIParameterTableWindow(app, *this, 32);
     // add items
     ret->mkItem("loaded vehicles [#]", true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getLoadedVehicleNo));
@@ -434,6 +434,12 @@ GUINet::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getCollisionCount));
     ret->mkItem("teleports [#]", true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getTeleportCount));
+    ret->mkItem("halting [#]", true,
+                new FunctionBinding<MSNet, int>(this, &GUINet::getHaltingVehicleNumber));
+    ret->mkItem("mean speed [m/s]", true,
+                new FunctionBinding<MSNet, double>(this, &GUINet::getVehicleMeanSpeed));
+    ret->mkItem("mean speed relative", true,
+                new FunctionBinding<MSNet, double>(this, &GUINet::getVehicleMeanSpeedRelative));
     if (myPersonControl != 0) {
         ret->mkItem("loaded persons [#]", true,
                     new FunctionBinding<MSTransportableControl, int>(&getPersonControl(), &MSTransportableControl::getLoadedNumber));
