@@ -4,11 +4,11 @@ Warning: Setting new attribute startPos '19.58' into containerStop 'containerSto
 Warning: Setting new attribute endPos '29.58' into containerStop 'containerStop_gneE0_0_0'
 Warning: Setting new attribute blockMovement 'true' into containerStop 'containerStop_gneE0_0_0'
 Warning: Setting new attribute blockMovement 'false' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute startPos '27.13' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '37.13' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '27.16' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '37.16' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '29.55' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting previous attribute startPos '19.55' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute endPos '29.58' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute startPos '19.58' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '1' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -28,8 +28,8 @@ Warning: Setting new attribute blockMovement 'true' into containerStop 'containe
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'false' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute startPos '27.13' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '37.13' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '27.16' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '37.16' into containerStop 'containerStop_gneE0_0_0'
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced containerStop 'containerStop_gneE0_0_0'
