@@ -30,6 +30,10 @@ Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
+Warning: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
@@ -47,7 +51,11 @@ Warning: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Warning: Deleting unreferenced crossing ':gneJ0_c0' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':gneJ0_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

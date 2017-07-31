@@ -8,16 +8,24 @@ Warning: Removing routeProbe 'routeProbe_02' in GNEChange_Additional
 Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Warning: Deleting TLS from junction 'gneJ0'
+Warning: Adding TLS into junction 'gneJ0'
 Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Warning: Deleting TLS from junction 'gneJ1'
+Warning: Adding TLS into junction 'gneJ1'
 Warning: Removing edge 'gneE0' from net
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding edge 'gneE0' from net
+Warning: Removing TLS from junction 'gneJ1'
+Warning: Adding TLS into junction 'gneJ1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE0'
 Warning: Adding connection 'gneE0_0->gneE1_0' into edge 'gneE0'
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Warning: Removing TLS from junction 'gneJ0'
+Warning: Adding TLS into junction 'gneJ0'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ0'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE1'
 Warning: Adding connection 'gneE1_0->gneE0_0' into edge 'gneE1'
@@ -39,11 +47,19 @@ Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Warning: Deleting TLS from junction 'gneJ0'
+Warning: Adding TLS into junction 'gneJ0'
 Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Warning: Deleting TLS from junction 'gneJ1'
+Warning: Adding TLS into junction 'gneJ1'
 Warning: Removing edge 'gneE0' from net
+Warning: The traffic light 'gneJ0' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light 'gneJ0'
+Warning: The traffic light 'gneJ1' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light 'gneJ1'
 Warning: Deleting unreferenced edge 'gneE0' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_2'

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 29/12/2016 10:33:19 by Netedit Version dev-SVN-r22364
+<!-- generated on 31.07.2017 13:18:50 by Netedit Version dev-SVN-r22743
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.29Dec103258.4360/netedit.server/additionalElements/busstop/create\additionals.xml"/>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.29Dec103258.4360/netedit.server/additionalElements/busstop/create\input_net.net.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul131644.3900/netedit.gui/additionalElements/busstop/create\additionals.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul131644.3900/netedit.gui/additionalElements/busstop/create\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.29Dec103258.4360/netedit.server/additionalElements/busstop/create\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul131644.3900/netedit.gui/additionalElements/busstop/create\net.net.xml"/>
     </output>
 
     <processing>
@@ -19,16 +19,20 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <visualisation>
         <window-size value="700,500"/>
+        <window-pos value="50,50"/>
         <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.29Dec103258.4360/netedit.server/additionalElements/busstop/create\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul131644.3900/netedit.gui/additionalElements/busstop/create\log.txt"/>
     </report>
 
 </configuration>
@@ -52,15 +56,24 @@
         <lane id="gneE1_0" index="0" speed="13.89" length="50.00" shape="50.00,1.65 0.00,1.65"/>
     </edge>
 
-    <junction id="gneJ0" type="priority" x="0.00" y="0.00" incLanes="gneE1_0" intLanes=":gneJ0_0_0" shape="0.00,-0.05 0.00,3.25 0.00,0.05">
+    <tlLogic id="gneJ0" type="static" programID="0" offset="0">
+        <phase duration="87" state="G"/>
+        <phase duration="3" state="y"/>
+    </tlLogic>
+    <tlLogic id="gneJ1" type="static" programID="0" offset="0">
+        <phase duration="87" state="G"/>
+        <phase duration="3" state="y"/>
+    </tlLogic>
+
+    <junction id="gneJ0" type="traffic_light" x="0.00" y="0.00" incLanes="gneE1_0" intLanes=":gneJ0_0_0" shape="0.00,-0.05 0.00,3.25 0.00,0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ1" type="priority" x="50.00" y="0.00" incLanes="gneE0_0" intLanes=":gneJ1_0_0" shape="50.00,0.05 50.00,-3.25 50.00,-0.05">
+    <junction id="gneJ1" type="traffic_light" x="50.00" y="0.00" incLanes="gneE0_0" intLanes=":gneJ1_0_0" shape="50.00,0.05 50.00,-3.25 50.00,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="t" state="M"/>
-    <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_0_0" dir="t" state="M"/>
+    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" tl="gneJ1" linkIndex="0" dir="t" state="o"/>
+    <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_0_0" tl="gneJ0" linkIndex="0" dir="t" state="o"/>
 
     <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
