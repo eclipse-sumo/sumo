@@ -2309,6 +2309,24 @@ TraCIAPI::VehicleScope::getBestLanes(const std::string& vehicleID) const {
     return result;
 }
 
+
+std::pair<std::string, double> 
+TraCIAPI::VehicleScope::getLeader(const std::string& vehicleID, double dist) const {
+    tcpip::Storage content;
+    content.writeByte(TYPE_DOUBLE);
+    content.writeDouble(dist);
+    myParent.send_commandGetVariable(CMD_GET_VEHICLE_VARIABLE, VAR_LEADER, vehicleID, &content);
+    tcpip::Storage inMsg;
+    myParent.processGET(inMsg, CMD_GET_VEHICLE_VARIABLE, TYPE_COMPOUND);
+    inMsg.readInt(); // components
+    inMsg.readUnsignedByte();
+    const std::string leaderID = inMsg.readString();
+    inMsg.readUnsignedByte();
+    const double gap = inMsg.readDouble();
+    return make_pair(leaderID, gap);
+}
+
+
 int
 TraCIAPI::VehicleScope::getStopState(const std::string& vehicleID) const {
     return myParent.getUnsignedByte(CMD_GET_VEHICLE_VARIABLE, VAR_STOPSTATE, vehicleID);

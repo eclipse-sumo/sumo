@@ -669,6 +669,7 @@ public:
         std::vector<std::string> getVia(const std::string& vehicleID) const;
         std::vector<TraCINextTLSData> getNextTLS(const std::string& vehID) const;
         std::vector<TraCIBestLanesData> getBestLanes(const std::string& vehicleID) const;
+        std::pair<std::string, double> getLeader(const std::string& vehicleID, double dist) const;
         /// @}
 
         /// @name vehicle type value retrieval shortcuts

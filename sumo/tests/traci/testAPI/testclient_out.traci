@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul 24 21:36:33 2017
+TraCITestClient output file. Date: Mon Jul 31 09:06:47 2017
 
 
 -> Command sent: <SimulationStep>:
@@ -58,12 +58,13 @@ testAPI:
     edges: e_m4
     edges: e_m3 e_m4 e_m5 e_m6 e_shape1 e_vu2 e_m6 e_shape0 e_o1 e_o0
     add:
-    getIDList: 0 1
+    getIDList: 0 1 2
     getWaitingTime: 0.00
     getAccumulatedWaitingTime: 0.00
     getShapeClass: bicycle
+    getLeader: 2, 494.88
     remove:
-    getIDCount: 1
+    getIDCount: 2
   inductionloop:
     getIDList: det1
     getVehicleData:
@@ -71,10 +72,11 @@ testAPI:
     getCurrentTime: 7000
     subscribe to road and pos of vehicle '1':
     subscription results:
-      roadID=e_u1 pos=6.73
+      roadID=e_u1 pos=7.38
     subscribe to vehicles around edge 'e_u1':
     context subscription results:
-      vehicle=1 pos=10.65
+      vehicle=1 pos=11.29
+      vehicle=2 pos=19.00
   person:
     getIDList: p0
     getRoadID: e_m3
@@ -85,7 +87,7 @@ testAPI:
     getRemainingStages: 1
     getVehicle: 
     getEdges: e_m3 e_m4
-    getSpeed: 2.67
+    getSpeed: 2.60
     getRemainingStages: 4
     getRemainingStages: 3
     getRemainingStages: 1

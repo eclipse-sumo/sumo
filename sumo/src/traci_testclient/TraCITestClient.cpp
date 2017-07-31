@@ -706,6 +706,7 @@ TraCITestClient::testAPI() {
     answerLog << "    add:\n";
     std::vector<std::string> edges;
     edges.push_back("e_u1");
+    edges.push_back("e_u0");
     route.add("e_u1", edges);
     edges.clear();
     edges.push_back("e_m4");
@@ -781,12 +782,16 @@ TraCITestClient::testAPI() {
     answerLog << "    edges: " << joinToString(vehicle.getEdges("0"), " ") << "\n";
     answerLog << "    add:\n";
     vehicle.add("1", "e_u1");
+    vehicle.add("2", "e_u1");
+    vehicle.moveTo("2", "e_u0_0", 5);
     simulationStep();
     answerLog << "    getIDList: " << joinToString(vehicle.getIDList(), " ") << "\n";
     answerLog << "    getWaitingTime: " << vehicle.getWaitingTime("0") << "\n";
     answerLog << "    getAccumulatedWaitingTime: " << vehicle.getAccumulatedWaitingTime("0") << "\n";
     vehicle.setShapeClass("0", "bicycle");
     answerLog << "    getShapeClass: " << vehicle.getShapeClass("0") << "\n";
+    std::pair<std::string, double> leader = vehicle.getLeader("1", 1000);
+    answerLog << "    getLeader: " << leader.first << ", " << leader.second << "\n";
     answerLog << "    remove:\n";
     vehicle.remove("0");
     answerLog << "    getIDCount: " << vehicle.getIDCount() << "\n";
