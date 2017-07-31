@@ -36,7 +36,7 @@ netedit.additionalMode()
 netedit.changeAdditional("routeProbe")
 
 # create routeProbe
-netedit.leftClick(match, 350, 200)
+netedit.leftClick(match, 380, 200)
 
 # Change to delete
 netedit.deleteMode()
@@ -48,7 +48,7 @@ netedit.leftClick(match, 310, 200)
 netedit.leftClick(match, 310, 200)
 
 # delete lane with the second loaded routeProbe
-netedit.leftClick(match, 310, 250)
+netedit.leftClick(match, 280, 250)
 
 # Check undo
 netedit.undo(match, 3)
@@ -60,7 +60,7 @@ netedit.deleteMode()
 netedit.changeAutomaticallyDeleteAdditionals(match)
 
 # try to delete lane with the second loaded routeProbe (doesn't allowed)
-netedit.leftClick(match, 310, 250)
+netedit.leftClick(match, 280, 250)
 
 # wait warning
 netedit.waitAutomaticallyDeleteAdditionalsWarning()
