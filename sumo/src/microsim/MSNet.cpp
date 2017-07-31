@@ -267,13 +267,13 @@ MSNet::~MSNet() {
     delete myInserter;
     delete myLogics;
     delete myRouteLoaders;
-    delete myVehicleControl;
     if (myPersonControl != 0) {
         delete myPersonControl;
     }
     if (myContainerControl != 0) {
         delete myContainerControl;
     }
+    delete myVehicleControl; // must happen after deleting transportables
     delete myShapeContainer;
     delete myEdgeWeights;
     delete myRouterTTDijkstra;
