@@ -73,9 +73,12 @@ def runSingle(traciEndTime, viewRange, module, objID):
             for v in module.getContextSubscriptionResults()[objID]:
                 near1.add(v)
         vehs = traci.vehicle.getIDList()
+        persons = traci.person.getIDList()
         pos = {}
         for v in vehs:
             pos[v] = traci.vehicle.getPosition(v)
+        for p in persons:
+            pos[p] = traci.person.getPosition(p)
         shape = None
         egoPos = None
         if hasattr(module, "getPosition"):
@@ -101,6 +104,8 @@ def runSingle(traciEndTime, viewRange, module, objID):
         if not subscribed:
             module.subscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange, [
                                     traci.constants.VAR_POSITION])
+            module.subscribeContext(objID, traci.constants.CMD_GET_PERSON_VARIABLE, viewRange, [
+                                    traci.constants.VAR_POSITION])
             subscribed = True
         else:
             seen1 += len(near1)
@@ -108,11 +113,11 @@ def runSingle(traciEndTime, viewRange, module, objID):
             for v in near1:
                 if v not in near2:
                     print(
-                        "timestep %s: %s is missing in subscribed vehicles" % (step, v))
+                        "timestep %s: %s is missing in surrounding objects" % (step, v))
             for v in near2:
                 if v not in near1:
                     print(
-                        "timestep %s: %s is missing in surrounding vehicles" % (step, v))
+                        "timestep %s: %s is missing in subscription results" % (step, v))
 
         step += 1
     module.unsubscribeContext(
