@@ -8,6 +8,7 @@ Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Addi
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
+Warning: Selected 6 elements in GNEChange_Selection
 Warning: Value '-30' for attribute startTime of vaporizer isn't valid
 Warning: Setting new attribute startTime '5' into vaporizer 'vaporizer_0'
 Warning: Setting new attribute startTime '5' into vaporizer 'vaporizer_1'
