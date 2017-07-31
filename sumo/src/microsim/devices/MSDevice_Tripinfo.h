@@ -71,6 +71,9 @@ public:
     /// @brief generate output for vehicles which are still in the network
     static void generateOutputForUnfinished();
 
+    /// @brief record tripinfo data for pedestrians
+    static void addPedestrianData(double walkLength, SUMOTime walkDuration);
+
     /// @brief get statistics for printing to stdout
     static std::string printStatistics();
 
@@ -80,6 +83,9 @@ public:
     static double getAvgWaitingTime();
     static double getAvgTimeLoss();
     static double getAvgDepartDelay();
+
+    static double getAvgWalkRouteLength();
+    static double getAvgWalkDuration();
 
 public:
     /// @brief Destructor.
@@ -223,6 +229,10 @@ private:
     static SUMOTime myTotalWaitingTime;
     static SUMOTime myTotalTimeLoss;
     static SUMOTime myTotalDepartDelay;
+
+    static int myWalkCount;
+    static double myTotalWalkRouteLength;
+    static SUMOTime myTotalWalkDuration;
 
 private:
     /// @brief Invalidated copy constructor.

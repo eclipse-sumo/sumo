@@ -47,6 +47,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/devices/MSDevice_Tripinfo.h>
 #include "MSPModel.h"
 
 // ===========================================================================
@@ -163,19 +164,27 @@ MSPerson::MSPersonStage_Walking::setSpeed(double speed) {
 
 double
 MSPerson::MSPersonStage_Walking::computeAverageSpeed() const {
+    return walkDistance() / STEPS2TIME(myWalkingTime + 1); // avoid systematic rounding errors
+}
+
+
+double 
+MSPerson::MSPersonStage_Walking::walkDistance() const {
+    /// XXX internal edges not included
     double length = 0;
     for (ConstMSEdgeVector::const_iterator i = myRoute.begin(); i != myRoute.end(); ++i) {
         length += (*i)->getLength();
     }
     length -= myDepartPos;
     length -= myRoute.back()->getLength() - myArrivalPos;
-    return length / STEPS2TIME(myWalkingTime + 1); // avoid systematic rounding errors
+    return length;
 }
 
 
 void
 MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os) const {
     os.openTag("walk").writeAttr("arrival", time2string(myArrived)).closeTag();
+    MSDevice_Tripinfo::addPedestrianData(walkDistance(), myArrived - myDeparted); 
 }
 
 
