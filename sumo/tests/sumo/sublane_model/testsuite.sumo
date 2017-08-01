@@ -59,6 +59,11 @@ nopush_for_merge_impatience
 # a vehicle urgently needs to change lanes but is configured to refrain from pushing. Instead it becomes impatient and forces braking in a (potentially) unsafe maneuver
 nopush_for_merge_impatience_growth
 
+# a vehicle urgently needs to change lanes but is configured to refrain from pushing. 
+# To merge in front of the foe vehicle it would have to keep an unsafe gap to the acceleration lane end
+# 
+nopush_for_merge_end_gap
+
 # test whether cooperative changing works fluidly
 cooperative_change
 
