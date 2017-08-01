@@ -105,6 +105,8 @@
 //#define DEBUG_COND false
 
 
+#define TIME_TO_LC_IMPATIENCE 60
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -127,6 +129,7 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     mySublaneParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SUBLANE_PARAM, 1)),
     myPushy(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_PUSHY, 0)),
     myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 0)),
+    myImpatience(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_IMPATIENCE, 0)),
     myChangeProbThresholdRight(2.0 * myKeepRightParam / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
     myChangeProbThresholdLeft(0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
     mySpeedLossProbThreshold(-0.1 + (1 - mySublaneParam)) {
@@ -213,8 +216,17 @@ void
 MSLCM_SL2015::setOwnState(const int state) {
     MSAbstractLaneChangeModel::setOwnState(state);
     myPreviousState = state;
+    if ((state & (LCA_STRATEGIC | LCA_SPEEDGAIN)) != 0 && (state & LCA_BLOCKED) != 0) {
+        myImpatience = MIN2(1.0 , myImpatience + TS / TIME_TO_LC_IMPATIENCE);
+    } else {
+        // impatience decays twice as fast as it grows but only to the drive-specific level 
+        myImpatience = MAX2(-1.0 , myImpatience - 2 * TS / TIME_TO_LC_IMPATIENCE);
+    }
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " veh=" << myVehicle.getID() << " setOwnState=" << toString((LaneChangeAction)state) << "\n";
+        std::cout << SIMTIME << " veh=" << myVehicle.getID() 
+            << " setOwnState=" << toString((LaneChangeAction)state) 
+            << " myImpatience=" << myImpatience
+            << "\n";
     }
     if ((state & LCA_STAY) != 0) {
         myOrigLatDist = 0;
@@ -1867,7 +1879,7 @@ MSLCM_SL2015::checkBlockingVehicles(
                         collectBlockers->push_back(vehDist);
                     }
                 } else if (overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)) {
-                    const double decelFactor = 1 + ego->getImpatience() * myAssertive;
+                    const double decelFactor = 1 + myImpatience * myAssertive;
                     const double followDecel = MIN2(follower->getCarFollowModel().getMaxDecel(), leader->getCarFollowModel().getMaxDecel()) * decelFactor;
                     // for decelFactor == 1 this is equivalent to secureGap
                     // see MSCFModel::getSecureGap
@@ -2450,6 +2462,8 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myPushy);
     } else if (key == toString(SUMO_ATTR_LCA_ASSERTIVE)) {
         return toString(myAssertive);
+    } else if (key == toString(SUMO_ATTR_LCA_IMPATIENCE)) {
+        return toString(myImpatience);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
@@ -2476,6 +2490,8 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myPushy = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_ASSERTIVE)) {
         myAssertive = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_IMPATIENCE)) {
+        myImpatience = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }

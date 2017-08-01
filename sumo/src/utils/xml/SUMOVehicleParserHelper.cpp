@@ -652,6 +652,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
         sl2015Params.insert(SUMO_ATTR_LCA_PUSHY);
         sl2015Params.insert(SUMO_ATTR_LCA_SUBLANE_PARAM);
         sl2015Params.insert(SUMO_ATTR_LCA_ASSERTIVE);
+        sl2015Params.insert(SUMO_ATTR_LCA_IMPATIENCE);
         allowedLCModelAttrs[LCM_SL2015] = sl2015Params;
 
         std::set<SumoXMLAttr> noParams;

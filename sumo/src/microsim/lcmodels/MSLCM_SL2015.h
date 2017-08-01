@@ -360,7 +360,10 @@ protected:
     double mySublaneParam;
     // @brief willingness to encroach on other vehicles laterally (pushing them around)
     double myPushy;
+    // @brief willingness to undercut longitudinal safe gaps 
     double myAssertive;
+    // @brief dynamic component of willingness for longitudinal gap reduction
+    double myImpatience;
     //@}
 
     /// @name derived parameters
