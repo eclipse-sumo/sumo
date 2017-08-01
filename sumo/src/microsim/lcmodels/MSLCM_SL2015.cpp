@@ -1884,9 +1884,12 @@ MSLCM_SL2015::checkBlockingVehicles(
                     // see MSCFModel::getSecureGap
                     const double secureGap2 = MAX2(0., MSCFModel::brakeGap(follower->getSpeed(), followDecel, follower->getCarFollowModel().getHeadwayTime())
                                                   - MSCFModel::brakeGap(leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), 0));
+                    double secureGap = 0;
+                    if (gDebugFlag2) {
+                        secureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                    }
                     if (vehDist.second < secureGap2) {
                         if (gDebugFlag2) {
-                            const double secureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                             std::cout << "    blocked by " << vehDist.first->getID() << " gap=" << vehDist.second 
                                 << " secGap=" << secureGap << " secGap2=" << secureGap2 << " decelFactor=" << decelFactor << "\n";
                         }
@@ -1896,6 +1899,9 @@ MSLCM_SL2015::checkBlockingVehicles(
                         } else {
                             collectBlockers->push_back(vehDist);
                         }
+                    } else if (gDebugFlag2 && vehDist.second < secureGap) {
+                        std::cout << "    ignore blocker " << vehDist.first->getID() << " gap=" << vehDist.second 
+                            << " secGap=" << secureGap << " secGap2=" << secureGap2 << " decelFactor=" << decelFactor << "\n";
                     }
                 }
             }
