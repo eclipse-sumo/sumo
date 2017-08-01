@@ -154,14 +154,16 @@ public:
         }
 
         /// @brief waits for all tasks to be finished
-        void waitAll() {
+        void waitAll(const bool deleteFinished=true) {
             myMutex.lock();
             while (myNumFinished < myRunningIndex) {
                 myCondition.wait(myMutex);
             }
 //            if (myRunningIndex > 0) std::cout << "finished waiting for " << myRunningIndex << " tasks at " << SysUtils::getCurrentMillis() << std::endl;
-            for (std::list<Task*>::iterator it = myFinishedTasks.begin(); it != myFinishedTasks.end(); ++it) {
-                delete *it;
+            if (deleteFinished) {
+                for (Task* task : myFinishedTasks) {
+                    delete task;
+                }
             }
             myFinishedTasks.clear();
             myRunningIndex = 0;
