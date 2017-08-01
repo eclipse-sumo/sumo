@@ -105,8 +105,6 @@
 //#define DEBUG_COND false
 
 
-#define TIME_TO_LC_IMPATIENCE 60
-
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -128,8 +126,9 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myKeepRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 1)),
     mySublaneParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SUBLANE_PARAM, 1)),
     myPushy(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_PUSHY, 0)),
-    myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 0)),
+    myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1)),
     myImpatience(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_IMPATIENCE, 0)),
+    myTimeToImpatience(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, std::numeric_limits<double>::max())),
     myChangeProbThresholdRight(2.0 * myKeepRightParam / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
     myChangeProbThresholdLeft(0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
     mySpeedLossProbThreshold(-0.1 + (1 - mySublaneParam)) {
@@ -217,10 +216,10 @@ MSLCM_SL2015::setOwnState(const int state) {
     MSAbstractLaneChangeModel::setOwnState(state);
     myPreviousState = state;
     if ((state & (LCA_STRATEGIC | LCA_SPEEDGAIN)) != 0 && (state & LCA_BLOCKED) != 0) {
-        myImpatience = MIN2(1.0 , myImpatience + TS / TIME_TO_LC_IMPATIENCE);
+        myImpatience = MIN2(1.0 , myImpatience + TS / myTimeToImpatience);
     } else {
         // impatience decays twice as fast as it grows but only to the drive-specific level 
-        myImpatience = MAX2(-1.0 , myImpatience - 2 * TS / TIME_TO_LC_IMPATIENCE);
+        myImpatience = MAX2(-1.0 , myImpatience - 2 * TS / myTimeToImpatience);
     }
     if (DEBUG_COND) {
         std::cout << SIMTIME << " veh=" << myVehicle.getID() 
@@ -1879,7 +1878,7 @@ MSLCM_SL2015::checkBlockingVehicles(
                         collectBlockers->push_back(vehDist);
                     }
                 } else if (overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)) {
-                    const double decelFactor = 1 + myImpatience * myAssertive;
+                    const double decelFactor = (1 + 0.5 * myImpatience) * myAssertive;
                     const double followDecel = MIN2(follower->getCarFollowModel().getMaxDecel(), leader->getCarFollowModel().getMaxDecel()) * decelFactor;
                     // for decelFactor == 1 this is equivalent to secureGap
                     // see MSCFModel::getSecureGap

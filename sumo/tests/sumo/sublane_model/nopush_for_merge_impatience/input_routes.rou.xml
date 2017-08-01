@@ -1,5 +1,5 @@
 <routes>
-    <vType id="t0" vClass="passenger" latAlignment="center" sigma="0.5" minGapLat="1.0" lcPushy="0.0" lcStrategic="2.0" lcSpeedGain="3.0" speedDev="0.1" lcAssertive="1.0" lcImpatience="0.7"/>
+    <vType id="t0" vClass="passenger" latAlignment="center" sigma="0.5" minGapLat="1.0" lcPushy="0.0" lcStrategic="2.0" lcSpeedGain="3.0" speedDev="0.1" lcAssertive="2.0" lcImpatience="0.7"/>
     <vType id="t1" vClass="passenger" latAlignment="center" sigma="0.5" minGapLat="1.0" speedDev="0.1"/>
 
     <route id="r0" edges="beg end"/>
