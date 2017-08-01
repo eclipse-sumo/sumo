@@ -44,21 +44,20 @@ push_for_merge_ignored
 # a vehicle urgently needs to change lanes and pushes a blocker by using a lower minGapLat. The blocker is constraint by a neighboring vehicle to the left and equalizes left and right lateral gaps
 push_for_merge_equalize_gaps
 
-# a vehicle urgently needs to change lanes but is configured to refrain from pushing 
-# 
+# a vehicle urgently needs to change lanes but is configured to refrain from pushing
 nopush_for_merge
 
-# a vehicle urgently needs to change lanes but is configured to (almost) refrain from pushing  
-# 
+# a vehicle urgently needs to change lanes but is configured to (almost) refrain from pushing
 smallpush_for_merge
 
 # a vehicle urgently needs to change lanes but is configured to refrain from pushing. nevertheless it undercuts the lateral gap
-# 
 nopushy_encroach
 
 # a vehicle urgently needs to change lanes but is configured to refrain from pushing. Instead it becomes impatient and forces braking in a (potentially) unsafe maneuver
-# 
 nopush_for_merge_impatience
+
+# a vehicle urgently needs to change lanes but is configured to refrain from pushing. Instead it becomes impatient and forces braking in a (potentially) unsafe maneuver
+nopush_for_merge_impatience_growth
 
 # test whether cooperative changing works fluidly
 cooperative_change
@@ -66,8 +65,7 @@ cooperative_change
 # test whether cooperative changing works fluidly with higer lateral and temporal resolution
 cooperative_change_highres
 
-# a vehicle cannot drive when partly off the road 
-# 
+# a vehicle cannot drive when partly off the road
 stay_on_road
 
 # test angles during lane-changing
@@ -76,10 +74,10 @@ angles
 # a vehicle fails to push into the required lane and must perform speed adaptation instead
 push_fail_adapt_speed
 
-# a vehicle may move beyond lane bounds when entering an intersection and the shadow lane ends. It has to move into the correct lane bounds before leaving the intersection  
+# a vehicle may move beyond lane bounds when entering an intersection and the shadow lane ends. It has to move into the correct lane bounds before leaving the intersection
 beyond_lane_on_junction
 
-# vehicles must overtake a stopped vehicle and have to decide for overtaking on either side 
+# vehicles must overtake a stopped vehicle and have to decide for overtaking on either side
 buridan_1lane
 
 # reserve space for unseen blockers to avoid deadlock where needed
