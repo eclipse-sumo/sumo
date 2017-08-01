@@ -2463,6 +2463,8 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myAssertive);
     } else if (key == toString(SUMO_ATTR_LCA_IMPATIENCE)) {
         return toString(myImpatience);
+    } else if (key == toString(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE)) {
+        return toString(myTimeToImpatience);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
@@ -2491,6 +2493,8 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myAssertive = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_IMPATIENCE)) {
         myImpatience = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE)) {
+        myTimeToImpatience = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }
