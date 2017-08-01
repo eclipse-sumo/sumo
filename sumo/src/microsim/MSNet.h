@@ -49,9 +49,6 @@
 #include <utils/common/NamedObjectCont.h>
 #include <utils/common/NamedRTree.h>
 #include <utils/vehicle/SUMOAbstractRouter.h>
-#include <utils/vehicle/DijkstraRouterTT.h>
-#include <utils/vehicle/DijkstraRouterEffort.h>
-#include <utils/vehicle/AStarRouter.h>
 #include <utils/vehicle/PedestrianRouter.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include "MSParkingArea.h"
@@ -835,10 +832,8 @@ protected:
      * @note MSDevice_Routing has its own instance since it uses a different weight function
      * @note we provide one member for every switchable router type
      * because the class structure makes it inconvenient to use a superclass*/
-    mutable bool myRouterTTInitialized;
-    mutable DijkstraRouterTT<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >* myRouterTTDijkstra;
-    mutable AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >* myRouterTTAStar;
-    mutable DijkstraRouterEffort<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >* myRouterEffort;
+    mutable SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouterTT;
+    mutable SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouterEffort;
     mutable MSPedestrianRouterDijkstra* myPedestrianRouter;
 
 

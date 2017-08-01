@@ -34,13 +34,11 @@
 
 #ifndef NO_TRACI
 
-#include "TraCIConstants.h"
-#include <microsim/MSNet.h>
-#include <microsim/MSJunction.h>
 #include <microsim/MSJunctionControl.h>
-#include <microsim/MSNet.h>
-#include "TraCIServerAPI_Junction.h"
+#include "TraCIConstants.h"
 #include "lib/TraCI_Junction.h"
+#include "TraCIServer.h"
+#include "TraCIServerAPI_Junction.h"
 
 
 // ===========================================================================

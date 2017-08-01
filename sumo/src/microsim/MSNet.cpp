@@ -61,6 +61,9 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/shapes/ShapeContainer.h>
+#include <utils/vehicle/DijkstraRouterEffort.h>
+#include <utils/vehicle/DijkstraRouterTT.h>
+#include <utils/vehicle/AStarRouter.h>
 #include <utils/vehicle/PedestrianRouter.h>
 #include <utils/xml/SUMORouteLoaderControl.h>
 #include <utils/xml/XMLSubSys.h>
@@ -178,9 +181,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myHavePermissions(false),
     myHasInternalLinks(false),
     myHasElevation(false),
-    myRouterTTInitialized(false),
-    myRouterTTDijkstra(0),
-    myRouterTTAStar(0),
+    myRouterTT(0),
     myRouterEffort(0),
     myPedestrianRouter(0) {
     if (myInstance != 0) {
@@ -276,8 +277,7 @@ MSNet::~MSNet() {
     delete myVehicleControl; // must happen after deleting transportables
     delete myShapeContainer;
     delete myEdgeWeights;
-    delete myRouterTTDijkstra;
-    delete myRouterTTAStar;
+    delete myRouterTT;
     delete myRouterEffort;
     if (myPedestrianRouter != 0) {
         delete myPedestrianRouter;
@@ -960,28 +960,21 @@ MSNet::writeChargingStationOutput() const {
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSNet::getRouterTT(const MSEdgeVector& prohibited) const {
-    if (!myRouterTTInitialized) {
-        myRouterTTInitialized = true;
+    if (myRouterTT == 0) {
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingAlgorithm == "dijkstra") {
-            myRouterTTDijkstra = new DijkstraRouterTT<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
+            myRouterTT = new DijkstraRouterTT<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
                 MSEdge::getAllEdges(), true, &MSNet::getTravelTime);
         } else {
             if (routingAlgorithm != "astar") {
                 WRITE_WARNING("TraCI and Triggers cannot use routing algorithm '" + routingAlgorithm + "'. using 'astar' instead.");
             }
-            myRouterTTAStar = new AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
+            myRouterTT = new AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
                 MSEdge::getAllEdges(), true, &MSNet::getTravelTime);
         }
     }
-    if (myRouterTTDijkstra != 0) {
-        myRouterTTDijkstra->prohibit(prohibited);
-        return *myRouterTTDijkstra;
-    } else {
-        assert(myRouterTTAStar != 0);
-        myRouterTTAStar->prohibit(prohibited);
-        return *myRouterTTAStar;
-    }
+    dynamic_cast<prohibited_withPermissions<MSEdge, SUMOVehicle>*>(myRouterTT)->prohibit(prohibited);
+    return *myRouterTT;
 }
 
 
@@ -991,7 +984,7 @@ MSNet::getRouterEffort(const MSEdgeVector& prohibited) const {
         myRouterEffort = new DijkstraRouterEffort<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
             MSEdge::getAllEdges(), true, &MSNet::getEffort, &MSNet::getTravelTime);
     }
-    myRouterEffort->prohibit(prohibited);
+    dynamic_cast<prohibited_withPermissions<MSEdge, SUMOVehicle>*>(myRouterEffort)->prohibit(prohibited);
     return *myRouterEffort;
 }
 
