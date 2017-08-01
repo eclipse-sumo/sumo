@@ -1879,15 +1879,9 @@ MSLCM_SL2015::checkBlockingVehicles(
                     }
                 } else if (overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)) {
                     const double decelFactor = (1 + 0.5 * myImpatience) * myAssertive;
-                    const double followDecel = MIN2(follower->getCarFollowModel().getMaxDecel(), leader->getCarFollowModel().getMaxDecel()) * decelFactor;
-                    // for decelFactor == 1 this is equivalent to secureGap
-                    // see MSCFModel::getSecureGap
-                    const double secureGap2 = MAX2(0., MSCFModel::brakeGap(follower->getSpeed(), followDecel, follower->getCarFollowModel().getHeadwayTime())
-                                                  - MSCFModel::brakeGap(leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), 0));
-                    double secureGap = 0;
-                    if (gDebugFlag2) {
-                        secureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
-                    }
+                    const double secureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                    // @note for euler-update, a different value for secureGap2 may be obtained when applying decelFactor to followerDecel rather than secureGap
+                    const double secureGap2 = secureGap / decelFactor;
                     if (vehDist.second < secureGap2) {
                         if (gDebugFlag2) {
                             std::cout << "    blocked by " << vehDist.first->getID() << " gap=" << vehDist.second 
