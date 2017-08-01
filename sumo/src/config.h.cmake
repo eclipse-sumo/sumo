@@ -33,7 +33,7 @@
 #define NUMERICAL_EPS 0.001
 
 /* defines the epsilon to use on position comparison */
-#define POSITION_EPS 0.01
+#define POSITION_EPS 0.1
 
 /* Define length for Xerces 3. */
 #define XERCES3_SIZE_t XMLSize_t
