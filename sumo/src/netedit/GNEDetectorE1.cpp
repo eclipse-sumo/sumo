@@ -135,7 +135,9 @@ GNEDetectorE1::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
     if (!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
     }
-    device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
+    if (!myVehicleTypes.empty()) {
+        device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
+    }
     device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     if (myBlocked) {
         device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
@@ -296,12 +298,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_VTYPES:
-            if(value.empty()) {
-                return true;
-            } else {
-                // check if vehicle types are valid
-                return true;
-            }
+            return true;
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
