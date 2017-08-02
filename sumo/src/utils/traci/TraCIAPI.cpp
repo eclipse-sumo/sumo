@@ -1012,13 +1012,13 @@ TraCIAPI::LaneScope::getLinks(const std::string& laneID) const {
         std::string approachedLaneInternal = inMsg.readString();
 
         inMsg.readUnsignedByte();
-        bool hasPrio = (bool)inMsg.readUnsignedByte();
+        bool hasPrio = inMsg.readUnsignedByte() != 0;
 
         inMsg.readUnsignedByte();
-        bool isOpen = (bool)inMsg.readUnsignedByte();
+        bool isOpen = inMsg.readUnsignedByte() != 0;
 
         inMsg.readUnsignedByte();
-        bool hasFoe = (bool)inMsg.readUnsignedByte();
+        bool hasFoe = inMsg.readUnsignedByte() != 0;
 
         inMsg.readUnsignedByte();
         std::string state = inMsg.readString();
