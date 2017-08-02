@@ -347,7 +347,39 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
         // check type of of GL object
         switch (dynamic_cast<GUIGlObject*>(ac)->getType()) {
             case GLO_JUNCTION: {
-                myViewNet->getNet()->deleteJunction(dynamic_cast<GNEJunction*>(ac), myViewNet->getUndoList());
+                GNEJunction *junction = dynamic_cast<GNEJunction*>(ac);
+                // obtain number of additionals of junction's childs
+                int numberOfAdditionals = 0;
+                for (auto i : junction->getGNEEdges()) {
+                    numberOfAdditionals += (int)i->getAdditionalChilds().size();
+                    for (auto j : i->getLanes()) {
+                        numberOfAdditionals += (int)i->getAdditionalChilds().size();
+                    }
+                }
+                // Check if junction can be deleted
+                if (myAutomaticallyDeleteAdditionalsCheckButton->getCheck()) {
+                    myViewNet->getNet()->deleteJunction(junction, myViewNet->getUndoList());
+                }
+                else {
+                    if (numberOfAdditionals > 0) {
+                        // write warning if netedit is running in testing mode
+                        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
+                        }
+                        std::string plural = numberOfAdditionals > 1 ? "s" : "";
+                        // Open warning DialogBox
+                        FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(junction->getTag())).c_str(), "%s",
+                            (toString(junction->getTag()) + " '" + junction->getID() + "' cannot be deleted because owns " +
+                                toString(numberOfAdditionals) + " additional child" + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
+                        // write warning if netedit is running in testing mode
+                        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
+                        }
+                    }
+                    else {
+                        myViewNet->getNet()->deleteJunction(junction, myViewNet->getUndoList());
+                    }
+                }
                 break;
             }
             case GLO_EDGE: {
@@ -355,8 +387,8 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                 int numberOfAdditionals = (int)edge->getAdditionalChilds().size();
                 int numberOfRerouters = (int)edge->getGNERerouters().size();
                 // Iterate over lanes and obtain total number of additional childs
-                for (std::vector<GNELane*>::const_iterator i = edge->getLanes().begin(); i != edge->getLanes().end(); i++) {
-                    numberOfAdditionals += (int)(*i)->getAdditionalChilds().size();
+                for (auto i : edge->getLanes()) {
+                    numberOfAdditionals += (int)i->getAdditionalChilds().size();
                 }
                 // Check if edge can be deleted
                 if (myAutomaticallyDeleteAdditionalsCheckButton->getCheck()) {
