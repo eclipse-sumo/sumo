@@ -18,5 +18,8 @@ astar_landmark
 # landmark routing with saving
 astar_landmark_save
 
+# landmark routing with saving and aprallel computation
+astar_landmark_save_parallel
+
 # landmark routing with taz
 astar_landmark_taz
