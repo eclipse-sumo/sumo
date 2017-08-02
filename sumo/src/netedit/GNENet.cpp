@@ -1277,6 +1277,14 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     // start with the join selected junctions
     undoList->p_begin("Join selected " + toString(SUMO_TAG_JUNCTION) + "s");
 
+    // first remove all crossing of the involved junctions
+    for(auto i : selected) {
+        auto crossings = i->getGNECrossings();
+        for (auto j : crossings) {
+            deleteCrossing(j, undoList);
+        }
+    }
+
     // #3128 this is not undone when calling 'undo'
     myNetBuilder->getNodeCont().registerJoinedCluster(cluster);
     GNEJunction* joined = createJunction(pos, undoList);
