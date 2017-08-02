@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug  1 13:05:27 2017 by SUMO Version dev-SVN-r24506
+<!-- generated on Wed Aug  2 12:37:33 2017 by SUMO Version dev-SVN-r25439
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -30,6 +30,6 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="A" depart="0.00" departLane="beg_0" departPos="5.10" departPosLat="0.00" departSpeed="33.33" departDelay="0.00" arrival="10.00" arrivalLane="end_0" arrivalPos="100.00" arrivalPosLat="0.00" arrivalSpeed="32.91" duration="10.00" routeLength="294.90" waitSteps="0" timeLoss="0.48" rerouteNo="0" devices="tripinfo_A" vType="t0" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="B" depart="0.00" departLane="beg_1" departPos="5.10" departPosLat="0.00" departSpeed="26.66" departDelay="0.00" arrival="12.00" arrivalLane="end_0" arrivalPos="100.00" arrivalPosLat="0.00" arrivalSpeed="26.00" duration="12.00" routeLength="294.90" waitSteps="0" timeLoss="0.35" rerouteNo="0" devices="tripinfo_B" vType="t1" speedFactor="0.80" vaporized=""/>
+    <tripinfo id="A" depart="0.00" departLane="beg_0" departPos="5.10" departPosLat="0.00" departSpeed="33.33" departDelay="0.00" arrival="20.00" arrivalLane="end_0" arrivalPos="100.00" arrivalPosLat="0.00" arrivalSpeed="23.40" duration="20.00" routeLength="294.90" waitSteps="1" timeLoss="10.63" rerouteNo="0" devices="tripinfo_A" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="B" depart="0.00" departLane="beg_1" departPos="5.10" departPosLat="0.00" departSpeed="30.00" departDelay="0.00" arrival="21.00" arrivalLane="end_0" arrivalPos="100.00" arrivalPosLat="0.00" arrivalSpeed="23.40" duration="21.00" routeLength="294.90" waitSteps="1" timeLoss="10.84" rerouteNo="0" devices="tripinfo_B" vType="t1" speedFactor="0.90" vaporized=""/>
 </tripinfos>
