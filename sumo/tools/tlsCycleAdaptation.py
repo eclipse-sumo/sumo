@@ -94,19 +94,18 @@ def getFlows(net, routeFiles, tlsList, begin, verbose):
         if verbose:
             print ("route file:%s" % file)
         for veh in sumolib.output.parse(file, 'vehicle'):
-            route = veh.route[0]
-            if float(veh.depart) < end and float(veh.depart) >= begin:
+            if float(veh.depart) >= end:
+                break
+            if float(veh.depart) >= begin:
+                edgeList = veh.route[0].edges.split()
                 for tls in tlsList:
-                    connsList = tls.getConnections()
                     # c: [[inLane, outLane, linkNo],[],..]
-                    for c in sorted(connsList, key=lambda connsList: connsList[2]):
-                        subRoute = c[0]._edge._id + ' ' + c[1]._edge._id
-                        edgeList = route.edges.split()
-                        if c[0]._edge._id in edgeList:
-                            beginIndex = edgeList.index(c[0]._edge._id)
-                            if beginIndex < 0:
-                                print ("negative beginIndex: %s" % beginIndex)
-                            elif beginIndex < len(edgeList) - 1 and edgeList[beginIndex + 1] == c[1]._edge._id:
+                    for c in tls.getConnections():
+                        inEdge = c[0].getEdge().getID()
+                        outEdge = c[1].getEdge().getID()
+                        if inEdge in edgeList:
+                            beginIndex = edgeList.index(inEdge)
+                            if beginIndex < len(edgeList) - 1 and edgeList[beginIndex + 1] == outEdge:
                                 pce = 1.
                                 if veh.type == "bicycle":
                                     pce = 0.2
@@ -114,17 +113,17 @@ def getFlows(net, routeFiles, tlsList, begin, verbose):
                                     pce = 0.5
                                 elif veh.type in ["truck", "trailer", "bus", "coach"]:
                                     pce = 3.5
-                                tlsFlowsMap[tls._id][subRoute][c[2]] += pce
+                                tlsFlowsMap[tls._id][inEdge + " " + outEdge][c[2]] += pce
 
     # remove the doubled counts
     connFlowsMap = {}
     for t in tlsList:
-        connFlowsMap[t._id] = {}
-        for subRoute in tlsFlowsMap[t._id]:
-            totalConns = len(tlsFlowsMap[t._id][subRoute])
-            for conn in tlsFlowsMap[t._id][subRoute]:
-                tlsFlowsMap[t._id][subRoute][conn] /= totalConns
-                connFlowsMap[t._id][conn] = tlsFlowsMap[t._id][subRoute][conn]
+        connFlowsMap[t.getID()] = {}
+        for subRoute in tlsFlowsMap[t.getID()]:
+            totalConns = len(tlsFlowsMap[t.getID()][subRoute])
+            for conn in tlsFlowsMap[t.getID()][subRoute]:
+                tlsFlowsMap[t.getID()][subRoute][conn] /= totalConns
+                connFlowsMap[t.getID()][conn] = tlsFlowsMap[t.getID()][subRoute][conn]
 
         # remove the redundant connection flows
         connFlowsMap = removeRedundantFlows(t, connFlowsMap)
@@ -135,10 +134,18 @@ def getFlows(net, routeFiles, tlsList, begin, verbose):
 def getEffectiveTlsList(tlsList, connFlowsMap, verbose):
     effectiveTlsList = []
     for tl in tlsList:
-        for conn in connFlowsMap[tl._id]:
-            if connFlowsMap[tl._id][conn] > 0:
-                effectiveTlsList.append(tl)
-                break
+        valid = True
+        for program in tl.getPrograms().values():
+            for phase in program.getPhases():
+                if len(phase) > len(tl.getConnections()):
+                    print("Skipping TLS '%s' due to unused states" % tl.getID())
+                    valid = False
+                    break
+        if valid:
+            for conn in connFlowsMap[tl.getID()]:
+                if connFlowsMap[tl.getID()][conn] > 0:
+                    effectiveTlsList.append(tl)
+                    break
     return effectiveTlsList
 
 
