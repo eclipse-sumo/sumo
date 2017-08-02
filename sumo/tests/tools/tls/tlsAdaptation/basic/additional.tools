@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <additional>
-    <tlLogic id="cluster_1037005497_2683362682" type="static" programID="a" offset="0.00">
+    <tlLogic id="cluster_1037005497_2683362682" type="static" programID="a" offset="0">
         <phase duration="51" state="GGGGGGrrrrrrrrrrrrGGGGGGrrrrrrrrrrrr"/>
         <phase duration="6" state="yyyyyyrrrrrrrrrrrryyyyyyrrrrrrrrrrrr"/>
         <phase duration="42" state="rrrrrrGGrrrrrrrrrrrrrrrrGGrrrrrrrrrr"/>

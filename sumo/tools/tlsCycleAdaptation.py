@@ -339,7 +339,7 @@ def main(options):
                     groupFlowsMap = optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, currentLength, options)
 
                 # write output
-                    outf.write('    <tlLogic id="%s" type="%s" programID="%s" offset="%.2f">\n' %
+                    outf.write('    <tlLogic id="%s" type="%s" programID="%s" offset="%i">\n' %
                                (tl._id, programs[pro]._type, "a", programs[pro]._offset))
 
                     phases = programs[pro].getPhases()
