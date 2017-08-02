@@ -1,2 +1,4 @@
--n net.net.xml -r input_routes.rou.xml -b 25200 -o out.add.xml tools/tlsCycleAdaptation.py
+-n net.net.xml -r input_routes.rou.xml -b 25200 -o out.add.xml
+--program newProg
+tools/tlsCycleAdaptation.py
 
