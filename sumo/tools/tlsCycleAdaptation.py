@@ -103,10 +103,10 @@ def getFlows(net, routeFiles, tlsList, begin, verbose):
                         subRoute = c[0]._edge._id + ' ' + c[1]._edge._id
                         edgeList = route.edges.split()
                         if c[0]._edge._id in edgeList:
-                            beginindex = edgeList.index(c[0]._edge._id)
-                            if beginindex < 0:
-                                print ("negtive beginindex: %s" % beginindex)
-                            elif beginindex < len(edgeList) - 1 and edgeList[beginindex + 1] == c[1]._edge._id:
+                            beginIndex = edgeList.index(c[0]._edge._id)
+                            if beginIndex < 0:
+                                print ("negative beginIndex: %s" % beginIndex)
+                            elif beginIndex < len(edgeList) - 1 and edgeList[beginIndex + 1] == c[1]._edge._id:
                                 pce = 1.
                                 if veh.type == "bicycle":
                                     pce = 0.2
@@ -127,7 +127,7 @@ def getFlows(net, routeFiles, tlsList, begin, verbose):
                 connFlowsMap[t._id][conn] = tlsFlowsMap[t._id][subRoute][conn]
 
         # remove the redundant connection flows
-        connFlowsMap = removeRedudantFlows(t, connFlowsMap)
+        connFlowsMap = removeRedundantFlows(t, connFlowsMap)
 
     return connFlowsMap
 
@@ -142,37 +142,37 @@ def getEffectiveTlsList(tlsList, connFlowsMap, verbose):
     return effectiveTlsList
 
 
-def removeRedudantFlows(t, connFlowsMap):
-    # if two or more intesections share the laen-lane connection indices together,
-    # the redudant connection flows will set to zero.
+def removeRedundantFlows(t, connFlowsMap):
+    # if two or more intersections share the lane-lane connection indices together,
+    # the redundant connection flows will set to zero.
     connsList = t.getConnections()
     connsList = sorted(connsList, key=lambda connsList: connsList[2])
-    redudantConnsList = []
+    redundantConnsList = []
     identical = True
     for c1 in connsList:
         for c2 in connsList:
             if c1[2] != c2[2]:
                 if c1[1]._edge == c2[0]._edge:
-                    indentical = indenticalCheck(c1[0]._edge, c2[0]._edge._incoming, identical)
+                    indentical = identityCheck(c1[0]._edge, c2[0]._edge._incoming, identical)
                     if identical:
                         for toEdge in c2[0]._edge._outgoing:
                             for c in c2[0]._edge._outgoing[toEdge]:
-                                if c._tlLink not in redudantConnsList:
-                                    redudantConnsList.append(c._tlLink)
+                                if c._tlLink not in redundantConnsList:
+                                    redundantConnsList.append(c._tlLink)
                     else:
                         for conn_1 in c1[0]._edge._outgoing[c2[0]._edge]:
                             if conn_1._direction == 's':
                                 for toEdge in c2[0]._edge._outgoing:
                                     for conn_2 in c2[0]._edge._outgoing[toEdge]:
-                                        if conn_2._tlLink not in redudantConnsList:
-                                            redudantConnsList.append(conn_2._tlLink)
-    for conn in redudantConnsList:
+                                        if conn_2._tlLink not in redundantConnsList:
+                                            redundantConnsList.append(conn_2._tlLink)
+    for conn in redundantConnsList:
         if conn in connFlowsMap[t._id]:
             connFlowsMap[t._id][conn] = 0.
     return connFlowsMap
 
 
-def indenticalCheck(e1, incomingLinks, identical):
+def identityCheck(e1, incomingLinks, identical):
     for i in incomingLinks:
         if i != e1:
             identical = False
@@ -340,7 +340,7 @@ def main(options):
                     # optimize the cycle length and green times
                     groupFlowsMap = optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, currentLength, options)
 
-                # write output
+                    # write output
                     outf.write('    <tlLogic id="%s" type="%s" programID="%s" offset="%i">\n' %
                                (tl._id, programs[pro]._type, options.program, programs[pro]._offset))
 
