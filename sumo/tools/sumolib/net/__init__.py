@@ -528,7 +528,7 @@ class NetReader(handler.ContentHandler):
         # netconvert... (Leo)
         if self._withPhases and name == 'tlLogic':
             self._currentProgram = self._net.addTLSProgram(
-                attrs['id'], attrs['programID'], int(attrs['offset']), attrs['type'])
+                attrs['id'], attrs['programID'], float(attrs['offset']), attrs['type'])
         if self._withPhases and name == 'phase':
             self._currentProgram.addPhase(
                 attrs['state'], int(attrs['duration']))
