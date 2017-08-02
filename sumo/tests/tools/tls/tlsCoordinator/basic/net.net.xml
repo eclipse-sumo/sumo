@@ -970,7 +970,7 @@
         <phase duration="6" state="rrrrrrrGGrrrrrrrGG"/>
         <phase duration="4" state="rrrrrrryyrrrrrrryy"/>
     </tlLogic>
-    <tlLogic id="cluster_29122661_29122662_35107209_35107210" type="static" programID="0" offset="0">
+    <tlLogic id="cluster_29122661_29122662_35107209_35107210" type="static" programID="1" offset="0">
         <phase duration="31" state="GGGggrrrrGGGggrrrr"/>
         <phase duration="4" state="yyyggrrrryyyggrrrr"/>
         <phase duration="6" state="rrrGGrrrrrrrGGrrrr"/>
@@ -980,7 +980,7 @@
         <phase duration="6" state="rrrrrrrGGrrrrrrrGG"/>
         <phase duration="4" state="rrrrrrryyrrrrrrryy"/>
     </tlLogic>
-    <tlLogic id="joinedS_0" type="static" programID="0" offset="0">
+    <tlLogic id="joinedS_0" type="static" programID="a" offset="0">
         <phase duration="31" state="GGGr"/>
         <phase duration="4" state="yyyr"/>
         <phase duration="31" state="GrrG"/>
