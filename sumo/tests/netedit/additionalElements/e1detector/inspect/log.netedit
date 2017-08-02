@@ -18,12 +18,12 @@ Warning: Setting new attribute file '' into e1Detector 'correctID'
 Warning: Value '%%%&&%$%$' for attribute file of e1Detector isn't valid
 Warning: Setting new attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector 'correctID'
 Warning: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'correctID'
-Warning: Setting new attribute splitByType 'true' into e1Detector 'correctID'
+Warning: Setting new attribute vTypes 'private passenger taxi bus' into e1Detector 'correctID'
 Warning: Setting new attribute friendlyPos 'true' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute splitByType '0' into e1Detector 'correctID'
+Warning: Setting previous attribute vTypes '' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -65,7 +65,7 @@ Warning: Setting new attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector '
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute splitByType 'true' into e1Detector 'correctID'
+Warning: Setting new attribute vTypes 'private passenger taxi bus' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into e1Detector 'correctID'
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()

@@ -44,11 +44,11 @@ netedit.leftClick(match, 150, 240)
 # Try to set invalid frecuency
 netedit.modifyAttribute(0, "-30")
 
-# set vaild frecuency
+# set valid frecuency
 netedit.modifyAttribute(0, "20")
 
-# Change split by type
-netedit.modifyBoolAttribute(1)
+# set vehicle types
+netedit.modifyAttribute(1, "taxi passenger")
 
 # Change friendly pos
 netedit.modifyBoolAttribute(2)

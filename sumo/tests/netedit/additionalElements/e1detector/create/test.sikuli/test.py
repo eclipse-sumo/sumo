@@ -50,8 +50,8 @@ netedit.modifyAdditionalDefaultValue(2, "150")
 # create E1 with different frequency
 netedit.leftClick(match, 250, 250)
 
-# Change split by type
-netedit.modifyAdditionalDefaultBoolValue(3)
+# set different vehicle type
+netedit.modifyAdditionalDefaultValue(3, "private passenger taxi bus")
 
 # create E1 with different split by type
 netedit.leftClick(match, 300, 250)

@@ -1,7 +1,5 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Optional bool attribute 'friendlyPos' of e1Detector with ID 'E1_A' is missing; Default value '0' will be used.
 Warning: Adding e1Detector 'E1_A' in GNEChange_Additional
-Warning: Optional bool attribute 'friendlyPos' of e1Detector with ID 'E1_B' is missing; Default value '0' will be used.
 Warning: Adding e1Detector 'E1_B' in GNEChange_Additional
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
@@ -14,16 +12,16 @@ Warning: Selected 6 elements in GNEChange_Selection
 Warning: Value '-30' for attribute freq of e1Detector isn't valid
 Warning: Setting new attribute freq '20' into e1Detector 'E1_A'
 Warning: Setting new attribute freq '20' into e1Detector 'E1_B'
-Warning: Setting new attribute splitByType 'true' into e1Detector 'E1_A'
-Warning: Setting new attribute splitByType 'true' into e1Detector 'E1_B'
+Warning: Setting new attribute vTypes 'taxi passenger' into e1Detector 'E1_A'
+Warning: Setting new attribute vTypes 'taxi passenger' into e1Detector 'E1_B'
 Warning: Setting new attribute friendlyPos 'true' into e1Detector 'E1_A'
 Warning: Setting new attribute friendlyPos 'true' into e1Detector 'E1_B'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into e1Detector 'E1_B'
 Warning: Setting previous attribute friendlyPos '0' into e1Detector 'E1_A'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute splitByType '0' into e1Detector 'E1_B'
-Warning: Setting previous attribute splitByType '0' into e1Detector 'E1_A'
+Warning: Setting previous attribute vTypes 'bus taxi private' into e1Detector 'E1_B'
+Warning: Setting previous attribute vTypes 'bus taxi private' into e1Detector 'E1_A'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute freq '90.00' into e1Detector 'E1_B'
 Warning: Setting previous attribute freq '120.00' into e1Detector 'E1_A'
@@ -31,8 +29,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute freq '20' into e1Detector 'E1_A'
 Warning: Setting new attribute freq '20' into e1Detector 'E1_B'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute splitByType 'true' into e1Detector 'E1_A'
-Warning: Setting new attribute splitByType 'true' into e1Detector 'E1_B'
+Warning: Setting new attribute vTypes 'taxi passenger' into e1Detector 'E1_A'
+Warning: Setting new attribute vTypes 'taxi passenger' into e1Detector 'E1_B'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into e1Detector 'E1_A'
 Warning: Setting new attribute friendlyPos 'true' into e1Detector 'E1_B'
