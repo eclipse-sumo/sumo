@@ -53,10 +53,10 @@ public:
      * @param[in] pos position of the detector on the lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
-     * @param[in] splitByType If set, the collected values will be additionally reported on per-vehicle type base.
+     * @param[in] vehicleTypes space separated list of vehicle type ids to consider
      * @param[in] friendlyPos enable or disable friendly positions
      */
-    GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, bool splitByType, bool friendlyPos);
+    GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string &vehicleTypes, bool friendlyPos);
 
     /// @brief Destructor
     ~GNEDetectorE1();
@@ -109,8 +109,8 @@ public:
     /// @}
 
 protected:
-    /// @brief attribute to enable or disable splitByType
-    bool mySplitByType;
+    /// @brief attribute vehicle types
+    std::string myVehicleTypes;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

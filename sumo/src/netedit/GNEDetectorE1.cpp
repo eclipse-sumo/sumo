@@ -60,9 +60,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, bool splitByType, bool friendlyPos) :
+GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string &vehicleTypes, bool friendlyPos) :
     GNEDetector(id, viewNet, SUMO_TAG_E1DETECTOR, ICON_E1, lane, pos, freq, filename, friendlyPos),
-    mySplitByType(splitByType) {
+    myVehicleTypes(vehicleTypes) {
     // Update geometry;
     updateGeometry();
     // Set Colors
@@ -135,7 +135,7 @@ GNEDetectorE1::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
     if (!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
     }
-    device.writeAttr(SUMO_ATTR_SPLIT_VTYPE, mySplitByType);
+    device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
     device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     if (myBlocked) {
         device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
@@ -238,8 +238,8 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
             return toString(myFreq);
         case SUMO_ATTR_FILE:
             return myFilename;
-        case SUMO_ATTR_SPLIT_VTYPE:
-            return toString(mySplitByType);
+        case SUMO_ATTR_VTYPES:
+            return myVehicleTypes;
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -261,7 +261,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_FILE:
-        case SUMO_ATTR_SPLIT_VTYPE:
+        case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -295,8 +295,13 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
-        case SUMO_ATTR_SPLIT_VTYPE:
-            return canParse<bool>(value);
+        case SUMO_ATTR_VTYPES:
+            if(value.empty()) {
+                return true;
+            } else {
+                // check if vehicle types are valid
+                return true;
+            }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -330,8 +335,8 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             myFilename = value;
             break;
-        case SUMO_ATTR_SPLIT_VTYPE:
-            mySplitByType = parse<bool>(value);
+        case SUMO_ATTR_VTYPES:
+            myVehicleTypes = value;
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
