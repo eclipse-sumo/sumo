@@ -1717,7 +1717,8 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, int laneOf
                             std::vector<CLeaderDist>* collectLeadBlockers,
                             std::vector<CLeaderDist>* collectFollowBlockers,
                             bool keepLatGapManeuver,
-                            double gapFactor) {
+                            double gapFactor,
+                            int* retBlockedFully) {
     // truncate latDist according to maxSpeedLat
     if (!keepLatGapManeuver) {
         myOrigLatDist = latDist;
@@ -1783,19 +1784,24 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, int laneOf
                                          (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_FOLLOWER : LCA_BLOCKED_BY_LEFT_FOLLOWER), collectFollowBlockers);
     }
 
+    int blockedFully = 0;
+    blockedFully |= checkBlockingVehicles(&myVehicle, leaders, myOrigLatDist, myVehicle.getLane()->getRightSideOnEdge(), true, LCA_BLOCKED_BY_LEADER, collectLeadBlockers);
+    blockedFully |= checkBlockingVehicles(&myVehicle, followers, myOrigLatDist, myVehicle.getLane()->getRightSideOnEdge(), false, LCA_BLOCKED_BY_FOLLOWER, collectFollowBlockers);
+    if (laneOffset != 0) {
+        blockedFully |= checkBlockingVehicles(&myVehicle, neighLeaders, myOrigLatDist, neighLane.getRightSideOnEdge(), true,
+                (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_LEADER : LCA_BLOCKED_BY_LEFT_LEADER), collectLeadBlockers);
+        blockedFully |= checkBlockingVehicles(&myVehicle, neighFollowers, myOrigLatDist, neighLane.getRightSideOnEdge(), false,
+                (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_FOLLOWER : LCA_BLOCKED_BY_LEFT_FOLLOWER), collectFollowBlockers);
+    }
+    if (retBlockedFully != 0) {
+        *retBlockedFully = blockedFully;
+    }
     if (blocked == 0 && !myCanChangeFully && myPushy == 0 && !keepLatGapManeuver) {
         // aggressive drivers immediately start moving towards potential
         // blockers and only check that the start of their maneuver (latDist) is safe. In
         // contrast, cautious drivers need to check latDist and origLatDist to
         // ensure that the maneuver can be finished without encroaching on other vehicles.
-        blocked |= checkBlockingVehicles(&myVehicle, leaders, myOrigLatDist, myVehicle.getLane()->getRightSideOnEdge(), true, LCA_BLOCKED_BY_LEADER, collectLeadBlockers);
-        blocked |= checkBlockingVehicles(&myVehicle, followers, myOrigLatDist, myVehicle.getLane()->getRightSideOnEdge(), false, LCA_BLOCKED_BY_FOLLOWER, collectFollowBlockers);
-        if (laneOffset != 0) {
-            blocked |= checkBlockingVehicles(&myVehicle, neighLeaders, myOrigLatDist, neighLane.getRightSideOnEdge(), true,
-                                             (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_LEADER : LCA_BLOCKED_BY_LEFT_LEADER), collectLeadBlockers);
-            blocked |= checkBlockingVehicles(&myVehicle, neighFollowers, myOrigLatDist, neighLane.getRightSideOnEdge(), false,
-                                             (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_FOLLOWER : LCA_BLOCKED_BY_LEFT_FOLLOWER), collectFollowBlockers);
-        }
+        blocked |= blockedFully;
     }
     if (collectFollowBlockers != 0 && collectLeadBlockers != 0) {
         // prevent vehicles from being classified as leader and follower simultaneously
