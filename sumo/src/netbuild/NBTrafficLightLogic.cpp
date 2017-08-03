@@ -43,6 +43,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/common/ToString.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/iodevices/OutputDevice.h>
 
@@ -152,6 +153,20 @@ NBTrafficLightLogic::closeBuilding() {
         }
         myPhases[i].duration += myPhases[i + 1].duration;
         myPhases.erase(myPhases.begin() + i + 1);
+    }
+    // check if actuated lights are defined correctly
+    if (myType != TLTYPE_STATIC) {
+        bool found = false;
+        for (auto p : myPhases) {
+            if (p.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION 
+                    || p.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            WRITE_WARNING("Non-static traffic light '" + getID() + "' does not define variable phase length.");
+        }
     }
 }
 
