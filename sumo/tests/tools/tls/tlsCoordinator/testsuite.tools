@@ -1,5 +1,8 @@
 # two tls with a long edge in between
 2tls
+
+# coordinate plans loaded from an additional file
+2tls_add
 basic
 
 # 1 flow snaking through the grid but allowing for full coordination

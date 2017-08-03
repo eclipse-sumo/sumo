@@ -1,0 +1,2 @@
+{CLEAR} -n net.net.xml -r input_routes.rou.xml -o out.add.xml -a input_additional.add.xml --evaluate tools/tlsCoordinator.py
+

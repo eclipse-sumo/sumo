@@ -80,6 +80,9 @@ class TLS:
     def addProgram(self, program):
         self._programs[program._id] = program
 
+    def removePrograms(self):
+        self._programs.clear()
+
     def toXML(self):
         ret = ""
         for p in self._programs:
@@ -286,9 +289,11 @@ class Net:
         tls.addConnection(inLane, outLane, linkNo)
         return tls
 
-    def addTLSProgram(self, tlid, programID, offset, type):
+    def addTLSProgram(self, tlid, programID, offset, type, removeOthers):
         tls = self.getTLSSecure(tlid)
         program = TLSProgram(programID, offset, type)
+        if removeOthers:
+            tls.removePrograms()
         tls.addProgram(program)
         return program
 
@@ -406,6 +411,9 @@ class NetReader(handler.ContentHandler):
         self._currentNode = None
         self._currentLane = None
         self._withPhases = others.get('withPrograms', False)
+        self._latestProgram = others.get('withLatestPrograms', False)
+        if self._latestProgram:
+            self._withPhases = True
         self._withConnections = others.get('withConnections', True)
         self._withFoes = others.get('withFoes', True)
         self._withInternal = others.get('withInternal', False)
@@ -528,7 +536,7 @@ class NetReader(handler.ContentHandler):
         # netconvert... (Leo)
         if self._withPhases and name == 'tlLogic':
             self._currentProgram = self._net.addTLSProgram(
-                attrs['id'], attrs['programID'], float(attrs['offset']), attrs['type'])
+                attrs['id'], attrs['programID'], float(attrs['offset']), attrs['type'], self._latestProgram)
         if self._withPhases and name == 'phase':
             self._currentProgram.addPhase(
                 attrs['state'], int(attrs['duration']))

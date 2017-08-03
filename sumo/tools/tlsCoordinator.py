@@ -65,6 +65,8 @@ def get_options(args=None):
                          default="tlsOffsets.add.xml", help="define the output filename")
     optParser.add_option("-r", "--route-file", dest="routefile",
                          help="define the inputroute file (mandatory)")
+    optParser.add_option("-a", "--additional-file", dest="addfile",
+                         help="define replacement tls plans to be coordinated")
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     optParser.add_option("--speed-factor", type="float",
@@ -294,7 +296,10 @@ def removeDuplicates(TLPairs):
 
 
 def main(options):
-    net = sumolib.net.readNet(options.netfile, withPrograms=True)
+    net = sumolib.net.readNet(options.netfile, withLatestPrograms=True)
+    if options.addfile is not None:
+        sumolib.net.readNet(options.addfile, withLatestPrograms=True, net=net)
+
     TLPairs = getTLPairs(net, options.routefile, options.speed_factor)
     TLPairs = removeDuplicates(TLPairs)
 
@@ -327,10 +332,13 @@ def main(options):
 
     sumo = sumolib.checkBinary('sumo')
     if options.evaluate:
+        additionals = [options.outfile]
+        if options.addfile:
+            additionals = [options.addfile] + additionals
         subprocess.call([sumo,
                          '-n', options.netfile,
                          '-r', options.routefile,
-                         '-a', options.outfile,
+                         '-a', ','.join(additionals),
                          '-v', '--no-step-log', '--duration-log.statistics'], stdout=sys.stdout)
 
 if __name__ == "__main__":
