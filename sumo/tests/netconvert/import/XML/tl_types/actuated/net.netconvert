@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug  3 15:42:03 2017 by SUMO netconvert Version dev-SVN-r25455
+<!-- generated on Thu Aug  3 16:04:35 2017 by SUMO netconvert Version dev-SVN-r25455
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -137,13 +137,13 @@
 
     <tlLogic id="0" type="actuated" programID="0" offset="0">
         <phase duration="33" state="GGggrrrrGGggrrrr" minDur="5" maxDur="50"/>
-        <phase duration="3" state="yyggrrrryyggrrrr" minDur="5" maxDur="50"/>
-        <phase duration="6" state="rrGGrrrrrrGGrrrr" minDur="5" maxDur="50"/>
-        <phase duration="3" state="rryyrrrrrryyrrrr" minDur="5" maxDur="50"/>
+        <phase duration="3" state="yyggrrrryyggrrrr"/>
+        <phase duration="6" state="rrGGrrrrrrGGrrrr" minDur="5" maxDur="5"/>
+        <phase duration="3" state="rryyrrrrrryyrrrr"/>
         <phase duration="33" state="rrrrGGggrrrrGGgg" minDur="5" maxDur="50"/>
-        <phase duration="3" state="rrrryyggrrrryygg" minDur="5" maxDur="50"/>
-        <phase duration="6" state="rrrrrrGGrrrrrrGG" minDur="5" maxDur="50"/>
-        <phase duration="3" state="rrrrrryyrrrrrryy" minDur="5" maxDur="50"/>
+        <phase duration="3" state="rrrryyggrrrryygg"/>
+        <phase duration="6" state="rrrrrrGGrrrrrrGG" minDur="5" maxDur="5"/>
+        <phase duration="3" state="rrrrrryyrrrrrryy"/>
     </tlLogic>
 
     <junction id="0" type="traffic_light" x="500.00" y="500.00" incLanes="4fi_0 4fi_1 2fi_0 2fi_1 3fi_0 3fi_1 1fi_0 1fi_1" intLanes=":0_0_0 :0_1_0 :0_16_0 :0_17_0 :0_4_0 :0_5_0 :0_18_0 :0_19_0 :0_8_0 :0_9_0 :0_20_0 :0_21_0 :0_12_0 :0_13_0 :0_22_0 :0_23_0" shape="493.45,508.05 503.25,508.05 508.05,506.55 508.05,496.75 506.55,491.95 496.75,491.95 491.95,493.45 491.95,503.25">
