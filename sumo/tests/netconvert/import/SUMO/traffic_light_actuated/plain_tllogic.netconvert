@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Aug  3 16:45:52 2017 by SUMO netconvert Version dev-SVN-r25455
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<tlLogics version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <tlLogic id="0" type="actuated" programID="0" offset="0">
+        <phase duration="33" state="GGggrrrrGGggrrrr" minDur="5" maxDur="50"/>
+        <phase duration="3" state="yyggrrrryyggrrrr"/>
+        <phase duration="6" state="rrGGrrrrrrGGrrrr" minDur="5" maxDur="20"/>
+        <phase duration="3" state="rryyrrrrrryyrrrr"/>
+        <phase duration="33" state="rrrrGGggrrrrGGgg" minDur="5" maxDur="50"/>
+        <phase duration="3" state="rrrryyggrrrryygg"/>
+        <phase duration="6" state="rrrrrrGGrrrrrrGG" minDur="5" maxDur="20"/>
+        <phase duration="3" state="rrrrrryyrrrrrryy"/>
+    </tlLogic>
+
+    <connection from="1fi" to="3o" fromLane="0" toLane="0" tl="0" linkIndex="12"/>
+    <connection from="1fi" to="2o" fromLane="0" toLane="0" tl="0" linkIndex="13"/>
+    <connection from="1fi" to="4o" fromLane="1" toLane="0" tl="0" linkIndex="14"/>
+    <connection from="1fi" to="1o" fromLane="1" toLane="0" tl="0" linkIndex="15"/>
+    <connection from="2fi" to="4o" fromLane="0" toLane="0" tl="0" linkIndex="4"/>
+    <connection from="2fi" to="1o" fromLane="0" toLane="0" tl="0" linkIndex="5"/>
+    <connection from="2fi" to="3o" fromLane="1" toLane="0" tl="0" linkIndex="6"/>
+    <connection from="2fi" to="2o" fromLane="1" toLane="0" tl="0" linkIndex="7"/>
+    <connection from="3fi" to="2o" fromLane="0" toLane="0" tl="0" linkIndex="8"/>
+    <connection from="3fi" to="4o" fromLane="0" toLane="0" tl="0" linkIndex="9"/>
+    <connection from="3fi" to="1o" fromLane="1" toLane="0" tl="0" linkIndex="10"/>
+    <connection from="3fi" to="3o" fromLane="1" toLane="0" tl="0" linkIndex="11"/>
+    <connection from="4fi" to="1o" fromLane="0" toLane="0" tl="0" linkIndex="0"/>
+    <connection from="4fi" to="3o" fromLane="0" toLane="0" tl="0" linkIndex="1"/>
+    <connection from="4fi" to="2o" fromLane="1" toLane="0" tl="0" linkIndex="2"/>
+    <connection from="4fi" to="4o" fromLane="1" toLane="0" tl="0" linkIndex="3"/>
+</tlLogics>
