@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:19 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Thu Aug  3 15:42:06 2017 by SUMO netconvert Version dev-SVN-r25455
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,8 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -74,12 +76,12 @@
     </edge>
 
     <tlLogic id="gneJ3" type="actuated" programID="0" offset="0">
-        <phase duration="31" state="rrGGGg"/>
-        <phase duration="4" state="rryyyg"/>
-        <phase duration="6" state="rrrrrG"/>
-        <phase duration="4" state="rrrrry"/>
-        <phase duration="31" state="GGGrrr"/>
-        <phase duration="4" state="yyyrrr"/>
+        <phase duration="31" state="rrGGGg" minDur="5" maxDur="50"/>
+        <phase duration="4" state="rryyyg" minDur="5" maxDur="50"/>
+        <phase duration="6" state="rrrrrG" minDur="5" maxDur="50"/>
+        <phase duration="4" state="rrrrry" minDur="5" maxDur="50"/>
+        <phase duration="31" state="GGGrrr" minDur="5" maxDur="50"/>
+        <phase duration="4" state="yyyrrr" minDur="5" maxDur="50"/>
     </tlLogic>
 
     <junction id="gneJ2" type="dead_end" x="0.00" y="0.00" incLanes="gneE2_0" intLanes="" shape="0.00,-0.05 0.00,3.25 0.00,0.05"/>

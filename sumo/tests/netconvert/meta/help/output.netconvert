@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r25085
+SUMO netconvert Version dev-SVN-r25455
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -134,6 +134,12 @@ TLS Building Options:
                                          quarter-phase
   --tls.default-type STR               TLSs with unspecified type will use STR
                                          as their algorithm
+  --tls.min-dur INT                    Default minimum phase duration for
+                                         traffic lights with variable phase
+                                         length
+  --tls.max-dur INT                    Default maximum phase duration for
+                                         traffic lights with variable phase
+                                         length
 
 Ramp Guessing Options:
   --ramps.guess                        Enable ramp-guessing
