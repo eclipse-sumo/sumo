@@ -160,6 +160,7 @@ class Builder(object):
 
         typefiles = [typemaps["net"]]
         netconvertOptions = osmBuild.DEFAULT_NETCONVERT_OPTS
+        netconvertOptions += ",--tls.default-type,actuated"
         if "pedestrian" in self.data["vehicles"]:
             # sidewalks are already included via typefile
             netconvertOptions += ",--crossings.guess"
