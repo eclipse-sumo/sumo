@@ -351,6 +351,11 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("tls.default-type", new Option_String("static"));
     oc.addDescription("tls.default-type", "TLS Building", "TLSs with unspecified type will use STR as their algorithm");
 
+    oc.doRegister("tls.min-dur", new Option_Integer(5));
+    oc.addDescription("tls.min-dur", "TLS Building", "Default minimum phase duration for traffic lights with variable phase length");
+
+    oc.doRegister("tls.max-dur", new Option_Integer(50));
+    oc.addDescription("tls.max-dur", "TLS Building", "Default maximum phase duration for traffic lights with variable phase length");
 
     // edge pruning
     oc.doRegister("keep-edges.min-speed", new Option_Float(-1));

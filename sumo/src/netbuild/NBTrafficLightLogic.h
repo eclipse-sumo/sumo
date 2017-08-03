@@ -66,6 +66,8 @@ public:
     public:
         /// @brief The duration of the phase in s
         SUMOTime duration;
+        SUMOTime minDur;
+        SUMOTime maxDur;
 
         /// @brief The state definition
         std::string state;
@@ -74,8 +76,11 @@ public:
          * @param[in] durationArg The duration of the phase
          * @param[in] stateArg Signals per link
          */
-        PhaseDefinition(SUMOTime durationArg, const std::string& stateArg)
-            : duration(durationArg), state(stateArg) { }
+        PhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurArg, SUMOTime maxDurArg) : 
+            duration(durationArg), 
+            minDur(minDurArg), 
+            maxDur(maxDurArg), 
+            state(stateArg) { }
 
         /// @brief Destructor
         ~PhaseDefinition() { }
@@ -116,11 +121,14 @@ public:
      *
      * @param[in] duration The duration of the phase to add
      * @param[in] state The state definition of a tls phase
+     * @param[in] minDur The minimum duration of the phase to add
+     * @param[in] maxDur The maximum duration of the phase to add
      * @param[in] index The index of the new phase (-1 means append to end)
      * @note: the length of the state has to match the number of links
      *        and the length given in previous calls to addStep (throws ProcessError)
      */
     void addStep(SUMOTime duration, const std::string& state, int index = -1);
+    void addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, int index = -1);
 
 
     /** @brief Modifies the state for an existing phase (used by NETEDIT)

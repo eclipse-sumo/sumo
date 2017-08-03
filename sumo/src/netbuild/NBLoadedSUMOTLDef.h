@@ -97,10 +97,12 @@ public:
 
     /** @brief Adds a phase to the logic
      * the new phase is inserted at the end of the list of already added phases
-     * @param[in] duration The duration of the phase to add in SECONDS!
+     * @param[in] duration The duration of the phase to add
      * @param[in] state The state definition of a tls phase
+     * @param[in] minDur The minimum duration of the phase to add
+     * @param[in] maxDur The maximum duration of the phase to add
      */
-    void addPhase(SUMOTime duration, const std::string& state);
+    void addPhase(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur);
 
     /// @brief mark phases as load
     void phasesLoaded() {

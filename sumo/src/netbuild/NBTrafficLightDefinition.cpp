@@ -52,6 +52,7 @@
 // ===========================================================================
 const std::string NBTrafficLightDefinition::DefaultProgramID = "0";
 const std::string NBTrafficLightDefinition::DummyID = "dummy";
+const SUMOTime NBTrafficLightDefinition::UNSPECIFIED_DURATION(-1);
 
 // ===========================================================================
 // method definitions
