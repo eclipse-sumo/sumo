@@ -152,6 +152,20 @@ NBTrafficLightLogic::closeBuilding() {
             continue;
         }
         myPhases[i].duration += myPhases[i + 1].duration;
+        if (myPhases[i + 1].minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+            if (myPhases[i].minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                myPhases[i].minDur += myPhases[i + 1].minDur;
+            } else {
+                myPhases[i].minDur = myPhases[i + 1].minDur;
+            }
+        }
+        if (myPhases[i + 1].maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+            if (myPhases[i].maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                myPhases[i].maxDur += myPhases[i + 1].maxDur;
+            } else {
+                myPhases[i].maxDur = myPhases[i + 1].maxDur;
+            }
+        }
         myPhases.erase(myPhases.begin() + i + 1);
     }
     // check if actuated lights are defined correctly
