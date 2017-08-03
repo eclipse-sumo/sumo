@@ -257,6 +257,9 @@ private:
     /// @brief recomputes cycle duration and updates label
     void updateCycleDuration();
 
+    /// @brief convert duration (potentially undefined) to string
+    static std::string varDurString(SUMOTime dur);
+
     /// @brief converts to SUMOTime
     static SUMOTime getSUMOTime(const FXString& string);
 };

@@ -143,6 +143,8 @@ public:
      * @param[in] duration The new duration for this phase
      */
     void setPhaseDuration(int phaseIndex, SUMOTime duration);
+    void setPhaseMinDuration(int phaseIndex, SUMOTime duration);
+    void setPhaseMaxDuration(int phaseIndex, SUMOTime duration);
 
     /* @brief deletes the phase at the given index
      * @note thhrows InvalidArgument on out-of range index

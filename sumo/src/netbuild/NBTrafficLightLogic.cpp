@@ -200,6 +200,18 @@ NBTrafficLightLogic::setPhaseDuration(int phaseIndex, SUMOTime duration) {
     myPhases[phaseIndex].duration = duration;
 }
 
+void
+NBTrafficLightLogic::setPhaseMinDuration(int phaseIndex, SUMOTime duration) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].minDur = duration;
+}
+
+void
+NBTrafficLightLogic::setPhaseMaxDuration(int phaseIndex, SUMOTime duration) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].maxDur = duration;
+}
+
 
 /****************************************************************************/
 

@@ -415,6 +415,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
      * click inside the cell and hit enter to actually update the value */
     FXTablePos* tp = (FXTablePos*)ptr;
     FXString value = myPhaseTable->getItemText(tp->row, tp->col);
+    const bool fixed = myEditedDef->getType() == TLTYPE_STATIC;
     if (tp->col == 0) {
         // duration edited
         if (GNEAttributeCarrier::canParse<double>(value.text())) {
@@ -428,6 +429,30 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
         }
         // input error, reset value
         myPhaseTable->setItemText(tp->row, 0, toString(STEPS2TIME(getPhases()[tp->row].duration)).c_str());
+    } else if (!fixed && tp->col == 1) {
+        // minDur edited
+        if (GNEAttributeCarrier::canParse<double>(value.text())) {
+            SUMOTime minDur = getSUMOTime(value);
+            if (minDur > 0) {
+                myEditedDef->getLogic()->setPhaseMinDuration(tp->row, minDur);
+                myHaveModifications = true;
+                return 1;
+            }
+        }
+        // input error, reset value
+        myPhaseTable->setItemText(tp->row, 1, varDurString(getPhases()[tp->row].minDur).c_str());
+    } else if (!fixed && tp->col == 2) {
+        // minDur edited
+        if (GNEAttributeCarrier::canParse<double>(value.text())) {
+            SUMOTime maxDur = getSUMOTime(value);
+            if (maxDur > 0) {
+                myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, maxDur);
+                myHaveModifications = true;
+                return 1;
+            }
+        }
+        // input error, reset value
+        myPhaseTable->setItemText(tp->row, 2, varDurString(getPhases()[tp->row].maxDur).c_str());
     } else {
         // state edited
         try {
@@ -543,22 +568,32 @@ GNETLSEditorFrame::initDefinitions() {
 }
 
 
+std::string 
+GNETLSEditorFrame::varDurString(SUMOTime dur) {
+    return dur == NBTrafficLightDefinition::UNSPECIFIED_DURATION ? "" : toString(STEPS2TIME(dur));
+}
+
 void
 GNETLSEditorFrame::initPhaseTable(int index) {
     myPhaseTable->setVisibleRows(1);
     myPhaseTable->setVisibleColumns(2);
     myPhaseTable->hide();
     if (myDefinitions.size() > 0) {
+        const bool fixed = myEditedDef->getType() == TLTYPE_STATIC;
         const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = getPhases();
-        myPhaseTable->setTableSize((int)phases.size(), 2);
+        myPhaseTable->setTableSize((int)phases.size(), fixed ? 2 : 4);
         myPhaseTable->setVisibleRows((int)phases.size());
-        myPhaseTable->setVisibleColumns(2);
+        myPhaseTable->setVisibleColumns(fixed ? 2 : 4);
         for (int row = 0; row < (int)phases.size(); row++) {
             myPhaseTable->setItemText(row, 0, toString(STEPS2TIME(phases[row].duration)).c_str());
-            myPhaseTable->setItemText(row, 1, phases[row].state.c_str());
+            if (!fixed) {
+                myPhaseTable->setItemText(row, 1, varDurString(phases[row].minDur).c_str());
+                myPhaseTable->setItemText(row, 2, varDurString(phases[row].maxDur).c_str());
+            }
+            myPhaseTable->setItemText(row, fixed ? 1 : 3, phases[row].state.c_str());
             myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
         }
-        myPhaseTable->fitColumnsToContents(0, 2);
+        myPhaseTable->fitColumnsToContents(0, fixed ? 2 : 4);
         myPhaseTable->setHeight((int)phases.size() * 21); // experimental
         myPhaseTable->setCurrentItem(index, 0);
         myPhaseTable->selectRow(index, true);
