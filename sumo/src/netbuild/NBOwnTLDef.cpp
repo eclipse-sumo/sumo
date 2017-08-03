@@ -361,7 +361,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             state = correctConflicting(state, fromEdges, toEdges, isTurnaround, fromLanes, hadGreenMajor, haveForbiddenLeftMover, rightTurnConflicts);
 
             // add step
-            logic->addStep(leftTurnTime, state, minDur, minDur);
+            logic->addStep(leftTurnTime, state, minDur, maxDur);
 
             // build left yellow
             if (brakingTime > 0) {
