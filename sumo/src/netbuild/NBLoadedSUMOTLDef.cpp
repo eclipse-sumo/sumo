@@ -333,7 +333,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
                     brakingTime = MAX2(brakingTime, it->duration);
                 }
                 const std::string state = it->state.substr(0, numNormalLinks) + crossingDefaultState;
-                NBOwnTLDef::addPedestrianPhases(newLogic, it->duration, state, crossings, fromEdges, toEdges);
+                NBOwnTLDef::addPedestrianPhases(newLogic, it->duration, it->minDur, it->maxDur, state, crossings, fromEdges, toEdges);
             }
             NBOwnTLDef::addPedestrianScramble(newLogic, noLinksAll, TIME2STEPS(10), brakingTime, crossings, fromEdges, toEdges);
 

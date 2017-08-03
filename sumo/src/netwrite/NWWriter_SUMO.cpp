@@ -782,9 +782,6 @@ NWWriter_SUMO::prohibitionConnection(const NBConnection& c) {
 void
 NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicCont& tllCont) {
     std::vector<NBTrafficLightLogic*> logics = tllCont.getComputed();
-    const SUMOTime defaultMinDur = TIME2STEPS(OptionsCont::getOptions().getInt("tls.min-dur"));
-    const SUMOTime defaultMaxDur = TIME2STEPS(OptionsCont::getOptions().getInt("tls.max-dur"));
-
     for (std::vector<NBTrafficLightLogic*>::iterator it = logics.begin(); it != logics.end(); it++) {
         into.openTag(SUMO_TAG_TLLOGIC);
         into.writeAttr(SUMO_ATTR_ID, (*it)->getID());
@@ -801,10 +798,12 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
             into.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(j->duration));
             into.writeAttr(SUMO_ATTR_STATE, j->state);
             if (varPhaseLength) {
-                into.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(
-                            j->minDur == NBTrafficLightDefinition::UNSPECIFIED_DURATION ? defaultMinDur : j->minDur));
-                into.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(
-                            j->maxDur == NBTrafficLightDefinition::UNSPECIFIED_DURATION ? defaultMaxDur : j->maxDur));
+                if (j->minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    into.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(j->minDur));
+                }
+                if (j->maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    into.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(j->maxDur));
+                }
             }
             into.closeTag();
         }
