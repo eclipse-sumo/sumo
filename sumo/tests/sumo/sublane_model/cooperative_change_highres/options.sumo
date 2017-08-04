@@ -2,3 +2,4 @@
 --lanechange-output lanechanges.xml
 --lateral-resolution 0.2 --tripinfo-output tripinfos.xml --fcd-output fcd.xml
 --step-length 0.2
+--fcd-output.signals
