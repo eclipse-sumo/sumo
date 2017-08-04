@@ -53,6 +53,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/xml/XMLSubSys.h>
+#include <netbuild/NBEdge.h>
 
 #include "GNEViewNet.h"
 #include "GNEEdge.h"
@@ -126,7 +127,7 @@ FXIMPLEMENT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewN
 // ===========================================================================
 // static
 // ===========================================================================
-const double GNEViewNet::MINIMUMMOVING_RADIUS = 4;
+const double GNEViewNet::MINIMUMMOVING_RADIUS = 2;
 
 // ===========================================================================
 // member method definitions
@@ -541,6 +542,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                         myMovingSelection = true;
                     } else {
                         myEdgeToMove = pointed_edge;
+                        myOriginalShape = myEdgeToMove->getNBEdge()->getInnerGeometry();
                     }
                     myMovingOriginalPosition = getPositionInformation();
                 } else if (pointed_additional) {
@@ -755,9 +757,8 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
         }
         myJunctionToMove = 0;
     } else if (myEdgeToMove) {
-        // shape is already up to date but we must register with myUndoList
-        const std::string& newShape = myEdgeToMove->getAttribute(SUMO_ATTR_SHAPE);
-        myEdgeToMove->setAttribute(SUMO_ATTR_SHAPE, newShape, myUndoList);
+        // set cleaned shape
+        myEdgeToMove->commitGeometryMoving(myOriginalShape, myUndoList);
         myEdgeToMove = 0;
     } else if (myAdditionalToMove) {
         myAdditionalToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);

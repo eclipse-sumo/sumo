@@ -398,6 +398,9 @@ private:
     /// @brief Position of element before moving
     Position myMovingOriginalPosition;
 
+    /// @brief Shape of elements before moving
+    PositionVector myOriginalShape;
+
     /// @brief whether a selection is being moved
     bool myMovingSelection;
 

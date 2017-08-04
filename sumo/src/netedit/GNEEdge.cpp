@@ -135,6 +135,35 @@ GNEEdge::updateGeometry() {
 }
 
 
+void GNEEdge::commitGeometryMoving(const PositionVector & oldShape, GNEUndoList * undoList) {
+
+    // shape has to be cleaned
+    PositionVector cleanedShape = myNBEdge.getInnerGeometry();
+    auto it = cleanedShape.begin();
+    // iterate over shape and remove nearest point to Junctions
+    while (it != cleanedShape.end()) {
+        if (it->distanceTo2D(myGNEJunctionSource->getPositionInView()) < (2 * 2)) {
+            it = cleanedShape.erase(it);
+        }
+        else if (it->distanceTo2D(myGNEJunctionDestiny->getPositionInView()) < (2 * 2)) {
+            it = cleanedShape.erase(it);
+        }
+        else {
+            it++;
+        }
+    }
+    if(oldShape != cleanedShape) {
+        undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
+        myNBEdge.setGeometry(myOrigShape, true);
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(cleanedShape)));
+        undoList->p_end();
+    } else {
+        setGeometry(oldShape, true);
+    }
+
+}
+
+
 Boundary
 GNEEdge::getBoundary() const {
     Boundary ret;

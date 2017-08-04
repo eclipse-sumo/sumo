@@ -84,6 +84,9 @@ public:
     /// @note if current editing mode is Move, connection's geometry will not be updated
     void updateGeometry();
 
+    /// @brief registers completed movement with the undoList
+    void commitGeometryMoving(const PositionVector &oldShape, GNEUndoList* undoList);
+
     /// Returns the street's geometry
     Boundary getBoundary() const;
 
