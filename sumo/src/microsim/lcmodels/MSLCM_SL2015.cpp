@@ -1098,7 +1098,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         if (!blocked & !myCanChangeFully && plannedSpeed > 0 && blockedFully == 0) {
             // commit to manoeuvre
             // round to full simulation steps
-            double secondsToLeaveLane = ceil(myOrigLatDist / myVehicle.getVehicleType().getMaxSpeedLat() / TS) * TS;
+            double secondsToLeaveLane = ceil(fabs(myOrigLatDist) / myVehicle.getVehicleType().getMaxSpeedLat() / TS) * TS;
             myCommittedSpeed = MIN3(myLeftSpace / secondsToLeaveLane, 
                     myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle),
                     myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
