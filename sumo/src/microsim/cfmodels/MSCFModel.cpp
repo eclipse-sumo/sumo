@@ -237,6 +237,42 @@ MSCFModel::insertionStopSpeed(const MSVehicle* const veh, double speed, double g
 }
 
 
+double 
+MSCFModel::followSpeedTransient(double duration, const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const {
+    // minimium distance covered by the leader if braking
+    double leaderMinDist = distAfterTime(duration, predSpeed, predMaxDecel);
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        int a = (int)ceil(duration / TS - TS);
+        double b = TS * getMaxDecel() * 0.5 * (a * a - a);
+        return (b + leaderMinDist) / duration;
+
+    } else {
+        return leaderMinDist / duration + duration * predMaxDecel / 2;
+    }
+}
+
+double 
+MSCFModel::distAfterTime(double t, double speed, double decel) {
+    assert(decel > 0);
+    if (speed <= decel * t) {
+        // braking to a full stop
+        return brakeGap(speed, decel, 0);
+    }
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        // @todo improve efficiency
+        double result = 0;
+        while (t > 0) {
+            speed -= ACCEL2SPEED(decel);
+            result += MAX2(0.0, speed);
+            t -= TS;
+            return result;
+        }
+    } else {
+        const double speed2 = speed - t * decel;
+        return 0.5 * (speed + speed2) * t;
+    }
+}
+
 SUMOTime
 MSCFModel::getMinimalArrivalTime(double dist, double currentSpeed, double arrivalSpeed) const {
     const double accel = (arrivalSpeed >= currentSpeed) ? getMaxAccel() : -getMaxDecel();

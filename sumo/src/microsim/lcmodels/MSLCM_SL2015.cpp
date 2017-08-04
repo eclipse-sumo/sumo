@@ -1400,6 +1400,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                                         leaders, followers, blockers,
                                         neighLeaders, neighFollowers, neighBlockers,
                                         0, 0, false, 0, &blockedFully);
+                //commitManoeuvre(blocked, blockedFully, leaders, neighLeaders, neighLane);
                 return ret;
             }
         }
@@ -1430,6 +1431,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                                         leaders, followers, blockers,
                                         neighLeaders, neighFollowers, neighBlockers,
                                         0, 0, false, 0, &blockedFully);
+                //commitManoeuvre(blocked, blockedFully, leaders, neighLeaders, neighLane);
                 return ret;
             }
         }
@@ -2549,7 +2551,9 @@ MSLCM_SL2015::commitFollowSpeed(double speed, double latDist, double secondsToLe
                     if (gDebugFlag2) std::cout << "     case1 vsafe=" << vSafe << " speed=" << speed << "\n";
                 } else if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft)) {
                     // case 2
-                    const double vSafe = leader->getSpeed() + vehDist.second / secondsToLeaveLane;
+                    const double vSafe = myVehicle.getCarFollowModel().followSpeedTransient(
+                            secondsToLeaveLane,
+                            &myVehicle, speed, vehDist.second, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                     speed = MIN2(speed, vSafe);
                     if (gDebugFlag2) std::cout << "     case2 vsafe=" << vSafe << " speed=" << speed << "\n";
                 }

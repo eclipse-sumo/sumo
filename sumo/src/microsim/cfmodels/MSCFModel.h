@@ -153,6 +153,17 @@ public:
      */
     virtual double insertionStopSpeed(const MSVehicle* const veh, double speed, double gap) const;
 
+    /** @brief Computes the vehicle's follow speed that avoids a collision for the given amount of time
+     *
+     * Returns the velocity of the vehicle in dependence to the vehicle's and its leader's values and the distance between them.
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] predSpeed The speed of LEADER
+     * @param[in] predMaxDecel The maximum leader decelration
+     * @return EGO's safe speed
+     */
+    virtual double followSpeedTransient(double duration, const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const;
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
      *
@@ -397,6 +408,8 @@ public:
     static double speedAfterTime(const double t, const double oldSpeed, const double dist);
 
 
+    /// @brief calculates the distance travelled after braking for time t
+    static double distAfterTime(double t, double speed, double decel);
 
 
 

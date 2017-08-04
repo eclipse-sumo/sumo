@@ -93,7 +93,7 @@
 //#define DEBUG_BESTLANES
 //#define DEBUG_IGNORE_RED
 //#define DEBUG_COND (getID() == "ego")
-#define DEBUG_COND (isSelected())
+//#define DEBUG_COND (isSelected())
 
 #define STOPPING_PLACE_OFFSET 0.5
 
@@ -1916,6 +1916,16 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                                   << " ahead=" << ahead.toString()
                                   << "\n";
 #endif
+    /*
+    if (getLaneChangeModel().getCommittedSpeed() > 0) {
+        v = MIN2(v, getLaneChangeModel().getCommittedSpeed());
+        vLinkPass = MIN2(vLinkPass, getLaneChangeModel().getCommittedSpeed());
+#ifdef DEBUG_PLAN_MOVE
+        if (DEBUG_COND) std::cout << "   hasCommitted=" << getLaneChangeModel().getCommittedSpeed() << "\n";
+#endif
+        return;
+    }
+    */
     for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
         const MSVehicle* pred = ahead[sublane];
         if (pred != 0) {
