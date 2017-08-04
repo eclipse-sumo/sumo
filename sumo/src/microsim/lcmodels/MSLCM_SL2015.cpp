@@ -1094,30 +1094,9 @@ MSLCM_SL2015::_wantsChangeSublane(
             // maybe we need to deal with a blocking follower
             informFollowers(blocked, myLca, collectFollowBlockers, remainingSeconds, plannedSpeed);
         }
-
-        if (!blocked & !myCanChangeFully && plannedSpeed > 0 && blockedFully == 0) {
-            // commit to manoeuvre
-            // round to full simulation steps
-            double secondsToLeaveLane = ceil(fabs(myOrigLatDist) / myVehicle.getVehicleType().getMaxSpeedLat() / TS) * TS;
-            myCommittedSpeed = MIN3(myLeftSpace / secondsToLeaveLane, 
-                    myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle),
-                    myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
-            myCommittedSpeed = commitFollowSpeed(myCommittedSpeed, myOrigLatDist, secondsToLeaveLane, leaders, myVehicle.getLane()->getRightSideOnEdge());
-            myCommittedSpeed = commitFollowSpeed(myCommittedSpeed, myOrigLatDist, secondsToLeaveLane, neighLeaders, neighLane.getRightSideOnEdge());
-            if (myCommittedSpeed < myVehicle.getCarFollowModel().minNextSpeed(myVehicle.getSpeed(), &myVehicle)) {
-                myCommittedSpeed = 0;
-            }
-
-            if (gDebugFlag2) {
-                std::cout << STEPS2TIME(currentTime)
-                    << " veh=" << myVehicle.getID()
-                    << " secondsToLeave=" << secondsToLeaveLane
-                    << " maxNext=" << myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle)
-                    << " committed=" << myCommittedSpeed
-                    << "\n";
-            }
+        if (plannedSpeed > 0) {
+            commitManoeuvre(blocked, blockedFully, leaders, neighLeaders, neighLane);
         }
-
         if (gDebugFlag2) {
             std::cout << STEPS2TIME(currentTime)
                       << " veh=" << myVehicle.getID()
@@ -1416,9 +1395,11 @@ MSLCM_SL2015::_wantsChangeSublane(
                 && neighDist / MAX2(.1, myVehicle.getSpeed()) > 20.) {
             ret |= LCA_SPEEDGAIN;
             if (!cancelRequest(ret)) {
+                int blockedFully = 0;
                 blocked = checkBlocking(neighLane, latDist, laneOffset,
                                         leaders, followers, blockers,
-                                        neighLeaders, neighFollowers, neighBlockers);
+                                        neighLeaders, neighFollowers, neighBlockers,
+                                        0, 0, false, 0, &blockedFully);
                 return ret;
             }
         }
@@ -1444,9 +1425,11 @@ MSLCM_SL2015::_wantsChangeSublane(
                 (stayInLane || neighDist / MAX2(.1, myVehicle.getSpeed()) > SPEED_GAIN_MIN_SECONDS)) {
             ret |= LCA_SPEEDGAIN;
             if (!cancelRequest(ret)) {
+                int blockedFully = 0;
                 blocked = checkBlocking(neighLane, latDist, laneOffset,
                                         leaders, followers, blockers,
-                                        neighLeaders, neighFollowers, neighBlockers);
+                                        neighLeaders, neighFollowers, neighBlockers,
+                                        0, 0, false, 0, &blockedFully);
                 return ret;
             }
         }
@@ -2482,6 +2465,34 @@ MSLCM_SL2015::getWidth() const {
     return myVehicle.getVehicleType().getWidth() + NUMERICAL_EPS;
 }
 
+
+void 
+MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully, 
+        const MSLeaderDistanceInfo& leaders, 
+        const MSLeaderDistanceInfo& neighLeaders, 
+        const MSLane& neighLane) 
+{
+    if (!blocked && !blockedFully && !myCanChangeFully) {
+        // round to full simulation steps
+        double secondsToLeaveLane = ceil(fabs(myOrigLatDist) / myVehicle.getVehicleType().getMaxSpeedLat() / TS) * TS;
+        myCommittedSpeed = MIN3(myLeftSpace / secondsToLeaveLane, 
+                myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle),
+                myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
+        myCommittedSpeed = commitFollowSpeed(myCommittedSpeed, myOrigLatDist, secondsToLeaveLane, leaders, myVehicle.getLane()->getRightSideOnEdge());
+        myCommittedSpeed = commitFollowSpeed(myCommittedSpeed, myOrigLatDist, secondsToLeaveLane, neighLeaders, neighLane.getRightSideOnEdge());
+        if (myCommittedSpeed < myVehicle.getCarFollowModel().minNextSpeed(myVehicle.getSpeed(), &myVehicle)) {
+            myCommittedSpeed = 0;
+        }
+        if (gDebugFlag2) {
+            std::cout << SIMTIME 
+                << " veh=" << myVehicle.getID()
+                << " secondsToLeave=" << secondsToLeaveLane
+                << " maxNext=" << myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle)
+                << " committed=" << myCommittedSpeed
+                << "\n";
+        }
+    }
+}
 
 double 
 MSLCM_SL2015::commitFollowSpeed(double speed, double latDist, double secondsToLeaveLane, const MSLeaderDistanceInfo& leaders, double foeOffset) const {

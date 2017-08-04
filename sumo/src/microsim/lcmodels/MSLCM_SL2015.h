@@ -309,6 +309,12 @@ protected:
         return MSGlobals::gLateralResolution > 0 ? MSGlobals::gLateralResolution : myVehicle.getLane()->getWidth();
     }
 
+    /// @brief commit to lane change maneuvre potentially overriding safe speed
+    void commitManoeuvre(int blocked, int blockedFully, 
+            const MSLeaderDistanceInfo& leaders, 
+            const MSLeaderDistanceInfo& neighLeaders, 
+            const MSLane& neighLane);
+
     /// @brief compute speed when committing to an urgent change that is safe in regard to leading vehicles
     double commitFollowSpeed(double speed, double latDist, double secondsToLeaveLane, const MSLeaderDistanceInfo& leaders, double foeOffset) const;
 
