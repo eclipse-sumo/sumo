@@ -142,10 +142,10 @@ void GNEEdge::commitGeometryMoving(const PositionVector & oldShape, GNEUndoList 
     auto it = cleanedShape.begin();
     // iterate over shape and remove nearest point to Junctions
     while (it != cleanedShape.end()) {
-        if (it->distanceTo2D(myGNEJunctionSource->getPositionInView()) < (2 * 2)) {
+        if (it->distanceTo2D(myGNEJunctionSource->getPositionInView()) < POSITION_EPS) {
             it = cleanedShape.erase(it);
         }
-        else if (it->distanceTo2D(myGNEJunctionDestiny->getPositionInView()) < (2 * 2)) {
+        else if (it->distanceTo2D(myGNEJunctionDestiny->getPositionInView()) < POSITION_EPS) {
             it = cleanedShape.erase(it);
         }
         else {
