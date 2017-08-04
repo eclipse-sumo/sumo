@@ -194,6 +194,9 @@ private:
     /// @brief groupbox for phases
     FXGroupBox* myGroupBoxPhases;
 
+    /// @brief window for oversized phase tables
+    FXScrollWindow* myTableScroll;
+
     /// @brief table for selecting and rearranging phases and for changing duration
     FXTable* myPhaseTable;
 

@@ -110,7 +110,7 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // create delete tlDef button
     myDeleteTLProgram = new FXButton(myGroupBoxTLSDef, "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.", 0, this, MID_GNE_DEF_DELETE, GUIDesignButton);
 
-    // create groupbox for phases
+    // create groupbox for attributes
     myGroupBoxAttributes = new FXGroupBox(myContentFrame, "Attributes", GUIDesignGroupBoxFrame);
 
     // Create matrix
@@ -136,7 +136,8 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myGroupBoxPhases = new FXGroupBox(myContentFrame, "Phases", GUIDesignGroupBoxFrame);
 
     // create and configure phase table
-    myPhaseTable = new FXTable(myGroupBoxPhases, this, MID_GNE_PHASE_TABLE, GUIDesignTableLimitedHeight);
+    myTableScroll = new FXScrollWindow(myGroupBoxPhases, LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT);
+    myPhaseTable = new FXTable(myTableScroll, this, MID_GNE_PHASE_TABLE, GUIDesignTableLimitedHeight);
     myPhaseTable->setColumnHeaderMode(LAYOUT_FIX_HEIGHT);
     myPhaseTable->setColumnHeaderHeight(0);
     myPhaseTable->setRowHeaderMode(LAYOUT_FIX_WIDTH);
@@ -607,6 +608,8 @@ GNETLSEditorFrame::initPhaseTable(int index) {
         myPhaseTable->selectRow(index, true);
         myPhaseTable->show();
         myPhaseTable->setFocus();
+
+        myTableScroll->setHeight(myPhaseTable->getHeight() + 10);
     }
     update();
 }
