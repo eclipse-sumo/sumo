@@ -64,6 +64,11 @@ nopush_for_merge_impatience_growth
 # 
 nopush_for_merge_end_gap
 
+# a vehicle urgently needs to change lanes but is configured to refrain from pushing. 
+# To merge in front of the foe vehicle it would have to keep an unsafe gap to the leader on its own lane
+# 
+nopush_for_merge_undercut_frontgap
+
 # test whether cooperative changing works fluidly
 cooperative_change
 

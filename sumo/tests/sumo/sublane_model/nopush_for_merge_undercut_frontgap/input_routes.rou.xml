@@ -1,0 +1,18 @@
+<routes>
+    <vType id="tEgo" vClass="passenger" latAlignment="center" sigma="0.0" minGapLat="1.0" lcPushy="0.0" lcAssertive="2.0" lcSpeedGain="3.0"/>
+    <vType id="tBlocker" vClass="passenger" latAlignment="center" sigma="0.0" minGapLat="1.0"/>
+    <vType id="tLeader" vClass="truck" latAlignment="center" sigma="0.0" maxSpeed="20"/>
+
+    <route id="r0" edges="beg"/>
+
+
+    <!-- slow leader -->
+    <vehicle id="L" type="tLeader" route="r0" departSpeed="max" departPos="200"  departLane="0" departPosLat="center" depart="0"/>
+    <!-- leader triggers desire to change for speed gain in ego -->
+    <vehicle id="ego" type="tEgo" route="r0" departSpeed="max" departPos="80"  departLane="0" departPosLat="center" depart="0"/>
+
+    <!-- ego must wait until overtaken by B1 -->
+    <vehicle id="B1" type="tBlocker" route="r0" departSpeed="max" departPos="120"  departLane="1" departPosLat="center" depart="0"/>
+    <!-- ego should cut in before B2. This only works if ego untercuts safe gap to L-->
+    <vehicle id="B2" type="tBlocker" route="r0" departSpeed="max" departPos="30"  departLane="1" departPosLat="center" depart="0"/>
+</routes>
