@@ -119,7 +119,6 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myCanChangeFully(true),
     myPreviousState(0),
     myOrigLatDist(0),
-    myCommittedSpeed(0),
     myStrategicParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_STRATEGIC_PARAM, 1)),
     myCooperativeParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_PARAM, 1)),
     mySpeedGainParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 1)),
@@ -284,13 +283,6 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
             }
         }
     }
-    if (myCommittedSpeed > 0) {
-        if (gDebugFlag2) {
-            std::cout << time << " veh=" << myVehicle.getID() << " hasCommitted=" << myCommittedSpeed << "\n";
-        }
-        return myCommittedSpeed;
-    }
-
     double nVSafe = wanted;
     bool gotOne = false;
     for (std::vector<double>::const_iterator i = myVSafes.begin(); i != myVSafes.end(); ++i) {
@@ -742,7 +734,6 @@ MSLCM_SL2015::prepareStep() {
     myDontBrake = false;
     myCFRelated.clear();
     myCFRelatedReady = false;
-    myCommittedSpeed = 0;
     // truncate to work around numerical instability between different builds
     mySpeedGainProbabilityRight = ceil(mySpeedGainProbabilityRight * 100000.0) * 0.00001;
     mySpeedGainProbabilityLeft = ceil(mySpeedGainProbabilityLeft * 100000.0) * 0.00001;
@@ -1106,7 +1097,6 @@ MSLCM_SL2015::_wantsChangeSublane(
 
         if (!blocked & !myCanChangeFully && plannedSpeed > 0 && blockedFully == 0) {
             // commit to manoeuvre
-            // @todo: check whether the next stop would be interfering with the committed speed
             // round to full simulation steps
             double secondsToLeaveLane = ceil(myOrigLatDist / myVehicle.getVehicleType().getMaxSpeedLat() / TS) * TS;
             myCommittedSpeed = MIN3(myLeftSpace / secondsToLeaveLane, 

@@ -355,9 +355,6 @@ protected:
     std::set<const MSVehicle*> myCFRelated;
     bool myCFRelatedReady;
 
-    /// @brief the speed when committing to a change maneuver
-    double myCommittedSpeed;
-
     /// @name user configurable model parameters (can be changed via TraCI)
     //@{
     double myStrategicParam;

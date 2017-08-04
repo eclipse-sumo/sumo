@@ -183,6 +183,7 @@ public:
         myLastLeaderSecureGap = NO_NEIGHBOR;
         myLastFollowerGap = NO_NEIGHBOR;
         myLastFollowerSecureGap = NO_NEIGHBOR;
+        myCommittedSpeed = 0;
     }
 
     /** @brief Called to examine whether the vehicle wants to change
@@ -408,6 +409,10 @@ public:
         return myAmOpposite;
     }
 
+    double getCommittedSpeed() const {
+        return myCommittedSpeed;
+    }
+
     /// @brief try to retrieve the given parameter from this laneChangeModel. Throw exception for unsupported key
     virtual std::string getParameter(const std::string& key) const {
         throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
@@ -437,6 +442,9 @@ protected:
     /// @brief The current state of the vehicle
     int myOwnState;
     std::map<int, std::pair<int, int> > mySavedStates;
+
+    /// @brief the speed when committing to a change maneuver
+    double myCommittedSpeed;
 
     /// @brief progress of the lane change maneuver 0:started, 1:complete
     double myLaneChangeCompletion;

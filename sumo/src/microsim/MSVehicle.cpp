@@ -1694,10 +1694,14 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             if (lastLink != 0) {
                 lastLink->adaptLeaveSpeed(va);
             }
-            v = MIN2(va, v);
+            if (getLaneChangeModel().getCommittedSpeed() > 0) {
+                v = MIN2(getLaneChangeModel().getCommittedSpeed(), v);
+            } else {
+                v = MIN2(va, v);
+            }
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
-                std::cout << "   braking for link end overlap=" << getLateralOverlap() << " va=" << va << " v=" << v << "\n";
+                std::cout << "   braking for link end: overlap=" << getLateralOverlap() << " va=" << va << " committed=" << getLaneChangeModel().getCommittedSpeed() << " v=" << v << "\n";
 
             }
 #endif

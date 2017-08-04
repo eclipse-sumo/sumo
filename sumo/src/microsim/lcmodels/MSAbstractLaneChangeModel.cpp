@@ -86,6 +86,7 @@ MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
 MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneChangeModel model) :
     myVehicle(v),
     myOwnState(0),
+    myCommittedSpeed(0),
     myLaneChangeCompletion(1.0),
     myLaneChangeDirection(0),
     myLateralspeed(0),
