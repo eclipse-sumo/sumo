@@ -45,9 +45,9 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/images/GUITexturesHelper.h>
+#include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -758,7 +758,9 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
         myJunctionToMove = 0;
     } else if (myEdgeToMove) {
         // set cleaned shape
-        myEdgeToMove->commitGeometryMoving(myOriginalShape, myUndoList);
+        myEdgeToMove->commitGeometryMoving(myOriginalShape, 
+                MAX2(POSITION_EPS, GNEJunction::BUBBLE_RADIUS * myVisualizationSettings->junctionSize.exaggeration), 
+                myUndoList);
         myEdgeToMove = 0;
     } else if (myAdditionalToMove) {
         myAdditionalToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);

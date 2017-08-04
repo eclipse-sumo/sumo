@@ -85,7 +85,7 @@ public:
     void updateGeometry();
 
     /// @brief registers completed movement with the undoList
-    void commitGeometryMoving(const PositionVector &oldShape, GNEUndoList* undoList);
+    void commitGeometryMoving(const PositionVector &oldShape, double minDistToEnd, GNEUndoList* undoList);
 
     /// Returns the street's geometry
     Boundary getBoundary() const;

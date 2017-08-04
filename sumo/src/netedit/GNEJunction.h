@@ -58,6 +58,9 @@ class GNEJunction : public GNENetElement {
     friend class GNEChange_Crossing;
 
 public:
+
+    static const double BUBBLE_RADIUS;
+
     /**@brief Constructor
      * @param[in] nbn The represented node
      * @param[in] net The net to inform about gui updates

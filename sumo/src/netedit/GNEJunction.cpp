@@ -61,6 +61,8 @@
 #include "GNEConnection.h"
 #include "GNEJunction.h"
 
+const double GNEJunction::BUBBLE_RADIUS(4);
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -249,7 +251,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     glPushMatrix();
                     Position pos = myNBNode.getPosition();
                     glTranslated(pos.x(), pos.y(), getType() + 0.05);
-                    GLHelper::drawFilledCircle(4 * exaggeration, 32);
+                    GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 32);
                     glPopMatrix();
                 }
             }
@@ -265,13 +267,13 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 glTranslated(pos.x(), pos.y(), getType() - 0.05);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 if(s.scale >= 10) {
-                    GLHelper::drawFilledCircle(4 * exaggeration, 32);
+                    GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 32);
                 } else if (s.scale >= 2) {
-                    GLHelper::drawFilledCircle(4 * exaggeration, 16);
+                    GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 16);
                 } else if (s.scale >= 1) {
-                    GLHelper::drawFilledCircle(4 * exaggeration, 8);
+                    GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 8);
                 } else {
-                    GLHelper::drawFilledCircle(4 * exaggeration, 4);
+                    GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 4);
                 }
                 glPopMatrix();
             }
