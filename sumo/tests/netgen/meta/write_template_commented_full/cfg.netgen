@@ -216,6 +216,12 @@
         <!-- TLSs with unspecified type will use STR as their algorithm -->
         <tls.default-type value="static" type="STR"/>
 
+        <!-- Default minimum phase duration for traffic lights with variable phase length -->
+        <tls.min-dur value="5" type="INT"/>
+
+        <!-- Default maximum phase duration for traffic lights with variable phase length -->
+        <tls.max-dur value="50" type="INT"/>
+
     </tls_building>
 
     <edge_removal>

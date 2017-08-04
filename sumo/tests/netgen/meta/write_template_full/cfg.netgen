@@ -84,6 +84,8 @@
         <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR" help="TLSs in STR will be shifted by half-phase"/>
         <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR" help="TLSs in STR will be shifted by quarter-phase"/>
         <tls.default-type value="static" type="STR" help="TLSs with unspecified type will use STR as their algorithm"/>
+        <tls.min-dur value="5" type="INT" help="Default minimum phase duration for traffic lights with variable phase length"/>
+        <tls.max-dur value="50" type="INT" help="Default maximum phase duration for traffic lights with variable phase length"/>
     </tls_building>
 
     <edge_removal>
