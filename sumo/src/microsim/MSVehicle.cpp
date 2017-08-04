@@ -2239,13 +2239,6 @@ MSVehicle::executeMove() {
 //    }
 //#endif
 
-    // XXX braking due to lane-changing and processing stops is not registered
-    //     To avoid casual blinking brake lights at high speeds due to dawdling of the
-    //      leading vehicle, we don't show brake lights when the deceleration could be caused
-    //     by frictional forces and air resistance (i.e. proportional to v^2, coefficient could be adapted further)
-    double pseudoFriction = (0.05 +  0.005 * getSpeed()) * getSpeed();
-    bool brakelightsOn = vSafe < getSpeed() - ACCEL2SPEED(pseudoFriction);
-
     // apply speed reduction due to dawdling / lane changing but ensure minimum safe speed
     double vNext;
     if (MSGlobals::gSemiImplicitEulerUpdate) {
@@ -2301,6 +2294,12 @@ MSVehicle::executeMove() {
         vNext = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext, vSafe, vMin, vMax);
     }
 #endif
+    //     To avoid casual blinking brake lights at high speeds due to dawdling of the
+    //      leading vehicle, we don't show brake lights when the deceleration could be caused
+    //     by frictional forces and air resistance (i.e. proportional to v^2, coefficient could be adapted further)
+    double pseudoFriction = (0.05 +  0.005 * getSpeed()) * getSpeed();
+    bool brakelightsOn = vNext < getSpeed() - ACCEL2SPEED(pseudoFriction);
+
     // visit waiting time
     if (vNext <= SUMO_const_haltingSpeed && !isStopped()) {
         myWaitingTime += DELTA_T;
