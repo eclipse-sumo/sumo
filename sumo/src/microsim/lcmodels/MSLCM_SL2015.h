@@ -309,6 +309,9 @@ protected:
         return MSGlobals::gLateralResolution > 0 ? MSGlobals::gLateralResolution : myVehicle.getLane()->getWidth();
     }
 
+    /// @brief compute speed when committing to an urgent change that is safe in regard to leading vehicles
+    double commitFollowSpeed(double speed, double latDist, double secondsToLeaveLane, const MSLeaderDistanceInfo& leaders, double foeOffset) const;
+
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial
     double mySpeedGainProbabilityRight;
@@ -351,6 +354,9 @@ protected:
     /// @brief set of vehicles that are in a car-following relationship with ego (leader of followers)
     std::set<const MSVehicle*> myCFRelated;
     bool myCFRelatedReady;
+
+    /// @brief the speed when committing to a change maneuver
+    double myCommittedSpeed;
 
     /// @name user configurable model parameters (can be changed via TraCI)
     //@{
