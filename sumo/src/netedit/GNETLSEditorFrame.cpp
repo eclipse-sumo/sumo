@@ -438,6 +438,10 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
                 myHaveModifications = true;
                 return 1;
             }
+        } else if (StringUtils::prune(value.text()).empty()) {
+            myEditedDef->getLogic()->setPhaseMinDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myHaveModifications = true;
+            return 1;
         }
         // input error, reset value
         myPhaseTable->setItemText(tp->row, 1, varDurString(getPhases()[tp->row].minDur).c_str());
@@ -450,6 +454,10 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
                 myHaveModifications = true;
                 return 1;
             }
+        } else if (StringUtils::prune(value.text()).empty()) {
+            myEditedDef->getLogic()->setPhaseMaxDuration(tp->row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+            myHaveModifications = true;
+            return 1;
         }
         // input error, reset value
         myPhaseTable->setItemText(tp->row, 2, varDurString(getPhases()[tp->row].maxDur).c_str());
@@ -570,7 +578,7 @@ GNETLSEditorFrame::initDefinitions() {
 
 std::string 
 GNETLSEditorFrame::varDurString(SUMOTime dur) {
-    return dur == NBTrafficLightDefinition::UNSPECIFIED_DURATION ? "" : toString(STEPS2TIME(dur));
+    return dur == NBTrafficLightDefinition::UNSPECIFIED_DURATION ? "   " : toString(STEPS2TIME(dur));
 }
 
 void
