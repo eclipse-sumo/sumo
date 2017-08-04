@@ -87,6 +87,7 @@ NBLoadedSUMOTLDef::myCompute(int brakingTimeSeconds) {
     // @todo what to do with those parameters?
     UNUSED_PARAMETER(brakingTimeSeconds);
     reconstructLogic();
+    myTLLogic->closeBuilding(false);
     patchIfCrossingsAdded();
     myTLLogic->closeBuilding();
     return new NBTrafficLightLogic(myTLLogic);

@@ -145,7 +145,7 @@ NBTrafficLightLogic::getDuration() const {
 
 
 void
-NBTrafficLightLogic::closeBuilding() {
+NBTrafficLightLogic::closeBuilding(bool checkVarDurations) {
     for (int i = 0; i < (int)myPhases.size() - 1;) {
         if (myPhases[i].state != myPhases[i + 1].state) {
             ++i;
@@ -169,17 +169,19 @@ NBTrafficLightLogic::closeBuilding() {
         myPhases.erase(myPhases.begin() + i + 1);
     }
     // check if actuated lights are defined correctly
-    if (myType != TLTYPE_STATIC) {
-        bool found = false;
-        for (auto p : myPhases) {
-            if (p.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION 
-                    || p.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                found = true;
-                break;
+    if (checkVarDurations) {
+        if (myType != TLTYPE_STATIC) {
+            bool found = false;
+            for (auto p : myPhases) {
+                if (p.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION 
+                        || p.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                    found = true;
+                    break;
+                }
             }
-        }
-        if (!found) {
-            WRITE_WARNING("Non-static traffic light '" + getID() + "' does not define variable phase length.");
+            if (!found) {
+                WRITE_WARNING("Non-static traffic light '" + getID() + "' does not define variable phase length.");
+            }
         }
     }
 }

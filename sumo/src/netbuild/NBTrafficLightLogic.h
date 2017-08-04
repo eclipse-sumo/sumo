@@ -159,7 +159,7 @@ public:
      *
      * Joins equal steps.
      */
-    void closeBuilding();
+    void closeBuilding(bool checkVarDurations=true);
 
 
     /** @brief Returns the duration of the complete cycle
