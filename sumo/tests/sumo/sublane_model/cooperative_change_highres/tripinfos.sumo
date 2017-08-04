@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 21 08:24:55 2017 by SUMO Version dev-SVN-r24776
+<!-- generated on Fri Aug  4 10:41:28 2017 by SUMO Version dev-SVN-r25472
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -12,6 +12,7 @@
 
     <output>
         <fcd-output value="fcd.xml"/>
+        <fcd-output.signals value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
         <lanechange-output value="lanechanges.xml"/>
     </output>
@@ -33,6 +34,6 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="merge" depart="0.00" departLane="beg_0" departPos="5.00" departPosLat="0.00" departSpeed="27.78" departDelay="0.00" arrival="10.80" arrivalLane="end_0" arrivalPos="100.00" arrivalPosLat="-0.00" arrivalSpeed="27.78" duration="10.80" routeLength="295.00" waitSteps="0" timeLoss="0.10" rerouteNo="0" devices="tripinfo_merge" vType="t0" speedFactor="2.00" vaporized=""/>
+    <tripinfo id="merge" depart="0.00" departLane="beg_0" departPos="5.00" departPosLat="0.00" departSpeed="27.78" departDelay="0.00" arrival="10.80" arrivalLane="end_0" arrivalPos="100.00" arrivalPosLat="-0.00" arrivalSpeed="27.78" duration="10.80" routeLength="295.00" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_merge" vType="t0" speedFactor="2.00" vaporized=""/>
     <tripinfo id="blocker1" depart="0.00" departLane="beg_1" departPos="0.00" departPosLat="0.00" departSpeed="27.78" departDelay="0.00" arrival="11.20" arrivalLane="end_1" arrivalPos="100.00" arrivalPosLat="-0.00" arrivalSpeed="27.78" duration="11.20" routeLength="300.00" waitSteps="0" timeLoss="0.21" rerouteNo="0" devices="tripinfo_blocker1" vType="t1" speedFactor="2.00" vaporized=""/>
 </tripinfos>
