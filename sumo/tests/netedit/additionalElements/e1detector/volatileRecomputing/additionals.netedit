@@ -11,5 +11,5 @@
     <e1Detector id="E1_10" lane="gneE0_1" pos="39.00" freq="120.00" file="e1Detector_10.txt" vTypes="bus taxi private" friendlyPos="0"/>
     <e1Detector id="E1_11" lane="gneE0_1" pos="42.00" freq="120.00" file="e1Detector_11.txt" vTypes="bus taxi private" friendlyPos="0"/>
     <e1Detector id="E1_12" lane="gneE0_1" pos="45.00" freq="120.00" file="e1Detector_12.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    <e1Detector id="E1_13" lane="gneE0_1" pos="48.00" freq="120.00" file="e1Detector_13.txt" vTypes="" friendlyPos="0"/>
+    <e1Detector id="E1_13" lane="gneE0_1" pos="48.00" freq="120.00" file="e1Detector_13.txt" friendlyPos="0"/>
 </additionals>
