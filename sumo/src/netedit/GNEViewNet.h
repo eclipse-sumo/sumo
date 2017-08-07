@@ -472,9 +472,6 @@ private:
     /// @brief current polygon
     GNEPoly* myCurrentPoly;
 
-    /// @brief the minimun distance between a point of a edge's shape and their origin/destiny junction
-    static const double MINIMUMMOVING_RADIUS;
-
     /// @name variables for testing mode
     /// @{
     /// @brief flag to enable or disable testing mode

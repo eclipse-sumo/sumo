@@ -136,7 +136,6 @@ GNEEdge::updateGeometry() {
 
 
 void GNEEdge::commitGeometryMoving(const PositionVector& oldShape, double minDistToEnd, GNEUndoList* undoList) {
-
     // shape has to be cleaned
     PositionVector cleanedShape = myNBEdge.getInnerGeometry();
     auto it = cleanedShape.begin();

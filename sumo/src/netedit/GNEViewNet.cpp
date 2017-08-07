@@ -124,10 +124,6 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewNetMap))
 
-// ===========================================================================
-// static
-// ===========================================================================
-const double GNEViewNet::MINIMUMMOVING_RADIUS = 2;
 
 // ===========================================================================
 // member method definitions
@@ -852,9 +848,10 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
             myJunctionToMove->moveJunctionGeometry2D(snapToActiveGrid(myMovingOriginalPosition - offsetPosition));
         } else if (myEdgeToMove) {
             Position newPosition = getPositionInformation();
-            if((newPosition.distanceTo2D(myEdgeToMove->getGNEJunctionSource()->getPositionInView()) >= MINIMUMMOVING_RADIUS) &&
-               (newPosition.distanceTo2D(myEdgeToMove->getGNEJunctionDestiny()->getPositionInView()) >= MINIMUMMOVING_RADIUS)) {
-                myMovingOriginalPosition = myEdgeToMove->moveGeometry(myMovingOriginalPosition, getPositionInformation());
+            double minimumMovingRadius = GNEJunction::BUBBLE_RADIUS / 2;
+            if((newPosition.distanceTo2D(myEdgeToMove->getGNEJunctionSource()->getPositionInView()) >= minimumMovingRadius) &&
+               (newPosition.distanceTo2D(myEdgeToMove->getGNEJunctionDestiny()->getPositionInView()) >= minimumMovingRadius)) {
+                myMovingOriginalPosition = myEdgeToMove->moveGeometry(myMovingOriginalPosition, newPosition);
             }
         } else if (myAdditionalToMove) {
             // If additional is placed over lane, move it across it
