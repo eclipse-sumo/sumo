@@ -170,6 +170,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     bool useGeo = oc.exists("proj.plain-geo") && oc.getBool("proj.plain-geo");
     const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
+    const bool hasTurns = !oc.getBool("no-turnarounds");
 
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = NWFrame::MAJOR_VERSION;
@@ -268,10 +269,28 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         edevice.closeTag();
         // write this edge's connections to the connections-files
         const std::vector<NBEdge::Connection> connections = e->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator c = connections.begin(); c != connections.end(); ++c) {
-            NWWriter_SUMO::writeConnection(cdevice, *e, *c, false, NWWriter_SUMO::PLAIN);
-        }
-        if (connections.size() > 0) {
+        if (connections.empty()) {
+            // if there are no connections and this appears to be customized, preserve the information
+            const int numOutgoing = e->getToNode()->getOutgoingEdges().size();
+            if (numOutgoing > 1 || 
+                    (numOutgoing == 1 && 
+                     (!e->isTurningDirectionAt(e->getToNode()->getOutgoingEdges().front()) || hasTurns))) {
+                const SVCPermissions inPerm = e->getPermissions();
+                SVCPermissions outPerm = 0;
+                for (auto out : e->getToNode()->getOutgoingEdges()) {
+                    outPerm |= out->getPermissions();
+                }
+                if ((inPerm & outPerm) != 0 && (inPerm & outPerm) != SVC_PEDESTRIAN) {
+                    cdevice.openTag(SUMO_TAG_CONNECTION);
+                    cdevice.writeAttr(SUMO_ATTR_FROM, e->getID());
+                    cdevice.closeTag();
+                    cdevice << "\n";
+                }
+            }
+        } else {
+            for (std::vector<NBEdge::Connection>::const_iterator c = connections.begin(); c != connections.end(); ++c) {
+                NWWriter_SUMO::writeConnection(cdevice, *e, *c, false, NWWriter_SUMO::PLAIN);
+            }
             cdevice << "\n";
         }
     }
