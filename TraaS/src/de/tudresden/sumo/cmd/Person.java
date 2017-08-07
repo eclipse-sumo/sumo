@@ -59,7 +59,7 @@ public class Person {
 	*/
 	
 	public static SumoCommand appendWaitingStage(String personID, int duration, String description, String stopID){
-		Object[] array = new Object[]{Constants.STAGE_WAITING, description, stopID};
+		Object[] array = new Object[]{Constants.STAGE_WAITING, duration, description, stopID};
 		return new SumoCommand(Constants.CMD_SET_PERSON_VARIABLE, Constants.APPEND_STAGE, personID, array);
 	}
 	
