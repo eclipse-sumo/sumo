@@ -23,6 +23,8 @@
         <output-file value="" synonymes="o output" type="FILE" help="Writes trip definitions into FILE"/>
         <flow-output value="" type="FILE" help="Writes flow definitions into FILE"/>
         <flow-output.probability value="false" type="BOOL" help="Writes probabilistic flow instead of evenly spaced flow"/>
+        <pedestrians value="false" type="BOOL" help="Writes pedestrians instead of vehicles"/>
+        <persontrips value="false" type="BOOL" help="Writes persontrips instead of vehicles"/>
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL" help="Does not save vtype information"/>
     </output>
 

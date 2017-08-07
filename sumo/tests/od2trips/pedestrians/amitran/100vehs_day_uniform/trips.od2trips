@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Aug  7 08:50:44 2017 by SUMO od2trips Version dev-SVN-r25481
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
+
+    <input>
+        <taz-files value="input_taz.taz.xml"/>
+        <od-amitran-files value="input_od.xml"/>
+    </input>
+
+    <output>
+        <output-file value="trips.trips.xml"/>
+        <pedestrians value="true"/>
+    </output>
+
+    <processing>
+        <spread.uniform value="true"/>
+        <no-step-log value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="0" depart="432.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="1" depart="1296.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="2" depart="2160.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="3" depart="3024.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="4" depart="3888.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="5" depart="4752.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="6" depart="5616.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="7" depart="6480.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="8" depart="7344.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="9" depart="8208.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="10" depart="9072.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="11" depart="9936.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="12" depart="10800.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="13" depart="11664.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="14" depart="12528.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="15" depart="13392.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="16" depart="14256.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="17" depart="15120.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="18" depart="15984.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="19" depart="16848.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="20" depart="17712.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="21" depart="18576.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="22" depart="19440.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="23" depart="20304.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="24" depart="21168.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="25" depart="22032.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="26" depart="22896.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="27" depart="23760.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="28" depart="24624.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="29" depart="25488.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="30" depart="26352.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="31" depart="27216.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="32" depart="28080.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="33" depart="28944.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="34" depart="29808.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="35" depart="30672.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="36" depart="31536.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="37" depart="32400.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="38" depart="33264.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="39" depart="34128.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="40" depart="34992.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="41" depart="35856.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="42" depart="36720.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="43" depart="37584.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="44" depart="38448.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="45" depart="39312.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="46" depart="40176.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="47" depart="41040.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="48" depart="41904.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="49" depart="42768.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="50" depart="43632.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="51" depart="44496.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="52" depart="45360.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="53" depart="46224.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="54" depart="47088.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="55" depart="47952.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="56" depart="48816.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="57" depart="49680.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="58" depart="50544.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="59" depart="51408.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="60" depart="52272.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="61" depart="53136.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="62" depart="54000.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="63" depart="54864.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="64" depart="55728.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="65" depart="56592.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="66" depart="57456.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="67" depart="58320.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="68" depart="59184.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="69" depart="60048.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="70" depart="60912.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="71" depart="61776.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="72" depart="62640.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="73" depart="63504.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="74" depart="64368.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="75" depart="65232.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="76" depart="66096.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="77" depart="66960.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="78" depart="67824.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="79" depart="68688.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="80" depart="69552.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="81" depart="70416.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="82" depart="71280.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="83" depart="72144.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="84" depart="73008.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="85" depart="73872.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="86" depart="74736.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="87" depart="75600.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="88" depart="76464.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="89" depart="77328.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="90" depart="78192.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="91" depart="79056.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="92" depart="79920.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="93" depart="80784.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="94" depart="81648.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="95" depart="82512.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="96" depart="83376.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="97" depart="84240.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="98" depart="85104.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+    <person id="99" depart="85968.00">
+        <walk from="a1" to="b2" departPos="random" arrivalPos="random"/>
+    </person>
+</routes>

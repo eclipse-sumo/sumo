@@ -4,6 +4,12 @@ import
 # basic tests with flow output
 flow_output
 
+# test exporting pedestrians
+pedestrians
+
+# test exporting persontrips
+persontrips
+
 # testing meta processing
 meta
 
@@ -18,4 +24,3 @@ function
 
 # bugs
 bugs
-

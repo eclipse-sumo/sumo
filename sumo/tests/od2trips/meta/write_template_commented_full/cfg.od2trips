@@ -51,6 +51,12 @@
         <!-- Writes probabilistic flow instead of evenly spaced flow -->
         <flow-output.probability value="false" type="BOOL"/>
 
+        <!-- Writes pedestrians instead of vehicles -->
+        <pedestrians value="false" type="BOOL"/>
+
+        <!-- Writes persontrips instead of vehicles -->
+        <persontrips value="false" type="BOOL"/>
+
         <!-- Does not save vtype information -->
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL"/>
 
