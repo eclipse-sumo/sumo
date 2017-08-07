@@ -217,7 +217,8 @@ void
 ODMatrix::write(SUMOTime begin, const SUMOTime end,
                 OutputDevice& dev, const bool uniform,
                 const bool differSourceSink, const bool noVtype,
-                const std::string& prefix, const bool stepLog) {
+                const std::string& prefix, const bool stepLog,
+                bool pedestrians, bool persontrips) {
     if (myContainer.size() == 0) {
         return;
     }
@@ -261,10 +262,28 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
         for (std::vector<ODVehicle>::reverse_iterator i = vehicles.rbegin(); i != vehicles.rend() && (*i).depart == t; ++i) {
             if (t >= begin) {
                 myNumWritten++;
-                dev.openTag(SUMO_TAG_TRIP).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
-                dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
-                writeDefaultAttrs(dev, noVtype, i->cell);
-                dev.closeTag();
+                if (pedestrians) {
+                    dev.openTag(SUMO_TAG_PERSON).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
+                    dev.openTag(SUMO_TAG_WALK);
+                    dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
+                    dev.writeAttr(SUMO_ATTR_DEPARTPOS, "random");
+                    dev.writeAttr(SUMO_ATTR_ARRIVALPOS, "random");
+                    dev.closeTag();
+                    dev.closeTag();
+                } else if (persontrips) {
+                    dev.openTag(SUMO_TAG_PERSON).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
+                    dev.openTag(SUMO_TAG_PERSONTRIP);
+                    dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
+                    dev.writeAttr(SUMO_ATTR_DEPARTPOS, "random");
+                    dev.writeAttr(SUMO_ATTR_ARRIVALPOS, "random");
+                    dev.closeTag();
+                    dev.closeTag();
+                } else {
+                    dev.openTag(SUMO_TAG_TRIP).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
+                    dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
+                    writeDefaultAttrs(dev, noVtype, i->cell);
+                    dev.closeTag();
+                }
             }
         }
         while (vehicles.size() != 0 && vehicles.back().depart == t) {

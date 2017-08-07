@@ -165,7 +165,8 @@ public:
     void write(SUMOTime begin, const SUMOTime end,
                OutputDevice& dev, const bool uniform,
                const bool differSourceSink, const bool noVtype,
-               const std::string& prefix, const bool stepLog);
+               const std::string& prefix, const bool stepLog,
+               bool pedestrians, bool persontrips);
 
 
     /** @brief Writes the flows stored in the matrix

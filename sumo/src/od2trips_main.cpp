@@ -112,6 +112,12 @@ fillOptions() {
     oc.doRegister("flow-output.probability", new Option_Bool(false));
     oc.addDescription("flow-output.probability", "Output", "Writes probabilistic flow instead of evenly spaced flow");
 
+    oc.doRegister("pedestrians", new Option_Bool(false));
+    oc.addDescription("pedestrians", "Output", "Writes pedestrians instead of vehicles");
+
+    oc.doRegister("persontrips", new Option_Bool(false));
+    oc.addDescription("persontrips", "Output", "Writes persontrips instead of vehicles");
+
     oc.doRegister("ignore-vehicle-type", new Option_Bool(false));
     oc.addSynonyme("ignore-vehicle-type", "no-vtype", true);
     oc.addDescription("ignore-vehicle-type", "Output", "Does not save vtype information");
@@ -192,6 +198,10 @@ checkOptions() {
     }
     if (!oc.isSet("output-file")) {
         WRITE_ERROR("No trip table output file (-o) specified.");
+        ok = false;
+    }
+    if (oc.getBool("pedestrians") && oc.getBool("persontrips")) {
+        WRITE_ERROR("Only of the the options 'pedestrians' and 'persontrips' may be set.");
         ok = false;
     }
     //
@@ -285,7 +295,9 @@ main(int argc, char** argv) {
                          OutputDevice::getDeviceByOption("output-file"),
                          oc.getBool("spread.uniform"), oc.getBool("different-source-sink"),
                          oc.getBool("ignore-vehicle-type"),
-                         oc.getString("prefix"), !oc.getBool("no-step-log"));
+                         oc.getString("prefix"), !oc.getBool("no-step-log"),
+                         oc.getBool("pedestrians"),
+                         oc.getBool("persontrips"));
             haveOutput = true;
         }
         if (OutputDevice::createDeviceByOption("flow-output", "routes", "routes_file.xsd")) {
