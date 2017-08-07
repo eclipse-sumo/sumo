@@ -1247,8 +1247,13 @@ GNEEdge::hasRestrictedLane(SUMOVehicleClass vclass) const {
 
 void 
 GNEEdge::removeEdgeFromCrossings(GNEJunction *junction, GNEUndoList* undoList) {
-    while(junction->getGNECrossings().size() > 0) {
-        myNet->deleteCrossing(junction->getGNECrossings().front(), undoList);
+    // obtain a copy of Crossings
+    auto crossings = junction->getGNECrossings();
+    // Remove all crossings that contain this edge in parameter "edges"
+    for(auto i : crossings) {
+        if(i->checkEdgeBelong(this)) {
+            myNet->deleteCrossing(i, undoList);
+        }
     }
 }
 
