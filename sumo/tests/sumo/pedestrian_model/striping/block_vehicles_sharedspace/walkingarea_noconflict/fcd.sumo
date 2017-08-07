@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug  7 15:30:55 2017 by SUMO Version dev-SVN-r25501
+<!-- generated on Mon Aug  7 16:02:44 2017 by SUMO Version dev-SVN-r25502
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -50,51 +50,47 @@
         <person id="p0" x="54.19" y="2.33" angle="270.00" speed="1.39" pos="0.56" edge=":C_w0" slope="0.00"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="car.0" x="40.32" y="-1.65" angle="90.00" type="car" speed="9.22" pos="40.32" lane="WC_0" slope="0.00"/>
+        <vehicle id="car.0" x="42.55" y="-1.65" angle="90.00" type="car" speed="11.45" pos="42.55" lane="WC_0" slope="0.00"/>
         <person id="p0" x="52.81" y="2.33" angle="270.00" speed="1.39" pos="1.94" edge=":C_w0" slope="0.00"/>
     </timestep>
     <timestep time="6.00">
-        <vehicle id="car.0" x="45.03" y="-1.65" angle="90.00" type="car" speed="4.72" pos="45.03" lane="WC_0" slope="0.00"/>
+        <vehicle id="car.0" x="49.50" y="-1.65" angle="90.00" type="car" speed="6.95" pos="4.25" lane=":C_4_0" slope="0.00"/>
         <person id="p0" x="51.42" y="2.33" angle="270.00" speed="1.39" pos="3.33" edge=":C_w0" slope="0.00"/>
     </timestep>
     <timestep time="7.00">
-        <vehicle id="car.0" x="45.25" y="-1.65" angle="90.00" type="car" speed="0.22" pos="45.25" lane="WC_0" slope="0.00"/>
+        <vehicle id="car.0" x="52.29" y="-1.65" angle="90.00" type="car" speed="2.79" pos="7.04" lane=":C_4_0" slope="0.00"/>
         <person id="p0" x="50.03" y="2.33" angle="270.00" speed="1.39" pos="4.72" edge=":C_w0" slope="0.00"/>
     </timestep>
     <timestep time="8.00">
-        <vehicle id="car.0" x="45.25" y="-1.65" angle="90.00" type="car" speed="0.00" pos="45.25" lane="WC_0" slope="0.00"/>
+        <vehicle id="car.0" x="56.48" y="-1.65" angle="90.00" type="car" speed="4.18" pos="1.73" lane="CE_0" slope="0.00"/>
         <person id="p0" x="48.64" y="2.33" angle="270.00" speed="1.39" pos="6.11" edge=":C_w0" slope="0.00"/>
     </timestep>
     <timestep time="9.00">
-        <vehicle id="car.0" x="45.25" y="-1.65" angle="90.00" type="car" speed="0.00" pos="45.25" lane="WC_0" slope="0.00"/>
+        <vehicle id="car.0" x="63.26" y="-1.65" angle="90.00" type="car" speed="6.78" pos="8.51" lane="CE_0" slope="0.00"/>
         <person id="p0" x="47.25" y="2.33" angle="270.00" speed="1.39" pos="7.50" edge=":C_w0" slope="0.00"/>
     </timestep>
     <timestep time="10.00">
-        <vehicle id="car.0" x="45.25" y="-1.65" angle="90.00" type="car" speed="0.00" pos="45.25" lane="WC_0" slope="0.00"/>
+        <vehicle id="car.0" x="72.65" y="-1.65" angle="90.00" type="car" speed="9.38" pos="17.90" lane="CE_0" slope="0.00"/>
         <person id="p0" x="45.86" y="2.33" angle="270.00" speed="1.39" pos="8.89" edge=":C_w0" slope="0.00"/>
     </timestep>
     <timestep time="11.00">
-        <vehicle id="car.0" x="47.85" y="-1.65" angle="90.00" type="car" speed="2.60" pos="2.60" lane=":C_4_0" slope="0.00"/>
+        <vehicle id="car.0" x="84.63" y="-1.65" angle="90.00" type="car" speed="11.98" pos="29.88" lane="CE_0" slope="0.00"/>
         <person id="p0" x="44.47" y="2.33" angle="270.00" speed="1.39" pos="0.78" edge="CW" slope="0.00"/>
     </timestep>
     <timestep time="12.00">
-        <vehicle id="car.0" x="53.05" y="-1.65" angle="90.00" type="car" speed="5.20" pos="7.80" lane=":C_4_0" slope="0.00"/>
+        <vehicle id="car.0" x="98.52" y="-1.65" angle="90.00" type="car" speed="13.89" pos="43.77" lane="CE_0" slope="0.00"/>
         <person id="p0" x="43.08" y="2.33" angle="270.00" speed="1.39" pos="2.17" edge="CW" slope="0.00"/>
     </timestep>
     <timestep time="13.00">
-        <vehicle id="car.0" x="60.85" y="-1.65" angle="90.00" type="car" speed="7.80" pos="6.10" lane="CE_0" slope="0.00"/>
         <person id="p0" x="41.69" y="2.33" angle="270.00" speed="1.39" pos="3.56" edge="CW" slope="0.00"/>
     </timestep>
     <timestep time="14.00">
-        <vehicle id="car.0" x="71.25" y="-1.65" angle="90.00" type="car" speed="10.40" pos="16.50" lane="CE_0" slope="0.00"/>
         <person id="p0" x="40.31" y="2.33" angle="270.00" speed="1.39" pos="4.94" edge="CW" slope="0.00"/>
     </timestep>
     <timestep time="15.00">
-        <vehicle id="car.0" x="84.25" y="-1.65" angle="90.00" type="car" speed="13.00" pos="29.50" lane="CE_0" slope="0.00"/>
         <person id="p0" x="38.92" y="2.33" angle="270.00" speed="1.39" pos="6.33" edge="CW" slope="0.00"/>
     </timestep>
     <timestep time="16.00">
-        <vehicle id="car.0" x="98.14" y="-1.65" angle="90.00" type="car" speed="13.89" pos="43.39" lane="CE_0" slope="0.00"/>
         <person id="p0" x="37.53" y="2.33" angle="270.00" speed="1.39" pos="7.72" edge="CW" slope="0.00"/>
     </timestep>
     <timestep time="17.00">
