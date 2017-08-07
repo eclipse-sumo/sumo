@@ -3,3 +3,6 @@ ticket3271
 
 # Snap to grid is not working when moving junctions
 ticket3278
+
+# freeze when moving edge geometry with active grid
+ticket3281
