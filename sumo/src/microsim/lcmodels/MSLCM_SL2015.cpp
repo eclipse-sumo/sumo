@@ -2010,7 +2010,16 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
                     } else if (sd2.dir == 0) {
                         return sd1;
                     } else {
-                        // prefer further right
+                        // prefer action that knows more about the desired direction
+                        // @note when deciding between right and left, right is always given as sd1
+                        assert(sd1.dir == -1);
+                        assert(sd2.dir == 1);
+                        if (sd1.latDist <= 0) {
+                            return sd1;
+                        } else if (sd2.latDist >= 0) {
+                            return sd2;
+                        }
+                        // when in doubt, prefer moving to the right
                         return sd1.latDist <= sd2.latDist ? sd1 : sd2;
                     }
                 } else {
@@ -2373,6 +2382,8 @@ MSLCM_SL2015::keepLatGap(int state,
         if ((state & LCA_CHANGE_REASONS) == 0) {
             state |= LCA_SUBLANE;
         }
+    } else if ((state & LCA_SUBLANE) != 0){
+        state |= LCA_STAY;
     }
     if (gDebugFlag2) {
         std::cout << "       latDist2=" << latDist
