@@ -108,6 +108,8 @@ public:
     static const double LOOKAHEAD_SAMEDIR;
     // @brief the distance (in seconds) to look ahead for changing stripes (regarding oncoming pedestrians)
     static const double LOOKAHEAD_ONCOMING;
+    // @brief the distance (in m) to look around for vehicles
+    static const double LOOKAROUND_VEHICLES;
 
     // @brief the utility penalty for moving sideways (corresponds to meters)
     static const double LATERAL_PENALTY;

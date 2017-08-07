@@ -49,9 +49,9 @@
 //
 #define DEBUGID1 ""
 #define DEBUGID2 ""
-#define DEBUGCOND(PED) (false)
+//#define DEBUGCOND(PED) (false)
 //#define DEBUGCOND(PED) ((PED).myPerson->getID() == DEBUGID1 || (PED).myPerson->getID() == DEBUGID2)
-//#define DEBUGCOND(PED) ((PED).myPerson->isSelected())
+#define DEBUGCOND(PED) ((PED).myPerson->isSelected())
 //#define LOG_ALL 1
 
 void MSPModel_Striping::DEBUG_PRINT(const Obstacles& obs) {
@@ -89,6 +89,7 @@ double MSPModel_Striping::dawdling;
 SUMOTime MSPModel_Striping::jamTime;
 const double MSPModel_Striping::LOOKAHEAD_SAMEDIR(4.0); // seconds
 const double MSPModel_Striping::LOOKAHEAD_ONCOMING(10.0); // seconds
+const double MSPModel_Striping::LOOKAROUND_VEHICLES(60.0); // seconds
 const double MSPModel_Striping::LATERAL_PENALTY(-1.); // meters
 const double MSPModel_Striping::OBSTRUCTED_PENALTY(-300000.); // meters
 const double MSPModel_Striping::INAPPROPRIATE_PENALTY(-20000.); // meters
@@ -920,20 +921,30 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             // react to vehicles on the same lane
             // @todo: improve efficiency by using the same iterator for all pedestrians on this lane
             Obstacles vehObs(stripes, Obstacle(dir));
+            const int current = p.stripe();
             for (MSLane::AnyVehicleIterator it = lane->anyVehiclesUpstreamBegin(); it != lane->anyVehiclesUpstreamEnd(); ++it) {
                 const MSVehicle* veh = *it;
                 const double vehBack = veh->getBackPositionOnLane(lane);
                 const double vehFront = vehBack + veh->getVehicleType().getLength();
-                if ((dir == FORWARD && vehBack > p.getMinX() && vehBack <= p.getMaxX() + LOOKAHEAD_SAMEDIR)
-                        || (dir == BACKWARD && vehFront < p.getMaxX() && vehFront >= p.getMinX() - LOOKAHEAD_SAMEDIR)) {
+                if ((dir == FORWARD && vehFront > p.getMinX() - LOOKAROUND_VEHICLES && vehBack <= p.getMaxX() + LOOKAHEAD_SAMEDIR)
+                        || (dir == BACKWARD && vehFront < p.getMaxX() && vehFront >= p.getMinX() - LOOKAROUND_VEHICLES)) {
                     Obstacle vo(vehBack, dir * veh->getSpeed(), veh->getID(), 0, true);
-                    vo.xFwd += veh->getVehicleType().getLength();
+                    // moving vehicles block space along their path
+                    vo.xFwd += veh->getVehicleType().getLength() + SAFETY_GAP * veh->getSpeed() * LOOKAHEAD_SAMEDIR;
                     // relY increases from left to right (the other way around from vehicles)
                     // XXX lateral offset for partial vehicles
                     const double vehYmax = 0.5 * (lane->getWidth() + veh->getVehicleType().getWidth() - stripeWidth) - veh->getLateralPositionOnLane();
                     const double vehYmin = vehYmax - veh->getVehicleType().getWidth();
                     for (int s = MAX2(0, p.stripe(vehYmin)); s < MIN2(p.stripe(vehYmax) + 1, stripes); ++s) {
                         vehObs[s] = vo;
+                        if (s == current && vehFront + SAFETY_GAP < p.getMinX()) {
+                            // ignore on current stripe
+                            if (dir == FORWARD) {
+                                vehObs[s] = Obstacle(dir);
+                            } else {
+                                vehObs[s].xFwd = MIN2(vo.xFwd, vehFront + SAFETY_GAP);
+                            }
+                        }
                     }
                     if DEBUGCOND(p) {
                         std::cout << SIMTIME << " ped=" << p.myPerson->getID() << " veh=" << veh->getID() << " obstacle on lane=" << lane->getID() 
