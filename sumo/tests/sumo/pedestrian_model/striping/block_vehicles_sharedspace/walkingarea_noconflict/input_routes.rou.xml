@@ -1,0 +1,9 @@
+<routes>    
+    <vType id="car" sigma="0"/>
+    <person id="p0" depart="0">
+        <walk edges="EC CW" departPos="-5"/>
+    </person>
+    <flow id="car" type="car" begin="0" period="5" number="1" departSpeed="0">
+        <route edges="WC CE"/>
+    </flow>
+</routes>

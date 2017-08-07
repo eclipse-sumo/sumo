@@ -4,3 +4,6 @@ walking_forward_2lanes
 walking_backward
 walking_backward_overlap
 walkingarea
+
+# not all vehicles should be blocked by pedestrians on an upcoming walkingarea
+walkingarea_noconflict
