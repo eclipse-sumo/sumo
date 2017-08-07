@@ -803,14 +803,16 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
         if (ego != 0 && myWalkingAreaFoe != 0 && myWalkingAreaFoe->getEdge().getPersons().size() > 0) {
             // pedestrians may be on an arbitrary path across this
             // walkingarea. consider the whole area blocked
-            const double distToPeds = dist - myLaneBefore->getLength();
-            result.push_back(LinkLeader((MSVehicle*)0, -1, distToPeds));
-            if (collectBlockers != 0) {
-                const std::set<MSTransportable*>& persons = myWalkingAreaFoe->getEdge().getPersons();
-                for (std::set<MSTransportable*>::const_iterator it = persons.begin(); it != persons.end(); ++it) {
-                    collectBlockers->push_back(dynamic_cast<MSPerson*>(*it));
+            double distToPeds = std::numeric_limits<double>::max();
+            const std::set<MSTransportable*>& persons = myWalkingAreaFoe->getEdge().getPersons();
+            for (std::set<MSTransportable*>::const_iterator it = persons.begin(); it != persons.end(); ++it) {
+                MSPerson* p = dynamic_cast<MSPerson*>(*it);
+                distToPeds = MIN2(distToPeds, ego->getPosition().distanceTo2D(p->getPosition()) - p->getVehicleType().getLength() - MSPModel::SAFETY_GAP);
+                if (collectBlockers != 0) {
+                    collectBlockers->push_back(p);
                 }
             }
+            result.push_back(LinkLeader((MSVehicle*)0, -1, distToPeds));
         }
 
         if (MSGlobals::gLateralResolution > 0 && ego != 0 && !isShadowLink) {
