@@ -847,7 +847,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
             Position offsetPosition = myMovingReference - getPositionInformation();
             myJunctionToMove->moveJunctionGeometry2D(snapToActiveGrid(myMovingOriginalPosition - offsetPosition));
         } else if (myEdgeToMove) {
-            Position newPosition = getPositionInformation();
+            Position newPosition = snapToActiveGrid(getPositionInformation());
             double minimumMovingRadius = GNEJunction::BUBBLE_RADIUS / 2;
             if((newPosition.distanceTo2D(myEdgeToMove->getGNEJunctionSource()->getPositionInView()) >= minimumMovingRadius) &&
                (newPosition.distanceTo2D(myEdgeToMove->getGNEJunctionDestiny()->getPositionInView()) >= minimumMovingRadius)) {
