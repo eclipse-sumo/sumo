@@ -5,5 +5,8 @@ shared_lane_block_half
 # pedestrian is walking against the lane direction
 shared_lane_block_half_backward
 
+# a vehicle is moving on the same lane as the pedestrians and prevents them from passing each for some time
+shared_lane_block_evasion
+
 # a vehicle is stopped on a pedestrian crossing
 crossing
