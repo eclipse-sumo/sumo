@@ -37,6 +37,9 @@ overwrite
 # Removing a connection with the reset element should discard all connections from given edge.
 reset_all
 
+# Removing all connections should preserve information in plain xml output
+reset_all2
+
 # Removing a connection with the reset element twice should raise a warning.
 reset_all_multi
 

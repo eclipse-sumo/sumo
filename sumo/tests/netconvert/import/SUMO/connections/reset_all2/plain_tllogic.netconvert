@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug  7 11:37:43 2017 by SUMO netconvert Version dev-SVN-r25491
+<!-- generated on Mon Aug  7 11:45:40 2017 by SUMO netconvert Version dev-SVN-r25491
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="input_net.net.xml"/>
-        <edge-files value="input_edges.edg.xml"/>
+        <connection-files value="input_connections.con.xml"/>
     </input>
 
     <output>
@@ -16,10 +16,9 @@
     </output>
 
     <processing>
-        <no-internal-links value="true"/>
+        <speed-in-kmh value="true"/>
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
-        <opposites.guess value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
         <rectangular-lane-cut value="false"/>
@@ -33,9 +32,5 @@
 </configuration>
 -->
 
-<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
-    <connection from="VODUGES_beg"/>
-
-    <connection from="anotherone" to="VODUGES_beg" fromLane="0" toLane="0"/>
-
-</connections>
+<tlLogics version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+</tlLogics>
