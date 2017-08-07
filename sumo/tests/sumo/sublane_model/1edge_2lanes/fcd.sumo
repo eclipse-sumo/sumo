@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 24 11:26:50 2017 by SUMO Version dev-SVN-r25299
+<!-- generated on Mon Aug  7 14:47:47 2017 by SUMO Version dev-SVN-r25495
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -133,7 +133,7 @@
         <vehicle id="cars.0" x="198.21" y="-4.95" angle="90.00" type="car" speed="14.89" pos="198.21" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.1" x="137.53" y="-4.75" angle="93.55" type="car" speed="11.10" pos="137.53" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.2" x="108.77" y="-1.65" angle="90.00" type="car" speed="13.63" pos="108.77" lane="beg_1" slope="0.00"/>
-        <vehicle id="cars.3" x="103.78" y="-4.95" angle="89.15" type="car" speed="15.43" pos="103.78" lane="beg_0" slope="0.00"/>
+        <vehicle id="cars.3" x="103.78" y="-5.25" angle="90.00" type="car" speed="15.43" pos="103.78" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.4" x="79.99" y="-1.65" angle="90.00" type="car" speed="13.93" pos="79.99" lane="beg_1" slope="0.00"/>
         <vehicle id="cars.5" x="35.81" y="-4.95" angle="90.00" type="car" speed="8.65" pos="35.81" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.6" x="26.35" y="-1.65" angle="90.00" type="car" speed="8.72" pos="26.35" lane="beg_1" slope="0.00"/>
@@ -144,7 +144,7 @@
         <vehicle id="cars.0" x="212.56" y="-4.95" angle="90.00" type="car" speed="14.35" pos="212.56" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.1" x="149.07" y="-4.95" angle="90.69" type="car" speed="11.54" pos="149.07" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.2" x="122.56" y="-1.65" angle="90.00" type="car" speed="13.79" pos="122.56" lane="beg_1" slope="0.00"/>
-        <vehicle id="cars.3" x="118.72" y="-5.25" angle="90.87" type="car" speed="14.93" pos="118.72" lane="beg_0" slope="0.00"/>
+        <vehicle id="cars.3" x="118.72" y="-5.25" angle="90.00" type="car" speed="14.93" pos="118.72" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.4" x="94.58" y="-1.65" angle="90.00" type="car" speed="14.60" pos="94.58" lane="beg_1" slope="0.00"/>
         <vehicle id="cars.5" x="44.08" y="-4.95" angle="90.00" type="car" speed="8.27" pos="44.08" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.6" x="36.54" y="-1.65" angle="90.00" type="car" speed="10.18" pos="36.54" lane="beg_1" slope="0.00"/>
@@ -155,7 +155,7 @@
         <vehicle id="cars.0" x="227.58" y="-4.95" angle="90.00" type="car" speed="15.02" pos="227.58" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.1" x="160.80" y="-4.95" angle="90.00" type="car" speed="11.73" pos="160.80" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.2" x="135.60" y="-1.65" angle="90.00" type="car" speed="13.04" pos="135.60" lane="beg_1" slope="0.00"/>
-        <vehicle id="cars.3" x="132.66" y="-4.95" angle="89.09" type="car" speed="13.94" pos="132.66" lane="beg_0" slope="0.00"/>
+        <vehicle id="cars.3" x="132.66" y="-5.25" angle="90.00" type="car" speed="13.94" pos="132.66" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.4" x="108.57" y="-1.65" angle="90.00" type="car" speed="13.99" pos="108.57" lane="beg_1" slope="0.00"/>
         <vehicle id="cars.5" x="53.14" y="-4.95" angle="90.00" type="car" speed="9.06" pos="53.14" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.6" x="48.06" y="-1.52" angle="89.55" type="car" speed="11.52" pos="48.06" lane="beg_1" slope="0.00"/>
@@ -166,7 +166,7 @@
         <vehicle id="cars.0" x="242.96" y="-4.95" angle="90.00" type="car" speed="15.37" pos="242.96" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.1" x="171.83" y="-4.95" angle="90.00" type="car" speed="11.03" pos="171.83" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.2" x="149.41" y="-1.65" angle="90.00" type="car" speed="13.81" pos="149.41" lane="beg_1" slope="0.00"/>
-        <vehicle id="cars.3" x="146.58" y="-5.25" angle="90.91" type="car" speed="13.91" pos="146.58" lane="beg_0" slope="0.00"/>
+        <vehicle id="cars.3" x="146.58" y="-5.25" angle="90.00" type="car" speed="13.91" pos="146.58" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.4" x="122.38" y="-1.65" angle="90.00" type="car" speed="13.81" pos="122.38" lane="beg_1" slope="0.00"/>
         <vehicle id="cars.5" x="61.72" y="-4.95" angle="90.00" type="car" speed="8.57" pos="61.72" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.6" x="62.02" y="-1.35" angle="89.48" type="car" speed="13.96" pos="62.02" lane="beg_1" slope="0.00"/>

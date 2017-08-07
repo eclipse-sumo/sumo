@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 24 11:26:50 2017 by SUMO Version dev-SVN-r25299
+<!-- generated on Mon Aug  7 14:47:47 2017 by SUMO Version dev-SVN-r25495
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -64,11 +64,9 @@
     <change id="cars.8" time="208.00" from="end_0" to="end_1" dir="1" speed="11.27" reason="sublane" leaderGap="24.58" leaderSecureGap="3.05" followerGap="16.42" followerSecureGap="6.39" latGap="None"/>
     <change id="cars.8" time="210.00" from="end_1" to="end_0" dir="-1" speed="10.95" reason="sublane" leaderGap="28.11" leaderSecureGap="6.26" followerGap="15.54" followerSecureGap="15.71" latGap="0.76"/>
     <change id="cars.9" time="213.00" from="end_0" to="end_1" dir="1" speed="9.61" reason="sublane" leaderGap="3.40" leaderSecureGap="0.00" followerGap="14.88" followerSecureGap="7.54" latGap="None"/>
-    <change id="cars.8" time="218.00" from="end_0" to="end_1" dir="1" speed="11.90" reason="sublane" leaderGap="21.51" leaderSecureGap="5.58" followerGap="16.14" followerSecureGap="9.61" latGap="None"/>
-    <change id="cars.13" time="219.00" from="end_1" to="end_0" dir="-1" speed="15.59" reason="sublane" leaderGap="None" leaderSecureGap="None" followerGap="26.18" followerSecureGap="0.00" latGap="None"/>
-    <change id="cars.17" time="219.00" from="end_1" to="end_0" dir="-1" speed="9.73" reason="sublane" leaderGap="13.62" leaderSecureGap="11.48" followerGap="14.40" followerSecureGap="8.74" latGap="None"/>
-    <change id="cars.9" time="220.00" from="end_1" to="end_0" dir="-1" speed="9.52" reason="sublane" leaderGap="46.54" leaderSecureGap="5.14" followerGap="13.80" followerSecureGap="8.98" latGap="None"/>
-    <change id="cars.9" time="226.00" from="end_0" to="end_1" dir="1" speed="9.77" reason="sublane" leaderGap="None" leaderSecureGap="None" followerGap="12.97" followerSecureGap="8.23" latGap="None"/>
-    <change id="cars.17" time="230.00" from="end_0" to="end_1" dir="1" speed="8.57" reason="sublane" leaderGap="14.15" leaderSecureGap="7.37" followerGap="None" followerSecureGap="None" latGap="None"/>
-    <change id="cars.9" time="231.00" from="end_1" to="end_0" dir="-1" speed="9.61" reason="sublane" leaderGap="None" leaderSecureGap="None" followerGap="13.66" followerSecureGap="11.08" latGap="None"/>
+    <change id="cars.9" time="217.00" from="end_1" to="end_0" dir="-1" speed="9.29" reason="sublane" leaderGap="39.71" leaderSecureGap="4.00" followerGap="14.56" followerSecureGap="8.65" latGap="None"/>
+    <change id="cars.8" time="218.00" from="end_0" to="end_1" dir="1" speed="11.90" reason="sublane" leaderGap="22.17" leaderSecureGap="3.59" followerGap="16.14" followerSecureGap="9.61" latGap="None"/>
+    <change id="cars.13" time="219.00" from="end_1" to="end_0" dir="-1" speed="14.59" reason="sublane" leaderGap="None" leaderSecureGap="None" followerGap="24.71" followerSecureGap="5.90" latGap="None"/>
+    <change id="cars.9" time="227.00" from="end_0" to="end_1" dir="1" speed="9.44" reason="sublane" leaderGap="None" leaderSecureGap="None" followerGap="13.14" followerSecureGap="12.18" latGap="None"/>
+    <change id="cars.9" time="231.00" from="end_1" to="end_0" dir="-1" speed="9.61" reason="sublane" leaderGap="None" leaderSecureGap="None" followerGap="12.91" followerSecureGap="8.75" latGap="None"/>
 </lanechanges>
