@@ -938,11 +938,15 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                     for (int s = MAX2(0, p.stripe(vehYmin)); s < MIN2(p.stripe(vehYmax) + 1, stripes); ++s) {
                         vehObs[s] = vo;
                         if (s == current && vehFront + SAFETY_GAP < p.getMinX()) {
-                            // ignore on current stripe
-                            if (dir == FORWARD) {
-                                vehObs[s] = Obstacle(dir);
-                            } else {
-                                vehObs[s].xFwd = MIN2(vo.xFwd, vehFront + SAFETY_GAP);
+                            // ignore if aleady overlapping while vehicle is still behind
+                            if (p.myRelY - p.myPerson->getVehicleType().getWidth() < vehYmax && 
+                                    p.myRelY + p.myPerson->getVehicleType().getWidth() > vehYmin) { 
+                                if DEBUGCOND(p) std::cout << "   ignoring vehicle on stripe " << s << "\n";
+                                if (dir == FORWARD) {
+                                    vehObs[s] = Obstacle(dir);
+                                } else {
+                                    vehObs[s].xFwd = MIN2(vo.xFwd, vehFront + SAFETY_GAP);
+                                }
                             }
                         }
                     }
@@ -953,6 +957,8 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                             << " ymax=" << vehYmax
                             << " smin=" << PState::stripe(vehYmin)
                             << " smax=" << PState::stripe(vehYmax)
+                            << " relY=" << p.myRelY
+                            << " current=" << current
                             << "\n";
                     }
                 }
@@ -1067,6 +1073,10 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walk
         } else {
             myDir = !mayStartBackward ? FORWARD : BACKWARD;
         }
+    }
+    if (lane->getVehicleNumberWithPartials() > 0 && myRelY == 0) {
+        // better start next to the road if nothing was specified
+        myRelY -= stripeWidth;
     }
     if (myDir == FORWARD) {
         // start at the right side of the sidewalk
@@ -1287,7 +1297,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     // forbid stripes which are blocked and also all stripes behind them
     for (int i = 0; i < stripes; ++i) {
         if (distance[i] == DIST_OVERLAP) {
-            if (i == current && !myWaitingToEnter) {
+            if (i == current && (!myWaitingToEnter || stripe() != stripe(myRelY))) {
                 utility[i] += OBSTRUCTED_PENALTY;
             }
             if (i < current) {

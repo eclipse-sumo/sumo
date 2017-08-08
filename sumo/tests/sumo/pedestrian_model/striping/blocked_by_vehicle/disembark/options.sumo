@@ -3,4 +3,3 @@
 --route-files input_routes.rou.xml
 --pedestrian.striping.dawdling 0
 --fcd-output fcd.xml 
---pedestrian.striping.stripe-width 0.64
