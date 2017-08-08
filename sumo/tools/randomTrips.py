@@ -285,29 +285,62 @@ def is_persontrip_attribute(attr):
             return True
     return False
 
+def is_person_attribute(attr):
+    for cand in ['type']:
+        if cand in attr:
+            return True
+    return False
 
-def split_trip_attributes(tripattrs):
-    # figure out which of the tripattrs belong to the <person> and which
-    # belong to the <walk> or <persontrip>
-    personattrs = []
-    otherattrs = []
-    attrs = []
+def is_vehicle_attribute(attr):
+    for cand in ['depart', 'arrival', 'line', 'Number', 'type']:
+        if cand in attr:
+            return True
+    return False
+
+def split_trip_attributes(tripattrs, pedestrians, hasType):
     # handle attribute values with a space
     # assume that no attribute value includes an '=' sign
+    allattrs = []
     for a in tripattrs.split():
         if "=" in a:
-            attrs.append(a)
+            allattrs.append(a)
         else:
-            if len(attrs) == 0:
+            if len(allattrs) == 0:
                 print("Warning: invalid trip-attribute '%s'" % a)
             else:
-                attrs[-1] += ' ' + a
-    for a in attrs:
-        if is_walk_attribute(a) or is_persontrip_attribute(a):
-            otherattrs.append(a)
+                allattrs[-1] += ' ' + a
+
+    # figure out which of the tripattrs belong to the <person> or <vehicle>,
+    # which belong to the <vType> and which belong to the <walk> or <persontrip>
+    vehicleattrs = []
+    personattrs = []
+    vtypeattrs = []
+    otherattrs = []
+    for a in allattrs:
+        if pedestrians:
+            if is_walk_attribute(a) or is_persontrip_attribute(a):
+                otherattrs.append(a)
+            elif is_person_attribute(a):
+                personattrs.append(a)
+            else:
+                vtypeattrs.append(a)
         else:
-            personattrs.append(a)
-    return prependSpace(' '.join(personattrs)), prependSpace(' '.join(otherattrs))
+            if is_vehicle_attribute(a):
+                vehicleattrs.append(a)
+            else:
+                vtypeattrs.append(a)
+
+    if not hasType:
+        if pedestrians:
+            personattrs += vtypeattrs
+        else:
+            vehicleattrs += vtypeattrs
+        vtypeattrs = []
+
+    return (prependSpace(' '.join(vtypeattrs)), 
+            prependSpace(' '.join(vehicleattrs)), 
+            prependSpace(' '.join(personattrs)), 
+            prependSpace(' '.join(otherattrs)))
 
 
 def prependSpace(s):
@@ -331,9 +364,8 @@ def main(options):
     trip_generator = buildTripGenerator(net, options)
     idx = 0
 
-    if options.pedestrians:
-        personattrs, otherattrs = split_trip_attributes(options.tripattrs)
-    options.tripattrs = prependSpace(options.tripattrs)
+    vtypeattrs, options.tripattrs, personattrs, otherattrs = split_trip_attributes(
+            options.tripattrs, options.pedestrians, options.vehicle_class)
 
     vias = {}
 
@@ -377,8 +409,8 @@ def main(options):
         sumolib.writeXMLHeader(
             fouttrips, "$Id$", "routes")
         if options.vehicle_class:
-            fouttrips.write('    <vType id="%s" vClass="%s" />\n' %
-                            (options.vehicle_class, options.vehicle_class))
+            fouttrips.write('    <vType id="%s" vClass="%s"%s/>\n' %
+                            (options.vehicle_class, options.vehicle_class, vtypeattrs))
             options.tripattrs += ' type="%s"' % options.vehicle_class
         depart = options.begin
         if trip_generator:
