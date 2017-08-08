@@ -20,6 +20,12 @@ vclass
 # load the vehicle class to use during routing from an additional file
 vclass_additional_file
 
+# generate vType with the given vehicle_class and extra attributes
+vehicle_class
+
+# generate vType with the given vehicle_class and extra attributes
+vehicle_class_persontrips
+
 # test trips with intermediate waypoints
 intermediate
 
