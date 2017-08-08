@@ -39,6 +39,7 @@
 // class declarations
 // ===========================================================================
 class ShapeContainer;
+class Parameterised;
 
 
 // ===========================================================================
@@ -88,6 +89,14 @@ protected:
                                 const SUMOSAXAttributes& attrs);
 
 
+    /** @brief Called when a closing tag occurs
+     *
+     * @param[in] element ID of the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myEndElement
+     * @todo Refactor/describe
+     */
+    virtual void myEndElement(int element);
     //@}
 
 
@@ -115,6 +124,9 @@ private:
     double myDefaultLayer;
     /// @brief Information whether polygons should be filled
     bool myDefaultFill;
+
+    /// @brief element to receive parameters
+    Parameterised* myLastParameterised;
 
 private:
     /** invalid copy constructor */

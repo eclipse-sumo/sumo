@@ -49,7 +49,9 @@
 // ===========================================================================
 ShapeHandler::ShapeHandler(const std::string& file, ShapeContainer& sc) :
     SUMOSAXHandler(file), myShapeContainer(sc),
-    myPrefix(""), myDefaultColor(RGBColor::RED), myDefaultLayer(), myDefaultFill(false) {}
+    myPrefix(""), myDefaultColor(RGBColor::RED), myDefaultLayer(), myDefaultFill(false),
+    myLastParameterised(0)
+{}
 
 
 ShapeHandler::~ShapeHandler() {}
@@ -68,6 +70,14 @@ ShapeHandler::myStartElement(int element,
                 myDefaultLayer = (double)GLO_POI;
                 addPOI(attrs, false, false);
                 break;
+            case SUMO_TAG_PARAM:
+                if (myLastParameterised != 0) {
+                    bool ok = true;
+                    const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+                    // circumventing empty string test
+                    const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+                    myLastParameterised->addParameter(key, val);
+                }
             default:
                 break;
         }
@@ -77,6 +87,12 @@ ShapeHandler::myStartElement(int element,
 }
 
 
+void
+ShapeHandler::myEndElement(int element) {
+    if (element != SUMO_TAG_PARAM) {
+        myLastParameterised = 0;
+    }
+}
 
 void
 ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing) {
@@ -140,6 +156,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     if (!myShapeContainer.addPOI(id, type, color, layer, angle, imgFile, pos, width, height, ignorePruning)) {
         WRITE_ERROR("PoI '" + id + "' already exists.");
     }
+    myLastParameterised = myShapeContainer.getPOIs().get(id);
 }
 
 
@@ -178,6 +195,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
     if (!myShapeContainer.addPolygon(id, type, color, layer, angle, imgFile, shape, fill, ignorePruning)) {
         WRITE_ERROR("Polygon '" + id + "' already exists.");
     }
+    myLastParameterised = myShapeContainer.getPolygons().get(id);
 }
 
 
