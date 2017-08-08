@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
-<!-- generated on 2017-03-03 09:47:40.223048 by $Id: randomTrips.py 22929 2017-02-13 14:38:39Z behrisch $
+<!-- generated on 2017-08-08 11:27:33.979730 by $Id: randomTrips.py 25510 2017-08-08 09:27:15Z namdre $
   options: <doubleminus>testing
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="pedestrian" vClass="pedestrian" speedDev="0.1"/>
     <person id="ped0" depart="0.00">
         <walk from="272780759#0" to="-143201759"/>
     </person>
