@@ -71,15 +71,22 @@ GUIPointOfInterest::getPopUpMenu(GUIMainWindow& app,
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
+    buildShowParamsPopupEntry(ret, false);
     buildPositionCopyEntry(ret, false);
     return ret;
 }
 
 
 GUIParameterTableWindow*
-GUIPointOfInterest::getParameterWindow(GUIMainWindow&,
+GUIPointOfInterest::getParameterWindow(GUIMainWindow& app,
                                        GUISUMOAbstractView&) {
-    return 0;
+    GUIParameterTableWindow* ret =
+        new GUIParameterTableWindow(app, *this, 3 + (int)getMap().size());
+    // add items
+    ret->mkItem("type", false, myType);
+    ret->mkItem("layer", false, getLayer());
+    ret->closeBuilding(this);
+    return ret;
 }
 
 
