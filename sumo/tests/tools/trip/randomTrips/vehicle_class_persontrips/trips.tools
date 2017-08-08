@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<!-- generated on 2017-08-08 11:04:53.552266 by $Id: randomTrips.py 25256 2017-07-19 06:38:15Z behrisch $
-  options: -n net.net.xml -e 10 -s 42 <doubleminus>vclass passenger <doubleminus>vehicle-class passenger <doubleminus>trip-attributes color="blue" maxSpeed="3" departPos="random" <doubleminus>persontrips
+<!-- generated on 2017-08-08 11:26:35.108211 by $Id: randomTrips.py 25509 2017-08-08 09:06:44Z namdre $
+  options: -n net.net.xml -e 10 -s 42 <doubleminus>vclass passenger <doubleminus>vehicle-class passenger <doubleminus>trip-attributes color="blue" maxSpeed="3" departPos="random" speedDev="0.1" <doubleminus>persontrips
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="passenger" vClass="passenger" color="blue" maxSpeed="3"/>
+    <vType id="passenger" vClass="passenger" color="blue" maxSpeed="3" speedDev="0.1"/>
     <person id="0" depart="0.00">
         <personTrip from="3si" to="2fi" departPos="random"/>
     </person>

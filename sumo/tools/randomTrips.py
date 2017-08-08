@@ -273,7 +273,7 @@ def buildTripGenerator(net, options):
 
 
 def is_walk_attribute(attr):
-    for cand in ['departPos', 'arrivalPos', 'speed', 'duration', 'busStop']:
+    for cand in ['departPos', 'arrivalPos', 'speed=', 'duration=', 'busStop=']:
         if cand in attr:
             return True
     return False
