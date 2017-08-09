@@ -2992,7 +2992,7 @@ MSLane::initCollisionOptions(const OptionsCont& oc) {
     } else if (action == "remove") {
         myCollisionAction = COLLISION_ACTION_REMOVE;
     } else {
-        throw ProcessError("Invalid collision.action '" + action + "'.");
+        WRITE_ERROR("Invalid collision.action '" + action + "'.");
     }
     myCheckJunctionCollisions = oc.getBool("collision.check-junctions");
     myCollisionStopTime = string2time(oc.getString("collision.stoptime"));
