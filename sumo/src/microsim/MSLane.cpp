@@ -2892,6 +2892,20 @@ MSLane::getPartialBehind(const MSVehicle* ego) const {
     return 0;
 }
 
+MSLeaderInfo
+MSLane::getPartialBeyond() const {
+    MSLeaderInfo result(this);
+    for (VehCont::const_iterator it = myPartialVehicles.begin(); it != myPartialVehicles.end(); ++it) {
+        MSVehicle* veh = *it;
+        if (!veh->isFrontOnLane(this)) {
+            result.addLeader(veh, false, veh->getLatOffset(this));
+        } else {
+            break;
+        }
+    }
+    return result;
+}
+
 
 MSLane*
 MSLane::getOpposite() const {

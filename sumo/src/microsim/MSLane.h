@@ -808,6 +808,9 @@ public:
      * if no such vehicle exists */
     MSVehicle* getPartialBehind(const MSVehicle* ego) const;
 
+    /// @brief get all vehicles that are inlaping from consecutve edges
+    MSLeaderInfo getPartialBeyond() const; 
+
     /** @brief get the most likely precedecessor lane (sorted using by_connections_to_sorter).
      * The result is cached in myLogicalPredecessorLane
      */

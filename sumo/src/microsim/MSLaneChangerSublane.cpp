@@ -57,7 +57,7 @@ MSLaneChangerSublane::initChanger() {
     MSLaneChanger::initChanger();
     // Prepare myChanger with a safe state.
     for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
-        ce->ahead.clear();
+        ce->ahead = ce->lane->getPartialBeyond();
         //std::cout << SIMTIME << " initChanger lane=" << ce->lane->getID() << " vehicles=" << toString(ce->lane->myVehicles) << "\n";
     }
 }
@@ -247,8 +247,7 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* ego) 
     for (int i = 0; i < target->ahead.numSublanes(); ++i) {
         const MSVehicle* veh = target->ahead[i];
         if (veh != 0) {
-            assert(veh != 0);
-            const double gap = veh->getBackPositionOnLane() - ego->getPositionOnLane() - ego->getVehicleType().getMinGap();
+            const double gap = veh->getBackPositionOnLane(target->lane) - ego->getPositionOnLane() - ego->getVehicleType().getMinGap();
             if (gDebugFlag1) {
                 std::cout << " ahead lead=" << veh->getID() << " leadBack=" << veh->getBackPositionOnLane() << " gap=" << gap << "\n";
             }
