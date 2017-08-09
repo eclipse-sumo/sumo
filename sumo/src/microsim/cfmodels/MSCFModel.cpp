@@ -240,14 +240,51 @@ MSCFModel::insertionStopSpeed(const MSVehicle* const veh, double speed, double g
 double 
 MSCFModel::followSpeedTransient(double duration, const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const {
     // minimium distance covered by the leader if braking
-    double leaderMinDist = distAfterTime(duration, predSpeed, predMaxDecel);
+    double leaderMinDist = gap2pred + distAfterTime(duration, predSpeed, predMaxDecel);
+    // if ego would not brake it could drive with speed leaderMinDist / duration
+    // due to potentential ego braking it can safely drive faster 
     if (MSGlobals::gSemiImplicitEulerUpdate) {
+        // number of potential braking steps
         int a = (int)ceil(duration / TS - TS);
-        double b = TS * getMaxDecel() * 0.5 * (a * a - a);
-        return (b + leaderMinDist) / duration;
-
+        // can we brake for the whole time?
+        const double bg = brakeGap(a * myDecel, myDecel, 0);
+        if (bg <= leaderMinDist) {
+            // braking continuously for duration
+            // distance reduction due to braking
+            double b = TS * getMaxDecel() * 0.5 * (a * a - a);
+            if (gDebugFlag2) std::cout << "    followSpeedTransient"
+                << " duration=" << duration 
+                    << " gap=" << gap2pred
+                    << " leaderMinDist=" << leaderMinDist
+                    << " decel=" << getMaxDecel()
+                    << " a=" << a
+                    << " bg=" << bg
+                    << " b=" << b
+                    << " x=" << (b + leaderMinDist) / duration
+                    << "\n";
+            return (b + leaderMinDist) / duration;
+        } else {
+            // @todo improve efficiency
+            double bg = 0;
+            double speed = 0;
+            while (bg < leaderMinDist) {
+                speed += ACCEL2SPEED(myDecel);
+                bg += SPEED2DIST(speed);
+            }
+            speed -= DIST2SPEED(bg - leaderMinDist);
+            return speed;
+        }
     } else {
-        return leaderMinDist / duration + duration * predMaxDecel / 2;
+        // can we brake for the whole time?
+        const double fullBrakingSeconds = sqrt(leaderMinDist * 2 / myDecel);
+        if (fullBrakingSeconds >= duration) {
+            // braking continuously for duration
+            // average speed after braking for duration is x2 = x - 0.5 * duration * myDecel
+            // x2 * duration <= leaderMinDist must hold
+            return leaderMinDist / duration + duration * getMaxDecel() / 2;
+        } else {
+            return fullBrakingSeconds * myDecel;
+        }
     }
 }
 
@@ -263,10 +300,10 @@ MSCFModel::distAfterTime(double t, double speed, double decel) {
         double result = 0;
         while (t > 0) {
             speed -= ACCEL2SPEED(decel);
-            result += MAX2(0.0, speed);
+            result += MAX2(0.0, SPEED2DIST(speed));
             t -= TS;
-            return result;
         }
+        return result;
     } else {
         const double speed2 = speed - t * decel;
         return 0.5 * (speed + speed2) * t;
