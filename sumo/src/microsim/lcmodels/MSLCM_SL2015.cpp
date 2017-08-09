@@ -1269,6 +1269,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             } else {
                 // if anticipated gains to the left are higher, prefer this
                 if (currentLatDist > 0 
+                        //&& latDist < 0 @todo check why this causes some timeloss in tests
                         && mySpeedGainProbabilityLeft > mySpeedGainProbabilityRight
                         && relativeGain > GAIN_PERCEPTION_THRESHOLD
                         && maxGain - relativeGain < NUMERICAL_EPS) {
