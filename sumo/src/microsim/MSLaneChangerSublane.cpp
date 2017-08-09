@@ -52,6 +52,17 @@ MSLaneChangerSublane::MSLaneChangerSublane(const std::vector<MSLane*>* lanes, bo
 
 MSLaneChangerSublane::~MSLaneChangerSublane() {}
 
+void
+MSLaneChangerSublane::initChanger() {
+    MSLaneChanger::initChanger();
+    // Prepare myChanger with a safe state.
+    for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
+        ce->ahead.clear();
+        //std::cout << SIMTIME << " initChanger lane=" << ce->lane->getID() << " vehicles=" << toString(ce->lane->myVehicles) << "\n";
+    }
+}
+
+
 
 void
 MSLaneChangerSublane::updateChanger(bool vehHasChanged) {

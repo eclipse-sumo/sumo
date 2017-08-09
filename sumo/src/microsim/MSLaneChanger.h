@@ -89,9 +89,6 @@ public:
         /// @{
         // the vehicles in from of the current vehicle
         MSLeaderInfo ahead;
-
-
-        void addLink(MSLink* link);
         ///@}
 
     };
@@ -109,7 +106,7 @@ public:
 
 protected:
     /// Initialize the changer before looping over all vehicles.
-    void initChanger();
+    virtual void initChanger();
 
     /** @brief Check if there is a single change-candidate in the changer.
         Returns true if there is one. */

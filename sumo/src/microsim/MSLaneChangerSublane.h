@@ -59,6 +59,9 @@ protected:
     /** Find a new candidate and try to change it. */
     virtual bool change();
 
+    /// @brief  Initialize the changer before looping over all vehicles.
+    virtual void initChanger();
+
     /** After the possible change, update the changer. */
     virtual void updateChanger(bool vehHasChanged);
 

@@ -128,11 +128,9 @@ MSLaneChanger::initChanger() {
         ce->lastBlocked = 0;
         ce->firstBlocked = 0;
         ce->dens = 0;
-        ce->ahead.clear();
         ce->lane->getVehiclesSecure();
 
         //std::cout << SIMTIME << " initChanger lane=" << ce->lane->getID() << " vehicles=" << toString(ce->lane->myVehicles) << "\n";
-
     }
 }
 
