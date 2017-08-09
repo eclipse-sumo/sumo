@@ -1645,6 +1645,9 @@ GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, cons
     if (lanePos < 0) {
         lanePos = edge->getLength() + lanePos;
     }
+    if (lanePos < 0 || lanePos > edge->getLength()) {
+        WRITE_WARNING("lane position " + toString(lanePos) + " for poi '" + poiID + "' is not valid.");
+    }
     return edge->getLanes()[laneIndex].shape.positionAtOffset(lanePos);
 }
 

@@ -1399,6 +1399,9 @@ NLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, 
     if (lanePos < 0) {
         lanePos = lane->getLength() + lanePos;
     }
+    if (lanePos < 0 || lanePos > lane->getLength()) {
+        WRITE_WARNING("lane position " + toString(lanePos) + " for poi '" + poiID + "' is not valid.");
+    }
     return lane->geometryPositionAtOffset(lanePos);
 }
 /****************************************************************************/
