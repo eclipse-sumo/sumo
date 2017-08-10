@@ -37,10 +37,12 @@ else:
 
 
 def get_options():
-    USAGE = """Usage %prog [options] <net.xml> <rou.xml> [<rou2.xml>]"""
+    USAGE = """Usage %prog [options] <rou.xml> [<rou2.xml>]"""
     optParser = OptionParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
+    optParser.add_option("-n", "--network", 
+                         help="The network file to use with attribute 'length'")
     optParser.add_option("--attribute", type="string",
                          default="length", help="attribute to analyze [length,depart,numEdges]")
     optParser.add_option("--binwidth", type="float",
@@ -51,15 +53,14 @@ def get_options():
                          default=None, help="output file for full data dump")
     options, args = optParser.parse_args()
 
-    if len(args) not in (2, 3):
+    if len(args) not in (1, 2):
         sys.exit(USAGE)
 
     options.routeFile2 = None
-    if len(args) >= 2:
-        options.network = args[0]
-        options.routeFile = args[1]
-    if len(args) == 3:
-        options.routeFile2 = args[2]
+    if len(args) >= 1:
+        options.routeFile = args[0]
+    if len(args) == 2:
+        options.routeFile2 = args[1]
 
     return options
 
