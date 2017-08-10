@@ -1633,7 +1633,7 @@ GNEApplicationWindow::GNEShapeHandler::~GNEShapeHandler() {}
 
 
 Position
-GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos) {
+GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) {
     std::string edgeID;
     int laneIndex;
     NIImporter_SUMO::interpretLaneID(laneID, edgeID, laneIndex);
@@ -1648,7 +1648,7 @@ GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, cons
     if (lanePos < 0 || lanePos > edge->getLength()) {
         WRITE_WARNING("lane position " + toString(lanePos) + " for poi '" + poiID + "' is not valid.");
     }
-    return edge->getLanes()[laneIndex].shape.positionAtOffset(lanePos);
+    return edge->getLanes()[laneIndex].shape.positionAtOffset(lanePos, -lanePosLat);
 }
 
 

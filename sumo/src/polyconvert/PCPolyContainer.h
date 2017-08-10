@@ -102,7 +102,7 @@ public:
     bool add(PointOfInterest* poi, bool ignorePruning = false);
 
 
-    void addLanePos(const std::string& poiID, const std::string& laneID, double lanePos);
+    void addLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat);
 
     /** @brief Saves the stored polygons and pois into the given file
      * @param[in] file The name of the file to write stored objects' definitions into
@@ -129,8 +129,18 @@ public:
 
 
 private:
+
+    struct LanePos {
+        LanePos() {}
+        LanePos(const std::string& _laneID, double _pos, double _posLat) :
+            laneID(_laneID), pos(_pos), posLat(_posLat) {}
+        std::string laneID;
+        double pos;
+        double posLat;
+    };
+
     /// @brief An id to pos map for lane pos specs
-    std::map<std::string, std::pair<std::string, double> > myLanePosPois;
+    std::map<std::string, LanePos> myLanePosPois;
 
     /// @brief An id to int map for proper enumeration
     std::map<std::string, int> myIDEnums;

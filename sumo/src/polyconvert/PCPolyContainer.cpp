@@ -102,8 +102,8 @@ PCPolyContainer::add(PointOfInterest* poi, bool ignorePruning) {
 
 
 void
-PCPolyContainer::addLanePos(const std::string& poiID, const std::string& laneID, double lanePos) {
-    myLanePosPois[poiID] = std::make_pair(laneID, lanePos);
+PCPolyContainer::addLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) {
+    myLanePosPois[poiID] = LanePos(laneID, lanePos, lanePosLat);
 }
 
 
@@ -128,11 +128,11 @@ PCPolyContainer::save(const std::string& file, bool useGeo) {
     // write pois
     const double zOffset = OptionsCont::getOptions().getFloat("poi-layer-offset");
     for (std::map<std::string, PointOfInterest*>::const_iterator i = myPOIs.getMyMap().begin(); i != myPOIs.getMyMap().end(); ++i) {
-        std::map<std::string, std::pair<std::string, double> >::const_iterator it = myLanePosPois.find(i->first);
+        std::map<std::string, LanePos>::const_iterator it = myLanePosPois.find(i->first);
         if (it == myLanePosPois.end()) {
             i->second->writeXML(out, useGeo, zOffset);
         } else {
-            i->second->writeXML(out, useGeo, zOffset, it->second.first, it->second.second);
+            i->second->writeXML(out, useGeo, zOffset, it->second.laneID, it->second.pos, it->second.posLat);
         }
     }
     out.close();

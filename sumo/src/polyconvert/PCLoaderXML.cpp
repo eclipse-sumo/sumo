@@ -127,8 +127,8 @@ PCLoaderXML::myStartElement(int element,
 
 
 Position
-PCLoaderXML::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos) {
-    static_cast<PCPolyContainer&>(myShapeContainer).addLanePos(poiID, laneID, lanePos);
+PCLoaderXML::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) {
+    static_cast<PCPolyContainer&>(myShapeContainer).addLanePos(poiID, laneID, lanePos, lanePosLat);
     return Position::INVALID;
 }
 

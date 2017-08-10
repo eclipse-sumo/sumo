@@ -1390,7 +1390,7 @@ NLHandler::closeWAUT() {
 
 
 Position
-NLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos) {
+NLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) {
     MSLane* lane = MSLane::dictionary(laneID);
     if (lane == 0) {
         WRITE_ERROR("Lane '" + laneID + "' to place poi '" + poiID + "' on is not known.");
@@ -1402,6 +1402,6 @@ NLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, 
     if (lanePos < 0 || lanePos > lane->getLength()) {
         WRITE_WARNING("lane position " + toString(lanePos) + " for poi '" + poiID + "' is not valid.");
     }
-    return lane->geometryPositionAtOffset(lanePos);
+    return lane->geometryPositionAtOffset(lanePos, -lanePosLat);
 }
 /****************************************************************************/

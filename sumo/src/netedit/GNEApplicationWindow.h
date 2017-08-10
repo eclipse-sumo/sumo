@@ -366,7 +366,7 @@ protected:
          * @param[in] laneID lane ID
          * @param[in] SlanePos position in the lane
          */
-        Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos);
+        Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat);
 
     private:
         /// @brief pointer of the net

@@ -101,7 +101,7 @@ protected:
 
 
     /// @brief get position for a given laneID
-    virtual Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos) = 0;
+    virtual Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) = 0;
 
 protected:
     void setDefaults(const std::string& prefix, const RGBColor& color, const double layer, const bool fill = false);
