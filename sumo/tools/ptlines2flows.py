@@ -83,8 +83,11 @@ def main():
         fouttrips.write("</routes>\n")
     print("done.")
     print("running SUMO to dertermine actual departure times...")
-    subprocess.call([sumolib.checkBinary("sumo"), "-r", options.trips, "-n", options.netfile, "-a",
-                     options.ptstops, "--vehroute-output", options.routes, "--stop-output", options.stopinfos])
+    subprocess.call([sumolib.checkBinary("sumo"), "-r", options.trips, "-n", options.netfile, 
+                     "--no-step-log",
+                     "-a", options.ptstops, 
+                     "--vehroute-output", options.routes,
+                     "--stop-output", options.stopinfos,])
     print("done.")
 
     print("creating routes...")
