@@ -369,6 +369,7 @@
         <xsd:attribute name="lat" type="xsd:float" use="optional"/>
         <xsd:attribute name="lane" type="xsd:string" use="optional"/>
         <xsd:attribute name="pos" type="xsd:float" use="optional"/>
+        <xsd:attribute name="posLat" type="xsd:float" use="optional"/>
         <xsd:attribute name="angle" type="xsd:float" use="optional"/>
         <xsd:attribute name="imgFile" type="xsd:string" use="optional"/>
         <xsd:attribute name="width" type="xsd:float" use="optional"/>
