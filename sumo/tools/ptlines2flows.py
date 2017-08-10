@@ -114,8 +114,9 @@ def main():
                 )
             foutflows.write('\t</route>\n')
         for flow in flows:
-            foutflows.write('\t<flow id="%s" route="%s" begin="%s" end="%s" period="%s" type="bus" />\n' %
-                            (flow, flow, options.begin, options.end, options.period))
+            lineRef = flow # XXX use real line reference if available #3341
+            foutflows.write('\t<flow id="%s" route="%s" begin="%s" end="%s" period="%s" type="bus" line="%s"/>\n' %
+                            (flow, flow, options.begin, options.end, options.period, lineRef))
         foutflows.write('</routes>\n')
 
     print("done.")
