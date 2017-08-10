@@ -4,4 +4,5 @@
     <poi id="poi1" x="42" y="43">
         <param key="foo" value="bar"/>
     </poi>
+    <poi id="poi2" lane="3fi_0" pos="10" posLat="-2"/>
 </add>
