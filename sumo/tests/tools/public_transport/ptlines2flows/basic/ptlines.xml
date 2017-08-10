@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jun 29 21:24:43 2017 by SUMO netconvert Version svn
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="input_types.typ.xml"/>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <osm.stop-output.length value="200"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <ptLine id="0" name="Buslinie 104: Neu-Westend, Brixplatz => Stralau, Tunnelstraße">
+        <busStop id="3959807221" name="Kolonnenbrücke"/>
+        <busStop id="3959807200" name="Dudenstraße/Katzbachstraße"/>
+    </ptLine>
+    <ptLine id="1" name="Buslinie 104: Stralau, Tunnelstraße => Neu-Westend, Brixplatz">
+        <busStop id="3959807201" name="Dudenstraße/Katzbachstraße"/>
+        <busStop id="3959807220" name="Kolonnenbrücke"/>
+    </ptLine>
+</additional>

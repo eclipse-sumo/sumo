@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- generated on 2017-08-10 14:49:00.433049 by $Id: ptlines2flows.py 25257 2017-07-19 06:46:50Z behrisch $
+  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -f out.flows.xml -p 600
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<trip id="0" depart="0" departLane="best" from="110450334#1" to="391493954#3" >
+		<stop busStop="3959807221" duration="30" />
+		<stop busStop="3959807200" duration="30" />
+	</trip>
+	<trip id="1" depart="0" departLane="best" from="-391493954#3" to="-110450334#1" >
+		<stop busStop="3959807201" duration="30" />
+		<stop busStop="3959807220" duration="30" />
+	</trip>
+</routes>
