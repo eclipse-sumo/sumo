@@ -46,6 +46,9 @@ jam1
 # a jam test (78 vehicles waiting)
 jam2
 
+# a jam test for reaching 100% occupancy
+jam_max
+
 # a jam test with different maximum traveltime
 maxtraveltime
 
