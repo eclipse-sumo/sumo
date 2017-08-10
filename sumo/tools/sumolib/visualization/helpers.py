@@ -26,6 +26,7 @@ if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in 
     matplotlib.use('Agg')
 from pylab import *
 from matplotlib.ticker import FuncFormatter as ff
+from matplotlib.collections import LineCollection
 import gc
 
 # http://datadebrief.blogspot.de/2010/10/plotting-sunrise-sunset-times-in-python.html
@@ -185,22 +186,26 @@ def applyPlotOptions(fig, ax, options):
 
 
 def plotNet(net, colors, widths, options):
+    shapes = []
+    c = []
+    w = []
     for e in net._edges:
-        gx = []
-        gy = []
-        for s in e.getShape():
-            gx.append(s[0])
-            gy.append(s[1])
+        shapes.append(e.getShape())
         if e._id in colors:
-            c = colors[str(e._id)]
+            c.append(colors[str(e._id)])
         else:
-            c = options.defaultColor
+            c.append(options.defaultColor)
         if e._id in widths:
-            w = widths[str(e._id)]
+            w.append(widths[str(e._id)])
         else:
-            w = options.defaultWidth
-        plot(gx, gy, color=c, linewidth=w)
-
+            w.append(options.defaultWidth)
+            
+    line_segments = LineCollection(shapes, linewidths=w, colors=c)
+    ax = plt.gca()
+    ax.add_collection(line_segments)
+    ax.set_xmargin(0.1)
+    ax.set_ymargin(0.1)
+    ax.autoscale_view(True,True,True)
 
 def getColor(options, i, a):
     if options.colors:
