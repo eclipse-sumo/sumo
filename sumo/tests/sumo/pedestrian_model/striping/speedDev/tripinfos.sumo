@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/06/17 12:32:47 by SUMO Version dev-SVN-r25114
+<!-- generated on Fri Aug 11 16:27:59 2017 by SUMO Version dev-SVN-r25564
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -388,13 +388,13 @@
     <personinfo id="fwd66" depart="216.00">
         <walk arrival="284.00"/>
     </personinfo>
+    <personinfo id="bwd57" depart="231.00">
+        <walk arrival="285.00"/>
+    </personinfo>
     <personinfo id="fwd67" depart="220.00">
         <walk arrival="287.00"/>
     </personinfo>
     <personinfo id="bwd53" depart="213.00">
-        <walk arrival="287.00"/>
-    </personinfo>
-    <personinfo id="bwd54" depart="215.00">
         <walk arrival="287.00"/>
     </personinfo>
     <personinfo id="fwd68" depart="222.00">
@@ -403,13 +403,13 @@
     <personinfo id="fwd69" depart="226.00">
         <walk arrival="288.00"/>
     </personinfo>
+    <personinfo id="bwd54" depart="215.00">
+        <walk arrival="288.00"/>
+    </personinfo>
     <personinfo id="bwd55" depart="218.00">
         <walk arrival="288.00"/>
     </personinfo>
     <personinfo id="bwd56" depart="222.00">
-        <walk arrival="288.00"/>
-    </personinfo>
-    <personinfo id="bwd57" depart="231.00">
         <walk arrival="288.00"/>
     </personinfo>
     <personinfo id="bwd58" depart="234.00">
@@ -607,28 +607,28 @@
     <personinfo id="fwd101" depart="338.00">
         <walk arrival="403.00"/>
     </personinfo>
+    <personinfo id="bwd92" depart="332.00">
+        <walk arrival="405.00"/>
+    </personinfo>
     <personinfo id="bwd91" depart="326.00">
         <walk arrival="408.00"/>
     </personinfo>
-    <personinfo id="bwd92" depart="332.00">
+    <personinfo id="bwd93" depart="333.00">
         <walk arrival="408.00"/>
     </personinfo>
     <personinfo id="fwd102" depart="345.00">
         <walk arrival="409.00"/>
     </personinfo>
-    <personinfo id="bwd93" depart="333.00">
-        <walk arrival="409.00"/>
-    </personinfo>
     <personinfo id="bwd94" depart="334.00">
         <walk arrival="409.00"/>
     </personinfo>
-    <personinfo id="bwd95" depart="336.00">
+    <personinfo id="bwd96" depart="343.00">
         <walk arrival="409.00"/>
     </personinfo>
-    <personinfo id="bwd96" depart="343.00">
-        <walk arrival="410.00"/>
-    </personinfo>
     <personinfo id="bwd97" depart="345.00">
+        <walk arrival="409.00"/>
+    </personinfo>
+    <personinfo id="bwd95" depart="336.00">
         <walk arrival="410.00"/>
     </personinfo>
     <personinfo id="bwd98" depart="346.00">
@@ -719,19 +719,19 @@
         <walk arrival="460.00"/>
     </personinfo>
     <personinfo id="fwd115" depart="401.00">
-        <walk arrival="468.00"/>
+        <walk arrival="471.00"/>
     </personinfo>
     <personinfo id="fwd116" depart="402.00">
-        <walk arrival="468.00"/>
+        <walk arrival="471.00"/>
     </personinfo>
     <personinfo id="fwd117" depart="403.00">
-        <walk arrival="469.00"/>
+        <walk arrival="472.00"/>
     </personinfo>
     <personinfo id="fwd118" depart="404.00">
-        <walk arrival="469.00"/>
+        <walk arrival="472.00"/>
     </personinfo>
     <personinfo id="fwd119" depart="410.00">
-        <walk arrival="469.00"/>
+        <walk arrival="472.00"/>
     </personinfo>
     <personinfo id="bwd115" depart="397.00">
         <walk arrival="478.00"/>

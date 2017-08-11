@@ -25,3 +25,6 @@ ignore_stopped
 
 # pedestrians that are stopped on a crossing and cannot be ignored
 blockage
+
+# when an unprioritized crossing is blocked by pedestrians, vehicles must yield their request
+blockage2

@@ -4,8 +4,8 @@ Simulation started with time: 0.00
 Simulation ended at time: 549.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 586ms
- Real time factor: 936.86
+ Duration: 156ms
+ Real time factor: 3519.23
  UPS: 0.000000
 Vehicles: 
  Inserted: 0
@@ -22,7 +22,7 @@ Statistics (avg):
  DepartDelay: 0.00
 Pedestrian Statistics (avg of 608 walks):
  RouteLength: 66.58
- Duration: 236.34
+ Duration: 235.36
 
 DijkstraRouterTT answered 608 queries and explored 5.00 edges on average.
 DijkstraRouterTT spent 0ms answering queries (0.00ms on average).
