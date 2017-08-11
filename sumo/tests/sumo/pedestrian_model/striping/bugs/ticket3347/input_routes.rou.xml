@@ -1,0 +1,26 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <vType id="t1" sigma="0" length="8"/>
+
+    <person id="p0" depart="10">
+        <walk edges="WC CE" departPos="-1"/>
+    </person>
+    <person id="p1" depart="11">
+        <walk edges="WC CE" departPos="-1"/>
+    </person>
+    <person id="p2" depart="12">
+        <walk edges="WC CE" departPos="-1"/>
+    </person>
+    <person id="p3" depart="13">
+        <walk edges="WC CE" departPos="-1"/>
+    </person>
+
+    <person id="blocker" depart="18">
+        <walk edges="CE WC" departPos="1"/>
+    </person>
+
+    <vehicle id="v0" type="t1" depart="18" departPos="60">
+        <route edges="SC CN"/>
+    </vehicle>
+
+</routes>
