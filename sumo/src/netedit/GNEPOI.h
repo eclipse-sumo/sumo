@@ -51,6 +51,9 @@ class GeoConvHelper;
 class GNEPOI : public GUIPointOfInterest, public GNEShape {
 
 public:
+    /// @brief needed to avoid diamond Problem between GUIPolygon and GNEShape
+    using GNEShape::getID;
+
     /** @brief Constructor
      * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the POI
@@ -145,10 +148,10 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNEPOI(const GNEPOI&);
+    GNEPOI(const GNEPOI&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEPOI& operator=(const GNEPOI&);
+    GNEPOI& operator=(const GNEPOI&) = delete;
 };
 
 

@@ -1776,13 +1776,11 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
     if(myPOIs.get(id) == NULL) {
         // create poly
         GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, pos, width, height);
-        /*
         myPOIs.add(poi->getID(), poi);
         // insert it in the net using GNEChange_Poly
         myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
         myViewNet->getUndoList()->add(new GNEChange_POI(this, poi, true), true);
         myViewNet->getUndoList()->p_end();
-        */
         return true;
     } else {
         return false;
