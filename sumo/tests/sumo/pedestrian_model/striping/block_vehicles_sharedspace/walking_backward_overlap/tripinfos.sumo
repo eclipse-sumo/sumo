@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 29 12:53:44 2017 by SUMO Version dev-SVN-r24963
+<!-- generated on Thu Aug 10 13:51:50 2017 by SUMO Version dev-SVN-r25530
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -28,7 +28,7 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v0" depart="0.00" departLane="SC_0" departPos="20.00" departSpeed="0.00" departDelay="0.00" arrival="10.00" arrivalLane="SC_1" arrivalPos="91.95" arrivalSpeed="10.75" duration="10.00" routeLength="71.95" waitSteps="0" timeLoss="4.75" rerouteNo="0" devices="tripinfo_v0" vType="car" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v0" depart="0.00" departLane="SC_0" departPos="20.00" departSpeed="0.00" departDelay="0.00" arrival="8.00" arrivalLane="SC_1" arrivalPos="91.95" arrivalSpeed="13.89" duration="8.00" routeLength="71.95" waitSteps="0" timeLoss="2.19" rerouteNo="0" devices="tripinfo_v0" vType="car" speedFactor="1.00" vaporized=""/>
     <personinfo id="p0" depart="0.00">
         <walk arrival="52.00"/>
     </personinfo>

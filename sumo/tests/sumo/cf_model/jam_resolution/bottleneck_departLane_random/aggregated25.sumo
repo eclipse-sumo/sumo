@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul  5 10:23:26 2017 by SUMO Version dev-SVN-r23112
+<!-- generated on Thu Aug 10 13:51:42 2017 by SUMO Version dev-SVN-r25530
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -47,8 +47,8 @@
         <edge id="bottleneck" sampledSeconds="913.97" traveltime="4.44" overlapTraveltime="4.61" density="25.77" occupancy="12.21" waitingTime="0.00" speed="22.44" departed="0" arrived="0" entered="198" left="198" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end" sampledSeconds="641.39" traveltime="3.11" overlapTraveltime="3.25" density="17.82" occupancy="8.49" waitingTime="0.00" speed="32.32" departed="0" arrived="198" entered="198" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="jam" sampledSeconds="3980.02" traveltime="19.56" overlapTraveltime="19.88" density="112.24" occupancy="26.68" waitingTime="956.00" speed="5.20" departed="0" arrived="0" entered="201" left="199" laneChangedFrom="128" laneChangedTo="128"/>
-        <edge id="middle" sampledSeconds="6935.82" traveltime="33.05" overlapTraveltime="34.66" density="192.66" occupancy="46.04" waitingTime="2924.00" speed="3.03" departed="0" arrived="0" entered="200" left="201" laneChangedFrom="4" laneChangedTo="4"/>
-        <edge id="start" sampledSeconds="7048.07" traveltime="34.43" overlapTraveltime="35.99" density="195.78" occupancy="46.27" waitingTime="2980.00" speed="2.92" departed="201" arrived="0" entered="0" left="200" laneChangedFrom="12" laneChangedTo="12"/>
+        <edge id="middle" sampledSeconds="6931.58" traveltime="33.03" overlapTraveltime="34.64" density="192.54" occupancy="46.02" waitingTime="2923.00" speed="3.03" departed="0" arrived="0" entered="200" left="201" laneChangedFrom="4" laneChangedTo="4"/>
+        <edge id="start" sampledSeconds="6996.65" traveltime="34.64" overlapTraveltime="36.18" density="194.35" occupancy="45.93" waitingTime="3006.00" speed="2.90" departed="201" arrived="0" entered="0" left="200" laneChangedFrom="16" laneChangedTo="16"/>
     </interval>
     <interval begin="1080.00" end="1440.00" id="expect_300_vehs">
         <edge id="bottleneck" sampledSeconds="885.06" traveltime="4.15" overlapTraveltime="4.32" density="24.96" occupancy="11.84" waitingTime="0.00" speed="23.96" departed="0" arrived="0" entered="205" left="206" laneChangedFrom="0" laneChangedTo="0"/>
