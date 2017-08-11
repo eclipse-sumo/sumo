@@ -802,7 +802,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
         //std::cout << SIMTIME << " ego=" << Named::getIDSecure(ego) << " link=" << getViaLaneOrLane()->getID() << " myWalkingAreaFoe=" << Named::getIDSecure(myWalkingAreaFoe) << "\n";
         if (ego != 0 && myWalkingAreaFoe != 0 && myWalkingAreaFoe->getEdge().getPersons().size() > 0) {
             // pedestrians may be on an arbitrary path across this
-            // walkingarea. consider the whole area blocked
+            // walkingarea. make sure to keep enough distance.
+            // This is a simple but conservative solution that could be improved
+            // by ignoring pedestrians that are "obviously" not on a collision course
             double distToPeds = std::numeric_limits<double>::max();
             const std::set<MSTransportable*>& persons = myWalkingAreaFoe->getEdge().getPersons();
             for (std::set<MSTransportable*>::const_iterator it = persons.begin(); it != persons.end(); ++it) {
