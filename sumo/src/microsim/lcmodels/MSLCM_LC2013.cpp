@@ -1627,8 +1627,7 @@ MSLCM_LC2013::_wantsChange(
         }
     } else {
         // ONLY FOR CHANGING TO THE LEFT
-        //if (thisLaneVSafe + NUMERICAL_EPS > neighLaneVSafe) {
-        if (thisLaneVSafe > neighLaneVSafe) {
+        if (thisLaneVSafe + NUMERICAL_EPS > neighLaneVSafe) {
             // this lane is better
             if (mySpeedGainProbability > 0) {
                 mySpeedGainProbability *= pow(0.5, TS);
