@@ -572,8 +572,10 @@ enum {
     MID_GNE_SHOW_GRID,
     /// @brief attribute edited
     MID_GNE_SET_ATTRIBUTE,
-    /// @brief attribute blocking
-    MID_GNE_SET_BLOCKING,
+    /// @brief attribute block movement
+    MID_GNE_SET_BLOCKING_MOVEMENT,
+    /// @brief attribute block movement
+    MID_GNE_SET_BLOCKING_SHAPE,
     /// @brief show connection
     MID_GNE_SHOW_CONNECTION,
     /// @brief inspect connection

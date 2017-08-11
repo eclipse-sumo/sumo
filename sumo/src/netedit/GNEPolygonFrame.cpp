@@ -70,15 +70,15 @@ FXDEFMAP(GNEPolygonFrame::ShapeAttributes) GNEadditionalParametersMap[] = {
 FXDEFMAP(GNEPolygonFrame::NeteditAttributes) GNEEditorParametersMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT,   GNEPolygonFrame::NeteditAttributes::onCmdSetLength),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL_REFERENCEPOINT,         GNEPolygonFrame::NeteditAttributes::onCmdSelectReferencePoint),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING,                           GNEPolygonFrame::NeteditAttributes::onCmdSetBlocking),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_MOVEMENT,                  GNEPolygonFrame::NeteditAttributes::onCmdSetBlocking),
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                                       GNEPolygonFrame::NeteditAttributes::onCmdHelp),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPolygonFrame,                                 FXVerticalFrame,    GNEShapeMap,                       ARRAYNUMBER(GNEShapeMap))
-FXIMPLEMENT(GNEPolygonFrame::ShapeAttributeSingle,      FXHorizontalFrame,  GNEsingleShapeParameterMap,        ARRAYNUMBER(GNEsingleShapeParameterMap))
-FXIMPLEMENT(GNEPolygonFrame::ShapeAttributes,           FXGroupBox,         GNEadditionalParametersMap,             ARRAYNUMBER(GNEadditionalParametersMap))
-FXIMPLEMENT(GNEPolygonFrame::NeteditAttributes,              FXGroupBox,         GNEEditorParametersMap,                 ARRAYNUMBER(GNEEditorParametersMap))
+FXIMPLEMENT(GNEPolygonFrame,                        FXVerticalFrame,    GNEShapeMap,                    ARRAYNUMBER(GNEShapeMap))
+FXIMPLEMENT(GNEPolygonFrame::ShapeAttributeSingle,  FXHorizontalFrame,  GNEsingleShapeParameterMap,     ARRAYNUMBER(GNEsingleShapeParameterMap))
+FXIMPLEMENT(GNEPolygonFrame::ShapeAttributes,       FXGroupBox,         GNEadditionalParametersMap,     ARRAYNUMBER(GNEadditionalParametersMap))
+FXIMPLEMENT(GNEPolygonFrame::NeteditAttributes,     FXGroupBox,         GNEEditorParametersMap,         ARRAYNUMBER(GNEEditorParametersMap))
 
 // ===========================================================================
 // method definitions
@@ -715,7 +715,7 @@ GNEPolygonFrame::NeteditAttributes::NeteditAttributes(FXComposite* parent) :
     // Create Frame for block movement label and checkBox (By default disabled)
     FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myBlockLabel = new FXLabel(blockMovement, "block movement", 0, GUIDesignLabelAttribute);
-    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_BLOCKING, GUIDesignCheckButtonAttribute);
+    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_BLOCKING_MOVEMENT, GUIDesignCheckButtonAttribute);
     myBlockMovementCheckButton->setCheck(false);
     // Create help button
     helpReferencePoint = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);

@@ -821,6 +821,8 @@ enum SumoXMLAttr {
     GNE_ATTR_SHAPE_END,
     /// @brief block movement of a graphic element
     GNE_ATTR_BLOCK_MOVEMENT,
+    /// @brief block shape of a graphic element (USed mainly in GNEShapes)
+    GNE_ATTR_BLOCK_SHAPE,
     /// @brief parent of an additional element
     GNE_ATTR_PARENT,
     // @}
