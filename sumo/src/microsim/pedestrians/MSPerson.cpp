@@ -175,9 +175,26 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
     for (ConstMSEdgeVector::const_iterator i = myRoute.begin(); i != myRoute.end(); ++i) {
         length += (*i)->getLength();
     }
-    length -= myDepartPos;
-    length -= myRoute.back()->getLength() - myArrivalPos;
-    return length;
+    // determine walking direction for depart and arrival
+    bool departFwd = true;
+    bool arriveFwd = true;
+    if (myRoute.front() == myRoute.back()) {
+        if (myDepartPos > myArrivalPos) {
+            departFwd = false;
+            arriveFwd = false;
+        }
+    } else {
+        // disconnected defaults to forward
+        if (myRoute.front()->getFromJunction() == myRoute[1]->getToJunction()) {
+            departFwd = false;
+        }
+        if (myRoute[myRoute.size() - 2]->getFromJunction() == myRoute.back()->getToJunction()) {
+            arriveFwd = false;
+        }
+    }
+    length -= (departFwd ? myDepartPos : myRoute.front()->getLength() - myDepartPos);
+    length -= (arriveFwd ? myRoute.back()->getLength() - myArrivalPos : myArrivalPos);
+    return MAX2(POSITION_EPS, length);
 }
 
 
