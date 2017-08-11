@@ -40,6 +40,7 @@
 #include "MSVehicle.h"
 #include "MSTransportableControl.h"
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/iodevices/OutputDevice_String.h>
 #include <utils/options/OptionsCont.h>
 
 
@@ -92,6 +93,10 @@ void
 MSTransportableControl::erase(MSTransportable* transportable) {
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
         transportable->tripInfoOutput(OutputDevice::getDeviceByOption("tripinfo-output"));
+    } else if (OptionsCont::getOptions().getBool("duration-log.statistics")){
+        // collecting statistics is a sideffect
+        OutputDevice_String dev;
+        transportable->tripInfoOutput(dev);
     }
     if (OptionsCont::getOptions().isSet("vehroute-output")) {
         transportable->routeOutput(OutputDevice::getDeviceByOption("vehroute-output"));
