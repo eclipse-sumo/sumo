@@ -88,6 +88,8 @@ set(netedit_SRCS
    GNECrossingFrame.cpp
    GNEDeleteFrame.h
    GNEDeleteFrame.cpp
+   GNEPolygonFrame.h
+   GNEPolygonFrame.cpp
    GNEAdditionalHandler.h
    GNEAdditionalHandler.cpp
    GNEAdditional.h

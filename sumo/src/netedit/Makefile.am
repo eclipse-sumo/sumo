@@ -58,6 +58,7 @@ GNETLSEditorFrame.h GNETLSEditorFrame.cpp \
 GNEAdditionalFrame.h GNEAdditionalFrame.cpp \
 GNECrossingFrame.h GNECrossingFrame.cpp \
 GNEDeleteFrame.h GNEDeleteFrame.cpp \
+GNEPolygonFrame.h \ GNEPolygonFrame.cpp
 GNEAdditionalHandler.h GNEAdditionalHandler.cpp \
 GNEAdditional.h GNEAdditional.cpp \
 GNEShape.h GNEShape.cpp \

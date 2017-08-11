@@ -372,6 +372,9 @@
     <ClCompile Include="..\..\..\src\netedit\GNEDialog_FixAdditionalPositions.cpp">
       <Filter>Quellcodedateien\Dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEPolygonFrame.cpp">
+      <Filter>Quellcodedateien\Frames</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -618,6 +621,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEDialog_FixAdditionalPositions.h">
       <Filter>Header-Dateien\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEPolygonFrame.h">
+      <Filter>Header-Dateien\Frames</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

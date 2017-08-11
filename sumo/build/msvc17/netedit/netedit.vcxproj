@@ -184,6 +184,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNENetElement.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEPOI.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEPoly.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEPolygonFrame.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEProhibition.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNERerouter.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNERerouterDialog.cpp" />
@@ -269,6 +270,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNENetElement.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEPOI.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEPoly.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEPolygonFrame.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEProhibition.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEReferenceCounter.h" />
     <ClInclude Include="..\..\..\src\netedit\GNERerouter.h" />
