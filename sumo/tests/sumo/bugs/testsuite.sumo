@@ -1,8 +1,5 @@
-# Time which the vehicle's front spends on a lane is computed wrongly
-ticket2556
-
-# (Copy of overtake_stopped_on_the_left) with subsecond step-length
-ticket2603
+# Tests for ticket#19 (teleports)
+ticket19
 
 # platform dependent bug related to lanechanging and maybe floating point
 lanechange
@@ -22,14 +19,7 @@ ticket73
 # Tests for ticket#139 (crash when overwriting default type with a distribution)
 ticket139
 
-# Tests for ticket#235 (simulation breaks on routes with one edge)
-ticket235
 
-# Tests for ticket#19 (teleports)
-ticket19
-
-# Tests for ticket#331 (vehicles are inserted beyond the lane's end)
-ticket331
 collision
 
 # collision of long vehicles
@@ -46,6 +36,13 @@ right_before_left_deadlock
 
 # Test for ticket#218 (using the given order of bus stops)
 ticket218
+
+# Tests for ticket#235 (simulation breaks on routes with one edge)
+ticket235
+
+# Tests for ticket#331 (vehicles are inserted beyond the lane's end)
+ticket331
+
 ticket376
 
 # The following deadlock should be detected and resolved:
@@ -137,6 +134,9 @@ ticket941
 ticket963
 ticket967
 
+# meandata on circular nets
+ticket1032
+
 # vehicles stop to help other vehicles to change langes even though they are 500 meters apart
 ticket1044
 
@@ -155,17 +155,27 @@ ticket1096
 ticket1096b
 ticket1096c
 ticket1097
+
+# at revision 16874 this test showcases ticket #1400 (vehicles intersect physically but no collision warning is issued).
+ticket1107
+
 ticket1114
 ticket1217
 ticket1223
+
+# testing stopping to the point: vehicle should come to halt exactly at pos=25
+ticket1224
+
 ticket1273
 
 # Wiedemann model collision
 ticket1351
 
-# at revision 16874 this test showcases ticket #1400 (vehicles intersect physically but no collision warning is issued).
-ticket1107
 ticket1402
+
+# meandata with teleports
+ticket1452
+
 ticket1520
 ticket1539
 ticket1549
@@ -180,6 +190,7 @@ ticket1591
 ticket1641
 ticket1698
 ticket1804
+ticket1845
 ticket1861
 ticket1861b
 ticket1869
@@ -188,15 +199,6 @@ ticket2087
 # Copy of ticket2087
 ticket2109
 ticket2201
-
-# meandata on circular nets
-ticket1032
-
-# meandata with teleports
-ticket1452
-
-# testing stopping to the point: vehicle should come to halt exactly at pos=25
-ticket1224
 
 # program crash when overtaking is combined with continuous lanechange
 # 
@@ -217,7 +219,12 @@ ticket2543
 
 # StopSpeed returns a too low value for the euler update in case of insertion
 ticket2574
-ticket1845
+
+# Time which the vehicle's front spends on a lane is computed wrongly
+ticket2556
+
+# (Copy of overtake_stopped_on_the_left) with subsecond step-length
+ticket2603
 
 # Copy of ticket1845
 ticket2670
@@ -252,3 +259,4 @@ ticket3258
 
 # The long vehicle on the short lane should not imply density values larger than the inverse of its length. (The bug resolution uses the inverse of the minimal observed length for passing vehicles to bound the output value.)
 ticket3265
+
