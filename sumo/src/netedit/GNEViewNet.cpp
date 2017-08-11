@@ -70,6 +70,7 @@
 #include "GNETLSEditorFrame.h"
 #include "GNEAdditionalFrame.h"
 #include "GNECrossingFrame.h"
+#include "GNEPolygonFrame.h"
 #include "GNEDeleteFrame.h"
 #include "GNEAdditionalHandler.h"
 #include "GNEPoly.h"
@@ -93,6 +94,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_TLS,                GNEViewNet::onCmdSetModeTLS),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONAL,         GNEViewNet::onCmdSetModeAdditional),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_CROSSING,           GNEViewNet::onCmdSetModeCrossing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON,            GNEViewNet::onCmdSetModePolygon),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SPLIT_EDGE,              GNEViewNet::onCmdSplitEdge),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SPLIT_EDGE_BIDI,         GNEViewNet::onCmdSplitEdgeBidi),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_REVERSE_EDGE,            GNEViewNet::onCmdReverseEdge),
@@ -158,6 +160,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditModeTrafficLight(0),
     myEditModeAdditional(0),
     myEditModeCrossing(0),
+    myEditModePolygon(0),
     myEditModeNames(),
     myUndoList(undoList),
     myCurrentPoly(0),
@@ -992,6 +995,9 @@ GNEViewNet::setEditModeFromHotkey(FXushort selid) {
         case MID_GNE_MODE_CROSSING:
             setEditMode(GNE_MODE_CROSSING);
             break;
+        case MID_GNE_MODE_POLYGON:
+            setEditMode(GNE_MODE_POLYGON);
+            break;
         default:
             throw ProcessError("invalid edit mode called by hotkey");
             break;
@@ -1184,6 +1190,13 @@ GNEViewNet::onCmdSetModeAdditional(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdSetModeCrossing(FXObject*, FXSelector, void*) {
     setEditMode(GNE_MODE_CROSSING);
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdSetModePolygon(FXObject*, FXSelector, void*) {
+    setEditMode(GNE_MODE_POLYGON);
     return 1;
 }
 
@@ -1841,12 +1854,13 @@ GNEViewNet::buildEditModeControls() {
     myEditModeNames.insert("(t) Traffic Lights", GNE_MODE_TLS);
     myEditModeNames.insert("(a) Additionals", GNE_MODE_ADDITIONAL);
     myEditModeNames.insert("(r) Crossings", GNE_MODE_CROSSING);
+    myEditModeNames.insert("(p) Polygons", GNE_MODE_POLYGON);
 
     // initialize buttons for modes
     myEditModeCreateEdge = new MFXCheckableButton(false, myToolbar, "\tset create edge mode\tMode for creating junction and edges.",
             GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), this, MID_GNE_MODE_CREATE_EDGE, GUIDesignButtonToolbarCheckable);
     myEditModeMove = new MFXCheckableButton(false, myToolbar, "\tset move mode\tMode for move elements.",
-                                            GUIIconSubSys::getIcon(ICON_MODEMOVE), this, MID_GNE_MODE_MOVE, GUIDesignButtonToolbarCheckable);
+            GUIIconSubSys::getIcon(ICON_MODEMOVE), this, MID_GNE_MODE_MOVE, GUIDesignButtonToolbarCheckable);
     myEditModeDelete = new MFXCheckableButton(false, myToolbar, "\tset delete mode\tMode for delete elements.",
             GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_MODE_DELETE, GUIDesignButtonToolbarCheckable);
     myEditModeInspect = new MFXCheckableButton(false, myToolbar, "\tset inspect mode\tMode for inspect elements and change their attributes.",
@@ -1861,6 +1875,8 @@ GNEViewNet::buildEditModeControls() {
             GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), this, MID_GNE_MODE_ADDITIONAL, GUIDesignButtonToolbarCheckable);
     myEditModeCrossing = new MFXCheckableButton(false, myToolbar, "\tset crossing mode\tMode for creating crossings between edges.",
             GUIIconSubSys::getIcon(ICON_MODECROSSING), this, MID_GNE_MODE_CROSSING, GUIDesignButtonToolbarCheckable);
+    myEditModePolygon = new MFXCheckableButton(false, myToolbar, "\tset polygon mode\tMode for creating polygons and POIs.",
+            GUIIconSubSys::getIcon(ICON_MODEPOLYGON), this, MID_GNE_MODE_POLYGON, GUIDesignButtonToolbarCheckable);
 
     // @ToDo add here new FXToolBarGrip(myNavigationToolBar, NULL, 0, GUIDesignToolbarGrip);
 
@@ -1917,6 +1933,7 @@ GNEViewNet::updateModeSpecificControls() {
     myEditModeTrafficLight->setChecked(false);
     myEditModeAdditional->setChecked(false);
     myEditModeCrossing->setChecked(false);
+    myEditModePolygon->setChecked(false);
     myViewParent->hideAllFrames();
     // enable selected controls
     switch (myEditMode) {
@@ -1984,6 +2001,12 @@ GNEViewNet::updateModeSpecificControls() {
             myEditModeCrossing->setChecked(true);
             myMenuCheckShowGrid->setCheck(false);
             break;
+        case GNE_MODE_POLYGON:
+            myViewParent->getPolygonFrame()->show();
+            myViewParent->getPolygonFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getPolygonFrame();
+            myEditModePolygon->setChecked(true);
+            myMenuCheckShowGrid->show();
         default:
             break;
     }

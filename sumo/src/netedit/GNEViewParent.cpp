@@ -64,7 +64,7 @@
 #include "GNEAdditionalFrame.h"
 #include "GNECrossingFrame.h"
 #include "GNEDeleteFrame.h"
-
+#include "GNEPolygonFrame.h"
 
 
 // ===========================================================================
@@ -138,6 +138,7 @@ GNEViewParent::GNEViewParent(
     myGNEFrames[MID_GNE_MODE_ADDITIONAL] = new GNEAdditionalFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_MODE_CROSSING] = new GNECrossingFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_MODE_DELETE] = new GNEDeleteFrame(myFramesArea, viewNet);
+    myGNEFrames[MID_GNE_MODE_POLYGON] = new GNEPolygonFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(0, 0, 0);
@@ -161,7 +162,7 @@ GNEViewParent::~GNEViewParent() {
 
 void
 GNEViewParent::hideAllFrames() {
-    for (std::map<int, GNEFrame*>::iterator i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
+    for (auto i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
         i->second->hide();
     }
 }
@@ -208,11 +209,16 @@ GNEViewParent::getDeleteFrame() const {
 }
 
 
+GNEPolygonFrame*
+GNEViewParent::getPolygonFrame() const {
+    return dynamic_cast<GNEPolygonFrame*>(myGNEFrames.at(MID_GNE_MODE_POLYGON));
+}
+
 void
 GNEViewParent::showFramesArea() {
     bool showFlag = false;
     // Iterate over GNEFrames
-    for (std::map<int, GNEFrame*>::iterator i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
+    for (auto i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
         // if at least one frame is shown, change showFlag
         if (i->second->shown()) {
             showFlag = true;
@@ -230,7 +236,7 @@ void
 GNEViewParent::hideFramesArea() {
     bool hideFlag = true;
     // Iterate over frames
-    for (std::map<int, GNEFrame*>::iterator i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
+    for (auto i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
         // if at least one frame is shown,  change hideflag
         if (i->second->shown()) {
             hideFlag = false;
@@ -371,7 +377,7 @@ GNEViewParent::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
 
 long
 GNEViewParent::onCmdUpdateFrameAreaWidth(FXObject*, FXSelector, void*) {
-    for (std::map<int, GNEFrame*>::iterator i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
+    for (auto i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
         // update size of all GNEFrame
         i->second->setFrameWidth(myFramesArea->getWidth());
     }

@@ -140,6 +140,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_ADDITIONAL,            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_CROSSING,              GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_CROSSING,              GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_POLYGON,               GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_POLYGON,               GNEApplicationWindow::onUpdNeedsNetwork),
 
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_NETWORK,               GNEApplicationWindow::onCmdSaveNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_NETWORK,               GNEApplicationWindow::onUpdSaveNetwork),
@@ -269,6 +271,7 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(parseAccel("t"), this, FXSEL(SEL_COMMAND, MID_GNE_MODE_TLS));
     getAccelTable()->addAccel(parseAccel("a"), this, FXSEL(SEL_COMMAND, MID_GNE_MODE_ADDITIONAL));
     getAccelTable()->addAccel(parseAccel("r"), this, FXSEL(SEL_COMMAND, MID_GNE_MODE_CROSSING));
+    getAccelTable()->addAccel(parseAccel("p"), this, FXSEL(SEL_COMMAND, MID_GNE_MODE_POLYGON));
     getAccelTable()->addAccel(parseAccel("Esc"), this, FXSEL(SEL_COMMAND, MID_GNE_ABORT));
     getAccelTable()->addAccel(parseAccel("Del"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_DEL));
     getAccelTable()->addAccel(parseAccel("Enter"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ENTER));
@@ -468,6 +471,9 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myEditMenu,
                       "C&rossing mode\tR\tCreate crossings between edges.",
                       GUIIconSubSys::getIcon(ICON_MODECROSSING), this, MID_GNE_MODE_CROSSING);
+    new FXMenuCommand(myEditMenu,
+                      "&Poligon mode\tP\tCreate polygons and POIs.",
+                      GUIIconSubSys::getIcon(ICON_MODEPOLYGON), this, MID_GNE_MODE_POLYGON);
 
     /*
     new FXMenuSeparator(myEditMenu);

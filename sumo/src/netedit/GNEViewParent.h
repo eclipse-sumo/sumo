@@ -55,6 +55,7 @@ class GNETLSEditorFrame;
 class GNEAdditionalFrame;
 class GNECrossingFrame;
 class GNEDeleteFrame;
+class GNEPolygonFrame;
 
 // ===========================================================================
 // class declarations
@@ -121,6 +122,9 @@ public:
 
     /// @brief get frame for GNE_MODE_DELETE
     GNEDeleteFrame* getDeleteFrame() const;
+
+    /// @brief get frame for GNE_MODE_POLYGON
+    GNEPolygonFrame* getPolygonFrame() const;
 
     /// @brief show frames area if at least a GNEFrame is showed
     /// @note this function is called in GNEFrame::Show();
