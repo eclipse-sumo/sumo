@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 11 11:15:31 2017 by SUMO Version dev-SVN-r25549
+<!-- generated on Fri Aug 11 12:30:59 2017 by SUMO Version dev-SVN-r25549
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -30,18 +30,18 @@
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="v0" depart="18.00" departLane="SC_1" departPos="60.00" departSpeed="0.00" departDelay="0.00" arrival="38.00" arrivalLane="CN_1" arrivalPos="90.45" arrivalSpeed="13.89" duration="20.00" routeLength="140.00" waitSteps="3" timeLoss="9.00" rerouteNo="0" devices="tripinfo_v0" vType="t1" speedFactor="1.00" vaporized=""/>
     <personinfo id="blocker" depart="18.00">
-        <walk arrival="43.00"/>
+        <walk arrival="44.00"/>
     </personinfo>
     <personinfo id="p0" depart="10.00">
-        <walk arrival="99.00"/>
+        <walk arrival="100.00"/>
     </personinfo>
     <personinfo id="p1" depart="11.00">
         <walk arrival="102.00"/>
     </personinfo>
     <personinfo id="p3" depart="13.00">
-        <walk arrival="103.00"/>
+        <walk arrival="102.00"/>
     </personinfo>
     <personinfo id="p2" depart="12.00">
-        <walk arrival="103.00"/>
+        <walk arrival="102.00"/>
     </personinfo>
 </tripinfos>
