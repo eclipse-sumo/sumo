@@ -87,13 +87,13 @@
 // ===========================================================================
 // debug defines
 // ===========================================================================
-//#define DEBUG_PATCH_SPEED
-//#define DEBUG_INFORMED
-//#define DEBUG_INFORMER
-//#define DEBUG_CONSTRUCTOR
-//#define DEBUG_WANTS_CHANGE
-//#define DEBUG_SLOW_DOWN
-//#define DEBUG_SAVE_BLOCKER_LENGTH
+#define DEBUG_PATCH_SPEED
+#define DEBUG_INFORMED
+#define DEBUG_INFORMER
+#define DEBUG_CONSTRUCTOR
+#define DEBUG_WANTS_CHANGE
+#define DEBUG_SLOW_DOWN
+#define DEBUG_SAVE_BLOCKER_LENGTH
 
 //#define DEBUG_COND (myVehicle.getID() == "disabled")
 #define DEBUG_COND (myVehicle.isSelected())
@@ -1469,54 +1469,52 @@ MSLCM_LC2013::_wantsChange(
 
     double neighLaneVSafe = neighLane.getVehicleMaxSpeed(&myVehicle);
 
-    /* First attempt to fix #2126
-     * should rather be considering anticipated speeds further in the future, maybe combined with maximal speed as tried here
-    if (neighLead.first == 0) {
-        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(neighDist, myVehicle.getSpeed(),true));
-    } else {
-        // @todo: what if leader is below safe gap?!!!
-        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.maximumSafeFollowSpeed(neighLead.second, myVehicle.getSpeed(),
-                neighLead.first->getSpeed(),neighLead.first->getCarFollowModel().getMaxDecel(),true));
-    }
-    if (leader.first == 0) {
-        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(currentDist, myVehicle.getSpeed(),true));
-    } else {
-        // @todo: what if leader is below safe gap?!!!
-        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeFollowSpeed(leader.second, myVehicle.getSpeed(),
-                leader.first->getSpeed(),leader.first->getCarFollowModel().getMaxDecel(),true));
-    }
-    */
+    // we wish to anticipate future speeds. This is difficult when the leading
+    // vehicles are still accelerating so we resort to comparing next speeds in this case
+    const bool acceleratingLeader = (neighLead.first != 0 && neighLead.first->getAcceleration() > 0 
+            || leader.first != 0 && leader.first->getAcceleration() > 0);  
 
-    const double correctedSpeed = (myVehicle.getSpeed() + myVehicle.getCarFollowModel().getMaxAccel()
-                                   - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxAccel()));
-    if (neighLead.first == 0) {
-        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, neighDist, 0, 0));
+    if (acceleratingLeader) {
+        // followSpeed allows acceleration for 1 step, to always compare speeds
+        // after 1 second of acceleration we have call the function with a correct speed value
+        const double correctedSpeed = (myVehicle.getSpeed() + myVehicle.getCarFollowModel().getMaxAccel()
+                - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxAccel()));
+
+        if (neighLead.first == 0) {
+            neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, neighDist, 0, 0));
+        } else {
+            neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(
+                        &myVehicle, correctedSpeed, neighLead.second, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()));
+        }
+        if (leader.first == 0) {
+            thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, currentDist, 0, 0));
+        } else {
+            thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(
+                        &myVehicle, correctedSpeed, leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
+        }
     } else {
-        // @todo: what if leader is below safe gap?!!!
-        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(
-                                  &myVehicle, correctedSpeed, neighLead.second, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()));
+        if (neighLead.first == 0) {
+            neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(neighDist, myVehicle.getSpeed(),true));
+        } else {
+            neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.maximumSafeFollowSpeed(neighLead.second, myVehicle.getSpeed(),
+                        neighLead.first->getSpeed(),neighLead.first->getCarFollowModel().getMaxDecel(),true));
+        }
+        if (leader.first == 0) {
+            thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(currentDist, myVehicle.getSpeed(),true));
+        } else {
+            thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeFollowSpeed(leader.second, myVehicle.getSpeed(),
+                        leader.first->getSpeed(),leader.first->getCarFollowModel().getMaxDecel(),true));
+        }
     }
-    if (leader.first == 0) {
-        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, currentDist, 0, 0));
-    } else {
-        // @todo: what if leader is below safe gap?!!!
-        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(
-                                 &myVehicle, correctedSpeed, leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
-    }
+
     if (neighLane.getEdge().getPersons().size() > 0) {
         // react to pedestrians
         adaptSpeedToPedestrians(myVehicle.getLane(), thisLaneVSafe);
         adaptSpeedToPedestrians(&neighLane, neighLaneVSafe);
     }
 
-    thisLaneVSafe = MIN2(thisLaneVSafe, vMax);
-    neighLaneVSafe = MIN2(neighLaneVSafe, vMax);
     const double relativeGain = (neighLaneVSafe - thisLaneVSafe) / MAX2(neighLaneVSafe,
                                 RELGAIN_NORMALIZATION_MIN_SPEED);
-
-//    // maybe this (acceleration-difference) would be a good quantity to take into account for lc-considerations..., refs. #2126
-//    const double accelDifference = ACCEL2SPEED(neighLaneVSafe - thisLaneVSafe);
-
 
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
@@ -1524,9 +1522,9 @@ MSLCM_LC2013::_wantsChange(
                   << " veh=" << myVehicle.getID()
                   << " currentDist=" << currentDist
                   << " neighDist=" << neighDist
-//                  << "\n thisLaneVSafe=" << toString(thisLaneVSafe,24)
-//                  << "\nneighLaneVSafe=" << toString(neighLaneVSafe,24)
-//                  << "\nrelativeGain=" << toString(relativeGain,24)
+                  << " thisVSafe=" << thisLaneVSafe
+                  << " neighVSafe=" << neighLaneVSafe
+                  << " relGain=" << toString(relativeGain, 8)
                   << "\n";
     }
 #endif
@@ -1629,6 +1627,7 @@ MSLCM_LC2013::_wantsChange(
         }
     } else {
         // ONLY FOR CHANGING TO THE LEFT
+        //if (thisLaneVSafe + NUMERICAL_EPS > neighLaneVSafe) {
         if (thisLaneVSafe > neighLaneVSafe) {
             // this lane is better
             if (mySpeedGainProbability > 0) {
