@@ -2119,6 +2119,7 @@ NBNode::buildCrossings() {
     int index = 0;
     for (auto c : myCrossings) {
         c->valid = true;
+        c->tlID = ""; // reset for Netedit, set via setCrossingTLIndices()
         c->id = ":" + getID() + "_c" + toString(index++);
         // reset fields, so repeated computation (Netedit) will sucessfully perform the checks
         // in buildWalkingAreas (split crossings) and buildInnerEdges (sanity check)
