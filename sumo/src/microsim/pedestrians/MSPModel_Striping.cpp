@@ -649,6 +649,14 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
                     obs[otherStripe] = pObs;
                 }
             }
+            if (nextLane->getEdge().isCrossing()) {
+                // add vehicle obstacles
+                double lateral_offset = (lane->getWidth() - stripeWidth) * 0.5;
+                if ((stripes - nextStripes) % 2 != 0) {
+                    lateral_offset += 0.5 * stripeWidth;
+                }
+                addCrossingVehs(nextLane, stripes, lateral_offset, nextDir, obs);
+            }
             transformToCurrentLanePositions(obs, currentDir, nextDir, currentLength, nextLength);
         }
         nextLanesObs[nextLane] = obs;
@@ -803,42 +811,10 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
     NextLanesObstacles nextLanesObs; // continously updated
     sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(dir));
 
-    Obstacles crossingVehs(stripes, Obstacle(dir)); // continously updated
+    Obstacles crossingVehs(stripes, Obstacle(dir));
     bool hasCrossingVehObs = false;
     if (lane->getEdge().isCrossing()) {
-        // react to vehicles driving across
-        const MSLink::LinkLeaders linkLeaders = lane->getLinkCont().front()->getLeaderInfo(0, lane->getLength());
-        if (linkLeaders.size() > 0) {
-            for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
-                // the vehicle to enter the junction first has priority
-                const MSVehicle* veh = (*it).vehAndGap.first;
-                if (veh != 0) {
-                    // XXX add/subtract lateral offset to relX depending on direction
-                    Obstacle vo((*it).distToCrossing, 0, veh->getID(), veh->getVehicleType().getWidth() + 2 * MINGAP_TO_VEHICLE, true);
-                    // relY increases from left to right (the other way around from vehicles)
-                    const double vehYmin = -(*it).vehAndGap.second;
-                    const double vehYmax = vehYmin + veh->getVehicleType().getLength();
-                    for (int s = MAX2(0, PState::stripe(vehYmin)); s < MIN2(PState::stripe(vehYmax), stripes); ++s) {
-                        crossingVehs[s] = vo;
-                        hasCrossingVehObs = true;
-                    }
-                    //if (SIMTIME == 329 && lane->getID() == ":51_c2_0") {
-                    //    std::cout << SIMTIME 
-                    //        << " lane=" << lane->getID() 
-                    //        << " crossingVeh=" << veh->getID() 
-                    //        << " dist=" << (*it).distToCrossing 
-                    //        << " gap=" << (*it).vehAndGap.second 
-                    //        << " ymin=" << vehYmin
-                    //        << " ymax=" << vehYmax
-                    //        << " stripes=" << stripes
-                    //        << " smin=" << PState::stripe(vehYmin)
-                    //        << " smax=" << PState::stripe(vehYmax)
-                    //        << "\n";
-                    //    DEBUG_PRINT(crossingVehs);
-                    //}
-                }
-            }
-        }
+        hasCrossingVehObs = addCrossingVehs(lane, stripes, 0, dir, crossingVehs);
     }
 
     for (int ii = 0; ii < (int)pedestrians.size(); ++ii) {
@@ -895,9 +871,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         if (link != 0
                 // only check close before junction, @todo we should take deceleration into account here
                 && dist - p.getMinGap() < LOOKAHEAD_SAMEDIR * speed
-                && (!link->opened(currentTime, speed, speed, p.getLength(), p.getImpatience(currentTime), speed, 0, 0, 0, p.ignoreRed(link))
-                    // @todo check for presence of vehicles blocking the path
-                   )) {
+                && !link->opened(currentTime, speed, speed, p.getLength(), p.getImpatience(currentTime), speed, 0, 0, 0, p.ignoreRed(link))) {
             // prevent movement passed a closed link
             Obstacles closedLink(stripes, Obstacle(p.myRelX + dir * (dist + NUMERICAL_EPS), 0, "closedLink_" + link->getViaLaneOrLane()->getID(), 0, true));
             p.mergeObstacles(currentObs, closedLink);
@@ -1004,6 +978,49 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
     }
 }
 
+bool 
+MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double lateral_offset, int dir, Obstacles& obs) {
+    bool hasCrossingVehObs = false;
+    const MSLink::LinkLeaders linkLeaders = crossing->getLinkCont().front()->getLeaderInfo(0, crossing->getLength());
+    if (linkLeaders.size() > 0) {
+        for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
+            // the vehicle to enter the junction first has priority
+            const MSVehicle* veh = (*it).vehAndGap.first;
+            if (veh != 0) {
+                // XXX add/subtract lateral offset to relX depending on direction
+                Obstacle vo((*it).distToCrossing, 0, veh->getID(), veh->getVehicleType().getWidth() + 2 * MINGAP_TO_VEHICLE, true);
+                // relY increases from left to right (the other way around from vehicles)
+                const double vehYmin = -(*it).vehAndGap.second + lateral_offset;
+                const double vehYmax = vehYmin + veh->getVehicleType().getLength();
+                for (int s = MAX2(0, PState::stripe(vehYmin)); s < MIN2(PState::stripe(vehYmax), stripes); ++s) {
+                    if ((dir == FORWARD && obs[s].xBack > vo.xBack)
+                            || (dir == BACKWARD && obs[s].xFwd < vo.xFwd)) {
+                        obs[s] = vo;
+                        hasCrossingVehObs = true;
+                    }
+                }
+                /*
+                if (true || (SIMTIME == 329 && crossing->getID() == ":51_c2_0")) {
+                    std::cout << SIMTIME 
+                        << " lane=" << crossing->getID() 
+                        << " crossingVeh=" << veh->getID() 
+                        << " dist=" << (*it).distToCrossing 
+                        << " gap=" << (*it).vehAndGap.second 
+                        << " ymin=" << vehYmin
+                        << " ymax=" << vehYmax
+                        << " stripes=" << stripes
+                        << " dir=" << dir
+                        << " smin=" << PState::stripe(vehYmin)
+                        << " smax=" << PState::stripe(vehYmax)
+                        << "\n";
+                    DEBUG_PRINT(obs);
+                }
+                */
+            }
+        }
+    }
+    return hasCrossingVehObs;
+}
 
 // ===========================================================================
 // MSPModel_Striping::Obstacle method definitions

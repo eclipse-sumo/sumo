@@ -757,6 +757,11 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         // (which was subtracted in setRequestInformation)
                         // Instead, the width of the foe vehicle is used directly by the caller.
                         distToCrossing += foeLane->getWidth() / 2;
+                        if (gap + foeCrossingWidth < 0) {
+                            // leader is completely past the crossing point
+                            // or there is no crossing point
+                            continue; // next vehicle
+                        }
                     } else if ((contLane && !sameSource) || isOpposite) {
                         gap = -1; // always break for vehicles which are on a continuation lane or for opposite-direction vehicles
                     } else {
