@@ -1345,7 +1345,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     }
     // adapt utility based on obstacles
     for (int i = 0; i < stripes; ++i) {
-        if (obs[i].speed < 0) {
+        if (obs[i].speed * myDir < 0) {
             // penalize evasion to the left
             if (myDir == FORWARD && i > 0) {
                 utility[i - 1] -= 0.5;
