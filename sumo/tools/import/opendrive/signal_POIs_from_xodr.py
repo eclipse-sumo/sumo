@@ -196,7 +196,7 @@ if __name__ == "__main__":
     #edge_sel = edge_df['rd_ref'].apply(lambda s:road_id in s)
     # xsd: every edge must have at least 1 lane
     # lanes matching the road-id
-    lane_id_sel = np.fromiter(map(lambda s: '26001000016' in s, lane_ra.rd_ref), 
+    lane_id_sel = np.fromiter(map(lambda s: road_id in s, lane_ra.rd_ref), 
                               np.dtype(bool))
 
     # got to find right lanes:laneSection 
