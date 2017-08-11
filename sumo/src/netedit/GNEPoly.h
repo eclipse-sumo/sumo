@@ -52,7 +52,7 @@ class GNEJunction;
 class GNEPoly : public GUIPolygon, public GNEShape {
 
 public:
-
+    /// @brief needed to avoid diamond Problem between GUIPolygon and GNEShape
     using GNEShape::getID;
 
     /** @brief Constructor
@@ -168,7 +168,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
     
     /// @brief Invalidated copy constructor.
-    GNEPoly(const GNEPoly&);
+    GNEPoly(const GNEPoly&) = delete;
 
     /// @brief Invalidated assignment operator.
     GNEPoly& operator=(const GNEPoly&) = delete;
