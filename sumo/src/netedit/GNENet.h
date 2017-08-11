@@ -78,6 +78,8 @@ class GNEDetectorE3;
 class GNEDetectorE3EntryExit;
 class GNEConnection;
 class GNECrossing;
+class GNEPoly;
+class GNEPOI;
 
 // ===========================================================================
 // class definitions
@@ -533,7 +535,7 @@ public:
     /// @brief Check if exist a flow with these ID
     bool flowExists(const std::string& flowID) const;
 
-    /** @brief Builds a polygon using the given values and adds it to the container
+    /** @brief Builds a polygon using the given values. Will not be added to container
      * @param[in] id The name of the polygon
      * @param[in] type The (abstract) type of the polygon
      * @param[in] color The color of the polygon
@@ -548,6 +550,12 @@ public:
                     const RGBColor& color, double layer,
                     double angle, const std::string& imgFile,
                     const PositionVector& shape, bool fill, bool ignorePruning = false);
+
+    /// @brief insert created in addPolygon polygon in view
+    void insertPolygonInView(GNEPoly *p);
+
+    /// @brief remove polygon of  view
+    void removePolygonOfView(GNEPoly *p);
 
     /** @brief Builds a POI using the given values and adds it to the container
      * @param[in] id The name of the POI
@@ -564,6 +572,12 @@ public:
     bool addPOI(const std::string& id, const std::string& type,
                 const RGBColor& color, double layer, double angle, const std::string& imgFile,
                 const Position& pos, double width, double height, bool ignorePruning = false);
+
+    /// @brief insert created in addPOI POI into net
+    void insertPOIInView(GNEPOI *p);
+
+    /// @brief remove polygon of  view
+    void removePOIOfView(GNEPOI *p);
 
     /** @brief Removes a polygon from the container
      * @param[in] id The id of the polygon

@@ -51,6 +51,9 @@ class GeoConvHelper;
 class GNEPoly : public GUIPolygon, public GNEShape {
 
 public:
+
+    using GNEShape::getID;
+
     /** @brief Constructor
      * @param[in] net net in which this polygon is placed
      * @param[in] junction optional junction in which this polygon is placed
@@ -167,7 +170,7 @@ private:
     GNEPoly(const GNEPoly&);
 
     /// @brief Invalidated assignment operator.
-    GNEPoly& operator=(const GNEPoly&);
+    GNEPoly& operator=(const GNEPoly&) = delete;
 };
 
 

@@ -138,7 +138,7 @@ private:
     GNEShape(const GNEShape&);
 
     /// @brief Invalidated assignment operator.
-    GNEShape& operator=(const GNEShape&);
+    GNEShape& operator=(const GNEShape&) = delete;
 };
 
 
