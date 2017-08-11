@@ -450,6 +450,8 @@ enum {
     MID_GNE_MODE_ADDITIONAL,
     /// @brief mode for editing crossing
     MID_GNE_MODE_CROSSING,
+    /// @brief mode for creating polygons
+    MID_GNE_MODE_POLYGON,
     /// @}
 
 

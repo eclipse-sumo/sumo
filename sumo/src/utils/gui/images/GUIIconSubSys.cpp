@@ -329,6 +329,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_MODEMOVE] = new FXXPMIcon(a, modemove_xpm);
     myIcons[ICON_MODESELECT] = new FXXPMIcon(a, modeselect_xpm);
     myIcons[ICON_MODETLS] = new FXXPMIcon(a, modetrafficlight_xpm);
+    myIcons[ICON_MODEPOLYGON] = new FXXPMIcon(a, locate_poi_xpm);   // TEMPORAL, Icon has to be chagned
 
     myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
     myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);
