@@ -126,7 +126,7 @@ districts:districts.xml
 [run_dependent_text]
 output:Begin time
 output:End time
-output:uration:
+output:uration:.*ms
 output:<!-- generated on
 output:.* files checked{REPLACE <number> files checked}
 output:^calling.*duarouter
