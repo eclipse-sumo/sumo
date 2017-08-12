@@ -618,5 +618,8 @@
     <None Include="..\..\..\src\utils\gui\images\sumo.xpm">
       <Filter>Icons</Filter>
     </None>
+    <None Include="..\..\..\src\utils\gui\images\modepolygon.xpm">
+      <Filter>Icons\Netedit_modes</Filter>
+    </None>
   </ItemGroup>
 </Project>

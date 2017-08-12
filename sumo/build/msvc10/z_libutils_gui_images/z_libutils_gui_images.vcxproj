@@ -212,6 +212,7 @@
     <None Include="..\..\..\src\utils\gui\images\modedelete.xpm" />
     <None Include="..\..\..\src\utils\gui\images\modeinspect.xpm" />
     <None Include="..\..\..\src\utils\gui\images\modemove.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\modepolygon.xpm" />
     <None Include="..\..\..\src\utils\gui\images\modeselect.xpm" />
     <None Include="..\..\..\src\utils\gui\images\modetrafficlight.xpm" />
     <None Include="..\..\..\src\utils\gui\images\green_edge.xpm" />
