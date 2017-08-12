@@ -72,15 +72,17 @@ public:
         return (var == true ? "true" : "false");
     }
 
-    /// @brief converts a 0-terminated char-type array into std::string
-    /// @throw an EmptyData - exception if the given pointer is 0
+    /**@brief converts a 0-terminated char-type array into std::string
+     * @throw an EmptyData - exception if the given pointer is 0
+     */
     template<class E>
     static inline std::string _2str(const E* const data) {
         return _2str(data, getLength(data));
     }
 
-    /// @brief converts a 0-terminated char array into std::string
-    /// @throw an EmptyData - exception if the given pointer is 0
+    /**@brief converts a 0-terminated char array into std::string
+     * @throw an EmptyData - exception if the given pointer is 0
+     */
     static inline std::string _2str(const char* const data) {
         if (data == 0) {
             throw EmptyData();
@@ -88,8 +90,9 @@ public:
         return std::string(data);
     }
 
-    /// @brief converts a char-type array into std::string considering the given length
-    /// @throw an EmptyData - exception if the given pointer is 0
+    /**@brief converts a char-type array into std::string considering the given length
+     * @throw an EmptyData - exception if the given pointer is 0
+     */
     template<class E>
     static inline std::string _2str(const E* const data, int length) {
         if (data == 0) {
@@ -113,8 +116,9 @@ public:
         return ret;
     }
 
-    /// @brief converts a char array into std::string considering the given length
-    /// @throw an EmptyData - exception if the given pointer is 0 */
+    /**@brief converts a char array into std::string considering the given length
+     * @throw an EmptyData - exception if the given pointer is 0
+     */
     static inline std::string _2str(const char* const data, int length) {
         if (data == 0) {
             throw EmptyData();
@@ -122,15 +126,17 @@ public:
         return std::string(data, length);
     }
 
-    /// @brief converts a 0-terminated char-type array into std::string
-    /// @return the default value if the data is empty
+    /**@brief converts a 0-terminated char-type array into std::string
+     * @return the default value if the data is empty
+     */
     template<class E>
     static std::string _2strSec(const E* const data, const std::string& def) {
         return _2strSec(data, getLength(data), def);
     }
 
-    /// @brief converts a char-type array into std::string considering the given length
-    /// @return returns the default value if the data is empty
+    /**@brief converts a char-type array into std::string considering the given length
+     * @return returns the default value if the data is empty
+     */
     template<class E>
     static std::string _2strSec(const E* const data, int length, const std::string& def) {
         if (data == 0 || length == 0) {
@@ -142,9 +148,10 @@ public:
 
     /// @name Conversion to basic type int
     //@{
-    /// @brief converts a char-type array into the integer value described by it
-    /// @throw an EmptyData - exception if the given string is empty
-    /// @throw a NumberFormatException - exception when the string does not contain an integer
+    /**@brief converts a char-type array into the integer value described by it
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw a NumberFormatException - exception when the string does not contain an integer
+     */
     template<class E>
     static int _2int(const E* const data) {
         long long int result = _2long(data);
@@ -154,16 +161,18 @@ public:
         return (int)result;
     }
 
-    /// @brief converts a string into the integer value described by it by calling the char-type converter, which
-    /// @throw an EmptyData - exception if the given string is empty
-    /// @throw NumberFormatException - exception when the string does not contain an integer
+    /**@brief converts a string into the integer value described by it by calling the char-type converter, which
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw NumberFormatException - exception when the string does not contain an integer
+     */
     static int _str2int(const std::string& sData) {
         return _2int(sData.c_str());
     }
 
-    /// @brief converts a char-type array with a hex value into the integer value described by it
-    /// @throw an EmptyData - exception if the given string is empty
-    /// @throw a NumberFormatException - exception when the string does not contain an integer
+    /**@brief converts a char-type array with a hex value into the integer value described by it
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw a NumberFormatException - exception when the string does not contain an integer
+     */
     template<class E>
     static int _hex2int(const E* const data) {
         long long int result = _hex2long(data);
@@ -173,9 +182,10 @@ public:
         return (int)result;
     }
 
-    /// @brief converts a string with a hex value into the integer value described by it by calling the char-type converter
-    /// @throw an EmptyData - exception if the given string is empty
-    /// @throw a NumberFormatException - exception when the string does not contain an integer
+    /**@brief converts a string with a hex value into the integer value described by it by calling the char-type converter
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw a NumberFormatException - exception when the string does not contain an integer
+     */
     static int _strHex2int(const std::string& sData) {
         return _hex2int(sData.c_str());
     }
@@ -193,9 +203,10 @@ public:
 
     /// @name Conversion to basic type long integer (at least 64 bit)
     //@{
-    /// @brief converts a char-type array into the long value described by it
-    /// @throw an EmptyData - exception if the given string is empty
-    /// @throw a NumberFormatException - exception when the string does not contain a long
+    /**@brief converts a char-type array into the long value described by it
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw a NumberFormatException - exception when the string does not contain a long
+     */
     template<class E>
     static long long int _2long(const E* const data) {
         if (data == 0 || data[0] == 0) {
@@ -226,16 +237,18 @@ public:
         return ret * sgn;
     }
 
-    /// @brief converts a string into the long value described by it by calling the char-type converter, which
-    /// @throw an EmptyData - exception if the given string is empty
-    /// @throw NumberFormatException - exception when the string does not contain a long integer
+    /**@brief converts a string into the long value described by it by calling the char-type converter, which
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw NumberFormatException - exception when the string does not contain a long integer
+     */
     static long long int _str2long(const std::string& sData) {
         return _2long(sData.c_str());
     }
 
-    /// @brief converts a char-type array with a hex value into the long value described by it
-    /// @throw an EmptyData - exception if the given string is empty
-    /// @throw a NumberFormatException - exception when the string does not contain a long
+    /**@brief converts a char-type array with a hex value into the long value described by it
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw a NumberFormatException - exception when the string does not contain a long
+     */
     template<class E>
     static long long int _hex2long(const E* const data) {
         if (data == 0 || data[0] == 0) {
@@ -277,8 +290,9 @@ public:
         return ret * sgn;
     }
 
-    /// @brief  converts a 0-terminated char-type array into the long value described by it
-    /// @return the default value if the data is empty
+    /**@brief  converts a 0-terminated char-type array into the long value described by it
+     * @return the default value if the data is empty
+     */
     template<class E>
     static long long int _2longSec(const E* const data, long def) {
         if (data == 0 || data[0] == 0) {
@@ -290,9 +304,10 @@ public:
 
     /// @name Conversion to basic type double (Double)
     //@{
-    /// @brief converts a char-type array into the double value described by it
-    /// @throw an EmptyData - exception if the given string is empty
-    /// @throw a NumberFormatException - exception when the string does not contain a double
+    /**@brief converts a char-type array into the double value described by it
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw a NumberFormatException - exception when the string does not contain a double
+     */
     template<class E>
     static double _2double(const E* const data) {
         if (data == 0 || data[0] == 0) {
@@ -342,15 +357,17 @@ public:
         }
     }
 
-    /// @brief converts a string into the double value described by it by calling the char-type converter
-    /// @throw an EmptyData - exception if the given string is empty
-    /// @throw a NumberFormatException - exception when the string does not contain a double
+    /**@brief converts a string into the double value described by it by calling the char-type converter
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw a NumberFormatException - exception when the string does not contain a double
+     */
     static double _str2double(const std::string& sData) {
         return _2double(sData.c_str());
     }
 
-    /// @brief converts a 0-terminated char-type array into the double value described by it
-    /// @return the default value if the data is empty
+    /**@brief converts a 0-terminated char-type array into the double value described by it
+     * @return the default value if the data is empty
+     */
     template<class E>
     static double _2doubleSec(const E* const data, double def) {
         if (data == 0 || data[0] == 0) {
@@ -362,11 +379,12 @@ public:
 
     /// @name Conversion to basic type bool
     //@{
-    /// @brief converts a 0-terminated char-type array into the boolean value described by it
-    /// @return true if the data* is one of the following (case insensitive): '1', 'x', 'true', 'yes', 'on'
-    /// @return false if the data* is one of the following (case insensitive): '0', '-', 'false', 'no', 'off'
-    /// @throw an EmptyData - exception if the given string is empty or 0 pointer
-    /// @throw a BoolFormatException in any other case
+    /**@brief converts a 0-terminated char-type array into the boolean value described by it
+     * @return true if the data* is one of the following (case insensitive): '1', 'x', 'true', 'yes', 'on'
+     * @return false if the data* is one of the following (case insensitive): '0', '-', 'false', 'no', 'off'
+     * @throw an EmptyData - exception if the given string is empty or 0 pointer
+     * @throw a BoolFormatException in any other case
+     */
     template<class E>
     static bool _2bool(const E* const data) {
         if (data == 0 || data[0] == 0) {
@@ -383,9 +401,10 @@ public:
         }
     }
 
-    /// @brief converts a string into the bool value described by it by calling the char-type converter
-    /// @throw an EmptyData - exception if the given string is empty
-    /// @throw a NumberFormatException - exception when the string does not contain a bool
+    /**@brief converts a string into the bool value described by it by calling the char-type converter
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw a NumberFormatException - exception when the string does not contain a bool
+     */
     static bool _str2Bool(const std::string& sData) {
         return _2bool(sData.c_str());
     }
@@ -415,7 +434,6 @@ public:
         }
         return i;
     }
-
 };
 
 
