@@ -49,7 +49,7 @@ GNETexture_NotMoving.cpp GNETexture_NotMovingSelected.cpp \
 GNETexture_LaneBus.cpp GNETexture_LaneBike.cpp \
 GNETexture_LanePedestrian.cpp GNETexture_TLS.cpp \
 grid1.xpm grid2.xpm grid3.xpm \
-modeadditional.xpm modeconnection.xpm modecreateedge.xpm modecrossing.xpm \
+modeadditional.xpm modeconnection.xpm modecreateedge.xpm modecrossing.xpm modepolygon.xpm \
 modedelete.xpm modeinspect.xpm modemove.xpm modeselect.xpm modetrafficlight.xpm \
 vclass_ignoring.xpm vclass_private.xpm vclass_emergency.xpm vclass_authority.xpm \
 vclass_army.xpm vclass_vip.xpm vclass_passenger.xpm vclass_hov.xpm \
