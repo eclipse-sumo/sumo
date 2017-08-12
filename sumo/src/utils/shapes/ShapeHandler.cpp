@@ -158,7 +158,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
         WRITE_ERROR("PoI '" + id + "' already exists.");
     }
     myLastParameterised = myShapeContainer.getPOIs().get(id);
-    if (laneID != "") {
+    if (laneID != "" && addLanePosParams()) {
         myLastParameterised->addParameter(toString(SUMO_ATTR_LANE), laneID);
         myLastParameterised->addParameter(toString(SUMO_ATTR_POSITION), toString(lanePos));
         myLastParameterised->addParameter(toString(SUMO_ATTR_POSITION_LAT), toString(lanePosLat));
