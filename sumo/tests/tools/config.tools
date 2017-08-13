@@ -127,6 +127,8 @@ districts:districts.xml
 output:Begin time
 output:End time
 output:uration:.*ms
+output:>>> Duration:
+output:ended (duration:
 output:<!-- generated on
 output:.* files checked{REPLACE <number> files checked}
 output:^calling.*duarouter
