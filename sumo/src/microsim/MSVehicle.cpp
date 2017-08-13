@@ -4007,6 +4007,7 @@ MSVehicle::addTraciStop(MSLane* const lane, const double startPos, const double 
         if (iter->lane == lane && fabs(iter->endPos - endPos) < POSITION_EPS) {
             if (duration == 0 && !iter->reached) {
                 myStops.erase(iter);
+                updateBestLanes(true);
             } else {
                 iter->duration = duration;
             }
