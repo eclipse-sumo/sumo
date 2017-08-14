@@ -69,8 +69,6 @@ class GNELane;
  * @brief The representation of a single edge during network building
  */
 class NBEdge : public Named, public Parameterised {
-    /** used for the computation of connections to following edges */
-    friend class NBEdgeSuccessorBuilder;
     friend class NBEdgeCont;
 
     /** used for visualization (NETEDIT) */
