@@ -276,7 +276,8 @@ GUINet::initGUIStructures() {
     const MSEdgeVector& edges = MSEdge::getAllEdges();
     myEdgeWrapper.reserve(edges.size());
     for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-        if (!(*i)->isTazConnector()) {
+        // VISIM connector edges shall be drawn (they have lanes)
+        if (!(*i)->isTazConnector() || (*i)->getLanes().size() > 0) {
             myEdgeWrapper.push_back(static_cast<GUIEdge*>(*i));
         }
     }
