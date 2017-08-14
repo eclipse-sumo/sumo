@@ -292,11 +292,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_POI:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE)); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "0,0,0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_X, toString(INVALID_POSITION)));    
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_Y, toString(INVALID_POSITION)));    
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, ""));    
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, toString(INVALID_POSITION)));     
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILL, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAYER, "0"));
@@ -658,8 +656,6 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         // step
         myNumericalFloatAttrs[SUMO_TAG_STEP].insert(SUMO_ATTR_SPEED);
         // POI
-		myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_X);
-        myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_Y);
         myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_POSITION);
         myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_ANGLE);
     }
@@ -844,8 +840,6 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
             // VSS
             myUniqueAttrs[SUMO_TAG_VSS].insert(SUMO_ATTR_FILE);
             // POI
-		    myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_X);
-            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_Y);
             myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LANE);
             myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_POSITION);
             // POLY
@@ -1131,10 +1125,8 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         // POI
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_ID] = "The id (a unique name) of the POI";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_COLOR] = "The color with which the poi shall be displayed";
-        myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_X] = "The position of the poi along the x-axis in meters";
-        myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_Y] = "The position of the poi along the y-axis in meters";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_LANE] = "The name of the lane the poi is located at; the lane must be a part of the loaded network";
-        myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_POSITION] = "The position on the named lane at which the poi is located at";
+        myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_POSITION] = "The position on the named lane or in the net in meters at which the poi is located at";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_FILL] = "An information whether the polygon shall be filled";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_TYPE] = "A typename for the poi";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_LAYER] = "The layer of the poi for drawing and selecting";
