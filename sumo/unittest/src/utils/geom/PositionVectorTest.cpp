@@ -345,16 +345,17 @@ TEST_F(PositionVectorTest, test_method_move2side) {
     EXPECT_EQ(Position(3.5,0), vec3[1]);
     EXPECT_EQ(Position(1,.5), vec3[2]);
     }
-    /*{
-    PositionVector vec3;
-    vec3.push_back(Position(0,0,0));
-    vec3.push_back(Position(3,0,0));
-    vec3.push_back(Position(1,0,0));
-    vec3.move2side(-.5);
-    EXPECT_EQ(Position(0,-.5), vec3[0]);
-    EXPECT_EQ(Position(3.5,0), vec3[1]);
-    EXPECT_EQ(Position(1,.5), vec3[2]);
-    }*/
+    // bad input: subsequent identical points
+    {
+    PositionVector vec4;
+    vec4.push_back(Position(0,0,0));
+    vec4.push_back(Position(0,0,0));
+    vec4.push_back(Position(1,0,0));
+    vec4.move2side(-2);
+    EXPECT_EQ(vec4.size(), 2);
+    EXPECT_EQ(Position(0,2), vec4[0]);
+    EXPECT_EQ(Position(1,2), vec4[1]);
+    }
 }
 
 /* Test the method 'transformToVectorCoordinates'*/
