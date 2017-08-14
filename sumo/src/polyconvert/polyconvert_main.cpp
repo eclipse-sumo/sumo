@@ -238,9 +238,9 @@ main(int argc, char** argv) {
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
         MsgHandler::initOutputOptions();
         // build the projection
-        int shift = 0;
+        double scale = 1.0;
         if ((oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files")) && oc.isDefault("proj.scale")) {
-            shift = 5;
+            scale = 1e-5;
         }
         if (!oc.isSet("net")) {
             // from the given options
@@ -249,7 +249,7 @@ main(int argc, char** argv) {
             if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files")) && numProjections == 0) {
                 oc.set("proj.utm", "true");
             }
-            oc.set("proj.scale", toString(shift));
+            oc.set("proj.scale", toString(scale, 5));
 #endif
             if (!GeoConvHelper::init(oc)) {
                 throw ProcessError("Could not build projection!");
@@ -257,7 +257,7 @@ main(int argc, char** argv) {
         } else {
             // from the supplied network
             // @todo warn about given options being ignored
-            PCNetProjectionLoader::load(oc.getString("net"), shift);
+            PCNetProjectionLoader::load(oc.getString("net"), scale);
         }
         Boundary pruningBoundary = GeoConvHelper::getFinal().getConvBoundary();
         // check whether the input shall be pruned

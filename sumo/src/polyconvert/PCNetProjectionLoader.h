@@ -58,13 +58,13 @@ public:
      * @param[in] file The network file from which to parse the location element
      * @param[in] shift The shift of the decimal point when interpreting loaded coordinates
      */
-    static void load(const std::string& file, int shift);
+    static void load(const std::string& file, double scale);
 
 
 protected:
     /** @brief Constructor
      */
-    PCNetProjectionLoader(int shift);
+    PCNetProjectionLoader(double scale);
 
 
     /// @brief Destructor
@@ -97,8 +97,8 @@ private:
     /// @brief Information whether the parameter was read
     bool myFoundLocation;
 
-    /// @brief shift of input coordinates (not given in the location element)
-    int myShift;
+    /// @brief scaling of input coordinates (not given in the location element)
+    double myScale;
 
 
 };

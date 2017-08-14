@@ -54,7 +54,7 @@ int GeoConvHelper::myNumLoaded = 0;
 // method definitions
 // ===========================================================================
 GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
-                             const Boundary& orig, const Boundary& conv, int shift, bool inverse):
+                             const Boundary& orig, const Boundary& conv, double scale, bool inverse):
     myProjString(proj),
 #ifdef HAVE_PROJ
     myProjection(0),
@@ -62,7 +62,7 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
     myGeoProjection(0),
 #endif
     myOffset(offset),
-    myGeoScale(pow(10, (double) - shift)),
+    myGeoScale(scale),
     myProjectionMethod(NONE),
     myUseInverseProjection(inverse),
     myOrigBoundary(orig),
@@ -144,7 +144,7 @@ GeoConvHelper::operator=(const GeoConvHelper& orig) {
 bool
 GeoConvHelper::init(OptionsCont& oc) {
     std::string proj = "!"; // the default
-    int shift = oc.getInt("proj.scale");
+    double scale = oc.getFloat("proj.scale");
     Position offset = Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
     bool inverse = oc.exists("proj.inverse") && oc.getBool("proj.inverse");
 
@@ -173,7 +173,7 @@ GeoConvHelper::init(OptionsCont& oc) {
         proj = oc.getString("proj");
     }
 #endif
-    myProcessing = GeoConvHelper(proj, offset, Boundary(), Boundary(), shift, inverse);
+    myProcessing = GeoConvHelper(proj, offset, Boundary(), Boundary(), scale, inverse);
     myFinal = myProcessing;
     return true;
 }
@@ -184,8 +184,8 @@ GeoConvHelper::init(const std::string& proj,
                     const Position& offset,
                     const Boundary& orig,
                     const Boundary& conv,
-                    int shift) {
-    myProcessing = GeoConvHelper(proj, offset, orig, conv, shift);
+                    double scale) {
+    myProcessing = GeoConvHelper(proj, offset, orig, conv, scale);
     myFinal = myProcessing;
 }
 
@@ -198,9 +198,8 @@ GeoConvHelper::addProjectionOptions(OptionsCont& oc) {
     oc.addSynonyme("simple-projection", "proj.simple", true);
     oc.addDescription("simple-projection", "Projection", "Uses a simple method for projection");
 
-    oc.doRegister("proj.scale", new Option_Integer(0));
-    oc.addSynonyme("proj.scale", "proj.shift", true);
-    oc.addDescription("proj.scale", "Projection", "Number of places to shift decimal point to right in geo-coordinates");
+    oc.doRegister("proj.scale", new Option_Float(1.0));
+    oc.addDescription("proj.scale", "Projection", "Scaling factor for input coordinates");
 
 #ifdef HAVE_PROJ
     oc.doRegister("proj.utm", new Option_Bool(false));

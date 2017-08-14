@@ -58,12 +58,12 @@
 // static interface
 // ---------------------------------------------------------------------------
 void
-PCNetProjectionLoader::load(const std::string& file, int shift) {
+PCNetProjectionLoader::load(const std::string& file, double scale) {
     if (!FileHelpers::isReadable(file)) {
         throw ProcessError("Could not open net-file '" + file + "'.");
     }
     // build handler and parser
-    PCNetProjectionLoader handler(shift);
+    PCNetProjectionLoader handler(scale);
     handler.setFileName(file);
     SUMOSAXReader* parser = XMLSubSys::getSAXReader(handler);
     PROGRESS_BEGIN_MESSAGE("Parsing network projection from '" + file + "'");
@@ -86,10 +86,10 @@ PCNetProjectionLoader::load(const std::string& file, int shift) {
 // ---------------------------------------------------------------------------
 // handler methods
 // ---------------------------------------------------------------------------
-PCNetProjectionLoader::PCNetProjectionLoader(int shift) :
+PCNetProjectionLoader::PCNetProjectionLoader(double scale) :
     SUMOSAXHandler("sumo-network"),
     myFoundLocation(false),
-    myShift(shift) {
+    myScale(scale) {
 }
 
 
@@ -111,7 +111,7 @@ PCNetProjectionLoader::myStartElement(int element,
     if (myFoundLocation) {
         OptionsCont& oc = OptionsCont::getOptions();
         Position networkOffset = s[0] + Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
-        GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary, myShift);
+        GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary, myScale);
     }
 }
 

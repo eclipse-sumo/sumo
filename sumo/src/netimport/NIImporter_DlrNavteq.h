@@ -75,7 +75,7 @@ public:
     static void loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
     /// @brief scaling factor for geo coordinates (DLRNavteq format uses this to increase floating point precisions)
-    static const int GEO_SCALE;
+    static const std::string GEO_SCALE;
 
     /// @brief magic value for undefined stuff
     static const std::string UNDEFINED;

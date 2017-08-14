@@ -301,7 +301,7 @@ NIFrame::checkOptions() {
         }
     }
     if (oc.isSet("dlr-navteq-prefix") && oc.isDefault("proj.scale")) {
-        oc.set("proj.scale", toString(NIImporter_DlrNavteq::GEO_SCALE));
+        oc.set("proj.scale", NIImporter_DlrNavteq::GEO_SCALE);
     }
 #else
     if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-prefix") || oc.isSet("shapefile-prefix")) && !oc.getBool("simple-projection")) {

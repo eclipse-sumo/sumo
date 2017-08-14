@@ -68,7 +68,7 @@ public:
     /** @brief Constructor
      */
     GeoConvHelper(const std::string& proj, const Position& offset,
-                  const Boundary& orig, const Boundary& conv, int shift = 0, bool inverse = false);
+                  const Boundary& orig, const Boundary& conv, double scale = 1.0, bool inverse = false);
 
 
     /// @brief Destructor
@@ -90,7 +90,7 @@ public:
                      const Position& offset,
                      const Boundary& orig,
                      const Boundary& conv,
-                     int shift = 0);
+                     double scale = 1.0);
 
     /** @brief the coordinate transformation to use for input conversion and processing
      * @note instance is modified during use: boundary may adapt to new coordinates

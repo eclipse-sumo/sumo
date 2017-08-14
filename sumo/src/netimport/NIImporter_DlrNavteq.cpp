@@ -58,7 +58,7 @@
 // ---------------------------------------------------------------------------
 // static members
 // ---------------------------------------------------------------------------
-const int NIImporter_DlrNavteq::GEO_SCALE = 5;
+const std::string NIImporter_DlrNavteq::GEO_SCALE("1e-5");
 const int NIImporter_DlrNavteq::EdgesHandler::MISSING_COLUMN = std::numeric_limits<int>::max();
 const std::string NIImporter_DlrNavteq::UNDEFINED("-1");
 
