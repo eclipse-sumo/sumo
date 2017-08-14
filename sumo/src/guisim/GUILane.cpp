@@ -942,7 +942,9 @@ GUILane::getColorValue(int activeScheme) const {
                 default:
                     break;
             }
-            if ((myPermissions & SVC_PASSENGER) != 0 || isRailway(myPermissions)) {
+            if (myEdge->isTazConnector()) {
+                return 7;
+            } else if ((myPermissions & SVC_PASSENGER) != 0 || isRailway(myPermissions)) {
                 return 0;
             } else {
                 return 5;
