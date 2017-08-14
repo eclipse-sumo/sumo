@@ -1071,6 +1071,20 @@ PositionVector::push_front_noDoublePos(const Position& p) {
 }
 
 
+void 
+PositionVector::insert_noDoublePos(const std::vector<Position>::iterator& at, const Position& p) {
+    if (at == begin()) {
+        push_front_noDoublePos(p);
+    } else if (at == end()) {
+        push_back_noDoublePos(p);
+    } else {
+        if (!p.almostSame(*at) && !p.almostSame(*(at - 1))) {
+            insert(at, p);
+        }
+    }
+}
+
+
 bool
 PositionVector::isClosed() const {
     return size() >= 2 && (*this)[0] == back();

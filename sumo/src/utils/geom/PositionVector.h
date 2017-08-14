@@ -347,6 +347,9 @@ public:
     /// @brief insert in front a non double position
     void push_front_noDoublePos(const Position& p);
 
+    /// @brief insert in front a non double position
+    void insert_noDoublePos(const std::vector<Position>::iterator& at, const Position& p);
+
     /// @brief check if PositionVector is closed
     bool isClosed() const;
 
