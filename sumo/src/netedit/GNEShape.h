@@ -68,6 +68,12 @@ public:
     /// @brief get Net in which this element is placed
     GNENet* getNet() const;
 
+    /// @brief return true if movement is blocked
+    bool isMovementBlocked() const;
+
+    /// @brief return true if shape is blocked
+    bool isShapeBlocked() const;
+
     /// @name inherited from GUIPolygon/GUIPointOfInterest
     /// @{
     /**@brief Returns the name of the parent object
@@ -130,12 +136,18 @@ protected:
     /// @brief the net to inform about updates
     GNENet* myNet;
 
+    /// @brief flag to block movement
+    bool myBlockMovement;
+
+    /// @brief flag for block shape
+    bool myBlockShape;
+
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief Invalidated copy constructor.
-    GNEShape(const GNEShape&);
+    GNEShape(const GNEShape&) = delete;
 
     /// @brief Invalidated assignment operator.
     GNEShape& operator=(const GNEShape&) = delete;
