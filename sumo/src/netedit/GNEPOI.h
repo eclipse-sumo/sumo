@@ -37,6 +37,7 @@
 // class declarations
 // ===========================================================================
 class GeoConvHelper;
+class GNELane;
 
 // ===========================================================================
 // class definitions
@@ -142,6 +143,14 @@ public:
 
     /// @brief save POIs to file
     static void saveToFile(const std::string& file);
+
+protected:
+
+    /// @brief lane in which this POI can be placed
+    GNELane* myLane;
+    
+    /// @brief position over lane
+    double myPositionOverLane;
 
 private:
     /// @brief set attribute after validation

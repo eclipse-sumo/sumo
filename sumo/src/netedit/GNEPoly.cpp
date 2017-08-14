@@ -241,8 +241,11 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidID(value) /*&& (myNet->retrieveShape(value, false) == 0)*/;
-        case SUMO_ATTR_SHAPE:
-            return value.size() > 0? false : true;
+        case SUMO_ATTR_SHAPE: {
+            bool ok = true;
+            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
+            return ok;
+        }
         case SUMO_ATTR_COLOR:
             return true /** canParse<RGBCOLOR> **/;
         case SUMO_ATTR_FILL:
@@ -252,7 +255,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TYPE:
             return true;
         case SUMO_ATTR_IMGFILE:
-            return true;
+            return isValidFilename(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_SHAPE:

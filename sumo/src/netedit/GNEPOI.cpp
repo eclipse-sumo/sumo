@@ -56,16 +56,19 @@
 #include "GNEViewNet.h"
 #include "GNEChange_Attribute.h"
 #include "GNEPOI.h"
+#include "GNELane.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type,
-               const RGBColor& color, double layer, double angle, const std::string& imgFile,
+GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, 
+               double layer, double angle, const std::string& imgFile,
                const Position& pos, double width, double height) :
     GUIPointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height),
-    GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI) {
+    GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI),
+    myLane(NULL),
+    myPositionOverLane(0) {
 }
 
 
@@ -126,14 +129,35 @@ std::string
 GNEPOI::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getMicrosimID();
-            break;
+            return myID;
+        case SUMO_ATTR_COLOR:
+            return toString(myColor);
+        case SUMO_ATTR_LANE:
+            if(myLane) {
+                return myLane->getID();
+            } else {
+                return "";
+            }
         case SUMO_ATTR_POSITION:
-            return toString((Position&) * this);
-            break;
+            if(myLane) {
+                return toString(myPositionOverLane);
+            } else {
+                return toString(Position(x(), y()));
+            }
+        case SUMO_ATTR_FILL:
+            return myImgFile;
         case SUMO_ATTR_TYPE:
-            return toString(PointOfInterest::getType());
-            break;
+            return myType;
+        case SUMO_ATTR_LAYER:
+            return toString(myLayer);
+        case SUMO_ATTR_IMGFILE:
+            return myImgFile;
+        case SUMO_ATTR_WIDTH:
+            return toString(getWidth());
+        case SUMO_ATTR_HEIGHT:
+            return toString(getHeight());
+        case SUMO_ATTR_ANGLE:
+            return toString(getNaviDegree());
         default:
             throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");
     }
@@ -141,57 +165,67 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
 
 
 void
-GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* /* undoList */) {
+GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
-    //switch (key) {
-    //case SUMO_ATTR_ID:
-    //case SUMO_ATTR_POSITION:
-    //case GNE_ATTR_MODIFICATION_STATUS:
-    //    undoList->add(new GNEChange_Attribute(this, key, value), true);
-    //    break;
-    //case SUMO_ATTR_TYPE: {
-    //    undoList->p_begin("change junction type");
-    //    bool resetConnections = false;
-    //    if (SUMOXMLDefinitions::NodeTypes.get(value) == NODETYPE_TRAFFIC_LIGHT) {
-    //        // create new traffic light
-    //        undoList->add(new GNEChange_TLS(this, 0, true), true);
-    //    } else if (myNBNode.getType() == NODETYPE_TRAFFIC_LIGHT) {
-    //        // delete old traffic light
-    //        // make a copy because we will modify the original
-    //        const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
-    //        for (std::set<NBTrafficLightDefinition*>::iterator it=tls.begin(); it!=tls.end(); it++) {
-    //            undoList->add(new GNEChange_TLS(this, *it, false), true);
-    //        }
-    //    }
-    //    // must be the final step, otherwise we do not know which traffic lights to remove via GNEChange_TLS
-    //    undoList->add(new GNEChange_Attribute(this, key, value), true);
-    //    undoList->p_end();
-    //    break;
-    //}
-    //default:
-    throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");
-    //}
+    switch (key) {
+        case SUMO_ATTR_ID:
+        case SUMO_ATTR_COLOR:
+        case SUMO_ATTR_LANE:
+        case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_FILL:
+        case SUMO_ATTR_TYPE:
+        case SUMO_ATTR_LAYER:
+        case SUMO_ATTR_IMGFILE:
+        case SUMO_ATTR_WIDTH:
+        case SUMO_ATTR_HEIGHT:
+        case SUMO_ATTR_ANGLE:
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            break;
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
 bool
-GNEPOI::isValid(SumoXMLAttr key, const std::string& /* value */) {
-    //switch (key) {
-    //case SUMO_ATTR_ID:
-    //    return isValidID(value) && myNet->retrieveJunction(value, false) == 0;
-    //    break;
-    //case SUMO_ATTR_TYPE:
-    //    return SUMOXMLDefinitions::NodeTypes.hasString(value);
-    //    break;
-    //case SUMO_ATTR_POSITION:
-    //    bool ok;
-    //    return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
-    //    break;
-    //default:
-    throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");
-    //}
+GNEPOI::isValid(SumoXMLAttr key, const std::string& value ) {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            return isValidID(value) /*&& (myNet->retrievePOI(value, false) == 0)*/;
+        case SUMO_ATTR_COLOR:
+            return true;
+        case SUMO_ATTR_LANE:
+            if(value == "") {
+                return true;
+            } else {
+                return (myNet->retrieveLane(value, false) != NULL);
+            }
+        case SUMO_ATTR_POSITION:
+            if(myLane != NULL) {
+                return canParse<double>(value);
+            } else {
+                bool ok;
+                return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+            }
+        case SUMO_ATTR_FILL:
+            return canParse<bool>(value);
+        case SUMO_ATTR_TYPE:
+            return true;
+        case SUMO_ATTR_LAYER:
+            return canParse<double>(value);
+        case SUMO_ATTR_IMGFILE:
+            return isValidFilename(value);
+        case SUMO_ATTR_WIDTH:
+            return canParse<double>(value);
+        case SUMO_ATTR_HEIGHT:
+            return canParse<double>(value);
+        case SUMO_ATTR_ANGLE:
+            return canParse<double>(value);
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
@@ -216,23 +250,42 @@ GNEPOI::saveToFile(const std::string& file) {
 // ===========================================================================
 
 void
-GNEPOI::setAttribute(SumoXMLAttr key, const std::string& /* value */) {
-    //switch (key) {
-    //case SUMO_ATTR_ID:
-    //    myNet->renameJunction(this, value);
-    //    break;
-    //case SUMO_ATTR_TYPE: {
-    //    myNBNode.reinit(myNBNode.getPosition(), SUMOXMLDefinitions::NodeTypes.get(value));
-    //    break;
-    //}
-    //case SUMO_ATTR_POSITION:
-    //    bool ok;
-    //    myOrigPos = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
-    //    move(myOrigPos);
-    //    break;
-    //default:
-    throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");
-    //}
+GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            myID = value;
+            break;
+        case SUMO_ATTR_COLOR:
+            myColor = RGBColor::parseColor(value);
+            break;
+        case SUMO_ATTR_LANE:
+            myLane = myNet->retrieveLane(value, false);
+        case SUMO_ATTR_POSITION:
+            if(myLane) {
+                myPositionOverLane = parse<double>(value);
+            } else {
+                bool ok = true;
+                Position p = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
+                setx(p.x());
+                sety(p.y());
+            }
+        case SUMO_ATTR_FILL:
+            myImgFile = value;
+        case SUMO_ATTR_TYPE:
+            myType = value;
+        case SUMO_ATTR_LAYER:
+            myLayer = parse<double>(value);
+        case SUMO_ATTR_IMGFILE:
+            myImgFile = value;
+        case SUMO_ATTR_WIDTH:
+            setWidth(parse<double>(value));
+        case SUMO_ATTR_HEIGHT:
+            setHeight(parse<double>(value));
+        case SUMO_ATTR_ANGLE:
+            return setNaviDegree(parse<double>(value));
+        default:
+            throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");
+    }
 }
 
 /****************************************************************************/
