@@ -296,9 +296,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_X, toString(INVALID_POSITION)));    
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_Y, toString(INVALID_POSITION)));    
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, ""));    
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, toString(INVALID_POSITION)));    
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LON, toString(INVALID_POSITION)));    
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAT, toString(INVALID_POSITION)));    
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, toString(INVALID_POSITION)));     
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILL, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAYER, "0"));
@@ -662,8 +660,6 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         // POI
 		myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_X);
         myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_Y);
-        myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LAT);
-        myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LON);
         myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_POSITION);
         myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_ANGLE);
     }
@@ -850,8 +846,6 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
             // POI
 		    myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_X);
             myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_Y);
-            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LAT);
-            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LON);
             myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LANE);
             myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_POSITION);
             // POLY
@@ -1141,8 +1135,6 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_Y] = "The position of the poi along the y-axis in meters";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_LANE] = "The name of the lane the poi is located at; the lane must be a part of the loaded network";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_POSITION] = "The position on the named lane at which the poi is located at";
-        myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_LON] = "The geo-position of the poi along the east-west axis in degrees";
-        myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_LAT] = "The geo-position of the poi along the north-south axis in degrees";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_FILL] = "An information whether the polygon shall be filled";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_TYPE] = "A typename for the poi";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_LAYER] = "The layer of the poi for drawing and selecting";
@@ -1181,7 +1173,6 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_NAME] = "Name of busStop";
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_LINES] = "Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes";
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_FRIENDLY_POS] = "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1";
-
         // container Stop
         myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_ID] = "ID (Must be unique)";
         myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_LANE] = "The name of the lane the container stop shall be located at";
