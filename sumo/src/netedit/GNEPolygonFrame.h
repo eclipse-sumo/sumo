@@ -54,9 +54,8 @@ public:
 
     /// @brief enum with all possible values after try to create an additional using frame
     enum AddShapeResult {
-        ADDADDITIONAL_INVALID_ARGUMENTS,    // Parameters of additionals are invalid
-        ADDADDITIONAL_INVALID_PARENT,       // NetElement parent is invalid
-        ADDADDITIONAL_SUCCESS               // additional was successfully created
+        ADDSHAPE_INVALID_ARGUMENTS,    // Parameters of shape are invalid
+        ADDSHAPE_SUCCESS               // Shape was successfully created
     };
 
     // ===========================================================================
@@ -225,51 +224,28 @@ public:
         FXDECLARE(GNEPolygonFrame::NeteditAttributes)
 
     public:
-        /// @brief list of the reference points
-        enum additionalReferencePoint {
-            GNE_ADDITIONALREFERENCEPOINT_LEFT,
-            GNE_ADDITIONALREFERENCEPOINT_RIGHT,
-            GNE_ADDITIONALREFERENCEPOINT_CENTER,
-            GNE_ADDITIONALREFERENCEPOINT_INVALID
-        };
-
         /// @brief constructor
         NeteditAttributes(FXComposite* parent);
 
         /// @brief destructor
         ~NeteditAttributes();
 
-        /// @brief show length field and reference point
-        void showLengthFieldAndReferecePoint();
+        /// @brief check if block movement is enabled
+        bool isBlockMovementEnabled() const;
 
-        /// @brief hide length field
-        void hideLengthFieldAndReferecePoint();
-
-        /// @brief get actual reference point
-        additionalReferencePoint getActualReferencePoint() const;
-
-        /// @brief get value of length
-        double getLength() const;
-
-        /// @brief check if block is enabled
-        bool isBlockEnabled() const;
+        /// @brief check if block shape is enabled
+        bool isBlockShapeEnabled() const;
 
         /// @brief check if current length is valid
         bool isCurrentLengthValid() const;
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when user enters a new length
-        long onCmdSetLength(FXObject*, FXSelector, void*);
+        /// @brief Called when user changes the checkbox "set blocking movement"
+        long onCmdSetBlockMovement(FXObject*, FXSelector, void*);
 
-        /// @brief Called when user enters another reference point
-        long onCmdSelectReferencePoint(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user changes the checkbox "set blocking"
-        long onCmdSetBlocking(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user press the help button
-        long onCmdHelp(FXObject*, FXSelector, void*);
+        /// @brief Called when user changes the checkbox "set blocking shape"
+        long onCmdSetBlockShape(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -277,29 +253,17 @@ public:
         NeteditAttributes() {}
 
     private:
-        /// @brief match box with the list of reference points
-        FXComboBox* myReferencePointMatchBox;
-
-        /// @brief Button for help about the reference point
-        FXButton* helpReferencePoint;
-
-        /// @brief actual additional reference point selected in the match Box
-        additionalReferencePoint myActualShapeReferencePoint;
-
-        /// @brief Label for length
-        FXLabel* myLengthLabel;
-
-        /// @brief textField for length
-        FXTextField* myLengthTextField;
-
         /// @brief Label for block movement
-        FXLabel* myBlockLabel;
+        FXLabel* myBlockMovementLabel;
 
         /// @brief checkBox for block movement
         FXCheckButton* myBlockMovementCheckButton;
 
-        /// @brief Flag to check if current length is valid
-        bool myCurrentLengthValid;
+        /// @brief Label for block shape
+        FXLabel* myBlockShapeLabel;
+
+        /// @brief checkBox for block shape
+        FXCheckButton* myBlockShapeCheckButton;
     };
 
 
@@ -318,11 +282,6 @@ public:
     * @return AddShapeStatus with the result of operation
     */
     AddShapeResult addShape(GNENetElement* netElement, GUISUMOAbstractView* parent);
-
-    /**@brief remove an additional element previously added
-    * @param[in] additional element to erase
-    */
-    void removeShape(GNEShape* additional);
 
     /// @name FOX-callbacks
     /// @{
@@ -343,15 +302,6 @@ protected:
 private:
     /// @brief set parameters depending of the new additionalType
     void setParametersOfShape(SumoXMLTag actualShapeType);
-
-    /// @brief generate a ID for an additiona element
-    std::string generateID(GNENetElement* netElement) const;
-
-    /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane
-    double setStartPosition(double positionOfTheMouseOverLane, double lengthOfShape);
-
-    /// @brief obtain the End position values of StoppingPlaces and E2 detector over the lane
-    double setEndPosition(double laneLength, double positionOfTheMouseOverLane, double lengthOfShape);
 
     /// @brief groupBox for Match Box of additionals
     FXGroupBox* myGroupBoxForMyShapeMatchBox;
