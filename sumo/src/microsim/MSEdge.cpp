@@ -908,12 +908,12 @@ MSEdge::transportable_by_position_sorter::operator()(const MSTransportable* cons
 void
 MSEdge::addSuccessor(MSEdge* edge) {
     mySuccessors.push_back(edge);
-    if (isTazConnector()) {
+    if (isTazConnector() && edge->getFromJunction() != 0) {
         myTazBoundary.add(edge->getFromJunction()->getPosition());
     }
 
     edge->myPredecessors.push_back(this);
-    if (edge->isTazConnector()) {
+    if (edge->isTazConnector() && getToJunction() != 0) {
         edge->myTazBoundary.add(getToJunction()->getPosition());
     }
 }
