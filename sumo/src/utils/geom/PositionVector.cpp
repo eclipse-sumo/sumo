@@ -954,6 +954,7 @@ PositionVector::move2side(double amount) {
     if (length2D() == 0) {
         return;
     }
+    removeDoublePoints();
     PositionVector shape;
     for (int i = 0; i < static_cast<int>(size()); i++) {
         if (i == 0) {
