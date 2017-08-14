@@ -1,4 +1,4 @@
-# Generated on Thu Dec  8 09:46:24 2016 by SUMO polyconvert Version dev-SVN-r22219
+# Generated on Mon Aug 14 15:53:40 2017 by SUMO polyconvert Version dev-SVN-r25595
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
@@ -14,7 +14,7 @@
 #     </output>
 # 
 #     <projection>
-#         <proj.scale value="0"/>
+#         <proj.scale value="1"/>
 #         <proj.utm value="true"/>
 #     </projection>
 # 

@@ -132,8 +132,8 @@
         <!-- Uses a simple method for projection -->
         <simple-projection value="false" synonymes="proj.simple" type="BOOL"/>
 
-        <!-- Number of places to shift decimal point to right in geo-coordinates -->
-        <proj.scale value="0" synonymes="proj.shift" type="INT"/>
+        <!-- Scaling factor for input coordinates -->
+        <proj.scale value="1" type="FLOAT"/>
 
         <!-- Determine the UTM zone (for a universal transversal mercator projection based on the WGS84 ellipsoid) -->
         <proj.utm value="false" type="BOOL"/>

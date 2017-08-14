@@ -1,4 +1,4 @@
-SUMO polyconvert Version dev-SVN-r23341
+SUMO polyconvert Version dev-SVN-r25595
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Importer of polygons and POIs for the road traffic simulation SUMO.
 
@@ -53,8 +53,7 @@ Output Options:
 
 Projection Options:
   --simple-projection              Uses a simple method for projection
-  --proj.scale INT                 Number of places to shift decimal point to
-                                     right in geo-coordinates
+  --proj.scale FLOAT               Scaling factor for input coordinates
   --proj.utm                       Determine the UTM zone (for a universal
                                      transversal mercator projection based on
                                      the WGS84 ellipsoid)

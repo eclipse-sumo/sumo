@@ -1,4 +1,4 @@
-# Generated on Mon Dec  5 08:45:03 2016 by SUMO netconvert Version dev-SVN-r22185
+# Generated on Mon Aug 14 15:53:46 2017 by SUMO netconvert Version dev-SVN-r25595
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
@@ -13,7 +13,7 @@
 #     </output>
 # 
 #     <projection>
-#         <proj.scale value="5"/>
+#         <proj.scale value="1e-05"/>
 #         <proj.utm value="true"/>
 #     </projection>
 # 
