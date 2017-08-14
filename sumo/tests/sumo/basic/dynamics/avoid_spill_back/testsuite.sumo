@@ -21,3 +21,6 @@ blocker_without_enough_free_space
 
 # 2 close junctions, but the link across the second junction is not open
 2junctions_2nd_blocked
+
+# short edges behind a junction should not prevent vehicles from driving accross
+network_ends_behind_junction
