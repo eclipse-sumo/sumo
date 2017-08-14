@@ -249,7 +249,9 @@ main(int argc, char** argv) {
             if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files")) && numProjections == 0) {
                 oc.set("proj.utm", "true");
             }
-            oc.set("proj.scale", toString(scale, 5));
+            if (oc.isDefault("proj.scale")) {
+                oc.set("proj.scale", toString(scale, 5));
+            }
 #endif
             if (!GeoConvHelper::init(oc)) {
                 throw ProcessError("Could not build projection!");
