@@ -69,8 +69,7 @@
 // method definitions
 // ===========================================================================
 GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
-                 const RGBColor& color, double layer,
-                 double angle, const std::string& imgFile) :
+                 const RGBColor& color, double layer, double angle, const std::string& imgFile) :
     GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile),
     GNEShape(net, SUMO_TAG_POLY, ICON_LOCATEPOLY),
     myJunction(junction) {
@@ -192,68 +191,75 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
-            break;
+        case SUMO_ATTR_SHAPE:
+            return toString(myShape);
+        case SUMO_ATTR_COLOR:
+            return toString(myColor);
+        case SUMO_ATTR_FILL:
+            return toString(myFill);
+        case SUMO_ATTR_LAYER:
+            return toString(myLayer);
         case SUMO_ATTR_TYPE:
-            return toString(SUMOPolygon::getType());
-            break;
+            return myType;
+        case SUMO_ATTR_IMGFILE:
+            return myImgFile;
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return toString(myBlockMovement);
+        case GNE_ATTR_BLOCK_SHAPE:
+            return toString(myBlockShape);
         default:
-            throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
 void
-GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* /* undoList */) {
+GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
-    //switch (key) {
-    //case SUMO_ATTR_ID:
-    //case SUMO_ATTR_POSITION:
-    //case GNE_ATTR_MODIFICATION_STATUS:
-    //    undoList->add(new GNEChange_Attribute(this, key, value), true);
-    //    break;
-    //case SUMO_ATTR_TYPE: {
-    //    undoList->p_begin("change junction type");
-    //    bool resetConnections = false;
-    //    if (SUMOXMLDefinitions::NodeTypes.get(value) == NODETYPE_TRAFFIC_LIGHT) {
-    //        // create new traffic light
-    //        undoList->add(new GNEChange_TLS(this, 0, true), true);
-    //    } else if (myNBNode.getType() == NODETYPE_TRAFFIC_LIGHT) {
-    //        // delete old traffic light
-    //        // make a copy because we will modify the original
-    //        const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
-    //        for (std::set<NBTrafficLightDefinition*>::iterator it=tls.begin(); it!=tls.end(); it++) {
-    //            undoList->add(new GNEChange_TLS(this, *it, false), true);
-    //        }
-    //    }
-    //    // must be the final step, otherwise we do not know which traffic lights to remove via GNEChange_TLS
-    //    undoList->add(new GNEChange_Attribute(this, key, value), true);
-    //    undoList->p_end();
-    //    break;
-    //}
-    //default:
-    throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");
-    //}
+    switch (key) {
+        case SUMO_ATTR_ID:
+        case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_COLOR:
+        case SUMO_ATTR_FILL:
+        case SUMO_ATTR_LAYER:
+        case SUMO_ATTR_TYPE:
+        case SUMO_ATTR_IMGFILE:
+        case GNE_ATTR_BLOCK_MOVEMENT:
+        case GNE_ATTR_BLOCK_SHAPE:
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            break;
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
 bool
-GNEPoly::isValid(SumoXMLAttr key, const std::string& /* value */) {
-    //switch (key) {
-    //case SUMO_ATTR_ID:
-    //    return isValidID(value) && myNet->retrieveJunction(value, false) == 0;
-    //    break;
-    //case SUMO_ATTR_TYPE:
-    //    return SUMOXMLDefinitions::NodeTypes.hasString(value);
-    //    break;
-    //case SUMO_ATTR_POSITION:
-    //    bool ok;
-    //    return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
-    //    break;
-    //default:
-    throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");
-    //}
+GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            return isValidID(value) /*&& (myNet->retrieveShape(value, false) == 0)*/;
+        case SUMO_ATTR_SHAPE:
+            return value.size() > 0? false : true;
+        case SUMO_ATTR_COLOR:
+            return true /** canParse<RGBCOLOR> **/;
+        case SUMO_ATTR_FILL:
+            return canParse<bool>(value);
+        case SUMO_ATTR_LAYER:
+            return canParse<double>(value);
+        case SUMO_ATTR_TYPE:
+            return true;
+        case SUMO_ATTR_IMGFILE:
+            return true;
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return canParse<bool>(value);
+        case GNE_ATTR_BLOCK_SHAPE:
+            return canParse<bool>(value);
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
@@ -262,29 +268,41 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& /* value */) {
 // ===========================================================================
 
 void
-GNEPoly::setAttribute(SumoXMLAttr key, const std::string& /* value */) {
-    //switch (key) {
-    //case SUMO_ATTR_ID:
-    //    myNet->renameJunction(this, value);
-    //    break;
-    //case SUMO_ATTR_TYPE: {
-    //    myNBNode.reinit(myNBNode.getPosition(), SUMOXMLDefinitions::NodeTypes.get(value));
-    //    break;
-    //}
-    //case SUMO_ATTR_POSITION:
-    //    bool ok;
-    //    myOrigPos = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
-    //    move(myOrigPos);
-    //    break;
-    //default:
-    throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");
-    //}
+GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value ) {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            myID = value;
+            break;
+        case SUMO_ATTR_SHAPE: {
+            bool ok = true;
+            myShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
+            break;
+        }
+        case SUMO_ATTR_COLOR:
+            myColor = RGBColor::parseColor(value);
+            break;
+        case SUMO_ATTR_FILL:
+            myFill = parse<bool>(value);
+            break;
+        case SUMO_ATTR_LAYER:
+            myLayer = parse<double>(value);
+            break;
+        case SUMO_ATTR_TYPE:
+            myType = value;
+            break;
+        case SUMO_ATTR_IMGFILE:
+            myType = value;
+            break;
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            myBlockMovement = parse<bool>(value);
+            break;
+        case GNE_ATTR_BLOCK_SHAPE:
+            myBlockShape = parse<bool>(value);
+            break;
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
-
-
-// ===========================================================================
-// GNEPolyHandler methods
-// ===========================================================================
 
 
 /****************************************************************************/
