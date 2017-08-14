@@ -146,18 +146,17 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     mylaneParentsSelector = new GNEAdditionalFrame::SelectorParentLanes(myContentFrame, myViewNet);
 
     // Add options to myAdditionalMatchBox
-    const std::vector<SumoXMLTag>& additionalTags = GNEAttributeCarrier::allowedTags(false);
-    for (std::vector<SumoXMLTag>::const_iterator i = additionalTags.begin(); i != additionalTags.end(); i++) {
-        myAdditionalMatchBox->appendItem(toString(*i).c_str());
+    for (auto i : GNEAttributeCarrier::allowedAdditionalTags()) {
+        myAdditionalMatchBox->appendItem(toString(i).c_str());
     }
 
     // Set visible items
     myAdditionalMatchBox->setNumVisible((int)myAdditionalMatchBox->getNumItems());
 
     // If there are additionals
-    if (additionalTags.size() > 0) {
+    if (GNEAttributeCarrier::allowedAdditionalTags().size() > 0) {
         // Set myActualAdditionalType and show
-        myActualAdditionalType = additionalTags.front();
+        myActualAdditionalType = GNEAttributeCarrier::allowedAdditionalTags().front();
         setParametersOfAdditional(myActualAdditionalType);
     }
 }
@@ -408,7 +407,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
 
 void
 GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
-    myViewNet->getUndoList()->p_begin("delete " + additional->getDescription());
+    myViewNet->getUndoList()->p_begin("delete " + toString(additional->getTag()));
     // save selection status
     if (gSelected.isSelected(GLO_ADDITIONAL, additional->getGlID())) {
         std::set<GUIGlID> deselected;
@@ -423,16 +422,15 @@ GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
 
 long
 GNEAdditionalFrame::onCmdSelectAdditional(FXObject*, FXSelector, void*) {
-    // obtain current allowed additional tags
-    const std::vector<SumoXMLTag>& additionalTags = GNEAttributeCarrier::allowedTags(false);
+    // declare flag to save if additional name is correct
     bool additionalNameCorrect = false;
     // set parameters of additional, if it's correct
-    for (std::vector<SumoXMLTag>::const_iterator i = additionalTags.begin(); i != additionalTags.end(); i++) {
-        if (toString(*i) == myAdditionalMatchBox->getText().text()) {
+    for (auto i : GNEAttributeCarrier::allowedAdditionalTags()) {
+        if (toString(i) == myAdditionalMatchBox->getText().text()) {
             myAdditionalMatchBox->setTextColor(FXRGB(0, 0, 0));
             myadditionalParameters->show();
             myEditorParameters->show();
-            setParametersOfAdditional(*i);
+            setParametersOfAdditional(i);
             additionalNameCorrect = true;
         }
     }

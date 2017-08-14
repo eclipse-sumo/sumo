@@ -101,18 +101,17 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myEditorParameters = new GNEPolygonFrame::NeteditAttributes(myContentFrame);
 
     // Add options to myShapeMatchBox
-    const std::vector<SumoXMLTag>& additionalTags = GNEAttributeCarrier::allowedTags(false);
-    for (std::vector<SumoXMLTag>::const_iterator i = additionalTags.begin(); i != additionalTags.end(); i++) {
-        myShapeMatchBox->appendItem(toString(*i).c_str());
+    for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
+        myShapeMatchBox->appendItem(toString(i).c_str());
     }
 
     // Set visible items
     myShapeMatchBox->setNumVisible((int)myShapeMatchBox->getNumItems());
 
     // If there are additionals
-    if (additionalTags.size() > 0) {
+    if (GNEAttributeCarrier::allowedShapeTags().size() > 0) {
         // Set myActualShapeType and show
-        myActualShapeType = additionalTags.front();
+        myActualShapeType = GNEAttributeCarrier::allowedShapeTags().front();
         setParametersOfShape(myActualShapeType);
     }
 }
@@ -207,16 +206,15 @@ GNEPolygonFrame::removeShape(GNEShape* additional) {
 
 long
 GNEPolygonFrame::onCmdSelectShape(FXObject*, FXSelector, void*) {
-    // obtain current allowed additional tags
-    const std::vector<SumoXMLTag>& additionalTags = GNEAttributeCarrier::allowedTags(false);
+    // Flag to save if name is valid
     bool additionalNameCorrect = false;
     // set parameters of additional, if it's correct
-    for (std::vector<SumoXMLTag>::const_iterator i = additionalTags.begin(); i != additionalTags.end(); i++) {
-        if (toString(*i) == myShapeMatchBox->getText().text()) {
+    for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
+        if (toString(i) == myShapeMatchBox->getText().text()) {
             myShapeMatchBox->setTextColor(FXRGB(0, 0, 0));
             myadditionalParameters->show();
             myEditorParameters->show();
-            setParametersOfShape(*i);
+            setParametersOfShape(i);
             additionalNameCorrect = true;
         }
     }

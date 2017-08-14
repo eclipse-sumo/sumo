@@ -42,6 +42,7 @@
 std::map<SumoXMLTag, std::vector<std::pair <SumoXMLAttr, std::string> > > GNEAttributeCarrier::_allowedAttributes;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedNetElementTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalTags;
+std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedShapeTags;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalIntAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalFloatAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myTimeAttrs;
@@ -163,16 +164,9 @@ GNEAttributeCarrier::parse(const std::string& string) {
 }
 
 
-bool
-GNEAttributeCarrier::isValid(SumoXMLAttr key, const std::string& value) {
-    UNUSED_PARAMETER(value);
-    return std::find(getAttrs().begin(), getAttrs().end(), key) != getAttrs().end();
-}
-
-
-std::string
-GNEAttributeCarrier::getDescription() {
-    return toString(myTag);
+std::string 
+GNEAttributeCarrier::getAttributeForSelection(SumoXMLAttr key) const {
+    return getAttribute(key);
 }
 
 
@@ -298,7 +292,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_POI:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "0,0,0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_X, toString(INVALID_POSITION)));    
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_Y, toString(INVALID_POSITION)));    
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, ""));    
@@ -315,8 +309,8 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_POLY:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SHAPE, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "0,0,0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_GEO, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILL, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAYER, "0"));
@@ -512,8 +506,19 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
 }
 
 
-const std::vector<SumoXMLTag>&
-GNEAttributeCarrier::allowedTags(bool net) {
+std::vector<SumoXMLTag>
+GNEAttributeCarrier::allowedTags() {
+    std::vector<SumoXMLTag> tags;
+    // append all net elements to tags
+    tags.insert(std::end(tags), std::begin(allowedNetElementsTags()), std::end(allowedNetElementsTags()));
+    tags.insert(std::end(tags), std::begin(allowedAdditionalTags()), std::end(allowedAdditionalTags()));
+    tags.insert(std::end(tags), std::begin(allowedShapeTags()), std::end(allowedShapeTags()));
+    return tags;
+}
+
+
+const std::vector<SumoXMLTag>& 
+GNEAttributeCarrier::allowedNetElementsTags() {
     // define on first access
     if (myAllowedNetElementTags.empty()) {
         myAllowedNetElementTags.push_back(SUMO_TAG_EDGE);
@@ -522,6 +527,13 @@ GNEAttributeCarrier::allowedTags(bool net) {
         myAllowedNetElementTags.push_back(SUMO_TAG_CONNECTION);
         myAllowedNetElementTags.push_back(SUMO_TAG_CROSSING);
     }
+    return myAllowedNetElementTags;
+}
+
+
+const std::vector<SumoXMLTag>& 
+GNEAttributeCarrier::allowedAdditionalTags() {
+    // define on first access
     if (myAllowedAdditionalTags.empty()) {
         myAllowedAdditionalTags.push_back(SUMO_TAG_BUS_STOP);
         myAllowedAdditionalTags.push_back(SUMO_TAG_CALIBRATOR);
@@ -537,7 +549,18 @@ GNEAttributeCarrier::allowedTags(bool net) {
         myAllowedAdditionalTags.push_back(SUMO_TAG_VAPORIZER);
         myAllowedAdditionalTags.push_back(SUMO_TAG_VSS);
     }
-    return net ? myAllowedNetElementTags : myAllowedAdditionalTags;
+    return myAllowedAdditionalTags;
+}
+
+
+const std::vector<SumoXMLTag>& 
+GNEAttributeCarrier::allowedShapeTags() {
+    // define on first access
+    if (myAllowedShapeTags.empty()) {
+        myAllowedShapeTags.push_back(SUMO_TAG_POLY);
+        myAllowedShapeTags.push_back(SUMO_TAG_POI);
+    }
+    return myAllowedShapeTags;
 }
 
 
@@ -1301,13 +1324,14 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
 int
 GNEAttributeCarrier::getHigherNumberOfAttributes() {
     if (myMaxNumAttribute == 0) {
-        // initialize both vectors
-        GNEAttributeCarrier::allowedTags(true);
-        for (std::vector<SumoXMLTag>::const_iterator i = myAllowedNetElementTags.begin(); i != myAllowedNetElementTags.end(); i++) {
-            myMaxNumAttribute = MAX2(myMaxNumAttribute, (int)allowedAttributes(*i).size());
+        for (auto i : allowedNetElementsTags()) {
+            myMaxNumAttribute = MAX2(myMaxNumAttribute, (int)allowedAttributes(i).size());
         }
-        for (std::vector<SumoXMLTag>::const_iterator i = myAllowedAdditionalTags.begin(); i != myAllowedAdditionalTags.end(); i++) {
-            myMaxNumAttribute = MAX2(myMaxNumAttribute, (int)allowedAttributes(*i).size());
+        for (auto i : allowedAdditionalTags()) {
+            myMaxNumAttribute = MAX2(myMaxNumAttribute, (int)allowedAttributes(i).size());
+        }
+        for (auto i : allowedShapeTags()) {
+            myMaxNumAttribute = MAX2(myMaxNumAttribute, (int)allowedAttributes(i).size());
         }
     }
     return myMaxNumAttribute;

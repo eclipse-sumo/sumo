@@ -72,6 +72,8 @@ public:
     /// @brief Destructor
     virtual ~GNEAttributeCarrier() {};
 
+    /// @brief This functions has to be implemented in allGNEAttributeCarrier
+    /// @{
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -86,20 +88,16 @@ public:
      */
     virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;
 
-    /* @brief method for checking if the key and their conrrespond attribute are valids
-     * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
-     * @return true if the value is valid, false in other case
-     */
-    virtual bool isValid(SumoXMLAttr key, const std::string& value);
+    /* @brief method for setting the attribute and letting the object perform additional changes
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    */
+    virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
+    /// @}
 
     /// @brief method for getting the attribute in the context of object selection
-    virtual std::string getAttributeForSelection(SumoXMLAttr key) const {
-        return getAttribute(key);
-    }
-
-    /// @brief how should this attribute carrier be called
-    virtual std::string getDescription();
+    virtual std::string getAttributeForSelection(SumoXMLAttr key) const;
 
     /// @brief get XML Tag assigned to this object
     SumoXMLTag getTag() const;
@@ -122,8 +120,17 @@ public:
     /// @brief get all editable attributes for tag and their default values.
     static const std::vector<std::pair<SumoXMLAttr, std::string> >& allowedAttributes(SumoXMLTag tag);
 
-    /// @brief get all editable for tag (net or additional).
-    static const std::vector<SumoXMLTag>& allowedTags(bool net);
+    /// @brief get all editable for tag elements of all types
+    static std::vector<SumoXMLTag> allowedTags();
+
+    /// @brief get all editable for tag net elements
+    static const std::vector<SumoXMLTag>& allowedNetElementsTags();
+
+    /// @brief get all editable for tag additional elements
+    static const std::vector<SumoXMLTag>& allowedAdditionalTags();
+
+    /// @brief get all editable for tag shape elements
+    static const std::vector<SumoXMLTag>& allowedShapeTags();
 
     /// @brief whether an attribute is numerical (int or float)
     static bool isNumerical(SumoXMLTag tag, SumoXMLAttr attr);
@@ -369,6 +376,9 @@ private:
     /// @brief vector with the allowed tags of additionals
     static std::vector<SumoXMLTag> myAllowedAdditionalTags;
 
+    /// @brief vector with the allowed tags of shapes
+    static std::vector<SumoXMLTag> myAllowedShapeTags;
+
     /// @brief map with the numerical attributes of type Int
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myNumericalIntAttrs;
 
@@ -412,7 +422,7 @@ private:
     static int myMaxNumAttribute;
 
     /// @brief Invalidated assignment operator
-    GNEAttributeCarrier& operator=(const GNEAttributeCarrier& src);
+    GNEAttributeCarrier& operator=(const GNEAttributeCarrier& src) = delete;
 };
 
 #endif

@@ -99,13 +99,13 @@ GNEChange_Attribute::trueChange() {
 
 FXString
 GNEChange_Attribute::undoName() const {
-    return ("Undo change " + myAC->getDescription() + " attribute").c_str();
+    return ("Undo change " + toString(myAC->getTag()) + " attribute").c_str();
 }
 
 
 FXString
 GNEChange_Attribute::redoName() const {
-    return ("Redo change " + myAC->getDescription() + " attribute").c_str();
+    return ("Redo change " + toString(myAC->getTag()) + " attribute").c_str();
 }
 
 

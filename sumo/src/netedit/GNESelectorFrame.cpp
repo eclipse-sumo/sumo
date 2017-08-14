@@ -195,9 +195,8 @@ GNESelectorFrame::onCmdSubset(FXObject*, FXSelector, void*) {
         myMatchTagComboBox->clearItems();
         // Set items depending of current items
         const bool netElements = mySetComboBox->getText() == "Net Element";
-        const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags(netElements);
-        for (std::vector<SumoXMLTag>::const_iterator it = tags.begin(); it != tags.end(); it++) {
-            myMatchTagComboBox->appendItem(toString(*it).c_str());
+        for (auto i : GNEAttributeCarrier::allowedNetElementsTags()) {
+            myMatchTagComboBox->appendItem(toString(i).c_str());
         }
         myMatchTagComboBox->setCurrentItem(0); // edges
         myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
@@ -340,8 +339,8 @@ long
 GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     const bool netElements = (mySetComboBox->getText() == "Net Element");
     myCurrentTag = SUMO_TAG_NOTHING;
-    const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags(netElements);
-    for (std::vector<SumoXMLTag>::const_iterator i = tags.begin(); (i != tags.end()) && (myCurrentTag == SUMO_TAG_NOTHING); i++) {
+
+    for (auto i = GNEAttributeCarrier::allowedNetElementsTags().begin(); (i != GNEAttributeCarrier::allowedNetElementsTags().end()) && (myCurrentTag == SUMO_TAG_NOTHING); i++) {
         if (toString(*i) == myMatchTagComboBox->getText().text()) {
             myCurrentTag = *i;
         }
