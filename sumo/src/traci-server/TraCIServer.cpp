@@ -1037,7 +1037,7 @@ TraCIServer::initialiseSubscription(const TraCIServer::Subscription& s) {
                 // Add new subscription to subscription cache (note: seems a bit inefficient)
                 if (s.beginTime < MSNet::getInstance()->getCurrentTimeStep()) {
                     // copy new subscription into cache
-                    int noActive = mySubscriptionCache.readInt() + 1;
+                    int noActive = 1 + (mySubscriptionCache.size() > 0 ? mySubscriptionCache.readInt() : 0);
                     tcpip::Storage tmp;
                     tmp.writeInt(noActive);
                     while (mySubscriptionCache.valid_pos()){
