@@ -311,7 +311,6 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SHAPE, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "0,0,0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_GEO, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILL, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAYER, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
@@ -743,7 +742,6 @@ GNEAttributeCarrier::isBool(SumoXMLTag tag, SumoXMLAttr attr) {
         // POI
 		myBoolAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_FILL);
 		// Poly
-        myBoolAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_GEO);
         myBoolAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_FILL);
     }
     return myBoolAttrs[tag].count(attr) == 1;
@@ -1156,7 +1154,6 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_ID] = "The id (a unique name) of the polygon";
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_COLOR] = "The RGBA color with which the polygon shall be displayed";
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_SHAPE] = "The shape of the polygon";
-        myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_GEO] = "Whether the shape shall be interpreted as geo-coordinates and converted";
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_FILL] = "An information whether the polygon shall be filled";
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_LAYER] = "The layer in which the polygon lies";
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_TYPE] = "A typename for the polygon";
