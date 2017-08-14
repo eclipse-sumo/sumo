@@ -1600,19 +1600,19 @@ protected:
             myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed),
             myArrivalTimeBraking(arrivalTimeBraking), myArrivalSpeedBraking(arrivalSpeedBraking),
             myDistance(distance),
-            accelV(leaveSpeed), hadVehicle(false), availableSpace(-1.) {
+            accelV(leaveSpeed), hadVehicle(false), availableSpace(0) {
             assert(vWait >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
             assert(vPass >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
         };
 
 
         /// @brief constructor if the link shall not be passed
-        DriveProcessItem(double vWait, double distance) :
+        DriveProcessItem(double vWait, double distance, double _availableSpace=0) :
             myLink(0), myVLinkPass(vWait), myVLinkWait(vWait), mySetRequest(false),
             myArrivalTime(0), myArrivalSpeed(0),
             myArrivalTimeBraking(0), myArrivalSpeedBraking(0),
             myDistance(distance),
-            accelV(-1), hadVehicle(false), availableSpace(-1.) {
+            accelV(-1), hadVehicle(false), availableSpace(_availableSpace) {
             assert(vWait >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
         };
 

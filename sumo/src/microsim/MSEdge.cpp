@@ -84,7 +84,9 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
     myLength(-1.),
     myEmptyTraveltime(-1.),
     myAmDelayed(false),
-    myAmRoundabout(false) {}
+    myAmRoundabout(false),
+    myAmFringe(true)
+{}
 
 
 MSEdge::~MSEdge() {
@@ -177,6 +179,9 @@ MSEdge::closeBuilding() {
                     myAllowed[&to] = new std::vector<MSLane*>();
                 }
                 myAllowed[&to]->push_back(*i);
+                if ((*j)->getDirection() != LINKDIR_TURN) {
+                    myAmFringe = false;
+                }
             }
             toL = (*j)->getViaLane();
             if (toL != 0) {
@@ -1012,7 +1017,6 @@ bool MSEdge::isSuperposable(const MSEdge * other) {
 
     return true;
 }
-
 
 /****************************************************************************/
 

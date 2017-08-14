@@ -642,6 +642,11 @@ public:
     /// @brief whether any lane has a minor link
     bool hasMinorLink() const;
 
+    /// @brief return whether this edge is at the fringe of the network
+    bool isFringe() const {
+        return myAmFringe;
+    }
+
     /// @brief grant exclusive access to the mesoscopic state
     virtual void lock() const {}
 
@@ -828,6 +833,9 @@ protected:
 
     /// @brief whether this edge belongs to a roundabout
     bool myAmRoundabout;
+
+    /// @brief whether this edge is at the network fringe
+    bool myAmFringe;
 
     /// @brief the right side for each sublane on this edge
     std::vector<double> mySublaneSides;

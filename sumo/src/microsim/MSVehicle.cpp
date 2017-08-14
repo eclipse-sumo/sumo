@@ -1672,7 +1672,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             if (lastLink != 0) {
                 lastLink->adaptLeaveSpeed(va);
             }
-            lfLinks.push_back(DriveProcessItem(v, seen));
+            lfLinks.push_back(DriveProcessItem(v, seen, lane->getEdge().isFringe() ? 1000 : 0));
             break;
         }
         // check whether the lane or the shadowLane is a dead end (allow some leeway on intersections)
@@ -2691,7 +2691,11 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
             // skip unset links
             DriveProcessItem& item = lfLinks[i];
             if (item.myLink == 0 || foundStopped) {
-                item.availableSpace = seenSpace;
+                if (!foundStopped) {
+                    item.availableSpace += seenSpace;
+                } else {
+                    item.availableSpace = seenSpace;
+                }
                 item.hadVehicle = hadVehicle;
                 continue;
             }
