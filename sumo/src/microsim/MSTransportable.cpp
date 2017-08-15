@@ -414,10 +414,17 @@ MSTransportable::getNumStages() const {
 }
 
 void
-MSTransportable::appendStage(Stage* stage) {
+MSTransportable::appendStage(Stage* stage, int next) {
     // myStep is invalidated upon modifying myPlan
     const int stepIndex = (int)(myStep - myPlan->begin());
-    myPlan->push_back(stage);
+    if (next < 0) {
+        myPlan->push_back(stage);
+    } else {
+        if (stepIndex + next > myPlan->size()) {
+            throw ProcessError("invalid index '" + toString(next) + "' for inserting new stage into plan of '" + getID() + "'");
+        }
+        myPlan->insert(myPlan->begin() + stepIndex + next, stage);
+    }
     myStep = myPlan->begin() + stepIndex;
 }
 

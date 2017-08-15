@@ -306,6 +306,14 @@ class PersonDomain(Domain):
                                                 tc.TYPE_INTEGER, nextStageIndex)
         self._connection._sendExact()
 
+    def rerouteTraveltime(self, personID):
+        """rerouteTraveltime(string) -> None Reroutes a pedestrian (walking person).
+        """
+        self._connection._beginMessage(
+            tc.CMD_SET_PERSON_VARIABLE, tc.CMD_REROUTE_TRAVELTIME, personID, 1 + 4)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
+        self._connection._sendExact()
+
     def setSpeed(self, personID, speed):
         """setSpeed(string, double) -> None
 

@@ -97,7 +97,7 @@ MSPerson::MSPersonStage_Walking::getFromEdge() const {
 
 double
 MSPerson::MSPersonStage_Walking::getEdgePos(SUMOTime now) const {
-    return myPedestrianState->getEdgePos(*this, now);
+    return myPedestrianState == 0 ? -1 : myPedestrianState->getEdgePos(*this, now);
 }
 
 
@@ -337,6 +337,7 @@ MSPerson::proceed(MSNet* net, SUMOTime time) {
         (*myStep)->endEventOutput(*this, time, OutputDevice::getDeviceByOption("person-event-output"));
     }
     */
+    //std::cout << time2string(time) << " person=" << getID() << " proceed priorStep=" << myStep - myPlan->begin() << " planSize=" << myPlan->size() << "\n";
     myStep++;
     if (myStep != myPlan->end()) {
         (*myStep)->proceed(net, this, time, prior);

@@ -213,6 +213,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             && variable != ADD
             && variable != APPEND_STAGE
             && variable != REMOVE_STAGE
+            && variable != CMD_REROUTE_TRAVELTIME
             && variable != VAR_SPEED
             && variable != VAR_TYPE
             && variable != VAR_LENGTH
@@ -472,6 +473,41 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The stage index may not be negative.", outputStorage);
             }
             p->removeStage(nextStageIndex);
+        }
+        break;
+        case CMD_REROUTE_TRAVELTIME: {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Rerouting requires a compound object.", outputStorage);
+            }
+            if (inputStorage.readInt() != 0) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Rerouting should obtain an empty compound object.", outputStorage);
+            }
+            if (p->getNumRemainingStages() == 0 || p->getCurrentStageType() != MSTransportable::MOVING_WITHOUT_VEHICLE) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Person '" + id + "' is not currenlty walking.", outputStorage);
+            }
+
+            const MSEdge* from = p->getEdge();
+            double  departPos = p->getEdgePos();
+            const MSEdge* to = p->getArrivalEdge();
+            double  arrivalPos = p->getArrivalPos();
+            double speed = p->getVehicleType().getMaxSpeed();
+            ConstMSEdgeVector newEdges;
+            MSNet::getInstance()->getPedestrianRouter().compute(from, to, departPos, arrivalPos, speed, 0, 0, newEdges);
+            if (newEdges.empty()) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Could not find new route for person '" + id + "'.", outputStorage);
+            }
+            //std::cout << " from=" << from->getID() << " to=" << to->getID() << " newEdges=" << toString(newEdges) << "\n";
+            MSPerson::MSPersonStage_Walking* newStage = new MSPerson::MSPersonStage_Walking(newEdges, 0, -1, speed, departPos, arrivalPos, 0);
+            if (p->getNumRemainingStages() == 1) {
+                // Do not remove the last stage (a waiting stage would be added otherwise) 
+                p->appendStage(newStage);
+                //std::cout << "case a: remaining=" << p->getNumRemainingStages() << "\n";
+                p->removeStage(0);
+            } else {
+                p->removeStage(0);
+                p->appendStage(newStage);
+                //std::cout << "case b: remaining=" << p->getNumRemainingStages() << "\n";
+            }
         }
         break;
         case VAR_PARAMETER: {
