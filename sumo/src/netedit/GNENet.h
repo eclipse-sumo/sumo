@@ -591,6 +591,12 @@ public:
      */
     bool removePOI(const std::string& id);
 
+    /// @brief generate PolyID
+    std::string generatePolyID() const;
+
+    /// @brief generate a POI ID
+    std::string generatePOIID() const;
+
 protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
     SUMORTree myGrid;

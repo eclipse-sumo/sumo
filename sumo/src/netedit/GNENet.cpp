@@ -1823,6 +1823,32 @@ GNENet::removePOI(const std::string& id) {
 }
 
 
+std::string 
+GNENet::generatePolyID() const {
+    int counter = 0;
+    std::string newID = "poly_" + toString(counter);
+    // generate new IDs to find a non-assigned ID
+    while(myPolygons.get(newID) != NULL) {
+        counter++;
+        newID = "poly_" + toString(counter);
+    }
+    return newID;
+}
+
+
+std::string 
+GNENet::generatePOIID() const {
+    int counter = 0;
+    std::string newID = "POI_" + toString(counter);
+    // generate new IDs to find a non-assigned ID
+    while(myPOIs.get(newID) != NULL) {
+        counter++;
+        newID = "POI_" + toString(counter);
+    }
+    return newID;
+}
+
+
 // ===========================================================================
 // private
 // ===========================================================================
