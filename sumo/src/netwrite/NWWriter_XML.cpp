@@ -271,7 +271,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         const std::vector<NBEdge::Connection> connections = e->getConnections();
         if (connections.empty()) {
             // if there are no connections and this appears to be customized, preserve the information
-            const int numOutgoing = e->getToNode()->getOutgoingEdges().size();
+            const int numOutgoing = (int)e->getToNode()->getOutgoingEdges().size();
             if (numOutgoing > 1 || 
                     (numOutgoing == 1 && 
                      (!e->isTurningDirectionAt(e->getToNode()->getOutgoingEdges().front()) || hasTurns))) {
