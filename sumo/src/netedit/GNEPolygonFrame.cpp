@@ -38,6 +38,7 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/geom/GeomConvHelper.h>
+#include <utils/gui/div/GLHelper.h>
 
 #include "GNEPolygonFrame.h"
 #include "GNEViewNet.h"
@@ -74,8 +75,9 @@ FXDEFMAP(GNEPolygonFrame::NeteditAttributes) GNEEditorParametersMap[] = {
 };
 
 FXDEFMAP(GNEPolygonFrame::DrawingMode) GNEDrawingModeMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON_START, GNEPolygonFrame::DrawingMode::onCmdStartDrawing),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON_STOP, GNEPolygonFrame::DrawingMode::onCmdStopDrawing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON_START,  GNEPolygonFrame::DrawingMode::onCmdStartDrawing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON_STOP,   GNEPolygonFrame::DrawingMode::onCmdStopDrawing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON_ABORT,  GNEPolygonFrame::DrawingMode::onCmdAbortDrawing),
 };
 
 // Object implementation
@@ -137,12 +139,9 @@ GNEPolygonFrame::~GNEPolygonFrame() {
 
 
 GNEPolygonFrame::AddShapeResult
-GNEPolygonFrame::processClick(Position clickedPosition) {
+GNEPolygonFrame::processClick(const Position &clickedPosition) {
     // check if current selected additional is valid
-    if (myActualShapeType == SUMO_TAG_NOTHING) {
-        myViewNet->setStatusBarText("Current selected shape isn't valid.");
-        return ADDSHAPE_INVALID;
-    } else if (myActualShapeType == SUMO_TAG_POI) {
+    if (myActualShapeType == SUMO_TAG_POI) {
 
         // show warning dialogbox and stop check if input parameters are valid
         if (myadditionalParameters->areValuesValid() == false) {
@@ -172,23 +171,52 @@ GNEPolygonFrame::processClick(Position clickedPosition) {
         } else {
             return ADDSHAPE_INVALID;
         }
+    } else if (myActualShapeType == SUMO_TAG_POLY) {
+        if(myDrawingMode->isDrawing()) {
+            myDrawingMode->addNewPoint(clickedPosition);
+            return ADDSHAPE_NEWPOINT;
+        } else {
+            // return ADDSHAPE_NOTHING if is drawing isn't enabled
+            return ADDSHAPE_NOTHING;
+        }
+    } else {
+        myViewNet->setStatusBarText("Current selected shape isn't valid.");
+        return ADDSHAPE_INVALID;
     }
+}
 
 
-   
-    /********
-    // Generate id of element
-    valuesOfElement[SUMO_ATTR_ID] = generateID(NULL);
-    ********/
+bool 
+GNEPolygonFrame::buildPoly(const PositionVector& drawedShape) {
+    // show warning dialogbox and stop check if input parameters are valid
+    if (myadditionalParameters->areValuesValid() == false) {
+        myadditionalParameters->showWarningMessage();
+        return false;
+    } else {
+    // Declare map to keep values
+        std::map<SumoXMLAttr, std::string> valuesOfElement = myadditionalParameters->getAttributesAndValues();
+
+        // generate new ID
+        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generatePolyID();
+
+        // obtain position
+        valuesOfElement[SUMO_ATTR_SHAPE] = toString(drawedShape);
+
+        // obtain block movement value
+        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockMovementEnabled());
+
+        // obtain block shape value
+        valuesOfElement[GNE_ATTR_BLOCK_SHAPE] = toString(myEditorParameters->isBlockShapeEnabled());
+
+        // return ADDSHAPE_SUCCESS if POI was sucesfully created
+        return addPolygon(valuesOfElement);
+    }
+}
 
 
-
-    /********
-    // get position in map
-    valuesOfElement[SUMO_ATTR_POSITION] = toString(currentPosition);
-    ********/
-
-    return ADDSHAPE_SUCCESS;
+GNEPolygonFrame::DrawingMode*
+GNEPolygonFrame::getDrawingMode() const {
+    return myDrawingMode;
 }
 
 
@@ -248,8 +276,20 @@ GNEPolygonFrame::setParametersOfShape(SumoXMLTag actualShapeType) {
 
 
 bool 
-GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string> &POIValues) {
-    return false;
+GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string> &polyValues) {
+    bool ok = true;
+    // parse attributes from polyValues
+    std::string id = polyValues.at(SUMO_ATTR_ID);
+    std::string type = polyValues.at(SUMO_ATTR_TYPE);
+    RGBColor color = RGBColor::parseColor(polyValues.at(SUMO_ATTR_COLOR));
+    double layer = GNEAttributeCarrier::parse<double>(polyValues.at(SUMO_ATTR_LAYER));
+    //double angle = GNEAttributeCarrier::parse<double>(polyValues.at(SUMO_ATTR_ANGLE));
+    std::string imgFile = polyValues.at(SUMO_ATTR_IMGFILE);
+    PositionVector shape =  GeomConvHelper::parseShapeReporting(polyValues.at(SUMO_ATTR_SHAPE), "user-supplied position", 0, ok, true);
+    bool fill = GNEAttributeCarrier::parse<bool>(polyValues.at(SUMO_ATTR_FILL));
+
+    // cretate new POI
+    return myViewNet->getNet()->addPolygon(id, type, color, layer, /*angle*/0, imgFile, shape, fill);
 }
 
 
@@ -268,8 +308,7 @@ GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string> &POIValues) {
     double height = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_HEIGHT));
 
     // cretate new POI
-    myViewNet->getNet()->addPOI(id, type, color, layer, angle, imgFile, pos, width, height);
-    return true;
+    return myViewNet->getNet()->addPOI(id, type, color, layer, angle, imgFile, pos, width, height);
 }
 
 
@@ -283,7 +322,10 @@ GNEPolygonFrame::DrawingMode::DrawingMode(GNEPolygonFrame* polygonFrameParent) :
     // create start and stop buttons
     myStartDrawingButton = new FXButton(this, "Start drawing", 0, this, MID_GNE_MODE_POLYGON_START, GUIDesignButton);
     myStopDrawingButton = new FXButton(this, "Stop drawing", 0, this, MID_GNE_MODE_POLYGON_STOP, GUIDesignButton);
+    myAbortDrawingButton = new FXButton(this, "Abort drawing", 0, this, MID_GNE_MODE_POLYGON_STOP, GUIDesignButton);
+    // disable stop and abort functions as init
     myStopDrawingButton->disable();
+    myAbortDrawingButton->disable();
     // by default drawing mode is hidden
     hide();
 }
@@ -313,14 +355,21 @@ GNEPolygonFrame::DrawingMode::startDrawing() {
     // change buttons
     myStartDrawingButton->disable();
     myStopDrawingButton->enable();
+    myAbortDrawingButton->enable();
 }
 
 
 void 
 GNEPolygonFrame::DrawingMode::stopDrawing() {
-    // change buttons
-    myStartDrawingButton->enable();
-    myStopDrawingButton->disable();
+    if(myPolygonFrameParent->buildPoly(myTemporalShapeShape)) {
+        // change buttons
+        myStartDrawingButton->enable();
+        myStopDrawingButton->disable();
+        myAbortDrawingButton->disable();
+        // clear created points
+        myTemporalShapeShape.clear();
+        myPolygonFrameParent->getViewNet()->update();
+    }
 }
 
 
@@ -329,8 +378,30 @@ GNEPolygonFrame::DrawingMode::abortDrawing() {
     // change buttons
     myStartDrawingButton->enable();
     myStopDrawingButton->disable();
+    myAbortDrawingButton->disable();
     // clear created points
-    currentDrawedShape.clear();
+    myTemporalShapeShape.clear();
+    myPolygonFrameParent->getViewNet()->update();
+}
+
+void 
+GNEPolygonFrame::DrawingMode::addNewPoint(const Position &P) {
+    if(myStopDrawingButton->isEnabled()) {
+        myTemporalShapeShape.push_back(P);
+    } else {
+        throw ProcessError("A new point cannot be added if drawing wasn't started");
+    }
+}
+
+const PositionVector& 
+GNEPolygonFrame::DrawingMode::getTemporalShape() const {
+    return myTemporalShapeShape;
+}
+
+
+bool 
+GNEPolygonFrame::DrawingMode::isDrawing() const {
+    return myStopDrawingButton->isEnabled();
 }
 
 
@@ -344,6 +415,13 @@ GNEPolygonFrame::DrawingMode::onCmdStartDrawing(FXObject*, FXSelector, void*) {
 long 
 GNEPolygonFrame::DrawingMode::onCmdStopDrawing(FXObject*, FXSelector, void*) {
     stopDrawing();
+    return 0;
+}
+
+
+long 
+GNEPolygonFrame::DrawingMode::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
+    abortDrawing();
     return 0;
 }
 

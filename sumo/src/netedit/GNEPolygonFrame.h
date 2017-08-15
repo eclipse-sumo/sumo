@@ -55,7 +55,9 @@ public:
     /// @brief enum with all possible values after try to create an additional using frame
     enum AddShapeResult {
         ADDSHAPE_SUCCESS,   // Shape was successfully created
-        ADDSHAPE_INVALID    // Shape wasn't created
+        ADDSHAPE_NEWPOINT,  // New point was sucesfully added to temporal shape
+        ADDSHAPE_INVALID,   // Shape wasn't created
+        ADDSHAPE_NOTHING    //  Nothing to do
     };
 
     // ===========================================================================
@@ -297,13 +299,25 @@ public:
         /// @brief abort drawing
         void abortDrawing();
 
+        /// @brief ad new point to temporal shape
+        void addNewPoint(const Position &P);
+
+        /// @brief get Temporal shape
+        const PositionVector &getTemporalShape() const;
+
+        /// @brief return true if currently a shape is drawed
+        bool isDrawing() const;
+
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user select another additional Type
+        /// @brief Called when the user press start drawing button
         long onCmdStartDrawing(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user select another additional Type
+        /// @brief Called when the user press stop drawing button
         long onCmdStopDrawing(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press abort drawing button
+        long onCmdAbortDrawing(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -319,9 +333,12 @@ public:
 
         /// @brief button for stop drawing
         FXButton *myStopDrawingButton;
+
+        /// @brief button for abort drawing
+        FXButton *myAbortDrawingButton;
         
         /// @brief current drawed shape
-        PositionVector currentDrawedShape;
+        PositionVector myTemporalShapeShape;
     };
 
     /**@brief Constructor
@@ -333,11 +350,20 @@ public:
     /// @brief Destructor
     ~GNEPolygonFrame();
 
-    /**@brief process click ver Viewnet
+    /**@brief process click over Viewnet
     * @param[in] clickedPosition clicked position over ViewNet
     * @return AddShapeStatus with the result of operation
     */
-    AddShapeResult processClick(Position clickedPosition);
+    AddShapeResult processClick(const Position &clickedPosition);
+
+    /**@brief build Polygon using values of Fields and drawed shap
+     * return true if was sucesfully created
+     * @note called when user stop drawing poligon
+     */
+    bool buildPoly(const PositionVector &drawedShape);
+
+    /// @brief get drawing mode
+    DrawingMode *getDrawingMode() const;
 
     /// @name FOX-callbacks
     /// @{

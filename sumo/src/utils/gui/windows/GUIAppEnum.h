@@ -475,6 +475,7 @@ enum {
     /// @brief Polygon frame
     MID_GNE_MODE_POLYGON_START,
     MID_GNE_MODE_POLYGON_STOP,
+    MID_GNE_MODE_POLYGON_ABORT,
 
     /// @brief Additional dialogs
     MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,

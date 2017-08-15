@@ -394,6 +394,15 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             GUITextureSubSys::resetTextures();
         }
     }
+
+    // draw temporal shape of polygon during drawing
+    if(myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
+        glPushMatrix();
+        GLHelper::setColor(RGBColor::BLUE);
+        GLHelper::drawLine(myViewParent->getPolygonFrame()->getDrawingMode()->getTemporalShape());
+        glPopMatrix();
+    }
+
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     const float minB[2] = { (float)bound.xmin(), (float)bound.ymin() };
@@ -408,6 +417,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     for (std::map<const GUIGlObject*, int>::iterator i = myAdditionallyDrawn.begin(); i != myAdditionallyDrawn.end(); ++i) {
         (i->first)->drawGLAdditional(this, *myVisualizationSettings);
     }
+
     glPopMatrix();
     return hits2;
 }
@@ -742,9 +752,10 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
             case GNE_MODE_POLYGON: {
                 if (pointed_poi == NULL) {
                     GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()));
-                    // process click or update view depending of the result of "add additional"
-                    if ((result == GNEPolygonFrame::ADDSHAPE_SUCCESS) || (result == GNEPolygonFrame::ADDSHAPE_INVALID)) {
-                        update();
+                    // view net must be always update
+                    update();
+                    // process clickw depending of the result of "add additional"
+                    if ((result != GNEPolygonFrame::ADDSHAPE_NEWPOINT)) {
                         // process click
                         processClick(e, data);
                     }
