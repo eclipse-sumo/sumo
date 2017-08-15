@@ -126,6 +126,8 @@ public:
     /// aborts the plan for any transportable that is still waiting for a ride
     void abortWaitingForVehicle();
 
+    /// aborts waiting stage of transportable
+    void abortWaiting(MSTransportable* t);
 
     /** @brief Builds a new person
      * @param[in] pars The parameter

@@ -267,6 +267,25 @@ MSTransportableControl::abortWaitingForVehicle() {
 }
 
 
+void
+MSTransportableControl::abortWaiting(MSTransportable* t) {
+    for (std::map<SUMOTime, TransportableVector>::iterator it = myWaiting4Departure.begin(); it != myWaiting4Departure.end(); ++it) {
+        TransportableVector& ts = it->second;
+        TransportableVector::iterator it2 = std::find(ts.begin(), ts.end(), t);
+        if (it2 != ts.end()) {
+            ts.erase(it2);
+        }
+    }
+    for (std::map<SUMOTime, TransportableVector>::iterator it = myWaiting4Departure.begin(); it != myWaiting4Departure.end(); ++it) {
+        TransportableVector& ts = it->second;
+        TransportableVector::iterator it2 = std::find(ts.begin(), ts.end(), t);
+        if (it2 != ts.end()) {
+            ts.erase(it2);
+        }
+    }
+}
+
+
 MSTransportable*
 MSTransportableControl::buildPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
     return new MSPerson(pars, vtype, plan);

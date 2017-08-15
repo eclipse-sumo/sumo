@@ -221,6 +221,9 @@ public:
         /// destructor
         virtual ~Stage_Waiting();
 
+        /// abort this stage (TraCI)
+        void abort(MSTransportable*);
+
         /// Returns the current edge
         const MSEdge* getEdge() const;
         const MSEdge* getFromEdge() const;

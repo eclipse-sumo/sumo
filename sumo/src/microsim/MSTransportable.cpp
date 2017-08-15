@@ -220,6 +220,13 @@ MSTransportable::Stage_Waiting::getEdges() const {
     return result;
 }
 
+void
+MSTransportable::Stage_Waiting::abort(MSTransportable* t) {
+    MSTransportableControl& tc = (dynamic_cast<MSPerson*>(t) != 0 ? 
+            MSNet::getInstance()->getPersonControl() :
+            MSNet::getInstance()->getContainerControl());
+    tc.abortWaiting(t);
+}
 
 
 /* -------------------------------------------------------------------------
