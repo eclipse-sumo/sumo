@@ -130,6 +130,13 @@ traci.person.removeStages("newPerson")
 traci.person.appendWaitingStage(
     "newPerson", 10, "Jumped out of a moving vehicle. Ouch!")
 
+step()
+# change route on junction
+internalEdge = traci.person.getRoadID("detour")
+print("'detour' on road", internalEdge)
+traci.person.removeStages("detour")
+traci.person.appendWalkingStage("detour", [internalEdge, "1si"], -20)
+
 for i in range(196):
     step()
 # person should be on a walkingArea in front of a crossing now

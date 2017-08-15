@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:52184 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:37578 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -79,8 +79,9 @@ step 16
 {0: ['detour', 'horiz', 'newPerson', 'tripTest']}
 riding in vehicle: 'newPerson'
 persons on edge: '['newPerson']'
+'detour' on road :0_w2
 :0_w1
-10.0738219648
+10.2133948454
 :0_c0
 recovering from exception after asking for invalid stage index
 recovering from exception after asking for invalid stage index
