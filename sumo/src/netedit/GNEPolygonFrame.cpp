@@ -37,6 +37,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/geom/GeomConvHelper.h>
 
 #include "GNEPolygonFrame.h"
 #include "GNEViewNet.h"
@@ -141,42 +142,52 @@ GNEPolygonFrame::processClick(Position clickedPosition) {
     if (myActualShapeType == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected shape isn't valid.");
         return ADDSHAPE_INVALID;
+    } else if (myActualShapeType == SUMO_TAG_POI) {
+
+        // show warning dialogbox and stop check if input parameters are valid
+        if (myadditionalParameters->areValuesValid() == false) {
+            myadditionalParameters->showWarningMessage();
+            return ADDSHAPE_INVALID;
+        }
+
+        // Declare map to keep values
+        std::map<SumoXMLAttr, std::string> valuesOfElement = myadditionalParameters->getAttributesAndValues();
+
+        // generate new ID
+        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generatePOIID();
+
+        // obtain position
+        valuesOfElement[SUMO_ATTR_POSITION] = toString(clickedPosition);
+
+        // obtain block movement value
+        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockMovementEnabled());
+
+        // obtain block shape value
+        /** NOTE: CHECK IF SHAPE OF POI MUST BE BLOCKED **/
+        valuesOfElement[GNE_ATTR_BLOCK_SHAPE] = toString(myEditorParameters->isBlockShapeEnabled());
+
+        // return ADDSHAPE_SUCCESS if POI was sucesfully created
+        if(addPOI(valuesOfElement)) {
+            return ADDSHAPE_SUCCESS;
+        } else {
+            return ADDSHAPE_INVALID;
+        }
     }
 
-    // Declare map to keep values
-    std::map<SumoXMLAttr, std::string> valuesOfElement = myadditionalParameters->getAttributesAndValues();
+
    
     /********
     // Generate id of element
     valuesOfElement[SUMO_ATTR_ID] = generateID(NULL);
     ********/
 
-    // show warning dialogbox and stop check if input parameters are valid
-    if (myadditionalParameters->areValuesValid() == false) {
-        myadditionalParameters->showWarningMessage();
-        return ADDSHAPE_INVALID;
-    }
+
 
     /********
     // get position in map
     valuesOfElement[SUMO_ATTR_POSITION] = toString(currentPosition);
     ********/
 
-    // Save block value
-    valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockMovementEnabled());
-
-    // Save block value
-    valuesOfElement[GNE_ATTR_BLOCK_SHAPE] = toString(myEditorParameters->isBlockShapeEnabled());
-
-    /***
-    // Create additional
-    if (GNEShapeHandler::buildShape(myViewNet, true, myActualShapeType, valuesOfElement)) {
-        return ADDADDITIONAL_SUCCESS;
-    } else {
-        return ADDADDITIONAL_INVALID_ARGUMENTS;
-    }
-
-    ******/
     return ADDSHAPE_SUCCESS;
 }
 
@@ -234,6 +245,33 @@ GNEPolygonFrame::setParametersOfShape(SumoXMLTag actualShapeType) {
         myadditionalParameters->hideShapeParameters();
     }
 }
+
+
+bool 
+GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string> &POIValues) {
+    return false;
+}
+
+
+bool 
+GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string> &POIValues) {
+    bool ok = true;
+    // parse attributes from POIValues
+    std::string id = POIValues.at(SUMO_ATTR_ID);
+    std::string type = POIValues.at(SUMO_ATTR_TYPE);
+    RGBColor color = RGBColor::parseColor(POIValues.at(SUMO_ATTR_COLOR));
+    double layer = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_LAYER));
+    double angle = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_ANGLE));
+    std::string imgFile = POIValues.at(SUMO_ATTR_IMGFILE);
+    Position pos = GeomConvHelper::parseShapeReporting(POIValues.at(SUMO_ATTR_POSITION), "netedit-given", 0, ok, false)[0];
+    double width = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_WIDTH));
+    double height = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_HEIGHT));
+
+    // cretate new POI
+    myViewNet->getNet()->addPOI(id, type, color, layer, angle, imgFile, pos, width, height);
+    return true;
+}
+
 
 // ---------------------------------------------------------------------------
 // GNEPolygonFrame::DrawingMode - methods

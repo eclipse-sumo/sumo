@@ -521,7 +521,9 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     myMovingOriginalPosition = getPositionInformation();
                 } else if (pointed_poi) {
                     myPoiToMove = pointed_poi;
-                    myMovingOriginalPosition = getPositionInformation();
+                    // Save original Position of Element and obtain moving reference
+                    myMovingOriginalPosition = myPoiToMove->getPositionInView();
+                    myMovingReference = getPositionInformation();
                 } else if (pointed_junction) {
                     if (gSelected.isSelected(GLO_JUNCTION, pointed_junction->getGlID())) {
                         myMovingSelection = true;
@@ -767,6 +769,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
     if (myPolyToMove) {
         myPolyToMove = 0;
     } else if (myPoiToMove) {
+        myPoiToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
         myPoiToMove = 0;
     } else if (myJunctionToMove) {
         // position is already up to date but we must register with myUndoList
@@ -856,7 +859,9 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
         if (myPolyToMove) {
             myMovingOriginalPosition = myPolyToMove->moveGeometry(myMovingOriginalPosition, getPositionInformation());
         } else if (myPoiToMove) {
-            myPoiToMove->move(getPositionInformation());
+            // Calculate movement offset and move geometry of junction
+            Position offsetPosition = myMovingReference - getPositionInformation();
+            myPoiToMove->moveGeometry(snapToActiveGrid(myMovingOriginalPosition - offsetPosition));
         } else if (myJunctionToMove) {
             // check if  one of their junctions neighboors is in the position objective
             std::vector<GNEJunction*> junctionNeighbours = myJunctionToMove->getJunctionNeighbours();

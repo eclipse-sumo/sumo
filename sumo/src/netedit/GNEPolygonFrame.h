@@ -355,6 +355,12 @@ protected:
     /// @brief FOX needs this
     GNEPolygonFrame() {}
 
+    /// @brief add Polygon
+    bool addPolygon(const std::map<SumoXMLAttr, std::string> &POIValues);
+
+    /// @brief add POI
+    bool addPOI(const std::map<SumoXMLAttr, std::string> &POIValues);
+
 private:
     /// @brief set parameters depending of the new additionalType
     void setParametersOfShape(SumoXMLTag actualShapeType);
