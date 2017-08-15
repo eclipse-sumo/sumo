@@ -288,8 +288,8 @@ GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string> &polyValues
     PositionVector shape =  GeomConvHelper::parseShapeReporting(polyValues.at(SUMO_ATTR_SHAPE), "user-supplied position", 0, ok, true);
     bool fill = GNEAttributeCarrier::parse<bool>(polyValues.at(SUMO_ATTR_FILL));
 
-    // create new Polygon only if number of shape points is greather than 3
-    if(shape.size() > 3) {
+    // create new Polygon only if number of shape points is greather than 2
+    if(shape.size() > 2) {
         return myViewNet->getNet()->addPolygon(id, type, color, layer, /*angle*/0, imgFile, shape, fill);
     } else {
         return false;
@@ -326,6 +326,16 @@ GNEPolygonFrame::DrawingMode::DrawingMode(GNEPolygonFrame* polygonFrameParent) :
     myStartDrawingButton = new FXButton(this, "Start drawing", 0, this, MID_GNE_MODE_POLYGON_START, GUIDesignButton);
     myStopDrawingButton = new FXButton(this, "Stop drawing", 0, this, MID_GNE_MODE_POLYGON_STOP, GUIDesignButton);
     myAbortDrawingButton = new FXButton(this, "Abort drawing", 0, this, MID_GNE_MODE_POLYGON_STOP, GUIDesignButton);
+    // create information label
+    std::ostringstream information;
+    information
+        << "- 'Start drawing' draws\n"
+        << "  polygon boundary.\n"
+        << "- 'Stop drawing' or ENTER\n"
+        << "  creates polygon.\n"
+        << "- 'Abort drawing' or ESC\n"
+        << "  removes drawed polygon.\n";
+    myInformationLabel = new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelLeft);
     // disable stop and abort functions as init
     myStopDrawingButton->disable();
     myAbortDrawingButton->disable();

@@ -337,6 +337,9 @@ public:
         /// @brief button for abort drawing
         FXButton *myAbortDrawingButton;
         
+        /// @brief Label with information
+        FXLabel* myInformationLabel;
+
         /// @brief current drawed shape
         PositionVector myTemporalShapeShape;
     };
