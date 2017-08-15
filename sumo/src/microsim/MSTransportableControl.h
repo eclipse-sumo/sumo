@@ -124,7 +124,7 @@ public:
     bool hasNonWaiting() const;
 
     /// aborts the plan for any transportable that is still waiting for a ride
-    void abortWaiting();
+    void abortWaitingForVehicle();
 
 
     /** @brief Builds a new person

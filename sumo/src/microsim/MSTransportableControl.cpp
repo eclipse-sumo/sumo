@@ -248,7 +248,7 @@ MSTransportableControl::hasNonWaiting() const {
 
 
 void
-MSTransportableControl::abortWaiting() {
+MSTransportableControl::abortWaitingForVehicle() {
     for (std::map<const MSEdge*, TransportableVector>::const_iterator i = myWaiting4Vehicle.begin(); i != myWaiting4Vehicle.end(); ++i) {
         const MSEdge* edge = (*i).first;
         const TransportableVector& pv = (*i).second;

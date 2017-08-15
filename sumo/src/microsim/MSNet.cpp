@@ -575,10 +575,10 @@ MSNet::simulationState(SUMOTime stopTime) const {
                 && (myPersonControl == 0 || !myPersonControl->hasNonWaiting())
                 && (myContainerControl == 0 || !myContainerControl->hasNonWaiting())) {
             if (myPersonControl) {
-                myPersonControl->abortWaiting();
+                myPersonControl->abortWaitingForVehicle();
             }
             if (myContainerControl) {
-                myContainerControl->abortWaiting();
+                myContainerControl->abortWaitingForVehicle();
             }
             myVehicleControl->abortWaiting();
             return SIMSTATE_NO_FURTHER_VEHICLES;
