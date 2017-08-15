@@ -75,24 +75,29 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 GNEPOI::~GNEPOI() {}
 
 
-void
-GNEPOI::move(Position pos) {
-    set(pos);
+void 
+GNEPOI::moveGeometry(const Position &newPosition) {
+    set(newPosition);
     myNet->refreshElement(this);
 }
 
 
-//void
-//GNEPOI::registerMove(GNEUndoList *undoList) {
-//    Position newPos = myNBNode.getPosition();
-//    std::string newPosValue = getAttribute(SUMO_ATTR_POSITION);
-//    // actually the geometry is already up to date
-//    // set the restore point to the end of the last change-set
-//    setPosition(myOrigPos);
-//    // do not execute the command to avoid changing the edge geometry twice
-//    undoList->add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, newPosValue), false);
-//    setPosition(newPos);
-//}
+void 
+GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+
+}
+
+
+void 
+GNEPOI::updateGeometry() {
+
+}
+
+
+Position 
+GNEPOI::getPositionInView() const {
+    return Position(x(), y());
+}
 
 
 const std::string& 

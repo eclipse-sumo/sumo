@@ -73,15 +73,26 @@ public:
     /// @brief Destructor
     ~GNEPOI();
 
-    /**@brief reposition the POI at pos and informs the edges
-     * @param[in] pos The new position
-     * @note: those operations are not added to the undoList. This is handled in
-     * registerMove to avoids merging lots of tiny movements
-     */
-    void move(Position pos);
+    /// @name Functions related with geometry of element
+    /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+    * @param[in] newPosition new position of geometry
+    * @note should't be called in drawGL(...) functions to avoid smoothness issues
+    */
+    void moveGeometry(const Position &newPosition);
 
-    /// @brief registers completed movement with the undoList
-    //void registerMove(GNEUndoList *undoList);
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+    * @param[in] oldPos the old position of additional
+    * @param[in] undoList The undoList on which to register changes
+    */
+    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
+
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
+    /// @}
 
     /// @name inherited from GUIGlObject
     /// @{

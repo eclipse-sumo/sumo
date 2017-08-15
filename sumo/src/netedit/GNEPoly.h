@@ -73,6 +73,39 @@ public:
     /// @brief Destructor
     ~GNEPoly();
 
+
+    /**@brief change the polygon geometry
+    * It is up to the Polygon to decide whether an new geometry node should be
+    * generated or an existing node should be moved
+    * @param[in] oldPos The origin of the mouse movement
+    * @param[in] newPos The destination of the mouse movenent
+    * @param[in] relative Whether newPos is absolute or relative
+    * @return newPos if something was moved, oldPos if nothing was moved
+    */
+    Position moveGeometry(const Position& oldPos, const Position& newPos, bool relative = false);
+
+
+    /// @name Functions related with geometry of element
+    /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+    * @param[in] newPosition new position of geometry
+    * @note should't be called in drawGL(...) functions to avoid smoothness issues
+    */
+    void moveGeometry(const Position &newPosition);
+
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+    * @param[in] oldPos the old position of additional
+    * @param[in] undoList The undoList on which to register changes
+    */
+    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
+
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
+    /// @}
+
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Returns the name of the parent object
@@ -130,16 +163,6 @@ public:
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
-
-    /**@brief change the polygon geometry
-     * It is up to the Polygon to decide whether an new geometry node should be
-     * generated or an existing node should be moved
-     * @param[in] oldPos The origin of the mouse movement
-     * @param[in] newPos The destination of the mouse movenent
-     * @param[in] relative Whether newPos is absolute or relative
-     * @return newPos if something was moved, oldPos if nothing was moved
-     */
-    Position moveGeometry(const Position& oldPos, const Position& newPos, bool relative = false);
 
     /// @brief replace the current shape with a rectangle
     void simplifyShape();

@@ -76,7 +76,32 @@ GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, cons
 }
 
 
-GNEPoly::~GNEPoly() {}
+GNEPoly::~GNEPoly() {
+}
+
+
+void 
+GNEPoly::moveGeometry(const Position &newPosition) {
+}
+
+
+void 
+GNEPoly::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+
+}
+
+
+void 
+GNEPoly::updateGeometry() {
+}
+
+
+Position 
+GNEPoly::getPositionInView() const {
+    if(myShape.size() > 0) {
+        return myShape[0];
+    }
+}
 
 
 const std::string& 
