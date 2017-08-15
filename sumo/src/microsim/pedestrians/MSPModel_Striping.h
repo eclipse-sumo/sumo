@@ -402,6 +402,9 @@ private:
 
     static void initWalkingAreaPaths(const MSNet* net);
 
+    /// @brief return an arbitrary path across the given walkingArea
+    static WalkingAreaPath* getArbitraryPath(const MSEdge* walkingArea); 
+
     /// @brief return the maximum number of pedestrians walking side by side
     static int numStripes(const MSLane* lane);
 

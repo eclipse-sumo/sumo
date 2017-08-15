@@ -346,6 +346,25 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
 }
 
 
+MSPModel_Striping::WalkingAreaPath*
+MSPModel_Striping::getArbitraryPath(const MSEdge* walkingArea) {
+    assert(walkingArea->isWalkingArea());
+    std::vector<const MSLane*> lanes;
+    const MSEdgeVector& incoming = walkingArea->getPredecessors();
+    for (int j = 0; j < (int)incoming.size(); ++j) {
+        lanes.push_back(getSidewalk<MSEdge, MSLane>(incoming[j]));
+    }
+    const MSEdgeVector& outgoing = walkingArea->getSuccessors();
+    for (int j = 0; j < (int)outgoing.size(); ++j) {
+        lanes.push_back(getSidewalk<MSEdge, MSLane>(outgoing[j]));
+    }
+    if (lanes.size() < 1) {
+        throw ProcessError("Invalid walkingarea '" + walkingArea->getID() + "' does not allow continuation.");
+    }
+    return &myWalkingAreaPaths[std::make_pair(lanes.front(), lanes.back())];
+}
+
+
 MSPModel_Striping::NextLaneInfo
 MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, const MSLane* prevLane) {
     const MSEdge* currentEdge = &currentLane->getEdge();
@@ -394,7 +413,9 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                                        ? ped.myStage->getArrivalPos()
                                        : (nextRouteEdgeDir == FORWARD ? 0 : nextRouteEdge->getLength()));
             MSEdgeVector prohibited;
-            prohibited.push_back(&prevLane->getEdge());
+            if (prevLane != 0) {
+                prohibited.push_back(&prevLane->getEdge());
+            }
             MSNet::getInstance()->getPedestrianRouter(prohibited).compute(currentEdge, nextRouteEdge, 0, arrivalPos, ped.myStage->getMaxSpeed(), 0, junction, crossingRoute, true);
             if DEBUGCOND(ped) {
                 std::cout
@@ -1062,11 +1083,17 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walk
     myWalkingAreaPath(0),
     myAmJammed(false) {
     const MSEdge* currentEdge = &lane->getEdge();
-    assert(!currentEdge->isWalkingArea());
     const ConstMSEdgeVector& route = myStage->getRoute();
+    assert(!route.empty());
     if (route.size() == 1) {
         // only a single edge, move towards end pos
         myDir = (myRelX <= myStage->getArrivalPos()) ? FORWARD : BACKWARD;
+    } else if (route.front()->getFunction() != EDGEFUNC_NORMAL) {
+        // start on an intersection
+        myDir = FORWARD;
+        if (route.front()->isWalkingArea()) {
+            myWalkingAreaPath = getArbitraryPath(route.front());
+        }
     } else {
         const bool mayStartForward = canTraverse(FORWARD, route);
         const bool mayStartBackward = canTraverse(BACKWARD, route);
