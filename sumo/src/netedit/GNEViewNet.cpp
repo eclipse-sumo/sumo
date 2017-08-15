@@ -951,6 +951,9 @@ GNEViewNet::abortOperation(bool clearSelection) {
         myViewParent->getTLSEditorFrame()->onCmdCancel(0, 0, 0);
     } else if (myEditMode == GNE_MODE_MOVE) {
         removeCurrentPoly();
+    } else if (myEditMode == GNE_MODE_POLYGON) {
+        // abort current drawing
+        myViewParent->getPolygonFrame()->getDrawingMode()->abortDrawing();
     }
     myUndoList->p_abort();
 }
@@ -985,6 +988,9 @@ GNEViewNet::hotkeyEnter() {
             removeCurrentPoly();
             update();
         }
+    } else if (myEditMode == GNE_MODE_POLYGON) {
+        // stop current drawing
+        myViewParent->getPolygonFrame()->getDrawingMode()->stopDrawing();
     }
 }
 

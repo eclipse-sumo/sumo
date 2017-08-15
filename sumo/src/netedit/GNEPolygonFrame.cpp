@@ -193,7 +193,7 @@ GNEPolygonFrame::buildPoly(const PositionVector& drawedShape) {
         myadditionalParameters->showWarningMessage();
         return false;
     } else {
-    // Declare map to keep values
+        // Declare map to keep values
         std::map<SumoXMLAttr, std::string> valuesOfElement = myadditionalParameters->getAttributesAndValues();
 
         // generate new ID
@@ -288,8 +288,12 @@ GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string> &polyValues
     PositionVector shape =  GeomConvHelper::parseShapeReporting(polyValues.at(SUMO_ATTR_SHAPE), "user-supplied position", 0, ok, true);
     bool fill = GNEAttributeCarrier::parse<bool>(polyValues.at(SUMO_ATTR_FILL));
 
-    // cretate new POI
-    return myViewNet->getNet()->addPolygon(id, type, color, layer, /*angle*/0, imgFile, shape, fill);
+    // create new Polygon only if number of shape points is greather than 3
+    if(shape.size() > 3) {
+        return myViewNet->getNet()->addPolygon(id, type, color, layer, /*angle*/0, imgFile, shape, fill);
+    } else {
+        return false;
+    }
 }
 
 
@@ -307,10 +311,9 @@ GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string> &POIValues) {
     double width = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_WIDTH));
     double height = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_HEIGHT));
 
-    // cretate new POI
+    // create new POI
     return myViewNet->getNet()->addPOI(id, type, color, layer, angle, imgFile, pos, width, height);
 }
-
 
 // ---------------------------------------------------------------------------
 // GNEPolygonFrame::DrawingMode - methods
