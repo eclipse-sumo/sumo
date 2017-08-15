@@ -496,6 +496,10 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             if (newEdges.empty()) {
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Could not find new route for person '" + id + "'.", outputStorage);
             }
+            if (newEdges.front() != from) {
+                // @note: maybe this should be done automatically by the router
+                newEdges.insert(newEdges.begin(), from);
+            }
             //std::cout << " from=" << from->getID() << " to=" << to->getID() << " newEdges=" << toString(newEdges) << "\n";
             MSPerson::MSPersonStage_Walking* newStage = new MSPerson::MSPersonStage_Walking(newEdges, 0, -1, speed, departPos, arrivalPos, 0);
             if (p->getNumRemainingStages() == 1) {
