@@ -131,11 +131,18 @@ traci.person.appendWaitingStage(
     "newPerson", 10, "Jumped out of a moving vehicle. Ouch!")
 
 step()
-# change route on junction
+# change plan on junction
 internalEdge = traci.person.getRoadID("detour")
 print("'detour' on road", internalEdge)
 traci.person.removeStages("detour")
 traci.person.appendWalkingStage("detour", [internalEdge, "1si"], -20)
+
+# reroute on junction
+internalEdge = traci.person.getRoadID("detour2")
+print("'detour2' on road", internalEdge)
+print("detour2 edges", traci.person.getEdges("detour2"))
+traci.person.rerouteTraveltime("detour2")
+print("detour2 edges after routing", traci.person.getEdges("detour2"))
 
 for i in range(196):
     step()
