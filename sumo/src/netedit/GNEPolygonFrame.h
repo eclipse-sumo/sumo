@@ -54,8 +54,8 @@ public:
 
     /// @brief enum with all possible values after try to create an additional using frame
     enum AddShapeResult {
-        ADDSHAPE_INVALID_ARGUMENTS,    // Parameters of shape are invalid
-        ADDSHAPE_SUCCESS               // Shape was successfully created
+        ADDSHAPE_SUCCESS,   // Shape was successfully created
+        ADDSHAPE_INVALID    // Shape wasn't created
     };
 
     // ===========================================================================
@@ -267,6 +267,63 @@ public:
     };
 
 
+    // ===========================================================================
+    // class DrawingMode
+    // ===========================================================================
+
+    class DrawingMode : public FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPolygonFrame::DrawingMode)
+
+    public:
+        /// @brief constructor
+        DrawingMode(GNEPolygonFrame* polygonFrameParent);
+
+        /// @brief destructor
+        ~DrawingMode();
+
+        /// @brief show Drawing mode
+        void show();
+
+        /// @brief show Drawing mode
+        void hide();
+
+        /// @brief start drawing
+        void startDrawing();
+
+        /// @brief stop drawing and create polygon or 
+        void stopDrawing();
+
+        /// @brief abort drawing
+        void abortDrawing();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user select another additional Type
+        long onCmdStartDrawing(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user select another additional Type
+        long onCmdStopDrawing(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        DrawingMode() {}
+
+    private:
+        /// @brief polygon frame parent
+        GNEPolygonFrame* myPolygonFrameParent;
+
+        /// @brief button for start drawing
+        FXButton *myStartDrawingButton;
+
+        /// @brief button for stop drawing
+        FXButton *myStopDrawingButton;
+        
+        /// @brief current drawed shape
+        PositionVector currentDrawedShape;
+    };
+
     /**@brief Constructor
     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
     * @brief viewNet viewNet that uses this GNEFrame
@@ -276,12 +333,11 @@ public:
     /// @brief Destructor
     ~GNEPolygonFrame();
 
-    /**@brief add additional element
-    * @param[in] netElement clicked netElement. if user dind't clicked over a GNENetElement in view, netElement will be NULL
-    * @param[in] parent AbstractView to obtain the position of the mouse over the lane.
+    /**@brief process click ver Viewnet
+    * @param[in] clickedPosition clicked position over ViewNet
     * @return AddShapeStatus with the result of operation
     */
-    AddShapeResult addShape(GNENetElement* netElement, GUISUMOAbstractView* parent);
+    AddShapeResult processClick(Position clickedPosition);
 
     /// @name FOX-callbacks
     /// @{
@@ -314,6 +370,9 @@ private:
 
     /// @brief Netedit parameter
     GNEPolygonFrame::NeteditAttributes* myEditorParameters;
+
+    /// @brief drawing mode
+    GNEPolygonFrame::DrawingMode* myDrawingMode;
 
     /// @brief actual additional type selected in the match Box
     SumoXMLTag myActualShapeType;

@@ -58,12 +58,12 @@ FXDEFMAP(GNEPolygonFrame) GNEShapeMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONAL_ITEM, GNEPolygonFrame::onCmdSelectShape),
 };
 
-FXDEFMAP(GNEPolygonFrame::ShapeAttributeSingle) GNEsingleShapeParameterMap[] = {
+FXDEFMAP(GNEPolygonFrame::ShapeAttributeSingle) GNESingleShapeParameterMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT,   GNEPolygonFrame::ShapeAttributeSingle::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL,   GNEPolygonFrame::ShapeAttributeSingle::onCmdSetBooleanAttribute),
 };
 
-FXDEFMAP(GNEPolygonFrame::ShapeAttributes) GNEadditionalParametersMap[] = {
+FXDEFMAP(GNEPolygonFrame::ShapeAttributes) GNEAdditionalParametersMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEPolygonFrame::ShapeAttributes::onCmdHelp),
 };
 
@@ -72,11 +72,17 @@ FXDEFMAP(GNEPolygonFrame::NeteditAttributes) GNEEditorParametersMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_SHAPE,     GNEPolygonFrame::NeteditAttributes::onCmdSetBlockShape),
 };
 
+FXDEFMAP(GNEPolygonFrame::DrawingMode) GNEDrawingModeMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON_START, GNEPolygonFrame::DrawingMode::onCmdStartDrawing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON_STOP, GNEPolygonFrame::DrawingMode::onCmdStopDrawing),
+};
+
 // Object implementation
 FXIMPLEMENT(GNEPolygonFrame,                        FXVerticalFrame,    GNEShapeMap,                    ARRAYNUMBER(GNEShapeMap))
-FXIMPLEMENT(GNEPolygonFrame::ShapeAttributeSingle,  FXHorizontalFrame,  GNEsingleShapeParameterMap,     ARRAYNUMBER(GNEsingleShapeParameterMap))
-FXIMPLEMENT(GNEPolygonFrame::ShapeAttributes,       FXGroupBox,         GNEadditionalParametersMap,     ARRAYNUMBER(GNEadditionalParametersMap))
+FXIMPLEMENT(GNEPolygonFrame::ShapeAttributeSingle,  FXHorizontalFrame,  GNESingleShapeParameterMap,     ARRAYNUMBER(GNESingleShapeParameterMap))
+FXIMPLEMENT(GNEPolygonFrame::ShapeAttributes,       FXGroupBox,         GNEAdditionalParametersMap,     ARRAYNUMBER(GNEAdditionalParametersMap))
 FXIMPLEMENT(GNEPolygonFrame::NeteditAttributes,     FXGroupBox,         GNEEditorParametersMap,         ARRAYNUMBER(GNEEditorParametersMap))
+FXIMPLEMENT(GNEPolygonFrame::DrawingMode,           FXGroupBox,         GNEDrawingModeMap,              ARRAYNUMBER(GNEDrawingModeMap))
 
 // ===========================================================================
 // method definitions
@@ -97,6 +103,9 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
 
     // Create Netedit parameter
     myEditorParameters = new GNEPolygonFrame::NeteditAttributes(myContentFrame);
+    
+    // Create drawing controls
+    myDrawingMode = new GNEPolygonFrame::DrawingMode(this);
 
     // Add options to myShapeMatchBox
     for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
@@ -111,6 +120,12 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
         // Set myActualShapeType and show
         myActualShapeType = GNEAttributeCarrier::allowedShapeTags().front();
         setParametersOfShape(myActualShapeType);
+        // show drawing controls if we're creating a polygon
+        if(myActualShapeType == SUMO_TAG_POLY) {
+            myDrawingMode->show();
+        } else {
+            myDrawingMode->hide();
+        }
     }
 }
 
@@ -121,19 +136,16 @@ GNEPolygonFrame::~GNEPolygonFrame() {
 
 
 GNEPolygonFrame::AddShapeResult
-GNEPolygonFrame::addShape(GNENetElement* netElement, GUISUMOAbstractView* parent) {
+GNEPolygonFrame::processClick(Position clickedPosition) {
     // check if current selected additional is valid
     if (myActualShapeType == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected shape isn't valid.");
-        return ADDSHAPE_INVALID_ARGUMENTS;
+        return ADDSHAPE_INVALID;
     }
 
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement = myadditionalParameters->getAttributesAndValues();
-
-    // limit position depending if show grid is enabled
-    Position currentPosition = parent->snapToActiveGrid(parent->getPositionInformation());
-    
+   
     /********
     // Generate id of element
     valuesOfElement[SUMO_ATTR_ID] = generateID(NULL);
@@ -142,7 +154,7 @@ GNEPolygonFrame::addShape(GNENetElement* netElement, GUISUMOAbstractView* parent
     // show warning dialogbox and stop check if input parameters are valid
     if (myadditionalParameters->areValuesValid() == false) {
         myadditionalParameters->showWarningMessage();
-        return ADDSHAPE_INVALID_ARGUMENTS;
+        return ADDSHAPE_INVALID;
     }
 
     /********
@@ -165,7 +177,7 @@ GNEPolygonFrame::addShape(GNENetElement* netElement, GUISUMOAbstractView* parent
     }
 
     ******/
-    return ADDSHAPE_INVALID_ARGUMENTS;
+    return ADDSHAPE_SUCCESS;
 }
 
 
@@ -189,15 +201,15 @@ GNEPolygonFrame::onCmdSelectShape(FXObject*, FXSelector, void*) {
         myShapeMatchBox->setTextColor(FXRGB(255, 0, 0));
         myadditionalParameters->hide();
         myEditorParameters->hide();
+    } else {
+        // show drawing controls if we're creating a polygon
+        if(myActualShapeType == SUMO_TAG_POLY) {
+            myDrawingMode->show();
+        } else {
+            myDrawingMode->hide();
+        }
     }
     return 1;
-}
-
-
-void
-GNEPolygonFrame::show() {
-    // Show frame
-    GNEFrame::show();
 }
 
 
@@ -223,6 +235,86 @@ GNEPolygonFrame::setParametersOfShape(SumoXMLTag actualShapeType) {
     }
 }
 
+// ---------------------------------------------------------------------------
+// GNEPolygonFrame::DrawingMode - methods
+// ---------------------------------------------------------------------------
+
+GNEPolygonFrame::DrawingMode::DrawingMode(GNEPolygonFrame* polygonFrameParent) :
+    FXGroupBox(polygonFrameParent->myContentFrame, "Drawing", GUIDesignGroupBoxFrame),
+    myPolygonFrameParent(polygonFrameParent) {
+    // create start and stop buttons
+    myStartDrawingButton = new FXButton(this, "Start drawing", 0, this, MID_GNE_MODE_POLYGON_START, GUIDesignButton);
+    myStopDrawingButton = new FXButton(this, "Stop drawing", 0, this, MID_GNE_MODE_POLYGON_STOP, GUIDesignButton);
+    myStopDrawingButton->disable();
+    // by default drawing mode is hidden
+    hide();
+}
+
+
+GNEPolygonFrame::DrawingMode::~DrawingMode() {}
+
+
+void GNEPolygonFrame::DrawingMode::show() {
+    // abort current drawing before show
+    abortDrawing();
+    // show FXGroupBox
+    FXGroupBox::show();
+}
+
+
+void GNEPolygonFrame::DrawingMode::hide() {
+    // abort current drawing before hide
+    abortDrawing();
+    // show FXGroupBox
+    FXGroupBox::hide();
+}
+
+
+void 
+GNEPolygonFrame::DrawingMode::startDrawing() {
+    // change buttons
+    myStartDrawingButton->disable();
+    myStopDrawingButton->enable();
+}
+
+
+void 
+GNEPolygonFrame::DrawingMode::stopDrawing() {
+    // change buttons
+    myStartDrawingButton->enable();
+    myStopDrawingButton->disable();
+}
+
+
+void 
+GNEPolygonFrame::DrawingMode::abortDrawing() {
+    // change buttons
+    myStartDrawingButton->enable();
+    myStopDrawingButton->disable();
+    // clear created points
+    currentDrawedShape.clear();
+}
+
+
+long 
+GNEPolygonFrame::DrawingMode::onCmdStartDrawing(FXObject*, FXSelector, void*) {
+    startDrawing();
+    return 0;
+}
+
+
+long 
+GNEPolygonFrame::DrawingMode::onCmdStopDrawing(FXObject*, FXSelector, void*) {
+    stopDrawing();
+    return 0;
+}
+
+
+void
+GNEPolygonFrame::show() {
+    // Show frame
+    GNEFrame::show();
+}
 
 // ---------------------------------------------------------------------------
 // GNEPolygonFrame::ShapeAttributeSingle - methods
@@ -625,7 +717,7 @@ GNEPolygonFrame::ShapeAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
 }
 
 // ---------------------------------------------------------------------------
-// GNEPolygonFrame::NeteditAttributes- methods
+// GNEPolygonFrame::NeteditAttributes - methods
 // ---------------------------------------------------------------------------
 
 GNEPolygonFrame::NeteditAttributes::NeteditAttributes(FXComposite* parent) :

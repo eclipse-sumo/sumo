@@ -737,6 +737,19 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                 processClick(e, data);
                 break;
             }
+            case GNE_MODE_POLYGON: {
+                if (pointed_poi == NULL) {
+                    GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()));
+                    // process click or update view depending of the result of "add additional"
+                    if ((result == GNEPolygonFrame::ADDSHAPE_SUCCESS) || (result == GNEPolygonFrame::ADDSHAPE_INVALID)) {
+                        update();
+                        // process click
+                        processClick(e, data);
+                    }
+                }
+
+                break;
+            }
             default: {
                 // process click
                 processClick(e, data);
