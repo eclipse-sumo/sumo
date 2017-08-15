@@ -55,6 +55,8 @@
 #define DEFAULT_PASSING_TIME "1.9"
 #define DEFAULT_DETECTOR_GAP "3.0"
 
+#define DEFAULT_LENGTH_WITH_GAP 7.5
+
 
 // ===========================================================================
 // method definitions
@@ -76,6 +78,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myVehicleTypes = getParameter("vTypes", "");
 }
 
+MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() { }
 
 void
 MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
@@ -86,6 +89,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     LaneVectorVector::const_iterator i2;
     LaneVector::const_iterator i;
     // build the induct loops
+    double maxDetectorGap = 0;
     for (i2 = myLanes.begin(); i2 != myLanes.end(); ++i2) {
         const LaneVector& lanes = *i2;
         for (i = lanes.begin(); i != lanes.end(); i++) {
@@ -104,12 +108,27 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 myInductLoops[lane] = nb.createInductLoop(id, lane, ilpos, myVehicleTypes, myShowDetectors);
                 MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, myInductLoops[lane], myFile, myFreq);
             }
+            maxDetectorGap = MAX2(maxDetectorGap, length - ilpos);
         }
+    }
+    // warn if the minGap is insufficient to clear vehicles between stop line and detector
+    SUMOTime minMinDur = getMinimumMinDuration();
+    if (floor(floor(maxDetectorGap / DEFAULT_LENGTH_WITH_GAP) * myPassingTime) > STEPS2TIME(minMinDur)) {
+        WRITE_WARNING("At actuated traffic light '" + getID() + "', minDur " + time2string(minMinDur) + " is too short to short for detector gap of " + toString(maxDetectorGap) + "m.");
     }
 }
 
 
-MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() { }
+SUMOTime 
+MSActuatedTrafficLightLogic::getMinimumMinDuration() const {
+    SUMOTime result = SUMOTime_MAX;
+    for (auto phase : myPhases) {
+        if (phase->minDuration != phase->maxDuration) {
+            result = MIN2(result, phase->minDuration);
+        }
+    }
+    return result;
+}
 
 
 // ------------ Switching and setting current rows
@@ -118,7 +137,6 @@ MSActuatedTrafficLightLogic::trySwitch() {
     // checks if the actual phase should be continued
     // @note any vehicles which arrived during the previous phases which are now waiting between the detector and the stop line are not
     // considere here. RiLSA recommends to set minDuration in a way that lets all vehicles pass the detector
-    // @todo: it would be nice to warn users if (inductLoopPosition / defaultLengthWithGap * myPassingTime > minDuration)
     const double detectionGap = gapControl();
     if (detectionGap < std::numeric_limits<double>::max()) {
         return duration(detectionGap);

@@ -111,6 +111,8 @@ protected:
      */
     SUMOTime duration(const double detectionGap) const;
 
+    /// @brief get the minimum min duration for all stretchable phases
+    SUMOTime getMinimumMinDuration() const;
 
     /** @brief Return the minimum detection gap of all detectors if the current phase should be extended and double::max otherwise
      */
