@@ -51,9 +51,9 @@
 // ===========================================================================
 // parameter defaults definitions
 // ===========================================================================
-#define DEFAULT_MAX_GAP "3.1"
+#define DEFAULT_MAX_GAP "3.0"
 #define DEFAULT_PASSING_TIME "1.9"
-#define DEFAULT_DETECTOR_GAP "3.0"
+#define DEFAULT_DETECTOR_GAP "2.0"
 
 #define DEFAULT_LENGTH_WITH_GAP 7.5
 
