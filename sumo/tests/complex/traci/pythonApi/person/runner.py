@@ -52,6 +52,11 @@ traci.person.setSpeed("newPerson", 1.2)
 for i in range(3):
     print("step", step())
 
+
+print("detour edges", traci.person.getEdges("detour"))
+traci.person.rerouteTraveltime("detour")
+print("detour edges after routing", traci.person.getEdges("detour"))
+
 personID = "horiz"
 traci.person.setType(personID, "pType2")
 traci.person.setLength(personID, 2)

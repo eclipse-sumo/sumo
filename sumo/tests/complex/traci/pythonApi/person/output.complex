@@ -1,19 +1,21 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:53502 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:34318 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
 step 2
+detour edges ['3si', '2o', '2fi', '2si', '4o']
+detour edges after routing ['3si', '4o']
 type pType2@horiz
-persons ['horiz', 'newPerson']
-person count 2
+persons ['detour', 'horiz', 'newPerson']
+person count 3
 examining horiz
-speed 1.37625571631
-pos (758.9823578158006, 504.975)
+speed 1.252376333
+pos (759.1062371991187, 504.975)
 angle 270.0
 road 2fi
 type pType2@horiz
-lanePos 241.017642184
+lanePos 240.893762801
 color (255, 255, 0, 255)
 length 2.0
 MinGap 2.22
@@ -23,22 +25,22 @@ stage 2
 remainingStages 1
 edges ['2fi', '2si', '1o']
 vehicle 
-{0: ['horiz', 'newPerson']}
+{0: ['detour', 'horiz', 'newPerson']}
 step 3
-{0: ['horiz', 'newPerson']}
+{0: ['detour', 'horiz', 'newPerson']}
 step 4
-{0: ['horiz', 'newPerson']}
+{0: ['detour', 'horiz', 'newPerson']}
 step 5
-{0: ['horiz', 'newPerson']}
-persons ['horiz', 'newPerson']
-person count 2
+{0: ['detour', 'horiz', 'newPerson']}
+persons ['detour', 'horiz', 'newPerson']
+person count 3
 examining horiz
-speed 1.23742354743
-pos (755.3374932061804, 504.975)
+speed 1.25939864167
+pos (755.482498789426, 504.975)
 angle 270.0
 road 2fi
 type pType2@horiz
-lanePos 244.662506794
+lanePos 244.517501211
 color (255, 255, 0, 255)
 length 2.0
 MinGap 2.22
@@ -48,36 +50,36 @@ stage 2
 remainingStages 1
 edges ['2fi', '2si', '1o']
 vehicle 
-persons ['horiz', 'newPerson']
-person count 2
+persons ['detour', 'horiz', 'newPerson']
+person count 3
 examining bla
 recovering from exception after asking for unknown person
 step 6
-getIDList ['horiz', 'newPerson']
+getIDList ['detour', 'horiz', 'newPerson']
 step 7
-{0: ['horiz', 'newPerson']}
+{0: ['detour', 'horiz', 'newPerson']}
 step 8
-{0: ['horiz', 'newPerson']}
+{0: ['detour', 'horiz', 'newPerson']}
 step 9
-{0: ['horiz', 'newPerson']}
+{0: ['detour', 'horiz', 'newPerson']}
 step 10
-{0: ['horiz', 'newPerson']}
+{0: ['detour', 'horiz', 'newPerson']}
 step 11
-{0: ['horiz', 'newPerson']}
+{0: ['detour', 'horiz', 'newPerson']}
 step 12
-{0: ['horiz', 'newPerson']}
+{0: ['detour', 'horiz', 'newPerson']}
 step 13
-{0: ['horiz', 'newPerson']}
+{0: ['detour', 'horiz', 'newPerson']}
 step 14
-{0: ['horiz', 'newPerson']}
+{0: ['detour', 'horiz', 'newPerson']}
 step 15
-{0: ['horiz', 'newPerson']}
+{0: ['detour', 'horiz', 'newPerson']}
 step 16
-{0: ['horiz', 'newPerson']}
+{0: ['detour', 'horiz', 'newPerson']}
 riding in vehicle: 'newPerson'
 persons on edge: '['newPerson']'
 :0_w1
-10.217046835
+10.1588963013
 :0_c0
 recovering from exception after asking for invalid stage index
 recovering from exception after asking for invalid stage index
