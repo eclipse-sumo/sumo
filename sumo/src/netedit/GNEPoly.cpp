@@ -98,9 +98,10 @@ GNEPoly::updateGeometry() {
 
 Position 
 GNEPoly::getPositionInView() const {
-    if(myShape.size() > 0) {
+    if (myShape.size() > 0) {
         return myShape[0];
     }
+    return Position::INVALID;
 }
 
 
