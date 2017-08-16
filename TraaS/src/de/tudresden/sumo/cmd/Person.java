@@ -457,4 +457,21 @@ public class Person {
 		return new SumoCommand(Constants.CMD_GET_PERSON_VARIABLE, Constants.VAR_MINGAP, personID, Constants.RESPONSE_GET_PERSON_VARIABLE,Constants.TYPE_DOUBLE);
 	}
 	
+	
+	/**
+	 * rerouteTraveltime
+	 * 
+	 * Computes a new route for the person using the global edge traveltime information.
+	 * 
+	 * @param personID a string personIDentifying the person
+	 * @return SumoComand
+	 */
+	
+	public static SumoCommand rerouteTraveltime(String personID){
+		Object[] array = new Object[]{personID};
+		return new SumoCommand(Constants.CMD_SET_PERSON_VARIABLE, Constants.CMD_REROUTE_TRAVELTIME, personID, array);
+	}
+	
+
+	
 }
