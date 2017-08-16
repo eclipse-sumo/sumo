@@ -1739,7 +1739,7 @@ GNENet::flowExists(const std::string& flowID) const {
 
 bool
 GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
-                   const std::string& imgFile, const PositionVector& shape, bool fill, bool ignorePruning) {
+                   const std::string& imgFile, const PositionVector& shape, bool fill, bool /*ignorePruning*/) {
     // check if ID is duplicated
     if(myPolygons.get(id) == NULL) {
         // create poly
@@ -1771,7 +1771,7 @@ GNENet::removePolygonOfView(GNEPoly * p) {
 
 bool 
 GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
-               const std::string& imgFile, const Position& pos, double width, double height, bool ignorePruning) {
+               const std::string& imgFile, const Position& pos, double width, double height, bool /*ignorePruning*/) {
     // check if ID is duplicated
     if(myPOIs.get(id) == NULL) {
         // create poly

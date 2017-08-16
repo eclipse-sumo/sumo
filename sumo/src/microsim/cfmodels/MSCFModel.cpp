@@ -238,7 +238,7 @@ MSCFModel::insertionStopSpeed(const MSVehicle* const veh, double speed, double g
 
 
 double 
-MSCFModel::followSpeedTransient(double duration, const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const {
+MSCFModel::followSpeedTransient(double duration, const MSVehicle* const /*veh*/, double /*speed*/, double gap2pred, double predSpeed, double predMaxDecel) const {
     // minimium distance covered by the leader if braking
     double leaderMinDist = gap2pred + distAfterTime(duration, predSpeed, predMaxDecel);
     // if ego would not brake it could drive with speed leaderMinDist / duration

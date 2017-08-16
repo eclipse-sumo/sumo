@@ -353,6 +353,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                 for (auto i : junction->getGNEEdges()) {
                     numberOfAdditionals += (int)i->getAdditionalChilds().size();
                     for (auto j : i->getLanes()) {
+                        UNUSED_PARAMETER(j);
                         numberOfAdditionals += (int)i->getAdditionalChilds().size();
                     }
                 }

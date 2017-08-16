@@ -1115,10 +1115,8 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
         PositionVector ret1 = ret;
         ret.add(ret.front() * -1);
         // rotate
-        double startAngle = ret[0].angleTo2D(ret[1]);
         PositionVector ret2 = ret;
         ret.rotate2D(g.hdg - tStart);
-        double startAngle2 = ret[0].angleTo2D(ret[1]);
 #ifdef DEBUG_SPIRAL 
         std::cout 
             << std::setprecision(4)
@@ -1130,8 +1128,6 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
             << " sEnd=" << sEnd
             << " g.hdg=" << GeomHelper::naviDegree(g.hdg) 
             << " tStart=" << GeomHelper::naviDegree(tStart) 
-            << " startAngle=" << GeomHelper::naviDegree(startAngle) 
-            << " startAngle2=" << GeomHelper::naviDegree(startAngle2) 
             << "\n  beforeShift=" << ret1
             << "\n  beforeRot=" << ret2
             << "\n";

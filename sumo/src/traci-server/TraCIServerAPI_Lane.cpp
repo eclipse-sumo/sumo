@@ -362,7 +362,7 @@ TraCIServerAPI_Lane::StoringVisitor::add(const MSLane* const l) const {
         }
         break;
         case CMD_GET_PERSON_VARIABLE: {
-            const MSLane::VehCont& vehs = l->getVehiclesSecure();
+            l->getVehiclesSecure();
             std::vector<MSTransportable*> persons = l->getEdge().getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
             for (auto p : persons) {
                 if (myShape.distance2D(p->getPosition()) <= myRange) {

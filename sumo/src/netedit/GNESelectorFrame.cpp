@@ -194,7 +194,6 @@ GNESelectorFrame::onCmdSubset(FXObject*, FXSelector, void*) {
         // Clear items of myMatchTagComboBox
         myMatchTagComboBox->clearItems();
         // Set items depending of current items
-        const bool netElements = mySetComboBox->getText() == "Net Element";
         for (auto i : GNEAttributeCarrier::allowedNetElementsTags()) {
             myMatchTagComboBox->appendItem(toString(i).c_str());
         }
@@ -337,7 +336,6 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
-    const bool netElements = (mySetComboBox->getText() == "Net Element");
     myCurrentTag = SUMO_TAG_NOTHING;
 
     for (auto i = GNEAttributeCarrier::allowedNetElementsTags().begin(); (i != GNEAttributeCarrier::allowedNetElementsTags().end()) && (myCurrentTag == SUMO_TAG_NOTHING); i++) {

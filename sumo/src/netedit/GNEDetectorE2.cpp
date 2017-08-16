@@ -86,9 +86,6 @@ GNEDetectorE2::updateGeometry() {
     myShapeRotations.clear();
     myShapeLengths.clear();
 
-    // Get value of option "lefthand"
-    double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
-
     // Get shape of lane parent
     myShape = myLane->getShape();
 
