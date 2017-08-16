@@ -427,7 +427,7 @@ MSTransportable::appendStage(Stage* stage, int next) {
     if (next < 0) {
         myPlan->push_back(stage);
     } else {
-        if (stepIndex + next > myPlan->size()) {
+        if (stepIndex + next > (int)myPlan->size()) {
             throw ProcessError("invalid index '" + toString(next) + "' for inserting new stage into plan of '" + getID() + "'");
         }
         myPlan->insert(myPlan->begin() + stepIndex + next, stage);
