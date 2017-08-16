@@ -880,7 +880,7 @@ class VehicleDomain(Domain):
         custom travel times are used. The various functions and options for
         customizing travel times are described at http://sumo.dlr.de/wiki/Simulation/Routing
 
-        When rerouteTravelTime has been called once with option
+        When rerouteTraveltime has been called once with option
         currentTravelTimes=True, all edge weights are set to the current travel
         times at the time of that call (even for subsequent simulation steps).
         """
