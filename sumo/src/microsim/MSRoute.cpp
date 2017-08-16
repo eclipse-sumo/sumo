@@ -334,11 +334,7 @@ MSRoute::getDistanceBetween(double fromPos, double toPos,
         } else {
             distance += (*it)->getLength();
             if (includeInternal) {
-                // add length of internal lanes to the result
-                const MSEdge* internal = (*it)->getInternalFollowingEdge(*(it + 1));
-                if (internal != 0) {
-                    distance += internal->getLength();
-                }
+                distance += (*it)->getInternalFollowingLengthTo(*(it + 1));
             }
         }
         isFirstIteration = false;
