@@ -625,6 +625,8 @@ enum {
     MID_GNE_INVERTLANESELECTION,
     /// @brief open edit dialog
     MID_GNE_OPEN_ATTRIBUTE_EDITOR,
+    /// @brief open color dialog
+    MID_GNE_OPEN_COLOR_EDITOR,
     /// @brief split an edge
     MID_GNE_SPLIT_EDGE,
     /// @brief split an edge

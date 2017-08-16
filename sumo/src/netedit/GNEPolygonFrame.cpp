@@ -63,6 +63,7 @@ FXDEFMAP(GNEPolygonFrame) GNEShapeMap[] = {
 FXDEFMAP(GNEPolygonFrame::ShapeAttributeSingle) GNESingleShapeParameterMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT,   GNEPolygonFrame::ShapeAttributeSingle::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL,   GNEPolygonFrame::ShapeAttributeSingle::onCmdSetBooleanAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_ATTRIBUTE_EDITOR,                  GNEPolygonFrame::ShapeAttributeSingle::onCmdSetColorAttribute),
 };
 
 FXDEFMAP(GNEPolygonFrame::ShapeAttributes) GNEAdditionalParametersMap[] = {
@@ -340,7 +341,6 @@ GNEPolygonFrame::DrawingMode::DrawingMode(GNEPolygonFrame* polygonFrameParent) :
     myStopDrawingButton->disable();
     myAbortDrawingButton->disable();
     // by default drawing mode is hidden
-    hide();
 }
 
 
@@ -455,6 +455,7 @@ GNEPolygonFrame::ShapeAttributeSingle::ShapeAttributeSingle(FXComposite* parent)
     myShapeAttr(SUMO_ATTR_NOTHING) {
     // Create visual elements
     myLabel = new FXLabel(this, "name", 0, GUIDesignLabelAttribute);
+    mycolorEditor = new FXButton(this, "ColorButton", 0, this, MID_GNE_OPEN_ATTRIBUTE_EDITOR, GUIDesignButtonAttribute);
     myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextFieldInt);
     myTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextFieldReal);
     myTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextField);
@@ -529,6 +530,20 @@ GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag additionalTag, S
 
 
 void
+GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, RGBColor value) {
+    myShapeTag = additionalTag;
+    myShapeAttr = additionalAttr;
+    myInvalidValue = "";
+    mycolorEditor->setText(toString(myShapeAttr).c_str());
+    mycolorEditor->show();
+    myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+    myTextFieldStrings->setText(toString(value).c_str());
+    myTextFieldStrings->show();
+    show();
+}
+
+
+void
 GNEPolygonFrame::ShapeAttributeSingle::hideParameter() {
     myShapeTag = SUMO_TAG_NOTHING;
     myShapeAttr = SUMO_ATTR_NOTHING;
@@ -537,6 +552,7 @@ GNEPolygonFrame::ShapeAttributeSingle::hideParameter() {
     myTextFieldReal->hide();
     myTextFieldStrings->hide();
     myBoolCheckButton->hide();
+    mycolorEditor->hide();
     hide();
 }
 
@@ -651,6 +667,19 @@ GNEPolygonFrame::ShapeAttributeSingle::onCmdSetBooleanAttribute(FXObject*, FXSel
     return 0;
 }
 
+
+long GNEPolygonFrame::ShapeAttributeSingle::onCmdSetColorAttribute(FXObject *, FXSelector, void *) {
+    // create FXColorDialog
+    FXColorDialog colordialog(this,tr("Color Dialog"));
+    colordialog.setTarget(this);
+    colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myTextFieldStrings->getText().text())));
+    // execute dialog to get a new color
+    if(colordialog.execute()){
+        myTextFieldStrings->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str());
+    }
+    return 0;
+}
+
 // ---------------------------------------------------------------------------
 // GNEPolygonFrame::NeteditAttributes- methods
 // ---------------------------------------------------------------------------
@@ -697,7 +726,9 @@ GNEPolygonFrame::ShapeAttributes::addAttribute(SumoXMLTag additionalTag, SumoXML
 
     if (myIndexParameter < maxNumberOfParameters) {
         // Check type of attribute list
-        if (GNEAttributeCarrier::isInt(myShapeTag, ShapeAttributeSingle)) {
+        if (ShapeAttributeSingle == SUMO_ATTR_COLOR) {
+            myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(myShapeTag, ShapeAttributeSingle, /** temporal **/ RGBColor::parseColor("0,0,0"));
+        } else if (GNEAttributeCarrier::isInt(myShapeTag, ShapeAttributeSingle)) {
             myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(myShapeTag, ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<int>(myShapeTag, ShapeAttributeSingle));
         } else if (GNEAttributeCarrier::isFloat(myShapeTag, ShapeAttributeSingle) || GNEAttributeCarrier::isTime(myShapeTag, ShapeAttributeSingle)) {
             myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(myShapeTag, ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<double>(myShapeTag, ShapeAttributeSingle));

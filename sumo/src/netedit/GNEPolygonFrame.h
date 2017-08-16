@@ -87,6 +87,9 @@ public:
         /// @brief show name and value of parameters of type bool
         void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, bool value);
 
+        /// @brief show name and value of parameters of type Color
+        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, RGBColor value);
+
         /// @brief hide all parameters
         void hideParameter();
 
@@ -109,6 +112,9 @@ public:
 
         /// @brief called when user change the value of myBoolCheckButton
         long onCmdSetBooleanAttribute(FXObject*, FXSelector, void*);
+
+        /// @brief called when user press the "Color" button
+        long onCmdSetColorAttribute(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -136,6 +142,9 @@ public:
 
         /// @brief check button to enable/disable the value of boolean parameters
         FXCheckButton* myBoolCheckButton;
+
+        /// @brief Button for open color editor
+        FXButton* mycolorEditor;
 
         /// @brief string which indicates the reason due current value is invalid
         std::string myInvalidValue;
