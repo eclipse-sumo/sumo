@@ -82,12 +82,17 @@ GNEPoly::~GNEPoly() {
 
 void 
 GNEPoly::moveGeometry(const Position &newPosition) {
+    for (auto i : myShape) {
+        i.set(i.x() + newPosition.x(), i.y() + newPosition.y());
+    }
 }
 
 
 void 
-GNEPoly::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-
+GNEPoly::commitGeometryMoving(const PositionVector& oldShape, GNEUndoList* undoList) {
+    undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(myShape)));
+    undoList->p_end();
 }
 
 
@@ -98,10 +103,7 @@ GNEPoly::updateGeometry() {
 
 Position 
 GNEPoly::getPositionInView() const {
-    if (myShape.size() > 0) {
-        return myShape[0];
-    }
-    return Position::INVALID;
+    return getCenteringBoundary().getCenter();
 }
 
 
@@ -160,12 +162,11 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         }
         glPopName();
     }
-
 }
 
 
 Position
-GNEPoly::moveGeometry(const Position& oldPos, const Position& newPos, bool relative) {
+GNEPoly::changeShapeGeometry(const Position& oldPos, const Position& newPos, bool relative) {
     PositionVector geom = myShape;
     bool changed = GNEEdge::changeGeometry(geom, getMicrosimID(), oldPos, newPos, relative, true);
     if (changed) {

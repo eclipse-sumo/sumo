@@ -51,17 +51,24 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Poly, GNEChange, NULL, 0)
 GNEChange_Poly::GNEChange_Poly(GNENet *net, GNEPoly *poly, bool forward) :
     GNEChange(net, forward),
     myPoly(poly) {
+    myPoly->incRef("GNEChange_Poly");
     assert(myNet);
 }
 
 
 GNEChange_Poly::~GNEChange_Poly() {
-    // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Removing " + toString(SUMO_TAG_POLY) + " '" + myPoly->getID() + "' from net");
+    assert(myPoly);
+    myPoly->decRef("GNEChange_Poly");
+    if (myPoly->unreferenced()) {
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Removing " + toString(SUMO_TAG_POLY) + " '" + myPoly->getID() + "' from net");
+        }
+        // remove polygon of net
+        if(myNet->removePolygon(myPoly->getID()) == false) {
+            WRITE_ERROR("Trying to remove non-inserted ''" + myPoly->getID() + "' from net");
+        }
     }
-    // remove polygon of net
-    myNet->removePolygon(myPoly->getID());
 }
 
 

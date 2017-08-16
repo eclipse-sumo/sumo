@@ -51,17 +51,24 @@ FXIMPLEMENT_ABSTRACT(GNEChange_POI, GNEChange, NULL, 0)
 GNEChange_POI::GNEChange_POI(GNENet *net, GNEPOI *POI, bool forward) :
     GNEChange(net, forward),
     myPOI(POI) {
+    myPOI->incRef("GNEChange_POI");
     assert(myNet);
 }
 
 
 GNEChange_POI::~GNEChange_POI() {
-    // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Removing " + toString(SUMO_TAG_POI) + " '" + myPOI->getID() + "' from net");
+    assert(myPOI);
+    myPOI->decRef("GNEChange_POI");
+    if (myPOI->unreferenced()) {
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Removing " + toString(SUMO_TAG_POI) + " '" + myPOI->getID() + "' from net");
+        }
+        // remove POIgon of net
+        if(myNet->removePOI(myPOI->getID()) == false) {
+            WRITE_ERROR("Trying to remove non-inserted ''" + myPOI->getID() + "' from net");
+        }
     }
-    // remove POIgon of net
-    myNet->removePOI(myPOI->getID());
 }
 
 

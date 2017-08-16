@@ -82,8 +82,13 @@ public:
     * @param[in] relative Whether newPos is absolute or relative
     * @return newPos if something was moved, oldPos if nothing was moved
     */
-    Position moveGeometry(const Position& oldPos, const Position& newPos, bool relative = false);
+    Position changeShapeGeometry(const Position& oldPos, const Position& newPos, bool relative = false);
 
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+    * @param[in] oldShape the old shape of polygon
+    * @param[in] undoList The undoList on which to register changes
+    */
+    void commitGeometryMoving(const PositionVector& oldShape, GNEUndoList* undoList);
 
     /// @name Functions related with geometry of element
     /// @{
@@ -92,12 +97,6 @@ public:
     * @note should't be called in drawGL(...) functions to avoid smoothness issues
     */
     void moveGeometry(const Position &newPosition);
-
-    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-    * @param[in] oldPos the old position of additional
-    * @param[in] undoList The undoList on which to register changes
-    */
-    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
     void updateGeometry();

@@ -1755,52 +1755,6 @@ GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColo
     }
 }
 
-
-void 
-GNENet::insertPolygonInView(GNEPoly *p) {
-    myGrid.addAdditionalGLObject(p);
-    myViewNet->update();
-}
-
-void 
-GNENet::removePolygonOfView(GNEPoly * p) {
-    myGrid.removeAdditionalGLObject(p);
-    myViewNet->update();
-}
-
-
-bool 
-GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
-               const std::string& imgFile, const Position& pos, double width, double height, bool /*ignorePruning*/) {
-    // check if ID is duplicated
-    if(myPOIs.get(id) == NULL) {
-        // create poly
-        GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, pos, width, height);
-        myPOIs.add(poi->getID(), poi);
-        // insert it in the net using GNEChange_Poly
-        myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
-        myViewNet->getUndoList()->add(new GNEChange_POI(this, poi, true), true);
-        myViewNet->getUndoList()->p_end();
-        return true;
-    } else {
-        return false;
-    }
-}
-
-void
-GNENet::insertPOIInView(GNEPOI * p) {
-    myGrid.addAdditionalGLObject(p);
-    myViewNet->update();
-}
-
-
-void
-GNENet::removePOIOfView(GNEPOI * p) {
-    myGrid.removeAdditionalGLObject(p);
-    myViewNet->update();
-}
-
-
 bool 
 GNENet::removePolygon(const std::string& id) {
     GNEPoly* p = dynamic_cast<GNEPoly*>(myPolygons.get(id));
@@ -1811,15 +1765,25 @@ GNENet::removePolygon(const std::string& id) {
     }
 }
 
+void 
+GNENet::insertPolygonInView(GNEPoly* p) {
+    myGrid.addAdditionalGLObject(p);
+    myViewNet->update();
+}
 
-bool 
-GNENet::removePOI(const std::string& id) {
-    GNEPOI* p = dynamic_cast<GNEPOI*>(myPOIs.get(id));
-    if (p == 0) {
-        return false;
-    } else {
-        return myPOIs.remove(id);
-    }
+
+void 
+GNENet::removePolygonOfView(GNEPoly* p) {
+    myGrid.removeAdditionalGLObject(p);
+    myViewNet->update();
+}
+
+
+void 
+GNENet::refreshPolygon(GNEPoly* p) {
+    myGrid.removeAdditionalGLObject(p);
+    myGrid.addAdditionalGLObject(p);
+    myViewNet->update();
 }
 
 
@@ -1836,6 +1800,59 @@ GNENet::generatePolyID() const {
 }
 
 
+bool 
+GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
+    const std::string& imgFile, const Position& pos, double width, double height, bool /*ignorePruning*/) {
+    // check if ID is duplicated
+    if(myPOIs.get(id) == NULL) {
+        // create poly
+        GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, pos, width, height);
+        myPOIs.add(poi->getID(), poi);
+        // insert it in the net using GNEChange_Poly
+        myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
+        myViewNet->getUndoList()->add(new GNEChange_POI(this, poi, true), true);
+        myViewNet->getUndoList()->p_end();
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNENet::removePOI(const std::string& id) {
+    GNEPOI* p = dynamic_cast<GNEPOI*>(myPOIs.get(id));
+    if (p == 0) {
+        return false;
+    } else {
+        return myPOIs.remove(id);
+    }
+}
+
+
+
+void 
+GNENet::insertPOIInView(GNEPOI* p) {
+    myGrid.addAdditionalGLObject(p);
+    myViewNet->update();
+}
+
+
+void 
+GNENet::removePOIOfView(GNEPOI* p) {
+    myGrid.removeAdditionalGLObject(p);
+    myViewNet->update();
+}
+
+
+void 
+GNENet::refreshPOI(GNEPOI* p) {
+    myGrid.removeAdditionalGLObject(p);
+    myGrid.addAdditionalGLObject(p);
+    myViewNet->update();
+}
+
+
 std::string 
 GNENet::generatePOIID() const {
     int counter = 0;
@@ -1847,7 +1864,6 @@ GNENet::generatePOIID() const {
     }
     return newID;
 }
-
 
 // ===========================================================================
 // private

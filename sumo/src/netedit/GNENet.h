@@ -78,6 +78,7 @@ class GNEDetectorE3;
 class GNEDetectorE3EntryExit;
 class GNEConnection;
 class GNECrossing;
+class GNEShape;
 class GNEPoly;
 class GNEPOI;
 
@@ -551,11 +552,23 @@ public:
                     double angle, const std::string& imgFile,
                     const PositionVector& shape, bool fill, bool ignorePruning = false);
 
-    /// @brief insert created in addPolygon polygon in view
-    void insertPolygonInView(GNEPoly *p);
+    /** @brief Removes a polygon from the container
+    * @param[in] id The id of the polygon
+    * @return Whether the polygon could be removed
+    */
+    bool removePolygon(const std::string& id);
 
-    /// @brief remove polygon of  view
-    void removePolygonOfView(GNEPoly *p);
+    /// @brief insert created polygon in view net
+    void insertPolygonInView(GNEPoly* p);
+
+    /// @brief remove polygon of view net
+    void removePolygonOfView(GNEPoly* p);
+
+    /// @brief refresh polygon in view net
+    void refreshPolygon(GNEPoly* p);
+
+    /// @brief generate PolyID
+    std::string generatePolyID() const;
 
     /** @brief Builds a POI using the given values and adds it to the container
      * @param[in] id The name of the POI
@@ -573,26 +586,20 @@ public:
                 const RGBColor& color, double layer, double angle, const std::string& imgFile,
                 const Position& pos, double width, double height, bool ignorePruning = false);
 
-    /// @brief insert created in addPOI POI into net
-    void insertPOIInView(GNEPOI *p);
-
-    /// @brief remove polygon of  view
-    void removePOIOfView(GNEPOI *p);
-
-    /** @brief Removes a polygon from the container
-     * @param[in] id The id of the polygon
-     * @return Whether the polygon could be removed
-     */
-    bool removePolygon(const std::string& id);
-
     /** @brief Removes a PoI from the container
-     * @param[in] id The id of the PoI
-     * @return Whether the poi could be removed
-     */
+    * @param[in] id The id of the PoI
+    * @return Whether the poi could be removed
+    */
     bool removePOI(const std::string& id);
 
-    /// @brief generate PolyID
-    std::string generatePolyID() const;
+    /// @brief insert created shape in view net
+    void insertPOIInView(GNEPOI* p);
+
+    /// @brief remove shape of view net
+    void removePOIOfView(GNEPOI* p);
+
+    /// @brief refresh shape in view net
+    void refreshPOI(GNEPOI* p);
 
     /// @brief generate a POI ID
     std::string generatePOIID() const;

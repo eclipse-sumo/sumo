@@ -528,7 +528,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
             case GNE_MODE_MOVE: {
                 if (pointed_poly) {
                     myPolyToMove = pointed_poly;
-                    myMovingOriginalPosition = getPositionInformation();
+                    myMovingOriginalShape = myPolyToMove->getShape();
                 } else if (pointed_poi) {
                     myPoiToMove = pointed_poi;
                     // Save original Position of Element and obtain moving reference
@@ -553,7 +553,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                         myMovingSelection = true;
                     } else {
                         myEdgeToMove = pointed_edge;
-                        myOriginalShape = myEdgeToMove->getNBEdge()->getInnerGeometry();
+                        myMovingOriginalShape = myEdgeToMove->getNBEdge()->getInnerGeometry();
                     }
                     myMovingOriginalPosition = getPositionInformation();
                 } else if (pointed_additional) {
@@ -778,6 +778,7 @@ long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, data);
     if (myPolyToMove) {
+        myPolyToMove->commitGeometryMoving(myMovingOriginalShape, myUndoList);
         myPolyToMove = 0;
     } else if (myPoiToMove) {
         myPoiToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
@@ -790,7 +791,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
         myJunctionToMove = 0;
     } else if (myEdgeToMove) {
         // set cleaned shape
-        myEdgeToMove->commitGeometryMoving(myOriginalShape, 
+        myEdgeToMove->commitGeometryMoving(myMovingOriginalShape, 
                 MAX2(POSITION_EPS, GNEJunction::BUBBLE_RADIUS * myVisualizationSettings->junctionSize.exaggeration), 
                 myUndoList);
         myEdgeToMove = 0;
@@ -868,7 +869,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
         }
     } else {
         if (myPolyToMove) {
-            myMovingOriginalPosition = myPolyToMove->moveGeometry(myMovingOriginalPosition, getPositionInformation());
+            myMovingOriginalPosition = myPolyToMove->changeShapeGeometry(myMovingOriginalPosition, snapToActiveGrid(getPositionInformation()));
         } else if (myPoiToMove) {
             // Calculate movement offset and move geometry of junction
             Position offsetPosition = myMovingReference - getPositionInformation();
