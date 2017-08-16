@@ -768,6 +768,7 @@ public:
         void appendWalkingStage(const std::string& personID, const std::vector<std::string>& edges, double arrivalPos, double duration = -1, double speed = -1, const std::string& stopID = "");
         void appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID = "");
         void removeStage(const std::string& personID, int nextStageIndex) const;
+        void rerouteTraveltime(const std::string& personID) const;
         void setSpeed(const std::string& personID, double speed) const;
         void setType(const std::string& personID, const std::string& typeID) const;
         void setLength(const std::string& personID, double length) const;

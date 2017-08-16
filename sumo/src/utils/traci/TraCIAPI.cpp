@@ -2729,6 +2729,17 @@ TraCIAPI::PersonScope::removeStages(const std::string& personID) const {
     removeStage(personID, 0);
 }
 
+
+void
+TraCIAPI::PersonScope::rerouteTraveltime(const std::string& personID) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt(0);
+    myParent.send_commandSetValue(CMD_SET_PERSON_VARIABLE, CMD_REROUTE_TRAVELTIME, personID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
+}
+
 void
 TraCIAPI::PersonScope::add(const std::string& personID, const std::string& edgeID, double pos, double depart, const std::string typeID) {
     if (depart > 0) {

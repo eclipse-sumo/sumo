@@ -828,6 +828,7 @@ TraCITestClient::testAPI() {
         answerLog << "      vehicle=" << it->first << " pos=" << it->second[VAR_LANEPOSITION].scalar << "\n";
     }
 
+    // person
     answerLog << "  person:\n";
     person.setWidth("p0", 1);
     person.setMinGap("p0", 2);
@@ -861,7 +862,13 @@ TraCITestClient::testAPI() {
     person.removeStages("p1");
     answerLog << "    getRemainingStages: " << person.getRemainingStages("p1") << "\n";
     answerLog << "    getStage: " << person.getStage("p1") << "\n";
+    walkEdges.push_back("e_m5");
+    person.appendWalkingStage("p1", walkEdges, -20);
     simulationStep();
+    person.rerouteTraveltime("p1");
+    answerLog << "    getEdges after rerouting: " << joinToString(person.getEdges("p1"), " ") << "\n";
+
+    // trafficlights
     answerLog << "  trafficlights:\n";
     answerLog << "    getIDList: " << joinToString(trafficlights.getIDList(), " ") << "\n";
     answerLog << "    state: " << trafficlights.getRedYellowGreenState("n_m4") << "\n";
