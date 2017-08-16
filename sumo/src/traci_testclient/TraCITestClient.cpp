@@ -673,6 +673,7 @@ TraCITestClient::testAPI() {
     answerLog << "testAPI:\n";
     answerLog << "  setOrder:\n";
     setOrder(0);
+    // edge
     answerLog << "  edge:\n";
     answerLog << "    getIDList: " << joinToString(edge.getIDList(), " ") << "\n";
     answerLog << "    getIDCount: " << edge.getIDCount() << "\n";
@@ -682,6 +683,8 @@ TraCITestClient::testAPI() {
     answerLog << "    currentTraveltime: " << edge.getTraveltime(edgeID) << "\n";
     answerLog << "    adaptedTravelTime: " << edge.getAdaptedTraveltime(edgeID, 0) << "\n";
     answerLog << "    effort: " << edge.getEffort(edgeID, 0) << "\n";
+
+    // lane
     answerLog << "  lane:\n";
     answerLog << "    getIDList: " << joinToString(lane.getIDList(), " ") << "\n";
     answerLog << "    getIDCount: " << lane.getIDCount() << "\n";
@@ -702,6 +705,7 @@ TraCITestClient::testAPI() {
             << "\n";
     }
 
+    // route
     answerLog << "  route:\n";
     answerLog << "    add:\n";
     std::vector<std::string> edges;
@@ -713,6 +717,7 @@ TraCITestClient::testAPI() {
     route.add("e_m4", edges);
     answerLog << "    getIDList: " << joinToString(route.getIDList(), " ") << "\n";
 
+    // vehicletype
     answerLog << "  vehicleType:\n";
     answerLog << "    getIDList: " << joinToString(vehicletype.getIDList(), " ") << "\n";
     vehicletype.setEmergencyDecel("t1", 9.9);
@@ -736,7 +741,7 @@ TraCITestClient::testAPI() {
     answerLog << "    getAccel('t1'): " << vehicletype.getAccel("t1") << "\n";
     answerLog << "    getAccel('t1_copy'): " << vehicletype.getAccel("t1_copy") << "\n";
 
-
+    // vehicle
     answerLog << "  vehicle:\n";
     vehicle.setLine("0", "S42");
     std::vector<std::string> via;
@@ -792,10 +797,12 @@ TraCITestClient::testAPI() {
     answerLog << "    getShapeClass: " << vehicle.getShapeClass("0") << "\n";
     std::pair<std::string, double> leader = vehicle.getLeader("1", 1000);
     answerLog << "    getLeader: " << leader.first << ", " << leader.second << "\n";
+    vehicle.rerouteTraveltime("0");
     answerLog << "    remove:\n";
     vehicle.remove("0");
     answerLog << "    getIDCount: " << vehicle.getIDCount() << "\n";
 
+    // inductionLoop
     answerLog << "  inductionloop:\n";
     answerLog << "    getIDList: " << joinToString(inductionloop.getIDList(), " ") << "\n";
     answerLog << "    getVehicleData:\n";
@@ -805,6 +812,7 @@ TraCITestClient::testAPI() {
         answerLog << "      veh=" << vd.id << " length=" << vd.length << " entered=" << vd.entryTime << " left=" << vd.leaveTime << " type=" << vd.typeID << "\n";
     }
 
+    // simulaton
     answerLog << "  simulation:\n";
     answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
     answerLog << "    subscribe to road and pos of vehicle '1':\n";

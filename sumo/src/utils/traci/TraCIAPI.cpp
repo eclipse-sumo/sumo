@@ -2535,6 +2535,27 @@ TraCIAPI::VehicleScope::setRoute(const std::string& vehicleID, const std::vector
 
 
 void
+TraCIAPI::VehicleScope::rerouteTraveltime(const std::string& vehicleID, bool currentTravelTimes) const {
+    if (currentTravelTimes) {
+        // updated edge weights with current network traveltimes (at most once per simulation step)
+        SUMOTime time = myParent.simulation.getCurrentTime();
+        if (time != LAST_TRAVEL_TIME_UPDATE) 
+            LAST_TRAVEL_TIME_UPDATE = time;
+            std::vector<std::string> edges = myParent.edge.getIDList();
+            for (std::vector<std::string>::iterator it = edges.begin(); it != edges.end(); ++it) {
+                myParent.edge.adaptTraveltime(*it, myParent.edge.getTraveltime(*it));
+            }
+    }
+
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt(0);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, CMD_REROUTE_TRAVELTIME, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
+
+void
 TraCIAPI::VehicleScope::moveTo(const std::string& vehicleID, const std::string& laneID, double position) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);

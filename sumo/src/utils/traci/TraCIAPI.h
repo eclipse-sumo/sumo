@@ -623,7 +623,7 @@ public:
      */
     class VehicleScope : public TraCIScopeWrapper {
     public:
-        VehicleScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
+        VehicleScope(TraCIAPI& parent) : TraCIScopeWrapper(parent), LAST_TRAVEL_TIME_UPDATE(-1) {}
         virtual ~VehicleScope() {}
 
         /// @name vehicle value retrieval
@@ -715,6 +715,7 @@ public:
         void changeTarget(const std::string& vehicleID, const std::string& edgeID) const;
         void setRouteID(const std::string& vehicleID, const std::string& routeID) const;
         void setRoute(const std::string& vehicleID, const std::vector<std::string>& edge) const;
+        void rerouteTraveltime(const std::string& vehicleID, bool currentTravelTimes=true) const;
         void moveTo(const std::string& vehicleID, const std::string& laneID, double position) const;
         void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute) const;
         void slowDown(const std::string& vehicleID, double speed, int duration) const;
@@ -733,6 +734,8 @@ public:
         /// @}
 
     private:
+        mutable SUMOTime LAST_TRAVEL_TIME_UPDATE;
+
         /// @brief invalidated copy constructor
         VehicleScope(const VehicleScope& src);
 
