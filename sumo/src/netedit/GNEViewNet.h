@@ -131,6 +131,12 @@ public:
     /// @brief called when user releases mouse's left button
     long onLeftBtnRelease(FXObject*, FXSelector, void*);
 
+    /// @brief called when user press mouse's right button
+    long onRightBtnPress(FXObject*, FXSelector, void*);
+
+    /// @brief called when user releases mouse's right button
+    long onRightBtnRelease(FXObject*, FXSelector, void*);
+
     /// @brief called when user press mouse's left button two times
     long onDoubleClicked(FXObject*, FXSelector, void*);
 

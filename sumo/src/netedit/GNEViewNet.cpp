@@ -771,7 +771,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                         processClick(e, data);
                     }
                 }
-
                 break;
             }
             default: {
@@ -837,6 +836,27 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
         update();
     }
     return 1;
+}
+
+
+long GNEViewNet::onRightBtnPress(FXObject *obj, FXSelector sel, void *data) {
+    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
+        myViewParent->getPolygonFrame()->getDrawingMode()->removeLastPoint();
+        // update view
+        update();
+        return 1;
+    } else {
+        return GUISUMOAbstractView::onRightBtnPress(obj, sel, data);
+    }
+}
+
+
+long GNEViewNet::onRightBtnRelease(FXObject *obj, FXSelector sel, void *data) {
+    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
+        return 1;
+    } else {
+        return GUISUMOAbstractView::onRightBtnRelease(obj, sel, data);
+    }
 }
 
 

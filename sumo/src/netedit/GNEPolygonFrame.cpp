@@ -414,6 +414,7 @@ GNEPolygonFrame::DrawingMode::abortDrawing() {
     myAbortDrawingButton->disable();
 }
 
+
 void 
 GNEPolygonFrame::DrawingMode::addNewPoint(const Position &P) {
     if(myStopDrawingButton->isEnabled()) {
@@ -422,6 +423,19 @@ GNEPolygonFrame::DrawingMode::addNewPoint(const Position &P) {
         throw ProcessError("A new point cannot be added if drawing wasn't started");
     }
 }
+
+
+void 
+GNEPolygonFrame::DrawingMode::removeLastPoint() {
+    if(myStopDrawingButton->isEnabled()) {
+        if(myTemporalShapeShape.size() > 0) {
+            myTemporalShapeShape.pop_back();
+        }
+    } else {
+        throw ProcessError("Last point cannot be removed if drawing wasn't started");
+    }
+}
+
 
 const PositionVector& 
 GNEPolygonFrame::DrawingMode::getTemporalShape() const {
@@ -881,6 +895,8 @@ GNEPolygonFrame::ShapeAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
             type->setText("time");
         } else if (GNEAttributeCarrier::isBool(tag, attr)) {
             type->setText("bool");
+        } else if (GNEAttributeCarrier::isColor(tag, attr)) {
+            type->setText("color");
         } else if (GNEAttributeCarrier::isString(tag, attr)) {
             type->setText("string");
         }

@@ -308,9 +308,12 @@ public:
         /// @brief abort drawing
         void abortDrawing();
 
-        /// @brief ad new point to temporal shape
+        /// @brief add new point to temporal shape
         void addNewPoint(const Position &P);
-
+        
+        /// @brief remove last added point
+        void removeLastPoint();
+        
         /// @brief get Temporal shape
         const PositionVector &getTemporalShape() const;
 
