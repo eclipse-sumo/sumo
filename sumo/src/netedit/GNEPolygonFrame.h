@@ -327,6 +327,9 @@ public:
 
         /// @brief Called when the user press abort drawing button
         long onCmdAbortDrawing(FXObject*, FXSelector, void*);
+        
+        /// @brief Called when the user change checkbox for open/closed polygon
+        long onCmdChangeClosing(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -346,6 +349,9 @@ public:
         /// @brief button for abort drawing
         FXButton *myAbortDrawingButton;
         
+        /// @brief checkbox to enable/disable closing polygon
+        FXCheckButton *myClosePolygon;
+
         /// @brief Label with information
         FXLabel* myInformationLabel;
 

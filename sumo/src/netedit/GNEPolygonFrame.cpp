@@ -79,6 +79,7 @@ FXDEFMAP(GNEPolygonFrame::DrawingMode) GNEDrawingModeMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON_START,  GNEPolygonFrame::DrawingMode::onCmdStartDrawing),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON_STOP,   GNEPolygonFrame::DrawingMode::onCmdStopDrawing),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON_ABORT,  GNEPolygonFrame::DrawingMode::onCmdAbortDrawing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON_CLOSE,  GNEPolygonFrame::DrawingMode::onCmdChangeClosing),
 };
 
 // Object implementation
@@ -326,7 +327,9 @@ GNEPolygonFrame::DrawingMode::DrawingMode(GNEPolygonFrame* polygonFrameParent) :
     // create start and stop buttons
     myStartDrawingButton = new FXButton(this, "Start drawing", 0, this, MID_GNE_MODE_POLYGON_START, GUIDesignButton);
     myStopDrawingButton = new FXButton(this, "Stop drawing", 0, this, MID_GNE_MODE_POLYGON_STOP, GUIDesignButton);
-    myAbortDrawingButton = new FXButton(this, "Abort drawing", 0, this, MID_GNE_MODE_POLYGON_STOP, GUIDesignButton);
+    myAbortDrawingButton = new FXButton(this, "Abort drawing", 0, this, MID_GNE_MODE_POLYGON_ABORT, GUIDesignButton);
+    myClosePolygon = new FXCheckButton(this, "Open polygon", this, MID_GNE_MODE_POLYGON_CLOSE, GUIDesignCheckButtonAttribute);
+
     // create information label
     std::ostringstream information;
     information
@@ -374,17 +377,21 @@ GNEPolygonFrame::DrawingMode::startDrawing() {
 
 void 
 GNEPolygonFrame::DrawingMode::stopDrawing() {
+    // check that at least there is two points in the polygon
     if(myTemporalShapeShape.size() > 1) {
-        // close shape
-        myTemporalShapeShape.push_back(myTemporalShapeShape[0]);
+        // close shape if myClosePolygoncheckbox is enabled
+        if(myClosePolygon->getCheck()) {
+            myTemporalShapeShape.push_back(myTemporalShapeShape[0]);
+        }
+        // try to build polygon
         if(myPolygonFrameParent->buildPoly(myTemporalShapeShape)) {
+            // clear created points
+            myTemporalShapeShape.clear();
+            myPolygonFrameParent->getViewNet()->update();
             // change buttons
             myStartDrawingButton->enable();
             myStopDrawingButton->disable();
             myAbortDrawingButton->disable();
-            // clear created points
-            myTemporalShapeShape.clear();
-            myPolygonFrameParent->getViewNet()->update();
         } else {
             // abort drawing if poligion cannot be created
             abortDrawing();
@@ -398,13 +405,13 @@ GNEPolygonFrame::DrawingMode::stopDrawing() {
 
 void 
 GNEPolygonFrame::DrawingMode::abortDrawing() {
+    // clear created points
+    myTemporalShapeShape.clear();
+    myPolygonFrameParent->getViewNet()->update();
     // change buttons
     myStartDrawingButton->enable();
     myStopDrawingButton->disable();
     myAbortDrawingButton->disable();
-    // clear created points
-    myTemporalShapeShape.clear();
-    myPolygonFrameParent->getViewNet()->update();
 }
 
 void 
@@ -445,6 +452,17 @@ GNEPolygonFrame::DrawingMode::onCmdStopDrawing(FXObject*, FXSelector, void*) {
 long 
 GNEPolygonFrame::DrawingMode::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
     abortDrawing();
+    return 0;
+}
+
+
+long 
+GNEPolygonFrame::DrawingMode::onCmdChangeClosing(FXObject*, FXSelector, void*) {
+    if (myClosePolygon->getCheck()) {
+        myClosePolygon->setText("Closed Polygon");
+    } else {
+        myClosePolygon->setText("Open Polygon");
+    }
     return 0;
 }
 
