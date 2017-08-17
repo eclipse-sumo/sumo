@@ -754,14 +754,14 @@ GNEPolygonFrame::ShapeAttributes::addAttribute(SumoXMLTag additionalTag, SumoXML
 
     if (myIndexParameter < maxNumberOfParameters) {
         // Check type of attribute list
-        if (ShapeAttributeSingle == SUMO_ATTR_COLOR) {
-            myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(myShapeTag, ShapeAttributeSingle, /** temporal **/ RGBColor::parseColor("0,0,0"));
-        } else if (GNEAttributeCarrier::isInt(myShapeTag, ShapeAttributeSingle)) {
+        if (GNEAttributeCarrier::isInt(myShapeTag, ShapeAttributeSingle)) {
             myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(myShapeTag, ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<int>(myShapeTag, ShapeAttributeSingle));
         } else if (GNEAttributeCarrier::isFloat(myShapeTag, ShapeAttributeSingle) || GNEAttributeCarrier::isTime(myShapeTag, ShapeAttributeSingle)) {
             myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(myShapeTag, ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<double>(myShapeTag, ShapeAttributeSingle));
         } else if (GNEAttributeCarrier::isBool(myShapeTag, ShapeAttributeSingle)) {
             myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(myShapeTag, ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<bool>(myShapeTag, ShapeAttributeSingle));
+        } else if (GNEAttributeCarrier::isColor(myShapeTag, ShapeAttributeSingle)) {
+            myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(myShapeTag, ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<RGBColor>(myShapeTag, ShapeAttributeSingle));
         } else if (GNEAttributeCarrier::isString(myShapeTag, ShapeAttributeSingle)) {
             myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(myShapeTag, ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<std::string>(myShapeTag, ShapeAttributeSingle));
         } else {

@@ -47,6 +47,7 @@ std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalInt
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalFloatAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myTimeAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myBoolAttrs;
+std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myColorAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myListAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myUniqueAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNonEditableAttrs;
@@ -108,6 +109,12 @@ GNEAttributeCarrier::parse(const std::string& string) {
     } else {
         return SumoVehicleClassStrings.get(string);
     }
+}
+
+
+template<> RGBColor
+GNEAttributeCarrier::parse(const std::string& string) {
+    return RGBColor::parseColor(string);
 }
 
 
@@ -214,6 +221,8 @@ GNEAttributeCarrier::getAttributeType(SumoXMLTag tag, SumoXMLAttr attr) {
         return "time";
     } else if (isBool(tag, attr)) {
         return "bool";
+    } else if (isColor(tag, attr)) {
+        return "color";
     } else if (isString(tag, attr)) {
         return "string";
     } else if (isList(tag, attr)) {
@@ -293,7 +302,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
             case SUMO_TAG_POI:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE)); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "0,0,0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "red"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILL, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
@@ -306,7 +315,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
             case SUMO_TAG_POLY:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SHAPE, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "0,0,0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "green"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILL, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAYER, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
@@ -737,6 +746,23 @@ GNEAttributeCarrier::isBool(SumoXMLTag tag, SumoXMLAttr attr) {
         myBoolAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_FILL);
     }
     return myBoolAttrs[tag].count(attr) == 1;
+}
+
+
+bool 
+GNEAttributeCarrier::isColor(SumoXMLTag tag, SumoXMLAttr attr) {
+    // define on first access
+    if (myColorAttrs.empty()) {
+        // POI
+        myColorAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_COLOR);
+        // Poly
+        myColorAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_COLOR);
+        // Route
+        myColorAttrs[SUMO_TAG_ROUTE].insert(SUMO_ATTR_COLOR);
+        // Color
+        myColorAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_COLOR);
+    }
+    return myColorAttrs[tag].count(attr) == 1;
 }
 
 
@@ -1378,12 +1404,23 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
-
 template<> SUMOVehicleShape
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
     for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
         if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
             return parse<SUMOVehicleShape>((*i).second);
+        }
+    }
+    // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
+    throw ProcessError("attribute '" + toString(attr) + "' for tag '" + toString(tag) + "' doesn't have a default value");
+}
+
+
+template<> RGBColor
+GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
+    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
+        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
+            return parse<RGBColor>((*i).second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings

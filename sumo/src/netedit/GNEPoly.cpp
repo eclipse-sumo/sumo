@@ -274,7 +274,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             return ok;
         }
         case SUMO_ATTR_COLOR:
-            return true /** canParse<RGBCOLOR> **/;
+            return canParse<RGBColor>(value);
         case SUMO_ATTR_FILL:
             return canParse<bool>(value);
         case SUMO_ATTR_LAYER:
@@ -309,7 +309,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value ) {
             break;
         }
         case SUMO_ATTR_COLOR:
-            myColor = RGBColor::parseColor(value);
+            myColor = parse<RGBColor>(value);
             break;
         case SUMO_ATTR_FILL:
             myFill = parse<bool>(value);

@@ -200,7 +200,7 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value ) {
         case SUMO_ATTR_ID:
             return isValidID(value) /*&& (myNet->retrievePOI(value, false) == 0)*/;
         case SUMO_ATTR_COLOR:
-            return true;
+            return canParse<RGBColor>(value);
         case SUMO_ATTR_LANE:
             if(value == "") {
                 return true;
@@ -261,7 +261,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             myID = value;
             break;
         case SUMO_ATTR_COLOR:
-            myColor = RGBColor::parseColor(value);
+            myColor = parse<RGBColor>(value);
             break;
         case SUMO_ATTR_LANE:
             myLane = myNet->retrieveLane(value, false);

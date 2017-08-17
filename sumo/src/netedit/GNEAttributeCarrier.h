@@ -35,10 +35,11 @@
 #include <map>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/RGBColor.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/gui/images/GUIIcons.h>
 #include "GNEReferenceCounter.h"
 
@@ -146,6 +147,9 @@ public:
 
     /// @brief whether an attribute is of type bool for a certain tag
     static bool isBool(SumoXMLTag tag, SumoXMLAttr attr);
+
+    /// @brief whether an attribute is of type color for a certain tag
+    static bool isColor(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief whether an attribute is of type string
     static bool isString(SumoXMLTag tag, SumoXMLAttr attr);
@@ -390,6 +394,9 @@ private:
 
     /// @brief map with the boolean attributes
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myBoolAttrs;
+
+    /// @brief map with the color attributes
+    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myColorAttrs;
 
     /// @brief map with the attributes of type list
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myListAttrs;
