@@ -496,6 +496,14 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             if (newEdges.empty()) {
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Could not find new route for person '" + id + "'.", outputStorage);
             }
+            ConstMSEdgeVector oldEdges = p->getEdges(0);
+            assert(!oldEdges.empty());
+            if (oldEdges.front()->getFunction() != EDGEFUNC_NORMAL) {
+                oldEdges.erase(oldEdges.begin());
+            }
+            if (newEdges == oldEdges) {
+                break;
+            }
             if (newEdges.front() != from) {
                 // @note: maybe this should be done automatically by the router
                 newEdges.insert(newEdges.begin(), from);
