@@ -397,10 +397,21 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
 
     // draw temporal shape of polygon during drawing
     if(myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
+        const PositionVector &temporalDrawingShape = myViewParent->getPolygonFrame()->getDrawingMode()->getTemporalShape();
+        // draw blue line with the current drawed shape
         glPushMatrix();
+        glLineWidth(2);
         GLHelper::setColor(RGBColor::BLUE);
-        GLHelper::drawLine(myViewParent->getPolygonFrame()->getDrawingMode()->getTemporalShape());
+        GLHelper::drawLine(temporalDrawingShape);
         glPopMatrix();
+        // draw red line from the last point of shape to the current mouse position
+        if(temporalDrawingShape.size() > 0) {
+            glPushMatrix();
+            glLineWidth(2);
+            GLHelper::setColor(RGBColor::RED);
+            GLHelper::drawLine(temporalDrawingShape.back(), snapToActiveGrid(getPositionInformation()));
+            glPopMatrix();
+        }
     }
 
     glLineWidth(1);
@@ -903,16 +914,16 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
                 Position offsetPosition = myMovingReference - getPositionInformation();
                 myAdditionalToMove->moveGeometry(snapToActiveGrid(myMovingOriginalPosition - offsetPosition));
             }
-            update();
         } else if (myMovingSelection) {
             Position moveTarget = getPositionInformation();
             myNet->moveSelection(myMovingOriginalPosition, moveTarget);
             myMovingOriginalPosition = moveTarget;
         } else if (myAmInRectSelect) {
             mySelCorner2 = getPositionInformation();
-            update();
         }
     }
+    // update view
+    update();
     return 1;
 }
 
