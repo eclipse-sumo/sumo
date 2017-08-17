@@ -146,6 +146,9 @@ print("detour2 edges after routing", traci.person.getEdges("detour2"))
 
 for i in range(196):
     step()
+    if "detour2" in traci.person.getIDList():
+        traci.person.rerouteTraveltime("detour2")
+
 # person should be on a walkingArea in front of a crossing now
 print(traci.person.getRoadID(personID))
 print(traci.person.getLanePosition(personID))
