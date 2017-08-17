@@ -374,14 +374,24 @@ GNEPolygonFrame::DrawingMode::startDrawing() {
 
 void 
 GNEPolygonFrame::DrawingMode::stopDrawing() {
-    if(myPolygonFrameParent->buildPoly(myTemporalShapeShape)) {
-        // change buttons
-        myStartDrawingButton->enable();
-        myStopDrawingButton->disable();
-        myAbortDrawingButton->disable();
-        // clear created points
-        myTemporalShapeShape.clear();
-        myPolygonFrameParent->getViewNet()->update();
+    if(myTemporalShapeShape.size() > 1) {
+        // close shape
+        myTemporalShapeShape.push_back(myTemporalShapeShape[0]);
+        if(myPolygonFrameParent->buildPoly(myTemporalShapeShape)) {
+            // change buttons
+            myStartDrawingButton->enable();
+            myStopDrawingButton->disable();
+            myAbortDrawingButton->disable();
+            // clear created points
+            myTemporalShapeShape.clear();
+            myPolygonFrameParent->getViewNet()->update();
+        } else {
+            // abort drawing if poligion cannot be created
+            abortDrawing();
+        }
+    } else {
+        // abort drawing if current isn't valid
+        abortDrawing();
     }
 }
 
