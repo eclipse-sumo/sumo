@@ -174,6 +174,7 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
         OutputDevice& of = OutputDevice::getDeviceByOption("lanechange-output");
         of.openTag("change");
         of.writeAttr(SUMO_ATTR_ID, myVehicle.getID());
+        of.writeAttr(SUMO_ATTR_TYPE, myVehicle.getVehicleType().getID());
         of.writeAttr(SUMO_ATTR_TIME, time2string(MSNet::getInstance()->getCurrentTimeStep()));
         of.writeAttr(SUMO_ATTR_FROM, source->getID());
         of.writeAttr(SUMO_ATTR_TO, target->getID());
