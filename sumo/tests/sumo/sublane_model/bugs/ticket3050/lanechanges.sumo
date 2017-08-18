@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun 27 14:26:24 2017 by SUMO Version dev-SVN-r24915
+<!-- generated on Fri Aug 18 13:21:53 2017 by SUMO Version dev-SVN-r25645
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -28,5 +28,5 @@
 -->
 
 <lanechanges>
-    <change id="ego" time="5.00" from="end_3" to="end_4" dir="1" speed="19.45" reason="strategic|urgent" leaderGap="15.67" leaderSecureGap="0.00" followerGap="None" followerSecureGap="None" latGap="None"/>
+    <change id="ego" type="t0" time="5.00" from="end_3" to="end_4" dir="1" speed="19.45" reason="strategic|urgent" leaderGap="15.67" leaderSecureGap="0.00" followerGap="None" followerSecureGap="None" latGap="None"/>
 </lanechanges>

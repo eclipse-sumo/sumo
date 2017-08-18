@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 11 10:16:28 2017 by SUMO Version dev-SVN-r25537
+<!-- generated on Fri Aug 18 13:21:49 2017 by SUMO Version dev-SVN-r25645
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -23,8 +23,8 @@
 -->
 
 <lanechanges>
-    <change id="R" time="13.00" from="beg_1" to="beg_0" dir="-1" speed="27.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None"/>
-    <change id="L" time="35.00" from="beg_2" to="beg_1" dir="-1" speed="33.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="50.30" followerSecureGap="10.50"/>
-    <change id="ego" time="46.00" from="beg_1" to="beg_0" dir="-1" speed="30.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="37.70" followerSecureGap="9.00"/>
-    <change id="L" time="58.00" from="beg_1" to="beg_0" dir="-1" speed="33.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="119.30" followerSecureGap="10.50"/>
+    <change id="R" type="tR" time="13.00" from="beg_1" to="beg_0" dir="-1" speed="27.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None"/>
+    <change id="L" type="tL" time="35.00" from="beg_2" to="beg_1" dir="-1" speed="33.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="50.30" followerSecureGap="10.50"/>
+    <change id="ego" type="tEgo" time="46.00" from="beg_1" to="beg_0" dir="-1" speed="30.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="37.70" followerSecureGap="9.00"/>
+    <change id="L" type="tL" time="58.00" from="beg_1" to="beg_0" dir="-1" speed="33.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="119.30" followerSecureGap="10.50"/>
 </lanechanges>

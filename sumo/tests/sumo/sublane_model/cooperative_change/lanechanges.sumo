@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 19 15:51:34 2017 by SUMO Version dev-SVN-r24748
+<!-- generated on Fri Aug 18 13:21:52 2017 by SUMO Version dev-SVN-r25645
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -29,6 +29,6 @@
 -->
 
 <lanechanges>
-    <change id="blocker1" time="2.00" from="beg_1" to="beg_2" dir="1" speed="23.28" reason="cooperative|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" latGap="None"/>
-    <change id="merge" time="3.00" from="beg_0" to="beg_1" dir="1" speed="27.78" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" latGap="None"/>
+    <change id="blocker1" type="t1" time="2.00" from="beg_1" to="beg_2" dir="1" speed="23.28" reason="cooperative|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" latGap="None"/>
+    <change id="merge" type="t0" time="3.00" from="beg_0" to="beg_1" dir="1" speed="27.78" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" latGap="None"/>
 </lanechanges>
