@@ -100,6 +100,9 @@ public:
     /// @brief set additionals file
     void setAdditionalsFile(const std::string& additionalsFile);
 
+    /// @brief set shapes file
+    void setShapesFile(const std::string& shapesFile);
+
     /// @name Inter-thread event handling
     /// @{
     /// @brief called when an event occured
@@ -346,6 +349,9 @@ protected:
 
     /// @brief filename for load/save additionals
     std::string myAdditionalsFile;
+
+    /// @brief filename for load/save shapes
+    std::string myShapesFile;
 
     /**
      * @class GNEShapeHandler

@@ -1912,6 +1912,9 @@ GNENet::changePOIID(GNEPOI* POI, const std::string &OldID) {
 
 }
 
+void GNENet::saveShapes(const std::string & filename) {
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

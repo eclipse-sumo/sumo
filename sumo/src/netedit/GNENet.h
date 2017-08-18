@@ -624,6 +624,11 @@ public:
     /// @brief change POI ID
     void changePOIID(GNEPOI* POI, const std::string &OldID);
 
+    /**@brief save shapes elements of the network
+    * @param[in] filename name of the file in wich save shapes
+    */
+    void saveShapes(const std::string &filename);
+
 protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
     SUMORTree myGrid;

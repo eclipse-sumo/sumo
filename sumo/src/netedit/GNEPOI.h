@@ -152,9 +152,6 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
-    /// @brief save POIs to file
-    static void saveToFile(const std::string& file);
-
 protected:
 
     /// @brief lane in which this POI can be placed

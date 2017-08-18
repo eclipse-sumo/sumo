@@ -233,7 +233,7 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value ) {
     }
 }
 
-
+/*
 void
 GNEPOI::saveToFile(const std::string& file) {
     OutputDevice& out = OutputDevice::getDevice(file);
@@ -249,6 +249,7 @@ GNEPOI::saveToFile(const std::string& file) {
     out.close();
     WRITE_MESSAGE("   " + toString(additionals.size()) + " POIs saved to '" + file + "'.");
 }
+*/
 
 // ===========================================================================
 // private

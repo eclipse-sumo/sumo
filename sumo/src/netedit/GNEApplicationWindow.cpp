@@ -918,9 +918,23 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             additionalHandler.resetLastTag();
         }
     }
+    // check if shapes has to be loaded at start
+    if (OptionsCont::getOptions().isSet("sumo-shapes-file") && myNet) {
+        myShapesFile = OptionsCont::getOptions().getString("sumo-shapes-file");
+        WRITE_MESSAGE("Loading shapes from '" + myShapesFile + "'");
+        GNEShapeHandler shapeHandler(myShapesFile, myNet);
+        // Run parser
+        if (!XMLSubSys::runParser(shapeHandler, myShapesFile, false)) {
+            WRITE_ERROR("Loading of " + myShapesFile + " failed.");
+        }
+    }
     // check if additionals output must be changed
     if (OptionsCont::getOptions().isSet("additionals-output")) {
         myAdditionalsFile = OptionsCont::getOptions().getString("additionals-output");
+    }
+    // check if shapes output must be changed
+    if (OptionsCont::getOptions().isSet("shapes-output")) {
+        myShapesFile = OptionsCont::getOptions().getString("shapes-output");
     }
 
     update();
@@ -1059,6 +1073,12 @@ GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
 void
 GNEApplicationWindow::setAdditionalsFile(const std::string& additionalsFile) {
     myAdditionalsFile = additionalsFile;
+}
+
+
+void
+GNEApplicationWindow::setShapesFile(const std::string& shapesFile) {
+    myShapesFile = shapesFile;
 }
 
 
@@ -1399,38 +1419,55 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveShapes(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the shape file", ".xml",
-                    GUIIconSubSys::getIcon(ICON_EMPTY),
-                    gCurrentFolder);
-    if (file == "") {
-        return 0;
-    } else {
-        std::string filename = file.text();
-        // XXX Not yet implemented
-        getApp()->beginWaitCursor();
-        try {
-            GNEPOI::saveToFile(filename);
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox of type 'error'");
-            }
-            // open error dialog box
-            FXMessageBox::error(this, MBOX_OK, "Saving POIs failed!", "%s", e.what());
-            // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
-            }
+    // Check if shapes file was already set at start of netedit or with a previous save
+    if (myShapesFile == "") {
+        FXString file = MFXUtils::getFilename2Write(this,
+            "Select name of the shape file", ".xml",
+            GUIIconSubSys::getIcon(ICON_EMPTY),
+            gCurrentFolder);
+        if (file == "") {
+            // None shapes file was selected, then stop function
+            return 0;
+        } else {
+            myShapesFile = file.text();
         }
-        myMessageWindow->addSeparator();
-        getApp()->endWaitCursor();
-        return 1;
     }
+    getApp()->beginWaitCursor();
+    try {
+        myNet->saveShapes(myShapesFile);
+        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Additionals saved in " + myShapesFile + ".\n");
+    } catch (IOError& e) {
+        // write warning if netedit is running in testing mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Opening FXMessageBox of type 'error'");
+        }
+        // open error dialog box
+        FXMessageBox::error(this, MBOX_OK, "Saving POIs failed!", "%s", e.what());
+        // write warning if netedit is running in testing mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
+        }
+    }
+    myMessageWindow->addSeparator();
+    getApp()->endWaitCursor();
+    return 1;
 }
 
+
 long GNEApplicationWindow::onCmdSaveShapesAs(FXObject *, FXSelector, void *) {
-    return 0;
+    // Open window to select shape file
+    FXString file = MFXUtils::getFilename2Write(this,
+        "Select name of the shape file", ".xml",
+        GUIIconSubSys::getIcon(ICON_EMPTY),
+        gCurrentFolder);
+    if (file != "") {
+        // Set new shape file
+        myShapesFile = file.text();
+        // save shapes
+        return onCmdSaveShapes(0, 0, 0);
+    } else {
+        return 1;
+    }
 }
 
 

@@ -214,7 +214,13 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.addDescription("sumo-additionals-file", "Input", "file in which additionals are loaded");
 
     oc.doRegister("additionals-output", new Option_String());
-    oc.addDescription("additionals-output", "Input", "file in which additionals must be saved");
+    oc.addDescription("additionals-output", "Output", "file in which additionals must be saved");
+
+    oc.doRegister("sumo-shapes-file", new Option_String());
+    oc.addDescription("sumo-shapes-file", "Input", "file in which shapes are loaded");
+
+    oc.doRegister("shapes-output", new Option_String());
+    oc.addDescription("shapes-output", "Output", "file in which shapes must be saved");
 
     oc.doRegister("disable-laneIcons", new Option_Bool(false));
     oc.addDescription("disable-laneIcons", "Visualisation", "Disable icons of special lanes");
