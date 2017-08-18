@@ -539,7 +539,7 @@ GNEAdditionalFrame::setStartPosition(double positionOfTheMouseOverLane, double l
 
 
 double
-GNEAdditionalFrame::setEndPosition(double laneLength, double positionOfTheMouseOverLane, double lengthOfAdditional) {
+GNEAdditionalFrame::setEndPosition(double /*laneLength*/, double positionOfTheMouseOverLane, double lengthOfAdditional) {
     switch (myEditorParameters->getActualReferencePoint()) {
         case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_LEFT:
             return positionOfTheMouseOverLane + lengthOfAdditional;
