@@ -75,6 +75,11 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 GNEPOI::~GNEPOI() {}
 
 
+void GNEPOI::writeShape(OutputDevice &device) {
+    writeXML(device);
+}
+
+
 void 
 GNEPOI::moveGeometry(const Position &newPosition) {
     set(newPosition);
@@ -233,23 +238,6 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value ) {
     }
 }
 
-/*
-void
-GNEPOI::saveToFile(const std::string& file) {
-    OutputDevice& out = OutputDevice::getDevice(file);
-    out.writeXMLHeader("additional", "additional_file.xsd");
-    GeoConvHelper::writeLocation(out);
-    const std::vector<GUIGlObject_AbstractAdd*>& additionals = GUIGlObject_AbstractAdd::getObjectList();
-    for (std::vector<GUIGlObject_AbstractAdd*>::const_iterator it = additionals.begin(); it != additionals.end(); ++it) {
-        PointOfInterest* poi = dynamic_cast<PointOfInterest*>(*it);
-        if (poi != 0) {
-            poi->writeXML(out);
-        }
-    }
-    out.close();
-    WRITE_MESSAGE("   " + toString(additionals.size()) + " POIs saved to '" + file + "'.");
-}
-*/
 
 // ===========================================================================
 // private

@@ -65,6 +65,11 @@ public:
     /// @brief Destructor
     ~GNEShape();
 
+    /**@brief writte shape element into a xml file
+    * @param[in] device device in which write parameters of additional element
+    */
+    virtual void writeShape(OutputDevice& device) = 0;
+
     /// @brief get Net in which this element is placed
     GNENet* getNet() const;
 

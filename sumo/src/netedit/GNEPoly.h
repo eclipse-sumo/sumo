@@ -73,6 +73,10 @@ public:
     /// @brief Destructor
     ~GNEPoly();
 
+    /**@brief writte shape element into a xml file
+    * @param[in] device device in which write parameters of additional element
+    */
+    void writeShape(OutputDevice& device);
 
     /**@brief change the polygon geometry
     * It is up to the Polygon to decide whether an new geometry node should be

@@ -1435,7 +1435,7 @@ GNEApplicationWindow::onCmdSaveShapes(FXObject*, FXSelector, void*) {
     getApp()->beginWaitCursor();
     try {
         myNet->saveShapes(myShapesFile);
-        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Additionals saved in " + myShapesFile + ".\n");
+        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Shapes saved in " + myShapesFile + ".\n");
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {

@@ -1913,6 +1913,18 @@ GNENet::changePOIID(GNEPOI* POI, const std::string &OldID) {
 }
 
 void GNENet::saveShapes(const std::string & filename) {
+    // save Shapes
+    OutputDevice& device = OutputDevice::getDevice(filename);
+    device.openTag("additionals");
+    // write polygons
+    for (auto i = myPolygons.getMyMap().begin(); i != myPolygons.getMyMap().end(); i++) {
+        dynamic_cast<GNEPoly*>(i->second)->writeShape(device);
+    }
+    // write POIs
+    for (auto i = myPOIs.getMyMap().begin(); i != myPOIs.getMyMap().end(); i++) {
+        dynamic_cast<GNEPOI*>(i->second)->writeShape(device);
+    }
+    device.close();
 }
 
 // ===========================================================================

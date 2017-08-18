@@ -76,7 +76,11 @@ GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, cons
 }
 
 
-GNEPoly::~GNEPoly() {
+GNEPoly::~GNEPoly() {}
+
+
+void GNEPoly::writeShape(OutputDevice &device) {
+    writeXML(device);
 }
 
 

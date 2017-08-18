@@ -73,6 +73,11 @@ public:
     /// @brief Destructor
     ~GNEPOI();
 
+    /**@brief writte shape element into a xml file
+    * @param[in] device device in which write parameters of additional element
+    */
+    void writeShape(OutputDevice& device);
+
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
