@@ -151,8 +151,10 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_PLAIN_XML,             GNEApplicationWindow::onUpdNeedsNetwork), // same condition
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_JOINED,                GNEApplicationWindow::onCmdSaveJoined),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_JOINED,                GNEApplicationWindow::onUpdNeedsNetwork), // same condition
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_POIS,                  GNEApplicationWindow::onCmdSavePois),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_POIS,                  GNEApplicationWindow::onUpdNeedsNetwork), // same condition
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_SHAPES,                GNEApplicationWindow::onCmdSaveShapes),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_SHAPES,                GNEApplicationWindow::onUpdNeedsNetwork), // same condition
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_SHAPES_AS,             GNEApplicationWindow::onCmdSaveShapesAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_SHAPES_AS,             GNEApplicationWindow::onUpdNeedsNetwork), // same condition
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_ADDITIONALS,           GNEApplicationWindow::onCmdSaveAdditionals),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_ADDITIONALS,           GNEApplicationWindow::onUpdNeedsNetwork), // same condition
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_ADDITIONALS_AS,        GNEApplicationWindow::onCmdSaveAdditionalsAs),
@@ -379,13 +381,16 @@ GNEApplicationWindow::fillMenuBar() {
                       "Save &joined junctions...\tCtrl+J\tSave log of joined junctions (allows reproduction of joins).",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_JOINED);
     new FXMenuCommand(myFileMenu,
-                      "Save POIs As ...\tCtrl+Shift+P\tSave the POIs.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_POIS);
+                      "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_SHAPES);
     new FXMenuCommand(myFileMenu,
-                      "Save additionals\tCtrl+Shift+D\tSave additional elements.",
+                      "Save Shapes As...\t\tSave shapes elements in another files.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_SHAPES_AS);
+    new FXMenuCommand(myFileMenu,
+                      "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_ADDITIONALS);
     new FXMenuCommand(myFileMenu,
-                      "Save additionals As...\t\tSave additional elements in another file.",
+                      "Save Additionals As...\t\tSave additional elements in another file.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_ADDITIONALS_AS);
     new FXMenuSeparator(myFileMenu);
     new FXMenuCommand(myFileMenu,
@@ -701,10 +706,10 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
     // get the shape file name
-    FXFileDialog opendialog(this, "Open Shapes");
+    FXFileDialog opendialog(this, "Open Shapes file");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("Additional files (*.xml)\nAll files (*)");
+    opendialog.setPatternList("Shape files (*.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -724,7 +729,7 @@ GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
     // get the shape file name
-    FXFileDialog opendialog(this, "Open Additional");
+    FXFileDialog opendialog(this, "Open Additionals file");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("Additional files (*.xml)\nAll files (*)");
@@ -1393,34 +1398,39 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdSavePois(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveShapes(FXObject*, FXSelector, void*) {
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the POI file", ".xml",
+                    "Select name of the shape file", ".xml",
                     GUIIconSubSys::getIcon(ICON_EMPTY),
                     gCurrentFolder);
     if (file == "") {
+        return 0;
+    } else {
+        std::string filename = file.text();
+        // XXX Not yet implemented
+        getApp()->beginWaitCursor();
+        try {
+            GNEPOI::saveToFile(filename);
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Opening FXMessageBox of type 'error'");
+            }
+            // open error dialog box
+            FXMessageBox::error(this, MBOX_OK, "Saving POIs failed!", "%s", e.what());
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
+            }
+        }
+        myMessageWindow->addSeparator();
+        getApp()->endWaitCursor();
         return 1;
     }
-    std::string filename = file.text();
-    // XXX Not yet implemented
-    getApp()->beginWaitCursor();
-    try {
-        GNEPOI::saveToFile(filename);
-    } catch (IOError& e) {
-        // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'error'");
-        }
-        // open error dialog box
-        FXMessageBox::error(this, MBOX_OK, "Saving POIs failed!", "%s", e.what());
-        // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
-        }
-    }
-    myMessageWindow->addSeparator();
-    getApp()->endWaitCursor();
-    return 1;
+}
+
+long GNEApplicationWindow::onCmdSaveShapesAs(FXObject *, FXSelector, void *) {
+    return 0;
 }
 
 

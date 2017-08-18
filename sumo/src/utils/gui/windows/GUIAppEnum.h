@@ -564,7 +564,9 @@ enum {
     MID_GNE_SAVE_AS_NETWORK,
     MID_GNE_SAVE_PLAIN_XML,
     MID_GNE_SAVE_JOINED,
-    MID_GNE_SAVE_POIS,
+    /// @brief Save shapes
+    MID_GNE_SAVE_SHAPES,
+    MID_GNE_SAVE_SHAPES_AS,
     /// @brief Save additionals
     MID_GNE_SAVE_ADDITIONALS,
     MID_GNE_SAVE_ADDITIONALS_AS,

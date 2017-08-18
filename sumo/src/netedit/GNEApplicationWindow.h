@@ -171,8 +171,11 @@ public:
     /// @brief called when the command/FXCall save joined is executed
     long onCmdSaveJoined(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save pois is executed
-    long onCmdSavePois(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall save shapes is executed
+    long onCmdSaveShapes(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save shapes as is executed
+    long onCmdSaveShapesAs(FXObject*, FXSelector, void*);
 
     /// @brief called when a key is pressed
     long onKeyPress(FXObject* o, FXSelector sel, void* data);
