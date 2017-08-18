@@ -1021,8 +1021,13 @@ GNEViewNet::hotkeyEnter() {
             update();
         }
     } else if (myEditMode == GNE_MODE_POLYGON) {
-        // stop current drawing
-        myViewParent->getPolygonFrame()->getDrawingMode()->stopDrawing();
+        if(myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
+            // stop current drawing
+            myViewParent->getPolygonFrame()->getDrawingMode()->stopDrawing();
+        } else {
+            // start drawing
+            myViewParent->getPolygonFrame()->getDrawingMode()->startDrawing();
+        }
     }
 }
 
