@@ -81,7 +81,6 @@ ShapeContainer::removePOI(const std::string& id) {
 }
 
 
-
 void
 ShapeContainer::movePOI(const std::string& id, const Position& pos) {
     PointOfInterest* p = myPOIs.get(id);

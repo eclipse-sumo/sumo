@@ -47,15 +47,16 @@
  */
 class ShapeContainer {
 public:
+
+    /// @brief containers 
+    typedef NamedObjectCont<SUMOPolygon*> Polygons;
+    typedef NamedObjectCont<PointOfInterest*> POIs;
+
     /// @brief Constructor
     ShapeContainer();
 
-
     /// @brief Destructor
     virtual ~ShapeContainer();
-
-    typedef NamedObjectCont< SUMOPolygon* > Polygons;
-    typedef NamedObjectCont< PointOfInterest*> POIs;
 
     /** @brief Builds a polygon using the given values and adds it to the container
      * @param[in] id The name of the polygon
@@ -74,7 +75,6 @@ public:
                             const PositionVector& shape, bool fill,
                             bool ignorePruning = false);
 
-
     /** @brief Builds a POI using the given values and adds it to the container
      * @param[in] id The name of the POI
      * @param[in] type The (abstract) type of the POI
@@ -91,14 +91,11 @@ public:
                         const RGBColor& color, double layer, double angle, const std::string& imgFile,
                         const Position& pos, double width, double height, bool ignorePruning = false);
 
-
-
     /** @brief Removes a polygon from the container
      * @param[in] id The id of the polygon
      * @return Whether the polygon could be removed
      */
     virtual bool removePolygon(const std::string& id);
-
 
     /** @brief Removes a PoI from the container
      * @param[in] id The id of the PoI
@@ -106,14 +103,11 @@ public:
      */
     virtual bool removePOI(const std::string& id);
 
-
-
     /** @brief Assigns a new position to the named PoI
      * @param[in] id The id of the PoI to move
      * @param[in] pos The PoI's new position
      */
     virtual void movePOI(const std::string& id, const Position& pos);
-
 
     /** @brief Assigns a shape to the named polygon
      * @param[in] id The id of the polygon to reshape
@@ -121,24 +115,22 @@ public:
      */
     virtual void reshapePolygon(const std::string& id, const PositionVector& shape);
 
-
-
     /// @brief Returns all polygons
     inline const Polygons& getPolygons() const {
         return myPolygons;
     }
-
 
     /// @brief Returns all pois
     inline const POIs& getPOIs() const {
         return myPOIs;
     }
 
-
 protected:
+    /// @brief add polygon
     virtual bool add(SUMOPolygon* poly, bool ignorePruning = false);
-    virtual bool add(PointOfInterest* poi, bool ignorePruning = false);
 
+    /// @brief add poi
+    virtual bool add(PointOfInterest* poi, bool ignorePruning = false);
 
 protected:
     /// @brief stored Polygons
@@ -146,7 +138,6 @@ protected:
 
     /// @brief stored POIs
     POIs myPOIs;
-
 };
 
 
