@@ -59,14 +59,13 @@ public:
     /// @brief Constructor
     NamedObjectCont() : myHaveChanged(false) { }
 
-
-    ///@brief  Destructor
+    ///@brief Destructor
     virtual ~NamedObjectCont() {
+        // iterate over all elements to delete it
         for (typename IDMap::iterator i = myMap.begin(); i != myMap.end(); i++) {
             delete(*i).second;
         }
     }
-
 
     /** @brief Adds an item
      *
@@ -86,25 +85,22 @@ public:
         return true;
     }
 
-
     /** @brief Removes an item
      * @param[in] id The id of the item to remove
      * @param[in] del delete item after removing of container
      * @return If the item could been removed (an item with the id was within the container before)
      */
-    virtual bool remove(const std::string& id, bool del = true) {
-        if (myMap.find(id) == myMap.end()) {
+    virtual bool remove(const std::string& id) {
+        typename std::map<std::string, T>::iterator it = myMap.find(id);
+        if (it == myMap.end()) {
             return false;
+        } else {
+            delete it->second;
+            myMap.erase(it);
+            myHaveChanged = true;
+            return true;
         }
-        typename std::map<std::string, T>::iterator i = myMap.find(id);
-        if(del) {
-            delete i->second;
-        }
-        myMap.erase(i);
-        myHaveChanged = true;
-        return true;
     }
-
 
     /** @brief Retrieves an item
      *
@@ -114,15 +110,15 @@ public:
      * @return The item stored under the given id, or 0 if no such item exists
      */
     T get(const std::string& id) const {
-        typename std::map<std::string, T>::const_iterator i = myMap.find(id);
-        if (i == myMap.end()) {
+        typename std::map<std::string, T>::const_iterator it = myMap.find(id);
+        if (it == myMap.end()) {
             return 0;
+        } else {
+            return it->second;
         }
-        return (*i).second;
     }
 
-
-    /** @brief Removes all items from the container (deletes them, too) */
+    /// @brief Removes all items from the container (deletes them, too)
     void clear() {
         for (typename IDMap::iterator i = myMap.begin(); i != myMap.end(); i++) {
             delete(*i).second;
@@ -132,15 +128,10 @@ public:
         myHaveChanged = true;
     }
 
-
-    /** @brief Returns the number of items within the container
-     *
-     * @return The number of stored items
-     */
+    /// @brief Returns the number of stored items within the container
     int size() const {
         return (int) myMap.size();
     }
-
 
     /** @brief Removes the named item from the container
      *
@@ -155,20 +146,20 @@ public:
         typename IDMap::iterator i = myMap.find(id);
         if (i == myMap.end()) {
             return false;
+        } else {
+            T o = (*i).second;
+            myMap.erase(i);
+            // and from the vector
+            typename ObjectVector::iterator i2 =
+                find(myVector.begin(), myVector.end(), o);
+            myHaveChanged = true;
+            if (i2 != myVector.end()) {
+                myVector.erase(i2);
+            }
+            delete o;
+            return true;
         }
-        T o = (*i).second;
-        myMap.erase(i);
-        // and from the vector
-        typename ObjectVector::iterator i2 =
-            find(myVector.begin(), myVector.end(), o);
-        myHaveChanged = true;
-        if (i2 != myVector.end()) {
-            myVector.erase(i2);
-        }
-        delete o;
-        return true;
     }
-
 
     /* @brief Fills the given vector with the stored objects' ids
      * @param[in] into The container to fill
@@ -180,11 +171,21 @@ public:
         }
     }
 
+    /// @brief change ID of a stored object
+    bool changeID(const std::string& oldId, const std::string& newId) {
+        typename IDMap::iterator i = myMap.find(oldId);
+        if (i == myMap.end()) {
+            return false;
+        } else {
+            // save Item, remove it from Map, and insert it again with the new ID
+            T item = (*i).second;
+            myMap.erase(i);
+            myMap.insert(std::make_pair(newId, item));
+            return true;
+        }
+    }
 
-    /* @brief Returns a reference to the internal map
-     *
-     * @return A reference to the internal map
-     */
+    /// @brief Returns a reference to the internal map
     const IDMap& getMyMap() const {
         return myMap;
     }
@@ -205,7 +206,6 @@ private:
 
     /// @brief Information whether the vector is out of sync with the map
     mutable bool myHaveChanged;
-
 };
 
 

@@ -1818,8 +1818,7 @@ GNENet::changePolygonID(GNEPoly* poly, const std::string &OldID) {
     if (myPolygons.get(OldID) == 0) {
         throw UnknownElement("Polygon " + OldID);
     } else {
-        myPolygons.remove(OldID, false);
-        myPolygons.add(poly->getID(), poly);
+        myPolygons.changeID(OldID, poly->getID());
     }
 
 }
@@ -1908,8 +1907,7 @@ GNENet::changePOIID(GNEPOI* POI, const std::string &OldID) {
     if (myPOIs.get(OldID) == 0) {
         throw UnknownElement("POI " + OldID);
     } else {
-        myPOIs.remove(OldID, false);
-        myPOIs.add(POI->getID(), POI);
+        myPOIs.changeID(OldID, POI->getID());
     }
 
 }
