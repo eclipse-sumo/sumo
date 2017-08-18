@@ -264,7 +264,7 @@ GNEAdditionalHandler::parseCalibratorRoute(const SUMOSAXAttributes& attrs, const
     // parse attribute of calibrator routes
     std::string routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
     std::vector<std::string> edgeIDs = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, 0, tag, SUMO_ATTR_EDGES, abort);
-    std::string color = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, 0, tag, SUMO_ATTR_COLOR, abort, false);
+    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, 0, tag, SUMO_ATTR_COLOR, abort, false);
 
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
@@ -299,7 +299,6 @@ GNEAdditionalHandler::parseCalibratorRoute(const SUMOSAXAttributes& attrs, const
 void
 GNEAdditionalHandler::parseCalibratorVehicleType(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
-
     // parse attribute of calibrator vehicle types
     std::string vehicleTypeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
     double accel = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, 0, tag, SUMO_ATTR_ACCEL, abort);
@@ -311,7 +310,7 @@ GNEAdditionalHandler::parseCalibratorVehicleType(const SUMOSAXAttributes& attrs,
     double maxSpeed = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, 0, tag, SUMO_ATTR_MAXSPEED, abort);
     double speedFactor = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, 0, tag, SUMO_ATTR_SPEEDFACTOR, abort);
     double speedDev = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, 0, tag, SUMO_ATTR_SPEEDDEV, abort);
-    std::string color = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, 0, tag, SUMO_ATTR_COLOR, abort);
+    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, 0, tag, SUMO_ATTR_COLOR, abort, false);
     SUMOVehicleClass vClass = GNEAttributeCarrier::parseAttributeFromXML<SUMOVehicleClass>(attrs, 0, tag, SUMO_ATTR_VCLASS, abort);
     std::string emissionClass = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, 0, tag, SUMO_ATTR_EMISSIONCLASS, abort);
     SUMOVehicleShape shape = GNEAttributeCarrier::parseAttributeFromXML<SUMOVehicleShape>(attrs, 0, tag, SUMO_ATTR_GUISHAPE, abort);
@@ -353,7 +352,7 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
     std::string flowID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
     std::string vehicleType = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, 0, tag, SUMO_ATTR_TYPE, abort);
     std::string route = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, 0, tag, SUMO_ATTR_ROUTE, abort);
-    std::string color = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, 0, tag, SUMO_ATTR_COLOR, abort);
+    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, 0, tag, SUMO_ATTR_COLOR, abort, false);
     std::string departLane = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, 0, tag, SUMO_ATTR_DEPARTLANE, abort);
     std::string departPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, 0, tag, SUMO_ATTR_DEPARTPOS, abort);
     std::string departSpeed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, 0, tag, SUMO_ATTR_DEPARTSPEED, abort);

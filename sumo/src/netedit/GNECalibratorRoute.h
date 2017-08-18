@@ -32,6 +32,7 @@
 
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/common/RGBColor.h>
 
 // ===========================================================================
 // class declaration
@@ -54,10 +55,10 @@ public:
     GNECalibratorRoute(GNECalibrator* calibratorParent);
 
     /// @brief parameter constructor 1 (Using edges IDs)
-    GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<std::string> edges, std::string color);
+    GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<std::string> edges, const RGBColor &color);
 
     /// @brief parameter constructor 2 (Using GNEEdges)
-    GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<GNEEdge*> edges, std::string color);
+    GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<GNEEdge*> edges, const RGBColor &color);
 
     /// @brief destructor
     ~GNECalibratorRoute();
@@ -78,7 +79,7 @@ public:
     const std::vector<GNEEdge*>& getEdges() const;
 
     /// @brief get color of route
-    const std::string& getColor() const;
+    const RGBColor& getColor() const;
 
     /**@brief set route ID
     * @return true if was sucesfully set, or false if value isn't valid
@@ -103,7 +104,12 @@ public:
     /**@brief set color of route
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setColor(std::string color = "");
+    bool setColor(const RGBColor &color);
+
+    /**@brief set color of route (String Version
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setColor(std::string color = "black");
 
     /**@brief check if a list of edges is valid to set a route
     * @return "" if is correct, a error string in other case
@@ -124,7 +130,7 @@ private:
     std::vector<GNEEdge*> myEdges;
 
     /// @brief color of flow
-    std::string myColor;
+    RGBColor myColor;
 };
 
 #endif

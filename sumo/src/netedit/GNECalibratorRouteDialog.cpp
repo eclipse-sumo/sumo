@@ -196,7 +196,7 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     }
 
     // set color of myTextFieldColor, depending if current value is valid or not
-    if (myCopyOfCalibratorRoute->getColor() == myTextFieldColor->getText().text()) {
+    if (myCopyOfCalibratorRoute->getColor() == RGBColor::parseColor(myTextFieldColor->getText().text())) {
         myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
     } else if (myCopyOfCalibratorRoute->setColor(myTextFieldColor->getText().text())) {
         myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
@@ -213,7 +213,7 @@ void
 GNECalibratorRouteDialog::updateCalibratorRouteValues() {
     myTextFieldRouteID->setText(myCopyOfCalibratorRoute->getRouteID().c_str());
     myTextFieldEdges->setText(joinToString(myCopyOfCalibratorRoute->getEdgesIDs(), " ").c_str());
-    myTextFieldColor->setText(myCopyOfCalibratorRoute->getColor().c_str());
+    myTextFieldColor->setText(toString(myCopyOfCalibratorRoute->getColor()).c_str());
     // fill list of router's edges
     myListOfEdgesOfRoute->clearItems();
     std::vector<GNEEdge*> edgesOfRouter = myCopyOfCalibratorRoute->getEdges();

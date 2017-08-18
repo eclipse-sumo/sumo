@@ -464,7 +464,7 @@ GNECalibratorFlowDialog::updateCalibratorFlowValues() {
     myTextFieldFlowID->setText(myCopyOfCalibratorFlow->getFlowID().c_str());
     myComboBoxVehicleType->setText(myCopyOfCalibratorFlow->getVehicleType().c_str());
     myComboBoxRoute->setText(myCopyOfCalibratorFlow->getRoute().c_str());
-    myTextFieldColor->setText(myCopyOfCalibratorFlow->getColor().c_str());
+    myTextFieldColor->setText(toString(myCopyOfCalibratorFlow->getColor()).c_str());
     myTextFieldDepartLane->setText(myCopyOfCalibratorFlow->getDepartLane().c_str());
     myTextFieldDepartPos->setText(myCopyOfCalibratorFlow->getDepartPos().c_str());
     myTextFieldDepartSpeed->setText(myCopyOfCalibratorFlow->getDepartSpeed().c_str());

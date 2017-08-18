@@ -314,6 +314,11 @@ public:
                     errorFormat = "Filename contains invalid characters; ";
                     ok = false;
                 }
+                // set extra check for color values
+                if (isColor(tag, attribute) && (isValidFilename(parsedAttribute) == false)) {
+                    errorFormat = "Invalid RGB or named color; ";
+                    ok = false;
+                }
                 // set extra check for Vehicle Classes
                 if ((!ok) && (attribute == SUMO_ATTR_VCLASS)) {
                     errorFormat = "Is not a part of defined set of Vehicle Classes; ";

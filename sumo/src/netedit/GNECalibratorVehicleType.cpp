@@ -91,7 +91,7 @@ GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorPare
 
 GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID,
         double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
-        double speedFactor, double speedDev, const std::string& color, SUMOVehicleClass vClass, const std::string& emissionClass,
+        double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
         SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
         const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
         double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) :
@@ -201,7 +201,7 @@ GNECalibratorVehicleType::getSpeedDev() const {
 }
 
 
-std::string
+const RGBColor&
 GNECalibratorVehicleType::getColor() const {
     return myColor;
 }
@@ -497,11 +497,19 @@ GNECalibratorVehicleType::setSpeedDev(std::string speedDev) {
     }
 }
 
+bool GNECalibratorVehicleType::setColor(const RGBColor & color) {
+    myColor = color;
+    return false;
+}
+
 
 bool
 GNECalibratorVehicleType::setColor(std::string color) {
-    myColor = color;
-    return true;
+    if (GNEAttributeCarrier::canParse<RGBColor>(color)) {
+        return setColor(GNEAttributeCarrier::parse<RGBColor>(color));
+    } else {
+        return false;
+    }
 }
 
 
