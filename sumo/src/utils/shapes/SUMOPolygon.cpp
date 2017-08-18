@@ -55,7 +55,9 @@ void
 SUMOPolygon::writeXML(OutputDevice& out, bool geo) {
     out.openTag(SUMO_TAG_POLY);
     out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
-    out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getType()));
+    if(getType().size() > 0) {
+        out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getType()));
+    }
     out.writeAttr(SUMO_ATTR_COLOR, getColor());
     out.writeAttr(SUMO_ATTR_FILL,  getFill());
     out.writeAttr(SUMO_ATTR_LAYER, getLayer());

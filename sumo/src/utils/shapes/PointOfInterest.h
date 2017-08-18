@@ -117,7 +117,9 @@ public:
     void writeXML(OutputDevice& out, const bool geo = false, const double zOffset = 0., const std::string laneID = "", const double pos = 0., const double posLat = 0.) {
         out.openTag(SUMO_TAG_POI);
         out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
-        out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getType()));
+        if(getType().size() > 0) {
+            out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getType()));
+        }
         out.writeAttr(SUMO_ATTR_COLOR, getColor());
         out.writeAttr(SUMO_ATTR_LAYER, getLayer() + zOffset);
         if (laneID != "") {

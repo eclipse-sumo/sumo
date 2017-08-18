@@ -1677,6 +1677,10 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
 }
 
 
+// ---------------------------------------------------------------------------
+// GNEApplicationWindow::GNEShapeHandler - methods
+// ---------------------------------------------------------------------------
+
 GNEApplicationWindow::GNEShapeHandler::GNEShapeHandler(const std::string& file, GNENet* net) :
     ShapeHandler(file, *net),
     myNet(net) {}
@@ -1704,6 +1708,7 @@ GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, cons
     return edge->getLanes()[laneIndex].shape.positionAtOffset(lanePos, -lanePosLat);
 }
 
+// ---------------------------------------------------------------------------
 
 void
 GNEApplicationWindow::updateControls() {
