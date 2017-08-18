@@ -198,7 +198,7 @@ bool
 GNEPOI::isValid(SumoXMLAttr key, const std::string& value ) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidID(value) /*&& (myNet->retrievePOI(value, false) == 0)*/;
+            return isValidID(value) && (myNet->retrievePOI(value, false) == 0);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_LANE:
@@ -257,9 +257,12 @@ GNEPOI::saveToFile(const std::string& file) {
 void
 GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
+        case SUMO_ATTR_ID: {
+            std::string oldID = myID;
             myID = value;
+            myNet->changePOIID(this, oldID);
             break;
+        }
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
             break;

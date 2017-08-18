@@ -570,6 +570,16 @@ public:
     /// @brief generate PolyID
     std::string generatePolyID() const;
 
+    /**@brief get Polygon by id
+    * @param[in] id The id of the desired polygon
+    * @param[in] failHard Whether attempts to retrieve a nonexisting polygon should result in an exception
+    * @throws UnknownElement
+    */
+    GNEPoly* retrievePolygon(const std::string& id, bool failHard = true);
+
+    /// @brief change Polygon ID
+    void changePolygonID(GNEPoly* poly, const std::string &OldID);
+
     /** @brief Builds a POI using the given values and adds it to the container
      * @param[in] id The name of the POI
      * @param[in] type The (abstract) type of the POI
@@ -603,6 +613,16 @@ public:
 
     /// @brief generate a POI ID
     std::string generatePOIID() const;
+
+    /**@brief get POI by id
+    * @param[in] id The id of the desired POI
+    * @param[in] failHard Whether attempts to retrieve a nonexisting POI should result in an exception
+    * @throws UnknownElement
+    */
+    GNEPOI* retrievePOI(const std::string& id, bool failHard = true);
+
+    /// @brief change POI ID
+    void changePOIID(GNEPOI* POI, const std::string &OldID);
 
 protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)

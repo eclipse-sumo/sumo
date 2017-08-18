@@ -217,7 +217,7 @@ std::string
 GNEPoly::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getMicrosimID();
+            return myID;
         case SUMO_ATTR_SHAPE:
             return toString(myShape);
         case SUMO_ATTR_COLOR:
@@ -267,7 +267,7 @@ bool
 GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidID(value) /*&& (myNet->retrieveShape(value, false) == 0)*/;
+            return isValidID(value) && (myNet->retrievePolygon(value, false) == 0);
         case SUMO_ATTR_SHAPE: {
             bool ok = true;
             PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
@@ -298,11 +298,14 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
 // ===========================================================================
 
 void
-GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value ) {
+GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
+        case SUMO_ATTR_ID: {
+            std::string oldID = myID;
             myID = value;
+            myNet->changePolygonID(this, oldID);
             break;
+        }
         case SUMO_ATTR_SHAPE: {
             bool ok = true;
             myShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);

@@ -1800,6 +1800,31 @@ GNENet::generatePolyID() const {
 }
 
 
+GNEPoly* 
+GNENet::retrievePolygon(const std::string & id, bool failHard) {
+    if (myPolygons.get(id) != 0) {
+        return reinterpret_cast<GNEPoly*>(myPolygons.get(id));
+    } else if (failHard) {
+        // If Polygon wasn't found, throw exception
+        throw UnknownElement("Polygon " + id);
+    } else {
+        return NULL;
+    }
+}
+
+
+void
+GNENet::changePolygonID(GNEPoly* poly, const std::string &OldID) {
+    if (myPolygons.get(OldID) == 0) {
+        throw UnknownElement("Polygon " + OldID);
+    } else {
+        myPolygons.remove(OldID, false);
+        myPolygons.add(poly->getID(), poly);
+    }
+
+}
+
+
 bool 
 GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
     const std::string& imgFile, const Position& pos, double width, double height, bool /*ignorePruning*/) {
@@ -1828,7 +1853,6 @@ GNENet::removePOI(const std::string& id) {
         return myPOIs.remove(id);
     }
 }
-
 
 
 void 
@@ -1863,6 +1887,31 @@ GNENet::generatePOIID() const {
         newID = "POI_" + toString(counter);
     }
     return newID;
+}
+
+
+GNEPOI* 
+GNENet::retrievePOI(const std::string & id, bool failHard) {
+    if (myPOIs.get(id) != 0) {
+        return reinterpret_cast<GNEPOI*>(myPOIs.get(id));
+    } else if (failHard) {
+        // If POI wasn't found, throw exception
+        throw UnknownElement("POI " + id);
+    } else {
+        return NULL;
+    }
+}
+
+
+void
+GNENet::changePOIID(GNEPOI* POI, const std::string &OldID) {
+    if (myPOIs.get(OldID) == 0) {
+        throw UnknownElement("POI " + OldID);
+    } else {
+        myPOIs.remove(OldID, false);
+        myPOIs.add(POI->getID(), POI);
+    }
+
 }
 
 // ===========================================================================
