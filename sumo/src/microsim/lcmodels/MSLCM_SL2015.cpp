@@ -2216,7 +2216,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
 
 double 
 MSLCM_SL2015::computeGapFactor(int state) const {
-    return (state & LCA_STRATEGIC) != 0 ? MAX2(0.0, (1.0 - myPushy)) : 1.0;
+    return (state & LCA_STRATEGIC) != 0 ? MAX2(0.0, (1.0 - myPushy * (1 + 0.5 * myImpatience))) : 1.0;
 }
 
 
