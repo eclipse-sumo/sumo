@@ -119,7 +119,7 @@ public:
     }
 
 
-    /// @brief Removes all items from the container (deletes them, too)
+    /** @brief Removes all items from the container (deletes them, too) */
     void clear() {
         for (typename IDMap::iterator i = myMap.begin(); i != myMap.end(); i++) {
             delete(*i).second;
@@ -141,12 +141,12 @@ public:
 
     /** @brief Removes the named item from the container
      *
-     * If the named object exists the key is
+     * If the named object exists, it is deleted, the key is
      *  removed from the map, and true is returned. If the id was not
      *  known, false is returned.
      *
      * @param[in] id The id of the item to delete
-     * @return Whether the object could be erased (was within the map)
+     * @return Whether the object could be deleted (was within the map)
      */
     bool erase(const std::string& id) {
         typename IDMap::iterator i = myMap.find(id);
@@ -162,7 +162,7 @@ public:
         if (i2 != myVector.end()) {
             myVector.erase(i2);
         }
-        //delete o;
+        delete o;
         return true;
     }
 
