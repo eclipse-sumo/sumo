@@ -333,8 +333,8 @@ GNEPolygonFrame::DrawingMode::DrawingMode(GNEPolygonFrame* polygonFrameParent) :
     // create information label
     std::ostringstream information;
     information
-        << "- 'Start drawing' draws\n"
-        << "  polygon boundary.\n"
+        << "- 'Start drawing' or ENTER\n"
+        << "  draws polygon boundary.\n"
         << "- 'Stop drawing' or ENTER\n"
         << "  creates polygon.\n"
         << "- 'Abort drawing' or ESC\n"
