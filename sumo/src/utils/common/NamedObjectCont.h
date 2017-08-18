@@ -89,14 +89,17 @@ public:
 
     /** @brief Removes an item
      * @param[in] id The id of the item to remove
+     * @param[in] del delete item after removing of container
      * @return If the item could been removed (an item with the id was within the container before)
      */
-    virtual bool remove(const std::string& id) {
+    virtual bool remove(const std::string& id, bool del = true) {
         if (myMap.find(id) == myMap.end()) {
             return false;
         }
         typename std::map<std::string, T>::iterator i = myMap.find(id);
-        delete i->second;
+        if(del) {
+            delete i->second;
+        }
         myMap.erase(i);
         myHaveChanged = true;
         return true;
