@@ -1,4 +1,6 @@
 Loading configuration... done.
+Could not connect to TraCI server at localhost:59213 [Errno 111] Connection refused
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -51,7 +53,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat 0.0
 person number 0
@@ -192,7 +194,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat -1001.0
 person number 0
@@ -273,7 +275,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat 0.0
 person number 0
@@ -440,7 +442,7 @@ triptest route: ['3si', '2o', '2fi', '2si', '4o', '4fi', '4si']
 step 78
 ('veh', 'parking', 'speed', 0.0, 'pos', (1000.0, 501.65000000000003), 'pos3d', (1000.0, 501.65000000000003, 0.0), 'angle', 55.96766302073293, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 0.0, 'CO2', 2624.722222222222)
 step 79
-('veh', 'parking', 'speed', 2.044386244378984, 'pos', (997.9678800730873, 501.65000000000003), 'pos3d', (997.9678800730873, 501.65000000000003, 0.0), 'angle', 14.548215074889802, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 2.044386244378984, 'CO2', 3481.7325743006318)
+('veh', 'parking', 'speed', 2.044386244378984, 'pos', (997.9678800730873, 501.65000000000003), 'pos3d', (997.9678800730873, 501.65000000000003, 0.0), 'angle', 14.5482150748898, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 2.044386244378984, 'CO2', 3481.7325743006318)
 step 80
 ('veh', 'parking', 'speed', 4.488767501874826, 'pos', (993.5060451762237, 501.65000000000003), 'pos3d', (993.5060451762237, 501.65000000000003, 0.0), 'angle', 270.0, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 6.53315374625381, 'CO2', 5060.576771940281)
 step 81
@@ -577,7 +579,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat 0.0
 person number 0
@@ -698,7 +700,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat -1001.0
 person number 0
@@ -763,7 +765,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat -1001.0
 person number 0
@@ -828,7 +830,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat -1001.0
 person number 0
@@ -893,7 +895,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat -1001.0
 person number 0

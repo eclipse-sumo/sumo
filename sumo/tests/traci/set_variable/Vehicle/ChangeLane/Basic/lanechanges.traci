@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun  8 08:37:58 2017 by SUMO Version dev-SVN-r24576
+<!-- generated on Sat Aug 19 14:38:53 2017 by SUMO Version dev-SVN-r24506
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -21,12 +21,12 @@
     </report>
 
     <traci_server>
-        <remote-port value="56255"/>
+        <remote-port value="53846"/>
     </traci_server>
 
 </configuration>
 -->
 
 <lanechanges>
-    <change id="veh0" time="32.00" from="1si_1" to="1si_0" dir="-1" speed="10.00" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None"/>
+    <change id="veh0" type="SUMO_DEFAULT_TYPE" time="32.00" from="1si_1" to="1si_0" dir="-1" speed="10.00" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None"/>
 </lanechanges>

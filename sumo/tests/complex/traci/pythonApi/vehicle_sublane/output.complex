@@ -1,4 +1,6 @@
 Loading configuration... done.
+Could not connect to TraCI server at localhost:60489 [Errno 111] Connection refused
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -51,7 +53,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat 0.0
 person number 0
@@ -192,7 +194,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat -1001.0
 person number 0
@@ -273,7 +275,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat 0.0
 person number 0
@@ -577,7 +579,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat -0.56
 person number 0
@@ -698,7 +700,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat -1001.0
 person number 0
@@ -763,7 +765,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat -1001.0
 person number 0
@@ -828,7 +830,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat -1001.0
 person number 0
@@ -893,7 +895,7 @@ lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.0
-minGapLat 1.0
+minGapLat 0.6
 lateralAlignment center
 lanePosLat -1001.0
 person number 0
