@@ -200,8 +200,11 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
 
 void
 MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os) const {
-    os.openTag("walk").writeAttr("arrival", time2string(myArrived)).closeTag();
     MSDevice_Tripinfo::addPedestrianData(walkDistance(), myArrived - myDeparted); 
+    os.openTag("walk");
+    //os.writeAttr("depart", time2string(myDeparted));
+    os.writeAttr("arrival", time2string(myArrived));
+    os.closeTag();
 }
 
 
@@ -304,7 +307,10 @@ MSPerson::MSPersonStage_Driving::getStageDescription() const {
 
 void
 MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os) const {
-    os.openTag("ride").writeAttr("depart", time2string(myDeparted)).writeAttr("arrival", time2string(myArrived)).closeTag();
+    os.openTag("ride");
+    os.writeAttr("depart", time2string(myDeparted));
+    os.writeAttr("arrival", time2string(myArrived));
+    os.closeTag();
 }
 
 

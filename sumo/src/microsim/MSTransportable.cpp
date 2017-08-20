@@ -152,7 +152,7 @@ MSTransportable::Stage_Waiting::getAngle(SUMOTime /* now */) const {
 
 void
 MSTransportable::Stage_Waiting::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous) {
-    myWaitingStart = now;
+    myDeparted = now;
     const SUMOTime until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
     if (dynamic_cast<MSPerson*>(transportable) != 0) {
         previous->getEdge()->addPerson(transportable);
@@ -167,7 +167,10 @@ MSTransportable::Stage_Waiting::proceed(MSNet* net, MSTransportable* transportab
 void
 MSTransportable::Stage_Waiting::tripInfoOutput(OutputDevice& os) const {
     if (myType != WAITING_FOR_DEPART) {
-        os.openTag("stop").writeAttr("arrival", time2string(myArrived)).closeTag();
+        os.openTag("stop");
+        //os.writeAttr("depart", time2string(myDeparted));
+        os.writeAttr("arrival", time2string(myArrived));
+        os.closeTag();
     }
 }
 
@@ -203,7 +206,7 @@ MSTransportable::Stage_Waiting::endEventOutput(const MSTransportable& p, SUMOTim
 
 SUMOTime
 MSTransportable::Stage_Waiting::getWaitingTime(SUMOTime now) const {
-    return now - myWaitingStart;
+    return now - myDeparted;
 }
 
 
@@ -306,7 +309,7 @@ MSTransportable::Stage_Driving::isWaiting4Vehicle() const {
 
 SUMOTime
 MSTransportable::Stage_Driving::getWaitingTime(SUMOTime now) const {
-    return isWaiting4Vehicle() ? now - myWaitingSince : 0;
+    return isWaiting4Vehicle() ? now - myDeparted : 0;
 }
 
 

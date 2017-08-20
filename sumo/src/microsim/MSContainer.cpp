@@ -93,7 +93,10 @@ MSContainer::MSContainerStage_Driving::getStageDescription() const {
 
 void
 MSContainer::MSContainerStage_Driving::tripInfoOutput(OutputDevice& os) const {
-    os.openTag("transport").writeAttr("depart", time2string(myDeparted)).writeAttr("arrival", time2string(myArrived)).closeTag();
+    os.openTag("transport");
+    os.writeAttr("depart", time2string(myDeparted));
+    os.writeAttr("arrival", time2string(myArrived));
+    os.closeTag();
 }
 
 
@@ -184,7 +187,10 @@ MSContainer::MSContainerStage_Tranship::getEdges() const {
 
 void
 MSContainer::MSContainerStage_Tranship::tripInfoOutput(OutputDevice& os) const {
-    os.openTag("tranship").writeAttr("arrival", time2string(myArrived)).closeTag();
+    os.openTag("tranship");
+    //os.writeAttr("depart", time2string(myDeparted));
+    os.writeAttr("arrival", time2string(myArrived));
+    os.closeTag();
 }
 
 

@@ -281,9 +281,6 @@ public:
         /// the time until the person is waiting
         SUMOTime myWaitingUntil;
 
-        /// the time the person is waiting
-        SUMOTime myWaitingStart;
-
         /// @brief The type of activity
         std::string myActType;
 
