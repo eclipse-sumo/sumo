@@ -69,11 +69,11 @@ GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(FXApp* app, std::string* allow)
     FXGroupBox* myGroupBoxOptions = new FXGroupBox(mainFrame, "Selection options", GUIDesignGroupBoxFrame);
     FXHorizontalFrame* myOptionsFrame = new FXHorizontalFrame(myGroupBoxOptions, GUIDesignAuxiliarHorizontalFrame);
     mySelectAllVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(ICON_OK), this, MID_GNE_ALLOWDISALLOW_SELECTALL, GUIDesignButtonIcon);
-    new FXLabel(myOptionsFrame, "Select all vehicles", NULL, GUIDesignLabelLeftThick);
+    new FXLabel(myOptionsFrame, "Allow all vehicles", NULL, GUIDesignLabelLeftThick);
     myUnselectAllVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(ICON_OK), this, MID_GNE_ALLOWDISALLOW_UNSELECTALL, GUIDesignButtonIcon);
-    new FXLabel(myOptionsFrame, "Unselect all vehicles", NULL, GUIDesignLabelLeftThick);
+    new FXLabel(myOptionsFrame, "Disallow all vehicles", NULL, GUIDesignLabelLeftThick);
     mySelectOnlyNonRoadVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(ICON_OK), this, MID_GNE_ALLOWDISALLOW_SELECTONLYNONROAD, GUIDesignButtonIcon);
-    new FXLabel(myOptionsFrame, "Select only non-road vehicles", NULL, GUIDesignLabelLeftThick);
+    new FXLabel(myOptionsFrame, "Disallow only non-road vehicles", NULL, GUIDesignLabelLeftThick);
     // create groupbox for vehicles
     FXGroupBox* myGroupBoxVehiclesFrame = new FXGroupBox(mainFrame, ("Select " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignGroupBoxFrame);
     // Create frame for vehicles's columns
@@ -165,12 +165,12 @@ GNEDialog_AllowDisallow::onCmdUnselectAll(FXObject*, FXSelector, void*) {
 
 long
 GNEDialog_AllowDisallow::onCmdSelectOnlyNonRoad(FXObject*, FXSelector, void*) {
-    // change all non-road icons to accept, and to cancel for the rest
+    // change all non-road icons to disallow, and allow for the rest
     for (std::map<SUMOVehicleClass, std::pair<FXButton*, FXLabel*> >::iterator i = myVClassMap.begin(); i != myVClassMap.end(); i++) {
         if ((i->first == SVC_TRAM) || (i->first == SVC_RAIL) || (i->first == SVC_RAIL_URBAN) || (i->first == SVC_RAIL_ELECTRIC) || (i->first == SVC_SHIP)) {
-            i->second.first->setIcon(GUIIconSubSys::getIcon(ICON_ACCEPT));
-        } else {
             i->second.first->setIcon(GUIIconSubSys::getIcon(ICON_CANCEL));
+        } else {
+            i->second.first->setIcon(GUIIconSubSys::getIcon(ICON_ACCEPT));
         }
     }
     return 1;
