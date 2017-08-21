@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 21 12:36:04 2017 by SUMO netconvert Version dev-SVN-r25669
+<!-- generated on Mon Aug 21 14:55:27 2017 by SUMO netconvert Version dev-SVN-r25669
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -11,7 +11,7 @@
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/tools.21Aug123601.31003/tools/import/OSM/webWizard/2017-08-21-12-36-02/osm.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/tools.21Aug145524.13337/tools/import/OSM/webWizard/2017-08-21-14-55-25/osm.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
         <ptstop-output value="osm_stops.add.xml"/>
@@ -53,7 +53,7 @@
     <busStop id="-12959830765" name="Neustädtische Kirchstr." lane="-153698380_1" startPos="58.63" endPos="79.36" friendlyPos="true"/>
     <busStop id="1633759766" name="Hackescher Markt" lane="30721657_0" startPos="35.76" endPos="60.76" friendlyPos="true"/>
     <busStop id="1823298700" name="S+U Friedrichstraße" lane="195411594#1_0" startPos="3.28" endPos="28.28" friendlyPos="true"/>
-    <busStop id="1827996414" name="Spandauer Straße/Marienkirche" lane="72157174#1_3" startPos="17.87" endPos="42.87" friendlyPos="true"/>
+    <busStop id="1827996414" name="Spandauer Straße/Marienkirche" lane="72157174#1_1" startPos="17.97" endPos="42.97" friendlyPos="true"/>
     <busStop id="1930939368" name="S Friedrichstraße" lane="237751551#0_0" startPos="1541.63" endPos="1566.63" friendlyPos="true"/>
     <busStop id="2094266782" name="U Rosa-Luxemburg-Platz" lane="200422335#0_0" startPos="1138.06" endPos="1163.06" friendlyPos="true"/>
     <busStop id="2094266784" name="U Senefelderplatz" lane="200422335#0_0" startPos="679.61" endPos="704.61" friendlyPos="true"/>
@@ -67,7 +67,7 @@
     <busStop id="2924245391" name="U Wedding" lane="176339603_0" startPos="975.87" endPos="1000.87" friendlyPos="true"/>
     <busStop id="29495034" name="U Märkisches Museum" lane="199847339_0" startPos="1343.38" endPos="1368.38" friendlyPos="true"/>
     <busStop id="2959830765" name="Neustädtische Kirchstr." lane="153698380_1" startPos="0.00" endPos="20.73" friendlyPos="true"/>
-    <busStop id="2959830772" name="U Oranienburger Tor" lane="6227654#3_2" startPos="0.12" endPos="25.12" friendlyPos="true"/>
+    <busStop id="2959830772" name="U Oranienburger Tor" lane="6227654#3_1" startPos="0.12" endPos="25.12" friendlyPos="true"/>
     <busStop id="322796388" name="S Brandenburger Tor" lane="237751551#0_0" startPos="944.48" endPos="969.48" friendlyPos="true"/>
     <busStop id="323203892" name="U Spittelmarkt" lane="199847339_0" startPos="900.60" endPos="925.60" friendlyPos="true"/>
     <busStop id="3352479251" name="U Spittelmarkt" lane="272795472#1_0" startPos="831.84" endPos="856.84" friendlyPos="true"/>
