@@ -43,6 +43,8 @@ std::map<SumoXMLTag, std::vector<std::pair <SumoXMLAttr, std::string> > > GNEAtt
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedNetElementTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedShapeTags;
+std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockMovementTags;
+std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockShapeTags;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalIntAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalFloatAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myTimeAttrs;
@@ -565,6 +567,38 @@ GNEAttributeCarrier::allowedShapeTags() {
         myAllowedShapeTags.push_back(SUMO_TAG_POI);
     }
     return myAllowedShapeTags;
+}
+
+
+bool
+GNEAttributeCarrier::canBlockMovement(SumoXMLTag tag) {
+    // define on first access
+    if (myBlockMovementTags.empty()) {
+        myBlockMovementTags.push_back(SUMO_TAG_BUS_STOP);
+        myBlockMovementTags.push_back(SUMO_TAG_CONTAINER_STOP);
+        myBlockMovementTags.push_back(SUMO_TAG_CHARGING_STATION);
+        myBlockMovementTags.push_back(SUMO_TAG_E1DETECTOR);
+        myBlockMovementTags.push_back(SUMO_TAG_E2DETECTOR);
+        myBlockMovementTags.push_back(SUMO_TAG_E3DETECTOR);
+        myBlockMovementTags.push_back(SUMO_TAG_DET_ENTRY);
+        myBlockMovementTags.push_back(SUMO_TAG_DET_EXIT);
+        myBlockMovementTags.push_back(SUMO_TAG_REROUTER);
+        myBlockMovementTags.push_back(SUMO_TAG_VSS);
+        myBlockMovementTags.push_back(SUMO_TAG_POI);
+        myBlockMovementTags.push_back(SUMO_TAG_POLY);
+    }
+    return std::find(myBlockMovementTags.begin(), myBlockMovementTags.end(), tag) != myBlockMovementTags.end();
+}
+
+
+bool
+GNEAttributeCarrier::canBlockShape(SumoXMLTag tag) {
+    // define on first access
+    if (myBlockShapeTags.empty()) {
+        myBlockShapeTags.push_back(SUMO_TAG_POLY);
+        myBlockShapeTags.push_back(SUMO_TAG_POI);
+    }
+    return std::find(myBlockShapeTags.begin(), myBlockShapeTags.end(), tag) != myBlockShapeTags.end();
 }
 
 

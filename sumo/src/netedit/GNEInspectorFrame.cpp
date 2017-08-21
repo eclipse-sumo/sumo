@@ -124,8 +124,9 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     FXHorizontalFrame* blockMovementHorizontalFrame = new FXHorizontalFrame(myGroupBoxForEditor, GUIDesignAuxiliarHorizontalFrame);
     myLabelBlockMovement = new FXLabel(blockMovementHorizontalFrame, "block movement", 0, GUIDesignLabelAttribute);
     myCheckBoxBlockMovement = new FXCheckButton(blockMovementHorizontalFrame, "", this, MID_GNE_SET_BLOCKING_MOVEMENT, GUIDesignCheckButtonAttribute);
-    myLabelBlockShape = new FXLabel(blockMovementHorizontalFrame, "block shape", 0, GUIDesignLabelAttribute);
-    myCheckBoxBlockShape = new FXCheckButton(blockMovementHorizontalFrame, "", this, MID_GNE_SET_BLOCKING_MOVEMENT, GUIDesignCheckButtonAttribute);
+    FXHorizontalFrame* blockShapeHorizontalFrame = new FXHorizontalFrame(myGroupBoxForEditor, GUIDesignAuxiliarHorizontalFrame);
+    myLabelBlockShape = new FXLabel(blockShapeHorizontalFrame, "block shape", 0, GUIDesignLabelAttribute);
+    myCheckBoxBlockShape = new FXCheckButton(blockShapeHorizontalFrame, "", this, MID_GNE_SET_BLOCKING_SHAPE, GUIDesignCheckButtonAttribute);
 
     // Create groupbox and tree list
     myGroupBoxForTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
@@ -227,35 +228,35 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myACs.front()) && (dynamic_cast<GNEJunction*>(myACs.front())->getNBNode()->getControllingTLS().empty()));
 
         // Iterate over attributes
-        for (std::vector<SumoXMLAttr>::const_iterator it = attrs.begin(); it != attrs.end(); it++) {
-            if (myACs.size() > 1 && GNEAttributeCarrier::isUnique(tag, *it)) {
+        for (auto it : attrs) {
+            if (myACs.size() > 1 && GNEAttributeCarrier::isUnique(tag, it)) {
                 // disable editing for some attributes in case of multi-selection
                 // even displaying is problematic because of string rendering restrictions
                 continue;
             }
             // Declare a set of occuring values and insert attribute's values of item
             std::set<std::string> occuringValues;
-            for (std::vector<GNEAttributeCarrier*>::const_iterator it_ac = myACs.begin(); it_ac != myACs.end(); it_ac++) {
-                occuringValues.insert((*it_ac)->getAttribute(*it));
+            for (auto it_ac : myACs) {
+                occuringValues.insert(it_ac->getAttribute(it));
             }
             // get current value
             std::ostringstream oss;
-            for (std::set<std::string>::iterator it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
+            for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
                 if (it_val != occuringValues.begin()) {
                     oss << " ";
                 }
                 oss << *it_val;
             }
             // Show attribute
-            if ((disableTLSinJunctions && (tag == SUMO_TAG_JUNCTION) && ((*it == SUMO_ATTR_TLTYPE) || (*it == SUMO_ATTR_TLID))) == false) {
-                (*itAttrs)->showAttribute(myACs.front()->getTag(), (*it), oss.str());
+            if ((disableTLSinJunctions && (tag == SUMO_TAG_JUNCTION) && ((it == SUMO_ATTR_TLTYPE) || (it == SUMO_ATTR_TLID))) == false) {
+                (*itAttrs)->showAttribute(myACs.front()->getTag(), (it), oss.str());
             }
             // update attribute iterator
             itAttrs++;
         }
 
         // If item can be moved
-        if (GNEAttributeCarrier::hasAttribute(myACs.front()->getTag(), GNE_ATTR_BLOCK_MOVEMENT)) {
+        if (GNEAttributeCarrier::canBlockMovement(myACs.front()->getTag())) {
             // show group box for editor
             myGroupBoxForEditor->show();
             // Check if all elements have movement blocked
@@ -267,8 +268,10 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
             myLabelBlockMovement->show();
             myCheckBoxBlockMovement->show();
             myCheckBoxBlockMovement->setCheck(movementBlocked);
+            // update label
+            onCmdSetBlockingMovement(0, 0, 0);
             // check if additionally has atrribute block shape
-            if (GNEAttributeCarrier::hasAttribute(myACs.front()->getTag(), GNE_ATTR_BLOCK_SHAPE)) {
+            if (GNEAttributeCarrier::canBlockShape(myACs.front()->getTag())) {
                 // Check if all elements have sahpe blocked
                 bool shapeBlocked = true;
                 for (auto i : myACs) {
@@ -278,6 +281,8 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
                 myLabelBlockShape->show();
                 myCheckBoxBlockShape->show();
                 myCheckBoxBlockShape->setCheck(shapeBlocked);
+                // update label
+                onCmdSetBlockingShape(0, 0, 0);
             } else {
                 // hide block shape
                 myLabelBlockShape->hide();

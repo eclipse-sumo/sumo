@@ -133,6 +133,12 @@ public:
     /// @brief get all editable for tag shape elements
     static const std::vector<SumoXMLTag>& allowedShapeTags();
 
+    /// @brief return true if element tag can block their movement
+    static bool canBlockMovement(SumoXMLTag tag);
+    
+    /// @brief return true if element tag can block their shape
+    static bool canBlockShape(SumoXMLTag tag);
+
     /// @brief whether an attribute is numerical (int or float)
     static bool isNumerical(SumoXMLTag tag, SumoXMLAttr attr);
 
@@ -387,6 +393,12 @@ private:
 
     /// @brief vector with the allowed tags of shapes
     static std::vector<SumoXMLTag> myAllowedShapeTags;
+
+    /// @brief vector with the allowed tags  that can block their movement
+    static std::vector<SumoXMLTag> myBlockMovementTags;
+
+    /// @brief vector with the allowed tags that can block their shapes
+    static std::vector<SumoXMLTag> myBlockShapeTags;
 
     /// @brief map with the numerical attributes of type Int
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myNumericalIntAttrs;
