@@ -84,6 +84,28 @@ void GNEPoly::writeShape(OutputDevice &device) {
 }
 
 
+Position
+GNEPoly::changeShapeGeometry(const Position& oldPos, const Position& newPos, bool relative) {
+    PositionVector geom = myShape;
+    bool changed = GNEEdge::changeGeometry(geom, getMicrosimID(), oldPos, newPos, relative, true);
+    if (changed) {
+        myShape = geom;
+        myNet->refreshElement(this);
+        return newPos;
+    } else {
+        return oldPos;
+    }
+}
+
+
+void 
+GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList) {
+    undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(myShape)));
+    undoList->p_end();
+}
+
+
 void 
 GNEPoly::moveGeometry(const Position &newPosition) {
     for (auto i : myShape) {
@@ -93,15 +115,8 @@ GNEPoly::moveGeometry(const Position &newPosition) {
 
 
 void 
-GNEPoly::commitGeometryMoving(const PositionVector& oldShape, GNEUndoList* undoList) {
-    undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(myShape)));
-    undoList->p_end();
-}
+GNEPoly::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
 
-
-void 
-GNEPoly::updateGeometry() {
 }
 
 
@@ -169,17 +184,9 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-Position
-GNEPoly::changeShapeGeometry(const Position& oldPos, const Position& newPos, bool relative) {
-    PositionVector geom = myShape;
-    bool changed = GNEEdge::changeGeometry(geom, getMicrosimID(), oldPos, newPos, relative, true);
-    if (changed) {
-        myShape = geom;
-        myNet->refreshElement(this);
-        return newPos;
-    } else {
-        return oldPos;
-    }
+Position GNEPoly::isVertex(const Position & pos) const {
+    
+    return Position::invalidPosition();
 }
 
 

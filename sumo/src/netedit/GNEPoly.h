@@ -88,11 +88,11 @@ public:
     */
     Position changeShapeGeometry(const Position& oldPos, const Position& newPos, bool relative = false);
 
-    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+    /**@brief commit geometry changes in the attributes of an element after use of changeShapeGeometry(...)
     * @param[in] oldShape the old shape of polygon
     * @param[in] undoList The undoList on which to register changes
     */
-    void commitGeometryMoving(const PositionVector& oldShape, GNEUndoList* undoList);
+    void commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList);
 
     /// @name Functions related with geometry of element
     /// @{
@@ -102,8 +102,11 @@ public:
     */
     void moveGeometry(const Position &newPosition);
 
-    /// @brief update pre-computed geometry information
-    void updateGeometry();
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+    * @param[in] oldPos the old position of additional
+    * @param[in] undoList The undoList on which to register changes
+    */
+    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
@@ -167,6 +170,12 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
+    /**@brief check if given position correspond to a vertex of a polygon
+     * @param pos position to check
+     * @return position of position vector, Invalid position in other case
+     */
+     Position isVertex(const Position &pos) const;
+    
     /// @brief replace the current shape with a rectangle
     void simplifyShape();
 

@@ -97,12 +97,6 @@ GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
 }
 
 
-void 
-GNEPOI::updateGeometry() {
-
-}
-
-
 Position 
 GNEPOI::getPositionInView() const {
     return Position(x(), y());

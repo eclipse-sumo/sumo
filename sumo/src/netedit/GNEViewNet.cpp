@@ -788,7 +788,7 @@ long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, data);
     if (myPolyToMove) {
-        myPolyToMove->commitGeometryMoving(myMovingOriginalShape, myUndoList);
+        myPolyToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
         myPolyToMove = 0;
     } else if (myPoiToMove) {
         myPoiToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);

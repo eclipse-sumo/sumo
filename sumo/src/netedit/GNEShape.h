@@ -87,8 +87,11 @@ public:
     */
     virtual void moveGeometry(const Position &newPosition) = 0;
 
-    /// @brief update pre-computed geometry information
-    virtual void updateGeometry() = 0;
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+    * @param[in] oldPos the old position of additional
+    * @param[in] undoList The undoList on which to register changes
+    */
+    virtual void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) = 0;
 
     /// @brief Returns position of additional in view
     virtual Position getPositionInView() const = 0;
