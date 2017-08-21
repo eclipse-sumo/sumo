@@ -540,6 +540,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                 if (pointed_poly) {
                     myPolyToMove = pointed_poly;
                     myMovingOriginalShape = myPolyToMove->getShape();
+                    myMovingReference = getPositionInformation();
                 } else if (pointed_poi) {
                     myPoiToMove = pointed_poi;
                     // Save original Position of Element and obtain moving reference
@@ -788,7 +789,11 @@ long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, data);
     if (myPolyToMove) {
-        myPolyToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
+        if(myPolyToMove->isShapeBlocked()) {
+            myPolyToMove->commitGeometryMoving(snapToActiveGrid(myMovingReference - getPositionInformation()), myUndoList);
+        } else {
+            myPolyToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
+        }
         myPolyToMove = 0;
     } else if (myPoiToMove) {
         myPoiToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
@@ -900,7 +905,12 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
         }
     } else {
         if (myPolyToMove) {
-            myMovingOriginalPosition = myPolyToMove->changeShapeGeometry(myMovingOriginalPosition, snapToActiveGrid(getPositionInformation()));
+            if(myPolyToMove->isShapeBlocked()) {
+                // Calculate movement offset and move geometry of junction (It uses a Offset instead a absolute position)
+                myPolyToMove->moveGeometry(snapToActiveGrid(myMovingReference - getPositionInformation()));
+            } else {
+                myMovingOriginalPosition = myPolyToMove->changeShapeGeometry(myMovingOriginalPosition, snapToActiveGrid(getPositionInformation()));
+            }
         } else if (myPoiToMove) {
             // Calculate movement offset and move geometry of junction
             Position offsetPosition = myMovingReference - getPositionInformation();

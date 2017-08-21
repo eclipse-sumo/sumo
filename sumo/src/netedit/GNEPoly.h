@@ -97,16 +97,16 @@ public:
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
-    * @param[in] newPosition new position of geometry
+    * @param[in] newPosition new offset of geometry
     * @note should't be called in drawGL(...) functions to avoid smoothness issues
     */
-    void moveGeometry(const Position &newPosition);
+    void moveGeometry(const Position &offSet);
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-    * @param[in] oldPos the old position of additional
+    * @param[in] offSet the movement offset
     * @param[in] undoList The undoList on which to register changes
     */
-    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+    void commitGeometryMoving(const Position& offSet, GNEUndoList* undoList);
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
@@ -199,6 +199,10 @@ protected:
     GNEJunction* myJunction;
 
 private:
+
+    /// @brief temporal shape used for moving when shape is blocked
+    PositionVector myMovingOriginalShape;
+
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
     

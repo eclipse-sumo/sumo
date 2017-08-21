@@ -100,29 +100,57 @@ GNEPoly::changeShapeGeometry(const Position& oldPos, const Position& newPos, boo
 
 void 
 GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList) {
+    // restore original shape (needed for commit change)
+    PositionVector shapeToCommit = myShape;
+    myShape = oldShape;
+    // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(myShape)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
     undoList->p_end();
 }
 
 
 void 
-GNEPoly::moveGeometry(const Position &newPosition) {
-    for (auto i : myShape) {
-        i.set(i.x() + newPosition.x(), i.y() + newPosition.y());
+GNEPoly::moveGeometry(const Position &offSet) {
+    // if this ist the first movement, old shape has to be saved
+    if(myMovingOriginalShape.size() == 0) {
+        myMovingOriginalShape = myShape;
     }
+    // restore original shape
+    myShape = myMovingOriginalShape;
+
+    // change all points of the polygon shape using newPosition as offset
+    for (auto i = myShape.begin(); i != myShape.end(); i++) {
+        i->setx(i->x() - offSet.x());
+        i->sety(i->y() - offSet.y());
+    }
+    // refresh element
+    myNet->refreshPolygon(this);
 }
 
 
 void 
-GNEPoly::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-
+GNEPoly::commitGeometryMoving(const Position& offSet, GNEUndoList* undoList) {
+    // restore original shape
+    myShape = myMovingOriginalShape;
+    // create a new shape and move it
+    PositionVector shapeToCommit = myMovingOriginalShape;
+    for (auto i = shapeToCommit.begin(); i != shapeToCommit.end(); i++) {
+        i->setx(i->x() - offSet.x());
+        i->sety(i->y() - offSet.y());
+    }
+    // set it the new shape
+    undoList->p_begin("moving entire " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
+    undoList->p_end();
+    // clear moving original shape
+    myMovingOriginalShape.clear();
 }
 
 
 Position 
 GNEPoly::getPositionInView() const {
-    return getCenteringBoundary().getCenter();
+    return myShape.getPolygonCenter();
 }
 
 
@@ -320,6 +348,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SHAPE: {
             bool ok = true;
             myShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
+            myNet->refreshPolygon(this);
             break;
         }
         case SUMO_ATTR_COLOR:
