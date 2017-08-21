@@ -151,12 +151,14 @@ class Builder(object):
                 ["-b", ",".join(map(str, self.data["coords"])), "-p", self.prefix])
 
         options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
+        self.additionalFiles = []
 
         if self.data["poly"]:
             # output name for the poly file, will be used by osmBuild and
             # sumo-gui
             self.filename("poly", ".poly.xml")
             options += ["-m", typemaps["poly"]]
+            self.additionalFiles.append(self.files["poly"])
 
         typefiles = [typemaps["net"]]
         netconvertOptions = osmBuild.DEFAULT_NETCONVERT_OPTS
@@ -170,6 +172,12 @@ class Builder(object):
             typefiles.append(typemaps["ships"])
         if "bicycle" in self.data["vehicles"]:
             typefiles.append(typemaps["bicycles"])
+        if "bus" in self.data["vehicles"]:
+            self.filename("stops", "_stops.add.xml")
+            netconvertOptions += ",--ptstop-output,%s" % self.files["stops"]
+            netconvertOptions += ",--osm.stop-output.length,25"
+            self.additionalFiles.append(self.files["stops"])
+
         options += ["--netconvert-typemap", ','.join(typefiles)]
         options += ["--netconvert-options", netconvertOptions]
 
@@ -253,8 +261,8 @@ class Builder(object):
         if self.data["vehicles"]:
             opts += ["-r", ",".join(self.routenames)]
 
-        if self.data["poly"]:
-            opts += ["-a", self.files["poly"]]
+        if len(self.additionalFiles) > 0:
+            opts += ["-a", ",".join(self.additionalFiles)]
 
         subprocess.call(opts)
 
@@ -373,6 +381,7 @@ if __name__ == "__main__":
                               u'bicycle': {u'count': 2, u'fringeFactor': 2},
                               u'pedestrian': {u'count': 4, u'fringeFactor': 1},
                               u'rail_urban': {u'count': 8, u'fringeFactor': 40},
+                              u'bus': {u'count': 1, u'fringeFactor': 2},
                               u'ship': {u'count': 1, u'fringeFactor': 40}},
                 u'osm': os.path.abspath('osm_bbox.osm.xml'),
                 u'poly': True}
