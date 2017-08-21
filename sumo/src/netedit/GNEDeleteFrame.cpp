@@ -59,6 +59,8 @@
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
 #include "GNERerouter.h"
+#include "GNEChange_POI.h"
+#include "GNEChange_Poly.h"
 
 
 // ===========================================================================
@@ -455,12 +457,19 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                 break;
             }
             case GLO_POI: {
-                // XXX this is a dirty dirty hack! implemente GNEChange_POI
-                myViewNet->getNet()->removePOI(dynamic_cast<GNEPOI*>(ac)->getMicrosimID());
+                // Due a net is a Shape container, GNEChange_POI must be called here
+                GNEPOI* poi = dynamic_cast<GNEPOI*>(ac);
+                myViewNet->getUndoList()->p_begin("delete " + toString(poi->getTag()));
+                myViewNet->getUndoList()->add(new GNEChange_POI(myViewNet->getNet(), poi, false), true);
+                myViewNet->getUndoList()->p_end();
                 break;
             }
             case GLO_POLYGON: {
-                //
+                // Due a net is a Shape container, GNEChange_Poly must be called here
+                GNEPoly* poly = dynamic_cast<GNEPoly*>(ac);
+                myViewNet->getUndoList()->p_begin("delete " + toString(poly->getTag()));
+                myViewNet->getUndoList()->add(new GNEChange_Poly(myViewNet->getNet(), poly, false), true);
+                myViewNet->getUndoList()->p_end();
                 break;
             }
             case GLO_CROSSING: {

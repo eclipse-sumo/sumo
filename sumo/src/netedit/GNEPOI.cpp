@@ -89,7 +89,11 @@ GNEPOI::moveGeometry(const Position &newPosition) {
 
 void 
 GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-
+    undoList->p_begin("position of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(getPositionInView()), true, toString(oldPos)));
+    undoList->p_end();
+    // Refresh element
+    myNet->refreshPOI(this);
 }
 
 
@@ -257,29 +261,37 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_LANE:
             myLane = myNet->retrieveLane(value, false);
+            break;
         case SUMO_ATTR_POSITION:
             if(myLane) {
                 myPositionOverLane = parse<double>(value);
             } else {
                 bool ok = true;
-                Position p = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
-                setx(p.x());
-                sety(p.y());
+                set(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
             }
+            myNet->refreshPOI(this);
+            break;
         case SUMO_ATTR_FILL:
             myImgFile = value;
+            break;
         case SUMO_ATTR_TYPE:
             myType = value;
+            break;
         case SUMO_ATTR_LAYER:
             myLayer = parse<double>(value);
+            break;
         case SUMO_ATTR_IMGFILE:
             myImgFile = value;
+            break;
         case SUMO_ATTR_WIDTH:
             setWidth(parse<double>(value));
+            break;
         case SUMO_ATTR_HEIGHT:
             setHeight(parse<double>(value));
+            break;
         case SUMO_ATTR_ANGLE:
-            return setNaviDegree(parse<double>(value));
+            setNaviDegree(parse<double>(value));
+            break;
         default:
             throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");
     }

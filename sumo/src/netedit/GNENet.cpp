@@ -127,23 +127,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
 
 
 GNENet::~GNENet() {
-    /*
-    // delete allocated wrappers
-    //  of junctions
-    for (std::vector<GUIJunctionWrapper*>::iterator i1=myJunctionWrapper.begin(); i1!=myJunctionWrapper.end(); i1++) {
-        delete(*i1);
-    }
-    //  of additional structures
-    GUIGlObject_AbstractAdd::clearDictionary();
-    //  of tl-logics
-    for (Logics2WrapperMap::iterator i3=myLogics2Wrapper.begin(); i3!=myLogics2Wrapper.end(); i3++) {
-        delete(*i3).second;
-    }
-    //  of detectors
-    for (std::map<std::string, GUIDetectorWrapper*>::iterator i=myDetectorDict.begin(); i!=myDetectorDict.end(); ++i) {
-        delete(*i).second;
-    }
-    */
+    // Drop Edges
     for (GNEEdges::iterator it = myEdges.begin(); it != myEdges.end(); it++) {
         it->second->decRef("GNENet::~GNENet");
         // show extra information for tests
@@ -152,6 +136,7 @@ GNENet::~GNENet() {
         }
         delete it->second;
     }
+    // Drop junctions
     for (GNEJunctions::iterator it = myJunctions.begin(); it != myJunctions.end(); it++) {
         it->second->decRef("GNENet::~GNENet");
         // show extra information for tests
@@ -160,6 +145,8 @@ GNENet::~GNENet() {
         }
         delete it->second;
     }
+
+
     // show extra information for tests
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Deleting net builder in GNENet destructor");
