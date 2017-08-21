@@ -269,7 +269,11 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
             myCheckBoxBlockMovement->show();
             myCheckBoxBlockMovement->setCheck(movementBlocked);
             // update label
-            onCmdSetBlockingMovement(0, 0, 0);
+            if (movementBlocked) {
+                myCheckBoxBlockMovement->setText("true");
+            } else {
+                myCheckBoxBlockMovement->setText("false");
+            }
             // check if additionally has atrribute block shape
             if (GNEAttributeCarrier::canBlockShape(myACs.front()->getTag())) {
                 // Check if all elements have sahpe blocked
@@ -282,7 +286,11 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
                 myCheckBoxBlockShape->show();
                 myCheckBoxBlockShape->setCheck(shapeBlocked);
                 // update label
-                onCmdSetBlockingShape(0, 0, 0);
+                if (shapeBlocked) {
+                    myCheckBoxBlockShape->setText("true");
+                } else {
+                    myCheckBoxBlockShape->setText("false");
+                }
             } else {
                 // hide block shape
                 myLabelBlockShape->hide();
