@@ -85,6 +85,7 @@ protected:
         NIOSMNode(long long int _id, double _lon, double _lat)
                 :
                 id(_id), lon(_lon), lat(_lat), ele(0), tlsControlled(false), railwayCrossing(false),
+                permissions(SVC_RAIL | SVC_BUS | SVC_TRAM),
                 ptStopPostion(false), ptStopLength(0), node(0) { }
 
         /// @brief The node's id
@@ -102,7 +103,7 @@ protected:
         /// @brief Whether this is a public transport stop position
         bool ptStopPostion;
         /// @brief type of pt stop
-        SVCPermissions permissions{};
+        SVCPermissions permissions;
         /// @brief The length of the pt stop
         double ptStopLength;
         /// @brief The name of the node
