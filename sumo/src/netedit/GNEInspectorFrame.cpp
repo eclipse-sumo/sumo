@@ -73,7 +73,8 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_COPY_TEMPLATE,          GNEInspectorFrame::onCmdCopyTemplate),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_TEMPLATE,           GNEInspectorFrame::onCmdSetTemplate),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_COPY_TEMPLATE,          GNEInspectorFrame::onUpdCopyTemplate),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_BLOCKING_MOVEMENT,           GNEInspectorFrame::onCmdSetBlocking),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_BLOCKING_MOVEMENT,  GNEInspectorFrame::onCmdSetBlockingMovement),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_BLOCKING_SHAPE,     GNEInspectorFrame::onCmdSetBlockingShape),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT_GOBACK,         GNEInspectorFrame::onCmdGoBack),
     FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_CHILDS,                 GNEInspectorFrame::onCmdShowChildMenu),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTFRAME_CENTER,    GNEInspectorFrame::onCmdCenterItem),
@@ -98,7 +99,6 @@ FXIMPLEMENT(GNEInspectorFrame::AttributeInput, FXHorizontalFrame, AttrInputMap, 
 GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
     GNEFrame(horizontalFrameParent, viewNet, "Inspector"),
     myEdgeTemplate(NULL),
-    myAdditional(NULL),
     myPreviousElementInspect(NULL),
     myPreviousElementDelete(NULL) {
 
@@ -122,9 +122,10 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
 
     // Create check blocked label and button
     FXHorizontalFrame* blockMovementHorizontalFrame = new FXHorizontalFrame(myGroupBoxForEditor, GUIDesignAuxiliarHorizontalFrame);
-    myCheckBlockedLabel = new FXLabel(blockMovementHorizontalFrame, "block movement", 0, GUIDesignLabelAttribute);
-    myCheckBlocked = new FXCheckButton(blockMovementHorizontalFrame, "", this, MID_GNE_SET_BLOCKING_MOVEMENT, GUIDesignCheckButtonAttribute);
-    myCheckBlocked->hide();
+    myLabelBlockMovement = new FXLabel(blockMovementHorizontalFrame, "block movement", 0, GUIDesignLabelAttribute);
+    myCheckBoxBlockMovement = new FXCheckButton(blockMovementHorizontalFrame, "", this, MID_GNE_SET_BLOCKING_MOVEMENT, GUIDesignCheckButtonAttribute);
+    myLabelBlockShape = new FXLabel(blockMovementHorizontalFrame, "block shape", 0, GUIDesignLabelAttribute);
+    myCheckBoxBlockShape = new FXCheckButton(blockMovementHorizontalFrame, "", this, MID_GNE_SET_BLOCKING_MOVEMENT, GUIDesignCheckButtonAttribute);
 
     // Create groupbox and tree list
     myGroupBoxForTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
@@ -186,8 +187,6 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myCopyTemplateButton->hide();
     mySetTemplateButton->hide();
     myGroupBoxForEditor->hide();
-    myGroupBoxForEditor->hide();
-    myCheckBlocked->hide();
     myGroupBoxForTreeList->hide();
     // If vector of attribute Carriers contain data
     if (myACs.size() > 0) {
@@ -200,6 +199,10 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
                 headerString = "Net: " + toString(myACs.front()->getTag());
             } else if (dynamic_cast<GNEAdditional*>(myACs.front())) {
                 headerString = "Additional: " + toString(myACs.front()->getTag());
+            } else if (dynamic_cast<GNEShape*>(myACs.front())) {
+                headerString = "Shape: " + toString(myACs.front()->getTag());
+            } else {
+                headerString = toString(myACs.front()->getTag());
             }
         }
         // Set headerString into header label
@@ -251,20 +254,34 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
             itAttrs++;
         }
 
-        // If attributes correspond to an Additional
-        if (dynamic_cast<GNEAdditional*>(myACs.front())) {
-            // Get pointer to additional
-            myAdditional = dynamic_cast<GNEAdditional*>(myACs.front());
-            // Show check blocked if additional is movable
-            if (myAdditional->isAdditionalMovable()) {
-                myCheckBlocked->setCheck(myAdditional->isAdditionalBlocked());
-                if (myAdditional->isAdditionalBlocked()) {
-                    myCheckBlocked->setText("true");
-                } else {
-                    myCheckBlocked->setText("false");
+        // If item can be moved
+        if (GNEAttributeCarrier::hasAttribute(myACs.front()->getTag(), GNE_ATTR_BLOCK_MOVEMENT)) {
+            // show group box for editor
+            myGroupBoxForEditor->show();
+            // Check if all elements have movement blocked
+            bool movementBlocked = true;
+            for (auto i : myACs) {
+                movementBlocked &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_MOVEMENT));
+            }
+            // show block movement
+            myLabelBlockMovement->show();
+            myCheckBoxBlockMovement->show();
+            myCheckBoxBlockMovement->setCheck(movementBlocked);
+            // check if additionally has atrribute block shape
+            if (GNEAttributeCarrier::hasAttribute(myACs.front()->getTag(), GNE_ATTR_BLOCK_SHAPE)) {
+                // Check if all elements have sahpe blocked
+                bool shapeBlocked = true;
+                for (auto i : myACs) {
+                    shapeBlocked &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_SHAPE));
                 }
-                myCheckBlocked->show();
-                myGroupBoxForEditor->show();
+                // show block shape
+                myLabelBlockShape->show();
+                myCheckBoxBlockShape->show();
+                myCheckBoxBlockShape->setCheck(shapeBlocked);
+            } else {
+                // hide block shape
+                myLabelBlockShape->hide();
+                myCheckBoxBlockShape->hide();
             }
         }
 
@@ -376,15 +393,40 @@ GNEInspectorFrame::onUpdCopyTemplate(FXObject* sender, FXSelector, void*) {
 
 
 long
-GNEInspectorFrame::onCmdSetBlocking(FXObject*, FXSelector, void*) {
-    if (myAdditional) {
-        if (myCheckBlocked->getCheck() == 1) {
-            myAdditional->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "true", getViewNet()->getUndoList());
-            myCheckBlocked->setText("true");
+GNEInspectorFrame::onCmdSetBlockingMovement(FXObject*, FXSelector, void*) {
+    // set new values in all inspected Attribute Carriers
+    for (auto i : myACs) {
+        if (myCheckBoxBlockMovement->getCheck() == 1) {
+            i->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "true", getViewNet()->getUndoList());
         } else {
-            myAdditional->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "false", getViewNet()->getUndoList());
-            myCheckBlocked->setText("false");
+            i->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "false", getViewNet()->getUndoList());
         }
+    }
+    // change text of check box movement
+    if (myCheckBoxBlockMovement->getCheck() == 1) {
+        myCheckBoxBlockMovement->setText("true");
+    } else {
+        myCheckBoxBlockMovement->setText("false");
+    }
+    return 1;
+}
+
+
+long
+GNEInspectorFrame::onCmdSetBlockingShape(FXObject*, FXSelector, void*) {
+    // set new values in all inspected Attribute Carriers
+    for (auto i : myACs) {
+        if (myCheckBoxBlockShape->getCheck() == 1) {
+            i->setAttribute(GNE_ATTR_BLOCK_SHAPE, "true", getViewNet()->getUndoList());
+        } else {
+            i->setAttribute(GNE_ATTR_BLOCK_SHAPE, "false", getViewNet()->getUndoList());
+        }
+    }
+    // change text of check box shape
+    if (myCheckBoxBlockShape->getCheck() == 1) {
+        myCheckBoxBlockShape->setText("true");
+    } else {
+        myCheckBoxBlockShape->setText("false");
     }
     return 1;
 }

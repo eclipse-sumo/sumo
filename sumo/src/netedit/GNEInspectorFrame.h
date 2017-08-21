@@ -172,8 +172,11 @@ public:
     /// @brief update the copy button with the name of the template
     long onUpdCopyTemplate(FXObject*, FXSelector, void*);
 
-    /// @brief called when user toogle the blocking button
-    long onCmdSetBlocking(FXObject*, FXSelector, void*);
+    /// @brief called when user toogle the blocking movement CheckBox
+    long onCmdSetBlockingMovement(FXObject*, FXSelector, void*);
+
+    /// @brief called when user toogle the blocking shape CheckBox
+    long onCmdSetBlockingShape(FXObject*, FXSelector, void*);
 
     /// @brief called when user toogle the go back button
     long onCmdGoBack(FXObject*, FXSelector, void*);
@@ -226,14 +229,17 @@ private:
     /// @brief GropuBox for editor attributes
     FXGroupBox* myGroupBoxForEditor;
 
-    /// @brief Label for Check blocked
-    FXLabel* myCheckBlockedLabel;
+    /// @brief Label for Check blocked movement
+    FXLabel* myLabelBlockMovement;
 
     /// @brief pointer to menu check block
-    FXCheckButton* myCheckBlocked;
+    FXCheckButton* myCheckBoxBlockMovement;
 
-    /// @brief pointer to additional element
-    GNEAdditional* myAdditional;
+    /// @brief Label for Check blocked shape
+    FXLabel* myLabelBlockShape;
+
+    /// @brief pointer to menu check block
+    FXCheckButton* myCheckBoxBlockShape;
 
     /// @brief pointer to previous element called by Inspector Frame
     GNEAttributeCarrier* myPreviousElementInspect;
