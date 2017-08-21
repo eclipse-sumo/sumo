@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Aug 21 12:36:04 2017 by SUMO netconvert Version dev-SVN-r25669
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
+        <osm-files value="osm_bbox.osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/texttest_tmp/tools.21Aug123601.31003/tools/import/OSM/webWizard/2017-08-21-12-36-02/osm.net.xml"/>
+        <output.street-names value="true"/>
+        <output.original-names value="true"/>
+        <ptstop-output value="osm_stops.add.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <tls_building>
+        <tls.discard-simple value="true"/>
+        <tls.join value="true"/>
+        <tls.guess-signals value="true"/>
+        <tls.default-type value="actuated"/>
+    </tls_building>
+
+    <ramp_guessing>
+        <ramps.guess value="true"/>
+    </ramp_guessing>
+
+    <processing>
+        <osm.stop-output.length value="25"/>
+        <geometry.remove value="true"/>
+        <roundabouts.guess value="true"/>
+        <junctions.join value="true"/>
+        <junctions.corner-detail value="5"/>
+        <crossings.guess value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-12915545317" name="U-Bhf Weinmeisterstraße/Gipsstraße" lane="-36892597#0_1" startPos="33.61" endPos="58.61" friendlyPos="true"/>
+    <busStop id="-12959830765" name="Neustädtische Kirchstr." lane="-153698380_1" startPos="58.63" endPos="79.36" friendlyPos="true"/>
+    <busStop id="1633759766" name="Hackescher Markt" lane="30721657_0" startPos="35.76" endPos="60.76" friendlyPos="true"/>
+    <busStop id="1823298700" name="S+U Friedrichstraße" lane="195411594#1_0" startPos="3.28" endPos="28.28" friendlyPos="true"/>
+    <busStop id="1827996414" name="Spandauer Straße/Marienkirche" lane="72157174#1_3" startPos="17.87" endPos="42.87" friendlyPos="true"/>
+    <busStop id="1930939368" name="S Friedrichstraße" lane="237751551#0_0" startPos="1541.63" endPos="1566.63" friendlyPos="true"/>
+    <busStop id="2094266782" name="U Rosa-Luxemburg-Platz" lane="200422335#0_0" startPos="1138.06" endPos="1163.06" friendlyPos="true"/>
+    <busStop id="2094266784" name="U Senefelderplatz" lane="200422335#0_0" startPos="679.61" endPos="704.61" friendlyPos="true"/>
+    <busStop id="2094266983" name="U Alexanderplatz" lane="199425798_0" startPos="203.93" endPos="228.93" friendlyPos="true"/>
+    <busStop id="2098267288" name="U Märkisches Museum" lane="272795472#1_0" startPos="370.48" endPos="395.48" friendlyPos="true"/>
+    <busStop id="247600965" name="S+U Friedrichstraße" lane="22820560#2_0" startPos="9.10" endPos="34.10" friendlyPos="true"/>
+    <busStop id="27411240" name="S Hackescher Markt" lane="4471817_0" startPos="115.01" endPos="140.01" friendlyPos="true"/>
+    <busStop id="29058100" name="U Oranienburger Tor" lane="176339603_0" startPos="3421.80" endPos="3446.80" friendlyPos="true"/>
+    <busStop id="2915545317" name="U-Bhf Weinmeisterstraße/Gipsstraße" lane="36892597#0_1" startPos="45.78" endPos="70.78" friendlyPos="true"/>
+    <busStop id="2915590925" name="Spandauer Straße/Marienkirche" lane="202157002#2_2" startPos="31.91" endPos="56.91" friendlyPos="true"/>
+    <busStop id="2924245391" name="U Wedding" lane="176339603_0" startPos="975.87" endPos="1000.87" friendlyPos="true"/>
+    <busStop id="29495034" name="U Märkisches Museum" lane="199847339_0" startPos="1343.38" endPos="1368.38" friendlyPos="true"/>
+    <busStop id="2959830765" name="Neustädtische Kirchstr." lane="153698380_1" startPos="0.00" endPos="20.73" friendlyPos="true"/>
+    <busStop id="2959830772" name="U Oranienburger Tor" lane="6227654#3_2" startPos="0.12" endPos="25.12" friendlyPos="true"/>
+    <busStop id="322796388" name="S Brandenburger Tor" lane="237751551#0_0" startPos="944.48" endPos="969.48" friendlyPos="true"/>
+    <busStop id="323203892" name="U Spittelmarkt" lane="199847339_0" startPos="900.60" endPos="925.60" friendlyPos="true"/>
+    <busStop id="3352479251" name="U Spittelmarkt" lane="272795472#1_0" startPos="831.84" endPos="856.84" friendlyPos="true"/>
+</additional>

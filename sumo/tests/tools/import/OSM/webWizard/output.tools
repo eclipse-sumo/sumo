@@ -109,18 +109,18 @@ done.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done (1ms).
 Joining junction clusters... 
-done (4ms).
+done (5ms).
  Joined 56 junction cluster(s).
-Removing empty nodes and geometry nodes... done (6ms).
+Removing empty nodes and geometry nodes... done (7ms).
    601 nodes removed.
-Moving network to origin... done (8ms).
+Moving network to origin... done (9ms).
 Computing turning directions... 
 done (2ms).
 Guessing and setting on-/off-ramps... done (2ms).
 Sorting nodes' edges... done (2ms).
-Computing node shapes... done (57ms).
+Computing node shapes... done (58ms).
 Computing edge shapes... done (27ms).
-Computing node types... done (0ms).
+Computing node types... done (1ms).
 Guessed 865 pedestrian crossings.
 Computing priorities... done (1ms).
 Computing approached edges... done (2ms).
@@ -128,19 +128,21 @@ Guessing and setting roundabouts...
  Guessed 4 roundabout(s).
 done (1ms).
 Computing approaching lanes... done (7ms).
-Dividing of lanes on approached lanes... done (4ms).
+Dividing of lanes on approached lanes... done (3ms).
 Processing turnarounds... done (1ms).
-Rechecking of lane endings... done (1ms).
+Rechecking of lane endings... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
-Joining traffic light nodes... done (2ms).
+Joining traffic light nodes... done (1ms).
 Computing traffic light control information... 
-done (0ms).
-Computing node logics... done (13ms).
+done (1ms).
+Computing node logics... done (12ms).
 Computing traffic light logics... 
 done (4ms).
  48 traffic light(s) computed.
 Building inner edges... 
-done (35ms).
+done (33ms).
+Processing public transport stops... 
+done (9ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -155,13 +157,14 @@ Summary:
 -----------------------------------------------------
 Writing network... done (425ms).
 Success.
-Written configuration to '/scr2/texttest_tmp/tools.16Aug145304.24299/tools/import/OSM/webWizard/2017-08-16-14-53-05/osm.netccfg'
-Parsing network projection from '/scr2/texttest_tmp/tools.16Aug145304.24299/tools/import/OSM/webWizard/2017-08-16-14-53-05/osm.net.xml'... done.
+Written configuration to '/scr2/texttest_tmp/tools.21Aug145227.11117/tools/import/OSM/webWizard/2017-08-21-14-52-28/osm.netccfg'
+Parsing network projection from '/scr2/texttest_tmp/tools.21Aug145227.11117/tools/import/OSM/webWizard/2017-08-21-14-52-28/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing relations from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
-Written configuration to '/scr2/texttest_tmp/tools.16Aug145304.24299/tools/import/OSM/webWizard/2017-08-16-14-53-05/osm.polycfg'
+Written configuration to '/scr2/texttest_tmp/tools.21Aug145227.11117/tools/import/OSM/webWizard/2017-08-21-14-52-28/osm.polycfg'
+Success.
 Success.
 Success.
 Success.
@@ -169,44 +172,48 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'... done (433ms).
-Loading additional-files from 'osm.poly.xml'... done (90ms).
+Loading net-file from 'osm.net.xml'... done (449ms).
+Loading additional-files from 'osm.poly.xml'... done (93ms).
+Loading additional-files from 'osm_stops.add.xml'... done (4ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 3029.00
+Simulation ended at time: 3016.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 32137ms
- Real time factor: 94.2527
- UPS: 3317.951271
+ Duration: 34594ms
+ Real time factor: 87.1827
+ UPS: 3462.739203
 Vehicles: 
- Inserted: 345
+ Inserted: 384
  Running: 0
  Waiting: 0
+Teleports: 1186 (Collisions: 1185, Yield: 1)
 Persons: 
  Inserted: 206
  Running: 0
 Statistics (avg):
- RouteLength: 1930.33
- Duration: 309.07
- WaitingTime: 43.47
- TimeLoss: 89.40
- DepartDelay: -0.37
+ RouteLength: 1940.11
+ Duration: 311.95
+ WaitingTime: 48.60
+ TimeLoss: 97.08
+ DepartDelay: -0.41
 Pedestrian Statistics (avg of 206 walks):
  RouteLength: 1021.50
- Duration: 1490.64
+ Duration: 1501.06
 
-DijkstraRouterTT answered 14902 queries and explored 11.40 edges on average.
-DijkstraRouterTT spent 34ms answering queries (0.00ms on average).
-DijkstraRouterTT answered 385 queries and explored 633.99 edges on average.
-DijkstraRouterTT spent 113ms answering queries (0.29ms on average).
-Building scenario in '/scr2/texttest_tmp/tools.16Aug145304.24299/tools/import/OSM/webWizard/2017-08-16-14-53-05'
+DijkstraRouterTT answered 15529 queries and explored 11.60 edges on average.
+DijkstraRouterTT spent 42ms answering queries (0.00ms on average).
+DijkstraRouterTT answered 416 queries and explored 645.47 edges on average.
+DijkstraRouterTT spent 119ms answering queries (0.29ms on average).
+Building scenario in '/scr2/texttest_tmp/tools.21Aug145227.11117/tools/import/OSM/webWizard/2017-08-21-14-52-28'
 calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.passenger.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
-calling route2trips
-calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
-calling route2trips
-calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.rail_urban.trips.xml -o osm.rail_urban.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
 calling route2trips
 calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.bicycle.trips.xml -o osm.bicycle.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
 calling route2trips
+calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.bus.trips.xml -o osm.bus.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
+calling route2trips
 calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.pedestrian.trips.xml -o osm.pedestrian.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
+calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.rail_urban.trips.xml -o osm.rail_urban.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
+calling route2trips
+calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
+calling route2trips
