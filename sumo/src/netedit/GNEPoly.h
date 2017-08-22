@@ -193,7 +193,7 @@ protected:
     GNEJunction* myJunction;
 
     /// @brief flag to indicate if polygon is open or closed
-    bool myClosedPolygon;
+    bool myClosedShape;
 
 private:
     /// @brief temporal shape used for moving when shape is blocked

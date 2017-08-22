@@ -824,7 +824,7 @@ enum SumoXMLAttr {
     /// @brief block shape of a graphic element (Used mainly in GNEShapes)
     GNE_ATTR_BLOCK_SHAPE,
     /// @brief Close shape of a polygon (Used by GNEPolys)
-    GNE_ATTR_CLOSED_SHAPE,
+    GNE_ATTR_CLOSE_SHAPE,
     /// @brief parent of an additional element
     GNE_ATTR_PARENT,
     // @}

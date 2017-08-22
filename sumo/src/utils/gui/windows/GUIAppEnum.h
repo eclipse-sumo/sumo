@@ -584,8 +584,10 @@ enum {
     MID_GNE_SET_ATTRIBUTE,
     /// @brief attribute block movement
     MID_GNE_SET_BLOCKING_MOVEMENT,
-    /// @brief attribute block movement
+    /// @brief attribute block shape
     MID_GNE_SET_BLOCKING_SHAPE,
+    /// @brief attribute close shape
+    MID_GNE_SET_CLOSING_SHAPE,
     /// @brief show connection
     MID_GNE_SHOW_CONNECTION,
     /// @brief inspect connection

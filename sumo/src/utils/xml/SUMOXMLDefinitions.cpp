@@ -555,7 +555,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "shapeEnd",                           GNE_ATTR_SHAPE_END },
     { "blockMovement",                      GNE_ATTR_BLOCK_MOVEMENT },
     { "blockShape",                         GNE_ATTR_BLOCK_SHAPE },
-    { "closedShape",                        GNE_ATTR_CLOSED_SHAPE },
+    { "closedShape",                        GNE_ATTR_CLOSE_SHAPE },
     { "parentOfAdditional",                 GNE_ATTR_PARENT },
 
     { "targetLanes", SUMO_ATTR_TARGETLANE },

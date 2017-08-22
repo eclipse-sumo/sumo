@@ -73,7 +73,7 @@ GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, cons
     GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile),
     GNEShape(net, SUMO_TAG_POLY, ICON_LOCATEPOLY),
     myJunction(junction),
-    myClosedPolygon(shape.begin() == shape.end()) {
+    myClosedShape(shape.front() == shape.back()) {
     // check that number of points is correct and area isn't empty
     assert((shape.size() >= 2) && (shape.area() > 0));
 }
@@ -219,13 +219,15 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(myShape.front().x(), myShape.front().y(), GLO_POLYGON + 0.01);
         GLHelper::drawText("S", Position(), .1, 1.6, inverted);
         glPopMatrix();
-        // draw a "e" over last point
-        glPushMatrix();
-        glTranslated(myShape.back().x(), myShape.back().y(), GLO_POLYGON + 0.01);
-        GLHelper::drawText("E", Position(), .1, 1.6, inverted);
-        glPopMatrix();
-        // pop name
-        glPopName();
+        // draw a "e" over last point if polygon ins't closed
+        if(!myClosedShape) {
+            glPushMatrix();
+            glTranslated(myShape.back().x(), myShape.back().y(), GLO_POLYGON + 0.01);
+            GLHelper::drawText("E", Position(), .1, 1.6, inverted);
+            glPopMatrix();
+            // pop name
+            glPopName();
+        }
     }
 }
 
@@ -238,7 +240,7 @@ Position GNEPoly::isVertex(const Position & pos) const {
 
 bool 
 GNEPoly::isPolygonClosed() const {
-    return myClosedPolygon;
+    return myClosedShape;
 }
 
 
@@ -297,6 +299,8 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             return toString(myBlockMovement);
         case GNE_ATTR_BLOCK_SHAPE:
             return toString(myBlockShape);
+        case GNE_ATTR_CLOSE_SHAPE:
+            return toString(myClosedShape);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -318,7 +322,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_IMGFILE:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_BLOCK_SHAPE:
-        case GNE_ATTR_CLOSED_SHAPE:
+        case GNE_ATTR_CLOSE_SHAPE:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -359,7 +363,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_SHAPE:
             return canParse<bool>(value);
-        case GNE_ATTR_CLOSED_SHAPE:
+        case GNE_ATTR_CLOSE_SHAPE:
             if(canParse<bool>(value)) {
                 bool closePolygon = parse<bool>(value);
                 if(closePolygon && (myShape.begin() == myShape.end())) {
@@ -396,7 +400,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             // set new shape
             myShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
             // Check if new shape is closed
-            myClosedPolygon = myShape.begin() == myShape.end();
+            myClosedShape = myShape.begin() == myShape.end();
             // refresh polygon in net
             myNet->refreshPolygon(this);
             break;
@@ -422,13 +426,15 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_BLOCK_SHAPE:
             myBlockShape = parse<bool>(value);
             break;
-        case GNE_ATTR_CLOSED_SHAPE:
-            myClosedPolygon = parse<bool>(value);
-            if(myClosedPolygon) {
+        case GNE_ATTR_CLOSE_SHAPE:
+            myClosedShape = parse<bool>(value);
+            if(myClosedShape) {
                 myShape.closePolygon();
             } else {
                 myShape.pop_back();
             }
+            myNet->refreshPolygon(this);
+            break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

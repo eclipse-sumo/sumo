@@ -178,6 +178,9 @@ public:
     /// @brief called when user toogle the blocking shape CheckBox
     long onCmdSetBlockingShape(FXObject*, FXSelector, void*);
 
+    /// @brief called when user toogle the closiong shape CheckBox
+    long onCmdSetClosingShape(FXObject*, FXSelector, void*);
+
     /// @brief called when user toogle the go back button
     long onCmdGoBack(FXObject*, FXSelector, void*);
 
@@ -232,14 +235,20 @@ private:
     /// @brief Label for Check blocked movement
     FXLabel* myLabelBlockMovement;
 
-    /// @brief pointer to menu check block
+    /// @brief pointer to check box "Block movement"
     FXCheckButton* myCheckBoxBlockMovement;
 
     /// @brief Label for Check blocked shape
     FXLabel* myLabelBlockShape;
 
-    /// @brief pointer to menu check block
+    /// @brief pointer to check box "Block Shape"
     FXCheckButton* myCheckBoxBlockShape;
+
+    /// @brief Label for close shape
+    FXLabel* myLabelCloseShape;
+
+    /// @brief pointer to check box "Block movement"
+    FXCheckButton* myCheckBoxCloseShape;
 
     /// @brief pointer to previous element called by Inspector Frame
     GNEAttributeCarrier* myPreviousElementInspect;

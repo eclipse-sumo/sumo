@@ -75,6 +75,7 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_COPY_TEMPLATE,          GNEInspectorFrame::onUpdCopyTemplate),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_BLOCKING_MOVEMENT,  GNEInspectorFrame::onCmdSetBlockingMovement),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_BLOCKING_SHAPE,     GNEInspectorFrame::onCmdSetBlockingShape),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_CLOSING_SHAPE,      GNEInspectorFrame::onCmdSetClosingShape),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT_GOBACK,         GNEInspectorFrame::onCmdGoBack),
     FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_CHILDS,                 GNEInspectorFrame::onCmdShowChildMenu),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTFRAME_CENTER,    GNEInspectorFrame::onCmdCenterItem),
@@ -127,6 +128,9 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     FXHorizontalFrame* blockShapeHorizontalFrame = new FXHorizontalFrame(myGroupBoxForEditor, GUIDesignAuxiliarHorizontalFrame);
     myLabelBlockShape = new FXLabel(blockShapeHorizontalFrame, "block shape", 0, GUIDesignLabelAttribute);
     myCheckBoxBlockShape = new FXCheckButton(blockShapeHorizontalFrame, "", this, MID_GNE_SET_BLOCKING_SHAPE, GUIDesignCheckButtonAttribute);
+    FXHorizontalFrame* closeShapeHorizontalFrame = new FXHorizontalFrame(myGroupBoxForEditor, GUIDesignAuxiliarHorizontalFrame);
+    myLabelCloseShape = new FXLabel(closeShapeHorizontalFrame, "close shape", 0, GUIDesignLabelAttribute);
+    myCheckBoxCloseShape = new FXCheckButton(closeShapeHorizontalFrame, "", this, MID_GNE_SET_CLOSING_SHAPE, GUIDesignCheckButtonAttribute);
 
     // Create groupbox and tree list
     myGroupBoxForTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
@@ -276,7 +280,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
             }
             // check if additionally has atrribute block shape
             if (GNEAttributeCarrier::canBlockShape(myACs.front()->getTag())) {
-                // Check if all elements have sahpe blocked
+                // Check if all elements have shape blocked
                 bool shapeBlocked = true;
                 for (auto i : myACs) {
                     shapeBlocked &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_SHAPE));
@@ -291,10 +295,28 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
                 } else {
                     myCheckBoxBlockShape->setText("false");
                 }
+                // Check if all elements have shape closed
+                bool shapeClosed = true;
+                for (auto i : myACs) {
+                    shapeClosed &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_CLOSE_SHAPE));
+                }
+                // show close shape
+                myLabelCloseShape->show();
+                myCheckBoxCloseShape->show();
+                myCheckBoxCloseShape->setCheck(shapeClosed);
+                // update label
+                if (shapeClosed) {
+                    myCheckBoxCloseShape->setText("true");
+                } else {
+                    myCheckBoxCloseShape->setText("false");
+                }
             } else {
                 // hide block shape
                 myLabelBlockShape->hide();
                 myCheckBoxBlockShape->hide();
+                // hide close shape
+                myLabelCloseShape->hide();
+                myCheckBoxCloseShape->hide();
             }
         }
 
@@ -440,6 +462,25 @@ GNEInspectorFrame::onCmdSetBlockingShape(FXObject*, FXSelector, void*) {
         myCheckBoxBlockShape->setText("true");
     } else {
         myCheckBoxBlockShape->setText("false");
+    }
+    return 1;
+}
+
+long
+GNEInspectorFrame::onCmdSetClosingShape(FXObject*, FXSelector, void*) {
+    // set new values in all inspected Attribute Carriers
+    for (auto i : myACs) {
+        if (myCheckBoxCloseShape->getCheck() == 1) {
+            i->setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", getViewNet()->getUndoList());
+        } else {
+            i->setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", getViewNet()->getUndoList());
+        }
+    }
+    // change text of check box shape
+    if (myCheckBoxCloseShape->getCheck() == 1) {
+        myCheckBoxCloseShape->setText("true");
+    } else {
+        myCheckBoxCloseShape->setText("false");
     }
     return 1;
 }
