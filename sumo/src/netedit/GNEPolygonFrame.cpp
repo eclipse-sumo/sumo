@@ -381,7 +381,7 @@ GNEPolygonFrame::DrawingMode::stopDrawing() {
     if(myTemporalShapeShape.size() > 1) {
         // close shape if myClosePolygoncheckbox is enabled
         if(myClosePolygon->getCheck()) {
-            myTemporalShapeShape.push_back(myTemporalShapeShape[0]);
+            myTemporalShapeShape.closePolygon();
         }
         // try to build polygon
         if(myPolygonFrameParent->buildPoly(myTemporalShapeShape)) {

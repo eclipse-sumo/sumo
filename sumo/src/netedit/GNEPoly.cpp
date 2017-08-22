@@ -72,7 +72,10 @@ GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, cons
                  const RGBColor& color, double layer, double angle, const std::string& imgFile) :
     GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile),
     GNEShape(net, SUMO_TAG_POLY, ICON_LOCATEPOLY),
-    myJunction(junction) {
+    myJunction(junction),
+    myClosedPolygon(shape.begin() == shape.end()) {
+    // check that number of points is correct and area isn't empty
+    assert((shape.size() >= 2) && (shape.area() > 0));
 }
 
 
@@ -233,6 +236,12 @@ Position GNEPoly::isVertex(const Position & pos) const {
 }
 
 
+bool 
+GNEPoly::isPolygonClosed() const {
+    return myClosedPolygon;
+}
+
+
 void
 GNEPoly::simplifyShape() {
     const Boundary b =  myShape.getBoxBoundary();
@@ -309,6 +318,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_IMGFILE:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_BLOCK_SHAPE:
+        case GNE_ATTR_CLOSED_SHAPE:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -325,7 +335,15 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SHAPE: {
             bool ok = true;
             PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
-            return ok;
+            // check if shape was sucesfully parsed
+            if(ok) {
+                // remove consecutive points
+                shape.removeDoublePoints();
+                // shape is valid if has more than three points and shape's are isn't empty
+                return (shape.size() >= 2) && (shape.area() > 0);
+            } else {
+                return false;
+            }
         }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
@@ -341,6 +359,19 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_SHAPE:
             return canParse<bool>(value);
+        case GNE_ATTR_CLOSED_SHAPE:
+            if(canParse<bool>(value)) {
+                bool closePolygon = parse<bool>(value);
+                if(closePolygon && (myShape.begin() == myShape.end())) {
+                    // Polygon already closed, then invalid value
+                    return false;
+                } else if(!closePolygon && (myShape.begin() != myShape.end())) {
+                    // Polygon already open, then invalid value
+                    return false;
+                } else{
+                    return true;
+                }
+            }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -362,7 +393,11 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_SHAPE: {
             bool ok = true;
+            // set new shape
             myShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
+            // Check if new shape is closed
+            myClosedPolygon = myShape.begin() == myShape.end();
+            // refresh polygon in net
             myNet->refreshPolygon(this);
             break;
         }
@@ -387,6 +422,13 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_BLOCK_SHAPE:
             myBlockShape = parse<bool>(value);
             break;
+        case GNE_ATTR_CLOSED_SHAPE:
+            myClosedPolygon = parse<bool>(value);
+            if(myClosedPolygon) {
+                myShape.closePolygon();
+            } else {
+                myShape.pop_back();
+            }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

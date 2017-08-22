@@ -174,7 +174,10 @@ public:
      * @param pos position to check
      * @return position of position vector, Invalid position in other case
      */
-     Position isVertex(const Position &pos) const;
+    Position isVertex(const Position &pos) const;
+
+    /// @brief check if polygon is closed
+    bool isPolygonClosed() const;
     
     /// @brief replace the current shape with a rectangle
     void simplifyShape();
@@ -185,21 +188,14 @@ public:
     /// @brief retrieve the junction of which the shape is being edited
     GNEJunction* getEditedJunction() const;
 
-    /// @brief registers completed movement with the undoList
-    //void registerMove(GNEUndoList *undoList);
-
-    /// @brief load POIs from file
-    static void loadFromFile(const std::string& file, GNENet* net);
-
-    /// @brief save POIs to file
-    static void saveToFile(const std::string& file);
-
 protected:
     /// @brief junction of which the shape is being edited (optional)
     GNEJunction* myJunction;
 
-private:
+    /// @brief flag to indicate if polygon is open or closed
+    bool myClosedPolygon;
 
+private:
     /// @brief temporal shape used for moving when shape is blocked
     PositionVector myMovingOriginalShape;
 
