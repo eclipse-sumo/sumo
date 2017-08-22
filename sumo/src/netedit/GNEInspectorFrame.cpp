@@ -73,9 +73,6 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_COPY_TEMPLATE,          GNEInspectorFrame::onCmdCopyTemplate),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_TEMPLATE,           GNEInspectorFrame::onCmdSetTemplate),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_COPY_TEMPLATE,          GNEInspectorFrame::onUpdCopyTemplate),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_BLOCKING_MOVEMENT,  GNEInspectorFrame::onCmdSetBlockingMovement),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_BLOCKING_SHAPE,     GNEInspectorFrame::onCmdSetBlockingShape),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_CLOSING_SHAPE,      GNEInspectorFrame::onCmdSetClosingShape),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT_GOBACK,         GNEInspectorFrame::onCmdGoBack),
     FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_CHILDS,                 GNEInspectorFrame::onCmdShowChildMenu),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTFRAME_CENTER,    GNEInspectorFrame::onCmdCenterItem),
@@ -84,14 +81,22 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
 };
 
 
-FXDEFMAP(GNEInspectorFrame::AttributeInput) AttrInputMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,         GNEInspectorFrame::AttributeInput::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_OPEN_ATTRIBUTE_EDITOR, GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor)
+FXDEFMAP(GNEInspectorFrame::AttributeInput) AttributeInputMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEInspectorFrame::AttributeInput::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_ATTRIBUTE_EDITOR,  GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor)
+};
+
+
+FXDEFMAP(GNEInspectorFrame::NeteditParameters) NeteditParameterstMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_MOVEMENT,  GNEInspectorFrame::NeteditParameters::onCmdSetBlockingMovement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_SHAPE,     GNEInspectorFrame::NeteditParameters::onCmdSetBlockingShape),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_CLOSING_SHAPE,      GNEInspectorFrame::NeteditParameters::onCmdSetClosingShape),
 };
 
 // Object implementation
 FXIMPLEMENT(GNEInspectorFrame, FXVerticalFrame, GNEInspectorFrameMap, ARRAYNUMBER(GNEInspectorFrameMap))
-FXIMPLEMENT(GNEInspectorFrame::AttributeInput, FXHorizontalFrame, AttrInputMap, ARRAYNUMBER(AttrInputMap))
+FXIMPLEMENT(GNEInspectorFrame::AttributeInput, FXHorizontalFrame, AttributeInputMap, ARRAYNUMBER(AttributeInputMap))
+FXIMPLEMENT(GNEInspectorFrame::NeteditParameters, FXGroupBox, NeteditParameterstMap, ARRAYNUMBER(NeteditParameterstMap))
 
 // ===========================================================================
 // method definitions
@@ -112,25 +117,13 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myGroupBoxForAttributes = new FXGroupBox(myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame);
     myGroupBoxForAttributes->hide();
 
-    // Create AttributeInput
+    // Create sufficient AttributeInput for all types of AttributeCarriers
     for (int i = 0; i < (int)GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
         myVectorOfAttributeInputs.push_back(new AttributeInput(myGroupBoxForAttributes, this));
     }
 
-    // Create groupBox for Netedit parameters
-    myGroupBoxForEditor = new FXGroupBox(myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame);
-    myGroupBoxForEditor->hide();
-
-    // Create check blocked label and button
-    FXHorizontalFrame* blockMovementHorizontalFrame = new FXHorizontalFrame(myGroupBoxForEditor, GUIDesignAuxiliarHorizontalFrame);
-    myLabelBlockMovement = new FXLabel(blockMovementHorizontalFrame, "block movement", 0, GUIDesignLabelAttribute);
-    myCheckBoxBlockMovement = new FXCheckButton(blockMovementHorizontalFrame, "", this, MID_GNE_SET_BLOCKING_MOVEMENT, GUIDesignCheckButtonAttribute);
-    FXHorizontalFrame* blockShapeHorizontalFrame = new FXHorizontalFrame(myGroupBoxForEditor, GUIDesignAuxiliarHorizontalFrame);
-    myLabelBlockShape = new FXLabel(blockShapeHorizontalFrame, "block shape", 0, GUIDesignLabelAttribute);
-    myCheckBoxBlockShape = new FXCheckButton(blockShapeHorizontalFrame, "", this, MID_GNE_SET_BLOCKING_SHAPE, GUIDesignCheckButtonAttribute);
-    FXHorizontalFrame* closeShapeHorizontalFrame = new FXHorizontalFrame(myGroupBoxForEditor, GUIDesignAuxiliarHorizontalFrame);
-    myLabelCloseShape = new FXLabel(closeShapeHorizontalFrame, "close shape", 0, GUIDesignLabelAttribute);
-    myCheckBoxCloseShape = new FXCheckButton(closeShapeHorizontalFrame, "", this, MID_GNE_SET_CLOSING_SHAPE, GUIDesignCheckButtonAttribute);
+    // Create netedit parameters
+    myNeteditParameters = new NeteditParameters(this);
 
     // Create groupbox and tree list
     myGroupBoxForTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
@@ -191,7 +184,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myGroupBoxForTemplates->hide();
     myCopyTemplateButton->hide();
     mySetTemplateButton->hide();
-    myGroupBoxForEditor->hide();
+    myNeteditParameters->hide();
     myGroupBoxForTreeList->hide();
     // If vector of attribute Carriers contain data
     if (myACs.size() > 0) {
@@ -259,66 +252,8 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
             itAttrs++;
         }
 
-        // If item can be moved
-        if (GNEAttributeCarrier::canBlockMovement(myACs.front()->getTag())) {
-            // show group box for editor
-            myGroupBoxForEditor->show();
-            // Check if all elements have movement blocked
-            bool movementBlocked = true;
-            for (auto i : myACs) {
-                movementBlocked &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_MOVEMENT));
-            }
-            // show block movement
-            myLabelBlockMovement->show();
-            myCheckBoxBlockMovement->show();
-            myCheckBoxBlockMovement->setCheck(movementBlocked);
-            // update label
-            if (movementBlocked) {
-                myCheckBoxBlockMovement->setText("true");
-            } else {
-                myCheckBoxBlockMovement->setText("false");
-            }
-            // check if additionally has atrribute block shape
-            if (GNEAttributeCarrier::canBlockShape(myACs.front()->getTag())) {
-                // Check if all elements have shape blocked
-                bool shapeBlocked = true;
-                for (auto i : myACs) {
-                    shapeBlocked &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_SHAPE));
-                }
-                // show block shape
-                myLabelBlockShape->show();
-                myCheckBoxBlockShape->show();
-                myCheckBoxBlockShape->setCheck(shapeBlocked);
-                // update label
-                if (shapeBlocked) {
-                    myCheckBoxBlockShape->setText("true");
-                } else {
-                    myCheckBoxBlockShape->setText("false");
-                }
-                // Check if all elements have shape closed
-                bool shapeClosed = true;
-                for (auto i : myACs) {
-                    shapeClosed &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_CLOSE_SHAPE));
-                }
-                // show close shape
-                myLabelCloseShape->show();
-                myCheckBoxCloseShape->show();
-                myCheckBoxCloseShape->setCheck(shapeClosed);
-                // update label
-                if (shapeClosed) {
-                    myCheckBoxCloseShape->setText("true");
-                } else {
-                    myCheckBoxCloseShape->setText("false");
-                }
-            } else {
-                // hide block shape
-                myLabelBlockShape->hide();
-                myCheckBoxBlockShape->hide();
-                // hide close shape
-                myLabelCloseShape->hide();
-                myCheckBoxCloseShape->hide();
-            }
-        }
+        // show netedit parameters
+        myNeteditParameters->show();
 
         // if we inspect a single Attribute carrier vector, show their childs
         if (myACs.size() == 1) {
@@ -423,65 +358,6 @@ GNEInspectorFrame::onUpdCopyTemplate(FXObject* sender, FXSelector, void*) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), NULL);
     }
     sender->handle(this, FXSEL(SEL_COMMAND, FXLabel::ID_SETSTRINGVALUE), (void*)&caption);
-    return 1;
-}
-
-
-long
-GNEInspectorFrame::onCmdSetBlockingMovement(FXObject*, FXSelector, void*) {
-    // set new values in all inspected Attribute Carriers
-    for (auto i : myACs) {
-        if (myCheckBoxBlockMovement->getCheck() == 1) {
-            i->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "true", getViewNet()->getUndoList());
-        } else {
-            i->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "false", getViewNet()->getUndoList());
-        }
-    }
-    // change text of check box movement
-    if (myCheckBoxBlockMovement->getCheck() == 1) {
-        myCheckBoxBlockMovement->setText("true");
-    } else {
-        myCheckBoxBlockMovement->setText("false");
-    }
-    return 1;
-}
-
-
-long
-GNEInspectorFrame::onCmdSetBlockingShape(FXObject*, FXSelector, void*) {
-    // set new values in all inspected Attribute Carriers
-    for (auto i : myACs) {
-        if (myCheckBoxBlockShape->getCheck() == 1) {
-            i->setAttribute(GNE_ATTR_BLOCK_SHAPE, "true", getViewNet()->getUndoList());
-        } else {
-            i->setAttribute(GNE_ATTR_BLOCK_SHAPE, "false", getViewNet()->getUndoList());
-        }
-    }
-    // change text of check box shape
-    if (myCheckBoxBlockShape->getCheck() == 1) {
-        myCheckBoxBlockShape->setText("true");
-    } else {
-        myCheckBoxBlockShape->setText("false");
-    }
-    return 1;
-}
-
-long
-GNEInspectorFrame::onCmdSetClosingShape(FXObject*, FXSelector, void*) {
-    // set new values in all inspected Attribute Carriers
-    for (auto i : myACs) {
-        if (myCheckBoxCloseShape->getCheck() == 1) {
-            i->setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", getViewNet()->getUndoList());
-        } else {
-            i->setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", getViewNet()->getUndoList());
-        }
-    }
-    // change text of check box shape
-    if (myCheckBoxCloseShape->getCheck() == 1) {
-        myCheckBoxCloseShape->setText("true");
-    } else {
-        myCheckBoxCloseShape->setText("false");
-    }
     return 1;
 }
 
@@ -801,6 +677,11 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
 }
 
 
+const std::vector<GNEAttributeCarrier*>& 
+GNEInspectorFrame::getInspectedACs() const {
+    return myACs;
+}
+
 // ===========================================================================
 // AttributeInput method definitions
 // ===========================================================================
@@ -1105,5 +986,161 @@ GNEInspectorFrame::AttributeInput::stripWhitespaceAfterComma(const std::string &
     return result;
 }
 
+// ===========================================================================
+// NeteditParameters method definitions
+// ===========================================================================
+
+GNEInspectorFrame::NeteditParameters::NeteditParameters(GNEInspectorFrame *inspectorFrameParent) :
+    FXGroupBox(inspectorFrameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
+    myInspectorFrameParent(inspectorFrameParent) {
+    // Create check box and for block movement
+    FXHorizontalFrame* blockMovementHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLabelBlockMovement = new FXLabel(blockMovementHorizontalFrame, "Block move", 0, GUIDesignLabelAttribute);
+    myCheckBoxBlockMovement = new FXCheckButton(blockMovementHorizontalFrame, "", this, MID_GNE_SET_BLOCKING_MOVEMENT, GUIDesignCheckButtonAttribute);
+    // Create check box and for block shape
+    FXHorizontalFrame* blockShapeHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLabelBlockShape = new FXLabel(blockShapeHorizontalFrame, "Block shape", 0, GUIDesignLabelAttribute);
+    myCheckBoxBlockShape = new FXCheckButton(blockShapeHorizontalFrame, "", this, MID_GNE_SET_BLOCKING_SHAPE, GUIDesignCheckButtonAttribute);
+    // Create check box and for close shape
+    FXHorizontalFrame* closeShapeHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLabelCloseShape = new FXLabel(closeShapeHorizontalFrame, "Close shape", 0, GUIDesignLabelAttribute);
+    myCheckBoxCloseShape = new FXCheckButton(closeShapeHorizontalFrame, "", this, MID_GNE_SET_CLOSING_SHAPE, GUIDesignCheckButtonAttribute);
+}
+
+
+GNEInspectorFrame::NeteditParameters::~NeteditParameters() {}
+
+
+void 
+GNEInspectorFrame::NeteditParameters::show() {
+    // If item can be moved
+    if (GNEAttributeCarrier::canBlockMovement(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
+        // show groupBox
+        FXGroupBox::show();
+        // Check if all elements have movement blocked
+        bool movementBlocked = true;
+        for (auto i : myInspectorFrameParent->getInspectedACs()) {
+            movementBlocked &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_MOVEMENT));
+        }
+        // show block movement
+        myLabelBlockMovement->show();
+        myCheckBoxBlockMovement->show();
+        myCheckBoxBlockMovement->setCheck(movementBlocked);
+        // update label
+        if (movementBlocked) {
+            myCheckBoxBlockMovement->setText("true");
+        } else {
+            myCheckBoxBlockMovement->setText("false");
+        }
+    }
+    // check if item can block their shape
+    if (GNEAttributeCarrier::canBlockShape(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
+        // show groupBox
+        FXGroupBox::show();
+        // Check if all elements have shape blocked
+        bool shapeBlocked = true;
+        for (auto i : myInspectorFrameParent->getInspectedACs()) {
+            shapeBlocked &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_SHAPE));
+        }
+        // show block shape
+        myLabelBlockShape->show();
+        myCheckBoxBlockShape->show();
+        myCheckBoxBlockShape->setCheck(shapeBlocked);
+        // update label
+        if (shapeBlocked) {
+            myCheckBoxBlockShape->setText("true");
+        } else {
+            myCheckBoxBlockShape->setText("false");
+        }
+        // Check if all elements have shape closed
+        bool shapeClosed = true;
+        for (auto i : myInspectorFrameParent->getInspectedACs()) {
+            shapeClosed &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_CLOSE_SHAPE));
+        }
+        // show close shape
+        myLabelCloseShape->show();
+        myCheckBoxCloseShape->show();
+        myCheckBoxCloseShape->setCheck(shapeClosed);
+        // update label
+        if (shapeClosed) {
+            myCheckBoxCloseShape->setText("true");
+        } else {
+            myCheckBoxCloseShape->setText("false");
+        }
+    }
+}
+
+
+void 
+GNEInspectorFrame::NeteditParameters::hide() {
+    // hide all elements of GroupBox
+    myLabelBlockMovement->hide();
+    myCheckBoxBlockMovement->hide();
+    myLabelBlockShape->hide();
+    myCheckBoxBlockShape->hide();
+    myLabelCloseShape->hide();
+    myCheckBoxCloseShape->hide();
+    FXGroupBox::hide();
+}
+
+
+long
+GNEInspectorFrame::NeteditParameters::onCmdSetBlockingMovement(FXObject*, FXSelector, void*) {
+    // set new values in all inspected Attribute Carriers
+    for (auto i : myInspectorFrameParent->getInspectedACs()) {
+        if (myCheckBoxBlockMovement->getCheck() == 1) {
+            i->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "true", myInspectorFrameParent->getViewNet()->getUndoList());
+        } else {
+            i->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "false", myInspectorFrameParent->getViewNet()->getUndoList());
+        }
+    }
+    // change text of check box movement
+    if (myCheckBoxBlockMovement->getCheck() == 1) {
+        myCheckBoxBlockMovement->setText("true");
+    } else {
+        myCheckBoxBlockMovement->setText("false");
+    }
+    return 1;
+}
+
+
+long
+GNEInspectorFrame::NeteditParameters::onCmdSetBlockingShape(FXObject*, FXSelector, void*) {
+    // set new values in all inspected Attribute Carriers
+    for (auto i : myInspectorFrameParent->getInspectedACs()) {
+        if (myCheckBoxBlockShape->getCheck() == 1) {
+            i->setAttribute(GNE_ATTR_BLOCK_SHAPE, "true", myInspectorFrameParent->getViewNet()->getUndoList());
+        } else {
+            i->setAttribute(GNE_ATTR_BLOCK_SHAPE, "false", myInspectorFrameParent->getViewNet()->getUndoList());
+        }
+    }
+    // change text of check box shape
+    if (myCheckBoxBlockShape->getCheck() == 1) {
+        myCheckBoxBlockShape->setText("true");
+    } else {
+        myCheckBoxBlockShape->setText("false");
+    }
+    return 1;
+}
+
+
+long
+GNEInspectorFrame::NeteditParameters::onCmdSetClosingShape(FXObject*, FXSelector, void*) {
+    // set new values in all inspected Attribute Carriers
+    for (auto i : myInspectorFrameParent->getInspectedACs()) {
+        if (myCheckBoxCloseShape->getCheck() == 1) {
+            i->setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myInspectorFrameParent->getViewNet()->getUndoList());
+        } else {
+            i->setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", myInspectorFrameParent->getViewNet()->getUndoList());
+        }
+    }
+    // change text of check box shape
+    if (myCheckBoxCloseShape->getCheck() == 1) {
+        myCheckBoxCloseShape->setText("true");
+    } else {
+        myCheckBoxCloseShape->setText("false");
+    }
+    return 1;
+}
 
 /****************************************************************************/

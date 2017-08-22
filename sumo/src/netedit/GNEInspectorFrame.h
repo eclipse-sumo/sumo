@@ -127,7 +127,66 @@ public:
         void hide();
     };
 
-public:
+    // ===========================================================================
+    // class editorParameters
+    // ===========================================================================
+
+    class NeteditParameters : public FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEInspectorFrame::NeteditParameters)
+
+    public:
+        /// @brief constructor
+        NeteditParameters(GNEInspectorFrame *inspectorFrameParent);
+        
+        /// @brief destructor
+        ~NeteditParameters();
+
+        /// @brief show NeteditParameters
+        void show();
+
+        /// @brief hide all NeteditParameters
+        void hide();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief called when user toogle the blocking movement CheckBox
+        long onCmdSetBlockingMovement(FXObject*, FXSelector, void*);
+
+        /// @brief called when user toogle the blocking shape CheckBox
+        long onCmdSetBlockingShape(FXObject*, FXSelector, void*);
+
+        /// @brief called when user toogle the closiong shape CheckBox
+        long onCmdSetClosingShape(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        NeteditParameters() {}
+
+    private:
+        /// @brief pointer to inspector frame parent
+        GNEInspectorFrame *myInspectorFrameParent;
+
+        /// @brief Label for Check blocked movement
+        FXLabel* myLabelBlockMovement;
+
+        /// @brief pointer to check box "Block movement"
+        FXCheckButton* myCheckBoxBlockMovement;
+
+        /// @brief Label for Check blocked shape
+        FXLabel* myLabelBlockShape;
+
+        /// @brief pointer to check box "Block Shape"
+        FXCheckButton* myCheckBoxBlockShape;
+
+        /// @brief Label for close shape
+        FXLabel* myLabelCloseShape;
+
+        /// @brief pointer to check box "Block movement"
+        FXCheckButton* myCheckBoxCloseShape;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -172,15 +231,6 @@ public:
     /// @brief update the copy button with the name of the template
     long onUpdCopyTemplate(FXObject*, FXSelector, void*);
 
-    /// @brief called when user toogle the blocking movement CheckBox
-    long onCmdSetBlockingMovement(FXObject*, FXSelector, void*);
-
-    /// @brief called when user toogle the blocking shape CheckBox
-    long onCmdSetBlockingShape(FXObject*, FXSelector, void*);
-
-    /// @brief called when user toogle the closiong shape CheckBox
-    long onCmdSetClosingShape(FXObject*, FXSelector, void*);
-
     /// @brief called when user toogle the go back button
     long onCmdGoBack(FXObject*, FXSelector, void*);
 
@@ -207,12 +257,18 @@ protected:
     /// @brief show child of current attributeCarrier
     void showAttributeCarrierChilds();
 
+    /// @brief get reference to current inspected Attribute carriers
+    const std::vector<GNEAttributeCarrier*> &getInspectedACs() const;
+
 private:
     /// @brief groupBox for attributes
     FXGroupBox* myGroupBoxForAttributes;
 
     /// @brief list of Attribute inputs
     std::vector<GNEInspectorFrame::AttributeInput*> myVectorOfAttributeInputs;
+
+    /// @brief Netedit Parameters
+    NeteditParameters *myNeteditParameters;
 
     /// @brief back Button
     FXButton* myBackButton;
@@ -228,27 +284,6 @@ private:
 
     /// @brief the edge template
     GNEEdge* myEdgeTemplate;
-
-    /// @brief GropuBox for editor attributes
-    FXGroupBox* myGroupBoxForEditor;
-
-    /// @brief Label for Check blocked movement
-    FXLabel* myLabelBlockMovement;
-
-    /// @brief pointer to check box "Block movement"
-    FXCheckButton* myCheckBoxBlockMovement;
-
-    /// @brief Label for Check blocked shape
-    FXLabel* myLabelBlockShape;
-
-    /// @brief pointer to check box "Block Shape"
-    FXCheckButton* myCheckBoxBlockShape;
-
-    /// @brief Label for close shape
-    FXLabel* myLabelCloseShape;
-
-    /// @brief pointer to check box "Block movement"
-    FXCheckButton* myCheckBoxCloseShape;
 
     /// @brief pointer to previous element called by Inspector Frame
     GNEAttributeCarrier* myPreviousElementInspect;
