@@ -193,20 +193,35 @@ GNEPoly::getCenteringBoundary() const {
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     const double hintSize = 0.8;
+    // draw polygon
     GUIPolygon::drawGL(s);
-    // draw geometry hints
-    if (s.scale * hintSize > 1.) { // check whether it is not too small
+    // draw geometry hints if is not too small
+    if (s.scale * hintSize > 1.) {
+        // set colors
         RGBColor current = GLHelper::getColor();
+        RGBColor inverted = current.invertedColor();
         RGBColor darker = current.changedBrightness(-32);
         GLHelper::setColor(darker);
+        // push matrix
         glPushName(getGlID());
-        for (int i = 0; i < (int)myShape.size() - 1; i++) {
-            Position pos = myShape[i];
+        // draw all points of shape
+        for (auto i : myShape) {
             glPushMatrix();
-            glTranslated(pos.x(), pos.y(), GLO_POLYGON + 0.01);
+            glTranslated(i.x(), i.y(), GLO_POLYGON + 0.01);
             GLHelper:: drawFilledCircle(hintSize, 32);
             glPopMatrix();
         }
+        // draw a "s" over first point
+        glPushMatrix();
+        glTranslated(myShape.front().x(), myShape.front().y(), GLO_POLYGON + 0.01);
+        GLHelper::drawText("S", Position(), .1, 1.6, inverted);
+        glPopMatrix();
+        // draw a "e" over last point
+        glPushMatrix();
+        glTranslated(myShape.back().x(), myShape.back().y(), GLO_POLYGON + 0.01);
+        GLHelper::drawText("E", Position(), .1, 1.6, inverted);
+        glPopMatrix();
+        // pop name
         glPopName();
     }
 }
