@@ -56,6 +56,7 @@ def main():
     for stop in sumolib.output.parse_fast(options.ptstops, 'busStop', ['id', 'lane']):
         stopsLanes[stop.id] = stop.lane
 
+    trpIDLineMap = {}
     with open(options.trips, 'w') as fouttrips:
         sumolib.writeXMLHeader(
             fouttrips, "$Id$", "routes")
@@ -76,6 +77,7 @@ def main():
                 stop_ids.append(stop.id)
             fouttrips.write(
                 '\t<trip id="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (trp_nr, 'best', fr, to))
+            trpIDLineMap[str(trp_nr)]=line.line
             trp_nr += 1
             for stop in stop_ids:
                 fouttrips.write('\t\t<stop busStop="%s" duration="30" />\n' % (stop))
@@ -114,7 +116,7 @@ def main():
                 )
             foutflows.write('\t</route>\n')
         for flow in flows:
-            lineRef = flow # XXX use real line reference if available #3341
+            lineRef = trpIDLineMap[flow]
             foutflows.write('\t<flow id="%s" route="%s" begin="%s" end="%s" period="%s" type="bus" line="%s"/>\n' %
                             (flow, flow, options.begin, options.end, options.period, lineRef))
         foutflows.write('</routes>\n')

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- generated on 2017-08-10 14:56:58.146731 by $Id: ptlines2flows.py 25534 2017-08-10 12:50:36Z namdre $
+<!-- generated on 2017-08-22 14:23:06.590305 by $Id: ptlines2flows.py 25535 2017-08-10 12:59:05Z namdre $
   options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -f out.flows.xml -p 600
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -12,6 +12,6 @@
 		<stop busStop="3959807201" duration="30.00" until="42.00" />
 		<stop busStop="3959807220" duration="30.00" until="104.00" />
 	</route>
-	<flow id="0" route="0" begin="0" end="3600" period="600" type="bus" line="0"/>
-	<flow id="1" route="1" begin="0" end="3600" period="600" type="bus" line="1"/>
+	<flow id="0" route="0" begin="0" end="3600" period="600" type="bus" line="104"/>
+	<flow id="1" route="1" begin="0" end="3600" period="600" type="bus" line="104"/>
 </routes>
