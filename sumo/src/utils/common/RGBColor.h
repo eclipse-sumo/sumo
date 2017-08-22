@@ -50,7 +50,6 @@ public:
      */
     RGBColor();
 
-
     /** @brief Constructor
      * @param[in] red The red component's value
      * @param[in] green The green component's value
@@ -58,16 +57,11 @@ public:
      */
     RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha = 255);
 
-
-    /** @brief Copy constructor
-     */
+    /// @brief Copy constructor
     RGBColor(const RGBColor& col);
-
 
     /// @brief Destructor
     ~RGBColor();
-
-
 
     /** @brief Returns the red-amount of the color
      * @return The red component's value
@@ -76,14 +70,12 @@ public:
         return myRed;
     }
 
-
     /** @brief Returns the green-amount of the color
      * @return The green component's value
      */
     unsigned char green() const {
         return myGreen;
     }
-
 
     /** @brief Returns the blue-amount of the color
      * @return The blue component's value
@@ -92,14 +84,12 @@ public:
         return myBlue;
     }
 
-
     /** @brief Returns the alpha-amount of the color
      * @return The alpha component's value
      */
     unsigned char alpha() const {
         return myAlpha;
     }
-
 
     /** @brief assigns new values
      * @param[in] r The red component's value
@@ -109,19 +99,6 @@ public:
      */
     void set(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 
-
-    /** @brief Writes the color to the given stream
-     * @param[out] os The stream to write to
-     * @param[in] col The color to write
-     * @return The stream
-     */
-    friend std::ostream& operator<<(std::ostream& os, const RGBColor& col);
-
-
-    bool operator==(const RGBColor& c) const;
-    bool operator!=(const RGBColor& c) const;
-
-
     /** @brief Returns a new color with altered brightness
      * @param[in] change The absolute change applied to all channels (within bounds)
      * @param[in] change The number of colors to change
@@ -129,6 +106,8 @@ public:
      */
     RGBColor changedBrightness(int change, int toChange = 3) const;
 
+    /// @brief obtain inverted of current RGBColor
+    RGBColor invertedColor() const;
 
     /** @brief Parses a color information
      *
@@ -142,7 +121,6 @@ public:
      * @exception NumberFormatException If one of the components is not numeric
      */
     static RGBColor parseColor(std::string coldef);
-
 
     /** @brief Parses a color information
      *
@@ -162,7 +140,6 @@ public:
     static RGBColor parseColorReporting(const std::string& coldef, const std::string& objecttype,
                                         const char* objectid, bool report, bool& ok);
 
-
     /** @brief Interpolates between two colors
      *
      * The interpolated color is calculated as a weighted average of
@@ -175,7 +152,6 @@ public:
      */
     static RGBColor interpolate(const RGBColor& minColor, const RGBColor& maxColor, double weight);
 
-
     /** @brief Converts the given hsv-triplet to rgb
      * @param[in] h Hue (0-360)
      * @param[in] s Saturation (0-1)
@@ -185,7 +161,21 @@ public:
      */
     static RGBColor fromHSV(double h, double s, double v);
 
+    /** @brief Writes the color to the given stream
+    * @param[out] os The stream to write to
+    * @param[in] col The color to write
+    * @return The stream
+    */
+    friend std::ostream& operator<<(std::ostream& os, const RGBColor& col);
 
+    // @brief Equality operator
+    bool operator==(const RGBColor& c) const;
+
+    // @brief Inequality operator
+    bool operator!=(const RGBColor& c) const;
+
+    /// @brief named colors
+    /// @{
     static const RGBColor RED;
     static const RGBColor GREEN;
     static const RGBColor BLUE;
@@ -196,18 +186,17 @@ public:
     static const RGBColor WHITE;
     static const RGBColor BLACK;
     static const RGBColor GREY;
+    /// @}
+
     /// @brief The default color (for vehicle types and vehicles)
     static const RGBColor DEFAULT_COLOR;
-
 
     /// @brief The string description of the default color
     static const std::string DEFAULT_COLOR_STRING;
 
-
 private:
     /// @brief The color amounts
     unsigned char myRed, myGreen, myBlue, myAlpha;
-
 };
 
 

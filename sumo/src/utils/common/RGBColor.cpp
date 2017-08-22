@@ -142,6 +142,17 @@ RGBColor::operator!=(const RGBColor& c) const {
 }
 
 
+RGBColor 
+RGBColor::invertedColor() const {
+    // obtain inverse colors
+    const unsigned char r = (unsigned char)(255 - (int)myRed);
+    const unsigned char g = (unsigned char)(255 - (int)myGreen);
+    const unsigned char b = (unsigned char)(255  - (int)myBlue);
+    // return inverted RBColor
+    return RGBColor(r, g, b, myAlpha);
+}
+
+
 RGBColor
 RGBColor::changedBrightness(int change, int toChange) const {
     const unsigned char red = (unsigned char)(MIN2(MAX2(myRed + change, 0), 255));
@@ -163,6 +174,7 @@ RGBColor::changedBrightness(int change, int toChange) const {
         }
     }
 }
+
 
 RGBColor
 RGBColor::parseColor(std::string coldef) {
