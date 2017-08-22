@@ -66,9 +66,12 @@ public:
      * @param[in] pos The position of the POI
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
+     * @param[in] movementBlocked if movement of POI is blocked
+     * @param[in] shapeBlocked if shape of POI is blocked
      */
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, double layer, 
-           double angle, const std::string& imgFile, const Position& pos, double width, double height);
+           double angle, const std::string& imgFile, const Position& pos, double width, double height, 
+           bool movementBlocked, bool shapeBlocked);
 
     /// @brief Destructor
     ~GNEPOI();

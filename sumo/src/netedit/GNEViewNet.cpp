@@ -1817,7 +1817,7 @@ GNEViewNet::onCmdNodeShape(FXObject*, FXSelector, void*) {
                 PositionVector shape = junction->getNBNode()->getShape();
                 shape.closePolygon();
                 myCurrentPoly = new GNEPoly(myNet, junction, "junction_shape:" + junction->getMicrosimID(), "junction shape",
-                                            shape, false, RGBColor::GREEN, GLO_POLYGON);
+                                            shape, false, RGBColor::GREEN, GLO_POLYGON, 0, "", false, false);
                 myCurrentPoly->setLineWidth(0.3);
                 myNet->getVisualisationSpeedUp().addAdditionalGLObject(myCurrentPoly);
 

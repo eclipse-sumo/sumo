@@ -31,16 +31,16 @@
 #include "GNEShape.h"
 #include "GNENet.h"
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-
-GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, GUIIcon icon) :
+GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, GUIIcon icon, bool movementBlocked, bool shapeBlocked) :
     GNEAttributeCarrier(tag, icon),
     myNet(net),
-    myBlockMovement(false),
-    myBlockShape(false) {
+    myBlockMovement(movementBlocked),
+    myBlockShape(shapeBlocked) {
 }
 
 
@@ -63,6 +63,5 @@ bool
 GNEShape::isShapeBlocked() const {
     return myBlockShape;
 }
-
 
 /****************************************************************************/

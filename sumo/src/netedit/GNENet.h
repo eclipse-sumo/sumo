@@ -545,12 +545,13 @@ public:
      * @param[in] imgFile The raster image of the polygon
      * @param[in] shape The shape of the polygon
      * @param[in] fill Whether the polygon shall be filled
+     * @param[in] movementBlocked if movement of polygon is blocked
+     * @param[in] shapeBlocked if shape of polygon is blocked
      * @return whether the polygon could be added
      */
-    bool addPolygon(const std::string& id, const std::string& type,
-                    const RGBColor& color, double layer,
-                    double angle, const std::string& imgFile,
-                    const PositionVector& shape, bool fill, bool ignorePruning = false);
+    bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
+                    double angle, const std::string& imgFile, const PositionVector& shape, bool fill, 
+                    bool movementBlocked, bool shapeBlocked);
 
     /** @brief Removes a polygon from the container
     * @param[in] id The id of the polygon
@@ -590,11 +591,13 @@ public:
      * @param[in] pos The position of the POI
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
+     * @param[in] movementBlocked if movement of POI is blocked
+     * @param[in] shapeBlocked if shape of POI is blocked
      * @return whether the poi could be added
      */
-    bool addPOI(const std::string& id, const std::string& type,
-                const RGBColor& color, double layer, double angle, const std::string& imgFile,
-                const Position& pos, double width, double height, bool ignorePruning = false);
+    bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, 
+                double angle, const std::string& imgFile, const Position& pos, double width, double height, 
+                bool movementBlocked = false, bool shapeBlocked = false);
 
     /** @brief Removes a PoI from the container
     * @param[in] id The id of the PoI

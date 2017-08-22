@@ -59,8 +59,10 @@ public:
      * @param[in] net The net to inform about gui updates
      * @param[in] tag sumo xml tag of the element
      * @param[in] icon GUIIcon associated to the additional
+     * @param[in] movementBlocked if movement of POI is blocked
+     * @param[in] shapeBlocked if shape of POI is blocked
      */
-    GNEShape(GNENet* net, SumoXMLTag tag, GUIIcon icon);
+    GNEShape(GNENet* net, SumoXMLTag tag, GUIIcon icon, bool movementBlocked, bool shapeBlocked);
 
     /// @brief Destructor
     ~GNEShape();

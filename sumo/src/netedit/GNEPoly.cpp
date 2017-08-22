@@ -69,9 +69,9 @@
 // method definitions
 // ===========================================================================
 GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
-                 const RGBColor& color, double layer, double angle, const std::string& imgFile) :
+                 const RGBColor& color, double layer, double angle, const std::string& imgFile, bool movementBlocked, bool shapeBlocked) :
     GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile),
-    GNEShape(net, SUMO_TAG_POLY, ICON_LOCATEPOLY),
+    GNEShape(net, SUMO_TAG_POLY, ICON_LOCATEPOLY, movementBlocked, shapeBlocked),
     myJunction(junction),
     myClosedShape(shape.front() == shape.back()) {
     // check that number of points is correct and area isn't empty
@@ -295,6 +295,8 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             return myType;
         case SUMO_ATTR_IMGFILE:
             return myImgFile;
+        case SUMO_ATTR_ANGLE:
+            return toString(getNaviDegree());
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_BLOCK_SHAPE:
@@ -320,6 +322,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_LAYER:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_IMGFILE:
+        case SUMO_ATTR_ANGLE:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_BLOCK_SHAPE:
         case GNE_ATTR_CLOSE_SHAPE:
@@ -359,6 +362,8 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
         case SUMO_ATTR_IMGFILE:
             return isValidFilename(value);
+        case SUMO_ATTR_ANGLE:
+            return canParse<double>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_SHAPE:
@@ -380,7 +385,6 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
-
 
 // ===========================================================================
 // private
@@ -419,6 +423,9 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_IMGFILE:
             myType = value;
+            break;
+        case SUMO_ATTR_ANGLE:
+            setNaviDegree(parse<double>(value));
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);

@@ -285,14 +285,16 @@ GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string> &polyValues
     std::string type = polyValues.at(SUMO_ATTR_TYPE);
     RGBColor color = RGBColor::parseColor(polyValues.at(SUMO_ATTR_COLOR));
     double layer = GNEAttributeCarrier::parse<double>(polyValues.at(SUMO_ATTR_LAYER));
-    //double angle = GNEAttributeCarrier::parse<double>(polyValues.at(SUMO_ATTR_ANGLE));
+    double angle = GNEAttributeCarrier::parse<double>(polyValues.at(SUMO_ATTR_ANGLE));
     std::string imgFile = polyValues.at(SUMO_ATTR_IMGFILE);
     PositionVector shape =  GeomConvHelper::parseShapeReporting(polyValues.at(SUMO_ATTR_SHAPE), "user-supplied position", 0, ok, true);
     bool fill = GNEAttributeCarrier::parse<bool>(polyValues.at(SUMO_ATTR_FILL));
+    bool blockMovement = GNEAttributeCarrier::parse<bool>(polyValues.at(GNE_ATTR_BLOCK_MOVEMENT));
+    bool blockShape = GNEAttributeCarrier::parse<bool>(polyValues.at(GNE_ATTR_BLOCK_SHAPE));
 
     // create new Polygon only if number of shape points is greather than 2
     if(shape.size() > 2) {
-        return myViewNet->getNet()->addPolygon(id, type, color, layer, /*angle*/0, imgFile, shape, fill);
+        return myViewNet->getNet()->addPolygon(id, type, color, layer, angle, imgFile, shape, fill, blockMovement, blockShape);
     } else {
         return false;
     }
@@ -312,9 +314,11 @@ GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string> &POIValues) {
     Position pos = GeomConvHelper::parseShapeReporting(POIValues.at(SUMO_ATTR_POSITION), "netedit-given", 0, ok, false)[0];
     double width = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_WIDTH));
     double height = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_HEIGHT));
+    bool blockMovement = GNEAttributeCarrier::parse<bool>(POIValues.at(GNE_ATTR_BLOCK_MOVEMENT));
+    bool blockShape = GNEAttributeCarrier::parse<bool>(POIValues.at(GNE_ATTR_BLOCK_SHAPE));
 
     // create new POI
-    return myViewNet->getNet()->addPOI(id, type, color, layer, angle, imgFile, pos, width, height);
+    return myViewNet->getNet()->addPOI(id, type, color, layer, angle, imgFile, pos, width, height, blockMovement, blockShape);
 }
 
 // ---------------------------------------------------------------------------
@@ -928,7 +932,7 @@ GNEPolygonFrame::NeteditAttributes::NeteditAttributes(FXComposite* parent) :
     FXGroupBox(parent, "Netedit attributes", GUIDesignGroupBoxFrame)  {
     // Create Frame for block movement label and checkBox (By default disabled)
     FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myBlockMovementLabel = new FXLabel(blockMovement, "block movement", 0, GUIDesignLabelAttribute);
+    myBlockMovementLabel = new FXLabel(blockMovement, "block move", 0, GUIDesignLabelAttribute);
     myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_BLOCKING_MOVEMENT, GUIDesignCheckButtonAttribute);
     myBlockMovementCheckButton->setCheck(false);
     // Create Frame for block shape label and checkBox (By default disabled)

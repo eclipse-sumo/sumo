@@ -66,9 +66,11 @@ public:
      * @param[in] imgFile The raster image of the polygon
      * @param[in] shape The shape of the polygon
      * @param[in] fill Whether the polygon shall be filled
+     * @param[in] movementBlocked if movement of POI is blocked
+     * @param[in] shapeBlocked if shape of POI is blocked
      */
     GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
-            const RGBColor& color, double layer, double angle = 0, const std::string& imgFile = "");
+            const RGBColor& color, double layer, double angle, const std::string& imgFile, bool movementBlocked, bool shapeBlocked);
 
     /// @brief Destructor
     ~GNEPoly();

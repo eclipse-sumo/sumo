@@ -63,10 +63,10 @@
 // method definitions
 // ===========================================================================
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, 
-               double layer, double angle, const std::string& imgFile,
-               const Position& pos, double width, double height) :
+               double layer, double angle, const std::string& imgFile, const Position& pos, 
+               double width, double height, bool movementBlocked, bool shapeBlocked) :
     GUIPointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height),
-    GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI),
+    GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI, movementBlocked, shapeBlocked),
     myLane(NULL),
     myPositionOverLane(0) {
 }
