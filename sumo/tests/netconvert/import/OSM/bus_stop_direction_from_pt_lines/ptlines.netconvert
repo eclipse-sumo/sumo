@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 29 21:24:43 2017 by SUMO netconvert Version svn
+<!-- generated on Tue Aug 22 13:15:31 2017 by SUMO netconvert Version dev-SVN-r25683
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -32,11 +32,11 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <ptLine id="0" name="Buslinie 104: Neu-Westend, Brixplatz => Stralau, Tunnelstraße">
+    <ptLine id="0" name="Buslinie 104: Neu-Westend, Brixplatz => Stralau, Tunnelstraße" line="104">
         <busStop id="3959807221" name="Kolonnenbrücke"/>
         <busStop id="3959807200" name="Dudenstraße/Katzbachstraße"/>
     </ptLine>
-    <ptLine id="1" name="Buslinie 104: Stralau, Tunnelstraße => Neu-Westend, Brixplatz">
+    <ptLine id="1" name="Buslinie 104: Stralau, Tunnelstraße => Neu-Westend, Brixplatz" line="104">
         <busStop id="3959807201" name="Dudenstraße/Katzbachstraße"/>
         <busStop id="3959807220" name="Kolonnenbrücke"/>
     </ptLine>

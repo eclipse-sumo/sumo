@@ -549,6 +549,9 @@ protected:
 
         /// @brief name of the relation
         std::string myName;
+
+        /// @brief ref of the pt line
+        std::string myRef;
     };
 
 };

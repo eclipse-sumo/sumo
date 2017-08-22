@@ -18,10 +18,12 @@
 //
 /****************************************************************************/
 #include <utils/iodevices/OutputDevice.h>
+
+#include <utility>
 #include "NBPTLine.h"
 #include "NBPTStop.h"
 
-NBPTLine::NBPTLine(std::string name) : myName(name), myPTLineId(-1) {
+NBPTLine::NBPTLine(std::string name) : myName(std::move(name)), myPTLineId(-1), myRef(name) {
 
 }
 void NBPTLine::addPTStop(NBPTStop* pStop) {
@@ -37,14 +39,15 @@ std::vector<NBPTStop*> NBPTLine::getStops() {
 void NBPTLine::write(OutputDevice& device) {
     device.openTag(SUMO_TAG_PT_LINE);
     device.writeAttr(SUMO_ATTR_ID, myPTLineId);
-    if (myName != "") {
+    if (!myName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, myName);
     }
+    device.writeAttr(SUMO_ATTR_LINE, myRef);
 
-    for (std::vector<NBPTStop*>::iterator it = myPTStops.begin(); it != myPTStops.end(); it++) {
+    for (auto& myPTStop : myPTStops) {
         device.openTag(SUMO_TAG_BUS_STOP);
-        device.writeAttr(SUMO_ATTR_ID, (*it)->getID());
-        device.writeAttr(SUMO_ATTR_NAME, (*it)->getName());
+        device.writeAttr(SUMO_ATTR_ID, myPTStop->getID());
+        device.writeAttr(SUMO_ATTR_NAME, myPTStop->getName());
         device.closeTag();
     }
 //    device.writeAttr(SUMO_ATTR_LANE, myLaneId);
@@ -66,9 +69,9 @@ void NBPTLine::addWayNode(long long int way, long long int node) {
     myWaysNodes[wayStr].push_back(node);
 
 }
-const std::vector<NBPTStop*>& NBPTLine::getMyPTStops() const {
-    return myPTStops;
-}
+//const std::vector<NBPTStop*>& NBPTLine::getMyPTStops() const {
+//    return myPTStops;
+//}
 const std::vector<std::string>& NBPTLine::getMyWays() const {
     return myWays;
 }
@@ -77,4 +80,7 @@ std::vector<long long int>* NBPTLine::getWaysNodes(std::string wayId) {
         return &myWaysNodes[wayId];
     }
     return 0;
+}
+void NBPTLine::setRef(std::string ref) {
+    myRef = std::move(ref);
 }

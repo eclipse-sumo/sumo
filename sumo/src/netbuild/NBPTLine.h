@@ -42,11 +42,12 @@ public:
     void write(OutputDevice& device);
     void setId(long long int id);
     void addWayNode(long long int way, long long int node);
+    void setRef(std::string basic_string);
 private:
     std::string myName;
     std::vector<NBPTStop*> myPTStops;
-public:
-    const std::vector<NBPTStop*>& getMyPTStops() const;
+//public:
+//    const std::vector<NBPTStop*>& getMyPTStops() const;
 private:
     std::map<std::string, std::vector<long long int> > myWaysNodes;
     std::vector<std::string> myWays;
@@ -57,6 +58,7 @@ private:
 
     std::string myCurrentWay;
     long long int myPTLineId;
+    std::string myRef;
 };
 
 

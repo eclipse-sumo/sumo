@@ -1167,6 +1167,9 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
         } else if (key == "name") {
             std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
             myName = value;
+        } else if (key == "ref") {
+            std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
+            myRef = value;
         }
     }
 }
@@ -1265,7 +1268,9 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                     return;
                 }
                 ptLine->addPTStop(ptStop);
-
+                if (myRef != "") {
+                    ptLine->setRef(myRef);
+                }
 
             }
             for (long long& myWay : myWays) {
