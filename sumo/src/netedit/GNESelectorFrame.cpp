@@ -47,6 +47,8 @@
 #include "GNEJunction.h"
 #include "GNEEdge.h"
 #include "GNELane.h"
+#include "GNEPoly.h"
+#include "GNEPOI.h"
 #include "GNEUndoList.h"
 #include "GNEChange_Selection.h"
 #include "GNEAttributeCarrier.h"
@@ -98,6 +100,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     mySetComboBox = new FXComboBox(elementBox, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
     mySetComboBox->appendItem("Net Element");
     mySetComboBox->appendItem("Additional");
+    mySetComboBox->appendItem("Shape");
     mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
     // Create groupBox fro selection by expression matching (match box)
     FXGroupBox* matchBox = new FXGroupBox(myContentFrame, "Match Attribute", GUIDesignGroupBoxFrame);
@@ -186,7 +189,7 @@ GNESelectorFrame::onCmdSelectOperation(FXObject* obj, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdSubset(FXObject*, FXSelector, void*) {
-    if ((mySetComboBox->getText() == "Net Element") || (mySetComboBox->getText() == "Additional")) {
+    if (mySetComboBox->getText() == "Net Element") {
         mySetComboBox->setTextColor(FXRGB(0, 0, 0));
         myMatchTagComboBox->enable();
         myMatchAttrComboBox->enable();
@@ -201,14 +204,43 @@ GNESelectorFrame::onCmdSubset(FXObject*, FXSelector, void*) {
         myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
         // Fill attributes with the current element type
         onCmdSelMBTag(0, 0, 0);
-        return 1;
+    } else if (mySetComboBox->getText() == "Additional") {
+        mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+        myMatchTagComboBox->enable();
+        myMatchAttrComboBox->enable();
+        myMatchString->enable();
+        // Clear items of myMatchTagComboBox
+        myMatchTagComboBox->clearItems();
+        // Set items depending of current items
+        for (auto i : GNEAttributeCarrier::allowedAdditionalTags()) {
+            myMatchTagComboBox->appendItem(toString(i).c_str());
+        }
+        myMatchTagComboBox->setCurrentItem(0); // edges
+        myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
+        // Fill attributes with the current element type
+        onCmdSelMBTag(0, 0, 0);
+    } else if (mySetComboBox->getText() == "Shape") {
+        mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+        myMatchTagComboBox->enable();
+        myMatchAttrComboBox->enable();
+        myMatchString->enable();
+        // Clear items of myMatchTagComboBox
+        myMatchTagComboBox->clearItems();
+        // Set items depending of current items
+        for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
+            myMatchTagComboBox->appendItem(toString(i).c_str());
+        }
+        myMatchTagComboBox->setCurrentItem(0); // edges
+        myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
+        // Fill attributes with the current element type
+        onCmdSelMBTag(0, 0, 0);
     } else {
         mySetComboBox->setTextColor(FXRGB(255, 0, 0));
         myMatchTagComboBox->disable();
         myMatchAttrComboBox->disable();
         myMatchString->disable();
-        return 1;
     }
+    return 1;
 }
 
 
@@ -324,6 +356,20 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
             unselectedIDs.insert(it);
         }
     }
+    // iterate over all polygons to obtain unselected
+    for (auto it : myViewNet->getNet()->getPolygons().getMyMap()) {
+        GNEPoly* poly = dynamic_cast<GNEPoly*>(it.second);
+        if (gSelected.isSelected(GLO_CROSSING, poly->getGlID()) == false) {
+            unselectedIDs.insert(poly->getGlID());
+        }
+    }
+    // iterate over all POIgons to obtain unselected
+    for (auto it : myViewNet->getNet()->getPOIs().getMyMap()) {
+        GNEPOI* POI = dynamic_cast<GNEPOI*>(it.second);
+        if (gSelected.isSelected(GLO_CROSSING, POI->getGlID()) == false) {
+            unselectedIDs.insert(POI->getGlID());
+        }
+    }
     // invert selection cleaning current selection and selecting set "unselectedIDs"
     myViewNet->getUndoList()->p_begin("invert selection");
     myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), gSelected.getSelected(), true), true);
@@ -337,12 +383,29 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
 long
 GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     myCurrentTag = SUMO_TAG_NOTHING;
-
-    for (auto i = GNEAttributeCarrier::allowedNetElementsTags().begin(); (i != GNEAttributeCarrier::allowedNetElementsTags().end()) && (myCurrentTag == SUMO_TAG_NOTHING); i++) {
-        if (toString(*i) == myMatchTagComboBox->getText().text()) {
-            myCurrentTag = *i;
+    // find current element tag
+    if(mySetComboBox->getText() == "Net Element") {
+        for (auto i : GNEAttributeCarrier::allowedNetElementsTags()) {
+            if (toString(i) == myMatchTagComboBox->getText().text()) {
+                myCurrentTag = i;
+            }
         }
+    } else if(mySetComboBox->getText() == "Additional") {
+        for (auto i : GNEAttributeCarrier::allowedAdditionalTags()) {
+            if (toString(i) == myMatchTagComboBox->getText().text()) {
+                myCurrentTag = i;
+            }
+        }
+    } else if(mySetComboBox->getText() == "Shape") {
+        for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
+            if (toString(i) == myMatchTagComboBox->getText().text()) {
+                myCurrentTag = i;
+            }
+        }
+    } else {
+        throw ProcessError("Unkown set");
     }
+
     // check that typed by user value is correct
     if (myCurrentTag != SUMO_TAG_NOTHING) {
         // set color and enable items
@@ -372,9 +435,9 @@ long
 GNESelectorFrame::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
     const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = GNEAttributeCarrier::allowedAttributes(myCurrentTag);
     myCurrentAttribute = SUMO_ATTR_NOTHING;
-    for (std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator i = attrs.begin(); (i != attrs.end()) && (myCurrentAttribute == SUMO_ATTR_NOTHING); i++) {
-        if (toString(i->first) == myMatchAttrComboBox->getText().text()) {
-            myCurrentAttribute = i->first;
+    for (auto i : attrs) {
+        if (toString(i.first) == myMatchAttrComboBox->getText().text()) {
+            myCurrentAttribute = i.first;
         }
     }
     if (myCurrentAttribute != SUMO_ATTR_NOTHING) {
@@ -510,7 +573,9 @@ GNESelectorFrame::getStats() const {
                       toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes, " +
                       toString(gSelected.getSelected(GLO_CONNECTION).size()) + " connections, " +
                       toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals, " +
-                      toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings");
+                      toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings, " +
+                      toString(gSelected.getSelected(GLO_POLYGON).size()) + " Polygons, " +
+                      toString(gSelected.getSelected(GLO_POI).size()) + " POIs");
     }
 
     return "Selection:\n" +
@@ -519,7 +584,9 @@ GNESelectorFrame::getStats() const {
            toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes\n" +
            toString(gSelected.getSelected(GLO_CONNECTION).size()) + " Connections\n" +
            toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals\n" +
-           toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings";
+           toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings\n" +
+           toString(gSelected.getSelected(GLO_POLYGON).size()) + " Polygons\n" +
+           toString(gSelected.getSelected(GLO_POI).size()) + " POIs";
 }
 
 
@@ -548,23 +615,21 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdgesEnabled, S
     std::set<GUIGlID> selected;
     std::set<GUIGlID> deselected;
     if (myViewNet->autoSelectNodes()) {
-        for (std::vector<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-            GUIGlID id = *it;
-            if (id > 0) { // net object?
-                object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        for (auto it : ids) {
+            if (it > 0) { // net object?
+                object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(it);
                 if ((object->getType() == GLO_LANE) && selectEdgesEnabled) {
                     const GNEEdge& edge = (static_cast<GNELane*>(object))->getParentEdge();
                     idsSet.insert(edge.getGNEJunctionSource()->getGlID());
                     idsSet.insert(edge.getGNEJunctionDestiny()->getGlID());
                 }
-                GUIGlObjectStorage::gIDStorage.unblockObject(id);
+                GUIGlObjectStorage::gIDStorage.unblockObject(it);
             }
         }
     }
-    for (std::set<GUIGlID>::const_iterator it = idsSet.begin(); it != idsSet.end(); it++) {
-        GUIGlID id = *it;
-        if (id > 0) { // net object?
-            object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    for (auto it : idsSet) {
+        if (it > 0) { // net object?
+            object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(it);
             if (object == 0) {
                 // in debug mode we would like to know about this.
                 // It might be caused by a corrupted gl-name stack.
@@ -573,24 +638,24 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdgesEnabled, S
                 continue;
             }
             type = object->getType();
-            GUIGlObjectStorage::gIDStorage.unblockObject(id);
+            GUIGlObjectStorage::gIDStorage.unblockObject(it);
             if ((type == GLO_LANE) && selectEdgesEnabled) {
                 // @note edge may be selected/deselected multiple times but this shouldn't
                 // hurt unless we add SET_TOGGLE
-                id = (static_cast<GNELane*>(object))->getParentEdge().getGlID();
+                it = (static_cast<GNELane*>(object))->getParentEdge().getGlID();
             }
             // doing the switch outside the loop requires functional techniques. this was deemed to ugly
             switch (setOperation) {
                 case GNESelectorFrame::SET_ADD:
                 case GNESelectorFrame::SET_REPLACE:
-                    selected.insert(id);
+                    selected.insert(it);
                     break;
                 case GNESelectorFrame::SET_SUB:
-                    deselected.insert(id);
+                    deselected.insert(it);
                     break;
                 case GNESelectorFrame::SET_RESTRICT:
-                    if (previousSelection.count(id)) {
-                        selected.insert(id);
+                    if (previousSelection.count(it)) {
+                        selected.insert(it);
                     }
                     break;
                 default:
@@ -611,16 +676,15 @@ GNESelectorFrame::getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, doub
     std::vector<GUIGlID> result;
     const std::set<GUIGlID> allIDs = myViewNet->getNet()->getGlIDs();
     const bool numerical = GNEAttributeCarrier::isNumerical(tag, attr);
-    for (std::set<GUIGlID>::const_iterator it = allIDs.begin(); it != allIDs.end(); it++) {
-        GUIGlID id = *it;
-        object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    for (auto it : allIDs) {
+        object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(it);
         if (!object) {
-            throw ProcessError("Unkown object passed to GNESelectorFrame::getMatches (id=" + toString(id) + ").");
+            throw ProcessError("Unkown object passed to GNESelectorFrame::getMatches (id=" + toString(it) + ").");
         }
         ac = dynamic_cast<GNEAttributeCarrier*>(object);
         if (ac && ac->getTag() == tag) { // not all objects need to be attribute carriers
             if (expr == "") {
-                result.push_back(id);
+                result.push_back(it);
             } else if (numerical) {
                 double acVal;
                 std::istringstream buf(ac->getAttribute(attr));
@@ -628,17 +692,17 @@ GNESelectorFrame::getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, doub
                 switch (compOp) {
                     case '<':
                         if (acVal < val) {
-                            result.push_back(id);
+                            result.push_back(it);
                         }
                         break;
                     case '>':
                         if (acVal > val) {
-                            result.push_back(id);
+                            result.push_back(it);
                         }
                         break;
                     case '=':
                         if (acVal == val) {
-                            result.push_back(id);
+                            result.push_back(it);
                         }
                         break;
                 }
@@ -648,28 +712,28 @@ GNESelectorFrame::getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, doub
                 switch (compOp) {
                     case '@':
                         if (acVal.find(expr) != std::string::npos) {
-                            result.push_back(id);
+                            result.push_back(it);
                         }
                         break;
                     case '!':
                         if (acVal.find(expr) == std::string::npos) {
-                            result.push_back(id);
+                            result.push_back(it);
                         }
                         break;
                     case '=':
                         if (acVal == expr) {
-                            result.push_back(id);
+                            result.push_back(it);
                         }
                         break;
                     case '^':
                         if (acVal != expr) {
-                            result.push_back(id);
+                            result.push_back(it);
                         }
                         break;
                 }
             }
         }
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        GUIGlObjectStorage::gIDStorage.unblockObject(it);
     }
     return result;
 }
