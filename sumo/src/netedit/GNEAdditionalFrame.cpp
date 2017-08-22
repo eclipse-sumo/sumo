@@ -1193,7 +1193,7 @@ GNEAdditionalFrame::NeteditAttributes::NeteditAttributes(FXComposite* parent) :
     myLengthTextField->setText("10");
     // Create Frame for block movement label and checkBox (By default disabled)
     FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myBlockLabel = new FXLabel(blockMovement, "block movement", 0, GUIDesignLabelAttribute);
+    myBlockLabel = new FXLabel(blockMovement, "block move", 0, GUIDesignLabelAttribute);
     myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_BLOCKING_MOVEMENT, GUIDesignCheckButtonAttribute);
     myBlockMovementCheckButton->setCheck(false);
     // Create help button
