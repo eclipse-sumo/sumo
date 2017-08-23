@@ -201,6 +201,12 @@ private:
     /// @brief temporal shape used for moving when shape is blocked
     PositionVector myMovingOriginalShape;
 
+    /// @brief shape used for improve performance of drawing boundary blocked shape
+    PositionVector myDrawingBlockedShape;
+
+    /// @brief function used to calculate boundary blocked shape
+    void updateBoundaryBlockedShape(double distanceBetweenPoints);
+
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
     

@@ -71,12 +71,12 @@ GNEShape::isShapeBlocked() const {
 
 
 void
-GNEShape::drawLockIcon(const Position &pos, double size) const {
+GNEShape::drawLockIcon(const Position &pos, double layer, double size) const {
     if (myNet->getViewNet()->showLockIcon()) {
         // Start pushing matrix
         glPushMatrix();
         // Traslate to middle of shape
-        glTranslated(pos.x(), pos.y(), parse<double>(getAttribute(SUMO_ATTR_LAYER)) + 0.1);
+        glTranslated(pos.x(), pos.y(), layer + 0.1);
         // Rotate 180 degrees
         glRotated(180, 0, 0, 1);
         // Set draw color

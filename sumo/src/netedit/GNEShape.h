@@ -82,7 +82,7 @@ public:
     bool isShapeBlocked() const;
 
     /// @brief draw lock icon
-    void drawLockIcon(const Position &pos, double size = 0.5) const;
+    void drawLockIcon(const Position &pos, double layer, double size = 0.5) const;
 
     /// @name Functions related with geometry of element
     /// @{

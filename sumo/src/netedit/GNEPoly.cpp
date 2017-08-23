@@ -72,6 +72,8 @@ GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, cons
     myClosedShape(shape.front() == shape.back()) {
     // check that number of points is correct and area isn't empty
     assert((shape.size() >= 2) && (shape.area() > 0));
+    // update boundary blocked shape
+    updateBoundaryBlockedShape(1);
 }
 
 
@@ -116,6 +118,8 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
 void 
 GNEPoly::moveGeometry(const Position &offSet) {
     if(!myBlockMovement) {
+        // clear myDrawingBlockedShape
+        myDrawingBlockedShape.clear();
         // if this ist the first movement, old shape has to be saved
         if(myMovingOriginalShape.size() == 0) {
             myMovingOriginalShape = myShape;
@@ -200,38 +204,49 @@ GNEPoly::getCenteringBoundary() const {
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     const double hintSize = 0.8;
-    // draw polygon
+    // first draw polygon
     GUIPolygon::drawGL(s);
     // draw geometry hints if is not too small
     if (s.scale * hintSize > 1.) {
         // set colors
-        RGBColor current = GLHelper::getColor();
-        RGBColor inverted = current.invertedColor();
-        RGBColor darker = current.changedBrightness(-32);
-        GLHelper::setColor(darker);
+        RGBColor invertedColor = GLHelper::getColor().invertedColor();
+        RGBColor darkerColor = GLHelper::getColor().changedBrightness(-32);
         // push matrix
         glPushName(getGlID());
+        // draw block boundary line if shape is blocked
+        if(myBlockShape) {
+            glPushMatrix();
+            glTranslated(0, 0, GLO_POLYGON + 0.01);
+            glLineWidth(2);
+            GLHelper::drawIntercalatedLine(myDrawingBlockedShape, RGBColor::BLACK, RGBColor::YELLOW);
+            glPopMatrix();
+        }
         // draw all points of shape
         for (auto i : myShape) {
             glPushMatrix();
-            glTranslated(i.x(), i.y(), GLO_POLYGON + 0.01);
+            glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
+            GLHelper::setColor(darkerColor);
             GLHelper:: drawFilledCircle(hintSize, 32);
             glPopMatrix();
+            if(i == myShape.front()) {
+                // draw a "s" over first point
+                glPushMatrix();
+                glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
+                GLHelper::drawText("S", Position(), .1, 1.6, invertedColor);
+                glPopMatrix();
+            } else if ((i == myShape.back()) && (myClosedShape == false)) {
+                // draw a "e" over last point if polygon isn't closed
+                glPushMatrix();
+                glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
+                GLHelper::drawText("E", Position(), .1, 1.6, invertedColor);
+                glPopMatrix();
+            } else {
+                // draw lock icon if movement of polygon is blocked
+                drawLockIcon(i, GLO_POLYGON, 0.25);
+            }
         }
-        // draw a "s" over first point
-        glPushMatrix();
-        glTranslated(myShape.front().x(), myShape.front().y(), GLO_POLYGON + 0.01);
-        GLHelper::drawText("S", Position(), .1, 1.6, inverted);
-        glPopMatrix();
-        // draw a "e" over last point if polygon ins't closed
-        if(!myClosedShape) {
-            glPushMatrix();
-            glTranslated(myShape.back().x(), myShape.back().y(), GLO_POLYGON + 0.01);
-            GLHelper::drawText("E", Position(), .1, 1.6, inverted);
-            glPopMatrix();
-            // pop name
-            glPopName();
-        }
+        // pop name
+        glPopName();
     }
 }
 
@@ -394,6 +409,27 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
 // private
 // ===========================================================================
 
+void 
+GNEPoly::updateBoundaryBlockedShape(double distanceBetweenPoints) {
+    assert (distanceBetweenPoints > 0);
+    // clear myDrawingBlockedShape
+    myDrawingBlockedShape.clear();
+    double currentPosition = distanceBetweenPoints;
+    // add first position
+    myDrawingBlockedShape.push_back(myShape.front());
+    // calculate rest of positions
+    while (currentPosition < myShape.length()) {
+        if(currentPosition <= myShape.length()) {
+            myDrawingBlockedShape.push_back(myShape.positionAtOffset(currentPosition));
+        } else {
+            myDrawingBlockedShape.push_back(myShape.back());
+        }
+        // update current position
+        currentPosition += distanceBetweenPoints;
+    }
+}
+
+
 void
 GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
@@ -409,7 +445,9 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             myShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
             // Check if new shape is closed
             myClosedShape = myShape.begin() == myShape.end();
-            // refresh polygon in net
+            // update boundary blocked shape
+            updateBoundaryBlockedShape(1);
+            // refresh polygon in net to avoid grabbing problems
             myNet->refreshPolygon(this);
             break;
         }
@@ -444,6 +482,9 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 myShape.pop_back();
             }
+            // update boundary blocked shape
+            updateBoundaryBlockedShape(1);
+            // refresh polygon in net to avoid grabbing problems
             myNet->refreshPolygon(this);
             break;
         default:

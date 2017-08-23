@@ -135,7 +135,7 @@ void
 GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     GUIPointOfInterest::drawGL(s);
     // draw lock icon
-    drawLockIcon(*this);
+    drawLockIcon(*this, GLO_POI);
 }
 
 
