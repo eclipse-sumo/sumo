@@ -1799,7 +1799,7 @@ GNENet::generatePolyID() const {
 
 
 GNEPoly* 
-GNENet::retrievePolygon(const std::string & id, bool failHard) {
+GNENet::retrievePolygon(const std::string & id, bool failHard) const {
     if (myPolygons.get(id) != 0) {
         return reinterpret_cast<GNEPoly*>(myPolygons.get(id));
     } else if (failHard) {
@@ -1888,7 +1888,7 @@ GNENet::generatePOIID() const {
 
 
 GNEPOI* 
-GNENet::retrievePOI(const std::string & id, bool failHard) {
+GNENet::retrievePOI(const std::string & id, bool failHard) const {
     if (myPOIs.get(id) != 0) {
         return reinterpret_cast<GNEPOI*>(myPOIs.get(id));
     } else if (failHard) {
@@ -1923,6 +1923,18 @@ void GNENet::saveShapes(const std::string & filename) {
         dynamic_cast<GNEPOI*>(i->second)->writeShape(device);
     }
     device.close();
+}
+
+
+bool 
+GNENet::isShapeSelected(SumoXMLTag tag, const std::string & ID) const {
+    if(tag == SUMO_TAG_POLY) {
+        return gSelected.isSelected(GLO_POLYGON, retrievePolygon(ID)->getGlID());
+    } else if(tag == SUMO_TAG_POI) {
+        return gSelected.isSelected(GLO_POI, retrievePOI(ID)->getGlID());
+    } else{
+        throw ProcessError("Invalid Shape");
+    }
 }
 
 // ===========================================================================

@@ -81,6 +81,9 @@ public:
     /// @brief return true if shape is blocked
     bool isShapeBlocked() const;
 
+    /// @brief draw lock icon
+    void drawLockIcon(const Position &pos, double size = 0.5) const;
+
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList

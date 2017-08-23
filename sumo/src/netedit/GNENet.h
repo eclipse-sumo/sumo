@@ -576,7 +576,7 @@ public:
     * @param[in] failHard Whether attempts to retrieve a nonexisting polygon should result in an exception
     * @throws UnknownElement
     */
-    GNEPoly* retrievePolygon(const std::string& id, bool failHard = true);
+    GNEPoly* retrievePolygon(const std::string& id, bool failHard = true) const;
 
     /// @brief change Polygon ID
     void changePolygonID(GNEPoly* poly, const std::string &OldID);
@@ -620,7 +620,7 @@ public:
     * @param[in] failHard Whether attempts to retrieve a nonexisting POI should result in an exception
     * @throws UnknownElement
     */
-    GNEPOI* retrievePOI(const std::string& id, bool failHard = true);
+    GNEPOI* retrievePOI(const std::string& id, bool failHard = true) const;
 
     /// @brief change POI ID
     void changePOIID(GNEPOI* POI, const std::string &OldID);
@@ -629,6 +629,9 @@ public:
     * @param[in] filename name of the file in wich save shapes
     */
     void saveShapes(const std::string &filename);
+
+    // @brief Check if shape item is selected
+    bool isShapeSelected(SumoXMLTag tag, const std::string &ID) const;
 
 protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)

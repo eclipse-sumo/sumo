@@ -82,18 +82,22 @@ void GNEPOI::writeShape(OutputDevice &device) {
 
 void 
 GNEPOI::moveGeometry(const Position &newPosition) {
-    set(newPosition);
-    myNet->refreshElement(this);
+    if(!myBlockMovement) {
+        set(newPosition);
+        myNet->refreshElement(this);
+    }
 }
 
 
 void 
 GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-    undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(getPositionInView()), true, toString(oldPos)));
-    undoList->p_end();
-    // Refresh element
-    myNet->refreshPOI(this);
+    if(!myBlockMovement) {
+        undoList->p_begin("position of " + toString(getTag()));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(getPositionInView()), true, toString(oldPos)));
+        undoList->p_end();
+        // Refresh element
+        myNet->refreshPOI(this);
+    }
 }
 
 
@@ -130,6 +134,8 @@ GNEPOI::getCenteringBoundary() const {
 void 
 GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     GUIPointOfInterest::drawGL(s);
+    // draw lock icon
+    drawLockIcon(*this);
 }
 
 
@@ -150,7 +156,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             if(myLane) {
                 return toString(myPositionOverLane);
             } else {
-                return toString(Position(x(), y()));
+                return toString(*this);
             }
         case SUMO_ATTR_FILL:
             return myImgFile;
@@ -297,6 +303,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");
     }
+    // update view after every change
+    myNet->getViewNet()->update();
 }
 
 /****************************************************************************/

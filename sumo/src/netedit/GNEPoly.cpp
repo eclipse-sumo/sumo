@@ -62,10 +62,6 @@
 
 
 // ===========================================================================
-// static members
-// ===========================================================================
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
@@ -89,65 +85,73 @@ void GNEPoly::writeShape(OutputDevice &device) {
 
 Position
 GNEPoly::changeShapeGeometry(const Position& oldPos, const Position& newPos, bool relative) {
-    PositionVector geom = myShape;
-    bool changed = GNEEdge::changeGeometry(geom, getMicrosimID(), oldPos, newPos, relative, true);
-    if (changed) {
-        myShape = geom;
-        myNet->refreshElement(this);
-        return newPos;
-    } else {
-        return oldPos;
+    if(!myBlockMovement) {
+        PositionVector geom = myShape;
+        bool changed = GNEEdge::changeGeometry(geom, getMicrosimID(), oldPos, newPos, relative, true);
+        if (changed) {
+            myShape = geom;
+            myNet->refreshElement(this);
+            return newPos;
+        } else {
+            return oldPos;
+        }
     }
 }
 
 
 void 
 GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList) {
-    // restore original shape (needed for commit change)
-    PositionVector shapeToCommit = myShape;
-    myShape = oldShape;
-    // commit new shape
-    undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
-    undoList->p_end();
+    if(!myBlockMovement) {
+        // restore original shape (needed for commit change)
+        PositionVector shapeToCommit = myShape;
+        myShape = oldShape;
+        // commit new shape
+        undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
+        undoList->p_end();
+    }
 }
 
 
 void 
 GNEPoly::moveGeometry(const Position &offSet) {
-    // if this ist the first movement, old shape has to be saved
-    if(myMovingOriginalShape.size() == 0) {
-        myMovingOriginalShape = myShape;
-    }
-    // restore original shape
-    myShape = myMovingOriginalShape;
+    if(!myBlockMovement) {
+        // if this ist the first movement, old shape has to be saved
+        if(myMovingOriginalShape.size() == 0) {
+            myMovingOriginalShape = myShape;
+        }
+        // restore original shape
+        myShape = myMovingOriginalShape;
 
-    // change all points of the polygon shape using newPosition as offset
-    for (auto i = myShape.begin(); i != myShape.end(); i++) {
-        i->setx(i->x() - offSet.x());
-        i->sety(i->y() - offSet.y());
+        // change all points of the polygon shape using newPosition as offset
+        for (auto i = myShape.begin(); i != myShape.end(); i++) {
+            i->setx(i->x() - offSet.x());
+            i->sety(i->y() - offSet.y());
+        }
+        // refresh element
+        myNet->refreshPolygon(this);
     }
-    // refresh element
-    myNet->refreshPolygon(this);
 }
 
 
 void 
 GNEPoly::commitGeometryMoving(const Position& offSet, GNEUndoList* undoList) {
-    // restore original shape
-    myShape = myMovingOriginalShape;
-    // create a new shape and move it
-    PositionVector shapeToCommit = myMovingOriginalShape;
-    for (auto i = shapeToCommit.begin(); i != shapeToCommit.end(); i++) {
-        i->setx(i->x() - offSet.x());
-        i->sety(i->y() - offSet.y());
+    if(!myBlockMovement) {
+        // restore original shape
+        myShape = myMovingOriginalShape;
+        // create a new shape and move it
+        PositionVector shapeToCommit = myMovingOriginalShape;
+        for (auto i = shapeToCommit.begin(); i != shapeToCommit.end(); i++) {
+            i->setx(i->x() - offSet.x());
+            i->sety(i->y() - offSet.y());
+        }
+        // set it the new shape
+        undoList->p_begin("moving entire " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
+        undoList->p_end();
+        // clear moving original shape
+        myMovingOriginalShape.clear();
     }
-    // set it the new shape
-    undoList->p_begin("moving entire " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
-    undoList->p_end();
-    // clear moving original shape
-    myMovingOriginalShape.clear();
 }
 
 
@@ -445,6 +449,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // update view after every change
+    myNet->getViewNet()->update();
 }
 
 
