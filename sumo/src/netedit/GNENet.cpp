@@ -1036,69 +1036,80 @@ GNENet::getGlIDs(GUIGlObjectType type) {
             knownTypes.insert(GLO_ADDITIONAL);
             knownTypes.insert(GLO_CONNECTION);
             knownTypes.insert(GLO_CROSSING);
-            for (std::set<GUIGlObjectType>::const_iterator it = knownTypes.begin(); it != knownTypes.end(); it++) {
-                const std::set<GUIGlID> tmp = getGlIDs(*it);
+            knownTypes.insert(GLO_POLYGON);
+            knownTypes.insert(GLO_POI);
+            // obtain all GLIDS calling getGlIDs(...) recursively
+            for (auto it : knownTypes) {
+                const std::set<GUIGlID> tmp = getGlIDs(it);
                 result.insert(tmp.begin(), tmp.end());
             }
             break;
         }
         case GLO_JUNCTION:
-            for (GNEJunctions::const_iterator it = myJunctions.begin(); it != myJunctions.end(); it++) {
-                result.insert(it->second->getGlID());
+            for (auto it : myJunctions) {
+                result.insert(it.second->getGlID());
             }
             break;
         case GLO_EDGE:
-            for (GNEEdges::const_iterator it = myEdges.begin(); it != myEdges.end(); it++) {
-                result.insert(it->second->getGlID());
+            for (auto it : myEdges) {
+                result.insert(it.second->getGlID());
             }
             break;
         case GLO_LANE: {
-            for (GNEEdges::const_iterator it = myEdges.begin(); it != myEdges.end(); it++) {
-                const std::set<GUIGlID> laneIDs = it->second->getLaneGlIDs();
-                for (std::set<GUIGlID>::const_iterator lid_it = laneIDs.begin(); lid_it != laneIDs.end(); lid_it++) {
-                    result.insert(*lid_it);
+            for (auto i : myEdges) {
+                // iterate over every edge's lane
+                for (auto j : i.second->getLanes()) {
+                    result.insert(j->getGlID());
                 }
             }
             break;
         }
         case GLO_TLLOGIC: {
             // return all junctions which have a traffic light (we do not have a GUIGlObject for each traffic light)
-            for (GNEJunctions::const_iterator it = myJunctions.begin(); it != myJunctions.end(); it++) {
-                if (it->second->getNBNode()->isTLControlled()) {
-                    result.insert(it->second->getGlID());
+            for (auto it : myJunctions) {
+                if (it.second->getNBNode()->isTLControlled()) {
+                    result.insert(it.second->getGlID());
                 }
             }
             break;
         }
         case GLO_ADDITIONAL: {
             // Iterate over all additionals of net
-            for (GNEAdditionals::iterator it = myAdditionals.begin(); it != myAdditionals.end(); it++) {
+            for (auto it : myAdditionals) {
                 // Insert every additional in result
-                result.insert(it->second->getGlID());
+                result.insert(it.second->getGlID());
             }
             break;
         }
         case GLO_CONNECTION: {
-            for (GNEEdges::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-                // Get connections of edge
-                const std::vector<GNEConnection*>& connections = i->second->getGNEConnections();
-                // Iterate over connections
-                for (std::vector<GNEConnection*>::const_iterator j = connections.begin(); j != connections.end(); j++) {
+            for (auto i : myEdges) {
+                // Iterate over edge's connections 
+                for (auto j : i.second->getGNEConnections()) {
                     // Insert every connection of edge in result
-                    result.insert((*j)->getGlID());
+                    result.insert(j->getGlID());
                 }
             }
             break;
         }
         case GLO_CROSSING: {
-            for (GNEJunctions::const_iterator i = myJunctions.begin(); i != myJunctions.end(); i++) {
-                // Get crossings of junction
-                const std::vector<GNECrossing*>& crossings = i->second->getGNECrossings();
-                // Iterate over crossings
-                for (std::vector<GNECrossing*>::const_iterator j = crossings.begin(); j != crossings.end(); j++) {
+            for (auto i : myJunctions) {
+                // Iterate over junction's crossings
+                for (auto j : i.second->getGNECrossings()) {
                     // Insert every crossing of junction in result
-                    result.insert((*j)->getGlID());
+                    result.insert(j->getGlID());
                 }
+            }
+            break;
+        }
+        case GLO_POLYGON: {
+            for (auto i : myPolygons.getMyMap()) {
+                result.insert(dynamic_cast<GNEPoly*>(i.second)->getGlID());
+            }
+            break;
+        }
+        case GLO_POI: {
+            for (auto i : myPOIs.getMyMap()) {
+                result.insert(dynamic_cast<GNEPOI*>(i.second)->getGlID());
             }
             break;
         }
