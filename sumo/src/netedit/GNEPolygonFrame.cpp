@@ -163,10 +163,6 @@ GNEPolygonFrame::processClick(const Position &clickedPosition) {
         // obtain block movement value
         valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockMovementEnabled());
 
-        // obtain block shape value
-        /** NOTE: CHECK IF SHAPE OF POI MUST BE BLOCKED **/
-        valuesOfElement[GNE_ATTR_BLOCK_SHAPE] = toString(myEditorParameters->isBlockShapeEnabled());
-
         // return ADDSHAPE_SUCCESS if POI was sucesfully created
         if(addPOI(valuesOfElement)) {
             return ADDSHAPE_SUCCESS;
@@ -315,10 +311,9 @@ GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string> &POIValues) {
     double width = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_WIDTH));
     double height = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_HEIGHT));
     bool blockMovement = GNEAttributeCarrier::parse<bool>(POIValues.at(GNE_ATTR_BLOCK_MOVEMENT));
-    bool blockShape = GNEAttributeCarrier::parse<bool>(POIValues.at(GNE_ATTR_BLOCK_SHAPE));
 
     // create new POI
-    return myViewNet->getNet()->addPOI(id, type, color, layer, angle, imgFile, pos, width, height, blockMovement, blockShape);
+    return myViewNet->getNet()->addPOI(id, type, color, layer, angle, imgFile, pos, width, height, blockMovement);
 }
 
 // ---------------------------------------------------------------------------

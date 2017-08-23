@@ -597,7 +597,6 @@ GNEAttributeCarrier::canBlockShape(SumoXMLTag tag) {
     // define on first access
     if (myBlockShapeTags.empty()) {
         myBlockShapeTags.push_back(SUMO_TAG_POLY);
-        myBlockShapeTags.push_back(SUMO_TAG_POI);
     }
     return std::find(myBlockShapeTags.begin(), myBlockShapeTags.end(), tag) != myBlockShapeTags.end();
 }

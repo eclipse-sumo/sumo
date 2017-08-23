@@ -64,9 +64,9 @@
 // ===========================================================================
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, 
                double layer, double angle, const std::string& imgFile, const Position& pos, 
-               double width, double height, bool movementBlocked, bool shapeBlocked) :
+               double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height),
-    GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI, movementBlocked, shapeBlocked),
+    GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI, movementBlocked, false),
     myLane(NULL),
     myPositionOverLane(0) {
 }
@@ -166,6 +166,8 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             return toString(getHeight());
         case SUMO_ATTR_ANGLE:
             return toString(getNaviDegree());
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return toString(myBlockMovement);
         default:
             throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");
     }
@@ -189,6 +191,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_HEIGHT:
         case SUMO_ATTR_ANGLE:
+        case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -231,6 +234,8 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value ) {
             return canParse<double>(value);
         case SUMO_ATTR_ANGLE:
             return canParse<double>(value);
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -285,6 +290,9 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ANGLE:
             setNaviDegree(parse<double>(value));
+            break;
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            myBlockMovement = parse<bool>(value);
             break;
         default:
             throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");

@@ -1824,11 +1824,11 @@ GNENet::changePolygonID(GNEPoly* poly, const std::string &OldID) {
 
 bool 
 GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
-    const std::string& imgFile, const Position& pos, double width, double height, bool movementBlocked, bool shapeBlocked) {
+    const std::string& imgFile, const Position& pos, double width, double height, bool movementBlocked) {
     // check if ID is duplicated
     if(myPOIs.get(id) == NULL) {
         // create poly
-        GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, pos, width, height, movementBlocked, shapeBlocked);
+        GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, pos, width, height, movementBlocked);
         myPOIs.add(poi->getID(), poi);
         // insert it in the net using GNEChange_Poly
         myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));

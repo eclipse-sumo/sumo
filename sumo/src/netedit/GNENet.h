@@ -592,12 +592,10 @@ public:
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
      * @param[in] movementBlocked if movement of POI is blocked
-     * @param[in] shapeBlocked if shape of POI is blocked
      * @return whether the poi could be added
      */
-    bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, 
-                double angle, const std::string& imgFile, const Position& pos, double width, double height, 
-                bool movementBlocked = false, bool shapeBlocked = false);
+    bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
+                const std::string& imgFile, const Position& pos, double width, double height, bool movementBlocked);
 
     /** @brief Removes a PoI from the container
     * @param[in] id The id of the PoI
