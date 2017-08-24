@@ -75,20 +75,18 @@ public:
     /// @brief Destructor
     ~GNEPoly();
 
-    /**@brief writte shape element into a xml file
-    * @param[in] device device in which write parameters of additional element
+    /**@brief change position of a vertex of shape without commiting change
+    * @param[in] index index of Vertex shape
+    * @param[in] newPos The new position of vertex
+    * @return index of vertex (in some cases index can change
     */
-    void writeShape(OutputDevice& device);
+    int moveVertexShape(int index, const Position& newPos);
 
-    /**@brief change the polygon geometry
-    * It is up to the Polygon to decide whether an new geometry node should be
-    * generated or an existing node should be moved
-    * @param[in] oldPos The origin of the mouse movement
-    * @param[in] newPos The destination of the mouse movenent
-    * @param[in] relative Whether newPos is absolute or relative
-    * @return newPos if something was moved, oldPos if nothing was moved
+    /**@brief move entire shape without commiting change
+    * @param[in] oldShape the old shape of polygon before moving
+    * @param[in] offset the offset of movement
     */
-    Position changeShapeGeometry(const Position& oldPos, const Position& newPos, bool relative = false);
+    void moveEntireShape(const PositionVector& oldShape, const Position& offset);
 
     /**@brief commit geometry changes in the attributes of an element after use of changeShapeGeometry(...)
     * @param[in] oldShape the old shape of polygon
@@ -96,19 +94,12 @@ public:
     */
     void commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList);
 
-    /// @name Functions related with geometry of element
+    /// @name inherited from GNEShape
     /// @{
-    /**@brief change the position of the element geometry without saving in undoList
-    * @param[in] newPosition new offset of geometry
-    * @note should't be called in drawGL(...) functions to avoid smoothness issues
+    /**@brief writte shape element into a xml file
+    * @param[in] device device in which write parameters of additional element
     */
-    void moveGeometry(const Position &offSet);
-
-    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-    * @param[in] offSet the movement offset
-    * @param[in] undoList The undoList on which to register changes
-    */
-    void commitGeometryMoving(const Position& offSet, GNEUndoList* undoList);
+    void writeShape(OutputDevice& device);
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
@@ -172,11 +163,11 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
-    /**@brief check if given position correspond to a vertex of a polygon
-     * @param pos position to check
-     * @return position of position vector, Invalid position in other case
+    /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
+     * @param pos position of new/existent vertex 
+     * @return index of position vector
      */
-    Position isVertex(const Position &pos) const;
+    int getVertexIndex(const Position &pos);
 
     /// @brief check if polygon is closed
     bool isPolygonClosed() const;
@@ -198,9 +189,6 @@ protected:
     bool myClosedShape;
 
 private:
-    /// @brief temporal shape used for moving when shape is blocked
-    PositionVector myMovingOriginalShape;
-
     /// @brief shape used for improve performance of drawing boundary blocked shape
     PositionVector myDrawingBlockedShape;
 

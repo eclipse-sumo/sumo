@@ -80,23 +80,39 @@ GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, cons
 GNEPoly::~GNEPoly() {}
 
 
-void GNEPoly::writeShape(OutputDevice &device) {
-    writeXML(device);
+int 
+GNEPoly::moveVertexShape(int index, const Position& newPos) {
+    // only move shape if block movement block shape are disabled
+    if(!myBlockMovement && !myBlockShape) {
+        if(index < myShape.size()) {
+            // change position of vertex
+            myShape[index] = newPos;
+            return index;
+        } else {
+            throw InvalidArgument("Index greather than Shape size");
+        }
+    } else {
+        return index;
+    }
 }
 
 
-Position
-GNEPoly::changeShapeGeometry(const Position& oldPos, const Position& newPos, bool relative) {
-    if(!myBlockMovement) {
-        PositionVector geom = myShape;
-        bool changed = GNEEdge::changeGeometry(geom, getMicrosimID(), oldPos, newPos, relative, true);
-        if (changed) {
-            myShape = geom;
-            myNet->refreshElement(this);
-            return newPos;
-        } else {
-            return oldPos;
+void 
+GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset) {
+    // only move shape if block movement is disabled and block shape is enabled
+    if(!myBlockMovement && myBlockShape) {
+        // clear myDrawingBlockedShape
+        myDrawingBlockedShape.clear();
+        // restore original shape
+        myShape = oldShape;
+
+        // change all points of the shape shape using noffset
+        for (auto i = myShape.begin(); i != myShape.end(); i++) {
+            i->setx(i->x() + offset.x());
+            i->sety(i->y() + offset.y());
         }
+        // refresh element
+        myNet->refreshPolygon(this);
     }
 }
 
@@ -115,47 +131,8 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
 }
 
 
-void 
-GNEPoly::moveGeometry(const Position &offSet) {
-    if(!myBlockMovement) {
-        // clear myDrawingBlockedShape
-        myDrawingBlockedShape.clear();
-        // if this ist the first movement, old shape has to be saved
-        if(myMovingOriginalShape.size() == 0) {
-            myMovingOriginalShape = myShape;
-        }
-        // restore original shape
-        myShape = myMovingOriginalShape;
-
-        // change all points of the polygon shape using newPosition as offset
-        for (auto i = myShape.begin(); i != myShape.end(); i++) {
-            i->setx(i->x() - offSet.x());
-            i->sety(i->y() - offSet.y());
-        }
-        // refresh element
-        myNet->refreshPolygon(this);
-    }
-}
-
-
-void 
-GNEPoly::commitGeometryMoving(const Position& offSet, GNEUndoList* undoList) {
-    if(!myBlockMovement) {
-        // restore original shape
-        myShape = myMovingOriginalShape;
-        // create a new shape and move it
-        PositionVector shapeToCommit = myMovingOriginalShape;
-        for (auto i = shapeToCommit.begin(); i != shapeToCommit.end(); i++) {
-            i->setx(i->x() - offSet.x());
-            i->sety(i->y() - offSet.y());
-        }
-        // set it the new shape
-        undoList->p_begin("moving entire " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
-        undoList->p_end();
-        // clear moving original shape
-        myMovingOriginalShape.clear();
-    }
+void GNEPoly::writeShape(OutputDevice &device) {
+    writeXML(device);
 }
 
 
@@ -213,14 +190,18 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         RGBColor darkerColor = GLHelper::getColor().changedBrightness(-32);
         // push matrix
         glPushName(getGlID());
-        // draw block boundary line if shape is blocked
+        // draw a boundary for moving, or a block boundary line if shape is blocked
+        glPushMatrix();
+        glTranslated(0, 0, GLO_POLYGON + 0.01);
         if(myBlockShape) {
-            glPushMatrix();
-            glTranslated(0, 0, GLO_POLYGON + 0.01);
             glLineWidth(2);
             GLHelper::drawIntercalatedLine(myDrawingBlockedShape, RGBColor::BLACK, RGBColor::YELLOW);
-            glPopMatrix();
+        } else {
+            glLineWidth(10);
+            GLHelper::setColor(darkerColor);
+            GLHelper::drawLine(myShape);
         }
+        glPopMatrix();
         // draw all points of shape
         for (auto i : myShape) {
             glPushMatrix();
@@ -245,15 +226,36 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 drawLockIcon(i, GLO_POLYGON, 0.25);
             }
         }
+
+        if(myShape.distance2D(myNet->getViewNet()->getPositionInformation()) < hintSize) {
+            // push matrix
+            glPushMatrix();
+            Position p = myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(myNet->getViewNet()->getPositionInformation()));
+            glTranslated(p.x(), p.y(), GLO_POLYGON + 2);
+            GLHelper::setColor(RGBColor::BLUE);
+            GLHelper:: drawFilledCircle(hintSize, 32);
+            glPopMatrix();
+        }
+
         // pop name
         glPopName();
     }
 }
 
 
-Position GNEPoly::isVertex(const Position & pos) const {
-    
-    return Position::invalidPosition();
+int GNEPoly::getVertexIndex(const Position &pos) {
+    // first check if vertex already exists
+    for(auto i : myShape) {
+        if (i.distanceTo2D(pos) < 0.8) {
+            return myShape.indexOfClosest(i);
+        }
+    }
+    // if vertex doesn't exist, insert it
+    if(myShape.distance2D(pos) < 0.8) {
+        return myShape.insertAtClosest(pos);
+    } else {
+        return -1;
+    }
 }
 
 

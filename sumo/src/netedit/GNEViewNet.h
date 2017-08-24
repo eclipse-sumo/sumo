@@ -412,6 +412,9 @@ private:
     /// @brief Shape of elements before moving
     PositionVector myMovingOriginalShape;
 
+    /// @brief current index of shape that are being moved
+    int myIndexOfMovingShape;
+
     /// @brief whether a selection is being moved
     bool myMovingSelection;
 

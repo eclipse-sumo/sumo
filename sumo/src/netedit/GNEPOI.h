@@ -74,13 +74,6 @@ public:
     /// @brief Destructor
     ~GNEPOI();
 
-    /**@brief writte shape element into a xml file
-    * @param[in] device device in which write parameters of additional element
-    */
-    void writeShape(OutputDevice& device);
-
-    /// @name Functions related with geometry of element
-    /// @{
     /**@brief change the position of the element geometry without saving in undoList
     * @param[in] newPosition new position of geometry
     * @note should't be called in drawGL(...) functions to avoid smoothness issues
@@ -92,6 +85,13 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
+    /// @name inherited from GNEShape
+    /// @{
+    /**@brief writte shape element into a xml file
+    * @param[in] device device in which write parameters of additional element
+    */
+    void writeShape(OutputDevice& device);
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;

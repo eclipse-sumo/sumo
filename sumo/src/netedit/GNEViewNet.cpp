@@ -148,6 +148,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myPolyToMove(0),
     myPoiToMove(0),
     myAdditionalToMove(0),
+    myIndexOfMovingShape(-1),
     myMovingSelection(false),
     myAmInRectSelect(false),
     myToolbar(toolBar),
@@ -538,8 +539,12 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
             }
             case GNE_MODE_MOVE: {
                 if (pointed_poly) {
+                    // set Poly to move
                     myPolyToMove = pointed_poly;
+                    // save original shape (needed for commit change)
                     myMovingOriginalShape = myPolyToMove->getShape();
+                    // obtain index of vertex to move and moving reference
+                    myIndexOfMovingShape = myPolyToMove->getVertexIndex(getPositionInformation());
                     myMovingReference = getPositionInformation();
                 } else if (pointed_poi) {
                     myPoiToMove = pointed_poi;
@@ -789,11 +794,7 @@ long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, data);
     if (myPolyToMove) {
-        if(myPolyToMove->isShapeBlocked()) {
-            myPolyToMove->commitGeometryMoving(snapToActiveGrid(myMovingReference - getPositionInformation()), myUndoList);
-        } else {
-            myPolyToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
-        }
+        myPolyToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
         myPolyToMove = 0;
     } else if (myPoiToMove) {
         myPoiToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
@@ -905,11 +906,12 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
         }
     } else {
         if (myPolyToMove) {
+            // Calculate movement offset and move geometry of shape
+            Position offsetPosition = myMovingReference - getPositionInformation();
             if(myPolyToMove->isShapeBlocked()) {
-                // Calculate movement offset and move geometry of junction (It uses a Offset instead a absolute position)
-                myPolyToMove->moveGeometry(snapToActiveGrid(myMovingReference - getPositionInformation()));
+                myPolyToMove->moveEntireShape(myMovingOriginalShape, snapToActiveGrid(myMovingOriginalPosition - offsetPosition));
             } else {
-                myMovingOriginalPosition = myPolyToMove->changeShapeGeometry(myMovingOriginalPosition, snapToActiveGrid(getPositionInformation()));
+                myIndexOfMovingShape = myPolyToMove->moveVertexShape(myIndexOfMovingShape, snapToActiveGrid(getPositionInformation()));
             }
         } else if (myPoiToMove) {
             // Calculate movement offset and move geometry of junction

@@ -72,6 +72,9 @@ public:
     */
     virtual void writeShape(OutputDevice& device) = 0;
 
+    /// @brief Returns position of additional in view
+    virtual Position getPositionInView() const = 0;
+
     /// @brief get Net in which this element is placed
     GNENet* getNet() const;
 
@@ -83,24 +86,6 @@ public:
 
     /// @brief draw lock icon
     void drawLockIcon(const Position &pos, double layer, double size = 0.5) const;
-
-    /// @name Functions related with geometry of element
-    /// @{
-    /**@brief change the position of the element geometry without saving in undoList
-    * @param[in] newPosition new position of geometry
-    * @note should't be called in drawGL(...) functions to avoid smoothness issues
-    */
-    virtual void moveGeometry(const Position &newPosition) = 0;
-
-    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-    * @param[in] oldPos the old position of additional
-    * @param[in] undoList The undoList on which to register changes
-    */
-    virtual void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) = 0;
-
-    /// @brief Returns position of additional in view
-    virtual Position getPositionInView() const = 0;
-    /// @}
 
     /// @name inherited from GUIPolygon/GUIPointOfInterest
     /// @{
