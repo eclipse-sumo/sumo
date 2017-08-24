@@ -148,7 +148,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myPolyToMove(0),
     myPoiToMove(0),
     myAdditionalToMove(0),
-    myIndexOfMovingShape(-1),
+    myMovingIndexShape(-1),
     myMovingSelection(false),
     myAmInRectSelect(false),
     myToolbar(toolBar),
@@ -538,15 +538,21 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                 break;
             }
             case GNE_MODE_MOVE: {
-                if (pointed_poly) {
+                if (pointed_poly && (pointed_poly->isMovementBlocked() == false)) {
                     // set Poly to move
                     myPolyToMove = pointed_poly;
                     // save original shape (needed for commit change)
                     myMovingOriginalShape = myPolyToMove->getShape();
-                    // obtain index of vertex to move and moving reference
-                    myIndexOfMovingShape = myPolyToMove->getVertexIndex(getPositionInformation());
+                    // obtain index of vertex to move if shape isn't blocked
+                    if(myPolyToMove->isShapeBlocked() == false) {
+                        // obtain index of vertex to move and moving reference
+                        myMovingIndexShape = myPolyToMove->getVertexIndex(getPositionInformation());
+                    } else {
+                        myMovingIndexShape = -1;
+                    }
+                    // obtain moving reference
                     myMovingReference = getPositionInformation();
-                } else if (pointed_poi) {
+                } else if (pointed_poi && (pointed_poi->isMovementBlocked() == false)) {
                     myPoiToMove = pointed_poi;
                     // Save original Position of Element and obtain moving reference
                     myMovingOriginalPosition = myPoiToMove->getPositionInView();
@@ -573,41 +579,38 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                         myMovingOriginalShape = myEdgeToMove->getNBEdge()->getInnerGeometry();
                     }
                     myMovingOriginalPosition = getPositionInformation();
-                } else if (pointed_additional) {
+                } else if (pointed_additional && (pointed_additional->isAdditionalBlocked() == false)) {
                     if (gSelected.isSelected(GLO_ADDITIONAL, pointed_additional->getGlID())) {
                         myMovingSelection = true;
                     } else {
-                        // Only move additional if can be moved
-                        if (pointed_additional->isAdditionalBlocked() == false) {
-                            myAdditionalToMove = pointed_additional;
-                            if (myAdditionalToMove->getLane()) {
-                                if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_STARTPOS)) {
-                                    // Obtain start position
-                                    double startPos = GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_STARTPOS));
-                                    if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_ENDPOS)) {
-                                        // Obtain end position
-                                        double endPos = GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_ENDPOS));
-                                        // Save both values in myMovingOriginalPosition
-                                        myMovingOriginalPosition.set(startPos, endPos);
-                                    } else if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_LENGTH)) {
-                                        // Obtain length attribute
-                                        double length = GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_LENGTH));
-                                        // Save both values in myMovingOriginalPosition
-                                        myMovingOriginalPosition.set(startPos, length);
-                                    } else {
-                                        // Save only startpos in myMovingOriginalPosition
-                                        myMovingOriginalPosition.set(startPos, 0);
-                                    }
-                                } else if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_POSITION)) {
-                                    myMovingOriginalPosition.set(GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_POSITION)), 0);
+                        myAdditionalToMove = pointed_additional;
+                        if (myAdditionalToMove->getLane()) {
+                            if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_STARTPOS)) {
+                                // Obtain start position
+                                double startPos = GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_STARTPOS));
+                                if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_ENDPOS)) {
+                                    // Obtain end position
+                                    double endPos = GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_ENDPOS));
+                                    // Save both values in myMovingOriginalPosition
+                                    myMovingOriginalPosition.set(startPos, endPos);
+                                } else if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_LENGTH)) {
+                                    // Obtain length attribute
+                                    double length = GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_LENGTH));
+                                    // Save both values in myMovingOriginalPosition
+                                    myMovingOriginalPosition.set(startPos, length);
+                                } else {
+                                    // Save only startpos in myMovingOriginalPosition
+                                    myMovingOriginalPosition.set(startPos, 0);
                                 }
-                                // Set myMovingReference
-                                myMovingReference.set(pointed_additional->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false), 0, 0);
-                            } else {
-                                // Save original Position of Element and obtain moving reference
-                                myMovingOriginalPosition = pointed_additional->getPositionInView();
-                                myMovingReference = getPositionInformation();
+                            } else if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_POSITION)) {
+                                myMovingOriginalPosition.set(GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_POSITION)), 0);
                             }
+                            // Set myMovingReference
+                            myMovingReference.set(pointed_additional->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false), 0, 0);
+                        } else {
+                            // Save original Position of Element and obtain moving reference
+                            myMovingOriginalPosition = pointed_additional->getPositionInView();
+                            myMovingReference = getPositionInformation();
                         }
                     }
                 } else {
@@ -911,7 +914,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
             if(myPolyToMove->isShapeBlocked()) {
                 myPolyToMove->moveEntireShape(myMovingOriginalShape, snapToActiveGrid(myMovingOriginalPosition - offsetPosition));
             } else {
-                myIndexOfMovingShape = myPolyToMove->moveVertexShape(myIndexOfMovingShape, snapToActiveGrid(getPositionInformation()));
+                myMovingIndexShape = myPolyToMove->moveVertexShape(myMovingIndexShape, snapToActiveGrid(getPositionInformation()));
             }
         } else if (myPoiToMove) {
             // Calculate movement offset and move geometry of junction

@@ -387,7 +387,11 @@ private:
 
     /// @brief show connection as buuble in "Move" mode.
     FXMenuCheck* myMenuCheckShowBubbleOverJunction;
+    
+    // @}
 
+    /// @name Variables for move elements
+    // @{
     /// @brief the Junction to be moved.
     GNEJunction* myJunctionToMove;
 
@@ -406,14 +410,14 @@ private:
     /// @brief variable for calculating moving offset (Used when user doesn't click exactly over the center of shape)
     Position myMovingReference;
 
-    /// @brief Position of element before moving
+    /// @brief original Position of element before moving (needed for commmit position changes)
     Position myMovingOriginalPosition;
 
-    /// @brief Shape of elements before moving
+    /// @brief Shape of elements before moving (needed for commmit shape changes)
     PositionVector myMovingOriginalShape;
 
     /// @brief current index of shape that are being moved
-    int myIndexOfMovingShape;
+    int myMovingIndexShape;
 
     /// @brief whether a selection is being moved
     bool myMovingSelection;

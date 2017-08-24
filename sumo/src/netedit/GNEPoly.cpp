@@ -69,7 +69,8 @@ GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, cons
     GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile),
     GNEShape(net, SUMO_TAG_POLY, ICON_LOCATEPOLY, movementBlocked, shapeBlocked),
     myJunction(junction),
-    myClosedShape(shape.front() == shape.back()) {
+    myClosedShape(shape.front() == shape.back()),
+    myCurrentMovingVertexIndex(-1) {
     // check that number of points is correct and area isn't empty
     assert((shape.size() >= 2) && (shape.area() > 0));
     // update boundary blocked shape
@@ -83,8 +84,11 @@ GNEPoly::~GNEPoly() {}
 int 
 GNEPoly::moveVertexShape(int index, const Position& newPos) {
     // only move shape if block movement block shape are disabled
-    if(!myBlockMovement && !myBlockShape) {
+    if(!myBlockMovement && !myBlockShape && (index != -1)) {
+        // check that index is correct before change position
         if(index < myShape.size()) {
+            // save current moving vertex
+            myCurrentMovingVertexIndex = index;
             // change position of vertex
             myShape[index] = newPos;
             return index;
@@ -105,7 +109,6 @@ GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset)
         myDrawingBlockedShape.clear();
         // restore original shape
         myShape = oldShape;
-
         // change all points of the shape shape using noffset
         for (auto i = myShape.begin(); i != myShape.end(); i++) {
             i->setx(i->x() + offset.x());
@@ -120,7 +123,9 @@ GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset)
 void 
 GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList) {
     if(!myBlockMovement) {
-        // restore original shape (needed for commit change)
+        // disable current moving vertex
+        myCurrentMovingVertexIndex = -1;
+        // restore original shape (needed for commit change correctly)
         PositionVector shapeToCommit = myShape;
         myShape = oldShape;
         // commit new shape
@@ -183,60 +188,75 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     const double hintSize = 0.8;
     // first draw polygon
     GUIPolygon::drawGL(s);
-    // draw geometry hints if is not too small
+    // draw geometry details hints if is not too small
     if (s.scale * hintSize > 1.) {
+        // set values relative to mouse position regarding to shape
+        bool mouseOverVertex = false;
+        Position mousePosition = myNet->getViewNet()->getPositionInformation();
+        double distanceToShape = myShape.distance2D(mousePosition);
+        Position PostionOverShapeLine = myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition));        
         // set colors
         RGBColor invertedColor = GLHelper::getColor().invertedColor();
         RGBColor darkerColor = GLHelper::getColor().changedBrightness(-32);
         // push matrix
         glPushName(getGlID());
-        // draw a boundary for moving, or a block boundary line if shape is blocked
-        glPushMatrix();
-        glTranslated(0, 0, GLO_POLYGON + 0.01);
-        if(myBlockShape) {
-            glLineWidth(2);
-            GLHelper::drawIntercalatedLine(myDrawingBlockedShape, RGBColor::BLACK, RGBColor::YELLOW);
-        } else {
-            glLineWidth(10);
-            GLHelper::setColor(darkerColor);
-            GLHelper::drawLine(myShape);
-        }
-        glPopMatrix();
-        // draw all points of shape
-        for (auto i : myShape) {
+        // Draw geometry hints if polygon's shape isn't blocked
+        if(myBlockShape == false) {
+            // draw a boundary for moving using darkerColor
             glPushMatrix();
-            glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
+            glTranslated(0, 0, GLO_POLYGON + 0.01);
             GLHelper::setColor(darkerColor);
-            GLHelper:: drawFilledCircle(hintSize, 32);
+            GLHelper::drawBoxLines(myShape, (hintSize/4) * s.polySize.getExaggeration(s));
             glPopMatrix();
-            if(i == myShape.front()) {
-                // draw a "s" over first point
+            // draw points of shape
+            for (auto i : myShape) {
                 glPushMatrix();
-                glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                GLHelper::drawText("S", Position(), .1, 1.6, invertedColor);
+                glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
+                // Change color of vertex and flag mouseOverVertex if mouse is over vertex
+                if(i.distanceTo(mousePosition) < hintSize) {
+                    mouseOverVertex = true;
+                    GLHelper::setColor(invertedColor);
+                } else {
+                    GLHelper::setColor(darkerColor);
+                }
+                GLHelper:: drawFilledCircle(hintSize, 32);
                 glPopMatrix();
-            } else if ((i == myShape.back()) && (myClosedShape == false)) {
-                // draw a "e" over last point if polygon isn't closed
+                // draw special symbols (Start, End and Block)
+                if(i == myShape.front()) {
+                    // draw a "s" over first point
+                    glPushMatrix();
+                    glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
+                    GLHelper::drawText("S", Position(), .1, 1.6, invertedColor);
+                    glPopMatrix();
+                } else if ((i == myShape.back()) && (myClosedShape == false)) {
+                    // draw a "e" over last point if polygon isn't closed
+                    glPushMatrix();
+                    glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
+                    GLHelper::drawText("E", Position(), .1, 1.6, invertedColor);
+                    glPopMatrix();
+                } else {
+                    drawLockIcon(i, GLO_POLYGON, 0.25);
+                }
+            }
+            // check if draw moving hint has to be drawed
+            if((mouseOverVertex == false) && (myBlockMovement == false) && 
+                (myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE) && (distanceToShape < hintSize)) {
+                // push matrix
                 glPushMatrix();
-                glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                GLHelper::drawText("E", Position(), .1, 1.6, invertedColor);
+                glTranslated(PostionOverShapeLine.x(), PostionOverShapeLine.y(), GLO_POLYGON + 2);
+                GLHelper::setColor(invertedColor);
+                GLHelper:: drawFilledCircle(hintSize, 32);
                 glPopMatrix();
-            } else {
-                // draw lock icon if movement of polygon is blocked
+            }
+        } else if (myFill) {
+            // draw only a block icon in center if polygon is filled
+            drawLockIcon(myShape.getPolygonCenter(), GLO_POLYGON, 0.25);
+        } else {
+            // draw a lock in every vertex if polygon isn't filled
+            for (auto i : myShape) {
                 drawLockIcon(i, GLO_POLYGON, 0.25);
             }
         }
-
-        if(myShape.distance2D(myNet->getViewNet()->getPositionInformation()) < hintSize) {
-            // push matrix
-            glPushMatrix();
-            Position p = myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(myNet->getViewNet()->getPositionInformation()));
-            glTranslated(p.x(), p.y(), GLO_POLYGON + 2);
-            GLHelper::setColor(RGBColor::BLUE);
-            GLHelper:: drawFilledCircle(hintSize, 32);
-            glPopMatrix();
-        }
-
         // pop name
         glPopName();
     }

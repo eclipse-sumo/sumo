@@ -188,6 +188,9 @@ protected:
     /// @brief flag to indicate if polygon is open or closed
     bool myClosedShape;
 
+    /// @brief index of vertex that is been moved (-1 means that none vertex is been moved)
+    int myCurrentMovingVertexIndex;
+
 private:
     /// @brief shape used for improve performance of drawing boundary blocked shape
     PositionVector myDrawingBlockedShape;
