@@ -55,7 +55,7 @@ set(netbuild_STAT_SRCS
    NBLoadedSUMOTLDef.h
    NBNetBuilder.cpp
    NBNetBuilder.h
-        NBPTLine.cpp NBPTLine.h NBPTLineCont.cpp NBPTLineCont.h)
+        NBPTLine.cpp NBPTLine.h NBPTLineCont.cpp NBPTLineCont.h NBPTPlatform.cpp NBPTPlatform.h)
 
 add_library(netbuild STATIC ${netbuild_STAT_SRCS})
 set_property(TARGET netbuild PROPERTY PROJECT_LABEL "z_netbuild")

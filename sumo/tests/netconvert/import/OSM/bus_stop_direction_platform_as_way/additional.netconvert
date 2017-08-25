@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun  7 08:53:39 2017 by SUMO netconvert Version dev-SVN-r24560
+<!-- generated on Fri Aug 25 10:21:18 2017 by SUMO netconvert Version dev-SVN-r25695
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -30,6 +30,6 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="1553912606" name="Akeleiweg" lane="-141968830#1_0" startPos="62.69" endPos="92.69" friendlyPos="true"/>
-    <busStop id="837696912" name="Akeleiweg" lane="141968853#0_0" startPos="31.46" endPos="61.46" friendlyPos="true"/>
+    <busStop id="1553912606" name="Akeleiweg" lane="-141968830#1_0" startPos="68.95" endPos="86.42" friendlyPos="true"/>
+    <busStop id="837696912" name="Akeleiweg" lane="141968853#0_0" startPos="35.68" endPos="57.25" friendlyPos="true"/>
 </additional>

@@ -32,7 +32,7 @@
 #include <string>
 #include <utils/geom/Position.h>
 #include "utils/common/SUMOVehicleClass.h"
-
+#include "NBPTPlatform.h"
 
 
 // ===========================================================================
@@ -70,13 +70,13 @@ public:
     void write(OutputDevice& device);
     void reshiftPostion(const double offsetX, const double offsetY);
 
-    void addPlatformPosCand(Position position);
-    std::vector<Position>& getPlatformPosCands();
+    std::vector<NBPTPlatform>& getPlatformCands();
     bool getIsMultipleStopPositions();
     void setIsMultipleStopPositions(bool multipleStopPositions);
     double getLength();
     void setEdgeId(std::string edgeId);
     void registerAdditionalEdge(std::string wayId, std::string edgeId);
+    void addPlatformCand(NBPTPlatform platform);
 private:
     const std::string myPTStopId;
     Position myPosition;
@@ -89,7 +89,10 @@ private:
 public:
     void setMyOrigEdgeId(const std::string& myOrigEdgeId);
 private:
-    const double myPTStopLength;
+    double myPTStopLength;
+public:
+    void setMyPTStopLength(double myPTStopLength);
+private:
     const std::string myName;
     std::string myLaneId;
     const SVCPermissions myPermissions;
@@ -103,7 +106,7 @@ private:
     NBPTStop& operator=(const NBPTStop&);
 
 
-    std::vector<Position> myPlatformPosCands;
+    std::vector<NBPTPlatform> myPlatformCands;
     bool myIsMultipleStopPositions;
 };
 

@@ -259,7 +259,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     // load relations (after edges are built since we want to apply
     // turn-restrictions directly to NBEdges)
     RelationHandler relationHandler(myOSMNodes, myEdges, &(nb.getPTStopCont()), myPlatformShapes,
-                                    &(nb.getPTLineCont()));
+                                    &(nb.getPTLineCont()),oc);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // relations
         relationHandler.setFileName(*file);
@@ -706,7 +706,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             } else if (key == "public_transport" && value.find("stop_position") != std::string::npos) {
                 myToFill[myLastNodeID]->ptStopPostion = true;
                 myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat(
-                        "osm.stop-output.length");//TODO: extract from osm file [GL March '17]
+                        "osm.stop-output.length");
             } else if (key == "name") {
                 myToFill[myLastNodeID]->name = value;
             } else if (key == "train") {
@@ -1024,14 +1024,16 @@ NIImporter_OpenStreetMap::RelationHandler::RelationHandler(
         const std::map<long long int, NIOSMNode*>& osmNodes,
         const std::map<long long int, Edge*>& osmEdges, NBPTStopCont* nbptStopCont,
         const std::map<long long int, Edge*>& platformShapes,
-        NBPTLineCont* nbptLineCont)
+        NBPTLineCont* nbptLineCont,
+        const OptionsCont& oc)
         :
         SUMOSAXHandler("osm - file"),
         myOSMNodes(osmNodes),
         myOSMEdges(osmEdges),
         myPlatformShapes(platformShapes),
         myNBPTStopCont(nbptStopCont),
-        myNBPTLineCont(nbptLineCont) {
+        myNBPTLineCont(nbptLineCont),
+        myOptionsCont(oc){
     resetValues();
 }
 
@@ -1107,12 +1109,17 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
                 const std::map<long long int,
                                NIImporter_OpenStreetMap::Edge*>::const_iterator& wayIt = myPlatformShapes.find(ref);
                 if (wayIt != myPlatformShapes.end()) {
-                    Edge* way = wayIt->second;
-                    long long int someNodeRef = way->myCurrentNodes[(int) way->myCurrentNodes.size() / 2];
-                    myPlatforms.push_back(someNodeRef);
+
+                    NIIPTPlatform platform;
+                    platform.isWay = true;
+                    platform.ref = ref;
+                    myPlatforms.push_back(platform);
                 }
             } else if (memberType == "node") {
-                myPlatforms.push_back(ref);
+                NIIPTPlatform platform;
+                platform.isWay = false;
+                platform.ref = ref;
+                myPlatforms.push_back(platform);
             }
 
         } else if (role.empty()) {
@@ -1231,19 +1238,57 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                                     + toString(n->id) + "'. Probably OSM file is incomplete.");
                     continue;
                 }
-                for (long long& myPlatform : myPlatforms) {
-                    if (myOSMNodes.find(myPlatform) == myOSMNodes.end()) {
-                        WRITE_WARNING(
-                                "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
-                                        + "' does not exist. Probably OSM file is incomplete.");
-                        continue;
+                for (NIIPTPlatform& myPlatform : myPlatforms) {
+                    if (myPlatform.isWay){
+                        assert(myPlatformShapes.find(myPlatform.ref) != myPlatformShapes.end()); //already tested earlier
+                        Edge * edge = (*myPlatformShapes.find(myPlatform.ref)).second;
+                        if (edge->myCurrentNodes[0] == *(edge->myCurrentNodes.end()-1)){
+                            WRITE_WARNING("Platform '" + toString(myPlatform.ref) + "' in  relation: '" + toString(myCurrentRelation)
+                                                  + "'  is given as polygon, which currently is not supported.");
+                            continue;
+
+                        }
+                        PositionVector p;
+                        for (auto nodeRef : edge->myCurrentNodes){
+                            if (myOSMNodes.find(nodeRef) == myOSMNodes.end()) {
+                                WRITE_WARNING(
+                                        "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
+                                                + "' does not exist. Probably OSM file is incomplete.");
+                                continue;
+                            }
+                            NIOSMNode* pNode = myOSMNodes.find(nodeRef)->second;
+                            Position pNodePos(pNode->lon, pNode->lat, pNode->ele);
+                            if (!NBNetBuilder::transformCoordinate(pNodePos)) {
+                                WRITE_ERROR("Unable to project coordinates for node '" + toString(pNode->id) + "'.");
+                                continue;
+                            }
+                            p.push_back(pNodePos);
+                        }
+                        if (p.size() == 0) {
+                            WRITE_WARNING(
+                                    "Referenced platform: '" + toString(myPlatform.ref) + "' in relation: '" + toString(myCurrentRelation)
+                                            + "' is corrupt. Probably OSM file is incomplete.");
+                            continue;
+                        }
+                        NBPTPlatform platform(p[p.size()/2],p.length());
+                        ptStop->addPlatformCand(platform);
+                    } else {
+                        if (myOSMNodes.find(myPlatform.ref) == myOSMNodes.end()) {
+                            WRITE_WARNING(
+                                    "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
+                                            + "' does not exist. Probably OSM file is incomplete.");
+                            continue;
+                        }
+                        NIOSMNode* pNode = myOSMNodes.find(myPlatform.ref)->second;
+                        Position platformPos(pNode->lon, pNode->lat, pNode->ele);
+                        if (!NBNetBuilder::transformCoordinate(platformPos)) {
+                            WRITE_ERROR("Unable to project coordinates for node '" + toString(pNode->id) + "'.");
+                        }
+                        NBPTPlatform platform(platformPos,myOptionsCont.getFloat(
+                                "osm.stop-output.length"));
+                        ptStop->addPlatformCand(platform);
+
                     }
-                    NIOSMNode* platform = myOSMNodes.find(myPlatform)->second;
-                    Position platformPos(platform->lon, platform->lat, platform->ele);
-                    if (!NBNetBuilder::transformCoordinate(platformPos)) {
-                        WRITE_ERROR("Unable to project coordinates for node '" + toString(platform->id) + "'.");
-                    }
-                    ptStop->addPlatformPosCand(platformPos);
                 }
                 ptStop->setIsMultipleStopPositions(myStops.size() > 1);;
             }

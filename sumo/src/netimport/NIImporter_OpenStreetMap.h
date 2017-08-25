@@ -39,6 +39,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/Parameterised.h>
+#include <netbuild/NBPTPlatform.h>
 
 
 // ===========================================================================
@@ -430,7 +431,8 @@ protected:
          */
         RelationHandler(const std::map<long long int, NIOSMNode*>& osmNodes,
                         const std::map<long long int, Edge*>& osmEdges, NBPTStopCont* nbptStopCont,
-                        const std::map<long long int, Edge*>& platfromShapes, NBPTLineCont* nbptLineCont);
+                        const std::map<long long int, Edge*>& platfromShapes, NBPTLineCont* nbptLineCont,
+                        const OptionsCont& oc);
 
 
         /// @brief Destructor
@@ -497,6 +499,9 @@ protected:
         long long int myViaWay;
 
 
+        /// @brief the options cont
+        const OptionsCont& myOptionsCont;
+
         /** @enum RestrictionType
          * @brief whether the only allowed or the only forbidden connection is defined
          */
@@ -532,8 +537,14 @@ protected:
         /// @brief bus stop references
         std::vector<long long int> myStops;
 
-        /// @brief bus stop platforms references
-        std::vector<long long int> myPlatforms;
+
+        struct NIIPTPlatform {
+          long long int ref;
+          bool isWay;
+        };
+
+        /// @brief bus stop platforms
+        std::vector<NIIPTPlatform> myPlatforms;
 
         /// @brief ways in pt line references
         std::vector<long long int> myWays;

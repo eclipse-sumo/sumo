@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun  7 08:58:07 2017 by SUMO netconvert Version dev-SVN-r24560
+<!-- generated on Fri Aug 25 10:21:27 2017 by SUMO netconvert Version dev-SVN-r25695
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -35,13 +35,13 @@
     <busStop id="-14209124830" name="P&R "Weihnachtsmarkt"" lane="173044205#1_0" startPos="0.00" endPos="19.76" friendlyPos="true"/>
     <busStop id="-14420481310" name="Staatstheater" lane="-171756596_0" startPos="0.00" endPos="47.22" friendlyPos="true"/>
     <busStop id="-14635230831" name="Wilhelmstraße" lane="-314842169#2_0" startPos="0.00" endPos="42.29" friendlyPos="true"/>
-    <busStop id="1515856077" name="Rathaus" lane="-37976385#1_0" startPos="0.00" endPos="37.34" friendlyPos="true"/>
+    <busStop id="1515856077" name="Rathaus" lane="-37976385#1_0" startPos="0.00" endPos="5.05" friendlyPos="true"/>
     <busStop id="247702454" name="Packhof" lane="37983000#0_0" startPos="0.00" endPos="60.99" friendlyPos="true"/>
     <busStop id="335753779" name="Staatstheater" lane="171756596_0" startPos="0.00" endPos="47.33" friendlyPos="true"/>
-    <busStop id="364176554" name="Rathaus" lane="27220209#1_0" startPos="0.00" endPos="66.60" friendlyPos="true"/>
-    <busStop id="376646465" name="Wilhelmstraße" lane="5134712_0" startPos="0.00" endPos="79.11" friendlyPos="true"/>
+    <busStop id="364176554" name="Rathaus" lane="27220209#1_0" startPos="0.75" endPos="12.85" friendlyPos="true"/>
+    <busStop id="376646465" name="Wilhelmstraße" lane="5134712_0" startPos="55.80" endPos="71.53" friendlyPos="true"/>
     <busStop id="4209124830" name="P&R "Weihnachtsmarkt"" lane="22978948#29_0" startPos="0.00" endPos="19.76" friendlyPos="true"/>
     <busStop id="4420481310" name="Staatstheater" lane="171756596_0" startPos="0.00" endPos="47.33" friendlyPos="true"/>
     <busStop id="4635230831" name="Wilhelmstraße" lane="314842169#2_0" startPos="0.00" endPos="42.29" friendlyPos="true"/>
-    <busStop id="583283132" name="Rathaus" lane="5148300_0" startPos="0.00" endPos="19.60" friendlyPos="true"/>
+    <busStop id="583283132" name="Rathaus" lane="5148300_0" startPos="0.00" endPos="5.05" friendlyPos="true"/>
 </additional>

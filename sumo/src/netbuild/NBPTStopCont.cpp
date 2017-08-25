@@ -65,7 +65,7 @@ void NBPTStopCont::process(NBEdgeCont& cont) {
         NBPTStop* stop = i->second;
 
         bool multipleStopPositions = stop->getIsMultipleStopPositions();
-        bool platformsDefined = stop->getPlatformPosCands().size() > 0;
+        bool platformsDefined = stop->getPlatformCands().size() > 0;
         if (!platformsDefined) {
             //create pt stop for reverse edge if edge exist
             NBPTStop* reverseStop = getReverseStop(stop, cont);
@@ -130,27 +130,33 @@ NBPTStop* NBPTStopCont::assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeC
 
     bool rightOfEdge = false;
     bool leftOfEdge = false;
-    for (std::vector<Position>::iterator it = pStop->getPlatformPosCands().begin();
-         it != pStop->getPlatformPosCands().end();
+    NBPTPlatform* left = nullptr;
+    for (std::vector<NBPTPlatform>::iterator it = pStop->getPlatformCands().begin();
+         it != pStop->getPlatformCands().end();
          it++) {
-        Position * platform = &(*it);
-        double crossProd = computeCrossProductEdgePosition(edge,platform);
+        NBPTPlatform * platform = &(*it);
+        double crossProd = computeCrossProductEdgePosition(edge,platform->getMyPos());
 
         //TODO consider driving on the left!!! [GL May '17]
         if (crossProd > 0){
             leftOfEdge = true;
+            left = platform;
         } else {
             rightOfEdge = true;
+            pStop->setMyPTStopLength(platform->getMyLength());
         }
 
     }
 
     if (leftOfEdge && rightOfEdge){
-        return getReverseStop(pStop,cont);
+        NBPTStop * leftStop = getReverseStop(pStop,cont);
+        leftStop->setMyPTStopLength(left->getMyLength());
+        return leftStop;
     } else if (leftOfEdge){
         NBEdge* reverse = getReverseEdge(edge);
         if (reverse != 0) {
             pStop->setEdgeId(reverse->getID());
+            pStop->setMyPTStopLength(left->getMyLength());
         }
     }
 
@@ -163,13 +169,15 @@ void NBPTStopCont::assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCo
     std::string edgeId = pStop->getEdgeId();
     NBEdge* edge = cont.getByID(edgeId);
     NBEdge* reverse = NBPTStopCont::getReverseEdge(edge);
+    NBPTPlatform* closestPlatform = getClosestPlatformToPTStopPosition(pStop);
+    pStop->setMyPTStopLength(closestPlatform->getMyLength());
     if (reverse != 0) {
-        Position* closestPlatform = getClosestPlatformToPTStopPosition(pStop);
+
         //TODO make isLeft in PositionVector static [GL May '17]
 //        if (PositionVector::isLeft(edge->getFromNode()->getPosition(),edge->getToNode()->getPosition(),closestPlatform)){
 //
 //        }
-        double crossProd = computeCrossProductEdgePosition(edge, closestPlatform);
+        double crossProd = computeCrossProductEdgePosition(edge, closestPlatform->getMyPos());
 
         //TODO consider driving on the left!!! [GL May '17]
         if (crossProd > 0) { //pt stop is on the left of the orig edge
@@ -208,24 +216,23 @@ double NBPTStopCont::computeCrossProductEdgePosition(const NBEdge* edge, const P
     double crossProd = (x1 - x0) * (y2 - y0) - (y1 - y0) * (x2 - x0);
     return crossProd;
 }
-Position* NBPTStopCont::getClosestPlatformToPTStopPosition(NBPTStop* pStop) {
+NBPTPlatform* NBPTStopCont::getClosestPlatformToPTStopPosition(NBPTStop* pStop) {
 
     Position stopPosition = pStop->getPosition();
 
-    Position* closest = 0;
+    NBPTPlatform* closest = nullptr;
     double minSqrDist = std::numeric_limits<double>::max();
 
-    for (std::vector<Position>::iterator it = pStop->getPlatformPosCands().begin();
-         it != pStop->getPlatformPosCands().end();
+    for (std::vector<NBPTPlatform>::iterator it = pStop->getPlatformCands().begin();
+         it != pStop->getPlatformCands().end();
          it++) {
-        Position platform = *it;
-        double sqrDist = stopPosition.distanceSquaredTo(*it);
+        NBPTPlatform platform = *it;
+        double sqrDist = stopPosition.distanceSquaredTo2D(*platform.getMyPos());
         if (sqrDist < minSqrDist) {
             minSqrDist = sqrDist;
             closest = &(*it);
         }
     }
-
     return closest;
 }
 

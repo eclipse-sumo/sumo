@@ -82,7 +82,7 @@ void NBPTStop::setLaneID(const std::string& laneId) {
 void NBPTStop::write(OutputDevice& device) {
     device.openTag(SUMO_TAG_BUS_STOP);
     device.writeAttr(SUMO_ATTR_ID, myPTStopId);
-    if (myName != "") {
+    if (!myName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, myName);
     }
     device.writeAttr(SUMO_ATTR_LANE, myLaneId);
@@ -94,8 +94,8 @@ void NBPTStop::write(OutputDevice& device) {
 }
 void NBPTStop::reshiftPostion(const double offsetX, const double offsetY) {
     myPosition.add(offsetX, offsetY, 0);
-    for (std::vector<Position>::iterator it = myPlatformPosCands.begin(); it != myPlatformPosCands.end(); it++){
-        Position * pos = &(*it);
+    for (auto& myPlatformCand : myPlatformCands) {
+        Position * pos = (&myPlatformCand)->getMyPos();
         pos->add(offsetX,offsetY,0);
     }
 
@@ -104,11 +104,11 @@ void NBPTStop::reshiftPostion(const double offsetX, const double offsetY) {
 SVCPermissions NBPTStop::getPermissions() {
     return myPermissions;
 }
-void NBPTStop::addPlatformPosCand(Position position) {
-    myPlatformPosCands.push_back(position);
+void NBPTStop::addPlatformCand(NBPTPlatform platform) {
+    myPlatformCands.push_back(platform);
 }
-std::vector<Position>& NBPTStop::getPlatformPosCands() {
-    return myPlatformPosCands;
+std::vector<NBPTPlatform>& NBPTStop::getPlatformCands() {
+    return myPlatformCands;
 }
 bool NBPTStop::getIsMultipleStopPositions() {
     return myIsMultipleStopPositions;
@@ -132,3 +132,7 @@ const std::map<std::string, std::string>& NBPTStop::getMyAdditionalEdgeCandidate
 void NBPTStop::setMyOrigEdgeId(const std::string& myOrigEdgeId) {
     NBPTStop::myOrigEdgeId = myOrigEdgeId;
 }
+void NBPTStop::setMyPTStopLength(double myPTStopLength) {
+    NBPTStop::myPTStopLength = myPTStopLength;
+}
+
