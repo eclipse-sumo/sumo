@@ -913,7 +913,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
             // Calculate movement offset and move geometry of shape
             Position offsetPosition = myMovingReference - getPositionInformation();
             if(myPolyToMove->isShapeBlocked()) {
-                myPolyToMove->moveEntireShape(myMovingOriginalShape, snapToActiveGrid(myMovingOriginalPosition - offsetPosition));
+                myPolyToMove->moveEntireShape(myMovingOriginalShape, snapToActiveGrid(offsetPosition));
             } else {
                 myMovingIndexShape = myPolyToMove->moveVertexShape(myMovingIndexShape, snapToActiveGrid(getPositionInformation()));
             }

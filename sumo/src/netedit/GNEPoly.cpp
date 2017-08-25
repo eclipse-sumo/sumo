@@ -123,8 +123,8 @@ GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset)
         myShape = oldShape;
         // change all points of the shape shape using noffset
         for (auto i = myShape.begin(); i != myShape.end(); i++) {
-            i->setx(i->x() + offset.x());
-            i->sety(i->y() + offset.y());
+            i->setx(i->x() - offset.x());
+            i->sety(i->y() - offset.y());
         }
         // refresh element
         myNet->refreshPolygon(this);
@@ -231,6 +231,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * myHintSize > 1.) {
         // set values relative to mouse position regarding to shape
         bool mouseOverVertex = false;
+        bool modeMove = myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE;
         Position mousePosition = myNet->getViewNet()->getPositionInformation();
         double distanceToShape = myShape.distance2D(mousePosition);
         Position PostionOverShapeLine = myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition));        
@@ -252,7 +253,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
                 // Change color of vertex and flag mouseOverVertex if mouse is over vertex
-                if(i.distanceTo(mousePosition) < myHintSize) {
+                if(modeMove && (i.distanceTo(mousePosition) < myHintSize)) {
                     mouseOverVertex = true;
                     GLHelper::setColor(invertedColor);
                 } else {
@@ -278,8 +279,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // check if draw moving hint has to be drawed
-            if((mouseOverVertex == false) && (myBlockMovement == false) && 
-                (myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE) && (distanceToShape < myHintSize)) {
+            if(modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < myHintSize)) {
                 // push matrix
                 glPushMatrix();
                 glTranslated(PostionOverShapeLine.x(), PostionOverShapeLine.y(), GLO_POLYGON + 0.04);
