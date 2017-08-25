@@ -95,6 +95,9 @@
     <ClCompile Include="..\..\..\src\netbuild\NBPTLineCont.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netbuild\NBPTPlatform.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netbuild\NBCapacity2Lanes.h">
@@ -191,6 +194,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netbuild\NBPTLineCont.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netbuild\NBPTPlatform.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

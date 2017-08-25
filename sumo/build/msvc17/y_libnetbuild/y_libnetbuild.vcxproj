@@ -162,6 +162,7 @@
     <ClCompile Include="..\..\..\src\netbuild\NBOwnTLDef.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBPTLine.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBPTLineCont.cpp" />
+    <ClCompile Include="..\..\..\src\netbuild\NBPTPlatform.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBPTStop.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBPTStopCont.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBRequest.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="..\..\..\src\netbuild\NBOwnTLDef.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBPTLine.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBPTLineCont.h" />
+    <ClInclude Include="..\..\..\src\netbuild\NBPTPlatform.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBPTStop.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBPTStopCont.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBRequest.h" />
