@@ -29,15 +29,15 @@
 
 
 NBPTStopCont::~NBPTStopCont() {
-    for (PTStopsCont::iterator it = myPTStops.begin(); it != myPTStops.end(); it++){
-        delete (*it).second;
+    for (auto& myPTStop : myPTStops) {
+        delete myPTStop.second;
     }
     myPTStops.clear();
 }
 
 bool NBPTStopCont::insert(NBPTStop* ptStop) {
     std::string id = ptStop->getID();
-    PTStopsCont::iterator i = myPTStops.find(id);
+    auto i = myPTStops.find(id);
     if (i != myPTStops.end()) {
         return false;
     }
@@ -49,23 +49,23 @@ NBPTStop* NBPTStopCont::get(std::string id) {
     if (myPTStops.find(id) != myPTStops.end()) {
         return myPTStops.find(id)->second;
     }
-    return 0;
+    return nullptr;
 }
 
 
 void NBPTStopCont::process(NBEdgeCont& cont) {
 
-    PTStopsCont::iterator end = myPTStops.end();
+//    PTStopsCont::iterator end = myPTStops.end();
 
     std::vector<NBPTStop*> reverseStops;
 
     //frst pass localize pt stop at correct side of the street; create stop for opposite side if needed
-    for (PTStopsCont::iterator i = myPTStops.begin(); i != end; i++) {
+    for (auto& myPTStop : myPTStops) {
 
-        NBPTStop* stop = i->second;
+        NBPTStop* stop = myPTStop.second;
 
         bool multipleStopPositions = stop->getIsMultipleStopPositions();
-        bool platformsDefined = stop->getPlatformCands().size() > 0;
+        bool platformsDefined = !stop->getPlatformCands().empty();
         if (!platformsDefined) {
             //create pt stop for reverse edge if edge exist
             NBPTStop* reverseStop = getReverseStop(stop, cont);
@@ -86,13 +86,13 @@ void NBPTStopCont::process(NBEdgeCont& cont) {
     }
 
     //insrt new stops if any
-    for (std::vector<NBPTStop*>::iterator i = reverseStops.begin(); i != reverseStops.end(); i++) {
-        insert(*i);
+    for (auto& reverseStop : reverseStops) {
+        insert(reverseStop);
     }
 
 
     //scnd pass set correct lane
-    for (PTStopsCont::iterator i = myPTStops.begin(); i != myPTStops.end();) {
+    for (auto i = myPTStops.begin(); i != myPTStops.end();) {
         NBPTStop* stop = i->second;
         if (!NBPTStopCont::findLaneAndComputeBusStopExtend(stop, cont)) {
             WRITE_WARNING("Could not find corresponding edge or compatible lane for pt stop: " + i->second->getName()
@@ -112,7 +112,7 @@ NBPTStop* NBPTStopCont::getReverseStop(NBPTStop* pStop, NBEdgeCont& cont) {
     std::string edgeId = pStop->getEdgeId();
     NBEdge* edge = cont.getByID(edgeId);
     NBEdge* reverse = NBPTStopCont::getReverseEdge(edge);
-    if (reverse != 0) {
+    if (reverse != nullptr) {
 
         Position* pos = new Position(pStop->getPosition());
         NBPTStop* ret = new NBPTStop("-1" + pStop->getID(), *pos, reverse->getID(), reverse->getID(),
@@ -120,7 +120,7 @@ NBPTStop* NBPTStopCont::getReverseStop(NBPTStop* pStop, NBEdgeCont& cont) {
         return ret;
 
     }
-    return 0;
+    return nullptr;
 }
 
 NBPTStop* NBPTStopCont::assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeCont& cont) {
@@ -131,9 +131,7 @@ NBPTStop* NBPTStopCont::assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeC
     bool rightOfEdge = false;
     bool leftOfEdge = false;
     NBPTPlatform* left = nullptr;
-    for (std::vector<NBPTPlatform>::iterator it = pStop->getPlatformCands().begin();
-         it != pStop->getPlatformCands().end();
-         it++) {
+    for (auto it = pStop->getPlatformCands().begin(); it != pStop->getPlatformCands().end(); it++) {
         NBPTPlatform * platform = &(*it);
         double crossProd = computeCrossProductEdgePosition(edge,platform->getMyPos());
 
@@ -154,13 +152,13 @@ NBPTStop* NBPTStopCont::assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeC
         return leftStop;
     } else if (leftOfEdge){
         NBEdge* reverse = getReverseEdge(edge);
-        if (reverse != 0) {
+        if (reverse != nullptr) {
             pStop->setEdgeId(reverse->getID());
             pStop->setMyPTStopLength(left->getMyLength());
         }
     }
 
-    return 0;
+    return nullptr;
 }
 
 
@@ -223,7 +221,7 @@ NBPTPlatform* NBPTStopCont::getClosestPlatformToPTStopPosition(NBPTStop* pStop) 
     NBPTPlatform* closest = nullptr;
     double minSqrDist = std::numeric_limits<double>::max();
 
-    for (std::vector<NBPTPlatform>::iterator it = pStop->getPlatformCands().begin();
+    for (auto it = pStop->getPlatformCands().begin();
          it != pStop->getPlatformCands().end();
          it++) {
         NBPTPlatform platform = *it;
@@ -241,14 +239,12 @@ NBPTPlatform* NBPTStopCont::getClosestPlatformToPTStopPosition(NBPTStop* pStop) 
 bool NBPTStopCont::findLaneAndComputeBusStopExtend(NBPTStop* pStop, NBEdgeCont& cont) {
     std::string edgeId = pStop->getEdgeId();
     NBEdge* edge = cont.getByID(edgeId);
-    if (edge != 0) {
+    if (edge != nullptr) {
 
         int laneNr = -1;
 
-        for (std::vector<NBEdge::Lane>::const_iterator it = edge->getLanes().begin();
-             it != edge->getLanes().end();
-             it++) {
-            if ((it->permissions & pStop->getPermissions()) > 0) {
+        for (const auto& it : edge->getLanes()) {
+            if ((it.permissions & pStop->getPermissions()) > 0) {
                 ++laneNr;
                 break;
             }
@@ -272,8 +268,8 @@ bool NBPTStopCont::findLaneAndComputeBusStopExtend(NBPTStop* pStop, NBEdgeCont& 
 }
 
 NBEdge* NBPTStopCont::getReverseEdge(NBEdge* edge) {
-    if (edge != 0) {
-        for (EdgeVector::const_iterator it = edge->getToNode()->getOutgoingEdges().begin();
+    if (edge != nullptr) {
+        for (auto it = edge->getToNode()->getOutgoingEdges().begin();
              it != edge->getToNode()->getOutgoingEdges().end();
              it++) {
             if ((*it)->getToNode() == edge->getFromNode()) {
@@ -284,8 +280,8 @@ NBEdge* NBPTStopCont::getReverseEdge(NBEdge* edge) {
     return 0;
 }
 void NBPTStopCont::reviseStops(NBEdgeCont& cont) {
-    for (PTStopsCont::iterator i = myPTStops.begin(); i != myPTStops.end();) {
-        if (cont.getByID((*i).second->getEdgeId()) == 0) {
+    for (auto i = myPTStops.begin(); i != myPTStops.end();) {
+        if (cont.getByID((*i).second->getEdgeId()) == nullptr) {
             WRITE_WARNING("Removing pt stop:" + (*i).first + " on non existing edge: " + (*i).second->getEdgeId());
             myPTStops.erase(i++);
         } else {
