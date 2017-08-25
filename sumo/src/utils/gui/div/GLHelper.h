@@ -205,17 +205,6 @@ public:
     static void drawLine(const PositionVector& v, const std::vector<RGBColor>& cols);
 
 
-    /** @brief Draws a thin line along the given position intercalating two colors separated by a distance
-    *
-    * The line is drawn as a GL_LINES.
-    *
-    * @param[in] v The positions vector to use
-    * @param[in] firstColor the first intercalated color
-    * @param[in] secondColor the second intercalated color
-    */
-    static void drawIntercalatedLine(const PositionVector& v, const RGBColor &firstColor, const RGBColor &secondColor);
-
-
     /** @brief Draws a thin line between the two points
      *
      * The line is drawn as a GL_LINES.

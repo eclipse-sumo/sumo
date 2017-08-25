@@ -314,28 +314,6 @@ GLHelper::drawLine(const PositionVector& v, const std::vector<RGBColor>& cols) {
 }
 
 
-void 
-GLHelper::drawIntercalatedLine(const PositionVector& v, const RGBColor &firstColor, const RGBColor &secondColor) {
-    bool changer = true;
-    glBegin(GL_LINES);
-    int e = (int) v.size() - 1;
-    for (int i = 0; i < e; ++i) {
-        // alternate color
-        if(changer) {
-            setColor(firstColor);
-            changer = false;
-        } else {
-            setColor(secondColor);
-            changer = true;
-        }
-        // drawg sement
-        glVertex2d(v[i].x(), v[i].y());
-        glVertex2d(v[i + 1].x(), v[i + 1].y());
-    }
-    glEnd();
-}
-
-
 void
 GLHelper::drawLine(const Position& beg, const Position& end) {
     glBegin(GL_LINES);
