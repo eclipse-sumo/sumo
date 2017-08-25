@@ -73,8 +73,8 @@ GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, cons
     myCurrentMovingVertexIndex(-1) {
     // check that number of points is correct and area isn't empty
     assert((shape.size() >= 2) && (shape.area() > 0));
-    // update boundary blocked shape
-    updateBoundaryBlockedShape(1);
+    // create boundary intercalated shape
+    updateBoundaryIntercalatedShape(1);
 }
 
 
@@ -105,8 +105,9 @@ void
 GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset) {
     // only move shape if block movement is disabled and block shape is enabled
     if(!myBlockMovement && myBlockShape) {
-        // clear myDrawingBlockedShape
-        myDrawingBlockedShape.clear();
+        // clear myBoundaryIntercalatedShape and myBoundaryIntercalatedShapeColors
+        myBoundaryIntercalatedShape.clear();
+        myBoundaryIntercalatedShapeColors.clear();
         // restore original shape
         myShape = oldShape;
         // change all points of the shape shape using noffset
@@ -243,7 +244,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 (myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE) && (distanceToShape < hintSize)) {
                 // push matrix
                 glPushMatrix();
-                glTranslated(PostionOverShapeLine.x(), PostionOverShapeLine.y(), GLO_POLYGON + 2);
+                glTranslated(PostionOverShapeLine.x(), PostionOverShapeLine.y(), GLO_POLYGON + 0.04);
                 GLHelper::setColor(invertedColor);
                 GLHelper:: drawFilledCircle(hintSize, 32);
                 glPopMatrix();
@@ -257,6 +258,16 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 drawLockIcon(i, GLO_POLYGON, 0.25);
             }
         }
+        // draw intercalated boundary if cursor is under polygon
+        if((myCurrentMovingVertexIndex == -1) && (myNet->getViewNet()->getGLObjectUnderCursor() == this)) {
+            // push matrix
+            glPushMatrix();
+            glLineWidth(2);
+            glTranslated(0, 0, GLO_POLYGON + 0.05);
+            GLHelper::drawLine(myBoundaryIntercalatedShape, myBoundaryIntercalatedShapeColors);
+            glPopMatrix();
+        }
+
         // pop name
         glPopName();
     }
@@ -432,22 +443,30 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
 // ===========================================================================
 
 void 
-GNEPoly::updateBoundaryBlockedShape(double distanceBetweenPoints) {
+GNEPoly::updateBoundaryIntercalatedShape(double distanceBetweenPoints) {
     assert (distanceBetweenPoints > 0);
-    // clear myDrawingBlockedShape
-    myDrawingBlockedShape.clear();
-    double currentPosition = distanceBetweenPoints;
-    // add first position
-    myDrawingBlockedShape.push_back(myShape.front());
-    // calculate rest of positions
-    while (currentPosition < myShape.length()) {
-        if(currentPosition <= myShape.length()) {
-            myDrawingBlockedShape.push_back(myShape.positionAtOffset(currentPosition));
+    // clear myBoundaryIntercalatedShape and myBoundaryIntercalatedShapeColors
+    myBoundaryIntercalatedShape.clear();
+    myBoundaryIntercalatedShapeColors.clear();
+    PositionVector shapeReference = myShape;
+    // close intercalated shape if polygon is filled but isn't closed
+    if(myFill && (myClosedShape == false)) {
+        shapeReference.push_back(shapeReference.front());
+    }
+
+    double currentSize = 0;
+    RGBColor currentColor = RGBColor::BLACK;
+
+    while(currentSize < shapeReference.length()) {
+        myBoundaryIntercalatedShape.push_back(shapeReference.positionAtOffset(currentSize));
+        myBoundaryIntercalatedShapeColors.push_back(currentColor);
+        currentSize += distanceBetweenPoints;
+        // change color
+        if(currentColor == RGBColor::BLACK) {
+            myBoundaryIntercalatedShapeColors.push_back(RGBColor::WHITE);
         } else {
-            myDrawingBlockedShape.push_back(myShape.back());
+            myBoundaryIntercalatedShapeColors.push_back(RGBColor::BLACK);
         }
-        // update current position
-        currentPosition += distanceBetweenPoints;
     }
 }
 
@@ -467,8 +486,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             myShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
             // Check if new shape is closed
             myClosedShape = myShape.begin() == myShape.end();
-            // update boundary blocked shape
-            updateBoundaryBlockedShape(1);
+            // update boundary intercalated shape
+            updateBoundaryIntercalatedShape(1);
             // refresh polygon in net to avoid grabbing problems
             myNet->refreshPolygon(this);
             break;
@@ -478,6 +497,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FILL:
             myFill = parse<bool>(value);
+            // update boundary intercalated shape
+            updateBoundaryIntercalatedShape(1);
             break;
         case SUMO_ATTR_LAYER:
             myLayer = parse<double>(value);
@@ -504,8 +525,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 myShape.pop_back();
             }
-            // update boundary blocked shape
-            updateBoundaryBlockedShape(1);
+            // update boundary intercalated shape
+            updateBoundaryIntercalatedShape(1);
             // refresh polygon in net to avoid grabbing problems
             myNet->refreshPolygon(this);
             break;

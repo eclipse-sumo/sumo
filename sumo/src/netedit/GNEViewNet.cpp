@@ -142,6 +142,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myCurrentFrame(0),
     myShowConnections(false),
     mySelectEdges(true),
+    myObjectUnderCursor(0),
     myCreateEdgeSource(0),
     myJunctionToMove(0),
     myEdgeToMove(0),
@@ -957,6 +958,13 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
             mySelCorner2 = getPositionInformation();
         }
     }
+
+    // save current object under cursor
+    if (makeCurrent()) {
+        int id = getObjectUnderCursor();
+        myObjectUnderCursor = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+    }
     // update view
     update();
     return 1;
@@ -1125,6 +1133,12 @@ GNEViewNet::getUndoList() const {
 EditMode
 GNEViewNet::getCurrentEditMode() const {
     return myEditMode;
+}
+
+
+GUIGlObject* 
+GNEViewNet::getGLObjectUnderCursor() const {
+    return myObjectUnderCursor;
 }
 
 

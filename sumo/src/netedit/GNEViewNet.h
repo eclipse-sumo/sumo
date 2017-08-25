@@ -124,7 +124,6 @@ public:
 
     /// @name overloaded handlers
     /// @{
-
     /// @brief called when user press mouse's left button
     long onLeftBtnPress(FXObject*, FXSelector, void*);
 
@@ -152,7 +151,6 @@ public:
 
     /// @name set mode call backs
     /// @{
-
     /// @brief called when user press the button for create edge mode
     long onCmdSetModeCreateEdge(FXObject*, FXSelector, void*);
 
@@ -182,7 +180,6 @@ public:
 
     /// @brief called when user press the button for polygon mode
     long onCmdSetModePolygon(FXObject*, FXSelector, void*);
-
     /// @}
 
     /// @brief split edge at cursor position
@@ -295,6 +292,9 @@ public:
     /// @brief get the current edit mode
     EditMode getCurrentEditMode() const;
 
+    /// @brief get object under cursor after a movement
+    GUIGlObject* getGLObjectUnderCursor() const;
+
     /// @brief check if lock icon should be visible
     bool showLockIcon() const;
 
@@ -369,6 +369,9 @@ private:
     /// @brief flag to check if select edges is enabled
     bool mySelectEdges;
 
+    /// @brief object under cursor after move
+    GUIGlObject* myObjectUnderCursor;
+
     /// @name the state-variables of the create-edge state-machine
     // @{
     /// @brief source junction for new edge 0 if no edge source is selected an existing (or newly created) junction otherwise
@@ -381,13 +384,11 @@ private:
 
     /// @name the state-variables of the move state-machine
     // @{
-
     /// @brief whether we should warn about merging junctions
     FXMenuCheck* myMenuCheckWarnAboutMerge;
 
     /// @brief show connection as buuble in "Move" mode.
     FXMenuCheck* myMenuCheckShowBubbleOverJunction;
-    
     // @}
 
     /// @name Variables for move elements
@@ -563,10 +564,10 @@ private:
     void processClick(FXEvent* e, void* data);
 
     /// @brief Invalidated copy constructor.
-    GNEViewNet(const GNEViewNet&);
+    GNEViewNet(const GNEViewNet&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEViewNet& operator=(const GNEViewNet&);
+    GNEViewNet& operator=(const GNEViewNet&) = delete;
 };
 
 
