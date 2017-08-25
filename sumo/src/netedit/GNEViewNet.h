@@ -533,6 +533,12 @@ private:
     /// @brief delete all currently selected connections
     void deleteSelectedConnections();
 
+    /// @brief delete all currently selected POIs
+    void deleteSelectedPOIs();
+
+    /// @brief delete all currently selected Polygons
+    void deleteSelectedPolygons();
+
     /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
     bool mergeJunctions(GNEJunction* moved);
 

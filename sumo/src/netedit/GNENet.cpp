@@ -428,8 +428,6 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
 }
 
 
-
-
 void
 GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
     GNEEdge* edge = &lane->getParentEdge();
@@ -505,6 +503,36 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
     // remove crossing requieres always a recompute (due geometry and connections)
     requireRecompute();
     undoList->p_end();
+}
+
+
+void 
+GNENet::deletePOI(GNEPOI* POI, GNEUndoList* undoList) {
+    myViewNet->getUndoList()->p_begin("delete " + toString(POI->getTag()));
+    // save selection status
+    if (gSelected.isSelected(GLO_POI, POI->getGlID())) {
+        std::set<GUIGlID> deselected;
+        deselected.insert(POI->getGlID());
+        undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
+    }
+    // delete POI
+    myViewNet->getUndoList()->add(new GNEChange_POI(myViewNet->getNet(), POI, false), true);
+    myViewNet->getUndoList()->p_end();
+}
+
+
+void 
+GNENet::deletePolygon(GNEPoly* polygon, GNEUndoList* undoList) {
+    myViewNet->getUndoList()->p_begin("delete " + toString(polygon->getTag()));
+    // save selection status
+    if (gSelected.isSelected(GLO_POLYGON, polygon->getGlID())) {
+        std::set<GUIGlID> deselected;
+        deselected.insert(polygon->getGlID());
+        undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
+    }
+    // delete Polygon
+    myViewNet->getUndoList()->add(new GNEChange_Poly(myViewNet->getNet(), polygon, false), true);
+    myViewNet->getUndoList()->p_end();
 }
 
 

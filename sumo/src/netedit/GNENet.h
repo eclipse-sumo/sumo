@@ -216,10 +216,22 @@ public:
     void deleteConnection(GNEConnection* connection, GNEUndoList* undoList);
 
     /**@brief remove crossing
-     * @param[in] crossing The crossing to be removed
-     * @param[in] undoList The undolist in which to mark changes
-     */
+    * @param[in] crossing The crossing to be removed
+    * @param[in] undoList The undolist in which to mark changes
+    */
     void deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList);
+
+    /**@brief remove POI
+    * @param[in] POI The POI to be removed
+    * @param[in] undoList The undolist in which to mark changes
+    */
+    void deletePOI(GNEPOI* POI, GNEUndoList* undoList);
+
+    /**@brief remove Polygon
+    * @param[in] Polygon The Polygon to be removed
+    * @param[in] undoList The undolist in which to mark changes
+    */
+    void deletePolygon(GNEPoly* polygon, GNEUndoList* undoList);
 
     /**@brief duplicates lane
      * @param[in] lane The lane to be duplicated
