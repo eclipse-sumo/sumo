@@ -60,6 +60,10 @@
 #include "GNEPoly.h"
 #include "GNEJunction.h"
 
+// ===========================================================================
+// static members
+// ===========================================================================
+const double GNEPoly::myHintSize = 0.8;
 
 // ===========================================================================
 // method definitions
@@ -89,9 +93,16 @@ GNEPoly::moveVertexShape(int index, const Position& newPos) {
         if(index < myShape.size()) {
             // save current moving vertex
             myCurrentMovingVertexIndex = index;
-            // change position of vertex
-            myShape[index] = newPos;
-            return index;
+            // if closed shape and cliked is first or last, move both giving more priority to first always
+            if(myClosedShape && ((index == 0) || (index == (myShape.size() - 1)))) {
+                myShape.front() = newPos;
+                myShape.back() = newPos;
+                return 0;
+            } else {
+                // change position of vertex
+                myShape[index] = newPos;
+                return index;
+            }
         } else {
             throw InvalidArgument("Index greather than Shape size");
         }
@@ -124,15 +135,43 @@ GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset)
 void 
 GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList) {
     if(!myBlockMovement) {
+        bool abort = false;
         // disable current moving vertex
         myCurrentMovingVertexIndex = -1;
-        // restore original shape (needed for commit change correctly)
+        // restore original shape into shapeToCommit
         PositionVector shapeToCommit = myShape;
-        myShape = oldShape;
-        // commit new shape
-        undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
-        undoList->p_end();
+        // first check if double points has to be removed
+        shapeToCommit.removeDoublePoints(myHintSize);
+        if(shapeToCommit.size() != myShape.size()) {
+            if((shapeToCommit.size() < 2) || (shapeToCommit.area() == 0)) {
+                abort = true;
+            } else {
+                WRITE_WARNING("Merged shape's point")
+            }
+        }
+        // check if polygon has to be closed
+        if(shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < (2*myHintSize)) {
+            shapeToCommit.pop_back();
+            shapeToCommit.push_back(shapeToCommit.front());
+            if((shapeToCommit.size() < 2) || (shapeToCommit.area() == 0)) {
+                abort = true;
+            }
+        }
+        // check if movement has to be aborted
+        if(abort) {
+            WRITE_WARNING("Invalid new vertex position; resultant polygon's area is empty")
+            // restore old shape
+            myShape = oldShape;
+            updateBoundaryIntercalatedShape(1);
+            // refresh element
+            myNet->refreshPolygon(this);
+        } else {
+            myShape = oldShape;
+            // commit new shape
+            undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
+            undoList->p_end();
+        }
     }
 }
 
@@ -186,11 +225,10 @@ GNEPoly::getCenteringBoundary() const {
 
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
-    const double hintSize = 0.8;
     // first draw polygon
     GUIPolygon::drawGL(s);
     // draw geometry details hints if is not too small
-    if (s.scale * hintSize > 1.) {
+    if (s.scale * myHintSize > 1.) {
         // set values relative to mouse position regarding to shape
         bool mouseOverVertex = false;
         Position mousePosition = myNet->getViewNet()->getPositionInformation();
@@ -207,33 +245,33 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             glPushMatrix();
             glTranslated(0, 0, GLO_POLYGON + 0.01);
             GLHelper::setColor(darkerColor);
-            GLHelper::drawBoxLines(myShape, (hintSize/4) * s.polySize.getExaggeration(s));
+            GLHelper::drawBoxLines(myShape, (myHintSize/4) * s.polySize.getExaggeration(s));
             glPopMatrix();
             // draw points of shape
             for (auto i : myShape) {
                 glPushMatrix();
                 glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
                 // Change color of vertex and flag mouseOverVertex if mouse is over vertex
-                if(i.distanceTo(mousePosition) < hintSize) {
+                if(i.distanceTo(mousePosition) < myHintSize) {
                     mouseOverVertex = true;
                     GLHelper::setColor(invertedColor);
                 } else {
                     GLHelper::setColor(darkerColor);
                 }
-                GLHelper:: drawFilledCircle(hintSize, 32);
+                GLHelper:: drawFilledCircle(myHintSize, 32);
                 glPopMatrix();
                 // draw special symbols (Start, End and Block)
                 if(i == myShape.front()) {
                     // draw a "s" over first point
                     glPushMatrix();
                     glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                    GLHelper::drawText("S", Position(), .1, 1.6, invertedColor);
+                    GLHelper::drawText("S", Position(), .1, 2*myHintSize, invertedColor);
                     glPopMatrix();
                 } else if ((i == myShape.back()) && (myClosedShape == false)) {
                     // draw a "e" over last point if polygon isn't closed
                     glPushMatrix();
                     glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                    GLHelper::drawText("E", Position(), .1, 1.6, invertedColor);
+                    GLHelper::drawText("E", Position(), .1, 2*myHintSize, invertedColor);
                     glPopMatrix();
                 } else {
                     drawLockIcon(i, GLO_POLYGON, 0.25);
@@ -241,12 +279,12 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             }
             // check if draw moving hint has to be drawed
             if((mouseOverVertex == false) && (myBlockMovement == false) && 
-                (myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE) && (distanceToShape < hintSize)) {
+                (myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE) && (distanceToShape < myHintSize)) {
                 // push matrix
                 glPushMatrix();
                 glTranslated(PostionOverShapeLine.x(), PostionOverShapeLine.y(), GLO_POLYGON + 0.04);
                 GLHelper::setColor(invertedColor);
-                GLHelper:: drawFilledCircle(hintSize, 32);
+                GLHelper:: drawFilledCircle(myHintSize, 32);
                 glPopMatrix();
             }
         } else if (myFill) {
@@ -277,12 +315,12 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
 int GNEPoly::getVertexIndex(const Position &pos) {
     // first check if vertex already exists
     for(auto i : myShape) {
-        if (i.distanceTo2D(pos) < 0.8) {
+        if (i.distanceTo2D(pos) < myHintSize) {
             return myShape.indexOfClosest(i);
         }
     }
     // if vertex doesn't exist, insert it
-    if(myShape.distance2D(pos) < 0.8) {
+    if(myShape.distance2D(pos) < myHintSize) {
         return myShape.insertAtClosest(pos);
     } else {
         return -1;
@@ -485,7 +523,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             // set new shape
             myShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
             // Check if new shape is closed
-            myClosedShape = myShape.begin() == myShape.end();
+            myClosedShape = (myShape.front() == myShape.back());
             // update boundary intercalated shape
             updateBoundaryIntercalatedShape(1);
             // refresh polygon in net to avoid grabbing problems

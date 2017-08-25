@@ -198,6 +198,9 @@ private:
     /// @brief colors myBoundaryIntercalatedShape. Is updated after avery shape change
     std::vector<RGBColor> myBoundaryIntercalatedShapeColors;
 
+    /// @brief hint size of vertex
+    static const double myHintSize;
+
     /// @brief function used to calculate boundary blocked shape
     void updateBoundaryIntercalatedShape(double distanceBetweenPoints);
 
