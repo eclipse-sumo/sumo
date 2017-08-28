@@ -429,6 +429,9 @@ protected:
     ///@brief Snapshots
     std::map<SUMOTime, std::vector<std::string> > mySnapshots;
 
+    ///@brief The mutex to use before accessing the decals list in order to avoid thread conficts
+    MFXMutex mySnapshotsLock;
+
     ///@brief poly draw lock
     mutable MFXMutex myPolyDrawLock;
 

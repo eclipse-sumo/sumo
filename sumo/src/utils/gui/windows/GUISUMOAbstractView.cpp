@@ -82,6 +82,12 @@
 
 
 // ===========================================================================
+// debug constants
+// ===========================================================================
+//#define DEBUG_SNAPSHOT
+
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -803,8 +809,12 @@ GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
 // ------------ Dealing with snapshots
 void 
 GUISUMOAbstractView::addSnapshot(SUMOTime time, const std::string& file) {
-    //std::cout << "add snappshot time=" << time << " file=" << file << "\n";
+#ifdef DEBUG_SNAPSHOT
+    std::cout << "add snappshot time=" << time << " file=" << file << "\n";
+#endif
+    mySnapshotsLock.lock();
     mySnapshots[time].push_back(file);
+    mySnapshotsLock.unlock();
 }
 
 std::string
@@ -967,15 +977,25 @@ GUISUMOAbstractView::saveFrame(const std::string& destFile, FXColor* buf) {
 
 void
 GUISUMOAbstractView::checkSnapshots() {
+#ifdef DEBUG_SNAPSHOT
+    std::cout << "check snappshots time=" << getCurrentTimeStep() << " registeredTimes=" << mySnapshots.size() << "\n";
+#endif
+    mySnapshotsLock.lock();
     std::map<SUMOTime, std::vector<std::string> >::iterator snapIt = mySnapshots.find(getCurrentTimeStep());
-    //std::cout << "check snappshots time=" << getCurrentTimeStep() << " registeredTimes=" << mySnapshots.size() << "\n";
+    std::vector<std::string> files;
     if (snapIt != mySnapshots.end()) {
-        for (auto file : snapIt->second) {
-            //std::cout << "make snappshot time=" << getCurrentTimeStep() << " file=" << file << "\n";
-            std::string error = makeSnapshot(file);
-            if (error != "") {
-                WRITE_WARNING(error);
-            }
+        files = snapIt->second;
+        mySnapshots.erase(snapIt);
+    }
+    mySnapshotsLock.unlock();
+    // decouple map access and painting to avoid deadlock
+    for (auto file : files) {
+#ifdef DEBUG_SNAPSHOT
+        std::cout << "make snappshot time=" << getCurrentTimeStep() << " file=" << file << "\n";
+#endif
+        std::string error = makeSnapshot(file);
+        if (error != "") {
+            WRITE_WARNING(error);
         }
     }
 }
