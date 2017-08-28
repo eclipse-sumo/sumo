@@ -165,21 +165,31 @@ public:
 
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
      * @param pos position of new/existent vertex 
+     * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position
      * @return index of position vector
      */
-    int getVertexIndex(const Position &pos);
+    int getVertexIndex(const Position &pos, bool createIfNoExist = true);
 
     /// @brief check if polygon is closed
     bool isPolygonClosed() const;
-    
+
+    /// @brief retrieve the junction of which the shape is being edited
+    GNEJunction* getEditedJunction() const;
+
+    /// @brief open polygon
+    void openPolygon(bool allowUndo = true);
+
+    /// @brief close polygon
+    void closePolygon(bool allowUndo = true);
+
+    /// @brief change first geometry point
+    void changeFirstGeometryPoint(int oldIndex, bool allowUndo = true);
+
     /// @brief replace the current shape with a rectangle
     void simplifyShape(bool allowUndo = true);
 
     /// @brief delete the geometry point closest to the given pos
-    void deleteGeometryNear(const Position& pos);
-
-    /// @brief retrieve the junction of which the shape is being edited
-    GNEJunction* getEditedJunction() const;
+    void deleteGeometryNear(const Position& pos, bool allowUndo = true);
 
 protected:
     /// @brief junction of which the shape is being edited (optional)
@@ -187,6 +197,9 @@ protected:
 
     /// @brief flag to indicate if polygon is open or closed
     bool myClosedShape;
+
+    /// @brief flag to indicate if polygon is simplified
+    bool mySimplifiedShape;
 
     /// @brief index of vertex that is been moved (-1 means that none vertex is been moved)
     int myCurrentMovingVertexIndex;

@@ -207,7 +207,16 @@ public:
     long onCmdSimplifyShape(FXObject*, FXSelector, void*);
 
     /// @brief delete the closes geometry point
-    long onCmdDeleteGeometry(FXObject*, FXSelector, void*);
+    long onCmdDeleteGeometryPoint(FXObject*, FXSelector, void*);
+
+    /// @brief close opened polygon
+    long onCmdClosePolygon(FXObject*, FXSelector, void*);
+
+    /// @brief open closed polygon
+    long onCmdOpenPolygon(FXObject*, FXSelector, void*);
+
+    /// @brief set as first geometry point the closes geometry point
+    long onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*);
 
     /// @brief duplicate selected lane
     long onCmdDuplicateLane(FXObject*, FXSelector, void*);
@@ -553,6 +562,9 @@ private:
 
     /// @brief try to retrieve multiple edges at the given position
     std::set<GNEEdge*> getEdgesAtCursorPosition(Position& pos);
+
+    /// @brief try to retrieve a Polygon at the given position
+    GNEPoly* getPolygonAtCursorPosition(Position& pos);
 
     /// @brief remove the currently edited polygon
     void removeCurrentPoly();

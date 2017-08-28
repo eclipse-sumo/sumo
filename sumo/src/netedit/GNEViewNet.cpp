@@ -105,7 +105,10 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_RESET_EDGE_ENDPOINT,     GNEViewNet::onCmdResetEdgeEndpoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_STRAIGHTEN,              GNEViewNet::onCmdStraightenEdges),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SIMPLIFY_SHAPE,          GNEViewNet::onCmdSimplifyShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DELETE_GEOMETRY,         GNEViewNet::onCmdDeleteGeometry),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_CLOSE,           GNEViewNet::onCmdClosePolygon),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_OPEN,            GNEViewNet::onCmdOpenPolygon),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SET_FIRST_POINT, GNEViewNet::onCmdSetFirstGeometryPoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DUPLICATE_LANE,          GNEViewNet::onCmdDuplicateLane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_TRANSFORM_LANE_SIDEWALK, GNEViewNet::onCmdRestrictLaneSidewalk),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_TRANSFORM_LANE_BIKE,     GNEViewNet::onCmdRestrictLaneBikelane),
@@ -853,6 +856,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
 
 long GNEViewNet::onRightBtnPress(FXObject *obj, FXSelector sel, void *data) {
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
+        // during drawing of a polygon, right click removes the last created point
         myViewParent->getPolygonFrame()->getDrawingMode()->removeLastPoint();
         // update view
         update();
@@ -865,6 +869,7 @@ long GNEViewNet::onRightBtnPress(FXObject *obj, FXSelector sel, void *data) {
 
 long GNEViewNet::onRightBtnRelease(FXObject *obj, FXSelector sel, void *data) {
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
+        // during drawing of a polygon, right click removes the last created point
         return 1;
     } else {
         return GUISUMOAbstractView::onRightBtnRelease(obj, sel, data);
@@ -1242,6 +1247,21 @@ GNEViewNet::getEdgesAtCursorPosition(Position& /* pos */) {
 }
 
 
+GNEPoly* 
+GNEViewNet::getPolygonAtCursorPosition(Position& pos) {
+    if (makeCurrent()) {
+        int id = getObjectAtPosition(pos);
+        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        if (pointed && (pointed->getType() == GLO_POLYGON)) {
+            return dynamic_cast<GNEPoly*>(pointed);
+        }
+    } else {
+        return NULL;
+    }
+}
+
+
 long
 GNEViewNet::onCmdSetModeCreateEdge(FXObject*, FXSelector, void*) {
     setEditMode(GNE_MODE_CREATE_EDGE);
@@ -1396,25 +1416,73 @@ GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
     if (myCurrentPoly != 0) {
-        myCurrentPoly->simplifyShape();
+        myCurrentPoly->simplifyShape(false);
         update();
-    } else if (makeCurrent()) {
-        int id = getObjectAtPosition(myPopupSpot);
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed && (pointed->getType() == GLO_POLYGON)) {
-            dynamic_cast<GNEPoly*>(pointed)->simplifyShape();
+    } else {
+        GNEPoly* polygonUnderMouse = getPolygonAtCursorPosition(myPopupSpot);
+        if(polygonUnderMouse) {
+            polygonUnderMouse->simplifyShape();
         }
     }
     return 1;
 }
 
 
-long
-GNEViewNet::onCmdDeleteGeometry(FXObject*, FXSelector, void*) {
+long 
+GNEViewNet::onCmdDeleteGeometryPoint(FXObject*, FXSelector, void*) {
     if (myCurrentPoly != 0) {
-        myCurrentPoly->deleteGeometryNear(myPopupSpot);
+        myCurrentPoly->deleteGeometryNear(myPopupSpot, false);
         update();
+    } else {
+        GNEPoly* polygonUnderMouse = getPolygonAtCursorPosition(myPopupSpot);
+        if(polygonUnderMouse) {
+            polygonUnderMouse->deleteGeometryNear(myPopupSpot);
+        }
+    }
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
+    if (myCurrentPoly != 0) {
+        myCurrentPoly->closePolygon(false);
+        update();
+    } else {
+        GNEPoly* polygonUnderMouse = getPolygonAtCursorPosition(myPopupSpot);
+        if(polygonUnderMouse) {
+            polygonUnderMouse->closePolygon();
+        }
+    }
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
+    if (myCurrentPoly != 0) {
+        myCurrentPoly->openPolygon(false);
+        update();
+    } else {
+        GNEPoly* polygonUnderMouse = getPolygonAtCursorPosition(myPopupSpot);
+        if(polygonUnderMouse) {
+            polygonUnderMouse->openPolygon();
+        }
+    }
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
+    if (myCurrentPoly != 0) {
+        myCurrentPoly->changeFirstGeometryPoint(myCurrentPoly->getVertexIndex(myPopupSpot, false), false);
+        update();
+    } else {
+        GNEPoly* polygonUnderMouse = getPolygonAtCursorPosition(myPopupSpot);
+        if(polygonUnderMouse) {
+            polygonUnderMouse->changeFirstGeometryPoint(polygonUnderMouse->getVertexIndex(myPopupSpot, false));
+        }
     }
     return 1;
 }

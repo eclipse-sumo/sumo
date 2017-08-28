@@ -653,7 +653,13 @@ enum {
     /// @brief simplify polygon geometry
     MID_GNE_SIMPLIFY_SHAPE,
     /// @brief delete geometry point
-    MID_GNE_DELETE_GEOMETRY,
+    MID_GNE_DELETE_GEOMETRY_POINT,
+    /// @brief close opened polygon
+    MID_GNE_POLYGON_CLOSE,
+    /// @brief open closed polygon
+    MID_GNE_POLYGON_OPEN,
+    /// @brief Set a vertex of polygon as first verte
+    MID_GNE_POLYGON_SET_FIRST_POINT,
     /// @brief duplicate a lane
     MID_GNE_DUPLICATE_LANE,
     /// @brief transform lane to sidewalk

@@ -74,6 +74,7 @@ GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, cons
     GNEShape(net, SUMO_TAG_POLY, ICON_LOCATEPOLY, movementBlocked, shapeBlocked),
     myJunction(junction),
     myClosedShape(shape.front() == shape.back()),
+    mySimplifiedShape(false),
     myCurrentMovingVertexIndex(-1) {
     // check that number of points is correct and area isn't empty
     assert((shape.size() >= 2) && (shape.area() > 0));
@@ -199,12 +200,36 @@ GNEPoly::getParentName() const {
 
 GUIGLObjectPopupMenu*
 GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = GUIPolygon::getPopUpMenu(app, parent);
-    new FXMenuSeparator(ret);
-    new FXMenuCommand(ret, "Set custom shape (ENTER)", 0, &app, MID_GNE_HOTKEY_ENTER);
-    new FXMenuCommand(ret, "Discard custom shape (ESC)", 0, &app, MID_GNE_ABORT);
-    new FXMenuCommand(ret, "Simplify Shape\t\tReplace shape with a rectangle", 0, &parent, MID_GNE_SIMPLIFY_SHAPE);
-    new FXMenuCommand(ret, "Remove geometry point\t\tRemove the closest geometry point", 0, &parent, MID_GNE_DELETE_GEOMETRY);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    buildNameCopyPopupEntry(ret);
+    buildSelectionPopupEntry(ret);
+    FXMenuCommand *simplifyShape = new FXMenuCommand(ret, "Simplify Shape\t\tReplace current shape with a rectangle", 0, &parent, MID_GNE_SIMPLIFY_SHAPE);
+    // disable simplify shape if polygon was already simplified
+    if(mySimplifiedShape) {
+        simplifyShape->disable();
+    }
+    // create open or close polygon's shape
+    if(myClosedShape) {
+        new FXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", 0, &parent, MID_GNE_POLYGON_OPEN);
+    } else {
+        new FXMenuCommand(ret, "Close shape\t\tClose polygon's shape", 0, &parent, MID_GNE_POLYGON_CLOSE);
+    }
+    // create a extra FXMenuCommand if mouse is over a vertex
+    int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
+    if(index != -1) {
+        FXMenuCommand *removeGeometryPoint = new FXMenuCommand(ret, "Remove geometry point\t\tRemove geometry point under mouse", 0, &parent, MID_GNE_DELETE_GEOMETRY_POINT);
+        FXMenuCommand *setFirstPoint = new FXMenuCommand(ret, "Set first geometry point\t\tSet", 0, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
+        // disable setFirstPoint if shape only have three points
+        if((myClosedShape && (myShape.size() <= 4)) || (!myClosedShape && (myShape.size() <= 3))) {
+            removeGeometryPoint->disable();
+        }
+        // disable setFirstPoint if mouse is over first point
+        if(index == 0) {
+            setFirstPoint->disable();
+        }
+    }
     // let the GNEViewNet store the popup position
     (dynamic_cast<GNEViewNet&>(parent)).markPopupPosition();
     return ret;
@@ -312,7 +337,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-int GNEPoly::getVertexIndex(const Position &pos) {
+int GNEPoly::getVertexIndex(const Position &pos, bool createIfNoExist) {
     // first check if vertex already exists
     for(auto i : myShape) {
         if (i.distanceTo2D(pos) < myHintSize) {
@@ -320,7 +345,7 @@ int GNEPoly::getVertexIndex(const Position &pos) {
         }
     }
     // if vertex doesn't exist, insert it
-    if(myShape.distance2D(pos) < myHintSize) {
+    if(createIfNoExist && (myShape.distance2D(pos) < myHintSize)) {
         return myShape.insertAtClosest(pos);
     } else {
         return -1;
@@ -334,45 +359,172 @@ GNEPoly::isPolygonClosed() const {
 }
 
 
-void
-GNEPoly::simplifyShape(bool allowUndo) {
-    const Boundary b =  myShape.getBoxBoundary();
-    PositionVector simplifiedShape;
-    // create a square as simplified shape
-    simplifiedShape.push_back(Position(b.xmin(), b.ymin()));
-    simplifiedShape.push_back(Position(b.xmin(), b.ymax()));
-    simplifiedShape.push_back(Position(b.xmax(), b.ymax()));
-    simplifiedShape.push_back(Position(b.xmax(), b.ymin()));
-    simplifiedShape.push_back(simplifiedShape[0]);
-    if(allowUndo) {
-        myNet->getViewNet()->getUndoList()->p_begin("simplify shape");
-        setAttribute(SUMO_ATTR_SHAPE, toString(simplifiedShape), myNet->getViewNet()->getUndoList());
-        myNet->getViewNet()->getUndoList()->p_end();
-    } else {
-        myShape = simplifiedShape;
-    }
-}
-
-
-void
-GNEPoly::deleteGeometryNear(const Position& pos) {
-    if (myShape.size() <= 3) {
-        return;
-    }
-    int index = myShape.indexOfClosest(pos);
-    if ((index == 0 || index == (int)myShape.size() - 1) && myShape.front() == myShape.back()) {
-        myShape.erase(myShape.begin());
-        myShape.erase(myShape.end() - 1);
-        myShape.push_back(myShape.front());
-    } else {
-        myShape.erase(myShape.begin() + index);
-    }
-}
-
-
 GNEJunction* 
 GNEPoly::getEditedJunction() const {
     return myJunction;
+}
+
+
+void 
+GNEPoly::openPolygon(bool allowUndo) {
+    // only open if shape is closed
+    if(myClosedShape) {
+        if(allowUndo) {
+            myNet->getViewNet()->getUndoList()->p_begin("open polygon");
+            setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", myNet->getViewNet()->getUndoList());
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            myClosedShape = false;
+            myShape.pop_back();
+            // update boundary intercalated shape
+            updateBoundaryIntercalatedShape(1);
+            // refresh polygon in net to avoid grabbing problems
+            myNet->refreshPolygon(this);
+            // disable simplified shape flag
+            mySimplifiedShape = false;
+        }
+    } else {
+        WRITE_WARNING("Polygon already opened")
+    }
+}
+
+
+void 
+GNEPoly::closePolygon(bool allowUndo) {
+    // only close if shape is opened
+    if(myClosedShape == false) {
+        if(allowUndo) {
+            myNet->getViewNet()->getUndoList()->p_begin("close shape");
+            setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myNet->getViewNet()->getUndoList());
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            myClosedShape = true;
+            myShape.pop_back();
+            // update boundary intercalated shape
+            updateBoundaryIntercalatedShape(1);
+            // refresh polygon in net to avoid grabbing problems
+            myNet->refreshPolygon(this);
+            // disable simplified shape flag
+            mySimplifiedShape = false;
+        }
+    } else {
+        WRITE_WARNING("Polygon already closed")
+    }
+}
+
+
+void 
+GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
+    // check that old index is correct
+    if(oldIndex >= myShape.size()) {
+        throw InvalidArgument("Invalid old Index");
+    } else if (oldIndex == 0) {
+        WRITE_WARNING("Selected point must be different of the first point")
+    } else {
+        // Configure new shape
+        PositionVector newShape;
+        for (int i = oldIndex; i < myShape.size(); i++) {
+            newShape.push_back(myShape[i]);
+        }
+        if(myClosedShape) {
+            for (int i = 1; i < oldIndex; i++) {
+                newShape.push_back(myShape[i]);
+            }
+            newShape.push_back(newShape.front());
+        } else {
+            for (int i = 0; i < oldIndex; i++) {
+                newShape.push_back(myShape[i]);
+            }
+        }
+        // set new rotated shape
+        if(allowUndo) {
+            myNet->getViewNet()->getUndoList()->p_begin("change first geometry point");
+            setAttribute(SUMO_ATTR_SHAPE, toString(newShape), myNet->getViewNet()->getUndoList());
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            // set new shape
+            myShape = newShape;
+            // Check if new shape is closed
+            myClosedShape = (myShape.front() == myShape.back());
+            // update boundary intercalated shape
+            updateBoundaryIntercalatedShape(1);
+            // refresh polygon in net to avoid grabbing problems
+            myNet->refreshPolygon(this);
+            // disable simplified shape flag
+            mySimplifiedShape = false;
+        }
+    }
+}
+
+
+void
+GNEPoly::simplifyShape(bool allowUndo) {
+    if(!mySimplifiedShape) {
+        const Boundary b =  myShape.getBoxBoundary();
+        PositionVector simplifiedShape;
+        // create a square as simplified shape
+        simplifiedShape.push_back(Position(b.xmin(), b.ymin()));
+        simplifiedShape.push_back(Position(b.xmin(), b.ymax()));
+        simplifiedShape.push_back(Position(b.xmax(), b.ymax()));
+        simplifiedShape.push_back(Position(b.xmax(), b.ymin()));
+        simplifiedShape.push_back(simplifiedShape[0]);
+        // set new shape depending of allowUndo 
+        if(allowUndo) {
+            myNet->getViewNet()->getUndoList()->p_begin("simplify shape");
+            setAttribute(SUMO_ATTR_SHAPE, toString(simplifiedShape), myNet->getViewNet()->getUndoList());
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            // set new shape
+            myShape = simplifiedShape;
+            // Check if new shape is closed
+            myClosedShape = (myShape.front() == myShape.back());
+            // update boundary intercalated shape
+            updateBoundaryIntercalatedShape(1);
+            // refresh polygon in net to avoid grabbing problems
+            myNet->refreshPolygon(this);
+        }
+        // change flag after setting simplified shape
+        mySimplifiedShape = true;
+    } else {
+        WRITE_WARNING("Polygon already simplified")
+    }
+}
+
+
+void
+GNEPoly::deleteGeometryNear(const Position& pos, bool allowUndo) {
+    if ((myClosedShape && (myShape.size() > 4)) || (!myClosedShape && (myShape.size() > 3))) {
+        // obtain index
+        PositionVector modifiedShape = myShape;
+        int index = modifiedShape.indexOfClosest(pos);
+        // remove point dependending of 
+        if (myClosedShape && (index == 0 || index == (int)modifiedShape.size() - 1)) {
+            modifiedShape.erase(modifiedShape.begin());
+            modifiedShape.erase(modifiedShape.end() - 1);
+            myShape.push_back(modifiedShape.front());
+        } else {
+            modifiedShape.erase(modifiedShape.begin() + index);
+        }
+        // set new shape depending of allowUndo 
+        if(allowUndo) {
+            myNet->getViewNet()->getUndoList()->p_begin("delete geometry point");
+            setAttribute(SUMO_ATTR_SHAPE, toString(modifiedShape), myNet->getViewNet()->getUndoList());
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            // set new shape
+            myShape = modifiedShape;
+            // Check if new shape is closed
+            myClosedShape = (myShape.front() == myShape.back());
+            // update boundary intercalated shape
+            updateBoundaryIntercalatedShape(1);
+            // refresh polygon in net to avoid grabbing problems
+            myNet->refreshPolygon(this);
+            // disable simplified shape flag
+            mySimplifiedShape = false;
+        }
+    } else {
+        WRITE_WARNING("Number of remaining points insufficient")
+    }
 }
 
 
@@ -536,6 +688,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateBoundaryIntercalatedShape(1);
             // refresh polygon in net to avoid grabbing problems
             myNet->refreshPolygon(this);
+            // disable simplified shape flag
+            mySimplifiedShape = false;
             break;
         }
         case SUMO_ATTR_COLOR:
@@ -575,6 +729,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateBoundaryIntercalatedShape(1);
             // refresh polygon in net to avoid grabbing problems
             myNet->refreshPolygon(this);
+            // disable simplified shape flag
+            mySimplifiedShape = false;
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
