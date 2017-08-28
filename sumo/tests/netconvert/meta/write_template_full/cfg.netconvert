@@ -79,7 +79,7 @@
         <tls.yellow.min-decel value="3" synonymes="D min-decel" type="FLOAT" help="Defines smallest vehicle deceleration"/>
         <tls.yellow.patch-small value="false" synonymes="patch-small-tyellow" type="BOOL" help="Given yellow times are patched even if being too short"/>
         <tls.yellow.time value="-1" synonymes="traffic-light-yellow" type="INT" help="Set INT as fixed time for yellow phase durations"/>
-        <tls.red.time value="0" type="INT" help="Set INT as fixed time for red phase duration at traffic lights that do not have a conflicting flow"/>
+        <tls.red.time value="5" type="INT" help="Set INT as fixed time for red phase duration at traffic lights that do not have a conflicting flow"/>
         <tls.allred.time value="0" type="INT" help="Set INT as fixed time for intermediate red phase after every switch"/>
         <tls.left-green.time value="6" type="INT" help="Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases"/>
         <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR" help="TLSs in STR will be shifted by half-phase"/>

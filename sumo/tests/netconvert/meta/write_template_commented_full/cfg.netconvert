@@ -208,7 +208,7 @@
         <tls.yellow.time value="-1" synonymes="traffic-light-yellow" type="INT"/>
 
         <!-- Set INT as fixed time for red phase duration at traffic lights that do not have a conflicting flow -->
-        <tls.red.time value="0" type="INT"/>
+        <tls.red.time value="5" type="INT"/>
 
         <!-- Set INT as fixed time for intermediate red phase after every switch -->
         <tls.allred.time value="0" type="INT"/>
