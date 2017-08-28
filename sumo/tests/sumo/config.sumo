@@ -78,6 +78,8 @@ weights:weights.xml
 lanechanges:lanechanges.xml
 ssm:ssm.xml
 ssm2:ssm_ego.xml
+png:out.png
+png2:out2.png
 
 [run_dependent_text]
 output:^Performance:{->}^Vehicles:

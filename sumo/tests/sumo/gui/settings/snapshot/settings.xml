@@ -1,3 +1,4 @@
 <decals>
-    <snapshot file="test.gif"/>
+    <snapshot file="out.png" time="0"/>
+    <snapshot file="out2.png" time="0"/>
 </decals>
