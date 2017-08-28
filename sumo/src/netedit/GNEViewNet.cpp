@@ -147,7 +147,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myCurrentFrame(0),
     myShowConnections(false),
     mySelectEdges(true),
-    myObjectUnderCursor(0),
     myCreateEdgeSource(0),
     myJunctionToMove(0),
     myEdgeToMove(0),
@@ -966,12 +965,6 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
         }
     }
 
-    // save current object under cursor
-    if (makeCurrent()) {
-        int id = getObjectUnderCursor();
-        myObjectUnderCursor = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-    }
     // update view
     update();
     return 1;
@@ -1145,12 +1138,6 @@ GNEViewNet::getCurrentEditMode() const {
 }
 
 
-GUIGlObject* 
-GNEViewNet::getGLObjectUnderCursor() const {
-    return myObjectUnderCursor;
-}
-
-
 bool
 GNEViewNet::showLockIcon() const {
     return (myEditMode == GNE_MODE_MOVE || myEditMode == GNE_MODE_INSPECT || myEditMode == GNE_MODE_ADDITIONAL);
@@ -1176,8 +1163,6 @@ GNEViewNet::getJunctionAtCursorPosition(Position& /* pos */) {
     }
     return junction;
 }
-
-
 
 
 GNEEdge*

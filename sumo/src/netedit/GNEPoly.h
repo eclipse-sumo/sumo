@@ -205,17 +205,8 @@ protected:
     int myCurrentMovingVertexIndex;
 
 private:
-    /// @brief Shape used for improve performance drawing boundary intercalated shaped. Is updated after every shape change
-    PositionVector myBoundaryIntercalatedShape;
-
-    /// @brief colors myBoundaryIntercalatedShape. Is updated after avery shape change
-    std::vector<RGBColor> myBoundaryIntercalatedShapeColors;
-
     /// @brief hint size of vertex
     static const double myHintSize;
-
-    /// @brief function used to calculate boundary blocked shape
-    void updateBoundaryIntercalatedShape(double distanceBetweenPoints);
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

@@ -301,9 +301,6 @@ public:
     /// @brief get the current edit mode
     EditMode getCurrentEditMode() const;
 
-    /// @brief get object under cursor after a movement
-    GUIGlObject* getGLObjectUnderCursor() const;
-
     /// @brief check if lock icon should be visible
     bool showLockIcon() const;
 
@@ -377,9 +374,6 @@ private:
 
     /// @brief flag to check if select edges is enabled
     bool mySelectEdges;
-
-    /// @brief object under cursor after move
-    GUIGlObject* myObjectUnderCursor;
 
     /// @name the state-variables of the create-edge state-machine
     // @{

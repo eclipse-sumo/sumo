@@ -78,8 +78,6 @@ GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, cons
     myCurrentMovingVertexIndex(-1) {
     // check that number of points is correct and area isn't empty
     assert((shape.size() >= 2) && (shape.area() > 0));
-    // create boundary intercalated shape
-    updateBoundaryIntercalatedShape(1);
 }
 
 
@@ -117,9 +115,6 @@ void
 GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset) {
     // only move shape if block movement is disabled and block shape is enabled
     if(!myBlockMovement && myBlockShape) {
-        // clear myBoundaryIntercalatedShape and myBoundaryIntercalatedShapeColors
-        myBoundaryIntercalatedShape.clear();
-        myBoundaryIntercalatedShapeColors.clear();
         // restore original shape
         myShape = oldShape;
         // change all points of the shape shape using noffset
@@ -163,7 +158,6 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
             WRITE_WARNING("Invalid new vertex position; resultant polygon's area is empty")
             // restore old shape
             myShape = oldShape;
-            updateBoundaryIntercalatedShape(1);
             // refresh element
             myNet->refreshPolygon(this);
         } else {
@@ -321,16 +315,6 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 drawLockIcon(i, GLO_POLYGON, 0.25);
             }
         }
-        // draw intercalated boundary if cursor is under polygon
-        if((myCurrentMovingVertexIndex == -1) && (myNet->getViewNet()->getGLObjectUnderCursor() == this)) {
-            // push matrix
-            glPushMatrix();
-            glLineWidth(2);
-            glTranslated(0, 0, GLO_POLYGON + 0.05);
-            GLHelper::drawLine(myBoundaryIntercalatedShape, myBoundaryIntercalatedShapeColors);
-            glPopMatrix();
-        }
-
         // pop name
         glPopName();
     }
@@ -376,8 +360,6 @@ GNEPoly::openPolygon(bool allowUndo) {
         } else {
             myClosedShape = false;
             myShape.pop_back();
-            // update boundary intercalated shape
-            updateBoundaryIntercalatedShape(1);
             // refresh polygon in net to avoid grabbing problems
             myNet->refreshPolygon(this);
             // disable simplified shape flag
@@ -399,9 +381,7 @@ GNEPoly::closePolygon(bool allowUndo) {
             myNet->getViewNet()->getUndoList()->p_end();
         } else {
             myClosedShape = true;
-            myShape.pop_back();
-            // update boundary intercalated shape
-            updateBoundaryIntercalatedShape(1);
+            myShape.closePolygon();
             // refresh polygon in net to avoid grabbing problems
             myNet->refreshPolygon(this);
             // disable simplified shape flag
@@ -446,8 +426,6 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
             myShape = newShape;
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
-            // update boundary intercalated shape
-            updateBoundaryIntercalatedShape(1);
             // refresh polygon in net to avoid grabbing problems
             myNet->refreshPolygon(this);
             // disable simplified shape flag
@@ -478,8 +456,6 @@ GNEPoly::simplifyShape(bool allowUndo) {
             myShape = simplifiedShape;
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
-            // update boundary intercalated shape
-            updateBoundaryIntercalatedShape(1);
             // refresh polygon in net to avoid grabbing problems
             myNet->refreshPolygon(this);
         }
@@ -515,8 +491,6 @@ GNEPoly::deleteGeometryNear(const Position& pos, bool allowUndo) {
             myShape = modifiedShape;
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
-            // update boundary intercalated shape
-            updateBoundaryIntercalatedShape(1);
             // refresh polygon in net to avoid grabbing problems
             myNet->refreshPolygon(this);
             // disable simplified shape flag
@@ -640,35 +614,6 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
 // private
 // ===========================================================================
 
-void 
-GNEPoly::updateBoundaryIntercalatedShape(double distanceBetweenPoints) {
-    assert (distanceBetweenPoints > 0);
-    // clear myBoundaryIntercalatedShape and myBoundaryIntercalatedShapeColors
-    myBoundaryIntercalatedShape.clear();
-    myBoundaryIntercalatedShapeColors.clear();
-    PositionVector shapeReference = myShape;
-    // close intercalated shape if polygon is filled but isn't closed
-    if(myFill && (myClosedShape == false)) {
-        shapeReference.push_back(shapeReference.front());
-    }
-
-    double currentSize = 0;
-    RGBColor currentColor = RGBColor::BLACK;
-
-    while(currentSize < shapeReference.length()) {
-        myBoundaryIntercalatedShape.push_back(shapeReference.positionAtOffset(currentSize));
-        myBoundaryIntercalatedShapeColors.push_back(currentColor);
-        currentSize += distanceBetweenPoints;
-        // change color
-        if(currentColor == RGBColor::BLACK) {
-            myBoundaryIntercalatedShapeColors.push_back(RGBColor::WHITE);
-        } else {
-            myBoundaryIntercalatedShapeColors.push_back(RGBColor::BLACK);
-        }
-    }
-}
-
-
 void
 GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
@@ -684,8 +629,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             myShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
-            // update boundary intercalated shape
-            updateBoundaryIntercalatedShape(1);
             // refresh polygon in net to avoid grabbing problems
             myNet->refreshPolygon(this);
             // disable simplified shape flag
@@ -697,8 +640,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FILL:
             myFill = parse<bool>(value);
-            // update boundary intercalated shape
-            updateBoundaryIntercalatedShape(1);
             break;
         case SUMO_ATTR_LAYER:
             myLayer = parse<double>(value);
@@ -725,8 +666,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 myShape.pop_back();
             }
-            // update boundary intercalated shape
-            updateBoundaryIntercalatedShape(1);
             // refresh polygon in net to avoid grabbing problems
             myNet->refreshPolygon(this);
             // disable simplified shape flag
