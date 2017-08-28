@@ -251,11 +251,11 @@ public:
     /// @brief remove restricted lane for bus
     long onCmdRemoveRestrictedLaneBuslane(FXObject*, FXSelector typeOfTransformation, void*);
 
-    /// @brief input custom node shape
-    long onCmdNodeShape(FXObject*, FXSelector, void*);
+    /// @brief edit junction shape
+    long onCmdEditJunctionShape(FXObject*, FXSelector, void*);
 
     /// @brief replace node by geometry
-    long onCmdNodeReplace(FXObject*, FXSelector, void*);
+    long onCmdReplaceJunction(FXObject*, FXSelector, void*);
 
     /// @brief toogle show connections
     long onCmdToogleShowConnection(FXObject*, FXSelector, void*);
@@ -328,6 +328,12 @@ public:
     /// @brief return true if junction must be showed as bubbles
     bool showJunctionAsBubbles() const;
 
+    /// @brief start edit junction shape
+    void startEditShapeJunction(GNEJunction *junction);
+
+    /// @brief edit edit junction shape
+    void stopEditShapeJunction();
+
 protected:
     /// @brief FOX needs this
     GNEViewNet() {}
@@ -342,14 +348,11 @@ private:
     /// @brief view parent
     GNEViewParent* myViewParent;
 
-    /// @brief we are not responsible for deletion
+    /// @brief Pointer to current net. (We are not responsible for deletion)
     GNENet* myNet;
 
     /// @brief the current edit mode
     EditMode myEditMode;
-
-    /// @brief the previous edit mode used for toggling
-    EditMode myPreviousEditMode;
 
     /// @brief the current frame
     GNEFrame* myCurrentFrame;
@@ -494,8 +497,11 @@ private:
     /// @brief Poput spot
     Position myPopupSpot;
 
-    /// @brief current polygon
-    GNEPoly* myCurrentPoly;
+    /// @brief  polygon used for edit Junction's shapes
+    GNEPoly* myEditJunctionShapePoly;
+
+    /// @brief the previous edit mode before edit junction's shapes
+    EditMode myPreviousEditMode;
 
     /// @name variables for testing mode
     /// @{
@@ -559,9 +565,6 @@ private:
 
     /// @brief try to retrieve a Polygon at the given position
     GNEPoly* getPolygonAtCursorPosition(Position& pos);
-
-    /// @brief remove the currently edited polygon
-    void removeCurrentPoly();
 
     /// @brief restrict lane
     bool restrictLane(SUMOVehicleClass vclass);

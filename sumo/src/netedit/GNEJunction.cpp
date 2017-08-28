@@ -172,8 +172,8 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     //    // XXX if joinable
     //    new FXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
     //}
-    FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom shape", 0, &parent, MID_GNE_NODE_SHAPE);
-    FXMenuCommand* mcReplace = new FXMenuCommand(ret, "Replace by geometry node", 0, &parent, MID_GNE_NODE_REPLACE);
+    FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom shape", 0, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
+    FXMenuCommand* mcReplace = new FXMenuCommand(ret, "Replace by geometry node", 0, &parent, MID_GNE_JUNCTION_REPLACE);
     const int editMode = parent.getVisualisationSettings()->editMode;
     const bool wrongMode = (editMode == GNE_MODE_CONNECT || editMode == GNE_MODE_TLS || editMode == GNE_MODE_CREATE_EDGE);
     if (wrongMode) {

@@ -87,46 +87,53 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_CREATE_EDGE,        GNEViewNet::onCmdSetModeCreateEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_MOVE,               GNEViewNet::onCmdSetModeMove),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_DELETE,             GNEViewNet::onCmdSetModeDelete),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_INSPECT,            GNEViewNet::onCmdSetModeInspect),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_SELECT,             GNEViewNet::onCmdSetModeSelect),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_CONNECT,            GNEViewNet::onCmdSetModeConnect),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_TLS,                GNEViewNet::onCmdSetModeTLS),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONAL,         GNEViewNet::onCmdSetModeAdditional),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_CROSSING,           GNEViewNet::onCmdSetModeCrossing),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON,            GNEViewNet::onCmdSetModePolygon),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SPLIT_EDGE,              GNEViewNet::onCmdSplitEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SPLIT_EDGE_BIDI,         GNEViewNet::onCmdSplitEdgeBidi),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_REVERSE_EDGE,            GNEViewNet::onCmdReverseEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADD_REVERSE_EDGE,        GNEViewNet::onCmdAddReversedEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_EDGE_ENDPOINT,       GNEViewNet::onCmdSetEdgeEndpoint),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_RESET_EDGE_ENDPOINT,     GNEViewNet::onCmdResetEdgeEndpoint),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_STRAIGHTEN,              GNEViewNet::onCmdStraightenEdges),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SIMPLIFY_SHAPE,          GNEViewNet::onCmdSimplifyShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPoint),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_CLOSE,           GNEViewNet::onCmdClosePolygon),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_OPEN,            GNEViewNet::onCmdOpenPolygon),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SET_FIRST_POINT, GNEViewNet::onCmdSetFirstGeometryPoint),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DUPLICATE_LANE,          GNEViewNet::onCmdDuplicateLane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_TRANSFORM_LANE_SIDEWALK, GNEViewNet::onCmdRestrictLaneSidewalk),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_TRANSFORM_LANE_BIKE,     GNEViewNet::onCmdRestrictLaneBikelane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_TRANSFORM_LANE_BUS,      GNEViewNet::onCmdRestrictLaneBuslane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_REVERT_TRANSFORMATION,   GNEViewNet::onCmdRevertRestriction),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADD_LANE_SIDEWALK,       GNEViewNet::onCmdAddRestrictedLaneSidewalk),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADD_LANE_BIKE,           GNEViewNet::onCmdAddRestrictedLaneBikelane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADD_LANE_BUS,            GNEViewNet::onCmdAddRestrictedLaneBuslane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVE_LANE_SIDEWALK,    GNEViewNet::onCmdRemoveRestrictedLaneSidewalk),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVE_LANE_BIKE,        GNEViewNet::onCmdRemoveRestrictedLaneBikelane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVE_LANE_BUS,         GNEViewNet::onCmdRemoveRestrictedLaneBuslane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NODE_SHAPE,              GNEViewNet::onCmdNodeShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NODE_REPLACE,            GNEViewNet::onCmdNodeReplace),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOW_CONNECTIONS,        GNEViewNet::onCmdToogleShowConnection),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECT_EDGES,            GNEViewNet::onCmdToogleSelectEdges),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOW_BUBBLES,            GNEViewNet::onCmdToogleShowBubbles),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOW_GRID,               GNEViewNet::onCmdShowGrid)
+    // Modes
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_CREATE_EDGE,                GNEViewNet::onCmdSetModeCreateEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_MOVE,                       GNEViewNet::onCmdSetModeMove),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_DELETE,                     GNEViewNet::onCmdSetModeDelete),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_INSPECT,                    GNEViewNet::onCmdSetModeInspect),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_SELECT,                     GNEViewNet::onCmdSetModeSelect),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_CONNECT,                    GNEViewNet::onCmdSetModeConnect),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_TLS,                        GNEViewNet::onCmdSetModeTLS),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONAL,                 GNEViewNet::onCmdSetModeAdditional),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_CROSSING,                   GNEViewNet::onCmdSetModeCrossing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON,                    GNEViewNet::onCmdSetModePolygon),
+    // Viewnet
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_CONNECTIONS,        GNEViewNet::onCmdToogleShowConnection),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SELECT_EDGES,            GNEViewNet::onCmdToogleSelectEdges),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_BUBBLES,            GNEViewNet::onCmdToogleShowBubbles),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_GRID,               GNEViewNet::onCmdShowGrid),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPoint),
+    // Junctions
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_EDIT_SHAPE,             GNEViewNet::onCmdEditJunctionShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_REPLACE,                GNEViewNet::onCmdReplaceJunction),
+    // Edges
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT,                      GNEViewNet::onCmdSplitEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT_BIDI,                 GNEViewNet::onCmdSplitEdgeBidi),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_REVERSE,                    GNEViewNet::onCmdReverseEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_ADD_REVERSE,                GNEViewNet::onCmdAddReversedEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SET_ENDPOINT,               GNEViewNet::onCmdSetEdgeEndpoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_ENDPOINT,             GNEViewNet::onCmdResetEdgeEndpoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN,                 GNEViewNet::onCmdStraightenEdges),
+    // Lanes
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_DUPLICATE,                  GNEViewNet::onCmdDuplicateLane),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_SIDEWALK,         GNEViewNet::onCmdRestrictLaneSidewalk),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BIKE,             GNEViewNet::onCmdRestrictLaneBikelane),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BUS,              GNEViewNet::onCmdRestrictLaneBuslane),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REVERT_TRANSFORMATION,      GNEViewNet::onCmdRevertRestriction),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_SIDEWALK,               GNEViewNet::onCmdAddRestrictedLaneSidewalk),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BIKE,                   GNEViewNet::onCmdAddRestrictedLaneBikelane),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BUS,                    GNEViewNet::onCmdAddRestrictedLaneBuslane),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_SIDEWALK,            GNEViewNet::onCmdRemoveRestrictedLaneSidewalk),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BIKE,                GNEViewNet::onCmdRemoveRestrictedLaneBikelane),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BUS,                 GNEViewNet::onCmdRemoveRestrictedLaneBuslane),
+    // Polygons
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SIMPLIFY_SHAPE,          GNEViewNet::onCmdSimplifyShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_CLOSE,                   GNEViewNet::onCmdClosePolygon),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_OPEN,                    GNEViewNet::onCmdOpenPolygon),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SET_FIRST_POINT,         GNEViewNet::onCmdSetFirstGeometryPoint),
 };
+
 
 // Object implementation
 FXIMPLEMENT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewNetMap))
@@ -143,7 +150,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myViewParent(viewParent),
     myNet(net),
     myEditMode(GNE_MODE_MOVE),
-    myPreviousEditMode(GNE_MODE_MOVE),
     myCurrentFrame(0),
     myShowConnections(false),
     mySelectEdges(true),
@@ -169,7 +175,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditModePolygon(0),
     myEditModeNames(),
     myUndoList(undoList),
-    myCurrentPoly(0),
+    myEditJunctionShapePoly(0),
     myTestingMode(OptionsCont::getOptions().getBool("gui-testing")) {
     // view must be the final member of actualParent
     reparent(actualParent);
@@ -330,6 +336,39 @@ GNEViewNet::changeAllPhases() const {
 bool
 GNEViewNet::showJunctionAsBubbles() const {
     return (myEditMode == GNE_MODE_MOVE) && (myMenuCheckShowBubbleOverJunction->getCheck());
+}
+
+
+void 
+GNEViewNet::startEditShapeJunction(GNEJunction *junction) {
+    if (junction->getNBNode()->getShape().size() > 1) {
+        setEditModeFromHotkey(MID_GNE_MODE_MOVE);
+        junction->getNBNode()->computeNodeShape(-1);
+        if (myEditJunctionShapePoly != 0) {
+            myNet->getVisualisationSpeedUp().removeAdditionalGLObject(myEditJunctionShapePoly);
+            delete myEditJunctionShapePoly;
+            myEditJunctionShapePoly = 0;
+        }
+        PositionVector shape = junction->getNBNode()->getShape();
+        shape.closePolygon();
+        myEditJunctionShapePoly = new GNEPoly(myNet, junction, "junction_shape:" + junction->getMicrosimID(), "junction shape",
+            shape, false, RGBColor::GREEN, GLO_POLYGON, 0, "", false, false);
+        myEditJunctionShapePoly->setLineWidth(0.3);
+        myNet->getVisualisationSpeedUp().addAdditionalGLObject(myEditJunctionShapePoly);
+
+        update();
+    }
+}
+
+
+void
+GNEViewNet::stopEditShapeJunction() {
+    // stop edit shape junction deleting myEditJunctionShapePoly
+    if (myEditJunctionShapePoly != 0) {
+        myNet->getVisualisationSpeedUp().removeAdditionalGLObject(myEditJunctionShapePoly);
+        delete myEditJunctionShapePoly;
+        myEditJunctionShapePoly = 0;
+    }
 }
 
 
@@ -1005,7 +1044,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
     } else if (myEditMode == GNE_MODE_TLS) {
         myViewParent->getTLSEditorFrame()->onCmdCancel(0, 0, 0);
     } else if (myEditMode == GNE_MODE_MOVE) {
-        removeCurrentPoly();
+        stopEditShapeJunction();
     } else if (myEditMode == GNE_MODE_POLYGON) {
         // abort current drawing
         myViewParent->getPolygonFrame()->getDrawingMode()->abortDrawing();
@@ -1039,10 +1078,10 @@ GNEViewNet::hotkeyEnter() {
         myViewParent->getConnectorFrame()->onCmdOK(0, 0, 0);
     } else if (myEditMode == GNE_MODE_TLS) {
         myViewParent->getTLSEditorFrame()->onCmdOK(0, 0, 0);
-    } else if (myEditMode == GNE_MODE_MOVE && myCurrentPoly != 0) {
-        if (myCurrentPoly->getEditedJunction() != 0) {
-            myCurrentPoly->getEditedJunction()->setAttribute(SUMO_ATTR_SHAPE, toString(myCurrentPoly->getShape()), myUndoList);
-            removeCurrentPoly();
+    } else if (myEditMode == GNE_MODE_MOVE && myEditJunctionShapePoly != 0) {
+        if (myEditJunctionShapePoly->getEditedJunction() != 0) {
+            myEditJunctionShapePoly->getEditedJunction()->setAttribute(SUMO_ATTR_SHAPE, toString(myEditJunctionShapePoly->getShape()), myUndoList);
+            stopEditShapeJunction();
             update();
         }
     } else if (myEditMode == GNE_MODE_POLYGON) {
@@ -1400,8 +1439,8 @@ GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
-    if (myCurrentPoly != 0) {
-        myCurrentPoly->simplifyShape(false);
+    if (myEditJunctionShapePoly != 0) {
+        myEditJunctionShapePoly->simplifyShape(false);
         update();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtCursorPosition(myPopupSpot);
@@ -1415,8 +1454,8 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
 
 long 
 GNEViewNet::onCmdDeleteGeometryPoint(FXObject*, FXSelector, void*) {
-    if (myCurrentPoly != 0) {
-        myCurrentPoly->deleteGeometryNear(myPopupSpot, false);
+    if (myEditJunctionShapePoly != 0) {
+        myEditJunctionShapePoly->deleteGeometryNear(myPopupSpot, false);
         update();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtCursorPosition(myPopupSpot);
@@ -1430,8 +1469,8 @@ GNEViewNet::onCmdDeleteGeometryPoint(FXObject*, FXSelector, void*) {
 
 long 
 GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
-    if (myCurrentPoly != 0) {
-        myCurrentPoly->closePolygon(false);
+    if (myEditJunctionShapePoly != 0) {
+        myEditJunctionShapePoly->closePolygon(false);
         update();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtCursorPosition(myPopupSpot);
@@ -1445,8 +1484,8 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
 
 long 
 GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
-    if (myCurrentPoly != 0) {
-        myCurrentPoly->openPolygon(false);
+    if (myEditJunctionShapePoly != 0) {
+        myEditJunctionShapePoly->openPolygon(false);
         update();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtCursorPosition(myPopupSpot);
@@ -1460,8 +1499,8 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
 
 long 
 GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
-    if (myCurrentPoly != 0) {
-        myCurrentPoly->changeFirstGeometryPoint(myCurrentPoly->getVertexIndex(myPopupSpot, false), false);
+    if (myEditJunctionShapePoly != 0) {
+        myEditJunctionShapePoly->changeFirstGeometryPoint(myEditJunctionShapePoly->getVertexIndex(myPopupSpot, false), false);
         update();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtCursorPosition(myPopupSpot);
@@ -1884,31 +1923,14 @@ GNEViewNet::onCmdRevertRestriction(FXObject*, FXSelector, void*) {
 
 
 long
-GNEViewNet::onCmdNodeShape(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtCursorPosition(myPopupSpot);
     if (junction != 0) {
-        if (myCurrentPoly == 0) {
-            if (junction->getNBNode()->getShape().size() > 1) {
-                setEditModeFromHotkey(MID_GNE_MODE_MOVE);
-                //std::cout << junction->getNBNode()->getShape() << "\n";
-                junction->getNBNode()->computeNodeShape(-1);
-                if (myCurrentPoly != 0) {
-                    myNet->getVisualisationSpeedUp().removeAdditionalGLObject(myCurrentPoly);
-                    delete myCurrentPoly;
-                    myCurrentPoly = 0;
-                }
-                PositionVector shape = junction->getNBNode()->getShape();
-                shape.closePolygon();
-                myCurrentPoly = new GNEPoly(myNet, junction, "junction_shape:" + junction->getMicrosimID(), "junction shape",
-                                            shape, false, RGBColor::GREEN, GLO_POLYGON, 0, "", false, false);
-                myCurrentPoly->setLineWidth(0.3);
-                myNet->getVisualisationSpeedUp().addAdditionalGLObject(myCurrentPoly);
-
-                update();
-            }
+        if (myEditJunctionShapePoly == 0) {
+            startEditShapeJunction(junction);
         } else {
-            junction->setAttribute(SUMO_ATTR_SHAPE, toString(myCurrentPoly->getShape()), myUndoList);
-            removeCurrentPoly();
+            junction->setAttribute(SUMO_ATTR_SHAPE, toString(myEditJunctionShapePoly->getShape()), myUndoList);
+            stopEditShapeJunction();
             update();
         }
     }
@@ -1916,18 +1938,8 @@ GNEViewNet::onCmdNodeShape(FXObject*, FXSelector, void*) {
 }
 
 
-void
-GNEViewNet::removeCurrentPoly() {
-    if (myCurrentPoly != 0) {
-        myNet->getVisualisationSpeedUp().removeAdditionalGLObject(myCurrentPoly);
-        delete myCurrentPoly;
-        myCurrentPoly = 0;
-    }
-}
-
-
 long
-GNEViewNet::onCmdNodeReplace(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdReplaceJunction(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtCursorPosition(myPopupSpot);
     if (junction != 0) {
         myNet->replaceJunctionByGeometry(junction, myUndoList);
@@ -1991,13 +2003,15 @@ void
 GNEViewNet::setEditMode(EditMode mode) {
     setStatusBarText("");
     abortOperation(false);
+    // stop editing of shape's junction
+    stopEditShapeJunction();
+
     if (mode == myEditMode) {
         setStatusBarText("Mode already selected");
         if (myCurrentFrame != NULL) {
             myCurrentFrame->focusUpperElement();
         }
     } else {
-        myPreviousEditMode = myEditMode;
         myEditMode = mode;
         switch (mode) {
             case GNE_MODE_CONNECT:
@@ -2058,10 +2072,10 @@ GNEViewNet::buildEditModeControls() {
     myAutoCreateOppositeEdge = new FXMenuCheck(myToolbar, ("two-way\t\tAutomatically create an " + toString(SUMO_TAG_EDGE) + " in the opposite direction").c_str(), this, 0);
     myAutoCreateOppositeEdge->setCheck(false);
 
-    myMenuCheckSelectEdges = new FXMenuCheck(myToolbar, ("select edges\t\tToggle whether clicking should select " + toString(SUMO_TAG_EDGE) + "s or " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_SELECT_EDGES);
+    myMenuCheckSelectEdges = new FXMenuCheck(myToolbar, ("select edges\t\tToggle whether clicking should select " + toString(SUMO_TAG_EDGE) + "s or " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_VIEWNET_SELECT_EDGES);
     myMenuCheckSelectEdges->setCheck(true);
 
-    myMenuCheckShowConnections = new FXMenuCheck(myToolbar, ("show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, MID_GNE_SHOW_CONNECTIONS);
+    myMenuCheckShowConnections = new FXMenuCheck(myToolbar, ("show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, MID_GNE_VIEWNET_SHOW_CONNECTIONS);
     myMenuCheckShowConnections->setCheck(false);
 
     myMenuCheckExtendToEdgeNodes = new FXMenuCheck(myToolbar, ("auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, 0);
@@ -2069,13 +2083,13 @@ GNEViewNet::buildEditModeControls() {
     myMenuCheckWarnAboutMerge = new FXMenuCheck(myToolbar, ("ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(), this, 0);
     myMenuCheckWarnAboutMerge->setCheck(true);
 
-    myMenuCheckShowBubbleOverJunction = new FXMenuCheck(myToolbar, ("Show bubbles over " + toString(SUMO_TAG_JUNCTION) + "s \t\tShow bubbles over " + toString(SUMO_TAG_JUNCTION) + "'s shapes.").c_str(), this, MID_GNE_SHOW_BUBBLES);
+    myMenuCheckShowBubbleOverJunction = new FXMenuCheck(myToolbar, ("Show bubbles over " + toString(SUMO_TAG_JUNCTION) + "s \t\tShow bubbles over " + toString(SUMO_TAG_JUNCTION) + "'s shapes.").c_str(), this, MID_GNE_VIEWNET_SHOW_BUBBLES);
     myMenuCheckShowBubbleOverJunction->setCheck(false);
 
     myMenuCheckChangeAllPhases = new FXMenuCheck(myToolbar, ("apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " plan").c_str(), this, 0);
     myMenuCheckChangeAllPhases->setCheck(false);
 
-    myMenuCheckShowGrid = new FXMenuCheck(myToolbar, "show grid\t\tshow grid with size defined in visualization options", this, MID_GNE_SHOW_GRID);
+    myMenuCheckShowGrid = new FXMenuCheck(myToolbar, "show grid\t\tshow grid with size defined in visualization options", this, MID_GNE_VIEWNET_SHOW_GRID);
     myMenuCheckShowGrid->setCheck(false);
 }
 

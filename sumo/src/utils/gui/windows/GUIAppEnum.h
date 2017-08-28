@@ -573,13 +573,13 @@ enum {
     /// @brief insert contents of another network
     MID_GNE_INSERT_NETWORK,
     /// @brief show connections
-    MID_GNE_SHOW_CONNECTIONS,
+    MID_GNE_VIEWNET_SHOW_CONNECTIONS,
     /// @brief select edges
-    MID_GNE_SELECT_EDGES,
+    MID_GNE_VIEWNET_SELECT_EDGES,
     /// @brief show junctions as bubbles
-    MID_GNE_SHOW_BUBBLES,
+    MID_GNE_VIEWNET_SHOW_BUBBLES,
     /// @brief show grid
-    MID_GNE_SHOW_GRID,
+    MID_GNE_VIEWNET_SHOW_GRID,
     /// @brief attribute edited
     MID_GNE_SET_ATTRIBUTE,
     /// @brief attribute block movement
@@ -633,27 +633,27 @@ enum {
     /// @brief open color dialog
     MID_GNE_OPEN_COLOR_EDITOR,
     /// @brief split an edge
-    MID_GNE_SPLIT_EDGE,
+    MID_GNE_EDGE_SPLIT,
     /// @brief split an edge
-    MID_GNE_SPLIT_EDGE_BIDI,
+    MID_GNE_EDGE_SPLIT_BIDI,
     /// @brief reverse an edge
-    MID_GNE_REVERSE_EDGE,
+    MID_GNE_EDGE_REVERSE,
     /// @brief add reverse edge
-    MID_GNE_ADD_REVERSE_EDGE,
+    MID_GNE_EDGE_ADD_REVERSE,
     /// @brief edit junction shape
-    MID_GNE_NODE_SHAPE,
+    MID_GNE_JUNCTION_EDIT_SHAPE,
     /// @brief turn junction into geometry node
-    MID_GNE_NODE_REPLACE,
+    MID_GNE_JUNCTION_REPLACE,
     /// @brief set non-default geometry endpoint
-    MID_GNE_SET_EDGE_ENDPOINT,
+    MID_GNE_EDGE_SET_ENDPOINT,
     /// @brief restore geometry endpoint to node position
-    MID_GNE_RESET_EDGE_ENDPOINT,
+    MID_GNE_EDGE_RESET_ENDPOINT,
     /// @brief remove inner geometry
-    MID_GNE_STRAIGHTEN,
+    MID_GNE_EDGE_STRAIGHTEN,
     /// @brief simplify polygon geometry
-    MID_GNE_SIMPLIFY_SHAPE,
+    MID_GNE_POLYGON_SIMPLIFY_SHAPE,
     /// @brief delete geometry point
-    MID_GNE_DELETE_GEOMETRY_POINT,
+    MID_GNE_VIEWNET_DELETE_GEOMETRY_POINT,
     /// @brief close opened polygon
     MID_GNE_POLYGON_CLOSE,
     /// @brief open closed polygon
@@ -661,27 +661,27 @@ enum {
     /// @brief Set a vertex of polygon as first verte
     MID_GNE_POLYGON_SET_FIRST_POINT,
     /// @brief duplicate a lane
-    MID_GNE_DUPLICATE_LANE,
+    MID_GNE_LANE_DUPLICATE,
     /// @brief transform lane to sidewalk
-    MID_GNE_TRANSFORM_LANE_SIDEWALK,
+    MID_GNE_LANE_TRANSFORM_SIDEWALK,
     /// @brief transform lane to bikelane
-    MID_GNE_TRANSFORM_LANE_BIKE,
+    MID_GNE_LANE_TRANSFORM_BIKE,
     /// @brief transform lane to busLane
-    MID_GNE_TRANSFORM_LANE_BUS,
+    MID_GNE_LANE_TRANSFORM_BUS,
     /// @brief revert transformation
-    MID_GNE_REVERT_TRANSFORMATION,
+    MID_GNE_LANE_REVERT_TRANSFORMATION,
     /// @brief add sidewalk
-    MID_GNE_ADD_LANE_SIDEWALK,
+    MID_GNE_LANE_ADD_SIDEWALK,
     /// @brief add bikelane
-    MID_GNE_ADD_LANE_BIKE,
+    MID_GNE_LANE_ADD_BIKE,
     /// @brief add busLane
-    MID_GNE_ADD_LANE_BUS,
+    MID_GNE_LANE_ADD_BUS,
     /// @brief remove sidewalk
-    MID_GNE_REMOVE_LANE_SIDEWALK,
+    MID_GNE_LANE_REMOVE_SIDEWALK,
     /// @brief remove bikelane
-    MID_GNE_REMOVE_LANE_BIKE,
+    MID_GNE_LANE_REMOVE_BIKE,
     /// @brief remove busLane
-    MID_GNE_REMOVE_LANE_BUS,
+    MID_GNE_LANE_REMOVE_BUS,
     /// @brief set object as template
     MID_GNE_SET_TEMPLATE,
     /// @brief copy template
