@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    NBPTLineCont.cpp
 /// @author  Gregor Laemmel
+/// @author  Nikita Cherednychek
 /// @date    Tue, 20 Mar 2017
 /// @version $Id$
 ///
@@ -41,30 +42,26 @@ NBPTLineCont::NBPTLineCont()
 
 
 NBPTLineCont::~NBPTLineCont() {
-    for (std::vector<NBPTLine*>::iterator it = myPTLines.begin(); it != myPTLines.end(); it++) {
-        delete *it;
+    for (auto& myPTLine : myPTLines) {
+        delete myPTLine;
     }
     myPTLines.clear();
 }
 
 void
 NBPTLineCont::insert(NBPTLine* pLine) {
-//    std::cout << "new line: " << pLine->getName() << " stops: " << pLine->getStops().size() << std::endl;
     pLine->setId(myIdCnt++);
     myPTLines.push_back(pLine);
 }
 void NBPTLineCont::process(NBEdgeCont& cont) {
     for (auto& myPTLine : myPTLines) {
         std::vector<NBPTStop*> stops = myPTLine->getStops();
-        std::vector<std::string> waysIds = myPTLine->getMyWays();
-        auto waysIdsIt = waysIds.begin();
-
         for (auto& stop : stops) {
             //get the corresponding and one of the two adjacent ways
             std::string origId = stop->getOrigEdgeId();
 
-
-
+            std::vector<std::string> waysIds = myPTLine->getMyWays();
+            auto waysIdsIt = waysIds.begin();
             if (waysIds.size() <= 1) {
                 WRITE_WARNING("Cannot revise pt stop localization for pt line: " + myPTLine->getName()
                                       + ", which consist of one way only. Ignoring!");
@@ -75,30 +72,31 @@ void NBPTLineCont::process(NBEdgeCont& cont) {
                     break;
                 }
             }
-            if (waysIdsIt == waysIds.end()){
-                for (auto& edgeCand : stop->getMyAdditionalEdgeCandidates() ){
-                    bool found = false;
-                    waysIdsIt =  waysIds.begin();
-                    for (; waysIdsIt != waysIds.end(); waysIdsIt++) {
-                        if ((*waysIdsIt) == edgeCand.first) {
-                            stop->setEdgeId(edgeCand.second);
-                            stop->setMyOrigEdgeId(edgeCand.first);
-                            origId = edgeCand.first;
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (found){
-                        break;
-                    }
-                }
-            }
+
+//			//Laemmel
+//            if (waysIdsIt == waysIds.end()){
+//                for (auto& edgeCand : stop->getMyAdditionalEdgeCandidates() ){
+//                    bool found = false;
+//                    waysIdsIt =  waysIds.begin();
+//                    for (; waysIdsIt != waysIds.end(); waysIdsIt++) {
+//                        if ((*waysIdsIt) == edgeCand.first) {
+//                            stop->setEdgeId(edgeCand.second);
+//                            stop->setMyOrigEdgeId(edgeCand.first);
+//                            origId = edgeCand.first;
+//                            found = true;
+//                            break;
+//                        }
+//                    }
+//                    if (found){
+//                        break;
+//                    }
+//                }
+//            }
 
 
             if (waysIdsIt == waysIds.end()) {
                 WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
                                       + ". Ignoring!");
-                waysIdsIt = waysIds.begin();
                 continue;
             }
 
@@ -118,13 +116,13 @@ void NBPTLineCont::process(NBEdgeCont& cont) {
                                           + ". Ignoring!");
                     continue;
                 }
-                long long int wayEnds = *(way->end()-1);
+                long long int wayEnds = *(way->end() - 1);
                 long long int wayBegins = *(way->begin());
-                long long int way2Ends = *(way2->end()-1);
+                long long int way2Ends = *(way2->end() - 1);
                 long long int way2Begins = *(way2->begin());
                 if (wayBegins == way2Ends || wayBegins == way2Begins) {
                     dir = FWD;
-                } else if (wayEnds == way2Begins || wayEnds == way2Ends){
+                } else if (wayEnds == way2Begins || wayEnds == way2Ends) {
                     dir = BWD;
                 } else {
                     WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
@@ -140,13 +138,13 @@ void NBPTLineCont::process(NBEdgeCont& cont) {
                                           + ". Ignoring!");
                     continue;
                 }
-                long long int wayEnds = *(way->end()-1);
+                long long int wayEnds = *(way->end() - 1);
                 long long int wayBegins = *(way->begin());
-                long long int way2Ends = *(way2->end()-1);
+                long long int way2Ends = *(way2->end() - 1);
                 long long int way2Begins = *(way2->begin());
                 if (wayBegins == way2Ends || wayBegins == way2Begins) {
                     dir = BWD;
-                } else if (wayEnds == way2Begins || wayEnds == way2Ends){
+                } else if (wayEnds == way2Begins || wayEnds == way2Ends) {
                     dir = FWD;
                 } else {
                     WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
@@ -157,24 +155,116 @@ void NBPTLineCont::process(NBEdgeCont& cont) {
 
 
             std::string edgeId = stop->getEdgeId();
-            NBEdge * current = cont.getByID(edgeId);
+            NBEdge* current = cont.getByID(edgeId);
             int assingedTo = edgeId.at(0) == '-' ? BWD : FWD;
 
             if (dir != assingedTo) {
-                NBEdge * reverse = NBPTStopCont::getReverseEdge(current);
+                NBEdge* reverse = NBPTStopCont::getReverseEdge(current);
                 if (reverse == nullptr) {
-                    WRITE_WARNING("Could not re-assign PT stop: " + stop->getID()  + " probably broken osm file");
+                    WRITE_WARNING("Could not re-assign PT stop: " + stop->getID() + " probably broken osm file");
                     continue;
                 }
                 stop->setEdgeId(reverse->getID());
-                NBPTStopCont::findLaneAndComputeBusStopExtend(stop,cont);
+                NBPTStopCont::findLaneAndComputeBusStopExtend(stop, cont);
                 WRITE_WARNING("PT stop: " + stop->getID() + " has been moved to edge: " + reverse->getID());
             }
 
         }
 
+        //
+        NBPTLine* pTLine = myPTLine;
 
+        NBNode* first = nullptr;
+        NBNode* last = nullptr;
+        std::vector<NBEdge*> prevWayEdges;
+        std::vector<NBEdge*> prevWayMinusEdges;
+        prevWayEdges.clear();
+        prevWayMinusEdges.clear();
+        std::vector<NBEdge*> currentWayEdges;
+        std::vector<NBEdge*> currentWayMinusEdges;
+        for (auto it3 = pTLine->getMyWays().begin();
+             it3 != pTLine->getMyWays().end(); it3++) {
+
+            if (cont.retrieve(*it3, false) != nullptr) {
+                currentWayEdges.push_back(cont.retrieve(*it3, false));
+            } else {
+                int i = 0;
+                while (cont.retrieve(*it3 + "#" + std::to_string(i), false) != nullptr) {
+                    currentWayEdges.push_back(cont.retrieve(*it3 + "#" + std::to_string(i), false));
+                    i++;
+                }
+            }
+
+            if (cont.retrieve("-" + *it3, false) != nullptr) {
+                currentWayMinusEdges.push_back(cont.retrieve("-" + *it3, false));
+            } else {
+                int i = 0;
+                while (cont.retrieve("-" + *it3 + "#" + std::to_string(i), false) != nullptr) {
+                    currentWayMinusEdges.insert(currentWayMinusEdges.begin(),
+                                                cont.retrieve("-" + *it3 + "#" + std::to_string(i), false));
+                    i++;
+                }
+            }
+            if (currentWayEdges.empty())
+                continue;
+            if (last == currentWayEdges.front()->getFromNode() && last != nullptr) {
+                if (!prevWayEdges.empty()) {
+                    pTLine->addEdgeVector(prevWayEdges);
+                    prevWayEdges.clear();
+                    prevWayMinusEdges.clear();
+                }
+                pTLine->addEdgeVector(currentWayEdges);
+                last = currentWayEdges.back()->getToNode();
+            } else if (last == currentWayEdges.back()->getToNode() && last != nullptr) {
+                if (!prevWayEdges.empty()) {
+                    pTLine->addEdgeVector(prevWayEdges);
+                    prevWayEdges.clear();
+                    prevWayMinusEdges.clear();
+                }
+                if (currentWayMinusEdges.empty()) {
+                    currentWayEdges.clear();
+                    last = nullptr;
+                    continue;
+                } else {
+                    pTLine->addEdgeVector(currentWayMinusEdges);
+                    last = currentWayMinusEdges.back()->getToNode();
+                }
+            } else if (first == currentWayEdges.front()->getFromNode() && first != nullptr) {
+                pTLine->addEdgeVector(prevWayMinusEdges);
+                pTLine->addEdgeVector(currentWayEdges);
+                last = currentWayEdges.back()->getToNode();
+                prevWayEdges.clear();
+                prevWayMinusEdges.clear();
+            } else if (first == currentWayEdges.back()->getToNode() && first != nullptr) {
+                pTLine->addEdgeVector(prevWayMinusEdges);
+                if (currentWayMinusEdges.empty()) {
+                    currentWayEdges.clear();
+                    last = nullptr;
+                    prevWayEdges.clear();
+                    prevWayMinusEdges.clear();
+                    continue;
+                } else {
+                    pTLine->addEdgeVector(currentWayMinusEdges);
+                    last = currentWayMinusEdges.back()->getToNode();
+                    prevWayEdges.clear();
+                    prevWayMinusEdges.clear();
+                }
+            } else {
+                if (it3 != pTLine->getMyWays().begin())
+                    std::cout << "Warning: incomplete route for " << pTLine->getName() << std::endl;
+                prevWayEdges = currentWayEdges;
+                prevWayMinusEdges = currentWayMinusEdges;
+                if (!prevWayEdges.empty()) {
+                    first = prevWayEdges.front()->getFromNode();
+                    last = prevWayEdges.back()->getToNode();
+                } else {
+                    first = nullptr;
+                    last = nullptr;
+                }
+            }
+            currentWayEdges.clear();
+            currentWayMinusEdges.clear();
+        }
     }
-
 }
 

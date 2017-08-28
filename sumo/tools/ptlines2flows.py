@@ -44,6 +44,7 @@ def get_options():
     optParser.add_option("-p", "--period", dest="period", default="600", help="period")
     optParser.add_option("-b", "--begin", dest="begin", default="0", help="start time")
     optParser.add_option("-e", "--end", dest="end", default="3600", help="end time")
+    optParser.add_option("-o", "--use-osm-routs", dest='osmRoutes', default="false", help="use osm routs (true/false")
     (options, args) = optParser.parse_args()
     return options
 
@@ -62,6 +63,7 @@ def main():
             fouttrips, "$Id$", "routes")
         trp_nr = 0
         for line in sumolib.output.parse(options.ptlines, 'ptLine'):
+
             stops = line._child_dict['busStop']
             fr = ''
             stop_ids = []
@@ -75,9 +77,17 @@ def main():
                 to = edge_id
                 edge = net.getEdge(edge_id)
                 stop_ids.append(stop.id)
-            fouttrips.write(
-                '\t<trip id="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (trp_nr, 'best', fr, to))
-            trpIDLineMap[str(trp_nr)]=line.line
+
+            if options.osmRoutes == 'true' and 'route' in line._child_dict:
+                route = line._child_dict['route']
+                edges = route[0].edges
+                fouttrips.write(
+                    '\t<trip id="%s" depart="0" departLane="%s" from="%s" to="%s" via="%s">\n' % (trp_nr, 'best', fr, to,edges))
+            else:
+                fouttrips.write(
+                    '\t<trip id="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (trp_nr, 'best', fr, to))
+
+            trpIDLineMap[str(trp_nr)] = line.line
             trp_nr += 1
             for stop in stop_ids:
                 fouttrips.write('\t\t<stop busStop="%s" duration="30" />\n' % (stop))
@@ -85,11 +95,11 @@ def main():
         fouttrips.write("</routes>\n")
     print("done.")
     print("running SUMO to dertermine actual departure times...")
-    subprocess.call([sumolib.checkBinary("sumo"), "-r", options.trips, "-n", options.netfile, 
+    subprocess.call([sumolib.checkBinary("sumo"), "-r", options.trips, "-n", options.netfile,
                      "--no-step-log",
-                     "-a", options.ptstops, 
+                     "-a", options.ptstops,
                      "--vehroute-output", options.routes,
-                     "--stop-output", options.stopinfos,])
+                     "--stop-output", options.stopinfos, ])
     print("done.")
 
     print("creating routes...")
@@ -122,6 +132,7 @@ def main():
         foutflows.write('</routes>\n')
 
     print("done.")
+
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    NBPTLine.cpp
 /// @author  Gregor Laemmel
+/// @author  Nikita Cherednychek
 /// @date    Tue, 20 Mar 2017
 /// @version $Id$
 ///
@@ -23,7 +24,8 @@
 #include "NBPTLine.h"
 #include "NBPTStop.h"
 
-NBPTLine::NBPTLine(std::string name) : myName(std::move(name)), myPTLineId(-1), myRef(name) {
+NBPTLine::NBPTLine(std::string name)
+        :myName(std::move(name)), myPTLineId(-1), myRef(name) {
 
 }
 void NBPTLine::addPTStop(NBPTStop* pStop) {
@@ -43,6 +45,12 @@ void NBPTLine::write(OutputDevice& device) {
         device.writeAttr(SUMO_ATTR_NAME, myName);
     }
     device.writeAttr(SUMO_ATTR_LINE, myRef);
+
+    if (!myRoute.empty()) {
+        device.openTag(SUMO_TAG_ROUTE);
+        device.writeAttr(SUMO_ATTR_EDGES, getRoute());
+        device.closeTag();
+    }
 
     for (auto& myPTStop : myPTStops) {
         device.openTag(SUMO_TAG_BUS_STOP);
@@ -69,9 +77,6 @@ void NBPTLine::addWayNode(long long int way, long long int node) {
     myWaysNodes[wayStr].push_back(node);
 
 }
-//const std::vector<NBPTStop*>& NBPTLine::getMyPTStops() const {
-//    return myPTStops;
-//}
 const std::vector<std::string>& NBPTLine::getMyWays() const {
     return myWays;
 }
@@ -79,8 +84,18 @@ std::vector<long long int>* NBPTLine::getWaysNodes(std::string wayId) {
     if (myWaysNodes.find(wayId) != myWaysNodes.end()) {
         return &myWaysNodes[wayId];
     }
-    return 0;
+    return nullptr;
 }
 void NBPTLine::setRef(std::string ref) {
     myRef = std::move(ref);
+}
+void NBPTLine::addEdgeVector(std::vector<NBEdge*>& EdgeVector) {
+    myRoute.insert(myRoute.end(), EdgeVector.begin(), EdgeVector.end());
+}
+std::string NBPTLine::getRoute() {
+    std::string route;
+    for (auto& it : myRoute) {
+        route += (" " + it->getID());
+    }
+    return route;
 }

@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    NBPTLine.h
 /// @author  Gregor Laemmel
+/// @author  Nikita Cherednychek
 /// @date    Tue, 20 Mar 2017
 /// @version $Id$
 ///
@@ -24,6 +25,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include "NBEdge.h" // Cherednychek
 
 // ===========================================================================
 // class declarations
@@ -46,8 +48,7 @@ public:
 private:
     std::string myName;
     std::vector<NBPTStop*> myPTStops;
-//public:
-//    const std::vector<NBPTStop*>& getMyPTStops() const;
+
 private:
     std::map<std::string, std::vector<long long int> > myWaysNodes;
     std::vector<std::string> myWays;
@@ -59,6 +60,13 @@ private:
     std::string myCurrentWay;
     long long int myPTLineId;
     std::string myRef;
+
+public:
+    void addEdgeVector(std::vector<NBEdge*>& EdgeVector);
+    std::string getRoute();
+private:
+    // route of ptline
+    std::vector<NBEdge*> myRoute;
 };
 
 
