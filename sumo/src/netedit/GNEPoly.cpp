@@ -335,14 +335,22 @@ GNEPoly::isPolygonClosed() const {
 
 
 void
-GNEPoly::simplifyShape() {
+GNEPoly::simplifyShape(bool allowUndo) {
     const Boundary b =  myShape.getBoxBoundary();
-    myShape.clear();
-    myShape.push_back(Position(b.xmin(), b.ymin()));
-    myShape.push_back(Position(b.xmin(), b.ymax()));
-    myShape.push_back(Position(b.xmax(), b.ymax()));
-    myShape.push_back(Position(b.xmax(), b.ymin()));
-    myShape.push_back(myShape[0]);
+    PositionVector simplifiedShape;
+    // create a square as simplified shape
+    simplifiedShape.push_back(Position(b.xmin(), b.ymin()));
+    simplifiedShape.push_back(Position(b.xmin(), b.ymax()));
+    simplifiedShape.push_back(Position(b.xmax(), b.ymax()));
+    simplifiedShape.push_back(Position(b.xmax(), b.ymin()));
+    simplifiedShape.push_back(simplifiedShape[0]);
+    if(allowUndo) {
+        myNet->getViewNet()->getUndoList()->p_begin("simplify shape");
+        setAttribute(SUMO_ATTR_SHAPE, toString(simplifiedShape), myNet->getViewNet()->getUndoList());
+        myNet->getViewNet()->getUndoList()->p_end();
+    } else {
+        myShape = simplifiedShape;
+    }
 }
 
 

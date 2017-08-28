@@ -173,7 +173,7 @@ public:
     bool isPolygonClosed() const;
     
     /// @brief replace the current shape with a rectangle
-    void simplifyShape();
+    void simplifyShape(bool allowUndo = true);
 
     /// @brief delete the geometry point closest to the given pos
     void deleteGeometryNear(const Position& pos);

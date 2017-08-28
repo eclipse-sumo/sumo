@@ -1398,6 +1398,13 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
     if (myCurrentPoly != 0) {
         myCurrentPoly->simplifyShape();
         update();
+    } else if (makeCurrent()) {
+        int id = getObjectAtPosition(myPopupSpot);
+        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        if (pointed && (pointed->getType() == GLO_POLYGON)) {
+            dynamic_cast<GNEPoly*>(pointed)->simplifyShape();
+        }
     }
     return 1;
 }
