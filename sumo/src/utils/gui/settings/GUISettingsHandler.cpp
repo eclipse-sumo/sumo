@@ -106,7 +106,7 @@ GUISettingsHandler::myStartElement(int element,
             if (file != "" && !FileHelpers::isAbsolute(file)) {
                 file = FileHelpers::getConfigurationRelative(getFileName(), file);
             }
-            mySnapshots[attrs.getOptSUMOTimeReporting(SUMO_ATTR_TIME, file.c_str(), ok, 0)] = file;
+            mySnapshots[attrs.getOptSUMOTimeReporting(SUMO_ATTR_TIME, file.c_str(), ok, 0)].push_back(file);
         }
         break;
         case SUMO_TAG_VIEWSETTINGS_SCHEME: {
@@ -366,7 +366,11 @@ GUISettingsHandler::applyViewport(GUISUMOAbstractView* view) const {
 void
 GUISettingsHandler::setSnapshots(GUISUMOAbstractView* view) const {
     if (!mySnapshots.empty()) {
-        view->setSnapshots(mySnapshots);
+        for (auto item : mySnapshots) {
+            for (auto file : item.second) {
+                view->addSnapshot(item.first, file);
+            }
+        }
     }
 }
 

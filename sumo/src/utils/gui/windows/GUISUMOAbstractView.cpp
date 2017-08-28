@@ -801,11 +801,11 @@ GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
 
 
 // ------------ Dealing with snapshots
-void
-GUISUMOAbstractView::setSnapshots(std::map<SUMOTime, std::string> snaps) {
-    mySnapshots.insert(snaps.begin(), snaps.end());
+void 
+GUISUMOAbstractView::addSnapshot(SUMOTime time, const std::string& file) {
+    //std::cout << "add snappshot time=" << time << " file=" << file << "\n";
+    mySnapshots[time].push_back(file);
 }
-
 
 std::string
 GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
@@ -967,11 +967,15 @@ GUISUMOAbstractView::saveFrame(const std::string& destFile, FXColor* buf) {
 
 void
 GUISUMOAbstractView::checkSnapshots() {
-    std::map<SUMOTime, std::string>::iterator snapIt = mySnapshots.find(getCurrentTimeStep());
+    std::map<SUMOTime, std::vector<std::string> >::iterator snapIt = mySnapshots.find(getCurrentTimeStep());
+    //std::cout << "check snappshots time=" << getCurrentTimeStep() << " registeredTimes=" << mySnapshots.size() << "\n";
     if (snapIt != mySnapshots.end()) {
-        std::string error = makeSnapshot(snapIt->second);
-        if (error != "") {
-            WRITE_WARNING(error);
+        for (auto file : snapIt->second) {
+            //std::cout << "make snappshot time=" << getCurrentTimeStep() << " file=" << file << "\n";
+            std::string error = makeSnapshot(file);
+            if (error != "") {
+                WRITE_WARNING(error);
+            }
         }
     }
 }

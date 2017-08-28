@@ -154,7 +154,7 @@ private:
     Position myLookAt;
 
     /// @brief mappig of time steps to filenames for potential snapshots
-    std::map<SUMOTime, std::string> mySnapshots;
+    std::map<SUMOTime, std::vector<std::string> > mySnapshots;
 
     /// @brief The decals list to fill
     std::vector<GUISUMOAbstractView::Decal> myDecals;

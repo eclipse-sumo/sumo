@@ -168,7 +168,7 @@ public:
     /** @brief Sets the snapshot time to file map
      * @param[in] snaps The snapshots to take at certain times
      */
-    void setSnapshots(std::map<SUMOTime, std::string> snaps);
+    void addSnapshot(SUMOTime time, const std::string& file);
 
     /** @brief Takes a snapshots and writes it into the given file
      *
@@ -427,7 +427,7 @@ protected:
     ///@}
 
     ///@brief Snapshots
-    std::map<SUMOTime, std::string> mySnapshots;
+    std::map<SUMOTime, std::vector<std::string> > mySnapshots;
 
     ///@brief poly draw lock
     mutable MFXMutex myPolyDrawLock;
