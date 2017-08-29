@@ -1280,9 +1280,8 @@ GNEViewNet::getPolygonAtCursorPosition(Position& pos) {
         if (pointed && (pointed->getType() == GLO_POLYGON)) {
             return dynamic_cast<GNEPoly*>(pointed);
         }
-    } else {
-        return NULL;
     }
+    return 0;
 }
 
 
