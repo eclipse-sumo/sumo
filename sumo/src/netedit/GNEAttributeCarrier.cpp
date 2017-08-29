@@ -306,7 +306,6 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE)); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "red"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILL, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAYER, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "0"));
@@ -776,8 +775,6 @@ GNEAttributeCarrier::isBool(SumoXMLTag tag, SumoXMLAttr attr) {
         myBoolAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_OFF);
         // flow
         myBoolAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_REROUTE);
-        // POI
-		myBoolAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_FILL);
 		// Poly
         myBoolAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_FILL);
     }
@@ -1189,7 +1186,6 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_COLOR] = "The color with which the poi shall be displayed";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_LANE] = "The name of the lane the poi is located at; the lane must be a part of the loaded network";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_POSITION] = "The position on the named lane or in the net in meters at which the poi is located at";
-        myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_FILL] = "An information whether the polygon shall be filled";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_TYPE] = "A typename for the poi";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_LAYER] = "The layer of the poi for drawing and selecting";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_IMGFILE] = "A bitmap to use for rendering this poi";

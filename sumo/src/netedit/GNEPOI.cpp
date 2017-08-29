@@ -158,8 +158,6 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(*this);
             }
-        case SUMO_ATTR_FILL:
-            return myImgFile;
         case SUMO_ATTR_TYPE:
             return myType;
         case SUMO_ATTR_LAYER:
@@ -190,7 +188,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
-        case SUMO_ATTR_FILL:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_LAYER:
         case SUMO_ATTR_IMGFILE:
@@ -226,8 +223,6 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value ) {
                 bool ok;
                 return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
             }
-        case SUMO_ATTR_FILL:
-            return canParse<bool>(value);
         case SUMO_ATTR_TYPE:
             return true;
         case SUMO_ATTR_LAYER:
@@ -275,9 +270,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
                 set(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
             }
             myNet->refreshPOI(this);
-            break;
-        case SUMO_ATTR_FILL:
-            myImgFile = value;
             break;
         case SUMO_ATTR_TYPE:
             myType = value;

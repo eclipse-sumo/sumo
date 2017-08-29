@@ -315,14 +315,14 @@ public:
                         ok = false;
                     }
                 }
+                // set extra check for color values
+                if (isColor(tag, attribute) && !canParse<RGBColor>(parsedAttribute)) {
+                    errorFormat = "Invalid RGB format or named color; ";
+                    ok = false;
+                }
                 // set extra check for filename values
                 if (isFilename(tag, attribute) && (isValidFilename(parsedAttribute) == false)) {
                     errorFormat = "Filename contains invalid characters; ";
-                    ok = false;
-                }
-                // set extra check for color values
-                if (isColor(tag, attribute) && (isValidFilename(parsedAttribute) == false)) {
-                    errorFormat = "Invalid RGB or named color; ";
                     ok = false;
                 }
                 // set extra check for Vehicle Classes
