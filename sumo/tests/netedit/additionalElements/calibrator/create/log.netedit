@@ -1,4 +1,4 @@
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Adding calibrator 'calibrator_gneE0_0_0' in GNEChange_Additional
 Warning: Invalid input parameter of calibrator: 'pos' doesn't have a valid 'float' format
 Warning: Invalid input parameter of calibrator: 'pos' cannot be negative

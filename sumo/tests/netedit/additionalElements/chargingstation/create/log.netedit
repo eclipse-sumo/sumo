@@ -1,4 +1,4 @@
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Invalid input parameter of chargingStation: 'power' cannot be negative
 Warning: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
 Warning: Invalid input parameter of chargingStation: 'efficiency' takes only values between 0 and 1

@@ -1,4 +1,4 @@
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Adding busStop 'busStop_00' in GNEChange_Additional
 Warning: Adding busStop 'busStop_01' in GNEChange_Additional
 Warning: Adding busStop 'busStop_02' in GNEChange_Additional
@@ -17,98 +17,98 @@ Warning: Adding busStop 'busStop_15' in GNEChange_Additional
 Warning: Adding busStop 'busStop_16' in GNEChange_Additional
 Warning: Adding busStop 'busStop_17' in GNEChange_Additional
 Warning: Adding busStop 'busStop_18' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Selected 9 elements in GNEChange_Selection
 Warning: Key DEL (delete) pressed
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_00' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_01' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_02' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_03' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_04' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_05' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_06' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_07' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_08' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Selected 1 elements in GNEChange_Selection
 Warning: Key DEL (delete) pressed
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_IDToRemove1' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Selected 1 elements in GNEChange_Selection
 Warning: Key DEL (delete) pressed
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_IDToRemove2' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Selected 7 elements in GNEChange_Selection
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 5 elements in GNEChange_Selection
 Warning: Key DEL (delete) pressed
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_12' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_13' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Selected 2 elements in GNEChange_Selection
 Warning: Key DEL (delete) pressed
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_14' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_15' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Selected 1 elements in GNEChange_Selection
 Warning: Key DEL (delete) pressed
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_17' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Selected 1 elements in GNEChange_Selection
 Warning: Key DEL (delete) pressed
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing busStop 'busStop_16' in GNEChange_Additional
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()

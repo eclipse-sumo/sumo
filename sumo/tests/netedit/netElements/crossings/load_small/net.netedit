@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 19.07.2017 15:28:55 by Netedit Version dev-SVN-r22743
+<!-- generated on 29/08/2017 9:39:10 by Netedit Version dev-SVN-r22880
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Jul152846.5792/netedit.gui/netElements/crossings/load_small\additionals.xml"/>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Jul152846.5792/netedit.gui/netElements/crossings/load_small\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Aug091047.5056/netedit.gui/netElements/crossings/load_small\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Jul152846.5792/netedit.gui/netElements/crossings/load_small\net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Aug091047.5056/netedit.gui/netElements/crossings/load_small\additionals.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Aug091047.5056/netedit.gui/netElements/crossings/load_small\net.net.xml"/>
     </output>
 
     <processing>
@@ -33,7 +33,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Jul152846.5792/netedit.gui/netElements/crossings/load_small\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Aug091047.5056/netedit.gui/netElements/crossings/load_small\log.txt"/>
     </report>
 
 </configuration>
@@ -382,16 +382,16 @@
     <connection from=":C_c1" to=":C_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_c2" to=":C_w2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_c3" to=":C_w3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w0" to=":C_c3" fromLane="0" toLane="0" tl="C" linkIndex="27" dir="s" state="M"/>
+    <connection from=":C_w0" to=":C_c3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_w0" to="CW" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="NC" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w1" to=":C_c0" fromLane="0" toLane="0" tl="C" linkIndex="24" dir="s" state="M"/>
+    <connection from=":C_w1" to=":C_c0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_w1" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="EC" to=":C_w1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w2" to=":C_c1" fromLane="0" toLane="0" tl="C" linkIndex="25" dir="s" state="M"/>
+    <connection from=":C_w2" to=":C_c1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_w2" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="SC" to=":C_w2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w3" to=":C_c2" fromLane="0" toLane="0" tl="C" linkIndex="26" dir="s" state="M"/>
+    <connection from=":C_w3" to=":C_c2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_w3" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="WC" to=":C_w3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":E_w0" to="EC" fromLane="0" toLane="0" dir="s" state="M"/>

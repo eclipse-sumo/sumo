@@ -1,4 +1,4 @@
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key ESC (abort) pressed
 Warning: Key ESC (abort) pressed
 Warning: Adding junction 'gneJ0' into net
@@ -73,26 +73,26 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Warning: Key ESC (abort) pressed
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 3 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 3 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 3 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 4 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 5 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 5 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 6 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 6 Junctions, 9 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 6 Junctions, 10 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 7 Junctions, 10 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 7 Junctions, 11 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 7 Junctions, 12 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 3 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 3 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 3 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 5 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 5 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 6 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 6 Junctions, 9 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 6 Junctions, 10 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 7 Junctions, 10 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 7 Junctions, 11 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 7 Junctions, 12 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Selected 19 elements in GNEChange_Selection
 Warning: Adding TLS into junction 'gneJ0'
 Warning: Setting new attribute type 'traffic_light' into junction 'gneJ0'

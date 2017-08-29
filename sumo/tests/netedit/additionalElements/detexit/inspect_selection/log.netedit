@@ -1,17 +1,17 @@
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Adding e3Detector 'E3_0' in GNEChange_Additional
 Warning: Adding detExit 'E3_0detExit0' in GNEChange_Additional
 Warning: Adding e3Detector 'E3_1' in GNEChange_Additional
 Warning: Adding detExit 'E3_1detExit0' in GNEChange_Additional
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Selected 8 elements in GNEChange_Selection
 Warning: Setting new attribute friendlyPos 'true' into detExit 'E3_0detExit0'
 Warning: Setting new attribute friendlyPos 'true' into detExit 'E3_1detExit0'

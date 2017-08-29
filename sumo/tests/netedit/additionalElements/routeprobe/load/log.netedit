@@ -1,4 +1,4 @@
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
 Warning: Essential string attribute 'id' of routeProbe is missing; routeProbe cannot be created
 Warning: The id 'id with spaces' of additional routeProbe contains invalid characters.

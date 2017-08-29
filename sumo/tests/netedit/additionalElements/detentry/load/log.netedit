@@ -1,4 +1,4 @@
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Essential string attribute 'id' of e3Detector is missing; e3Detector cannot be created
 Warning: Essential string attribute 'lane' of detEntry is missing; detEntry cannot be created
 Warning: The lane 'dummyLane' to use within the detEntry is not known.
