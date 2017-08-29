@@ -176,7 +176,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Making a snapshot requires a file name.", outputStorage);
             }
             // take screenshot after the current step is finished (showing the same state as sumo-gui and netstate-output)
-            v->addSnapshot(MSNet::getInstance()->getCurrentTimeStep() + DELTA_T, filename);
+            v->addSnapshot(MSNet::getInstance()->getCurrentTimeStep(), filename);
         }
         break;
         case VAR_TRACK_VEHICLE: {

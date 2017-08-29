@@ -265,6 +265,12 @@ public:
     ///@brief destoys the popup
     void destroyPopup();
 
+    /// @brief add snapshot synchronization
+    void setApplicationSnapshots(std::vector<SUMOTime>* snapshots, FXMutex* lock) {
+        myApplicationSnapshots = snapshots;
+        myApplicationSnapshotsLock = lock;
+    }
+
 public:
     ///@struct Decal
     ///@brief A decal (an image) that can be shown
@@ -428,9 +434,11 @@ protected:
 
     ///@brief Snapshots
     std::map<SUMOTime, std::vector<std::string> > mySnapshots;
+    std::vector<SUMOTime>* myApplicationSnapshots;
 
     ///@brief The mutex to use before accessing the decals list in order to avoid thread conficts
     MFXMutex mySnapshotsLock;
+    FXMutex* myApplicationSnapshotsLock;
 
     ///@brief poly draw lock
     mutable MFXMutex myPolyDrawLock;

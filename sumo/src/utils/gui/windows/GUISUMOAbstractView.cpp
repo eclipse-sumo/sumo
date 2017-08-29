@@ -132,7 +132,10 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     myViewportChooser(0),
     myWindowCursorPositionX(getWidth() / 2),
     myWindowCursorPositionY(getHeight() / 2),
-    myVisualizationChanger(0) {
+    myVisualizationChanger(0),
+    myApplicationSnapshots(0),
+    myApplicationSnapshotsLock(0)
+{
     setTarget(this);
     enable();
     flags |= FLAG_ENABLED;
@@ -815,6 +818,11 @@ GUISUMOAbstractView::addSnapshot(SUMOTime time, const std::string& file) {
     mySnapshotsLock.lock();
     mySnapshots[time].push_back(file);
     mySnapshotsLock.unlock();
+    if (myApplicationSnapshots != 0) {
+        myApplicationSnapshotsLock->lock();
+        myApplicationSnapshots->push_back(time);
+        myApplicationSnapshotsLock->unlock();
+    }
 }
 
 std::string
@@ -977,11 +985,12 @@ GUISUMOAbstractView::saveFrame(const std::string& destFile, FXColor* buf) {
 
 void
 GUISUMOAbstractView::checkSnapshots() {
+    SUMOTime time = getCurrentTimeStep() - DELTA_T;
 #ifdef DEBUG_SNAPSHOT
-    std::cout << "check snappshots time=" << getCurrentTimeStep() << " registeredTimes=" << mySnapshots.size() << "\n";
+    std::cout << "check snappshots time=" << time << " registeredTimes=" << mySnapshots.size() << "\n";
 #endif
     mySnapshotsLock.lock();
-    std::map<SUMOTime, std::vector<std::string> >::iterator snapIt = mySnapshots.find(getCurrentTimeStep());
+    std::map<SUMOTime, std::vector<std::string> >::iterator snapIt = mySnapshots.find(time);
     std::vector<std::string> files;
     if (snapIt != mySnapshots.end()) {
         files = snapIt->second;
@@ -991,12 +1000,23 @@ GUISUMOAbstractView::checkSnapshots() {
     // decouple map access and painting to avoid deadlock
     for (auto file : files) {
 #ifdef DEBUG_SNAPSHOT
-        std::cout << "make snappshot time=" << getCurrentTimeStep() << " file=" << file << "\n";
+        std::cout << "make snappshot time=" << time << " file=" << file << "\n";
 #endif
         std::string error = makeSnapshot(file);
         if (error != "") {
             WRITE_WARNING(error);
         }
+    }
+    // synchronization with a waiting run thread
+    if (!files.empty()) {
+        assert(myApplicationSnapshots != 0);
+        assert(myApplicationSnapshotsLock!= 0);
+        myApplicationSnapshotsLock->lock();
+        std::vector<SUMOTime>::iterator it = std::find(myApplicationSnapshots->begin(), myApplicationSnapshots->end(), time);
+        if (it != myApplicationSnapshots->end()) {
+            myApplicationSnapshots->erase(it);
+        }
+        myApplicationSnapshotsLock->unlock();
     }
 }
 

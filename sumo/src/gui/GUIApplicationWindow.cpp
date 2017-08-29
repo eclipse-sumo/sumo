@@ -1464,6 +1464,7 @@ GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType vt) {
     GUISUMOViewParent* w = new GUISUMOViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()),
             this, GUIIconSubSys::getIcon(ICON_APP), opts, 10, 10, 300, 200);
     GUISUMOAbstractView* v = w->init(getBuildGLCanvas(), myRunThread->getNet(), vt);
+    v->setApplicationSnapshots(&myRunThread->getSnapshots(), &myRunThread->getSnapshotsLock());
     if (oldView != 0) {
         // copy viewport
         oldView->copyViewportTo(v);

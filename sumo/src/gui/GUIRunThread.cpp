@@ -143,6 +143,7 @@ GUIRunThread::run() {
             myBreakpointLock.unlock();
             // do the step
             makeStep();
+            waitForSnapshots(myNet->getCurrentTimeStep() - DELTA_T);
             // stop if wished
             if (haltAfter) {
                 stop();
@@ -347,6 +348,17 @@ GUIRunThread::simulationIsStepable() const {
 }
 
 
+void
+GUIRunThread::waitForSnapshots(SUMOTime snapShotTime) {
+    myApplicationSnapshotsLock.lock();
+    const bool wait = find(myApplicationSnapshots.begin(), myApplicationSnapshots.end(), snapShotTime) != myApplicationSnapshots.end();
+    //std::cout << SIMTIME << "waitForSnapshots " << toString(myApplicationSnapshots) << "\n";
+    myApplicationSnapshotsLock.unlock();
+    if (wait && !myHalting) {
+        sleep(50);
+        waitForSnapshots(snapShotTime);
+    }
+}
 
 /****************************************************************************/
 
