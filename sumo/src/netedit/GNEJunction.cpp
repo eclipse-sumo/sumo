@@ -742,7 +742,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 undoList->add(new GNEChange_TLS(this, *it, false), true);
             }
             NBTrafficLightLogicCont& tlCont = myNet->getTLLogicCont();
-            const std::map<std::string, NBTrafficLightDefinition*>& programs = tlCont.getPrograms(value);
+            const std::map<std::string, NBTrafficLightDefinition*> programs = tlCont.getPrograms(value);
             if (programs.size() > 0) {
                 // add to existing tls definitions
                 for (std::map<std::string, NBTrafficLightDefinition*>::const_iterator it = programs.begin(); it != programs.end(); it++) {
