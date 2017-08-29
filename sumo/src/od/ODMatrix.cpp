@@ -341,14 +341,13 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
 
 std::string
 ODMatrix::getNextNonCommentLine(LineReader& lr) {
-    std::string line;
-    do {
-        line = lr.readLine();
+    while (lr.good() && lr.hasMore()) {
+        const std::string line = lr.readLine();
         if (line[0] != '*') {
             return StringUtils::prune(line);
         }
-    } while (lr.good() && lr.hasMore());
-    throw ProcessError();
+    }
+    throw ProcessError("End of file while reading " + lr.getFileName() + ".");
 }
 
 
@@ -416,16 +415,16 @@ ODMatrix::readV(LineReader& lr, double scale,
 
     // districts
     line = getNextNonCommentLine(lr);
-    int districtNo = TplConvert::_2int(StringUtils::prune(line).c_str());
+    const int numDistricts = TplConvert::_2int(StringUtils::prune(line).c_str());
     // parse district names (normally ints)
     std::vector<std::string> names;
-    do {
+    while ((int)names.size() != numDistricts) {
         line = getNextNonCommentLine(lr);
         StringTokenizer st2(line, StringTokenizer::WHITECHARS);
         while (st2.hasNext()) {
             names.push_back(st2.next());
         }
-    } while ((int) names.size() != districtNo);
+    }
 
     // parse the cells
     for (std::vector<std::string>::iterator si = names.begin(); si != names.end(); ++si) {
