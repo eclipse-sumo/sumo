@@ -65,6 +65,8 @@ private:
     PTLinesCont myPTLines;
 
     long long int myIdCnt;
+    void reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont);
+    void constructRoute(NBPTLine* myPTLine, NBEdgeCont& cont);
 };
 
 

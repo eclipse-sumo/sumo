@@ -89,13 +89,17 @@ std::vector<long long int>* NBPTLine::getWaysNodes(std::string wayId) {
 void NBPTLine::setRef(std::string ref) {
     myRef = std::move(ref);
 }
-void NBPTLine::addEdgeVector(std::vector<NBEdge*>& EdgeVector) {
-    myRoute.insert(myRoute.end(), EdgeVector.begin(), EdgeVector.end());
-}
+
 std::string NBPTLine::getRoute() {
     std::string route;
     for (auto& it : myRoute) {
         route += (" " + it->getID());
     }
     return route;
+}
+
+void NBPTLine::addEdgeVector(std::vector<NBEdge*, std::__1::allocator<NBEdge*>>::iterator fr,
+                             std::vector<NBEdge*, std::__1::allocator<NBEdge*>>::iterator to) {
+    myRoute.insert(myRoute.end(),fr,to);
+
 }

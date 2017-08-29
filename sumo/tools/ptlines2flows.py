@@ -80,9 +80,17 @@ def main():
 
             if options.osmRoutes == 'true' and 'route' in line._child_dict:
                 route = line._child_dict['route']
-                edges = route[0].edges
-                fouttrips.write(
-                    '\t<trip id="%s" depart="0" departLane="%s" from="%s" to="%s" via="%s">\n' % (trp_nr, 'best', fr, to,edges))
+                edges = route[0].edges.split(' ')
+                lenE = len(edges)
+
+                if (lenE > 3):
+                    vias = ' '.join(edges[0:lenE])
+                    fouttrips.write(
+                        '\t<trip id="%s" depart="0" departLane="%s" from="%s" to="%s" via="%s">\n' % (
+                        trp_nr, 'best', fr, to, vias))
+                else:
+                    fouttrips.write(
+                        '\t<trip id="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (trp_nr, 'best', fr, to))
             else:
                 fouttrips.write(
                     '\t<trip id="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (trp_nr, 'best', fr, to))

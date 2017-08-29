@@ -45,6 +45,7 @@ public:
     void setId(long long int id);
     void addWayNode(long long int way, long long int node);
     void setRef(std::string basic_string);
+
 private:
     std::string myName;
     std::vector<NBPTStop*> myPTStops;
@@ -62,7 +63,8 @@ private:
     std::string myRef;
 
 public:
-    void addEdgeVector(std::vector<NBEdge*>& EdgeVector);
+    void addEdgeVector(std::vector<NBEdge*, std::__1::allocator<NBEdge*>>::iterator fr,
+                       std::vector<NBEdge*, std::__1::allocator<NBEdge*>>::iterator to);
     std::string getRoute();
 private:
     // route of ptline
