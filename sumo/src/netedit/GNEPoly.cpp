@@ -244,7 +244,9 @@ GNEPoly::getCenteringBoundary() const {
 
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
-    // first draw polygon
+    // change temporally attribute color if polygon is selected
+    bool selected = gSelected.isSelected(GLO_POLYGON, getGlID());
+    // simply use GUIPolygon::drawGL
     GUIPolygon::drawGL(s);
     // draw geometry details hints if is not too small
     if (s.scale * myHintSize > 1.) {
@@ -255,8 +257,14 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         double distanceToShape = myShape.distance2D(mousePosition);
         Position PostionOverShapeLine = myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition));        
         // set colors
-        RGBColor invertedColor = GLHelper::getColor().invertedColor();
-        RGBColor darkerColor = GLHelper::getColor().changedBrightness(-32);
+        RGBColor invertedColor, darkerColor;
+        if (selected) {
+            invertedColor = myNet->selectionColor.invertedColor();
+            darkerColor = myNet->selectedLaneColor;
+        } else {
+            invertedColor = GLHelper::getColor().invertedColor();
+            darkerColor = GLHelper::getColor().changedBrightness(-32);
+        }
         // push matrix
         glPushName(getGlID());
         // Draw geometry hints if polygon's shape isn't blocked

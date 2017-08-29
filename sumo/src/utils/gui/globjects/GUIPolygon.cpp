@@ -37,6 +37,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
 #include <foreign/polyfonts/polyfonts.h>
 
@@ -165,7 +166,12 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(0, 0, getLayer());
     glRotated(-getNaviDegree(), 0, 0, 1);
-    GLHelper::setColor(getColor());
+    // set color depending of selection
+    if(gSelected.isSelected(GLO_POLYGON, getGlID())) {
+        GLHelper::setColor(RGBColor(0, 0, 204));
+    } else {
+        GLHelper::setColor(getColor());
+    }
 
     int textureID = -1;
     if (getFill()) {

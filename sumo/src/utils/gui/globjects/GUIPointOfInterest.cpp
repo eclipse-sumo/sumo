@@ -112,7 +112,12 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPushName(getGlID());
     glPushMatrix();
-    GLHelper::setColor(getColor());
+    // set color depending of selection
+    if(gSelected.isSelected(GLO_POI, getGlID())) {
+        GLHelper::setColor(RGBColor(0, 0, 204));
+    } else {
+        GLHelper::setColor(getColor());
+    }
     glTranslated(x(), y(), getLayer());
     glRotated(-getNaviDegree(), 0, 0, 1);
 
