@@ -143,6 +143,9 @@ private:
     /// @brief how to modify selection
     SetOperation mySetOperation;
 
+    /// @brief label with the list of current selected elements 
+    FXLabel* mySelectedItems;
+
     /// @brief add radio button
     FXRadioButton* myAddRadioButton;
 
@@ -177,9 +180,6 @@ private:
     SumoXMLAttr myCurrentAttribute;
 
 private:
-    /// @brief get stats
-    std::string getStats() const;
-
     /**@brief return  objects of the given type with matching attrs
      * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
      */

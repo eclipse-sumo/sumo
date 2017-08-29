@@ -78,11 +78,14 @@ FXIMPLEMENT(GNESelectorFrame, FXVerticalFrame, GNESelectorFrameMap, ARRAYNUMBER(
 // method definitions
 // ===========================================================================
 GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
-    GNEFrame(horizontalFrameParent, viewNet, getStats().c_str()),
+    GNEFrame(horizontalFrameParent, viewNet, "Selection"),
     mySetOperation(SET_ADD),
     myCurrentTag(SUMO_TAG_NOTHING),
     myCurrentAttribute(SUMO_ATTR_NOTHING) {
-    // selection modification mode
+    // create combo box and label for selected items
+    FXGroupBox* mySelectedItemsComboBox = new FXGroupBox(myContentFrame, "Selected items", GUIDesignGroupBoxFrame);
+    mySelectedItems = new FXLabel(mySelectedItemsComboBox, "", 0, GUIDesignLabelLeft);;
+    // create combo box for selection modification mode
     FXGroupBox* selBox = new FXGroupBox(myContentFrame, "Modification Mode", GUIDesignGroupBoxFrame);
     // Create all options buttons
     myAddRadioButton = new FXRadioButton(selBox, "add\t\tSelected objects are added to the previous selection",
@@ -562,37 +565,32 @@ GNESelectorFrame::hide() {
     GNEFrame::hide();
 }
 
-
-std::string
-GNESelectorFrame::getStats() const {
+void
+GNESelectorFrame::selectionUpdated() {
     // show extra information for tests
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Current selection: " + 
-                      toString(gSelected.getSelected(GLO_JUNCTION).size()) + " Junctions, " +
-                      toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges, " +
-                      toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes, " +
-                      toString(gSelected.getSelected(GLO_CONNECTION).size()) + " connections, " +
-                      toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals, " +
-                      toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings, " +
-                      toString(gSelected.getSelected(GLO_POLYGON).size()) + " Polygons, " +
-                      toString(gSelected.getSelected(GLO_POI).size()) + " POIs");
+            toString(gSelected.getSelected(GLO_JUNCTION).size()) + " Junctions, " +
+            toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges, " +
+            toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes, " +
+            toString(gSelected.getSelected(GLO_CONNECTION).size()) + " connections, " +
+            toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals, " +
+            toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings, " +
+            toString(gSelected.getSelected(GLO_POLYGON).size()) + " Polygons, " +
+            toString(gSelected.getSelected(GLO_POI).size()) + " POIs");
     }
-
-    return "Selection:\n" +
-           toString(gSelected.getSelected(GLO_JUNCTION).size()) + " Junctions\n" +
-           toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges\n" +
-           toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes\n" +
-           toString(gSelected.getSelected(GLO_CONNECTION).size()) + " Connections\n" +
-           toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals\n" +
-           toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings\n" +
-           toString(gSelected.getSelected(GLO_POLYGON).size()) + " Polygons\n" +
-           toString(gSelected.getSelected(GLO_POI).size()) + " POIs";
-}
-
-
-void
-GNESelectorFrame::selectionUpdated() {
-    myFrameHeaderLabel->setText(getStats().c_str());
+    // update mySelectedItems label
+    std::ostringstream selection;
+    selection
+        << toString(gSelected.getSelected(GLO_JUNCTION).size()) + " Junctions\n"
+        << toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges\n"
+        << toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes\n"
+        << toString(gSelected.getSelected(GLO_CONNECTION).size()) + " Connections\n"
+        << toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals\n"
+        << toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings\n"
+        << toString(gSelected.getSelected(GLO_POLYGON).size()) + " Polygons\n"
+        << toString(gSelected.getSelected(GLO_POI).size()) + " POIs";
+    mySelectedItems->setText(selection.str().c_str());
     update();
 }
 
