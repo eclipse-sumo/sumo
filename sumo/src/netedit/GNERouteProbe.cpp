@@ -215,8 +215,13 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     glLineWidth(1.0);
     const double exaggeration = s.addSize.getExaggeration(s);
 
+    // set color
+    if (isAdditionalSelected()) {
+        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+    } else {
+        GLHelper::setColor(RGBColor(255, 216, 0));
+    }
     // draw shape
-    glColor3ub(255, 216, 0);
     glPushMatrix();
     glTranslated(0, 0, getType());
     glTranslated(myShape[0].x(), myShape[0].y(), 0);
@@ -237,8 +242,12 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
 
     // position indicator (White)
     if (width * exaggeration > 1) {
+        if (isAdditionalSelected()) {
+            GLHelper::setColor(myViewNet->getNet()->selectionColor);
+        } else {
+            GLHelper::setColor(RGBColor::WHITE);
+        }
         glRotated(90, 0, 0, -1);
-        glColor3d(1, 1, 1);
         glBegin(GL_LINES);
         glVertex2d(0, 0);
         glVertex2d(0, (myNumberOfLanes * 3.3));

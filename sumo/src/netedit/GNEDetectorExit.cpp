@@ -65,9 +65,6 @@ GNEDetectorExit::GNEDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* parent, GNE
     myE3Parent(parent) {
     // Update geometry
     updateGeometryByParent();
-    // Set colors
-    myBaseColor = RGBColor(204, 0, 0, 255);
-    myBaseColorSelected = RGBColor(204, 125, 0, 255);
 }
 
 
@@ -145,9 +142,9 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
 
     // Set initial values
     if (isAdditionalSelected()) {
-        glColor3d(myBaseColorSelected.red(), myBaseColorSelected.green(), myBaseColorSelected.blue());
+        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
-        glColor3d(myBaseColor.red(), myBaseColor.green(), myBaseColor.blue());
+        GLHelper::setColor(RGBColor(204, 0, 0));
     }
     const double exaggeration = s.addSize.getExaggeration(s);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

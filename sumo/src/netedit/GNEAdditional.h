@@ -273,16 +273,6 @@ protected:
     /// @brief boolean to check if additional element is movable (with the mouse). By default true
     bool myMovable;
 
-    /**@brief base color (Default green)
-     * @note default color can be defined in the constructor of every additional
-     */
-    RGBColor myBaseColor;
-
-    /**@brief base color selected (Default blue)
-     * @note default color can be defined in the constructor of every additional
-     */
-    RGBColor myBaseColorSelected;
-
     /// @brief pointer to additional dialog
     GNEAdditionalDialog* myAdditionalDialog;
 
@@ -294,10 +284,10 @@ private:
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief Invalidated copy constructor.
-    GNEAdditional(const GNEAdditional&);
+    GNEAdditional(const GNEAdditional&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEAdditional& operator=(const GNEAdditional&);
+    GNEAdditional& operator=(const GNEAdditional&) = delete;
 };
 
 #endif

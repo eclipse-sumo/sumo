@@ -70,9 +70,6 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* v
     myJamThreshold(jamThreshold) {
     // Update geometry;
     updateGeometry();
-    // Set Colors
-    myBaseColor = RGBColor(0, 204, 204, 255);
-    myBaseColorSelected = RGBColor(125, 204, 204, 255);
 }
 
 
@@ -203,9 +200,9 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
 
     // Set color of the base
     if (isAdditionalSelected()) {
-        GLHelper::setColor(myBaseColorSelected);
+        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
-        GLHelper::setColor(myBaseColor);
+        GLHelper::setColor(RGBColor(0, 204, 204));
     }
 
     // Obtain exaggeration of the draw

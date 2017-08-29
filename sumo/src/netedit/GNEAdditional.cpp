@@ -71,8 +71,6 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
     myInspectionable(true),
     mySelectable(true),
     myMovable(true),
-    myBaseColor(RGBColor::GREEN),
-    myBaseColorSelected(RGBColor::BLUE),
     myAdditionalDialog(NULL) {
     // Set rotation left hand
     myRotationLefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -322,7 +320,7 @@ GNEAdditional::drawParentAndChildrenConnections() const {
         // traslate in the Z axis
         glTranslated(0, 0, getType() - 0.01);
         // Set color of the base
-        GLHelper::setColor(RGBColor(255, 235, 0, 255));
+        GLHelper::setColor(RGBColor(255, 235, 0));
         for (std::vector<Position>::const_iterator j = (*i).begin(); (j + 1) != (*i).end(); j++) {
             // Draw Lines
             GLHelper::drawLine((*j), (*(j + 1)));

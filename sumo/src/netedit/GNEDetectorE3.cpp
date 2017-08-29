@@ -73,14 +73,10 @@ GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Positio
     mySpeedThreshold(speedThreshold) {
     // Update geometry;
     updateGeometry();
-    // Set colors
-    myBaseColor = RGBColor(76, 170, 50, 255);
-    myBaseColorSelected = RGBColor(161, 255, 135, 255);
 }
 
 
-GNEDetectorE3::~GNEDetectorE3() {
-}
+GNEDetectorE3::~GNEDetectorE3() {}
 
 
 void

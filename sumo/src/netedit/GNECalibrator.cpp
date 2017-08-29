@@ -79,9 +79,6 @@ GNECalibrator::GNECalibrator(const std::string& id, GNELane* lane, GNEViewNet* v
     myMovable = false;
     // Update geometry;
     updateGeometry();
-    // Set Colors
-    myBaseColor = RGBColor(255, 255, 50, 0);
-    myBaseColorSelected = RGBColor(255, 255, 125, 255);
     // Center view in the position of calibrator
     myViewNet->centerTo(getGlID(), false);
 }
@@ -462,9 +459,13 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-        glBegin(GL_TRIANGLES);
-        glColor3d(1, .8f, 0);
+        if (isAdditionalSelected()) {
+            GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        } else {
+            GLHelper::setColor(RGBColor(255, 204, 0));
+        }
         // base
+        glBegin(GL_TRIANGLES);
         glVertex2d(0 - 1.4, 0);
         glVertex2d(0 - 1.4, 6);
         glVertex2d(0 + 1.4, 6);
@@ -475,8 +476,8 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
 
         // draw text
         if (s.scale * exaggeration >= 1.) {
+            GLHelper::setColor(RGBColor(0, 0, 0));
             glTranslated(0, 0, .1);
-            glColor3d(0, 0, 0);
             pfSetPosition(0, 0);
             pfSetScale(3.f);
             double w = pfdkGetStringWidth("C");

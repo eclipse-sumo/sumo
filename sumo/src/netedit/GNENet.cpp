@@ -98,6 +98,7 @@ FXIMPLEMENT_ABSTRACT(GNENet::GNEChange_ReplaceEdgeInTLS, GNEChange, NULL, 0)
 const RGBColor GNENet::selectionColor(0, 0, 204, 255);
 const RGBColor GNENet::selectedLaneColor(0, 0, 128, 255);
 const RGBColor GNENet::selectedConnectionColor(0, 0, 100, 255);
+const RGBColor GNENet::selectedAdditionalColor(0, 0, 150, 255);
 const double GNENet::Z_INITIALIZED = 1;
 
 // ===========================================================================

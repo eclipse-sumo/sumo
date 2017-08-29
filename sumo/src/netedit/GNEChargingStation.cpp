@@ -71,13 +71,6 @@ GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNE
     myChargeDelay(chargeDelay) {
     // When a new additional element is created, updateGeometry() must be called
     updateGeometry();
-    // Set Colors
-    myBaseColor = RGBColor(114, 210, 252, 255);
-    myBaseColorSelected = RGBColor(125, 255, 255, 255);
-    mySignColor = RGBColor(255, 235, 0, 255);
-    mySignColorSelected = RGBColor(255, 235, 0, 255);
-    myTextColor = RGBColor(114, 210, 252, 255);
-    myTextColorSelected = RGBColor(125, 255, 255, 255);
 }
 
 
@@ -218,9 +211,9 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
 
     // Set Color
     if (isAdditionalSelected()) {
-        GLHelper::setColor(myBaseColorSelected);
+        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
-        GLHelper::setColor(myBaseColor);
+        GLHelper::setColor(RGBColor(114, 210, 252));
     }
 
     // Get exaggeration
@@ -236,9 +229,9 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
 
         // Set color of the charging power
         if (isAdditionalSelected()) {
-            GLHelper::setColor(myTextColorSelected);
+            GLHelper::setColor(myViewNet->getNet()->selectionColor);
         } else {
-            GLHelper::setColor(myTextColor);
+            GLHelper::setColor(RGBColor(114, 210, 252));
         }
 
         // push charging power matrix
@@ -287,9 +280,9 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
 
         // Set base color
         if (isAdditionalSelected()) {
-            GLHelper::setColor(myBaseColorSelected);
+            GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
         } else {
-            GLHelper::setColor(myBaseColor);
+            GLHelper::setColor(RGBColor(114, 210, 252));
         }
 
         // Draw extern
@@ -300,9 +293,9 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
 
         // Set sign color
         if (isAdditionalSelected()) {
-            GLHelper::setColor(mySignColorSelected);
+            GLHelper::setColor(myViewNet->getNet()->selectionColor);
         } else {
-            GLHelper::setColor(mySignColor);
+            GLHelper::setColor(RGBColor(255, 235, 0));
         }
         // Draw internt sign
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
@@ -310,9 +303,9 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // Draw sign 'C'
         if (s.scale * exaggeration >= 4.5) {
             if (isAdditionalSelected()) {
-                GLHelper::drawText("C", Position(), .1, 1.6, myBaseColorSelected, myBlockIconRotation);
+                GLHelper::drawText("C", Position(), .1, 1.6, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
             } else {
-                GLHelper::drawText("C", Position(), .1, 1.6, myBaseColor, myBlockIconRotation);
+                GLHelper::drawText("C", Position(), .1, 1.6, RGBColor(114, 210, 252, 255), myBlockIconRotation);
             }
         }
         // Pop sign matrix

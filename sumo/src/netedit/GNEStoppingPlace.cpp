@@ -67,11 +67,7 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, S
     myStartPosRelative(startPos / lane->getLaneParametricLength()),
     myEndPosRelative(endPos / lane->getLaneParametricLength()),
     myName(name),
-    myFriendlyPosition(friendlyPosition),
-    mySignColor(RGBColor::YELLOW),
-    mySignColorSelected(RGBColor::BLUE),
-    myTextColor(RGBColor::CYAN),
-    myTextColorSelected(RGBColor::BLUE) {
+    myFriendlyPosition(friendlyPosition) {
     // This additional belongs to a Lane
     myLane = lane;
 }

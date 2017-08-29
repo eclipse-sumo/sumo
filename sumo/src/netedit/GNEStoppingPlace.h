@@ -154,18 +154,6 @@ protected:
     /// @brief The position of the sign
     Position mySignPos;
 
-    /// @brief sign color (Default yellow)
-    RGBColor mySignColor;
-
-    /// @brief sign selected color (Default blue)
-    RGBColor mySignColorSelected;
-
-    /// @brief Text color (Default cyan)
-    RGBColor myTextColor;
-
-    /// @brief Text color selected (Default blue)
-    RGBColor myTextColorSelected;
-
     /// @brief set geometry common to all stopping places
     void setStoppingPlaceGeometry();
 

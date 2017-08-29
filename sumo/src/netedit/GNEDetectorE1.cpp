@@ -65,9 +65,6 @@ GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* v
     myVehicleTypes(vehicleTypes) {
     // Update geometry;
     updateGeometry();
-    // Set Colors
-    myBaseColor = RGBColor(255, 255, 50, 0);
-    myBaseColorSelected = RGBColor(255, 255, 125, 255);
 }
 
 
@@ -167,8 +164,13 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     glLineWidth(1.0);
     const double exaggeration = s.addSize.getExaggeration(s);
 
+    // set color
+    if (isAdditionalSelected()) {
+        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+    } else {
+        GLHelper::setColor(RGBColor(255, 255, 0));
+    }
     // draw shape
-    glColor3d(1, 1, 0);
     glPushMatrix();
     glTranslated(0, 0, getType());
     glTranslated(myShape[0].x(), myShape[0].y(), 0);
@@ -188,7 +190,12 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
 
     // outline
     if (width * exaggeration > 1) {
-        glColor3d(1, 1, 1);
+        // set color
+        if (isAdditionalSelected()) {
+            GLHelper::setColor(myViewNet->getNet()->selectionColor);
+        } else {
+            GLHelper::setColor(RGBColor::WHITE);
+        }
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);
         glVertex2f(-1.0,  2);
@@ -201,8 +208,13 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
 
     // position indicator
     if (width * exaggeration > 1) {
+        // set color
+        if (isAdditionalSelected()) {
+            GLHelper::setColor(myViewNet->getNet()->selectionColor);
+        } else {
+            GLHelper::setColor(RGBColor::WHITE);
+        }
         glRotated(90, 0, 0, -1);
-        glColor3d(1, 1, 1);
         glBegin(GL_LINES);
         glVertex2d(0, 1.7);
         glVertex2d(0, -1.7);
@@ -216,7 +228,6 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * exaggeration >= 10) {
         // Add a draw matrix
         drawDetectorIcon(GUITextureSubSys::getTexture(GNETEXTURE_E1));
-
         // Show Lock icon depending of the Edit mode
         drawLockIcon();
     }

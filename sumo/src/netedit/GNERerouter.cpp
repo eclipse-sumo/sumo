@@ -73,9 +73,6 @@ GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position po
     myOff(off) {
     // Update geometry;
     updateGeometry();
-    // Set colors
-    myBaseColor = RGBColor(76, 170, 50, 255);
-    myBaseColorSelected = RGBColor(161, 255, 135, 255);
 }
 
 

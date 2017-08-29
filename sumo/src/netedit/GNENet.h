@@ -106,6 +106,9 @@ public:
     /// @brief color of selected connection
     static const RGBColor selectedConnectionColor;
 
+    /// @brief color of selected additionals
+    static const RGBColor selectedAdditionalColor;
+
     /**@brief Constructor
      * @param[in] netbuilder the netbuilder which may already have been filled
      * GNENet becomes responsible for cleaning this up

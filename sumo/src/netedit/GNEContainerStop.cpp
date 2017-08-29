@@ -66,13 +66,6 @@ GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNEView
     myLines(lines) {
     // When a new additional element is created, updateGeometry() must be called
     updateGeometry();
-    // Set colors
-    myBaseColor = RGBColor(83, 89, 172, 255);
-    myBaseColorSelected = RGBColor(103, 109, 192, 255);
-    mySignColor = RGBColor(177, 184, 186, 171);
-    mySignColorSelected = RGBColor(197, 204, 206, 171);
-    myTextColor = RGBColor(83, 89, 172, 255);
-    myTextColorSelected = RGBColor(103, 109, 192, 255);
 }
 
 
@@ -159,9 +152,9 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
 
     // Set color of the base
     if (isAdditionalSelected()) {
-        GLHelper::setColor(myBaseColorSelected);
+        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
-        GLHelper::setColor(myBaseColor);
+        GLHelper::setColor(RGBColor(83, 89, 172));
     }
 
     // Obtain exaggeration of the draw
@@ -178,9 +171,9 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
 
         // Set color of the lines
         if (isAdditionalSelected()) {
-            GLHelper::setColor(myTextColorSelected);
+            GLHelper::setColor(myViewNet->getNet()->selectionColor);
         } else {
-            GLHelper::setColor(myTextColor);
+            GLHelper::setColor(RGBColor(83, 89, 172));
         }
 
         // Iterate over every line
@@ -230,17 +223,24 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         // scale matrix depending of the exaggeration
         glScaled(exaggeration, exaggeration, 1);
 
-        // Draw green circle
+        // Set color of the externe circle
+        if (isAdditionalSelected()) {
+            GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        } else {
+            GLHelper::setColor(RGBColor(83, 89, 172));
+        }
+
+        // Draw circle
         GLHelper::drawFilledCircle((double) 1.1, noPoints);
 
         // Traslate to front
         glTranslated(0, 0, .1);
 
-        // Set color of the lines
+        // Set color of the inner circle
         if (isAdditionalSelected()) {
-            GLHelper::setColor(mySignColorSelected);
+            GLHelper::setColor(myViewNet->getNet()->selectionColor);
         } else {
-            GLHelper::setColor(mySignColor);
+            GLHelper::setColor(RGBColor(177, 184, 186, 171));
         }
 
         // draw another circle in the same position, but a little bit more small
@@ -249,9 +249,9 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         // If the scale * exageration is equal or more than 4.5, draw H
         if (s.scale * exaggeration >= 4.5) {
             if (isAdditionalSelected()) {
-                GLHelper::drawText("C", Position(), .1, 1.6, myBaseColorSelected, myBlockIconRotation);
+                GLHelper::drawText("C", Position(), .1, 1.6, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
             } else {
-                GLHelper::drawText("C", Position(), .1, 1.6, myBaseColor, myBlockIconRotation);
+                GLHelper::drawText("C", Position(), .1, 1.6, RGBColor(83, 89, 172, 255), myBlockIconRotation);
             }
         }
 

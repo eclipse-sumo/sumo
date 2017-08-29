@@ -565,6 +565,7 @@ GNESelectorFrame::hide() {
     GNEFrame::hide();
 }
 
+
 void
 GNESelectorFrame::selectionUpdated() {
     // show extra information for tests
