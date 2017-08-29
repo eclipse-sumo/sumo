@@ -623,7 +623,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                         myMovingOriginalShape = myEdgeToMove->getNBEdge()->getInnerGeometry();
                     }
                     myMovingOriginalPosition = getPositionInformation();
-                } else if (pointed_additional && (pointed_additional->isAdditionalBlocked() == false)) {
+                } else if (pointed_additional) {
                     if (gSelected.isSelected(GLO_ADDITIONAL, pointed_additional->getGlID())) {
                         myMovingSelection = true;
                     } else {
@@ -984,7 +984,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
                (newPosition.distanceTo2D(myEdgeToMove->getGNEJunctionDestiny()->getPositionInView()) >= minimumMovingRadius)) {
                 myMovingOriginalPosition = myEdgeToMove->moveGeometry(myMovingOriginalPosition, newPosition);
             }
-        } else if (myAdditionalToMove) {
+        } else if (myAdditionalToMove  && (myAdditionalToMove->isAdditionalBlocked() == false)) {
             // If additional is placed over lane, move it across it
             if (myAdditionalToMove->getLane()) {
                 double posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false);
