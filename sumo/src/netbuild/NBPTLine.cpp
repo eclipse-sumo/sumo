@@ -98,8 +98,7 @@ std::string NBPTLine::getRoute() {
     return route;
 }
 
-void NBPTLine::addEdgeVector(std::vector<NBEdge*, std::__1::allocator<NBEdge*>>::iterator fr,
-                             std::vector<NBEdge*, std::__1::allocator<NBEdge*>>::iterator to) {
+void NBPTLine::addEdgeVector(std::vector<NBEdge*>::iterator fr, std::vector<NBEdge*>::iterator to) {
     myRoute.insert(myRoute.end(),fr,to);
 
 }
