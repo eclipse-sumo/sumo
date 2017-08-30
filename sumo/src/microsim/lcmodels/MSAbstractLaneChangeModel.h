@@ -351,11 +351,6 @@ public:
     /// @brief return the angle offset during a continuous change maneuver
     double getAngleOffset() const;
 
-    /// @brief return the lateral speed of the current lane change maneuver
-    inline double getLateralSpeed() const {
-        return myLateralspeed;
-    }
-
     /// @brief reset the flag whether a vehicle already moved to false
     inline bool alreadyChanged() const {
         return myAlreadyChanged;
@@ -413,6 +408,15 @@ public:
         return myCommittedSpeed;
     }
 
+    /// @brief return the lateral speed of the current lane change maneuver
+    double getSpeedLat() const {
+        return mySpeedLat;
+    }
+
+    void setSpeedLat(double speedLat) {
+        mySpeedLat = speedLat;
+    }
+
     /// @brief try to retrieve the given parameter from this laneChangeModel. Throw exception for unsupported key
     virtual std::string getParameter(const std::string& key) const {
         throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
@@ -443,6 +447,9 @@ protected:
     int myOwnState;
     std::map<int, std::pair<int, int> > mySavedStates;
 
+    /// @brief the current lateral speed
+    double mySpeedLat;
+
     /// @brief the speed when committing to a change maneuver
     double myCommittedSpeed;
 
@@ -451,9 +458,6 @@ protected:
 
     /// @brief direction of the lane change maneuver -1 means right, 1 means left
     int myLaneChangeDirection;
-
-    /// @brief The lateral offset during a continuous LaneChangeManeuver
-    double myLateralspeed;
 
     /// @brief whether the vehicle has already moved this step
     bool myAlreadyChanged;

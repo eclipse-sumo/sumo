@@ -345,7 +345,7 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
     MSAbstractLaneChangeModel& lcm = vehicle->getLaneChangeModel();
     const int direction = lcm.getLaneChangeDirection();
     const bool pastMidpoint = lcm.updateCompletion();
-    vehicle->myState.myPosLat += lcm.getLateralSpeed();
+    vehicle->myState.myPosLat += lcm.getSpeedLat();
     vehicle->myCachedPosition = Position::INVALID;
     if (pastMidpoint) {
         ChangerIt to = from + direction;

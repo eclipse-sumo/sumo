@@ -86,10 +86,10 @@ MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
 MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneChangeModel model) :
     myVehicle(v),
     myOwnState(0),
+    mySpeedLat(0),
     myCommittedSpeed(0),
     myLaneChangeCompletion(1.0),
     myLaneChangeDirection(0),
-    myLateralspeed(0),
     myAlreadyChanged(false),
     myShadowLane(0),
     myCarFollowModel(v.getCarFollowModel()),
@@ -152,7 +152,7 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
     if (MSGlobals::gLaneChangeDuration > DELTA_T) {
         myLaneChangeCompletion = 0;
         myLaneChangeDirection = direction;
-        myLateralspeed = (target->getCenterOnEdge() - source->getCenterOnEdge()) * (double)DELTA_T / (double)MSGlobals::gLaneChangeDuration;
+        mySpeedLat = (target->getCenterOnEdge() - source->getCenterOnEdge()) * (double)DELTA_T / (double)MSGlobals::gLaneChangeDuration;
         myVehicle.switchOffSignal(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
         myVehicle.switchOnSignal(direction == 1 ? MSVehicle::VEH_SIGNAL_BLINKER_LEFT : MSVehicle::VEH_SIGNAL_BLINKER_RIGHT);
         return true;
