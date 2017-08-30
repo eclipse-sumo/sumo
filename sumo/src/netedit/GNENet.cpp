@@ -820,7 +820,9 @@ GNENet::saveAdditionals(const std::string& filename, bool volatileOptionsEnabled
     if(invalidStoppingPlaces.size() > 0 || invalidDetectors.size() > 0) {
         // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions 
-        if(GNEDialog_FixAdditionalPositions(myViewNet, invalidStoppingPlaces, invalidDetectors).execute() == 0) {
+        GNEDialog_FixAdditionalPositions fixAdditionalPositionsDialog(myViewNet, invalidStoppingPlaces, invalidDetectors);
+        fixAdditionalPositionsDialog.setTarget(myViewNet);
+        if(fixAdditionalPositionsDialog.execute() == 0) {
             // Here a console message
             ;
         } else {
@@ -832,6 +834,8 @@ GNENet::saveAdditionals(const std::string& filename, bool volatileOptionsEnabled
             }
             device.close();
         }
+        // set focus again in viewNet
+        myViewNet->setFocus();
     } else {
         OutputDevice& device = OutputDevice::getDevice(filename);
         device.openTag("additionals");
