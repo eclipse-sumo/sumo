@@ -310,7 +310,7 @@ GNEViewNet::showConnections() {
     } else if (myMenuCheckShowConnections->shown() == false) {
         return false;
     } else {
-        return (myMenuCheckShowConnections->getCheck() != 0);
+        return (myVisualizationSettings->showLane2Lane);
     }
 }
 
@@ -423,6 +423,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         } else {
             myMenuCheckShowGrid->setCheck(false);
         }
+        myMenuCheckShowConnections->setCheck(myVisualizationSettings->showLane2Lane);
         if (myTestingMode) {
             if (myTestingWidth > 0 && (getWidth() != myTestingWidth || getHeight() != myTestingHeight)) {
                 // only resize once to avoid flickering
@@ -1964,6 +1965,7 @@ GNEViewNet::onCmdToogleShowConnection(FXObject*, FXSelector, void*) {
         getNet()->initGNEConnections();
         myShowConnections = true;
     }
+    myVisualizationSettings->showLane2Lane = myMenuCheckShowConnections->getCheck();
     // Update viewnNet to show/hide conections
     update();
     // Hide/show connections requiere recompute
@@ -2085,7 +2087,7 @@ GNEViewNet::buildEditModeControls() {
     myMenuCheckSelectEdges->setCheck(true);
 
     myMenuCheckShowConnections = new FXMenuCheck(myToolbar, ("show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, MID_GNE_VIEWNET_SHOW_CONNECTIONS);
-    myMenuCheckShowConnections->setCheck(false);
+    myMenuCheckShowConnections->setCheck(myVisualizationSettings->showLane2Lane);
 
     myMenuCheckExtendToEdgeNodes = new FXMenuCheck(myToolbar, ("auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, 0);
 
