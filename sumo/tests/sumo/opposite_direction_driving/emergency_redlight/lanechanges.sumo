@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Aug 30 13:56:35 2017 by SUMO Version dev-SVN-r25740
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="overtaking" type="emergency" time="23.00" from="WC_0" to="CW_0" dir="1" speed="0.00" reason="" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None"/>
+    <change id="overtaking" type="emergency" time="29.00" from=":C_4_0" to=":C_10_0" dir="-1" speed="11.68" reason="" leaderGap="None" leaderSecureGap="None" followerGap="2.50" followerSecureGap="0.00"/>
+    <change id="blockers.2" type="DEFAULT_VEHTYPE" time="45.00" from="WC_0" to="CW_0" dir="1" speed="0.00" reason="" leaderGap="225.34" leaderSecureGap="0.00" followerGap="None" followerSecureGap="None"/>
+    <change id="blockers.2" type="DEFAULT_VEHTYPE" time="51.00" from="EC_0" to="CE_0" dir="-1" speed="6.15" reason="" leaderGap="4.77" leaderSecureGap="1.75" followerGap="8.31" followerSecureGap="1.31"/>
+</lanechanges>
