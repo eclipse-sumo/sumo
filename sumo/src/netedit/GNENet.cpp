@@ -1766,16 +1766,19 @@ GNENet::flowExists(const std::string& flowID) const {
 
 bool
 GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
-                   const std::string& imgFile, const PositionVector& shape, bool fill, bool movementBlocked, bool shapeBlocked) {
+                   const std::string& imgFile, const PositionVector& shape, bool fill, bool movementBlocked, 
+                   bool shapeBlocked, bool allowUndo) {
     // check if ID is duplicated
     if(myPolygons.get(id) == NULL) {
         // create poly
-        GNEPoly* poly = new GNEPoly(this, NULL, id, type, shape, fill, color, layer, angle, imgFile, movementBlocked, shapeBlocked);
+        GNEPoly* poly = new GNEPoly(this, id, type, shape, fill, color, layer, angle, imgFile, movementBlocked, shapeBlocked);
         myPolygons.add(poly->getID(), poly);
-        // insert it in the net using GNEChange_Poly
-        myViewNet->getUndoList()->p_begin("add " + toString(poly->getTag()));
-        myViewNet->getUndoList()->add(new GNEChange_Poly(this, poly, true), true);
-        myViewNet->getUndoList()->p_end();
+        // insert it in the net using GNEChange_Poly depending of allowUndo
+        if(allowUndo) {
+            myViewNet->getUndoList()->p_begin("add " + toString(poly->getTag()));
+            myViewNet->getUndoList()->add(new GNEChange_Poly(this, poly, true), true);
+            myViewNet->getUndoList()->p_end();
+        }
         return true;
     } else {
         return false;

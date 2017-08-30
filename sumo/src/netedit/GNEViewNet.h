@@ -497,11 +497,14 @@ private:
     /// @brief Poput spot
     Position myPopupSpot;
 
+    /// @name variables for edit shapes
+    /// @{
     /// @brief  polygon used for edit Junction's shapes
     GNEPoly* myEditJunctionShapePoly;
 
     /// @brief the previous edit mode before edit junction's shapes
     EditMode myPreviousEditMode;
+    /// @}
 
     /// @name variables for testing mode
     /// @{

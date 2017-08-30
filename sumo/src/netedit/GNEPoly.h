@@ -57,7 +57,6 @@ public:
 
     /** @brief Constructor
      * @param[in] net net in which this polygon is placed
-     * @param[in] junction optional junction in which this polygon is placed
      * @param[in] id The name of the polygon
      * @param[in] type The (abstract) type of the polygon
      * @param[in] color The color of the polygon
@@ -69,7 +68,7 @@ public:
      * @param[in] movementBlocked if movement of POI is blocked
      * @param[in] shapeBlocked if shape of POI is blocked
      */
-    GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
+    GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
             const RGBColor& color, double layer, double angle, const std::string& imgFile, bool movementBlocked, bool shapeBlocked);
 
     /// @brief Destructor
@@ -174,7 +173,10 @@ public:
     bool isPolygonClosed() const;
 
     /// @brief retrieve the junction of which the shape is being edited
-    GNEJunction* getEditedJunction() const;
+    void setShapeEditedJunction(GNEJunction* junction);
+
+    /// @brief retrieve the junction of which the shape is being edited
+    GNEJunction* getShapeEditedJunction() const;
 
     /// @brief open polygon
     void openPolygon(bool allowUndo = true);
@@ -193,7 +195,7 @@ public:
 
 protected:
     /// @brief junction of which the shape is being edited (optional)
-    GNEJunction* myJunction;
+    GNEJunction* myShapeEditedJunction;
 
     /// @brief flag to indicate if polygon is open or closed
     bool myClosedShape;

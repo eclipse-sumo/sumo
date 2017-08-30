@@ -341,21 +341,28 @@ GNEViewNet::showJunctionAsBubbles() const {
 
 void 
 GNEViewNet::startEditShapeJunction(GNEJunction *junction) {
-    if (junction->getNBNode()->getShape().size() > 1) {
+    if ((myEditJunctionShapePoly == NULL) && (junction != NULL) && (junction->getNBNode()->getShape().size() > 1)) {
+        // save current edit mode before starting
+        myPreviousEditMode = myEditMode;
         setEditModeFromHotkey(MID_GNE_MODE_MOVE);
         junction->getNBNode()->computeNodeShape(-1);
-        if (myEditJunctionShapePoly != 0) {
-            myNet->getVisualisationSpeedUp().removeAdditionalGLObject(myEditJunctionShapePoly);
-            delete myEditJunctionShapePoly;
-            myEditJunctionShapePoly = 0;
+        // obtain shape of NBNode and close it
+        PositionVector junctionShape = junction->getNBNode()->getShape();
+        junctionShape.closePolygon();
+        // generate a ID for myEditJunctionShapePoly
+        int counter = 0;
+        std::string polyID = "junction_shape:" + junction->getMicrosimID() + "_" + toString(counter);
+        while(myNet->retrievePolygon(polyID, false) != NULL) {
+            counter++;
+            polyID = "junction_shape:" + junction->getMicrosimID() + "_" + toString(counter);
         }
-        PositionVector shape = junction->getNBNode()->getShape();
-        shape.closePolygon();
-        myEditJunctionShapePoly = new GNEPoly(myNet, junction, "junction_shape:" + junction->getMicrosimID(), "junction shape",
-            shape, false, RGBColor::GREEN, GLO_POLYGON, 0, "", false, false);
-        myEditJunctionShapePoly->setLineWidth(0.3);
-        myNet->getVisualisationSpeedUp().addAdditionalGLObject(myEditJunctionShapePoly);
-
+        // add polygon without possibility of undo/redo
+        if(myNet->addPolygon(polyID, "junction_shape", RGBColor::GREEN, GLO_POLYGON, 0, "", junctionShape, true, false, false, false)) {
+            myEditJunctionShapePoly = myNet->retrievePolygon(polyID);
+            myEditJunctionShapePoly->setShapeEditedJunction(junction);
+            myEditJunctionShapePoly->setLineWidth(0.3);
+            myNet->insertPolygonInView(myEditJunctionShapePoly);
+        }
         update();
     }
 }
@@ -365,10 +372,15 @@ void
 GNEViewNet::stopEditShapeJunction() {
     // stop edit shape junction deleting myEditJunctionShapePoly
     if (myEditJunctionShapePoly != 0) {
-        myNet->getVisualisationSpeedUp().removeAdditionalGLObject(myEditJunctionShapePoly);
-        delete myEditJunctionShapePoly;
+        myNet->removePolygonOfView(myEditJunctionShapePoly);
+        myNet->removePolygon(myEditJunctionShapePoly->getMicrosimID());
         myEditJunctionShapePoly = 0;
+        // restore previous edit mode
+        if(myEditMode != myPreviousEditMode) {
+            setEditMode(myPreviousEditMode);
+        }
     }
+
 }
 
 
@@ -1078,9 +1090,12 @@ GNEViewNet::hotkeyEnter() {
         myViewParent->getConnectorFrame()->onCmdOK(0, 0, 0);
     } else if (myEditMode == GNE_MODE_TLS) {
         myViewParent->getTLSEditorFrame()->onCmdOK(0, 0, 0);
-    } else if (myEditMode == GNE_MODE_MOVE && myEditJunctionShapePoly != 0) {
-        if (myEditJunctionShapePoly->getEditedJunction() != 0) {
-            myEditJunctionShapePoly->getEditedJunction()->setAttribute(SUMO_ATTR_SHAPE, toString(myEditJunctionShapePoly->getShape()), myUndoList);
+    } else if ((myEditMode == GNE_MODE_MOVE) && (myEditJunctionShapePoly != 0)) {
+        // save edited junction's shape
+        if (myEditJunctionShapePoly != 0) {
+            myUndoList->p_begin("custom junction shape");
+            myEditJunctionShapePoly->getShapeEditedJunction()->setAttribute(SUMO_ATTR_SHAPE, toString(myEditJunctionShapePoly->getShape()), myUndoList);
+            myUndoList->p_end();
             stopEditShapeJunction();
             update();
         }
@@ -1923,15 +1938,10 @@ GNEViewNet::onCmdRevertRestriction(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
-    GNEJunction* junction = getJunctionAtCursorPosition(myPopupSpot);
-    if (junction != 0) {
-        if (myEditJunctionShapePoly == 0) {
-            startEditShapeJunction(junction);
-        } else {
-            junction->setAttribute(SUMO_ATTR_SHAPE, toString(myEditJunctionShapePoly->getShape()), myUndoList);
-            stopEditShapeJunction();
-            update();
-        }
+    // Obtain junction under mouse
+    GNEJunction *junction = getJunctionAtCursorPosition(myPopupSpot);
+    if (junction) {
+        startEditShapeJunction(junction);
     }
     return 1;
 }

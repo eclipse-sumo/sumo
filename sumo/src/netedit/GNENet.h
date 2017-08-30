@@ -562,11 +562,12 @@ public:
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] movementBlocked if movement of polygon is blocked
      * @param[in] shapeBlocked if shape of polygon is blocked
+     * @param[in] allowUndo if add polygon can be undo (note: function insertPolygonInViewhas to be called)
      * @return whether the polygon could be added
      */
     bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
                     double angle, const std::string& imgFile, const PositionVector& shape, bool fill, 
-                    bool movementBlocked, bool shapeBlocked);
+                    bool movementBlocked, bool shapeBlocked, bool allowUndo = true);
 
     /** @brief Removes a polygon from the container
     * @param[in] id The id of the polygon

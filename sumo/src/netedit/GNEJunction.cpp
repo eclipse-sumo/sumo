@@ -852,6 +852,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             bool ok;
             const PositionVector shape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
             myNBNode.setCustomShape(shape);
+            // Refresh element to avoid grabbing problems
+            myNet->refreshElement(this);
             break;
         }
         case SUMO_ATTR_RADIUS:

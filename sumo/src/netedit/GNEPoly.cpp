@@ -68,11 +68,11 @@ const double GNEPoly::myHintSize = 0.8;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
+GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool movementBlocked, bool shapeBlocked) :
     GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile),
     GNEShape(net, SUMO_TAG_POLY, ICON_LOCATEPOLY, movementBlocked, shapeBlocked),
-    myJunction(junction),
+    myShapeEditedJunction(NULL),
     myClosedShape(shape.front() == shape.back()),
     mySimplifiedShape(false),
     myCurrentMovingVertexIndex(-1) {
@@ -184,8 +184,8 @@ GNEPoly::getPositionInView() const {
 
 const std::string& 
 GNEPoly::getParentName() const {
-    if(myJunction != NULL) {
-        return myJunction->getMicrosimID();
+    if(myShapeEditedJunction != NULL) {
+        return myShapeEditedJunction->getMicrosimID();
     } else {
         return myNet->getMicrosimID();
     }
@@ -204,11 +204,13 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if(mySimplifiedShape) {
         simplifyShape->disable();
     }
-    // create open or close polygon's shape
-    if(myClosedShape) {
-        new FXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", 0, &parent, MID_GNE_POLYGON_OPEN);
-    } else {
-        new FXMenuCommand(ret, "Close shape\t\tClose polygon's shape", 0, &parent, MID_GNE_POLYGON_CLOSE);
+    // create open or close polygon's shape only if myShapeEditedJunction is NULL
+    if(myShapeEditedJunction == NULL) {
+        if(myClosedShape) {
+            new FXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", 0, &parent, MID_GNE_POLYGON_OPEN);
+        } else {
+            new FXMenuCommand(ret, "Close shape\t\tClose polygon's shape", 0, &parent, MID_GNE_POLYGON_CLOSE);
+        }
     }
     // create a extra FXMenuCommand if mouse is over a vertex
     int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
@@ -351,9 +353,17 @@ GNEPoly::isPolygonClosed() const {
 }
 
 
-GNEJunction* 
-GNEPoly::getEditedJunction() const {
-    return myJunction;
+void GNEPoly::setShapeEditedJunction(GNEJunction * junction) {
+    if(junction) {
+     myShapeEditedJunction = junction;
+    } else {
+        throw InvalidArgument("Junction cannot be NULL");
+    }
+}
+
+
+GNEJunction * GNEPoly::getShapeEditedJunction() const {
+    return myShapeEditedJunction;
 }
 
 
