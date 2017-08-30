@@ -150,7 +150,7 @@ void
 GNELane::drawArrows() const {
     const Position& end = getShape().back();
     const Position& f = getShape()[-2];
-    double rot = (double) atan2((end.x() - f.x()), (f.y() - end.y())) * (double) 180.0 / (double) PI;
+    double rot = (double) atan2((end.x() - f.x()), (f.y() - end.y())) * (double) 180.0 / (double)M_PI;
     glPushMatrix();
     glPushName(0);
     glTranslated(0, 0, GLO_JUNCTION + .1); // must draw on top of junction shape
@@ -664,7 +664,7 @@ GNELane::updateGeometry() {
             const Position& f = getShape()[i];
             const Position& s = getShape()[i + 1];
             myShapeLengths.push_back(f.distanceTo2D(s));
-            myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
+            myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
     }
     // Update geometry of additionals vinculated with this lane

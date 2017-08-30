@@ -867,7 +867,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     glPushName(getGlID());
     glPushMatrix();
     Position p1 = pos;
-    const double degAngle = RAD2DEG(angle + PI / 2.);
+    const double degAngle = RAD2DEG(angle + M_PI / 2.);
     // one seat in the center of the vehicle by default
     if (myVehicle.getLane() != 0) {
         mySeatPositions[0] = myVehicle.getPosition(- getVType().getLength() / 2);
@@ -1123,7 +1123,7 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh) {
             Position p = veh->getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
             const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
             Position center = b.getCenter();
-            double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / PI;
+            double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
             double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
             GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
@@ -1132,7 +1132,7 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh) {
             Position p = veh->getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
             const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
             Position center = b.getCenter();
-            double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / PI;
+            double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
             double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
             GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
@@ -1141,7 +1141,7 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh) {
             Position pb = veh->getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
             Position pe = veh->getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
             const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
-            double hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / PI;
+            double hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / M_PI;
             Position minp(b.xmin(), b.ymin());
             Position maxp(b.xmax(), b.ymax());
             double sat = pb.distanceTo(pe) / minp.distanceTo(maxp);

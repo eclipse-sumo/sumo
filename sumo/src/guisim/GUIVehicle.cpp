@@ -576,7 +576,7 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
             continue;
         }
         const double drawnCarriageLength = front.distanceTo2D(back);
-        angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (double) 180.0 / (double) PI;
+        angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (double) 180.0 / (double) M_PI;
         if (i >= firstPassengerCarriage) {
             computeSeats(front, back, requiredSeats);
         }

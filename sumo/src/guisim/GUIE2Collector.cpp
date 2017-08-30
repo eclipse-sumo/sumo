@@ -99,7 +99,7 @@ GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector)
         const Position& f = myFullGeometry[i];
         const Position& s = myFullGeometry[i + 1];
         myShapeLengths.push_back(f.distanceTo(s));
-        myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
+        myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) M_PI);
     }
     //
     myBoundary = myFullGeometry.getBoxBoundary();

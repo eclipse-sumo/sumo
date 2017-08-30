@@ -1661,11 +1661,11 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                 Position foeEntryPos = foeEntryLink->getViaLane()->getShape().front();
                 Position foeExitPos = foeEntryLink->getCorrespondingExitLink()->getInternalLaneBefore()->getShape().back();
                 PositionVector foeConnectionLine(foeEntryPos, foeExitPos);
-                double angle = std::fmod(egoConnectionLine.rotationAtOffset(0.) - foeConnectionLine.rotationAtOffset(0.), (2*PI));
-                if (angle < 0) angle+=2*PI;
-                assert(angle>=0); assert(angle<=2*PI);
-                if (angle > PI) angle-=2*PI;
-                assert(angle>=-PI); assert(angle<=PI);
+                double angle = std::fmod(egoConnectionLine.rotationAtOffset(0.) - foeConnectionLine.rotationAtOffset(0.), (2*M_PI));
+                if (angle < 0) angle+=2*M_PI;
+                assert(angle>=0); assert(angle<=2*M_PI);
+                if (angle > M_PI) angle-=2*M_PI;
+                assert(angle>=-M_PI); assert(angle<=M_PI);
                 // Determine orientation of the connection lines. (Positive values mean that the ego vehicle approaches from the foe's left side.)
                 double crossingOrientation = (angle<0)-(angle>0);
 

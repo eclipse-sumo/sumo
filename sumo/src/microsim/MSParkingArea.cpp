@@ -78,7 +78,7 @@ MSParkingArea::MSParkingArea(const std::string& id,
 
             const Position& f = myShape.positionAtOffset(getSpaceDim() * (i - 1));
             const Position& s = myShape.positionAtOffset(getSpaceDim() * (i));
-            double lot_angle = ((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI) + myAngle;
+            double lot_angle = ((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) M_PI) + myAngle;
             mySpaceOccupancies[i].myRotation = lot_angle;
             if (myAngle == 0) {
                 // parking parallel to the road
@@ -116,7 +116,7 @@ MSParkingArea::getVehicleAngle(const SUMOVehicle& forVehicle) {
     std::map<unsigned int, LotSpaceDefinition >::iterator i;
     for (i = mySpaceOccupancies.begin(); i != mySpaceOccupancies.end(); i++) {
         if ((*i).second.vehicle == &forVehicle) {
-            return (((*i).second.myRotation - 90.) * (double) PI / (double) 180.0);
+            return (((*i).second.myRotation - 90.) * (double) M_PI / (double) 180.0);
         }
     }
     return 0.;

@@ -107,7 +107,7 @@ GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const std::string& i
             const Position& f = myShape[i];
             const Position& s = myShape[i + 1];
             myShapeLengths.push_back(f.distanceTo2D(s));
-            myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
+            myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) M_PI);
         }
     }
 }

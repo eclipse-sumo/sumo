@@ -359,7 +359,7 @@ GUIContainer::getSpeed() const {
 void
 GUIContainer::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const {
     // draw pedestrian shape
-    glRotated(RAD2DEG(getAngle() + PI / 2.), 0, 0, 1);
+    glRotated(RAD2DEG(getAngle() + M_PI / 2.), 0, 0, 1);
     glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
     glBegin(GL_QUADS);
     glVertex2d(0, 0.5);
@@ -384,7 +384,7 @@ GUIContainer::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
     if (file != "") {
         // @todo invent an option for controlling whether images should be rotated or not
         //if (getVehicleType().getGuiShape() == SVS_CONTAINER) {
-        //    glRotated(RAD2DEG(getAngle() + PI / 2.), 0, 0, 1);
+        //    glRotated(RAD2DEG(getAngle() + M_PI / 2.), 0, 0, 1);
         //}
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {

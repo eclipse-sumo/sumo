@@ -355,7 +355,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         }
         osg::PositionAttitudeTransform* n = myVehicles[veh].pos;
         n->setPosition(osg::Vec3d(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()));
-        const double dir = veh->getAngle() + PI / 2.;
+        const double dir = veh->getAngle() + M_PI / 2.;
         const double slope = veh->getSlope();
         n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)) *
                        osg::Quat(osg::DegreesToRadians(slope), osg::Vec3d(0, 1, 0)));
@@ -405,7 +405,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         osg::PositionAttitudeTransform* n = myPersons[person].pos;
         const Position pos = person->getPosition();
         n->setPosition(osg::Vec3d(pos.x(), pos.y(), pos.z()));
-        const double dir = person->getAngle() + PI / 2.;
+        const double dir = person->getAngle() + M_PI / 2.;
         n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)));
     }
     if (myAdapter->makeCurrent()) {

@@ -77,7 +77,7 @@ GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& li
         const Position& f = myFGShape[i];
         const Position& s = myFGShape[i + 1];
         myFGShapeLengths.push_back(f.distanceTo(s));
-        myFGShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
+        myFGShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) M_PI);
     }
     PositionVector tmp = myFGShape;
     tmp.move2side(1.5 * offsetSign);

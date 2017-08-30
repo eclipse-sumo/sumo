@@ -452,7 +452,7 @@ GUIPerson::getSpeed() const {
 void
 GUIPerson::drawAction_drawAsTriangle(const GUIVisualizationSettings& /* s */) const {
     // draw triangle pointing forward
-    glRotated(RAD2DEG(getAngle() + PI / 2.), 0, 0, 1);
+    glRotated(RAD2DEG(getAngle() + M_PI / 2.), 0, 0, 1);
     glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
     glBegin(GL_TRIANGLES);
     glVertex2d(0., 0.);
@@ -502,7 +502,7 @@ GUIPerson::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
     const std::string& file = getVehicleType().getImgFile();
     if (file != "") {
         if (getVehicleType().getGuiShape() == SVS_PEDESTRIAN) {
-            glRotated(RAD2DEG(getAngle() + PI / 2.), 0, 0, 1);
+            glRotated(RAD2DEG(getAngle() + M_PI / 2.), 0, 0, 1);
         }
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
