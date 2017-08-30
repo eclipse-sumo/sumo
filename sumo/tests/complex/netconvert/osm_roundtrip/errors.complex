@@ -9,7 +9,7 @@ Warning: Not joining junctions 294168098,294169338,294169339 because the cluster
 Warning: Not joining junctions 32266935,32266938 because the cluster is too complex (5 incoming edges)
 --- 
 +++ 
-@@ -1647,7 +1647,7 @@
+@@ -1649,7 +1649,7 @@
      <node id="261636677" x="1119.89" y="114.18" type="priority"/>
      <node id="261636678" x="1115.15" y="53.12" type="priority"/>
      <node id="27437972#1-AddedOffRampNode" x="766.37" y="525.27" type="priority"/>
@@ -18,7 +18,7 @@ Warning: Not joining junctions 32266935,32266938 because the cluster is too comp
      <node id="283018841" x="520.23" y="532.83" type="dead_end"/>
      <node id="283018842" x="480.89" y="521.99" type="dead_end"/>
      <node id="283018844" x="402.53" y="486.32" type="dead_end"/>
-@@ -1656,9 +1656,9 @@
+@@ -1658,9 +1658,9 @@
      <node id="283018933" x="537.36" y="508.91" type="priority"/>
      <node id="283018937" x="506.58" y="550.58" type="dead_end"/>
      <node id="283719736" x="1053.02" y="520.83" type="priority"/>
@@ -30,7 +30,7 @@ Warning: Not joining junctions 32266935,32266938 because the cluster is too comp
      <node id="283721473" x="1007.12" y="573.30" type="dead_end"/>
      <node id="283722835" x="1020.81" y="585.83" type="dead_end"/>
      <node id="283722837" x="975.80" y="543.48" type="dead_end"/>
-@@ -1683,7 +1683,7 @@
+@@ -1685,7 +1685,7 @@
      <node id="36268369" x="641.03" y="106.11" type="priority"/>
      <node id="36268375" x="760.15" y="265.38" type="traffic_light" tl="36268375"/>
      <node id="36268376" x="891.20" y="379.38" type="traffic_light" tl="36268376"/>
@@ -39,7 +39,7 @@ Warning: Not joining junctions 32266935,32266938 because the cluster is too comp
      <node id="36268381" x="1265.24" y="717.69" type="priority"/>
      <node id="36268382" x="1438.58" y="542.41" type="priority"/>
      <node id="36268391" x="1193.59" y="451.66" type="priority"/>
-@@ -1698,12 +1698,12 @@
+@@ -1700,12 +1700,12 @@
      <node id="36268431" x="960.73" y="439.70" type="traffic_light" tl="36268431"/>
      <node id="38918157" x="1068.74" y="767.39" type="dead_end"/>
      <node id="38919605" x="782.81" y="575.88" type="priority"/>
