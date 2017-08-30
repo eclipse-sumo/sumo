@@ -247,8 +247,8 @@ public:
         /// @brief check if block shape is enabled
         bool isBlockShapeEnabled() const;
 
-        /// @brief check if current length is valid
-        bool isCurrentLengthValid() const;
+        /// @brief check if clse shape is enabled
+        bool isCloseShapeEnabled() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -257,6 +257,9 @@ public:
 
         /// @brief Called when user changes the checkbox "set blocking shape"
         long onCmdSetBlockShape(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user change checkbox for open/closed polygon
+        long onCmdsetClosingClosing(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -275,8 +278,13 @@ public:
 
         /// @brief checkBox for block shape
         FXCheckButton* myBlockShapeCheckButton;
-    };
 
+        /// @brief Label for open/closed polygon
+        FXLabel *myClosePolygonLabel;
+
+        /// @brief checkbox to enable/disable closing polygon
+        FXCheckButton *myClosePolygonCheckButton;
+    };
 
     // ===========================================================================
     // class DrawingMode
@@ -330,9 +338,6 @@ public:
 
         /// @brief Called when the user press abort drawing button
         long onCmdAbortDrawing(FXObject*, FXSelector, void*);
-        
-        /// @brief Called when the user change checkbox for open/closed polygon
-        long onCmdChangeClosing(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -351,9 +356,6 @@ public:
 
         /// @brief button for abort drawing
         FXButton *myAbortDrawingButton;
-        
-        /// @brief checkbox to enable/disable closing polygon
-        FXCheckButton *myClosePolygon;
 
         /// @brief Label with information
         FXLabel* myInformationLabel;
@@ -383,8 +385,11 @@ public:
      */
     bool buildPoly(const PositionVector &drawedShape);
 
+    /// @brief get editor parameters
+    GNEPolygonFrame::NeteditAttributes *getNetEditParameters() const;
+    
     /// @brief get drawing mode
-    DrawingMode *getDrawingMode() const;
+    GNEPolygonFrame::DrawingMode *getDrawingMode() const;
 
     /// @name FOX-callbacks
     /// @{
