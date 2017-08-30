@@ -52,3 +52,9 @@ no_overtaking_across_minor_link
 
 # return from overtaking if there is no opposite leader
 return_no_opposite_leader
+
+# do not overtake long queue
+long_queue
+
+# emergency vehicle may overtake long queue
+long_queue_emergency
