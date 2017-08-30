@@ -178,10 +178,6 @@ protected:
     /// @brief Linkstate. @note cached because after 'undo' the connection needs to be drawn while the node logic (NBRequest) has not been recomputed
     LinkState myLinkState;
 
-    /// @brief Enable or disable draw connection
-    /// @note by default is enabled
-    bool myDrawConnection;
-
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

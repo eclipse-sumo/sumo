@@ -71,8 +71,7 @@ GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
                   GLO_CONNECTION, SUMO_TAG_CONNECTION, ICON_CONNECTION),
     myFromLane(from),
     myToLane(to),
-    myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
-    myDrawConnection(true) {
+    myLinkState(LINKSTATE_TL_OFF_NOSIGNAL) {
     // geometry will be updated later
 }
 
@@ -210,18 +209,6 @@ GNEConnection::updateLinkState() {
 }
 
 
-bool
-GNEConnection::getDrawConnection() const {
-    return myDrawConnection;
-}
-
-
-void
-GNEConnection::setDrawConnection(bool drawConnection) {
-    myDrawConnection = drawConnection;
-}
-
-
 GUIGLObjectPopupMenu*
 GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -256,7 +243,7 @@ GNEConnection::getCenteringBoundary() const {
 void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // Check if connection must be drawed
-    if (myDrawConnection && (myNet->getViewNet()->showConnections())) {
+    if (myNet->getViewNet()->showConnections()) {
         // Push draw matrix 1
         glPushMatrix();
         // Push name
