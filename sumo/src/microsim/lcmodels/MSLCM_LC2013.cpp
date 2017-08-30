@@ -1287,6 +1287,7 @@ MSLCM_LC2013::_wantsChange(
                    && (leader.first == 0 || !leader.first->isStopped())
                    && neigh.bestContinuations.back()->getLinkCont().size() != 0
                    && roundaboutEdgesAhead == 0
+                   && !checkOpposite
                    && neighDist < TURN_LANE_DIST) {
             // VARIANT_21 (stayOnBest)
             // we do not want to leave the best lane for a lane which leads elsewhere

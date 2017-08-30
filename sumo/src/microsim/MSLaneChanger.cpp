@@ -974,7 +974,18 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
             // do not overtake past a minor link or turn
             if (*(it - 1) != 0) {
                 MSLink* link = MSLinkContHelper::getConnectingLink(**(it - 1), **it);
-                if (link == 0 || !link->havePriority() || link->getState() == LINKSTATE_ZIPPER || link->getDirection() != LINKDIR_STRAIGHT) {
+                if (link == 0 || link->getState() == LINKSTATE_ZIPPER 
+                        || (link->getDirection() != LINKDIR_STRAIGHT && vehicle->getVehicleType().getVehicleClass() != SVC_EMERGENCY)
+                        || (!link->havePriority()  
+                            // consider traci-influence
+                            && (!vehicle->hasInfluencer() || vehicle->getInfluencer().getRespectJunctionPriority())
+                            // consider junction model parameters
+                            && ((!link->haveRed() && !link->haveYellow()) || !vehicle->ignoreRed(link, true)))) {
+#ifdef DEBUG_CHANGE_OPPOSITE
+                    if (DEBUG_COND) {
+                        std::cout << "   stop lookahead at link=" << (link == 0 ? "NULL" : link->getViaLaneOrLane()->getID()) << " state=" << (link == 0 ? "?" : toString(link->getState())) << " ignoreRed=" << vehicle->ignoreRed(link, true) << "\n";
+                    }
+#endif
                     break;
                 }
             }
