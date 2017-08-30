@@ -308,8 +308,6 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                     glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
                     GLHelper::drawText("E", Position(), .1, 2*myHintSize, invertedColor);
                     glPopMatrix();
-                } else {
-                    drawLockIcon(i, GLO_POLYGON, 0.25);
                 }
             }
             // check if draw moving hint has to be drawed
@@ -320,14 +318,6 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(invertedColor);
                 GLHelper:: drawFilledCircle(myHintSize, 32);
                 glPopMatrix();
-            }
-        } else if (myFill) {
-            // draw only a block icon in center if polygon is filled
-            drawLockIcon(myShape.getPolygonCenter(), GLO_POLYGON, 0.25);
-        } else {
-            // draw a lock in every vertex if polygon isn't filled
-            for (auto i : myShape) {
-                drawLockIcon(i, GLO_POLYGON, 0.25);
             }
         }
         // pop name
