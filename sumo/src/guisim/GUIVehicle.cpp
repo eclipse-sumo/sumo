@@ -102,7 +102,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     const int sublaneParams = MSGlobals::gLateralResolution > 0 ? 4 : 0;
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 36 + sublaneParams + (int)getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 37 + sublaneParams + (int)getParameter().getMap().size());
     // add items
     ret->mkItem("lane [id]", false, Named::getIDSecure(myLane, "n/a"));
     if (MSGlobals::gLaneChangeDuration > 0 || MSGlobals::gLateralResolution > 0) {
@@ -115,6 +115,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getLateralPositionOnLane));
     ret->mkItem("speed [m/s]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getSpeed));
+    ret->mkItem("lateral speed [m/s]", true, 
+            new FunctionBinding<MSAbstractLaneChangeModel, double>(&getLaneChangeModel(), &MSAbstractLaneChangeModel::getSpeedLat));
     ret->mkItem("acceleration [m/s^2]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getAcceleration));
     ret->mkItem("angle [degree]", true,
