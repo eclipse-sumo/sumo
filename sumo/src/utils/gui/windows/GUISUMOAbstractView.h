@@ -266,7 +266,7 @@ public:
     void destroyPopup();
 
     /// @brief add snapshot synchronization
-    void setApplicationSnapshots(std::vector<SUMOTime>* snapshots, FXMutex* lock) {
+    void setApplicationSnapshots(std::set<SUMOTime>* snapshots, FXMutex* lock) {
         myApplicationSnapshots = snapshots;
         myApplicationSnapshotsLock = lock;
     }
@@ -434,7 +434,7 @@ protected:
 
     ///@brief Snapshots
     std::map<SUMOTime, std::vector<std::string> > mySnapshots;
-    std::vector<SUMOTime>* myApplicationSnapshots;
+    std::set<SUMOTime>* myApplicationSnapshots;
 
     ///@brief The mutex to use before accessing the decals list in order to avoid thread conficts
     MFXMutex mySnapshotsLock;

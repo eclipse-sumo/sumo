@@ -120,7 +120,7 @@ public:
         return myBreakpointLock;
     }
 
-    std::vector<SUMOTime>& getSnapshots() {
+    std::set<SUMOTime>& getSnapshots() {
         return myApplicationSnapshots;
     }
 
@@ -179,7 +179,7 @@ protected:
     FXMutex myBreakpointLock;
 
     /// @brief List of snapshot times
-    std::vector<SUMOTime> myApplicationSnapshots;
+    std::set<SUMOTime> myApplicationSnapshots;
 
     /// @brief Lock for modifying the list of snapshot times
     FXMutex myApplicationSnapshotsLock;

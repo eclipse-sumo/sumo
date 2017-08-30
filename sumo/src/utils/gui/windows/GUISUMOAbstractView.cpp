@@ -820,7 +820,7 @@ GUISUMOAbstractView::addSnapshot(SUMOTime time, const std::string& file) {
     mySnapshotsLock.unlock();
     if (myApplicationSnapshots != 0) {
         myApplicationSnapshotsLock->lock();
-        myApplicationSnapshots->push_back(time);
+        myApplicationSnapshots->insert(time);
         myApplicationSnapshotsLock->unlock();
     }
 }
@@ -1012,12 +1012,12 @@ GUISUMOAbstractView::checkSnapshots() {
         assert(myApplicationSnapshots != 0);
         assert(myApplicationSnapshotsLock!= 0);
         myApplicationSnapshotsLock->lock();
-        std::vector<SUMOTime>::iterator it = std::find(myApplicationSnapshots->begin(), myApplicationSnapshots->end(), time);
-        if (it != myApplicationSnapshots->end()) {
-            myApplicationSnapshots->erase(it);
-        }
+        myApplicationSnapshots->erase(time);
         myApplicationSnapshotsLock->unlock();
     }
+#ifdef DEBUG_SNAPSHOT
+    std::cout << "  files=" << toString(files) << " myApplicationSnapshots=" << joinToString(*myApplicationSnapshots, ",") << "\n";
+#endif
 }
 
 
