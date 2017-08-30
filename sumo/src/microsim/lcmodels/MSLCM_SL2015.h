@@ -376,6 +376,8 @@ protected:
     double myImpatience;
     // @brief time to reach maximum impatience in seconds
     double myTimeToImpatience;
+    // @brief lateral acceleration
+    double myAccelLat;
     //@}
 
     /// @name derived parameters

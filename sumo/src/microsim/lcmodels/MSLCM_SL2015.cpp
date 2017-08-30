@@ -128,6 +128,7 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1)),
     myImpatience(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_IMPATIENCE, 0)),
     myTimeToImpatience(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, std::numeric_limits<double>::max())),
+    myAccelLat(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ACCEL_LAT, 1.0)),
     myChangeProbThresholdRight(2.0 * myKeepRightParam / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
     myChangeProbThresholdLeft(0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
     mySpeedLossProbThreshold(-0.1 + (1 - mySublaneParam)) {
@@ -2599,6 +2600,8 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myImpatience);
     } else if (key == toString(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE)) {
         return toString(myTimeToImpatience);
+    } else if (key == toString(SUMO_ATTR_LCA_ACCEL_LAT)) {
+        return toString(myAccelLat);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
@@ -2629,6 +2632,8 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myImpatience = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE)) {
         myTimeToImpatience = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_ACCEL_LAT)) {
+        myAccelLat = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }
