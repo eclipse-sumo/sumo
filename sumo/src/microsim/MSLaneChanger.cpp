@@ -48,6 +48,7 @@
 #define OPPOSITE_OVERTAKING_SAFE_TIMEGAP 0.0
 // XXX maxLookAhead should be higher if all leaders are stopped and lower when they are jammed/queued
 #define OPPOSITE_OVERTAKING_MAX_LOOKAHEAD 150.0 // just a guess
+#define OPPOSITE_OVERTAKING_MAX_LOOKAHEAD_EMERGENCY 1000.0 // just a guess
 // this is used for finding oncoming vehicles while driving in the opposite direction
 #define OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD 200.0 // just a guess
 
@@ -858,6 +859,9 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
             if (leadLead.first == 0) {
                 foundSpaceAhead = true;
             } else {
+                const double maxLookAhead = (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY 
+                        ? OPPOSITE_OVERTAKING_MAX_LOOKAHEAD_EMERGENCY 
+                        : OPPOSITE_OVERTAKING_MAX_LOOKAHEAD);
                 const double requiredSpace = (requiredSpaceAfterLeader
                                               + vehicle->getCarFollowModel().getSecureGap(overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel()));
                 if (leadLead.second > requiredSpace) {
@@ -869,7 +873,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
                     }
 #endif
                     seen += MAX2(0., leadLead.second) + leadLead.first->getVehicleType().getLengthWithGap();
-                    if (seen > OPPOSITE_OVERTAKING_MAX_LOOKAHEAD) {
+                    if (seen > maxLookAhead) {
 #ifdef DEBUG_CHANGE_OPPOSITE
                         if (DEBUG_COND) {
                             std::cout << "   cannot changeOpposite due to insufficient free space after columnLeader (seen=" << seen << " columnLeader=" << columnLeader.first->getID() << ")\n";
