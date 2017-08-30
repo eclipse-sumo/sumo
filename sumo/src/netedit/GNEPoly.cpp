@@ -161,11 +161,16 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
             // refresh element
             myNet->refreshPolygon(this);
         } else {
-            myShape = oldShape;
-            // commit new shape
-            undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
-            undoList->p_end();
+            // only use GNEChange_Attribute if we aren't editing a junction's shape
+            if (myShapeEditedJunction == NULL) {
+                myShape = oldShape;
+                // commit new shape
+                undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
+                undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
+                undoList->p_end();
+            } else {
+                setAttribute(SUMO_ATTR_SHAPE, toString(shapeToCommit));
+            }
         }
     }
 }
