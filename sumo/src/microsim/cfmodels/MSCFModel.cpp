@@ -65,11 +65,7 @@ MSCFModel::VehicleVariables::~VehicleVariables() {}
 double
 MSCFModel::brakeGap(const double speed, const double decel, const double headwayTime) {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
-        /* one possibility to speed this up is to calculate speedReduction * steps * (steps+1) / 2
-        	for small values of steps (up to 10 maybe) and store them in an array */
-        const double speedReduction = ACCEL2SPEED(decel);
-        const int steps = int(speed / speedReduction);
-        return SPEED2DIST(steps * speed - speedReduction * steps * (steps + 1) / 2) + speed * headwayTime;
+        return brakeGapEuler(speed, decel, headwayTime);
     } else {
         // ballistic
         if (speed <= 0) {
@@ -78,6 +74,16 @@ MSCFModel::brakeGap(const double speed, const double decel, const double headway
             return speed * (headwayTime + 0.5 * speed / decel);
         }
     }
+}
+
+
+double 
+MSCFModel::brakeGapEuler(const double speed, const double decel, const double headwayTime) {
+    /* one possibility to speed this up is to calculate speedReduction * steps * (steps+1) / 2
+       for small values of steps (up to 10 maybe) and store them in an array */
+    const double speedReduction = ACCEL2SPEED(decel);
+    const int steps = int(speed / speedReduction);
+    return SPEED2DIST(steps * speed - speedReduction * steps * (steps + 1) / 2) + speed * headwayTime;
 }
 
 

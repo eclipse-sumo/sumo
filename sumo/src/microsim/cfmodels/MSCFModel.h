@@ -293,6 +293,8 @@ public:
 
     static double brakeGap(const double speed, const double decel, const double headwayTime);
 
+    static double brakeGapEuler(const double speed, const double decel, const double headwayTime);
+
     static double freeSpeed(const double currentSpeed, const double decel, const double dist, const double maxSpeed, const bool onInsertion);
 
     /** @brief Returns the minimum gap to reserve if the leader is braking at maximum (>=0)
