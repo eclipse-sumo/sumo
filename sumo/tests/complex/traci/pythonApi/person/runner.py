@@ -62,7 +62,7 @@ print("detour edges after routing", traci.person.getEdges("detour"))
 # trip-like rerouting
 traci.person.add("tripTest", "2fi", -10)
 traci.person.appendWalkingStage("tripTest", ["2fi", "1fi"], -20)
-traci.person.removeStage("tripTest", 0) # proceed from initial waiting-to-depart stage
+traci.person.removeStage("tripTest", 0)  # proceed from initial waiting-to-depart stage
 traci.person.rerouteTraveltime("tripTest")
 print("tripTest edges after routing", traci.person.getEdges("tripTest"))
 

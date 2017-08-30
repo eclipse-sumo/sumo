@@ -2,7 +2,7 @@
 /// @file    NBPTPlatform.h
 /// @author  Gregor Laemmel
 /// @date    Tue, 24 Aug 2017
-/// @version $Id: NBPTPlatform.h 25685 2017-08-22 11:37:56Z laemmel $
+/// @version $Id$
 ///
 // The representation of a pt platform
 /****************************************************************************/

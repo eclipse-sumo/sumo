@@ -87,7 +87,7 @@ def main():
                     vias = ' '.join(edges[0:lenE])
                     fouttrips.write(
                         '\t<trip id="%s" depart="0" departLane="%s" from="%s" to="%s" via="%s">\n' % (
-                        trp_nr, 'best', fr, to, vias))
+                            trp_nr, 'best', fr, to, vias))
                 else:
                     fouttrips.write(
                         '\t<trip id="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (trp_nr, 'best', fr, to))

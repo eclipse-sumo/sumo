@@ -44,6 +44,7 @@ print("trafficlights", traci.trafficlights.getIDList())
 print("trafficlights count", traci.trafficlights.getIDCount())
 tlsID = "0"
 
+
 def check():
     print("examining", tlsID)
     print("ryg", traci.trafficlights.getRedYellowGreenState(tlsID))

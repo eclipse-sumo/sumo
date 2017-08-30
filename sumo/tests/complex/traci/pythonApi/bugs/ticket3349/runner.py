@@ -4,7 +4,7 @@
 @file    runner.py
 @author  Jakob Erdmann
 @date    2017-01-23
-@version $Id: runner.py 24854 2017-06-22 13:21:09Z behrisch $
+@version $Id$
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
@@ -43,7 +43,7 @@ traci.init(PORT)
 vehID = "v0"
 traci.vehicle.add(vehID, "r0")
 traci.vehicle.subscribeContext(vehID, tc.CMD_GET_VEHICLE_VARIABLE,
-        dist=20, begin=0, end=99999999)
+                               dist=20, begin=0, end=99999999)
 traci.simulationStep(10000)
 traci.close()
 sumoProcess.wait()

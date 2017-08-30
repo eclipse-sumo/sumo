@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    OutputDeviceMock.cpp
+/// @file    OutputDeviceMock.h
 /// @author  Matthias Heppner
 /// @author  Michael Behrisch
 /// @date    2009-11-23

@@ -656,7 +656,9 @@ def selectAdditionalChild(numTabs, childNumber):
     typeTab()
 
 # fix stoppingPlaces
-def fixStoppingPlace(solution, cancel = False):
+
+
+def fixStoppingPlace(solution, cancel=False):
     # select bullet depending of solution
     if (solution == "saveInvalids"):
         for x in range(0, 3):
@@ -677,8 +679,8 @@ def fixStoppingPlace(solution, cancel = False):
         typeTwoKeys("c", Key.ALT)
     else:
         typeTwoKeys("a", Key.ALT)
-    
-    
+
+
 #################################################
 # delete
 #################################################

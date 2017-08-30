@@ -2,7 +2,7 @@
 /// @file    GNEPolygonFrame.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2017
-/// @version $Id: GNEPolygonFrame.cpp 25295 2017-07-22 17:55:46Z behrisch $
+/// @version $Id$
 ///
 // The Widget for add polygons
 /****************************************************************************/

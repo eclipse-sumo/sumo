@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    StringUtilsTests.cpp
+/// @file    StringUtilsTest.cpp
 /// @author  Matthias Heppner
 /// @author  Michael Behrisch
 /// @date    2009

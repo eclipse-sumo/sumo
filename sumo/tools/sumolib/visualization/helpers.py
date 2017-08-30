@@ -199,13 +199,14 @@ def plotNet(net, colors, widths, options):
             w.append(widths[str(e._id)])
         else:
             w.append(options.defaultWidth)
-            
+
     line_segments = LineCollection(shapes, linewidths=w, colors=c)
     ax = plt.gca()
     ax.add_collection(line_segments)
     ax.set_xmargin(0.1)
     ax.set_ymargin(0.1)
-    ax.autoscale_view(True,True,True)
+    ax.autoscale_view(True, True, True)
+
 
 def getColor(options, i, a):
     if options.colors:

@@ -285,17 +285,20 @@ def is_persontrip_attribute(attr):
             return True
     return False
 
+
 def is_person_attribute(attr):
     for cand in ['type']:
         if cand in attr:
             return True
     return False
 
+
 def is_vehicle_attribute(attr):
     for cand in ['depart', 'arrival', 'line', 'Number', 'type']:
         if cand in attr:
             return True
     return False
+
 
 def split_trip_attributes(tripattrs, pedestrians, hasType):
     # handle attribute values with a space
@@ -337,9 +340,9 @@ def split_trip_attributes(tripattrs, pedestrians, hasType):
             vehicleattrs += vtypeattrs
         vtypeattrs = []
 
-    return (prependSpace(' '.join(vtypeattrs)), 
-            prependSpace(' '.join(vehicleattrs)), 
-            prependSpace(' '.join(personattrs)), 
+    return (prependSpace(' '.join(vtypeattrs)),
+            prependSpace(' '.join(vehicleattrs)),
+            prependSpace(' '.join(personattrs)),
             prependSpace(' '.join(otherattrs)))
 
 
@@ -365,7 +368,7 @@ def main(options):
     idx = 0
 
     vtypeattrs, options.tripattrs, personattrs, otherattrs = split_trip_attributes(
-            options.tripattrs, options.pedestrians, options.vehicle_class)
+        options.tripattrs, options.pedestrians, options.vehicle_class)
 
     vias = {}
 

@@ -66,7 +66,6 @@ LICENSE_HEADER = """/***********************************************************
 """
 
 
-
 class PropertyReader(xml.sax.handler.ContentHandler):
 
     """Reads the svn properties of files as written by svn pl -v --xml"""
@@ -114,13 +113,13 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 year = lines[idx + 2][17:21]
                 license = LICENSE_HEADER.replace("2001", year)
                 if "module" in lines[idx + 3]:
-                    fileLicense = "".join(lines[idx:idx+3]) + "".join(lines[idx+5:idx+14])
+                    fileLicense = "".join(lines[idx:idx + 3]) + "".join(lines[idx + 5:idx + 14])
                 else:
-                    fileLicense = "".join(lines[idx:idx+12])
+                    fileLicense = "".join(lines[idx:idx + 12])
                 if fileLicense != license:
                     print(self._file, "invalid license")
                     if options.verbose:
-                        print("".join(lines[idx:idx+12]))
+                        print("".join(lines[idx:idx + 12]))
                         print(license)
             else:
                 if len(lines) == 0:

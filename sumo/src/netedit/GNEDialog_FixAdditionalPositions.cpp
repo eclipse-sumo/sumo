@@ -2,7 +2,7 @@
 /// @file    GNEDialog_FixAdditionalPositions.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2017
-/// @version $Id: GNEDialog_FixAdditionalPositions.cpp 25373 2017-07-26 13:06:32Z palcraft $
+/// @version $Id$
 ///
 // Dialog used to fix invalid stopping places
 /****************************************************************************/

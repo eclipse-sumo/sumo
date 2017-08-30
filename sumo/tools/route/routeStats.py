@@ -41,7 +41,7 @@ def get_options():
     optParser = OptionParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
-    optParser.add_option("-n", "--network", 
+    optParser.add_option("-n", "--network",
                          help="The network file to use with attribute 'length'")
     optParser.add_option("--attribute", type="string",
                          default="length", help="attribute to analyze [length,depart,numEdges]")

@@ -68,7 +68,7 @@ def get_options(args=None):
                          default=120, help=" maximal cycle length")
     optParser.add_option("-e", "--existing-cycle", dest="existcycle", action="store_true",
                          default=False, help=" use the existing cycle length")
-    optParser.add_option("-p", "--program", dest="program", 
+    optParser.add_option("-p", "--program", dest="program",
                          default="a", help="save new definitions with this program id")
     optParser.add_option("-H", "--saturation-headway", dest="satheadway", type="float",
                          default=2, help=" saturation headway in seconds for calcuating hourly saturation flows")
