@@ -318,6 +318,9 @@ protected:
     /// @brief compute speed when committing to an urgent change that is safe in regard to leading vehicles
     double commitFollowSpeed(double speed, double latDist, double secondsToLeaveLane, const MSLeaderDistanceInfo& leaders, double foeOffset) const;
 
+    /// @brief compute speedGain when moving by the given amount 
+    double computeSpeedGain(double latDistSublane, double defaultNextSpeed) const;
+
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial
     double mySpeedGainProbabilityRight;
