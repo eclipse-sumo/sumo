@@ -44,4 +44,6 @@ bool GUIGlobals::gQuitOnEnd = false;
 bool GUIGlobals::gDemoAutoReload = false;
 
 
+double GUIGlobals::gTrackerInterval = 1.0;
+
 /****************************************************************************/

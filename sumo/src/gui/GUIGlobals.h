@@ -57,6 +57,8 @@ public:
     /// the simulation shall reload when it has ended (demo)
     static bool gDemoAutoReload;
 
+    /// the aggregation period for tracker windows in seconds
+    static double gTrackerInterval;
 };
 
 #endif

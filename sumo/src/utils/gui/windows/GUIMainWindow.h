@@ -76,6 +76,8 @@ public:
 
     virtual SUMOTime getCurrentSimTime() const = 0;
 
+    virtual double getTrackerInterval() const = 0;
+
     virtual void setStatusBarText(const std::string&) { }
 
     FXLabel& getCartesianLabel();

@@ -52,7 +52,8 @@ class TrackerValueDesc : public ValueRetriever<double> {
 public:
     /// Constructor
     TrackerValueDesc(const std::string& name, const RGBColor& col,
-                     SUMOTime recordBegin);
+                     SUMOTime recordBegin,
+                     double aggregationSeconds);
 
     /// Destructor
     ~TrackerValueDesc();

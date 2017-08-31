@@ -41,10 +41,13 @@
 // ===========================================================================
 TrackerValueDesc::TrackerValueDesc(const std::string& name,
                                    const RGBColor& col,
-                                   SUMOTime recordBegin)
+                                   SUMOTime recordBegin,
+                                   double aggregationSeconds)
     : myName(name), myActiveCol(col), myInactiveCol(col),
       myMin(0), myMax(0),
-      myAggregationInterval((int)(TIME2STEPS(1) / DELTA_T)), myInvalidValue(INVALID_DOUBLE), myValidNo(0),
+      myAggregationInterval(MAX2(1, (int)(TIME2STEPS(aggregationSeconds) / DELTA_T))), 
+      myInvalidValue(INVALID_DOUBLE), 
+      myValidNo(0),
       myRecordingBegin(recordBegin), myTmpLastAggValue(0) {}
 
 

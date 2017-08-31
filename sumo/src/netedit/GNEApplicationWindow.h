@@ -263,6 +263,8 @@ public:
 
     /// @brief get current simulation time (pure virtual but we don't need it)
     SUMOTime getCurrentSimTime() const;
+    /// @brief get current tracker interval (pure virtual but we don't need it)
+    double getTrackerInterval() const;
 
     /// @brief get default cursor
     FXCursor* getDefaultCursor();

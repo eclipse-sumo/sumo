@@ -146,6 +146,7 @@ GUILoadThread::run() {
         GUIGlobals::gRunAfterLoad = oc.getBool("start");
         GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
         GUIGlobals::gDemoAutoReload = oc.getBool("demo");
+        GUIGlobals::gTrackerInterval = oc.getFloat("tracker-interval");
     } catch (ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());

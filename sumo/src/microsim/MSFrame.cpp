@@ -442,6 +442,9 @@ MSFrame::fillOptions() {
     oc.doRegister("window-pos", new Option_String());
     oc.addDescription("window-pos", "GUI Only", "Create initial window at the given x,y position");
 
+    oc.doRegister("tracker-interval", new Option_Float(1.0));
+    oc.addDescription("tracker-interval", "GUI Only", "The aggregation period for value tracker windows");
+
 #ifdef HAVE_OSG
     oc.doRegister("osg-view", new Option_Bool(false));
     oc.addDescription("osg-view", "GUI Only", "Start with an OpenSceneGraph view instead of the regular 2D view");

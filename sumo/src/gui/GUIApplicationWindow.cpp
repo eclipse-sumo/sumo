@@ -1548,6 +1548,12 @@ GUIApplicationWindow::getCurrentSimTime() const {
 }
 
 
+double
+GUIApplicationWindow::getTrackerInterval() const {
+    return GUIGlobals::gTrackerInterval;
+}
+
+
 void
 GUIApplicationWindow::loadOnStartup() {
     loadConfigOrNet("", false);

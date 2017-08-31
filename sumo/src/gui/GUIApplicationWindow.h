@@ -109,6 +109,7 @@ public:
 
     FXGLCanvas* getBuildGLCanvas() const;
     SUMOTime getCurrentSimTime() const;
+    double getTrackerInterval() const;
 
     FXCursor* getDefaultCursor();
 

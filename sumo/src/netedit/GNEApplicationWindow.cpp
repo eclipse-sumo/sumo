@@ -1003,6 +1003,12 @@ GNEApplicationWindow::getCurrentSimTime() const {
 }
 
 
+double
+GNEApplicationWindow::getTrackerInterval() const {
+    return 1;
+}
+
+
 GNEUndoList*
 GNEApplicationWindow::getUndoList() {
     return myUndoList;
