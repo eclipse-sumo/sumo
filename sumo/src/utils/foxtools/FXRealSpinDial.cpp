@@ -55,7 +55,9 @@
 #endif
 
 #include <fx.h>
-#include "xincs.h"
+#define NOMINMAX
+#include <xincs.h>
+#undef NOMINMAX
 #include "fxver.h"
 #include "fxdefs.h"
 #include "fxkeys.h"
