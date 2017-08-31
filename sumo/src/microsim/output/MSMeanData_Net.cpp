@@ -38,17 +38,10 @@
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSMeanData_Net.h"
-#include <limits>
 
 #include <microsim/MSGlobals.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
-
-// ===========================================================================
-// constants
-// ===========================================================================
-#define INVALID_DOUBLE std::numeric_limits<double>::max()
-
 
 // ===========================================================================
 // debug constants

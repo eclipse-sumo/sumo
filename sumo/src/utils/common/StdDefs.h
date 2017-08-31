@@ -34,6 +34,7 @@
 #endif
 #include <string>
 #include <cmath>
+#include <limits>
 
 /* avoiding compiler warning unreferenced parameter */
 #define UNUSED_PARAMETER(x)  ((void)(x))
@@ -55,6 +56,8 @@ const double SUMO_const_halfLaneAndOffset = (double)(3.2 / 2. + .1);
 
 /// @brief the speed threshold at which vehicles are considered as halting
 const double SUMO_const_haltingSpeed = (double) 0.1;
+
+const double INVALID_DOUBLE = std::numeric_limits<double>::max();
 
 
 /* -------------------------------------------------------------------------
