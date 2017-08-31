@@ -131,6 +131,9 @@ MSLaneChangerSublane::change() {
         }
         vehicle->getLaneChangeModel().setOwnState(decision.state);
         return startChangeSublane(vehicle, myCandi, decision.latDist);
+    } else {
+        // @note this assumes vehicles can instantly abort any maneuvre in case of emergency
+        vehicle->getLaneChangeModel().setSpeedLat(0);
     }
 
     if ((right.state & (LCA_URGENT)) != 0 && (left.state & (LCA_URGENT)) != 0) {
@@ -168,6 +171,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     // 1) update vehicles lateral position according to latDist and target lane
     vehicle->myState.myPosLat += latDist;
     vehicle->myCachedPosition = Position::INVALID;
+    vehicle->getLaneChangeModel().setSpeedLat(DIST2SPEED(latDist));
 
     // 2) distinguish several cases
     //   a) vehicle moves completely within the same lane

@@ -38,8 +38,6 @@
 #include <microsim/pedestrians/MSPModel.h>
 #include "MSLCM_SL2015.h"
 
-//#define DEBUG_VEHICLE_GUI_SELECTION 1
-
 // ===========================================================================
 // variable definitions
 // ===========================================================================
@@ -189,6 +187,13 @@ MSLCM_SL2015::wantsChangeSublane(
                         neighLane, laneOffset, latDist, blocked);
 
     result |= getLCA(result, latDist);
+
+    // take into account lateral acceleration
+    double latDistTmp = latDist;
+	latDist = SPEED2DIST(computeSpeedLat(latDist));
+    if (gDebugFlag2 && latDist != latDistTmp) {
+        std::cout << SIMTIME << " veh=" << myVehicle.getID() << " fullLatDist=" << myOrigLatDist << " latDist=" << latDistTmp << " mySpeedPrev=" << mySpeedLat << " speedLat=" << DIST2SPEED(latDist) << " latDist2=" << latDist << "\n";
+    }
 
     if (gDebugFlag2) {
         if (result & LCA_WANTS_LANECHANGE) {
@@ -2507,6 +2512,61 @@ MSLCM_SL2015::getWidth() const {
 }
 
 
+double
+MSLCM_SL2015::computeSpeedLat(double latDist) {
+    int currentDirection = mySpeedLat >= 0 ? 1 : -1;
+    int directionWish = latDist >= 0 ? 1 : -1;
+    const double maxSpeedLat = myVehicle.getVehicleType().getMaxSpeedLat();
+    // reduced lateral speed (in the desired direction)
+    double speedDecel = MAX2(MIN2(mySpeedLat + directionWish * ACCEL2SPEED(-myAccelLat), maxSpeedLat),-maxSpeedLat);
+    // increased lateral speed (in the disired direction)
+    double speedAccel = MAX2(MIN2(mySpeedLat + directionWish * ACCEL2SPEED(myAccelLat), maxSpeedLat),-maxSpeedLat);
+
+    // can we reach the target distance in a single step?
+    double speedBound = DIST2SPEED(latDist);
+    if (gDebugFlag2) {
+        std::cout << SIMTIME
+                  << " veh=" << myVehicle.getID()
+                  << " speedLat=" << mySpeedLat
+                  << " latDist=" << latDist
+                  << " fullLatDist=" << myOrigLatDist
+                  << " speedAccel=" << speedAccel
+                  << " speedDecel=" << speedDecel
+                  << " speedBound=" << speedBound
+                  << "\n";
+    }
+    if (speedDecel * speedAccel <= 0 && (
+       // speedAccel and speedDecel bracket speed 0. This means we can end the manoeuvre
+                (latDist >= 0 && speedAccel >= speedBound && speedBound >= speedDecel)
+             || (latDist <= 0 && speedAccel <= speedBound && speedBound <= speedDecel))) {
+                 // we can reach the desired value in this step
+        if (gDebugFlag2) std::cout << "   computeSpeedLat a)\n";
+        return speedBound;
+    }
+    // are we currently moving in the wrong direction?
+    if (latDist * mySpeedLat < 0) {
+        if (gDebugFlag2) std::cout << "   computeSpeedLat b)\n";
+        return speedAccel;
+    }
+    // check if the remaining distance allows to accelerate laterally
+    double minDistAccel = SPEED2DIST(speedAccel) + currentDirection * MSCFModel::brakeGapEuler(fabs(speedAccel), myAccelLat, 0); // most we can move in the target direction
+    if ((fabs(minDistAccel) < fabs(myOrigLatDist)) || (fabs(minDistAccel - myOrigLatDist) < NUMERICAL_EPS)) {
+        if (gDebugFlag2) std::cout << "   computeSpeedLat c)\n";
+        return speedAccel; 
+    } else {
+        // check if the remaining distance allows to maintain current lateral speed
+        double minDistCurrent = SPEED2DIST(mySpeedLat) + currentDirection * MSCFModel::brakeGapEuler(fabs(mySpeedLat), myAccelLat, 0);
+        if ((fabs(minDistCurrent) < fabs(myOrigLatDist)) || (fabs(minDistCurrent - myOrigLatDist) < NUMERICAL_EPS)) {
+            if (gDebugFlag2) std::cout << "   computeSpeedLat d)\n";
+            return mySpeedLat;
+        }
+    }
+    // reduce lateral speed
+    if (gDebugFlag2) std::cout << "   computeSpeedLat e)\n";
+    return speedDecel;
+}
+
+
 void 
 MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully, 
         const MSLeaderDistanceInfo& leaders, 
@@ -2516,6 +2576,7 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
     if (!blocked && !blockedFully && !myCanChangeFully) {
         // round to full simulation steps
         double secondsToLeaveLane = ceil(fabs(myOrigLatDist) / myVehicle.getVehicleType().getMaxSpeedLat() / TS) * TS;
+        // XXX myAccelLat must be taken into account
         myCommittedSpeed = MIN3(myLeftSpace / secondsToLeaveLane, 
                 myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle),
                 myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
@@ -2681,7 +2742,6 @@ MSLCM_SL2015::wantsChange(
 
     const LaneChangeAction alternatives = LCA_NONE; // @todo pas this data
 
-#ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
         std::cout << "\nWANTS_CHANGE\n" << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
                   //<< std::setprecision(10)
@@ -2693,7 +2753,6 @@ MSLCM_SL2015::wantsChange(
                   << " considerChangeTo=" << (laneOffset == -1  ? "right" : "left")
                   << "\n";
     }
-#endif
 
     double latDist = 0;
     const MSLane* dummy = myVehicle.getLane();
@@ -2717,7 +2776,6 @@ MSLCM_SL2015::wantsChange(
     result &= ~LCA_SUBLANE;
     result |= getLCA(result, latDist);
 
-#ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
         if (result & LCA_WANTS_LANECHANGE) {
             std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
@@ -2735,7 +2793,6 @@ MSLCM_SL2015::wantsChange(
                       << "\n\n\n";
         }
     }
-#endif
 
     return result;
 }

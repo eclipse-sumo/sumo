@@ -298,6 +298,9 @@ protected:
     /// @brief compute the gap factor for the given state
     double computeGapFactor(int state) const;
 
+    /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
+    double computeSpeedLat(double latDist);
+
     /// @brief return the widht of this vehicle (padded for numerical stability)
     double getWidth() const;
 
