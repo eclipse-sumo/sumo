@@ -2379,7 +2379,7 @@ MSLCM_SL2015::keepLatGap(int state,
         }
         blocked = checkBlocking(neighLane, latDist, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, true);
     }
-    if (latDist != 0) {
+    if (fabs(latDist) > NUMERICAL_EPS * TS) {
         state = (state & ~LCA_STAY);
         if ((state & LCA_CHANGE_REASONS) == 0) {
             state |= LCA_SUBLANE;
