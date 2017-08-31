@@ -138,24 +138,4 @@ GNEDetector::getParentName() const {
 }
 
 
-void
-GNEDetector::drawDetectorIcon(const int GNELogoID, double sizex, double sizey) const {
-    // Add a draw matrix
-    glPushMatrix();
-    // Traslate to center
-    glTranslated(myShape.getLineCenter().x(), myShape.getLineCenter().y(), getType() + 0.1);
-    // Set color
-    glColor3d(1, 1, 1);
-    // Set first rotation
-    glRotated(myBlockIconRotation, 0, 0, -1);
-    // Set second rotation
-    glRotated(180, 0, 0, 1);
-    //Traslate offset
-    glTranslated(myDetectorLogoOffset.x(), myDetectorLogoOffset.y(), 0);
-    // Draw detector logo
-    GUITexturesHelper::drawTexturedBox(GNELogoID, sizex, sizey, (-1 * sizex), (-1 * sizey));
-    // Pop detector logo matrix
-    glPopMatrix();
-}
-
 /****************************************************************************/

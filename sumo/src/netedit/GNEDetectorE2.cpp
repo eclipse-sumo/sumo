@@ -118,14 +118,11 @@ GNEDetectorE2::updateGeometry() {
         }
     }
 
-    // Set offset of logo
-    myDetectorLogoOffset = Position(0.5, 0);
-
     // Set block icon position
     myBlockIconPosition = myShape.getLineCenter();
 
     // Set offset of the block icon
-    myBlockIconOffset = Position(-0.5, 0);
+    myBlockIconOffset = Position(-0.75, 0);
 
     // Set block icon rotation, and using their rotation for draw logo
     setBlockIconRotation();
@@ -216,8 +213,22 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
 
     // Check if the distance is enougth to draw details
     if (s.scale * exaggeration >= 10) {
-        // Draw icon
-        this->drawDetectorIcon(GUITextureSubSys::getTexture(GNETEXTURE_E2));
+        // Push matrix
+        glPushMatrix();
+        // Traslate to center of detector
+        glTranslated(myShape.getLineCenter().x(), myShape.getLineCenter().y(), getType() + 0.1);
+        // Rotate depending of myBlockIconRotation
+        glRotated(myBlockIconRotation, 0, 0, -1);
+        //move to logo position
+        glTranslated(-0.75, 0, 0);
+        // draw E2 logo
+        if (isAdditionalSelected()) {
+            GLHelper::drawText("E2", Position(), .1, 1.5, myViewNet->getNet()->selectionColor);
+        } else {
+            GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
+        }
+        // pop matrix
+        glPopMatrix();
 
         // Show Lock icon depending of the Edit mode
         drawLockIcon();

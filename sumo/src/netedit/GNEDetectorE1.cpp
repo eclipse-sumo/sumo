@@ -94,9 +94,6 @@ GNEDetectorE1::updateGeometry() {
     // Save rotation (angle) of the vector constructed by points f and s
     myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane * myLane->getShape().length()) * -1);
 
-    // Set offset of logo
-    myDetectorLogoOffset = Position(1, 0);
-
     // Set block icon position
     myBlockIconPosition = myShape.getLineCenter();
 
@@ -226,8 +223,22 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
 
     // Check if the distance is enought to draw details
     if (s.scale * exaggeration >= 10) {
-        // Add a draw matrix
-        drawDetectorIcon(GUITextureSubSys::getTexture(GNETEXTURE_E1));
+        // Push matrix
+        glPushMatrix();
+        // Traslate to center of detector
+        glTranslated(myShape.getLineCenter().x(), myShape.getLineCenter().y(), getType() + 0.1);
+        // Rotate depending of myBlockIconRotation
+        glRotated(myBlockIconRotation, 0, 0, -1);
+        //move to logo position
+        glTranslated(-1, 0, 0);
+        // draw E1 logo
+        if (isAdditionalSelected()) {
+            GLHelper::drawText("E1", Position(), .1, 1.5, myViewNet->getNet()->selectionColor);
+        } else {
+            GLHelper::drawText("E1", Position(), .1, 1.5, RGBColor::BLACK);
+        }
+        // pop matrix
+        glPopMatrix();
         // Show Lock icon depending of the Edit mode
         drawLockIcon();
     }

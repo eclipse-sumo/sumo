@@ -163,15 +163,6 @@ protected:
     /// @brief Flag for friendly position
     bool myFriendlyPosition;
 
-    /// @name members and functions relative to detector icon
-    /// @{
-    /// @brief set Rotation of block Icon
-    void drawDetectorIcon(const int GNELogoID, double sizex = 0.5, double sizey = 0.5) const;
-
-    /// @brief The position of detector
-    Position myDetectorLogoOffset;
-    /// @}
-
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
