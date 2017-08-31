@@ -44,7 +44,7 @@ TrackerValueDesc::TrackerValueDesc(const std::string& name,
                                    SUMOTime recordBegin)
     : myName(name), myActiveCol(col), myInactiveCol(col),
       myMin(0), myMax(0),
-      myAggregationInterval((int)(TIME2STEPS(1) / DELTA_T)), myInvalidValue(-1), myValidNo(0),
+      myAggregationInterval((int)(TIME2STEPS(1) / DELTA_T)), myInvalidValue(INVALID_DOUBLE), myValidNo(0),
       myRecordingBegin(recordBegin), myTmpLastAggValue(0) {}
 
 
