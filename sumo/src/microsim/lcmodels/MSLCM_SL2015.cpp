@@ -1665,6 +1665,11 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderInfo& ahead, int sublane
                     const double gap = leader->getBackPositionOnLane(lane) - myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getMinGap();
                     vSafe = myCarFollowModel.followSpeed(
                                 &myVehicle, vMax, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                    const double deltaV = vMax - leader->getSpeed();
+                    if (deltaV > 0 && gap / deltaV < 5) {
+                        // anticipate future braking
+                        vSafe = MIN2(vSafe, leader->getSpeed());
+                    } 
                 }
             }
             // take pedestrians into account
