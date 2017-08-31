@@ -33,6 +33,7 @@
 
 #include <iostream>
 #include <utils/common/StringTokenizer.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/common/TplConvert.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>

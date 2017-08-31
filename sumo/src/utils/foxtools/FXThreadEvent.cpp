@@ -31,7 +31,9 @@
 #endif
 
 #include <fxver.h>
+#define NOMINMAX
 #include <xincs.h>
+#undef NOMINMAX
 #include <fx.h>
 #include <utils/common/StdDefs.h>
 /*

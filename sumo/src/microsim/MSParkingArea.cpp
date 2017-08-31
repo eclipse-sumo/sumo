@@ -32,6 +32,7 @@
 #include <cassert>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/geom/Position.h>
+#include <utils/geom/GeomHelper.h>
 #include <microsim/MSVehicleType.h>
 #include <utils/foxtools/MFXMutex.h>
 #include "MSLane.h"
