@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 31 21:33:02 2017 by SUMO Version dev-SVN-r24506
+<!-- generated on Thu Aug 31 21:43:38 2017 by SUMO Version dev-SVN-r24506
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -33,7 +33,7 @@
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <personinfo id="p1" depart="25.00">
-        <ride depart="27.00" arrival="214.00" arrivalPos="-0.00"/>
+        <ride depart="27.00" arrival="214.00" arrivalPos="500.00"/>
     </personinfo>
     <tripinfo id="p" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="214.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="214.00" routeLength="3012.36" waitSteps="0" timeLoss="13.82" rerouteNo="0" devices="tripinfo_p person_p" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>
