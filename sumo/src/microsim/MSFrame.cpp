@@ -559,6 +559,9 @@ MSFrame::checkOptions() {
     if (oc.isDefault("precision") && string2time(oc.getString("step-length")) < 10) {
         oc.set("precision", "3");
     }
+    if (oc.isDefault("tracker-interval") && !oc.isDefault("step-length")) {
+        oc.set("tracker-interval", oc.getString("step-length"));
+    }
     if (oc.getInt("precision") > 2) {
         if (oc.isDefault("netstate-dump.precision")) {
             oc.set("netstate-dump.precision", toString(oc.getInt("precision")));
