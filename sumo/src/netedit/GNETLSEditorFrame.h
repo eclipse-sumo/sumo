@@ -53,6 +53,82 @@ class GNETLSEditorFrame : public GNEFrame {
     FXDECLARE(GNETLSEditorFrame)
 
 public:
+
+    // ===========================================================================
+    // class TLSAttributes
+    // ===========================================================================
+    class TLSAttributes : public FXGroupBox {
+
+    public:
+        /// @brief constructor
+        TLSAttributes(FXComposite* parent, GNETLSEditorFrame* TLSEditorParent);
+
+        /// @brief destructor
+        ~TLSAttributes();
+
+        /// @brief initializes the definitions and corresponding listbox
+        void initTLSAttributes(GNEJunction *junction);
+
+        /// @brief clear TLS attributes
+        void clearTLSAttributes();
+
+        /// @brief get current definition
+        NBTrafficLightDefinition* getCurrentTLSDefinition() const;
+
+        /// @brief get current offset in SUMOTIme
+        SUMOTime getOffset() const;
+
+        /// @brief set new offset
+        void setOffset(SUMOTime offset);
+
+        /// @brief get number of definitions
+        int getNumberOfTLSDefinitions() const;
+
+        /// @brief get number of programs
+        int getNumberOfPrograms() const;
+
+    private:
+        /// @brief pointer to TLSEditorParent
+        GNETLSEditorFrame* myTLSEditorParent;
+
+        /// @brief the list of Definitions for the current junction
+        std::vector<NBTrafficLightDefinition*> myTLSDefinitions;
+
+        /// @brief matrix for attributes
+        FXMatrix* myAttributeMatrix;
+
+        /// @brief name label
+        FXLabel* myNameLabel;
+
+        /// @brief name text field
+        FXTextField* myNameTextField;
+
+        /// @brief frame for Program elements
+        FXHorizontalFrame* programFrame;
+
+        /// @brief program label
+        FXLabel* myProgramLabel;
+
+        /// @brief the comboBox for selecting the tl-definition to edit
+        FXComboBox* myProgramComboBox;
+
+        /// @brief offset label
+        FXLabel* myOffsetLabel;
+
+        /// @brief the control for modifying offset
+        FXTextField* myOffsetTextField;
+    };
+
+
+    // ===========================================================================
+    // class TLSPhases
+    // ===========================================================================
+   /* class TLSPhases {
+
+    };*/
+    
+
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -147,6 +223,9 @@ protected:
     /// @brief FOX needs this
     GNETLSEditorFrame() {}
 
+    /// @brief converts to SUMOTime
+    static SUMOTime getSUMOTime(const FXString& string);
+
 private:
     /// @brief font for the phase table
     FXFont* myTableFont;
@@ -154,11 +233,20 @@ private:
     /// @brief groupbox for current junction
     FXGroupBox* myGroupBoxJunction;
 
+    /// @brief label for junction ID
     FXLabel* myLabelJunctionID;
+
+    /// @brief text field for junction ID
     FXTextField* myTextFieldJunctionID;
 
+    /// @brief label for junction status
     FXLabel* myLabelJunctionStatus;
+
+    /// @brief text field for junction status
     FXTextField* myTextFieldJunctionStatus;
+
+    /// @brief TLS attributes
+    TLSAttributes *myTLSAttributes;
 
     /// @brief groupbox for TLS Definition buttons
     FXGroupBox* myGroupBoxTLSDef;
@@ -168,30 +256,6 @@ private:
 
     /// @brief button for delete traffic light program
     FXButton* myDeleteTLProgram;
-
-    /// @brief groupbox for TLS attributes
-    FXGroupBox* myGroupBoxAttributes;
-
-    /// @brief matrix for attributes
-    FXMatrix* myAttributeMatrix;
-
-    /// @brief name label
-    FXLabel* myNameLabel;
-
-    /// @brief name text field
-    FXTextField* myNameTextField;
-
-    /// @brief program label
-    FXLabel* myProgramLabel;
-
-    /// @brief the comboBox for selecting the tl-definition to edit
-    FXComboBox* myProgramComboBox;
-
-    /// @brief offset label
-    FXLabel* myOffsetLabel;
-
-    /// @brief the control for modifying offset
-    FXTextField* myOffset;
 
     /// @brief groupbox for phases
     FXGroupBox* myGroupBoxPhases;
@@ -230,9 +294,6 @@ private:
     typedef std::map<int, std::vector<GNEInternalLane*> > TLIndexMap;
     TLIndexMap myInternalLanes;
 
-    /// @brief the list of Definitions for the current junction
-    std::vector<NBTrafficLightDefinition*> myDefinitions;
-
     /// @brief the traffic light definition being edited
     NBLoadedSUMOTLDef* myEditedDef;
 
@@ -248,9 +309,6 @@ private:
     /// @brief builds internal lanes for the given tlDef
     void buildIinternalLanes(NBTrafficLightDefinition* tlDef);
 
-    /// @brief initializes the definitions and corresponding listbox
-    void initDefinitions();
-
     /**@brief initialies the phase table
      * @param[in] index The index to select
      */
@@ -264,9 +322,6 @@ private:
 
     /// @brief convert duration (potentially undefined) to string
     static std::string varDurString(SUMOTime dur);
-
-    /// @brief converts to SUMOTime
-    static SUMOTime getSUMOTime(const FXString& string);
 };
 
 
