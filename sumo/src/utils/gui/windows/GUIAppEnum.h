@@ -530,6 +530,8 @@ enum {
 
     /// @name tls mode messages
     /// @{
+    MID_GNE_TLS_SELECT_JUNCTION,
+    MID_GNE_TLS_UPDATE_STATUS,
 
     /// @brief replace program with a newly guessed program
     MID_GNE_GUESS_PROGRAM,

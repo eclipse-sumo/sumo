@@ -95,11 +95,16 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myEditedDef(0) {
     // create groupbox for description
     myGroupBoxJunction = new FXGroupBox(myContentFrame, "Junction", GUIDesignGroupBoxFrame);
-
-    // create description label
-    myDescription = new FXTextField(myGroupBoxJunction, GUIDesignTextFieldNCol, 0, 0, 
-            (TEXTFIELD_READONLY | TEXTFIELD_AUTOGRAY | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2);
-    myStatus = new FXLabel(myGroupBoxJunction, "", 0, GUIDesignLabelLeft);
+    // Create frame for junction ID
+    FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(myGroupBoxJunction, GUIDesignAuxiliarHorizontalFrame);
+    myLabelJunctionID = new FXLabel(junctionIDFrame, "Junction ID", 0, GUIDesignLabelAttribute);
+    myTextFieldJunctionID = new FXTextField(junctionIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLS_SELECT_JUNCTION, GUIDesignTextField);
+    myTextFieldJunctionID->setEditable(false);
+    // create frame for junction status
+    FXHorizontalFrame* junctionIDStatus = new FXHorizontalFrame(myGroupBoxJunction, GUIDesignAuxiliarHorizontalFrame);
+    myLabelJunctionStatus = new FXLabel(junctionIDStatus, "Status", 0, GUIDesignLabelAttribute);
+    myTextFieldJunctionStatus = new FXTextField(junctionIDStatus, GUIDesignTextFieldNCol, this, MID_GNE_TLS_UPDATE_STATUS, GUIDesignTextField);
+    myTextFieldJunctionStatus->setEditable(false);
 
     // create groupbox for tl df
     myGroupBoxTLSDef = new FXGroupBox(myContentFrame, "Traffic lights definition", GUIDesignGroupBoxFrame);
@@ -482,15 +487,15 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
 void
 GNETLSEditorFrame::updateDescription() const {
     if (myCurrentJunction == 0) {
-        myDescription->setText("");
-        myStatus->setText("status: no junction selected");
+        myTextFieldJunctionID->setText("");
+        myTextFieldJunctionStatus->setText("");
     } else {
         NBNode* nbn = myCurrentJunction->getNBNode();
-        myDescription->setText(nbn->getID().c_str());
+        myTextFieldJunctionID->setText(nbn->getID().c_str());
         if (!nbn->isTLControlled()) {
-            myStatus->setText("status: uncontrolled");
+            myTextFieldJunctionStatus->setText("uncontrolled");
         } else {
-            myStatus->setText(myHaveModifications ? "status: modified" : "status: unmodified");
+            myTextFieldJunctionStatus->setText(myHaveModifications ? "modified" : "unmodified");
         }
     }
 }

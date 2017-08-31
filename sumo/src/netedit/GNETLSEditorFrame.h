@@ -154,9 +154,11 @@ private:
     /// @brief groupbox for current junction
     FXGroupBox* myGroupBoxJunction;
 
-    /// @brief the label that shows the current editing state
-    FXTextField* myDescription;
-    FXLabel* myStatus;
+    FXLabel* myLabelJunctionID;
+    FXTextField* myTextFieldJunctionID;
+
+    FXLabel* myLabelJunctionStatus;
+    FXTextField* myTextFieldJunctionStatus;
 
     /// @brief groupbox for TLS Definition buttons
     FXGroupBox* myGroupBoxTLSDef;
