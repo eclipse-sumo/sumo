@@ -40,9 +40,7 @@ GNETexture_Rerouter.cpp GNETexture_RerouterSelected.cpp \
 GNETexture_RouteProbe.cpp GNETexture_RouteProbeSelected.cpp \
 GNETexture_VariableSpeedSign.cpp GNETexture_VariableSpeedSignSelected.cpp \
 GNETexture_Vaporizer.cpp GNETexture_VaporizerSelected.cpp \
-GNETexture_E1.cpp GNETexture_E2.cpp \
 GNETexture_E3.cpp GNETexture_E3Selected.cpp \
-GNETexture_Entry.cpp GNETexture_Exit.cpp \
 GNETexture_Lock.cpp GNETexture_LockSelected.cpp \
 GNETexture_Empty.cpp GNETexture_EmptySelected.cpp \
 GNETexture_NotMoving.cpp GNETexture_NotMovingSelected.cpp \

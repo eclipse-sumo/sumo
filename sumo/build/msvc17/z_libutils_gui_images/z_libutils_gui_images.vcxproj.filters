@@ -50,12 +50,6 @@
     <ClCompile Include="..\..\..\src\utils\gui\images\flag_plus.cpp">
       <Filter>Textures</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_E1.cpp">
-      <Filter>Textures</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_E2.cpp">
-      <Filter>Textures</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_E3.cpp">
       <Filter>Textures</Filter>
     </ClCompile>
@@ -66,12 +60,6 @@
       <Filter>Textures</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_EmptySelected.cpp">
-      <Filter>Textures</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Entry.cpp">
-      <Filter>Textures</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Exit.cpp">
       <Filter>Textures</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Lock.cpp">
