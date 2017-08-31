@@ -66,7 +66,8 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const ConstMSEdgeVector& 
     myDepartPos(departPos),
     myDepartPosLat(departPosLat),
     mySpeed(speed),
-    myPedestrianState(0) {
+    myPedestrianState(0) 
+{
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
                       myDepartPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS, "person walking from " + myRoute.front()->getID());
     if (walkingTime > 0) {
@@ -204,6 +205,7 @@ MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os) const {
     os.openTag("walk");
     //os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", time2string(myArrived));
+    os.writeAttr("arrivalPos", toString(myArrivalPos));
     os.closeTag();
 }
 
@@ -310,6 +312,7 @@ MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os) const {
     os.openTag("ride");
     os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", time2string(myArrived));
+    os.writeAttr("arrivalPos", toString(myArrivalPos));
     os.closeTag();
 }
 

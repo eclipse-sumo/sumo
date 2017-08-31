@@ -96,6 +96,7 @@ MSContainer::MSContainerStage_Driving::tripInfoOutput(OutputDevice& os) const {
     os.openTag("transport");
     os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", time2string(myArrived));
+    os.writeAttr("arrivalPos", toString(myArrivalPos));
     os.closeTag();
 }
 
@@ -190,6 +191,7 @@ MSContainer::MSContainerStage_Tranship::tripInfoOutput(OutputDevice& os) const {
     os.openTag("tranship");
     //os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", time2string(myArrived));
+    os.writeAttr("arrivalPos", toString(myArrivalPos));
     os.closeTag();
 }
 

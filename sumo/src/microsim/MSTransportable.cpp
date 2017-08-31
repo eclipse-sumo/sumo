@@ -170,6 +170,7 @@ MSTransportable::Stage_Waiting::tripInfoOutput(OutputDevice& os) const {
         os.openTag("stop");
         //os.writeAttr("depart", time2string(myDeparted));
         os.writeAttr("arrival", time2string(myArrived));
+        os.writeAttr("arrivalPos", toString(myArrivalPos));
         os.closeTag();
     }
 }
