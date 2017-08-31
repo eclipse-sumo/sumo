@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 16 14:48:14 2017 by SUMO Version dev-SVN-r25636
+<!-- generated on Thu Aug 31 21:33:54 2017 by SUMO Version dev-SVN-r24506
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -33,7 +33,7 @@
     <tripinfo id="v1" depart="0.00" departLane="EC_1" departPos="50.00" departSpeed="0.00" departDelay="0.00" arrival="14.00" arrivalLane="CN_1" arrivalPos="93.15" arrivalSpeed="13.89" duration="14.00" routeLength="144.68" waitSteps="0" timeLoss="3.10" rerouteNo="0" devices="tripinfo_v1" vType="t0" speedFactor="1.00" vaporized=""/>
     <tripinfo id="v2" depart="0.00" departLane="EC_1" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="17.00" arrivalLane="CW_1" arrivalPos="93.15" arrivalSpeed="13.89" duration="17.00" routeLength="200.00" waitSteps="0" timeLoss="2.19" rerouteNo="0" devices="tripinfo_v2" vType="t0" speedFactor="1.00" vaporized=""/>
     <personinfo id="p0" depart="0.00">
-        <walk arrival="19.00"/>
+        <walk arrival="19.00" arrivalPos="93.15"/>
     </personinfo>
     <tripinfo id="v0" depart="0.00" departLane="WC_1" departPos="60.00" departSpeed="0.00" departDelay="0.00" arrival="20.00" arrivalLane="CN_1" arrivalPos="93.15" arrivalSpeed="13.89" duration="20.00" routeLength="140.01" waitSteps="4" timeLoss="9.33" rerouteNo="0" devices="tripinfo_v0" vType="t1" speedFactor="1.00" vaporized=""/>
 </tripinfos>

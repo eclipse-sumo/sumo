@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Feb 16 10:22:55 2017 by SUMO Version dev-SVN-r22972
+<!-- generated on Thu Aug 31 21:33:56 2017 by SUMO Version dev-SVN-r24506
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="net.net.xml"/>
+        <net-file value="net3.net.xml"/>
         <additional-files value="input_routes.rou.xml"/>
     </input>
 
@@ -26,7 +26,9 @@
     </processing>
 
     <report>
+        <verbose value="true"/>
         <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -35,9 +37,9 @@
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <personinfo id="fwd1" depart="1.00">
-        <walk arrival="299.00"/>
+        <walk arrival="299.00" arrivalPos="85.15"/>
     </personinfo>
     <personinfo id="fwd15" depart="29.00">
-        <walk arrival="333.00"/>
+        <walk arrival="333.00" arrivalPos="85.15"/>
     </personinfo>
 </tripinfos>
