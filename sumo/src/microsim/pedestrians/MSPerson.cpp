@@ -267,8 +267,12 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
  * MSPerson::MSPersonStage_Driving - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge& destination,
-        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines)
-    : MSTransportable::Stage_Driving(destination, toStop, arrivalPos, lines) {}
+        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines) : 
+    MSTransportable::Stage_Driving(destination, toStop, 
+            SUMOVehicleParameter::interpretEdgePos(
+                arrivalPos, destination.getLength(), SUMO_ATTR_ARRIVALPOS, "person riding to " + destination.getID()), 
+            lines) 
+{}
 
 
 MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}

@@ -53,8 +53,12 @@
  * MSContainer::MSContainerStage_Driving - methods
  * ----------------------------------------------------------------------- */
 MSContainer::MSContainerStage_Driving::MSContainerStage_Driving(const MSEdge& destination,
-        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines)
-    : MSTransportable::Stage_Driving(destination, toStop, arrivalPos, lines) {}
+        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines) : 
+    MSTransportable::Stage_Driving(destination, toStop, 
+            SUMOVehicleParameter::interpretEdgePos(
+                arrivalPos, destination.getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transported to " + destination.getID()), 
+            lines) 
+{}
 
 
 MSContainer::MSContainerStage_Driving::~MSContainerStage_Driving() {}

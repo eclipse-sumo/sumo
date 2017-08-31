@@ -183,7 +183,9 @@ MSRouteHandler::myStartElement(int element,
                         throw ProcessError("Unknown bus stop '" + bsID + "' for person '" + myVehicleParameter->id + "'.");
                     }
                     to = &bs->getLane().getEdge();
-                }
+                } 
+                double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok, 
+                        bs == 0 ? -NUMERICAL_EPS : bs->getEndLanePosition());
                 if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
                     const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, pid.c_str(), ok);
                     from = MSEdge::dictionary(fromID);
@@ -207,7 +209,7 @@ MSRouteHandler::myStartElement(int element,
                         throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
                     }
                 }
-                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*to, bs, -NUMERICAL_EPS, st.getVector()));
+                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*to, bs, arrivalPos, st.getVector()));
                 break;
             }
             case SUMO_TAG_WALK:
@@ -303,6 +305,8 @@ MSRouteHandler::myStartElement(int element,
                             throw ProcessError("Unknown container stop '" + csID + "' for container '" + myVehicleParameter->id + "'.");
                         }
                     }
+                    double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok, 
+                            cs == 0 ? -NUMERICAL_EPS : cs->getEndLanePosition());
                     if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
                         const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, containerId.c_str(), ok);
                         from = MSEdge::dictionary(fromID);
@@ -324,7 +328,7 @@ MSRouteHandler::myStartElement(int element,
                     if (to == 0) {
                         throw ProcessError("The to edge '" + toID + "' within a transport of container '" + containerId + "' is not known.");
                     }
-                    myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Driving(*to, cs, -NUMERICAL_EPS, st.getVector()));
+                    myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Driving(*to, cs, arrivalPos, st.getVector()));
 
                 } catch (ProcessError&) {
                     deleteActivePlans();
