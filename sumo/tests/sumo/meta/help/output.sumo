@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r23112
+SUMO Version dev-SVN-r25756
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -86,10 +86,6 @@ Output Options:
   --stop-output FILE                   Record stops and loading/unloading of
                                          passenger and containers for all
                                          vehicles into FILE
-  --movereminder-output FILE           Save movereminder states of selected
-                                         vehicles into FILE
-  --movereminder-output.vehicles STR   List of vehicle ids which shall save
-                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -329,6 +325,7 @@ Bluelight Device Options:
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
   --num-clients INT                    Expected number of connecting clients
+  --python-script STR                  Runs TraCI script with embedded python
 
 Mesoscopic Options:
   --mesosim                            Enables mesoscopic simulation
@@ -386,6 +383,8 @@ GUI Only Options:
                                          size
   --window-pos STR                     Create initial window at the given x,y
                                          position
+  --tracker-interval FLOAT             The aggregation period for value tracker
+                                         windows
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing

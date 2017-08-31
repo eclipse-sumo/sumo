@@ -147,12 +147,6 @@
         <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
         <stop-output value="" type="FILE"/>
 
-        <!-- Save movereminder states of selected vehicles into FILE -->
-        <movereminder-output value="" type="FILE"/>
-
-        <!-- List of vehicle ids which shall save their movereminder states -->
-        <movereminder-output.vehicles value="" type="STR"/>
-
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -492,6 +486,9 @@
         <!-- Expected number of connecting clients -->
         <num-clients value="1" type="INT"/>
 
+        <!-- Runs TraCI script with embedded python -->
+        <python-script value="" type="STR"/>
+
     </traci_server>
 
     <mesoscopic>
@@ -572,6 +569,9 @@
 
         <!-- Create initial window at the given x,y position -->
         <window-pos value="" type="STR"/>
+
+        <!-- The aggregation period for value tracker windows -->
+        <tracker-interval value="1" type="FLOAT"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
