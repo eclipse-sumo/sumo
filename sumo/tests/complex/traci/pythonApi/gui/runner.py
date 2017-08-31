@@ -56,7 +56,7 @@ for step in range(3, 6):
     print("step", step)
     traci.simulationStep()
     print(traci.gui.getSubscriptionResults(viewID))
-traci.gui.screenshot(viewID, "out.png")
+traci.gui.screenshot(viewID, "out.ps")
 traci.gui.screenshot(viewID, "test.blub")
 traci.close()
 sumoProcess.wait()

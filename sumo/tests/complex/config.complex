@@ -48,6 +48,7 @@ tls_state:tls_state.xml
 log:log.txt
 png:out.png
 png2:out2.png
+ps:out.ps
 
 [run_dependent_text]
 output:<!--{[->]}-->
@@ -77,6 +78,7 @@ errors:send failed: Connection reset by peer{REPLACE send failed: Software cause
 errors:send failed: Socket reset by peer{REPLACE send failed: Software caused tcpip::Socket abort}
 errors:send failed: Broken pipe{REPLACE send failed: Software caused tcpip::Socket abort}
 errors:Could not find connection between
+ps:%%CreationDate
 
 [unordered_text]
 output:^Simulation ended at time:
