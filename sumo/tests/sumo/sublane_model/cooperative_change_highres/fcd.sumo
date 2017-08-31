@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug  4 10:41:28 2017 by SUMO Version dev-SVN-r25472
+<!-- generated on Thu Aug 31 17:24:50 2017 by SUMO Version dev-SVN-r25776
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -30,6 +30,10 @@
         <no-step-log value="true"/>
     </report>
 
+    <gui_only>
+        <tracker-interval value="0.2"/>
+    </gui_only>
+
 </configuration>
 -->
 
@@ -39,222 +43,222 @@
         <vehicle id="merge" x="4.96" y="-8.25" angle="90.00" type="t0" speed="27.78" pos="5.00" lane="beg_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="0.20">
-        <vehicle id="blocker1" x="5.51" y="-4.75" angle="88.91" type="t1" speed="27.78" pos="5.56" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="5.51" y="-4.91" angle="89.78" type="t1" speed="27.78" pos="5.56" lane="beg_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="10.48" y="-8.25" angle="90.00" type="t0" speed="27.78" pos="10.56" lane="beg_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="0.40">
-        <vehicle id="blocker1" x="10.85" y="-4.55" angle="88.90" type="t1" speed="26.88" pos="10.93" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="10.85" y="-4.83" angle="89.56" type="t1" speed="26.88" pos="10.93" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="merge" x="15.99" y="-8.25" angle="90.00" type="t0" speed="27.78" pos="16.11" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="0.60">
-        <vehicle id="blocker1" x="16.01" y="-4.35" angle="88.88" type="t1" speed="25.98" pos="16.13" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="16.01" y="-4.71" angle="89.33" type="t1" speed="25.98" pos="16.13" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="merge" x="21.51" y="-8.25" angle="90.00" type="t0" speed="27.78" pos="21.67" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="0.80">
-        <vehicle id="blocker1" x="20.99" y="-4.15" angle="88.86" type="t1" speed="25.08" pos="21.14" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="20.99" y="-4.55" angle="89.08" type="t1" speed="25.08" pos="21.14" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="merge" x="27.02" y="-8.25" angle="90.00" type="t0" speed="27.78" pos="27.22" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="blocker1" x="25.79" y="-3.95" angle="88.84" type="t1" speed="24.18" pos="25.98" lane="beg_1" slope="0.00" signals="10"/>
+        <vehicle id="blocker1" x="25.79" y="-4.35" angle="88.84" type="t1" speed="24.18" pos="25.98" lane="beg_1" slope="0.00" signals="10"/>
         <vehicle id="merge" x="32.53" y="-8.25" angle="90.00" type="t0" speed="27.78" pos="32.78" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="1.20">
-        <vehicle id="blocker1" x="30.69" y="-3.75" angle="88.85" type="t1" speed="24.70" pos="30.92" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="30.69" y="-4.15" angle="88.85" type="t1" speed="24.70" pos="30.92" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="merge" x="38.05" y="-8.25" angle="90.00" type="t0" speed="27.78" pos="38.34" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="1.40">
-        <vehicle id="blocker1" x="35.65" y="-3.55" angle="88.85" type="t1" speed="25.00" pos="35.92" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="35.65" y="-3.95" angle="88.85" type="t1" speed="25.00" pos="35.92" lane="beg_1" slope="0.00" signals="2"/>
         <vehicle id="merge" x="43.56" y="-8.25" angle="90.00" type="t0" speed="27.78" pos="43.89" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="1.60">
-        <vehicle id="blocker1" x="40.44" y="-3.35" angle="88.83" type="t1" speed="24.10" pos="40.74" lane="beg_1" slope="0.00" signals="10"/>
-        <vehicle id="merge" x="49.08" y="-8.05" angle="88.91" type="t0" speed="27.78" pos="49.45" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="40.44" y="-3.75" angle="88.83" type="t1" speed="24.10" pos="40.74" lane="beg_1" slope="0.00" signals="10"/>
+        <vehicle id="merge" x="49.08" y="-8.25" angle="90.00" type="t0" speed="27.78" pos="49.45" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="1.80">
-        <vehicle id="blocker1" x="45.32" y="-3.05" angle="88.85" type="t1" speed="24.62" pos="45.67" lane="beg_2" slope="0.00" signals="2"/>
-        <vehicle id="merge" x="54.59" y="-7.85" angle="88.91" type="t0" speed="27.78" pos="55.00" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="45.32" y="-3.55" angle="88.85" type="t1" speed="24.62" pos="45.67" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="merge" x="54.59" y="-8.25" angle="90.00" type="t0" speed="27.78" pos="55.00" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="blocker1" x="50.31" y="-2.85" angle="88.86" type="t1" speed="25.14" pos="50.69" lane="beg_2" slope="0.00" signals="2"/>
-        <vehicle id="merge" x="60.11" y="-7.65" angle="88.91" type="t0" speed="27.78" pos="60.56" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="50.29" y="-3.35" angle="88.85" type="t1" speed="25.00" pos="50.67" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="merge" x="60.11" y="-8.21" angle="89.78" type="t0" speed="27.78" pos="60.56" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="2.20">
-        <vehicle id="blocker1" x="55.41" y="-2.65" angle="88.87" type="t1" speed="25.66" pos="55.83" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="65.62" y="-7.45" angle="88.91" type="t0" speed="27.78" pos="66.12" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="55.35" y="-3.05" angle="88.87" type="t1" speed="25.52" pos="55.77" lane="beg_2" slope="0.00" signals="2"/>
+        <vehicle id="merge" x="65.62" y="-8.13" angle="89.57" type="t0" speed="27.78" pos="66.12" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="2.40">
-        <vehicle id="blocker1" x="60.60" y="-2.45" angle="88.88" type="t1" speed="26.18" pos="61.06" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="71.13" y="-7.25" angle="88.91" type="t0" speed="27.78" pos="71.67" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="60.52" y="-2.85" angle="88.88" type="t1" speed="26.04" pos="60.98" lane="beg_2" slope="0.00" signals="2"/>
+        <vehicle id="merge" x="71.13" y="-8.01" angle="89.35" type="t0" speed="27.78" pos="71.67" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="2.60">
-        <vehicle id="blocker1" x="65.91" y="-2.25" angle="88.89" type="t1" speed="26.70" pos="66.40" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="76.65" y="-7.05" angle="88.91" type="t0" speed="27.78" pos="77.23" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="65.79" y="-2.65" angle="88.89" type="t1" speed="26.56" pos="66.29" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="76.65" y="-7.85" angle="89.13" type="t0" speed="27.78" pos="77.23" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="2.80">
-        <vehicle id="blocker1" x="71.31" y="-2.05" angle="88.90" type="t1" speed="27.22" pos="71.85" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="82.16" y="-6.85" angle="88.91" type="t0" speed="27.78" pos="82.78" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="71.17" y="-2.45" angle="88.90" type="t1" speed="27.08" pos="71.71" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="82.16" y="-7.65" angle="88.91" type="t0" speed="27.78" pos="82.78" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="blocker1" x="76.82" y="-1.85" angle="88.91" type="t1" speed="27.74" pos="77.40" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="87.68" y="-6.65" angle="88.91" type="t0" speed="27.78" pos="88.34" lane="beg_0" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="76.65" y="-2.25" angle="88.91" type="t1" speed="27.60" pos="77.23" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="87.68" y="-7.45" angle="88.91" type="t0" speed="27.78" pos="88.34" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="3.20">
-        <vehicle id="blocker1" x="82.33" y="-1.65" angle="88.91" type="t1" speed="27.78" pos="82.95" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="93.19" y="-6.35" angle="88.91" type="t0" speed="27.78" pos="93.90" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="82.16" y="-2.05" angle="88.91" type="t1" speed="27.78" pos="82.78" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="93.19" y="-7.25" angle="88.91" type="t0" speed="27.78" pos="93.90" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="3.40">
-        <vehicle id="blocker1" x="87.84" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="88.51" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="98.71" y="-6.15" angle="88.91" type="t0" speed="27.78" pos="99.45" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="87.68" y="-1.89" angle="89.13" type="t1" speed="27.78" pos="88.34" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="98.71" y="-7.05" angle="88.91" type="t0" speed="27.78" pos="99.45" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="3.60">
-        <vehicle id="blocker1" x="93.36" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="94.06" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="104.22" y="-5.95" angle="88.91" type="t0" speed="27.78" pos="105.01" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="93.19" y="-1.77" angle="89.35" type="t1" speed="27.78" pos="93.90" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="104.22" y="-6.85" angle="88.91" type="t0" speed="27.78" pos="105.01" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="3.80">
-        <vehicle id="blocker1" x="98.87" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="99.62" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="109.73" y="-5.75" angle="88.91" type="t0" speed="27.78" pos="110.56" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="98.71" y="-1.69" angle="89.57" type="t1" speed="27.78" pos="99.45" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="109.73" y="-6.65" angle="88.91" type="t0" speed="27.78" pos="110.56" lane="beg_0" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="blocker1" x="104.39" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="105.18" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="115.25" y="-5.55" angle="88.91" type="t0" speed="27.78" pos="116.12" lane="beg_1" slope="0.00" signals="2"/>
+        <vehicle id="blocker1" x="104.22" y="-1.65" angle="89.78" type="t1" speed="27.78" pos="105.01" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="115.25" y="-6.35" angle="88.91" type="t0" speed="27.78" pos="116.12" lane="beg_1" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="4.20">
-        <vehicle id="blocker1" x="109.90" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="110.73" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="120.76" y="-5.35" angle="88.91" type="t0" speed="27.78" pos="121.68" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="109.73" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="110.56" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="120.76" y="-6.15" angle="88.91" type="t0" speed="27.78" pos="121.68" lane="beg_1" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="4.40">
-        <vehicle id="blocker1" x="115.42" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="116.29" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="126.28" y="-5.15" angle="88.91" type="t0" speed="27.78" pos="127.23" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="115.25" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="116.12" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="126.28" y="-5.99" angle="89.13" type="t0" speed="27.78" pos="127.23" lane="beg_1" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="4.60">
-        <vehicle id="blocker1" x="120.93" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="121.84" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="131.79" y="-4.95" angle="88.91" type="t0" speed="27.78" pos="132.79" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="120.76" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="121.68" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="131.79" y="-5.87" angle="89.35" type="t0" speed="27.78" pos="132.79" lane="beg_1" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="4.80">
-        <vehicle id="blocker1" x="126.44" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="127.40" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="137.31" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="138.34" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="126.28" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="127.23" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="137.31" y="-5.79" angle="89.57" type="t0" speed="27.78" pos="138.34" lane="beg_1" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="blocker1" x="131.96" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="132.96" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="142.82" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="143.90" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="131.79" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="132.79" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="142.82" y="-5.67" angle="89.35" type="t0" speed="27.78" pos="143.90" lane="beg_1" slope="0.00" signals="2"/>
     </timestep>
     <timestep time="5.20">
-        <vehicle id="blocker1" x="137.47" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="138.51" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="148.34" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="149.46" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="137.31" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="138.34" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="148.34" y="-5.51" angle="89.13" type="t0" speed="27.78" pos="149.46" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="5.40">
-        <vehicle id="blocker1" x="142.99" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="144.07" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="153.85" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="155.01" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="142.82" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="143.90" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="153.85" y="-5.35" angle="89.13" type="t0" speed="27.78" pos="155.01" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="5.60">
-        <vehicle id="blocker1" x="148.50" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="149.62" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="159.36" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="160.57" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="148.34" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="149.46" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="159.36" y="-5.19" angle="89.13" type="t0" speed="27.78" pos="160.57" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="5.80">
-        <vehicle id="blocker1" x="154.02" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="155.18" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="164.88" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="166.12" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="153.85" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="155.01" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="164.88" y="-5.07" angle="89.35" type="t0" speed="27.78" pos="166.12" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="6.00">
-        <vehicle id="blocker1" x="159.53" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="160.74" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="170.39" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="171.68" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="159.36" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="160.57" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="170.39" y="-4.99" angle="89.57" type="t0" speed="27.78" pos="171.68" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="6.20">
-        <vehicle id="blocker1" x="165.04" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="166.29" lane="beg_2" slope="0.00" signals="0"/>
-        <vehicle id="merge" x="175.91" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="177.24" lane="beg_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="164.88" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="166.12" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="merge" x="175.91" y="-4.95" angle="89.78" type="t0" speed="27.78" pos="177.24" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="6.40">
-        <vehicle id="blocker1" x="170.56" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="171.85" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="170.39" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="171.68" lane="beg_2" slope="0.00" signals="0"/>
         <vehicle id="merge" x="181.42" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="182.79" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="6.60">
-        <vehicle id="blocker1" x="176.07" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="177.40" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="175.91" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="177.24" lane="beg_2" slope="0.00" signals="0"/>
         <vehicle id="merge" x="186.94" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="188.35" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="6.80">
-        <vehicle id="blocker1" x="181.59" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="182.96" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="181.42" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="182.79" lane="beg_2" slope="0.00" signals="0"/>
         <vehicle id="merge" x="192.45" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="193.90" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="7.00">
-        <vehicle id="blocker1" x="187.10" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="188.52" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="186.94" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="188.35" lane="beg_2" slope="0.00" signals="0"/>
         <vehicle id="merge" x="197.96" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="199.46" lane="beg_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="7.20">
-        <vehicle id="blocker1" x="192.62" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="194.07" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="192.45" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="193.90" lane="beg_2" slope="0.00" signals="0"/>
         <vehicle id="merge" x="206.44" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="5.02" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="7.40">
-        <vehicle id="blocker1" x="198.13" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="199.63" lane="beg_2" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="197.96" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="199.46" lane="beg_2" slope="0.00" signals="0"/>
         <vehicle id="merge" x="211.91" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="10.57" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="7.60">
-        <vehicle id="blocker1" x="206.61" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="5.18" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="206.44" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="5.02" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="217.39" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="16.13" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="7.80">
-        <vehicle id="blocker1" x="212.08" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="10.74" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="211.91" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="10.57" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="222.86" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="21.68" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="8.00">
-        <vehicle id="blocker1" x="217.55" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="16.30" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="217.39" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="16.13" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="228.33" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="27.24" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="8.20">
-        <vehicle id="blocker1" x="223.02" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="21.85" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="222.86" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="21.68" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="233.80" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="32.80" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="8.40">
-        <vehicle id="blocker1" x="228.50" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="27.41" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="228.33" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="27.24" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="239.28" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="38.35" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="8.60">
-        <vehicle id="blocker1" x="233.97" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="32.96" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="233.80" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="32.80" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="244.75" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="43.91" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="8.80">
-        <vehicle id="blocker1" x="239.44" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="38.52" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="239.28" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="38.35" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="250.22" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="49.46" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="9.00">
-        <vehicle id="blocker1" x="244.91" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="44.08" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="244.75" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="43.91" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="255.69" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="55.02" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="9.20">
-        <vehicle id="blocker1" x="250.39" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="49.63" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="250.22" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="49.46" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="261.17" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="60.58" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="9.40">
-        <vehicle id="blocker1" x="255.86" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="55.19" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="255.69" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="55.02" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="266.64" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="66.13" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="9.60">
-        <vehicle id="blocker1" x="261.33" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="60.74" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="261.17" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="60.58" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="272.11" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="71.69" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="9.80">
-        <vehicle id="blocker1" x="266.81" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="66.30" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="266.64" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="66.13" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="277.59" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="77.24" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="10.00">
-        <vehicle id="blocker1" x="272.28" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="71.86" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="272.11" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="71.69" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="283.06" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="82.80" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="10.20">
-        <vehicle id="blocker1" x="277.75" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="77.41" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="277.59" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="77.24" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="288.53" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="88.36" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="10.40">
-        <vehicle id="blocker1" x="283.22" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="82.97" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="283.06" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="82.80" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="294.00" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="93.91" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="10.60">
-        <vehicle id="blocker1" x="288.70" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="88.52" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="288.53" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="88.36" lane="end_1" slope="0.00" signals="0"/>
         <vehicle id="merge" x="299.48" y="-4.95" angle="90.00" type="t0" speed="27.78" pos="99.47" lane="end_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="10.80">
-        <vehicle id="blocker1" x="294.17" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="94.08" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="294.00" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="93.91" lane="end_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="11.00">
-        <vehicle id="blocker1" x="299.64" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="99.64" lane="end_1" slope="0.00" signals="0"/>
+        <vehicle id="blocker1" x="299.48" y="-1.65" angle="90.00" type="t1" speed="27.78" pos="99.47" lane="end_1" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="11.20"/>
 </fcd-export>

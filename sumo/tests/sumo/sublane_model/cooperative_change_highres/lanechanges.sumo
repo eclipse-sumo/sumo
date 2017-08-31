@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 18 13:21:52 2017 by SUMO Version dev-SVN-r25645
+<!-- generated on Thu Aug 31 17:24:50 2017 by SUMO Version dev-SVN-r25776
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -30,10 +30,14 @@
         <no-step-log value="true"/>
     </report>
 
+    <gui_only>
+        <tracker-interval value="0.2"/>
+    </gui_only>
+
 </configuration>
 -->
 
 <lanechanges>
-    <change id="blocker1" type="t1" time="1.80" from="beg_1" to="beg_2" dir="1" speed="24.62" reason="cooperative|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" latGap="None"/>
-    <change id="merge" type="t0" time="3.20" from="beg_0" to="beg_1" dir="1" speed="27.78" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" latGap="None"/>
+    <change id="blocker1" type="t1" time="2.20" from="beg_1" to="beg_2" dir="1" speed="25.52" reason="cooperative|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" latGap="None"/>
+    <change id="merge" type="t0" time="4.00" from="beg_0" to="beg_1" dir="1" speed="27.78" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" latGap="None"/>
 </lanechanges>
