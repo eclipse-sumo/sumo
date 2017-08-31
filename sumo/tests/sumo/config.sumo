@@ -78,8 +78,8 @@ weights:weights.xml
 lanechanges:lanechanges.xml
 ssm:ssm.xml
 ssm2:ssm_ego.xml
-png:out.png
-png2:out2.png
+ps:out.ps
+ps2:out2.ps
 
 [run_dependent_text]
 output:^Performance:{->}^Vehicles:
@@ -158,6 +158,8 @@ cfg:OpenSceneGraph
 cfg:^$
 weights:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
+ps:%%CreationDate
+ps2:%%CreationDate
 
 [floating_point_tolerance]
 output:0.0101
