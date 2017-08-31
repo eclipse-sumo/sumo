@@ -210,8 +210,8 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         myGroupBoxForAttributes->show();
 
         // Hide all AttributeInput
-        for (std::vector<GNEInspectorFrame::AttributeInput*>::iterator i = myVectorOfAttributeInputs.begin(); i != myVectorOfAttributeInputs.end(); i++) {
-            (*i)->hideAttribute();
+        for (auto i : myVectorOfAttributeInputs) {
+            i->hideAttribute();
         }
 
         // Gets tag and attributes of element
@@ -327,8 +327,8 @@ GNEInspectorFrame::setEdgeTemplate(GNEEdge* tpl) {
 
 long
 GNEInspectorFrame::onCmdCopyTemplate(FXObject*, FXSelector, void*) {
-    for (std::vector<GNEAttributeCarrier*>::iterator it = myACs.begin(); it != myACs.end(); it++) {
-        GNEEdge* edge = dynamic_cast<GNEEdge*>(*it);
+    for (auto it : myACs) {
+        GNEEdge* edge = dynamic_cast<GNEEdge*>(it);
         assert(edge);
         edge->copyTemplate(myEdgeTemplate, myViewNet->getUndoList());
         inspectMultisection(myACs);
@@ -732,8 +732,8 @@ GNEInspectorFrame::AttributeInput::showAttribute(SumoXMLTag tag, SumoXMLAttr att
             myBoolCheckButton->setCheck(boolValues.front());
         } else {
             int sum = 0;
-            for (std::vector<bool>::iterator i = boolValues.begin(); i != boolValues.end(); i++) {
-                sum += (int)(*i);
+            for (auto i : boolValues) {
+                sum += (int)(i);
             }
             // only set true if all checkbox are true
             if ((sum == 0) || (sum != (int)boolValues.size())) {
@@ -766,8 +766,8 @@ GNEInspectorFrame::AttributeInput::showAttribute(SumoXMLTag tag, SumoXMLAttr att
         } else {
             // fill comboBox
             myChoicesCombo->clearItems();
-            for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {
-                myChoicesCombo->appendItem(it->c_str());
+            for (auto it : choices) {
+                myChoicesCombo->appendItem(it.c_str());
             }
             myChoicesCombo->setNumVisible((int)choices.size());
             myChoicesCombo->setCurrentItem(myChoicesCombo->findItem(value.c_str()));
@@ -809,6 +809,26 @@ GNEInspectorFrame::AttributeInput::hideAttribute() {
 }
 
 
+void 
+GNEInspectorFrame::AttributeInput::refreshAttribute() {
+    // Declare a set of occuring values and insert attribute's values of item
+    std::set<std::string> occuringValues;
+    for (auto it_ac : myInspectorFrameParent->getACs()) {
+        occuringValues.insert(it_ac->getAttribute(myAttr));
+    }
+    // get current value
+    std::ostringstream oss;
+    for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
+        if (it_val != occuringValues.begin()) {
+            oss << " ";
+        }
+        oss << *it_val;
+    }
+    // show attribute again
+    showAttribute(myTag, myAttr, oss.str());
+}
+
+
 SumoXMLTag
 GNEInspectorFrame::AttributeInput::getTag() const {
     return myTag;
@@ -823,35 +843,20 @@ GNEInspectorFrame::AttributeInput::getAttr() const {
 
 long
 GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor(FXObject*, FXSelector, void*) {
-    // in XML either allow or disallow can be defined for convenience
-    // In the input dialog, only the positive-list (allow) is defined even when
-    // clicking on 'disallow'
-    std::string allowed = myTextFieldStrings->getText().text();
-    std::string disallowed = "";
-    if (myAttr == SUMO_ATTR_DISALLOW) {
-        std::swap(allowed, disallowed);
+    // obtain vehicles of text field and check if are valid
+    std::string vehicles = myTextFieldStrings->getText().text();
+    // check if values can parse
+    if(canParseVehicleClasses(vehicles) == false) {
+        if(myAttr == SUMO_ATTR_ALLOW) {
+            vehicles = getVehicleClassNames(SVCAll, true);
+        } else {
+            vehicles = "";
+        }
     }
-    // remove special word "(combined!)"
-    std::string::size_type i = allowed.find(" (combined!)");
-    if (i != std::string::npos) {
-        allowed.erase(i, 12);
-    }
-    SVCPermissions permissions;
-    if (allowed == "all") {
-        permissions = SVCAll;
-    } else {
-        permissions = parseVehicleClasses(allowed, disallowed);
-    }
-    // use expanded form
-    allowed = getVehicleClassNames(permissions, true);
-    GNEDialog_AllowDisallow(getApp(), &allowed).execute();
-    if (myAttr == SUMO_ATTR_DISALLOW) {
-        // invert again
-        std::string disallowed = getVehicleClassNames(invertPermissions(parseVehicleClasses(allowed)));
-        myTextFieldStrings->setText((disallowed).c_str());
-    } else {
-        myTextFieldStrings->setText((allowed).c_str());
-    }
+    // open GNEDialog_AllowDisallow
+    GNEDialog_AllowDisallow(getApp(), &vehicles).execute();
+    // set obtained vehicles into TextField Strings
+    myTextFieldStrings->setText((vehicles).c_str());
     onCmdSetAttribute(0, 0, 0);
     return 1;
 }
@@ -874,7 +879,7 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
     } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
         // Obtain choices
         const std::vector<std::string>& choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
-        // Check if are combinable coices
+        // Check if are combinable choices (for example, Vehicle Types)
         if (choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
             // Get value obtained using AttributeEditor
             newVal = myTextFieldStrings->getText().text();
@@ -923,35 +928,50 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
             myInspectorFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
         }
         // Set new value of attribute in all selected ACs
-        for (std::vector<GNEAttributeCarrier*>::const_iterator it_ac = myInspectorFrameParent->getACs().begin(); it_ac != myInspectorFrameParent->getACs().end(); it_ac++) {
-            (*it_ac)->setAttribute(myAttr, newVal, myInspectorFrameParent->getViewNet()->getUndoList());
+        for (auto it_ac : myInspectorFrameParent->getACs()) {
+            it_ac->setAttribute(myAttr, newVal, myInspectorFrameParent->getViewNet()->getUndoList());
         }
         // finish change multiple attributes
         if (myInspectorFrameParent->getACs().size() > 1) {
             myInspectorFrameParent->getViewNet()->getUndoList()->p_end();
         }
-        // If previously value was incorrect , change fonto color to black
-        if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
+        // If previously value was incorrect, change font color to black
+        if (GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
+            myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+            myTextFieldStrings->killFocus();
+            // in this case, we need to refresh the other opposited value
+            for(auto i : myInspectorFrameParent->myVectorOfAttributeInputs) {
+                if(((myAttr == SUMO_ATTR_ALLOW) && (i->getAttr() == SUMO_ATTR_DISALLOW)) || 
+                    ((myAttr == SUMO_ATTR_DISALLOW) && (i->getAttr() == SUMO_ATTR_ALLOW))) {
+                    i->refreshAttribute();
+                }
+            }
+        } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
             myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
-        } else if ((GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr)) && myTextFieldStrings != 0) {
+            myChoicesCombo->killFocus();
+        } else if ((GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr))) {
             myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
             myTextFieldReal->killFocus();
         } else if (GNEAttributeCarrier::isInt(myTag, myAttr) && myTextFieldStrings != 0) {
             myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
             myTextFieldInt->killFocus();
-        } else if (GNEAttributeCarrier::isString(myTag, myAttr) && myTextFieldStrings != 0) {
+        } else if (myTextFieldStrings != 0) {
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->killFocus();
         }
     } else {
         // If value of TextField isn't valid, change color to Red depending of type
-        if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
+        if (GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
+            myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
+            myTextFieldStrings->killFocus();
+        } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
             myChoicesCombo->setTextColor(FXRGB(255, 0, 0));
-        } else if ((GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr)) && myTextFieldStrings != 0) {
+            myChoicesCombo->killFocus();
+        } else if ((GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr))) {
             myTextFieldReal->setTextColor(FXRGB(255, 0, 0));
         } else if (GNEAttributeCarrier::isInt(myTag, myAttr) && myTextFieldStrings != 0) {
             myTextFieldInt->setTextColor(FXRGB(255, 0, 0));
-        } else if (GNEAttributeCarrier::isString(myTag, myAttr) && myTextFieldStrings != 0) {
+        } else if (myTextFieldStrings != 0) {
             myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
         }
         // Write Warning in console if we're in testing mode

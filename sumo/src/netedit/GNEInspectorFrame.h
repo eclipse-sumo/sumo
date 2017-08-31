@@ -70,17 +70,23 @@ public:
         /// @brief show attribute
         void hideAttribute();
 
+        /// @brief refresh attribute
+        void refreshAttribute();
+
         /// @brief get current tag
         SumoXMLTag getTag() const;
 
         /// @brief get current Attr
         SumoXMLAttr getAttr() const;
 
+        /// @name FOX-callbacks
+        /// @{
         /// @brief try to set new attribute value
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
         /// @brief open model dialog for more comfortable attribute editing
         long onCmdOpenAllowDisallowEditor(FXObject*, FXSelector, void*);
+        /// @}
 
     protected:
         /// @brief FOX needs this
