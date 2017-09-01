@@ -65,6 +65,9 @@ public:
 
     virtual ~MSLCM_SL2015();
 
+    /// @brief init cached parameters derived directly from model parameters
+    void initDerivedParameters();
+
     /** @brief Called to examine whether the vehicle wants to change
      * with the given laneOffset (using the sublane model)
      * This method gets the information about the surrounding vehicles
@@ -388,10 +391,12 @@ protected:
 
     /// @name derived parameters
     //@{
-    // @brief willingness to encroach on other vehicles laterally (pushing them around)
-    const double myChangeProbThresholdRight;
-    const double myChangeProbThresholdLeft;
-    const double mySpeedLossProbThreshold;
+    // @brief threshold value for changing to the right
+    double myChangeProbThresholdRight;
+    // @brief threshold value for changing to the left
+    double myChangeProbThresholdLeft;
+    // @brief threshold value for accepting speed loss to achieve desired sublane alignment
+    double mySpeedLossProbThreshold;
     //@}
 
 };
