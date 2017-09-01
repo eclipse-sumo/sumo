@@ -1,0 +1,8 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="tEgo" sigma="0"/>
+    <vType id="tSlow" sigma="0" speedFactor="0.8"/>
+    <route id="r1" edges="beg"/>
+    
+    <vehicle id="leader" depart="0" departSpeed="max" route="r1" type="tSlow" departLane="1" departPos="1000" arrivalLane="1"/>
+    <vehicle id="ego" depart="0" departSpeed="max" route="r1" type="tEgo" departLane="0"/>
+</routes>
