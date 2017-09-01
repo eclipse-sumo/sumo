@@ -565,6 +565,7 @@
                     <xsd:attribute name="to" type="xsd:string"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="lines" type="xsd:string" use="required"/>
+                    <xsd:attribute name="arrivalPos" type="xsd:float"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="walk">
