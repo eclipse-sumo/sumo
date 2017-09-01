@@ -1223,6 +1223,7 @@ MSLCM_LC2013::_wantsChange(
     }
 #endif
 
+    bool changeLeftToAvoidOvertakeRight = false;
     if (changeToBest && bestLaneOffset == curr.bestLaneOffset
             && currentDistDisallows(usableDist, bestLaneOffset, laDist)) {
         /// @brief we urgently need to change lanes to follow our route
@@ -1246,6 +1247,7 @@ MSLCM_LC2013::_wantsChange(
                 const double relativeGain = (vMax - neighLane.getVehicleMaxSpeed(nv)) / MAX2(vMax,
                         RELGAIN_NORMALIZATION_MIN_SPEED);
                 mySpeedGainProbability += TS * relativeGain;
+                changeLeftToAvoidOvertakeRight = true;
             }
 #ifdef DEBUG_WANTS_CHANGE
             if (DEBUG_COND) {
@@ -1628,10 +1630,14 @@ MSLCM_LC2013::_wantsChange(
         }
     } else {
         // ONLY FOR CHANGING TO THE LEFT
-        if (thisLaneVSafe + NUMERICAL_EPS > neighLaneVSafe) {
+        if (thisLaneVSafe > neighLaneVSafe) {
             // this lane is better
             if (mySpeedGainProbability > 0) {
                 mySpeedGainProbability *= pow(0.5, TS);
+            }
+        } else if (thisLaneVSafe == neighLaneVSafe) {
+            if (mySpeedGainProbability > 0) {
+                mySpeedGainProbability *= pow(0.8, TS);
             }
         } else {
             // left lane is better
@@ -1661,7 +1667,9 @@ MSLCM_LC2013::_wantsChange(
         }
 #endif
 
-        if (mySpeedGainProbability > myChangeProbThresholdLeft && neighDist / MAX2((double) .1, myVehicle.getSpeed()) > 20.) { // .1
+        if (mySpeedGainProbability > myChangeProbThresholdLeft 
+                && (relativeGain > NUMERICAL_EPS || changeLeftToAvoidOvertakeRight) 
+                && neighDist / MAX2((double) .1, myVehicle.getSpeed()) > 20.) { // .1
             req = ret | lca | LCA_SPEEDGAIN;
             if (!cancelRequest(req)) {
                 return ret | req;
