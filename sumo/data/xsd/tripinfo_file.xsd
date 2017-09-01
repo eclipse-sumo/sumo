@@ -96,6 +96,7 @@
     <xsd:element name="stop">
         <xsd:complexType>
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
 
@@ -103,12 +104,14 @@
         <xsd:complexType>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
 
     <xsd:element name="walk">
         <xsd:complexType>
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
 
@@ -116,12 +119,14 @@
         <xsd:complexType>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
 
     <xsd:element name="tranship">
         <xsd:complexType>
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>
