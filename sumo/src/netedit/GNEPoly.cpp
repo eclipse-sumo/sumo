@@ -89,7 +89,7 @@ GNEPoly::moveVertexShape(int index, const Position& newPos) {
     // only move shape if block movement block shape are disabled
     if(!myBlockMovement && !myBlockShape && (index != -1)) {
         // check that index is correct before change position
-        if(index < myShape.size()) {
+        if(index < (int)myShape.size()) {
             // save current moving vertex
             myCurrentMovingVertexIndex = index;
             // if closed shape and cliked is first or last, move both giving more priority to first always
@@ -409,14 +409,14 @@ GNEPoly::closePolygon(bool allowUndo) {
 void 
 GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
     // check that old index is correct
-    if(oldIndex >= myShape.size()) {
+    if(oldIndex >= (int)myShape.size()) {
         throw InvalidArgument("Invalid old Index");
     } else if (oldIndex == 0) {
         WRITE_WARNING("Selected point must be different of the first point")
     } else {
         // Configure new shape
         PositionVector newShape;
-        for (int i = oldIndex; i < myShape.size(); i++) {
+        for (int i = oldIndex; i < (int)myShape.size(); i++) {
             newShape.push_back(myShape[i]);
         }
         if(myClosedShape) {
