@@ -103,9 +103,6 @@ public:
         /// @brief name text field
         FXTextField* myNameTextField;
 
-        /// @brief frame for Program elements
-        FXHorizontalFrame* programFrame;
-
         /// @brief program label
         FXLabel* myProgramLabel;
 

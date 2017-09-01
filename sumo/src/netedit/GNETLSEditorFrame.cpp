@@ -681,27 +681,26 @@ GNETLSEditorFrame::updateCycleDuration() {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSAttributes::TLSAttributes(FXComposite* parent, GNETLSEditorFrame* TLSEditorParent) :
-    FXGroupBox(parent, "Attributes", GUIDesignGroupBoxFrame),
+    FXGroupBox(parent, "Traffic light Attributes", GUIDesignGroupBoxFrame),
     myTLSEditorParent(TLSEditorParent) {
     
     // create frame, label and textfield for name (By default disabled)
     FXHorizontalFrame* nameFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myNameLabel = new FXLabel(nameFrame, "Name", 0, GUIDesignLabelAttribute);
+    myNameLabel = new FXLabel(nameFrame, "ID", 0, GUIDesignLabelAttribute);
     myNameTextField = new FXTextField(nameFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_DEF_SWITCH, GUIDesignTextField);
     myNameTextField->disable();
 
     // create frame, label and comboBox for Program (By default hidden)
-    programFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* programFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myProgramLabel = new FXLabel(programFrame, "Program", 0, GUIDesignLabelAttribute);
     myProgramComboBox = new FXComboBox(programFrame, GUIDesignComboBoxNCol, myTLSEditorParent, MID_GNE_DEF_SWITCH, GUIDesignComboBoxAttribute);
-    programFrame->hide();
+    myProgramComboBox->disable();
 
     // create frame, label and TextField for Offset (By default disabled)
     FXHorizontalFrame* offsetFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myOffsetLabel = new FXLabel(offsetFrame, "Offset", 0, GUIDesignLabelAttribute);
     myOffsetTextField = new FXTextField(offsetFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_DEF_OFFSET, GUIDesignTextFieldReal);
     myOffsetTextField->disable();
-
 }
 
 
@@ -716,8 +715,6 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction *junction) {
     myNameTextField->enable();
     // enable Offset
     myOffsetTextField->enable();
-    // hide program frame
-    programFrame->hide();
     // obtain TLSs
     for (auto it : junction->getNBNode()->getControllingTLS()) {
         myTLSDefinitions.push_back(it);
@@ -726,10 +723,9 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction *junction) {
         myProgramComboBox->appendItem(it->getProgramID().c_str());
     }
     if (myTLSDefinitions.size() > 0) {
+        myProgramComboBox->enable();
         myProgramComboBox->setCurrentItem(0);
         myProgramComboBox->setNumVisible(myProgramComboBox->getNumItems());
-        myProgramLabel->show();
-        myProgramComboBox->show();
         myTLSEditorParent->onCmdDefSwitch(0, 0, 0);
     }
 }
@@ -742,12 +738,12 @@ GNETLSEditorFrame::TLSAttributes::clearTLSAttributes() {
     // clear and disable name TextField
     myNameTextField->setText("");
     myNameTextField->disable();
+    // clear and disable myProgramComboBox
+    myProgramComboBox->clearItems();
+    myProgramComboBox->disable();
     // clear and disable Offset TextField
     myOffsetTextField->setText("");
     myOffsetTextField->disable();
-    // clear programComboBoxand hide programFrame
-    myProgramComboBox->clearItems();
-    programFrame->hide();
 }
 
 
