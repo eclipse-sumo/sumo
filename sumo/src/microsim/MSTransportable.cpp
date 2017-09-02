@@ -140,13 +140,14 @@ MSTransportable::Stage_Waiting::getUntil() const {
 
 Position
 MSTransportable::Stage_Waiting::getPosition(SUMOTime /* now */) const {
-    return getEdgePosition(&myDestination, myArrivalPos, ROADSIDE_OFFSET);
+    return getEdgePosition(&myDestination, myArrivalPos, 
+            ROADSIDE_OFFSET * (MSNet::getInstance()->lefthand() ? -1 : 1));
 }
 
 
 double
 MSTransportable::Stage_Waiting::getAngle(SUMOTime /* now */) const {
-    return getEdgeAngle(&myDestination, myArrivalPos) + M_PI / 2;
+    return getEdgeAngle(&myDestination, myArrivalPos) + M_PI / 2 * (MSNet::getInstance()->lefthand() ? -1 : 1);
 }
 
 
@@ -276,7 +277,8 @@ MSTransportable::Stage_Driving::getPosition(SUMOTime /* now */) const {
         if (myStopWaitPos != Position::INVALID) {
             return myStopWaitPos;
         }
-        return getEdgePosition(myWaitingEdge, myWaitingPos, ROADSIDE_OFFSET);
+        return getEdgePosition(myWaitingEdge, myWaitingPos, 
+                ROADSIDE_OFFSET * (MSNet::getInstance()->lefthand() ? -1 : 1));
     }
     return myVehicle->getPosition();
 }
@@ -292,7 +294,7 @@ MSTransportable::Stage_Driving::getAngle(SUMOTime /* now */) const {
             return 0;
         }
     }
-    return getEdgeAngle(myWaitingEdge, myWaitingPos) + M_PI / 2.;
+    return getEdgeAngle(myWaitingEdge, myWaitingPos) + M_PI / 2. * (MSNet::getInstance()->lefthand() ? -1 : 1);
 }
 
 

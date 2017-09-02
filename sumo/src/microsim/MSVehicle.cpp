@@ -795,7 +795,7 @@ MSVehicle::getPosition(const double offset) const {
         } else {
             // position beside the road
             PositionVector shp = myLane->getEdge().getLanes()[0]->getShape();
-            shp.move2side(SUMO_const_laneWidth);
+            shp.move2side(SUMO_const_laneWidth * (MSNet::getInstance()->lefthand() ? -1 : 1));
             return shp.positionAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane() + offset));
         }
     }

@@ -62,8 +62,9 @@ GUIContainerStop::GUIContainerStop(const std::string& id, const std::vector<std:
                                    double frompos, double topos)
     : MSStoppingPlace(id, lines, lane, frompos, topos),
       GUIGlObject_AbstractAdd("containerStop", GLO_TRIGGER, id) {
+    const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
     myFGShape = lane.getShape();
-    myFGShape.move2side((double) 1.65);
+    myFGShape.move2side(1.65 * offsetSign);
     myFGShape = myFGShape.getSubpart(
             lane.interpolateLanePosToGeometryPos(frompos), 
             lane.interpolateLanePosToGeometryPos(topos));
@@ -77,7 +78,7 @@ GUIContainerStop::GUIContainerStop(const std::string& id, const std::vector<std:
         myFGShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) M_PI);
     }
     PositionVector tmp = myFGShape;
-    tmp.move2side(1.5);
+    tmp.move2side(1.5 * offsetSign);
     myFGSignPos = tmp.getLineCenter();
     myFGSignRot = 0;
     if (tmp.length() != 0) {
@@ -126,27 +127,30 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     RGBColor grey(177, 184, 186, 171);
     RGBColor blue(83, 89, 172, 255);
     // draw the area
-    int i;
     glTranslated(0, 0, getType());
     GLHelper::setColor(blue);
+    const double exaggeration = s.addSize.getExaggeration(s);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
     // draw details unless zoomed out to far
-    const double exaggeration = s.addSize.getExaggeration(s);
     if (s.scale * exaggeration >= 10) {
+        glPushMatrix();
         // draw the lines
-        for (i = 0; i != (int)myLines.size(); ++i) {
+        const double rotSign = MSNet::getInstance()->lefthand() ? -1 : 1;
+        for (int i = 0; i != (int)myLines.size(); ++i) {
             glPushMatrix();
             glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
             glRotated(180, 1, 0, 0);
-            glRotated(myFGSignRot, 0, 0, 1);
+            glRotated(rotSign * myFGSignRot, 0, 0, 1);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             pfSetPosition(0, 0);
             pfSetScale(1.f);
-            glScaled(exaggeration, exaggeration, 1);
             glTranslated(1.2, -(double)i, 0);
             pfDrawString(myLines[i].c_str());
             glPopMatrix();
         }
+
+
+
         // draw the sign
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
         int noPoints = 9;
@@ -159,8 +163,9 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(grey);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
         if (s.scale * exaggeration >= 4.5) {
-            GLHelper::drawText("C", Position(), .1, 1.6 * exaggeration, blue, myFGSignRot);
+            GLHelper::drawText("C", Position(), .1, 1.6, blue, myFGSignRot);
         }
+        glPopMatrix();
     }
     glPopMatrix();
     glPopName();

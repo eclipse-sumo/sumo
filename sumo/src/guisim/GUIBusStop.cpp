@@ -63,7 +63,8 @@
 GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
                        double frompos, double topos, const std::string name) :
     MSStoppingPlace(id, lines, lane, frompos, topos, name),
-    GUIGlObject_AbstractAdd("busStop", GLO_TRIGGER, id) {
+    GUIGlObject_AbstractAdd("busStop", GLO_TRIGGER, id) 
+{
     const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
     myFGShape = lane.getShape();
     myFGShape.move2side(1.65 * offsetSign);
@@ -136,7 +137,6 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     RGBColor green(76, 170, 50, 255);
     RGBColor yellow(255, 235, 0, 255);
-    RGBColor black(0, 0, 0);
     // draw the area
     glTranslated(0, 0, getType());
     GLHelper::setColor(green);

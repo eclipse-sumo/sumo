@@ -158,7 +158,8 @@ MSPModel_NonInteracting::PState::getPosition(const MSPerson::MSPersonStage_Walki
         //}
         lane = stage.getEdge()->getLanes().front();
     }
-    const double lateral_offset = lane->allowsVehicleClass(SVC_PEDESTRIAN) ? 0 : SIDEWALK_OFFSET;
+    const double lateral_offset = (lane->allowsVehicleClass(SVC_PEDESTRIAN) ? 0 : SIDEWALK_OFFSET 
+            * (MSNet::getInstance()->lefthand() ? -1 : 1));
     return stage.getLanePosition(lane, getEdgePos(stage, now), lateral_offset);
 }
 
