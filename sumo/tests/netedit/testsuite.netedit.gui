@@ -4,6 +4,9 @@ basic
 # tests for net elements (Junctions, edges, crossings, etc..)
 netElements
 
+# test for shapes elements (Polygons and POIs)
+shapeElements
+
 # test for routes elements (Routes, Vehicles, etc.)
 routeElements
 
