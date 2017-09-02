@@ -1780,6 +1780,10 @@ GNENet::addPolygon(const std::string& id, const std::string& type,const RGBColor
             myViewNet->getUndoList()->p_begin("add " + toString(poly->getTag()));
             myViewNet->getUndoList()->add(new GNEChange_Poly(this, poly, true), true);
             myViewNet->getUndoList()->p_end();
+            return true;
+        }
+        else {
+            throw ProcessError("Error adding GNEPOly into shapeContainer");
         }
     } else {
         return false;
@@ -1888,6 +1892,9 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
             myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
             myViewNet->getUndoList()->add(new GNEChange_POI(this, poi, true), true);
             myViewNet->getUndoList()->p_end();
+            return true;
+        } else {
+            throw ProcessError("Error adding GNEPOI into shapeContainer");
         }
     } else {
         return false;
