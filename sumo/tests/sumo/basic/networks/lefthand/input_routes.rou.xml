@@ -1,0 +1,12 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+   <vehicle id="v0" depart="0">
+      <route edges="WC"/>
+      <stop lane="WC_0" endPos="50" duration="10" parking="true"/>
+   </vehicle>
+
+   <person id="p0" depart="0">
+       <walk edges="WC" arrivalPos="20"/>
+       <stop lane="WC_0" duration="10"/>
+   </person>
+</routes>

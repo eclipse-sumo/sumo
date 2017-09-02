@@ -12,3 +12,5 @@ internal_net_plain_sim
 # Network has no internal edges, simulation does not want to use them
 plain_net_plain_sim
 
+# test correct object positioning in lefthand network
+lefthand
