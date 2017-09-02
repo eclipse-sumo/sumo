@@ -2,5 +2,7 @@
     <person id="p0" depart="0">
         <walk edges="beg end" departPos="-10" arrivalPos="10"/>
     </person>
-
+    <person id="p1" depart="0">
+        <walk edges="end beg" departPos="-10" arrivalPos="10"/>
+    </person>
 </routes>
