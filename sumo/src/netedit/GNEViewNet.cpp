@@ -346,23 +346,9 @@ GNEViewNet::startEditShapeJunction(GNEJunction *junction) {
         myPreviousEditMode = myEditMode;
         setEditModeFromHotkey(MID_GNE_MODE_MOVE);
         junction->getNBNode()->computeNodeShape(-1);
-        // obtain shape of NBNode and close it
-        PositionVector junctionShape = junction->getNBNode()->getShape();
-        junctionShape.closePolygon();
-        // generate a ID for myEditJunctionShapePoly
-        int counter = 0;
-        std::string polyID = "junction_shape:" + junction->getMicrosimID() + "_" + toString(counter);
-        while(myNet->retrievePolygon(polyID, false) != NULL) {
-            counter++;
-            polyID = "junction_shape:" + junction->getMicrosimID() + "_" + toString(counter);
-        }
-        // add polygon without possibility of undo/redo
-        if(myNet->addPolygon(polyID, "junction_shape", RGBColor::GREEN, GLO_POLYGON, 0, "", junctionShape, true, false, false, false)) {
-            myEditJunctionShapePoly = myNet->retrievePolygon(polyID);
-            myEditJunctionShapePoly->setShapeEditedJunction(junction);
-            myEditJunctionShapePoly->setLineWidth(0.3);
-            myNet->insertPolygonInView(myEditJunctionShapePoly);
-        }
+        // add special GNEPoly fo edit shapes
+        myEditJunctionShapePoly = myNet->addPolygonForEditShapes(junction);
+        // update view net to show the new myEditJunctionShapePoly
         update();
     }
 }

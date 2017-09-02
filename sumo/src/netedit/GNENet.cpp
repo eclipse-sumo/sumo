@@ -106,6 +106,7 @@ const double GNENet::Z_INITIALIZED = 1;
 // ===========================================================================
 GNENet::GNENet(NBNetBuilder* netBuilder) :
     GUIGlObject(GLO_NETWORK, ""),
+    ShapeContainer(),
     myViewNet(0),
     myNetBuilder(netBuilder),
     myJunctions(),
@@ -1768,26 +1769,44 @@ GNENet::flowExists(const std::string& flowID) const {
 }
 
 
-bool
-GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
-                   const std::string& imgFile, const PositionVector& shape, bool fill, bool movementBlocked, 
-                   bool shapeBlocked, bool allowUndo) {
+bool 
+GNENet::addPolygon(const std::string& id, const std::string& type,const RGBColor& color, double layer, double angle, 
+                   const std::string& imgFile, const PositionVector& shape, bool fill, bool /*ignorePruning*/) {
     // check if ID is duplicated
     if(myPolygons.get(id) == NULL) {
         // create poly
-        GNEPoly* poly = new GNEPoly(this, id, type, shape, fill, color, layer, angle, imgFile, movementBlocked, shapeBlocked);
-        myPolygons.add(poly->getID(), poly);
-        // insert it in the net using GNEChange_Poly depending of allowUndo
-        if(allowUndo) {
+        GNEPoly* poly = new GNEPoly(this, id, type, shape, fill, color, layer, angle, imgFile, false, false);
+        if(myPolygons.add(poly->getID(), poly)) {
             myViewNet->getUndoList()->p_begin("add " + toString(poly->getTag()));
             myViewNet->getUndoList()->add(new GNEChange_Poly(this, poly, true), true);
             myViewNet->getUndoList()->p_end();
         }
-        return true;
     } else {
         return false;
     }
 }
+
+
+GNEPoly*
+GNENet::addPolygonForEditShapes(GNEJunction *junction) {
+    // generate a ID for myEditJunctionShapePoly
+    int counter = 0;
+    std::string polyID = "junction_shape:" + toString(counter);
+    while(myPolygons.get(polyID) != NULL) {
+        counter++;
+        polyID = "junction_shape:" + toString(counter);
+    }
+    // obtain shape of NBNode and close it
+    PositionVector junctionShape = junction->getNBNode()->getShape();
+    junctionShape.closePolygon();
+    // create poly for edit shapes
+    GNEPoly* shapePoly = new GNEPoly(this, "junction_shape:" + toString(counter), "junction_shape", junctionShape, true, RGBColor::GREEN, GLO_POLYGON, 0, "", false , false);
+    shapePoly->setShapeEditedJunction(junction);
+    shapePoly->setLineWidth(0.3);
+    insertPolygonInView(shapePoly);
+    return shapePoly;
+}
+
 
 bool 
 GNENet::removePolygon(const std::string& id) {
@@ -1860,17 +1879,16 @@ GNENet::changePolygonID(GNEPoly* poly, const std::string &OldID) {
 
 bool 
 GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
-    const std::string& imgFile, const Position& pos, double width, double height, bool movementBlocked) {
+               const std::string& imgFile, const Position& pos, double width, double height, bool /*ignorePruning */) {
     // check if ID is duplicated
     if(myPOIs.get(id) == NULL) {
         // create poly
-        GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, pos, width, height, movementBlocked);
-        myPOIs.add(poi->getID(), poi);
-        // insert it in the net using GNEChange_Poly
-        myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
-        myViewNet->getUndoList()->add(new GNEChange_POI(this, poi, true), true);
-        myViewNet->getUndoList()->p_end();
-        return true;
+        GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, pos, width, height, false);
+        if(myPOIs.add(poi->getID(), poi)) {
+            myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
+            myViewNet->getUndoList()->add(new GNEChange_POI(this, poi, true), true);
+            myViewNet->getUndoList()->p_end();
+        }
     } else {
         return false;
     }

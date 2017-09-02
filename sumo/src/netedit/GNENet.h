@@ -551,23 +551,26 @@ public:
     /// @brief Check if exist a flow with these ID
     bool flowExists(const std::string& flowID) const;
 
-    /** @brief Builds a polygon using the given values. Will not be added to container
-     * @param[in] id The name of the polygon
-     * @param[in] type The (abstract) type of the polygon
-     * @param[in] color The color of the polygon
-     * @param[in] layer The layer of the polygon
-     * @param[in] angle The rotation of the polygon
-     * @param[in] imgFile The raster image of the polygon
-     * @param[in] shape The shape of the polygon
-     * @param[in] fill Whether the polygon shall be filled
-     * @param[in] movementBlocked if movement of polygon is blocked
-     * @param[in] shapeBlocked if shape of polygon is blocked
-     * @param[in] allowUndo if add polygon can be undo (note: function insertPolygonInViewhas to be called)
-     * @return whether the polygon could be added
-     */
+    /** @brief Builds a polygon using the given values and adds it to the container
+    * @param[in] id The name of the polygon
+    * @param[in] type The (abstract) type of the polygon
+    * @param[in] color The color of the polygon
+    * @param[in] layer The layer of the polygon
+    * @param[in] angle The rotation of the polygon
+    * @param[in] imgFile The raster image of the polygon
+    * @param[in] shape The shape of the polygon
+    * @param[in] fill Whether the polygon shall be filled
+    * @return whether the polygon could be added
+    */
     bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-                    double angle, const std::string& imgFile, const PositionVector& shape, bool fill, 
-                    bool movementBlocked, bool shapeBlocked, bool allowUndo = true);
+                    double angle, const std::string& imgFile, const PositionVector& shape, bool fill,
+                    bool ignorePruning = false);
+
+    /** @brief Builds a special polygon used for edit Junctions's shapes
+    * @param[in] junction junction to be edited
+    * @return created GNEPoly
+    */
+    GNEPoly* addPolygonForEditShapes(GNEJunction *junction);
 
     /** @brief Removes a polygon from the container
     * @param[in] id The id of the polygon
@@ -598,20 +601,20 @@ public:
     void changePolygonID(GNEPoly* poly, const std::string &OldID);
 
     /** @brief Builds a POI using the given values and adds it to the container
-     * @param[in] id The name of the POI
-     * @param[in] type The (abstract) type of the POI
-     * @param[in] color The color of the POI
-     * @param[in] layer The layer of the POI
-     * @param[in] angle The rotation of the POI
-     * @param[in] imgFile The raster image of the POI
-     * @param[in] pos The position of the POI
-     * @param[in] width The width of the POI image
-     * @param[in] height The height of the POI image
-     * @param[in] movementBlocked if movement of POI is blocked
-     * @return whether the poi could be added
-     */
-    bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
-                const std::string& imgFile, const Position& pos, double width, double height, bool movementBlocked);
+    * @param[in] id The name of the POI
+    * @param[in] type The (abstract) type of the POI
+    * @param[in] color The color of the POI
+    * @param[in] layer The layer of the POI
+    * @param[in] angle The rotation of the POI
+    * @param[in] imgFile The raster image of the POI
+    * @param[in] pos The position of the POI
+    * @param[in] width The width of the POI image
+    * @param[in] height The height of the POI image
+    * @return whether the poi could be added
+    */
+    bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, 
+                double angle, const std::string& imgFile, const Position& pos, double width, double height,
+                bool ignorePruning = false);
 
     /** @brief Removes a PoI from the container
     * @param[in] id The id of the PoI

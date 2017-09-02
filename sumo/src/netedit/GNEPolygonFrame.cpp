@@ -49,6 +49,8 @@
 #include "GNEAttributeCarrier.h"
 #include "GNEPoly.h"
 #include "GNEPOI.h"
+#include "GNEChange_Poly.h"
+#include "GNEChange_POI.h"
 
 
 
@@ -291,13 +293,19 @@ GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string> &polyValues
     std::string imgFile = polyValues.at(SUMO_ATTR_IMGFILE);
     PositionVector shape =  GeomConvHelper::parseShapeReporting(polyValues.at(SUMO_ATTR_SHAPE), "user-supplied position", 0, ok, true);
     bool fill = GNEAttributeCarrier::parse<bool>(polyValues.at(SUMO_ATTR_FILL));
-    bool blockMovement = GNEAttributeCarrier::parse<bool>(polyValues.at(GNE_ATTR_BLOCK_MOVEMENT));
-    bool blockShape = GNEAttributeCarrier::parse<bool>(polyValues.at(GNE_ATTR_BLOCK_SHAPE));
 
     // create new Polygon only if number of shape points is greather than 2
-    if(shape.size() > 2) {
-        return myViewNet->getNet()->addPolygon(id, type, color, layer, angle, imgFile, shape, fill, blockMovement, blockShape);
+    myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POLY));
+    if((shape.size() > 2) && myViewNet->getNet()->addPolygon(id, type, color, layer, angle, imgFile, shape, fill)) {
+        // set manually attributes block movement and block shapes
+        GNEPoly *polygon = myViewNet->getNet()->retrievePolygon(id);
+        polygon->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, polyValues.at(GNE_ATTR_BLOCK_MOVEMENT), myViewNet->getUndoList());
+        polygon->setAttribute(GNE_ATTR_BLOCK_SHAPE, polyValues.at(GNE_ATTR_BLOCK_SHAPE), myViewNet->getUndoList());
+        myViewNet->getUndoList()->p_end();
+        return true;
     } else {
+        // abort creation
+        myViewNet->getUndoList()->p_abort();
         return false;
     }
 }
@@ -319,7 +327,18 @@ GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string> &POIValues) {
     bool blockMovement = GNEAttributeCarrier::parse<bool>(POIValues.at(GNE_ATTR_BLOCK_MOVEMENT));
 
     // create new POI
-    return myViewNet->getNet()->addPOI(id, type, color, layer, angle, imgFile, pos, width, height, blockMovement);
+    myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POI));
+    if(myViewNet->getNet()->addPOI(id, type, color, layer, angle, imgFile, pos, width, height)) {
+        // Set manually the attribute block movement
+        GNEPOI* poi = myViewNet->getNet()->retrievePOI(id);
+        poi->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, POIValues.at(GNE_ATTR_BLOCK_MOVEMENT), myViewNet->getUndoList());
+        myViewNet->getUndoList()->p_end();
+        return true;
+    } else {
+        // abort creation
+        myViewNet->getUndoList()->p_abort();
+        return false;
+    }
 }
 
 // ---------------------------------------------------------------------------
