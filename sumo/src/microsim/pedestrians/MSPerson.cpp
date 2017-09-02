@@ -148,6 +148,10 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
         }
     }
     myPedestrianState = MSPModel::getModel()->add(dynamic_cast<MSPerson*>(person), this, now);
+    if (myPedestrianState == 0) {
+        MSNet::getInstance()->getPersonControl().erase(person);
+        return;
+    }
     (*myRouteStep)->addPerson(person);
 }
 

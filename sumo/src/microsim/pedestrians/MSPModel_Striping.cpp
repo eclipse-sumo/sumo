@@ -133,6 +133,16 @@ PedestrianState*
 MSPModel_Striping::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime) {
     assert(person->getCurrentStageType() == MSTransportable::MOVING_WITHOUT_VEHICLE);
     const MSLane* lane = getSidewalk<MSEdge, MSLane>(person->getEdge());
+    if (lane == 0) {
+        std::string error = "Pedestrian '" + person->getID() + "' could not find sidewalk on edge '" + person->getEdge()->getID() + "', time=" 
+            + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".";
+        if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
+            WRITE_WARNING(error);
+            return 0;
+        } else {
+            throw ProcessError(error);
+        }
+    }
     PState* ped = new PState(person, stage, lane);
     myActiveLanes[lane].push_back(ped);
     myNumActivePedestrians++;
