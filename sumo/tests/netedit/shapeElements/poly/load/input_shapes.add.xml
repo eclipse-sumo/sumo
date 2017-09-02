@@ -1,0 +1,58 @@
+<additionals>
+	<!-- Without errors -->
+	<poly id="poly_0" color="green" fill="0" layer="0.00" shape="-50.00,40.00 -40.00,40.00 -40.00,30.00 -50.00,30.00 -50.00,40.00"/>
+
+	<!-- non valid ID (missing) -->
+	<poly color="green" fill="0" layer="0.00" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+	<!-- non valid ID (invalid) -->
+	<poly id="%%%%$$$%" color="green" fill="0" layer="0.00" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+	<!-- non valid ID (duplicated) -->
+	<poly id="poly_0" color="green" fill="0" layer="0.00" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+	<!-- valid ID -->
+	<poly id="poly_1" color="green" fill="0" layer="0.00" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+	<!-- non valid color (missing) -->
+	<poly id="poly_2" fill="0" layer="0.00" shape="-10.00,40.00 0.00,40.00 0.00,30.00 -10.00,30.00 -10.00,40.00"/>
+
+	<!-- non valid color (invalid format) -->
+	<poly id="poly_3" color="dummyCOLOR" fill="0" layer="0.00" shape="10.00,40.00 20.00,40.00 20.00,30.00 10.00,30.00 10.00,40.00"/>
+
+	<!-- valid color -->
+	<poly id="poly_4" color="255,0,0" fill="0" layer="0.00" shape="30.00,40.00 40.00,40.00 40.00,30.00 30.00,30.00 30.00,40.00"/>
+
+	<!-- non valid fill (missing) -->
+	<poly id="poly_5" color="green" layer="0.00" shape="30.00,20.00 40.00,20.00 40.00,10.00 30.00,10.00 30.00,20.00"/>
+
+	<!-- non valid fill (dummy) -->
+	<poly id="poly_6" color="green" fill="dummy" layer="0.00" shape="30.00,-20.00 40.00,-20.00 40.00,-30.00 30.00,-30.00 30.00,-20.00"/>
+
+	<!-- valid fill -->
+	<poly id="poly_7" color="green" fill="1" layer="0.00" shape="30.00,0.00 40.00,0.00 40.00,-10.00 30.00,-10.00 30.00,0.00"/>
+
+	<!-- non valid layer (missing) -->
+	<poly id="poly_8" color="green" fill="0" shape="-50.00,20.00 -40.00,20.00 -40.00,10.00 -50.00,10.00 -50.00,20.00"/>
+
+	<!-- non valid layer (dummy) -->
+	<poly id="poly_9" color="green" fill="0" layer="dummyLayer" shape="-50.00,0.00 -40.00,0.00 -40.00,-10.00 -50.00,-10.00 -50.00,0.00"/>
+
+	<!-- valid layer -->
+	<poly id="poly_10" color="green" fill="0" layer="1" shape="-50.00,-20.00 -40.00,-20.00 -40.00,-30.00 -50.00,-30.00 -50.00,-20.00"/>
+
+	<!-- non valid shape (missing) -->
+	<poly id="poly_11" color="green" fill="0" layer="0.00" shape="-50.00,-40.00 -40.00,-40.00 -40.00,-50.00 -50.00,-50.00 -50.00,-40.00"/>
+
+	<!-- non valid shape (dummy) -->
+	<poly id="poly_12" color="green" fill="0" layer="0.00" shape="-30.00,-40.00 -20.00,-40.00 -20.00,-50.00 -30.00,-50.00 -30.00,-40.00"/>
+
+	<!-- valid shape (duplicated with poly_0 shape) -->
+	<poly id="poly_13" color="green" fill="0" layer="0.00" shape="-50.00,40.00 -40.00,40.00 -40.00,30.00 -50.00,30.00 -50.00,40.00"/>
+
+	<!-- valid shape -->
+	<poly id="poly_14" color="green" fill="0" layer="0.00" shape="10.00,-40.00 20.00,-40.00 20.00,-50.00 10.00,-50.00 10.00,-40.00"/>
+	
+	<!-- <poly id="poly_15" color="green" fill="0" layer="0.00" shape="40.00,-40.00 40.00,-50.00 30.00,-50.00 30.00,-40.00 40.00,-40.00"/>-->
+
+</additionals>
