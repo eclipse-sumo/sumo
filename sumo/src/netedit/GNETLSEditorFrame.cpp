@@ -506,8 +506,8 @@ GNETLSEditorFrame::cleanup() {
 
 void
 GNETLSEditorFrame::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
-    // clean up previous objects
     SUMORTree& rtree = myViewNet->getNet()->getVisualisationSpeedUp();
+    // clean up previous objects
     for (auto it : myInternalLanes) {
         for (auto it_intLanes : it.second) {
             rtree.removeAdditionalGLObject(it_intLanes);
@@ -515,10 +515,10 @@ GNETLSEditorFrame::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
         }
     }
     myInternalLanes.clear();
+    // create new internal lanes
     if (tlDef != 0) {
         const int NUM_POINTS = 10;
         assert(myCurrentJunction);
-        SUMORTree& rtree = myViewNet->getNet()->getVisualisationSpeedUp();
         NBNode* nbn = myCurrentJunction->getNBNode();
         std::string innerID = ":" + nbn->getID(); // see NWWriter_SUMO::writeInternalEdges
         const NBConnectionVector& links = tlDef->getControlledLinks();
@@ -600,7 +600,7 @@ GNETLSEditorFrame::handleChange(GNEInternalLane* lane) {
 
 
 void
-GNETLSEditorFrame::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector sel, void* data) {
+GNETLSEditorFrame::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector sel, void* eventData) {
     if (myEditedDef != 0) {
         myHaveModifications = true;
         const NBConnectionVector& links = myEditedDef->getControlledLinks();
@@ -636,7 +636,7 @@ GNETLSEditorFrame::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector se
             if (fromIDs.count(it.getFrom()->getLaneID(it.getFromLane())) > 0) {
                 std::vector<GNEInternalLane*> lanes = myInternalLanes[it.getTLIndex()];
                 for (auto it_lane : lanes) {
-                    it_lane->onDefault(obj, sel, data);
+                    it_lane->onDefault(obj, sel, eventData);
                 }
             }
         }
@@ -755,7 +755,7 @@ GNETLSEditorFrame::TLSAttributes::getCurrentTLSDefinition() const {
 
 int 
 GNETLSEditorFrame::TLSAttributes::getNumberOfTLSDefinitions() const {
-    return myTLSDefinitions.size();
+    return (int)myTLSDefinitions.size();
 }
 
 

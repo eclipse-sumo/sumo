@@ -210,9 +210,12 @@ GNEJunction::getCenteringBoundary() const {
 
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
+    // declare variables
+    GLfloat color[4];
     double exaggeration = gSelected.isSelected(getType(), getGlID()) ? s.selectionScale : 1;
     exaggeration *= s.junctionSize.getExaggeration(s);
+    // push name
+    glPushName(getGlID());
     if (s.scale * exaggeration * myMaxSize < 1.) {
         // draw something simple so that selection still works
         GLHelper::drawBoxLine(myNBNode.getPosition(), 0, 1, 1);
@@ -224,7 +227,6 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         if (drawShape) {
             setColor(s, false);
             // recognize full transparency and simply don't draw
-            GLfloat color[4];
             glGetFloatv(GL_CURRENT_COLOR, color);
             if (color[3] != 0) {
                 glPushMatrix();
@@ -245,7 +247,6 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             if (myNet->getViewNet()->showJunctionAsBubbles()) {
                 setColor(s, true);
                 // recognize full transparency and simply don't draw
-                GLfloat color[4];
                 glGetFloatv(GL_CURRENT_COLOR, color);
                 if (color[3] != 0) {
                     glPushMatrix();
@@ -259,7 +260,6 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         if (drawBubble) {
             setColor(s, true);
             // recognize full transparency and simply don't draw
-            GLfloat color[4];
             glGetFloatv(GL_CURRENT_COLOR, color);
             if (color[3] != 0) {
                 glPushMatrix();
@@ -785,9 +785,10 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidID(value) && (myNet->retrieveJunction(value, false) == 0);
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::NodeTypes.hasString(value);
-        case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_POSITION: {
             bool ok;
             return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+        }
         case SUMO_ATTR_SHAPE: {
             bool ok = true;
             PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
@@ -819,14 +820,15 @@ GNEJunction::setResponsible(bool newVal) {
 void
 GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
+        case SUMO_ATTR_ID: {
             myNet->renameJunction(this, value);
             break;
+        }
         case SUMO_ATTR_TYPE: {
             myNBNode.reinit(myNBNode.getPosition(), SUMOXMLDefinitions::NodeTypes.get(value));
             break;
         }
-        case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_POSITION: {
             // set new position in NBNode
             bool ok;
             moveJunctionGeometry(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
@@ -837,6 +839,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             // Refresh element to avoid grabbing problems
             myNet->refreshElement(this);
             break;
+        }
         case GNE_ATTR_MODIFICATION_STATUS:
             if (myLogicStatus == GUESSED && value != GUESSED) {
                 // clear guessed connections. previous connections will be restored
@@ -856,9 +859,10 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->refreshElement(this);
             break;
         }
-        case SUMO_ATTR_RADIUS:
+        case SUMO_ATTR_RADIUS: {
             myNBNode.setRadius(parse<double>(value));
             break;
+        }
         case SUMO_ATTR_TLTYPE: {
             const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
             for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
@@ -866,9 +870,10 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         }
-        case SUMO_ATTR_KEEP_CLEAR:
+        case SUMO_ATTR_KEEP_CLEAR: {
             myNBNode.setKeepClear(value == "true");
             break;
+        }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

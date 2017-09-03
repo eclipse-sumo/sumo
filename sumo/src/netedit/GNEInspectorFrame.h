@@ -65,7 +65,7 @@ public:
         AttributeInput(FXComposite* parent, GNEInspectorFrame* inspectorFrameParent);
 
         /// @brief show attribute of ac
-        void showAttribute(SumoXMLTag tag, SumoXMLAttr attr, const std::string& value);
+        void showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value);
 
         /// @brief show attribute
         void hideAttribute();

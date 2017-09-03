@@ -181,9 +181,11 @@ private:
 
 private:
     /**@brief return  objects of the given type with matching attrs
+     * @param[in] ACTag XML Tag of AttributeCarrier
+     * @param[in] ACAttr XML Attribute of AttributeCarrier
      * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
      */
-    std::vector<GUIGlID> getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, double val, const std::string& expr);
+    std::vector<GUIGlID> getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, double val, const std::string& expr);
 };
 
 

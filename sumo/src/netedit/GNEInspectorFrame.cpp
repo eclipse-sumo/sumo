@@ -215,8 +215,8 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         }
 
         // Gets tag and attributes of element
-        SumoXMLTag tag = myACs.front()->getTag();
-        const std::vector<SumoXMLAttr>& attrs = myACs.front()->getAttrs();
+        SumoXMLTag ACFrontTag = myACs.front()->getTag();
+        const std::vector<SumoXMLAttr>& ACFrontAttrs = myACs.front()->getAttrs();
 
         // Declare iterator over AttrInput
         std::vector<GNEInspectorFrame::AttributeInput*>::iterator itAttrs = myVectorOfAttributeInputs.begin();
@@ -225,8 +225,8 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myACs.front()) && (dynamic_cast<GNEJunction*>(myACs.front())->getNBNode()->getControllingTLS().empty()));
 
         // Iterate over attributes
-        for (auto it : attrs) {
-            if (myACs.size() > 1 && GNEAttributeCarrier::isUnique(tag, it)) {
+        for (auto it : ACFrontAttrs) {
+            if (myACs.size() > 1 && GNEAttributeCarrier::isUnique(ACFrontTag, it)) {
                 // disable editing for some attributes in case of multi-selection
                 // even displaying is problematic because of string rendering restrictions
                 continue;
@@ -245,7 +245,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
                 oss << *it_val;
             }
             // Show attribute
-            if ((disableTLSinJunctions && (tag == SUMO_TAG_JUNCTION) && ((it == SUMO_ATTR_TLTYPE) || (it == SUMO_ATTR_TLID))) == false) {
+            if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it == SUMO_ATTR_TLTYPE) || (it == SUMO_ATTR_TLID))) == false) {
                 (*itAttrs)->showAttribute(myACs.front()->getTag(), (it), oss.str());
             }
             // update attribute iterator
@@ -389,9 +389,9 @@ GNEInspectorFrame::getACs() const {
 
 
 long
-GNEInspectorFrame::onCmdShowChildMenu(FXObject*, FXSelector, void* data) {
+GNEInspectorFrame::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
     // Obtain event
-    FXEvent* e = (FXEvent*) data;
+    FXEvent* e = (FXEvent*) eventData;
     FXTreeItem* item = myTreelist->getItemAt(e->win_x, e->win_y);
     // Check if there are an item in the position and create pop-up menu
     if (item && (myTreeItemsWithoutAC.find(item) == myTreeItemsWithoutAC.end())) {
@@ -716,10 +716,10 @@ GNEInspectorFrame::AttributeInput::AttributeInput(FXComposite* parent, GNEInspec
 
 
 void
-GNEInspectorFrame::AttributeInput::showAttribute(SumoXMLTag tag, SumoXMLAttr attr, const std::string& value) {
+GNEInspectorFrame::AttributeInput::showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttr, const std::string& value) {
     // Set actual Tag and attribute
-    myTag = tag;
-    myAttr = attr;
+    myTag = ACTag;
+    myAttr = ACAttr;
     // Show attribute Label
     myLabel->setText(toString(myAttr).c_str());
     myLabel->show();

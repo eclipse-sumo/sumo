@@ -293,9 +293,9 @@ GNEApplicationWindow::create() {
     myWindowsMenu->create();
     myHelpMenu->create();
 
-    FXint width = getApp()->getNormalFont()->getTextWidth("8", 1) * 22;
-    myCartesianFrame->setWidth(width);
-    myGeoFrame->setWidth(width);
+    FXint textWidth = getApp()->getNormalFont()->getTextWidth("8", 1) * 22;
+    myCartesianFrame->setWidth(textWidth);
+    myGeoFrame->setWidth(textWidth);
 
     show(PLACEMENT_DEFAULT);
     if (!OptionsCont::getOptions().isSet("window-size")) {
@@ -761,12 +761,12 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdOpenRecent(FXObject* sender, FXSelector, void* data) {
+GNEApplicationWindow::onCmdOpenRecent(FXObject* sender, FXSelector, void* fileData) {
     if (myAmLoading) {
         myStatusbar->getStatusLine()->setText("Already loading!");
         return 1;
     }
-    std::string file((const char*)data);
+    std::string file((const char*)fileData);
     loadConfigOrNet(file, sender == &myRecentNets);
     return 1;
 }
@@ -1177,6 +1177,8 @@ GNEApplicationWindow::onCmdComputeJunctions(FXObject*, FXSelector, void*) {
 
 long 
 GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*) {
+    // declare variable to save FXMessageBox outputs. 
+    FXuint answer = 0;
     // declare string to save path in wich additionals will be saved
     std::string additionalSavePath = myAdditionalsFile;
     // write warning if netedit is running in testing mode
@@ -1185,8 +1187,8 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
         WRITE_WARNING("Opening FXMessageBox of type 'question'");
     }
     // open question dialog box
-    FXuint answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Recompute with volatile options",
-                                            "Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?");
+    answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Recompute with volatile options",
+                                    "Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?");
     if (answer != 1) { //1:yes, 2:no, 4:esc
         // write warning if netedit is running in testing mode
         if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1206,8 +1208,8 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
             // ask user if want to save additionals if weren't saved previously
             if(myAdditionalsFile == "") {
                 // open question dialog box
-                FXuint answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save additionals before recomputing with volatile options",
-                                                        "Would you like to save additionals before recomputing?");
+                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save additionals before recomputing with volatile options",
+                                                "Would you like to save additionals before recomputing?");
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
                     if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1726,12 +1728,12 @@ GNEApplicationWindow::updateControls() {
 
 
 long
-GNEApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* data) {
-    const long handled = FXMainWindow::onKeyPress(o, sel, data);
+GNEApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
+    const long handled = FXMainWindow::onKeyPress(o, sel, eventData);
     if (handled == 0 && myMDIClient->numChildren() > 0) {
         GNEViewParent* w = dynamic_cast<GNEViewParent*>(myMDIClient->getActiveChild());
         if (w != 0) {
-            w->onKeyPress(0, sel, data);
+            w->onKeyPress(0, sel, eventData);
         }
     }
     return 0;
@@ -1739,12 +1741,12 @@ GNEApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* data) {
 
 
 long
-GNEApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
-    const long handled = FXMainWindow::onKeyRelease(o, sel, data);
+GNEApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
+    const long handled = FXMainWindow::onKeyRelease(o, sel, eventData);
     if (handled == 0 && myMDIClient->numChildren() > 0) {
         GNEViewParent* w = dynamic_cast<GNEViewParent*>(myMDIClient->getActiveChild());
         if (w != 0) {
-            w->onKeyRelease(0, sel, data);
+            w->onKeyRelease(0, sel, eventData);
         }
     }
     return 0;

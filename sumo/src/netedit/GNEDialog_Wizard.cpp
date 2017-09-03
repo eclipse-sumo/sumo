@@ -62,35 +62,32 @@ FXIMPLEMENT(GNEDialog_Wizard::InputFloat, FXHorizontalFrame, InputFloatMap, ARRA
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEDialog_Wizard::GNEDialog_Wizard(FXWindow* parent,  const char* name, int width, int height) :
-    FXDialogBox(parent, name, GUIDesignDialogBox, 0, 0, width, height) {
+GNEDialog_Wizard::GNEDialog_Wizard(FXWindow* parent,  const char* titleName, int width, int height) :
+    FXDialogBox(parent, titleName, GUIDesignDialogBox, 0, 0, width, height) {
     OptionsCont& oc = OptionsCont::getOptions();
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
 
     FXTabBook* tabbook = new FXTabBook(contentFrame, 0, 0, GUIDesignTabBook);
 
-    const std::vector<std::string>& topics = oc.getSubTopics();
-    for (std::vector<std::string>::const_iterator it_topic = topics.begin(); it_topic != topics.end(); it_topic++) {
-        std::string topic = *it_topic;
-        if (topic == "Configuration") {
+    for (auto it_topic : oc.getSubTopics()) {
+        if (it_topic == "Configuration") {
             continue;
         }
-        new FXTabItem(tabbook, topic.c_str(), NULL, TAB_LEFT_NORMAL);
+        new FXTabItem(tabbook, it_topic.c_str(), NULL, TAB_LEFT_NORMAL);
         FXScrollWindow* scrollTab = new FXScrollWindow(tabbook, LAYOUT_FILL_X | LAYOUT_FILL_Y);
         FXVerticalFrame* tabContent = new FXVerticalFrame(scrollTab, FRAME_THICK | FRAME_RAISED | LAYOUT_FILL_X | LAYOUT_FILL_Y);
-        const std::vector<std::string> entries = oc.getSubTopicsEntries(topic);
-        for (std::vector<std::string>::const_iterator it_opt = entries.begin(); it_opt != entries.end(); it_opt++) {
-            std::string name = *it_opt;
-            if (name != "geometry.remove" && name != "edges.join" && name != "geometry.split" && name != "ramps.guess" && name != "ramps.set") {
-                std::string type = oc.getTypeName(name);
+        const std::vector<std::string> entries = oc.getSubTopicsEntries(it_topic);
+        for (auto it_opt : entries) {
+            if (it_opt != "geometry.remove" && it_opt != "edges.join" && it_opt != "geometry.split" && it_opt != "ramps.guess" && it_opt != "ramps.set") {
+                std::string type = oc.getTypeName(it_opt);
                 if (type == "STR" || type == "FILE") {
-                    new InputString(tabContent, name);
+                    new InputString(tabContent, it_opt);
                 } else if (type == "BOOL") {
-                    new InputBool(tabContent, name);
+                    new InputBool(tabContent, it_opt);
                 } else if (type == "INT") {
-                    new InputInt(tabContent, name);
+                    new InputInt(tabContent, it_opt);
                 } else if (type == "FLOAT") {
-                    new InputFloat(tabContent, name);
+                    new InputFloat(tabContent, it_opt);
                 }
                 // @todo missing types (type INT[] is only used in microsim)
             }

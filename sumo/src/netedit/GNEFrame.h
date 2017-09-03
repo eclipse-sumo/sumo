@@ -76,7 +76,7 @@ public:
     virtual void hide();
 
     /// @brief set width of GNEFrame
-    void setFrameWidth(int width);
+    void setFrameWidth(int newWidth);
 
     /// @brief get view net
     GNEViewNet* getViewNet() const;

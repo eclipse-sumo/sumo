@@ -344,6 +344,7 @@ GNEEdge::changeGeometry(PositionVector& geom, const std::string& id, const Posit
     if (geom.size() < 2) {
         throw ProcessError("Invalid geometry size in " + toString(SUMO_TAG_EDGE) + " with ID='" + id + "'");
     } else {
+        // obtain index of closest point to old position
         int index = geom.indexOfClosest(oldPos);
         const double nearestOffset = geom.nearest_offset_to_point2D(oldPos, true);
         if (nearestOffset != GeomHelper::INVALID_OFFSET
@@ -367,11 +368,12 @@ GNEEdge::changeGeometry(PositionVector& geom, const std::string& id, const Posit
                 }
             } else {
                 if (relative) {
-                    int index = geom.insertAtClosest(nearest);
+                    index = geom.insertAtClosest(nearest);
                     geom[index] = geom[index] + newPos;
                     return true;
                 } else {
-                    geom.insertAtClosest(newPos); // insert new
+                    // insert newPos between the two closest positions
+                    geom.insertAtClosest(newPos);
                     return true;
                 }
             }

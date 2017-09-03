@@ -130,10 +130,10 @@ public:
             }
         } else {
             if (geo) {
-                Position pos(*this);
-                GeoConvHelper::getFinal().cartesian2geo(pos);
-                out.writeAttr(SUMO_ATTR_LON, pos.x());
-                out.writeAttr(SUMO_ATTR_LAT, pos.y());
+                Position POICartesianPos(*this);
+                GeoConvHelper::getFinal().cartesian2geo(POICartesianPos);
+                out.writeAttr(SUMO_ATTR_LON, POICartesianPos.x());
+                out.writeAttr(SUMO_ATTR_LAT, POICartesianPos.y());
             } else {
                 out.writeAttr(SUMO_ATTR_X, x());
                 out.writeAttr(SUMO_ATTR_Y, y());

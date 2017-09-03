@@ -264,12 +264,10 @@ GNEPolygonFrame::setParametersOfShape(SumoXMLTag actualShapeType) {
     myActualShapeType = actualShapeType;
     // Clear internal attributes
     myadditionalParameters->clearAttributes();
-    // Obtain attributes of actual myActualShapeType
-    std::vector<std::pair <SumoXMLAttr, std::string> > attrs = GNEAttributeCarrier::allowedAttributes(myActualShapeType);
     // Iterate over attributes of myActualShapeType
-    for (std::vector<std::pair <SumoXMLAttr, std::string> >::iterator i = attrs.begin(); i != attrs.end(); i++) {
-        if (!GNEAttributeCarrier::isUnique(myActualShapeType, i->first)) {
-            myadditionalParameters->addAttribute(myActualShapeType, i->first);
+    for (auto i : GNEAttributeCarrier::allowedAttributes(myActualShapeType)) {
+        if (!GNEAttributeCarrier::isUnique(myActualShapeType, i.first)) {
+            myadditionalParameters->addAttribute(myActualShapeType, i.first);
         }
     }
     // if there are parmeters, show and Recalc groupBox
@@ -322,13 +320,12 @@ GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string> &POIValues) {
     double angle = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_ANGLE));
     std::string imgFile = POIValues.at(SUMO_ATTR_IMGFILE);
     Position pos = GeomConvHelper::parseShapeReporting(POIValues.at(SUMO_ATTR_POSITION), "netedit-given", 0, ok, false)[0];
-    double width = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_WIDTH));
-    double height = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_HEIGHT));
-    bool blockMovement = GNEAttributeCarrier::parse<bool>(POIValues.at(GNE_ATTR_BLOCK_MOVEMENT));
+    double widthPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_WIDTH));
+    double heightPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_HEIGHT));
 
     // create new POI
     myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POI));
-    if(myViewNet->getNet()->addPOI(id, type, color, layer, angle, imgFile, pos, width, height)) {
+    if(myViewNet->getNet()->addPOI(id, type, color, layer, angle, imgFile, pos, widthPOI, heightPOI)) {
         // Set manually the attribute block movement
         GNEPOI* poi = myViewNet->getNet()->retrievePOI(id);
         poi->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, POIValues.at(GNE_ATTR_BLOCK_MOVEMENT), myViewNet->getUndoList());
@@ -890,35 +887,35 @@ GNEPolygonFrame::ShapeAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     header->setItemJustify(1, JUSTIFY_CENTER_X);
     header->setItemSize(1, 80);
     int maxSizeColumnDefinitions = 0;
-    // Iterate over vector of additional parameters
+    // Iterate over vector of shape parameters
     for (int i = 0; i < myIndexParameter; i++) {
-        SumoXMLTag tag = myVectorOfsingleShapeParameter.at(i)->getTag();
-        SumoXMLAttr attr = myVectorOfsingleShapeParameter.at(i)->getAttr();
+        SumoXMLTag shapeTag = myVectorOfsingleShapeParameter.at(i)->getTag();
+        SumoXMLAttr shapeAttr = myVectorOfsingleShapeParameter.at(i)->getAttr();
         // Set name of attribute
-        myTable->setItem(i, 0, new FXTableItem(toString(attr).c_str()));
+        myTable->setItem(i, 0, new FXTableItem(toString(shapeAttr).c_str()));
         // Set type
         FXTableItem* type = new FXTableItem("");
-        if (GNEAttributeCarrier::isInt(tag, attr)) {
+        if (GNEAttributeCarrier::isInt(shapeTag, shapeAttr)) {
             type->setText("int");
-        } else if (GNEAttributeCarrier::isFloat(tag, attr)) {
+        } else if (GNEAttributeCarrier::isFloat(shapeTag, shapeAttr)) {
             type->setText("float");
-        } else if (GNEAttributeCarrier::isTime(tag, attr)) {
+        } else if (GNEAttributeCarrier::isTime(shapeTag, shapeAttr)) {
             type->setText("time");
-        } else if (GNEAttributeCarrier::isBool(tag, attr)) {
+        } else if (GNEAttributeCarrier::isBool(shapeTag, shapeAttr)) {
             type->setText("bool");
-        } else if (GNEAttributeCarrier::isColor(tag, attr)) {
+        } else if (GNEAttributeCarrier::isColor(shapeTag, shapeAttr)) {
             type->setText("color");
-        } else if (GNEAttributeCarrier::isString(tag, attr)) {
+        } else if (GNEAttributeCarrier::isString(shapeTag, shapeAttr)) {
             type->setText("string");
         }
         type->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(i, 1, type);
         // Set definition
-        FXTableItem* definition = new FXTableItem(GNEAttributeCarrier::getDefinition(myShapeTag, attr).c_str());
+        FXTableItem* definition = new FXTableItem(GNEAttributeCarrier::getDefinition(shapeTag, shapeAttr).c_str());
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(i, 2, definition);
-        if ((int)GNEAttributeCarrier::getDefinition(myShapeTag, attr).size() > maxSizeColumnDefinitions) {
-            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(myShapeTag, attr).size());
+        if ((int)GNEAttributeCarrier::getDefinition(shapeTag, shapeAttr).size() > maxSizeColumnDefinitions) {
+            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(shapeTag, shapeAttr).size());
         }
     }
     // Set size of column

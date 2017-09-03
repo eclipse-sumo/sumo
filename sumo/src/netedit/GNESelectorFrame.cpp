@@ -416,9 +416,8 @@ GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         myMatchAttrComboBox->enable();
         myMatchString->enable();
         myMatchAttrComboBox->clearItems();
-        const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = GNEAttributeCarrier::allowedAttributes(myCurrentTag);
-        for (std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator it = attrs.begin(); it != attrs.end(); it++) {
-            myMatchAttrComboBox->appendItem(toString(it->first).c_str());
+        for (auto it : GNEAttributeCarrier::allowedAttributes(myCurrentTag)) {
+            myMatchAttrComboBox->appendItem(toString(it.first).c_str());
         }
         // @ToDo: Here can be placed a butto to set the default value
         myMatchAttrComboBox->setNumVisible(myMatchAttrComboBox->getNumItems());
@@ -669,24 +668,24 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdgesEnabled, S
 
 
 std::vector<GUIGlID>
-GNESelectorFrame::getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, double val, const std::string& expr) {
+GNESelectorFrame::getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, double val, const std::string& expr) {
     GUIGlObject* object;
     GNEAttributeCarrier* ac;
     std::vector<GUIGlID> result;
     const std::set<GUIGlID> allIDs = myViewNet->getNet()->getGlIDs();
-    const bool numerical = GNEAttributeCarrier::isNumerical(tag, attr);
+    const bool numerical = GNEAttributeCarrier::isNumerical(ACTag, ACAttr);
     for (auto it : allIDs) {
         object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(it);
         if (!object) {
             throw ProcessError("Unkown object passed to GNESelectorFrame::getMatches (id=" + toString(it) + ").");
         }
         ac = dynamic_cast<GNEAttributeCarrier*>(object);
-        if (ac && ac->getTag() == tag) { // not all objects need to be attribute carriers
+        if (ac && ac->getTag() == ACTag) { // not all objects need to be attribute carriers
             if (expr == "") {
                 result.push_back(it);
             } else if (numerical) {
                 double acVal;
-                std::istringstream buf(ac->getAttribute(attr));
+                std::istringstream buf(ac->getAttribute(ACAttr));
                 buf >> acVal;
                 switch (compOp) {
                     case '<':
@@ -707,7 +706,7 @@ GNESelectorFrame::getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, doub
                 }
             } else {
                 // string match
-                std::string acVal = ac->getAttributeForSelection(attr);
+                std::string acVal = ac->getAttributeForSelection(ACAttr);
                 switch (compOp) {
                     case '@':
                         if (acVal.find(expr) != std::string::npos) {

@@ -108,7 +108,7 @@ protected:
 
 private:
     /// @brief build VClass
-    void buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicleClass vclass, GUIIcon icon, const std::string& description);
+    void buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicleClass vclass, GUIIcon vclassIcon, const std::string& description);
 
     /// @brief Invalidated copy constructor.
     GNEDialog_AllowDisallow(const GNEDialog_AllowDisallow&);

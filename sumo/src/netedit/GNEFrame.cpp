@@ -113,9 +113,9 @@ GNEFrame::hide() {
 
 
 void
-GNEFrame::setFrameWidth(int width) {
-    setWidth(width);
-    myScrollWindowsContents->setWidth(width);
+GNEFrame::setFrameWidth(int newWidth) {
+    setWidth(newWidth);
+    myScrollWindowsContents->setWidth(newWidth);
 }
 
 

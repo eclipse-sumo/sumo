@@ -616,7 +616,7 @@ public:
      * @param[in] parent AbstractView to obtain the position of the mouse over the lane.
      * @return AddAdditionalStatus with the result of operation
      */
-    AddAdditionalResult addAdditional(GNENetElement* netElement, GUISUMOAbstractView* parent);
+    AddAdditionalResult addAdditional(GNENetElement* netElement, GUISUMOAbstractView* abstractViewParent);
 
     /**@brief remove an additional element previously added
      * @param[in] additional element to erase

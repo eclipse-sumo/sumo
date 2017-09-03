@@ -521,9 +521,9 @@ GNEDeleteFrame::getMarkedAttributeCarrier() const {
 
 
 long
-GNEDeleteFrame::onCmdShowChildMenu(FXObject*, FXSelector, void* data) {
+GNEDeleteFrame::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
     // Obtain event
-    FXEvent* e = (FXEvent*) data;
+    FXEvent* e = (FXEvent*) eventData;
     FXTreeItem* item = myTreelist->getItemAt(e->win_x, e->win_y);
     // Check if there are an item in the position and create pop-up menu
     if (item && (myTreeItemsWithoutAC.find(item) == myTreeItemsWithoutAC.end())) {

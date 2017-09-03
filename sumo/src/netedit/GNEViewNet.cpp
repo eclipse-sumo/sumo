@@ -206,14 +206,13 @@ void
 GNEViewNet::buildViewToolBars(GUIGlChildWindow& cw) {
     // build coloring tools
     {
-        const std::vector<std::string>& names = gSchemeStorage.getNames();
-        for (std::vector<std::string>::const_iterator i = names.begin(); i != names.end(); ++i) {
-            cw.getColoringSchemesCombo().appendItem((*i).c_str());
-            if ((*i) == myVisualizationSettings->name) {
+        for (auto it_names : gSchemeStorage.getNames()) {
+            cw.getColoringSchemesCombo().appendItem(it_names.c_str());
+            if (it_names == myVisualizationSettings->name) {
                 cw.getColoringSchemesCombo().setCurrentItem(cw.getColoringSchemesCombo().getNumItems() - 1);
             }
         }
-        cw.getColoringSchemesCombo().setNumVisible(MAX2(5, (int)names.size() + 1));
+        cw.getColoringSchemesCombo().setNumVisible(MAX2(5, (int)gSchemeStorage.getNames().size() + 1));
     }
     // for junctions
     new FXButton(cw.getLocatorPopup(),
@@ -271,9 +270,9 @@ GNEViewNet::buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjectTyp
     // retrieve range
     double minValue = std::numeric_limits<double>::infinity();
     double maxValue = -std::numeric_limits<double>::infinity();
-    const std::vector<GNELane*> edges = myNet->retrieveLanes();
-    for (std::vector<GNELane*>::const_iterator it = edges.begin(); it != edges.end(); it++) {
-        const double val = (*it)->getColorValue(active);
+    const std::vector<GNELane*> lanes = myNet->retrieveLanes();
+    for (auto it : lanes) {
+        const double val = it->getColorValue(active);
         minValue = MIN2(minValue, val);
         maxValue = MAX2(maxValue, val);
     }
@@ -479,8 +478,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
 
 
 long
-GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
-    FXEvent* e = (FXEvent*) data;
+GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
+    FXEvent* e = (FXEvent*) eventData;
     setFocus();
     // interpret object under curser
     if (makeCurrent()) {
@@ -577,7 +576,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     }
                 }
                 // process click
-                processClick(e, data);
+                processClick(e, eventData);
                 break;
             }
             case GNE_MODE_MOVE: {
@@ -658,14 +657,14 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     }
                 } else {
                     // process click
-                    processClick(e, data);
+                    processClick(e, eventData);
                 }
                 update();
                 break;
             }
             case GNE_MODE_DELETE: {
                 // Check if Control key is pressed
-                bool markElementMode = (((FXEvent*)data)->state & CONTROLMASK) != 0;
+                bool markElementMode = (((FXEvent*)eventData)->state & CONTROLMASK) != 0;
                 GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(pointed);
                 if ((pointed_lane != NULL) && mySelectEdges) {
                     ac = pointed_edge;
@@ -683,7 +682,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     }
                 } else {
                     // process click
-                    processClick(e, data);
+                    processClick(e, eventData);
                 }
                 break;
             }
@@ -728,9 +727,9 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     selectedElements = myNet->retrieveAttributeCarriers(selectedIDs, pointedO->getType());
                     // filter selected elements (example: if we have two E2 and one busStop selected, and user click over one E2,
                     // attribues of busstop musn't be shown
-                    for (std::vector<GNEAttributeCarrier*>::iterator i = selectedElements.begin(); i != selectedElements.end(); i++) {
-                        if ((*i)->getTag() == pointedAC->getTag()) {
-                            selectedFilteredElements.push_back(*i);
+                    for (auto i : selectedElements) {
+                        if (i->getTag() == pointedAC->getTag()) {
+                            selectedFilteredElements.push_back(i);
                         }
                     }
                 }
@@ -741,7 +740,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     myViewParent->getInspectorFrame()->inspectElement(pointedAC);
                 }
                 // process click
-                processClick(e, data);
+                processClick(e, eventData);
                 // focus upper element of inspector frame
                 if ((selectedFilteredElements.size() > 0) || (pointedAC != NULL)) {
                     myViewParent->getInspectorFrame()->focusUpperElement();
@@ -756,26 +755,26 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     gSelected.toggleSelection(pointed->getGlID());
                 }
 
-                myAmInRectSelect = (((FXEvent*)data)->state & SHIFTMASK) != 0;
+                myAmInRectSelect = (((FXEvent*)eventData)->state & SHIFTMASK) != 0;
                 if (myAmInRectSelect) {
                     mySelCorner1 = getPositionInformation();
                     mySelCorner2 = getPositionInformation();
                 } else {
                     // process click
-                    processClick(e, data);
+                    processClick(e, eventData);
                 }
                 update();
                 break;
 
             case GNE_MODE_CONNECT: {
                 if (pointed_lane) {
-                    const bool mayPass = (((FXEvent*)data)->state & SHIFTMASK) != 0;
-                    const bool allowConflict = (((FXEvent*)data)->state & CONTROLMASK) != 0;
+                    const bool mayPass = (((FXEvent*)eventData)->state & SHIFTMASK) != 0;
+                    const bool allowConflict = (((FXEvent*)eventData)->state & CONTROLMASK) != 0;
                     myViewParent->getConnectorFrame()->handleLaneClick(pointed_lane, mayPass, allowConflict, true);
                     update();
                 }
                 // process click
-                processClick(e, data);
+                processClick(e, eventData);
                 break;
             }
             case GNE_MODE_TLS: {
@@ -784,7 +783,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     update();
                 }
                 // process click
-                processClick(e, data);
+                processClick(e, eventData);
                 break;
             }
             case GNE_MODE_ADDITIONAL: {
@@ -795,7 +794,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     if ((result == GNEAdditionalFrame::ADDADDITIONAL_SUCCESS) || (result == GNEAdditionalFrame::ADDADDITIONAL_INVALID_PARENT)) {
                         update();
                         // process click
-                        processClick(e, data);
+                        processClick(e, eventData);
                     }
                 }
 
@@ -809,7 +808,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     }
                 }
                 // process click
-                processClick(e, data);
+                processClick(e, eventData);
                 break;
             }
             case GNE_MODE_POLYGON: {
@@ -820,14 +819,14 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     // process clickw depending of the result of "add additional"
                     if ((result != GNEPolygonFrame::ADDSHAPE_NEWPOINT)) {
                         // process click
-                        processClick(e, data);
+                        processClick(e, eventData);
                     }
                 }
                 break;
             }
             default: {
                 // process click
-                processClick(e, data);
+                processClick(e, eventData);
             }
         }
         makeNonCurrent();
@@ -837,8 +836,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
 
 
 long
-GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
-    GUISUMOAbstractView::onLeftBtnRelease(obj, sel, data);
+GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
+    GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
     if (myPolyToMove) {
         myPolyToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
         myPolyToMove = 0;
@@ -876,7 +875,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
     } else if (myAmInRectSelect) {
         myAmInRectSelect = false;
         // shift held down on mouse-down and mouse-up
-        if (((FXEvent*)data)->state & SHIFTMASK) {
+        if (((FXEvent*)eventData)->state & SHIFTMASK) {
             if (makeCurrent()) {
                 Boundary b;
                 b.add(mySelCorner1);
@@ -891,7 +890,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
 }
 
 
-long GNEViewNet::onRightBtnPress(FXObject *obj, FXSelector sel, void *data) {
+long GNEViewNet::onRightBtnPress(FXObject *obj, FXSelector sel, void *eventData) {
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
         // during drawing of a polygon, right click removes the last created point
         myViewParent->getPolygonFrame()->getDrawingMode()->removeLastPoint();
@@ -899,17 +898,17 @@ long GNEViewNet::onRightBtnPress(FXObject *obj, FXSelector sel, void *data) {
         update();
         return 1;
     } else {
-        return GUISUMOAbstractView::onRightBtnPress(obj, sel, data);
+        return GUISUMOAbstractView::onRightBtnPress(obj, sel, eventData);
     }
 }
 
 
-long GNEViewNet::onRightBtnRelease(FXObject *obj, FXSelector sel, void *data) {
+long GNEViewNet::onRightBtnRelease(FXObject *obj, FXSelector sel, void *eventData) {
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
         // during drawing of a polygon, right click removes the last created point
         return 1;
     } else {
-        return GUISUMOAbstractView::onRightBtnRelease(obj, sel, data);
+        return GUISUMOAbstractView::onRightBtnRelease(obj, sel, eventData);
     }
 }
 
@@ -938,8 +937,8 @@ GNEViewNet::onDoubleClicked(FXObject*, FXSelector, void*) {
 
 
 long
-GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
-    GUISUMOAbstractView::onMouseMove(obj, sel, data);
+GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
+    GUISUMOAbstractView::onMouseMove(obj, sel, eventData);
     // in delete mode object under cursor must be checked in every mouse movement
     if (myEditMode == GNE_MODE_DELETE) {
         setFocus();
@@ -968,8 +967,8 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
         } else if (myJunctionToMove) {
             // check if  one of their junctions neighboors is in the position objective
             std::vector<GNEJunction*> junctionNeighbours = myJunctionToMove->getJunctionNeighbours();
-            for (std::vector<GNEJunction*>::iterator i = junctionNeighbours.begin(); i != junctionNeighbours.end(); i++) {
-                if ((*i)->getPositionInView() == getPositionInformation()) {
+            for (auto i : junctionNeighbours) {
+                if (i->getPositionInView() == getPositionInformation()) {
                     return 0;
                 }
             }
@@ -1010,18 +1009,18 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
 
 
 long 
-GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* data) {
-    return GUISUMOAbstractView::onKeyPress(o, sel, data);
+GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
+    return GUISUMOAbstractView::onKeyPress(o, sel, eventData);
 }
 
 
 long 
-GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
-    if(myAmInRectSelect && ((((FXEvent*)data)->state & SHIFTMASK) == false)) {
+GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
+    if(myAmInRectSelect && ((((FXEvent*)eventData)->state & SHIFTMASK) == false)) {
         myAmInRectSelect = false;
         update();
     }
-    return GUISUMOAbstractView::onKeyRelease(o, sel, data);
+    return GUISUMOAbstractView::onKeyRelease(o, sel, eventData);
 }
 
 
@@ -1252,9 +1251,9 @@ GNEViewNet::getEdgesAtCursorPosition(Position& /* pos */) {
     std::set<GNEEdge*> result;
     if (makeCurrent()) {
         const std::vector<GUIGlID> ids = getObjectsAtPosition(myPopupSpot, 1.0);
-        for (std::vector<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); ++it) {
-            GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it);
-            GUIGlObjectStorage::gIDStorage.unblockObject(*it);
+        for (auto it : ids) {
+            GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(it);
+            GUIGlObjectStorage::gIDStorage.unblockObject(it);
             if (pointed) {
                 switch (pointed->getType()) {
                     case GLO_EDGE:
@@ -1424,8 +1423,8 @@ GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
         if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
             myUndoList->p_begin("straighten selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
-            for (std::vector<GNEEdge*>::iterator it = edges.begin(); it != edges.end(); it++) {
-                (*it)->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
+            for (auto it : edges) {
+                it->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
             }
             myUndoList->p_end();
         } else {
@@ -1520,8 +1519,8 @@ GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
         if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
             myUndoList->p_begin("duplicate selected " + toString(SUMO_TAG_LANE) + "s");
             std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
-            for (std::vector<GNELane*>::iterator it = lanes.begin(); it != lanes.end(); it++) {
-                myNet->duplicateLane(*it, myUndoList);
+            for (auto it : lanes) {
+                myNet->duplicateLane(it, myUndoList);
             }
             myUndoList->p_end();
         } else {
@@ -1597,8 +1596,8 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
         // Declare map of edges and lanes
         std::map<GNEEdge*, GNELane*> mapOfEdgesAndLanes;
         // Iterate over selected lanes
-        for (std::vector<GNELane*>::iterator i = lanes.begin(); i != lanes.end(); i++) {
-            mapOfEdgesAndLanes[myNet->retrieveEdge((*i)->getParentEdge().getID())] = (*i);
+        for (auto i : lanes) {
+            mapOfEdgesAndLanes[myNet->retrieveEdge(i->getParentEdge().getID())] = i;
         }
         // Throw warning dialog if there hare multiple lanes selected in the same edge
         if (mapOfEdgesAndLanes.size() != lanes.size()) {
@@ -1611,8 +1610,8 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
             // declare counter for number of Sidewalks
             int counter = 0;
             // iterate over selected lanes
-            for (std::map<GNEEdge*, GNELane*>::iterator i = mapOfEdgesAndLanes.begin(); i != mapOfEdgesAndLanes.end(); i++) {
-                if (i->first->hasRestrictedLane(vclass)) {
+            for (auto i : mapOfEdgesAndLanes) {
+                if (i.first->hasRestrictedLane(vclass)) {
                     counter++;
                 }
             }
@@ -1678,13 +1677,13 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
         // Declare set of edges
         std::set<GNEEdge*> setOfEdges;
         // Fill set of edges with vector of edges
-        for (std::vector<GNEEdge*>::iterator i = edges.begin(); i != edges.end(); i++) {
-            setOfEdges.insert(*i);
+        for (auto i : edges) {
+            setOfEdges.insert(i);
         }
         // iterate over selected lanes
-        for (std::vector<GNELane*>::iterator it = lanes.begin(); it != lanes.end(); it++) {
+        for (auto it : lanes) {
             // Insert pointer to edge into set of edges (To avoid duplicates)
-            setOfEdges.insert(myNet->retrieveEdge((*it)->getParentEdge().getID()));
+            setOfEdges.insert(myNet->retrieveEdge(it->getParentEdge().getID()));
         }
         // If we handeln a set of edges
         if (setOfEdges.size() > 0) {
@@ -1759,13 +1758,13 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
         // Declare set of edges
         std::set<GNEEdge*> setOfEdges;
         // Fill set of edges with vector of edges
-        for (std::vector<GNEEdge*>::iterator i = edges.begin(); i != edges.end(); i++) {
-            setOfEdges.insert(*i);
+        for (auto i : edges) {
+            setOfEdges.insert(i);
         }
         // iterate over selected lanes
-        for (std::vector<GNELane*>::iterator it = lanes.begin(); it != lanes.end(); it++) {
+        for (auto it : lanes) {
             // Insert pointer to edge into set of edges (To avoid duplicates)
-            setOfEdges.insert(myNet->retrieveEdge((*it)->getParentEdge().getID()));
+            setOfEdges.insert(myNet->retrieveEdge(it->getParentEdge().getID()));
         }
         // If we handeln a set of edges
         if (setOfEdges.size() > 0) {
@@ -1830,15 +1829,15 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
 
 
 void
-GNEViewNet::processClick(FXEvent* e, void* data) {
+GNEViewNet::processClick(FXEvent* e, void* eventData) {
     // process click
     destroyPopup();
     setFocus();
-    myChanger->onLeftBtnPress(data);
+    myChanger->onLeftBtnPress(eventData);
     grab();
     // Check there are double click
     if (e->click_count == 2) {
-        handle(this, FXSEL(SEL_DOUBLECLICKED, 0), data);
+        handle(this, FXSEL(SEL_DOUBLECLICKED, 0), eventData);
     }
 }
 
@@ -1853,9 +1852,9 @@ GNEViewNet::onCmdRevertRestriction(FXObject*, FXSelector, void*) {
             // Get selected edgeds
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             // fill vector of lanes with the lanes of selected edges
-            for (std::vector<GNEEdge*>::iterator i = edges.begin(); i != edges.end(); i++) {
-                for (std::vector<GNELane*>::const_iterator j = (*i)->getLanes().begin(); j != (*i)->getLanes().end(); j++) {
-                    lanes.push_back(*j);
+            for (auto i : edges) {
+                for (auto j : i->getLanes()) {
+                    lanes.push_back(j);
                 }
             }
         } else if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
@@ -1867,8 +1866,8 @@ GNEViewNet::onCmdRevertRestriction(FXObject*, FXSelector, void*) {
             // declare counter for number of Sidewalks
             int counter = 0;
             // iterate over selected lanes
-            for (std::vector<GNELane*>::iterator it = lanes.begin(); it != lanes.end(); it++) {
-                if (((*it)->isRestricted(SVC_PEDESTRIAN)) || ((*it)->isRestricted(SVC_BICYCLE)) || ((*it)->isRestricted(SVC_BUS))) {
+            for (auto it : lanes) {
+                if ((it->isRestricted(SVC_PEDESTRIAN)) || (it->isRestricted(SVC_BICYCLE)) || (it->isRestricted(SVC_BUS))) {
                     counter++;
                 }
             }
@@ -1904,9 +1903,9 @@ GNEViewNet::onCmdRevertRestriction(FXObject*, FXSelector, void*) {
             // begin undo operation
             myUndoList->p_begin("revert restrictions");
             // iterate over selected lanes
-            for (std::vector<GNELane*>::iterator it = lanes.begin(); it != lanes.end(); it++) {
+            for (auto it : lanes) {
                 // revert transformation
-                myNet->revertLaneRestriction(*it, myUndoList);
+                myNet->revertLaneRestriction(it, myUndoList);
             }
             // end undo operation
             myUndoList->p_end();
@@ -2367,19 +2366,18 @@ GNEViewNet::mergeJunctions(GNEJunction* moved) {
         selection.grow(0.1);
         const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
         GUIGlObject* object = 0;
-        for (std::vector<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-            GUIGlID id = *it;
-            if (id == 0) {
+        for (auto it_ids : ids) {
+            if (it_ids == 0) {
                 continue;
             }
-            object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+            object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(it_ids);
             if (!object) {
-                throw ProcessError("Unkown object in selection (id=" + toString(id) + ").");
+                throw ProcessError("Unkown object in selection (id=" + toString(it_ids) + ").");
             }
-            if (object->getType() == GLO_JUNCTION && id != moved->getGlID()) {
+            if ((object->getType() == GLO_JUNCTION) && (it_ids != moved->getGlID())) {
                 mergeTarget = dynamic_cast<GNEJunction*>(object);
             }
-            GUIGlObjectStorage::gIDStorage.unblockObject(id);
+            GUIGlObjectStorage::gIDStorage.unblockObject(it_ids);
         }
     }
     if (mergeTarget) {

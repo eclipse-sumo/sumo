@@ -168,7 +168,7 @@ GNEAdditionalFrame::~GNEAdditionalFrame() {
 
 
 GNEAdditionalFrame::AddAdditionalResult
-GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView* parent) {
+GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView* abstractViewParent) {
     // check if current selected additional is valid
     if (myActualAdditionalType == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected additional isn't valid.");
@@ -179,7 +179,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
     std::map<SumoXMLAttr, std::string> valuesOfElement = myadditionalParameters->getAttributesAndValues();
 
     // limit position depending if show grid is enabled
-    Position currentPosition = parent->snapToActiveGrid(parent->getPositionInformation());
+    Position currentPosition = abstractViewParent->snapToActiveGrid(abstractViewParent->getPositionInformation());
 
     // Declare pointer to netElements
     GNEJunction* pointed_junction = NULL;
@@ -359,8 +359,8 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
             // get Selected edges
             std::vector<GNEEdge*> selectedEdges = myViewNet->getNet()->retrieveEdges(true);
             // Iterate over selectedEdges and getId
-            for (std::vector<GNEEdge*>::iterator i = selectedEdges.begin(); i != selectedEdges.end(); i++) {
-                vectorOfIds.push_back((*i)->getID());
+            for (auto i : selectedEdges) {
+                vectorOfIds.push_back(i->getID());
             }
             // Set saved Ids in attribute edges
             valuesOfElement[SUMO_ATTR_EDGES] = joinToString(vectorOfIds, " ");
@@ -382,8 +382,8 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
             // get Selected lanes
             std::vector<GNELane*> selectedLanes = myViewNet->getNet()->retrieveLanes(true);
             // Iterate over selectedLanes and getId
-            for (std::vector<GNELane*>::iterator i = selectedLanes.begin(); i != selectedLanes.end(); i++) {
-                vectorOfIds.push_back((*i)->getID());
+            for (auto i : selectedLanes) {
+                vectorOfIds.push_back(i->getID());
             }
             // Set saved Ids in attribute lanes
             valuesOfElement[SUMO_ATTR_LANES] = joinToString(vectorOfIds, " ");
@@ -467,13 +467,11 @@ GNEAdditionalFrame::setParametersOfAdditional(SumoXMLTag actualAdditionalType) {
     myadditionalParameters->clearAttributes();
     // Hide length field and reference point
     myEditorParameters->hideLengthFieldAndReferecePoint();
-    // Obtain attributes of actual myActualAdditionalType
-    std::vector<std::pair <SumoXMLAttr, std::string> > attrs = GNEAttributeCarrier::allowedAttributes(myActualAdditionalType);
     // Iterate over attributes of myActualAdditionalType
-    for (std::vector<std::pair <SumoXMLAttr, std::string> >::iterator i = attrs.begin(); i != attrs.end(); i++) {
-        if (!GNEAttributeCarrier::isUnique(myActualAdditionalType, i->first)) {
-            myadditionalParameters->addAttribute(myActualAdditionalType, i->first);
-        } else if (i->first == SUMO_ATTR_ENDPOS) {
+    for (auto i : GNEAttributeCarrier::allowedAttributes(myActualAdditionalType)) {
+        if (!GNEAttributeCarrier::isUnique(myActualAdditionalType, i.first)) {
+            myadditionalParameters->addAttribute(myActualAdditionalType, i.first);
+        } else if (i.first == SUMO_ATTR_ENDPOS) {
             myEditorParameters->showLengthFieldAndReferecePoint();
         }
     }
@@ -815,16 +813,16 @@ GNEAdditionalFrame::AdditionalAttributeList::showListParameter(SumoXMLTag additi
 
 
 void
-GNEAdditionalFrame::AdditionalAttributeList::showListParameter(SumoXMLTag tag, SumoXMLAttr attr, std::vector<std::string> value) {
+GNEAdditionalFrame::AdditionalAttributeList::showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<std::string> value) {
     if ((int)value.size() < myMaxNumberOfValuesInParameterList) {
-        myAdditionalTag = tag;
-        myAdditionalAttr = attr;
+        myAdditionalTag = additionalTag;
+        myAdditionalAttr = additionalAttr;
         myNumberOfVisibleTextfields = (int)value.size();
         if (myNumberOfVisibleTextfields == 0) {
             myNumberOfVisibleTextfields++;
         }
         for (int i = 0; i < myMaxNumberOfValuesInParameterList; i++) {
-            myLabels.at(i)->setText((toString(attr) + ": " + toString(i)).c_str());
+            myLabels.at(i)->setText((toString(myAdditionalAttr) + ": " + toString(i)).c_str());
         }
         for (int i = 0; i < myNumberOfVisibleTextfields; i++) {
             myHorizontalFrames.at(i)->show();
@@ -1107,60 +1105,62 @@ GNEAdditionalFrame::AdditionalAttributes::onCmdHelp(FXObject*, FXSelector, void*
     int maxSizeColumnDefinitions = 0;
     // Iterate over vector of additional parameters
     for (int i = 0; i < myIndexParameter; i++) {
-        SumoXMLTag tag = myVectorOfsingleAdditionalParameter.at(i)->getTag();
-        SumoXMLAttr attr = myVectorOfsingleAdditionalParameter.at(i)->getAttr();
+        SumoXMLTag additionalTag = myVectorOfsingleAdditionalParameter.at(i)->getTag();
+        SumoXMLAttr additionalAttr = myVectorOfsingleAdditionalParameter.at(i)->getAttr();
         // Set name of attribute
-        myTable->setItem(i, 0, new FXTableItem(toString(attr).c_str()));
+        myTable->setItem(i, 0, new FXTableItem(toString(additionalAttr).c_str()));
         // Set type
         FXTableItem* type = new FXTableItem("");
-        if (GNEAttributeCarrier::isInt(tag, attr)) {
+        if (GNEAttributeCarrier::isInt(additionalTag, additionalAttr)) {
             type->setText("int");
-        } else if (GNEAttributeCarrier::isFloat(tag, attr)) {
+        } else if (GNEAttributeCarrier::isFloat(additionalTag, additionalAttr)) {
             type->setText("float");
-        } else if (GNEAttributeCarrier::isTime(tag, attr)) {
+        } else if (GNEAttributeCarrier::isTime(additionalTag, additionalAttr)) {
             type->setText("time");
-        } else if (GNEAttributeCarrier::isBool(tag, attr)) {
+        } else if (GNEAttributeCarrier::isBool(additionalTag, additionalAttr)) {
             type->setText("bool");
-        } else if (GNEAttributeCarrier::isString(tag, attr)) {
+        } else if (GNEAttributeCarrier::isColor(additionalTag, additionalAttr)) {
+            type->setText("color");
+        } else if (GNEAttributeCarrier::isString(additionalTag, additionalAttr)) {
             type->setText("string");
         }
         type->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(i, 1, type);
         // Set definition
-        FXTableItem* definition = new FXTableItem(GNEAttributeCarrier::getDefinition(myAdditionalTag, attr).c_str());
+        FXTableItem* definition = new FXTableItem(GNEAttributeCarrier::getDefinition(additionalTag, additionalAttr).c_str());
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(i, 2, definition);
-        if ((int)GNEAttributeCarrier::getDefinition(myAdditionalTag, attr).size() > maxSizeColumnDefinitions) {
-            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(myAdditionalTag, attr).size());
+        if ((int)GNEAttributeCarrier::getDefinition(additionalTag, additionalAttr).size() > maxSizeColumnDefinitions) {
+            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(additionalTag, additionalAttr).size());
         }
     }
     // Iterate over vector of additional parameters list
     for (int i = 0; i < myIndexParameterList; i++) {
-        SumoXMLTag tag = myVectorOfsingleAdditionalParameterList.at(i)->getTag();
-        SumoXMLAttr attr = myVectorOfsingleAdditionalParameterList.at(i)->getAttr();
+        SumoXMLTag additionalTag = myVectorOfsingleAdditionalParameterList.at(i)->getTag();
+        SumoXMLAttr additionalAttr = myVectorOfsingleAdditionalParameterList.at(i)->getAttr();
         // Set name of attribute
-        myTable->setItem(i, 0, new FXTableItem(toString(attr).c_str()));
+        myTable->setItem(i, 0, new FXTableItem(toString(additionalAttr).c_str()));
         // Set type
         FXTableItem* type = new FXTableItem("");
-        if (GNEAttributeCarrier::isInt(tag, attr)) {
+        if (GNEAttributeCarrier::isInt(additionalTag, additionalAttr)) {
             type->setText("list of integers");
-        } else if (GNEAttributeCarrier::isFloat(tag, attr)) {
+        } else if (GNEAttributeCarrier::isFloat(additionalTag, additionalAttr)) {
             type->setText("list of floats");
-        } else if (GNEAttributeCarrier::isTime(tag, attr)) {
+        } else if (GNEAttributeCarrier::isTime(additionalTag, additionalAttr)) {
             type->setText("list of times");
-        } else if (GNEAttributeCarrier::isBool(tag, attr)) {
+        } else if (GNEAttributeCarrier::isBool(additionalTag, additionalAttr)) {
             type->setText("list of booleans");
-        } else if (GNEAttributeCarrier::isString(tag, attr)) {
+        } else if (GNEAttributeCarrier::isString(additionalTag, additionalAttr)) {
             type->setText("list of strings");
         }
         type->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(i, 1, type);
         // Set definition
-        FXTableItem* definition = new FXTableItem(GNEAttributeCarrier::getDefinition(myAdditionalTag, attr).c_str());
+        FXTableItem* definition = new FXTableItem(GNEAttributeCarrier::getDefinition(additionalTag, additionalAttr).c_str());
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(i, 2, definition);
-        if ((int)GNEAttributeCarrier::getDefinition(myAdditionalTag, attr).size() > maxSizeColumnDefinitions) {
-            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(myAdditionalTag, attr).size());
+        if ((int)GNEAttributeCarrier::getDefinition(additionalTag, additionalAttr).size() > maxSizeColumnDefinitions) {
+            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(additionalTag, additionalAttr).size());
         }
     }
     // Set size of column
@@ -1384,8 +1384,8 @@ GNEAdditionalFrame::SelectorParentAdditional::showListOfAdditionals(SumoXMLTag t
     // obtain all additionals of class "type"
     std::vector<GNEAdditional*> vectorOfAdditionalParents = myViewNet->getNet()->getAdditionals(type);
     // fill list with IDs of additionals
-    for (std::vector<GNEAdditional*>::iterator i = vectorOfAdditionalParents.begin(); i != vectorOfAdditionalParents.end(); i++) {
-        myList->appendItem((*i)->getID().c_str());
+    for (auto i : vectorOfAdditionalParents) {
+        myList->appendItem(i->getID().c_str());
     }
     show();
 }
@@ -1459,10 +1459,10 @@ GNEAdditionalFrame::SelectorParentEdges::showList(std::string search) {
     /// @todo this function must be improved.
     std::vector<GNEEdge*> vectorOfEdges = myViewNet->getNet()->retrieveEdges(false);
     // iterate over edges of net
-    for (std::vector<GNEEdge*>::iterator i = vectorOfEdges.begin(); i != vectorOfEdges.end(); i++) {
+    for (auto i : vectorOfEdges) {
         // If search criterium is correct, then append ittem
-        if ((*i)->getID().find(search) != std::string::npos) {
-            myList->appendItem((*i)->getID().c_str());
+        if (i->getID().find(search) != std::string::npos) {
+            myList->appendItem(i->getID().c_str());
         }
     }
     // By default, CheckBox for useSelectedEdges isn't checked
@@ -1616,9 +1616,9 @@ void
 GNEAdditionalFrame::SelectorParentLanes::showList(std::string search) {
     myList->clearItems();
     std::vector<GNELane*> vectorOfLanes = myViewNet->getNet()->retrieveLanes(false);
-    for (std::vector<GNELane*>::iterator i = vectorOfLanes.begin(); i != vectorOfLanes.end(); i++) {
-        if ((*i)->getID().find(search) != std::string::npos) {
-            myList->appendItem((*i)->getID().c_str());
+    for (auto i : vectorOfLanes) {
+        if (i->getID().find(search) != std::string::npos) {
+            myList->appendItem(i->getID().c_str());
         }
     }
     // By default, CheckBox for useSelectedLanes isn't checked

@@ -144,8 +144,8 @@ template<> std::vector<int>
 GNEAttributeCarrier::parse(const std::string& string) {
     std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
     std::vector<int> parsedIntValues;
-    for (std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
-        parsedIntValues.push_back(parse<int>(*i));
+    for (auto i : parsedValues) {
+        parsedIntValues.push_back(parse<int>(i));
     }
     return parsedIntValues;
 }
@@ -155,8 +155,8 @@ template<> std::vector<double>
 GNEAttributeCarrier::parse(const std::string& string) {
     std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
     std::vector<double> parsedDoubleValues;
-    for (std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
-        parsedDoubleValues.push_back(parse<double>(*i));
+    for (auto i : parsedValues) {
+        parsedDoubleValues.push_back(parse<double>(i));
     }
     return parsedDoubleValues;
 }
@@ -166,8 +166,8 @@ template<> std::vector<bool>
 GNEAttributeCarrier::parse(const std::string& string) {
     std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
     std::vector<bool> parsedBoolValues;
-    for (std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
-        parsedBoolValues.push_back(parse<bool>(*i));
+    for (auto i : parsedValues) {
+        parsedBoolValues.push_back(parse<bool>(i));
     }
     return parsedBoolValues;
 }
@@ -200,8 +200,8 @@ GNEAttributeCarrier::getGUIIcon() const {
 std::vector<SumoXMLAttr>
 GNEAttributeCarrier::getAttrs() const {
     std::vector<SumoXMLAttr> attr;
-    for (std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator i = allowedAttributes(myTag).begin(); i != allowedAttributes(myTag).end(); i++) {
-        attr.push_back(i->first);
+    for (auto i : allowedAttributes(myTag)) {
+        attr.push_back(i.first);
     }
     return attr;
 }
@@ -1051,9 +1051,8 @@ GNEAttributeCarrier::isNonEditable(SumoXMLTag tag, SumoXMLAttr attr) {
 
 bool
 GNEAttributeCarrier::hasAttribute(SumoXMLTag tag, SumoXMLAttr attr) {
-    const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = allowedAttributes(tag);
-    for (std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator i = attrs.begin(); i != attrs.end(); i++) {
-        if (i->first == attr) {
+    for (auto i : allowedAttributes(tag)) {
+        if (i.first == attr) {
             return true;
         }
     }
@@ -1061,17 +1060,11 @@ GNEAttributeCarrier::hasAttribute(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
-
 bool
 GNEAttributeCarrier::hasDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = allowedAttributes(tag);
-    for (std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator i = attrs.begin(); i != attrs.end(); i++) {
-        if ((*i).first == attr) {
-            if ((*i).second != NODEFAULTVALUE) {
-                return true;
-            } else {
-                return false;
-            }
+    for (auto i : allowedAttributes(tag)) {
+        if (i.first == attr) {
+            return (i.second != NODEFAULTVALUE);
         }
     }
     throw ProcessError("Attribute '" + toString(attr) + "' for tag '" + toString(tag) + "' not defined");
@@ -1085,43 +1078,43 @@ GNEAttributeCarrier::discreteChoices(SumoXMLTag tag, SumoXMLAttr attr) {
         std::vector<std::string> choices;
         // Get type of nodes
         choices = SUMOXMLDefinitions::NodeTypes.getStrings();
-        for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {
-            if (*it != toString(NODETYPE_DEAD_END_DEPRECATED)) {
+        for (auto it : choices) {
+            if (it != toString(NODETYPE_DEAD_END_DEPRECATED)) {
                 // junction
-                myDiscreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_TYPE].push_back(*it);
+                myDiscreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_TYPE].push_back(it);
             }
         }
         // Get types of traffic lights
         choices = SUMOXMLDefinitions::TrafficLightTypes.getStrings();
-        for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {
-            if (*it != toString(TLTYPE_INVALID)) {
+        for (auto it : choices) {
+            if (it != toString(TLTYPE_INVALID)) {
                 // junction
-                myDiscreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_TLTYPE].push_back(*it);
+                myDiscreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_TLTYPE].push_back(it);
             }
         }
         // get type of lane spread functions
         choices = SUMOXMLDefinitions::LaneSpreadFunctions.getStrings();
-        for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {
+        for (auto it : choices) {
             // edge
-            myDiscreteChoices[SUMO_TAG_EDGE][SUMO_ATTR_SPREADTYPE].push_back(*it);
+            myDiscreteChoices[SUMO_TAG_EDGE][SUMO_ATTR_SPREADTYPE].push_back(it);
         }
         // get vehicle types
         choices = SumoVehicleClassStrings.getStrings();
-        for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {
+        for (auto it : choices) {
             // edge
-            myDiscreteChoices[SUMO_TAG_EDGE][SUMO_ATTR_ALLOW].push_back(*it);
-            myDiscreteChoices[SUMO_TAG_EDGE][SUMO_ATTR_DISALLOW].push_back(*it);
+            myDiscreteChoices[SUMO_TAG_EDGE][SUMO_ATTR_ALLOW].push_back(it);
+            myDiscreteChoices[SUMO_TAG_EDGE][SUMO_ATTR_DISALLOW].push_back(it);
             // lane
-            myDiscreteChoices[SUMO_TAG_LANE][SUMO_ATTR_ALLOW].push_back(*it);
-            myDiscreteChoices[SUMO_TAG_LANE][SUMO_ATTR_DISALLOW].push_back(*it);
+            myDiscreteChoices[SUMO_TAG_LANE][SUMO_ATTR_ALLOW].push_back(it);
+            myDiscreteChoices[SUMO_TAG_LANE][SUMO_ATTR_DISALLOW].push_back(it);
             // vehicle type
-            myDiscreteChoices[SUMO_TAG_VTYPE][SUMO_ATTR_VCLASS].push_back(*it);
+            myDiscreteChoices[SUMO_TAG_VTYPE][SUMO_ATTR_VCLASS].push_back(it);
         }
         // get vehicle shapes
         choices = SumoVehicleShapeStrings.getStrings();
-        for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {
+        for (auto it : choices) {
             // vehicle type
-            myDiscreteChoices[SUMO_TAG_VTYPE][SUMO_ATTR_GUISHAPE].push_back(*it);
+            myDiscreteChoices[SUMO_TAG_VTYPE][SUMO_ATTR_GUISHAPE].push_back(it);
         }
         // lat alignments of vehicle types
         myDiscreteChoices[SUMO_TAG_VTYPE][SUMO_ATTR_LATALIGNMENT].push_back("left");
@@ -1200,6 +1193,7 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_LAYER] = "The layer in which the polygon lies";
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_TYPE] = "A typename for the polygon";
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_IMGFILE] = "A bitmap to use for rendering this polygon";
+        myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_ANGLE] = "Angle of rendered image in degree";
         // Crossing
         myAttrDefinitions[SUMO_TAG_CROSSING][SUMO_ATTR_ID] = "ID (Automatic)";
         myAttrDefinitions[SUMO_TAG_CROSSING][SUMO_ATTR_PRIORITY] = "Whether the pedestrians have priority over the vehicles (automatically set to true at tls-controlled intersections).";
@@ -1378,9 +1372,9 @@ GNEAttributeCarrier::getHigherNumberOfAttributes() {
 
 template<> int
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
-            return parse<int>((*i).second);
+    for (auto i : allowedAttributes(tag)) {
+        if ((i.first == attr) && (i.second != NODEFAULTVALUE)) {
+            return parse<int>(i.second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
@@ -1390,9 +1384,9 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> double
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
-            return parse<double>((*i).second);
+    for (auto i : allowedAttributes(tag)) {
+        if ((i.first == attr) && (i.second != NODEFAULTVALUE)) {
+            return parse<double>(i.second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
@@ -1402,9 +1396,9 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> bool
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
-            return parse<bool>((*i).second);
+    for (auto i : allowedAttributes(tag)) {
+        if ((i.first == attr) && (i.second != NODEFAULTVALUE)) {
+            return parse<bool>(i.second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
@@ -1414,9 +1408,9 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> std::string
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
-            return (*i).second;
+    for (auto i : allowedAttributes(tag)) {
+        if ((i.first == attr) && (i.second != NODEFAULTVALUE)) {
+            return (i.second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
@@ -1426,9 +1420,9 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> SUMOVehicleClass
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
-            return parse<SUMOVehicleClass>((*i).second);
+    for (auto i : allowedAttributes(tag)) {
+        if ((i.first == attr) && (i.second != NODEFAULTVALUE)) {
+            return parse<SUMOVehicleClass>(i.second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
@@ -1438,9 +1432,9 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> SUMOVehicleShape
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
-            return parse<SUMOVehicleShape>((*i).second);
+    for (auto i : allowedAttributes(tag)) {
+        if ((i.first == attr) && (i.second != NODEFAULTVALUE)) {
+            return parse<SUMOVehicleShape>(i.second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
@@ -1450,9 +1444,9 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> RGBColor
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
-            return parse<RGBColor>((*i).second);
+    for (auto i : allowedAttributes(tag)) {
+        if ((i.first == attr) && (i.second != NODEFAULTVALUE)) {
+            return parse<RGBColor>(i.second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
@@ -1462,9 +1456,9 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> std::vector<int>
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
-            return parse<std::vector<int> >((*i).second);
+    for (auto i : allowedAttributes(tag)) {
+        if ((i.first == attr) && (i.second != NODEFAULTVALUE)) {
+            return parse<std::vector<int> >(i.second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
@@ -1474,9 +1468,9 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> std::vector<double>
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
-            return parse<std::vector<double> >((*i).second);
+    for (auto i : allowedAttributes(tag)) {
+        if ((i.first == attr) && (i.second != NODEFAULTVALUE)) {
+            return parse<std::vector<double> >(i.second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
@@ -1486,9 +1480,9 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> std::vector<bool>
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
-            return parse<std::vector<bool> >((*i).second);
+    for (auto i : allowedAttributes(tag)) {
+        if ((i.first == attr) && (i.second != NODEFAULTVALUE)) {
+            return parse<std::vector<bool> >(i.second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
@@ -1498,9 +1492,9 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> std::vector<std::string>
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if ((*i).first == attr) {
-            return parse<std::vector<std::string> >((*i).second);
+    for (auto i : allowedAttributes(tag)) {
+        if ((i.first == attr) && (i.second != NODEFAULTVALUE)) {
+            return parse<std::vector<std::string> >(i.second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings

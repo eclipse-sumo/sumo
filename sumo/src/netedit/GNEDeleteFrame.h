@@ -78,7 +78,7 @@ public:
     /// @name FOX-callbacks
     /// @{
     /// @brief called when user press right click over an item of list of childs
-    long onCmdShowChildMenu(FXObject*, FXSelector, void* data);
+    long onCmdShowChildMenu(FXObject*, FXSelector, void* eventData);
 
     /// @brief called when user select option "center item" of child Menu
     long onCmdCenterChildItem(FXObject*, FXSelector, void*);

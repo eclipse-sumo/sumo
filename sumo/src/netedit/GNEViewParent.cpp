@@ -307,22 +307,22 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     assert(view);
     GUIGlObjectType type;
     GUIIcon icon;
-    std::string title;
+    std::string dialogtitle;
     switch (FXSELID(sel)) {
         case MID_LOCATEJUNCTION:
             type = GLO_JUNCTION;
             icon = ICON_LOCATEJUNCTION;
-            title = "Junction Chooser";
+            dialogtitle = "Junction Chooser";
             break;
         case MID_LOCATEEDGE:
             type = GLO_EDGE;
             icon = ICON_LOCATEEDGE;
-            title = "Edge Chooser";
+            dialogtitle = "Edge Chooser";
             break;
         case MID_LOCATETLS:
             type = GLO_TLLOGIC;
             icon = ICON_LOCATETLS;
-            title = "Traffic-Light-Junctions Chooser";
+            dialogtitle = "Traffic-Light-Junctions Chooser";
             break;
         default:
             throw ProcessError("Unknown Message ID in onCmdLocate");
@@ -333,7 +333,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     myLocatorButton->killFocus();
     myLocatorPopup->update();
     GUIDialog_GLObjChooser* chooser = new GUIDialog_GLObjChooser(
-        this, GUIIconSubSys::getIcon(icon), title.c_str(), ids, GUIGlObjectStorage::gIDStorage);
+        this, GUIIconSubSys::getIcon(icon), dialogtitle.c_str(), ids, GUIGlObjectStorage::gIDStorage);
     chooser->create();
     chooser->show();
     return 1;
@@ -362,15 +362,15 @@ GNEViewParent::isSelected(GUIGlObject* o) const {
 
 
 long
-GNEViewParent::onKeyPress(FXObject* o, FXSelector sel, void* data) {
-    myView->onKeyPress(o, sel, data);
+GNEViewParent::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
+    myView->onKeyPress(o, sel, eventData);
     return 0;
 }
 
 
 long
-GNEViewParent::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
-    myView->onKeyRelease(o, sel, data);
+GNEViewParent::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
+    myView->onKeyRelease(o, sel, eventData);
     return 0;
 }
 
