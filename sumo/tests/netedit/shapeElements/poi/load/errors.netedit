@@ -1,0 +1,13 @@
+java version "1.8.0_141"
+Java(TM) SE Runtime Environment (build 1.8.0_141-b15)
+Java HotSpot(TM) 64-Bit Server VM (build 25.141-b15, mixed mode)
+Error: PoI 'POI_0' already exists.
+Error: Attribute 'color' in definition of poi 'POI_14' is empty.
+Error: Attribute 'layer' in definition of poi 'POI_17' is not of type float.
+Error: Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI 'POI_19'.
+Error: Attribute 'x' in definition of poi 'POI_2' is not of type float.
+Error: Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI 'POI_21'.
+Error: Attribute 'y' in definition of poi 'POI_22' is not of type float.
+Error: Attribute 'width' in definition of poi 'POI_25' is not of type float.
+Error: Attribute 'height' in definition of poi 'POI_5' is not of type float.
+Error: Loading of C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Sep130606.4396/netedit.gui/shapeElements/poi/load\input_shapes.add.xml failed.
