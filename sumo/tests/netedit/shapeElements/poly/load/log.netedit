@@ -19,7 +19,7 @@ Warning: Adding poly 'poly_11' into viewNet
 Warning: Adding poly 'poly_12' into viewNet
 Warning: Adding poly 'poly_13' into viewNet
 Warning: Adding poly 'poly_14' into viewNet
-Error: Loading of C:/Users/Palcraft/.texttest/tmp/netedit.gui.02Sep153341.3652/netedit.gui/shapeElements/poly/load\input_shapes.add.xml failed.
+Error: Loading of C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Sep130658.7240/netedit.gui/shapeElements/poly/load\input_shapes.add.xml failed.
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()

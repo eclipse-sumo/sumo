@@ -6,4 +6,4 @@ Error: Polygon 'poly_0' already exists.
 Error: Attribute 'color' in definition of poly 'poly_3' is empty.
 Error: Attribute 'fill' in definition of poly 'poly_6' is not of type bool.
 Error: Attribute 'layer' in definition of poly 'poly_9' is not of type float.
-Error: Loading of C:/Users/Palcraft/.texttest/tmp/netedit.gui.02Sep153341.3652/netedit.gui/shapeElements/poly/load\input_shapes.add.xml failed.
+Error: Loading of C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Sep130658.7240/netedit.gui/shapeElements/poly/load\input_shapes.add.xml failed.
