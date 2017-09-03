@@ -42,6 +42,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/StaticCommand.h>
+#include <utils/common/StringUtils.h>
 #include <utils/vehicle/DijkstraRouterTT.h>
 #include <utils/vehicle/AStarRouter.h>
 #include <utils/vehicle/CHRouter.h>
@@ -453,6 +454,38 @@ MSDevice_Routing::getRouterTT(const MSEdgeVector& prohibited) {
     }
     myRouterWithProhibited->prohibit(prohibited);
     return *myRouterWithProhibited;
+}
+
+
+std::string
+MSDevice_Routing::getParameter(const std::string& key) const {
+    if (StringUtils::startsWith(key, "edge:")) {
+        const std::string edgeID = key.substr(5);
+        const MSEdge* edge = MSEdge::dictionary(edgeID);
+        if (edge == 0) {
+            throw InvalidArgument("Edge '" + edgeID + "' is invalid for parameter retrieval of '" + deviceName() + "'");
+        }
+        return toString(getEffort(edge, &myHolder, 0));
+    } else if (key == "period") {
+        return time2string(myPeriod);
+    }
+    throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+}
+
+
+void
+MSDevice_Routing::setParameter(const std::string& key, const std::string& value) {
+    double doubleValue;
+    try {
+        doubleValue = TplConvert::_2double(value.c_str());
+    } catch (NumberFormatException) {
+        throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
+    }
+    if (key == "period") {
+        myPeriod = TIME2STEPS(doubleValue);
+    } else {
+        throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+    }
 }
 
 
