@@ -482,7 +482,14 @@ MSDevice_Routing::setParameter(const std::string& key, const std::string& value)
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
     }
     if (key == "period") {
+        const double oldPeriod = myPeriod;
         myPeriod = TIME2STEPS(doubleValue);
+        if (myPeriod <= 0) {
+            myRerouteCommand->deschedule();
+        } else if (oldPeriod <= 0) {
+            // re-schedule routing command
+            notifyEnter(myHolder, MSMoveReminder::NOTIFICATION_DEPARTED, 0);
+        }
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
