@@ -145,7 +145,7 @@ public:
                 assert(st.size() == 4); 
                 const std::string lm = st.get(0);
                 const std::string edge = st.get(1);
-                if (numericID[edge] != myFromLandmarkDists[myLandmarks[lm]].size()) {
+                if (numericID[edge] != (int)myFromLandmarkDists[myLandmarks[lm]].size()) {
                     WRITE_WARNING("Unknown or unordered edge '" + edge + "' in landmark file.");
                 }
                 const double distFrom = TplConvert::_2double(st.get(2).c_str());
@@ -162,7 +162,7 @@ public:
         FXWorkerThread::Pool threadPool;
 #endif
         for (int i = 0; i < (int)myLandmarks.size(); ++i) {
-            if ((int)myFromLandmarkDists[i].size() != edges.size() - myFirstNonInternal) {
+            if ((int)myFromLandmarkDists[i].size() != (int)edges.size() - myFirstNonInternal) {
                 const std::string landmarkID = getLandmark(i);
                 const E* landmark = 0;
                 // retrieve landmark edge
