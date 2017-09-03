@@ -460,6 +460,16 @@ TraCI_Vehicle::getSpeedMode(const std::string& vehicleID) {
     return getVehicle(vehicleID)->getInfluencer().getSpeedMode();
 }
 
+int
+TraCI_Vehicle::getLanechangeMode(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getInfluencer().getLanechangeMode();
+}
+
+int
+TraCI_Vehicle::getRoutingMode(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getInfluencer().getRoutingMode();
+}
+
 std::string
 TraCI_Vehicle::getLine(const std::string& vehicleID) {
     return getVehicle(vehicleID)->getParameter().line;

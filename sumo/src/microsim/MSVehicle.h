@@ -1264,6 +1264,14 @@ public:
         /// @brief return the current speed mode
         int getSpeedMode() const;
 
+        /// @brief return the current lane change mode
+        int getLanechangeMode() const;
+
+        /// @brief return the current routing mode
+        int getRoutingMode() const {
+            return myRoutingMode;
+        }
+
         /** @brief Applies stored velocity information on the speed to use
          *
          * The given speed is assumed to be the non-influenced speed from longitudinal control.
@@ -1319,6 +1327,12 @@ public:
          */
         void setLaneChangeMode(int value);
 
+        /** @brief Sets routing behavior
+         * @param[in] value an enum value controlling the different modes
+         */
+        void setRoutingMode(int value) {
+            myRoutingMode = value;
+        }
 
         /** @brief Returns the originally longitudinal speed to use
          * @return The speed given before influence or -1 if no influence is active
@@ -1354,6 +1368,8 @@ public:
         double getLatDist() const {
             return myLatDist;
         }
+
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT() const;
 
     private:
         /// @brief The velocity time line to apply
@@ -1413,6 +1429,9 @@ public:
 
         // @brief the signals set via TraCI
         int myTraCISignals;
+
+        ///@brief routing mode (see TraCIConstants.h)
+        int myRoutingMode;
 
     };
 

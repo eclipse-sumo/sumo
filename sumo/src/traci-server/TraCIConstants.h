@@ -432,6 +432,14 @@
 #define DEPARTFLAG_LANE_FIRST_ALLOWED -0x06
 
 // ****************************************
+// Routing modes
+// ****************************************
+// use custom weights if available, fall back to loaded weights and then to free-flow speed
+#define ROUTING_MODE_DEFAULT 0x00
+// use aggregated travel times from device.rerouting
+#define ROUTING_MODE_AGGREGATED 0x01
+
+// ****************************************
 // VARIABLE TYPES (for CMD_GET_*_VARIABLE)
 // ****************************************
 // list of instances' ids (get: all)
@@ -645,6 +653,8 @@
 // speed deviation (set: vehicle)
 #define VAR_SPEED_DEVIATION 0x5f
 
+// routing mode (get/set: vehicle)
+#define VAR_ROUTING_MODE 0x89
 
 // speed without TraCI influence (get: vehicle)
 #define VAR_SPEED_WITHOUT_TRACI 0xb1
@@ -662,7 +672,7 @@
 // value = stopped + 2 * parking + 4 * triggered
 #define VAR_STOPSTATE 0xb5
 
-// how lane changing is performed (set: vehicle)
+// how lane changing is performed (get/set: vehicle)
 #define VAR_LANECHANGE_MODE 0xb6
 
 // maximum speed regarding max speed on the current lane and speed factor (get: vehicle)

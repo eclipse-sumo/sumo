@@ -97,6 +97,8 @@ public:
     static double getAllowedSpeed(const std::string& vehicleID);
     static double getSpeedFactor(const std::string& vehicleID);
     static int getSpeedMode(const std::string& vehicleID);
+    static int getLanechangeMode(const std::string& vehicleID);
+    static int getRoutingMode(const std::string& vehicleID);
     static std::string getLine(const std::string& vehicleID);
     static std::vector<std::string> getVia(const std::string& vehicleID);
     static std::pair<int, int> getLaneChangeState(const std::string& vehicleID, int direction);

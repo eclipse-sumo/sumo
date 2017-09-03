@@ -107,6 +107,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_ROUTE_INDEX
             && variable != VAR_PARAMETER
             && variable != VAR_SPEEDSETMODE
+            && variable != VAR_LANECHANGE_MODE
+            && variable != VAR_ROUTING_MODE
             && variable != VAR_NEXT_TLS
             && variable != VAR_SLOPE
             && variable != VAR_HEIGHT
@@ -438,6 +440,14 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
                 tempMsg.writeInt(TraCI_Vehicle::getSpeedMode(id));
                 break;
+            case VAR_LANECHANGE_MODE:
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(TraCI_Vehicle::getLanechangeMode(id));
+                break;
+            case VAR_ROUTING_MODE:
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(TraCI_Vehicle::getRoutingMode(id));
+                break;
             case VAR_LINE:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
                 tempMsg.writeString(TraCI_Vehicle::getLine(id));
@@ -505,6 +515,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_SPEED && variable != VAR_SPEEDSETMODE && variable != VAR_COLOR
             && variable != ADD && variable != ADD_FULL && variable != REMOVE
             && variable != VAR_HEIGHT
+            && variable != VAR_ROUTING_MODE
             && variable != VAR_LATALIGNMENT
             && variable != VAR_MAXSPEED_LAT
             && variable != VAR_MINGAP_LAT
@@ -1016,6 +1027,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting lane change mode requires an integer.", outputStorage);
                 }
                 v->getInfluencer().setLaneChangeMode(laneChangeMode);
+            }
+            break;
+            case VAR_ROUTING_MODE: {
+                int routingMode = 0;
+                if (!server.readTypeCheckingInt(inputStorage, routingMode)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting routing mode requires an integer.", outputStorage);
+                }
+                v->getInfluencer().setRoutingMode(routingMode);
             }
             break;
             case VAR_COLOR: {

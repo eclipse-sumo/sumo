@@ -60,6 +60,7 @@
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/pedestrians/MSPModel.h>
 #include <microsim/devices/MSDevice_Transportable.h>
+#include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/output/MSStopOut.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
@@ -250,8 +251,9 @@ MSVehicle::Influencer::Influencer() :
     myRightDriveLC(LC_NOCONFLICT),
     mySublaneLC(LC_NOCONFLICT),
     myTraciLaneChangePriority(LCP_URGENT),
-    myTraCISignals(-1) {
-}
+    myTraCISignals(-1),
+    myRoutingMode(0)
+{ }
 
 
 MSVehicle::Influencer::~Influencer() {}
@@ -281,6 +283,17 @@ MSVehicle::Influencer::getSpeedMode() const {
             4 * myConsiderMaxDeceleration +
             8 * myRespectJunctionPriority +
             16 * myEmergencyBrakeRedLight);
+}
+
+
+int
+MSVehicle::Influencer::getLanechangeMode() const {
+    return (1 * myStrategicLC +
+            4 * myCooperativeLC +
+            16 * mySpeedGainLC +
+            64 * myRightDriveLC +
+            256 * myTraciLaneChangePriority +
+            1024 * mySublaneLC);
 }
 
 
@@ -522,6 +535,16 @@ MSVehicle::Influencer::implicitDeltaPosVTD(const MSVehicle* veh) {
         return 0;
     } else {
         return dist;
+    }
+}
+
+
+SUMOAbstractRouter<MSEdge, SUMOVehicle>& 
+MSVehicle::Influencer::getRouterTT() const {
+    if (myRoutingMode == 1) {
+        return MSDevice_Routing::getRouterTT();
+    } else {
+        MSNet::getInstance()->getRouterTT();
     }
 }
 
