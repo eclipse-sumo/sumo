@@ -171,7 +171,7 @@ MSLCM_SL2015::wantsChangeSublane(
 
 
     if (gDebugFlag2) {
-        std::cout << "\n" << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+        std::cout << "\n" << SIMTIME
                   << std::setprecision(gPrecision)
                   << " veh=" << myVehicle.getID()
                   << " lane=" << myVehicle.getLane()->getID()
@@ -204,7 +204,7 @@ MSLCM_SL2015::wantsChangeSublane(
 
     if (gDebugFlag2) {
         if (result & LCA_WANTS_LANECHANGE) {
-            std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+            std::cout << SIMTIME
                       << " veh=" << myVehicle.getID()
                       << " latDist=" << latDist
                       << " state=" << toString((LaneChangeAction)result)
@@ -212,7 +212,7 @@ MSLCM_SL2015::wantsChangeSublane(
                       << ((blocked & LCA_OVERLAPPING) ? " (overlap)" : "")
                       << "\n\n";
         } else {
-            std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+            std::cout << SIMTIME
                       << " veh=" << myVehicle.getID()
                       << " wantsNoChangeTo=" << changeType
                       << " state=" << toString((LaneChangeAction)result)
@@ -256,7 +256,7 @@ MSLCM_SL2015::patchSpeed(const double min, const double wanted, const double max
     const double newSpeed = _patchSpeed(min, wanted, max, cfModel);
     if (gDebugFlag2) {
         const std::string patched = (wanted != newSpeed ? " patched=" + toString(newSpeed) : "");
-        std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+        std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
                   << " lane=" << myVehicle.getLane()->getID()
                   << " pos=" << myVehicle.getPositionOnLane()
@@ -272,9 +272,6 @@ MSLCM_SL2015::patchSpeed(const double min, const double wanted, const double max
 
 double
 MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double max, const MSCFModel& cfModel) {
-
-    const double time = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
-
     int state = myOwnState;
 
     // letting vehicles merge in at the end of the lane in case of counter-lane change, step#2
@@ -282,7 +279,7 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
     if (myLeadingBlockerLength != 0) {
         double space = myLeftSpace - myLeadingBlockerLength - MAGIC_OFFSET - myVehicle.getVehicleType().getMinGap();
         if (gDebugFlag2) {
-            std::cout << time << " veh=" << myVehicle.getID() << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
         }
         if (space > 0) { // XXX space > -MAGIC_OFFSET
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
@@ -290,7 +287,7 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
             // if we are approaching this place
             if (safe < wanted) {
                 if (gDebugFlag2) {
-                    std::cout << time << " veh=" << myVehicle.getID() << " slowing down for leading blocker, safe=" << safe << (safe + NUMERICAL_EPS < min ? " (not enough)" : "") << "\n";
+                    std::cout << SIMTIME << " veh=" << myVehicle.getID() << " slowing down for leading blocker, safe=" << safe << (safe + NUMERICAL_EPS < min ? " (not enough)" : "") << "\n";
                 }
                 return MAX2(min, safe);
             }
@@ -304,16 +301,16 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
             nVSafe = MIN2(v, nVSafe);
             gotOne = true;
             if (gDebugFlag2) {
-                std::cout << time << " veh=" << myVehicle.getID() << " got nVSafe=" << nVSafe << "\n";
+                std::cout << SIMTIME << " veh=" << myVehicle.getID() << " got nVSafe=" << nVSafe << "\n";
             }
         } else {
             if (v < min) {
                 if (gDebugFlag2) {
-                    std::cout << time << " veh=" << myVehicle.getID() << " ignoring low nVSafe=" << v << " min=" << min << "\n";
+                    std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ignoring low nVSafe=" << v << " min=" << min << "\n";
                 }
             } else {
                 if (gDebugFlag2) {
-                    std::cout << time << " veh=" << myVehicle.getID() << " ignoring high nVSafe=" << v << " max=" << max << "\n";
+                    std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ignoring high nVSafe=" << v << " max=" << max << "\n";
                 }
             }
         }
@@ -321,7 +318,7 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
 
     if (gotOne && !myDontBrake) {
         if (gDebugFlag2) {
-            std::cout << time << " veh=" << myVehicle.getID() << " got vSafe\n";
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " got vSafe\n";
         }
         return nVSafe;
     }
@@ -332,27 +329,27 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
             // necessary decelerations are controlled via vSafe. If there are
             // none it means we should speed up
             if (gDebugFlag2) {
-                std::cout << time << " veh=" << myVehicle.getID() << " LCA_WANTS_LANECHANGE (strat, no vSafe)\n";
+                std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_WANTS_LANECHANGE (strat, no vSafe)\n";
             }
             return (max + wanted) / (double) 2.0;
         } else if ((state & LCA_COOPERATIVE) != 0) {
             // only minor adjustments in speed should be done
             if ((state & LCA_BLOCKED_BY_LEADER) != 0) {
                 if (gDebugFlag2) {
-                    std::cout << time << " veh=" << myVehicle.getID() << " LCA_BLOCKED_BY_LEADER (coop)\n";
+                    std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_BLOCKED_BY_LEADER (coop)\n";
                 }
                 return (min + wanted) / (double) 2.0;
             }
             if ((state & LCA_BLOCKED_BY_FOLLOWER) != 0) {
                 if (gDebugFlag2) {
-                    std::cout << time << " veh=" << myVehicle.getID() << " LCA_BLOCKED_BY_FOLLOWER (coop)\n";
+                    std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_BLOCKED_BY_FOLLOWER (coop)\n";
                 }
                 return (max + wanted) / (double) 2.0;
             }
             //} else { // VARIANT_16
             //    // only accelerations should be performed
             //    if ((state & LCA_BLOCKED_BY_FOLLOWER) != 0) {
-            //        if (gDebugFlag2) std::cout << time << " veh=" << myVehicle.getID() << " LCA_BLOCKED_BY_FOLLOWER\n";
+            //        if (gDebugFlag2) std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_BLOCKED_BY_FOLLOWER\n";
             //        return (max + wanted) / (double) 2.0;
             //    }
         }
@@ -363,23 +360,23 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
     //  (and does not have to change lanes)
     if ((state & LCA_AMBLOCKINGFOLLOWER) != 0) {
         if (fabs(max - myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle)) < 0.001 && min == 0) { // !!! was standing
-            if (gDebugFlag2) std::cout << time << " veh=" << myVehicle.getID() << " LCA_AMBLOCKINGFOLLOWER (standing)\n";
+            if (gDebugFlag2) std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_AMBLOCKINGFOLLOWER (standing)\n";
             return 0;
         }
-        if (gDebugFlag2) std::cout << time << " veh=" << myVehicle.getID() << " LCA_AMBLOCKINGFOLLOWER\n";
+        if (gDebugFlag2) std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_AMBLOCKINGFOLLOWER\n";
 
         //return min; // VARIANT_3 (brakeStrong)
         return (min + wanted) / (double) 2.0;
     }
     if ((state & LCA_AMBACKBLOCKER) != 0) {
         if (max <= myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle) && min == 0) { // !!! was standing
-            if (gDebugFlag2) std::cout << time << " veh=" << myVehicle.getID() << " LCA_AMBACKBLOCKER (standing)\n";
+            if (gDebugFlag2) std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_AMBACKBLOCKER (standing)\n";
             //return min; VARIANT_9 (backBlockVSafe)
             return nVSafe;
         }
     }
     if ((state & LCA_AMBACKBLOCKER_STANDING) != 0) {
-        if (gDebugFlag2) std::cout << time << " veh=" << myVehicle.getID() << " LCA_AMBACKBLOCKER_STANDING\n";
+        if (gDebugFlag2) std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_AMBACKBLOCKER_STANDING\n";
         //return min;
         return nVSafe;
     }
@@ -389,14 +386,14 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
     //  (and does not have to change lanes)
     if ((state & LCA_AMBLOCKINGLEADER) != 0) {
         if (gDebugFlag2) {
-            std::cout << time << " veh=" << myVehicle.getID() << " LCA_AMBLOCKINGLEADER\n";
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_AMBLOCKINGLEADER\n";
         }
         return (max + wanted) / (double) 2.0;
     }
 
     if ((state & LCA_AMBLOCKINGFOLLOWER_DONTBRAKE) != 0) {
         if (gDebugFlag2) {
-            std::cout << time << " veh=" << myVehicle.getID() << " LCA_AMBLOCKINGFOLLOWER_DONTBRAKE\n";
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_AMBLOCKINGFOLLOWER_DONTBRAKE\n";
         }
         /*
         // VARIANT_4 (dontbrake)
@@ -419,7 +416,7 @@ MSLCM_SL2015::inform(void* info, MSVehicle* sender) {
     //myOwnState &= 0xffffffff; // reset all bits of MyLCAEnum but only those
     myOwnState |= pinfo->second;
     if (gDebugFlag2 || DEBUG_COND) {
-        std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+        std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
                   << " informedBy=" << sender->getID()
                   << " info=" << pinfo->second
@@ -487,7 +484,7 @@ MSLCM_SL2015::informLeader(int blocked,
                 //const double nextSpeed = MAX2(0., MIN2(plannedSpeed, myVehicle.getSpeed() - decel));
                 const double nextSpeed = MIN2(plannedSpeed, myVehicle.getSpeed() - decel);
                 if (gDebugFlag2) {
-                    std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                    std::cout << SIMTIME
                               << " cannot overtake leader nv=" << nv->getID()
                               << " dv=" << dv
                               << " remainingSeconds=" << remainingSeconds
@@ -500,7 +497,7 @@ MSLCM_SL2015::informLeader(int blocked,
             } else {
                 // leader is fast enough anyway
                 if (gDebugFlag2) {
-                    std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                    std::cout << SIMTIME
                               << " cannot overtake fast leader nv=" << nv->getID()
                               << " dv=" << dv
                               << " remainingSeconds=" << remainingSeconds
@@ -512,7 +509,7 @@ MSLCM_SL2015::informLeader(int blocked,
             }
         } else {
             if (gDebugFlag2) {
-                std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                std::cout << SIMTIME
                           << " wants to overtake leader nv=" << nv->getID()
                           << " dv=" << dv
                           << " remainingSeconds=" << remainingSeconds
@@ -593,7 +590,7 @@ MSLCM_SL2015::informFollower(int blocked,
         const double decelGap = neighFollow.second + dv;
         const double secureGap = nv->getCarFollowModel().getSecureGap(neighNewSpeed1s, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
         if (gDebugFlag2) {
-            std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+            std::cout << SIMTIME
                       << " egoV=" << myVehicle.getSpeed()
                       << " egoNV=" << plannedSpeed
                       << " nvNewSpeed=" << neighNewSpeed
@@ -670,7 +667,7 @@ MSLCM_SL2015::informFollower(int blocked,
             myVSafes.push_back(MAX2(vhelp - needDV, myVehicle.getSpeed() - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())));
 
             if (gDebugFlag2) {
-                std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                std::cout << SIMTIME
                           << " veh=" << myVehicle.getID()
                           << " wants to be overtaken by=" << nv->getID()
                           << " overtakeDist=" << overtakeDist
@@ -1584,7 +1581,7 @@ MSLCM_SL2015::slowDownForBlocked(MSVehicle** blocked, int state) {
     if ((*blocked) != 0) {
         double gap = (*blocked)->getPositionOnLane() - (*blocked)->getVehicleType().getLength() - myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getMinGap();
         if (gDebugFlag2) {
-            std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+            std::cout << SIMTIME
                       << " veh=" << myVehicle.getID()
                       << " blocked=" << Named::getIDSecure(*blocked)
                       << " gap=" << gap
@@ -1617,7 +1614,7 @@ MSLCM_SL2015::slowDownForBlocked(MSVehicle** blocked, int state) {
 void
 MSLCM_SL2015::saveBlockerLength(const MSVehicle* blocker, int lcaCounter) {
     if (gDebugFlag2) {
-        std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+        std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
                   << " saveBlockerLength blocker=" << Named::getIDSecure(blocker)
                   << " bState=" << (blocker == 0 ? "None" : toString(blocker->getLaneChangeModel().getOwnState()))
@@ -1631,7 +1628,7 @@ MSLCM_SL2015::saveBlockerLength(const MSVehicle* blocker, int lcaCounter) {
             // save at least his length in myLeadingBlockerLength
             myLeadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), myLeadingBlockerLength);
             if (gDebugFlag2) {
-                std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                std::cout << SIMTIME
                           << " veh=" << myVehicle.getID()
                           << " blocker=" << Named::getIDSecure(blocker)
                           << " saving myLeadingBlockerLength=" << myLeadingBlockerLength
@@ -1641,7 +1638,7 @@ MSLCM_SL2015::saveBlockerLength(const MSVehicle* blocker, int lcaCounter) {
             // we cannot save enough space for the blocker. It needs to save
             // space for ego instead
             if (gDebugFlag2) {
-                std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                std::cout << SIMTIME
                           << " veh=" << myVehicle.getID()
                           << " blocker=" << Named::getIDSecure(blocker)
                           << " cannot save space=" << blocker->getVehicleType().getLengthWithGap()
@@ -2751,7 +2748,7 @@ MSLCM_SL2015::wantsChange(
     const LaneChangeAction alternatives = LCA_NONE; // @todo pas this data
 
     if (DEBUG_COND) {
-        std::cout << "\nWANTS_CHANGE\n" << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+        std::cout << "\nWANTS_CHANGE\n" << SIMTIME
                   //<< std::setprecision(10)
                   << " veh=" << myVehicle.getID()
                   << " lane=" << myVehicle.getLane()->getID()
@@ -2786,7 +2783,7 @@ MSLCM_SL2015::wantsChange(
 
     if (DEBUG_COND) {
         if (result & LCA_WANTS_LANECHANGE) {
-            std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+            std::cout << SIMTIME
                       << " veh=" << myVehicle.getID()
                       << " wantsChangeTo=" << (laneOffset == -1  ? "right" : "left")
                       << ((result & LCA_URGENT) ? " (urgent)" : "")
