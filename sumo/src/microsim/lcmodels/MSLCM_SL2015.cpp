@@ -87,6 +87,9 @@
 
 // the speed at which the desired lateral gap grows now further
 #define LATGAP_SPEED_THRESHOLD (50 / 3.6)
+// the speed at which the desired lateral gap shrinks now further. 
+// @note: when setting LATGAP_SPEED_THRESHOLD = LATGAP_SPEED_THRESHOLD2, no speed-specif reduction of minGapLat is done
+#define LATGAP_SPEED_THRESHOLD2 (50 / 3.6)
 
 // intention to change decays over time
 #define SPEEDGAIN_DECAY_FACTOR 0.5
@@ -2455,7 +2458,8 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                 others.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
                 const double foeCenter = foeRight + 0.5 * res;
                 const double gap = MIN2(fabs(foeRight - oldCenter), fabs(foeLeft - oldCenter)) - halfWidth;
-                const double desiredMinGap = baseMinGap * MIN2(1.0, MAX2(myVehicle.getSpeed(), (double)fabs(myVehicle.getSpeed() - foe->getSpeed())) / LATGAP_SPEED_THRESHOLD);
+                const double deltaV = MIN2(LATGAP_SPEED_THRESHOLD, MAX3(LATGAP_SPEED_THRESHOLD2, myVehicle.getSpeed(), (double)fabs(myVehicle.getSpeed() - foe->getSpeed())));
+                const double desiredMinGap = baseMinGap * deltaV / LATGAP_SPEED_THRESHOLD;
                 const double currentMinGap = desiredMinGap * gapFactor; // pushy vehicles may accept a lower lateral gap temperarily
                 /*
                 if (netOverlap != 0) {
