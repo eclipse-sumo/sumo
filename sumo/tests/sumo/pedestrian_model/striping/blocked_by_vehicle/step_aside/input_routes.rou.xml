@@ -4,6 +4,6 @@
         <route edges="beg"/>
     </vehicle>
     <person id="p0" depart="0">
-        <walk edges="beg" departPos="-1" arrivalPos="0"/>
+        <walk edges="beg" departPos="-1" arrivalPos="80"/>
     </person>
 </routes>

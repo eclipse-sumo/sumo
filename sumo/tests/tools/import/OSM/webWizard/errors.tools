@@ -19,9 +19,12 @@ Warning: Discarding unusable type 'railway.proposed' (first occurence for edge '
 Warning: Discarding unusable type 'railway.station' (first occurence for edge '199430452#0').
 Warning: Discarding unusable type 'highway.elevator' (first occurence for edge '225400593').
 Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '235499474').
+Warning: Removing pt stop:1257007152 on non existing edge: 71326270
+Warning: Removing pt stop:587624704 on non existing edge: 71326270
 Warning: direction of restriction relation could not be determined
 Warning: Ignoring restriction relation '1028113'.
 Warning: No way found for reference '3250129634' in relation '1123588'
+Warning: Relation '1645144' refers to a non existing pt stop at node: '29495029'. Probably OSM file is incomplete.
 Warning: from-edge of restriction relation could not be determined
 Warning: Ignoring restriction relation '1965905'.
 Warning: from-edge of restriction relation could not be determined
@@ -29,6 +32,12 @@ Warning: Ignoring restriction relation '2738894'.
 Warning: No way found for reference '44122832' in relation '3336092'
 Warning: Ignoring restriction relation '3336092' with unknown from-way.
 Warning: Ignoring restriction relation '4521655' with unknown from-way.
+Warning: Referenced node: '3352479220' in relation: '4593874' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3352479220' in relation: '4593874' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3352479217' in relation: '4593874' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3352479218' in relation: '4593874' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3352479219' in relation: '4593874' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3352479219' in relation: '4593874' does not exist. Probably OSM file is incomplete.
 Warning: Not joining junctions 1134198786,1134199074,1134199105,1147843154 because the cluster is too complex (6 incoming edges)
 Warning: Not joining junctions 1134198860,1134198951,1134198997,1137737056,1147843150,1147843156,1147843173,2451511170 because the cluster is too complex (8 incoming edges)
 Warning: Not joining junctions 1142557545,29192285 because the cluster is too complex (5 incoming edges)
@@ -257,3 +266,37 @@ Warning: The traffic light '29219437' does not control any links; it will not be
 Warning: Could not build program '0' for traffic light '29219437'
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
 Warning: Connection '187103791_2->-19801644#1_1' is only 0.10 short.
+Warning: Could not find corresponding edge or compatible lane for pt stop: Hackescher Markt. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: S Hackescher Markt. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: S Oranienburger Straße. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: Spandauer Straße/Marienkirche. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: U Französische Straße. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: U Alexanderplatz. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: U Alexanderplatz. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: U Alexanderplatz. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: U Alexanderplatz. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: U Alexanderplatz. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: U Klosterstraße. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: U-Bahnhof Bundestag. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: U Brandenburger Tor. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: Friedrichstraße. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: . Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: Mollstraße/Prenzlauer Allee. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: S Alexanderplatz. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: S Friedrichstraße. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: U Friedrichstraße. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: S Hackescher Markt. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: S + U Friedrichstr.. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: U Stadtmitte. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: Friedrichstraße. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: U Schwartzkopffstraße. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: S Brandenburger Tor. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: S Oranienburger Straße. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: U Naturkundemuseum. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: Fischerinsel. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: Fischerinsel. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: Friedrichstraße. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: Friedrichstraße. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: U Hauptbahnhof. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: S Friedrichstraße. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: S Friedrichstraße. Thus, it will be removed!
