@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul  5 10:22:53 2017 by SUMO Version dev-SVN-r23112
+<!-- generated on Fri Sep  1 14:33:46 2017 by SUMO Version dev-SVN-r25783
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -32,7 +32,7 @@
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="900.00" id="laneData">
         <edge id="beg">
-            <lane id="beg_0" sampledSeconds="105744.41" traveltime="179.37" overlapTraveltime="179.82" density="39.18" occupancy="19.56" waitingTime="41461.00" speed="16.70" departed="801" arrived="0" entered="0" left="509" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="beg_0" sampledSeconds="105745.41" traveltime="179.38" overlapTraveltime="179.82" density="39.18" occupancy="19.56" waitingTime="41461.00" speed="16.70" departed="801" arrived="0" entered="0" left="509" laneChangedFrom="0" laneChangedTo="0"/>
             <lane id="beg_1" sampledSeconds="97787.07" traveltime="160.61" overlapTraveltime="160.95" density="36.24" occupancy="18.10" waitingTime="39234.00" speed="18.66" departed="806" arrived="0" entered="0" left="543" laneChangedFrom="0" laneChangedTo="0"/>
             <lane id="beg_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
