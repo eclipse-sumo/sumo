@@ -704,6 +704,7 @@ PositionVector
 NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, PositionVector nodeShape) const {
     if (nodeShape.size() == 0) {
         nodeShape = startNode->getShape();
+        nodeShape.closePolygon();
     }
     PositionVector lb(laneShape.begin(), laneShape.begin() + 2);
     // this doesn't look reasonable @todo use lb.extrapolateFirstBy(100.0);
