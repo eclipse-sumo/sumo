@@ -16,8 +16,8 @@ cd $OLDDIR
 export NETEDIT_BINARY="$SUMO_BINDIR/netedit"
 
 if which texttest &> /dev/null; then
-  texttest -a netedit.gui "$@"
+  texttest -gui -a netedit.gui "$@"
 else
-  texttest.py -a netedit.gui "$@"
+  texttest.py -gui -a netedit.gui "$@"
 fi
 

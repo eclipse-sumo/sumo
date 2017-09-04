@@ -1,2 +1,2 @@
 call %~dp0\testEnv.bat %1
-start %TEXTTESTPY% -a netedit.gui
+start %TEXTTESTPY% -a netedit.gui -gui
