@@ -34,13 +34,13 @@ netedit.leftClick(match, 100, 200)
 netedit.moveMode()
 
 # move Exit to right
-netedit.moveElement(match, 15, 200, 150, 200)
+netedit.moveElement(match, -75, 190, 150, 190)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Exit
-netedit.leftClick(match, 200, 200)
+netedit.leftClick(match, 275, 190)
 
 # block additional
 netedit.modifyBoolAttribute(3)
@@ -49,13 +49,13 @@ netedit.modifyBoolAttribute(3)
 netedit.moveMode()
 
 # try to move Exit to right (must be blocked)
-netedit.moveElement(match, 150, 200, 300, 200)
+netedit.moveElement(match, 140, 190, 300, 190)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Exit
-netedit.leftClick(match, 200, 200)
+netedit.leftClick(match, 275, 190)
 
 # unblock additional
 netedit.modifyBoolAttribute(3)
@@ -64,7 +64,7 @@ netedit.modifyBoolAttribute(3)
 netedit.moveMode()
 
 # move Exit to right (must be allowed)
-netedit.moveElement(match, 150, 200, 300, 200)
+netedit.moveElement(match, 140, 190, 300, 190)
 
 # Check undos and redos
 netedit.undo(match, 6)

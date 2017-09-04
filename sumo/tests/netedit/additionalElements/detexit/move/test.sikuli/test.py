@@ -54,8 +54,11 @@ netedit.setZoom("25", "0", "70")
 # change to move mode
 netedit.moveMode()
 
+# change to move mode
+netedit.moveMode()
+
 # move Exit to left
-netedit.moveElement(match, 120, 200, 50, 200)
+netedit.moveElement(match, 110, 200, 50, 200)
 
 # move back
 netedit.moveElement(match, 50, 200, 120, 200)
@@ -70,13 +73,13 @@ netedit.moveElement(match, 250, 200, 120, 200)
 netedit.moveElement(match, 120, 200, -150, 200)
 
 # move back
-netedit.moveElement(match, -100, 200, 120, 200)
+netedit.moveElement(match, -105, 200, 120, 200)
 
 # move Exit to right overpassing lane
 netedit.moveElement(match, 120, 200, 580, 200)
 
 # move back to another different position of initial
-netedit.moveElement(match, 520, 200, 300, 200)
+netedit.moveElement(match, 530, 200, 300, 200)
 
 # Check undos and redos
 netedit.undo(match, 10)

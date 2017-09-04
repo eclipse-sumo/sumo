@@ -52,7 +52,7 @@ netedit.leftClick(match, 200, 200)
 netedit.inspectMode()
 
 # inspect Entry
-netedit.leftClick(match, 250, 200)
+netedit.leftClick(match, 200, 200)
 
 # Change parameter 0 with a non valid value (dummy Lane)
 netedit.modifyAttribute(0, "dummyLane")
