@@ -576,9 +576,11 @@ class Net:
                         if edge.startCapacity < sys.maxsize:
                             while edge.flow < edge.capacity and self.pullFlow(edge, limitSource, limitSink, allowBackward):
                                 pathFound = True
-        self.testFlowInvariants()
-        # run again (once) if restricted routes were removed
+        if allowBackward:
+            # route restrictions invalidated flow invariants so we skip the check then
+            self.testFlowInvariants()
         self.consolidateRoutes()
+        # run again (once) if restricted routes were removed
         if self.applyRouteRestrictions() and allowBackward:
             self.calcRoutes(False)
 
@@ -783,7 +785,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
             return
         if start is not None:
             times = [float(t) / 100. for t in options.timeline.split(",")]
-            factor = sum([times[t] for t in range(start / 60, end / 60)])
+            factor = sum([times[t] for t in range(start // 60, end // 60)])
         else:
             factor = 1.
         for f in options.syntheticflowfile.split(","):
