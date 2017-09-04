@@ -1230,37 +1230,44 @@ MSLCM_LC2013::_wantsChange(
         ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;
     } else {
         // VARIANT_20 (noOvertakeRight)
-        if (neighLead.first != 0 && checkOverTakeRight && !right && 
-                (neighLead.first->getSpeed() < myVehicle.getSpeed()
-                 || neighLane.getVehicleMaxSpeed(neighLead.first) < vMax)) {
+        if (neighLead.first != 0 && checkOverTakeRight && !right) {
             // check for slower leader on the left. we should not overtake but
             // rather move left ourselves (unless congested)
             MSVehicle* nv = neighLead.first;
-            double vSafe = MAX2(
-                    myCarFollowModel.getSpeedAfterMaxDecel(myVehicle.getSpeed()),
-                    myCarFollowModel.followSpeed(
-                        &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()));
-            if (mySpeedGainProbability < myChangeProbThresholdLeft) {
-                vSafe = MAX2(vSafe, nv->getSpeed());
-            }
-            thisLaneVSafe = MIN2(thisLaneVSafe, vSafe);
-            myVSafes.push_back(vSafe);
-            if (neighLane.getVehicleMaxSpeed(nv) < vMax) {
-                const double relativeGain = (vMax - neighLane.getVehicleMaxSpeed(nv)) / MAX2(vMax,
-                        RELGAIN_NORMALIZATION_MIN_SPEED);
-                mySpeedGainProbability += TS * relativeGain;
-                changeLeftToAvoidOvertakeRight = true;
-            }
+            const double deltaV = MAX2(vMax - neighLane.getVehicleMaxSpeed(nv), 
+                    myVehicle.getSpeed() - nv->getSpeed());
+            if (deltaV > 0) {
+                double vSafe = MAX2(
+                        myCarFollowModel.getSpeedAfterMaxDecel(myVehicle.getSpeed()),
+                        myCarFollowModel.followSpeed(
+                            &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()));
+                if (mySpeedGainProbability < myChangeProbThresholdLeft) {
+                    vSafe = MAX2(vSafe, nv->getSpeed());
+                }
+                thisLaneVSafe = MIN2(thisLaneVSafe, vSafe);
+                myVSafes.push_back(vSafe);
+                // only generate impulse for overtaking left shortly before braking would be necessary
+                const double deltaGapFuture = deltaV * 8;
+                const double vSafeFuture = myCarFollowModel.followSpeed(
+                        &myVehicle, myVehicle.getSpeed(), neighLead.second - deltaGapFuture, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
+                if (vSafeFuture < vSafe) {
+                    const double relativeGain = deltaV / MAX2(vMax,
+                            RELGAIN_NORMALIZATION_MIN_SPEED);
+                    mySpeedGainProbability += TS * relativeGain;
+                    changeLeftToAvoidOvertakeRight = true;
+                }
 #ifdef DEBUG_WANTS_CHANGE
-            if (DEBUG_COND) {
-                std::cout << STEPS2TIME(currentTime)
-                    << " avoid overtaking on the right nv=" << nv->getID()
-                    << " nvSpeed=" << nv->getSpeed()
-                    << " mySpeedGainProbability=" << mySpeedGainProbability
-                    << " plannedSpeed=" << myVSafes.back()
-                    << "\n";
-            }
+                if (DEBUG_COND) {
+                    std::cout << STEPS2TIME(currentTime)
+                        << " avoid overtaking on the right nv=" << nv->getID()
+                        << " deltaV=" << deltaV
+                        << " nvSpeed=" << nv->getSpeed()
+                        << " mySpeedGainProbability=" << mySpeedGainProbability
+                        << " plannedSpeed=" << myVSafes.back()
+                        << "\n";
+                }
 #endif
+            }
         }
 
         if (!changeToBest && (currentDistDisallows(neighLeftPlace, abs(bestLaneOffset) + 2, laDist))) {
