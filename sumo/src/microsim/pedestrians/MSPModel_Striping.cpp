@@ -609,7 +609,7 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
         // figure out the which pedestrians are ahead on the next lane
         const int nextStripes = numStripes(nextLane);
         // do not move past the end of the next lane in a single step
-        Obstacles obs(stripes, Obstacle(nextDir == FORWARD ? nextLength : 0, 0, "nextEnd", 0, true));
+        Obstacles obs(stripes, Obstacle(nextDir == FORWARD ? nextLength : 0, 0, OBSTACLE_NEXTEND, "nextEnd", 0));
 
         const int offset = getStripeOffset(nextStripes, stripes, currentDir != nextDir && nextStripes > stripes);
         //std::cout << SIMTIME << " getNextLaneObstacles"
@@ -626,7 +626,7 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
             // some stripes do not continue
             for (int ii = 0; ii < stripes; ++ii) {
                 if (ii < offset || ii >= nextStripes + offset) {
-                    obs[ii] = Obstacle(nextDir == FORWARD ? 0 : nextLength, 0, "stripeEnd", 0, true);
+                    obs[ii] = Obstacle(nextDir == FORWARD ? 0 : nextLength, 0, OBSTACLE_END, "stripeEnd", 0);
                 }
             }
         }
@@ -650,8 +650,8 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
                 const double newY = relPos.y() + lateral_offset;
                 //if (p.myPerson->getID() == "ped200") std::cout << "    ped=" << p.myPerson->getID() << "  relX=" << relPos.x() << " relY=" << newY << " latOff=" << lateral_offset << " s=" << p.stripe(newY) << " os=" << p.otherStripe(newY) << "\n";
                 if ((currentDir == FORWARD && relPos.x() >= lane->getLength()) || (currentDir == BACKWARD && relPos.x() < 0)) {
-                    addCloserObstacle(obs, relPos.x(), p.stripe(newY), stripes, p.myPerson->getID(), p.myPerson->getVehicleType().getWidth(), currentDir);
-                    addCloserObstacle(obs, relPos.x(), p.otherStripe(newY), stripes, p.myPerson->getID(), p.myPerson->getVehicleType().getWidth(), currentDir);
+                    addCloserObstacle(obs, relPos.x(), p.stripe(newY), stripes, p.myPerson->getID(), p.myPerson->getVehicleType().getWidth(), currentDir, OBSTACLE_PED);
+                    addCloserObstacle(obs, relPos.x(), p.otherStripe(newY), stripes, p.myPerson->getID(), p.myPerson->getVehicleType().getWidth(), currentDir, OBSTACLE_PED);
                 }
             }
         } else {
@@ -723,10 +723,10 @@ MSPModel_Striping::transformToCurrentLanePositions(Obstacles& obs, int currentDi
 
 
 void
-MSPModel_Striping::addCloserObstacle(Obstacles& obs, double x, int stripe, int numStripes, const std::string& id, double width, int dir) {
+MSPModel_Striping::addCloserObstacle(Obstacles& obs, double x, int stripe, int numStripes, const std::string& id, double width, int dir, ObstacleType type) {
     if (stripe >= 0 && stripe < numStripes) {
         if ((dir == FORWARD && x - width / 2. < obs[stripe].xBack) || (dir == BACKWARD && x + width / 2. > obs[stripe].xFwd)) {
-            obs[stripe] = Obstacle(x, 0, id, width);
+            obs[stripe] = Obstacle(x, 0, type, id, width);
         }
     }
 }
@@ -904,7 +904,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                 && dist - p.getMinGap() < LOOKAHEAD_SAMEDIR * speed
                 && !link->opened(currentTime, speed, speed, p.getLength(), p.getImpatience(currentTime), speed, 0, 0, 0, p.ignoreRed(link))) {
             // prevent movement passed a closed link
-            Obstacles closedLink(stripes, Obstacle(p.myRelX + dir * (dist + NUMERICAL_EPS), 0, "closedLink_" + link->getViaLaneOrLane()->getID(), 0, true));
+            Obstacles closedLink(stripes, Obstacle(p.myRelX + dir * (dist + NUMERICAL_EPS), 0, OBSTACLE_LINKCLOSED, "closedLink_" + link->getViaLaneOrLane()->getID(), 0));
             p.mergeObstacles(currentObs, closedLink);
             if DEBUGCOND(p) {
                 std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  obsWitTLS=";
@@ -918,7 +918,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         }
         gDebugFlag1 = false;
         if (&lane->getEdge() == &p.myStage->getDestination() && p.myStage->getDestinationStop() != 0) {
-            Obstacles arrival(stripes, Obstacle(p.myStage->getArrivalPos() + dir * p.getMinGap(), 0, "arrival", 0, true));
+            Obstacles arrival(stripes, Obstacle(p.myStage->getArrivalPos() + dir * p.getMinGap(), 0, OBSTACLE_ARRIVALPOS, "arrival", 0));
             p.mergeObstacles(currentObs, arrival);
         }
 
@@ -933,7 +933,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                 const double vehFront = vehBack + veh->getVehicleType().getLength();
                 if ((dir == FORWARD && vehFront > p.getMinX() - LOOKAROUND_VEHICLES && vehBack <= p.getMaxX() + LOOKAHEAD_SAMEDIR)
                         || (dir == BACKWARD && vehFront < p.getMaxX() && vehFront >= p.getMinX() - LOOKAROUND_VEHICLES)) {
-                    Obstacle vo(vehBack, dir * veh->getSpeed(), veh->getID(), 0, true);
+                    Obstacle vo(vehBack, dir * veh->getSpeed(), OBSTACLE_VEHICLE, veh->getID(), 0);
                     // moving vehicles block space along their path
                     vo.xFwd += veh->getVehicleType().getLength() + SAFETY_GAP * veh->getSpeed() * LOOKAHEAD_SAMEDIR;
                     // relY increases from left to right (the other way around from vehicles)
@@ -1019,7 +1019,7 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
             const MSVehicle* veh = (*it).vehAndGap.first;
             if (veh != 0) {
                 // XXX add/subtract lateral offset to relX depending on direction
-                Obstacle vo((*it).distToCrossing, 0, veh->getID(), veh->getVehicleType().getWidth() + 2 * MINGAP_TO_VEHICLE, true);
+                Obstacle vo((*it).distToCrossing, 0, OBSTACLE_VEHICLE, veh->getID(), veh->getVehicleType().getWidth() + 2 * MINGAP_TO_VEHICLE);
                 // relY increases from left to right (the other way around from vehicles)
                 const double vehYmin = -(*it).vehAndGap.second + lateral_offset;
                 const double vehYmax = vehYmin + veh->getVehicleType().getLength();
@@ -1060,18 +1060,19 @@ MSPModel_Striping::Obstacle::Obstacle(int dir, double dist) :
     xFwd(dir * dist),  // by default, far away when seen in dir
     xBack(dir * dist),  // by default, far away when seen in dir
     speed(0),
-    description(""),
-    border(false) {
-}
+    type(OBSTACLE_NONE),
+    description("") 
+{ }
 
 
 MSPModel_Striping::Obstacle::Obstacle(const PState& ped) :
-    description(ped.myPerson->getID()) {
+    xFwd(ped.getMaxX()),
+    xBack(ped.getMinX()),
+    speed(ped.myDir * ped.mySpeed),
+    type(OBSTACLE_PED),
+    description(ped.myPerson->getID()) 
+{
     assert(!ped.myWaitingToEnter);
-    xFwd = ped.getMaxX();
-    xBack = ped.getMinX();
-    speed = ped.myDir * ped.mySpeed;
-    border = false;
 }
 
 
@@ -1344,7 +1345,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     // compute distances
     std::vector<double> distance(stripes);
     for (int i = 0; i < stripes; ++i) {
-        distance[i] = distanceTo(obs[i], !obs[i].border);
+        distance[i] = distanceTo(obs[i], obs[i].type == OBSTACLE_PED);
     }
     // compute utility for all stripes
     std::vector<double> utility(stripes, 0);
@@ -1441,9 +1442,9 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     if (mySpeed == 0 && xDist < MIN_STARTUP_DIST &&
             // unless walking towards a short lane
             !(
-                (xDist == distance[current] && obs[current].border)
-                || (xDist == distance[other] && obs[other].border)
-                || (xDist == distance[next] && obs[next].border))
+                (xDist == distance[current] && obs[current].type >= OBSTACLE_END)
+                || (xDist == distance[other] && obs[other].type >= OBSTACLE_END)
+                || (xDist == distance[next] && obs[next].type >= OBSTACLE_END))
        ) {
         xSpeed = 0;
     }

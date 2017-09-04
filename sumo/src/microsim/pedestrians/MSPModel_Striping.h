@@ -189,6 +189,16 @@ protected:
         int dir;
     };
 
+    enum ObstacleType {
+        OBSTACLE_NONE = 0,
+        OBSTACLE_PED = 1,
+        OBSTACLE_VEHICLE = 3,
+        OBSTACLE_END = 4,
+        OBSTACLE_NEXTEND = 5,
+        OBSTACLE_LINKCLOSED = 6,
+        OBSTACLE_ARRIVALPOS = 7
+    };
+
     /// @brief information regarding surround Pedestrians (and potentially other things)
     struct Obstacle {
         /// @brief create No-Obstacle
@@ -196,8 +206,8 @@ protected:
         /// @brief create an obstacle from ped for ego moving in dir
         Obstacle(const PState& ped);
         /// @brief create an obstacle from explict values
-        Obstacle(double _x, double _speed, const std::string& _description, const double width = 0., bool _border = false)
-            : xFwd(_x + width / 2.), xBack(_x - width / 2.), speed(_speed), description(_description), border(_border) {};
+        Obstacle(double _x, double _speed, ObstacleType _type, const std::string& _description, const double width = 0.)
+            : xFwd(_x + width / 2.), xBack(_x - width / 2.), speed(_speed), type(_type), description(_description) {};
 
         /// @brief maximal position on the current lane in forward direction
         double xFwd;
@@ -205,10 +215,10 @@ protected:
         double xBack;
         /// @brief speed relative to lane direction (positive means in the same direction)
         double speed;
+        /// @brief whether this obstacle denotes a border or a pedestrian
+        ObstacleType type;
         /// @brief the id / description of the obstacle
         std::string description;
-        /// @brief whether this obstacle denotes a border or a pedestrian
-        bool border;
     };
 
     struct WalkingAreaPath {
@@ -415,7 +425,7 @@ private:
 
     static void transformToCurrentLanePositions(Obstacles& o, int currentDir, int nextDir, double currentLength, double nextLength);
 
-    static void addCloserObstacle(Obstacles& obs, double x, int stripe, int numStripes, const std::string& id, double width, int dir);
+    static void addCloserObstacle(Obstacles& obs, double x, int stripe, int numStripes, const std::string& id, double width, int dir, ObstacleType type);
 
     /// @brief retrieves the pedestian vector for the given lane (may be empty)
     Pedestrians& getPedestrians(const MSLane* lane);
