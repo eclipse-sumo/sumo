@@ -380,6 +380,8 @@ print("routing period:", traci.vehicle.getParameter(electricVeh, "device.rerouti
 traci.vehicle.setParameter(electricVeh, "device.rerouting.period", "45")
 print("routing period:", traci.vehicle.getParameter(electricVeh, "device.rerouting.period"))
 print("edge rerouting traveltime:", traci.vehicle.getParameter(electricVeh, "device.rerouting.edge:2si"))
+traci.vehicle.setParameter(electricVeh, "device.rerouting.edge:2si", "123")
+print("edge rerouting traveltime:", traci.vehicle.getParameter(electricVeh, "device.rerouting.edge:2si"))
 
 traci.vehicle.setType(electricVeh, "long")
 check(electricVeh)

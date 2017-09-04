@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:38046 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:36905 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -654,6 +654,7 @@ has rerouting device: true
 routing period: 0.00
 routing period: 45.00
 edge rerouting traveltime: 23.30
+edge rerouting traveltime: 123.00
 vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim']
 vehicle count 20
 examining elVeh
