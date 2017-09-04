@@ -1613,7 +1613,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
             WRITE_WARNING("Opening FXMessageBox of type 'question'");
         }
         // open question box
-        answer = FXMessageBox::question(this, MBOX_QUIT_SAVE_CANCEL,
+        answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
                                         "Confirm closing Network", "%s",
                                         "You have unsaved changes in the network. Do you wish to quit and discard all changes?");
         if (answer == MBOX_CLICKED_QUIT) {
@@ -1652,7 +1652,7 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
             WRITE_WARNING("Opening FXMessageBox of type 'question'");
         }
         // open question box
-        FXuint answer = FXMessageBox::question(this, MBOX_QUIT_SAVE_CANCEL,
+        FXuint answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
                                                "Save additionals before exit", "%s",
                                                "You have unsaved additionals. Do you wish to quit and discard all changes?");
         // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
