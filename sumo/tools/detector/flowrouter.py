@@ -22,6 +22,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import absolute_import
+from __future__ import division
 from __future__ import print_function
 import os
 import random
@@ -103,6 +104,7 @@ class Edge:
         self.startCapacity = sys.maxsize
         self.flow = 0
         self.routes = []
+        self.newRoutes = []
 
     def __repr__(self):
         cap = str(self.capacity)
@@ -120,6 +122,7 @@ class Route:
     def __init__(self, freq, edges):
         self.frequency = freq
         self.edges = edges
+        self.newFrequency = None
 
     def __repr__(self):
         result = str(self.frequency) + " * ["
@@ -311,61 +314,120 @@ class Net:
             print(len(self._sink.inEdges), "sinks,",
                   unlimitedSink, "unlimited")
 
-    def splitRoutes(self, stubs, currEdge):
+    def splitRoutes(self, stubs, currEdge, upstreamBackEdges, newRoutes, alteredRoutes):
         newStubs = []
+        backSet = set(upstreamBackEdges)
         while len(stubs) > 0:
             routeStub = stubs.pop()
             if len(routeStub.edges) > 0 and currEdge == routeStub.edges[0]:
                 routeStub.edges.pop(0)
                 newStubs.append(routeStub)
             else:
-                while routeStub.frequency > 0:
-                    route = currEdge.routes[0]
+                if DEBUG:
+                    print("      trying to split", routeStub)
+                assert(len(currEdge.routes) > 0)
+                for route in currEdge.routes + currEdge.newRoutes:
+                    if route.newFrequency == 0:
+                        continue
                     edgePos = route.edges.index(currEdge)
-                    newRoute = Route(min(routeStub.frequency, route.frequency),
+                    backPath = False
+                    hadForward = False
+                    for edge in route.edges[edgePos + 1:]:
+                        if edge in backSet:
+                            if hadForward:
+                                if DEBUG:
+                                    print("      skipping", route, "because", edge, "is in", backSet)
+                                backPath = True
+                                break
+                        else:
+                            hadForward = True
+                    if backPath:
+                        continue
+                    newRoute = Route(min(routeStub.frequency, route.frequency if route.newFrequency is None else route.newFrequency),
                                      route.edges[:edgePos] + routeStub.edges)
+                    newRoutes.append(newRoute)
                     for edge in newRoute.edges:
-                        edge.routes.append(newRoute)
+                        edge.newRoutes.append(route)
                     newStubs.append(Route(newRoute.frequency,
                                           route.edges[edgePos + 1:]))
-                    route.frequency -= newRoute.frequency
-                    if route.frequency == 0:
-                        for edge in route.edges:
-                            edge.routes.remove(route)
+                    if route.newFrequency is None:
+                        route.newFrequency = route.frequency
+                    route.newFrequency -= newRoute.frequency
+                    alteredRoutes.append(route)
                     routeStub.frequency -= newRoute.frequency
+                    if routeStub.frequency == 0:
+                        break
+                if routeStub.frequency > 0:
+                    if DEBUG:
+                        print("      Could not split", routeStub)
+                    return False
         stubs.extend(newStubs)
+        return True
 
     def updateFlow(self, startVertex, endVertex):
         assert endVertex.flowDelta < sys.maxsize
         if options.limit and endVertex.flowDelta > options.limit:
             endVertex.flowDelta = options.limit
-        cycleStartStep = (startVertex == endVertex)
-        currVertex = endVertex
         stubs = [Route(endVertex.flowDelta, [])]
-        if options.verbose and DEBUG:
+        if DEBUG:
             print("  updateFlow start=%s end=%s flowDelta=%s" % (startVertex,
                                                                  endVertex, endVertex.flowDelta))
+        upstreamBackEdges = list(self.getBackEdges(startVertex, endVertex))
+        newRoutes = []
+        alteredRoutes = []
+        flowDeltas = []
+        cycleStartStep = (startVertex == endVertex)
+        currVertex = endVertex
         while currVertex != startVertex or cycleStartStep:
             cycleStartStep = False
             currEdge = currVertex.inPathEdge
             if currEdge.target == currVertex:
-                if options.verbose and DEBUG and not currEdge.kind == 'junction':
+                if DEBUG:# and not currEdge.kind == 'junction':
                     print("    incFlow edge=%s delta=%s" % (currEdge, endVertex.flowDelta))
-                currEdge.flow += endVertex.flowDelta
+                flowDeltas.append((currEdge, endVertex.flowDelta))
                 currVertex = currEdge.source
                 for routeStub in stubs:
                     routeStub.edges.insert(0, currEdge)
             else:
-                if options.verbose and DEBUG:
+                if DEBUG:
                     print("    decFlow edge=%s delta=%s" % (currEdge, endVertex.flowDelta))
-                currEdge.flow -= endVertex.flowDelta
+                flowDeltas.append((currEdge, -endVertex.flowDelta))
                 currVertex = currEdge.target
-                self.splitRoutes(stubs, currEdge)
-        for route in stubs:
+                upstreamBackEdges.pop(0)
+                if not self.splitRoutes(stubs, currEdge, upstreamBackEdges, newRoutes, alteredRoutes):
+                    # resetting to previous state
+                    for route in alteredRoutes:
+                        route.newFrequency = None
+                    for route in newRoutes:
+                        for edge in route.edges:
+                            del edge.newRoutes[:]
+                    if DEBUG:
+                        self.testFlowInvariants()
+                    return False
+        if DEBUG:
+            self.testFlowInvariants()
+        # up to here no modification of existing edges or routes in case splitting fails
+        for edge, delta in flowDeltas:
+            edge.flow += delta
+        for route in alteredRoutes:
+            if route.newFrequency is not None:  # otherwise it has been handled before
+                if route.newFrequency == 0:
+                    for edge in route.edges:
+                        edge.routes.remove(route)
+                else:
+                    route.frequency = route.newFrequency
+                route.newFrequency = None
+        for route in stubs + newRoutes:
             for edge in route.edges:
                 edge.routes.append(route)
+                del edge.newRoutes[:]
+        if DEBUG:
+            self.testFlowInvariants()
+        return True
 
     def endsRestrictedRoute(self, edge):
+        if not self._routeRestriction:
+            return False
         currVertex = edge.source
         routeEdgeObj = [edge]
         route = []
@@ -384,32 +446,32 @@ class Net:
         for r in edge.routes:
             if r.edges == routeEdgeObj:
                 count += r.frequency
-        if options.verbose and DEBUG:
+        if DEBUG:
             print("    checking limit for route %s count %s" % (route, count))
         return count > self._routeRestriction.get(tuple(route), count)
 
-    def buildPath(self, vertex, abort):
-        path = []
-        edge = vertex.inPathEdge
-        while edge != abort:
-            path.append(edge)
-            edge = edge.source.inPathEdge
-            if edge is None:
-                return None
-        path.reverse()
-        return path
+    def getBackEdges(self, pathStart, currVertex):
+        cycleStartStep = (pathStart == currVertex)
+        while currVertex != pathStart or cycleStartStep:
+            cycleStartStep = False
+            edge = currVertex.inPathEdge
+            if edge.source == currVertex:
+                yield edge
+                currVertex = edge.target
+            else:
+                currVertex = edge.source
 
     def findPath(self, startVertex, pathStart, limitedSource=True, limitedSink=True, allowBackward=True):
         queue = [startVertex]
         path = None
-        if options.verbose and DEBUG:
+        if DEBUG:
             print("  findPath start=%s pathStart=%s limits(%s, %s)" %
                   (startVertex, pathStart, limitedSource, limitedSink))
         while len(queue) > 0:
             currVertex = heapq.heappop(queue)
             if currVertex == self._sink or (currVertex == self._source and currVertex.inPathEdge):
-                self.updateFlow(pathStart, currVertex)
-                return True
+                if self.updateFlow(pathStart, currVertex):
+                    return True
             for edge in currVertex.outEdges:
                 if limitedSource and currVertex == self._source and not edge.isOnSourcePath:
                     continue
@@ -452,7 +514,7 @@ class Net:
         unsatEdge.target.gain = startVertex.flowDelta * numSatEdges
 
     def pullFlow(self, unsatEdge, limitSource, limitSink, allowBackward):
-        if options.verbose and DEBUG:
+        if DEBUG:
             print("Trying to increase flow on", unsatEdge)
         for vertex in self._vertices:
             vertex.reset()
@@ -481,6 +543,25 @@ class Net:
                             currVertex.flowDelta, edge.flow)
         return False
 
+    def testFlowInvariants(self):
+        # the following code only tests assertions
+        for vertex in self._vertices:
+            flowSum = 0
+            for preEdge in vertex.inEdges:
+                flowSum += preEdge.flow
+            for succEdge in vertex.outEdges:
+                flowSum -= succEdge.flow
+                totalEdgeFlow = 0
+                for route in succEdge.routes:
+                    assert route.frequency > 0
+                    totalEdgeFlow += route.frequency
+                if DEBUG and totalEdgeFlow != succEdge.flow:
+                    print("total edge flow failed", totalEdgeFlow, succEdge)
+                    for r in succEdge.routes:
+                        print(r)
+                assert totalEdgeFlow == succEdge.flow
+            assert vertex == self._source or vertex == self._sink or flowSum == 0
+
     def calcRoutes(self, allowBackward=True):
         for limitSource, limitSink in ((True, True), (True, False), (False, True), (False, False)):
             pathFound = True
@@ -489,24 +570,13 @@ class Net:
                     vertex.reset()
                 pathFound = self.findPath(self._source, self._source, limitSource, limitSink, allowBackward)
                 if not pathFound and PULL_FLOW and not limitSource and not limitSink:
-                    for edge in sorted(self._edges.values()):
+                    for i, edge in enumerate(sorted(self._edges.values())):
+                        if DEBUG and options.verbose and i > 0 and i % 100 == 0:
+                            print("pullFlow %.2f%%" % (100 * i / len(self._edges)))
                         if edge.startCapacity < sys.maxsize:
                             while edge.flow < edge.capacity and self.pullFlow(edge, limitSource, limitSink, allowBackward):
                                 pathFound = True
-        # the following block tests assertions
-        if allowBackward:
-            for vertex in self._vertices:
-                sum = 0
-                for preEdge in vertex.inEdges:
-                    sum += preEdge.flow
-                for succEdge in vertex.outEdges:
-                    sum -= succEdge.flow
-                    flowSum = 0
-                    for route in succEdge.routes:
-                        assert route.frequency > 0
-                        flowSum += route.frequency
-                    assert flowSum == succEdge.flow
-                assert vertex == self._source or vertex == self._sink or sum == 0
+        self.testFlowInvariants()
         # run again (once) if restricted routes were removed
         self.consolidateRoutes()
         if self.applyRouteRestrictions() and allowBackward:
@@ -531,7 +601,7 @@ class Net:
                 key = tuple([e.label for e in route.edges if e.kind == "real"])
                 surplus = route.frequency - self._routeRestriction.get(key, sys.maxsize)
                 if surplus > 0:
-                    if options.verbose and DEBUG:
+                    if DEBUG:
                         print("route '%s' surplus=%s" % (" ".join(key), surplus))
                     removed = True
                     for e in route.edges:
