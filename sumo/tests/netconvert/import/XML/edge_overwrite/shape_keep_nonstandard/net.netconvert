@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:16 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Mon Sep  4 16:35:40 2017 by SUMO netconvert Version dev-SVN-r25830
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -20,6 +20,8 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -34,11 +36,11 @@
     <location netOffset="0.00,0.00" convBoundary="-500.00,-500.00,500.00,500.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
     <edge id="1fi" from="1" to="0" priority="-1" shape="-500.00,0.00 -250.00,-100.00 -20.00,0.00">
-        <lane id="1fi_0" index="0" speed="12.00" length="541.61" shape="-501.84,-4.60 -249.92,-105.36 -19.18,-5.04"/>
-        <lane id="1fi_1" index="1" speed="12.00" length="541.61" shape="-500.61,-1.53 -249.97,-101.79 -20.50,-2.02"/>
+        <lane id="1fi_0" index="0" speed="12.00" length="539.97" shape="-501.84,-4.60 -249.92,-105.36 -19.18,-5.04"/>
+        <lane id="1fi_1" index="1" speed="12.00" length="539.97" shape="-500.61,-1.53 -249.97,-101.79 -20.50,-2.02"/>
     </edge>
     <edge id="1o" from="0" to="1" priority="-1">
-        <lane id="1o_0" index="0" speed="16.00" length="501.69" shape="-21.26,1.65 -500.00,1.65"/>
+        <lane id="1o_0" index="0" speed="16.00" length="500.01" shape="-21.26,1.65 -500.00,1.65"/>
     </edge>
     <edge id="2fi" from="2" to="0" priority="-1">
         <lane id="2fi_0" index="0" speed="16.00" length="500.00" shape="500.00,4.95 8.05,4.95"/>
