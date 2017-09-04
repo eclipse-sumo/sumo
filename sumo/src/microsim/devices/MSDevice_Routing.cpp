@@ -481,7 +481,14 @@ MSDevice_Routing::setParameter(const std::string& key, const std::string& value)
     } catch (NumberFormatException) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
     }
-    if (key == "period") {
+    if (StringUtils::startsWith(key, "edge:")) {
+        const std::string edgeID = key.substr(5);
+        const MSEdge* edge = MSEdge::dictionary(edgeID);
+        if (edge == 0) {
+            throw InvalidArgument("Edge '" + edgeID + "' is invalid for parameter setting of '" + deviceName() + "'");
+        }
+        myEdgeSpeeds[edge->getNumericalID()] = edge->getLength() / doubleValue;
+    } else if (key == "period") {
         const double oldPeriod = myPeriod;
         myPeriod = TIME2STEPS(doubleValue);
         if (myPeriod <= 0) {
