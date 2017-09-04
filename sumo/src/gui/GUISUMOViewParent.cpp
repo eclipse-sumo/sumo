@@ -221,7 +221,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             title = "Traffic Lights Chooser";
             break;
         case MID_LOCATEADD:
-            ids = GUIGlObject_AbstractAdd::getIDList();
+            ids = GUIGlObject_AbstractAdd::getIDList(GLO_ADDITIONAL);
             icon = ICON_LOCATEADD;
             title = "Additional Objects Chooser";
             break;

@@ -93,10 +93,12 @@ GUIGlObject_AbstractAdd::getObjectList() {
 
 
 std::vector<GUIGlID>
-GUIGlObject_AbstractAdd::getIDList() {
+GUIGlObject_AbstractAdd::getIDList(int typeFilter) {
     std::vector<GUIGlID> ret;
     for (std::vector<GUIGlObject_AbstractAdd*>::iterator i = myObjectList.begin(); i != myObjectList.end(); ++i) {
-        ret.push_back((*i)->getGlID());
+        if (((*i)->getType() & typeFilter) != 0) {
+            ret.push_back((*i)->getGlID());
+        }
     }
     return ret;
 }

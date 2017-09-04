@@ -66,8 +66,8 @@ public:
     /// Returns the list of all additional objects
     static const std::vector<GUIGlObject_AbstractAdd*>& getObjectList();
 
-    /// Returns the list of gl-ids of all additional objects
-    static std::vector<GUIGlID> getIDList();
+    /// Returns the list of gl-ids of all additional objects that match the given type
+    static std::vector<GUIGlID> getIDList(int typeFilter);
 
 
 protected:
