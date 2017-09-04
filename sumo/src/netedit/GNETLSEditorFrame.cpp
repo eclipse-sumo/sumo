@@ -377,8 +377,9 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     int newIndex = myPhaseTable->getSelStartRow() + 1;
     int oldIndex = MAX2(0, myPhaseTable->getSelStartRow());
     // copy current row
+    const bool fixed = myEditedDef->getType() == TLTYPE_STATIC;
     const SUMOTime duration = getSUMOTime(myPhaseTable->getItemText(oldIndex, 0));
-    const std::string state = myPhaseTable->getItemText(oldIndex, 1).text();
+    const std::string state = myPhaseTable->getItemText(oldIndex, fixed ? 1 : 3).text();
     myEditedDef->getLogic()->addStep(duration, state, newIndex);
     myPhaseTable->setCurrentItem(newIndex, 0);
     initPhaseTable(newIndex);
