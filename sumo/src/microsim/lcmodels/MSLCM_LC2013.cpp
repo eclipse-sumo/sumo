@@ -1230,7 +1230,9 @@ MSLCM_LC2013::_wantsChange(
         ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;
     } else {
         // VARIANT_20 (noOvertakeRight)
-        if (neighLead.first != 0 && checkOverTakeRight && !right) {
+        if (neighLead.first != 0 && checkOverTakeRight && !right && 
+                (neighLead.first->getSpeed() < myVehicle.getSpeed()
+                 || neighLane.getVehicleMaxSpeed(neighLead.first) < vMax)) {
             // check for slower leader on the left. we should not overtake but
             // rather move left ourselves (unless congested)
             MSVehicle* nv = neighLead.first;
