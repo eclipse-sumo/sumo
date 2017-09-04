@@ -933,7 +933,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                 const double vehFront = vehBack + veh->getVehicleType().getLength();
                 if ((dir == FORWARD && vehFront > p.getMinX() - LOOKAROUND_VEHICLES && vehBack <= p.getMaxX() + LOOKAHEAD_SAMEDIR)
                         || (dir == BACKWARD && vehFront < p.getMaxX() && vehFront >= p.getMinX() - LOOKAROUND_VEHICLES)) {
-                    Obstacle vo(vehBack, dir * veh->getSpeed(), OBSTACLE_VEHICLE, veh->getID(), 0);
+                    Obstacle vo(vehBack, veh->getSpeed(), OBSTACLE_VEHICLE, veh->getID(), 0);
                     // moving vehicles block space along their path
                     vo.xFwd += veh->getVehicleType().getLength() + SAFETY_GAP * veh->getSpeed() * LOOKAHEAD_SAMEDIR;
                     // relY increases from left to right (the other way around from vehicles)
@@ -945,7 +945,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                         if (s == current && vehFront + SAFETY_GAP < p.getMinX()) {
                             // ignore if aleady overlapping while vehicle is still behind
                             if (p.myRelY - p.myPerson->getVehicleType().getWidth() < vehYmax && 
-                                    p.myRelY + p.myPerson->getVehicleType().getWidth() > vehYmin) { 
+                                    p.myRelY + p.myPerson->getVehicleType().getWidth() > vehYmin && dir == FORWARD) { 
                                 if DEBUGCOND(p) std::cout << "   ignoring vehicle on stripe " << s << "\n";
                                 if (dir == FORWARD) {
                                     vehObs[s] = Obstacle(dir);
@@ -1489,6 +1489,11 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                       MIN2(maxYSpeed, DIST2SPEED(yDist)) :
                       MAX2(-maxYSpeed, DIST2SPEED(yDist)));
         }
+    } else if (utility[chosen] <= OBSTRUCTION_THRESHOLD && obs[chosen].type == OBSTACLE_VEHICLE  
+            // still on the road
+            && stripe() == stripe(myRelY)) {
+        // step aside to let the vehicle pass
+        myRelY += myDir * vMax;
     }
     // DEBUG
     if DEBUGCOND(*this) {
