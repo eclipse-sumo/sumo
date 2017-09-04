@@ -2532,12 +2532,15 @@ MSLCM_SL2015::computeSpeedLat(double latDist) {
 
     // can we reach the target distance in a single step?
     double speedBound = DIST2SPEED(latDist);
+    // for lat-gap keeping manoeuvres myOrigLatDist may be 0
+    const double fullLatDist = MAX2(latDist, myOrigLatDist);
     if (gDebugFlag2) {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
                   << " speedLat=" << mySpeedLat
                   << " latDist=" << latDist
-                  << " fullLatDist=" << myOrigLatDist
+                  << " myOrigLatDist=" << myOrigLatDist
+                  << " fullLatDist=" << fullLatDist
                   << " speedAccel=" << speedAccel
                   << " speedDecel=" << speedDecel
                   << " speedBound=" << speedBound
@@ -2558,13 +2561,14 @@ MSLCM_SL2015::computeSpeedLat(double latDist) {
     }
     // check if the remaining distance allows to accelerate laterally
     double minDistAccel = SPEED2DIST(speedAccel) + currentDirection * MSCFModel::brakeGapEuler(fabs(speedAccel), myAccelLat, 0); // most we can move in the target direction
-    if ((fabs(minDistAccel) < fabs(myOrigLatDist)) || (fabs(minDistAccel - myOrigLatDist) < NUMERICAL_EPS)) {
+    if ((fabs(minDistAccel) < fabs(fullLatDist)) || (fabs(minDistAccel - fullLatDist) < NUMERICAL_EPS)) {
         if (gDebugFlag2) std::cout << "   computeSpeedLat c)\n";
         return speedAccel; 
     } else {
+        if (gDebugFlag2) std::cout << "      minDistAccel=" << minDistAccel << "\n";
         // check if the remaining distance allows to maintain current lateral speed
         double minDistCurrent = SPEED2DIST(mySpeedLat) + currentDirection * MSCFModel::brakeGapEuler(fabs(mySpeedLat), myAccelLat, 0);
-        if ((fabs(minDistCurrent) < fabs(myOrigLatDist)) || (fabs(minDistCurrent - myOrigLatDist) < NUMERICAL_EPS)) {
+        if ((fabs(minDistCurrent) < fabs(fullLatDist)) || (fabs(minDistCurrent - fullLatDist) < NUMERICAL_EPS)) {
             if (gDebugFlag2) std::cout << "   computeSpeedLat d)\n";
             return mySpeedLat;
         }
