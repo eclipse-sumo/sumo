@@ -822,7 +822,6 @@ GNENet::saveAdditionals(const std::string& filename, bool volatileOptionsEnabled
         // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions 
         GNEDialog_FixAdditionalPositions fixAdditionalPositionsDialog(myViewNet, invalidStoppingPlaces, invalidDetectors);
-        fixAdditionalPositionsDialog.setTarget(myViewNet);
         if(fixAdditionalPositionsDialog.execute() == 0) {
             // Here a console message
             ;

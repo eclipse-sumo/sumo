@@ -1616,6 +1616,8 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
         answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
                                         "Confirm closing Network", "%s",
                                         "You have unsaved changes in the network. Do you wish to quit and discard all changes?");
+        // restore focus to view net
+        getView()->setFocus();
         if (answer == MBOX_CLICKED_QUIT) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1655,6 +1657,8 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
         FXuint answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
                                                "Save additionals before exit", "%s",
                                                "You have unsaved additionals. Do you wish to quit and discard all changes?");
+        // restore focus to view net
+        getView()->setFocus();
         // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
         if (answer == MBOX_CLICKED_QUIT) {
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
