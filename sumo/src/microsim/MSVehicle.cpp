@@ -3737,9 +3737,12 @@ void
 MSVehicle::setBlinkerInformation() {
     switchOffSignal(VEH_SIGNAL_BLINKER_RIGHT | VEH_SIGNAL_BLINKER_LEFT);
     int state = getLaneChangeModel().getOwnState();
-    if ((state & LCA_LEFT) != 0 && (state & LCA_SUBLANE) == 0) {
+    // do not set blinker for sublane changes or when blocked from changing to the right
+    const bool blinkerManoeuvre = (((state & LCA_SUBLANE) == 0) && (
+            (state & LCA_KEEPRIGHT) == 0 || (state & LCA_BLOCKED) == 0));
+    if ((state & LCA_LEFT) != 0 && blinkerManoeuvre) {
         switchOnSignal(VEH_SIGNAL_BLINKER_LEFT);
-    } else if ((state & LCA_RIGHT) != 0 && (state & LCA_SUBLANE) == 0) {
+    } else if ((state & LCA_RIGHT) != 0 && blinkerManoeuvre) {
         switchOnSignal(VEH_SIGNAL_BLINKER_RIGHT);
     } else if (getLaneChangeModel().isChangingLanes()) {
         if (getLaneChangeModel().getLaneChangeDirection() == 1) {
