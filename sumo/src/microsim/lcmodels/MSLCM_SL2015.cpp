@@ -1209,7 +1209,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     const std::vector<double>& sublaneSides = edge.getSubLaneSides();
     assert(sublaneSides.size() == myExpectedSublaneSpeeds.size());
     const double vehWidth = getWidth();
-    const double rightVehSide = myVehicle.getRightSideOnEdge();
+    const double rightVehSide = myVehicle.getCenterOnEdge() - 0.5 * vehWidth;
     const double leftVehSide = rightVehSide + vehWidth;
     // figure out next speed when staying where we are
     double defaultNextSpeed = std::numeric_limits<double>::max();
@@ -1974,7 +1974,7 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
     // to ensure that we do not ignore the wrong vehicles due to numerical
     // instability we slightly reduce the width
     const double vehWidth = myVehicle.getVehicleType().getWidth() - NUMERICAL_EPS;
-    const double rightVehSide = myVehicle.getRightSideOnEdge();
+    const double rightVehSide = myVehicle.getCenterOnEdge() - 0.5 * vehWidth;
     const double leftVehSide = rightVehSide + vehWidth;
     if (gDebugFlag2) std::cout << " updateCFRelated foeOffset=" << foeOffset << " vehicles=" << vehicles.toString() << "\n";
     for (int i = 0; i < vehicles.numSublanes(); ++i) {
@@ -2619,7 +2619,7 @@ MSLCM_SL2015::commitFollowSpeed(double speed, double latDist, double secondsToLe
         cfmodel.setMaxDecel(maxDecel * decelFactor);
 
         const double vehWidth = getWidth();
-        const double rightVehSide = myVehicle.getRightSideOnEdge();
+        const double rightVehSide = myVehicle.getCenterOnEdge() - 0.5 * vehWidth;
         const double leftVehSide = rightVehSide + vehWidth;
         const double rightVehSideDest = rightVehSide + latDist;
         const double leftVehSideDest = leftVehSide + latDist;
