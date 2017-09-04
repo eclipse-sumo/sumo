@@ -273,17 +273,10 @@ def rebuildNetworkWithVolatileOptions(question=True):
     typeTwoKeys(Key.F5, Key.SHIFT)
     # confirm recompute
     if question == True:
-        # wait 0.5 second to question dialog
-        wait(DELAY_QUESTION)
-        # press enter to recompute selecting "yes"
-        typeEnter()
+        waitQuestion('y')
     else:
-        # wait 0.5 second to question dialog
-        wait(DELAY_QUESTION)
-        # abort recomputing selecting "no"
-        typeTab()
-        typeEnter()
-        
+        waitQuestion('n')
+
 
 """
 @brief clean junction
@@ -375,32 +368,18 @@ def quit(neteditProcess, openNonSavedNetDialog=False, saveNet=False, openedAddit
         # Check if net must be saved
         if openNonSavedNetDialog:
             if saveNet:
-                # wait 0.5 second to question dialog
-                wait(DELAY_QUESTION)
-                # save net
-                typeEnter()
+                waitQuestion("s")
             else:
-                # wait 0.5 second to question dialog
-                wait(DELAY_QUESTION)
-                # select quit
-                typeInvertTab()
-                typeEnter()
+                waitQuestion("q")
 
         # Check if additionals must be saved
         if openedAdditionalsNonSavedDialog:
             if saveAdditionals:
-                # wait 0.5 second to question dialog
-                wait(DELAY_QUESTION)
-                # save net
-                typeEnter()
+                waitQuestion("s")
             else:
-                # wait 0.5 second to question dialog
-                wait(DELAY_QUESTION)
-                # select quit
-                typeInvertTab()
-                typeEnter()
+                waitQuestion("q")
 
-        # wait some second
+        # wait some secondd
         wait(DELAY_QUIT)
         if neteditProcess.poll() is not None:
             # print debug information
