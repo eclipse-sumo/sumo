@@ -2395,7 +2395,7 @@ MSLCM_SL2015::keepLatGap(int state,
         latDist = myVehicle.getInfluencer().getLatDist();
     }
     // if we cannot move in the desired direction, consider the maneuver blocked anyway
-    if ((state & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN)) != 0) {
+    if ((state & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT)) != 0) {
         if ((latDist < -NUMERICAL_EPS * TS) && (oldLatDist > NUMERICAL_EPS * TS)) {
             if (gDebugFlag2) {
                 std::cout << "     wanted changeToLeft oldLatDist=" << oldLatDist << ", blocked latGap changeToRight\n";
