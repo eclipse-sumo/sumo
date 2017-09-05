@@ -32,6 +32,10 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, [], False)
 # Rebuild network
 netedit.rebuildNetwork()
 
+
+# wait 10 seconds (for slow computers)
+wait(20)
+
 # save newtork
 netedit.saveNetwork()
 
