@@ -9,11 +9,6 @@ set(utils_emissions_STAT_SRCS
    HelpersHBEFA3.h
    HelpersPHEMlight.cpp
    HelpersPHEMlight.h
-   PHEMCEP.h
-   PHEMCEP.cpp
-   PHEMCEPHandler.h
-   PHEMCEPHandler.cpp
-   PHEMConstants.h
    PollutantsInterface.h
    PollutantsInterface.cpp
 )

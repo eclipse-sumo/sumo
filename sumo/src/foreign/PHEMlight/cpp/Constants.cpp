@@ -10,7 +10,7 @@
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
 // PHEMlight module
-// Copyright 2016 Technische Universitaet Graz, https://www.tugraz.at/
+// Copyright (C) 2016-2017 Technische Universitaet Graz, https://www.tugraz.at/
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -48,6 +48,7 @@ const std::string Constants::strKKR = "MOP";
 const std::string Constants::strGasoline = "G";
 const std::string Constants::strDiesel = "D";
 const std::string Constants::strCNG = "CNG";
+const std::string Constants::strLPG = "LPG";
 const std::string Constants::strHybrid = "HEV";
 const std::string Constants::strBEV = "BEV";
 const std::string Constants::strEU = "EU";

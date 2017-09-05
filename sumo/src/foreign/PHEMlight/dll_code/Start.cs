@@ -12,22 +12,21 @@ namespace PHEMlightdll
 {
     public class Start
     {
-        private string _DataPath;
+        private List<string> _DataPath;
         private CEPHandler DataInput;
         public Helpers Helper = new Helpers();
 
         //******************* Parameters of Array or Single calculation *******************
         //********************************* INPUT ******************************************
-        //***  DATATYP            |  UNIT   |  VARIBLE              |      Description  ***
-        //string                  |  [-]    |   VEH                 | Name of vehicle file (e.g. "PC_D_EU4" path neede if not in "Default Vehicles") or aggregated name (PC, HDV, BUS, TW) by FleetMix calculation
-        //List<double> / double   |  [s]    |   Time                | Time signal
-        //List<double> / double   |  [m/s]  |   Velocity            | Velocity signal
-        //double                  |  [m/s^2]|   acc                 | Acceleration (ONLY NEDDED BY SINGLE CALCULATION)
-        //List<double> / double   |  [%]    |   Gradient            | Gradient of the route
-        //out List<VehicleResult> |  [-]    |   VehicleResultsOrg   | Returned result list
-        //bool                    |  [-]    |   fleetMix = false    | Optional parameter if fleetMix should be calculate
-        //string                  |  [-]    |   PHEMDataV = "V4"    | Optional parameter for "Default Vehicles"
-        //string                  |  [-]    |   CommentPref = "c"   | Optional parameter for comment prefix
+        //***  DATATYP            |  UNIT   |  VARIBLE                  |     Description  ***
+        //List<string>            |  [-]    |   DataFiles (VEH, FC, EMI)| Name of file (e.g. "PC_D_EU4" path neede if not in "Default Vehicles") or aggregated name (PC, HDV, BUS, TW) by FleetMix calculation
+        //List<double> / double   |  [s]    |   Time                    | Time signal
+        //List<double> / double   |  [m/s]  |   Velocity                | Velocity signal
+        //double                  |  [m/s^2]|   acc                     | Acceleration (ONLY NEDDED BY SINGLE CALCULATION)
+        //List<double> / double   |  [%]    |   Gradient                | Gradient of the route
+        //out List<VehicleResult> |  [-]    |   VehicleResultsOrg       | Returned result list
+        //bool                    |  [-]    |   fleetMix = false        | Optional parameter if fleetMix should be calculate
+        //string                  |  [-]    |   CommentPref = "c"       | Optional parameter for comment prefix
 
         //********************************* OUPUT: VehicleResultsOrg **********************
         //***  DATATYP            |  UNIT   |  VARIBLE     |      Description  ***
@@ -48,13 +47,12 @@ namespace PHEMlightdll
 
         #region calculate
         //Calculate data from array
-        public bool CALC_Array(string VEH, 
+        public bool CALC_Array(List<string> DataFiles, 
                                List<double> Time, 
                                List<double> Velocity,
                                List<double> Gradient,
                                out List<VehicleResult> VehicleResultsOrg,
                                bool fleetMix = false,
-                               string PHEMDataV = "V4", 
                                string CommentPref = "c")
         {
             //Declaration
@@ -67,30 +65,42 @@ namespace PHEMlightdll
 
             //Borrow
             Helper.CommentPrefix = CommentPref;
-            Helper.PHEMDataV = PHEMDataV;
-            if ((VEH.LastIndexOf(@"\")) >= 0)
-                _DataPath = VEH.Substring(0, VEH.LastIndexOf(@"\"));
-            else
-                _DataPath = Assembly.GetExecutingAssembly().Location.Substring(0, Assembly.GetExecutingAssembly().Location.LastIndexOf(@"\")) + @"\Default Vehicles\" + Helper.PHEMDataV;
+            _DataPath = new List<string>();
+            //Set path by normal calculation (on given) and set path by fleetmix (on Default Vehicles) calculation
+            for (i = 0; i < DataFiles.Count; i++)
+            {
+                if ((DataFiles[i].LastIndexOf(@"\")) >= 0)
+                {
+                    _DataPath.Add(DataFiles[i]);
+                }
+                else
+                {
+                    //_DataPath.Add(Assembly.GetExecutingAssembly().Location.Substring(0, Assembly.GetExecutingAssembly().Location.LastIndexOf(@"\")) + @"\Default Vehicles\" + Helper.PHEMDataV);
+                    _DataPath.Add(DataFiles[i + 1].Substring(0, DataFiles[i + 1].LastIndexOf(@"\")));
+                    _DataPath.Add(DataFiles[i + 1].Substring(0, DataFiles[i + 1].LastIndexOf(@"\")));
+                    _DataPath.Add(DataFiles[i + 1].Substring(0, DataFiles[i + 1].LastIndexOf(@"\")));
+                    i += 1;
+                }
+            }
 
             //Read the vehicle and emission data
             #if FLEET
             if (fleetMix)
             {
                 //Set the vehicle class
-                Helper.gClass = VEH;
+                Helper.gClass = _DataPath[0];
 
                 //Generate the class
                 DataInput = new CEPHandler();
 
                 //Read the FleetShares
-                if (!DataInput.ReadFleetShares(_DataPath, Helper))
+                if (!DataInput.ReadFleetShares(DataFiles[1], Helper))
                 {
                     VehicleResultsOrg = null;
                     return false;
                 }
                 //Read the vehicle and emission data
-                if (!DataInput.GetFleetCEP(_DataPath, VEH, Helper))
+                if (!DataInput.GetFleetCEP(_DataPath, DataFiles[0], Helper))
                 {
                     VehicleResultsOrg = null;
                     return false;
@@ -100,7 +110,7 @@ namespace PHEMlightdll
             #endif
             {
                 //Get vehicle string
-                if (!Helper.setclass(VEH))
+                if (!Helper.setclass(DataFiles[0]))
                 {
                     VehicleResultsOrg = null;
                     return false;
@@ -122,7 +132,7 @@ namespace PHEMlightdll
             {
                 //Calculate the acceleration
                 acc = (Velocity[i] - Velocity[i - 1]) / (Time[i] - Time[i - 1]);
-
+                
                 //Calculate and save the data in the List
                 _VehicleResult.Add(PHEMLight.CreateVehicleStateData(Helper,
                                                                     DataInput.CEPS[Helper.gClass],
@@ -141,14 +151,13 @@ namespace PHEMlightdll
         }
 
         //Calculate single data
-        public bool CALC_Single(string VEH,
+        public bool CALC_Single(List<string> DataFiles,
                                 double Time,
                                 double Velocity,
                                 double acc,
                                 double Gradient,
                                 out List<VehicleResult> VehicleResultsOrg,
                                 bool fleetMix = false,
-                                string PHEMDataV = "V4",
                                 string CommentPref = "c")
         {
             //Declaration
@@ -157,30 +166,42 @@ namespace PHEMlightdll
 
             //Borrow
             Helper.CommentPrefix = CommentPref;
-            Helper.PHEMDataV = PHEMDataV;
-            if ((VEH.LastIndexOf(@"\")) >= 0)
-                _DataPath = VEH.Substring(0, VEH.LastIndexOf(@"\"));
-            else
-                _DataPath = Assembly.GetExecutingAssembly().Location.Substring(0, Assembly.GetExecutingAssembly().Location.LastIndexOf(@"\")) + @"\Default Vehicles\" + Helper.PHEMDataV;
+            _DataPath = new List<string>();
+            //Set path by normal calculation (on given) and set path by fleetmix (on Fleetshare file) calculation
+            for (int i = 0; i < DataFiles.Count; i++)
+            {
+                if ((DataFiles[i].LastIndexOf(@"\")) >= 0)
+                {
+                    _DataPath.Add(DataFiles[i]);
+                }
+                else
+                {
+                    //_DataPath.Add(Assembly.GetExecutingAssembly().Location.Substring(0, Assembly.GetExecutingAssembly().Location.LastIndexOf(@"\")) + @"\Default Vehicles\" + Helper.PHEMDataV);
+                    _DataPath.Add(DataFiles[i + 1].Substring(0, DataFiles[i + 1].LastIndexOf(@"\")));
+                    _DataPath.Add(DataFiles[i + 1].Substring(0, DataFiles[i + 1].LastIndexOf(@"\")));
+                    _DataPath.Add(DataFiles[i + 1].Substring(0, DataFiles[i + 1].LastIndexOf(@"\")));
+                    i += 1;
+                }
+            }
 
             //Read the vehicle and emission data
             #if FLEET
             if (fleetMix)
             {
                 //Set the vehicle class
-                Helper.gClass = "AggClass_" + VEH;
+                Helper.gClass = "AggClass_" + DataFiles[0];
 
                 //Generate the class
                 DataInput = new CEPHandler();
 
                 //Read the FleetShares
-                if (!DataInput.ReadFleetShares(_DataPath, Helper))
+                if (!DataInput.ReadFleetShares(DataFiles[1], Helper))
                 {
                     VehicleResultsOrg = null;
                     return false;
                 }
                 //Read the vehicle and emission data
-                if (!DataInput.GetFleetCEP(_DataPath, VEH, Helper))
+                if (!DataInput.GetFleetCEP(_DataPath, DataFiles[0], Helper))
                 {
                     VehicleResultsOrg = null;
                     return false;
@@ -190,7 +211,7 @@ namespace PHEMlightdll
             #endif
             {
                 //Get vehicle string
-                if (!Helper.setclass(VEH))
+                if (!Helper.setclass(DataFiles[0]))
                 {
                     VehicleResultsOrg = null;
                     return false;
@@ -229,7 +250,7 @@ namespace PHEMlightdll
             string lineEnding = "\r\n";
 
             allLines.AppendLine("Vehicletype: ," + vehicle);
-            allLines.AppendLine("Time, Speed, Gradient, Accelaration, Engine power raw, P_pos, P_norm_rated, P_norm_drive, FC, FC el., CO2, NOx, CO, HC, PM");
+            allLines.AppendLine("Time, Speed, Gradient, Accelaration, Engine power raw, P_pos, P_norm_rated, P_norm_drive, FC, Electric Power, CO2, NOx, CO, HC, PM");
             allLines.AppendLine("[s], [m/s], [%], [m/s^2], [kW], [kW], [-], [-], [g/h], [kWh/h], [g/h], [g/h], [g/h], [g/h], [g/h]");
 
             //Write data
@@ -285,7 +306,7 @@ namespace PHEMlightdll
                 //Write head
                 allLines.AppendLine("PHEMLight Results");
                 allLines.AppendLine("");
-                allLines.AppendLine("Vehicle, Cycle, Time, Speed, Gradient, Accelaration, Engine power raw, P_pos, P_norm_rated, P_norm_drive, FC, FC el., CO2, NOx, CO, HC, PM");
+                allLines.AppendLine("Vehicle, Cycle, Time, Speed, Gradient, Accelaration, Engine power raw, P_pos, P_norm_rated, P_norm_drive, FC, Electric Power, CO2, NOx, CO, HC, PM");
                 allLines.AppendLine("[-], [-], [s], [km/h], [%], [m/s^2], [kW], [kW], [-], [-], [g/km], [kWh/km], [g/km], [g/km], [g/km], [g/km], [g/km]");
             }
 
@@ -431,7 +452,7 @@ namespace PHEMlightdll
             if (speed == 0)
                 acc = 0;
             else
-                acc = inputAcc;
+                acc = Math.Min(inputAcc, currCep.GetMaxAccel(speed, inputAcc, Gradient));
 
             //Calculate the power
             double power = currCep.CalcPower(speed, acc, Gradient);
@@ -466,8 +487,8 @@ namespace PHEMlightdll
             //Calculate the decel costing
             double decelCoast = currCep.GetDecelCoast(speed, acc, Gradient);
 
-            //Calculate the result values (Zero emissions by costing)
-            if (acc >= decelCoast)
+            //Calculate the result values (Zero emissions by costing, Idling emissions by v <= 0.5m/s²)
+            if (acc >= decelCoast || speed <= Constants.ZERO_SPEED_ACCURACY)
             {
                 return new VehicleResult(time,
                                          speed,

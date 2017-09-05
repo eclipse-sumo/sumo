@@ -37,7 +37,6 @@
 #include <algorithm>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOVehicleClass.h>
-#include "PHEMCEP.h"
 
 
 // ===========================================================================

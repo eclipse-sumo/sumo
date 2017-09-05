@@ -45,6 +45,7 @@ namespace PHEMlightdll
         public const string strGasoline = "G";
         public const string strDiesel = "D";
         public const string strCNG = "CNG";
+        public const string strLPG = "LPG";
         public const string strHybrid = "HEV";
         public const string strBEV = "BEV";
 

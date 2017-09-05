@@ -10,7 +10,7 @@
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
 // PHEMlight module
-// Copyright 2016 Technische Universitaet Graz, https://www.tugraz.at/
+// Copyright (C) 2016-2017 Technische Universitaet Graz, https://www.tugraz.at/
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -153,6 +153,12 @@ namespace PHEMlightdll {
         void FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, std::vector<double>& pattern, double value);
 
         double Interpolate(double px, double p1, double p2, double e1, double e2);
+
+    public:
+        double GetMaxAccel(double speed, double acc, double gradient);
+
+    private:
+        double GetPMaxNorm(double speed);
 
         //--------------------------------------------------------------------------------------------------
         // Operators for fleetmix

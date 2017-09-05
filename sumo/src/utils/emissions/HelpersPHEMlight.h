@@ -31,14 +31,9 @@
 #include <config.h>
 #endif
 
-#define INTERNAL_PHEM
-
 #include <vector>
 #include <limits>
 #include <cmath>
-#ifdef INTERNAL_PHEM
-#include "PHEMCEPHandler.h"
-#endif
 #include <foreign/PHEMlight/cpp/CEP.h>
 #include <foreign/PHEMlight/cpp/CEPHandler.h>
 #include <foreign/PHEMlight/cpp/Helpers.h>
@@ -122,7 +117,7 @@ private:
     * @param[in] v The vehicle's current velocity
     * @return The amount of the pollutant emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
     */
-    double getEmission(const PHEMCEP* oldCep, PHEMlightdll::CEP* currCep, const std::string& e, const double p, const double v) const;
+    double getEmission(PHEMlightdll::CEP* currCep, const std::string& e, const double p, const double v) const;
 
     /// @brief the index of the next class
     int myIndex;
