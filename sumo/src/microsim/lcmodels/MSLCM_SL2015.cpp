@@ -2533,7 +2533,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist) {
     // can we reach the target distance in a single step?
     double speedBound = DIST2SPEED(latDist);
     // for lat-gap keeping manoeuvres myOrigLatDist may be 0
-    const double fullLatDist = MAX2(latDist, myOrigLatDist);
+    const double fullLatDist = latDist > 0 ? MAX2(myOrigLatDist, latDist) : MIN2(myOrigLatDist, latDist);
     if (gDebugFlag2) {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
