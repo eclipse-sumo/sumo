@@ -73,6 +73,7 @@ HelpersPHEMlight::getClassByName(const std::string& eClass, const SUMOVehicleCla
     myHelper.setCommentPrefix("c");
     myHelper.setPHEMDataV("V4");
     myHelper.setclass(eClass);
+    myHelper.setgClass(eClass);
     if (!myCEPHandler.GetCEP(phemPath, &myHelper)) {
         myEmissionClassStrings.remove(eClass, index);
         myIndex--;
