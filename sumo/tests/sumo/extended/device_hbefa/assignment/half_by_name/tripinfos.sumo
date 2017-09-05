@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/28/17 09:01:53 by SUMO Version dev-SVN-r23681
+<!-- generated on Tue Sep  5 23:21:06 2017 by SUMO Version dev-SVN-r24506
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -37,7 +37,7 @@
     </tripinfo>
     <tripinfo id="1" depart="20.00" departLane="beg_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="223.00" arrivalLane="rend_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="203.00" routeLength="3494.90" waitSteps="0" timeLoss="4.49" rerouteNo="0" devices="tripinfo_1" vType="t2" speedFactor="1.00" vaporized=""/>
     <tripinfo id="2" depart="40.00" departLane="beg_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="243.00" arrivalLane="rend_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="203.00" routeLength="3494.90" waitSteps="0" timeLoss="4.49" rerouteNo="0" devices="tripinfo_2 emissions_2" vType="t3" speedFactor="1.00" vaporized="">
-        <emissions CO_abs="19947.100994" CO2_abs="678563.779077" HC_abs="70.785628" PMx_abs="22.695786" NOx_abs="298.011563" fuel_abs="290.319505" electricity_abs="0"/>
+        <emissions CO_abs="9653.907088" CO2_abs="613295.544751" HC_abs="48.870982" PMx_abs="17.806369" NOx_abs="228.749310" fuel_abs="267.381600" electricity_abs="0"/>
     </tripinfo>
     <tripinfo id="3" depart="60.00" departLane="beg_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="263.00" arrivalLane="rend_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="203.00" routeLength="3494.90" waitSteps="0" timeLoss="4.49" rerouteNo="0" devices="tripinfo_3" vType="t4" speedFactor="1.00" vaporized=""/>
 </tripinfos>
