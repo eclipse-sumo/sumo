@@ -1,0 +1,5 @@
+<additionals>
+    <poi id="POI_Stack1" color="blue" layer="0.00" x="12.40" y="17.50" width="0.00" height="0.00"/>
+    <poi id="POI_Stack2" color="green" layer="0.00" x="12.40" y="17.50" width="0.00" height="0.00"/>
+    <poi id="POI_nonDeleted" color="yellow" layer="2.00" x="22.40" y="17.50" width="4.00" height="0.00"/>
+</additionals>
