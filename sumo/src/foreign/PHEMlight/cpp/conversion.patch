@@ -1,8 +1,110 @@
 Index: CEP.cpp
 ===================================================================
---- CEP.cpp	(revision 20372)
+--- CEP.cpp	(revision 25854)
 +++ CEP.cpp	(working copy)
-@@ -211,7 +211,7 @@
+@@ -1,27 +1,3 @@
+-/****************************************************************************/
+-/// @file    CEP.cpp
+-/// @author  Martin Dippold
+-/// @author  Michael Behrisch
+-/// @date    July 2016
+-/// @version $Id$
+-///
+-//
+-/****************************************************************************/
+-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
+-// PHEMlight module
+-// Copyright (C) 2016-2017 Technische Universitaet Graz, https://www.tugraz.at/
+-/****************************************************************************/
+-//
+-//   This file is part of SUMO.
+-//   SUMO is free software: you can redistribute it and/or modify
+-//   it under the terms of the GNU General Public License as published by
+-//   the Free Software Foundation, either version 3 of the License, or
+-//   (at your option) any later version.
+-//
+-/****************************************************************************/
+-
+-
+ #include "CEP.h"
+ #include "Constants.h"
+ #include "Helpers.h"
+@@ -30,7 +6,6 @@
+ namespace PHEMlightdll {
+ 
+     CEP::CEP(bool heavyVehicle, double vehicleMass, double vehicleLoading, double vehicleMassRot, double crossArea, double cWValue, double f0, double f1, double f2, double f3, double f4, double axleRatio, std::vector<double>& transmissionGearRatios, double auxPower, double ratedPower, double engineIdlingSpeed, double engineRatedSpeed, double effictiveWheelDiameter, double pNormV0, double pNormP0, double pNormV1, double pNormP1, const std::string& vehicelFuelType, std::vector<std::vector<double> >& matrixFC, std::vector<std::string>& headerLinePollutants, std::vector<std::vector<double> >& matrixPollutants, std::vector<std::vector<double> >& matrixSpeedRotational, std::vector<std::vector<double> >& normedDragTable, double idlingFC, std::vector<double>& idlingPollutants) {
+-        transmissionGearRatios.size(); // just to make the compiler happy about the unused parameter
+         InitializeInstanceFields();
+         _resistanceF0 = f0;
+         _resistanceF1 = f1;
+@@ -61,12 +36,12 @@
+         std::vector<std::vector<double> > normalizedPollutantMeasures;
+ 
+         // init pollutant identifiers
+-        for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
++        for (int i = 0; i < headerLinePollutants.size(); i++) {
+             pollutantIdentifier.push_back(headerLinePollutants[i]);
+         }
+ 
+         // initialize measures
+-        for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
++        for (int i = 0; i < headerLinePollutants.size(); i++) {
+             pollutantMeasures.push_back(std::vector<double>());
+             normalizedPollutantMeasures.push_back(std::vector<double>());
+         }
+@@ -75,7 +50,7 @@
+         _speedCurveRotational = std::vector<double>();
+         _speedPatternRotational = std::vector<double>();
+         _gearTransmissionCurve = std::vector<double>();
+-        for (int i = 0; i < (int)matrixSpeedRotational.size(); i++) {
++        for (int i = 0; i < matrixSpeedRotational.size(); i++) {
+             if (matrixSpeedRotational[i].size() != 3) {
+                 return;
+             }
+@@ -88,7 +63,7 @@
+         // looping through matrix and assigning values for drag table
+         _nNormTable = std::vector<double>();
+         _dragNormTable = std::vector<double>();
+-        for (int i = 0; i < (int)normedDragTable.size(); i++) {
++        for (int i = 0; i < normedDragTable.size(); i++) {
+             if (normedDragTable[i].size() != 2) {
+                 return;
+             }
+@@ -102,7 +77,7 @@
+         _normedCepCurveFC = std::vector<double>();
+         _powerPatternFC = std::vector<double>();
+         _normalizedPowerPatternFC = std::vector<double>();
+-        for (int i = 0; i < (int)matrixFC.size(); i++) {
++        for (int i = 0; i < matrixFC.size(); i++) {
+             if (matrixFC[i].size() != 2) {
+                 return;
+             }
+@@ -135,10 +110,10 @@
+ 
+         _cepNormalizedCurvePollutants = std::map<std::string, std::vector<double> >();
+ 
+-        int headerCount = (int)headerLinePollutants.size();
+-        for (int i = 0; i < (int)matrixPollutants.size(); i++) {
+-            for (int j = 0; j < (int)matrixPollutants[i].size(); j++) {
+-                if ((int)matrixPollutants[i].size() != headerCount + 1) {
++        int headerCount = headerLinePollutants.size();
++        for (int i = 0; i < matrixPollutants.size(); i++) {
++            for (int j = 0; j < matrixPollutants[i].size(); j++) {
++                if (matrixPollutants[i].size() != headerCount + 1) {
+                     return;
+                 }
+ 
+@@ -156,7 +131,7 @@
+         _cepCurvePollutants = std::map<std::string, std::vector<double> >();
+         _idlingValuesPollutants = std::map<std::string, double>();
+ 
+-        for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
++        for (int i = 0; i < headerLinePollutants.size(); i++) {
+             _cepCurvePollutants.insert(std::make_pair(pollutantIdentifier[i], pollutantMeasures[i]));
+             _cepNormalizedCurvePollutants.insert(std::make_pair(pollutantIdentifier[i], normalizedPollutantMeasures[i]));
+             _idlingValuesPollutants.insert(std::make_pair(pollutantIdentifier[i], idlingPollutants[i] * pollutantMultiplyer));
+@@ -236,7 +211,7 @@
          int upperIndex;
          int lowerIndex;
  
@@ -11,11 +113,58 @@ Index: CEP.cpp
              if (std::abs(speed) <= Constants::ZERO_SPEED_ACCURACY) {
                  if (pollutant == "FC") {
                      return _idlingValueFC;
+@@ -378,14 +353,14 @@
+         }
+ 
+         if (value >= pattern.back()) {
+-            lowerIndex = (int)pattern.size() - 1;
+-            upperIndex = (int)pattern.size() - 1;
++            lowerIndex = pattern.size() - 1;
++            upperIndex = pattern.size() - 1;
+             return;
+         }
+ 
+         // bisection search to find correct position in power pattern	
+-        int middleIndex = ((int)pattern.size() - 1) / 2;
+-        upperIndex = (int)pattern.size() - 1;
++        int middleIndex = (pattern.size() - 1) / 2;
++        upperIndex = pattern.size() - 1;
+         lowerIndex = 0;
+ 
+         while (upperIndex - lowerIndex > 1) {
 Index: CEP.h
 ===================================================================
---- CEP.h	(revision 20372)
+--- CEP.h	(revision 25854)
 +++ CEP.h	(working copy)
-@@ -11,6 +11,7 @@
+@@ -1,27 +1,3 @@
+-/****************************************************************************/
+-/// @file    CEP.h
+-/// @author  Martin Dippold
+-/// @author  Michael Behrisch
+-/// @date    July 2016
+-/// @version $Id$
+-///
+-//
+-/****************************************************************************/
+-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
+-// PHEMlight module
+-// Copyright (C) 2016-2017 Technische Universitaet Graz, https://www.tugraz.at/
+-/****************************************************************************/
+-//
+-//   This file is part of SUMO.
+-//   SUMO is free software: you can redistribute it and/or modify
+-//   it under the terms of the GNU General Public License as published by
+-//   the Free Software Foundation, either version 3 of the License, or
+-//   (at your option) any later version.
+-//
+-/****************************************************************************/
+-
+-
+ #ifndef PHEMlightCEP
+ #define PHEMlightCEP
+ 
+@@ -35,6 +11,7 @@
  //C# TO C++ CONVERTER NOTE: Forward class declarations:
  namespace PHEMlightdll { class Helpers; }
  
@@ -25,15 +174,39 @@ Index: CEP.h
      class CEP {
 Index: CEPHandler.cpp
 ===================================================================
---- CEPHandler.cpp	(revision 20371)
+--- CEPHandler.cpp	(revision 25842)
 +++ CEPHandler.cpp	(working copy)
-@@ -1,5 +1,3 @@
+@@ -1,29 +1,3 @@
+-/****************************************************************************/
+-/// @file    CEPHandler.cpp
+-/// @author  Martin Dippold
+-/// @author  Michael Behrisch
+-/// @date    July 2016
+-/// @version $Id$
+-///
+-//
+-/****************************************************************************/
+-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
+-// PHEMlight module
+-// Copyright 2016 Technische Universitaet Graz, https://www.tugraz.at/
+-/****************************************************************************/
+-//
+-//   This file is part of SUMO.
+-//   SUMO is free software: you can redistribute it and/or modify
+-//   it under the terms of the GNU General Public License as published by
+-//   the Free Software Foundation, either version 3 of the License, or
+-//   (at your option) any later version.
+-//
+-/****************************************************************************/
+-
+-
 -#include <fstream>
 -#include <sstream>
  #include "CEPHandler.h"
  #include "CEP.h"
  #include "Helpers.h"
-@@ -12,11 +10,11 @@
+@@ -36,11 +10,11 @@
          _ceps = std::map<std::string, CEP*>();
      }
  
@@ -47,7 +220,7 @@ Index: CEPHandler.cpp
          if (getCEPS().find(Helper->getgClass()) == getCEPS().end()) {
              if (!Load(DataPath, Helper)) {
                  return false;
-@@ -25,11 +23,11 @@
+@@ -49,11 +23,11 @@
          return true;
      }
  
@@ -61,7 +234,7 @@ Index: CEPHandler.cpp
  
          // to hold everything.
          std::vector<std::vector<double> > matrixSpeedInertiaTable;
-@@ -82,7 +80,7 @@
+@@ -106,7 +80,7 @@
          return true;
      }
  
@@ -70,7 +243,7 @@ Index: CEPHandler.cpp
          vehicleMass = 0;
          vehicleLoading = 0;
          vehicleMassRot = 0;
-@@ -113,17 +111,12 @@
+@@ -137,17 +111,12 @@
          int dataCount = 0;
  
          //Open file
@@ -92,7 +265,7 @@ Index: CEPHandler.cpp
  
          // skip header
          ReadLine(vehicleReader);
-@@ -269,10 +262,11 @@
+@@ -293,10 +262,11 @@
              normedDragTable.push_back(todoubleList(split(line, ',')));
          }
  
@@ -105,7 +278,7 @@ Index: CEPHandler.cpp
          // declare file stream
          std::string line;
          header = std::vector<std::string>();
-@@ -284,21 +278,16 @@
+@@ -308,23 +278,18 @@
              pollutantExtension += std::string("_FC");
          }
  
@@ -130,9 +303,12 @@ Index: CEPHandler.cpp
 -            std::vector<std::string> entries = split(line, ',');
 +            std::vector<std::string>& entries = split(line, ',');
              // skip first entry "Pe"
-             for (int i = 1; i < entries.size(); i++) {
+-            for (int i = 1; i < (int)entries.size(); i++) {
++            for (int i = 1; i < entries.size(); i++) {
                  header.push_back(entries[i]);
-@@ -314,7 +303,7 @@
+             }
+         }
+@@ -338,7 +303,7 @@
          //readIdlingValues
          line = ReadLine(fileReader);
  
@@ -141,7 +317,7 @@ Index: CEPHandler.cpp
          stringIdlings.erase(stringIdlings.begin());
  
          idlingValues = todoubleList(stringIdlings);
-@@ -322,37 +311,26 @@
+@@ -346,38 +311,26 @@
          while ((line = ReadLine(fileReader)) != "") {
              matrix.push_back(todoubleList(split(line, ',')));
          }
@@ -192,9 +368,37 @@ Index: CEPHandler.cpp
  }
 Index: CEPHandler.h
 ===================================================================
---- CEPHandler.h	(revision 20372)
+--- CEPHandler.h	(revision 25842)
 +++ CEPHandler.h	(working copy)
-@@ -10,6 +10,7 @@
+@@ -1,27 +1,3 @@
+-/****************************************************************************/
+-/// @file    CEPHandler.h
+-/// @author  Martin Dippold
+-/// @author  Michael Behrisch
+-/// @date    July 2016
+-/// @version $Id$
+-///
+-//
+-/****************************************************************************/
+-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
+-// PHEMlight module
+-// Copyright 2016 Technische Universitaet Graz, https://www.tugraz.at/
+-/****************************************************************************/
+-//
+-//   This file is part of SUMO.
+-//   SUMO is free software: you can redistribute it and/or modify
+-//   it under the terms of the GNU General Public License as published by
+-//   the Free Software Foundation, either version 3 of the License, or
+-//   (at your option) any later version.
+-//
+-/****************************************************************************/
+-
+-
+ #ifndef PHEMlightCEPHANDLER
+ #define PHEMlightCEPHANDLER
+ 
+@@ -34,6 +10,7 @@
  namespace PHEMlightdll { class CEP; }
  namespace PHEMlightdll { class Helpers; }
  
@@ -202,7 +406,7 @@ Index: CEPHandler.h
  
  namespace PHEMlightdll {
      class CEPHandler {
-@@ -27,7 +28,7 @@
+@@ -51,7 +28,7 @@
      private:
          std::map<std::string, CEP*> _ceps;
      public:
@@ -211,7 +415,7 @@ Index: CEPHandler.h
  
  
          //--------------------------------------------------------------------------------------------------
-@@ -34,7 +35,7 @@
+@@ -58,7 +35,7 @@
          // Methods 
          //--------------------------------------------------------------------------------------------------
  
@@ -220,7 +424,7 @@ Index: CEPHandler.h
  
  
          //--------------------------------------------------------------------------------------------------
-@@ -42,11 +43,11 @@
+@@ -66,11 +43,11 @@
          //--------------------------------------------------------------------------------------------------
  
      private:
@@ -235,7 +439,7 @@ Index: CEPHandler.h
  
  
          //--------------------------------------------------------------------------------------------------
-@@ -60,10 +61,10 @@
+@@ -84,10 +61,10 @@
          double todouble(const std::string& s);
  
          //Convert string to double list
@@ -248,3 +452,638 @@ Index: CEPHandler.h
      };
  }
  
+Index: Constants.cpp
+===================================================================
+--- Constants.cpp	(revision 25854)
++++ Constants.cpp	(working copy)
+@@ -1,27 +1,3 @@
+-/****************************************************************************/
+-/// @file    Constants.cpp
+-/// @author  Martin Dippold
+-/// @author  Michael Behrisch
+-/// @date    July 2016
+-/// @version $Id$
+-///
+-//
+-/****************************************************************************/
+-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
+-// PHEMlight module
+-// Copyright (C) 2016-2017 Technische Universitaet Graz, https://www.tugraz.at/
+-/****************************************************************************/
+-//
+-//   This file is part of SUMO.
+-//   SUMO is free software: you can redistribute it and/or modify
+-//   it under the terms of the GNU General Public License as published by
+-//   the Free Software Foundation, either version 3 of the License, or
+-//   (at your option) any later version.
+-//
+-/****************************************************************************/
+-
+-
+ #include "Constants.h"
+ 
+ 
+Index: Constants.h
+===================================================================
+--- Constants.h	(revision 25854)
++++ Constants.h	(working copy)
+@@ -1,27 +1,3 @@
+-/****************************************************************************/
+-/// @file    Constants.h
+-/// @author  Martin Dippold
+-/// @author  Michael Behrisch
+-/// @date    July 2016
+-/// @version $Id$
+-///
+-//
+-/****************************************************************************/
+-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
+-// PHEMlight module
+-// Copyright (C) 2016-2017 Technische Universitaet Graz, https://www.tugraz.at/
+-/****************************************************************************/
+-//
+-//   This file is part of SUMO.
+-//   SUMO is free software: you can redistribute it and/or modify
+-//   it under the terms of the GNU General Public License as published by
+-//   the Free Software Foundation, either version 3 of the License, or
+-//   (at your option) any later version.
+-//
+-/****************************************************************************/
+-
+-
+ #ifndef PHEMlightCONSTANTS
+ #define PHEMlightCONSTANTS
+ 
+Index: Helpers.cpp
+===================================================================
+--- Helpers.cpp	(revision 25842)
++++ Helpers.cpp	(working copy)
+@@ -1,27 +1,3 @@
+-/****************************************************************************/
+-/// @file    Helpers.cpp
+-/// @author  Martin Dippold
+-/// @author  Michael Behrisch
+-/// @date    July 2016
+-/// @version $Id$
+-///
+-//
+-/****************************************************************************/
+-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
+-// PHEMlight module
+-// Copyright 2016 Technische Universitaet Graz, https://www.tugraz.at/
+-/****************************************************************************/
+-//
+-//   This file is part of SUMO.
+-//   SUMO is free software: you can redistribute it and/or modify
+-//   it under the terms of the GNU General Public License as published by
+-//   the Free Software Foundation, either version 3 of the License, or
+-//   (at your option) any later version.
+-//
+-/****************************************************************************/
+-
+-
+ #include "Helpers.h"
+ #include "Constants.h"
+ 
+Index: Helpers.h
+===================================================================
+--- Helpers.h	(revision 25842)
++++ Helpers.h	(working copy)
+@@ -1,27 +1,3 @@
+-/****************************************************************************/
+-/// @file    Helpers.h
+-/// @author  Martin Dippold
+-/// @author  Michael Behrisch
+-/// @date    July 2016
+-/// @version $Id$
+-///
+-//
+-/****************************************************************************/
+-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
+-// PHEMlight module
+-// Copyright 2016 Technische Universitaet Graz, https://www.tugraz.at/
+-/****************************************************************************/
+-//
+-//   This file is part of SUMO.
+-//   SUMO is free software: you can redistribute it and/or modify
+-//   it under the terms of the GNU General Public License as published by
+-//   the Free Software Foundation, either version 3 of the License, or
+-//   (at your option) any later version.
+-//
+-/****************************************************************************/
+-
+-
+ #ifndef PHEMlightHELPERS
+ #define PHEMlightHELPERS
+ 
+Index: conversion.patch
+===================================================================
+--- conversion.patch	(revision 25842)
++++ conversion.patch	(working copy)
+@@ -1,8 +1,110 @@
+ Index: CEP.cpp
+ ===================================================================
+---- CEP.cpp	(revision 20372)
++--- CEP.cpp	(revision 25854)
+ +++ CEP.cpp	(working copy)
+-@@ -211,7 +211,7 @@
++@@ -1,27 +1,3 @@
++-/****************************************************************************/
++-/// @file    CEP.cpp
++-/// @author  Martin Dippold
++-/// @author  Michael Behrisch
++-/// @date    July 2016
++-/// @version $Id$
++-///
++-//
++-/****************************************************************************/
++-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
++-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
++-// PHEMlight module
++-// Copyright (C) 2016-2017 Technische Universitaet Graz, https://www.tugraz.at/
++-/****************************************************************************/
++-//
++-//   This file is part of SUMO.
++-//   SUMO is free software: you can redistribute it and/or modify
++-//   it under the terms of the GNU General Public License as published by
++-//   the Free Software Foundation, either version 3 of the License, or
++-//   (at your option) any later version.
++-//
++-/****************************************************************************/
++-
++-
++ #include "CEP.h"
++ #include "Constants.h"
++ #include "Helpers.h"
++@@ -30,7 +6,6 @@
++ namespace PHEMlightdll {
++ 
++     CEP::CEP(bool heavyVehicle, double vehicleMass, double vehicleLoading, double vehicleMassRot, double crossArea, double cWValue, double f0, double f1, double f2, double f3, double f4, double axleRatio, std::vector<double>& transmissionGearRatios, double auxPower, double ratedPower, double engineIdlingSpeed, double engineRatedSpeed, double effictiveWheelDiameter, double pNormV0, double pNormP0, double pNormV1, double pNormP1, const std::string& vehicelFuelType, std::vector<std::vector<double> >& matrixFC, std::vector<std::string>& headerLinePollutants, std::vector<std::vector<double> >& matrixPollutants, std::vector<std::vector<double> >& matrixSpeedRotational, std::vector<std::vector<double> >& normedDragTable, double idlingFC, std::vector<double>& idlingPollutants) {
++-        transmissionGearRatios.size(); // just to make the compiler happy about the unused parameter
++         InitializeInstanceFields();
++         _resistanceF0 = f0;
++         _resistanceF1 = f1;
++@@ -61,12 +36,12 @@
++         std::vector<std::vector<double> > normalizedPollutantMeasures;
++ 
++         // init pollutant identifiers
++-        for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
+++        for (int i = 0; i < headerLinePollutants.size(); i++) {
++             pollutantIdentifier.push_back(headerLinePollutants[i]);
++         }
++ 
++         // initialize measures
++-        for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
+++        for (int i = 0; i < headerLinePollutants.size(); i++) {
++             pollutantMeasures.push_back(std::vector<double>());
++             normalizedPollutantMeasures.push_back(std::vector<double>());
++         }
++@@ -75,7 +50,7 @@
++         _speedCurveRotational = std::vector<double>();
++         _speedPatternRotational = std::vector<double>();
++         _gearTransmissionCurve = std::vector<double>();
++-        for (int i = 0; i < (int)matrixSpeedRotational.size(); i++) {
+++        for (int i = 0; i < matrixSpeedRotational.size(); i++) {
++             if (matrixSpeedRotational[i].size() != 3) {
++                 return;
++             }
++@@ -88,7 +63,7 @@
++         // looping through matrix and assigning values for drag table
++         _nNormTable = std::vector<double>();
++         _dragNormTable = std::vector<double>();
++-        for (int i = 0; i < (int)normedDragTable.size(); i++) {
+++        for (int i = 0; i < normedDragTable.size(); i++) {
++             if (normedDragTable[i].size() != 2) {
++                 return;
++             }
++@@ -102,7 +77,7 @@
++         _normedCepCurveFC = std::vector<double>();
++         _powerPatternFC = std::vector<double>();
++         _normalizedPowerPatternFC = std::vector<double>();
++-        for (int i = 0; i < (int)matrixFC.size(); i++) {
+++        for (int i = 0; i < matrixFC.size(); i++) {
++             if (matrixFC[i].size() != 2) {
++                 return;
++             }
++@@ -135,10 +110,10 @@
++ 
++         _cepNormalizedCurvePollutants = std::map<std::string, std::vector<double> >();
++ 
++-        int headerCount = (int)headerLinePollutants.size();
++-        for (int i = 0; i < (int)matrixPollutants.size(); i++) {
++-            for (int j = 0; j < (int)matrixPollutants[i].size(); j++) {
++-                if ((int)matrixPollutants[i].size() != headerCount + 1) {
+++        int headerCount = headerLinePollutants.size();
+++        for (int i = 0; i < matrixPollutants.size(); i++) {
+++            for (int j = 0; j < matrixPollutants[i].size(); j++) {
+++                if (matrixPollutants[i].size() != headerCount + 1) {
++                     return;
++                 }
++ 
++@@ -156,7 +131,7 @@
++         _cepCurvePollutants = std::map<std::string, std::vector<double> >();
++         _idlingValuesPollutants = std::map<std::string, double>();
++ 
++-        for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
+++        for (int i = 0; i < headerLinePollutants.size(); i++) {
++             _cepCurvePollutants.insert(std::make_pair(pollutantIdentifier[i], pollutantMeasures[i]));
++             _cepNormalizedCurvePollutants.insert(std::make_pair(pollutantIdentifier[i], normalizedPollutantMeasures[i]));
++             _idlingValuesPollutants.insert(std::make_pair(pollutantIdentifier[i], idlingPollutants[i] * pollutantMultiplyer));
++@@ -236,7 +211,7 @@
+          int upperIndex;
+          int lowerIndex;
+  
+@@ -11,11 +113,58 @@
+              if (std::abs(speed) <= Constants::ZERO_SPEED_ACCURACY) {
+                  if (pollutant == "FC") {
+                      return _idlingValueFC;
++@@ -378,14 +353,14 @@
++         }
++ 
++         if (value >= pattern.back()) {
++-            lowerIndex = (int)pattern.size() - 1;
++-            upperIndex = (int)pattern.size() - 1;
+++            lowerIndex = pattern.size() - 1;
+++            upperIndex = pattern.size() - 1;
++             return;
++         }
++ 
++         // bisection search to find correct position in power pattern	
++-        int middleIndex = ((int)pattern.size() - 1) / 2;
++-        upperIndex = (int)pattern.size() - 1;
+++        int middleIndex = (pattern.size() - 1) / 2;
+++        upperIndex = pattern.size() - 1;
++         lowerIndex = 0;
++ 
++         while (upperIndex - lowerIndex > 1) {
+ Index: CEP.h
+ ===================================================================
+---- CEP.h	(revision 20372)
++--- CEP.h	(revision 25854)
+ +++ CEP.h	(working copy)
+-@@ -11,6 +11,7 @@
++@@ -1,27 +1,3 @@
++-/****************************************************************************/
++-/// @file    CEP.h
++-/// @author  Martin Dippold
++-/// @author  Michael Behrisch
++-/// @date    July 2016
++-/// @version $Id$
++-///
++-//
++-/****************************************************************************/
++-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
++-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
++-// PHEMlight module
++-// Copyright (C) 2016-2017 Technische Universitaet Graz, https://www.tugraz.at/
++-/****************************************************************************/
++-//
++-//   This file is part of SUMO.
++-//   SUMO is free software: you can redistribute it and/or modify
++-//   it under the terms of the GNU General Public License as published by
++-//   the Free Software Foundation, either version 3 of the License, or
++-//   (at your option) any later version.
++-//
++-/****************************************************************************/
++-
++-
++ #ifndef PHEMlightCEP
++ #define PHEMlightCEP
++ 
++@@ -35,6 +11,7 @@
+  //C# TO C++ CONVERTER NOTE: Forward class declarations:
+  namespace PHEMlightdll { class Helpers; }
+  
+@@ -25,15 +174,39 @@
+      class CEP {
+ Index: CEPHandler.cpp
+ ===================================================================
+---- CEPHandler.cpp	(revision 20371)
++--- CEPHandler.cpp	(revision 25842)
+ +++ CEPHandler.cpp	(working copy)
+-@@ -1,5 +1,3 @@
++@@ -1,29 +1,3 @@
++-/****************************************************************************/
++-/// @file    CEPHandler.cpp
++-/// @author  Martin Dippold
++-/// @author  Michael Behrisch
++-/// @date    July 2016
++-/// @version $Id$
++-///
++-//
++-/****************************************************************************/
++-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
++-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
++-// PHEMlight module
++-// Copyright 2016 Technische Universitaet Graz, https://www.tugraz.at/
++-/****************************************************************************/
++-//
++-//   This file is part of SUMO.
++-//   SUMO is free software: you can redistribute it and/or modify
++-//   it under the terms of the GNU General Public License as published by
++-//   the Free Software Foundation, either version 3 of the License, or
++-//   (at your option) any later version.
++-//
++-/****************************************************************************/
++-
++-
+ -#include <fstream>
+ -#include <sstream>
+  #include "CEPHandler.h"
+  #include "CEP.h"
+  #include "Helpers.h"
+-@@ -12,11 +10,11 @@
++@@ -36,11 +10,11 @@
+          _ceps = std::map<std::string, CEP*>();
+      }
+  
+@@ -47,7 +220,7 @@
+          if (getCEPS().find(Helper->getgClass()) == getCEPS().end()) {
+              if (!Load(DataPath, Helper)) {
+                  return false;
+-@@ -25,11 +23,11 @@
++@@ -49,11 +23,11 @@
+          return true;
+      }
+  
+@@ -61,7 +234,7 @@
+  
+          // to hold everything.
+          std::vector<std::vector<double> > matrixSpeedInertiaTable;
+-@@ -82,7 +80,7 @@
++@@ -106,7 +80,7 @@
+          return true;
+      }
+  
+@@ -70,7 +243,7 @@
+          vehicleMass = 0;
+          vehicleLoading = 0;
+          vehicleMassRot = 0;
+-@@ -113,17 +111,12 @@
++@@ -137,17 +111,12 @@
+          int dataCount = 0;
+  
+          //Open file
+@@ -92,7 +265,7 @@
+  
+          // skip header
+          ReadLine(vehicleReader);
+-@@ -269,10 +262,11 @@
++@@ -293,10 +262,11 @@
+              normedDragTable.push_back(todoubleList(split(line, ',')));
+          }
+  
+@@ -105,7 +278,7 @@
+          // declare file stream
+          std::string line;
+          header = std::vector<std::string>();
+-@@ -284,21 +278,16 @@
++@@ -308,23 +278,18 @@
+              pollutantExtension += std::string("_FC");
+          }
+  
+@@ -130,9 +303,12 @@
+ -            std::vector<std::string> entries = split(line, ',');
+ +            std::vector<std::string>& entries = split(line, ',');
+              // skip first entry "Pe"
+-             for (int i = 1; i < entries.size(); i++) {
++-            for (int i = 1; i < (int)entries.size(); i++) {
+++            for (int i = 1; i < entries.size(); i++) {
+                  header.push_back(entries[i]);
+-@@ -314,7 +303,7 @@
++             }
++         }
++@@ -338,7 +303,7 @@
+          //readIdlingValues
+          line = ReadLine(fileReader);
+  
+@@ -141,7 +317,7 @@
+          stringIdlings.erase(stringIdlings.begin());
+  
+          idlingValues = todoubleList(stringIdlings);
+-@@ -322,37 +311,26 @@
++@@ -346,38 +311,26 @@
+          while ((line = ReadLine(fileReader)) != "") {
+              matrix.push_back(todoubleList(split(line, ',')));
+          }
+@@ -184,7 +360,7 @@
+ -    std::string CEPHandler::ReadLine(std::ifstream& s) {
+ -        std::string line;
+ -        std::getline(s, line);
+--        line.erase(line.find_last_not_of(" \n\r\t") + 1);
++-        line.erase(line.find_last_not_of(" \n\r\t") + 1);
+ -        return line;
+ +    std::string CEPHandler::ReadLine(StreamReader* s) {
+ +        return s->ReadLine();
+@@ -192,9 +368,37 @@
+  }
+ Index: CEPHandler.h
+ ===================================================================
+---- CEPHandler.h	(revision 20372)
++--- CEPHandler.h	(revision 25842)
+ +++ CEPHandler.h	(working copy)
+-@@ -10,6 +10,7 @@
++@@ -1,27 +1,3 @@
++-/****************************************************************************/
++-/// @file    CEPHandler.h
++-/// @author  Martin Dippold
++-/// @author  Michael Behrisch
++-/// @date    July 2016
++-/// @version $Id$
++-///
++-//
++-/****************************************************************************/
++-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
++-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
++-// PHEMlight module
++-// Copyright 2016 Technische Universitaet Graz, https://www.tugraz.at/
++-/****************************************************************************/
++-//
++-//   This file is part of SUMO.
++-//   SUMO is free software: you can redistribute it and/or modify
++-//   it under the terms of the GNU General Public License as published by
++-//   the Free Software Foundation, either version 3 of the License, or
++-//   (at your option) any later version.
++-//
++-/****************************************************************************/
++-
++-
++ #ifndef PHEMlightCEPHANDLER
++ #define PHEMlightCEPHANDLER
++ 
++@@ -34,6 +10,7 @@
+  namespace PHEMlightdll { class CEP; }
+  namespace PHEMlightdll { class Helpers; }
+  
+@@ -202,7 +406,7 @@
+  
+  namespace PHEMlightdll {
+      class CEPHandler {
+-@@ -27,7 +28,7 @@
++@@ -51,7 +28,7 @@
+      private:
+          std::map<std::string, CEP*> _ceps;
+      public:
+@@ -211,7 +415,7 @@
+  
+  
+          //--------------------------------------------------------------------------------------------------
+-@@ -34,7 +35,7 @@
++@@ -58,7 +35,7 @@
+          // Methods 
+          //--------------------------------------------------------------------------------------------------
+  
+@@ -220,7 +424,7 @@
+  
+  
+          //--------------------------------------------------------------------------------------------------
+-@@ -42,11 +43,11 @@
++@@ -66,11 +43,11 @@
+          //--------------------------------------------------------------------------------------------------
+  
+      private:
+@@ -235,7 +439,7 @@
+  
+  
+          //--------------------------------------------------------------------------------------------------
+-@@ -60,10 +61,10 @@
++@@ -84,10 +61,10 @@
+          double todouble(const std::string& s);
+  
+          //Convert string to double list
+@@ -248,3 +452,131 @@
+      };
+  }
+  
++Index: Constants.cpp
++===================================================================
++--- Constants.cpp	(revision 25854)
+++++ Constants.cpp	(working copy)
++@@ -1,27 +1,3 @@
++-/****************************************************************************/
++-/// @file    Constants.cpp
++-/// @author  Martin Dippold
++-/// @author  Michael Behrisch
++-/// @date    July 2016
++-/// @version $Id$
++-///
++-//
++-/****************************************************************************/
++-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
++-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
++-// PHEMlight module
++-// Copyright (C) 2016-2017 Technische Universitaet Graz, https://www.tugraz.at/
++-/****************************************************************************/
++-//
++-//   This file is part of SUMO.
++-//   SUMO is free software: you can redistribute it and/or modify
++-//   it under the terms of the GNU General Public License as published by
++-//   the Free Software Foundation, either version 3 of the License, or
++-//   (at your option) any later version.
++-//
++-/****************************************************************************/
++-
++-
++ #include "Constants.h"
++ 
++ 
++Index: Constants.h
++===================================================================
++--- Constants.h	(revision 25854)
+++++ Constants.h	(working copy)
++@@ -1,27 +1,3 @@
++-/****************************************************************************/
++-/// @file    Constants.h
++-/// @author  Martin Dippold
++-/// @author  Michael Behrisch
++-/// @date    July 2016
++-/// @version $Id$
++-///
++-//
++-/****************************************************************************/
++-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
++-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
++-// PHEMlight module
++-// Copyright (C) 2016-2017 Technische Universitaet Graz, https://www.tugraz.at/
++-/****************************************************************************/
++-//
++-//   This file is part of SUMO.
++-//   SUMO is free software: you can redistribute it and/or modify
++-//   it under the terms of the GNU General Public License as published by
++-//   the Free Software Foundation, either version 3 of the License, or
++-//   (at your option) any later version.
++-//
++-/****************************************************************************/
++-
++-
++ #ifndef PHEMlightCONSTANTS
++ #define PHEMlightCONSTANTS
++ 
++Index: Helpers.cpp
++===================================================================
++--- Helpers.cpp	(revision 25842)
+++++ Helpers.cpp	(working copy)
++@@ -1,27 +1,3 @@
++-/****************************************************************************/
++-/// @file    Helpers.cpp
++-/// @author  Martin Dippold
++-/// @author  Michael Behrisch
++-/// @date    July 2016
++-/// @version $Id$
++-///
++-//
++-/****************************************************************************/
++-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
++-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
++-// PHEMlight module
++-// Copyright 2016 Technische Universitaet Graz, https://www.tugraz.at/
++-/****************************************************************************/
++-//
++-//   This file is part of SUMO.
++-//   SUMO is free software: you can redistribute it and/or modify
++-//   it under the terms of the GNU General Public License as published by
++-//   the Free Software Foundation, either version 3 of the License, or
++-//   (at your option) any later version.
++-//
++-/****************************************************************************/
++-
++-
++ #include "Helpers.h"
++ #include "Constants.h"
++ 
++Index: Helpers.h
++===================================================================
++--- Helpers.h	(revision 25842)
+++++ Helpers.h	(working copy)
++@@ -1,27 +1,3 @@
++-/****************************************************************************/
++-/// @file    Helpers.h
++-/// @author  Martin Dippold
++-/// @author  Michael Behrisch
++-/// @date    July 2016
++-/// @version $Id$
++-///
++-//
++-/****************************************************************************/
++-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
++-// Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
++-// PHEMlight module
++-// Copyright 2016 Technische Universitaet Graz, https://www.tugraz.at/
++-/****************************************************************************/
++-//
++-//   This file is part of SUMO.
++-//   SUMO is free software: you can redistribute it and/or modify
++-//   it under the terms of the GNU General Public License as published by
++-//   the Free Software Foundation, either version 3 of the License, or
++-//   (at your option) any later version.
++-//
++-/****************************************************************************/
++-
++-
++ #ifndef PHEMlightHELPERS
++ #define PHEMlightHELPERS
++ 
