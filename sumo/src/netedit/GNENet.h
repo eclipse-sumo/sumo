@@ -421,9 +421,9 @@ public:
 
     /// @brief check if additional are saved
     bool isAdditionalsSaved() const;
-
-    /// @brief set manually the flag of additionals
-    void setAdditionalSaved(bool value);
+    
+    /// @brief check if shapes  are saved
+    bool isShapesSaved() const;
 
     /* @brief trigger full netbuild computation
      * param[in] window The window to inform about delay
@@ -690,8 +690,11 @@ protected:
     /// @brief whether the net needs recomputation
     bool myNeedRecompute;
 
-    /// @brief Flag to check if additionals must be saved
+    /// @brief Flag to check if additionals has to be saved
     bool myAdditionalsSaved;
+
+    /// @brief Flag to check if shapes hast o be saved
+    bool myShapesSaved;
 
 private:
     /// @brief Init Junctions and edges

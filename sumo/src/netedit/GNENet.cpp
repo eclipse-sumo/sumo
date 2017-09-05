@@ -114,7 +114,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myEdgeIDSupplier("gneE", netBuilder->getEdgeCont().getAllNames()),
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
     myNeedRecompute(true),
-    myAdditionalsSaved(true) {
+    myAdditionalsSaved(true),
+    myShapesSaved(true) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
 
@@ -1822,6 +1823,8 @@ void
 GNENet::insertPolygonInView(GNEPoly* p) {
     myGrid.addAdditionalGLObject(p);
     myViewNet->update();
+    // shapes has to be saved
+    myShapesSaved = false;
 }
 
 
@@ -1829,6 +1832,8 @@ void
 GNENet::removePolygonOfView(GNEPoly* p) {
     myGrid.removeAdditionalGLObject(p);
     myViewNet->update();
+    // shapes has to be saved
+    myShapesSaved = false;
 }
 
 
@@ -1913,6 +1918,8 @@ void
 GNENet::insertPOIInView(GNEPOI* p) {
     myGrid.addAdditionalGLObject(p);
     myViewNet->update();
+    // shapes has to be saved
+    myShapesSaved = false;
 }
 
 
@@ -1920,6 +1927,8 @@ void
 GNENet::removePOIOfView(GNEPOI* p) {
     myGrid.removeAdditionalGLObject(p);
     myViewNet->update();
+    // shapes has to be saved
+    myShapesSaved = false;
 }
 
 
@@ -1980,6 +1989,8 @@ void GNENet::saveShapes(const std::string & filename) {
         dynamic_cast<GNEPOI*>(i->second)->writeShape(device);
     }
     device.close();
+    // change flag to true
+    myShapesSaved = true;
 }
 
 
@@ -2229,9 +2240,9 @@ GNENet::isAdditionalsSaved() const {
 }
 
 
-void
-GNENet::setAdditionalSaved(bool value) {
-    myAdditionalsSaved = value;
+bool
+GNENet::isShapesSaved() const {
+    return myShapesSaved;
 }
 
 
