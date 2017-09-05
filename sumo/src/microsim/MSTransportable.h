@@ -337,9 +337,7 @@ public:
 
         ConstMSEdgeVector getEdges() const;
 
-        void setVehicle(SUMOVehicle* v) {
-            myVehicle = v;
-        }
+        void setVehicle(SUMOVehicle* v);
 
         /** @brief Called for writing the events output
         * @param[in] os The stream to write the information into
@@ -359,6 +357,7 @@ public:
 
         /// @brief The taken vehicle
         SUMOVehicle* myVehicle;
+        std::string myVehicleID;
 
         double myWaitingPos;
         /// @brief The time since which this person is waiting for a ride

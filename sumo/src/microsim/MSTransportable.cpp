@@ -169,9 +169,10 @@ void
 MSTransportable::Stage_Waiting::tripInfoOutput(OutputDevice& os) const {
     if (myType != WAITING_FOR_DEPART) {
         os.openTag("stop");
-        //os.writeAttr("depart", time2string(myDeparted));
+        os.writeAttr("duration", time2string(myArrived - myDeparted));
         os.writeAttr("arrival", time2string(myArrived));
         os.writeAttr("arrivalPos", toString(myArrivalPos));
+        os.writeAttr("actType", toString(myActType));
         os.closeTag();
     }
 }
@@ -238,13 +239,15 @@ MSTransportable::Stage_Waiting::abort(MSTransportable* t) {
 * MSTransportable::Stage_Driving - methods
 * ----------------------------------------------------------------------- */
 MSTransportable::Stage_Driving::Stage_Driving(const MSEdge& destination,
-        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines)
-    : MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING), myLines(lines.begin(), lines.end()),
-      myVehicle(0), myStopWaitPos(Position::INVALID) {}
+        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines) : 
+    MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING), 
+    myLines(lines.begin(), lines.end()),
+    myVehicle(0), 
+    myVehicleID("NULL"),
+    myStopWaitPos(Position::INVALID) {}
 
 
 MSTransportable::Stage_Driving::~Stage_Driving() {}
-
 
 const MSEdge*
 MSTransportable::Stage_Driving::getEdge() const {
@@ -329,6 +332,14 @@ MSTransportable::Stage_Driving::getEdges() const {
     result.push_back(&getDestination());
     return result;
 }
+
+
+void 
+MSTransportable::Stage_Driving::setVehicle(SUMOVehicle* v) {
+    myVehicle = v;
+    myVehicleID = v->getID();
+}
+
 
 void
 MSTransportable::Stage_Driving::abort(MSTransportable* t) {

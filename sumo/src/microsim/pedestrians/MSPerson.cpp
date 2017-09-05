@@ -134,6 +134,7 @@ MSPerson::MSPersonStage_Walking::getEdges() const {
 void
 MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
     previous->getEdge()->removePerson(person);
+    myDeparted = now;
     myRouteStep = myRoute.begin();
     if (myWalkingTime == 0) {
         if (!person->proceed(net, now)) {
@@ -207,7 +208,7 @@ void
 MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os) const {
     MSDevice_Tripinfo::addPedestrianData(walkDistance(), myArrived - myDeparted); 
     os.openTag("walk");
-    //os.writeAttr("depart", time2string(myDeparted));
+    os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", time2string(myArrived));
     os.writeAttr("arrivalPos", toString(myArrivalPos));
     os.closeTag();
@@ -296,7 +297,7 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SU
     myWaitingSince = now;
     SUMOVehicle* availableVehicle = net->getVehicleControl().getWaitingVehicle(myWaitingEdge, myLines, myWaitingPos, person->getID());
     if (availableVehicle != 0 && availableVehicle->getParameter().departProcedure == DEPART_TRIGGERED && !availableVehicle->hasDeparted()) {
-        myVehicle = availableVehicle;
+        setVehicle(availableVehicle);
         myWaitingEdge->removePerson(person);
         myVehicle->addPerson(person);
         net->getInsertionControl().add(myVehicle);
@@ -318,6 +319,8 @@ MSPerson::MSPersonStage_Driving::getStageDescription() const {
 void
 MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os) const {
     os.openTag("ride");
+    os.writeAttr("waitingTime", time2string(myDeparted - myWaitingSince));
+    os.writeAttr("vehicle", myVehicleID);
     os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", time2string(myArrived));
     os.writeAttr("arrivalPos", toString(myArrivalPos));

@@ -76,7 +76,7 @@ MSContainer::MSContainerStage_Driving::proceed(MSNet* net, MSTransportable* cont
     myWaitingSince = now;
     SUMOVehicle* availableVehicle = net->getVehicleControl().getWaitingVehicle(myWaitingEdge, myLines, myWaitingPos, container->getID());
     if (availableVehicle != 0 && availableVehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED && !availableVehicle->hasDeparted()) {
-        myVehicle = availableVehicle;
+        setVehicle(availableVehicle);
         myWaitingEdge->removeContainer(container);
         myVehicle->addContainer(container);
         net->getInsertionControl().add(myVehicle);
@@ -98,6 +98,8 @@ MSContainer::MSContainerStage_Driving::getStageDescription() const {
 void
 MSContainer::MSContainerStage_Driving::tripInfoOutput(OutputDevice& os) const {
     os.openTag("transport");
+    os.writeAttr("waitingTime", time2string(myDeparted - myWaitingSince));
+    os.writeAttr("vehicle", myVehicleID);
     os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", time2string(myArrived));
     os.writeAttr("arrivalPos", toString(myArrivalPos));
@@ -133,6 +135,7 @@ MSContainer::MSContainerStage_Tranship::~MSContainerStage_Tranship() {
 void
 MSContainer::MSContainerStage_Tranship::proceed(MSNet* /* net */, MSTransportable* container, SUMOTime now, Stage* previous) {
     previous->getEdge()->removeContainer(container);
+    myDeparted = now;
     myRouteStep = myRoute.end() - 1;   //define that the container is already on its destination edge
     myDepartPos = previous->getEdgePos(now);
     myContainerState = MSCModel_NonInteracting::getModel()->add(container, this, now);
@@ -193,7 +196,7 @@ MSContainer::MSContainerStage_Tranship::getEdges() const {
 void
 MSContainer::MSContainerStage_Tranship::tripInfoOutput(OutputDevice& os) const {
     os.openTag("tranship");
-    //os.writeAttr("depart", time2string(myDeparted));
+    os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", time2string(myArrived));
     os.writeAttr("arrivalPos", toString(myArrivalPos));
     os.closeTag();
