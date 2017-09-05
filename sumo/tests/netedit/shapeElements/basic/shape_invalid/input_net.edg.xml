@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 29/12/2016 9:44:52 by Netedit Version dev-SVN-r22364
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.29Dec094048.4216/netedit.server/additionalElements/busstop/create\additionals.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\Palcraft\Desktop\net.net.xml"/>
+        <plain-output-prefix value="C:\Users\Palcraft\Desktop\input_net"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <visualisation>
+        <window-size value="700,500"/>
+        <gui-testing value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.29Dec094048.4216/netedit.server/additionalElements/busstop/create\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1" numLanes="1" speed="13.89"/>
+</edges>
