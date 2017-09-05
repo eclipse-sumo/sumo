@@ -1,6 +1,8 @@
-java version "1.8.0_141"
-Java(TM) SE Runtime Environment (build 1.8.0_141-b15)
-Java HotSpot(TM) 64-Bit Server VM (build 25.141-b15, mixed mode)
+java version "1.8.0_91"
+Java(TM) SE Runtime Environment (build 1.8.0_91-b15)
+Java HotSpot(TM) 64-Bit Server VM (build 25.91-b15, mixed mode)
+Sep 05, 2017 3:10:22 PM java.util.prefs.WindowsPreferences <init>
+WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.
 Error: PoI 'POI_0' already exists.
 Error: Attribute 'color' in definition of poi 'POI_14' is empty.
 Error: Attribute 'layer' in definition of poi 'POI_17' is not of type float.
@@ -10,4 +12,4 @@ Error: Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI 'POI_2
 Error: Attribute 'y' in definition of poi 'POI_22' is not of type float.
 Error: Attribute 'width' in definition of poi 'POI_25' is not of type float.
 Error: Attribute 'height' in definition of poi 'POI_5' is not of type float.
-Error: Loading of C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Sep130606.4396/netedit.gui/shapeElements/poi/load\input_shapes.add.xml failed.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.05Sep150851.3724/netedit.gui/shapeElements/poi/load\input_shapes.add.xml failed.

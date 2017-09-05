@@ -21,7 +21,7 @@ Warning: Adding poi 'POI_3' into viewNet
 Warning: Adding poi 'POI_4' into viewNet
 Error: Attribute 'height' in definition of poi 'POI_5' is not of type float.
 Warning: Adding poi 'POI_6' into viewNet
-Error: Loading of C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Sep130606.4396/netedit.gui/shapeElements/poi/load\input_shapes.add.xml failed.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.05Sep150851.3724/netedit.gui/shapeElements/poi/load\input_shapes.add.xml failed.
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
