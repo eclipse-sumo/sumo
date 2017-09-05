@@ -75,7 +75,7 @@ FXDEFMAP(GNEPolygonFrame::ShapeAttributes) GNEAdditionalParametersMap[] = {
 FXDEFMAP(GNEPolygonFrame::NeteditAttributes) GNEEditorParametersMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_MOVEMENT,  GNEPolygonFrame::NeteditAttributes::onCmdSetBlockMovement),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_SHAPE,     GNEPolygonFrame::NeteditAttributes::onCmdSetBlockShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON_CLOSE,      GNEPolygonFrame::NeteditAttributes::onCmdsetClosingClosing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_POLYGON_CLOSE,      GNEPolygonFrame::NeteditAttributes::onCmdsetClosingClosing),
 };
 
 FXDEFMAP(GNEPolygonFrame::DrawingMode) GNEDrawingModeMap[] = {
@@ -106,7 +106,7 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myShapeMatchBox = new FXComboBox(myGroupBoxForMyShapeMatchBox, GUIDesignComboBoxNCol, this, MID_GNE_MODE_ADDITIONAL_ITEM, GUIDesignComboBox);
 
     // Create additional parameters
-    myadditionalParameters = new GNEPolygonFrame::ShapeAttributes(myViewNet, myContentFrame);
+    myShapeAttributes = new GNEPolygonFrame::ShapeAttributes(myViewNet, myContentFrame);
 
     // Create Netedit parameter
     myEditorParameters = new GNEPolygonFrame::NeteditAttributes(myContentFrame);
@@ -148,13 +148,13 @@ GNEPolygonFrame::processClick(const Position &clickedPosition) {
     if (myActualShapeType == SUMO_TAG_POI) {
 
         // show warning dialogbox and stop check if input parameters are valid
-        if (myadditionalParameters->areValuesValid() == false) {
-            myadditionalParameters->showWarningMessage();
+        if (myShapeAttributes->areValuesValid() == false) {
+            myShapeAttributes->showWarningMessage();
             return ADDSHAPE_INVALID;
         }
 
         // Declare map to keep values
-        std::map<SumoXMLAttr, std::string> valuesOfElement = myadditionalParameters->getAttributesAndValues();
+        std::map<SumoXMLAttr, std::string> valuesOfElement = myShapeAttributes->getAttributesAndValues();
 
         // generate new ID
         valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generatePOIID();
@@ -189,12 +189,12 @@ GNEPolygonFrame::processClick(const Position &clickedPosition) {
 bool 
 GNEPolygonFrame::buildPoly(const PositionVector& drawedShape) {
     // show warning dialogbox and stop check if input parameters are valid
-    if (myadditionalParameters->areValuesValid() == false) {
-        myadditionalParameters->showWarningMessage();
+    if (myShapeAttributes->areValuesValid() == false) {
+        myShapeAttributes->showWarningMessage();
         return false;
     } else {
         // Declare map to keep values
-        std::map<SumoXMLAttr, std::string> valuesOfElement = myadditionalParameters->getAttributesAndValues();
+        std::map<SumoXMLAttr, std::string> valuesOfElement = myShapeAttributes->getAttributesAndValues();
 
         // generate new ID
         valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generatePolyID();
@@ -234,7 +234,7 @@ GNEPolygonFrame::onCmdSelectShape(FXObject*, FXSelector, void*) {
     for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
         if (toString(i) == myShapeMatchBox->getText().text()) {
             myShapeMatchBox->setTextColor(FXRGB(0, 0, 0));
-            myadditionalParameters->show();
+            myShapeAttributes->show();
             myEditorParameters->show();
             setParametersOfShape(i);
             additionalNameCorrect = true;
@@ -244,7 +244,7 @@ GNEPolygonFrame::onCmdSelectShape(FXObject*, FXSelector, void*) {
     if (additionalNameCorrect == false) {
         myActualShapeType = SUMO_TAG_NOTHING;
         myShapeMatchBox->setTextColor(FXRGB(255, 0, 0));
-        myadditionalParameters->hide();
+        myShapeAttributes->hide();
         myEditorParameters->hide();
     } else {
         // show drawing controls if we're creating a polygon
@@ -263,18 +263,18 @@ GNEPolygonFrame::setParametersOfShape(SumoXMLTag actualShapeType) {
     // Set new actualShapeType
     myActualShapeType = actualShapeType;
     // Clear internal attributes
-    myadditionalParameters->clearAttributes();
+    myShapeAttributes->clearAttributes();
     // Iterate over attributes of myActualShapeType
     for (auto i : GNEAttributeCarrier::allowedAttributes(myActualShapeType)) {
         if (!GNEAttributeCarrier::isUnique(myActualShapeType, i.first)) {
-            myadditionalParameters->addAttribute(myActualShapeType, i.first);
+            myShapeAttributes->addAttribute(myActualShapeType, i.first);
         }
     }
     // if there are parmeters, show and Recalc groupBox
-    if (myadditionalParameters->getNumberOfAddedAttributes() > 0) {
-        myadditionalParameters->showShapeParameters();
+    if (myShapeAttributes->getNumberOfAddedAttributes() > 0) {
+        myShapeAttributes->showShapeParameters();
     } else {
-        myadditionalParameters->hideShapeParameters();
+        myShapeAttributes->hideShapeParameters();
     }
 }
 
@@ -680,6 +680,11 @@ GNEPolygonFrame::ShapeAttributeSingle::onCmdSetAttribute(FXObject*, FXSelector, 
             }
         } else {
             myInvalidValue = "'" + toString(myShapeAttr) + "' doesn't have a valid 'float' format";
+        }
+    } else if (GNEAttributeCarrier::isColor(myShapeTag, myShapeAttr)) {
+        // check if filename format is valid
+        if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldStrings->getText().text()) == false) {
+            myInvalidValue = "'" + toString(myShapeAttr) + "' doesn't have a valid 'RBGColor' format";
         }
     } else if (GNEAttributeCarrier::isFilename(myShapeTag, myShapeAttr)) {
         // check if filename format is valid

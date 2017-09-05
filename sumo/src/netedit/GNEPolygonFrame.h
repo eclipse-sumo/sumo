@@ -424,7 +424,7 @@ private:
     FXComboBox* myShapeMatchBox;
 
     /// @brief additional internal attributes
-    GNEPolygonFrame::ShapeAttributes* myadditionalParameters;
+    GNEPolygonFrame::ShapeAttributes* myShapeAttributes;
 
     /// @brief Netedit parameter
     GNEPolygonFrame::NeteditAttributes* myEditorParameters;
