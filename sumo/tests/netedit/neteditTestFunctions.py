@@ -245,7 +245,7 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchRef
     setup(testRoot)
     # Open netedit
     neteditProcess = Popen(extraParameters, debugInformation)
-    atexit.register(quit, neteditProcess, False, False)
+    # atexit.register(quit, neteditProcess, False, False)
     # print debug information
     print("TestFunctions: Netedit opened sucesfully")
     # Check if reference must be searched
@@ -379,7 +379,7 @@ def quit(neteditProcess, openNonSavedNetDialog=False, saveNet=False, openedAddit
             else:
                 waitQuestion("q")
 
-        # wait some secondd
+        # wait some seconds
         wait(DELAY_QUIT)
         if neteditProcess.poll() is not None:
             # print debug information
@@ -972,4 +972,77 @@ def createTLS():
     # type tab to jump to create tls button
     typeTab()
     # create TLS
+    typeSpace()
+
+#################################################
+# shapes
+#################################################
+
+"""
+@brief change to shape mode
+"""
+def shapeMode():
+    typeKey('p')
+
+
+"""
+@brief change shape
+"""
+def changeShape(shape):
+    # focus current frame
+    focusOnFrame()
+    # go to first editable element of frame
+    typeTab()
+    # paste the new value
+    pasteIntoTextField(shape)
+    # type enter to save change
+    typeEnter()
+
+
+"""
+@brief modify default int/double/string value of an shape
+"""
+def modifyShapeDefaultValue(numTabs, value):
+    # focus current frame
+    focusOnFrame()
+    # go to length textfield
+    for x in range(0, numTabs + 1):
+        typeTab()
+    # paste new value
+    pasteIntoTextField(value)
+    # type enter to save new value
+    typeEnter()
+
+
+"""
+@brief modify default color using dialog
+"""
+def changeColorUsingDialog(numTabs, color):
+    # focus current frame
+    focusOnFrame()
+    # go to length textfield
+    for x in range(0, numTabs + 1):
+        typeTab()
+    typeSpace()
+    # go to list of colors textfield
+    for x in range(2):
+        typeInvertTab()
+    # select color
+    for x in range(1 + color):
+        typeKey(Key.DOWN)
+    # go to accept button and press it
+    typeTab()
+    typeSpace()
+
+
+"""
+@brief modify default boolean value of an shape
+"""
+def modifyShapeDefaultBoolValue(numTabs):
+    # focus current frame
+    focusOnFrame()
+    # place cursor in check Box position
+    for x in range(numTabs + 1):
+        typeTab()
+    # Change current value
     typeSpace()
