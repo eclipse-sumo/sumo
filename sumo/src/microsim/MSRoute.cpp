@@ -333,7 +333,7 @@ MSRoute::getDistanceBetween(double fromPos, double toPos,
             break;
         } else {
             distance += (*it)->getLength();
-            if (includeInternal) {
+            if (includeInternal && (it + 1) != end()) {
                 distance += (*it)->getInternalFollowingLengthTo(*(it + 1));
             }
         }
