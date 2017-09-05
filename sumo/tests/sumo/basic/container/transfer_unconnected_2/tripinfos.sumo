@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 31 21:33:02 2017 by SUMO Version dev-SVN-r24506
+<!-- generated on Tue Sep  5 22:03:38 2017 by SUMO Version dev-SVN-r24506
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -25,8 +25,8 @@
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <containerinfo id="c1" depart="0.00">
-        <stop arrival="5.00" arrivalPos="40.00"/>
-        <tranship arrival="33.00" arrivalPos="50.00"/>
-        <stop arrival="38.00" arrivalPos="40.00"/>
+        <stop duration="5.00" arrival="5.00" arrivalPos="40.00" actType="waiting"/>
+        <tranship depart="5.00" arrival="33.00" arrivalPos="50.00"/>
+        <stop duration="5.00" arrival="38.00" arrivalPos="40.00" actType="waiting"/>
     </containerinfo>
 </tripinfos>

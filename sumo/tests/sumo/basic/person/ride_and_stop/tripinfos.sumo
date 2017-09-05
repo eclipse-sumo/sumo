@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 31 21:43:37 2017 by SUMO Version dev-SVN-r24506
+<!-- generated on Tue Sep  5 22:01:55 2017 by SUMO Version dev-SVN-r24506
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -31,19 +31,19 @@
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="v1" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="133.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="133.00" routeLength="2000.00" waitSteps="0" timeLoss="27.47" rerouteNo="0" devices="tripinfo_v1 person_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="p1" depart="0.00">
-        <ride depart="0.00" arrival="48.00" arrivalPos="100.00"/>
-        <stop arrival="148.00" arrivalPos="100.00"/>
+        <ride waitingTime="0.00" vehicle="v1" depart="0.00" arrival="48.00" arrivalPos="100.00"/>
+        <stop duration="100.00" arrival="148.00" arrivalPos="100.00" actType="waiting"/>
     </personinfo>
     <personinfo id="p2" depart="0.00">
-        <ride depart="22.00" arrival="48.00" arrivalPos="1000.00"/>
-        <stop arrival="148.00" arrivalPos="1000.00"/>
+        <ride waitingTime="22.00" vehicle="v1" depart="22.00" arrival="48.00" arrivalPos="1000.00"/>
+        <stop duration="100.00" arrival="148.00" arrivalPos="1000.00" actType="waiting"/>
     </personinfo>
     <personinfo id="p3" depart="0.00">
-        <ride depart="22.00" arrival="48.00" arrivalPos="500.00"/>
-        <stop arrival="148.00" arrivalPos="500.00"/>
+        <ride waitingTime="22.00" vehicle="v1" depart="22.00" arrival="48.00" arrivalPos="500.00"/>
+        <stop duration="100.00" arrival="148.00" arrivalPos="500.00" actType="waiting"/>
     </personinfo>
     <personinfo id="p4" depart="0.00">
-        <ride depart="22.00" arrival="48.00" arrivalPos="900.00"/>
-        <stop arrival="148.00" arrivalPos="900.00"/>
+        <ride waitingTime="22.00" vehicle="v1" depart="22.00" arrival="48.00" arrivalPos="900.00"/>
+        <stop duration="100.00" arrival="148.00" arrivalPos="900.00" actType="waiting"/>
     </personinfo>
 </tripinfos>

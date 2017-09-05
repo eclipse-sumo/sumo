@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 31 21:33:57 2017 by SUMO Version dev-SVN-r24506
+<!-- generated on Tue Sep  5 22:04:42 2017 by SUMO Version dev-SVN-r24506
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -30,21 +30,21 @@
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <personinfo id="pEW" depart="20.00">
-        <walk arrival="27.00" arrivalPos="95.25"/>
+        <walk depart="20.00" arrival="27.00" arrivalPos="95.25"/>
     </personinfo>
     <personinfo id="pEN" depart="25.00">
-        <walk arrival="31.00" arrivalPos="98.55"/>
+        <walk depart="25.00" arrival="31.00" arrivalPos="98.55"/>
     </personinfo>
     <personinfo id="pWN" depart="0.00">
-        <walk arrival="101.00" arrivalPos="98.55"/>
+        <walk depart="0.00" arrival="101.00" arrivalPos="98.55"/>
     </personinfo>
     <personinfo id="pNW" depart="10.00">
-        <walk arrival="114.00" arrivalPos="95.25"/>
+        <walk depart="10.00" arrival="114.00" arrivalPos="95.25"/>
     </personinfo>
     <personinfo id="pWE" depart="5.00">
-        <walk arrival="205.00" arrivalPos="98.55"/>
+        <walk depart="5.00" arrival="205.00" arrivalPos="98.55"/>
     </personinfo>
     <personinfo id="pNE" depart="15.00">
-        <walk arrival="218.00" arrivalPos="98.55"/>
+        <walk depart="15.00" arrival="218.00" arrivalPos="98.55"/>
     </personinfo>
 </tripinfos>
