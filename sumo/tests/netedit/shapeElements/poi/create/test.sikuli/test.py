@@ -1,0 +1,144 @@
+#!/usr/bin/env python
+"""
+@file    test.py
+@author  Pablo Alvarez Lopez
+@date    2016-11-25
+@version $Id: test.py 25301 2017-07-24 09:18:25Z palcraft $
+
+python script used by sikulix for testing netedit
+
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+Copyright (C) 2009-2017 DLR/TS, Germany
+
+This file is part of SUMO.
+SUMO is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+"""
+# import common functions for netedit tests
+import os
+import sys
+
+testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
+neteditTestRoot = os.path.join(
+    os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
+sys.path.append(neteditTestRoot)
+import neteditTestFunctions as netedit  # noqa
+
+# Open netedit
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+
+# go to shape mode
+netedit.shapeMode()
+
+# go to additional mode
+netedit.changeShape("poi")
+
+# change color using dialog
+netedit.changeColorUsingDialog(2, 5)
+
+# create poi
+netedit.leftClick(match, 100, 50)
+
+# change color manually (invalid)
+netedit.modifyShapeDefaultValue(3, "Vlue")
+
+# try to create POI
+netedit.leftClick(match, 150, 50)
+
+# change color manually (valid)
+netedit.modifyShapeDefaultValue(3, "blue")
+
+# create POI
+netedit.leftClick(match, 150, 50)
+
+# change type
+netedit.modifyShapeDefaultValue(4, "poi_test")
+
+# create POI
+netedit.leftClick(match, 200, 50)
+
+# change layer (invalid)
+netedit.modifyShapeDefaultValue(5, "dummyLayer")
+
+# try to create POI
+netedit.leftClick(match, 200, 50)
+
+# change layer (valid)
+netedit.modifyShapeDefaultValue(5, "2")
+
+# create POI
+netedit.leftClick(match, 250, 50)
+
+# change width (invalid)
+netedit.modifyShapeDefaultValue(6, "-2")
+
+# try to create POI
+netedit.leftClick(match, 300, 50)
+
+# change width (valid)
+netedit.modifyShapeDefaultValue(6, "4")
+
+# create POI
+netedit.leftClick(match, 300, 50)
+
+# change height (invalid)
+netedit.modifyShapeDefaultValue(7, "-3")
+
+# try to create POI
+netedit.leftClick(match, 350, 50)
+
+# change height (valid)
+netedit.modifyShapeDefaultValue(7, "7")
+
+# create POI
+netedit.leftClick(match, 350, 50)
+
+# change imgfile (invalid)
+netedit.modifyShapeDefaultValue(8, "%%$%$&$%$%$")
+
+# try to create POI
+netedit.leftClick(match, 400, 50)
+
+# change imgfile (valid, empty)
+netedit.modifyShapeDefaultValue(8, "")
+
+# change imgfile (valid)
+#netedit.modifyShapeDefaultValue(8, "berlin_icon.png")
+
+# create POI
+#netedit.leftClick(match, 400, 50)
+
+# change angle (invalid)
+netedit.modifyShapeDefaultValue(9, "dummyAngle")
+
+# try to create POI
+netedit.leftClick(match, 100, 100)
+
+# change angle (valid)
+netedit.modifyShapeDefaultValue(9, "7")
+
+# create POI
+netedit.leftClick(match, 100, 100)
+
+# change angle (valid)
+netedit.modifyShapeDefaultValue(9, "-27")
+
+# create POI
+netedit.leftClick(match, 150, 100)
+
+# change block
+netedit.modifyShapeDefaultBoolValue(11)
+
+# create POI
+netedit.leftClick(match, 200, 100)
+
+# save shapes
+netedit.saveShapes()
+
+# save newtork
+netedit.saveNetwork()
+
+# quit netedit
+netedit.quit(neteditProcess)

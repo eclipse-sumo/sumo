@@ -1,8 +1,8 @@
-# all test check also the undo-redo of modifications and save the poly into a file
-# create poly
-#create
+# all test check also the undo-redo of modifications and save the poi into a file
+# create poi
+create
 
-# delete poly
+# delete poi
 #delete
 
 # inspect shape
@@ -11,18 +11,15 @@
 # inspect selection
 #inspect_selection
 
-# load shape
+# load poi
 load
 
-# move shape
+# move poi
 #move
 
-# lock/unlock shape (movement and shape)
+# lock/unlock poi
 #lock_unlock
 
 # volatile recomputing
 #volatileRecomputing
-
-#edit shape
-#edit_shape
 
