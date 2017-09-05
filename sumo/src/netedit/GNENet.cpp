@@ -1819,29 +1819,44 @@ GNENet::removePolygon(const std::string& id) {
     }
 }
 
+
 void 
 GNENet::insertPolygonInView(GNEPoly* p) {
-    myGrid.addAdditionalGLObject(p);
-    myViewNet->update();
-    // shapes has to be saved
-    myShapesSaved = false;
+    if(p->isShapeVisible() == false) {
+        myGrid.addAdditionalGLObject(p);
+        myViewNet->update();
+        p->setShapeVisible(true);
+        // shapes has to be saved
+        myShapesSaved = false;
+    } else {
+        throw ProcessError("Polygon was already inserted in view");
+    }
 }
 
 
 void 
 GNENet::removePolygonOfView(GNEPoly* p) {
-    myGrid.removeAdditionalGLObject(p);
-    myViewNet->update();
-    // shapes has to be saved
-    myShapesSaved = false;
+    if(p->isShapeVisible()) {
+        myGrid.removeAdditionalGLObject(p);
+        myViewNet->update();
+        p->setShapeVisible(false);
+        // shapes has to be saved
+        myShapesSaved = false;
+    } else {
+        throw ProcessError("Polygon wasn't already inserted in view");
+    }
 }
 
 
 void 
 GNENet::refreshPolygon(GNEPoly* p) {
-    myGrid.removeAdditionalGLObject(p);
-    myGrid.addAdditionalGLObject(p);
-    myViewNet->update();
+    if(p->isShapeVisible() == false) {
+        myGrid.removeAdditionalGLObject(p);
+        myGrid.addAdditionalGLObject(p);
+        myViewNet->update();
+    } else {
+        throw ProcessError("Polygon wasn't inserted in view");
+    }
 }
 
 
@@ -1916,27 +1931,41 @@ GNENet::removePOI(const std::string& id) {
 
 void 
 GNENet::insertPOIInView(GNEPOI* p) {
-    myGrid.addAdditionalGLObject(p);
-    myViewNet->update();
-    // shapes has to be saved
-    myShapesSaved = false;
+    if(p->isShapeVisible() == false) {
+        myGrid.addAdditionalGLObject(p);
+        myViewNet->update();
+        p->setShapeVisible(true);
+        // shapes has to be saved
+        myShapesSaved = false;
+    } else {
+        throw ProcessError("POI was already inserted in view");
+    }
 }
 
 
 void 
 GNENet::removePOIOfView(GNEPOI* p) {
-    myGrid.removeAdditionalGLObject(p);
-    myViewNet->update();
-    // shapes has to be saved
-    myShapesSaved = false;
+    if(p->isShapeVisible()) {
+        myGrid.removeAdditionalGLObject(p);
+        myViewNet->update();
+        p->setShapeVisible(false);
+        // shapes has to be saved
+        myShapesSaved = false;
+    } else {
+        throw ProcessError("POI wasn't already inserted in view");
+    }
 }
 
 
 void 
 GNENet::refreshPOI(GNEPOI* p) {
-    myGrid.removeAdditionalGLObject(p);
-    myGrid.addAdditionalGLObject(p);
-    myViewNet->update();
+    if(p->isShapeVisible()) {
+        myGrid.removeAdditionalGLObject(p);
+        myGrid.addAdditionalGLObject(p);
+        myViewNet->update();
+    } else {
+        throw ProcessError("POI wasn't inserted in view");
+    }
 }
 
 
@@ -1980,13 +2009,19 @@ void GNENet::saveShapes(const std::string & filename) {
     // save Shapes
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.openTag("additionals");
-    // write polygons
+    // write only visible polygons
     for (auto i = myPolygons.getMyMap().begin(); i != myPolygons.getMyMap().end(); i++) {
-        dynamic_cast<GNEPoly*>(i->second)->writeShape(device);
+        GNEPoly* polygon = dynamic_cast<GNEPoly*>(i->second);
+        if(polygon->isShapeVisible()) {
+            polygon->writeShape(device);
+        }
     }
-    // write POIs
+    // write only visible POIs
     for (auto i = myPOIs.getMyMap().begin(); i != myPOIs.getMyMap().end(); i++) {
-        dynamic_cast<GNEPOI*>(i->second)->writeShape(device);
+        GNEPOI* POI = dynamic_cast<GNEPOI*>(i->second);
+        if(POI->isShapeVisible()) {
+            POI->writeShape(device);
+        }
     }
     device.close();
     // change flag to true
