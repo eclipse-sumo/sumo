@@ -241,6 +241,12 @@ public:
         /// @brief destructor
         ~NeteditAttributes();
 
+        /// @brief show NeteditAttributes
+        void show(bool shapeEditing);
+
+        /// @brief hide NeteditAttributes
+        void hide();
+
         /// @brief check if block movement is enabled
         bool isBlockMovementEnabled() const;
 
@@ -273,13 +279,19 @@ public:
         /// @brief checkBox for block movement
         FXCheckButton* myBlockMovementCheckButton;
 
+        /// @brief frame for Block shape
+        FXHorizontalFrame* myBlockShapeFrame;
+
         /// @brief Label for block shape
         FXLabel* myBlockShapeLabel;
 
         /// @brief checkBox for block shape
         FXCheckButton* myBlockShapeCheckButton;
 
-        /// @brief Label for open/closed polygon
+        /// @brief Frame for open/close polygon
+        FXHorizontalFrame *myClosePolygonFrame;
+
+        /// @brief Label for open/close polygon
         FXLabel *myClosePolygonLabel;
 
         /// @brief checkbox to enable/disable closing polygon

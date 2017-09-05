@@ -235,7 +235,7 @@ GNEPolygonFrame::onCmdSelectShape(FXObject*, FXSelector, void*) {
         if (toString(i) == myShapeMatchBox->getText().text()) {
             myShapeMatchBox->setTextColor(FXRGB(0, 0, 0));
             myShapeAttributes->show();
-            myEditorParameters->show();
+            myEditorParameters->show(i == SUMO_TAG_POLY);
             setParametersOfShape(i);
             additionalNameCorrect = true;
         }
@@ -246,6 +246,7 @@ GNEPolygonFrame::onCmdSelectShape(FXObject*, FXSelector, void*) {
         myShapeMatchBox->setTextColor(FXRGB(255, 0, 0));
         myShapeAttributes->hide();
         myEditorParameters->hide();
+        myDrawingMode->hide();
     } else {
         // show drawing controls if we're creating a polygon
         if(myActualShapeType == SUMO_TAG_POLY) {
@@ -945,18 +946,38 @@ GNEPolygonFrame::NeteditAttributes::NeteditAttributes(FXComposite* parent) :
     myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_BLOCKING_MOVEMENT, GUIDesignCheckButtonAttribute);
     myBlockMovementCheckButton->setCheck(false);
     // Create Frame for block shape label and checkBox (By default disabled)
-    FXHorizontalFrame* blockShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myBlockShapeLabel = new FXLabel(blockShape, "block shape", 0, GUIDesignLabelAttribute);
-    myBlockShapeCheckButton = new FXCheckButton(blockShape, "false", this, MID_GNE_SET_BLOCKING_SHAPE, GUIDesignCheckButtonAttribute);
+    myBlockShapeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myBlockShapeLabel = new FXLabel(myBlockShapeFrame, "block shape", 0, GUIDesignLabelAttribute);
+    myBlockShapeCheckButton = new FXCheckButton(myBlockShapeFrame, "false", this, MID_GNE_SET_BLOCKING_SHAPE, GUIDesignCheckButtonAttribute);
     // Create Frame for block close polygon and checkBox (By default disabled)
-    FXHorizontalFrame* closeShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myClosePolygonLabel = new FXLabel(closeShape, "Close shape", 0, GUIDesignLabelAttribute);
-    myClosePolygonCheckButton = new FXCheckButton(closeShape, "false", this, MID_GNE_MODE_POLYGON_CLOSE, GUIDesignCheckButtonAttribute);
+    myClosePolygonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myClosePolygonLabel = new FXLabel(myClosePolygonFrame, "Close shape", 0, GUIDesignLabelAttribute);
+    myClosePolygonCheckButton = new FXCheckButton(myClosePolygonFrame, "false", this, MID_GNE_MODE_POLYGON_CLOSE, GUIDesignCheckButtonAttribute);
     myBlockShapeCheckButton->setCheck(false);
 }
 
 
 GNEPolygonFrame::NeteditAttributes::~NeteditAttributes() {}
+
+
+void 
+GNEPolygonFrame::NeteditAttributes::show(bool shapeEditing) {
+    // show block and closing sahpe depending of shapeEditing
+    if(shapeEditing) {
+        myBlockShapeFrame->show();
+        myClosePolygonFrame->show();
+    } else {
+        myBlockShapeFrame->hide();
+        myClosePolygonFrame->hide();
+    }
+    FXGroupBox::show();
+}
+
+
+void 
+GNEPolygonFrame::NeteditAttributes::hide() {
+    FXGroupBox::hide();
+}
 
 
 bool
