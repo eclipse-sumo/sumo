@@ -1179,8 +1179,9 @@ long
 GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*) {
     // declare variable to save FXMessageBox outputs. 
     FXuint answer = 0;
-    // declare string to save path in wich additionals will be saved
+    // declare string to save paths in wich additionals and shapes will be saved
     std::string additionalSavePath = myAdditionalsFile;
+    std::string shapeSavePath = myShapesFile;
     // write warning if netedit is running in testing mode
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Keys Shift + F5 (Compute with volatile options) pressed");
@@ -1255,9 +1256,68 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
             // end saving additionals
             myMessageWindow->addSeparator();
             getApp()->endWaitCursor();
+        } else {
+            // clear additional path
+            additionalSavePath = "";
+        }
+        // Check if there are shapes in our net
+        if(myNet->getNumberOfShapes() > 0) {
+            // ask user if want to save shapes if weren't saved previously
+            if(myShapesFile == "") {
+                // open question dialog box
+                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save shapes before recomputing with volatile options",
+                    "Would you like to save shapes before recomputing?");
+                if (answer != 1) { //1:yes, 2:no, 4:esc
+                                   // write warning if netedit is running in testing mode
+                    if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                    } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                    }
+                } else {
+                    // write warning if netedit is running in testing mode
+                    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+                    }
+                    // Open a dialog to set filename output
+                    myShapesFile = MFXUtils::getFilename2Write(this,
+                        "Select name of the shape file", ".xml",
+                        GUIIconSubSys::getIcon(ICON_EMPTY),
+                        gCurrentFolder).text();
+                    // set obtanied filename output into shapeSavePath (can be "")
+                    shapeSavePath = myShapesFile;
+                }
+            }
+            // Check if shape must be saved in a temporal directory, if user didn't define a directory for shapes
+            if(myShapesFile == "") {
+                // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
+                shapeSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpShapesNetedit.xml");
+            }
+            // Start saving shapes
+            getApp()->beginWaitCursor();
+            try {
+                myNet->saveShapes(shapeSavePath);
+            } catch (IOError& e) {
+                // write warning if netedit is running in testing mode
+                if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                    WRITE_WARNING("Opening FXMessageBox of type 'error'");
+                }
+                // open error message box
+                FXMessageBox::error(this, MBOX_OK, "Saving shapes in temporal folder failed!", "%s", e.what());
+                // write warning if netedit is running in testing mode
+                if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                    WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
+                }
+            }
+            // end saving shapes
+            myMessageWindow->addSeparator();
+            getApp()->endWaitCursor();
+        } else {
+            // clear save path
+            shapeSavePath = "";
         }
         // compute with volatile options
-        myNet->computeEverything(this, true, true, additionalSavePath);
+        myNet->computeEverything(this, true, true, additionalSavePath, shapeSavePath);
         updateControls();
         return 1;
     }

@@ -1155,7 +1155,7 @@ GNENet::getGlIDs(GUIGlObjectType type) {
 
 
 void
-GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string additionalPath) {
+GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string additionalPath, std::string shapePath) {
     if (!myNeedRecompute) {
         if (force) {
             if(volatileOptions) {
@@ -1177,7 +1177,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
     OptionsCont& oc = OptionsCont::getOptions();
     computeAndUpdate(oc, volatileOptions);
 
-    // load additionanls if was recomputed with volatile options
+    // load additionals if was recomputed with volatile options
     if(additionalPath != "") {
         // Create additional handler
         GNEAdditionalHandler additionalHandler(additionalPath, myViewNet, false);
@@ -1188,6 +1188,13 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
             // reset last tag (needed to avoid invalid E3s)
             additionalHandler.resetLastTag();
             update();
+        }
+    }
+    // load shapes if was recomputed with volatile options
+    if(shapePath != "") {
+        GNEApplicationWindow::GNEShapeHandler handler(shapePath, this);
+        if (!XMLSubSys::runParser(handler, shapePath, false)) {
+            WRITE_MESSAGE("Loading of " + shapePath + " failed.");
         }
     }
     window->getApp()->endWaitCursor();
@@ -2010,15 +2017,15 @@ void GNENet::saveShapes(const std::string & filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.openTag("additionals");
     // write only visible polygons
-    for (auto i = myPolygons.getMyMap().begin(); i != myPolygons.getMyMap().end(); i++) {
-        GNEPoly* polygon = dynamic_cast<GNEPoly*>(i->second);
+    for (auto i : myPolygons.getMyMap()) {
+        GNEPoly* polygon = dynamic_cast<GNEPoly*>(i.second);
         if(polygon->isShapeVisible()) {
             polygon->writeShape(device);
         }
     }
     // write only visible POIs
-    for (auto i = myPOIs.getMyMap().begin(); i != myPOIs.getMyMap().end(); i++) {
-        GNEPOI* POI = dynamic_cast<GNEPOI*>(i->second);
+    for (auto i : myPOIs.getMyMap()) {
+        GNEPOI* POI = dynamic_cast<GNEPOI*>(i.second);
         if(POI->isShapeVisible()) {
             POI->writeShape(device);
         }
@@ -2026,6 +2033,12 @@ void GNENet::saveShapes(const std::string & filename) {
     device.close();
     // change flag to true
     myShapesSaved = true;
+}
+
+
+int
+GNENet::getNumberOfShapes() const {
+    return (int)(myPolygons.size() + myPOIs.size());
 }
 
 
@@ -2039,6 +2052,7 @@ GNENet::isShapeSelected(SumoXMLTag tag, const std::string & ID) const {
         throw ProcessError("Invalid Shape");
     }
 }
+
 
 // ===========================================================================
 // private
@@ -2226,23 +2240,40 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     myGrid.add(GeoConvHelper::getFinal().getConvBoundary());
     // if volatile options are true
     if(volatileOptions) {
+        // clear all Polys of grid
+        for (auto i : myPolygons.getMyMap()) {
+            GNEPoly* polygon = dynamic_cast<GNEPoly*>(i.second);
+            if(polygon->isShapeVisible()) {
+                removePolygonOfView(polygon);
+            }
+        }
+
+        // clear all POIs of grid
+        for (auto i : myPOIs.getMyMap()) {
+            GNEPOI* POI = dynamic_cast<GNEPOI*>(i.second);
+            if(POI->isShapeVisible()) {
+                removePOIOfView(POI);
+            }
+        }
 
         // clear all additionals of grid
         GNEAdditionals copyOfAdditionals = myAdditionals;
-        for (GNEAdditionals::iterator it = copyOfAdditionals.begin(); it != copyOfAdditionals.end(); it++) {
-            myGrid.removeAdditionalGLObject(it->second);
+        for (auto it : copyOfAdditionals) {
+            myGrid.removeAdditionalGLObject(it.second);
         }
+
         // remove all edges of grid and net
         GNEEdges copyOfEdges = myEdges;
-        for (GNEEdges::iterator it = copyOfEdges.begin(); it != copyOfEdges.end(); it++) {
-            myGrid.removeAdditionalGLObject(it->second);
-            myEdges.erase(it->second->getMicrosimID());
+        for (auto it : copyOfEdges) {
+            myGrid.removeAdditionalGLObject(it.second);
+            myEdges.erase(it.second->getMicrosimID());
         }
+
         // removes all junctions of grid and net
         GNEJunctions copyOfJunctions = myJunctions;
-        for (GNEJunctions::iterator it = copyOfJunctions.begin(); it != copyOfJunctions.end(); it++) {
-            myGrid.removeAdditionalGLObject(it->second);
-            myJunctions.erase(it->second->getMicrosimID());
+        for (auto it : copyOfJunctions) {
+            myGrid.removeAdditionalGLObject(it.second);
+            myJunctions.erase(it.second->getMicrosimID());
         }
 
         // clear undo list

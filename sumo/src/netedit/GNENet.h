@@ -430,8 +430,9 @@ public:
      * param[in] force Whether to force recomputation even if not needed
      * param[in] volatileOptions enable or disable volatile options
      * param[in] additionalPath path in wich additionals were saved before recomputing with volatile options
+     * param[in] shapePath path in wich shapes were saved before recomputing with volatile options
      */
-    void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "");
+    void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string shapèPath = "");
 
     /* @brief join selected junctions
      * @note difference to mergeJunctions:
@@ -649,7 +650,10 @@ public:
     */
     void saveShapes(const std::string &filename);
 
-    // @brief Check if shape item is selected
+    /// @brief get number of shapes
+    int getNumberOfShapes() const;
+
+    /// @brief Check if shape item is selected
     bool isShapeSelected(SumoXMLTag tag, const std::string &ID) const;
 
 protected:
