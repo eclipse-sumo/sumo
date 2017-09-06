@@ -1239,6 +1239,10 @@ MSVehicle::isStopped() const {
     return !myStops.empty() && myStops.begin()->reached /*&& myState.mySpeed < SUMO_const_haltingSpeed @todo #1864#*/;
 }
 
+bool
+MSVehicle::isStoppedOnLane() const {
+    return isStopped() && myStops.front().lane == myLane;
+}
 
 bool
 MSVehicle::keepStopping(bool afterProcessing) const {

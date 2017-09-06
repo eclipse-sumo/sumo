@@ -894,6 +894,9 @@ public:
      */
     bool isStopped() const;
 
+    //// @brief Returns whether the vehicle is at a stop and on the correct lane
+    bool isStoppedOnLane() const;
+
     /** @brief Returns whether the vehicle is stopped and must continue to do so */
     bool keepStopping(bool afterProcessing=false) const;
 
