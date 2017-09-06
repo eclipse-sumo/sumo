@@ -489,7 +489,7 @@ MSDevice_Routing::setParameter(const std::string& key, const std::string& value)
         }
         myEdgeSpeeds[edge->getNumericalID()] = edge->getLength() / doubleValue;
     } else if (key == "period") {
-        const double oldPeriod = myPeriod;
+        const SUMOTime oldPeriod = myPeriod;
         myPeriod = TIME2STEPS(doubleValue);
         if (myPeriod <= 0) {
             myRerouteCommand->deschedule();

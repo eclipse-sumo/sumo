@@ -1950,7 +1950,7 @@ GNEViewNet::onCmdToogleShowConnection(FXObject*, FXSelector, void*) {
         getNet()->initGNEConnections();
         myShowConnections = true;
     }
-    myVisualizationSettings->showLane2Lane = (bool)myMenuCheckShowConnections->getCheck();
+    myVisualizationSettings->showLane2Lane = myMenuCheckShowConnections->getCheck() == 1;
     // Update viewnNet to show/hide conections
     update();
     // Hide/show connections requiere recompute
