@@ -2370,6 +2370,9 @@ MSLCM_SL2015::keepLatGap(int state,
 
     if (surplusGapRight + surplusGapLeft < 0) {
         // insufficient lateral space to fulfill all requirements. apportion space proportionally
+        if ((state & LCA_CHANGE_REASONS) == 0) {
+            state |= LCA_SUBLANE;
+        }
         const double equalDeficit = 0.5 * (surplusGapLeft + surplusGapRight);
         if (surplusGapRight < surplusGapLeft) {
             // shift further to the left but no further than there is physical space
