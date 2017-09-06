@@ -432,7 +432,7 @@ public:
      * param[in] additionalPath path in wich additionals were saved before recomputing with volatile options
      * param[in] shapePath path in wich shapes were saved before recomputing with volatile options
      */
-    void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string shapèPath = "");
+    void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string shapePath = "");
 
     /* @brief join selected junctions
      * @note difference to mergeJunctions:
