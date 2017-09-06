@@ -59,8 +59,6 @@
 #include "GNECrossing.h"
 
 
-
-
 // ===========================================================================
 // static
 // ===========================================================================
@@ -547,6 +545,23 @@ GNEEdge::getVaporizerRelativePosition(GNEVaporizer* vaporizer) const {
     } else {
         return (int)(it - vaporizers.begin());
     }
+}
+
+
+std::vector<GNECrossing*> 
+GNEEdge::getGNECrossings() {
+    std::vector<GNECrossing*> crossings;
+    for(auto i : myGNEJunctionSource->getGNECrossings()) {
+        if(i->checkEdgeBelong(this)) {
+            crossings.push_back(i);
+        }
+    }
+    for(auto i : myGNEJunctionDestiny->getGNECrossings()) {
+        if(i->checkEdgeBelong(this)) {
+            crossings.push_back(i);
+        }
+    }
+    return crossings;
 }
 
 

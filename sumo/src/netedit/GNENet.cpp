@@ -768,7 +768,13 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
 
 void
 GNENet::remapEdge(GNEEdge* oldEdge, GNEJunction* from, GNEJunction* to, GNEUndoList* undoList, bool keepEndpoints) {
-    deleteEdge(oldEdge, undoList); // delete first so we can reuse the name, reference stays valid
+    // remove all crossings asociated to this edge before remap
+    std::vector<GNECrossing*> crossingsOfOldEdge = oldEdge->getGNECrossings();
+    for(auto i : crossingsOfOldEdge) {
+        deleteCrossing(i, undoList);
+    }
+    // delete first so we can reuse the name, reference stays valid
+    deleteEdge(oldEdge, undoList); 
     if (from != to) {
         GNEEdge* newEdge = createEdge(from, to, oldEdge, undoList, oldEdge->getMicrosimID(), false, true);
         newEdge->setAttribute(SUMO_ATTR_SHAPE, oldEdge->getAttribute(SUMO_ATTR_SHAPE), undoList);
@@ -1278,8 +1284,8 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     oldPos = pos;
 
     // Check that there isn't another junction in the same position as Pos but doesn't belong to cluster
-    for(GNEJunctions::const_iterator i = myJunctions.begin(); i != myJunctions.end(); i++) {
-        if((i->second->getPositionInView() == pos) && (cluster.find(i->second->getNBNode()) == cluster.end())) {
+    for(auto i : myJunctions) {
+        if((i.second->getPositionInView() == pos) && (cluster.find(i.second->getNBNode()) == cluster.end())) {
             // show warning in gui testing debug mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Opening FXMessageBox of type 'question'");
@@ -1303,7 +1309,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
                     WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                 }
                 // select conflicted junction an join all again
-                gSelected.select(i->second->getGlID());
+                gSelected.select(i.second->getGlID());
                 return joinSelectedJunctions(undoList);
             }
         }
@@ -1317,11 +1323,12 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
 
     // start with the join selected junctions
     undoList->p_begin("Join selected " + toString(SUMO_TAG_JUNCTION) + "s");
-
-    // first remove all crossing of the involved junctions
+    
+    // first remove all crossing of the involved junctions and edges
     for(auto i : selectedJunctions) {
-        for (auto j : i->getGNECrossings()) {
-            deleteCrossing(j, undoList);
+
+        while(i->getGNECrossings().size() > 0) {
+            deleteCrossing(i->getGNECrossings().front(), undoList);
         }
     }
 
@@ -1334,12 +1341,12 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
         //joined-><getTrafficLight>->setAttribute(SUMO_ATTR_TYPE, toString(type), undoList);
     }
     // remap edges
-    for (EdgeVector::const_iterator it = allIncoming.begin(); it != allIncoming.end(); it++) {
-        GNEEdge* oldEdge = myEdges[(*it)->getID()];
+    for (auto it : allIncoming) {
+        GNEEdge* oldEdge = myEdges[it->getID()];
         remapEdge(oldEdge, oldEdge->getGNEJunctionSource(), joined, undoList, true);
     }
-    for (EdgeVector::const_iterator it = allOutgoing.begin(); it != allOutgoing.end(); it++) {
-        GNEEdge* oldEdge = myEdges[(*it)->getID()];
+    for (auto it : allOutgoing) {
+        GNEEdge* oldEdge = myEdges[it->getID()];
         remapEdge(oldEdge, joined, oldEdge->getGNEJunctionDestiny(), undoList, true);
     }
     // delete original junctions

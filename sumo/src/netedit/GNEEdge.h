@@ -44,6 +44,7 @@ class GNEAdditional;
 class GNERouteProbe;
 class GNEVaporizer;
 class GNERerouter;
+class GNECrossing;
 
 // ===========================================================================
 // class definitions
@@ -261,6 +262,9 @@ public:
 
     /// @brief obtain relative positions of Vaporizer
     int getVaporizerRelativePosition(GNEVaporizer* vaporizer) const;
+
+    /// @brief get GNECrossings vinculated with this Edge
+    std::vector<GNECrossing*> getGNECrossings();
 
 protected:
     /// @brief the underlying NBEdge
