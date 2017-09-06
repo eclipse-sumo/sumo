@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  4 23:39:07 2017 by SUMO Version dev-SVN-r24506
+<!-- generated on Wed Sep  6 08:59:11 2017 by SUMO Version dev-SVN-r25866
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -61,49 +61,49 @@
         <vehicle id="blockingLeader" x="16.00" y="-4.25" angle="90.00" type="car" speed="0.00" pos="16.00" lane="beg_0" slope="0.00"/>
         <vehicle id="blockingLeft" x="8.00" y="-1.75" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_1" slope="0.00"/>
         <vehicle id="blockingRight" x="8.00" y="-5.65" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="8.45" y="-3.75" angle="90.00" type="moped" speed="0.26" pos="8.45" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="8.45" y="-3.99" angle="95.77" type="moped" speed="0.26" pos="8.45" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="6.00">
         <vehicle id="blockingLeader" x="16.00" y="-4.25" angle="90.00" type="car" speed="0.00" pos="16.00" lane="beg_0" slope="0.00"/>
         <vehicle id="blockingLeft" x="8.00" y="-1.75" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_1" slope="0.00"/>
         <vehicle id="blockingRight" x="8.00" y="-5.65" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="8.49" y="-3.75" angle="90.00" type="moped" speed="0.04" pos="8.49" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="8.49" y="-3.99" angle="90.00" type="moped" speed="0.04" pos="8.49" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="7.00">
         <vehicle id="blockingLeader" x="16.00" y="-4.25" angle="90.00" type="car" speed="0.00" pos="16.00" lane="beg_0" slope="0.00"/>
         <vehicle id="blockingLeft" x="8.00" y="-1.75" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_1" slope="0.00"/>
         <vehicle id="blockingRight" x="8.00" y="-5.65" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="8.50" y="-3.75" angle="90.00" type="moped" speed="0.00" pos="8.50" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="8.50" y="-3.99" angle="90.00" type="moped" speed="0.00" pos="8.50" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="8.00">
         <vehicle id="blockingLeader" x="16.00" y="-5.25" angle="101.31" type="car" speed="0.00" pos="16.00" lane="beg_0" slope="0.00"/>
         <vehicle id="blockingLeft" x="8.00" y="-1.75" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_1" slope="0.00"/>
         <vehicle id="blockingRight" x="8.00" y="-5.65" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="8.50" y="-3.75" angle="90.00" type="moped" speed="0.00" pos="8.50" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="8.50" y="-3.99" angle="90.00" type="moped" speed="0.00" pos="8.50" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="9.00">
         <vehicle id="blockingLeader" x="16.00" y="-5.25" angle="90.00" type="car" speed="0.00" pos="16.00" lane="beg_0" slope="0.00"/>
         <vehicle id="blockingLeft" x="8.00" y="-1.75" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_1" slope="0.00"/>
         <vehicle id="blockingRight" x="8.00" y="-5.65" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="8.50" y="-3.75" angle="90.00" type="moped" speed="0.00" pos="8.50" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="8.50" y="-3.99" angle="90.00" type="moped" speed="0.00" pos="8.50" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="10.00">
         <vehicle id="blockingLeader" x="16.00" y="-5.25" angle="90.00" type="car" speed="0.00" pos="16.00" lane="beg_0" slope="0.00"/>
         <vehicle id="blockingLeft" x="8.00" y="-1.75" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_1" slope="0.00"/>
         <vehicle id="blockingRight" x="8.00" y="-5.65" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="8.50" y="-3.75" angle="90.00" type="moped" speed="0.00" pos="8.50" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="8.50" y="-3.99" angle="90.00" type="moped" speed="0.00" pos="8.50" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="11.00">
         <vehicle id="blockingLeader" x="16.00" y="-5.25" angle="90.00" type="car" speed="0.00" pos="16.00" lane="beg_0" slope="0.00"/>
         <vehicle id="blockingLeft" x="8.00" y="-1.75" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_1" slope="0.00"/>
         <vehicle id="blockingRight" x="8.00" y="-5.65" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="8.50" y="-3.75" angle="90.00" type="moped" speed="0.00" pos="8.50" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="8.50" y="-3.99" angle="90.00" type="moped" speed="0.00" pos="8.50" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="12.00">
         <vehicle id="blockingLeader" x="16.00" y="-5.25" angle="90.00" type="car" speed="0.00" pos="16.00" lane="beg_0" slope="0.00"/>
         <vehicle id="blockingLeft" x="8.00" y="-1.75" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_1" slope="0.00"/>
         <vehicle id="blockingRight" x="8.00" y="-5.65" angle="90.00" type="car" speed="0.00" pos="8.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="8.50" y="-3.75" angle="90.00" type="moped" speed="0.00" pos="8.50" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="8.50" y="-3.75" angle="83.52" type="moped" speed="0.00" pos="8.50" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="13.00">
         <vehicle id="blockingLeader" x="16.00" y="-5.25" angle="90.00" type="car" speed="0.00" pos="16.00" lane="beg_0" slope="0.00"/>
