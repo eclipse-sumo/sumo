@@ -748,6 +748,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     // compute distance between vehicles on the the superimposition of both lanes
                     // where the crossing point is the common point
                     double gap;
+                    bool fromLeft = true;
                     if (ego == 0) {
                         // request from pedestrian model. return distance between leaderBack and crossing point
                         const double leaderBack = leader->getBackPositionOnLane(foeLane);
@@ -762,6 +763,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                             // or there is no crossing point
                             continue; // next vehicle
                         }
+                        // we need to determine whether the vehicle passes the
+                        // crossing from the left or the right (heuristic)
+                        fromLeft = foeDistToCrossing > 0.5 * foeLane->getLength();
                     } else if ((contLane && !sameSource) || isOpposite) {
                         gap = -1; // always break for vehicles which are on a continuation lane or for opposite-direction vehicles
                     } else {
@@ -783,7 +787,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     // if the foe is already moving off the intersection, we may
                     // advance up to the crossing point unless we have the same target
                     const bool stopAsap = leader->isFrontOnLane(foeLane) ? cannotIgnore : sameTarget;
-                    result.push_back(LinkLeader(leader, gap, stopAsap ? -1 : distToCrossing));
+                    result.push_back(LinkLeader(leader, gap, stopAsap ? -1 : distToCrossing, fromLeft));
                 }
 
             }

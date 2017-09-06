@@ -1018,15 +1018,19 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
             // the vehicle to enter the junction first has priority
             const MSVehicle* veh = (*it).vehAndGap.first;
             if (veh != 0) {
-                // XXX add/subtract lateral offset to relX depending on direction
                 Obstacle vo((*it).distToCrossing, 0, OBSTACLE_VEHICLE, veh->getID(), veh->getVehicleType().getWidth() + 2 * MINGAP_TO_VEHICLE);
                 // relY increases from left to right (the other way around from vehicles)
-                // assume, vehicle is approaching the crossing from the left 
-                // (if it was right of the crossing it would not yet be on the intersection)
-                // XXX this assumption may be violated for custom crossing shapes
                 const double bGap = veh->getCarFollowModel().brakeGap(veh->getSpeed(), veh->getCarFollowModel().getMaxDecel(), 0);
-                const double vehYmin = -(*it).vehAndGap.second + lateral_offset; // vehicle back
-                const double vehYmax = vehYmin + veh->getVehicleType().getLength() + bGap;
+                double vehYmin;
+                double vehYmax;
+                if ((*it).fromLeft) {
+                    vehYmin = -(*it).vehAndGap.second + lateral_offset; // vehicle back
+                    vehYmax = vehYmin + veh->getVehicleType().getLength() + bGap;
+                } else {
+                    vehYmax = crossing->getWidth() + (*it).vehAndGap.second - lateral_offset + MINGAP_TO_VEHICLE; // vehicle back
+                    vehYmin = vehYmax - veh->getVehicleType().getLength() - bGap - MINGAP_TO_VEHICLE;
+
+                }
                 for (int s = MAX2(0, PState::stripe(vehYmin)); s < MIN2(PState::stripe(vehYmax), stripes); ++s) {
                     if ((dir == FORWARD && obs[s].xBack > vo.xBack)
                             || (dir == BACKWARD && obs[s].xFwd < vo.xFwd)) {
@@ -1041,6 +1045,7 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                         << " crossingVeh=" << veh->getID() 
                         << " dist=" << (*it).distToCrossing 
                         << " gap=" << (*it).vehAndGap.second 
+                        << " fromLeft=" << (*it).fromLeft
                         << " ymin=" << vehYmin
                         << " ymax=" << vehYmax
                         << " brakeGap=" << bGap
