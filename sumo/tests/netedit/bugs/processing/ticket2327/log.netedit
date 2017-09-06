@@ -215,9 +215,9 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ22'
 Warning: Setting new attribute shapeStart '20.00,40.00' into edge '-gneE4'
 Warning: Setting new attribute shapeEnd '0.00,40.00' into edge '-gneE4'
+Warning: Removing crossing from junction 'gneJ9'
+Warning: Deleting unreferenced crossing ':gneJ9_c0' in rebuildGNECrossings()
 Warning: Removing busStop 'busStop_gneE7_0_6' in GNEChange_Additional
-Warning: Setting new attribute edges '-gneE7' into crossing ':gneJ9_c0'
-Warning: Discarding invalid crossing ':gneJ9_c0' at junction 'gneJ9' with edges '-gneE7' (no walkingarea found).
 Warning: Removing connection '-gneE7_1->-gneE6_1' from edge '-gneE7'
 Warning: Deleting unreferenced connection 'from-gneE7_1to-gneE6_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE7'
@@ -238,9 +238,9 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ22'
 Warning: Setting new attribute shapeStart '0.00,20.00' into edge 'gneE7'
 Warning: Setting new attribute shapeEnd '0.00,40.00' into edge 'gneE7'
+Warning: Removing crossing from junction 'gneJ8'
+Warning: Deleting unreferenced crossing ':gneJ8_c0' in rebuildGNECrossings()
 Warning: Removing busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
-Warning: Setting new attribute edges 'gneE5' into crossing ':gneJ8_c0'
-Warning: Discarding invalid crossing ':gneJ8_c0' at junction 'gneJ8' with edges 'gneE5' (no walkingarea found).
 Warning: Removing connection 'gneE5_1->gneE6_1' from edge 'gneE5'
 Warning: Deleting unreferenced connection 'fromgneE5_1togneE6_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
@@ -287,7 +287,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge 'gneE4' from net
 Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Removing busStop 'busStop_-gneE7_0_5' in GNEChange_Additional
-Warning: Removing crossing from junction 'gneJ9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE6'
@@ -305,7 +304,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute shapeStart '0.00,40.00' into edge '-gneE7'
 Warning: Setting new attribute shapeEnd '0.00,20.00' into edge '-gneE7'
 Warning: Removing busStop 'busStop_gneE5_0_8' in GNEChange_Additional
-Warning: Removing crossing from junction 'gneJ8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE6'
@@ -2718,9 +2716,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
-Warning: Adding crossing into junction 'gneJ8'
-Warning: Discarding invalid crossing ':gneJ8_c0' at junction 'gneJ8' with edges 'gneE5' (no walkingarea found).
-Warning: Created crossing ':gneJ8_c0' in retrieveGNECrossing()
 Warning: Adding busStop 'busStop_gneE5_0_8' in GNEChange_Additional
 Warning: Setting previous attribute shapeEnd '' into edge '-gneE7'
 Warning: Setting previous attribute shapeStart '' into edge '-gneE7'
@@ -2739,9 +2734,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
-Warning: Adding crossing into junction 'gneJ9'
-Warning: Discarding invalid crossing ':gneJ9_c0' at junction 'gneJ9' with edges '-gneE7' (no walkingarea found).
-Warning: Created crossing ':gneJ9_c0' in retrieveGNECrossing()
 Warning: Adding busStop 'busStop_-gneE7_0_5' in GNEChange_Additional
 Warning: Adding edge 'gneE4' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ22'
@@ -2785,9 +2777,9 @@ Warning: Created connection 'from-gneE6_1to-gneE5_1' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE5'
 Warning: Adding connection 'gneE5_1->gneE6_1' into edge 'gneE5'
 Warning: Created connection 'fromgneE5_1togneE6_1' in retrieveGNEConnection()
-Warning: Setting previous attribute edges '-gneE5 gneE5' into crossing ':gneJ8_c0'
-Warning: Discarding invalid crossing ':gneJ8_c0' at junction 'gneJ8' with edges 'gneE5' (no walkingarea found).
 Warning: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
+Warning: Adding crossing into junction 'gneJ8'
+Warning: Created crossing ':gneJ8_c0' in retrieveGNECrossing()
 Warning: Setting previous attribute shapeEnd '' into edge 'gneE7'
 Warning: Setting previous attribute shapeStart '' into edge 'gneE7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ22'
@@ -2807,9 +2799,9 @@ Warning: Created connection 'fromgneE6_1togneE7_1' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE7'
 Warning: Adding connection '-gneE7_1->-gneE6_1' into edge '-gneE7'
 Warning: Created connection 'from-gneE7_1to-gneE6_1' in retrieveGNEConnection()
-Warning: Setting previous attribute edges 'gneE7 -gneE7' into crossing ':gneJ9_c0'
-Warning: Discarding invalid crossing ':gneJ9_c0' at junction 'gneJ9' with edges '-gneE7' (no walkingarea found).
 Warning: Adding busStop 'busStop_gneE7_0_6' in GNEChange_Additional
+Warning: Adding crossing into junction 'gneJ9'
+Warning: Created crossing ':gneJ9_c0' in retrieveGNECrossing()
 Warning: Setting previous attribute shapeEnd '' into edge '-gneE4'
 Warning: Setting previous attribute shapeStart '' into edge '-gneE4'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ22'
@@ -2907,12 +2899,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' in
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ0'
 Warning: Removing junction 'gneJ20' from net
 Warning: Key F5 (Compute) pressed
-Warning: Discarding invalid crossing ':gneJ8_c0' at junction 'gneJ8' with edges 'gneE5' (no walkingarea found).
-Warning: Discarding invalid crossing ':gneJ9_c0' at junction 'gneJ9' with edges '-gneE7' (no walkingarea found).
-Warning: Discarding invalid crossing ':gneJ8_c0' at junction 'gneJ8' with edges 'gneE5' (no walkingarea found).
-Warning: Discarding invalid crossing ':gneJ8_c0' at junction 'gneJ8' with edges 'gneE5' (no walkingarea found).
-Warning: Discarding invalid crossing ':gneJ9_c0' at junction 'gneJ9' with edges '-gneE7' (no walkingarea found).
-Warning: Discarding invalid crossing ':gneJ9_c0' at junction 'gneJ9' with edges '-gneE7' (no walkingarea found).
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding junction 'gneJ20' into net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
@@ -3010,9 +2996,9 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ22'
 Warning: Setting new attribute shapeStart '20.00,40.00' into edge '-gneE4'
 Warning: Setting new attribute shapeEnd '0.00,40.00' into edge '-gneE4'
+Warning: Removing crossing from junction 'gneJ9'
+Warning: Deleting unreferenced crossing ':gneJ9_c0' in rebuildGNECrossings()
 Warning: Removing busStop 'busStop_gneE7_0_6' in GNEChange_Additional
-Warning: Setting new attribute edges '-gneE7' into crossing ':gneJ9_c0'
-Warning: Discarding invalid crossing ':gneJ9_c0' at junction 'gneJ9' with edges '-gneE7' (no walkingarea found).
 Warning: Removing connection '-gneE7_1->-gneE6_1' from edge '-gneE7'
 Warning: Deleting unreferenced connection 'from-gneE7_1to-gneE6_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE7'
@@ -3032,9 +3018,9 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ22'
 Warning: Setting new attribute shapeStart '0.00,20.00' into edge 'gneE7'
 Warning: Setting new attribute shapeEnd '0.00,40.00' into edge 'gneE7'
+Warning: Removing crossing from junction 'gneJ8'
+Warning: Deleting unreferenced crossing ':gneJ8_c0' in rebuildGNECrossings()
 Warning: Removing busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
-Warning: Setting new attribute edges 'gneE5' into crossing ':gneJ8_c0'
-Warning: Discarding invalid crossing ':gneJ8_c0' at junction 'gneJ8' with edges 'gneE5' (no walkingarea found).
 Warning: Removing connection 'gneE5_1->gneE6_1' from edge 'gneE5'
 Warning: Deleting unreferenced connection 'fromgneE5_1togneE6_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
@@ -3078,8 +3064,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ22'
 Warning: Removing edge 'gneE4' from net
 Warning: Removing busStop 'busStop_-gneE7_0_5' in GNEChange_Additional
-Warning: Removing crossing from junction 'gneJ9'
-Warning: Deleting unreferenced crossing ':gneJ9_c0' in rebuildGNECrossings()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE6'
@@ -3096,8 +3080,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute shapeStart '0.00,40.00' into edge '-gneE7'
 Warning: Setting new attribute shapeEnd '0.00,20.00' into edge '-gneE7'
 Warning: Removing busStop 'busStop_gneE5_0_8' in GNEChange_Additional
-Warning: Removing crossing from junction 'gneJ8'
-Warning: Deleting unreferenced crossing ':gneJ8_c0' in rebuildGNECrossings()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE6'
@@ -4433,11 +4415,9 @@ Warning: Deleting unreferenced lane 'gneE4_1' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE5' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE5_1' in GNEEdge destructor
-Warning: Deleting unreferenced crossing ':gneJ8_c0' in GNEChange_Attribute
 Warning: Deleting unreferenced edge '-gneE7' in GNEChange_Attribute
 Warning: Deleting unreferenced lane '-gneE7_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '-gneE7_1' in GNEEdge destructor
-Warning: Deleting unreferenced crossing ':gneJ9_c0' in GNEChange_Attribute
 Warning: Deleting unreferenced edge '-gneE4' GNEChange_Edge
 Warning: Deleting unreferenced lane '-gneE4_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '-gneE4_1' in GNEEdge destructor
