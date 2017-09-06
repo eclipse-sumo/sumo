@@ -14,6 +14,9 @@ disembark
 # a vehicle is stopped on a pedestrian crossing
 crossing
 
+# a vehicle is stopped on a pedestrian crossing but coming from the right relative to the crossing direction
+crossing_from_right
+
 # a vehicle approaches a pedestrian crossing and should get priority
 crossing_fast_approaching
 
