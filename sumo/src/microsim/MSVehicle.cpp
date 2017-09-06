@@ -544,7 +544,7 @@ MSVehicle::Influencer::getRouterTT() const {
     if (myRoutingMode == 1) {
         return MSDevice_Routing::getRouterTT();
     } else {
-        MSNet::getInstance()->getRouterTT();
+        return MSNet::getInstance()->getRouterTT();
     }
 }
 
