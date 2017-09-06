@@ -1270,7 +1270,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                                             + "' is corrupt. Probably OSM file is incomplete.");
                             continue;
                         }
-                        NBPTPlatform platform(p[p.size()/2],p.length());
+                        NBPTPlatform platform(p[(int)p.size()/2],p.length());
                         ptStop->addPlatformCand(platform);
                     } else {
                         if (myOSMNodes.find(myPlatform.ref) == myOSMNodes.end()) {

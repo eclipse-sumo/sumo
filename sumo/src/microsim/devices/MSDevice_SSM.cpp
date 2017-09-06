@@ -919,7 +919,7 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
             double leaderEntryTime = MIN2(egoEntryTime, foeEntryTime);
             double followerEntryTime = MAX2(egoEntryTime, foeEntryTime);
             double leaderExitTime = leaderEntryTime==egoEntryTime?egoExitTime:foeExitTime;
-            double followerExitTime = leaderEntryTime==egoEntryTime?foeExitTime:egoExitTime;
+            //double followerExitTime = leaderEntryTime==egoEntryTime?foeExitTime:egoExitTime;
             double leaderSpeed = leaderEntryTime==egoEntryTime?e->ego->getSpeed():e->foe->getSpeed();
             double followerSpeed = leaderEntryTime==egoEntryTime?e->foe->getSpeed():e->ego->getSpeed();
             double leaderConflictDist = leaderEntryTime==egoEntryTime?eInfo.egoConflictEntryDist:eInfo.foeConflictEntryDist;
@@ -1504,7 +1504,14 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                     std::cout << "    Lead/follow situation on consecutive internal lanes." << std::endl;
 #endif
                         MSLane* lane = egoEntryLink->getViaLane();
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4127) // do not warn about constant conditional expression
+#endif
                         while (true) {
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
                             // Find first of egoLane and foeLane while crossing the junction (this dertermines who's the follower)
                             // Then set the conflict lane to the lane of the leader and adapt the follower's distance to conflict
                             if (egoLane == lane) {
@@ -1806,7 +1813,6 @@ MSDevice_SSM::flushConflicts(bool flushAll) {
 #ifdef DEBUG_SSM
     std::cout << "\n" << SIMTIME << " Device '" << getID() << "' flushConflicts()" << std::endl;
 #endif
-    double t = SIMTIME;
     while (!myPastConflicts.empty()) {
         if (flushAll || myPastConflicts.top()->begin <= myOldestActiveEncounterBegin) {
             writeOutConflict(myPastConflicts.top());
