@@ -1381,7 +1381,8 @@ MSLCM_SL2015::_wantsChangeSublane(
                           << " speedGainL=" << mySpeedGainProbabilityLeft
                           << "\n";
             }
-            if (myKeepRightProbability * myKeepRightParam > MAX2(myChangeProbThresholdRight, mySpeedGainProbabilityLeft)) {
+            if (myKeepRightProbability * myKeepRightParam > MAX2(myChangeProbThresholdRight, mySpeedGainProbabilityLeft)
+                    /*&& latLaneDist <= -NUMERICAL_EPS * TS*/) {
                 ret |= LCA_KEEPRIGHT;
                 assert(myVehicle.getLane()->getIndex() > neighLane.getIndex());
                 if (!cancelRequest(ret)) {
@@ -2396,13 +2397,13 @@ MSLCM_SL2015::keepLatGap(int state,
     }
     // if we cannot move in the desired direction, consider the maneuver blocked anyway
     if ((state & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT)) != 0) {
-        if ((latDist < -NUMERICAL_EPS * TS) && (oldLatDist > NUMERICAL_EPS * TS)) {
+        if ((latDist < NUMERICAL_EPS * TS) && (oldLatDist > 0)) {
             if (gDebugFlag2) {
                 std::cout << "     wanted changeToLeft oldLatDist=" << oldLatDist << ", blocked latGap changeToRight\n";
             }
             latDist = oldLatDist; // restore old request for usage in decideDirection()
             blocked = LCA_OVERLAPPING | LCA_BLOCKED_LEFT;
-        } else if ((latDist > NUMERICAL_EPS * TS) && (oldLatDist < -NUMERICAL_EPS * TS)) {
+        } else if ((latDist > -NUMERICAL_EPS * TS) && (oldLatDist < 0)) {
             if (gDebugFlag2) {
                 std::cout << "     wanted changeToRight oldLatDist=" << oldLatDist << ", blocked latGap changeToLeft\n";
             }
