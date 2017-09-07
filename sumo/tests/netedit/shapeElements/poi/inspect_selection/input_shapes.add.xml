@@ -1,0 +1,15 @@
+<additionals>
+    <poly id="poly_0" color="green" fill="0" layer="0.00" shape="-10.00,0.00 0.00,0.00 0.00,-10.00 -10.00,-10.00 -10.00,0.00"/>
+    <poi id="POI_25" color="red" layer="0.00" x="-30.00" y="20.00" width="0.00" height="0.00"/>
+    <poi id="POI_26" color="blue" layer="0.00" x="-30.00" y="-30.00" width="0.00" height="0.00"/>
+    <poi id="POI_27" color="orange" layer="0.00" x="20.00" y="-30.00" width="0.00" height="0.00"/>
+    <poi id="POI_28" color="green" layer="0.00" x="20.00" y="20.00" width="0.00" height="0.00"/>
+    <poi id="POI_29" color="red" layer="3.00" x="20.00" y="10.00" width="0.00" height="0.00" type="type1"/>
+    <poi id="POI_30" color="red" layer="4.00" x="20.00" y="-20.00" width="0.00" height="0.00" type="type2"/>
+    <poi id="POI_31" color="red" layer="1.00" x="-30.00" y="10.00" width="0.00" height="0.00" type="type1"/>
+    <poi id="POI_32" color="red" layer="2.00" x="-30.00" y="-20.00" width="0.00" height="0.00" type="type2"/>
+    <poi id="POI_33" color="red" layer="0.00" x="-20.00" y="20.00" imgFile="berlin_icon.ico" width="5.00" height="5.00"/>
+    <poi id="POI_34" color="green" layer="0.00" x="10.00" y="20.00" angle="20.00" imgFile="berlin_icon.ico" width="5.00" height="10.00"/>
+    <poi id="POI_35" color="blue" layer="0.00" x="-20.00" y="-30.00" angle="60.00" imgFile="berlin_icon.ico" width="10.00" height="5.00"/>
+    <poi id="POI_36" color="white" layer="0.00" x="10.00" y="-30.00" angle="40.00" imgFile="berlin_icon.ico" width="10.00" height="10.00"/>
+</additionals>

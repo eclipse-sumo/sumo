@@ -1,0 +1,15 @@
+<additionals>
+    <poly id="poly_0" color="green" fill="0" layer="0.00" shape="-10.00,0.00 0.00,0.00 0.00,-10.00 -10.00,-10.00 -10.00,0.00"/>
+    <poi id="POI_25" type="common type" color="green" layer="1.00" x="-30.00" y="20.00" angle="180.00" imgFile="berlin_icon.ico" width="10.00" height="10.00"/>
+    <poi id="POI_26" type="common type" color="green" layer="1.00" x="-30.00" y="-30.00" angle="180.00" imgFile="berlin_icon.ico" width="10.00" height="10.00"/>
+    <poi id="POI_27" type="common type" color="green" layer="1.00" x="20.00" y="-30.00" angle="180.00" imgFile="berlin_icon.ico" width="10.00" height="10.00"/>
+    <poi id="POI_28" type="common type" color="green" layer="1.00" x="20.00" y="20.00" angle="180.00" imgFile="berlin_icon.ico" width="10.00" height="10.00"/>
+    <poi id="POI_29" type="common type" color="green" layer="1.00" x="20.00" y="10.00" angle="180.00" imgFile="berlin_icon.ico" width="10.00" height="10.00"/>
+    <poi id="POI_30" type="common type" color="green" layer="1.00" x="20.00" y="-20.00" angle="180.00" imgFile="berlin_icon.ico" width="10.00" height="10.00"/>
+    <poi id="POI_31" type="common type" color="green" layer="1.00" x="-30.00" y="10.00" angle="180.00" imgFile="berlin_icon.ico" width="10.00" height="10.00"/>
+    <poi id="POI_32" type="common type" color="green" layer="1.00" x="-30.00" y="-20.00" angle="180.00" imgFile="berlin_icon.ico" width="10.00" height="10.00"/>
+    <poi id="POI_33" type="common type" color="green" layer="1.00" x="-20.00" y="20.00" angle="180.00" imgFile="berlin_icon.ico" width="10.00" height="10.00"/>
+    <poi id="POI_34" type="common type" color="green" layer="1.00" x="10.00" y="20.00" angle="180.00" imgFile="berlin_icon.ico" width="10.00" height="10.00"/>
+    <poi id="POI_35" type="common type" color="green" layer="1.00" x="-20.00" y="-30.00" angle="180.00" imgFile="berlin_icon.ico" width="10.00" height="10.00"/>
+    <poi id="POI_36" type="common type" color="green" layer="1.00" x="10.00" y="-30.00" angle="180.00" imgFile="berlin_icon.ico" width="10.00" height="10.00"/>
+</additionals>

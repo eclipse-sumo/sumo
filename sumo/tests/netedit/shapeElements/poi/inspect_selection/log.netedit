@@ -1,0 +1,579 @@
+Warning: Adding poly 'poly_0' into viewNet
+Warning: Adding poi 'POI_25' into viewNet
+Warning: Adding poi 'POI_26' into viewNet
+Warning: Adding poi 'POI_27' into viewNet
+Warning: Adding poi 'POI_28' into viewNet
+Warning: Adding poi 'POI_29' into viewNet
+Warning: Adding poi 'POI_30' into viewNet
+Warning: Adding poi 'POI_31' into viewNet
+Warning: Adding poi 'POI_32' into viewNet
+Warning: Adding poi 'POI_33' into viewNet
+Warning: Adding poi 'POI_34' into viewNet
+Warning: Adding poi 'POI_35' into viewNet
+Warning: Adding poi 'POI_36' into viewNet
+Warning: Current Viewport values: 0.00, 0.00, 80.00. Zoom = '100.00'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 1 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 2 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 3 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 4 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 5 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 6 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 7 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 8 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 9 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 10 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 11 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 12 POIs
+Warning: Selected 25 elements in GNEChange_Selection
+Warning: Value 'Jren' for attribute color of poi isn't valid
+Warning: Setting new attribute color 'green' into poi 'POI_25'
+Warning: Setting new attribute color 'green' into poi 'POI_26'
+Warning: Setting new attribute color 'green' into poi 'POI_27'
+Warning: Setting new attribute color 'green' into poi 'POI_29'
+Warning: Setting new attribute color 'green' into poi 'POI_30'
+Warning: Setting new attribute color 'green' into poi 'POI_31'
+Warning: Setting new attribute color 'green' into poi 'POI_32'
+Warning: Setting new attribute color 'green' into poi 'POI_33'
+Warning: Setting new attribute color 'green' into poi 'POI_35'
+Warning: Setting new attribute color 'green' into poi 'POI_36'
+Warning: Setting new attribute type 'common type' into poi 'POI_25'
+Warning: Setting new attribute type 'common type' into poi 'POI_26'
+Warning: Setting new attribute type 'common type' into poi 'POI_27'
+Warning: Setting new attribute type 'common type' into poi 'POI_28'
+Warning: Setting new attribute type 'common type' into poi 'POI_29'
+Warning: Setting new attribute type 'common type' into poi 'POI_30'
+Warning: Setting new attribute type 'common type' into poi 'POI_31'
+Warning: Setting new attribute type 'common type' into poi 'POI_32'
+Warning: Setting new attribute type 'common type' into poi 'POI_33'
+Warning: Setting new attribute type 'common type' into poi 'POI_34'
+Warning: Setting new attribute type 'common type' into poi 'POI_35'
+Warning: Setting new attribute type 'common type' into poi 'POI_36'
+Warning: Setting new attribute layer '0' into poi 'POI_25'
+Warning: Setting new attribute layer '0' into poi 'POI_26'
+Warning: Setting new attribute layer '0' into poi 'POI_27'
+Warning: Setting new attribute layer '0' into poi 'POI_28'
+Warning: Setting new attribute layer '0' into poi 'POI_29'
+Warning: Setting new attribute layer '0' into poi 'POI_30'
+Warning: Setting new attribute layer '0' into poi 'POI_31'
+Warning: Setting new attribute layer '0' into poi 'POI_32'
+Warning: Setting new attribute layer '0' into poi 'POI_33'
+Warning: Setting new attribute layer '0' into poi 'POI_34'
+Warning: Setting new attribute layer '0' into poi 'POI_35'
+Warning: Setting new attribute layer '0' into poi 'POI_36'
+Warning: Setting new attribute layer '1' into poi 'POI_25'
+Warning: Setting new attribute layer '1' into poi 'POI_26'
+Warning: Setting new attribute layer '1' into poi 'POI_27'
+Warning: Setting new attribute layer '1' into poi 'POI_28'
+Warning: Setting new attribute layer '1' into poi 'POI_29'
+Warning: Setting new attribute layer '1' into poi 'POI_30'
+Warning: Setting new attribute layer '1' into poi 'POI_31'
+Warning: Setting new attribute layer '1' into poi 'POI_32'
+Warning: Setting new attribute layer '1' into poi 'POI_33'
+Warning: Setting new attribute layer '1' into poi 'POI_34'
+Warning: Setting new attribute layer '1' into poi 'POI_35'
+Warning: Setting new attribute layer '1' into poi 'POI_36'
+Warning: Setting new attribute width '-3' into poi 'POI_25'
+Warning: Setting new attribute width '-3' into poi 'POI_26'
+Warning: Setting new attribute width '-3' into poi 'POI_27'
+Warning: Setting new attribute width '-3' into poi 'POI_28'
+Warning: Setting new attribute width '-3' into poi 'POI_29'
+Warning: Setting new attribute width '-3' into poi 'POI_30'
+Warning: Setting new attribute width '-3' into poi 'POI_31'
+Warning: Setting new attribute width '-3' into poi 'POI_32'
+Warning: Setting new attribute width '-3' into poi 'POI_33'
+Warning: Setting new attribute width '-3' into poi 'POI_34'
+Warning: Setting new attribute width '-3' into poi 'POI_35'
+Warning: Setting new attribute width '-3' into poi 'POI_36'
+Warning: Setting new attribute width '10' into poi 'POI_25'
+Warning: Setting new attribute width '10' into poi 'POI_26'
+Warning: Setting new attribute width '10' into poi 'POI_27'
+Warning: Setting new attribute width '10' into poi 'POI_28'
+Warning: Setting new attribute width '10' into poi 'POI_29'
+Warning: Setting new attribute width '10' into poi 'POI_30'
+Warning: Setting new attribute width '10' into poi 'POI_31'
+Warning: Setting new attribute width '10' into poi 'POI_32'
+Warning: Setting new attribute width '10' into poi 'POI_33'
+Warning: Setting new attribute width '10' into poi 'POI_34'
+Warning: Setting new attribute width '10' into poi 'POI_35'
+Warning: Setting new attribute width '10' into poi 'POI_36'
+Warning: Setting new attribute height '-5' into poi 'POI_25'
+Warning: Setting new attribute height '-5' into poi 'POI_26'
+Warning: Setting new attribute height '-5' into poi 'POI_27'
+Warning: Setting new attribute height '-5' into poi 'POI_28'
+Warning: Setting new attribute height '-5' into poi 'POI_29'
+Warning: Setting new attribute height '-5' into poi 'POI_30'
+Warning: Setting new attribute height '-5' into poi 'POI_31'
+Warning: Setting new attribute height '-5' into poi 'POI_32'
+Warning: Setting new attribute height '-5' into poi 'POI_33'
+Warning: Setting new attribute height '-5' into poi 'POI_34'
+Warning: Setting new attribute height '-5' into poi 'POI_35'
+Warning: Setting new attribute height '-5' into poi 'POI_36'
+Warning: Setting new attribute height '10' into poi 'POI_25'
+Warning: Setting new attribute height '10' into poi 'POI_26'
+Warning: Setting new attribute height '10' into poi 'POI_27'
+Warning: Setting new attribute height '10' into poi 'POI_28'
+Warning: Setting new attribute height '10' into poi 'POI_29'
+Warning: Setting new attribute height '10' into poi 'POI_30'
+Warning: Setting new attribute height '10' into poi 'POI_31'
+Warning: Setting new attribute height '10' into poi 'POI_32'
+Warning: Setting new attribute height '10' into poi 'POI_33'
+Warning: Setting new attribute height '10' into poi 'POI_34'
+Warning: Setting new attribute height '10' into poi 'POI_35'
+Warning: Setting new attribute height '10' into poi 'POI_36'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_25'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_26'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_27'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_28'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_29'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_30'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_31'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_32'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_33'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_34'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_35'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_36'
+Error: Could not load 'paris.ico'.
+Loading failed!
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_25'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_26'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_27'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_28'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_29'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_30'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_31'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_32'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_33'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_34'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_35'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_36'
+Warning: Setting new attribute angle '0' into poi 'POI_25'
+Warning: Setting new attribute angle '0' into poi 'POI_26'
+Warning: Setting new attribute angle '0' into poi 'POI_27'
+Warning: Setting new attribute angle '0' into poi 'POI_28'
+Warning: Setting new attribute angle '0' into poi 'POI_29'
+Warning: Setting new attribute angle '0' into poi 'POI_30'
+Warning: Setting new attribute angle '0' into poi 'POI_31'
+Warning: Setting new attribute angle '0' into poi 'POI_32'
+Warning: Setting new attribute angle '0' into poi 'POI_33'
+Warning: Setting new attribute angle '0' into poi 'POI_34'
+Warning: Setting new attribute angle '0' into poi 'POI_35'
+Warning: Setting new attribute angle '0' into poi 'POI_36'
+Warning: Setting new attribute angle '180' into poi 'POI_25'
+Warning: Setting new attribute angle '180' into poi 'POI_26'
+Warning: Setting new attribute angle '180' into poi 'POI_27'
+Warning: Setting new attribute angle '180' into poi 'POI_28'
+Warning: Setting new attribute angle '180' into poi 'POI_29'
+Warning: Setting new attribute angle '180' into poi 'POI_30'
+Warning: Setting new attribute angle '180' into poi 'POI_31'
+Warning: Setting new attribute angle '180' into poi 'POI_32'
+Warning: Setting new attribute angle '180' into poi 'POI_33'
+Warning: Setting new attribute angle '180' into poi 'POI_34'
+Warning: Setting new attribute angle '180' into poi 'POI_35'
+Warning: Setting new attribute angle '180' into poi 'POI_36'
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 12 POIs
+Warning: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 12 POIs
+Warning: Current selection: 2 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 12 POIs
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 12 POIs
+Warning: Current selection: 0 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 12 POIs
+Warning: Current selection: 0 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 12 POIs
+Warning: Current selection: 0 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 12 POIs
+Warning: Current selection: 0 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 12 POIs
+Warning: Current selection: 0 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 12 POIs
+Warning: Current selection: 0 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 12 POIs
+Warning: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 12 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 12 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 12 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 12 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 11 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 10 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 9 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 8 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 7 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 6 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 5 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 4 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 3 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 2 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 1 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 25 elements in GNEChange_Selection
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Selected 25 elements in GNEChange_Selection
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute angle '0.00' into poi 'POI_36'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_35'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_34'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_33'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_32'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_31'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_30'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_29'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_28'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_27'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_26'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_25'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute angle '40.00' into poi 'POI_36'
+Warning: Setting previous attribute angle '60.00' into poi 'POI_35'
+Warning: Setting previous attribute angle '20.00' into poi 'POI_34'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_33'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_32'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_31'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_30'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_29'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_28'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_27'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_26'
+Warning: Setting previous attribute angle '0.00' into poi 'POI_25'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute imgFile 'paris.ico' into poi 'POI_36'
+Warning: Setting previous attribute imgFile 'paris.ico' into poi 'POI_35'
+Warning: Setting previous attribute imgFile 'paris.ico' into poi 'POI_34'
+Warning: Setting previous attribute imgFile 'paris.ico' into poi 'POI_33'
+Warning: Setting previous attribute imgFile 'paris.ico' into poi 'POI_32'
+Warning: Setting previous attribute imgFile 'paris.ico' into poi 'POI_31'
+Warning: Setting previous attribute imgFile 'paris.ico' into poi 'POI_30'
+Warning: Setting previous attribute imgFile 'paris.ico' into poi 'POI_29'
+Warning: Setting previous attribute imgFile 'paris.ico' into poi 'POI_28'
+Warning: Setting previous attribute imgFile 'paris.ico' into poi 'POI_27'
+Warning: Setting previous attribute imgFile 'paris.ico' into poi 'POI_26'
+Warning: Setting previous attribute imgFile 'paris.ico' into poi 'POI_25'
+Error: Could not load 'paris.ico'.
+Loading failed!
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute imgFile 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Sep144723.160/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_36'
+Warning: Setting previous attribute imgFile 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Sep144723.160/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_35'
+Warning: Setting previous attribute imgFile 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Sep144723.160/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_34'
+Warning: Setting previous attribute imgFile 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Sep144723.160/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_33'
+Warning: Setting previous attribute imgFile '' into poi 'POI_32'
+Warning: Setting previous attribute imgFile '' into poi 'POI_31'
+Warning: Setting previous attribute imgFile '' into poi 'POI_30'
+Warning: Setting previous attribute imgFile '' into poi 'POI_29'
+Warning: Setting previous attribute imgFile '' into poi 'POI_28'
+Warning: Setting previous attribute imgFile '' into poi 'POI_27'
+Warning: Setting previous attribute imgFile '' into poi 'POI_26'
+Warning: Setting previous attribute imgFile '' into poi 'POI_25'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute height '-5.00' into poi 'POI_36'
+Warning: Setting previous attribute height '-5.00' into poi 'POI_35'
+Warning: Setting previous attribute height '-5.00' into poi 'POI_34'
+Warning: Setting previous attribute height '-5.00' into poi 'POI_33'
+Warning: Setting previous attribute height '-5.00' into poi 'POI_32'
+Warning: Setting previous attribute height '-5.00' into poi 'POI_31'
+Warning: Setting previous attribute height '-5.00' into poi 'POI_30'
+Warning: Setting previous attribute height '-5.00' into poi 'POI_29'
+Warning: Setting previous attribute height '-5.00' into poi 'POI_28'
+Warning: Setting previous attribute height '-5.00' into poi 'POI_27'
+Warning: Setting previous attribute height '-5.00' into poi 'POI_26'
+Warning: Setting previous attribute height '-5.00' into poi 'POI_25'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute height '10.00' into poi 'POI_36'
+Warning: Setting previous attribute height '5.00' into poi 'POI_35'
+Warning: Setting previous attribute height '10.00' into poi 'POI_34'
+Warning: Setting previous attribute height '5.00' into poi 'POI_33'
+Warning: Setting previous attribute height '0.00' into poi 'POI_32'
+Warning: Setting previous attribute height '0.00' into poi 'POI_31'
+Warning: Setting previous attribute height '0.00' into poi 'POI_30'
+Warning: Setting previous attribute height '0.00' into poi 'POI_29'
+Warning: Setting previous attribute height '0.00' into poi 'POI_28'
+Warning: Setting previous attribute height '0.00' into poi 'POI_27'
+Warning: Setting previous attribute height '0.00' into poi 'POI_26'
+Warning: Setting previous attribute height '0.00' into poi 'POI_25'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute width '-3.00' into poi 'POI_36'
+Warning: Setting previous attribute width '-3.00' into poi 'POI_35'
+Warning: Setting previous attribute width '-3.00' into poi 'POI_34'
+Warning: Setting previous attribute width '-3.00' into poi 'POI_33'
+Warning: Setting previous attribute width '-3.00' into poi 'POI_32'
+Warning: Setting previous attribute width '-3.00' into poi 'POI_31'
+Warning: Setting previous attribute width '-3.00' into poi 'POI_30'
+Warning: Setting previous attribute width '-3.00' into poi 'POI_29'
+Warning: Setting previous attribute width '-3.00' into poi 'POI_28'
+Warning: Setting previous attribute width '-3.00' into poi 'POI_27'
+Warning: Setting previous attribute width '-3.00' into poi 'POI_26'
+Warning: Setting previous attribute width '-3.00' into poi 'POI_25'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute width '10.00' into poi 'POI_36'
+Warning: Setting previous attribute width '10.00' into poi 'POI_35'
+Warning: Setting previous attribute width '5.00' into poi 'POI_34'
+Warning: Setting previous attribute width '5.00' into poi 'POI_33'
+Warning: Setting previous attribute width '0.00' into poi 'POI_32'
+Warning: Setting previous attribute width '0.00' into poi 'POI_31'
+Warning: Setting previous attribute width '0.00' into poi 'POI_30'
+Warning: Setting previous attribute width '0.00' into poi 'POI_29'
+Warning: Setting previous attribute width '0.00' into poi 'POI_28'
+Warning: Setting previous attribute width '0.00' into poi 'POI_27'
+Warning: Setting previous attribute width '0.00' into poi 'POI_26'
+Warning: Setting previous attribute width '0.00' into poi 'POI_25'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute layer '0.00' into poi 'POI_36'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_35'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_34'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_33'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_32'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_31'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_30'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_29'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_28'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_27'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_26'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_25'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute layer '0.00' into poi 'POI_36'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_35'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_34'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_33'
+Warning: Setting previous attribute layer '2.00' into poi 'POI_32'
+Warning: Setting previous attribute layer '1.00' into poi 'POI_31'
+Warning: Setting previous attribute layer '4.00' into poi 'POI_30'
+Warning: Setting previous attribute layer '3.00' into poi 'POI_29'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_28'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_27'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_26'
+Warning: Setting previous attribute layer '0.00' into poi 'POI_25'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute type '' into poi 'POI_36'
+Warning: Setting previous attribute type '' into poi 'POI_35'
+Warning: Setting previous attribute type '' into poi 'POI_34'
+Warning: Setting previous attribute type '' into poi 'POI_33'
+Warning: Setting previous attribute type 'type2' into poi 'POI_32'
+Warning: Setting previous attribute type 'type1' into poi 'POI_31'
+Warning: Setting previous attribute type 'type2' into poi 'POI_30'
+Warning: Setting previous attribute type 'type1' into poi 'POI_29'
+Warning: Setting previous attribute type '' into poi 'POI_28'
+Warning: Setting previous attribute type '' into poi 'POI_27'
+Warning: Setting previous attribute type '' into poi 'POI_26'
+Warning: Setting previous attribute type '' into poi 'POI_25'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute color 'white' into poi 'POI_36'
+Warning: Setting previous attribute color 'blue' into poi 'POI_35'
+Warning: Setting previous attribute color 'red' into poi 'POI_33'
+Warning: Setting previous attribute color 'red' into poi 'POI_32'
+Warning: Setting previous attribute color 'red' into poi 'POI_31'
+Warning: Setting previous attribute color 'red' into poi 'POI_30'
+Warning: Setting previous attribute color 'red' into poi 'POI_29'
+Warning: Setting previous attribute color 'orange' into poi 'POI_27'
+Warning: Setting previous attribute color 'blue' into poi 'POI_26'
+Warning: Setting previous attribute color 'red' into poi 'POI_25'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute color 'green' into poi 'POI_25'
+Warning: Setting new attribute color 'green' into poi 'POI_26'
+Warning: Setting new attribute color 'green' into poi 'POI_27'
+Warning: Setting new attribute color 'green' into poi 'POI_29'
+Warning: Setting new attribute color 'green' into poi 'POI_30'
+Warning: Setting new attribute color 'green' into poi 'POI_31'
+Warning: Setting new attribute color 'green' into poi 'POI_32'
+Warning: Setting new attribute color 'green' into poi 'POI_33'
+Warning: Setting new attribute color 'green' into poi 'POI_35'
+Warning: Setting new attribute color 'green' into poi 'POI_36'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute type 'common type' into poi 'POI_25'
+Warning: Setting new attribute type 'common type' into poi 'POI_26'
+Warning: Setting new attribute type 'common type' into poi 'POI_27'
+Warning: Setting new attribute type 'common type' into poi 'POI_28'
+Warning: Setting new attribute type 'common type' into poi 'POI_29'
+Warning: Setting new attribute type 'common type' into poi 'POI_30'
+Warning: Setting new attribute type 'common type' into poi 'POI_31'
+Warning: Setting new attribute type 'common type' into poi 'POI_32'
+Warning: Setting new attribute type 'common type' into poi 'POI_33'
+Warning: Setting new attribute type 'common type' into poi 'POI_34'
+Warning: Setting new attribute type 'common type' into poi 'POI_35'
+Warning: Setting new attribute type 'common type' into poi 'POI_36'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute layer '0' into poi 'POI_25'
+Warning: Setting new attribute layer '0' into poi 'POI_26'
+Warning: Setting new attribute layer '0' into poi 'POI_27'
+Warning: Setting new attribute layer '0' into poi 'POI_28'
+Warning: Setting new attribute layer '0' into poi 'POI_29'
+Warning: Setting new attribute layer '0' into poi 'POI_30'
+Warning: Setting new attribute layer '0' into poi 'POI_31'
+Warning: Setting new attribute layer '0' into poi 'POI_32'
+Warning: Setting new attribute layer '0' into poi 'POI_33'
+Warning: Setting new attribute layer '0' into poi 'POI_34'
+Warning: Setting new attribute layer '0' into poi 'POI_35'
+Warning: Setting new attribute layer '0' into poi 'POI_36'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute layer '1' into poi 'POI_25'
+Warning: Setting new attribute layer '1' into poi 'POI_26'
+Warning: Setting new attribute layer '1' into poi 'POI_27'
+Warning: Setting new attribute layer '1' into poi 'POI_28'
+Warning: Setting new attribute layer '1' into poi 'POI_29'
+Warning: Setting new attribute layer '1' into poi 'POI_30'
+Warning: Setting new attribute layer '1' into poi 'POI_31'
+Warning: Setting new attribute layer '1' into poi 'POI_32'
+Warning: Setting new attribute layer '1' into poi 'POI_33'
+Warning: Setting new attribute layer '1' into poi 'POI_34'
+Warning: Setting new attribute layer '1' into poi 'POI_35'
+Warning: Setting new attribute layer '1' into poi 'POI_36'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute width '-3' into poi 'POI_25'
+Warning: Setting new attribute width '-3' into poi 'POI_26'
+Warning: Setting new attribute width '-3' into poi 'POI_27'
+Warning: Setting new attribute width '-3' into poi 'POI_28'
+Warning: Setting new attribute width '-3' into poi 'POI_29'
+Warning: Setting new attribute width '-3' into poi 'POI_30'
+Warning: Setting new attribute width '-3' into poi 'POI_31'
+Warning: Setting new attribute width '-3' into poi 'POI_32'
+Warning: Setting new attribute width '-3' into poi 'POI_33'
+Warning: Setting new attribute width '-3' into poi 'POI_34'
+Warning: Setting new attribute width '-3' into poi 'POI_35'
+Warning: Setting new attribute width '-3' into poi 'POI_36'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute width '10' into poi 'POI_25'
+Warning: Setting new attribute width '10' into poi 'POI_26'
+Warning: Setting new attribute width '10' into poi 'POI_27'
+Warning: Setting new attribute width '10' into poi 'POI_28'
+Warning: Setting new attribute width '10' into poi 'POI_29'
+Warning: Setting new attribute width '10' into poi 'POI_30'
+Warning: Setting new attribute width '10' into poi 'POI_31'
+Warning: Setting new attribute width '10' into poi 'POI_32'
+Warning: Setting new attribute width '10' into poi 'POI_33'
+Warning: Setting new attribute width '10' into poi 'POI_34'
+Warning: Setting new attribute width '10' into poi 'POI_35'
+Warning: Setting new attribute width '10' into poi 'POI_36'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute height '-5' into poi 'POI_25'
+Warning: Setting new attribute height '-5' into poi 'POI_26'
+Warning: Setting new attribute height '-5' into poi 'POI_27'
+Warning: Setting new attribute height '-5' into poi 'POI_28'
+Warning: Setting new attribute height '-5' into poi 'POI_29'
+Warning: Setting new attribute height '-5' into poi 'POI_30'
+Warning: Setting new attribute height '-5' into poi 'POI_31'
+Warning: Setting new attribute height '-5' into poi 'POI_32'
+Warning: Setting new attribute height '-5' into poi 'POI_33'
+Warning: Setting new attribute height '-5' into poi 'POI_34'
+Warning: Setting new attribute height '-5' into poi 'POI_35'
+Warning: Setting new attribute height '-5' into poi 'POI_36'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute height '10' into poi 'POI_25'
+Warning: Setting new attribute height '10' into poi 'POI_26'
+Warning: Setting new attribute height '10' into poi 'POI_27'
+Warning: Setting new attribute height '10' into poi 'POI_28'
+Warning: Setting new attribute height '10' into poi 'POI_29'
+Warning: Setting new attribute height '10' into poi 'POI_30'
+Warning: Setting new attribute height '10' into poi 'POI_31'
+Warning: Setting new attribute height '10' into poi 'POI_32'
+Warning: Setting new attribute height '10' into poi 'POI_33'
+Warning: Setting new attribute height '10' into poi 'POI_34'
+Warning: Setting new attribute height '10' into poi 'POI_35'
+Warning: Setting new attribute height '10' into poi 'POI_36'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_25'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_26'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_27'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_28'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_29'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_30'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_31'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_32'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_33'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_34'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_35'
+Warning: Setting new attribute imgFile 'paris.ico' into poi 'POI_36'
+Error: Could not load 'paris.ico'.
+Loading failed!
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_25'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_26'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_27'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_28'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_29'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_30'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_31'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_32'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_33'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_34'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_35'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'POI_36'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute angle '0' into poi 'POI_25'
+Warning: Setting new attribute angle '0' into poi 'POI_26'
+Warning: Setting new attribute angle '0' into poi 'POI_27'
+Warning: Setting new attribute angle '0' into poi 'POI_28'
+Warning: Setting new attribute angle '0' into poi 'POI_29'
+Warning: Setting new attribute angle '0' into poi 'POI_30'
+Warning: Setting new attribute angle '0' into poi 'POI_31'
+Warning: Setting new attribute angle '0' into poi 'POI_32'
+Warning: Setting new attribute angle '0' into poi 'POI_33'
+Warning: Setting new attribute angle '0' into poi 'POI_34'
+Warning: Setting new attribute angle '0' into poi 'POI_35'
+Warning: Setting new attribute angle '0' into poi 'POI_36'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute angle '180' into poi 'POI_25'
+Warning: Setting new attribute angle '180' into poi 'POI_26'
+Warning: Setting new attribute angle '180' into poi 'POI_27'
+Warning: Setting new attribute angle '180' into poi 'POI_28'
+Warning: Setting new attribute angle '180' into poi 'POI_29'
+Warning: Setting new attribute angle '180' into poi 'POI_30'
+Warning: Setting new attribute angle '180' into poi 'POI_31'
+Warning: Setting new attribute angle '180' into poi 'POI_32'
+Warning: Setting new attribute angle '180' into poi 'POI_33'
+Warning: Setting new attribute angle '180' into poi 'POI_34'
+Warning: Setting new attribute angle '180' into poi 'POI_35'
+Warning: Setting new attribute angle '180' into poi 'POI_36'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Deselected 25 elements in GNEChange_Selection
+Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE3_0togneE0_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE4_0togneE6_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE6_0togneE7_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE7_0togneE8_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE8_0togneE4_0' in retrieveGNEConnection()
+Warning: Removing poi 'POI_36' from net
+Warning: Removing poi 'POI_35' from net
+Warning: Removing poi 'POI_34' from net
+Warning: Removing poi 'POI_33' from net
+Warning: Removing poi 'POI_32' from net
+Warning: Removing poi 'POI_31' from net
+Warning: Removing poi 'POI_30' from net
+Warning: Removing poi 'POI_29' from net
+Warning: Removing poi 'POI_28' from net
+Warning: Removing poi 'POI_27' from net
+Warning: Removing poi 'POI_26' from net
+Warning: Removing poi 'POI_25' from net
+Warning: Removing poly 'poly_0' from net
+Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE1_0togneE2_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE3' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE3_0togneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE4' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE4_0togneE6_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE6' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE6_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE6_0togneE7_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE7' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE7_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE7_0togneE8_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE8' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE8_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE8_0togneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor
