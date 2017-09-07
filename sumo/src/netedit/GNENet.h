@@ -97,6 +97,8 @@ class GNENet : public GUIGlObject, public ShapeContainer {
     friend class GNEChange_Connection;
 
 public:
+    /// @name color of selected objects
+    /// @{
     /// @brief color of selection
     static const RGBColor selectionColor;
 
@@ -108,6 +110,7 @@ public:
 
     /// @brief color of selected additionals
     static const RGBColor selectedAdditionalColor;
+    /// @}
 
     /**@brief Constructor
      * @param[in] netbuilder the netbuilder which may already have been filled
@@ -158,12 +161,14 @@ public:
     /// @brief returns the bounder of the network
     const Boundary& getBoundary() const;
 
-    /// @brief Returns the RTree used for visualisation speed-up
-    /// @return The visualisation speed-up
+    /**@brief Returns the RTree used for visualisation speed-up
+     * @return The visualisation speed-up
+     */
     SUMORTree& getVisualisationSpeedUp();
 
-    /// @brief Returns the RTree used for visualisation speed-up
-    /// @return The visualisation speed-up
+    /**@brief Returns the RTree used for visualisation speed-up
+     * @return The visualisation speed-up
+     */
     const SUMORTree& getVisualisationSpeedUp() const;
 
     /**@brief creates a new junction
@@ -219,21 +224,21 @@ public:
     void deleteConnection(GNEConnection* connection, GNEUndoList* undoList);
 
     /**@brief remove crossing
-    * @param[in] crossing The crossing to be removed
-    * @param[in] undoList The undolist in which to mark changes
-    */
+     * @param[in] crossing The crossing to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
     void deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList);
 
     /**@brief remove POI
-    * @param[in] POI The POI to be removed
-    * @param[in] undoList The undolist in which to mark changes
-    */
+     * @param[in] POI The POI to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
     void deletePOI(GNEPOI* POI, GNEUndoList* undoList);
 
     /**@brief remove Polygon
-    * @param[in] Polygon The Polygon to be removed
-    * @param[in] undoList The undolist in which to mark changes
-    */
+     * @param[in] Polygon The Polygon to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
     void deletePolygon(GNEPoly* polygon, GNEUndoList* undoList);
 
     /**@brief duplicates lane
@@ -339,24 +344,24 @@ public:
 
     /**@brief return all edges
      * @param[in] onlySelected Whether to return only selected edges
-     * */
+     */
     std::vector<GNEEdge*> retrieveEdges(bool onlySelected = false);
 
     /**@brief return all lanes
      * @param[in] onlySelected Whether to return only selected lanes
-     * */
+     */
     std::vector<GNELane*> retrieveLanes(bool onlySelected = false);
 
     /**@brief get lane by id
      * @param[in] id The id of the desired lane
      * @param[in] failHard Whether attempts to retrieve a nonexisting lane should result in an exception
      * @throws UnknownElement
-    */
+     */
     GNELane* retrieveLane(const std::string& id, bool failHard = true);
 
     /**@brief return all junctions
      * @param[in] onlySelected Whether to return only selected junctions
-     * */
+     */
     std::vector<GNEJunction*> retrieveJunctions(bool onlySelected = false);
 
     /**@brief save the network
@@ -386,8 +391,9 @@ public:
     /// @brief refreshes boundary information for o and update
     void refreshElement(GUIGlObject* o);
 
-    /// @brief refreshes boundary information of an additional after a geometry update
-    /// @note only non removed additional will be refresh
+    /**@brief refreshes boundary information of an additional after a geometry update
+     * @note only non removed additional will be refresh
+     */
     void refreshAdditional(GNEAdditional* additional);
 
     /// @brief generate an ID for vaporizers
@@ -408,8 +414,8 @@ public:
     /// @brief returns the tllcont of the underlying netbuilder
     NBTrafficLightLogicCont& getTLLogicCont();
 
-    /* @brief get ids of currently active objects
-     * param[in] type If type != GLO_MAX, get active ids of that type, otherwise get all active ids
+    /**@brief get ids of currently active objects
+     * @param[in] type If type != GLO_MAX, get active ids of that type, otherwise get all active ids
      */
     std::set<GUIGlID> getGlIDs(GUIGlObjectType type = GLO_MAX);
 
@@ -425,7 +431,7 @@ public:
     /// @brief check if shapes  are saved
     bool isShapesSaved() const;
 
-    /* @brief trigger full netbuild computation
+    /**@brief trigger full netbuild computation
      * param[in] window The window to inform about delay
      * param[in] force Whether to force recomputation even if not needed
      * param[in] volatileOptions enable or disable volatile options
@@ -434,7 +440,7 @@ public:
      */
     void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string shapePath = "");
 
-    /* @brief join selected junctions
+    /**@brief join selected junctions
      * @note difference to mergeJunctions:
      *  - can join more than 2
      *  - connected edges will keep their geometry (big junction shape is created)
@@ -451,7 +457,7 @@ public:
     /// @brief replace the selected junction by geometry node(s) and merge the edges
     void replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList);
 
-    /* @brief trigger recomputation of junction shape and logic
+    /**@brief trigger recomputation of junction shape and logic
      * param[in] window The window to inform about delay
      */
     void computeJunction(GNEJunction* junction);
@@ -492,8 +498,9 @@ public:
      */
     void deleteAdditional(GNEAdditional* additional);
 
-    /// @brief update additional ID in container
-    /// @note this function is automatically called when user changes the ID of an additional
+    /**@brief update additional ID in container
+     * @note this function is automatically called when user changes the ID of an additional
+     */
     void updateAdditionalID(const std::string& oldID, GNEAdditional* additional);
 
     /**@brief Returns the named additional
@@ -504,7 +511,7 @@ public:
 
     /**@brief return all additionals
      * @param[in] onlySelected Whether to return only selected additionals
-     * */
+     */
     std::vector<GNEAdditional*> retrieveAdditionals(bool onlySelected = false);
 
     /**@brief Returns the named additional
@@ -552,31 +559,31 @@ public:
     /// @brief Check if exist a flow with these ID
     bool flowExists(const std::string& flowID) const;
 
-    /** @brief Builds a polygon using the given values and adds it to the container
-    * @param[in] id The name of the polygon
-    * @param[in] type The (abstract) type of the polygon
-    * @param[in] color The color of the polygon
-    * @param[in] layer The layer of the polygon
-    * @param[in] angle The rotation of the polygon
-    * @param[in] imgFile The raster image of the polygon
-    * @param[in] shape The shape of the polygon
-    * @param[in] fill Whether the polygon shall be filled
-    * @return whether the polygon could be added
-    */
+    /**@brief Builds a polygon using the given values and adds it to the container
+     * @param[in] id The name of the polygon
+     * @param[in] type The (abstract) type of the polygon
+     * @param[in] color The color of the polygon
+     * @param[in] layer The layer of the polygon
+     * @param[in] angle The rotation of the polygon
+     * @param[in] imgFile The raster image of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] fill Whether the polygon shall be filled
+     * @return whether the polygon could be added
+     */
     bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
                     double angle, const std::string& imgFile, const PositionVector& shape, bool fill,
                     bool ignorePruning = false);
 
-    /** @brief Builds a special polygon used for edit Junctions's shapes
-    * @param[in] junction junction to be edited
-    * @return created GNEPoly
-    */
+    /**@brief Builds a special polygon used for edit Junctions's shapes
+     * @param[in] junction junction to be edited
+     * @return created GNEPoly
+     */
     GNEPoly* addPolygonForEditShapes(GNEJunction *junction);
 
-    /** @brief Removes a polygon from the container
-    * @param[in] id The id of the polygon
-    * @return Whether the polygon could be removed
-    */
+    /**@brief Removes a polygon from the container
+     * @param[in] id The id of the polygon
+     * @return Whether the polygon could be removed
+     */
     bool removePolygon(const std::string& id);
 
     /// @brief insert created polygon in view net
@@ -592,35 +599,35 @@ public:
     std::string generatePolyID() const;
 
     /**@brief get Polygon by id
-    * @param[in] id The id of the desired polygon
-    * @param[in] failHard Whether attempts to retrieve a nonexisting polygon should result in an exception
-    * @throws UnknownElement
-    */
+     * @param[in] id The id of the desired polygon
+     * @param[in] failHard Whether attempts to retrieve a nonexisting polygon should result in an exception
+     * @throws UnknownElement
+     */
     GNEPoly* retrievePolygon(const std::string& id, bool failHard = true) const;
 
     /// @brief change Polygon ID
     void changePolygonID(GNEPoly* poly, const std::string &OldID);
 
-    /** @brief Builds a POI using the given values and adds it to the container
-    * @param[in] id The name of the POI
-    * @param[in] type The (abstract) type of the POI
-    * @param[in] color The color of the POI
-    * @param[in] layer The layer of the POI
-    * @param[in] angle The rotation of the POI
-    * @param[in] imgFile The raster image of the POI
-    * @param[in] pos The position of the POI
-    * @param[in] width The width of the POI image
-    * @param[in] height The height of the POI image
-    * @return whether the poi could be added
-    */
+    /**@brief Builds a POI using the given values and adds it to the container
+     * @param[in] id The name of the POI
+     * @param[in] type The (abstract) type of the POI
+     * @param[in] color The color of the POI
+     * @param[in] layer The layer of the POI
+     * @param[in] angle The rotation of the POI
+     * @param[in] imgFile The raster image of the POI
+     * @param[in] pos The position of the POI
+     * @param[in] width The width of the POI image
+     * @param[in] height The height of the POI image
+     * @return whether the poi could be added
+     */
     bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, 
                 double angle, const std::string& imgFile, const Position& pos, double width, double height,
                 bool ignorePruning = false);
 
-    /** @brief Removes a PoI from the container
-    * @param[in] id The id of the PoI
-    * @return Whether the poi could be removed
-    */
+    /**@brief Removes a PoI from the container
+     * @param[in] id The id of the PoI
+     * @return Whether the poi could be removed
+     */
     bool removePOI(const std::string& id);
 
     /// @brief insert created shape in view net
@@ -636,18 +643,18 @@ public:
     std::string generatePOIID() const;
 
     /**@brief get POI by id
-    * @param[in] id The id of the desired POI
-    * @param[in] failHard Whether attempts to retrieve a nonexisting POI should result in an exception
-    * @throws UnknownElement
-    */
+     * @param[in] id The id of the desired POI
+     * @param[in] failHard Whether attempts to retrieve a nonexisting POI should result in an exception
+     * @throws UnknownElement
+     */
     GNEPOI* retrievePOI(const std::string& id, bool failHard = true) const;
 
     /// @brief change POI ID
     void changePOIID(GNEPOI* POI, const std::string &OldID);
 
     /**@brief save shapes elements of the network
-    * @param[in] filename name of the file in wich save shapes
-    */
+     * @param[in] filename name of the file in wich save shapes
+     */
     void saveShapes(const std::string &filename);
 
     /// @brief get number of shapes
@@ -747,31 +754,50 @@ private:
     /// @brief marker for whether the z-boundary is initialized
     static const double Z_INITIALIZED;
 
+    /// @brief class for GNEChange_ReplaceEdgeInTLS
     class GNEChange_ReplaceEdgeInTLS : public GNEChange {
         FXDECLARE_ABSTRACT(GNEChange_ReplaceEdgeInTLS)
+
     public:
+        /// @brief constructor
         GNEChange_ReplaceEdgeInTLS(NBTrafficLightLogicCont& tllcont, NBEdge* replaced, NBEdge* by) :
             GNEChange(0, true),
             myTllcont(tllcont), myReplaced(replaced), myBy(by) { }
+
+        /// @bief destructor
         ~GNEChange_ReplaceEdgeInTLS() {};
 
-        FXString undoName() const { return "Redo replace in TLS"; }
+        /// @brief undo name
+        FXString undoName() const { 
+            return "Redo replace in TLS"; 
+        }
+
         /// @brief get Redo name
-        FXString redoName() const { return "Undo replace in TLS"; }
+        FXString redoName() const { 
+            return "Undo replace in TLS"; 
+        }
+
         /// @brief undo action
         void undo() {
             myTllcont.replaceRemoved(myBy, -1, myReplaced, -1);
         }
+
         /// @brief redo action
         void redo() {
             myTllcont.replaceRemoved(myReplaced, -1, myBy, -1);
         }
+
         /// @brief wether original and new value differ
         bool trueChange() { return myReplaced != myBy; }
 
     private:
+        /// @brief container for traffic light logic
         NBTrafficLightLogicCont& myTllcont;
+
+        /// @brief replaced NBEdge
         NBEdge* myReplaced;
+
+        /// @brief replaced by NBEdge
         NBEdge* myBy;
     };
 
