@@ -155,7 +155,7 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, double /* oldPos */, double 
 
             // Only update charging start time if vehicle allow charge in transit, or in other case
             // if the vehicle not allow charge in transit but it's stopped.
-            if ((myActChargingStation->getChargeInTransit() == true) || (veh.getSpeed() < myStoppingTreshold)) {
+            if ((myActChargingStation->getChargeInTransit()) || (veh.getSpeed() < myStoppingTreshold)) {
                 // Update Charging start time
                 increaseChargingStartTime();
             }
