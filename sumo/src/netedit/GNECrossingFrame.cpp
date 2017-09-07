@@ -102,10 +102,10 @@ GNECrossingFrame::edgesSelector::edgesSelector(FXComposite* parent, GNECrossingF
     myUseSelectedEdges = new FXButton(this, ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_USEONLYSELECTEDEDGES, GUIDesignButton);
 
     // Create button for clear selection
-    myClearEdgesSelection = new FXButton(this, ("clear " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_CLEAREDGESELECTION, GUIDesignButton);
+    myClearEdgesSelection = new FXButton(this, ("Clear " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_CLEAREDGESELECTION, GUIDesignButton);
 
     // Create button for invert selection
-    myInvertEdgesSelection = new FXButton(this, ("invert " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_INVERTEDGESELECTION, GUIDesignButton);
+    myInvertEdgesSelection = new FXButton(this, ("Invert " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_INVERTEDGESELECTION, GUIDesignButton);
 
     // Create help button
     helpEdges = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
@@ -123,14 +123,16 @@ GNECrossingFrame::edgesSelector::getCurrentJunction() const {
 
 void
 GNECrossingFrame::edgesSelector::enableEdgeSelector(GNEJunction* currentJunction) {
+    // restore color of all lanes of edge candidates
+    restoreEdgeColors();
     // Set current junction
     myCurrentJunction = currentJunction;
     // Update view net to show the new colors
     myCrossingFrameParent->getViewNet()->update();
     // check if use selected eges must be enabled
     myUseSelectedEdges->disable();
-    for (std::vector<GNEEdge*>::const_iterator i = myCurrentJunction->getGNEEdges().begin(); i != myCurrentJunction->getGNEEdges().end(); i++) {
-        if (gSelected.isSelected((*i)->getType(), (*i)->getGlID())) {
+    for (auto i : myCurrentJunction->getGNEEdges()) {
+        if (gSelected.isSelected(i->getType(), i->getGlID())) {
             myUseSelectedEdges->enable();
         }
     }
@@ -159,9 +161,9 @@ void
 GNECrossingFrame::edgesSelector::restoreEdgeColors() {
     if (myCurrentJunction != NULL) {
         // restore color of all lanes of edge candidates
-        for (std::vector<GNEEdge*>::const_iterator i = myCurrentJunction->getGNEEdges().begin(); i != myCurrentJunction->getGNEEdges().end(); i++) {
-            for (std::vector<GNELane*>::const_iterator j = (*i)->getLanes().begin(); j != (*i)->getLanes().end(); j++) {
-                (*j)->setSpecialColor(0);
+        for (auto i : myCurrentJunction->getGNEEdges()) {
+            for (auto j : i->getLanes()) {
+                j->setSpecialColor(0);
             }
         }
         // Update view net to show the new colors
@@ -316,9 +318,9 @@ GNECrossingFrame::crossingParameters::clearEdges() {
 void
 GNECrossingFrame::crossingParameters::invertEdges(GNEJunction* parentJunction) {
     std::vector<std::string> crossingEdges;
-    for (std::vector<GNEEdge*>::const_iterator i = parentJunction->getGNEEdges().begin(); i != parentJunction->getGNEEdges().end(); i++) {
-        if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), (*i)) == myCurrentSelectedEdges.end()) {
-            crossingEdges.push_back((*i)->getID());
+    for (auto i : parentJunction->getGNEEdges()) {
+        if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), i) == myCurrentSelectedEdges.end()) {
+            crossingEdges.push_back(i->getID());
         }
     }
     myCrossingEdges->setText(joinToString(crossingEdges, " ").c_str());
@@ -330,9 +332,9 @@ GNECrossingFrame::crossingParameters::invertEdges(GNEJunction* parentJunction) {
 void
 GNECrossingFrame::crossingParameters::useSelectedEdges(GNEJunction* parentJunction) {
     std::vector<std::string> crossingEdges;
-    for (std::vector<GNEEdge*>::const_iterator i = parentJunction->getGNEEdges().begin(); i != parentJunction->getGNEEdges().end(); i++) {
-        if (gSelected.isSelected((*i)->getType(), (*i)->getGlID())) {
-            crossingEdges.push_back((*i)->getID());
+    for (auto i : parentJunction->getGNEEdges()) {
+        if (gSelected.isSelected(i->getType(), i->getGlID())) {
+            crossingEdges.push_back(i->getID());
         }
     }
     myCrossingEdges->setText(joinToString(crossingEdges, " ").c_str());
@@ -345,8 +347,8 @@ std::vector<NBEdge*>
 GNECrossingFrame::crossingParameters::getCrossingEdges() const {
     std::vector<NBEdge*> NBEdgeVector;
     // Iterate over myCurrentSelectedEdges
-    for (std::vector<GNEEdge*>::const_iterator i = myCurrentSelectedEdges.begin(); i != myCurrentSelectedEdges.end(); i++) {
-        NBEdgeVector.push_back((*i)->getNBEdge());
+    for (auto i : myCurrentSelectedEdges) {
+        NBEdgeVector.push_back(i->getNBEdge());
     }
     return NBEdgeVector;
 }
@@ -394,8 +396,8 @@ GNECrossingFrame::crossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     // Clear selected edges
     myCurrentSelectedEdges.clear();
     // iterate over vector of edge IDs
-    for (std::vector<std::string>::iterator i = crossingEdges.begin(); i != crossingEdges.end(); i++) {
-        GNEEdge* edge = myCrossingFrameParent->getViewNet()->getNet()->retrieveEdge((*i), false);
+    for (auto i : crossingEdges) {
+        GNEEdge* edge = myCrossingFrameParent->getViewNet()->getNet()->retrieveEdge(i, false);
         GNEJunction* currentJunction = myCrossingFrameParent->getEdgeSelector()->getCurrentJunction();
         // Check that edge exists and belongs to Junction
         if (edge == 0) {
@@ -404,7 +406,7 @@ GNECrossingFrame::crossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
             myCurrentParametersValid = false;
         } else {
             // select or unselected edge
-            std::vector<GNEEdge*>::iterator itFinder = std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), edge);
+            auto itFinder = std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), edge);
             if (itFinder == myCurrentSelectedEdges.end()) {
                 myCurrentSelectedEdges.push_back(edge);
             } else {
@@ -423,14 +425,14 @@ GNECrossingFrame::crossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     }
 
     // Update colors of edges
-    for (std::vector<GNEEdge*>::const_iterator i = myEdgeSelector->getCurrentJunction()->getGNEEdges().begin(); i != myEdgeSelector->getCurrentJunction()->getGNEEdges().end(); i++) {
-        if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), *i) != myCurrentSelectedEdges.end()) {
-            for (std::vector<GNELane*>::const_iterator j = (*i)->getLanes().begin(); j != (*i)->getLanes().end(); j++) {
-                (*j)->setSpecialColor(&mySelectedColor);
+    for (auto i : myEdgeSelector->getCurrentJunction()->getGNEEdges()) {
+        if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), i) != myCurrentSelectedEdges.end()) {
+            for (auto j : i->getLanes()) {
+                j->setSpecialColor(&mySelectedColor);
             }
         } else {
-            for (std::vector<GNELane*>::const_iterator j = (*i)->getLanes().begin(); j != (*i)->getLanes().end(); j++) {
-                (*j)->setSpecialColor(&myCandidateColor);
+            for (auto j : i->getLanes()) {
+                j->setSpecialColor(&myCandidateColor);
             }
         }
     }
@@ -563,16 +565,8 @@ GNECrossingFrame::~GNECrossingFrame() {
 
 void
 GNECrossingFrame::hide() {
-    // Set default colors of edges (if a junction is yet selected)
-    if (myEdgeSelector->getCurrentJunction() != NULL) {
-        // remove color of edges
-        for (std::vector<GNEEdge*>::const_iterator i = myEdgeSelector->getCurrentJunction()->getGNEEdges().begin(); i != myEdgeSelector->getCurrentJunction()->getGNEEdges().end(); i++) {
-            for (std::vector<GNELane*>::const_iterator j = (*i)->getLanes().begin(); j != (*i)->getLanes().end(); j++) {
-                (*j)->setSpecialColor(0);
-            }
-        }
-    }
-
+    // restore color of all lanes of edge candidates
+    myEdgeSelector->restoreEdgeColors();
     // hide frame
     GNEFrame::hide();
 }
@@ -592,6 +586,8 @@ GNECrossingFrame::addCrossing(GNENetElement* netElement) {
         // Enable edge selector and crossing parameters
         myEdgeSelector->enableEdgeSelector(currentJunction);
         myCrossingParameters->enableCrossingParameters();
+        // clears selected edges
+        myCrossingParameters->clearEdges();
     } else if (selectedEdge != NULL) {
         myCrossingParameters->markEdge(selectedEdge);
     } else if (selectedLane != NULL) {
@@ -599,6 +595,8 @@ GNECrossingFrame::addCrossing(GNENetElement* netElement) {
     } else {
         // set default label
         myCurrentJunctionLabel->setText("No junction selected");
+        // clear selected egdes
+        myCrossingParameters->clearEdges();
         // restore  color of all lanes of edge candidates
         myEdgeSelector->restoreEdgeColors();
         // Disable edge selector
