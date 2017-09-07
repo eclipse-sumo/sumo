@@ -23,12 +23,6 @@
     <ClCompile Include="..\..\..\src\utils\emissions\HelpersPHEMlight.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\emissions\PHEMCEP.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\emissions\PHEMCEPHandler.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\utils\emissions\PollutantsInterface.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>

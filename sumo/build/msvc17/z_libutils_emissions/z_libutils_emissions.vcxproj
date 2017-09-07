@@ -152,8 +152,6 @@
     <ClCompile Include="..\..\..\src\utils\emissions\HelpersHBEFA.cpp" />
     <ClCompile Include="..\..\..\src\utils\emissions\HelpersHBEFA3.cpp" />
     <ClCompile Include="..\..\..\src\utils\emissions\HelpersPHEMlight.cpp" />
-    <ClCompile Include="..\..\..\src\utils\emissions\PHEMCEP.cpp" />
-    <ClCompile Include="..\..\..\src\utils\emissions\PHEMCEPHandler.cpp" />
     <ClCompile Include="..\..\..\src\utils\emissions\PollutantsInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
