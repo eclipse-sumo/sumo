@@ -32,6 +32,7 @@ from xml.sax import make_parser, handler
 from optparse import OptionParser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.output
+from sumolib.net.lane import get_allowed
 
 import detector
 
@@ -743,7 +744,9 @@ class NetDetectorFlowReader(handler.ContentHandler):
             edgeObj = self._net.getEdge(self._edge)
             edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['speed']))
             edgeObj.length = float(attrs['length'])
-            edgeObj.numLanes += 1
+            if (options.vclass is None 
+                    or options.vclass in get_allowed(attrs.get('allow'), attrs.get('disallow'))):
+                edgeObj.numLanes += 1
 
     def endElement(self, name):
         if name == 'edge':
@@ -852,6 +855,7 @@ optParser.add_option("-l", "--lane-based", action="store_true", dest="lanebased"
 optParser.add_option("-i", "--interval", type="int", help="aggregation interval in minutes")
 optParser.add_option("-b", "--begin", type="int", help="begin time in minutes")
 optParser.add_option("--limit", type="int", help="limit the amount of flow assigned in a single step")
+optParser.add_option("--vclass", help="only consider lanes that allow the given vehicle class")
 optParser.add_option("-q", "--quiet", action="store_true", dest="quiet",
                      default=False, help="suppress warnings")
 optParser.add_option("--random", action="store_true", dest="random",
