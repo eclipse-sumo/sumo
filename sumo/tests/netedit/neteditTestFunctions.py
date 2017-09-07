@@ -45,6 +45,8 @@ referenceImage = os.path.join("imageResources", "reference.png")
 """ 
 @brief type escape key
 """
+
+
 def typeEscape():
     # wait before every operation
     wait(DELAY)
@@ -55,6 +57,8 @@ def typeEscape():
 """
 @brief type enter key
 """
+
+
 def typeEnter():
     # wait before every operation
     wait(DELAY)
@@ -65,6 +69,8 @@ def typeEnter():
 """
 @brief type space key
 """
+
+
 def typeSpace():
     wait(DELAY)
     # type space key (Sikulix Function)
@@ -74,6 +80,8 @@ def typeSpace():
 """
 @brief type tab key
 """
+
+
 def typeTab():
     # wait before every operation
     wait(DELAY)
@@ -84,6 +92,8 @@ def typeTab():
 """
 @brief type Shift + Tab keys
 """
+
+
 def typeInvertTab():
     # wait before every operation
     wait(DELAY)
@@ -94,6 +104,8 @@ def typeInvertTab():
 """
 @brief type single key
 """
+
+
 def typeKey(key):
     # wait before every operation
     wait(DELAY)
@@ -104,6 +116,8 @@ def typeKey(key):
 """
 @brief type two keys at the same time
 """
+
+
 def typeTwoKeys(key1, key2):
     # wait before every operation
     wait(DELAY)
@@ -114,6 +128,8 @@ def typeTwoKeys(key1, key2):
 """
 @brief paste value into current text field
 """
+
+
 def pasteIntoTextField(value, removePreviousContents=True):
     # wait before every operation
     wait(DELAY)
@@ -128,6 +144,8 @@ def pasteIntoTextField(value, removePreviousContents=True):
 """
 @brief do left click over a position relative to match (pink square)
 """
+
+
 def leftClick(match, positionx, positiony):
     # wait before every operation
     wait(DELAY)
@@ -138,6 +156,8 @@ def leftClick(match, positionx, positiony):
 """
 @brief drag and drop from position 1 to position 2
 """
+
+
 def dragDrop(match, x1, y1, x2, y2):
     # wait before every operation
     wait(DELAY)
@@ -152,6 +172,8 @@ def dragDrop(match, x1, y1, x2, y2):
 """
 @brief setup netedit
 """
+
+
 def setup(neteditTests):
     # Open current environment file to obtain path to the netedit app,
     # textTestSandBox
@@ -172,6 +194,8 @@ def setup(neteditTests):
 """
 @brief open netedit
 """
+
+
 def Popen(extraParameters, debugInformation):
     # set the default parameters of netedit
     neteditCall = [neteditApp, '--gui-testing', '--window-pos', '50,50',
@@ -191,7 +215,7 @@ def Popen(extraParameters, debugInformation):
     if os.path.exists(os.path.join(textTestSandBox, "input_additionals.add.xml")):
         neteditCall += ['--sumo-additionals-file',
                         os.path.join(textTestSandBox, "input_additionals.add.xml")]
-                        
+
     # Check if shapes must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_shapes.add.xml")):
         neteditCall += ['--sumo-shapes-file',
@@ -214,7 +238,6 @@ def Popen(extraParameters, debugInformation):
     neteditCall += ['--shapes-output',
                     os.path.join(textTestSandBox, "shapes.xml")]
 
-                    
     # add extra parameters
     neteditCall += extraParameters
 
@@ -225,6 +248,8 @@ def Popen(extraParameters, debugInformation):
 """
 @brief obtain reference match (pink square)
 """
+
+
 def getReferenceMatch(neProcess, waitTime):
     try:
         referenceMatch = wait(referenceImage, waitTime)
@@ -241,6 +266,8 @@ def getReferenceMatch(neProcess, waitTime):
 """
 @brief setup and start netedit
 """
+
+
 def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchReference=True, waitTime=DELAY_REFERENCE):
     setup(testRoot)
     # Open netedit
@@ -262,6 +289,8 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchRef
 """
 @brief rebuild network
 """
+
+
 def rebuildNetwork():
     typeKey(Key.F5)
 
@@ -269,6 +298,8 @@ def rebuildNetwork():
 """
 @brief rebuild network with volatile options
 """
+
+
 def rebuildNetworkWithVolatileOptions(question=True):
     typeTwoKeys(Key.F5, Key.SHIFT)
     # confirm recompute
@@ -281,6 +312,8 @@ def rebuildNetworkWithVolatileOptions(question=True):
 """
 @brief clean junction
 """
+
+
 def cleanJunction():
     typeKey(Key.F6)
 
@@ -288,6 +321,8 @@ def cleanJunction():
 """
 @brief join selected junctions
 """
+
+
 def joinSelectedJunctions():
     typeKey(Key.F7)
 
@@ -295,6 +330,8 @@ def joinSelectedJunctions():
 """
 @brief select focus on upper element of current frame
 """
+
+
 def focusOnFrame():
     typeKey(Key.F12)
 
@@ -302,6 +339,8 @@ def focusOnFrame():
 """
 @brief undo last operation
 """
+
+
 def undo(match, number):
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey("i")
@@ -314,6 +353,8 @@ def undo(match, number):
 """
 @brief undo last operation
 """
+
+
 def redo(match, number):
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey("i")
@@ -326,6 +367,8 @@ def redo(match, number):
 """
 @brief set Zoom
 """
+
+
 def setZoom(positionX, positionY, zoomLevel):
     # open edit viewport dialog
     typeKey("v")
@@ -346,6 +389,8 @@ def setZoom(positionX, positionY, zoomLevel):
 """
 @brief wait question of netedit and select a yes/no answer
 """
+
+
 def waitQuestion(answer):
     # wait 0.5 second to question dialog
     wait(DELAY_QUESTION)
@@ -356,6 +401,8 @@ def waitQuestion(answer):
 """
 @brief quit netedit quit
 """
+
+
 def quit(neteditProcess, openNonSavedNetDialog=False, saveNet=False, openedAdditionalsNonSavedDialog=False, saveAdditionals=False):
     # check if netedit is already closed
     if neteditProcess.poll() is not None:
@@ -393,6 +440,8 @@ def quit(neteditProcess, openNonSavedNetDialog=False, saveNet=False, openedAddit
 """
 @brief save network
 """
+
+
 def saveNetwork():
     # save newtork using hotkey
     typeTwoKeys("s", Key.CTRL)
@@ -401,6 +450,8 @@ def saveNetwork():
 """
 @brief save additionals
 """
+
+
 def saveAdditionals():
     # save additionals using hotkey
     typeTwoKeys("d", Key.CTRL + Key.SHIFT)
@@ -409,6 +460,8 @@ def saveAdditionals():
 """
 @brief save shapes
 """
+
+
 def saveShapes():
     # save additionals using hotkey
     typeTwoKeys("p", Key.CTRL + Key.SHIFT)
@@ -417,6 +470,8 @@ def saveShapes():
 """
 @brief open and close about dialog
 """
+
+
 def openAboutDialog(waitingTime=DELAY_QUESTION):
     # type F2 to open about dialog
     typeKey(Key.F2)
@@ -432,6 +487,8 @@ def openAboutDialog(waitingTime=DELAY_QUESTION):
 """ 
 @brief Change to create edge mode
 """
+
+
 def createEdgeMode():
     typeKey("e")
 
@@ -439,6 +496,8 @@ def createEdgeMode():
 """
 @brief Cancel current created edge (used in chain mode)
 """
+
+
 def cancelEdge():
     # type ESC to cancel current edge
     typeEscape()
@@ -447,6 +506,8 @@ def cancelEdge():
 """
 @brief Change chain option
 """
+
+
 def changeChainOption():
     # cancel current created edge
     cancelEdge()
@@ -460,6 +521,8 @@ def changeChainOption():
 """
 @brief Change two-way mode
 """
+
+
 def changeTwoWayOption():
     # cancel current created edge
     cancelEdge()
@@ -476,12 +539,16 @@ def changeTwoWayOption():
 """
 @brief go to inspect mode
 """
+
+
 def inspectMode():
     typeKey("i")
 
 """
 @brief modify attribute of type int/float/string
 """
+
+
 def modifyAttribute(attributeNumber, value):
     # focus current frame
     focusOnFrame()
@@ -497,6 +564,8 @@ def modifyAttribute(attributeNumber, value):
 """
 @brief modify boolean attribute
 """
+
+
 def modifyBoolAttribute(attributeNumber):
     # focus current frame
     focusOnFrame()
@@ -513,6 +582,8 @@ def modifyBoolAttribute(attributeNumber):
 """
 @brief set move mode
 """
+
+
 def moveMode():
     typeKey("m")
 
@@ -520,6 +591,8 @@ def moveMode():
 """    
 @brief move element
 """
+
+
 def moveElement(match, startX, startY, endX, endY):
     # change mouse move delay
     Settings.MoveMouseDelay = 0.5
@@ -535,6 +608,8 @@ def moveElement(match, startX, startY, endX, endY):
 """
 @brief Change to crossing mode
 """
+
+
 def crossingMode():
     typeKey("r")
 
@@ -542,6 +617,8 @@ def crossingMode():
 """
 @brief create crossing
 """
+
+
 def createCrossing():
     # focus current frame
     focusOnFrame()
@@ -555,6 +632,8 @@ def createCrossing():
 """
 @brief change default int/real/string crossing default value
 """
+
+
 def modifyCrossingDefaultValue(numtabs, value):
     # focus current frame
     focusOnFrame()
@@ -570,6 +649,8 @@ def modifyCrossingDefaultValue(numtabs, value):
 """
 @brief change default boolean crossing default value
 """
+
+
 def modifyCrossingDefaultBoolValue(numtabs):
     # focus current frame
     focusOnFrame()
@@ -583,6 +664,8 @@ def modifyCrossingDefaultBoolValue(numtabs):
 """
 @brief clear crossing
 """
+
+
 def crossingClearEdges(useSelectedEdges=False):
     # focus current frame
     focusOnFrame()
@@ -601,6 +684,8 @@ def crossingClearEdges(useSelectedEdges=False):
 """
 @brief invert crossing
 """
+
+
 def crossingInvertEdges(useSelectedEdges=False):
     # focus current frame
     focusOnFrame()
@@ -622,6 +707,8 @@ def crossingInvertEdges(useSelectedEdges=False):
 """
 @brief change to additional mode
 """
+
+
 def additionalMode():
     typeKey('a')
 
@@ -629,6 +716,8 @@ def additionalMode():
 """
 @brief change additional
 """
+
+
 def changeAdditional(additional):
     # focus current frame
     focusOnFrame()
@@ -643,6 +732,8 @@ def changeAdditional(additional):
 """
 @brief modify default int/double/string value of an additional
 """
+
+
 def modifyAdditionalDefaultValue(numTabs, length):
     # focus current frame
     focusOnFrame()
@@ -658,6 +749,8 @@ def modifyAdditionalDefaultValue(numTabs, length):
 """
 @brief modify default boolean value of an additional
 """
+
+
 def modifyAdditionalDefaultBoolValue(numTabs):
     # focus current frame
     focusOnFrame()
@@ -671,6 +764,8 @@ def modifyAdditionalDefaultBoolValue(numTabs):
 """
 @brief modify number of stopping place lines
 """
+
+
 def modifyStoppingPlaceLines(numTabs, numLines):
     # focus current frame
     focusOnFrame()
@@ -685,6 +780,8 @@ def modifyStoppingPlaceLines(numTabs, numLines):
 """
 @brief fill lines to stopping places
 """
+
+
 def fillStoppingPlaceLines(numTabs, numLines):
     # focus current frame
     focusOnFrame()
@@ -702,6 +799,8 @@ def fillStoppingPlaceLines(numTabs, numLines):
 """
 @brief select child of additional
 """
+
+
 def selectAdditionalChild(numTabs, childNumber):
     # focus current frame
     focusOnFrame()
@@ -721,6 +820,8 @@ def selectAdditionalChild(numTabs, childNumber):
 """
 @brief fix stoppingPlaces
 """
+
+
 def fixStoppingPlace(solution):
     # select bullet depending of solution
     if (solution == "saveInvalids"):
@@ -760,6 +861,8 @@ def fixStoppingPlace(solution):
 """
 @brief Change to delete mode
 """
+
+
 def deleteMode():
     typeKey("d")
 
@@ -767,6 +870,8 @@ def deleteMode():
 """
 @brief Enable or disable 'automatically delete Additionals'
 """
+
+
 def changeAutomaticallyDeleteAdditionals(match):
     # select delete mode again to set mode
     deleteMode()
@@ -779,6 +884,8 @@ def changeAutomaticallyDeleteAdditionals(match):
 """
 @brief close warning about automatically delete additionals
 """
+
+
 def waitAutomaticallyDeleteAdditionalsWarning():
     # wait 0.5 second to question dialog
     wait(DELAY_QUESTION)
@@ -792,6 +899,8 @@ def waitAutomaticallyDeleteAdditionalsWarning():
 """
 @brief Change to select mode
 """
+
+
 def selectMode():
     typeKey("s")
 
@@ -799,6 +908,8 @@ def selectMode():
 """
 @brief abort current selection
 """
+
+
 def abortSelection():
     # type ESC to abort current selection
     typeEscape()
@@ -807,6 +918,8 @@ def abortSelection():
 """
 @brief select elements with default frame values
 """
+
+
 def selectDefault():
     for x in range(0, 11):
         typeTab()
@@ -817,6 +930,8 @@ def selectDefault():
 """
 @brief select items
 """
+
+
 def selectItems(elementClass, elementType, attribute, value):
     # focus current frame
     focusOnFrame()
@@ -847,6 +962,8 @@ def selectItems(elementClass, elementType, attribute, value):
 """
 @brief delete selected items
 """
+
+
 def deleteSelectedItems():
     typeKey(Key.DELETE)
 
@@ -854,6 +971,8 @@ def deleteSelectedItems():
 """
 @brief set modification mode "add"
 """
+
+
 def modificationModeAdd():
     # focus current frame
     focusOnFrame()
@@ -866,6 +985,8 @@ def modificationModeAdd():
 """
 @brief set modification mode "remove"
 """
+
+
 def modificationModeRemove():
     # focus current frame
     focusOnFrame()
@@ -879,6 +1000,8 @@ def modificationModeRemove():
 """
 @brief set modification mode "keep"
 """
+
+
 def modificationModeKeep():
     # focus current frame
     focusOnFrame()
@@ -892,6 +1015,8 @@ def modificationModeKeep():
 """
 @brief set modification mode "replace"
 """
+
+
 def modificationModeReplace():
     # focus current frame
     focusOnFrame()
@@ -905,6 +1030,8 @@ def modificationModeReplace():
 """
 @brief select using an rectangle
 """
+
+
 def selectionRectangle(match, startX, startY, endX, endY):
     # Leave Shift key pressed (Sikulix function)
     keyDown(Key.SHIFT)
@@ -921,6 +1048,8 @@ def selectionRectangle(match, startX, startY, endX, endY):
 """
 @brief clear selection
 """
+
+
 def selectionClear(previouslyInserted=False):
     # focus current frame
     focusOnFrame()
@@ -933,6 +1062,8 @@ def selectionClear(previouslyInserted=False):
 """
 @brief invert selection
 """
+
+
 def selectionInvert():
     # focus current frame
     focusOnFrame()
@@ -945,6 +1076,8 @@ def selectionInvert():
 """
 @brief Toogle select edges and lanes
 """
+
+
 def selectionToogleEdges():
     # go to check box "select edges"
     for x in range(0, 3):
@@ -959,6 +1092,8 @@ def selectionToogleEdges():
 """
 @brief Change to traffic light mode
 """
+
+
 def selectTLSMode():
     typeKey("t")
 
@@ -966,6 +1101,8 @@ def selectTLSMode():
 """
 @brief Create TLS
 """
+
+
 def createTLS():
     # focus current frame
     focusOnFrame()
@@ -981,6 +1118,8 @@ def createTLS():
 """
 @brief change to shape mode
 """
+
+
 def shapeMode():
     typeKey('p')
 
@@ -988,6 +1127,8 @@ def shapeMode():
 """
 @brief change shape
 """
+
+
 def changeShape(shape):
     # focus current frame
     focusOnFrame()
@@ -1002,6 +1143,8 @@ def changeShape(shape):
 """
 @brief modify default int/double/string value of an shape
 """
+
+
 def modifyShapeDefaultValue(numTabs, value):
     # focus current frame
     focusOnFrame()
@@ -1017,6 +1160,8 @@ def modifyShapeDefaultValue(numTabs, value):
 """
 @brief modify default color using dialog
 """
+
+
 def changeColorUsingDialog(numTabs, color):
     # focus current frame
     focusOnFrame()
@@ -1038,6 +1183,8 @@ def changeColorUsingDialog(numTabs, color):
 """
 @brief modify default boolean value of an shape
 """
+
+
 def modifyShapeDefaultBoolValue(numTabs):
     # focus current frame
     focusOnFrame()

@@ -24,7 +24,8 @@ import os
 from optparse import OptionParser
 
 optParser = OptionParser(usage="usage: %prog [options] <input_flows.csv>")
-optParser.add_option("-f", "--flows", type="string", help="read detector flows from FILE(s) (mandatory)", metavar="FILE")
+optParser.add_option(
+    "-f", "--flows", type="string", help="read detector flows from FILE(s) (mandatory)", metavar="FILE")
 optParser.add_option("-o", "--output", type="string", help="filtered file", metavar="FILE")
 optParser.add_option("-d", "--detectors", help="read detector list from file")
 optParser.add_option("-b", "--begin", type="int", default=0, help="begin interval in minutes (inclusive)")
@@ -48,6 +49,3 @@ with open(options.output, 'w') as outf:
         if time >= options.end:
             continue
         outf.write(line)
-
-
-

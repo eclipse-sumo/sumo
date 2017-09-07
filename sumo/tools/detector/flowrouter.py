@@ -383,7 +383,7 @@ class Net:
             cycleStartStep = False
             currEdge = currVertex.inPathEdge
             if currEdge.target == currVertex:
-                if DEBUG:# and not currEdge.kind == 'junction':
+                if DEBUG:  # and not currEdge.kind == 'junction':
                     print("    incFlow edge=%s delta=%s" % (currEdge, endVertex.flowDelta))
                 flowDeltas.append((currEdge, endVertex.flowDelta))
                 currVertex = currEdge.source
@@ -744,7 +744,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
             edgeObj = self._net.getEdge(self._edge)
             edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['speed']))
             edgeObj.length = float(attrs['length'])
-            if (options.vclass is None 
+            if (options.vclass is None
                     or options.vclass in get_allowed(attrs.get('allow'), attrs.get('disallow'))):
                 edgeObj.numLanes += 1
 
