@@ -1,7 +1,7 @@
 java version "1.8.0_91"
 Java(TM) SE Runtime Environment (build 1.8.0_91-b15)
 Java HotSpot(TM) 64-Bit Server VM (build 25.91-b15, mixed mode)
-Sep 07, 2017 12:29:18 PM java.util.prefs.WindowsPreferences <init>
+Sep 07, 2017 1:25:40 PM java.util.prefs.WindowsPreferences <init>
 WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.
 Error: Attribute 'imgFile' in definition of poi 'POI_0' is empty.
 Error: Attribute 'color' in definition of poi 'POI_14' is empty.
@@ -12,4 +12,4 @@ Error: Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI 'POI_2
 Error: Attribute 'y' in definition of poi 'POI_22' is not of type float.
 Error: Attribute 'width' in definition of poi 'POI_25' is not of type float.
 Error: Attribute 'height' in definition of poi 'POI_5' is not of type float.
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Sep122537.2596/netedit.gui/shapeElements/poi/load\input_shapes.add.xml failed.
+Error: Loading of shapes failed.

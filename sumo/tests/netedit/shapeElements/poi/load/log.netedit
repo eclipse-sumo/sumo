@@ -24,7 +24,8 @@ Warning: Adding poi 'POI_6' into viewNet
 Warning: Adding poi 'POI_7' into viewNet
 Warning: Adding poi 'POI_8' into viewNet
 Warning: Adding poi 'POI_9' into viewNet
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Sep122537.2596/netedit.gui/shapeElements/poi/load\input_shapes.add.xml failed.
+Error: Loading of shapes failed.
+Warning: Current Viewport values: 0.00, 0.00, 80.00. Zoom = '100.00'
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()

@@ -29,6 +29,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
+# apply zoom (to see all POIS)
+netedit.setZoom("0", "0", "80")
+
 # save additionals
 netedit.saveShapes()
 
