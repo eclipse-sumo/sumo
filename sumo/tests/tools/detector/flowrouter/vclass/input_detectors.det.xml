@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<detectors>
+   <detectorDefinition id="beg_0" lane="beg_0" pos="50" type="source"/>
+   <detectorDefinition id="end_0" lane="end_0" pos="50" type="sink"/>
+</detectors>

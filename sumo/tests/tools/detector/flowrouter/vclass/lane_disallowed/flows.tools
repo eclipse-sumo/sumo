@@ -1,0 +1,5 @@
+<additional>
+    <flow id="src_beg.0qPKW.0" departSpeed="max" departPos="last" departLane="best" route="beg.0qPKW.0" number="1400" begin="0" end="3600"/>
+    <flow id="src_beg.1qPKW.0" departSpeed="max" departPos="last" departLane="best" route="beg.1qPKW.0" number="1400" begin="0" end="3600"/>
+    <flow id="src_beg.2qPKW.0" departSpeed="max" departPos="last" departLane="best" route="beg.2qPKW.0" number="800" begin="0" end="3600"/>
+</additional>
