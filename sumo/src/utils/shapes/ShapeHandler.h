@@ -56,7 +56,6 @@ class Parameterised;
 class ShapeHandler : public SUMOSAXHandler {
 public:
     /** @brief Constructor
-     *
      * @param[in] file Name of the parsed file
      * @param[in, out] net The network to fill
      * @param[in] detBuilder The detector builder to use
@@ -72,11 +71,9 @@ public:
     /// @brief loads all of the given files
     static bool loadFiles(const std::vector<std::string>& files, ShapeHandler& sh);
 
-
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
-
     /** @brief Called on the opening of a tag;
      *
      * @param[in] element ID of the currently opened element
@@ -88,7 +85,6 @@ protected:
     virtual void myStartElement(int element,
                                 const SUMOSAXAttributes& attrs);
 
-
     /** @brief Called when a closing tag occurs
      *
      * @param[in] element ID of the currently opened element
@@ -99,7 +95,6 @@ protected:
     virtual void myEndElement(int element);
     //@}
 
-
     /// @brief get position for a given laneID
     virtual Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) = 0;
 
@@ -107,12 +102,13 @@ protected:
     virtual bool addLanePosParams() { return false; }
 
 protected:
+    /// @brief set default values
     void setDefaults(const std::string& prefix, const RGBColor& color, const double layer, const bool fill = false);
 
-    /// adds a POI
+    /// @brief adds a POI
     void addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing);
 
-    /// adds a polygon
+    /// @brief adds a polygon
     void addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing);
 
 protected:
@@ -121,23 +117,28 @@ protected:
 private:
     /// @brief The prefix to use
     std::string myPrefix;
+
     /// @brief The default color to use
     RGBColor myDefaultColor;
+
     /// @brief The default layer to use
     double myDefaultLayer;
+
     /// @brief Information whether polygons should be filled
     bool myDefaultFill;
+
+    /// @brief flag to check if problems hast to be handled as errors instead warnings
+    bool myReportFile;
 
     /// @brief element to receive parameters
     Parameterised* myLastParameterised;
 
 private:
-    /** invalid copy constructor */
-    ShapeHandler(const ShapeHandler& s);
+    /// @brief invalidate copy constructor
+    ShapeHandler(const ShapeHandler& s) = delete;
 
-    /** invalid assignment operator */
-    ShapeHandler& operator=(const ShapeHandler& s);
-
+    /// @brief invalidate assignment operator
+    ShapeHandler& operator=(const ShapeHandler& s) = delete;
 };
 
 

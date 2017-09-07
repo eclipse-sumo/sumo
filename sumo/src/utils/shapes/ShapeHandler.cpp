@@ -50,16 +50,15 @@
 ShapeHandler::ShapeHandler(const std::string& file, ShapeContainer& sc) :
     SUMOSAXHandler(file), myShapeContainer(sc),
     myPrefix(""), myDefaultColor(RGBColor::RED), myDefaultLayer(), myDefaultFill(false),
-    myLastParameterised(0)
-{}
+    myLastParameterised(0) {
+}
 
 
 ShapeHandler::~ShapeHandler() {}
 
 
 void
-ShapeHandler::myStartElement(int element,
-                             const SUMOSAXAttributes& attrs) {
+ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     try {
         switch (element) {
             case SUMO_TAG_POLY:
@@ -208,9 +207,9 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
 
 bool
 ShapeHandler::loadFiles(const std::vector<std::string>& files, ShapeHandler& sh) {
-    for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
-        if (!XMLSubSys::runParser(sh, *fileIt, false)) {
-            WRITE_MESSAGE("Loading of shapes from " + *fileIt + " failed.");
+    for (auto fileIt : files) {
+        if (!XMLSubSys::runParser(sh, fileIt, false)) {
+            WRITE_MESSAGE("Loading of shapes from " + fileIt + " failed.");
             return false;
         }
     }
