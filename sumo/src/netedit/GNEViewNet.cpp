@@ -580,7 +580,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_MOVE: {
-                if (pointed_poly && (pointed_poly->isMovementBlocked() == false)) {
+                if (pointed_poly) {
                     // set Poly to move
                     myPolyToMove = pointed_poly;
                     // save original shape (needed for commit change)
@@ -594,7 +594,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     }
                     // obtain moving reference
                     myMovingReference = getPositionInformation();
-                } else if (pointed_poi && (pointed_poi->isMovementBlocked() == false)) {
+                } else if (pointed_poi) {
                     myPoiToMove = pointed_poi;
                     // Save original Position of Element and obtain moving reference
                     myMovingOriginalPosition = myPoiToMove->getPositionInView();
