@@ -1022,10 +1022,12 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                 double vehYmax;
                 if ((*it).fromLeft) {
                     vehYmin = -(*it).vehAndGap.second + lateral_offset; // vehicle back
-                    vehYmax = vehYmin + veh->getVehicleType().getLength() + bGap;
+                    vehYmax = vehYmin + veh->getVehicleType().getLength() + bGap + MINGAP_TO_VEHICLE;
+                    vehYmin -= MINGAP_TO_VEHICLE;
                 } else {
-                    vehYmax = crossing->getWidth() + (*it).vehAndGap.second - lateral_offset + MINGAP_TO_VEHICLE; // vehicle back
+                    vehYmax = crossing->getWidth() + (*it).vehAndGap.second - lateral_offset; // vehicle back
                     vehYmin = vehYmax - veh->getVehicleType().getLength() - bGap - MINGAP_TO_VEHICLE;
+                    vehYmax += MINGAP_TO_VEHICLE;
 
                 }
                 for (int s = MAX2(0, PState::stripe(vehYmin)); s < MIN2(PState::stripe(vehYmax), stripes); ++s) {
