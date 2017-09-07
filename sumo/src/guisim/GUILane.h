@@ -261,6 +261,9 @@ public:
     /// @brief gets the color value according to the current scheme index
     double getColorValue(int activeScheme) const;
 
+    /// @brief whether this lane is selected in the GUI
+    bool isSelected() const;
+
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     void swapAfterLaneChange(SUMOTime t);

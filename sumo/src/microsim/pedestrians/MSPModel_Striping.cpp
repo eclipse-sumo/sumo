@@ -52,6 +52,7 @@
 //#define DEBUGCOND(PED) (false)
 //#define DEBUGCOND(PED) ((PED).myPerson->getID() == DEBUGID1 || (PED).myPerson->getID() == DEBUGID2)
 #define DEBUGCOND(PED) ((PED).myPerson->isSelected())
+#define DEBUGCOND2(LANE) ((LANE)->isSelected())
 //#define LOG_ALL 1
 
 void MSPModel_Striping::DEBUG_PRINT(const Obstacles& obs) {
@@ -1038,8 +1039,7 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                         hasCrossingVehObs = true;
                     }
                 }
-                /*
-                if (true || (SIMTIME == 329 && crossing->getID() == ":51_c2_0")) {
+                if (DEBUGCOND2(crossing)) {
                     std::cout << SIMTIME 
                         << " lane=" << crossing->getID() 
                         << " crossingVeh=" << veh->getID() 
@@ -1056,7 +1056,6 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                         << "\n";
                     DEBUG_PRINT(obs);
                 }
-                */
             }
         }
     }

@@ -1165,5 +1165,10 @@ GUILane::splitAtSegments(const PositionVector& shape) {
     return result;
 }
 
+bool 
+GUILane::isSelected() const {
+    return gSelected.isSelected(GLO_LANE, getGlID());
+}
+
 /****************************************************************************/
 

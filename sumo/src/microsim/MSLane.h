@@ -989,6 +989,11 @@ public:
         return myParkingVehicles;
     }
 
+    /// @brief whether this lane is selected in the GUI
+    virtual bool isSelected() const {
+        return false;
+    }
+
     /// @name State saving/loading
     /// @{
 
