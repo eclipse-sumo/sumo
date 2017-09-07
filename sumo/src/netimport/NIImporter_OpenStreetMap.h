@@ -86,8 +86,9 @@ protected:
         NIOSMNode(long long int _id, double _lon, double _lat)
                 :
                 id(_id), lon(_lon), lat(_lat), ele(0), tlsControlled(false), railwayCrossing(false),
+                ptStopPosition(false), ptStopLength(0), name(""),
                 permissions(SVC_RAIL | SVC_BUS | SVC_TRAM),
-                ptStopPostion(false), ptStopLength(0), node(0) { }
+                node(0) { }
 
         /// @brief The node's id
         const long long int id;
@@ -102,13 +103,13 @@ protected:
         /// @brief Whether this is a railway crossing
         bool railwayCrossing;
         /// @brief Whether this is a public transport stop position
-        bool ptStopPostion;
-        /// @brief type of pt stop
-        SVCPermissions permissions;
+        bool ptStopPosition;
         /// @brief The length of the pt stop
         double ptStopLength;
         /// @brief The name of the node
         std::string name;
+        /// @brief type of pt stop
+        SVCPermissions permissions;
         /// @brief the NBNode that was instantiated
         NBNode* node;
 

@@ -1,4 +1,4 @@
-/****************************************************************************/
+/*************************************************OC***************************/
 /// @file    NIImporter_OpenStreetMap.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
@@ -346,7 +346,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     for (long long i : passed) {
         NIOSMNode* n = myOSMNodes.find(i)->second;
 
-        if (n->ptStopPostion) {
+        if (n->ptStopPosition) {
             NBPTStop * existingPtStop = sc.get(toString(n->id));
             if (existingPtStop != nullptr){
                 existingPtStop->registerAdditionalEdge(toString(e->id), id);
@@ -704,7 +704,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             } else if (key == "railway" && value.find("crossing") != std::string::npos) {
                 myToFill[myLastNodeID]->railwayCrossing = true;
             } else if (key == "public_transport" && value.find("stop_position") != std::string::npos) {
-                myToFill[myLastNodeID]->ptStopPostion = true;
+                myToFill[myLastNodeID]->ptStopPosition = true;
                 myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat(
                         "osm.stop-output.length");
             } else if (key == "name") {

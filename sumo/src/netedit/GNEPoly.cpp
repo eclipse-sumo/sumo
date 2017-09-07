@@ -93,7 +93,7 @@ GNEPoly::moveVertexShape(int index, const Position& newPos) {
             // save current moving vertex
             myCurrentMovingVertexIndex = index;
             // if closed shape and cliked is first or last, move both giving more priority to first always
-            if(myClosedShape && ((index == 0) || (index == (myShape.size() - 1)))) {
+            if(myClosedShape && (index == 0 || index == (int)myShape.size() - 1)) {
                 myShape.front() = newPos;
                 myShape.back() = newPos;
                 return 0;
@@ -103,7 +103,7 @@ GNEPoly::moveVertexShape(int index, const Position& newPos) {
                 return index;
             }
         } else {
-            throw InvalidArgument("Index greather than Shape size");
+            throw InvalidArgument("Index greater than shape size");
         }
     } else {
         return index;

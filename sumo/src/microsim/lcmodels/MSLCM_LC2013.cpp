@@ -1483,8 +1483,8 @@ MSLCM_LC2013::_wantsChange(
 
     // we wish to anticipate future speeds. This is difficult when the leading
     // vehicles are still accelerating so we resort to comparing next speeds in this case
-    const bool acceleratingLeader = (neighLead.first != 0 && neighLead.first->getAcceleration() > 0 
-            || leader.first != 0 && leader.first->getAcceleration() > 0);  
+    const bool acceleratingLeader = (neighLead.first != 0 && neighLead.first->getAcceleration() > 0)
+            || (leader.first != 0 && leader.first->getAcceleration() > 0);
 
     if (acceleratingLeader) {
         // followSpeed allows acceleration for 1 step, to always compare speeds

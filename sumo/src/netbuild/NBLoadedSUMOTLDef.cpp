@@ -315,7 +315,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
         noLinksAll += (int)c.size();
         oldCrossings += (*i)->numCrossingsFromSumoNet();
     }
-    if (crossings.size() != oldCrossings) {
+    if ((int)crossings.size() != oldCrossings) {
         std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
         if (phases.size() > 0) {
             // collect edges

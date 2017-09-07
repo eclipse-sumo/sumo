@@ -68,8 +68,9 @@ MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
       nVehVaporized(0), waitSeconds(0),
       nVehLaneChangeFrom(0), nVehLaneChangeTo(0),
       frontSampleSeconds(0), frontTravelledDistance(0),
+      vehLengthSum(0), occupationSum(0),
       minimalVehicleLength(INVALID_DOUBLE),
-      vehLengthSum(0), occupationSum(0), myParent(parent) {}
+      myParent(parent) {}
 
 
 MSMeanData_Net::MSLaneMeanDataValues::~MSLaneMeanDataValues() {

@@ -290,7 +290,6 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     }
     bool ok = true;
     int lane;
-    std::string laneID = myCurrentID + "_" + toString(lane);
     if (attrs.hasAttribute(SUMO_ATTR_ID)) {
         lane = attrs.get<int>(SUMO_ATTR_ID, myCurrentID.c_str(), ok);
         if (!myHaveWarnedAboutDeprecatedLaneId) {
@@ -304,7 +303,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     // check whether this lane exists
-    if (lane >= (int) myCurrentEdge->getNumLanes()) {
+    if (lane >= myCurrentEdge->getNumLanes()) {
         WRITE_ERROR("Lane index is larger than number of lanes (edge '" + myCurrentID + "').");
         return;
     }
@@ -339,6 +338,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, myCurrentID.c_str(), ok);
         if (!NBNetBuilder::transformCoordinates(shape)) {
+            const std::string laneID = myCurrentID + "_" + toString(lane);
             WRITE_ERROR("Unable to project coordinates for lane '" + laneID + "'.");
         }
         myCurrentEdge->setLaneShape(lane, shape);
