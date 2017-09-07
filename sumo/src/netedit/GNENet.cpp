@@ -1864,7 +1864,7 @@ GNENet::removePolygonOfView(GNEPoly* p) {
 
 void 
 GNENet::refreshPolygon(GNEPoly* p) {
-    if(p->isShapeVisible() == false) {
+    if(p->isShapeVisible()) {
         myGrid.removeAdditionalGLObject(p);
         myGrid.addAdditionalGLObject(p);
         myViewNet->update();
