@@ -2,9 +2,9 @@
     <vType id="car" sigma="0" length="7"/>
     <vehicle id="v0" type="car" depart="0" departPos="50" departLane="4" arrivalLane="4">
         <route edges="EC CW"/>
-        <stop lane=":C_9_1" endPos="10.0" duration="100"/>
+        <stop lane=":C_9_1" endPos="10.0" duration="60"/>
     </vehicle>
     <person id="p0" depart="0">
-        <walk edges="CN SC" departPos="2.0" arrivalPos="20"/>
+        <walk edges="CN SC" departPos="2.0" arrivalPos="-2"/>
     </person>
 </routes>
