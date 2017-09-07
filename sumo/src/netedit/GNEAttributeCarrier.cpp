@@ -700,7 +700,6 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         // POLY
         myNumericalFloatAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_ANGLE);
         // POI
-        myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_POSITION);
         myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_ANGLE);
         myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_WIDTH);
         myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_HEIGHT);
@@ -985,7 +984,6 @@ GNEAttributeCarrier::isPositive(SumoXMLTag tag, SumoXMLAttr attr) {
         myPositiveAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_PERSON_CAPACITY);
         myPositiveAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_CONTAINER_CAPACITY);
         // POI
-        myPositiveAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_POSITION);
         myPositiveAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_WIDTH);
         myPositiveAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_HEIGHT);
     }
