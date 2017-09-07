@@ -850,6 +850,7 @@ optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectz
 optParser.add_option("-l", "--lane-based", action="store_true", dest="lanebased",
                      default=False, help="do not aggregate detector data and connections to edges")
 optParser.add_option("-i", "--interval", type="int", help="aggregation interval in minutes")
+optParser.add_option("-b", "--begin", type="int", help="begin time in minutes")
 optParser.add_option("--limit", type="int", help="limit the amount of flow assigned in a single step")
 optParser.add_option("-q", "--quiet", action="store_true", dest="quiet",
                      default=False, help="suppress warnings")
@@ -902,6 +903,8 @@ if net.detectSourceSink(sources, sinks):
         if tMin is None:
             print("No flows in '%s'" % flow)
             sys.exit(1)
+        if options.begin is not None and options.begin > tMin:
+            tMin = options.begin
         if options.verbose:
             print("Reading flows between %s and %s" % (tMin, tMax))
         start = int(tMin - (tMin % options.interval))
