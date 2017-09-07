@@ -87,7 +87,7 @@ public:
         GNEShapeHandler(const std::string& file, GNENet* net);
 
         /// @brief Destructor
-        virtual ~GNEShapeHandler();
+        ~GNEShapeHandler();
 
         /**@brief get lane position
         * @param[in] poi poi ID

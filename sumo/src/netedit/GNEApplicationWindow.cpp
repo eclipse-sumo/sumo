@@ -718,7 +718,7 @@ GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
         std::string file = opendialog.getFilename().text();
         GNEShapeHandler handler(file, myNet);
         if (!XMLSubSys::runParser(handler, file, false)) {
-            WRITE_MESSAGE("Loading of " + file + " failed.");
+            WRITE_MESSAGE("Loading of shapes failed.");
         }
         update();
     }
@@ -921,11 +921,11 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     // check if shapes has to be loaded at start
     if (OptionsCont::getOptions().isSet("sumo-shapes-file") && myNet) {
         myShapesFile = OptionsCont::getOptions().getString("sumo-shapes-file");
-        WRITE_MESSAGE("Loading shapes from '" + myShapesFile + "'");
+        WRITE_MESSAGE("Loading shapes");
         GNEShapeHandler shapeHandler(myShapesFile, myNet);
         // Run parser
         if (!XMLSubSys::runParser(shapeHandler, myShapesFile, false)) {
-            WRITE_ERROR("Loading of " + myShapesFile + " failed.");
+            WRITE_ERROR("Loading of shapes failed.");
         }
     }
     // check if additionals output must be changed
@@ -1749,39 +1749,6 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
 }
 
 
-// ---------------------------------------------------------------------------
-// GNEApplicationWindow::GNEShapeHandler - methods
-// ---------------------------------------------------------------------------
-
-GNEApplicationWindow::GNEShapeHandler::GNEShapeHandler(const std::string& file, GNENet* net) :
-    ShapeHandler(file, *net),
-    myNet(net) {}
-
-
-GNEApplicationWindow::GNEShapeHandler::~GNEShapeHandler() {}
-
-
-Position
-GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) {
-    std::string edgeID;
-    int laneIndex;
-    NIImporter_SUMO::interpretLaneID(laneID, edgeID, laneIndex);
-    NBEdge* edge = myNet->retrieveEdge(edgeID)->getNBEdge();
-    if (edge == 0 || laneIndex < 0 || edge->getNumLanes() <= laneIndex) {
-        WRITE_ERROR("Lane '" + laneID + "' to place poi '" + poiID + "' on is not known.");
-        return Position::INVALID;
-    }
-    if (lanePos < 0) {
-        lanePos = edge->getLength() + lanePos;
-    }
-    if (lanePos < 0 || lanePos > edge->getLength()) {
-        WRITE_WARNING("lane position " + toString(lanePos) + " for poi '" + poiID + "' is not valid.");
-    }
-    return edge->getLanes()[laneIndex].shape.positionAtOffset(lanePos, -lanePosLat);
-}
-
-// ---------------------------------------------------------------------------
-
 void
 GNEApplicationWindow::updateControls() {
     GNEViewNet* view = getView();
@@ -1814,6 +1781,37 @@ GNEApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* eventData)
         }
     }
     return 0;
+}
+
+// ---------------------------------------------------------------------------
+// GNEApplicationWindow::GNEShapeHandler - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindow::GNEShapeHandler::GNEShapeHandler(const std::string& file, GNENet* net) :
+    ShapeHandler(file, *net),
+    myNet(net) {}
+
+
+GNEApplicationWindow::GNEShapeHandler::~GNEShapeHandler() {}
+
+
+Position
+GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) {
+    std::string edgeID;
+    int laneIndex;
+    NIImporter_SUMO::interpretLaneID(laneID, edgeID, laneIndex);
+    NBEdge* edge = myNet->retrieveEdge(edgeID)->getNBEdge();
+    if (edge == 0 || laneIndex < 0 || edge->getNumLanes() <= laneIndex) {
+        WRITE_ERROR("Lane '" + laneID + "' to place poi '" + poiID + "' on is not known.");
+        return Position::INVALID;
+    }
+    if (lanePos < 0) {
+        lanePos = edge->getLength() + lanePos;
+    }
+    if (lanePos < 0 || lanePos > edge->getLength()) {
+        WRITE_WARNING("lane position " + toString(lanePos) + " for poi '" + poiID + "' is not valid.");
+    }
+    return edge->getLanes()[laneIndex].shape.positionAtOffset(lanePos, -lanePosLat);
 }
 
 /****************************************************************************/
