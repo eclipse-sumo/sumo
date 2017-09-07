@@ -71,26 +71,26 @@ netedit.modifyShapeDefaultValue(5, "2")
 # create POI
 netedit.leftClick(match, 250, 50)
 
-# change width (invalid)
+# change width (invalid, negative)
 netedit.modifyShapeDefaultValue(6, "-2")
 
 # try to create POI
 netedit.leftClick(match, 300, 50)
 
 # change width (valid)
-netedit.modifyShapeDefaultValue(6, "4")
+netedit.modifyShapeDefaultValue(6, "7.5")
 
 # create POI
 netedit.leftClick(match, 300, 50)
 
-# change height (invalid)
+# change height (invalid, negative)
 netedit.modifyShapeDefaultValue(7, "-3")
 
 # try to create POI
 netedit.leftClick(match, 350, 50)
 
 # change height (valid)
-netedit.modifyShapeDefaultValue(7, "7")
+netedit.modifyShapeDefaultValue(7, "7.5")
 
 # create POI
 netedit.leftClick(match, 350, 50)
@@ -104,35 +104,51 @@ netedit.leftClick(match, 400, 50)
 # change imgfile (valid, empty)
 netedit.modifyShapeDefaultValue(8, "")
 
+# create POI
+netedit.leftClick(match, 400, 50)
+
+# change color to white (To see icon)
+netedit.modifyShapeDefaultValue(3, "white")
+
 # change imgfile (valid)
-#netedit.modifyShapeDefaultValue(8, "berlin_icon.png")
+netedit.modifyShapeDefaultValue(8, "berlin_icon.ico")
 
 # create POI
-#netedit.leftClick(match, 400, 50)
+netedit.leftClick(match, 500, 50)
 
 # change angle (invalid)
 netedit.modifyShapeDefaultValue(9, "dummyAngle")
 
 # try to create POI
-netedit.leftClick(match, 100, 100)
+netedit.leftClick(match, 100, 120)
 
-# change angle (valid)
-netedit.modifyShapeDefaultValue(9, "7")
+# change angle (valid, but > 360)
+netedit.modifyShapeDefaultValue(9, "500")
 
 # create POI
-netedit.leftClick(match, 100, 100)
+netedit.leftClick(match, 100, 120)
 
-# change angle (valid)
+# change angle (valid, < 0)
 netedit.modifyShapeDefaultValue(9, "-27")
 
 # create POI
-netedit.leftClick(match, 150, 100)
+netedit.leftClick(match, 200, 120)
+
+# change angle (valid, < 0)
+netedit.modifyShapeDefaultValue(9, "45")
+
+# create POI
+netedit.leftClick(match, 300, 120)
 
 # change block
 netedit.modifyShapeDefaultBoolValue(11)
 
 # create POI
-netedit.leftClick(match, 200, 100)
+netedit.leftClick(match, 400, 120)
+
+# Check undo redo
+netedit.undo(match, 11)
+netedit.redo(match, 11)
 
 # save shapes
 netedit.saveShapes()

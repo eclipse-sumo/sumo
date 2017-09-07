@@ -1,7 +1,7 @@
-Warning: Adding poi 'POI_0' into viewNet
+Error: Attribute 'imgFile' in definition of poi 'POI_0' is empty.
 Warning: Adding poi 'POI_1' into viewNet
 Warning: Adding poi '%%%%%···$' into viewNet
-Error: PoI 'POI_0' already exists.
+Warning: Adding poi 'POI_0' into viewNet
 Warning: Adding poi 'POI_12' into viewNet
 Warning: Adding poi 'POI_13' into viewNet
 Error: Attribute 'color' in definition of poi 'POI_14' is empty.
@@ -21,7 +21,10 @@ Warning: Adding poi 'POI_3' into viewNet
 Warning: Adding poi 'POI_4' into viewNet
 Error: Attribute 'height' in definition of poi 'POI_5' is not of type float.
 Warning: Adding poi 'POI_6' into viewNet
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.05Sep150851.3724/netedit.gui/shapeElements/poi/load\input_shapes.add.xml failed.
+Warning: Adding poi 'POI_7' into viewNet
+Warning: Adding poi 'POI_8' into viewNet
+Warning: Adding poi 'POI_9' into viewNet
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Sep122537.2596/netedit.gui/shapeElements/poi/load\input_shapes.add.xml failed.
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
@@ -30,6 +33,9 @@ Warning: Created connection 'fromgneE4_0togneE6_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE6_0togneE7_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE7_0togneE8_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE4_0' in retrieveGNEConnection()
+Warning: Removing poi 'POI_9' from net
+Warning: Removing poi 'POI_8' from net
+Warning: Removing poi 'POI_7' from net
 Warning: Removing poi 'POI_6' from net
 Warning: Removing poi 'POI_4' from net
 Warning: Removing poi 'POI_3' from net
@@ -41,9 +47,9 @@ Warning: Removing poi 'POI_16' from net
 Warning: Removing poi 'POI_15' from net
 Warning: Removing poi 'POI_13' from net
 Warning: Removing poi 'POI_12' from net
+Warning: Removing poi 'POI_0' from net
 Warning: Removing poi '%%%%%···$' from net
 Warning: Removing poi 'POI_1' from net
-Warning: Removing poi 'POI_0' from net
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

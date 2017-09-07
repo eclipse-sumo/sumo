@@ -47,6 +47,10 @@ netedit.leftClick(match, 150, 50)
 # delete first stacked loaded POI (Second stacked must stay)
 netedit.leftClick(match, 200, 50)
 
+# Check undos and redos
+netedit.undo(match, 2)
+netedit.redo(match, 2)
+
 # save shapes
 netedit.saveShapes()
 

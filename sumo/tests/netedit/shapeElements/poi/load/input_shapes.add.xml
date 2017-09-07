@@ -1,6 +1,6 @@
 <additionals>
 	<!-- Without errors -->
-    <poi id="POI_0" color="red" layer="0.00" x="-30.00" y="30.00" width="0.00" height="0.00"/>
+    <poi id="POI_0" color="red" layer="0.00" x="-30.00" y="30.00" width="0.00" height="0.00" imgFile="" angle="0"/>
 	
 	<!-- non valid ID (missing) -->
     <poi id="POI_1" color="red" layer="0.00" x="-40.00" y="30.00" width="0.00" height="0.00"/>
@@ -68,9 +68,12 @@
 	<!-- valid height -->
 	<poi id="POI_6" color="red" layer="0.00" x="20.00" y="30.00" width="0.00" height="2.00"/>
     
-	<!-- Rest of parameters
-	<poi id="POI_7" color="red" layer="0.00" x="30.00" y="30.00" width="0.00" height="0.00"/>
-    <poi id="POI_8" color="red" layer="0.00" x="30.00" y="20.00" width="0.00" height="0.00"/>
-    <poi id="POI_9" color="red" layer="0.00" x="30.00" y="10.00" width="0.00" height="0.00"/>
-	 -->
+	<!-- valid img -->
+	<poi id="POI_7" color="red" layer="0.00" x="30.00" y="30.00" width="0.00" height="0.00" imgFile="berlin_icon.ico"/>
+	
+	<!-- valid angle, > 360º -->
+    <poi id="POI_8" color="red" layer="0.00" x="30.00" y="30.00" width="0.00" height="0.00" imgFile="berlin_icon.ico" angle="500"/>
+	
+	<!-- valid angle, < 0 -->
+    <poi id="POI_9" color="red" layer="0.00" x="30.00" y="30.00" width="0.00" height="0.00" imgFile="berlin_icon.ico" angle="-30"/>
 </additionals>
