@@ -285,8 +285,15 @@ def getFreeSocketPort(numTries=10):
             pass
     return None
 
+
+def getSocketStream(port, mode='rb'):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(("localhost", port))
+    s.listen(1)
+    conn, addr = s.accept()
+    return conn.makefile(mode)
+
+
 # euclidean distance between two coordinates in the plane
-
-
 def euclidean(a, b):
     return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
