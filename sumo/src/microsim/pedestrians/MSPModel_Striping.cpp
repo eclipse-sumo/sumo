@@ -683,11 +683,7 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
             }
             if (nextLane->getEdge().isCrossing()) {
                 // add vehicle obstacles
-                double lateral_offset = (lane->getWidth() - stripeWidth) * 0.5;
-                if ((stripes - nextStripes) % 2 != 0) {
-                    lateral_offset += 0.5 * stripeWidth;
-                }
-                addCrossingVehs(nextLane, stripes, lateral_offset, nextDir, obs);
+                addCrossingVehs(nextLane, stripes, offset, nextDir, obs);
             }
             transformToCurrentLanePositions(obs, currentDir, nextDir, currentLength, nextLength);
         }
@@ -1041,16 +1037,17 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                 }
                 if (DEBUGCOND2(crossing)) {
                     std::cout << SIMTIME 
-                        << " lane=" << crossing->getID() 
                         << " crossingVeh=" << veh->getID() 
+                        << " lane=" << crossing->getID() 
+                        << " latOffset=" << lateral_offset
+                        << " dir=" << dir
+                        << " stripes=" << stripes
                         << " dist=" << (*it).distToCrossing 
                         << " gap=" << (*it).vehAndGap.second 
+                        << " brakeGap=" << bGap
                         << " fromLeft=" << (*it).fromLeft
                         << " ymin=" << vehYmin
                         << " ymax=" << vehYmax
-                        << " brakeGap=" << bGap
-                        << " stripes=" << stripes
-                        << " dir=" << dir
                         << " smin=" << PState::stripe(vehYmin)
                         << " smax=" << PState::stripe(vehYmax)
                         << "\n";
