@@ -511,7 +511,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             //std::cout << " from=" << from->getID() << " to=" << to->getID() << " newEdges=" << toString(newEdges) << "\n";
             MSPerson::MSPersonStage_Walking* newStage = new MSPerson::MSPersonStage_Walking(newEdges, 0, -1, speed, departPos, arrivalPos, 0);
             if (p->getNumRemainingStages() == 1) {
-                // Do not remove the last stage (a waiting stage would be added otherwise) 
+                // Do not remove the last stage (a waiting stage would be added otherwise)
                 p->appendStage(newStage);
                 //std::cout << "case a: remaining=" << p->getNumRemainingStages() << "\n";
                 p->removeStage(0);

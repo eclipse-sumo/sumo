@@ -261,7 +261,7 @@ GNETLSEditorFrame::onCmdDefSwitch(FXObject*, FXSelector, void*) {
         // create working copy from original def
         delete myEditedDef;
         myEditedDef = new NBLoadedSUMOTLDef(tlDef, tllogic);
-        
+
         myTLSAttributes->setOffset(myEditedDef->getLogic()->getOffset());
         initPhaseTable();
         updateCycleDuration();
@@ -540,7 +540,7 @@ GNETLSEditorFrame::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
 }
 
 
-std::string 
+std::string
 GNETLSEditorFrame::varDurString(SUMOTime dur) {
     return dur == NBTrafficLightDefinition::UNSPECIFIED_DURATION ? "   " : toString(STEPS2TIME(dur));
 }
@@ -684,7 +684,7 @@ GNETLSEditorFrame::updateCycleDuration() {
 GNETLSEditorFrame::TLSAttributes::TLSAttributes(FXComposite* parent, GNETLSEditorFrame* TLSEditorParent) :
     FXGroupBox(parent, "Traffic light Attributes", GUIDesignGroupBoxFrame),
     myTLSEditorParent(TLSEditorParent) {
-    
+
     // create frame, label and textfield for name (By default disabled)
     FXHorizontalFrame* nameFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myNameLabel = new FXLabel(nameFrame, "ID", 0, GUIDesignLabelAttribute);
@@ -709,7 +709,7 @@ GNETLSEditorFrame::TLSAttributes::~TLSAttributes() {}
 
 
 void
-GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction *junction) {
+GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction* junction) {
     assert(junction);
     myTLSDefinitions.clear();
     // enable name TextField
@@ -732,7 +732,7 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction *junction) {
 }
 
 
-void 
+void
 GNETLSEditorFrame::TLSAttributes::clearTLSAttributes() {
     // clear definitions
     myTLSDefinitions.clear();
@@ -748,13 +748,13 @@ GNETLSEditorFrame::TLSAttributes::clearTLSAttributes() {
 }
 
 
-NBTrafficLightDefinition* 
+NBTrafficLightDefinition*
 GNETLSEditorFrame::TLSAttributes::getCurrentTLSDefinition() const {
     return myTLSDefinitions.at(myProgramComboBox->getCurrentItem());
 }
 
 
-int 
+int
 GNETLSEditorFrame::TLSAttributes::getNumberOfTLSDefinitions() const {
     return (int)myTLSDefinitions.size();
 }
@@ -772,7 +772,7 @@ GNETLSEditorFrame::TLSAttributes::getOffset() const {
 }
 
 
-void 
+void
 GNETLSEditorFrame::TLSAttributes::setOffset(SUMOTime offset) {
     myOffsetTextField->setText(toString(STEPS2TIME(offset)).c_str());
 }

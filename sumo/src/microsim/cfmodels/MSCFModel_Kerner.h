@@ -52,9 +52,9 @@ public:
      * @param[in] k
      * @param[in] phi
      */
-    MSCFModel_Kerner(const MSVehicleType* vtype, double accel, 
-            double decel, double emergencyDecel, double apparentDecel, 
-            double headwayTime, double k, double phi);
+    MSCFModel_Kerner(const MSVehicleType* vtype, double accel,
+                     double decel, double emergencyDecel, double apparentDecel,
+                     double headwayTime, double k, double phi);
 
 
     /// @brief Destructor

@@ -74,8 +74,8 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
         writePTStops(oc, nb.getPTStopCont());
     }
-    if (oc.exists("ptline-output") && oc.isSet("ptline-output")){
-        writePTLines(oc,nb.getPTLineCont());
+    if (oc.exists("ptline-output") && oc.isSet("ptline-output")) {
+        writePTLines(oc, nb.getPTLineCont());
     }
 }
 
@@ -272,8 +272,8 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         if (connections.empty()) {
             // if there are no connections and this appears to be customized, preserve the information
             const int numOutgoing = (int)e->getToNode()->getOutgoingEdges().size();
-            if (numOutgoing > 1 || 
-                    (numOutgoing == 1 && 
+            if (numOutgoing > 1 ||
+                    (numOutgoing == 1 &&
                      (!e->isTurningDirectionAt(e->getToNode()->getOutgoingEdges().front()) || hasTurns))) {
                 const SVCPermissions inPerm = e->getPermissions();
                 SVCPermissions outPerm = 0;

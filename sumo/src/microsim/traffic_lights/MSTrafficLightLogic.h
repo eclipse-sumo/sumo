@@ -276,7 +276,7 @@ public:
      */
     SUMOTime getNextSwitchTime() const;
 
-    
+
     /** @brief Returns the duration spent in the current phase
      *
      * @return The time spent in the current phase

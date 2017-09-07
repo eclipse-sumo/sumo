@@ -1030,13 +1030,13 @@ TraCIAPI::LaneScope::getLinks(const std::string& laneID) const {
         double length = inMsg.readDouble();
 
         ret.push_back(TraCIConnection(approachedLane,
-                    hasPrio,
-                    isOpen,
-                    hasFoe,
-                    approachedLaneInternal,
-                    state,
-                    direction,
-                    length));
+                                      hasPrio,
+                                      isOpen,
+                                      hasFoe,
+                                      approachedLaneInternal,
+                                      state,
+                                      direction,
+                                      length));
 
     }
     return ret;
@@ -2310,7 +2310,7 @@ TraCIAPI::VehicleScope::getBestLanes(const std::string& vehicleID) const {
 }
 
 
-std::pair<std::string, double> 
+std::pair<std::string, double>
 TraCIAPI::VehicleScope::getLeader(const std::string& vehicleID, double dist) const {
     tcpip::Storage content;
     content.writeByte(TYPE_DOUBLE);
@@ -2539,12 +2539,13 @@ TraCIAPI::VehicleScope::rerouteTraveltime(const std::string& vehicleID, bool cur
     if (currentTravelTimes) {
         // updated edge weights with current network traveltimes (at most once per simulation step)
         SUMOTime time = myParent.simulation.getCurrentTime();
-        if (time != LAST_TRAVEL_TIME_UPDATE) 
+        if (time != LAST_TRAVEL_TIME_UPDATE) {
             LAST_TRAVEL_TIME_UPDATE = time;
-            std::vector<std::string> edges = myParent.edge.getIDList();
-            for (std::vector<std::string>::iterator it = edges.begin(); it != edges.end(); ++it) {
-                myParent.edge.adaptTraveltime(*it, myParent.edge.getTraveltime(*it));
-            }
+        }
+        std::vector<std::string> edges = myParent.edge.getIDList();
+        for (std::vector<std::string>::iterator it = edges.begin(); it != edges.end(); ++it) {
+            myParent.edge.adaptTraveltime(*it, myParent.edge.getTraveltime(*it));
+        }
     }
 
     tcpip::Storage content;

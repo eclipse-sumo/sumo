@@ -140,8 +140,8 @@ MSTransportable::Stage_Waiting::getUntil() const {
 
 Position
 MSTransportable::Stage_Waiting::getPosition(SUMOTime /* now */) const {
-    return getEdgePosition(&myDestination, myArrivalPos, 
-            ROADSIDE_OFFSET * (MSNet::getInstance()->lefthand() ? -1 : 1));
+    return getEdgePosition(&myDestination, myArrivalPos,
+                           ROADSIDE_OFFSET * (MSNet::getInstance()->lefthand() ? -1 : 1));
 }
 
 
@@ -228,9 +228,9 @@ MSTransportable::Stage_Waiting::getEdges() const {
 
 void
 MSTransportable::Stage_Waiting::abort(MSTransportable* t) {
-    MSTransportableControl& tc = (dynamic_cast<MSPerson*>(t) != 0 ? 
-            MSNet::getInstance()->getPersonControl() :
-            MSNet::getInstance()->getContainerControl());
+    MSTransportableControl& tc = (dynamic_cast<MSPerson*>(t) != 0 ?
+                                  MSNet::getInstance()->getPersonControl() :
+                                  MSNet::getInstance()->getContainerControl());
     tc.abortWaiting(t);
 }
 
@@ -239,10 +239,10 @@ MSTransportable::Stage_Waiting::abort(MSTransportable* t) {
 * MSTransportable::Stage_Driving - methods
 * ----------------------------------------------------------------------- */
 MSTransportable::Stage_Driving::Stage_Driving(const MSEdge& destination,
-        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines) : 
-    MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING), 
+        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines) :
+    MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING),
     myLines(lines.begin(), lines.end()),
-    myVehicle(0), 
+    myVehicle(0),
     myVehicleID("NULL"),
     myStopWaitPos(Position::INVALID) {}
 
@@ -280,8 +280,8 @@ MSTransportable::Stage_Driving::getPosition(SUMOTime /* now */) const {
         if (myStopWaitPos != Position::INVALID) {
             return myStopWaitPos;
         }
-        return getEdgePosition(myWaitingEdge, myWaitingPos, 
-                ROADSIDE_OFFSET * (MSNet::getInstance()->lefthand() ? -1 : 1));
+        return getEdgePosition(myWaitingEdge, myWaitingPos,
+                               ROADSIDE_OFFSET * (MSNet::getInstance()->lefthand() ? -1 : 1));
     }
     return myVehicle->getPosition();
 }
@@ -334,7 +334,7 @@ MSTransportable::Stage_Driving::getEdges() const {
 }
 
 
-void 
+void
 MSTransportable::Stage_Driving::setVehicle(SUMOVehicle* v) {
     myVehicle = v;
     myVehicleID = v->getID();
@@ -502,13 +502,13 @@ MSTransportable::getSingularType() {
 }
 
 
-PositionVector 
+PositionVector
 MSTransportable::getBoundingBox() const {
     PositionVector centerLine;
     const Position p = getPosition();
     const double angle = getAngle();
     const double length = getVehicleType().getLength();
-    const Position back = p + Position(-cos(angle) * length, -sin(angle) * length); 
+    const Position back = p + Position(-cos(angle) * length, -sin(angle) * length);
     centerLine.push_back(p);
     centerLine.push_back(back);
     centerLine.move2side(0.5 * getVehicleType().getWidth());

@@ -40,8 +40,8 @@
 // member definitions
 // ===========================================================================
 SUMOPolygon::SUMOPolygon(const std::string& id, const std::string& type,
-                 const RGBColor& color, const PositionVector& shape, bool fill,
-                 double layer, double angle, const std::string& imgFile) :
+                         const RGBColor& color, const PositionVector& shape, bool fill,
+                         double layer, double angle, const std::string& imgFile) :
     Shape(id, type, color, layer, angle, imgFile),
     myShape(shape),
     myFill(fill) {
@@ -55,7 +55,7 @@ void
 SUMOPolygon::writeXML(OutputDevice& out, bool geo) {
     out.openTag(SUMO_TAG_POLY);
     out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
-    if(getType().size() > 0) {
+    if (getType().size() > 0) {
         out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getType()));
     }
     out.writeAttr(SUMO_ATTR_COLOR, getColor());

@@ -61,7 +61,7 @@
 // method definitions
 // ===========================================================================
 
-GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string &name, const std::vector<std::string>& lines, bool friendlyPosition) :
+GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition) :
     GNEStoppingPlace(id, viewNet, SUMO_TAG_BUS_STOP, ICON_BUSSTOP, lane, startPos, endPos, name, friendlyPosition),
     myLines(lines) {
     // When a new additional element is created, updateGeometry() must be called
@@ -106,7 +106,7 @@ GNEBusStop::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) c
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     // Check if another lane ID must be changed if sidewalks.guess option is enabled
-    if(volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && (myLane->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
+    if (volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && (myLane->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
         // add a new extra lane to edge
         myViewNet->getNet()->duplicateLane(myLane->getParentEdge().getLanes().front(), myViewNet->getUndoList());
         // write ID (now is different because there are a new lane)
@@ -118,7 +118,7 @@ GNEBusStop::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) c
     }
     device.writeAttr(SUMO_ATTR_STARTPOS, getAbsoluteStartPosition());
     device.writeAttr(SUMO_ATTR_ENDPOS, getAbsoluteEndPosition());
-    if(myName.empty() == false) {
+    if (myName.empty() == false) {
         device.writeAttr(SUMO_ATTR_NAME, myName);
     }
     device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
@@ -337,14 +337,14 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            if(canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 // Check that new start Position is smaller that end position
                 return ((parse<double>(value) / myLane->getLaneParametricLength()) < myEndPosRelative);
             } else {
                 return false;
             }
         case SUMO_ATTR_ENDPOS:
-            if(canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 // Check that new end Position is larger that end position
                 return ((parse<double>(value) / myLane->getLaneParametricLength()) > myStartPosRelative);
             } else {

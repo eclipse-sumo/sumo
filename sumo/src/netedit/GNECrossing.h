@@ -131,7 +131,7 @@ public:
     bool checkEdgeBelong(GNEEdge* edges) const;
 
     /// @brief return true if a edge of a vector of edges belongs to crossing's edges
-    bool checkEdgeBelong(const std::vector<GNEEdge*> &edges) const;
+    bool checkEdgeBelong(const std::vector<GNEEdge*>& edges) const;
 
 private:
     /// @brief the parent junction of this crossing

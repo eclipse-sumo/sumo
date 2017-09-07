@@ -73,7 +73,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent) :
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string vehicleType, std::string route,
-                                     const RGBColor &color, std::string departLane, std::string departPos, std::string departSpeed, std::string arrivalLane, std::string arrivalPos,
+                                     const RGBColor& color, std::string departLane, std::string departPos, std::string departSpeed, std::string arrivalLane, std::string arrivalPos,
                                      std::string arrivalSpeed, std::string line, int personNumber, int containerNumber, bool reroute, std::string departPosLat,
                                      std::string arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability, int number) :
     myCalibratorParent(calibratorParent), myFlowID(calibratorParent->generateFlowID()), myVehicleType(vehicleType), myRoute(route), myColor(color), myDepartLane("first"),
@@ -298,13 +298,13 @@ GNECalibratorFlow::setRoute(std::string route) {
 
 
 bool
-GNECalibratorFlow::setColor(const RGBColor &color) {
+GNECalibratorFlow::setColor(const RGBColor& color) {
     myColor = color;
     return true;
 }
 
 
-bool 
+bool
 GNECalibratorFlow::setColor(std::string color) {
     if (GNEAttributeCarrier::canParse<RGBColor>(color)) {
         return setColor(GNEAttributeCarrier::parse<RGBColor>(color));

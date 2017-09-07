@@ -129,7 +129,7 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
     }
 
     // Treat the case that the vehicle's back left the lane in the last step
-     if (newBackPos > myLaneLength // vehicle's back has left the lane
+    if (newBackPos > myLaneLength // vehicle's back has left the lane
             && oldBackPos <= myLaneLength) { // and hasn't left the lane before
         assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed != 0); // how could it move across the lane boundary otherwise
         // (Leo) vehicle left this lane (it can also have skipped over it in one time step -> therefore we use "timeOnLane -= ..." and ( ... - timeOnLane) below)
@@ -172,18 +172,18 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
 #ifdef DEBUG_NOTIFY_MOVE
     std::stringstream ss;
     ss << "\n"
-            << "lane length: " << myLaneLength
-            << "\noldPos: " << oldPos
-            << "\nnewPos: " << newPos
-            << "\noldPosBack: " << oldBackPos
-            << "\nnewPosBack: " << newBackPos
-            << "\ntimeBeforeEnter: " << timeBeforeEnter
-            << "\ntimeBeforeEnterBack: " << timeBeforeEnterBack
-            << "\ntimeBeforeLeaveFront: " << timeBeforeLeaveFront
-            << "\ntimeBeforeLeave: " << timeBeforeLeave;
+       << "lane length: " << myLaneLength
+       << "\noldPos: " << oldPos
+       << "\nnewPos: " << newPos
+       << "\noldPosBack: " << oldBackPos
+       << "\nnewPosBack: " << newBackPos
+       << "\ntimeBeforeEnter: " << timeBeforeEnter
+       << "\ntimeBeforeEnterBack: " << timeBeforeEnterBack
+       << "\ntimeBeforeLeaveFront: " << timeBeforeLeaveFront
+       << "\ntimeBeforeLeave: " << timeBeforeLeave;
     if (!(timeBeforeLeave >= MAX2(timeBeforeEnterBack, timeBeforeLeaveFront))
             || !(timeBeforeEnter <= MIN2(timeBeforeEnterBack, timeBeforeLeaveFront))) {
-            WRITE_ERROR(ss.str());
+        WRITE_ERROR(ss.str());
     } else {
         std::cout << ss.str() << std::endl;
     }
@@ -204,12 +204,12 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
         // vehicle length on detector at timeBeforeEnterBack
         double lengthOnLaneAtBackEnter = MIN2(veh.getVehicleType().getLength(), newPos);
         // linear quadrature of occupancy between timeBeforeEnter and timeBeforeEnterBack
-        integratedLengthOnLane += (timeBeforeEnterBack - timeBeforeEnter)*(lengthOnLaneAtBackEnter+lengthOnLaneAtStepStart)*0.5;
+        integratedLengthOnLane += (timeBeforeEnterBack - timeBeforeEnter) * (lengthOnLaneAtBackEnter + lengthOnLaneAtStepStart) * 0.5;
         // linear quadrature of occupancy between timeBeforeEnterBack and timeBeforeLeaveFront
         // (vehicle is completely on the edge in between)
-        integratedLengthOnLane += (timeBeforeLeaveFront - timeBeforeEnterBack)*vehLength;
+        integratedLengthOnLane += (timeBeforeLeaveFront - timeBeforeEnterBack) * vehLength;
         // and until vehicle leaves/stepEnd
-        integratedLengthOnLane += (timeBeforeLeave - timeBeforeLeaveFront)*(vehLength + lengthOnLaneAtStepEnd)*0.5;
+        integratedLengthOnLane += (timeBeforeLeave - timeBeforeLeaveFront) * (vehLength + lengthOnLaneAtStepEnd) * 0.5;
     } else if (timeBeforeEnterBack >= timeBeforeLeaveFront) {
         // => myLaneLength <= vehLength or (timeBeforeLeaveFront == timeBeforeEnterBack == 0)
         // vehicle length on detector at timeBeforeLeaveFront
@@ -224,21 +224,21 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
             lengthOnLaneAtLeaveFront = myLaneLength;
         }
 #ifdef DEBUG_NOTIFY_MOVE
-      std::cout << "lengthOnLaneAtLeaveFront=" << lengthOnLaneAtLeaveFront << std::endl;
+        std::cout << "lengthOnLaneAtLeaveFront=" << lengthOnLaneAtLeaveFront << std::endl;
 #endif
         // linear quadrature of occupancy between timeBeforeEnter and timeBeforeLeaveFront
-        integratedLengthOnLane += (timeBeforeLeaveFront - timeBeforeEnter)*(lengthOnLaneAtLeaveFront+lengthOnLaneAtStepStart)*0.5;
+        integratedLengthOnLane += (timeBeforeLeaveFront - timeBeforeEnter) * (lengthOnLaneAtLeaveFront + lengthOnLaneAtStepStart) * 0.5;
         // linear quadrature of occupancy between timeBeforeLeaveFront and timeBeforeEnterBack
-        integratedLengthOnLane += (timeBeforeEnterBack-timeBeforeLeaveFront)*lengthOnLaneAtLeaveFront;
+        integratedLengthOnLane += (timeBeforeEnterBack - timeBeforeLeaveFront) * lengthOnLaneAtLeaveFront;
         // and until vehicle leaves/stepEnd
-        integratedLengthOnLane += (timeBeforeLeave - timeBeforeEnterBack)*(lengthOnLaneAtLeaveFront + lengthOnLaneAtStepEnd)*0.5;
+        integratedLengthOnLane += (timeBeforeLeave - timeBeforeEnterBack) * (lengthOnLaneAtLeaveFront + lengthOnLaneAtStepEnd) * 0.5;
     }
 
-    double meanLengthOnLane = integratedLengthOnLane/TS;
+    double meanLengthOnLane = integratedLengthOnLane / TS;
 #ifdef DEBUG_NOTIFY_MOVE
     std::cout << "Calculated mean length on lane '" << myLane->getID() << "' in last step as " << meanLengthOnLane
-            << "\nlengthOnLaneAtStepStart="<<lengthOnLaneAtStepStart<<", lengthOnLaneAtStepEnd="<<lengthOnLaneAtStepEnd<<", integratedLengthOnLane="<<integratedLengthOnLane
-            << std::endl;
+              << "\nlengthOnLaneAtStepStart=" << lengthOnLaneAtStepStart << ", lengthOnLaneAtStepEnd=" << lengthOnLaneAtStepEnd << ", integratedLengthOnLane=" << integratedLengthOnLane
+              << std::endl;
 #endif
 
 //    // XXX: use this, when #2556 is fixed! Refs. #2575

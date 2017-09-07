@@ -60,7 +60,7 @@ public:
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
-     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
+     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled
      */
     void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 
@@ -125,7 +125,7 @@ private:
     GNEDetectorExit& operator=(const GNEDetectorExit&) = delete;
 
     /// @brief Invalidated get filename
-    const std::string &getFilename() const = delete;
+    const std::string& getFilename() const = delete;
 
     /// @brief Invalidated set frequency
     int getFrequency() const = delete;
@@ -134,7 +134,7 @@ private:
     void setFrequency(double freq) = delete;
 
     /// @brief Invalidated
-    void setFilename(const std::string &filename) = delete;
+    void setFilename(const std::string& filename) = delete;
 };
 
 

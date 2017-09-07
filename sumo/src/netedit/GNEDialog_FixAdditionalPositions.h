@@ -53,7 +53,7 @@ class GNEDialog_FixAdditionalPositions : public FXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEDialog_FixAdditionalPositions(GNEViewNet *viewNet, const std::vector<GNEStoppingPlace*> &invalidStoppingPlaces, const std::vector<GNEDetector*> &invalidDetectors);
+    GNEDialog_FixAdditionalPositions(GNEViewNet* viewNet, const std::vector<GNEStoppingPlace*>& invalidStoppingPlaces, const std::vector<GNEDetector*>& invalidDetectors);
 
     /// @brief destructor
     ~GNEDialog_FixAdditionalPositions();
@@ -75,7 +75,7 @@ protected:
     GNEDialog_FixAdditionalPositions() {}
 
     /// @brief view net
-    GNEViewNet *myViewNet;
+    GNEViewNet* myViewNet;
 
     /// @brief vector with the invalid stoppingplaces
     std::vector<GNEStoppingPlace*> myInvalidStoppingPlaces;
@@ -84,19 +84,19 @@ protected:
     std::vector<GNEDetector*> myInvalidDetectors;
 
     /// @brief list with the stoppingPlaces and detectors
-    FXTable *myTable;
+    FXTable* myTable;
 
     /// @brief Option "Activate friendlyPos and save"
-    FXRadioButton *myOptionA;
+    FXRadioButton* myOptionA;
 
     /// @brief Option "Fix Positions and save"
-    FXRadioButton *myOptionB;
+    FXRadioButton* myOptionB;
 
     /// @brief Option "Save invalid"
-    FXRadioButton *myOptionC;
+    FXRadioButton* myOptionC;
 
     /// @brief Option "Select invalid stops and cancel"
-    FXRadioButton *myOptionD;
+    FXRadioButton* myOptionD;
 
     /// @brief accept button
     FXButton* myAcceptButton;

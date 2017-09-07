@@ -275,7 +275,7 @@ MSDevice_Tripinfo::updateStatistics(SUMOTime timeLoss) const {
 }
 
 
-void 
+void
 MSDevice_Tripinfo::addPedestrianData(double walkLength, SUMOTime walkDuration) {
     myWalkCount++;
     myTotalWalkRouteLength += walkLength;

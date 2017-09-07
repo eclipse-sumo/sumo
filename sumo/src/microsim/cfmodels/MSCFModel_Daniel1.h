@@ -51,8 +51,8 @@ public:
      * @param[in] dawdle The driver imperfection
      * @param[in] tau The driver's reaction time
      */
-    MSCFModel_Daniel1(const MSVehicleType* vtype, double accel, 
-                      double decel, double emergencyDecel, double apparentDecel, 
+    MSCFModel_Daniel1(const MSVehicleType* vtype, double accel,
+                      double decel, double emergencyDecel, double apparentDecel,
                       double dawdle, double headwayTime,
                       double tmp1, double tmp2, double tmp3, double tmp4, double tmp5);
 

@@ -80,14 +80,14 @@ public:
      * @param[in] collectBlockers The list of persons blocking the crossing
      * @return Whether the vehicle must wait
      */
-    bool blockedAtDist(const MSLane* lane, double vehSide, double vehWidth, 
-            double oncomingGap, std::vector<const MSPerson*>* collectBlockers); 
+    bool blockedAtDist(const MSLane* lane, double vehSide, double vehWidth,
+                       double oncomingGap, std::vector<const MSPerson*>* collectBlockers);
 
     /// @brief whether the given lane has pedestrians on it
-    bool hasPedestrians(const MSLane* lane); 
+    bool hasPedestrians(const MSLane* lane);
 
     /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
-    PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime=0); 
+    PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0);
 
     /// @brief remove state at simulation end
     void cleanupHelper();
@@ -413,7 +413,7 @@ private:
     static void initWalkingAreaPaths(const MSNet* net);
 
     /// @brief return an arbitrary path across the given walkingArea
-    static WalkingAreaPath* getArbitraryPath(const MSEdge* walkingArea); 
+    static WalkingAreaPath* getArbitraryPath(const MSEdge* walkingArea);
 
     /// @brief return the maximum number of pedestrians walking side by side
     static int numStripes(const MSLane* lane);

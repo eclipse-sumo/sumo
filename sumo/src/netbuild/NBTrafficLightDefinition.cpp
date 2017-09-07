@@ -147,7 +147,7 @@ NBTrafficLightDefinition::computeBrakingTime(double minDecel) const {
     if (vmax < 71 / 3.6) {
         // up to 50kmh: 3 seconds , 60km/h: 4, 70kmh: 5
         // @note: these are German regulations, other countries may differ
-        return 3 + (int)MAX2(0.0, (floor((vmax - 50/3.6) * 0.37)));
+        return 3 + (int)MAX2(0.0, (floor((vmax - 50 / 3.6) * 0.37)));
     } else {
         // above 70km/h we use a function that grows according to the "natural"
         // formula (vmax / 2 * minDecel) but continues smoothly where the german
@@ -300,9 +300,9 @@ NBTrafficLightDefinition::forbids(const NBEdge* const possProhibitorFrom,
     if (incnode != outnode) {
         if (sameNodeOnly) {
 #ifdef DEBUG_RIGHT_OF_WAY
-    if (DEBUGCOND) {
-        std::cout << "   differentNodes: allows (no check)\n";
-    }
+            if (DEBUGCOND) {
+                std::cout << "   differentNodes: allows (no check)\n";
+            }
 #endif
             return false;
         }
@@ -331,9 +331,9 @@ NBTrafficLightDefinition::forbids(const NBEdge* const possProhibitorFrom,
             bool ret = ret1 || ret2;
             if (ret) {
 #ifdef DEBUG_RIGHT_OF_WAY
-    if (DEBUGCOND) {
-        std::cout << "   differentNodes: forbids\n";
-    }
+                if (DEBUGCOND) {
+                    std::cout << "   differentNodes: forbids\n";
+                }
 #endif
                 return true;
             }
@@ -363,25 +363,25 @@ NBTrafficLightDefinition::forbids(const NBEdge* const possProhibitorFrom,
             bool ret = ret1 || ret2;
             if (ret) {
 #ifdef DEBUG_RIGHT_OF_WAY
-    if (DEBUGCOND) {
-        std::cout << "   differentNodes: forbids (2)\n";
-    }
+                if (DEBUGCOND) {
+                    std::cout << "   differentNodes: forbids (2)\n";
+                }
 #endif
                 return true;
             }
         }
 #ifdef DEBUG_RIGHT_OF_WAY
-    if (DEBUGCOND) {
-        std::cout << "   differentNodes: allows\n";
-    }
+        if (DEBUGCOND) {
+            std::cout << "   differentNodes: allows\n";
+        }
 #endif
         return false;
     }
     // both links are located at the same node
     //  check using this node's information
     const bool result = incnode->forbids(possProhibitorFrom, possProhibitorTo,
-                            possProhibitedFrom, possProhibitedTo,
-                            regardNonSignalisedLowerPriority);
+                                         possProhibitedFrom, possProhibitedTo,
+                                         regardNonSignalisedLowerPriority);
 #ifdef DEBUG_RIGHT_OF_WAY
     if (DEBUGCOND) {
         std::cout << "   sameNodes: " << (result ? "forbids" : "allows") << "\n";

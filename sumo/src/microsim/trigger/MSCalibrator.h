@@ -58,7 +58,7 @@ class MSCalibrator : public MSTrigger, public MSRouteHandler, public Command {
 public:
     /** constructor */
     MSCalibrator(const std::string& id,
-                 const MSEdge* const edge, 
+                 const MSEdge* const edge,
                  MSLane* lane,
                  const double pos,
                  const std::string& aXMLFilename,
@@ -82,7 +82,7 @@ public:
 
 protected:
     class CalibratorCommand : public Command {
-    public: 
+    public:
         CalibratorCommand(MSCalibrator* cali) :
             myCalibrator(cali) {}
 

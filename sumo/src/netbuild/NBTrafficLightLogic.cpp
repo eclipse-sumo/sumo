@@ -85,11 +85,11 @@ NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
 
 NBTrafficLightLogic::~NBTrafficLightLogic() {}
 
-void 
+void
 NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, int index) {
-    addStep(duration, state, 
-            NBTrafficLightDefinition::UNSPECIFIED_DURATION, 
-            NBTrafficLightDefinition::UNSPECIFIED_DURATION, 
+    addStep(duration, state,
+            NBTrafficLightDefinition::UNSPECIFIED_DURATION,
+            NBTrafficLightDefinition::UNSPECIFIED_DURATION,
             index);
 }
 
@@ -173,7 +173,7 @@ NBTrafficLightLogic::closeBuilding(bool checkVarDurations) {
         if (myType != TLTYPE_STATIC) {
             bool found = false;
             for (auto p : myPhases) {
-                if (p.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION 
+                if (p.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION
                         || p.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
                     found = true;
                     break;

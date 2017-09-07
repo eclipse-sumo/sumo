@@ -338,9 +338,9 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         }
         state = simulationState(stop);
 #ifdef DEBUG_SIMSTEP
-        std::cout << SIMTIME << " MSNet::simulate("<< start << ", "<< stop << ")"
-                << "\n simulation state: " << getStateMessage(state)
-                                << std::endl;
+        std::cout << SIMTIME << " MSNet::simulate(" << start << ", " << stop << ")"
+                  << "\n simulation state: " << getStateMessage(state)
+                  << std::endl;
 #endif
 #ifndef NO_TRACI
         if (state == SIMSTATE_LOADING) {
@@ -439,8 +439,8 @@ void
 MSNet::simulationStep() {
 #ifdef DEBUG_SIMSTEP
     std::cout << SIMTIME << ": MSNet::simulationStep() called"
-            << ", myStep = " << myStep
-            << std::endl;
+              << ", myStep = " << myStep
+              << std::endl;
 #endif
 #ifndef NO_TRACI
     if (myLogExecutionTime) {
@@ -1023,7 +1023,7 @@ MSNet::checkElevation() {
 }
 
 
-int 
+int
 MSNet::getHaltingVehicleNumber() const {
     int result = 0;
     for (MSVehicleControl::constVehIt it = myVehicleControl->loadedVehBegin(); it != myVehicleControl->loadedVehEnd(); ++it) {

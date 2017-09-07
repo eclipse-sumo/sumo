@@ -77,7 +77,7 @@ MSCFModel::brakeGap(const double speed, const double decel, const double headway
 }
 
 
-double 
+double
 MSCFModel::brakeGapEuler(const double speed, const double decel, const double headwayTime) {
     /* one possibility to speed this up is to calculate speedReduction * steps * (steps+1) / 2
        for small values of steps (up to 10 maybe) and store them in an array */
@@ -243,12 +243,12 @@ MSCFModel::insertionStopSpeed(const MSVehicle* const veh, double speed, double g
 }
 
 
-double 
+double
 MSCFModel::followSpeedTransient(double duration, const MSVehicle* const /*veh*/, double /*speed*/, double gap2pred, double predSpeed, double predMaxDecel) const {
     // minimium distance covered by the leader if braking
     double leaderMinDist = gap2pred + distAfterTime(duration, predSpeed, predMaxDecel);
     // if ego would not brake it could drive with speed leaderMinDist / duration
-    // due to potentential ego braking it can safely drive faster 
+    // due to potentential ego braking it can safely drive faster
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         // number of potential braking steps
         int a = (int)ceil(duration / TS - TS);
@@ -259,15 +259,15 @@ MSCFModel::followSpeedTransient(double duration, const MSVehicle* const /*veh*/,
             // distance reduction due to braking
             double b = TS * getMaxDecel() * 0.5 * (a * a - a);
             if (gDebugFlag2) std::cout << "    followSpeedTransient"
-                << " duration=" << duration 
-                    << " gap=" << gap2pred
-                    << " leaderMinDist=" << leaderMinDist
-                    << " decel=" << getMaxDecel()
-                    << " a=" << a
-                    << " bg=" << bg
-                    << " b=" << b
-                    << " x=" << (b + leaderMinDist) / duration
-                    << "\n";
+                                           << " duration=" << duration
+                                           << " gap=" << gap2pred
+                                           << " leaderMinDist=" << leaderMinDist
+                                           << " decel=" << getMaxDecel()
+                                           << " a=" << a
+                                           << " bg=" << bg
+                                           << " b=" << b
+                                           << " x=" << (b + leaderMinDist) / duration
+                                           << "\n";
             return (b + leaderMinDist) / duration;
         } else {
             // @todo improve efficiency
@@ -294,7 +294,7 @@ MSCFModel::followSpeedTransient(double duration, const MSVehicle* const /*veh*/,
     }
 }
 
-double 
+double
 MSCFModel::distAfterTime(double t, double speed, double decel) {
     assert(decel > 0);
     if (speed <= decel * t) {
@@ -338,30 +338,32 @@ MSCFModel::estimateArrivalTime(double dist, double speed, double maxSpeed, doubl
         return 0.;
     }
 
-    if ((accel < 0. && -0.5*speed*speed/accel < dist) || (accel <= 0. && speed == 0.)) {
+    if ((accel < 0. && -0.5 * speed * speed / accel < dist) || (accel <= 0. && speed == 0.)) {
         // distance will never be covered with these values
         return INVALID_DOUBLE;
     }
 
-    if (accel == 0.) return dist/speed;
+    if (accel == 0.) {
+        return dist / speed;
+    }
 
-    double p = speed/accel;
+    double p = speed / accel;
 
-    if (accel < 0.){
+    if (accel < 0.) {
         // we already know, that the distance will be covered despite breaking
-        return (-p - sqrt(p*p + 2*dist/accel));
+        return (-p - sqrt(p * p + 2 * dist / accel));
     }
 
     // Here, accel > 0
     // t1 is the time to use the given acceleration
-    double t1 = (maxSpeed - speed)/accel;
+    double t1 = (maxSpeed - speed) / accel;
     // distance covered until t1
-    double d1 = speed*t1 + 0.5*accel*t1*t1;
+    double d1 = speed * t1 + 0.5 * accel * t1 * t1;
     if (d1 >= dist) {
         // dist is covered before changing the speed
-        return (-p + sqrt(p*p + 2*dist/accel));
+        return (-p + sqrt(p * p + 2 * dist / accel));
     } else {
-        return (-p + sqrt(p*p + 2*d1/accel)) + (dist - d1)/maxSpeed;
+        return (-p + sqrt(p * p + 2 * d1 / accel)) + (dist - d1) / maxSpeed;
     }
 
 }

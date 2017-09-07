@@ -105,7 +105,7 @@ ROEdge::addLane(ROLane* lane) {
 
 void
 ROEdge::addSuccessor(ROEdge* s, std::string) {
-    if (s->isInternal() && !isInternal()) { 
+    if (s->isInternal() && !isInternal()) {
         if (s->myApproachingEdges.size() == 0) {
             s->myApproachingEdges.push_back(this);
         }
@@ -249,7 +249,7 @@ ROEdge::getNumPredecessors() const {
 }
 
 
-const ROEdge* 
+const ROEdge*
 ROEdge::getNormalBefore() const {
     const ROEdge* result = this;
     while (result->isInternal()) {
@@ -260,7 +260,7 @@ ROEdge::getNormalBefore() const {
 }
 
 
-const ROEdge* 
+const ROEdge*
 ROEdge::getNormalAfter() const {
     const ROEdge* result = this;
     while (result->isInternal()) {

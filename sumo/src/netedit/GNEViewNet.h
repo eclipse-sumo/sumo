@@ -120,7 +120,7 @@ public:
     bool setColorScheme(const std::string& name);
 
     ///@brief recalibrate color scheme according to the current value range
-    void buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjectType objectType); 
+    void buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjectType objectType);
 
     /// @name overloaded handlers
     /// @{
@@ -329,7 +329,7 @@ public:
     bool showJunctionAsBubbles() const;
 
     /// @brief start edit junction shape
-    void startEditShapeJunction(GNEJunction *junction);
+    void startEditShapeJunction(GNEJunction* junction);
 
     /// @brief edit edit junction shape
     void stopEditShapeJunction();

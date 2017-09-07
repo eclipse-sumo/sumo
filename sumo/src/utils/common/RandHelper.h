@@ -56,7 +56,7 @@ public:
     static void insertRandOptions();
 
     /// @brief Initialises the random number generator with hardware randomness or seed
-    static void initRand(std::mt19937* which=0, const bool random=false, const int seed=23423);
+    static void initRand(std::mt19937* which = 0, const bool random = false, const int seed = 23423);
 
     /// @brief Reads the given random number options and initialises the random number generator in accordance
     static void initRandGlobal(std::mt19937* which = 0);
@@ -93,9 +93,9 @@ public:
 
         // Draw numbers until one is found in [0, maxV-1]
         int result;
-        do
+        do {
             result = (*rng)() & usedBits;
-        while (result >= maxV);
+        } while (result >= maxV);
         return result;
     }
 
@@ -122,9 +122,9 @@ public:
 
         // Draw numbers until one is found in [0, maxV-1]
         long long int result;
-        do
-            result = (((unsigned long long int)(*rng)() << 32) | (*rng)()) & usedBits;  // toss unused bits to shorten search
-        while (result >= maxV);
+        do {
+            result = (((unsigned long long int)(*rng)() << 32) | (*rng)()) & usedBits;    // toss unused bits to shorten search
+        } while (result >= maxV);
         return result;
     }
 

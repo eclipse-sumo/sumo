@@ -56,7 +56,7 @@ public:
     * @param[in] POI The name of the POIgon
     * @param[in] forward Whether to create/delete (true/false)
     */
-    GNEChange_POI(GNENet *net, GNEPOI *POI, bool forward);
+    GNEChange_POI(GNENet* net, GNEPOI* POI, bool forward);
 
     /// @brief Destructor
     ~GNEChange_POI();
@@ -80,7 +80,7 @@ public:
 private:
 
     /// @brief pointer to POI
-    GNEPOI *myPOI;
+    GNEPOI* myPOI;
 
 };
 

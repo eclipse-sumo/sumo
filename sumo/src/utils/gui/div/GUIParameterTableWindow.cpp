@@ -69,9 +69,8 @@ std::vector<GUIParameterTableWindow*> GUIParameterTableWindow::myContainer;
 GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o, int noRows) :
     FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(), NULL, NULL, DECOR_ALL, 20, 20, 500, (FXint)((noRows + numParams(&o))  * 20 + 60)),
     myObject(&o),
-    myApplication(&app), 
-    myCurrentPos(0) 
-{
+    myApplication(&app),
+    myCurrentPos(0) {
     noRows += numParams(&o);
     myTable = new FXTable(this, this, MID_TABLE, TABLE_COL_SIZABLE | TABLE_ROW_SIZABLE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     myTable->setVisibleRows((FXint)(noRows + 1));
@@ -269,7 +268,7 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
     show();
 }
 
-int 
+int
 GUIParameterTableWindow::numParams(const GUIGlObject* obj) {
     const Parameterised* p = dynamic_cast<const Parameterised*>(obj);
     return p != 0 ? (int)p->getMap().size() : 0;

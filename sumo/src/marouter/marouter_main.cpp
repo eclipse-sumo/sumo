@@ -138,11 +138,11 @@ computeAllPairs(RONet& net, OptionsCont& oc) {
                 double heuTT = router.getEdgeInfo(j).traveltime - fromEffort;
                 FileHelpers::writeFloat(outFile, heuTT);
                 /*
-                if (heuTT > 
-                        ei.edge->getDistanceTo(router.getEdgeInfo(j).edge) 
-                        && router.getEdgeInfo(j).traveltime != std::numeric_limits<double>::max() 
+                if (heuTT >
+                        ei.edge->getDistanceTo(router.getEdgeInfo(j).edge)
+                        && router.getEdgeInfo(j).traveltime != std::numeric_limits<double>::max()
                         ) {
-                    std::cout << " heuristic failure: from=" << ei.edge->getID() << " to=" << router.getEdgeInfo(j).edge->getID() 
+                    std::cout << " heuristic failure: from=" << ei.edge->getID() << " to=" << router.getEdgeInfo(j).edge->getID()
                     << " fromEffort=" << fromEffort << " heuTT=" << heuTT << " airDist=" << ei.edge->getDistanceTo(router.getEdgeInfo(j).edge) << "\n";
                 }
                 */

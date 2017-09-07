@@ -42,7 +42,7 @@
 MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype, double accel,
                                    double decel, double emergencyDecel, double apparentDecel,
                                    double headwayTime, double k, double phi) :
-    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime), 
+    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime),
     myK(k), myPhi(phi),
     myTauDecel(decel * headwayTime) {
 }

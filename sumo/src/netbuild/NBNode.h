@@ -140,8 +140,7 @@ public:
             width(_width),
             priority(_priority),
             tlLinkNo(-1),
-            valid(true)
-        {
+            valid(true) {
         }
         /// @brief The parent node of this crossing
         const NBNode* node;
@@ -609,7 +608,7 @@ public:
     void removeCrossing(const EdgeVector& edges);
 
     /// @brief discard all current (and optionally future) crossings
-    void discardAllCrossings(bool rejectAll); 
+    void discardAllCrossings(bool rejectAll);
 
     /// @brief get num of crossings from sumo net
     int numCrossingsFromSumoNet() const {
@@ -617,7 +616,7 @@ public:
     }
 
     /// @brief return this junctions pedestrian crossings
-    std::vector<Crossing*> getCrossings() const; 
+    std::vector<Crossing*> getCrossings() const;
     inline const std::vector<Crossing*>& getCrossingsIncludingInvalid() const {
         return myCrossings;
     }

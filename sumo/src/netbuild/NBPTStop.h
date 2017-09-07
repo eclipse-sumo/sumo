@@ -81,7 +81,7 @@ private:
     const std::string myPTStopId;
     Position myPosition;
     std::string myEdgeId;
-    std::map<std::string,std::string> myAdditionalEdgeCandidates;
+    std::map<std::string, std::string> myAdditionalEdgeCandidates;
 public:
     const std::map<std::string, std::string>& getMyAdditionalEdgeCandidates() const;
 private:

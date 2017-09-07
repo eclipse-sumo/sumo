@@ -48,7 +48,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_POI, GNEChange, NULL, 0)
 
 
 /// @brief constructor for creating a POI
-GNEChange_POI::GNEChange_POI(GNENet *net, GNEPOI *POI, bool forward) :
+GNEChange_POI::GNEChange_POI(GNENet* net, GNEPOI* POI, bool forward) :
     GNEChange(net, forward),
     myPOI(POI) {
     myPOI->incRef("GNEChange_POI");
@@ -65,7 +65,7 @@ GNEChange_POI::~GNEChange_POI() {
             WRITE_WARNING("Removing " + toString(SUMO_TAG_POI) + " '" + myPOI->getID() + "' from net");
         }
         // remove POIgon of net
-        if(myNet->removePOI(myPOI->getID()) == false) {
+        if (myNet->removePOI(myPOI->getID()) == false) {
             WRITE_ERROR("Trying to remove non-inserted ''" + myPOI->getID() + "' from net");
         }
     }
@@ -81,8 +81,7 @@ GNEChange_POI::undo() {
         }
         // remove POIgon of net
         myNet->removePOIOfView(myPOI);
-    }
-    else {
+    } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Adding " + toString(SUMO_TAG_POI) + " '" + myPOI->getID() + "' into viewNet");
@@ -102,8 +101,7 @@ GNEChange_POI::redo() {
         }
         // Add POIgon to view
         myNet->insertPOIInView(myPOI);
-    }
-    else {
+    } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Removing " + toString(SUMO_TAG_POI) + " '" + myPOI->getID() + "' from viewNet");
@@ -118,8 +116,7 @@ FXString
 GNEChange_POI::undoName() const {
     if (myForward) {
         return ("Undo create " + toString(SUMO_TAG_POI)).c_str();
-    }
-    else {
+    } else {
         return ("Undo delete " + toString(SUMO_TAG_POI)).c_str();
     }
 }
@@ -129,8 +126,7 @@ FXString
 GNEChange_POI::redoName() const {
     if (myForward) {
         return ("Redo create " + toString(SUMO_TAG_POI)).c_str();
-    }
-    else {
+    } else {
         return ("Redo delete " + toString(SUMO_TAG_POI)).c_str();
     }
 }

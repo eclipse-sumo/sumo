@@ -84,11 +84,11 @@ protected:
      */
     struct NIOSMNode {
         NIOSMNode(long long int _id, double _lon, double _lat)
-                :
-                id(_id), lon(_lon), lat(_lat), ele(0), tlsControlled(false), railwayCrossing(false),
-                ptStopPosition(false), ptStopLength(0), name(""),
-                permissions(SVC_RAIL | SVC_BUS | SVC_TRAM),
-                node(0) { }
+            :
+            id(_id), lon(_lon), lat(_lat), ele(0), tlsControlled(false), railwayCrossing(false),
+            ptStopPosition(false), ptStopLength(0), name(""),
+            permissions(SVC_RAIL | SVC_BUS | SVC_TRAM),
+            node(0) { }
 
         /// @brief The node's id
         const long long int id;
@@ -124,11 +124,11 @@ protected:
      * @brief details on the kind of cycleway along this road
      */
     enum WayType {
-      WAY_NONE = 0,
-      WAY_FORWARD = 1,
-      WAY_BACKWARD = 2,
-      WAY_BOTH = WAY_FORWARD | WAY_BACKWARD,
-      WAY_UNKNOWN = 4
+        WAY_NONE = 0,
+        WAY_FORWARD = 1,
+        WAY_BACKWARD = 2,
+        WAY_BOTH = WAY_FORWARD | WAY_BACKWARD,
+        WAY_UNKNOWN = 4
     };
 
 
@@ -137,13 +137,13 @@ protected:
     struct Edge : public Parameterised {
 
         explicit Edge(long long int _id)
-                :
-                id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN),
-                myCyclewayType(WAY_UNKNOWN), // building of extra lane depends on bikelaneWidth of loaded typemap
-                myBuswayType(WAY_NONE), // buslanes are always built when declared
-                myLayer(0), // layer is non-zero only in conflict areas
-                myCurrentIsRoad(false),
-                myCurrentIsPlatform(false) { }
+            :
+            id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN),
+            myCyclewayType(WAY_UNKNOWN), // building of extra lane depends on bikelaneWidth of loaded typemap
+            myBuswayType(WAY_NONE), // buslanes are always built when declared
+            myLayer(0), // layer is non-zero only in conflict areas
+            myCurrentIsRoad(false),
+            myCurrentIsPlatform(false) { }
 
 
         /// @brief The edge's id
@@ -281,7 +281,7 @@ protected:
          * @param[in] options The options to use
          */
         NodesHandler(std::map<long long int, NIOSMNode*>& toFill, std::set<NIOSMNode*,
-                                                                           CompareNodes>& uniqueNodes,
+                     CompareNodes>& uniqueNodes,
                      const OptionsCont& cont);
 
 
@@ -507,12 +507,12 @@ protected:
          * @brief whether the only allowed or the only forbidden connection is defined
          */
         enum RestrictionType {
-          /// @brief The only valid connection is declared
-                  RESTRICTION_ONLY,
-          /// @brief The only invalid connection is declared
-                  RESTRICTION_NO,
-          /// @brief The relation tag was missing
-                  RESTRICTION_UNKNOWN
+            /// @brief The only valid connection is declared
+            RESTRICTION_ONLY,
+            /// @brief The only invalid connection is declared
+            RESTRICTION_NO,
+            /// @brief The relation tag was missing
+            RESTRICTION_UNKNOWN
         };
         RestrictionType myRestrictionType;
 
@@ -540,8 +540,8 @@ protected:
 
 
         struct NIIPTPlatform {
-          long long int ref;
-          bool isWay;
+            long long int ref;
+            bool isWay;
         };
 
         /// @brief bus stop platforms

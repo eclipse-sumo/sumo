@@ -67,7 +67,7 @@ public:
         ~TLSAttributes();
 
         /// @brief initializes the definitions and corresponding listbox
-        void initTLSAttributes(GNEJunction *junction);
+        void initTLSAttributes(GNEJunction* junction);
 
         /// @brief clear TLS attributes
         void clearTLSAttributes();
@@ -120,10 +120,10 @@ public:
     // ===========================================================================
     // class TLSPhases
     // ===========================================================================
-   /* class TLSPhases {
+    /* class TLSPhases {
 
-    };*/
-    
+     };*/
+
 
 
     /**@brief Constructor
@@ -243,7 +243,7 @@ private:
     FXTextField* myTextFieldJunctionStatus;
 
     /// @brief TLS attributes
-    TLSAttributes *myTLSAttributes;
+    TLSAttributes* myTLSAttributes;
 
     /// @brief groupbox for TLS Definition buttons
     FXGroupBox* myGroupBoxTLSDef;

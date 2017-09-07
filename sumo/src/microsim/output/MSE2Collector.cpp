@@ -73,8 +73,7 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myJamDistanceThreshold(jamDistThreshold),
     myNumberOfEnteredVehicles(0),
     myNumberOfSeenVehicles(0),
-    myNumberOfLeftVehicles(0)
-{
+    myNumberOfLeftVehicles(0) {
     reset();
 
 #ifdef DEBUG_E2_CONSTRUCTOR
@@ -162,8 +161,7 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myJamDistanceThreshold(jamDistThreshold),
     myNumberOfEnteredVehicles(0),
     myNumberOfSeenVehicles(0),
-    myNumberOfLeftVehicles(0)
-{
+    myNumberOfLeftVehicles(0) {
     reset();
 
     for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
@@ -642,7 +640,7 @@ bool
 MSE2Collector::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
     std::cout << "\n" << SIMTIME << " notifyLeave() (detID = " << myID << "on lane '" << myLane->getID() << "')"
-             << "called by vehicle '" << veh.getID() << "'" << std::endl;
+              << "called by vehicle '" << veh.getID() << "'" << std::endl;
 #endif
 
     if (reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
@@ -750,7 +748,7 @@ MSE2Collector::makeVehicleInfo(const SUMOVehicle& veh, const MSLane* enteredLane
               << std::endl;
 #endif
     return new VehicleInfo(veh.getID(), veh.getVehicleType().getID(), veh.getVehicleType().getLength(), veh.getVehicleType().getMinGap(), enteredLane, entryOffset, j,
-               myOffsets[j]-myDetectorLength, distToDetectorEnd, onDetector);
+                           myOffsets[j] - myDetectorLength, distToDetectorEnd, onDetector);
 }
 
 void

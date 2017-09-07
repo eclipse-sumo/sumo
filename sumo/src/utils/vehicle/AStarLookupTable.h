@@ -77,8 +77,7 @@ template<class E, class V>
 class FullLookupTable : public AbstractLookupTable<E, V> {
 public:
     FullLookupTable(const std::string& filename, const int size) :
-        myTable(size)
-    {
+        myTable(size) {
         BinaryInputDevice dev(filename);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -89,11 +88,13 @@ public:
         }
     }
 
-    double lowerBound(const E* from, const E* to, double /*speed*/, double speedFactor, double /*fromEffort*/, double /*toEffort*/) const { 
+    double lowerBound(const E* from, const E* to, double /*speed*/, double speedFactor, double /*fromEffort*/, double /*toEffort*/) const {
         return myTable[from->getNumericalID()][to->getNumericalID()] / speedFactor;
     }
 
-    bool consistent() const { return true; }
+    bool consistent() const {
+        return true;
+    }
 
 private:
     std::vector<std::vector<double> > myTable;
@@ -142,7 +143,7 @@ public:
                     (*ostrm) << lm << "\n";
                 }
             } else {
-                assert(st.size() == 4); 
+                assert(st.size() == 4);
                 const std::string lm = st.get(0);
                 const std::string edge = st.get(1);
                 if (numericID[edge] != (int)myFromLandmarkDists[myLandmarks[lm]].size()) {
@@ -187,7 +188,7 @@ public:
                 } else {
                     throw ProcessError("Not all network edges were found in the lookup table '" + filename + "' for landmark '" + landmarkID + "'.");
                 }
-                std::vector<const E*> routeLM(1, landmark); 
+                std::vector<const E*> routeLM(1, landmark);
                 const double lmCost = router->recomputeCosts(routeLM, defaultVehicle, 0);
                 std::vector<const E*> route;
 #ifdef HAVE_FOX
@@ -254,7 +255,7 @@ public:
                         distFrom = 0;
                         distTo = 0;
                     } else {
-                        std::vector<const E*> routeE(1, edge); 
+                        std::vector<const E*> routeE(1, edge);
                         const double sourceDestCost = lmCost + router->recomputeCosts(routeE, defaultVehicle, 0);
                         // compute from-distance (skip taz-sources and other unreachable edges)
                         if (edge->getPredecessors().size() > 0 && landmark->getSuccessors().size() > 0) {
@@ -280,7 +281,7 @@ public:
         delete ostrm;
     }
 
-    double lowerBound(const E* from, const E* to, double speed, double speedFactor, double fromEffort, double toEffort) const { 
+    double lowerBound(const E* from, const E* to, double speed, double speedFactor, double fromEffort, double toEffort) const {
         double result = from->getDistanceTo(to) / speed;
 #ifdef ASTAR_DEBUG_LOOKUPTABLE
         if (from->getID() == ASTAR_DEBUG_LOOKUPTABLE_FROM) {
@@ -296,7 +297,7 @@ public:
 #ifdef ASTAR_DEBUG_LOOKUPTABLE
                 if (from->getID() == ASTAR_DEBUG_LOOKUPTABLE_FROM && result < bound) {
                     std::cout << "   landmarkTo=" << getLandmark(i) << " result2=" << bound
-                        << " fl=" << fl << " tl=" << tl << "\n";
+                              << " fl=" << fl << " tl=" << tl << "\n";
                 }
 #endif
                 result = MAX2(result, bound);
@@ -308,19 +309,19 @@ public:
 #ifdef ASTAR_DEBUG_LOOKUPTABLE
                 if (from->getID() == ASTAR_DEBUG_LOOKUPTABLE_FROM && result < bound) {
                     std::cout << "   landmarkFrom=" << getLandmark(i) << " result3=" << bound
-                        << " lt=" << lt << " lf=" << lf << "\n";
+                              << " lt=" << lt << " lf=" << lf << "\n";
                 }
 #endif
                 result = MAX2(result, bound);
             }
-            if ((tl >= 0 && fl < 0) 
+            if ((tl >= 0 && fl < 0)
                     || (lf >= 0 && lt < 0)) {
-                // target unreachable. 
+                // target unreachable.
 #ifdef ASTAR_DEBUG_UNREACHABLE
-                std::cout << "   unreachable: from=" << from->getID() << " to=" << to->getID() << " landmark=" << getLandmark(i) << " " 
-                    <<  ((tl >= 0 && fl < 0) ? " (toLandmark)" : " (fromLandmark)")
-                    << " fl=" << fl << " tl=" << tl << " lt=" << lt << " lf=" << lf 
-                    << "\n";
+                std::cout << "   unreachable: from=" << from->getID() << " to=" << to->getID() << " landmark=" << getLandmark(i) << " "
+                          << ((tl >= 0 && fl < 0) ? " (toLandmark)" : " (fromLandmark)")
+                          << " fl=" << fl << " tl=" << tl << " lt=" << lt << " lf=" << lf
+                          << "\n";
 #endif
                 return UNREACHABLE;
             }
@@ -328,7 +329,9 @@ public:
         return result;
     }
 
-    bool consistent() const { return false; }
+    bool consistent() const {
+        return false;
+    }
 
 private:
     std::map<std::string, int> myLandmarks;
@@ -341,7 +344,7 @@ private:
     class WorkerThread : public FXWorkerThread {
     public:
         WorkerThread(FXWorkerThread::Pool& pool,
-            SUMOAbstractRouter<E, V>* router, const V* vehicle)
+                     SUMOAbstractRouter<E, V>* router, const V* vehicle)
             : FXWorkerThread(pool), myRouter(router), myVehicle(vehicle) {}
         virtual ~WorkerThread() {
             delete myRouter;

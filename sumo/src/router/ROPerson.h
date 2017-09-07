@@ -185,10 +185,10 @@ public:
      */
     class Walk : public TripItem {
     public:
-        Walk(const ConstROEdgeVector& _edges, 
-                double departPos = std::numeric_limits<double>::infinity(),
-                double arrivalPos = std::numeric_limits<double>::infinity(),
-                const std::string& _destStop = "")
+        Walk(const ConstROEdgeVector& _edges,
+             double departPos = std::numeric_limits<double>::infinity(),
+             double arrivalPos = std::numeric_limits<double>::infinity(),
+             const std::string& _destStop = "")
             : edges(_edges), dur(-1), v(-1), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
         Walk(const ConstROEdgeVector& edges, const double duration, const double speed,
              const double departPos, const double arrivalPos, const std::string& _destStop)
@@ -249,10 +249,10 @@ public:
         const ROEdge* getDestination() const {
             return to != 0 ? to : myTripItems.back()->getDestination();
         }
-        double getDepartPos(bool replaceDefault=true) const {
+        double getDepartPos(bool replaceDefault = true) const {
             return dep == std::numeric_limits<double>::infinity() && replaceDefault ? 0 : dep;
         }
-        double getArrivalPos(bool replaceDefault=true) const {
+        double getArrivalPos(bool replaceDefault = true) const {
             return arr == std::numeric_limits<double>::infinity() && replaceDefault ? -POSITION_EPS : arr;
         }
         SVCPermissions getModes() const {

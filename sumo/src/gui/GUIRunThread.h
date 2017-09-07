@@ -131,7 +131,7 @@ public:
 protected:
     void makeStep();
 
-    void waitForSnapshots(SUMOTime snapShotTime); 
+    void waitForSnapshots(SUMOTime snapShotTime);
 
 protected:
     /// the loaded simulation network

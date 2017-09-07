@@ -25,7 +25,7 @@
 #include "NBPTStop.h"
 
 NBPTLine::NBPTLine(std::string name)
-        :myName(std::move(name)), myPTLineId(-1), myRef(name) {
+    : myName(std::move(name)), myPTLineId(-1), myRef(name) {
 
 }
 void NBPTLine::addPTStop(NBPTStop* pStop) {
@@ -99,6 +99,6 @@ std::string NBPTLine::getRoute() {
 }
 
 void NBPTLine::addEdgeVector(std::vector<NBEdge*>::iterator fr, std::vector<NBEdge*>::iterator to) {
-    myRoute.insert(myRoute.end(),fr,to);
+    myRoute.insert(myRoute.end(), fr, to);
 
 }

@@ -62,7 +62,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos, const std::string &name, bool friendlyPosition) :
+GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos, const std::string& name, bool friendlyPosition) :
     GNEAdditional(id, viewNet, tag, icon),
     myStartPosRelative(startPos / lane->getLaneParametricLength()),
     myEndPosRelative(endPos / lane->getLaneParametricLength()),
@@ -85,10 +85,10 @@ GNEStoppingPlace::getPositionInView() const {
 
 
 void
-GNEStoppingPlace::moveGeometry(const Position &newPosition) {
+GNEStoppingPlace::moveGeometry(const Position& newPosition) {
     // First we need to change the absolute new positions to a relative positions
     double lenghtDifference = 0;
-    if(myLane->getLaneShapeLength() > 0) {
+    if (myLane->getLaneShapeLength() > 0) {
         lenghtDifference = myLane->getLaneParametricLength() / myLane->getLaneShapeLength();
     }
     double relativePos = newPosition.x() / myLane->getLaneParametricLength() * lenghtDifference;
@@ -111,22 +111,22 @@ GNEStoppingPlace::commitGeometryMoving(const Position& oldPos, GNEUndoList* undo
 }
 
 
-double 
+double
 GNEStoppingPlace::getAbsoluteStartPosition() const {
     return myStartPosRelative * myLane->getLaneParametricLength();
 }
 
 
-double 
+double
 GNEStoppingPlace::getAbsoluteEndPosition() const {
     return myEndPosRelative * myLane->getLaneParametricLength();
 }
 
 
-bool 
+bool
 GNEStoppingPlace::areStoppingPlacesPositionsFixed() const {
     // with friendly position enabled position are "always fixed"
-    if(myFriendlyPosition) {
+    if (myFriendlyPosition) {
         return true;
     } else {
         // floors are needed to avoid precision problems
@@ -143,7 +143,7 @@ GNEStoppingPlace::getParentName() const {
 }
 
 
-void 
+void
 GNEStoppingPlace::setStoppingPlaceGeometry() {
     // Clear all containers
     myShapeRotations.clear();
@@ -159,8 +159,8 @@ GNEStoppingPlace::setStoppingPlaceGeometry() {
     myShape.move2side(1.65 * offsetSign);
 
     // Cut shape using as delimitators fixed start position and fixed end position
-    double startPosFixed = (myStartPosRelative < 0)? 0 : myStartPosRelative;
-    double endPosFixed = (myEndPosRelative > 1)? 1 : myEndPosRelative;
+    double startPosFixed = (myStartPosRelative < 0) ? 0 : myStartPosRelative;
+    double endPosFixed = (myEndPosRelative > 1) ? 1 : myEndPosRelative;
     myShape = myShape.getSubpart(startPosFixed * myShape.length() , endPosFixed * myShape.length());
 
     // Get number of parts of the shape

@@ -181,11 +181,10 @@ public:
          * @param[in] e The edge to which the sorting relates
          * @param[in] n The node to consider
          */
-        explicit edge_opposite_direction_sorter(const NBEdge* const e, const NBNode* const n, bool regardPriority) : 
+        explicit edge_opposite_direction_sorter(const NBEdge* const e, const NBNode* const n, bool regardPriority) :
             myNode(n),
             myEdge(e),
-            myRegardPriority(regardPriority)
-        {
+            myRegardPriority(regardPriority) {
             myAngle = getEdgeAngleAt(e, n);
         }
 

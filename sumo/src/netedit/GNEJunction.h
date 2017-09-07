@@ -171,7 +171,7 @@ public:
     void moveJunctionGeometry2D(Position pos2D);
 
     /// @brief registers completed movement with the undoList
-    void commitGeometryMoving(const Position &oldPos, GNEUndoList* undoList);
+    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /**@brief update shapes of all elements associated to the junction
      * @note this include the adyacent nodes connected by edges

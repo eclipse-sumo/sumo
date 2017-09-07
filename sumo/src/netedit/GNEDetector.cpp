@@ -97,7 +97,7 @@ GNEDetector::setFrequency(const double freq) {
 
 
 void
-GNEDetector::setFilename(const std::string &filename) {
+GNEDetector::setFilename(const std::string& filename) {
     myFilename = filename;
 }
 
@@ -106,7 +106,7 @@ double GNEDetector::getAbsolutePositionOverLane() const {
 }
 
 
-void GNEDetector::moveGeometry(const Position & newPosition) {
+void GNEDetector::moveGeometry(const Position& newPosition) {
     // First we need to change the absolute new position to a relative position
     double lenghtDifference = 0;
     if (myLane->getLaneShapeLength() > 0) {
@@ -120,7 +120,7 @@ void GNEDetector::moveGeometry(const Position & newPosition) {
 }
 
 
-void GNEDetector::commitGeometryMoving(const Position & oldPos, GNEUndoList * undoList) {
+void GNEDetector::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(getAbsolutePositionOverLane()), true, toString(oldPos.x())));
     undoList->p_end();

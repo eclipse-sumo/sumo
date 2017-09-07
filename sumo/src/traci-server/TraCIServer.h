@@ -163,9 +163,9 @@ public:
 
 
     const std::map<MSNet::VehicleState, std::vector<std::string> >& getVehicleStateChanges() const {
-        if(myAmEmbedded) {
+        if (myAmEmbedded) {
             return myVehicleStateChanges;
-        } else if (myCurrentSocket == mySockets.end()){
+        } else if (myCurrentSocket == mySockets.end()) {
             // Requested in context of a subscription update
             return myVehicleStateChanges;
         } else {
@@ -289,7 +289,7 @@ private:
     public:
         /// @brief constructor
         SocketInfo(tcpip::Socket* socket, SUMOTime t)
-        : targetTime(t), socket(socket) {}
+            : targetTime(t), socket(socket) {}
         /// @brief destructor
         ~SocketInfo() {
             delete socket;

@@ -64,7 +64,7 @@ GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent) :
 }
 
 
-GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<std::string> edges, const RGBColor &color) :
+GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<std::string> edges, const RGBColor& color) :
     myCalibratorParent(calibratorParent), myRouteID(calibratorParent->generateRouteID()), myColor(color) {
     // set values using set functions to avoid non-valid values
     setRouteID(routeID);
@@ -72,7 +72,7 @@ GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, std::str
 }
 
 
-GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<GNEEdge*> edges, const RGBColor &color) :
+GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<GNEEdge*> edges, const RGBColor& color) :
     myCalibratorParent(calibratorParent), myRouteID(""), myColor(color) {
     // set values using set functions to avoid non-valid values
     setRouteID(routeID);
@@ -170,13 +170,13 @@ GNECalibratorRoute::setEdges(const std::string& edgeIDs) {
 
 
 bool
-GNECalibratorRoute::setColor(const RGBColor &color) {
+GNECalibratorRoute::setColor(const RGBColor& color) {
     myColor = color;
     return true;
 }
 
 
-bool 
+bool
 GNECalibratorRoute::setColor(std::string color) {
     if (GNEAttributeCarrier::canParse<RGBColor>(color)) {
         return setColor(GNEAttributeCarrier::parse<RGBColor>(color));

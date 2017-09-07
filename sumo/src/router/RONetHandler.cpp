@@ -277,7 +277,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     }
     from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane]);
     from->addSuccessor(to, dir);
-    if (viaID != "") { 
+    if (viaID != "") {
         ROEdge* via = myNet.getEdge(viaID.substr(0, viaID.rfind('_')));
         if (via == 0) {
             throw ProcessError("unknown via-edge '" + viaID + "' in connection");

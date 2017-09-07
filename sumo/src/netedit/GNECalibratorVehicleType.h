@@ -102,7 +102,7 @@ public:
     double getSpeedDev() const;
 
     /// @brief get color
-    const RGBColor &getColor() const;
+    const RGBColor& getColor() const;
 
     /// @brief get VClass
     SUMOVehicleClass getVClass() const;
@@ -247,7 +247,7 @@ public:
     /**@brief set color
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setColor(const RGBColor &color);
+    bool setColor(const RGBColor& color);
 
     /**@brief set color (String version)
     * @return true if was sucesfully set, or false if value isn't valid

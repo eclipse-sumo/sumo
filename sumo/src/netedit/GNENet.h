@@ -333,7 +333,7 @@ public:
      * @param[in] failHard Whether attempts to retrieve a nonexisting edge should result in an exception
      * @throws UnknownElement
      */
-    GNEEdge* retrieveEdge(GNEJunction *from, GNEJunction *to, bool failHard = true);
+    GNEEdge* retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard = true);
 
     /**@brief get the attribute carriers based on GlIDs
      * @param[in] ids The set of ids for which to retrive the ACs
@@ -371,7 +371,7 @@ public:
 
     /**@brief save additional elements of the network
      * @param[in] filename name of the file in wich save additionals
-     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
+     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled
      */
     void saveAdditionals(const std::string& filename, bool volatileOptionsEnabled = false);
 
@@ -427,7 +427,7 @@ public:
 
     /// @brief check if additional are saved
     bool isAdditionalsSaved() const;
-    
+
     /// @brief check if shapes  are saved
     bool isShapesSaved() const;
 
@@ -578,7 +578,7 @@ public:
      * @param[in] junction junction to be edited
      * @return created GNEPoly
      */
-    GNEPoly* addPolygonForEditShapes(GNEJunction *junction);
+    GNEPoly* addPolygonForEditShapes(GNEJunction* junction);
 
     /**@brief Removes a polygon from the container
      * @param[in] id The id of the polygon
@@ -606,7 +606,7 @@ public:
     GNEPoly* retrievePolygon(const std::string& id, bool failHard = true) const;
 
     /// @brief change Polygon ID
-    void changePolygonID(GNEPoly* poly, const std::string &OldID);
+    void changePolygonID(GNEPoly* poly, const std::string& OldID);
 
     /**@brief Builds a POI using the given values and adds it to the container
      * @param[in] id The name of the POI
@@ -620,7 +620,7 @@ public:
      * @param[in] height The height of the POI image
      * @return whether the poi could be added
      */
-    bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, 
+    bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer,
                 double angle, const std::string& imgFile, const Position& pos, double width, double height,
                 bool ignorePruning = false);
 
@@ -650,18 +650,18 @@ public:
     GNEPOI* retrievePOI(const std::string& id, bool failHard = true) const;
 
     /// @brief change POI ID
-    void changePOIID(GNEPOI* POI, const std::string &OldID);
+    void changePOIID(GNEPOI* POI, const std::string& OldID);
 
     /**@brief save shapes elements of the network
      * @param[in] filename name of the file in wich save shapes
      */
-    void saveShapes(const std::string &filename);
+    void saveShapes(const std::string& filename);
 
     /// @brief get number of shapes
     int getNumberOfShapes() const;
 
     /// @brief Check if shape item is selected
-    bool isShapeSelected(SumoXMLTag tag, const std::string &ID) const;
+    bool isShapeSelected(SumoXMLTag tag, const std::string& ID) const;
 
 protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
@@ -744,9 +744,9 @@ private:
     void remapEdge(GNEEdge* oldEdge, GNEJunction* from, GNEJunction* to, GNEUndoList* undoList, bool keepEndpoints = false);
 
     /// @brief return true if there are already a Junction in the given position, false in other case
-    bool checkJunctionPosition(const Position &pos);
+    bool checkJunctionPosition(const Position& pos);
 
-    static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList); 
+    static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList);
 
     /// @brief the z boundary (stored in the x-coordinate), values of 0 are ignored
     Boundary myZBoundary;
@@ -768,13 +768,13 @@ private:
         ~GNEChange_ReplaceEdgeInTLS() {};
 
         /// @brief undo name
-        FXString undoName() const { 
-            return "Redo replace in TLS"; 
+        FXString undoName() const {
+            return "Redo replace in TLS";
         }
 
         /// @brief get Redo name
-        FXString redoName() const { 
-            return "Undo replace in TLS"; 
+        FXString redoName() const {
+            return "Undo replace in TLS";
         }
 
         /// @brief undo action
@@ -788,7 +788,9 @@ private:
         }
 
         /// @brief wether original and new value differ
-        bool trueChange() { return myReplaced != myBy; }
+        bool trueChange() {
+            return myReplaced != myBy;
+        }
 
     private:
         /// @brief container for traffic light logic

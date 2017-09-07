@@ -305,7 +305,7 @@ public:
      * @return Whether the stop could be added
      */
     virtual bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0, bool collision = false,
-            ConstMSEdgeVector::const_iterator* searchStart = 0) = 0;
+                         ConstMSEdgeVector::const_iterator* searchStart = 0) = 0;
 
 
     /**

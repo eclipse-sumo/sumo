@@ -76,10 +76,10 @@ public:
          * @param[in] durationArg The duration of the phase
          * @param[in] stateArg Signals per link
          */
-        PhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurArg, SUMOTime maxDurArg) : 
-            duration(durationArg), 
-            minDur(minDurArg), 
-            maxDur(maxDurArg), 
+        PhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurArg, SUMOTime maxDurArg) :
+            duration(durationArg),
+            minDur(minDurArg),
+            maxDur(maxDurArg),
             state(stateArg) { }
 
         /// @brief Destructor
@@ -159,7 +159,7 @@ public:
      *
      * Joins equal steps.
      */
-    void closeBuilding(bool checkVarDurations=true);
+    void closeBuilding(bool checkVarDurations = true);
 
 
     /** @brief Returns the duration of the complete cycle

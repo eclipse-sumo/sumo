@@ -52,7 +52,7 @@ public:
      * @param[in] dawdle The driver imperfection
      * @param[in] tau The driver's desired headway
      */
-    MSCFModel_SmartSK(const MSVehicleType* vtype, double accel, 
+    MSCFModel_SmartSK(const MSVehicleType* vtype, double accel,
                       double decel, double emergencyDecel, double apparentDecel,
                       double dawdle, double headwayTime,
                       double tmp1, double tmp2, double tmp3, double tmp4, double tmp5);

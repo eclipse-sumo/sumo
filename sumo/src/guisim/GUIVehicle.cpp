@@ -115,8 +115,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getLateralPositionOnLane));
     ret->mkItem("speed [m/s]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getSpeed));
-    ret->mkItem("lateral speed [m/s]", true, 
-            new FunctionBinding<MSAbstractLaneChangeModel, double>(&getLaneChangeModel(), &MSAbstractLaneChangeModel::getSpeedLat));
+    ret->mkItem("lateral speed [m/s]", true,
+                new FunctionBinding<MSAbstractLaneChangeModel, double>(&getLaneChangeModel(), &MSAbstractLaneChangeModel::getSpeedLat));
     ret->mkItem("acceleration [m/s^2]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getAcceleration));
     ret->mkItem("angle [degree]", true,
@@ -761,7 +761,7 @@ GUIVehicle::isSelected() const {
     return gSelected.isSelected(GLO_VEHICLE, getGlID());
 }
 
-int 
+int
 GUIVehicle::getRightSublaneOnEdge() const {
     const double rightSide = getRightSideOnEdge();
     const std::vector<double>& sublaneSides = myLane->getEdge().getSubLaneSides();

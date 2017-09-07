@@ -253,7 +253,7 @@ MSLaneChanger::change() {
 #ifndef NO_TRACI
     if (vehicle->isRemoteControlled()) {
         registerUnchanged(vehicle);
-        return false; 
+        return false;
     }
 #endif
     vehicle->updateBestLanes(); // needed?
@@ -309,7 +309,7 @@ MSLaneChanger::change() {
     if (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
             && changeOpposite(leader)) {
         return true;
-    } 
+    }
     registerUnchanged(vehicle);
     return false;
 }
@@ -859,9 +859,9 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
             if (leadLead.first == 0) {
                 foundSpaceAhead = true;
             } else {
-                const double maxLookAhead = (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY 
-                        ? OPPOSITE_OVERTAKING_MAX_LOOKAHEAD_EMERGENCY 
-                        : OPPOSITE_OVERTAKING_MAX_LOOKAHEAD);
+                const double maxLookAhead = (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
+                                             ? OPPOSITE_OVERTAKING_MAX_LOOKAHEAD_EMERGENCY
+                                             : OPPOSITE_OVERTAKING_MAX_LOOKAHEAD);
                 const double requiredSpace = (requiredSpaceAfterLeader
                                               + vehicle->getCarFollowModel().getSecureGap(overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel()));
                 if (leadLead.second > requiredSpace) {
@@ -974,9 +974,9 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
             // do not overtake past a minor link or turn
             if (*(it - 1) != 0) {
                 MSLink* link = MSLinkContHelper::getConnectingLink(**(it - 1), **it);
-                if (link == 0 || link->getState() == LINKSTATE_ZIPPER 
+                if (link == 0 || link->getState() == LINKSTATE_ZIPPER
                         || (link->getDirection() != LINKDIR_STRAIGHT && vehicle->getVehicleType().getVehicleClass() != SVC_EMERGENCY)
-                        || (!link->havePriority()  
+                        || (!link->havePriority()
                             // consider traci-influence
                             && (!vehicle->hasInfluencer() || vehicle->getInfluencer().getRespectJunctionPriority())
                             // consider junction model parameters

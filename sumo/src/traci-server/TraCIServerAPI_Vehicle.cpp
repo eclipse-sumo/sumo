@@ -996,8 +996,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     MSNet::getInstance()->getInsertionControl().alreadyDeparted(v);
 
                 }
-                l->forceVehicleInsertion(v, position, 
-                        v->hasDeparted() ? MSMoveReminder::NOTIFICATION_TELEPORT : MSMoveReminder::NOTIFICATION_DEPARTED);
+                l->forceVehicleInsertion(v, position,
+                                         v->hasDeparted() ? MSMoveReminder::NOTIFICATION_TELEPORT : MSMoveReminder::NOTIFICATION_DEPARTED);
             }
             break;
             case VAR_SPEED: {
@@ -1616,9 +1616,9 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, boo
 #ifdef DEBUG_MOVEXY_ANGLE
             std::cout << lane->getID() << " lAngle:" << langle << " lLength=" << lane->getLength()
                       << " angleDiff:" << angleDiff
-                      << " off:" << off 
-                      << " pDist=" << perpendicularDist 
-                      << " dist=" << dist 
+                      << " off:" << off
+                      << " pDist=" << perpendicularDist
+                      << " dist=" << dist
                       << " dist2=" << dist2
                       << "\n";
             std::cout << lane->getID() << " param=" << lane->getParameter(SUMO_PARAM_ORIGID, lane->getID()) << " origID='" << origID << "\n";

@@ -76,7 +76,7 @@
 #define MIN_WEAVE_LENGTH 20.0
 
 //#define DEBUG_SMOOTH_GEOM
-//#define DEBUG_PED_STRUCTURES 
+//#define DEBUG_PED_STRUCTURES
 #define DEBUGCOND true
 
 // ===========================================================================
@@ -1636,7 +1636,7 @@ NBNode::checkIsRemovable() const {
     return checkIsRemovableReporting(reason);
 }
 
-bool 
+bool
 NBNode::checkIsRemovableReporting(std::string& reason) const {
     // check whether this node is included in a traffic light or crossing
     if (myTrafficLights.size() != 0) {
@@ -2043,7 +2043,7 @@ NBNode::buildCrossingsAndWalkingAreas() {
     }
 }
 
-std::vector<NBNode::Crossing*> 
+std::vector<NBNode::Crossing*>
 NBNode::getCrossings() const {
     std::vector<Crossing*> result;
     for (auto c : myCrossings) {
@@ -2061,7 +2061,7 @@ NBNode::getCrossings() const {
 }
 
 
-void 
+void
 NBNode::discardAllCrossings(bool rejectAll) {
     for (auto c : myCrossings) {
         delete c;
@@ -2069,7 +2069,7 @@ NBNode::discardAllCrossings(bool rejectAll) {
     myCrossings.clear();
     // also discard all further crossings
     if (rejectAll) {
-        myDiscardAllCrossings = true; 
+        myDiscardAllCrossings = true;
     }
 }
 
@@ -2490,7 +2490,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
     std::vector<Crossing*> validCrossings = getCrossings();
     for (std::vector<Crossing*>::iterator it = validCrossings.begin(); it != validCrossings.end(); ++it) {
         Crossing& prev = **it;
-        Crossing& next = (it !=  validCrossings.begin() ? **(it - 1) : **(validCrossings.end() - 1));
+        Crossing& next = (it !=  validCrossings.begin() ? **(it - 1) :** (validCrossings.end() - 1));
         if (gDebugFlag1) {
             std::cout << "  checkIntermediate: prev=" << prev.id << " next=" << next.id << " prev.nextWA=" << prev.nextWalkingArea << "\n";
         }

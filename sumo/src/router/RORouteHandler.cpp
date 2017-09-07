@@ -181,7 +181,7 @@ RORouteHandler::myStartElement(int element,
             if (attrs.hasAttribute(SUMO_ATTR_EDGES) || attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
                 // XXX allow --repair?
                 bool ok = true;
-                if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) { 
+                if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
                     const std::string routeID = attrs.get<std::string>(SUMO_ATTR_ROUTE, myVehicleParameter->id.c_str(), ok);
                     RORouteDef* routeDef = myNet.getRouteDef(routeID);
                     const RORoute* route = routeDef != 0 ? routeDef->getFirstRoute() : 0;
@@ -189,7 +189,7 @@ RORouteHandler::myStartElement(int element,
                         throw ProcessError("The route '" + routeID + "' for walk of person '" + myVehicleParameter->id + "' is not known.");
                     }
                     myActiveRoute = route->getEdgeVector();
-                } else { 
+                } else {
                     myActiveRoute.clear();
                     parseEdges(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, " walk for person '" + myVehicleParameter->id + "'");
                 }
@@ -206,11 +206,11 @@ RORouteHandler::myStartElement(int element,
                 double arrivalPos = std::numeric_limits<double>::infinity();
                 if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
                     departPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_DEPARTPOS, objId, myActiveRoute.front()->getLength(),
-                        attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, objId, ok));
+                                attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, objId, ok));
                 }
                 if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
                     arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, objId, myActiveRoute.back()->getLength(),
-                        attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, objId, ok));
+                                 attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, objId, ok));
                 }
                 const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, objId, ok, "");
                 if (!ok) {
@@ -739,11 +739,11 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     double arrivalPos = std::numeric_limits<double>::infinity();
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
         departPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_DEPARTPOS, id, from->getLength(),
-                attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, id, ok));
+                    attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, id, ok));
     }
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
         arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, id, to->getLength(),
-                attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, id, ok));
+                     attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, id, ok));
     }
     SVCPermissions modeSet = 0;
     for (StringTokenizer st(modes); st.hasNext();) {

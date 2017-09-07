@@ -694,15 +694,15 @@ TraCITestClient::testAPI() {
     answerLog << "    getLinks:\n";
     for (int i = 0; i < (int)connections.size(); ++i) {
         const TraCIConnection& c = connections[i];
-        answerLog << "    approachedLane=" << c.approachedLane 
-            << " hasPrio=" << c.hasPrio
-            << " isOpen=" << c.isOpen
-            << " hasFoe=" << c.hasFoe
-            << " approachedInternal=" << c.approachedInternal
-            << " state=" << c.state
-            << " direction=" << c.direction
-            << " length=" << c.length
-            << "\n";
+        answerLog << "    approachedLane=" << c.approachedLane
+                  << " hasPrio=" << c.hasPrio
+                  << " isOpen=" << c.isOpen
+                  << " hasFoe=" << c.hasFoe
+                  << " approachedInternal=" << c.approachedInternal
+                  << " state=" << c.state
+                  << " direction=" << c.direction
+                  << " length=" << c.length
+                  << "\n";
     }
 
     // route
@@ -735,7 +735,7 @@ TraCITestClient::testAPI() {
     vehicletype.setLateralAlignment("t1", "compact");
     answerLog << "    getLateralAlignment: " << vehicletype.getLateralAlignment("t1") << "\n";
     answerLog << "    copy type 't1' to 't1_copy' and set accel to 100.\n";
-    vehicletype.copy("t1","t1_copy");
+    vehicletype.copy("t1", "t1_copy");
     answerLog << "    getIDList: " << joinToString(vehicletype.getIDList(), " ") << "\n";
     vehicletype.setAccel("t1_copy", 100.);
     answerLog << "    getAccel('t1'): " << vehicletype.getAccel("t1") << "\n";
@@ -895,11 +895,11 @@ TraCITestClient::testAPI() {
         answerLog << "      subID=" << logics[i].subID << " type=" << logics[i].type << " phase=" << logics[i].currentPhaseIndex << "\n";
         answerLog << "      params=" << joinToString(logics[i].subParameter, " ", ":") << "\n";
         for (int j = 0; j < (int)logics[i].phases.size(); ++j) {
-            answerLog << "         phase=" << logics[i].phases[j].phase 
-                << " dur=" << logics[i].phases[j].duration
-                << " minDur=" << logics[i].phases[j].duration1
-                << " maxDur=" << logics[i].phases[j].duration2
-                << "\n";
+            answerLog << "         phase=" << logics[i].phases[j].phase
+                      << " dur=" << logics[i].phases[j].duration
+                      << " minDur=" << logics[i].phases[j].duration1
+                      << " maxDur=" << logics[i].phases[j].duration2
+                      << "\n";
         }
     }
     answerLog << "  load:\n";

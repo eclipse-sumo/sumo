@@ -90,7 +90,7 @@ GNEJunction::~GNEJunction() {
             delete *it;
         }
     }
-    
+
     if (myAmResponsible) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -132,7 +132,7 @@ GNEJunction::rebuildGNECrossings() {
             retrievedCrossings.push_back(retrievedGNECrossing);
             // check if previously this GNECrossings exists, and if true, remove it from myGNECrossings
             std::vector<GNECrossing*>::iterator retrievedExists = std::find(myGNECrossings.begin(), myGNECrossings.end(), retrievedGNECrossing);
-            if(retrievedExists != myGNECrossings.end()) {
+            if (retrievedExists != myGNECrossings.end()) {
                 myGNECrossings.erase(retrievedExists);
                 // update geometry of retrieved crossing
                 retrievedGNECrossing->updateGeometry();
@@ -141,7 +141,7 @@ GNEJunction::rebuildGNECrossings() {
                 retrievedGNECrossing->incRef();
             }
         }
-         // delete non retrieved GNECrossings
+        // delete non retrieved GNECrossings
         for (std::vector<GNECrossing*>::const_iterator it = myGNECrossings.begin(); it != myGNECrossings.end(); it++) {
             (*it)->decRef();
             if ((*it)->unreferenced()) {
@@ -152,7 +152,7 @@ GNEJunction::rebuildGNECrossings() {
                 delete *it;
             }
         }
-        // copy retrieved (existent and created) GNECrossigns to myGNECrossings 
+        // copy retrieved (existent and created) GNECrossigns to myGNECrossings
         myGNECrossings = retrievedCrossings;
     }
 }
@@ -266,7 +266,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 Position pos = myNBNode.getPosition();
                 glTranslated(pos.x(), pos.y(), getType() - 0.05);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
-                if(s.scale >= 10) {
+                if (s.scale >= 10) {
                     GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 32);
                 } else if (s.scale >= 2) {
                     GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 16);
@@ -472,7 +472,7 @@ GNEJunction::moveJunctionGeometry2D(Position pos2D) {
 }
 
 void
-GNEJunction::commitGeometryMoving(const Position &oldPos, GNEUndoList* undoList) {
+GNEJunction::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     if (isValid(SUMO_ATTR_POSITION, toString(myNBNode.getPosition()))) {
         undoList->p_begin("position of " + toString(getTag()));
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myNBNode.getPosition()), true, toString(oldPos)));
@@ -622,8 +622,7 @@ GNEJunction::removeEdgeFromCrossings(GNEEdge* edge, GNEUndoList* undoList) {
             // delete crossing if this is their last edge
             if ((c->getNBCrossing()->edges.size() == 1) && (c->getNBCrossing()->edges.front() == edge->getNBEdge())) {
                 myNet->deleteCrossing(c, undoList);
-            }
-            else {
+            } else {
                 // remove this edge of the edge's attribute of crossing (note: This can invalidate the crossing)
                 std::vector<std::string> edges = GNEAttributeCarrier::parse<std::vector<std::string>>(c->getAttribute(SUMO_ATTR_EDGES));
                 edges.erase(std::find(edges.begin(), edges.end(), edge->getID()));
@@ -640,14 +639,14 @@ GNEJunction::isLogicValid() {
 }
 
 
-GNECrossing* 
+GNECrossing*
 GNEJunction::retrieveGNECrossing(NBNode::Crossing* crossing, bool createIfNoExist) {
     for (std::vector<GNECrossing*>::iterator i = myGNECrossings.begin(); i != myGNECrossings.end(); ++i) {
         if ((*i)->getNBCrossing() == crossing) {
             return *i;
         }
     }
-    if(createIfNoExist) {
+    if (createIfNoExist) {
         // create new GNECrossing
         GNECrossing* createdGNECrossing = new GNECrossing(this, crossing);
         // show extra information for tests

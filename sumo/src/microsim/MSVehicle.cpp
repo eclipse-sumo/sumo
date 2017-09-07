@@ -252,8 +252,8 @@ MSVehicle::Influencer::Influencer() :
     mySublaneLC(LC_NOCONFLICT),
     myTraciLaneChangePriority(LCP_URGENT),
     myTraCISignals(-1),
-    myRoutingMode(0)
-{ }
+    myRoutingMode(0) {
+}
 
 
 MSVehicle::Influencer::~Influencer() {}
@@ -539,7 +539,7 @@ MSVehicle::Influencer::implicitDeltaPosVTD(const MSVehicle* veh) {
 }
 
 
-SUMOAbstractRouter<MSEdge, SUMOVehicle>& 
+SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSVehicle::Influencer::getRouterTT() const {
     if (myRoutingMode == 1) {
         return MSDevice_Routing::getRouterTT();
@@ -846,12 +846,12 @@ MSVehicle::getPositionAlongBestLanes(double offset) const {
 
     while (offset > 0) {
         // take into account lengths along internal lanes
-        while (lane->isInternal() && offset > 0){
-            if (offset > lane->getLength()-pos) {
-                offset -= lane->getLength()-pos;
+        while (lane->isInternal() && offset > 0) {
+            if (offset > lane->getLength() - pos) {
+                offset -= lane->getLength() - pos;
                 lane = lane->getLinkCont()[0]->getViaLaneOrLane();
                 pos = 0.;
-                if (lane==0) {
+                if (lane == 0) {
                     success = false;
                     offset = 0.;
                 }
@@ -861,20 +861,22 @@ MSVehicle::getPositionAlongBestLanes(double offset) const {
             }
         }
         // set nextBestLane to next non-internal lane
-        while(nextBestLane!=bestLanes.end() && *nextBestLane==0) ++nextBestLane;
+        while (nextBestLane != bestLanes.end() && *nextBestLane == 0) {
+            ++nextBestLane;
+        }
         if (offset > 0) {
             assert(!lane->isInternal());
-            assert(lane==*nextBestLane);
-            if (offset > lane->getLength()-pos) {
-                offset -= lane->getLength()-pos;
+            assert(lane == *nextBestLane);
+            if (offset > lane->getLength() - pos) {
+                offset -= lane->getLength() - pos;
                 ++nextBestLane;
-                assert(nextBestLane==bestLanes.end() || *nextBestLane!=0);
-                if (nextBestLane==bestLanes.end()) {
+                assert(nextBestLane == bestLanes.end() || *nextBestLane != 0);
+                if (nextBestLane == bestLanes.end()) {
                     success = false;
                     offset = 0.;
                 } else {
                     MSLink* link = lane->getLinkTo(*nextBestLane);
-                    assert(link!=0);
+                    assert(link != 0);
                     lane = link->getViaLaneOrLane();
                     pos = 0.;
                 }
@@ -886,15 +888,15 @@ MSVehicle::getPositionAlongBestLanes(double offset) const {
 
     }
 
-    if (success){
-        return lane->geometryPositionAtOffset(pos,-getLateralPositionOnLane());
+    if (success) {
+        return lane->geometryPositionAtOffset(pos, -getLateralPositionOnLane());
     } else {
         return Position::INVALID;
     }
 }
 
 
-Position 
+Position
 MSVehicle::validatePosition(Position result, double offset) const {
     int furtherIndex = 0;
     while (result == Position::INVALID) {
@@ -996,7 +998,7 @@ MSVehicle::getBackPosition() const {
 // ------------
 bool
 MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset, bool collision,
-        MSRouteIterator* searchStart) {
+                   MSRouteIterator* searchStart) {
     Stop stop;
     stop.lane = MSLane::dictionary(stopPar.lane);
     if (!stop.lane->allowsVehicleClass(myType->getVehicleClass())) {
@@ -1647,8 +1649,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 std::cout << SIMTIME << " adapt to pedestrians on lane=" << lane->getID() << " relPos=" << relativePos << "\n";
             }
 #endif
-            PersonDist leader = MSPModel::getModel()->nextBlocking(lane, relativePos, 
-                    getRightSideOnLane(), getRightSideOnLane() + getVehicleType().getWidth(), ceil(getSpeed() / cfModel.getMaxDecel()));
+            PersonDist leader = MSPModel::getModel()->nextBlocking(lane, relativePos,
+                                getRightSideOnLane(), getRightSideOnLane() + getVehicleType().getWidth(), ceil(getSpeed() / cfModel.getMaxDecel()));
             if (leader.first != 0) {
                 const double stopSpeed = cfModel.stopSpeed(this, getSpeed(), leader.second - getVehicleType().getMinGap());
                 v = MIN2(v, stopSpeed);
@@ -1661,7 +1663,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 
         // process stops
-        if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge() && !myStops.begin()->reached 
+        if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge() && !myStops.begin()->reached
                 // ignore stops that occur later in a looped route
                 && myStops.front().edge == myCurrEdge + view) {
             // we are approaching a stop on the edge; must not drive further
@@ -1710,10 +1712,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                  && getVehicleType().getWidth() <= lane->getEdge().getWidth()
                  // this is the exit link of a junction. The normal edge should support the shadow
                  && ((getLaneChangeModel().getShadowLane((*link)->getLane()) == 0)
-                  // the internal lane after an internal junction has no parallel lane. make sure there is no shadow before continuing
-                  || (lane->getEdge().isInternal() && lane->getIncomingLanes()[0].lane->getEdge().isInternal()))
+                     // the internal lane after an internal junction has no parallel lane. make sure there is no shadow before continuing
+                     || (lane->getEdge().isInternal() && lane->getIncomingLanes()[0].lane->getEdge().isInternal()))
                  // ignore situations where the shadow lane is part of a double-connection with the current lane
-                 && (getLaneChangeModel().getShadowLane() == 0 
+                 && (getLaneChangeModel().getShadowLane() == 0
                      || getLaneChangeModel().getShadowLane()->getLinkCont().size() == 0
                      || getLaneChangeModel().getShadowLane()->getLinkCont().front()->getLane() != (*link)->getLane())
                 )) {
@@ -1806,11 +1808,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             v = MIN2(va, v);
 #ifdef DEBUG_EXEC_MOVE
             if (DEBUG_COND) std::cout
-                << "   ignoreRed spent=" << STEPS2TIME(t - (*link)->getLastStateChange())
-                    << " redSpeed=" << redSpeed
-                    << " va=" << va
-                    << " v=" << v
-                    << "\n";
+                        << "   ignoreRed spent=" << STEPS2TIME(t - (*link)->getLastStateChange())
+                        << " redSpeed=" << redSpeed
+                        << " va=" << va
+                        << " v=" << v
+                        << "\n";
 #endif
         }
 
@@ -1947,9 +1949,9 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
     if (getLaneChangeModel().getCommittedSpeed() > 0) {
         v = MIN2(v, getLaneChangeModel().getCommittedSpeed());
         vLinkPass = MIN2(vLinkPass, getLaneChangeModel().getCommittedSpeed());
-#ifdef DEBUG_PLAN_MOVE
+    #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) std::cout << "   hasCommitted=" << getLaneChangeModel().getCommittedSpeed() << "\n";
-#endif
+    #endif
         return;
     }
     */
@@ -2111,7 +2113,7 @@ MSVehicle::executeMove() {
         MSLink* link = (*i).myLink;
 
 #ifdef DEBUG_EXEC_MOVE
-        if (DEBUG_COND) { 
+        if (DEBUG_COND) {
             std::cout
                     << SIMTIME
                     << " veh=" << getID()
@@ -2132,7 +2134,7 @@ MSVehicle::executeMove() {
             // vehicles should brake when running onto a yellow light if the distance allows to halt in front
             const bool yellow = link->haveYellow();
             const bool canBrake = ((*i).myDistance > getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.)
-                    ||(MSGlobals::gSemiImplicitEulerUpdate && myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel())));
+                                   || (MSGlobals::gSemiImplicitEulerUpdate && myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel())));
             const bool ignoreRedLink = ignoreRed(link, canBrake);
             if (yellow && canBrake && !ignoreRedLink) {
                 vSafe = (*i).myVLinkWait;
@@ -2147,13 +2149,13 @@ MSVehicle::executeMove() {
             const bool influencerPrio = (myInfluencer != 0 && !myInfluencer->getRespectJunctionPriority());
 #endif
             std::vector<const SUMOVehicle*> collectFoes;
-            bool opened = (yellow || influencerPrio 
-                    || link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
-                                       getVehicleType().getLength(), getImpatience(),
-                                       getCarFollowModel().getMaxDecel(),
-                                       getWaitingTime(), getLateralPositionOnLane(),
-                                       ls == LINKSTATE_ZIPPER ? &collectFoes : 0,
-                                       ignoreRedLink));
+            bool opened = (yellow || influencerPrio
+                           || link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
+                                           getVehicleType().getLength(), getImpatience(),
+                                           getCarFollowModel().getMaxDecel(),
+                                           getWaitingTime(), getLateralPositionOnLane(),
+                                           ls == LINKSTATE_ZIPPER ? &collectFoes : 0,
+                                           ignoreRedLink));
             if (opened && getLaneChangeModel().getShadowLane() != 0) {
                 MSLink* parallelLink = (*i).myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
                 if (parallelLink != 0) {
@@ -2167,12 +2169,12 @@ MSVehicle::executeMove() {
 #ifdef DEBUG_EXEC_MOVE
                     if (DEBUG_COND) {
                         std::cout << SIMTIME
-                            << " veh=" << getID()
-                            << " shadowLane=" << getLaneChangeModel().getShadowLane()->getID()
-                            << " shadowDir=" << getLaneChangeModel().getShadowDirection()
-                            << " parallelLink=" << (parallelLink == 0 ? "NULL" : parallelLink->getViaLaneOrLane()->getID())
-                            << " opened=" << opened
-                            << "\n";
+                                  << " veh=" << getID()
+                                  << " shadowLane=" << getLaneChangeModel().getShadowLane()->getID()
+                                  << " shadowDir=" << getLaneChangeModel().getShadowDirection()
+                                  << " parallelLink=" << (parallelLink == 0 ? "NULL" : parallelLink->getViaLaneOrLane()->getID())
+                                  << " opened=" << opened
+                                  << "\n";
                     }
 #endif
                 }
@@ -3743,7 +3745,7 @@ MSVehicle::setBlinkerInformation() {
     int state = getLaneChangeModel().getOwnState();
     // do not set blinker for sublane changes or when blocked from changing to the right
     const bool blinkerManoeuvre = (((state & LCA_SUBLANE) == 0) && (
-            (state & LCA_KEEPRIGHT) == 0 || (state & LCA_BLOCKED) == 0));
+                                       (state & LCA_KEEPRIGHT) == 0 || (state & LCA_BLOCKED) == 0));
     if ((state & LCA_LEFT) != 0 && blinkerManoeuvre) {
         switchOnSignal(VEH_SIGNAL_BLINKER_LEFT);
     } else if ((state & LCA_RIGHT) != 0 && blinkerManoeuvre) {
@@ -4324,7 +4326,7 @@ MSVehicle::Stop::getEndPos(const SUMOVehicle& veh) const {
 }
 
 
-bool 
+bool
 MSVehicle::keepClear(const MSLink* link) const {
     if (link->hasFoes() && link->keepClear() /* && item.myLink->willHaveBlockedFoe()*/) {
         const double keepClearTime = getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, -1);
@@ -4336,7 +4338,7 @@ MSVehicle::keepClear(const MSLink* link) const {
 }
 
 
-bool 
+bool
 MSVehicle::ignoreRed(const MSLink* link, bool canBrake) const {
     if ((myInfluencer != 0 && !myInfluencer->getEmergencyBrakeRedLight())) {
         return true;
@@ -4356,13 +4358,13 @@ MSVehicle::ignoreRed(const MSLink* link, bool canBrake) const {
         assert(link->getTLLogic() != 0);
         const double redDuration = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - link->getLastStateChange());
 #ifdef DEBUG_IGNORE_RED
-    if (DEBUG_COND) {
-        std::cout 
-            // << SIMTIME << " veh=" << getID() << " link=" << link->getViaLaneOrLane()->getID() 
-            << "   ignoreRedTime=" << ignoreRedTime
-            << " spentRed=" << redDuration
-            << " canBrake=" << canBrake << "\n";
-    }
+        if (DEBUG_COND) {
+            std::cout
+            // << SIMTIME << " veh=" << getID() << " link=" << link->getViaLaneOrLane()->getID()
+                    << "   ignoreRedTime=" << ignoreRedTime
+                    << " spentRed=" << redDuration
+                    << " canBrake=" << canBrake << "\n";
+        }
 #endif
         // when activating ignoreRed behavior, vehicles will always drive if they cannot brake
         return !canBrake || ignoreRedTime > redDuration;

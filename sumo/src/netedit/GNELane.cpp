@@ -352,7 +352,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // only draw details depending of the scale
         if (s.scale >= 10) {
             // if exaggeration is 1, draw drawMarkings
-            if (s.laneShowBorders && exaggeration == 1 ) {
+            if (s.laneShowBorders && exaggeration == 1) {
                 drawMarkings(selectedEdge, exaggeration);
             }
             // draw ROWs only if target junction has a valid logic)
@@ -718,7 +718,7 @@ GNELane::getSpeed() const {
 double
 GNELane::getLaneParametricLength() const  {
     double laneParametricLenght = myParentEdge.getNBEdge()->getLoadedLength();
-    if(laneParametricLenght > 0) {
+    if (laneParametricLenght > 0) {
         return laneParametricLenght;
     } else {
         throw ProcessError("Lane Parametric Lenght cannot be never 0");
@@ -797,7 +797,7 @@ GNELane::getAttribute(SumoXMLAttr key) const {
     }
 }
 
-std::string 
+std::string
 GNELane::getAttributeForSelection(SumoXMLAttr key) const {
     std::string result = getAttribute(key);
     if ((key == SUMO_ATTR_ALLOW || key == SUMO_ATTR_DISALLOW) && result.find("all") != std::string::npos) {

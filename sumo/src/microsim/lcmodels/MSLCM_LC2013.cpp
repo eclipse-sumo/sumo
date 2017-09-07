@@ -1202,9 +1202,9 @@ MSLCM_LC2013::_wantsChange(
     const double vMax = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
     // upper bound which will be restricted successively
     double thisLaneVSafe = vMax;
-    const bool checkOverTakeRight = (!myAllowOvertakingRight 
-            && !myVehicle.congested() 
-            && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY);
+    const bool checkOverTakeRight = (!myAllowOvertakingRight
+                                     && !myVehicle.congested()
+                                     && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY);
 
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
@@ -1234,13 +1234,13 @@ MSLCM_LC2013::_wantsChange(
             // check for slower leader on the left. we should not overtake but
             // rather move left ourselves (unless congested)
             MSVehicle* nv = neighLead.first;
-            const double deltaV = MAX2(vMax - neighLane.getVehicleMaxSpeed(nv), 
-                    myVehicle.getSpeed() - nv->getSpeed());
+            const double deltaV = MAX2(vMax - neighLane.getVehicleMaxSpeed(nv),
+                                       myVehicle.getSpeed() - nv->getSpeed());
             if (deltaV > 0) {
                 double vSafe = MAX2(
-                        myCarFollowModel.getSpeedAfterMaxDecel(myVehicle.getSpeed()),
-                        myCarFollowModel.followSpeed(
-                            &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()));
+                                   myCarFollowModel.getSpeedAfterMaxDecel(myVehicle.getSpeed()),
+                                   myCarFollowModel.followSpeed(
+                                       &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()));
                 if (mySpeedGainProbability < myChangeProbThresholdLeft) {
                     vSafe = MAX2(vSafe, nv->getSpeed());
                 }
@@ -1249,22 +1249,22 @@ MSLCM_LC2013::_wantsChange(
                 // only generate impulse for overtaking left shortly before braking would be necessary
                 const double deltaGapFuture = deltaV * 8;
                 const double vSafeFuture = myCarFollowModel.followSpeed(
-                        &myVehicle, myVehicle.getSpeed(), neighLead.second - deltaGapFuture, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
+                                               &myVehicle, myVehicle.getSpeed(), neighLead.second - deltaGapFuture, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
                 if (vSafeFuture < vSafe) {
                     const double relativeGain = deltaV / MAX2(vMax,
-                            RELGAIN_NORMALIZATION_MIN_SPEED);
+                                                RELGAIN_NORMALIZATION_MIN_SPEED);
                     mySpeedGainProbability += TS * relativeGain;
                     changeLeftToAvoidOvertakeRight = true;
                 }
 #ifdef DEBUG_WANTS_CHANGE
                 if (DEBUG_COND) {
                     std::cout << STEPS2TIME(currentTime)
-                        << " avoid overtaking on the right nv=" << nv->getID()
-                        << " deltaV=" << deltaV
-                        << " nvSpeed=" << nv->getSpeed()
-                        << " mySpeedGainProbability=" << mySpeedGainProbability
-                        << " plannedSpeed=" << myVSafes.back()
-                        << "\n";
+                              << " avoid overtaking on the right nv=" << nv->getID()
+                              << " deltaV=" << deltaV
+                              << " nvSpeed=" << nv->getSpeed()
+                              << " mySpeedGainProbability=" << mySpeedGainProbability
+                              << " plannedSpeed=" << myVSafes.back()
+                              << "\n";
                 }
 #endif
             }
@@ -1484,38 +1484,38 @@ MSLCM_LC2013::_wantsChange(
     // we wish to anticipate future speeds. This is difficult when the leading
     // vehicles are still accelerating so we resort to comparing next speeds in this case
     const bool acceleratingLeader = (neighLead.first != 0 && neighLead.first->getAcceleration() > 0)
-            || (leader.first != 0 && leader.first->getAcceleration() > 0);
+                                    || (leader.first != 0 && leader.first->getAcceleration() > 0);
 
     if (acceleratingLeader) {
         // followSpeed allows acceleration for 1 step, to always compare speeds
         // after 1 second of acceleration we have call the function with a correct speed value
         const double correctedSpeed = (myVehicle.getSpeed() + myVehicle.getCarFollowModel().getMaxAccel()
-                - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxAccel()));
+                                       - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxAccel()));
 
         if (neighLead.first == 0) {
             neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, neighDist, 0, 0));
         } else {
             neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(
-                        &myVehicle, correctedSpeed, neighLead.second, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()));
+                                      &myVehicle, correctedSpeed, neighLead.second, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()));
         }
         if (leader.first == 0) {
             thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, currentDist, 0, 0));
         } else {
             thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(
-                        &myVehicle, correctedSpeed, leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
+                                     &myVehicle, correctedSpeed, leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
         }
     } else {
         if (neighLead.first == 0) {
-            neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(neighDist, myVehicle.getSpeed(),true));
+            neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(neighDist, myVehicle.getSpeed(), true));
         } else {
             neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.maximumSafeFollowSpeed(neighLead.second, myVehicle.getSpeed(),
-                        neighLead.first->getSpeed(),neighLead.first->getCarFollowModel().getMaxDecel(),true));
+                                  neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel(), true));
         }
         if (leader.first == 0) {
-            thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(currentDist, myVehicle.getSpeed(),true));
+            thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeStopSpeed(currentDist, myVehicle.getSpeed(), true));
         } else {
             thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.maximumSafeFollowSpeed(leader.second, myVehicle.getSpeed(),
-                        leader.first->getSpeed(),leader.first->getCarFollowModel().getMaxDecel(),true));
+                                 leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel(), true));
         }
     }
 
@@ -1577,12 +1577,12 @@ MSLCM_LC2013::_wantsChange(
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - neighLead.first->getSpeed()));
             }
             // stay on the current lane if we cannot overtake a slow leader on the right
-            if (checkOverTakeRight && leader.first != 0 
+            if (checkOverTakeRight && leader.first != 0
                     && leader.first->getLane()->getVehicleMaxSpeed(leader.first) < vMax) {
                 fullSpeedGap = MIN2(fullSpeedGap, leader.second);
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - leader.first->getSpeed()));
                 const double relativeGain = (vMax - leader.first->getLane()->getVehicleMaxSpeed(leader.first)) / MAX2(vMax,
-                        RELGAIN_NORMALIZATION_MIN_SPEED);
+                                            RELGAIN_NORMALIZATION_MIN_SPEED);
                 // tiebraker to avoid buridans paradox see #1312
                 mySpeedGainProbability += TS * relativeGain;
             }
@@ -1676,8 +1676,8 @@ MSLCM_LC2013::_wantsChange(
         }
 #endif
 
-        if (mySpeedGainProbability > myChangeProbThresholdLeft 
-                && (relativeGain > NUMERICAL_EPS || changeLeftToAvoidOvertakeRight) 
+        if (mySpeedGainProbability > myChangeProbThresholdLeft
+                && (relativeGain > NUMERICAL_EPS || changeLeftToAvoidOvertakeRight)
                 && neighDist / MAX2((double) .1, myVehicle.getSpeed()) > 20.) { // .1
             req = ret | lca | LCA_SPEEDGAIN;
             if (!cancelRequest(req)) {
@@ -1997,7 +1997,7 @@ MSLCM_LC2013::saveBlockerLength(MSVehicle* blocker, int lcaCounter) {
 }
 
 
-void 
+void
 MSLCM_LC2013::adaptSpeedToPedestrians(const MSLane* lane, double& v) {
     if (MSPModel::getModel()->hasPedestrians(lane)) {
 #ifdef DEBUG_WANTS_CHANGE
@@ -2005,9 +2005,9 @@ MSLCM_LC2013::adaptSpeedToPedestrians(const MSLane* lane, double& v) {
             std::cout << SIMTIME << " adapt to pedestrians on lane=" << lane->getID() << "\n";
         }
 #endif
-        PersonDist leader = MSPModel::getModel()->nextBlocking(lane, myVehicle.getPositionOnLane(), 
-                myVehicle.getRightSideOnLane(), myVehicle.getRightSideOnLane() + myVehicle.getVehicleType().getWidth(), 
-                ceil(myVehicle.getSpeed() / myVehicle.getCarFollowModel().getMaxDecel()));
+        PersonDist leader = MSPModel::getModel()->nextBlocking(lane, myVehicle.getPositionOnLane(),
+                            myVehicle.getRightSideOnLane(), myVehicle.getRightSideOnLane() + myVehicle.getVehicleType().getWidth(),
+                            ceil(myVehicle.getSpeed() / myVehicle.getCarFollowModel().getMaxDecel()));
         if (leader.first != 0) {
             const double stopSpeed = myVehicle.getCarFollowModel().stopSpeed(&myVehicle, myVehicle.getSpeed(), leader.second - myVehicle.getVehicleType().getMinGap());
             v = MIN2(v, stopSpeed);

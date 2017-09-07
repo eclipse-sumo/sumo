@@ -85,8 +85,8 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
     myEmptyTraveltime(-1.),
     myAmDelayed(false),
     myAmRoundabout(false),
-    myAmFringe(true)
-{}
+    myAmFringe(true) {
+}
 
 
 MSEdge::~MSEdge() {
@@ -687,7 +687,7 @@ MSEdge::getInternalFollowingLengthTo(const MSEdge* followerAfterInternal) const 
     return dist;
 }
 
-const MSEdge* 
+const MSEdge*
 MSEdge::getNormalBefore() const {
     const MSEdge* result = this;
     while (result->isInternal()) {
@@ -989,7 +989,7 @@ void MSEdge::checkAndRegisterBiDirEdge() {
         return;
     }
     ConstMSEdgeVector candidates = myToJunction->getOutgoing();
-    for (ConstMSEdgeVector::const_iterator it = candidates.begin(); it != candidates.end(); it++){
+    for (ConstMSEdgeVector::const_iterator it = candidates.begin(); it != candidates.end(); it++) {
         if ((*it)->getToJunction() == myFromJunction) { //reverse edge
             if (myOppositingSuperposableEdge != 0 && isSuperposable(*it)) {
                 WRITE_WARNING("Ambiguous superposable edges between junction '" + myToJunction->getID() + "' and '" + myFromJunction->getID() + "'.");
@@ -1001,8 +1001,8 @@ void MSEdge::checkAndRegisterBiDirEdge() {
 }
 
 
-bool MSEdge::isSuperposable(const MSEdge * other) {
-    if (other == 0 || other->getLanes().size() != myLanes->size()){
+bool MSEdge::isSuperposable(const MSEdge* other) {
+    if (other == 0 || other->getLanes().size() != myLanes->size()) {
         return false;
     }
     std::vector<MSLane*>::const_iterator it1 = myLanes->begin();

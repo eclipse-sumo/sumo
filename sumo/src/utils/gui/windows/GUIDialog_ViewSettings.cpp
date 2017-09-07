@@ -166,8 +166,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myLaneEdgeColorMode = new FXComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
         myLaneColorInterpolation = new FXCheckButton(m21, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
         myLaneColorSettingFrame = new FXVerticalFrame(frame22, GUIDesignViewSettingsVerticalFrame4);
-        myLaneColorRainbow = new FXButton(frame22, "Recalibrate Rainbow", NULL, this, MID_SIMPLE_VIEW_COLORCHANGE, 
-            (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+        myLaneColorRainbow = new FXButton(frame22, "Recalibrate Rainbow", NULL, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                          (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
 
         new FXHorizontalSeparator(frame2, GUIDesignHorizontalSeparator);
         //  ... scale settings
@@ -817,8 +817,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 
     // lanes (colors)
     if (sender == myLaneColorRainbow) {
-      myParent->buildColorRainbow(tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE);
-      doRebuildColorMatrices = true;
+        myParent->buildColorRainbow(tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE);
+        doRebuildColorMatrices = true;
     }
     if (tmpSettings.getLaneEdgeMode() == prevLaneMode) {
         if (updateColorRanges(sender, myLaneColors.begin(), myLaneColors.end(),
@@ -1360,9 +1360,9 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         m->create();
     }
     if (mySettings->getLaneEdgeScheme().isFixed()) {
-      myLaneColorRainbow->disable();
+        myLaneColorRainbow->disable();
     } else {
-      myLaneColorRainbow->enable();
+        myLaneColorRainbow->enable();
     }
     myLaneColorSettingFrame->getParent()->recalc();
 

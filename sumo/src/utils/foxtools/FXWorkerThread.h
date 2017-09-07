@@ -154,7 +154,7 @@ public:
         }
 
         /// @brief waits for all tasks to be finished
-        void waitAll(const bool deleteFinished=true) {
+        void waitAll(const bool deleteFinished = true) {
             myMutex.lock();
             while (myNumFinished < myRunningIndex) {
                 myCondition.wait(myMutex);

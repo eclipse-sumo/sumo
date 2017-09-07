@@ -275,7 +275,7 @@ GUICalibrator::GUICalibratorPopupMenu::onCmdOpenManip(FXObject*,
  * GUICalibrator - methods
  * ----------------------------------------------------------------------- */
 GUICalibrator::GUICalibrator(const std::string& id,
-                             MSEdge* edge, 
+                             MSEdge* edge,
                              MSLane* lane,
                              double pos,
                              const std::string& aXMLFilename,

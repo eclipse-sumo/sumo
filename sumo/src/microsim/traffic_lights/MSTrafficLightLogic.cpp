@@ -268,7 +268,7 @@ MSTrafficLightLogic::getNextSwitchTime() const {
 }
 
 
-SUMOTime 
+SUMOTime
 MSTrafficLightLogic::getSpentDuration() const {
     const SUMOTime nextSwitch = getNextSwitchTime();
     if (nextSwitch == -1) {

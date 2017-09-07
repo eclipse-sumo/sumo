@@ -134,11 +134,11 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(const SUMOTime actDuration, c
 #endif
             if (igreen) {
                 // green phase
-                for (std::vector<MSE2Collector::VehicleInfo*>::const_iterator ivp = vehInfos.begin(); ivp != vehInfos.end(); ++ivp){
+                for (std::vector<MSE2Collector::VehicleInfo*>::const_iterator ivp = vehInfos.begin(); ivp != vehInfos.end(); ++ivp) {
                     MSE2Collector::VehicleInfo* iv = *ivp;
                     if (iv->accumulatedTimeLoss > myTimeLossThreshold && iv->distToDetectorEnd > 0) {
                         const SUMOTime estimatedTimeToJunction = TIME2STEPS((iv->distToDetectorEnd) / (*j)->getSpeedLimit());
-                        if (actDuration + estimatedTimeToJunction  <= maxDuration){
+                        if (actDuration + estimatedTimeToJunction  <= maxDuration) {
                             // only prolong if vehicle has a chance to pass until max duration is reached
                             prolongation = MAX2(prolongation, estimatedTimeToJunction);
                         }
@@ -148,7 +148,7 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(const SUMOTime actDuration, c
 
 #ifdef DEBUG_TIMELOSS_CONTROL
                         std::cout << "vehicle '" << iv->id << "' with accumulated timeloss: " << iv->accumulatedTimeLoss
-                                << "\nestimated passing time: " << estimatedTimeToJunction << std::endl;
+                                  << "\nestimated passing time: " << estimatedTimeToJunction << std::endl;
                     } else {
                         std::string reason = iv->accumulatedTimeLoss <= myTimeLossThreshold ? " (time loss below threshold)" : " (front already left detector)";
                         std::cout << "disregarded: (vehicle '" << iv->id << "' with accumulated timeloss " << iv->accumulatedTimeLoss << ")" << reason << std::endl;
@@ -157,10 +157,10 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(const SUMOTime actDuration, c
                 }
             } else {
                 // non-green phase
-                if (vehInfos.size()>0) {
+                if (vehInfos.size() > 0) {
                     // here is a car on a non-green approach
                     othersEmpty = false;
-                    if (actDuration >= getCurrentPhaseDef().maxDuration){
+                    if (actDuration >= getCurrentPhaseDef().maxDuration) {
 #ifdef DEBUG_TIMELOSS_CONTROL
                         std::cout << "Actual duration exceeds maxDuration and a vehicle is on concurrent approach: " << nrVehs << std::endl;
 #endif

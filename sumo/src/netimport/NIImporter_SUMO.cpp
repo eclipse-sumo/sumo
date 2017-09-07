@@ -84,8 +84,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myCornerDetail(0),
       myLinkDetail(-1),
       myRectLaneCut(false),
-      myWalkingAreas(false)
-{
+      myWalkingAreas(false) {
 }
 
 

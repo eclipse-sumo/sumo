@@ -723,7 +723,7 @@ GUILane::debugDrawFoeIntersections() const {
     glColor3d(1.0, 0.3, 0.3);
     const double orthoLength = 0.5;
     const MSLink* link = getLinkCont().front();
-    const std::vector<const MSLane*>& foeLanes = link->getFoeLanes(); 
+    const std::vector<const MSLane*>& foeLanes = link->getFoeLanes();
     const std::vector<std::pair<double, double> >& lengthsBehind = link->getLengthsBehindCrossing();
     if (foeLanes.size() == lengthsBehind.size()) {
         for (int i = 0; i < (int)foeLanes.size(); ++i) {
@@ -1165,7 +1165,7 @@ GUILane::splitAtSegments(const PositionVector& shape) {
     return result;
 }
 
-bool 
+bool
 GUILane::isSelected() const {
     return gSelected.isSelected(GLO_LANE, getGlID());
 }

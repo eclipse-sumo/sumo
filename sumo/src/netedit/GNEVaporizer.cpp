@@ -101,7 +101,7 @@ GNEVaporizer::updateGeometry() {
     myNumberOfLanes = int(myEdge->getLanes().size());
 
     // Get shape of lane parent
-    double offset = firstLane->getShape().length() < 2.5? firstLane->getShape().length() : 2.5;
+    double offset = firstLane->getShape().length() < 2.5 ? firstLane->getShape().length() : 2.5;
     myShape.push_back(firstLane->getShape().positionAtOffset(offset));
 
     // Obtain first position

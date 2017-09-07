@@ -126,7 +126,7 @@ GNEDetectorE3::getPositionInView() const {
 
 
 void
-GNEDetectorE3::moveGeometry(const Position &newPosition) {
+GNEDetectorE3::moveGeometry(const Position& newPosition) {
     // change Position
     myPosition = newPosition;
     updateGeometry();
@@ -164,7 +164,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
         for (std::vector<GNEDetectorEntry*>::const_iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
             device.openTag((*i)->getTag());
             // Check if another lane ID must be changed if sidewalks.guess option is enabled
-            if(volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && ((*i)->getLane()->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
+            if (volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && ((*i)->getLane()->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
                 // add a new extra lane to edge
                 myViewNet->getNet()->duplicateLane((*i)->getLane()->getParentEdge().getLanes().front(), myViewNet->getUndoList());
                 // write ID (now is different because there are a new lane)
@@ -183,7 +183,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
         for (std::vector<GNEDetectorExit*>::const_iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
             device.openTag((*i)->getTag());
             // Check if another lane ID must be changed if sidewalks.guess option is enabled
-            if(volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && ((*i)->getLane()->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
+            if (volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && ((*i)->getLane()->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
                 // add a new extra lane to edge
                 myViewNet->getNet()->duplicateLane((*i)->getLane()->getParentEdge().getLanes().front(), myViewNet->getUndoList());
                 // write ID (now is different because there are a new lane)

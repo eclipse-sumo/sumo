@@ -77,7 +77,7 @@ GNEDialog_About::GNEDialog_About(FXWindow* parent) :
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
     FXButton* OKButton = new FXButton(buttonFrame, "&OK\t\t", GUIIconSubSys::getIcon(ICON_ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
-    
+
     // focus OK button
     OKButton->setFocus();
 }

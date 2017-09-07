@@ -43,8 +43,7 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myPTStopLength(length),
     myName(name),
     myPermissions(svcPermissions),
-    myIsMultipleStopPositions(false)
-{
+    myIsMultipleStopPositions(false) {
 
 }
 
@@ -95,8 +94,8 @@ void NBPTStop::write(OutputDevice& device) {
 void NBPTStop::reshiftPostion(const double offsetX, const double offsetY) {
     myPosition.add(offsetX, offsetY, 0);
     for (auto& myPlatformCand : myPlatformCands) {
-        Position * pos = (&myPlatformCand)->getMyPos();
-        pos->add(offsetX,offsetY,0);
+        Position* pos = (&myPlatformCand)->getMyPos();
+        pos->add(offsetX, offsetY, 0);
     }
 
 
@@ -114,7 +113,7 @@ bool NBPTStop::getIsMultipleStopPositions() {
     return myIsMultipleStopPositions;
 }
 
-void NBPTStop::setIsMultipleStopPositions(bool multipleStopPositions){
+void NBPTStop::setIsMultipleStopPositions(bool multipleStopPositions) {
     myIsMultipleStopPositions = multipleStopPositions;
 }
 double NBPTStop::getLength() {

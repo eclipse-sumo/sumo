@@ -246,7 +246,7 @@ extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std
     }
 }
 
-extern SVCPermissions 
+extern SVCPermissions
 invertPermissions(SVCPermissions permissions) {
     return SVCAll & ~permissions;
 }

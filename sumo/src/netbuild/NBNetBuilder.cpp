@@ -494,7 +494,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_TIME_MESSAGE(before);
     }
 
-    if (oc.exists("ptline-output") && oc.isSet("ptline-output")){
+    if (oc.exists("ptline-output") && oc.isSet("ptline-output")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Revising public transport stops based on pt lines");
         myPTLineCont.process(myEdgeCont);

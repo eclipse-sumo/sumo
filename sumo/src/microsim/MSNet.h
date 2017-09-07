@@ -703,8 +703,12 @@ protected:
 
     /// @brief get current absolute and relative mean vehicle speed in the network
     std::pair<double, double> getVehicleMeanSpeeds() const;
-    double getVehicleMeanSpeed() const { return getVehicleMeanSpeeds().first; }
-    double getVehicleMeanSpeedRelative() const { return getVehicleMeanSpeeds().second; }
+    double getVehicleMeanSpeed() const {
+        return getVehicleMeanSpeeds().first;
+    }
+    double getVehicleMeanSpeedRelative() const {
+        return getVehicleMeanSpeeds().second;
+    }
 
 protected:
     /// @brief Unique instance of MSNet

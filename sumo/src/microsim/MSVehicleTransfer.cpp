@@ -99,7 +99,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             // handle parking vehicles
             if (time != desc.myTransferTime) {
                 // avoid calling processNextStop twice in the transfer step
-                desc.myVeh->processNextStop(1); 
+                desc.myVeh->processNextStop(1);
             }
             if (desc.myVeh->keepStopping(true)) {
                 i++;
@@ -116,7 +116,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
         if (desc.myParking) {
             // handle parking vehicles
             if (desc.myVeh->getLane()->isInsertionSuccess(desc.myVeh, 0, departPos, desc.myVeh->getLateralPositionOnLane(),
-                        false, MSMoveReminder::NOTIFICATION_PARKING)) {
+                    false, MSMoveReminder::NOTIFICATION_PARKING)) {
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_PARKING);
                 desc.myVeh->getLane()->removeParking(desc.myVeh);
                 i = myVehicles.erase(i);
@@ -128,7 +128,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             // first select all the lanes which allow continuation onto nextEdge
             //   then pick the one which is least occupied
             MSLane* l = (nextEdge != 0 ? e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass, departPos) :
-                    e->getFreeLane(0, vclass, departPos));
+                         e->getFreeLane(0, vclass, departPos));
             // handle teleporting vehicles, lane may be 0 because permissions were modified by a closing rerouter or TraCI
             if (l != 0 && l->freeInsertion(*(desc.myVeh), MIN2(l->getSpeedLimit(), desc.myVeh->getMaxSpeed()), 0, MSMoveReminder::NOTIFICATION_TELEPORT)) {
                 WRITE_WARNING("Vehicle '" + desc.myVeh->getID() + "' ends teleporting on edge '" + e->getID() + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");

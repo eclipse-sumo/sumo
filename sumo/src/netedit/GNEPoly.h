@@ -138,7 +138,7 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
-    
+
     /// @name inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key
@@ -163,11 +163,11 @@ public:
     /// @}
 
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
-     * @param pos position of new/existent vertex 
+     * @param pos position of new/existent vertex
      * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position
      * @return index of position vector
      */
-    int getVertexIndex(const Position &pos, bool createIfNoExist = true);
+    int getVertexIndex(const Position& pos, bool createIfNoExist = true);
 
     /// @brief check if polygon is closed
     bool isPolygonClosed() const;
@@ -212,7 +212,7 @@ private:
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-    
+
     /// @brief Invalidated copy constructor.
     GNEPoly(const GNEPoly&) = delete;
 

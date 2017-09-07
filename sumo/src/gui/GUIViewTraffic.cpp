@@ -181,39 +181,39 @@ GUIViewTraffic::setColorScheme(const std::string& name) {
 }
 
 
-void 
+void
 GUIViewTraffic::buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjectType objectType) {
-  if (objectType == GLO_LANE) {
-    assert(!scheme.isFixed());
-    // retrieve range
-    double minValue = std::numeric_limits<double>::infinity();
-    double maxValue = -std::numeric_limits<double>::infinity();
-    const MSEdgeVector& edges = MSEdge::getAllEdges();
-    for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
-      if (MSGlobals::gUseMesoSim) {
-        const double val = static_cast<GUIEdge*>(*it)->getColorValue(active);
-        minValue = MIN2(minValue, val);
-        maxValue = MAX2(maxValue, val);
-      } else {
-        const std::vector<MSLane*>& lanes = (*it)->getLanes();
-        for (std::vector<MSLane*>::const_iterator it_l = lanes.begin(); it_l != lanes.end(); it_l++) {
-          const double val = static_cast<GUILane*>(*it_l)->getColorValue(active);
-          minValue = MIN2(minValue, val);
-          maxValue = MAX2(maxValue, val);
+    if (objectType == GLO_LANE) {
+        assert(!scheme.isFixed());
+        // retrieve range
+        double minValue = std::numeric_limits<double>::infinity();
+        double maxValue = -std::numeric_limits<double>::infinity();
+        const MSEdgeVector& edges = MSEdge::getAllEdges();
+        for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
+            if (MSGlobals::gUseMesoSim) {
+                const double val = static_cast<GUIEdge*>(*it)->getColorValue(active);
+                minValue = MIN2(minValue, val);
+                maxValue = MAX2(maxValue, val);
+            } else {
+                const std::vector<MSLane*>& lanes = (*it)->getLanes();
+                for (std::vector<MSLane*>::const_iterator it_l = lanes.begin(); it_l != lanes.end(); it_l++) {
+                    const double val = static_cast<GUILane*>(*it_l)->getColorValue(active);
+                    minValue = MIN2(minValue, val);
+                    maxValue = MAX2(maxValue, val);
+                }
+            }
         }
-      }
+        scheme.clear();
+        // add new thresholds
+        double range = maxValue - minValue;
+        scheme.addColor(RGBColor::RED, (minValue));
+        scheme.addColor(RGBColor::ORANGE, (minValue + range * 1 / 6.0));
+        scheme.addColor(RGBColor::YELLOW, (minValue + range * 2 / 6.0));
+        scheme.addColor(RGBColor::GREEN, (minValue + range * 3 / 6.0));
+        scheme.addColor(RGBColor::CYAN, (minValue + range * 4 / 6.0));
+        scheme.addColor(RGBColor::BLUE, (minValue + range * 5 / 6.0));
+        scheme.addColor(RGBColor::MAGENTA, (maxValue));
     }
-    scheme.clear();
-    // add new thresholds
-    double range = maxValue - minValue;
-    scheme.addColor(RGBColor::RED,    (minValue));
-    scheme.addColor(RGBColor::ORANGE, (minValue + range * 1 / 6.0));
-    scheme.addColor(RGBColor::YELLOW, (minValue + range * 2 / 6.0));
-    scheme.addColor(RGBColor::GREEN,  (minValue + range * 3 / 6.0));
-    scheme.addColor(RGBColor::CYAN,   (minValue + range * 4 / 6.0));
-    scheme.addColor(RGBColor::BLUE,   (minValue + range * 5 / 6.0));
-    scheme.addColor(RGBColor::MAGENTA, (maxValue));
-  }
 }
 
 

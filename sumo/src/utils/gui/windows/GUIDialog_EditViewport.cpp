@@ -125,7 +125,7 @@ GUIDialog_EditViewport::~GUIDialog_EditViewport() {}
 void
 GUIDialog_EditViewport::show() {
     // If testing mode is enabled, we need to place focus in the Z dial
-    if(OptionsCont::getOptions().getBool("gui-testing")) {
+    if (OptionsCont::getOptions().getBool("gui-testing")) {
         myZOff->setFocus();
     } else {
         buttonOk->setFocus();

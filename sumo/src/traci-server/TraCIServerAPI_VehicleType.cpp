@@ -56,7 +56,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
     std::string id = inputStorage.readString();
     // check variable
     if (variable != ID_LIST && variable != VAR_LENGTH && variable != VAR_MAXSPEED && variable != VAR_ACCEL
-            && variable != VAR_DECEL && variable != VAR_EMERGENCY_DECEL&& variable != VAR_APPARENT_DECEL
+            && variable != VAR_DECEL && variable != VAR_EMERGENCY_DECEL && variable != VAR_APPARENT_DECEL
             && variable != VAR_TAU && variable != VAR_VEHICLECLASS && variable != VAR_EMISSIONCLASS
             && variable != VAR_SHAPECLASS
             && variable != VAR_SPEED_FACTOR && variable != VAR_SPEED_DEVIATION && variable != VAR_IMPERFECTION
@@ -144,20 +144,20 @@ TraCIServerAPI_VehicleType::getVariable(const int variable, const std::string& i
             tempMsg.writeDouble(TraCI_VehicleType::getDecel(id));
         }
         break;
-    case VAR_EMERGENCY_DECEL: {
-        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-        tempMsg.writeDouble(TraCI_VehicleType::getEmergencyDecel(id));
-    }
+        case VAR_EMERGENCY_DECEL: {
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(TraCI_VehicleType::getEmergencyDecel(id));
+        }
         break;
-    case VAR_APPARENT_DECEL: {
-        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-        tempMsg.writeDouble(TraCI_VehicleType::getApparentDecel(id));
-    }
+        case VAR_APPARENT_DECEL: {
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(TraCI_VehicleType::getApparentDecel(id));
+        }
         break;
-    case VAR_IMPERFECTION: {
-        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-        tempMsg.writeDouble(TraCI_VehicleType::getImperfection(id));
-    }
+        case VAR_IMPERFECTION: {
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(TraCI_VehicleType::getImperfection(id));
+        }
         break;
         case VAR_TAU: {
             tempMsg.writeUnsignedByte(TYPE_DOUBLE);
@@ -445,16 +445,16 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         }
         break;
         case VAR_EMERGENCY_DECEL: {
-                double value = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(cmd, "Setting deceleration requires a double.", outputStorage);
-                }
-                if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                    return server.writeErrorStatusCmd(cmd, "Invalid deceleration.", outputStorage);
-                }
-                TraCI_VehicleType::setEmergencyDecel(id, value);
+            double value = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting deceleration requires a double.", outputStorage);
             }
-            break;
+            if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+                return server.writeErrorStatusCmd(cmd, "Invalid deceleration.", outputStorage);
+            }
+            TraCI_VehicleType::setEmergencyDecel(id, value);
+        }
+        break;
         case VAR_APPARENT_DECEL: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
@@ -502,7 +502,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                 return server.writeErrorStatusCmd(cmd, "copying a vehicle type requires a string.",
                                                   outputStorage);
             }
-            TraCI_VehicleType::copy(id,newTypeID);
+            TraCI_VehicleType::copy(id, newTypeID);
         }
         break;
         case VAR_PARAMETER: {

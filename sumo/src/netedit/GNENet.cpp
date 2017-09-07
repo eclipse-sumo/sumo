@@ -295,12 +295,12 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
         // iterate over crossing of neighbour juntion
         for (auto j : i->getGNECrossings()) {
             // if at least one of the edges of junction to remove belongs to a crossing of the neighbour junction, delete it
-            if(j->checkEdgeBelong(junction->getGNEEdges())) {
+            if (j->checkEdgeBelong(junction->getGNEEdges())) {
                 crossingsToRemove.push_back(j);
             }
         }
     }
-    
+
     // delete crossings top remove
     for (auto i : crossingsToRemove) {
         deleteCrossing(i, undoList);
@@ -331,16 +331,16 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
 void
 GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
-    
+
     // obtain a copy of GNERerouters of edge
     std::vector<GNERerouter*> rerouters = edge->getGNERerouters();
-    
+
     // delete additionals childs of edge
     std::vector<GNEAdditional*> copyOfEdgeAdditionals = edge->getAdditionalChilds();
     for (auto i : copyOfEdgeAdditionals) {
         undoList->add(new GNEChange_Additional(i, false), true);
     }
-    
+
     // delete additionals childs of lane
     for (auto i : edge->getLanes()) {
         std::vector<GNEAdditional*> copyOfLaneAdditionals = i->getAdditionalChilds();
@@ -383,13 +383,13 @@ void
 GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) {
     undoList->p_begin("replace " + toString(SUMO_TAG_EDGE));
     undoList->p_add(new GNEChange_Attribute(by, SUMO_ATTR_TO, which->getAttribute(SUMO_ATTR_TO)));
-    
+
     // replace in additionals childs of edge
     std::vector<GNEAdditional*> copyOfEdgeAdditionals = which->getAdditionalChilds();
     for (auto i : copyOfEdgeAdditionals) {
         undoList->p_add(new GNEChange_Attribute(i, SUMO_ATTR_EDGE, by->getID()));
     }
-    
+
     // replace in additionals childs of lane
     for (auto i : which->getLanes()) {
         std::vector<GNEAdditional*> copyOfLaneAdditionals = i->getAdditionalChilds();
@@ -398,12 +398,12 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
         }
     }
 
-    // replace in rerouters 
+    // replace in rerouters
     for (auto rerouter : which->getGNERerouters()) {
         replaceInListAttribute(rerouter, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
     }
 
-    // replace in crossings 
+    // replace in crossings
     for (auto crossing : which->getGNEJunctionDestiny()->getGNECrossings()) {
         // if at least one of the edges of junction to remove belongs to a crossing of the source junction, delete it
         replaceInListAttribute(crossing, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
@@ -440,13 +440,13 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
         deleteEdge(edge, undoList);
     } else {
         undoList->p_begin("delete " + toString(SUMO_TAG_LANE));
-        
+
         // delete additionals childs of lane
         std::vector<GNEAdditional*> copyOfAdditionals = lane->getAdditionalChilds();
         for (auto i : copyOfAdditionals) {
             undoList->add(new GNEChange_Additional(i, false), true);
         }
-        
+
         // invalidate junctions (saving connections)
         edge->getGNEJunctionSource()->setLogicValid(false, undoList);
         edge->getGNEJunctionDestiny()->setLogicValid(false, undoList);
@@ -483,7 +483,7 @@ GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
     junctionDestiny->markAsModified(undoList);
     // check if GNEConnection was previouslyselected, and if true, unselect it.
     bool selected = gSelected.isSelected(GLO_CONNECTION, connection->getGlID());
-    if(selected) {
+    if (selected) {
         gSelected.deselect(connection->getGlID());
     }
     undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), selected, false), true);
@@ -499,7 +499,7 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
     undoList->p_begin("delete crossing");
     // check if GNECrossing was previouslyselected, and if true, unselect it.
     bool selected = gSelected.isSelected(GLO_CROSSING, crossing->getGlID());
-    if(selected) {
+    if (selected) {
         gSelected.deselect(crossing->getGlID());
     }
     undoList->add(new GNEChange_Crossing(crossing->getParentJunction(), crossing->getNBCrossing()->edges,
@@ -510,7 +510,7 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
 }
 
 
-void 
+void
 GNENet::deletePOI(GNEPOI* POI, GNEUndoList* undoList) {
     myViewNet->getUndoList()->p_begin("delete " + toString(POI->getTag()));
     // save selection status
@@ -525,7 +525,7 @@ GNENet::deletePOI(GNEPOI* POI, GNEUndoList* undoList) {
 }
 
 
-void 
+void
 GNENet::deletePolygon(GNEPoly* polygon, GNEUndoList* undoList) {
     myViewNet->getUndoList()->p_begin("delete " + toString(polygon->getTag()));
     // save selection status
@@ -774,7 +774,7 @@ GNENet::remapEdge(GNEEdge* oldEdge, GNEJunction* from, GNEJunction* to, GNEUndoL
         deleteCrossing(i, undoList);
     }
     // delete first so we can reuse the name, reference stays valid
-    deleteEdge(oldEdge, undoList); 
+    deleteEdge(oldEdge, undoList);
     if (from != to) {
         GNEEdge* newEdge = createEdge(from, to, oldEdge, undoList, oldEdge->getMicrosimID(), false, true);
         newEdge->setAttribute(SUMO_ATTR_SHAPE, oldEdge->getAttribute(SUMO_ATTR_SHAPE), undoList);
@@ -788,11 +788,11 @@ GNENet::remapEdge(GNEEdge* oldEdge, GNEJunction* from, GNEJunction* to, GNEUndoL
 }
 
 
-bool 
-GNENet::checkJunctionPosition(const Position &pos) {
+bool
+GNENet::checkJunctionPosition(const Position& pos) {
     // Check that there isn't another junction in the same position as Pos
     for (auto i : myJunctions) {
-        if(i.second->getPositionInView() == pos) {
+        if (i.second->getPositionInView() == pos) {
             return false;
         }
     }
@@ -818,18 +818,18 @@ GNENet::saveAdditionals(const std::string& filename, bool volatileOptionsEnabled
         GNEStoppingPlace* stoppingPlace = dynamic_cast<GNEStoppingPlace*>(i.second);
         GNEDetector* detector = dynamic_cast<GNEDetector*>(i.second);
         // check if has to be fixed
-        if((stoppingPlace != NULL) && (stoppingPlace->areStoppingPlacesPositionsFixed() == false)) {
+        if ((stoppingPlace != NULL) && (stoppingPlace->areStoppingPlacesPositionsFixed() == false)) {
             invalidStoppingPlaces.push_back(stoppingPlace);
-        } else if((detector != NULL) && (detector->isDetectorPositionFixed() == false)) {
+        } else if ((detector != NULL) && (detector->isDetectorPositionFixed() == false)) {
             invalidDetectors.push_back(detector);
         }
     }
     // if there are invalid StoppingPlaces or detectors, open GNEDialog_FixAdditionalPositions
-    if(invalidStoppingPlaces.size() > 0 || invalidDetectors.size() > 0) {
+    if (invalidStoppingPlaces.size() > 0 || invalidDetectors.size() > 0) {
         // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
-        // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions 
+        // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
         GNEDialog_FixAdditionalPositions fixAdditionalPositionsDialog(myViewNet, invalidStoppingPlaces, invalidDetectors);
-        if(fixAdditionalPositionsDialog.execute() == 0) {
+        if (fixAdditionalPositionsDialog.execute() == 0) {
             // Here a console message
             ;
         } else {
@@ -906,12 +906,12 @@ GNENet::retrieveEdge(const std::string& id, bool failHard) {
 }
 
 
-GNEEdge* 
-GNENet::retrieveEdge(GNEJunction *from, GNEJunction *to, bool failHard) {
+GNEEdge*
+GNENet::retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard) {
     assert((from != NULL) && (to != NULL));
     // iterate over Junctions of net
     for (auto i : myEdges) {
-        if((i.second->getGNEJunctionSource() == from) && (i.second->getGNEJunctionDestiny() == to)) {
+        if ((i.second->getGNEJunctionSource() == from) && (i.second->getGNEJunctionDestiny() == to)) {
             return i.second;
         }
     }
@@ -1122,7 +1122,7 @@ GNENet::getGlIDs(GUIGlObjectType type) {
         }
         case GLO_CONNECTION: {
             for (auto i : myEdges) {
-                // Iterate over edge's connections 
+                // Iterate over edge's connections
                 for (auto j : i.second->getGNEConnections()) {
                     // Insert every connection of edge in result
                     result.insert(j->getGlID());
@@ -1163,7 +1163,7 @@ void
 GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string additionalPath, std::string shapePath) {
     if (!myNeedRecompute) {
         if (force) {
-            if(volatileOptions) {
+            if (volatileOptions) {
                 window->setStatusBarText("Forced computing junctions with volatile options ...");
             } else {
                 window->setStatusBarText("Forced computing junctions ...");
@@ -1172,7 +1172,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
             return;
         }
     } else {
-        if(volatileOptions) {
+        if (volatileOptions) {
             window->setStatusBarText("Computing junctions with volatile options ...");
         } else {
             window->setStatusBarText("Computing junctions  ...");
@@ -1183,7 +1183,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
     computeAndUpdate(oc, volatileOptions);
 
     // load additionals if was recomputed with volatile options
-    if(additionalPath != "") {
+    if (additionalPath != "") {
         // Create additional handler
         GNEAdditionalHandler additionalHandler(additionalPath, myViewNet, false);
         // Run parser
@@ -1196,7 +1196,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
         }
     }
     // load shapes if was recomputed with volatile options
-    if(shapePath != "") {
+    if (shapePath != "") {
         GNEApplicationWindow::GNEShapeHandler handler(shapePath, this);
         if (!XMLSubSys::runParser(handler, shapePath, false)) {
             WRITE_MESSAGE("Loading of " + shapePath + " failed.");
@@ -1271,7 +1271,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     }
     // create new junction
     Position pos;
-    Position oldPos; 
+    Position oldPos;
     bool setTL;
     std::string id;
     TrafficLightType type;
@@ -1281,16 +1281,16 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
 
     // Check that there isn't another junction in the same position as Pos but doesn't belong to cluster
     for (auto i : myJunctions) {
-        if((i.second->getPositionInView() == pos) && (cluster.find(i.second->getNBNode()) == cluster.end())) {
+        if ((i.second->getPositionInView() == pos) && (cluster.find(i.second->getNBNode()) == cluster.end())) {
             // show warning in gui testing debug mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Opening FXMessageBox of type 'question'");
             }
             // Ask confirmation to user
             FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
-                                                    ("Position of joined " + toString(SUMO_TAG_JUNCTION)).c_str(), "%s",
-                                                    ("There is another unselected " + toString(SUMO_TAG_JUNCTION) + " in the same position of joined " + toString(SUMO_TAG_JUNCTION) +
-                                                     + ".\nIt will be joined with the other selected " + toString(SUMO_TAG_JUNCTION) + "s. Continue?").c_str());
+                                                   ("Position of joined " + toString(SUMO_TAG_JUNCTION)).c_str(), "%s",
+                                                   ("There is another unselected " + toString(SUMO_TAG_JUNCTION) + " in the same position of joined " + toString(SUMO_TAG_JUNCTION) +
+                                                    + ".\nIt will be joined with the other selected " + toString(SUMO_TAG_JUNCTION) + "s. Continue?").c_str());
             if (answer != 1) { // 1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
@@ -1312,18 +1312,18 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     }
 
     // use checkJunctionPosition to avoid conflicts with junction in the same position as others
-    while(checkJunctionPosition(pos) == false) {
+    while (checkJunctionPosition(pos) == false) {
         pos.setx(pos.x() + 0.1);
         pos.sety(pos.y() + 0.1);
     }
 
     // start with the join selected junctions
     undoList->p_begin("Join selected " + toString(SUMO_TAG_JUNCTION) + "s");
-    
+
     // first remove all crossing of the involved junctions and edges
     for (auto i : selectedJunctions) {
 
-        while(i->getGNECrossings().size() > 0) {
+        while (i->getGNECrossings().size() > 0) {
             deleteCrossing(i->getGNECrossings().front(), undoList);
         }
     }
@@ -1352,7 +1352,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     joined->setAttribute(SUMO_ATTR_ID, id, undoList);
 
     // check if joined junction had to change their original position to avoid errors
-    if(pos != oldPos) {
+    if (pos != oldPos) {
         joined->setAttribute(SUMO_ATTR_POSITION, toString(oldPos), undoList);
     }
     undoList->p_end();
@@ -1360,7 +1360,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
 }
 
 
-bool 
+bool
 GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
     // obtain current net's crossings
     std::vector<GNECrossing*> myNetCrossings;
@@ -1375,43 +1375,42 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
             myInvalidCrossings.push_back(*i);
         }
     }
-    
+
     if (myInvalidCrossings.empty()) {
         // show warning in gui testing debug mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
         // open a dialog informing that there isn't crossing to remove
-        FXMessageBox::warning(getApp(), MBOX_OK, 
-            ("Clear " + toString(SUMO_TAG_CROSSING) + "s").c_str(), "%s",
-            ("There is no invalid " + toString(SUMO_TAG_CROSSING) + "s to remove").c_str());
+        FXMessageBox::warning(getApp(), MBOX_OK,
+                              ("Clear " + toString(SUMO_TAG_CROSSING) + "s").c_str(), "%s",
+                              ("There is no invalid " + toString(SUMO_TAG_CROSSING) + "s to remove").c_str());
         // show warning in gui testing debug mode
         WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'ESC'");
     } else {
-        std::string plural = myInvalidCrossings.size() == 1? ("") : ("s");
+        std::string plural = myInvalidCrossings.size() == 1 ? ("") : ("s");
         // show warning in gui testing debug mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'question'");
         }
         // Ask confirmation to user
         FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
-            ("Clear " + toString(SUMO_TAG_CROSSING) + "s").c_str(), "%s",
-            ("Clear " + toString(SUMO_TAG_CROSSING) + plural + " will be removed. Continue?").c_str());
-            if (answer != 1) { // 1:yes, 2:no, 4:esc
-                // write warning if netedit is running in testing mode
-                if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
-                }
-                else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
-                }
-            } else {
-                undoList->p_begin("Clean " + toString(SUMO_TAG_CROSSING) + "s");
-                for (auto i = myInvalidCrossings.begin(); i != myInvalidCrossings.end(); i++) {
-                    deleteCrossing((*i), undoList);
-                }
-                undoList->p_end();
+                                               ("Clear " + toString(SUMO_TAG_CROSSING) + "s").c_str(), "%s",
+                                               ("Clear " + toString(SUMO_TAG_CROSSING) + plural + " will be removed. Continue?").c_str());
+        if (answer != 1) { // 1:yes, 2:no, 4:esc
+            // write warning if netedit is running in testing mode
+            if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+            } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
             }
+        } else {
+            undoList->p_begin("Clean " + toString(SUMO_TAG_CROSSING) + "s");
+            for (auto i = myInvalidCrossings.begin(); i != myInvalidCrossings.end(); i++) {
+                deleteCrossing((*i), undoList);
+            }
+            undoList->p_end();
+        }
     }
     return 1;
 }
@@ -1544,7 +1543,7 @@ GNENet::moveSelection(const Position& moveSrc, const Position& moveDest) {
     for (auto it : edges) {
         if (it) {
             if (junctionSet.count(it->getGNEJunctionSource()) > 0 &&
-                junctionSet.count(it->getGNEJunctionDestiny()) > 0) {
+                    junctionSet.count(it->getGNEJunctionDestiny()) > 0) {
                 // edge and its endpoints are selected, move all the inner points as well
                 it->moveGeometry(delta);
             } else {
@@ -1776,20 +1775,19 @@ GNENet::flowExists(const std::string& flowID) const {
 }
 
 
-bool 
-GNENet::addPolygon(const std::string& id, const std::string& type,const RGBColor& color, double layer, double angle, 
+bool
+GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle,
                    const std::string& imgFile, const PositionVector& shape, bool fill, bool /*ignorePruning*/) {
     // check if ID is duplicated
-    if(myPolygons.get(id) == NULL) {
+    if (myPolygons.get(id) == NULL) {
         // create poly
         GNEPoly* poly = new GNEPoly(this, id, type, shape, fill, color, layer, angle, imgFile, false, false);
-        if(myPolygons.add(poly->getID(), poly)) {
+        if (myPolygons.add(poly->getID(), poly)) {
             myViewNet->getUndoList()->p_begin("add " + toString(poly->getTag()));
             myViewNet->getUndoList()->add(new GNEChange_Poly(this, poly, true), true);
             myViewNet->getUndoList()->p_end();
             return true;
-        }
-        else {
+        } else {
             throw ProcessError("Error adding GNEPOly into shapeContainer");
         }
     } else {
@@ -1799,11 +1797,11 @@ GNENet::addPolygon(const std::string& id, const std::string& type,const RGBColor
 
 
 GNEPoly*
-GNENet::addPolygonForEditShapes(GNEJunction *junction) {
+GNENet::addPolygonForEditShapes(GNEJunction* junction) {
     // generate a ID for myEditJunctionShapePoly
     int counter = 0;
     std::string polyID = "junction_shape:" + toString(counter);
-    while(myPolygons.get(polyID) != NULL) {
+    while (myPolygons.get(polyID) != NULL) {
         counter++;
         polyID = "junction_shape:" + toString(counter);
     }
@@ -1819,7 +1817,7 @@ GNENet::addPolygonForEditShapes(GNEJunction *junction) {
 }
 
 
-bool 
+bool
 GNENet::removePolygon(const std::string& id) {
     GNEPoly* p = dynamic_cast<GNEPoly*>(myPolygons.get(id));
     if (p == 0) {
@@ -1830,9 +1828,9 @@ GNENet::removePolygon(const std::string& id) {
 }
 
 
-void 
+void
 GNENet::insertPolygonInView(GNEPoly* p) {
-    if(p->isShapeVisible() == false) {
+    if (p->isShapeVisible() == false) {
         myGrid.addAdditionalGLObject(p);
         myViewNet->update();
         p->setShapeVisible(true);
@@ -1844,9 +1842,9 @@ GNENet::insertPolygonInView(GNEPoly* p) {
 }
 
 
-void 
+void
 GNENet::removePolygonOfView(GNEPoly* p) {
-    if(p->isShapeVisible()) {
+    if (p->isShapeVisible()) {
         myGrid.removeAdditionalGLObject(p);
         myViewNet->update();
         p->setShapeVisible(false);
@@ -1858,9 +1856,9 @@ GNENet::removePolygonOfView(GNEPoly* p) {
 }
 
 
-void 
+void
 GNENet::refreshPolygon(GNEPoly* p) {
-    if(p->isShapeVisible()) {
+    if (p->isShapeVisible()) {
         myGrid.removeAdditionalGLObject(p);
         myGrid.addAdditionalGLObject(p);
         myViewNet->update();
@@ -1870,12 +1868,12 @@ GNENet::refreshPolygon(GNEPoly* p) {
 }
 
 
-std::string 
+std::string
 GNENet::generatePolyID() const {
     int counter = 0;
     std::string newID = "poly_" + toString(counter);
     // generate new IDs to find a non-assigned ID
-    while(myPolygons.get(newID) != NULL) {
+    while (myPolygons.get(newID) != NULL) {
         counter++;
         newID = "poly_" + toString(counter);
     }
@@ -1883,8 +1881,8 @@ GNENet::generatePolyID() const {
 }
 
 
-GNEPoly* 
-GNENet::retrievePolygon(const std::string & id, bool failHard) const {
+GNEPoly*
+GNENet::retrievePolygon(const std::string& id, bool failHard) const {
     if (myPolygons.get(id) != 0) {
         return reinterpret_cast<GNEPoly*>(myPolygons.get(id));
     } else if (failHard) {
@@ -1897,7 +1895,7 @@ GNENet::retrievePolygon(const std::string & id, bool failHard) const {
 
 
 void
-GNENet::changePolygonID(GNEPoly* poly, const std::string &OldID) {
+GNENet::changePolygonID(GNEPoly* poly, const std::string& OldID) {
     if (myPolygons.get(OldID) == 0) {
         throw UnknownElement("Polygon " + OldID);
     } else {
@@ -1907,14 +1905,14 @@ GNENet::changePolygonID(GNEPoly* poly, const std::string &OldID) {
 }
 
 
-bool 
-GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
+bool
+GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle,
                const std::string& imgFile, const Position& pos, double width, double height, bool /*ignorePruning */) {
     // check if ID is duplicated
-    if(myPOIs.get(id) == NULL) {
+    if (myPOIs.get(id) == NULL) {
         // create poly
         GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, pos, width, height, false);
-        if(myPOIs.add(poi->getID(), poi)) {
+        if (myPOIs.add(poi->getID(), poi)) {
             myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
             myViewNet->getUndoList()->add(new GNEChange_POI(this, poi, true), true);
             myViewNet->getUndoList()->p_end();
@@ -1928,7 +1926,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
 }
 
 
-bool 
+bool
 GNENet::removePOI(const std::string& id) {
     GNEPOI* p = dynamic_cast<GNEPOI*>(myPOIs.get(id));
     if (p == 0) {
@@ -1939,9 +1937,9 @@ GNENet::removePOI(const std::string& id) {
 }
 
 
-void 
+void
 GNENet::insertPOIInView(GNEPOI* p) {
-    if(p->isShapeVisible() == false) {
+    if (p->isShapeVisible() == false) {
         myGrid.addAdditionalGLObject(p);
         myViewNet->update();
         p->setShapeVisible(true);
@@ -1953,9 +1951,9 @@ GNENet::insertPOIInView(GNEPOI* p) {
 }
 
 
-void 
+void
 GNENet::removePOIOfView(GNEPOI* p) {
-    if(p->isShapeVisible()) {
+    if (p->isShapeVisible()) {
         myGrid.removeAdditionalGLObject(p);
         myViewNet->update();
         p->setShapeVisible(false);
@@ -1967,9 +1965,9 @@ GNENet::removePOIOfView(GNEPOI* p) {
 }
 
 
-void 
+void
 GNENet::refreshPOI(GNEPOI* p) {
-    if(p->isShapeVisible()) {
+    if (p->isShapeVisible()) {
         myGrid.removeAdditionalGLObject(p);
         myGrid.addAdditionalGLObject(p);
         myViewNet->update();
@@ -1979,12 +1977,12 @@ GNENet::refreshPOI(GNEPOI* p) {
 }
 
 
-std::string 
+std::string
 GNENet::generatePOIID() const {
     int counter = 0;
     std::string newID = "POI_" + toString(counter);
     // generate new IDs to find a non-assigned ID
-    while(myPOIs.get(newID) != NULL) {
+    while (myPOIs.get(newID) != NULL) {
         counter++;
         newID = "POI_" + toString(counter);
     }
@@ -1992,8 +1990,8 @@ GNENet::generatePOIID() const {
 }
 
 
-GNEPOI* 
-GNENet::retrievePOI(const std::string & id, bool failHard) const {
+GNEPOI*
+GNENet::retrievePOI(const std::string& id, bool failHard) const {
     if (myPOIs.get(id) != 0) {
         return reinterpret_cast<GNEPOI*>(myPOIs.get(id));
     } else if (failHard) {
@@ -2006,7 +2004,7 @@ GNENet::retrievePOI(const std::string & id, bool failHard) const {
 
 
 void
-GNENet::changePOIID(GNEPOI* POI, const std::string &OldID) {
+GNENet::changePOIID(GNEPOI* POI, const std::string& OldID) {
     if (myPOIs.get(OldID) == 0) {
         throw UnknownElement("POI " + OldID);
     } else {
@@ -2015,21 +2013,21 @@ GNENet::changePOIID(GNEPOI* POI, const std::string &OldID) {
 
 }
 
-void GNENet::saveShapes(const std::string & filename) {
+void GNENet::saveShapes(const std::string& filename) {
     // save Shapes
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.openTag("additionals");
     // write only visible polygons
     for (auto i : myPolygons.getMyMap()) {
         GNEPoly* polygon = dynamic_cast<GNEPoly*>(i.second);
-        if(polygon->isShapeVisible()) {
+        if (polygon->isShapeVisible()) {
             polygon->writeShape(device);
         }
     }
     // write only visible POIs
     for (auto i : myPOIs.getMyMap()) {
         GNEPOI* POI = dynamic_cast<GNEPOI*>(i.second);
-        if(POI->isShapeVisible()) {
+        if (POI->isShapeVisible()) {
             POI->writeShape(device);
         }
     }
@@ -2045,13 +2043,13 @@ GNENet::getNumberOfShapes() const {
 }
 
 
-bool 
-GNENet::isShapeSelected(SumoXMLTag tag, const std::string & ID) const {
-    if(tag == SUMO_TAG_POLY) {
+bool
+GNENet::isShapeSelected(SumoXMLTag tag, const std::string& ID) const {
+    if (tag == SUMO_TAG_POLY) {
         return gSelected.isSelected(GLO_POLYGON, retrievePolygon(ID)->getGlID());
-    } else if(tag == SUMO_TAG_POI) {
+    } else if (tag == SUMO_TAG_POI) {
         return gSelected.isSelected(GLO_POI, retrievePOI(ID)->getGlID());
-    } else{
+    } else {
         throw ProcessError("Invalid Shape");
     }
 }
@@ -2061,7 +2059,7 @@ GNENet::isShapeSelected(SumoXMLTag tag, const std::string & ID) const {
 // private
 // ===========================================================================
 
-void 
+void
 GNENet::initJunctionsAndEdges() {
     // init junctions (by default Crossing and walking areas aren't created)
     NBNodeCont& nodeContainer = myNetBuilder->getNodeCont();
@@ -2241,11 +2239,11 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     myGrid.reset();
     myGrid.add(GeoConvHelper::getFinal().getConvBoundary());
     // if volatile options are true
-    if(volatileOptions) {
+    if (volatileOptions) {
         // clear all Polys of grid
         for (auto i : myPolygons.getMyMap()) {
             GNEPoly* polygon = dynamic_cast<GNEPoly*>(i.second);
-            if(polygon->isShapeVisible()) {
+            if (polygon->isShapeVisible()) {
                 removePolygonOfView(polygon);
             }
         }
@@ -2253,7 +2251,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         // clear all POIs of grid
         for (auto i : myPOIs.getMyMap()) {
             GNEPOI* POI = dynamic_cast<GNEPOI*>(i.second);
-            if(POI->isShapeVisible()) {
+            if (POI->isShapeVisible()) {
                 removePOIOfView(POI);
             }
         }
@@ -2287,7 +2285,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         // init again junction an edges
         initJunctionsAndEdges();
     }
-    
+
     // update precomputed geometries
     initGNEConnections();
 
@@ -2314,7 +2312,7 @@ GNENet::isShapesSaved() const {
 }
 
 
-void 
+void
 GNENet::replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList) {
     assert(GNEAttributeCarrier::isList(ac->getTag(), key));
     std::vector<std::string> values = GNEAttributeCarrier::parse<std::vector<std::string> >(ac->getAttribute(key));

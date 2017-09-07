@@ -43,16 +43,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_SmartSK::MSCFModel_SmartSK(const MSVehicleType* vtype,  double accel, 
+MSCFModel_SmartSK::MSCFModel_SmartSK(const MSVehicleType* vtype,  double accel,
                                      double decel, double emergencyDecel, double apparentDecel,
                                      double dawdle, double headwayTime,
                                      double tmp1, double tmp2, double tmp3, double tmp4, double tmp5) :
 // check whether setting these variables here with default values is ''good'' SUMO design
 //        double tmp1=0.0, double tmp2=5.0, double tmp3=0.0, double tmp4, double tmp5)
-    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime), 
+    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime),
     myDawdle(dawdle), myTauDecel(decel * headwayTime),
-    myTmp1(tmp1), myTmp2(tmp2), myTmp3(tmp3), myTmp4(tmp4), myTmp5(tmp5) 
-{
+    myTmp1(tmp1), myTmp2(tmp2), myTmp3(tmp3), myTmp4(tmp4), myTmp5(tmp5) {
     // the variable tmp1 is the acceleration delay time, e.g. two seconds (or something like this).
     // for use in the upate process, a rule like if (v<myTmp1) vsafe = 0; is needed.
     // To have this, we have to transform myTmp1 (which is a time) into an equivalent speed. This is done by the

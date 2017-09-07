@@ -291,7 +291,7 @@ protected:
          * @param[in] levelArg The level
          * @param[in] typeArg type of the lane
          */
-        OpenDriveLane(int idArg, const std::string& levelArg, const std::string& typeArg) : 
+        OpenDriveLane(int idArg, const std::string& levelArg, const std::string& typeArg) :
             id(idArg), level(levelArg), type(typeArg), successor(UNSET_CONNECTION), predecessor(UNSET_CONNECTION),
             speed(0), width(NBEdge::UNSPECIFIED_WIDTH) { }
 
@@ -586,13 +586,13 @@ protected:
                               const std::string& nodeID, NIImporter_OpenDrive::LinkType lt);
 
 
-    static void splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, double minDist); 
+    static void splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, double minDist);
 
-    static void findWidthSplit(const NBTypeCont& tc, std::vector<OpenDriveLane>& lanes, 
-            int section, double sectionStart, double sectionEnd, 
-            std::vector<double>& splitPositions);
+    static void findWidthSplit(const NBTypeCont& tc, std::vector<OpenDriveLane>& lanes,
+                               int section, double sectionStart, double sectionEnd,
+                               std::vector<double>& splitPositions);
 
-    static void setStraightConnections(std::vector<OpenDriveLane>& lanes); 
+    static void setStraightConnections(std::vector<OpenDriveLane>& lanes);
     static void recomputeWidths(OpenDriveLaneSection& sec, double start, double end, double sectionStart, double sectionEnd);
     static void recomputeWidths(std::vector<OpenDriveLane>& lanes, double start, double end, double sectionStart, double sectionEnd);
 

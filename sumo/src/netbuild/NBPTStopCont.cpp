@@ -78,7 +78,7 @@ void NBPTStopCont::process(NBEdgeCont& cont) {
 
         } else  {
             //create pt stop for each side of the street where a platform is defined (create additional pt stop as needed)
-            NBPTStop * additionalStop = assignAndCreatNewPTStopAsNeeded(stop,cont);
+            NBPTStop* additionalStop = assignAndCreatNewPTStopAsNeeded(stop, cont);
             if (additionalStop != 0) {
                 reverseStops.push_back(additionalStop);
             }
@@ -96,7 +96,7 @@ void NBPTStopCont::process(NBEdgeCont& cont) {
         NBPTStop* stop = i->second;
         if (!NBPTStopCont::findLaneAndComputeBusStopExtend(stop, cont)) {
             WRITE_WARNING("Could not find corresponding edge or compatible lane for pt stop: " + i->second->getName()
-                                  + ". Thus, it will be removed!");
+                          + ". Thus, it will be removed!");
             EdgeVector edgeVector = cont.getGeneratedFrom((*i).second->getOrigEdgeId());
             //std::cout << edgeVector.size() << std::endl;
             myPTStops.erase(i++);
@@ -132,11 +132,11 @@ NBPTStop* NBPTStopCont::assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeC
     bool leftOfEdge = false;
     NBPTPlatform* left = nullptr;
     for (auto it = pStop->getPlatformCands().begin(); it != pStop->getPlatformCands().end(); it++) {
-        NBPTPlatform * platform = &(*it);
-        double crossProd = computeCrossProductEdgePosition(edge,platform->getMyPos());
+        NBPTPlatform* platform = &(*it);
+        double crossProd = computeCrossProductEdgePosition(edge, platform->getMyPos());
 
         //TODO consider driving on the left!!! [GL May '17]
-        if (crossProd > 0){
+        if (crossProd > 0) {
             leftOfEdge = true;
             left = platform;
         } else {
@@ -146,11 +146,11 @@ NBPTStop* NBPTStopCont::assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeC
 
     }
 
-    if (leftOfEdge && rightOfEdge){
-        NBPTStop * leftStop = getReverseStop(pStop,cont);
+    if (leftOfEdge && rightOfEdge) {
+        NBPTStop* leftStop = getReverseStop(pStop, cont);
         leftStop->setMyPTStopLength(left->getMyLength());
         return leftStop;
-    } else if (leftOfEdge){
+    } else if (leftOfEdge) {
         NBEdge* reverse = getReverseEdge(edge);
         if (reverse != nullptr) {
             pStop->setEdgeId(reverse->getID());
@@ -188,15 +188,15 @@ void NBPTStopCont::assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCo
 double NBPTStopCont::computeCrossProductEdgePosition(const NBEdge* edge, const Position* closestPlatform) const {
     PositionVector geom = edge->getGeometry();
     int idxTmp = geom.indexOfClosest(*closestPlatform);
-    double offset = geom.nearest_offset_to_point2D(*closestPlatform,true);
+    double offset = geom.nearest_offset_to_point2D(*closestPlatform, true);
     double offset2 = geom.offsetAtIndex2D(idxTmp);
     int idx1, idx2;
     if (offset2 < offset) {
         idx1 = idxTmp;
-        idx2 = idx1+1;
+        idx2 = idx1 + 1;
     } else {
         idx2 = idxTmp;
-        idx1 = idxTmp-1;
+        idx1 = idxTmp - 1;
     }
     if (idx1 < 0 || idx1 >= (int)geom.size() || idx2 < 0 || idx2 >= (int)geom.size()) {
         WRITE_WARNING("Could not determine cross product");
@@ -222,8 +222,8 @@ NBPTPlatform* NBPTStopCont::getClosestPlatformToPTStopPosition(NBPTStop* pStop) 
     double minSqrDist = std::numeric_limits<double>::max();
 
     for (auto it = pStop->getPlatformCands().begin();
-         it != pStop->getPlatformCands().end();
-         it++) {
+            it != pStop->getPlatformCands().end();
+            it++) {
         NBPTPlatform platform = *it;
         double sqrDist = stopPosition.distanceSquaredTo2D(*platform.getMyPos());
         if (sqrDist < minSqrDist) {
@@ -270,8 +270,8 @@ bool NBPTStopCont::findLaneAndComputeBusStopExtend(NBPTStop* pStop, NBEdgeCont& 
 NBEdge* NBPTStopCont::getReverseEdge(NBEdge* edge) {
     if (edge != nullptr) {
         for (auto it = edge->getToNode()->getOutgoingEdges().begin();
-             it != edge->getToNode()->getOutgoingEdges().end();
-             it++) {
+                it != edge->getToNode()->getOutgoingEdges().end();
+                it++) {
             if ((*it)->getToNode() == edge->getFromNode()) {
                 return (*it);
             }

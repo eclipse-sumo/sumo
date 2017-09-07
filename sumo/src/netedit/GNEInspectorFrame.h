@@ -93,7 +93,7 @@ public:
         AttributeInput() {}
 
         /// @brief removed invalid spaces of Positions and shapes
-        std::string stripWhitespaceAfterComma(const std::string &stringValue);
+        std::string stripWhitespaceAfterComma(const std::string& stringValue);
 
     private:
         /// @brief pointer to GNEInspectorFrame parent
@@ -143,8 +143,8 @@ public:
 
     public:
         /// @brief constructor
-        NeteditParameters(GNEInspectorFrame *inspectorFrameParent);
-        
+        NeteditParameters(GNEInspectorFrame* inspectorFrameParent);
+
         /// @brief destructor
         ~NeteditParameters();
 
@@ -172,7 +172,7 @@ public:
 
     private:
         /// @brief pointer to inspector frame parent
-        GNEInspectorFrame *myInspectorFrameParent;
+        GNEInspectorFrame* myInspectorFrameParent;
 
         /// @brief Label for Check blocked movement
         FXLabel* myLabelBlockMovement;
@@ -264,7 +264,7 @@ protected:
     void showAttributeCarrierChilds();
 
     /// @brief get reference to current inspected Attribute carriers
-    const std::vector<GNEAttributeCarrier*> &getInspectedACs() const;
+    const std::vector<GNEAttributeCarrier*>& getInspectedACs() const;
 
 private:
     /// @brief groupBox for attributes
@@ -274,7 +274,7 @@ private:
     std::vector<GNEInspectorFrame::AttributeInput*> myVectorOfAttributeInputs;
 
     /// @brief Netedit Parameters
-    NeteditParameters *myNeteditParameters;
+    NeteditParameters* myNeteditParameters;
 
     /// @brief back Button
     FXButton* myBackButton;

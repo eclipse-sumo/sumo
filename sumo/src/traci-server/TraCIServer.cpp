@@ -113,8 +113,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     : myServerSocket(0),
       myTargetTime(begin),
       myAmEmbedded(port == 0),
-      myLaneTree(0)
-{
+      myLaneTree(0) {
 #ifdef DEBUG_MULTI_CLIENTS
     std::cout << "Creating new TraCIServer for " << numClients << " clients on port " << port << "." << std::endl;
 #endif
@@ -211,18 +210,18 @@ void
 TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
     if (myInstance == 0 && !myDoCloseConnection && (OptionsCont::getOptions().getInt("remote-port") != 0
 #ifdef HAVE_PYTHON
-     || OptionsCont::getOptions().isSet("python-script")
+            || OptionsCont::getOptions().isSet("python-script")
 #endif
-     )) {
+                                                   )) {
         myInstance = new TraCIServer(string2time(OptionsCont::getOptions().getString("begin")),
-            OptionsCont::getOptions().getInt("remote-port"),
-            OptionsCont::getOptions().getInt("num-clients"));
+                                     OptionsCont::getOptions().getInt("remote-port"),
+                                     OptionsCont::getOptions().getInt("num-clients"));
         for (std::map<int, CmdExecutor>::const_iterator i = execs.begin(); i != execs.end(); ++i) {
             myInstance->myExecutors[i->first] = i->second;
         }
     }
     if (myInstance != 0) {
-        // maybe net was deleted and built again 
+        // maybe net was deleted and built again
         MSNet::getInstance()->addVehicleStateListener(myInstance);
     }
 }
@@ -355,22 +354,25 @@ TraCIServer::processReorderingRequests() {
         std::map<int, SocketInfo*>::iterator j;
 #ifdef DEBUG_MULTI_CLIENTS
         std::cout << SIMTIME << " Current socket ordering:\n";
-        for (j = mySockets.begin(); j != mySockets.end(); ++j){
+        for (j = mySockets.begin(); j != mySockets.end(); ++j) {
             std::cout << "      " << j->first << ": " << j->second->socket << "\n";
         }
         std::cout << "Reordering requests:\n";
-        for (i = mySocketReorderRequests.begin(); i != mySocketReorderRequests.end(); ++i){
+        for (i = mySocketReorderRequests.begin(); i != mySocketReorderRequests.end(); ++i) {
             std::cout << "      Socket " << i->second->socket << " -> " << i->first << "\n";
         }
         i = mySocketReorderRequests.begin();
 #endif
-        while (i != mySocketReorderRequests.end()){
+        while (i != mySocketReorderRequests.end()) {
             j = mySockets.begin();
-            while(j != mySockets.end()) {
-                if (j->second->socket == i->second->socket) break;
-                else j++;
+            while (j != mySockets.end()) {
+                if (j->second->socket == i->second->socket) {
+                    break;
+                } else {
+                    j++;
+                }
             }
-            assert(j!=mySockets.end());
+            assert(j != mySockets.end());
             mySockets.erase(j);
             mySockets[i->first] = i->second;
             ++i;
@@ -378,8 +380,8 @@ TraCIServer::processReorderingRequests() {
         mySocketReorderRequests.clear();
 #ifdef DEBUG_MULTI_CLIENTS
         std::cout << "New socket ordering:\n";
-        for (j = mySockets.begin(); j != mySockets.end(); ++j){
-            std::cout << "      " << j->first << ": " << j->second->socket<< "\n";
+        for (j = mySockets.begin(); j != mySockets.end(); ++j) {
+            std::cout << "      " << j->first << ": " << j->second->socket << "\n";
         }
         std::cout << std::endl;
 #endif
@@ -390,10 +392,10 @@ TraCIServer::processReorderingRequests() {
 SUMOTime
 TraCIServer::nextTargetTime() const {
 #ifdef DEBUG_MULTI_CLIENTS
-        std::cout << "\n    Determining new target time..." << std::endl;
-        if (mySockets.size()==0){
-            std::cout << "    All clients have disconnected." << std::endl;
-        }
+    std::cout << "\n    Determining new target time..." << std::endl;
+    if (mySockets.size() == 0) {
+        std::cout << "    All clients have disconnected." << std::endl;
+    }
 #endif
     std::map<int, SocketInfo*>::const_iterator i;
     SUMOTime targetTime = std::numeric_limits<SUMOTime>::max();
@@ -404,7 +406,7 @@ TraCIServer::nextTargetTime() const {
         targetTime = MIN2(targetTime, i->second->targetTime);
     }
 #ifdef DEBUG_MULTI_CLIENTS
-        std::cout << std::endl;
+    std::cout << std::endl;
 #endif
     return targetTime;
 }
@@ -422,7 +424,7 @@ TraCIServer::sendOutputToAll() const {
             // this client will become active before the next SUMO step. Provide subscription results.
             i->second->socket->sendExact(myOutputStorage);
 #ifdef DEBUG_MULTI_CLIENTS
-    std::cout << i->second->socket<< "\n";
+            std::cout << i->second->socket << "\n";
 #endif
         }
         ++i;
@@ -456,7 +458,9 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
 
         if (myAmEmbedded || step < myTargetTime) {
 #ifdef DEBUG_MULTI_CLIENTS
-            if (step < myTargetTime) std::cout << "    next target time is larger than next SUMO simstep (" << step << "). Returning from processCommandsUntilSimStep()." << std::endl;
+            if (step < myTargetTime) {
+                std::cout << "    next target time is larger than next SUMO simstep (" << step << "). Returning from processCommandsUntilSimStep()." << std::endl;
+            }
 #endif
             return;
         }
@@ -472,18 +476,18 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
 #endif
             // Iterate over clients and process communication for the ones with target time == myTargetTime
             myCurrentSocket = mySockets.begin();
-            while (myCurrentSocket != mySockets.end()){
+            while (myCurrentSocket != mySockets.end()) {
 #ifdef DEBUG_MULTI_CLIENTS
                 std::cout << "  current socket: " << myCurrentSocket->second->socket
-                        << " with target time " << myCurrentSocket->second->targetTime
-                        << std::endl;
+                          << " with target time " << myCurrentSocket->second->targetTime
+                          << std::endl;
 #endif
 
                 if (myCurrentSocket->second->targetTime > myTargetTime) {
                     // this client must wait
 #ifdef DEBUG_MULTI_CLIENTS
                     std::cout <<  "       skipping client " << myCurrentSocket->second->socket
-                            << " with target time " << myCurrentSocket->second->targetTime << std::endl;
+                              << " with target time " << myCurrentSocket->second->targetTime << std::endl;
 #endif
                     myCurrentSocket++;
                     continue;
@@ -554,7 +558,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
                     myCurrentSocket = removeCurrentSocket();
                 }
             }
-            if(!TraCI::getLoadArgs().empty()) {
+            if (!TraCI::getLoadArgs().empty()) {
 #ifdef DEBUG_MULTI_CLIENTS
                 std::cout << "  Breaking loop to load new simulation." << std::endl;
 #endif
@@ -607,7 +611,7 @@ TraCIServer::cleanup() {
     myInputStorage.reset();
     mySubscriptionCache.reset();
     std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i;
-    for(i = myVehicleStateChanges.begin(); i != myVehicleStateChanges.end(); i++) {
+    for (i = myVehicleStateChanges.begin(); i != myVehicleStateChanges.end(); i++) {
         i->second.clear();
     }
     myCurrentSocket = mySockets.begin();
@@ -696,10 +700,10 @@ TraCIServer::runEmbedded(std::string pyFile) {
 
 
 std::map<int, TraCIServer::SocketInfo*>::iterator
-TraCIServer::removeCurrentSocket(){
+TraCIServer::removeCurrentSocket() {
 #ifdef DEBUG_MULTI_CLIENTS
-        std::cout << "       Removing socket " << myCurrentSocket->second->socket
-                << " (order " << myCurrentSocket->first << ")" << std::endl;
+    std::cout << "       Removing socket " << myCurrentSocket->second->socket
+              << " (order " << myCurrentSocket->first << ")" << std::endl;
 #endif
 
     if (mySockets.size() == 1) {
@@ -741,8 +745,8 @@ TraCIServer::dispatchCommand() {
     int commandStart, commandLength;
     int commandId = readCommandID(commandStart, commandLength);
 #ifdef DEBUG_MULTI_CLIENTS
-        std::cout << "       dispatchCommand() called for client " << myCurrentSocket->second->socket
-                << ", commandId = " << commandId << std::endl;
+    std::cout << "       dispatchCommand() called for client " << myCurrentSocket->second->socket
+              << ", commandId = " << commandId << std::endl;
 #endif
     bool success = false;
     // dispatch commands
@@ -760,7 +764,7 @@ TraCIServer::dispatchCommand() {
                 }
 #ifdef DEBUG_MULTI_CLIENTS
                 std::cout << "       commandId == CMD_LOAD"
-                        << ", args = " << toString(args) << std::endl;
+                          << ", args = " << toString(args) << std::endl;
 #endif
                 try {
                     TraCI::load(args);
@@ -800,7 +804,7 @@ TraCIServer::dispatchCommand() {
                     std::cout << "       commandId == CMD_SIMSTEP"
                               << ", next target time for client is " << myCurrentSocket->second->targetTime << std::endl;
 #endif
-                    if (myCurrentSocket->second->targetTime <= MSNet::getInstance()->getCurrentTimeStep()){
+                    if (myCurrentSocket->second->targetTime <= MSNet::getInstance()->getCurrentTimeStep()) {
                         // This is not the last TraCI simstep in the current SUMO simstep -> send single simstep response.
                         // @note: In the other case the simstep results are sent to all after the SUMO step was performed, see entry point for processCommandsUntilSimStep()
                         sendSingleSimStepResponse();
@@ -933,7 +937,7 @@ TraCIServer::postProcessSimulationStep() {
     mySubscriptionCache.reset();
 #ifdef DEBUG_SUBSCRIPTIONS
     std::cout << "   Initial size of mySubscriptionCache is " << mySubscriptionCache.size()
-            << "\n   Nr. of active subscriptions = " << noActive << std::endl;
+              << "\n   Nr. of active subscriptions = " << noActive << std::endl;
 #endif
     mySubscriptionCache.writeInt(noActive);
 #ifdef DEBUG_SUBSCRIPTIONS
@@ -949,8 +953,8 @@ TraCIServer::postProcessSimulationStep() {
         std::string errors;
         bool ok = processSingleSubscription(s, into, errors);
 #ifdef DEBUG_SUBSCRIPTIONS
-    std::cout << "   Size of into-store for subscription " << s.id
-            << ": " << into.size() << std::endl;
+        std::cout << "   Size of into-store for subscription " << s.id
+                  << ": " << into.size() << std::endl;
 #endif
         mySubscriptionCache.writeStorage(into);
         if (ok) {
@@ -970,9 +974,9 @@ void
 TraCIServer::sendSingleSimStepResponse() {
 #ifdef DEBUG_MULTI_CLIENTS
     std::cout << "       Sending cached simstep response to current client " << myCurrentSocket->second->socket
-            << " (-> intermediate TraCI step)."
-            << "\n       Size of mySubscriptionCache is " << mySubscriptionCache.size()
-            << std::endl;
+              << " (-> intermediate TraCI step)."
+              << "\n       Size of mySubscriptionCache is " << mySubscriptionCache.size()
+              << std::endl;
 #endif
     writeStatusCmd(CMD_SIMSTEP, RTYPE_OK, "");
 
@@ -1047,7 +1051,7 @@ TraCIServer::initialiseSubscription(const TraCIServer::Subscription& s) {
                     int noActive = 1 + (mySubscriptionCache.size() > 0 ? mySubscriptionCache.readInt() : 0);
                     tcpip::Storage tmp;
                     tmp.writeInt(noActive);
-                    while (mySubscriptionCache.valid_pos()){
+                    while (mySubscriptionCache.valid_pos()) {
                         tmp.writeByte(mySubscriptionCache.readByte());
                     }
                     tmp.writeStorage(writeInto);

@@ -86,7 +86,7 @@ public:
     void updateGeometry();
 
     /// @brief registers completed movement with the undoList
-    void commitGeometryMoving(const PositionVector &oldShape, double minDistToEnd, GNEUndoList* undoList);
+    void commitGeometryMoving(const PositionVector& oldShape, double minDistToEnd, GNEUndoList* undoList);
 
     /// Returns the street's geometry
     Boundary getBoundary() const;
@@ -331,7 +331,7 @@ private:
     void removeConnection(NBEdge::Connection nbCon);
 
     /// @brief remove crossing of junction
-    void removeEdgeFromCrossings(GNEJunction *junction, GNEUndoList* undoList);
+    void removeEdgeFromCrossings(GNEJunction* junction, GNEUndoList* undoList);
 };
 
 

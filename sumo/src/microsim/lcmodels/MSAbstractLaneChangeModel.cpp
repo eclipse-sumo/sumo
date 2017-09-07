@@ -299,7 +299,9 @@ MSAbstractLaneChangeModel::updateShadowLane() {
         passed.push_back(myShadowLane);
         for (int i = 0; i < (int)further.size(); ++i) {
             MSLane* shadowFurther = getShadowLane(further[i], furtherPosLat[i]);
-            if (debugVehicle()) std::cout << SIMTIME << "   further=" << further[i]->getID() << " shadowFurther=" << Named::getIDSecure(shadowFurther) << "\n";
+            if (debugVehicle()) {
+                std::cout << SIMTIME << "   further=" << further[i]->getID() << " shadowFurther=" << Named::getIDSecure(shadowFurther) << "\n";
+            }
             if (shadowFurther != 0 && MSLinkContHelper::getConnectingLink(*shadowFurther, *passed.back()) != 0) {
                 passed.push_back(shadowFurther);
             }
@@ -374,7 +376,7 @@ MSAbstractLaneChangeModel::changedToOpposite() {
     myAlreadyChanged = true;
 }
 
-void 
+void
 MSAbstractLaneChangeModel::setFollowerGaps(CLeaderDist follower, double secGap)  {
     if (follower.first != 0) {
         myLastFollowerGap = follower.second + follower.first->getVehicleType().getMinGap();
@@ -382,7 +384,7 @@ MSAbstractLaneChangeModel::setFollowerGaps(CLeaderDist follower, double secGap) 
     }
 }
 
-void 
+void
 MSAbstractLaneChangeModel::setLeaderGaps(CLeaderDist leader, double secGap) {
     if (leader.first != 0) {
         myLastLeaderGap = leader.second + myVehicle.getVehicleType().getMinGap();
@@ -390,7 +392,7 @@ MSAbstractLaneChangeModel::setLeaderGaps(CLeaderDist leader, double secGap) {
     }
 }
 
-void 
+void
 MSAbstractLaneChangeModel::setFollowerGaps(const MSLeaderDistanceInfo& vehicles) {
     int rightmost;
     int leftmost;
@@ -409,7 +411,7 @@ MSAbstractLaneChangeModel::setFollowerGaps(const MSLeaderDistanceInfo& vehicles)
     }
 }
 
-void 
+void
 MSAbstractLaneChangeModel::setLeaderGaps(const MSLeaderDistanceInfo& vehicles) {
     int rightmost;
     int leftmost;

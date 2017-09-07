@@ -48,7 +48,7 @@
 class ShapeContainer {
 public:
 
-    /// @brief containers 
+    /// @brief containers
     typedef NamedObjectCont<SUMOPolygon*> Polygons;
     typedef NamedObjectCont<PointOfInterest*> POIs;
 

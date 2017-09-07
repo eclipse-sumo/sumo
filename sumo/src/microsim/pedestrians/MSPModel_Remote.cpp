@@ -33,10 +33,10 @@ using grpc::ClientContext;
 using grpc::Status;
 
 MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net)
-        :myNet(net) {
+    : myNet(net) {
     const std::string address = oc.getString("pedestrian.remote.address");
     myHybridsimStub = hybridsim::HybridSimulation::NewStub(grpc::CreateChannel(
-            address, grpc::InsecureChannelCredentials()));
+                          address, grpc::InsecureChannelCredentials()));
 
     initialize();
 
@@ -82,13 +82,13 @@ PedestrianState* MSPModel_Remote::add(MSPerson* person, MSPerson::MSPersonStage_
             if (stage->getRoute().size() > 1) {
                 const MSEdge* nxt = *(it + 1);
                 dir = (edge->getFromJunction() == nxt->getFromJunction()
-                        || edge->getFromJunction() == nxt->getToJunction()) ? BACKWARD : FORWARD;
+                       || edge->getFromJunction() == nxt->getToJunction()) ? BACKWARD : FORWARD;
             } else {
                 dir = stage->getDepartPos() == 0 ? FORWARD : BACKWARD;
             }
         } else {
             dir = (edge->getFromJunction() == prv->getToJunction()
-                    || edge->getFromJunction() == prv->getFromJunction()) ? FORWARD : BACKWARD;
+                   || edge->getFromJunction() == prv->getFromJunction()) ? FORWARD : BACKWARD;
         }
         if (edgesTransitionsMapping.find(edge) == edgesTransitionsMapping.end()) {
             ProcessError("Cannot map edge : " + edge->getID() + " to remote simulation");
@@ -123,7 +123,7 @@ MSPModel_Remote::~MSPModel_Remote() {
     hybridsim::Empty req;
     hybridsim::Empty rpl;
     ClientContext context1;
-    Status st = myHybridsimStub->shutdown(&context1,req,&rpl);
+    Status st = myHybridsimStub->shutdown(&context1, req, &rpl);
     if (!st.ok()) {
         ProcessError("Could not shutdown remote server");
     }
@@ -317,7 +317,7 @@ void MSPModel_Remote::handlePedestrianLane(MSLane* l, hybridsim::Scenario& scena
     hybridsim::Edge_Type edgeType;
     if (l->getEdge().isCrossing()) {
         edgeType = hybridsim::Edge_Type_TRANSITION_HOLDOVER;
-    } else if (l->getEdge().isWalkingArea()){
+    } else if (l->getEdge().isWalkingArea()) {
         edgeType = hybridsim::Edge_Type_TRANSITION_INTERNAL;
     } else {
         edgeType = hybridsim::Edge_Type_TRANSITION;
@@ -339,7 +339,7 @@ void MSPModel_Remote::handlePedestrianLane(MSLane* l, hybridsim::Scenario& scena
 }
 void
 MSPModel_Remote::makeStartOrEndTransition(Position frst, Position scnd, double width, hybridsim::Scenario& scenario,
-                                          hybridsim::Edge_Type type, int id) {
+        hybridsim::Edge_Type type, int id) {
 
     double dx = scnd.x() - frst.x();
     double dy = scnd.y() - frst.y();
@@ -383,7 +383,7 @@ void MSPModel_Remote::handleShape(const PositionVector& shape, hybridsim::Scenar
 // MSPModel_Remote::PState method definitions
 // ===========================================================================
 MSPModel_Remote::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walking* stage)
-        :myPerson(person), myPhi(0), myPosition(0, 0), myStage(stage) {
+    : myPerson(person), myPhi(0), myPosition(0, 0), myStage(stage) {
 
 
 }

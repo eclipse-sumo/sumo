@@ -63,14 +63,13 @@
 GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
                        double frompos, double topos, const std::string name) :
     MSStoppingPlace(id, lines, lane, frompos, topos, name),
-    GUIGlObject_AbstractAdd("busStop", GLO_TRIGGER, id) 
-{
+    GUIGlObject_AbstractAdd("busStop", GLO_TRIGGER, id) {
     const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
     myFGShape = lane.getShape();
     myFGShape.move2side(1.65 * offsetSign);
     myFGShape = myFGShape.getSubpart(
-            lane.interpolateLanePosToGeometryPos(frompos), 
-            lane.interpolateLanePosToGeometryPos(topos));
+                    lane.interpolateLanePosToGeometryPos(frompos),
+                    lane.interpolateLanePosToGeometryPos(topos));
     myFGShapeRotations.reserve(myFGShape.size() - 1);
     myFGShapeLengths.reserve(myFGShape.size() - 1);
     int e = (int) myFGShape.size() - 1;

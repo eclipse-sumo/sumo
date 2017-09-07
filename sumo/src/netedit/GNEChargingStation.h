@@ -61,14 +61,14 @@ public:
      * @param[in] chargeDelay delay in timeSteps in the charge
      * @param[in] friendlyPos enable or disable friendly position
      */
-    GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string &name, double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay, bool friendlyPosition);
+    GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay, bool friendlyPosition);
 
     /// @brief Destructor
     ~GNEChargingStation();
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
-     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
+     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled
      */
     void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 

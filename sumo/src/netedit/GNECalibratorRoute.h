@@ -55,10 +55,10 @@ public:
     GNECalibratorRoute(GNECalibrator* calibratorParent);
 
     /// @brief parameter constructor 1 (Using edges IDs)
-    GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<std::string> edges, const RGBColor &color);
+    GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<std::string> edges, const RGBColor& color);
 
     /// @brief parameter constructor 2 (Using GNEEdges)
-    GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<GNEEdge*> edges, const RGBColor &color);
+    GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<GNEEdge*> edges, const RGBColor& color);
 
     /// @brief destructor
     ~GNECalibratorRoute();
@@ -104,7 +104,7 @@ public:
     /**@brief set color of route
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setColor(const RGBColor &color);
+    bool setColor(const RGBColor& color);
 
     /**@brief set color of route (String Version
     * @return true if was sucesfully set, or false if value isn't valid

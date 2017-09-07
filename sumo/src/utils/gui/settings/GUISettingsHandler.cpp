@@ -49,14 +49,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile, bool netedit) : 
+GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile, bool netedit) :
     SUMOSAXHandler(content),
     mySettings(netedit),
     myDelay(-1), myLookFrom(-1, -1, -1), myLookAt(-1, -1, -1),
-    myCurrentColorer(SUMO_TAG_NOTHING), 
-    myCurrentScheme(0), 
-    myJamSoundTime(-1) 
-{
+    myCurrentColorer(SUMO_TAG_NOTHING),
+    myCurrentScheme(0),
+    myJamSoundTime(-1) {
     if (isFile) {
         XMLSubSys::runParser(*this, content);
     } else {

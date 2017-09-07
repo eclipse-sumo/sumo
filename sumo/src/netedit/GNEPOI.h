@@ -68,8 +68,8 @@ public:
      * @param[in] height The height of the POI image
      * @param[in] movementBlocked if movement of POI is blocked
      */
-    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
-          const std::string& imgFile, const Position& pos, double width, double height, bool movementBlocked);
+    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle,
+           const std::string& imgFile, const Position& pos, double width, double height, bool movementBlocked);
 
     /// @brief Destructor
     ~GNEPOI();
@@ -78,7 +78,7 @@ public:
     * @param[in] newPosition new position of geometry
     * @note should't be called in drawGL(...) functions to avoid smoothness issues
     */
-    void moveGeometry(const Position &newPosition);
+    void moveGeometry(const Position& newPosition);
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
     * @param[in] oldPos the old position of additional
@@ -131,7 +131,7 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
-    
+
     /// @name inherited from GNEAttributeCarrier
     /// @{
     /**@brief method for getting the Attribute of an XML key
@@ -159,7 +159,7 @@ protected:
 
     /// @brief lane in which this POI can be placed
     GNELane* myLane;
-    
+
     /// @brief position over lane
     double myPositionOverLane;
 

@@ -1072,7 +1072,7 @@ PositionVector::push_front_noDoublePos(const Position& p) {
 }
 
 
-void 
+void
 PositionVector::insert_noDoublePos(const std::vector<Position>::iterator& at, const Position& p) {
     if (at == begin()) {
         push_front_noDoublePos(p);
@@ -1121,24 +1121,28 @@ PositionVector::operator!=(const PositionVector& v2) const {
 
 PositionVector
 PositionVector::operator-(const PositionVector& v2) const {
-    if(length()!=v2.length()) WRITE_ERROR("Trying to substract PositionVectors of different lengths.");
+    if (length() != v2.length()) {
+        WRITE_ERROR("Trying to substract PositionVectors of different lengths.");
+    }
     PositionVector pv;
     auto i1 = begin();
     auto i2 = v2.begin();
-    while (i1 != end()){
-        pv.add(*i1-*i2);
+    while (i1 != end()) {
+        pv.add(*i1 - *i2);
     }
     return pv;
 }
 
 PositionVector
 PositionVector::operator+(const PositionVector& v2) const {
-    if(length()!=v2.length()) WRITE_ERROR("Trying to substract PositionVectors of different lengths.");
+    if (length() != v2.length()) {
+        WRITE_ERROR("Trying to substract PositionVectors of different lengths.");
+    }
     PositionVector pv;
     auto i1 = begin();
     auto i2 = v2.begin();
-    while (i1 != end()){
-        pv.add(*i1+*i2);
+    while (i1 != end()) {
+        pv.add(*i1 + *i2);
     }
     return pv;
 }

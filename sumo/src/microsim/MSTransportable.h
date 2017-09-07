@@ -509,7 +509,7 @@ public:
     }
 
     /// @brief Appends the given stage to the current plan
-    void appendStage(Stage* stage, int next=-1);
+    void appendStage(Stage* stage, int next = -1);
 
     /// @brief removes the nth next stage
     void removeStage(int next);

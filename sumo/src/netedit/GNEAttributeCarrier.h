@@ -135,7 +135,7 @@ public:
 
     /// @brief return true if element tag can block their movement
     static bool canBlockMovement(SumoXMLTag tag);
-    
+
     /// @brief return true if element tag can block their shape
     static bool canBlockShape(SumoXMLTag tag);
 

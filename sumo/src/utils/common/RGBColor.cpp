@@ -142,7 +142,7 @@ RGBColor::operator!=(const RGBColor& c) const {
 }
 
 
-RGBColor 
+RGBColor
 RGBColor::invertedColor() const {
     // obtain inverse colors
     const unsigned char r = (unsigned char)(255 - (int)myRed);

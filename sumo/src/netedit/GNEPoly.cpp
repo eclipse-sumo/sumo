@@ -84,16 +84,16 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
 GNEPoly::~GNEPoly() {}
 
 
-int 
+int
 GNEPoly::moveVertexShape(int index, const Position& newPos) {
     // only move shape if block movement block shape are disabled
-    if(!myBlockMovement && !myBlockShape && (index != -1)) {
+    if (!myBlockMovement && !myBlockShape && (index != -1)) {
         // check that index is correct before change position
-        if(index < (int)myShape.size()) {
+        if (index < (int)myShape.size()) {
             // save current moving vertex
             myCurrentMovingVertexIndex = index;
             // if closed shape and cliked is first or last, move both giving more priority to first always
-            if(myClosedShape && (index == 0 || index == (int)myShape.size() - 1)) {
+            if (myClosedShape && (index == 0 || index == (int)myShape.size() - 1)) {
                 myShape.front() = newPos;
                 myShape.back() = newPos;
                 return 0;
@@ -111,10 +111,10 @@ GNEPoly::moveVertexShape(int index, const Position& newPos) {
 }
 
 
-void 
+void
 GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset) {
     // only move shape if block movement is disabled and block shape is enabled
-    if(!myBlockMovement && myBlockShape) {
+    if (!myBlockMovement && myBlockShape) {
         // restore original shape
         myShape = oldShape;
         // change all points of the shape shape using noffset
@@ -128,9 +128,9 @@ GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset)
 }
 
 
-void 
+void
 GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList) {
-    if(!myBlockMovement) {
+    if (!myBlockMovement) {
         bool abort = false;
         // disable current moving vertex
         myCurrentMovingVertexIndex = -1;
@@ -138,23 +138,23 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
         PositionVector shapeToCommit = myShape;
         // first check if double points has to be removed
         shapeToCommit.removeDoublePoints(myHintSize);
-        if(shapeToCommit.size() != myShape.size()) {
-            if((shapeToCommit.size() < 2) || (shapeToCommit.area() == 0)) {
+        if (shapeToCommit.size() != myShape.size()) {
+            if ((shapeToCommit.size() < 2) || (shapeToCommit.area() == 0)) {
                 abort = true;
             } else {
                 WRITE_WARNING("Merged shape's point")
             }
         }
         // check if polygon has to be closed
-        if(shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < (2*myHintSize)) {
+        if (shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < (2 * myHintSize)) {
             shapeToCommit.pop_back();
             shapeToCommit.push_back(shapeToCommit.front());
-            if((shapeToCommit.size() < 2) || (shapeToCommit.area() == 0)) {
+            if ((shapeToCommit.size() < 2) || (shapeToCommit.area() == 0)) {
                 abort = true;
             }
         }
         // check if movement has to be aborted
-        if(abort) {
+        if (abort) {
             WRITE_WARNING("Invalid new vertex position; resultant polygon's area is empty")
             // restore old shape
             myShape = oldShape;
@@ -176,20 +176,20 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
 }
 
 
-void GNEPoly::writeShape(OutputDevice &device) {
+void GNEPoly::writeShape(OutputDevice& device) {
     writeXML(device);
 }
 
 
-Position 
+Position
 GNEPoly::getPositionInView() const {
     return myShape.getPolygonCenter();
 }
 
 
-const std::string& 
+const std::string&
 GNEPoly::getParentName() const {
-    if(myShapeEditedJunction != NULL) {
+    if (myShapeEditedJunction != NULL) {
         return myShapeEditedJunction->getMicrosimID();
     } else {
         return myNet->getMicrosimID();
@@ -204,14 +204,14 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
-    FXMenuCommand *simplifyShape = new FXMenuCommand(ret, "Simplify Shape\t\tReplace current shape with a rectangle", 0, &parent, MID_GNE_POLYGON_SIMPLIFY_SHAPE);
+    FXMenuCommand* simplifyShape = new FXMenuCommand(ret, "Simplify Shape\t\tReplace current shape with a rectangle", 0, &parent, MID_GNE_POLYGON_SIMPLIFY_SHAPE);
     // disable simplify shape if polygon was already simplified
-    if(mySimplifiedShape) {
+    if (mySimplifiedShape) {
         simplifyShape->disable();
     }
     // create open or close polygon's shape only if myShapeEditedJunction is NULL
-    if(myShapeEditedJunction == NULL) {
-        if(myClosedShape) {
+    if (myShapeEditedJunction == NULL) {
+        if (myClosedShape) {
             new FXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", 0, &parent, MID_GNE_POLYGON_OPEN);
         } else {
             new FXMenuCommand(ret, "Close shape\t\tClose polygon's shape", 0, &parent, MID_GNE_POLYGON_CLOSE);
@@ -219,15 +219,15 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     }
     // create a extra FXMenuCommand if mouse is over a vertex
     int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
-    if(index != -1) {
-        FXMenuCommand *removeGeometryPoint = new FXMenuCommand(ret, "Remove geometry point\t\tRemove geometry point under mouse", 0, &parent, MID_GNE_VIEWNET_DELETE_GEOMETRY_POINT);
-        FXMenuCommand *setFirstPoint = new FXMenuCommand(ret, "Set first geometry point\t\tSet", 0, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
+    if (index != -1) {
+        FXMenuCommand* removeGeometryPoint = new FXMenuCommand(ret, "Remove geometry point\t\tRemove geometry point under mouse", 0, &parent, MID_GNE_VIEWNET_DELETE_GEOMETRY_POINT);
+        FXMenuCommand* setFirstPoint = new FXMenuCommand(ret, "Set first geometry point\t\tSet", 0, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
         // disable setFirstPoint if shape only have three points
-        if((myClosedShape && (myShape.size() <= 4)) || (!myClosedShape && (myShape.size() <= 3))) {
+        if ((myClosedShape && (myShape.size() <= 4)) || (!myClosedShape && (myShape.size() <= 3))) {
             removeGeometryPoint->disable();
         }
         // disable setFirstPoint if mouse is over first point
-        if(index == 0) {
+        if (index == 0) {
             setFirstPoint->disable();
         }
     }
@@ -237,13 +237,13 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
-GUIParameterTableWindow* 
+GUIParameterTableWindow*
 GNEPoly::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return GUIPolygon::getParameterWindow(app, parent);
 }
 
 
-Boundary 
+Boundary
 GNEPoly::getCenteringBoundary() const {
     return GUIPolygon::getCenteringBoundary();
 }
@@ -262,7 +262,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         bool modeMove = myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE;
         Position mousePosition = myNet->getViewNet()->getPositionInformation();
         double distanceToShape = myShape.distance2D(mousePosition);
-        Position PostionOverShapeLine = myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition));        
+        Position PostionOverShapeLine = myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition));
         // set colors
         RGBColor invertedColor, darkerColor;
         if (selected) {
@@ -275,19 +275,19 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         // push matrix
         glPushName(getGlID());
         // Draw geometry hints if polygon's shape isn't blocked
-        if(myBlockShape == false) {
+        if (myBlockShape == false) {
             // draw a boundary for moving using darkerColor
             glPushMatrix();
             glTranslated(0, 0, GLO_POLYGON + 0.01);
             GLHelper::setColor(darkerColor);
-            GLHelper::drawBoxLines(myShape, (myHintSize/4) * s.polySize.getExaggeration(s));
+            GLHelper::drawBoxLines(myShape, (myHintSize / 4) * s.polySize.getExaggeration(s));
             glPopMatrix();
             // draw points of shape
             for (auto i : myShape) {
                 glPushMatrix();
                 glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
                 // Change color of vertex and flag mouseOverVertex if mouse is over vertex
-                if(modeMove && (i.distanceTo(mousePosition) < myHintSize)) {
+                if (modeMove && (i.distanceTo(mousePosition) < myHintSize)) {
                     mouseOverVertex = true;
                     GLHelper::setColor(invertedColor);
                 } else {
@@ -296,22 +296,22 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper:: drawFilledCircle(myHintSize, 32);
                 glPopMatrix();
                 // draw special symbols (Start, End and Block)
-                if(i == myShape.front()) {
+                if (i == myShape.front()) {
                     // draw a "s" over first point
                     glPushMatrix();
                     glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                    GLHelper::drawText("S", Position(), .1, 2*myHintSize, invertedColor);
+                    GLHelper::drawText("S", Position(), .1, 2 * myHintSize, invertedColor);
                     glPopMatrix();
                 } else if ((i == myShape.back()) && (myClosedShape == false)) {
                     // draw a "e" over last point if polygon isn't closed
                     glPushMatrix();
                     glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                    GLHelper::drawText("E", Position(), .1, 2*myHintSize, invertedColor);
+                    GLHelper::drawText("E", Position(), .1, 2 * myHintSize, invertedColor);
                     glPopMatrix();
                 }
             }
             // check if draw moving hint has to be drawed
-            if(modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < myHintSize)) {
+            if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < myHintSize)) {
                 // push matrix
                 glPushMatrix();
                 glTranslated(PostionOverShapeLine.x(), PostionOverShapeLine.y(), GLO_POLYGON + 0.04);
@@ -326,15 +326,15 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-int GNEPoly::getVertexIndex(const Position &pos, bool createIfNoExist) {
+int GNEPoly::getVertexIndex(const Position& pos, bool createIfNoExist) {
     // first check if vertex already exists
-    for(auto i : myShape) {
+    for (auto i : myShape) {
         if (i.distanceTo2D(pos) < myHintSize) {
             return myShape.indexOfClosest(i);
         }
     }
     // if vertex doesn't exist, insert it
-    if(createIfNoExist && (myShape.distance2D(pos) < myHintSize)) {
+    if (createIfNoExist && (myShape.distance2D(pos) < myHintSize)) {
         return myShape.insertAtClosest(pos);
     } else {
         return -1;
@@ -342,31 +342,31 @@ int GNEPoly::getVertexIndex(const Position &pos, bool createIfNoExist) {
 }
 
 
-bool 
+bool
 GNEPoly::isPolygonClosed() const {
     return myClosedShape;
 }
 
 
-void GNEPoly::setShapeEditedJunction(GNEJunction * junction) {
-    if(junction) {
-     myShapeEditedJunction = junction;
+void GNEPoly::setShapeEditedJunction(GNEJunction* junction) {
+    if (junction) {
+        myShapeEditedJunction = junction;
     } else {
         throw InvalidArgument("Junction cannot be NULL");
     }
 }
 
 
-GNEJunction * GNEPoly::getShapeEditedJunction() const {
+GNEJunction* GNEPoly::getShapeEditedJunction() const {
     return myShapeEditedJunction;
 }
 
 
-void 
+void
 GNEPoly::openPolygon(bool allowUndo) {
     // only open if shape is closed
-    if(myClosedShape) {
-        if(allowUndo) {
+    if (myClosedShape) {
+        if (allowUndo) {
             myNet->getViewNet()->getUndoList()->p_begin("open polygon");
             setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", myNet->getViewNet()->getUndoList());
             myNet->getViewNet()->getUndoList()->p_end();
@@ -384,11 +384,11 @@ GNEPoly::openPolygon(bool allowUndo) {
 }
 
 
-void 
+void
 GNEPoly::closePolygon(bool allowUndo) {
     // only close if shape is opened
-    if(myClosedShape == false) {
-        if(allowUndo) {
+    if (myClosedShape == false) {
+        if (allowUndo) {
             myNet->getViewNet()->getUndoList()->p_begin("close shape");
             setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myNet->getViewNet()->getUndoList());
             myNet->getViewNet()->getUndoList()->p_end();
@@ -406,10 +406,10 @@ GNEPoly::closePolygon(bool allowUndo) {
 }
 
 
-void 
+void
 GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
     // check that old index is correct
-    if(oldIndex >= (int)myShape.size()) {
+    if (oldIndex >= (int)myShape.size()) {
         throw InvalidArgument("Invalid old Index");
     } else if (oldIndex == 0) {
         WRITE_WARNING("Selected point must be different of the first point")
@@ -419,7 +419,7 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
         for (int i = oldIndex; i < (int)myShape.size(); i++) {
             newShape.push_back(myShape[i]);
         }
-        if(myClosedShape) {
+        if (myClosedShape) {
             for (int i = 1; i < oldIndex; i++) {
                 newShape.push_back(myShape[i]);
             }
@@ -430,7 +430,7 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
             }
         }
         // set new rotated shape
-        if(allowUndo) {
+        if (allowUndo) {
             myNet->getViewNet()->getUndoList()->p_begin("change first geometry point");
             setAttribute(SUMO_ATTR_SHAPE, toString(newShape), myNet->getViewNet()->getUndoList());
             myNet->getViewNet()->getUndoList()->p_end();
@@ -450,7 +450,7 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
 
 void
 GNEPoly::simplifyShape(bool allowUndo) {
-    if(!mySimplifiedShape) {
+    if (!mySimplifiedShape) {
         const Boundary b =  myShape.getBoxBoundary();
         PositionVector simplifiedShape;
         // create a square as simplified shape
@@ -459,8 +459,8 @@ GNEPoly::simplifyShape(bool allowUndo) {
         simplifiedShape.push_back(Position(b.xmax(), b.ymax()));
         simplifiedShape.push_back(Position(b.xmax(), b.ymin()));
         simplifiedShape.push_back(simplifiedShape[0]);
-        // set new shape depending of allowUndo 
-        if(allowUndo) {
+        // set new shape depending of allowUndo
+        if (allowUndo) {
             myNet->getViewNet()->getUndoList()->p_begin("simplify shape");
             setAttribute(SUMO_ATTR_SHAPE, toString(simplifiedShape), myNet->getViewNet()->getUndoList());
             myNet->getViewNet()->getUndoList()->p_end();
@@ -486,7 +486,7 @@ GNEPoly::deleteGeometryNear(const Position& pos, bool allowUndo) {
         // obtain index
         PositionVector modifiedShape = myShape;
         int index = modifiedShape.indexOfClosest(pos);
-        // remove point dependending of 
+        // remove point dependending of
         if (myClosedShape && (index == 0 || index == (int)modifiedShape.size() - 1)) {
             modifiedShape.erase(modifiedShape.begin());
             modifiedShape.erase(modifiedShape.end() - 1);
@@ -494,8 +494,8 @@ GNEPoly::deleteGeometryNear(const Position& pos, bool allowUndo) {
         } else {
             modifiedShape.erase(modifiedShape.begin() + index);
         }
-        // set new shape depending of allowUndo 
-        if(allowUndo) {
+        // set new shape depending of allowUndo
+        if (allowUndo) {
             myNet->getViewNet()->getUndoList()->p_begin("delete geometry point");
             setAttribute(SUMO_ATTR_SHAPE, toString(modifiedShape), myNet->getViewNet()->getUndoList());
             myNet->getViewNet()->getUndoList()->p_end();
@@ -580,7 +580,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             bool ok = true;
             PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
             // check if shape was sucesfully parsed
-            if(ok) {
+            if (ok) {
                 // remove consecutive points
                 shape.removeDoublePoints();
                 // shape is valid if has more than three points and shape's are isn't empty
@@ -606,15 +606,15 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_BLOCK_SHAPE:
             return canParse<bool>(value);
         case GNE_ATTR_CLOSE_SHAPE:
-            if(canParse<bool>(value)) {
+            if (canParse<bool>(value)) {
                 bool closePolygon = parse<bool>(value);
-                if(closePolygon && (myShape.begin() == myShape.end())) {
+                if (closePolygon && (myShape.begin() == myShape.end())) {
                     // Polygon already closed, then invalid value
                     return false;
-                } else if(!closePolygon && (myShape.begin() != myShape.end())) {
+                } else if (!closePolygon && (myShape.begin() != myShape.end())) {
                     // Polygon already open, then invalid value
                     return false;
-                } else{
+                } else {
                     return true;
                 }
             }
@@ -674,7 +674,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_CLOSE_SHAPE:
             myClosedShape = parse<bool>(value);
-            if(myClosedShape) {
+            if (myClosedShape) {
                 myShape.closePolygon();
             } else {
                 myShape.pop_back();

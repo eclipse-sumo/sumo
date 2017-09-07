@@ -67,19 +67,19 @@ public:
      * @param[in] lines lines of the busStop
      * @param[in] friendlyPos enable or disable friendly position
      */
-    GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string &name, const std::vector<std::string>& lines, bool friendlyPosition);
+    GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition);
 
     /// @brief Destructor
     ~GNEBusStop();
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
-     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
+     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled
      */
     void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 
     /// @brief get string vector with the lines of the busStop
-    const std::vector<std::string> &getLines() const;
+    const std::vector<std::string>& getLines() const;
 
     /// @name Functions related with geometry of element
     /// @{

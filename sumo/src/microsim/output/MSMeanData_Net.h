@@ -141,11 +141,11 @@ public:
          *  @see MSMoveReminder::notifyMoveInternal
          */
         void notifyMoveInternal(const SUMOVehicle& veh,
-                const double frontOnLane, const double timeOnLane, const double,
-                const double meanSpeedVehicleOnLane,
-                const double travelledDistanceFrontOnLane,
-                const double travelledDistanceVehicleOnLane,
-                const double meanLengthOnLane);
+                                const double frontOnLane, const double timeOnLane, const double,
+                                const double meanSpeedVehicleOnLane,
+                                const double travelledDistanceFrontOnLane,
+                                const double travelledDistanceVehicleOnLane,
+                                const double meanLengthOnLane);
 
     private:
 //        /// @brief Calculate the vehicle front's distance to myLane's end for a vehicle that called notifyMoveInternal()

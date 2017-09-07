@@ -2948,7 +2948,7 @@ NBEdge::setAcceleration(int lane, bool accelRamp) {
 }
 
 
-void 
+void
 NBEdge::setLaneShape(int lane, const PositionVector& shape) {
     assert(lane >= 0);
     assert(lane < (int)myLanes.size());

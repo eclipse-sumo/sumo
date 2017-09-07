@@ -168,7 +168,7 @@ public:
         mySavedStates[dir] = std::make_pair(stateWithoutTraCI, state);
     }
 
-    void setFollowerGaps(CLeaderDist follower, double secGap); 
+    void setFollowerGaps(CLeaderDist follower, double secGap);
     void setLeaderGaps(CLeaderDist, double secGap);
     void setFollowerGaps(const MSLeaderDistanceInfo& vehicles);
     void setLeaderGaps(const MSLeaderDistanceInfo& vehicles);

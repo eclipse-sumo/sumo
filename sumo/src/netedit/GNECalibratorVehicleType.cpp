@@ -497,7 +497,7 @@ GNECalibratorVehicleType::setSpeedDev(std::string speedDev) {
     }
 }
 
-bool GNECalibratorVehicleType::setColor(const RGBColor & color) {
+bool GNECalibratorVehicleType::setColor(const RGBColor& color) {
     myColor = color;
     return false;
 }

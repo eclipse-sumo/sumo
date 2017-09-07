@@ -119,7 +119,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
 }
 
 
-SUMOTime 
+SUMOTime
 MSActuatedTrafficLightLogic::getMinimumMinDuration() const {
     SUMOTime result = SUMOTime_MAX;
     for (auto phase : myPhases) {

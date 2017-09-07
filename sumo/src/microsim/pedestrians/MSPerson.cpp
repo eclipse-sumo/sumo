@@ -66,8 +66,7 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const ConstMSEdgeVector& 
     myDepartPos(departPos),
     myDepartPosLat(departPosLat),
     mySpeed(speed),
-    myPedestrianState(0) 
-{
+    myPedestrianState(0) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
                       myDepartPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS, "person walking from " + myRoute.front()->getID());
     if (walkingTime > 0) {
@@ -174,7 +173,7 @@ MSPerson::MSPersonStage_Walking::computeAverageSpeed() const {
 }
 
 
-double 
+double
 MSPerson::MSPersonStage_Walking::walkDistance() const {
     /// XXX internal edges not included
     double length = 0;
@@ -206,7 +205,7 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
 
 void
 MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os) const {
-    MSDevice_Tripinfo::addPedestrianData(walkDistance(), myArrived - myDeparted); 
+    MSDevice_Tripinfo::addPedestrianData(walkDistance(), myArrived - myDeparted);
     os.openTag("walk");
     os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", time2string(myArrived));
@@ -272,12 +271,12 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
  * MSPerson::MSPersonStage_Driving - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge& destination,
-        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines) : 
-    MSTransportable::Stage_Driving(destination, toStop, 
-            SUMOVehicleParameter::interpretEdgePos(
-                arrivalPos, destination.getLength(), SUMO_ATTR_ARRIVALPOS, "person riding to " + destination.getID()), 
-            lines) 
-{}
+        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines) :
+    MSTransportable::Stage_Driving(destination, toStop,
+                                   SUMOVehicleParameter::interpretEdgePos(
+                                       arrivalPos, destination.getLength(), SUMO_ATTR_ARRIVALPOS, "person riding to " + destination.getID()),
+                                   lines) {
+}
 
 
 MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
@@ -431,7 +430,7 @@ MSPerson::routeOutput(OutputDevice& os) const {
 }
 
 
-double 
+double
 MSPerson::getSpeedFactor() const {
     if (getCurrentStageType() == MOVING_WITHOUT_VEHICLE) {
         MSPersonStage_Walking* walkingStage =  dynamic_cast<MSPersonStage_Walking*>(*myStep);

@@ -84,8 +84,8 @@ public:
         LinkLeader(MSVehicle* _veh, double _gap, double _distToCrossing, bool _fromLeft = true) :
             vehAndGap(std::make_pair(_veh, _gap)),
             distToCrossing(_distToCrossing),
-            fromLeft(_fromLeft)
-        {}
+            fromLeft(_fromLeft) {
+        }
 
         std::pair<MSVehicle*, double> vehAndGap;
         double distToCrossing;
@@ -422,7 +422,7 @@ public:
      * @param[in] isShadowLink whether this link is a shadowLink for ego
      * @return The all vehicles on foeLanes and their (virtual) distances to the asking vehicle
      */
-    LinkLeaders getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPerson*>* collectBlockers = 0, bool isShadowLink=false) const;
+    LinkLeaders getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPerson*>* collectBlockers = 0, bool isShadowLink = false) const;
 
     /// @brief return the speed at which ego vehicle must approach the zipper link
     double getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,

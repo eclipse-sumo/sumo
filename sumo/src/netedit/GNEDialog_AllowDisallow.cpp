@@ -166,7 +166,7 @@ GNEDialog_AllowDisallow::onCmdUnselectAll(FXObject*, FXSelector, void*) {
 long
 GNEDialog_AllowDisallow::onCmdSelectOnlyNonRoad(FXObject*, FXSelector, void*) {
     // change all non-road icons to disallow, and allow for the rest
-    for (auto i :myVClassMap) {
+    for (auto i : myVClassMap) {
         if ((i.first == SVC_TRAM) || (i.first == SVC_RAIL) || (i.first == SVC_RAIL_URBAN) || (i.first == SVC_RAIL_ELECTRIC) || (i.first == SVC_SHIP)) {
             i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_ACCEPT));
         } else {

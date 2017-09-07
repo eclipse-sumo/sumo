@@ -134,8 +134,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     myWindowCursorPositionY(getHeight() / 2),
     myVisualizationChanger(0),
     myApplicationSnapshots(0),
-    myApplicationSnapshotsLock(0)
-{
+    myApplicationSnapshotsLock(0) {
     setTarget(this);
     enable();
     flags |= FLAG_ENABLED;
@@ -810,7 +809,7 @@ GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
 
 
 // ------------ Dealing with snapshots
-void 
+void
 GUISUMOAbstractView::addSnapshot(SUMOTime time, const std::string& file) {
 #ifdef DEBUG_SNAPSHOT
     std::cout << "add snappshot time=" << time << " file=" << file << "\n";
@@ -1010,7 +1009,7 @@ GUISUMOAbstractView::checkSnapshots() {
     // synchronization with a waiting run thread
     if (!files.empty()) {
         assert(myApplicationSnapshots != 0);
-        assert(myApplicationSnapshotsLock!= 0);
+        assert(myApplicationSnapshotsLock != 0);
         myApplicationSnapshotsLock->lock();
         myApplicationSnapshots->erase(time);
         myApplicationSnapshotsLock->unlock();

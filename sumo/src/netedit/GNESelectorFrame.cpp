@@ -95,7 +95,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     myKeepRadioButton = new FXRadioButton(selBox, "keep\t\tRestrict previous selection by the current selection",
                                           this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myReplaceRadioButton = new FXRadioButton(selBox, "replace\t\tReplace previous selection by the current selection",
-                                             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+            this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myAddRadioButton->setCheck(true);
     // Create groupBox for selection by expression matching (match box)
     FXGroupBox* elementBox = new FXGroupBox(myContentFrame, "type of element", GUIDesignGroupBoxFrame);
@@ -324,10 +324,10 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
     // iterate over all junctions to obtain unselected
     std::set<GUIGlID> ids = myViewNet->getNet()->getGlIDs(GLO_JUNCTION);
     for (auto it : ids) {
-        if(gSelected.isSelected(GLO_JUNCTION, it) == false) {
+        if (gSelected.isSelected(GLO_JUNCTION, it) == false) {
             unselectedIDs.insert(it);
         }
-        
+
     }
     // iterate over all edges or lanes (Depending of checkbox) to obtain unselected
     GUIGlObjectType currentEdgeOrLane = myViewNet->selectEdges() ? GLO_EDGE : GLO_LANE;
@@ -387,19 +387,19 @@ long
 GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     myCurrentTag = SUMO_TAG_NOTHING;
     // find current element tag
-    if(mySetComboBox->getText() == "Net Element") {
+    if (mySetComboBox->getText() == "Net Element") {
         for (auto i : GNEAttributeCarrier::allowedNetElementsTags()) {
             if (toString(i) == myMatchTagComboBox->getText().text()) {
                 myCurrentTag = i;
             }
         }
-    } else if(mySetComboBox->getText() == "Additional") {
+    } else if (mySetComboBox->getText() == "Additional") {
         for (auto i : GNEAttributeCarrier::allowedAdditionalTags()) {
             if (toString(i) == myMatchTagComboBox->getText().text()) {
                 myCurrentTag = i;
             }
         }
-    } else if(mySetComboBox->getText() == "Shape") {
+    } else if (mySetComboBox->getText() == "Shape") {
         for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
             if (toString(i) == myMatchTagComboBox->getText().text()) {
                 myCurrentTag = i;
@@ -421,7 +421,7 @@ GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         }
         // @ToDo: Here can be placed a butto to set the default value
         myMatchAttrComboBox->setNumVisible(myMatchAttrComboBox->getNumItems());
-        onCmdSelMBAttribute(0,0,0);
+        onCmdSelMBAttribute(0, 0, 0);
     } else {
         // change color to red and disable items
         myMatchTagComboBox->setTextColor(FXRGB(255, 0, 0));
@@ -569,27 +569,27 @@ void
 GNESelectorFrame::selectionUpdated() {
     // show extra information for tests
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Current selection: " + 
-            toString(gSelected.getSelected(GLO_JUNCTION).size()) + " Junctions, " +
-            toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges, " +
-            toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes, " +
-            toString(gSelected.getSelected(GLO_CONNECTION).size()) + " connections, " +
-            toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals, " +
-            toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings, " +
-            toString(gSelected.getSelected(GLO_POLYGON).size()) + " Polygons, " +
-            toString(gSelected.getSelected(GLO_POI).size()) + " POIs");
+        WRITE_WARNING("Current selection: " +
+                      toString(gSelected.getSelected(GLO_JUNCTION).size()) + " Junctions, " +
+                      toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges, " +
+                      toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes, " +
+                      toString(gSelected.getSelected(GLO_CONNECTION).size()) + " connections, " +
+                      toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals, " +
+                      toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings, " +
+                      toString(gSelected.getSelected(GLO_POLYGON).size()) + " Polygons, " +
+                      toString(gSelected.getSelected(GLO_POI).size()) + " POIs");
     }
     // update mySelectedItems label
     std::ostringstream selection;
     selection
-        << toString(gSelected.getSelected(GLO_JUNCTION).size()) + " Junctions\n"
-        << toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges\n"
-        << toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes\n"
-        << toString(gSelected.getSelected(GLO_CONNECTION).size()) + " Connections\n"
-        << toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals\n"
-        << toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings\n"
-        << toString(gSelected.getSelected(GLO_POLYGON).size()) + " Polygons\n"
-        << toString(gSelected.getSelected(GLO_POI).size()) + " POIs";
+            << toString(gSelected.getSelected(GLO_JUNCTION).size()) + " Junctions\n"
+            << toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges\n"
+            << toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes\n"
+            << toString(gSelected.getSelected(GLO_CONNECTION).size()) + " Connections\n"
+            << toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals\n"
+            << toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings\n"
+            << toString(gSelected.getSelected(GLO_POLYGON).size()) + " Polygons\n"
+            << toString(gSelected.getSelected(GLO_POI).size()) + " POIs";
     mySelectedItems->setText(selection.str().c_str());
     update();
 }

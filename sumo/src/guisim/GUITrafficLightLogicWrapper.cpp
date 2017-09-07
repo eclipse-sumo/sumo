@@ -193,7 +193,7 @@ GUITrafficLightLogicWrapper::showPhases() {
 
 GUIParameterTableWindow*
 GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow& app,
-                                                GUISUMOAbstractView&) {
+        GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 3 + (int)myTLLogic.getMap().size());
     ret->mkItem("tlLogic [id]", false, myTLLogic.getID());

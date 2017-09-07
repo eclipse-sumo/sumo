@@ -88,13 +88,13 @@ void GNEChange_Crossing::undo() {
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            std::string selected = mySelected? ("a previously selected ") : ("");
+            std::string selected = mySelected ? ("a previously selected ") : ("");
             WRITE_WARNING("Adding " + selected + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
         // add crossing of NBNode
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, mySelected);
         // Check if Flag "haveNetworkCrossings" has to be enabled
-        if(myNet->getNetBuilder()->haveNetworkCrossings() == false) {
+        if (myNet->getNetBuilder()->haveNetworkCrossings() == false) {
             myNet->getNetBuilder()->setHaveNetworkCrossings(true);
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -104,11 +104,11 @@ void GNEChange_Crossing::undo() {
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
         // check if created GNECrossing must be selected
-        if(mySelected) {
+        if (mySelected) {
             // iterate over GNECrossing of junction to find GNECrossing and select it
-            for(std::vector<GNECrossing*>::const_iterator i = myJunctionParent->getGNECrossings().begin(); i != myJunctionParent->getGNECrossings().end(); i++) {
+            for (std::vector<GNECrossing*>::const_iterator i = myJunctionParent->getGNECrossings().begin(); i != myJunctionParent->getGNECrossings().end(); i++) {
                 NBNode::Crossing crossingFromJunction = *(*i)->getNBCrossing();
-                if(crossingFromJunction.edges == myEdges) {
+                if (crossingFromJunction.edges == myEdges) {
                     gSelected.select((*i)->getGlID());
                 }
             }
@@ -123,7 +123,7 @@ void GNEChange_Crossing::redo() {
     if (myForward) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            std::string selected = mySelected? ("a previously selected ") : ("");
+            std::string selected = mySelected ? ("a previously selected ") : ("");
             WRITE_WARNING("Adding " + selected + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
         // add crossing of NBNode and update geometry
@@ -139,11 +139,11 @@ void GNEChange_Crossing::redo() {
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
         // check if created GNECrossing must be selected
-        if(mySelected) {
+        if (mySelected) {
             // iterate over GNECrossing of junction to find GNECrossing and select it
-            for(std::vector<GNECrossing*>::const_iterator i = myJunctionParent->getGNECrossings().begin(); i != myJunctionParent->getGNECrossings().end(); i++) {
+            for (std::vector<GNECrossing*>::const_iterator i = myJunctionParent->getGNECrossings().begin(); i != myJunctionParent->getGNECrossings().end(); i++) {
                 NBNode::Crossing crossingFromJunction = *(*i)->getNBCrossing();
-                if(crossingFromJunction.edges == myEdges) {
+                if (crossingFromJunction.edges == myEdges) {
                     gSelected.select((*i)->getGlID());
                 }
             }
@@ -160,7 +160,7 @@ void GNEChange_Crossing::redo() {
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
         // Check if Flag "haveNetworkCrossings" has to be disabled
-        if((myNet->netHasGNECrossings() == false) && (myNet->getNetBuilder()->haveNetworkCrossings() == true)) {
+        if ((myNet->netHasGNECrossings() == false) && (myNet->getNetBuilder()->haveNetworkCrossings() == true)) {
             // change flag of NetBuilder (For build GNECrossing)
             myNet->getNetBuilder()->setHaveNetworkCrossings(false);
             // show extra information for tests

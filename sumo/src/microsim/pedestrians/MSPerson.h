@@ -301,7 +301,7 @@ public:
         return false;
     }
 
-    double getSpeedFactor() const; 
+    double getSpeedFactor() const;
 
 
 private:

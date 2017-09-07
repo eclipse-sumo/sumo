@@ -140,7 +140,7 @@ protected:
                           double speed, SVCPermissions permissions, SVCPermissions preferred,
                           double endOffset, double width, PositionVector shape,
                           const std::string& origID, double length, int index, bool origNames,
-                          const std::string& oppositeID, const NBNode* node = 0, bool accelRamp = false, 
+                          const std::string& oppositeID, const NBNode* node = 0, bool accelRamp = false,
                           bool customShape = false);
 
 

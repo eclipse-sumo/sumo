@@ -871,7 +871,7 @@ public:
      * @return Whether the stop could be added
      */
     bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0, bool collision = false,
-            MSRouteIterator* searchStart=0);
+                 MSRouteIterator* searchStart = 0);
 
     /** @brief replace the current parking area stop with a new stop with merge duration
      */
@@ -898,7 +898,7 @@ public:
     bool isStoppedOnLane() const;
 
     /** @brief Returns whether the vehicle is stopped and must continue to do so */
-    bool keepStopping(bool afterProcessing=false) const;
+    bool keepStopping(bool afterProcessing = false) const;
 
     /** @brief Returns the remaining time a vehicle needs to stop due to a
      * collision. A negative value indicates that the vehicle is not stopping due to a collision (or at all)
@@ -1519,7 +1519,7 @@ protected:
     const ConstMSEdgeVector getStopEdges() const;
 
     /// @brief ensure that a vehicle-relative position is not invalid
-    Position validatePosition(Position result, double offset=0) const; 
+    Position validatePosition(Position result, double offset = 0) const;
 
     /// @brief register vehicle for drawing while outside the network
     virtual void drawOutsideNetwork(bool /*add*/) {};
@@ -1629,7 +1629,7 @@ protected:
 
 
         /// @brief constructor if the link shall not be passed
-        DriveProcessItem(double vWait, double distance, double _availableSpace=0) :
+        DriveProcessItem(double vWait, double distance, double _availableSpace = 0) :
             myLink(0), myVLinkPass(vWait), myVLinkWait(vWait), mySetRequest(false),
             myArrivalTime(0), myArrivalSpeed(0),
             myArrivalTimeBraking(0), myArrivalSpeedBraking(0),
@@ -1708,7 +1708,7 @@ protected:
     /// @brief checks for link leaders on the given link
     void checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                          DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest,
-                         bool isShadowLink=false) const;
+                         bool isShadowLink = false) const;
 
 
     // @brief return the lane on which the back of this vehicle resides

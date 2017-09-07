@@ -307,8 +307,8 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
         if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
             lane = getLane(attrs, "calibrator", id);
             if (&lane->getEdge() != edge) {
-                throw InvalidArgument("The edge " + edgeID + " to use within the calibrator '" + id 
-                        + "' does not match the calibrator lane '" + lane->getID() + ".");
+                throw InvalidArgument("The edge " + edgeID + " to use within the calibrator '" + id
+                                      + "' does not match the calibrator lane '" + lane->getID() + ".");
             }
         }
     } else {
@@ -326,9 +326,9 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
     }
     if (MSGlobals::gUseMesoSim) {
         if (lane != 0 && edge->getLanes().size() > 1) {
-            WRITE_WARNING("Meso calibrator '" + id 
-                    + "' defined for lane '" + lane->getID() 
-                    + "' will collect data for all lanes of edge '" + edge->getID() + "'.");
+            WRITE_WARNING("Meso calibrator '" + id
+                          + "' defined for lane '" + lane->getID()
+                          + "' will collect data for all lanes of edge '" + edge->getID() + "'.");
         }
         METriggeredCalibrator* trigger = buildMECalibrator(net, id, edge, pos, file, outfile, freq, probe);
         if (file == "") {
@@ -399,7 +399,7 @@ NLTriggerBuilder::buildLaneSpeedTrigger(MSNet& /*net*/, const std::string& id,
 
 METriggeredCalibrator*
 NLTriggerBuilder::buildMECalibrator(MSNet& /*net*/, const std::string& id,
-                                    const MSEdge* edge, 
+                                    const MSEdge* edge,
                                     double pos,
                                     const std::string& file,
                                     const std::string& outfile,
@@ -410,8 +410,8 @@ NLTriggerBuilder::buildMECalibrator(MSNet& /*net*/, const std::string& id,
 
 MSCalibrator*
 NLTriggerBuilder::buildCalibrator(MSNet& /*net*/, const std::string& id,
-                                  MSEdge* edge, 
-                                  MSLane* lane, 
+                                  MSEdge* edge,
+                                  MSLane* lane,
                                   double pos,
                                   const std::string& file,
                                   const std::string& outfile,

@@ -715,7 +715,7 @@ public:
         void changeTarget(const std::string& vehicleID, const std::string& edgeID) const;
         void setRouteID(const std::string& vehicleID, const std::string& routeID) const;
         void setRoute(const std::string& vehicleID, const std::vector<std::string>& edge) const;
-        void rerouteTraveltime(const std::string& vehicleID, bool currentTravelTimes=true) const;
+        void rerouteTraveltime(const std::string& vehicleID, bool currentTravelTimes = true) const;
         void moveTo(const std::string& vehicleID, const std::string& laneID, double position) const;
         void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute) const;
         void slowDown(const std::string& vehicleID, double speed, int duration) const;
@@ -725,7 +725,7 @@ public:
         void setLine(const std::string& vehicleID, const std::string& line) const;
         void setVia(const std::string& vehicleID, const std::vector<std::string>& via) const;
         /// @}
-        
+
         /// @name vehicle type attribute changing shortcuts
         /// @{
         void setShapeClass(const std::string& vehicleID, const std::string& clazz) const;

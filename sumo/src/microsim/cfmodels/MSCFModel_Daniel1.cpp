@@ -40,11 +40,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_Daniel1::MSCFModel_Daniel1(const MSVehicleType* vtype,  double accel, 
+MSCFModel_Daniel1::MSCFModel_Daniel1(const MSVehicleType* vtype,  double accel,
                                      double decel, double emergencyDecel, double apparentDecel,
                                      double dawdle, double headwayTime,
-                                     double tmp1, double tmp2, double tmp3, double tmp4, double tmp5) : 
-    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime), 
+                                     double tmp1, double tmp2, double tmp3, double tmp4, double tmp5) :
+    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime),
     myDawdle(dawdle), myTauDecel(decel * headwayTime),
     myTmp1(tmp1), myTmp2(tmp2), myTmp3(tmp3), myTmp4(tmp4), myTmp5(tmp5) {
 }

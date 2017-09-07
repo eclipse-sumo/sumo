@@ -88,7 +88,7 @@ GNECalibrator::~GNECalibrator() {}
 
 
 void
-GNECalibrator::moveGeometry(const Position &) {
+GNECalibrator::moveGeometry(const Position&) {
     // This additional cannot be moved currently
 }
 
@@ -143,7 +143,7 @@ GNECalibrator::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     // Check if another lane ID must be changed if sidewalks.guess option is enabled
-    if(volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && (myLane->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
+    if (volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && (myLane->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
         // add a new extra lane to edge
         myViewNet->getNet()->duplicateLane(myLane->getParentEdge().getLanes().front(), myViewNet->getUndoList());
         // write ID (now is different because there are a new lane)
@@ -556,15 +556,15 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            if(canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 // obtain relative new start position
                 double newStartPos = parse<double>(value) / myLane->getLaneParametricLength();
-                if((newStartPos < 0) || (newStartPos > 1)) {
+                if ((newStartPos < 0) || (newStartPos > 1)) {
                     return false;
                 } else {
                     return true;
                 }
-            } 
+            }
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && parse<double>(value) >= 0);
         case SUMO_ATTR_OUTPUT:

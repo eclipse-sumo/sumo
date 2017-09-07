@@ -64,7 +64,7 @@ public:
 #ifdef _DEBUG_REFERENCECOUNTER
         std::cout << "decRef (" + toString(myCount) + ") for " + getID() + ": " << debugMsg << "\n";
 #else
-        UNUSED_PARAMETER(debugMsg); 
+        UNUSED_PARAMETER(debugMsg);
 #endif
         // write error if decrement results into a negative count
         if (myCount < 1) {

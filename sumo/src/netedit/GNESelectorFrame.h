@@ -143,7 +143,7 @@ private:
     /// @brief how to modify selection
     SetOperation mySetOperation;
 
-    /// @brief label with the list of current selected elements 
+    /// @brief label with the list of current selected elements
     FXLabel* mySelectedItems;
 
     /// @brief add radio button

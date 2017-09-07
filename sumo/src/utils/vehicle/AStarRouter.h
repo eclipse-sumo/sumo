@@ -237,9 +237,9 @@ public:
                 buildPathFrom(minimumInfo, into);
                 this->endQuery(num_visited);
 #ifdef ASTAR_DEBUG_QUERY_PERF
-                std::cout << "visited " + toString(num_visited) + " edges (final path length=" + toString(into.size()) 
-                    + " time=" + toString(recomputeCosts(into, vehicle, msTime))
-                    + " edges=" + toString(into) + ")\n";
+                std::cout << "visited " + toString(num_visited) + " edges (final path length=" + toString(into.size())
+                          + " time=" + toString(recomputeCosts(into, vehicle, msTime))
+                          + " edges=" + toString(into) + ")\n";
 #endif
 #ifdef ASTAR_DEBUG_VISITED
                 OutputDevice& dev = OutputDevice::getDevice(vehicle->getID() + "_" + time2string(msTime) + "_" + from->getID() + "_" + to->getID());
@@ -257,11 +257,11 @@ public:
             myFound.push_back(minimumInfo);
             minimumInfo->visited = true;
 #ifdef ASTAR_DEBUG_QUERY
-            std::cout << "DEBUG: hit=" << minEdge->getID() 
-                << " TT=" << minimumInfo->traveltime 
-                << " EF=" << this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime) 
-                << " HT=" << minimumInfo->heuristicTime 
-                << " Q(TT,HT,Edge)=";
+            std::cout << "DEBUG: hit=" << minEdge->getID()
+                      << " TT=" << minimumInfo->traveltime
+                      << " EF=" << this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime)
+                      << " HT=" << minimumInfo->heuristicTime
+                      << " Q(TT,HT,Edge)=";
             for (typename std::vector<EdgeInfo*>::iterator it = myFrontierList.begin(); it != myFrontierList.end(); it++) {
                 std::cout << (*it)->traveltime << "," << (*it)->heuristicTime << "," << (*it)->edge->getID() << " ";
             }
@@ -269,8 +269,8 @@ public:
 #endif
             const double traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // admissible A* heuristic: straight line distance at maximum speed
-            const double heuristic_remaining = (myLookupTable == 0 ? minEdge->getDistanceTo(to) / speed : 
-                    myLookupTable->lowerBound(minEdge, to, speed, vehicle->getChosenSpeedFactor(), minEdge->getMinimumTravelTime(0), to->getMinimumTravelTime(0)));
+            const double heuristic_remaining = (myLookupTable == 0 ? minEdge->getDistanceTo(to) / speed :
+                                                myLookupTable->lowerBound(minEdge, to, speed, vehicle->getChosenSpeedFactor(), minEdge->getMinimumTravelTime(0), to->getMinimumTravelTime(0)));
             if (heuristic_remaining == UNREACHABLE) {
                 continue;
             }

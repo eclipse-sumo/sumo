@@ -183,9 +183,9 @@ MSRouteHandler::myStartElement(int element,
                         throw ProcessError("Unknown bus stop '" + bsID + "' for person '" + myVehicleParameter->id + "'.");
                     }
                     to = &bs->getLane().getEdge();
-                } 
-                double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok, 
-                        bs == 0 ? -NUMERICAL_EPS : bs->getEndLanePosition());
+                }
+                double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
+                                    bs == 0 ? -NUMERICAL_EPS : bs->getEndLanePosition());
                 if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
                     const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, pid.c_str(), ok);
                     from = MSEdge::dictionary(fromID);
@@ -305,8 +305,8 @@ MSRouteHandler::myStartElement(int element,
                             throw ProcessError("Unknown container stop '" + csID + "' for container '" + myVehicleParameter->id + "'.");
                         }
                     }
-                    double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok, 
-                            cs == 0 ? -NUMERICAL_EPS : cs->getEndLanePosition());
+                    double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
+                                        cs == 0 ? -NUMERICAL_EPS : cs->getEndLanePosition());
                     if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
                         const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, containerId.c_str(), ok);
                         from = MSEdge::dictionary(fromID);
@@ -825,7 +825,7 @@ MSRouteHandler::closePerson() {
         throw;
     }
     // let's check whether this person had to depart before the simulation starts
-    if (!(myAddVehiclesDirectly || checkLastDepart()) 
+    if (!(myAddVehiclesDirectly || checkLastDepart())
             || (myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin")) && !myAmLoadingState)) {
         delete myVehicleParameter;
         myVehicleParameter = 0;
@@ -1077,7 +1077,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
     const std::string description = "person '" + personID + "' walking from " + fromEdge->getID();
 
     departPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_DEPARTPOS, description, fromEdge->getLength(),
-                             attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, description.c_str(), ok, "0"), &myParsingRNG);
+                attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, description.c_str(), ok, "0"), &myParsingRNG);
 
     std::string bsID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
     if (bsID != "") {
@@ -1095,7 +1095,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         arrivalPos = (bs->getBeginLanePosition() + bs->getEndLanePosition()) / 2.;
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
             const double arrPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge->getLength(),
-                                               attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), &myParsingRNG);
+                                  attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), &myParsingRNG);
             if (arrPos >= bs->getBeginLanePosition() && arrPos < bs->getEndLanePosition()) {
                 arrivalPos = arrPos;
             } else {
@@ -1108,7 +1108,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         }
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
             arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge->getLength(),
-                                      attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), &myParsingRNG);
+                         attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), &myParsingRNG);
         } else {
             arrivalPos = -NUMERICAL_EPS;
         }

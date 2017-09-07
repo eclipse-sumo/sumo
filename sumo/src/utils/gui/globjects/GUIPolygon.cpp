@@ -167,7 +167,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getLayer());
     glRotated(-getNaviDegree(), 0, 0, 1);
     // set color depending of selection
-    if(gSelected.isSelected(GLO_POLYGON, getGlID())) {
+    if (gSelected.isSelected(GLO_POLYGON, getGlID())) {
         GLHelper::setColor(RGBColor(0, 0, 204));
     } else {
         GLHelper::setColor(getColor());

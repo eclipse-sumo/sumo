@@ -386,8 +386,8 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
                     // we need an exemplary vehicle with speedFactor 1
                     myHolder.setChosenSpeedFactor(1);
                     CHRouterWrapper<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> > router(
-                            MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
-                            string2time(oc.getString("begin")), string2time(oc.getString("end")), std::numeric_limits<int>::max(), 1);
+                        MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
+                        string2time(oc.getString("begin")), string2time(oc.getString("end")), std::numeric_limits<int>::max(), 1);
                     lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &router, &myHolder, "", oc.getInt("device.rerouting.threads"));
                     myHolder.setChosenSpeedFactor(speedFactor);
                 }
@@ -402,8 +402,8 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
                     // we need an exemplary vehicle with speedFactor 1
                     myHolder.setChosenSpeedFactor(1);
                     CHRouterWrapper<MSEdge, SUMOVehicle, noProhibitions<MSEdge, SUMOVehicle> > router(
-                            MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
-                            string2time(oc.getString("begin")), string2time(oc.getString("end")), std::numeric_limits<int>::max(), 1);
+                        MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
+                        string2time(oc.getString("begin")), string2time(oc.getString("end")), std::numeric_limits<int>::max(), 1);
                     lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &router, &myHolder, "", oc.getInt("device.rerouting.threads"));
                     myHolder.setChosenSpeedFactor(speedFactor);
                 }

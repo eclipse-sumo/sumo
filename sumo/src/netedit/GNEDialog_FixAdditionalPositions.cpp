@@ -63,7 +63,7 @@ FXIMPLEMENT(GNEDialog_FixAdditionalPositions, FXDialogBox, GNEDialog_FixAddition
 // member method definitions
 // ===========================================================================
 
-GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet *viewNet, const std::vector<GNEStoppingPlace*> &invalidStoppingPlaces, const std::vector<GNEDetector*> &invalidDetectors) :
+GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* viewNet, const std::vector<GNEStoppingPlace*>& invalidStoppingPlaces, const std::vector<GNEDetector*>& invalidDetectors) :
     FXDialogBox(viewNet->getApp(), ("Fix stoppingPlaces positions"), GUIDesignDialogBoxExplicit, 0, 0, 458, 300, 0, 0, 0, 0),
     myViewNet(viewNet),
     myInvalidStoppingPlaces(invalidStoppingPlaces),
@@ -108,15 +108,15 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet *v
         // Set conflict
         std::string errorStartPosition, errorEndPosition, separator;
         // check start position
-        if(i->getAbsoluteStartPosition() < 0) {
+        if (i->getAbsoluteStartPosition() < 0) {
             errorStartPosition = (toString(SUMO_ATTR_STARTPOS) + " < 0");
         }
         // check end position
-        if(i->getAbsoluteEndPosition() > i->getLane()->getLaneParametricLength()) {
+        if (i->getAbsoluteEndPosition() > i->getLane()->getLaneParametricLength()) {
             errorEndPosition = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
         }
         // check separator
-        if((errorStartPosition.size() > 0) && (errorEndPosition.size() > 0)) {
+        if ((errorStartPosition.size() > 0) && (errorEndPosition.size() > 0)) {
             separator = " and ";
         }
         item = new FXTableItem((errorStartPosition + separator + errorEndPosition).c_str());
@@ -144,7 +144,7 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet *v
             errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
         }
         GNEDetectorE2* E2Detector = dynamic_cast<GNEDetectorE2*>(i);
-        if((E2Detector != NULL) && ((E2Detector->getAbsolutePositionOverLane() + E2Detector->getAbsoluteLenght()) > i->getLane()->getLaneParametricLength())) {
+        if ((E2Detector != NULL) && ((E2Detector->getAbsolutePositionOverLane() + E2Detector->getAbsoluteLenght()) > i->getLane()->getLaneParametricLength())) {
             errorLenght = (toString(SUMO_ATTR_LENGTH) + " > lanes's length");
         }
 
@@ -191,27 +191,27 @@ GNEDialog_FixAdditionalPositions::~GNEDialog_FixAdditionalPositions() {
 }
 
 
-long 
+long
 GNEDialog_FixAdditionalPositions::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
-    if(obj == myOptionA) {
+    if (obj == myOptionA) {
         myOptionA->setCheck(true);
         myOptionB->setCheck(false);
         myOptionC->setCheck(false);
         myOptionD->setCheck(false);
         return 1;
-    } else if(obj == myOptionB) {
+    } else if (obj == myOptionB) {
         myOptionA->setCheck(false);
         myOptionB->setCheck(true);
         myOptionC->setCheck(false);
         myOptionD->setCheck(false);
         return 1;
-    } else if(obj == myOptionC) {
+    } else if (obj == myOptionC) {
         myOptionA->setCheck(false);
         myOptionB->setCheck(false);
         myOptionC->setCheck(true);
         myOptionD->setCheck(false);
         return 1;
-    } else if(obj == myOptionD) {
+    } else if (obj == myOptionD) {
         myOptionA->setCheck(false);
         myOptionB->setCheck(false);
         myOptionC->setCheck(false);
@@ -225,8 +225,8 @@ GNEDialog_FixAdditionalPositions::onCmdSelectOption(FXObject* obj, FXSelector, v
 
 long
 GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
-    if(myOptionA->getCheck() == TRUE) {
-        myViewNet->getUndoList()->p_begin(toString(SUMO_ATTR_FRIENDLY_POS) +" of invalid additionals");
+    if (myOptionA->getCheck() == TRUE) {
+        myViewNet->getUndoList()->p_begin(toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
         // iterate over invalid stopping places to enable friendly position
         for (auto i = myInvalidStoppingPlaces.begin(); i != myInvalidStoppingPlaces.end(); i++) {
             (*i)->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
@@ -239,12 +239,12 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
         // stop modal with TRUE (continue saving)
         getApp()->stopModal(this, TRUE);
         return 1;
-    } else if(myOptionB->getCheck() == TRUE) {
+    } else if (myOptionB->getCheck() == TRUE) {
         myViewNet->getUndoList()->p_begin("Fixed positions of invalid additionals");
         // iterate over invalid stopping places to fix positions
-        for(auto i = myInvalidStoppingPlaces.begin(); i != myInvalidStoppingPlaces.end(); i++) {
-            GNEStoppingPlace *stoppingPlace = dynamic_cast<GNEStoppingPlace*>(*i);
-            if(stoppingPlace != NULL) {
+        for (auto i = myInvalidStoppingPlaces.begin(); i != myInvalidStoppingPlaces.end(); i++) {
+            GNEStoppingPlace* stoppingPlace = dynamic_cast<GNEStoppingPlace*>(*i);
+            if (stoppingPlace != NULL) {
                 // obtain start and end position
                 double startPos = GNEAttributeCarrier::parse<double>(stoppingPlace->getAttribute(SUMO_ATTR_STARTPOS));
                 double endPos = GNEAttributeCarrier::parse<double>(stoppingPlace->getAttribute(SUMO_ATTR_ENDPOS));
@@ -257,7 +257,7 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         // iterate over invalid detectors
         for (auto i = myInvalidDetectors.begin(); i != myInvalidDetectors.end(); i++) {
-            GNEDetectorE2 *E2Detector = dynamic_cast<GNEDetectorE2*>(*i);
+            GNEDetectorE2* E2Detector = dynamic_cast<GNEDetectorE2*>(*i);
             // Check if we're handling a E2 detector o a E1/Entry/Exit
             if (E2Detector != NULL) {
                 // obtain position and lenght
@@ -277,21 +277,21 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
                 E2Detector->setAttribute(SUMO_ATTR_POSITION, toString(pos), myViewNet->getUndoList());
             }
         }
-         myViewNet->getUndoList()->p_end();
+        myViewNet->getUndoList()->p_end();
         // stop modal with TRUE (continue saving)
         getApp()->stopModal(this, TRUE);
         return 1;
-    } else if(myOptionC->getCheck() == TRUE) {
+    } else if (myOptionC->getCheck() == TRUE) {
         // simply stop modal with TRUE to save additionals with invalid positions
         getApp()->stopModal(this, TRUE);
         return 1;
-    } else if(myOptionD->getCheck() == TRUE) {
+    } else if (myOptionD->getCheck() == TRUE) {
         std::set<GUIGlID> GLIDsToSelect;
         myViewNet->getUndoList()->p_begin("select invalid additionals");
         // clear previous selection
         myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), gSelected.getSelected(), true), true);
         // iterate over invalid stopping places to select it
-        for(auto i = myInvalidStoppingPlaces.begin(); i != myInvalidStoppingPlaces.end(); i++) {
+        for (auto i = myInvalidStoppingPlaces.begin(); i != myInvalidStoppingPlaces.end(); i++) {
             GLIDsToSelect.insert((*i)->getGlID());
         }
         // iterate over invalid detectors to enable to select it

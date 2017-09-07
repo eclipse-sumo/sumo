@@ -60,7 +60,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string &vehicleTypes, bool friendlyPos) :
+GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string& vehicleTypes, bool friendlyPos) :
     GNEDetector(id, viewNet, SUMO_TAG_E1DETECTOR, ICON_E1, lane, pos, freq, filename, friendlyPos),
     myVehicleTypes(vehicleTypes) {
     // Update geometry;
@@ -82,7 +82,7 @@ GNEDetectorE1::updateGeometry() {
     myShape.clear();
 
     // obtain position over lane
-    double fixedPositionOverLane = myPositionOverLane > 1? 1 : myPositionOverLane < 0 ? 0 : myPositionOverLane;
+    double fixedPositionOverLane = myPositionOverLane > 1 ? 1 : myPositionOverLane < 0 ? 0 : myPositionOverLane;
     myShape.push_back(myLane->getShape().positionAtOffset(fixedPositionOverLane * myLane->getShape().length()));
 
     // Obtain first position
@@ -114,7 +114,7 @@ GNEDetectorE1::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     // Check if another lane ID must be changed if sidewalks.guess option is enabled
-    if(volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && (myLane->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
+    if (volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && (myLane->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
         // add a new extra lane to edge
         myViewNet->getNet()->duplicateLane(myLane->getParentEdge().getLanes().front(), myViewNet->getUndoList());
         // write ID (now is different because there are a new lane)
@@ -145,8 +145,7 @@ bool GNEDetectorE1::isDetectorPositionFixed() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
-    }
-    else {
+    } else {
         // floors are needed to avoid precision problems
         return ((floor(myPositionOverLane * 1000) / 1000) >= 0) && ((floor(myPositionOverLane * 1000) / 1000) <= 1);
     }

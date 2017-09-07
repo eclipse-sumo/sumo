@@ -173,7 +173,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
 }
 
 
-std::string 
+std::string
 GNEAttributeCarrier::getAttributeForSelection(SumoXMLAttr key) const {
     return getAttribute(key);
 }
@@ -523,7 +523,7 @@ GNEAttributeCarrier::allowedTags() {
 }
 
 
-const std::vector<SumoXMLTag>& 
+const std::vector<SumoXMLTag>&
 GNEAttributeCarrier::allowedNetElementsTags() {
     // define on first access
     if (myAllowedNetElementTags.empty()) {
@@ -537,7 +537,7 @@ GNEAttributeCarrier::allowedNetElementsTags() {
 }
 
 
-const std::vector<SumoXMLTag>& 
+const std::vector<SumoXMLTag>&
 GNEAttributeCarrier::allowedAdditionalTags() {
     // define on first access
     if (myAllowedAdditionalTags.empty()) {
@@ -559,7 +559,7 @@ GNEAttributeCarrier::allowedAdditionalTags() {
 }
 
 
-const std::vector<SumoXMLTag>& 
+const std::vector<SumoXMLTag>&
 GNEAttributeCarrier::allowedShapeTags() {
     // define on first access
     if (myAllowedShapeTags.empty()) {
@@ -629,7 +629,7 @@ GNEAttributeCarrier::isInt(SumoXMLTag tag, SumoXMLAttr attr) {
         myNumericalIntAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_CONTAINER_CAPACITY);
         // POI
         myNumericalIntAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LAYER);
-		// Layer
+        // Layer
         myNumericalIntAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_LAYER);
     }
     return myNumericalIntAttrs[tag].count(attr) == 1;
@@ -776,14 +776,14 @@ GNEAttributeCarrier::isBool(SumoXMLTag tag, SumoXMLAttr attr) {
         myBoolAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_OFF);
         // flow
         myBoolAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_REROUTE);
-		// Poly
+        // Poly
         myBoolAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_FILL);
     }
     return myBoolAttrs[tag].count(attr) == 1;
 }
 
 
-bool 
+bool
 GNEAttributeCarrier::isColor(SumoXMLTag tag, SumoXMLAttr attr) {
     // define on first access
     if (myColorAttrs.empty()) {
@@ -823,7 +823,7 @@ GNEAttributeCarrier::isList(SumoXMLTag tag, SumoXMLAttr attr) {
         // route
         myListAttrs[SUMO_TAG_ROUTE].insert(SUMO_ATTR_EDGES);
         // POLY
-		myListAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_SHAPE);
+        myListAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_SHAPE);
     }
     return myListAttrs[tag].count(attr) == 1;
 }
@@ -903,7 +903,7 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
             myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LANE);
             myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_POSITION);
             // POLY
-		    myUniqueAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_SHAPE);
+            myUniqueAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_SHAPE);
         }
         return myUniqueAttrs[tag].count(attr) == 1;
     }
@@ -1026,7 +1026,7 @@ GNEAttributeCarrier::isFilename(SumoXMLTag tag, SumoXMLAttr attr) {
         myFileAttrs[SUMO_TAG_VSS].insert(SUMO_ATTR_FILE);
         // POI
         myFileAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_IMGFILE);
-		// POLY
+        // POLY
         myFileAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_IMGFILE);
     }
     return myFileAttrs[tag].count(attr) == 1;

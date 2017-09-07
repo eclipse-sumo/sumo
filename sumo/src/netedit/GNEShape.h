@@ -91,7 +91,7 @@ public:
     void setShapeVisible(bool visible);
 
     /// @brief draw lock icon
-    void drawLockIcon(const Position &pos, double layer, double size = 0.5) const;
+    void drawLockIcon(const Position& pos, double layer, double size = 0.5) const;
 
     /// @name inherited from GUIPolygon/GUIPointOfInterest
     /// @{

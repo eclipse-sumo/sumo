@@ -56,7 +56,7 @@ public:
     * @param[in] poly The name of the polygon
     * @param[in] forward Whether to create/delete (true/false)
     */
-    GNEChange_Poly(GNENet *net, GNEPoly *poly, bool forward);
+    GNEChange_Poly(GNENet* net, GNEPoly* poly, bool forward);
 
     /// @brief Destructor
     ~GNEChange_Poly();
@@ -80,8 +80,8 @@ public:
 private:
 
     /// @brief pointer to polygon
-    GNEPoly *myPoly;
-    
+    GNEPoly* myPoly;
+
 };
 
 #endif

@@ -82,7 +82,7 @@ MSCFModel_KraussOrig1::moveHelper(MSVehicle* const veh, double vPos) const {
     std::cout << "\nMOVE_HELPER\n"
     << "veh '" << veh->getID() << "' vMin=" << vMin
         << " vMax=" << vMax << " vDawdle=" << vDawdle
-        << " vSafe" << vSafe << " vNext=" << vNext<< " vPos=" << vPos << " veh->getSpeed()=" << oldV
+        << " vSafe" << vSafe << " vNext=" << vNext << " vPos=" << vPos << " veh->getSpeed()=" << oldV
         << "\n";
     }
 #endif

@@ -62,7 +62,7 @@ public:
     GNECalibratorFlow(GNECalibrator* calibratorParent);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string vehicleType, std::string route, const RGBColor &color, std::string departLane,
+    GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string vehicleType, std::string route, const RGBColor& color, std::string departLane,
                       std::string departPos, std::string departSpeed, std::string arrivalLane, std::string arrivalPos, std::string arrivalSpeed, std::string line,
                       int personNumber, int containerNumber, bool reroute, std::string departPosLat, std::string arrivalPosLat, double begin, double end,
                       double vehsPerHour, double period, double probability, int number);
@@ -166,7 +166,7 @@ public:
     /**@brief set color of flow
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setColor(const RGBColor &color);
+    bool setColor(const RGBColor& color);
 
     /**@brief set color of flow (String version)
     * @return true if was sucesfully set, or false if value isn't valid

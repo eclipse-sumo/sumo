@@ -56,8 +56,7 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string& id, const std::string& p
     myTLLogic(0),
     myReconstructAddedConnections(false),
     myReconstructRemovedConnections(false),
-    myPhasesLoaded(false)
-{
+    myPhasesLoaded(false) {
     myTLLogic = new NBTrafficLightLogic(id, programID, 0, offset, type);
 }
 
@@ -68,8 +67,7 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLig
     myTLLogic(new NBTrafficLightLogic(logic)),
     myOriginalNodes(def->getNodes().begin(), def->getNodes().end()),
     myReconstructAddedConnections(false),
-    myReconstructRemovedConnections(false)
-{
+    myReconstructRemovedConnections(false) {
     assert(def->getOffset() == logic->getOffset());
     assert(def->getType() == logic->getType());
     myControlledLinks = def->getControlledLinks();
@@ -424,7 +422,7 @@ NBLoadedSUMOTLDef::rightOnRedConflict(int index, int foeIndex) const {
 }
 
 
-void 
+void
 NBLoadedSUMOTLDef::registerModifications(bool addedConnections, bool removedConnections) {
     myReconstructAddedConnections |= addedConnections;
     myReconstructRemovedConnections |= removedConnections;
@@ -439,7 +437,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
         std::cout << "    " << *it << "\n";
     }
 #endif
-    if (myReconstructAddedConnections) { 
+    if (myReconstructAddedConnections) {
         myReconstructAddedConnections = false;
         if (!myPhasesLoaded) {
             // rebuild the logic from scratch
@@ -448,7 +446,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
             dummy.setParticipantsInformation();
             dummy.setProgramID(getProgramID());
             dummy.setTLControllingInformation();
-            NBTrafficLightLogic* newLogic = dummy.compute(OptionsCont::getOptions()); 
+            NBTrafficLightLogic* newLogic = dummy.compute(OptionsCont::getOptions());
             myIncomingEdges = dummy.getIncomingEdges();
             myControlledLinks = dummy.getControlledLinks();
             for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
@@ -472,14 +470,14 @@ NBLoadedSUMOTLDef::reconstructLogic() {
         for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end();) {
             const NBConnection& con = (*it);
             if (// edge still exists
-                    find(myIncomingEdges.begin(), myIncomingEdges.end(), con.getFrom()) != myIncomingEdges.end()
-                    // connection still exists
-                    && con.getFrom()->hasConnectionTo(con.getTo(), con.getToLane(), con.getFromLane())
-                    // connection is still set to be controlled
-                    && con.getFrom()->mayBeTLSControlled(con.getFromLane(), con.getTo(), con.getToLane())) {
+                find(myIncomingEdges.begin(), myIncomingEdges.end(), con.getFrom()) != myIncomingEdges.end()
+                // connection still exists
+                && con.getFrom()->hasConnectionTo(con.getTo(), con.getToLane(), con.getFromLane())
+                // connection is still set to be controlled
+                && con.getFrom()->mayBeTLSControlled(con.getFromLane(), con.getTo(), con.getToLane())) {
                 it++;
             } else {
-                // remove connection 
+                // remove connection
                 const int removed = con.getTLIndex();
                 it = myControlledLinks.erase(it);
                 if (!myPhasesLoaded) {

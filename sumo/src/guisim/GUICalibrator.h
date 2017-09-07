@@ -59,7 +59,7 @@ public:
      * @param[in] file Name of the file to read the speeds to set from
      */
     GUICalibrator(const std::string& id,
-                  MSEdge* edge, 
+                  MSEdge* edge,
                   MSLane* lane,
                   double pos,
                   const std::string& aXMLFilename,

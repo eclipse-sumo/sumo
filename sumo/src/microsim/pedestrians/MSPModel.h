@@ -77,8 +77,8 @@ public:
      * @param[in] collectBlockers The list of persons blocking the crossing
      * @return Whether the vehicle must wait
      */
-    virtual bool blockedAtDist(const MSLane* lane, double vehSide, double vehWidth, 
-            double oncomingGap, std::vector<const MSPerson*>* collectBlockers) {
+    virtual bool blockedAtDist(const MSLane* lane, double vehSide, double vehWidth,
+                               double oncomingGap, std::vector<const MSPerson*>* collectBlockers) {
         UNUSED_PARAMETER(lane);
         UNUSED_PARAMETER(vehSide);
         UNUSED_PARAMETER(vehWidth);
@@ -94,7 +94,7 @@ public:
     }
 
     /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
-    virtual PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime=0) {
+    virtual PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0) {
         UNUSED_PARAMETER(lane);
         UNUSED_PARAMETER(minPos);
         UNUSED_PARAMETER(minRight);

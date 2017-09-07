@@ -190,7 +190,7 @@ private:
     void collectEdgeVectors(EdgeVector& fromEdges, EdgeVector& toEdges, std::vector<int>& fromLanes) const;
 
     /// @brief adapt to removal or addition of connections
-    void reconstructLogic(); 
+    void reconstructLogic();
 
 private:
     /// @brief class for identifying connections

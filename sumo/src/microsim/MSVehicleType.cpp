@@ -324,7 +324,7 @@ MSVehicleType::duplicateType(const std::string& id, bool persistent) const {
         vtype->myOriginalType = this;
     }
     if (!MSNet::getInstance()->getVehicleControl().addVType(vtype)) {
-        std::string singular = persistent?"":"singular ";
+        std::string singular = persistent ? "" : "singular ";
         throw ProcessError("could not add " + singular + "type " + vtype->getID());
     }
     return vtype;

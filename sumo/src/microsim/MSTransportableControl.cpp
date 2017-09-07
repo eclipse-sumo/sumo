@@ -93,7 +93,7 @@ void
 MSTransportableControl::erase(MSTransportable* transportable) {
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
         transportable->tripInfoOutput(OutputDevice::getDeviceByOption("tripinfo-output"));
-    } else if (OptionsCont::getOptions().getBool("duration-log.statistics")){
+    } else if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
         // collecting statistics is a sideffect
         OutputDevice_String dev;
         transportable->tripInfoOutput(dev);

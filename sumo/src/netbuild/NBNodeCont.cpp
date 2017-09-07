@@ -265,8 +265,8 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec) {
             adjacentNodes.clear();
             for (EdgeVector::const_iterator itOfOutgoings = outgoingEdgesOfToNode.begin(); itOfOutgoings != outgoingEdgesOfToNode.end(); ++itOfOutgoings) {
                 if ((*itOfOutgoings)->getToNode() != from        // The back path
-                    && (*itOfOutgoings)->getToNode() != to   // A loop / dummy edge
-                    ) {
+                        && (*itOfOutgoings)->getToNode() != to   // A loop / dummy edge
+                   ) {
                     e = *itOfOutgoings; // Probably the next edge
                 }
                 adjacentNodes.insert((*itOfOutgoings)->getToNode());

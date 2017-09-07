@@ -289,13 +289,13 @@ public:
         FXCheckButton* myBlockShapeCheckButton;
 
         /// @brief Frame for open/close polygon
-        FXHorizontalFrame *myClosePolygonFrame;
+        FXHorizontalFrame* myClosePolygonFrame;
 
         /// @brief Label for open/close polygon
-        FXLabel *myClosePolygonLabel;
+        FXLabel* myClosePolygonLabel;
 
         /// @brief checkbox to enable/disable closing polygon
-        FXCheckButton *myClosePolygonCheckButton;
+        FXCheckButton* myClosePolygonCheckButton;
     };
 
     // ===========================================================================
@@ -322,20 +322,20 @@ public:
         /// @brief start drawing
         void startDrawing();
 
-        /// @brief stop drawing and create polygon or 
+        /// @brief stop drawing and create polygon or
         void stopDrawing();
 
         /// @brief abort drawing
         void abortDrawing();
 
         /// @brief add new point to temporal shape
-        void addNewPoint(const Position &P);
-        
+        void addNewPoint(const Position& P);
+
         /// @brief remove last added point
         void removeLastPoint();
-        
+
         /// @brief get Temporal shape
-        const PositionVector &getTemporalShape() const;
+        const PositionVector& getTemporalShape() const;
 
         /// @brief return true if currently a shape is drawed
         bool isDrawing() const;
@@ -361,13 +361,13 @@ public:
         GNEPolygonFrame* myPolygonFrameParent;
 
         /// @brief button for start drawing
-        FXButton *myStartDrawingButton;
+        FXButton* myStartDrawingButton;
 
         /// @brief button for stop drawing
-        FXButton *myStopDrawingButton;
+        FXButton* myStopDrawingButton;
 
         /// @brief button for abort drawing
-        FXButton *myAbortDrawingButton;
+        FXButton* myAbortDrawingButton;
 
         /// @brief Label with information
         FXLabel* myInformationLabel;
@@ -389,19 +389,19 @@ public:
     * @param[in] clickedPosition clicked position over ViewNet
     * @return AddShapeStatus with the result of operation
     */
-    AddShapeResult processClick(const Position &clickedPosition);
+    AddShapeResult processClick(const Position& clickedPosition);
 
     /**@brief build Polygon using values of Fields and drawed shap
      * return true if was sucesfully created
      * @note called when user stop drawing poligon
      */
-    bool buildPoly(const PositionVector &drawedShape);
+    bool buildPoly(const PositionVector& drawedShape);
 
     /// @brief get editor parameters
-    GNEPolygonFrame::NeteditAttributes *getNetEditParameters() const;
-    
+    GNEPolygonFrame::NeteditAttributes* getNetEditParameters() const;
+
     /// @brief get drawing mode
-    GNEPolygonFrame::DrawingMode *getDrawingMode() const;
+    GNEPolygonFrame::DrawingMode* getDrawingMode() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -420,10 +420,10 @@ protected:
     GNEPolygonFrame() {}
 
     /// @brief add Polygon
-    bool addPolygon(const std::map<SumoXMLAttr, std::string> &POIValues);
+    bool addPolygon(const std::map<SumoXMLAttr, std::string>& POIValues);
 
     /// @brief add POI
-    bool addPOI(const std::map<SumoXMLAttr, std::string> &POIValues);
+    bool addPOI(const std::map<SumoXMLAttr, std::string>& POIValues);
 
 private:
     /// @brief set parameters depending of the new additionalType

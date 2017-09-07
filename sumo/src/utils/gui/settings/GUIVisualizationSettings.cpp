@@ -63,52 +63,52 @@ const RGBColor SUMO_color_DEADEND(0, 0, 0);
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) : 
-      name(""), 
-      netedit(_netedit),
-      antialiase(false), dither(false),
-      backgroundColor(RGBColor::WHITE),
-      showGrid(false), gridXSize(100), gridYSize(100),
-      laneShowBorders(false), showLinkDecals(true),
-      showLinkRules(true), showRails(true),
-      edgeName(false, 50, RGBColor(255, 128, 0, 255)),
-      internalEdgeName(false, 40, RGBColor(128, 64, 0, 255)),
-      cwaEdgeName(false, 50, RGBColor::MAGENTA),
-      streetName(false, 55, RGBColor::YELLOW),
-      hideConnectors(false),
-      laneWidthExaggeration(1),
-      laneMinSize(0),
-      showLaneDirection(false),
-      showSublanes(true),
-      vehicleQuality(0), showBlinker(true),
-      drawLaneChangePreference(false), drawMinGap(false),
-      showBTRange(false), vehicleSize(1),
-      vehicleName(false, 50, RGBColor(204, 153, 0, 255)),
-      personQuality(0),
-      personSize(1),
-      personName(false, 50, RGBColor(0, 153, 204, 255)),
-      containerQuality(0),
-      containerSize(1),
-      containerName(false, 50, RGBColor(0, 153, 204, 255)),
-      drawLinkTLIndex(false, 50, RGBColor(128, 128, 255, 255)),
-      drawLinkJunctionIndex(false, 50, RGBColor(128, 128, 255, 255)),
-      junctionName(false, 50, RGBColor(0, 255, 128, 255)),
-      internalJunctionName(false, 50, RGBColor(0, 204, 128, 255)),
-      showLane2Lane(false),
-      drawJunctionShape(true),
-      drawCrossingsAndWalkingareas(true),
-      junctionSize(1),
-      addMode(0),
-      addSize(1),
-      addName(false, 50, RGBColor(255, 0, 128, 255)),
-      poiSize(0), poiName(false, 50, RGBColor(255, 0, 128, 255)),
-      poiType(false, 50, RGBColor(255, 0, 128, 255)),
-      polySize(0), polyName(false, 50, RGBColor(255, 0, 128, 255)),
-      polyType(false, 50, RGBColor(255, 0, 128, 255)),
-      showSizeLegend(true),
-      gaming(false),
-      selectionScale(1),
-      drawForSelecting(false) {
+GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
+    name(""),
+    netedit(_netedit),
+    antialiase(false), dither(false),
+    backgroundColor(RGBColor::WHITE),
+    showGrid(false), gridXSize(100), gridYSize(100),
+    laneShowBorders(false), showLinkDecals(true),
+    showLinkRules(true), showRails(true),
+    edgeName(false, 50, RGBColor(255, 128, 0, 255)),
+    internalEdgeName(false, 40, RGBColor(128, 64, 0, 255)),
+    cwaEdgeName(false, 50, RGBColor::MAGENTA),
+    streetName(false, 55, RGBColor::YELLOW),
+    hideConnectors(false),
+    laneWidthExaggeration(1),
+    laneMinSize(0),
+    showLaneDirection(false),
+    showSublanes(true),
+    vehicleQuality(0), showBlinker(true),
+    drawLaneChangePreference(false), drawMinGap(false),
+    showBTRange(false), vehicleSize(1),
+    vehicleName(false, 50, RGBColor(204, 153, 0, 255)),
+    personQuality(0),
+    personSize(1),
+    personName(false, 50, RGBColor(0, 153, 204, 255)),
+    containerQuality(0),
+    containerSize(1),
+    containerName(false, 50, RGBColor(0, 153, 204, 255)),
+    drawLinkTLIndex(false, 50, RGBColor(128, 128, 255, 255)),
+    drawLinkJunctionIndex(false, 50, RGBColor(128, 128, 255, 255)),
+    junctionName(false, 50, RGBColor(0, 255, 128, 255)),
+    internalJunctionName(false, 50, RGBColor(0, 204, 128, 255)),
+    showLane2Lane(false),
+    drawJunctionShape(true),
+    drawCrossingsAndWalkingareas(true),
+    junctionSize(1),
+    addMode(0),
+    addSize(1),
+    addName(false, 50, RGBColor(255, 0, 128, 255)),
+    poiSize(0), poiName(false, 50, RGBColor(255, 0, 128, 255)),
+    poiType(false, 50, RGBColor(255, 0, 128, 255)),
+    polySize(0), polyName(false, 50, RGBColor(255, 0, 128, 255)),
+    polyType(false, 50, RGBColor(255, 0, 128, 255)),
+    showSizeLegend(true),
+    gaming(false),
+    selectionScale(1),
+    drawForSelecting(false) {
 
     if (netedit) {
         initNeteditDefaults();
@@ -118,7 +118,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
 }
 
 
-void 
+void
 GUIVisualizationSettings::initSumoGuiDefaults() {
     /// add lane coloring schemes
     GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor::BLACK, "road", true);
@@ -665,7 +665,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
 }
 
 
-void 
+void
 GUIVisualizationSettings::initNeteditDefaults() {
     // init color schemes
     GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor::BLACK, "road", true);

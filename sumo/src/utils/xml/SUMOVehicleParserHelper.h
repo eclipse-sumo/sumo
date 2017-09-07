@@ -98,7 +98,7 @@ public:
      * @note: the caller is responsible for deleting the returned pointer
      */
     static SUMOVTypeParameter* beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file,
-        const SumoXMLTag defaultCFModel);
+            const SumoXMLTag defaultCFModel);
 
 
     /** @brief Parses an element embedded in vtype definition
@@ -154,7 +154,7 @@ public:
     static SUMOVehicleShape parseGuiShape(const SUMOSAXAttributes& attrs, const std::string& id);
 
     /// @brief parse departPos or arrivalPos for a walk
-    static double parseWalkPos(SumoXMLAttr attr, const std::string& id, double maxPos, const std::string& val, std::mt19937* rng=0);
+    static double parseWalkPos(SumoXMLAttr attr, const std::string& id, double maxPos, const std::string& val, std::mt19937* rng = 0);
 
 private:
     /** @brief Parses attributes common to vehicles and flows

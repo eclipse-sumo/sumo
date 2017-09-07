@@ -99,7 +99,9 @@ protected:
     virtual Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) = 0;
 
     /// @brief Whether some input attributes shall be automatically added as params
-    virtual bool addLanePosParams() { return false; }
+    virtual bool addLanePosParams() {
+        return false;
+    }
 
 protected:
     /// @brief set default values

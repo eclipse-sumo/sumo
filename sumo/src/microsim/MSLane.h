@@ -809,7 +809,7 @@ public:
     MSVehicle* getPartialBehind(const MSVehicle* ego) const;
 
     /// @brief get all vehicles that are inlaping from consecutve edges
-    MSLeaderInfo getPartialBeyond() const; 
+    MSLeaderInfo getPartialBeyond() const;
 
     /** @brief get the most likely precedecessor lane (sorted using by_connections_to_sorter).
      * The result is cached in myLogicalPredecessorLane
@@ -1068,7 +1068,7 @@ protected:
 
     /// @brief detect whether a vehicle collids with pedestrians on the junction
     void detectPedestrianJunctionCollision(const MSVehicle* collider, const PositionVector& colliderBoundary, const MSLane* foeLane,
-            SUMOTime timestep, const std::string& stage); 
+                                           SUMOTime timestep, const std::string& stage);
 
     /// @brief detect whether there is a collision between the two vehicles
     bool detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
@@ -1147,7 +1147,7 @@ protected:
     VehCont myVehBuffer;
 
 
-    /* @brief list of vehicles that are parking near this lane 
+    /* @brief list of vehicles that are parking near this lane
      * (not necessarily on the road but having reached their stop on this lane)
      * */
     std::set<const MSVehicle*> myParkingVehicles;

@@ -63,8 +63,8 @@ std::vector<SUMOVehicleParameter*> MSCalibrator::LeftoverVehicleParameters;
 // method definitions
 // ===========================================================================
 MSCalibrator::MSCalibrator(const std::string& id,
-                           const MSEdge* const edge, 
-                           MSLane* lane, 
+                           const MSEdge* const edge,
+                           MSLane* lane,
                            const double pos,
                            const std::string& aXMLFilename,
                            const std::string& outputFilename,
@@ -73,7 +73,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
                            bool addLaneMeanData) :
     MSTrigger(id),
     MSRouteHandler(aXMLFilename, false),
-    myEdge(edge), 
+    myEdge(edge),
     myLane(lane),
     myPos(pos), myProbe(probe),
     myEdgeMeanData(0, length, false, 0),
@@ -83,8 +83,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
     mySpeedIsDefault(true), myDidSpeedAdaption(false), myDidInit(false),
     myDefaultSpeed(myLane == 0 ? myEdge->getSpeedLimit() : myLane->getSpeedLimit()),
     myHaveWarnedAboutClearingJam(false),
-    myAmActive(false)
-{
+    myAmActive(false) {
     if (outputFilename != "") {
         myOutput = &OutputDevice::getDevice(outputFilename);
         myOutput->writeXMLHeader("calibratorstats", "calibratorstats_file.xsd");
@@ -175,8 +174,8 @@ MSCalibrator::myStartElement(int element,
                     state.vehicleParameter->departLane = myLane->getIndex();
                 }
             } else if (myLane != 0 && (
-                        state.vehicleParameter->departLaneProcedure != DEPART_LANE_GIVEN 
-                        || state.vehicleParameter->departLane != myLane->getIndex())) {
+                           state.vehicleParameter->departLaneProcedure != DEPART_LANE_GIVEN
+                           || state.vehicleParameter->departLane != myLane->getIndex())) {
                 WRITE_WARNING("Insertion lane may differ from calibrator lane for calibrator '" + getID() + "'.");
             }
             if (state.vehicleParameter->vtypeid != DEFAULT_VTYPE_ID &&
@@ -406,7 +405,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
             MSVehicle* vehicle;
             try {
                 vehicle = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(
-                            newPars, route, vtype, true, false));
+                                                       newPars, route, vtype, true, false));
             } catch (const ProcessError& e) {
                 if (!MSGlobals::gCheckRoutes) {
                     WRITE_WARNING(e.what());

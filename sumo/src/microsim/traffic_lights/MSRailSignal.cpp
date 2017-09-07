@@ -143,10 +143,10 @@ MSRailSignal::init(NLDetectorBuilder&) {
 
     for (std::map<MSLane*, std::vector<const MSLane*> >::iterator it = mySucceedingBlocks.begin(); it != mySucceedingBlocks.end(); it++) {
         std::queue<const MSLane*> revLanes;
-        for ( std::vector<const MSLane*>::iterator laneIt = it->second.begin(); laneIt != it->second.end(); laneIt++) {
+        for (std::vector<const MSLane*>::iterator laneIt = it->second.begin(); laneIt != it->second.end(); laneIt++) {
             const MSLane* lane = *laneIt;
 
-            const MSEdge * reverseEdge = lane->getEdge().getMyOppositeSuperposableEdge();
+            const MSEdge* reverseEdge = lane->getEdge().getMyOppositeSuperposableEdge();
             if (reverseEdge != 0) {
                 const MSLane* revLane = reverseEdge->getLanes()[0];
                 revLanes.push(revLane);
@@ -210,7 +210,7 @@ MSRailSignal::getAppropriateState() {
                     std::map<const SUMOVehicle*,  MSLink::ApproachingVehicleInformation>::const_iterator apprIt = approaching.begin();
                     for (; apprIt != approaching.end(); apprIt++) {
                         MSLink::ApproachingVehicleInformation info = apprIt->second;
-                        if (info.arrivalSpeedBraking > 0){
+                        if (info.arrivalSpeedBraking > 0) {
                             succeedingBlockOccupied = true;
                             break;
                         }

@@ -74,7 +74,7 @@ public:
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
-     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
+     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled
      */
     virtual void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const = 0;
 
@@ -122,7 +122,7 @@ public:
      * @param[in] newPosition new position of geometry
      * @note should't be called in drawGL(...) functions to avoid smoothness issues
      */
-    virtual void moveGeometry(const Position &newPosition) = 0;
+    virtual void moveGeometry(const Position& newPosition) = 0;
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
      * @param[in] oldPos the old position of additional

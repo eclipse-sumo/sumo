@@ -62,8 +62,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, 
-               double layer, double angle, const std::string& imgFile, const Position& pos, 
+GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
+               double layer, double angle, const std::string& imgFile, const Position& pos,
                double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height),
     GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI, movementBlocked, false),
@@ -75,23 +75,23 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 GNEPOI::~GNEPOI() {}
 
 
-void GNEPOI::writeShape(OutputDevice &device) {
+void GNEPOI::writeShape(OutputDevice& device) {
     writeXML(device);
 }
 
 
-void 
-GNEPOI::moveGeometry(const Position &newPosition) {
-    if(!myBlockMovement) {
+void
+GNEPOI::moveGeometry(const Position& newPosition) {
+    if (!myBlockMovement) {
         set(newPosition);
         myNet->refreshElement(this);
     }
 }
 
 
-void 
+void
 GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-    if(!myBlockMovement) {
+    if (!myBlockMovement) {
         undoList->p_begin("position of " + toString(getTag()));
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(getPositionInView()), true, toString(oldPos)));
         undoList->p_end();
@@ -101,37 +101,37 @@ GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
 }
 
 
-Position 
+Position
 GNEPOI::getPositionInView() const {
     return Position(x(), y());
 }
 
 
-const std::string& 
+const std::string&
 GNEPOI::getParentName() const {
     return myNet->getMicrosimID();
 }
 
 
-GUIGLObjectPopupMenu* 
+GUIGLObjectPopupMenu*
 GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return GUIPointOfInterest::getPopUpMenu(app, parent);
 }
 
 
-GUIParameterTableWindow* 
+GUIParameterTableWindow*
 GNEPOI::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return GUIPointOfInterest::getParameterWindow(app, parent);
 }
 
 
-Boundary 
+Boundary
 GNEPOI::getCenteringBoundary() const {
     return GUIPointOfInterest::getCenteringBoundary();
 }
 
 
-void 
+void
 GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     GUIPointOfInterest::drawGL(s);
     // draw lock icon
@@ -147,13 +147,13 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_COLOR:
             return toString(myColor);
         case SUMO_ATTR_LANE:
-            if(myLane) {
+            if (myLane) {
                 return myLane->getID();
             } else {
                 return "";
             }
         case SUMO_ATTR_POSITION:
-            if(myLane) {
+            if (myLane) {
                 return toString(myPositionOverLane);
             } else {
                 return toString(*this);
@@ -204,20 +204,20 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
 
 
 bool
-GNEPOI::isValid(SumoXMLAttr key, const std::string& value ) {
+GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidID(value) && (myNet->retrievePOI(value, false) == 0);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_LANE:
-            if(value == "") {
+            if (value == "") {
                 return true;
             } else {
                 return (myNet->retrieveLane(value, false) != NULL);
             }
         case SUMO_ATTR_POSITION:
-            if(myLane != NULL) {
+            if (myLane != NULL) {
                 return canParse<double>(value);
             } else {
                 bool ok;
@@ -263,7 +263,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLane = myNet->retrieveLane(value, false);
             break;
         case SUMO_ATTR_POSITION:
-            if(myLane) {
+            if (myLane) {
                 myPositionOverLane = parse<double>(value);
             } else {
                 bool ok = true;

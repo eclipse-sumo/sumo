@@ -184,7 +184,7 @@ GNERouteProbe::getBegin() const {
 
 
 void
-GNERouteProbe::setFilename(const std::string &filename) {
+GNERouteProbe::setFilename(const std::string& filename) {
     myFilename = filename;
 }
 

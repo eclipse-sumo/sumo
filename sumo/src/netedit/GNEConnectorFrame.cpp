@@ -175,8 +175,8 @@ GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool a
         initTargets();
         myNumChanges = 0;
         myViewNet->getUndoList()->p_begin("modify " + toString(SUMO_TAG_CONNECTION) + "s");
-    } else if (myPotentialTargets.count(lane) 
-            || (allowConflict && lane->getParentEdge().getGNEJunctionSource() == myCurrentLane->getParentEdge().getGNEJunctionDestiny())) {
+    } else if (myPotentialTargets.count(lane)
+               || (allowConflict && lane->getParentEdge().getGNEJunctionSource() == myCurrentLane->getParentEdge().getGNEJunctionDestiny())) {
         const int fromIndex = myCurrentLane->getIndex();
         GNEEdge& srcEdge = myCurrentLane->getParentEdge();
         GNEEdge& destEdge = lane->getParentEdge();

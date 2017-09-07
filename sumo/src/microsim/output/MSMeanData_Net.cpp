@@ -114,7 +114,7 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) con
     v.frontTravelledDistance += frontTravelledDistance;
     v.vehLengthSum += vehLengthSum;
     v.occupationSum += occupationSum;
-    if (v.minimalVehicleLength == INVALID_DOUBLE){
+    if (v.minimalVehicleLength == INVALID_DOUBLE) {
         v.minimalVehicleLength = minimalVehicleLength;
     } else {
         v.minimalVehicleLength = MIN2(minimalVehicleLength, v.minimalVehicleLength);
@@ -124,22 +124,22 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) con
 
 void
 MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
-        const SUMOVehicle& veh, const double frontOnLane,
-        const double timeOnLane, const double /* meanSpeedFrontOnLane */,
-        const double meanSpeedVehicleOnLane,
-        const double travelledDistanceFrontOnLane,
-        const double travelledDistanceVehicleOnLane,
-        const double meanLengthOnLane) {
+    const SUMOVehicle& veh, const double frontOnLane,
+    const double timeOnLane, const double /* meanSpeedFrontOnLane */,
+    const double meanSpeedVehicleOnLane,
+    const double travelledDistanceFrontOnLane,
+    const double travelledDistanceVehicleOnLane,
+    const double meanLengthOnLane) {
 #ifdef DEBUG_OCCUPANCY
     if DEBUG_COND {
-        std::cout << SIMTIME << "\n  MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal()\n"
-                << "  veh '" << veh.getID() << "' on lane '" << veh.getLane()->getID() << "'"
-                << ", timeOnLane=" << timeOnLane
-                << ", meanSpeedVehicleOnLane=" << meanSpeedVehicleOnLane
-                << ",\ntravelledDistanceFrontOnLane=" << travelledDistanceFrontOnLane
-                << ", travelledDistanceVehicleOnLane=" << travelledDistanceVehicleOnLane
-                << ", meanLengthOnLane=" << meanLengthOnLane
-                << std::endl;
+    std::cout << SIMTIME << "\n  MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal()\n"
+    << "  veh '" << veh.getID() << "' on lane '" << veh.getLane()->getID() << "'"
+        << ", timeOnLane=" << timeOnLane
+        << ", meanSpeedVehicleOnLane=" << meanSpeedVehicleOnLane
+        << ",\ntravelledDistanceFrontOnLane=" << travelledDistanceFrontOnLane
+        << ", travelledDistanceVehicleOnLane=" << travelledDistanceVehicleOnLane
+        << ", meanLengthOnLane=" << meanLengthOnLane
+        << std::endl;
     }
 #endif
     sampleSeconds += timeOnLane;
@@ -160,7 +160,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
     }
     frontSampleSeconds += frontOnLane;
     frontTravelledDistance += travelledDistanceFrontOnLane;
-    if (minimalVehicleLength == INVALID_DOUBLE){
+    if (minimalVehicleLength == INVALID_DOUBLE) {
         minimalVehicleLength = veh.getVehicleType().getLength();
     } else {
         minimalVehicleLength = MIN2(minimalVehicleLength, veh.getVehicleType().getLength());
@@ -197,7 +197,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, double /*las
 
 
 bool
-MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane ){
+MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_NOTIFY_ENTER
     std::cout << "\n" << SIMTIME << " MSMeanData_Net::MSLaneMeanDataValues: veh '" << veh.getID() << "' enters lane '" << enteredLane->getID() << "'" << std::endl;
 #else
@@ -231,21 +231,21 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
         const double numLanes, const double defaultTravelTime, const int numVehicles) const {
 
 #ifdef DEBUG_OCCUPANCY2
-        // tests #3264
-        double occupancy = occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100;
-        if (occupancy > 100) {
-            std::cout << SIMTIME << " Encountered bad occupancy: " << occupancy
-                    << ", myLaneLength=" << myLaneLength << ", period=" << STEPS2TIME(period) << ", occupationSum="<<occupationSum
-                    << std::endl;
-        }
-        // refs #3265
-        std::cout << SIMTIME << "ID: " << getDescription() << " minVehicleLength=" << minimalVehicleLength
-                << "\ndensity=" << MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1./MAX2(minimalVehicleLength,NUMERICAL_EPS)) << std::endl;
+    // tests #3264
+    double occupancy = occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100;
+    if (occupancy > 100) {
+        std::cout << SIMTIME << " Encountered bad occupancy: " << occupancy
+                  << ", myLaneLength=" << myLaneLength << ", period=" << STEPS2TIME(period) << ", occupationSum=" << occupationSum
+                  << std::endl;
+    }
+    // refs #3265
+    std::cout << SIMTIME << "ID: " << getDescription() << " minVehicleLength=" << minimalVehicleLength
+              << "\ndensity=" << MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1. / MAX2(minimalVehicleLength, NUMERICAL_EPS)) << std::endl;
 #endif
 
     if (myParent == 0) {
         if (sampleSeconds > 0) {
-            dev.writeAttr("density", MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1000./MAX2(minimalVehicleLength,NUMERICAL_EPS)))
+            dev.writeAttr("density", MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1000. / MAX2(minimalVehicleLength, NUMERICAL_EPS)))
             .writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
             .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         }
@@ -274,7 +274,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
                 dev.writeAttr("traveltime", defaultTravelTime);
             }
             dev.writeAttr("overlapTraveltime", overlapTraveltime)
-            .writeAttr("density", MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1000./MAX2(minimalVehicleLength,NUMERICAL_EPS)))
+            .writeAttr("density", MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1000. / MAX2(minimalVehicleLength, NUMERICAL_EPS)))
             .writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
             .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         }

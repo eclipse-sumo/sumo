@@ -573,7 +573,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
                         firstID = idBefore;
                     }
                     const bool ok = myEdgeCont.splitAt(myDistrictCont, e, exp.pos - seen, exp.node,
-                            idBefore, idAfter, e->getNumLanes(), (int) exp.lanes.size(), exp.speed);
+                                                       idBefore, idAfter, e->getNumLanes(), (int) exp.lanes.size(), exp.speed);
                     if (!ok) {
                         WRITE_WARNING("Error on parsing a split (edge '" + myCurrentID + "').");
                     }

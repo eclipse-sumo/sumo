@@ -68,7 +68,7 @@ public:
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
-     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
+     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled
      */
     void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 
@@ -118,7 +118,7 @@ public:
 
 protected:
     /// @brief relative length [0,1]
-    double myRelativeLength; 
+    double myRelativeLength;
 
     /// @brief attribute to enable or disable splitByType
     bool myCont;

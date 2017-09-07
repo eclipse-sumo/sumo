@@ -517,7 +517,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_LCA_ACCEL_LAT,
     SUMO_ATTR_LCA_EXPERIMENTAL1,
     /// @}
-    
+
     /// @name Junction model attributes
     /// @{
     SUMO_ATTR_JM_CROSSING_GAP,

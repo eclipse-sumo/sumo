@@ -138,7 +138,7 @@ GNEDetectorE2::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     // Check if another lane ID must be changed if sidewalks.guess option is enabled
-    if(volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && (myLane->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
+    if (volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && (myLane->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
         // add a new extra lane to edge
         myViewNet->getNet()->duplicateLane(myLane->getParentEdge().getLanes().front(), myViewNet->getUndoList());
         // write ID (now is different because there are a new lane)
@@ -171,8 +171,7 @@ bool GNEDetectorE2::isDetectorPositionFixed() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
-    }
-    else {
+    } else {
         // floors are needed to avoid precision problems
         return ((floor(myPositionOverLane * 1000) / 1000) >= 0) && ((floor((myPositionOverLane + myRelativeLength) * 1000) / 1000) <= 1);
     }
@@ -322,15 +321,15 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_LENGTH:
-            if(canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 // obtain relative new start position
                 double newLength = parse<double>(value);
                 // lengths withs size 0 aren't valid
-                if(newLength <= 0) {
+                if (newLength <= 0) {
                     return false;
                 } else {
                     newLength = newLength / myLane->getLaneParametricLength();
-                    if((myPositionOverLane + newLength) > 1) {
+                    if ((myPositionOverLane + newLength) > 1) {
                         return false;
                     } else {
                         return true;

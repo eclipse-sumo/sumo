@@ -71,7 +71,9 @@ public:
 
     Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat);
 
-    virtual bool addLanePosParams() { return true; }
+    virtual bool addLanePosParams() {
+        return true;
+    }
 };
 
 

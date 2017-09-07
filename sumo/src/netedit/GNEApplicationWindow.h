@@ -270,10 +270,10 @@ public:
 
     /// @brief called if the user selects Processing->compute junctions
     long onCmdComputeJunctions(FXObject*, FXSelector, void*);
-    
+
     /// @brief called if the user selects Processing->compute junctions with volatile options
     long onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*);
-    
+
     /// @brief called if the user selects Processing->clean junctions
     long onCmdCleanJunctions(FXObject*, FXSelector, void*);
 

@@ -64,10 +64,10 @@ public:
      * @param[in] fill Whether the polygon shall be filled
      */
     SUMOPolygon(const std::string& id, const std::string& type,
-            const RGBColor& color, const PositionVector& shape, bool fill,
-            double layer = DEFAULT_LAYER,
-            double angle = DEFAULT_ANGLE,
-            const std::string& imgFile = DEFAULT_IMG_FILE);
+                const RGBColor& color, const PositionVector& shape, bool fill,
+                double layer = DEFAULT_LAYER,
+                double angle = DEFAULT_ANGLE,
+                const std::string& imgFile = DEFAULT_IMG_FILE);
 
 
     /// @brief Destructor

@@ -867,7 +867,7 @@ protected:
 private:
 
     /// @brief the oppositing superposble edge
-    const MSEdge * myOppositingSuperposableEdge;
+    const MSEdge* myOppositingSuperposableEdge;
 
     /// @brief Invalidated copy constructor.
     MSEdge(const MSEdge&);

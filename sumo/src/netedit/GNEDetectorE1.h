@@ -56,14 +56,14 @@ public:
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
      * @param[in] friendlyPos enable or disable friendly positions
      */
-    GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string &vehicleTypes, bool friendlyPos);
+    GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string& vehicleTypes, bool friendlyPos);
 
     /// @brief Destructor
     ~GNEDetectorE1();
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
-     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
+     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled
      */
     void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 

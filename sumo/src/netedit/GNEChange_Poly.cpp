@@ -48,7 +48,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Poly, GNEChange, NULL, 0)
 
 
 /// @brief constructor for creating a poly
-GNEChange_Poly::GNEChange_Poly(GNENet *net, GNEPoly *poly, bool forward) :
+GNEChange_Poly::GNEChange_Poly(GNENet* net, GNEPoly* poly, bool forward) :
     GNEChange(net, forward),
     myPoly(poly) {
     myPoly->incRef("GNEChange_Poly");
@@ -65,7 +65,7 @@ GNEChange_Poly::~GNEChange_Poly() {
             WRITE_WARNING("Removing " + toString(SUMO_TAG_POLY) + " '" + myPoly->getID() + "' from net");
         }
         // remove polygon of net
-        if(myNet->removePolygon(myPoly->getID()) == false) {
+        if (myNet->removePolygon(myPoly->getID()) == false) {
             WRITE_ERROR("Trying to remove non-inserted ''" + myPoly->getID() + "' from net");
         }
     }
@@ -81,8 +81,7 @@ GNEChange_Poly::undo() {
         }
         // remove polygon of net
         myNet->removePolygonOfView(myPoly);
-    }
-    else {
+    } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Adding " + toString(SUMO_TAG_POLY) + " '" + myPoly->getID() + "' into viewNet");
@@ -102,8 +101,7 @@ GNEChange_Poly::redo() {
         }
         // Add polygon to view
         myNet->insertPolygonInView(myPoly);
-    }
-    else {
+    } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Removing " + toString(SUMO_TAG_POLY) + " '" + myPoly->getID() + "' from viewNet");
@@ -118,8 +116,7 @@ FXString
 GNEChange_Poly::undoName() const {
     if (myForward) {
         return ("Undo create " + toString(SUMO_TAG_POLY)).c_str();
-    }
-    else {
+    } else {
         return ("Undo delete " + toString(SUMO_TAG_POLY)).c_str();
     }
 }
@@ -129,8 +126,7 @@ FXString
 GNEChange_Poly::redoName() const {
     if (myForward) {
         return ("Redo create " + toString(SUMO_TAG_POLY)).c_str();
-    }
-    else {
+    } else {
         return ("Redo delete " + toString(SUMO_TAG_POLY)).c_str();
     }
 }

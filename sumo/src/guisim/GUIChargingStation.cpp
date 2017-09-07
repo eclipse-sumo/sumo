@@ -65,8 +65,8 @@ GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, doub
     GUIGlObject_AbstractAdd("chargingStation", GLO_TRIGGER, id) {
     myFGShape = lane.getShape();
     myFGShape = myFGShape.getSubpart(
-            lane.interpolateLanePosToGeometryPos(frompos), 
-            lane.interpolateLanePosToGeometryPos(topos));
+                    lane.interpolateLanePosToGeometryPos(frompos),
+                    lane.interpolateLanePosToGeometryPos(topos));
     myFGShapeRotations.reserve(myFGShape.size() - 1);
     myFGShapeLengths.reserve(myFGShape.size() - 1);
     int e = (int) myFGShape.size() - 1;

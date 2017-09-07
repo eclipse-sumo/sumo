@@ -677,7 +677,7 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
 }
 
 
-const std::vector<GNEAttributeCarrier*>& 
+const std::vector<GNEAttributeCarrier*>&
 GNEInspectorFrame::getInspectedACs() const {
     return myACs;
 }
@@ -809,7 +809,7 @@ GNEInspectorFrame::AttributeInput::hideAttribute() {
 }
 
 
-void 
+void
 GNEInspectorFrame::AttributeInput::refreshAttribute() {
     // Declare a set of occuring values and insert attribute's values of item
     std::set<std::string> occuringValues;
@@ -846,8 +846,8 @@ GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor(FXObject*, FXSel
     // obtain vehicles of text field and check if are valid
     std::string vehicles = myTextFieldStrings->getText().text();
     // check if values can parse
-    if(canParseVehicleClasses(vehicles) == false) {
-        if(myAttr == SUMO_ATTR_ALLOW) {
+    if (canParseVehicleClasses(vehicles) == false) {
+        if (myAttr == SUMO_ATTR_ALLOW) {
             vehicles = getVehicleClassNames(SVCAll, true);
         } else {
             vehicles = "";
@@ -917,7 +917,7 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
     }
 
     // we need a extra check for Position and Shape Values, due #2658
-    if((myAttr == SUMO_ATTR_POSITION) || (myAttr == SUMO_ATTR_SHAPE)) {
+    if ((myAttr == SUMO_ATTR_POSITION) || (myAttr == SUMO_ATTR_SHAPE)) {
         newVal = stripWhitespaceAfterComma(newVal);
     }
 
@@ -940,9 +940,9 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->killFocus();
             // in this case, we need to refresh the other opposited value
-            for(auto i : myInspectorFrameParent->myVectorOfAttributeInputs) {
-                if(((myAttr == SUMO_ATTR_ALLOW) && (i->getAttr() == SUMO_ATTR_DISALLOW)) || 
-                    ((myAttr == SUMO_ATTR_DISALLOW) && (i->getAttr() == SUMO_ATTR_ALLOW))) {
+            for (auto i : myInspectorFrameParent->myVectorOfAttributeInputs) {
+                if (((myAttr == SUMO_ATTR_ALLOW) && (i->getAttr() == SUMO_ATTR_DISALLOW)) ||
+                        ((myAttr == SUMO_ATTR_DISALLOW) && (i->getAttr() == SUMO_ATTR_ALLOW))) {
                     i->refreshAttribute();
                 }
             }
@@ -997,12 +997,12 @@ GNEInspectorFrame::AttributeInput::hide() {
 }
 
 
-std::string 
-GNEInspectorFrame::AttributeInput::stripWhitespaceAfterComma(const std::string &stringValue) {
+std::string
+GNEInspectorFrame::AttributeInput::stripWhitespaceAfterComma(const std::string& stringValue) {
     std::string result(stringValue);
     while (result.find(", ") != std::string::npos) {
         result = StringUtils::replace(result, ", ", ",");
-    }    
+    }
     return result;
 }
 
@@ -1010,7 +1010,7 @@ GNEInspectorFrame::AttributeInput::stripWhitespaceAfterComma(const std::string &
 // NeteditParameters method definitions
 // ===========================================================================
 
-GNEInspectorFrame::NeteditParameters::NeteditParameters(GNEInspectorFrame *inspectorFrameParent) :
+GNEInspectorFrame::NeteditParameters::NeteditParameters(GNEInspectorFrame* inspectorFrameParent) :
     FXGroupBox(inspectorFrameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
     myInspectorFrameParent(inspectorFrameParent) {
     // Create check box and for block movement
@@ -1031,7 +1031,7 @@ GNEInspectorFrame::NeteditParameters::NeteditParameters(GNEInspectorFrame *inspe
 GNEInspectorFrame::NeteditParameters::~NeteditParameters() {}
 
 
-void 
+void
 GNEInspectorFrame::NeteditParameters::show() {
     // If item can be moved
     if (GNEAttributeCarrier::canBlockMovement(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
@@ -1091,7 +1091,7 @@ GNEInspectorFrame::NeteditParameters::show() {
 }
 
 
-void 
+void
 GNEInspectorFrame::NeteditParameters::hide() {
     // hide all elements of GroupBox
     myLabelBlockMovement->hide();

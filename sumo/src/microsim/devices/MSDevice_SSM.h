@@ -146,7 +146,7 @@ private:
 
         /// @brief add a new data point and update encounter type
         void add(double time, EncounterType type, Position egoX, Position egoV, Position foeX, Position foeV,
-                Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double,double> pet);
+                 Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double, double> pet);
 
         /// @brief Returns the number of trajectory points stored
         std::size_t size() const {
@@ -215,9 +215,9 @@ private:
 
         /// @name Extremal values for the SSMs (as < <time,value>,Position>-pairs)
         /// @{
-        std::pair<std::pair<double, double>,Position> minTTC;
-        std::pair<std::pair<double, double>,Position> maxDRAC;
-        std::pair<std::pair<double, double>,Position> PET;
+        std::pair<std::pair<double, double>, Position> minTTC;
+        std::pair<std::pair<double, double>, Position> maxDRAC;
+        std::pair<std::pair<double, double>, Position> PET;
         /// @}
 
         /// @brief this flag is set by updateEncounter() or directly in processEncounters(), where encounters are closed if it is true.
@@ -252,7 +252,7 @@ private:
         bool foeLeftConflict;
         double ttc;
         double drac;
-        std::pair<double,double> pet;
+        std::pair<double, double> pet;
         std::pair<const MSLane*, double> egoConflictEntryCrossSection;
         std::pair<const MSLane*, double> foeConflictEntryCrossSection;
     };
@@ -417,7 +417,7 @@ private:
      * @param useGeoCoords Whether coordinates should be written out in the original coordinate reference system or as sumo's x,y values
      */
     MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::map<std::string, double> thresholds,
-            bool trajectories, double range, double extraTime, bool useGeoCoords);
+                 bool trajectories, double range, double extraTime, bool useGeoCoords);
 
     /** @brief Finds encounters for which the foe vehicle has disappeared from range.
      *         remainingExtraTime is decreased until it reaches zero, which triggers closing the encounter.
@@ -575,7 +575,7 @@ private:
      * @param sep separator for values in string
      * @return String concatenation of the vector entries
      */
-    static std::string makeStringWithNAs(std::vector<double> v, double NA, std::string sep=" ");
+    static std::string makeStringWithNAs(std::vector<double> v, double NA, std::string sep = " ");
 
     /// @name parameter load helpers (introduced for readability of buildVehicleDevices())
     /// @{
@@ -585,7 +585,7 @@ private:
     static bool useGeoCoords(const SUMOVehicle& v, std::string deviceID);
     static bool requestsTrajectories(const SUMOVehicle& v);
     static bool getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceID,
-                                        std::map<std::string, double>& thresholds);
+                                         std::map<std::string, double>& thresholds);
     ///@}
 
 private:

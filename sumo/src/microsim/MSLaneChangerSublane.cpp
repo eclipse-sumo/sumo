@@ -104,7 +104,7 @@ MSLaneChangerSublane::change() {
 #ifndef NO_TRACI
     if (vehicle->isRemoteControlled()) {
         registerUnchanged(vehicle);
-        return false; 
+        return false;
     }
 #endif
     vehicle->updateBestLanes(); // needed?
@@ -119,8 +119,8 @@ MSLaneChangerSublane::change() {
         sublaneIndex += ce->ahead.numSublanes();
     }
 
-    LaneChangeAction alternatives = (LaneChangeAction)((mayChange(-1) ? LCA_RIGHT : LCA_NONE) 
-                      | (mayChange(1) ? LCA_LEFT : LCA_NONE));
+    LaneChangeAction alternatives = (LaneChangeAction)((mayChange(-1) ? LCA_RIGHT : LCA_NONE)
+                                    | (mayChange(1) ? LCA_LEFT : LCA_NONE));
 
     StateAndDist right = checkChangeHelper(vehicle, -1, alternatives);
     StateAndDist left = checkChangeHelper(vehicle, 1, alternatives);

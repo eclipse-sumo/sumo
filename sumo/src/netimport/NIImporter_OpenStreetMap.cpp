@@ -191,8 +191,8 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         Edge* e = (*i).second;
         assert(e->myCurrentIsRoad);
         for (std::vector<long long int>::const_iterator j = e->myCurrentNodes.begin();
-             j != e->myCurrentNodes.end();
-             ++j) {
+                j != e->myCurrentNodes.end();
+                ++j) {
             if (nodeUsage.find(*j) == nodeUsage.end()) {
                 nodeUsage[*j] = 0;
             }
@@ -201,8 +201,8 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     // Mark which nodes are used by traffic lights
     for (std::map<long long int, NIOSMNode*>::const_iterator nodesIt = myOSMNodes.begin();
-         nodesIt != myOSMNodes.end();
-         ++nodesIt) {
+            nodesIt != myOSMNodes.end();
+            ++nodesIt) {
         if (nodesIt->second->tlsControlled /* || nodesIt->second->railwayCrossing*/) {
             // If the key is not found in the map, the value is automatically
             // initialized with 0.
@@ -220,7 +220,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         assert(e->myCurrentIsRoad);
         if (e->myCurrentNodes.size() < 2) {
             WRITE_WARNING("Discarding way '" + toString(e->id) + "' because it has only " +
-                    toString(e->myCurrentNodes.size()) + " node(s)");
+                          toString(e->myCurrentNodes.size()) + " node(s)");
             continue;
         }
         // build nodes;
@@ -259,7 +259,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     // load relations (after edges are built since we want to apply
     // turn-restrictions directly to NBEdges)
     RelationHandler relationHandler(myOSMNodes, myEdges, &(nb.getPTStopCont()), myPlatformShapes,
-                                    &(nb.getPTLineCont()),oc);
+                                    &(nb.getPTLineCont()), oc);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // relations
         relationHandler.setFileName(*file);
@@ -293,7 +293,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
             //  participate
             // @note: The OSM-community has not settled on a schema for differentiating between fixed and actuated lights
             TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(
-                    OptionsCont::getOptions().getString("tls.default-type"));
+                                        OptionsCont::getOptions().getString("tls.default-type"));
             NBOwnTLDef* tlDef = new NBOwnTLDef(toString(id), node, 0, type);
             if (!tlsc.insert(tlDef)) {
                 // actually, nothing should fail here
@@ -347,8 +347,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         NIOSMNode* n = myOSMNodes.find(i)->second;
 
         if (n->ptStopPosition) {
-            NBPTStop * existingPtStop = sc.get(toString(n->id));
-            if (existingPtStop != nullptr){
+            NBPTStop* existingPtStop = sc.get(toString(n->id));
+            if (existingPtStop != nullptr) {
                 existingPtStop->registerAdditionalEdge(toString(e->id), id);
             } else {
                 Position ptPos(n->lon, n->lat, n->ele);
@@ -388,9 +388,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                     }
                 } else if (tok.size() > 1) {
                     WRITE_WARNING(
-                            "Discarding unknown compound '" + t + "' in type '" + type + "' (first occurence for edge '"
-                                    + id
-                                    + "').");
+                        "Discarding unknown compound '" + t + "' in type '" + type + "' (first occurence for edge '"
+                        + id
+                        + "').");
                 }
             }
             if (types.empty()) {
@@ -434,7 +434,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 }
                 if (discard) {
                     WRITE_WARNING(
-                            "Discarding compound type '" + newType + "' (first occurence for edge '" + id + "').");
+                        "Discarding compound type '" + newType + "' (first occurence for edge '" + id + "').");
                     myUnusableTypes.insert(newType);
                     return newIndex;
                 }
@@ -472,7 +472,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     bool addBackward = true;
     if (e->myIsOneWay == "true" || e->myIsOneWay == "yes" || e->myIsOneWay == "1"
             || (defaultsToOneWay && e->myIsOneWay != "no" && e->myIsOneWay != "false" && e->myIsOneWay != "0" &&
-                    e->getParameter("railway:preferred_direction", "") != "both")) {
+                e->getParameter("railway:preferred_direction", "") != "both")) {
         addBackward = false;
     }
     if (e->myIsOneWay == "-1" || e->myIsOneWay == "reverse") {
@@ -510,7 +510,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
     // if we had been able to extract the maximum speed, override the type's default
     if (e->myMaxSpeed != MAXSPEED_UNGIVEN) {
-        speed = (double) (e->myMaxSpeed / 3.6);
+        speed = (double)(e->myMaxSpeed / 3.6);
     }
     if (speed <= 0) {
         WRITE_WARNING("Skipping edge '" + id + "' because it has speed " + toString(speed));
@@ -524,7 +524,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             forwardWidth = tc.getBikeLaneWidth(type);
             numLanesForward = 1;
             // do not add an additional cycle lane
-            e->myCyclewayType = (WayType) (e->myCyclewayType & !WAY_FORWARD); //clang tidy thinks "!WAY_FORWARD" is always false
+            e->myCyclewayType = (WayType)(e->myCyclewayType & !WAY_FORWARD);  //clang tidy thinks "!WAY_FORWARD" is always false
         }
         if (!addBackward && (e->myCyclewayType & WAY_BACKWARD) != 0) {
             addBackward = true;
@@ -532,7 +532,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             backwardWidth = tc.getBikeLaneWidth(type);
             numLanesBackward = 1;
             // do not add an additional cycle lane
-            e->myCyclewayType = (WayType) (e->myCyclewayType & !WAY_BACKWARD);//clang tidy thinks "!WAY_BACKWARD" is always false
+            e->myCyclewayType = (WayType)(e->myCyclewayType & !WAY_BACKWARD); //clang tidy thinks "!WAY_BACKWARD" is always false
         }
     }
     // deal with busways that run in the opposite direction of a one-way street
@@ -549,7 +549,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
     if (ok) {
         LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
-                e->getParameter("railway:preferred_direction", "") != "both" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
+                                 e->getParameter("railway:preferred_direction", "") != "both" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
 
         id = StringUtils::escapeXML(id);
         if (addForward) {
@@ -608,18 +608,18 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 // definitions of NIImporter_OpenStreetMap::NodesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<long long int, NIOSMNode*>& toFill,
-                                                     std::set<NIOSMNode*, CompareNodes>& uniqueNodes,
-                                                     const OptionsCont& oc)
+        std::set<NIOSMNode*, CompareNodes>& uniqueNodes,
+        const OptionsCont& oc)
 
-        :
-        SUMOSAXHandler("osm - file"),
-        myToFill(toFill),
-        myLastNodeID(-1),
-        myIsInValidNodeTag(false),
-        myHierarchyLevel(0),
-        myUniqueNodes(uniqueNodes),
-        myImportElevation(oc.getBool("osm.elevation")),
-        myOptionsCont(oc) {
+    :
+    SUMOSAXHandler("osm - file"),
+    myToFill(toFill),
+    myLastNodeID(-1),
+    myIsInValidNodeTag(false),
+    myHierarchyLevel(0),
+    myUniqueNodes(uniqueNodes),
+    myImportElevation(oc.getBool("osm.elevation")),
+    myOptionsCont(oc) {
 }
 
 NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() = default;
@@ -631,15 +631,15 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
         bool ok = true;
         if (myHierarchyLevel != 2) {
             WRITE_ERROR("Node element on wrong XML hierarchy level (id='" + toString(attrs.get<long
-                                                                                               long
-                                                                                               int>(SUMO_ATTR_ID,
-                                                                                                    nullptr, ok))
-                                + "', level='" + toString(myHierarchyLevel) + "').");
+                        long
+                        int>(SUMO_ATTR_ID,
+                             nullptr, ok))
+                        + "', level='" + toString(myHierarchyLevel) + "').");
             return;
         }
         auto id = attrs.get<long
-                            long
-                            int>(SUMO_ATTR_ID, nullptr, ok);
+                  long
+                  int>(SUMO_ATTR_ID, nullptr, ok);
         std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
         if (action == "delete") {
             return;
@@ -718,10 +718,9 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             } else if (myImportElevation && key == "ele") {
                 try {
                     myToFill[myLastNodeID]->ele = TplConvert::_2double(value.c_str());
-                }
-                catch (...) {
+                } catch (...) {
                     WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in node '" +
-                            toString(myLastNodeID) + "'.");
+                                  toString(myLastNodeID) + "'.");
                 }
             }
         }
@@ -741,13 +740,13 @@ NIImporter_OpenStreetMap::NodesHandler::myEndElement(int element) {
 // definitions of NIImporter_OpenStreetMap::EdgesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
-        const std::map<long long int, NIOSMNode*>& osmNodes,
-        std::map<long long int, Edge*>& toFill, std::map<long long int, Edge*>& platformShapes)
-        :
-        SUMOSAXHandler("osm - file"),
-        myOSMNodes(osmNodes),
-        myEdgeMap(toFill),
-        myPlatformShapesMap(platformShapes) {
+    const std::map<long long int, NIOSMNode*>& osmNodes,
+    std::map<long long int, Edge*>& toFill, std::map<long long int, Edge*>& platformShapes)
+    :
+    SUMOSAXHandler("osm - file"),
+    myOSMNodes(osmNodes),
+    myEdgeMap(toFill),
+    myPlatformShapesMap(platformShapes) {
     mySpeedMap["signals"] = MAXSPEED_UNGIVEN;
     mySpeedMap["none"] = 300.;
     mySpeedMap["no"] = 300.;
@@ -762,14 +761,14 @@ NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() = default;
 
 void
 NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
-                                                       const SUMOSAXAttributes& attrs) {
+        const SUMOSAXAttributes& attrs) {
     myParentElements.push_back(element);
     // parse "way" elements
     if (element == SUMO_TAG_WAY) {
         bool ok = true;
         auto id = attrs.get<long
-                            long
-                            int>(SUMO_ATTR_ID, 0, ok);
+                  long
+                  int>(SUMO_ATTR_ID, 0, ok);
         std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
         if (action == "delete") {
             myCurrentEdge = 0;
@@ -785,8 +784,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
     if (element == SUMO_TAG_ND) {
         bool ok = true;
         auto ref = attrs.get<long
-                             long
-                             int>(SUMO_ATTR_REF, 0, ok);
+                   long
+                   int>(SUMO_ATTR_REF, 0, ok);
         if (ok) {
             auto node = myOSMNodes.find(ref);
             if (node == myOSMNodes.end()) {
@@ -815,28 +814,28 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             const std::string cyclewaySpec = key.substr(9);
             key = "cycleway";
             if (cyclewaySpec == "right") {
-                myCurrentEdge->myCyclewayType = (WayType) (myCurrentEdge->myCyclewayType | WAY_FORWARD);
+                myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType | WAY_FORWARD);
             } else if (cyclewaySpec == "left") {
-                myCurrentEdge->myCyclewayType = (WayType) (myCurrentEdge->myCyclewayType | WAY_BACKWARD);
+                myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType | WAY_BACKWARD);
             } else if (cyclewaySpec == "both") {
-                myCurrentEdge->myCyclewayType = (WayType) (myCurrentEdge->myCyclewayType | WAY_BOTH);
+                myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType | WAY_BOTH);
             } else {
                 key = "ignore";
             }
             if ((myCurrentEdge->myCyclewayType & WAY_BOTH) != 0) {
                 // now we have some info on directionality
-                myCurrentEdge->myCyclewayType = (WayType) (myCurrentEdge->myCyclewayType & ~WAY_UNKNOWN);
+                myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType & ~WAY_UNKNOWN);
             }
         } else if (key.size() > 6 && StringUtils::startsWith(key, "busway:")) {
             // handle special busway keys
             const std::string buswaySpec = key.substr(7);
             key = "busway";
             if (buswaySpec == "right") {
-                myCurrentEdge->myBuswayType = (WayType) (myCurrentEdge->myBuswayType | WAY_FORWARD);
+                myCurrentEdge->myBuswayType = (WayType)(myCurrentEdge->myBuswayType | WAY_FORWARD);
             } else if (buswaySpec == "left") {
-                myCurrentEdge->myBuswayType = (WayType) (myCurrentEdge->myBuswayType | WAY_BACKWARD);
+                myCurrentEdge->myBuswayType = (WayType)(myCurrentEdge->myBuswayType | WAY_BACKWARD);
             } else if (buswaySpec == "both") {
-                myCurrentEdge->myBuswayType = (WayType) (myCurrentEdge->myBuswayType | WAY_BOTH);
+                myCurrentEdge->myBuswayType = (WayType)(myCurrentEdge->myBuswayType | WAY_BOTH);
             } else {
                 key = "ignore";
             }
@@ -887,7 +886,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 // osm-ways may be used by more than one mode (eg railway.tram + highway.residential. this is relevant for multimodal traffic)
                 // we create a new type for this kind of situation which must then be resolved in insertEdge()
                 std::vector<std::string> types = StringTokenizer(myCurrentEdge->myHighWayType,
-                                                                 compoundTypeSeparator).getVector();
+                                                 compoundTypeSeparator).getVector();
                 types.push_back(singleTypeID);
                 myCurrentEdge->myHighWayType = joinToStringSorting(types, compoundTypeSeparator);
             } else {
@@ -896,8 +895,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         } else if (key == "lanes") {
             try {
                 myCurrentEdge->myNoLanes = TplConvert::_2int(value.c_str());
-            }
-            catch (NumberFormatException&) {
+            } catch (NumberFormatException&) {
                 // might be a list of values
                 StringTokenizer st(value, ";", true);
                 std::vector<std::string> list = st.getVector();
@@ -910,36 +908,32 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                         }
                         myCurrentEdge->myNoLanes = minLanes;
                         WRITE_WARNING(
-                                "Using minimum lane number from list (" + value + ") for edge '"
-                                        + toString(myCurrentEdge->id)
-                                        + "'.");
-                    }
-                    catch (NumberFormatException&) {
+                            "Using minimum lane number from list (" + value + ") for edge '"
+                            + toString(myCurrentEdge->id)
+                            + "'.");
+                    } catch (NumberFormatException&) {
                         WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                                toString(myCurrentEdge->id) + "'.");
+                                      toString(myCurrentEdge->id) + "'.");
                     }
                 }
-            }
-            catch (EmptyData&) {
+            } catch (EmptyData&) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                        toString(myCurrentEdge->id) + "'.");
+                              toString(myCurrentEdge->id) + "'.");
             }
         } else if (key == "lanes:forward") {
             try {
                 myCurrentEdge->myNoLanesForward = TplConvert::_2int(value.c_str());
-            }
-            catch (...) {
+            } catch (...) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                        toString(myCurrentEdge->id) + "'.");
+                              toString(myCurrentEdge->id) + "'.");
             }
         } else if (key == "lanes:backward") {
             try {
                 // denote backwards count with a negative sign
                 myCurrentEdge->myNoLanesForward = -TplConvert::_2int(value.c_str());
-            }
-            catch (...) {
+            } catch (...) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                        toString(myCurrentEdge->id) + "'.");
+                              toString(myCurrentEdge->id) + "'.");
             }
         } else if (key == "maxspeed") {
             if (mySpeedMap.find(value) != mySpeedMap.end()) {
@@ -954,10 +948,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 }
                 try {
                     myCurrentEdge->myMaxSpeed = TplConvert::_2double(value.c_str()) * conversion;
-                }
-                catch (...) {
+                } catch (...) {
                     WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                            toString(myCurrentEdge->id) + "'.");
+                                  toString(myCurrentEdge->id) + "'.");
                 }
             }
         } else if (key == "junction") {
@@ -971,10 +964,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         } else if (key == "layer") {
             try {
                 myCurrentEdge->myLayer = TplConvert::_2int(value.c_str());
-            }
-            catch (...) {
+            } catch (...) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                        toString(myCurrentEdge->id) + "'.");
+                              toString(myCurrentEdge->id) + "'.");
             }
         } else if (key == "tracks") {
             try {
@@ -983,10 +975,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 } else {
                     myCurrentEdge->myIsOneWay = "true";
                 }
-            }
-            catch (...) {
+            } catch (...) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                        toString(myCurrentEdge->id) + "'.");
+                              toString(myCurrentEdge->id) + "'.");
             }
         } else if (key == "postal_code") {
             myCurrentEdge->addParameter(key, value);
@@ -1021,19 +1012,19 @@ NIImporter_OpenStreetMap::EdgesHandler::myEndElement(int element) {
 // definitions of NIImporter_OpenStreetMap::RelationHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::RelationHandler::RelationHandler(
-        const std::map<long long int, NIOSMNode*>& osmNodes,
-        const std::map<long long int, Edge*>& osmEdges, NBPTStopCont* nbptStopCont,
-        const std::map<long long int, Edge*>& platformShapes,
-        NBPTLineCont* nbptLineCont,
-        const OptionsCont& oc)
-        :
-        SUMOSAXHandler("osm - file"),
-        myOSMNodes(osmNodes),
-        myOSMEdges(osmEdges),
-        myPlatformShapes(platformShapes),
-        myNBPTStopCont(nbptStopCont),
-        myNBPTLineCont(nbptLineCont),
-        myOptionsCont(oc){
+    const std::map<long long int, NIOSMNode*>& osmNodes,
+    const std::map<long long int, Edge*>& osmEdges, NBPTStopCont* nbptStopCont,
+    const std::map<long long int, Edge*>& platformShapes,
+    NBPTLineCont* nbptLineCont,
+    const OptionsCont& oc)
+    :
+    SUMOSAXHandler("osm - file"),
+    myOSMNodes(osmNodes),
+    myOSMEdges(osmEdges),
+    myPlatformShapes(platformShapes),
+    myNBPTStopCont(nbptStopCont),
+    myNBPTLineCont(nbptLineCont),
+    myOptionsCont(oc) {
     resetValues();
 }
 
@@ -1058,14 +1049,14 @@ NIImporter_OpenStreetMap::RelationHandler::resetValues() {
 
 void
 NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
-                                                          const SUMOSAXAttributes& attrs) {
+        const SUMOSAXAttributes& attrs) {
     myParentElements.push_back(element);
     // parse "way" elements
     if (element == SUMO_TAG_RELATION) {
         bool ok = true;
         myCurrentRelation = attrs.get<long
-                                      long
-                                      int>(SUMO_ATTR_ID, 0, ok);
+                            long
+                            int>(SUMO_ATTR_ID, 0, ok);
         std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
         if (action == "delete" || !ok) {
             myCurrentRelation = INVALID_ID;
@@ -1080,8 +1071,8 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
         bool ok = true;
         std::string role = attrs.hasAttribute("role") ? attrs.getStringSecure("role", "") : "";
         auto ref = attrs.get<long
-                             long
-                             int>(SUMO_ATTR_REF, 0, ok);
+                   long
+                   int>(SUMO_ATTR_REF, 0, ok);
         if (role == "via") {
             // u-turns for divided ways may be given with 2 via-nodes or 1 via-way
             std::string memberType = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
@@ -1092,9 +1083,9 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
                     myViaNode = ref;
                 } else {
                     WRITE_WARNING(
-                            "No node found for reference '" + toString(ref) + "' in relation '"
-                                    + toString(myCurrentRelation)
-                                    + "'");
+                        "No node found for reference '" + toString(ref) + "' in relation '"
+                        + toString(myCurrentRelation)
+                        + "'");
                 }
             }
         } else if (role == "from" && checkEdgeRef(ref)) {
@@ -1107,7 +1098,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
             std::string memberType = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
             if (memberType == "way") {
                 const std::map<long long int,
-                               NIImporter_OpenStreetMap::Edge*>::const_iterator& wayIt = myPlatformShapes.find(ref);
+                      NIImporter_OpenStreetMap::Edge*>::const_iterator& wayIt = myPlatformShapes.find(ref);
                 if (wayIt != myPlatformShapes.end()) {
 
                     NIIPTPlatform platform;
@@ -1154,8 +1145,8 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
                     myRestrictionType = RESTRICTION_NO;
                 } else {
                     WRITE_WARNING(
-                            "Found unknown restriction type '" + value + "' in relation '" + toString(myCurrentRelation)
-                                    + "'");
+                        "Found unknown restriction type '" + value + "' in relation '" + toString(myCurrentRelation)
+                        + "'");
                 }
                 return;
             }
@@ -1188,7 +1179,7 @@ NIImporter_OpenStreetMap::RelationHandler::checkEdgeRef(long long int ref) const
     }
 
     WRITE_WARNING(
-            "No way found for reference '" + toString(ref) + "' in relation '" + toString(myCurrentRelation) + "'");
+        "No way found for reference '" + toString(ref) + "' in relation '" + toString(myCurrentRelation) + "'");
     return false;
 
 }
@@ -1206,12 +1197,12 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             }
             if (myFromWay == INVALID_ID) {
                 WRITE_WARNING(
-                        "Ignoring restriction relation '" + toString(myCurrentRelation) + "' with unknown from-way.");
+                    "Ignoring restriction relation '" + toString(myCurrentRelation) + "' with unknown from-way.");
                 ok = false;
             }
             if (myToWay == INVALID_ID) {
                 WRITE_WARNING(
-                        "Ignoring restriction relation '" + toString(myCurrentRelation) + "' with unknown to-way.");
+                    "Ignoring restriction relation '" + toString(myCurrentRelation) + "' with unknown to-way.");
                 ok = false;
             }
             if (myViaNode == INVALID_ID && myViaWay == INVALID_ID) {
@@ -1225,8 +1216,8 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             for (long long ref : myStops) {
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {
                     WRITE_WARNING(
-                            "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
-                                    + "' does not exist. Probably OSM file is incomplete.");
+                        "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
+                        + "' does not exist. Probably OSM file is incomplete.");
                     continue;
                 }
 
@@ -1234,26 +1225,26 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 NBPTStop* ptStop = myNBPTStopCont->get(toString(n->id));
                 if (ptStop == 0) {
                     WRITE_WARNING(
-                            "Relation '" + toString(myCurrentRelation) + "' refers to a non existing pt stop at node: '"
-                                    + toString(n->id) + "'. Probably OSM file is incomplete.");
+                        "Relation '" + toString(myCurrentRelation) + "' refers to a non existing pt stop at node: '"
+                        + toString(n->id) + "'. Probably OSM file is incomplete.");
                     continue;
                 }
                 for (NIIPTPlatform& myPlatform : myPlatforms) {
-                    if (myPlatform.isWay){
+                    if (myPlatform.isWay) {
                         assert(myPlatformShapes.find(myPlatform.ref) != myPlatformShapes.end()); //already tested earlier
-                        Edge * edge = (*myPlatformShapes.find(myPlatform.ref)).second;
-                        if (edge->myCurrentNodes[0] == *(edge->myCurrentNodes.end()-1)){
+                        Edge* edge = (*myPlatformShapes.find(myPlatform.ref)).second;
+                        if (edge->myCurrentNodes[0] == *(edge->myCurrentNodes.end() - 1)) {
                             WRITE_WARNING("Platform '" + toString(myPlatform.ref) + "' in  relation: '" + toString(myCurrentRelation)
-                                                  + "'  is given as polygon, which currently is not supported.");
+                                          + "'  is given as polygon, which currently is not supported.");
                             continue;
 
                         }
                         PositionVector p;
-                        for (auto nodeRef : edge->myCurrentNodes){
+                        for (auto nodeRef : edge->myCurrentNodes) {
                             if (myOSMNodes.find(nodeRef) == myOSMNodes.end()) {
                                 WRITE_WARNING(
-                                        "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
-                                                + "' does not exist. Probably OSM file is incomplete.");
+                                    "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
+                                    + "' does not exist. Probably OSM file is incomplete.");
                                 continue;
                             }
                             NIOSMNode* pNode = myOSMNodes.find(nodeRef)->second;
@@ -1266,17 +1257,17 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                         }
                         if (p.size() == 0) {
                             WRITE_WARNING(
-                                    "Referenced platform: '" + toString(myPlatform.ref) + "' in relation: '" + toString(myCurrentRelation)
-                                            + "' is corrupt. Probably OSM file is incomplete.");
+                                "Referenced platform: '" + toString(myPlatform.ref) + "' in relation: '" + toString(myCurrentRelation)
+                                + "' is corrupt. Probably OSM file is incomplete.");
                             continue;
                         }
-                        NBPTPlatform platform(p[(int)p.size()/2],p.length());
+                        NBPTPlatform platform(p[(int)p.size() / 2], p.length());
                         ptStop->addPlatformCand(platform);
                     } else {
                         if (myOSMNodes.find(myPlatform.ref) == myOSMNodes.end()) {
                             WRITE_WARNING(
-                                    "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
-                                            + "' does not exist. Probably OSM file is incomplete.");
+                                "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
+                                + "' does not exist. Probably OSM file is incomplete.");
                             continue;
                         }
                         NIOSMNode* pNode = myOSMNodes.find(myPlatform.ref)->second;
@@ -1284,8 +1275,8 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                         if (!NBNetBuilder::transformCoordinate(platformPos)) {
                             WRITE_ERROR("Unable to project coordinates for node '" + toString(pNode->id) + "'.");
                         }
-                        NBPTPlatform platform(platformPos,myOptionsCont.getFloat(
-                                "osm.stop-output.length"));
+                        NBPTPlatform platform(platformPos, myOptionsCont.getFloat(
+                                                  "osm.stop-output.length"));
                         ptStop->addPlatformCand(platform);
 
                     }
@@ -1297,8 +1288,8 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             for (long long ref : myStops) {
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {
                     WRITE_WARNING(
-                            "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
-                                    + "' does not exist. Probably OSM file is incomplete.");
+                        "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
+                        + "' does not exist. Probably OSM file is incomplete.");
                     resetValues();
                     return;
                 }
@@ -1307,8 +1298,8 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 NBPTStop* ptStop = myNBPTStopCont->get(toString(n->id));
                 if (ptStop == 0) {
                     WRITE_WARNING("Relation '" + toString(myCurrentRelation)
-                                          + "' refers to a non existing pt stop at node: '" + toString(n->id)
-                                          + "'. Probably OSM file is incomplete.");
+                                  + "' refers to a non existing pt stop at node: '" + toString(n->id)
+                                  + "'. Probably OSM file is incomplete.");
                     resetValues();
                     return;
                 }
@@ -1368,7 +1359,7 @@ NIImporter_OpenStreetMap::RelationHandler::applyRestriction() const {
 
 NBEdge*
 NIImporter_OpenStreetMap::RelationHandler::findEdgeRef(long long int wayRef,
-                                                       const std::vector<NBEdge*>& candidates) const {
+        const std::vector<NBEdge*>& candidates) const {
     const std::string prefix = toString(wayRef);
     const std::string backPrefix = "-" + prefix;
     NBEdge* result = 0;
@@ -1439,13 +1430,13 @@ NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation,
         changed = false;
         for (auto it = knownElevation.begin(); it != knownElevation.end(); ++it) {
             std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(*it,
-                                                                                          knownEleMax[*it]
-                                                                                                  / gradeThreshold * 3,
-                                                                                          knownElevation);
+                    knownEleMax[*it]
+                    / gradeThreshold * 3,
+                    knownElevation);
             for (auto& neighbor : neighbors) {
                 if (knownElevation.count(neighbor.first) != 0) {
                     const double grade = fabs(knownEleMax[*it] - knownEleMax[neighbor.first])
-                            / MAX2(POSITION_EPS, neighbor.second.first);
+                                         / MAX2(POSITION_EPS, neighbor.second.first);
 #ifdef DEBUG_LAYER_ELEVATION
                     std::cout << "   grade at node=" << (*it)->getID() << " ele=" << knownEleMax[*it] << " neigh=" << it_neigh->first->getID() << " neighEle=" << knownEleMax[it_neigh->first] << " grade=" << grade << " dist=" << it_neigh->second.first << " speed=" << it_neigh->second.second << "\n";
 #endif

@@ -1175,9 +1175,9 @@ GNEApplicationWindow::onCmdComputeJunctions(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*) {
-    // declare variable to save FXMessageBox outputs. 
+    // declare variable to save FXMessageBox outputs.
     FXuint answer = 0;
     // declare string to save paths in wich additionals and shapes will be saved
     std::string additionalSavePath = myAdditionalsFile;
@@ -1205,9 +1205,9 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
             WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
         }
         // Check if there are additionals in our net
-        if(myNet->getNumberOfAdditionals() > 0) {
+        if (myNet->getNumberOfAdditionals() > 0) {
             // ask user if want to save additionals if weren't saved previously
-            if(myAdditionalsFile == "") {
+            if (myAdditionalsFile == "") {
                 // open question dialog box
                 answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save additionals before recomputing with volatile options",
                                                 "Would you like to save additionals before recomputing?");
@@ -1225,15 +1225,15 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                     }
                     // Open a dialog to set filename output
                     myAdditionalsFile = MFXUtils::getFilename2Write(this,
-                        "Select name of the additional file", ".xml",
-                        GUIIconSubSys::getIcon(ICON_EMPTY),
-                        gCurrentFolder).text();
+                                        "Select name of the additional file", ".xml",
+                                        GUIIconSubSys::getIcon(ICON_EMPTY),
+                                        gCurrentFolder).text();
                     // set obtanied filename output into additionalSavePath (can be "")
                     additionalSavePath = myAdditionalsFile;
                 }
             }
             // Check if additional must be saved in a temporal directory, if user didn't define a directory for additionals
-            if(myAdditionalsFile == "") {
+            if (myAdditionalsFile == "") {
                 // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
                 additionalSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpAdditionalsNetedit.xml");
             }
@@ -1261,14 +1261,14 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
             additionalSavePath = "";
         }
         // Check if there are shapes in our net
-        if(myNet->getNumberOfShapes() > 0) {
+        if (myNet->getNumberOfShapes() > 0) {
             // ask user if want to save shapes if weren't saved previously
-            if(myShapesFile == "") {
+            if (myShapesFile == "") {
                 // open question dialog box
                 answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save shapes before recomputing with volatile options",
-                    "Would you like to save shapes before recomputing?");
+                                                "Would you like to save shapes before recomputing?");
                 if (answer != 1) { //1:yes, 2:no, 4:esc
-                                   // write warning if netedit is running in testing mode
+                    // write warning if netedit is running in testing mode
                     if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
                         WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
                     } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1281,15 +1281,15 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                     }
                     // Open a dialog to set filename output
                     myShapesFile = MFXUtils::getFilename2Write(this,
-                        "Select name of the shape file", ".xml",
-                        GUIIconSubSys::getIcon(ICON_EMPTY),
-                        gCurrentFolder).text();
+                                   "Select name of the shape file", ".xml",
+                                   GUIIconSubSys::getIcon(ICON_EMPTY),
+                                   gCurrentFolder).text();
                     // set obtanied filename output into shapeSavePath (can be "")
                     shapeSavePath = myShapesFile;
                 }
             }
             // Check if shape must be saved in a temporal directory, if user didn't define a directory for shapes
-            if(myShapesFile == "") {
+            if (myShapesFile == "") {
                 // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
                 shapeSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpShapesNetedit.xml");
             }
@@ -1490,9 +1490,9 @@ GNEApplicationWindow::onCmdSaveShapes(FXObject*, FXSelector, void*) {
     // Check if shapes file was already set at start of netedit or with a previous save
     if (myShapesFile == "") {
         FXString file = MFXUtils::getFilename2Write(this,
-            "Select name of the shape file", ".xml",
-            GUIIconSubSys::getIcon(ICON_EMPTY),
-            gCurrentFolder);
+                        "Select name of the shape file", ".xml",
+                        GUIIconSubSys::getIcon(ICON_EMPTY),
+                        gCurrentFolder);
         if (file == "") {
             // None shapes file was selected, then stop function
             return 0;
@@ -1522,12 +1522,12 @@ GNEApplicationWindow::onCmdSaveShapes(FXObject*, FXSelector, void*) {
 }
 
 
-long GNEApplicationWindow::onCmdSaveShapesAs(FXObject *, FXSelector, void *) {
+long GNEApplicationWindow::onCmdSaveShapesAs(FXObject*, FXSelector, void*) {
     // Open window to select shape file
     FXString file = MFXUtils::getFilename2Write(this,
-        "Select name of the shape file", ".xml",
-        GUIIconSubSys::getIcon(ICON_EMPTY),
-        gCurrentFolder);
+                    "Select name of the shape file", ".xml",
+                    GUIIconSubSys::getIcon(ICON_EMPTY),
+                    gCurrentFolder);
     if (file != "") {
         // Set new shape file
         myShapesFile = file.text();

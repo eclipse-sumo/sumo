@@ -42,7 +42,7 @@ public:
     class Event : public Command {
     public:
         explicit Event(MSPModel_Remote* remoteModel)
-                :myRemoteModel(remoteModel) { }
+            : myRemoteModel(remoteModel) { }
         SUMOTime execute(SUMOTime currentTime) override {
             return myRemoteModel->execute(currentTime);
         }
@@ -52,9 +52,9 @@ public:
 
 private:
     /**
-* @class PState
-* @brief Container for pedestrian state and individual position update function
-*/
+    * @class PState
+    * @brief Container for pedestrian state and individual position update function
+    */
     class PState : public PedestrianState {
     public:
         PState(MSPerson* person, MSPerson::MSPersonStage_Walking* stage);
