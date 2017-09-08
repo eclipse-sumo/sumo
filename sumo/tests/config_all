@@ -21,6 +21,7 @@ errors:input ended before all started tags were ended; last tag started is{REPLA
 errors:attribute '(.*)' is already specified for element '(.*)'{REPLACE The attribute '\1' is already used in element '\2'}
 log:[0-9\.]+ms{REPLACE (TIME)}
 errors:std::_Ios_Fmtflags
+shapes:imgFile=\"(.*?)berlin_icon.ico\"{REPLACE imgFile="berlin_icon.ico"}
 
 [bug_system_location]
 trac:http://sumo.dlr.de/trac.wsgi/
