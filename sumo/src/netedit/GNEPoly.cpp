@@ -78,6 +78,10 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
     myCurrentMovingVertexIndex(-1) {
     // check that number of points is correct and area isn't empty
     assert((shape.size() >= 2) && (shape.area() > 0));
+    // check if imgFile is valid
+    if(!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
+        setImgFile("");
+    }
 }
 
 
@@ -598,7 +602,10 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TYPE:
             return true;
         case SUMO_ATTR_IMGFILE:
-            return isValidFilename(value);
+            if(isValidFilename(value)) {
+                // check that image can be loaded
+                return GUITexturesHelper::getTextureID(value) != -1;
+            }
         case SUMO_ATTR_ANGLE:
             return canParse<double>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:

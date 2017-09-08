@@ -39,6 +39,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/images/GUITexturesHelper.h>
 
 #include "GNEPolygonFrame.h"
 #include "GNEViewNet.h"
@@ -688,9 +689,17 @@ GNEPolygonFrame::ShapeAttributeSingle::onCmdSetAttribute(FXObject*, FXSelector, 
             myInvalidValue = "'" + toString(myShapeAttr) + "' doesn't have a valid 'RBGColor' format";
         }
     } else if (GNEAttributeCarrier::isFilename(myShapeTag, myShapeAttr)) {
+        std::string file = myTextFieldStrings->getText().text();
         // check if filename format is valid
-        if (GNEAttributeCarrier::isValidFilename(myTextFieldStrings->getText().text()) == false) {
+        if (GNEAttributeCarrier::isValidFilename(file) == false) {
             myInvalidValue = "input contains invalid characters for a filename";
+        } else if (myShapeAttr == SUMO_ATTR_IMGFILE) {
+            if(!file.empty()) {
+                // only load value if file isn't empty
+                if(GUITexturesHelper::getTextureID(file) == -1) {
+                    myInvalidValue = "doesn't exist image '" + file + "'";
+                }
+            }
         }
     }
     // change color of text field depending of myCurrentValueValid
