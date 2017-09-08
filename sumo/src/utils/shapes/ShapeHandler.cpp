@@ -197,6 +197,17 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
     if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
         imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
     }
+    // check that shape's size is valid
+    if(shape.size() == 0) {
+        WRITE_ERROR("Polygon's shape cannot be empty.");
+        return;
+    }
+    // check that polygon's area isn't empty
+    if(shape.area() == 0) {
+        WRITE_ERROR("Polygon's area cannot be 0.");
+        return;
+    }
+
     if (!myShapeContainer.addPolygon(id, type, color, layer, angle, imgFile, shape, fill, ignorePruning)) {
         WRITE_ERROR("Polygon '" + id + "' already exists.");
     }
