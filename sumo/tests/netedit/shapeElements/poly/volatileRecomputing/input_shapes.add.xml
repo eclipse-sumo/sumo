@@ -1,0 +1,8 @@
+<additionals>
+    <poly id="poly_0" color="red" fill="1" layer="0.00" shape="0.00,20.00 10.00,20.00 10.00,10.00 0.00,10.00 0.00,20.00"/>
+    <poly id="poly_1" color="green" fill="1" layer="0.00" shape="30.00,20.00 30.00,10.00 20.00,10.00 20.00,20.00 30.00,20.00"/>
+    <poly id="poly_2" color="blue" fill="1" layer="0.00" shape="50.00,10.00 40.00,10.00 40.00,20.00 50.00,20.00 50.00,10.00"/>
+    <poly id="poly_3" color="orange" fill="1" layer="0.00" shape="0.00,-20.00 0.00,-10.00 10.00,-10.00 10.00,-20.00 0.00,-20.00"/>
+    <poly id="poly_4" color="yellow" fill="1" layer="0.00" shape="20.00,-10.00 30.00,-10.00 30.00,-20.00 30.00,-20.00 20.00,-20.00"/>
+    <poly id="poly_5" color="magenta" fill="1" layer="0.00" shape="50.00,-10.00 50.00,-20.00 50.00,-20.00 40.00,-20.00 40.00,-10.00"/>
+</additionals>
