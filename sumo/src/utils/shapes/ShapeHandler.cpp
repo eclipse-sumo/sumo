@@ -39,6 +39,8 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
+#include <utils/gui/images/GUITexturesHelper.h>
+
 #include "Shape.h"
 #include "ShapeContainer.h"
 #include "ShapeHandler.h"
@@ -112,6 +114,10 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
     if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
         imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
+        // check that image can be loaded
+        if(GUITexturesHelper::getTextureID(imgFile) == -1) {
+            imgFile = "";
+        }
     }
     const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), ok, Shape::DEFAULT_IMG_WIDTH);
     const double height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, id.c_str(), ok, Shape::DEFAULT_IMG_HEIGHT);
@@ -194,9 +200,15 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
     }
     const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
     std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
-    if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
+    if ((imgFile != "") && !FileHelpers::isAbsolute(imgFile)) {
         imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
+
+        // check that image can be loaded
+        if(GUITexturesHelper::getTextureID(imgFile) == -1) {
+            imgFile = "";
+        }
     }
+
     // check that shape's size is valid
     if(shape.size() == 0) {
         WRITE_ERROR("Polygon's shape cannot be empty.");
