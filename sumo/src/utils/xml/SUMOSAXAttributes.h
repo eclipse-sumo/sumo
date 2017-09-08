@@ -442,6 +442,9 @@ template<typename X> struct invalid_return {
 };
 
 
+template<typename X>
+const X invalid_return<X>::value = X();
+
 template <typename T>
 T SUMOSAXAttributes::get(int attr, const char* objectid,
                          bool& ok, bool report) const {
