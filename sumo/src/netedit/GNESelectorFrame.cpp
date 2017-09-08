@@ -319,13 +319,13 @@ GNESelectorFrame::onCmdClear(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
-    // declare a set to save unselected elements
-    std::set<GUIGlID> unselectedIDs;
+    // declare a set to keep unselected elements
+    std::set<GUIGlID> unselectedElements;
     // iterate over all junctions to obtain unselected
     std::set<GUIGlID> ids = myViewNet->getNet()->getGlIDs(GLO_JUNCTION);
     for (auto it : ids) {
         if (gSelected.isSelected(GLO_JUNCTION, it) == false) {
-            unselectedIDs.insert(it);
+            unselectedElements.insert(it);
         }
 
     }
@@ -334,7 +334,7 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
     ids = myViewNet->getNet()->getGlIDs(currentEdgeOrLane);
     for (auto it : ids) {
         if (gSelected.isSelected(currentEdgeOrLane, it) == false) {
-            unselectedIDs.insert(it);
+            unselectedElements.insert(it);
         }
 
     }
@@ -342,41 +342,41 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
     ids = myViewNet->getNet()->getGlIDs(GLO_ADDITIONAL);
     for (auto it : ids) {
         if (gSelected.isSelected(GLO_ADDITIONAL, it) == false) {
-            unselectedIDs.insert(it);
+            unselectedElements.insert(it);
         }
     }
     // iterate over all connections to obtain unselected
     ids = myViewNet->getNet()->getGlIDs(GLO_CONNECTION);
     for (auto it : ids) {
         if (gSelected.isSelected(GLO_CONNECTION, it) == false) {
-            unselectedIDs.insert(it);
+            unselectedElements.insert(it);
         }
     }
     // iterate over all crossings to obtain unselected
     ids = myViewNet->getNet()->getGlIDs(GLO_CROSSING);
     for (auto it : ids) {
         if (gSelected.isSelected(GLO_CROSSING, it) == false) {
-            unselectedIDs.insert(it);
+            unselectedElements.insert(it);
         }
     }
-    // iterate over all polygons to obtain unselected
+    // iterate over all visible polygons to obtain unselected
     for (auto it : myViewNet->getNet()->getPolygons().getMyMap()) {
         GNEPoly* poly = dynamic_cast<GNEPoly*>(it.second);
-        if (gSelected.isSelected(GLO_CROSSING, poly->getGlID()) == false) {
-            unselectedIDs.insert(poly->getGlID());
+        if ((gSelected.isSelected(GLO_CROSSING, poly->getGlID()) == false) && (poly->isShapeVisible())) {
+            unselectedElements.insert(poly->getGlID());
         }
     }
-    // iterate over all POIgons to obtain unselected
+    // iterate over all visible POIs to obtain unselected
     for (auto it : myViewNet->getNet()->getPOIs().getMyMap()) {
         GNEPOI* POI = dynamic_cast<GNEPOI*>(it.second);
-        if (gSelected.isSelected(GLO_CROSSING, POI->getGlID()) == false) {
-            unselectedIDs.insert(POI->getGlID());
+        if ((gSelected.isSelected(GLO_CROSSING, POI->getGlID()) == false) && (POI->isShapeVisible())) {
+            unselectedElements.insert(POI->getGlID());
         }
     }
-    // invert selection cleaning current selection and selecting set "unselectedIDs"
+    // invert selection first cleaning current selection and next selecting elements of set "unselectedElements"
     myViewNet->getUndoList()->p_begin("invert selection");
     myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), gSelected.getSelected(), true), true);
-    myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), unselectedIDs, std::set<GUIGlID>(), true), true);
+    myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), unselectedElements, std::set<GUIGlID>(), true), true);
     myViewNet->getUndoList()->p_end();
     myViewNet->update();
     return 1;
