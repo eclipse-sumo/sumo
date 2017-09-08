@@ -125,7 +125,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
             for group in detData:
                 if group.isValid:
                     groupName = os.path.commonprefix(group.ids)
-                    if groupName == "":
+                    if groupName == "" or options.longnames:
                         groupName = ';'.join(sorted(group.ids))
                     detString.append(groupName)
                     dFlow.append(group.totalFlow)
@@ -159,6 +159,8 @@ optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectz
 optParser.add_option("-D", "--dfrouter-style", action="store_true", dest="dfrstyle",
                      default=False, help="emitter files in dfrouter style (explicit routes)")
 optParser.add_option("-i", "--interval", type="int", help="aggregation interval in minutes")
+optParser.add_option("--long-names", action="store_true", dest="longnames",
+                     default=False, help="do not use abbreviated names for detector groups")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 (options, args) = optParser.parse_args()
