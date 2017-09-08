@@ -114,10 +114,11 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
               math.sqrt(sumSquaredDev / n), math.sqrt(sumSquaredPercent / n))
 
     def printFlows(self, includeDets):
+        edgeIDCol = "edge " if options.edgenames else ""
         if includeDets:
-            print('# detNames RouteFlow DetFlow')
+            print('# detNames %sRouteFlow DetFlow ratio' % edgeIDCol)
         else:
-            print('# detNames RouteFlow')
+            print('# detNames %sRouteFlow' % edgeIDCol)
         output = []
         for edge, detData in self._detReader._edge2DetData.iteritems():
             detString = []
@@ -137,10 +138,16 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         if includeDets:
             for group, rflow, dflow in sorted(output):
                 if dflow > 0 or options.respectzero:
-                    print(group, rflow, dflow, (rflow - dflow) / dflow)
+                    if options.edgenames:
+                        print(group, edge, rflow, dflow, (rflow - dflow) / dflow)
+                    else:
+                        print(group, rflow, dflow, (rflow - dflow) / dflow)
         else:
             for group, flow in sorted(output):
-                print(group, flow)
+                if options.edgenames:
+                    print(group, edge, flow)
+                else:
+                    print(group, flow)
 
 
 optParser = OptionParser()
@@ -161,6 +168,8 @@ optParser.add_option("-D", "--dfrouter-style", action="store_true", dest="dfrsty
 optParser.add_option("-i", "--interval", type="int", help="aggregation interval in minutes")
 optParser.add_option("--long-names", action="store_true", dest="longnames",
                      default=False, help="do not use abbreviated names for detector groups")
+optParser.add_option("--edge-names", action="store_true", dest="edgenames",
+                     default=False, help="include detector group edge name in output")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 (options, args) = optParser.parse_args()
