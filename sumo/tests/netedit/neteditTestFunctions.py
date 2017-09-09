@@ -1139,6 +1139,65 @@ def changeShape(shape):
     # type enter to save change
     typeEnter()
 
+"""
+@brief Create squared Polygon in position with a certain size
+"""
+
+def createSquaredPoly(match, positionx, positiony, size, close):
+    # focus current frame
+    focusOnFrame()
+    # start draw
+    typeEnter()
+    # create polygon
+    leftClick(match, positionx, positiony)
+    leftClick(match, positionx, positiony - (size/2))
+    leftClick(match, positionx - (size/2), positiony - (size/2))
+    leftClick(match, positionx - (size/2), positiony)
+    # check if polygon has to be closed
+    if(close == True):
+        leftClick(match, positionx, positiony)
+    # finish draw
+    typeEnter()
+
+
+"""
+@brief Create rectangled Polygon in position with a certain size
+"""
+
+def createRectangledPoly(match, positionx, positiony, sizex, sizey, close):
+    # focus current frame
+    focusOnFrame()
+    # start draw
+    typeEnter()
+    # create polygon
+    leftClick(match, positionx, positiony)
+    leftClick(match, positionx, positiony - (sizey/2))
+    leftClick(match, positionx - (sizex/2), positiony - (sizey/2))
+    leftClick(match, positionx - (sizex/2), positiony)
+    # check if polygon has to be closed
+    if(close == True):
+        leftClick(match, positionx, positiony)
+    # finish draw
+    typeEnter()
+
+
+"""
+@brief Create line Polygon in position with a certain size
+"""
+
+def createLinePoly(match, positionx, positiony, sizex, sizey, close):
+    # focus current frame
+    focusOnFrame()
+    # start draw
+    typeEnter()
+    # create polygon
+    leftClick(match, positionx, positiony)
+    leftClick(match, positionx - (sizex/2), positiony - (sizey/2))
+    # check if polygon has to be closed
+    if(close == True):
+        leftClick(match, positionx, positiony)
+    # finish draw
+    typeEnter()
 
 """
 @brief modify default int/double/string value of an shape
