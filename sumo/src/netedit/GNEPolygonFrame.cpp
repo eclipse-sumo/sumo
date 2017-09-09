@@ -296,7 +296,7 @@ GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string>& polyValues
 
     // create new Polygon only if number of shape points is greather than 2
     myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POLY));
-    if ((shape.size() > 2) && myViewNet->getNet()->addPolygon(id, type, color, layer, angle, imgFile, shape, fill)) {
+    if ((shape.size() > 0) && myViewNet->getNet()->addPolygon(id, type, color, layer, angle, imgFile, shape, fill)) {
         // set manually attributes block movement and block shapes
         GNEPoly* polygon = myViewNet->getNet()->retrievePolygon(id);
         polygon->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, polyValues.at(GNE_ATTR_BLOCK_MOVEMENT), myViewNet->getUndoList());
@@ -398,27 +398,21 @@ GNEPolygonFrame::DrawingMode::startDrawing() {
 
 void
 GNEPolygonFrame::DrawingMode::stopDrawing() {
-    // check that at least there is two points in the polygon
-    if (myTemporalShapeShape.size() > 1) {
-        // check if shape has to be closed
-        if (myPolygonFrameParent->getNetEditParameters()->isCloseShapeEnabled()) {
-            myTemporalShapeShape.closePolygon();
-        }
-        // try to build polygon
-        if (myPolygonFrameParent->buildPoly(myTemporalShapeShape)) {
-            // clear created points
-            myTemporalShapeShape.clear();
-            myPolygonFrameParent->getViewNet()->update();
-            // change buttons
-            myStartDrawingButton->enable();
-            myStopDrawingButton->disable();
-            myAbortDrawingButton->disable();
-        } else {
-            // abort drawing if poligion cannot be created
-            abortDrawing();
-        }
+    // check if shape has to be closed
+    if (myPolygonFrameParent->getNetEditParameters()->isCloseShapeEnabled()) {
+        myTemporalShapeShape.closePolygon();
+    }
+    // try to build polygon
+    if (myPolygonFrameParent->buildPoly(myTemporalShapeShape)) {
+        // clear created points
+        myTemporalShapeShape.clear();
+        myPolygonFrameParent->getViewNet()->update();
+        // change buttons
+        myStartDrawingButton->enable();
+        myStopDrawingButton->disable();
+        myAbortDrawingButton->disable();
     } else {
-        // abort drawing if current isn't valid
+        // abort drawing if poligion cannot be created
         abortDrawing();
     }
 }

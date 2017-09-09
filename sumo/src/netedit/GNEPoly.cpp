@@ -76,8 +76,6 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
     myClosedShape(shape.front() == shape.back()),
     mySimplifiedShape(false),
     myCurrentMovingVertexIndex(-1) {
-    // check that number of points is correct and area isn't empty
-    assert((shape.size() >= 2) && (shape.area() > 0));
     // check if imgFile is valid
     if(!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
         setImgFile("");
@@ -135,7 +133,6 @@ GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset)
 void
 GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList) {
     if (!myBlockMovement) {
-        bool abort = false;
         // disable current moving vertex
         myCurrentMovingVertexIndex = -1;
         // restore original shape into shapeToCommit
@@ -143,38 +140,22 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
         // first check if double points has to be removed
         shapeToCommit.removeDoublePoints(myHintSize);
         if (shapeToCommit.size() != myShape.size()) {
-            if ((shapeToCommit.size() < 2) || (shapeToCommit.area() == 0)) {
-                abort = true;
-            } else {
-                WRITE_WARNING("Merged shape's point")
-            }
+            WRITE_WARNING("Merged shape's point")
         }
         // check if polygon has to be closed
         if (shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < (2 * myHintSize)) {
             shapeToCommit.pop_back();
             shapeToCommit.push_back(shapeToCommit.front());
-            if ((shapeToCommit.size() < 2) || (shapeToCommit.area() == 0)) {
-                abort = true;
-            }
         }
-        // check if movement has to be aborted
-        if (abort) {
-            WRITE_WARNING("Invalid new vertex position; resultant polygon's area is empty")
-            // restore old shape
+        // only use GNEChange_Attribute if we aren't editing a junction's shape
+        if (myShapeEditedJunction == NULL) {
             myShape = oldShape;
-            // refresh element
-            myNet->refreshPolygon(this);
+            // commit new shape
+            undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
+            undoList->p_end();
         } else {
-            // only use GNEChange_Attribute if we aren't editing a junction's shape
-            if (myShapeEditedJunction == NULL) {
-                myShape = oldShape;
-                // commit new shape
-                undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
-                undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
-                undoList->p_end();
-            } else {
-                setAttribute(SUMO_ATTR_SHAPE, toString(shapeToCommit));
-            }
+            setAttribute(SUMO_ATTR_SHAPE, toString(shapeToCommit));
         }
     }
 }
@@ -582,16 +563,9 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidID(value) && (myNet->retrievePolygon(value, false) == 0);
         case SUMO_ATTR_SHAPE: {
             bool ok = true;
+            // check if shape can be parsed
             PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
-            // check if shape was sucesfully parsed
-            if (ok) {
-                // remove consecutive points
-                shape.removeDoublePoints();
-                // shape is valid if has more than three points and shape's are isn't empty
-                return (shape.size() >= 2) && (shape.area() > 0);
-            } else {
-                return false;
-            }
+            return ok;
         }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
