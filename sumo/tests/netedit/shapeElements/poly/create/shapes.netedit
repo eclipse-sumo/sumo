@@ -1,0 +1,19 @@
+<additionals>
+    <poly id="poly_0" color="139,131,120" fill="0" layer="0.00" shape="2.00,18.00 2.00,23.00 -3.00,23.00 -3.00,18.00 2.00,18.00"/>
+    <poly id="poly_1" color="red" fill="0" layer="0.00" shape="12.00,18.00 12.00,23.00 7.00,23.00 7.00,18.00 12.00,18.00"/>
+    <poly id="poly_10" type="poly_test" color="red" fill="1" layer="2.00" shape="42.00,8.00 42.00,13.00 37.00,13.00 37.00,8.00 42.00,8.00"/>
+    <poly id="poly_11" type="poly_test" color="red" fill="1" layer="2.00" shape="52.00,8.00 52.00,13.00 47.00,13.00 47.00,8.00"/>
+    <poly id="poly_12" type="poly_test" color="red" fill="1" layer="2.00" shape="2.00,-12.00 2.00,-7.00 -3.00,-7.00 -3.00,-12.00 2.00,-12.00"/>
+    <poly id="poly_13" type="poly_test" color="red" fill="1" layer="2.00" shape="12.00,-12.00 12.00,-7.00 7.00,-7.00 7.00,-12.00 12.00,-12.00"/>
+    <poly id="poly_14" type="poly_test" color="red" fill="1" layer="2.00" shape="22.00,-12.00 22.00,-12.00 22.00,-12.00 22.00,-12.00 22.00,-12.00"/>
+    <poly id="poly_15" type="poly_test" color="red" fill="1" layer="2.00" shape="32.00,-12.00 32.00,-12.00 27.00,-12.00 27.00,-12.00 32.00,-12.00"/>
+    <poly id="poly_16" type="poly_test" color="red" fill="1" layer="2.00" shape="42.00,-12.00 37.00,-7.00 42.00,-12.00"/>
+    <poly id="poly_2" color="red" fill="1" layer="0.00" shape="22.00,18.00 22.00,23.00 17.00,23.00 17.00,18.00 22.00,18.00"/>
+    <poly id="poly_3" color="red" fill="1" layer="2.00" shape="32.00,18.00 32.00,23.00 27.00,23.00 27.00,18.00 32.00,18.00"/>
+    <poly id="poly_4" type="poly_test" color="red" fill="1" layer="2.00" shape="42.00,18.00 42.00,23.00 37.00,23.00 37.00,18.00 42.00,18.00"/>
+    <poly id="poly_5" type="poly_test" color="red" fill="1" layer="2.00" shape="52.00,18.00 52.00,23.00 47.00,23.00 47.00,18.00 52.00,18.00" imgFile="berlin_icon.ico"/>
+    <poly id="poly_6" type="poly_test" color="red" fill="1" layer="2.00" shape="2.00,8.00 2.00,13.00 -3.00,13.00 -3.00,8.00 2.00,8.00" angle="365.00"/>
+    <poly id="poly_7" type="poly_test" color="red" fill="1" layer="2.00" shape="12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 12.00,8.00" angle="-5.00"/>
+    <poly id="poly_8" type="poly_test" color="red" fill="1" layer="2.00" shape="22.00,8.00 22.00,13.00 17.00,13.00 17.00,8.00 22.00,8.00" angle="5.00"/>
+    <poly id="poly_9" type="poly_test" color="red" fill="1" layer="2.00" shape="32.00,8.00 32.00,13.00 27.00,13.00 27.00,8.00 32.00,8.00"/>
+</additionals>
