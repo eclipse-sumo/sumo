@@ -1,0 +1,14 @@
+# trip with via
+trips
+
+# inefficient route with via
+flow
+
+# inefficient route with via (as child element of flow)
+flow_embedded
+
+# inefficient route with via
+route
+
+# inefficient route with via (as child element of the vehicle)
+route_embedded
