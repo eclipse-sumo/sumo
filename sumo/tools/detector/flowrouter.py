@@ -107,6 +107,14 @@ class Edge:
         self.routes = []
         self.newRoutes = []
 
+    def getDetFlow(self):
+        result = 0
+        for group in self.detGroup:
+            if int(group.totalFlow) > result:
+                result = int(group.totalFlow)
+        return result
+
+
     def __repr__(self):
         cap = str(self.capacity)
         if self.capacity == sys.maxsize:
@@ -673,8 +681,11 @@ class Net:
                 else:
                     for i, route in enumerate(srcEdge.routes):
                         routeID = "%s.%s%s" % (edge.label, i, suffix)
-                        print('    <flow id="src_%s" %s route="%s" number="%s" begin="%s" end="%s"/>' % (
-                            routeID, options.params, routeID, route.frequency, begin, end), file=emitOut)
+                        via = ""
+                        if options.viadetectors:
+                            via = ' via="%s"' %  " ".join([e.label for e in route.edges if e.getDetFlow() > 0])
+                        print('    <flow id="src_%s" %s route="%s" number="%s" begin="%s" end="%s"%s/>' % (
+                            routeID, options.params, routeID, route.frequency, begin, end, via), file=emitOut)
 
         if options.verbose:
             print("Writing %s vehicles from %s sources between time %s and %s" % (
@@ -860,6 +871,8 @@ optParser.add_option("-q", "--quiet", action="store_true", dest="quiet",
                      default=False, help="suppress warnings")
 optParser.add_option("--random", action="store_true", dest="random",
                      default=False, help="write route distributions instead of separate flows")
+optParser.add_option("--via-detectors", action="store_true", dest="viadetectors",
+                     default=False, help="set used detectors as via-edges for generated flows")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 (options, args) = optParser.parse_args()
