@@ -28,3 +28,6 @@ pull
 
 # use routeDistributions
 random
+
+# set detectors as via-edges
+via-detectors
