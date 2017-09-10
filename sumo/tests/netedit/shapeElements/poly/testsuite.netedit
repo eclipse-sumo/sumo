@@ -6,7 +6,7 @@ create
 delete
 
 # inspect shape
-#inspect
+inspect
 
 # inspect selection
 #inspect_selection
