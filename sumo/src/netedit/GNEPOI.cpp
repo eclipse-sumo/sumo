@@ -228,7 +228,10 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LAYER:
             return canParse<double>(value);
         case SUMO_ATTR_IMGFILE:
-            return isValidFilename(value);
+            if(isValidFilename(value)) {
+                // check that image can be loaded
+                return GUITexturesHelper::getTextureID(value) != -1;
+            }
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value);
         case SUMO_ATTR_HEIGHT:
