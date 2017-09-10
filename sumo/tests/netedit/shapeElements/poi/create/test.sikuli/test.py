@@ -95,56 +95,56 @@ netedit.modifyShapeDefaultValue(7, "7.5")
 # create POI
 netedit.leftClick(match, 350, 50)
 
+# change color to white (To see image)
+netedit.modifyShapeDefaultValue(3, "white")
+
 # change imgfile (invalid)
 netedit.modifyShapeDefaultValue(8, "%%$%$&$%$%$")
 
 # try to create POI
-netedit.leftClick(match, 400, 50)
+netedit.leftClick(match, 450, 50)
 
-# change imgfile (valid, empty)
-netedit.modifyShapeDefaultValue(8, "")
+# change imgfile (non exist)
+netedit.modifyShapeDefaultValue(8, "paris.ico")
 
-# create POI
-netedit.leftClick(match, 400, 50)
-
-# change color to white (To see icon)
-netedit.modifyShapeDefaultValue(3, "white")
+# try to create POI
+netedit.leftClick(match, 450, 50)
 
 # change imgfile (valid)
 netedit.modifyShapeDefaultValue(8, "berlin_icon.ico")
 
 # create POI
-netedit.leftClick(match, 500, 50)
+netedit.leftClick(match, 450, 50)
 
 # change angle (invalid)
 netedit.modifyShapeDefaultValue(9, "dummyAngle")
 
 # try to create POI
-netedit.leftClick(match, 100, 120)
+netedit.leftClick(match, 100, 130)
 
 # change angle (valid, but > 360)
 netedit.modifyShapeDefaultValue(9, "500")
 
 # create POI
-netedit.leftClick(match, 100, 120)
+netedit.leftClick(match, 100, 130)
 
 # change angle (valid, < 0)
 netedit.modifyShapeDefaultValue(9, "-27")
 
 # create POI
-netedit.leftClick(match, 200, 120)
+netedit.leftClick(match, 250, 130)
 
 # change angle (valid, < 0)
 netedit.modifyShapeDefaultValue(9, "45")
 
 # create POI
-netedit.leftClick(match, 300, 120)
+netedit.leftClick(match, 400, 130)
 
 # change block
 netedit.modifyShapeDefaultBoolValue(11)
 
 # create POI
-netedit.leftClick(match, 400, 120)
+netedit.leftClick(match, 550, 130)
 
 # Check undo redo
 netedit.undo(match, 11)

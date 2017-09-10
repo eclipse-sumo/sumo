@@ -116,6 +116,9 @@ netedit.modifyAttribute(7, "5")
 # Change parameter 8 with a non valid value (invalid)
 netedit.modifyAttribute(8, "%$$%%%%%")
 
+# Change parameter 8 with a non valid value (no exist)
+netedit.modifyAttribute(8, "paris.ico")
+
 # Change parameter 8 with a valid value (valid)
 netedit.modifyAttribute(8, "berlin_icon.ico")
 
@@ -131,9 +134,12 @@ netedit.modifyAttribute(9, "500")
 # Change parameter 9 with a valid value (> 360º)
 netedit.modifyAttribute(9, "30")
 
+# Change boolean parameter 3
+netedit.modifyShapeDefaultBoolValue(10)
+
 # Check undos and redos
-netedit.undo(match, 24)
-netedit.redo(match, 24)
+netedit.undo(match, 25)
+netedit.redo(match, 25)
 
 # save shapes
 netedit.saveShapes()

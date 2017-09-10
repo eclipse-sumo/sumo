@@ -24,11 +24,17 @@ Warning: Setting new attribute height '0' into poi 'newID'
 Warning: Setting new attribute height '-3' into poi 'newID'
 Warning: Setting new attribute height '5' into poi 'newID'
 Warning: Value '%$$%%%%%' for attribute imgFile of poi isn't valid
+Error: Could not load 'paris.ico'.
+Loading failed!
+Warning: Value 'paris.ico' for attribute imgFile of poi isn't valid
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'newID'
 Warning: Setting new attribute angle '0' into poi 'newID'
 Warning: Setting new attribute angle '-12' into poi 'newID'
 Warning: Setting new attribute angle '500' into poi 'newID'
 Warning: Setting new attribute angle '30' into poi 'newID'
+Warning: Setting new attribute blockMovement 'true' into poi 'newID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockMovement '0' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute angle '500.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -125,6 +131,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '500' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '30' into poi 'newID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockMovement 'true' into poi 'newID'
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Removing poi 'POI_1' from net
