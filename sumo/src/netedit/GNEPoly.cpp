@@ -565,7 +565,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             bool ok = true;
             // check if shape can be parsed
             PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
-            return ok;
+            return (shape.size() > 0);
         }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
