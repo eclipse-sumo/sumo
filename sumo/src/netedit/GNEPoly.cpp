@@ -576,9 +576,13 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TYPE:
             return true;
         case SUMO_ATTR_IMGFILE:
-            if(isValidFilename(value)) {
+            if (value == "") {
+                return true;
+            } else if (isValidFilename(value)) {
                 // check that image can be loaded
                 return GUITexturesHelper::getTextureID(value) != -1;
+            } else {
+                return false;
             }
         case SUMO_ATTR_ANGLE:
             return canParse<double>(value);
@@ -598,6 +602,8 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
                 } else {
                     return true;
                 }
+            } else {
+                return false;
             }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
