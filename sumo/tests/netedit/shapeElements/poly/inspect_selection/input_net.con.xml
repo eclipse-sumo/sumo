@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 02/09/2017 15:21:10 by Netedit Version dev-SVN-r22834
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\shapeElements\poly\load\net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\shapeElements\poly\load\net.net.xml"/>
+        <plain-output-prefix value="C:\Proyectos\Sumo_Trunk\tests\netedit\shapeElements\Poly\load\input_net"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0"/>
+
+    <connection from="gneE1" to="gneE2" fromLane="0" toLane="0"/>
+
+    <connection from="gneE2" to="gneE3" fromLane="0" toLane="0"/>
+
+    <connection from="gneE3" to="gneE0" fromLane="0" toLane="0"/>
+
+    <connection from="gneE4" to="gneE6" fromLane="0" toLane="0"/>
+
+    <connection from="gneE6" to="gneE7" fromLane="0" toLane="0"/>
+
+    <connection from="gneE7" to="gneE8" fromLane="0" toLane="0"/>
+
+    <connection from="gneE8" to="gneE4" fromLane="0" toLane="0"/>
+
+</connections>

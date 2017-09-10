@@ -1,0 +1,264 @@
+Warning: Adding poly 'poly_0' into viewNet
+Warning: Adding poly 'poly_1' into viewNet
+Warning: Adding poly 'poly_12' into viewNet
+Warning: Adding poly 'poly_2' into viewNet
+Warning: Adding poly 'poly_3' into viewNet
+Warning: Adding poly 'poly_4' into viewNet
+Warning: Adding poly 'poly_5' into viewNet
+Warning: Adding poly 'poly_6' into viewNet
+Warning: Adding poly 'poly_7' into viewNet
+Warning: Adding poly 'poly_8' into viewNet
+Warning: Current Viewport values: 0.00, 0.00, 100.00. Zoom = '100.00'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 2 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 3 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 4 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 5 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 6 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 7 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 8 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 9 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Warning: Selected 22 elements in GNEChange_Selection
+Warning: Value 'Jren' for attribute color of poly isn't valid
+Warning: Setting new attribute color 'green' into poly 'poly_1'
+Warning: Setting new attribute fill 'true' into poly 'poly_0'
+Warning: Setting new attribute fill 'true' into poly 'poly_1'
+Warning: Setting new attribute fill 'true' into poly 'poly_12'
+Warning: Setting new attribute fill 'true' into poly 'poly_2'
+Warning: Setting new attribute fill 'true' into poly 'poly_3'
+Warning: Setting new attribute fill 'true' into poly 'poly_4'
+Warning: Setting new attribute fill 'true' into poly 'poly_5'
+Warning: Setting new attribute fill 'true' into poly 'poly_6'
+Warning: Setting new attribute fill 'true' into poly 'poly_7'
+Warning: Setting new attribute fill 'true' into poly 'poly_8'
+Warning: Setting new attribute layer '0' into poly 'poly_0'
+Warning: Setting new attribute layer '0' into poly 'poly_1'
+Warning: Setting new attribute layer '0' into poly 'poly_12'
+Warning: Setting new attribute layer '0' into poly 'poly_2'
+Warning: Setting new attribute layer '0' into poly 'poly_3'
+Warning: Setting new attribute layer '0' into poly 'poly_4'
+Warning: Setting new attribute layer '0' into poly 'poly_5'
+Warning: Setting new attribute layer '0' into poly 'poly_6'
+Warning: Setting new attribute layer '0' into poly 'poly_7'
+Warning: Setting new attribute layer '0' into poly 'poly_8'
+Warning: Setting new attribute layer '1' into poly 'poly_0'
+Warning: Setting new attribute layer '1' into poly 'poly_1'
+Warning: Setting new attribute layer '1' into poly 'poly_12'
+Warning: Setting new attribute layer '1' into poly 'poly_2'
+Warning: Setting new attribute layer '1' into poly 'poly_3'
+Warning: Setting new attribute layer '1' into poly 'poly_4'
+Warning: Setting new attribute layer '1' into poly 'poly_5'
+Warning: Setting new attribute layer '1' into poly 'poly_6'
+Warning: Setting new attribute layer '1' into poly 'poly_7'
+Warning: Setting new attribute layer '1' into poly 'poly_8'
+Warning: Setting new attribute type 'common type' into poly 'poly_0'
+Warning: Setting new attribute type 'common type' into poly 'poly_1'
+Warning: Setting new attribute type 'common type' into poly 'poly_12'
+Warning: Setting new attribute type 'common type' into poly 'poly_2'
+Warning: Setting new attribute type 'common type' into poly 'poly_3'
+Warning: Setting new attribute type 'common type' into poly 'poly_4'
+Warning: Setting new attribute type 'common type' into poly 'poly_5'
+Warning: Setting new attribute type 'common type' into poly 'poly_6'
+Warning: Setting new attribute type 'common type' into poly 'poly_7'
+Warning: Setting new attribute type 'common type' into poly 'poly_8'
+Error: Could not load 'paris.ico'.
+Loading failed!
+Warning: Value 'paris.ico' for attribute imgFile of poly isn't valid
+Warning: Setting new attribute imgFile '' into poly 'poly_4'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_0'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_1'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_12'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_2'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_3'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_4'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_5'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_6'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_7'
+Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_8'
+Warning: Setting new attribute angle '0' into poly 'poly_0'
+Warning: Setting new attribute angle '0' into poly 'poly_1'
+Warning: Setting new attribute angle '0' into poly 'poly_12'
+Warning: Setting new attribute angle '0' into poly 'poly_2'
+Warning: Setting new attribute angle '0' into poly 'poly_3'
+Warning: Setting new attribute angle '0' into poly 'poly_4'
+Warning: Setting new attribute angle '0' into poly 'poly_5'
+Warning: Setting new attribute angle '0' into poly 'poly_6'
+Warning: Setting new attribute angle '0' into poly 'poly_7'
+Warning: Setting new attribute angle '0' into poly 'poly_8'
+Warning: Setting new attribute angle '180' into poly 'poly_0'
+Warning: Setting new attribute angle '180' into poly 'poly_1'
+Warning: Setting new attribute angle '180' into poly 'poly_12'
+Warning: Setting new attribute angle '180' into poly 'poly_2'
+Warning: Setting new attribute angle '180' into poly 'poly_3'
+Warning: Setting new attribute angle '180' into poly 'poly_4'
+Warning: Setting new attribute angle '180' into poly 'poly_5'
+Warning: Setting new attribute angle '180' into poly 'poly_6'
+Warning: Setting new attribute angle '180' into poly 'poly_7'
+Warning: Setting new attribute angle '180' into poly 'poly_8'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_0'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_1'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_12'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_2'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_3'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_4'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_5'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_6'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_7'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_8'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_0'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_1'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_12'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_2'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_3'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_4'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_5'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_6'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_7'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_8'
+Warning: Setting new attribute closedShape 'true' into poly 'poly_0'
+Warning: Setting new attribute closedShape 'true' into poly 'poly_1'
+Warning: Setting new attribute closedShape 'true' into poly 'poly_12'
+Warning: Setting new attribute closedShape 'true' into poly 'poly_2'
+Warning: Setting new attribute closedShape 'true' into poly 'poly_3'
+Warning: Setting new attribute closedShape 'true' into poly 'poly_4'
+Warning: Setting new attribute closedShape 'true' into poly 'poly_5'
+Warning: Setting new attribute closedShape 'true' into poly 'poly_6'
+Warning: Setting new attribute closedShape 'true' into poly 'poly_7'
+Warning: Setting new attribute closedShape 'true' into poly 'poly_8'
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Warning: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 9 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 8 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 7 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 6 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 5 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 4 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 3 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 2 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 22 elements in GNEChange_Selection
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Selected 22 elements in GNEChange_Selection
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute closedShape '1' into poly 'poly_8'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute closedShape '1' into poly 'poly_7'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute closedShape '1' into poly 'poly_6'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute closedShape '1' into poly 'poly_5'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute closedShape '1' into poly 'poly_4'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute closedShape '1' into poly 'poly_3'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute closedShape '1' into poly 'poly_2'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute closedShape '0' into poly 'poly_12'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute closedShape '1' into poly 'poly_1'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute closedShape '1' into poly 'poly_0'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockShape '0' into poly 'poly_8'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockShape '0' into poly 'poly_7'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockShape 'true' into poly 'poly_7'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockShape 'true' into poly 'poly_8'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute closedShape 'true' into poly 'poly_0'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute closedShape 'true' into poly 'poly_1'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute closedShape 'true' into poly 'poly_12'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute closedShape 'true' into poly 'poly_2'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute closedShape 'true' into poly 'poly_3'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute closedShape 'true' into poly 'poly_4'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute closedShape 'true' into poly 'poly_5'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute closedShape 'true' into poly 'poly_6'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute closedShape 'true' into poly 'poly_7'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute closedShape 'true' into poly 'poly_8'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Deselected 22 elements in GNEChange_Selection
+Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE3_0togneE0_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE4_0togneE6_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE6_0togneE7_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE7_0togneE8_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE8_0togneE4_0' in retrieveGNEConnection()
+Warning: Removing poly 'poly_8' from net
+Warning: Removing poly 'poly_7' from net
+Warning: Removing poly 'poly_6' from net
+Warning: Removing poly 'poly_5' from net
+Warning: Removing poly 'poly_4' from net
+Warning: Removing poly 'poly_3' from net
+Warning: Removing poly 'poly_2' from net
+Warning: Removing poly 'poly_12' from net
+Warning: Removing poly 'poly_1' from net
+Warning: Removing poly 'poly_0' from net
+Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE1_0togneE2_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE3' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE3_0togneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE4' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE4_0togneE6_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE6' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE6_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE6_0togneE7_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE7' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE7_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE7_0togneE8_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE8' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE8_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE8_0togneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor

@@ -1,0 +1,12 @@
+<additionals>
+    <poly id="poly_0" color="green" fill="0" layer="0.00" shape="-40.00,30.00 -30.00,30.00 -30.00,20.00 -40.00,20.00 -40.00,30.00"/>
+    <poly id="poly_1" color="red" fill="0" layer="0.00" shape="-20.00,30.00 -10.00,30.00 -10.00,20.00 -20.00,20.00 -20.00,30.00"/>
+    <poly id="poly_12" color="green" fill="0" layer="0.00" shape="-40.00,-30.00 -30.00,-30.00 -30.00,-40.00 -40.00,-40.00 -40.00,-40.00"/>
+    <poly id="poly_2" color="green" fill="1" layer="0.00" shape="0.00,30.00 10.00,30.00 10.00,20.00 10.00,20.00 0.00,20.00 0.00,30.00"/>
+    <poly id="poly_3" color="green" fill="0" layer="1.00" shape="20.00,30.00 30.00,30.00 30.00,20.00 20.00,20.00 20.00,30.00"/>
+    <poly id="poly_4" type="custom_type" color="green" fill="0" layer="0.00" imgFile ="berlin_icon.ico" shape="20.00,10.00 30.00,10.00 30.00,0.00 20.00,0.00 20.00,10.00"/>
+    <poly id="poly_5" color="green" fill="0" layer="0.00" shape="20.00,-10.00 30.00,-10.00 30.00,-20.00 20.00,-20.00 20.00,-10.00"/>
+    <poly id="poly_6" color="green" fill="0" layer="0.00" shape="20.00,-30.00 30.00,-30.00 30.00,-40.00 20.00,-40.00 20.00,-30.00" angle="45.00"/>
+    <poly id="poly_7" color="green" fill="0" layer="0.00" shape="10.00,-30.00 10.00,-40.00 0.00,-40.00 0.00,-30.00 10.00,-30.00"/>
+    <poly id="poly_8" color="green" fill="0" layer="0.00" shape="-20.00,-30.00 -10.00,-30.00 -10.00,-40.00 -20.00,-40.00 -20.00,-30.00"/>
+</additionals>
