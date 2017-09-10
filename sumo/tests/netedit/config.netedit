@@ -32,6 +32,7 @@ errors:*** 9 leaks found
 errors:delete: freed
 errors:java{LINES 1}
 errors:Java{LINES 1}
+errors:Could not load{LINES 1}
 log:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 
 [floating_point_tolerance]

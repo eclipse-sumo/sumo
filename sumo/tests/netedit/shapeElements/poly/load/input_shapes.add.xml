@@ -50,10 +50,10 @@
 	<!-- non valid valid shape (duplicated points)-->
 	<poly id="poly_13" color="green" fill="1" layer="0.00" shape="10.00,-40.00 20.00,-40.00 20.00,-50.00 20.00,-50.00 10.00,-50.00 10.00,-50.00 10.00,-40.00"/>
 	
-	<!-- non valid valid shape (only 1 point)-->
+	<!-- valid valid shape (only 1 point)-->
 	<poly id="poly_14" color="green" fill="1" layer="0.00" shape="40.00,-40.00"/>
 	    
-	<!-- non valid valid shape (3 points, but area 0)-->
+	<!-- valid valid shape 3 points, area 0-->
 	<poly id="poly_15" color="green" fill="1" layer="0.00" shape="-70.00,40.00 -60.00,40.00 -70.00,40.00 -60.00,40.00"/>
 	
 	<!-- valid shape (only 2 points)-->

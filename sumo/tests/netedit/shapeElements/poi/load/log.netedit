@@ -24,8 +24,19 @@ Warning: Adding poi 'POI_6' into viewNet
 Warning: Adding poi 'POI_7' into viewNet
 Warning: Adding poi 'POI_8' into viewNet
 Warning: Adding poi 'POI_9' into viewNet
+Warning: Adding poi 'POI_10' into viewNet
 Error: Loading of shapes failed.
+Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.10Sep163038.6364/netedit.gui/shapeElements/poi/load\paris.ico'.
+Loading failed!
+Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.10Sep163038.6364/netedit.gui/shapeElements/poi/load\paris.ico'.
+Loading failed!
+Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.10Sep163038.6364/netedit.gui/shapeElements/poi/load\paris.ico'.
+Loading failed!
+Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.10Sep163038.6364/netedit.gui/shapeElements/poi/load\paris.ico'.
+Loading failed!
 Warning: Current Viewport values: 0.00, 0.00, 80.00. Zoom = '100.00'
+Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.10Sep163038.6364/netedit.gui/shapeElements/poi/load\paris.ico'.
+Loading failed!
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
@@ -34,6 +45,9 @@ Warning: Created connection 'fromgneE4_0togneE6_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE6_0togneE7_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE7_0togneE8_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE4_0' in retrieveGNEConnection()
+Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.10Sep163038.6364/netedit.gui/shapeElements/poi/load\paris.ico'.
+Loading failed!
+Warning: Removing poi 'POI_10' from net
 Warning: Removing poi 'POI_9' from net
 Warning: Removing poi 'POI_8' from net
 Warning: Removing poi 'POI_7' from net
