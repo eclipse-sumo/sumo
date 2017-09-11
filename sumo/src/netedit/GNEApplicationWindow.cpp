@@ -1708,19 +1708,33 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
                                         "You have unsaved changes in the network. Do you wish to quit and discard all changes?");
         // restore focus to view net
         getView()->setFocus();
+        // if user close dialog box, check additionasl and shapes 
         if (answer == MBOX_CLICKED_QUIT) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'");
             }
-            return continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges();
+            if(continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges()) {
+                // clear undo list and return true to continue with closing/reload
+                myUndoList->p_clear(); 
+                return true;
+            } else {
+                return false;
+            }
         } else if (answer == MBOX_CLICKED_SAVE) {
+            // save newtork
             onCmdSaveNetwork(0, 0, 0);
             if (!myUndoList->marked()) {
                 // saving failed
                 return false;
             }
-            return continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges();
+            if(continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges()) {
+                // clear undo list and return true to continue with closing/reload
+                myUndoList->p_clear();
+                return true;
+            } else {
+                return false;
+            }
         } else {
             // write warning if netedit is running in testing mode
             if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1732,7 +1746,14 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
             return false;
         }
     } else {
-        return continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges();
+        if(continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges()) {
+            // clear undo list and return true to continue with closing/reload
+            myUndoList->p_clear(); //only ask once
+            return true;
+        } else {
+            // return false to stop closing/reloading
+            return false;
+        }
     }
 }
 
@@ -1755,13 +1776,18 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'");
             }
+            // nothing to save, return true
             return true;
         } else if (answer == MBOX_CLICKED_SAVE) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
             }
-            if (onCmdSaveAdditionals(0, 0, 0) == 0) {
+            if (onCmdSaveAdditionals(0, 0, 0) == 1) {
+                // additionals sucesfully saved
+                return true;
+            } else {
+                // error saving additionals, abort saving
                 return false;
             }
         } else {
@@ -1771,12 +1797,13 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
             } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
             }
+            // abort saving
             return false;
         }
+    } else {
+        // nothing to save, return true
+        return true;
     }
-    // clear undo list and return true to continue with closing/reload
-    myUndoList->p_clear(); //only ask once
-    return true;
 }
 
 
@@ -1804,7 +1831,11 @@ GNEApplicationWindow::continueWithUnsavedShapeChanges() {
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
             }
-            if (onCmdSaveShapes(0, 0, 0) == 0) {
+            if (onCmdSaveShapes(0, 0, 0) == 1) {
+                // shapes sucesfully saved
+                return true;
+            } else {
+                // error saving shapes, abort saving
                 return false;
             }
         } else {
@@ -1814,12 +1845,13 @@ GNEApplicationWindow::continueWithUnsavedShapeChanges() {
             } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
             }
+            // abort saving
             return false;
         }
+    } else {
+        // nothing to save, then return true
+        return true;
     }
-    // clear undo list and return true to continue with closing/reload
-    myUndoList->p_clear(); //only ask once
-    return true;
 }
 
 
