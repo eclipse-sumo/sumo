@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Sep 11 21:16:10 2017 by SUMO Version dev-SVN-r24506
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <routing>
+        <device.rerouting.probability value="1"/>
+    </routing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0.0" depart="0.00" arrival="53.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="A0toB0 B0toC0 C0toD0 D0toD1 D1toC1 C1toB1 B1toA1 A1toA2 A2toB2 B2toC2 C2toD2 D2toD3"/>
+            <route edges="A0toB0 B0toB1 B1toA1 A1toA2 A2toB2 B2toC2 C2toD2 D2toD3"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>
