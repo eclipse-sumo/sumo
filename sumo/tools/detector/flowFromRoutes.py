@@ -131,19 +131,20 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                     detString.append(groupName)
                     dFlow.append(group.totalFlow)
             rFlow = len(detString) * [self._edgeFlow.get(edge, 0)]
+            edges = len(detString) * [edge]
             if includeDets:
-                output.extend(zip(detString, rFlow, dFlow))
+                output.extend(zip(detString, edges, rFlow, dFlow))
             else:
-                output.extend(zip(detString, rFlow))
+                output.extend(zip(detString, edges, rFlow))
         if includeDets:
-            for group, rflow, dflow in sorted(output):
+            for group, edge, rflow, dflow in sorted(output):
                 if dflow > 0 or options.respectzero:
                     if options.edgenames:
                         print(group, edge, rflow, dflow, (rflow - dflow) / dflow)
                     else:
                         print(group, rflow, dflow, (rflow - dflow) / dflow)
         else:
-            for group, flow in sorted(output):
+            for group, edge, flow in sorted(output):
                 if options.edgenames:
                     print(group, edge, flow)
                 else:
