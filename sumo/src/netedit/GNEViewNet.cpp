@@ -2192,6 +2192,7 @@ GNEViewNet::updateModeSpecificControls() {
             myCurrentFrame = myViewParent->getPolygonFrame();
             myEditModePolygon->setChecked(true);
             myMenuCheckShowGrid->show();
+            break;
         default:
             break;
     }
@@ -2205,6 +2206,7 @@ GNEViewNet::updateModeSpecificControls() {
     myEditModeTrafficLight->update();
     myEditModeAdditional->update();
     myEditModeCrossing->update();
+    myEditModePolygon->update();
     // force repaint because different modes draw different things
     myToolbar->recalc();
     onPaint(0, 0, 0);
