@@ -16,4 +16,9 @@
     </report>
 
 
+    <gui_only>
+        <window-size value="500,500"/>
+        <window-pos value="50,50"/>
+    </gui_only>
+
 </configuration>
