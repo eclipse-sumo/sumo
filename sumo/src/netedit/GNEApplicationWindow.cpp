@@ -477,7 +477,7 @@ GNEApplicationWindow::fillMenuBar() {
                       "C&rossing mode\tR\tCreate crossings between edges.",
                       GUIIconSubSys::getIcon(ICON_MODECROSSING), this, MID_GNE_MODE_CROSSING);
     new FXMenuCommand(myEditMenu,
-                      "&Poligon mode\tP\tCreate polygons and POIs.",
+                      "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
                       GUIIconSubSys::getIcon(ICON_MODEPOLYGON), this, MID_GNE_MODE_POLYGON);
 
     /*
