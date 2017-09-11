@@ -1,0 +1,7 @@
+
+[Reported by kobo at 10Sep23:37:13]
+search_string:route edges=.*A1toA2
+trigger_on_absence:1
+search_file:vehroutes
+full_description:consider via
+brief_description:see #3404
