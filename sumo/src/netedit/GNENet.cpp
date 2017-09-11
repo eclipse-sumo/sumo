@@ -853,6 +853,10 @@ GNENet::saveAdditionals(const std::string& filename, bool volatileOptionsEnabled
     }
     // change value of flag
     myAdditionalsSaved = true;
+    // show debug information
+    if(OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Additionals saved");
+    }
 }
 
 
@@ -1231,22 +1235,23 @@ GNENet::requireRecompute() {
 
 void 
 GNENet::requiereSaveAdditionals() {
-    if((myAdditionalsSaved == false) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+    if((myAdditionalsSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Additionals has to be saved");
     }
-    myAdditionalsSaved = true;
+    myAdditionalsSaved = false;
     myViewNet->getViewParent()->getGNEAppWindows()->enableSaveAdditionalsMenu();
 }
 
 
 void 
 GNENet::requiereSaveShapes() {
-    if((myShapesSaved == false) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Shapes has to be saved");
+    if((myShapesSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Shapes has to be saved");
     }
-    myShapesSaved = true;
+    myShapesSaved = false;
     myViewNet->getViewParent()->getGNEAppWindows()->enableSaveShapesMenu();
 }
+
 
 bool
 GNENet::netHasGNECrossings() const {
@@ -1607,7 +1612,8 @@ GNENet::insertAdditional(GNEAdditional* additional, bool hardFail) {
         myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
         myGrid.addAdditionalGLObject(additional);
         update();
-        myAdditionalsSaved = false;
+        // additionals has to be saved
+        requiereSaveAdditionals();
     }
 }
 
@@ -1622,7 +1628,8 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
         myAdditionals.erase(additionalToRemove);
         myGrid.removeAdditionalGLObject(additional);
         update();
-        myAdditionalsSaved = false;
+        // additionals has to be saved
+        requiereSaveAdditionals();
     }
 }
 
@@ -1636,7 +1643,8 @@ GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) 
         // remove an insert additional again into container
         myAdditionals.erase(additionalToUpdate);
         myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
-        myAdditionalsSaved = false;
+        // additionals has to be saved
+        requiereSaveAdditionals();
     }
 }
 
@@ -1853,7 +1861,7 @@ GNENet::insertPolygonInView(GNEPoly* p) {
         myViewNet->update();
         p->setShapeVisible(true);
         // shapes has to be saved
-        myShapesSaved = false;
+        requiereSaveShapes();
     } else {
         throw ProcessError("Polygon was already inserted in view");
     }
@@ -1867,7 +1875,7 @@ GNENet::removePolygonOfView(GNEPoly* p) {
         myViewNet->update();
         p->setShapeVisible(false);
         // shapes has to be saved
-        myShapesSaved = false;
+        requiereSaveShapes();
     } else {
         throw ProcessError("Polygon wasn't already inserted in view");
     }
@@ -1962,7 +1970,7 @@ GNENet::insertPOIInView(GNEPOI* p) {
         myViewNet->update();
         p->setShapeVisible(true);
         // shapes has to be saved
-        myShapesSaved = false;
+        requiereSaveShapes();
     } else {
         throw ProcessError("POI was already inserted in view");
     }
@@ -1976,7 +1984,7 @@ GNENet::removePOIOfView(GNEPOI* p) {
         myViewNet->update();
         p->setShapeVisible(false);
         // shapes has to be saved
-        myShapesSaved = false;
+        requiereSaveShapes();
     } else {
         throw ProcessError("POI wasn't already inserted in view");
     }
@@ -2052,6 +2060,10 @@ void GNENet::saveShapes(const std::string& filename) {
     device.close();
     // change flag to true
     myShapesSaved = true;
+    // show debug information
+    if(OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Shapes saved");
+    }
 }
 
 
@@ -2315,18 +2327,6 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     }
 
     myNeedRecompute = false;
-}
-
-
-bool
-GNENet::isAdditionalsSaved() const {
-    return myAdditionalsSaved;
-}
-
-
-bool
-GNENet::isShapesSaved() const {
-    return myShapesSaved;
 }
 
 

@@ -425,12 +425,6 @@ public:
     /// @brief recompute the network and update lane geometries
     void computeAndUpdate(OptionsCont& oc, bool volatileOptions);
 
-    /// @brief check if additional are saved
-    bool isAdditionalsSaved() const;
-
-    /// @brief check if shapes  are saved
-    bool isShapesSaved() const;
-
     /**@brief trigger full netbuild computation
      * param[in] window The window to inform about delay
      * param[in] force Whether to force recomputation even if not needed
