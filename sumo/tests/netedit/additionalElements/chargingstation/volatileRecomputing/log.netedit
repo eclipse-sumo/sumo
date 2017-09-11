@@ -1,4 +1,5 @@
 Warning: Adding chargingStation 'chargingStation_0' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding chargingStation 'chargingStation_11' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_12' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_13' in GNEChange_Additional
@@ -80,6 +81,7 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEChange_Lane
 Warning: Adding lane 'gneE1_0' into edge
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing lane 'gneE1_0' from edge
+Warning: Additionals saved
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEChange_Lane
 Warning: Deleting unreferenced chargingStation 'chargingStation_25'
 Warning: Deleting unreferenced chargingStation 'chargingStation_24'
@@ -97,6 +99,8 @@ Warning: Deleting unreferenced chargingStation 'chargingStation_13'
 Warning: Deleting unreferenced chargingStation 'chargingStation_12'
 Warning: Deleting unreferenced chargingStation 'chargingStation_11'
 Warning: Deleting unreferenced chargingStation 'chargingStation_0'
+Warning: Additionals has to be saved
+Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor

@@ -1,5 +1,6 @@
 Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '100.00'
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Current Viewport values: 25.00, 0.00, 70.00. Zoom = '280.00'
 Warning: Setting new attribute pos '37.55' into detExit 'e3Detector_0detExit0'
@@ -50,6 +51,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '0.96' into detExit 'e3Detector_0detExit0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '18.38' into detExit 'e3Detector_0detExit0'
+Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'

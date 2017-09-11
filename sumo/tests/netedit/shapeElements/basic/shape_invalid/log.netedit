@@ -1,4 +1,6 @@
 Warning: Adding poi 'POI_0' into viewNet
+Warning: Shapes has to be saved
+Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Removing poi 'POI_0' from net

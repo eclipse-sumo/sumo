@@ -1,4 +1,5 @@
 Warning: Adding e1Detector 'E1_A' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding e1Detector 'E1_B' in GNEChange_Additional
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -33,6 +34,7 @@ Warning: Setting new attribute vTypes 'taxi passenger' into e1Detector 'E1_B'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into e1Detector 'E1_A'
 Warning: Setting new attribute friendlyPos 'true' into e1Detector 'E1_B'
+Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced e1Detector 'E1_B'

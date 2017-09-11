@@ -9,8 +9,10 @@ Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'Yes'
+Warning: Additionals saved
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'Yes'
+Warning: Shapes saved
 Warning: Removing poly 'poly_0' from net
 Warning: Deleting unreferenced busStop 'busStop_gneE0_0_0'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

@@ -1,4 +1,5 @@
 Warning: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Warning: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
 Warning: Adding busStop 'busStop_-gneE6_0_4' in GNEChange_Additional
@@ -14,6 +15,7 @@ Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'No'
+Warning: Additionals saved
 Warning: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE10_0to-gneE17_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE11_0to-gneE10_0' in retrieveGNEConnection()

@@ -1,4 +1,5 @@
 Warning: Adding poly 'poly_0' into viewNet
+Warning: Shapes has to be saved
 Error: Attribute 'id' is missing in definition of a poly.
 Warning: Adding poly '%%%%$$$%' into viewNet
 Error: Polygon 'poly_0' already exists.
@@ -27,7 +28,7 @@ Warning: Adding poly 'poly_17' into viewNet
 Error: Attribute 'type' in definition of poly 'poly_18' is empty.
 Warning: Adding poly 'poly_18' into viewNet
 Warning: Adding poly 'poly_19' into viewNet
-Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.10Sep155838.6224/netedit.gui/shapeElements/poly/load\paris.ico'.
+Error: Could not load 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Sep141932.5628/netedit.gui/shapeElements/poly/load\paris.ico'.
 Loading failed!
 Warning: Adding poly 'poly_20' into viewNet
 Error: Attribute 'imgFile' in definition of poly 'poly_21' is empty.
@@ -38,6 +39,7 @@ Warning: Adding poly 'poly_23' into viewNet
 Warning: Adding poly 'poly_24' into viewNet
 Warning: Adding poly 'poly_25' into viewNet
 Error: Loading of shapes failed.
+Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()

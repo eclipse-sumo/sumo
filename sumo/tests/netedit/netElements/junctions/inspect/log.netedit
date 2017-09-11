@@ -1,4 +1,5 @@
 Warning: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Warning: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
 Warning: Adding busStop 'busStop_-gneE6_0_4' in GNEChange_Additional
@@ -187,6 +188,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute radius '2' into junction 'gneJ17'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute keepClear 'false' into junction 'gneJ17'
+Warning: Additionals saved
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'

@@ -1,4 +1,5 @@
 Warning: Adding poi 'POI_0' into viewNet
+Warning: Shapes has to be saved
 Warning: Invalid input parameter of poi: 'color' doesn't have a valid 'RBGColor' format
 Warning: Adding poi 'POI_1' into viewNet
 Warning: Adding poi 'POI_2' into viewNet
@@ -64,6 +65,7 @@ Warning: Adding poi 'POI_9' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poi 'POI_10' into viewNet
 Warning: Setting new attribute blockMovement '1' into poi 'POI_10'
+Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Removing poi 'POI_10' from net

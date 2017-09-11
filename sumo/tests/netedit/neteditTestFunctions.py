@@ -403,7 +403,9 @@ def waitQuestion(answer):
 """
 
 
-def quit(neteditProcess, openNonSavedNetDialog=False, saveNet=False, openedAdditionalsNonSavedDialog=False, saveAdditionals=False):
+def quit(neteditProcess, openNetNonSavedDialog=False, saveNet=False, 
+                         openAdditionalsNonSavedDialog=False, saveAdditionals=False, 
+                         openShapesNonSavedDialog=False, saveShapes=False):
     # check if netedit is already closed
     if neteditProcess.poll() is not None:
         # print debug information
@@ -413,15 +415,22 @@ def quit(neteditProcess, openNonSavedNetDialog=False, saveNet=False, openedAddit
         typeTwoKeys("q", Key.CTRL)
 
         # Check if net must be saved
-        if openNonSavedNetDialog:
+        if openNetNonSavedDialog:
             if saveNet:
                 waitQuestion("s")
             else:
                 waitQuestion("q")
 
         # Check if additionals must be saved
-        if openedAdditionalsNonSavedDialog:
+        if openAdditionalsNonSavedDialog:
             if saveAdditionals:
+                waitQuestion("s")
+            else:
+                waitQuestion("q")
+                
+        # Check if additionals must be saved
+        if openShapesNonSavedDialog:
+            if saveShapes:
                 waitQuestion("s")
             else:
                 waitQuestion("q")

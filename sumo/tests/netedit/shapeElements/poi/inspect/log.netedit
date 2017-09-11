@@ -1,4 +1,5 @@
 Warning: Adding poi 'POI_0' into viewNet
+Warning: Shapes has to be saved
 Warning: Adding poi 'POI_1' into viewNet
 Warning: Value 'POI_1' for attribute id of poi isn't valid
 Warning: Setting new attribute id '' into poi 'POI_0'
@@ -133,6 +134,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '30' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'newID'
+Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Removing poi 'POI_1' from net

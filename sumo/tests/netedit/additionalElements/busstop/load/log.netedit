@@ -1,4 +1,5 @@
 Warning: Adding busStop 'busStop_00' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Essential string attribute 'id' of busStop is missing; busStop cannot be created
 Warning: Essential string attribute 'id' of busStop is missing; busStop cannot be created
 Warning: The id 'ID with spaces' of additional busStop contains invalid characters.
@@ -24,6 +25,7 @@ Warning: Adding busStop 'busStop_16' in GNEChange_Additional
 Warning: Adding busStop 'busStop_17' in GNEChange_Additional
 Warning: Adding busStop 'busStop_18' in GNEChange_Additional
 Warning: Adding busStop 'busStop_19' in GNEChange_Additional
+Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced busStop 'busStop_19'

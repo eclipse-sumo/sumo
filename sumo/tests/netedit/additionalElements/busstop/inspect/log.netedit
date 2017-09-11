@@ -1,4 +1,5 @@
 Warning: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding busStop 'busStop_gneE2_1_1' in GNEChange_Additional
 Warning: Value 'busStop_gneE2_1_1' for attribute id of busStop isn't valid
 Warning: Value 'Id with spaces' for attribute id of busStop isn't valid
@@ -75,6 +76,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lines 'line1, line2' into busStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lines 'line1 line2' into busStop 'correctID'
+Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()

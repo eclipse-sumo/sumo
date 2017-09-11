@@ -1,4 +1,5 @@
 Warning: Adding e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Setting new attribute pos '11.70' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Setting new attribute pos '17.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Setting new attribute pos '26.85' into e2Detector 'e2Detector_gneE0_0_0'
@@ -45,6 +46,7 @@ Warning: Setting new attribute pos '46.39' into e2Detector 'e2Detector_gneE0_0_0
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '31.24' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced e2Detector 'e2Detector_gneE0_0_0'

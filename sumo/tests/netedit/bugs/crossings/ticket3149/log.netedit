@@ -1,4 +1,5 @@
 Warning: Adding busStop 'busStop_3_2_0' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding busStop 'busStop_4_2_2' in GNEChange_Additional
 Warning: Adding busStop 'busStop_7_1_3' in GNEChange_Additional
 Warning: Adding busStop 'busStop_8_2_1' in GNEChange_Additional
@@ -543,6 +544,7 @@ Warning: Created connection 'from7_2to5_2' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_2to6_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_2to6_2' in retrieveGNEConnection()
+Warning: Additionals saved
 Warning: Deleting unreferenced busStop 'busStop_8_2_1'
 Warning: Deleting unreferenced busStop 'busStop_7_1_3'
 Warning: Deleting unreferenced busStop 'busStop_4_2_2'

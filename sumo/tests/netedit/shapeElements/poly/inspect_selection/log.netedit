@@ -1,4 +1,5 @@
 Warning: Adding poly 'poly_0' into viewNet
+Warning: Shapes has to be saved
 Warning: Adding poly 'poly_1' into viewNet
 Warning: Adding poly 'poly_12' into viewNet
 Warning: Adding poly 'poly_2' into viewNet
@@ -215,6 +216,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute closedShape 'true' into poly 'poly_8'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Deselected 22 elements in GNEChange_Selection
+Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()

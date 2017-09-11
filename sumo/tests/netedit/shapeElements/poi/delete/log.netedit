@@ -1,4 +1,5 @@
 Warning: Adding poi 'POI_img' into viewNet
+Warning: Shapes has to be saved
 Warning: Adding poi 'POI_nonDeleted' into viewNet
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Removing poi 'POI_0' from viewNet
@@ -11,6 +12,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing poi 'POI_0' from viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing poi 'POI_img' from viewNet
+Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Removing poi 'POI_0' from net

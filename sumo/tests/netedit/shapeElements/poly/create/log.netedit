@@ -1,6 +1,7 @@
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Adding poly 'poly_0' into viewNet
+Warning: Shapes has to be saved
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Invalid input parameter of poly: 'color' doesn't have a valid 'RBGColor' format
@@ -161,6 +162,7 @@ Warning: Setting new attribute blockMovement '1' into poly 'poly_15'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poly 'poly_16' into viewNet
 Warning: Setting new attribute blockMovement '1' into poly 'poly_16'
+Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Removing poly 'poly_16' from net

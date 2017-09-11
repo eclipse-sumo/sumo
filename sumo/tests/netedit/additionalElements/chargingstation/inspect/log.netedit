@@ -1,4 +1,5 @@
 Warning: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding chargingStation 'chargingStation_gneE2_1_1' in GNEChange_Additional
 Warning: Value 'chargingStation_gneE2_1_1' for attribute id of chargingStation isn't valid
 Warning: Value 'Id with spaces' for attribute id of chargingStation isn't valid
@@ -97,6 +98,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute chargeDelay '0' into chargingStation 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute chargeDelay '3' into chargingStation 'correctID'
+Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()

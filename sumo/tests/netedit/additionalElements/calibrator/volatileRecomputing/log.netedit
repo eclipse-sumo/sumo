@@ -1,4 +1,5 @@
 Warning: Adding calibrator 'calibrator01' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding calibrator 'calibrator02' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator04' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator05' in GNEChange_Additional
@@ -80,6 +81,7 @@ Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
 Warning: Adding lane 'gneE0_0' into edge
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing lane 'gneE0_0' from edge
+Warning: Additionals saved
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
 Warning: Deleting unreferenced calibrator 'calibrator17'
 Warning: Deleting unreferenced calibrator 'calibrator16'
@@ -97,6 +99,8 @@ Warning: Deleting unreferenced calibrator 'calibrator05'
 Warning: Deleting unreferenced calibrator 'calibrator04'
 Warning: Deleting unreferenced calibrator 'calibrator02'
 Warning: Deleting unreferenced calibrator 'calibrator01'
+Warning: Additionals has to be saved
+Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor

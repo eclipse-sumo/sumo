@@ -1,4 +1,5 @@
 Warning: Adding poly 'poly_0' into viewNet
+Warning: Shapes has to be saved
 Warning: Adding poi 'POI_25' into viewNet
 Warning: Adding poi 'POI_26' into viewNet
 Warning: Adding poi 'POI_27' into viewNet
@@ -229,10 +230,10 @@ Warning: Setting previous attribute angle '0.00' into poi 'POI_27'
 Warning: Setting previous attribute angle '0.00' into poi 'POI_26'
 Warning: Setting previous attribute angle '0.00' into poi 'POI_25'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.10Sep155838.6224/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_36'
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.10Sep155838.6224/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_35'
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.10Sep155838.6224/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_34'
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.10Sep155838.6224/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_33'
+Warning: Setting previous attribute imgFile 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Sep141932.5628/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_36'
+Warning: Setting previous attribute imgFile 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Sep141932.5628/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_35'
+Warning: Setting previous attribute imgFile 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Sep141932.5628/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_34'
+Warning: Setting previous attribute imgFile 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Sep141932.5628/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_33'
 Warning: Setting previous attribute imgFile '' into poi 'POI_32'
 Warning: Setting previous attribute imgFile '' into poi 'POI_31'
 Warning: Setting previous attribute imgFile '' into poi 'POI_30'
@@ -490,6 +491,7 @@ Warning: Setting new attribute angle '180' into poi 'POI_35'
 Warning: Setting new attribute angle '180' into poi 'POI_36'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Deselected 25 elements in GNEChange_Selection
+Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()

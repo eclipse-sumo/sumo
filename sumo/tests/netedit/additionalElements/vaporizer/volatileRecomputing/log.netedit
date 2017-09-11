@@ -1,4 +1,5 @@
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding vaporizer 'vaporizer_1' in GNEChange_Additional
 Warning: Adding vaporizer 'vaporizer_2' in GNEChange_Additional
 Warning: Adding vaporizer 'vaporizer_3' in GNEChange_Additional
@@ -12,6 +13,7 @@ Warning: Adding vaporizer 'vaporizer_10' in GNEChange_Additional
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'Yes'
+Warning: Additionals saved
 Warning: Deleting unreferenced vaporizer 'vaporizer_10'
 Warning: Deleting unreferenced vaporizer 'vaporizer_9'
 Warning: Deleting unreferenced vaporizer 'vaporizer_8'
@@ -25,6 +27,8 @@ Warning: Deleting unreferenced vaporizer 'vaporizer_1'
 Warning: Deleting unreferenced vaporizer 'vaporizer_0'
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
+Warning: Additionals has to be saved
+Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor

@@ -1,4 +1,5 @@
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
@@ -812,6 +813,7 @@ Warning: e3Detector with ID 'e3Detector_0' cannot be writed in additional file b
 Warning: e3Detector with ID 'e3Detector_1' cannot be writed in additional file because doesn't have childs.
 Warning: e3Detector with ID 'e3Detector_2' cannot be writed in additional file because doesn't have childs.
 Warning: e3Detector with ID 'e3Detector_3' cannot be writed in additional file because doesn't have childs.
+Warning: Additionals saved
 Warning: Deleting unreferenced junction 'D' in GNEChange_Attribute
 Warning: Deleting NBNode of 'D' in GNEJunction destructor
 Warning: Deleting unreferenced edge '4' in GNEChange_Attribute
