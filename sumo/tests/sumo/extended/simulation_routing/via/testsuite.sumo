@@ -7,6 +7,9 @@ trips_periodic
 # trip with via and periodic rerouting
 trips_periodic2
 
+# trip with via and periodic rerouting
+trips_periodic2_ignore
+
 # inefficient route with via
 flow
 

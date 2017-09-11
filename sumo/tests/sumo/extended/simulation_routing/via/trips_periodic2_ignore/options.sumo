@@ -3,4 +3,4 @@
 -r=input_routes.rou.xml 
 --vehroutes=vehroutes.xml
 --device.rerouting.period 1
--e 1000
+--ignore-route-errors

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Sep 11 16:49:02 2017 by SUMO Version dev-SVN-r25961
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.probability value="1"/>
+        <device.rerouting.period value="1"/>
+    </routing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00" arrival="17.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="A0toB0 B0toC0 C0toD0"/>
+            <route replacedOnEdge="B0toC0" replacedAtTime="1.00" probability="0" edges="B0toC0 B0toC0 C0toD0"/>
+            <route replacedOnEdge="C0toD0" replacedAtTime="11.00" probability="0" edges="B0toC0 C0toD0"/>
+            <route replacedOnEdge="C0toD0" replacedAtTime="12.00" probability="0" edges="B0toC0 C0toD0"/>
+            <route replacedOnEdge="C0toD0" replacedAtTime="13.00" probability="0" edges="B0toC0 C0toD0"/>
+            <route replacedOnEdge="C0toD0" replacedAtTime="14.00" probability="0" edges="B0toC0 C0toD0"/>
+            <route replacedOnEdge="C0toD0" replacedAtTime="15.00" probability="0" edges="B0toC0 C0toD0"/>
+            <route replacedOnEdge="C0toD0" replacedAtTime="16.00" probability="0" edges="B0toC0 C0toD0"/>
+            <route replacedOnEdge="C0toD0" replacedAtTime="17.00" probability="0" edges="B0toC0 C0toD0"/>
+            <route edges="B0toC0 C0toD0"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>
