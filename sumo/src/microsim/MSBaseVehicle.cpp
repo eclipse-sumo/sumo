@@ -183,9 +183,20 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
     for (MSRouteIterator s = stops.begin(); s != stops.end(); ++s) {
         if (*s != source) {
             // !!! need to adapt t here
-            router.compute(source, *s, this, t, edges);
+            ConstMSEdgeVector into;
+            router.compute(source, *s, this, t, into);
+            if (into.size() > 0) {
+                into.pop_back();
+                edges.insert(edges.end(), into.begin(), into.end());
+            } else {
+                std::string error = "Vehicle '" + getID() + "' has no valid route from edge '" + source->getID() + " to stop edge '" + (*s)->getID() + "'.";
+                if (MSGlobals::gCheckRoutes) {
+                    throw ProcessError(error);
+                } else {
+                    WRITE_WARNING(error);
+                }
+            }
             source = *s;
-            edges.pop_back();
         }
     }
     router.compute(source, sink, this, t, edges);
