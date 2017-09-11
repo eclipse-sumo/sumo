@@ -93,7 +93,8 @@ GNEViewParent::GNEViewParent(
     FXGLCanvas* share, GNENet* net, GNEUndoList* undoList,
     FXIcon* ic, FXuint opts,
     FXint x, FXint y, FXint w, FXint h):
-    GUIGlChildWindow(p, parentWindow, mdimenu, name, ic, opts, x, y, w, h) {
+    GUIGlChildWindow(p, parentWindow, mdimenu, name, ic, opts, x, y, w, h),
+    myGNEAppWindows(parentWindow) {
     // Add child to parent
     myParent->addChild(this, false);
 
@@ -253,6 +254,12 @@ GNEViewParent::hideFramesArea() {
 GUIMainWindow*
 GNEViewParent::getApp() const {
     return myParent;
+}
+
+
+GNEApplicationWindow* 
+GNEViewParent::getGNEAppWindows() const {
+    return myGNEAppWindows;
 }
 
 

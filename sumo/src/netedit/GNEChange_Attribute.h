@@ -39,6 +39,8 @@
 // class declarations
 // ===========================================================================
 class GNEAttributeCarrier;
+class GNEAdditional;
+class GNEShape;
 
 // ===========================================================================
 // class definitions
@@ -99,6 +101,12 @@ private:
 
     /// @brief the original value
     std::string myNewValue;
+
+    /// @brief used if Ac is an additional element
+    GNEAdditional *myAdditional;
+
+    /// @brief used if Ac is a shape element
+    GNEShape *myShape;
 };
 
 #endif

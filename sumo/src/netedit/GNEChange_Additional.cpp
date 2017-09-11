@@ -202,6 +202,8 @@ GNEChange_Additional::undo() {
             }
         }
     }
+    // Requiere always save additionals
+    myNet->requiereSaveAdditionals();
 }
 
 
@@ -309,6 +311,8 @@ GNEChange_Additional::redo() {
             }
         }
     }
+    // Requiere always save additionals
+    myNet->requiereSaveAdditionals();
 }
 
 

@@ -89,6 +89,8 @@ GNEChange_POI::undo() {
         // Add POIgon to view
         myNet->insertPOIInView(myPOI);
     }
+    // Requiere always save shapes
+    myNet->requiereSaveShapes();
 }
 
 
@@ -109,6 +111,8 @@ GNEChange_POI::redo() {
         // delete POI from view
         myNet->removePOIOfView(myPOI);
     }
+    // Requiere always save shapes
+    myNet->requiereSaveShapes();
 }
 
 

@@ -137,6 +137,9 @@ public:
     /// @brief get App (GUIMainWindow)
     GUIMainWindow* getApp() const;
 
+    /// @brief get GNE Application Windows
+    GNEApplicationWindow* getGNEAppWindows() const;
+
     /// @name FOX-callbacks
     /// @{
     /// @brief Called if the user wants to make a snapshot (screenshot)
@@ -166,6 +169,9 @@ protected:
     GNEViewParent() {}
 
 private:
+    /// @brief pointer to GNEApplicationWindow
+    GNEApplicationWindow* myGNEAppWindows;
+
     /// @brief frame to hold myView and myAttributePanel
     FXHorizontalFrame* myViewArea;
 

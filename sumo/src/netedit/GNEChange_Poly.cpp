@@ -89,6 +89,8 @@ GNEChange_Poly::undo() {
         // Add polygon to view
         myNet->insertPolygonInView(myPoly);
     }
+    // Requiere always save shapes
+    myNet->requiereSaveShapes();
 }
 
 
@@ -109,6 +111,8 @@ GNEChange_Poly::redo() {
         // delete poly from view
         myNet->removePolygonOfView(myPoly);
     }
+    // Requiere always save shapes
+    myNet->requiereSaveShapes();
 }
 
 

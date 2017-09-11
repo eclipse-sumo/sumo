@@ -132,6 +132,12 @@ public:
     /// @brief set shapes file
     void setShapesFile(const std::string& shapesFile);
 
+    /// @brief enable save additionals
+    void enableSaveAdditionalsMenu();
+
+    /// @brief enable save shapes
+    void enableSaveShapesMenu();
+
     /// @name Inter-thread event handling
     /// @{
     /// @brief called when an event occured
@@ -385,6 +391,12 @@ protected:
     std::string myShapesFile;
 
 private:
+    /// @brief FXMenuCommand for enable or disable save additionals
+    FXMenuCommand *mySaveAdditionalsMenuCommand;
+
+    /// @brief FXMenuCommand for enable or disable save shapes
+    FXMenuCommand *mySaveShapesMenuCommand;
+
     /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);
 
@@ -399,6 +411,8 @@ private:
 
     /// @brief warns about unsaved changes and gives the user the option to abort
     bool continueWithUnsavedChanges();
+
+    /// @brief warns about unsaved changes in additionals and gives the user the option to abort
     bool continueWithUnsavedAdditionalChanges();
 };
 

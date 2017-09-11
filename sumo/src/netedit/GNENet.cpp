@@ -1229,6 +1229,24 @@ GNENet::requireRecompute() {
     myNeedRecompute = true;
 }
 
+void 
+GNENet::requiereSaveAdditionals() {
+    if((myAdditionalsSaved == false) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Additionals has to be saved");
+    }
+    myAdditionalsSaved = true;
+    myViewNet->getViewParent()->getGNEAppWindows()->enableSaveAdditionalsMenu();
+}
+
+
+void 
+GNENet::requiereSaveShapes() {
+    if((myShapesSaved == false) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Shapes has to be saved");
+    }
+    myShapesSaved = true;
+    myViewNet->getViewParent()->getGNEAppWindows()->enableSaveShapesMenu();
+}
 
 bool
 GNENet::netHasGNECrossings() const {

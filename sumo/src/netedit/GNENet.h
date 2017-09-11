@@ -465,6 +465,12 @@ public:
     /// @brief inform the net about the need for recomputation
     void requireRecompute();
 
+    /// @brief inform that additionals has to be saved
+    void requiereSaveAdditionals();
+
+    /// @brief inform that shapes has to be saved
+    void requiereSaveShapes();
+
     /// @brief check if net has GNECrossings
     bool netHasGNECrossings() const;
 

@@ -33,7 +33,10 @@
 
 #include "GNEChange_Attribute.h"
 #include "GNEAttributeCarrier.h"
-
+#include "GNENet.h"
+#include "GNEViewNet.h"
+#include "GNEAdditional.h"
+#include "GNEShape.h"
 
 // ===========================================================================
 // FOX-declarations
@@ -51,8 +54,13 @@ GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac,
     myAC(ac),
     myKey(key),
     myOrigValue(customOrigValue ? origValue : ac->getAttribute(key)),
-    myNewValue(value) {
+    myNewValue(value),
+    myAdditional(NULL),
+    myShape(NULL) {
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
+    // try to cast AC as additional and Shape
+    myAdditional = dynamic_cast<GNEAdditional*>(myAC);
+    myShape = dynamic_cast<GNEShape*>(myAC);
 }
 
 
@@ -77,6 +85,12 @@ GNEChange_Attribute::undo() {
     }
     // set original value
     myAC->setAttribute(myKey, myOrigValue);
+    // check if additional or shapes has to be saved
+    if(myAdditional) {
+        myAdditional->getViewNet()->getNet()->requiereSaveAdditionals();
+    } else if(myShape) {
+        myShape->getNet()->requiereSaveShapes();
+    }
 }
 
 
@@ -88,6 +102,12 @@ GNEChange_Attribute::redo() {
     }
     // set new value
     myAC->setAttribute(myKey, myNewValue);
+    // check if additional or shapes has to be saved
+    if(myAdditional) {
+        myAdditional->getViewNet()->getNet()->requiereSaveAdditionals();
+    } else if(myShape) {
+        myShape->getNet()->requiereSaveShapes();
+    }
 }
 
 

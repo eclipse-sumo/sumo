@@ -148,17 +148,15 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_AS_NETWORK,            GNEApplicationWindow::onCmdSaveAsNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_AS_NETWORK,            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_PLAIN_XML,             GNEApplicationWindow::onCmdSaveAsPlainXML),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_PLAIN_XML,             GNEApplicationWindow::onUpdNeedsNetwork), // same condition
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_PLAIN_XML,             GNEApplicationWindow::onUpdNeedsNetwork), // called when net is opened/closed
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_JOINED,                GNEApplicationWindow::onCmdSaveJoined),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_JOINED,                GNEApplicationWindow::onUpdNeedsNetwork), // same condition
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_JOINED,                GNEApplicationWindow::onUpdNeedsNetwork), // called when net is opened/closed
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_SHAPES,                GNEApplicationWindow::onCmdSaveShapes),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_SHAPES,                GNEApplicationWindow::onUpdNeedsNetwork), // same condition
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_SHAPES_AS,             GNEApplicationWindow::onCmdSaveShapesAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_SHAPES_AS,             GNEApplicationWindow::onUpdNeedsNetwork), // same condition
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_SHAPES_AS,             GNEApplicationWindow::onUpdNeedsNetwork), // called when net is opened/closed
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_ADDITIONALS,           GNEApplicationWindow::onCmdSaveAdditionals),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_ADDITIONALS,           GNEApplicationWindow::onUpdNeedsNetwork), // same condition
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_ADDITIONALS_AS,        GNEApplicationWindow::onCmdSaveAdditionalsAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_ADDITIONALS_AS,        GNEApplicationWindow::onUpdNeedsNetwork), // same condition
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_ADDITIONALS_AS,        GNEApplicationWindow::onUpdNeedsNetwork), // called when net is opened/closed
 
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORT,                      GNEApplicationWindow::onCmdAbort),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_DEL,                 GNEApplicationWindow::onCmdDel),
@@ -380,15 +378,17 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myFileMenu,
                       "Save &joined junctions...\tCtrl+J\tSave log of joined junctions (allows reproduction of joins).",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_JOINED);
-    new FXMenuCommand(myFileMenu,
+    mySaveShapesMenuCommand = new FXMenuCommand(myFileMenu,
                       "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_SHAPES);
+    mySaveShapesMenuCommand->disable();
     new FXMenuCommand(myFileMenu,
                       "Save Shapes As...\t\tSave shapes elements in another files.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_SHAPES_AS);
-    new FXMenuCommand(myFileMenu,
+    mySaveAdditionalsMenuCommand = new FXMenuCommand(myFileMenu,
                       "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_ADDITIONALS);
+    mySaveAdditionalsMenuCommand->disable();
     new FXMenuCommand(myFileMenu,
                       "Save Additionals As...\t\tSave additional elements in another file.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_SAVE_ADDITIONALS_AS);
@@ -657,6 +657,9 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
         std::string file = opendialog.getFilename().text();
         loadConfigOrNet(file, true);
         myRecentNets.appendFile(file.c_str());
+        // when a net is loaded, save additional and shapes are disabled
+        mySaveAdditionalsMenuCommand->disable();
+        mySaveShapesMenuCommand->disable();
     }
     return 1;
 }
@@ -1088,6 +1091,18 @@ GNEApplicationWindow::setShapesFile(const std::string& shapesFile) {
 }
 
 
+void
+GNEApplicationWindow::enableSaveAdditionalsMenu() {
+    mySaveAdditionalsMenuCommand->enable();
+}
+
+
+void
+GNEApplicationWindow::enableSaveShapesMenu() {
+    mySaveShapesMenuCommand->enable();
+}
+
+
 long
 GNEApplicationWindow::onCmdSetMode(FXObject*, FXSelector sel, void*) {
     if (getView()) {
@@ -1487,38 +1502,44 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveShapes(FXObject*, FXSelector, void*) {
-    // Check if shapes file was already set at start of netedit or with a previous save
-    if (myShapesFile == "") {
-        FXString file = MFXUtils::getFilename2Write(this,
-                        "Select name of the shape file", ".xml",
-                        GUIIconSubSys::getIcon(ICON_EMPTY),
-                        gCurrentFolder);
-        if (file == "") {
-            // None shapes file was selected, then stop function
-            return 0;
-        } else {
-            myShapesFile = file.text();
+    // check if save shapes menu is enabled
+    if(mySaveShapesMenuCommand->isEnabled()) {
+        // Check if shapes file was already set at start of netedit or with a previous save
+        if (myShapesFile == "") {
+            FXString file = MFXUtils::getFilename2Write(this,
+                            "Select name of the shape file", ".xml",
+                            GUIIconSubSys::getIcon(ICON_EMPTY),
+                            gCurrentFolder);
+            if (file == "") {
+                // None shapes file was selected, then stop function
+                return 0;
+            } else {
+                myShapesFile = file.text();
+            }
         }
+        getApp()->beginWaitCursor();
+        try {
+            myNet->saveShapes(myShapesFile);
+            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Shapes saved in " + myShapesFile + ".\n");
+            mySaveShapesMenuCommand->disable();
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Opening FXMessageBox of type 'error'");
+            }
+            // open error dialog box
+            FXMessageBox::error(this, MBOX_OK, "Saving POIs failed!", "%s", e.what());
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
+            }
+        }
+        myMessageWindow->addSeparator();
+        getApp()->endWaitCursor();
+        return 1;
+    } else {
+        return 0;
     }
-    getApp()->beginWaitCursor();
-    try {
-        myNet->saveShapes(myShapesFile);
-        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Shapes saved in " + myShapesFile + ".\n");
-    } catch (IOError& e) {
-        // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'error'");
-        }
-        // open error dialog box
-        FXMessageBox::error(this, MBOX_OK, "Saving POIs failed!", "%s", e.what());
-        // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
-        }
-    }
-    myMessageWindow->addSeparator();
-    getApp()->endWaitCursor();
-    return 1;
 }
 
 
@@ -1587,39 +1608,45 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
-    // Check if additionals file was already set at start of netedit or with a previous save
-    if (myAdditionalsFile == "") {
-        FXString file = MFXUtils::getFilename2Write(this,
-                        "Select name of the additional file", ".xml",
-                        GUIIconSubSys::getIcon(ICON_EMPTY),
-                        gCurrentFolder);
-        if (file == "") {
-            // None additionals file was selected, then stop function
-            return 0;
-        } else {
-            myAdditionalsFile = file.text();
+    // check if save additional menu is enabled
+    if(mySaveAdditionalsMenuCommand->isEnabled()) {
+        // Check if additionals file was already set at start of netedit or with a previous save
+        if (myAdditionalsFile == "") {
+            FXString file = MFXUtils::getFilename2Write(this,
+                            "Select name of the additional file", ".xml",
+                            GUIIconSubSys::getIcon(ICON_EMPTY),
+                            gCurrentFolder);
+            if (file == "") {
+                // None additionals file was selected, then stop function
+                return 0;
+            } else {
+                myAdditionalsFile = file.text();
+            }
         }
+        // Start saving additionals
+        getApp()->beginWaitCursor();
+        try {
+            myNet->saveAdditionals(myAdditionalsFile);
+            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Additionals saved in " + myAdditionalsFile + ".\n");
+            mySaveAdditionalsMenuCommand->disable();
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Opening FXMessageBox of type 'error'");
+            }
+            // open error message box
+            FXMessageBox::error(this, MBOX_OK, "Saving additionals failed!", "%s", e.what());
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
+            }
+        }
+        myMessageWindow->addSeparator();
+        getApp()->endWaitCursor();
+        return 1;
+    } else {
+        return 0;
     }
-    // Start saving additionals
-    getApp()->beginWaitCursor();
-    try {
-        myNet->saveAdditionals(myAdditionalsFile);
-        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Additionals saved in " + myAdditionalsFile + ".\n");
-    } catch (IOError& e) {
-        // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'error'");
-        }
-        // open error message box
-        FXMessageBox::error(this, MBOX_OK, "Saving additionals failed!", "%s", e.what());
-        // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
-        }
-    }
-    myMessageWindow->addSeparator();
-    getApp()->endWaitCursor();
-    return 1;
 }
 
 
