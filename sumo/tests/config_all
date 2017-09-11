@@ -22,6 +22,7 @@ errors:attribute '(.*)' is already specified for element '(.*)'{REPLACE The attr
 log:[0-9\.]+ms{REPLACE (TIME)}
 errors:std::_Ios_Fmtflags
 shapes:imgFile=\"(.*?)berlin_icon.ico\"{REPLACE imgFile="berlin_icon.ico"}
+shapes:imgFile=\"(.*?)paris.ico\"{REPLACE imgFile="paris.ico"}
 
 [bug_system_location]
 trac:http://sumo.dlr.de/trac.wsgi/
