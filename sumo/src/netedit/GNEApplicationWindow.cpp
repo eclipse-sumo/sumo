@@ -787,6 +787,9 @@ long
 GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
     if (continueWithUnsavedChanges()) {
         closeAllWindows();
+        // disable save additionals and shapes menu
+        mySaveAdditionalsMenuCommand->disable();
+        mySaveShapesMenuCommand->disable();
     }
     return 1;
 }
@@ -1710,14 +1713,14 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'");
             }
-            return continueWithUnsavedAdditionalChanges();
+            return continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges();
         } else if (answer == MBOX_CLICKED_SAVE) {
             onCmdSaveNetwork(0, 0, 0);
             if (!myUndoList->marked()) {
                 // saving failed
                 return false;
             }
-            return continueWithUnsavedAdditionalChanges();
+            return continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges();
         } else {
             // write warning if netedit is running in testing mode
             if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1729,14 +1732,15 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
             return false;
         }
     } else {
-        return continueWithUnsavedAdditionalChanges();
+        return continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges();
     }
 }
+
 
 bool
 GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
     // Check if there are non saved additionals
-    if ((myNet != NULL) && (myNet->getNumberOfAdditionals() > 0) && (!myNet->isAdditionalsSaved())) {
+    if (mySaveAdditionalsMenuCommand->isEnabled()) {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'question'");
         }
@@ -1758,6 +1762,49 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
             }
             if (onCmdSaveAdditionals(0, 0, 0) == 0) {
+                return false;
+            }
+        } else {
+            // write warning if netedit is running in testing mode
+            if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+            } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+            }
+            return false;
+        }
+    }
+    // clear undo list and return true to continue with closing/reload
+    myUndoList->p_clear(); //only ask once
+    return true;
+}
+
+
+bool
+GNEApplicationWindow::continueWithUnsavedShapeChanges() {
+    // Check if there are non saved additionals
+    if (mySaveShapesMenuCommand->isEnabled()) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Opening FXMessageBox of type 'question'");
+        }
+        // open question box
+        FXuint answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
+            "Save shapes before exit", "%s",
+            "You have unsaved shapes. Do you wish to quit and discard all changes?");
+        // restore focus to view net
+        getView()->setFocus();
+        // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
+        if (answer == MBOX_CLICKED_QUIT) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'");
+            }
+            return true;
+        } else if (answer == MBOX_CLICKED_SAVE) {
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+            }
+            if (onCmdSaveShapes(0, 0, 0) == 0) {
                 return false;
             }
         } else {
