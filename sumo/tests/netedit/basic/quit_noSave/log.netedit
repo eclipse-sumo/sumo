@@ -1,0 +1,21 @@
+Warning: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
+Warning: Additionals has to be saved
+Warning: Key ENTER pressed
+Warning: Key ENTER pressed
+Warning: Adding poly 'poly_0' into viewNet
+Warning: Shapes has to be saved
+Warning: Opening FXMessageBox of type 'question'
+Warning: Closed FXMessageBox of type 'question' with 'Quit'
+Warning: Opening FXMessageBox of type 'question'
+Warning: Closed FXMessageBox of type 'question' with 'Quit'
+Warning: Opening FXMessageBox of type 'question'
+Warning: Closed FXMessageBox of type 'question' with 'Quit'
+Warning: Removing poly 'poly_0' from net
+Warning: Deleting unreferenced busStop 'busStop_gneE0_0_0'
+Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor
