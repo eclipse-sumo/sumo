@@ -951,7 +951,7 @@ PositionVector::move2side(double amount) {
     if (size() < 2) {
         return;
     }
-    removeDoublePoints();
+    removeDoublePoints(POSITION_EPS, true);
     if (length2D() == 0) {
         return;
     }
