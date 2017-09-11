@@ -1,0 +1,449 @@
++++ running this Java
++++ trying to run SikuliX
++++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\Sikulix\sikulix.jar -run test.sikuli
+TestFunctions: Netedit opened sucesfully
+TestFunctions: 'reference.png' found
+[log]  TYPE "p"
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE " "
+[log] ( Shift )  TYPE "#TAB."
+[log] ( Shift )  TYPE "#TAB."
+[log]  TYPE "#DOWN."
+[log]  TYPE "#DOWN."
+[log]  TYPE "#DOWN."
+[log]  TYPE "#DOWN."
+[log]  TYPE "#DOWN."
+[log]  TYPE "#DOWN."
+[log]  TYPE "#TAB."
+[log]  TYPE " "
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(404,190)@S(0)[0,0 1366x768] (230 msec)
+[log] CLICK on L(404,140)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(354,140)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(354,190)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(404,190)@S(0)[0,0 1366x768] (240 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(504,190)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(504,140)@S(0)[0,0 1366x768] (242 msec)
+[log] CLICK on L(454,140)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(454,190)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(504,190)@S(0)[0,0 1366x768] (233 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(504,190)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(504,140)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(454,140)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(454,190)@S(0)[0,0 1366x768] (239 msec)
+[log] CLICK on L(504,190)@S(0)[0,0 1366x768] (238 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE " "
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(604,190)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(604,140)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(554,140)@S(0)[0,0 1366x768] (238 msec)
+[log] CLICK on L(554,190)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(604,190)@S(0)[0,0 1366x768] (236 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(704,190)@S(0)[0,0 1366x768] (222 msec)
+[log] CLICK on L(704,140)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(654,140)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(654,190)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(704,190)@S(0)[0,0 1366x768] (236 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(704,190)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(704,140)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(654,140)@S(0)[0,0 1366x768] (243 msec)
+[log] CLICK on L(654,190)@S(0)[0,0 1366x768] (248 msec)
+[log] CLICK on L(704,190)@S(0)[0,0 1366x768] (237 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(804,190)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(804,140)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(754,140)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(754,190)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(804,190)@S(0)[0,0 1366x768] (237 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(904,190)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(904,140)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(854,140)@S(0)[0,0 1366x768] (238 msec)
+[log] CLICK on L(854,190)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(904,190)@S(0)[0,0 1366x768] (242 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(904,190)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(904,140)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(854,140)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(854,190)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(904,190)@S(0)[0,0 1366x768] (236 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(904,190)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(904,140)@S(0)[0,0 1366x768] (234 msec)
+[log] CLICK on L(854,140)@S(0)[0,0 1366x768] (233 msec)
+[log] CLICK on L(854,190)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(904,190)@S(0)[0,0 1366x768] (243 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(404,290)@S(0)[0,0 1366x768] (225 msec)
+[log] CLICK on L(404,240)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(354,240)@S(0)[0,0 1366x768] (241 msec)
+[log] CLICK on L(354,290)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(404,290)@S(0)[0,0 1366x768] (236 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(404,290)@S(0)[0,0 1366x768] (238 msec)
+[log] CLICK on L(404,240)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(354,240)@S(0)[0,0 1366x768] (220 msec)
+[log] CLICK on L(354,290)@S(0)[0,0 1366x768] (238 msec)
+[log] CLICK on L(404,290)@S(0)[0,0 1366x768] (238 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(504,290)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(504,240)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(454,240)@S(0)[0,0 1366x768] (243 msec)
+[log] CLICK on L(454,290)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(504,290)@S(0)[0,0 1366x768] (236 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(604,290)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(604,240)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(554,240)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(554,290)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(604,290)@S(0)[0,0 1366x768] (236 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE " "
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(704,290)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(704,240)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(654,240)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(654,290)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(704,290)@S(0)[0,0 1366x768] (236 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE " "
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(804,290)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(804,240)@S(0)[0,0 1366x768] (243 msec)
+[log] CLICK on L(754,240)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(754,290)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(804,290)@S(0)[0,0 1366x768] (237 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE " "
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(904,290)@S(0)[0,0 1366x768] (242 msec)
+[log] CLICK on L(904,240)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(854,240)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(854,290)@S(0)[0,0 1366x768] (236 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE " "
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(404,490)@S(0)[0,0 1366x768] (242 msec)
+[log] CLICK on L(404,440)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(354,440)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(354,490)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(404,490)@S(0)[0,0 1366x768] (236 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(504,490)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(504,440)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(454,440)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(454,490)@S(0)[0,0 1366x768] (232 msec)
+[log] CLICK on L(504,490)@S(0)[0,0 1366x768] (236 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(604,490)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(604,490)@S(0)[0,0 1366x768] (238 msec)
+[log] CLICK on L(604,490)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(604,490)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(604,490)@S(0)[0,0 1366x768] (233 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(704,490)@S(0)[0,0 1366x768] (243 msec)
+[log] CLICK on L(704,490)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(654,490)@S(0)[0,0 1366x768] (237 msec)
+[log] CLICK on L(654,490)@S(0)[0,0 1366x768] (243 msec)
+[log] CLICK on L(704,490)@S(0)[0,0 1366x768] (236 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#ENTER."
+[log] CLICK on L(804,490)@S(0)[0,0 1366x768] (233 msec)
+[log] CLICK on L(754,440)@S(0)[0,0 1366x768] (236 msec)
+[log] CLICK on L(804,490)@S(0)[0,0 1366x768] (242 msec)
+[log]  TYPE "#ENTER."
+[log]  TYPE "i"
+[log] CLICK on L(304,140)@S(0)[0,0 1366x768] (235 msec)
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log]  TYPE "i"
+[log] CLICK on L(304,140)@S(0)[0,0 1366x768] (235 msec)
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl+Shift )  TYPE "p"
+[log] ( Ctrl )  TYPE "s"
+[log] ( Ctrl )  TYPE "q"
+TestFunctions: Netedit closed successfully
