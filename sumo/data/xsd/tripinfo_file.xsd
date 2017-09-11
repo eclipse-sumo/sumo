@@ -95,13 +95,17 @@
 
     <xsd:element name="stop">
         <xsd:complexType>
+            <xsd:attribute name="duration" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="actType" use="required" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 
     <xsd:element name="ride">
         <xsd:complexType>
+            <xsd:attribute name="waitingTime" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="vehicle" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
@@ -110,6 +114,7 @@
 
     <xsd:element name="walk">
         <xsd:complexType>
+            <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
@@ -117,6 +122,8 @@
 
     <xsd:element name="transport">
         <xsd:complexType>
+            <xsd:attribute name="waitingTime" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="vehicle" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
@@ -125,6 +132,7 @@
 
     <xsd:element name="tranship">
         <xsd:complexType>
+            <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
