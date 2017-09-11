@@ -542,7 +542,7 @@ NBEdge::extendGeometryAtNode(const NBNode* node, double maxExtent) {
         double offset = myGeom.nearest_offset_to_point2D(node->getPosition());
         //std::cout << " geom2=" << myGeom << " offset=" << offset;
         if (offset != GeomHelper::INVALID_OFFSET) {
-            myGeom = myGeom.getSubpart2D(offset, myGeom.length2D());
+            myGeom = myGeom.getSubpart2D(MIN2(offset, myGeom.length2D() - 2 * POSITION_EPS), myGeom.length2D());
         }
     } else {
         assert(node == myTo);
@@ -550,7 +550,7 @@ NBEdge::extendGeometryAtNode(const NBNode* node, double maxExtent) {
         double offset = myGeom.nearest_offset_to_point2D(node->getPosition());
         //std::cout << " geom2=" << myGeom << " offset=" << offset;
         if (offset != GeomHelper::INVALID_OFFSET) {
-            myGeom = myGeom.getSubpart2D(0, offset);
+            myGeom = myGeom.getSubpart2D(0, MAX2(offset, 2 * POSITION_EPS));
         }
     }
     //std::cout << " geom3=" << myGeom << "\n";

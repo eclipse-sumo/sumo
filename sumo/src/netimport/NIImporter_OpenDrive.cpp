@@ -1108,7 +1108,7 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
         double tStart = 0;
         double s;
         odrSpiral(sStart, cDot, &x, &y, &tStart);
-        for (s = sStart; s < sEnd; s += resolution) {
+        for (s = sStart; s <= sEnd; s += resolution) {
             odrSpiral(s, cDot, &x, &y, &t);
             ret.push_back(Position(x, y));
         }
