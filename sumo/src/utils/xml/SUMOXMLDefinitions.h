@@ -176,7 +176,7 @@ enum SumoXMLTag {
     SUMO_TAG_ROUTE_PROB_REROUTE,
     /// @brief entry for an alternative parking zone
     SUMO_TAG_PARKING_ZONE_REROUTE,
-    /// @brief type of poligon
+    /// @brief type of polygon
     SUMO_TAG_POLYTYPE,
     /// @brief connectio between two lanes
     SUMO_TAG_CONNECTION,

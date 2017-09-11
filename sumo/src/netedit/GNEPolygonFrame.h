@@ -393,7 +393,7 @@ public:
 
     /**@brief build Polygon using values of Fields and drawed shap
      * return true if was sucesfully created
-     * @note called when user stop drawing poligon
+     * @note called when user stop drawing polygon
      */
     bool buildPoly(const PositionVector& drawedShape);
 

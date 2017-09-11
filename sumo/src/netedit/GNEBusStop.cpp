@@ -190,7 +190,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // Rotate again depending of the myBlockIconRotation
             glRotated(myBlockIconRotation, 0, 0, 1);
 
-            // Set poligon mode
+            // Set polygon mode
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
             // set polyfront position ot 0

@@ -145,13 +145,13 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
     const double exaggeration = s.addSize.getExaggeration(s);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    // Push poligon matrix
+    // Push polygon matrix
     glPushMatrix();
     glScaled(exaggeration, exaggeration, 1);
     glTranslated(myShape[0].x(), myShape[0].y(), 0);
     glRotated(myShapeRotations[0], 0, 0, 1);
 
-    // Draw poligon
+    // Draw polygon
     glBegin(GL_LINES);
     glVertex2d(1.7, 0);
     glVertex2d(-1.7, 0);
@@ -173,7 +173,7 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
     GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
 
-    // Pop poligon matrix
+    // Pop polygon matrix
     glPopMatrix();
 
     // Pop detector matrix

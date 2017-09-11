@@ -166,7 +166,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // Rotate again using myBlockIconRotation
         glRotated(myFGSignRot, 0, 0, 1);
 
-        // Set poligon mode
+        // Set polygon mode
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
         // set polyfront position on 0,0
