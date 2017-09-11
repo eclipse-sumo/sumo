@@ -188,6 +188,10 @@ GUIViewTraffic::buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjec
         // retrieve range
         double minValue = std::numeric_limits<double>::infinity();
         double maxValue = -std::numeric_limits<double>::infinity();
+        // XXX (see #3409) multi-colors are not currently handled. this is a quick hack
+        if (active == 22) {
+            active = 21; // segment height, fall back to start height
+        }
         const MSEdgeVector& edges = MSEdge::getAllEdges();
         for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
             if (MSGlobals::gUseMesoSim) {

@@ -270,6 +270,10 @@ GNEViewNet::buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjectTyp
         // retrieve range
         double minValue = std::numeric_limits<double>::infinity();
         double maxValue = -std::numeric_limits<double>::infinity();
+        // XXX (see #3409) multi-colors are not currently handled. this is a quick hack
+        if (active == 9) {
+            active = 8; // segment height, fall back to start height
+        }
         const std::vector<GNELane*> lanes = myNet->retrieveLanes();
         for (auto it : lanes) {
             const double val = it->getColorValue(active);
