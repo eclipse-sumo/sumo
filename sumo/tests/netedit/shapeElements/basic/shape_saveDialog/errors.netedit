@@ -1,0 +1,5 @@
+java version "1.8.0_91"
+Java(TM) SE Runtime Environment (build 1.8.0_91-b15)
+Java HotSpot(TM) 64-Bit Server VM (build 25.91-b15, mixed mode)
+Sep 11, 2017 1:01:44 PM java.util.prefs.WindowsPreferences <init>
+WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.
