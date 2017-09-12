@@ -1627,7 +1627,7 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
                 return 0;
             } else {
                 if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Opening FXMessageBox of type 'question'");
+                    WRITE_WARNING("Opening FXMessageBox 'restrict lanes'");
                 }
                 // Ask confirmation to user
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
@@ -1636,15 +1636,15 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
                     if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                        WRITE_WARNING("Closed FXMessageBox 'restrict lanes' with 'No'");
                     } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                        WRITE_WARNING("Closed FXMessageBox 'restrict lanes' with 'ESC'");
                     }
                     return 0;
                 } else {
                     // write warning if netedit is running in testing mode
                     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+                        WRITE_WARNING("Closed FXMessageBox 'restrict lanes' with 'Yes'");
                     }
                 }
             }
@@ -1708,7 +1708,7 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
                 return 0;
             } else {
                 if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Opening FXMessageBox of type 'question'");
+                    WRITE_WARNING("Opening FXMessageBox 'restrict lanes'");
                 }
                 // Ask confirmation to user
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
@@ -1717,15 +1717,15 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
                     if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                        WRITE_WARNING("Closed FXMessageBox 'restrict lanes' with 'No'");
                     } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                        WRITE_WARNING("Closed FXMessageBox 'restrict lanes' with 'ESC'");
                     }
                     return 0;
                 } else {
                     // write warning if netedit is running in testing mode
                     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+                        WRITE_WARNING("Closed FXMessageBox 'restrict lanes' with 'Yes'");
                     }
                 }
             }
@@ -1789,7 +1789,7 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
                 return 0;
             } else {
                 if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Opening FXMessageBox of type 'question'");
+                    WRITE_WARNING("Opening FXMessageBox 'restrict lanes'");
                 }
                 // Ask confirmation to user
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
@@ -1798,15 +1798,15 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
                     if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                        WRITE_WARNING("Closed FXMessageBox 'restrict lanes' with 'No'");
                     } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                        WRITE_WARNING("Closed FXMessageBox 'restrict lanes' with 'ESC'");
                     }
                     return 0;
                 } else {
                     // write warning if netedit is running in testing mode
                     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+                        WRITE_WARNING("Closed FXMessageBox 'restrict lanes' with 'Yes'");
                     }
                 }
             }
@@ -1883,7 +1883,7 @@ GNEViewNet::onCmdRevertRestriction(FXObject*, FXSelector, void*) {
                 return 0;
             } else {
                 if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Opening FXMessageBox of type 'question'");
+                    WRITE_WARNING("Opening FXMessageBox 'restrict lanes'");
                 }
                 // Ask confirmation to user
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
@@ -1892,15 +1892,15 @@ GNEViewNet::onCmdRevertRestriction(FXObject*, FXSelector, void*) {
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
                     if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                        WRITE_WARNING("Closed FXMessageBox 'restrict lanes' with 'No'");
                     } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                        WRITE_WARNING("Closed FXMessageBox 'restrict lanes' with 'ESC'");
                     }
                     return 0;
                 } else {
                     // write warning if netedit is running in testing mode
                     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+                        WRITE_WARNING("Closed FXMessageBox 'restrict lanes' with 'Yes'");
                     }
                 }
             }
@@ -2390,7 +2390,7 @@ GNEViewNet::mergeJunctions(GNEJunction* moved) {
         // optionally ask for confirmation
         if (myMenuCheckWarnAboutMerge->getCheck()) {
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox of type 'question'");
+                WRITE_WARNING("Opening FXMessageBox 'merge junctions'");
             }
             // open question box
             FXuint answer = FXMessageBox::question(this, MBOX_YES_NO,
@@ -2403,15 +2403,15 @@ GNEViewNet::mergeJunctions(GNEJunction* moved) {
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                    WRITE_WARNING("Closed FXMessageBox 'merge junctions' with 'No'");
                 } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                    WRITE_WARNING("Closed FXMessageBox 'merge junctions' with 'ESC'");
                 }
                 return false;
             } else {
                 // write warning if netedit is running in testing mode
                 if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+                    WRITE_WARNING("Closed FXMessageBox 'merge junctions' with 'Yes'");
                 }
             }
         }

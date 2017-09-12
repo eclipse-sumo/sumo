@@ -366,7 +366,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                     if (numberOfAdditionals > 0) {
                         // write warning if netedit is running in testing mode
                         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
+                            WRITE_WARNING("Opening FXMessageBox 'Force deletion needed'");
                         }
                         std::string plural = numberOfAdditionals > 1 ? "s" : "";
                         // Open warning DialogBox
@@ -375,7 +375,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                                                toString(numberOfAdditionals) + " additional child" + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                         // write warning if netedit is running in testing mode
                         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
+                            WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");
                         }
                     } else {
                         myViewNet->getNet()->deleteJunction(junction, myViewNet->getUndoList());
@@ -398,7 +398,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                     if (numberOfAdditionals > 0) {
                         // write warning if netedit is running in testing mode
                         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
+                            WRITE_WARNING("Opening FXMessageBox 'Force deletion needed'");
                         }
                         std::string plural = numberOfAdditionals > 1 ? "s" : "";
                         // Open warning DialogBox
@@ -407,12 +407,12 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                                                toString(numberOfAdditionals) + " additional child" + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                         // write warning if netedit is running in testing mode
                         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
+                            WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");
                         }
                     } else if (numberOfRerouters > 0) {
                         // write warning if netedit is running in testing mode
                         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
+                            WRITE_WARNING("Opening FXMessageBox 'Force deletion needed'");
                         }
                         std::string plural = numberOfRerouters > 1 ? "s" : "";
                         // Open warning DialogBox
@@ -421,7 +421,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                                                toString(numberOfRerouters) + " " + toString(SUMO_TAG_REROUTER) + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                         // write warning if netedit is running in testing mode
                         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
+                            WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");
                         }
                     } else {
                         myViewNet->getNet()->deleteGeometryOrEdge(edge, myViewNet->getPositionInformation(), myViewNet->getUndoList());
@@ -440,7 +440,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                     } else {
                         // write warning if netedit is running in testing mode
                         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
+                            WRITE_WARNING("Opening FXMessageBox 'Force deletion needed'");
                         }
                         // open warning box
                         FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(lane->getTag())).c_str(), "%s",
@@ -448,7 +448,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                                                toString(lane->getAdditionalChilds().size()) + " additional childs.\n Check 'Force deletion of Additionals' to force deletion.").c_str());
                         // write warning if netedit is running in testing mode
                         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
+                            WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");
                         }
                     }
                 }

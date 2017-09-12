@@ -1307,7 +1307,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
         if ((i.second->getPositionInView() == pos) && (cluster.find(i.second->getNBNode()) == cluster.end())) {
             // show warning in gui testing debug mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox of type 'question'");
+                WRITE_WARNING("Opening FXMessageBox 'Join non-selected junction'");
             }
             // Ask confirmation to user
             FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
@@ -1317,15 +1317,15 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
             if (answer != 1) { // 1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                    WRITE_WARNING("Closed FXMessageBox 'Join non-selected junction' with 'No'");
                 } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                    WRITE_WARNING("Closed FXMessageBox 'Join non-selected junction' with 'ESC'");
                 }
                 return false;
             } else {
                 // write warning if netedit is running in testing mode
                 if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+                    WRITE_WARNING("Closed FXMessageBox 'Join non-selected junction' with 'Yes'");
                 }
                 // select conflicted junction an join all again
                 gSelected.select(i.second->getGlID());
@@ -1402,19 +1402,19 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
     if (myInvalidCrossings.empty()) {
         // show warning in gui testing debug mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
+            WRITE_WARNING("Opening FXMessageBox 'No crossing to remove'");
         }
         // open a dialog informing that there isn't crossing to remove
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Clear " + toString(SUMO_TAG_CROSSING) + "s").c_str(), "%s",
                               ("There is no invalid " + toString(SUMO_TAG_CROSSING) + "s to remove").c_str());
         // show warning in gui testing debug mode
-        WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'ESC'");
+        WRITE_WARNING("Closed FXMessageBox 'No crossing to remove' with 'OK'");
     } else {
         std::string plural = myInvalidCrossings.size() == 1 ? ("") : ("s");
         // show warning in gui testing debug mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'question'");
+            WRITE_WARNING("Opening FXMessageBox 'clear crossings'");
         }
         // Ask confirmation to user
         FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
@@ -1423,9 +1423,9 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
         if (answer != 1) { // 1:yes, 2:no, 4:esc
             // write warning if netedit is running in testing mode
             if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                WRITE_WARNING("Closed FXMessageBox 'clear crossings' with 'No'");
             } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                WRITE_WARNING("Closed FXMessageBox 'clear crossings' with 'ESC'");
             }
         } else {
             undoList->p_begin("Clean " + toString(SUMO_TAG_CROSSING) + "s");

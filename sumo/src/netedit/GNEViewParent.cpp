@@ -288,13 +288,13 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     if (error != "") {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'error'");
+            WRITE_WARNING("Opening FXMessageBox 'error saving snapshot'");
         }
         // open message box
         FXMessageBox::error(this, MBOX_OK, "Saving failed.", "%s", error.c_str());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
+            WRITE_WARNING("Closed FXMessageBox 'error saving snapshot' with 'OK'");
         }
     }
     return 1;

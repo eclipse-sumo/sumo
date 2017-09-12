@@ -1203,7 +1203,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
     // write warning if netedit is running in testing mode
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Keys Shift + F5 (Compute with volatile options) pressed");
-        WRITE_WARNING("Opening FXMessageBox of type 'question'");
+        WRITE_WARNING("Opening FXMessageBox 'Volatile Recomputing'");
     }
     // open question dialog box
     answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Recompute with volatile options",
@@ -1211,35 +1211,37 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
     if (answer != 1) { //1:yes, 2:no, 4:esc
         // write warning if netedit is running in testing mode
         if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+            WRITE_WARNING("Closed FXMessageBox 'Volatile Recomputing' with 'No'");
         } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+            WRITE_WARNING("Closed FXMessageBox 'Volatile Recomputing' with 'ESC'");
         }
         // abort recompute with volatile options
         return 0;
     } else {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+            WRITE_WARNING("Closed FXMessageBox 'Volatile Recomputing' with 'Yes'");
         }
         // Check if there are additionals in our net
         if (myNet->getNumberOfAdditionals() > 0) {
             // ask user if want to save additionals if weren't saved previously
             if (myAdditionalsFile == "") {
+                // write warning if netedit is running in testing mode
+                WRITE_WARNING("Opening FXMessageBox 'Save additionals before recomputing'");
                 // open question dialog box
                 answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save additionals before recomputing with volatile options",
                                                 "Would you like to save additionals before recomputing?");
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
                     if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                        WRITE_WARNING("Closed FXMessageBox 'Save additionals before recomputing' with 'No'");
                     } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                        WRITE_WARNING("Closed FXMessageBox 'Save additionals before recomputing' with 'ESC'");
                     }
                 } else {
                     // write warning if netedit is running in testing mode
                     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+                        WRITE_WARNING("Closed FXMessageBox 'Save additionals before recomputing' with 'Yes'");
                     }
                     // Open a dialog to set filename output
                     myAdditionalsFile = MFXUtils::getFilename2Write(this,
@@ -1262,13 +1264,13 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
             } catch (IOError& e) {
                 // write warning if netedit is running in testing mode
                 if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Opening FXMessageBox of type 'error'");
+                    WRITE_WARNING("Opening FXMessageBox 'Error saving additionals before recomputing'");
                 }
                 // open error message box
                 FXMessageBox::error(this, MBOX_OK, "Saving additionals in temporal folder failed!", "%s", e.what());
                 // write warning if netedit is running in testing mode
                 if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
+                    WRITE_WARNING("Closed FXMessageBox 'Error saving additionals before recomputing' with 'OK'");
                 }
             }
             // end saving additionals
@@ -1282,20 +1284,22 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
         if (myNet->getNumberOfShapes() > 0) {
             // ask user if want to save shapes if weren't saved previously
             if (myShapesFile == "") {
+                // write warning if netedit is running in testing mode
+                WRITE_WARNING("Opening FXMessageBox 'Save shapes before recomputing'");
                 // open question dialog box
                 answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save shapes before recomputing with volatile options",
                                                 "Would you like to save shapes before recomputing?");
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
                     if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                        WRITE_WARNING("Closed FXMessageBox 'Save shapes before recomputing' with 'No'");
                     } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                        WRITE_WARNING("Closed FXMessageBox 'Save shapes before recomputing' with 'ESC'");
                     }
                 } else {
                     // write warning if netedit is running in testing mode
                     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+                        WRITE_WARNING("Closed FXMessageBox 'Save shapes before recomputing' with 'Yes'");
                     }
                     // Open a dialog to set filename output
                     myShapesFile = MFXUtils::getFilename2Write(this,
@@ -1318,13 +1322,13 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
             } catch (IOError& e) {
                 // write warning if netedit is running in testing mode
                 if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Opening FXMessageBox of type 'error'");
+                    WRITE_WARNING("Opening FXMessageBox 'Error saving shapes before recomputing'");
                 }
                 // open error message box
                 FXMessageBox::error(this, MBOX_OK, "Saving shapes in temporal folder failed!", "%s", e.what());
                 // write warning if netedit is running in testing mode
                 if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
+                    WRITE_WARNING("Closed FXMessageBox 'Error saving shapes before recomputing' with 'OK'");
                 }
             }
             // end saving shapes
@@ -1438,13 +1442,13 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'error'");
+            WRITE_WARNING("Opening FXMessageBox 'Error saving plainXML'");
         }
         // open message box
         FXMessageBox::error(this, MBOX_OK, "Saving plain xml failed!", "%s", e.what());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
+            WRITE_WARNING("Closed FXMessageBox 'Error saving plainXML' with 'OK'");
         }
     }
     myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Plain XML saved with prefix '" + prefix + "'.\n");
@@ -1481,13 +1485,13 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'error'");
+            WRITE_WARNING("Opening FXMessageBox 'error saving joined'");
         }
         // opening error message
         FXMessageBox::error(this, MBOX_OK, "Saving joined junctions failed!", "%s", e.what());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
+            WRITE_WARNING("Closed FXMessageBox 'error saving joined' with 'OK'");
         }
     }
     myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Joined junctions saved to '" + filename + "'.\n");
@@ -1528,13 +1532,13 @@ GNEApplicationWindow::onCmdSaveShapes(FXObject*, FXSelector, void*) {
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox of type 'error'");
+                WRITE_WARNING("Opening FXMessageBox 'Error saving shapes'");
             }
             // open error dialog box
             FXMessageBox::error(this, MBOX_OK, "Saving POIs failed!", "%s", e.what());
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
+                WRITE_WARNING("Closed FXMessageBox 'Error saving shapes' with 'OK'");
             }
         }
         myMessageWindow->addSeparator();
@@ -1592,13 +1596,13 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox of type 'error'");
+                WRITE_WARNING("Opening FXMessageBox 'error saving network'");
             }
             // open error message box
             FXMessageBox::error(this, MBOX_OK, "Saving Network failed!", "%s", e.what());
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
+                WRITE_WARNING("Closed FXMessageBox 'error saving network' with 'OK'");
             }
         }
         myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Network saved in " + oc.getString("output-file") + ".\n");
@@ -1635,13 +1639,13 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox of type 'error'");
+                WRITE_WARNING("Opening FXMessageBox 'error saving additionals'");
             }
             // open error message box
             FXMessageBox::error(this, MBOX_OK, "Saving additionals failed!", "%s", e.what());
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
+                WRITE_WARNING("Closed FXMessageBox 'error saving additionals' with 'OK'");
             }
         }
         myMessageWindow->addSeparator();
@@ -1700,7 +1704,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
     if (myUndoList->canUndo() && !myUndoList->marked()) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'question'");
+            WRITE_WARNING("Opening FXMessageBox 'Confirm closing network'");
         }
         // open question box
         answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
@@ -1712,7 +1716,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
         if (answer == MBOX_CLICKED_QUIT) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'");
+                WRITE_WARNING("Closed FXMessageBox 'Confirm closing network' with 'Quit'");
             }
             if(continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges()) {
                 // clear undo list and return true to continue with closing/reload
@@ -1738,9 +1742,9 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
         } else {
             // write warning if netedit is running in testing mode
             if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                WRITE_WARNING("Closed FXMessageBox 'Confirm closing network' with 'No'");
             } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                WRITE_WARNING("Closed FXMessageBox 'Confirm closing network' with 'ESC'");
             }
             // return false to stop closing/reloading
             return false;
@@ -1763,7 +1767,7 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
     // Check if there are non saved additionals
     if (mySaveAdditionalsMenuCommand->isEnabled()) {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'question'");
+            WRITE_WARNING("Opening FXMessageBox 'Save additionals before exit'");
         }
         // open question box
         FXuint answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
@@ -1774,14 +1778,14 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
         // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
         if (answer == MBOX_CLICKED_QUIT) {
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'");
+                WRITE_WARNING("Closed FXMessageBox 'Save additionals before exit' with 'Quit'");
             }
             // nothing to save, return true
             return true;
         } else if (answer == MBOX_CLICKED_SAVE) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+                WRITE_WARNING("Closed FXMessageBox 'Save additionals before exit' with 'Yes'");
             }
             if (onCmdSaveAdditionals(0, 0, 0) == 1) {
                 // additionals sucesfully saved
@@ -1793,9 +1797,9 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
         } else {
             // write warning if netedit is running in testing mode
             if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                WRITE_WARNING("Closed FXMessageBox 'Save additionals before exit' with 'No'");
             } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                WRITE_WARNING("Closed FXMessageBox 'Save additionals before exit' with 'ESC'");
             }
             // abort saving
             return false;
@@ -1812,7 +1816,7 @@ GNEApplicationWindow::continueWithUnsavedShapeChanges() {
     // Check if there are non saved additionals
     if (mySaveShapesMenuCommand->isEnabled()) {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'question'");
+            WRITE_WARNING("Opening FXMessageBox 'Save shapes before exit'");
         }
         // open question box
         FXuint answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
@@ -1823,13 +1827,13 @@ GNEApplicationWindow::continueWithUnsavedShapeChanges() {
         // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
         if (answer == MBOX_CLICKED_QUIT) {
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'");
+                WRITE_WARNING("Closed FXMessageBox 'Save shapes before exit' with 'Quit'");
             }
             return true;
         } else if (answer == MBOX_CLICKED_SAVE) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+                WRITE_WARNING("Closed FXMessageBox 'Save shapes before exit' with 'Yes'");
             }
             if (onCmdSaveShapes(0, 0, 0) == 1) {
                 // shapes sucesfully saved
@@ -1841,9 +1845,9 @@ GNEApplicationWindow::continueWithUnsavedShapeChanges() {
         } else {
             // write warning if netedit is running in testing mode
             if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                WRITE_WARNING("Closed FXMessageBox 'Save shapes before exit' with 'No'");
             } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                WRITE_WARNING("Closed FXMessageBox 'Save shapes before exit' with 'ESC'");
             }
             // abort saving
             return false;
