@@ -683,7 +683,9 @@ class Net:
                         routeID = "%s.%s%s" % (edge.label, i, suffix)
                         via = ""
                         if options.viadetectors:
-                            via = ' via="%s"' %  " ".join([e.label for e in route.edges if e.getDetFlow() > 0])
+                            viaEdges = [e.label for e in route.edges if e.getDetFlow() > 0]
+                            if viaEdges:
+                                via = ' via="%s"' %  " ".join(viaEdges)
                         print('    <flow id="src_%s" %s route="%s" number="%s" begin="%s" end="%s"%s/>' % (
                             routeID, options.params, routeID, route.frequency, begin, end, via), file=emitOut)
 
