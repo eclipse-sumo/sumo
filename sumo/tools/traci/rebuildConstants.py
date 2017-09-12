@@ -76,7 +76,7 @@ def translateFile(filePath, fdo, start, item, end):
                     line = line.replace("//", "    //")
                 else:
                     line = line.replace("///", "#").lstrip(" ")
-                    line = line.replace("//", "#").lstrip(" ")
+                    line = line.replace("//", "# ").lstrip(" ")
                 if line.find(item) >= 0:
                     if "=" in line:
                         fdo.write(line.strip().rstrip(",") + "\n")
