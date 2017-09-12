@@ -38,13 +38,13 @@ netedit.changeShape("dummyShape")
 # try to create an dummy shape
 netedit.leftClick(match, 150, 50)
 
-# select valid additional (POI)
+# select valid shape (POI)
 netedit.changeShape("poi")
 
 # create POI
 netedit.leftClick(match, 150, 50)
 
-# save additionals
+# save shapes
 netedit.saveShapes()
 
 # save newtork

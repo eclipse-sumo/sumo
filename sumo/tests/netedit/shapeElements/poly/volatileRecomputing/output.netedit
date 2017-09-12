@@ -5,7 +5,7 @@ TestFunctions: Netedit opened sucesfully
 TestFunctions: 'reference.png' found
 [log] ( Umschalt )  TYPE "#F5."
 [log] ( Alt )  TYPE "y"
-[log] ( Strg+Umschalt )  TYPE "d"
+[log] ( Strg+Umschalt )  TYPE "p"
 [log] ( Strg )  TYPE "s"
 [log] ( Strg )  TYPE "q"
-TestFunctions: Error closing Netedit
+TestFunctions: Netedit closed successfully

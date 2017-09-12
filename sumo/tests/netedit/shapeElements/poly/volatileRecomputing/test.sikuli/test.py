@@ -32,8 +32,8 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--sidewalks.gue
 # Recompute with volatile options
 netedit.rebuildNetworkWithVolatileOptions()
 
-# save additionals
-netedit.saveAdditionals()
+# save shapes
+netedit.saveShapes()
 
 # save newtork
 netedit.saveNetwork()

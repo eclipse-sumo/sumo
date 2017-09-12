@@ -32,7 +32,7 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 # go to shape mode
 netedit.shapeMode()
 
-# go to additional mode
+# go to shape mode
 netedit.changeShape("poi")
 
 # change color using dialog

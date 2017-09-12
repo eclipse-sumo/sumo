@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
-# save additionals
+# save shapes
 netedit.saveShapes()
 
 # save newtork
