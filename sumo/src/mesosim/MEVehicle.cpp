@@ -148,6 +148,10 @@ MEVehicle::moveRoutePointer() {
     if ((*myCurrEdge)->isVaporizing()) {
         return true;
     }
+    // update via
+    if (myParameter->via.size() > 0 && (*myCurrEdge)->getID() == myParameter->via.front()) {
+        myParameter->via.erase(myParameter->via.begin());
+    }
     return hasArrived();
 }
 
