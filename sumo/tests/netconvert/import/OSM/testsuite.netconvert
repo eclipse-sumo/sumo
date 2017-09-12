@@ -86,3 +86,6 @@ railway_stop_position
 # automatically detect rail crossing, also guess pedestrian crossings
 rail_crossing_with_peds
 max_segment_length
+
+# see #3412
+difficult_geometry
