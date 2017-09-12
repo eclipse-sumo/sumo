@@ -1,4 +1,5 @@
 Warning: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Essential string attribute 'id' of routeProbe is missing; routeProbe cannot be created
 Warning: The id 'id with spaces' of additional routeProbe contains invalid characters.
 Warning: Format of essential string attribute 'id' of routeProbe is invalid; routeProbe cannot be created
@@ -25,6 +26,7 @@ Warning: Adding routeProbe 'routeProbe_15' in GNEChange_Additional
 Warning: Format of optional time attribute 'begin' of routeProbe is invalid; Time cannot be negative; Default value '0.00' will be used.
 Warning: Adding routeProbe 'routeProbe_16' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_17' in GNEChange_Additional
+Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced routeProbe 'routeProbe_17'

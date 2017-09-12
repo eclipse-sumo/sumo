@@ -6,8 +6,8 @@ Warning: Adding poly 'poly_3' into viewNet
 Warning: Adding poly 'poly_4' into viewNet
 Warning: Adding poly 'poly_5' into viewNet
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
-Warning: Opening FXMessageBox of type 'question'
-Warning: Closed FXMessageBox of type 'question' with 'Yes'
+Warning: Opening FXMessageBox 'Volatile Recomputing'
+Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Warning: Shapes saved
 Warning: Shapes has to be saved
 Warning: Removing poly 'poly_5' from net

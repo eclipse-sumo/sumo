@@ -1,12 +1,13 @@
 Warning: Adding busStop 'busStop_00' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding busStop 'busStop_11' in GNEChange_Additional
 Warning: Adding busStop 'busStop_12' in GNEChange_Additional
 Warning: Adding busStop 'busStop_13' in GNEChange_Additional
 Warning: Adding busStop 'busStop_14' in GNEChange_Additional
 Warning: Adding busStop 'busStop_15' in GNEChange_Additional
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
-Warning: Opening FXMessageBox of type 'question'
-Warning: Closed FXMessageBox of type 'question' with 'Yes'
+Warning: Opening FXMessageBox 'Volatile Recomputing'
+Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Warning: Adding lane 'gneE0_0' into edge
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing lane 'gneE0_0' from edge
@@ -30,6 +31,7 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEChange_Lane
 Warning: Adding lane 'gneE1_0' into edge
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing lane 'gneE1_0' from edge
+Warning: Additionals saved
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEChange_Lane
 Warning: Deleting unreferenced busStop 'busStop_15'
 Warning: Deleting unreferenced busStop 'busStop_14'
@@ -37,6 +39,8 @@ Warning: Deleting unreferenced busStop 'busStop_13'
 Warning: Deleting unreferenced busStop 'busStop_12'
 Warning: Deleting unreferenced busStop 'busStop_11'
 Warning: Deleting unreferenced busStop 'busStop_00'
+Warning: Additionals has to be saved
+Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor

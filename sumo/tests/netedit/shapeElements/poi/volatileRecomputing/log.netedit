@@ -12,8 +12,8 @@ Warning: Adding poi 'POI_7' into viewNet
 Warning: Adding poi 'POI_8' into viewNet
 Warning: Adding poi 'POI_9' into viewNet
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
-Warning: Opening FXMessageBox of type 'question'
-Warning: Closed FXMessageBox of type 'question' with 'Yes'
+Warning: Opening FXMessageBox 'Volatile Recomputing'
+Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Warning: Shapes saved
 Warning: Shapes has to be saved
 Warning: Removing poi 'POI_9' from net

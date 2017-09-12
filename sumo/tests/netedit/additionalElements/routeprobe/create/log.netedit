@@ -1,4 +1,5 @@
 Warning: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding routeProbe 'routeProbe_gneE1_1' in GNEChange_Additional
 Warning: Invalid input parameter of routeProbe: 'freq' cannot be negative
 Warning: Adding routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional
@@ -20,6 +21,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding routeProbe 'routeProbe_gneE1_3' in GNEChange_Additional
+Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_3'

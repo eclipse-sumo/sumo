@@ -1,4 +1,5 @@
 Warning: Adding chargingStation 'chargingStation_0' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Essential string attribute 'id' of chargingStation is missing; chargingStation cannot be created
 Warning: Essential string attribute 'id' of chargingStation is missing; chargingStation cannot be created
 Warning: The id 'id with spaces' of additional chargingStation contains invalid characters.
@@ -45,6 +46,7 @@ Warning: Adding chargingStation 'chargingStation_28' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_29' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_30' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_31' in GNEChange_Additional
+Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced chargingStation 'chargingStation_31'

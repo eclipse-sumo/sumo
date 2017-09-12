@@ -1,4 +1,5 @@
 Warning: Adding rerouter 'rerouter_1' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding rerouter 'rerouter_2' in GNEChange_Additional
 Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '100.00'
 Warning: Adding rerouter 'rerouter_3' in GNEChange_Additional
@@ -35,8 +36,8 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding rerouter 'rerouter_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding rerouter 'rerouter_3' in GNEChange_Additional
-Warning: Opening FXMessageBox of type 'warning'
-Warning: Closed FXMessageBox of type 'warning' with 'OK'
+Warning: Opening FXMessageBox 'Force deletion needed'
+Warning: Closed FXMessageBox 'Force deletion needed' with 'OK'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing rerouter 'rerouter_3' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -56,6 +57,7 @@ Warning: Deleting TLS from junction 'gneJ0'
 Warning: Adding TLS into junction 'gneJ0'
 Warning: Removing edge 'gneE1' from net
 Warning: Removing rerouter 'rerouter_2' in GNEChange_Additional
+Warning: Additionals saved
 Warning: The traffic light 'gneJ0' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'gneJ0'
 Warning: The traffic light 'gneJ1' does not control any links; it will not be build.

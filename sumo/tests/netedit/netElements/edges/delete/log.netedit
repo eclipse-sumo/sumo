@@ -1,4 +1,5 @@
 Warning: Adding busStop 'busStop_3_2_0' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding busStop 'busStop_4_2_2' in GNEChange_Additional
 Warning: Adding busStop 'busStop_8_2_1' in GNEChange_Additional
 Warning: Current Viewport values: 50.00, 50.00, 100.00. Zoom = '100.00'
@@ -301,6 +302,7 @@ Warning: Created connection 'from7_1to1_0' in retrieveGNEConnection()
 Warning: Created connection 'from7_1to2_0' in retrieveGNEConnection()
 Warning: Created connection 'from7_2to1_1' in retrieveGNEConnection()
 Warning: Created connection 'from7_3to2_1' in retrieveGNEConnection()
+Warning: Additionals saved
 Warning: Deleting unreferenced junction 'D' in GNEChange_Attribute
 Warning: Deleting NBNode of 'D' in GNEJunction destructor
 Warning: Deleting unreferenced edge '4' in GNEChange_Attribute

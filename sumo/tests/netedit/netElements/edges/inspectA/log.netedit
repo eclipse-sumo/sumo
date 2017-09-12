@@ -1,4 +1,5 @@
 Warning: Adding busStop 'busStop1' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding busStop 'busStop2' in GNEChange_Additional
 Warning: Adding busStop 'busStop3' in GNEChange_Additional
 Warning: Adding busStop 'busStop4' in GNEChange_Additional
@@ -524,6 +525,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Adding NULL lane into edge
 Warning: Adding NULL lane into edge
 Warning: Adding NULL lane into edge
+Warning: Additionals saved
 Warning: Created connection 'fromcorrect_ID_0togneE4_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE0_0togneE5_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE9_0' in retrieveGNEConnection()

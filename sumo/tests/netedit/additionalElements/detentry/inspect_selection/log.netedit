@@ -1,4 +1,5 @@
 Warning: Adding e3Detector 'E3_0' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Adding detEntry 'E3_0detEntry0' in GNEChange_Additional
 Warning: Adding e3Detector 'E3_1' in GNEChange_Additional
 Warning: Adding detEntry 'E3_1detEntry0' in GNEChange_Additional
@@ -20,6 +21,7 @@ Warning: Setting previous attribute friendlyPos '0' into detEntry 'E3_0detEntry0
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into detEntry 'E3_0detEntry0'
 Warning: Setting new attribute friendlyPos 'true' into detEntry 'E3_1detEntry0'
+Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced detEntry 'E3_1detEntry0'

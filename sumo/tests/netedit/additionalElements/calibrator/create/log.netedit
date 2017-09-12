@@ -1,4 +1,5 @@
 Warning: Adding calibrator 'calibrator_gneE0_0_0' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Invalid input parameter of calibrator: 'pos' doesn't have a valid 'float' format
 Warning: Invalid input parameter of calibrator: 'pos' cannot be negative
 Warning: Adding calibrator 'calibrator_gneE1_0_1' in GNEChange_Additional
@@ -14,6 +15,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding calibrator 'calibrator_gneE1_0_1' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced calibrator 'calibrator_gneE1_0_1'

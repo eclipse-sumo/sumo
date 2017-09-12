@@ -1224,11 +1224,11 @@ Warning: Key F5 (Compute) pressed
 Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key F7 (Join junctions) pressed
-Warning: Opening FXMessageBox of type 'question'
-Warning: Closed FXMessageBox of type 'question' with 'No'
+Warning: Opening FXMessageBox 'Join non-selected junction'
+Warning: Closed FXMessageBox 'Join non-selected junction' with 'No'
 Warning: Key F7 (Join junctions) pressed
-Warning: Opening FXMessageBox of type 'question'
-Warning: Closed FXMessageBox of type 'question' with 'Yes'
+Warning: Opening FXMessageBox 'Join non-selected junction'
+Warning: Closed FXMessageBox 'Join non-selected junction' with 'Yes'
 Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deleting unreferenced edge '-gneE9' in GNEChange_Attribute
 Warning: Deleting unreferenced lane '-gneE9_0' in GNEEdge destructor

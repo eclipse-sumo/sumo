@@ -1,4 +1,5 @@
 Warning: Adding e2Detector 'E2_01' in GNEChange_Additional
+Warning: Additionals has to be saved
 Warning: Essential string attribute 'id' of e2Detector is missing; e2Detector cannot be created
 Warning: The id 'id with spaces' of additional e2Detector contains invalid characters.
 Warning: There is another e2Detector with the same ID='E2_01'.
@@ -64,6 +65,7 @@ Warning: Adding e2Detector 'E2_39' in GNEChange_Additional
 Warning: Adding e2Detector 'E2_40' in GNEChange_Additional
 Warning: Format of optional float attribute 'length' of e2Detector with ID 'E2_41' is invalid; Cannot be negative; Default value '10.00' will be used.
 Warning: Adding e2Detector 'E2_41' in GNEChange_Additional
+Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced e2Detector 'E2_41'
