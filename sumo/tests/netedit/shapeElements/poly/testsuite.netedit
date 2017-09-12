@@ -14,11 +14,8 @@ inspect_selection
 # load shape
 load
 
-# move shape
+# move shape (blocked and undblocked)
 move
-
-# lock/unlock shape (movement and shape)
-#lock_unlock
 
 # volatile recomputing
 volatileRecomputing
