@@ -189,7 +189,7 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
                 into.pop_back();
                 edges.insert(edges.end(), into.begin(), into.end());
             } else {
-                std::string error = "Vehicle '" + getID() + "' has no valid route from edge '" + source->getID() + " to stop edge '" + (*s)->getID() + "'.";
+                std::string error = "Vehicle '" + getID() + "' has no valid route from edge '" + source->getID() + "' to stop edge '" + (*s)->getID() + "'.";
                 if (MSGlobals::gCheckRoutes) {
                     throw ProcessError(error);
                 } else {
