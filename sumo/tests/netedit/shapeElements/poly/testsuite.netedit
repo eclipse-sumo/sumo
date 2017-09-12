@@ -15,7 +15,7 @@ inspect_selection
 load
 
 # move shape
-#move
+move
 
 # lock/unlock shape (movement and shape)
 #lock_unlock
