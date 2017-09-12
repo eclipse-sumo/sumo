@@ -59,6 +59,7 @@
             <xsd:element name="disallowed-edges" type="strOptionType" minOccurs="0"/>
             <xsd:element name="keep-turnarounds" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="min-route-length" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="randomize-flows" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="time-factor" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-offset" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-step" type="timeOptionType" minOccurs="0"/>

@@ -33,6 +33,8 @@
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="flow-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="flow-output.probability" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrians" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="persontrips" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore-vehicle-type" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

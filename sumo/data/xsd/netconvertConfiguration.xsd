@@ -60,6 +60,7 @@
             <xsd:element name="output.original-names" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="street-sign-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="ptstop-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="ptline-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="opendrive-output.straight-threshold" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -67,7 +68,7 @@
     <xsd:complexType name="projectionType">
         <xsd:all>
             <xsd:element name="simple-projection" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="proj.scale" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="proj.scale" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="proj.utm" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="proj.dhdn" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="proj" type="strOptionType" minOccurs="0"/>
@@ -96,10 +97,14 @@
             <xsd:element name="tls.yellow.min-decel" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.yellow.patch-small" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.yellow.time" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="tls.red.time" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="tls.allred.time" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.left-green.time" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.half-offset" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.quarter-offset" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.default-type" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="tls.min-dur" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="tls.max-dur" type="intOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -128,6 +133,7 @@
             <xsd:element name="keep-edges.by-vclass" type="strOptionType" minOccurs="0"/>
             <xsd:element name="remove-edges.by-vclass" type="strOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.by-type" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="keep-edges.components" type="intOptionType" minOccurs="0"/>
             <xsd:element name="remove-edges.by-type" type="strOptionType" minOccurs="0"/>
             <xsd:element name="remove-edges.isolated" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
@@ -182,6 +188,7 @@
             <xsd:element name="opendrive.ignore-widths" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.curve-resolution" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.advance-stopline" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="opendrive.min-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="numerical-ids" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="reserved-ids" type="fileOptionType" minOccurs="0"/>
@@ -208,6 +215,7 @@
             <xsd:element name="flip-y-axis" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="roundabouts.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opposites.guess" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="opposites.guess.fix-lengths" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="lefthand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="edges.join" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join" type="boolOptionType" minOccurs="0"/>
@@ -219,6 +227,7 @@
             <xsd:element name="junctions.corner-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.internal-link-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.scurve-stretch" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.join-turns" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="rectangular-lane-cut" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.roundabout" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.all" type="boolOptionType" minOccurs="0"/>
@@ -229,6 +238,7 @@
             <xsd:element name="sidewalks.guess.exclude" type="strOptionType" minOccurs="0"/>
             <xsd:element name="crossings.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="crossings.guess.speed-threshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="walkingareas" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

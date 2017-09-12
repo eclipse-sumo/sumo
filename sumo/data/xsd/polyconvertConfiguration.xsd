@@ -50,7 +50,7 @@
     <xsd:complexType name="projectionType">
         <xsd:all>
             <xsd:element name="simple-projection" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="proj.scale" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="proj.scale" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="proj.utm" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="proj.dhdn" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="proj" type="strOptionType" minOccurs="0"/>

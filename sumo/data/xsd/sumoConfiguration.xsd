@@ -18,6 +18,7 @@
             <xsd:element name="battery" type="batteryType" minOccurs="0"/>
             <xsd:element name="example_device" type="example_deviceType" minOccurs="0"/>
             <xsd:element name="ssm_device" type="ssm_deviceType" minOccurs="0"/>
+            <xsd:element name="bluelight_device" type="bluelight_deviceType" minOccurs="0"/>
             <xsd:element name="traci_server" type="traci_serverType" minOccurs="0"/>
             <xsd:element name="mesoscopic" type="mesoscopicType" minOccurs="0"/>
             <xsd:element name="random_number" type="random_numberType" minOccurs="0"/>
@@ -93,6 +94,7 @@
         <xsd:all>
             <xsd:element name="step-method.ballistic" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="lateral-resolution" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="carfollow.model" type="strOptionType" minOccurs="0"/>
             <xsd:element name="route-steps" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore-junction-blocker" type="timeOptionType" minOccurs="0"/>
@@ -119,6 +121,8 @@
             <xsd:element name="pedestrian.striping.stripe-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.dawdling" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.jamtime" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.remote.address" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="astar.landmark-distances" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -126,6 +130,7 @@
         <xsd:all>
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
             <xsd:element name="weights.random-factor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="astar.all-distances" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.explicit" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.deterministic" type="boolOptionType" minOccurs="0"/>
@@ -136,7 +141,6 @@
             <xsd:element name="device.rerouting.adaptation-interval" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.with-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.init-with-loaded-weights" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="device.rerouting.shortest-path-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.threads" type="intOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.output" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
@@ -208,14 +212,25 @@
             <xsd:element name="device.ssm.measures" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.thresholds" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.trajectories" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="device.ssm.frequency" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.range" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.ssm.extratime" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.ssm.geo" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="bluelight_deviceType">
+        <xsd:all>
+            <xsd:element name="device.bluelight.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.bluelight.explicit" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.bluelight.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.bluelight.parameter" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
     <xsd:complexType name="traci_serverType">
         <xsd:all>
             <xsd:element name="remote-port" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="num-clients" type="intOptionType" minOccurs="0"/>
             <xsd:element name="python-script" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -257,6 +272,9 @@
             <xsd:element name="window-size" type="strOptionType" minOccurs="0"/>
             <xsd:element name="window-pos" type="strOptionType" minOccurs="0"/>
             <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="tracker-interval" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="gui-testing" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="gui-testing-debug" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
