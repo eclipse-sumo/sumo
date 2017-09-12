@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep 12 10:31:11 2017 by SUMO Version dev-SVN-r25972
+<!-- generated on Tue Sep 12 10:25:39 2017 by SUMO Version dev-SVN-r25972
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -18,13 +18,8 @@
         <begin value="0"/>
     </time>
 
-    <processing>
-        <ignore-route-errors value="true"/>
-    </processing>
-
     <routing>
         <device.rerouting.probability value="1"/>
-        <device.rerouting.period value="1"/>
     </routing>
 
     <report>
@@ -41,8 +36,11 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0" depart="0.00" arrival="22.00">
-        <route edges="A0toB0 B0toC0 C0toD0"/>
+    <vehicle id="0" depart="0.00" arrival="53.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="A0toB0 B0toC0 C0toD0 D0toD1 D1toC1 C1toB1 B1toA1 A1toA2 A2toB2 B2toC2 C2toD2 D2toD3"/>
+            <route edges="A0toB0 B0toB1 B1toA1 A1toA2 A2toB2 B2toC2 C2toD2 D2toD3"/>
+        </routeDistribution>
     </vehicle>
 
 </routes>

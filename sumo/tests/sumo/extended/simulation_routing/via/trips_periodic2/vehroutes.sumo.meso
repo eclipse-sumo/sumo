@@ -18,10 +18,6 @@
         <begin value="0"/>
     </time>
 
-    <processing>
-        <ignore-route-errors value="true"/>
-    </processing>
-
     <routing>
         <device.rerouting.probability value="1"/>
         <device.rerouting.period value="1"/>
