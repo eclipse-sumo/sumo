@@ -38,11 +38,14 @@ netedit.changeShape("poly")
 # create polygon
 netedit.createSquaredPoly(match, 100, 150, 100, True)
 
+# create polygon
+netedit.createSquaredPoly(match, 200, 150, 100, True)
+
 # enable block shape
 netedit.modifyShapeDefaultBoolValue(11)
 
 # create polygon blocked
-netedit.createSquaredPoly(match, 200, 150, 100, True)
+netedit.createSquaredPoly(match, 300, 150, 100, True)
 
 # disable block shape
 netedit.modifyShapeDefaultBoolValue(11)
@@ -51,25 +54,36 @@ netedit.modifyShapeDefaultBoolValue(11)
 netedit.modifyShapeDefaultBoolValue(10)
 
 # create polygon
-netedit.createSquaredPoly(match, 300, 150, 100, True)
+netedit.createSquaredPoly(match, 400, 150, 100, True)
 
 # enable block shape
 netedit.modifyShapeDefaultBoolValue(11)
 
 # create polygon
-netedit.createSquaredPoly(match, 400, 150, 100, True)
+netedit.createSquaredPoly(match, 500, 150, 100, True)
 
 # go to move mode
 netedit.moveMode()
 
-# move first polygon (only a verte will be moved)
-netedit.moveElement(match, -90, 75, -90, 200)
+# move first polygon (only a existent vertex will be moved
+netedit.moveElement(match, -90, 120, -90, 300)
 
-"""
+# move second polygon (only a verte will be moved)
+netedit.moveElement(match, 10, 120, 10, 300)
+
+# move third polygon (entre shape will be moved)
+netedit.moveElement(match, 130, 120, 130, 300)
+
+# move four polygon (will not be moved
+netedit.moveElement(match, 260, 120, 260, 300)
+
+# move five polygon (will not be moved
+netedit.moveElement(match, 380, 120, 380, 300)
+
 # Check undo redo
-netedit.undo(match, 17)
-netedit.redo(match, 17)
-"""
+netedit.undo(match, 8)
+netedit.redo(match, 8)
+
 # save shapes
 netedit.saveShapes()
 
