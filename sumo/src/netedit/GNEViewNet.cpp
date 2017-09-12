@@ -590,7 +590,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     // save original shape (needed for commit change)
                     myMovingOriginalShape = myPolyToMove->getShape();
                     // obtain index of vertex to move if shape isn't blocked
-                    if (myPolyToMove->isShapeBlocked() == false) {
+                    if ((myPolyToMove->isShapeBlocked() == false) && (myPolyToMove->isMovementBlocked() == false)) {
                         // obtain index of vertex to move and moving reference
                         myMovingIndexShape = myPolyToMove->getVertexIndex(getPositionInformation());
                     } else {
