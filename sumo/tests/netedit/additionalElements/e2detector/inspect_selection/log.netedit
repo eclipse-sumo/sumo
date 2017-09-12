@@ -1,6 +1,5 @@
 Warning: Optional bool attribute 'friendlyPos' of e2Detector with ID 'E2_A' is missing; Default value '0' will be used.
 Warning: Adding e2Detector 'E2_A' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Optional bool attribute 'friendlyPos' of e2Detector with ID 'E2_B' is missing; Default value '0' will be used.
 Warning: Adding e2Detector 'E2_B' in GNEChange_Additional
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -30,7 +29,6 @@ Warning: Setting new attribute jamThreshold '8.5' into e2Detector 'E2_A'
 Warning: Setting new attribute jamThreshold '8.5' into e2Detector 'E2_B'
 Warning: Setting new attribute friendlyPos 'true' into e2Detector 'E2_A'
 Warning: Setting new attribute friendlyPos 'true' into e2Detector 'E2_B'
-Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced e2Detector 'E2_B'

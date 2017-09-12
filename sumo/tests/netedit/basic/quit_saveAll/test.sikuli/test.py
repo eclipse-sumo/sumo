@@ -47,6 +47,5 @@ netedit.changeShape("poly")
 # create polygon
 netedit.createSquaredPoly(match, 100, 50, 100, True)
 
-
-# quit netedit without saving shapes
+# quit netedit saving all
 netedit.quit(neteditProcess, True, True, True, True, True, True)

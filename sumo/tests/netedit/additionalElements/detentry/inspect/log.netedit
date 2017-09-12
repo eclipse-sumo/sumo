@@ -1,6 +1,5 @@
 Warning: Current Viewport values: 25.00, 25.00, 25.00. Zoom = '100.00'
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Value 'dummyLane' for attribute lane of detEntry isn't valid
 Warning: Value '' for attribute lane of detEntry isn't valid
@@ -26,7 +25,6 @@ Warning: Setting new attribute pos '25' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()

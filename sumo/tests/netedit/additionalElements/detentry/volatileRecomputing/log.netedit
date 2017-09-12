@@ -1,5 +1,4 @@
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry1' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry2' in GNEChange_Additional
@@ -17,14 +16,11 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEChange_Lane
 Warning: Adding lane 'gneE1_0' into edge
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing lane 'gneE1_0' from edge
-Warning: Additionals saved
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEChange_Lane
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry2'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry1'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
-Warning: Additionals has to be saved
-Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor

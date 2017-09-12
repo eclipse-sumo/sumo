@@ -1,5 +1,4 @@
 Warning: Adding e1Detector 'E1_01' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Essential string attribute 'id' of e1Detector is missing; e1Detector cannot be created
 Warning: The id 'ID with spaces' of additional e1Detector contains invalid characters.
 Warning: There is another e1Detector with the same ID='E1_01'.
@@ -31,7 +30,6 @@ Warning: Format of optional bool attribute 'friendlyPos' of e1Detector with ID '
 Warning: Adding e1Detector 'E1_21' in GNEChange_Additional
 Warning: Adding e1Detector 'E1_22' in GNEChange_Additional
 Warning: Adding e1Detector 'E1_23' in GNEChange_Additional
-Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced e1Detector 'E1_23'

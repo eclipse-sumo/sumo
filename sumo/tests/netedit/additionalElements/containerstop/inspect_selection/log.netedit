@@ -1,5 +1,4 @@
 Warning: Adding containerStop 'containerStopA' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Adding containerStop 'containerStopB' in GNEChange_Additional
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -15,7 +14,6 @@ Warning: Setting new attribute friendlyPos 'true' into containerStop 'containerS
 Warning: Setting new attribute friendlyPos 'true' into containerStop 'containerStopB'
 Warning: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopA'
 Warning: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopB'
-Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced containerStop 'containerStopB'

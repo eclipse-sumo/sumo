@@ -1,5 +1,4 @@
 Warning: Adding e3Detector 'e3Detector_00' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Adding detEntry 'e3Detector_00detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_00detExit0' in GNEChange_Additional
 Warning: The id 'id with spaces' of additional e3Detector contains invalid characters.
@@ -77,7 +76,6 @@ Warning: e3Detectors without detEntrys or detExit aren't allowed; e3Detector wit
 Warning: Format of essential string attribute 'pos' of detEntry is invalid; detEntry cannot be created
 Warning: Format of essential string attribute 'pos' of detExit is invalid; detExit cannot be created
 Warning: e3Detectors without detEntrys or detExit aren't allowed; e3Detector with ID = 'e3Detector_22' cannot be created.
-Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced detExit 'e3Detector_20detExit0'

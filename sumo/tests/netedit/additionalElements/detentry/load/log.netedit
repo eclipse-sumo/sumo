@@ -2,7 +2,6 @@ Warning: Essential string attribute 'id' of e3Detector is missing; e3Detector ca
 Warning: Essential string attribute 'lane' of detEntry is missing; detEntry cannot be created
 Warning: The lane 'dummyLane' to use within the detEntry is not known.
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Essential string attribute 'pos' of detEntry is missing; detEntry cannot be created
 Warning: Format of essential string attribute 'pos' of detEntry is invalid; detEntry cannot be created
@@ -18,7 +17,6 @@ Warning: Adding detEntry 'e3Detector_0detEntry5' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry6' in GNEChange_Additional
 Warning: Optional bool attribute 'friendlyPos' of detEntry is missing; Default value '0' will be used.
 Warning: Adding detEntry 'e3Detector_0detEntry7' in GNEChange_Additional
-Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry7'

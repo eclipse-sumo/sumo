@@ -32,8 +32,11 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 # Rebuild network
 netedit.rebuildNetwork()
 
+# save additionals
+netedit.saveAdditionals()
+
 # save newtork
 netedit.saveNetwork()
 
 # quit netedit
-netedit.quit(neteditProcess, False, False, True, False)
+netedit.quit(neteditProcess)

@@ -1,5 +1,4 @@
 Warning: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Adding calibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator_gneE1_1_1' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator_gneE1_2_2' in GNEChange_Additional
@@ -20,7 +19,6 @@ Warning: Setting new attribute length '25' into edge 'gneE0'
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'fromgneE0_2togneE1_2' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_2togneE0_2' in retrieveGNEConnection()
-Warning: Additionals saved
 Warning: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0'
 Warning: Deleting unreferenced vaporizer 'vaporizer_0'
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'

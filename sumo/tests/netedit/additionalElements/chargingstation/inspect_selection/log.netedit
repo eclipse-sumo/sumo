@@ -1,5 +1,4 @@
 Warning: Adding chargingStation 'chargingStationA' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Adding chargingStation 'chargingStationB' in GNEChange_Additional
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -19,7 +18,6 @@ Warning: Setting new attribute power '11000' into chargingStation 'chargingStati
 Warning: Value '2' for attribute efficiency of chargingStation isn't valid
 Warning: Setting new attribute efficiency '0.5' into chargingStation 'chargingStationA'
 Warning: Setting new attribute efficiency '0.5' into chargingStation 'chargingStationB'
-Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced chargingStation 'chargingStationB'

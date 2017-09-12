@@ -1,5 +1,4 @@
 Warning: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Warning: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
 Warning: Adding busStop 'busStop_-gneE6_0_4' in GNEChange_Additional
@@ -15,7 +14,6 @@ Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'Yes'
-Warning: Additionals saved
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
@@ -109,8 +107,6 @@ Warning: Created connection 'fromgneE7_1togneE4_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_1togneE9_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_1to-gneE17_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
-Warning: Additionals has to be saved
-Warning: Additionals saved
 Warning: Deleting unreferenced edge '-gneE10' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor

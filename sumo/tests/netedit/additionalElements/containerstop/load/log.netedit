@@ -1,5 +1,4 @@
 Warning: Adding containerStop 'containerStop_00' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Essential string attribute 'id' of containerStop is missing; containerStop cannot be created
 Warning: Essential string attribute 'id' of containerStop is missing; containerStop cannot be created
 Warning: The id 'id with spaces' of additional containerStop contains invalid characters.
@@ -25,7 +24,6 @@ Warning: Adding containerStop 'containerStop_16' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_17' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_18' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_19' in GNEChange_Additional
-Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced containerStop 'containerStop_19'

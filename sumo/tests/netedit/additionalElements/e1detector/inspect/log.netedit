@@ -1,5 +1,4 @@
 Warning: Adding e1Detector 'e1Detector_gneE2_1_0' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Adding e1Detector 'e1Detector_gneE2_1_1' in GNEChange_Additional
 Warning: Value 'e1Detector_gneE2_1_1' for attribute id of e1Detector isn't valid
 Warning: Value 'Id with spaces' for attribute id of e1Detector isn't valid
@@ -68,7 +67,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute vTypes 'private passenger taxi bus' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into e1Detector 'correctID'
-Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()

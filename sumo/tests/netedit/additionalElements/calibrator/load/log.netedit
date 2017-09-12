@@ -1,5 +1,4 @@
 Warning: Adding calibrator 'calibrator01' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Essential string attribute 'id' of calibrator is missing; calibrator cannot be created
 Warning: The id 'ID with spaces' of additional calibrator contains invalid characters.
 Warning: Format of essential string attribute 'id' of calibrator is invalid; calibrator cannot be created
@@ -26,7 +25,6 @@ Warning: Adding calibrator 'calibrator14' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator15' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator16' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator17' in GNEChange_Additional
-Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced calibrator 'calibrator17'

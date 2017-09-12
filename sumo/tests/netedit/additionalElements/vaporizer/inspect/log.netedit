@@ -1,5 +1,4 @@
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Value 'dummyEdge' for attribute edge of vaporizer isn't valid
 Warning: Setting new attribute edge 'gneE0' into vaporizer 'vaporizer_0'
 Warning: Setting new attribute startTime '0' into vaporizer 'vaporizer_0'
@@ -36,7 +35,6 @@ Warning: Setting new attribute end '10' into vaporizer 'vaporizer_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute end '20' into vaporizer 'vaporizer_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()

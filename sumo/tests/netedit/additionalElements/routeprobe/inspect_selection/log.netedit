@@ -1,5 +1,4 @@
 Warning: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -15,7 +14,6 @@ Warning: Setting new attribute freq '50' into routeProbe 'routeProbe_02'
 Warning: Value '-5' for attribute begin of routeProbe isn't valid
 Warning: Setting new attribute begin '11.3' into routeProbe 'routeProbe_01'
 Warning: Setting new attribute begin '11.3' into routeProbe 'routeProbe_02'
-Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced routeProbe 'routeProbe_02'

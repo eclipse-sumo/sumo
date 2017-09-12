@@ -1,10 +1,8 @@
 Warning: Adding busStop 'busStop_-gneE5_0_0' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
-Warning: Additionals saved
 Warning: Deleting unreferenced rerouter 'rerouter_0'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'

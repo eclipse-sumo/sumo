@@ -416,6 +416,8 @@ def quit(neteditProcess, openNetNonSavedDialog=False, saveNet=False,
 
         # Check if net must be saved
         if openNetNonSavedDialog:
+            # Wait some seconds
+            wait(DELAY_QUESTION)
             if saveNet:
                 waitQuestion("s")
             else:
@@ -423,6 +425,8 @@ def quit(neteditProcess, openNetNonSavedDialog=False, saveNet=False,
 
         # Check if additionals must be saved
         if openAdditionalsNonSavedDialog:
+            # Wait some seconds
+            wait(DELAY_QUESTION)
             if saveAdditionals:
                 waitQuestion("s")
             else:
@@ -430,6 +434,8 @@ def quit(neteditProcess, openNetNonSavedDialog=False, saveNet=False,
                 
         # Check if additionals must be saved
         if openShapesNonSavedDialog:
+            # Wait some seconds
+            wait(DELAY_QUESTION)
             if saveShapes:
                 waitQuestion("s")
             else:

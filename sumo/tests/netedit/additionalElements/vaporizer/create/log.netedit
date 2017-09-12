@@ -1,5 +1,4 @@
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Adding vaporizer 'vaporizer_1' in GNEChange_Additional
 Warning: Invalid input parameter of vaporizer: 'startTime' cannot be negative
 Warning: Adding vaporizer 'vaporizer_2' in GNEChange_Additional
@@ -22,7 +21,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding vaporizer 'vaporizer_2' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding vaporizer 'vaporizer_3' in GNEChange_Additional
-Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced vaporizer 'vaporizer_3'

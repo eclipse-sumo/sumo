@@ -1,5 +1,4 @@
 Warning: Adding containerStop 'containerStop_gneE0_0_0' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Setting new attribute startPos '4.42' into containerStop 'containerStop_gneE0_0_0'
 Warning: Setting new attribute endPos '14.42' into containerStop 'containerStop_gneE0_0_0'
 Warning: Setting new attribute startPos '12.00' into containerStop 'containerStop_gneE0_0_0'
@@ -70,7 +69,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute startPos '25.94' into containerStop 'containerStop_gneE0_0_0'
 Warning: Setting new attribute endPos '35.94' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced containerStop 'containerStop_gneE0_0_0'

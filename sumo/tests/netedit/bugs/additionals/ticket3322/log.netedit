@@ -1,5 +1,4 @@
 Warning: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Adding calibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator_gneE1_1_1' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator_gneE1_2_2' in GNEChange_Additional
@@ -71,7 +70,6 @@ Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Opening FXMessageBox of type 'warning'
 Warning: Closed FXMessageBox of type 'warning' with 'OK'
 Warning: Key F5 (Compute) pressed
-Warning: Additionals saved
 Warning: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0'
 Warning: Deleting unreferenced vaporizer 'vaporizer_0'
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'

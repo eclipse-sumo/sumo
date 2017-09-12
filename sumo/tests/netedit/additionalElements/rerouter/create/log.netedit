@@ -1,7 +1,6 @@
 Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '100.00'
 Warning: Invalid input parameter of rerouter: List of edges cannot be empty
 Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Invalid input parameter of rerouter: 'probability' takes only values between 0 and 1
 Warning: Adding rerouter 'rerouter_1' in GNEChange_Additional
 Warning: Adding rerouter 'rerouter_2' in GNEChange_Additional
@@ -17,7 +16,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding rerouter 'rerouter_1' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding rerouter 'rerouter_2' in GNEChange_Additional
-Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced rerouter 'rerouter_2'

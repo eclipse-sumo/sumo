@@ -1,5 +1,4 @@
 Warning: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
-Warning: Additionals has to be saved
 Warning: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Warning: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
 Warning: Adding busStop 'busStop_-gneE6_0_4' in GNEChange_Additional
@@ -69,8 +68,6 @@ Warning: Created connection 'fromgneE7_0togneE4_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
-Warning: Opening FXMessageBox of type 'question'
-Warning: Closed FXMessageBox of type 'question' with 'Quit'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced busStop 'busStop_gneE7_0_6'
