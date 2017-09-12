@@ -337,6 +337,11 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
         ret->setParameter |= VEHPARS_CONTAINER_NUMBER_SET;
         ret->containerNumber = attrs.get<int>(SUMO_ATTR_CONTAINER_NUMBER, ret->id.c_str(), ok);
     }
+    // parse
+    if (attrs.hasAttribute(SUMO_ATTR_VIA)) {
+        ret->setParameter |= VEHPARS_VIA_SET;
+        SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_VIA, ret->id.c_str(), ok), ret->via);
+    }
 }
 
 
