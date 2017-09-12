@@ -2977,6 +2977,10 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
         myCachedPosition = Position::INVALID;
         activateReminders(MSMoveReminder::NOTIFICATION_TELEPORT, enteredLane);
     }
+    // update via
+    if (myParameter->via.size() > 0 &&  myLane->getEdge().getID() == myParameter->via.front()) {
+        myParameter->via.erase(myParameter->via.begin());
+    }
     return hasArrived();
 }
 
