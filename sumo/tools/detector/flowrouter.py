@@ -683,7 +683,9 @@ class Net:
                         routeID = "%s.%s%s" % (edge.label, i, suffix)
                         via = ""
                         if options.viadetectors:
-                            viaEdges = [e.label for e in route.edges if e.getDetFlow() > 0]
+                            realEdges = [e for e in route.edges if e.kind == "real"]
+                            # exclude detectors on 'from' and 'to' edge
+                            viaEdges = [e.label for e in realEdges[1:-1] if e.getDetFlow() > 0]
                             if viaEdges:
                                 via = ' via="%s"' %  " ".join(viaEdges)
                         print('    <flow id="src_%s" %s route="%s" number="%s" begin="%s" end="%s"%s/>' % (
