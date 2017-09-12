@@ -2127,7 +2127,7 @@ TraCIAPI::VehicleScope::getTypeID(const std::string& vehicleID) const {
 
 std::string
 TraCIAPI::VehicleScope::getRouteID(const std::string& vehicleID) const {
-    return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_ROAD_ID, vehicleID);
+    return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_ROUTE_ID, vehicleID);
 }
 
 int

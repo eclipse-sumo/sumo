@@ -749,6 +749,7 @@ TraCITestClient::testAPI() {
     vehicle.setVia("0", via);
     answerLog << "    getTypeID: " << vehicle.getTypeID("0") << "\n";
     answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
+    answerLog << "    getRouteID: " << vehicle.getRouteID("0") << "\n";
     answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
     answerLog << "    getLanePosition: " << vehicle.getLanePosition("0") << "\n";
     answerLog << "    getLateralLanePosition: " << vehicle.getLateralLanePosition("0") << "\n";

@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Wed Aug 16 07:54:05 2017
+TraCITestClient output file. Date: Tue Sep 12 10:53:52 2017
 
 
 -> Command sent: <SimulationStep>:
@@ -39,6 +39,7 @@ testAPI:
   vehicle:
     getTypeID: t1
     getRoadID: e_m3
+    getRouteID: r1
     getLaneID: e_m3_0
     getLanePosition: 140.00
     getLateralLanePosition: 0.00
