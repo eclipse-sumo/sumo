@@ -23,6 +23,12 @@
     <ClCompile Include="..\..\..\src\utils\emissions\HelpersPHEMlight.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\emissions\PHEMCEP.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\emissions\PHEMCEPHandler.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\utils\emissions\PollutantsInterface.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -41,6 +47,15 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\emissions\HelpersPHEMlight.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\emissions\PHEMCEP.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\emissions\PHEMCEPHandler.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\emissions\PHEMConstants.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\emissions\PollutantsInterface.h">

@@ -10,7 +10,7 @@
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
 // PHEMlight module
-// Copyright (C) 2016-2017 Technische Universitaet Graz, https://www.tugraz.at/
+// Copyright 2016 Technische Universitaet Graz, https://www.tugraz.at/
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -310,11 +310,6 @@ namespace PHEMlightdll {
                 fCBr = 0.693;
                 fCHC = 0.803;
         }
-//ORIGINAL LINE: case Constants.strLPG:
-        else if (_fuelType == Constants::strLPG) {
-                fCBr = 0.825;
-                fCHC = 0.825;
-        }
         else {
                 VehicleClass->setErrMsg(std::string("The propolsion type is not known! (") + _fuelType + std::string(")"));
                 return 0;
@@ -415,27 +410,6 @@ namespace PHEMlightdll {
         }
 
         return e1 + (px - p1) / (p2 - p1) * (e2 - e1);
-    }
-
-    double CEP::GetMaxAccel(double speed, double acc, double gradient) {
-        double rotFactor = GetRotationalCoeffecient(speed);
-        double pMaxNorm = GetPMaxNorm(speed);
-        double pMaxForAcc = GetPMaxNorm(speed) * _ratedPower - CalcPower(speed, 0, gradient);
-
-        return (pMaxForAcc * 1000) / ((_massVehicle * rotFactor + _vehicleMassRot + _vehicleLoading) * speed);
-    }
-
-    double CEP::GetPMaxNorm(double speed) {
-        // Linear function between v0 and v1, constant elsewhere
-        if (speed <= _pNormV0) {
-            return _pNormP0;
-        }
-        else if (speed >= _pNormV1) {
-            return _pNormP1;
-        }
-        else {
-            return Interpolate(speed, _pNormV0, _pNormV1, _pNormP0, _pNormP1);
-        }
     }
 
     void CEP::InitializeInstanceFields() {
