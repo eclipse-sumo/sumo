@@ -46,6 +46,7 @@ public:
     void addWayNode(long long int way, long long int node);
     void setRef(std::string basic_string);
 
+    void setMyNumOfStops(unsigned long numStops);
 private:
     std::string myName;
     std::vector<NBPTStop*> myPTStops;
@@ -68,6 +69,8 @@ public:
 private:
     // route of ptline
     std::vector<NBEdge*> myRoute;
+
+    unsigned long myNumOfStops;
 };
 
 

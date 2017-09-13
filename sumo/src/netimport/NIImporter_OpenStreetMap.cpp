@@ -1285,13 +1285,19 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             }
         } else if (myIsPTRoute && myIsRoute && OptionsCont::getOptions().isSet("ptline-output") && myStops.size() > 1) {
             NBPTLine* ptLine = new NBPTLine(myName);
+            ptLine->setMyNumOfStops(myStops.size());
             for (long long ref : myStops) {
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {
                     WRITE_WARNING(
                         "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
                         + "' does not exist. Probably OSM file is incomplete.");
-                    resetValues();
-                    return;
+//                    resetValues();
+//                    return;
+                    if (!ptLine->getStops().empty()){
+                        WRITE_WARNING("Done reading first coherent junk of pt stops. Further stops in relation " + toString(myCurrentRelation) + " are ignored");
+                        break;
+                    }
+                    continue;
                 }
 
                 NIOSMNode* n = myOSMNodes.find(ref)->second;
@@ -1300,8 +1306,13 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                     WRITE_WARNING("Relation '" + toString(myCurrentRelation)
                                   + "' refers to a non existing pt stop at node: '" + toString(n->id)
                                   + "'. Probably OSM file is incomplete.");
-                    resetValues();
-                    return;
+//                    resetValues();
+//                    return;
+                    if (!ptLine->getStops().empty()){
+                        WRITE_WARNING("Done reading first coherent junk of pt stops. Further stops in relation " + toString(myCurrentRelation) + " are ignored");
+                        break;
+                    }
+                    continue;
                 }
                 ptLine->addPTStop(ptStop);
                 if (myRef != "") {
@@ -1317,6 +1328,11 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                         ptLine->addWayNode(myWay, myCurrentNode);
                     }
                 }
+            }
+            if (ptLine->getStops().empty()){
+                WRITE_WARNING("PT line in relation " + toString(myCurrentRelation) + " with no stops ignored. Probably OSM file is incomplete.");
+                resetValues();
+                return;
             }
             myNBPTLineCont->insert(ptLine);
         }

@@ -45,6 +45,7 @@ void NBPTLine::write(OutputDevice& device) {
         device.writeAttr(SUMO_ATTR_NAME, myName);
     }
     device.writeAttr(SUMO_ATTR_LINE, myRef);
+    device.writeAttr("completeness", toString((double)myPTStops.size()/(double)myNumOfStops));
 
     if (!myRoute.empty()) {
         device.openTag(SUMO_TAG_ROUTE);
@@ -101,4 +102,7 @@ std::string NBPTLine::getRoute() {
 void NBPTLine::addEdgeVector(std::vector<NBEdge*>::iterator fr, std::vector<NBEdge*>::iterator to) {
     myRoute.insert(myRoute.end(), fr, to);
 
+}
+void NBPTLine::setMyNumOfStops(unsigned long numStops) {
+    myNumOfStops = numStops;
 }
