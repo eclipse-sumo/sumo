@@ -69,7 +69,12 @@ target_link_libraries(od2trips od utils_vehicle ${commonlibs})
 
 configure_file(config.h.cmake config.h)
 
-add_custom_command(OUTPUT version.h
-                   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/../tools/build/version.py ${CMAKE_CURRENT_SOURCE_DIR}
+add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/src/version.h
+                   COMMAND ${CMAKE_SOURCE_DIR}/tools/build/version.py ${CMAKE_BINARY_DIR}/src
 #                   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../.svn/wc.db
-                   )
+                  )
+add_custom_target(generate-version-h
+                  DEPENDS ${CMAKE_BINARY_DIR}/src/version.h
+                 )
+set_source_files_properties(${CMAKE_BINARY_DIR}/src/version.h
+    PROPERTIES GENERATED TRUE)
