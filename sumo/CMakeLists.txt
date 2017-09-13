@@ -1,7 +1,8 @@
 #Options:
 # -DCMAKE_BUILD_TYPE:STRING=Release (default Debug)
 
-option(BUILD_GRPC "Build grpc interface" OFF)
+option(BUILD_GRPC "Build grpc interface" false)
+option(BUILD_GTEST_FROM_GIT "Build grpc interface" false)
 
 project(SUMO)
 cmake_minimum_required(VERSION 3.1)
@@ -17,8 +18,8 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     #  set(warnings "/W4 /WX /EHsc")
-	# enabling /WX is not possible due to warnings in external headers
-	# /Wall brings MSVC to complete halt
+    # enabling /WX is not possible due to warnings in external headers
+    # /Wall brings MSVC to complete halt
     set(warnings "/W4 /EHsc")
 endif ()
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${warnings}")
@@ -89,7 +90,7 @@ find_package(XercesC REQUIRED)
 if (XercesC_FOUND)
     message(STATUS "Found xerces-c: " ${XercesC_VERSION})
     message(STATUS "including: " ${XercesC_INCLUDE_DIR})
-	link_directories(${XercesC_LIBRARY})
+    link_directories(${XercesC_LIBRARY})
     include_directories(${XercesC_INCLUDE_DIR})
     #set(libs "${libs}${XercesC_LIBRARY}")
 endif (XercesC_FOUND)
@@ -112,7 +113,7 @@ if (GDAL_FOUND)
     #set(libs "${libs} GDAL")
     message(STATUS "including: " ${GDAL_INCLUDE_DIR})
     link_directories(${GDAL_LIBRARIES})
-	include_directories(${GDAL_INCLUDE_DIR})
+    include_directories(${GDAL_INCLUDE_DIR})
     #target_link_libraries ( ${PROJECT_NAME} ${GDAL_LIBRARY} )
     set(HAVE_GDAL 1)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} GDAL")
@@ -136,7 +137,46 @@ endif (X11_FOUND)
 #find_package(OpenGL REQUIRED)
 
 find_package(FFMPEG)
-find_package(GTest)
+
+
+if (BUILD_GTEST_FROM_GIT)
+    message("GTest not found building from scratch")
+
+    # Download and unpack googletest at configure time
+    configure_file(build/googletest/CMakeLists.txt.in googletest-download/CMakeLists.txt)
+    execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
+            WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download")
+    execute_process(COMMAND "${CMAKE_COMMAND}" --build .
+            WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download")
+
+    # Prevent GoogleTest from overriding our compiler/linker options
+    # when building with Visual Studio
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+    # Add googletest directly to our build. This adds
+    # the following targets: gtest, gtest_main, gmock
+    # and gmock_main
+    add_subdirectory("${CMAKE_BINARY_DIR}/googletest-src"
+            "${CMAKE_BINARY_DIR}/googletest-build")
+
+    # The gtest/gmock targets carry header search path
+    # dependencies automatically when using CMake 2.8.11 or
+    # later. Otherwise we have to add them here ourselves.
+    if (CMAKE_VERSION VERSION_LESS 2.8.11)
+        include_directories("${gtest_SOURCE_DIR}/include"
+                "${gmock_SOURCE_DIR}/include")
+    endif ()
+
+    if (APPLE)
+        include_directories("${CMAKE_BINARY_DIR}/googletest-src/googletest/include")
+    endif ()
+    set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
+    set(GTEST_FOUND "true")
+else ()
+    find_package(GTest)
+endif ()
+# Now simply link your own targets against gtest, gmock,
+# etc. as appropriate
 
 #find_package(PythonLibs REQUIRED)
 #if (PYTHONLIBS_FOUND)
@@ -195,6 +235,6 @@ set(commonvehiclelibs
 
 add_subdirectory(src)
 if (GTEST_FOUND)
-  add_subdirectory(unittest)
-endif()
+    add_subdirectory(unittest)
+endif ()
 
