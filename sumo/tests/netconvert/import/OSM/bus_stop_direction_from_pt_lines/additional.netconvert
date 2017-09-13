@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 25 10:21:21 2017 by SUMO netconvert Version dev-SVN-r25695
+<!-- generated on Wed Sep 13 16:31:09 2017 by SUMO netconvert Version dev-SVN-r26005
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -44,5 +44,5 @@
     <busStop id="3959807221" name="Kolonnenbrücke" lane="110450334#1_1" startPos="7.67" endPos="16.13" friendlyPos="true"/>
     <busStop id="4032629811" name="Katzbachstraße/Kreuzbergstraße" lane="53356539#0_1" startPos="0.00" endPos="101.09" friendlyPos="true"/>
     <busStop id="4032629819" name="Monumentenstraße" lane="53356539#1_1" startPos="0.00" endPos="139.74" friendlyPos="true"/>
-    <busStop id="4032629820" name="Monumentenstraße" lane="53356539#0_1" startPos="0.00" endPos="137.23" friendlyPos="true"/>
+    <busStop id="4032629820" name="Monumentenstraße" lane="-53356539#0_1" startPos="0.00" endPos="137.22" friendlyPos="true"/>
 </additional>
