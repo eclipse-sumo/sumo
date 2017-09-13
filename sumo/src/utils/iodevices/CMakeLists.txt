@@ -21,4 +21,5 @@ set(utils_iodevices_STAT_SRCS
 )
 
 add_library(utils_iodevices STATIC ${utils_iodevices_STAT_SRCS})
+add_dependencies(utils_iodevices generate-version-h)
 set_property(TARGET utils_iodevices PROPERTY PROJECT_LABEL "z_utils_iodevices")

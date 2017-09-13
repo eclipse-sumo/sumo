@@ -86,4 +86,5 @@ set(microsim_STAT_SRCS
 )
 
 add_library(microsim STATIC ${microsim_STAT_SRCS})
+add_dependencies(microsim generate-version-h)
 set_property(TARGET microsim PROPERTY PROJECT_LABEL "z_microsim")

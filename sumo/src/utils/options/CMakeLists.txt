@@ -12,5 +12,4 @@ set(utils_options_STAT_SRCS
 )
 
 add_library(utils_options STATIC ${utils_options_STAT_SRCS})
-add_dependencies(utils_options generate-version-h)
 set_property(TARGET utils_options PROPERTY PROJECT_LABEL "z_utils_options")
