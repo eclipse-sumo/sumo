@@ -35,7 +35,7 @@ def get_options():
     optParser.add_option("-n", "--net-file", dest="netfile", help="network file")
     optParser.add_option("-l", "--ptlines-file", dest="ptlines", help="public transit lines file")
     optParser.add_option("-s", "--ptstops-file", dest="ptstops", help="public transit stops file")
-    optParser.add_option("-f", "--flows-file", dest="flows", default="flows.rou.xml", help="output flows file")
+    optParser.add_option("-o", "--output-file", dest="outfile", default="flows.rou.xml", help="output flows file")
     optParser.add_option("-i", "--stopinfos-file", dest="stopinfos",
                          default="stopinfos.xml", help="file from '--stop-output'")
     optParser.add_option(
@@ -44,10 +44,9 @@ def get_options():
     optParser.add_option("-p", "--period", dest="period", default="600", help="period")
     optParser.add_option("-b", "--begin", dest="begin", default="0", help="start time")
     optParser.add_option("-e", "--end", dest="end", default="3600", help="end time")
-    optParser.add_option("-o", "--use-osm-routs", dest='osmRoutes', default="false", help="use osm routs (true/false")
+    optParser.add_option("--use-osm-routes", default=False, action="store_true", dest='osmRoutes', help="use osm routes")
     (options, args) = optParser.parse_args()
     return options
-
 
 def main():
     options = get_options()
@@ -78,7 +77,7 @@ def main():
                 edge = net.getEdge(edge_id)
                 stop_ids.append(stop.id)
 
-            if options.osmRoutes == 'true' and 'route' in line._child_dict:
+            if options.osmRoutes and 'route' in line._child_dict:
                 route = line._child_dict['route']
                 edges = route[0].edges.split(' ')
                 lenE = len(edges)
@@ -115,7 +114,7 @@ def main():
     for stop in sumolib.output.parse_fast(options.stopinfos, 'stopinfo', ['id', 'ended', 'busStop']):
         stopsUntil[stop.busStop] = stop.ended
 
-    with open(options.flows, 'w') as foutflows:
+    with open(options.outfile, 'w') as foutflows:
         flows = []
         sumolib.writeXMLHeader(
             foutflows, "$Id$", "routes")

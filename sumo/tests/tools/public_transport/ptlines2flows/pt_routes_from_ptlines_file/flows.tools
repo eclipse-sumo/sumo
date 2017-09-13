@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<!-- generated on 2017-08-28 14:17:28.049785 by $Id: ptlines2flows.py 25687 2017-08-22 12:24:07Z laemmel $
-  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -f out.flows.xml -p 600 -o true
+<!-- generated on 2017-09-13 14:10:17.576689 by $Id: ptlines2flows.py 25741 2017-08-30 11:58:01Z behrisch $
+  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>use-osm-routes
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 	<vType id="bus" vClass="bus" />
