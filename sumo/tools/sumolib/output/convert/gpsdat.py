@@ -1,5 +1,5 @@
 """
-@file    shawn.py
+@file    gpsdat.py
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2013-01-15

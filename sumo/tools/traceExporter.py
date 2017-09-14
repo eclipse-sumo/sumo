@@ -6,6 +6,7 @@ A script for converting SUMO's fcd-output into files readable by PHEM and commun
 @author  Daniel Krajzewicz
 @author  Jakob Erdmann
 @author  Michael Behrisch
+@author  Evamarie Wiessner
 @date    2013-01-15
 @version $Id$
 
@@ -29,6 +30,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'tools'))
 sys.path.append(os.path.join(os.environ.get(
     "SUMO_HOME", os.path.join(os.path.dirname(__file__), '..', '..')), 'tools'))
 
+from sumolib.miscutils import getSocketStream
 import sumolib.net
 import sumolib.output.convert.phem as phem
 import sumolib.output.convert.omnet as omnet
@@ -37,19 +39,7 @@ import sumolib.output.convert.ns2 as ns2
 import sumolib.output.convert.gpsdat as gpsdat
 import sumolib.output.convert.gpx as gpx
 import sumolib.output.convert.poi as poi
-
-
-class FCDVehicleEntry:
-
-    def __init__(self, id, x, y, z, speed, typev, edge, slope):
-        self.id = id
-        self.x = x
-        self.y = y
-        self.z = z
-        self.speed = speed
-        self.type = typev
-        self.edge = edge
-        self.slope = slope
+import sumolib.output.convert.fcdfilter as fcdfilter
 
 
 class FCDTimeEntry:
@@ -87,17 +77,13 @@ def makeEntries(movables, chosen, options):
         if v.id not in chosen:
             chosen[v.id] = random.random() < options.penetration
         if chosen[v.id]:
-            x, y = disturb_gps(float(v.x), float(v.y), options.blur)
-            if v.z:
-                z = v.z
-            else:
-                z = 0
-            if not options.boundary or (x >= xmin and x <= xmax and y >= ymin and y <= ymax):
-                edge = v.edge
+            v.x, v.y = disturb_gps(float(v.x), float(v.y), options.blur)
+            if not v.z:
+                v.z = 0
+            if not options.boundary or (v.x >= xmin and v.x <= xmax and v.y >= ymin and v.y <= ymax):
                 if v.lane:
-                    edge = sumolib._laneID2edgeID(v.lane)
-                result.append(
-                    FCDVehicleEntry(v.id, x, y, z, v.speed, v.type, edge, v.slope))
+                    v.edge = sumolib._laneID2edgeID(v.lane)
+                result.append(v)
     return result
 
 
@@ -106,9 +92,9 @@ def procFCDStream(fcdstream, options):
     lt = -1  # "last" time step
     lastExported = -1
     chosen = {}
-    for i, q in enumerate(fcdstream):
+    for q in fcdstream:
         pt = lt
-        lt = float(q.time.encode("latin1"))
+        lt = float(q.time)
         if options.begin and options.begin > lt:
             continue  # do not export steps before a set begin
         if options.end and options.end <= lt:
@@ -136,7 +122,11 @@ def runMethod(inputFile, outputFile, writer, options, further={}):
         further["base-date"] = datetime.datetime.now().replace(hour=0,
                                                                minute=0, second=0, microsecond=0)
     o = _getOutputStream(outputFile)
-    fcdStream = sumolib.output.parse(inputFile, "timestep")
+    if inputFile.isdigit():
+        inp = getSocketStream(int(inputFile))
+    else:
+        inp = inputFile
+    fcdStream = sumolib.output.parse(inp, "timestep")
     ret = writer(procFCDStream(fcdStream, options), o, further)
     _closeOutputStream(o)
     return ret
@@ -153,7 +143,7 @@ output format. Optionally the output can be sampled, filtered and distorted.
     from optparse import OptionParser
     optParser = OptionParser(usage=USAGE)
     optParser.add_option("-i", "--fcd-input", dest="fcd", metavar="FILE",
-                         help="Defines the FCD-output file to use as input")
+                         help="Defines the FCD-output file to use as input (numeric value is interpreted as port to listen on)")
     optParser.add_option("-n", "--net-input", dest="net", metavar="FILE",
                          help="Defines the network file to use as input")
     optParser.add_option("-p", "--penetration", type="float", dest="penetration",
@@ -210,6 +200,13 @@ output format. Optionally the output can be sampled, filtered and distorted.
     # POI
     optParser.add_option("--poi-output", dest="poi", metavar="FILE",
                          help="Defines the name of the poi file to generate")
+    # FCD
+    optParser.add_option("--fcd-filter", dest="fcdfilter", metavar="FILE",
+                         help="Defines the name of the filter definition file")
+    optParser.add_option("--fcd-filter-comment", dest="fcdcomment",
+                         help="Extra comments to include in fcd file")
+    optParser.add_option("--fcd-filter-type", dest="fcdtype",
+                         help="vehicle type to include in fcd file")
     # parse
     if len(args) == 1:
         sys.exit(USAGE.replace('%prog', os.path.basename(__file__)))
@@ -256,10 +253,16 @@ output format. Optionally the output can be sampled, filtered and distorted.
         runMethod(options.fcd, options.gpx, gpx.fcd2gpx, options)
     # ----- GPX
 
-    # ----- GPX
+    # ----- POI
     if options.poi:
         runMethod(options.fcd, options.poi, poi.fcd2poi, options)
-    # ----- GPX
+    # ----- POI
+
+    # ----- FCD
+    if options.fcdfilter:
+        runMethod(options.fcd, None, fcdfilter.fcdfilter, options,
+                  {"filter": options.fcdfilter, "comment": options.fcdcomment, "type": options.fcdtype})
+    # ----- FCD
 
     # ----- ns2
     if options.ns2mobility or options.ns2config or options.ns2activity:
