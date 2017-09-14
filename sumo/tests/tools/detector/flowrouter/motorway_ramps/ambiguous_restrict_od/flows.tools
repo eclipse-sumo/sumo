@@ -1,6 +1,6 @@
 <additional>
-    <flow id="src_1.0qPKW.0" departSpeed="max" departPos="last" departLane="best" route="1.0qPKW.0" number="1680" begin="0" end="3600"/>
-    <flow id="src_1.1qPKW.0" departSpeed="max" departPos="last" departLane="best" route="1.1qPKW.0" number="320" begin="0" end="3600"/>
-    <flow id="src_on3.0qPKW.0" departSpeed="max" departPos="last" departLane="best" route="on3.0qPKW.0" number="320" begin="0" end="3600"/>
-    <flow id="src_on3.1qPKW.0" departSpeed="max" departPos="last" departLane="best" route="on3.1qPKW.0" number="180" begin="0" end="3600"/>
+    <flow id="src_1.0qPKW.0" departSpeed="max" departPos="last" departLane="best" route="1.0qPKW.0" number="1540" begin="0" end="3600"/>
+    <flow id="src_1.1qPKW.0" departSpeed="max" departPos="last" departLane="best" route="1.1qPKW.0" number="460" begin="0" end="3600"/>
+    <flow id="src_on3.0qPKW.0" departSpeed="max" departPos="last" departLane="best" route="on3.0qPKW.0" number="460" begin="0" end="3600"/>
+    <flow id="src_on3.1qPKW.0" departSpeed="max" departPos="last" departLane="best" route="on3.1qPKW.0" number="40" begin="0" end="3600"/>
 </additional>

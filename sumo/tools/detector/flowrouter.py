@@ -87,12 +87,13 @@ class Vertex:
 # read from the net. The members are accessed directly.
 class Edge:
 
-    def __init__(self, label, source, target, kind="junction"):
+    def __init__(self, label, source, target, kind, linkDir=None):
         self.label = label
         self.source = source
         self.target = target
         self.kind = kind
         self.maxSpeed = 0.0
+        self.linkDir = linkDir
         self.length = 0.0
         self.numLanes = 0
         self.isOnSourcePath = False
@@ -171,6 +172,10 @@ class Net:
                         self._edgeRestriction[l[1]] = int(l[0])
                     else:
                         self._routeRestriction[tuple(l[1:])] = int(l[0])
+            if options.verbose:
+                print("Loaded %s edge restrictions and %s route restrictions" %
+                        (len(self._edgeRestriction), len(self._routeRestriction)))
+
 
     def newVertex(self):
         v = Vertex()
@@ -178,7 +183,10 @@ class Net:
         return v
 
     def getEdge(self, edgeLabel):
-        return self._edges[edgeLabel]
+        if edgeLabel in self._edges:
+            return self._edges[edgeLabel]
+        else:
+            raise RuntimeError("edge '%s' not found" % edgeLabel)
 
     def addEdge(self, edgeObj):
         edgeObj.source.outEdges.append(edgeObj)
@@ -266,6 +274,12 @@ class Net:
     def initNet(self):
         for edge in self._internalEdges:
             edge.reset()
+            flowRestriction = sys.maxsize
+            if options.maxturnflow and edge.linkDir == 't':
+                flowRestriction = int(options.maxturnflow * options.interval / 60)
+            if edge.label in self._edgeRestriction:
+                flowRestriction = self._edgeRestriction[edge.label] * options.interval / 60
+            edge.capacity = min(edge.capacity, flowRestriction)
         for edge in self._edges.values():
             edge.reset()
             if len(edge.detGroup) > 0:
@@ -279,6 +293,8 @@ class Net:
             flowRestriction = sys.maxsize
             if options.maxflow:
                 flowRestriction = int(options.maxflow * edge.numLanes * options.interval / 60)
+            if options.maxturnflow and edge.linkDir == 't':
+                flowRestriction = int(options.maxturnflow * options.interval / 60)
             if edge.label in self._edgeRestriction:
                 flowRestriction = self._edgeRestriction[edge.label] * options.interval / 60
             edge.capacity = min(edge.capacity, flowRestriction)
@@ -457,7 +473,9 @@ class Net:
                 count += r.frequency
         if DEBUG:
             print("    checking limit for route %s count %s" % (route, count))
-        return count > self._routeRestriction.get(tuple(route), count)
+        return count > self._routeRestriction.get(tuple(route), 
+                # check origin-destination restriction 
+                self._routeRestriction.get((route[0], route[-1]), count))
 
     def getBackEdges(self, pathStart, currVertex):
         cycleStartStep = (pathStart == currVertex)
@@ -610,17 +628,19 @@ class Net:
         for edge in self._source.outEdges:
             for route in edge.routes:
                 key = tuple([e.label for e in route.edges if e.kind == "real"])
-                surplus = route.frequency - self._routeRestriction.get(key, sys.maxsize)
+                restriction = self._routeRestriction.get(key, 
+                        self._routeRestriction.get((key[0], key[-1]), sys.maxsize))
+                surplus = route.frequency - restriction
                 if surplus > 0:
                     if DEBUG:
                         print("route '%s' surplus=%s" % (" ".join(key), surplus))
                     removed = True
                     for e in route.edges:
                         e.flow -= surplus
-                    if self._routeRestriction[key] == 0:
+                    if restriction == 0:
                         deleteRoute.append(route)
                     else:
-                        route.frequency = self._routeRestriction[key]
+                        route.frequency = restriction
             if deleteRoute:
                 edge.routes = [r for r in edge.routes if not r in deleteRoute]
         return removed
@@ -666,7 +686,7 @@ class Net:
             edge = srcEdge.target.outEdges[0]
             if len(srcEdge.routes) == 1:
                 print('    <flow id="src_%s%s" %s route="%s.0%s" number="%s" begin="%s" end="%s"/>' % (
-                    edge.label, suffix, options.params, edge.label, suffix, srcEdge.flow, begin, end), file=emitOut)
+                    edge.label, suffix, options.params, edge.label, suffix, int(srcEdge.flow), begin, end), file=emitOut)
             else:
                 if options.random:
                     ids = " ".join(["%s.%s%s" % (edge.label, id, suffix)
@@ -674,7 +694,7 @@ class Net:
                     probs = " ".join([str(route.frequency)
                                       for route in srcEdge.routes])
                     print('    <flow id="src_%s%s" %s number="%s" begin="%s" end="%s">' % (
-                        edge.label, suffix, options.params, srcEdge.flow, begin, end), file=emitOut)
+                        edge.label, suffix, options.params, int(srcEdge.flow), begin, end), file=emitOut)
                     print('        <routeDistribution routes="%s" probabilities="%s"/>' % (
                         ids, probs), file=emitOut)
                     print('    </flow>', file=emitOut)
@@ -694,7 +714,7 @@ class Net:
                             if viaEdges:
                                 via = ' via="%s"' %  " ".join(viaEdges)
                         print('    <flow id="src_%s" %s route="%s" number="%s" begin="%s" end="%s"%s/>' % (
-                            routeID, options.params, routeID, route.frequency, begin, end, via), file=emitOut)
+                            routeID, options.params, routeID, int(route.frequency), begin, end, via), file=emitOut)
 
         if options.verbose:
             print("Writing %s vehicles from %s sources between time %s and %s" % (
@@ -750,11 +770,11 @@ class NetDetectorFlowReader(handler.ContentHandler):
                     fromEdgeID += "_" + attrs["fromLane"]
                     toEdgeID += "_" + attrs["toLane"]
                 v = self._net.getEdge(fromEdgeID).target
-                eID = fromEdgeID + "_" + toEdgeID
+                eID = fromEdgeID + "->" + toEdgeID
                 for e in v.outEdges:
                     if e.label == eID:
                         return
-                newEdge = Edge(eID, v, self._net.getEdge(toEdgeID).source)
+                newEdge = Edge(eID, v, self._net.getEdge(toEdgeID).source, "junction", attrs['dir'])
                 self._net.addEdge(newEdge)
         elif name == 'lane' and self._edge != '':
             if options.lanebased:
@@ -860,6 +880,8 @@ optParser.add_option("-m", "--min-speed", type="float", dest="minspeed",
                      default=0.0, help="only consider edges where the fastest lane allows at least this maxspeed (m/s)")
 optParser.add_option("-M", "--max-flow", type="int", dest="maxflow",
                      help="limit the number of vehicles per lane and hour to this value")
+optParser.add_option("--max-turn-flow", type="int", dest="maxturnflow",
+                     help="limit the number of vehicles per turn-around connection and hour to this value")
 optParser.add_option("-r", "--flow-restrictions", dest="restrictionfile",
                      help="read edge and route restrictions from FILEs", metavar="FILE+")
 optParser.add_option("-s", "--synthetic-flows", dest="syntheticflowfile",
