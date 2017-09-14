@@ -123,6 +123,7 @@ osmstops:*/osm_stops.add.xml
 osmbatch:*/build.bat
 osmtrips:*/osm.pedestrian.trips.xml
 districts:districts.xml
+restrictions:restrictions.txt
 
 [run_dependent_text]
 output:Begin time

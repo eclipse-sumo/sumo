@@ -28,3 +28,4 @@ showDepartsAndArrivalsPerEdge
 
 # simple route reconstruction from gps trace
 tracemapper
+implausibleRoutes
