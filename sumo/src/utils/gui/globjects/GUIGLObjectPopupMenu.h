@@ -67,8 +67,26 @@ public:
     /// @brief Destructor
     virtual ~GUIGLObjectPopupMenu();
 
+    /// @brief insert MenuCommand
+    FXMenuCommand* insertMenuCommand(const std::string& text, FXIcon* ic=NULL,FXObject* tgt=NULL, FXSelector sel=0, FXuint opts=0);
+
     /// @brief Insert a sub-menu pane in this GUIGLObjectPopupMenu
     void insertMenuPaneChild(FXMenuPane* child);
+
+    /// @brief select next MenuCommand
+    bool selectNextMenuCommand();
+
+    /// @brief select next MenuCommand
+    bool selectPreviousMenuCommand();
+
+    /// @brief select childs of MenuCommand
+    bool selectChildMenuCommand();
+
+    /// @brief select parent of MenuCommand
+    bool selectParentMenuCommand();
+
+    /// @brief execute selected menuCommand
+    bool executeMenuCommand();
 
 public:
     /// Called if the assigned objects shall be centered
@@ -107,6 +125,9 @@ public:
     }
 
 protected:
+    /// @brief FOX needs this
+    GUIGLObjectPopupMenu() { }
+
     /// @brief The parent window
     GUISUMOAbstractView* myParent;
 
@@ -119,12 +140,11 @@ protected:
     /// @brief The position within the network the cursor was above when instanting the popup
     Position myNetworkPosition;
 
-    /// @brief list mit Sub-MenuPanes
-    std::vector<FXMenuPane*> myMenuPanes;
+    /// @brief vector with menu commands 
+    std::vector<FXMenuCommand*> myMenuCommands;
 
-protected:
-    /// @brief FOX needs this
-    GUIGLObjectPopupMenu() { }
+    /// @brief vector mit Sub-MenuPanes
+    std::vector<FXMenuPane*> myMenuPanes;
 };
 
 

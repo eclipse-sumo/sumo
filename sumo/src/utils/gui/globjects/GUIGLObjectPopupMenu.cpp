@@ -84,6 +84,14 @@ GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu() {
 }
 
 
+FXMenuCommand* 
+GUIGLObjectPopupMenu::insertMenuCommand(const std::string & text, FXIcon * ic, FXObject * tgt, FXSelector sel, FXuint opts) {
+    FXMenuCommand* command = new FXMenuCommand(this, text.c_str(), ic, tgt, sel);
+    myMenuCommands.push_back(command);
+    return command;
+}
+
+
 void
 GUIGLObjectPopupMenu::insertMenuPaneChild(FXMenuPane* child) {
     // Check that MenuPaneChild isn't NULL
@@ -98,6 +106,88 @@ GUIGLObjectPopupMenu::insertMenuPaneChild(FXMenuPane* child) {
     }
     // Insert MenuPaneChild
     myMenuPanes.push_back(child);
+}
+
+
+bool 
+GUIGLObjectPopupMenu::selectNextMenuCommand() {
+    // first check if there is at least a fxmenuCommand active
+    bool noneSelected = true;
+    for (auto i : myMenuCommands) {
+        if (i->isActive()) {
+            noneSelected = false;
+        }
+    }
+    // if none is selected, focus first element
+    if(noneSelected) {
+        myMenuCommands.front()->setFocus();
+    } else {
+        // focus next element
+        for (int i = 0; i < myMenuCommands.size(); i++) {
+            if(myMenuCommands.at(i)->isActive() && (myMenuCommands.at(i) != myMenuCommands.back())) {
+                myMenuCommands.at(i+1)->setFocus();
+                return true;
+            }
+        }
+        // focus last element again if current focus is over last element
+        myMenuCommands.back()->setFocus();
+    }
+    // Always return true
+    return true;
+}
+
+
+bool 
+GUIGLObjectPopupMenu::selectPreviousMenuCommand() {
+    // first check if there is at least a fxmenuCommand active
+    bool noneSelected = true;
+    for (auto i : myMenuCommands) {
+        if (i->isActive()) {
+            noneSelected = false;
+        }
+    }
+    // if none is selected, focus first element
+    if(noneSelected) {
+        myMenuCommands.front()->setFocus();
+    } else {
+        // focus previous element
+        for (int i = 0; i < myMenuCommands.size(); i++) {
+            if(myMenuCommands.at(i)->isActive() && (myMenuCommands.at(i) != myMenuCommands.front())) {
+                myMenuCommands.at(i-1)->setFocus();
+                return true;
+            }
+        }
+        // focus first element again if current focus is over last element
+        myMenuCommands.front()->setFocus();
+    }
+    // Always return true
+    return true;
+}
+
+
+bool 
+GUIGLObjectPopupMenu::selectChildMenuCommand() {
+
+    return true;
+}
+
+
+bool 
+GUIGLObjectPopupMenu::selectParentMenuCommand() {
+
+    return true;
+}
+
+
+bool 
+GUIGLObjectPopupMenu::executeMenuCommand() {
+    // focus previous element
+    for (int i = 0; i < myMenuCommands.size(); i++) {
+        if(myMenuCommands.at(i)->isActive()) {
+            myMenuCommands.at(i)->getTarget()->handle(myMenuCommands.at(i), FXSEL(SEL_COMMAND, myMenuCommands.at(i)->getSelector()), NULL); 
+            return true;
+        }
+    }
 }
 
 
