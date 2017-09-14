@@ -67,9 +67,17 @@ def randomize_pos(pos, blur):
     return tuple([val + random.uniform(-blur, blur) for val in pos])
 
 
+MISSING_EDGES = set()
 def generate_poly(net, id, color, layer, geo, edges, blur, outf, type="route"):
-    shape = list(itertools.chain(*list(net.getEdge(e).getLane(0).getShape()
-                                       for e in edges)))
+    lanes = []
+    for e in edges:
+        if net.hasEdge(e):
+            lanes.append(net.getEdge(e).getLane(0))
+        else:
+            if not e in MISSING_EDGES:
+                sys.stderr.write("Warning: unknown edge '%s'\n" % e)
+                MISSING_EDGES.add(e)
+    shape = list(itertools.chain(*list(l.getShape() for l in lanes)))
     if blur > 0:
         shape = [randomize_pos(pos, blur) for pos in shape]
 
