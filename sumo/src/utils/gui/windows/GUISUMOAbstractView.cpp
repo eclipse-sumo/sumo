@@ -745,13 +745,15 @@ GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector , void* data) {
 
 long
 GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector , void* data) {
-    if (myViewportChooser == 0 || !myViewportChooser->haveGrabbed()) {
-        myChanger->onMouseMove(data);
+    if(myPopup == NULL) {
+        if (myViewportChooser == 0 || !myViewportChooser->haveGrabbed()) {
+            myChanger->onMouseMove(data);
+        }
+        if (myViewportChooser != 0) {
+            myViewportChooser->setValues(myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
+        }
+        updatePositionInformation();
     }
-    if (myViewportChooser != 0) {
-        myViewportChooser->setValues(myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
-    }
-    updatePositionInformation();
     return 1;
 }
 
@@ -788,6 +790,7 @@ GUISUMOAbstractView::openObjectDialog() {
             myPopup->show();
             myChanger->onRightBtnRelease(0);
             GUIGlObjectStorage::gIDStorage.unblockObject(id);
+            setFocus();
         }
         makeNonCurrent();
     }
@@ -796,15 +799,37 @@ GUISUMOAbstractView::openObjectDialog() {
 
 long
 GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* data) {
-    FXGLCanvas::onKeyPress(o, sel, data);
-    return myChanger->onKeyPress(data);
+    if(myPopup != NULL) {
+        FXEvent* e = (FXEvent*) data;
+        if (e->code == FX::KEY_Up) {
+            return myPopup->selectPreviousMenuCommand();
+        } else if (e->code == FX::KEY_Down) {
+            return myPopup->selectNextMenuCommand();
+        } else if (e->code == FX::KEY_Left) {
+            return myPopup->selectParentMenuCommand();
+        } else if (e->code == FX::KEY_Right) {
+            return myPopup->selectChildMenuCommand();
+        } else if ((e->code == FX::KEY_space) || (e->code == FX::KEY_ISO_Enter)) {
+            myPopup->executeMenuCommand();
+            // destroy popup after executing command
+            destroyPopup();
+            return 1;
+        } else {
+            destroyPopup();
+        }
+    } else {
+        FXGLCanvas::onKeyPress(o, sel, data);
+        return myChanger->onKeyPress(data);
+    }
 }
 
 
 long
 GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
-    FXGLCanvas::onKeyRelease(o, sel, data);
-    return myChanger->onKeyRelease(data);
+    if(myPopup == NULL) {
+        FXGLCanvas::onKeyRelease(o, sel, data);
+        return myChanger->onKeyRelease(data);
+    }
 }
 
 

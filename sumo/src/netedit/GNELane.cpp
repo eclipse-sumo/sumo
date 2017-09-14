@@ -457,7 +457,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
-    new FXMenuCommand(ret, ("Copy " + toString(SUMO_TAG_EDGE) + " name to clipboard").c_str(), 0, ret, MID_COPY_EDGE_NAME);
+    ret->insertMenuCommand("Copy " + toString(SUMO_TAG_EDGE) + " name to clipboard", 0, ret, MID_COPY_EDGE_NAME);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
@@ -469,19 +469,19 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         FXIcon* bikeIcon = GUIIconSubSys::getIcon(ICON_LANEBIKE);
         FXIcon* busIcon = GUIIconSubSys::getIcon(ICON_LANEBUS);
         // Create basic commands
-        new FXMenuCommand(ret, ("Split " + toString(SUMO_TAG_EDGE) + " here").c_str(), 0, &parent, MID_GNE_EDGE_SPLIT);
-        new FXMenuCommand(ret, ("Split " + toString(SUMO_TAG_EDGE) + "s in both direction here").c_str(), 0, &parent, MID_GNE_EDGE_SPLIT_BIDI);
-        new FXMenuCommand(ret, ("Reverse " + toString(SUMO_TAG_EDGE)).c_str(), 0, &parent, MID_GNE_EDGE_REVERSE);
-        new FXMenuCommand(ret, "Add reverse direction", 0, &parent, MID_GNE_EDGE_ADD_REVERSE);
-        new FXMenuCommand(ret, "Set geometry endpoint here", 0, &parent, MID_GNE_EDGE_SET_ENDPOINT);
-        new FXMenuCommand(ret, "Restore geometry endpoint", 0, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
+        ret->insertMenuCommand("Split " + toString(SUMO_TAG_EDGE) + " here", 0, &parent, MID_GNE_EDGE_SPLIT);
+        ret->insertMenuCommand("Split " + toString(SUMO_TAG_EDGE) + "s in both direction here", 0, &parent, MID_GNE_EDGE_SPLIT_BIDI);
+        ret->insertMenuCommand("Reverse " + toString(SUMO_TAG_EDGE), 0, &parent, MID_GNE_EDGE_REVERSE);
+        ret->insertMenuCommand("Add reverse direction", 0, &parent, MID_GNE_EDGE_ADD_REVERSE);
+        ret->insertMenuCommand("Set geometry endpoint here", 0, &parent, MID_GNE_EDGE_SET_ENDPOINT);
+        ret->insertMenuCommand("Restore geometry endpoint", 0, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
         if (gSelected.isSelected(GLO_LANE, getGlID())) {
-            new FXMenuCommand(ret, ("Straighten selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, &parent, MID_GNE_EDGE_STRAIGHTEN);
+            ret->insertMenuCommand("Straighten selected " + toString(SUMO_TAG_EDGE) + "s", 0, &parent, MID_GNE_EDGE_STRAIGHTEN);
         } else {
-            new FXMenuCommand(ret, ("Straighten " + toString(SUMO_TAG_EDGE)).c_str(), 0, &parent, MID_GNE_EDGE_STRAIGHTEN);
+            ret->insertMenuCommand("Straighten " + toString(SUMO_TAG_EDGE), 0, &parent, MID_GNE_EDGE_STRAIGHTEN);
         }
         if (gSelected.isSelected(GLO_LANE, getGlID())) {
-            new FXMenuCommand(ret, ("Duplicate selected" + toString(SUMO_TAG_LANE) + "s").c_str(), 0, &parent, MID_GNE_LANE_DUPLICATE);
+            ret->insertMenuCommand("Duplicate selected" + toString(SUMO_TAG_LANE) + "s", 0, &parent, MID_GNE_LANE_DUPLICATE);
             // Create panel for lane operations
             FXMenuPane* addSpecialLanes = new FXMenuPane(ret);
             ret->insertMenuPaneChild(addSpecialLanes);
@@ -507,7 +507,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             new FXMenuCascade(ret, ("remove special" + toString(SUMO_TAG_LANE) + "s").c_str(), 0, removeSpecialLanes);
             new FXMenuCascade(ret, ("transform to special" + toString(SUMO_TAG_LANE) + "s").c_str(), 0, transformSlanes);
         } else {
-            new FXMenuCommand(ret, ("Duplicate" + toString(SUMO_TAG_LANE)).c_str(), 0, &parent, MID_GNE_LANE_DUPLICATE);
+            ret->insertMenuCommand("Duplicate" + toString(SUMO_TAG_LANE), 0, &parent, MID_GNE_LANE_DUPLICATE);
             // Declare flags
             bool edgeHasSidewalk = myParentEdge.hasRestrictedLane(SVC_PEDESTRIAN);
             bool edgeHasBikelane = myParentEdge.hasRestrictedLane(SVC_BICYCLE);
@@ -572,7 +572,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     } else if (editMode == GNE_MODE_TLS) {
         myTLSEditor = static_cast<GNEViewNet&>(parent).getViewParent()->getTLSEditorFrame();
         if (myTLSEditor->controlsEdge(myParentEdge)) {
-            new FXMenuCommand(ret, "Select state for all links from this edge:", 0, 0, 0);
+            ret->insertMenuCommand("Select state for all links from this edge:", 0, 0, 0);
             const std::vector<std::string> names = GNEInternalLane::LinkStateNames.getStrings();
             for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); it++) {
                 FXuint state = GNEInternalLane::LinkStateNames.get(*it);
@@ -582,16 +582,16 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             }
         }
     } else {
-        FXMenuCommand* mc = new FXMenuCommand(ret, "Additional options available in 'Inspect Mode'", 0, 0, 0);
+        FXMenuCommand* mc = ret->insertMenuCommand("Additional options available in 'Inspect Mode'", 0, 0, 0);
         mc->handle(&parent, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), 0);
     }
     // buildShowParamsPopupEntry(ret, false);
     new FXMenuSeparator(ret);
     const double pos = getShape().nearest_offset_to_point2D(parent.getPositionInformation());
     const double height = getShape().positionAtOffset2D(getShape().nearest_offset_to_point2D(parent.getPositionInformation())).z();
-    new FXMenuCommand(ret, ("Shape pos: " + toString(pos)).c_str(), 0, 0, 0);
-    new FXMenuCommand(ret, ("Length pos: " + toString(pos * getLaneParametricLength() / getLaneShapeLength())).c_str(), 0, 0, 0);
-    new FXMenuCommand(ret, ("Height: " + toString(height)).c_str(), 0, 0, 0);
+    ret->insertMenuCommand("Shape pos: " + toString(pos), 0, 0, 0);
+    ret->insertMenuCommand("Length pos: " + toString(pos * getLaneParametricLength() / getLaneShapeLength()), 0, 0, 0);
+    ret->insertMenuCommand("Height: " + toString(height), 0, 0, 0);
     // new FXMenuSeparator(ret);
     // buildPositionCopyEntry(ret, false);
 
