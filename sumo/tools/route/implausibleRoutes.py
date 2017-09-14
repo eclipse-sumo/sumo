@@ -54,6 +54,8 @@ def get_options():
                          help="Implausibility factor for the ratio of routeDuration/shortestDuration ")
     optParser.add_option("--detour-factor", type="float", default=0.01, dest="detour_factor",
                          help="Implausibility factor for the absolute detour time in (routeDuration-shortestDuration) in seconds")
+    optParser.add_option("--min-dist", type="float", default=0, dest="min_dist",
+                         help="Minimum shortest-path distance below which routes are implausible")
     optParser.add_option("--standalone", action="store_true",
                          default=False, help="Parse stand-alone routes that are not define as child-element of a vehicle")
     optParser.add_option("--blur", type="float", default=0,
@@ -62,6 +64,8 @@ def get_options():
                          help="List of route IDs (one per line) that are filtered when generating polygons and command line output (they will still be added to restrictions-output)")
     optParser.add_option("--restriction-output", dest="restrictions_output",
                          help="Write flow-restriction output suitable for passing to flowrouter.py to FILE")
+    optParser.add_option("--od-restrictions", action="store_true", dest="odrestrictions",
+                         default=False, help="Write restrictions for origin-destination relations rather than whole routes")
     options, args = optParser.parse_args()
 
     if len(args) != 2:
@@ -129,10 +133,12 @@ def main():
         if len(routeAlts) == 1:
             routeInfos[vehicle.id].detour = 0
             routeInfos[vehicle.id].detourRatio = 1
+            routeInfos[vehicle.id].shortest_path_distance = routeInfos[vehicle.id].length
         else:
             oldCosts = float(routeAlts[0].cost)
             newCosts = float(routeAlts[1].cost)
             assert(routeAlts[0].edges.split() == routeInfos[vehicle.id].edges)
+            routeInfos[vehicle.id].shortest_path_distance = getRouteLength(net, routeAlts[1].edges.split())
             if oldCosts <= newCosts:
                 routeInfos[vehicle.id].detour = 0
                 routeInfos[vehicle.id].detourRatio = 1
@@ -150,7 +156,8 @@ def main():
         ri = routeInfos[rID]
         ri.implausibility = (options.airdist_ratio_factor * ri.airDistRatio +
                              options.detour_factor * ri.detour +
-                             options.detour_ratio_factor * ri.detourRatio)
+                             options.detour_ratio_factor * ri.detourRatio +
+                             max(0, options.min_dist / ri.shortest_path_distance - 1))
         allRoutesStats.add(ri.implausibility, rID)
         if ri.implausibility > options.threshold:
             implausible.append((ri.implausibility, rID, ri))
@@ -160,7 +167,10 @@ def main():
     if options.restrictions_output is not None:
         with open(options.restrictions_output, 'w') as outf:
             for score, rID, ri in sorted(implausible):
-                outf.write("0 %s\n" % " ".join(ri.edges))
+                edges = ri.edges
+                if options.odrestrictions and len(edges) > 2:
+                    edges = [edges[0], edges[-1]]
+                outf.write("0 %s\n" % " ".join(edges))
 
     if options.ignore_routes is not None:
         numImplausible = len(implausible)
@@ -178,9 +188,10 @@ def main():
             generate_poly(net, rID, colorgen(), 100, False, ri.edges, options.blur, outf, score)
         outf.write('</additional>\n')
 
+    sys.stdout.write('score\troute\t(airDistRatio, detourRatio, detour, shortestDist)\n')
     for score, rID, ri in sorted(implausible):
         # , ' '.join(ri.edges)))
-        sys.stdout.write('%s\t%s\t%s\n' % (score, rID, (ri.airDistRatio, ri.detourRatio, ri.detour)))
+        sys.stdout.write('%s\t%s\t%s\n' % (score, rID, (ri.airDistRatio, ri.detourRatio, ri.detour, ri.shortest_path_distance)))
 
     print(allRoutesStats)
     print(implausibleRoutesStats)
