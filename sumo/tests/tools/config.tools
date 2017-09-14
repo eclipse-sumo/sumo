@@ -108,6 +108,7 @@ match:match.txt
 image:image.svg
 csv:out*.csv
 xml:out.xml
+xml2:out2.xml
 net:net.net.xml
 source_weights:weights.src.xml
 dest_weights:weights.dst.xml
