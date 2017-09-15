@@ -172,12 +172,18 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     //    // XXX if joinable
     //    new FXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
     //}
+    // create menu commands
     FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom shape", 0, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
     FXMenuCommand* mcReplace = new FXMenuCommand(ret, "Replace by geometry node", 0, &parent, MID_GNE_JUNCTION_REPLACE);
-    const int editMode = parent.getVisualisationSettings()->editMode;
+    FXMenuCommand* mcClearConnections = new FXMenuCommand(ret, "Clear connections", 0, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
+    FXMenuCommand* mcResetConnections = new FXMenuCommand(ret, "Reset connections", 0, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
+    // check if menu commands has to be disabled
+    EditMode editMode = myNet->getViewNet()->getCurrentEditMode();
     const bool wrongMode = (editMode == GNE_MODE_CONNECT || editMode == GNE_MODE_TLS || editMode == GNE_MODE_CREATE_EDGE);
     if (wrongMode) {
-        mcCustomShape->handle(&parent, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), 0);
+        mcCustomShape->disable();;
+        mcClearConnections->disable();
+        mcResetConnections->disable();
     }
     // checkIsRemovable requiers turnarounds to be computed. This is ugly
     if (myNBNode.getIncomingEdges().size() == 2 && myNBNode.getOutgoingEdges().size() == 2) {
@@ -186,7 +192,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     std::string reason = "wrong edit mode";
     if (wrongMode || !myNBNode.checkIsRemovableReporting(reason)) {
         mcReplace->setText(mcReplace->getText() + " (" + reason.c_str() + ")");
-        mcReplace->handle(&parent, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), 0);
+        mcReplace->disable();
     }
     // let the GNEViewNet store the popup position
     (dynamic_cast<GNEViewNet&>(parent)).markPopupPosition();

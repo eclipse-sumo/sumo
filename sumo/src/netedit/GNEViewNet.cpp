@@ -107,6 +107,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Junctions
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_EDIT_SHAPE,             GNEViewNet::onCmdEditJunctionShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_REPLACE,                GNEViewNet::onCmdReplaceJunction),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CLEAR_CONNECTIONS,      GNEViewNet::onCmdClearConnections),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_CONNECTIONS,      GNEViewNet::onCmdResetConnections),
     // Edges
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT,                      GNEViewNet::onCmdSplitEdge),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT_BIDI,                 GNEViewNet::onCmdSplitEdgeBidi),
@@ -1864,6 +1866,18 @@ GNEViewNet::onCmdReplaceJunction(FXObject*, FXSelector, void*) {
         update();
     }
     return 1;
+}
+
+
+long 
+GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
+    return 0;
+}
+
+
+long 
+GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
+    return 0;
 }
 
 

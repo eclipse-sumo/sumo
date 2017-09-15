@@ -640,6 +640,10 @@ enum {
     MID_GNE_EDGE_ADD_REVERSE,
     /// @brief edit junction shape
     MID_GNE_JUNCTION_EDIT_SHAPE,
+    /// @brief clear junction's connections
+    MID_GNE_JUNCTION_CLEAR_CONNECTIONS,
+    /// @brief reset junction's connections
+    MID_GNE_JUNCTION_RESET_CONNECTIONS,
     /// @brief turn junction into geometry node
     MID_GNE_JUNCTION_REPLACE,
     /// @brief set non-default geometry endpoint

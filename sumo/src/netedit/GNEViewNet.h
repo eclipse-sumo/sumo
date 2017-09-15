@@ -254,6 +254,12 @@ public:
     /// @brief replace node by geometry
     long onCmdReplaceJunction(FXObject*, FXSelector, void*);
 
+    /// @brief clear junction connections
+    long onCmdClearConnections(FXObject*, FXSelector, void*);
+
+    /// @brief reset junction connections
+    long onCmdResetConnections(FXObject*, FXSelector, void*);
+
     /// @brief toogle show connections
     long onCmdToogleShowConnection(FXObject*, FXSelector, void*);
 
