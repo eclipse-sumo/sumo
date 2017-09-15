@@ -2579,7 +2579,7 @@ TraCIAPI::VehicleScope::moveToXY(const std::string& vehicleID, const std::string
 
 
 void
-TraCIAPI::VehicleScope::slowDown(const std::string& vehicleID, double speed, int duration) const {
+TraCIAPI::VehicleScope::slowDown(const std::string& vehicleID, double speed, SUMOTime duration) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
     content.writeInt(2);

@@ -692,6 +692,12 @@ TraCI_Vehicle::changeLane(const std::string& vehID, int laneIndex, SUMOTime dura
 }
 
 
+void 
+TraCI_Vehicle::changeSublane(const std::string& vehID, double latDist) {
+    getVehicle(vehID)->getInfluencer().setSublaneChange(latDist);
+}
+
+
 void
 TraCI_Vehicle::add(const std::string& vehicleID,
                    const std::string& routeID,
@@ -725,8 +731,12 @@ TraCI_Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID,
 }
 
 void
-TraCI_Vehicle::slowDown(const std::string& vehicleID, double speed, int duration) {
-    getVehicle(vehicleID);
+TraCI_Vehicle::slowDown(const std::string& vehicleID, double speed, SUMOTime duration) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    std::vector<std::pair<SUMOTime, double> > speedTimeLine;
+    speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), veh->getSpeed()));
+    speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + duration, speed));
+    veh->getInfluencer().setSpeedTimeLine(speedTimeLine);
 }
 
 void

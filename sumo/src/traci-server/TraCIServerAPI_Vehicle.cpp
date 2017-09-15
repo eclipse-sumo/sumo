@@ -480,7 +480,6 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
             default:
-                /// XXX replace by a TraCI_VehicleType function
                 TraCIServerAPI_VehicleType::getVariable(variable, TraCI_Vehicle::getVehicleType(id).getID(), tempMsg);
                 break;
         }
@@ -619,19 +618,15 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingByte(inputStorage, laneIndex)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The first lane change parameter must be the lane index given as a byte.", outputStorage);
                 }
-                // stickyTime
-                int stickyTime = 0;
-                if (!server.readTypeCheckingInt(inputStorage, stickyTime)) {
+                // duration
+                int duration = 0;
+                if (!server.readTypeCheckingInt(inputStorage, duration)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second lane change parameter must be the duration given as an integer.", outputStorage);
                 }
                 if ((laneIndex < 0) || (laneIndex >= (int)(v->getEdge()->getLanes().size()))) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "No lane with index '" + toString(laneIndex) + "' on road '" + v->getEdge()->getID() + "'.", outputStorage);
                 }
-                // Forward command to vehicle
-                std::vector<std::pair<SUMOTime, int> > laneTimeLine;
-                laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
-                laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + stickyTime, laneIndex));
-                v->getInfluencer().setLaneTimeLine(laneTimeLine);
+                TraCI_Vehicle::changeLane(id, laneIndex, duration);
             }
             break;
             case CMD_CHANGESUBLANE: {
@@ -639,41 +634,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingDouble(inputStorage, latDist)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Sublane-changing requires a double.", outputStorage);
                 }
-                v->getInfluencer().setSublaneChange(latDist);
+                TraCI_Vehicle::changeSublane(id, latDist);
             }
             break;
-            /*
-               case VAR_LANE_TIME_LINE: {
-               if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
-               return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Lane change needs a compound object description.", outputStorage);
-               }
-               if (inputStorage.readInt() != 2) {
-               return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Lane change needs a compound object description of two items.", outputStorage);
-               }
-            // Lane ID
-            int laneIndex = 0;
-            if (!server.readTypeCheckingByte(inputStorage, laneIndex)) {
-            return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The first lane change parameter must be the lane index given as a byte.", outputStorage);
-            }
-            // stickyTime
-            SUMOTime stickyTime = 0;
-            if (!server.readTypeCheckingInt(inputStorage, stickyTime)) {
-            return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second lane change parameter must be the duration given as an integer.", outputStorage);
-            }
-            if ((laneIndex < 0) || (laneIndex >= (int)(v->getEdge()->getLanes().size()))) {
-            return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "No lane existing with given id on the current road", outputStorage);
-            }
-            // Forward command to vehicle
-            std::vector<std::pair<SUMOTime, int> > laneTimeLine;
-            laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
-            laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + stickyTime, laneIndex));
-            v->getInfluencer().setLaneTimeLine(laneTimeLine);
-            MSVehicle::ChangeRequest req = v->getInfluencer().checkForLaneChanges(MSNet::getInstance()->getCurrentTimeStep(),
-             *v->getEdge(), v->getLaneIndex());
-             v->getLaneChangeModel().requestLaneChange(req);
-             }
-             break;
-             */
             case CMD_SLOWDOWN: {
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Slow down needs a compound object description.", outputStorage);
@@ -692,13 +655,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingInt(inputStorage, duration)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second slow down parameter must be the duration given as an integer.", outputStorage);
                 }
-                if (duration < 0 || STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) + STEPS2TIME(duration) > STEPS2TIME(SUMOTime_MAX - DELTA_T)) {
+                if (duration < 0 || MSNet::getInstance()->getCurrentTimeStep() + (SUMOTime)duration > SUMOTime_MAX - DELTA_T) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid time interval", outputStorage);
                 }
-                std::vector<std::pair<SUMOTime, double> > speedTimeLine;
-                speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), v->getSpeed()));
-                speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + duration, newSpeed));
-                v->getInfluencer().setSpeedTimeLine(speedTimeLine);
+                TraCI_Vehicle::slowDown(id, newSpeed, (SUMOTime)duration);
             }
             break;
             case CMD_CHANGETARGET: {

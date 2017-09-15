@@ -103,8 +103,11 @@ public:
     static std::vector<std::string> getVia(const std::string& vehicleID);
     static std::pair<int, int> getLaneChangeState(const std::string& vehicleID, int direction);
     static std::string getParameter(const std::string& vehicleID, const std::string& key);
-
     static const MSVehicleType& getVehicleType(const std::string& vehicleID);
+    /// @}
+
+    /// @name vehicle type value retrieval shortcuts
+    /// @{
     static std::string getEmissionClass(const std::string& vehicleID);
     static std::string getShapeClass(const std::string& vehicleID);
     static std::string getVClass(const std::string& vehicleID);
@@ -119,7 +122,6 @@ public:
     static double getMinGap(const std::string& vehicleID);
     static double getMaxSpeed(const std::string& vehicleID);
     static double getWidth(const std::string& vehicleID);
-
     /// @}
 
     /// @name State Changing
@@ -153,10 +155,11 @@ public:
                     int personNumber = 0);
 
     static void changeLane(const std::string& vehID, int laneIndex, SUMOTime duration);
+    static void changeSublane(const std::string& vehID, double latDist);
 
     static void moveTo(const std::string& vehicleID, const std::string& laneID, double position);
     static void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute);
-    static void slowDown(const std::string& vehicleID, double speed, int duration);
+    static void slowDown(const std::string& vehicleID, double speed, SUMOTime duration);
     static void setSpeed(const std::string& vehicleID, double speed);
     static void setMaxSpeed(const std::string& vehicleID, double speed);
     static void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED);
