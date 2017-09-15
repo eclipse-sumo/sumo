@@ -42,7 +42,14 @@
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSStoppingPlace.h>
 #include <traci-server/lib/TraCI.h>
-#include "TraCIConstants.h"
 #include "TraCI_Simulation.h"
+#include <traci-server/TraCIDefs.h>
+
+
+SUMOTime 
+TraCI_Simulation::getCurrentTime(){
+    return MSNet::getInstance()->getCurrentTimeStep();
+}
+
 
 #endif

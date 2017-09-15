@@ -47,6 +47,7 @@
 #include <traci-server/lib/TraCI.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Simulation.h"
+#include "lib/TraCI_Simulation.h"
 
 
 // ===========================================================================

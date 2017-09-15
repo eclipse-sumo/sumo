@@ -20,4 +20,8 @@
 #ifndef TraCI_Simulation_h
 #define TraCI_Simulation_h
 
+class TraCI_Simulation {
+public:
+    static SUMOTime getCurrentTime();
+};
 #endif
