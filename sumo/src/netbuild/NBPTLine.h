@@ -36,7 +36,7 @@ class NBPTStop;
 class NBPTLine {
 
 public:
-    explicit NBPTLine(std::string name);
+    explicit NBPTLine(const std::string& name, const std::string& type);
 
     void addPTStop(NBPTStop* pStop);
     std::string getName();
@@ -49,6 +49,7 @@ public:
     void setMyNumOfStops(unsigned long numStops);
 private:
     std::string myName;
+    std::string myType;
     std::vector<NBPTStop*> myPTStops;
 
 private:

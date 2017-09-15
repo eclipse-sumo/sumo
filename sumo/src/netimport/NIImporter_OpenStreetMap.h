@@ -557,7 +557,7 @@ protected:
         bool myIsRoute;
 
         /// @brief indicates whether current relation is a pt route
-        bool myIsPTRoute;
+        std::string myPTRouteType;
 
         /// @brief name of the relation
         std::string myName;

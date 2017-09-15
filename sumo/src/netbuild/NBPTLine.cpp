@@ -24,10 +24,13 @@
 #include "NBPTLine.h"
 #include "NBPTStop.h"
 
-NBPTLine::NBPTLine(std::string name)
-    : myName(std::move(name)), myPTLineId(-1), myRef(name) {
+NBPTLine::NBPTLine(const std::string& name, const std::string& type) : 
+    myName(name), 
+    myType(type),
+    myPTLineId(-1), 
+    myRef(name) 
+{ }
 
-}
 void NBPTLine::addPTStop(NBPTStop* pStop) {
     myPTStops.push_back(pStop);
 
@@ -44,7 +47,9 @@ void NBPTLine::write(OutputDevice& device) {
     if (!myName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, myName);
     }
+
     device.writeAttr(SUMO_ATTR_LINE, myRef);
+    device.writeAttr(SUMO_ATTR_TYPE, myType);
     device.writeAttr("completeness", toString((double)myPTStops.size()/(double)myNumOfStops));
 
     if (!myRoute.empty()) {

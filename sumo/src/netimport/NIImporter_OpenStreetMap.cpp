@@ -1044,7 +1044,7 @@ NIImporter_OpenStreetMap::RelationHandler::resetValues() {
     myWays.clear();
     myIsStopArea = false;
     myIsRoute = false;
-    myIsPTRoute = false;
+    myPTRouteType = "";
 }
 
 void
@@ -1159,7 +1159,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
             std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
             if (value == "train" || value == "subway" || value == "monorail" || value == "tram" || value == "bus"
                     || value == "trolleybus" || value == "arialway" || value == "ferry") {
-                myIsPTRoute = true;
+                myPTRouteType = value;
             }
 
         } else if (key == "name") {
@@ -1283,8 +1283,8 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 }
                 ptStop->setIsMultipleStopPositions(myStops.size() > 1);;
             }
-        } else if (myIsPTRoute && myIsRoute && OptionsCont::getOptions().isSet("ptline-output") && myStops.size() > 1) {
-            NBPTLine* ptLine = new NBPTLine(myName);
+        } else if (myPTRouteType != "" && myIsRoute && OptionsCont::getOptions().isSet("ptline-output") && myStops.size() > 1) {
+            NBPTLine* ptLine = new NBPTLine(myName, myPTRouteType);
             ptLine->setMyNumOfStops(myStops.size());
             for (long long ref : myStops) {
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {
