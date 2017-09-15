@@ -87,7 +87,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
     switch (variable) {
         case VAR_TIME_STEP:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int)MSNet::getInstance()->getCurrentTimeStep());
+            tempMsg.writeInt((int)TraCI_Simulation::getCurrentTime());
             break;
         case VAR_LOADED_VEHICLES_NUMBER:
             writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_BUILT);
@@ -149,11 +149,11 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
         case VAR_NET_BOUNDING_BOX: {
             tempMsg.writeUnsignedByte(TYPE_BOUNDINGBOX);
-            Boundary b = GeoConvHelper::getFinal().getConvBoundary();
-            tempMsg.writeDouble(b.xmin());
-            tempMsg.writeDouble(b.ymin());
-            tempMsg.writeDouble(b.xmax());
-            tempMsg.writeDouble(b.ymax());
+            TraCIBoundary tb = TraCI_Simulation::getNetBoundary();
+            tempMsg.writeDouble(tb.xMin);
+            tempMsg.writeDouble(tb.yMin);
+            tempMsg.writeDouble(tb.xMax);
+            tempMsg.writeDouble(tb.yMax);
             break;
         }
         break;

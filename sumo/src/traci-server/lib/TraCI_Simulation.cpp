@@ -45,21 +45,36 @@
 #include "TraCI_Simulation.h"
 #include <traci-server/TraCIDefs.h>
 
-
+// ===========================================================================
+// member definitions
+// ===========================================================================
 SUMOTime 
 TraCI_Simulation::getCurrentTime(){
     return MSNet::getInstance()->getCurrentTimeStep();
 }
-
-/*todo move server methods 
-int 
-TraCI_Simulation::getLoadedNumber(){
-    return 0;
-}*/
 
 
 SUMOTime 
 TraCI_Simulation::getDeltaT(){
     return (int)DELTA_T;
 }
+
+
+TraCIBoundary
+TraCI_Simulation::getNetBoundary() {
+	Boundary b = GeoConvHelper::getFinal().getConvBoundary();
+	TraCIBoundary tb;
+	tb.xMin = b.xmin();
+	tb.xMax = b.xmax();
+	tb.yMin = b.ymin();
+	tb.yMax = b.ymax();
+	tb.zMin = b.zmin();
+	tb.zMax = b.zmax();
+	return tb;
+}
+
 #endif
+
+
+/****************************************************************************/
+

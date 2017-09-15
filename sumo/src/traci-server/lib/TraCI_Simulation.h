@@ -20,10 +20,47 @@
 #ifndef TraCI_Simulation_h
 #define TraCI_Simulation_h
 
+
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
+#include <vector>
+#include <traci-server/TraCIDefs.h>
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class TraCI_Simulation
+ * @brief C++ TraCI client API implementation
+ */
 class TraCI_Simulation {
 public:
     static SUMOTime getCurrentTime();
-    //static int getLoadedNumber();
+
     static SUMOTime getDeltaT();
+
+    static TraCIBoundary getNetBoundary();
+
+private:
+    /// @brief invalidated standard constructor
+    TraCI_Simulation();
+
+    /// @brief invalidated copy constructor
+    TraCI_Simulation(const TraCI_Simulation& src);
+
+    /// @brief invalidated assignment operator
+    TraCI_Simulation& operator=(const TraCI_Simulation& src);
 };
 #endif
