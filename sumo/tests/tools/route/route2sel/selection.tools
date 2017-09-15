@@ -1,0 +1,14 @@
+edge:1/1to0/1
+edge:1/2to0/2
+edge:2/1to1/1
+edge:2/2to1/2
+edge:3/1to2/1
+edge:3/2to2/2
+edge:4/1to3/1
+edge:4/2to3/2
+edge:A
+edge:B
+edge:C
+edge:D
+edge:E
+edge:invalid
