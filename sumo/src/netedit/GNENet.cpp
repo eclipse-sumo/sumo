@@ -579,24 +579,6 @@ GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoLi
 
 
 bool
-GNENet::revertLaneRestriction(GNELane* lane, GNEUndoList* undoList) {
-    // First check that this lane is restricted
-    if (lane->isRestricted(SVC_PEDESTRIAN) == false &&
-            lane->isRestricted(SVC_BICYCLE) == false &&
-            lane->isRestricted(SVC_BUS) == false) {
-        return false;
-    }
-
-    // Get all possible vehicle classes
-    std::vector<std::string> VClasses = SumoVehicleClassStrings.getStrings();
-    // Change allow and disallow attributes of lane
-    lane->setAttribute(SUMO_ATTR_ALLOW, joinToString(VClasses, " "), undoList);
-    lane->setAttribute(SUMO_ATTR_DISALLOW, std::string(), undoList);
-    return true;
-}
-
-
-bool
 GNENet::addSRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList* undoList) {
     // First check that edge don't have a sidewalk
     for (auto i : edge.getLanes()) {

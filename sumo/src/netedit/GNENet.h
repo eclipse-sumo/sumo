@@ -254,12 +254,6 @@ public:
      */
     bool restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoList);
 
-    /**@brief revert prevously restricted lane
-     * @param[in] lane The lane to be unrestricted
-     * @param[in] undoList The undolist in which to mark changes
-     */
-    bool revertLaneRestriction(GNELane* lane, GNEUndoList* undoList);
-
     /**@brief add restricted lane to edge
      * @param[in] vclass vehicle class to restrict
      * @param[in] edge The edge in which insert restricted lane

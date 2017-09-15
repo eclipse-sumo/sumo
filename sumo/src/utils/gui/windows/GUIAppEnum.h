@@ -670,8 +670,6 @@ enum {
     MID_GNE_LANE_TRANSFORM_BIKE,
     /// @brief transform lane to busLane
     MID_GNE_LANE_TRANSFORM_BUS,
-    /// @brief revert transformation
-    MID_GNE_LANE_REVERT_TRANSFORMATION,
     /// @brief add sidewalk
     MID_GNE_LANE_ADD_SIDEWALK,
     /// @brief add bikelane

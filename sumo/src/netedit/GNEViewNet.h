@@ -230,9 +230,6 @@ public:
     /// @brief restrict lane to buslanes
     long onCmdRestrictLaneBuslane(FXObject*, FXSelector typeOfTransformation, void*);
 
-    /// @brief revert transformation
-    long onCmdRevertRestriction(FXObject*, FXSelector, void*);
-
     /// @brief Add restricted lane for pedestrians
     long onCmdAddRestrictedLaneSidewalk(FXObject*, FXSelector typeOfTransformation, void*);
 

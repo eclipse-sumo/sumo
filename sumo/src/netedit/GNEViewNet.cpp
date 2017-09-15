@@ -120,7 +120,6 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_SIDEWALK,         GNEViewNet::onCmdRestrictLaneSidewalk),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BIKE,             GNEViewNet::onCmdRestrictLaneBikelane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BUS,              GNEViewNet::onCmdRestrictLaneBuslane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REVERT_TRANSFORMATION,      GNEViewNet::onCmdRevertRestriction),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_SIDEWALK,               GNEViewNet::onCmdAddRestrictedLaneSidewalk),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BIKE,                   GNEViewNet::onCmdAddRestrictedLaneBikelane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BUS,                    GNEViewNet::onCmdAddRestrictedLaneBuslane),
@@ -1843,86 +1842,6 @@ GNEViewNet::processClick(FXEvent* e, void* eventData) {
     if (e->click_count == 2) {
         handle(this, FXSEL(SEL_DOUBLECLICKED, 0), eventData);
     }
-}
-
-long
-GNEViewNet::onCmdRevertRestriction(FXObject*, FXSelector, void*) {
-    GNELane* lane = getLaneAtCurserPosition(myPopupSpot);
-    if (lane != 0) {
-        // Declare vector of lanes
-        std::vector<GNELane*> lanes;
-        // Check if we have a set of selected edges or lanes
-        if (gSelected.isSelected(GLO_EDGE, lane->getParentEdge().getGlID())) {
-            // Get selected edgeds
-            std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
-            // fill vector of lanes with the lanes of selected edges
-            for (auto i : edges) {
-                for (auto j : i->getLanes()) {
-                    lanes.push_back(j);
-                }
-            }
-        } else if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
-            // get selected lanes
-            lanes = myNet->retrieveLanes(true);
-        }
-        // If we handeln a set of lanes
-        if (lanes.size() > 0) {
-            // declare counter for number of Sidewalks
-            int counter = 0;
-            // iterate over selected lanes
-            for (auto it : lanes) {
-                if ((it->isRestricted(SVC_PEDESTRIAN)) || (it->isRestricted(SVC_BICYCLE)) || (it->isRestricted(SVC_BUS))) {
-                    counter++;
-                }
-            }
-            // if none of selected lanes has a transformation, stop
-            if (counter == 0) {
-                FXMessageBox::information(getApp(), MBOX_OK,
-                                          "Revert restriction", "%s",
-                                          "None of selected lanes has a previous restriction");
-                return 0;
-            } else {
-                if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Opening FXMessageBox 'restrict lanes'");
-                }
-                // Ask confirmation to user
-                FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
-                                                       "Revert restriction", "%s",
-                                                       (toString(counter) + " restrictions of lanes lanes will be reverted. continue?").c_str());
-                if (answer != 1) { //1:yes, 2:no, 4:esc
-                    // write warning if netedit is running in testing mode
-                    if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                        WRITE_WARNING("Closed FXMessageBox 'restrict lanes' with 'No'");
-                    } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                        WRITE_WARNING("Closed FXMessageBox 'restrict lanes' with 'ESC'");
-                    }
-                    return 0;
-                } else {
-                    // write warning if netedit is running in testing mode
-                    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox 'restrict lanes' with 'Yes'");
-                    }
-                }
-            }
-            // begin undo operation
-            myUndoList->p_begin("revert restrictions");
-            // iterate over selected lanes
-            for (auto it : lanes) {
-                // revert transformation
-                myNet->revertLaneRestriction(it, myUndoList);
-            }
-            // end undo operation
-            myUndoList->p_end();
-        } else {
-            // If only have a single lane, start undo/redo operation
-            myUndoList->p_begin("revert restriction");
-            // revert transformation
-            myNet->revertLaneRestriction(lane, myUndoList);
-            // end undo operation
-            myUndoList->p_end();
-        }
-    }
-    return 1;
 }
 
 

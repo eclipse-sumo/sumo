@@ -501,7 +501,6 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             new FXMenuCommand(transformSlanes, "Sidewalks", pedestrianIcon, &parent, MID_GNE_LANE_TRANSFORM_SIDEWALK);
             new FXMenuCommand(transformSlanes, "Bikelanes", bikeIcon, &parent, MID_GNE_LANE_TRANSFORM_BIKE);
             new FXMenuCommand(transformSlanes, "Buslanes", busIcon, &parent, MID_GNE_LANE_TRANSFORM_BUS);
-            new FXMenuCommand(transformSlanes, "revert transformations", 0, &parent, MID_GNE_LANE_REVERT_TRANSFORMATION);
             // add menuCascade for lane operations
             new FXMenuCascade(ret, ("add special" + toString(SUMO_TAG_LANE) + "s").c_str(), 0, addSpecialLanes);
             new FXMenuCascade(ret, ("remove special" + toString(SUMO_TAG_LANE) + "s").c_str(), 0, removeSpecialLanes);
@@ -534,7 +533,6 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             FXMenuCommand* transformLaneToSidewalk = new FXMenuCommand(transformSlanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_LANE_TRANSFORM_SIDEWALK);
             FXMenuCommand* transformLaneToBikelane = new FXMenuCommand(transformSlanes, "Bikelane", bikeIcon, &parent, MID_GNE_LANE_TRANSFORM_BIKE);
             FXMenuCommand* transformLaneToBuslane = new FXMenuCommand(transformSlanes, "Buslane", busIcon, &parent, MID_GNE_LANE_TRANSFORM_BUS);
-            FXMenuCommand* revertTransformation = new FXMenuCommand(transformSlanes, "revert transformation", 0, &parent, MID_GNE_LANE_REVERT_TRANSFORMATION);
             // add menuCascade for lane operations
             FXMenuCascade* cascadeAddSpecialLane = new FXMenuCascade(ret, ("add special" + toString(SUMO_TAG_LANE)).c_str(), 0, addSpecialLanes);
             FXMenuCascade* cascadeRemoveSpecialLane = new FXMenuCascade(ret, ("remove special" + toString(SUMO_TAG_LANE)).c_str(), 0, removeSpecialLanes);
@@ -561,12 +559,6 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             }
             if (!edgeHasSidewalk && !edgeHasBikelane && !edgeHasBuslane) {
                 cascadeRemoveSpecialLane->disable();
-            }
-            // Enable or disable revert transformation
-            if (isRestricted(SVC_PEDESTRIAN) || isRestricted(SVC_BICYCLE) || isRestricted(SVC_BUS)) {
-                revertTransformation->enable();
-            } else {
-                revertTransformation->disable();
             }
         }
     } else if (editMode == GNE_MODE_TLS) {
