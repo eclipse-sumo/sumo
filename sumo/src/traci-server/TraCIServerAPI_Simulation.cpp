@@ -145,7 +145,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
         case VAR_DELTA_T:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int)DELTA_T);
+            tempMsg.writeInt(TraCI_Simulation::getDeltaT());
             break;
         case VAR_NET_BOUNDING_BOX: {
             tempMsg.writeUnsignedByte(TYPE_BOUNDINGBOX);

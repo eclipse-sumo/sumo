@@ -23,5 +23,7 @@
 class TraCI_Simulation {
 public:
     static SUMOTime getCurrentTime();
+    //static int getLoadedNumber();
+    static SUMOTime getDeltaT();
 };
 #endif

@@ -51,5 +51,15 @@ TraCI_Simulation::getCurrentTime(){
     return MSNet::getInstance()->getCurrentTimeStep();
 }
 
+/*todo move server methods 
+int 
+TraCI_Simulation::getLoadedNumber(){
+    return 0;
+}*/
 
+
+SUMOTime 
+TraCI_Simulation::getDeltaT(){
+    return (int)DELTA_T;
+}
 #endif
