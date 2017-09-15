@@ -48,6 +48,16 @@ def get_options():
     (options, args) = optParser.parse_args()
     return options
 
+def writeTypes(fout):
+    fout.write('    <vType id="bus" vClass="bus"/>\n')
+    fout.write('    <vType id="tram" vClass="tram"/>\n')
+    fout.write('    <vType id="train" vClass="rail"/>\n')
+    fout.write('    <vType id="subway" vClass="rail_urban"/>\n')
+    fout.write('    <vType id="monorail" vClass="rail"/>\n')
+    fout.write('    <vType id="trolleybus" vClass="bus"/>\n')
+    fout.write('    <vType id="aerialway" vClass="bus"/>\n')
+    fout.write('    <vType id="ferry" vClass="ship"/>\n')
+
 def main():
     options = get_options()
     print("generating trips...")
@@ -60,6 +70,7 @@ def main():
     with open(options.trips, 'w') as fouttrips:
         sumolib.writeXMLHeader(
             fouttrips, "$Id$", "routes")
+        writeTypes(fouttrips)
         trp_nr = 0
         for line in sumolib.output.parse(options.ptlines, 'ptLine'):
 
@@ -85,14 +96,16 @@ def main():
                 if (lenE > 3):
                     vias = ' '.join(edges[0:lenE])
                     fouttrips.write(
-                        '\t<trip id="%s" depart="0" departLane="%s" from="%s" to="%s" via="%s">\n' % (
-                            trp_nr, 'best', fr, to, vias))
+                        '\t<trip id="%s" type="%s" depart="0" departLane="%s" from="%s" to="%s" via="%s">\n' % (
+                            trp_nr, line.type, 'best', fr, to, vias))
                 else:
                     fouttrips.write(
-                        '\t<trip id="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (trp_nr, 'best', fr, to))
+                        '\t<trip id="%s" type="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (
+                            trp_nr, line.type, 'best', fr, to))
             else:
                 fouttrips.write(
-                    '\t<trip id="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (trp_nr, 'best', fr, to))
+                    '\t<trip id="%s" type="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (
+                        trp_nr, line.type, 'best', fr, to))
 
             trpIDLineMap[str(trp_nr)] = line.line
             trp_nr += 1
@@ -101,9 +114,11 @@ def main():
             fouttrips.write('\t</trip>\n')
         fouttrips.write("</routes>\n")
     print("done.")
-    print("running SUMO to dertermine actual departure times...")
+    print("running SUMO to determine actual departure times...")
     subprocess.call([sumolib.checkBinary("sumo"), "-r", options.trips, "-n", options.netfile,
                      "--no-step-log",
+                     "--ignore-route-errors",
+                     "--error-log", options.trips + ".errorlog",
                      "-a", options.ptstops,
                      "--vehroute-output", options.routes,
                      "--stop-output", options.stopinfos, ])
@@ -118,24 +133,26 @@ def main():
         flows = []
         sumolib.writeXMLHeader(
             foutflows, "$Id$", "routes")
-        foutflows.write('\t<vType id="bus" vClass="bus" />\n')
+        writeTypes(foutflows)
         for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
             id = vehicle.id
-            flows.append(id)
+            flows.append((id, vehicle.type))
             edges = vehicle.routeDistribution[0]._child_dict['route'][1].edges
             stops = vehicle.stop
             foutflows.write(
                 '\t<route id="%s" edges="%s" >\n' % (id, edges))
             for stop in stops:
-                foutflows.write(
-                    '\t\t<stop busStop="%s" duration="%s" until="%s" />\n' % (
-                        stop.busStop, stop.duration, stopsUntil[stop.busStop])
-                )
+                if stop.busStop in stopsUntil:
+                    foutflows.write(
+                        '\t\t<stop busStop="%s" duration="%s" until="%s" />\n' % (
+                            stop.busStop, stop.duration, stopsUntil[stop.busStop]))
+                else:
+                    sys.stderr.write("Missing stop '%s' for flow '%s'\n" % (stop.busStop, id))
             foutflows.write('\t</route>\n')
-        for flow in flows:
+        for flow, type in flows:
             lineRef = trpIDLineMap[flow]
-            foutflows.write('\t<flow id="%s" route="%s" begin="%s" end="%s" period="%s" type="bus" line="%s"/>\n' %
-                            (flow, flow, options.begin, options.end, options.period, lineRef))
+            foutflows.write('\t<flow id="%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s"/>\n' %
+                            (flow, type, flow, options.begin, options.end, options.period, lineRef))
         foutflows.write('</routes>\n')
 
     print("done.")
