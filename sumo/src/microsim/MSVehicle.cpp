@@ -1025,23 +1025,29 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     stop.parking = stopPar.parking;
     stop.collision = collision;
     stop.reached = false;
+    std::string stopType = "stop";
+    std::string stopID = "";
+    if (stop.busstop != 0) {
+        stopType = "busStop";
+        stopID = stop.busstop->getID();
+    } else if (stop.containerstop != 0) {
+        stopType = "containerStop";
+        stopID = stop.containerstop->getID();
+    } else if (stop.chargingStation != 0) {
+        stopType = "chargingStation";
+        stopID = stop.chargingStation->getID();
+    } else if (stop.parkingarea != 0) {
+        stopType = "parkingArea";
+        stopID = stop.parkingarea->getID();
+    }
+    const std::string errorMsgStart = stopID == "" ? stopType : stopType + " '" + stopID + "'";
+
     if (stop.startPos < 0 || stop.endPos > stop.lane->getLength()) {
-        if (stop.busstop != 0) {
-            errorMsg = "Bus stop '" + stop.busstop->getID() + "'";
-        } else {
-            errorMsg = "Stop";
-        }
-        errorMsg += " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' has an invalid position.";
+        errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' has an invalid position.";
         return false;
     }
-    if (stop.busstop != 0 && myType->getLength() / 2. > stop.endPos - stop.startPos) {
-        errorMsg = "Bus stop '" + stop.busstop->getID() + "' on lane '" + stopPar.lane + "' is too short for vehicle '" + myParameter->id + "'.";
-    }
-    if (stop.containerstop != 0 && myType->getLength() / 2. > stop.endPos - stop.startPos) {
-        errorMsg = "Container stop '" + stop.containerstop->getID() + "' on lane '" + stopPar.lane + "' is too short for vehicle '" + myParameter->id + "'.";
-    }
-    if (stop.parkingarea != 0 && myType->getLength() / 2. > stop.endPos - stop.startPos) {
-        errorMsg = "Parking area '" + stop.parkingarea->getID() + "' on lane '" + stopPar.lane + "' is too short for vehicle '" + myParameter->id + "'.";
+    if (stopType != "stop" && myType->getLength() / 2. > stop.endPos - stop.startPos) {
+        errorMsg = errorMsgStart + " on lane '" + stopPar.lane + "' is too short for vehicle '" + myParameter->id + "'.";
     }
     // if stop is on an internal edge the normal edge before the intersection is used
     const MSEdge* stopEdge = stop.lane->getEdge().getNormalBefore();
@@ -1090,12 +1096,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
             MSRouteIterator next = stop.edge + 1;
             return addStop(stopPar, errorMsg, untilOffset, collision, &next);
         }
-        if (stop.busstop != 0) {
-            errorMsg = "Bus stop '" + stop.busstop->getID() + "'";
-        } else {
-            errorMsg = "Stop";
-        }
-        errorMsg += " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is not downstream the current route.";
+        errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is not downstream the current route.";
         return false;
     }
     // David.C:
@@ -1106,7 +1107,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         myState.myPos = stop.endPos;
         myState.mySpeed = 0;
     } else if (myCurrEdge == stop.edge && myState.myPos > stop.endPos + endPosOffset - getCarFollowModel().brakeGap(myState.mySpeed)) {
-        errorMsg = "Stop for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is too close to break.";
+        errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is too close to break.";
         return false;
     }
     if (!hasDeparted() && myCurrEdge == stop.edge) {
@@ -1126,12 +1127,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
                 MSRouteIterator next = stop.edge + 1;
                 return addStop(stopPar, errorMsg, untilOffset, collision, &next);
             }
-            if (stop.busstop != 0) {
-                errorMsg = "Bus stop '" + stop.busstop->getID() + "'";
-            } else {
-                errorMsg = "Stop";
-            }
-            errorMsg += " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is before departPos.";
+            errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is before departPos.";
             return false;
         }
     }
@@ -1139,12 +1135,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         std::list<Stop>::iterator iter2 = iter;
         iter2--;
         if (stop.until >= 0 && iter2->until > stop.until) {
-            if (stop.busstop != 0) {
-                errorMsg = "Bus stop '" + stop.busstop->getID() + "'";
-            } else {
-                errorMsg = "Stop";
-            }
-            errorMsg += " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' ends earlier than previous stop.";
+            errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' ends earlier than previous stop.";
         }
     }
     myStops.insert(iter, stop);
