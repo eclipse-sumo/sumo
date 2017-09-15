@@ -113,6 +113,14 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
             std::string type(text.mid(typeS + 1, idS - typeS - 1).lower().text());
             if (type == "tllogic") {
                 type = "tlLogic"; // see GUIGlObject.cpp
+            } else if (type == "busstop") {
+                type = "busStop";
+            } else if (type == "containerstop") {
+                type = "containerStop";
+            } else if (type == "chargingstation") {
+                type = "chargingStation";
+            } else if (type == "parkingarea") {
+                type = "parkingArea";
             }
             const std::string id(text.mid(idS + 2, idE - idS - 2).text());
             return GUIGlObjectStorage::gIDStorage.getObjectBlocking(type + ":" + id);
