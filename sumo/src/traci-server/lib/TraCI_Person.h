@@ -33,7 +33,7 @@
 #include <vector>
 #include <traci-server/TraCIDefs.h>
 #include <traci-server/TraCIConstants.h>
-
+#include <traci-server/TraCIServerAPI_Person.h>
 
 // ===========================================================================
 // class declarations
@@ -48,8 +48,10 @@ class MSRoute;
  * @brief C++ TraCI client API implementation
  */
 class TraCI_Person {
-public:
+    // processSet calls private member getSingularVType(), which should not be exposed to the public API.
+    friend bool TraCIServerAPI_Person::processSet(TraCIServer&, tcpip::Storage&, tcpip::Storage&);
 
+public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
     static double getSpeed(const std::string& personID);
@@ -70,10 +72,11 @@ public:
     static void removeStages(const std::string& personID);
     static void add(const std::string& personID, const std::string& edgeID, double pos, double depart = DEPARTFLAG_NOW, const std::string typeID = "DEFAULT_PEDTYPE");
     static void appendWaitingStage(const std::string& personID, double duration, const std::string& description = "waiting", const std::string& stopID = "");
-    static void appendWalkingStage(const std::string& personID, const std::vector<std::string>& edges, double arrivalPos, double duration = -1, double speed = -1, const std::string& stopID = "");
+    static void appendWalkingStage(const std::string& personID, const std::vector<std::string>& edgeIDs, double arrivalPos, double duration = -1, double speed = -1, const std::string& stopID = "");
     static void appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID = "");
     static void removeStage(const std::string& personID, int nextStageIndex);
     static void rerouteTraveltime(const std::string& personID);
+    static void setParameter(const std::string& personID, const std::string& key, const std::string& value);
     static void setSpeed(const std::string& personID, double speed);
     static void setType(const std::string& personID, const std::string& typeID);
     static void setLength(const std::string& personID, double length);
@@ -93,6 +96,9 @@ private:
     TraCI_Person& operator=(const TraCI_Person& src);
 
     static MSTransportable* getPerson(const std::string& id);
+
+    // This does not only return the person's vType, but makes it singular.
+    static std::string getSingularVType(const std::string& personID);
 };
 
 
