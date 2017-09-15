@@ -20,7 +20,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 import sys
 from optparse import OptionParser
-from sumolib.output import parse_fast
+from sumolib.output import parse, parse_fast
 
 
 def parse_args():
@@ -29,11 +29,11 @@ def parse_args():
     optParser.add_option("-o", "--outfile", help="name of output file")
     options, args = optParser.parse_args()
     try:
-        options.routefile, = args
+        options.routefiles = args
     except:
         sys.exit(USAGE)
     if options.outfile is None:
-        options.outfile = options.routefile + ".sel.txt"
+        options.outfile = options.routefiles[0] + ".sel.txt"
     return options
 
 
@@ -41,20 +41,23 @@ def main():
     options = parse_args()
     edges = set()
 
-    for route in parse_fast(options.routefile, 'route', ['edges']):
-        edges.update(route.edges.split())
-    for walk in parse_fast(options.routefile, 'walk', ['edges']):
-        edges.update(walk.edges.split())
+    for routefile in options.routefiles:
+        for route in parse_fast(routefile, 'route', ['edges']):
+            edges.update(route.edges.split())
+        for walk in parse_fast(routefile, 'walk', ['edges']):
+            edges.update(walk.edges.split())
 
-    # warn about potentially missing edges
-    for trip in parse_fast(options.routefile, 'trip', ['id', 'from', 'to']):
-        edges.update([trip.attr_from, trip.to])
-        print(
-            "Warning: Trip %s is not guaranteed to be connected within the extracted edges." % trip.id)
-    for walk in parse_fast(options.routefile, 'walk', ['from', 'to']):
-        edges.update([walk.attr_from, walk.to])
-        print("Warning: Walk from %s to %s is not guaranteed to be connected within the extracted edges." % (
-            walk.attr_from, walk.to))
+        # warn about potentially missing edges
+        for trip in parse(routefile, ['trip', 'flow'], heterogeneous=True):
+            edges.update([trip.attr_from, trip.to])
+            if trip.via is not None:
+                edges.update(trip.via.split())
+            print(
+                "Warning: Trip %s is not guaranteed to be connected within the extracted edges." % trip.id)
+        for walk in parse_fast(routefile, 'walk', ['from', 'to']):
+            edges.update([walk.attr_from, walk.to])
+            print("Warning: Walk from %s to %s is not guaranteed to be connected within the extracted edges." % (
+                walk.attr_from, walk.to))
 
     with open(options.outfile, 'w') as outf:
         for e in sorted(list(edges)):
