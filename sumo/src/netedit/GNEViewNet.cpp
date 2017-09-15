@@ -1871,13 +1871,23 @@ GNEViewNet::onCmdReplaceJunction(FXObject*, FXSelector, void*) {
 
 long 
 GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
-    return 0;
+    GNEJunction* junction = getJunctionAtCursorPosition(myPopupSpot);
+    if (junction != 0) {
+        myNet->clearJunctionConnections(junction, myUndoList);
+        update();
+    }
+    return 1;
 }
 
 
 long 
 GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
-    return 0;
+    GNEJunction* junction = getJunctionAtCursorPosition(myPopupSpot);
+    if (junction != 0) {
+        myNet->resetJunctionConnections(junction, myUndoList);
+        update();
+    }
+    return 1;
 }
 
 

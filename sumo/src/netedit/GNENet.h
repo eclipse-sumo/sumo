@@ -445,6 +445,12 @@ public:
     /// @brief replace the selected junction by geometry node(s) and merge the edges
     void replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList);
 
+    /// @brief clear junction's connections
+    void clearJunctionConnections(GNEJunction* junction, GNEUndoList* undoList);
+
+    /// @brief reset junction's connections
+    void resetJunctionConnections(GNEJunction* junction, GNEUndoList* undoList);
+
     /**@brief trigger recomputation of junction shape and logic
      * param[in] window The window to inform about delay
      */
