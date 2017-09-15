@@ -145,7 +145,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
         case VAR_DELTA_T:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt(TraCI_Simulation::getDeltaT());
+            tempMsg.writeInt((int)TraCI_Simulation::getDeltaT());
             break;
         case VAR_NET_BOUNDING_BOX: {
             tempMsg.writeUnsignedByte(TYPE_BOUNDINGBOX);
@@ -159,7 +159,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
         break;
         case VAR_MIN_EXPECTED_VEHICLES:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt(MSNet::getInstance()->getVehicleControl().getActiveVehicleCount() + MSNet::getInstance()->getInsertionControl().getPendingFlowCount());
+            tempMsg.writeInt(TraCI_Simulation::getMinExpectedNumber());
             break;
         case POSITION_CONVERSION:
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {

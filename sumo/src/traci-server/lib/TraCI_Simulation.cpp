@@ -56,7 +56,7 @@ TraCI_Simulation::getCurrentTime(){
 
 SUMOTime 
 TraCI_Simulation::getDeltaT(){
-    return (int)DELTA_T;
+    return DELTA_T;
 }
 
 
@@ -71,6 +71,11 @@ TraCI_Simulation::getNetBoundary() {
 	tb.zMin = b.zmin();
 	tb.zMax = b.zmax();
 	return tb;
+}
+
+int
+TraCI_Simulation::getMinExpectedNumber() {
+    return MSNet::getInstance()->getVehicleControl().getActiveVehicleCount() + MSNet::getInstance()->getInsertionControl().getPendingFlowCount();
 }
 
 #endif

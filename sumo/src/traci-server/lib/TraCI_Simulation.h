@@ -53,6 +53,8 @@ public:
 
     static TraCIBoundary getNetBoundary();
 
+    static int getMinExpectedNumber();
+
 private:
     /// @brief invalidated standard constructor
     TraCI_Simulation();
