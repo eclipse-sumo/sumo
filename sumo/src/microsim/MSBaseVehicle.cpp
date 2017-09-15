@@ -194,6 +194,7 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
                     throw ProcessError(error);
                 } else {
                     WRITE_WARNING(error);
+                    edges.push_back(source);
                 }
             }
             source = *s;
