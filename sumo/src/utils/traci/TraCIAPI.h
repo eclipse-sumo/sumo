@@ -175,8 +175,8 @@ public:
         double getLastStepHaltingNumber(const std::string& edgeID) const;
         std::vector<std::string> getLastStepVehicleIDs(const std::string& edgeID) const;
 
-        void adaptTraveltime(const std::string& edgeID, double time, double begin = 0, double end = SUMOTime_MAX / 1000.0) const;
-        void setEffort(const std::string& edgeID, double effort, SUMOTime begin = 0, SUMOTime end = SUMOTime_MAX) const;
+        void adaptTraveltime(const std::string& edgeID, double time, int beginSeconds = 0, int endSeconds = std::numeric_limits<int>::max()) const;
+        void setEffort(const std::string& edgeID, double effort, int beginSeconds = 0, int endSeconds = std::numeric_limits<double>::max()) const;
         void setMaxSpeed(const std::string& edgeID, double speed) const;
 
     private:

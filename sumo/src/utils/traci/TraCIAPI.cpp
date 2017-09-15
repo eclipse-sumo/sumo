@@ -711,14 +711,18 @@ TraCIAPI::EdgeScope::getLastStepVehicleIDs(const std::string& edgeID) const {
 
 
 void
-TraCIAPI::EdgeScope::adaptTraveltime(const std::string& edgeID, double time, double begin, double end) const {
+TraCIAPI::EdgeScope::adaptTraveltime(const std::string& edgeID, double time, int beginSeconds, int endSeconds) const {
     tcpip::Storage content;
     content.writeByte(TYPE_COMPOUND);
-    content.writeInt(3);
-    content.writeByte(TYPE_INTEGER);
-    content.writeInt((int)begin);
-    content.writeByte(TYPE_INTEGER);
-    content.writeInt((int)end);
+    if (endSeconds != std::numeric_limits<double>::max()) {
+        content.writeInt(3);
+        content.writeByte(TYPE_INTEGER);
+        content.writeInt(beginSeconds);
+        content.writeByte(TYPE_INTEGER);
+        content.writeInt(endSeconds);
+    } else {
+        content.writeInt(1);
+    }
     content.writeByte(TYPE_DOUBLE);
     content.writeDouble(time);
     myParent.send_commandSetValue(CMD_SET_EDGE_VARIABLE, VAR_EDGE_TRAVELTIME, edgeID, content);
@@ -727,14 +731,18 @@ TraCIAPI::EdgeScope::adaptTraveltime(const std::string& edgeID, double time, dou
 }
 
 void
-TraCIAPI::EdgeScope::setEffort(const std::string& edgeID, double effort, SUMOTime begin, SUMOTime end) const {
+TraCIAPI::EdgeScope::setEffort(const std::string& edgeID, double effort, int beginSeconds, int endSeconds) const {
     tcpip::Storage content;
     content.writeByte(TYPE_COMPOUND);
-    content.writeInt(3);
-    content.writeByte(TYPE_INTEGER);
-    content.writeInt((int)begin);
-    content.writeByte(TYPE_INTEGER);
-    content.writeInt((int)end);
+    if (endSeconds != std::numeric_limits<double>::max()) {
+        content.writeInt(3);
+        content.writeByte(TYPE_INTEGER);
+        content.writeInt(beginSeconds);
+        content.writeByte(TYPE_INTEGER);
+        content.writeInt(endSeconds);
+    } else {
+        content.writeInt(1);
+    }
     content.writeByte(TYPE_DOUBLE);
     content.writeDouble(effort);
     myParent.send_commandSetValue(CMD_SET_EDGE_VARIABLE, VAR_EDGE_EFFORT, edgeID, content);
