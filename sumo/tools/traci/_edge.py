@@ -207,12 +207,12 @@ class EdgeDomain(Domain):
         return self._getUniversal(tc.LAST_STEP_PERSON_ID_LIST, edgeID)
 
     def adaptTraveltime(self, edgeID, time, begin=None, end=None):
-        """adaptTraveltime(string, double) -> None
+        """adaptTraveltime(string, double, int, int) -> None
 
         Adapt the travel time value (in s) used for (re-)routing for the given edge.
 
         When setting begin time and end time (in seconds), the changes only
-        apply to that time range
+        apply to that time range. Otherwise they apply all the time
         """
         if begin is None and end is None:
             self._connection._beginMessage(
@@ -234,12 +234,12 @@ class EdgeDomain(Domain):
                 "Both, begin time and end time must be specified")
 
     def setEffort(self, edgeID, effort, begin=None, end=None):
-        """setEffort(string, double) -> None
+        """setEffort(string, double, int, int) -> None
 
         Adapt the effort value used for (re-)routing for the given edge.
 
         When setting begin time and end time (in seconds), the changes only
-        apply to that time range
+        apply to that time range. Otherwise they apply all the time.
         """
         if begin is None and end is None:
             self._connection._beginMessage(
