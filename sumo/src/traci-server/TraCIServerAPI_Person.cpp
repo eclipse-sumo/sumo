@@ -39,6 +39,7 @@
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
 #include "TraCIServerAPI_Person.h"
+#include "lib/TraCI_Person.h"
 #include "TraCIServerAPI_VehicleType.h"
 
 
@@ -72,130 +73,113 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
     tempMsg.writeUnsignedByte(RESPONSE_GET_PERSON_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
-    MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
-    if (variable == ID_LIST || variable == ID_COUNT) {
-        if (variable == ID_LIST) {
-            std::vector<std::string> ids;
-            for (MSTransportableControl::constVehIt i = c.loadedBegin(); i != c.loadedEnd(); ++i) {
-                if (i->second->getCurrentStageType() != MSTransportable::WAITING_FOR_DEPART) {
-                    ids.push_back(i->first);
-                }
-            }
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(ids);
-        } else {
-            tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int) c.size());
-        }
-    } else {
-        MSTransportable* p = c.get(id);
-        if (p == 0) {
-            return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "Person '" + id + "' is not known", outputStorage);
-        }
-        switch (variable) {
-            case VAR_POSITION: {
-                tempMsg.writeUnsignedByte(POSITION_2D);
-                tempMsg.writeDouble(p->getPosition().x());
-                tempMsg.writeDouble(p->getPosition().y());
-            }
-            break;
-            case VAR_POSITION3D:
-                tempMsg.writeUnsignedByte(POSITION_3D);
-                tempMsg.writeDouble(p->getPosition().x());
-                tempMsg.writeDouble(p->getPosition().y());
-                tempMsg.writeDouble(p->getPosition().z());
-                break;
-            case VAR_ANGLE:
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(GeomHelper::naviDegree(p->getAngle()));
-                break;
-            case VAR_SPEED:
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(p->getSpeed());
-                break;
-            case VAR_ROAD_ID:
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(p->getEdge()->getID());
-                break;
-            case VAR_LANEPOSITION:
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(p->getEdgePos());
-                break;
-            case VAR_COLOR:
-                tempMsg.writeUnsignedByte(TYPE_COLOR);
-                tempMsg.writeUnsignedByte(p->getParameter().color.red());
-                tempMsg.writeUnsignedByte(p->getParameter().color.green());
-                tempMsg.writeUnsignedByte(p->getParameter().color.blue());
-                tempMsg.writeUnsignedByte(p->getParameter().color.alpha());
-                break;
-            case VAR_WAITING_TIME:
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(p->getWaitingSeconds());
-                break;
-            case VAR_TYPE:
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(p->getVehicleType().getID());
-                break;
-            case VAR_NEXT_EDGE:
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(dynamic_cast<MSPerson*>(p)->getNextEdge());
-                break;
-            case VAR_EDGES: {
-                int nextStageIndex = 0;
-                if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
-                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
-                }
-                if (nextStageIndex >= p->getNumRemainingStages()) {
-                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The stage index must be lower than the number of remaining stages.", outputStorage);
-                }
-                if (nextStageIndex < (p->getNumRemainingStages() - p->getNumStages())) {
-                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The negative stage index must refer to a valid previous stage.", outputStorage);
-                }
-                ConstMSEdgeVector edges = p->getEdges(nextStageIndex);
+
+    try {
+        if (variable == ID_LIST || variable == ID_COUNT) {
+            if (variable == ID_LIST) {
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeInt((int)edges.size());
-                for (ConstMSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-                    tempMsg.writeString((*i)->getID());
-                }
-                break;
-            }
-            case VAR_STAGE: {
-                int nextStageIndex = 0;
-                if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
-                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
-                }
-                if (nextStageIndex >= p->getNumRemainingStages()) {
-                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The stage index must be lower than the number of remaining stages.", outputStorage);
-                }
-                if (nextStageIndex < (p->getNumRemainingStages() - p->getNumStages())) {
-                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The negative stage index must refer to a valid previous stage.", outputStorage);
-                }
+                tempMsg.writeStringList(TraCI_Person::getIDList());
+            } else {
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(p->getStageType(nextStageIndex));
-                break;
+                tempMsg.writeInt(TraCI_Person::getIDCount());
             }
-            case VAR_STAGES_REMAINING:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(p->getNumRemainingStages());
-                break;
-            case VAR_VEHICLE: {
-                const SUMOVehicle* veh = p->getVehicle();
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(veh == 0 ? "" : veh->getID());
-                break;
-            }
-            case VAR_PARAMETER: {
-                std::string paramName = "";
-                if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+        } else {
+            switch (variable) {
+                case VAR_POSITION: {
+                    TraCIPosition pos = TraCI_Person::getPosition(id);
+                    tempMsg.writeUnsignedByte(POSITION_2D);
+                    tempMsg.writeDouble(pos.x);
+                    tempMsg.writeDouble(pos.y);
                 }
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(p->getParameter().getParameter(paramName, ""));
-            }
-            default:
-                TraCIServerAPI_VehicleType::getVariable(variable, p->getVehicleType().getID(), tempMsg);
                 break;
+                case VAR_POSITION3D: {
+                    TraCIPosition pos = TraCI_Person::getPosition(id);
+                    tempMsg.writeUnsignedByte(POSITION_3D);
+                    tempMsg.writeDouble(pos.x);
+                    tempMsg.writeDouble(pos.y);
+                    tempMsg.writeDouble(pos.z);
+                }
+                break;
+                case VAR_ANGLE:
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(TraCI_Person::getAngle(id));
+                    break;
+                case VAR_SPEED:
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(TraCI_Person::getSpeed(id));
+                    break;
+                case VAR_ROAD_ID:
+                    tempMsg.writeUnsignedByte(TYPE_STRING);
+                    tempMsg.writeString(TraCI_Person::getRoadID(id));
+                    break;
+                case VAR_LANEPOSITION:
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(TraCI_Person::getLanePosition(id));
+                    break;
+                case VAR_COLOR: {
+                    TraCIColor col = TraCI_Person::getColor(id);
+                    tempMsg.writeUnsignedByte(TYPE_COLOR);
+                    tempMsg.writeUnsignedByte(col.r);
+                    tempMsg.writeUnsignedByte(col.g);
+                    tempMsg.writeUnsignedByte(col.b);
+                    tempMsg.writeUnsignedByte(col.a);
+                }
+                break;
+                case VAR_WAITING_TIME:
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(TraCI_Person::getWaitingTime(id));
+                    break;
+                case VAR_TYPE:
+                    tempMsg.writeUnsignedByte(TYPE_STRING);
+                    tempMsg.writeString(TraCI_Person::getTypeID(id));
+                    break;
+                case VAR_NEXT_EDGE:
+                    tempMsg.writeUnsignedByte(TYPE_STRING);
+                    tempMsg.writeString(TraCI_Person::getNextEdge(id));
+                    break;
+                case VAR_EDGES: {
+                    int nextStageIndex = 0;
+                    if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
+                        return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
+                    }
+                    tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                    tempMsg.writeStringList(TraCI_Person::getEdges(id, nextStageIndex));
+                    break;
+                }
+                case VAR_STAGE: {
+                    int nextStageIndex = 0;
+                    if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
+                        return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
+                    }
+                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                    tempMsg.writeInt(TraCI_Person::getStage(id, nextStageIndex));
+                    break;
+                }
+                case VAR_STAGES_REMAINING:
+                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                    tempMsg.writeInt(TraCI_Person::getRemainingStages(id));
+                    break;
+                case VAR_VEHICLE: {
+                    tempMsg.writeUnsignedByte(TYPE_STRING);
+                    tempMsg.writeString(TraCI_Person::getVehicle(id));
+                    break;
+                }
+                case VAR_PARAMETER: {
+                    std::string paramName = "";
+                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                        return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                    }
+                    tempMsg.writeUnsignedByte(TYPE_STRING);
+                    tempMsg.writeString(TraCI_Person::getParameter(id, paramName));
+                    break;
+                }
+                default:
+                    TraCIServerAPI_VehicleType::getVariable(variable, TraCI_Person::getTypeID(id), tempMsg);
+                    break;
+            }
         }
+    } catch (TraCIException& e) {
+        return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_PERSON_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);
@@ -224,9 +208,13 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
        ) {
         return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Change Person State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
-    // id
+
+    try {
+    // TODO: remove declaration of c after completion
     MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
+    // id
     std::string id = inputStorage.readString();
+    // TODO: remove declaration of p after completion
     const bool shouldExist = variable != ADD;
     MSTransportable* p = c.get(id);
     if (p == 0 && shouldExist) {
@@ -548,6 +536,9 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, e.what(), outputStorage);
             }
             break;
+    }
+    } catch (TraCIException& e) {
+        return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_SET_PERSON_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;
