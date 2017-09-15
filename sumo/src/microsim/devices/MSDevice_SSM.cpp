@@ -230,6 +230,7 @@ MSDevice_SSM::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) 
         // File
         std::string file = getOutputFilename(v, deviceID);
 
+        //use geo-coords? TODO: test
         const bool useGeo = useGeoCoords(v, deviceID);
 
         // Build the device (XXX: who deletes it?)
@@ -293,6 +294,9 @@ MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position ego
     conflictPointSpan.push_back(conflictPoint);
     egoDistsToConflict.push_back(egoDistToConflict);
     foeDistsToConflict.push_back(foeDistToConflict);
+
+
+    //TODO: Add current encounter type to the extremal values of the SSMs to enable correct interpretation.
 
     TTCspan.push_back(ttc);
     if (ttc != INVALID && (ttc < minTTC.first.second || minTTC.first.second == INVALID)) {
