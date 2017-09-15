@@ -764,6 +764,11 @@ public:
         int getRemainingStages(const std::string& personID) const;
         int getStage(const std::string& personID, int nextStageIndex = 0) const;
         std::vector<std::string> getEdges(const std::string& personID, int nextStageIndex = 0) const;
+        // TODO:
+        // double getAngle(const std::string& personID) const;
+        // double getLanePosition(const std::string& personID) const;
+        // TraCIColor getColor(const std::string& personID) const;
+
 
         void removeStages(const std::string& personID) const;
         void add(const std::string& personID, const std::string& edgeID, double pos, double depart = DEPARTFLAG_NOW, const std::string typeID = "DEFAULT_PEDTYPE");
