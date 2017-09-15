@@ -40,6 +40,7 @@ class GNENet;
 class GNEEdge;
 class GNECrossing;
 class NBTrafficLightDefinition;
+class GNEConnection;
 
 // ===========================================================================
 // class definitions
@@ -140,6 +141,9 @@ public:
 
     /// @brief Returns GNECrossings
     const std::vector<GNECrossing*>& getGNECrossings() const;
+
+    /// @brief Returns all GNEConnections vinculated with this junction
+    std::vector<GNEConnection*> getGNEConnections() const;
 
     /// @brief marks as first junction in createEdge-mode
     void markAsCreateEdgeSource();

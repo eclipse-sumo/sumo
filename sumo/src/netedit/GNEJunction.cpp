@@ -80,14 +80,14 @@ GNEJunction::GNEJunction(NBNode& nbn, GNENet* net, bool loaded) :
 
 GNEJunction::~GNEJunction() {
     // delete all GNECrossing
-    for (std::vector<GNECrossing*>::const_iterator it = myGNECrossings.begin(); it != myGNECrossings.end(); it++) {
-        (*it)->decRef();
-        if ((*it)->unreferenced()) {
+    for (auto it : myGNECrossings) {
+        it->decRef();
+        if (it->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting unreferenced " + toString((*it)->getTag()) + " '" + (*it)->getID() + "' in GNEJunction destructor");
+                WRITE_WARNING("Deleting unreferenced " + toString(it->getTag()) + " '" + it->getID() + "' in GNEJunction destructor");
             }
-            delete *it;
+            delete it;
         }
     }
 
@@ -142,22 +142,20 @@ GNEJunction::rebuildGNECrossings() {
             }
         }
         // delete non retrieved GNECrossings
-        for (std::vector<GNECrossing*>::const_iterator it = myGNECrossings.begin(); it != myGNECrossings.end(); it++) {
-            (*it)->decRef();
-            if ((*it)->unreferenced()) {
+        for (auto it : myGNECrossings) {
+            it->decRef();
+            if (it->unreferenced()) {
                 // show extra information for tests
                 if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Deleting unreferenced " + toString((*it)->getTag()) + " '" + (*it)->getID() + "' in rebuildGNECrossings()");
+                    WRITE_WARNING("Deleting unreferenced " + toString(it->getTag()) + " '" + it->getID() + "' in rebuildGNECrossings()");
                 }
-                delete *it;
+                delete it;
             }
         }
         // copy retrieved (existent and created) GNECrossigns to myGNECrossings
         myGNECrossings = retrievedCrossings;
     }
 }
-
-
 
 
 GUIGLObjectPopupMenu*
@@ -297,8 +295,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw crossings
         if (s.editMode != GNE_MODE_TLS) {
-            for (std::vector<GNECrossing*>::const_iterator it = myGNECrossings.begin(); it != myGNECrossings.end(); it++) {
-                (*it)->drawGL(s);
+            for (auto it : myGNECrossings) {
+                it->drawGL(s);
             }
         }
         // (optional) draw name @todo expose this setting
@@ -329,11 +327,11 @@ std::vector<GNEJunction*>
 GNEJunction::getJunctionNeighbours() const {
     // use set to avoid duplicates junctions
     std::set<GNEJunction*> junctions;
-    for (std::vector<GNEEdge*>::const_iterator i = myGNEIncomingEdges.begin(); i != myGNEIncomingEdges.end(); i++) {
-        junctions.insert((*i)->getGNEJunctionSource());
+    for (auto i : myGNEIncomingEdges) {
+        junctions.insert(i->getGNEJunctionSource());
     }
-    for (std::vector<GNEEdge*>::const_iterator i = myGNEOutgoingEdges.begin(); i != myGNEOutgoingEdges.end(); i++) {
-        junctions.insert((*i)->getGNEJunctionDestiny());
+    for (auto i : myGNEOutgoingEdges) {
+        junctions.insert(i->getGNEJunctionDestiny());
     }
     return std::vector<GNEJunction*>(junctions.begin(), junctions.end());
 }
@@ -413,10 +411,24 @@ GNEJunction::getGNEOutgoingEdges() const {
     return myGNEOutgoingEdges;
 }
 
+
 const std::vector<GNECrossing*>&
 GNEJunction::getGNECrossings() const {
     return myGNECrossings;
 }
+
+
+std::vector<GNEConnection*> 
+GNEJunction::getGNEConnections() const {
+    std::vector<GNEConnection*> connections;
+    for(auto i : myGNEIncomingEdges) {
+        for(auto j : i->getGNEConnections()) {
+        connections.push_back(j);
+        }
+    }
+    return connections;
+}
+
 
 void
 GNEJunction::markAsCreateEdgeSource() {
@@ -440,11 +452,11 @@ void
 GNEJunction::recomputeNeighborsJunctions() {
     std::set<GNEJunction*> neighborsJunctions;
     // obtain all neighbors junctions
-    for (std::vector<GNEEdge*>::const_iterator i = myGNEIncomingEdges.begin(); i != myGNEIncomingEdges.end(); i++) {
-        neighborsJunctions.insert((*i)->getGNEJunctionSource());
+    for (auto i : myGNEIncomingEdges) {
+        neighborsJunctions.insert(i->getGNEJunctionSource());
     }
-    for (std::vector<GNEEdge*>::const_iterator i = myGNEOutgoingEdges.begin(); i != myGNEOutgoingEdges.end(); i++) {
-        neighborsJunctions.insert((*i)->getGNEJunctionDestiny());
+    for (auto i : myGNEOutgoingEdges) {
+        neighborsJunctions.insert(i->getGNEJunctionDestiny());
     }
     // recompute all neighbors junctions
     //for(std::set<GNEJunction*>::iterator i = neighborsJunctions.begin(); i != neighborsJunctions.end(); i++) {
@@ -496,28 +508,28 @@ GNEJunction::updateShapesAndGeometries() {
     std::set<GNEJunction*> affectedJunctions;
     std::set<GNEEdge*> affectedEdges;
     // Iterate over GNEEdges
-    for (std::vector<GNEEdge*>::const_iterator i = myGNEEdges.begin(); i != myGNEEdges.end(); i++) {
+    for (auto i : myGNEEdges) {
         // Add source and destiny junctions
-        affectedJunctions.insert((*i)->getGNEJunctionSource());
-        affectedJunctions.insert((*i)->getGNEJunctionDestiny());
+        affectedJunctions.insert(i->getGNEJunctionSource());
+        affectedJunctions.insert(i->getGNEJunctionDestiny());
         // Obtain neighbors of Junction source
-        for (std::vector<GNEEdge*>::const_iterator j = (*i)->getGNEJunctionSource()->getGNEEdges().begin(); j != (*i)->getGNEJunctionSource()->getGNEEdges().end(); j++) {
-            affectedEdges.insert(*j);
+        for (auto j : i->getGNEJunctionSource()->getGNEEdges()) {
+            affectedEdges.insert(j);
         }
         // Obtain neighbors of Junction destiny
-        for (std::vector<GNEEdge*>::const_iterator j = (*i)->getGNEJunctionDestiny()->getGNEEdges().begin(); j != (*i)->getGNEJunctionDestiny()->getGNEEdges().end(); j++) {
-            affectedEdges.insert(*j);
+        for (auto j : i->getGNEJunctionDestiny()->getGNEEdges()) {
+            affectedEdges.insert(j);
         }
     }
     // Iterate over affected Junctions
-    for (std::set<GNEJunction*>::iterator i = affectedJunctions.begin(); i != affectedJunctions.end(); i++) {
+    for (auto i : affectedJunctions) {
         // Update geometry of Junction
-        (*i)->updateGeometry();
+        i->updateGeometry();
     }
     // Iterate over affected Edges
-    for (std::set<GNEEdge*>::iterator i = affectedEdges.begin(); i != affectedEdges.end(); i++) {
+    for (auto i : affectedEdges) {
         // Update edge geometry
-        (*i)->updateGeometry();
+        i->updateGeometry();
     }
     // Finally update geometry of this junction
     updateGeometry();
@@ -587,9 +599,9 @@ void
 GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedConnection) {
     assert(undoList->hasCommandGroup());
     // NBLoadedSUMOTLDef becomes invalid, replace with NBOwnTLDef which will be dynamically recomputed
-    const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS(); // make a copy!
-    for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
-        NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(*it);
+    const std::set<NBTrafficLightDefinition*> coypOfTls = myNBNode.getControllingTLS(); // make a copy!
+    for (auto it : coypOfTls) {
+        NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it);
         if (tlDef != 0) {
             NBTrafficLightDefinition* replacementDef = 0;
             std::string newID = tlDef->getID(); // + "_reguessed"; // changes due to reguessing will be visible in diff
@@ -605,9 +617,9 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
             undoList->add(new GNEChange_TLS(this, tlDef, false), true);
             undoList->add(new GNEChange_TLS(this, replacementDef, true, false, newID), true);
             // the removed traffic light may have controlled more than one junction. These too have become invalid now
-            const std::vector<NBNode*> coNodes = tlDef->getNodes(); // make a copy!
-            for (std::vector<NBNode*>::const_iterator it_node = coNodes.begin(); it_node != coNodes.end(); it_node++) {
-                GNEJunction* sharing = myNet->retrieveJunction((*it_node)->getID());
+            const std::vector<NBNode*> copyOfNodes = tlDef->getNodes(); // make a copy!
+            for (auto it_node : copyOfNodes) {
+                GNEJunction* sharing = myNet->retrieveJunction(it_node->getID());
                 undoList->add(new GNEChange_TLS(sharing, tlDef, false), true);
                 undoList->add(new GNEChange_TLS(sharing, replacementDef, true, false, newID), true);
             }
@@ -647,9 +659,9 @@ GNEJunction::isLogicValid() {
 
 GNECrossing*
 GNEJunction::retrieveGNECrossing(NBNode::Crossing* crossing, bool createIfNoExist) {
-    for (std::vector<GNECrossing*>::iterator i = myGNECrossings.begin(); i != myGNECrossings.end(); ++i) {
-        if ((*i)->getNBCrossing() == crossing) {
-            return *i;
+    for (auto i : myGNECrossings) {
+        if (i->getNBCrossing() == crossing) {
+            return i;
         }
     }
     if (createIfNoExist) {
@@ -717,9 +729,10 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                         (getNBNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED
                          || SUMOXMLDefinitions::NodeTypes.get(value) == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED)
                    ) {
-                    const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
-                    for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
-                        undoList->add(new GNEChange_TLS(this, *it, false), true);
+                    // make a copy because we will modify the original
+                    const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
+                    for (auto it : copyOfTls) {
+                        undoList->add(new GNEChange_TLS(this, it, false), true);
                     }
                 }
                 if (!getNBNode()->isTLControlled()) {
@@ -729,9 +742,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             } else if (getNBNode()->isTLControlled()) {
                 // delete old traffic light
                 // make a copy because we will modify the original
-                const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
-                for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
-                    undoList->add(new GNEChange_TLS(this, *it, false, OptionsCont::getOptions().getBool("gui-testing-debug")), true);
+                const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
+                for (auto it : copyOfTls) {
+                    undoList->add(new GNEChange_TLS(this, it, false, OptionsCont::getOptions().getBool("gui-testing-debug")), true);
                 }
             }
             // must be the final step, otherwise we do not know which traffic lights to remove via GNEChange_TLS
@@ -742,30 +755,30 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_TLID: {
             undoList->p_begin("change " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " id");
             // junction is already controlled, remove from previous tls
-            const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
-            for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
-                undoList->add(new GNEChange_TLS(this, *it, false), true);
+            const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
+            for (auto it : copyOfTls) {
+                undoList->add(new GNEChange_TLS(this, it, false), true);
             }
             NBTrafficLightLogicCont& tlCont = myNet->getTLLogicCont();
             const std::map<std::string, NBTrafficLightDefinition*> programs = tlCont.getPrograms(value);
             if (programs.size() > 0) {
                 // add to existing tls definitions
-                for (std::map<std::string, NBTrafficLightDefinition*>::const_iterator it = programs.begin(); it != programs.end(); it++) {
-                    NBTrafficLightDefinition* oldTLS = it->second;
+                for (auto it : programs) {
+                    NBTrafficLightDefinition* oldTLS = it.second;
                     if (dynamic_cast<NBOwnTLDef*>(oldTLS) != 0) {
                         undoList->add(new GNEChange_TLS(this, oldTLS, true), true);
                     } else {
                         // delete and re-create the definition because the loaded phases are now invalid
-                        const std::vector<NBNode*> nodes = oldTLS->getNodes();
-                        for (std::vector<NBNode*>::const_iterator it_node = nodes.begin(); it_node != nodes.end(); ++it_node) {
-                            GNEJunction* oldJunction = myNet->retrieveJunction((*it_node)->getID());
+                        const std::vector<NBNode*> copyOfNodes = oldTLS->getNodes();
+                        for (auto it_node : copyOfNodes) {
+                            GNEJunction* oldJunction = myNet->retrieveJunction(it_node->getID());
                             undoList->add(new GNEChange_TLS(oldJunction, oldTLS, false), true);
                         }
                         undoList->add(new GNEChange_TLS(this, 0, true, false, value), true);
                         NBTrafficLightDefinition* newTLS = *myNBNode.getControllingTLS().begin();
                         // re-add existing nodes
-                        for (std::vector<NBNode*>::const_iterator it_node = nodes.begin(); it_node != nodes.end(); ++it_node) {
-                            GNEJunction* oldJunction = myNet->retrieveJunction((*it_node)->getID());
+                        for (auto it_node : copyOfNodes) {
+                            GNEJunction* oldJunction = myNet->retrieveJunction(it_node->getID());
                             undoList->add(new GNEChange_TLS(oldJunction, newTLS, true), true);
                         }
                     }
@@ -850,8 +863,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
                 // clear guessed connections. previous connections will be restored
                 myNBNode.invalidateIncomingConnections();
                 // Clear GNEConnections of incoming edges
-                for (std::vector<GNEEdge*>::iterator i = myGNEIncomingEdges.begin(); i != myGNEIncomingEdges.end(); i++) {
-                    (*i)->clearGNEConnections();
+                for (auto i : myGNEIncomingEdges) {
+                    i->clearGNEConnections();
                 }
             }
             myLogicStatus = value;
@@ -869,9 +882,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_TLTYPE: {
-            const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
-            for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
-                (*it)->setType(SUMOXMLDefinitions::TrafficLightTypes.get(value));
+            const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
+            for (auto it : copyOfTls) {
+                it->setType(SUMOXMLDefinitions::TrafficLightTypes.get(value));
             }
             break;
         }
