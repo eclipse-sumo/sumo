@@ -72,7 +72,7 @@ struct TraCIPosition {
     double x, y, z;
 };
 
-/** @struct TraCIPosition
+/** @struct TraCIColor
     * @brief A color
     */
 struct TraCIColor {
