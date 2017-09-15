@@ -76,6 +76,9 @@ FXDEFMAP(GNEViewParent) GNEViewParentMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION,                    GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,                        GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,                         GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,                         GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,                         GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOLY,                        GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  FXMDIChild::ID_MDI_MENUCLOSE,          GNEViewParent::onCmdClose),
     FXMAPFUNC(SEL_CHANGED,  MID_GNE_SIZEOF_FRAMEAREAWIDTH_UPDATED, GNEViewParent::onCmdUpdateFrameAreaWidth),
 };
@@ -330,6 +333,21 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             type = GLO_TLLOGIC;
             icon = ICON_LOCATETLS;
             dialogtitle = "Traffic-Light-Junctions Chooser";
+            break;
+        case MID_LOCATEADD:
+            type = GLO_ADDITIONAL;
+            icon = ICON_LOCATEADD;
+            title = "Additional Objects Chooser";
+            break;
+        case MID_LOCATEPOI:
+            type = GLO_POI;
+            icon = ICON_LOCATEPOI;
+            title = "POI Chooser";
+            break;
+        case MID_LOCATEPOLY:
+            type = GLO_POLYGON;
+            icon = ICON_LOCATEPOLY;
+            title = "Polygon Chooser";
             break;
         default:
             throw ProcessError("Unknown Message ID in onCmdLocate");

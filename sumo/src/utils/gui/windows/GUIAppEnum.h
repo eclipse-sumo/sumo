@@ -179,10 +179,6 @@ enum {
     MID_LOCATEPERSON,
     /// @brief Locate TLS - button
     MID_LOCATETLS,
-    /// @brief Locate BusStop - button
-    MID_LOCATEADDITIONAL_BUSSTOP,
-    /// @brief Locate ChargingStation - button
-    MID_LOCATEADDITIONAL_CHARGINGSTATION,
     /// @brief Locate addtional structure - button
     MID_LOCATEADD,
     /// @brief Locate poi - button
