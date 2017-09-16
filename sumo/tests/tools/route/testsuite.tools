@@ -31,3 +31,6 @@ showDepartsAndArrivalsPerEdge
 
 # simple route reconstruction from gps trace
 tracemapper
+
+# tests for finding unusual routes
+implausibleRoutes 
