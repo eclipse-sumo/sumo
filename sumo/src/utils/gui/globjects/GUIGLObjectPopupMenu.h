@@ -67,62 +67,47 @@ public:
     /// @brief Destructor
     virtual ~GUIGLObjectPopupMenu();
 
-    /// @brief insert MenuCommand
-    FXMenuCommand* insertMenuCommand(const std::string& text, FXIcon* ic=NULL,FXObject* tgt=NULL, FXSelector sel=0, FXuint opts=0);
-
     /// @brief Insert a sub-menu pane in this GUIGLObjectPopupMenu
     void insertMenuPaneChild(FXMenuPane* child);
-
-    /// @brief select next MenuCommand
-    bool selectNextMenuCommand();
-
-    /// @brief select next MenuCommand
-    bool selectPreviousMenuCommand();
-
-    /// @brief select childs of MenuCommand
-    bool selectChildMenuCommand();
-
-    /// @brief select parent of MenuCommand
-    bool selectParentMenuCommand();
-
-    /// @brief execute selected menuCommand
-    bool executeMenuCommand();
-
-public:
-    /// Called if the assigned objects shall be centered
-    long onCmdCenter(FXObject*, FXSelector, void*);
-
-    /// Called if the name shall be copied to clipboard
-    long onCmdCopyName(FXObject*, FXSelector, void*);
-
-    /// Called if the typed name shall be copied to clipboard
-    long onCmdCopyTypedName(FXObject*, FXSelector, void*);
-
-    /// Called if the edge name shall be copied to clipboard (for lanes only)
-    long onCmdCopyEdgeName(FXObject*, FXSelector, void*);
-
-    /// Called if the cursor position shall be copied to clipboard
-    long onCmdCopyCursorPosition(FXObject*, FXSelector, void*);
-
-    /// Called if the cursor geo-position shall be copied to clipboard
-    long onCmdCopyCursorGeoPosition(FXObject*, FXSelector, void*);
-
-    /// Called if the parameter of this object shall be shown
-    long onCmdShowPars(FXObject*, FXSelector, void*);
-
-    /// Called if the type parameter of this object shall be shown
-    long onCmdShowTypePars(FXObject*, FXSelector, void*);
-
-    /// Called if the object shall be added to the list of selected objects
-    long onCmdAddSelected(FXObject*, FXSelector, void*);
-
-    /// Called if the object shall be removed from the list of selected objects
-    long onCmdRemoveSelected(FXObject*, FXSelector, void*);
 
     /// @brief return the real owner of this popup
     inline GUISUMOAbstractView* getParentView() {
         return myParent;
     }
+
+    /// @name FX Calls
+    /// @{
+    /// @brief Called if the assigned objects shall be centered
+    long onCmdCenter(FXObject*, FXSelector, void*);
+
+    /// @brief Called if the name shall be copied to clipboard
+    long onCmdCopyName(FXObject*, FXSelector, void*);
+
+    /// @brief Called if the typed name shall be copied to clipboard
+    long onCmdCopyTypedName(FXObject*, FXSelector, void*);
+
+    /// @brief Called if the edge name shall be copied to clipboard (for lanes only)
+    long onCmdCopyEdgeName(FXObject*, FXSelector, void*);
+
+    /// @brief Called if the cursor position shall be copied to clipboard
+    long onCmdCopyCursorPosition(FXObject*, FXSelector, void*);
+
+    /// @brief Called if the cursor geo-position shall be copied to clipboard
+    long onCmdCopyCursorGeoPosition(FXObject*, FXSelector, void*);
+
+    /// @brief Called if the parameter of this object shall be shown
+    long onCmdShowPars(FXObject*, FXSelector, void*);
+
+    /// @brief Called if the type parameter of this object shall be shown
+    long onCmdShowTypePars(FXObject*, FXSelector, void*);
+
+    /// @brief Called if the object shall be added to the list of selected objects
+    long onCmdAddSelected(FXObject*, FXSelector, void*);
+
+    /// @brief Called if the object shall be removed from the list of selected objects
+    long onCmdRemoveSelected(FXObject*, FXSelector, void*);
+    
+    /// @}
 
 protected:
     /// @brief FOX needs this
@@ -139,9 +124,6 @@ protected:
 
     /// @brief The position within the network the cursor was above when instanting the popup
     Position myNetworkPosition;
-
-    /// @brief vector with menu commands 
-    std::vector<FXMenuCommand*> myMenuCommands;
 
     /// @brief vector mit Sub-MenuPanes
     std::vector<FXMenuPane*> myMenuPanes;

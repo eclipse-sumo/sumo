@@ -800,23 +800,7 @@ GUISUMOAbstractView::openObjectDialog() {
 long
 GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* data) {
     if(myPopup != NULL) {
-        FXEvent* e = (FXEvent*) data;
-        if (e->code == FX::KEY_Up) {
-            return myPopup->selectPreviousMenuCommand();
-        } else if (e->code == FX::KEY_Down) {
-            return myPopup->selectNextMenuCommand();
-        } else if (e->code == FX::KEY_Left) {
-            return myPopup->selectParentMenuCommand();
-        } else if (e->code == FX::KEY_Right) {
-            return myPopup->selectChildMenuCommand();
-        } else if ((e->code == FX::KEY_space) || (e->code == FX::KEY_ISO_Enter)) {
-            myPopup->executeMenuCommand();
-            // destroy popup after executing command
-            destroyPopup();
-            return 1;
-        } else {
-            destroyPopup();
-        }
+        return myPopup->onKeyPress(o, sel, data);
     } else {
         FXGLCanvas::onKeyPress(o, sel, data);
         return myChanger->onKeyPress(data);
@@ -826,7 +810,9 @@ GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* data) {
 
 long
 GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
-    if(myPopup == NULL) {
+    if(myPopup != NULL) {
+        return myPopup->onKeyRelease(o, sel, data);
+    } else {
         FXGLCanvas::onKeyRelease(o, sel, data);
         return myChanger->onKeyRelease(data);
     }
