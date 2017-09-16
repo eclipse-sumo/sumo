@@ -14,7 +14,7 @@ set(traciserver_lib_STAT_SRCS
         TraCI_MultiEntryExit.h
         TraCI_MultiEntryExit.cpp
         TraCI_Person.cpp
-        TraCI_Persion.h
+        TraCI_Person.h
         TraCI_POI.cpp
         TraCI_POI.h
         TraCI_Polygon.h
