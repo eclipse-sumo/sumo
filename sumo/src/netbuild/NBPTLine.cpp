@@ -21,6 +21,7 @@
 #include <utils/iodevices/OutputDevice.h>
 
 #include <utility>
+#include <utils/common/ToString.h>
 #include "NBPTLine.h"
 #include "NBPTStop.h"
 
@@ -54,7 +55,7 @@ void NBPTLine::write(OutputDevice& device) {
 
     if (!myRoute.empty()) {
         device.openTag(SUMO_TAG_ROUTE);
-        device.writeAttr(SUMO_ATTR_EDGES, getRoute());
+        device.writeAttr(SUMO_ATTR_EDGES, myRoute);
         device.closeTag();
     }
 
@@ -94,14 +95,6 @@ std::vector<long long int>* NBPTLine::getWaysNodes(std::string wayId) {
 }
 void NBPTLine::setRef(std::string ref) {
     myRef = std::move(ref);
-}
-
-std::string NBPTLine::getRoute() {
-    std::string route;
-    for (auto& it : myRoute) {
-        route += (" " + it->getID());
-    }
-    return route;
 }
 
 void NBPTLine::addEdgeVector(std::vector<NBEdge*>::iterator fr, std::vector<NBEdge*>::iterator to) {

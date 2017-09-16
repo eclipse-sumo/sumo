@@ -66,7 +66,6 @@ private:
 
 public:
     void addEdgeVector(std::vector<NBEdge*>::iterator fr, std::vector<NBEdge*>::iterator to);
-    std::string getRoute();
 private:
     // route of ptline
     std::vector<NBEdge*> myRoute;
