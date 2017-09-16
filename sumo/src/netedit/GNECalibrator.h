@@ -53,7 +53,6 @@ public:
 
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] lane Lane of this calibrator belongs
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] pos position of the calibrator on the edge (Currently not used)
      * @param[in] frequency the aggregation interval in which to calibrate the flows
@@ -62,7 +61,7 @@ public:
      * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
      * @param[in] calibratorVehicleTypes vector with the CalibratorVehicleType of calibrator
      */
-    GNECalibrator(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double frequency, const std::string& output,
+    GNECalibrator(const std::string& id, GNEViewNet* viewNet, double pos, double frequency, const std::string& output,
                   const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows,
                   const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes);
 
@@ -73,7 +72,7 @@ public:
      * @param[in] device device in which write parameters of additional element
      * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled
      */
-    void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
+    virtual void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const = 0;
 
     /// @brief open Calibrator Dialog
     void openAdditionalDialog();
@@ -153,7 +152,7 @@ public:
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    virtual void updateGeometry() = 0;
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
@@ -169,7 +168,7 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -178,21 +177,21 @@ public:
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
-    std::string getAttribute(SumoXMLAttr key) const;
+    virtual std::string getAttribute(SumoXMLAttr key) const = 0;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes
      */
-    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+    virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;
 
     /* @brief method for checking if the key and their correspond attribute are valids
      * @param[in] key The attribute key
      * @param[in] value The value asociated to key key
      * @return true if the value is valid, false in other case
      */
-    bool isValid(SumoXMLAttr key, const std::string& value);
+    virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
     /// @}
 
 protected:
@@ -219,13 +218,13 @@ protected:
 
 private:
     /// @brief set attribute after validation
-    void setAttribute(SumoXMLAttr key, const std::string& value);
+    virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief Invalidated copy constructor.
-    GNECalibrator(const GNECalibrator&);
+    GNECalibrator(const GNECalibrator&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNECalibrator& operator=(const GNECalibrator&);
+    GNECalibrator& operator=(const GNECalibrator&) = delete;
 };
 
 #endif

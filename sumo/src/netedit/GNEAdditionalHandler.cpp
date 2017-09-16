@@ -53,7 +53,8 @@
 #include "GNEUndoList.h"
 #include "GNEVaporizer.h"
 #include "GNEViewNet.h"
-#include "GNECalibrator.h"
+#include "GNECalibratorEdge.h"
+#include "GNECalibratorLane.h"
 
 
 // ===========================================================================
@@ -617,7 +618,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
         } else if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (buildCalibrator(myViewNet, myUndoAdditionals, id, lane, position, outfile, freq, calibratorRoutes, calibratorFlows, calibratorVehicleTypes)) {
+        } else if (buildCalibratorLane(myViewNet, myUndoAdditionals, id, lane, position, outfile, freq, calibratorRoutes, calibratorFlows, calibratorVehicleTypes)) {
             myLastTag = tag;
         }
     }
@@ -940,9 +941,9 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             std::vector<GNECalibratorRoute> calibratorRoutes;
             std::vector<GNECalibratorFlow> calibratorFlows;
             std::vector<GNECalibratorVehicleType> calibratorVehicleTypes;
-            // Build calibrator
+            // Build calibrator lane
             if (lane) {
-                return buildCalibrator(viewNet, allowUndoRedo, id, lane, pos, outfile, freq, calibratorRoutes, calibratorFlows, calibratorVehicleTypes);
+                return buildCalibratorLane(viewNet, allowUndoRedo, id, lane, pos, outfile, freq, calibratorRoutes, calibratorFlows, calibratorVehicleTypes);
             } else {
                 return false;
             }
@@ -1189,18 +1190,18 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo,
 
 
 bool
-GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& outfile, const double freq,
+GNEAdditionalHandler::buildCalibratorLane(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& outfile, const double freq,
                                       const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows,
                                       const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, id) == NULL) {
-        GNECalibrator* calibrator = new GNECalibrator(id, lane, viewNet, pos, freq, outfile, calibratorRoutes, calibratorFlows, calibratorVehicleTypes);
+        GNECalibratorLane* calibratorLane = new GNECalibratorLane(id, lane, viewNet, pos, freq, outfile, calibratorRoutes, calibratorFlows, calibratorVehicleTypes);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CALIBRATOR));
-            viewNet->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
+            viewNet->getUndoList()->add(new GNEChange_Additional(calibratorLane, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(calibrator);
-            lane->addAdditionalChild(calibrator);
+            viewNet->getNet()->insertAdditional(calibratorLane);
+            lane->addAdditionalChild(calibratorLane);
         }
         return true;
     } else {
