@@ -1211,6 +1211,27 @@ GNEAdditionalHandler::buildCalibratorLane(GNEViewNet* viewNet, bool allowUndoRed
 
 
 bool
+GNEAdditionalHandler::buildCalibratorEdge(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge *edge, double pos, const std::string& outfile, const double freq,
+    const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows,
+    const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) {
+    if (viewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, id) == NULL) {
+        GNECalibratorEdge* calibratorEdge = new GNECalibratorEdge(id, edge, viewNet, pos, freq, outfile, calibratorRoutes, calibratorFlows, calibratorVehicleTypes);
+        if (allowUndoRedo) {
+            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CALIBRATOR));
+            viewNet->getUndoList()->add(new GNEChange_Additional(calibratorEdge, true), true);
+            viewNet->getUndoList()->p_end();
+        } else {
+            viewNet->getNet()->insertAdditional(calibratorEdge);
+            edge->addAdditionalChild(calibratorEdge);
+        }
+        return true;
+    } else {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_CALIBRATOR) + " with ID '" + id + "' in netedit; probably declared twice.");
+    }
+}
+
+
+bool
 GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& file, bool off) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_REROUTER, id) == NULL) {
         GNERerouter* rerouter = new GNERerouter(id, viewNet, pos, edges, file, prob, off);

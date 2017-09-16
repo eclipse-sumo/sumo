@@ -62,12 +62,12 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibratorEdge::GNECalibratorEdge(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos,
+GNECalibratorEdge::GNECalibratorEdge(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, double pos,
                              double frequency, const std::string& output, const std::vector<GNECalibratorRoute>& calibratorRoutes,
                              const std::vector<GNECalibratorFlow>& calibratorFlows, const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) :
     GNECalibrator(id, viewNet, pos, frequency, output, calibratorRoutes, calibratorFlows, calibratorVehicleTypes)  {
-    // This additional belong to a lane
-    myLane = lane;
+    // This additional belong to an edge
+    myEdge = edge;
     // this additional ISN'T movable
     myMovable = false;
     // Update geometry;
@@ -85,18 +85,8 @@ GNECalibratorEdge::writeAdditional(OutputDevice& device, bool volatileOptionsEna
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    // Check if another lane ID must be changed if sidewalks.guess option is enabled
-    if (volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && (myLane->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
-        // add a new extra lane to edge
-        myViewNet->getNet()->duplicateLane(myLane->getParentEdge().getLanes().front(), myViewNet->getUndoList());
-        // write ID (now is different because there are a new lane)
-        device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-        // undo set extra lane
-        myViewNet->getUndoList()->undo();
-    } else {
-        device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-    }
-    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * myLane->getLaneParametricLength());
+    device.writeAttr(SUMO_ATTR_EDGE, myEdge->getID());
+    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * myEdge->getLanes().at(0)->getLaneParametricLength());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
     device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);
     // write all routes of this calibrator
@@ -239,7 +229,7 @@ GNECalibratorEdge::updateGeometry() {
     myShape.clear();
 
     // Get shape of lane parent
-    myShape.push_back(myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length()));
+    myShape.push_back(myEdge->getLanes().at(0)->getShape().positionAtOffset(myPositionOverLane * myEdge->getLanes().at(0)->getShape().length()));
 
     // Obtain first position
     Position f = myShape[0] - Position(1, 0);
@@ -248,7 +238,7 @@ GNECalibratorEdge::updateGeometry() {
     Position s = myShape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myPositionOverLane * myLane->getShape().length()) * -1);
+    myShapeRotations.push_back(myEdge->getLanes().at(0)->getShape().rotationDegreeAtOffset(myPositionOverLane * myEdge->getLanes().at(0)->getShape().length()) * -1);
 
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);
@@ -311,10 +301,10 @@ GNECalibratorEdge::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
-        case SUMO_ATTR_LANE:
-            return toString(myLane->getID());
+        case SUMO_ATTR_EDGE:
+            return toString(myEdge->getID());
         case SUMO_ATTR_POSITION:
-            return toString(myPositionOverLane * myLane->getLaneParametricLength());
+            return toString(myPositionOverLane * myEdge->getLanes().at(0)->getLaneParametricLength());
         case SUMO_ATTR_FREQUENCY:
             return toString(myFrequency);
         case SUMO_ATTR_OUTPUT:
@@ -338,7 +328,7 @@ GNECalibratorEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
     }
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_LANE:
+        case SUMO_ATTR_EDGE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_OUTPUT:
@@ -362,8 +352,8 @@ GNECalibratorEdge::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case SUMO_ATTR_LANE:
-            if (myViewNet->getNet()->retrieveLane(value, false) != NULL) {
+        case SUMO_ATTR_EDGE:
+            if (myViewNet->getNet()->retrieveEdge(value, false) != NULL) {
                 return true;
             } else {
                 return false;
@@ -371,7 +361,7 @@ GNECalibratorEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             if (canParse<double>(value)) {
                 // obtain relative new start position
-                double newStartPos = parse<double>(value) / myLane->getLaneParametricLength();
+                double newStartPos = parse<double>(value) / myEdge->getLanes().at(0)->getLaneParametricLength();
                 if ((newStartPos < 0) || (newStartPos > 1)) {
                     return false;
                 } else {
@@ -403,11 +393,11 @@ GNECalibratorEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             setAdditionalID(value);
             break;
-        case SUMO_ATTR_LANE:
-            changeLane(value);
+        case SUMO_ATTR_EDGE:
+            changeEdge(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPositionOverLane = parse<double>(value) / myLane->getShape().length();
+            myPositionOverLane = parse<double>(value) / myEdge->getLanes().at(0)->getShape().length();
             updateGeometry();
             getViewNet()->update();
             break;
