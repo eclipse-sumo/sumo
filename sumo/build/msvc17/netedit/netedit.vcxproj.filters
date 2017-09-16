@@ -375,6 +375,12 @@
     <ClCompile Include="..\..\..\src\netedit\GNEPolygonFrame.cpp">
       <Filter>Quellcodedateien\Frames</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorLane.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Calibrator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorEdge.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Calibrator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -624,6 +630,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEPolygonFrame.h">
       <Filter>Header-Dateien\Frames</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorLane.h">
+      <Filter>Header-Dateien\Items\Additionals\Calibrator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorEdge.h">
+      <Filter>Header-Dateien\Items\Additionals\Calibrator</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

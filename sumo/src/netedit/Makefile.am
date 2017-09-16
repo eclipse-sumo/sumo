@@ -78,6 +78,8 @@ GNERerouterIntervalDialog.h GNERerouterIntervalDialog.cpp \
 GNERouteProbe.h GNERouteProbe.cpp \
 GNEVaporizer.h GNEVaporizer.cpp \
 GNECalibrator.h GNECalibrator.cpp \
+GNECalibratorEdge.h GNECalibratorEdge.cpp \
+GNECalibratorLane.h GNECalibratorLane.cpp \
 GNECalibratorFlow.h GNECalibratorFlow.cpp \
 GNECalibratorVehicleType.h GNECalibratorVehicleType.cpp \
 GNECalibratorRoute.h GNECalibratorRoute.cpp \
