@@ -54,6 +54,7 @@ public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] tag type of calibrator (placed over edge or over lane)
      * @param[in] pos position of the calibrator on the edge (Currently not used)
      * @param[in] frequency the aggregation interval in which to calibrate the flows
      * @param[in] output The output file for writing calibrator information
@@ -61,7 +62,7 @@ public:
      * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
      * @param[in] calibratorVehicleTypes vector with the CalibratorVehicleType of calibrator
      */
-    GNECalibrator(const std::string& id, GNEViewNet* viewNet, double pos, double frequency, const std::string& output,
+    GNECalibrator(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, double pos, double frequency, const std::string& output,
                   const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows,
                   const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes);
 
@@ -72,7 +73,7 @@ public:
      * @param[in] device device in which write parameters of additional element
      * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled
      */
-    virtual void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const = 0;
+    void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 
     /// @brief open Calibrator Dialog
     void openAdditionalDialog();
@@ -152,7 +153,7 @@ public:
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
-    virtual void updateGeometry() = 0;
+    void updateGeometry();
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
@@ -160,15 +161,16 @@ public:
 
     /// @name inherited from GUIGlObject
     /// @{
-    /// @brief Returns the name of the parent object
-    /// @return This object's parent id
+    /**@brief Returns the name of the parent object
+     * @return This object's parent id
+     */
     const std::string& getParentName() const;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+    void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

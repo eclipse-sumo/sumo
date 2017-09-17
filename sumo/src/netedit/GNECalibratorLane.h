@@ -61,28 +61,6 @@ public:
     /// @brief Destructor
     ~GNECalibratorLane();
 
-    /**@brief writte additional element into a xml file
-    * @param[in] device device in which write parameters of additional element
-    * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled
-    */
-    void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
-
-    /// @name Functions related with geometry of element
-    /// @{
-    /// @brief update pre-computed geometry information
-    void updateGeometry();
-    /// @}
-
-    /// @name inherited from GUIGlObject
-    /// @{
-
-    /**@brief Draws the object
-    * @param[in] s The settings for the current view (may influence drawing)
-    * @see GUIGlObject::drawGL
-    */
-    void drawGL(const GUIVisualizationSettings& s) const;
-    /// @}
-
     /// @name inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key
