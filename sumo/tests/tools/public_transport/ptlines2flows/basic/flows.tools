@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- generated on 2017-09-15 09:50:14.396509 by $Id: ptlines2flows.py 26004 2017-09-13 12:18:02Z namdre $
+<!-- generated on 2017-09-17 22:20:47.159000 by $Id: ptlines2flows.py 26025 2017-09-15 07:51:46Z namdre $
   options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -37,10 +37,10 @@
 		<stop busStop="2029039199" duration="30.00" until="159.00" />
 		<stop busStop="2029039146" duration="30.00" until="221.00" />
 	</route>
-	<flow id="0" type="bus" route="0" begin="0" end="3600" period="600" line="104"/>
-	<flow id="1" type="bus" route="1" begin="0" end="3600" period="600" line="104"/>
-	<flow id="2" type="bus" route="2" begin="0" end="3600" period="600" line="140"/>
-	<flow id="5" type="bus" route="5" begin="0" end="3600" period="600" line="N42"/>
-	<flow id="4" type="bus" route="4" begin="0" end="3600" period="600" line="N42"/>
-	<flow id="3" type="bus" route="3" begin="0" end="3600" period="600" line="140"/>
+	<flow id="0" type="bus" route="0" begin="0" end="3600" period="600" line="104" />
+	<flow id="1" type="bus" route="1" begin="0" end="3600" period="600" line="104" />
+	<flow id="2" type="bus" route="2" begin="0" end="3600" period="600" line="140" />
+	<flow id="5" type="bus" route="5" begin="0" end="3600" period="600" line="N42" />
+	<flow id="4" type="bus" route="4" begin="0" end="3600" period="600" line="N42" />
+	<flow id="3" type="bus" route="3" begin="0" end="3600" period="600" line="140" />
 </routes>
