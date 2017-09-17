@@ -44,6 +44,8 @@ def get_options():
     optParser.add_option("-p", "--period", dest="period", default="600", help="period")
     optParser.add_option("-b", "--begin", dest="begin", default="0", help="start time")
     optParser.add_option("-e", "--end", dest="end", default="3600", help="end time")
+    optParser.add_option("-f", "--flow-attributes", dest="flowattrs",
+                         default="", help="additional flow attributes")
     optParser.add_option("--use-osm-routes", default=False, action="store_true", dest='osmRoutes', help="use osm routes")
     (options, args) = optParser.parse_args()
     return options
@@ -151,8 +153,8 @@ def main():
             foutflows.write('\t</route>\n')
         for flow, type in flows:
             lineRef = trpIDLineMap[flow]
-            foutflows.write('\t<flow id="%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s"/>\n' %
-                            (flow, type, flow, options.begin, options.end, options.period, lineRef))
+            foutflows.write('\t<flow id="%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s/>\n' %
+                            (flow, type, flow, options.begin, options.end, options.period, lineRef, options.flowattrs))
         foutflows.write('</routes>\n')
 
     print("done.")
