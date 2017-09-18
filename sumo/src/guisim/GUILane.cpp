@@ -496,13 +496,6 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 drawCrossties(0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
             } else if (isCrossing) {
                 if (s.drawCrossingsAndWalkingareas) {
-                    // determine priority to decide color
-                    MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
-                    if (link->havePriority() || net->getLinkTLIndex(link) > 0) {
-                        glColor3d(0.9, 0.9, 0.9);
-                    } else {
-                        glColor3d(0.1, 0.1, 0.1);
-                    }
                     glTranslated(0, 0, .2);
                     drawCrossties(0.5, 1.0, getWidth() * 0.5);
                     glTranslated(0, 0, -.2);
@@ -891,6 +884,19 @@ GUILane::setColor(const GUIVisualizationSettings& s) const {
 bool
 GUILane::setFunctionalColor(int activeScheme) const {
     switch (activeScheme) {
+        case 0: 
+            if (myEdge->isCrossing()) {
+                // determine priority to decide color
+                MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+                if (link->havePriority() || link->getTLLogic() != 0) {
+                    GLHelper::setColor(RGBColor(230,230,230));
+                } else {
+                    GLHelper::setColor(RGBColor(26, 26, 26));
+                }
+                return true;
+            } else {
+                return false;
+            }
         case 18: {
             double hue = GeomHelper::naviDegree(myShape.beginEndAngle()); // [0-360]
             GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
