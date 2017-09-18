@@ -73,7 +73,7 @@ TraCI_Vehicle::isVisible(const MSVehicle* veh) {
 
 
 bool
-TraCI_Vehicle::onInit(const std::string& vehicleID) {
+TraCI_Vehicle::isOnInit(const std::string& vehicleID) {
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(vehicleID);
     return sumoVehicle == 0 || sumoVehicle->getLane() == 0;
 }
@@ -679,6 +679,32 @@ TraCI_Vehicle::resume(const std::string& vehicleID) {
         strs << ", startPos: " << sto.startPos;
         std::string posStr = strs.str();
         throw TraCIException("Failed to resume from stoppingfor vehicle '" + veh->getID() + "', " + posStr);
+    }
+}
+
+
+void 
+TraCI_Vehicle::changeTarget(const std::string& vehicleID, const std::string& edgeID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    const MSEdge* destEdge = MSEdge::dictionary(edgeID);
+    const bool onInit = isOnInit(vehicleID);
+    if (destEdge == 0) {
+        throw TraCIException("Can not retrieve road with ID " + edgeID);
+    }
+    // build a new route between the vehicle's current edge and destination edge
+    ConstMSEdgeVector newRoute;
+    const MSEdge* currentEdge = veh->getRerouteOrigin();
+    MSNet::getInstance()->getRouterTT().compute(
+            currentEdge, destEdge, (const MSVehicle * const) veh, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
+    // replace the vehicle's route by the new one
+    if (!veh->replaceRouteEdges(newRoute, onInit)) {
+        throw TraCIException("Route replacement failed for " + veh->getID());
+    }
+    // route again to ensure usage of via/stops
+    try {
+        veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), MSNet::getInstance()->getRouterTT(), onInit);
+    } catch (ProcessError& e) {
+        throw TraCIException(e.what());
     }
 }
 

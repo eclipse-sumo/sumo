@@ -666,25 +666,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingString(inputStorage, edgeID)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Change target requires a string containing the id of the new destination edge as parameter.", outputStorage);
                 }
-                const MSEdge* destEdge = MSEdge::dictionary(edgeID);
-                if (destEdge == 0) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Can not retrieve road with ID " + edgeID, outputStorage);
-                }
-                // build a new route between the vehicle's current edge and destination edge
-                ConstMSEdgeVector newRoute;
-                const MSEdge* currentEdge = v->getRerouteOrigin();
-                MSNet::getInstance()->getRouterTT().compute(
-                    currentEdge, destEdge, (const MSVehicle * const) v, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
-                // replace the vehicle's route by the new one
-                if (!v->replaceRouteEdges(newRoute, onInit)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Route replacement failed for " + v->getID(), outputStorage);
-                }
-                // route again to ensure usage of via/stops
-                try {
-                    v->reroute(MSNet::getInstance()->getCurrentTimeStep(), MSNet::getInstance()->getRouterTT(), onInit);
-                } catch (ProcessError& e) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
-                }
+                TraCI_Vehicle::changeTarget(id, edgeID);
             }
             break;
             case VAR_TYPE: {

@@ -154,6 +154,7 @@ public:
                     int personCapacity = 0,
                     int personNumber = 0);
 
+    static void changeTarget(const std::string& vehicleID, const std::string& edgeID);
     static void changeLane(const std::string& vehID, int laneIndex, SUMOTime duration);
     static void changeSublane(const std::string& vehID, double latDist);
 
@@ -177,7 +178,7 @@ private:
 
     static bool isVisible(const MSVehicle* veh);
 
-    static bool onInit(const std::string& vehicleID);
+    static bool isOnInit(const std::string& vehicleID);
 
     /// @brief invalidated standard constructor
     TraCI_Vehicle();
