@@ -150,13 +150,15 @@ GNECalibratorLane::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return true;
             }
+        } else {
+            return false;
         }
     case SUMO_ATTR_FREQUENCY:
         return (canParse<double>(value) && parse<double>(value) >= 0);
     case SUMO_ATTR_OUTPUT:
         return isValidFilename(value);
     case SUMO_ATTR_ROUTEPROBE:
-        if (myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value) != NULL) {
+        if (isValidID(value) && (myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value) != NULL)) {
             return true;
         } else {
             return false;

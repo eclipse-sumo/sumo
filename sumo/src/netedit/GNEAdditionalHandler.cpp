@@ -596,34 +596,50 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
 void
 GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
-    // parse attributes of calibrator
-    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_EDGE, abort, false);
-    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort, false);
-    std::string outfile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_OUTPUT, abort, false);
-    double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id.c_str(), tag, SUMO_ATTR_POSITION, abort);
-    double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id.c_str(), tag, SUMO_ATTR_FREQUENCY, abort);
-    // std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id.c_str(), tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
-    std::vector<GNECalibratorRoute> calibratorRoutes;
-    std::vector<GNECalibratorFlow> calibratorFlows;
-    std::vector<GNECalibratorVehicleType> calibratorVehicleTypes;
-    // Continue if all parameters were sucesfully loaded
-    if (!abort) {
-        // get pointer to lane and edge
-        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
-        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-        // check that all parameters are valid
-        if (edgeID != "" && laneId != "") {
-            WRITE_WARNING("additional " + toString(tag) + " with id '" + id + "' can be only placed over either a lane or an edge, not in both.");
-        } else if (GNEAttributeCarrier::isValidID(id) == false) {
-            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
-        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
-        } else if (edge == NULL && lane == NULL) {
-            WRITE_WARNING("The lane '" + laneId + "' or edge '" + edgeID + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (((lane != NULL) && buildCalibratorLane(myViewNet, myUndoAdditionals, id, lane, position, outfile, freq, calibratorRoutes, calibratorFlows, calibratorVehicleTypes)) ||
-                   ((edge != NULL) && buildCalibratorEdge(myViewNet, myUndoAdditionals, id, edge, position, outfile, freq, calibratorRoutes, calibratorFlows, calibratorVehicleTypes))) {
-            myLastTag = tag;
+    // due there is two differents calibratos, has to be parsed in a different way
+    std::string edgeID, laneId, id;
+    SumoXMLTag typeOfCalibrator = tag;
+    // change tag depending of XML parmeters
+    if(attrs.hasAttribute(SUMO_ATTR_EDGE)) {
+        typeOfCalibrator = SUMO_TAG_CALIBRATOR_EDGE;
+        id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, 0, typeOfCalibrator, SUMO_ATTR_ID, abort);
+        edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id.c_str(), typeOfCalibrator, SUMO_ATTR_EDGE, abort, false);
+    } else if(attrs.hasAttribute(SUMO_ATTR_LANE)) {
+        typeOfCalibrator = SUMO_TAG_CALIBRATOR_EDGE;
+        id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, 0, typeOfCalibrator, SUMO_ATTR_ID, abort);
+        laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id.c_str(), typeOfCalibrator, SUMO_ATTR_LANE, abort, false);
+    } else {
+        WRITE_WARNING("additional " + toString(tag) + " must have either a lane or an edge attribute.");
+
+    }
+    // if loading first calibrators values was sucesfully, continue)
+    if(!abort) {
+        // parse rest of attributes of calibrator
+        std::string outfile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id.c_str(), typeOfCalibrator, SUMO_ATTR_OUTPUT, abort, false);
+        double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id.c_str(), typeOfCalibrator, SUMO_ATTR_POSITION, abort);
+        double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id.c_str(), typeOfCalibrator, SUMO_ATTR_FREQUENCY, abort);
+        // std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id.c_str(), tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
+        std::vector<GNECalibratorRoute> calibratorRoutes;
+        std::vector<GNECalibratorFlow> calibratorFlows;
+        std::vector<GNECalibratorVehicleType> calibratorVehicleTypes;
+        // Continue if all parameters were sucesfully loaded
+        if (!abort) {
+            // get pointer to lane and edge
+            GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
+            GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+            // check that all parameters are valid
+            if (edgeID != "" && laneId != "") {
+                WRITE_WARNING("additional " + toString(typeOfCalibrator) + " with id '" + id + "' can be only placed over either a lane or an edge, not in both.");
+            } else if (GNEAttributeCarrier::isValidID(id) == false) {
+                WRITE_WARNING("The id '" + id + "' of additional " + toString(typeOfCalibrator) + " contains invalid characters.");
+            } else if (myViewNet->getNet()->getAdditional(typeOfCalibrator, id) != NULL) {
+                WRITE_WARNING("There is another " + toString(typeOfCalibrator) + " with the same ID='" + id + "'.");
+            } else if (edge == NULL && lane == NULL) {
+                WRITE_WARNING("The lane '" + laneId + "' or edge '" + edgeID + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
+            } else if (((lane != NULL) && buildCalibratorLane(myViewNet, myUndoAdditionals, id, lane, position, outfile, freq, calibratorRoutes, calibratorFlows, calibratorVehicleTypes)) ||
+                       ((edge != NULL) && buildCalibratorEdge(myViewNet, myUndoAdditionals, id, edge, position, outfile, freq, calibratorRoutes, calibratorFlows, calibratorVehicleTypes))) {
+                myLastTag = tag;
+            }
         }
     }
 }

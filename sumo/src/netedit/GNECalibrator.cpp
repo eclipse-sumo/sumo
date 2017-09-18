@@ -86,10 +86,9 @@ GNECalibrator::~GNECalibrator() {}
 void
 GNECalibrator::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const {
     // Write parameters
-    device.openTag(getTag());
+    device.openTag(SUMO_TAG_CALIBRATOR);
     device.writeAttr(SUMO_ATTR_ID, getID());
-    double length; 
-    if (myLane) {
+    if(myLane) {
         // Check if another lane ID must be changed if sidewalks.guess option is enabled
         if (volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && (myLane->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
             // add a new extra lane to edge
@@ -101,138 +100,137 @@ GNECalibrator::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
         } else {
             device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
         }
-        length = myLane->getLaneParametricLength();
+        device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * myLane->getLaneParametricLength());
     } else if (myEdge) {
         device.writeAttr(SUMO_ATTR_EDGE, myEdge->getID());
-        length = myEdge->getLanes().at(0)->getLaneParametricLength();
+        device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * myEdge->getLanes().at(0)->getLaneParametricLength());
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
     }
-    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * length);
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
     device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);
     // write all routes of this calibrator
-    for (std::vector<GNECalibratorRoute>::const_iterator i = myCalibratorRoutes.begin(); i != myCalibratorRoutes.end(); ++i) {
+    for (auto i : myCalibratorRoutes) {
         // Open route tag
-        device.openTag(i->getTag());
+        device.openTag(i.getTag());
         // Write route ID
-        device.writeAttr(SUMO_ATTR_BEGIN, i->getRouteID());
+        device.writeAttr(SUMO_ATTR_BEGIN, i.getRouteID());
         // Write edge IDs
-        device.writeAttr(SUMO_ATTR_BEGIN, i->getEdgesIDs());
+        device.writeAttr(SUMO_ATTR_BEGIN, i.getEdgesIDs());
         // Write Color
-        device.writeAttr(SUMO_ATTR_BEGIN, i->getColor());
+        device.writeAttr(SUMO_ATTR_BEGIN, i.getColor());
         // Close flow tag
         device.closeTag();
     }
     // write all vehicle types of this calibrator
-    for (std::vector<GNECalibratorVehicleType>::const_iterator i = myCalibratorVehicleTypes.begin(); i != myCalibratorVehicleTypes.end(); ++i) {
+    for (auto i : myCalibratorVehicleTypes) {
         // Open vehicle type tag
-        device.openTag(i->getTag());
+        device.openTag(i.getTag());
         // write id
-        device.writeAttr(SUMO_ATTR_ID, i->getVehicleTypeID());
+        device.writeAttr(SUMO_ATTR_ID, i.getVehicleTypeID());
         //write accel
-        device.writeAttr(SUMO_ATTR_ACCEL, i->getAccel());
+        device.writeAttr(SUMO_ATTR_ACCEL, i.getAccel());
         // write decel
-        device.writeAttr(SUMO_ATTR_DECEL, i->getDecel());
+        device.writeAttr(SUMO_ATTR_DECEL, i.getDecel());
         // write sigma
-        device.writeAttr(SUMO_ATTR_SIGMA, i->getSigma());
+        device.writeAttr(SUMO_ATTR_SIGMA, i.getSigma());
         // write tau
-        device.writeAttr(SUMO_ATTR_TAU, i->getTau());
+        device.writeAttr(SUMO_ATTR_TAU, i.getTau());
         // write lenght
-        device.writeAttr(SUMO_ATTR_LENGTH, i->getLength());
+        device.writeAttr(SUMO_ATTR_LENGTH, i.getLength());
         // write min gap
-        device.writeAttr(SUMO_ATTR_MINGAP, i->getMinGap());
+        device.writeAttr(SUMO_ATTR_MINGAP, i.getMinGap());
         // write max speed
-        device.writeAttr(SUMO_ATTR_MAXSPEED, i->getMaxSpeed());
+        device.writeAttr(SUMO_ATTR_MAXSPEED, i.getMaxSpeed());
         // write speed factor
-        device.writeAttr(SUMO_ATTR_SPEEDFACTOR, i->getSpeedFactor());
+        device.writeAttr(SUMO_ATTR_SPEEDFACTOR, i.getSpeedFactor());
         // write speed dev
-        device.writeAttr(SUMO_ATTR_SPEEDDEV, i->getSpeedDev());
+        device.writeAttr(SUMO_ATTR_SPEEDDEV, i.getSpeedDev());
         // write color
-        device.writeAttr(SUMO_ATTR_COLOR, i->getColor());
+        device.writeAttr(SUMO_ATTR_COLOR, i.getColor());
         // write vehicle class
-        device.writeAttr(SUMO_ATTR_VCLASS, i->getVClass());
+        device.writeAttr(SUMO_ATTR_VCLASS, i.getVClass());
         // write emission class
-        device.writeAttr(SUMO_ATTR_EMISSIONCLASS, i->getEmissionClass());
+        device.writeAttr(SUMO_ATTR_EMISSIONCLASS, i.getEmissionClass());
         // write shape
-        device.writeAttr(SUMO_ATTR_SHAPE, i->getShape());
+        device.writeAttr(SUMO_ATTR_SHAPE, i.getShape());
         // write width
-        device.writeAttr(SUMO_ATTR_WIDTH, i->getWidth());
+        device.writeAttr(SUMO_ATTR_WIDTH, i.getWidth());
         // write filename
-        device.writeAttr(SUMO_ATTR_FILE, i->getFilename());
+        device.writeAttr(SUMO_ATTR_FILE, i.getFilename());
         // write impatience
-        device.writeAttr(SUMO_ATTR_IMPATIENCE, i->getImpatience());
+        device.writeAttr(SUMO_ATTR_IMPATIENCE, i.getImpatience());
         // write lane change model
-        device.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, i->getLaneChangeModel());
+        device.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, i.getLaneChangeModel());
         // write car follow model
-        device.writeAttr(SUMO_ATTR_CAR_FOLLOW_MODEL, i->getCarFollowModel());
+        device.writeAttr(SUMO_ATTR_CAR_FOLLOW_MODEL, i.getCarFollowModel());
         // write person capacity
-        device.writeAttr(SUMO_ATTR_PERSON_CAPACITY, i->getPersonCapacity());
+        device.writeAttr(SUMO_ATTR_PERSON_CAPACITY, i.getPersonCapacity());
         // write container capacity
-        device.writeAttr(SUMO_ATTR_CONTAINER_CAPACITY, i->getContainerCapacity());
+        device.writeAttr(SUMO_ATTR_CONTAINER_CAPACITY, i.getContainerCapacity());
         // write boarding duration
-        device.writeAttr(SUMO_ATTR_BOARDING_DURATION, i->getBoardingDuration());
+        device.writeAttr(SUMO_ATTR_BOARDING_DURATION, i.getBoardingDuration());
         // write loading duration
-        device.writeAttr(SUMO_ATTR_LOADING_DURATION, i->getLoadingDuration());
+        device.writeAttr(SUMO_ATTR_LOADING_DURATION, i.getLoadingDuration());
         // write get lat alignment
-        device.writeAttr(SUMO_ATTR_LATALIGNMENT, i->getLatAlignment());
+        device.writeAttr(SUMO_ATTR_LATALIGNMENT, i.getLatAlignment());
         // write min gap lat
-        device.writeAttr(SUMO_ATTR_MINGAP_LAT, i->getMinGapLat());
+        device.writeAttr(SUMO_ATTR_MINGAP_LAT, i.getMinGapLat());
         // write max speed lat
-        device.writeAttr(SUMO_ATTR_MAXSPEED_LAT, i->getMaxSpeedLat());
+        device.writeAttr(SUMO_ATTR_MAXSPEED_LAT, i.getMaxSpeedLat());
         // Close vehicle type tag
         device.closeTag();
     }
     // Write all flows of this calibrator
-    for (std::vector<GNECalibratorFlow>::const_iterator i = myCalibratorFlows.begin(); i != myCalibratorFlows.end(); ++i) {
+    for (auto i : myCalibratorFlows) {
         // Open flow tag
-        device.openTag(i->getTag());
+        device.openTag(i.getTag());
         // Write begin
-        device.writeAttr(SUMO_ATTR_BEGIN, i->getBegin());
+        device.writeAttr(SUMO_ATTR_BEGIN, i.getBegin());
         // Write end
-        device.writeAttr(SUMO_ATTR_END, i->getEnd());
+        device.writeAttr(SUMO_ATTR_END, i.getEnd());
         // Write type
-        device.writeAttr(SUMO_ATTR_TYPE, i->getVehicleType());
+        device.writeAttr(SUMO_ATTR_TYPE, i.getVehicleType());
         // Write route
-        device.writeAttr(SUMO_ATTR_ROUTE, i->getRoute());
+        device.writeAttr(SUMO_ATTR_ROUTE, i.getRoute());
         // Write color
-        device.writeAttr(SUMO_ATTR_COLOR, i->getColor());
+        device.writeAttr(SUMO_ATTR_COLOR, i.getColor());
         // Write depart lane
-        device.writeAttr(SUMO_ATTR_DEPARTLANE, i->getDepartLane());
+        device.writeAttr(SUMO_ATTR_DEPARTLANE, i.getDepartLane());
         // Write depart pos
-        device.writeAttr(SUMO_ATTR_DEPARTPOS, i->getDepartPos());
+        device.writeAttr(SUMO_ATTR_DEPARTPOS, i.getDepartPos());
         // Write depart speed
-        device.writeAttr(SUMO_ATTR_DEPARTSPEED, i->getDepartSpeed());
+        device.writeAttr(SUMO_ATTR_DEPARTSPEED, i.getDepartSpeed());
         // Write arrival lane
-        device.writeAttr(SUMO_ATTR_ARRIVALLANE, i->getArrivalLane());
+        device.writeAttr(SUMO_ATTR_ARRIVALLANE, i.getArrivalLane());
         // Write arrival pos
-        device.writeAttr(SUMO_ATTR_ARRIVALPOS, i->getArrivalPos());
+        device.writeAttr(SUMO_ATTR_ARRIVALPOS, i.getArrivalPos());
         // Write arrival speed
-        device.writeAttr(SUMO_ATTR_ARRIVALSPEED, i->getArrivalSpeed());
+        device.writeAttr(SUMO_ATTR_ARRIVALSPEED, i.getArrivalSpeed());
         // Write line
-        device.writeAttr(SUMO_ATTR_LINE, i->getLine());
+        device.writeAttr(SUMO_ATTR_LINE, i.getLine());
         // Write person number
-        device.writeAttr(SUMO_ATTR_PERSON_NUMBER, i->getPersonNumber());
+        device.writeAttr(SUMO_ATTR_PERSON_NUMBER, i.getPersonNumber());
         // Write container number
-        device.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, i->getContainerNumber());
+        device.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, i.getContainerNumber());
         // Write reroute
-        device.writeAttr(SUMO_ATTR_REROUTE, i->getReroute());
+        device.writeAttr(SUMO_ATTR_REROUTE, i.getReroute());
         // Write departPosLat
-        device.writeAttr(SUMO_ATTR_DEPARTPOS_LAT, i->getDepartPosLat());
+        device.writeAttr(SUMO_ATTR_DEPARTPOS_LAT, i.getDepartPosLat());
         // Write arrivalPosLat
-        device.writeAttr(SUMO_ATTR_ARRIVALPOS_LAT, i->getArrivalPosLat());
+        device.writeAttr(SUMO_ATTR_ARRIVALPOS_LAT, i.getArrivalPosLat());
         // Write number
-        device.writeAttr(SUMO_ATTR_NUMBER, i->getNumber());
+        device.writeAttr(SUMO_ATTR_NUMBER, i.getNumber());
         // Write type of flow
-        if (i->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD) {
+        if (i.getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD) {
             // write period
-            device.writeAttr(SUMO_ATTR_PERIOD, i->getPeriod());
-        } else if (i->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR) {
+            device.writeAttr(SUMO_ATTR_PERIOD, i.getPeriod());
+        } else if (i.getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR) {
             // write vehs per hour
-            device.writeAttr(SUMO_ATTR_VEHSPERHOUR, i->getVehsPerHour());
-        } else if (i->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY) {
+            device.writeAttr(SUMO_ATTR_VEHSPERHOUR, i.getVehsPerHour());
+        } else if (i.getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY) {
             // write probability
-            device.writeAttr(SUMO_ATTR_PROB, i->getProbability());
+            device.writeAttr(SUMO_ATTR_PROB, i.getProbability());
         }
         // Close flow tag
         device.closeTag();
@@ -299,7 +297,7 @@ GNECalibrator::getParentName() const {
     if(myLane) {
         return myLane->getMicrosimID();
     } else if(myEdge) {
-        myEdge->getLanes().at(0)->getMicrosimID();
+        return myEdge->getLanes().at(0)->getMicrosimID();
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
     }
