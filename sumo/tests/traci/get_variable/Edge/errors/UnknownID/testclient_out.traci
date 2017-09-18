@@ -5,7 +5,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:01 2013
 .. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
-  domID=170 varID=89 objID=xxx
+  domID=170 varID=18 objID=xxx
 .. Answered with error to command (170), [description: Edge 'xxx' is not known]
 
 -> Command sent: <SimulationStep>:

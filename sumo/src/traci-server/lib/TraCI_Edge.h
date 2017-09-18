@@ -30,11 +30,34 @@ public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
     static double retrieveExistingTravelTime(std::string& id, double time);
-    static MSEdge * getEdge(std::string& id);
+    static MSEdge * getEdge(const std::string& id);
     static double retrieveExistingEffort(std::string& id, double time);
     static double getCurrentTravelTime(std::string& id);
     static double getWaitingSeconds(std::string& id);
     static const std::vector<std::string> getPersonIDs(std::string& id);
+    static const std::vector<std::string> getVehicleIDs(std::string& id);
+    static double getCO2Emissions(std::string& id);
+    static double getCOEmissions(std::string& id);
+    static double getHCEmissions(std::string& id);
+    static double getPMxEmissions(std::string& id);
+    static double getNOxEmissions(std::string& id);
+    static double getFuelConsumption(std::string& id);
+    static double getNoiseEmissions(std::string& id);
+    static double getElectricityConsumption(std::string& id);
+    static int getVehicleNumber(std::string& id);
+    static double getMeanSpeed(std::string& id);
+    static double getOccupancy(std::string& id);
+    static int getVehicleHaltingNumber(std::string& id);
+    static double getVehicleAverageLength(std::string& id);
+    static const std::string& getParameter(std::string& id, std::string& paramName);
+    static void setAllowdVehicleClasses(std::string& id, std::vector<std::string> vector);
+    static void setDisallowedVehicleClasses(std::string& id, std::vector<std::string> classes);
+    static void setAllowdSVCPermissions(std::string& id, SVCPermissions permissions);
+    static void addTravelTime(std::string& id, double begTime, double endTime, double value);
+    static void addEffort(std::string& id, double begTime, double endTime, double value);
+    static void setMaxSpeed(std::string& id, double value);
+    static void addParameter(std::string& id, std::string& name, std::string& value);
+    static void getShape(const std::string& id, PositionVector& shape);
 };
 
 

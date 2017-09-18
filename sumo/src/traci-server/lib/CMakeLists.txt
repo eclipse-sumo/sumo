@@ -1,8 +1,6 @@
 set(traciserver_lib_STAT_SRCS
         TraCI.cpp
         TraCI.h
-        TraCI_Edge.cpp
-        TraCI_Edge.h
         TraCI_InductionLoop.cpp
         TraCI_InductionLoop.h
         TraCI_Junction.cpp
@@ -29,7 +27,7 @@ set(traciserver_lib_STAT_SRCS
         TraCI_Vehicle.cpp
         TraCI_VehicleType.cpp
         TraCI_VehicleType.h
-        )
+        TraCI_Edge.cpp TraCI_Edge.h)
 
 add_library(traciserver_lib STATIC ${traciserver_lib_STAT_SRCS})
 set_property(TARGET traciserver_lib PROPERTY PROJECT_LABEL "z_traciserver_lib")
