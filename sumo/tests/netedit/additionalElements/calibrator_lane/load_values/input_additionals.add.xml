@@ -1,6 +1,6 @@
 <additionals>
 	<!-- Calibrator with Routes -->
-	<calibrator id="calibratorRoutes" lane="gneE0_0" pos="0.00" freq="100.00" output="calibratorRoutes.txt">
+	<calibrator id="calibratorRoutes" edge="gneE0" pos="0.00" freq="100.00" output="calibratorRoutes.txt">
 	
 		<!-- default route -->
 		<route id = "route01" edges="gneE0 gneE1" color="0,0,0"/>
@@ -47,7 +47,7 @@
 	</calibrator>
 	
 	<!-- Calibrator with vehicleTypes -->
-	<calibrator id="calibratorVehicleTypes" lane="gneE0_0" pos="10.00" freq="100.00" output="calibratorVehicleTypes.txt">
+	<calibrator id="calibratorVehicleTypes" edge="gneE0" pos="10.00" freq="100.00" output="calibratorVehicleTypes.txt">
 	
 		<!-- default vehicle type -->
 		<vType id="type1" accel="0.8" decel="4.5" sigma="0.5" tau = "1.0" length="5" minGap = "2.5" maxSpeed="70" speedFactor="1.0" speedDev="0.0" color="0,0,0" vClass="private" emissionClass="P_7_7" guiShape="unknown" width="2.0" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
@@ -308,7 +308,7 @@
 	</calibrator>
 	
 	<!-- Calibrator with Flows (and one Route and one Vehicle type) -->
-	<calibrator id="calibratorFlows" lane="gneE0_0" pos="20.00" freq="100.00" output="calibratorFlows.txt">
+	<calibrator id="calibratorFlows" edge="gneE0" pos="20.00" freq="100.00" output="calibratorFlows.txt">
 	
 	</calibrator>
 	

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 31.07.2017 14:05:17 by Netedit Version dev-SVN-r22743
+<!-- generated on 18.09.2017 13:41:27 by Netedit Version dev-SVN-r22743
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul131644.3900/netedit.gui/additionalElements/calibrator/volatileRecomputing\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul131644.3900/netedit.gui/additionalElements/calibrator/volatileRecomputing\additionals.xml"/>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul131644.3900/netedit.gui/additionalElements/calibrator/volatileRecomputing\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.18Sep134014.5872/netedit.gui/additionalElements/calibrator_lane/volatileRecomputing\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.18Sep134014.5872/netedit.gui/additionalElements/calibrator_lane/volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul131644.3900/netedit.gui/additionalElements/calibrator/volatileRecomputing\net.net.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.18Sep134014.5872/netedit.gui/additionalElements/calibrator_lane/volatileRecomputing\additionals.xml"/>
+        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.18Sep134014.5872/netedit.gui/additionalElements/calibrator_lane/volatileRecomputing\shapes.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.18Sep134014.5872/netedit.gui/additionalElements/calibrator_lane/volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
@@ -35,7 +36,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul131644.3900/netedit.gui/additionalElements/calibrator/volatileRecomputing\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.18Sep134014.5872/netedit.gui/additionalElements/calibrator_lane/volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>

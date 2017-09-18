@@ -1,20 +1,6 @@
-Warning: Adding calibrator 'calibrator01' in GNEChange_Additional
+Warning: Adding calibrator (lane) 'calibrator01' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Adding calibrator 'calibrator02' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator04' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator05' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator06' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator07' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator08' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator09' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator10' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator11' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator12' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator13' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator14' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator15' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator16' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator17' in GNEChange_Additional
+Warning: Adding calibrator (lane) 'calibrator02' in GNEChange_Additional
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -22,83 +8,13 @@ Warning: Adding lane 'gneE0_0' into edge
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing lane 'gneE0_0' from edge
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
 Warning: Adding lane 'gneE1_0' into edge
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing lane 'gneE1_0' from edge
-Warning: Deleting unreferenced lane 'gneE1_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
 Warning: Additionals saved
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Deleting unreferenced calibrator 'calibrator17'
-Warning: Deleting unreferenced calibrator 'calibrator16'
-Warning: Deleting unreferenced calibrator 'calibrator15'
-Warning: Deleting unreferenced calibrator 'calibrator14'
-Warning: Deleting unreferenced calibrator 'calibrator13'
-Warning: Deleting unreferenced calibrator 'calibrator12'
-Warning: Deleting unreferenced calibrator 'calibrator11'
-Warning: Deleting unreferenced calibrator 'calibrator10'
-Warning: Deleting unreferenced calibrator 'calibrator09'
-Warning: Deleting unreferenced calibrator 'calibrator08'
-Warning: Deleting unreferenced calibrator 'calibrator07'
-Warning: Deleting unreferenced calibrator 'calibrator06'
-Warning: Deleting unreferenced calibrator 'calibrator05'
-Warning: Deleting unreferenced calibrator 'calibrator04'
-Warning: Deleting unreferenced calibrator 'calibrator02'
-Warning: Deleting unreferenced calibrator 'calibrator01'
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEChange_Lane
+Warning: Deleting unreferenced calibrator (lane) 'calibrator02'
+Warning: Deleting unreferenced calibrator (lane) 'calibrator01'
 Warning: Additionals has to be saved
 Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

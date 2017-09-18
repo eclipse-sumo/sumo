@@ -1,4 +1,4 @@
 <additionals>
-    <calibrator id="calibrator_gneE0_0_0" lane="gneE0_0" pos="0.00" freq="100.00" output="calibrator_gneE0_0_0.txt"/>
-    <calibrator id="calibrator_gneE1_0_1" lane="gneE1_0" pos="0.00" freq="100.00" output="calibrator_gneE1_0_1.txt"/>
+    <calibrator id="calibrator01" lane="gneE0_0" pos="0.00" freq="100.00" output="calibrator01.txt"/>
+    <calibrator id="calibrator02" lane="gneE1_0" pos="0.00" freq="100.00" output="calibrator02.txt"/>
 </additionals>
