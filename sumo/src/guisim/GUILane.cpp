@@ -950,8 +950,7 @@ GUILane::getColorValue(int activeScheme) const {
                 return 5;
             }
         case 1:
-            return gSelected.isSelected(getType(), getGlID()) ||
-                   gSelected.isSelected(GLO_EDGE, dynamic_cast<GUIEdge*>(myEdge)->getGlID());
+            return isLaneOrEdgeSelected();
         case 2:
             return (double)myPermissions;
         case 3:
@@ -1036,8 +1035,7 @@ GUILane::getScaleValue(int activeScheme) const {
         case 0:
             return 0;
         case 1:
-            return gSelected.isSelected(getType(), getGlID()) ||
-                   gSelected.isSelected(GLO_EDGE, dynamic_cast<GUIEdge*>(myEdge)->getGlID());
+            return isLaneOrEdgeSelected();
         case 2:
             return getSpeedLimit();
         case 3:
@@ -1168,6 +1166,11 @@ GUILane::splitAtSegments(const PositionVector& shape) {
 bool
 GUILane::isSelected() const {
     return gSelected.isSelected(GLO_LANE, getGlID());
+}
+
+bool 
+GUILane::isLaneOrEdgeSelected() const {
+    return isSelected() || gSelected.isSelected(GLO_EDGE, dynamic_cast<GUIEdge*>(myEdge)->getGlID());
 }
 
 /****************************************************************************/

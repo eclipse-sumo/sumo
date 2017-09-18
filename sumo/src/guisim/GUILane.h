@@ -317,6 +317,9 @@ private:
     /// @brief whether to draw this lane as a waterway
     bool drawAsWaterway(const GUIVisualizationSettings& s) const;
 
+    /// @brief whether this lane or its parent edge is selected in the GUI
+    bool isLaneOrEdgeSelected() const;
+
     /// The rotations of the shape parts
     std::vector<double> myShapeRotations;
 
