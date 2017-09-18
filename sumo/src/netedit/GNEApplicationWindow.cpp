@@ -743,10 +743,12 @@ GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         GNEShapeHandler handler(file, myNet);
+        myUndoList->p_begin("Loading shapes from '" + file + "'");
         if (!XMLSubSys::runParser(handler, file, false)) {
             WRITE_MESSAGE("Loading of shapes failed.");
         }
         update();
+        myUndoList->p_end();
     }
     return 1;
 }
@@ -770,6 +772,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         // Create additional handler
         GNEAdditionalHandler additionalHandler(file, myNet->getViewNet());
         // Run parser
+        myUndoList->p_begin("Loading additionals from '" + file + "'");
         if (!XMLSubSys::runParser(additionalHandler, file, false)) {
             WRITE_MESSAGE("Loading of " + file + " failed.");
             // Abort undo/redo
@@ -781,6 +784,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
             myUndoList->p_end();
             update();
         }
+        myUndoList->p_end();
     }
     return 1;
 }
@@ -940,12 +944,14 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         WRITE_MESSAGE("Loading additionals from '" + myAdditionalsFile + "'");
         GNEAdditionalHandler additionalHandler(myAdditionalsFile, myNet->getViewNet());
         // Run parser
+        myUndoList->p_begin("Loading additionals from '" + myAdditionalsFile + "'");
         if (!XMLSubSys::runParser(additionalHandler, myAdditionalsFile, false)) {
             WRITE_ERROR("Loading of " + myAdditionalsFile + " failed.");
         } else {
             // reset last tag (needed if user want to load more additionals)
             additionalHandler.resetLastTag();
         }
+        myUndoList->p_end();
     }
     // check if shapes has to be loaded at start
     if (OptionsCont::getOptions().isSet("sumo-shapes-file") && myNet) {
@@ -953,9 +959,11 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         WRITE_MESSAGE("Loading shapes");
         GNEShapeHandler shapeHandler(myShapesFile, myNet);
         // Run parser
+        myUndoList->p_begin("Loading shapes from '" + myShapesFile + "'");
         if (!XMLSubSys::runParser(shapeHandler, myShapesFile, false)) {
             WRITE_ERROR("Loading of shapes failed.");
         }
+        myUndoList->p_end();
     }
     // check if additionals output must be changed
     if (OptionsCont::getOptions().isSet("additionals-output")) {
