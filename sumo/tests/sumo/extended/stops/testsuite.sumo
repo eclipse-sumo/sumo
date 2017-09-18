@@ -13,6 +13,9 @@ until_and_duration
 # Tests whether stops can be in wrong order
 out_of_order
 
+# Tests handling out-of-order busstops
+busstop_out_of_order_ignore
+
 # Tests whether stops can be on cyclic routes
 cyclic_route
 
