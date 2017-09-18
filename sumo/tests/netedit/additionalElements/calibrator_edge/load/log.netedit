@@ -7,8 +7,8 @@ Warning: There is another calibrator (edge) with the same ID='calibrator01'.
 Warning: Adding calibrator (edge) 'calibrator02' in GNEChange_Additional
 Warning: additional calibrator must have either a lane or an edge attribute.
 Warning: The lane '' or edge '' to use within the calibrator '' is not known.
-Warning: Adding calibrator (edge) 'calibrator04' in GNEChange_Additional
-Warning: Adding calibrator (lane) 'calibrator05' in GNEChange_Additional
+Warning: The lane '' or edge 'dummyEdge' to use within the calibrator (edge) 'calibrator04' is not known.
+Warning: Adding calibrator (edge) 'calibrator05' in GNEChange_Additional
 Warning: Optional float attribute 'pos' of calibrator (edge) with ID 'calibrator06' is missing; Default value '0.00' will be used.
 Warning: Adding calibrator (edge) 'calibrator06' in GNEChange_Additional
 Warning: Format of optional float attribute 'pos' of calibrator (edge) with ID 'calibrator07' is invalid; Cannot be parsed to float; Default value '0.00' will be used.
@@ -48,8 +48,7 @@ Warning: Deleting unreferenced calibrator (edge) 'calibrator09'
 Warning: Deleting unreferenced calibrator (edge) 'calibrator08'
 Warning: Deleting unreferenced calibrator (edge) 'calibrator07'
 Warning: Deleting unreferenced calibrator (edge) 'calibrator06'
-Warning: Deleting unreferenced calibrator (lane) 'calibrator05'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator04'
+Warning: Deleting unreferenced calibrator (edge) 'calibrator05'
 Warning: Deleting unreferenced calibrator (edge) 'calibrator02'
 Warning: Deleting unreferenced calibrator (edge) 'calibrator01'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

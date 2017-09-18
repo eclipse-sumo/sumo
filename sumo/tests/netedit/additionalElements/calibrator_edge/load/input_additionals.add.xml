@@ -17,14 +17,14 @@
 	<!-- valid ID -->
     <calibrator id="calibrator02" edge="gneE0" pos="10.00" freq="100.00" output="calibrator02d.txt"/>
 	
-	<!-- non valid lane (missing) -->
+	<!-- non valid edge (missing) -->
     <calibrator id="calibrator03" pos="12.00" freq="100.00" output="calibrator03.txt"/>
 	
-	<!-- non valid lane (dummy) -->
-	<calibrator id="calibrator04" edge="gneE0" pos="14.00" freq="100.00" output="calibrator04.txt"/>
+	<!-- non valid edge (dummy) -->
+	<calibrator id="calibrator04" edge="dummyEdge" pos="14.00" freq="100.00" output="calibrator04.txt"/>
 	
-	<!-- valid lane -->
-	<calibrator id="calibrator05" lane="gneE1_0" pos="16.00" freq="100.00" output="calibrator05.txt"/>
+	<!-- valid edge (different) -->
+	<calibrator id="calibrator05" edge="gneE1" pos="16.00" freq="100.00" output="calibrator05.txt"/>
 	
 	<!-- non valid position (missing) -->
     <calibrator id="calibrator06" edge="gneE0" freq="100.00" output="calibrator06.txt"/>

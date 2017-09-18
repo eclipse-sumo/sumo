@@ -1,18 +1,4 @@
 <additionals>
-    <calibrator id="calibrator01" lane="gneE0_1" pos="0.00" freq="100.00" output="calibrator01.txt"/>
-    <calibrator id="calibrator02" lane="gneE0_1" pos="0.00" freq="100.00" output="calibrator02d.txt"/>
-    <calibrator id="calibrator04" lane="gneE0_1" pos="0.00" freq="100.00" output="calibrator04.txt"/>
-    <calibrator id="calibrator05" lane="gneE1_1" pos="0.00" freq="100.00" output="calibrator05.txt"/>
-    <calibrator id="calibrator06" lane="gneE0_1" pos="0.00" freq="100.00" output="calibrator06.txt"/>
-    <calibrator id="calibrator07" lane="gneE0_1" pos="0.00" freq="100.00" output="calibrator07.txt"/>
-    <calibrator id="calibrator08" lane="gneE0_1" pos="0.00" freq="100.00" output="calibrator08.txt"/>
-    <calibrator id="calibrator09" lane="gneE0_1" pos="10.00" freq="100.00" output="calibrator09.txt"/>
-    <calibrator id="calibrator10" lane="gneE0_1" pos="0.00" freq="100.00" output="calibrator10.txt"/>
-    <calibrator id="calibrator11" lane="gneE0_1" pos="0.00" freq="100.00" output="calibrator11.txt"/>
-    <calibrator id="calibrator12" lane="gneE0_1" pos="0.00" freq="100.00" output="calibrator12.txt"/>
-    <calibrator id="calibrator13" lane="gneE0_1" pos="0.00" freq="120.00" output="calibrator13.txt"/>
-    <calibrator id="calibrator14" lane="gneE0_1" pos="0.00" freq="100.00" output=""/>
-    <calibrator id="calibrator15" lane="gneE0_1" pos="0.00" freq="100.00" output=""/>
-    <calibrator id="calibrator16" lane="gneE0_1" pos="0.00" freq="100.00" output=""/>
-    <calibrator id="calibrator17" lane="gneE0_1" pos="0.00" freq="100.00" output="ownOutput.txt"/>
+    <calibrator id="calibrator01" edge="gneE0" pos="0.00" freq="100.00" output="calibrator01.txt"/>
+    <calibrator id="calibrator02" edge="gneE1" pos="0.00" freq="100.00" output="calibrator02.txt"/>
 </additionals>
