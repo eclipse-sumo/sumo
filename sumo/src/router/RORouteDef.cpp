@@ -120,7 +120,7 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
                    myAlternatives[0]->getLast()->getID() + "'.");
         return;
     }
-    if (myTryRepair) {
+    if (myTryRepair || myUsingJTRR) {
         ConstROEdgeVector newEdges;
         if (repairCurrentRoute(router, begin, veh, myAlternatives[0]->getEdgeVector(), newEdges)) {
             if (myAlternatives[0]->getEdgeVector() != newEdges) {
@@ -289,7 +289,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
 void
 RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                            const ROVehicle* const veh, RORoute* current, SUMOTime begin) {
-    if (myTryRepair) {
+    if (myTryRepair || myUsingJTRR) {
         if (myNewRoute) {
             delete myAlternatives[0];
             myAlternatives[0] = current;
