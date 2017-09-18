@@ -1,0 +1,21 @@
+<additionals>
+    <calibrator (edge) id="calibrator01" edge="gneE0" pos="0.00" freq="100.00" output="calibrator01.txt"/>
+    <calibrator (edge) id="calibrator02" edge="gneE0" pos="500.00" freq="100.00" output="calibrator02d.txt"/>
+    <calibrator (edge) id="calibrator04" edge="gneE0" pos="700.00" freq="100.00" output="calibrator04.txt"/>
+    <calibrator (lane) id="calibrator05" lane="gneE1_0" pos="800.00" freq="100.00" output="calibrator05.txt"/>
+    <calibrator (edge) id="calibrator06" edge="gneE0" pos="0.00" freq="100.00" output="calibrator06.txt"/>
+    <calibrator (edge) id="calibrator07" edge="gneE0" pos="0.00" freq="100.00" output="calibrator07.txt"/>
+    <calibrator (edge) id="calibrator08" edge="gneE0" pos="0.00" freq="100.00" output="calibrator08.txt"/>
+    <calibrator (edge) id="calibrator09" edge="gneE0" pos="900.00" freq="100.00" output="calibrator09.txt"/>
+    <calibrator (edge) id="calibrator10" edge="gneE0" pos="1000.00" freq="100.00" output="calibrator10.txt"/>
+    <calibrator (edge) id="calibrator11" edge="gneE0" pos="1100.00" freq="100.00" output="calibrator11.txt"/>
+    <calibrator (edge) id="calibrator12" edge="gneE0" pos="1200.00" freq="100.00" output="calibrator12.txt"/>
+    <calibrator (edge) id="calibrator13" edge="gneE0" pos="1300.00" freq="120.00" output="calibrator13.txt"/>
+    <calibrator (edge) id="calibrator14" edge="gneE0" pos="1300.00" freq="120.00" output="calibrator14.txt"/>
+    <calibrator (edge) id="calibrator15" edge="gneE0" pos="1300.00" freq="120.00" output="calibrator15.txt"/>
+    <calibrator (edge) id="calibrator16" edge="gneE0" pos="1300.00" freq="120.00" output="calibrator16.txt"/>
+    <calibrator (edge) id="calibrator17" edge="gneE0" pos="1400.00" freq="100.00" output=""/>
+    <calibrator (edge) id="calibrator18" edge="gneE0" pos="1500.00" freq="100.00" output=""/>
+    <calibrator (edge) id="calibrator19" edge="gneE0" pos="1600.00" freq="100.00" output=""/>
+    <calibrator (edge) id="calibrator20" edge="gneE0" pos="1700.00" freq="100.00" output="ownOutput.txt"/>
+</additionals>

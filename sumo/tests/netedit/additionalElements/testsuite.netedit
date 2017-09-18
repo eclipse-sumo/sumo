@@ -31,8 +31,11 @@ routeprobe
 # vaporizer
 vaporizer
 
-# calibrator
-calibrator
+# calibrator (edge)
+calibrator_edge
+
+# calibrator (lane)
+calibrator_lane
 
 # rerouter
 rerouter
