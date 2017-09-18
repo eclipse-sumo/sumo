@@ -50,7 +50,7 @@ netedit.modifyAdditionalDefaultValue(2, "-5")
 # create calibrator with an invalid parameter (Default value will be used)
 netedit.leftClick(match, 400, 215)
 
-# change position with n valid value
+# change position with a valid value
 netedit.modifyAdditionalDefaultValue(2, "10")
 
 # create calibrator with an invalid parameter (Default value will be used)
@@ -105,8 +105,8 @@ netedit.modifyAdditionalDefaultValue(5, "myOwnOutput")
 netedit.leftClick(match, 200, 230)
 
 # Check undo redo
-netedit.undo(match, 7)
-netedit.redo(match, 7)
+netedit.undo(match, 6)
+netedit.redo(match, 6)
 
 # save additionals
 netedit.saveAdditionals()

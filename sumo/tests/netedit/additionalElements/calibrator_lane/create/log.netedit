@@ -6,13 +6,11 @@ Warning: Adding calibrator (lane) 'calibrator (lane)_gneE0_0_1' in GNEChange_Add
 Warning: Invalid input parameter of calibrator (lane): 'freq' doesn't have a valid 'time' format
 Warning: Invalid input parameter of calibrator (lane): 'freq' cannot be negative
 Warning: Adding calibrator (lane) 'calibrator (lane)_gneE1_0_0' in GNEChange_Additional
+Warning: Invalid input parameter of calibrator (lane): RouteProbe ID contains invalid characters
 Warning: Adding calibrator (lane) 'calibrator (lane)_gneE1_0_1' in GNEChange_Additional
 Warning: Adding calibrator (lane) 'calibrator (lane)_gneE1_0_2' in GNEChange_Additional
-Warning: Adding calibrator (lane) 'calibrator (lane)_gneE1_0_3' in GNEChange_Additional
 Warning: Invalid input parameter of calibrator (lane): input contains invalid characters for a filename
-Warning: Adding calibrator (lane) 'calibrator (lane)_gneE1_0_4' in GNEChange_Additional
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing calibrator (lane) 'calibrator (lane)_gneE1_0_4' in GNEChange_Additional
+Warning: Adding calibrator (lane) 'calibrator (lane)_gneE1_0_3' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing calibrator (lane) 'calibrator (lane)_gneE1_0_3' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -37,12 +35,9 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding calibrator (lane) 'calibrator (lane)_gneE1_0_2' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding calibrator (lane) 'calibrator (lane)_gneE1_0_3' in GNEChange_Additional
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Adding calibrator (lane) 'calibrator (lane)_gneE1_0_4' in GNEChange_Additional
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Deleting unreferenced calibrator (lane) 'calibrator (lane)_gneE1_0_4'
 Warning: Deleting unreferenced calibrator (lane) 'calibrator (lane)_gneE1_0_3'
 Warning: Deleting unreferenced calibrator (lane) 'calibrator (lane)_gneE1_0_2'
 Warning: Deleting unreferenced calibrator (lane) 'calibrator (lane)_gneE1_0_1'
