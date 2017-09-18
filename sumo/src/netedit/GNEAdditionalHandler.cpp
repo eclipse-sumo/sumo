@@ -953,8 +953,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             std::string id = values[SUMO_ATTR_ID];
             GNEEdge* lane = viewNet->getNet()->retrieveEdge(values[SUMO_ATTR_EDGE], false);
             // get rest of parameters
-            // Currently unused double pos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_POSITION]);
-            double pos = 0;
+            double pos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_POSITION]);
             std::string outfile = values[SUMO_ATTR_OUTPUT];
             double freq = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_FREQUENCY]);
             // declare Calibrator values
@@ -973,8 +972,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             std::string id = values[SUMO_ATTR_ID];
             GNELane* lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
             // get rest of parameters
-            // Currently unused double pos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_POSITION]);
-            double pos = 0;
+            double pos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_POSITION]);
             std::string outfile = values[SUMO_ATTR_OUTPUT];
             double freq = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_FREQUENCY]);
             // declare Calibrator values

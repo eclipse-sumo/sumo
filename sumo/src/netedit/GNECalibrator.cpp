@@ -62,11 +62,11 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, double pos, double frequency, const std::string& output, 
+GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, double relativePos, double frequency, const std::string& output, 
                              const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows, 
                              const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) :
     GNEAdditional(id, viewNet, tag, ICON_CALIBRATOR),
-    myPositionOverLane(pos),
+    myPositionOverLane(relativePos),
     myFrequency(frequency),
     myOutput(output),
     myRouteProbe(NULL), /** change this in the future **/

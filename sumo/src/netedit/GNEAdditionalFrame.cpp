@@ -268,54 +268,56 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         return ADDADDITIONAL_INVALID_ARGUMENTS;
     }
 
-    // Obtain position attribute
-    if (pointed_edge) {
-        // Obtain position of the mouse over edge
-        double positionOfTheMouseOverEdge = pointed_edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(currentPosition);
-        // If element has a StartPosition and EndPosition over edge, extract attributes
-        if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_ENDPOS)) {
-            // First check that current length is valid
-            if (myEditorParameters->isCurrentLengthValid()) {
-                // check if current reference point is valid
-                if (myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
-                    myadditionalParameters->showWarningMessage("Current selected reference point isn't valid");
-                    return ADDADDITIONAL_INVALID_ARGUMENTS;
+    // Obtain position attribute if wasn't previously setted
+    if(valuesOfElement.find(SUMO_ATTR_POSITION) == valuesOfElement.end()) {
+        if (pointed_edge) {
+            // Obtain position of the mouse over edge
+            double positionOfTheMouseOverEdge = pointed_edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(currentPosition);
+            // If element has a StartPosition and EndPosition over edge, extract attributes
+            if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_ENDPOS)) {
+                // First check that current length is valid
+                if (myEditorParameters->isCurrentLengthValid()) {
+                    // check if current reference point is valid
+                    if (myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
+                        myadditionalParameters->showWarningMessage("Current selected reference point isn't valid");
+                        return ADDADDITIONAL_INVALID_ARGUMENTS;
+                    } else {
+                        // set start and end position
+                        valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverEdge, myEditorParameters->getLength()));
+                        valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLength(), positionOfTheMouseOverEdge, myEditorParameters->getLength()));
+                    }
                 } else {
-                    // set start and end position
-                    valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverEdge, myEditorParameters->getLength()));
-                    valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLength(), positionOfTheMouseOverEdge, myEditorParameters->getLength()));
-                }
-            } else {
-                return ADDADDITIONAL_INVALID_ARGUMENTS;
-            }
-        }
-        // Extract position of lane
-        valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverEdge);
-    } else if (pointed_lane) {
-        // Obtain position of the mouse over lane
-        double positionOfTheMouseOverLane = pointed_lane->getShape().nearest_offset_to_point2D(currentPosition);
-        // If element has a StartPosition and EndPosition over lane, extract attributes
-        if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_ENDPOS)) {
-            // First check that current length is valid
-            if (myEditorParameters->isCurrentLengthValid()) {
-                // check if current reference point is valid
-                if (myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
-                    myadditionalParameters->showWarningMessage("Current selected reference point isn't valid");
                     return ADDADDITIONAL_INVALID_ARGUMENTS;
-                } else {
-                    // set start and end position
-                    valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverLane, myEditorParameters->getLength()));
-                    valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_lane->getLaneShapeLength(), positionOfTheMouseOverLane, myEditorParameters->getLength()));
                 }
-            } else {
-                return ADDADDITIONAL_INVALID_ARGUMENTS;
             }
+            // Extract position of lane
+            valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverEdge);
+        } else if (pointed_lane) {
+            // Obtain position of the mouse over lane
+            double positionOfTheMouseOverLane = pointed_lane->getShape().nearest_offset_to_point2D(currentPosition);
+            // If element has a StartPosition and EndPosition over lane, extract attributes
+            if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_ENDPOS)) {
+                // First check that current length is valid
+                if (myEditorParameters->isCurrentLengthValid()) {
+                    // check if current reference point is valid
+                    if (myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
+                        myadditionalParameters->showWarningMessage("Current selected reference point isn't valid");
+                        return ADDADDITIONAL_INVALID_ARGUMENTS;
+                    } else {
+                        // set start and end position
+                        valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverLane, myEditorParameters->getLength()));
+                        valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_lane->getLaneShapeLength(), positionOfTheMouseOverLane, myEditorParameters->getLength()));
+                    }
+                } else {
+                    return ADDADDITIONAL_INVALID_ARGUMENTS;
+                }
+            }
+            // Extract position of lane
+            valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverLane);
+        } else {
+            // get position in map
+            valuesOfElement[SUMO_ATTR_POSITION] = toString(currentPosition);
         }
-        // Extract position of lane
-        valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverLane);
-    } else {
-        // get position in map
-        valuesOfElement[SUMO_ATTR_POSITION] = toString(currentPosition);
     }
 
     // If additional has a interval defined by a begin or end, check that is valid
@@ -338,8 +340,10 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         valuesOfElement[SUMO_ATTR_OUTPUT] = (valuesOfElement[SUMO_ATTR_ID] + ".txt");
     }
 
-    // Save block value
-    valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockEnabled());
+    // Save block value if additional can be blocked
+    if(GNEAttributeCarrier::canBlockMovement(myActualAdditionalType)) {
+        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockEnabled());
+    }
 
     // If element belongst to an additional Set, get id of parent from myAdditionalParentSelector
     if ((myActualAdditionalType == SUMO_TAG_DET_ENTRY) || (myActualAdditionalType == SUMO_TAG_DET_EXIT)) {
@@ -429,7 +433,11 @@ GNEAdditionalFrame::onCmdSelectAdditional(FXObject*, FXSelector, void*) {
         if (toString(i) == myAdditionalMatchBox->getText().text()) {
             myAdditionalMatchBox->setTextColor(FXRGB(0, 0, 0));
             myadditionalParameters->show();
-            myEditorParameters->show();
+            if(GNEAttributeCarrier::canBlockMovement(i)) {
+                myEditorParameters->show();
+            } else {
+                myEditorParameters->hide();
+            }
             setParametersOfAdditional(i);
             additionalNameCorrect = true;
         }
@@ -725,6 +733,11 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
         if (GNEAttributeCarrier::isValidFilename(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "input contains invalid characters for a filename";
         }
+    } else if (myAdditionalAttr == SUMO_ATTR_ROUTEPROBE) {
+        // check if filename format is valid
+        if (GNEAttributeCarrier::isValidID(myTextFieldStrings->getText().text()) == false) {
+            myInvalidValue = "RouteProbe ID contains invalid characters";
+        }
     }
     // change color of text field depending of myCurrentValueValid
     if (myInvalidValue.size() == 0) {
@@ -899,7 +912,7 @@ GNEAdditionalFrame::AdditionalAttributeList::onCmdRemoveRow(FXObject*, FXSelecto
 }
 
 // ---------------------------------------------------------------------------
-// GNEAdditionalFrame::NeteditAttributes- methods
+// GNEAdditionalFrame::AdditionalAttributes - methods
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::AdditionalAttributes::AdditionalAttributes(GNEViewNet* viewNet, FXComposite* parent) :
@@ -925,8 +938,7 @@ GNEAdditionalFrame::AdditionalAttributes::AdditionalAttributes(GNEViewNet* viewN
 }
 
 
-GNEAdditionalFrame::AdditionalAttributes::~AdditionalAttributes() {
-}
+GNEAdditionalFrame::AdditionalAttributes::~AdditionalAttributes() {}
 
 
 void

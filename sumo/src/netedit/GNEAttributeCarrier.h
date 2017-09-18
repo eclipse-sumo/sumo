@@ -333,6 +333,11 @@ public:
                 if ((!ok) && (attribute == SUMO_ATTR_GUISHAPE)) {
                     errorFormat = "Is not a part of defined set of Gui Vehicle Shapes; ";
                 }
+                // set extra check for RouteProbes
+                if ((attribute == SUMO_ATTR_ROUTEPROBE) && !isValidID(parsedAttribute)) {
+                    errorFormat = "RouteProbe ID contains invalid characters; ";
+                    ok = false;
+                }
                 // If attribute has an invalid format
                 if (!ok) {
                     // if attribute has a default value, take it as string. In other case, abort.

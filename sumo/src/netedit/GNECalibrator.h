@@ -55,14 +55,14 @@ public:
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] tag type of calibrator (placed over edge or over lane)
-     * @param[in] pos position of the calibrator on the edge (Currently not used)
+     * @param[in] relativePos relative [0-1]position of the calibrator on the edge (Currently not used)
      * @param[in] frequency the aggregation interval in which to calibrate the flows
      * @param[in] output The output file for writing calibrator information
      * @param[in] calibratorRoutes vector with the calibratorRoutes of calibrator
      * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
      * @param[in] calibratorVehicleTypes vector with the CalibratorVehicleType of calibrator
      */
-    GNECalibrator(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, double pos, double frequency, const std::string& output,
+    GNECalibrator(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, double relativePos, double frequency, const std::string& output,
                   const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows,
                   const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes);
 
