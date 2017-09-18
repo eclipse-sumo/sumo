@@ -30,6 +30,7 @@ import sys
 import heapq
 from xml.sax import make_parser, handler
 from optparse import OptionParser
+from collections import defaultdict
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.output
 from sumolib.net.lane import get_allowed
@@ -649,7 +650,8 @@ class Net:
         totalFlow = 0
         for edge in self._source.outEdges:
             totalFlow += edge.flow
-            for id, route in enumerate(edge.routes):
+            targetCount = defaultdict(lambda : 0)
+            for route in edge.routes:
                 if routeOut is None:
                     print(route)
                     continue
@@ -666,9 +668,11 @@ class Net:
                             firstReal = redge.label
                         lastReal = redge
                 assert firstReal != '' and lastReal is not None
-                routeID = "%s.%s%s" % (firstReal, id, suffix)
+                index = "" if targetCount[lastReal] == 0 else ".%s" % targetCount[lastReal]
+                targetCount[lastReal] += 1
+                route.routeID = "%s_%s%s%s" % (firstReal, lastReal.label, index, suffix)
                 print('    <route id="%s" edges="%s"/>' % (
-                    routeID, routeString.strip()), file=routeOut)
+                    route.routeID, routeString.strip()), file=routeOut)
         if routeOut is None:
             print("total flow:", totalFlow)
 
@@ -684,37 +688,31 @@ class Net:
             totalFlow += srcEdge.flow
             numSources += 1
             edge = srcEdge.target.outEdges[0]
-            if len(srcEdge.routes) == 1:
-                print('    <flow id="src_%s%s" %s route="%s.0%s" number="%s" begin="%s" end="%s"/>' % (
-                    edge.label, suffix, options.params, edge.label, suffix, int(srcEdge.flow), begin, end), file=emitOut)
+            if options.random:
+                ids = " ".join(r.routeID for r in srcEdge.routes)
+                probs = " ".join([str(route.frequency)
+                                  for route in srcEdge.routes])
+                print('    <flow id="%s%s" %s number="%s" begin="%s" end="%s">' % (
+                    edge.label, suffix, options.params, int(srcEdge.flow), begin, end), file=emitOut)
+                print('        <routeDistribution routes="%s" probabilities="%s"/>' % (
+                    ids, probs), file=emitOut)
+                print('    </flow>', file=emitOut)
             else:
-                if options.random:
-                    ids = " ".join(["%s.%s%s" % (edge.label, id, suffix)
-                                    for id in range(len(srcEdge.routes))])
-                    probs = " ".join([str(route.frequency)
-                                      for route in srcEdge.routes])
-                    print('    <flow id="src_%s%s" %s number="%s" begin="%s" end="%s">' % (
-                        edge.label, suffix, options.params, int(srcEdge.flow), begin, end), file=emitOut)
-                    print('        <routeDistribution routes="%s" probabilities="%s"/>' % (
-                        ids, probs), file=emitOut)
-                    print('    </flow>', file=emitOut)
-                else:
-                    for i, route in enumerate(srcEdge.routes):
-                        routeID = "%s.%s%s" % (edge.label, i, suffix)
-                        via = ""
-                        if options.viadetectors:
-                            realEdges = [e for e in route.edges if e.kind == "real"]
-                            # exclude detectors on 'from' and 'to' edge
-                            detEdges = [e.label for e in realEdges[1:-1] if e.getDetFlow() > 0]
-                            # avoid duplicate via-edges
-                            viaEdges = []
-                            for e in detEdges:
-                                if not viaEdges or viaEdges[-1] != e:
-                                    viaEdges.append(e)
-                            if viaEdges:
-                                via = ' via="%s"' %  " ".join(viaEdges)
-                        print('    <flow id="src_%s" %s route="%s" number="%s" begin="%s" end="%s"%s/>' % (
-                            routeID, options.params, routeID, int(route.frequency), begin, end, via), file=emitOut)
+                for route in srcEdge.routes:
+                    via = ""
+                    if options.viadetectors:
+                        realEdges = [e for e in route.edges if e.kind == "real"]
+                        # exclude detectors on 'from' and 'to' edge
+                        detEdges = [e.label for e in realEdges[1:-1] if e.getDetFlow() > 0]
+                        # avoid duplicate via-edges
+                        viaEdges = []
+                        for e in detEdges:
+                            if not viaEdges or viaEdges[-1] != e:
+                                viaEdges.append(e)
+                        if viaEdges:
+                            via = ' via="%s"' %  " ".join(viaEdges)
+                    print('    <flow id="%s" %s route="%s" number="%s" begin="%s" end="%s"%s/>' % (
+                        route.routeID, options.params, route.routeID, int(route.frequency), begin, end, via), file=emitOut)
 
         if options.verbose:
             print("Writing %s vehicles from %s sources between time %s and %s" % (
@@ -957,7 +955,7 @@ if net.detectSourceSink(sources, sinks):
             print("Reading flows between %s and %s" % (tMin, tMax))
         start = int(tMin - (tMin % options.interval))
         while start <= tMax:
-            suffix = "%s.%s" % (options.flowcol, start)
+            suffix = ".%s.%s" % (options.flowcol, start)
             for flow in options.flowfiles:
                 haveFlows = reader.readFlows(
                     flow, start, start + options.interval)
@@ -986,7 +984,7 @@ if net.detectSourceSink(sources, sinks):
             print("Calculating routes")
         net.initNet()
         net.calcRoutes()
-        net.writeRoutes(routeOut, options.flowcol)
+        net.writeRoutes(routeOut, "." + options.flowcol)
         net.writeEmitters(emitOut, suffix=options.flowcol)
         net.writeFlowPOIs(poiOut)
     if routeOut:
