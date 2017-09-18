@@ -88,7 +88,8 @@ GNECalibrator::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    if(myLane) {
+    double length; 
+    if (myLane) {
         // Check if another lane ID must be changed if sidewalks.guess option is enabled
         if (volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && (myLane->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
             // add a new extra lane to edge
@@ -100,12 +101,14 @@ GNECalibrator::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
         } else {
             device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
         }
+        length = myLane->getLaneParametricLength();
     } else if (myEdge) {
         device.writeAttr(SUMO_ATTR_EDGE, myEdge->getID());
+        length = myEdge->getLanes().at(0)->getLaneParametricLength();
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
     }
-    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * myEdge->getLanes().at(0)->getLaneParametricLength());
+    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * length);
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
     device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);
     // write all routes of this calibrator
@@ -299,7 +302,6 @@ GNECalibrator::getParentName() const {
         myEdge->getLanes().at(0)->getMicrosimID();
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
-        return "";
     }
 }
 
