@@ -191,8 +191,11 @@ if options.interval:
             print("Reading routes")
         parser.parse(options.routefile)
         if options.verbose:
-            print("Reading flows")
+            print("Reading emitters")
+        parser.parse(options.emitfile)
         if options.flowfile:
+            if options.verbose:
+                print("Reading flows")
             haveFlows = reader.readDetFlows(options.flowfile, options.flowcol)
         if haveFlows:
             reader.printFlows(bool(options.flowfile))
@@ -208,6 +211,8 @@ else:
         print("Reading emitters")
     parser.parse(options.emitfile)
     if options.flowfile:
+        if options.verbose:
+            print("Reading flows")
         reader.readDetFlows(options.flowfile, options.flowcol)
     reader.printFlows(bool(options.flowfile))
     if options.flowfile:
