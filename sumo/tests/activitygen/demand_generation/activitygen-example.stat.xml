@@ -7,7 +7,7 @@
 -->
 
 <city>
-	<general inhabitants="1000" households="500" childrenAgeLimit="19" retirementAgeLimit="66" carRate="0.58" unemploymentRate="0.05" footDistanceLimit="250" incomingTraffic="200" outgoingTraffic="50" />
+	<general inhabitants="1000" households="500" childrenAgeLimit="19" retirementAgeLimit="66" carRate="0.58" unemploymentRate="0.05" footDistanceLimit="250" incomingTraffic="200" outgoingTraffic="50" laborDemand="1.05"/>
 	<parameters carPreference="0.50" meanTimePerKmInCity="6" freeTimeActivityRate="0.15" uniformRandomTraffic="0.20" departureVariation="300" />
 	
 	<population>

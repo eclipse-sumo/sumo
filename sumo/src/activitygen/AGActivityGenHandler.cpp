@@ -140,6 +140,7 @@ AGActivityGenHandler::parseGeneralCityInfo(const SUMOSAXAttributes& attrs) {
         myCity.statData.limitAgeRetirement = attrs.getOpt<int>(AGEN_ATTR_RETIREMENT, 0, ok, 63);
         myCity.statData.carRate = attrs.getOpt<double>(AGEN_ATTR_CARS, 0, ok, 0.58);
         myCity.statData.unemployement = attrs.getOpt<double>(AGEN_ATTR_UNEMPLOYEMENT, 0, ok, 0.06);
+        myCity.statData.laborDemand = attrs.getOpt<double>(AGEN_ATTR_LABORDEMAND, 0, ok, 1.05);
         myCity.statData.maxFootDistance = attrs.getOpt<double>(AGEN_ATTR_MAX_FOOT_DIST, 0, ok, 300.0);
         myCity.statData.incomingTraffic = attrs.getOpt<int>(AGEN_ATTR_IN_TRAFFIC, 0, ok, 0);
         myCity.statData.outgoingTraffic = attrs.getOpt<int>(AGEN_ATTR_OUT_TRAFFIC, 0, ok, 0);

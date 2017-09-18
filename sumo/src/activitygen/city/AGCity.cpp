@@ -74,8 +74,8 @@ AGCity::completeStreets() {
                                        * ((double)statData.getPeopleYoungerThan(statData.limitAgeRetirement)
                                           - (double)statData.getPeopleYoungerThan(statData.limitAgeChildren))
                                        + (double)statData.incomingTraffic;
-    // we generate 5% more work positions that really needed: to avoid any expensive research of random work positions
-    neededWorkPositionsInCity *= double(1.05);
+    // by default laborDemand = 1.05. We generate 5% more work positions that really needed to avoid any expensive research of random work positions
+    neededWorkPositionsInCity *= statData.laborDemand;
     statData.workPositions = (int)neededWorkPositionsInCity;
     statData.factorWorkPositions = neededWorkPositionsInCity / (double) work;
 

@@ -529,6 +529,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "retirementAgeLimit",     AGEN_ATTR_RETIREMENT },
     { "carRate",                AGEN_ATTR_CARS },
     { "unemploymentRate",       AGEN_ATTR_UNEMPLOYEMENT },
+    { "laborDemand",            AGEN_ATTR_LABORDEMAND },
     { "footDistanceLimit",      AGEN_ATTR_MAX_FOOT_DIST },
     { "incomingTraffic",        AGEN_ATTR_IN_TRAFFIC },
     { "incoming",               AGEN_ATTR_INCOMING },

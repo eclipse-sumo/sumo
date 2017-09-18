@@ -63,6 +63,7 @@ public:
     int limitEndAge;
     double carRate;
     double unemployement;
+    double laborDemand;
     double maxFootDistance;
     int incomingTraffic;
     int outgoingTraffic;
