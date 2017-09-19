@@ -89,14 +89,11 @@ GNECalibrator::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
     device.openTag(SUMO_TAG_CALIBRATOR);
     device.writeAttr(SUMO_ATTR_ID, getID());
     if(myLane) {
-        // Check if another lane ID must be changed if sidewalks.guess option is enabled
         if (volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && (myLane->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
+            // calibrator must be moved one lane to the left because a new sidewalk will be created on this edge
             // add a new extra lane to edge
-            myViewNet->getNet()->duplicateLane(myLane->getParentEdge().getLanes().front(), myViewNet->getUndoList());
-            // write ID (now is different because there are a new lane)
-            device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-            // undo set extra lane
-            myViewNet->getUndoList()->undo();
+            const std::string newLaneID = myLane->getParentEdge().getNBEdge()->getLaneID(myLane->getIndex() + 1);
+            device.writeAttr(SUMO_ATTR_LANE, newLaneID);
         } else {
             device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
         }
