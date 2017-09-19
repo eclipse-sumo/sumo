@@ -45,6 +45,7 @@ std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockMovementTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockShapeTags;
+std::vector<SumoXMLTag> GNEAttributeCarrier::myDialogTags;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalIntAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalFloatAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myTimeAttrs;
@@ -607,6 +608,18 @@ GNEAttributeCarrier::canBlockShape(SumoXMLTag tag) {
         myBlockShapeTags.push_back(SUMO_TAG_POLY);
     }
     return std::find(myBlockShapeTags.begin(), myBlockShapeTags.end(), tag) != myBlockShapeTags.end();
+}
+
+
+bool
+GNEAttributeCarrier::canOpenDialog(SumoXMLTag tag) {
+    // define on first access
+    if (myDialogTags.empty()) {
+        myDialogTags.push_back(SUMO_TAG_CALIBRATOR);
+        myDialogTags.push_back(SUMO_TAG_LANECALIBRATOR);
+        myDialogTags.push_back(SUMO_TAG_REROUTER);
+    }
+    return std::find(myDialogTags.begin(), myDialogTags.end(), tag) != myDialogTags.end();
 }
 
 

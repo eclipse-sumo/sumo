@@ -235,6 +235,8 @@ enum {
     MID_COPY_CURSOR_POSITION,
     /// @brief Copy cursor geo-coordinate position - popup entry
     MID_COPY_CURSOR_GEOPOSITION,
+    /// @brief open additional dialog (used in netedit)
+    MID_OPEN_ADDITIONAL_DIALOG,
     /// @brief Show object parameter - popup entry
     MID_SHOWPARS,
     /// @brief Show object type parameter - popup entry

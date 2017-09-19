@@ -81,7 +81,9 @@ GNEAdditional::~GNEAdditional() {}
 
 
 void
-GNEAdditional::openAdditionalDialog() {}
+GNEAdditional::openAdditionalDialog() {
+    throw InvalidArgument(toString(getTag()) + " doesn't have an additional dialog");
+}
 
 
 const std::string&
@@ -165,53 +167,47 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     // build header
     buildPopupHeader(ret, app);
-    // build menu command for center button
+    // build menu command for center button and copy cursor position to clipboard
     buildCenterPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
     // buld menu commands for names
     new FXMenuCommand(ret, ("Copy " + toString(getTag()) + " name to clipboard").c_str(), 0, ret, MID_COPY_NAME);
     new FXMenuCommand(ret, ("Copy " + toString(getTag()) + " typed name to clipboard").c_str(), 0, ret, MID_COPY_TYPED_NAME);
-    // build menu command selection
+    new FXMenuSeparator(ret);
+    // build selection and show parameters menu
     buildSelectionPopupEntry(ret);
-    // build menu command copy cursor position to clipboard
-    buildPositionCopyEntry(ret, false);
     buildShowParamsPopupEntry(ret, false);
+    // build separator
+    new FXMenuSeparator(ret);
+    // show option to open additional dialog
+    if(canOpenDialog(getTag())) {
+        new FXMenuCommand(ret, ("Open " + toString(getTag()) + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        new FXMenuSeparator(ret);
+    }
     // get attributes
     std::vector<SumoXMLAttr> attributes = getAttrs();
     // Show position parameters
     if (std::find(attributes.begin(), attributes.end(), SUMO_ATTR_LANE) != attributes.end()) {
-        // If additional own an lane as attribute, get lane
-        GNELane* lane = myViewNet->getNet()->retrieveLane(getParentName(), false);
-        if (lane) {
-            // Show menu command inner position
-            const double innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
-            new FXMenuCommand(ret, ("inner position: " + toString(innerPos)).c_str(), 0, 0, 0);
-            // If shape isn't empty, show menu command lane position
-            if (myShape.size() > 0) {
-                const double lanePos = lane->getShape().nearest_offset_to_point2D(myShape[0]);
-                new FXMenuCommand(ret, ("position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), 0, 0, 0);
-            }
-        } else {
-            throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't have their lane as a ParentName()");
+        // Show menu command inner position
+        const double innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
+        new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), 0, 0, 0);
+        // If shape isn't empty, show menu command lane position
+        if (myShape.size() > 0) {
+            const double lanePos = myLane->getShape().nearest_offset_to_point2D(myShape[0]);
+            new FXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), 0, 0, 0);
         }
     } else if (std::find(attributes.begin(), attributes.end(), SUMO_ATTR_EDGE) != attributes.end()) {
-        // If additional own an edge as attribute, get lane
-        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(getParentName(), false);
-        if (edge) {
-            // Show menu command inner position
-            const double innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
-            new FXMenuCommand(ret, ("inner position: " + toString(innerPos)).c_str(), 0, 0, 0);
-            // If shape isn't empty, show menu command edge position
-            if (myShape.size() > 0) {
-                const double edgePos = edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(myShape[0]);
-                new FXMenuCommand(ret, ("position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + edgePos)).c_str(), 0, 0, 0);
-            }
-        } else {
-            throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' don't have their edge as a ParentName()");
+        // Show menu command inner position
+        const double innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
+        new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), 0, 0, 0);
+        // If shape isn't empty, show menu command edge position
+        if (myShape.size() > 0) {
+            const double edgePos = myEdge->getLanes().at(0)->getShape().nearest_offset_to_point2D(myShape[0]);
+            new FXMenuCommand(ret, ("Mouse position over " + toString(SUMO_TAG_EDGE) + ": " + toString(innerPos + edgePos)).c_str(), 0, 0, 0);
         }
     } else {
-        new FXMenuCommand(ret, ("position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), 0, 0, 0);
+        new FXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), 0, 0, 0);
     }
-    new FXMenuSeparator(ret);
     // let the GNEViewNet store the popup position
     dynamic_cast<GNEViewNet&>(parent).markPopupPosition();
     return ret;

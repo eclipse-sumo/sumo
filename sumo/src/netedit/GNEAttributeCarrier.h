@@ -139,6 +139,9 @@ public:
     /// @brief return true if element tag can block their shape
     static bool canBlockShape(SumoXMLTag tag);
 
+    /// @brief return true if element tag can open a values editor
+    static bool canOpenDialog(SumoXMLTag tag);
+
     /// @brief whether an attribute is numerical (int or float)
     static bool isNumerical(SumoXMLTag tag, SumoXMLAttr attr);
 
@@ -404,6 +407,9 @@ private:
 
     /// @brief vector with the allowed tags that can block their shapes
     static std::vector<SumoXMLTag> myBlockShapeTags;
+
+    /// @brief vector with the allowed tags that has a editor values
+    static std::vector<SumoXMLTag> myDialogTags;
 
     /// @brief map with the numerical attributes of type Int
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myNumericalIntAttrs;

@@ -128,6 +128,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_SIDEWALK,            GNEViewNet::onCmdRemoveRestrictedLaneSidewalk),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BIKE,                GNEViewNet::onCmdRemoveRestrictedLaneBikelane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BUS,                 GNEViewNet::onCmdRemoveRestrictedLaneBuslane),
+    // addtionals
+    FXMAPFUNC(SEL_COMMAND, MID_OPEN_ADDITIONAL_DIALOG,              GNEViewNet::onCmdOpenAdditionalDialog),
     // Polygons
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SIMPLIFY_SHAPE,          GNEViewNet::onCmdSimplifyShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_CLOSE,                   GNEViewNet::onCmdClosePolygon),
@@ -919,29 +921,6 @@ long GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventDat
 
 
 long
-GNEViewNet::onDoubleClicked(FXObject*, FXSelector, void*) {
-    // If current edit mode is INSPECT or ADDITIONAL
-    if (myEditMode == GNE_MODE_INSPECT || myEditMode == GNE_MODE_ADDITIONAL) {
-        setFocus();
-        // interpret object under curser
-        if (makeCurrent()) {
-            int id = getObjectUnderCursor();
-            GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-            GUIGlObjectStorage::gIDStorage.unblockObject(id);
-            GNEAdditional* pointed_additional = dynamic_cast<GNEAdditional*>(pointed);
-            // If pointed element is an additional
-            if (pointed_additional != NULL) {
-                // If additional has a additional dialog, open it.
-                pointed_additional->openAdditionalDialog();
-            }
-            makeNonCurrent();
-        }
-    }
-    return 1;
-}
-
-
-long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     GUISUMOAbstractView::onMouseMove(obj, sel, eventData);
     // in delete mode object under cursor must be checked in every mouse movement
@@ -1277,6 +1256,20 @@ GNEViewNet::getEdgesAtCursorPosition(Position& /* pos */) {
 }
 
 
+GNEAdditional* 
+GNEViewNet::getAdditionalAtCursorPosition(Position& /*pos*/) {
+    if (makeCurrent()) {
+        int id = getObjectAtPosition(myPopupSpot);
+        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        if (pointed && (pointed->getType() == GLO_ADDITIONAL)) {
+            return dynamic_cast<GNEAdditional*>(pointed);
+        }
+    }
+    return 0;
+}
+
+
 GNEPoly*
 GNEViewNet::getPolygonAtCursorPosition(Position& pos) {
     if (makeCurrent()) {
@@ -1589,6 +1582,18 @@ GNEViewNet::onCmdRemoveRestrictedLaneBikelane(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdRemoveRestrictedLaneBuslane(FXObject*, FXSelector, void*) {
     return removeRestrictedLane(SVC_BUS);
+}
+
+
+long 
+GNEViewNet::onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*) {
+    // retrieve additional under cursor
+    GNEAdditional *addtional = getAdditionalAtCursorPosition(myPopupSpot);
+    // check if additional can open dialog
+    if(addtional && GNEAttributeCarrier::canOpenDialog(addtional->getTag())) {
+        addtional->openAdditionalDialog();
+    }
+    return 1;
 }
 
 

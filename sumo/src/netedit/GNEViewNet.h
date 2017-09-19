@@ -136,9 +136,6 @@ public:
     /// @brief called when user releases mouse's right button
     long onRightBtnRelease(FXObject*, FXSelector, void*);
 
-    /// @brief called when user press mouse's left button two times
-    long onDoubleClicked(FXObject*, FXSelector, void*);
-
     /// @brief called when user moves mouse
     long onMouseMove(FXObject*, FXSelector, void*);
 
@@ -247,6 +244,9 @@ public:
 
     /// @brief remove restricted lane for bus
     long onCmdRemoveRestrictedLaneBuslane(FXObject*, FXSelector typeOfTransformation, void*);
+
+    /// @brief open additional dialog
+    long onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*);
 
     /// @brief edit junction shape
     long onCmdEditJunctionShape(FXObject*, FXSelector, void*);
@@ -568,6 +568,9 @@ private:
 
     /// @brief try to retrieve multiple edges at the given position
     std::set<GNEEdge*> getEdgesAtCursorPosition(Position& pos);
+
+    /// @brief try to retrieve a Additional at the given position
+    GNEAdditional* getAdditionalAtCursorPosition(Position& pos);
 
     /// @brief try to retrieve a Polygon at the given position
     GNEPoly* getPolygonAtCursorPosition(Position& pos);

@@ -80,6 +80,7 @@ public:
 
     /**@brief open Additional Dialog
      * @note: if additional needs an additional dialog, this function has to be implemented in childrens (see GNERerouter and GNEVariableSpeedSign)
+     * @throw invalid argument if additional doesn't have an additional Dialog
      */
     virtual void openAdditionalDialog();
 
