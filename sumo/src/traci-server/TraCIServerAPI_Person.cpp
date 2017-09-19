@@ -264,7 +264,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             if (!server.readTypeCheckingDouble(inputStorage, pos)) {
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Fourth parameter (position) requires a double.", outputStorage);
             }
-            TraCI_Person::add(id, edgeID, pos, ((double) depart)/1000., vTypeID);
+            TraCI_Person::add(id, edgeID, pos, STEPS2TIME(depart), vTypeID);
         }
         break;
         case APPEND_STAGE: {

@@ -211,7 +211,7 @@ TraCI_Person::add(const std::string& personID, const std::string& edgeID, double
         throw TraCIException("The person " + personID + " to add already exists.");
     }
 
-    SUMOTime depart = (int) (departInSecs*1000);
+    SUMOTime depart = TIME2STEPS(departInSecs);
     SUMOVehicleParameter vehicleParams;
     vehicleParams.id = personID;
 
@@ -234,8 +234,8 @@ TraCI_Person::add(const std::string& personID, const std::string& edgeID, double
         vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
     } else if (depart < MSNet::getInstance()->getCurrentTimeStep()) {
         vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
-//        WRITE_WARNING("Departure time for person '" + personID + "' is in the past; using current time instead.");
-        WRITE_WARNING("Departure time "+toString(depart,32)+" for person '" + personID + "' is in the past; using current time "+toString(vehicleParams.depart,32)+" instead.");
+        WRITE_WARNING("Departure time " + toString(departInSecs) + " for person '" + personID 
+                + "' is in the past; using current time " + time2string(vehicleParams.depart) + " instead.");
     } else {
         vehicleParams.depart = depart;
     }
