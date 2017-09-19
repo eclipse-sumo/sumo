@@ -527,4 +527,156 @@ GNECalibrator::getCalibratorRoute(const std::string& routeID) {
 }
 
 
+std::string
+GNECalibrator::getAttribute(SumoXMLAttr key) const {
+    switch (key) {
+    case SUMO_ATTR_ID:
+        return getAdditionalID();
+    case SUMO_ATTR_EDGE:    // Only called by subClass GNECalibratorEdge
+        return myEdge->getID();
+    case SUMO_ATTR_LANE:    // Only called by subClass GNECalibratorLane
+        return myLane->getID();
+    case SUMO_ATTR_POSITION:
+        if(myEdge) {
+            return toString(myPositionOverLane * myEdge->getLanes().at(0)->getLaneParametricLength());
+        } else if (myLane) {
+            return toString(myPositionOverLane * myLane->getLaneParametricLength());
+        } else {
+            throw ProcessError("Both myEdge and myLane aren't defined");
+        }
+    case SUMO_ATTR_FREQUENCY:
+        return toString(myFrequency);
+    case SUMO_ATTR_OUTPUT:
+        return myOutput;
+    case SUMO_ATTR_ROUTEPROBE:
+        if (myRouteProbe) {
+            return myRouteProbe->getID();
+        } else {
+            return "";
+        }
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+void
+GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    if (value == getAttribute(key)) {
+        return; //avoid needless changes, later logic relies on the fact that attributes have changed
+    }
+    switch (key) {
+    case SUMO_ATTR_ID:
+    case SUMO_ATTR_EDGE:    // Only called by subClass GNECalibratorEdge
+    case SUMO_ATTR_LANE:    // Only called by subClass GNECalibratorLane
+    case SUMO_ATTR_POSITION:
+    case SUMO_ATTR_FREQUENCY:
+    case SUMO_ATTR_OUTPUT:
+    case SUMO_ATTR_ROUTEPROBE:
+        undoList->p_add(new GNEChange_Attribute(this, key, value));
+        updateGeometry();
+        break;
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+
+}
+
+
+bool
+GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+    case SUMO_ATTR_ID:
+        if (isValidID(value) && (myViewNet->getNet()->getAdditional(getTag(), value) == NULL)) {
+            return true;
+        } else {
+            return false;
+        }
+    case SUMO_ATTR_EDGE:    // Only called by subClass GNECalibratorEdge
+        if (myViewNet->getNet()->retrieveEdge(value, false) != NULL) {
+            return true;
+        } else {
+            return false;
+        }
+    case SUMO_ATTR_LANE:    // Only called by subClass GNECalibratorLane
+        if (myViewNet->getNet()->retrieveLane(value, false) != NULL) {
+            return true;
+        } else {
+            return false;
+        }
+    case SUMO_ATTR_POSITION:
+        if (canParse<double>(value)) {
+            // obtain relative new start position
+            double newStartPos;
+            if(myEdge) {
+                newStartPos = parse<double>(value) / myEdge->getLanes().at(0)->getLaneParametricLength();
+            } else if (myLane) {
+                newStartPos = parse<double>(value) / myLane->getLaneParametricLength();
+            } else {
+                throw ProcessError("Both myEdge and myLane aren't defined");
+            }
+            if ((newStartPos < 0) || (newStartPos > 1)) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    case SUMO_ATTR_FREQUENCY:
+        return (canParse<double>(value) && parse<double>(value) >= 0);
+    case SUMO_ATTR_OUTPUT:
+        return isValidFilename(value);
+    case SUMO_ATTR_ROUTEPROBE:
+        if (isValidID(value) && (myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value) != NULL)) {
+            return true;
+        } else {
+            return false;
+        }
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
+
+void
+GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+    case SUMO_ATTR_ID:
+        setAdditionalID(value);
+        break;
+    case SUMO_ATTR_EDGE:    // Only called by subClass GNECalibratorEdge
+        changeEdge(value);
+        break;
+    case SUMO_ATTR_LANE:    // Only called by subClass GNECalibratorLane
+        changeLane(value);
+        break;
+    case SUMO_ATTR_POSITION:
+        if(myEdge) {
+            myPositionOverLane = parse<double>(value) / myEdge->getLanes().at(0)->getShape().length();
+        } else if (myLane) {
+            myPositionOverLane = parse<double>(value) / myLane->getShape().length();
+        } else {
+            throw ProcessError("Both myEdge and myLane aren't defined");
+        }
+        updateGeometry();
+        getViewNet()->update();
+        break;
+    case SUMO_ATTR_FREQUENCY:
+        myFrequency = parse<double>(value);
+        break;
+    case SUMO_ATTR_OUTPUT:
+        myOutput = value;
+        break;
+    case SUMO_ATTR_ROUTEPROBE:
+        myRouteProbe = dynamic_cast<GNERouteProbe*>(myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value));
+        break;
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
 /****************************************************************************/

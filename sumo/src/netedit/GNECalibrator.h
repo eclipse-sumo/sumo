@@ -66,8 +66,8 @@ public:
                   const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows,
                   const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes);
 
-    /// @brief Destructor
-    ~GNECalibrator();
+    /// @brief virutal Destructor (To force this class abstract)
+    virtual ~GNECalibrator() = 0;
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
@@ -179,21 +179,21 @@ public:
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
-    virtual std::string getAttribute(SumoXMLAttr key) const = 0;
+    std::string getAttribute(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes
      */
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
     /* @brief method for checking if the key and their correspond attribute are valids
      * @param[in] key The attribute key
      * @param[in] value The value asociated to key key
      * @return true if the value is valid, false in other case
      */
-    virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
+    bool isValid(SumoXMLAttr key, const std::string& value) ;
     /// @}
 
 protected:
@@ -220,7 +220,7 @@ protected:
 
 private:
     /// @brief set attribute after validation
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+    void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
     GNECalibrator(const GNECalibrator&) = delete;
