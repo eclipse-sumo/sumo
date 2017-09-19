@@ -1,12 +1,12 @@
-Warning: Adding calibrator (edge) 'calibrator01' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator01' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Adding calibrator (edge) 'calibrator02' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator02' in GNEChange_Additional
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Warning: Additionals saved
-Warning: Deleting unreferenced calibrator (edge) 'calibrator02'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator01'
+Warning: Deleting unreferenced calibrator 'calibrator02'
+Warning: Deleting unreferenced calibrator 'calibrator01'
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
 Warning: Additionals has to be saved

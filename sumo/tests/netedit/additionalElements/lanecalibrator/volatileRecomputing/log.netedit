@@ -1,6 +1,6 @@
-Warning: Adding calibrator (lane) 'calibrator01' in GNEChange_Additional
+Warning: Adding laneCalibrator 'calibrator01' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Adding calibrator (lane) 'calibrator02' in GNEChange_Additional
+Warning: Adding laneCalibrator 'calibrator02' in GNEChange_Additional
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -13,8 +13,8 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing lane 'gneE1_0' from edge
 Warning: Additionals saved
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEChange_Lane
-Warning: Deleting unreferenced calibrator (lane) 'calibrator02'
-Warning: Deleting unreferenced calibrator (lane) 'calibrator01'
+Warning: Deleting unreferenced laneCalibrator 'calibrator02'
+Warning: Deleting unreferenced laneCalibrator 'calibrator01'
 Warning: Additionals has to be saved
 Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

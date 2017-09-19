@@ -33,7 +33,7 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select calibrator
-netedit.changeAdditional("calibrator (edge)")
+netedit.changeAdditional("calibrator")
 
 # create calibrator
 netedit.leftClick(match, 240, 250)

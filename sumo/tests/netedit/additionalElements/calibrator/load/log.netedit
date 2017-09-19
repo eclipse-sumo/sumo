@@ -1,56 +1,56 @@
-Warning: Adding calibrator (edge) 'calibrator01' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator01' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Essential string attribute 'id' of calibrator (edge) is missing; calibrator (edge) cannot be created
-Warning: The id 'ID with spaces' of additional calibrator (edge) contains invalid characters.
-Warning: Format of essential string attribute 'id' of calibrator (edge) is invalid; calibrator (edge) cannot be created
-Warning: There is another calibrator (edge) with the same ID='calibrator01'.
-Warning: Adding calibrator (edge) 'calibrator02' in GNEChange_Additional
+Warning: Essential string attribute 'id' of calibrator is missing; calibrator cannot be created
+Warning: The id 'ID with spaces' of additional calibrator contains invalid characters.
+Warning: Format of essential string attribute 'id' of calibrator is invalid; calibrator cannot be created
+Warning: There is another calibrator with the same ID='calibrator01'.
+Warning: Adding calibrator 'calibrator02' in GNEChange_Additional
 Warning: additional calibrator must have either a lane or an edge attribute.
 Warning: The lane '' or edge '' to use within the calibrator '' is not known.
-Warning: The lane '' or edge 'dummyEdge' to use within the calibrator (edge) 'calibrator04' is not known.
-Warning: Adding calibrator (edge) 'calibrator05' in GNEChange_Additional
-Warning: Optional float attribute 'pos' of calibrator (edge) with ID 'calibrator06' is missing; Default value '0.00' will be used.
-Warning: Adding calibrator (edge) 'calibrator06' in GNEChange_Additional
-Warning: Format of optional float attribute 'pos' of calibrator (edge) with ID 'calibrator07' is invalid; Cannot be parsed to float; Default value '0.00' will be used.
-Warning: Adding calibrator (edge) 'calibrator07' in GNEChange_Additional
-Warning: Format of optional float attribute 'pos' of calibrator (edge) with ID 'calibrator08' is invalid; Cannot be negative; Default value '0.00' will be used.
-Warning: Adding calibrator (edge) 'calibrator08' in GNEChange_Additional
-Warning: Adding calibrator (edge) 'calibrator09' in GNEChange_Additional
-Warning: Optional time attribute 'freq' of calibrator (edge) with ID 'calibrator10' is missing; Default value '100.00' will be used.
-Warning: Adding calibrator (edge) 'calibrator10' in GNEChange_Additional
-Warning: Format of optional time attribute 'freq' of calibrator (edge) with ID 'calibrator11' is invalid; Cannot be parsed to time; Default value '100.00' will be used.
-Warning: Adding calibrator (edge) 'calibrator11' in GNEChange_Additional
-Warning: Format of optional time attribute 'freq' of calibrator (edge) with ID 'calibrator12' is invalid; Time cannot be negative; Default value '100.00' will be used.
-Warning: Adding calibrator (edge) 'calibrator12' in GNEChange_Additional
-Warning: Adding calibrator (edge) 'calibrator13' in GNEChange_Additional
-Warning: Adding calibrator (edge) 'calibrator14' in GNEChange_Additional
-Warning: Adding calibrator (edge) 'calibrator15' in GNEChange_Additional
-Warning: Adding calibrator (edge) 'calibrator16' in GNEChange_Additional
-Warning: Adding calibrator (edge) 'calibrator17' in GNEChange_Additional
-Warning: Adding calibrator (edge) 'calibrator18' in GNEChange_Additional
-Warning: Adding calibrator (edge) 'calibrator19' in GNEChange_Additional
-Warning: Adding calibrator (edge) 'calibrator20' in GNEChange_Additional
+Warning: The lane '' or edge 'dummyEdge' to use within the calibrator 'calibrator04' is not known.
+Warning: Adding calibrator 'calibrator05' in GNEChange_Additional
+Warning: Optional float attribute 'pos' of calibrator with ID 'calibrator06' is missing; Default value '0.00' will be used.
+Warning: Adding calibrator 'calibrator06' in GNEChange_Additional
+Warning: Format of optional float attribute 'pos' of calibrator with ID 'calibrator07' is invalid; Cannot be parsed to float; Default value '0.00' will be used.
+Warning: Adding calibrator 'calibrator07' in GNEChange_Additional
+Warning: Format of optional float attribute 'pos' of calibrator with ID 'calibrator08' is invalid; Cannot be negative; Default value '0.00' will be used.
+Warning: Adding calibrator 'calibrator08' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator09' in GNEChange_Additional
+Warning: Optional time attribute 'freq' of calibrator with ID 'calibrator10' is missing; Default value '100.00' will be used.
+Warning: Adding calibrator 'calibrator10' in GNEChange_Additional
+Warning: Format of optional time attribute 'freq' of calibrator with ID 'calibrator11' is invalid; Cannot be parsed to time; Default value '100.00' will be used.
+Warning: Adding calibrator 'calibrator11' in GNEChange_Additional
+Warning: Format of optional time attribute 'freq' of calibrator with ID 'calibrator12' is invalid; Time cannot be negative; Default value '100.00' will be used.
+Warning: Adding calibrator 'calibrator12' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator13' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator14' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator15' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator16' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator17' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator18' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator19' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator20' in GNEChange_Additional
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Deleting unreferenced calibrator (edge) 'calibrator20'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator19'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator18'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator17'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator16'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator15'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator14'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator13'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator12'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator11'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator10'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator09'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator08'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator07'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator06'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator05'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator02'
-Warning: Deleting unreferenced calibrator (edge) 'calibrator01'
+Warning: Deleting unreferenced calibrator 'calibrator20'
+Warning: Deleting unreferenced calibrator 'calibrator19'
+Warning: Deleting unreferenced calibrator 'calibrator18'
+Warning: Deleting unreferenced calibrator 'calibrator17'
+Warning: Deleting unreferenced calibrator 'calibrator16'
+Warning: Deleting unreferenced calibrator 'calibrator15'
+Warning: Deleting unreferenced calibrator 'calibrator14'
+Warning: Deleting unreferenced calibrator 'calibrator13'
+Warning: Deleting unreferenced calibrator 'calibrator12'
+Warning: Deleting unreferenced calibrator 'calibrator11'
+Warning: Deleting unreferenced calibrator 'calibrator10'
+Warning: Deleting unreferenced calibrator 'calibrator09'
+Warning: Deleting unreferenced calibrator 'calibrator08'
+Warning: Deleting unreferenced calibrator 'calibrator07'
+Warning: Deleting unreferenced calibrator 'calibrator06'
+Warning: Deleting unreferenced calibrator 'calibrator05'
+Warning: Deleting unreferenced calibrator 'calibrator02'
+Warning: Deleting unreferenced calibrator 'calibrator01'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
