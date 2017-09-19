@@ -131,8 +131,8 @@ TrajectoriesHandler::computeEmissions(const std::string id, const SUMOEmissionCl
             v -= a;
         }
     }
-    if (myAccelZeroCorrection && v == 0.) {
-        a = 0.;
+    if (myAccelZeroCorrection) {
+        a = PollutantsInterface::getModifiedAccel(c, v, a, s);
     }
     if (a == INVALID_VALUE) {
         throw ProcessError("Acceleration information is missing; try running with --compute-a.");
