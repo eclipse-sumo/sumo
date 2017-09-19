@@ -29,6 +29,7 @@
 #endif
 
 #include "utils/iodevices/OutputDevice.h"
+#include "utils/common/StringUtils.h"
 #include "TplConvert.h"
 #include "Parameterised.h"
 
@@ -104,8 +105,8 @@ void
 Parameterised::writeParams(OutputDevice& out) const {
     for (std::map<std::string, std::string>::const_iterator j = myMap.begin(); j != myMap.end(); ++j) {
         out.openTag(SUMO_TAG_PARAM);
-        out.writeAttr(SUMO_ATTR_KEY, (*j).first);
-        out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
+        out.writeAttr(SUMO_ATTR_KEY, StringUtils::escapeXML((*j).first));
+        out.writeAttr(SUMO_ATTR_VALUE, StringUtils::escapeXML((*j).second));
         out.closeTag();
     }
 }

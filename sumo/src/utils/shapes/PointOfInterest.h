@@ -151,12 +151,7 @@ public:
         if (getHeight() != Shape::DEFAULT_IMG_HEIGHT) {
             out.writeAttr(SUMO_ATTR_HEIGHT, getHeight());
         }
-        for (std::map<std::string, std::string>::const_iterator j = getMap().begin(); j != getMap().end(); ++j) {
-            out.openTag(SUMO_TAG_PARAM);
-            out.writeAttr(SUMO_ATTR_KEY, (*j).first);
-            out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
-            out.closeTag();
-        }
+        writeParams(out);
         out.closeTag();
     }
 
