@@ -1,4 +1,4 @@
-# Generated on Sun Apr 23 09:05:09 2017 by SUMO netconvert Version dev-SVN-r24021
+# Generated on Tue Sep 19 08:53:12 2017 by SUMO netconvert Version dev-SVN-r26075
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
@@ -12,6 +12,7 @@
 #         <output-file value="net.net.xml"/>
 #         <dlr-navteq-output value="elmar_output"/>
 #         <dlr-navteq.precision value="2"/>
+#         <output.original-names value="true"/>
 #     </output>
 # 
 #     <projection>
