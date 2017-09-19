@@ -149,7 +149,7 @@ protected:
      * @param[in] n The junction/node to write
      * @param[in] checkLaneFoes Whether laneConflicts shall be checked at this junction
      */
-    static void writeJunction(OutputDevice& into, const NBNode& n, const bool checkLaneFoes);
+    static void writeJunction(OutputDevice& into, const NBNode& n, const bool checkLaneFoes, bool origNames);
 
 
     /** @brief Writes internal junctions (<junction with id[0]==':' ...) of the given node

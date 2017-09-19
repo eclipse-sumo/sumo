@@ -130,7 +130,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         const bool checkLaneFoes = checkLaneFoesAll || (checkLaneFoesRoundabout && roundaboutNodes.count((*i).second) > 0);
-        writeJunction(device, *(*i).second, checkLaneFoes);
+        writeJunction(device, *(*i).second, checkLaneFoes, origNames);
     }
     device.lf();
     const bool includeInternal = !oc.getBool("no-internal-links");
@@ -456,7 +456,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
 
 
 void
-NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n, const bool checkLaneFoes) {
+NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n, const bool checkLaneFoes, bool origNames) {
     // write the attributes
     into.openTag(SUMO_TAG_JUNCTION).writeAttr(SUMO_ATTR_ID, n.getID());
     into.writeAttr(SUMO_ATTR_TYPE, n.getType());
@@ -516,13 +516,17 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n, const bool che
     if (n.hasCustomShape()) {
         into.writeAttr(SUMO_ATTR_CUSTOMSHAPE, true);
     }
-    if (n.getType() == NODETYPE_DEAD_END) {
-        into.closeTag();
-    } else {
+    if (n.getType() != NODETYPE_DEAD_END) {
         // write right-of-way logics
         n.writeLogic(into, checkLaneFoes);
+    }
+    if (origNames && n.getParameter(SUMO_PARAM_ORIGID, "") != "") {
+        into.openTag(SUMO_TAG_PARAM);
+        into.writeAttr(SUMO_ATTR_KEY, SUMO_PARAM_ORIGID);
+        into.writeAttr(SUMO_ATTR_VALUE, n.getParameter(SUMO_PARAM_ORIGID, ""));
         into.closeTag();
     }
+    into.closeTag();
 }
 
 

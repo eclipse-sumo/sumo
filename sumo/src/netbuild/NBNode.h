@@ -72,7 +72,7 @@ class OutputDevice;
  * @class NBNode
  * @brief Represents a single node (junction) during network building
  */
-class NBNode : public Named {
+class NBNode : public Named, public Parameterised {
     friend class NBNodeCont;
     friend class GNEJunction;            // < used for visualization (NETEDIT)
     friend class NBNodesEdgesSorter;     // < sorts the edges

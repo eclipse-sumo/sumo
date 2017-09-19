@@ -1173,6 +1173,7 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs) {
     for (std::set<NBEdge*, Named::ComparatorIdLess>::iterator it = toChange.begin(); it != toChange.end(); ++it) {
         NBEdge* edge = *it;
         myEdges.erase(edge->getID());
+        edge->setOrigID(edge->getID());
         edge->setID(idSupplier.getNext());
         myEdges[edge->getID()] = edge;
     }

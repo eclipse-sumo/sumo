@@ -1154,6 +1154,9 @@ public:
     /// @brief get the union of allowed classes over all lanes or for a specific lane
     SVCPermissions getPermissions(int lane = -1) const;
 
+    /// @brief set origID for all lanes
+    void setOrigID(const std::string origID);
+
     /// @brief disable connections for TLS
     void disableConnection4TLS(int fromLane, NBEdge* toEdge, int toLane);
 

@@ -3215,4 +3215,11 @@ NBEdge::getFinalLength() const {
     return result;
 }
 
+void 
+NBEdge::setOrigID(const std::string origID) {
+    for (int i = 0; i < (int)myLanes.size(); i++) {
+        myLanes[i].origID = origID;
+    }
+}
+
 /****************************************************************************/

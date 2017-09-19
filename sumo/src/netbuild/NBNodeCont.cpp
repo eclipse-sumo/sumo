@@ -1302,6 +1302,7 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs) {
     for (std::set<NBNode*, Named::ComparatorIdLess>::iterator it = toChange.begin(); it != toChange.end(); ++it) {
         NBNode* node = *it;
         myNodes.erase(node->getID());
+        node->addParameter(SUMO_PARAM_ORIGID, node->getID());
         node->setID(idSupplier.getNext());
         myNodes[node->getID()] = node;
     }
