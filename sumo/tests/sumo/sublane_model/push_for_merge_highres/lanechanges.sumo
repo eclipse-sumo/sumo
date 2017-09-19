@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 18 13:21:52 2017 by SUMO Version dev-SVN-r25645
+<!-- generated on Tue Sep 19 14:26:43 2017 by SUMO Version dev-SVN-r26105
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -16,8 +16,12 @@
         <lanechange-output value="lanechanges.xml"/>
     </output>
 
+    <time>
+        <step-length value="0.2"/>
+    </time>
+
     <processing>
-        <lateral-resolution value="0.4"/>
+        <lateral-resolution value="0.2"/>
     </processing>
 
     <report>
@@ -25,9 +29,13 @@
         <no-step-log value="true"/>
     </report>
 
+    <gui_only>
+        <tracker-interval value="0.2"/>
+    </gui_only>
+
 </configuration>
 -->
 
 <lanechanges>
-    <change id="A" type="t0" time="3.00" from="beg_0" to="beg_1" dir="1" speed="13.89" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" latGap="0.80"/>
+    <change id="ego" type="tEgo" time="7.40" from="beg_0" to="beg_1" dir="1" speed="13.89" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="6.78" followerSecureGap="3.73" latGap="None"/>
 </lanechanges>
