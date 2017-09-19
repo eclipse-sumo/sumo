@@ -9,4 +9,7 @@ teleport
 
 # remove participants of a collision
 remove
+
+# remove participants of a collision after some time
+stoptime_remove
 check_junctions
