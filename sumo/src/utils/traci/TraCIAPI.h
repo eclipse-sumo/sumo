@@ -176,7 +176,7 @@ public:
         std::vector<std::string> getLastStepVehicleIDs(const std::string& edgeID) const;
 
         void adaptTraveltime(const std::string& edgeID, double time, int beginSeconds = 0, int endSeconds = std::numeric_limits<int>::max()) const;
-        void setEffort(const std::string& edgeID, double effort, int beginSeconds = 0, int endSeconds = std::numeric_limits<double>::max()) const;
+        void setEffort(const std::string& edgeID, double effort, int beginSeconds = 0, int endSeconds = std::numeric_limits<int>::max()) const;
         void setMaxSpeed(const std::string& edgeID, double speed) const;
 
     private:
