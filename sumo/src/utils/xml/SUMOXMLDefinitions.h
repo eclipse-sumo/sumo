@@ -91,12 +91,10 @@ enum SumoXMLTag {
     SUMO_TAG_INSTANT_INDUCTION_LOOP,
     /// @brief A variable speed sign
     SUMO_TAG_VSS,
-    /// @brief A calibrator
+    /// @brief A calibrator placed over edge
     SUMO_TAG_CALIBRATOR,
-    /// @brief A calibrator placed over edge (used in netedit)
-    SUMO_TAG_CALIBRATOR_EDGE,
     /// @brief A calibrator placed over lane (used in netedit)
-    SUMO_TAG_CALIBRATOR_LANE,
+    SUMO_TAG_LANECALIBRATOR,
     /// @brief  A rerouter
     SUMO_TAG_REROUTER,
     /// @brief  A bus stop

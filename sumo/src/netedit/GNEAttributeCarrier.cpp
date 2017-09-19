@@ -416,7 +416,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANES, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILE, ""));
                 break;
-            case SUMO_TAG_CALIBRATOR_EDGE:
+            case SUMO_TAG_CALIBRATOR:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_EDGE, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, "0"));
@@ -424,7 +424,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ROUTEPROBE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_OUTPUT, ""));
                 break;
-            case SUMO_TAG_CALIBRATOR_LANE:
+            case SUMO_TAG_LANECALIBRATOR:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, "0"));
@@ -550,8 +550,8 @@ GNEAttributeCarrier::allowedAdditionalTags() {
     // define on first access
     if (myAllowedAdditionalTags.empty()) {
         myAllowedAdditionalTags.push_back(SUMO_TAG_BUS_STOP);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_CALIBRATOR_EDGE);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_CALIBRATOR_LANE);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_CALIBRATOR);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_LANECALIBRATOR);
         myAllowedAdditionalTags.push_back(SUMO_TAG_CHARGING_STATION);
         myAllowedAdditionalTags.push_back(SUMO_TAG_CONTAINER_STOP);
         myAllowedAdditionalTags.push_back(SUMO_TAG_DET_ENTRY);
@@ -685,9 +685,9 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         // Rerouter
         myNumericalFloatAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_PROB);
         // Calibrator (edge)
-        myNumericalFloatAttrs[SUMO_TAG_CALIBRATOR_EDGE].insert(SUMO_ATTR_POSITION);
+        myNumericalFloatAttrs[SUMO_TAG_CALIBRATOR].insert(SUMO_ATTR_POSITION);
         // Calibrator (lane
-        myNumericalFloatAttrs[SUMO_TAG_CALIBRATOR_LANE].insert(SUMO_ATTR_POSITION);
+        myNumericalFloatAttrs[SUMO_TAG_LANECALIBRATOR].insert(SUMO_ATTR_POSITION);
         // vehicle type
         myNumericalFloatAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_ACCEL);
         myNumericalFloatAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_DECEL);
@@ -724,9 +724,9 @@ GNEAttributeCarrier::isTime(SumoXMLTag tag, SumoXMLAttr attr) {
     // define on first access
     if (myTimeAttrs.empty()) {
         // calibrator (edge)
-        myTimeAttrs[SUMO_TAG_CALIBRATOR_EDGE].insert(SUMO_ATTR_FREQUENCY);
+        myTimeAttrs[SUMO_TAG_CALIBRATOR].insert(SUMO_ATTR_FREQUENCY);
         // calibrator (lane)
-        myTimeAttrs[SUMO_TAG_CALIBRATOR_LANE].insert(SUMO_ATTR_FREQUENCY);
+        myTimeAttrs[SUMO_TAG_LANECALIBRATOR].insert(SUMO_ATTR_FREQUENCY);
         // charging station
         myTimeAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_CHARGEDELAY);
         // E1
@@ -862,9 +862,9 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
             myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_LANE);
             myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_STARTPOS);
             // calibrator (edge)
-            myUniqueAttrs[SUMO_TAG_CALIBRATOR_EDGE].insert(SUMO_ATTR_EDGE);
+            myUniqueAttrs[SUMO_TAG_CALIBRATOR].insert(SUMO_ATTR_EDGE);
             // calibrator (lane)
-            myUniqueAttrs[SUMO_TAG_CALIBRATOR_LANE].insert(SUMO_ATTR_LANE);
+            myUniqueAttrs[SUMO_TAG_LANECALIBRATOR].insert(SUMO_ATTR_LANE);
             // charging station
             myUniqueAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_ENDPOS);
             myUniqueAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_LANE);
@@ -976,9 +976,9 @@ GNEAttributeCarrier::isPositive(SumoXMLTag tag, SumoXMLAttr attr) {
         // exit
         myPositiveAttrs[SUMO_TAG_DET_EXIT].insert(SUMO_ATTR_POSITION);
         // calibrator (edge)
-        myPositiveAttrs[SUMO_TAG_CALIBRATOR_EDGE].insert(SUMO_ATTR_POSITION);
+        myPositiveAttrs[SUMO_TAG_CALIBRATOR].insert(SUMO_ATTR_POSITION);
         // calibrator (lane)
-        myPositiveAttrs[SUMO_TAG_CALIBRATOR_LANE].insert(SUMO_ATTR_POSITION);
+        myPositiveAttrs[SUMO_TAG_LANECALIBRATOR].insert(SUMO_ATTR_POSITION);
         // flow
         myPositiveAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PERSON_NUMBER);
         myPositiveAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_CONTAINER_NUMBER);
@@ -1034,9 +1034,9 @@ GNEAttributeCarrier::isFilename(SumoXMLTag tag, SumoXMLAttr attr) {
         // E3
         myFileAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_FILE);
         // calibrator (edge)
-        myFileAttrs[SUMO_TAG_CALIBRATOR_EDGE].insert(SUMO_ATTR_OUTPUT);
+        myFileAttrs[SUMO_TAG_CALIBRATOR].insert(SUMO_ATTR_OUTPUT);
         // calibrator (lane)
-        myFileAttrs[SUMO_TAG_CALIBRATOR_LANE].insert(SUMO_ATTR_OUTPUT);
+        myFileAttrs[SUMO_TAG_LANECALIBRATOR].insert(SUMO_ATTR_OUTPUT);
         // rerouter
         myFileAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_FILE);
         // routeprobe
@@ -1297,20 +1297,20 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_VSS][SUMO_ATTR_ID] = "ID (Must be unique)";
         myAttrDefinitions[SUMO_TAG_VSS][SUMO_ATTR_LANES] = "list of lanes of Variable Speed Signal";
         myAttrDefinitions[SUMO_TAG_VSS][SUMO_ATTR_FILE] = "The path to the output file";
-        // Calibrator (edge)
-        myAttrDefinitions[SUMO_TAG_CALIBRATOR_EDGE][SUMO_ATTR_ID] = "ID (Must be unique)";
-        myAttrDefinitions[SUMO_TAG_CALIBRATOR_EDGE][SUMO_ATTR_EDGE] = "The id of edge in the simulation network";
-        myAttrDefinitions[SUMO_TAG_CALIBRATOR_EDGE][SUMO_ATTR_POSITION] = "The position of the calibrator on the specified lane";
-        myAttrDefinitions[SUMO_TAG_CALIBRATOR_EDGE][SUMO_ATTR_FREQUENCY] = "The aggregation interval in which to calibrate the flows. default is step-length";
-        myAttrDefinitions[SUMO_TAG_CALIBRATOR_EDGE][SUMO_ATTR_ROUTEPROBE] = "The id of the routeProbe element from which to determine the route distribution for generated vehicles";
-        myAttrDefinitions[SUMO_TAG_CALIBRATOR_EDGE][SUMO_ATTR_OUTPUT] = "The output file for writing calibrator information or NULL";
-        // Calibrator (lane)
-        myAttrDefinitions[SUMO_TAG_CALIBRATOR_LANE][SUMO_ATTR_ID] = "ID (Must be unique)";
-        myAttrDefinitions[SUMO_TAG_CALIBRATOR_LANE][SUMO_ATTR_LANE] = "The id of lane in the simulation network";
-        myAttrDefinitions[SUMO_TAG_CALIBRATOR_LANE][SUMO_ATTR_POSITION] = "The position of the calibrator on the specified lane";
-        myAttrDefinitions[SUMO_TAG_CALIBRATOR_LANE][SUMO_ATTR_FREQUENCY] = "The aggregation interval in which to calibrate the flows. default is step-length";
-        myAttrDefinitions[SUMO_TAG_CALIBRATOR_LANE][SUMO_ATTR_ROUTEPROBE] = "The id of the routeProbe element from which to determine the route distribution for generated vehicles";
-        myAttrDefinitions[SUMO_TAG_CALIBRATOR_LANE][SUMO_ATTR_OUTPUT] = "The output file for writing calibrator information or NULL";
+        // Calibrator
+        myAttrDefinitions[SUMO_TAG_CALIBRATOR][SUMO_ATTR_ID] = "ID (Must be unique)";
+        myAttrDefinitions[SUMO_TAG_CALIBRATOR][SUMO_ATTR_EDGE] = "The id of edge in the simulation network";
+        myAttrDefinitions[SUMO_TAG_CALIBRATOR][SUMO_ATTR_POSITION] = "The position of the calibrator on the specified lane";
+        myAttrDefinitions[SUMO_TAG_CALIBRATOR][SUMO_ATTR_FREQUENCY] = "The aggregation interval in which to calibrate the flows. default is step-length";
+        myAttrDefinitions[SUMO_TAG_CALIBRATOR][SUMO_ATTR_ROUTEPROBE] = "The id of the routeProbe element from which to determine the route distribution for generated vehicles";
+        myAttrDefinitions[SUMO_TAG_CALIBRATOR][SUMO_ATTR_OUTPUT] = "The output file for writing calibrator information or NULL";
+        // LaneCalibrator
+        myAttrDefinitions[SUMO_TAG_LANECALIBRATOR][SUMO_ATTR_ID] = "ID (Must be unique)";
+        myAttrDefinitions[SUMO_TAG_LANECALIBRATOR][SUMO_ATTR_LANE] = "The id of lane in the simulation network";
+        myAttrDefinitions[SUMO_TAG_LANECALIBRATOR][SUMO_ATTR_POSITION] = "The position of the calibrator on the specified lane";
+        myAttrDefinitions[SUMO_TAG_LANECALIBRATOR][SUMO_ATTR_FREQUENCY] = "The aggregation interval in which to calibrate the flows. default is step-length";
+        myAttrDefinitions[SUMO_TAG_LANECALIBRATOR][SUMO_ATTR_ROUTEPROBE] = "The id of the routeProbe element from which to determine the route distribution for generated vehicles";
+        myAttrDefinitions[SUMO_TAG_LANECALIBRATOR][SUMO_ATTR_OUTPUT] = "The output file for writing calibrator information or NULL";
         // Rerouter
         myAttrDefinitions[SUMO_TAG_REROUTER][SUMO_ATTR_ID] = "ID (Must be unique)";
         myAttrDefinitions[SUMO_TAG_REROUTER][SUMO_ATTR_EDGES] = "An edge id or a list of edge ids where vehicles shall be rerouted";
