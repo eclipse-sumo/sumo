@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Sep 20 00:16:05 2017 by SUMO polyconvert Version dev-SVN-r24506
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="pois.poi.xml"/>
+    </output>
+
+    <processing>
+        <all-attributes value="true"/>
+        <poi-layer-offset value="5"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <location netOffset="-299345.66,-5809365.64" convBoundary="0.00,-63.24,103574.88,3921.44" origBoundary="13.364829,52.424979,13.572192,52.459586" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <poi id="115543889" type="amenity" color="237,199,199" layer="4.00" x="100765.49" y="490.94">
+        <param key="amenity" value="bank"/>
+        <param key="atm" value="yes"/>
+        <param key="customKey" value="customValue &lt;difficult&gt; &quot;somethingQuoted&quot;"/>
+        <param key="name" value="Berliner Volksbank"/>
+    </poi>
+    <poi id="115544715" type="amenity" color="237,199,199" layer="4.00" x="100741.39" y="467.93">
+        <param key="amenity" value="cafe"/>
+        <param key="created_by" value="Potlatch 0.10e"/>
+        <param key="name" value="Café Kamee"/>
+    </poi>
+    <poi id="115546494" type="amenity" color="237,199,199" layer="4.00" x="100712.70" y="443.59">
+        <param key="amenity" value="restaurant"/>
+        <param key="created_by" value="Potlatch 0.10b"/>
+        <param key="name" value="Mensa"/>
+    </poi>
+    <poi id="289593483" type="amenity" color="237,199,199" layer="4.00" x="100890.21" y="375.84">
+        <param key="amenity" value="wlan"/>
+        <param key="class" value="free"/>
+        <param key="created_by" value="Potlatch 0.10b"/>
+        <param key="note" value="FIXME"/>
+        <param key="source" value="http://maps.fon.com"/>
+    </poi>
+    <poi id="289631159" type="amenity" color="237,199,199" layer="4.00" x="100770.88" y="370.52">
+        <param key="amenity" value="wlan"/>
+        <param key="class" value="free"/>
+        <param key="note" value="FIXME"/>
+        <param key="source" value="http://maps.fon.com"/>
+    </poi>
+    <poi id="294830283" type="parking" color="184,184,179" layer="4.00" x="100945.51" y="478.40">
+        <param key="amenity" value="parking"/>
+        <param key="created_by" value="Potlatch 0.10b"/>
+    </poi>
+    <poi id="294831640" type="parking" color="184,184,179" layer="4.00" x="100522.64" y="266.87">
+        <param key="amenity" value="parking"/>
+        <param key="created_by" value="Potlatch 0.10b"/>
+    </poi>
+</additional>
