@@ -10,7 +10,7 @@
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
 // PHEMlight module
-// Copyright 2016 Technische Universitaet Graz, https://www.tugraz.at/
+// Copyright (C) 2016-2017 Technische Universitaet Graz, https://www.tugraz.at/
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -61,6 +61,7 @@ namespace PHEMlightdll {
         static const std::string strGasoline;
         static const std::string strDiesel;
         static const std::string strCNG;
+        static const std::string strLPG;
         static const std::string strHybrid;
         static const std::string strBEV;
 
