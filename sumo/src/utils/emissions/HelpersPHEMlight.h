@@ -114,6 +114,15 @@ public:
      */
     double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const;
 
+    /** @brief Returns the adapted acceleration value, useful for comparing with external PHEMlight references.
+     * @param[in] c the emission class
+     * @param[in] v the speed value
+     * @param[in] a the acceleration value
+     * @param[in] slope The road's slope at vehicle's position [deg]
+     * @return the modified acceleration
+     */
+    double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const;
+
 private:
     /** @brief Returns the amount of emitted pollutant given the vehicle type and state (in mg/s or in ml/s for fuel)
     * @param[in] currCep The vehicle emission class

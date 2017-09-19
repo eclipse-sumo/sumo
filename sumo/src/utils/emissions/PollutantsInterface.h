@@ -212,11 +212,11 @@ public:
         }
 
         /** @brief Returns a reference weight in kg described by this emission class as described in the Amitran interface
-         * It might return -1, if the weight is not important to distinguish different emission classes.
-         * Default implementation returns always -1.
-         * @param[in] c the emission class
-         * @return a reference weight
-         */
+        * It might return -1, if the weight is not important to distinguish different emission classes.
+        * Default implementation returns always -1.
+        * @param[in] c the emission class
+        * @return a reference weight
+        */
         virtual double getWeight(const SUMOEmissionClass c) const {
             UNUSED_PARAMETER(c);
             return -1.;
@@ -232,6 +232,19 @@ public:
          * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
          */
         virtual double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const = 0;
+
+        /** @brief Returns the adapted acceleration value, useful for comparing with external PHEMlight references.
+         * Default implementation returns always the input accel.
+         * @param[in] c the emission class
+         * @param[in] v the speed value
+         * @param[in] a the acceleration value
+         * @param[in] slope The road's slope at vehicle's position [deg]
+         * @return the modified acceleration
+         */
+        virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const {
+            UNUSED_PARAMETER(c);
+            return a;
+        }
 
         /** @brief Add all known emission classes of this model to the given container
          * @param[in] list the vector to add to
@@ -367,6 +380,15 @@ public:
      * @return The amount emitted by the given vehicle class [mg]
      */
     static double computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt, const std::map<int, double>* param = 0);
+
+    /** @brief Returns the adapted acceleration value, useful for comparing with external PHEMlight references.
+     * @param[in] c the emission class
+     * @param[in] v the speed value
+     * @param[in] a the acceleration value
+     * @param[in] slope The road's slope at vehicle's position [deg]
+     * @return the modified acceleration
+     */
+    static double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope);
 
     static const HelpersEnergy& getEnergyHelper() {
         return myEnergyHelper;

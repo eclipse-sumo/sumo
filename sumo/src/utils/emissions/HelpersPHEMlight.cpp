@@ -249,6 +249,16 @@ HelpersPHEMlight::getEmission(const PHEMCEP* oldCep, PHEMlightdll::CEP* currCep,
 
 
 double
+HelpersPHEMlight::getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const {
+    PHEMlightdll::CEP* currCep = myCEPs.count(c) == 0 ? 0 : myCEPs.find(c)->second;
+    if (currCep != 0) {
+        const double corrAcc = v == 0.0 ? 0.0 : MIN2(a, currCep->GetMaxAccel(v, a, slope));
+    }
+    return a;
+}
+
+
+double
 HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* /* param */) const {
     if (c == PHEMLIGHT_BASE) { // zero emission class
         return 0.;
@@ -270,11 +280,12 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
 #endif
     PHEMlightdll::CEP* currCep = myCEPs.count(c) == 0 ? 0 : myCEPs.find(c)->second;
     if (currCep != 0) {
-        if (a < currCep->GetDecelCoast(corrSpeed, a, slope) && currCep->getFuelType() != "BEV") {
+        const double corrAcc = getModifiedAccel(c, corrSpeed, a, slope);
+        if (corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) && currCep->getFuelType() != "BEV") {
             // the IDLE_SPEED fix above is now directly in the decel coast calculation.
             return 0;
         }
-        power = currCep->CalcPower(corrSpeed, v == 0.0 ? 0.0 : a, slope);
+        power = currCep->CalcPower(corrSpeed, corrAcc, slope);
     }
     const std::string& fuelType = oldCep != 0 ? oldCep->GetVehicleFuelType() : currCep->getFuelType();
     switch (e) {

@@ -154,5 +154,11 @@ PollutantsInterface::computeDefault(const SUMOEmissionClass c, const EmissionTyp
 }
 
 
+double
+PollutantsInterface::getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) {
+    return myHelpers[c >> 16]->getModifiedAccel(c, v, a, slope);
+}
+
+
 /****************************************************************************/
 
