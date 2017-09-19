@@ -192,8 +192,6 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         mcReplace->setText(mcReplace->getText() + " (" + reason.c_str() + ")");
         mcReplace->disable();
     }
-    // let the GNEViewNet store the popup position
-    (dynamic_cast<GNEViewNet&>(parent)).markPopupPosition();
     return ret;
 }
 

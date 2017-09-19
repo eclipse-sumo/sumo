@@ -262,6 +262,9 @@ public:
     bool isAdditionalGLVisualisationEnabled(GUIGlObject* const which) const;
     ///@}
 
+    /// @brief get position of current popup
+    const Position& getPopupPosition() const;
+
     ///@brief destoys the popup
     void destroyPopup();
 
@@ -404,6 +407,9 @@ protected:
 
     ///@brief The current popup-menu
     GUIGLObjectPopupMenu* myPopup;
+
+    ///@brief The current popup-menu position
+    Position myPopupPosition;
 
     ///@brief visualization settings
     GUIVisualizationSettings* myVisualizationSettings;

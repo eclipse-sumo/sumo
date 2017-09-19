@@ -289,9 +289,6 @@ public:
     /// @brief handle focus frame keypress
     void hotkeyFocusFrame();
 
-    /// @brief store the position where a popup-menu was requested
-    void markPopupPosition();
-
     /// @brief get the net object
     GNEViewParent* getViewParent() const;
 
@@ -497,9 +494,6 @@ private:
     /// @brief a reference to the undolist maintained in the application
     GNEUndoList* myUndoList;
 
-    /// @brief Poput spot
-    Position myPopupSpot;
-
     /// @name variables for edit shapes
     /// @{
     /// @brief  polygon used for edit Junction's shapes
@@ -558,22 +552,22 @@ private:
     bool mergeJunctions(GNEJunction* moved);
 
     /// @brief try to retrieve an edge at the given position
-    GNEEdge* getEdgeAtCursorPosition(Position& pos);
+    GNEEdge* getEdgeAtPopupPosition();
 
     /// @brief try to retrieve a lane at the given position
-    GNELane* getLaneAtCurserPosition(Position& pos);
+    GNELane* getLaneAtPopupPosition();
 
     /// @brief try to retrieve a junction at the given position
-    GNEJunction* getJunctionAtCursorPosition(Position& pos);
+    GNEJunction* getJunctionAtPopupPosition();
 
     /// @brief try to retrieve multiple edges at the given position
-    std::set<GNEEdge*> getEdgesAtCursorPosition(Position& pos);
+    std::set<GNEEdge*> getEdgesAtPopupPosition();
 
     /// @brief try to retrieve a Additional at the given position
-    GNEAdditional* getAdditionalAtCursorPosition(Position& pos);
+    GNEAdditional* getAdditionalAtPopupPosition();
 
     /// @brief try to retrieve a Polygon at the given position
-    GNEPoly* getPolygonAtCursorPosition(Position& pos);
+    GNEPoly* getPolygonAtPopupPosition();
 
     /// @brief restrict lane
     bool restrictLane(SUMOVehicleClass vclass);

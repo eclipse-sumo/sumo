@@ -1132,12 +1132,6 @@ GNEViewNet::setEditModeFromHotkey(FXushort selid) {
 }
 
 
-void
-GNEViewNet::markPopupPosition() {
-    myPopupSpot = getPositionInformation();
-}
-
-
 GNEViewParent*
 GNEViewNet::getViewParent() const {
     return myViewParent;
@@ -1169,10 +1163,10 @@ GNEViewNet::showLockIcon() const {
 
 
 GNEJunction*
-GNEViewNet::getJunctionAtCursorPosition(Position& /* pos */) {
+GNEViewNet::getJunctionAtPopupPosition() {
     GNEJunction* junction = 0;
     if (makeCurrent()) {
-        int id = getObjectAtPosition(myPopupSpot);
+        int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
         if (pointed) {
@@ -1190,10 +1184,10 @@ GNEViewNet::getJunctionAtCursorPosition(Position& /* pos */) {
 
 
 GNEEdge*
-GNEViewNet::getEdgeAtCursorPosition(Position& /* pos */) {
+GNEViewNet::getEdgeAtPopupPosition() {
     GNEEdge* edge = 0;
     if (makeCurrent()) {
-        int id = getObjectAtPosition(myPopupSpot);
+        int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
         if (pointed) {
@@ -1214,10 +1208,10 @@ GNEViewNet::getEdgeAtCursorPosition(Position& /* pos */) {
 
 
 GNELane*
-GNEViewNet::getLaneAtCurserPosition(Position& /* pos */) {
+GNEViewNet::getLaneAtPopupPosition() {
     GNELane* lane = 0;
     if (makeCurrent()) {
-        int id = getObjectAtPosition(myPopupSpot);
+        int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
         if (pointed) {
@@ -1231,10 +1225,10 @@ GNEViewNet::getLaneAtCurserPosition(Position& /* pos */) {
 
 
 std::set<GNEEdge*>
-GNEViewNet::getEdgesAtCursorPosition(Position& /* pos */) {
+GNEViewNet::getEdgesAtPopupPosition() {
     std::set<GNEEdge*> result;
     if (makeCurrent()) {
-        const std::vector<GUIGlID> ids = getObjectsAtPosition(myPopupSpot, 1.0);
+        const std::vector<GUIGlID> ids = getObjectsAtPosition(getPopupPosition(), 1.0);
         for (auto it : ids) {
             GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(it);
             GUIGlObjectStorage::gIDStorage.unblockObject(it);
@@ -1257,9 +1251,9 @@ GNEViewNet::getEdgesAtCursorPosition(Position& /* pos */) {
 
 
 GNEAdditional* 
-GNEViewNet::getAdditionalAtCursorPosition(Position& /*pos*/) {
+GNEViewNet::getAdditionalAtPopupPosition() {
     if (makeCurrent()) {
-        int id = getObjectAtPosition(myPopupSpot);
+        int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
         if (pointed && (pointed->getType() == GLO_ADDITIONAL)) {
@@ -1271,9 +1265,9 @@ GNEViewNet::getAdditionalAtCursorPosition(Position& /*pos*/) {
 
 
 GNEPoly*
-GNEViewNet::getPolygonAtCursorPosition(Position& pos) {
+GNEViewNet::getPolygonAtPopupPosition() {
     if (makeCurrent()) {
-        int id = getObjectAtPosition(pos);
+        int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
         if (pointed && (pointed->getType() == GLO_POLYGON)) {
@@ -1356,9 +1350,9 @@ GNEViewNet::onCmdSetModePolygon(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSplitEdge(FXObject*, FXSelector, void*) {
-    GNEEdge* edge = getEdgeAtCursorPosition(myPopupSpot);
+    GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
-        myNet->splitEdge(edge, edge->getSplitPos(myPopupSpot), myUndoList);
+        myNet->splitEdge(edge, edge->getSplitPos(getPopupPosition()), myUndoList);
     }
     return 1;
 }
@@ -1366,9 +1360,9 @@ GNEViewNet::onCmdSplitEdge(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSplitEdgeBidi(FXObject*, FXSelector, void*) {
-    std::set<GNEEdge*> edges = getEdgesAtCursorPosition(myPopupSpot);
+    std::set<GNEEdge*> edges = getEdgesAtPopupPosition();
     if (edges.size() != 0) {
-        myNet->splitEdgesBidi(edges, (*edges.begin())->getSplitPos(myPopupSpot), myUndoList);
+        myNet->splitEdgesBidi(edges, (*edges.begin())->getSplitPos(getPopupPosition()), myUndoList);
     }
     return 1;
 }
@@ -1376,7 +1370,7 @@ GNEViewNet::onCmdSplitEdgeBidi(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdReverseEdge(FXObject*, FXSelector, void*) {
-    GNEEdge* edge = getEdgeAtCursorPosition(myPopupSpot);
+    GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
         myNet->reverseEdge(edge, myUndoList);
     }
@@ -1386,7 +1380,7 @@ GNEViewNet::onCmdReverseEdge(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdAddReversedEdge(FXObject*, FXSelector, void*) {
-    GNEEdge* edge = getEdgeAtCursorPosition(myPopupSpot);
+    GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
         myNet->addReversedEdge(edge, myUndoList);
     }
@@ -1396,9 +1390,9 @@ GNEViewNet::onCmdAddReversedEdge(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSetEdgeEndpoint(FXObject*, FXSelector, void*) {
-    GNEEdge* edge = getEdgeAtCursorPosition(myPopupSpot);
+    GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
-        edge->setEndpoint(myPopupSpot, myUndoList);
+        edge->setEndpoint(getPopupPosition(), myUndoList);
     }
     return 1;
 }
@@ -1406,9 +1400,9 @@ GNEViewNet::onCmdSetEdgeEndpoint(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdResetEdgeEndpoint(FXObject*, FXSelector, void*) {
-    GNEEdge* edge = getEdgeAtCursorPosition(myPopupSpot);
+    GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
-        edge->resetEndpoint(myPopupSpot, myUndoList);
+        edge->resetEndpoint(getPopupPosition(), myUndoList);
     }
     return 1;
 }
@@ -1416,7 +1410,7 @@ GNEViewNet::onCmdResetEdgeEndpoint(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
-    GNEEdge* edge = getEdgeAtCursorPosition(myPopupSpot);
+    GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
         if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
             myUndoList->p_begin("straighten selected " + toString(SUMO_TAG_EDGE) + "s");
@@ -1441,7 +1435,7 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
         myEditJunctionShapePoly->simplifyShape(false);
         update();
     } else {
-        GNEPoly* polygonUnderMouse = getPolygonAtCursorPosition(myPopupSpot);
+        GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
         if (polygonUnderMouse) {
             polygonUnderMouse->simplifyShape();
         }
@@ -1453,12 +1447,12 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdDeleteGeometryPoint(FXObject*, FXSelector, void*) {
     if (myEditJunctionShapePoly != 0) {
-        myEditJunctionShapePoly->deleteGeometryNear(myPopupSpot, false);
+        myEditJunctionShapePoly->deleteGeometryNear(getPopupPosition(), false);
         update();
     } else {
-        GNEPoly* polygonUnderMouse = getPolygonAtCursorPosition(myPopupSpot);
+        GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
         if (polygonUnderMouse) {
-            polygonUnderMouse->deleteGeometryNear(myPopupSpot);
+            polygonUnderMouse->deleteGeometryNear(getPopupPosition());
         }
     }
     return 1;
@@ -1471,7 +1465,7 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
         myEditJunctionShapePoly->closePolygon(false);
         update();
     } else {
-        GNEPoly* polygonUnderMouse = getPolygonAtCursorPosition(myPopupSpot);
+        GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
         if (polygonUnderMouse) {
             polygonUnderMouse->closePolygon();
         }
@@ -1486,7 +1480,7 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
         myEditJunctionShapePoly->openPolygon(false);
         update();
     } else {
-        GNEPoly* polygonUnderMouse = getPolygonAtCursorPosition(myPopupSpot);
+        GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
         if (polygonUnderMouse) {
             polygonUnderMouse->openPolygon();
         }
@@ -1498,12 +1492,12 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
     if (myEditJunctionShapePoly != 0) {
-        myEditJunctionShapePoly->changeFirstGeometryPoint(myEditJunctionShapePoly->getVertexIndex(myPopupSpot, false), false);
+        myEditJunctionShapePoly->changeFirstGeometryPoint(myEditJunctionShapePoly->getVertexIndex(getPopupPosition(), false), false);
         update();
     } else {
-        GNEPoly* polygonUnderMouse = getPolygonAtCursorPosition(myPopupSpot);
+        GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
         if (polygonUnderMouse) {
-            polygonUnderMouse->changeFirstGeometryPoint(polygonUnderMouse->getVertexIndex(myPopupSpot, false));
+            polygonUnderMouse->changeFirstGeometryPoint(polygonUnderMouse->getVertexIndex(getPopupPosition(), false));
         }
     }
     return 1;
@@ -1512,7 +1506,7 @@ GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
-    GNELane* lane = getLaneAtCurserPosition(myPopupSpot);
+    GNELane* lane = getLaneAtPopupPosition();
     if (lane != 0) {
         if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
             myUndoList->p_begin("duplicate selected " + toString(SUMO_TAG_LANE) + "s");
@@ -1588,7 +1582,7 @@ GNEViewNet::onCmdRemoveRestrictedLaneBuslane(FXObject*, FXSelector, void*) {
 long 
 GNEViewNet::onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*) {
     // retrieve additional under cursor
-    GNEAdditional *addtional = getAdditionalAtCursorPosition(myPopupSpot);
+    GNEAdditional *addtional = getAdditionalAtPopupPosition();
     // check if additional can open dialog
     if(addtional && GNEAttributeCarrier::canOpenDialog(addtional->getTag())) {
         addtional->openAdditionalDialog();
@@ -1599,7 +1593,7 @@ GNEViewNet::onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*) {
 
 bool
 GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
-    GNELane* lane = getLaneAtCurserPosition(myPopupSpot);
+    GNELane* lane = getLaneAtPopupPosition();
     if (lane != 0) {
         // Get selected lanes
         std::vector<GNELane*> lanes = myNet->retrieveLanes(true); ;
@@ -1678,7 +1672,7 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
 
 bool
 GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
-    GNELane* lane = getLaneAtCurserPosition(myPopupSpot);
+    GNELane* lane = getLaneAtPopupPosition();
     if (lane != 0) {
         // Get selected edges
         std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
@@ -1759,7 +1753,7 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
 
 bool
 GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
-    GNELane* lane = getLaneAtCurserPosition(myPopupSpot);
+    GNELane* lane = getLaneAtPopupPosition();
     if (lane != 0) {
         // Get selected edges
         std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
@@ -1855,7 +1849,7 @@ GNEViewNet::processClick(FXEvent* e, void* eventData) {
 long
 GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
     // Obtain junction under mouse
-    GNEJunction* junction = getJunctionAtCursorPosition(myPopupSpot);
+    GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction) {
         startEditShapeJunction(junction);
     }
@@ -1865,7 +1859,7 @@ GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdReplaceJunction(FXObject*, FXSelector, void*) {
-    GNEJunction* junction = getJunctionAtCursorPosition(myPopupSpot);
+    GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != 0) {
         myNet->replaceJunctionByGeometry(junction, myUndoList);
         update();
@@ -1876,7 +1870,7 @@ GNEViewNet::onCmdReplaceJunction(FXObject*, FXSelector, void*) {
 
 long 
 GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
-    GNEJunction* junction = getJunctionAtCursorPosition(myPopupSpot);
+    GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != 0) {
         myNet->clearJunctionConnections(junction, myUndoList);
         update();
@@ -1887,7 +1881,7 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
 
 long 
 GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
-    GNEJunction* junction = getJunctionAtCursorPosition(myPopupSpot);
+    GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != 0) {
         myNet->resetJunctionConnections(junction, myUndoList);
         update();

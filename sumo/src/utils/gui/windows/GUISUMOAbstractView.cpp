@@ -127,6 +127,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     myMouseHotspotX(app.getDefaultCursor()->getHotX()),
     myMouseHotspotY(app.getDefaultCursor()->getHotY()),
     myPopup(0),
+    myPopupPosition(Position(0,0)),
     myUseToolTips(false),
     myAmInitialised(false),
     myViewportChooser(0),
@@ -644,9 +645,15 @@ GUISUMOAbstractView::onPaint(FXObject*, FXSelector, void*) {
 }
 
 
+const Position&
+GUISUMOAbstractView::getPopupPosition() const {
+    return myPopupPosition;
+}
+
 void
 GUISUMOAbstractView::destroyPopup() {
     delete myPopup;
+    myPopupPosition.set(0,0);
     myPopup = 0;
 }
 
@@ -788,6 +795,7 @@ GUISUMOAbstractView::openObjectDialog() {
             myPopup->setY(y + myApp->getY());
             myPopup->create();
             myPopup->show();
+            myPopupPosition = getPositionInformation();
             myChanger->onRightBtnRelease(0);
             GUIGlObjectStorage::gIDStorage.unblockObject(id);
             setFocus();

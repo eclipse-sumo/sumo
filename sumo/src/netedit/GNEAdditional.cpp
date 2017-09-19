@@ -208,8 +208,6 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     } else {
         new FXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), 0, 0, 0);
     }
-    // let the GNEViewNet store the popup position
-    dynamic_cast<GNEViewNet&>(parent).markPopupPosition();
     return ret;
 }
 
