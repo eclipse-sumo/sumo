@@ -63,9 +63,9 @@ public:
     static SUMOTime getNextSwitch(const std::string& tlsID);
 
     static void setRedYellowGreenState(const std::string& tlsID, const std::string& state);
-    static void setPhase(const std::string& tlsID, int index);
+    static void setPhase(const std::string& tlsID, const int index);
     static void setProgram(const std::string& tlsID, const std::string& programID);
-    static void setPhaseDuration(const std::string& tlsID, int phaseDuration);
+    static void setPhaseDuration(const std::string& tlsID, const SUMOTime phaseDuration);
     static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic);
 
     static MSTLLogicControl::TLSLogicVariants& getTLS(const std::string& id);

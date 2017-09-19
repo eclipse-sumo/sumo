@@ -63,6 +63,13 @@ std::vector<TraCILogic>
 TraCI_TLS::getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
     std::vector<TraCILogic> result;
     std::vector<MSTrafficLightLogic*> logics = getTLS(tlsID).getAllLogics();
+    for (MSTrafficLightLogic* logic : logics) {
+        TraCILogic l(logic->getProgramID(), 0, std::map<std::string, double>(), logic->getCurrentPhaseIndex(), std::vector<TraCIPhase>());
+        for (int j = 0; j < logic->getPhaseNumber(); ++j) {
+            MSPhaseDefinition phase = logic->getPhase(j);
+            l.phases.emplace_back(TraCIPhase(phase.duration, phase.minDuration, phase.maxDuration, phase.getState()));
+        }
+    }
     return result;
 }
 
@@ -87,35 +94,19 @@ TraCI_TLS::getControlledLinks(const std::string& tlsID) {
     std::vector<TraCILink> result;
     const MSTrafficLightLogic::LaneVectorVector& lanes = getTLS(tlsID).getActive()->getLaneVectors();
     const MSTrafficLightLogic::LinkVectorVector& links = getTLS(tlsID).getActive()->getLinks();
-    /*
-    tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-    tcpip::Storage tempContent;
-    int cnt = 0;
-    tempContent.writeUnsignedByte(TYPE_INTEGER);
-    int no = (int)lanes.size();
-    tempContent.writeInt((int)no);
-    for (int i = 0; i < no; ++i) {
+    for (int i = 0; i < (int)lanes.size(); ++i) {
         const MSTrafficLightLogic::LaneVector& llanes = lanes[i];
         const MSTrafficLightLogic::LinkVector& llinks = links[i];
         // number of links controlled by this signal (signal i)
-        tempContent.writeUnsignedByte(TYPE_INTEGER);
-        int no2 = (int)llanes.size();
-        tempContent.writeInt((int)no2);
-        ++cnt;
-        for (int j = 0; j < no2; ++j) {
+        for (int j = 0; j < (int)llanes.size(); ++j) {
             MSLink* link = llinks[j];
-            std::vector<std::string> def;
-            // incoming lane
-            def.push_back(llanes[j]->getID());
             // approached non-internal lane (if any)
-            def.push_back(link->getLane() != 0 ? link->getLane()->getID() : "");
+            const std::string to = link->getLane() != 0 ? link->getLane()->getID() : "";
             // approached "via", internal lane (if any)
-            def.push_back(link->getViaLane() != 0 ? link->getViaLane()->getID() : "");
-            tempContent.writeUnsignedByte(TYPE_STRINGLIST);
-            tempContent.writeStringList(def);
-            ++cnt;
+            const std::string via = link->getViaLane() != 0 ? link->getViaLane()->getID() : "";
+            result.emplace_back(TraCILink(llanes[j]->getID(), to, via));
         }
-    }*/
+    }
     return result;
 }
 
@@ -149,34 +140,46 @@ TraCI_TLS::getNextSwitch(const std::string& tlsID) {
 
 void
 TraCI_TLS::setRedYellowGreenState(const std::string& tlsID, const std::string& state) {
-
+    getTLS(tlsID).setStateInstantiatingOnline(MSNet::getInstance()->getTLSControl(), state);
 }
 
 
 void
-TraCI_TLS::setPhase(const std::string& tlsID, int index) {
-
+TraCI_TLS::setPhase(const std::string& tlsID, const int index) {
+    const SUMOTime cTime = MSNet::getInstance()->getCurrentTimeStep();
+    const SUMOTime duration = getTLS(tlsID).getActive()->getPhase(index).duration;
+    getTLS(tlsID).getActive()->changeStepAndDuration(MSNet::getInstance()->getTLSControl(), cTime, index, duration);
 }
 
 
 
 void
 TraCI_TLS::setProgram(const std::string& tlsID, const std::string& programID) {
-
+    getTLS(tlsID).switchTo(MSNet::getInstance()->getTLSControl(), programID);
 }
 
 
 
 void
-TraCI_TLS::setPhaseDuration(const std::string& tlsID, int phaseDuration) {
-
+TraCI_TLS::setPhaseDuration(const std::string& tlsID, const SUMOTime phaseDuration) {
+    const SUMOTime cTime = MSNet::getInstance()->getCurrentTimeStep();
+    const int index = getTLS(tlsID).getActive()->getCurrentPhaseIndex();
+    getTLS(tlsID).getActive()->changeStepAndDuration(MSNet::getInstance()->getTLSControl(), cTime, index, phaseDuration);
 }
 
 
 
 void
 TraCI_TLS::setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic) {
-
+    std::vector<MSPhaseDefinition*> phases;
+/*    MSPhaseDefinition* phase = new MSPhaseDefinition(duration, minDuration, maxDuration, state);
+    phases.push_back(phase);
+    if (vars.getLogic(subid) == 0) {
+        MSTrafficLightLogic* logic = new MSSimpleTrafficLightLogic(tlsControl, id, subid, phases, index, 0, std::map<std::string, std::string>());
+        vars.addLogic(subid, logic, true, true);
+    } else {
+        static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(subid))->setPhases(phases, index);
+    }*/
 }
 
 
