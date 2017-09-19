@@ -87,7 +87,7 @@ TraCI_Edge::getWaitingSeconds(std::string& id) {
 const std::vector<std::string>
 TraCI_Edge::getPersonIDs(std::string& id) {
     std::vector<std::string> personIDs;
-    std::vector<MSTransportable*> persons = getEdge(id)->getSortedPersons(MSNet::getInstance()->getCurrentTimeStep());
+    std::vector<MSTransportable*> persons = getEdge(id)->getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
     personIDs.reserve(persons.size());
     for (MSTransportable* p : persons) {
         personIDs.push_back(p->getID());
