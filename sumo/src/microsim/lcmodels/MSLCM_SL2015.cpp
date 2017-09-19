@@ -120,6 +120,7 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myCanChangeFully(true),
     myPreviousState(0),
     myOrigLatDist(0),
+    mySafeLatDist(0),
     myStrategicParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_STRATEGIC_PARAM, 1)),
     myCooperativeParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_PARAM, 1)),
     mySpeedGainParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 1)),
@@ -248,7 +249,6 @@ MSLCM_SL2015::setOwnState(const int state) {
             std::cout << "    myCanChangeFully=true\n";
         }
     }
-
 }
 
 double
@@ -782,6 +782,7 @@ MSLCM_SL2015::prepareStep() {
         myExpectedSublaneSpeeds = newExpectedSpeeds;
         myLastEdge = currEdge;
     }
+    mySafeLatDist = 0;
     assert(myExpectedSublaneSpeeds.size() == myVehicle.getLane()->getEdge().getSubLaneSides().size());
 }
 
@@ -1805,8 +1806,8 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, int laneOf
     // reduce latDist to avoid blockage with overlapping vehicles (no minGapLat constraints)
     const double halfWidth = getWidth() * 0.5;
     const double center = myVehicle.getCenterOnEdge();
-    double surplusGapRight = MIN2(maxDist, center - halfWidth);
-    double surplusGapLeft = MIN2(maxDist, myVehicle.getLane()->getEdge().getWidth() - center - halfWidth);
+    double surplusGapRight = center - halfWidth;
+    double surplusGapLeft = myVehicle.getLane()->getEdge().getWidth() - center - halfWidth;
     updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft, false, 0, latDist, collectLeadBlockers);
     updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft, false, 0, latDist, collectFollowBlockers);
     if (laneOffset != 0) {
@@ -1821,12 +1822,14 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, int laneOf
             return LCA_BLOCKED_RIGHT | LCA_OVERLAPPING;
         } else {
             latDist = MAX2(latDist, -surplusGapRight);
+            mySafeLatDist = -surplusGapRight;
         }
     } else {
         if (surplusGapLeft <= NUMERICAL_EPS * TS) {
             return LCA_BLOCKED_LEFT | LCA_OVERLAPPING;
         } else {
             latDist = MIN2(latDist, surplusGapLeft);
+            mySafeLatDist = surplusGapLeft;
         }
     }
 
@@ -2545,13 +2548,14 @@ MSLCM_SL2015::computeSpeedLat(double latDist) {
     // can we reach the target distance in a single step?
     double speedBound = DIST2SPEED(latDist);
     // for lat-gap keeping manoeuvres myOrigLatDist may be 0
-    const double fullLatDist = latDist > 0 ? MAX2(myOrigLatDist, latDist) : MIN2(myOrigLatDist, latDist);
+    const double fullLatDist = latDist > 0 ? MIN2(mySafeLatDist, MAX2(myOrigLatDist, latDist)) : MAX2(mySafeLatDist, MIN2(myOrigLatDist, latDist));
     if (gDebugFlag2) {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
                   << " speedLat=" << mySpeedLat
                   << " latDist=" << latDist
                   << " myOrigLatDist=" << myOrigLatDist
+                  << " mySafeLatDist=" << mySafeLatDist
                   << " fullLatDist=" << fullLatDist
                   << " speedAccel=" << speedAccel
                   << " speedDecel=" << speedDecel

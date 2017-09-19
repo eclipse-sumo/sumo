@@ -366,6 +366,9 @@ protected:
     /// @brief the complete lateral distance the vehicle wants to travel to finish its maneuver
     double myOrigLatDist;
 
+    /// @brief the lateral distance the vehicle can safely move in the currently considered direction
+    double mySafeLatDist;
+
     /// @brief set of vehicles that are in a car-following relationship with ego (leader of followers)
     std::set<const MSVehicle*> myCFRelated;
     bool myCFRelatedReady;
