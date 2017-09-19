@@ -120,7 +120,8 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myCanChangeFully(true),
     myPreviousState(0),
     myOrigLatDist(0),
-    mySafeLatDist(0),
+    mySafeLatDistRight(0),
+    mySafeLatDistLeft(0),
     myStrategicParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_STRATEGIC_PARAM, 1)),
     myCooperativeParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_PARAM, 1)),
     mySpeedGainParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 1)),
@@ -782,7 +783,6 @@ MSLCM_SL2015::prepareStep() {
         myExpectedSublaneSpeeds = newExpectedSpeeds;
         myLastEdge = currEdge;
     }
-    mySafeLatDist = 0;
     assert(myExpectedSublaneSpeeds.size() == myVehicle.getLane()->getEdge().getSubLaneSides().size());
 }
 
@@ -1806,30 +1806,28 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, int laneOf
     // reduce latDist to avoid blockage with overlapping vehicles (no minGapLat constraints)
     const double halfWidth = getWidth() * 0.5;
     const double center = myVehicle.getCenterOnEdge();
-    double surplusGapRight = center - halfWidth;
-    double surplusGapLeft = myVehicle.getLane()->getEdge().getWidth() - center - halfWidth;
-    updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft, false, 0, latDist, collectLeadBlockers);
-    updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft, false, 0, latDist, collectFollowBlockers);
+    mySafeLatDistRight = center - halfWidth;
+    mySafeLatDistLeft = myVehicle.getLane()->getEdge().getWidth() - center - halfWidth;
+    updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectLeadBlockers);
+    updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectFollowBlockers);
     if (laneOffset != 0) {
-        updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft, false, 0, latDist, collectLeadBlockers);
-        updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft, false, 0, latDist, collectFollowBlockers);
+        updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectLeadBlockers);
+        updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectFollowBlockers);
     }
     if (gDebugFlag2) {
-        std::cout << "    checkBlocking latDist=" << latDist << " surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n";
+        std::cout << "    checkBlocking latDist=" << latDist << " mySafeLatDistRight=" << mySafeLatDistRight << " mySafeLatDistLeft=" << mySafeLatDistLeft << "\n";
     }
     if (latDist < 0) {
-        if (surplusGapRight <= NUMERICAL_EPS * TS) {
+        if (mySafeLatDistRight <= NUMERICAL_EPS * TS) {
             return LCA_BLOCKED_RIGHT | LCA_OVERLAPPING;
         } else {
-            latDist = MAX2(latDist, -surplusGapRight);
-            mySafeLatDist = -surplusGapRight;
+            latDist = MAX2(latDist, -mySafeLatDistRight);
         }
     } else {
-        if (surplusGapLeft <= NUMERICAL_EPS * TS) {
+        if (mySafeLatDistLeft <= NUMERICAL_EPS * TS) {
             return LCA_BLOCKED_LEFT | LCA_OVERLAPPING;
         } else {
-            latDist = MIN2(latDist, surplusGapLeft);
-            mySafeLatDist = surplusGapLeft;
+            latDist = MIN2(latDist, mySafeLatDistLeft);
         }
     }
 
@@ -2542,20 +2540,25 @@ MSLCM_SL2015::computeSpeedLat(double latDist) {
     const double maxSpeedLat = myVehicle.getVehicleType().getMaxSpeedLat();
     // reduced lateral speed (in the desired direction)
     double speedDecel = MAX2(MIN2(mySpeedLat + directionWish * ACCEL2SPEED(-myAccelLat), maxSpeedLat), -maxSpeedLat);
+    // reduce lateral speed more strongly to ensure safety
+    double speedDecelSafe = latDist >= 0 ? MIN2(speedDecel, DIST2SPEED(mySafeLatDistLeft)) : MAX2(speedDecel, DIST2SPEED(-mySafeLatDistRight));
     // increased lateral speed (in the disired direction)
     double speedAccel = MAX2(MIN2(mySpeedLat + directionWish * ACCEL2SPEED(myAccelLat), maxSpeedLat), -maxSpeedLat);
+    // increase lateral speed more strongly to ensure safety (when moving in the wrong direction)
+    double speedAccelSafe = latDist * speedAccel >= 0 ? speedAccel : 0;
 
     // can we reach the target distance in a single step?
     double speedBound = DIST2SPEED(latDist);
     // for lat-gap keeping manoeuvres myOrigLatDist may be 0
-    const double fullLatDist = latDist > 0 ? MIN2(mySafeLatDist, MAX2(myOrigLatDist, latDist)) : MAX2(mySafeLatDist, MIN2(myOrigLatDist, latDist));
+    const double fullLatDist = latDist > 0 ? MIN2(mySafeLatDistLeft, MAX2(myOrigLatDist, latDist)) : MAX2(-mySafeLatDistRight, MIN2(myOrigLatDist, latDist));
     if (gDebugFlag2) {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
                   << " speedLat=" << mySpeedLat
                   << " latDist=" << latDist
                   << " myOrigLatDist=" << myOrigLatDist
-                  << " mySafeLatDist=" << mySafeLatDist
+                  << " mySafeLatDistRight=" << mySafeLatDistRight
+                  << " mySafeLatDistLeft=" << mySafeLatDistLeft
                   << " fullLatDist=" << fullLatDist
                   << " speedAccel=" << speedAccel
                   << " speedDecel=" << speedDecel
@@ -2577,7 +2580,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist) {
         if (gDebugFlag2) {
             std::cout << "   computeSpeedLat b)\n";
         }
-        return speedAccel;
+        return speedAccelSafe;
     }
     // check if the remaining distance allows to accelerate laterally
     double minDistAccel = SPEED2DIST(speedAccel) + currentDirection * MSCFModel::brakeGapEuler(fabs(speedAccel), myAccelLat, 0); // most we can move in the target direction
@@ -2603,7 +2606,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist) {
     if (gDebugFlag2) {
         std::cout << "   computeSpeedLat e)\n";
     }
-    return speedDecel;
+    return speedDecelSafe;
 }
 
 

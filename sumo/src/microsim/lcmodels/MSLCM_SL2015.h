@@ -367,7 +367,8 @@ protected:
     double myOrigLatDist;
 
     /// @brief the lateral distance the vehicle can safely move in the currently considered direction
-    double mySafeLatDist;
+    double mySafeLatDistRight;
+    double mySafeLatDistLeft;
 
     /// @brief set of vehicles that are in a car-following relationship with ego (leader of followers)
     std::set<const MSVehicle*> myCFRelated;
