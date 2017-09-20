@@ -1,26 +1,26 @@
 Warning: Adding laneCalibrator 'calibrator01' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Essential string attribute 'id' of laneCalibrator with ID '' is missing; laneCalibrator cannot be created
+Warning: Essential string attribute 'id' of laneCalibrator is missing; laneCalibrator cannot be created
 Warning: The id 'ID with spaces' of additional laneCalibrator contains invalid characters.
-Warning: Format of essential string attribute 'id' of laneCalibrator with ID '' is invalid; laneCalibrator cannot be created
+Warning: Format of essential string attribute 'id' of laneCalibrator is invalid; laneCalibrator cannot be created
 Warning: There is another laneCalibrator with the same ID='calibrator01'.
 Warning: Adding laneCalibrator 'calibrator02' in GNEChange_Additional
 Warning: additional calibrator must have either a lane or an edge attribute.
 Warning: The lane '' or edge '' to use within the calibrator '' is not known.
 Warning: The lane 'dummylane' or edge '' to use within the laneCalibrator 'calibrator04' is not known.
 Warning: Adding laneCalibrator 'calibrator05' in GNEChange_Additional
-Warning: Optional float attribute 'pos' of laneCalibrator is missing; Default value '0.00' will be used.
+Warning: Optional float attribute 'pos' of laneCalibrator with ID 'calibrator06' is missing; Default value '0.00' will be used.
 Warning: Adding laneCalibrator 'calibrator06' in GNEChange_Additional
-Warning: Format of optional float attribute 'pos' of laneCalibrator is invalid; Cannot be parsed to float; Default value '0.00' will be used.
+Warning: Format of optional float attribute 'pos' of laneCalibrator with ID 'calibrator07' is invalid; Default value '0.00' will be used.
 Warning: Adding laneCalibrator 'calibrator07' in GNEChange_Additional
-Warning: Format of optional float attribute 'pos' of laneCalibrator is invalid; Cannot be negative; Default value '0.00' will be used.
+Warning: Format of optional float attribute 'pos' of laneCalibrator with ID 'calibrator08' is invalid; Cannot be negative; Default value '0.00' will be used.
 Warning: Adding laneCalibrator 'calibrator08' in GNEChange_Additional
 Warning: Adding laneCalibrator 'calibrator09' in GNEChange_Additional
-Warning: Optional time attribute 'freq' of laneCalibrator is missing; Default value '100.00' will be used.
+Warning: Optional time attribute 'freq' of laneCalibrator with ID 'calibrator10' is missing; Default value '100.00' will be used.
 Warning: Adding laneCalibrator 'calibrator10' in GNEChange_Additional
-Warning: Format of optional time attribute 'freq' of laneCalibrator is invalid; Cannot be parsed to time; Default value '100.00' will be used.
+Warning: Format of optional time attribute 'freq' of laneCalibrator with ID 'calibrator11' is invalid; Default value '100.00' will be used.
 Warning: Adding laneCalibrator 'calibrator11' in GNEChange_Additional
-Warning: Format of optional time attribute 'freq' of laneCalibrator is invalid; Time cannot be negative; Default value '100.00' will be used.
+Warning: Format of optional time attribute 'freq' of laneCalibrator with ID 'calibrator12' is invalid; Time cannot be negative; Default value '100.00' will be used.
 Warning: Adding laneCalibrator 'calibrator12' in GNEChange_Additional
 Warning: Adding laneCalibrator 'calibrator13' in GNEChange_Additional
 Warning: Adding laneCalibrator 'calibrator14' in GNEChange_Additional

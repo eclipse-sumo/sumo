@@ -8,22 +8,22 @@ Warning: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_03' in GNEChange_Additional
 Warning: The edge 'dummyEdge' to use within the routeProbe 'routeProbe_04' is not known.
 Warning: Adding routeProbe 'routeProbe_05' in GNEChange_Additional
-Warning: Optional time attribute 'freq' of routeProbe is missing; Default value '100.00' will be used.
+Warning: Optional time attribute 'freq' of routeProbe with ID 'routeProbe_06' is missing; Default value '100.00' will be used.
 Warning: Adding routeProbe 'routeProbe_06' in GNEChange_Additional
-Warning: Format of optional time attribute 'freq' of routeProbe is invalid; Cannot be parsed to time; Default value '100.00' will be used.
+Warning: Format of optional time attribute 'freq' of routeProbe with ID 'routeProbe_07' is invalid; Default value '100.00' will be used.
 Warning: Adding routeProbe 'routeProbe_07' in GNEChange_Additional
-Warning: Format of optional time attribute 'freq' of routeProbe is invalid; Time cannot be negative; Default value '100.00' will be used.
+Warning: Format of optional time attribute 'freq' of routeProbe with ID 'routeProbe_08' is invalid; Time cannot be negative; Default value '100.00' will be used.
 Warning: Adding routeProbe 'routeProbe_08' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_09' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_10' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_11' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_12' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_13' in GNEChange_Additional
-Warning: Optional time attribute 'begin' of routeProbe is missing; Default value '0.00' will be used.
+Warning: Optional time attribute 'begin' of routeProbe with ID 'routeProbe_14' is missing; Default value '0.00' will be used.
 Warning: Adding routeProbe 'routeProbe_14' in GNEChange_Additional
-Warning: Format of optional time attribute 'begin' of routeProbe is invalid; Cannot be parsed to time; Default value '0.00' will be used.
+Warning: Format of optional time attribute 'begin' of routeProbe with ID 'routeProbe_15' is invalid; Default value '0.00' will be used.
 Warning: Adding routeProbe 'routeProbe_15' in GNEChange_Additional
-Warning: Format of optional time attribute 'begin' of routeProbe is invalid; Time cannot be negative; Default value '0.00' will be used.
+Warning: Format of optional time attribute 'begin' of routeProbe with ID 'routeProbe_16' is invalid; Time cannot be negative; Default value '0.00' will be used.
 Warning: Adding routeProbe 'routeProbe_16' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_17' in GNEChange_Additional
 Warning: Additionals saved
