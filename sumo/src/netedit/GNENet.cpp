@@ -1478,13 +1478,23 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
 
 void 
 GNENet::clearJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
-
+    undoList->p_begin("clear junction connections");
+    std::vector<GNEConnection*> connections = junction->getGNEConnections();
+    // Iterate over all connections and clear it
+    for(auto i : connections) {
+        deleteConnection(i, undoList);
+    }
+    undoList->p_end();
 }
 
 
 void 
 GNENet::resetJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
+    undoList->p_begin("reset junction connections");
+    // first clear connections 
+    clearJunctionConnections(junction, undoList);
 
+    undoList->p_end();
 }
 
 void

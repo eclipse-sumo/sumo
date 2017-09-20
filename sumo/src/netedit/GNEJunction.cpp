@@ -179,9 +179,13 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     EditMode editMode = myNet->getViewNet()->getCurrentEditMode();
     const bool wrongMode = (editMode == GNE_MODE_CONNECT || editMode == GNE_MODE_TLS || editMode == GNE_MODE_CREATE_EDGE);
     if (wrongMode) {
-        mcCustomShape->disable();;
+        mcCustomShape->disable();
         mcClearConnections->disable();
         mcResetConnections->disable();
+    }
+    // disable mcClearConnections if juction hasn't connections
+    if(getGNEConnections().empty()) {
+        mcClearConnections->disable();
     }
     // checkIsRemovable requiers turnarounds to be computed. This is ugly
     if (myNBNode.getIncomingEdges().size() == 2 && myNBNode.getOutgoingEdges().size() == 2) {
