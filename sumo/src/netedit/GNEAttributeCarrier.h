@@ -255,124 +255,129 @@ public:
 
     /// @brief Parse attribute from XML and show warnings if there are problems parsing it
     template <typename T>
-    static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const char* objectid, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort, bool report = true) {
-        bool ok = true;
-        std::string parsedAttribute = "0";
-        // only show one warning for every error/warning loading additional
-        if (!abort) {
-            // set additionalOfWarningMessage
-            std::string additionalOfWarningMessage;
-            if (objectid) {
-                additionalOfWarningMessage = toString(tag) + " with ID '" + toString(objectid) + "'";
-            } else {
-                additionalOfWarningMessage = toString(tag);
+    static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string &objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort, bool report = true) {
+        bool parsedOk = true;
+        std::string parsedAttribute = "";
+        // set additionalOfWarningMessage
+        std::string additionalOfWarningMessage;
+        if (objectID == "") {
+            additionalOfWarningMessage = toString(tag) + " with ID '" + objectID + "'";
+        } else {
+            additionalOfWarningMessage = toString(tag);
+        }
+        // first check what kind of default value has to be give if parsing isn't valid (needed to avoid exceptions)
+        if(isInt(tag, attribute) || isFloat(tag, attribute) || isTime(tag, attribute)) {
+            parsedAttribute = "0";
+        } else if (isColor(tag, attribute)) {
+            parsedAttribute = "BLACK";
+        }
+        // first check that attribute exists in XML
+        if (attrs.hasAttribute(attribute)) {
+            // First check if attribute can be parsed to string
+            parsedAttribute = attrs.get<std::string>(attribute, objectID.c_str(), parsedOk, false);
+            // check that sucesfully parsed attribute can be converted to type T
+            if (parsedOk && !canParse<T>(parsedAttribute)) {
+                parsedOk = false;
             }
-            // first check that attribute exists
-            if (attrs.hasAttribute(attribute)) {
-                // Parse attribute as string
-                parsedAttribute = attrs.get<std::string>(attribute, objectid, ok, false);
-                // check that parsed attribute can be converted to type T
-                if (ok && !canParse<T>(parsedAttribute)) {
-                    ok = false;
-                }
-                std::string errorFormat;
-                // Set extra checks for int values
-                if (isInt(tag, attribute)) {
-                    if (canParse<int>(parsedAttribute)) {
-                        // parse to int and check if can be negative
-                        int parsedIntAttribute = parse<int>(parsedAttribute);
-                        if (isPositive(tag, attribute) && parsedIntAttribute < 0) {
-                            errorFormat = "Cannot be negative; ";
-                            ok = false;
-                        }
-                    } else {
-                        errorFormat = "Cannot be parsed to int; ";
-                        ok = false;
+            // declare a string for details about error formats
+            std::string errorFormat;
+            // Set extra checks for int values
+            if (isInt(tag, attribute)) {
+                if (canParse<int>(parsedAttribute)) {
+                    // parse to int and check if can be negative
+                    int parsedIntAttribute = parse<int>(parsedAttribute);
+                    if (isPositive(tag, attribute) && parsedIntAttribute < 0) {
+                        errorFormat = "Cannot be negative; ";
+                        parsedOk = false;
                     }
+                } else if (canParse<double>(parsedAttribute)) {
+                    errorFormat = "Float cannot be reinterpreted as int; ";
+                    parsedOk = false;
+                } else {
+                    errorFormat = "Cannot be parsed to int; ";
+                    parsedOk = false;
                 }
-                // Set extra checks for float(double) values
-                if (isFloat(tag, attribute)) {
-                    if (canParse<double>(parsedAttribute)) {
-                        // parse to double and check if can be negative
-                        double parsedSumoRealAttribute = parse<double>(parsedAttribute);
-                        if (isPositive(tag, attribute) && parsedSumoRealAttribute < 0) {
-                            errorFormat = "Cannot be negative; ";
-                            ok = false;
-                        }
-                    } else {
-                        errorFormat = "Cannot be parsed to float; ";
-                        ok = false;
+            }
+            // Set extra checks for float(double) values
+            if (isFloat(tag, attribute)) {
+                if (canParse<double>(parsedAttribute)) {
+                    // parse to double and check if can be negative
+                    if (isPositive(tag, attribute) && parse<double>(parsedAttribute) < 0) {
+                        errorFormat = "Cannot be negative; ";
+                        parsedOk = false;
                     }
+                } else {
+                    errorFormat = "Cannot be parsed to float; ";
+                    parsedOk = false;
                 }
-                // set extra check for time(double) values
-                if (isTime(tag, attribute)) {
-                    if (canParse<double>(parsedAttribute)) {
-                        // parse to SUMO Real and check if is negative
-                        double parsedSumoRealAttribute = parse<double>(parsedAttribute);
-                        if (parsedSumoRealAttribute < 0) {
-                            errorFormat = "Time cannot be negative; ";
-                            ok = false;
-                        }
-                    } else {
-                        errorFormat = "Cannot be parsed to time; ";
-                        ok = false;
+            }
+            // set extra check for time(double) values
+            if (isTime(tag, attribute)) {
+                if (canParse<double>(parsedAttribute)) {
+                    // parse to SUMO Real and check if is negative
+                    if (parse<double>(parsedAttribute) < 0) {
+                        errorFormat = "Time cannot be negative; ";
+                        parsedOk = false;
                     }
+                } else {
+                    errorFormat = "Cannot be parsed to time; ";
+                    parsedOk = false;
                 }
-                // set extra check for color values
-                if (isColor(tag, attribute) && !canParse<RGBColor>(parsedAttribute)) {
-                    errorFormat = "Invalid RGB format or named color; ";
-                    ok = false;
-                }
-                // set extra check for filename values
-                if (isFilename(tag, attribute) && (isValidFilename(parsedAttribute) == false)) {
-                    errorFormat = "Filename contains invalid characters; ";
-                    ok = false;
-                }
-                // set extra check for Vehicle Classes
-                if ((!ok) && (attribute == SUMO_ATTR_VCLASS)) {
-                    errorFormat = "Is not a part of defined set of Vehicle Classes; ";
-                }
-                // set extra check for Vehicle Classes
-                if ((!ok) && (attribute == SUMO_ATTR_GUISHAPE)) {
-                    errorFormat = "Is not a part of defined set of Gui Vehicle Shapes; ";
-                }
-                // set extra check for RouteProbes
-                if ((attribute == SUMO_ATTR_ROUTEPROBE) && !isValidID(parsedAttribute)) {
-                    errorFormat = "RouteProbe ID contains invalid characters; ";
-                    ok = false;
-                }
-                // If attribute has an invalid format
-                if (!ok) {
-                    // if attribute has a default value, take it as string. In other case, abort.
-                    if (hasDefaultValue(tag, attribute)) {
-                        parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
-                        // report warning of default value
-                        if (report) {
-                            WRITE_WARNING("Format of optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                          additionalOfWarningMessage + " is invalid; " + errorFormat + "Default value '" + toString(parsedAttribute) + "' will be used.");
-                        }
-                    } else {
-                        WRITE_WARNING("Format of essential " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                      additionalOfWarningMessage +  " is invalid; " + errorFormat + "" + toString(tag) + " cannot be created");
-                        // set default value of parsedAttribute (to avoid exceptions during conversions)
-                        parsedAttribute = "0";
-                        abort = true;
-                    }
-                }
-            } else {
-                // if attribute has a default value, take it. In other case, abort.
+            }
+            // set extra check for color values
+            if (isColor(tag, attribute) && !canParse<RGBColor>(parsedAttribute)) {
+                errorFormat = "Invalid RGB format or named color; ";
+                parsedOk = false;
+            }
+            // set extra check for filename values
+            if (isFilename(tag, attribute) && (isValidFilename(parsedAttribute) == false)) {
+                errorFormat = "Filename contains invalid characters; ";
+                parsedOk = false;
+            }
+            // set extra check for Vehicle Classes
+            if ((!parsedOk) && (attribute == SUMO_ATTR_VCLASS)) {
+                errorFormat = "Is not a part of defined set of Vehicle Classes; ";
+            }
+            // set extra check for Vehicle Classes
+            if ((!parsedOk) && (attribute == SUMO_ATTR_GUISHAPE)) {
+                errorFormat = "Is not a part of defined set of Gui Vehicle Shapes; ";
+            }
+            // set extra check for RouteProbes
+            if ((attribute == SUMO_ATTR_ROUTEPROBE) && !isValidID(parsedAttribute)) {
+                errorFormat = "RouteProbe ID contains invalid characters; ";
+                parsedOk = false;
+            }
+            // If attribute has an invalid format
+            if (!parsedOk) {
+                // if attribute has a default value, take it as string. In other case, abort.
                 if (hasDefaultValue(tag, attribute)) {
                     parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
                     // report warning of default value
                     if (report) {
-                        WRITE_WARNING("Optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                      additionalOfWarningMessage + " is missing; Default value '" + toString(parsedAttribute) + "' will be used.");
+                        WRITE_WARNING("Format of optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
+                                        additionalOfWarningMessage + " is invalid; " + errorFormat + "Default value '" + toString(parsedAttribute) + "' will be used.");
                     }
                 } else {
-                    WRITE_WARNING("Essential " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                  additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
+                    WRITE_WARNING("Format of essential " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
+                                    additionalOfWarningMessage +  " is invalid; " + errorFormat + "" + toString(tag) + " cannot be created");
+                    // abort parsing of element
                     abort = true;
                 }
+            }
+        } else {
+            // if attribute has a default value, take it. In other case, abort.
+            if (hasDefaultValue(tag, attribute)) {
+                parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
+                // report warning of default value
+                if (report) {
+                    WRITE_WARNING("Optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
+                                    additionalOfWarningMessage + " is missing; Default value '" + toString(parsedAttribute) + "' will be used.");
+                }
+            } else {
+                WRITE_WARNING("Essential " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
+                                additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
+                // abort parsing of element
+                abort = true;
             }
         }
         // return parsed attribute
