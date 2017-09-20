@@ -12,9 +12,9 @@ SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2010-2017 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
-SUMO is free software; you can redistribute it and/or modify
+SUMO is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 3 of the License, or
+the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import absolute_import
@@ -36,7 +36,7 @@ try:
 except ImportError:
     HAVE_AUTOPEP = False
 
-_SOURCE_EXT = [".h", ".cpp", ".py", ".pl", ".java", ".am", ".cs"]
+_SOURCE_EXT = [".h", ".cpp", ".py", ".pyw", ".pl", ".java", ".am", ".cs"]
 _TESTDATA_EXT = [".xml", ".prog", ".csv",
                  ".complex", ".dfrouter", ".duarouter", ".jtrrouter", ".marouter",
                  ".astar", ".chrouter", ".internal", ".tcl", ".txt",
@@ -119,15 +119,68 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 if fileLicense != license:
                     print(self._file, "invalid license")
                     if options.verbose:
-                        print("".join(lines[idx:idx + 12]))
+                        print(fileLicense)
                         print(license)
             else:
                 if len(lines) == 0:
                     print(self._file, "is empty")
                 else:
                     print(self._file, "header does not start")
-            if haveFixed:
-                open(self._file, "w").write("".join(lines))
+        if ext in (".py", ".pyw"):
+            lines = open(self._file).readlines()
+            if len(lines) == 0:
+                print(self._file, "is empty")
+            else:
+                idx = 0
+                if lines[0][:2] == '#!':
+                    idx += 1
+                    if lines[0] != '#!/usr/bin/env python\n':
+                        print(self._file, "wrong shebang")
+                        if self._fix:
+                            lines[0] = '#!/usr/bin/env python\n'
+                            haveFixed = True
+                if lines[idx] != '"""\n':
+                    print(self._file, "header does not start")
+                else:
+                    idx += 1
+                    fileRef = "@file    %s\n" % os.path.basename(self._file)
+                    if lines[idx] != fileRef:
+                        print(self._file, "broken @file reference", lines[idx].rstrip())
+                        if self._fix and lines[idx].startswith("/// @file"):
+                            lines[idx] = fileRef
+                            haveFixed = True
+                    idx += 1
+                    if not lines[idx].startswith("@author "):
+                        print(self._file, "broken @author reference", lines[idx].rstrip())
+                    idx += 1
+                    while lines[idx].startswith("@author "):
+                        idx += 1
+                    if not lines[idx].startswith("@date "):
+                        print(self._file, "broken @date reference", lines[idx].rstrip())
+                    idx += 1
+                    if not lines[idx].startswith("@version "):
+                        print(self._file, "broken @version reference", lines[idx].rstrip())
+                    idx += 1
+                    if lines[idx] != "\n":
+                        print(self._file, "missing empty line", idx, lines[idx].rstrip())
+                    idx += 1
+                    while lines[idx] != "\n":
+                        idx += 1
+                    year = lines[idx + 2][14:18]
+                    license = "\n" + LICENSE_HEADER.replace("2001", year).replace(SEPARATOR, "")
+                    license = license.replace("//   ", "").replace("// ", "").replace("\n//", "\n")[:-1]
+                    if "module" in lines[idx + 3]:
+                        fileLicense = "".join(lines[idx:idx + 3]) + "".join(lines[idx + 5:idx + 11])
+                    else:
+                        fileLicense = "".join(lines[idx:idx + 9])
+                    if fileLicense != license:
+                        print(self._file, "invalid license")
+                        if options.verbose:
+                            print("!!%s!!" % os.path.commonprefix([fileLicense, license]))
+                            print(fileLicense)
+                            print(license)
+        if haveFixed:
+            open(self._file, "w").write("".join(lines))
 
     def startElement(self, name, attrs):
         if name == 'target':
@@ -190,7 +243,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     if self._fix:
                         subprocess.call(
                             ["svn", "ps", "svn:eol-style", "CRLF", self._file])
-            if name == 'target' and ext == ".py"and "/contributed/" not in self._file:
+            if name == 'target' and ext == ".py" and "/contributed/" not in self._file:
                 if HAVE_FLAKE and os.path.getsize(self._file) < 1000000:  # flake hangs on very large files
                     subprocess.call(["flake8", "--max-line-length", "120", self._file])
                 if HAVE_AUTOPEP and self._fix:
