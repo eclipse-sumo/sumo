@@ -16,9 +16,9 @@ SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2007-2017 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
-SUMO is free software: you can redistribute it and/or modify
+SUMO is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
+the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import absolute_import
@@ -275,9 +275,9 @@ class Net:
                 outf.write('<detectors>\n')
                 freq = options.interval * 60 if options.interval else 24 * 3600
                 for source in foundSources:
-                    outf.write('   <e1Detector id="%s_0" lane="%s_0" pos="0" type="source" file="NUL" freq="%s"/>\n' % (source, source, freq))
+                    outf.write('   <e1Detector id="%s_0" lane="%s_0" pos="1" type="source" friendlyPos="true" file="NUL" freq="%s"/>\n' % (source, source, freq))
                 for sink in foundSinks:
-                    outf.write('   <e1Detector id="%s_0" lane="%s_0" pos="0" type="sink" file="NUL" freq="%s"/>\n' % (sink, sink, freq))
+                    outf.write('   <e1Detector id="%s_0" lane="%s_0" pos="-1" type="sink" friendlyPos="true" file="NUL" freq="%s"/>\n' % (sink, sink, freq))
                 outf.write('</detectors>\n')
 
         if len(self._sink.inEdges) == 0:
