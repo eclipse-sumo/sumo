@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    runSikulixServer.py
+@file    setup-sumolib.py
 @author  Dominik Buse
 @author  Michael Behrisch
 @date    2017-01-26

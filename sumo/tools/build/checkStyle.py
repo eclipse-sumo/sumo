@@ -146,7 +146,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     fileRef = "@file    %s\n" % os.path.basename(self._file)
                     if lines[idx] != fileRef:
                         print(self._file, "broken @file reference", lines[idx].rstrip())
-                        if self._fix and lines[idx].startswith("/// @file"):
+                        if self._fix and lines[idx].startswith("@file"):
                             lines[idx] = fileRef
                             haveFixed = True
                     idx += 1
