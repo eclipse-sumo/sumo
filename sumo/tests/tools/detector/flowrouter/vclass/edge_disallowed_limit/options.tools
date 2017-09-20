@@ -1,0 +1,5 @@
+-n three_split.net.xml -d input_detectors.det.xml -f input_flows.txt
+-o out.rou.xml -e out.flows.xml
+--verbose
+--limit 10
+--vclass passenger
