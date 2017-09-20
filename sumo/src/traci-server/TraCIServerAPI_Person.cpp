@@ -311,7 +311,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 if (!server.readTypeCheckingString(inputStorage, stopID)) {
                     return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
                 }
-                TraCI_Person::appendWaitingStage(id, duration, description, stopID);
+                TraCI_Person::appendWaitingStage(id, STEPS2TIME(duration), description, stopID);
             } else if (stageType == MSTransportable::MOVING_WITHOUT_VEHICLE) {
                 // append walking stage
                 if (numParameters != 6) {
@@ -337,7 +337,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 if (!server.readTypeCheckingString(inputStorage, stopID)) {
                     return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
                 }
-                TraCI_Person::appendWalkingStage(id,edgeIDs,arrivalPos,duration,speed,stopID);
+                TraCI_Person::appendWalkingStage(id,edgeIDs,arrivalPos, STEPS2TIME(duration), speed,stopID);
             } else {
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Invalid stage type for person '" + id + "'", outputStorage);
             }

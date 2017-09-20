@@ -226,7 +226,7 @@ TraCI_Person::add(const std::string& personID, const std::string& edgeID, double
     }
 
     if (depart < 0) {
-        const int proc = -depart;
+        const int proc = (int)-depart;
         if (proc >= static_cast<int>(DEPART_DEF_MAX)) {
             throw TraCIException("Invalid departure time.");
         }
@@ -298,7 +298,7 @@ TraCI_Person::appendWaitingStage(const std::string& personID, double duration, c
             throw TraCIException("Invalid stopping place id '" + stopID + "' for person: '" + personID + "'");
         }
     }
-    p->appendStage(new MSTransportable::Stage_Waiting(*p->getArrivalEdge(), duration, 0, p->getArrivalPos(), description, false));
+    p->appendStage(new MSTransportable::Stage_Waiting(*p->getArrivalEdge(), TIME2STEPS(duration), 0, p->getArrivalPos(), description, false));
 }
 
 
@@ -330,7 +330,7 @@ TraCI_Person::appendWalkingStage(const std::string& personID, const std::vector<
             throw TraCIException("Invalid stopping place id '" + stopID + "' for person: '" + personID + "'");
         }
     }
-    p->appendStage(new MSPerson::MSPersonStage_Walking(edges, bs, duration, speed, p->getArrivalPos(), arrivalPos, 0));
+    p->appendStage(new MSPerson::MSPersonStage_Walking(edges, bs, TIME2STEPS(duration), speed, p->getArrivalPos(), arrivalPos, 0));
 }
 
 
