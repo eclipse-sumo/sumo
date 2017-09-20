@@ -1,8 +1,7 @@
 Warning: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Adding calibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator_gneE1_1_1' in GNEChange_Additional
-Warning: Adding calibrator 'calibrator_gneE1_2_2' in GNEChange_Additional
+Warning: Adding laneCalibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator_gneE1_1' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_gneE1_2_0' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
 Warning: Adding e1Detector 'e1Detector_gneE0_2_0' in GNEChange_Additional
@@ -13,7 +12,7 @@ Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
-Warning: Format of optional string attribute 'lanes' of variableSpeedSign with ID 'variableSpeedSign_0' is invalid; Default value '' will be used.
+Warning: Format of optional string attribute 'lanes' of variableSpeedSign is invalid; Default value '' will be used.
 Warning: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
 Warning: Setting new attribute length '25' into edge 'gneE1'
 Warning: Setting new attribute length '25' into edge 'gneE0'
@@ -32,9 +31,8 @@ Warning: Deleting unreferenced e2Detector 'e2Detector_gneE0_1_0'
 Warning: Deleting unreferenced e1Detector 'e1Detector_gneE0_2_0'
 Warning: Deleting unreferenced containerStop 'containerStop_gneE1_1_0'
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE1_2_0'
-Warning: Deleting unreferenced calibrator 'calibrator_gneE1_2_2'
-Warning: Deleting unreferenced calibrator 'calibrator_gneE1_1_1'
-Warning: Deleting unreferenced calibrator 'calibrator_gneE1_0_0'
+Warning: Deleting unreferenced calibrator 'calibrator_gneE1_1'
+Warning: Deleting unreferenced laneCalibrator 'calibrator_gneE1_0_0'
 Warning: Deleting unreferenced busStop 'busStop_gneE1_0_0'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

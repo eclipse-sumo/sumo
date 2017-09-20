@@ -4,7 +4,6 @@ Warning: Additionals has to be saved
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Value 'dummyLane' for attribute lane of detEntry isn't valid
 Warning: Value '' for attribute lane of detEntry isn't valid
-Warning: Value '' for attribute lane of detEntry isn't valid
 Warning: Value 'dummy position' for attribute pos of detEntry isn't valid
 Warning: Value '' for attribute pos of detEntry isn't valid
 Warning: Setting new attribute pos '25' into detEntry 'e3Detector_0detEntry0'

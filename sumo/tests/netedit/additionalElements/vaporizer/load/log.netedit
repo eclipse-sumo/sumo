@@ -1,24 +1,24 @@
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Essential string attribute 'edge' of vaporizer is missing; vaporizer cannot be created
+Warning: Essential string attribute 'edge' of vaporizer with ID '' is missing; vaporizer cannot be created
 Warning: The edge 'dummyEdge' to use within the vaporizer is not known.
 Warning: Adding vaporizer 'vaporizer_1' in GNEChange_Additional
-Warning: Optional time attribute 'startTime' of vaporizer is missing; Default value '0.00' will be used.
+Warning: Optional time attribute 'startTime' of vaporizer with ID '' is missing; Default value '0.00' will be used.
 Warning: Adding vaporizer 'vaporizer_2' in GNEChange_Additional
-Warning: Optional time attribute 'startTime' of vaporizer is missing; Default value '0.00' will be used.
+Warning: Optional time attribute 'startTime' of vaporizer with ID '' is missing; Default value '0.00' will be used.
 Warning: Adding vaporizer 'vaporizer_3' in GNEChange_Additional
-Warning: Format of optional time attribute 'startTime' of vaporizer is invalid; Cannot be parsed to time; Default value '0.00' will be used.
+Warning: Format of optional time attribute 'startTime' of vaporizer with ID '' is invalid; Cannot be parsed to time; Default value '0.00' will be used.
 Warning: Adding vaporizer 'vaporizer_4' in GNEChange_Additional
-Warning: Format of optional time attribute 'startTime' of vaporizer is invalid; Time cannot be negative; Default value '0.00' will be used.
+Warning: Format of optional time attribute 'startTime' of vaporizer with ID '' is invalid; Time cannot be negative; Default value '0.00' will be used.
 Warning: Adding vaporizer 'vaporizer_5' in GNEChange_Additional
 Warning: Adding vaporizer 'vaporizer_6' in GNEChange_Additional
-Warning: Optional time attribute 'end' of vaporizer is missing; Default value '10.00' will be used.
+Warning: Optional time attribute 'end' of vaporizer with ID '' is missing; Default value '10.00' will be used.
 Warning: Adding vaporizer 'vaporizer_7' in GNEChange_Additional
-Warning: Optional time attribute 'end' of vaporizer is missing; Default value '10.00' will be used.
+Warning: Optional time attribute 'end' of vaporizer with ID '' is missing; Default value '10.00' will be used.
 Warning: Time interval of vaporizer isn't valid. Attribute 'startTime' is greater than attribute 'end'.
-Warning: Format of optional time attribute 'end' of vaporizer is invalid; Cannot be parsed to time; Default value '10.00' will be used.
+Warning: Format of optional time attribute 'end' of vaporizer with ID '' is invalid; Cannot be parsed to time; Default value '10.00' will be used.
 Warning: Adding vaporizer 'vaporizer_8' in GNEChange_Additional
-Warning: Format of optional time attribute 'end' of vaporizer is invalid; Time cannot be negative; Default value '10.00' will be used.
+Warning: Format of optional time attribute 'end' of vaporizer with ID '' is invalid; Time cannot be negative; Default value '10.00' will be used.
 Warning: Adding vaporizer 'vaporizer_9' in GNEChange_Additional
 Warning: Adding vaporizer 'vaporizer_10' in GNEChange_Additional
 Warning: Time interval of vaporizer isn't valid. Attribute 'startTime' is greater than attribute 'end'.
