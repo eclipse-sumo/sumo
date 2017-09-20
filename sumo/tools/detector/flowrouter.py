@@ -291,7 +291,7 @@ class Net:
             if not options.respectzero and edge.capacity == 0:
                 edge.capacity = sys.maxsize
             edge.startCapacity = edge.capacity
-            flowRestriction = sys.maxsize
+            flowRestriction = sys.maxsize if edge.numLanes > 0 else 0
             if options.maxflow:
                 flowRestriction = int(options.maxflow * edge.numLanes * options.interval / 60)
             if options.maxturnflow and edge.linkDir == 't':
