@@ -604,13 +604,10 @@ class Net:
                         if edge.startCapacity < sys.maxsize:
                             while edge.flow < edge.capacity and self.pullFlow(edge, limitSource, limitSink, allowBackward):
                                 pathFound = True
-        if allowBackward:
-            # route restrictions invalidated flow invariants so we skip the check then
+        if DEBUG:
             self.testFlowInvariants()
         self.consolidateRoutes()
-        # run again (once) if restricted routes were removed
-        if self.applyRouteRestrictions() and allowBackward:
-            self.calcRoutes(False)
+        self.testFlowInvariants()
 
     def consolidateRoutes(self):
         for edge in self._source.outEdges:
@@ -619,6 +616,8 @@ class Net:
                 key = tuple([e.label for e in route.edges if e.kind == "real"])
                 if key in routeByEdges:
                     routeByEdges[key].frequency += route.frequency
+                    for e in route.edges[1:]:
+                        e.routes.remove(route)
                 elif route.frequency > 0:
                     routeByEdges[key] = route
             edge.routes = sorted(routeByEdges.values())
@@ -638,12 +637,17 @@ class Net:
                     removed = True
                     for e in route.edges:
                         e.flow -= surplus
+                    for e in route.edges[1:]:
+                        if restriction == 0:
+                            e.routes.remove(route)
                     if restriction == 0:
                         deleteRoute.append(route)
                     else:
                         route.frequency = restriction
             if deleteRoute:
                 edge.routes = [r for r in edge.routes if not r in deleteRoute]
+        if DEBUG:
+            self.testFlowInvariants()
         return removed
 
     def writeRoutes(self, routeOut, suffix=""):
@@ -968,6 +972,9 @@ if net.detectSourceSink(sources, sinks):
                     print("Calculating routes")
                 net.initNet()
                 net.calcRoutes()
+                # run again (in forward only mode) if restricted routes were removed
+                if net.applyRouteRestrictions():
+                    net.calcRoutes(False)
                 net.writeRoutes(routeOut, suffix)
                 net.writeEmitters(
                     emitOut, 60 * start, 60 * (start + options.interval), suffix)
@@ -987,6 +994,9 @@ if net.detectSourceSink(sources, sinks):
             print("Calculating routes")
         net.initNet()
         net.calcRoutes()
+        # run again (in forward only mode) if restricted routes were removed
+        if net.applyRouteRestrictions():
+            net.calcRoutes(False)
         net.writeRoutes(routeOut, "." + options.flowcol)
         net.writeEmitters(emitOut, suffix=options.flowcol)
         net.writeFlowPOIs(poiOut)
