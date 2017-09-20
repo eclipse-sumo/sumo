@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 20.09.2017 09:50:29 by Netedit Version dev-SVN-r22743
+<!-- generated on 20.09.2017 10:03:09 by Netedit Version dev-SVN-r22743
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Sep095018.1080/netedit.gui/bugs/problem_volatilerecomputing\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Sep095018.1080/netedit.gui/bugs/problem_volatilerecomputing\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Sep100258.5680/netedit.gui/bugs/problem_volatilerecomputing\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Sep100258.5680/netedit.gui/bugs/problem_volatilerecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Sep095018.1080/netedit.gui/bugs/problem_volatilerecomputing\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Sep095018.1080/netedit.gui/bugs/problem_volatilerecomputing\shapes.xml"/>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Sep095018.1080/netedit.gui/bugs/problem_volatilerecomputing\net.net.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Sep100258.5680/netedit.gui/bugs/problem_volatilerecomputing\additionals.xml"/>
+        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Sep100258.5680/netedit.gui/bugs/problem_volatilerecomputing\shapes.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Sep100258.5680/netedit.gui/bugs/problem_volatilerecomputing\net.net.xml"/>
     </output>
 
     <processing>
@@ -37,7 +37,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Sep095018.1080/netedit.gui/bugs/problem_volatilerecomputing\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Sep100258.5680/netedit.gui/bugs/problem_volatilerecomputing\log.txt"/>
     </report>
 
 </configuration>
