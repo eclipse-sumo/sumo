@@ -77,18 +77,26 @@ def main():
         for line in sumolib.output.parse(options.ptlines, 'ptLine'):
 
             stops = line._child_dict['busStop']
-            fr = ''
+            fr = None
+            to = None
             stop_ids = []
             for stop in stops:
+                if not stop.id in stopsLanes:
+                    sys.stderr.write("Warning: skipping uknown stop '%s'\n" % stop.id)
+                    continue
                 laneId = stopsLanes[stop.id]
                 edge_id, lane_index = laneId.rsplit("_", 1)
-                if fr == '':
+                if fr == None:
                     fr = edge_id
                     dep_lane = laneId
 
                 to = edge_id
                 edge = net.getEdge(edge_id)
                 stop_ids.append(stop.id)
+
+            if fr is None:
+                sys.stderr.write("Warning: skipping line '%s' because it has no stops\n" % line.id)
+                continue
 
             if options.osmRoutes and 'route' in line._child_dict:
                 route = line._child_dict['route']
