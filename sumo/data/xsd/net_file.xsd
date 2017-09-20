@@ -101,6 +101,7 @@
     <xsd:complexType name="junctionType">
         <xsd:sequence>
             <xsd:element name="request" type="requestType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="x" type="xsd:float" use="required"/>
