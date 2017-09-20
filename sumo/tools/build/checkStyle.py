@@ -164,15 +164,15 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     if lines[idx] != "\n":
                         print(self._file, "missing empty line", idx, lines[idx].rstrip())
                     idx += 1
-                    while lines[idx] != "\n":
+                    while lines[idx][:4] != "SUMO":
                         idx += 1
-                    year = lines[idx + 2][14:18]
-                    license = "\n" + LICENSE_HEADER.replace("2001", year).replace(SEPARATOR, "")
+                    year = lines[idx + 1][14:18]
+                    license = LICENSE_HEADER.replace("2001", year).replace(SEPARATOR, "")
                     license = license.replace("//   ", "").replace("// ", "").replace("\n//", "\n")[:-1]
                     if "module" in lines[idx + 3]:
                         fileLicense = "".join(lines[idx:idx + 3]) + "".join(lines[idx + 5:idx + 11])
                     else:
-                        fileLicense = "".join(lines[idx:idx + 9])
+                        fileLicense = "".join(lines[idx:idx + 8])
                     if fileLicense != license:
                         print(self._file, "invalid license")
                         if options.verbose:
@@ -201,7 +201,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             self._hadKeywords = True
         if os.path.basename(self._file) not in _IGNORE:
             if ext in _SOURCE_EXT or ext in _TESTDATA_EXT or ext in _VS_EXT:
-                if name == 'property' and self._property == "svn:executable" and ext not in [".py", ".pl", ".bat"]:
+                if name == 'property' and self._property == "svn:executable" and ext not in (".py", ".pyw", ".pl", ".bat"):
                     print(self._file, self._property, self._value)
                     if self._fix:
                         subprocess.call(

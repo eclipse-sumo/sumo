@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """
 @file    setup-traci.py
-@date    2017-01-26
 @author  Dominik Buse
 @author  Michael Behrisch
+@date    2017-01-26
 @version $Id$
 
 setuptool based setup module for SUMO's TraCI python client library
