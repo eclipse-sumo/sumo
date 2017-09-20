@@ -257,19 +257,19 @@ public:
     template <typename T>
     static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string &objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort, bool report = true) {
         bool parsedOk = true;
-        std::string parsedAttribute = "";
+        std::string defaultValue, parsedAttribute;
         // set additionalOfWarningMessage
         std::string additionalOfWarningMessage;
-        if (objectID == "") {
+        if (objectID != "") {
             additionalOfWarningMessage = toString(tag) + " with ID '" + objectID + "'";
         } else {
             additionalOfWarningMessage = toString(tag);
         }
         // first check what kind of default value has to be give if parsing isn't valid (needed to avoid exceptions)
         if(isInt(tag, attribute) || isFloat(tag, attribute) || isTime(tag, attribute)) {
-            parsedAttribute = "0";
+            defaultValue = "0";
         } else if (isColor(tag, attribute)) {
-            parsedAttribute = "BLACK";
+            defaultValue = "BLACK";
         }
         // first check that attribute exists in XML
         if (attrs.hasAttribute(attribute)) {
@@ -278,6 +278,7 @@ public:
             // check that sucesfully parsed attribute can be converted to type T
             if (parsedOk && !canParse<T>(parsedAttribute)) {
                 parsedOk = false;
+                parsedAttribute = defaultValue;
             }
             // declare a string for details about error formats
             std::string errorFormat;
@@ -362,6 +363,8 @@ public:
                                     additionalOfWarningMessage +  " is invalid; " + errorFormat + "" + toString(tag) + " cannot be created");
                     // abort parsing of element
                     abort = true;
+                    // set default value
+                    parsedAttribute = defaultValue;
                 }
             }
         } else {
@@ -378,6 +381,8 @@ public:
                                 additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
                 // abort parsing of element
                 abort = true;
+                // set default value
+                parsedAttribute = defaultValue;
             }
         }
         // return parsed attribute
