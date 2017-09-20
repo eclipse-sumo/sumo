@@ -37,6 +37,12 @@ def _prefix_keyword(name, warn=False):
         if warn:
             print("Warning: Renaming attribute '%s' to '%s' because it contains illegal characters" % (
                 name, result), file=sys.stderr)
+    if name == "name":
+        result = 'attr_name'
+        if warn:
+            print("Warning: Renaming attribute '%s' to '%s' because it conflicts with a reserved field" % (
+                name, result), file=sys.stderr)
+
     if iskeyword(name):
         result = 'attr_' + name
         if warn:
@@ -114,7 +120,7 @@ def compound_object(element_name, attrnames, warn=False):
             return "<%s,child_dict=%s>" % (self.getAttributes(), dict(self._child_dict))
 
         def toXML(self, initialIndent="", indent="    "):
-            fields = ['%s="%s"' % (self._original_fields[i], getattr(self, k))
+            fields = ['%s="%s"' % (self._original_fields[i], getattr(self, k).encode('utf8'))
                       for i, k in enumerate(self._fields) if getattr(self, k) is not None]
             if not self._child_dict:
                 return "%s<%s %s/>\n" % (initialIndent, element_name, " ".join(fields))
