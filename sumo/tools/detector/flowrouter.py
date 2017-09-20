@@ -73,7 +73,7 @@ class Vertex:
         else:
             numSatEdges = edge.target.gain // edge.target.flowDelta
             self.gain = numSatEdges * flow
-            if edge.capacity < sys.maxsize:
+            if edge.startCapacity < sys.maxsize:
                 self.gain -= flow
 
     def __repr__(self):
@@ -295,7 +295,7 @@ class Net:
             if options.maxturnflow and edge.linkDir == 't':
                 flowRestriction = int(options.maxturnflow * options.interval / 60)
             if edge.label in self._edgeRestriction:
-                flowRestriction = self._edgeRestriction[edge.label] * options.interval / 60
+                flowRestriction = int(self._edgeRestriction[edge.label] * options.interval / 60)
             edge.capacity = min(edge.capacity, flowRestriction)
         for edge in self._edges.values():
             edge.reset()
@@ -313,7 +313,7 @@ class Net:
             if options.maxturnflow and edge.linkDir == 't':
                 flowRestriction = int(options.maxturnflow * options.interval / 60)
             if edge.label in self._edgeRestriction:
-                flowRestriction = self._edgeRestriction[edge.label] * options.interval / 60
+                flowRestriction = int(self._edgeRestriction[edge.label] * options.interval / 60)
             edge.capacity = min(edge.capacity, flowRestriction)
         # collect limited source edges
         for s in self._source.outEdges:
