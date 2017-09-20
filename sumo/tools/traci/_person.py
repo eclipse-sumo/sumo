@@ -224,7 +224,7 @@ class PersonDomain(Domain):
         self._connection._sendExact()
 
     def appendWaitingStage(self, personID, duration, description="waiting", stopID=""):
-        """appendWaitingStage(string, int, string, string)
+        """appendWaitingStage(string, float, string, string)
         Appends a waiting stage with duration in s to the plan of the given person
         """
         duration *= 1000
