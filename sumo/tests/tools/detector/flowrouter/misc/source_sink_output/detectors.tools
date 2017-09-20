@@ -1,0 +1,3 @@
+<detectors>
+   <e1Detector id="A_0" lane="A_0" pos="0" type="source" file="NUL" freq="86400"/>
+</detectors>

@@ -259,11 +259,27 @@ class Net:
             self.addSourceEdge(self.getEdge(id))
         for id in sorted(sinks):
             self.addSinkEdge(self.getEdge(id))
+        foundSources = []
+        foundSinks = []
         for edgeObj in sorted(self._edges.values()):
             if len(sources) == 0 and (len(edgeObj.source.inEdges) == 0 or edgeObj in self._possibleSources):
                 self.addSourceEdge(edgeObj)
+                if edgeObj.numLanes > 0:
+                    foundSources.append(edgeObj.label)
             if len(sinks) == 0 and (len(edgeObj.target.outEdges) == 0 or edgeObj in self._possibleSinks):
                 self.addSinkEdge(edgeObj)
+                if edgeObj.numLanes > 0:
+                    foundSinks.append(edgeObj.label)
+        if options.source_sink_output:
+            with open(options.source_sink_output, 'w') as outf:
+                outf.write('<detectors>\n')
+                freq = options.interval * 60 if options.interval else 24 * 3600
+                for source in foundSources:
+                    outf.write('   <e1Detector id="%s_0" lane="%s_0" pos="0" type="source" file="NUL" freq="%s"/>\n' % (source, source, freq))
+                for sink in foundSinks:
+                    outf.write('   <e1Detector id="%s_0" lane="%s_0" pos="0" type="sink" file="NUL" freq="%s"/>\n' % (sink, sink, freq))
+                outf.write('</detectors>\n')
+
         if len(self._sink.inEdges) == 0:
             print("Error! No sinks found.")
             return False
@@ -878,6 +894,8 @@ optParser.add_option("-t", "--trimmed-output", dest="trimfile",
                      help="write edges of trimmed network to FILE", metavar="FILE")
 optParser.add_option("-p", "--flow-poi-output", dest="flowpoifile",
                      help="write resulting flows as SUMO POIs to FILE", metavar="FILE")
+optParser.add_option("--source-sink-output", dest="source_sink_output",
+                     help="write sources and sinks in detector format to FILE", metavar="FILE")
 optParser.add_option("-m", "--min-speed", type="float", dest="minspeed",
                      default=0.0, help="only consider edges where the fastest lane allows at least this maxspeed (m/s)")
 optParser.add_option("-M", "--max-flow", type="int", dest="maxflow",
