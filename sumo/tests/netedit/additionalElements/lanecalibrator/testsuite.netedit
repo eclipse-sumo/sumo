@@ -15,7 +15,7 @@ create
 load
 
 # load calibrator's values
-#load_values
+load_values
 
 # volatile recomputing
 volatileRecomputing
