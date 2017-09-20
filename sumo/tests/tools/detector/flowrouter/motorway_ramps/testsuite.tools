@@ -31,3 +31,6 @@ random
 
 # set detectors as via-edges
 via-detectors
+
+# only flow on the main motorway
+debug

@@ -904,6 +904,7 @@ optParser.add_option("--via-detectors", action="store_true", dest="viadetectors"
                      default=False, help="set used detectors as via-edges for generated flows")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
+optParser.add_option("--debug", action="store_true", default=False, help="tell me what you are doing in high detail")
 (options, args) = optParser.parse_args()
 if not options.netfile or not options.detfile or not options.flowfiles:
     optParser.print_help()
@@ -915,6 +916,8 @@ if (options.restrictionfile is not None or options.maxflow is not None) and opti
     print("Restrictions need interval length")
     optParser.print_help()
     sys.exit()
+
+DEBUG = options.debug
 parser = make_parser()
 if options.verbose:
     print("Reading net")
