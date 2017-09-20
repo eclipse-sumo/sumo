@@ -22,6 +22,7 @@
 
 #include <utility>
 #include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include "NBPTLine.h"
 #include "NBPTStop.h"
 
@@ -46,7 +47,7 @@ void NBPTLine::write(OutputDevice& device) {
     device.openTag(SUMO_TAG_PT_LINE);
     device.writeAttr(SUMO_ATTR_ID, myPTLineId);
     if (!myName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, myName);
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myName));
     }
 
     device.writeAttr(SUMO_ATTR_LINE, myRef);
