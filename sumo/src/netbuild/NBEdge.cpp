@@ -2700,6 +2700,8 @@ NBEdge::append(NBEdge* e) {
         myLanes[i].shape.append(e->myLanes[i].shape);
         if (myLanes[i].origID != e->myLanes[i].origID) {
             myLanes[i].origID += " " + e->myLanes[i].origID;
+        } else if (myLanes[i].origID == "") {
+            myLanes[i].origID = getID() + " " + e->getID();
         }
         myLanes[i].connectionsDone = e->myLanes[i].connectionsDone;
     }
