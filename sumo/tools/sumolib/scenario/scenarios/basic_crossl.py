@@ -4,6 +4,7 @@
 @author  Michael Behrisch
 @date    2014-09-01
 @version $Id$
+
 Perform smoothing of edge costs across successive iterations of duaIterate
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/

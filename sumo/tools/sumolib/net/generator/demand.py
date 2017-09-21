@@ -1,14 +1,13 @@
-#!/usr/bin/env python
 """
-A module for building a demand.
-
 @file    demand.py
 @author  Daniel Krajzewicz
 @date    2013-10-10
 @version $Id$
 
+A module for building a demand.
+
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2013 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2013-2017 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software: you can redistribute it and/or modify

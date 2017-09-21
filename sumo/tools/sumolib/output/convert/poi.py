@@ -9,7 +9,7 @@ This module includes functions for converting SUMO's fcd-output into
 pois (useful for showing synthetic GPS disturtbances)
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2014-2017 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software: you can redistribute it and/or modify

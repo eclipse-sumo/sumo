@@ -1,5 +1,27 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""
+@file    createTlsCsv.py
+@author  Harald Schaefer
+@author  Michael Behrisch
+@date    2017-04-22
+@version $Id$
+
+Create tls links from sumo net as needed by tls_csv2SUMO.py.
+You have to edit the link number field (preset with g).
+ The comment gives the link number shown on demand in SUMO-GUI.
+
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+Copyright (C) 2017-2017 DLR (http://www.dlr.de/) and contributors
+
+This file is part of SUMO.
+SUMO is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+"""
+from __future__ import absolute_import
+from __future__ import print_function
+
 import argparse
 from lxml import etree
 
@@ -27,4 +49,4 @@ for conn in doc.xpath('//connection'):
 
 for conn in sorted(connections):
         # print conn, connections[conn]
-    print "link;g;{};0".format(connections[conn]).ljust(50) + '#' + str(conn).rjust(3)
+    print("link;g;{};0".format(connections[conn]).ljust(50) + '#' + str(conn).rjust(3))

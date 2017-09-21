@@ -4,6 +4,7 @@
 @author  Michael Behrisch
 @date    2014-08-22
 @version $Id$
+
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2012-2017 DLR (http://www.dlr.de/) and contributors
 

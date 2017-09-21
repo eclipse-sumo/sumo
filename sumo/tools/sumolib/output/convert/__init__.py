@@ -18,4 +18,4 @@ the Free Software Foundation, either version 3 of the License, or
 """
 from __future__ import absolute_import
 
-from . import phem, omnet, ns2, shawn, gpsdat
+from . import phem, omnet, ns2, shawn, gpsdat, gpx, fcdfilter, poi
