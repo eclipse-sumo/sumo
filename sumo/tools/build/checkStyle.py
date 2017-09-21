@@ -70,8 +70,9 @@ class PropertyReader(xml.sax.handler.ContentHandler):
 
     """Reads the svn properties of files as written by svn pl -v --xml"""
 
-    def __init__(self, doFix):
+    def __init__(self, doFix, doPep):
         self._fix = doFix
+        self._pep = doPep
         self._file = ""
         self._property = None
         self._value = ""
@@ -130,42 +131,45 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             lines = open(self._file).readlines()
             if len(lines) == 0:
                 print(self._file, "is empty")
+                return
+            idx = 0
+            if lines[0][:2] == '#!':
+                idx += 1
+                if lines[0] != '#!/usr/bin/env python\n':
+                    print(self._file, "wrong shebang")
+                    if self._fix:
+                        lines[0] = '#!/usr/bin/env python\n'
+                        haveFixed = True
+            if lines[idx] != '"""\n':
+                print(self._file, "header does not start")
             else:
-                idx = 0
-                if lines[0][:2] == '#!':
+                idx += 1
+                fileRef = "@file    %s\n" % os.path.basename(self._file)
+                if lines[idx] != fileRef:
+                    print(self._file, "broken @file reference", lines[idx].rstrip())
+                    if self._fix and lines[idx].startswith("@file"):
+                        lines[idx] = fileRef
+                        haveFixed = True
+                idx += 1
+                if not lines[idx].startswith("@author "):
+                    print(self._file, "broken @author reference", lines[idx].rstrip())
+                idx += 1
+                while lines[idx].startswith("@author "):
                     idx += 1
-                    if lines[0] != '#!/usr/bin/env python\n':
-                        print(self._file, "wrong shebang")
-                        if self._fix:
-                            lines[0] = '#!/usr/bin/env python\n'
-                            haveFixed = True
-                if lines[idx] != '"""\n':
-                    print(self._file, "header does not start")
+                if not lines[idx].startswith("@date "):
+                    print(self._file, "broken @date reference", lines[idx].rstrip())
+                idx += 1
+                if not lines[idx].startswith("@version "):
+                    print(self._file, "broken @version reference", lines[idx].rstrip())
+                idx += 1
+                if lines[idx] != "\n":
+                    print(self._file, "missing empty line", idx, lines[idx].rstrip())
+                idx += 1
+                while idx < len(lines) and lines[idx][:4] != "SUMO":
+                    idx += 1
+                if idx == len(lines):
+                    print(self._file, "license not found")
                 else:
-                    idx += 1
-                    fileRef = "@file    %s\n" % os.path.basename(self._file)
-                    if lines[idx] != fileRef:
-                        print(self._file, "broken @file reference", lines[idx].rstrip())
-                        if self._fix and lines[idx].startswith("@file"):
-                            lines[idx] = fileRef
-                            haveFixed = True
-                    idx += 1
-                    if not lines[idx].startswith("@author "):
-                        print(self._file, "broken @author reference", lines[idx].rstrip())
-                    idx += 1
-                    while lines[idx].startswith("@author "):
-                        idx += 1
-                    if not lines[idx].startswith("@date "):
-                        print(self._file, "broken @date reference", lines[idx].rstrip())
-                    idx += 1
-                    if not lines[idx].startswith("@version "):
-                        print(self._file, "broken @version reference", lines[idx].rstrip())
-                    idx += 1
-                    if lines[idx] != "\n":
-                        print(self._file, "missing empty line", idx, lines[idx].rstrip())
-                    idx += 1
-                    while lines[idx][:4] != "SUMO":
-                        idx += 1
                     year = lines[idx + 1][14:18]
                     license = LICENSE_HEADER.replace("2001", year).replace(SEPARATOR, "")
                     license = license.replace("//   ", "").replace("// ", "").replace("\n//", "\n")[:-1]
@@ -244,7 +248,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     if self._fix:
                         subprocess.call(
                             ["svn", "ps", "svn:eol-style", "CRLF", self._file])
-            if name == 'target' and ext == ".py" and "/contributed/" not in self._file:
+            if self._pep and name == 'target' and ext == ".py" and "/contributed/" not in self._file:
                 if HAVE_FLAKE and os.path.getsize(self._file) < 1000000:  # flake hangs on very large files
                     subprocess.call(["flake8", "--max-line-length", "120", self._file])
                 if HAVE_AUTOPEP and self._fix:
@@ -265,6 +269,8 @@ optParser.add_option("-v", "--verbose", action="store_true",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-f", "--fix", action="store_true",
                      default=False, help="fix invalid svn properties")
+optParser.add_option("-s", "--skip-pep", action="store_true",
+                     default=False, help="skip autopep8 and flake8 tests")
 (options, args) = optParser.parse_args()
 seen = set()
 if len(args) > 0:
@@ -278,7 +284,7 @@ for svnRoot in svnRoots:
     if options.verbose:
         print("checking", svnRoot)
     output = subprocess.check_output(["svn", "pl", "-v", "-R", "--xml", svnRoot])
-    xml.sax.parseString(output, PropertyReader(options.fix))
+    xml.sax.parseString(output, PropertyReader(options.fix, not options.skip_pep))
     if options.verbose:
         print("re-checking tree at", svnRoot)
     for root, dirs, files in os.walk(svnRoot):
