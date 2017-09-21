@@ -162,8 +162,8 @@ def main():
             foutflows.write('\t</route>\n')
         for flow, type in flows:
             lineRef = trpIDLineMap[flow]
-            foutflows.write('\t<flow id="%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s/>\n' %
-                            (flow, type, flow, options.begin, options.end, options.period, lineRef, options.flowattrs))
+            foutflows.write('\t<flow id="%s_%s_%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s/>\n' %
+                            (type, lineRef, flow, type, flow, options.begin, options.end, options.period, lineRef, options.flowattrs))
         foutflows.write('</routes>\n')
 
     print("done.")
