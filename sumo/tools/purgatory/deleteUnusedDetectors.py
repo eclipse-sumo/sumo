@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    deleteUnusedDetektors.py
+@file    deleteUnusedDetectors.py
 @author  Laura Bieker
 @author  Michael Behrisch
 @author  Daniel Krajzewicz

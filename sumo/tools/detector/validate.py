@@ -25,7 +25,7 @@ import collections
 from optparse import OptionParser
 import matplotlib
 matplotlib.use('Agg')
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # noqa
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
 
@@ -101,7 +101,8 @@ if options.validation:
     countOut = 0
     start = 0
     end = options.interval
-#   <interval begin="0.00" end="60.00" id="validation_MQ11O_DS_FS1_ERU" nVehContrib="1" flow="60.00" occupancy="1.35" speed="6.19" length="5.00" nVehEntered="1"/>
+#   <interval begin="0.00" end="60.00" id="validation_MQ11O_DS_FS1_ERU"
+#             nVehContrib="1" flow="60.00" occupancy="1.35" speed="6.19" length="5.00" nVehEntered="1"/>
     for interval in sumolib.output.parse_fast(options.validation, "interval", ["begin", "id", "speed", "nVehEntered"]):
         detId = interval.id[11:]
         time = int(float(interval.begin) / 60)

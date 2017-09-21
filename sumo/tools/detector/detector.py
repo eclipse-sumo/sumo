@@ -41,7 +41,6 @@ class DetectorGroupData:
     def addDetFlow(self, flow, speed):
         oldFlow = self.totalFlow
         self.totalFlow += flow
-        count = self.entryCount
         if flow > 0:
             self.avgSpeed = (
                 self.avgSpeed * oldFlow + speed * flow) / self.totalFlow
@@ -155,7 +154,7 @@ class DetectorReader(handler.ContentHandler):
         timeIdx = 1
         with open(flowFile) as f:
             for l in f:
-                if not ';' in l:
+                if ';' not in l:
                     continue
                 flowDef = [e.strip() for e in l.split(';')]
                 if det in flowDef:

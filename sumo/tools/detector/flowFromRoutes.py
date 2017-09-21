@@ -81,7 +81,8 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         if self._begin is None:
             return self._detReader.readFlows(flowFile, flow=flowCol)
         else:
-            return self._detReader.readFlows(flowFile, flow=options.flowcol, time="Time", timeVal=self._begin / 60, timeMax=self._end / 60)
+            return self._detReader.readFlows(flowFile, flow=options.flowcol, time="Time",
+                                             timeVal=self._begin / 60, timeMax=self._end / 60)
 
     def clearFlows(self):
         self._detReader.clearFlows()

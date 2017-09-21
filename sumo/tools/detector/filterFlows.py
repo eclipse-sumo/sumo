@@ -19,8 +19,6 @@ the Free Software Foundation, either version 3 of the License, or
 
 from __future__ import print_function
 from __future__ import absolute_import
-import sys
-import os
 from optparse import OptionParser
 
 optParser = OptionParser(usage="usage: %prog [options] <input_flows.csv>")
@@ -42,7 +40,7 @@ with open(options.output, 'w') as outf:
         data = line.split(';')
         det = data[0]
         time = int(data[1])
-        if options.detectors is not None and not det in options.detectors.split(','):
+        if options.detectors is not None and det not in options.detectors.split(','):
             continue
         if time < options.begin:
             continue
