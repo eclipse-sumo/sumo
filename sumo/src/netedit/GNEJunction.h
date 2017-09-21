@@ -219,7 +219,7 @@ public:
      * also calls invalidateTLS
      * @param[in] valid The new validity of the junction
      * @note: this should always be called with an active command group */
-    void setLogicValid(bool valid, GNEUndoList* undoList = 0, const std::string& status = GUESSED);
+    void setLogicValid(bool valid, GNEUndoList* undoList, const std::string& status = GUESSED);
 
     /// @brief prevent re-guessing connections at this junction
     void markAsModified(GNEUndoList* undoList);

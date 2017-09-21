@@ -1515,7 +1515,8 @@ GNENet::resetJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
     undoList->p_begin("reset junction connections");
     // first clear connections 
     clearJunctionConnections(junction, undoList);
-
+    // invalidate logic to create new connections in the next recomputing
+    junction->setLogicValid(false, undoList);
     undoList->p_end();
 }
 
@@ -2363,7 +2364,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     initGNEConnections();
 
     for (auto it : myJunctions) {
-        it.second->setLogicValid(true);
+        it.second->setLogicValid(true, myViewNet->getUndoList());
         // updated shape
         it.second->updateGeometry();
         refreshElement(it.second);
