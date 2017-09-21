@@ -121,7 +121,9 @@ def compound_object(element_name, attrnames, warn=False):
 
         def toXML(self, initialIndent="", indent="    "):
             fields = ['%s="%s"' % (self._original_fields[i], getattr(self, k).encode('utf8'))
-                      for i, k in enumerate(self._fields) if getattr(self, k) is not None]
+                      for i, k in enumerate(self._fields) if getattr(self, k) is not None 
+                      # see #3454
+                      and not '{' in self._original_fields[i]]
             if not self._child_dict:
                 return "%s<%s %s/>\n" % (initialIndent, element_name, " ".join(fields))
             else:
