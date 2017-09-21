@@ -269,6 +269,9 @@ class Net:
             if len(sinks) == 0 and (len(edgeObj.target.outEdges) == 0 or edgeObj in self._possibleSinks):
                 self.addSinkEdge(edgeObj)
                 if edgeObj.numLanes > 0:
+                    if edgeObj.label in foundSources:
+                        print("Error! Edge '%s' is simultaneously source and sink." % edgeObj.label)
+                        return False
                     foundSinks.append(edgeObj.label)
         if options.source_sink_output:
             with open(options.source_sink_output, 'w') as outf:
@@ -620,6 +623,12 @@ class Net:
                         if edge.startCapacity < sys.maxsize:
                             while edge.flow < edge.capacity and self.pullFlow(edge, limitSource, limitSink, allowBackward):
                                 pathFound = True
+                    if DEBUG:
+                        totalDetFlow = 0
+                        for edge in self._edges.values():
+                            if edge.startCapacity < sys.maxsize:
+                                totalDetFlow += edge.flow
+                        print("detFlow", totalDetFlow)
         if DEBUG:
             self.testFlowInvariants()
         self.consolidateRoutes()
