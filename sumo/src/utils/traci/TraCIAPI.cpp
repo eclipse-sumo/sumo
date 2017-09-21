@@ -2594,7 +2594,7 @@ TraCIAPI::VehicleScope::slowDown(const std::string& vehicleID, double speed, SUM
     content.writeUnsignedByte(TYPE_DOUBLE);
     content.writeDouble(speed);
     content.writeUnsignedByte(TYPE_INTEGER);
-    content.writeInt(duration);
+    content.writeInt((int)duration);
     myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, CMD_SLOWDOWN, vehicleID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
