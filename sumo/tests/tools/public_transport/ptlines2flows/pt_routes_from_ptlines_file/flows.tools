@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- generated on 2017-09-17 22:20:47.169000 by $Id: ptlines2flows.py 26025 2017-09-15 07:51:46Z namdre $
+<!-- generated on 2017-09-21 02:18:18.486796 by $Id: ptlines2flows.py 26151 2017-09-21 00:07:23Z namdre $
   options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>use-osm-routes
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -12,12 +12,12 @@
     <vType id="aerialway" vClass="bus"/>
     <vType id="ferry" vClass="ship"/>
 	<route id="0" edges="110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3" >
-		<stop busStop="3959807221" duration="30.00" until="70.00" />
-		<stop busStop="3959807200" duration="30.00" until="141.00" />
+		<stop busStop="3959807221" duration="30.00" until="35.00" />
+		<stop busStop="3959807200" duration="30.00" until="101.00" />
 	</route>
 	<route id="1" edges="-391493954#3 -391493954#2 -391493954#1 -391493954#0 -391493952#2 -391493952#1 -391493952#0 -391493950#1 -391493950#0 -391493947 -391493949 -338412122 -110450334#2 -110450334#1" >
-		<stop busStop="3959807201" duration="30.00" until="78.00" />
-		<stop busStop="3959807220" duration="30.00" until="147.00" />
+		<stop busStop="3959807201" duration="30.00" until="39.00" />
+		<stop busStop="3959807220" duration="30.00" until="103.00" />
 	</route>
 	<route id="2" edges="391493945#1 391493945#2 391493945#3 161159325#0 161159325#1 -53356539#1 -53356539#0" >
 		<stop busStop="2029039195" duration="30.00" until="37.00" />

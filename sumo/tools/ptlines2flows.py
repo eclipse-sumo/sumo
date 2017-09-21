@@ -138,7 +138,7 @@ def main():
     print("creating routes...")
     stopsUntil = {}
     for stop in sumolib.output.parse_fast(options.stopinfos, 'stopinfo', ['id', 'ended', 'busStop']):
-        stopsUntil[stop.busStop] = stop.ended
+        stopsUntil[(stop.id, stop.busStop)] = stop.ended
 
     with open(options.outfile, 'w') as foutflows:
         flows = []
@@ -153,10 +153,10 @@ def main():
             foutflows.write(
                 '\t<route id="%s" edges="%s" >\n' % (id, edges))
             for stop in stops:
-                if stop.busStop in stopsUntil:
+                if (id, stop.busStop) in stopsUntil:
                     foutflows.write(
                         '\t\t<stop busStop="%s" duration="%s" until="%s" />\n' % (
-                            stop.busStop, stop.duration, stopsUntil[stop.busStop]))
+                            stop.busStop, stop.duration, stopsUntil[(id, stop.busStop)]))
                 else:
                     sys.stderr.write("Missing stop '%s' for flow '%s'\n" % (stop.busStop, id))
             foutflows.write('\t</route>\n')
