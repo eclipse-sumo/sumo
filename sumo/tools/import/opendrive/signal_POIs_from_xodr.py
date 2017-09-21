@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# vim: set fileencoding=utf-8 :
 # -*- coding: utf-8 -*-
 """
 @file    signal_POIs_from_xodr.py
@@ -16,6 +15,15 @@
 # example call: 
   signal_POIs_from_xodr.py data/OpenDrive/scen.xodr data/sumo/net.net.xml
   -> will create a file data/sumo/signals.add.xml
+
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+Copyright (C) 2014-2017 DLR (http://www.dlr.de/) and contributors
+
+This file is part of SUMO.
+SUMO is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 """
 
 import os

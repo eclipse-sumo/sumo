@@ -6,13 +6,12 @@
 @date    2007-10-25
 @version $Id$
 
-
 This script reads two network dumps,
  computes the mean values
  and writes the results into the output file
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2016 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2017 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software: you can redistribute it and/or modify

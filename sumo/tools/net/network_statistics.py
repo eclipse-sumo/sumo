@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 @file    network_statistics.py
 @author  Ronald Nippold
 @author  Michael Behrisch
 @date    2009-10-06
-@version
-@usage   "python network_statistics.py network-file-to-be-analyzed.net.xml"
+@version $Id$
+
+Usage: python network_statistics.py network-file-to-be-analyzed.net.xml
 
 Prints some information about a given network
 

@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 @file    poi_alongRoads.py
 @author  Ronald Nippold
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2009-20-10
-@version
-@usage   poi_alongRoads.py <NET> <EDGE_ID>[,<EDGE_ID>]* <DISTANCE>
+@version $Id$
+
+Usage:   poi_alongRoads.py <NET> <EDGE_ID>[,<EDGE_ID>]* <DISTANCE>
 
 Spatial distribute of POIs along given edges on a given network.
 Edges are separated with comma and without spaces in between.
