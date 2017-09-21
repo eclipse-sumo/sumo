@@ -5,7 +5,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    30.05.2012
-/// @version $Id: TraCI_TLS.cpp 25277 2017-07-20 11:15:41Z behrisch $
+/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/

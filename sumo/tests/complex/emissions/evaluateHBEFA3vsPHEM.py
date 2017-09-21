@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-@file    runner.py
+@file    evaluateHBEFA3vsPHEM.py
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2013-01-14

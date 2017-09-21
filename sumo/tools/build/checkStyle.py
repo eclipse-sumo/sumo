@@ -277,11 +277,6 @@ optParser.add_option("-s", "--skip-pep", action="store_true",
 seen = set()
 if len(args) > 0:
     svnRoots = [os.path.abspath(a) for a in args]
-else:
-    upDir = os.path.dirname(sumoRoot)
-    for l in subprocess.check_output().splitlines():
-        if l[:5] == "sumo/":
-            svnRoots.append(os.path.join(upDir, l.split()[0]))
 for svnRoot in svnRoots:
     if options.verbose:
         print("checking", svnRoot)

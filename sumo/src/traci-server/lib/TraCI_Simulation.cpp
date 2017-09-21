@@ -3,7 +3,7 @@
 /// @author  Laura Bieker-Walz
 /// @author  Robert Hilbrich
 /// @date    15.09.2017
-/// @version $Id: TraCI_POI.cpp 25277 2017-07-20 11:15:41Z behrisch $
+/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 outfile = "sumolympicWalks.rou.xml"
 startEdge = "beg"
 endEdge = "end"

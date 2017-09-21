@@ -2,7 +2,7 @@
 /// @file    TraCI_Person.h
 /// @author  Leonhard Luecken
 /// @date    15.09.2017
-/// @version $Id: TraCI_Person.h 23527 2017-03-18 08:45:42Z behrisch $
+/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/

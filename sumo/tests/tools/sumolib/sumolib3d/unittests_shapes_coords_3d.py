@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    unittest_sumolib_3d.py
+@file    unittests_shapes_coords_3d.py
 @author  Marek Heinrich
 @version $Id$
 

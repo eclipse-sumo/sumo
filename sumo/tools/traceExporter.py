@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 """
-A script for converting SUMO's fcd-output into files readable by PHEM and communication simulators.
-
 @file    traceExporter.py
 @author  Daniel Krajzewicz
 @author  Jakob Erdmann
@@ -9,6 +7,8 @@ A script for converting SUMO's fcd-output into files readable by PHEM and commun
 @author  Evamarie Wiessner
 @date    2013-01-15
 @version $Id$
+
+A script for converting SUMO's fcd-output into files readable by PHEM and communication simulators.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2013-2017 DLR (http://www.dlr.de/) and contributors

@@ -2,7 +2,7 @@
 /// @file    GNECalibratorEdge.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Sep 2017
-/// @version $Id: GNECalibratorEdge.cpp 25918 2017-09-07 19:38:16Z behrisch $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

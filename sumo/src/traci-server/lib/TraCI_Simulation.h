@@ -2,7 +2,7 @@
 /// @file    TraCI_Simulation.h
 /// @author  Robert Hilbrich
 /// @date    15.09.2017
-/// @version $Id: TraCI_POI.h 23594 2017-03-22 07:37:54Z namdre $
+/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
