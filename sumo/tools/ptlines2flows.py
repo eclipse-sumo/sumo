@@ -107,22 +107,22 @@ def main():
                 if (lenE > 3):
                     vias = ' '.join(edges[0:lenE])
                     fouttrips.write(
-                        '\t<trip id="%s" type="%s" depart="0" departLane="%s" from="%s" to="%s" via="%s">\n' % (
+                        '    <trip id="%s" type="%s" depart="0" departLane="%s" from="%s" to="%s" via="%s">\n' % (
                             trp_nr, line.type, 'best', fr, to, vias))
                 else:
                     fouttrips.write(
-                        '\t<trip id="%s" type="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (
+                        '    <trip id="%s" type="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (
                             trp_nr, line.type, 'best', fr, to))
             else:
                 fouttrips.write(
-                    '\t<trip id="%s" type="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (
+                    '    <trip id="%s" type="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (
                         trp_nr, line.type, 'best', fr, to))
 
             trpIDLineMap[str(trp_nr)] = line.line
             trp_nr += 1
             for stop in stop_ids:
-                fouttrips.write('\t\t<stop busStop="%s" duration="30" />\n' % (stop))
-            fouttrips.write('\t</trip>\n')
+                fouttrips.write('        <stop busStop="%s" duration="30" />\n' % (stop))
+            fouttrips.write('    </trip>\n')
         fouttrips.write("</routes>\n")
     print("done.")
     print("running SUMO to determine actual departure times...")
