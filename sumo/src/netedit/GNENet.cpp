@@ -792,7 +792,7 @@ GNENet::save(OptionsCont& oc) {
 
 
 void
-GNENet::saveAdditionals(const std::string& filename, bool volatileOptionsEnabled) {
+GNENet::saveAdditionals(const std::string& filename) {
     // obtain invalid stopping places and detectors
     std::vector<GNEStoppingPlace*> invalidStoppingPlaces;
     std::vector<GNEDetector*> invalidDetectors;
@@ -941,18 +941,31 @@ GNENet::retrieveLane(const std::string& id, bool failHard, bool checkVolatileCha
     const std::string edge_id = SUMOXMLDefinitions::getEdgeIDFromLane(id);
     GNEEdge* edge = retrieveEdge(edge_id, failHard);
     if (edge != 0) {
-        const GNEEdge::LaneVector& lanes = edge->getLanes();
-        for (GNEEdge::LaneVector::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
-            if ((*it_lane)->getID() == id) {
-                return (*it_lane);
+        GNELane *lane = NULL;
+        // search  lane in lane's edges
+        for (auto it : edge->getLanes()) {
+            if (it->getID() == id) {
+                lane = it;
             }
         }
-        if (failHard) {
-            // Throw exception if failHard is enabled
-            throw UnknownElement(toString(SUMO_TAG_LANE) + " " + id);
+        // throw exception or return NULL if lane wasn't found
+        if (lane == NULL) {
+            if(failHard) {
+                // Throw exception if failHard is enabled
+                throw UnknownElement(toString(SUMO_TAG_LANE) + " " + id);
+            }
+        } else {
+            // check if the recomputing with volatile option has changed the number of lanes (needed for additionals)
+            if(checkVolatileChange && (myEdgesAndNumberOfLanes.count(edge_id) == 1) && myEdgesAndNumberOfLanes[edge_id] != edge->getLanes().size()) {
+                return edge->getLanes().at(lane->getIndex() + 1);
+            }
+            return lane;
         }
+    } else if (failHard) {
+        // Throw exception if failHard is enabled
+        throw UnknownElement(toString(SUMO_TAG_EDGE) + " " + edge_id);
     }
-    return 0;
+    return NULL;
 }
 
 
@@ -1166,6 +1179,13 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
             window->setStatusBarText("Computing junctions  ...");
         }
     }
+    // save current number of lanes for every edge if recomputing is with volatile options
+    if(volatileOptions) {
+        for (auto it : myEdges) {
+            myEdgesAndNumberOfLanes[it.second->getID()] = it.second->getLanes().size();
+        }
+    }
+
     // compute
     OptionsCont& oc = OptionsCont::getOptions();
     computeAndUpdate(oc, volatileOptions);
@@ -1182,6 +1202,8 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
             additionalHandler.resetLastTag();
             update();
         }
+        // clear myEdgesAndNumberOfLanes after reload additionals
+        myEdgesAndNumberOfLanes.clear();
     }
     // load shapes if was recomputed with volatile options
     if (shapePath != "") {
@@ -2261,12 +2283,6 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     for (auto it : myExplicitTurnarounds) {
         if (myEdges.count(it) > 0) {
             liveExplicitTurnarounds.insert(it);
-        }
-    }
-    // save current number of lanes for every edge if recomputing is with volatile options
-    if(volatileOptions) {
-        for (auto it : myEdges) {
-            myEdgesAndNumberOfLanes[it.second->getID()] = it.second->getLanes().size();
         }
     }
 

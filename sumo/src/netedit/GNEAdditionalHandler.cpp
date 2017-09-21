@@ -505,7 +505,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
-        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
         // check that all parameters are valid
         if (GNEAttributeCarrier::isValidID(id) == false) {
             WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
@@ -538,7 +538,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
-        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
         // check that all parameters are valid
         if (GNEAttributeCarrier::isValidID(id) == false) {
             WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
@@ -574,7 +574,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
-        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
         // check that all parameters are valid
         if (GNEAttributeCarrier::isValidID(id) == false) {
             WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
@@ -626,7 +626,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
         if (!abort) {
             // get pointer to lane and edge
             GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
-            GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+            GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
             // check that all parameters are valid
             if (edgeID != "" && laneId != "") {
                 WRITE_WARNING("additional " + toString(typeOfCalibrator) + " with id '" + id + "' can be only placed over either a lane or an edge, not in both.");
@@ -659,7 +659,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
-        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
         // check that all parameters are valid
         if (GNEAttributeCarrier::isValidID(id) == false) {
             WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
@@ -695,7 +695,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
-        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
         // check that all parameters are valid
         if (GNEAttributeCarrier::isValidID(id) == false) {
             WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
@@ -754,7 +754,7 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs,
     // Check if parsing of parameters was correct
     if (!abort) {
         // get pointer to lane
-        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
         // check that all parameters are valid
         if (lane == NULL) {
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
@@ -779,7 +779,7 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, 
     // Check if parsing of parameters was correct
     if (!abort) {
         // get pointer to lane
-        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
         // check that all parameters are valid
         if (lane == NULL) {
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
