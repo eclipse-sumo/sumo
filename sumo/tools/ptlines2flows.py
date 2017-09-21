@@ -47,6 +47,7 @@ def get_options():
     optParser.add_option("-f", "--flow-attributes", dest="flowattrs",
                          default="", help="additional flow attributes")
     optParser.add_option("--use-osm-routes", default=False, action="store_true", dest='osmRoutes', help="use osm routes")
+    optParser.add_option("--no-vtypes", default=False, action="store_true", dest='novtypes', help="do not write vtypes for generated flows")
     (options, args) = optParser.parse_args()
     return options
 
@@ -144,7 +145,8 @@ def main():
         flows = []
         sumolib.writeXMLHeader(
             foutflows, "$Id$", "routes")
-        writeTypes(foutflows)
+        if not options.novtypes:
+            writeTypes(foutflows)
         for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
             id = vehicle.id
             flows.append((id, vehicle.type))
