@@ -1,5 +1,5 @@
 """
-@file    dumo.py
+@file    dump.py
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2011-06-15

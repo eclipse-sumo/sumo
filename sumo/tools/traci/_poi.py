@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@file    poi.py
+@file    _poi.py
 @author  Michael Behrisch
 @author  Lena Kalleske
 @date    2008-10-09

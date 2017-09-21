@@ -1,4 +1,4 @@
-#!/usr/bin/env python;
+#!/usr/bin/env python
 """OpenGL editor"""
 if __name__ == '__main__':
     __version__ = "0.1a"

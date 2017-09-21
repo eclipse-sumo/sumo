@@ -1,5 +1,5 @@
 """
-@file    poi.py
+@file    inductive_loop.py
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @author  Jakob Erdmann

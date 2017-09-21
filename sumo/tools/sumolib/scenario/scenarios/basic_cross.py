@@ -1,5 +1,5 @@
 """
-@file    costMemory.py
+@file    basic_cross.py
 @author  Daniel Krajzewicz
 @date    2014-09-01
 @version $Id$

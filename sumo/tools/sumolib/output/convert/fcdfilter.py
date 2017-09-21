@@ -3,7 +3,7 @@
 @author  Evamarie Wiessner
 @author  Michael Behrisch
 @date    2017-08-15
-@version $Id: gpsdat.py 25250 2017-07-18 14:00:14Z behrisch $
+@version $Id$
 
 This module includes functions for filtering SUMO's fcd-output
 

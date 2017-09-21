@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    generateE1TLSDetectors.py
+@file    generateTLSE1Detectors.py
 @author  Daniel Krajzewicz
 @author  Karol Stosiek
 @author  Michael Behrisch

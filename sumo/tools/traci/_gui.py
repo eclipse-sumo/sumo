@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@file    gui.py
+@file    _gui.py
 @author  Michael Behrisch
 @author  Daniel Krajzewicz
 @date    2011-03-09

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@file    trafficlights.py
+@file    _trafficlights.py
 @author  Michael Behrisch
 @date    2011-03-16
 @version $Id$

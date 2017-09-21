@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@file    edge.py
+@file    _edge.py
 @author  Michael Behrisch
 @author  Jakob Erdmann
 @date    2011-03-17

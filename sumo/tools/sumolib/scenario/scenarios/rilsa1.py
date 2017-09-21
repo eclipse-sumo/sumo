@@ -1,5 +1,5 @@
 """
-@file    costMemory.py
+@file    rilsa1.py
 @author  Daniel Krajzewicz
 @date    2014-09-01
 @version $Id$

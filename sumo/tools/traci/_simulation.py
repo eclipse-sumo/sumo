@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@file    simulation.py
+@file    _simulation.py
 @author  Daniel Krajzewicz
 @author  Jakob Erdmann
 @author  Michael Behrisch

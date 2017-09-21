@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    osmPopulationExactor.py
+@file    osmPopulationExtractor.py
 @author  Yun-Pang Floetteroed
 @author  Melanie Knocke
 @author  Michael Behrisch

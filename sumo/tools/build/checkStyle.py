@@ -140,6 +140,8 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     if self._fix:
                         lines[0] = '#!/usr/bin/env python\n'
                         haveFixed = True
+            if lines[idx][:5] == '# -*-':
+                idx += 1
             if lines[idx] != '"""\n':
                 print(self._file, "header does not start")
             else:

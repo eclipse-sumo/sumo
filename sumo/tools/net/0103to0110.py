@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 """
 @file    0103to0110.py
 @author  Daniel Krajzewicz

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@file    turndefinitions.py
+@file    connections.py
 @author  Karol Stosiek
 @author  Michael Behrisch
 @date    2011-10-26

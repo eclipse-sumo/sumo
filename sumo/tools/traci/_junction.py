@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@file    junction.py
+@file    _junction.py
 @author  Michael Behrisch
 @author  Mario Krumnow
 @author  Jakob Erdmann

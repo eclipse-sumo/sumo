@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@file    inductionloop.py
+@file    _inductionloop.py
 @author  Michael Behrisch
 @author  Daniel Krajzewicz
 @date    2011-03-16

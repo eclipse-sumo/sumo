@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@file    polygon.py
+@file    _polygon.py
 @author  Michael Behrisch
 @date    2011-03-16
 @version $Id$

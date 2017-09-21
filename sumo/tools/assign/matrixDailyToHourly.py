@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    getHourlyMatrix.py
+@file    matrixDailyToHourly.py
 @author  Yun-Pang Floetteroed
 @author  Daniel Krajzewicz
 @author  Michael Behrisch

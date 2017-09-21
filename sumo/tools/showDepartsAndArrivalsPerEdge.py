@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    route2trips.py
+@file    showDepartsAndArrivalsPerEdge.py
 @author  Jakob Erdmann
 @date    2015-08-05
 @version $Id$

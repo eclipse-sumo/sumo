@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@file    person.py
+@file    _person.py
 @author  Jakob Erdmann
 @date    2015-02-06
 @version $Id$

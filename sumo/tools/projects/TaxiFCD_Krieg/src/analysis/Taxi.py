@@ -1,6 +1,6 @@
 # -*- coding: Latin-1 -*-
 """
-@file    CalcTime.py
+@file    Taxi.py
 @author  Sascha Krieg
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
