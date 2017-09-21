@@ -96,6 +96,7 @@ def main():
 
             if fr is None:
                 sys.stderr.write("Warning: skipping line '%s' because it has no stops\n" % line.id)
+                trp_nr += 1
                 continue
 
             if options.osmRoutes and 'route' in line._child_dict:
