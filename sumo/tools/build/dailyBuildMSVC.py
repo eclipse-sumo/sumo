@@ -144,7 +144,7 @@ optParser.add_option("-n", "--no-tests", action="store_true",
 (options, args) = optParser.parse_args()
 
 sys.path.append(os.path.join(options.rootDir, options.testsDir))
-import runInternalTests
+import runInternalTests  # noqa
 
 env = os.environ
 if "SUMO_HOME" not in env:

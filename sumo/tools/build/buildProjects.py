@@ -25,8 +25,9 @@ import shutil
 
 # First chek that CMake was corretly ir
 if (os.environ["PATH"].lower().find("cmake") == -1):
-    print (
-        "CMake executable wasn't found. Please install the last version of Cmake from https://cmake.org/download/, or add the folder of cmake executable to PATH")
+    print("""CMake executable wasn't found.
+    Please install the last version of Cmake from https://cmake.org/download/,
+    or add the folder of cmake executable to PATH""")
 else:
     # print debug
     print ("CMake found")

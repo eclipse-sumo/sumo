@@ -74,7 +74,7 @@ def patchLinks(page, name):
             if link.find("action=edit") < 0:
                 if link.find("#") > 0:
                     link = level + link.replace("#", ".html#")
-                elif link.find("#") < 0 and not (link.endswith(".png") or link.endswith(".jpg") or link.endswith(".svg")):
+                elif link.find("#") < 0 and not link.endswith((".png", ".jpg", ".svg")):
                     link = level + link + ".html"
                 page = page[:b + 9] + link + page[e2:]
             else:

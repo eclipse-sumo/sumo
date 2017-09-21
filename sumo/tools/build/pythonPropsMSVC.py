@@ -73,8 +73,9 @@ with open(propsFile, "w") as props:
     for line in open(propsBak):
         newLine = re.sub('<%s_LIB_DIR>(.*)</%s_LIB_DIR>' % (py, py),
                          '<%s_LIB_DIR>%s</%s_LIB_DIR>' % (py, libDir, py), line)
+        include = distutils.sysconfig.get_config_var('INCLUDEPY')
         newLine = re.sub('<%s_INCLUDE_DIR>(.*)</%s_INCLUDE_DIR>' % (py, py),
-                         '<%s_INCLUDE_DIR>%s</%s_INCLUDE_DIR>' % (py, distutils.sysconfig.get_config_var('INCLUDEPY'), py), newLine)
+                         '<%s_INCLUDE_DIR>%s</%s_INCLUDE_DIR>' % (py, include, py), newLine)
         if newLine != line:
             modified = True
             props.write(newLine)

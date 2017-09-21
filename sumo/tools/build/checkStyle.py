@@ -26,12 +26,12 @@ import xml.sax
 import codecs
 from optparse import OptionParser
 try:
-    import flake8
+    import flake8  # noqa
     HAVE_FLAKE = True
 except ImportError:
     HAVE_FLAKE = False
 try:
-    import autopep8
+    import autopep8  # noqa
     HAVE_AUTOPEP = True
 except ImportError:
     HAVE_AUTOPEP = False
@@ -201,7 +201,8 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             self._hadKeywords = True
         if os.path.basename(self._file) not in _IGNORE:
             if ext in _SOURCE_EXT or ext in _TESTDATA_EXT or ext in _VS_EXT:
-                if name == 'property' and self._property == "svn:executable" and ext not in (".py", ".pyw", ".pl", ".bat"):
+                if (name == 'property' and self._property == "svn:executable" and
+                        ext not in (".py", ".pyw", ".pl", ".bat")):
                     print(self._file, self._property, self._value)
                     if self._fix:
                         subprocess.call(
@@ -212,8 +213,8 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                         subprocess.call(
                             ["svn", "pd", "svn:mime-type", self._file])
             if ext in _SOURCE_EXT or ext in _TESTDATA_EXT:
-                if name == 'property' and self._property == "svn:eol-style" and self._value != "LF"\
-                   or name == "target" and not self._hadEOL:
+                if ((name == 'property' and self._property == "svn:eol-style" and self._value != "LF") or
+                        (name == "target" and not self._hadEOL)):
                     print(self._file, "svn:eol-style", self._value)
                     if self._fix:
                         if os.name == "posix":
@@ -224,8 +225,8 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                         subprocess.call(
                             ["svn", "ps", "svn:eol-style", "LF", self._file])
             if ext in _SOURCE_EXT:
-                if name == 'property' and self._property == "svn:keywords" and self._value != _KEYWORDS\
-                   or name == "target" and not self._hadKeywords:
+                if ((name == 'property' and self._property == "svn:keywords" and self._value != _KEYWORDS) or
+                        (name == "target" and not self._hadKeywords)):
                     print(self._file, "svn:keywords", self._value)
                     if self._fix:
                         subprocess.call(
@@ -237,8 +238,8 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                         print(self._file, e)
                     self.checkFileHeader(ext)
             if ext in _VS_EXT:
-                if name == 'property' and self._property == "svn:eol-style" and self._value != "CRLF"\
-                   or name == "target" and not self._hadEOL:
+                if ((name == 'property' and self._property == "svn:eol-style" and self._value != "CRLF") or
+                        (name == "target" and not self._hadEOL)):
                     print(self._file, "svn:eol-style", self._value)
                     if self._fix:
                         subprocess.call(
@@ -270,7 +271,7 @@ if len(args) > 0:
     svnRoots = [os.path.abspath(a) for a in args]
 else:
     upDir = os.path.dirname(sumoRoot)
-    for l in subprocess.Popen(["svn", "pg", "svn:externals", upDir], stdout=subprocess.PIPE, stderr=open(os.devnull, 'w')).communicate()[0].splitlines():
+    for l in subprocess.check_output().splitlines():
         if l[:5] == "sumo/":
             svnRoots.append(os.path.join(upDir, l.split()[0]))
 for svnRoot in svnRoots:
@@ -286,7 +287,8 @@ for svnRoot in svnRoots:
             if name not in _IGNORE:
                 if ext in _SOURCE_EXT or ext in _TESTDATA_EXT or ext in _VS_EXT:
                     fullName = os.path.join(root, name)
-                    if fullName in seen or subprocess.call(["svn", "ls", fullName], stdout=open(os.devnull, 'w'), stderr=subprocess.STDOUT):
+                    if fullName in seen or subprocess.call(["svn", "ls", fullName],
+                                                           stdout=open(os.devnull, 'w'), stderr=subprocess.STDOUT):
                         continue
                     print(fullName, "svn:eol-style")
                     if options.fix:
