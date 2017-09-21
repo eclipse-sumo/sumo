@@ -1,8 +1,10 @@
 <additionals>
-    <containerStop id="containerStop_00" lane="gneE0_1" startPos="5.00" endPos="10.00" friendlyPos="0" lines="line1 line2"/>
-    <containerStop id="containerStop_11" lane="gneE0_1" startPos="25.00" endPos="30.00" name="container" friendlyPos="0"/>
-    <containerStop id="containerStop_12" lane="gneE0_1" startPos="35.00" endPos="40.00" name="container" friendlyPos="0" lines="line1  line2"/>
-    <containerStop id="containerStop_13" lane="gneE0_1" startPos="45.00" endPos="50.00" name="container" friendlyPos="0" lines="lineA lineB"/>
-    <containerStop id="containerStop_14" lane="gneE1_1" startPos="5.00" endPos="10.00" name="container" friendlyPos="0" lines="lineA lineB"/>
-    <containerStop id="containerStop_15" lane="gneE1_1" startPos="15.00" endPos="20.00" name="container" friendlyPos="1" lines="lineA lineB"/>
+    <containerStop id="containerStop_gneE0_0_0" lane="gneE0_1" startPos="26.54" endPos="36.54" friendlyPos="0"/>
+    <containerStop id="containerStop_gneE1_0_1" lane="gneE1_1" startPos="27.24" endPos="37.24" friendlyPos="0"/>
+    <containerStop id="containerStop_gneE2_0_7" lane="gneE2_1" startPos="18.65" endPos="28.65" friendlyPos="0"/>
+    <containerStop id="containerStop_gneE2_1_6" lane="gneE2_2" startPos="22.60" endPos="32.60" friendlyPos="0"/>
+    <containerStop id="containerStop_gneE2_2_5" lane="gneE2_3" startPos="25.95" endPos="35.95" friendlyPos="0"/>
+    <containerStop id="containerStop_gneE2_3_4" lane="gneE2_4" startPos="29.30" endPos="39.30" friendlyPos="0"/>
+    <containerStop id="containerStop_gneE2_4_3" lane="gneE2_5" startPos="31.53" endPos="41.53" friendlyPos="0"/>
+    <containerStop id="containerStop_gneE4_0_2" lane="gneE4_0" startPos="19.84" endPos="29.84" friendlyPos="0"/>
 </additionals>

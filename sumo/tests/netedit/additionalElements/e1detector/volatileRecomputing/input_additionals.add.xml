@@ -1,15 +1,10 @@
 <additionals>
-    <e1Detector id="E1_01" lane="gneE0_0" pos="3.00" freq="100.00" file="e1Detector_01.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    <e1Detector id="E1_02" lane="gneE0_0" pos="15.00" freq="100.00" file="e1Detector_02.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    <e1Detector id="E1_03" lane="gneE0_0" pos="18.00" freq="100.00" file="e1Detector_03.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    <e1Detector id="E1_04" lane="gneE0_0" pos="21.00" freq="100.00" file="e1Detector_04.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    <e1Detector id="E1_05" lane="gneE0_0" pos="24.00" freq="120.00" file="e1Detector_05.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    <e1Detector id="E1_06" lane="gneE0_0" pos="27.00" freq="120.00" file="e1Detector_06.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    <e1Detector id="E1_07" lane="gneE0_0" pos="30.00" freq="120.00" file="e1Detector_07.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    <e1Detector id="E1_08" lane="gneE0_0" pos="33.00" freq="120.00" file="e1Detector_08.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    <e1Detector id="E1_09" lane="gneE0_0" pos="36.00" freq="120.00" file="e1Detector_09.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    <e1Detector id="E1_10" lane="gneE0_0" pos="39.00" freq="120.00" file="e1Detector_10.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    <e1Detector id="E1_11" lane="gneE0_0" pos="42.00" freq="120.00" file="e1Detector_11.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    <e1Detector id="E1_12" lane="gneE0_0" pos="45.00" freq="120.00" file="e1Detector_12.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    <e1Detector id="E1_13" lane="gneE0_0" pos="48.00" freq="120.00" file="e1Detector_13.txt" splitByType="1" friendlyPos="0"/>
+    <e1Detector id="e1Detector_gneE0_0_7" lane="gneE0_0" pos="14.77" freq="100.00" file="e1Detector_gneE0_0_7.txt" friendlyPos="0"/>
+    <e1Detector id="e1Detector_gneE1_0_6" lane="gneE1_0" pos="41.50" freq="100.00" file="e1Detector_gneE1_0_6.txt" friendlyPos="0"/>
+    <e1Detector id="e1Detector_gneE2_0_0" lane="gneE2_0" pos="19.94" freq="100.00" file="e1Detector_gneE2_0_0.txt" friendlyPos="0"/>
+    <e1Detector id="e1Detector_gneE2_1_1" lane="gneE2_1" pos="25.78" freq="100.00" file="e1Detector_gneE2_1_1.txt" friendlyPos="0"/>
+    <e1Detector id="e1Detector_gneE2_2_2" lane="gneE2_2" pos="29.90" freq="100.00" file="e1Detector_gneE2_2_2.txt" friendlyPos="0"/>
+    <e1Detector id="e1Detector_gneE2_3_3" lane="gneE2_3" pos="34.11" freq="100.00" file="e1Detector_gneE2_3_3.txt" friendlyPos="0"/>
+    <e1Detector id="e1Detector_gneE2_4_4" lane="gneE2_4" pos="36.17" freq="100.00" file="e1Detector_gneE2_4_4.txt" friendlyPos="0"/>
+    <e1Detector id="e1Detector_gneE4_0_5" lane="gneE4_0" pos="10.31" freq="100.00" file="e1Detector_gneE4_0_5.txt" friendlyPos="0"/>
 </additionals>

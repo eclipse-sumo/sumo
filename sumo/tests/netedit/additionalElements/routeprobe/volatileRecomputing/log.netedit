@@ -47,6 +47,17 @@ Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE1_1togneE0_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE2_2' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE2_3' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE2_4' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE2_5' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE4' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

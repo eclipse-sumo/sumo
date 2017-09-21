@@ -1,94 +1,47 @@
-Warning: Adding e1Detector 'E1_01' in GNEChange_Additional
+Warning: Adding e1Detector 'e1Detector_gneE0_0_7' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Adding e1Detector 'E1_02' in GNEChange_Additional
-Warning: Adding e1Detector 'E1_03' in GNEChange_Additional
-Warning: Adding e1Detector 'E1_04' in GNEChange_Additional
-Warning: Adding e1Detector 'E1_05' in GNEChange_Additional
-Warning: Adding e1Detector 'E1_06' in GNEChange_Additional
-Warning: Adding e1Detector 'E1_07' in GNEChange_Additional
-Warning: Adding e1Detector 'E1_08' in GNEChange_Additional
-Warning: Adding e1Detector 'E1_09' in GNEChange_Additional
-Warning: Adding e1Detector 'E1_10' in GNEChange_Additional
-Warning: Adding e1Detector 'E1_11' in GNEChange_Additional
-Warning: Adding e1Detector 'E1_12' in GNEChange_Additional
-Warning: Adding e1Detector 'E1_13' in GNEChange_Additional
+Warning: Adding e1Detector 'e1Detector_gneE1_0_6' in GNEChange_Additional
+Warning: Adding e1Detector 'e1Detector_gneE2_0_0' in GNEChange_Additional
+Warning: Adding e1Detector 'e1Detector_gneE2_1_1' in GNEChange_Additional
+Warning: Adding e1Detector 'e1Detector_gneE2_2_2' in GNEChange_Additional
+Warning: Adding e1Detector 'e1Detector_gneE2_3_3' in GNEChange_Additional
+Warning: Adding e1Detector 'e1Detector_gneE2_4_4' in GNEChange_Additional
+Warning: Adding e1Detector 'e1Detector_gneE4_0_5' in GNEChange_Additional
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Adding lane 'gneE0_0' into edge
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing lane 'gneE0_0' from edge
 Warning: Additionals saved
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEChange_Lane
-Warning: Deleting unreferenced e1Detector 'E1_13'
-Warning: Deleting unreferenced e1Detector 'E1_12'
-Warning: Deleting unreferenced e1Detector 'E1_11'
-Warning: Deleting unreferenced e1Detector 'E1_10'
-Warning: Deleting unreferenced e1Detector 'E1_09'
-Warning: Deleting unreferenced e1Detector 'E1_08'
-Warning: Deleting unreferenced e1Detector 'E1_07'
-Warning: Deleting unreferenced e1Detector 'E1_06'
-Warning: Deleting unreferenced e1Detector 'E1_05'
-Warning: Deleting unreferenced e1Detector 'E1_04'
-Warning: Deleting unreferenced e1Detector 'E1_03'
-Warning: Deleting unreferenced e1Detector 'E1_02'
-Warning: Deleting unreferenced e1Detector 'E1_01'
+Warning: Deleting unreferenced e1Detector 'e1Detector_gneE4_0_5'
+Warning: Deleting unreferenced e1Detector 'e1Detector_gneE2_4_4'
+Warning: Deleting unreferenced e1Detector 'e1Detector_gneE2_3_3'
+Warning: Deleting unreferenced e1Detector 'e1Detector_gneE2_2_2'
+Warning: Deleting unreferenced e1Detector 'e1Detector_gneE2_1_1'
+Warning: Deleting unreferenced e1Detector 'e1Detector_gneE2_0_0'
+Warning: Deleting unreferenced e1Detector 'e1Detector_gneE1_0_6'
+Warning: Deleting unreferenced e1Detector 'e1Detector_gneE0_0_7'
+Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
 Warning: Additionals has to be saved
 Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE0_1togneE1_1' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE1_1togneE0_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE2_2' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE2_3' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE2_4' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE2_5' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE4' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
