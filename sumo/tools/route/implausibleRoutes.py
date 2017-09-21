@@ -30,13 +30,12 @@ from optparse import OptionParser
 import subprocess
 
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(os.path.join(tools))
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
     import sumolib  # noqa
     from sumolib.output import parse  # noqa
     from sumolib.net import readNet  # noqa
     from sumolib.miscutils import Statistics, euclidean, Colorgen  # noqa
-    from route2poly import generate_poly
+    from route2poly import generate_poly  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
@@ -176,7 +175,7 @@ def main():
         numImplausible = len(implausible)
         ignored = set([r.strip() for r in open(options.ignore_routes)])
         implausible = [r for r in implausible if r not in ignored]
-        print("Loadeded %s routes to ignore. Reducing implausible from %s to %s" % (
+        print("Loaded %s routes to ignore. Reducing implausible from %s to %s" % (
             len(ignored), numImplausible, len(implausible)))
 
     # generate polygons
@@ -191,7 +190,7 @@ def main():
     sys.stdout.write('score\troute\t(airDistRatio, detourRatio, detour, shortestDist)\n')
     for score, rID, ri in sorted(implausible):
         # , ' '.join(ri.edges)))
-        sys.stdout.write('%s\t%s\t%s\n' % (score, rID, (ri.airDistRatio, ri.detourRatio, ri.detour, ri.shortest_path_distance)))
+        sys.stdout.write('%.7f\t%s\t%s\n' % (score, rID, (ri.airDistRatio, ri.detourRatio, ri.detour, ri.shortest_path_distance)))
 
     print(allRoutesStats)
     print(implausibleRoutesStats)
