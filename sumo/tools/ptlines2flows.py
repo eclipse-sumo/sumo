@@ -151,18 +151,18 @@ def main():
             edges = vehicle.routeDistribution[0]._child_dict['route'][1].edges
             stops = vehicle.stop
             foutflows.write(
-                '\t<route id="%s" edges="%s" >\n' % (id, edges))
+                '    <route id="%s" edges="%s" >\n' % (id, edges))
             for stop in stops:
                 if (id, stop.busStop) in stopsUntil:
                     foutflows.write(
-                        '\t\t<stop busStop="%s" duration="%s" until="%s" />\n' % (
+                        '        <stop busStop="%s" duration="%s" until="%s" />\n' % (
                             stop.busStop, stop.duration, stopsUntil[(id, stop.busStop)]))
                 else:
                     sys.stderr.write("Missing stop '%s' for flow '%s'\n" % (stop.busStop, id))
-            foutflows.write('\t</route>\n')
+            foutflows.write('    </route>\n')
         for flow, type in flows:
             lineRef = trpIDLineMap[flow]
-            foutflows.write('\t<flow id="%s_%s_%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s/>\n' %
+            foutflows.write('    <flow id="%s_%s_%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s/>\n' %
                             (type, lineRef, flow, type, flow, options.begin, options.end, options.period, lineRef, options.flowattrs))
         foutflows.write('</routes>\n')
 
