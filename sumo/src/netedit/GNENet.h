@@ -349,9 +349,10 @@ public:
     /**@brief get lane by id
      * @param[in] id The id of the desired lane
      * @param[in] failHard Whether attempts to retrieve a nonexisting lane should result in an exception
+     * @param[in] checkVolatileChange Used by additionals after recomputing with volatile options.
      * @throws UnknownElement
      */
-    GNELane* retrieveLane(const std::string& id, bool failHard = true);
+    GNELane* retrieveLane(const std::string& id, bool failHard = true, bool checkVolatileChange = false);
 
     /**@brief return all junctions
      * @param[in] onlySelected Whether to return only selected junctions
@@ -753,6 +754,9 @@ private:
 
     /// @brief marker for whether the z-boundary is initialized
     static const double Z_INITIALIZED;
+
+    /// @brief map with the Edges and their number of lanes 
+    std::map<std::string, int> myEdgesAndNumberOfLanes;
 
     /// @brief class for GNEChange_ReplaceEdgeInTLS
     class GNEChange_ReplaceEdgeInTLS : public GNEChange {

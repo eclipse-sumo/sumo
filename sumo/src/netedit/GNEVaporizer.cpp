@@ -150,7 +150,7 @@ GNEVaporizer::commitGeometryMoving(const Position&, GNEUndoList*) {
 
 
 void
-GNEVaporizer::writeAdditional(OutputDevice& device, bool /*volatileOptionsEnabled*/) const {
+GNEVaporizer::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_EDGE, myEdge->getID());

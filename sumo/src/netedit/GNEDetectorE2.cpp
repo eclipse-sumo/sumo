@@ -133,21 +133,11 @@ GNEDetectorE2::updateGeometry() {
 
 
 void
-GNEDetectorE2::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const {
+GNEDetectorE2::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    // Check if another lane ID must be changed if sidewalks.guess option is enabled
-    if (volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && (myLane->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
-        // add a new extra lane to edge
-        myViewNet->getNet()->duplicateLane(myLane->getParentEdge().getLanes().front(), myViewNet->getUndoList());
-        // write ID (now is different because there are a new lane)
-        device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-        // undo set extra lane
-        myViewNet->getUndoList()->undo();
-    } else {
-        device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-    }
+    device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     device.writeAttr(SUMO_ATTR_POSITION, getAbsolutePositionOverLane());
     device.writeAttr(SUMO_ATTR_LENGTH, myRelativeLength * myLane->getLaneParametricLength());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
@@ -159,9 +149,6 @@ GNEDetectorE2::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
     device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
     device.writeAttr(SUMO_ATTR_JAM_DIST_THRESHOLD, myJamThreshold);
     device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
-    if (myBlocked) {
-        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
-    }
     // Close tag
     device.closeTag();
 }

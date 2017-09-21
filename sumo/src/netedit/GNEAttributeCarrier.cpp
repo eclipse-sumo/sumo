@@ -1355,7 +1355,7 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_LINE] = "A string specifying the id of a public transport line which can be used when specifying person rides";
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_PERSON_NUMBER] = "The number of occupied seats when the vehicle is inserted";
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_CONTAINER_NUMBER] = "The number of occupied container places when the vehicle is inserted";
-        myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_REROUTE] = "	Whether the vehicle should be equipped with a rerouting device";
+        myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_REROUTE] = "    Whether the vehicle should be equipped with a rerouting device";
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_DEPARTPOS_LAT] = "The lateral position on the departure lane at which the vehicle shall enter the net";
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_ARRIVALPOS_LAT] = "The lateral position on the arrival lane at which the vehicle shall arrive";
         // route

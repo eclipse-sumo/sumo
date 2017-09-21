@@ -143,7 +143,7 @@ GNERerouter::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList)
 
 
 void
-GNERerouter::writeAdditional(OutputDevice& device, bool /*volatileOptionsEnabled*/) const {
+GNERerouter::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
@@ -160,9 +160,7 @@ GNERerouter::writeAdditional(OutputDevice& device, bool /*volatileOptionsEnabled
     device.writeAttr(SUMO_ATTR_OFF, myOff);
     device.writeAttr(SUMO_ATTR_X, myPosition.x());
     device.writeAttr(SUMO_ATTR_Y, myPosition.y());
-    if (myBlocked) {
-        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
-    }
+
     // write intervals
     for (std::vector<GNERerouterInterval>::const_iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
         device.openTag(i->getTag());

@@ -819,7 +819,7 @@ GNENet::saveAdditionals(const std::string& filename, bool volatileOptionsEnabled
             OutputDevice& device = OutputDevice::getDevice(filename);
             device.openTag("additionals");
             for (auto i : myAdditionals) {
-                i.second->writeAdditional(device, volatileOptionsEnabled);
+                i.second->writeAdditional(device);
             }
             device.close();
         }
@@ -829,7 +829,7 @@ GNENet::saveAdditionals(const std::string& filename, bool volatileOptionsEnabled
         OutputDevice& device = OutputDevice::getDevice(filename);
         device.openTag("additionals");
         for (auto i : myAdditionals) {
-            i.second->writeAdditional(device, volatileOptionsEnabled);
+            i.second->writeAdditional(device);
         }
         device.close();
     }
@@ -937,7 +937,7 @@ GNENet::retrieveLanes(bool onlySelected) {
 
 
 GNELane*
-GNENet::retrieveLane(const std::string& id, bool failHard) {
+GNENet::retrieveLane(const std::string& id, bool failHard, bool checkVolatileChange) {
     const std::string edge_id = SUMOXMLDefinitions::getEdgeIDFromLane(id);
     GNEEdge* edge = retrieveEdge(edge_id, failHard);
     if (edge != 0) {
@@ -2263,6 +2263,13 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             liveExplicitTurnarounds.insert(it);
         }
     }
+    // save current number of lanes for every edge if recomputing is with volatile options
+    if(volatileOptions) {
+        for (auto it : myEdges) {
+            myEdgesAndNumberOfLanes[it.second->getID()] = it.second->getLanes().size();
+        }
+    }
+
     myNetBuilder->compute(oc, liveExplicitTurnarounds, volatileOptions);
     // update ids if necessary
     if (oc.getBool("numerical-ids") || oc.isSet("reserved-ids")) {

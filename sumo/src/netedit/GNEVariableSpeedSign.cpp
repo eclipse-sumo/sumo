@@ -137,7 +137,7 @@ GNEVariableSpeedSign::commitGeometryMoving(const Position& oldPos, GNEUndoList* 
 
 
 void
-GNEVariableSpeedSign::writeAdditional(OutputDevice& device, bool /*volatileOptionsEnabled*/) const {
+GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
@@ -175,9 +175,6 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device, bool /*volatileOptio
             // Close VSS tag
             device.closeTag();
         }
-    }
-    if (myBlocked) {
-        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlocked);
     }
     // Close tag
     device.closeTag();

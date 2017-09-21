@@ -60,9 +60,8 @@ public:
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
-     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled
      */
-    void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
+    void writeAdditional(OutputDevice& device) const;
 
     /// @brief check if Position of detector is fixed
     bool isDetectorPositionFixed() const;

@@ -145,7 +145,7 @@ GNEDetectorE3::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoLis
 
 
 void
-GNEDetectorE3::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const {
+GNEDetectorE3::writeAdditional(OutputDevice& device) const {
     // Only save E3 if have Entry/Exits
     if ((myGNEDetectorEntrys.size() + myGNEDetectorExits.size()) > 0) {
         // Write parameters
@@ -161,40 +161,20 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
         device.writeAttr(SUMO_ATTR_Y, myPosition.y());
 
         // Write entrys
-        for (std::vector<GNEDetectorEntry*>::const_iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
-            device.openTag((*i)->getTag());
-            // Check if another lane ID must be changed if sidewalks.guess option is enabled
-            if (volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && ((*i)->getLane()->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
-                // add a new extra lane to edge
-                myViewNet->getNet()->duplicateLane((*i)->getLane()->getParentEdge().getLanes().front(), myViewNet->getUndoList());
-                // write ID (now is different because there are a new lane)
-                device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
-                // undo set extra lane
-                myViewNet->getUndoList()->undo();
-            } else {
-                device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
-            }
-            device.writeAttr(SUMO_ATTR_POSITION, (*i)->getAttribute(SUMO_ATTR_POSITION));
-            device.writeAttr(SUMO_ATTR_FRIENDLY_POS, (*i)->getAttribute(SUMO_ATTR_FRIENDLY_POS));
+        for (auto i : myGNEDetectorEntrys) {
+            device.openTag(i->getTag());
+            device.writeAttr(SUMO_ATTR_LANE, i->getLane()->getID());
+            device.writeAttr(SUMO_ATTR_POSITION, i->getAttribute(SUMO_ATTR_POSITION));
+            device.writeAttr(SUMO_ATTR_FRIENDLY_POS, i->getAttribute(SUMO_ATTR_FRIENDLY_POS));
             device.closeTag();
         }
 
         // Write exits
-        for (std::vector<GNEDetectorExit*>::const_iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
-            device.openTag((*i)->getTag());
-            // Check if another lane ID must be changed if sidewalks.guess option is enabled
-            if (volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && ((*i)->getLane()->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
-                // add a new extra lane to edge
-                myViewNet->getNet()->duplicateLane((*i)->getLane()->getParentEdge().getLanes().front(), myViewNet->getUndoList());
-                // write ID (now is different because there are a new lane)
-                device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
-                // undo set extra lane
-                myViewNet->getUndoList()->undo();
-            } else {
-                device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
-            }
-            device.writeAttr(SUMO_ATTR_POSITION, (*i)->getAttribute(SUMO_ATTR_POSITION));
-            device.writeAttr(SUMO_ATTR_FRIENDLY_POS, (*i)->getAttribute(SUMO_ATTR_FRIENDLY_POS));
+        for (auto i : myGNEDetectorExits) {
+            device.openTag(i->getTag());
+            device.writeAttr(SUMO_ATTR_LANE, i->getLane()->getID());
+            device.writeAttr(SUMO_ATTR_POSITION, i->getAttribute(SUMO_ATTR_POSITION));
+            device.writeAttr(SUMO_ATTR_FRIENDLY_POS, i->getAttribute(SUMO_ATTR_FRIENDLY_POS));
             device.closeTag();
         }
 
