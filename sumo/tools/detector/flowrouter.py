@@ -519,6 +519,7 @@ class Net:
             if currVertex == self._sink or (currVertex == self._source and currVertex.inPathEdge):
                 if self.updateFlow(pathStart, currVertex):
                     return True
+                continue
             for edge in currVertex.outEdges:
                 if limitedSource and currVertex == self._source and not edge.isOnSourcePath:
                     continue
