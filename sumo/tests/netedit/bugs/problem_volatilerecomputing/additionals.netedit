@@ -1,8 +1,0 @@
-<additionals>
-    <busStop id="busStop_gneE0_0_0" lane="gneE0_1" startPos="13.91" endPos="23.91" friendlyPos="0"/>
-    <busStop id="busStop_gneE7_0_1" lane="gneE7_1" startPos="3.67" endPos="11.15" friendlyPos="1"/>
-    <calibrator id="laneCalibrator_3_0_0" lane="3_1" pos="0.00" freq="100.00" output="laneCalibrator_3_0_0.txt"/>
-    <calibrator id="laneCalibrator_7_0_0" lane="7_1" pos="0.00" freq="100.00" output="laneCalibrator_7_0_0.txt"/>
-    <calibrator id="laneCalibrator_gneE1_0_0" lane="gneE1_1" pos="0.00" freq="100.00" output="laneCalibrator_gneE1_0_0.txt"/>
-    <calibrator id="laneCalibrator_gneE2_0_0" lane="gneE2_1" pos="0.00" freq="100.00" output="laneCalibrator_gneE2_0_0.txt"/>
-</additionals>

@@ -23,5 +23,3 @@ ticket2948
 # when the position of a node was changed using inspector node,
 # due a call to computeSingleNode(...)
 revision24081
-
-problem_volatilerecomputing
