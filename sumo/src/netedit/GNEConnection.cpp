@@ -35,6 +35,7 @@
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/common/ToString.h>
@@ -301,6 +302,8 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return toString(nbCon.visibility);
         case SUMO_ATTR_SPEED:
             return toString(nbCon.speed);
+        case SUMO_ATTR_CUSTOMSHAPE:
+            return toString(nbCon.customShape);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -320,6 +323,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_UNCONTROLLED:
         case SUMO_ATTR_VISIBILITY_DISTANCE:
         case SUMO_ATTR_SPEED:
+        case SUMO_ATTR_CUSTOMSHAPE:
             // no special handling
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
@@ -350,6 +354,11 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && isPositive<double>(value);
         case SUMO_ATTR_SPEED:
             return canParse<double>(value) && isPositive<double>(value);
+        case SUMO_ATTR_CUSTOMSHAPE: {
+            bool ok = true;
+            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
+            return ok;
+        }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -378,6 +387,11 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPEED:
             nbCon.speed = parse<double>(value);
             break;
+        case SUMO_ATTR_CUSTOMSHAPE: {
+            bool ok;
+            nbCon.customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
+            break;
+        }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

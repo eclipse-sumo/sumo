@@ -106,7 +106,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
 
 
 NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, double contPos_, 
-        double visibility_, double speed_, bool haveVia_, bool uncontrolled_) :
+        double visibility_, double speed_, bool haveVia_, bool uncontrolled_, const PositionVector& customShape_) :
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
@@ -115,6 +115,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     contPos(contPos_),
     visibility(visibility_),
     speed(speed_),
+    customShape(customShape_),
     id(toEdge_ == 0 ? "" : toEdge->getFromNode()->getID()),
     haveVia(haveVia_),
     internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX),
@@ -473,6 +474,9 @@ NBEdge::reshiftPosition(double xoff, double yoff) {
     myGeom.add(xoff, yoff, 0);
     for (int i = 0; i < (int)myLanes.size(); i++) {
         myLanes[i].shape.add(xoff, yoff, 0);
+    }
+    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+        (*i).customShape.add(xoff, yoff, 0);
     }
     computeAngle(); // update angles because they are numerically sensitive (especially where based on centroids)
 }
@@ -920,7 +924,8 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
                                bool keepClear,
                                double contPos,
                                double visibility,
-                               double speed) {
+                               double speed,
+                               const PositionVector& customShape) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return true;
     }
@@ -933,7 +938,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
     if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
-    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed);
+    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape);
 }
 
 
@@ -962,7 +967,8 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
                       bool keepClear,
                       double contPos,
                       double visibility,
-                      double speed) {
+                      double speed,
+                      const PositionVector& customShape) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return false;
     }
@@ -1001,6 +1007,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     myConnections.back().contPos = contPos;
     myConnections.back().visibility = visibility;
     myConnections.back().speed = speed;
+    myConnections.back().customShape = customShape;
     if (type == L2L_USER) {
         myStep = LANES2LANES_USER;
     } else {
@@ -1333,7 +1340,7 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
             toUse = 0;
         }
         setConnection(toUse, (*i).toEdge, (*i).toLane, L2L_COMPUTED, false, (*i).mayDefinitelyPass, (*i).keepClear, 
-                (*i).contPos, (*i).visibility, (*i).speed);
+                (*i).contPos, (*i).visibility, (*i).speed, (*i).customShape);
     }
 }
 
@@ -1408,7 +1415,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             toEdge = (*i).toEdge;
             internalLaneIndex = 0;
         }
-        PositionVector shape = n.computeInternalLaneShape(this, con, numPoints, myTo);
+        PositionVector shape = con.customShape.size() == 0 ? n.computeInternalLaneShape(this, con, numPoints, myTo) : con.customShape;
         std::vector<int> foeInternalLinks;
 
         if (dir != LINKDIR_STRAIGHT && shape.length() < POSITION_EPS) {

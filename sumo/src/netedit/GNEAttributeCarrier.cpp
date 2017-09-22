@@ -342,6 +342,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_UNCONTROLLED, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_VISIBILITY_DISTANCE, toString(NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE)));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SPEED, toString(NBEdge::UNSPECIFIED_SPEED)));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CUSTOMSHAPE, ""));
                 break;
             case SUMO_TAG_BUS_STOP:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
@@ -887,6 +888,7 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
             myUniqueAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_STARTPOS);
             // connection
             myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_FROM);
+            myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_CUSTOMSHAPE);
             // container stop
             myUniqueAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_ENDPOS);
             myUniqueAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_LANE);
@@ -1248,6 +1250,7 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_CONNECTION][SUMO_ATTR_UNCONTROLLED] = "If set to true, This connection will not be TLS-controlled despite its node being controlled.";
         myAttrDefinitions[SUMO_TAG_CONNECTION][SUMO_ATTR_VISIBILITY_DISTANCE] = "sets the distance to the connection at which all relevant foes are visible.";
         myAttrDefinitions[SUMO_TAG_CONNECTION][SUMO_ATTR_SPEED] = "sets custom speed limit for the connection.";
+        myAttrDefinitions[SUMO_TAG_CONNECTION][SUMO_ATTR_CUSTOMSHAPE] = "sets custom shape for the connection.";
         // Bus Stop
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_ID] = "ID (Must be unique)";
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_LANE] = "The name of the lane the bus stop shall be located at";

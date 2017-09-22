@@ -192,7 +192,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 }
                 nbe->addLane2LaneConnection(
                     fromLaneIndex, toEdge, c.toLaneIdx, NBEdge::L2L_VALIDATED,
-                    true, c.mayDefinitelyPass, c.keepClear, c.contPos, c.visibility, c.speed);
+                    true, c.mayDefinitelyPass, c.keepClear, c.contPos, c.visibility, c.speed, c.customShape);
 
                 // maybe we have a tls-controlled connection
                 if (c.tlID != "" && myRailSignals.count(c.tlID) == 0) {
@@ -608,6 +608,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     conn.contPos = attrs.getOpt<double>(SUMO_ATTR_CONTPOS, 0, ok, NBEdge::UNSPECIFIED_CONTPOS);
     conn.visibility = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, 0, ok, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
     conn.speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, 0, ok, NBEdge::UNSPECIFIED_SPEED);
+    conn.customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, 0, ok, PositionVector::EMPTY);
     if (conn.tlID != "") {
         conn.tlLinkNo = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, 0, ok);
     }

@@ -77,6 +77,9 @@ public:
     /// @brief Destructor
     ~PositionVector();
 
+    /// @brief empty Vector
+    static const PositionVector EMPTY;
+
     /// @name methode for iterate over PositionVector
     /// @{
     /// @brief iterator

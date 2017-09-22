@@ -204,6 +204,8 @@ private:
         double visibility;
         /// @brief custom speed for connection
         double speed;
+        /// @brief custom shape connection
+        PositionVector customShape;
     };
 
 
