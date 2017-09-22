@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep 22 14:47:38 2017 by SUMO netconvert Version dev-SVN-r24506
+<!-- generated on Fri Sep 22 17:27:38 2017 by SUMO netconvert Version dev-SVN-r24506
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -38,8 +38,8 @@
         <lane id=":C_0_0" index="0" speed="5.00" length="5.00" shape="95.05,108.05 94.86,106.69 94.28,105.72 93.31,105.14 91.95,104.95"/>
     </edge>
     <edge id=":C_1" function="internal">
-        <lane id=":C_1_0" index="0" speed="13.89" length="16.10" shape="95.05,108.05 95.05,91.95"/>
-        <lane id=":C_1_1" index="1" speed="13.89" length="16.10" shape="98.35,108.05 98.35,91.95"/>
+        <lane id=":C_1_0" index="0" speed="13.89" length="17.35" shape="95.05,108.05 95.05,91.95"/>
+        <lane id=":C_1_1" index="1" speed="13.89" length="17.35" shape="98.35,108.05 103.00,100.00 98.35,91.95"/>
     </edge>
     <edge id=":C_3" function="internal">
         <lane id=":C_3_0" index="0" speed="13.89" length="6.41" shape="98.35,108.05 98.96,103.81 100.05,101.98"/>
@@ -170,7 +170,7 @@
     <connection from="EC" to="CS" fromLane="1" toLane="1" visibility="40.00" via=":C_7_0" dir="l" state="m"/>
     <connection from="NC" to="CW" fromLane="0" toLane="0" speed="5.00" via=":C_0_0" dir="r" state="M"/>
     <connection from="NC" to="CS" fromLane="0" toLane="0" via=":C_1_0" dir="s" state="M"/>
-    <connection from="NC" to="CS" fromLane="1" toLane="1" via=":C_1_1" dir="s" state="M"/>
+    <connection from="NC" to="CS" fromLane="1" toLane="1" shape="98.35,108.05 103.00,100.00 98.35,91.95" via=":C_1_1" dir="s" state="M"/>
     <connection from="NC" to="CE" fromLane="1" toLane="1" via=":C_3_0" dir="l" state="m"/>
     <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_8_0" dir="r" state="M"/>
     <connection from="SC" to="CN" fromLane="0" toLane="0" keepClear="0" via=":C_9_0" dir="s" state="M"/>

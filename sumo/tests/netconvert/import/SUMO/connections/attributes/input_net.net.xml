@@ -163,7 +163,7 @@
     <connection from="EC" to="CS" fromLane="1" toLane="1" via=":C_7_0" dir="l" state="m" visibility="40"/>
     <connection from="NC" to="CW" fromLane="0" toLane="0" via=":C_0_0" dir="r" state="M" speed="5.0"/>
     <connection from="NC" to="CS" fromLane="0" toLane="0" via=":C_1_0" dir="s" state="M"/>
-    <connection from="NC" to="CS" fromLane="1" toLane="1" via=":C_1_1" dir="s" state="M"/>
+    <connection from="NC" to="CS" fromLane="1" toLane="1" via=":C_1_1" dir="s" state="M" shape="98.35,108.05 103.00,100.0 98.35,91.95"/>
     <connection from="NC" to="CE" fromLane="1" toLane="1" via=":C_3_0" dir="l" state="m"/>
     <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_8_0" dir="r" state="M"/>
     <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_9_0" dir="s" state="M" keepClear="false"/>
