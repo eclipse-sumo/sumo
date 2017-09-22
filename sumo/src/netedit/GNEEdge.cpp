@@ -480,6 +480,7 @@ GNEEdge::remakeGNEConnections() {
     for (std::vector<NBEdge::Connection>::const_iterator it = connections.begin(); it != connections.end(); it++) {
         // retrieve existent GNEConnection, or create it
         GNEConnection* retrievedGNEConnection = retrieveGNEConnection(it->fromLane, it->toEdge, it->toLane);
+        retrievedGNEConnection->updateLinkState();
         retrievedConnections.push_back(retrievedGNEConnection);
         // check if previously this GNEConnections exists, and if true, remove it from myGNEConnections
         std::vector<GNEConnection*>::iterator retrievedExists = std::find(myGNEConnections.begin(), myGNEConnections.end(), retrievedGNEConnection);
@@ -488,7 +489,6 @@ GNEEdge::remakeGNEConnections() {
         } else {
             // include reference to created GNEConnection
             retrievedGNEConnection->incRef("GNEEdge::remakeGNEConnections");
-            retrievedGNEConnection->updateLinkState();
         }
     }
     // delete non retrieved GNEConnections
