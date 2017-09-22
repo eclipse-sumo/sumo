@@ -12,7 +12,7 @@ Tutorial for traffic light control via the TraCI interface.
 This scenario models a pedestrian crossing which switches on demand.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2009-2017 DLR/TS, Germany
+Copyright (C) 2009-2017 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software: you can redistribute it and/or modify
