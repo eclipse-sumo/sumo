@@ -299,6 +299,8 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return toString(nbCon.uncontrolled);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return toString(nbCon.visibility);
+        case SUMO_ATTR_SPEED:
+            return toString(nbCon.speed);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -317,6 +319,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_CONTPOS:
         case SUMO_ATTR_UNCONTROLLED:
         case SUMO_ATTR_VISIBILITY_DISTANCE:
+        case SUMO_ATTR_SPEED:
             // no special handling
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
@@ -345,6 +348,8 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return canParse<double>(value) && isPositive<double>(value);
+        case SUMO_ATTR_SPEED:
+            return canParse<double>(value) && isPositive<double>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -369,6 +374,9 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             nbCon.visibility = parse<double>(value);
+            break;
+        case SUMO_ATTR_SPEED:
+            nbCon.speed = parse<double>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

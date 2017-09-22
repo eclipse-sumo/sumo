@@ -847,8 +847,8 @@ NBEdgeCont::getByID(const std::string& edgeID) const {
 // ----- other
 void
 NBEdgeCont::addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass,
-                                     bool keepClear, double contPos, double visibility, bool warnOnly) {
-    myConnections.push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos, visibility, warnOnly));
+                                     bool keepClear, double contPos, double visibility, double speed, bool warnOnly) {
+    myConnections.push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos, visibility, speed, warnOnly));
 }
 
 
@@ -859,7 +859,8 @@ NBEdgeCont::recheckPostProcessConnections() {
         NBEdge* from = retrievePossiblySplit((*i).from, true);
         NBEdge* to = retrievePossiblySplit((*i).to, false);
         if (from == 0 || to == 0 ||
-                !from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, true, (*i).mayDefinitelyPass, (*i).keepClear, (*i).contPos)) {
+                !from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, true, (*i).mayDefinitelyPass, 
+                    (*i).keepClear, (*i).contPos, (*i).visibility, (*i).speed)) {
             const std::string msg = "Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.";
             if (warnOnly || (*i).warnOnly) {
                 WRITE_WARNING(msg);

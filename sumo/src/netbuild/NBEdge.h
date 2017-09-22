@@ -175,6 +175,7 @@ public:
                    bool keepClear_ = true,
                    double contPos_ = UNSPECIFIED_CONTPOS,
                    double visibility_ = UNSPECIFIED_VISIBILITY_DISTANCE,
+                   double speed_ = UNSPECIFIED_SPEED,
                    bool haveVia_ = false,
                    bool uncontrolled_ = false);
 
@@ -208,6 +209,9 @@ public:
         /// @brief custom foe visiblity for connection
         double visibility;
 
+        /// @brief custom speed for connection
+        double speed;
+
         /// @brief origin ID
         std::string origID;
 
@@ -225,9 +229,6 @@ public:
 
         /// @brief if Connection have a via, ID of it
         std::string viaID;
-
-        /// @brief Maximun velocity of via
-        double viaVmax;
 
         /// @brief shape of via
         PositionVector viaShape;
@@ -743,7 +744,8 @@ public:
                                 bool mayDefinitelyPass = false,
                                 bool keepClear = true,
                                 double contPos = UNSPECIFIED_CONTPOS,
-                                double visibility = UNSPECIFIED_VISIBILITY_DISTANCE);
+                                double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
+                                double speed = UNSPECIFIED_SPEED);
 
     /** @brief Builds no connections starting at the given lanes
      *
@@ -784,7 +786,8 @@ public:
                        bool mayDefinitelyPass = false,
                        bool keepClear = true,
                        double contPos = UNSPECIFIED_CONTPOS,
-                       double visibility = UNSPECIFIED_VISIBILITY_DISTANCE);
+                       double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
+                       double speed = UNSPECIFIED_SPEED);
 
     /// @brief insert a previously created NBEdge::connection
     void insertConnection(NBEdge::Connection connection);

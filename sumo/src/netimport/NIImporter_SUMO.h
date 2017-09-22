@@ -202,6 +202,8 @@ private:
         double contPos;
         /// @brief custom foe visibility for connection
         double visibility;
+        /// @brief custom speed for connection
+        double speed;
     };
 
 

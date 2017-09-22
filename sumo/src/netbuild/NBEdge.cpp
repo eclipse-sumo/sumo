@@ -97,6 +97,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     keepClear(true),
     contPos(UNSPECIFIED_CONTPOS),
     visibility(UNSPECIFIED_VISIBILITY_DISTANCE),
+    speed(UNSPECIFIED_SPEED),
     id(toEdge_ == 0 ? "" : toEdge->getFromNode()->getID()),
     haveVia(false),
     internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX),
@@ -104,7 +105,8 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
 }
 
 
-NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, double contPos_, double visibility_, bool haveVia_, bool uncontrolled_) :
+NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, double contPos_, 
+        double visibility_, double speed_, bool haveVia_, bool uncontrolled_) :
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
@@ -112,6 +114,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     keepClear(keepClear_),
     contPos(contPos_),
     visibility(visibility_),
+    speed(speed_),
     id(toEdge_ == 0 ? "" : toEdge->getFromNode()->getID()),
     haveVia(haveVia_),
     internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX),
@@ -916,7 +919,8 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
                                bool mayDefinitelyPass,
                                bool keepClear,
                                double contPos,
-                               double visibility) {
+                               double visibility,
+                               double speed) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return true;
     }
@@ -929,7 +933,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
     if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
-    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility);
+    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed);
 }
 
 
@@ -957,7 +961,8 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
                       bool mayDefinitelyPass,
                       bool keepClear,
                       double contPos,
-                      double visibility) {
+                      double visibility,
+                      double speed) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return false;
     }
@@ -995,6 +1000,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     myConnections.back().keepClear = keepClear;
     myConnections.back().contPos = contPos;
     myConnections.back().visibility = visibility;
+    myConnections.back().speed = speed;
     if (type == L2L_USER) {
         myStep = LANES2LANES_USER;
     } else {
@@ -1326,7 +1332,8 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
         if (toUse == -1) {
             toUse = 0;
         }
-        setConnection(toUse, (*i).toEdge, (*i).toLane, L2L_COMPUTED, false, (*i).mayDefinitelyPass);
+        setConnection(toUse, (*i).toEdge, (*i).toLane, L2L_COMPUTED, false, (*i).mayDefinitelyPass, (*i).keepClear, 
+                (*i).contPos, (*i).visibility, (*i).speed);
     }
 }
 
@@ -1515,7 +1522,11 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         / (double) 2.0 / (double) M_PI;
         vmax = MIN2(vmax, ((getSpeed() + con.toEdge->getSpeed()) / (double) 2.0));
         */
-        double vmax = (myLanes[con.fromLane].speed + con.toEdge->getLanes()[con.toLane].speed) / (double) 2.0;
+        if (con.speed == UNSPECIFIED_SPEED) {
+            con.vmax = (myLanes[con.fromLane].speed + con.toEdge->getLanes()[con.toLane].speed) / (double) 2.0;
+        } else {
+            con.vmax = con.speed;
+        }
         //
         Position end = con.toEdge->getLaneShape(con.toLane).front();
         Position beg = getLaneShape(con.fromLane).back();
@@ -1530,14 +1541,12 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             con.foeInternalLinks = foeInternalLinks; // resolve link indices to lane ids later
             con.viaID = innerID + "_" + toString(splitIndex + noInternalNoSplits);
             ++splitIndex;
-            con.viaVmax = vmax;
             con.viaShape = split.second;
             con.haveVia = true;
         } else {
             con.id = innerID + "_" + toString(edgeIndex);
             con.shape = shape;
         }
-        con.vmax = vmax;
         con.internalLaneIndex = internalLaneIndex;
         ++internalLaneIndex;
         ++linkIndex;

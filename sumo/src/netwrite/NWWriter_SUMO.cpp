@@ -317,7 +317,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     into.openTag(SUMO_TAG_EDGE);
                     into.writeAttr(SUMO_ATTR_ID, (*k).viaID);
                     into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
-                    writeLane(into, (*k).viaID + "_0", (*k).viaVmax, SVCAll, SVCAll,
+                    writeLane(into, (*k).viaID + "_0", (*k).vmax, SVCAll, SVCAll,
                               NBEdge::UNSPECIFIED_OFFSET, successor.width, (*k).viaShape, (*k).origID,
                               MAX2((*k).viaShape.length(), POSITION_EPS), // microsim needs positive length
                               0, origNames, "", &n);
@@ -597,6 +597,9 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
     }
     if (c.visibility != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE && style != TLL) {
         into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, c.visibility);
+    }
+    if (c.speed != NBEdge::UNSPECIFIED_SPEED && style != TLL) {
+        into.writeAttr(SUMO_ATTR_SPEED, c.speed);
     }
     if (style != PLAIN) {
         if (includeInternal) {

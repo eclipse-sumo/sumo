@@ -504,10 +504,12 @@ public:
      * @param[in] keepClear Whether the connection must check to keep the junction clear
      * @param[in] contPos Custom position for internal junction
      * @param[in] visibility Custom foe visiblity connection
+     * @param[in] speed Custom speed
      * @param[in] warnOnly Whether a failure to set this connection should only result in a warning
      */
-    void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass, bool keepClear, double contPos, double visibility,
-                                  bool warnOnly = false);
+    void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass, 
+            bool keepClear, double contPos, double visibility, double speed,
+            bool warnOnly = false);
 
 
     /** @brief Try to set any stored connections
@@ -577,10 +579,11 @@ private:
          * @param[in] toLane The number of the lane the connection ends at
          * @param[in] mayDefinitelyPass Whether the connection may be passed without braking
          */
-        PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, double contPos_, double visibility_,
+        PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, double contPos_, double visibility_, double speed_,
                               bool warnOnly_ = false) :
             from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_), keepClear(keepClear_), contPos(contPos_),
             visibility(visibility_),
+            speed(speed_),
             warnOnly(warnOnly_) {
         }
         /// @brief The id of the edge the connection starts at
@@ -599,6 +602,8 @@ private:
         double contPos;
         /// @brief custom foe visiblity for connection
         double visibility;
+        /// @brief custom speed for connection
+        double speed;
         /// @brief whether a failure to set this connection is a warning or an error
         bool warnOnly;
     };
