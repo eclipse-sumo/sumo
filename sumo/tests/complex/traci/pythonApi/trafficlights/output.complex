@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:37645 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:46472 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -101,8 +101,9 @@ step 4
 {0: ['0']}
 step 5
 {0: ['0']}
+caught Invalid tlsLinkIndex 16 for tls '0' with maximum index 15.
 examining 0
-ryg urrrGGggrrrrGGgg
+ryg rrrruGggrrrrGGgg
 rygdef [Logic:
 subID: 0
 type: 0
@@ -192,7 +193,7 @@ Phase:
 duration: 1000
 duration1: 1000
 duration2: 1000
-phaseDef: urrrGGggrrrrGGgg
+phaseDef: rrrruGggrrrrGGgg
 ]
 lanes ['4si_0', '4si_1', '4si_2', '4si_2', '2si_0', '2si_1', '2si_2', '2si_2', '3si_0', '3si_1', '3si_2', '3si_2', '1si_0', '1si_1', '1si_2', '1si_2']
 links [[['4si_0', '1o_0', '']], [['4si_1', '3o_0', '']], [['4si_2', '2o_0', '']], [['4si_2', '4o_0', '']], [['2si_0', '4o_0', '']], [['2si_1', '1o_0', '']], [['2si_2', '3o_0', '']], [['2si_2', '2o_0', '']], [['3si_0', '2o_0', '']], [['3si_1', '4o_0', '']], [['3si_2', '1o_0', '']], [['3si_2', '3o_0', '']], [['1si_0', '3o_0', '']], [['1si_1', '2o_0', '']], [['1si_2', '4o_0', '']], [['1si_2', '1o_0', '']]]

@@ -74,7 +74,11 @@ for step in range(3, 6):
     print("step", step)
     traci.simulationStep()
     print(traci.trafficlights.getSubscriptionResults(tlsID))
-traci.trafficlights.setLinkState(tlsID, 0, 'u')
+traci.trafficlights.setLinkState(tlsID, 4, 'u')
+try:
+    traci.trafficlights.setLinkState(tlsID, 16, 'u')
+except traci.exceptions.TraCIException as e:
+    print("caught", e)
 check()
 traci.close()
 sumoProcess.wait()
