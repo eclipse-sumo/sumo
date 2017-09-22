@@ -885,10 +885,12 @@ TraCITestClient::testAPI() {
     answerLog << "    phase: " << trafficlights.getPhase("n_m4") << "\n";
     answerLog << "    nextSwitch: " << trafficlights.getNextSwitch("n_m4") << "\n";
     answerLog << "    controlledLanes: " << joinToString(trafficlights.getControlledLanes("n_m4"), " ") << "\n";
-    std::vector<TraCILink> links = trafficlights.getControlledLinks("n_m4");
+    std::vector<std::vector<TraCILink> > links = trafficlights.getControlledLinks("n_m4");
     answerLog << "    controlledLinks:\n";
     for (int i = 0; i < (int)links.size(); ++i) {
-        answerLog << "      index=" << i << " from=" << links[i].from << " via=" << links[i].via << " to=" << links[i].to << "\n";
+        for (int j = 0; j < (int)links[i].size(); ++j) {
+            answerLog << "      index=" << i << " link=" << j << " from=" << links[i][j].from << " via=" << links[i][j].via << " to=" << links[i][j].to << "\n";
+        }
     }
     std::vector<TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");
     answerLog << "    completeDefinition:\n";

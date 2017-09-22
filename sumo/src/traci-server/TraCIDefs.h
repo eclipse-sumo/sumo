@@ -115,15 +115,15 @@ public:
 
 class TraCILogic {
 public:
-    TraCILogic(const std::string& _subID, int _type, const std::map<std::string, double>& _subParameter, int _currentPhaseIndex, const std::vector<TraCIPhase>& _phases)
-        : subID(_subID), type(_type), subParameter(_subParameter), currentPhaseIndex(_currentPhaseIndex), phases(_phases) {}
+    TraCILogic(const std::string& _subID, int _type, int _currentPhaseIndex)
+        : subID(_subID), type(_type), currentPhaseIndex(_currentPhaseIndex) {}
     ~TraCILogic() {}
 
     std::string subID;
     int type;
-    std::map<std::string, double> subParameter;
     int currentPhaseIndex;
     std::vector<TraCIPhase> phases;
+    std::map<std::string, std::string> subParameter;
 };
 
 

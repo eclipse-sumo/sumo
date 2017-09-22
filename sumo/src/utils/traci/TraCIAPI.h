@@ -529,7 +529,7 @@ public:
         std::string getRedYellowGreenState(const std::string& tlsID) const;
         std::vector<TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) const;
         std::vector<std::string> getControlledLanes(const std::string& tlsID) const;
-        std::vector<TraCILink> getControlledLinks(const std::string& tlsID) const;
+        std::vector<std::vector<TraCILink> > getControlledLinks(const std::string& tlsID) const;
         std::string getProgram(const std::string& tlsID) const;
         int getPhase(const std::string& tlsID) const;
         int getNextSwitch(const std::string& tlsID) const;

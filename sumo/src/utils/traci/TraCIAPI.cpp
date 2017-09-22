@@ -1606,7 +1606,7 @@ TraCIAPI::TrafficLightScope::getCompleteRedYellowGreenDefinition(const std::stri
         int phaseIndex = inMsg.readInt();
         inMsg.readUnsignedByte();
         int phaseNumber = inMsg.readInt();
-        std::vector<TraCIPhase> phases;
+        TraCILogic logic(subID, type, phaseIndex);
         for (int j = 0; j < phaseNumber; ++j) {
             inMsg.readUnsignedByte();
             int duration = inMsg.readInt();
@@ -1616,9 +1616,9 @@ TraCIAPI::TrafficLightScope::getCompleteRedYellowGreenDefinition(const std::stri
             int duration2 = inMsg.readInt();
             inMsg.readUnsignedByte();
             std::string phase = inMsg.readString();
-            phases.push_back(TraCIPhase(duration, duration1, duration2, phase));
+            logic.phases.emplace_back(TraCIPhase(duration, duration1, duration2, phase));
         }
-        ret.push_back(TraCILogic(subID, type, std::map<std::string, double>(), phaseIndex, phases));
+        ret.emplace_back(logic);
     }
     return ret;
 }
@@ -1628,12 +1628,12 @@ TraCIAPI::TrafficLightScope::getControlledLanes(const std::string& tlsID) const 
     return myParent.getStringVector(CMD_GET_TL_VARIABLE, TL_CONTROLLED_LANES, tlsID);
 }
 
-std::vector<TraCILink>
+std::vector<std::vector<TraCILink> >
 TraCIAPI::TrafficLightScope::getControlledLinks(const std::string& tlsID) const {
     tcpip::Storage inMsg;
     myParent.send_commandGetVariable(CMD_GET_TL_VARIABLE, TL_CONTROLLED_LINKS, tlsID);
     myParent.processGET(inMsg, CMD_GET_TL_VARIABLE, TYPE_COMPOUND);
-    std::vector<TraCILink> ret;
+    std::vector<std::vector<TraCILink> > result;
 
     inMsg.readUnsignedByte();
     inMsg.readInt();
@@ -1642,18 +1642,18 @@ TraCIAPI::TrafficLightScope::getControlledLinks(const std::string& tlsID) const 
     for (int i = 0; i < linkNo; ++i) {
         inMsg.readUnsignedByte();
         int no = inMsg.readInt();
-
+        std::vector<TraCILink> ret;
         for (int i1 = 0; i1 < no; ++i1) {
             inMsg.readUnsignedByte();
             inMsg.readInt();
             std::string from = inMsg.readString();
             std::string to = inMsg.readString();
             std::string via = inMsg.readString();
-            ret.push_back(TraCILink(from, via, to));
+            ret.emplace_back(TraCILink(from, via, to));
         }
-
+        result.emplace_back(ret);
     }
-    return ret;
+    return result;
 }
 
 std::string

@@ -33,11 +33,12 @@
 
 #ifndef NO_TRACI
 
-#include "TraCIConstants.h"
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
+#include "lib/TraCI_TLS.h"
+#include "TraCIConstants.h"
 #include "TraCIServerAPI_TLS.h"
 
 
@@ -64,217 +65,186 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     tempMsg.writeUnsignedByte(RESPONSE_GET_TL_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
-    if (variable == ID_LIST) {
-        std::vector<std::string> ids = MSNet::getInstance()->getTLSControl().getAllTLIds();
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
-    } else if (variable == ID_COUNT) {
-        std::vector<std::string> ids = MSNet::getInstance()->getTLSControl().getAllTLIds();
-        tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt((int) ids.size());
-    } else {
-        if (!MSNet::getInstance()->getTLSControl().knows(id)) {
-            return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Traffic light '" + id + "' is not known", outputStorage);
-        }
-        MSTLLogicControl::TLSLogicVariants& vars = MSNet::getInstance()->getTLSControl().get(id);
+    try {
         switch (variable) {
-            case ID_LIST:
-                break;
-            case TL_RED_YELLOW_GREEN_STATE: {
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                std::string state = vars.getActive()->getCurrentPhaseDef().getState();
-                tempMsg.writeString(state);
-            }
+        case ID_LIST:
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeStringList(TraCI_TLS::getIDList());
             break;
-            case TL_COMPLETE_DEFINITION_RYG: {
-                std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
-                tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-                tcpip::Storage tempContent;
-                int cnt = 0;
-                tempContent.writeUnsignedByte(TYPE_INTEGER);
-                tempContent.writeInt((int) logics.size());
+        case ID_COUNT:
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt(TraCI_TLS::getIDCount());
+            break;
+        case TL_RED_YELLOW_GREEN_STATE:
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+            tempMsg.writeString(TraCI_TLS::getRedYellowGreenState(id));
+            break;
+        case TL_COMPLETE_DEFINITION_RYG: {
+            std::vector<TraCILogic> logics = TraCI_TLS::getCompleteRedYellowGreenDefinition(id);
+            tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+            tcpip::Storage tempContent;
+            int cnt = 0;
+            tempContent.writeUnsignedByte(TYPE_INTEGER);
+            tempContent.writeInt((int)logics.size());
+            ++cnt;
+            for (const TraCILogic& logic : logics) {
+                tempContent.writeUnsignedByte(TYPE_STRING);
+                tempContent.writeString(logic.subID);
                 ++cnt;
-                for (int i = 0; i < (int)logics.size(); ++i) {
-                    MSTrafficLightLogic* logic = logics[i];
-                    tempContent.writeUnsignedByte(TYPE_STRING);
-                    tempContent.writeString(logic->getProgramID());
-                    ++cnt;
-                    // type (always 0 by now)
-                    tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt(0);
-                    ++cnt;
-                    // subparameter (always 0 by now)
-                    tempContent.writeUnsignedByte(TYPE_COMPOUND);
-                    tempContent.writeInt(0);
-                    ++cnt;
-                    // (current) phase index
-                    tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt(logic->getCurrentPhaseIndex());
-                    ++cnt;
-                    // phase number
-                    int phaseNo = logic->getPhaseNumber();
-                    tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt(phaseNo);
-                    ++cnt;
-                    for (int j = 0; j < phaseNo; ++j) {
-                        MSPhaseDefinition phase = logic->getPhase(j);
-                        tempContent.writeUnsignedByte(TYPE_INTEGER);
-                        tempContent.writeInt((int)phase.duration);
-                        ++cnt;
-                        tempContent.writeUnsignedByte(TYPE_INTEGER);
-                        tempContent.writeInt((int)phase.minDuration);
-                        ++cnt; // not implemented
-                        tempContent.writeUnsignedByte(TYPE_INTEGER);
-                        tempContent.writeInt((int)phase.maxDuration);
-                        ++cnt; // not implemented
-                        const std::string& state = phase.getState();
-                        //int linkNo = (int)(vars.getActive()->getLinks().size());
-                        tempContent.writeUnsignedByte(TYPE_STRING);
-                        tempContent.writeString(state);
-                        ++cnt;
-                    }
-                }
-                tempMsg.writeInt((int) cnt);
-                tempMsg.writeStorage(tempContent);
-            }
-            break;
-            case TL_CONTROLLED_LANES: {
-                const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLaneVectors();
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                std::vector<std::string> laneIDs;
-                for (MSTrafficLightLogic::LaneVectorVector::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                    const MSTrafficLightLogic::LaneVector& llanes = (*i);
-                    for (MSTrafficLightLogic::LaneVector::const_iterator j = llanes.begin(); j != llanes.end(); ++j) {
-                        laneIDs.push_back((*j)->getID());
-                    }
-                }
-                tempMsg.writeStringList(laneIDs);
-            }
-            break;
-            case TL_CONTROLLED_LINKS: {
-                const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLaneVectors();
-                const MSTrafficLightLogic::LinkVectorVector& links = vars.getActive()->getLinks();
-                //
-                tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-                tcpip::Storage tempContent;
-                int cnt = 0;
+                // type (always 0 by now)
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
-                int no = (int) lanes.size();
-                tempContent.writeInt((int) no);
-                for (int i = 0; i < no; ++i) {
-                    const MSTrafficLightLogic::LaneVector& llanes = lanes[i];
-                    const MSTrafficLightLogic::LinkVector& llinks = links[i];
-                    // number of links controlled by this signal (signal i)
+                tempContent.writeInt(logic.type);
+                ++cnt;
+                // subparameter (always 0 by now)
+                tempContent.writeUnsignedByte(TYPE_COMPOUND);
+                tempContent.writeInt(0);
+                ++cnt;
+                // (current) phase index
+                tempContent.writeUnsignedByte(TYPE_INTEGER);
+                tempContent.writeInt(logic.currentPhaseIndex);
+                ++cnt;
+                // phase number
+                tempContent.writeUnsignedByte(TYPE_INTEGER);
+                tempContent.writeInt((int)logic.phases.size());
+                ++cnt;
+                for (const TraCIPhase& phase : logic.phases) {
                     tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    int no2 = (int) llanes.size();
-                    tempContent.writeInt((int) no2);
+                    tempContent.writeInt((int)phase.duration);
                     ++cnt;
-                    for (int j = 0; j < no2; ++j) {
-                        MSLink* link = llinks[j];
-                        std::vector<std::string> def;
-                        // incoming lane
-                        def.push_back(llanes[j]->getID());
-                        // approached non-internal lane (if any)
-                        def.push_back(link->getLane() != 0 ? link->getLane()->getID() : "");
-                        // approached "via", internal lane (if any)
-                        def.push_back(link->getViaLane() != 0 ? link->getViaLane()->getID() : "");
-                        tempContent.writeUnsignedByte(TYPE_STRINGLIST);
-                        tempContent.writeStringList(def);
-                        ++cnt;
-                    }
+                    tempContent.writeUnsignedByte(TYPE_INTEGER);
+                    tempContent.writeInt((int)phase.duration1);
+                    ++cnt; // not implemented
+                    tempContent.writeUnsignedByte(TYPE_INTEGER);
+                    tempContent.writeInt((int)phase.duration2);
+                    ++cnt; // not implemented
+                    tempContent.writeUnsignedByte(TYPE_STRING);
+                    tempContent.writeString(phase.phase);
+                    ++cnt;
                 }
-                tempMsg.writeInt((int) cnt);
-                tempMsg.writeStorage(tempContent);
             }
+            tempMsg.writeInt((int)cnt);
+            tempMsg.writeStorage(tempContent);
             break;
-            case TL_CURRENT_PHASE:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(vars.getActive()->getCurrentPhaseIndex());
-                break;
-            case TL_CURRENT_PROGRAM:
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(vars.getActive()->getProgramID());
-                break;
-            case TL_PHASE_DURATION:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int) vars.getActive()->getCurrentPhaseDef().duration);
-                break;
-            case TL_NEXT_SWITCH:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int) vars.getActive()->getNextSwitchTime());
-                break;
-            case VAR_PARAMETER: {
-                std::string paramName = "";
-                if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                    return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+        }
+        case TL_CONTROLLED_LANES:
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeStringList(TraCI_TLS::getControlledLanes(id));
+            break;
+        case TL_CONTROLLED_LINKS: {
+            const std::vector<std::vector<TraCILink> > links = TraCI_TLS::getControlledLinks(id);
+            tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+            tcpip::Storage tempContent;
+            int cnt = 0;
+            tempContent.writeUnsignedByte(TYPE_INTEGER);
+            tempContent.writeInt((int)links.size());
+            for (const std::vector<TraCILink>& sublinks : links) {
+                tempContent.writeUnsignedByte(TYPE_INTEGER);
+                tempContent.writeInt((int)sublinks.size());
+                ++cnt;
+                for (const TraCILink& link : sublinks) {
+                    tempContent.writeUnsignedByte(TYPE_STRINGLIST);
+                    tempContent.writeStringList(std::vector<std::string>({ link.from, link.to, link.via }));
+                    ++cnt;
                 }
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(vars.getActive()->getParameter(paramName, ""));
             }
+            tempMsg.writeInt(cnt);
+            tempMsg.writeStorage(tempContent);
             break;
-            case TL_CONTROLLED_JUNCTIONS: {
+        }
+        case TL_CURRENT_PHASE:
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt(TraCI_TLS::getPhase(id));
+            break;
+        case TL_CURRENT_PROGRAM:
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+            tempMsg.writeString(TraCI_TLS::getProgram(id));
+            break;
+        case TL_PHASE_DURATION:
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt((int)TraCI_TLS::gePhaseDuration(id));
+            break;
+        case TL_NEXT_SWITCH:
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt((int)TraCI_TLS::getNextSwitch(id));
+            break;
+        case VAR_PARAMETER: {
+            std::string paramName = "";
+            if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
             }
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+            tempMsg.writeString(TraCI_TLS::getParameter(id, paramName));
             break;
-            case TL_EXTERNAL_STATE: {
-                MSTrafficLightLogic* tls = vars.getActive();
-                const std::string& state = tls->getCurrentPhaseDef().getState();
-                const std::map<std::string, std::string>& params = tls->getMap();
-                int num = 0;
-                for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
-                    if ("connection:" == (*i).first.substr(0, 11)) {
-                        ++num;
-                    }
+        }
+        case TL_CONTROLLED_JUNCTIONS: {
+            break;
+        }
+        case TL_EXTERNAL_STATE: {
+            if (!MSNet::getInstance()->getTLSControl().knows(id)) {
+                throw TraCIException("Traffic light '" + id + "' is not known");
+            }
+            MSTrafficLightLogic* tls = MSNet::getInstance()->getTLSControl().get(id).getActive();
+            const std::string& state = tls->getCurrentPhaseDef().getState();
+            const std::map<std::string, std::string>& params = tls->getMap();
+            int num = 0;
+            for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
+                if ("connection:" == (*i).first.substr(0, 11)) {
+                    ++num;
                 }
+            }
 
-                tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(num * 2);
-                for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
-                    if ("connection:" != (*i).first.substr(0, 11)) {
-                        continue;
-                    }
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString((*i).second); // foreign id
-                    std::string connection = (*i).first.substr(11);
-                    std::string from, to;
-                    const std::string::size_type b = connection.find("->");
-                    if (b == std::string::npos) {
-                        from = connection;
-                    } else {
-                        from = connection.substr(0, b);
-                        to = connection.substr(b + 2);
-                    }
-                    bool denotesEdge = from.find("_") == std::string::npos;
-                    MSLane* fromLane = 0;
-                    const MSTrafficLightLogic::LaneVectorVector& lanes = tls->getLaneVectors();
-                    MSTrafficLightLogic::LaneVectorVector::const_iterator j = lanes.begin();
-                    for (; j != lanes.end() && fromLane == 0;) {
-                        for (MSTrafficLightLogic::LaneVector::const_iterator k = (*j).begin(); k != (*j).end() && fromLane == 0;) {
-                            if (denotesEdge && (*k)->getEdge().getID() == from) {
-                                fromLane = *k;
-                            } else if (!denotesEdge && (*k)->getID() == from) {
-                                fromLane = *k;
-                            }
-                            if (fromLane == 0) {
-                                ++k;
-                            }
+            tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt(num * 2);
+            for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
+                if ("connection:" != (*i).first.substr(0, 11)) {
+                    continue;
+                }
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString((*i).second); // foreign id
+                std::string connection = (*i).first.substr(11);
+                std::string from, to;
+                const std::string::size_type b = connection.find("->");
+                if (b == std::string::npos) {
+                    from = connection;
+                } else {
+                    from = connection.substr(0, b);
+                    to = connection.substr(b + 2);
+                }
+                bool denotesEdge = from.find("_") == std::string::npos;
+                MSLane* fromLane = 0;
+                const MSTrafficLightLogic::LaneVectorVector& lanes = tls->getLaneVectors();
+                MSTrafficLightLogic::LaneVectorVector::const_iterator j = lanes.begin();
+                for (; j != lanes.end() && fromLane == 0;) {
+                    for (MSTrafficLightLogic::LaneVector::const_iterator k = (*j).begin(); k != (*j).end() && fromLane == 0;) {
+                        if (denotesEdge && (*k)->getEdge().getID() == from) {
+                            fromLane = *k;
+                        } else if (!denotesEdge && (*k)->getID() == from) {
+                            fromLane = *k;
                         }
                         if (fromLane == 0) {
-                            ++j;
+                            ++k;
                         }
                     }
                     if (fromLane == 0) {
-                        return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Could not find edge or lane '" + from + "' in traffic light '" + id + "'.", outputStorage);
+                        ++j;
                     }
-                    int pos = (int)std::distance(lanes.begin(), j);
-                    tempMsg.writeUnsignedByte(TYPE_UBYTE);
-                    tempMsg.writeUnsignedByte(state[pos]); // state
                 }
+                if (fromLane == 0) {
+                    return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Could not find edge or lane '" + from + "' in traffic light '" + id + "'.", outputStorage);
+                }
+                int pos = (int)std::distance(lanes.begin(), j);
+                tempMsg.writeUnsignedByte(TYPE_UBYTE);
+                tempMsg.writeUnsignedByte(state[pos]); // state
             }
             break;
-            default:
-                break;
         }
+        default:
+            break;
+        }
+
+    } catch (TraCIException& e) {
+        return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);

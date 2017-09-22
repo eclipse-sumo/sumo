@@ -56,11 +56,12 @@ public:
     static std::string getRedYellowGreenState(const std::string& tlsID);
     static std::vector<TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID);
     static std::vector<std::string> getControlledLanes(const std::string& tlsID);
-    static std::vector<TraCILink> getControlledLinks(const std::string& tlsID);
+    static std::vector<std::vector<TraCILink> > getControlledLinks(const std::string& tlsID);
     static std::string getProgram(const std::string& tlsID);
     static int getPhase(const std::string& tlsID);
     static SUMOTime gePhaseDuration(const std::string& tlsID);
     static SUMOTime getNextSwitch(const std::string& tlsID);
+    static std::string getParameter(const std::string& tlsID, const std::string& paramName);
 
     static void setRedYellowGreenState(const std::string& tlsID, const std::string& state);
     static void setPhase(const std::string& tlsID, const int index);
@@ -68,9 +69,9 @@ public:
     static void setPhaseDuration(const std::string& tlsID, const SUMOTime phaseDuration);
     static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic);
 
+private:
     static MSTLLogicControl::TLSLogicVariants& getTLS(const std::string& id);
 
-private:
     /// @brief invalidated standard constructor
     TraCI_TLS();
 
