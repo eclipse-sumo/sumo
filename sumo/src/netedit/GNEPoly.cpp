@@ -143,7 +143,7 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
             WRITE_WARNING("Merged shape's point")
         }
         // check if polygon has to be closed
-        if (shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < (2 * myHintSize)) {
+        if (shapeToCommit.size() > 1 && shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < (2 * myHintSize)) {
             shapeToCommit.pop_back();
             shapeToCommit.push_back(shapeToCommit.front());
         }
@@ -245,7 +245,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         bool modeMove = myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE;
         Position mousePosition = myNet->getViewNet()->getPositionInformation();
         double distanceToShape = myShape.distance2D(mousePosition);
-        Position PostionOverShapeLine = myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition));
+        Position PostionOverShapeLine = myShape.size() > 1?myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition)) : myShape[0];
         // set colors
         RGBColor invertedColor, darkerColor;
         if (selected) {
@@ -465,7 +465,7 @@ GNEPoly::simplifyShape(bool allowUndo) {
 
 void
 GNEPoly::deleteGeometryNear(const Position& pos, bool allowUndo) {
-    if ((myClosedShape && (myShape.size() > 4)) || (!myClosedShape && (myShape.size() > 3))) {
+    if (myShape.size() > 1) {
         // obtain index
         PositionVector modifiedShape = myShape;
         int index = modifiedShape.indexOfClosest(pos);
