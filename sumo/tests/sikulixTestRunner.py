@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """
 @file    sikulixTestRunner.py
-@date    2016-0-01
 @author  Pablo Alvarez Lopez
+@date    2016-0-01
 @version $Id$
 
 Wrapper script for running gui tests with SikuliX and TextTest.

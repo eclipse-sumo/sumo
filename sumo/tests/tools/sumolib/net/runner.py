@@ -2,6 +2,7 @@
 """
 @file    runner.py
 @author  Jakob Erdmann
+@date    
 @version $Id$
 
 This script tests sumolib functions

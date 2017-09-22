@@ -2,6 +2,7 @@
 """
 @file    unittests_shapes_coords_3d.py
 @author  Marek Heinrich
+@date    2016
 @version $Id$
 
 This script tests sumolib 3D functions
