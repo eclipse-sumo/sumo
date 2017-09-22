@@ -68,7 +68,7 @@
 // ===========================================================================
 
 FXDEFMAP(GNEDeleteFrame) GNEDeleteFrameMap[] = {
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_CHILDS,                 GNEDeleteFrame::onCmdShowChildMenu),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,                 GNEDeleteFrame::onCmdShowChildMenu),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETEFRAME_CENTER,     GNEDeleteFrame::onCmdCenterChildItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETEFRAME_INSPECT,    GNEDeleteFrame::onCmdInspectChildItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETEFRAME_DELETE,     GNEDeleteFrame::onCmdDeleteChildItem),
@@ -91,13 +91,17 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myGroupBoxOptions = new FXGroupBox(myContentFrame, "Options", GUIDesignGroupBoxFrame);
 
     // Create checkbox for enabling/disabling automatic deletion of additionals childs (by default, enabled)
-    myAutomaticallyDeleteAdditionalsCheckButton = new FXCheckButton(myGroupBoxOptions, "Force deletion of additionals", this, MID_GNE_AUTOMATICALLYDELETEADDITIONALS, GUIDesignCheckButtonAttribute);
+    myAutomaticallyDeleteAdditionalsCheckButton = new FXCheckButton(myGroupBoxOptions, "Force deletion of additionals", this, MID_GNE_DELETEFRAME_AUTODELETEADDITIONALS, GUIDesignCheckButtonAttribute);
     myAutomaticallyDeleteAdditionalsCheckButton->setCheck(true);
+
+    // Create checkbox for enabling/disabling delete only geomtery point(by default, disabled)
+    myDeleteOnlyGeometryPoints = new FXCheckButton(myGroupBoxOptions, "Delete only geometryPoints", this, MID_GNE_DELETEFRAME_ONLYGEOMETRYPOINTS, GUIDesignCheckButtonAttribute);
+    myDeleteOnlyGeometryPoints->setCheck(false);
 
     // Create groupbox for tree list
     myGroupBoxTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
     myMarkedElementLabel = new FXLabel(myGroupBoxTreeList, "No item marked", 0, GUIDesignLabelLeft);
-    myTreelist = new FXTreeList(myGroupBoxTreeList, this, MID_GNE_CHILDS, GUIDesignTreeListFrame);
+    myTreelist = new FXTreeList(myGroupBoxTreeList, this, MID_GNE_DELETEFRAME_CHILDS, GUIDesignTreeListFrame);
 
     // Create groupbox for help
     myGroupBoxInformation = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
@@ -345,7 +349,29 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
         // Hide inspector frame and show delete frame
         myViewNet->getViewParent()->getInspectorFrame()->hide();
         show();
-    } else {
+    } else if(myDeleteOnlyGeometryPoints->getCheck()) {
+        Position clickedPosition = myViewNet->getPositionInformation();
+        // check type of of GL object
+        switch (dynamic_cast<GUIGlObject*>(ac)->getType()) {
+            case GLO_EDGE: {
+                GNEEdge* edge = dynamic_cast<GNEEdge*>(ac);
+                if(edge->getVertexIndex(clickedPosition) != -1) {
+                    edge->deleteGeometry(clickedPosition, myViewNet->getUndoList());
+                }
+                break;
+            }
+            case GLO_POLYGON: {
+                GNEPoly* polygon = dynamic_cast<GNEPoly*>(ac);
+                if(polygon->getVertexIndex(clickedPosition, false) != -1) {
+                    polygon->deleteGeometryNear(clickedPosition);
+                }
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    } else{
         // check type of of GL object
         switch (dynamic_cast<GUIGlObject*>(ac)->getType()) {
             case GLO_JUNCTION: {

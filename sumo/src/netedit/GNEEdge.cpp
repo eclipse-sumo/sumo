@@ -390,6 +390,22 @@ GNEEdge::moveGeometry(const Position& delta) {
 }
 
 
+int 
+GNEEdge::getVertexIndex(const Position& pos) {
+    PositionVector geom = myNBEdge.getInnerGeometry();
+    if (geom.size() == 0) {
+        return -1;
+    } else {
+        int index = geom.indexOfClosest(pos);
+        if (geom[index].distanceTo(pos) < SNAP_RADIUS) {
+            return index;
+        } else {
+            return -1;
+        }
+    }
+}
+
+
 bool
 GNEEdge::deleteGeometry(const Position& pos, GNEUndoList* undoList) {
     PositionVector geom = myNBEdge.getInnerGeometry();

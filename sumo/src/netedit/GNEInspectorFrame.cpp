@@ -74,7 +74,7 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_TEMPLATE,           GNEInspectorFrame::onCmdSetTemplate),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_COPY_TEMPLATE,          GNEInspectorFrame::onUpdCopyTemplate),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT_GOBACK,         GNEInspectorFrame::onCmdGoBack),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_CHILDS,                 GNEInspectorFrame::onCmdShowChildMenu),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,                 GNEInspectorFrame::onCmdShowChildMenu),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTFRAME_CENTER,    GNEInspectorFrame::onCmdCenterItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTFRAME_INSPECT,   GNEInspectorFrame::onCmdInspectItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTFRAME_DELETE,    GNEInspectorFrame::onCmdDeleteItem),
@@ -127,7 +127,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
 
     // Create groupbox and tree list
     myGroupBoxForTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
-    myTreelist = new FXTreeList(myGroupBoxForTreeList, this, MID_GNE_CHILDS, GUIDesignTreeListFrame);
+    myTreelist = new FXTreeList(myGroupBoxForTreeList, this, MID_GNE_DELETEFRAME_CHILDS, GUIDesignTreeListFrame);
     myGroupBoxForTreeList->hide();
 
     // Create groupBox for templates

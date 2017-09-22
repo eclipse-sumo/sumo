@@ -1520,6 +1520,7 @@ GNENet::resetJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
     undoList->p_end();
 }
 
+
 void
 GNENet::renameEdge(GNEEdge* edge, const std::string& newID) {
     myEdges.erase(edge->getNBEdge()->getID());

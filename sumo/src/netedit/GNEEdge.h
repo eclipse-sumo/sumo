@@ -155,6 +155,12 @@ public:
      */
     void moveGeometry(const Position& delta);
 
+    /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
+    * @param pos position of new/existent vertex
+    * @return index of position vector, or -1 if isn't a geometry point in these position.
+    */
+    int getVertexIndex(const Position& pos);
+
     /**@brief deletes the closest geometry node within SNAP_RADIUS.
      * @return true if a node was deleted
      */

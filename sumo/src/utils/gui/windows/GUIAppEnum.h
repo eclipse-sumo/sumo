@@ -357,23 +357,25 @@ enum {
 
     /// @name childs of elements in netedit
     /// @{
-
-    /// @brief tree list with the childs
-    MID_GNE_CHILDS,
-    /// @brief In GNEDeleteFrame, center element
-    MID_GNE_DELETEFRAME_CENTER,
-    /// @brief In GNEDeleteFrame, inspect element
-    MID_GNE_DELETEFRAME_INSPECT,
-    /// @brief In GNEDeleteFrame, delete element
-    MID_GNE_DELETEFRAME_DELETE,
     /// @brief In GNEInspectFrame, center element
     MID_GNE_INSPECTFRAME_CENTER,
     /// @brief In GNEInspectFrame, inspect element
     MID_GNE_INSPECTFRAME_INSPECT,
     /// @brief In GNEInspectFrame, delete element
     MID_GNE_INSPECTFRAME_DELETE,
+
+    /// @brief tree list with the childs
+    MID_GNE_DELETEFRAME_CHILDS,
+    /// @brief In GNEDeleteFrame, center element
+    MID_GNE_DELETEFRAME_CENTER,
+    /// @brief In GNEDeleteFrame, inspect element
+    MID_GNE_DELETEFRAME_INSPECT,
+    /// @brief In GNEDeleteFrame, delete element
+    MID_GNE_DELETEFRAME_DELETE,
+    /// @brief delete only geometry points
+    MID_GNE_DELETEFRAME_ONLYGEOMETRYPOINTS,
     /// @brief automatically delete additional childs
-    MID_GNE_AUTOMATICALLYDELETEADDITIONALS,
+    MID_GNE_DELETEFRAME_AUTODELETEADDITIONALS,
     /// @}
 
 

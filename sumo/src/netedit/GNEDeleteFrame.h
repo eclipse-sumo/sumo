@@ -119,8 +119,11 @@ private:
     /// @brief Label for information 1
     FXLabel* myInformationLabel;
 
-    /// @brief checkbox for enable/disble automatically delete additionals childs
+    /// @brief checkbox for enable/disable automatically delete additionals childs
     FXCheckButton* myAutomaticallyDeleteAdditionalsCheckButton;
+
+    /// @brief checkbox for enable/disable delete only geometry points
+    FXCheckButton* myDeleteOnlyGeometryPoints;
 
     /// @brief tree list to show the childs of the element to erase
     FXTreeList* myTreelist;
