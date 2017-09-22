@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Sep 12 10:53:52 2017
+TraCITestClient output file. Date: Fri Sep 22 10:34:14 2017
 
 
 -> Command sent: <SimulationStep>:
@@ -102,13 +102,13 @@ testAPI:
     nextSwitch: 12000
     controlledLanes: e_vo0_0 e_vo0_1 e_vu0_0 e_vu0_1 e_m3_0 e_m3_1 e_m3_2
     controlledLinks:
-      index=0 from=e_vo0_0 via=:n_m4_0_0 to=e_m4_1
-      index=1 from=e_vo0_1 via=:n_m4_0_1 to=e_m4_2
-      index=2 from=e_vu0_0 via=:n_m4_2_0 to=e_m4_0
-      index=3 from=e_vu0_1 via=:n_m4_2_1 to=e_m4_1
-      index=4 from=e_m3_0 via=:n_m4_4_0 to=e_m4_0
-      index=5 from=e_m3_1 via=:n_m4_4_1 to=e_m4_1
-      index=6 from=e_m3_2 via=:n_m4_4_2 to=e_m4_2
+      index=0 link=0 from=e_vo0_0 via=:n_m4_0_0 to=e_m4_1
+      index=1 link=0 from=e_vo0_1 via=:n_m4_0_1 to=e_m4_2
+      index=2 link=0 from=e_vu0_0 via=:n_m4_2_0 to=e_m4_0
+      index=3 link=0 from=e_vu0_1 via=:n_m4_2_1 to=e_m4_1
+      index=4 link=0 from=e_m3_0 via=:n_m4_4_0 to=e_m4_0
+      index=5 link=0 from=e_m3_1 via=:n_m4_4_1 to=e_m4_1
+      index=6 link=0 from=e_m3_2 via=:n_m4_4_2 to=e_m4_2
     completeDefinition:
       subID=0 type=0 phase=0
       params=
