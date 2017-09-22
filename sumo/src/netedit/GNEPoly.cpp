@@ -309,7 +309,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-int GNEPoly::getVertexIndex(const Position& pos, bool createIfNoExist) {
+int 
+GNEPoly::getVertexIndex(const Position& pos, bool createIfNoExist) {
     // first check if vertex already exists
     for (auto i : myShape) {
         if (i.distanceTo2D(pos) < myHintSize) {
