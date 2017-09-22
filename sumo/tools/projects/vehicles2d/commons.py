@@ -5,7 +5,6 @@
 @author  Marek Heinrich
 @date    2014-11-17
 @version $Id$
->>>>>>> .r17519
 
 Commons module.
 
