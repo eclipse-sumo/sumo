@@ -391,7 +391,10 @@ public:
             throw EmptyData();
         }
         std::string s = _2str(data);
-        std::transform(s.begin(), s.end(), s.begin(), ::tolower);
+        // Don't use std::transform(..., ::tolower) due a C4244 Warning in MSVC17
+        for(int i = 0; i < s.length(); i++) {
+            s[i] = (char)tolower((char)s[i]);
+        }
         if (s == "1" || s == "yes" || s == "true" || s == "on" || s == "x" || s == "t") {
             return true;
         } else if (s == "0" || s == "no" || s == "false" || s == "off" || s == "-" || s == "f") {
