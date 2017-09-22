@@ -100,15 +100,22 @@ GNEConnection::updateGeometry() {
         return;
     }
     // Calculate shape of connection depending of the size of Junction shape
-    if (getEdgeFrom()->getNBEdge()->getToNode()->getShape().area() > 4) { // value obtanied from GNEJunction::drawgl
-        // Calculate shape using a smooth shape
-        myShape = getEdgeFrom()->getNBEdge()->getToNode()->computeSmoothShape(
-                      laneShapeFrom,
-                      laneShapeTo,
-                      NUM_POINTS, getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
-                      (double) 5. * (double) getEdgeFrom()->getNBEdge()->getNumLanes(),
-                      (double) 5. * (double) nbCon.toEdge->getNumLanes());
-
+    // value obtanied from GNEJunction::drawgl
+    if (nbCon.customShape.size() != 0) {
+        myShape = nbCon.customShape;
+    } else if (getEdgeFrom()->getNBEdge()->getToNode()->getShape().area() > 4) {
+        if (nbCon.shape.size() != 0) {
+            myShape = nbCon.shape;
+            myShape.append(nbCon.viaShape);
+        } else { 
+            // Calculate shape so something can be drawn immidiately
+            myShape = getEdgeFrom()->getNBEdge()->getToNode()->computeSmoothShape(
+                    laneShapeFrom,
+                    laneShapeTo,
+                    NUM_POINTS, getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
+                    (double) 5. * (double) getEdgeFrom()->getNBEdge()->getNumLanes(),
+                    (double) 5. * (double) nbCon.toEdge->getNumLanes());
+        }
     } else {
         myShape.clear();
         myShape.push_back(laneShapeFrom.positionAtOffset(laneShapeFrom.length() - 1));
