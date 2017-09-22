@@ -176,10 +176,10 @@ while($ok==1) {
 				print OUTDAT2 "Anzahl Signalprogramme:	".$noSignalProgs."				// Anzahl der zu verwendenden Signalprogramme dieser Kreuzung\n";
 				print OUTDAT2 "Signalprogramme:	\"".$signalProgs."\"				// Angabe aller Signalprogramm-ID's der an dieser Kreuzung zu verwendenden Signalprogramme.// Hier nicht genannte Signalprogramme werden nicht benutzt!\n";
 				print OUTDAT2 "Umschaltverfahren:	GSP				// Bezeichnung des an dieser Kreuzung zu verwendenden LSA-Umschalteverfahrens\n";
-				print OUTDAT2 "Synchronität:	ja				// Angabe, ob Synchronität bezüglich der in der WAUT angegebenen Refernzzeit erforderlich ist.\n";
+				print OUTDAT2 "Synchronitaet:	ja				// Angabe, ob Synchronitaet bezueglich der in der WAUT angegebenen Referenzzeit erforderlich ist.\n";
 				print OUTDAT2 "WAUT-ID:	W01_IST				// ID der an dieser Kreuzung zu verwendenden WAUT\n";	
 				print OUTDAT2 "\n";
-				print OUTDAT2 "Zuordnungstabelle Signalgruppen <--> Verkehrsströme\n";
+				print OUTDAT2 "Zuordnungstabelle Signalgruppen <--> Verkehrsstroeme\n";
 				print OUTDAT2 "Signalgruppe	Lane_von	Nach			// Lane_von = Lane auf der sich die SG befindet\n";
 			}
             

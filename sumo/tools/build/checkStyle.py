@@ -175,8 +175,8 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     year = lines[idx + 1][14:18]
                     license = LICENSE_HEADER.replace("2001", year).replace(SEPARATOR, "")
                     license = license.replace("//   ", "").replace("// ", "").replace("\n//", "\n")[:-1]
-                    if "module" in lines[idx + 3]:
-                        fileLicense = "".join(lines[idx:idx + 3]) + "".join(lines[idx + 5:idx + 11])
+                    if "module" in lines[idx + 2]:
+                        fileLicense = "".join(lines[idx:idx + 2]) + "".join(lines[idx + 4:idx + 10])
                     else:
                         fileLicense = "".join(lines[idx:idx + 8])
                     if fileLicense != license:

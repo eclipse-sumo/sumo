@@ -1,5 +1,5 @@
-/// @file    MSDevice_SSM.cpp
 /****************************************************************************/
+/// @file    MSDevice_SSM.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann

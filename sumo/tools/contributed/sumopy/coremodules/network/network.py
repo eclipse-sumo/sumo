@@ -1,3 +1,20 @@
+"""
+@file    network.py
+@author  Joerg Schweizer
+@date    
+@version $Id$
+
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+Copyright (C) 2016-2017 DLR (http://www.dlr.de/) and contributors
+SUMOPy module
+Copyright (C) 2012-2017 University of Bologna - DICAM
+
+This file is part of SUMO.
+SUMO is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+"""
 # size limit at 1280x1280
 # http://maps.googleapis.com/maps/api/staticmap?size=500x500&path=color:0x000000|weight:10|44.35789,11.3093|44.4378,11.3935&format=GIF&maptype=satellite&scale=2
 
