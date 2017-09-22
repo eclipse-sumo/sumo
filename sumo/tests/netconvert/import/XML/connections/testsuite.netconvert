@@ -78,3 +78,6 @@ contPos_4arm
 
 # custom foe visiblity
 visibility
+
+# custom speed
+speed
