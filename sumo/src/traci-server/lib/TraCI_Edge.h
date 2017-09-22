@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCI_Edge.cpp
+/// @file    TraCI_Edge.h
 /// @author  Gregor Laemmel
 /// @date    15.09.2017
 /// @version $Id$
