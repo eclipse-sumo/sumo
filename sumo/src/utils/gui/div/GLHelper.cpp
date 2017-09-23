@@ -34,11 +34,15 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <foreign/polyfonts/polyfonts.h>
+#define FONTSTASH_IMPLEMENTATION // Expands implementation
+#include <foreign/fontstash/fontstash.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#define GLFONTSTASH_IMPLEMENTATION // Expands implementation
+#include <foreign/fontstash/glfontstash.h>
 #include "GLHelper.h"
-
 
 #define CIRCLE_RESOLUTION (double)10 // inverse in degrees
 
@@ -46,7 +50,7 @@
 // static member definitions
 // ===========================================================================
 std::vector<std::pair<double, double> > GLHelper::myCircleCoords;
-
+FONScontext* GLHelper::myFont = 0;
 
 void APIENTRY combCallback(GLdouble coords[3],
                            GLdouble* vertex_data[4],
@@ -452,6 +456,38 @@ GLHelper::getColor() {
 
 
 void
+GLHelper::drawFSText(const std::string& text, const Position& pos,
+                     const double layer, const double size,
+                     const RGBColor& col, const double angle, const int align) {
+    const double fontSize = 50.;
+    if (myFont == 0) {
+        myFont = glfonsCreate(512, 512, FONS_ZERO_BOTTOMLEFT);
+        std::string fontPath = "Roboto-Medium.ttf";
+        const char* sumoPath = getenv("SUMO_HOME");
+        if (sumoPath != 0) {
+            fontPath = std::string(sumoPath) + "/data/font/" + fontPath;
+        }
+        int fontNormal = fonsAddFont(myFont, "medium", fontPath.c_str());
+        if (fontNormal == FONS_INVALID) {
+            WRITE_ERROR("Font not found at " + fontPath);
+        }
+        fonsSetFont(myFont, fontNormal);
+        fonsSetSize(myFont, fontSize);
+    }
+    glPushMatrix();
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    glTranslated(pos.x(), pos.y(), layer);
+    glScaled(size / fontSize, size / fontSize, 1.);
+    glRotated(angle, 0, 0, 1);
+    fonsSetAlign(myFont, align == 0 ? FONS_ALIGN_CENTER : align);
+    fonsSetColor(myFont, glfonsRGBA(col.red(), col.green(), col.blue(), col.alpha()));
+    fonsDrawText(myFont, 0., 0., text.c_str(), NULL);
+    glPopMatrix();
+}
+
+
+void
 GLHelper::drawText(const std::string& text, const Position& pos,
                    const double layer, const double size,
                    const RGBColor& col, const double angle) {
@@ -468,6 +504,7 @@ GLHelper::drawText(const std::string& text, const Position& pos,
     pfDrawString(text.c_str());
     glPopMatrix();
 }
+
 
 void
 GLHelper::drawTextBox(const std::string& text, const Position& pos,

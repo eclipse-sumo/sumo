@@ -136,7 +136,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     const Position namePos = Position(x() + 1.32 * exaggeration, y() + 1.32 * exaggeration);
     drawName(namePos, s.scale, s.poiName);
     if (s.poiType.show) {
-        GLHelper::drawText(myType, namePos + Position(0, -0.6 * s.poiType.size / s.scale),
+        GLHelper::drawFSText(myType, namePos + Position(0, -0.6 * s.poiType.size / s.scale),
                            GLO_MAX, s.poiType.size / s.scale, s.poiType.color);
     }
     glPopName();

@@ -281,6 +281,12 @@ public:
     static RGBColor getColor();
 
     /// @brief draw Text with given parameters
+    static void drawFSText(const std::string& text, const Position& pos,
+                         const double layer, const double size,
+                         const RGBColor& col = RGBColor::BLACK, const double angle = 0,
+                         int align = 0);
+
+    /// @brief draw Text with given parameters
     static void drawText(const std::string& text, const Position& pos,
                          const double layer, const double size,
                          const RGBColor& col = RGBColor::BLACK, const double angle = 0);
@@ -309,6 +315,9 @@ private:
 private:
     /// @brief Storage for precomputed sin/cos-values describing a circle
     static std::vector<std::pair<double, double> > myCircleCoords;
+
+    /// @brief Font context
+    static struct FONScontext* myFont;
 
 };
 
