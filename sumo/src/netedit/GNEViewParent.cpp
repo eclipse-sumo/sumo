@@ -71,16 +71,16 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNEViewParent) GNEViewParentMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_MAKESNAPSHOT,                      GNEViewParent::onCmdMakeSnapshot),
-    //FXMAPFUNC(SEL_COMMAND,  MID_ALLOWROTATION,                   GNEViewParent::onCmdAllowRotation),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION,                    GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,                        GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,                         GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,                         GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,                         GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOLY,                        GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  FXMDIChild::ID_MDI_MENUCLOSE,          GNEViewParent::onCmdClose),
-    FXMAPFUNC(SEL_CHANGED,  MID_GNE_SIZEOF_FRAMEAREAWIDTH_UPDATED, GNEViewParent::onCmdUpdateFrameAreaWidth),
+    FXMAPFUNC(SEL_COMMAND,  MID_MAKESNAPSHOT,                       GNEViewParent::onCmdMakeSnapshot),
+    //FXMAPFUNC(SEL_COMMAND,  MID_ALLOWROTATION,                    GNEViewParent::onCmdAllowRotation),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION,                     GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,                         GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,                          GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,                          GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,                          GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOLY,                         GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  FXMDIChild::ID_MDI_MENUCLOSE,           GNEViewParent::onCmdClose),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_VIEWPARENT_FRAMEAREAWIDTH,      GNEViewParent::onCmdUpdateFrameAreaWidth),
 };
 
 // Object implementation
@@ -114,7 +114,7 @@ GNEViewParent::GNEViewParent(
     new FXVerticalSeparator(myNavigationToolBar, GUIDesignVerticalSeparator);
 
     // Create Frame Splitter
-    myFramesSplitter = new FXSplitter(myContentFrame, this, MID_GNE_SIZEOF_FRAMEAREAWIDTH_UPDATED, GUIDesignSplitter | SPLITTER_HORIZONTAL);
+    myFramesSplitter = new FXSplitter(myContentFrame, this, MID_GNE_VIEWPARENT_FRAMEAREAWIDTH, GUIDesignSplitter | SPLITTER_HORIZONTAL);
 
     // Create frames Area
     myFramesArea = new FXHorizontalFrame(myFramesSplitter, GUIDesignFrameArea);
@@ -135,14 +135,14 @@ GNEViewParent::GNEViewParent(
     myView = viewNet;
 
     // Create frames
-    myGNEFrames[MID_GNE_MODE_INSPECT] = new GNEInspectorFrame(myFramesArea, viewNet);
-    myGNEFrames[MID_GNE_MODE_SELECT] = new GNESelectorFrame(myFramesArea, viewNet);
-    myGNEFrames[MID_GNE_MODE_CONNECT] = new GNEConnectorFrame(myFramesArea, viewNet);
-    myGNEFrames[MID_GNE_MODE_TLS] = new GNETLSEditorFrame(myFramesArea, viewNet);
-    myGNEFrames[MID_GNE_MODE_ADDITIONAL] = new GNEAdditionalFrame(myFramesArea, viewNet);
-    myGNEFrames[MID_GNE_MODE_CROSSING] = new GNECrossingFrame(myFramesArea, viewNet);
-    myGNEFrames[MID_GNE_MODE_DELETE] = new GNEDeleteFrame(myFramesArea, viewNet);
-    myGNEFrames[MID_GNE_MODE_POLYGON] = new GNEPolygonFrame(myFramesArea, viewNet);
+    myGNEFrames[MID_GNE_SETMODE_INSPECT] = new GNEInspectorFrame(myFramesArea, viewNet);
+    myGNEFrames[MID_GNE_SETMODE_SELECT] = new GNESelectorFrame(myFramesArea, viewNet);
+    myGNEFrames[MID_GNE_SETMODE_CONNECT] = new GNEConnectorFrame(myFramesArea, viewNet);
+    myGNEFrames[MID_GNE_SETMODE_TLS] = new GNETLSEditorFrame(myFramesArea, viewNet);
+    myGNEFrames[MID_GNE_SETMODE_ADDITIONAL] = new GNEAdditionalFrame(myFramesArea, viewNet);
+    myGNEFrames[MID_GNE_SETMODE_CROSSING] = new GNECrossingFrame(myFramesArea, viewNet);
+    myGNEFrames[MID_GNE_SETMODE_DELETE] = new GNEDeleteFrame(myFramesArea, viewNet);
+    myGNEFrames[MID_GNE_SETMODE_POLYGON] = new GNEPolygonFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(0, 0, 0);
@@ -173,49 +173,49 @@ GNEViewParent::hideAllFrames() {
 
 GNEInspectorFrame*
 GNEViewParent::getInspectorFrame() const {
-    return dynamic_cast<GNEInspectorFrame*>(myGNEFrames.at(MID_GNE_MODE_INSPECT));
+    return dynamic_cast<GNEInspectorFrame*>(myGNEFrames.at(MID_GNE_SETMODE_INSPECT));
 }
 
 
 GNESelectorFrame*
 GNEViewParent::getSelectorFrame() const {
-    return dynamic_cast<GNESelectorFrame*>(myGNEFrames.at(MID_GNE_MODE_SELECT));
+    return dynamic_cast<GNESelectorFrame*>(myGNEFrames.at(MID_GNE_SETMODE_SELECT));
 }
 
 
 GNEConnectorFrame*
 GNEViewParent::getConnectorFrame() const {
-    return dynamic_cast<GNEConnectorFrame*>(myGNEFrames.at(MID_GNE_MODE_CONNECT));
+    return dynamic_cast<GNEConnectorFrame*>(myGNEFrames.at(MID_GNE_SETMODE_CONNECT));
 }
 
 
 GNETLSEditorFrame*
 GNEViewParent::getTLSEditorFrame() const {
-    return dynamic_cast<GNETLSEditorFrame*>(myGNEFrames.at(MID_GNE_MODE_TLS));
+    return dynamic_cast<GNETLSEditorFrame*>(myGNEFrames.at(MID_GNE_SETMODE_TLS));
 }
 
 
 GNEAdditionalFrame*
 GNEViewParent::getAdditionalFrame() const {
-    return dynamic_cast<GNEAdditionalFrame*>(myGNEFrames.at(MID_GNE_MODE_ADDITIONAL));
+    return dynamic_cast<GNEAdditionalFrame*>(myGNEFrames.at(MID_GNE_SETMODE_ADDITIONAL));
 }
 
 
 GNECrossingFrame*
 GNEViewParent::getCrossingFrame() const {
-    return dynamic_cast<GNECrossingFrame*>(myGNEFrames.at(MID_GNE_MODE_CROSSING));
+    return dynamic_cast<GNECrossingFrame*>(myGNEFrames.at(MID_GNE_SETMODE_CROSSING));
 }
 
 
 GNEDeleteFrame*
 GNEViewParent::getDeleteFrame() const {
-    return dynamic_cast<GNEDeleteFrame*>(myGNEFrames.at(MID_GNE_MODE_DELETE));
+    return dynamic_cast<GNEDeleteFrame*>(myGNEFrames.at(MID_GNE_SETMODE_DELETE));
 }
 
 
 GNEPolygonFrame*
 GNEViewParent::getPolygonFrame() const {
-    return dynamic_cast<GNEPolygonFrame*>(myGNEFrames.at(MID_GNE_MODE_POLYGON));
+    return dynamic_cast<GNEPolygonFrame*>(myGNEFrames.at(MID_GNE_SETMODE_POLYGON));
 }
 
 void

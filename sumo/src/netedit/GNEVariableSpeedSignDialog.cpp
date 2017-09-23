@@ -41,9 +41,9 @@
 // ===========================================================================
 
 FXDEFMAP(GNEVariableSpeedSignDialog) GNERerouterDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,       MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,  GNEVariableSpeedSignDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,       MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,  GNEVariableSpeedSignDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,       MID_GNE_MODE_ADDITIONALDIALOG_RESET,   GNEVariableSpeedSignDialog::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,       MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,  GNEVariableSpeedSignDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,       MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,  GNEVariableSpeedSignDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,       MID_GNE_ADDITIONALDIALOG_BUTTONRESET,   GNEVariableSpeedSignDialog::onCmdReset),
     FXMAPFUNC(SEL_COMMAND,       MID_GNE_VARIABLESPEEDSIGN_ADDROW,    GNEVariableSpeedSignDialog::onCmdAddRow),
     FXMAPFUNC(SEL_DOUBLECLICKED, MID_GNE_VARIABLESPEEDSIGN_REMOVEROW, GNEVariableSpeedSignDialog::onCmdRemoveRow),
 };

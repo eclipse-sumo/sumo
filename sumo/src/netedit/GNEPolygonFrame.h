@@ -265,7 +265,7 @@ public:
         long onCmdSetBlockShape(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user change checkbox for open/closed polygon
-        long onCmdsetClosingClosing(FXObject*, FXSelector, void*);
+        long onCmdsetClosingShape(FXObject*, FXSelector, void*);
         /// @}
 
     protected:

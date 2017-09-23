@@ -61,7 +61,7 @@
 /// @note: msvc10 does not approve of allocating empty arrays
 /*
 FXDEFMAP(GNEInternalLane) GNEInternalLaneMap[]= {
-    //FXMAPFUNC(SEL_COMMAND,  MID_GNE_PHASE_DURATION,     GNETLSEditorFrame::onDefault),
+    //FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_PHASE_DURATION,     GNETLSEditorFrame::onDefault),
 };
 */
 

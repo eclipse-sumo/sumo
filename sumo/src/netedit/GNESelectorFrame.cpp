@@ -58,17 +58,17 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNESelectorFrame) GNESelectorFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,      GNESelectorFrame::onCmdSelectOperation),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_ELEMENTS,       GNESelectorFrame::onCmdSubset),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,           GNESelectorFrame::onCmdLoad),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,           GNESelectorFrame::onCmdSave),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,         GNESelectorFrame::onCmdInvert),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,          GNESelectorFrame::onCmdClear),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELMB_TAG,          GNESelectorFrame::onCmdSelMBTag),
-    FXMAPFUNC(SEL_COMMAND,  MID_GME_SELMB_ATTRIBUTE,    GNESelectorFrame::onCmdSelMBAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELMB_STRING,       GNESelectorFrame::onCmdSelMBString),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                   GNESelectorFrame::onCmdHelp),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT_SCALE,       GNESelectorFrame::onCmdScaleSelection)
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,                  GNESelectorFrame::onCmdSelectOperation),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_ELEMENTS,                   GNESelectorFrame::onCmdSubset),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,                       GNESelectorFrame::onCmdLoad),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,                       GNESelectorFrame::onCmdSave),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,                     GNESelectorFrame::onCmdInvert),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,                      GNESelectorFrame::onCmdClear),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTTAG,        GNESelectorFrame::onCmdSelMBTag),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTATTRIBUTE,  GNESelectorFrame::onCmdSelMBAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_PROCESSSTRING,    GNESelectorFrame::onCmdSelMBString),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTSCALE,      GNESelectorFrame::onCmdScaleSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNESelectorFrame::onCmdHelp)
 };
 
 // Object implementation
@@ -108,11 +108,11 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // Create groupBox fro selection by expression matching (match box)
     FXGroupBox* matchBox = new FXGroupBox(myContentFrame, "Match Attribute", GUIDesignGroupBoxFrame);
     // Create MatchTagBox for tags
-    myMatchTagComboBox = new FXComboBox(matchBox, GUIDesignComboBoxNCol, this, MID_GNE_SELMB_TAG, GUIDesignComboBox);
+    myMatchTagComboBox = new FXComboBox(matchBox, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
     // Create listBox for Attributes
-    myMatchAttrComboBox = new FXComboBox(matchBox, GUIDesignComboBoxNCol, this, MID_GME_SELMB_ATTRIBUTE, GUIDesignComboBox);
+    myMatchAttrComboBox = new FXComboBox(matchBox, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for Match string
-    myMatchString = new FXTextField(matchBox, GUIDesignTextFieldNCol, this, MID_GNE_SELMB_STRING, GUIDesignTextField);
+    myMatchString = new FXTextField(matchBox, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
     // Fill list of sub-items
     onCmdSubset(0, 0, 0);
     // Set speed of edge as default attribute
@@ -126,7 +126,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // Create Groupbox for visual scalings
     FXGroupBox* selSizeBox = new FXGroupBox(myContentFrame, "Visual Scaling", GUIDesignGroupBoxFrame);
     // Create spin button and configure it
-    mySelectionScaling = new FXRealSpinDial(selSizeBox, 7, this, MID_GNE_SELECT_SCALE, GUIDesignSpinDial);
+    mySelectionScaling = new FXRealSpinDial(selSizeBox, 7, this, MID_GNE_SELECTORFRAME_SELECTSCALE, GUIDesignSpinDial);
     mySelectionScaling->setNumberFormat(1);
     mySelectionScaling->setIncrements(0.1, .5, 1);
     mySelectionScaling->setRange(1, 100);

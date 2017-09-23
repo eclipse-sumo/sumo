@@ -70,33 +70,34 @@
 // ===========================================================================
 
 FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_COPY_TEMPLATE,          GNEInspectorFrame::onCmdCopyTemplate),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_TEMPLATE,           GNEInspectorFrame::onCmdSetTemplate),
-    FXMAPFUNC(SEL_UPDATE,               MID_GNE_COPY_TEMPLATE,          GNEInspectorFrame::onUpdCopyTemplate),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT_GOBACK,         GNEInspectorFrame::onCmdGoBack),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,                 GNEInspectorFrame::onCmdShowChildMenu),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTFRAME_CENTER,    GNEInspectorFrame::onCmdCenterItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTFRAME_INSPECT,   GNEInspectorFrame::onCmdInspectItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTFRAME_DELETE,    GNEInspectorFrame::onCmdDeleteItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_COPYTEMPLATE,    GNEInspectorFrame::onCmdCopyTemplate),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_SETTEMPLATE,     GNEInspectorFrame::onCmdSetTemplate),
+    FXMAPFUNC(SEL_UPDATE,               MID_GNE_INSPECTORFRAME_COPYTEMPLATE,    GNEInspectorFrame::onUpdCopyTemplate),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_GOBACK,          GNEInspectorFrame::onCmdGoBack),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_CENTER,          GNEInspectorFrame::onCmdCenterItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_INSPECT,         GNEInspectorFrame::onCmdInspectItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_DELETE,          GNEInspectorFrame::onCmdDeleteItem),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,             GNEInspectorFrame::onCmdShowChildMenu),
+
 };
 
 
 FXDEFMAP(GNEInspectorFrame::AttributeInput) AttributeInputMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEInspectorFrame::AttributeInput::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_ATTRIBUTE_EDITOR,  GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_ATTRIBUTEEDITOR,  GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor)
 };
 
 
 FXDEFMAP(GNEInspectorFrame::NeteditParameters) NeteditParameterstMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_MOVEMENT,  GNEInspectorFrame::NeteditParameters::onCmdSetBlockingMovement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT,  GNEInspectorFrame::NeteditParameters::onCmdSetBlockingMovement),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_SHAPE,     GNEInspectorFrame::NeteditParameters::onCmdSetBlockingShape),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_CLOSING_SHAPE,      GNEInspectorFrame::NeteditParameters::onCmdSetClosingShape),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEInspectorFrame, FXVerticalFrame, GNEInspectorFrameMap, ARRAYNUMBER(GNEInspectorFrameMap))
-FXIMPLEMENT(GNEInspectorFrame::AttributeInput, FXHorizontalFrame, AttributeInputMap, ARRAYNUMBER(AttributeInputMap))
-FXIMPLEMENT(GNEInspectorFrame::NeteditParameters, FXGroupBox, NeteditParameterstMap, ARRAYNUMBER(NeteditParameterstMap))
+FXIMPLEMENT(GNEInspectorFrame,                      FXVerticalFrame,    GNEInspectorFrameMap, ARRAYNUMBER(GNEInspectorFrameMap))
+FXIMPLEMENT(GNEInspectorFrame::AttributeInput,      FXHorizontalFrame,  AttributeInputMap, ARRAYNUMBER(AttributeInputMap))
+FXIMPLEMENT(GNEInspectorFrame::NeteditParameters,   FXGroupBox,         NeteditParameterstMap, ARRAYNUMBER(NeteditParameterstMap))
 
 // ===========================================================================
 // method definitions
@@ -109,7 +110,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myPreviousElementDelete(NULL) {
 
     // Create back button
-    myBackButton = new FXButton(myHeaderLeftFrame, "", GUIIconSubSys::getIcon(ICON_NETEDITARROW), this, MID_GNE_INSPECT_GOBACK, GUIDesignButtonIconRectangular);
+    myBackButton = new FXButton(myHeaderLeftFrame, "", GUIIconSubSys::getIcon(ICON_NETEDITARROW), this, MID_GNE_INSPECTORFRAME_GOBACK, GUIDesignButtonIconRectangular);
     myHeaderLeftFrame->hide();
     myBackButton->hide();
 
@@ -135,11 +136,11 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myGroupBoxForTemplates->hide();
 
     // Create copy template button
-    myCopyTemplateButton = new FXButton(myGroupBoxForTemplates, "", 0, this, MID_GNE_COPY_TEMPLATE, GUIDesignButton);
+    myCopyTemplateButton = new FXButton(myGroupBoxForTemplates, "", 0, this, MID_GNE_INSPECTORFRAME_COPYTEMPLATE, GUIDesignButton);
     myCopyTemplateButton->hide();
 
     // Create set template button
-    mySetTemplateButton = new FXButton(myGroupBoxForTemplates, "Set as Template\t\t", 0, this, MID_GNE_SET_TEMPLATE, GUIDesignButton);
+    mySetTemplateButton = new FXButton(myGroupBoxForTemplates, "Set as Template\t\t", 0, this, MID_GNE_INSPECTORFRAME_SETTEMPLATE, GUIDesignButton);
     mySetTemplateButton->hide();
 }
 
@@ -447,9 +448,9 @@ GNEInspectorFrame::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
     new MFXMenuHeader(pane, myViewNet->getViewParent()->getApp()->getBoldFont(), (toString(myRightClickedAC->getTag()) + ": " + myRightClickedAC->getID()).c_str(), myRightClickedAC->getIcon());
     new FXMenuSeparator(pane);
     // Fill FXMenuCommand
-    new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_INSPECTFRAME_CENTER);
-    new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_INSPECTFRAME_INSPECT);
-    new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_INSPECTFRAME_DELETE);
+    new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_INSPECTORFRAME_CENTER);
+    new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_INSPECTORFRAME_INSPECT);
+    new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_INSPECTORFRAME_DELETE);
     // Center in the mouse position and create pane
     pane->setX(X);
     pane->setY(Y);
@@ -692,7 +693,7 @@ GNEInspectorFrame::AttributeInput::AttributeInput(FXComposite* parent, GNEInspec
     myTag(SUMO_TAG_NOTHING),
     myAttr(SUMO_ATTR_NOTHING) {
     // Create and hide ButtonCombinableChoices
-    myButtonCombinableChoices = new FXButton(this, "AttributeButton", 0, this, MID_GNE_OPEN_ATTRIBUTE_EDITOR, GUIDesignButtonAttribute);
+    myButtonCombinableChoices = new FXButton(this, "AttributeButton", 0, this, MID_GNE_INSPECTORFRAME_ATTRIBUTEEDITOR, GUIDesignButtonAttribute);
     myButtonCombinableChoices->hide();
     // Create and hide label
     myLabel = new FXLabel(this, "attributeLabel", 0, GUIDesignLabelAttribute);
@@ -1016,7 +1017,7 @@ GNEInspectorFrame::NeteditParameters::NeteditParameters(GNEInspectorFrame* inspe
     // Create check box and for block movement
     FXHorizontalFrame* blockMovementHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myLabelBlockMovement = new FXLabel(blockMovementHorizontalFrame, "Block move", 0, GUIDesignLabelAttribute);
-    myCheckBoxBlockMovement = new FXCheckButton(blockMovementHorizontalFrame, "", this, MID_GNE_SET_BLOCKING_MOVEMENT, GUIDesignCheckButtonAttribute);
+    myCheckBoxBlockMovement = new FXCheckButton(blockMovementHorizontalFrame, "", this, MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT, GUIDesignCheckButtonAttribute);
     // Create check box and for block shape
     FXHorizontalFrame* blockShapeHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myLabelBlockShape = new FXLabel(blockShapeHorizontalFrame, "Block shape", 0, GUIDesignLabelAttribute);

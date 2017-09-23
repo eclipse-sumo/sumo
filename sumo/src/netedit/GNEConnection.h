@@ -183,10 +183,10 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNEConnection(const GNEConnection&);
+    GNEConnection(const GNEConnection&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEConnection& operator=(const GNEConnection&);
+    GNEConnection& operator=(const GNEConnection&) = delete;
 };
 
 

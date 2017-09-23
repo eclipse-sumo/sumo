@@ -165,9 +165,25 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
 
 GUIGLObjectPopupMenu*
 GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    myPopup = new GUIGLObjectPopupMenu(app, parent, *this);
-    buildPopupHeader(myPopup, app);
-    return myPopup;
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    buildNameCopyPopupEntry(ret);
+    buildSelectionPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
+    //if (parent.getVisualisationSettings()->editMode != GNE_MODE_CONNECT) {
+    //    // XXX if joinable
+    //    new FXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
+    //}
+    // create menu commands
+    FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom shape", 0, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
+    // check if menu commands has to be disabled
+    EditMode editMode = myNet->getViewNet()->getCurrentEditMode();
+    const bool wrongMode = (editMode == GNE_MODE_CONNECT || editMode == GNE_MODE_TLS || editMode == GNE_MODE_CREATE_EDGE);
+    if (wrongMode) {
+        mcCustomShape->disable();
+    }
+    return ret;
 }
 
 

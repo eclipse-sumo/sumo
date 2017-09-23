@@ -273,7 +273,7 @@ public:
     long onCmdShowGrid(FXObject*, FXSelector, void*);
 
     /**@brief sets edit mode (from hotkey)
-     * @param[in] selid An id MID_GNE_MODE_<foo> as defined in GUIAppEnum
+     * @param[in] selid An id MID_GNE_SETMODE_<foo> as defined in GUIAppEnum
      **/
     void setEditModeFromHotkey(FXushort selid);
 

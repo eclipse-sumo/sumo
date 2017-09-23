@@ -278,12 +278,6 @@ private:
     std::vector<GNECrossing*> myGNECrossings;
 
 private:
-    /// @brief Invalidated copy constructor.
-    GNEJunction(const GNEJunction&);
-
-    /// @brief Invalidated assignment operator.
-    GNEJunction& operator=(const GNEJunction&);
-
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
@@ -301,6 +295,12 @@ private:
 
     /// @brief rebuilds crossing objects for this junction
     void rebuildGNECrossings();
+
+    /// @brief Invalidated copy constructor.
+    GNEJunction(const GNEJunction&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNEJunction& operator=(const GNEJunction&) = delete;
 };
 
 

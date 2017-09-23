@@ -88,22 +88,21 @@
 // ===========================================================================
 FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Modes
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_CREATE_EDGE,                GNEViewNet::onCmdSetModeCreateEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_MOVE,                       GNEViewNet::onCmdSetModeMove),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_DELETE,                     GNEViewNet::onCmdSetModeDelete),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_INSPECT,                    GNEViewNet::onCmdSetModeInspect),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_SELECT,                     GNEViewNet::onCmdSetModeSelect),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_CONNECT,                    GNEViewNet::onCmdSetModeConnect),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_TLS,                        GNEViewNet::onCmdSetModeTLS),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONAL,                 GNEViewNet::onCmdSetModeAdditional),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_CROSSING,                   GNEViewNet::onCmdSetModeCrossing),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_POLYGON,                    GNEViewNet::onCmdSetModePolygon),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE,                GNEViewNet::onCmdSetModeCreateEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_MOVE,                       GNEViewNet::onCmdSetModeMove),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_DELETE,                     GNEViewNet::onCmdSetModeDelete),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_INSPECT,                    GNEViewNet::onCmdSetModeInspect),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_SELECT,                     GNEViewNet::onCmdSetModeSelect),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CONNECT,                    GNEViewNet::onCmdSetModeConnect),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_TLS,                        GNEViewNet::onCmdSetModeTLS),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL,                 GNEViewNet::onCmdSetModeAdditional),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CROSSING,                   GNEViewNet::onCmdSetModeCrossing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_POLYGON,                    GNEViewNet::onCmdSetModePolygon),
     // Viewnet
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_CONNECTIONS,        GNEViewNet::onCmdToogleShowConnection),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SELECT_EDGES,            GNEViewNet::onCmdToogleSelectEdges),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_BUBBLES,            GNEViewNet::onCmdToogleShowBubbles),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_GRID,               GNEViewNet::onCmdShowGrid),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPoint),
     // Junctions
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_EDIT_SHAPE,             GNEViewNet::onCmdEditJunctionShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_REPLACE,                GNEViewNet::onCmdReplaceJunction),
@@ -135,6 +134,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_CLOSE,                   GNEViewNet::onCmdClosePolygon),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_OPEN,                    GNEViewNet::onCmdOpenPolygon),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SET_FIRST_POINT,         GNEViewNet::onCmdSetFirstGeometryPoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPoint),
 };
 
 
@@ -350,7 +350,7 @@ GNEViewNet::startEditShapeJunction(GNEJunction* junction) {
     if ((myEditJunctionShapePoly == NULL) && (junction != NULL) && (junction->getNBNode()->getShape().size() > 1)) {
         // save current edit mode before starting
         myPreviousEditMode = myEditMode;
-        setEditModeFromHotkey(MID_GNE_MODE_MOVE);
+        setEditModeFromHotkey(MID_GNE_SETMODE_MOVE);
         junction->getNBNode()->computeNodeShape(-1);
         // add special GNEPoly fo edit shapes
         myEditJunctionShapePoly = myNet->addPolygonForEditShapes(junction);
@@ -1095,34 +1095,34 @@ GNEViewNet::hotkeyFocusFrame() {
 void
 GNEViewNet::setEditModeFromHotkey(FXushort selid) {
     switch (selid) {
-        case MID_GNE_MODE_CREATE_EDGE:
+        case MID_GNE_SETMODE_CREATE_EDGE:
             setEditMode(GNE_MODE_CREATE_EDGE);
             break;
-        case MID_GNE_MODE_MOVE:
+        case MID_GNE_SETMODE_MOVE:
             setEditMode(GNE_MODE_MOVE);
             break;
-        case MID_GNE_MODE_DELETE:
+        case MID_GNE_SETMODE_DELETE:
             setEditMode(GNE_MODE_DELETE);
             break;
-        case MID_GNE_MODE_INSPECT:
+        case MID_GNE_SETMODE_INSPECT:
             setEditMode(GNE_MODE_INSPECT);
             break;
-        case MID_GNE_MODE_SELECT:
+        case MID_GNE_SETMODE_SELECT:
             setEditMode(GNE_MODE_SELECT);
             break;
-        case MID_GNE_MODE_CONNECT:
+        case MID_GNE_SETMODE_CONNECT:
             setEditMode(GNE_MODE_CONNECT);
             break;
-        case MID_GNE_MODE_TLS:
+        case MID_GNE_SETMODE_TLS:
             setEditMode(GNE_MODE_TLS);
             break;
-        case MID_GNE_MODE_ADDITIONAL:
+        case MID_GNE_SETMODE_ADDITIONAL:
             setEditMode(GNE_MODE_ADDITIONAL);
             break;
-        case MID_GNE_MODE_CROSSING:
+        case MID_GNE_SETMODE_CROSSING:
             setEditMode(GNE_MODE_CROSSING);
             break;
-        case MID_GNE_MODE_POLYGON:
+        case MID_GNE_SETMODE_POLYGON:
             setEditMode(GNE_MODE_POLYGON);
             break;
         default:
@@ -1985,25 +1985,25 @@ GNEViewNet::buildEditModeControls() {
 
     // initialize buttons for modes
     myEditModeCreateEdge = new MFXCheckableButton(false, myToolbar, "\tset create edge mode\tMode for creating junction and edges.",
-            GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), this, MID_GNE_MODE_CREATE_EDGE, GUIDesignButtonToolbarCheckable);
+            GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), this, MID_GNE_SETMODE_CREATE_EDGE, GUIDesignButtonToolbarCheckable);
     myEditModeMove = new MFXCheckableButton(false, myToolbar, "\tset move mode\tMode for move elements.",
-                                            GUIIconSubSys::getIcon(ICON_MODEMOVE), this, MID_GNE_MODE_MOVE, GUIDesignButtonToolbarCheckable);
+                                            GUIIconSubSys::getIcon(ICON_MODEMOVE), this, MID_GNE_SETMODE_MOVE, GUIDesignButtonToolbarCheckable);
     myEditModeDelete = new MFXCheckableButton(false, myToolbar, "\tset delete mode\tMode for delete elements.",
-            GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_MODE_DELETE, GUIDesignButtonToolbarCheckable);
+            GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_SETMODE_DELETE, GUIDesignButtonToolbarCheckable);
     myEditModeInspect = new MFXCheckableButton(false, myToolbar, "\tset inspect mode\tMode for inspect elements and change their attributes.",
-            GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_MODE_INSPECT, GUIDesignButtonToolbarCheckable);
+            GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_SETMODE_INSPECT, GUIDesignButtonToolbarCheckable);
     myEditModeSelect = new MFXCheckableButton(false, myToolbar, "\tset select mode\tMode for select elements.",
-            GUIIconSubSys::getIcon(ICON_MODESELECT), this, MID_GNE_MODE_SELECT, GUIDesignButtonToolbarCheckable);
+            GUIIconSubSys::getIcon(ICON_MODESELECT), this, MID_GNE_SETMODE_SELECT, GUIDesignButtonToolbarCheckable);
     myEditModeConnection = new MFXCheckableButton(false, myToolbar, "\tset connection mode\tMode for edit connections between lanes.",
-            GUIIconSubSys::getIcon(ICON_MODECONNECTION), this, MID_GNE_MODE_CONNECT, GUIDesignButtonToolbarCheckable);
+            GUIIconSubSys::getIcon(ICON_MODECONNECTION), this, MID_GNE_SETMODE_CONNECT, GUIDesignButtonToolbarCheckable);
     myEditModeTrafficLight = new MFXCheckableButton(false, myToolbar, "\tset traffic light mode\tMode for edit traffic lights over junctions.",
-            GUIIconSubSys::getIcon(ICON_MODETLS), this, MID_GNE_MODE_TLS, GUIDesignButtonToolbarCheckable);
+            GUIIconSubSys::getIcon(ICON_MODETLS), this, MID_GNE_SETMODE_TLS, GUIDesignButtonToolbarCheckable);
     myEditModeAdditional = new MFXCheckableButton(false, myToolbar, "\tset additional mode\tMode for adding additional elements.",
-            GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), this, MID_GNE_MODE_ADDITIONAL, GUIDesignButtonToolbarCheckable);
+            GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), this, MID_GNE_SETMODE_ADDITIONAL, GUIDesignButtonToolbarCheckable);
     myEditModeCrossing = new MFXCheckableButton(false, myToolbar, "\tset crossing mode\tMode for creating crossings between edges.",
-            GUIIconSubSys::getIcon(ICON_MODECROSSING), this, MID_GNE_MODE_CROSSING, GUIDesignButtonToolbarCheckable);
+            GUIIconSubSys::getIcon(ICON_MODECROSSING), this, MID_GNE_SETMODE_CROSSING, GUIDesignButtonToolbarCheckable);
     myEditModePolygon = new MFXCheckableButton(false, myToolbar, "\tset polygon mode\tMode for creating polygons and POIs.",
-            GUIIconSubSys::getIcon(ICON_MODEPOLYGON), this, MID_GNE_MODE_POLYGON, GUIDesignButtonToolbarCheckable);
+            GUIIconSubSys::getIcon(ICON_MODEPOLYGON), this, MID_GNE_SETMODE_POLYGON, GUIDesignButtonToolbarCheckable);
 
     // @ToDo add here new FXToolBarGrip(myNavigationToolBar, NULL, 0, GUIDesignToolbarGrip);
 

@@ -57,14 +57,14 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNEConnectorFrame) GNEConnectorFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,                 GNEConnectorFrame::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_OK,                     GNEConnectorFrame::onCmdOK),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT_DEAD_ENDS,   GNEConnectorFrame::onCmdSelectDeadEnds),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT_DEAD_STARTS, GNEConnectorFrame::onCmdSelectDeadStarts),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT_CONFLICTS,   GNEConnectorFrame::onCmdSelectConflicts),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT_PASS,        GNEConnectorFrame::onCmdSelectPass),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,          GNEConnectorFrame::onCmdClearSelectedConnections),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_RESET,          GNEConnectorFrame::onCmdResetSelectedConnections),
+    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,                                 GNEConnectorFrame::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_OK,                                     GNEConnectorFrame::onCmdOK),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,                          GNEConnectorFrame::onCmdClearSelectedConnections),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_RESET,                          GNEConnectorFrame::onCmdResetSelectedConnections),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CONNECTORFRAME_SELECTDEADENDS,      GNEConnectorFrame::onCmdSelectDeadEnds),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CONNECTORFRAME_SELECTDEADSTARTS,    GNEConnectorFrame::onCmdSelectDeadStarts),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CONNECTORFRAME_SELECTCONFLICTS,     GNEConnectorFrame::onCmdSelectConflicts),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CONNECTORFRAME_SELECTPASS,          GNEConnectorFrame::onCmdSelectPass),
 };
 
 // Object implementation
@@ -107,16 +107,16 @@ GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame* horizontalFrameParent, G
 
     // Create "Select Dead Ends" button
     mySelectDeadEndsButton = new FXButton(myGroupBoxOperations, "Select Dead Ends\t\tSelects all lanes that have no outgoing connection (clears previous selection)",
-                                          0, this, MID_GNE_SELECT_DEAD_ENDS, GUIDesignButton);
+                                          0, this, MID_GNE_CONNECTORFRAME_SELECTDEADENDS, GUIDesignButton);
     // Create "Select Dead Starts" button
     mySelectDeadStartsButton = new FXButton(myGroupBoxOperations, "Select Dead Starts\t\tSelects all lanes that have no incoming connection (clears previous selection)",
-                                            0, this, MID_GNE_SELECT_DEAD_STARTS, GUIDesignButton);
+                                            0, this, MID_GNE_CONNECTORFRAME_SELECTDEADSTARTS, GUIDesignButton);
     // Create "Select Conflicts" button
     mySelectConflictsButton = new FXButton(myGroupBoxOperations, "Select Conflicts\t\tSelects all lanes with more than one incoming connection from the same edge (clears previous selection)",
-                                           0, this, MID_GNE_SELECT_CONFLICTS, GUIDesignButton);
+                                           0, this, MID_GNE_CONNECTORFRAME_SELECTCONFLICTS, GUIDesignButton);
     // Create "Select Edges which may always pass" button
     mySelectPassingButton = new FXButton(myGroupBoxOperations, "Select Passing\t\tSelects all lanes with a connection that has has the 'pass' attribute set",
-                                         0, this, MID_GNE_SELECT_PASS, GUIDesignButton);
+                                         0, this, MID_GNE_CONNECTORFRAME_SELECTPASS, GUIDesignButton);
     // Create "Clear Selected" button
     myClearSelectedButton = new FXButton(myGroupBoxOperations, "Clear Selected\t\tClears all connections of all selected objects",
                                          0, this, MID_CHOOSEN_CLEAR, GUIDesignButton);

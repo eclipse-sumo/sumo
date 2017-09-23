@@ -54,30 +54,33 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,    MID_CANCEL,                 GNETLSEditorFrame::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,    MID_OK,                     GNETLSEditorFrame::onCmdOK),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_DEF_CREATE,         GNETLSEditorFrame::onCmdDefCreate),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_DEF_DELETE,         GNETLSEditorFrame::onCmdDefDelete),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_DEF_SWITCH,         GNETLSEditorFrame::onCmdDefSwitch),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_DEF_OFFSET,         GNETLSEditorFrame::onCmdDefOffset),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_DEF_RENAME,         GNETLSEditorFrame::onCmdDefRename),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_DEF_SUBRENAME,      GNETLSEditorFrame::onCmdDefSubRename),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_DEF_ADDOFF,         GNETLSEditorFrame::onCmdDefAddOff),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_GUESS_PROGRAM,      GNETLSEditorFrame::onCmdGuess),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_PHASE_CREATE,       GNETLSEditorFrame::onCmdPhaseCreate),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_PHASE_DELETE,       GNETLSEditorFrame::onCmdPhaseDelete),
-    FXMAPFUNC(SEL_SELECTED,   MID_GNE_PHASE_TABLE,        GNETLSEditorFrame::onCmdPhaseSwitch),
-    FXMAPFUNC(SEL_DESELECTED, MID_GNE_PHASE_TABLE,        GNETLSEditorFrame::onCmdPhaseSwitch),
-    FXMAPFUNC(SEL_CHANGED,    MID_GNE_PHASE_TABLE,        GNETLSEditorFrame::onCmdPhaseSwitch),
-    FXMAPFUNC(SEL_REPLACED,   MID_GNE_PHASE_TABLE,        GNETLSEditorFrame::onCmdPhaseEdit),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_DEF_CREATE,         GNETLSEditorFrame::onUpdDefCreate),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_DEF_DELETE,         GNETLSEditorFrame::onUpdDefSwitch),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_DEF_SWITCH,         GNETLSEditorFrame::onUpdDefSwitch),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_DEF_OFFSET,         GNETLSEditorFrame::onUpdNeedsDef),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_PHASE_CREATE,       GNETLSEditorFrame::onUpdNeedsDef),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_PHASE_DELETE,       GNETLSEditorFrame::onUpdNeedsDefAndPhase),
-    FXMAPFUNC(SEL_UPDATE,     MID_CANCEL,                 GNETLSEditorFrame::onUpdModified),
-    FXMAPFUNC(SEL_UPDATE,     MID_OK,                     GNETLSEditorFrame::onUpdModified),
+    FXMAPFUNC(SEL_COMMAND,    MID_CANCEL,                       GNETLSEditorFrame::onCmdCancel),
+    FXMAPFUNC(SEL_UPDATE,     MID_CANCEL,                       GNETLSEditorFrame::onUpdModified),
+    FXMAPFUNC(SEL_COMMAND,    MID_OK,                           GNETLSEditorFrame::onCmdOK),
+    FXMAPFUNC(SEL_UPDATE,     MID_OK,                           GNETLSEditorFrame::onUpdModified),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_CREATE,          GNETLSEditorFrame::onCmdDefCreate),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DELETE,          GNETLSEditorFrame::onCmdDefDelete),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SWITCH,          GNETLSEditorFrame::onCmdDefSwitch),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::onCmdDefOffset),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_RENAME,          GNETLSEditorFrame::onCmdDefRename),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SUBRENAME,       GNETLSEditorFrame::onCmdDefSubRename),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ADDOFF,          GNETLSEditorFrame::onCmdDefAddOff),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_GUESSPROGRAM,    GNETLSEditorFrame::onCmdGuess),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PHASE_CREATE,    GNETLSEditorFrame::onCmdPhaseCreate),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PHASE_CREATE,    GNETLSEditorFrame::onUpdNeedsDef),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PHASE_DELETE,    GNETLSEditorFrame::onCmdPhaseDelete),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PHASE_DELETE,    GNETLSEditorFrame::onUpdNeedsDefAndPhase),
+    FXMAPFUNC(SEL_SELECTED,   MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
+    FXMAPFUNC(SEL_DESELECTED, MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
+    FXMAPFUNC(SEL_CHANGED,    MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
+    FXMAPFUNC(SEL_REPLACED,   MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseEdit),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_CREATE,          GNETLSEditorFrame::onUpdDefCreate),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DELETE,          GNETLSEditorFrame::onUpdDefSwitch),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_SWITCH,          GNETLSEditorFrame::onUpdDefSwitch),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::onUpdNeedsDef),
+
+
+
 };
 
 
@@ -99,22 +102,22 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // Create frame for junction ID
     FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(myGroupBoxJunction, GUIDesignAuxiliarHorizontalFrame);
     myLabelJunctionID = new FXLabel(junctionIDFrame, "Junction ID", 0, GUIDesignLabelAttribute);
-    myTextFieldJunctionID = new FXTextField(junctionIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLS_SELECT_JUNCTION, GUIDesignTextField);
+    myTextFieldJunctionID = new FXTextField(junctionIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_SELECT_JUNCTION, GUIDesignTextField);
     myTextFieldJunctionID->setEditable(false);
     // create frame for junction status
     FXHorizontalFrame* junctionIDStatus = new FXHorizontalFrame(myGroupBoxJunction, GUIDesignAuxiliarHorizontalFrame);
     myLabelJunctionStatus = new FXLabel(junctionIDStatus, "Status", 0, GUIDesignLabelAttribute);
-    myTextFieldJunctionStatus = new FXTextField(junctionIDStatus, GUIDesignTextFieldNCol, this, MID_GNE_TLS_UPDATE_STATUS, GUIDesignTextField);
+    myTextFieldJunctionStatus = new FXTextField(junctionIDStatus, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_UPDATE_STATUS, GUIDesignTextField);
     myTextFieldJunctionStatus->setEditable(false);
 
     // create groupbox for tl df
     myGroupBoxTLSDef = new FXGroupBox(myContentFrame, "Traffic lights definition", GUIDesignGroupBoxFrame);
 
     // create create tlDef button
-    myNewTLProgram = new FXButton(myGroupBoxTLSDef, "Create TLS\t\tCreate a new traffic light program", 0, this, MID_GNE_DEF_CREATE, GUIDesignButton);
+    myNewTLProgram = new FXButton(myGroupBoxTLSDef, "Create TLS\t\tCreate a new traffic light program", 0, this, MID_GNE_TLSFRAME_CREATE, GUIDesignButton);
 
     // create delete tlDef button
-    myDeleteTLProgram = new FXButton(myGroupBoxTLSDef, "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.", 0, this, MID_GNE_DEF_DELETE, GUIDesignButton);
+    myDeleteTLProgram = new FXButton(myGroupBoxTLSDef, "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.", 0, this, MID_GNE_TLSFRAME_DELETE, GUIDesignButton);
 
     // create TLS attributes
     myTLSAttributes = new TLSAttributes(myContentFrame, this);
@@ -124,7 +127,7 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
 
     // create and configure phase table
     myTableScroll = new FXScrollWindow(myGroupBoxPhases, LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT);
-    myPhaseTable = new FXTable(myTableScroll, this, MID_GNE_PHASE_TABLE, GUIDesignTableLimitedHeight);
+    myPhaseTable = new FXTable(myTableScroll, this, MID_GNE_TLSFRAME_PHASE_TABLE, GUIDesignTableLimitedHeight);
     myPhaseTable->setColumnHeaderMode(LAYOUT_FIX_HEIGHT);
     myPhaseTable->setColumnHeaderHeight(0);
     myPhaseTable->setRowHeaderMode(LAYOUT_FIX_WIDTH);
@@ -137,10 +140,10 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myCycleDuration = new FXLabel(myGroupBoxPhases, "", 0, GUIDesignLabelLeft);
 
     // create new phase button
-    myInsertDuplicateButton = new FXButton(myGroupBoxPhases, "Copy Phase\t\tInsert duplicate phase after selected phase", 0, this, MID_GNE_PHASE_CREATE, GUIDesignButton);
+    myInsertDuplicateButton = new FXButton(myGroupBoxPhases, "Copy Phase\t\tInsert duplicate phase after selected phase", 0, this, MID_GNE_TLSFRAME_PHASE_CREATE, GUIDesignButton);
 
     // create delete phase button
-    myDeleteSelectedPhaseButton = new FXButton(myGroupBoxPhases, "Delete Phase\t\tDelete selected phase", 0, this, MID_GNE_PHASE_DELETE, GUIDesignButton);
+    myDeleteSelectedPhaseButton = new FXButton(myGroupBoxPhases, "Delete Phase\t\tDelete selected phase", 0, this, MID_GNE_TLSFRAME_PHASE_DELETE, GUIDesignButton);
 
     // create groupbox for modifications
     myGroupBoxModifications = new FXGroupBox(myContentFrame, "Modifications", GUIDesignGroupBoxFrame);
@@ -155,7 +158,7 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // "Add 'off' program"
     /*
     new FXButton(myContentFrame, "Add \"Off\"-Program\t\tAdds a program for switching off this traffic light",
-            0, this, MID_GNE_DEF_ADDOFF, GUIDesignButton);
+            0, this, MID_GNE_TLSFRAME_ADDOFF, GUIDesignButton);
     */
 
     updateDescription();
@@ -688,19 +691,19 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(FXComposite* parent, GNETLSEdito
     // create frame, label and textfield for name (By default disabled)
     FXHorizontalFrame* nameFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myNameLabel = new FXLabel(nameFrame, "ID", 0, GUIDesignLabelAttribute);
-    myNameTextField = new FXTextField(nameFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_DEF_SWITCH, GUIDesignTextField);
+    myNameTextField = new FXTextField(nameFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_SWITCH, GUIDesignTextField);
     myNameTextField->disable();
 
     // create frame, label and comboBox for Program (By default hidden)
     FXHorizontalFrame* programFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myProgramLabel = new FXLabel(programFrame, "Program", 0, GUIDesignLabelAttribute);
-    myProgramComboBox = new FXComboBox(programFrame, GUIDesignComboBoxNCol, myTLSEditorParent, MID_GNE_DEF_SWITCH, GUIDesignComboBoxAttribute);
+    myProgramComboBox = new FXComboBox(programFrame, GUIDesignComboBoxNCol, myTLSEditorParent, MID_GNE_TLSFRAME_SWITCH, GUIDesignComboBoxAttribute);
     myProgramComboBox->disable();
 
     // create frame, label and TextField for Offset (By default disabled)
     FXHorizontalFrame* offsetFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myOffsetLabel = new FXLabel(offsetFrame, "Offset", 0, GUIDesignLabelAttribute);
-    myOffsetTextField = new FXTextField(offsetFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_DEF_OFFSET, GUIDesignTextFieldReal);
+    myOffsetTextField = new FXTextField(offsetFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_OFFSET, GUIDesignTextFieldReal);
     myOffsetTextField->disable();
 }
 
