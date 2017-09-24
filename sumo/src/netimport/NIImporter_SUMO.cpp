@@ -485,15 +485,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     myCurrentLane = new LaneAttrs();
-    if (attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, 0, ok, false)) {
-        myCurrentLane->customShape = true;
-        if (id[0] == ':') {
-            const std::string nodeID = NBNode::getNodeIDFromInternalLane(id);
-            myCustomShapeMaps[nodeID][id] = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
-        }
-    } else {
-        myCurrentLane->customShape = false;
-    }
+    myCurrentLane->customShape = attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, 0, ok, false);
     if (myCurrentEdge->func == EDGEFUNC_CROSSING) {
         // save the width and the lane id of the crossing but don't do anything else
         std::vector<Crossing>& crossings = myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(myCurrentEdge->id)];
@@ -567,12 +559,6 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     // handle custom shape
     if (attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, 0, ok, false)) {
         node->setCustomShape(attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok));
-    }
-    if (myCustomShapeMaps.count(id) > 0) {
-        NBNode::CustomShapeMap customShapes = myCustomShapeMaps[id];
-        for (NBNode::CustomShapeMap::const_iterator it = customShapes.begin(); it != customShapes.end(); ++it) {
-            node->setCustomLaneShape(it->first, it->second);
-        }
     }
     if (type == NODETYPE_RAIL_SIGNAL || type == NODETYPE_RAIL_CROSSING) {
         // both types of nodes come without a tlLogic

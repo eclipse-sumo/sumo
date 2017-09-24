@@ -430,14 +430,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     if (accelRamp) {
         into.writeAttr<bool>(SUMO_ATTR_ACCELERATION, accelRamp);
     }
-    if (node != 0) {
-        const NBNode::CustomShapeMap& cs = node->getCustomLaneShapes();
-        NBNode::CustomShapeMap::const_iterator it = cs.find(lID);
-        if (it != cs.end()) {
-            shape = it->second;
-            into.writeAttr(SUMO_ATTR_CUSTOMSHAPE, true);
-        }
-    } else if (customShape) {
+     if (customShape) {
         into.writeAttr(SUMO_ATTR_CUSTOMSHAPE, true);
     }
     into.writeAttr(SUMO_ATTR_SHAPE, endOffset > 0 ?

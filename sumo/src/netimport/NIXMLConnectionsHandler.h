@@ -138,11 +138,6 @@ private:
      */
     void addCrossing(const SUMOSAXAttributes& attrs);
 
-    /** @brief Parses a customShape and updates the referenced node
-     * @param[in] attrs The attributes to get the customShapes's values from
-     */
-    void addCustomShape(const SUMOSAXAttributes& attrs);
-
 private:
     /// @brief The edge container to fill
     NBEdgeCont& myEdgeCont;

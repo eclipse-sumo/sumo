@@ -355,9 +355,6 @@ private:
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;
 
-    /// @brief customLaneShape (cannot be added to the NBNode when parsed since the node doesn't yet exist
-    std::map<std::string, NBNode::CustomShapeMap> myCustomShapeMaps;
-
     /// @brief list of node id with rail signals (no NBTrafficLightDefinition exists)
     std::set<std::string> myRailSignals;
 

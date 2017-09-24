@@ -81,9 +81,6 @@ class NBNode : public Named, public Parameterised {
     friend class NBNodeShapeComputer;    // < computes node's shape
 
 public:
-    /// @brief map for custon shapes
-    typedef std::map<std::string, PositionVector> CustomShapeMap;
-
     /**
      * @class ApproachingDivider
      * @brief Computes lane-2-lane connections
@@ -472,14 +469,6 @@ public:
     /// @brief set the junction shape
     void setCustomShape(const PositionVector& shape);
 
-    /// @brief sets a custom shape for an internal lane
-    void setCustomLaneShape(const std::string& laneID, const PositionVector& shape);
-
-    /// @brief sets a custom shape for an internal lane
-    const CustomShapeMap& getCustomLaneShapes() const {
-        return myCustomLaneShapes;
-    }
-
     /// @brief set the turning radius
     void setRadius(double radius) {
         myRadius = radius;
@@ -764,9 +753,6 @@ private:
 
     /// @brief whether the junction area must be kept clear
     bool myKeepClear;
-
-    /// @brief custom lane shapes
-    CustomShapeMap myCustomLaneShapes;
 
     /// @brief whether to discard all pedestrian crossings
     bool myDiscardAllCrossings;

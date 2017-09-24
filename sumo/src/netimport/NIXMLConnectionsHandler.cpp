@@ -161,9 +161,6 @@ NIXMLConnectionsHandler::myStartElement(int element,
     if (element == SUMO_TAG_CROSSING) {
         addCrossing(attrs);
     }
-    if (element == SUMO_TAG_CUSTOMSHAPE) {
-        addCustomShape(attrs);
-    }
 }
 
 
@@ -375,25 +372,6 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
         node->addCrossing(edges, width, priority, customShape);
     }
 }
-
-
-void
-NIXMLConnectionsHandler::addCustomShape(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    const PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
-    if (!ok) {
-        return;
-    }
-    const std::string nodeID = NBNode::getNodeIDFromInternalLane(id);
-    NBNode* node = myNodeCont.retrieve(nodeID);
-    if (node == 0) {
-        WRITE_ERROR("Node '" + nodeID + "' in customShape is not known.");
-        return;
-    }
-    node->setCustomLaneShape(id, shape);
-}
-
 
 
 /****************************************************************************/

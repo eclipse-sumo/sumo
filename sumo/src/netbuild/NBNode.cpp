@@ -622,24 +622,6 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
         throw ProcessError("Connection '" + con.getDescription(fromE) + "' targets a non-existant lane.");
     }
     PositionVector ret;
-    if (myCustomLaneShapes.size() > 0 && con.internalLaneIndex != NBEdge::UNSPECIFIED_INTERNAL_LANE_INDEX) {
-        // this is the second pass (ids and shapes are already set
-        assert(con.shape.size() > 0);
-        CustomShapeMap::const_iterator it = myCustomLaneShapes.find(con.getInternalLaneID());
-        if (it != myCustomLaneShapes.end()) {
-            ret = it->second;
-        } else {
-            ret = con.shape;
-        }
-        it = myCustomLaneShapes.find(con.viaID + "_0");
-        if (it != myCustomLaneShapes.end()) {
-            ret.append(it->second);
-        } else {
-            ret.append(con.viaShape);
-        }
-        return ret;
-    }
-
     ret = computeSmoothShape(fromE->getLaneShape(con.fromLane), con.toEdge->getLaneShape(con.toLane),
                              numPoints, fromE->getTurnDestination() == con.toEdge,
                              (double) 5. * (double) fromE->getNumLanes(),
@@ -1740,16 +1722,6 @@ NBNode::setCustomShape(const PositionVector& shape) {
 }
 
 
-void
-NBNode::setCustomLaneShape(const std::string& laneID, const PositionVector& shape) {
-    if (shape.size() > 1) {
-        myCustomLaneShapes[laneID] = shape;
-    } else {
-        myCustomLaneShapes.erase(laneID);
-    }
-}
-
-
 NBEdge*
 NBNode::getConnectionTo(NBNode* n) const {
     for (EdgeVector::const_iterator i = myOutgoingEdges.begin(); i != myOutgoingEdges.end(); i++) {
@@ -2092,15 +2064,6 @@ NBNode::buildInnerEdges() {
     int splitNo = 0;
     for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
         (*i)->buildInnerEdges(*this, noInternalNoSplits, lno, splitNo);
-    }
-    // if there are custom lane shapes we need to built twice:
-    // first to set the ids then to build intersections with the custom geometries
-    if (myCustomLaneShapes.size() > 0) {
-        int lno = 0;
-        int splitNo = 0;
-        for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
-            (*i)->buildInnerEdges(*this, noInternalNoSplits, lno, splitNo);
-        }
     }
 }
 
