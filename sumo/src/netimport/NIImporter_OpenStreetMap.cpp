@@ -1285,7 +1285,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             }
         } else if (myPTRouteType != "" && myIsRoute && OptionsCont::getOptions().isSet("ptline-output") && myStops.size() > 1) {
             NBPTLine* ptLine = new NBPTLine(myName, myPTRouteType);
-            ptLine->setMyNumOfStops(myStops.size());
+            ptLine->setMyNumOfStops((int)myStops.size());
             for (long long ref : myStops) {
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {
                     WRITE_WARNING(

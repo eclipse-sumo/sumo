@@ -102,6 +102,6 @@ void NBPTLine::addEdgeVector(std::vector<NBEdge*>::iterator fr, std::vector<NBEd
     myRoute.insert(myRoute.end(), fr, to);
 
 }
-void NBPTLine::setMyNumOfStops(unsigned long numStops) {
+void NBPTLine::setMyNumOfStops(int numStops) {
     myNumOfStops = numStops;
 }

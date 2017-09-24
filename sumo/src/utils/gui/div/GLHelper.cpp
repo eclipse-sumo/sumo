@@ -472,7 +472,7 @@ GLHelper::drawFSText(const std::string& text, const Position& pos,
             WRITE_ERROR("Font not found at " + fontPath);
         }
         fonsSetFont(myFont, fontNormal);
-        fonsSetSize(myFont, fontSize);
+        fonsSetSize(myFont, (float)fontSize);
     }
     glPushMatrix();
     glEnable(GL_BLEND);
