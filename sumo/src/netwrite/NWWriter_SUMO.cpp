@@ -604,7 +604,7 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
     if (c.speed != NBEdge::UNSPECIFIED_SPEED && style != TLL) {
         into.writeAttr(SUMO_ATTR_SPEED, c.speed);
     }
-    if (c.customShape.size() != 0) {
+    if (c.customShape.size() != 0 && style != TLL) {
         into.writeAttr(SUMO_ATTR_SHAPE, c.customShape);
     }
     if (style != PLAIN) {
