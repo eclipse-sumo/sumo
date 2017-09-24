@@ -365,10 +365,14 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
         WRITE_WARNING("Crossing at controlled node '" + nodeID + "' must be prioritized");
         priority = true;
     }
+    PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, 0, ok, PositionVector::EMPTY);
+    if (!NBNetBuilder::transformCoordinates(customShape)) {
+        WRITE_ERROR("Unable to project shape for crossing at node '" + node->getID() + "'.");
+    }
     if (discard) {
         node->removeCrossing(edges);
     } else {
-        node->addCrossing(edges, width, priority);
+        node->addCrossing(edges, width, priority, customShape);
     }
 }
 

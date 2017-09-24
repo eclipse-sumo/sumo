@@ -298,7 +298,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                     }
                 }
                 if (edges.size() > 0) {
-                    node->addCrossing(edges, crossing.width, crossing.priority, true);
+                    node->addCrossing(edges, crossing.width, crossing.priority, crossing.customShape, true);
                 }
             }
         }
@@ -441,6 +441,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
         Crossing c;
         c.edgeID = id;
         SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_CROSSING_EDGES, 0, ok), c.crossingEdges);
+        c.customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok, PositionVector());
         myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(id)].push_back(c);
         return;
     } else if (myCurrentEdge->func == EDGEFUNC_INTERNAL || myCurrentEdge->func == EDGEFUNC_WALKINGAREA) {

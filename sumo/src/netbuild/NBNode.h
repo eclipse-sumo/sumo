@@ -134,11 +134,12 @@ public:
      */
     struct Crossing {
         /// @brief constructor
-        Crossing(const NBNode* _node, const EdgeVector& _edges, double _width, bool _priority) :
+        Crossing(const NBNode* _node, const EdgeVector& _edges, double _width, bool _priority, const PositionVector& _customShape) :
             node(_node),
             edges(_edges),
             width(_width),
             priority(_priority),
+            customShape(_customShape),
             tlLinkNo(-1),
             valid(true) {
         }
@@ -158,6 +159,8 @@ public:
         std::string nextWalkingArea;
         /// @brief whether the pedestrians have priority
         bool priority;
+        /// @brief optional customShape for this crossing
+        PositionVector customShape;
         /// @brief the traffic light index of this crossing (if controlled)
         int tlLinkNo;
         /// @brief The id of the traffic light that controls this connection
@@ -602,7 +605,8 @@ public:
     void setRoundabout();
 
     /// @brief add a pedestrian crossing to this node
-    void addCrossing(EdgeVector edges, double width, bool priority, bool fromSumoNet = false);
+    void addCrossing(EdgeVector edges, double width, bool priority, 
+            const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false);
 
     /// @brief remove a pedestrian crossing from this node (identified by its edges)
     void removeCrossing(const EdgeVector& edges);

@@ -66,6 +66,7 @@
         <xsd:attribute name="priority" type="xsd:int" use="optional"/>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="discard" type="boolType" use="optional"/>
+        <xsd:attribute name="shape" type="shapeType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="customShapeType">

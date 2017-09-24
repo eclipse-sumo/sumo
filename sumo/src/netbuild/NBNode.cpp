@@ -2173,6 +2173,8 @@ NBNode::buildCrossings() {
             // invalid crossing
             WRITE_WARNING("Discarding invalid crossing '" + c->id + "' at junction '" + getID() + "' with edges '" + toString(c->edges) + "' (no vehicle lanes to cross).");
             c->valid = false;
+        } else if (c->customShape.size() != 0) {
+            c->shape = c->customShape;
         } else {
             NBEdge::Lane crossingBeg = edges.front()->getFirstNonPedestrianLane(begDir);
             NBEdge::Lane crossingEnd = edges.back()->getFirstNonPedestrianLane(endDir);
@@ -2594,8 +2596,9 @@ NBNode::setRoundabout() {
 
 
 void
-NBNode::addCrossing(EdgeVector edges, double width, bool priority, bool fromSumoNet) {
-    myCrossings.push_back(new Crossing(this, edges, width, priority));
+NBNode::addCrossing(EdgeVector edges, double width, bool priority, 
+        const PositionVector& customShape, bool fromSumoNet) {
+    myCrossings.push_back(new Crossing(this, edges, width, priority, customShape));
     if (fromSumoNet) {
         myCrossingsLoadedFromSumoNet += 1;
     }

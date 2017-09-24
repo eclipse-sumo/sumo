@@ -35,6 +35,7 @@
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/common/ToString.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -211,16 +212,14 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
-            break;
         case SUMO_ATTR_WIDTH:
             return toString(myCrossing->width);
-            break;
         case SUMO_ATTR_PRIORITY:
             return myCrossing->priority ? "true" : "false";
-            break;
         case SUMO_ATTR_EDGES:
             return toString(myCrossing->edges);
-            break;
+        case SUMO_ATTR_CUSTOMSHAPE:
+            return toString(myCrossing->customShape);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -238,6 +237,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_PRIORITY:
+        case SUMO_ATTR_CUSTOMSHAPE:
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
         default:
@@ -265,6 +265,11 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && isPositive<double>(value);
         case SUMO_ATTR_PRIORITY:
             return canParse<bool>(value);
+        case SUMO_ATTR_CUSTOMSHAPE: {
+            bool ok = true;
+            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
+            return ok;
+        }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -320,6 +325,11 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PRIORITY:
             myCrossing->priority = parse<bool>(value);
             break;
+        case SUMO_ATTR_CUSTOMSHAPE: {
+            bool ok;
+            myCrossing->customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
+            break;
+        }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

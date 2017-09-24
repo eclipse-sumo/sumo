@@ -287,6 +287,7 @@ private:
         std::vector<std::string> crossingEdges;
         double width;
         bool priority;
+        PositionVector customShape;
     };
 
     /** @struct JunctionAttrs

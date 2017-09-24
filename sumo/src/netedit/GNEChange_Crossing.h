@@ -32,6 +32,7 @@
 
 #include <fx.h>
 #include <utils/foxtools/fxexdefs.h>
+#include <utils/geom/PositionVector.h>
 #include <vector>
 #include <map>
 #include "GNEChange.h"
@@ -63,7 +64,8 @@ public:
      * @param[in] check if in the moment of change connection was selected
      * @param[in] forward Whether to create/delete (true/false)
      */
-    GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges, double width, bool priority, bool selected, bool forward);
+    GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges, double width, 
+            bool priority, const PositionVector& customShape, bool selected, bool forward);
 
     /// @brief Destructor
     ~GNEChange_Crossing();
@@ -95,6 +97,9 @@ private:
 
     /// @brief priority of GNECrossing
     bool myPriority;
+
+    /// @brief priority of GNECrossing
+    PositionVector myCustomShape;
 
     /// @brief flag to indicates if crossing was previously selected
     bool mySelected;
