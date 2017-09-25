@@ -2433,7 +2433,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
         if (myWalkingAreaCustomShapes.size() > 0) {
             for (auto wacs : myWalkingAreaCustomShapes) {
                 // every edge in wasc.edges must be part of connected
-                if (std::includes(connected.begin(), connected.end(), wacs.edges.begin(), wacs.edges.end())) {
+                if (wacs.shape.size() != 0 && std::includes(connected.begin(), connected.end(), wacs.edges.begin(), wacs.edges.end())) {
                     wa.shape = wacs.shape;
                     wa.hasCustomShape = true;
                 }
@@ -2497,7 +2497,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                 crossed.insert(crossed.end(), next.edges.begin(), next.edges.end());
                 for (auto wacs : myWalkingAreaCustomShapes) {
                     // every edge in wacs.edges must be part of crossed
-                    if (wacs.edges.size() > 1 && std::includes(crossed.begin(), crossed.end(), wacs.edges.begin(), wacs.edges.end())) {
+                    if (wacs.shape.size() != 0 && wacs.edges.size() > 1 && std::includes(crossed.begin(), crossed.end(), wacs.edges.begin(), wacs.edges.end())) {
                         wa.shape = wacs.shape;
                         wa.hasCustomShape = true;
                     }
