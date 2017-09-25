@@ -2429,6 +2429,16 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                 wa.shape.append(curve, 0);
             }
         }
+        // apply custom shapes
+        if (myWalkingAreaCustomShapes.size() > 0) {
+            for (auto wacs : myWalkingAreaCustomShapes) {
+                // every edge in wasc.edges must be part of connected
+                if (std::includes(connected.begin(), connected.end(), wacs.edges.begin(), wacs.edges.end())) {
+                    wa.shape = wacs.shape;
+                    wa.hasCustomShape = true;
+                }
+            }
+        }
         // determine length (average of all possible connections)
         double lengthSum = 0;
         int combinations = 0;
@@ -2481,6 +2491,18 @@ NBNode::buildWalkingAreas(int cornerDetail) {
             wa.shape.push_back(tmp[0]);
             tmp.move2side(-prev.width);
             wa.shape.push_back(tmp[0]);
+            // apply custom shapes
+            if (myWalkingAreaCustomShapes.size() > 0) {
+                EdgeVector crossed = prev.edges;
+                crossed.insert(crossed.end(), next.edges.begin(), next.edges.end());
+                for (auto wacs : myWalkingAreaCustomShapes) {
+                    // every edge in wacs.edges must be part of crossed
+                    if (wacs.edges.size() > 1 && std::includes(crossed.begin(), crossed.end(), wacs.edges.begin(), wacs.edges.end())) {
+                        wa.shape = wacs.shape;
+                        wa.hasCustomShape = true;
+                    }
+                }
+            }
             // length (special case)
             wa.length = MAX2(POSITION_EPS, prev.shape.back().distanceTo2D(next.shape.front()));
             myWalkingAreas.push_back(wa);
@@ -2522,6 +2544,15 @@ NBNode::edgesBetween(const NBEdge* e1, const NBEdge* e2) const {
         NBContHelper::nextCW(myAllEdges, it);
     }
     return result;
+}
+
+
+void 
+NBNode::addWalkingAreaShape(EdgeVector edges, const PositionVector& shape) {
+    WalkingAreaCustomShape wacs;
+    wacs.edges.insert(edges.begin(), edges.end());
+    wacs.shape = shape;
+    myWalkingAreaCustomShapes.push_back(wacs);
 }
 
 

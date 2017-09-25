@@ -206,6 +206,8 @@ enum SumoXMLTag {
     SUMO_TAG_JOINEXCLUDE,
     /// @brief crossing between edges for pedestrians
     SUMO_TAG_CROSSING,
+    /// @brief walking area for pedestrians
+    SUMO_TAG_WALKINGAREA,
 
     SUMO_TAG_WAY,
     SUMO_TAG_ND,

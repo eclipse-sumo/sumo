@@ -161,6 +161,9 @@ NIXMLConnectionsHandler::myStartElement(int element,
     if (element == SUMO_TAG_CROSSING) {
         addCrossing(attrs);
     }
+    if (element == SUMO_TAG_WALKINGAREA) {
+        addWalkingArea(attrs);
+    }
 }
 
 
@@ -373,6 +376,51 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     }
 }
 
+
+void
+NIXMLConnectionsHandler::addWalkingArea(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    NBNode* node = 0;
+    EdgeVector edges;
+    const std::string nodeID = attrs.get<std::string>(SUMO_ATTR_NODE, 0, ok);
+    std::vector<std::string> edgeIDs;
+    if (!attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+        WRITE_ERROR("No edges specified for walkingArea at node '" + nodeID + "'.");
+        return;
+    }
+    SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_EDGES, 0, ok), edgeIDs);
+    if (!ok) {
+        return;
+    }
+    for (std::vector<std::string>::const_iterator it = edgeIDs.begin(); it != edgeIDs.end(); ++it) {
+        NBEdge* edge = myEdgeCont.retrieve(*it);
+        if (edge == 0) {
+            WRITE_ERROR("Edge '" + (*it) + "' for walkingArea at node '" + nodeID + "' is not known.");
+            return;
+        }
+        if (node == 0) {
+            if (edge->getToNode()->getID() == nodeID) {
+                node = edge->getToNode();
+            } else if (edge->getFromNode()->getID() == nodeID) {
+                node = edge->getFromNode();
+            } else {
+                WRITE_ERROR("Edge '" + (*it) + "' does not touch node '" + nodeID + "'.");
+                return;
+            }
+        } else {
+            if (edge->getToNode() != node && edge->getFromNode() != node) {
+                WRITE_ERROR("Edge '" + (*it) + "' does not touch node '" + nodeID + "'.");
+                return;
+            }
+        }
+        edges.push_back(edge);
+    }
+    PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, 0, ok, PositionVector::EMPTY);
+    if (!NBNetBuilder::transformCoordinates(customShape)) {
+        WRITE_ERROR("Unable to project shape for walkingArea at node '" + node->getID() + "'.");
+    }
+    node->addWalkingAreaShape(edges, customShape);
+}
 
 /****************************************************************************/
 

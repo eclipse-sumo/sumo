@@ -11,6 +11,7 @@
             <xsd:element name="prohibition" type="prohibitionType"/>
             <xsd:element name="delete" type="deleteType"/>
             <xsd:element name="crossing" type="crossingType"/>
+            <xsd:element name="walkingArea" type="walkingAreaType"/>
         </xsd:choice>
         <xsd:attribute name="version" use="optional">
             <xsd:simpleType>
@@ -65,6 +66,12 @@
         <xsd:attribute name="priority" type="xsd:int" use="optional"/>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="discard" type="boolType" use="optional"/>
+        <xsd:attribute name="shape" type="shapeType" use="optional"/>
+    </xsd:complexType>
+    
+    <xsd:complexType name="walkingAreaType">
+        <xsd:attribute name="node" type="xsd:string" use="required"/>
+        <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
     </xsd:complexType>
 

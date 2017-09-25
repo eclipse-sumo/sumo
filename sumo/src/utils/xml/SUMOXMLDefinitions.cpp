@@ -124,6 +124,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "join",                       SUMO_TAG_JOIN },
     { "joinExclude",                SUMO_TAG_JOINEXCLUDE },
     { "crossing",                   SUMO_TAG_CROSSING },
+    { "walkingArea",                SUMO_TAG_WALKINGAREA },
     // OSM
     { "way",                        SUMO_TAG_WAY },
     { "nd",                         SUMO_TAG_ND },

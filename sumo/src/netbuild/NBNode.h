@@ -175,8 +175,9 @@ public:
         WalkingArea(const std::string& _id, double _width) :
             id(_id),
             width(_width),
-            nextCrossing("") {
-        }
+            nextCrossing(""),
+            hasCustomShape(false)
+        { }
         /// @brief the (edge)-id of this walkingArea
         std::string id;
         /// @brief This lane's width
@@ -191,6 +192,13 @@ public:
         std::vector<std::string> nextSidewalks;
         /// @brief the lane-id of the previous sidewalk lane or ""
         std::vector<std::string> prevSidewalks;
+        /// @brief whether this walkingArea has a custom shape
+        bool hasCustomShape;
+    };
+
+    struct WalkingAreaCustomShape {
+        std::set<const NBEdge*> edges;
+        PositionVector shape;
     };
 
     /// @brief edge directions (for pedestrian related stuff)
@@ -597,6 +605,9 @@ public:
     void addCrossing(EdgeVector edges, double width, bool priority, 
             const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false);
 
+    /// @brief add custom shape for walkingArea
+    void addWalkingAreaShape(EdgeVector edges, const PositionVector& shape);
+
     /// @brief remove a pedestrian crossing from this node (identified by its edges)
     void removeCrossing(const EdgeVector& edges);
 
@@ -726,6 +737,9 @@ private:
 
     /// @brief Vector of walking areas
     std::vector<WalkingArea> myWalkingAreas;
+
+    /// @brief Vector of custom walking areas shapes
+    std::vector<WalkingAreaCustomShape> myWalkingAreaCustomShapes;
 
     /// @brief The type of the junction
     SumoXMLNodeType myType;

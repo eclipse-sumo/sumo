@@ -290,6 +290,17 @@ private:
         PositionVector customShape;
     };
 
+    /** @struct WalkingAreaParsedCustomShape
+     * @brief Describes custom shape for a walking area during parsing
+     */
+    struct WalkingAreaParsedCustomShape {
+        PositionVector shape;
+        std::vector<std::string> fromEdges;
+        std::vector<std::string> toEdges;
+        std::vector<std::string> fromCrossed;
+        std::vector<std::string> toCrossed;
+    };
+
     /** @struct JunctionAttrs
      * @brief Describes the values found in a junction
      */
@@ -333,6 +344,9 @@ private:
 
     /// @brief The pedestrian crossings found in the network
     std::map<std::string, std::vector<Crossing> > myPedestrianCrossings;
+
+    /// @brief Map from walkingArea edge IDs to custom shapes
+    std::map<std::string, WalkingAreaParsedCustomShape> myWACustomShapes;
 
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;

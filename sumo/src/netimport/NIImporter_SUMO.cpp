@@ -283,8 +283,8 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
         deprecatedVehicleClassesSeen.clear();
     }
-    // add loaded crossings
     if (!oc.getBool("no-internal-links")) {
+        // add loaded crossings
         for (std::map<std::string, std::vector<Crossing> >::const_iterator it = myPedestrianCrossings.begin(); it != myPedestrianCrossings.end(); ++it) {
             NBNode* node = myNodeCont.retrieve((*it).first);
             for (std::vector<Crossing>::const_iterator it_c = (*it).second.begin(); it_c != (*it).second.end(); ++it_c) {
@@ -300,6 +300,34 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 if (edges.size() > 0) {
                     node->addCrossing(edges, crossing.width, crossing.priority, crossing.customShape, true);
                 }
+            }
+        }
+        // add walking area custom shapes
+        for (auto item : myWACustomShapes) {
+            std::string nodeID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(item.first);
+            NBNode* node = myNodeCont.retrieve(nodeID);
+            std::vector<std::string> edgeIDs;
+            if (item.second.fromEdges.size() + item.second.toEdges.size() == 0) {
+                // must be a split crossing
+                assert(item.second.fromCrossed.size() > 0);
+                assert(item.second.toCrossed.size() > 0);
+                edgeIDs = item.second.fromCrossed;
+                edgeIDs.insert(edgeIDs.end(), item.second.toCrossed.begin(), item.second.toCrossed.end());
+            } else if (item.second.fromEdges.size() > 0) {
+                edgeIDs = item.second.fromEdges;
+            } else {
+                edgeIDs = item.second.toEdges;
+            }
+            EdgeVector edges;
+            for (std::string edgeID : edgeIDs) {
+                NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(edgeID);
+                // edge might have been removed due to options
+                if (edge != 0) {
+                    edges.push_back(edge);
+                }
+            }
+            if (edges.size() > 0) {
+                node->addWalkingAreaShape(edges, item.second.shape);
             }
         }
     }
@@ -441,10 +469,10 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
         Crossing c;
         c.edgeID = id;
         SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_CROSSING_EDGES, 0, ok), c.crossingEdges);
-        c.customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok, PositionVector());
         myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(id)].push_back(c);
         return;
     } else if (myCurrentEdge->func == EDGEFUNC_INTERNAL || myCurrentEdge->func == EDGEFUNC_WALKINGAREA) {
+        myHaveSeenInternalEdge = true;
         return; // skip internal edges
     }
     // get the type
@@ -486,15 +514,25 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     }
     myCurrentLane = new LaneAttrs();
     myCurrentLane->customShape = attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, 0, ok, false);
+    myCurrentLane->shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     if (myCurrentEdge->func == EDGEFUNC_CROSSING) {
         // save the width and the lane id of the crossing but don't do anything else
         std::vector<Crossing>& crossings = myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(myCurrentEdge->id)];
         assert(crossings.size() > 0);
         crossings.back().width = attrs.get<double>(SUMO_ATTR_WIDTH, id.c_str(), ok);
+        if (myCurrentLane->customShape) {
+            crossings.back().customShape = myCurrentLane->shape;
+        }
+    } else if (myCurrentEdge->func == EDGEFUNC_WALKINGAREA) {
+        // save custom shape if needed but don't do anything else
+        if (myCurrentLane->customShape) {
+            WalkingAreaParsedCustomShape wacs;
+            wacs.shape = myCurrentLane->shape;
+            myWACustomShapes[myCurrentEdge->id] = wacs;
+        }
         return;
-    } else if (myCurrentEdge->func == EDGEFUNC_INTERNAL || myCurrentEdge->func == EDGEFUNC_WALKINGAREA) {
-        myHaveSeenInternalEdge = true;
-        return; // skip internal lanes
+    } else if (myCurrentEdge->func == EDGEFUNC_INTERNAL) {
+        return; // skip internal edges
     }
     if (attrs.hasAttribute("maxspeed")) {
         // !!! deprecated
@@ -511,7 +549,6 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     myCurrentLane->disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     myCurrentLane->width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), ok, (double) NBEdge::UNSPECIFIED_WIDTH);
     myCurrentLane->endOffset = attrs.getOpt<double>(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (double) NBEdge::UNSPECIFIED_OFFSET);
-    myCurrentLane->shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     myCurrentLane->accelRamp = attrs.getOpt<bool>(SUMO_ATTR_ACCELERATION, id.c_str(), ok, false);
     // lane coordinates are derived (via lane spread) do not include them in convex boundary
     NBNetBuilder::transformCoordinates(myCurrentLane->shape, false, myLocation);
@@ -617,6 +654,41 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
                 } else {
                     LinkState state = SUMOXMLDefinitions::LinkStates.get(attrs.get<std::string>(SUMO_ATTR_STATE, 0, ok));
                     (*it).priority = state == LINKSTATE_MAJOR;
+                }
+            }
+        }
+    }
+    // determine walking area reference edges 
+    if (myWACustomShapes.size() > 0) {
+        EdgeAttrs* to = myEdges[conn.toEdgeID];
+        if (from->func == EDGEFUNC_WALKINGAREA) {
+            std::map<std::string, WalkingAreaParsedCustomShape>::iterator it = myWACustomShapes.find(fromID);
+            if (it != myWACustomShapes.end()) {
+                if (to->func == EDGEFUNC_NORMAL) {
+                    // add target sidewalk as reference
+                    it->second.toEdges.push_back(conn.toEdgeID);
+                } else if (to->func == EDGEFUNC_CROSSING) {
+                    // add target crossing edges as reference
+                    for (Crossing crossing : myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(fromID)]) {
+                        if (conn.toEdgeID == crossing.edgeID) {
+                            it->second.toCrossed.insert(it->second.toCrossed.end(), crossing.crossingEdges.begin(), crossing.crossingEdges.end());
+                        }
+                    }
+                }
+            }
+        } else if (to->func == EDGEFUNC_WALKINGAREA) {
+            std::map<std::string, WalkingAreaParsedCustomShape>::iterator it = myWACustomShapes.find(conn.toEdgeID);
+            if (it != myWACustomShapes.end()) {
+                if (from->func == EDGEFUNC_NORMAL) {
+                    // add origin sidewalk as reference
+                    it->second.fromEdges.push_back(fromID);
+                } else if (from->func == EDGEFUNC_CROSSING) {
+                    // add origin crossing edges as reference
+                    for (Crossing crossing : myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(fromID)]) {
+                        if (fromID == crossing.edgeID) {
+                            it->second.fromCrossed.insert(it->second.fromCrossed.end(), crossing.crossingEdges.begin(), crossing.crossingEdges.end());
+                        }
+                    }
                 }
             }
         }

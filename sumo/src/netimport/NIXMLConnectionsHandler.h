@@ -138,6 +138,11 @@ private:
      */
     void addCrossing(const SUMOSAXAttributes& attrs);
 
+    /** @brief Parses a walkingArea and updates the referenced node
+     * @param[in] attrs The attributes to get the crossings's values from
+     */
+    void addWalkingArea(const SUMOSAXAttributes& attrs);
+
 private:
     /// @brief The edge container to fill
     NBEdgeCont& myEdgeCont;
