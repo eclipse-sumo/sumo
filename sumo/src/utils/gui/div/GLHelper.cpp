@@ -459,9 +459,9 @@ void
 GLHelper::drawFSText(const std::string& text, const Position& pos,
                      const double layer, const double size,
                      const RGBColor& col, const double angle, const int align) {
-    const double fontSize = 50.;
+    const double fontSize = 80.;
     if (myFont == 0) {
-        myFont = glfonsCreate(512, 512, FONS_ZERO_BOTTOMLEFT);
+        myFont = glfonsCreate(2048, 2048, FONS_ZERO_BOTTOMLEFT);
         std::string fontPath = "Roboto-Medium.ttf";
         const char* sumoPath = getenv("SUMO_HOME");
         if (sumoPath != 0) {
