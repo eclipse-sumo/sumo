@@ -88,16 +88,16 @@
 // ===========================================================================
 FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Modes
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE,                GNEViewNet::onCmdSetModeCreateEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_MOVE,                       GNEViewNet::onCmdSetModeMove),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_DELETE,                     GNEViewNet::onCmdSetModeDelete),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_INSPECT,                    GNEViewNet::onCmdSetModeInspect),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_SELECT,                     GNEViewNet::onCmdSetModeSelect),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CONNECT,                    GNEViewNet::onCmdSetModeConnect),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_TLS,                        GNEViewNet::onCmdSetModeTLS),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL,                 GNEViewNet::onCmdSetModeAdditional),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CROSSING,                   GNEViewNet::onCmdSetModeCrossing),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_POLYGON,                    GNEViewNet::onCmdSetModePolygon),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE,             GNEViewNet::onCmdSetModeCreateEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_MOVE,                    GNEViewNet::onCmdSetModeMove),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_DELETE,                  GNEViewNet::onCmdSetModeDelete),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_INSPECT,                 GNEViewNet::onCmdSetModeInspect),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_SELECT,                  GNEViewNet::onCmdSetModeSelect),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CONNECT,                 GNEViewNet::onCmdSetModeConnect),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_TLS,                     GNEViewNet::onCmdSetModeTLS),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL,              GNEViewNet::onCmdSetModeAdditional),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CROSSING,                GNEViewNet::onCmdSetModeCrossing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_POLYGON,                 GNEViewNet::onCmdSetModePolygon),
     // Viewnet
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_CONNECTIONS,        GNEViewNet::onCmdToogleShowConnection),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SELECT_EDGES,            GNEViewNet::onCmdToogleSelectEdges),
@@ -108,6 +108,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_REPLACE,                GNEViewNet::onCmdReplaceJunction),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CLEAR_CONNECTIONS,      GNEViewNet::onCmdClearConnections),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_CONNECTIONS,      GNEViewNet::onCmdResetConnections),
+    // Connections
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_EDIT_SHAPE,           GNEViewNet::onCmdEditJunctionShape),
     // Edges
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT,                      GNEViewNet::onCmdSplitEdge),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT_BIDI,                 GNEViewNet::onCmdSplitEdgeBidi),
@@ -1887,6 +1889,11 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
         update();
     }
     return 1;
+}
+
+
+long GNEViewNet::onCmdEditConnectionShape(FXObject *, FXSelector, void *) {
+    return 0;
 }
 
 

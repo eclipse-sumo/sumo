@@ -690,6 +690,14 @@ enum {
     /// @}
 
 
+    /// @name GNEConnection messages
+    /// @{
+
+    /// @brief edit junction shape
+    MID_GNE_CONNECTION_EDIT_SHAPE,
+    /// @}
+
+
     /// @name GNEPolygon messages
     /// @{
 

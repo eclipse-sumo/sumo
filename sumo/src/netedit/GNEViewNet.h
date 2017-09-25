@@ -259,6 +259,9 @@ public:
 
     /// @brief reset junction connections
     long onCmdResetConnections(FXObject*, FXSelector, void*);
+    
+    /// @brief edit connection shape
+    long onCmdEditConnectionShape(FXObject*, FXSelector, void*);
 
     /// @brief toogle show connections
     long onCmdToogleShowConnection(FXObject*, FXSelector, void*);
