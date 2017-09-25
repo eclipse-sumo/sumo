@@ -366,7 +366,7 @@ void
 GNEViewNet::stopEditCustomShape() {
     // stop edit shape junction deleting myEditShapePoly
     if (myEditShapePoly != 0) {
-        myNet->removePolygonOfView(myEditShapePoly);
+        myNet->removePolygonOfView(myEditShapePoly, true);
         myNet->removePolygon(myEditShapePoly->getMicrosimID());
         myEditShapePoly = 0;
         // restore previous edit mode
@@ -503,35 +503,42 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
         GNEAdditional* pointed_additional = 0;
         GNEConnection* pointed_connection = 0;
         if (pointed) {
-            switch (pointed->getType()) {
-                case GLO_JUNCTION:
-                    pointed_junction = (GNEJunction*)pointed;
-                    break;
-                case GLO_EDGE:
-                    pointed_edge = (GNEEdge*)pointed;
-                    break;
-                case GLO_LANE:
-                    pointed_lane = (GNELane*)pointed;
-                    pointed_edge = &(pointed_lane->getParentEdge());
-                    break;
-                case GLO_POI:
-                    pointed_poi = (GNEPOI*)pointed;
-                    break;
-                case GLO_POLYGON:
+            // If we're editing a shape, ignore rest of elements (including other polygons)
+            if(myEditShapePoly) {
+                if(pointed == myEditShapePoly) {
                     pointed_poly = (GNEPoly*)pointed;
-                    break;
-                case GLO_CROSSING:
-                    pointed_crossing = (GNECrossing*)pointed;
-                    break;
-                case GLO_ADDITIONAL:
-                    pointed_additional = (GNEAdditional*)pointed;
-                    break;
-                case GLO_CONNECTION:
-                    pointed_connection = (GNEConnection*)pointed;
-                    break;
-                default:
-                    pointed = 0;
-                    break;
+                }
+            } else {
+                switch (pointed->getType()) {
+                    case GLO_JUNCTION:
+                        pointed_junction = (GNEJunction*)pointed;
+                        break;
+                    case GLO_EDGE:
+                        pointed_edge = (GNEEdge*)pointed;
+                        break;
+                    case GLO_LANE:
+                        pointed_lane = (GNELane*)pointed;
+                        pointed_edge = &(pointed_lane->getParentEdge());
+                        break;
+                    case GLO_POI:
+                        pointed_poi = (GNEPOI*)pointed;
+                        break;
+                    case GLO_POLYGON:
+                        pointed_poly = (GNEPoly*)pointed;
+                        break;
+                    case GLO_CROSSING:
+                        pointed_crossing = (GNECrossing*)pointed;
+                        break;
+                    case GLO_ADDITIONAL:
+                        pointed_additional = (GNEAdditional*)pointed;
+                        break;
+                    case GLO_CONNECTION:
+                        pointed_connection = (GNEConnection*)pointed;
+                        break;
+                    default:
+                        pointed = 0;
+                        break;
+                }
             }
         }
 
@@ -1882,6 +1889,9 @@ GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
         nodeShape.closePolygon();
         startEditCustomShape(junction, nodeShape, true);
     }
+    // destroy pop-up and set focus in view net
+    destroyPopup();
+    setFocus();
     return 1;
 }
 
@@ -1893,6 +1903,9 @@ GNEViewNet::onCmdReplaceJunction(FXObject*, FXSelector, void*) {
         myNet->replaceJunctionByGeometry(junction, myUndoList);
         update();
     }
+    // destroy pop-up and set focus in view net
+    destroyPopup();
+    setFocus();
     return 1;
 }
 
@@ -1904,6 +1917,9 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
         myNet->clearJunctionConnections(junction, myUndoList);
         update();
     }
+    // destroy pop-up and set focus in view net
+    destroyPopup();
+    setFocus();
     return 1;
 }
 
@@ -1915,6 +1931,9 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
         myNet->resetJunctionConnections(junction, myUndoList);
         update();
     }
+    // destroy pop-up and set focus in view net
+    destroyPopup();
+    setFocus();
     return 1;
 }
 
@@ -1925,6 +1944,9 @@ long GNEViewNet::onCmdEditConnectionShape(FXObject *, FXSelector, void *) {
     if (connection) {
         startEditCustomShape(connection, connection->getShape(), false);
     }
+    // destroy pop-up and update view Net
+    destroyPopup();
+    setFocus();
     return 1;
 }
 

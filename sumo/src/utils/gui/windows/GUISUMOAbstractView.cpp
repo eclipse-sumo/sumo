@@ -652,9 +652,11 @@ GUISUMOAbstractView::getPopupPosition() const {
 
 void
 GUISUMOAbstractView::destroyPopup() {
-    delete myPopup;
-    myPopupPosition.set(0,0);
-    myPopup = 0;
+    if(myPopup != NULL) {
+        delete myPopup;
+        myPopupPosition.set(0,0);
+        myPopup = NULL;
+    }
 }
 
 

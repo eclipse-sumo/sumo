@@ -1883,7 +1883,7 @@ GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector 
         shapePoly->setShapeEditedElement(netElement);
         shapePoly->setFill(fill);
         shapePoly->setLineWidth(0.3);
-        insertPolygonInView(shapePoly);
+        insertPolygonInView(shapePoly, true);
         myViewNet->update();
         return shapePoly;  
     } else {
