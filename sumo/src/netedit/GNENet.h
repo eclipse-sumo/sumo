@@ -65,6 +65,7 @@
 // ===========================================================================
 class GNEApplicationWindow;
 class GNEAttributeCarrier;
+class GNENetElement;
 class GNEEdge;
 class GNELane;
 class GNEJunction;
@@ -575,10 +576,12 @@ public:
                     bool ignorePruning = false);
 
     /**@brief Builds a special polygon used for edit Junctions's shapes
-     * @param[in] junction junction to be edited
+     * @param[in] netElement GNENetElement to be edited
+     * @param[in] shape shape to be edited
+     * @throw processError if shape is empty
      * @return created GNEPoly
      */
-    GNEPoly* addPolygonForEditShapes(GNEJunction* junction);
+    GNEPoly* addPolygonForEditShapes(GNENetElement* netElement, const PositionVector &shape);
 
     /**@brief Removes a polygon from the container
      * @param[in] id The id of the polygon

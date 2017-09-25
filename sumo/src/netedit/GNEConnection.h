@@ -88,17 +88,14 @@ public:
     /// @brief get LinkState
     LinkState getLinkState() const;
 
+    /// @brief get Position vector calculated in updateGeometry()
+    PositionVector getShape() const;
+
     /// @brief update internal ID of Connection
     void updateID();
 
     /// @brief recompute cached myLinkState
     void updateLinkState();
-
-    /// @brief get Draw connection
-    bool getDrawConnection() const;
-
-    /// @brief enable or disable draw connection
-    void setDrawConnection(bool drawConnection);
 
     /// @name inherited from GUIGlObject
     /// @{

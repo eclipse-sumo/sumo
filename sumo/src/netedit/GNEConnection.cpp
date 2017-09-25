@@ -205,6 +205,16 @@ GNEConnection::getLinkState() const {
 }
 
 
+PositionVector 
+GNEConnection::getShape() const {
+    if(myShape.size() > 0) {
+        return myShape;
+    } else {
+        return getNBEdgeConnection().customShape;
+    }
+}
+
+
 void
 GNEConnection::updateLinkState() {
     NBEdge::Connection& nbCon = getNBEdgeConnection();
@@ -405,6 +415,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok;
             nbCon.customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
+            updateGeometry();
             break;
         }
         default:

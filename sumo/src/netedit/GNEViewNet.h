@@ -76,6 +76,7 @@ class GNENet;
 class GNEJunction;
 class GNEEdge;
 class GNELane;
+class GNEConnection;
 class GNEViewParent;
 class GNEUndoList;
 class GNEAdditional;
@@ -337,6 +338,12 @@ public:
     /// @brief edit edit junction shape
     void stopEditShapeJunction();
 
+    /// @brief start edit connection shape
+    void startEditShapeConnection(GNEConnection* connection);
+
+    /// @brief edit edit connection shape
+    void stopEditShapeConnection();
+
 protected:
     /// @brief FOX needs this
     GNEViewNet() {}
@@ -499,8 +506,8 @@ private:
 
     /// @name variables for edit shapes
     /// @{
-    /// @brief  polygon used for edit Junction's shapes
-    GNEPoly* myEditJunctionShapePoly;
+    /// @brief  polygon used for edit shapes
+    GNEPoly* myEditShapePoly;
 
     /// @brief the previous edit mode before edit junction's shapes
     EditMode myPreviousEditMode;
@@ -554,22 +561,25 @@ private:
     /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
     bool mergeJunctions(GNEJunction* moved);
 
-    /// @brief try to retrieve an edge at the given position
+    /// @brief try to retrieve an edge under mouse
     GNEEdge* getEdgeAtPopupPosition();
 
-    /// @brief try to retrieve a lane at the given position
+    /// @brief try to retrieve a lane under mouse
     GNELane* getLaneAtPopupPosition();
 
-    /// @brief try to retrieve a junction at the given position
+    /// @brief try to retrieve a junction under mouse
     GNEJunction* getJunctionAtPopupPosition();
+    
+    /// @brief try to retrieve a junction under mouse
+    GNEConnection* getConnectionAtPopupPosition();
 
-    /// @brief try to retrieve multiple edges at the given position
+    /// @brief try to retrieve multiple edges under mouse
     std::set<GNEEdge*> getEdgesAtPopupPosition();
 
-    /// @brief try to retrieve a Additional at the given position
+    /// @brief try to retrieve a additional under mouse
     GNEAdditional* getAdditionalAtPopupPosition();
 
-    /// @brief try to retrieve a Polygon at the given position
+    /// @brief try to retrieve a polygon under mouse
     GNEPoly* getPolygonAtPopupPosition();
 
     /// @brief restrict lane

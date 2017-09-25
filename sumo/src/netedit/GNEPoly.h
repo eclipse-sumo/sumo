@@ -37,7 +37,7 @@
 // class declarations
 // ===========================================================================
 class GeoConvHelper;
-class GNEJunction;
+class GNENetElement;
 
 // ===========================================================================
 // class definitions
@@ -172,11 +172,11 @@ public:
     /// @brief check if polygon is closed
     bool isPolygonClosed() const;
 
-    /// @brief retrieve the junction of which the shape is being edited
-    void setShapeEditedJunction(GNEJunction* junction);
+    /// @brief retrieve the netElement of which the shape is being edited
+    void setShapeEditedElement(GNENetElement *element);
 
     /// @brief retrieve the junction of which the shape is being edited
-    GNEJunction* getShapeEditedJunction() const;
+    GNENetElement* getShapeEditedElement() const;
 
     /// @brief open polygon
     void openPolygon(bool allowUndo = true);
@@ -195,7 +195,7 @@ public:
 
 protected:
     /// @brief junction of which the shape is being edited (optional)
-    GNEJunction* myShapeEditedJunction;
+    GNENetElement* myNetElementShapeEdited;
 
     /// @brief flag to indicate if polygon is open or closed
     bool myClosedShape;
