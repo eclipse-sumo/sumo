@@ -83,6 +83,7 @@ class GNEAdditional;
 class GNEPoly;
 class GNEPOI;
 class GNEFrame;
+class GNENetElement;
 
 // ===========================================================================
 // class definitions
@@ -332,17 +333,11 @@ public:
     /// @brief return true if junction must be showed as bubbles
     bool showJunctionAsBubbles() const;
 
-    /// @brief start edit junction shape
-    void startEditShapeJunction(GNEJunction* junction);
+    /// @brief start edit custom shape
+    void startEditCustomShape(GNENetElement *element, const PositionVector &shape, bool fill);
 
-    /// @brief edit edit junction shape
-    void stopEditShapeJunction();
-
-    /// @brief start edit connection shape
-    void startEditShapeConnection(GNEConnection* connection);
-
-    /// @brief edit edit connection shape
-    void stopEditShapeConnection();
+    /// @brief edit edit shape
+    void stopEditCustomShape();
 
 protected:
     /// @brief FOX needs this

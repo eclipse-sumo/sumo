@@ -578,10 +578,11 @@ public:
     /**@brief Builds a special polygon used for edit Junctions's shapes
      * @param[in] netElement GNENetElement to be edited
      * @param[in] shape shape to be edited
+     * @param[in] fill enable or disable fill polygon
      * @throw processError if shape is empty
      * @return created GNEPoly
      */
-    GNEPoly* addPolygonForEditShapes(GNENetElement* netElement, const PositionVector &shape);
+    GNEPoly* addPolygonForEditShapes(GNENetElement* netElement, const PositionVector &shape,bool fill);
 
     /**@brief Removes a polygon from the container
      * @param[in] id The id of the polygon
@@ -590,10 +591,10 @@ public:
     bool removePolygon(const std::string& id);
 
     /// @brief insert created polygon in view net
-    void insertPolygonInView(GNEPoly* p);
+    void insertPolygonInView(GNEPoly* p, bool isPolygonForEditShapes = false);
 
     /// @brief remove polygon of view net
-    void removePolygonOfView(GNEPoly* p);
+    void removePolygonOfView(GNEPoly* p, bool isPolygonForEditShapes = false);
 
     /// @brief refresh polygon in view net
     void refreshPolygon(GNEPoly* p);

@@ -1869,7 +1869,7 @@ GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColo
 
 
 GNEPoly*
-GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector &shape) {
+GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector &shape, bool fill) {
     if(shape.size() > 0) {
         // generate a ID for polygon used for shape
         int counter = 0;
@@ -1881,8 +1881,10 @@ GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector 
         // create poly for edit shapes
         GNEPoly* shapePoly = new GNEPoly(this, "edit_shape:" + toString(counter), "edit_shape", shape, true, RGBColor::GREEN, GLO_POLYGON, 0, "", false , false);
         shapePoly->setShapeEditedElement(netElement);
+        shapePoly->setFill(fill);
         shapePoly->setLineWidth(0.3);
         insertPolygonInView(shapePoly);
+        myViewNet->update();
         return shapePoly;  
     } else {
         throw ProcessError("shape cannot be empty");
@@ -1902,13 +1904,15 @@ GNENet::removePolygon(const std::string& id) {
 
 
 void
-GNENet::insertPolygonInView(GNEPoly* p) {
+GNENet::insertPolygonInView(GNEPoly* p, bool isPolygonForEditShapes) {
     if (p->isShapeVisible() == false) {
         myGrid.addAdditionalGLObject(p);
         myViewNet->update();
         p->setShapeVisible(true);
-        // shapes has to be saved
-        requiereSaveShapes();
+        // shapes has to be saved if polygon isn't for edit shapes
+        if(!isPolygonForEditShapes) {
+            requiereSaveShapes();
+        }
     } else {
         throw ProcessError("Polygon was already inserted in view");
     }
@@ -1916,13 +1920,15 @@ GNENet::insertPolygonInView(GNEPoly* p) {
 
 
 void
-GNENet::removePolygonOfView(GNEPoly* p) {
+GNENet::removePolygonOfView(GNEPoly* p, bool isPolygonForEditShapes) {
     if (p->isShapeVisible()) {
         myGrid.removeAdditionalGLObject(p);
         myViewNet->update();
         p->setShapeVisible(false);
-        // shapes has to be saved
-        requiereSaveShapes();
+        // shapes has to be saved if polygon isn't for edit shapes
+        if(!isPolygonForEditShapes) {
+            requiereSaveShapes();
+        }
     } else {
         throw ProcessError("Polygon wasn't already inserted in view");
     }

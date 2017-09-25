@@ -416,6 +416,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             bool ok;
             nbCon.customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
             updateGeometry();
+            myNet->getViewNet()->update();
             break;
         }
         default:

@@ -349,44 +349,13 @@ GNEViewNet::showJunctionAsBubbles() const {
 
 
 void
-GNEViewNet::startEditShapeJunction(GNEJunction* junction) {
-    if ((myEditShapePoly == NULL) && (junction != NULL) && (junction->getNBNode()->getShape().size() > 1)) {
-        // save current edit mode before starting
-        myPreviousEditMode = myEditMode;
-        setEditModeFromHotkey(MID_GNE_SETMODE_MOVE);
-        junction->getNBNode()->computeNodeShape(-1);
-        // add special GNEPoly fo edit shapes
-        myEditShapePoly = myNet->addPolygonForEditShapes(junction, junction->getNBNode()->getShape());
-        // update view net to show the new myEditShapePoly
-        update();
-    }
-}
-
-
-void
-GNEViewNet::stopEditShapeJunction() {
-    // stop edit shape junction deleting myEditShapePoly
-    if (myEditShapePoly != 0) {
-        myNet->removePolygonOfView(myEditShapePoly);
-        myNet->removePolygon(myEditShapePoly->getMicrosimID());
-        myEditShapePoly = 0;
-        // restore previous edit mode
-        if (myEditMode != myPreviousEditMode) {
-            setEditMode(myPreviousEditMode);
-        }
-    }
-}
-
-
-void 
-GNEViewNet::startEditShapeConnection(GNEConnection* connection) {
-    // only edit shape connection if at least NBEdgeConnector shape or GNEconnection shape 
-    if ((myEditShapePoly == NULL) && (connection != NULL) && (connection->getShape().size() > 0)) {
+GNEViewNet::startEditCustomShape(GNENetElement *element, const PositionVector &shape, bool fill) {
+    if ((myEditShapePoly == NULL) && (element != NULL) && (shape.size() > 1)) {
         // save current edit mode before starting
         myPreviousEditMode = myEditMode;
         setEditModeFromHotkey(MID_GNE_SETMODE_MOVE);
         // add special GNEPoly fo edit shapes
-        myEditShapePoly = myNet->addPolygonForEditShapes(connection, connection->getShape());
+        myEditShapePoly = myNet->addPolygonForEditShapes(element, shape, fill);
         // update view net to show the new myEditShapePoly
         update();
     }
@@ -394,7 +363,7 @@ GNEViewNet::startEditShapeConnection(GNEConnection* connection) {
 
 
 void 
-GNEViewNet::stopEditShapeConnection() {
+GNEViewNet::stopEditCustomShape() {
     // stop edit shape junction deleting myEditShapePoly
     if (myEditShapePoly != 0) {
         myNet->removePolygonOfView(myEditShapePoly);
@@ -1058,7 +1027,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
     } else if (myEditMode == GNE_MODE_TLS) {
         myViewParent->getTLSEditorFrame()->onCmdCancel(0, 0, 0);
     } else if (myEditMode == GNE_MODE_MOVE) {
-        stopEditShapeJunction();
+        stopEditCustomShape();
     } else if (myEditMode == GNE_MODE_POLYGON) {
         // abort current drawing
         myViewParent->getPolygonFrame()->getDrawingMode()->abortDrawing();
@@ -1102,7 +1071,7 @@ GNEViewNet::hotkeyEnter() {
             }
             myEditShapePoly->getShapeEditedElement()->setAttribute(attr, toString(myEditShapePoly->getShape()), myUndoList);
             myUndoList->p_end();
-            stopEditShapeJunction();
+            stopEditCustomShape();
             update();
         }
     } else if (myEditMode == GNE_MODE_POLYGON) {
@@ -1908,7 +1877,10 @@ GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
     // Obtain junction under mouse
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction) {
-        startEditShapeJunction(junction);
+        junction->getNBNode()->computeNodeShape(-1);
+        PositionVector nodeShape = junction->getNBNode()->getShape();
+        nodeShape.closePolygon();
+        startEditCustomShape(junction, nodeShape, true);
     }
     return 1;
 }
@@ -1951,7 +1923,7 @@ long GNEViewNet::onCmdEditConnectionShape(FXObject *, FXSelector, void *) {
     // Obtain connection under mouse
     GNEConnection* connection = getConnectionAtPopupPosition();
     if (connection) {
-        startEditShapeConnection(connection);
+        startEditCustomShape(connection, connection->getShape(), false);
     }
     return 1;
 }
@@ -2012,8 +1984,8 @@ void
 GNEViewNet::setEditMode(EditMode mode) {
     setStatusBarText("");
     abortOperation(false);
-    // stop editing of shape's junction
-    stopEditShapeJunction();
+    // stop editing of custom shapes
+    stopEditCustomShape();
 
     if (mode == myEditMode) {
         setStatusBarText("Mode already selected");
