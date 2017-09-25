@@ -38,6 +38,9 @@ strategic_stay_and_speedgain2
 # a vehicle urgently needs to change lanes and pushes a blocker by using a lower minGapLat
 push_for_merge
 
+# like push_for_merge but use parameter lcPushyGap
+push_for_merge_pushygap
+
 # a vehicle urgently needs to change lanes and pushes into the save space of blocking vehicle
 push_for_merge_highres
 
