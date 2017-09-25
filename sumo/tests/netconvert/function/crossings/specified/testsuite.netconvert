@@ -50,6 +50,12 @@ sumonet_customshape
 
 # crossings have intermediate walking areas
 4_arm_3_neighboring_split
+
+# custom walking area shapes
+4_arm_3_neighboring_split_customshape
+
+# reimport .net.xml and keep the crossings and walkingareas with custom shape
+sumonet_custom_washape
 4_arm_mixed_priority
 
 # reimport .net.xml and keep the crossings with their original priorities

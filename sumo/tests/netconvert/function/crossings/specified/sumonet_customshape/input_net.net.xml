@@ -86,8 +86,8 @@
     <edge id=":C_20" function="internal">
         <lane id=":C_20_0" index="0" speed="13.89" length="15.30" shape="94.88,100.05 98.05,101.95 100.75,106.45 101.65,112.75"/>
     </edge>
-    <edge id=":C_c0" function="crossing" crossingEdges="CS SC" shape="93.45,89.50 100.00,95.00 106.55,89.50">
-        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="1.00" length="17.11" width="4.50" shape="93.45,89.50 100.00,95.00 106.55,89.50"/>
+    <edge id=":C_c0" function="crossing" crossingEdges="CS SC">
+        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="1.00" length="17.11" width="4.50" customShape="1" shape="93.45,89.50 100.00,95.00 106.55,89.50"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
         <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.24" width="3.00" shape="87.25,108.25 87.25,111.25 88.75,112.75 91.75,112.75"/>
