@@ -595,8 +595,6 @@ GNECrossingFrame::addCrossing(GNENetElement* netElement) {
     } else {
         // set default label
         myCurrentJunctionLabel->setText("No junction selected");
-        // clear selected egdes
-        myCrossingParameters->clearEdges();
         // restore  color of all lanes of edge candidates
         myEdgeSelector->restoreEdgeColors();
         // Disable edge selector
