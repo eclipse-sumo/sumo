@@ -1183,7 +1183,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
     // save current number of lanes for every edge if recomputing is with volatile options
     if(volatileOptions) {
         for (auto it : myEdges) {
-            myEdgesAndNumberOfLanes[it.second->getID()] = it.second->getLanes().size();
+            myEdgesAndNumberOfLanes[it.second->getID()] = (int)it.second->getLanes().size();
         }
     }
 

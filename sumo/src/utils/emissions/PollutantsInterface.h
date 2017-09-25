@@ -243,6 +243,8 @@ public:
          */
         virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const {
             UNUSED_PARAMETER(c);
+            UNUSED_PARAMETER(v);
+            UNUSED_PARAMETER(slope);
             return a;
         }
 
