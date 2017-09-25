@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 25 10:21:26 2017 by SUMO netconvert Version dev-SVN-r25695
+<!-- generated on Mon Sep 25 15:15:33 2017 by SUMO netconvert Version dev-SVN-r26213
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -31,30 +31,30 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="-1262412971" name="Backhausweg" lane="-30423733#2_0" startPos="114.93" endPos="135.95" friendlyPos="true"/>
-    <busStop id="-1262412992" name="Hohkamp" lane="-30423733#1_0" startPos="371.12" endPos="391.18" friendlyPos="true"/>
-    <busStop id="-14080448179" name="Lammer Heide" lane="-189595213#0_0" startPos="0.00" endPos="39.29" friendlyPos="true"/>
-    <busStop id="-14080453545" name="Neudammstraße" lane="-24236261#5_0" startPos="0.00" endPos="88.79" friendlyPos="true"/>
-    <busStop id="-14080454866" name="Lammer Heide" lane="-24236214#1_0" startPos="0.00" endPos="81.30" friendlyPos="true"/>
-    <busStop id="-14440238347" name="Lammer Heide" lane="-24236214#1_0" startPos="0.00" endPos="81.30" friendlyPos="true"/>
-    <busStop id="-14440238348" name="Backhausweg" lane="-30423733#2_0" startPos="35.67" endPos="140.11" friendlyPos="true"/>
-    <busStop id="-14440262442" name="Hohkamp" lane="-30423733#1_0" startPos="289.59" endPos="398.72" friendlyPos="true"/>
-    <busStop id="-14451836152" name="Neudammstraße" lane="-24236261#5_0" startPos="0.00" endPos="88.79" friendlyPos="true"/>
-    <busStop id="-14451836153" name="Lammer Heide" lane="-189595213#0_0" startPos="0.00" endPos="39.29" friendlyPos="true"/>
-    <busStop id="1990326726" name="Rodedamm" lane="-30423777_0" startPos="78.69" endPos="97.47" friendlyPos="true"/>
-    <busStop id="2459586206" name="Lammer Busch" lane="238095542_0" startPos="0.00" endPos="70.07" friendlyPos="true"/>
-    <busStop id="262412971" name="Backhausweg" lane="30423733#2_0" startPos="3.94" endPos="25.44" friendlyPos="true"/>
-    <busStop id="262412992" name="Hohkamp" lane="30423733#1_0" startPos="7.43" endPos="27.73" friendlyPos="true"/>
-    <busStop id="262413028" name="Rodedamm" lane="30423777_0" startPos="32.22" endPos="149.78" friendlyPos="true"/>
+    <busStop id="-1262412971" name="Backhausweg" lane="-30423733#2_0" startPos="115.09" endPos="136.11" friendlyPos="true"/>
+    <busStop id="-1262412992" name="Hohkamp" lane="-30423733#1_0" startPos="374.19" endPos="394.25" friendlyPos="true"/>
+    <busStop id="-14080448179" name="Lammer Heide" lane="-189595213#0_0" startPos="0.00" endPos="47.06" friendlyPos="true"/>
+    <busStop id="-14080453545" name="Neudammstraße" lane="-24236261#5_0" startPos="0.00" endPos="99.44" friendlyPos="true"/>
+    <busStop id="-14080454866" name="Lammer Heide" lane="-24236214#1_0" startPos="0.00" endPos="89.00" friendlyPos="true"/>
+    <busStop id="-14440238347" name="Lammer Heide" lane="-24236214#1_0" startPos="0.00" endPos="89.00" friendlyPos="true"/>
+    <busStop id="-14440238348" name="Backhausweg" lane="-30423733#2_0" startPos="35.83" endPos="143.57" friendlyPos="true"/>
+    <busStop id="-14440262442" name="Hohkamp" lane="-30423733#1_0" startPos="292.66" endPos="404.90" friendlyPos="true"/>
+    <busStop id="-14451836152" name="Neudammstraße" lane="-24236261#5_0" startPos="0.00" endPos="99.44" friendlyPos="true"/>
+    <busStop id="-14451836153" name="Lammer Heide" lane="-189595213#0_0" startPos="0.00" endPos="47.06" friendlyPos="true"/>
+    <busStop id="1990326726" name="Rodedamm" lane="-30423777_0" startPos="88.22" endPos="107.01" friendlyPos="true"/>
+    <busStop id="2459586206" name="Lammer Busch" lane="238095542_0" startPos="0.00" endPos="86.76" friendlyPos="true"/>
+    <busStop id="262412971" name="Backhausweg" lane="30423733#2_0" startPos="7.28" endPos="28.78" friendlyPos="true"/>
+    <busStop id="262412992" name="Hohkamp" lane="30423733#1_0" startPos="10.54" endPos="30.84" friendlyPos="true"/>
+    <busStop id="262413028" name="Rodedamm" lane="30423777_0" startPos="37.17" endPos="164.26" friendlyPos="true"/>
     <busStop id="3420398715" name="Hüttenweg" lane="334913982_0" startPos="220.91" endPos="237.00" friendlyPos="true"/>
-    <busStop id="4080448179" name="Lammer Heide" lane="189595213#0_0" startPos="0.00" endPos="39.29" friendlyPos="true"/>
-    <busStop id="4080453545" name="Neudammstraße" lane="24236261#5_0" startPos="0.00" endPos="88.80" friendlyPos="true"/>
-    <busStop id="4080454866" name="Lammer Heide" lane="24236214#1_0" startPos="0.00" endPos="81.30" friendlyPos="true"/>
-    <busStop id="4440238345" name="Lammer Busch" lane="238095542_0" startPos="0.00" endPos="70.07" friendlyPos="true"/>
-    <busStop id="4440238347" name="Lammer Heide" lane="24236214#1_0" startPos="0.00" endPos="81.30" friendlyPos="true"/>
-    <busStop id="4440238348" name="Backhausweg" lane="30423733#2_0" startPos="0.00" endPos="104.44" friendlyPos="true"/>
-    <busStop id="4440262442" name="Hohkamp" lane="30423733#1_0" startPos="0.00" endPos="109.13" friendlyPos="true"/>
-    <busStop id="4451836152" name="Neudammstraße" lane="24236261#5_0" startPos="0.00" endPos="88.80" friendlyPos="true"/>
-    <busStop id="4451836153" name="Lammer Heide" lane="189595213#0_0" startPos="0.00" endPos="39.29" friendlyPos="true"/>
-    <busStop id="52320383" name="Hüttenweg" lane="-168069146#0_0" startPos="36.36" endPos="48.64" friendlyPos="true"/>
+    <busStop id="4080448179" name="Lammer Heide" lane="189595213#0_0" startPos="0.00" endPos="47.05" friendlyPos="true"/>
+    <busStop id="4080453545" name="Neudammstraße" lane="24236261#5_0" startPos="0.00" endPos="99.45" friendlyPos="true"/>
+    <busStop id="4080454866" name="Lammer Heide" lane="24236214#1_0" startPos="0.00" endPos="89.00" friendlyPos="true"/>
+    <busStop id="4440238345" name="Lammer Busch" lane="238095542_0" startPos="0.00" endPos="86.76" friendlyPos="true"/>
+    <busStop id="4440238347" name="Lammer Heide" lane="24236214#1_0" startPos="0.00" endPos="89.00" friendlyPos="true"/>
+    <busStop id="4440238348" name="Backhausweg" lane="30423733#2_0" startPos="0.00" endPos="107.74" friendlyPos="true"/>
+    <busStop id="4440262442" name="Hohkamp" lane="30423733#1_0" startPos="0.00" endPos="112.24" friendlyPos="true"/>
+    <busStop id="4451836152" name="Neudammstraße" lane="24236261#5_0" startPos="0.00" endPos="99.45" friendlyPos="true"/>
+    <busStop id="4451836153" name="Lammer Heide" lane="189595213#0_0" startPos="0.00" endPos="47.05" friendlyPos="true"/>
+    <busStop id="52320383" name="Hüttenweg" lane="-168069146#0_0" startPos="40.83" endPos="53.11" friendlyPos="true"/>
 </additional>

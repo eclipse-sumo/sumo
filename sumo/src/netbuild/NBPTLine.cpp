@@ -105,3 +105,6 @@ void NBPTLine::addEdgeVector(std::vector<NBEdge*>::iterator fr, std::vector<NBEd
 void NBPTLine::setMyNumOfStops(int numStops) {
     myNumOfStops = numStops;
 }
+const std::vector<NBEdge*>& NBPTLine::getRoute() const {
+    return myRoute;
+}

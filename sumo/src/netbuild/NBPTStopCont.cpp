@@ -76,7 +76,7 @@ void NBPTStopCont::process(NBEdgeCont& cont) {
             //create pt stop for closest platform at corresponding edge
             assignPTStopToEdgeOfClosestPlatform(stop, cont);
 
-        } else  {
+        } else {
             //create pt stop for each side of the street where a platform is defined (create additional pt stop as needed)
             NBPTStop* additionalStop = assignAndCreatNewPTStopAsNeeded(stop, cont);
             if (additionalStop != 0) {
@@ -96,7 +96,7 @@ void NBPTStopCont::process(NBEdgeCont& cont) {
         NBPTStop* stop = i->second;
         if (!NBPTStopCont::findLaneAndComputeBusStopExtend(stop, cont)) {
             WRITE_WARNING("Could not find corresponding edge or compatible lane for pt stop: " + i->second->getName()
-                          + ". Thus, it will be removed!");
+                                  + ". Thus, it will be removed!");
             EdgeVector edgeVector = cont.getGeneratedFrom((*i).second->getOrigEdgeId());
             //std::cout << edgeVector.size() << std::endl;
             myPTStops.erase(i++);
@@ -162,7 +162,6 @@ NBPTStop* NBPTStopCont::assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeC
 }
 
 
-
 void NBPTStopCont::assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCont& cont) {
     std::string edgeId = pStop->getEdgeId();
     NBEdge* edge = cont.getByID(edgeId);
@@ -198,7 +197,7 @@ double NBPTStopCont::computeCrossProductEdgePosition(const NBEdge* edge, const P
         idx2 = idxTmp;
         idx1 = idxTmp - 1;
     }
-    if (idx1 < 0 || idx1 >= (int)geom.size() || idx2 < 0 || idx2 >= (int)geom.size()) {
+    if (idx1 < 0 || idx1 >= (int) geom.size() || idx2 < 0 || idx2 >= (int) geom.size()) {
         WRITE_WARNING("Could not determine cross product");
         return 0;
     }
@@ -222,8 +221,8 @@ NBPTPlatform* NBPTStopCont::getClosestPlatformToPTStopPosition(NBPTStop* pStop) 
     double minSqrDist = std::numeric_limits<double>::max();
 
     for (auto it = pStop->getPlatformCands().begin();
-            it != pStop->getPlatformCands().end();
-            it++) {
+         it != pStop->getPlatformCands().end();
+         it++) {
         NBPTPlatform platform = *it;
         double sqrDist = stopPosition.distanceSquaredTo2D(*platform.getMyPos());
         if (sqrDist < minSqrDist) {
@@ -256,7 +255,7 @@ bool NBPTStopCont::findLaneAndComputeBusStopExtend(NBPTStop* pStop, NBEdgeCont& 
             pStop->setLaneID(lane);
             const PositionVector& shape = edge->getLaneShape(laneNr);
             double offset = shape.nearest_offset_to_point2D(pStop->getPosition(), true);
-            pStop->computExtent(offset, edge->getLength());
+            pStop->computExtent(offset, shape.length());
 
         } else {
             return false;
@@ -270,8 +269,8 @@ bool NBPTStopCont::findLaneAndComputeBusStopExtend(NBPTStop* pStop, NBEdgeCont& 
 NBEdge* NBPTStopCont::getReverseEdge(NBEdge* edge) {
     if (edge != nullptr) {
         for (auto it = edge->getToNode()->getOutgoingEdges().begin();
-                it != edge->getToNode()->getOutgoingEdges().end();
-                it++) {
+             it != edge->getToNode()->getOutgoingEdges().end();
+             it++) {
             if ((*it)->getToNode() == edge->getFromNode()) {
                 return (*it);
             }

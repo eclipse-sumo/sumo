@@ -92,8 +92,10 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
 
     // MODIFYING THE SETS OF NODES AND EDGES
 
-    // Removes edges that are connecting the same node
     long before = SysUtils::getCurrentMillis();
+
+
+    // Removes edges that are connecting the same node
     PROGRESS_BEGIN_MESSAGE("Removing self-loops");
     myNodeCont.removeSelfLoops(myDistrictCont, myEdgeCont, myTLLCont);
     PROGRESS_TIME_MESSAGE(before);
@@ -116,6 +118,20 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             myEdgeCont.removeUnwishedEdges(myDistrictCont);
             PROGRESS_TIME_MESSAGE(before);
         }
+    }
+    // Processing pt stops and lines
+    if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
+        before = SysUtils::getCurrentMillis();
+        PROGRESS_BEGIN_MESSAGE("Processing public transport stops");
+        myPTStopCont.process(myEdgeCont);
+        PROGRESS_TIME_MESSAGE(before);
+    }
+
+    if (oc.exists("ptline-output") && oc.isSet("ptline-output")) {
+        before = SysUtils::getCurrentMillis();
+        PROGRESS_BEGIN_MESSAGE("Revising public transport stops based on pt lines");
+        myPTLineCont.process(myEdgeCont);
+        PROGRESS_TIME_MESSAGE(before);
     }
     if (oc.getBool("junctions.join") || (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))) {
         // preliminary geometry computations to determine the length of edges
@@ -167,7 +183,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_BEGIN_MESSAGE("Removing empty nodes" + std::string(removeGeometryNodes ? " and geometry nodes" : ""));
         // removeUnwishedNodes needs turnDirections. @todo: try to call this less often
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
-        no = myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont, removeGeometryNodes);
+        no = myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont, myPTStopCont, myPTLineCont, removeGeometryNodes);
         PROGRESS_TIME_MESSAGE(before);
         WRITE_MESSAGE("   " + toString(no) + " nodes removed.");
     }
@@ -487,19 +503,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         myEdgeCont.checkGrade(oc.getFloat("geometry.max-grade") / 100);
         PROGRESS_TIME_MESSAGE(before);
     }
-    if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Processing public transport stops");
-        myPTStopCont.process(myEdgeCont);
-        PROGRESS_TIME_MESSAGE(before);
-    }
 
-    if (oc.exists("ptline-output") && oc.isSet("ptline-output")) {
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Revising public transport stops based on pt lines");
-        myPTLineCont.process(myEdgeCont);
-        PROGRESS_TIME_MESSAGE(before);
-    }
 
     // report
     WRITE_MESSAGE("-----------------------------------------------------");

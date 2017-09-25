@@ -42,6 +42,8 @@
 #include <utils/geom/Position.h>
 #include "NBEdgeCont.h"
 #include "NBNode.h"
+#include "NBPTLineCont.h"
+#include "NBPTStopCont.h"
 #include <utils/common/UtilExceptions.h>
 
 
@@ -195,7 +197,7 @@ public:
      * @param[in] removeGeometryNodes Whether geometry nodes shall also be removed
      * @return The number of removed nodes
      */
-    int removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, bool removeGeometryNodes);
+    int removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, NBPTStopCont& sc, NBPTLineCont& lc, bool removeGeometryNodes);
     /// @}
 
     /// @name Methods for guessing/computing traffic lights

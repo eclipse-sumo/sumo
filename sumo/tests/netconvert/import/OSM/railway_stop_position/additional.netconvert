@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun  7 08:58:07 2017 by SUMO netconvert Version dev-SVN-r24560
+<!-- generated on Mon Sep 25 15:15:35 2017 by SUMO netconvert Version dev-SVN-r26213
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -30,7 +30,7 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="1422539746" name="Lübbenau, Gleis 1" lane="254150069_0" startPos="316.66" endPos="516.66" friendlyPos="true"/>
-    <busStop id="1422539747" name="Lübbenau, Gleis 2" lane="56392722#0_0" startPos="533.06" endPos="676.76" friendlyPos="true"/>
-    <busStop id="1422539748" name="Lübbenau, Gleis 4" lane="254150073#1_0" startPos="422.21" endPos="622.21" friendlyPos="true"/>
+    <busStop id="1422539746" name="Lübbenau, Gleis 1" lane="254150069_0" startPos="318.58" endPos="518.58" friendlyPos="true"/>
+    <busStop id="1422539747" name="Lübbenau, Gleis 2" lane="56392722#0_0" startPos="578.39" endPos="723.80" friendlyPos="true"/>
+    <busStop id="1422539748" name="Lübbenau, Gleis 4" lane="254150073#1_0" startPos="423.85" endPos="623.85" friendlyPos="true"/>
 </additional>

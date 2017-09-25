@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun  7 08:58:06 2017 by SUMO netconvert Version dev-SVN-r24560
+<!-- generated on Mon Sep 25 15:15:33 2017 by SUMO netconvert Version dev-SVN-r26213
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -31,6 +31,6 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="-14014639411" name="Hallesche Allee" lane="-412820207_0" startPos="0.00" endPos="43.90" friendlyPos="true"/>
-    <busStop id="4014639411" name="Hallesche Allee" lane="412820207_0" startPos="0.00" endPos="43.90" friendlyPos="true"/>
+    <busStop id="-14014639411" name="Hallesche Allee" lane="-412820207_0" startPos="0.00" endPos="48.91" friendlyPos="true"/>
+    <busStop id="4014639411" name="Hallesche Allee" lane="412820207_0" startPos="0.00" endPos="48.91" friendlyPos="true"/>
 </additional>

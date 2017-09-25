@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 13 16:31:09 2017 by SUMO netconvert Version dev-SVN-r26005
+<!-- generated on Mon Sep 25 15:15:33 2017 by SUMO netconvert Version dev-SVN-r26213
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -32,17 +32,17 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="-14032629811" name="Katzbachstraße/Kreuzbergstraße" lane="-53356539#0_1" startPos="36.13" endPos="137.22" friendlyPos="true"/>
-    <busStop id="-14032629819" name="Monumentenstraße" lane="-53356539#1_1" startPos="99.73" endPos="239.48" friendlyPos="true"/>
-    <busStop id="-14032629820" name="Monumentenstraße" lane="-53356539#0_1" startPos="0.00" endPos="137.22" friendlyPos="true"/>
-    <busStop id="2029039146" name="Badener Ring" lane="111325187#3_0" startPos="26.39" endPos="150.48" friendlyPos="true"/>
-    <busStop id="2029039195" name="Dudenstraße/Katzbachstraße" lane="391493945#1_0" startPos="7.03" endPos="17.09" friendlyPos="true"/>
-    <busStop id="2029039199" name="Dudenstraße/Katzbachstraße" lane="111325187#1_0" startPos="11.49" endPos="24.14" friendlyPos="true"/>
-    <busStop id="3959807200" name="Dudenstraße/Katzbachstraße" lane="391493954#3_1" startPos="33.75" endPos="47.41" friendlyPos="true"/>
-    <busStop id="3959807201" name="Dudenstraße/Katzbachstraße" lane="-391493954#3_1" startPos="15.38" endPos="29.05" friendlyPos="true"/>
-    <busStop id="3959807220" name="Kolonnenbrücke" lane="-110450334#1_1" startPos="0.01" endPos="12.73" friendlyPos="true"/>
-    <busStop id="3959807221" name="Kolonnenbrücke" lane="110450334#1_1" startPos="7.67" endPos="16.13" friendlyPos="true"/>
+    <busStop id="-14032629811" name="Katzbachstraße/Kreuzbergstraße" lane="-53356539#0_1" startPos="36.28" endPos="137.37" friendlyPos="true"/>
+    <busStop id="-14032629819" name="Monumentenstraße" lane="-53356539#1_1" startPos="101.67" endPos="241.55" friendlyPos="true"/>
+    <busStop id="-14032629820" name="Monumentenstraße" lane="-53356539#0_1" startPos="0.00" endPos="137.37" friendlyPos="true"/>
+    <busStop id="2029039146" name="Badener Ring" lane="111325187#3_0" startPos="26.53" endPos="150.52" friendlyPos="true"/>
+    <busStop id="2029039195" name="Dudenstraße/Katzbachstraße" lane="391493945#1_0" startPos="11.84" endPos="21.90" friendlyPos="true"/>
+    <busStop id="2029039199" name="Dudenstraße/Katzbachstraße" lane="111325187#1_0" startPos="11.64" endPos="24.29" friendlyPos="true"/>
+    <busStop id="3959807200" name="Dudenstraße/Katzbachstraße" lane="391493954#3_1" startPos="33.90" endPos="47.56" friendlyPos="true"/>
+    <busStop id="3959807201" name="Dudenstraße/Katzbachstraße" lane="-391493954#3_1" startPos="16.88" endPos="30.55" friendlyPos="true"/>
+    <busStop id="3959807220" name="Kolonnenbrücke" lane="-110450334#1_1" startPos="8.22" endPos="20.94" friendlyPos="true"/>
+    <busStop id="3959807221" name="Kolonnenbrücke" lane="110450334#1_1" startPos="10.65" endPos="23.37" friendlyPos="true"/>
     <busStop id="4032629811" name="Katzbachstraße/Kreuzbergstraße" lane="53356539#0_1" startPos="0.00" endPos="101.09" friendlyPos="true"/>
-    <busStop id="4032629819" name="Monumentenstraße" lane="53356539#1_1" startPos="0.00" endPos="139.74" friendlyPos="true"/>
-    <busStop id="4032629820" name="Monumentenstraße" lane="-53356539#0_1" startPos="0.00" endPos="137.22" friendlyPos="true"/>
+    <busStop id="4032629819" name="Monumentenstraße" lane="53356539#1_1" startPos="0.00" endPos="139.88" friendlyPos="true"/>
+    <busStop id="4032629820" name="Monumentenstraße" lane="-53356539#0_1" startPos="0.00" endPos="137.37" friendlyPos="true"/>
 </additional>

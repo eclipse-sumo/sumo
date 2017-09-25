@@ -57,6 +57,8 @@
 #include "NBTrafficLightLogicCont.h"
 #include "NBOwnTLDef.h"
 #include "NBNodeCont.h"
+#include "NBPTStopCont.h"
+#include "NBPTLineCont.h"
 
 
 // ===========================================================================
@@ -365,7 +367,7 @@ NBNodeCont::removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKe
 
 int
 NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
-                                NBTrafficLightLogicCont& tlc,
+                                NBTrafficLightLogicCont& tlc, NBPTStopCont& sc, NBPTLineCont& lc,
                                 bool removeGeometryNodes) {
     // load edges that shall not be modified
     std::set<std::string> edges2keep;
@@ -377,6 +379,18 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
         if (oc.isSet("geometry.remove.keep-edges.explicit")) {
             const std::vector<std::string> edges = oc.getStringVector("geometry.remove.keep-edges.explicit");
             edges2keep.insert(edges.begin(), edges.end());
+        }
+        if (oc.isSet("ptstop-output")) {
+            for (auto it = sc.begin(); it != sc.end(); it++) {
+                edges2keep.insert(it->second->getEdgeId());
+            }
+        }
+        if (oc.isSet("ptline-output")) {
+            for (auto it = lc.begin(); it != lc.end(); it++){
+                for (auto ed : (*it)->getRoute()){
+                    edges2keep.insert(ed->getID());
+                }
+            }
         }
     }
     int no = 0;

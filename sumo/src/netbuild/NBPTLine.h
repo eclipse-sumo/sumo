@@ -69,6 +69,9 @@ public:
 private:
     // route of ptline
     std::vector<NBEdge*> myRoute;
+public:
+    const std::vector<NBEdge*>& getRoute() const;
+private:
 
     int myNumOfStops;
 };
