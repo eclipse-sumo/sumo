@@ -281,15 +281,10 @@ public:
     static RGBColor getColor();
 
     /// @brief draw Text with given parameters
-    static void drawFSText(const std::string& text, const Position& pos,
+    static void drawText(const std::string& text, const Position& pos,
                          const double layer, const double size,
                          const RGBColor& col = RGBColor::BLACK, const double angle = 0,
                          int align = 0);
-
-    /// @brief draw Text with given parameters
-    static void drawText(const std::string& text, const Position& pos,
-                         const double layer, const double size,
-                         const RGBColor& col = RGBColor::BLACK, const double angle = 0);
 
     /// @brief draw Text box with given parameters
     static void drawTextBox(const std::string& text, const Position& pos,

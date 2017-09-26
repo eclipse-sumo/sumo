@@ -456,7 +456,7 @@ GLHelper::getColor() {
 
 
 void
-GLHelper::drawFSText(const std::string& text, const Position& pos,
+GLHelper::drawText(const std::string& text, const Position& pos,
                      const double layer, const double size,
                      const RGBColor& col, const double angle, const int align) {
     const double fontSize = 80.;
@@ -480,28 +480,9 @@ GLHelper::drawFSText(const std::string& text, const Position& pos,
     glTranslated(pos.x(), pos.y(), layer);
     glScaled(size / fontSize, size / fontSize, 1.);
     glRotated(angle, 0, 0, 1);
-    fonsSetAlign(myFont, align == 0 ? FONS_ALIGN_CENTER : align);
+    fonsSetAlign(myFont, align == 0 ? FONS_ALIGN_CENTER | FONS_ALIGN_MIDDLE: align);
     fonsSetColor(myFont, glfonsRGBA(col.red(), col.green(), col.blue(), col.alpha()));
     fonsDrawText(myFont, 0., 0., text.c_str(), NULL);
-    glPopMatrix();
-}
-
-
-void
-GLHelper::drawText(const std::string& text, const Position& pos,
-                   const double layer, const double size,
-                   const RGBColor& col, const double angle) {
-    glPushMatrix();
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    setColor(col);
-    glTranslated(pos.x(), pos.y(), layer);
-    pfSetPosition(0, 0);
-    pfSetScale(size);
-    double w = pfdkGetStringWidth(text.c_str());
-    glRotated(180, 1, 0, 0);
-    glRotated(angle, 0, 0, 1);
-    glTranslated(-w / 2., size / 4, 0);
-    pfDrawString(text.c_str());
     glPopMatrix();
 }
 
@@ -531,17 +512,7 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
     setColor(bgColor);
     glTranslated(0, 0, 0.01);
     drawBoxLine(left, boxAngle, boxWidth - 3 * borderWidth, boxHeight - 2 * borderWidth);
-    // actually we should be able to use drawText here. however, there's
-    // something about the constant 0.4 offset which causes trouble
-    //drawText(text, pos, layer+0.02, size, txtColor, angle);
-    setColor(txtColor);
-    glTranslated(pos.x(), pos.y(), 0.01);
-    pfSetPosition(0, 0);
-    pfSetScale(size);
-    glRotated(180, 1, 0, 0);
-    glRotated(angle, 0, 0, 1);
-    glTranslated(-stringWidth / 2., 0, 0);
-    pfDrawString(text.c_str());
+    drawText(text, pos, layer+0.02, size, txtColor, angle);
     glPopMatrix();
 }
 
