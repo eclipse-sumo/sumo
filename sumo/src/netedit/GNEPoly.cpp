@@ -102,6 +102,10 @@ GNEPoly::moveVertexShape(int index, const Position& newPos) {
             } else {
                 // change position of vertex
                 myShape[index] = newPos;
+                // update geometry of shape edited element
+                if(myNetElementShapeEdited) {
+                    myNetElementShapeEdited->updateGeometry();
+                }
                 return index;
             }
         } else {
@@ -634,6 +638,10 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->refreshPolygon(this);
             // disable simplified shape flag
             mySimplifiedShape = false;
+            // update geometry of shape edited element
+            if(myNetElementShapeEdited) {
+                myNetElementShapeEdited->updateGeometry();
+            }
             break;
         }
         case SUMO_ATTR_COLOR:

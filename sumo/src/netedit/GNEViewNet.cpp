@@ -111,6 +111,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_CONNECTIONS,      GNEViewNet::onCmdResetConnections),
     // Connections
     FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_EDIT_SHAPE,           GNEViewNet::onCmdEditConnectionShape),
+    // Crossings
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CROSSING_EDIT_SHAPE,             GNEViewNet::onCmdEditCrossingShape),
     // Edges
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT,                      GNEViewNet::onCmdSplitEdge),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT_BIDI,                 GNEViewNet::onCmdSplitEdgeBidi),
@@ -1217,6 +1219,26 @@ GNEViewNet::getConnectionAtPopupPosition() {
 }
 
 
+GNECrossing*
+GNEViewNet::getCrossingAtPopupPosition() {
+    GNECrossing* crossing = 0;
+    if (makeCurrent()) {
+        int id = getObjectAtPosition(getPopupPosition());
+        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        if (pointed) {
+            switch (pointed->getType()) {
+            case GLO_CROSSING:
+                crossing = (GNECrossing*)pointed;
+                break;
+            default:
+                break;
+            }
+        }
+    }
+    return crossing;
+}
+
 GNEEdge*
 GNEViewNet::getEdgeAtPopupPosition() {
     GNEEdge* edge = 0;
@@ -1939,11 +1961,28 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
 }
 
 
-long GNEViewNet::onCmdEditConnectionShape(FXObject *, FXSelector, void *) {
+long 
+GNEViewNet::onCmdEditConnectionShape(FXObject *, FXSelector, void *) {
     // Obtain connection under mouse
     GNEConnection* connection = getConnectionAtPopupPosition();
     if (connection) {
         startEditCustomShape(connection, connection->getShape(), false);
+    }
+    // destroy pop-up and update view Net
+    destroyPopup();
+    setFocus();
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdEditCrossingShape(FXObject *, FXSelector, void *) {
+    // Obtain crossing under mouse
+    GNECrossing* crossing = getCrossingAtPopupPosition();
+    if (crossing) {
+        // due crossings haven two shapes, check what has to be edited
+        PositionVector shape = crossing->getNBCrossing()->customShape.size() > 0? crossing->getNBCrossing()->customShape : crossing->getNBCrossing()->shape;
+        startEditCustomShape(crossing, shape, false);
     }
     // destroy pop-up and update view Net
     destroyPopup();

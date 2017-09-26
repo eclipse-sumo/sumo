@@ -133,15 +133,12 @@ public:
     /// @brief return true if a edge of a vector of edges belongs to crossing's edges
     bool checkEdgeBelong(const std::vector<GNEEdge*>& edges) const;
 
-private:
+protected:
     /// @brief the parent junction of this crossing
     GNEJunction* myParentJunction;
 
     /// @brief the data for this crossing
     NBNode::Crossing* myCrossing;
-
-    /// @brief the shape of the edge
-    const PositionVector myShape;
 
     /// @name computed only once (for performance) in updateGeometry()
     /// @{
@@ -152,18 +149,18 @@ private:
     std::vector<double> myShapeLengths;
     /// @}
 
-    /// @brief the created popup
-    GUIGLObjectPopupMenu* myPopup;
+private:
+    /// @brief flag used for force draw custom shape
+    bool myForceDrawCustomShape;
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-private:
     /// @brief Invalidated copy constructor.
-    GNECrossing(const GNECrossing&);
+    GNECrossing(const GNECrossing&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNECrossing& operator=(const GNECrossing&);
+    GNECrossing& operator=(const GNECrossing&) = delete;
 };
 
 

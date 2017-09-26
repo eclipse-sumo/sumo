@@ -84,6 +84,7 @@ class GNEPoly;
 class GNEPOI;
 class GNEFrame;
 class GNENetElement;
+class GNECrossing;
 
 // ===========================================================================
 // class definitions
@@ -264,6 +265,9 @@ public:
     
     /// @brief edit connection shape
     long onCmdEditConnectionShape(FXObject*, FXSelector, void*);
+
+    /// @brief edit crossing shape
+    long onCmdEditCrossingShape(FXObject*, FXSelector, void*);
 
     /// @brief toogle show connections
     long onCmdToogleShowConnection(FXObject*, FXSelector, void*);
@@ -567,6 +571,9 @@ private:
     
     /// @brief try to retrieve a junction under mouse
     GNEConnection* getConnectionAtPopupPosition();
+
+    /// @brief try to retrieve a crossing under mouse
+    GNECrossing* getCrossingAtPopupPosition();
 
     /// @brief try to retrieve multiple edges under mouse
     std::set<GNEEdge*> getEdgesAtPopupPosition();

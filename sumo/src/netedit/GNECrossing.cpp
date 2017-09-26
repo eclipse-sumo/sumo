@@ -59,7 +59,8 @@
 GNECrossing::GNECrossing(GNEJunction* parentJunction, NBNode::Crossing* crossing) :
     GNENetElement(parentJunction->getNet(), crossing->id, GLO_CROSSING, SUMO_TAG_CROSSING, ICON_CROSSING),
     myParentJunction(parentJunction),
-    myCrossing(crossing) {
+    myCrossing(crossing),
+    myForceDrawCustomShape(crossing->customShape.size() > 0) {
     // Update geometry
     updateGeometry();
 }
@@ -76,13 +77,14 @@ GNECrossing::updateGeometry() {
     // only rebuild shape if junction's shape isn't in Buuble mode
     if (myParentJunction->getNBNode()->getShape().size() > 0) {
         // Obtain segments of size and calculate it
-        int segments = (int) myCrossing->shape.size() - 1;
+        PositionVector shape = myForceDrawCustomShape?  myCrossing->customShape : myCrossing->shape;
+        int segments = (int)shape.size() - 1;
         if (segments >= 0) {
             myShapeRotations.reserve(segments);
             myShapeLengths.reserve(segments);
             for (int i = 0; i < segments; ++i) {
-                const Position& f = myCrossing->shape[i];
-                const Position& s = myCrossing->shape[i + 1];
+                const Position& f = shape[i];
+                const Position& s = shape[i + 1];
                 myShapeLengths.push_back(f.distanceTo2D(s));
                 myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
             }
@@ -107,6 +109,8 @@ void
 GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
     // only draw if option drawCrossingsAndWalkingareas is enabled and size of shape is greather than 0
     if (s.drawCrossingsAndWalkingareas && myShapeRotations.size() > 0 && myShapeLengths.size() > 0) {
+        // first declare what shape will be drawed
+        PositionVector shape = myForceDrawCustomShape?  myCrossing->customShape : myCrossing->shape;
         // push first draw matrix
         glPushMatrix();
         // push name
@@ -133,11 +137,11 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         // draw on top of of the white area between the rails
         glTranslated(0, 0, 0.1);
-        for (int i = 0; i < (int)myCrossing->shape.size() - 1; ++i) {
+        for (int i = 0; i < (int)shape.size() - 1; ++i) {
             // push three draw matrix
             glPushMatrix();
             // traslete and rotate
-            glTranslated(myCrossing->shape[i].x(), myCrossing->shape[i].y(), 0.0);
+            glTranslated(shape[i].x(), shape[i].y(), 0.0);
             glRotated(myShapeRotations[i], 0, 0, 1);
             // draw crossing
             for (double t = 0; t < myShapeLengths[i]; t += spacing) {
@@ -172,12 +176,8 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
-    //if (parent.getVisualisationSettings()->editMode != GNE_MODE_CONNECT) {
-    //    // XXX if joinable
-    //    new FXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
-    //}
     // create menu commands
-    FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom shape", 0, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
+    FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom crossing shape", 0, &parent, MID_GNE_CROSSING_EDIT_SHAPE);
     // check if menu commands has to be disabled
     EditMode editMode = myNet->getViewNet()->getCurrentEditMode();
     const bool wrongMode = (editMode == GNE_MODE_CONNECT || editMode == GNE_MODE_TLS || editMode == GNE_MODE_CREATE_EDGE);
@@ -328,6 +328,9 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok;
             myCrossing->customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
+            // Check if custom shaped has to be drawn
+            myForceDrawCustomShape = myCrossing->customShape.size() > 0;
+            updateGeometry();
             break;
         }
         default:
