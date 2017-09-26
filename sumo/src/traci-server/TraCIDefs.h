@@ -115,6 +115,7 @@ public:
 
 class TraCILogic {
 public:
+    TraCILogic() {}
     TraCILogic(const std::string& _subID, int _type, int _currentPhaseIndex)
         : subID(_subID), type(_type), currentPhaseIndex(_currentPhaseIndex) {}
     ~TraCILogic() {}

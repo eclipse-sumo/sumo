@@ -77,6 +77,19 @@ TraCI_TLS::getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
 
 
 std::vector<std::string>
+TraCI_TLS::getControlledJunctions(const std::string& tlsID) {
+    std::set<std::string> junctionIDs;
+    const MSTrafficLightLogic::LinkVectorVector& links = getTLS(tlsID).getActive()->getLinks();
+    for (const MSTrafficLightLogic::LinkVector& llinks : links) {
+        for (const MSLink* l : llinks) {
+            junctionIDs.insert(l->getJunction()->getID());
+        }
+    }
+    return std::vector<std::string>(junctionIDs.begin(), junctionIDs.end());
+}
+
+
+std::vector<std::string>
 TraCI_TLS::getControlledLanes(const std::string& tlsID) {
     std::vector<std::string> laneIDs;
     const MSTrafficLightLogic::LaneVectorVector& lanes = getTLS(tlsID).getActive()->getLaneVectors();
@@ -126,7 +139,7 @@ TraCI_TLS::getPhase(const std::string& tlsID) {
 
 
 SUMOTime
-TraCI_TLS::gePhaseDuration(const std::string& tlsID) {
+TraCI_TLS::getPhaseDuration(const std::string& tlsID) {
     return getTLS(tlsID).getActive()->getCurrentPhaseDef().duration;
 }
 
@@ -152,6 +165,10 @@ TraCI_TLS::setRedYellowGreenState(const std::string& tlsID, const std::string& s
 void
 TraCI_TLS::setPhase(const std::string& tlsID, const int index) {
     MSTrafficLightLogic* const active = getTLS(tlsID).getActive();
+    if (index < 0 || active->getPhaseNumber() <= index) {
+        throw TraCIException("The phase index " + toString(index) + " is not in the allowed range [0,"
+            + toString(active->getPhaseNumber() - 1) + "].");
+    }
     const SUMOTime cTime = MSNet::getInstance()->getCurrentTimeStep();
     const SUMOTime duration = active->getPhase(index).duration;
     active->changeStepAndDuration(MSNet::getInstance()->getTLSControl(), cTime, index, duration);
@@ -160,7 +177,11 @@ TraCI_TLS::setPhase(const std::string& tlsID, const int index) {
 
 void
 TraCI_TLS::setProgram(const std::string& tlsID, const std::string& programID) {
-    getTLS(tlsID).switchTo(MSNet::getInstance()->getTLSControl(), programID);
+    try {
+        getTLS(tlsID).switchTo(MSNet::getInstance()->getTLSControl(), programID);
+    } catch (ProcessError& e) {
+        throw TraCIException(e.what());
+    }
 }
 
 
@@ -176,6 +197,10 @@ TraCI_TLS::setPhaseDuration(const std::string& tlsID, const SUMOTime phaseDurati
 void
 TraCI_TLS::setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic) {
     MSTLLogicControl::TLSLogicVariants& vars = getTLS(tlsID);
+    // make sure index and phaseNo are consistent
+    if (logic.currentPhaseIndex >= (int)logic.phases.size()) {
+        throw TraCIException("set program: parameter index must be less than parameter phase number.");
+    }
     std::vector<MSPhaseDefinition*> phases;
     for (TraCIPhase phase : logic.phases) {
         phases.push_back(new MSPhaseDefinition(phase.duration, phase.duration1, phase.duration2, phase.phase));
@@ -186,6 +211,12 @@ TraCI_TLS::setCompleteRedYellowGreenDefinition(const std::string& tlsID, const T
     } else {
         static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(logic.subID))->setPhases(phases, logic.currentPhaseIndex);
     }
+}
+
+
+void
+TraCI_TLS::setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value) {
+    return getTLS(tlsID).getActive()->addParameter(paramName, value);
 }
 
 
