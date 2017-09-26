@@ -138,7 +138,7 @@ SUMORouteHandler::myStartElement(int element,
                 WRITE_WARNING("Omitting trip ids is deprecated!");
                 myVehicleParameter->id = myIdSupplier.getNext();
             }
-            myVehicleParameter->setParameter |= VEHPARS_FORCE_REROUTE;
+            myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
             myActiveRouteID = "!" + myVehicleParameter->id;
             break;
         }
@@ -252,36 +252,36 @@ SUMORouteHandler::addParam(const SUMOSAXAttributes& attrs) {
     // circumventing empty string test
     const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
     if (myVehicleParameter != 0) {
-        myVehicleParameter->addParameter(key, val);
+        myVehicleParameter->setParameter(key, val);
     } else if (myCurrentVType != 0) {
-        myCurrentVType->addParameter(key, val);
+        myCurrentVType->setParameter(key, val);
     }
 }
 
 
 bool
 SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs, std::string errorSuffix, MsgHandler* const errorOutput) {
-    stop.setParameter = 0;
+    stop.parametersSet = 0;
     if (attrs.hasAttribute(SUMO_ATTR_ENDPOS)) {
-        stop.setParameter |= STOP_END_SET;
+        stop.parametersSet |= STOP_END_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_STARTPOS)) {
-        stop.setParameter |= STOP_START_SET;
+        stop.parametersSet |= STOP_START_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_TRIGGERED)) {
-        stop.setParameter |= STOP_TRIGGER_SET;
+        stop.parametersSet |= STOP_TRIGGER_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
-        stop.setParameter |= STOP_CONTAINER_TRIGGER_SET;
+        stop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_PARKING)) {
-        stop.setParameter |= STOP_PARKING_SET;
+        stop.parametersSet |= STOP_PARKING_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_EXPECTED)) {
-        stop.setParameter |= STOP_EXPECTED_SET;
+        stop.parametersSet |= STOP_EXPECTED_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_EXPECTED_CONTAINERS)) {
-        stop.setParameter |= STOP_EXPECTED_CONTAINERS_SET;
+        stop.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
     }
     bool ok = true;
     stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");

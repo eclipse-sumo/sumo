@@ -298,7 +298,7 @@ public:
      * @return Whether the given parameter was set
      */
     bool wasSet(int what) const {
-        return (setParameter & what) != 0;
+        return (parametersSet & what) != 0;
     }
 
 
@@ -573,7 +573,7 @@ public:
         /// @brief at which position in the stops list
         int index;
         /// @brief Information for the output which parameter were set
-        int setParameter;
+        int parametersSet;
 
         /** @brief Writes the stop as XML
          *
@@ -596,8 +596,7 @@ public:
     int containerNumber;
 
     /// @brief Information for the router which parameter were set, TraCI may modify this (whe changing color)
-    mutable int setParameter;
-
+    mutable int parametersSet;
 
 };
 

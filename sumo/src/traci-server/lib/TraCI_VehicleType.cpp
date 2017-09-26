@@ -224,7 +224,7 @@ void TraCI_VehicleType::copy(const std::string& origTypeID, const std::string& n
 }
 void TraCI_VehicleType::addParameter(const std::string& typeID, const std::string& name, const std::string& value) {
     MSVehicleType* v = getVType(typeID);
-    ((SUMOVTypeParameter&) v->getParameter()).addParameter(name, value);
+    ((SUMOVTypeParameter&) v->getParameter()).setParameter(name, value);
 }
 MSVehicleType* TraCI_VehicleType::getVType(std::string id) {
     MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType(id);

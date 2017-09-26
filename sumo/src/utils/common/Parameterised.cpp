@@ -49,22 +49,14 @@ Parameterised::Parameterised(const std::map<std::string, std::string>& mapArg)
 
 
 void
-Parameterised::addParameter(const std::string& key, const std::string& value) {
+Parameterised::setParameter(const std::string& key, const std::string& value) {
     myMap[key] = value;
 }
 
 
 void
-Parameterised::addParameter(const std::map<std::string, std::string>& mapArg) {
+Parameterised::updateParameter(const std::map<std::string, std::string>& mapArg) {
     for (std::map<std::string, std::string>::const_iterator i = mapArg.begin(); i != mapArg.end(); ++i) {
-        myMap[(*i).first] = (*i).second;
-    }
-}
-
-
-void
-Parameterised::addParameter(const Parameterised& p) {
-    for (std::map<std::string, std::string>::const_iterator i = p.myMap.begin(); i != p.myMap.end(); ++i) {
         myMap[(*i).first] = (*i).second;
     }
 }

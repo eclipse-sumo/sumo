@@ -570,7 +570,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if (addSidewalk) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
-            nbe->addParameter(*e);
+            nbe->updateParameter(e->getMap());
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '" + id + "'.");
@@ -594,7 +594,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if (addSidewalk) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
-            nbe->addParameter(*e);
+            nbe->updateParameter(e->getMap());
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '-" + id + "'.");
@@ -841,7 +841,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             }
         }
         if (key == "bridge" || key == "tunnel") {
-            myCurrentEdge->addParameter(key, "true"); // could be differentiated further if necessary
+            myCurrentEdge->setParameter(key, "true"); // could be differentiated further if necessary
         }
 
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
@@ -980,9 +980,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                               toString(myCurrentEdge->id) + "'.");
             }
         } else if (key == "postal_code") {
-            myCurrentEdge->addParameter(key, value);
+            myCurrentEdge->setParameter(key, value);
         } else if (key == "railway:preferred_direction") {
-            myCurrentEdge->addParameter(key, value);
+            myCurrentEdge->setParameter(key, value);
         } else if (key == "public_transport" && value == "platform") {
             myCurrentEdge->myCurrentIsPlatform = true;
         }

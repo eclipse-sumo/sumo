@@ -74,7 +74,7 @@ TraCI_Route::getParameter(const std::string& routeID, const std::string& param) 
 void
 TraCI_Route::setParameter(const std::string& routeID, const std::string& key, const std::string& value) {
     MSRoute* r = const_cast<MSRoute*>(getRoute(routeID));
-    r->addParameter(key, value);
+    r->setParameter(key, value);
 }
 
 

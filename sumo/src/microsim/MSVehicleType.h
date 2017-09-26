@@ -88,7 +88,7 @@ public:
      * @return Whether the given parameter was set
      */
     bool wasSet(int what) const {
-        return (myParameter.setParameter & what) != 0;
+        return (myParameter.parametersSet & what) != 0;
     }
 
 

@@ -85,7 +85,7 @@ RONet::RONet()
     myVehicleTypes.add(type->id, type);
     SUMOVTypeParameter* defPedType = new SUMOVTypeParameter(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
     defPedType->onlyReferenced = true;
-    defPedType->setParameter |= VTYPEPARS_VEHICLECLASS_SET;
+    defPedType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVehicleTypes.add(defPedType->id, defPedType);
     myInstance = this;
 }

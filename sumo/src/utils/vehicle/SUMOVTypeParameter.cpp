@@ -55,7 +55,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN), osgFile("car-normal-citrus.obj"),
       cfModel(SUMO_TAG_CF_KRAUSS), lcModel(LCM_DEFAULT),
       maxSpeedLat(1.0), latAlignment(LATALIGN_CENTER), minGapLat(0.6),
-      setParameter(0), saved(false), onlyReferenced(false) {
+      parametersSet(0), saved(false), onlyReferenced(false) {
     switch (vclass) {
         case SVC_PEDESTRIAN:
             length = 0.215;

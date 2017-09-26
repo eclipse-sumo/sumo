@@ -245,7 +245,7 @@ PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const 
             StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
             def.color, vec, def.allowFill && closedShape, (double)def.layer);
         if (withAttributes) {
-            poly->addParameter(edge->myAttributes);
+            poly->updateParameter(edge->myAttributes);
         }
         if (!toFill.add(poly, ignorePruning)) {
             return index;
@@ -268,7 +268,7 @@ PCLoaderOSM::addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap:
             StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
             def.color, pos, (double)def.layer);
         if (withAttributes) {
-            poi->addParameter(node->myAttributes);
+            poi->updateParameter(node->myAttributes);
         }
         if (!toFill.add(poi, ignorePruning)) {
             return index;

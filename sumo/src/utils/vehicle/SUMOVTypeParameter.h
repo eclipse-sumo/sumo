@@ -98,7 +98,7 @@ public:
      * @return Whether the given parameter was set
      */
     bool wasSet(int what) const {
-        return (setParameter & what) != 0;
+        return (parametersSet & what) != 0;
     }
 
 
@@ -216,7 +216,7 @@ public:
     double minGapLat;
 
     /// @brief Information for the router which parameter were set
-    int setParameter;
+    int parametersSet;
 
 
     /// @brief Information whether this type was already saved (needed by routers)

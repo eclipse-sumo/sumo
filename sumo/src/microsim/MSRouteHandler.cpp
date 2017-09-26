@@ -525,7 +525,7 @@ MSRouteHandler::myEndElement(int element) {
         }
         break;
         case SUMO_TAG_TRIP:
-            myVehicleParameter->setParameter |= VEHPARS_FORCE_REROUTE;
+            myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
             closeRoute(true);
             closeVehicle();
             delete myVehicleParameter;
@@ -709,7 +709,7 @@ MSRouteHandler::closeVehicle() {
             // there should be one (at least the default one)
             vtype = vehControl.getVType(DEFAULT_VTYPE_ID, &myParsingRNG);
         }
-        if (myVehicleParameter->setParameter & VEHPARS_ROUTE_SET) {
+        if (myVehicleParameter->wasSet(VEHPARS_ROUTE_SET)) {
             // if the route id was given, prefer that one
             if (route != 0 && !myAmLoadingState) {
                 WRITE_WARNING("Ignoring child element 'route' for vehicle '" + myVehicleParameter->id + "' because attribute 'route' is set.");
@@ -897,7 +897,7 @@ MSRouteHandler::closeFlow() {
         throw ProcessError("The vehicle type '" + myVehicleParameter->vtypeid + "' for flow '" + myVehicleParameter->id + "' is not known.");
     }
     if (myVehicleParameter->routeid[0] == '!' && MSRoute::dictionary(myVehicleParameter->routeid, &myParsingRNG) == 0) {
-        myVehicleParameter->setParameter |= VEHPARS_FORCE_REROUTE;
+        myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
         closeRoute(true);
     }
     if (MSRoute::dictionary(myVehicleParameter->routeid, &myParsingRNG) == 0) {

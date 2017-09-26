@@ -103,11 +103,11 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
 
     // parse repetition information
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
-        ret->setParameter |= VEHPARS_PERIODFREQ_SET;
+        ret->parametersSet |= VEHPARS_PERIODFREQ_SET;
         ret->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok);
     }
     if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
-        ret->setParameter |= VEHPARS_PERIODFREQ_SET;
+        ret->parametersSet |= VEHPARS_PERIODFREQ_SET;
         const double vph = attrs.get<double>(SUMO_ATTR_VEHSPERHOUR, id.c_str(), ok);
         if (ok && vph <= 0) {
             delete ret;
@@ -150,7 +150,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     }
     if (attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
         ret->repetitionNumber = attrs.get<int>(SUMO_ATTR_NUMBER, id.c_str(), ok);
-        ret->setParameter |= VEHPARS_PERIODFREQ_SET;
+        ret->parametersSet |= VEHPARS_PERIODFREQ_SET;
         if (ret->repetitionNumber == 0) {
             WRITE_WARNING("Flow '" + id + "' has 0 vehicles; will skip it.");
         } else {
@@ -226,37 +226,37 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     bool ok = true;
     // parse route information
     if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
-        ret->setParameter |= VEHPARS_ROUTE_SET; // !!! needed?
+        ret->parametersSet |= VEHPARS_ROUTE_SET; // !!! needed?
         ret->routeid = attrs.get<std::string>(SUMO_ATTR_ROUTE, ret->id.c_str(), ok);
     }
     // parse type information
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
-        ret->setParameter |= VEHPARS_VTYPE_SET; // !!! needed?
+        ret->parametersSet |= VEHPARS_VTYPE_SET; // !!! needed?
         ret->vtypeid = attrs.get<std::string>(SUMO_ATTR_TYPE, ret->id.c_str(), ok);
     }
     // parse line information
     if (attrs.hasAttribute(SUMO_ATTR_LINE)) {
-        ret->setParameter |= VEHPARS_LINE_SET; // !!! needed?
+        ret->parametersSet |= VEHPARS_LINE_SET; // !!! needed?
         ret->line = attrs.get<std::string>(SUMO_ATTR_LINE, ret->id.c_str(), ok);
     }
     // parse zone information
     if (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)) {
-        ret->setParameter |= VEHPARS_FROM_TAZ_SET;
+        ret->parametersSet |= VEHPARS_FROM_TAZ_SET;
         ret->fromTaz = attrs.get<std::string>(SUMO_ATTR_FROM_TAZ, ret->id.c_str(), ok);
     }
     if (attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
-        ret->setParameter |= VEHPARS_TO_TAZ_SET;
+        ret->parametersSet |= VEHPARS_TO_TAZ_SET;
         ret->toTaz = attrs.get<std::string>(SUMO_ATTR_TO_TAZ, ret->id.c_str(), ok);
     }
     // parse reroute information
     if (attrs.getOpt<bool>(SUMO_ATTR_REROUTE, 0, ok, false)) {
-        ret->setParameter |= VEHPARS_FORCE_REROUTE;
+        ret->parametersSet |= VEHPARS_FORCE_REROUTE;
     }
 
     std::string error;
     // parse depart lane information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
-        ret->setParameter |= VEHPARS_DEPARTLANE_SET;
+        ret->parametersSet |= VEHPARS_DEPARTLANE_SET;
         const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTLANE, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseDepartLane(helper, element, ret->id, ret->departLane, ret->departLaneProcedure, error)) {
             throw ProcessError(error);
@@ -264,7 +264,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     }
     // parse depart position information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
-        ret->setParameter |= VEHPARS_DEPARTPOS_SET;
+        ret->parametersSet |= VEHPARS_DEPARTPOS_SET;
         const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseDepartPos(helper, element, ret->id, ret->departPos, ret->departPosProcedure, error)) {
             throw ProcessError(error);
@@ -272,7 +272,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     }
     // parse lateral depart position information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS_LAT)) {
-        ret->setParameter |= VEHPARS_DEPARTPOSLAT_SET;
+        ret->parametersSet |= VEHPARS_DEPARTPOSLAT_SET;
         const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTPOS_LAT, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseDepartPosLat(helper, element, ret->id, ret->departPosLat, ret->departPosLatProcedure, error)) {
             throw ProcessError(error);
@@ -280,7 +280,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     }
     // parse depart speed information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTSPEED)) {
-        ret->setParameter |= VEHPARS_DEPARTSPEED_SET;
+        ret->parametersSet |= VEHPARS_DEPARTSPEED_SET;
         std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTSPEED, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseDepartSpeed(helper, element, ret->id, ret->departSpeed, ret->departSpeedProcedure, error)) {
             throw ProcessError(error);
@@ -289,7 +289,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
 
     // parse arrival lane information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
-        ret->setParameter |= VEHPARS_ARRIVALLANE_SET;
+        ret->parametersSet |= VEHPARS_ARRIVALLANE_SET;
         std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALLANE, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseArrivalLane(helper, element, ret->id, ret->arrivalLane, ret->arrivalLaneProcedure, error)) {
             throw ProcessError(error);
@@ -297,7 +297,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     }
     // parse arrival position information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-        ret->setParameter |= VEHPARS_ARRIVALPOS_SET;
+        ret->parametersSet |= VEHPARS_ARRIVALPOS_SET;
         std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseArrivalPos(helper, element, ret->id, ret->arrivalPos, ret->arrivalPosProcedure, error)) {
             throw ProcessError(error);
@@ -305,7 +305,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     }
     // parse lateral arrival position information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_LAT)) {
-        ret->setParameter |= VEHPARS_ARRIVALPOSLAT_SET;
+        ret->parametersSet |= VEHPARS_ARRIVALPOSLAT_SET;
         std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS_LAT, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseArrivalPosLat(helper, element, ret->id, ret->arrivalPosLat, ret->arrivalPosLatProcedure, error)) {
             throw ProcessError(error);
@@ -313,7 +313,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     }
     // parse arrival speed information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED)) {
-        ret->setParameter |= VEHPARS_ARRIVALSPEED_SET;
+        ret->parametersSet |= VEHPARS_ARRIVALSPEED_SET;
         std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALSPEED, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseArrivalSpeed(helper, element, ret->id, ret->arrivalSpeed, ret->arrivalSpeedProcedure, error)) {
             throw ProcessError(error);
@@ -322,19 +322,19 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
 
     // parse color
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-        ret->setParameter |= VEHPARS_COLOR_SET;
+        ret->parametersSet |= VEHPARS_COLOR_SET;
         ret->color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, ret->id.c_str(), ok);
     } else {
         ret->color = RGBColor::DEFAULT_COLOR;
     }
     // parse person number
     if (attrs.hasAttribute(SUMO_ATTR_PERSON_NUMBER)) {
-        ret->setParameter |= VEHPARS_PERSON_NUMBER_SET;
+        ret->parametersSet |= VEHPARS_PERSON_NUMBER_SET;
         ret->personNumber = attrs.get<int>(SUMO_ATTR_PERSON_NUMBER, ret->id.c_str(), ok);
     }
     // parse container number
     if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_NUMBER)) {
-        ret->setParameter |= VEHPARS_CONTAINER_NUMBER_SET;
+        ret->parametersSet |= VEHPARS_CONTAINER_NUMBER_SET;
         ret->containerNumber = attrs.get<int>(SUMO_ATTR_CONTAINER_NUMBER, ret->id.c_str(), ok);
     }
     /*/ parse via
@@ -356,31 +356,31 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
     }
     SUMOVTypeParameter* vtype = new SUMOVTypeParameter(id, vClass);
     if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
-        vtype->setParameter |= VTYPEPARS_VEHICLECLASS_SET;
+        vtype->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
         vtype->length = attrs.get<double>(SUMO_ATTR_LENGTH, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_LENGTH_SET;
+        vtype->parametersSet |= VTYPEPARS_LENGTH_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_MINGAP)) {
         vtype->minGap = attrs.get<double>(SUMO_ATTR_MINGAP, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_MINGAP_SET;
+        vtype->parametersSet |= VTYPEPARS_MINGAP_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED)) {
         vtype->maxSpeed = attrs.get<double>(SUMO_ATTR_MAXSPEED, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_MAXSPEED_SET;
+        vtype->parametersSet |= VTYPEPARS_MAXSPEED_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_SPEEDFACTOR)) {
         vtype->speedFactor.parse(attrs.get<std::string>(SUMO_ATTR_SPEEDFACTOR, vtype->id.c_str(), ok));
-        vtype->setParameter |= VTYPEPARS_SPEEDFACTOR_SET;
+        vtype->parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_SPEEDDEV)) {
         vtype->speedFactor.getParameter()[1] = attrs.get<double>(SUMO_ATTR_SPEEDDEV, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_SPEEDFACTOR_SET;
+        vtype->parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_EMISSIONCLASS)) {
         vtype->emissionClass = PollutantsInterface::getClassByName(attrs.getOpt<std::string>(SUMO_ATTR_EMISSIONCLASS, id.c_str(), ok, ""));
-        vtype->setParameter |= VTYPEPARS_EMISSIONCLASS_SET;
+        vtype->parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_IMPATIENCE)) {
         if (attrs.get<std::string>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), ok) == "off") {
@@ -388,43 +388,43 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         } else {
             vtype->impatience = attrs.get<double>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), ok);
         }
-        vtype->setParameter |= VTYPEPARS_IMPATIENCE_SET;
+        vtype->parametersSet |= VTYPEPARS_IMPATIENCE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
         vtype->width = attrs.get<double>(SUMO_ATTR_WIDTH, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_WIDTH_SET;
+        vtype->parametersSet |= VTYPEPARS_WIDTH_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_HEIGHT)) {
         vtype->height = attrs.get<double>(SUMO_ATTR_HEIGHT, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_HEIGHT_SET;
+        vtype->parametersSet |= VTYPEPARS_HEIGHT_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_GUISHAPE)) {
         vtype->shape = parseGuiShape(attrs, vtype->id);
-        vtype->setParameter |= VTYPEPARS_SHAPE_SET;
+        vtype->parametersSet |= VTYPEPARS_SHAPE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_OSGFILE)) {
         vtype->osgFile = attrs.get<std::string>(SUMO_ATTR_OSGFILE, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_OSGFILE_SET;
+        vtype->parametersSet |= VTYPEPARS_OSGFILE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_IMGFILE)) {
         vtype->imgFile = attrs.get<std::string>(SUMO_ATTR_IMGFILE, vtype->id.c_str(), ok);
         if (vtype->imgFile != "" && !FileHelpers::isAbsolute(vtype->imgFile)) {
             vtype->imgFile = FileHelpers::getConfigurationRelative(file, vtype->imgFile);
         }
-        vtype->setParameter |= VTYPEPARS_IMGFILE_SET;
+        vtype->parametersSet |= VTYPEPARS_IMGFILE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
         vtype->color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_COLOR_SET;
+        vtype->parametersSet |= VTYPEPARS_COLOR_SET;
     } else {
         vtype->color = RGBColor::YELLOW;
     }
     if (attrs.hasAttribute(SUMO_ATTR_PROB)) {
         vtype->defaultProbability = attrs.get<double>(SUMO_ATTR_PROB, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_PROBABILITY_SET;
+        vtype->parametersSet |= VTYPEPARS_PROBABILITY_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_LANE_CHANGE_MODEL)) {
-        vtype->setParameter |= VTYPEPARS_LANE_CHANGE_MODEL_SET;
+        vtype->parametersSet |= VTYPEPARS_LANE_CHANGE_MODEL_SET;
         std::string lcmS = attrs.get<std::string>(SUMO_ATTR_LANE_CHANGE_MODEL, vtype->id.c_str(), ok);
         if (lcmS == "JE2013") {
             WRITE_WARNING("Lane change model 'JE2013' is deprecated. Using default model instead.");
@@ -441,7 +441,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         const std::string cfmS = attrs.get<std::string>(SUMO_ATTR_CAR_FOLLOW_MODEL, vtype->id.c_str(), ok);
         if (SUMOXMLDefinitions::CarFollowModels.hasString(cfmS)) {
             vtype->cfModel = SUMOXMLDefinitions::CarFollowModels.get(cfmS);
-            vtype->setParameter |= VTYPEPARS_CAR_FOLLOW_MODEL;
+            vtype->parametersSet |= VTYPEPARS_CAR_FOLLOW_MODEL;
         } else {
             WRITE_ERROR("Unknown car following model '" + cfmS + "' when parsing vType '" + vtype->id + "'");
             throw ProcessError();
@@ -449,33 +449,33 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
     }
     if (attrs.hasAttribute(SUMO_ATTR_PERSON_CAPACITY)) {
         vtype->personCapacity = attrs.get<int>(SUMO_ATTR_PERSON_CAPACITY, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_PERSON_CAPACITY;
+        vtype->parametersSet |= VTYPEPARS_PERSON_CAPACITY;
     }
     if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_CAPACITY)) {
         vtype->containerCapacity = attrs.get<int>(SUMO_ATTR_CONTAINER_CAPACITY, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_CONTAINER_CAPACITY;
+        vtype->parametersSet |= VTYPEPARS_CONTAINER_CAPACITY;
     }
     if (attrs.hasAttribute(SUMO_ATTR_BOARDING_DURATION)) {
         vtype->boardingDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_BOARDING_DURATION, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_BOARDING_DURATION;
+        vtype->parametersSet |= VTYPEPARS_BOARDING_DURATION;
     }
     if (attrs.hasAttribute(SUMO_ATTR_LOADING_DURATION)) {
         vtype->loadingDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_LOADING_DURATION, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_LOADING_DURATION;
+        vtype->parametersSet |= VTYPEPARS_LOADING_DURATION;
     }
     if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED_LAT)) {
         vtype->maxSpeedLat = attrs.get<double>(SUMO_ATTR_MAXSPEED_LAT, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_MAXSPEED_LAT_SET;
+        vtype->parametersSet |= VTYPEPARS_MAXSPEED_LAT_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_MINGAP_LAT)) {
         vtype->minGapLat = attrs.get<double>(SUMO_ATTR_MINGAP_LAT, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_MINGAP_LAT_SET;
+        vtype->parametersSet |= VTYPEPARS_MINGAP_LAT_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_LATALIGNMENT)) {
         const std::string alignS = attrs.get<std::string>(SUMO_ATTR_LATALIGNMENT, vtype->id.c_str(), ok);
         if (SUMOXMLDefinitions::LateralAlignments.hasString(alignS)) {
             vtype->latAlignment = SUMOXMLDefinitions::LateralAlignments.get(alignS);
-            vtype->setParameter |= VTYPEPARS_LATALIGNMENT_SET;
+            vtype->parametersSet |= VTYPEPARS_LATALIGNMENT_SET;
         } else {
             WRITE_ERROR("Unknown lateral alignment '" + alignS + "' when parsing vType '" + vtype->id + "'");
             throw ProcessError();
@@ -509,7 +509,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into,
     }
     if (!fromVType) {
         into.cfModel = cf_it->first;
-        into.setParameter |= VTYPEPARS_CAR_FOLLOW_MODEL;
+        into.parametersSet |= VTYPEPARS_CAR_FOLLOW_MODEL;
     }
     bool ok = true;
     for (std::set<SumoXMLAttr>::const_iterator it = cf_it->second.begin(); it != cf_it->second.end(); ++it) {

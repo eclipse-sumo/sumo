@@ -652,17 +652,17 @@ RODFDetectorCon::writeEmitters(const std::string& file,
         // write separate types
         SUMOVTypeParameter pkwType = SUMOVTypeParameter("PKW", SVC_PASSENGER);
         setSpeedFactorAndDev(pkwType, net.getMaxSpeedFactorPKW(), net.getAvgSpeedFactorPKW(), speedDev, forceDev);
-        pkwType.setParameter |= VTYPEPARS_VEHICLECLASS_SET;
+        pkwType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
         pkwType.write(vTypeOut);
         SUMOVTypeParameter lkwType = SUMOVTypeParameter("LKW", SVC_TRUCK);
         setSpeedFactorAndDev(lkwType, net.getMaxSpeedFactorLKW(), net.getAvgSpeedFactorLKW(), speedDev, forceDev);
-        lkwType.setParameter |= VTYPEPARS_VEHICLECLASS_SET;
+        lkwType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
         lkwType.write(vTypeOut);
     } else {
         // patch default type
         SUMOVTypeParameter type = SUMOVTypeParameter(DEFAULT_VTYPE_ID, SVC_PASSENGER);
         setSpeedFactorAndDev(type, MAX2(net.getMaxSpeedFactorPKW(), net.getMaxSpeedFactorLKW()), net.getAvgSpeedFactorPKW(), speedDev, forceDev);
-        if (type.setParameter != 0) {
+        if (type.parametersSet != 0) {
             type.write(vTypeOut);
         }
     }
@@ -713,13 +713,13 @@ RODFDetectorCon::setSpeedFactorAndDev(SUMOVTypeParameter& type, double maxFactor
         // systematically low speeds can easily be caused by traffic
         // conditions. Whereas elevated speeds probably reflect speeding
         type.speedFactor.getParameter()[0] = avgFactor;
-        type.setParameter |= VTYPEPARS_SPEEDFACTOR_SET;
+        type.parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
     }
     if (forceDev || (maxFactor > 1 && maxFactor > type.speedFactor.getParameter()[0] + NUMERICAL_EPS)) {
         // setting a non-zero speed deviation causes the simulation to recompute
         // individual speedFactors to match departSpeed (MSEdge::insertVehicle())
         type.speedFactor.getParameter()[1] = dev;
-        type.setParameter |= VTYPEPARS_SPEEDFACTOR_SET;
+        type.parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
     }
 }
 

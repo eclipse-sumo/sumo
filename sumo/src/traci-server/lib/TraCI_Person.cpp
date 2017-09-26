@@ -395,7 +395,7 @@ TraCI_Person::rerouteTraveltime(const std::string& personID) {
 void
 TraCI_Person::setParameter(const std::string& personID, const std::string& key, const std::string& value) {
     MSTransportable* p = getPerson(personID);
-    ((SUMOVehicleParameter&) p->getParameter()).addParameter(key, value);
+    ((SUMOVehicleParameter&) p->getParameter()).setParameter(key, value);
 }
 
 void

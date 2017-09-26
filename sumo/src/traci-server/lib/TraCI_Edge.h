@@ -56,7 +56,7 @@ public:
     static void addTravelTime(std::string& id, double begTime, double endTime, double value);
     static void addEffort(std::string& id, double begTime, double endTime, double value);
     static void setMaxSpeed(std::string& id, double value);
-    static void addParameter(std::string& id, std::string& name, std::string& value);
+    static void setParameter(std::string& id, std::string& name, std::string& value);
     static void getShape(const std::string& id, PositionVector& shape);
 };
 

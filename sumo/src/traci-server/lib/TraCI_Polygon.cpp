@@ -94,7 +94,7 @@ SUMOPolygon* TraCI_Polygon::getPolygon(const std::string& id) {
 }
 void TraCI_Polygon::setParameter(std::string& id, std::string& name, std::string& value) {
     SUMOPolygon* p = getPolygon(id);
-    p->addParameter(name, value);
+    p->setParameter(name, value);
 }
 
 

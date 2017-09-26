@@ -985,7 +985,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The color must be given using the according type.", outputStorage);
                 }
                 v->getParameter().color.set(col.r, col.g, col.b, col.a);
-                v->getParameter().setParameter |= VEHPARS_COLOR_SET;
+                v->getParameter().parametersSet |= VEHPARS_COLOR_SET;
             }
             break;
             case ADD: {

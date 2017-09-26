@@ -523,7 +523,7 @@ NLHandler::addParam(const SUMOSAXAttributes& attrs) {
     // circumventing empty string test
     const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
     if (myLastParameterised != 0) {
-        myLastParameterised->addParameter(key, val);
+        myLastParameterised->setParameter(key, val);
     }
     // set
     if (ok && myAmInTLLogicMode) {

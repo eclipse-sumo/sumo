@@ -785,7 +785,7 @@ void
 TraCI_Vehicle::setColor(const std::string& vehicleID, const TraCIColor& col) {
     const SUMOVehicleParameter& p = getVehicle(vehicleID)->getParameter();
     p.color.set(col.r, col.g, col.b, col.a);
-    p.setParameter |= VEHPARS_COLOR_SET;
+    p.parametersSet |= VEHPARS_COLOR_SET;
 }
 
 
@@ -851,7 +851,7 @@ TraCI_Vehicle::setParameter(const std::string& vehicleID, const std::string& key
             throw TraCIException("Cannot create vehicle device (" + std::string(e.what()) + ").");
         }
     } else {
-        ((SUMOVehicleParameter&) veh->getParameter()).addParameter(key, value);
+        ((SUMOVehicleParameter&) veh->getParameter()).setParameter(key, value);
     }
 }
 

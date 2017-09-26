@@ -121,9 +121,9 @@ TraCI_POI::remove(const std::string& poiID, int /* layer */) {
 }
 
 void
-TraCI_POI::addParameter(const std::string& poiID, const std::string& param, const std::string& value) {
+TraCI_POI::setParameter(const std::string& poiID, const std::string& param, const std::string& value) {
     PointOfInterest* p = getPoI(poiID);
-    p->addParameter(param, value);
+    p->setParameter(param, value);
 }
 
 

@@ -67,7 +67,7 @@ public:
 
     static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
     static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
-    static void addParameter(const std::string& poiID, const std::string& param, const std::string& value);
+    static void setParameter(const std::string& poiID, const std::string& param, const std::string& value);
 
 private:
     static PointOfInterest* getPoI(const std::string& id);

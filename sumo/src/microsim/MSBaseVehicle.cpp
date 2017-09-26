@@ -85,7 +85,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
 #endif
 {
     if ((*myRoute->begin())->isTazConnector() || myRoute->getLastEdge()->isTazConnector()) {
-        pars->setParameter |= VEHPARS_FORCE_REROUTE;
+        pars->parametersSet |= VEHPARS_FORCE_REROUTE;
     }
     // init devices
     MSDevice::buildVehicleDevices(*this, myDevices);
@@ -462,7 +462,7 @@ MSBaseVehicle::saveState(OutputDevice& out) {
     myParameter->write(out, OptionsCont::getOptions(), SUMO_TAG_VEHICLE, getVehicleType().getID());
     // params and stops must be written in child classes since they may wish to add additional attributes first
     out.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
-    if ((myParameter->setParameter & VEHPARS_FORCE_REROUTE) && !hasDeparted()) {
+    if (myParameter->wasSet(VEHPARS_FORCE_REROUTE) && !hasDeparted()) {
         out.writeAttr(SUMO_ATTR_REROUTE, true);
     }
     // here starts the vehicle internal part (see loading)
@@ -508,7 +508,7 @@ void
 MSBaseVehicle::createDevice(const std::string& deviceName) {
     if (!hasDevice(deviceName)) {
         if (deviceName == "rerouting") {
-            ((SUMOVehicleParameter*)myParameter)->addParameter("has." + deviceName + ".device", "true");
+            ((SUMOVehicleParameter*)myParameter)->setParameter("has." + deviceName + ".device", "true");
             MSDevice_Routing::buildVehicleDevices(*this, myDevices);
             if (hasDeparted()) {
                 // vehicle already departed: disable pre-insertion rerouting and enable regular routing behavior

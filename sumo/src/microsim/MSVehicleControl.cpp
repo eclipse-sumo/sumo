@@ -69,7 +69,7 @@ MSVehicleControl::MSVehicleControl() :
     SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_PASSENGER);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
     SUMOVTypeParameter defPedType(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
-    defPedType.setParameter |= VTYPEPARS_VEHICLECLASS_SET;
+    defPedType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVTypeDict[DEFAULT_PEDTYPE_ID] = MSVehicleType::build(defPedType);
     OptionsCont& oc = OptionsCont::getOptions();
     myScale = oc.getFloat("scale");

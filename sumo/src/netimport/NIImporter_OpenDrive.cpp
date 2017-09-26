@@ -695,7 +695,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             //tlDef->setSinglePhase();
         }
         NBTrafficLightDefinition* tlDef = *toNode->getControllingTLS().begin();
-        tlDef->addParameter("connection:" + id, (*i).second);
+        tlDef->setParameter("connection:" + id, (*i).second);
     }
 
     // -------------------------

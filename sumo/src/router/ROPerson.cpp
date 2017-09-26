@@ -73,7 +73,7 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
 
     for (StringTokenizer st(vTypes); st.hasNext();) {
         pars.vtypeid = st.next();
-        pars.setParameter |= VEHPARS_VTYPE_SET;
+        pars.parametersSet |= VEHPARS_VTYPE_SET;
         SUMOVTypeParameter* type = net->getVehicleTypeSecure(pars.vtypeid);
         if (type == 0) {
             delete trip;

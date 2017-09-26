@@ -66,23 +66,17 @@ public:
 
 
 
-    /** @brief Adds a parameter
+    /** @brief Sets a parameter
      * @param[in] key The parameter's name
      * @param[in] value The parameter's value
      */
-    void addParameter(const std::string& key, const std::string& value);
+    void setParameter(const std::string& key, const std::string& value);
 
 
-    /** @brief Adds all given parameter
+    /** @brief Adds or updates all given parameters from the map
      * @param[in] mapArg The keys/values to insert
      */
-    void addParameter(const std::map<std::string, std::string>& mapArg);
-
-
-    /** @brief Adds all given parameter
-     * @param[in] p The keys/values to insert
-     */
-    void addParameter(const Parameterised& p);
+    void updateParameter(const std::map<std::string, std::string>& mapArg);
 
 
     /** @brief Returns whether the parameter is known

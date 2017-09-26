@@ -216,7 +216,7 @@ TraCI_TLS::setCompleteRedYellowGreenDefinition(const std::string& tlsID, const T
 
 void
 TraCI_TLS::setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value) {
-    return getTLS(tlsID).getActive()->addParameter(paramName, value);
+    return getTLS(tlsID).getActive()->setParameter(paramName, value);
 }
 
 

@@ -53,7 +53,7 @@ SUMOVehicleParameter::SUMOVehicleParameter()
       arrivalPosLat(0), arrivalPosLatProcedure(ARRIVAL_POSLAT_DEFAULT),
       arrivalSpeed(-1), arrivalSpeedProcedure(ARRIVAL_SPEED_DEFAULT),
       repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1), repetitionProbability(-1), repetitionEnd(-1),
-      line(), fromTaz(), toTaz(), personNumber(0), containerNumber(0), setParameter(0) {
+      line(), fromTaz(), toTaz(), personNumber(0), containerNumber(0), parametersSet(0) {
 }
 
 SUMOVehicleParameter::~SUMOVehicleParameter() {
@@ -313,10 +313,10 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
     }
     if (busstop == "" && containerstop == "" && parkingarea == "") {
         dev.writeAttr(SUMO_ATTR_LANE, lane);
-        if ((setParameter & STOP_START_SET) != 0) {
+        if ((parametersSet & STOP_START_SET) != 0) {
             dev.writeAttr(SUMO_ATTR_STARTPOS, startPos);
         }
-        if ((setParameter & STOP_END_SET) != 0) {
+        if ((parametersSet & STOP_END_SET) != 0) {
             dev.writeAttr(SUMO_ATTR_ENDPOS, endPos);
         }
     }
@@ -326,23 +326,23 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
     if (until >= 0) {
         dev.writeAttr(SUMO_ATTR_UNTIL, STEPS2TIME(until));
     }
-    if ((setParameter & STOP_TRIGGER_SET) != 0) {
+    if ((parametersSet & STOP_TRIGGER_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_TRIGGERED, triggered);
     }
-    if ((setParameter & STOP_CONTAINER_TRIGGER_SET) != 0) {
+    if ((parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_CONTAINER_TRIGGERED, containerTriggered);
     }
-    if ((setParameter & STOP_PARKING_SET) != 0) {
+    if ((parametersSet & STOP_PARKING_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_PARKING, parking);
     }
     // look, we are writing the set of expected persons in its current state...
     //  if this method is used somewhere in the simulation output,
     //  one should consider keeping the original values additionally,
     //  as the ones we write may hev changed.
-    if ((setParameter & STOP_EXPECTED_SET) != 0) {
+    if ((parametersSet & STOP_EXPECTED_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_EXPECTED, awaitedPersons);
     }
-    if ((setParameter & STOP_EXPECTED_CONTAINERS_SET) != 0) {
+    if ((parametersSet & STOP_EXPECTED_CONTAINERS_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_EXPECTED_CONTAINERS, awaitedContainers);
     }
     dev.closeTag();

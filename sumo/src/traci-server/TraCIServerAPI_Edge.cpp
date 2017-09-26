@@ -377,7 +377,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                                                   "The value of the parameter must be given as a string.",
                                                   outputStorage);
             }
-            TraCI_Edge::addParameter(id, name, value);
+            TraCI_Edge::setParameter(id, name, value);
 
         }
             break;

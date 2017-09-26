@@ -218,7 +218,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingString(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
                 }
-                TraCI_POI::addParameter(id, name, value);
+                TraCI_POI::setParameter(id, name, value);
             }
             break;
             default:

@@ -75,7 +75,7 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                     const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
                     // circumventing empty string test
                     const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-                    myLastParameterised->addParameter(key, val);
+                    myLastParameterised->setParameter(key, val);
                 }
             default:
                 break;
@@ -158,9 +158,9 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     }
     myLastParameterised = myShapeContainer.getPOIs().get(id);
     if (laneID != "" && addLanePosParams()) {
-        myLastParameterised->addParameter(toString(SUMO_ATTR_LANE), laneID);
-        myLastParameterised->addParameter(toString(SUMO_ATTR_POSITION), toString(lanePos));
-        myLastParameterised->addParameter(toString(SUMO_ATTR_POSITION_LAT), toString(lanePosLat));
+        myLastParameterised->setParameter(toString(SUMO_ATTR_LANE), laneID);
+        myLastParameterised->setParameter(toString(SUMO_ATTR_POSITION), toString(lanePos));
+        myLastParameterised->setParameter(toString(SUMO_ATTR_POSITION_LAT), toString(lanePosLat));
     }
 }
 

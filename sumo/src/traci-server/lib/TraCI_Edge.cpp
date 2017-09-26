@@ -299,8 +299,8 @@ TraCI_Edge::setMaxSpeed(std::string& id, double value) {
 }
 
 void
-TraCI_Edge::addParameter(std::string& id, std::string& name, std::string& value) {
-    getEdge(id)->addParameter(name, value);
+TraCI_Edge::setParameter(std::string& id, std::string& name, std::string& value) {
+    getEdge(id)->setParameter(name, value);
 }
 
 void

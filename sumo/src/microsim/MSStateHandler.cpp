@@ -177,7 +177,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
             assert(myLastParameterised != 0);
             if (myLastParameterised != 0) {
-                myLastParameterised->addParameter(key, val);
+                myLastParameterised->setParameter(key, val);
             }
             break;
         }

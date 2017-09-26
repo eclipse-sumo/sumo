@@ -309,7 +309,7 @@ TraCI_Lane::getParameter(const std::string& laneID, const std::string& param) {
 void
 TraCI_Lane::setParameter(const std::string& laneID, const std::string& key, const std::string& value) {
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
-    l->addParameter(key, value);
+    l->setParameter(key, value);
 }
 
 
