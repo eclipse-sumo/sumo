@@ -253,10 +253,12 @@ GUISettingsHandler::myStartElement(int element,
         case SUMO_TAG_VIEWSETTINGS_POIS:
             mySettings.poiSize = parseSizeSettings("poi", attrs, mySettings.poiSize);
             mySettings.poiName = parseTextSettings("poiName", attrs, mySettings.poiName);
+            mySettings.poiType = parseTextSettings("poiType", attrs, mySettings.poiType);
             break;
         case SUMO_TAG_VIEWSETTINGS_POLYS:
             mySettings.polySize = parseSizeSettings("poly", attrs, mySettings.polySize);
             mySettings.polyName = parseTextSettings("polyName", attrs, mySettings.polyName);
+            mySettings.polyType = parseTextSettings("polyType", attrs, mySettings.polyType);
             break;
         case SUMO_TAG_VIEWSETTINGS_LEGEND:
             mySettings.showSizeLegend = TplConvert::_2bool(attrs.getStringSecure("showSizeLegend", toString(mySettings.showSizeLegend)).c_str());
