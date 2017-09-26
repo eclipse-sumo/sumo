@@ -117,6 +117,10 @@ public:
     virtual const ROEdge* getDepartEdge() const = 0;
 
 
+    inline bool isPublicTransport() const {
+        return myParameter.line != "";
+    }
+
     virtual void computeRoute(const RORouterProvider& provider,
                               const bool removeLoops, MsgHandler* errorHandler) = 0;
 

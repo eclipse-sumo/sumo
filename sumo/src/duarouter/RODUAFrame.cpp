@@ -135,6 +135,9 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("skip-new-routes", new Option_Bool(false));
     oc.addDescription("skip-new-routes", "Processing", "Only reuse routes from input, do not calculate new ones");
 
+    oc.doRegister("ptline-routing", new Option_Bool(false));
+    oc.addDescription("ptline-routing", "Processing", "Route all public transport input");
+
     oc.doRegister("logit", new Option_Bool(false)); // deprecated
     oc.addDescription("logit", "Processing", "Use c-logit model (deprecated in favor of --route-choice-method logit)");
 

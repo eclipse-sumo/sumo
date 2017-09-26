@@ -538,6 +538,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
     SUMOTime lastTime = -1;
     const bool removeLoops = options.getBool("remove-loops");
     const int maxNumThreads = options.getInt("routing-threads");
+    const bool ptRoutes = !options.exists("ptline-routing") || options.getBool("ptline-routing");
     if (myRoutables.size() != 0) {
         if (options.getBool("bulk-routing")) {
 #ifdef HAVE_FOX
@@ -553,6 +554,9 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
                 }
                 for (std::deque<RORoutable*>::const_iterator r = i->second.begin(); r != i->second.end(); ++r) {
                     RORoutable* const routable = *r;
+                    if (!ptRoutes && routable->isPublicTransport()) {
+                        continue;
+                    }
 #ifdef HAVE_FOX
                     // add task
                     if (maxNumThreads > 0) {
@@ -604,7 +608,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
             }
             lastTime = routableTime;
 
-            // ok, compute the route (try it)
+            // ok, check whether it has been routed
             if (r->getRoutingSuccess()) {
                 // write the route
                 r->write(*myRoutesOutput, myRouteAlternativesOutput, myTypesOutput, options);
