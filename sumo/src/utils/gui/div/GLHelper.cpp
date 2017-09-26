@@ -479,7 +479,7 @@ GLHelper::drawText(const std::string& text, const Position& pos,
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
     glTranslated(pos.x(), pos.y(), layer);
     glScaled(size / fontSize, size / fontSize, 1.);
-    glRotated(angle, 0, 0, 1);
+    glRotated(-angle, 0, 0, 1);
     fonsSetAlign(myFont, align == 0 ? FONS_ALIGN_CENTER | FONS_ALIGN_MIDDLE: align);
     fonsSetColor(myFont, glfonsRGBA(col.red(), col.green(), col.blue(), col.alpha()));
     fonsDrawText(myFont, 0., 0., text.c_str(), NULL);
