@@ -75,7 +75,8 @@ public:
     static void copy(const std::string& origTypeID, const std::string& newTypeID);
     static MSVehicleType* getVType(std::string id);
 
-    static void addParameter(const std::string& id, const std::string& name, const std::string& value);
+    static void setParameter(const std::string& id, const std::string& name, const std::string& value);
+
 private:
     /// @brief invalidated standard constructor
     TraCI_VehicleType();

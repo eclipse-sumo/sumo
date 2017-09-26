@@ -522,7 +522,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                 return server.writeErrorStatusCmd(cmd, "The value of the parameter must be given as a string.",
                                                   outputStorage);
             }
-            TraCI_VehicleType::addParameter(id, name, value);
+            TraCI_VehicleType::setParameter(id, name, value);
         }
         break;
         default:

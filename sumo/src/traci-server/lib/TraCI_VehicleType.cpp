@@ -222,7 +222,7 @@ void TraCI_VehicleType::setLateralAlignment(const std::string& typeID, const std
 void TraCI_VehicleType::copy(const std::string& origTypeID, const std::string& newTypeID)  {
     getVType(origTypeID)->duplicateType(newTypeID, true);
 }
-void TraCI_VehicleType::addParameter(const std::string& typeID, const std::string& name, const std::string& value) {
+void TraCI_VehicleType::setParameter(const std::string& typeID, const std::string& name, const std::string& value) {
     MSVehicleType* v = getVType(typeID);
     ((SUMOVTypeParameter&) v->getParameter()).setParameter(name, value);
 }
