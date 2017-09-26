@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun 20 23:59:34 2017 by SUMO duarouter Version dev-SVN-r24506
+<!-- generated on 09/26/17 10:25:34 by SUMO duarouter Version dev-SVN-r26222
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -30,60 +30,4 @@
         <ride busStop="end_0" lines="bus2"/>
         <walk edges="end"/>
     </person>
-    <vehicle id="bus.0" depart="1000.00" line="bus">
-        <routeDistribution last="0">
-            <route cost="108.36" probability="1.00000000" edges="beg beg2left left left2end end"/>
-        </routeDistribution>
-        <stop busStop="beg_0" until="1010.00"/>
-        <stop busStop="left_0" until="1060.00"/>
-    </vehicle>
-    <vehicle id="bus2.0" depart="1000.00" line="bus2">
-        <routeDistribution last="0">
-            <route cost="108.36" probability="1.00000000" edges="beg beg2left left left2end end"/>
-        </routeDistribution>
-        <stop busStop="left_0" until="1070.00"/>
-        <stop busStop="end_0" until="1110.00"/>
-    </vehicle>
-    <vehicle id="bus.1" depart="1300.00" line="bus">
-        <routeDistribution last="0">
-            <route cost="108.36" probability="1.00000000" edges="beg beg2left left left2end end"/>
-        </routeDistribution>
-        <stop busStop="beg_0" until="1310.00"/>
-        <stop busStop="left_0" until="1360.00"/>
-    </vehicle>
-    <vehicle id="bus2.1" depart="1300.00" line="bus2">
-        <routeDistribution last="0">
-            <route cost="108.36" probability="1.00000000" edges="beg beg2left left left2end end"/>
-        </routeDistribution>
-        <stop busStop="left_0" until="1370.00"/>
-        <stop busStop="end_0" until="1410.00"/>
-    </vehicle>
-    <vehicle id="bus.2" depart="1600.00" line="bus">
-        <routeDistribution last="0">
-            <route cost="108.36" probability="1.00000000" edges="beg beg2left left left2end end"/>
-        </routeDistribution>
-        <stop busStop="beg_0" until="1610.00"/>
-        <stop busStop="left_0" until="1660.00"/>
-    </vehicle>
-    <vehicle id="bus2.2" depart="1600.00" line="bus2">
-        <routeDistribution last="0">
-            <route cost="108.36" probability="1.00000000" edges="beg beg2left left left2end end"/>
-        </routeDistribution>
-        <stop busStop="left_0" until="1670.00"/>
-        <stop busStop="end_0" until="1710.00"/>
-    </vehicle>
-    <vehicle id="bus.3" depart="1900.00" line="bus">
-        <routeDistribution last="0">
-            <route cost="108.36" probability="1.00000000" edges="beg beg2left left left2end end"/>
-        </routeDistribution>
-        <stop busStop="beg_0" until="1910.00"/>
-        <stop busStop="left_0" until="1960.00"/>
-    </vehicle>
-    <vehicle id="bus2.3" depart="1900.00" line="bus2">
-        <routeDistribution last="0">
-            <route cost="108.36" probability="1.00000000" edges="beg beg2left left left2end end"/>
-        </routeDistribution>
-        <stop busStop="left_0" until="1970.00"/>
-        <stop busStop="end_0" until="2010.00"/>
-    </vehicle>
 </routes>

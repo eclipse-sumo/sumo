@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 13 16:09:08 2017 by SUMO duarouter Version dev-SVN-r22923
+<!-- generated on 09/26/17 10:25:35 by SUMO duarouter Version dev-SVN-r26222
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -32,33 +32,4 @@
     <person id="p1" depart="0.00">
         <walk edges="end middle beg"/>
     </person>
-    <vType id="train" vClass="rail_urban"/>
-    <vehicle id="train.0" type="train" depart="0.00" line="train">
-        <routeDistribution last="0">
-            <route cost="110.08" probability="1.00000000" edges="gneE0"/>
-        </routeDistribution>
-        <stop busStop="beg2left" until="10.00"/>
-        <stop busStop="left2end" until="60.00"/>
-    </vehicle>
-    <vehicle id="train.1" type="train" depart="300.00" line="train">
-        <routeDistribution last="0">
-            <route cost="110.08" probability="1.00000000" edges="gneE0"/>
-        </routeDistribution>
-        <stop busStop="beg2left" until="310.00"/>
-        <stop busStop="left2end" until="360.00"/>
-    </vehicle>
-    <vehicle id="train.2" type="train" depart="600.00" line="train">
-        <routeDistribution last="0">
-            <route cost="110.08" probability="1.00000000" edges="gneE0"/>
-        </routeDistribution>
-        <stop busStop="beg2left" until="610.00"/>
-        <stop busStop="left2end" until="660.00"/>
-    </vehicle>
-    <vehicle id="train.3" type="train" depart="900.00" line="train">
-        <routeDistribution last="0">
-            <route cost="110.08" probability="1.00000000" edges="gneE0"/>
-        </routeDistribution>
-        <stop busStop="beg2left" until="910.00"/>
-        <stop busStop="left2end" until="960.00"/>
-    </vehicle>
 </routes>

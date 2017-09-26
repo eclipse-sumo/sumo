@@ -59,4 +59,7 @@ intermodal_car_walk_no_place
 
 # train access
 access
+
+# output bus route as well
+ptline_routing
 errors
