@@ -323,7 +323,7 @@ private:
                *myJunctionIndexPanel, *myTLIndexPanel,
                *myJunctionNamePanel, *myInternalJunctionNamePanel,
                *myVehicleNamePanel, *myPersonNamePanel, *myContainerNamePanel,
-               *myAddNamePanel, *myPOINamePanel, *myPolyNamePanel, *myPOITypePanel, *myPolyTypePanel;
+               *myAddNamePanel, *myAddFullNamePanel, *myPOINamePanel, *myPolyNamePanel, *myPOITypePanel, *myPolyTypePanel;
 
     SizePanel* myVehicleSizePanel, *myPersonSizePanel, *myContainerSizePanel, *myPOISizePanel, *myPolySizePanel, *myAddSizePanel, *myJunctionSizePanel;
 

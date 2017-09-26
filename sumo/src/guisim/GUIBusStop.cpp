@@ -177,9 +177,8 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         }
         glPopMatrix();
     }
-    //TODO: add pt stop show name options to gui settings [GL Mar '17]
-    if (s.streetName.show && getMyName() != "") {
-        GLHelper::drawText(getMyName(), myFGSignPos, GLO_MAX - getType(), s.streetName.size / s.scale, s.streetName.color, myFGSignRot);
+    if (s.addFullName.show && getMyName() != "") {
+        GLHelper::drawText(getMyName(), myFGSignPos, GLO_MAX - getType(), s.addFullName.size / s.scale, s.addFullName.color, myFGSignRot);
     }
     glPopMatrix();
     glPopName();

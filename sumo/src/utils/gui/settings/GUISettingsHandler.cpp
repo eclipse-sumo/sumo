@@ -249,6 +249,7 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.addMode = TplConvert::_2int(attrs.getStringSecure("addMode", toString(mySettings.addMode)).c_str());
             mySettings.addSize = parseSizeSettings("add", attrs, mySettings.addSize);
             mySettings.addName = parseTextSettings("addName", attrs, mySettings.addName);
+            mySettings.addFullName = parseTextSettings("addFullName", attrs, mySettings.addFullName);
             break;
         case SUMO_TAG_VIEWSETTINGS_POIS:
             mySettings.poiSize = parseSizeSettings("poi", attrs, mySettings.poiSize);

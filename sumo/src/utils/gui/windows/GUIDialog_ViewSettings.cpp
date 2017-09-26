@@ -395,12 +395,13 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
     }
     {
         // detectors / triggers
-        new FXTabItem(tabbook, "Detectors/Trigger", NULL, GUIDesignViewSettingsTabItemBook1);
+        new FXTabItem(tabbook, "Additional", NULL, GUIDesignViewSettingsTabItemBook1);
         FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
         FXVerticalFrame* frame5 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
 
         FXMatrix* m51 = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
-        myAddNamePanel = new NamePanel(m51, this, "Show detector name", mySettings->addName);
+        myAddNamePanel = new NamePanel(m51, this, "Show object name", mySettings->addName);
+        myAddFullNamePanel = new NamePanel(m51, this, "Show full name", mySettings->addFullName);
         new FXHorizontalSeparator(frame5 , GUIDesignHorizontalSeparator);
 
         FXMatrix* m52 = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
@@ -490,6 +491,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myJunctionNamePanel;
     delete myVehicleNamePanel;
     delete myAddNamePanel;
+    delete myAddFullNamePanel;
     delete myPOINamePanel;
     delete myPOITypePanel;
     delete myPolyNamePanel;
@@ -602,6 +604,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myJunctionSizePanel->update(mySettings->junctionSize);
 
     myAddNamePanel->update(mySettings->addName);
+    myAddFullNamePanel->update(mySettings->addFullName);
     myAddSizePanel->update(mySettings->addSize);
 
     myPOINamePanel->update(mySettings->poiName);
@@ -798,6 +801,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.junctionSize = myJunctionSizePanel->getSettings();
 
     tmpSettings.addName = myAddNamePanel->getSettings();
+    tmpSettings.addFullName = myAddFullNamePanel->getSettings();
     tmpSettings.addSize = myAddSizePanel->getSettings();
 
     tmpSettings.poiName = myPOINamePanel->getSettings();

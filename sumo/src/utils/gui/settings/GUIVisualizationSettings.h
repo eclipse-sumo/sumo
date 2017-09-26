@@ -258,6 +258,8 @@ public:
     GUIVisualizationSizeSettings addSize;
     // Setting bundles for optional drawing additional names
     GUIVisualizationTextSettings addName;
+    // Setting bundles for optional drawing additional full names
+    GUIVisualizationTextSettings addFullName;
     //@}
 
 

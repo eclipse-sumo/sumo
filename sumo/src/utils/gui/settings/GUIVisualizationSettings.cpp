@@ -101,6 +101,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     addMode(0),
     addSize(1),
     addName(false, 50, RGBColor(255, 0, 128, 255)),
+    addFullName(false, 50, RGBColor(255, 0, 128, 255)),
     poiSize(0), poiName(false, 50, RGBColor(255, 0, 128, 255)),
     poiType(false, 50, RGBColor(255, 0, 128, 255)),
     polySize(0), polyName(false, 50, RGBColor(255, 0, 128, 255)),
@@ -920,6 +921,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("addMode", addMode);
     addSize.print(dev, "add");
     addName.print(dev, "addName");
+    addFullName.print(dev, "addFullName");
     dev.closeTag();
     // pois
     dev.openTag(SUMO_TAG_VIEWSETTINGS_POIS);
@@ -1100,6 +1102,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (addName != v2.addName) {
+        return false;
+    }
+    if (addFullName != v2.addFullName) {
         return false;
     }
     if (poiSize != v2.poiSize) {
