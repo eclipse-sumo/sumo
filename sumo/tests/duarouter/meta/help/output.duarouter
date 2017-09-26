@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r25302
+SUMO duarouter Version dev-SVN-r26222
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.
@@ -86,6 +86,7 @@ Processing Options:
   --keep-all-routes                  Save routes with near zero probability
   --skip-new-routes                  Only reuse routes from input, do not
                                        calculate new ones
+  --ptline-routing                   Route all public transport input
   --logit                            Use c-logit model (deprecated in favor of
                                        --route-choice-method logit)
   --route-choice-method STR          Choose a route choice method: gawron,
