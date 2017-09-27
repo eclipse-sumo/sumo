@@ -238,6 +238,12 @@ GeoConvHelper::cartesian2geo(Position& cartesian) const {
     if (myProjectionMethod == NONE) {
         return;
     }
+    if (myProjectionMethod == SIMPLE) {
+        const double y = cartesian.y() / 111136.;
+        const double x = cartesian.x() / 111320. / cos(DEG2RAD(y));
+        cartesian.set(x, y);
+        return;
+    }
 #ifdef HAVE_PROJ
     projUV p;
     p.u = cartesian.x();
@@ -349,22 +355,17 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
         }
 #endif
         if (myProjectionMethod == SIMPLE) {
-            double ys = y;
-            x *= 111320. * cos(DEG2RAD(ys));
+            x *= 111320. * cos(DEG2RAD(y));
             y *= 111136.;
-            from.set((double)x, (double)y);
             //!!! recheck whether the axes are mirrored
-            from.add(myOffset);
         }
     }
     if (x > std::numeric_limits<double>::max() ||
             y > std::numeric_limits<double>::max()) {
         return false;
     }
-    if (myProjectionMethod != SIMPLE) {
-        from.set((double)x, (double)y);
-        from.add(myOffset);
-    }
+    from.set(x, y);
+    from.add(myOffset);
     return true;
 }
 
