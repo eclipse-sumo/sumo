@@ -128,12 +128,12 @@ MSLaneChangerSublane::change() {
 
     StateAndDist decision = vehicle->getLaneChangeModel().decideDirection(current,
                             vehicle->getLaneChangeModel().decideDirection(right, left));
+    vehicle->getLaneChangeModel().setOwnState(decision.state);
     if ((decision.state & LCA_WANTS_LANECHANGE) != 0 && (decision.state & LCA_BLOCKED) == 0) {
         // change if the vehicle wants to and is allowed to change
         if (vehicle->getLaneChangeModel().debugVehicle()) {
             std::cout << SIMTIME << " decision=" << toString((LaneChangeAction)decision.state) << " latDist=" << decision.latDist << "\n";
         }
-        vehicle->getLaneChangeModel().setOwnState(decision.state);
         return startChangeSublane(vehicle, myCandi, decision.latDist);
     } else {
         // @note this assumes vehicles can instantly abort any maneuvre in case of emergency
@@ -145,8 +145,6 @@ MSLaneChangerSublane::change() {
         // just let them go to the right lane...
         left.state = 0;
     }
-    vehicle->getLaneChangeModel().setOwnState(right.state | left.state | current.state);
-
     registerUnchanged(vehicle);
     return false;
 }

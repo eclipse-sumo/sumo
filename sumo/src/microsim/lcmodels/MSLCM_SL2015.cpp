@@ -1558,6 +1558,8 @@ MSLCM_SL2015::_wantsChangeSublane(
                                         neighLeaders, neighFollowers, neighBlockers);
                 return ret;
             }
+        } else {
+            return ret | LCA_SUBLANE | LCA_STAY;
         }
     }
     latDist = 0;
