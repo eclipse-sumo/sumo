@@ -566,7 +566,7 @@ NBNodeCont::joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLigh
 
 
 int
-NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
+NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, NBPTStopCont& sc) {
     NodeClusters cands;
     NodeClusters clusters;
     generateNodeClusters(maxDist, cands);
@@ -708,6 +708,20 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         }
         if (foundParallel) {
             continue;
+        }
+        // check for stop edges within the cluster
+        if (OptionsCont::getOptions().isSet("ptstop-output")) {
+            bool foundStop = false;
+            for (auto it = sc.begin(); it != sc.end(); it++) {
+                NBEdge* edge = ec.retrieve(it->second->getEdgeId());
+                if (edge != 0 && cluster.count(edge->getFromNode()) != 0 && cluster.count(edge->getToNode()) != 0) {
+                    foundStop = true;
+                    WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because it contains stop '" + it->first + "'");
+                }
+            }
+            if (foundStop) {
+                continue;
+            }
         }
         // compute all connected components of this cluster
         // (may be more than 1 if intermediate nodes were removed)
