@@ -305,22 +305,10 @@ public:
     inline double getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
         // The solution approach leaderBrakeGap >= followerBrakeGap is not
         // secure when the follower can brake harder than the leader because the paths may still cross.
-        // As a workaround we lower the value of followerDecel which errs on the side of caution
-        //
-        // xxx (Leo, refs #2548) This is somewhat different from the approach in maximumSafeFollowSpeed, where
-        // the leaderMaxDecel is increased instead. This is no perfect estimate either,
-        // but without taking into account the reaction time tau it is less conservative than decreasing followDecel.
-        // Consider replacement by 'const leaderMaxDecel = MAX2(myDecel, leaderMaxDecel);' below and 'followDecel = myDecel;'
-        // With maximumSafeSpeed = maximumSafeFollowSpeed(*secureGap*, speed, leaderSpeed, leaderMaxDecel) we should have:
-        //        assert(maximumSafeSpeed <= speed + NUMERICAL_EPS && maximumSafeSpeed >= speed - NUMERICAL_EPS);
-
-        // XXX: this should fix #2548 (postponed after merge of branch {ticket860}):
-        //        const double maxDecel = MAX2(myDecel, leaderMaxDecel);
-        //        double secureGap = MAX2((double) 0, brakeGap(speed, myDecel, myHeadwayTime) - brakeGap(leaderSpeed, maxDecel, 0));
-
-        const double followDecel = MIN2(myDecel, leaderMaxDecel);
+        // As a workaround we use a value of leaderDecel which errs on the side of caution
+        const double maxDecel = MAX2(myDecel, leaderMaxDecel);
         // XXX: returning 0 can be wrong if the leader is slower than the follower! Why not return negative values? (Leo)
-        double secureGap = MAX2((double) 0, brakeGap(speed, followDecel, myHeadwayTime) - brakeGap(leaderSpeed, leaderMaxDecel, 0));
+        double secureGap = MAX2((double) 0, brakeGap(speed, myDecel, myHeadwayTime) - brakeGap(leaderSpeed, maxDecel, 0));
         return secureGap;
     }
 
