@@ -460,7 +460,7 @@ void
 GLHelper::drawText(const std::string& text, const Position& pos,
                      const double layer, const double size,
                      const RGBColor& col, const double angle, const int align) {
-    const double fontSize = 80.;
+    const double fontSize = 50.;
     if (myFont == 0) {
         myFont = glfonsCreate(2048, 2048, FONS_ZERO_BOTTOMLEFT);
         const int fontNormal = fonsAddFontMem(myFont, "medium", data_font_Roboto_Medium_ttf, data_font_Roboto_Medium_ttf_len, 0);
@@ -468,8 +468,6 @@ GLHelper::drawText(const std::string& text, const Position& pos,
         fonsSetSize(myFont, (float)fontSize);
     }
     glPushMatrix();
-    //glEnable(GL_BLEND);
-    //glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
     glAlphaFunc(GL_GREATER, 0.5);
     glEnable(GL_ALPHA_TEST);
     glTranslated(pos.x(), pos.y(), layer);
