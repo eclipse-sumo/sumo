@@ -214,6 +214,7 @@ MSLCM_SL2015::wantsChangeSublane(
         if (result & LCA_WANTS_LANECHANGE) {
             std::cout << SIMTIME
                       << " veh=" << myVehicle.getID()
+                      << " wantsChangeTo=" << changeType
                       << " latDist=" << latDist
                       << " state=" << toString((LaneChangeAction)result)
                       << ((blocked & LCA_BLOCKED) ? " (blocked)" : "")
