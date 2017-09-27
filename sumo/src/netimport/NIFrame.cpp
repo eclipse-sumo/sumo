@@ -263,8 +263,14 @@ NIFrame::fillOptions() {
     oc.doRegister("osm.oneway-spread-right", new Option_Bool(false));
     oc.addDescription("osm.oneway-spread-right", "Processing", "Whether one-way roads should be spread to the side instead of centered");
 
-    oc.doRegister("osm.stop-output.length", new Option_Float(100));
-    oc.addDescription("osm.stop-output.length", "Processing", "The default length of a bus/train stop in FLOAT m");
+    oc.doRegister("osm.stop-output.length", new Option_Float(25));
+    oc.addDescription("osm.stop-output.length", "Processing", "The default length of a public transport stop in FLOAT m");
+    oc.doRegister("osm.stop-output.length.bus", new Option_Float(15));
+    oc.addDescription("osm.stop-output.length.bus", "Processing", "The default length of a bus stop in FLOAT m");
+    oc.doRegister("osm.stop-output.length.tram", new Option_Float(25));
+    oc.addDescription("osm.stop-output.length.tram", "Processing", "The default length of a tram stop in FLOAT m");
+    oc.doRegister("osm.stop-output.length.train", new Option_Float(200));
+    oc.addDescription("osm.stop-output.length.train", "Processing", "The default length of a train stop in FLOAT m");
 
     // register opendrive options
     oc.doRegister("opendrive.import-all-lanes", new Option_Bool(false));

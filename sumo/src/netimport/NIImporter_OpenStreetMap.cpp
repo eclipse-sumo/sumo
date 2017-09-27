@@ -705,16 +705,21 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 myToFill[myLastNodeID]->railwayCrossing = true;
             } else if (key == "public_transport" && value.find("stop_position") != std::string::npos) {
                 myToFill[myLastNodeID]->ptStopPosition = true;
-                myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat(
-                        "osm.stop-output.length");
+                if (myToFill[myLastNodeID]->ptStopLength == 0) {
+                    // default length
+                    myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length");
+                }
             } else if (key == "name") {
                 myToFill[myLastNodeID]->name = value;
             } else if (key == "train") {
                 myToFill[myLastNodeID]->permissions = SVC_RAIL;
+                myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length.train");
             } else if (key == "bus") {
                 myToFill[myLastNodeID]->permissions = SVC_BUS;
+                myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length.bus");
             } else if (key == "tram") {
                 myToFill[myLastNodeID]->permissions = SVC_TRAM;
+                myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length.tram");
             } else if (myImportElevation && key == "ele") {
                 try {
                     myToFill[myLastNodeID]->ele = TplConvert::_2double(value.c_str());
