@@ -157,7 +157,10 @@
         <osm.layer-elevation value="0" type="FLOAT" help="Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m"/>
         <osm.layer-elevation.max-grade value="10" type="FLOAT" help="Maximum grade threshold in % at 50km/h when reconstrucing elevation based on layer data. The value is scaled according to road speed."/>
         <osm.oneway-spread-right value="false" type="BOOL" help="Whether one-way roads should be spread to the side instead of centered"/>
-        <osm.stop-output.length value="100" type="FLOAT" help="The default length of a bus/train stop in FLOAT m"/>
+        <osm.stop-output.length value="25" type="FLOAT" help="The default length of a public transport stop in FLOAT m"/>
+        <osm.stop-output.length.bus value="15" type="FLOAT" help="The default length of a bus stop in FLOAT m"/>
+        <osm.stop-output.length.tram value="25" type="FLOAT" help="The default length of a tram stop in FLOAT m"/>
+        <osm.stop-output.length.train value="200" type="FLOAT" help="The default length of a train stop in FLOAT m"/>
         <opendrive.import-all-lanes value="false" type="BOOL" help="Imports all lane types"/>
         <opendrive.ignore-widths value="false" type="BOOL" help="Whether lane widths shall be ignored."/>
         <opendrive.curve-resolution value="2" type="FLOAT" help="The geometry resolution in m when importing curved geometries as line segments."/>

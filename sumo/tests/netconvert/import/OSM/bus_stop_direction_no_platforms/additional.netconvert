@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 25 15:15:32 2017 by SUMO netconvert Version dev-SVN-r26213
+<!-- generated on Wed Sep 27 09:35:11 2017 by SUMO netconvert Version dev-SVN-r26241
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -31,8 +31,8 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="-14014639410" name="Hallesche Allee" lane="-412820208#1_0" startPos="0.00" endPos="62.22" friendlyPos="true"/>
-    <busStop id="-14014639411" name="Hallesche Allee" lane="-412820207_0" startPos="0.00" endPos="48.91" friendlyPos="true"/>
-    <busStop id="4014639410" name="Hallesche Allee" lane="412820208#1_0" startPos="0.00" endPos="62.22" friendlyPos="true"/>
-    <busStop id="4014639411" name="Hallesche Allee" lane="412820207_0" startPos="0.00" endPos="48.91" friendlyPos="true"/>
+    <busStop id="-14014639410" name="Hallesche Allee" lane="-412820208#1_0" startPos="37.33" endPos="52.33" friendlyPos="true"/>
+    <busStop id="-14014639411" name="Hallesche Allee" lane="-412820207_0" startPos="13.30" endPos="28.30" friendlyPos="true"/>
+    <busStop id="4014639410" name="Hallesche Allee" lane="412820208#1_0" startPos="9.90" endPos="24.90" friendlyPos="true"/>
+    <busStop id="4014639411" name="Hallesche Allee" lane="412820207_0" startPos="20.61" endPos="35.61" friendlyPos="true"/>
 </additional>

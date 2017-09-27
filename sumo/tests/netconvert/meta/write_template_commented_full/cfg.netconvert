@@ -417,8 +417,17 @@
         <!-- Whether one-way roads should be spread to the side instead of centered -->
         <osm.oneway-spread-right value="false" type="BOOL"/>
 
-        <!-- The default length of a bus/train stop in FLOAT m -->
-        <osm.stop-output.length value="100" type="FLOAT"/>
+        <!-- The default length of a public transport stop in FLOAT m -->
+        <osm.stop-output.length value="25" type="FLOAT"/>
+
+        <!-- The default length of a bus stop in FLOAT m -->
+        <osm.stop-output.length.bus value="15" type="FLOAT"/>
+
+        <!-- The default length of a tram stop in FLOAT m -->
+        <osm.stop-output.length.tram value="25" type="FLOAT"/>
+
+        <!-- The default length of a train stop in FLOAT m -->
+        <osm.stop-output.length.train value="200" type="FLOAT"/>
 
         <!-- Imports all lane types -->
         <opendrive.import-all-lanes value="false" type="BOOL"/>
