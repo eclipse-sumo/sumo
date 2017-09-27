@@ -55,6 +55,7 @@ Warning: Not joining junctions 30731492,311264846,588181297,588181300,588181302 
 Warning: Not joining junctions 1785414414,2924018416,2924018417,2924018418,3253177076,3253177078,3253177079 because the cluster is too complex (7 incoming edges)
 Warning: Not joining junctions 1668717163,1668717165,258485805,588181279 because the cluster is too complex (parallel incoming 101699676#0,4610362#1)
 Warning: Not joining junctions 1673585713,3269783482 because the cluster is too complex (parallel incoming 144014233,207364192#0)
+Warning: Not joining junctions 1769589025,2010745295,2010745299,2045862310 because it contains stop '2959830767'
 Warning: Not joining junctions 1815335424,1819917465,662338385 because the cluster is too complex (parallel incoming -170855334,51912365#0)
 Warning: Not joining junctions 196766307,3177625298,3178079902,3178079903,3178079905,667787109 because the cluster is too complex (parallel outgoing 19801618#4,311681169#1)
 Warning: Not joining junctions 1988511977,29193494 because the cluster is too complex (parallel incoming -4610527#0,4610527#1)
@@ -266,37 +267,3 @@ Warning: The traffic light '29219437' does not control any links; it will not be
 Warning: Could not build program '0' for traffic light '29219437'
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
 Warning: Connection '187103791_2->-19801644#1_1' is only 0.10 short.
-Warning: Could not find corresponding edge or compatible lane for pt stop: Hackescher Markt. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: S Hackescher Markt. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: S Oranienburger Straße. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Spandauer Straße/Marienkirche. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: U Französische Straße. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: U Alexanderplatz. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: U Alexanderplatz. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: U Alexanderplatz. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: U Alexanderplatz. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: U Alexanderplatz. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: U Klosterstraße. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: U-Bahnhof Bundestag. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: U Brandenburger Tor. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Friedrichstraße. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: . Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Mollstraße/Prenzlauer Allee. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: S Alexanderplatz. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: S Friedrichstraße. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: U Friedrichstraße. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: S Hackescher Markt. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: S + U Friedrichstr.. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: U Stadtmitte. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Friedrichstraße. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: U Schwartzkopffstraße. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: S Brandenburger Tor. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: S Oranienburger Straße. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: U Naturkundemuseum. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Fischerinsel. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Fischerinsel. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Friedrichstraße. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Friedrichstraße. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: U Hauptbahnhof. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: S Friedrichstraße. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: S Friedrichstraße. Thus, it will be removed!
