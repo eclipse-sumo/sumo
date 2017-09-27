@@ -636,7 +636,11 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         myMovingSelection = true;
                     } else {
                         myEdgeToMove = pointed_edge;
+                        // save original shape (needed for commit change)
                         myMovingOriginalShape = myEdgeToMove->getNBEdge()->getInnerGeometry();
+                        // obtain index of vertex to move and moving reference
+                        myMovingIndexShape = myEdgeToMove->getVertexIndex(getPositionInformation());
+                        myMovingReference = getPositionInformation();
                     }
                     myMovingOriginalPosition = getPositionInformation();
                 } else if (pointed_additional) {
@@ -869,10 +873,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         }
         myJunctionToMove = 0;
     } else if (myEdgeToMove) {
-        // set cleaned shape
-        myEdgeToMove->commitGeometryMoving(myMovingOriginalShape,
-                                           MAX2(POSITION_EPS, GNEJunction::BUBBLE_RADIUS * myVisualizationSettings->junctionSize.exaggeration),
-                                           myUndoList);
+        myEdgeToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
         myEdgeToMove = 0;
     } else if (myAdditionalToMove) {
         myAdditionalToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
@@ -971,12 +972,9 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
             Position offsetPosition = myMovingReference - getPositionInformation();
             myJunctionToMove->moveJunctionGeometry2D(snapToActiveGrid(myMovingOriginalPosition - offsetPosition));
         } else if (myEdgeToMove) {
-            Position newPosition = snapToActiveGrid(getPositionInformation());
-            double minimumMovingRadius = GNEJunction::BUBBLE_RADIUS / 2;
-            if ((newPosition.distanceTo2D(myEdgeToMove->getGNEJunctionSource()->getPositionInView()) >= minimumMovingRadius) &&
-                    (newPosition.distanceTo2D(myEdgeToMove->getGNEJunctionDestiny()->getPositionInView()) >= minimumMovingRadius)) {
-                myMovingOriginalPosition = myEdgeToMove->moveGeometry(myMovingOriginalPosition, newPosition);
-            }
+            // Calculate movement offset and move geometry of edge
+            Position offsetPosition = myMovingReference - getPositionInformation();
+            myMovingIndexShape = myEdgeToMove->moveVertexShape(myMovingIndexShape, snapToActiveGrid(getPositionInformation()));
         } else if (myAdditionalToMove  && (myAdditionalToMove->isAdditionalBlocked() == false)) {
             // If additional is placed over lane, move it across it
             if (myAdditionalToMove->getLane()) {
