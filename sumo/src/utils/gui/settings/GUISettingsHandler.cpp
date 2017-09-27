@@ -117,7 +117,6 @@ GUISettingsHandler::myStartElement(int element,
         }
         break;
         case SUMO_TAG_VIEWSETTINGS_OPENGL:
-            mySettings.antialiase = TplConvert::_2bool(attrs.getStringSecure("antialiase", toString(mySettings.antialiase)).c_str());
             mySettings.dither = TplConvert::_2bool(attrs.getStringSecure("dither", toString(mySettings.dither)).c_str());
             break;
         case SUMO_TAG_VIEWSETTINGS_BACKGROUND: {

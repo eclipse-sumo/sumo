@@ -66,7 +66,7 @@ const RGBColor SUMO_color_DEADEND(0, 0, 0);
 GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     name(""),
     netedit(_netedit),
-    antialiase(false), dither(false),
+    dither(false),
     backgroundColor(RGBColor::WHITE),
     showGrid(false), gridXSize(100), gridYSize(100),
     laneShowBorders(false), showLinkDecals(true),
@@ -823,7 +823,6 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.openTag(SUMO_TAG_VIEWSETTINGS_SCHEME);
     dev.writeAttr(SUMO_ATTR_NAME, name);
     dev.openTag(SUMO_TAG_VIEWSETTINGS_OPENGL);
-    dev.writeAttr("antialiase", antialiase);
     dev.writeAttr("dither", dither);
     dev.closeTag();
     dev.openTag(SUMO_TAG_VIEWSETTINGS_BACKGROUND);
@@ -946,9 +945,6 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
 
 bool
 GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
-    if (antialiase != v2.antialiase) {
-        return false;
-    }
     if (dither != v2.dither) {
         return false;
     }

@@ -126,8 +126,6 @@ public:
     /// @brief Whether the settings are for Netedit
     bool netedit;
 
-    /// @brief Information whether antialiase shall be enabled
-    bool antialiase;
     /// @brief Information whether dithering shall be enabled
     bool dither;
 

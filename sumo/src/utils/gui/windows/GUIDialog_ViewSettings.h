@@ -315,7 +315,6 @@ private:
     FXCheckButton* myShowLane2Lane;
     FXCheckButton* myDrawJunctionShape;
     FXCheckButton* myDrawCrossingsAndWalkingAreas;
-    FXCheckButton* myAntialiase;
     FXCheckButton* myDither;
     FXCheckButton* myShowSizeLegend;
 

@@ -285,15 +285,8 @@ GUISUMOAbstractView::paintGL() {
     } else {
         glDisable(GL_DITHER);
     }
-    if (myVisualizationSettings->antialiase) {
-        glEnable(GL_BLEND);
-        glEnable(GL_POLYGON_SMOOTH);
-        glEnable(GL_LINE_SMOOTH);
-    } else {
-        glDisable(GL_BLEND);
-        glDisable(GL_POLYGON_SMOOTH);
-        glDisable(GL_LINE_SMOOTH);
-    }
+    glEnable(GL_BLEND);
+    glEnable(GL_LINE_SMOOTH);
 
     applyGLTransform();
     doPaintGL(GL_RENDER, myChanger->getViewport());
@@ -870,15 +863,8 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
     } else {
         glDisable(GL_DITHER);
     }
-    if (myVisualizationSettings->antialiase) {
-        glEnable(GL_BLEND);
-        glEnable(GL_POLYGON_SMOOTH);
-        glEnable(GL_LINE_SMOOTH);
-    } else {
-        glDisable(GL_BLEND);
-        glDisable(GL_POLYGON_SMOOTH);
-        glDisable(GL_LINE_SMOOTH);
-    }
+    glEnable(GL_BLEND);
+    glEnable(GL_LINE_SMOOTH);
 
     applyGLTransform();
 
