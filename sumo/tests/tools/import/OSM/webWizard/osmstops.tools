@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep 26 16:23:39 2017 by SUMO netconvert Version dev-SVN-r26234
+<!-- generated on Wed Sep 27 10:18:41 2017 by SUMO netconvert Version dev-SVN-r26241
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumoD/data/typemap/osmNetconvert.typ.xml,/scr1/sumoD/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumoD/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumoD/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumoD/data/typemap/osmNetconvertBicycle.typ.xml"/>
+        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
         <osm-files value="osm_bbox.osm.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/tools.26Sep162333.24489/tools/import/OSM/webWizard/2017-09-26-16-23-35/osm.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/tools.27Sep101838.8522/tools/import/OSM/webWizard/2017-09-27-10-18-39/osm.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
         <ptstop-output value="osm_stops.add.xml"/>
@@ -49,18 +49,18 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="-12915545317" name="U-Bhf Weinmeisterstraße/Gipsstraße" lane="-36892597#0_1" startPos="38.85" endPos="63.85" friendlyPos="true"/>
-    <busStop id="-12915579613" name="S Hackescher Markt" lane="-275177453_1" startPos="0.00" endPos="11.50" friendlyPos="true"/>
+    <busStop id="-12915545317" name="U-Bhf Weinmeisterstraße/Gipsstraße" lane="-36892597#0_1" startPos="43.85" endPos="58.85" friendlyPos="true"/>
+    <busStop id="-12915579613" name="S Hackescher Markt" lane="-275177453_1" startPos="0.00" endPos="6.50" friendlyPos="true"/>
     <busStop id="-12959830765" name="Neustädtische Kirchstr." lane="-153698380_1" startPos="65.54" endPos="90.54" friendlyPos="true"/>
     <busStop id="-12959830774" name="U Stadtmitte" lane="-196850606#2_1" startPos="35.94" endPos="60.94" friendlyPos="true"/>
     <busStop id="1633759760" name="Hackescher Markt" lane="23960874_0" startPos="36.03" endPos="61.03" friendlyPos="true"/>
     <busStop id="1633759766" name="Hackescher Markt" lane="30721657_0" startPos="37.32" endPos="62.32" friendlyPos="true"/>
-    <busStop id="1745157971" name="S Hackescher Markt" lane="32590640_0" startPos="90.57" endPos="115.57" friendlyPos="true"/>
-    <busStop id="1769645503" name="S Oranienburger Straße" lane="230976795_0" startPos="77.63" endPos="102.63" friendlyPos="true"/>
+    <busStop id="1745157971" name="S Hackescher Markt" lane="32590640_0" startPos="3.07" endPos="203.07" friendlyPos="true"/>
+    <busStop id="1769645503" name="S Oranienburger Straße" lane="230976795_0" startPos="0.00" endPos="122.36" friendlyPos="true"/>
     <busStop id="1823298700" name="S+U Friedrichstraße" lane="195411594#1_0" startPos="5.83" endPos="30.83" friendlyPos="true"/>
     <busStop id="1827996414" name="Spandauer Straße/Marienkirche" lane="72157174#1_1" startPos="23.51" endPos="36.01" friendlyPos="true"/>
     <busStop id="1827996417" name="Spandauer Straße/Marienkirche" lane="24914992_1" startPos="0.00" endPos="11.50" friendlyPos="true"/>
-    <busStop id="1930939368" name="S Friedrichstraße" lane="237751551#0_0" startPos="1541.63" endPos="1566.63" friendlyPos="true"/>
+    <busStop id="1930939368" name="S Friedrichstraße" lane="237751551#0_0" startPos="1454.13" endPos="1654.13" friendlyPos="true"/>
     <busStop id="2071423334" name="U Französische Straße" lane="295255789_0" startPos="42.31" endPos="67.31" friendlyPos="true"/>
     <busStop id="2094266775" name="U Alexanderplatz" lane="272760866_0" startPos="46.33" endPos="71.33" friendlyPos="true"/>
     <busStop id="2094266776" name="U Alexanderplatz" lane="29030957_0" startPos="39.42" endPos="64.42" friendlyPos="true"/>
@@ -75,36 +75,36 @@
     <busStop id="247600965" name="S+U Friedrichstraße" lane="22820560#2_0" startPos="11.84" endPos="36.84" friendlyPos="true"/>
     <busStop id="253845582" name="U-Bahnhof Bundestag" lane="70268945_0" startPos="840.12" endPos="865.12" friendlyPos="true"/>
     <busStop id="253846340" name="U Brandenburger Tor" lane="70268945_0" startPos="75.69" endPos="100.69" friendlyPos="true"/>
-    <busStop id="2603331683" name="Friedrichstraße" lane="25946668_0" startPos="52.08" endPos="77.08" friendlyPos="true"/>
-    <busStop id="2603331695" lane="25946663_0" startPos="47.57" endPos="72.57" friendlyPos="true"/>
+    <busStop id="2603331683" name="Friedrichstraße" lane="25946668_0" startPos="0.00" endPos="142.73" friendlyPos="true"/>
+    <busStop id="2603331695" lane="25946663_0" startPos="0.00" endPos="129.89" friendlyPos="true"/>
     <busStop id="270720402" name="Mollstraße/Prenzlauer Allee" lane="24914141#1_1" startPos="39.37" endPos="64.37" friendlyPos="true"/>
-    <busStop id="27411231" name="S Alexanderplatz" lane="72984377_0" startPos="82.46" endPos="107.46" friendlyPos="true"/>
-    <busStop id="27411240" name="S Hackescher Markt" lane="4471817_0" startPos="115.15" endPos="140.15" friendlyPos="true"/>
-    <busStop id="27412232" name="S Friedrichstraße" lane="4471821_0" startPos="64.12" endPos="89.12" friendlyPos="true"/>
+    <busStop id="27411231" name="S Alexanderplatz" lane="72984377_0" startPos="0.00" endPos="164.25" friendlyPos="true"/>
+    <busStop id="27411240" name="S Hackescher Markt" lane="4471817_0" startPos="27.65" endPos="214.84" friendlyPos="true"/>
+    <busStop id="27412232" name="S Friedrichstraße" lane="4471821_0" startPos="0.00" endPos="139.04" friendlyPos="true"/>
     <busStop id="2792364395" name="U Friedrichstraße" lane="274513583_0" startPos="108.72" endPos="133.72" friendlyPos="true"/>
     <busStop id="29058100" name="U Oranienburger Tor" lane="176339603_0" startPos="3421.80" endPos="3446.80" friendlyPos="true"/>
-    <busStop id="2915545317" name="U-Bhf Weinmeisterstraße/Gipsstraße" lane="36892597#0_1" startPos="58.29" endPos="83.29" friendlyPos="true"/>
-    <busStop id="2915579613" name="S Hackescher Markt" lane="275177453_1" startPos="0.00" endPos="12.50" friendlyPos="true"/>
-    <busStop id="2915590925" name="Spandauer Straße/Marienkirche" lane="202157002#2_2" startPos="34.67" endPos="59.67" friendlyPos="true"/>
+    <busStop id="2915545317" name="U-Bhf Weinmeisterstraße/Gipsstraße" lane="36892597#0_1" startPos="63.29" endPos="78.29" friendlyPos="true"/>
+    <busStop id="2915579613" name="S Hackescher Markt" lane="275177453_1" startPos="0.00" endPos="7.50" friendlyPos="true"/>
+    <busStop id="2915590925" name="Spandauer Straße/Marienkirche" lane="202157002#2_2" startPos="39.67" endPos="54.67" friendlyPos="true"/>
     <busStop id="2924245391" name="U Wedding" lane="176339603_0" startPos="975.87" endPos="1000.87" friendlyPos="true"/>
     <busStop id="29495034" name="U Märkisches Museum" lane="199847339_0" startPos="1343.38" endPos="1368.38" friendlyPos="true"/>
     <busStop id="2959830765" name="Neustädtische Kirchstr." lane="153698380_1" startPos="3.55" endPos="28.55" friendlyPos="true"/>
     <busStop id="2959830767" name="S + U Friedrichstr." lane="190447768#0_1" startPos="0.00" endPos="8.66" friendlyPos="true"/>
     <busStop id="2959830772" name="U Oranienburger Tor" lane="6227654#3_1" startPos="8.80" endPos="33.80" friendlyPos="true"/>
     <busStop id="2959830774" name="U Stadtmitte" lane="196850606#2_1" startPos="29.70" endPos="54.70" friendlyPos="true"/>
-    <busStop id="29805120" name="Friedrichstraße" lane="25946657_0" startPos="68.93" endPos="93.93" friendlyPos="true"/>
+    <busStop id="29805120" name="Friedrichstraße" lane="25946657_0" startPos="0.00" endPos="153.87" friendlyPos="true"/>
     <busStop id="2990822797" name="U Schwartzkopffstraße" lane="278240007_0" startPos="1291.07" endPos="1316.07" friendlyPos="true"/>
-    <busStop id="30353086" name="S Brandenburger Tor" lane="230976796_0" startPos="1346.14" endPos="1371.14" friendlyPos="true"/>
-    <busStop id="30353449" name="S Oranienburger Straße" lane="230976793_0" startPos="70.64" endPos="95.64" friendlyPos="true"/>
+    <busStop id="30353086" name="S Brandenburger Tor" lane="230976796_0" startPos="1258.64" endPos="1458.64" friendlyPos="true"/>
+    <busStop id="30353449" name="S Oranienburger Straße" lane="230976793_0" startPos="0.00" endPos="116.55" friendlyPos="true"/>
     <busStop id="3043810257" name="U Naturkundemuseum" lane="278240007_0" startPos="680.91" endPos="705.91" friendlyPos="true"/>
     <busStop id="322796388" name="S Brandenburger Tor" lane="237751551#0_0" startPos="944.48" endPos="969.48" friendlyPos="true"/>
     <busStop id="323203892" name="U Spittelmarkt" lane="199847339_0" startPos="900.60" endPos="925.60" friendlyPos="true"/>
     <busStop id="3352479219" name="Fischerinsel" lane="4773463#1_1" startPos="24.75" endPos="49.75" friendlyPos="true"/>
     <busStop id="3352479220" name="Fischerinsel" lane="23851917#1_1" startPos="4.58" endPos="29.58" friendlyPos="true"/>
     <busStop id="3352479251" name="U Spittelmarkt" lane="272795472#1_0" startPos="833.39" endPos="858.39" friendlyPos="true"/>
-    <busStop id="366500581" name="Friedrichstraße" lane="29384662_0" startPos="66.25" endPos="91.25" friendlyPos="true"/>
-    <busStop id="366500582" name="Friedrichstraße" lane="25946670_0" startPos="54.36" endPos="79.36" friendlyPos="true"/>
+    <busStop id="366500581" name="Friedrichstraße" lane="29384662_0" startPos="0.00" endPos="146.35" friendlyPos="true"/>
+    <busStop id="366500582" name="Friedrichstraße" lane="25946670_0" startPos="0.00" endPos="144.61" friendlyPos="true"/>
     <busStop id="446289301" name="U Hauptbahnhof" lane="70268945_0" startPos="1436.27" endPos="1448.77" friendlyPos="true"/>
     <busStop id="474366009" name="S Friedrichstraße" lane="25946663_0" startPos="45.26" endPos="70.26" friendlyPos="true"/>
-    <busStop id="474368351" name="S Friedrichstraße" lane="230976796_0" startPos="744.44" endPos="769.44" friendlyPos="true"/>
+    <busStop id="474368351" name="S Friedrichstraße" lane="230976796_0" startPos="656.94" endPos="856.94" friendlyPos="true"/>
 </additional>
