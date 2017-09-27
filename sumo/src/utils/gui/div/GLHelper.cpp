@@ -42,6 +42,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #define GLFONTSTASH_IMPLEMENTATION // Expands implementation
 #include <foreign/fontstash/glfontstash.h>
+#include "Roboto.h"
 #include "GLHelper.h"
 
 #define CIRCLE_RESOLUTION (double)10 // inverse in degrees
@@ -462,21 +463,15 @@ GLHelper::drawText(const std::string& text, const Position& pos,
     const double fontSize = 80.;
     if (myFont == 0) {
         myFont = glfonsCreate(2048, 2048, FONS_ZERO_BOTTOMLEFT);
-        std::string fontPath = "Roboto-Medium.ttf";
-        const char* sumoPath = getenv("SUMO_HOME");
-        if (sumoPath != 0) {
-            fontPath = std::string(sumoPath) + "/data/font/" + fontPath;
-        }
-        int fontNormal = fonsAddFont(myFont, "medium", fontPath.c_str());
-        if (fontNormal == FONS_INVALID) {
-            WRITE_ERROR("Font not found at " + fontPath);
-        }
+        const int fontNormal = fonsAddFontMem(myFont, "medium", data_font_Roboto_Medium_ttf, data_font_Roboto_Medium_ttf_len, 0);
         fonsSetFont(myFont, fontNormal);
         fonsSetSize(myFont, (float)fontSize);
     }
     glPushMatrix();
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    //glEnable(GL_BLEND);
+    //glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    glAlphaFunc(GL_GREATER, 0.5);
+    glEnable(GL_ALPHA_TEST);
     glTranslated(pos.x(), pos.y(), layer);
     glScaled(size / fontSize, size / fontSize, 1.);
     glRotated(-angle, 0, 0, 1);

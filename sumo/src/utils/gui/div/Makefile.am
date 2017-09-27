@@ -11,4 +11,5 @@ GUISelectedStorage.cpp GUISelectedStorage.h \
 GUIUserIO.cpp GUIUserIO.h GUIVideoEncoder.h \
 GLHelper.cpp GLHelper.h \
 GUIDesigns.h \
-GLObjectValuePassConnector.h
+GLObjectValuePassConnector.h \
+Roboto.h
