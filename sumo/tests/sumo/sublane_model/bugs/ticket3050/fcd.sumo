@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 31 16:33:48 2017 by SUMO Version dev-SVN-r25768
+<!-- generated on Wed Sep 27 13:23:41 2017 by SUMO Version dev-SVN-r26249
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -50,20 +50,17 @@
     </timestep>
     <timestep time="4.00">
         <vehicle id="ego" x="248.71" y="-3.45" angle="89.53" type="t0" speed="19.45" pos="38.71" lane="end_3" slope="0.00"/>
-        <vehicle id="follower" x="261.05" y="-2.33" angle="91.75" type="t1" speed="27.78" pos="51.05" lane="end_4" slope="0.00"/>
+        <vehicle id="follower" x="261.05" y="-1.33" angle="90.00" type="t1" speed="27.78" pos="51.05" lane="end_4" slope="0.00"/>
         <vehicle id="leader" x="252.71" y="-5.50" angle="90.00" type="t0" speed="19.45" pos="42.71" lane="end_3" slope="0.00"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="ego" x="265.49" y="-3.15" angle="89.47" type="t0" speed="16.77" pos="55.49" lane="end_4" slope="0.00"/>
-        <vehicle id="follower" x="288.83" y="-3.42" angle="91.75" type="t1" speed="27.78" pos="78.83" lane="end_3" slope="0.00"/>
+        <vehicle id="ego" x="268.16" y="-3.15" angle="89.53" type="t0" speed="19.45" pos="58.16" lane="end_4" slope="0.00"/>
+        <vehicle id="follower" x="288.83" y="-1.33" angle="90.00" type="t1" speed="27.78" pos="78.83" lane="end_4" slope="0.00"/>
         <vehicle id="leader" x="272.16" y="-5.50" angle="90.00" type="t0" speed="19.45" pos="62.16" lane="end_3" slope="0.00"/>
     </timestep>
     <timestep time="6.00">
-        <vehicle id="ego" x="277.76" y="-3.15" angle="90.00" type="t0" speed="12.27" pos="67.76" lane="end_4" slope="0.00"/>
+        <vehicle id="ego" x="287.61" y="-2.95" angle="89.53" type="t0" speed="19.45" pos="77.61" lane="end_4" slope="0.00"/>
         <vehicle id="leader" x="291.61" y="-5.50" angle="90.00" type="t0" speed="19.45" pos="81.61" lane="end_3" slope="0.00"/>
     </timestep>
-    <timestep time="7.00">
-        <vehicle id="ego" x="292.63" y="-3.15" angle="90.00" type="t0" speed="14.87" pos="82.63" lane="end_4" slope="0.00"/>
-    </timestep>
-    <timestep time="8.00"/>
+    <timestep time="7.00"/>
 </fcd-export>
