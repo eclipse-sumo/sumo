@@ -81,9 +81,33 @@ public:
     /// @brief Destructor.
     ~GNEEdge();
 
-    /// @brief update pre-computed geometry information
-    /// @note if current editing mode is Move, connection's geometry will not be updated
+    /**@brief update pre-computed geometry information
+     * @note if current editing mode is Move, connection's geometry will not be updated
+     */
     void updateGeometry();
+
+    /****/
+
+    /**@brief change position of a vertex of shape without commiting change
+    * @param[in] index index of Vertex shape
+    * @param[in] newPos The new position of vertex
+    * @return index of vertex (in some cases index can change
+    */
+    int moveVertexShape(int index, const Position& newPos);
+
+    /**@brief move entire shape without commiting change
+    * @param[in] oldShape the old shape of polygon before moving
+    * @param[in] offset the offset of movement
+    */
+    void moveEntireShape(const PositionVector& oldShape, const Position& offset);
+
+    /**@brief commit geometry changes in the attributes of an element after use of changeShapeGeometry(...)
+    * @param[in] oldShape the old shape of polygon
+    * @param[in] undoList The undoList on which to register changes
+    */
+    void commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList);
+
+    /****/
 
     /// @brief registers completed movement with the undoList
     void commitGeometryMoving(const PositionVector& oldShape, double minDistToEnd, GNEUndoList* undoList);
@@ -157,9 +181,10 @@ public:
 
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
     * @param pos position of new/existent vertex
-    * @return index of position vector, or -1 if isn't a geometry point in these position.
+    * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position
+    * @return index of position vector
     */
-    int getVertexIndex(const Position& pos);
+    int getVertexIndex(const Position& pos, bool createIfNoExist = true);
 
     /**@brief deletes the closest geometry node within SNAP_RADIUS.
      * @return true if a node was deleted
@@ -285,6 +310,9 @@ protected:
     /// @brief restore point for undo
     PositionVector myOrigShape;
 
+    /// @brief index of vertex that is been moved (-1 means that none vertex is been moved)
+    int myCurrentMovingVertexIndex;
+
     /// @brief vectgor with the lanes of this edge
     LaneVector myLanes;
 
@@ -310,12 +338,6 @@ private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief invalidated copy constructor
-    GNEEdge(const GNEEdge& s);
-
-    /// @brief invalidated assignment operator
-    GNEEdge& operator=(const GNEEdge& s);
-
     /**@brief changes the number of lanes.
      * When reducing the number of lanes, higher-numbered lanes are removed first.
      * When increasing the number of lanes, the last known attributes for a lane
@@ -338,6 +360,12 @@ private:
 
     /// @brief remove crossing of junction
     void removeEdgeFromCrossings(GNEJunction* junction, GNEUndoList* undoList);
+
+    /// @brief invalidated copy constructor
+    GNEEdge(const GNEEdge& s) = delete;
+
+    /// @brief invalidated assignment operator
+    GNEEdge& operator=(const GNEEdge& s) = delete;
 };
 
 
