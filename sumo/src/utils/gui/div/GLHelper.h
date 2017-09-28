@@ -300,6 +300,9 @@ public:
     /// @brief draw vertex numbers for the given shape (in a random color)
     static void debugVertices(const PositionVector& shape, double size, double layer = 256);
 
+    /// @brief to be called when the font context is invalidated
+    static void resetFont();
+
 private:
     /// @brief normalize angle for lookup in myCircleCoords
     static int angleLookup(double angleDeg);

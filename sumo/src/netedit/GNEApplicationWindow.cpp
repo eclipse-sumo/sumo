@@ -49,6 +49,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIUserIO.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
@@ -1090,6 +1091,7 @@ GNEApplicationWindow::closeAllWindows() {
     myMessageWindow->unregisterMsgHandlers();
     // Reset textures
     GUITextureSubSys::resetTextures();
+    GLHelper::resetFont();
 }
 
 

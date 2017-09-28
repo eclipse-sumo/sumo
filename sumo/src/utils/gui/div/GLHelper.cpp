@@ -456,6 +456,13 @@ GLHelper::getColor() {
 }
 
 
+void 
+GLHelper::resetFont() {
+    glfonsDelete(myFont);
+    myFont = 0;
+}
+
+
 void
 GLHelper::drawText(const std::string& text, const Position& pos,
                      const double layer, const double size,

@@ -78,6 +78,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIUserIO.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -1532,6 +1533,7 @@ GUIApplicationWindow::closeAllWindows() {
     myCartesianCoordinate->setText("N/A");
     //
     GUITexturesHelper::clearTextures();
+    GLHelper::resetFont();
     update();
 }
 
