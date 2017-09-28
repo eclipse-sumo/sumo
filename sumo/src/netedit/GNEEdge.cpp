@@ -186,8 +186,8 @@ GNEEdge::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
     if(myNBEdge.getGeometry().size() > 2 && myNBEdge.getGeometry()[0].distanceTo(myNBEdge.getGeometry()[1]) < buubleRadius) {
         innerShapeToCommit.removeClosest(innerShapeToCommit[0]);
     }
-    if(myNBEdge.getGeometry().size() > 2 && myNBEdge.getGeometry()[myNBEdge.getGeometry().size()-2].distanceTo(myNBEdge.getGeometry()[myNBEdge.getGeometry().size()-1]) < buubleRadius) {
-        innerShapeToCommit.removeClosest(innerShapeToCommit[innerShapeToCommit.size()-1]);
+    if(myNBEdge.getGeometry().size() > 2 && myNBEdge.getGeometry()[(int)myNBEdge.getGeometry().size()-2].distanceTo(myNBEdge.getGeometry()[(int)myNBEdge.getGeometry().size()-1]) < buubleRadius) {
+        innerShapeToCommit.removeClosest(innerShapeToCommit[(int)innerShapeToCommit.size()-1]);
     }
     // second check if double points has to be removed
     innerShapeToCommit.removeDoublePoints(SNAP_RADIUS);

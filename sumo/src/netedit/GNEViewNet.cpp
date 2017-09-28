@@ -629,26 +629,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         for (auto i : selectedJunctions) {
                             myOriginPositionOfMovedJunctions[i] = i->getPositionInView();
                         }
-
-
-
-                        // move edge geometry (endpoints are already moved)
-                        std::vector<GNEEdge*> selectedEdges = myNet->retrieveEdges(true);
-                        for (auto i : selectedEdges) {
-                            if (myOriginPositionOfMovedJunctions.count(i->getGNEJunctionSource()) > 0 &&
-                                myOriginPositionOfMovedJunctions.count(i->getGNEJunctionDestiny()) > 0) {
-                                // edge and its endpoints are selected, move all the inner points as well
-                                myOriginShapesOfMovedEdges[i] = i->getNBEdge()->getInnerGeometry();
-                            }/* else {
-                                // move only geometry near mouse
-                                it->moveGeometry(moveSrc, delta, true);
-                            }*/
-                        }
-
-
-
-
-
                     } else {
                         myJunctionToMove = pointed_junction;
                     }
@@ -657,16 +637,33 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     myMovingReference = getPositionInformation();
                 } else if (pointed_edge) {
                     if (gSelected.isSelected(GLO_EDGE, pointed_edge->getGlID())) {
+                        // enable moving selection
                         myMovingSelection = true;
+                        // obtain Junctions to move
+                        std::vector<GNEJunction*> selectedJunctions = myNet->retrieveJunctions(true);
+                        // save position of current selected junctions (Needed when mouse is released)
+                        for (auto i : selectedJunctions) {
+                            myOriginPositionOfMovedJunctions[i] = i->getPositionInView();
+                        }
+                        // check if both Junctions of pointed_edge belongs to a selected junctions
+                        if((myOriginPositionOfMovedJunctions.count(pointed_edge->getGNEJunctionSource()) > 0 &&
+                            myOriginPositionOfMovedJunctions.count(pointed_edge->getGNEJunctionDestiny()) > 0) == false) {
+                            int index = pointed_edge->getVertexIndex(getPositionInformation());
+                            myEdgeToMove = pointed_edge;
+                            // save original shape (needed for commit change)
+                            myMovingOriginalShape = myEdgeToMove->getNBEdge()->getInnerGeometry();
+                            // obtain index of vertex to move and moving reference
+                            myMovingIndexShape = myEdgeToMove->getVertexIndex(getPositionInformation());
+                        }
                     } else {
                         myEdgeToMove = pointed_edge;
                         // save original shape (needed for commit change)
                         myMovingOriginalShape = myEdgeToMove->getNBEdge()->getInnerGeometry();
                         // obtain index of vertex to move and moving reference
                         myMovingIndexShape = myEdgeToMove->getVertexIndex(getPositionInformation());
-                        myMovingReference = getPositionInformation();
                     }
                     myMovingOriginalPosition = getPositionInformation();
+                    myMovingReference = getPositionInformation();
                 } else if (pointed_additional) {
                     if (gSelected.isSelected(GLO_ADDITIONAL, pointed_additional->getGlID())) {
                         myMovingSelection = true;
@@ -886,7 +883,24 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
 long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
-    if (myPolyToMove) {
+    if (myMovingSelection) {
+        // commit new positions of selected junctions
+        if (myOriginPositionOfMovedJunctions.size() > 0) {
+            myUndoList->p_begin("position of selected elements");
+            // commit positions of moved junctions
+            for (auto i : myOriginPositionOfMovedJunctions) {
+                i.first->commitGeometryMoving(i.second, myUndoList);
+            }
+            myOriginPositionOfMovedJunctions.clear();
+            // if edge to move was edited, save it
+            if (myEdgeToMove) {
+                myEdgeToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
+                myEdgeToMove = 0;
+            }
+            myUndoList->p_end();
+        }
+        myMovingSelection = false;
+    } else if (myPolyToMove) {
         myPolyToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
         myPolyToMove = 0;
     } else if (myPoiToMove) {
@@ -904,19 +918,6 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     } else if (myAdditionalToMove) {
         myAdditionalToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
         myAdditionalToMove = 0;
-    } else if (myMovingSelection) {
-        // positions and shapes are already up to date but we must register with myUndoList
-        myNet->finishMoveSelection(myUndoList);
-        // commit new positions of selected junctions
-        if (myOriginPositionOfMovedJunctions.size() > 0) {
-            myUndoList->p_begin("position of selected elements");
-            for (std::map<GNEJunction*, Position>::const_iterator i = myOriginPositionOfMovedJunctions.begin(); i != myOriginPositionOfMovedJunctions.end(); i++) {
-                i->first->commitGeometryMoving(i->second, myUndoList);
-            }
-            myUndoList->p_end();
-            myOriginPositionOfMovedJunctions.clear();
-        }
-        myMovingSelection = false;
     } else if (myAmInRectSelect) {
         myAmInRectSelect = false;
         // shift held down on mouse-down and mouse-up
@@ -976,7 +977,16 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     } else {
         // calculate offset of movement
         Position offsetMovement = snapToActiveGrid(getPositionInformation() - myMovingReference);
-        if (myPolyToMove) {
+        if (myMovingSelection) {
+            // move selected junctions
+            for(auto i : myOriginPositionOfMovedJunctions) {
+                i.first->moveGeometry(i.second, offsetMovement);
+            }
+            if (myEdgeToMove) {
+                // move edge's geometry without commiting changes
+                myMovingIndexShape = myEdgeToMove->moveVertexShape(myMovingIndexShape, myMovingOriginalPosition, offsetMovement);
+            }
+        } else if (myPolyToMove) {
             // move shape's geometry without commiting changes
             if (myPolyToMove->isShapeBlocked()) {
                 myPolyToMove->moveEntireShape(myMovingOriginalShape, offsetMovement);
@@ -987,13 +997,6 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
             // Move POI's geometry without commiting changes
             myPoiToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
         } else if (myJunctionToMove) {
-            // check if  one of their junctions neighboors is in the position objective
-            std::vector<GNEJunction*> junctionNeighbours = myJunctionToMove->getJunctionNeighbours();
-            for (auto i : junctionNeighbours) {
-                if (i->getPositionInView() == getPositionInformation()) {
-                    return 0;
-                }
-            }
             // Move Junction's geometry without commiting changes
             myJunctionToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
         } else if (myEdgeToMove) {
@@ -1009,26 +1012,10 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
                 // Move additional's geometry without commiting changes
                 myAdditionalToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
             }
-        } else if (myMovingSelection) {
-            // move selected junctions
-            for(auto i : myOriginPositionOfMovedJunctions) {
-                i.first->moveGeometry(i.second, offsetMovement);
-            }
-            // move edge shapes
-            for(auto i : myOriginShapesOfMovedEdges) {
-                i.first->moveEntireShape(i.second, offsetMovement);
-            }
-
-            /*
-            Position moveTarget = getPositionInformation();
-            myNet->moveSelection(myMovingOriginalPosition, moveTarget);
-            myMovingOriginalPosition = moveTarget;
-            */
         } else if (myAmInRectSelect) {
             mySelCorner2 = getPositionInformation();
         }
     }
-
     // update view
     update();
     return 1;
