@@ -4,6 +4,9 @@ none
 # only warn about collisions
 warn
 
+# only warn about physical collisions
+mingap-factor
+
 # teleport the rear vehicle
 teleport
 
