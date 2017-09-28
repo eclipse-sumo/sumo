@@ -386,8 +386,10 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myEndElement(int eleme
         }
         // clear the element data
         myElemData.clear();
+        isConnector = false;
         //std::cout << "elemData len (clear):" << myElemData.size() << std::endl;
         //std::cout.flush();
+        
     }
     --myHierarchyLevel;
 }
