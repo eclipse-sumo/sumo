@@ -917,6 +917,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myNet = ec->myNet;
         // report success
         setStatusBarText("'" + ec->myFile + "' loaded.");
+        setWindowSizeAndPos();
         // initialise views
         myViewNumber = 0;
         GUISUMOAbstractView* view = openNewView();

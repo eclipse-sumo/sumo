@@ -236,10 +236,8 @@ GUIMainWindow::setWindowSizeAndPos() {
                 y = TplConvert::_str2int(windowPos[1]);
             }
         }
-        setX(x);
-        setY(y);
-        setWidth(windowWidth);
-        setHeight(windowHeight);
+        move(x, y);
+        resize(windowWidth, windowHeight);
     }
 }
 

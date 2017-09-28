@@ -1233,6 +1233,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
         } else {
             // report success
             setStatusBarText("'" + ec->myFile + "' loaded.");
+            setWindowSizeAndPos();
             myWasStarted = false;
             myHaveNotifiedAboutSimEnd = false;
             // initialise views
