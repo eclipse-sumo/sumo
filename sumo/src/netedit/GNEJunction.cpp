@@ -467,29 +467,15 @@ GNEJunction::recomputeNeighborsJunctions() {
 }
 
 
-void
-GNEJunction::moveJunctionGeometry(Position pos) {
-    const Position orig = myNBNode.getPosition();
-    myNBNode.reinit(pos, myNBNode.getType());
-    const EdgeVector& incident = getNBNode()->getEdges();
-    for (EdgeVector::const_iterator it = incident.begin(); it != incident.end(); it++) {
-        GNEEdge* edge = myNet->retrieveEdge((*it)->getID());
-        edge->updateJunctionPosition(this, orig);
-    }
-    // recompute neighbors junctions
-    recomputeNeighborsJunctions();
-    // recompute junction
-    //myNet->getNetBuilder()->computeSingleNode(&myNBNode, OptionsCont::getOptions());
-    // Update shapes without include connections, because the aren't showed in Move mode
-    updateShapesAndGeometries();
+void 
+GNEJunction::moveGeometry(const Position & oldPos, const Position & offset) {
+    // calculate new position maintain Z
+    Position newPosition = oldPos;
+    newPosition.add(offset);
+    newPosition.setz(myNBNode.getPosition().z());
+    moveJunctionGeometry(newPosition);
 }
 
-
-void
-GNEJunction::moveJunctionGeometry2D(Position pos2D) {
-    pos2D.setz(myNBNode.getPosition().z());
-    moveJunctionGeometry(pos2D);
-}
 
 void
 GNEJunction::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
@@ -852,10 +838,6 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             // set new position in NBNode
             bool ok;
             moveJunctionGeometry(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
-            // recompute neighbors junctions
-            recomputeNeighborsJunctions();
-            // update geometry
-            updateGeometry();
             // Refresh element to avoid grabbing problems
             myNet->refreshElement(this);
             break;
@@ -949,6 +931,21 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const
             assert(false);
             return 0;
     }
+}
+
+
+void
+GNEJunction::moveJunctionGeometry(const Position &pos) {
+    const Position orig = myNBNode.getPosition();
+    myNBNode.reinit(pos, myNBNode.getType());
+    // set new position of adjacent edges
+    for (auto i :getNBNode()->getEdges()) {
+        myNet->retrieveEdge(i->getID())->updateJunctionPosition(this, orig);
+    }
+    // recompute neighbors junctions
+    recomputeNeighborsJunctions();
+    // Update shapes without include connections, because the aren't showed in Move mode
+    updateShapesAndGeometries();
 }
 
 

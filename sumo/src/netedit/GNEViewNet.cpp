@@ -894,7 +894,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         myPoiToMove = 0;
     } else if (myJunctionToMove) {
         // position is already up to date but we must register with myUndoList
-        if (!mergeJunctions(myJunctionToMove)) {
+        if (!mergeJunctions(myJunctionToMove, myMovingOriginalPosition)) {
             myJunctionToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
         }
         myJunctionToMove = 0;
@@ -995,9 +995,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
                 }
             }
             // Move Junction's geometry without commiting changes
-/** NOTE: This function has to be changes with moveGeometry(...) **/
-            Position TMPOffsetPosition = myMovingReference - getPositionInformation();
-            myJunctionToMove->moveJunctionGeometry2D(snapToActiveGrid(myMovingOriginalPosition - TMPOffsetPosition));
+            myJunctionToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
         } else if (myEdgeToMove) {
             // move edge's geometry without commiting changes
             myMovingIndexShape = myEdgeToMove->moveVertexShape(myMovingIndexShape, myMovingOriginalPosition, offsetMovement);
@@ -1012,11 +1010,11 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
                 myAdditionalToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
             }
         } else if (myMovingSelection) {
-
-            Position TMPOffsetPosition = myMovingReference - getPositionInformation();
+            // move selected junctions
             for(auto i : myOriginPositionOfMovedJunctions) {
-                i.first->moveJunctionGeometry2D(snapToActiveGrid(i.second - TMPOffsetPosition));
+                i.first->moveGeometry(i.second, offsetMovement);
             }
+            // move edge shapes
             for(auto i : myOriginShapesOfMovedEdges) {
                 i.first->moveEntireShape(i.second, offsetMovement);
             }
@@ -2439,7 +2437,7 @@ GNEViewNet::deleteSelectedPolygons() {
 
 
 bool
-GNEViewNet::mergeJunctions(GNEJunction* moved) {
+GNEViewNet::mergeJunctions(GNEJunction* moved, const Position &oldPos) {
     const Position& newPos = moved->getNBNode()->getPosition();
     GNEJunction* mergeTarget = 0;
     // try to find another junction to merge with
@@ -2492,6 +2490,9 @@ GNEViewNet::mergeJunctions(GNEJunction* moved) {
                 }
             }
         }
+        // restore previous position of junction moved
+        moved->moveGeometry(oldPos, Position(0,0));
+        // merge moved and targed junctions
         myNet->mergeJunctions(moved, mergeTarget, myUndoList);
         return true;
     } else {

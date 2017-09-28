@@ -564,7 +564,7 @@ private:
     void deleteSelectedPolygons();
 
     /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
-    bool mergeJunctions(GNEJunction* moved);
+    bool mergeJunctions(GNEJunction* moved, const Position &oldPos);
 
     /// @brief try to retrieve an edge under mouse
     GNEEdge* getEdgeAtPopupPosition();

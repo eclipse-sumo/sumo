@@ -120,7 +120,6 @@ public:
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
      * @param[in] newPosition new position of geometry
-     * @note should't be called in drawGL(...) functions to avoid smoothness issues
      */
     virtual void moveGeometry(const Position& oldPos, const Position &offset) = 0;
 

@@ -728,11 +728,8 @@ GNENet::addReversedEdge(GNEEdge* edge, GNEUndoList* undoList) {
 void
 GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* undoList) {
     undoList->p_begin("merge " + toString(SUMO_TAG_JUNCTION) + "s");
-    // position of moved and target are probably a bit different (snap radius)
-    Position oldPos = moved->getNBNode()->getPosition();
-    moved->moveJunctionGeometry(target->getNBNode()->getPosition());
-    // register the move with undolist (must happend within the undo group)
-    moved->commitGeometryMoving(oldPos, undoList);
+    // place moved junction in the same position of target junction
+    moved->setAttribute(SUMO_ATTR_POSITION, target->getAttribute(SUMO_ATTR_POSITION), undoList);
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector incoming = moved->getNBNode()->getIncomingEdges();
     for (EdgeVector::const_iterator it = incoming.begin(); it != incoming.end(); it++) {
@@ -745,6 +742,7 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
         GNEEdge* oldEdge = myEdges[(*it)->getID()];
         remapEdge(oldEdge, target, oldEdge->getGNEJunctionDestiny(), undoList);
     }
+    // deleted moved junction
     deleteJunction(moved, undoList);
     undoList->p_end();
 }
@@ -1588,7 +1586,7 @@ GNENet::moveSelection(const Position& moveSrc, const Position& moveDest) {
     // move junctions
     for (auto it : junctions) {
         Position newPos = it->getNBNode()->getPosition() + delta;
-        it->moveJunctionGeometry(newPos);
+        //it->moveJunctionGeometry(newPos);
         junctionSet.insert(it);
     }
 

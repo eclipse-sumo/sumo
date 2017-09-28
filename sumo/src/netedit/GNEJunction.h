@@ -160,19 +160,10 @@ public:
     /// @brief recompute neighbors junctions
     void recomputeNeighborsJunctions();
 
-    /**@brief reposition the node at pos and informs the edges
-     * @param[in] pos The new position
-     * @note: those operations are not added to the undoList. This is handled in
-     * registerMove to avoids merging lots of tiny movements
-     */
-    void moveJunctionGeometry(Position pos);
-
-    /**@brief reposition the node as above but keep the old z value
-     * @param[in] pos The new position
-     * @note: those operations are not added to the undoList. This is handled in
-     * registerMove to avoids merging lots of tiny movements
-     */
-    void moveJunctionGeometry2D(Position pos2D);
+    /**@brief change the position of the element geometry without saving in undoList
+    * @param[in] oldPos old position before start moving
+    */
+    void moveGeometry(const Position& oldPos, const Position &offset);
 
     /// @brief registers completed movement with the undoList
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
@@ -280,6 +271,12 @@ private:
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /**@brief reposition the node at pos and informs the edges
+    * @param[in] pos The new position
+    * @note: those operations are not added to the undoList.
+    */
+    void moveJunctionGeometry(const Position &pos);
 
     /// @brief sets junction color depending on circumstances
     void setColor(const GUIVisualizationSettings& s, bool bubble) const;
