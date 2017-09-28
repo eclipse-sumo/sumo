@@ -35,6 +35,8 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
 #include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <fxkeys.h>
 #include "GUIMessageWindow.h"
 
 
@@ -145,6 +147,9 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
         if (glObj != 0) {
             child->setView(glObj->getGlID());
             GUIGlObjectStorage::gIDStorage.unblockObject(glObj->getGlID());
+            if (getApp()->getKeyState(KEY_Control_L)) {
+                gSelected.toggleSelection(glObj->getGlID());
+            }
         }
     }
 }
