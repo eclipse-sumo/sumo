@@ -44,6 +44,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <netbuild/NBTrafficLightLogic.h>
 
 #include "GNECrossing.h"
 #include "GNEJunction.h"
@@ -218,6 +219,8 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
             return myCrossing->priority ? "true" : "false";
         case SUMO_ATTR_EDGES:
             return toString(myCrossing->edges);
+        case SUMO_ATTR_TLLINKINDEX:
+            return toString(myCrossing->customTLIndex);
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(myCrossing->customShape);
         default:
@@ -237,6 +240,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_PRIORITY:
+        case SUMO_ATTR_TLLINKINDEX:
         case SUMO_ATTR_CUSTOMSHAPE:
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
@@ -265,6 +269,10 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && isPositive<double>(value);
         case SUMO_ATTR_PRIORITY:
             return canParse<bool>(value);
+        case SUMO_ATTR_TLLINKINDEX:
+            return (myCrossing->tlID != "" && canParse<int>(value) && isPositive<int>(value) 
+                    && myParentJunction->getNBNode()->getControllingTLS().size() > 0
+                    && (*myParentJunction->getNBNode()->getControllingTLS().begin())->compute(OptionsCont::getOptions())->getNumLinks() > parse<int>(value));
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok = true;
             PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
@@ -324,6 +332,9 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_PRIORITY:
             myCrossing->priority = parse<bool>(value);
+            break;
+        case SUMO_ATTR_TLLINKINDEX:
+            myCrossing->customTLIndex = parse<int>(value);
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok;

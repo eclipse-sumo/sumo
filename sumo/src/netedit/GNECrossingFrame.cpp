@@ -615,6 +615,7 @@ GNECrossingFrame::onCmdCreateCrossing(FXObject*, FXSelector, void*) {
                                           myCrossingParameters->getCrossingEdges(),
                                           myCrossingParameters->getCrossingWidth(),
                                           myCrossingParameters->getCrossingPriority(),
+                                          -1,
                                           PositionVector::EMPTY,
                                           false, true), true);
             // clear selected edges

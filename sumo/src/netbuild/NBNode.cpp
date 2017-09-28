@@ -220,6 +220,16 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
     return ret;
 }
 
+NBNode::Crossing::Crossing(const NBNode* _node, const EdgeVector& _edges, double _width, bool _priority, int _customTLIndex,  const PositionVector& _customShape) :
+            node(_node),
+            edges(_edges),
+            width(_width),
+            priority(_priority),
+            customShape(_customShape),
+            tlLinkNo(_customTLIndex),
+            customTLIndex(_customTLIndex),
+            valid(true) 
+{ }
 
 /* -------------------------------------------------------------------------
  * NBNode-methods
@@ -2590,9 +2600,9 @@ NBNode::setRoundabout() {
 
 
 void
-NBNode::addCrossing(EdgeVector edges, double width, bool priority, 
+NBNode::addCrossing(EdgeVector edges, double width, bool priority, int tlIndex,
         const PositionVector& customShape, bool fromSumoNet) {
-    myCrossings.push_back(new Crossing(this, edges, width, priority, customShape));
+    myCrossings.push_back(new Crossing(this, edges, width, priority, tlIndex, customShape));
     if (fromSumoNet) {
         myCrossingsLoadedFromSumoNet += 1;
     }
@@ -2630,6 +2640,9 @@ NBNode::setCrossingTLIndices(const std::string& tlID, int startIndex) {
     for (auto c : getCrossings()) {
         c->tlLinkNo = startIndex++;
         c->tlID = tlID;
+        if (c->customTLIndex != -1) {
+            c->tlLinkNo = c->customTLIndex;
+        }
     }
 }
 

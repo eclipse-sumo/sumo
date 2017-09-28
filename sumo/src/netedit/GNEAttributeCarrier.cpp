@@ -330,6 +330,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_EDGES, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PRIORITY, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "3"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TLLINKINDEX, "-1"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CUSTOMSHAPE, ""));
                 break;
             case SUMO_TAG_CONNECTION:
@@ -641,13 +642,14 @@ GNEAttributeCarrier::isInt(SumoXMLTag tag, SumoXMLAttr attr) {
         // connection
         myNumericalIntAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_FROM_LANE);
         myNumericalIntAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_TO_LANE);
+        myNumericalIntAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_TLLINKINDEX);
         // edge
         myNumericalIntAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_NUMLANES);
         myNumericalIntAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_PRIORITY);
         // lane
         myNumericalIntAttrs[SUMO_TAG_LANE].insert(SUMO_ATTR_INDEX);
-        // connection
-        myNumericalIntAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_TLLINKINDEX);
+        // crossing
+        myNumericalIntAttrs[SUMO_TAG_CROSSING].insert(SUMO_ATTR_TLLINKINDEX);
         // flow
         myNumericalIntAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PROB);
         myNumericalIntAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PERSON_NUMBER);
@@ -1244,6 +1246,7 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_CROSSING][SUMO_ATTR_PRIORITY] = "Whether the pedestrians have priority over the vehicles (automatically set to true at tls-controlled intersections).";
         myAttrDefinitions[SUMO_TAG_CROSSING][SUMO_ATTR_WIDTH] = "The width of the crossings.";
         myAttrDefinitions[SUMO_TAG_CROSSING][SUMO_ATTR_EDGES] = "The (road) edges which are crossed.";
+        myAttrDefinitions[SUMO_TAG_CONNECTION][SUMO_ATTR_TLLINKINDEX] = "sets the tls-index for this crossing.";
         myAttrDefinitions[SUMO_TAG_CROSSING][SUMO_ATTR_CUSTOMSHAPE] = "Overrids default shape of pedestrian crossing.";
         // Connection
         myAttrDefinitions[SUMO_TAG_CONNECTION][SUMO_ATTR_FROM] = "The name of the edge the vehicles leave ";

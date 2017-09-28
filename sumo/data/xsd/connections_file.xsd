@@ -67,6 +67,7 @@
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="discard" type="boolType" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
+        <xsd:attribute name="linkIndex" type="xsd:integer" use="optional"/>
     </xsd:complexType>
     
     <xsd:complexType name="walkingAreaType">

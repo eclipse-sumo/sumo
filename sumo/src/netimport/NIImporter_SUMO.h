@@ -283,11 +283,15 @@ private:
      * @brief Describes a pedestrian crossing
      */
     struct Crossing {
+        Crossing(const std::string& _edgeID) :
+            edgeID(_edgeID), customTLIndex(-1) {}
+
         std::string edgeID;
         std::vector<std::string> crossingEdges;
         double width;
         bool priority;
         PositionVector customShape;
+        int customTLIndex;
     };
 
     /** @struct WalkingAreaParsedCustomShape
