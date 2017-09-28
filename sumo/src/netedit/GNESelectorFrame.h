@@ -127,6 +127,10 @@ public:
     long onCmdScaleSelection(FXObject*, FXSelector, void*);
     /// @}
 
+    bool locked(GUIGlObjectType type) {
+        return myTypeEntries[type].locked->getCheck();
+    }
+
     /**@brief apply list of ids to the current selection according to SetOperation,
      * @note if setop==SET_DEFAULT than the currently set mode (mySetOperation) is used
      */

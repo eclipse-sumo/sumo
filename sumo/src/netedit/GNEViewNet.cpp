@@ -774,8 +774,10 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             }
             case GNE_MODE_SELECT:
                 if ((pointed_lane != NULL) && mySelectEdges) {
-                    gSelected.toggleSelection(pointed_edge->getGlID());
-                } else if (pointed) {
+                    if (!myViewParent->getSelectorFrame()->locked(GLO_EDGE)) {
+                        gSelected.toggleSelection(pointed_edge->getGlID());
+                    }
+                } else if (pointed && !myViewParent->getSelectorFrame()->locked(pointed->getType())) {
                     gSelected.toggleSelection(pointed->getGlID());
                 }
 
