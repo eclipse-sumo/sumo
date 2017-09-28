@@ -122,7 +122,7 @@ public:
      * @param[in] newPosition new position of geometry
      * @note should't be called in drawGL(...) functions to avoid smoothness issues
      */
-    virtual void moveGeometry(const Position& newPosition) = 0;
+    virtual void moveGeometry(const Position& oldPos, const Position &offset) = 0;
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
      * @param[in] oldPos the old position of additional

@@ -231,7 +231,7 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
 
 
 void
-GNECalibrator::moveGeometry(const Position&) {
+GNECalibrator::moveGeometry(const Position&, const Position&) {
     // This additional cannot be moved currently
 }
 

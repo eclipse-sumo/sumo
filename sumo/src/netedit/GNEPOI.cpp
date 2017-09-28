@@ -81,9 +81,11 @@ void GNEPOI::writeShape(OutputDevice& device) {
 
 
 void
-GNEPOI::moveGeometry(const Position& newPosition) {
+GNEPOI::moveGeometry(const Position& oldPos, const Position &offset) {
     if (!myBlockMovement) {
-        set(newPosition);
+        // restore old position, apply offset and refresh element
+        set(oldPos);
+        add(offset);
         myNet->refreshElement(this);
     }
 }

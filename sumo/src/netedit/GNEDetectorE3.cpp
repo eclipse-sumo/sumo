@@ -126,9 +126,10 @@ GNEDetectorE3::getPositionInView() const {
 
 
 void
-GNEDetectorE3::moveGeometry(const Position& newPosition) {
-    // change Position
-    myPosition = newPosition;
+GNEDetectorE3::moveGeometry(const Position& oldPos, const Position &offset) {
+    // restore old position, apply offset and update Geometry
+    myPosition = oldPos;
+    myPosition.add(offset);
     updateGeometry();
 }
 

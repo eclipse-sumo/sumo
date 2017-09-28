@@ -950,18 +950,18 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
             myViewParent->getDeleteFrame()->updateCurrentLabel(ac);
         }
     } else {
+        // calculate offset of movement
+        Position offsetMovement = snapToActiveGrid(getPositionInformation() - myMovingReference);
         if (myPolyToMove) {
-            // Calculate movement offset and move geometry of shape
-            Position offsetPosition = snapToActiveGrid(getPositionInformation() - myMovingReference);
+            // move shape's geometry without commiting changes
             if (myPolyToMove->isShapeBlocked()) {
-                myPolyToMove->moveEntireShape(myMovingOriginalShape, offsetPosition);
+                myPolyToMove->moveEntireShape(myMovingOriginalShape, offsetMovement);
             } else {
-                myMovingIndexShape = myPolyToMove->moveVertexShape(myMovingIndexShape, myMovingOriginalPosition, offsetPosition);
+                myMovingIndexShape = myPolyToMove->moveVertexShape(myMovingIndexShape, myMovingOriginalPosition, offsetMovement);
             }
         } else if (myPoiToMove) {
-            // Calculate movement offset and move geometry of junction
-            Position offsetPosition = myMovingReference - getPositionInformation();
-            myPoiToMove->moveGeometry(snapToActiveGrid(myMovingOriginalPosition - offsetPosition));
+            // Move POI's geometry without commiting changes
+            myPoiToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
         } else if (myJunctionToMove) {
             // check if  one of their junctions neighboors is in the position objective
             std::vector<GNEJunction*> junctionNeighbours = myJunctionToMove->getJunctionNeighbours();
@@ -970,23 +970,22 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
                     return 0;
                 }
             }
-            // Calculate movement offset and move geometry of junction
-            Position offsetPosition = myMovingReference - getPositionInformation();
-            myJunctionToMove->moveJunctionGeometry2D(snapToActiveGrid(myMovingOriginalPosition - offsetPosition));
+            // Move Junction's geometry without commiting changes
+            /** NOTE: This function has to be changes with moveGeometry(...) **/
+            Position TMPOffsetPosition = myMovingReference - getPositionInformation();
+            myJunctionToMove->moveJunctionGeometry2D(snapToActiveGrid(myMovingOriginalPosition - TMPOffsetPosition));
         } else if (myEdgeToMove) {
-            // Calculate movement offset and move geometry of edge
-            Position offsetPosition = snapToActiveGrid(getPositionInformation() - myMovingReference);
-            myMovingIndexShape = myEdgeToMove->moveVertexShape(myMovingIndexShape, myMovingOriginalPosition, offsetPosition);
+            // move edge's geometry without commiting changes
+            myMovingIndexShape = myEdgeToMove->moveVertexShape(myMovingIndexShape, myMovingOriginalPosition, offsetMovement);
         } else if (myAdditionalToMove  && (myAdditionalToMove->isAdditionalBlocked() == false)) {
             // If additional is placed over lane, move it across it
             if (myAdditionalToMove->getLane()) {
                 double posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false);
-                myAdditionalToMove->moveGeometry(Position(posOfMouseOverLane - myMovingReference.x(), 0));
+                myAdditionalToMove->moveGeometry(myMovingOriginalPosition, Position(posOfMouseOverLane - myMovingReference.x(), 0));
                 myMovingReference.set(posOfMouseOverLane, 0, 0);
             } else {
-                // Calculate movement offset and move geometry of junction
-                Position offsetPosition = myMovingReference - getPositionInformation();
-                myAdditionalToMove->moveGeometry(snapToActiveGrid(myMovingOriginalPosition - offsetPosition));
+                // Move additional's geometry without commiting changes
+                myAdditionalToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
             }
         } else if (myMovingSelection) {
             Position moveTarget = getPositionInformation();

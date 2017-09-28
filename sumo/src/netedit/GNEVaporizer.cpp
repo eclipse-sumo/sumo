@@ -138,7 +138,7 @@ GNEVaporizer::getPositionInView() const {
 
 
 void
-GNEVaporizer::moveGeometry(const Position&) {
+GNEVaporizer::moveGeometry(const Position&, const Position&) {
     // This additional cannot be moved
 }
 

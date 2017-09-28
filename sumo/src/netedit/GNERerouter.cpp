@@ -125,9 +125,10 @@ GNERerouter::openAdditionalDialog() {
 
 
 void
-GNERerouter::moveGeometry(const Position& newPosition) {
-    // change Position
-    myPosition = newPosition;
+GNERerouter::moveGeometry(const Position& oldPos, const Position &offset) {
+    // restore old position, apply offset and update Geometry
+    myPosition = oldPos;
+    myPosition.add(offset);
     updateGeometry();
 }
 

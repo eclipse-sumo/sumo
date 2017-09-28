@@ -139,7 +139,7 @@ GNERouteProbe::getPositionInView() const {
 
 
 void
-GNERouteProbe::moveGeometry(const Position&) {
+GNERouteProbe::moveGeometry(const Position&, const Position&) {
     // This additional cannot be moved
 }
 

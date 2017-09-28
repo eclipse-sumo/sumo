@@ -85,13 +85,13 @@ GNEStoppingPlace::getPositionInView() const {
 
 
 void
-GNEStoppingPlace::moveGeometry(const Position& newPosition) {
+GNEStoppingPlace::moveGeometry(const Position& oldPos, const Position &offset) {
     // First we need to change the absolute new positions to a relative positions
     double lenghtDifference = 0;
     if (myLane->getLaneShapeLength() > 0) {
         lenghtDifference = myLane->getLaneParametricLength() / myLane->getLaneShapeLength();
     }
-    double relativePos = newPosition.x() / myLane->getLaneParametricLength() * lenghtDifference;
+    double relativePos = offset.x() / myLane->getLaneParametricLength() * lenghtDifference;
     // change start position of stopping place
     myStartPosRelative += relativePos;
     myEndPosRelative += relativePos;

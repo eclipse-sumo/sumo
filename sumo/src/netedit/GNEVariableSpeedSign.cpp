@@ -119,9 +119,10 @@ GNEVariableSpeedSign::openAdditionalDialog() {
 
 
 void
-GNEVariableSpeedSign::moveGeometry(const Position& newPosition) {
-    // change Position
-    myPosition = newPosition;
+GNEVariableSpeedSign::moveGeometry(const Position& oldPos, const Position &offset) {
+    // restore old position, apply offset and update Geometry
+    myPosition = oldPos;
+    myPosition.add(offset);
     updateGeometry();
 }
 
