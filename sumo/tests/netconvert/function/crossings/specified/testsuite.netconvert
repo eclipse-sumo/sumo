@@ -29,6 +29,12 @@
 # 4 arm junction without crossing but with walkingareas re-import from net.xml
 4_arm_0_walkingareas_sumonet
 
+# 4 arm junction with crossings on all sides and custom tl indices
+4_arm_customTLIndex
+
+# 4 arm junction with crossings on all sides and custom tl indices
+sumonet_customTLIndex
+
 # 4 arm junction with 1 crossing
 4_arm_1
 
