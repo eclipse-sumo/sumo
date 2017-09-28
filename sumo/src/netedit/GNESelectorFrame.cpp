@@ -77,14 +77,32 @@ FXIMPLEMENT(GNESelectorFrame, FXVerticalFrame, GNESelectorFrameMap, ARRAYNUMBER(
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+
+GNESelectorFrame::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2) { 
+    count = new FXLabel(parent, "0", 0, GUIDesignLabelLeft);
+    typeName = new FXLabel(parent, label.c_str(), 0, GUIDesignLabelLeft);
+    locked = new FXMenuCheck(parent, ("lock\t\tLock " + label2 + " selection").c_str(), parent, 0, LAYOUT_FILL_X | LAYOUT_RIGHT);
+}
+
+
 GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
     GNEFrame(horizontalFrameParent, viewNet, "Selection"),
     mySetOperation(SET_ADD),
     myCurrentTag(SUMO_TAG_NOTHING),
     myCurrentAttribute(SUMO_ATTR_NOTHING) {
-    // create combo box and label for selected items
-    FXGroupBox* mySelectedItemsComboBox = new FXGroupBox(myContentFrame, "Selected items", GUIDesignGroupBoxFrame);
-    mySelectedItems = new FXLabel(mySelectedItemsComboBox, "", 0, GUIDesignLabelLeft);;
+    // create combo box and labels for selected items
+    FXGroupBox* mySelectedItemsComboBox = new FXGroupBox(myContentFrame, "Selected items", 0, GUIDesignGroupBoxFrame);
+    FXMatrix* mSelectedItems = new FXMatrix(mySelectedItemsComboBox, 3, (LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+    myTypeEntries[GLO_JUNCTION] = ObjectTypeEntry(mSelectedItems, "Junctions", "junction");
+    myTypeEntries[GLO_EDGE] = ObjectTypeEntry(mSelectedItems, "Edges", "edge");
+    myTypeEntries[GLO_LANE] = ObjectTypeEntry(mSelectedItems, "Lanes", "lane");
+    myTypeEntries[GLO_CONNECTION] = ObjectTypeEntry(mSelectedItems, "Connections", "connection");
+    myTypeEntries[GLO_ADDITIONAL] = ObjectTypeEntry(mSelectedItems, "Additionals", "additional");
+    myTypeEntries[GLO_CROSSING] = ObjectTypeEntry(mSelectedItems, "Crossings", "crossing");
+    myTypeEntries[GLO_POLYGON] = ObjectTypeEntry(mSelectedItems, "Polygons", "polygon");
+    myTypeEntries[GLO_POI] = ObjectTypeEntry(mSelectedItems, "POIs", "POI");
     // create combo box for selection modification mode
     FXGroupBox* selBox = new FXGroupBox(myContentFrame, "Modification Mode", GUIDesignGroupBoxFrame);
     // Create all options buttons
@@ -579,18 +597,16 @@ GNESelectorFrame::selectionUpdated() {
                       toString(gSelected.getSelected(GLO_POLYGON).size()) + " Polygons, " +
                       toString(gSelected.getSelected(GLO_POI).size()) + " POIs");
     }
-    // update mySelectedItems label
-    std::ostringstream selection;
-    selection
-            << toString(gSelected.getSelected(GLO_JUNCTION).size()) + " Junctions\n"
-            << toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges\n"
-            << toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes\n"
-            << toString(gSelected.getSelected(GLO_CONNECTION).size()) + " Connections\n"
-            << toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals\n"
-            << toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings\n"
-            << toString(gSelected.getSelected(GLO_POLYGON).size()) + " Polygons\n"
-            << toString(gSelected.getSelected(GLO_POI).size()) + " POIs";
-    mySelectedItems->setText(selection.str().c_str());
+    // update labels
+
+    myTypeEntries[GLO_JUNCTION].count->setText(toString(gSelected.getSelected(GLO_JUNCTION).size()).c_str());
+    myTypeEntries[GLO_EDGE].count->setText(toString(gSelected.getSelected(GLO_EDGE).size()).c_str());
+    myTypeEntries[GLO_LANE].count->setText(toString(gSelected.getSelected(GLO_LANE).size()).c_str());
+    myTypeEntries[GLO_CONNECTION].count->setText(toString(gSelected.getSelected(GLO_CONNECTION).size()).c_str());
+    myTypeEntries[GLO_ADDITIONAL].count->setText(toString(gSelected.getSelected(GLO_ADDITIONAL).size()).c_str());
+    myTypeEntries[GLO_CROSSING].count->setText(toString(gSelected.getSelected(GLO_CROSSING).size()).c_str());
+    myTypeEntries[GLO_POLYGON].count->setText(toString(gSelected.getSelected(GLO_POLYGON).size()).c_str());
+    myTypeEntries[GLO_POI].count->setText(toString(gSelected.getSelected(GLO_POI).size()).c_str());
     update();
 }
 

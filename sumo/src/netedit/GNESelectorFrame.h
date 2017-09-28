@@ -143,9 +143,6 @@ private:
     /// @brief how to modify selection
     SetOperation mySetOperation;
 
-    /// @brief label with the list of current selected elements
-    FXLabel* mySelectedItems;
-
     /// @brief add radio button
     FXRadioButton* myAddRadioButton;
 
@@ -178,6 +175,17 @@ private:
 
     /// @brief current SumoXMLTag Attribute
     SumoXMLAttr myCurrentAttribute;
+
+    struct ObjectTypeEntry {
+        ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2); 
+        ObjectTypeEntry() : count(0), typeName(0), locked(0) {}
+        FXLabel* count;
+        FXLabel* typeName;
+        FXMenuCheck* locked;
+    };
+
+    /// @brief check boxes for type-based selection locking and selected object counts
+    std::map<GUIGlObjectType, ObjectTypeEntry> myTypeEntries;
 
 private:
     /**@brief return  objects of the given type with matching attrs
