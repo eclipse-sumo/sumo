@@ -1111,6 +1111,8 @@ GNEViewNet::hotkeyEnter() {
             // start drawing
             myViewParent->getPolygonFrame()->getDrawingMode()->startDrawing();
         }
+    } else if (myEditMode == GNE_MODE_CROSSING) {
+        myViewParent->getCrossingFrame()->onCmdCreateCrossing(0, 0, 0);
     }
 }
 
