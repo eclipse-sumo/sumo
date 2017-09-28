@@ -93,7 +93,7 @@ public:
     * @param[in] newPos The new position of vertex
     * @return index of vertex (in some cases index can change
     */
-    int moveVertexShape(int index, const Position& newPos);
+    int moveVertexShape(const int index, const Position& oldPos, const Position &offset);
 
     /**@brief move entire shape without commiting change
     * @param[in] oldShape the old shape of polygon before moving

@@ -135,7 +135,7 @@ GNEEdge::updateGeometry() {
 
 
 int
-GNEEdge::moveVertexShape(int index, const Position& newPos) {
+GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position &offset) {
     // obtain inner geometry of edge
     PositionVector edgeGeometry = myNBEdge.getGeometry();
     // Make sure that index is valid AND ins't the first and last index
@@ -145,7 +145,8 @@ GNEEdge::moveVertexShape(int index, const Position& newPos) {
             // save current moving vertex
             myCurrentMovingVertexIndex = index;
             // change position of vertex
-            edgeGeometry[index] = newPos;
+            edgeGeometry[index] = oldPos;
+            edgeGeometry[index].add(offset);
             // update edge's geometry
             setGeometry(edgeGeometry, false);
             return index;

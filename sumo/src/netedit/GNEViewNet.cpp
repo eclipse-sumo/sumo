@@ -603,10 +603,12 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     myPolyToMove = pointed_poly;
                     // save original shape (needed for commit change)
                     myMovingOriginalShape = myPolyToMove->getShape();
+                    // save clicked position as moving original position
+                    myMovingOriginalPosition = getPositionInformation();
                     // obtain index of vertex to move if shape isn't blocked
                     if ((myPolyToMove->isShapeBlocked() == false) && (myPolyToMove->isMovementBlocked() == false)) {
                         // obtain index of vertex to move and moving reference
-                        myMovingIndexShape = myPolyToMove->getVertexIndex(getPositionInformation());
+                        myMovingIndexShape = myPolyToMove->getVertexIndex(myMovingOriginalPosition);
                     } else {
                         myMovingIndexShape = -1;
                     }
@@ -950,11 +952,11 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     } else {
         if (myPolyToMove) {
             // Calculate movement offset and move geometry of shape
-            Position offsetPosition = myMovingReference - getPositionInformation();
+            Position offsetPosition = snapToActiveGrid(getPositionInformation() - myMovingReference);
             if (myPolyToMove->isShapeBlocked()) {
-                myPolyToMove->moveEntireShape(myMovingOriginalShape, snapToActiveGrid(offsetPosition));
+                myPolyToMove->moveEntireShape(myMovingOriginalShape, offsetPosition);
             } else {
-                myMovingIndexShape = myPolyToMove->moveVertexShape(myMovingIndexShape, snapToActiveGrid(getPositionInformation()));
+                myMovingIndexShape = myPolyToMove->moveVertexShape(myMovingIndexShape, myMovingOriginalPosition, offsetPosition);
             }
         } else if (myPoiToMove) {
             // Calculate movement offset and move geometry of junction
@@ -973,8 +975,8 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
             myJunctionToMove->moveJunctionGeometry2D(snapToActiveGrid(myMovingOriginalPosition - offsetPosition));
         } else if (myEdgeToMove) {
             // Calculate movement offset and move geometry of edge
-            Position offsetPosition = myMovingReference - getPositionInformation();
-            myMovingIndexShape = myEdgeToMove->moveVertexShape(myMovingIndexShape, snapToActiveGrid(getPositionInformation()));
+            Position offsetPosition = snapToActiveGrid(getPositionInformation() - myMovingReference);
+            myMovingIndexShape = myEdgeToMove->moveVertexShape(myMovingIndexShape, myMovingOriginalPosition, offsetPosition);
         } else if (myAdditionalToMove  && (myAdditionalToMove->isAdditionalBlocked() == false)) {
             // If additional is placed over lane, move it across it
             if (myAdditionalToMove->getLane()) {

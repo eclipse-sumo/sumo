@@ -87,7 +87,7 @@ GNEPoly::~GNEPoly() {}
 
 
 int
-GNEPoly::moveVertexShape(int index, const Position& newPos) {
+GNEPoly::moveVertexShape(const int index, const Position& oldPos, const Position &offset) {
     // only move shape if block movement block shape are disabled
     if (!myBlockMovement && !myBlockShape && (index != -1)) {
         // check that index is correct before change position
@@ -96,16 +96,21 @@ GNEPoly::moveVertexShape(int index, const Position& newPos) {
             myCurrentMovingVertexIndex = index;
             // if closed shape and cliked is first or last, move both giving more priority to first always
             if (myClosedShape && (index == 0 || index == (int)myShape.size() - 1)) {
-                myShape.front() = newPos;
-                myShape.back() = newPos;
+                myShape.front() = oldPos;
+                myShape.front().add(offset);
+                myShape.back() = oldPos;
+                myShape.back().add(offset);
                 return 0;
             } else {
                 // change position of vertex
-                myShape[index] = newPos;
+                myShape[index] = oldPos;
+                myShape[index].add(offset);
+                    /*
                 // update geometry of shape edited element
                 if(myNetElementShapeEdited) {
                     myNetElementShapeEdited->updateGeometry();
                 }
+                */
                 return index;
             }
         } else {
