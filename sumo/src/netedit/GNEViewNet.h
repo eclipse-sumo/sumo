@@ -438,9 +438,15 @@ private:
     /// @brief whether a selection is being moved
     bool myMovingSelection;
 
-    /// @brief Junctions that are being moved
+    /// @brief Selected Junctions that are being moved
     /** NOTE: IN the future will be changed to std::map<GNENetElement*, Position> **/
-    std::map<GNEJunction*, Position> myOriginPostionOfMovedJunctions;
+    std::map<GNEJunction*, Position> myOriginPositionOfMovedJunctions;
+
+    /// @brief Selected Edges that are being moved < Edge, <index, oldPosition> >
+    std::map<GNEEdge*, std::pair<int, Position> > myOriginPositionOfMovedEdges;
+
+    /// @brief Selected Edges that are being moved < Edge, PositionVector >
+    std::map<GNEEdge*, PositionVector> myOriginShapesOfMovedEdges;
     // @}
 
     /// @name state-variables of inspect-mode and select-mode
