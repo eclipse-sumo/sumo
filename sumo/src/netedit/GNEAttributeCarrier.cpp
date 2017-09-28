@@ -342,6 +342,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CONTPOS, toString(NBEdge::UNSPECIFIED_CONTPOS)));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_UNCONTROLLED, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_VISIBILITY_DISTANCE, toString(NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE)));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TLLINKINDEX, "-1"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SPEED, toString(NBEdge::UNSPECIFIED_SPEED)));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CUSTOMSHAPE, ""));
                 break;
@@ -645,6 +646,8 @@ GNEAttributeCarrier::isInt(SumoXMLTag tag, SumoXMLAttr attr) {
         myNumericalIntAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_PRIORITY);
         // lane
         myNumericalIntAttrs[SUMO_TAG_LANE].insert(SUMO_ATTR_INDEX);
+        // connection
+        myNumericalIntAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_TLLINKINDEX);
         // flow
         myNumericalIntAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PROB);
         myNumericalIntAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PERSON_NUMBER);
@@ -1252,6 +1255,7 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_CONNECTION][SUMO_ATTR_CONTPOS] = "If set to a more than 0 value, an internal junction will be built at this position (in m) from the start of the internal lane for this connection.";
         myAttrDefinitions[SUMO_TAG_CONNECTION][SUMO_ATTR_UNCONTROLLED] = "If set to true, This connection will not be TLS-controlled despite its node being controlled.";
         myAttrDefinitions[SUMO_TAG_CONNECTION][SUMO_ATTR_VISIBILITY_DISTANCE] = "sets the distance to the connection at which all relevant foes are visible.";
+        myAttrDefinitions[SUMO_TAG_CONNECTION][SUMO_ATTR_TLLINKINDEX] = "sets the tls-index for this connection.";
         myAttrDefinitions[SUMO_TAG_CONNECTION][SUMO_ATTR_SPEED] = "sets custom speed limit for the connection.";
         myAttrDefinitions[SUMO_TAG_CONNECTION][SUMO_ATTR_CUSTOMSHAPE] = "sets custom shape for the connection.";
         // Bus Stop

@@ -45,6 +45,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <netbuild/NBLoadedSUMOTLDef.h>
 
 #include "GNEConnection.h"
 #include "GNEJunction.h"
@@ -52,6 +53,7 @@
 #include "GNELane.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
+#include "GNEChange_TLS.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEInternalLane.h"
@@ -325,6 +327,8 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return toString(nbCon.uncontrolled);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return toString(nbCon.visibility);
+        case SUMO_ATTR_TLLINKINDEX: 
+            return toString(nbCon.tlLinkNo);
         case SUMO_ATTR_SPEED:
             return toString(nbCon.speed);
         case SUMO_ATTR_CUSTOMSHAPE:
@@ -352,6 +356,27 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             // no special handling
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
+        case SUMO_ATTR_TLLINKINDEX:
+            if (value != getAttribute(key)) {
+                // trigger GNEChange_TLS
+                undoList->p_begin("change tls linkIndex for connection");
+                // make a copy
+                std::set<NBTrafficLightDefinition*> defs = getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS();
+                for (NBTrafficLightDefinition* tlDef : defs) {
+                    NBTrafficLightLogic* tllogic = tlDef->compute(OptionsCont::getOptions());
+                    NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(tlDef, tllogic);
+                    newDef->addConnection(getEdgeFrom()->getNBEdge(), getEdgeTo()->getNBEdge(), 
+                            getLaneFrom()->getIndex(), getLaneTo()->getIndex(), parse<int>(value), false);
+                    std::vector<NBNode*> nodes = tlDef->getNodes();
+                    for (NBNode* node : nodes) {
+                        GNEJunction* junction = getNet()->retrieveJunction(node->getID());
+                        undoList->add(new GNEChange_TLS(junction, tlDef, false), true);
+                        undoList->add(new GNEChange_TLS(junction, newDef, true), true);
+                    }
+                    undoList->p_end();
+                }
+            }
+            break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -377,6 +402,10 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return canParse<double>(value) && isPositive<double>(value);
+        case SUMO_ATTR_TLLINKINDEX: 
+            return (getNBEdgeConnection().tlID != "" && canParse<int>(value) && isPositive<int>(value) 
+                    && getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0
+                    && (*getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().begin())->compute(OptionsCont::getOptions())->getNumLinks() > parse<int>(value));
         case SUMO_ATTR_SPEED:
             return canParse<double>(value) && isPositive<double>(value);
         case SUMO_ATTR_CUSTOMSHAPE: {
