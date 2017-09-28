@@ -82,7 +82,7 @@ FXIMPLEMENT(GNESelectorFrame, FXVerticalFrame, GNESelectorFrameMap, ARRAYNUMBER(
 GNESelectorFrame::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2) { 
     count = new FXLabel(parent, "0", 0, GUIDesignLabelLeft);
     typeName = new FXLabel(parent, label.c_str(), 0, GUIDesignLabelLeft);
-    locked = new FXMenuCheck(parent, ("lock\t\tLock " + label2 + " selection").c_str(), parent, 0, LAYOUT_FILL_X | LAYOUT_RIGHT);
+    locked = new FXMenuCheck(parent, ("lock\t\tLock " + label2 + " selection").c_str(), 0, 0, LAYOUT_FILL_X | LAYOUT_RIGHT);
 }
 
 
@@ -652,8 +652,14 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdgesEnabled, S
                 continue;
             }
             type = object->getType();
+            if (type == GLO_LANE && selectEdgesEnabled) {
+                type = GLO_EDGE;
+            }
+            if (myTypeEntries[type].locked->getCheck()) {
+                continue;
+            }
             GUIGlObjectStorage::gIDStorage.unblockObject(it);
-            if ((type == GLO_LANE) && selectEdgesEnabled) {
+            if (type == GLO_EDGE) {
                 // @note edge may be selected/deselected multiple times but this shouldn't
                 // hurt unless we add SET_TOGGLE
                 it = (static_cast<GNELane*>(object))->getParentEdge().getGlID();
