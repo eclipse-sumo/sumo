@@ -481,13 +481,6 @@ public:
     /// @brief remove edge id from the list of explicit turnarounds
     void removeExplicitTurnaround(std::string id);
 
-    /// @brief move all selected junctions and edges
-    /// @note: inner points of an edge will only be modified if the edge and its endpoints are selected
-    void moveSelection(const Position& moveSrc, const Position& moveDest);
-
-    /// @brief register changes to junction and edge positions with the undoList
-    void finishMoveSelection(GNEUndoList* undoList);
-
     /**@brief Insert a additional element previously created in GNEAdditionalHandler
      * @param[in] additional pointer to the additional element to add
      * @param[in] hardFail enable or disable exception if additional to insert is duplicated

@@ -1578,58 +1578,6 @@ GNENet::removeExplicitTurnaround(std::string id) {
 
 
 void
-GNENet::moveSelection(const Position& moveSrc, const Position& moveDest) {
-    Position delta = moveDest - moveSrc;
-    // obtain Junctios to move
-    std::set<GNEJunction*> junctionSet;
-    std::vector<GNEJunction*> junctions = retrieveJunctions(true);
-    // move junctions
-    for (auto it : junctions) {
-        Position newPos = it->getNBNode()->getPosition() + delta;
-        //it->moveJunctionGeometry(newPos);
-        junctionSet.insert(it);
-    }
-
-    // move edge geometry (endpoints are already moved)
-    std::vector<GNEEdge*> edges = retrieveEdges(true);
-    for (auto it : edges) {
-        if (it) {
-            if (junctionSet.count(it->getGNEJunctionSource()) > 0 &&
-                    junctionSet.count(it->getGNEJunctionDestiny()) > 0) {
-                // edge and its endpoints are selected, move all the inner points as well
-                it->moveGeometry(delta);
-            } else {
-                // move only geometry near mouse
-                it->moveGeometry(moveSrc, delta, true);
-            }
-        }
-    }
-}
-
-
-void
-GNENet::finishMoveSelection(GNEUndoList* undoList) {
-    undoList->p_begin("move selection");
-    // register moved junctions
-    std::set<GNEJunction*> junctionSet;
-    std::vector<GNEJunction*> junctions = retrieveJunctions(true);
-    for (auto it : junctions) {
-        junctionSet.insert(it);
-    }
-
-    // register moved edge geometry (endpoints are already moved)
-    std::vector<GNEEdge*> edges = retrieveEdges(true);
-    for (auto it : edges) {
-        if (it) {
-            const std::string& newShape = it->getAttribute(SUMO_ATTR_SHAPE);
-            it->setAttribute(SUMO_ATTR_SHAPE, newShape, undoList);
-        }
-    }
-    undoList->p_end();
-}
-
-
-void
 GNENet::insertAdditional(GNEAdditional* additional, bool hardFail) {
     // we need a special case for Calibrators
     SumoXMLTag tag = (additional->getTag() == SUMO_TAG_LANECALIBRATOR)? SUMO_TAG_CALIBRATOR : additional->getTag();
