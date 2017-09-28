@@ -86,8 +86,6 @@ public:
      */
     void updateGeometry();
 
-    /****/
-
     /**@brief change position of a vertex of shape without commiting change
     * @param[in] index index of Vertex shape
     * @param[in] newPos The new position of vertex
@@ -107,10 +105,23 @@ public:
     */
     void commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList);
 
-    /****/
-
     /// @brief registers completed movement with the undoList
     void commitGeometryMoving(const PositionVector& oldShape, double minDistToEnd, GNEUndoList* undoList);
+
+    /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
+    * @param pos position of new/existent vertex
+    * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position
+    * @return index of position vector
+    */
+    int getVertexIndex(const Position& pos, bool createIfNoExist = true);
+
+    /**@brief deletes the closest geometry node within SNAP_RADIUS.
+    * @return true if a node was deleted
+    */
+    bool deleteGeometry(const Position& pos, GNEUndoList* undoList);
+
+    /// @brief update edge geometry after junction move
+    void updateJunctionPosition(GNEJunction* junction, const Position& origPos);
 
     /// Returns the street's geometry
     Boundary getBoundary() const;
@@ -149,9 +160,6 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
 
-    /// @brief update edge geometry after junction move
-    void updateJunctionPosition(GNEJunction* junction, const Position& origPos);
-
     /// @brief returns the internal NBEdge
     NBEdge* getNBEdge();
 
@@ -160,36 +168,6 @@ public:
 
     /// @brief returns the destination-junction
     GNEJunction* getGNEJunctionDestiny() const;
-
-    /**@brief change the edge geometry
-     * It is up to the Edge to decide whether an new geometry node should be
-     * generated or an existing node should be moved
-     * @param[in] oldPos The origin of the mouse movement
-     * @param[in] newPos The destination of the mouse movenent
-     * @param[in] relative Whether newPos is absolute or relative
-     * @return newPos if something was moved, oldPos if nothing was moved
-     */
-    Position moveGeometry(const Position& oldPos, const Position& newPos, bool relative = false);
-
-    //// @brief manipulate the given geometry and return whether it was changed
-    static bool changeGeometry(PositionVector& geom, const std::string& id, const Position& oldPos, const Position& newPos, bool relative = false, bool moveEndPoints = false);
-
-    /**@brief change the edge geometry
-     * @param[in] delta All inner points are moved by adding delta
-     */
-    void moveGeometry(const Position& delta);
-
-    /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
-    * @param pos position of new/existent vertex
-    * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position
-    * @return index of position vector
-    */
-    int getVertexIndex(const Position& pos, bool createIfNoExist = true);
-
-    /**@brief deletes the closest geometry node within SNAP_RADIUS.
-     * @return true if a node was deleted
-     */
-    bool deleteGeometry(const Position& pos, GNEUndoList* undoList);
 
     /// @brief makes pos the new geometry endpoint at the appropriate end
     void setEndpoint(Position pos, GNEUndoList* undoList);

@@ -231,6 +231,57 @@ GNEEdge::commitGeometryMoving(const PositionVector& oldShape, double minDistToEn
 }
 
 
+int 
+GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
+    PositionVector geometry = myNBEdge.getGeometry();
+    // first check if vertex already exists
+    for (auto i : geometry) {
+        if (i.distanceTo2D(pos) < SNAP_RADIUS) {
+            return geometry.indexOfClosest(i);
+        }
+    }
+    // if vertex doesn't exist, insert it
+    if (createIfNoExist) {
+        int index = geometry.insertAtClosest(pos);
+        setGeometry(geometry, false);
+        return index;
+    } else {
+        return -1;
+    }
+}
+
+
+bool
+GNEEdge::deleteGeometry(const Position& pos, GNEUndoList* undoList) {
+    PositionVector geom = myNBEdge.getInnerGeometry();
+    if (geom.size() == 0) {
+        return false;
+    }
+    int index = geom.indexOfClosest(pos);
+    if (geom[index].distanceTo(pos) < SNAP_RADIUS) {
+        geom.erase(geom.begin() + index);
+        setAttribute(SUMO_ATTR_SHAPE, toString(geom), undoList);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+void
+GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos) {
+    Position delta = junction->getNBNode()->getPosition() - origPos;
+    PositionVector geom = myNBEdge.getGeometry();
+    // geometry endpoint need not equal junction position hence we modify it with delta
+    if (junction == myGNEJunctionSource) {
+        geom[0].add(delta);
+    } else {
+        geom[-1].add(delta);
+    }
+    setGeometry(geom, false);
+}
+
+
 Boundary
 GNEEdge::getBoundary() const {
     Boundary ret;
@@ -361,19 +412,6 @@ GNEEdge::getParameterWindow(GUIMainWindow& app,
 }
 
 
-void
-GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos) {
-    Position delta = junction->getNBNode()->getPosition() - origPos;
-    PositionVector geom = myNBEdge.getGeometry();
-    // geometry endpoint need not equal junction position hence we modify it with delta
-    if (junction == myGNEJunctionSource) {
-        geom[0].add(delta);
-    } else {
-        geom[-1].add(delta);
-    }
-    setGeometry(geom, false);
-}
-
 NBEdge*
 GNEEdge::getNBEdge() {
     return &myNBEdge;
@@ -390,111 +428,6 @@ GNEEdge::getSplitPos(const Position& clickPos) {
     } else {
         // split straight between the next two points
         return geom.positionAtOffset(geom.nearest_offset_to_point2D(clickPos));
-    }
-}
-
-
-Position
-GNEEdge::moveGeometry(const Position& oldPos, const Position& newPos, bool relative) {
-    PositionVector geom = myNBEdge.getGeometry();
-    bool changed = changeGeometry(geom, getMicrosimID(), oldPos, newPos, relative);
-    if (changed) {
-        setGeometry(geom, false);
-        return newPos;
-    } else {
-        return oldPos;
-    }
-}
-
-
-bool
-GNEEdge::changeGeometry(PositionVector& geom, const std::string& id, const Position& oldPos, const Position& newPos, bool relative, bool moveEndPoints) {
-    if (geom.size() < 2) {
-        throw ProcessError("Invalid geometry size in " + toString(SUMO_TAG_EDGE) + " with ID='" + id + "'");
-    } else {
-        // obtain index of closest point to old position
-        int index = geom.indexOfClosest(oldPos);
-        const double nearestOffset = geom.nearest_offset_to_point2D(oldPos, true);
-        if (nearestOffset != GeomHelper::INVALID_OFFSET
-                && (moveEndPoints || (nearestOffset >= SNAP_RADIUS
-                                      && nearestOffset <= geom.length2D() - SNAP_RADIUS))) {
-            const Position nearest = geom.positionAtOffset2D(nearestOffset);
-            const double distance = geom[index].distanceTo2D(nearest);
-            if (distance < SNAP_RADIUS) { //move existing
-                if (moveEndPoints || (index != 0 && index != (int)geom.size() - 1)) {
-                    const bool closed = geom.isClosed();
-                    if (relative) {
-                        geom[index] = geom[index] + newPos;
-                    } else {
-                        geom[index] = newPos;
-                    }
-                    if (closed && moveEndPoints && (index == 0 || index == (int)geom.size() - 1)) {
-                        const int otherIndex = (int)geom.size() - 1 - index;
-                        geom[otherIndex] = geom[index];
-                    }
-                    return true;
-                }
-            } else {
-                if (relative) {
-                    index = geom.insertAtClosest(nearest);
-                    geom[index] = geom[index] + newPos;
-                    return true;
-                } else {
-                    // insert newPos between the two closest positions
-                    geom.insertAtClosest(newPos);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-}
-
-
-void
-GNEEdge::moveGeometry(const Position& delta) {
-    PositionVector geom = myNBEdge.getInnerGeometry();
-    if (geom.size() == 0) {
-        return;
-    }
-    geom.add(delta.x(), delta.y(), delta.z());
-    setGeometry(geom, true);
-}
-
-
-int 
-GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
-    PositionVector geometry = myNBEdge.getGeometry();
-    // first check if vertex already exists
-    for (auto i : geometry) {
-        if (i.distanceTo2D(pos) < SNAP_RADIUS) {
-            return geometry.indexOfClosest(i);
-        }
-    }
-    // if vertex doesn't exist, insert it
-    if (createIfNoExist) {
-        int index = geometry.insertAtClosest(pos);
-        setGeometry(geometry, false);
-        return index;
-    } else {
-        return -1;
-    }
-}
-
-
-bool
-GNEEdge::deleteGeometry(const Position& pos, GNEUndoList* undoList) {
-    PositionVector geom = myNBEdge.getInnerGeometry();
-    if (geom.size() == 0) {
-        return false;
-    }
-    int index = geom.indexOfClosest(pos);
-    if (geom[index].distanceTo(pos) < SNAP_RADIUS) {
-        geom.erase(geom.begin() + index);
-        setAttribute(SUMO_ATTR_SHAPE, toString(geom), undoList);
-        return true;
-    } else {
-        return false;
     }
 }
 
