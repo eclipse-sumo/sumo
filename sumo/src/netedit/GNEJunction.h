@@ -291,7 +291,7 @@ private:
     void removeTrafficLight(NBTrafficLightDefinition* tlDef);
 
     /// @brief rebuilds crossing objects for this junction
-    void rebuildGNECrossings();
+    void rebuildGNECrossings(bool rebuildNBNodeCrossings = true);
 
     /// @brief Invalidated copy constructor.
     GNEJunction(const GNEJunction&) = delete;

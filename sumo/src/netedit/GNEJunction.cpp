@@ -113,16 +113,19 @@ GNEJunction::updateGeometry() {
     }
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
     // rebuild GNECrossings
-    rebuildGNECrossings();
+    // (but don't rebuild the crossings in NBNode because they are already finished)
+    rebuildGNECrossings(false);
 }
 
 
 void
-GNEJunction::rebuildGNECrossings() {
+GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
     // rebuild GNECrossings only if create crossings and walkingAreas in net is enabled
     if (myNet->getNetBuilder()->haveNetworkCrossings()) {
-        // build new NBNode::Crossings and walking areas
-        myNBNode.buildCrossingsAndWalkingAreas();
+        if (rebuildNBNodeCrossings) {
+            // build new NBNode::Crossings and walking areas
+            myNBNode.buildCrossingsAndWalkingAreas();
+        }
         // create a vector to keep retrieved and created crossings
         std::vector<GNECrossing*> retrievedCrossings;
         // iterate over NBNode::Crossings of GNEJunction
@@ -577,7 +580,8 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
         invalidateTLS(undoList);
     } else {
         // logic valed, then rebuild GNECrossings to adapt it to the new logic
-        rebuildGNECrossings();
+        // (but don't rebuild the crossings in NBNode because they are already finished)
+        rebuildGNECrossings(false);
     }
 }
 
