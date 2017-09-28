@@ -88,3 +88,10 @@ looped_route
 
 # later stop is before previous stop edge and must be used on the second time it is reached
 looped_route2
+
+# public-transport-style stops:
+# - with until-attribute 
+# - inside a stand-alone route
+# - used within a flow
+# 
+flow_until
