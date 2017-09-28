@@ -272,6 +272,9 @@ MSFrame::fillOptions() {
     oc.doRegister("collision.check-junctions", new Option_Bool(false));
     oc.addDescription("collision.check-junctions", "Processing", "Enables collisions checks on junctions");
 
+    oc.doRegister("collision.mingap-factor", new Option_Float(1.0));
+    oc.addDescription("collision.mingap-factor", "Processing", "Sets the fraction of minGap that must be maintained to avoid collision detection.");
+
     oc.doRegister("max-num-vehicles", new Option_Integer(-1));
     oc.addDescription("max-num-vehicles", "Processing", "Delay vehicle insertion to stay within the given maximum number");
 

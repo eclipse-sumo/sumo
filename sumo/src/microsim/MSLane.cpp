@@ -92,6 +92,7 @@ MSLane::DictType MSLane::myDict;
 MSLane::CollisionAction MSLane::myCollisionAction(MSLane::COLLISION_ACTION_TELEPORT);
 bool MSLane::myCheckJunctionCollisions(false);
 SUMOTime MSLane::myCollisionStopTime(0);
+double  MSLane::myCollisionMinGapFactor(1.0);
 
 // ===========================================================================
 // internal class method definitions
@@ -1292,9 +1293,9 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         std::swap(victim, collider);
     }
     const double colliderPos = colliderOpposite ? collider->getBackPositionOnLane(this) : collider->getPositionOnLane(this);
-    double gap = victim->getBackPositionOnLane(this) - colliderPos - collider->getVehicleType().getMinGap();
+    double gap = victim->getBackPositionOnLane(this) - colliderPos - myCollisionMinGapFactor * collider->getVehicleType().getMinGap();
     if (bothOpposite) {
-        gap = -gap - 2 * collider->getVehicleType().getMinGap();
+        gap = -gap - 2 * myCollisionMinGapFactor * collider->getVehicleType().getMinGap();
     }
 #ifdef DEBUG_COLLISIONS
     if (DEBUG_COND) std::cout << SIMTIME
@@ -3016,6 +3017,7 @@ MSLane::initCollisionOptions(const OptionsCont& oc) {
     }
     myCheckJunctionCollisions = oc.getBool("collision.check-junctions");
     myCollisionStopTime = string2time(oc.getString("collision.stoptime"));
+    myCollisionMinGapFactor = oc.getFloat("collision.mingap-factor");
 }
 
 

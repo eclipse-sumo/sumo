@@ -210,6 +210,9 @@
         <!-- Enables collisions checks on junctions -->
         <collision.check-junctions value="false" type="BOOL"/>
 
+        <!-- Sets the fraction of minGap that must be maintained to avoid collision detection. -->
+        <collision.mingap-factor value="1" type="FLOAT"/>
+
         <!-- Delay vehicle insertion to stay within the given maximum number -->
         <max-num-vehicles value="-1" type="INT"/>
 

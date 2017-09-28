@@ -80,6 +80,7 @@
         <collision.action value="teleport" type="STR" help="How to deal with collisions: [none,warn,teleport,remove]"/>
         <collision.stoptime value="0" type="TIME" help="Let vehicle stop for TIME before performing collision.action (except for action &apos;none&apos;)"/>
         <collision.check-junctions value="false" type="BOOL" help="Enables collisions checks on junctions"/>
+        <collision.mingap-factor value="1" type="FLOAT" help="Sets the fraction of minGap that must be maintained to avoid collision detection."/>
         <max-num-vehicles value="-1" type="INT" help="Delay vehicle insertion to stay within the given maximum number"/>
         <max-num-teleports value="-1" type="INT" help="Abort the simulation if the given maximum number of teleports is exceeded"/>
         <scale value="1" type="FLOAT" help="Scale demand by the given factor (by discarding or duplicating vehicles)"/>

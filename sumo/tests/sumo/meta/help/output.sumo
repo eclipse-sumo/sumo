@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r25756
+SUMO Version dev-SVN-r26256
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -125,6 +125,9 @@ Processing Options:
                                          performing collision.action (except for
                                          action 'none')
   --collision.check-junctions          Enables collisions checks on junctions
+  --collision.mingap-factor FLOAT      Sets the fraction of minGap that must be
+                                         maintained to avoid collision
+                                         detection.
   --max-num-vehicles INT               Delay vehicle insertion to stay within
                                          the given maximum number
   --max-num-teleports INT              Abort the simulation if the given

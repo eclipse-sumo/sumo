@@ -1241,6 +1241,7 @@ private:
     static CollisionAction myCollisionAction;
     static bool myCheckJunctionCollisions;
     static SUMOTime myCollisionStopTime;
+    static double myCollisionMinGapFactor;
 
     /**
      * @class vehicle_position_sorter
