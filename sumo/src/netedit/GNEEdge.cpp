@@ -94,25 +94,25 @@ GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
 
 GNEEdge::~GNEEdge() {
     // Delete references to this eddge in lanes
-    for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        (*i)->decRef("GNEEdge::~GNEEdge");
-        if ((*i)->unreferenced()) {
+    for (auto i : myLanes) {
+        i->decRef("GNEEdge::~GNEEdge");
+        if (i->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in GNEEdge destructor");
+                WRITE_WARNING("Deleting unreferenced " + toString(i->getTag()) + " '" + i->getID() + "' in GNEEdge destructor");
             }
-            delete *i;
+            delete i;
         }
     }
     // delete references to this eddge in connections
-    for (ConnectionVector::const_iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); ++i) {
-        (*i)->decRef("GNEEdge::~GNEEdge");
-        if ((*i)->unreferenced()) {
+    for (auto i : myGNEConnections) {
+        i->decRef("GNEEdge::~GNEEdge");
+        if (i->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in GNEEdge destructor");
+                WRITE_WARNING("Deleting unreferenced " + toString(i->getTag()) + " '" + i->getID() + "' in GNEEdge destructor");
             }
-            delete(*i);
+            delete i;
         }
     }
     if (myAmResponsible) {
@@ -124,12 +124,12 @@ GNEEdge::~GNEEdge() {
 void
 GNEEdge::updateGeometry() {
     // Update geometry of lanes
-    for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        (*i)->updateGeometry();
+    for (auto i : myLanes) {
+        i->updateGeometry();
     }
     // Update geometry of additionals vinculated to this edge
-    for (AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
-        (*i)->updateGeometry();
+    for (auto i : myAdditionals) {
+        i->updateGeometry();
     }
 }
 
@@ -164,9 +164,8 @@ GNEEdge::moveEntireShape(const PositionVector& oldShape, const Position& offset)
     // make a copy of the old shape to change it
     PositionVector modifiedShape = oldShape;
     // change all points of the inner geometry using offset
-    for (int i = 1; i < (int)(modifiedShape.size() - 2); i++) {
-        modifiedShape[i].setx(modifiedShape[i].x() - offset.x());
-        modifiedShape[i].sety(modifiedShape[i].y() - offset.y());
+    for (auto &i : modifiedShape) {
+        i.add(offset);
     }
     // restore modified shape
     setGeometry(modifiedShape, true);
@@ -285,8 +284,8 @@ GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos) 
 Boundary
 GNEEdge::getBoundary() const {
     Boundary ret;
-    for (LaneVector::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        ret.add((*i)->getBoundary());
+    for (auto i : myLanes) {
+        ret.add(i->getBoundary());
     }
     ret.grow(10); // !!! magic value
     return ret;
@@ -324,22 +323,27 @@ GNEEdge::getGNEJunctionDestiny() const {
     return myGNEJunctionDestiny;
 }
 
+
+GNEEdge* 
+GNEEdge::getOppositeEdge() const {
+    return myNet->retrieveEdge(myGNEJunctionDestiny, myGNEJunctionSource, false);
+}
+
+
 void
 GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     /* do something different for connectors?
     if (myNBEdge.isMacroscopicConnector()) {
     }
     */
-
     // draw the lanes
-    for (LaneVector::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        (*i)->drawGL(s);
+    for (auto i : myLanes) {
+        i->drawGL(s);
     }
-
     // draw the connections
     if (s.scale >= 2) {
-        for (ConnectionVector::const_iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); ++i) {
-            (*i)->drawGL(s);
+        for (auto i : myGNEConnections) {
+            i->drawGL(s);
         }
     }
 
@@ -486,9 +490,9 @@ GNEEdge::remakeGNEConnections() {
     // create a vector to keep retrieved and created connections
     std::vector<GNEConnection*> retrievedConnections;
     // iterate over NBEdge::Connections of GNEEdge
-    for (std::vector<NBEdge::Connection>::const_iterator it = connections.begin(); it != connections.end(); it++) {
+    for (auto it : connections) {
         // retrieve existent GNEConnection, or create it
-        GNEConnection* retrievedGNEConnection = retrieveGNEConnection(it->fromLane, it->toEdge, it->toLane);
+        GNEConnection* retrievedGNEConnection = retrieveGNEConnection(it.fromLane, it.toEdge, it.toLane);
         retrievedGNEConnection->updateLinkState();
         retrievedConnections.push_back(retrievedGNEConnection);
         // check if previously this GNEConnections exists, and if true, remove it from myGNEConnections
@@ -501,14 +505,14 @@ GNEEdge::remakeGNEConnections() {
         }
     }
     // delete non retrieved GNEConnections
-    for (std::vector<GNEConnection*>::const_iterator it = myGNEConnections.begin(); it != myGNEConnections.end(); it++) {
-        (*it)->decRef();
-        if ((*it)->unreferenced()) {
+    for (auto it : myGNEConnections) {
+        it->decRef();
+        if (it->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting unreferenced " + toString((*it)->getTag()) + " '" + (*it)->getID() + "' in rebuildGNEConnections()");
+                WRITE_WARNING("Deleting unreferenced " + toString(it->getTag()) + " '" + it->getID() + "' in rebuildGNEConnections()");
             }
-            delete *it;
+            delete it;
         }
     }
     // copy retrieved (existent and created) GNECrossigns to myGNEConnections
@@ -519,16 +523,16 @@ GNEEdge::remakeGNEConnections() {
 void
 GNEEdge::clearGNEConnections() {
     // Drop all existents connections that aren't referenced anymore
-    for (ConnectionVector::iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); i++) {
+    for (auto i : myGNEConnections) {
         // Dec reference of connection
-        (*i)->decRef("GNEEdge::clearGNEConnections");
+        i->decRef("GNEEdge::clearGNEConnections");
         // Delete GNEConnectionToErase if is unreferenced
-        if ((*i)->unreferenced()) {
+        if (i->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in clearGNEConnections()");
+                WRITE_WARNING("Deleting unreferenced " + toString(i->getTag()) + " '" + i->getID() + "' in clearGNEConnections()");
             }
-            delete(*i);
+            delete i;
         }
     }
     myGNEConnections.clear();
@@ -538,13 +542,13 @@ GNEEdge::clearGNEConnections() {
 int
 GNEEdge::getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const {
     AdditionalVector routeProbes;
-    for (AdditionalVector::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
-        if ((*i)->getTag() == routeProbe->getTag()) {
-            routeProbes.push_back(*i);
+    for (auto i : myAdditionals) {
+        if (i->getTag() == routeProbe->getTag()) {
+            routeProbes.push_back(i);
         }
     }
     // return index of routeProbe in routeProbes vector
-    AdditionalVector::const_iterator it = std::find(routeProbes.begin(), routeProbes.end(), routeProbe);
+    auto it = std::find(routeProbes.begin(), routeProbes.end(), routeProbe);
     if (it == routeProbes.end()) {
         return -1;
     } else {
@@ -556,13 +560,13 @@ GNEEdge::getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const {
 int
 GNEEdge::getVaporizerRelativePosition(GNEVaporizer* vaporizer) const {
     AdditionalVector vaporizers;
-    for (AdditionalVector::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
-        if ((*i)->getTag() == vaporizer->getTag()) {
-            vaporizers.push_back(*i);
+    for (auto i : myAdditionals) {
+        if (i->getTag() == vaporizer->getTag()) {
+            vaporizers.push_back(i);
         }
     }
     // return index of routeProbe in routeProbes vector
-    AdditionalVector::const_iterator it = std::find(vaporizers.begin(), vaporizers.end(), vaporizer);
+    auto it = std::find(vaporizers.begin(), vaporizers.end(), vaporizer);
     if (it == vaporizers.end()) {
         return -1;
     } else {
@@ -613,8 +617,8 @@ GNEEdge::copyTemplate(GNEEdge* tpl, GNEUndoList* undoList) {
 std::set<GUIGlID>
 GNEEdge::getLaneGlIDs() {
     std::set<GUIGlID> result;
-    for (size_t i = 0; i < myLanes.size(); i++) {
-        result.insert(myLanes[i]->getGlID());
+    for (auto i : myLanes) {
+        result.insert(i->getGlID());
     }
     return result;
 }
@@ -725,8 +729,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             undoList->p_begin("change " + toString(getTag()) + " attribute");
             const std::string origValue = myLanes.at(0)->getAttribute(key); // will have intermediate value of "lane specific"
             // lane specific attributes need to be changed via lanes to allow undo
-            for (LaneVector::iterator it = myLanes.begin(); it != myLanes.end(); it++) {
-                (*it)->setAttribute(key, value, undoList);
+            for (auto it : myLanes) {
+                it->setAttribute(key, value, undoList);
             }
             // ensure that the edge value is also changed. Actually this sets the lane attributes again but it does not matter
             undoList->p_add(new GNEChange_Attribute(this, key, value, true, origValue));
@@ -1070,12 +1074,12 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs) {
     // Remake connections for this edge and all edges that target this lane
     remakeGNEConnections();
     // remake connections of all edges of junction source and destiny
-    for (std::vector<GNEEdge*>::const_iterator i = myGNEJunctionSource->getGNEEdges().begin(); i != myGNEJunctionSource->getGNEEdges().end(); i++) {
-        (*i)->remakeGNEConnections();
+    for (auto i : myGNEJunctionSource->getGNEEdges()) {
+        i->remakeGNEConnections();
     }
     // remake connections of all edges of junction source and destiny
-    for (std::vector<GNEEdge*>::const_iterator i = myGNEJunctionDestiny->getGNEEdges().begin(); i != myGNEJunctionDestiny->getGNEEdges().end(); i++) {
-        (*i)->remakeGNEConnections();
+    for (auto i : myGNEJunctionDestiny->getGNEEdges()) {
+        i->remakeGNEConnections();
     }
     // Update element
     myNet->refreshElement(this);
@@ -1114,12 +1118,12 @@ GNEEdge::removeLane(GNELane* lane) {
     // Remake connections of this edge
     remakeGNEConnections();
     // remake connections of all edges of junction source and destiny
-    for (std::vector<GNEEdge*>::const_iterator i = myGNEJunctionSource->getGNEEdges().begin(); i != myGNEJunctionSource->getGNEEdges().end(); i++) {
-        (*i)->remakeGNEConnections();
+    for (auto i : myGNEJunctionSource->getGNEEdges()) {
+        i->remakeGNEConnections();
     }
     // remake connections of all edges of junction source and destiny
-    for (std::vector<GNEEdge*>::const_iterator i = myGNEJunctionDestiny->getGNEEdges().begin(); i != myGNEJunctionDestiny->getGNEEdges().end(); i++) {
-        (*i)->remakeGNEConnections();
+    for (auto i : myGNEJunctionDestiny->getGNEEdges()) {
+        i->remakeGNEConnections();
     }
     // Update element
     myNet->refreshElement(this);
@@ -1175,11 +1179,9 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
 
 GNEConnection*
 GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool createIfNoExist) {
-    for (ConnectionVector::iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); ++i) {
-        if ((*i)->getFromLaneIndex() == fromLane
-                && (*i)->getEdgeTo()->getNBEdge() == to
-                && (*i)->getToLaneIndex() == toLane) {
-            return *i;
+    for (auto i : myGNEConnections) {
+        if ((i->getFromLaneIndex() == fromLane) && (i->getEdgeTo()->getNBEdge() == to) && (i->getToLaneIndex() == toLane)) {
+            return i;
         }
     }
     if (createIfNoExist) {
@@ -1200,8 +1202,8 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
 void
 GNEEdge::setMicrosimID(const std::string& newID) {
     GUIGlObject::setMicrosimID(newID);
-    for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        (*i)->setMicrosimID(getNBEdge()->getLaneID((*i)->getIndex()));
+    for (auto i : myLanes) {
+        i->setMicrosimID(getNBEdge()->getLaneID(i->getIndex()));
     }
 }
 
@@ -1274,8 +1276,8 @@ GNEEdge::getNumberOfGNERerouters() const {
 
 bool
 GNEEdge::hasRestrictedLane(SUMOVehicleClass vclass) const {
-    for (std::vector<GNELane*>::const_iterator i = myLanes.begin(); i != myLanes.end(); i++) {
-        if ((*i)->isRestricted(vclass)) {
+    for (auto i : myLanes) {
+        if (i->isRestricted(vclass)) {
             return true;
         }
     }

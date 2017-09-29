@@ -169,6 +169,9 @@ public:
     /// @brief returns the destination-junction
     GNEJunction* getGNEJunctionDestiny() const;
 
+    /// @brief get opposite edge
+    GNEEdge* getOppositeEdge() const;
+
     /// @brief makes pos the new geometry endpoint at the appropriate end
     void setEndpoint(Position pos, GNEUndoList* undoList);
 

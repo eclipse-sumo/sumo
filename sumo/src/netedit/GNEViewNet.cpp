@@ -164,6 +164,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myCreateEdgeSource(0),
     myJunctionToMove(0),
     myEdgeToMove(0),
+    myOppositeEdgeToMove(0),
     myPolyToMove(0),
     myPoiToMove(0),
     myAdditionalToMove(0),
@@ -625,9 +626,17 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         myMovingSelection = true;
                         // obtain Junctions to move
                         std::vector<GNEJunction*> selectedJunctions = myNet->retrieveJunctions(true);
+                        std::vector<GNEEdge*> selectedEdges = myNet->retrieveEdges(true);
                         // save position of current selected junctions (Needed when mouse is released)
                         for (auto i : selectedJunctions) {
                             myOriginPositionOfMovedJunctions[i] = i->getPositionInView();
+                        }
+                        // save shapes of edges
+                        for (auto i : selectedEdges) {
+                            if((myOriginPositionOfMovedJunctions.count(i->getGNEJunctionSource()) > 0 &&
+                                myOriginPositionOfMovedJunctions.count(i->getGNEJunctionDestiny()) > 0)) {
+                                myOriginShapesOfMovedEdges[i] = i->getNBEdge()->getInnerGeometry();
+                            }
                         }
                     } else {
                         myJunctionToMove = pointed_junction;
@@ -641,19 +650,34 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         myMovingSelection = true;
                         // obtain Junctions to move
                         std::vector<GNEJunction*> selectedJunctions = myNet->retrieveJunctions(true);
+                        std::vector<GNEEdge*> selectedEdges = myNet->retrieveEdges(true);
                         // save position of current selected junctions (Needed when mouse is released)
                         for (auto i : selectedJunctions) {
                             myOriginPositionOfMovedJunctions[i] = i->getPositionInView();
                         }
+                        // save shapes of edges
+                        for (auto i : selectedEdges) {
+                            if((myOriginPositionOfMovedJunctions.count(i->getGNEJunctionSource()) > 0 &&
+                                myOriginPositionOfMovedJunctions.count(i->getGNEJunctionDestiny()) > 0)) {
+                                myOriginShapesOfMovedEdges[i] = i->getNBEdge()->getInnerGeometry();
+                            }
+                        }
                         // check if both Junctions of pointed_edge belongs to a selected junctions
                         if((myOriginPositionOfMovedJunctions.count(pointed_edge->getGNEJunctionSource()) > 0 &&
                             myOriginPositionOfMovedJunctions.count(pointed_edge->getGNEJunctionDestiny()) > 0) == false) {
-                            int index = pointed_edge->getVertexIndex(getPositionInformation());
                             myEdgeToMove = pointed_edge;
                             // save original shape (needed for commit change)
-                            myMovingOriginalShape = myEdgeToMove->getNBEdge()->getInnerGeometry();
+                            myMovingOriginalShape = myEdgeToMove->getNBEdge()->getGeometry();
                             // obtain index of vertex to move and moving reference
                             myMovingIndexShape = myEdgeToMove->getVertexIndex(getPositionInformation());
+
+                            myMovingOriginalShape2 = myEdgeToMove->getNBEdge()->getGeometry();
+                            myOppositeEdgeToMove = pointed_edge->getOppositeEdge();
+                            if(myOppositeEdgeToMove && gSelected.isSelected(GLO_EDGE, myOppositeEdgeToMove->getGlID())) {
+                                myMovingOriginalShapenOppositeEdge = myOppositeEdgeToMove->getNBEdge()->getGeometry();
+                            } else {
+                                myOppositeEdgeToMove = 0;
+                            }
                         }
                     } else {
                         myEdgeToMove = pointed_edge;
@@ -884,21 +908,35 @@ long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
     if (myMovingSelection) {
-        // commit new positions of selected junctions
-        if (myOriginPositionOfMovedJunctions.size() > 0) {
-            myUndoList->p_begin("position of selected elements");
-            // commit positions of moved junctions
-            for (auto i : myOriginPositionOfMovedJunctions) {
-                i.first->commitGeometryMoving(i.second, myUndoList);
-            }
-            myOriginPositionOfMovedJunctions.clear();
-            // if edge to move was edited, save it
-            if (myEdgeToMove) {
-                myEdgeToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
-                myEdgeToMove = 0;
-            }
-            myUndoList->p_end();
+        myUndoList->p_begin("position of selected elements");
+
+        // commit positions of moved junctions
+        for (auto i : myOriginPositionOfMovedJunctions) {
+            i.first->commitGeometryMoving(i.second, myUndoList);
         }
+        myOriginPositionOfMovedJunctions.clear();
+
+        // commit positions of moved edges
+        for (auto i : myOriginShapesOfMovedEdges) {
+            i.first->commitShapeChange(i.second, myUndoList);
+        }
+        myOriginShapesOfMovedEdges.clear();
+
+        // if edge to move was edited, save it
+        if (myEdgeToMove) {
+            // in the case of Edges we need to remove the front and back positions
+            myMovingOriginalShape.erase(myMovingOriginalShape.begin());
+            myMovingOriginalShape.pop_back();
+            myEdgeToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
+            myEdgeToMove = 0;
+            if(myOppositeEdgeToMove) {
+                myMovingOriginalShapenOppositeEdge.erase(myMovingOriginalShapenOppositeEdge.begin());
+                myMovingOriginalShapenOppositeEdge.pop_back();
+                myOppositeEdgeToMove->commitShapeChange(myMovingOriginalShapenOppositeEdge, myUndoList);
+                myOppositeEdgeToMove = 0;
+            }
+        }
+        myUndoList->p_end();
         myMovingSelection = false;
     } else if (myPolyToMove) {
         myPolyToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
@@ -982,9 +1020,35 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
             for(auto i : myOriginPositionOfMovedJunctions) {
                 i.first->moveGeometry(i.second, offsetMovement);
             }
+            // move selected edges
+            for (auto i : myOriginShapesOfMovedEdges) {
+                i.first->moveEntireShape(i.second, offsetMovement);
+            }
             if (myEdgeToMove) {
-                // move edge's geometry without commiting changes
+                PositionVector geometry = myMovingOriginalShape2;
+                /*
+                PositionVector shapeBeforeMoving = myEdgeToMove->getNBEdge()->getInnerGeometry();
                 myMovingIndexShape = myEdgeToMove->moveVertexShape(myMovingIndexShape, myMovingOriginalPosition, offsetMovement);
+                */
+
+                // move edge's geometry without commiting changes
+                if(gSelected.isSelected(myEdgeToMove->getGNEJunctionDestiny()->getType(), myEdgeToMove->getGNEJunctionDestiny()->getGlID())) {
+                    for (int i = myMovingIndexShape; i < geometry.size(); i++) {
+                        // myEdgeToMove->moveVertexShape(i, shapeBeforeMoving[i], offsetMovement);
+                        geometry[i].add(offsetMovement);
+                    }
+                } else {
+                    for (int i = 0; i <= myMovingIndexShape; i++) {
+
+                        geometry[i].add(offsetMovement);
+                    }
+                }
+                myEdgeToMove->setGeometry(geometry, true);
+
+                if(myOppositeEdgeToMove) {
+                    PositionVector geometry = myEdgeToMove->getNBEdge()->getInnerGeometry();
+                    myOppositeEdgeToMove->setGeometry(geometry.reverse(), true);
+                }
             }
         } else if (myPolyToMove) {
             // move shape's geometry without commiting changes

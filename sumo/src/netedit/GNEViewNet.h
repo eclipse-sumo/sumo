@@ -414,6 +414,9 @@ private:
     /// @brief the edge of which geometry is being moved
     GNEEdge* myEdgeToMove;
 
+    /// @brief the edge of which geometry is being moved
+    GNEEdge* myOppositeEdgeToMove;
+
     /// @brief the poly of which geometry is being moved
     GNEPoly* myPolyToMove;
 
@@ -431,9 +434,16 @@ private:
 
     /// @brief Shape of elements before moving (needed for commmit shape changes)
     PositionVector myMovingOriginalShape;
+    PositionVector myMovingOriginalShape2;
 
     /// @brief current index of shape that are being moved
     int myMovingIndexShape;
+
+    /// @brief 
+    Position myMovingOriginalPositionOppositeEdge;
+
+    /// @brief 
+    PositionVector myMovingOriginalShapenOppositeEdge;
 
     /// @brief whether a selection is being moved
     bool myMovingSelection;
@@ -441,9 +451,6 @@ private:
     /// @brief Selected Junctions that are being moved
     /** NOTE: IN the future will be changed to std::map<GNENetElement*, Position> **/
     std::map<GNEJunction*, Position> myOriginPositionOfMovedJunctions;
-
-    /// @brief Selected Edges that are being moved < Edge, <index, oldPosition> >
-    std::map<GNEEdge*, std::pair<int, Position> > myOriginPositionOfMovedEdges;
 
     /// @brief Selected Edges that are being moved < Edge, PositionVector >
     std::map<GNEEdge*, PositionVector> myOriginShapesOfMovedEdges;
