@@ -574,6 +574,7 @@ GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoLi
     // restrict the lane
     if (addRestriction) {
         lane->setAttribute(SUMO_ATTR_ALLOW, toString(vclass), undoList);
+        lane->setAttribute(SUMO_ATTR_WIDTH, toString(OptionsCont::getOptions().getFloat("default.sidewalk-width")), undoList);
         return true;
     } else {
         return false;
