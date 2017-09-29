@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:52 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Fri Sep 29 08:58:08 2017 by SUMO netconvert Version dev-SVN-r26283
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -18,6 +18,8 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -188,13 +190,13 @@
     <connection from=":C_c0" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_c1" to=":C_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_c2" to=":C_w2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w0" to=":C_c2" fromLane="0" toLane="0" tl="C" linkIndex="16" dir="s" state="M"/>
+    <connection from=":C_w0" to=":C_c2" fromLane="0" toLane="0" tl="C" linkIndex="17" dir="s" state="M"/>
     <connection from=":C_w0" to="CW" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="NC" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_w1" to=":C_c0" fromLane="0" toLane="0" tl="C" linkIndex="14" dir="s" state="M"/>
     <connection from=":C_w1" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="SC" to=":C_w1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w2" to=":C_c1" fromLane="0" toLane="0" tl="C" linkIndex="15" dir="s" state="M"/>
+    <connection from=":C_w2" to=":C_c1" fromLane="0" toLane="0" tl="C" linkIndex="16" dir="s" state="M"/>
     <connection from=":C_w2" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="WC" to=":C_w2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":N_w0" to="NC" fromLane="0" toLane="0" dir="s" state="M"/>
