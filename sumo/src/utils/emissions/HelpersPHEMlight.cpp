@@ -252,7 +252,7 @@ double
 HelpersPHEMlight::getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const {
     PHEMlightdll::CEP* currCep = myCEPs.count(c) == 0 ? 0 : myCEPs.find(c)->second;
     if (currCep != 0) {
-        const double corrAcc = v == 0.0 ? 0.0 : MIN2(a, currCep->GetMaxAccel(v, a, slope));
+        return v == 0.0 ? 0.0 : MIN2(a, currCep->GetMaxAccel(v, a, slope));
     }
     return a;
 }
