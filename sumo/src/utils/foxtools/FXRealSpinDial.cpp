@@ -761,7 +761,7 @@ long FXRealSpinDial::onMouseWheel(FXObject* /*o*/, FXSelector /*s*/, void* p) {
 
 // Text field changed
 long FXRealSpinDial::onChgEntry(FXObject*, FXSelector, void*) {
-    register FXdouble value = FXDoubleVal(textField->getText());
+    FXdouble value = FXDoubleVal(textField->getText());
     if (value < range[0]) {
         value = range[0];
     }

@@ -196,7 +196,7 @@ MFXAddEditTypedTable::editItem(FXTableItem* item,FXint how)
 
 FXWindow*
 MFXAddEditTypedTable::getControlForItem(FXint r, FXint c) {
-    register FXTableItem* item = cells[r * ncols + c];
+    FXTableItem* item = cells[r * ncols + c];
     if (item == NULL) {
         return 0;
 //         cells[r * ncols + c] = item = createItem("", NULL, NULL);
@@ -209,8 +209,8 @@ MFXAddEditTypedTable::getControlForItem(FXint r, FXint c) {
     switch (getCellType(c)) {
         case CT_UNDEFINED:
         case CT_STRING: {
-            register FXTextField* field;
-            register FXuint justify = 0;
+            FXTextField* field;
+            FXuint justify = 0;
             field = new FXTextField(this, 1, NULL, 0, TEXTFIELD_ENTER_ONLY, 0, 0, 0, 0, getMarginLeft(), getMarginRight(), getMarginTop(), getMarginBottom());
             // !!! if(state&LEFT) justify|=JUSTIFY_LEFT;
             // !!! if(state&RIGHT) justify|=JUSTIFY_RIGHT;
@@ -230,8 +230,8 @@ MFXAddEditTypedTable::getControlForItem(FXint r, FXint c) {
         case CT_REAL:
 //        return myNumberEditor;
         case CT_INT: {
-            register FXRealSpinDial* field;
-            //register FXuint justify=0;
+            FXRealSpinDial* field;
+            //FXuint justify=0;
             field = new FXRealSpinDial(this, 1, NULL, 0, TEXTFIELD_ENTER_ONLY, 0, 0, 0, 0, getMarginLeft(), getMarginRight(), getMarginTop(), getMarginBottom());
             // !!! if(state&LEFT) justify|=JUSTIFY_LEFT;
             // !!! if(state&RIGHT) justify|=JUSTIFY_RIGHT;
@@ -319,7 +319,7 @@ MFXAddEditTypedTable::acceptInput(FXbool notify) {
 
 void
 MFXAddEditTypedTable::setItemFromControl(FXint r, FXint c, FXWindow* control) {
-    register FXTableItem* item = cells[r * ncols + c];
+    FXTableItem* item = cells[r * ncols + c];
     if (item == NULL) {
         cells[r * ncols + c] = item = createItem("", NULL, NULL);
         if (isItemSelected(r, c)) {
@@ -374,7 +374,7 @@ MFXAddEditTypedTable::setItemFromControl(FXint r, FXint c, FXWindow* control) {
 
 void
 MFXAddEditTypedTable::setItemFromControl_NoRelease(FXint r, FXint c, FXWindow* control) {
-    register FXTableItem* item = cells[r * ncols + c];
+    FXTableItem* item = cells[r * ncols + c];
     if (item == NULL) {
         return;
     }
