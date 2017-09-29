@@ -3,6 +3,6 @@
     <!-- Deleted Elements -->
     <crossing edges="CS SC" node="C" discard="true"/>
     <!-- Created Elements -->
-    <crossing edges="CW WC" node="C" priority="1" width="4.50"/>
+    <crossing edges="CW WC" node="C" linkIndex="15" priority="1" width="4.50"/>
     <!-- Changed Elements -->
 </connections>
