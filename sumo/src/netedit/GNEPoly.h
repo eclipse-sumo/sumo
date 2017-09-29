@@ -169,6 +169,9 @@ public:
      */
     int getVertexIndex(const Position& pos, bool createIfNoExist = true);
 
+    /// @brief delete the geometry point closest to the given pos
+    void deleteGeometryPoint(const Position& pos, bool allowUndo = true);
+
     /// @brief check if polygon is closed
     bool isPolygonClosed() const;
 
@@ -189,9 +192,6 @@ public:
 
     /// @brief replace the current shape with a rectangle
     void simplifyShape(bool allowUndo = true);
-
-    /// @brief delete the geometry point closest to the given pos
-    void deleteGeometryNear(const Position& pos, bool allowUndo = true);
 
 protected:
     /// @brief junction of which the shape is being edited (optional)

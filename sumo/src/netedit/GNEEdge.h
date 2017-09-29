@@ -115,10 +115,8 @@ public:
     */
     int getVertexIndex(const Position& pos, bool createIfNoExist = true);
 
-    /**@brief deletes the closest geometry node within SNAP_RADIUS.
-    * @return true if a node was deleted
-    */
-    bool deleteGeometry(const Position& pos, GNEUndoList* undoList);
+    /// @brief delete the geometry point closest to the given pos
+    void deleteGeometryPoint(const Position& pos, bool allowUndo = true);
 
     /// @brief update edge geometry after junction move
     void updateJunctionPosition(GNEJunction* junction, const Position& origPos);

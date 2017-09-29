@@ -1588,12 +1588,12 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdDeleteGeometryPoint(FXObject*, FXSelector, void*) {
     if (myEditShapePoly != 0) {
-        myEditShapePoly->deleteGeometryNear(getPopupPosition(), false);
+        myEditShapePoly->deleteGeometryPoint(getPopupPosition(), false);
         update();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
         if (polygonUnderMouse) {
-            polygonUnderMouse->deleteGeometryNear(getPopupPosition());
+            polygonUnderMouse->deleteGeometryPoint(getPopupPosition());
         }
     }
     return 1;

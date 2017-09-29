@@ -250,19 +250,20 @@ GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
 }
 
 
-bool
-GNEEdge::deleteGeometry(const Position& pos, GNEUndoList* undoList) {
-    PositionVector geom = myNBEdge.getInnerGeometry();
-    if (geom.size() == 0) {
-        return false;
-    }
-    int index = geom.indexOfClosest(pos);
-    if (geom[index].distanceTo(pos) < SNAP_RADIUS) {
-        geom.erase(geom.begin() + index);
-        setAttribute(SUMO_ATTR_SHAPE, toString(geom), undoList);
-        return true;
+void
+GNEEdge::deleteGeometryPoint(const Position& pos, bool allowUndo) {
+    // obtain index and remove point
+    PositionVector modifiedShape = myNBEdge.getInnerGeometry();
+    int index = modifiedShape.indexOfClosest(pos);
+    modifiedShape.erase(modifiedShape.begin() + index);
+    // set new shape depending of allowUndo
+    if (allowUndo) {
+        myNet->getViewNet()->getUndoList()->p_begin("delete geometry point");
+        setAttribute(SUMO_ATTR_SHAPE, toString(modifiedShape), myNet->getViewNet()->getUndoList());
+        myNet->getViewNet()->getUndoList()->p_end();
     } else {
-        return false;
+        // set new shape
+        setGeometry(modifiedShape, true);
     }
 }
 
@@ -454,7 +455,9 @@ GNEEdge::setEndpoint(Position pos, GNEUndoList* undoList) {
         myGNEJunctionSource->invalidateShape();
     }
     // possibly existing inner point is no longer needed
-    deleteGeometry(pos, undoList);
+    if(myNBEdge.getInnerGeometry().size() > 0 && getVertexIndex(pos, false) != -1) {
+        deleteGeometryPoint(pos, false);
+    }
     undoList->p_end();
 }
 

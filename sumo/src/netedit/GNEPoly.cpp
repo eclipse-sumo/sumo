@@ -128,10 +128,9 @@ GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset)
     if (!myBlockMovement && myBlockShape) {
         // restore original shape
         myShape = oldShape;
-        // change all points of the shape shape using noffset
-        for (auto i = myShape.begin(); i != myShape.end(); i++) {
-            i->setx(i->x() - offset.x());
-            i->sety(i->y() - offset.y());
+        // change all points of the shape shape using offset
+        for (auto &i : myShape) {
+            i.add(offset);
         }
         // refresh element
         myNet->refreshPolygon(this);
@@ -335,6 +334,41 @@ GNEPoly::getVertexIndex(const Position& pos, bool createIfNoExist) {
 }
 
 
+void
+GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
+    if (myShape.size() > 1) {
+        // obtain index
+        PositionVector modifiedShape = myShape;
+        int index = modifiedShape.indexOfClosest(pos);
+        // remove point dependending of
+        if (myClosedShape && (index == 0 || index == (int)modifiedShape.size() - 1)) {
+            modifiedShape.erase(modifiedShape.begin());
+            modifiedShape.erase(modifiedShape.end() - 1);
+            myShape.push_back(modifiedShape.front());
+        } else {
+            modifiedShape.erase(modifiedShape.begin() + index);
+        }
+        // set new shape depending of allowUndo
+        if (allowUndo) {
+            myNet->getViewNet()->getUndoList()->p_begin("delete geometry point");
+            setAttribute(SUMO_ATTR_SHAPE, toString(modifiedShape), myNet->getViewNet()->getUndoList());
+            myNet->getViewNet()->getUndoList()->p_end();
+        } else {
+            // set new shape
+            myShape = modifiedShape;
+            // Check if new shape is closed
+            myClosedShape = (myShape.front() == myShape.back());
+            // refresh polygon in net to avoid grabbing problems
+            myNet->refreshPolygon(this);
+            // disable simplified shape flag
+            mySimplifiedShape = false;
+        }
+    } else {
+        WRITE_WARNING("Number of remaining points insufficient")
+    }
+}
+
+
 bool
 GNEPoly::isPolygonClosed() const {
     return myClosedShape;
@@ -471,41 +505,6 @@ GNEPoly::simplifyShape(bool allowUndo) {
         mySimplifiedShape = true;
     } else {
         WRITE_WARNING("Polygon already simplified")
-    }
-}
-
-
-void
-GNEPoly::deleteGeometryNear(const Position& pos, bool allowUndo) {
-    if (myShape.size() > 1) {
-        // obtain index
-        PositionVector modifiedShape = myShape;
-        int index = modifiedShape.indexOfClosest(pos);
-        // remove point dependending of
-        if (myClosedShape && (index == 0 || index == (int)modifiedShape.size() - 1)) {
-            modifiedShape.erase(modifiedShape.begin());
-            modifiedShape.erase(modifiedShape.end() - 1);
-            myShape.push_back(modifiedShape.front());
-        } else {
-            modifiedShape.erase(modifiedShape.begin() + index);
-        }
-        // set new shape depending of allowUndo
-        if (allowUndo) {
-            myNet->getViewNet()->getUndoList()->p_begin("delete geometry point");
-            setAttribute(SUMO_ATTR_SHAPE, toString(modifiedShape), myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->p_end();
-        } else {
-            // set new shape
-            myShape = modifiedShape;
-            // Check if new shape is closed
-            myClosedShape = (myShape.front() == myShape.back());
-            // refresh polygon in net to avoid grabbing problems
-            myNet->refreshPolygon(this);
-            // disable simplified shape flag
-            mySimplifiedShape = false;
-        }
-    } else {
-        WRITE_WARNING("Number of remaining points insufficient")
     }
 }
 

@@ -355,15 +355,15 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
         switch (dynamic_cast<GUIGlObject*>(ac)->getType()) {
             case GLO_EDGE: {
                 GNEEdge* edge = dynamic_cast<GNEEdge*>(ac);
-                if(edge->getVertexIndex(clickedPosition) != -1) {
-                    edge->deleteGeometry(clickedPosition, myViewNet->getUndoList());
+                if(edge->getVertexIndex(clickedPosition, false) != -1) {
+                    edge->deleteGeometryPoint(clickedPosition);
                 }
                 break;
             }
             case GLO_POLYGON: {
                 GNEPoly* polygon = dynamic_cast<GNEPoly*>(ac);
                 if(polygon->getVertexIndex(clickedPosition, false) != -1) {
-                    polygon->deleteGeometryNear(clickedPosition);
+                    polygon->deleteGeometryPoint(clickedPosition);
                 }
                 break;
             }
@@ -419,7 +419,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                 }
                 // Check if edge can be deleted
                 if (myAutomaticallyDeleteAdditionalsCheckButton->getCheck()) {
-                    myViewNet->getNet()->deleteGeometryOrEdge(edge, myViewNet->getPositionInformation(), myViewNet->getUndoList());
+                    myViewNet->getNet()->deleteEdge(edge, myViewNet->getUndoList());
                 } else {
                     if (numberOfAdditionals > 0) {
                         // write warning if netedit is running in testing mode
@@ -450,7 +450,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                             WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");
                         }
                     } else {
-                        myViewNet->getNet()->deleteGeometryOrEdge(edge, myViewNet->getPositionInformation(), myViewNet->getUndoList());
+                        myViewNet->getNet()->deleteEdge(edge, myViewNet->getUndoList());
                     }
                 }
                 break;

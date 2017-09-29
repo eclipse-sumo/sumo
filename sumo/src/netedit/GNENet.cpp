@@ -611,14 +611,6 @@ GNENet::removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList
 }
 
 
-void
-GNENet::deleteGeometryOrEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList) {
-    if (!edge->deleteGeometry(pos, undoList)) {
-        deleteEdge(edge, undoList);
-    }
-}
-
-
 GNEJunction*
 GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction) {
     undoList->p_begin("split " + toString(SUMO_TAG_EDGE));

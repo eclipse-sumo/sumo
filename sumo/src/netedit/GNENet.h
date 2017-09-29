@@ -269,14 +269,6 @@ public:
      */
     bool removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList* undoList);
 
-    /**@brief removes geometry when pos is close to a geometry node, deletes
-     * the whole edge otherwise
-     * @param[in] edge The edge to be removed
-     * @param[in] pos The position that was clicked upon
-     * @param[in] undoList The undolist in which to mark changes
-     */
-    void deleteGeometryOrEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList);
-
     /**@brief split edge at position by inserting a new junction
      * @param[in] edge The edge to be split
      * @param[in] pos The position on which to insert the new junction
