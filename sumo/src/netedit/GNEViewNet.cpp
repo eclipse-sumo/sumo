@@ -401,30 +401,45 @@ GNEViewNet::begingMoveSelection(GNEAttributeCarrier *originAC) {
             }
         }
     } else if(originAC->getTag() == SUMO_TAG_EDGE) {
-        GNEEdge *pointed_edge = dynamic_cast<GNEEdge*>(originAC);
-        // save shapes of with source and destiny junctions selected
+
+        myEdgeToMove = dynamic_cast<GNEEdge*>(originAC);
+
+        std::set<GNEEdge*> edgesRestantes;
+        for (auto i : selectedEdges) {
+            edgesRestantes.insert(i);
+        }
+
+        // selected edges with source and destiny junctions selected has to be moved entirely
         for (auto i : selectedEdges) {
             if((myOriginPositionOfMovedJunctions.count(i->getGNEJunctionSource()) > 0 &&
                 myOriginPositionOfMovedJunctions.count(i->getGNEJunctionDestiny()) > 0)) {
                 myOriginShapesOfMovedEdges[i] = i->getNBEdge()->getInnerGeometry();
+                edgesRestantes.erase(i);
             }
         }
-        // check if both Junctions of pointed_edge belongs to a selected junctions
-        if((myOriginPositionOfMovedJunctions.count(pointed_edge->getGNEJunctionSource()) > 0 &&
-            myOriginPositionOfMovedJunctions.count(pointed_edge->getGNEJunctionDestiny()) > 0) == false) {
-            myEdgeToMove = pointed_edge;
-            // save original shape (needed for commit change)
-            myMovingOriginalShape = myEdgeToMove->getNBEdge()->getInnerGeometry();
-            // obtain index of vertex to move and moving reference
-            myMovingIndexShape = myEdgeToMove->getVertexIndex(getPositionInformation());
 
-            myMovingOriginalShape2 = myEdgeToMove->getNBEdge()->getInnerGeometry();
-            myOppositeEdgeToMove = pointed_edge->getOppositeEdge();
-            if(myOppositeEdgeToMove && gSelected.isSelected(GLO_EDGE, myOppositeEdgeToMove->getGlID())) {
-                myMovingOriginalShapenOppositeEdge = myOppositeEdgeToMove->getNBEdge()->getInnerGeometry();
-            } else {
-                myOppositeEdgeToMove = 0;
+        double edgeOffset = myEdgeToMove->getNBEdge()->getGeometry().nearest_offset_to_point2D(getPositionInformation());
+
+        while(edgesRestantes.size() > 0) {
+            GNEEdge* currentEdge = *edgesRestantes.begin();
+            if(edgeOffset < currentEdge->getNBEdge()->getGeometry().length()) {
+                // save current geometry edge
+                myOriginShapesOfMovedEdges[currentEdge] = currentEdge->getNBEdge()->getInnerGeometry();
+                Position pos = currentEdge->getNBEdge()->getGeometry().positionAtOffset2D(edgeOffset);
+                int index = currentEdge->getVertexIndex(edgeOffset);
+                miPosibleSolucion[currentEdge] = std::pair<int, Position> (index, pos);
+
+                GNEEdge* oppositeEdge = currentEdge->getOppositeEdge();
+                if(oppositeEdge && edgesRestantes.count(oppositeEdge) > 0) {
+                    pos = oppositeEdge->getNBEdge()->getGeometry().positionAtOffset2D(oppositeEdge->getNBEdge()->getGeometry().length() - edgeOffset);
+                    index = oppositeEdge->getVertexIndex(oppositeEdge->getNBEdge()->getGeometry().length() - edgeOffset);
+                    if(index != -1) {
+                        miPosibleSolucion[oppositeEdge] = std::pair<int, Position> (index, pos);
+                    }
+                    edgesRestantes.erase(oppositeEdge);
+                }
             }
+            edgesRestantes.erase(currentEdge);
         }
     }
 
@@ -437,35 +452,19 @@ GNEViewNet::moveSelection(const Position &offset) {
     for(auto i : myOriginPositionOfMovedJunctions) {
         i.first->moveGeometry(i.second, offset);
     }
-    // move selected edges
+
+    // move entire edge shapes
     for (auto i : myOriginShapesOfMovedEdges) {
-        i.first->moveEntireShape(i.second, offset);
+        if(miPosibleSolucion.count(i.first) == 0) {
+            i.first->moveEntireShape(i.second, offset);
+        }
     }
+
     if (myEdgeToMove) {
-        PositionVector geometry = myMovingOriginalShape2;
-        /*
-        PositionVector shapeBeforeMoving = myEdgeToMove->getNBEdge()->getInnerGeometry();
-        myMovingIndexShape = myEdgeToMove->moveVertexShape(myMovingIndexShape, myMovingOriginalPosition, offsetMovement);
-        */
-
-        // move edge's geometry without commiting changes
-        if(gSelected.isSelected(myEdgeToMove->getGNEJunctionDestiny()->getType(), myEdgeToMove->getGNEJunctionDestiny()->getGlID())) {
-            for (int i = myMovingIndexShape; i < geometry.size(); i++) {
-                // myEdgeToMove->moveVertexShape(i, shapeBeforeMoving[i], offsetMovement);
-                geometry[i].add(offset);
-            }
-        } else {
-            for (int i = 0; i <= myMovingIndexShape; i++) {
-
-                geometry[i].add(offset);
-            }
+        for(auto i : miPosibleSolucion) {
+            i.first->moveVertexShape(i.second.first, i.second.second, offset);
         }
-        myEdgeToMove->setGeometry(geometry, true);
 
-        if(myOppositeEdgeToMove) {
-            PositionVector geometry = myEdgeToMove->getNBEdge()->getInnerGeometry();
-            myOppositeEdgeToMove->setGeometry(geometry.reverse(), true);
-        }
     }
 }
 
@@ -484,15 +483,19 @@ GNEViewNet::finishMoveSelection() {
         i.first->commitShapeChange(i.second, myUndoList);
     }
     myOriginShapesOfMovedEdges.clear();
+    miPosibleSolucion.clear();
 
     // if edge to move was edited, save it
     if (myEdgeToMove) {
         myEdgeToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
         myEdgeToMove = 0;
+
+        /*
         if(myOppositeEdgeToMove) {
             myOppositeEdgeToMove->commitShapeChange(myMovingOriginalShapenOppositeEdge, myUndoList);
             myOppositeEdgeToMove = 0;
         }
+        */
     }
     myUndoList->p_end();
     myMovingSelection = false;

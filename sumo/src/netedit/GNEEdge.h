@@ -86,6 +86,20 @@ public:
      */
     void updateGeometry();
 
+    /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
+    * @param pos position of new/existent vertex
+    * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position
+    * @return index of position vector
+    */
+    int getVertexIndex(const Position& pos, bool createIfNoExist = true);
+
+    /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
+    * @param offset position over edge
+    * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position
+    * @return index of position vector
+    */
+    int getVertexIndex(const double offset, bool createIfNoExist = true);
+
     /**@brief change position of a vertex of shape without commiting change
     * @param[in] index index of Vertex shape
     * @param[in] newPos The new position of vertex
@@ -104,13 +118,6 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     void commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList);
-
-    /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
-    * @param pos position of new/existent vertex
-    * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position
-    * @return index of position vector
-    */
-    int getVertexIndex(const Position& pos, bool createIfNoExist = true);
 
     /// @brief delete the geometry point closest to the given pos
     void deleteGeometryPoint(const Position& pos, bool allowUndo = true);
@@ -285,9 +292,6 @@ protected:
 
     /// @brief restore point for undo
     PositionVector myOrigShape;
-
-    /// @brief index of vertex that is been moved (-1 means that none vertex is been moved)
-    int myCurrentMovingVertexIndex;
 
     /// @brief vectgor with the lanes of this edge
     LaneVector myLanes;

@@ -76,8 +76,7 @@ GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
     myLanes(0),
     myAmResponsible(false),
     myWasSplit(wasSplit),
-    myConnectionStatus(loaded ? LOADED : GUESSED),
-    myCurrentMovingVertexIndex(-1) {
+    myConnectionStatus(loaded ? LOADED : GUESSED) {
     // Create lanes
     int numLanes = myNBEdge.getNumLanes();
     myLanes.reserve(numLanes);
@@ -134,6 +133,43 @@ GNEEdge::updateGeometry() {
 }
 
 
+int 
+GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
+    PositionVector innerGeometry = myNBEdge.getInnerGeometry();
+    // first check if vertex already exists in the inner geometry
+    for (auto i : innerGeometry) {
+        if (i.distanceTo2D(pos) < SNAP_RADIUS) {
+            return innerGeometry.indexOfClosest(i);
+        }
+    }
+    // if vertex doesn't exist, insert it
+    if (createIfNoExist) {
+        if(innerGeometry.size() == 0) {
+            innerGeometry.push_back(pos);
+            setGeometry(innerGeometry, true);
+            return 0;
+        } else {
+            PositionVector entireGeometry = myNBEdge.getGeometry();
+            int index = entireGeometry.insertAtClosest(pos);
+            setGeometry(entireGeometry, false);
+            return (index - 1);
+        }
+    } else {
+        return -1;
+    }
+}
+
+
+int 
+GNEEdge::getVertexIndex(const double offset, bool createIfNoExist) {
+    if(offset < myNBEdge.getGeometry().length()) {
+        return getVertexIndex(myNBEdge.getGeometry().positionAtOffset2D(offset), createIfNoExist);
+    } else {
+        return -1;
+    }
+}
+
+
 int
 GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position &offset) {
     // obtain inner geometry of edge
@@ -142,8 +178,6 @@ GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position
     if (index != -1) {
         // check that index is correct before change position
         if (index < (int)edgeGeometry.size()) {
-            // save current moving vertex
-            myCurrentMovingVertexIndex = index;
             // change position of vertex
             edgeGeometry[index] = oldPos;
             edgeGeometry[index].add(offset);
@@ -176,8 +210,6 @@ GNEEdge::moveEntireShape(const PositionVector& oldShape, const Position& offset)
 
 void
 GNEEdge::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList) {
-    // disable current moving vertex
-    myCurrentMovingVertexIndex = -1;
     // restore original shape into shapeToCommit
     PositionVector innerShapeToCommit = myNBEdge.getInnerGeometry();
     // first check if second and penultimate ins't in Junction's buubles
@@ -200,33 +232,6 @@ GNEEdge::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innerShapeToCommit)));
     undoList->p_end();
-}
-
-
-int 
-GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
-    PositionVector innerGeometry = myNBEdge.getInnerGeometry();
-    // first check if vertex already exists in the inner geometry
-    for (auto i : innerGeometry) {
-        if (i.distanceTo2D(pos) < SNAP_RADIUS) {
-            return innerGeometry.indexOfClosest(i);
-        }
-    }
-    // if vertex doesn't exist, insert it
-    if (createIfNoExist) {
-        if(innerGeometry.size() == 0) {
-            innerGeometry.push_back(pos);
-            setGeometry(innerGeometry, true);
-            return 0;
-        } else {
-            PositionVector entireGeometry = myNBEdge.getGeometry();
-            int index = entireGeometry.insertAtClosest(pos);
-            setGeometry(entireGeometry, false);
-            return (index - 1);
-        }
-    } else {
-        return -1;
-    }
 }
 
 

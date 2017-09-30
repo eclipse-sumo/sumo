@@ -464,6 +464,9 @@ private:
 
     /// @brief Selected Edges that are being moved < Edge, PositionVector >
     std::map<GNEEdge*, PositionVector> myOriginShapesOfMovedEdges;
+
+    /// @brief 
+    std::map<GNEEdge*, std::pair<int, Position> > miPosibleSolucion;
     // @}
 
     /// @name state-variables of inspect-mode and select-mode
