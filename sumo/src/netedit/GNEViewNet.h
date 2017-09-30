@@ -85,6 +85,7 @@ class GNEPOI;
 class GNEFrame;
 class GNENetElement;
 class GNECrossing;
+class GNEAttributeCarrier;
 
 // ===========================================================================
 // class definitions
@@ -342,6 +343,15 @@ public:
 
     /// @brief edit edit shape
     void stopEditCustomShape();
+
+    /// @brief begin move selection
+    void begingMoveSelection(GNEAttributeCarrier *originAC);
+
+    /// @brief move selection
+    void moveSelection(const Position &offset);
+
+    /// @brief finish moving selection
+    void finishMoveSelection();
 
 protected:
     /// @brief FOX needs this

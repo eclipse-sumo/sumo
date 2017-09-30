@@ -137,9 +137,9 @@ GNEEdge::updateGeometry() {
 int
 GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position &offset) {
     // obtain inner geometry of edge
-    PositionVector edgeGeometry = myNBEdge.getGeometry();
+    PositionVector edgeGeometry = myNBEdge.getInnerGeometry();
     // Make sure that index is valid AND ins't the first and last index
-    if ((index != -1) && (index != 0) && (index != (edgeGeometry.size() - 1))) {
+    if (index != -1) {
         // check that index is correct before change position
         if (index < (int)edgeGeometry.size()) {
             // save current moving vertex
@@ -148,7 +148,7 @@ GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position
             edgeGeometry[index] = oldPos;
             edgeGeometry[index].add(offset);
             // update edge's geometry
-            setGeometry(edgeGeometry, false);
+            setGeometry(edgeGeometry, true);
             return index;
         } else {
             throw InvalidArgument("Index greater than shape size");
@@ -203,47 +203,27 @@ GNEEdge::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
 }
 
 
-void 
-GNEEdge::commitGeometryMoving(const PositionVector& oldShape, double minDistToEnd, GNEUndoList* undoList) {
-    // shape has to be cleaned
-    PositionVector cleanedShape = myNBEdge.getInnerGeometry();
-    auto it = cleanedShape.begin();
-    // iterate over shape and remove nearest point to Junctions
-    while (it != cleanedShape.end()) {
-        if (it->distanceTo2D(myGNEJunctionSource->getPositionInView()) < minDistToEnd) {
-            it = cleanedShape.erase(it);
-        } else if (it->distanceTo2D(myGNEJunctionDestiny->getPositionInView()) < minDistToEnd) {
-            it = cleanedShape.erase(it);
-        } else {
-            it++;
-        }
-    }
-    if (oldShape != cleanedShape) {
-        undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
-        myNBEdge.setGeometry(myOrigShape, true);
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(cleanedShape)));
-        undoList->p_end();
-    } else {
-        setGeometry(oldShape, true);
-    }
-
-}
-
-
 int 
 GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
-    PositionVector geometry = myNBEdge.getGeometry();
-    // first check if vertex already exists
-    for (auto i : geometry) {
+    PositionVector innerGeometry = myNBEdge.getInnerGeometry();
+    // first check if vertex already exists in the inner geometry
+    for (auto i : innerGeometry) {
         if (i.distanceTo2D(pos) < SNAP_RADIUS) {
-            return geometry.indexOfClosest(i);
+            return innerGeometry.indexOfClosest(i);
         }
     }
     // if vertex doesn't exist, insert it
     if (createIfNoExist) {
-        int index = geometry.insertAtClosest(pos);
-        setGeometry(geometry, false);
-        return index;
+        if(innerGeometry.size() == 0) {
+            innerGeometry.push_back(pos);
+            setGeometry(innerGeometry, true);
+            return 0;
+        } else {
+            PositionVector entireGeometry = myNBEdge.getGeometry();
+            int index = entireGeometry.insertAtClosest(pos);
+            setGeometry(entireGeometry, false);
+            return (index - 1);
+        }
     } else {
         return -1;
     }

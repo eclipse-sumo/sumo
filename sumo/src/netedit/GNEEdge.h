@@ -105,9 +105,6 @@ public:
     */
     void commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList);
 
-    /// @brief registers completed movement with the undoList
-    void commitGeometryMoving(const PositionVector& oldShape, double minDistToEnd, GNEUndoList* undoList);
-
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
     * @param pos position of new/existent vertex
     * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position
