@@ -345,7 +345,7 @@ public:
     void stopEditCustomShape();
 
     /// @brief begin move selection
-    void begingMoveSelection(GNEAttributeCarrier *originAC);
+    void begingMoveSelection(GNEAttributeCarrier *originAC, const Position &originPosition);
 
     /// @brief move selection
     void moveSelection(const Position &offset);
@@ -463,10 +463,13 @@ private:
     std::map<GNEJunction*, Position> myOriginPositionOfMovedJunctions;
 
     /// @brief Selected Edges that are being moved < Edge, PositionVector >
-    std::map<GNEEdge*, PositionVector> myOriginShapesOfMovedEdges;
+    std::map<GNEEdge*, PositionVector> myOriginShapesMovedEntireShapes;
 
-    /// @brief 
-    std::map<GNEEdge*, std::pair<int, Position> > miPosibleSolucion;
+    std::map<GNEEdge*, PositionVector> myOriginShapesMovedPartialShapes;
+
+
+
+    std::map<GNEEdge*, std::pair<int, Position> > myMovedPartialShapes;
     // @}
 
     /// @name state-variables of inspect-mode and select-mode
