@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCIServerAPI_TLS.h
+/// @file    TraCIServerAPI_TrafficLight.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    07.05.2009
@@ -18,8 +18,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef TraCIServerAPI_TLS_h
-#define TraCIServerAPI_TLS_h
+#ifndef TraCIServerAPI_TrafficLight_h
+#define TraCIServerAPI_TrafficLight_h
 
 
 // ===========================================================================
@@ -42,10 +42,10 @@
 // class definitions
 // ===========================================================================
 /**
- * @class TraCIServerAPI_TLS
+ * @class TraCIServerAPI_TrafficLight
  * @brief APIs for getting/setting traffic light values via TraCI
  */
-class TraCIServerAPI_TLS {
+class TraCIServerAPI_TrafficLight {
 public:
     /** @brief Processes a get value command (Command 0xa2: Get Traffic Lights Variable)
      *
@@ -69,10 +69,10 @@ public:
 
 private:
     /// @brief invalidated copy constructor
-    TraCIServerAPI_TLS(const TraCIServerAPI_TLS& s);
+    TraCIServerAPI_TrafficLight(const TraCIServerAPI_TrafficLight& s);
 
     /// @brief invalidated assignment operator
-    TraCIServerAPI_TLS& operator=(const TraCIServerAPI_TLS& s);
+    TraCIServerAPI_TrafficLight& operator=(const TraCIServerAPI_TrafficLight& s);
 
 
 };

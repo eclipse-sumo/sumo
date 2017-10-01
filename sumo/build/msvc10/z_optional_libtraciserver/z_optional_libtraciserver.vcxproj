@@ -127,7 +127,7 @@
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Polygon.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Route.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Simulation.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_TLS.cpp" />
+    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_TrafficLight.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Vehicle.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_VehicleType.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServer.cpp" />
@@ -142,7 +142,7 @@
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Polygon.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Route.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Simulation.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_TLS.cpp" />
+    <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_TrafficLight.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Vehicle.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_VehicleType.cpp" />
   </ItemGroup>
@@ -159,7 +159,7 @@
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Polygon.h" />
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Route.h" />
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Simulation.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_TLS.h" />
+    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_TrafficLight.h" />
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Vehicle.h" />
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_VehicleType.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIConstants.h" />
@@ -176,7 +176,7 @@
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Polygon.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Route.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Simulation.h" />
-    <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_TLS.h" />
+    <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_TrafficLight.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Vehicle.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_VehicleType.h" />
   </ItemGroup>

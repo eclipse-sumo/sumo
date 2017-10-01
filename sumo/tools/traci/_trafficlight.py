@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@file    _trafficlights.py
+@file    _trafficlight.py
 @author  Michael Behrisch
 @date    2011-03-16
 @version $Id$
@@ -113,16 +113,16 @@ _RETURN_VALUE_FUNC = {tc.TL_RED_YELLOW_GREEN_STATE: Storage.readString,
                       tc.TL_PHASE_DURATION: Storage.readInt}
 
 
-class TrafficLightsDomain(Domain):
+class TrafficLightDomain(Domain):
 
     Phase = Phase
     Logic = Logic
 
-    def __init__(self):
-        Domain.__init__(self, "trafficlights", tc.CMD_GET_TL_VARIABLE, tc.CMD_SET_TL_VARIABLE,
+    def __init__(self, name="trafficlight", deprecatedFor=None):
+        Domain.__init__(self, name, tc.CMD_GET_TL_VARIABLE, tc.CMD_SET_TL_VARIABLE,
                         tc.CMD_SUBSCRIBE_TL_VARIABLE, tc.RESPONSE_SUBSCRIBE_TL_VARIABLE,
                         tc.CMD_SUBSCRIBE_TL_CONTEXT, tc.RESPONSE_SUBSCRIBE_TL_CONTEXT,
-                        _RETURN_VALUE_FUNC)
+                        _RETURN_VALUE_FUNC, deprecatedFor)
 
     def getRedYellowGreenState(self, tlsID):
         """getRedYellowGreenState(string) -> string
@@ -263,4 +263,5 @@ class TrafficLightsDomain(Domain):
         self._connection._sendExact()
 
 
-TrafficLightsDomain()
+TrafficLightDomain()
+TrafficLightDomain("trafficlights", "trafficlight")

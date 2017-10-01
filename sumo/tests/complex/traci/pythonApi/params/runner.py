@@ -57,7 +57,7 @@ objects = [
     ("lane", traci.lane, "1o_0"),
     ("vType", traci.vehicletype, "pType"),
     ("route", traci.route, "horizontal"),
-    ("trafficlight", traci.trafficlights, "0"),
+    ("trafficlight", traci.trafficlight, "0"),
 ]
 
 [setGetParam(*x) for x in objects]

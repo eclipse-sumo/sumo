@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCIServerAPI_TLS.cpp
+/// @file    TraCIServerAPI_TrafficLight.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
@@ -37,16 +37,16 @@
 #include <microsim/MSEdge.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
-#include "lib/TraCI_TLS.h"
+#include "lib/TraCI_TrafficLight.h"
 #include "TraCIConstants.h"
-#include "TraCIServerAPI_TLS.h"
+#include "TraCIServerAPI_TrafficLight.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
+TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                tcpip::Storage& outputStorage) {
     // variable & id
     const int variable = inputStorage.readUnsignedByte();
@@ -69,18 +69,18 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
         switch (variable) {
         case ID_LIST:
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(TraCI_TLS::getIDList());
+            tempMsg.writeStringList(TraCI_TrafficLight::getIDList());
             break;
         case ID_COUNT:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt(TraCI_TLS::getIDCount());
+            tempMsg.writeInt(TraCI_TrafficLight::getIDCount());
             break;
         case TL_RED_YELLOW_GREEN_STATE:
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(TraCI_TLS::getRedYellowGreenState(id));
+            tempMsg.writeString(TraCI_TrafficLight::getRedYellowGreenState(id));
             break;
         case TL_COMPLETE_DEFINITION_RYG: {
-            std::vector<TraCILogic> logics = TraCI_TLS::getCompleteRedYellowGreenDefinition(id);
+            std::vector<TraCILogic> logics = TraCI_TrafficLight::getCompleteRedYellowGreenDefinition(id);
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
             tcpip::Storage tempContent;
             int cnt = 0;
@@ -128,10 +128,10 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
         }
         case TL_CONTROLLED_LANES:
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(TraCI_TLS::getControlledLanes(id));
+            tempMsg.writeStringList(TraCI_TrafficLight::getControlledLanes(id));
             break;
         case TL_CONTROLLED_LINKS: {
-            const std::vector<std::vector<TraCILink> > links = TraCI_TLS::getControlledLinks(id);
+            const std::vector<std::vector<TraCILink> > links = TraCI_TrafficLight::getControlledLinks(id);
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
             tcpip::Storage tempContent;
             int cnt = 0;
@@ -153,19 +153,19 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
         }
         case TL_CURRENT_PHASE:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt(TraCI_TLS::getPhase(id));
+            tempMsg.writeInt(TraCI_TrafficLight::getPhase(id));
             break;
         case TL_CURRENT_PROGRAM:
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(TraCI_TLS::getProgram(id));
+            tempMsg.writeString(TraCI_TrafficLight::getProgram(id));
             break;
         case TL_PHASE_DURATION:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int)TraCI_TLS::getPhaseDuration(id));
+            tempMsg.writeInt((int)TraCI_TrafficLight::getPhaseDuration(id));
             break;
         case TL_NEXT_SWITCH:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int)TraCI_TLS::getNextSwitch(id));
+            tempMsg.writeInt((int)TraCI_TrafficLight::getNextSwitch(id));
             break;
         case VAR_PARAMETER: {
             std::string paramName = "";
@@ -173,12 +173,12 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
             }
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(TraCI_TLS::getParameter(id, paramName));
+            tempMsg.writeString(TraCI_TrafficLight::getParameter(id, paramName));
             break;
         }
         case TL_CONTROLLED_JUNCTIONS: {
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(TraCI_TLS::getControlledJunctions(id));
+            tempMsg.writeStringList(TraCI_TrafficLight::getControlledJunctions(id));
             break;
         }
         case TL_EXTERNAL_STATE: {
@@ -254,7 +254,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
 
 
 bool
-TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
+TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                                tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable
@@ -272,7 +272,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingInt(inputStorage, index)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The phase index must be given as an integer.", outputStorage);
                 }
-                TraCI_TLS::setPhase(id, index);
+                TraCI_TrafficLight::setPhase(id, index);
             }
             break;
             case TL_PROGRAM: {
@@ -280,7 +280,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingString(inputStorage, subID)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The program must be given as a string.", outputStorage);
                 }
-                TraCI_TLS::setProgram(id, subID);
+                TraCI_TrafficLight::setProgram(id, subID);
             }
             break;
             case TL_PHASE_DURATION: {
@@ -288,7 +288,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingInt(inputStorage, duration)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The phase duration must be given as an integer.", outputStorage);
                 }
-                TraCI_TLS::setPhaseDuration(id, duration);
+                TraCI_TrafficLight::setPhaseDuration(id, duration);
             }
             break;
             case TL_RED_YELLOW_GREEN_STATE: {
@@ -296,7 +296,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingString(inputStorage, state)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The phase must be given as a string.", outputStorage);
                 }
-                TraCI_TLS::setRedYellowGreenState(id, state);
+                TraCI_TrafficLight::setRedYellowGreenState(id, state);
             }
             break;
             case TL_COMPLETE_PROGRAM_RYG: {
@@ -340,7 +340,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                     }
                     logic.phases.emplace_back(TraCIPhase(duration, minDuration, maxDuration, state));
                 }
-                TraCI_TLS::setCompleteRedYellowGreenDefinition(id, logic);
+                TraCI_TrafficLight::setCompleteRedYellowGreenDefinition(id, logic);
             }
             break;
             case VAR_PARAMETER: {
@@ -357,7 +357,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingString(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
                 }
-                TraCI_TLS::setParameter(id, name, value);
+                TraCI_TrafficLight::setParameter(id, name, value);
             }
             break;
             default:

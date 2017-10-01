@@ -49,7 +49,7 @@ def run():
         traci.simulationStep()
         step += 1
         if step == 4:
-            traci.trafficlights.setProgram("center", "0")
+            traci.trafficlight.setProgram("center", "0")
     traci.close()
     sys.stdout.flush()
 

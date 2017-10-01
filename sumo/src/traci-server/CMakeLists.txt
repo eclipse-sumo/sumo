@@ -30,8 +30,8 @@ SET(traciserver_STAT_SRCS
    TraCIServerAPI_Route.cpp
    TraCIServerAPI_Simulation.h
    TraCIServerAPI_Simulation.cpp
-   TraCIServerAPI_TLS.h
-   TraCIServerAPI_TLS.cpp
+   TraCIServerAPI_TrafficLight.h
+   TraCIServerAPI_TrafficLight.cpp
    TraCIServerAPI_Vehicle.h
    TraCIServerAPI_Vehicle.cpp
    TraCIServerAPI_VehicleType.h
@@ -65,7 +65,7 @@ set_property(TARGET traciserver PROPERTY PROJECT_LABEL "z_traciserver")
 #TraCIServerAPI_Polygon.h TraCIServerAPI_Polygon.cpp \
 #TraCIServerAPI_Route.h TraCIServerAPI_Route.cpp \
 #TraCIServerAPI_Simulation.h TraCIServerAPI_Simulation.cpp \
-#TraCIServerAPI_TLS.h TraCIServerAPI_TLS.cpp \
+#TraCIServerAPI_TrafficLight.h TraCIServerAPI_TrafficLight.cpp \
 #TraCIServerAPI_Vehicle.h TraCIServerAPI_Vehicle.cpp \
 #TraCIServerAPI_VehicleType.h TraCIServerAPI_VehicleType.cpp
 #

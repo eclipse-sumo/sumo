@@ -78,6 +78,7 @@ errors:send failed: Connection reset by peer{REPLACE send failed: Software cause
 errors:send failed: Socket reset by peer{REPLACE send failed: Software caused tcpip::Socket abort}
 errors:send failed: Broken pipe{REPLACE send failed: Software caused tcpip::Socket abort}
 errors:Could not find connection between
+errors:.*UserWarning: The domain{REPLACE UserWarning: The domain}
 ps:%%CreationDate
 
 [unordered_text]

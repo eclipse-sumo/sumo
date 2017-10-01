@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCI_TLS.h
+/// @file    TraCI_TrafficLight.h
 /// @author  Daniel Krajzewicz
 /// @author  Mario Krumnow
 /// @author  Michael Behrisch
@@ -19,8 +19,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef TraCI_TLS_h
-#define TraCI_TLS_h
+#ifndef TraCI_TrafficLight_h
+#define TraCI_TrafficLight_h
 
 
 // ===========================================================================
@@ -45,10 +45,10 @@ class MSRoute;
 // class definitions
 // ===========================================================================
 /**
-* @class TraCI_TLS
+* @class TraCI_TrafficLight
 * @brief C++ TraCI client API implementation
 */
-class TraCI_TLS {
+class TraCI_TrafficLight {
 public:
 
     static std::vector<std::string> getIDList();
@@ -75,13 +75,13 @@ private:
     static MSTLLogicControl::TLSLogicVariants& getTLS(const std::string& id);
 
     /// @brief invalidated standard constructor
-    TraCI_TLS();
+    TraCI_TrafficLight();
 
     /// @brief invalidated copy constructor
-    TraCI_TLS(const TraCI_TLS& src);
+    TraCI_TrafficLight(const TraCI_TrafficLight& src);
 
     /// @brief invalidated assignment operator
-    TraCI_TLS& operator=(const TraCI_TLS& src);
+    TraCI_TrafficLight& operator=(const TraCI_TrafficLight& src);
 };
 
 

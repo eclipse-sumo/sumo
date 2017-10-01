@@ -12,13 +12,15 @@ vehicle_sublane
 
 # Tests the vehicletype API
 vehicletype
+
+# Tests the person API
 person
 
 # Tests the junction API
 junction
 
-# Tests the trafficlights API
-trafficlights
+# Tests the trafficlight API
+trafficlight
 
 # Tests the simulation API
 simulation

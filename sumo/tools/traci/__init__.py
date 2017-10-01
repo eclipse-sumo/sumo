@@ -32,7 +32,7 @@ import sumolib  # noqa
 from .domain import _defaultDomains
 from .connection import Connection, _embedded
 from .exceptions import FatalTraCIError, TraCIException
-from . import _inductionloop, _lanearea, _multientryexit, _trafficlights
+from . import _inductionloop, _lanearea, _multientryexit, _trafficlight
 from . import _lane, _vehicle, _vehicletype, _person, _route
 from . import _poi, _polygon, _junction, _edge, _simulation, _gui
 

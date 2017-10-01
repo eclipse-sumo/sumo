@@ -21,8 +21,8 @@ set(traciserver_lib_STAT_SRCS
         TraCI_Route.cpp
         TraCI_Simulation.cpp
         TraCI_Simulation.h
-        TraCI_TLS.cpp
-        TraCI_TLS.h
+        TraCI_TrafficLight.cpp
+        TraCI_TrafficLight.h
         TraCI_Vehicle.h
         TraCI_Vehicle.cpp
         TraCI_VehicleType.cpp

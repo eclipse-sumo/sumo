@@ -81,7 +81,7 @@
 #include "TraCIServerAPI_Lane.h"
 #include "TraCIServerAPI_MultiEntryExit.h"
 #include "TraCIServerAPI_LaneArea.h"
-#include "TraCIServerAPI_TLS.h"
+#include "TraCIServerAPI_TrafficLight.h"
 #include "TraCIServerAPI_Vehicle.h"
 #include "TraCIServerAPI_VehicleType.h"
 #include "TraCIServerAPI_Route.h"
@@ -132,8 +132,8 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myExecutors[CMD_GET_LANEAREA_VARIABLE] = &TraCIServerAPI_LaneArea::processGet;
     myExecutors[CMD_GET_MULTIENTRYEXIT_VARIABLE] = &TraCIServerAPI_MultiEntryExit::processGet;
 
-    myExecutors[CMD_GET_TL_VARIABLE] = &TraCIServerAPI_TLS::processGet;
-    myExecutors[CMD_SET_TL_VARIABLE] = &TraCIServerAPI_TLS::processSet;
+    myExecutors[CMD_GET_TL_VARIABLE] = &TraCIServerAPI_TrafficLight::processGet;
+    myExecutors[CMD_SET_TL_VARIABLE] = &TraCIServerAPI_TrafficLight::processSet;
     myExecutors[CMD_GET_LANE_VARIABLE] = &TraCIServerAPI_Lane::processGet;
     myExecutors[CMD_SET_LANE_VARIABLE] = &TraCIServerAPI_Lane::processSet;
     myExecutors[CMD_GET_VEHICLE_VARIABLE] = &TraCIServerAPI_Vehicle::processGet;

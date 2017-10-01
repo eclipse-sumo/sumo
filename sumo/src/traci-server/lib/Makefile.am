@@ -24,8 +24,8 @@ TraCI_Route.h \
 TraCI_Route.cpp \
 TraCI_Simulation.h \
 TraCI_Simulation.cpp \
-TraCI_TLS.h \
-TraCI_TLS.cpp \
+TraCI_TrafficLight.h \
+TraCI_TrafficLight.cpp \
 TraCI_Vehicle.h \
 TraCI_Vehicle.cpp \
 TraCI_VehicleType.h \

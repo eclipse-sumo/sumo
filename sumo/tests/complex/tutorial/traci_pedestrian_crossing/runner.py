@@ -81,14 +81,14 @@ def run():
         # phase for the vehicles exceeds its minimum duration
         if not activeRequest:
             activeRequest = checkWaitingPersons()
-        if traci.trafficlights.getPhase(TLSID) == VEHICLE_GREEN_PHASE:
+        if traci.trafficlight.getPhase(TLSID) == VEHICLE_GREEN_PHASE:
             greenTimeSoFar += 1
             if greenTimeSoFar > MIN_GREEN_TIME:
                 # check whether someone has pushed the button
 
                 if activeRequest:
                     # switch to the next phase
-                    traci.trafficlights.setPhase(
+                    traci.trafficlight.setPhase(
                         TLSID, VEHICLE_GREEN_PHASE + 1)
                     # reset state
                     activeRequest = False
