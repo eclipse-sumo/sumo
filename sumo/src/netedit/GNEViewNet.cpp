@@ -426,32 +426,38 @@ GNEViewNet::begingMoveSelection(GNEAttributeCarrier *originAC, const Position &o
                     myOriginShapesMovedEntireShapes[i] = i->getNBEdge()->getInnerGeometry();
                 }
             }
-
-            // saved ol position of Edges which both junction isn't noJunctionsSelected
+            // obtain angle of edge
+            double angle = clickedEdge->getNBEdge()->getGeometry().beginEndAngle();
+            // saved old position of Edges which both junction isn't noJunctionsSelected
             for(auto i : noJunctionsSelected) {
-                myOriginShapesMovedPartialShapes[i] = i->getNBEdge()->getInnerGeometry();
+                myOriginShapesMovedPartialShapes[i].originalShape = i->getNBEdge()->getInnerGeometry();
+                /*
+                if(i->getNBEdge()->getGeometry().beginEndAngle() > angle) {
+                    myOriginShapesMovedPartialShapes[i].inverted = true;
+                } else {
+                    myOriginShapesMovedPartialShapes[i].inverted = false;
+                }
+                */
             }
-
             // obtain index shape of clicked edge and move it
-            myMovingIndexShape = clickedEdge->getVertexIndex(originPosition);
-            Position indexDelta = clickedEdge->getNBEdge()->getInnerGeometry()[myMovingIndexShape] - clickedEdge->getGNEJunctionSource()->getPositionInView();
-            myMovedPartialShapes[clickedEdge] = std::pair<int, Position>(myMovingIndexShape, originPosition);
+            myOriginShapesMovedPartialShapes[clickedEdge].originalPosition = originPosition;
+            myOriginShapesMovedPartialShapes[clickedEdge].index = clickedEdge->getVertexIndex(originPosition);
+            myOriginShapesMovedPartialShapes[clickedEdge].inverted = false;
+            Position indexDelta = clickedEdge->getNBEdge()->getInnerGeometry()[myOriginShapesMovedPartialShapes[clickedEdge].index] - clickedEdge->getGNEJunctionSource()->getPositionInView();
 
             // move index of rest of edges using delta as 
             for(auto i : noJunctionsSelected) {
                 // don't move index of clicked edge, because was already moved
                 if(i != clickedEdge) {
-                    Position pos = i->getGNEJunctionSource()->getPositionInView() + indexDelta;
-                    int index = i->getVertexIndex(pos);
-                    myMovedPartialShapes[i] = std::pair<int, Position>(index, pos);
+                    // get reference depending of this edge is the opposite edge of another alreaday inserted
+                    if(myOriginShapesMovedPartialShapes[i].inverted) {
+                        myOriginShapesMovedPartialShapes[i].originalPosition = i->getGNEJunctionDestiny()->getPositionInView() + indexDelta;
+                    } else {
+                        myOriginShapesMovedPartialShapes[i].originalPosition = i->getGNEJunctionSource()->getPositionInView() + indexDelta;
+                    }
+                    myOriginShapesMovedPartialShapes[i].index = i->getVertexIndex(myOriginShapesMovedPartialShapes[i].originalPosition);
                 }
             }
-
-
-            ;
-
-            //myMovedPartialShapes
-
         }
     }
 }
@@ -470,8 +476,8 @@ GNEViewNet::moveSelection(const Position &offset) {
     }
 
     // move partial shapes
-    for(auto i : myMovedPartialShapes) {
-        i.first->moveVertexShape(i.second.first, i.second.second, offset);
+    for(auto i : myOriginShapesMovedPartialShapes) {
+        i.first->moveVertexShape(i.second.index, i.second.originalPosition, offset);
     }
 }
 
@@ -493,10 +499,9 @@ GNEViewNet::finishMoveSelection() {
 
     //commit shapes of partial moved shapes
     for(auto i : myOriginShapesMovedPartialShapes) {
-        i.first->commitShapeChange(i.second, myUndoList);
+        i.first->commitShapeChange(i.second.originalShape, myUndoList);
     }
     myOriginShapesMovedPartialShapes.clear();
-    myMovedPartialShapes.clear();
 
     myUndoList->p_end();
     myMovingSelection = false;

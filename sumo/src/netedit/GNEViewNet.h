@@ -465,11 +465,16 @@ private:
     /// @brief Selected Edges that are being moved < Edge, PositionVector >
     std::map<GNEEdge*, PositionVector> myOriginShapesMovedEntireShapes;
 
-    std::map<GNEEdge*, PositionVector> myOriginShapesMovedPartialShapes;
+    struct movingEdges {
+        PositionVector originalShape;
+        int index;
+        Position originalPosition;
+        bool inverted;
+    };
+
+    std::map<GNEEdge*, movingEdges> myOriginShapesMovedPartialShapes;
 
 
-
-    std::map<GNEEdge*, std::pair<int, Position> > myMovedPartialShapes;
     // @}
 
     /// @name state-variables of inspect-mode and select-mode
