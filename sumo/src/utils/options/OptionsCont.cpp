@@ -571,7 +571,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
                     myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
             std::cout << " " << *it << std::endl;
         }
-        std::cout << " License GPLv3+: GNU GPL Version 3 or later <http://gnu.org/licenses/gpl.html>\n";
+        std::cout << " License EPLv2: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>\n";
         std::cout << " Use --help to get the list of options." << std::endl;
         return true;
     }
