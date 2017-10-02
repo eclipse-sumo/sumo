@@ -1,24 +1,22 @@
-"""
-@file    statisticsElements.py
-@author  Yun-Pang Floetteroed
-@author  Daniel Krajzewicz
-@author  Michael Behrisch
-@date    2008-07-10
-@version $Id$
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2008-2017 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
 
+# @file    statisticsElements.py
+# @author  Yun-Pang Floetteroed
+# @author  Daniel Krajzewicz
+# @author  Michael Behrisch
+# @date    2008-07-10
+# @version $Id$
+
+"""
 This script is to define classes, functions, parse-reader and output files/format for
 - calculating network performances
 - conducting significance tests (either t-Test or Kruskal-Wallis-Test) and
 - writing results into files.
-
-SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2017 DLR (http://www.dlr.de/) and contributors
-
-This file is part of SUMO.
-SUMO is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
 """
 from __future__ import absolute_import
 

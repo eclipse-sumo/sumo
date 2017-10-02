@@ -1,22 +1,20 @@
 #!/usr/bin/env python
-"""
-@file    poi_atTLS.py
-@author  Daniel Krajzewicz
-@author  Michael Behrisch
-@date    2010-02-20
-@version $Id$
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2010-2017 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
 
+# @file    poi_atTLS.py
+# @author  Daniel Krajzewicz
+# @author  Michael Behrisch
+# @date    2010-02-20
+# @version $Id$
+
+"""
 Generates a PoI-file containing a PoI for each tls controlled intersection
  from the given net.
-
-SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2010-2017 DLR (http://www.dlr.de/) and contributors
-
-This file is part of SUMO.
-SUMO is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
 """
 from __future__ import absolute_import
 from __future__ import print_function

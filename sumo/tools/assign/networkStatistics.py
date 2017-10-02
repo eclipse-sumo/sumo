@@ -1,11 +1,18 @@
 #!/usr/bin/env python
-"""
-@file    networkStatistics.py
-@author  Yun-Pang Floetteroed
-@author  Michael Behrisch
-@date    2007-02-27
-@version $Id$
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2007-2017 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
 
+# @file    networkStatistics.py
+# @author  Yun-Pang Floetteroed
+# @author  Michael Behrisch
+# @date    2007-02-27
+# @version $Id$
+
+"""
 This script is to calculate the global performance indices according to the SUMO-based simulation results.
 Besides, this script is also to execute the significance test for evaluating the results from different assignment methods.
 The t test and the Kruskal-Wallis test are available in this script.
@@ -16,15 +23,6 @@ The analyzed parameters include:
 - travel time
 - travel speed
 - stop time
-
-SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2007-2017 DLR (http://www.dlr.de/) and contributors
-
-This file is part of SUMO.
-SUMO is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
 """
 from __future__ import absolute_import
 from __future__ import print_function

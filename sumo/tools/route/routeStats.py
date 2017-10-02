@@ -1,23 +1,21 @@
 #!/usr/bin/env python
-"""
-@file    routeStats.py
-@author  Jakob Erdmann
-@date    2014-12-18
-@version $Id$
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2014-2017 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
 
+# @file    routeStats.py
+# @author  Jakob Erdmann
+# @date    2014-12-18
+# @version $Id$
+
+"""
 compute statistics on route lengths for a single route or
 for the lenght-difference between two sets of routes.
 Routes must be children of <vehicle> elements and when comparing two sets of
 routes, the same vehicle ids must appear.
-
-SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2014-2017 DLR (http://www.dlr.de/) and contributors
-
-This file is part of SUMO.
-SUMO is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
 """
 from __future__ import absolute_import
 from __future__ import print_function

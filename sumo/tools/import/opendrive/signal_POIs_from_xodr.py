@@ -1,11 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""
-@file    signal_POIs_from_xodr.py
-@author  Gerald Richter; gerald.richter@ait.ac.at
-@date    2017-08-06
-@version $Id$
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2014-2017 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
 
+# @file    signal_POIs_from_xodr.py
+# @author  Gerald Richter; gerald.richter@ait.ac.at
+# @date    2017-08-06
+# @version $Id$
+
+"""
 # what does it do:
 - extract signal records from an xodr file that was converted 
     to a SUMO net using netconvert 
@@ -15,15 +22,6 @@
 # example call: 
   signal_POIs_from_xodr.py data/OpenDrive/scen.xodr data/sumo/net.net.xml
   -> will create a file data/sumo/signals.add.xml
-
-SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2014-2017 DLR (http://www.dlr.de/) and contributors
-
-This file is part of SUMO.
-SUMO is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
 """
 
 import os

@@ -1,12 +1,19 @@
 #!/usr/bin/env python
-"""
-@file    createVehTypeDistribution.py
-@author  Mirko Barthauer (Technische Universitaet Braunschweig, Institut fuer Verkehr und Stadtbauwesen)
-@author  Jakob Erdmann
-@author  Michael Behrisch
-@date    2016-06-09
-@version $Id$
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2010-2017 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
 
+# @file    createVehTypeDistribution.py
+# @author  Mirko Barthauer (Technische Universitaet Braunschweig, Institut fuer Verkehr und Stadtbauwesen)
+# @author  Jakob Erdmann
+# @author  Michael Behrisch
+# @date    2016-06-09
+# @version $Id$
+
+"""
 
 Creates a vehicle type distribution with a number of representative car-following parameter sets. Optional parameters can be viewed by using the --help switch.
 Mandatory input:
@@ -23,15 +30,6 @@ ValueOfAttribute can be a string, a scalar value or a distribution definition. A
 Limits are optional and defined as the allowed interval: e.g. "[0,1]" or "[3.5,5.0]". By default, no negative values are accepted but have to be enabled by
 a negative lower limit.
 
-
-SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2010-2017 DLR (http://www.dlr.de/) and contributors
-
-This file is part of SUMO.
-SUMO is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
 """
 
 import os

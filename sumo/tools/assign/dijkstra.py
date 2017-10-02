@@ -1,26 +1,24 @@
-"""
-@file    dijkstra.py
-@author  Yun-Pang Floetteroed
-@author  Daniel Krajzewicz
-@author  Michael Behrisch
-@author  Jakob Erdmann
-@date    2007-10-25
-@version $Id$
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2007-2017 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
 
+# @file    dijkstra.py
+# @author  Yun-Pang Floetteroed
+# @author  Daniel Krajzewicz
+# @author  Michael Behrisch
+# @author  Jakob Erdmann
+# @date    2007-10-25
+# @version $Id$
+
+"""
 This script is based on the script from David Eppstein, UC Irvine.
 This script is to find the shortest path from the given origin 'start' to the other nodes in the investigated network.
 The Dijkstra algorithm is used for searching the respective shortest paths.
 the link information about the shortest paths and the corresponding travel times
 will be stored in the lists P and D respectively.
-
-SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2007-2017 DLR (http://www.dlr.de/) and contributors
-
-This file is part of SUMO.
-SUMO is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
 """
 
 import os

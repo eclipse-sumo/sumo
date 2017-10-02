@@ -1,23 +1,21 @@
 #!/usr/bin/env python
-"""
-@file    cutRoutes.py
-@author  Jakob Erdmann
-@author  Michael Behrisch
-@author  Leonhard Luecken
-@date    2017-04-11
-@version $Id$
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2012-2017 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
 
+# @file    cutRoutes.py
+# @author  Jakob Erdmann
+# @author  Michael Behrisch
+# @author  Leonhard Luecken
+# @date    2017-04-11
+# @version $Id$
+
+"""
 Cut down routes from a large scenario to a sub-scenario optionally using exitTimes
 Output can be a route file or a tripfile.
-
-SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2012-2017 DLR (http://www.dlr.de/) and contributors
-
-This file is part of SUMO.
-SUMO is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
 """
 from __future__ import absolute_import
 from __future__ import print_function

@@ -1,9 +1,16 @@
-"""
-@file    __init__.py
-@author Leonhard Luecken
-@date   2017-04-09
-@version $Id$
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2017-2017 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
 
+# @file    __init__.py
+# @author Leonhard Luecken
+# @date   2017-04-09
+# @version $Id$
+
+"""
 simpla - A simple platooning plugin for TraCI
 
 simpla is a configurable, simple platooning plugin for TraCI.
@@ -35,15 +42,6 @@ Notes:
 2) Currently, steps of lengths other than DeltaT are not supported (i.e. if traci.simulationStep()
    is called with argument when simpla is running this may yield undesired behaviour).
 3) simpla adds subscriptions to VAR_ROAD_ID, VAR_LANE_INDEX (and currently VAR_LANE_ID) and removes them when stopped
-
-SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2017-2017 DLR (http://www.dlr.de/) and contributors
-
-This file is part of SUMO.
-SUMO is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
 """
 
 

@@ -1,11 +1,18 @@
 #!/usr/bin/env python
-"""
-@file    buildHTMLDocs.py
-@author  Daniel Krajzewicz
-@author  Michael Behrisch
-@date    2011-10-20
-@version $Id$
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2011-2017 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
 
+# @file    buildHTMLDocs.py
+# @author  Daniel Krajzewicz
+# @author  Michael Behrisch
+# @date    2011-10-20
+# @version $Id$
+
+"""
 Converts wiki-documentation into HTML pages.
 
 Determines what to convert, first: if a command line argument is given,
@@ -30,15 +37,6 @@ All pages downloaded earlier are loaded, and embedded into the index.html
 between the <!-- content begins --> / <!-- content ends --> markers. Then,
 the page is saved into options.output/<PAGE_PATH>. All images are copied
 from options.mirror/images to options.output/images.
-
-SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2011-2017 DLR (http://www.dlr.de/) and contributors
-
-This file is part of SUMO.
-SUMO is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
 """
 from __future__ import absolute_import
 from __future__ import print_function

@@ -1,25 +1,23 @@
-"""
-@file    tables.py
-@author  Yun-Pang Floetteroed
-@author  Daniel Krajzewicz
-@author  Michael Behrisch
-@date    2008-03-18
-@version $Id: calStatistics.py 2008-03-18$
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2008-2017 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
 
+# @file    tables.py
+# @author  Yun-Pang Floetteroed
+# @author  Daniel Krajzewicz
+# @author  Michael Behrisch
+# @date    2008-03-18
+# @version $Id: calStatistics.py 2008-03-18$
+
+"""
 This file defines global tables used to:
 
 - define the parameters in link cost functions
 - define link cost functions
 - conduct significance tests
-
-SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2017 DLR (http://www.dlr.de/) and contributors
-
-This file is part of SUMO.
-SUMO is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
 """
 crCurveTable = {"CR2": (1., 2., 2.),
                 "CR3": (1., 2., 1.),

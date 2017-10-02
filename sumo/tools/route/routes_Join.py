@@ -1,11 +1,18 @@
 #!/usr/bin/env python
-"""
-@file    routes_Join.py
-@author  Daniel Krajzewicz
-@author  Michael Behrisch
-@date    11.09.2009
-@version $Id$
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2009-2017 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
 
+# @file    routes_Join.py
+# @author  Daniel Krajzewicz
+# @author  Michael Behrisch
+# @date    11.09.2009
+# @version $Id$
+
+"""
 Joins routes belonging to two networks.
 A map file with the following syntax is read first:
  <EDGE_ID>-><EDGE_ID>
@@ -18,15 +25,6 @@ All other vehicles are kept, but if they pass one of the mapped edges, the
  discarded ones which start at the corresponding edge.
 
 Attention! The routes are not sorted in time!
-
-SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2009-2017 DLR (http://www.dlr.de/) and contributors
-
-This file is part of SUMO.
-SUMO is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
 """
 from __future__ import absolute_import
 from __future__ import print_function

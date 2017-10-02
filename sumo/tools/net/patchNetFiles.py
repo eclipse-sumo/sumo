@@ -1,11 +1,18 @@
 #!/usr/bin/env python
-"""
-@file    patchNetFiles.py
-@author  Daniel Krajzewicz
-@author  Michael Behrisch
-@date    2008-08-13
-@version $Id$
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2008-2017 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
 
+# @file    patchNetFiles.py
+# @author  Daniel Krajzewicz
+# @author  Michael Behrisch
+# @date    2008-08-13
+# @version $Id$
+
+"""
 Reads in a file where junctions controlled by
  tls are stored and one which contains correct
  lane numbers. Applies the information on
@@ -13,15 +20,6 @@ Reads in a file where junctions controlled by
 
 todo:
 - make this read XML-files using an XML-API
-
-SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2017 DLR (http://www.dlr.de/) and contributors
-
-This file is part of SUMO.
-SUMO is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
 """
 from __future__ import absolute_import
 from __future__ import print_function

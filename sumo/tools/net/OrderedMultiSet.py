@@ -1,22 +1,20 @@
-"""
-@file    OrderedMultiSet.py
-@author  Jakob Erdmann
-@author  Michael Behrisch
-@date    2011-10-04
-@version $Id$
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2011-2017 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
 
+# @file    OrderedMultiSet.py
+# @author  Jakob Erdmann
+# @author  Michael Behrisch
+# @date    2011-10-04
+# @version $Id$
+
+"""
 multi set with insertion-order iteration
 based on OrderedSet by Raymond Hettinger (c) , MIT-License
 [http://code.activestate.com/recipes/576694/]
-
-SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2011-2017 DLR (http://www.dlr.de/) and contributors
-
-This file is part of SUMO.
-SUMO is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
 """
 from __future__ import absolute_import
 
