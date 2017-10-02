@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Sep 22 10:34:14 2017
+TraCITestClient output file. Date: Mon Oct  2 20:29:10 2017
 
 
 -> Command sent: <SimulationStep>:
@@ -37,7 +37,7 @@ testAPI:
     getAccel('t1'): 0.80
     getAccel('t1_copy'): 100.00
   vehicle:
-    getTypeID: t1
+    getTypeID: t1_copy
     getRoadID: e_m3
     getRouteID: r1
     getLaneID: e_m3_0

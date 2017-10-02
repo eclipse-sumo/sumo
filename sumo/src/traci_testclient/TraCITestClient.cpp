@@ -747,6 +747,7 @@ TraCITestClient::testAPI() {
     std::vector<std::string> via;
     via.push_back("e_shape1");
     vehicle.setVia("0", via);
+    vehicle.setType("0", "t1_copy");
     answerLog << "    getTypeID: " << vehicle.getTypeID("0") << "\n";
     answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
     answerLog << "    getRouteID: " << vehicle.getRouteID("0") << "\n";
