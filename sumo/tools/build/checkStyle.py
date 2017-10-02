@@ -51,7 +51,7 @@ _IGNORE = set(["binstate.sumo", "binstate.sumo.meso", "image.tools"])
 _KEYWORDS = "HeadURL Id LastChangedBy LastChangedDate LastChangedRevision"
 
 SEPARATOR = "/****************************************************************************/\n"
-LICENSE_HEADER = """/****************************************************************************/
+GPL_HEADER = """/****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
@@ -64,15 +64,28 @@ LICENSE_HEADER = """/***********************************************************
 //
 /****************************************************************************/
 """
+EPL_HEADER = """/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
+/****************************************************************************/
+//
+//   This program and the accompanying materials
+//   are made available under the terms of the Eclipse Public License v2.0
+//   which accompanies this distribution, and is available at
+//   http://www.eclipse.org/legal/epl-v20.html
+//
+/****************************************************************************/
+"""
 
 
 class PropertyReader(xml.sax.handler.ContentHandler):
 
     """Reads the svn properties of files as written by svn pl -v --xml"""
 
-    def __init__(self, doFix, doPep):
+    def __init__(self, doFix, doPep, doEPL):
         self._fix = doFix
         self._pep = doPep
+        self._epl = doEPL
         self._file = ""
         self._property = None
         self._value = ""
@@ -80,10 +93,13 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         self._hadKeywords = False
 
     def checkFileHeader(self, ext):
+        lines = open(self._file).readlines()
+        if len(lines) == 0:
+            print(self._file, "is empty")
+            return
         haveFixed = False
         if ext in (".cpp", ".h"):
-            lines = open(self._file).readlines()
-            if lines and lines[0] == SEPARATOR:
+            if lines[0] == SEPARATOR:
                 fileRef = "/// @file    %s\n" % os.path.basename(self._file)
                 if lines[1] != fileRef:
                     print(self._file, "broken @file reference", lines[1].rstrip())
@@ -112,7 +128,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 if lines[idx] != SEPARATOR:
                     print(self._file, "missing license start", idx, lines[idx].rstrip())
                 year = lines[idx + 2][17:21]
-                license = LICENSE_HEADER.replace("2001", year)
+                license = GPL_HEADER.replace("2001", year)
                 if "module" in lines[idx + 3]:
                     fileLicense = "".join(lines[idx:idx + 3]) + "".join(lines[idx + 5:idx + 14])
                 else:
@@ -122,16 +138,19 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     if options.verbose:
                         print(fileLicense)
                         print(license)
+                elif self._epl:
+                    newLicense = EPL_HEADER.replace("2001", year).splitlines(True)
+                    end = idx + 12
+                    if "module" in lines[idx + 3]:
+                        newLicense[3:3] = lines[idx+3:idx+5]
+                        end += 2
+                    lines[idx:end] = newLicense
+                    lines[end-2:end-2] = lines[:idx]
+                    lines[:idx] = []
+                    haveFixed = True
             else:
-                if len(lines) == 0:
-                    print(self._file, "is empty")
-                else:
-                    print(self._file, "header does not start")
+                print(self._file, "header does not start")
         if ext in (".py", ".pyw"):
-            lines = open(self._file).readlines()
-            if len(lines) == 0:
-                print(self._file, "is empty")
-                return
             idx = 0
             if lines[0][:2] == '#!':
                 idx += 1
@@ -146,6 +165,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 print(self._file, "header does not start")
             else:
                 idx += 1
+                pre = idx
                 fileRef = "@file    %s\n" % os.path.basename(self._file)
                 if lines[idx] != fileRef:
                     print(self._file, "broken @file reference", lines[idx].rstrip())
@@ -166,6 +186,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 idx += 1
                 if lines[idx] != "\n":
                     print(self._file, "missing empty line", idx, lines[idx].rstrip())
+                atlines = idx
                 idx += 1
                 while idx < len(lines) and lines[idx][:4] != "SUMO":
                     idx += 1
@@ -173,7 +194,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     print(self._file, "license not found")
                 else:
                     year = lines[idx + 1][14:18]
-                    license = LICENSE_HEADER.replace("2001", year).replace(SEPARATOR, "")
+                    license = GPL_HEADER.replace("2001", year).replace(SEPARATOR, "")
                     license = license.replace("//   ", "").replace("// ", "").replace("\n//", "\n")[:-1]
                     if "module" in lines[idx + 2]:
                         fileLicense = "".join(lines[idx:idx + 2]) + "".join(lines[idx + 4:idx + 10])
@@ -185,6 +206,20 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                             print("!!%s!!" % os.path.commonprefix([fileLicense, license]))
                             print(fileLicense)
                             print(license)
+                    elif self._epl:
+                        newLicense = EPL_HEADER.replace("2001", year).replace(SEPARATOR, "")
+                        newLicense = newLicense.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "").splitlines(True)
+                        end = idx + 8
+                        if "module" in lines[idx + 2]:
+                            newLicense[2:2] = ["# " + l for l in lines[idx+2:idx+4]]
+                            end += 2
+                        newLines = lines[:pre-1] + newLicense + ["\n"] + ["# " + l for l in lines[pre:atlines]]
+                        if atlines < idx - 3:
+                            newLines += ["\n", '"""\n'] + lines[atlines+1:idx-1] + lines[end:]
+                        else:
+                            newLines += ["\n"] + lines[end+1:]
+                        lines = newLines
+                        haveFixed = True
         if haveFixed:
             open(self._file, "w").write("".join(lines))
 
@@ -273,6 +308,8 @@ optParser.add_option("-f", "--fix", action="store_true",
                      default=False, help="fix invalid svn properties")
 optParser.add_option("-s", "--skip-pep", action="store_true",
                      default=False, help="skip autopep8 and flake8 tests")
+optParser.add_option("-r", "--rewrite-license", action="store_true",
+                     default=False, help="change GPL to EPL license")
 (options, args) = optParser.parse_args()
 seen = set()
 if len(args) > 0:
@@ -281,7 +318,7 @@ for svnRoot in svnRoots:
     if options.verbose:
         print("checking", svnRoot)
     output = subprocess.check_output(["svn", "pl", "-v", "-R", "--xml", svnRoot])
-    xml.sax.parseString(output, PropertyReader(options.fix, not options.skip_pep))
+    xml.sax.parseString(output, PropertyReader(options.fix, not options.skip_pep, options.rewrite_license))
     if options.verbose:
         print("re-checking tree at", svnRoot)
     for root, dirs, files in os.walk(svnRoot):
