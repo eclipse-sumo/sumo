@@ -248,7 +248,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                                                   "Allowed vehicle classes must be given as a list of strings.",
                                                   outputStorage);
             }
-            TraCI_Edge::setAllowdVehicleClasses(id, classes);
+            TraCI_Edge::setAllowedVehicleClasses(id, classes);
         }
             break;
         case LANE_DISALLOWED: {

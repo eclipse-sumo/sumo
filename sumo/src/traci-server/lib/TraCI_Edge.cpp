@@ -41,7 +41,7 @@ TraCI_Edge::getIDCount() {
     return (int) getIDList().size();
 }
 
-double TraCI_Edge::retrieveExistingTravelTime(std::string& id, double time) {
+double TraCI_Edge::retrieveExistingTravelTime(const std::string& id, double time) {
     const MSEdge* e = getEdge(id);
     double value;
     if (!MSNet::getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, time, value)) {
@@ -51,7 +51,7 @@ double TraCI_Edge::retrieveExistingTravelTime(std::string& id, double time) {
 }
 
 double
-TraCI_Edge::retrieveExistingEffort(std::string& id, double time) {
+TraCI_Edge::retrieveExistingEffort(const std::string& id, double time) {
     const MSEdge* e = getEdge(id);
     double value;
     if (!MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(e, time, value)) {
@@ -61,7 +61,7 @@ TraCI_Edge::retrieveExistingEffort(std::string& id, double time) {
 }
 
 double
-TraCI_Edge::getCurrentTravelTime(std::string& id) {
+TraCI_Edge::getCurrentTravelTime(const std::string& id) {
     return getEdge(id)->getCurrentTravelTime();
 }
 
@@ -75,7 +75,7 @@ TraCI_Edge::getEdge(const std::string& id) {
 }
 
 double
-TraCI_Edge::getWaitingSeconds(std::string& id) {
+TraCI_Edge::getWaitingSeconds(const std::string& id) {
     double wtime = 0;
     const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
     for (auto lane : lanes) {
@@ -85,7 +85,7 @@ TraCI_Edge::getWaitingSeconds(std::string& id) {
 }
 
 const std::vector<std::string>
-TraCI_Edge::getPersonIDs(std::string& id) {
+TraCI_Edge::getPersonIDs(const std::string& id) {
     std::vector<std::string> personIDs;
     std::vector<MSTransportable*> persons = getEdge(id)->getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
     personIDs.reserve(persons.size());
@@ -96,7 +96,7 @@ TraCI_Edge::getPersonIDs(std::string& id) {
 }
 
 const std::vector<std::string>
-TraCI_Edge::getVehicleIDs(std::string& id) {
+TraCI_Edge::getVehicleIDs(const std::string& id) {
     std::vector<std::string> vehIDs;
     const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
     for (auto lane : lanes) {
@@ -111,7 +111,7 @@ TraCI_Edge::getVehicleIDs(std::string& id) {
 
 
 double
-TraCI_Edge::getCO2Emissions(std::string& id) {
+TraCI_Edge::getCO2Emissions(const std::string& id) {
     double sum = 0;
     const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
     for (auto lane : lanes) {
@@ -121,7 +121,7 @@ TraCI_Edge::getCO2Emissions(std::string& id) {
 }
 
 double
-TraCI_Edge::getCOEmissions(std::string& id) {
+TraCI_Edge::getCOEmissions(const std::string& id) {
     double sum = 0;
     const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
     for (auto lane : lanes) {
@@ -131,7 +131,7 @@ TraCI_Edge::getCOEmissions(std::string& id) {
 }
 
 double
-TraCI_Edge::getHCEmissions(std::string& id) {
+TraCI_Edge::getHCEmissions(const std::string& id) {
     double sum = 0;
     const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
     for (auto lane : lanes) {
@@ -141,7 +141,7 @@ TraCI_Edge::getHCEmissions(std::string& id) {
 }
 
 double
-TraCI_Edge::getPMxEmissions(std::string& id) {
+TraCI_Edge::getPMxEmissions(const std::string& id) {
     double sum = 0;
     const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
     for (auto lane : lanes) {
@@ -151,7 +151,7 @@ TraCI_Edge::getPMxEmissions(std::string& id) {
 }
 
 double
-TraCI_Edge::getNOxEmissions(std::string& id) {
+TraCI_Edge::getNOxEmissions(const std::string& id) {
     double sum = 0;
     const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
     for (auto lane : lanes) {
@@ -161,7 +161,7 @@ TraCI_Edge::getNOxEmissions(std::string& id) {
 }
 
 double
-TraCI_Edge::getFuelConsumption(std::string& id) {
+TraCI_Edge::getFuelConsumption(const std::string& id) {
     double sum = 0;
     const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
     for (auto lane : lanes) {
@@ -171,7 +171,7 @@ TraCI_Edge::getFuelConsumption(std::string& id) {
 }
 
 double
-TraCI_Edge::getNoiseEmissions(std::string& id) {
+TraCI_Edge::getNoiseEmissions(const std::string& id) {
     double sum = 0;
     const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
     for (auto lane : lanes) {
@@ -184,7 +184,7 @@ TraCI_Edge::getNoiseEmissions(std::string& id) {
 }
 
 double
-TraCI_Edge::getElectricityConsumption(std::string& id) {
+TraCI_Edge::getElectricityConsumption(const std::string& id) {
     double sum = 0;
     const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
     for (auto lane : lanes) {
@@ -194,7 +194,7 @@ TraCI_Edge::getElectricityConsumption(std::string& id) {
 }
 
 int
-TraCI_Edge::getVehicleNumber(std::string& id) {
+TraCI_Edge::getVehicleNumber(const std::string& id) {
     int sum = 0;
     const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
     for (auto lane : lanes) {
@@ -204,12 +204,12 @@ TraCI_Edge::getVehicleNumber(std::string& id) {
 }
 
 double
-TraCI_Edge::getMeanSpeed(std::string& id) {
+TraCI_Edge::getMeanSpeed(const std::string& id) {
     return getEdge(id)->getMeanSpeed();
 }
 
 double
-TraCI_Edge::getOccupancy(std::string& id) {
+TraCI_Edge::getOccupancy(const std::string& id) {
     double sum = 0;
     const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
     for (auto lane : lanes) {
@@ -219,7 +219,7 @@ TraCI_Edge::getOccupancy(std::string& id) {
 }
 
 int
-TraCI_Edge::getVehicleHaltingNumber(std::string& id) {
+TraCI_Edge::getVehicleHaltingNumber(const std::string& id) {
     int halting = 0;
     const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
     for (auto lane : lanes) {
@@ -235,7 +235,7 @@ TraCI_Edge::getVehicleHaltingNumber(std::string& id) {
 }
 
 double
-TraCI_Edge::getVehicleAverageLength(std::string& id) {
+TraCI_Edge::getVehicleAverageLength(const std::string& id) {
     double lengthSum = 0;
     int noVehicles = 0;
     const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
@@ -253,25 +253,25 @@ TraCI_Edge::getVehicleAverageLength(std::string& id) {
     return lengthSum / (double) noVehicles;
 }
 
-const std::string&
-TraCI_Edge::getParameter(std::string& id, std::string& paramName) {
+std::string
+TraCI_Edge::getParameter(const std::string& id, const std::string& paramName) {
     return getEdge(id)->getParameter(paramName, "");
 }
 
 void
-TraCI_Edge::setAllowdVehicleClasses(std::string& id, std::vector<std::string> classes) {
+TraCI_Edge::setAllowedVehicleClasses(const std::string& id, std::vector<std::string> classes) {
     SVCPermissions permissions = parseVehicleClasses(classes);
-    setAllowdSVCPermissions(id, permissions);
+    setAllowedSVCPermissions(id, permissions);
 }
 
 void
-TraCI_Edge::setDisallowedVehicleClasses(std::string& id, std::vector<std::string> classes) {
+TraCI_Edge::setDisallowedVehicleClasses(const std::string& id, std::vector<std::string> classes) {
     SVCPermissions permissions = invertPermissions(parseVehicleClasses(classes));
-    setAllowdSVCPermissions(id, permissions);
+    setAllowedSVCPermissions(id, permissions);
 }
 
 void
-TraCI_Edge::setAllowdSVCPermissions(std::string& id, SVCPermissions permissions) {
+TraCI_Edge::setAllowedSVCPermissions(const std::string& id, SVCPermissions permissions) {
     MSEdge* e = getEdge(id);
     const std::vector<MSLane*>& lanes = e->getLanes();
     for (auto lane : lanes) {
@@ -281,17 +281,17 @@ TraCI_Edge::setAllowdSVCPermissions(std::string& id, SVCPermissions permissions)
 }
 
 void
-TraCI_Edge::addTravelTime(std::string& id, double begTime, double endTime, double value) {
+TraCI_Edge::addTravelTime(const std::string& id, double begTime, double endTime, double value) {
     MSNet::getInstance()->getWeightsStorage().addTravelTime(getEdge(id), begTime, endTime, value);
 }
 
 void
-TraCI_Edge::addEffort(std::string& id, double begTime, double endTime, double value) {
+TraCI_Edge::addEffort(const std::string& id, double begTime, double endTime, double value) {
     MSNet::getInstance()->getWeightsStorage().addEffort(getEdge(id), begTime, endTime, value);
 }
 
 void
-TraCI_Edge::setMaxSpeed(std::string& id, double value) {
+TraCI_Edge::setMaxSpeed(const std::string& id, double value) {
     const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
     for (auto lane : lanes) {
         lane->setMaxSpeed(value);
@@ -299,15 +299,13 @@ TraCI_Edge::setMaxSpeed(std::string& id, double value) {
 }
 
 void
-TraCI_Edge::setParameter(std::string& id, std::string& name, std::string& value) {
+TraCI_Edge::setParameter(const std::string& id, const std::string& name, const std::string& value) {
     getEdge(id)->setParameter(name, value);
 }
 
 void
 TraCI_Edge::getShape(const std::string& id, PositionVector& shape) {
-
-    MSEdge* e = getEdge(id);
-    const std::vector<MSLane*>& lanes = e->getLanes();
+    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
     shape = lanes.front()->getShape();
     if (lanes.size() > 1) {
         copy(lanes.back()->getShape().begin(), lanes.back()->getShape().end(), back_inserter(shape));
