@@ -1,4 +1,14 @@
 /****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
+/****************************************************************************/
+//
+//   This program and the accompanying materials
+//   are made available under the terms of the Eclipse Public License v2.0
+//   which accompanies this distribution, and is available at
+//   http://www.eclipse.org/legal/epl-v20.html
+//
+/****************************************************************************/
 /// @file    GNEReferenceCounter.h
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
@@ -7,17 +17,6 @@
 // A class that counts references to itself
 // We may wish to keep references to junctions/nodes either in the network or in the undoList
 // to clean up properly we have to resort to reference counting
-/****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors
-/****************************************************************************/
-//
-//   This file is part of SUMO.
-//   SUMO is free software: you can redistribute it and/or modify
-//   it under the terms of the GNU General Public License as published by
-//   the Free Software Foundation, either version 3 of the License, or
-//   (at your option) any later version.
-//
 /****************************************************************************/
 #ifndef GNEReferenceCounter_h
 #define GNEReferenceCounter_h
