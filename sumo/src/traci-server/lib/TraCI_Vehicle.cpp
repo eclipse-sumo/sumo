@@ -770,6 +770,15 @@ TraCI_Vehicle::setSpeed(const std::string& vehicleID, double speed) {
     getVehicle(vehicleID);
 }
 
+void 
+TraCI_Vehicle::setType(const std::string& vehicleID, const std::string& typeID) {
+    MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(typeID);
+    if (vehicleType == 0) {
+        throw TraCIException("Vehicle type '" + vehicleID + "' is not known");
+    }
+    getVehicle(vehicleID)->replaceVehicleType(vehicleType);
+}
+
 void
 TraCI_Vehicle::setMaxSpeed(const std::string& vehicleID, double speed) {
     getVehicle(vehicleID)->getSingularType().setMaxSpeed(speed);

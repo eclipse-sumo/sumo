@@ -674,11 +674,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingString(inputStorage, vTypeID)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The vehicle type id must be given as a string.", outputStorage);
                 }
-                MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vTypeID);
-                if (vehicleType == 0) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The vehicle type '" + vTypeID + "' is not known.", outputStorage);
-                }
-                v->replaceVehicleType(vehicleType);
+                TraCI_Vehicle::setType(id, vTypeID);
             }
             break;
             case VAR_ROUTE_ID: {
