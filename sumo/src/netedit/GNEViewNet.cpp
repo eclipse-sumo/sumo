@@ -430,30 +430,38 @@ GNEViewNet::begingMoveSelection(GNEAttributeCarrier *originAC, const Position &o
             // saved old position of Edges which both junction isn't noJunctionsSelected
             for(auto i : noJunctionsSelected) {
                 myOriginShapesMovedPartialShapes[i].originalShape = i->getNBEdge()->getInnerGeometry();
-                /*
-                if(i->getNBEdge()->getGeometry().beginEndAngle() > angle) {
-                    myOriginShapesMovedPartialShapes[i].inverted = true;
-                } else {
-                    myOriginShapesMovedPartialShapes[i].inverted = false;
-                }
-                */
             }
             // obtain index shape of clicked edge and move it
             myOriginShapesMovedPartialShapes[clickedEdge].originalPosition = originPosition;
             myOriginShapesMovedPartialShapes[clickedEdge].index = clickedEdge->getVertexIndex(originPosition);
             myOriginShapesMovedPartialShapes[clickedEdge].inverted = false;
-            Position indexDelta = clickedEdge->getNBEdge()->getInnerGeometry()[myOriginShapesMovedPartialShapes[clickedEdge].index] - clickedEdge->getGNEJunctionSource()->getPositionInView();
-
-            // move index of rest of edges using delta as 
+            // declare auxilar positionVector from Source To Destiny Junctions
+            PositionVector segmentClickedEdge;
+            // segmentA has two points, the first and last positions of edge
+            segmentClickedEdge.push_back(clickedEdge->getGNEJunctionSource()->getPositionInView());
+            segmentClickedEdge.push_back(clickedEdge->getGNEJunctionDestiny()->getPositionInView());
+            // Obtain the offset (legA) over of segment regarding clicked position
+            double offsetSegmentClickedEdge = segmentClickedEdge.nearest_offset_to_point2D(originPosition, false);
+            double distanceToOffsetSegmentClickedEdge = segmentClickedEdge.positionAtOffset(offsetSegmentClickedEdge).distanceTo(originPosition);
+            // check if direction of distanceToOffsetSegmentFSTDJ has to be changed
+            if(!segmentClickedEdge.positionAtOffset(offsetSegmentClickedEdge, distanceToOffsetSegmentClickedEdge).almostSame(originPosition)) {
+                distanceToOffsetSegmentClickedEdge *= -1;
+            }
+            // move index of rest of edges using offsetSegmentFSTDJ and distanceToOffsetSegmentFSTDJ as references
             for(auto i : noJunctionsSelected) {
                 // don't move index of clicked edge, because was already moved
                 if(i != clickedEdge) {
+                    // calculate segment between first and las position of selected edge 
+                    PositionVector segmentSelectedEdge;
+                    segmentSelectedEdge.push_back(i->getGNEJunctionSource()->getPositionInView());
+                    segmentSelectedEdge.push_back(i->getGNEJunctionDestiny()->getPositionInView());
                     // get reference depending of this edge is the opposite edge of another alreaday inserted
                     if(myOriginShapesMovedPartialShapes[i].inverted) {
-                        myOriginShapesMovedPartialShapes[i].originalPosition = i->getGNEJunctionDestiny()->getPositionInView() + indexDelta;
+                        myOriginShapesMovedPartialShapes[i].originalPosition = segmentSelectedEdge.positionAtOffset(offsetSegmentClickedEdge, distanceToOffsetSegmentClickedEdge);
                     } else {
-                        myOriginShapesMovedPartialShapes[i].originalPosition = i->getGNEJunctionSource()->getPositionInView() + indexDelta;
+                        myOriginShapesMovedPartialShapes[i].originalPosition = segmentSelectedEdge.positionAtOffset(offsetSegmentClickedEdge, distanceToOffsetSegmentClickedEdge);
                     }
+                    // obtain index to change
                     myOriginShapesMovedPartialShapes[i].index = i->getVertexIndex(myOriginShapesMovedPartialShapes[i].originalPosition);
                 }
             }
