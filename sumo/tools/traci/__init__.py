@@ -154,6 +154,10 @@ def switch(label):
     for domain in _defaultDomains:
         domain._setConnection(_connections[""])
 
+def getConnection(label ="default"):
+    if not label in _connections:
+        raise TraCIException("connection with label '%s' is not known")
+    return _connections[label]
 
 if _embedded:
     # create the default dummy connection

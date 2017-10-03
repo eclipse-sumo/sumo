@@ -29,10 +29,8 @@ sumoBinary = sumolib.checkBinary('sumo')
 conns = []
 sumoProcess = []
 for i in range(2):
-    p = sumolib.miscutils.getFreeSocketPort()
-    sumoProcess = subprocess.Popen([sumoBinary, "-c", "sumo.sumocfg",
-                                    "--remote-port", str(p)], stdout=sys.stdout)
-    conns.append(traci.connect(p, proc=sumoProcess))
+    traci.start([sumoBinary, "-c", "sumo.sumocfg"], label=str(i))
+    conns.append(traci.getConnection(str(i)))
 for c in conns:
     for step in range(3):
         print("step", step)
