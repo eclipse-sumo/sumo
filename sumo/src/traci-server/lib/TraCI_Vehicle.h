@@ -162,6 +162,7 @@ public:
     static void slowDown(const std::string& vehicleID, double speed, SUMOTime duration);
     static void setSpeed(const std::string& vehicleID, double speed);
     static void setType(const std::string& vehicleID, const std::string& typeID);
+    static void setRouteID(const std::string& vehicleID, const std::string& routeID);
     static void setMaxSpeed(const std::string& vehicleID, double speed);
     static void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED);
     static void setColor(const std::string& vehicleID, const TraCIColor& col);

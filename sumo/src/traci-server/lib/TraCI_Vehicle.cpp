@@ -778,6 +778,26 @@ TraCI_Vehicle::setType(const std::string& vehicleID, const std::string& typeID) 
     getVehicle(vehicleID)->replaceVehicleType(vehicleType);
 }
 
+void 
+TraCI_Vehicle::setRouteID(const std::string& vehicleID, const std::string& routeID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    const MSRoute* r = MSRoute::dictionary(routeID);
+    if (r == 0) {
+        throw TraCIException("The route '" + routeID + "' is not known.");
+    }
+    std::string msg;
+    if (!veh->hasValidRoute(msg, r)) {
+        WRITE_WARNING("Invalid route replacement for vehicle '" + veh->getID() + "'. " + msg);
+        if (MSGlobals::gCheckRoutes) {
+            throw TraCIException("Route replacement failed for " + veh->getID());
+        }
+    }
+
+    if (!veh->replaceRoute(r, veh->getLane() == 0)) {
+        throw TraCIException("Route replacement failed for " + veh->getID());
+    }
+}
+
 void
 TraCI_Vehicle::setMaxSpeed(const std::string& vehicleID, double speed) {
     getVehicle(vehicleID)->getSingularType().setMaxSpeed(speed);

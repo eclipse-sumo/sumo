@@ -681,21 +681,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingString(inputStorage, rid)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The route id must be given as a string.", outputStorage);
                 }
-                const MSRoute* r = MSRoute::dictionary(rid);
-                if (r == 0) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The route '" + rid + "' is not known.", outputStorage);
-                }
-                std::string msg;
-                if (!v->hasValidRoute(msg, r)) {
-                    WRITE_WARNING("Invalid route replacement for vehicle '" + v->getID() + "'. " + msg);
-                    if (MSGlobals::gCheckRoutes) {
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Route replacement failed for " + v->getID(), outputStorage);
-                    }
-                }
-
-                if (!v->replaceRoute(r, v->getLane() == 0)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Route replacement failed for " + v->getID(), outputStorage);
-                }
+                TraCI_Vehicle::setRouteID(id, rid);
             }
             break;
             case VAR_ROUTE: {
