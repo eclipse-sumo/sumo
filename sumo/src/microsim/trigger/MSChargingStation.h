@@ -59,7 +59,7 @@ public:
 
     /// @brief constructor
     MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
-                      double chargingPower, double efficency, bool chargeInTransit, int chargeDelay);
+                      double chargingPower, double efficency, bool chargeInTransit, double chargeDelay);
 
     /// @brief destructor
     ~MSChargingStation();
@@ -86,7 +86,7 @@ public:
     void setChargeInTransit(bool chargeInTransit);
 
     /// @brief Set charge delay of the charging station
-    void setChargeDelay(int chargeDelay);
+    void setChargeDelay(double chargeDelay);
 
     /// @brief enable or disable charging vehicle
     void setChargingVehicle(bool value);
@@ -157,7 +157,7 @@ protected:
     bool myChargeInTransit;
 
     /// @brief Charge Delay
-    int myChargeDelay;
+    double myChargeDelay;
 
     /// @brief Check if in the current TimeStep chargingStation is charging a vehicle
     bool myChargingVehicle;

@@ -45,7 +45,7 @@
 // ===========================================================================
 
 MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
-                                     double chargingPower, double efficency, bool chargeInTransit, int chargeDelay) :
+                                     double chargingPower, double efficency, bool chargeInTransit, double chargeDelay) :
     MSStoppingPlace(chargingStationID, std::vector<std::string>(), lane, startPos, endPos),
     myChargingPower(0),
     myEfficiency(0),
@@ -132,7 +132,7 @@ MSChargingStation::setChargeInTransit(bool chargeInTransit) {
 
 
 void
-MSChargingStation::setChargeDelay(int chargeDelay) {
+MSChargingStation::setChargeDelay(double chargeDelay) {
     if (chargeDelay < 0) {
         WRITE_WARNING("New " + toString(SUMO_ATTR_CHARGEDELAY) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " isn't valid (" + toString(chargeDelay) + ").")
     } else {

@@ -326,7 +326,7 @@ MSDevice_Battery::resetChargingStartTime() {
 
 void
 MSDevice_Battery::increaseChargingStartTime() {
-    myChargingStartTime++;
+    myChargingStartTime += TS;
 }
 
 
