@@ -341,6 +341,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             // Check if custom shaped has to be drawn
             myForceDrawCustomShape = myCrossing->customShape.size() > 0;
             updateGeometry();
+            myNet->refreshElement(this);
             break;
         }
         default:

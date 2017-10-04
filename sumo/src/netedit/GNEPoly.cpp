@@ -104,12 +104,6 @@ GNEPoly::moveVertexShape(const int index, const Position& oldPos, const Position
                 // change position of vertex
                 myShape[index] = oldPos;
                 myShape[index].add(offset);
-                    /*
-                // update geometry of shape edited element
-                if(myNetElementShapeEdited) {
-                    myNetElementShapeEdited->updateGeometry();
-                }
-                */
                 return index;
             }
         } else {
