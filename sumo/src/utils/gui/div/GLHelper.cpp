@@ -51,6 +51,7 @@
 // ===========================================================================
 std::vector<std::pair<double, double> > GLHelper::myCircleCoords;
 FONScontext* GLHelper::myFont = 0;
+double GLHelper::myFontSize = 50.0;
 
 void APIENTRY combCallback(GLdouble coords[3],
                            GLdouble* vertex_data[4],
@@ -461,23 +462,28 @@ GLHelper::resetFont() {
     myFont = 0;
 }
 
+FONScontext* 
+GLHelper::getFont() {
+    if (myFont == 0) {
+        myFont = glfonsCreate(2048, 2048, FONS_ZERO_BOTTOMLEFT);
+        const int fontNormal = fonsAddFontMem(myFont, "medium", data_font_Roboto_Medium_ttf, data_font_Roboto_Medium_ttf_len, 0);
+        fonsSetFont(myFont, fontNormal);
+        fonsSetSize(myFont, (float)myFontSize);
+    }
+    return myFont;
+}
+
 
 void
 GLHelper::drawText(const std::string& text, const Position& pos,
                      const double layer, const double size,
                      const RGBColor& col, const double angle, const int align) {
-    const double fontSize = 50.;
-    if (myFont == 0) {
-        myFont = glfonsCreate(2048, 2048, FONS_ZERO_BOTTOMLEFT);
-        const int fontNormal = fonsAddFontMem(myFont, "medium", data_font_Roboto_Medium_ttf, data_font_Roboto_Medium_ttf_len, 0);
-        fonsSetFont(myFont, fontNormal);
-        fonsSetSize(myFont, (float)fontSize);
-    }
+    getFont(); // init myFont
     glPushMatrix();
     glAlphaFunc(GL_GREATER, 0.5);
     glEnable(GL_ALPHA_TEST);
     glTranslated(pos.x(), pos.y(), layer);
-    glScaled(size / fontSize, size / fontSize, 1.);
+    glScaled(size / myFontSize, size / myFontSize, 1.);
     glRotated(-angle, 0, 0, 1);
     fonsSetAlign(myFont, align == 0 ? FONS_ALIGN_CENTER | FONS_ALIGN_MIDDLE: align);
     fonsSetColor(myFont, glfonsRGBA(col.red(), col.green(), col.blue(), col.alpha()));
@@ -491,12 +497,12 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
                       const double layer, const double size,
                       const RGBColor& txtColor, const RGBColor& bgColor, const RGBColor& borderColor,
                       const double angle) {
+    getFont(); // init myFont
     double boxAngle = angle + 90;
     if (boxAngle > 360) {
         boxAngle -= 360;
     }
-    pfSetScale(size);
-    const double stringWidth = pfdkGetStringWidth(text.c_str());
+    const double stringWidth = size / myFontSize * fonsTextBounds(myFont, 0,0, text.c_str(), NULL, NULL);
     const double borderWidth = size / 20;
     const double boxHeight = size * 0.8;
     const double boxWidth = stringWidth + size / 2;
@@ -505,14 +511,14 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
     glTranslated(0, 0, layer);
     setColor(borderColor);
     Position left = pos;
-    left.sub(boxWidth / 2, -boxHeight / 2.7);
+    left.sub(boxWidth / 2, 0);
     drawBoxLine(left, boxAngle, boxWidth, boxHeight);
     left.add(borderWidth * 1.5, 0);
     setColor(bgColor);
     glTranslated(0, 0, 0.01);
     drawBoxLine(left, boxAngle, boxWidth - 3 * borderWidth, boxHeight - 2 * borderWidth);
-    drawText(text, pos, layer+0.02, size, txtColor, angle);
     glPopMatrix();
+    drawText(text, pos, layer+0.02, size, txtColor, angle);
 }
 
 
