@@ -122,8 +122,6 @@ extern bool gDebugFlag2;
 extern bool gDebugFlag3;
 extern bool gDebugFlag4;
 
-extern std::string gDebugSelectedVehicle;
-
 /// @brief discrds mantissa bits beyond the given number
 double truncate(double x, int fractionBits);
 

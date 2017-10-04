@@ -89,11 +89,6 @@ MSLaneChangerSublane::change() {
     // variant of change() for the sublane case
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gDebugSelectedVehicle == vehicle->getID()) {
-        int bla = 0;
-    }
-#endif
     assert(vehicle->getLane() == (*myCandi).lane);
     assert(!vehicle->getLaneChangeModel().isChangingLanes());
     if (/*!myAllowsChanging || vehicle->getLaneChangeModel().alreadyChanged() ||*/ vehicle->isStoppedOnLane()) {

@@ -33,7 +33,6 @@ bool gDebugFlag1 = false;
 bool gDebugFlag2 = false;
 bool gDebugFlag3 = false;
 bool gDebugFlag4 = false;
-std::string gDebugSelectedVehicle = "";
 
 double truncate(double x, int fractionBits) {
     return ceil(x * (1 << fractionBits)) / (1 << fractionBits);

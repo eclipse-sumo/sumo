@@ -38,8 +38,6 @@
 #include <microsim/MSNet.h>
 #include "MSLCM_DK2008.h"
 
-//#define DEBUG_VEHICLE_GUI_SELECTION 1
-
 // ===========================================================================
 // variable definitions
 // ===========================================================================
@@ -97,11 +95,6 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
                                  MSVehicle** lastBlocked,
                                  MSVehicle** firstBlocked) {
     UNUSED_PARAMETER(firstBlocked);
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gDebugSelectedVehicle == myVehicle.getID()) {
-        int bla = 0;
-    }
-#endif
     MSVehicle::LaneQ curr, best;
     int bestLaneOffset = 0;
     double currentDist = 0;
@@ -309,11 +302,6 @@ MSLCM_DK2008::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
                                 MSVehicle** lastBlocked,
                                 MSVehicle** firstBlocked) {
     UNUSED_PARAMETER(firstBlocked);
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gDebugSelectedVehicle == myVehicle.getID()) {
-        int bla = 0;
-    }
-#endif
     MSVehicle::LaneQ curr, best;
     int bestLaneOffset = 0;
     double currentDist = 0;
@@ -510,11 +498,6 @@ MSLCM_DK2008::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
 
 double
 MSLCM_DK2008::patchSpeed(const double min, const double wanted, const double max, const MSCFModel& cfModel) {
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gDebugSelectedVehicle == myVehicle.getID()) {
-        int bla = 0;
-    }
-#endif
     int state = myOwnState;
 
     // letting vehicles merge in at the end of the lane in case of counter-lane change, step#2

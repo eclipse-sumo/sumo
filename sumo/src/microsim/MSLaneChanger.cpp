@@ -54,7 +54,6 @@
 // ===========================================================================
 // debug defines
 // ===========================================================================
-//#define DEBUG_VEHICLE_GUI_SELECTION
 
 //#define DEBUG_CONTINUE_CHANGE
 //#define DEBUG_CHECK_CHANGE
@@ -228,11 +227,6 @@ MSLaneChanger::change() {
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
 
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gDebugSelectedVehicle == vehicle->getID()) {
-        int bla = 0;
-    }
-#endif
     if (vehicle->getLaneChangeModel().isChangingLanes()) {
         return continueChange(vehicle, myCandi);
     }

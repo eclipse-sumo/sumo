@@ -83,10 +83,8 @@
 #include "MSLinkCont.h"
 #include "MSLeaderInfo.h"
 
-// enable here and in utils/gui/globjects/GUIGLObjectPopupMenu.cpp
-//#define DEBUG_VEHICLE_GUI_SELECTION 1
-
 //#define DEBUG_PLAN_MOVE
+//#define DEBUG_CHECKREWINDLINKLANES
 //#define DEBUG_EXEC_MOVE
 //#define DEBUG_FURTHER
 //#define DEBUG_STOPS
@@ -1545,12 +1543,6 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
 
 void
 MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist) const {
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gDebugSelectedVehicle == getID()) {
-        int bla = 0;
-    }
-#endif
-
     // remove information about approaching links, will be reset later in this step
     removeApproachingInformation(lfLinks);
     lfLinks.clear();
@@ -2074,12 +2066,6 @@ MSVehicle::getDeltaPos(double accel) {
 
 bool
 MSVehicle::executeMove() {
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gDebugSelectedVehicle == getID()) {
-        int bla = 0;
-    }
-#endif
-
 #ifdef DEBUG_EXEC_MOVE
     if (DEBUG_COND) std::cout << "\nEXECUTE_MOVE\n"
                                   << SIMTIME
@@ -2694,11 +2680,6 @@ MSVehicle::getSpaceTillLastStanding(const MSLane* l, bool& foundStopped) const {
 
 void
 MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lfLinks) const {
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gDebugSelectedVehicle == getID()) {
-        int bla = 0;
-    }
-#endif
     if (MSGlobals::gUsingInternalLanes && !myLane->getEdge().isRoundabout() && !getLaneChangeModel().isOpposite()) {
         bool hadVehicle = false;
         double seenSpace = -lengthsInFront;
@@ -2733,7 +2714,7 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                 }
                 item.availableSpace = seenSpace;
                 item.hadVehicle = hadVehicle;
-#ifdef DEBUG_PLAN_MOVE
+#ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) std::cout
                             << SIMTIME
                             << " veh=" << getID()
@@ -2763,7 +2744,7 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                 if (last->myHaveToWaitOnNextLink) {
                     foundStopped = true;
                 }
-#ifdef DEBUG_PLAN_MOVE
+#ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) std::cout
                             << SIMTIME
                             << " veh=" << getID()
@@ -2791,12 +2772,18 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                     foundStopped = true;
                 }
                 hadVehicle = true;
-#ifdef DEBUG_PLAN_MOVE
+#ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) std::cout
                             << SIMTIME
                             << " veh=" << getID()
                             << " approached=" << approachedLane->getID()
                             << " last=" << last->getID()
+                            << " lastHasToWait=" << last->myHaveToWaitOnNextLink
+                            << " lastBrakeLight=" << last->signalSet(VEH_SIGNAL_BRAKELIGHT)
+                            << " lastBrakeGap=" << last->getCarFollowModel().brakeGap(last->getSpeed())
+                            << " lastGap=" << (last->getBackPositionOnLane(approachedLane) + last->getCarFollowModel().brakeGap(last->getSpeed()) - last->getSpeed() * last->getCarFollowModel().getHeadwayTime()
+                                           // gap of last up to the next intersection
+                                           - last->getVehicleType().getMinGap())
                             << " avail=" << item.availableSpace
                             << " seenSpace=" << seenSpace
                             << " foundStopped=" << foundStopped
@@ -2806,12 +2793,6 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
             item.hadVehicle = hadVehicle;
         }
 
-
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-        if (gDebugSelectedVehicle == getID()) {
-            int bla = 0;
-        }
-#endif
         // check which links allow continuation and add pass available to the previous item
         for (int i = ((int)lfLinks.size() - 1); i > 0; --i) {
             DriveProcessItem& item = lfLinks[i - 1];
@@ -2853,6 +2834,15 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
             */
 
             const double leftSpace = item.availableSpace - getVehicleType().getLengthWithGap();
+#ifdef DEBUG_CHECKREWINDLINKLANES
+                if (DEBUG_COND) std::cout
+                            << SIMTIME
+                            << " veh=" << getID()
+                            << " link=" << (item.myLink == 0 ? "NULL" : item.myLink->getViaLaneOrLane()->getID())
+                            << " avail=" << item.availableSpace
+                            << " leftSpace=" << leftSpace
+                            << "\n";
+#endif
             if (leftSpace < 0/* && item.myLink->willHaveBlockedFoe()*/) {
                 double impatienceCorrection = 0;
                 /*
@@ -3153,12 +3143,6 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
 #ifdef DEBUG_BESTLANES
     if (DEBUG_COND) {
         std::cout << SIMTIME << " updateBestLanes veh=" << getID() << " startLane1=" << Named::getIDSecure(startLane) << " myLane=" << Named::getIDSecure(myLane) << "\n";
-    }
-#endif
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gDebugSelectedVehicle == getID()) {
-        int bla = 0;
-        myLastBestLanesEdge = 0;
     }
 #endif
     if (startLane == 0) {
