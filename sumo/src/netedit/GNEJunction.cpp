@@ -452,23 +452,6 @@ GNEJunction::selectTLS(bool selected) {
 }
 
 
-void
-GNEJunction::recomputeNeighborsJunctions() {
-    std::set<GNEJunction*> neighborsJunctions;
-    // obtain all neighbors junctions
-    for (auto i : myGNEIncomingEdges) {
-        neighborsJunctions.insert(i->getGNEJunctionSource());
-    }
-    for (auto i : myGNEOutgoingEdges) {
-        neighborsJunctions.insert(i->getGNEJunctionDestiny());
-    }
-    // recompute all neighbors junctions
-    //for(std::set<GNEJunction*>::iterator i = neighborsJunctions.begin(); i != neighborsJunctions.end(); i++) {
-    //    myNet->getNetBuilder()->computeSingleNode((*i)->getNBNode(), OptionsCont::getOptions());
-    //}
-}
-
-
 void 
 GNEJunction::moveGeometry(const Position & oldPos, const Position & offset) {
     // Abort moving if there is another junction in the exactly target position
@@ -955,8 +938,6 @@ GNEJunction::moveJunctionGeometry(const Position &pos) {
     for (auto i :getNBNode()->getEdges()) {
         myNet->retrieveEdge(i->getID())->updateJunctionPosition(this, orig);
     }
-    // recompute neighbors junctions
-    recomputeNeighborsJunctions();
     // Update shapes without include connections, because the aren't showed in Move mode
     updateShapesAndGeometries();
 }

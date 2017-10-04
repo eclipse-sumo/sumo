@@ -156,9 +156,6 @@ public:
     /// @brief Update the boundary of the junction
     void updateGeometry();
 
-    /// @brief recompute neighbors junctions
-    void recomputeNeighborsJunctions();
-
     /**@brief change the position of the element geometry without saving in undoList
     * @param[in] oldPos old position before start moving
     */
