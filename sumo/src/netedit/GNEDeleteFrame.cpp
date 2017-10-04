@@ -343,13 +343,14 @@ GNEDeleteFrame::showChildsOfMarkedAttributeCarrier() {
 
 void
 GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
+    // obtain clicked position
+    Position clickedPosition = myViewNet->getPositionInformation();
     // To remove an attribute carrier deleteFrame must be visible
     if (shown() == false) {
         // Hide inspector frame and show delete frame
         myViewNet->getViewParent()->getInspectorFrame()->hide();
         show();
     } else if(myDeleteOnlyGeometryPoints->getCheck()) {
-        Position clickedPosition = myViewNet->getPositionInformation();
         // check type of of GL object
         switch (dynamic_cast<GUIGlObject*>(ac)->getType()) {
             case GLO_EDGE: {
@@ -410,46 +411,51 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
             }
             case GLO_EDGE: {
                 GNEEdge* edge = dynamic_cast<GNEEdge*>(ac);
-                int numberOfAdditionals = (int)edge->getAdditionalChilds().size();
-                int numberOfRerouters = (int)edge->getGNERerouters().size();
-                // Iterate over lanes and obtain total number of additional childs
-                for (auto i : edge->getLanes()) {
-                    numberOfAdditionals += (int)i->getAdditionalChilds().size();
-                }
-                // Check if edge can be deleted
-                if (myAutomaticallyDeleteAdditionalsCheckButton->getCheck()) {
-                    myViewNet->getNet()->deleteEdge(edge, myViewNet->getUndoList());
+                // check if click was over a geometry point or over a shape's edge
+                if(edge->getVertexIndex(clickedPosition, false) != -1) {
+                    edge->deleteGeometryPoint(clickedPosition);
                 } else {
-                    if (numberOfAdditionals > 0) {
-                        // write warning if netedit is running in testing mode
-                        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Opening FXMessageBox 'Force deletion needed'");
-                        }
-                        std::string plural = numberOfAdditionals > 1 ? "s" : "";
-                        // Open warning DialogBox
-                        FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(edge->getTag())).c_str(), "%s",
-                                              (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because owns " +
-                                               toString(numberOfAdditionals) + " additional child" + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
-                        // write warning if netedit is running in testing mode
-                        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");
-                        }
-                    } else if (numberOfRerouters > 0) {
-                        // write warning if netedit is running in testing mode
-                        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Opening FXMessageBox 'Force deletion needed'");
-                        }
-                        std::string plural = numberOfRerouters > 1 ? "s" : "";
-                        // Open warning DialogBox
-                        FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(edge->getTag())).c_str(), "%s",
-                                              (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because is part of " +
-                                               toString(numberOfRerouters) + " " + toString(SUMO_TAG_REROUTER) + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
-                        // write warning if netedit is running in testing mode
-                        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");
-                        }
-                    } else {
+                    int numberOfAdditionals = (int)edge->getAdditionalChilds().size();
+                    int numberOfRerouters = (int)edge->getGNERerouters().size();
+                    // Iterate over lanes and obtain total number of additional childs
+                    for (auto i : edge->getLanes()) {
+                        numberOfAdditionals += (int)i->getAdditionalChilds().size();
+                    }
+                    // Check if edge can be deleted
+                    if (myAutomaticallyDeleteAdditionalsCheckButton->getCheck()) {
                         myViewNet->getNet()->deleteEdge(edge, myViewNet->getUndoList());
+                    } else {
+                        if (numberOfAdditionals > 0) {
+                            // write warning if netedit is running in testing mode
+                            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                                WRITE_WARNING("Opening FXMessageBox 'Force deletion needed'");
+                            }
+                            std::string plural = numberOfAdditionals > 1 ? "s" : "";
+                            // Open warning DialogBox
+                            FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(edge->getTag())).c_str(), "%s",
+                                                  (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because owns " +
+                                                   toString(numberOfAdditionals) + " additional child" + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
+                            // write warning if netedit is running in testing mode
+                            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                                WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");
+                            }
+                        } else if (numberOfRerouters > 0) {
+                            // write warning if netedit is running in testing mode
+                            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                                WRITE_WARNING("Opening FXMessageBox 'Force deletion needed'");
+                            }
+                            std::string plural = numberOfRerouters > 1 ? "s" : "";
+                            // Open warning DialogBox
+                            FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(edge->getTag())).c_str(), "%s",
+                                                  (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because is part of " +
+                                                   toString(numberOfRerouters) + " " + toString(SUMO_TAG_REROUTER) + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
+                            // write warning if netedit is running in testing mode
+                            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                                WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");
+                            }
+                        } else {
+                            myViewNet->getNet()->deleteEdge(edge, myViewNet->getUndoList());
+                        }
                     }
                 }
                 break;
