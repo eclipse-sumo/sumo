@@ -24,3 +24,6 @@ following
 # 
 multilane
 recurrent_net
+
+# test geo-coords output
+geo_coords

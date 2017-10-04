@@ -1917,7 +1917,7 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
 #ifdef DEBUG_SSM
     std::cout << SIMTIME << " writeOutConflict() of vehicles '"
               << e->egoID << "' and '" << e->foeID
-              << "'" << std::endl;
+              << "'\ntoGeo=" << myUseGeoCoords << std::endl;
 #endif
     myOutputFile->openTag("conflict");
     myOutputFile->writeAttr("begin", e->begin).writeAttr("end", e->end);
@@ -2046,10 +2046,9 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
               << "myMeasures=" << joinToString(measures, " ")
               << ", myThresholds=" << joinToString(threshVals, " ")
               << ", mySaveTrajectories=" << mySaveTrajectories
-              << ", myRange=" << myRange << ", output file=" << outputFilename << ", extra time=" << myExtraTime << "\n";
+              << ", myRange=" << myRange << ", output file=" << outputFilename << ", extra time=" << myExtraTime << ", useGeo=" << myUseGeoCoords << "\n";
 #endif
 }
-
 
 /// @brief Destructor.
 MSDevice_SSM::~MSDevice_SSM() {
