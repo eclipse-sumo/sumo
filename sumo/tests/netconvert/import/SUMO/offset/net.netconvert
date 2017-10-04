@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:31 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Oct  4 13:27:38 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -20,6 +20,8 @@
         <offset.y value="-200"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -73,11 +75,11 @@
     <connection from="reverse_edge" to="edge_with_shape" fromLane="1" toLane="1" via=":node_right_0_1" dir="t" state="M"/>
     <connection from="reverse_edge" to="edge_with_shape" fromLane="2" toLane="2" via=":node_right_0_2" dir="t" state="M"/>
 
-    <connection from=":node_left_0" to="reverse_edge" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_left_0" to="reverse_edge" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":node_left_0" to="reverse_edge" fromLane="2" toLane="2" dir="s" state="M"/>
-    <connection from=":node_right_0" to="edge_with_shape" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_right_0" to="edge_with_shape" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":node_right_0" to="edge_with_shape" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":node_left_0" to="reverse_edge" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_left_0" to="reverse_edge" fromLane="1" toLane="1" dir="t" state="M"/>
+    <connection from=":node_left_0" to="reverse_edge" fromLane="2" toLane="2" dir="t" state="M"/>
+    <connection from=":node_right_0" to="edge_with_shape" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_right_0" to="edge_with_shape" fromLane="1" toLane="1" dir="t" state="M"/>
+    <connection from=":node_right_0" to="edge_with_shape" fromLane="2" toLane="2" dir="t" state="M"/>
 
 </net>

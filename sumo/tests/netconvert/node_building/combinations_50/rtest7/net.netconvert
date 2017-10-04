@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 25 14:51:23 2017 by SUMO netconvert Version dev-SVN-r25337
+<!-- generated on Wed Oct  4 13:27:32 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -124,16 +124,16 @@
     <connection from=":61052071_0" to="724296804" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":61052071_0" to="724296804" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":61052071_0" to="724296804" fromLane="2" toLane="2" dir="s" state="M"/>
-    <connection from=":61052071_3" to="-53500509" fromLane="0" toLane="1" via=":61052071_10_0" dir="s" state="m"/>
-    <connection from=":61052071_10" to="-53500509" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":61052071_3" to="-53500509" fromLane="0" toLane="1" via=":61052071_10_0" dir="t" state="m"/>
+    <connection from=":61052071_10" to="-53500509" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":61052071_4" to="-53500509" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":61052071_5" to="724296804" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":61052071_6" to="724296804" fromLane="0" toLane="3" dir="s" state="M"/>
+    <connection from=":61052071_5" to="724296804" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":61052071_6" to="724296804" fromLane="0" toLane="3" dir="l" state="M"/>
     <connection from=":61052071_7" to="-53500509" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":61052071_7" to="-53500509" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":61052071_9" to="724296804" fromLane="0" toLane="3" via=":61052071_11_0" dir="s" state="m"/>
-    <connection from=":61052071_11" to="724296804" fromLane="0" toLane="3" dir="s" state="M"/>
-    <connection from=":61052096_0" to="53500509" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":cluster_61052062_61052063_0" to="-724296805" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":61052071_9" to="724296804" fromLane="0" toLane="3" via=":61052071_11_0" dir="t" state="m"/>
+    <connection from=":61052071_11" to="724296804" fromLane="0" toLane="3" dir="t" state="M"/>
+    <connection from=":61052096_0" to="53500509" fromLane="0" toLane="2" dir="t" state="M"/>
+    <connection from=":cluster_61052062_61052063_0" to="-724296805" fromLane="0" toLane="1" dir="t" state="M"/>
 
 </net>

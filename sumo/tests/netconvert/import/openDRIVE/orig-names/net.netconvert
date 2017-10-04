@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 13:53:28 2017 by SUMO netconvert Version dev-SVN-r23033
+<!-- generated on Wed Oct  4 13:27:40 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -58,10 +58,10 @@
     <type id="tram" priority="2" speed="13.89" allow="tram" width="3.65"/>
 
     <edge id=":1.begin_0" function="internal">
-        <lane id=":1.begin_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.90" length="4.53" width="3.00" shape="0.00,1.55 -1.16,0.78 -1.55,0.00 -1.16,-0.78 0.00,-1.55"/>
+        <lane id=":1.begin_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="4.53" width="3.00" shape="0.00,1.55 -1.16,0.78 -1.55,0.00 -1.16,-0.78 0.00,-1.55"/>
     </edge>
     <edge id=":1.end_0" function="internal">
-        <lane id=":1.end_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.90" length="4.53" width="3.00" shape="50.00,-1.55 51.16,-0.78 51.55,0.00 51.16,0.78 50.00,1.55"/>
+        <lane id=":1.end_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="4.53" width="3.00" shape="50.00,-1.55 51.16,-0.78 51.55,0.00 51.16,0.78 50.00,1.55"/>
     </edge>
 
     <edge id="-1.0.00" from="1.begin" to="1.end" priority="1" type="driving">
@@ -85,7 +85,7 @@
     <connection from="-1.0.00" to="1.0.00" fromLane="0" toLane="0" via=":1.end_0_0" dir="t" state="M"/>
     <connection from="1.0.00" to="-1.0.00" fromLane="0" toLane="0" via=":1.begin_0_0" dir="t" state="M"/>
 
-    <connection from=":1.begin_0" to="-1.0.00" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":1.end_0" to="1.0.00" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1.begin_0" to="-1.0.00" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":1.end_0" to="1.0.00" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>

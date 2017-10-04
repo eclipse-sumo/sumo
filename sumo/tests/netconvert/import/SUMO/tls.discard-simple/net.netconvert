@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:04 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Wed Oct  4 13:27:38 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -23,6 +23,7 @@
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
         <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -204,23 +205,23 @@
     <connection from="gneE9" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_8_0" tl="gneJ1" linkIndex="8" dir="l" state="o"/>
 
     <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_0" to="gneE7" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_1" to="gneE10" fromLane="0" toLane="0" via=":gneJ1_9_0" dir="s" state="m"/>
-    <connection from=":gneJ1_9" to="gneE10" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_2" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ1_0" to="gneE7" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ1_1" to="gneE10" fromLane="0" toLane="0" via=":gneJ1_9_0" dir="l" state="m"/>
+    <connection from=":gneJ1_9" to="gneE10" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":gneJ1_2" to="gneE1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":gneJ1_3" to="gneE7" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_4" to="gneE10" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ1_4" to="gneE10" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":gneJ1_5" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_6" to="gneE7" fromLane="0" toLane="0" via=":gneJ1_10_0" dir="s" state="m"/>
-    <connection from=":gneJ1_10" to="gneE7" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ1_6" to="gneE7" fromLane="0" toLane="0" via=":gneJ1_10_0" dir="l" state="m"/>
+    <connection from=":gneJ1_10" to="gneE7" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":gneJ1_7" to="gneE10" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_8" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_11_0" dir="s" state="m"/>
-    <connection from=":gneJ1_11" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ1_8" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_11_0" dir="l" state="m"/>
+    <connection from=":gneJ1_11" to="gneE1" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":gneJ2_0" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ2_1" to="gneE3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ5_0" to="gneE6" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ5_0" to="gneE6" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":gneJ5_1" to="gneE14" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ5_2" to="gneE6" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ5_3" to="gneE14" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ5_3" to="gneE14" fromLane="0" toLane="0" dir="l" state="M"/>
 
 </net>

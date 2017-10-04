@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 28 08:01:50 2017 by SUMO netgenerate Version dev-SVN-r25706
+<!-- generated on Wed Oct  4 13:27:31 2017 by SUMO netgenerate Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -120,11 +120,11 @@
     <connection from="9" to="25" fromLane="0" toLane="0" via=":8_2_0" tl="8" linkIndex="2" dir="l" state="o"/>
 
     <connection from=":12_0" to="38" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":12_1" to="38" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":12_1" to="38" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":2_0" to="15" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":2_1" to="13" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":8_0" to="17" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":2_1" to="13" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":8_0" to="17" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":8_1" to="19" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":8_2" to="25" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":8_2" to="25" fromLane="0" toLane="0" dir="l" state="M"/>
 
 </net>

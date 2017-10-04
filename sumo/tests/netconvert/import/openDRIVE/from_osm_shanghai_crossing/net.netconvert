@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul  4 14:34:09 2017 by SUMO netconvert Version dev-SVN-r25036
+<!-- generated on Wed Oct  4 13:27:41 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -1309,9 +1309,9 @@
     <connection from="9792174#1-AddedOnRampEdge" to="9792174#1" fromLane="2" toLane="0" via=":9792174#1-AddedOnRampNode_0_0" dir="s" state="M"/>
     <connection from="9792174#1-AddedOnRampEdge" to="9792174#1" fromLane="3" toLane="1" via=":9792174#1-AddedOnRampNode_0_1" dir="s" state="M"/>
 
-    <connection from=":103895952_0" to="11635095#1" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":103895952_1" to="11635095#1" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":103895952_2" to="160079263" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":103895952_0" to="11635095#1" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":103895952_1" to="11635095#1" fromLane="0" toLane="2" dir="r" state="M"/>
+    <connection from=":103895952_2" to="160079263" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":103895952_3" to="11635095#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":103895952_3" to="11635095#1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":103895952_3" to="11635095#1" fromLane="2" toLane="2" dir="s" state="M"/>
@@ -1374,7 +1374,7 @@
     <connection from=":1721527687_1" to="178702252-AddedOnRampEdge" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":1721527687_1" to="178702252-AddedOnRampEdge" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":1721527687_1" to="178702252-AddedOnRampEdge" fromLane="2" toLane="2" dir="s" state="M"/>
-    <connection from=":1721535392_0" to="-160079263" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1721535392_0" to="-160079263" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":178702252-AddedOnRampNode_0" to="178702252" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":178702252-AddedOnRampNode_0" to="178702252" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":178702252-AddedOnRampNode_0" to="178702252" fromLane="2" toLane="2" dir="s" state="M"/>

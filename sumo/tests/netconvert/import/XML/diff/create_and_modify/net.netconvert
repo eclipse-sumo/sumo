@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 26 15:49:26 2017 by SUMO netconvert Version dev-SVN-r24896
+<!-- generated on Wed Oct  4 13:27:35 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -23,6 +23,7 @@
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
         <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -211,30 +212,30 @@
     <connection from="gneE1" to="edge_U2C" fromLane="0" toLane="0" via=":node_U_2_0" dir="r" state="M"/>
     <connection from="gneE1" to="gneE2" fromLane="0" toLane="0" via=":node_U_3_0" dir="t" state="m"/>
 
-    <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_C_0" to="edge_C2L" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":node_C_0" to="edge_C2L" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":node_C_1" to="edge_C2D" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_C_2" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_12_0" dir="s" state="m"/>
-    <connection from=":node_C_12" to="edge_C2R" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_C_3" to="edge_C2U" fromLane="0" toLane="0" via=":node_C_13_0" dir="s" state="m"/>
-    <connection from=":node_C_13" to="edge_C2U" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_C_4" to="edge_C2U" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_C_2" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_12_0" dir="l" state="m"/>
+    <connection from=":node_C_12" to="edge_C2R" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":node_C_3" to="edge_C2U" fromLane="0" toLane="0" via=":node_C_13_0" dir="t" state="m"/>
+    <connection from=":node_C_13" to="edge_C2U" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_C_4" to="edge_C2U" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":node_C_5" to="edge_C2L" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":node_C_6" to="edge_C2D" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_C_7" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_14_0" dir="s" state="m"/>
-    <connection from=":node_C_14" to="edge_C2R" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_C_8" to="edge_C2R" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_C_6" to="edge_C2D" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":node_C_7" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_14_0" dir="t" state="m"/>
+    <connection from=":node_C_14" to="edge_C2R" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_C_8" to="edge_C2R" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":node_C_9" to="edge_C2U" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_C_10" to="edge_C2L" fromLane="0" toLane="1" via=":node_C_15_0" dir="s" state="m"/>
-    <connection from=":node_C_15" to="edge_C2L" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":node_C_11" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_16_0" dir="s" state="m"/>
-    <connection from=":node_C_16" to="edge_C2D" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_D_0" to="edge_D2C" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_L_0" to="gneE0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_R_0" to="edge_R2C" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_U_0" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_U_1" to="edge_U2C" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_U_2" to="edge_U2C" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_U_3" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_C_10" to="edge_C2L" fromLane="0" toLane="1" via=":node_C_15_0" dir="l" state="m"/>
+    <connection from=":node_C_15" to="edge_C2L" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":node_C_11" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_16_0" dir="t" state="m"/>
+    <connection from=":node_C_16" to="edge_C2D" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_D_0" to="edge_D2C" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_L_0" to="gneE0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":node_R_0" to="edge_R2C" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_U_0" to="gneE2" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":node_U_1" to="edge_U2C" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_U_2" to="edge_U2C" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":node_U_3" to="gneE2" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>

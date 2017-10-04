@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:04 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Wed Oct  4 13:27:39 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -20,6 +20,7 @@
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
         <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -213,23 +214,23 @@
 
     <connection from=":22to13.48_0" to="22to13.48" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":32to41.48_0" to="32to41.48" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":n13_0" to="13to12" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n13_0" to="13to12" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":n13_1" to="13to32" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":n13_2" to="13to12" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":n13_3" to="13to32" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":n22_0" to="22to21" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n13_3" to="13to32" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":n22_0" to="22to21" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":n22_1" to="22to13" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":n22_2" to="22to21" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":n22_3" to="22to13" fromLane="0" toLane="0" via=":n22_4_0" dir="s" state="m"/>
-    <connection from=":n22_4" to="22to13" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n22_3" to="22to13" fromLane="0" toLane="0" via=":n22_4_0" dir="l" state="m"/>
+    <connection from=":n22_4" to="22to13" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":n32_0" to="32to33" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":n32_1" to="32to41" fromLane="0" toLane="0" via=":n32_4_0" dir="s" state="m"/>
-    <connection from=":n32_4" to="32to41" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":n32_2" to="32to33" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n32_1" to="32to41" fromLane="0" toLane="0" via=":n32_4_0" dir="l" state="m"/>
+    <connection from=":n32_4" to="32to41" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":n32_2" to="32to33" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":n32_3" to="32to41" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":n41_0" to="41to42" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n41_0" to="41to42" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":n41_1" to="41to22" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":n41_2" to="41to42" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":n41_3" to="41to22" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n41_3" to="41to22" fromLane="0" toLane="0" dir="l" state="M"/>
 
 </net>

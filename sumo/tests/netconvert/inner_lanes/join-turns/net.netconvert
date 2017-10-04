@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul  4 17:59:49 2017 by SUMO netconvert Version dev-SVN-r24506
+<!-- generated on Wed Oct  4 13:27:32 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -77,9 +77,9 @@
     <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_2_0" tl="C" linkIndex="2" dir="r" state="o"/>
     <connection from="SC" to="CE" fromLane="1" toLane="1" via=":C_2_1" tl="C" linkIndex="3" dir="r" state="o"/>
 
-    <connection from=":C_0" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_0" to="CS" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":C_2" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_2" to="CE" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":C_0" to="CS" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":C_0" to="CS" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from=":C_2" to="CE" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":C_2" to="CE" fromLane="1" toLane="1" dir="r" state="M"/>
 
 </net>

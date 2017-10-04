@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul  4 14:34:13 2017 by SUMO netconvert Version dev-SVN-r25036
+<!-- generated on Wed Oct  4 13:27:51 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -86,12 +86,12 @@
     <connection from="middle" to="end" fromLane="2" toLane="0" via=":gneJ1_2_0" dir="s" state="M"/>
     <connection from="middle" to="end" fromLane="3" toLane="1" via=":gneJ1_2_1" dir="s" state="M"/>
 
-    <connection from=":gneJ0_0" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ0_1" to="middle" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":gneJ0_0" to="middle" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ0_1" to="middle" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ0_2" to="middle" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":gneJ0_2" to="middle" fromLane="1" toLane="3" dir="s" state="M"/>
-    <connection from=":gneJ1_0" to="end2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_1" to="end2" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":gneJ1_0" to="end2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ1_1" to="end2" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ1_2" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ1_2" to="end" fromLane="1" toLane="1" dir="s" state="M"/>
 

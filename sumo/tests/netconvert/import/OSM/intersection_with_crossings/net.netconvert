@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 30 08:53:36 2017 by SUMO netconvert Version dev-SVN-r24993
+<!-- generated on Wed Oct  4 13:27:40 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -208,17 +208,17 @@
     <connection from="324752522" to="177308083" fromLane="2" toLane="1" via=":cluster_1802245009_335683858_5_0" tl="cluster_1802245009_335683858" linkIndex="5" dir="L" state="o"/>
     <connection from="324752524" to="-324752524" fromLane="2" toLane="1" via=":447602290_0_0" dir="t" state="M"/>
 
-    <connection from=":447602290_0" to="-324752524" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":cluster_1802245009_335683858_0" to="324752524" fromLane="0" toLane="1" via=":cluster_1802245009_335683858_8_0" dir="s" state="m"/>
-    <connection from=":cluster_1802245009_335683858_8" to="324752524" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":447602290_0" to="-324752524" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":cluster_1802245009_335683858_0" to="324752524" fromLane="0" toLane="1" via=":cluster_1802245009_335683858_8_0" dir="r" state="m"/>
+    <connection from=":cluster_1802245009_335683858_8" to="324752524" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":cluster_1802245009_335683858_1" to="177308083" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":cluster_1802245009_335683858_2" to="-324752522" fromLane="0" toLane="1" via=":cluster_1802245009_335683858_9_0" dir="s" state="m"/>
-    <connection from=":cluster_1802245009_335683858_9" to="-324752522" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":cluster_1802245009_335683858_2" to="-324752522" fromLane="0" toLane="1" via=":cluster_1802245009_335683858_9_0" dir="l" state="m"/>
+    <connection from=":cluster_1802245009_335683858_9" to="-324752522" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":cluster_1802245009_335683858_3" to="324752524" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":cluster_1802245009_335683858_3" to="324752524" fromLane="1" toLane="2" dir="s" state="M"/>
-    <connection from=":cluster_1802245009_335683858_5" to="177308083" fromLane="0" toLane="1" via=":cluster_1802245009_335683858_10_0" dir="s" state="m"/>
-    <connection from=":cluster_1802245009_335683858_10" to="177308083" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":cluster_1802245009_335683858_6" to="177308083" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":cluster_1802245009_335683858_5" to="177308083" fromLane="0" toLane="1" via=":cluster_1802245009_335683858_10_0" dir="L" state="m"/>
+    <connection from=":cluster_1802245009_335683858_10" to="177308083" fromLane="0" toLane="1" dir="L" state="M"/>
+    <connection from=":cluster_1802245009_335683858_6" to="177308083" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":cluster_1802245009_335683858_7" to="-324752522" fromLane="0" toLane="1" dir="s" state="M"/>
 
     <connection from=":1877604780_w0" to="324752522" fromLane="0" toLane="0" dir="s" state="M"/>

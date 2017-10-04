@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 30 08:53:42 2017 by SUMO netconvert Version dev-SVN-r24993
+<!-- generated on Wed Oct  4 13:27:51 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -105,11 +105,11 @@
     <connection from="middle" to="end" fromLane="2" toLane="1" via=":gneJ1_1_0" dir="s" state="M"/>
     <connection from="middle" to="end" fromLane="3" toLane="2" via=":gneJ1_1_1" dir="s" state="M"/>
 
-    <connection from=":gneJ0_0" to="middle" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":gneJ0_0" to="middle" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ0_1" to="middle" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":gneJ0_1" to="middle" fromLane="1" toLane="3" dir="s" state="M"/>
-    <connection from=":gneJ1_0" to="cyclepath_out" fromLane="0" toLane="0" via=":gneJ1_3_0" dir="s" state="m"/>
-    <connection from=":gneJ1_3" to="cyclepath_out" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ1_0" to="cyclepath_out" fromLane="0" toLane="0" via=":gneJ1_3_0" dir="r" state="m"/>
+    <connection from=":gneJ1_3" to="cyclepath_out" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":gneJ1_1" to="end" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":gneJ1_1" to="end" fromLane="1" toLane="2" dir="s" state="M"/>
 

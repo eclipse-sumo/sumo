@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:40 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Wed Oct  4 13:27:42 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,8 @@
         <roundabouts.guess value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -90,10 +92,10 @@
     <connection from="554747014" to="-554747014" fromLane="0" toLane="0" via=":644616169_0_0" dir="t" state="="/>
 
     <connection from=":54540025_0" to="-51968217" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":54540025_1" to="554747014" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":54540025_2" to="-51968217" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":54540027_0" to="51968216" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":54540028_0" to="51968215" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":644616169_0" to="-554747014" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54540025_1" to="554747014" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":54540025_2" to="-51968217" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":54540027_0" to="51968216" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":54540028_0" to="51968215" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":644616169_0" to="-554747014" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>

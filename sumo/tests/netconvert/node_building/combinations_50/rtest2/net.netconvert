@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:06 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Wed Oct  4 13:27:31 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -42,7 +42,7 @@
         <lane id=":0_6_0" index="0" speed="7.64" length="6.88" shape="1.42,50.93 -0.05,50.05 -1.25,48.05 -1.65,45.25"/>
     </edge>
     <edge id=":0_4" function="internal">
-        <lane id=":0_4_0" index="0" speed="7.64" length="5.00" shape="1.65,45.25 1.84,46.61 2.42,47.57 3.39,48.16 4.75,48.35"/>
+        <lane id=":0_4_0" index="0" speed="7.64" length="5.00" shape="1.65,45.25 1.84,46.61 2.43,47.57 3.39,48.16 4.75,48.35"/>
     </edge>
     <edge id=":0_5" function="internal">
         <lane id=":0_5_0" index="0" speed="7.64" length="9.50" shape="1.65,45.25 1.65,54.75"/>
@@ -89,11 +89,11 @@
     <connection from="4i" to="2o" fromLane="0" toLane="0" via=":0_1_0" dir="l" state="M"/>
 
     <connection from=":0_0" to="3o" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":0_1" to="2o" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":0_2" to="4o" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":0_3" to="3o" fromLane="0" toLane="0" via=":0_6_0" dir="s" state="m"/>
-    <connection from=":0_6" to="3o" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":0_4" to="2o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":0_1" to="2o" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":0_2" to="4o" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":0_3" to="3o" fromLane="0" toLane="0" via=":0_6_0" dir="l" state="m"/>
+    <connection from=":0_6" to="3o" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":0_4" to="2o" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":0_5" to="4o" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 28 14:38:25 2016 by SUMO netconvert Version dev-SVN-r22106
+<!-- generated on Wed Oct  4 13:27:42 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,8 @@
         <roundabouts.guess value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -177,24 +179,24 @@
     <connection from="e4" to="51805615" fromLane="0" toLane="0" via=":n4_1_0" dir="s" state="M"/>
     <connection from="e4" to="e0" fromLane="0" toLane="0" via=":n4_2_0" dir="l" state="m"/>
 
-    <connection from=":54536750_0" to="-51812052" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":54536752_0" to="51811895" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":54536788_0" to="-51805615" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54536750_0" to="-51812052" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":54536752_0" to="51811895" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":54536788_0" to="-51805615" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":n0_0" to="e1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":n1_0" to="e2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":n1_0" to="e2" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":n1_2" to="e2" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":n1_3" to="51812052" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n1_2" to="e2" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":n1_3" to="51812052" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":n1_4" to="-51811895" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":n1_4" to="-51811895" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":n1_6" to="e2" fromLane="0" toLane="1" via=":n1_7_0" dir="s" state="m"/>
-    <connection from=":n1_7" to="e2" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":n1_6" to="e2" fromLane="0" toLane="1" via=":n1_7_0" dir="l" state="m"/>
+    <connection from=":n1_7" to="e2" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":n2_0" to="e3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":n2_0" to="e3" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":n3_0" to="e4" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":n4_0" to="e0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":n4_1" to="51805615" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":n4_2" to="e0" fromLane="0" toLane="0" via=":n4_3_0" dir="s" state="m"/>
-    <connection from=":n4_3" to="e0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n4_2" to="e0" fromLane="0" toLane="0" via=":n4_3_0" dir="l" state="m"/>
+    <connection from=":n4_3" to="e0" fromLane="0" toLane="0" dir="l" state="M"/>
 
 </net>

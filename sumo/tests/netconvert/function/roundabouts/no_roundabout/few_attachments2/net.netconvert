@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:09 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Wed Oct  4 13:27:42 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -20,6 +20,7 @@
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
         <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -81,7 +82,7 @@
     <connection from="572217564" to="572217616" fromLane="0" toLane="0" via=":54544854_0_0" dir="s" state="M"/>
 
     <connection from=":54544854_0" to="572217616" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":552609822_0" to="-572217567" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":552609822_0" to="-572217567" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":552609822_1" to="-572217567" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":662904038_0" to="572217564" fromLane="0" toLane="0" dir="s" state="M"/>
 

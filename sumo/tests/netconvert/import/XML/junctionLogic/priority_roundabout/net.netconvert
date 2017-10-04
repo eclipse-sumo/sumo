@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:20 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Wed Oct  4 13:27:36 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -143,20 +143,20 @@
     <connection from="RWRE" to="554721084" fromLane="0" toLane="0" via=":RE_2_0" dir="s" state="M"/>
     <connection from="RWRE" to="RERN" fromLane="0" toLane="0" via=":RE_3_0" dir="l" state="M"/>
 
-    <connection from=":617530560_0" to="-554721084" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":617530570_0" to="-554721086" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":617530575_0" to="554721118" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":RE_0" to="RERN" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":RE_1" to="554721084" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":617530560_0" to="-554721084" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":617530570_0" to="-554721086" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":617530575_0" to="554721118" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":RE_0" to="RERN" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":RE_1" to="554721084" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":RE_2" to="554721084" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":RE_3" to="RERN" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":RE_3" to="RERN" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":RN_0" to="554721086" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":RN_1" to="RNRW" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":RN_2" to="RNRW" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":RN_3" to="554721086" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":RW_0" to="RWRE" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":RW_1" to="-554721118" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":RN_1" to="RNRW" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":RN_2" to="RNRW" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":RN_3" to="554721086" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":RW_0" to="RWRE" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":RW_1" to="-554721118" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":RW_2" to="-554721118" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":RW_3" to="RWRE" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":RW_3" to="RWRE" fromLane="0" toLane="0" dir="l" state="M"/>
 
 </net>

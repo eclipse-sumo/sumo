@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar  2 11:11:40 2017 by SUMO netconvert Version dev-SVN-r23174
+<!-- generated on Wed Oct  4 13:27:39 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,7 @@
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
         <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -240,30 +241,30 @@
     <connection from="46" to="134" fromLane="1" toLane="0" via=":27_9_0" tl="210" linkIndex="9" dir="s" state="o"/>
     <connection from="46" to="201" fromLane="2" toLane="0" via=":27_10_0" tl="210" linkIndex="10" dir="l" state="o"/>
 
-    <connection from=":27_0" to="201" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":27_0" to="201" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":27_1" to="115" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":27_2" to="113" fromLane="0" toLane="2" via=":27_14_0" dir="s" state="m"/>
-    <connection from=":27_14" to="113" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":27_3" to="134" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":27_2" to="113" fromLane="0" toLane="2" via=":27_14_0" dir="l" state="m"/>
+    <connection from=":27_14" to="113" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":27_3" to="134" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":27_4" to="201" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":27_4" to="201" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":27_4" to="201" fromLane="2" toLane="2" dir="s" state="M"/>
-    <connection from=":27_7" to="115" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":27_8" to="113" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":27_7" to="115" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":27_8" to="113" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":27_9" to="134" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":27_10" to="201" fromLane="0" toLane="0" via=":27_15_0" dir="s" state="m"/>
-    <connection from=":27_15" to="201" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":27_10" to="201" fromLane="0" toLane="0" via=":27_15_0" dir="l" state="m"/>
+    <connection from=":27_15" to="201" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":27_11" to="113" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":27_11" to="113" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":27_13" to="134" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":27_13" to="134" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":33_0" to="43[0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":33_0" to="43[0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":33_0" to="43[0]" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from=":34_0" to="43[1]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":34_0" to="43[1]" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":34_2" to="118" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":34_3" to="209" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":34_4" to="118" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":34_2" to="118" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":34_3" to="209" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":34_4" to="118" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":34_5" to="209" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":34_5" to="209" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":34_5" to="209" fromLane="2" toLane="2" dir="s" state="M"/>

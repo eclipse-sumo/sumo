@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 26 15:49:34 2017 by SUMO netconvert Version dev-SVN-r24896
+<!-- generated on Wed Oct  4 13:27:44 2017 by SUMO netconvert Version dev-SVN-r26311
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -174,19 +174,19 @@
     <connection from="WC" to="CC2" fromLane="3" toLane="3" via=":C_3_1" tl="CC2" linkIndex="4" dir="s" state="o"/>
     <connection from="WC" to="CN" fromLane="3" toLane="3" via=":C_5_0" tl="CC2" linkIndex="5" dir="l" state="o"/>
 
-    <connection from=":C_0" to="CC2" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":C_0" to="CC2" fromLane="0" toLane="2" dir="r" state="M"/>
     <connection from=":C_1" to="CN" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":C_1" to="CN" fromLane="1" toLane="3" dir="s" state="M"/>
     <connection from=":C_3" to="CC2" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":C_3" to="CC2" fromLane="1" toLane="3" dir="s" state="M"/>
-    <connection from=":C_5" to="CN" fromLane="0" toLane="3" via=":C_6_0" dir="s" state="m"/>
-    <connection from=":C_6" to="CN" fromLane="0" toLane="3" dir="s" state="M"/>
-    <connection from=":C2_0" to="C2E" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":C_5" to="CN" fromLane="0" toLane="3" via=":C_6_0" dir="l" state="m"/>
+    <connection from=":C_6" to="CN" fromLane="0" toLane="3" dir="l" state="M"/>
+    <connection from=":C2_0" to="C2E" fromLane="0" toLane="2" dir="r" state="M"/>
     <connection from=":C2_1" to="C2N2" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":C2_1" to="C2N2" fromLane="1" toLane="3" dir="s" state="M"/>
     <connection from=":C2_3" to="C2E" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":C2_3" to="C2E" fromLane="1" toLane="3" dir="s" state="M"/>
-    <connection from=":C2_5" to="C2N2" fromLane="0" toLane="3" dir="s" state="M"/>
+    <connection from=":C2_5" to="C2N2" fromLane="0" toLane="3" dir="l" state="M"/>
 
     <connection from=":C_c0" to=":C_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_w1" to="CC2" fromLane="0" toLane="0" dir="s" state="M"/>
