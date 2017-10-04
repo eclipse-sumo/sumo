@@ -252,9 +252,9 @@ MSDevice_SSM::Encounter::Encounter(const MSVehicle* _ego, const MSVehicle* const
     egoConflictExitTime(INVALID),
     foeConflictEntryTime(INVALID),
     foeConflictExitTime(INVALID),
-    minTTC(std::make_pair(std::make_pair(INVALID, INVALID), Position::invalidPosition())),
-    maxDRAC(std::make_pair(std::make_pair(INVALID, INVALID), Position::invalidPosition())),
-    PET(std::make_pair(std::make_pair(INVALID, INVALID), Position::invalidPosition())),
+    minTTC(INVALID, Position::invalidPosition(), ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID),
+	maxDRAC(INVALID, Position::invalidPosition(), ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID),
+	PET(INVALID, Position::invalidPosition(), ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID),
     closingRequested(false) {
 #ifdef DEBUG_SSM
     std::cout << "\n" << SIMTIME << " Constructing encounter of '"
@@ -294,21 +294,27 @@ MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position ego
     egoDistsToConflict.push_back(egoDistToConflict);
     foeDistsToConflict.push_back(foeDistToConflict);
 
-
-    //TODO: Add current encounter type to the extremal values of the SSMs to enable correct interpretation.
-
     TTCspan.push_back(ttc);
-    if (ttc != INVALID && (ttc < minTTC.first.second || minTTC.first.second == INVALID)) {
-        minTTC = std::make_pair(std::make_pair(time, ttc), conflictPoint);
+    if (ttc != INVALID && (ttc < minTTC.value || minTTC.value == INVALID)) {
+    	minTTC.value = ttc;
+    	minTTC.time = time;
+    	minTTC.pos = conflictPoint;
+    	minTTC.type = type;
     }
 
     DRACspan.push_back(drac);
-    if (drac != INVALID && (drac > maxDRAC.first.second || maxDRAC.first.second == INVALID)) {
-        maxDRAC = std::make_pair(std::make_pair(time, drac), conflictPoint);
+    if (drac != INVALID && (drac > maxDRAC.value || maxDRAC.value == INVALID)) {
+    	maxDRAC.value = drac;
+    	maxDRAC.time = time;
+    	maxDRAC.pos = conflictPoint;
+    	maxDRAC.type = type;
     }
 
-    if (pet.first != INVALID && (PET.first.second >= pet.second || PET.first.second == INVALID)) {
-        PET = std::make_pair(pet, conflictPoint);
+    if (pet.first != INVALID && (PET.value >= pet.second || PET.value == INVALID)) {
+    	PET.value = pet.second;
+    	PET.time = pet.first;
+    	PET.pos = conflictPoint;
+    	PET.type = type;
     }
 }
 
@@ -500,13 +506,13 @@ MSDevice_SSM::qualifiesAsConflict(Encounter* e) {
               << "'" << std::endl;
 #endif
 
-    if (myComputePET && e->PET.first.second != INVALID && e->PET.first.second <= myThresholds["PET"]) {
+    if (myComputePET && e->PET.value != INVALID && e->PET.value <= myThresholds["PET"]) {
         return true;
     }
-    if (myComputeTTC && e->minTTC.first.second != INVALID && e->minTTC.first.second <= myThresholds["TTC"]) {
+    if (myComputeTTC && e->minTTC.value != INVALID && e->minTTC.value <= myThresholds["TTC"]) {
         return true;
     }
-    if (myComputeDRAC && e->maxDRAC.first.second != INVALID && e->maxDRAC.first.second >= myThresholds["DRAC"]) {
+    if (myComputeDRAC && e->maxDRAC.value != INVALID && e->maxDRAC.value >= myThresholds["DRAC"]) {
         return true;
     }
     return false;
@@ -845,7 +851,7 @@ MSDevice_SSM::determinePET(EncounterApproachInfo& eInfo) const {
                       << std::endl;
 #endif
             // pet must have been calculated already
-            assert(e->PET.first.second != INVALID);
+            assert(e->PET.value != INVALID);
             return;
         }
 
@@ -872,10 +878,9 @@ MSDevice_SSM::determinePET(EncounterApproachInfo& eInfo) const {
         assert(e->foeConflictEntryTime != INVALID);
         assert(e->egoConflictEntryTime != INVALID);
 
-        // Both have passed the conflict entry but no collision -> one must have left the conflict region already
-        // XXX: but being an encounter of type BOTH_LEFT_CONFLICT_AREA, we should have a '&&'
+        // Both have passed the conflict area
         assert(e->foeConflictExitTime != INVALID && e->egoConflictExitTime != INVALID);
-        // both have left the conflict region already (can this really occur?)
+        // both have left the conflict region already
         if (e->egoConflictEntryTime > e->foeConflictExitTime) {
             pet.first = e->egoConflictEntryTime;
             pet.second = e->egoConflictEntryTime - e->foeConflictExitTime;
@@ -1945,34 +1950,49 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
         if (mySaveTrajectories) {
             myOutputFile->openTag("TTCSpan").writeAttr("values", makeStringWithNAs(e->TTCspan, INVALID)).closeTag();
         }
-        std::string time = (e->minTTC.first.first == INVALID) ? "NA" : toString(e->minTTC.first.first);
-        std::string value = (e->minTTC.first.first == INVALID) ? "NA" : toString(e->minTTC.first.second);
-        if (myUseGeoCoords) {
-            toGeo(e->minTTC.second);
+        if (e->minTTC.time == INVALID) {
+        	myOutputFile->openTag("minTTC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").closeTag();
+        } else {
+        	std::string time = toString(e->minTTC.time);
+        	std::string type = toString(int(e->minTTC.type));
+        	std::string value = toString(e->minTTC.value);
+        	if (myUseGeoCoords) {
+        		toGeo(e->minTTC.pos);
+        	}
+        	std::string position = toString(e->minTTC.pos, myUseGeoCoords ? gPrecisionGeo : gPrecision);
+        	myOutputFile->openTag("minTTC").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
         }
-        std::string position = (e->minTTC.first.first == INVALID) ? "NA" : toString(e->minTTC.second, myUseGeoCoords ? gPrecisionGeo : gPrecision);
-        myOutputFile->openTag("minTTC").writeAttr("time", time).writeAttr("value", value).writeAttr("position", position).closeTag();
     }
     if (myComputeDRAC) {
         if (mySaveTrajectories) {
             myOutputFile->openTag("DRACSpan").writeAttr("values", makeStringWithNAs(e->DRACspan, INVALID)).closeTag();
         }
-        std::string time = (e->maxDRAC.first.first == INVALID) ? "NA" : toString(e->maxDRAC.first.first);
-        std::string value = (e->maxDRAC.first.first == INVALID) ? "NA" : toString(e->maxDRAC.first.second);
-        if (myUseGeoCoords) {
-            toGeo(e->maxDRAC.second);
+        if (e->maxDRAC.time == INVALID) {
+        	myOutputFile->openTag("maxDRAC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").closeTag();
+        } else {
+        	std::string time = toString(e->maxDRAC.time);
+        	std::string type = toString(int(e->maxDRAC.type));
+        	std::string value = toString(e->maxDRAC.value);
+        	if (myUseGeoCoords) {
+        		toGeo(e->maxDRAC.pos);
+        	}
+        	std::string position = toString(e->maxDRAC.pos, myUseGeoCoords ? gPrecisionGeo : gPrecision);
+        	myOutputFile->openTag("maxDRAC").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
         }
-        std::string position = (e->maxDRAC.first.first == INVALID) ? "NA" : toString(e->maxDRAC.second, myUseGeoCoords ? gPrecisionGeo : gPrecision);
-        myOutputFile->openTag("maxDRAC").writeAttr("time", time).writeAttr("value", value).writeAttr("position", position).closeTag();
     }
     if (myComputePET) {
-        std::string time = (e->PET.first.first == INVALID) ? "NA" : toString(e->PET.first.first);
-        std::string value = (e->PET.first.first == INVALID) ? "NA" : toString(e->PET.first.second);
-        if (myUseGeoCoords) {
-            toGeo(e->PET.second);
+        if (e->PET.time == INVALID) {
+        	myOutputFile->openTag("PET").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").closeTag();
+        } else {
+        	std::string time = toString(e->PET.time);
+        	std::string type = toString(int(e->PET.type));
+        	std::string value = toString(e->PET.value);
+        	if (myUseGeoCoords) {
+        		toGeo(e->PET.pos);
+        	}
+        	std::string position = toString(e->PET.pos, myUseGeoCoords ? gPrecisionGeo : gPrecision);
+        	myOutputFile->openTag("PET").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
         }
-        std::string position = (e->PET.first.first == INVALID) ? "NA" : toString(e->PET.second, myUseGeoCoords ? gPrecisionGeo : gPrecision);
-        myOutputFile->openTag("minPET").writeAttr("time", time).writeAttr("value", value).writeAttr("position", position).closeTag();
     }
     myOutputFile->closeTag();
 }

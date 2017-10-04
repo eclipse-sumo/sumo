@@ -100,7 +100,6 @@ public:
         // Other vehicle is on an edge that has a sequence of successors leading to an internal edge that crosses the ego vehicle's edge at a junction
         // and the estimated arrival vehicle at the merge point is earlier for the foe than for the ego
         ENCOUNTER_TYPE_CROSSING_FOLLOWER = 11, //!< ENCOUNTER_TYPE_CROSSING_FOLLOWER
-        // TODO: use ENTERED types for indicating an ongoing conflict.
         // The encounter is a possible crossing conflict, and the ego vehicle has entered the conflict area
         ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA = 12, //!< ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA
         // The encounter is a possible crossing conflict, and the foe vehicle has entered the conflict area
@@ -126,7 +125,6 @@ private:
     /// @brief An encounter is an episode involving two vehicles,
     ///        which are closer to each other than some specified distance.
     class Encounter {
-        // TODO: Shouldn't the time lines for the conflict point locations be stored? YES!
     private:
         /// @brief A trajectory encloses a series of positions x and speeds v for one vehicle
         /// (the times are stored only once in the enclosing encounter)
@@ -135,6 +133,23 @@ private:
             PositionVector x;
             // momentary speeds
             PositionVector v;
+        };
+        /// @brief ConflictPointInfo stores some information on a specific conflict point
+        ///        (used to store information on ssm-extremal values)
+        struct ConflictPointInfo {
+            /// @brief time point of the conflict
+            double time;
+            /// @brief Predicted location of the conflict:
+            /// In case of MERGING and CROSSING: entry point to conflict area for follower
+            /// In case of FOLLOWING: position of leader's back
+            Position pos;
+            /// @brief Type of the conflict
+            EncounterType type;
+            /// @brief value of the corresponding SSM
+            double value;
+
+            ConflictPointInfo(double time, Position x, EncounterType type, double ssmValue) :
+            	time(time), pos(x), type(type), value(ssmValue) {};
         };
 
     public:
@@ -214,9 +229,9 @@ private:
 
         /// @name Extremal values for the SSMs (as < <time,value>,Position>-pairs)
         /// @{
-        std::pair<std::pair<double, double>, Position> minTTC;
-        std::pair<std::pair<double, double>, Position> maxDRAC;
-        std::pair<std::pair<double, double>, Position> PET;
+        ConflictPointInfo minTTC;
+        ConflictPointInfo maxDRAC;
+        ConflictPointInfo PET;
         /// @}
 
         /// @brief this flag is set by updateEncounter() or directly in processEncounters(), where encounters are closed if it is true.
@@ -268,6 +283,8 @@ private:
     //       plus a vehicle container to be used in findSurrounding vehicles.
     //       findSurroundingVehicles() would then deliver a vector of such foeCollectors
     //       (one for each possible egoConflictLane) instead of a map vehicle->foeInfo
+    //       This could be helpful to resolve the resolution for several different
+    //	 	 projected conflicts with the same foe.
 
 
     typedef std::priority_queue<Encounter*, std::vector<Encounter*>, Encounter::compare> EncounterQueue;
