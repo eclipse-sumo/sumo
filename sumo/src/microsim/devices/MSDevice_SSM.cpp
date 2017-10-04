@@ -19,6 +19,7 @@
 ///
 // An SSM-device logs encounters / conflicts of the carrying vehicle with other surrounding vehicles
 // XXX: Preliminary implementation. Use with care. Especially rerouting vehicles could be problematic.
+// TODO: implement SSM time-gap (estimated conflict entry and exit times are already calculated for PET calculation)
 /****************************************************************************/
 
 // ===========================================================================
@@ -788,7 +789,9 @@ MSDevice_SSM::computeSSMs(EncounterApproachInfo& eInfo) const {
             || type == ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA || type == ENCOUNTER_TYPE_FOE_ENTERED_CONFLICT_AREA
             || type == ENCOUNTER_TYPE_MERGING_FOLLOWER || type == ENCOUNTER_TYPE_MERGING_LEADER
             || type == ENCOUNTER_TYPE_FOLLOWING_FOLLOWER || type == ENCOUNTER_TYPE_FOLLOWING_LEADER) {
-        determineTTCandDRAC(eInfo);
+    	if (myComputeTTC || myComputeDRAC) {
+    		determineTTCandDRAC(eInfo);
+    	}
         determinePET(eInfo);
     } else if (type == ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA) {
         determinePET(eInfo);
@@ -839,11 +842,8 @@ MSDevice_SSM::determinePET(EncounterApproachInfo& eInfo) const {
         // TODO: Determining these can be done by comparison of memorized gaps with memorized covered distances
         //       Implementation is postponed. Tracing the time gaps (in contrast to crossing PET) corresponds to
         //       a vector of values not a single value.
-
-        // pass
-
+    	// pass
     } else if (type == ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA) {
-        // TODO: Also ENCOUNTER_TYPE_BOTH_ENTERED_CONFLICT_AREA would assure that PET can be calculated
         EncounterType prevType = static_cast<EncounterType>(e->typeSpan.back());
         if (prevType == ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA) {
 #ifdef DEBUG_SSM
@@ -922,8 +922,6 @@ MSDevice_SSM::determinePET(EncounterApproachInfo& eInfo) const {
 
 void
 MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
-    // TODO: check for myComputeTTC, myComputeDRAC, before doing calculations
-
     Encounter* e = eInfo.encounter;
     const EncounterType& type = eInfo.type;
     double& ttc = eInfo.ttc;
@@ -938,17 +936,16 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
     // For merging and crossing, different cases occur when a collision during the merging / crossing process is predicted.
     if (type == ENCOUNTER_TYPE_FOLLOWING_FOLLOWER) {
         double gap = eInfo.egoConflictEntryDist;
-        ttc = computeTTC(gap, e->ego->getSpeed(), e->foe->getSpeed());
-        drac = computeDRAC(gap, e->ego->getSpeed(), e->foe->getSpeed());
+        if (myComputeTTC) ttc = computeTTC(gap, e->ego->getSpeed(), e->foe->getSpeed());
+        if (myComputeDRAC) drac = computeDRAC(gap, e->ego->getSpeed(), e->foe->getSpeed());
     } else if (type == ENCOUNTER_TYPE_FOLLOWING_LEADER) {
         double gap = eInfo.foeConflictEntryDist;
-        ttc = computeTTC(gap, e->foe->getSpeed(), e->ego->getSpeed());
-        drac = computeDRAC(gap, e->foe->getSpeed(), e->ego->getSpeed());
+        if (myComputeTTC) ttc = computeTTC(gap, e->foe->getSpeed(), e->ego->getSpeed());
+        if (myComputeDRAC) drac = computeDRAC(gap, e->foe->getSpeed(), e->ego->getSpeed());
     } else if (type == ENCOUNTER_TYPE_MERGING_FOLLOWER || type == ENCOUNTER_TYPE_MERGING_LEADER) {
         // TODO: calculate more specifically whether a following situation in the merge conflict area
         //       is predicted when assuming constant speeds or whether a side collision is predicted.
         //       Currently, we ignore any conflict area before the actual merging point of the lanes.
-
 
         // linearly extrapolated arrival times at the conflict
         double egoEntryTime = e->ego->getSpeed() > 0 ? eInfo.egoConflictEntryDist / e->ego->getSpeed() : INVALID;
@@ -985,9 +982,9 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
             double leaderLength = leaderEntryTime == egoEntryTime ? e->ego->getLength() : e->foe->getLength();
             if (leaderExitTime >= followerEntryTime) {
                 // collision would occur at merge area (XXX: currently only the crossection corresponding to the target lane's begin)
-                ttc = computeTTC(followerConflictDist, followerSpeed, 0.);
+            	if (myComputeTTC) ttc = computeTTC(followerConflictDist, followerSpeed, 0.);
                 // TODO: calculate more specific drac (no need to completely stop before conflict area)
-                drac = computeDRAC(followerConflictDist, followerSpeed, 0.);
+            	if (myComputeDRAC) drac = computeDRAC(followerConflictDist, followerSpeed, 0.);
 
 #ifdef DEBUG_SSM
                 std::cout << "    Extrapolation predicts collision *at* merge point with TTC=" << ttc
@@ -1002,7 +999,7 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
 
                 // ttc as for following situation (no collision until leader merged)
                 double ttcAfterMerge = computeTTC(gapAfterMerge, followerSpeed, leaderSpeed);
-                ttc = ttcAfterMerge == INVALID ? INVALID : leaderExitTime + ttcAfterMerge;
+                if (myComputeTTC) ttc = ttcAfterMerge == INVALID ? INVALID : leaderExitTime + ttcAfterMerge;
 
                 // Intitial gap. (May be negative only if the leader speed is higher than the follower speed, i.e., dv < 0)
                 double g0 = followerConflictDist - leaderConflictDist - leaderLength;
@@ -1014,7 +1011,7 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
                     drac = INVALID;
                 } else {
                     // compute drac as for a following situation
-                    drac = computeDRAC(g0, followerSpeed, leaderSpeed);
+                	if (myComputeDRAC) drac = computeDRAC(g0, followerSpeed, leaderSpeed);
                 }
 
 #ifdef DEBUG_SSM
@@ -1033,24 +1030,24 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
         }
     } else if (type == ENCOUNTER_TYPE_CROSSING_FOLLOWER
                || type == ENCOUNTER_TYPE_FOE_ENTERED_CONFLICT_AREA) {
-        drac = computeDRAC(eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, e->ego->getSpeed(), e->foe->getSpeed(),
+    	if (myComputeDRAC) drac = computeDRAC(eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, e->ego->getSpeed(), e->foe->getSpeed(),
                            eInfo.egoEstimatedConflictExitTime, eInfo.foeEstimatedConflictExitTime);
         if (eInfo.egoEstimatedConflictEntryTime <= eInfo.foeEstimatedConflictExitTime) {
             // follower's predicted arrival at the crossing area is earlier than the leader's predicted exit -> collision predicted
             double gap = eInfo.egoConflictEntryDist;
-            ttc = computeTTC(gap, e->ego->getSpeed(), 0.);
+            if (myComputeTTC) ttc = computeTTC(gap, e->ego->getSpeed(), 0.);
         } else {
             // encounter is expected to happen without collision
             ttc = INVALID;
         }
     } else if (type == ENCOUNTER_TYPE_CROSSING_LEADER
                || type == ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA) {
-        drac = computeDRAC(eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, e->ego->getSpeed(), e->foe->getSpeed(),
+    	if (myComputeDRAC) drac = computeDRAC(eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, e->ego->getSpeed(), e->foe->getSpeed(),
                            eInfo.egoEstimatedConflictExitTime, eInfo.foeEstimatedConflictExitTime);
         if (eInfo.foeEstimatedConflictEntryTime <= eInfo.egoEstimatedConflictExitTime) {
             // follower's predicted arrival at the crossing area is earlier than the leader's predicted exit -> collision predicted
             double gap = eInfo.foeConflictEntryDist;
-            ttc = computeTTC(gap, e->foe->getSpeed(), 0.);
+            if (myComputeTTC) ttc = computeTTC(gap, e->foe->getSpeed(), 0.);
         } else {
             // encounter is expected to happen without collision
             ttc = INVALID;
