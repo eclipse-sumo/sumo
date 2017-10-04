@@ -52,6 +52,7 @@
 // Debug constants
 // ===========================================================================
 //#define DEBUG_SSM
+//#define DEBUG_SSM_DRAC
 //#define DEBUG_SSM_SURROUNDING
 // #define DEBUG_SSM_NOTIFICATIONS
 
@@ -69,8 +70,8 @@
 //                                 case should be added to the switch in buildVehicleDevices,
 //                                 and in computeSSMs(), the SSM-value should be computed.)
 #define AVAILABLE_SSMS "TTC DRAC PET"
-#define DEFAULT_THRESHOLD_TTC 3. // in [s.], events get logged if below threshold
-#define DEFAULT_THRESHOLD_DRAC 4. // in [m/s^2], events get logged if above threshold
+#define DEFAULT_THRESHOLD_TTC 3. // in [s.], events get logged if below threshold (1.5s. is an appropriate criticality threshold according to Van der Horst, A. R. A. (1991). Time-to-collision as a Cue for Decision-making in Braking [also see Guido et al. 2011])
+#define DEFAULT_THRESHOLD_DRAC 3. // in [m/s^2], events get logged if above threshold (3.4s. is an appropriate criticality threshold according to American Association of State Highway and Transportation Officials (2004). A Policy on Geometric Design of Highways and Streets [also see Guido et al. 2011])
 #define DEFAULT_THRESHOLD_PET 2. // in seconds, events get logged if below threshold
 #define DEFAULT_EXTRA_TIME 5.      // in seconds, events get logged for extra time even if encounter is over
 
@@ -230,7 +231,6 @@ MSDevice_SSM::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) 
         // File
         std::string file = getOutputFilename(v, deviceID);
 
-        //use geo-coords? TODO: test
         const bool useGeo = useGeoCoords(v, deviceID);
 
         // Build the device (XXX: who deletes it?)
@@ -254,8 +254,8 @@ MSDevice_SSM::Encounter::Encounter(const MSVehicle* _ego, const MSVehicle* const
     foeConflictEntryTime(INVALID),
     foeConflictExitTime(INVALID),
     minTTC(INVALID, Position::invalidPosition(), ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID),
-	maxDRAC(INVALID, Position::invalidPosition(), ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID),
-	PET(INVALID, Position::invalidPosition(), ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID),
+    maxDRAC(INVALID, Position::invalidPosition(), ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID),
+    PET(INVALID, Position::invalidPosition(), ENCOUNTER_TYPE_NOCONFLICT_AHEAD, INVALID),
     closingRequested(false) {
 #ifdef DEBUG_SSM
     std::cout << "\n" << SIMTIME << " Constructing encounter of '"
@@ -297,25 +297,25 @@ MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position ego
 
     TTCspan.push_back(ttc);
     if (ttc != INVALID && (ttc < minTTC.value || minTTC.value == INVALID)) {
-    	minTTC.value = ttc;
-    	minTTC.time = time;
-    	minTTC.pos = conflictPoint;
-    	minTTC.type = type;
+        minTTC.value = ttc;
+        minTTC.time = time;
+        minTTC.pos = conflictPoint;
+        minTTC.type = type;
     }
 
     DRACspan.push_back(drac);
     if (drac != INVALID && (drac > maxDRAC.value || maxDRAC.value == INVALID)) {
-    	maxDRAC.value = drac;
-    	maxDRAC.time = time;
-    	maxDRAC.pos = conflictPoint;
-    	maxDRAC.type = type;
+        maxDRAC.value = drac;
+        maxDRAC.time = time;
+        maxDRAC.pos = conflictPoint;
+        maxDRAC.type = type;
     }
 
     if (pet.first != INVALID && (PET.value >= pet.second || PET.value == INVALID)) {
-    	PET.value = pet.second;
-    	PET.time = pet.first;
-    	PET.pos = conflictPoint;
-    	PET.type = type;
+        PET.value = pet.second;
+        PET.time = pet.first;
+        PET.pos = conflictPoint;
+        PET.type = type;
     }
 }
 
@@ -789,9 +789,9 @@ MSDevice_SSM::computeSSMs(EncounterApproachInfo& eInfo) const {
             || type == ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA || type == ENCOUNTER_TYPE_FOE_ENTERED_CONFLICT_AREA
             || type == ENCOUNTER_TYPE_MERGING_FOLLOWER || type == ENCOUNTER_TYPE_MERGING_LEADER
             || type == ENCOUNTER_TYPE_FOLLOWING_FOLLOWER || type == ENCOUNTER_TYPE_FOLLOWING_LEADER) {
-    	if (myComputeTTC || myComputeDRAC) {
-    		determineTTCandDRAC(eInfo);
-    	}
+        if (myComputeTTC || myComputeDRAC) {
+            determineTTCandDRAC(eInfo);
+        }
         determinePET(eInfo);
     } else if (type == ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA) {
         determinePET(eInfo);
@@ -842,7 +842,7 @@ MSDevice_SSM::determinePET(EncounterApproachInfo& eInfo) const {
         // TODO: Determining these can be done by comparison of memorized gaps with memorized covered distances
         //       Implementation is postponed. Tracing the time gaps (in contrast to crossing PET) corresponds to
         //       a vector of values not a single value.
-    	// pass
+        // pass
     } else if (type == ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA) {
         EncounterType prevType = static_cast<EncounterType>(e->typeSpan.back());
         if (prevType == ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA) {
@@ -936,18 +936,27 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
     // For merging and crossing, different cases occur when a collision during the merging / crossing process is predicted.
     if (type == ENCOUNTER_TYPE_FOLLOWING_FOLLOWER) {
         double gap = eInfo.egoConflictEntryDist;
-        if (myComputeTTC) ttc = computeTTC(gap, e->ego->getSpeed(), e->foe->getSpeed());
-        if (myComputeDRAC) drac = computeDRAC(gap, e->ego->getSpeed(), e->foe->getSpeed());
+        if (myComputeTTC) {
+            ttc = computeTTC(gap, e->ego->getSpeed(), e->foe->getSpeed());
+        }
+        if (myComputeDRAC) {
+            drac = computeDRAC(gap, e->ego->getSpeed(), e->foe->getSpeed());
+        }
     } else if (type == ENCOUNTER_TYPE_FOLLOWING_LEADER) {
         double gap = eInfo.foeConflictEntryDist;
-        if (myComputeTTC) ttc = computeTTC(gap, e->foe->getSpeed(), e->ego->getSpeed());
-        if (myComputeDRAC) drac = computeDRAC(gap, e->foe->getSpeed(), e->ego->getSpeed());
+        if (myComputeTTC) {
+            ttc = computeTTC(gap, e->foe->getSpeed(), e->ego->getSpeed());
+        }
+        if (myComputeDRAC) {
+            drac = computeDRAC(gap, e->foe->getSpeed(), e->ego->getSpeed());
+        }
     } else if (type == ENCOUNTER_TYPE_MERGING_FOLLOWER || type == ENCOUNTER_TYPE_MERGING_LEADER) {
         // TODO: calculate more specifically whether a following situation in the merge conflict area
         //       is predicted when assuming constant speeds or whether a side collision is predicted.
         //       Currently, we ignore any conflict area before the actual merging point of the lanes.
 
         // linearly extrapolated arrival times at the conflict
+        // NOTE: These differ from the estimated times stored in eInfo
         double egoEntryTime = e->ego->getSpeed() > 0 ? eInfo.egoConflictEntryDist / e->ego->getSpeed() : INVALID;
         double egoExitTime = e->ego->getSpeed() > 0 ? eInfo.egoConflictExitDist / e->ego->getSpeed() : INVALID;
         double foeEntryTime = e->foe->getSpeed() > 0 ? eInfo.foeConflictEntryDist / e->foe->getSpeed() : INVALID;
@@ -970,37 +979,46 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
 #ifdef DEBUG_SSM
             std::cout << "    No TTC and DRAC computed as one vehicle is stopped." << std::endl;
 #endif
-        } else {
-            double leaderEntryTime = MIN2(egoEntryTime, foeEntryTime);
-            double followerEntryTime = MAX2(egoEntryTime, foeEntryTime);
-            double leaderExitTime = leaderEntryTime == egoEntryTime ? egoExitTime : foeExitTime;
-            //double followerExitTime = leaderEntryTime==egoEntryTime?foeExitTime:egoExitTime;
-            double leaderSpeed = leaderEntryTime == egoEntryTime ? e->ego->getSpeed() : e->foe->getSpeed();
-            double followerSpeed = leaderEntryTime == egoEntryTime ? e->foe->getSpeed() : e->ego->getSpeed();
-            double leaderConflictDist = leaderEntryTime == egoEntryTime ? eInfo.egoConflictEntryDist : eInfo.foeConflictEntryDist;
-            double followerConflictDist = leaderEntryTime == egoEntryTime ? eInfo.foeConflictEntryDist : eInfo.egoConflictEntryDist;
-            double leaderLength = leaderEntryTime == egoEntryTime ? e->ego->getLength() : e->foe->getLength();
-            if (leaderExitTime >= followerEntryTime) {
-                // collision would occur at merge area (XXX: currently only the crossection corresponding to the target lane's begin)
-            	if (myComputeTTC) ttc = computeTTC(followerConflictDist, followerSpeed, 0.);
-                // TODO: calculate more specific drac (no need to completely stop before conflict area)
-            	if (myComputeDRAC) drac = computeDRAC(followerConflictDist, followerSpeed, 0.);
+            return;
+        }
+        double leaderEntryTime = MIN2(egoEntryTime, foeEntryTime);
+        double followerEntryTime = MAX2(egoEntryTime, foeEntryTime);
+        double leaderExitTime = leaderEntryTime == egoEntryTime ? egoExitTime : foeExitTime;
+        //double followerExitTime = leaderEntryTime==egoEntryTime?foeExitTime:egoExitTime;
+        double leaderSpeed = leaderEntryTime == egoEntryTime ? e->ego->getSpeed() : e->foe->getSpeed();
+        double followerSpeed = leaderEntryTime == egoEntryTime ? e->foe->getSpeed() : e->ego->getSpeed();
+        double leaderConflictDist = leaderEntryTime == egoEntryTime ? eInfo.egoConflictEntryDist : eInfo.foeConflictEntryDist;
+        double followerConflictDist = leaderEntryTime == egoEntryTime ? eInfo.foeConflictEntryDist : eInfo.egoConflictEntryDist;
+        double leaderLength = leaderEntryTime == egoEntryTime ? e->ego->getLength() : e->foe->getLength();
+        if (leaderExitTime >= followerEntryTime) {
+            // collision would occur at merge area
+            if (myComputeTTC) {
+                ttc = computeTTC(followerConflictDist, followerSpeed, 0.);
+            }
+            // TODO: Calculate more specific drac for merging case here (complete stop is not always necessary -> see calculation for crossing case)
+            //       Rather the
+            if (myComputeDRAC) {
+                drac = computeDRAC(followerConflictDist, followerSpeed, 0.);
+            }
+//            if (myComputeDRAC) drac = computeDRAC(eInfo);
 
 #ifdef DEBUG_SSM
-                std::cout << "    Extrapolation predicts collision *at* merge point with TTC=" << ttc
-                          << ", drac=" << drac << std::endl;
+            std::cout << "    Extrapolation predicts collision *at* merge point with TTC=" << ttc
+                      << ", drac=" << drac << std::endl;
 #endif
 
-            } else {
-                // -> No collision at the merge area
+        } else {
+            // -> No collision at the merge area
+            if (myComputeTTC) {
                 // Check if after merge a collision would occur if speeds are hold constant.
                 double gapAfterMerge = followerConflictDist - leaderExitTime * followerSpeed;
                 assert(gapAfterMerge >= 0);
 
-                // ttc as for following situation (no collision until leader merged)
+                // ttc as for following situation (assumes no collision until leader merged)
                 double ttcAfterMerge = computeTTC(gapAfterMerge, followerSpeed, leaderSpeed);
-                if (myComputeTTC) ttc = ttcAfterMerge == INVALID ? INVALID : leaderExitTime + ttcAfterMerge;
-
+                ttc = ttcAfterMerge == INVALID ? INVALID : leaderExitTime + ttcAfterMerge;
+            }
+            if (myComputeDRAC) {
                 // Intitial gap. (May be negative only if the leader speed is higher than the follower speed, i.e., dv < 0)
                 double g0 = followerConflictDist - leaderConflictDist - leaderLength;
                 // Speed difference. (Must be positive if g0<0)
@@ -1011,43 +1029,49 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
                     drac = INVALID;
                 } else {
                     // compute drac as for a following situation
-                	if (myComputeDRAC) drac = computeDRAC(g0, followerSpeed, leaderSpeed);
+                    drac = computeDRAC(g0, followerSpeed, leaderSpeed);
                 }
-
+            }
 #ifdef DEBUG_SSM
-                if (ttc == INVALID) {
-                    assert(dv >= 0);
-                    assert(drac == INVALID);
-                    std::cout << "    Extrapolation does not predict any collision." << std::endl;
-                } else {
-                    std::cout << "    Extrapolation predicts collision *after* merge point with TTC="
-                              << (ttc == INVALID ? "NA" : toString(ttc))
-                              << ", drac=" << (drac == INVALID ? "NA" : toString(drac)) << std::endl;
-                }
+            if (ttc == INVALID) {
+                assert(dv >= 0);
+                assert(drac == INVALID);
+                std::cout << "    Extrapolation does not predict any collision." << std::endl;
+            } else {
+                std::cout << "    Extrapolation predicts collision *after* merge point with TTC="
+                          << (ttc == INVALID ? "NA" : toString(ttc))
+                          << ", drac=" << (drac == INVALID ? "NA" : toString(drac)) << std::endl;
+            }
 #endif
 
-            }
         }
+
     } else if (type == ENCOUNTER_TYPE_CROSSING_FOLLOWER
                || type == ENCOUNTER_TYPE_FOE_ENTERED_CONFLICT_AREA) {
-    	if (myComputeDRAC) drac = computeDRAC(eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, e->ego->getSpeed(), e->foe->getSpeed(),
-                           eInfo.egoEstimatedConflictExitTime, eInfo.foeEstimatedConflictExitTime);
+        if (myComputeDRAC) {
+            drac = computeDRAC(eInfo);
+        }
         if (eInfo.egoEstimatedConflictEntryTime <= eInfo.foeEstimatedConflictExitTime) {
             // follower's predicted arrival at the crossing area is earlier than the leader's predicted exit -> collision predicted
             double gap = eInfo.egoConflictEntryDist;
-            if (myComputeTTC) ttc = computeTTC(gap, e->ego->getSpeed(), 0.);
+            if (myComputeTTC) {
+                ttc = computeTTC(gap, e->ego->getSpeed(), 0.);
+            }
         } else {
             // encounter is expected to happen without collision
             ttc = INVALID;
         }
     } else if (type == ENCOUNTER_TYPE_CROSSING_LEADER
                || type == ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA) {
-    	if (myComputeDRAC) drac = computeDRAC(eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, e->ego->getSpeed(), e->foe->getSpeed(),
-                           eInfo.egoEstimatedConflictExitTime, eInfo.foeEstimatedConflictExitTime);
+        if (myComputeDRAC) {
+            drac = computeDRAC(eInfo);
+        }
         if (eInfo.foeEstimatedConflictEntryTime <= eInfo.egoEstimatedConflictExitTime) {
             // follower's predicted arrival at the crossing area is earlier than the leader's predicted exit -> collision predicted
             double gap = eInfo.foeConflictEntryDist;
-            if (myComputeTTC) ttc = computeTTC(gap, e->foe->getSpeed(), 0.);
+            if (myComputeTTC) {
+                ttc = computeTTC(gap, e->foe->getSpeed(), 0.);
+            }
         } else {
             // encounter is expected to happen without collision
             ttc = INVALID;
@@ -1069,9 +1093,9 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
 
 double
 MSDevice_SSM::computeTTC(double gap, double followerSpeed, double leaderSpeed) const {
-    // TODO: in merging or crossing situations, the TTC may be lower than the one computed here for following situations
-    // More specifically, the followers conflict time entry should be less than the leaders conflict exit time.
-    // For merging conflicts, the minimum has to be taken from the two if a collision at merge was predicted.
+    // TODO: in merging situations, the TTC may be lower than the one computed here for following situations
+    //  (currently only the cross section corresponding to the target lane's begin is considered)
+    // More specifically, the minimum has to be taken from the two if a collision at merge was predicted.
 #ifdef DEBUG_SSM
     std::cout << "computeTTC() with gap=" << gap << ", followerSpeed=" << followerSpeed << ", leaderSpeed=" << leaderSpeed
               << std::endl;
@@ -1090,7 +1114,7 @@ MSDevice_SSM::computeTTC(double gap, double followerSpeed, double leaderSpeed) c
 
 double
 MSDevice_SSM::computeDRAC(double gap, double followerSpeed, double leaderSpeed) {
-#ifdef DEBUG_SSM
+#ifdef DEBUG_SSM_DRAC
     std::cout << "computeDRAC() with gap=" << gap << ", followerSpeed=" << followerSpeed << ", leaderSpeed=" << leaderSpeed
               << std::endl;
 #endif
@@ -1099,37 +1123,104 @@ MSDevice_SSM::computeDRAC(double gap, double followerSpeed, double leaderSpeed) 
     }
     double dv = followerSpeed - leaderSpeed;
     if (dv <= 0.) {
-        return INVALID;    // no collision
+        return 0.0;    // no need to break
     }
     assert(followerSpeed > 0.);
-    double timeHeadway = gap / followerSpeed;
-    return dv / timeHeadway;
+    return 0.5 * dv * dv / gap; // following Guido et al. (2011)
 }
 
 double
-MSDevice_SSM::computeDRAC(double d1, double d2, double v1, double v2, double t1, double t2) {
-#ifdef DEBUG_SSM
-    std::cout << "computeDRAC() with d1=" << d1 << ", d2=" << d2 << ", v1=" << v1 << ", v2=" << v2
-              << ", t1=" << (t1 == INVALID ? "NA" : toString(t1)) << ", t2=" << (t2 == INVALID ? "NA" : toString(t2))
+MSDevice_SSM::computeDRAC(const EncounterApproachInfo& eInfo) {
+    // Introduce concise variable names
+    double dEntry1 = eInfo.egoConflictEntryDist;
+    double dEntry2 = eInfo.foeConflictEntryDist;
+    double dExit1 = eInfo.egoConflictExitDist;
+    double dExit2 = eInfo.foeConflictExitDist;
+    double v1 = eInfo.encounter->ego->getSpeed();
+    double v2 = eInfo.encounter->foe->getSpeed();
+    double tEntry1 = eInfo.egoEstimatedConflictEntryTime;
+    double tEntry2 = eInfo.foeEstimatedConflictEntryTime;
+    double tExit1 = eInfo.egoEstimatedConflictExitTime;
+    double tExit2 = eInfo.foeEstimatedConflictExitTime;
+#ifdef DEBUG_SSM_DRAC
+    std::cout << SIMTIME << "computeDRAC() with"
+              << "\ndEntry1=" << dEntry1 << ", dEntry2=" << dEntry2
+              << ", dExit1=" << dExit1 << ", dExit2=" << dExit2
+              << ",\nv1=" << v1 << ", v2=" << v2
+              << "\ntEntry1=" << (tEntry1 == INVALID ? "NA" : toString(tEntry1)) << ", tEntry2=" << (tEntry2 == INVALID ? "NA" : toString(tEntry2))
+              << ", tExit1=" << (tExit1 == INVALID ? "NA" : toString(tExit1)) << ", tExit2=" << (tExit2 == INVALID ? "NA" : toString(tExit2))
               << std::endl;
 #endif
-    if (d1 <= 0. && d2 <= 0.) {
-        return INVALID;    // both already entered conflict area
+    if (dExit1 <= 0. || dExit2 <= 0.) {
+        // At least one vehicle already left or is not about to enter conflict area at all => no breaking needed.
+#ifdef DEBUG_SSM_DRAC
+        std::cout << "One already left conflict area -> drac == 0." << std::endl;
+#endif
+        return 0.;
+    }
+    if (dEntry1 <= 0. && dEntry2 <= 0.) {
+        // collision... (both already entered conflict area but none left)
+#ifdef DEBUG_SSM_DRAC
+        std::cout << "Both entered conflict area but neither left. -> collision!" << std::endl;
+#endif
+        return INVALID;
     }
 
-    double drac = 0;
-    if (d1 > 0. && t1 != INVALID && d2 > 0. && t2 != INVALID) {
-        drac = MIN2(2 * (v1 - d1 / t2) / t2, 2 * (v2 - d2 / t1) / t1);
-    } else if (d1 > 0. && t2 != INVALID) {
-        drac = 2 * (v1 - d1 / t2) / t2;
-    } else if (d2 > 0. && t1 != INVALID) { // d2>0.
-        drac = 2 * (v2 - d2 / t1) / t1;
-    } else {
-        // TODO: there might still be situations to cover,
-        // since t1==INVALID indicates that the first vehicle is extrapolated
-        // to stop before the conflict exit, which may still mean *on the conflict area*,
-        // This is ignored so far.
-        return INVALID;
+    double drac = std::numeric_limits<double>::max();
+    if (dEntry1 > 0.) {
+        // vehicle 1 could break
+#ifdef DEBUG_SSM_DRAC
+        std::cout << "Ego could break..." << std::endl;
+#endif
+        if (tExit2 != INVALID) {
+            // Vehicle 2 is expected to leave conflict area at t2
+            drac = MIN2(drac, 2 * (v1 - dEntry1 / tExit2) / tExit2);
+#ifdef DEBUG_SSM_DRAC
+            std::cout << "  Foe expected to leave in " << tExit2 << "-> Ego needs drac=" << drac << std::endl;
+#endif
+        } else {
+            // Vehicle 2 is expected to stop on conflict area or earlier
+            if (tEntry2 != INVALID) {
+                // ... on conflict area => veh1 has to stop before entry
+                drac = MIN2(drac, computeDRAC(dEntry1, v1, 0));
+#ifdef DEBUG_SSM_DRAC
+                std::cout << "  Foe is expected stop on conflict area -> Ego needs drac=" << drac << std::endl;
+#endif
+            } else {
+                // ... before conflict area
+#ifdef DEBUG_SSM_DRAC
+                std::cout << "  Foe is expected stop before conflict area -> no drac computation for ego (will be done for foe if applicable)" << std::endl;
+#endif
+            }
+        }
+    }
+
+    if (dEntry2 > 0.) {
+        // vehicle 2 could break
+#ifdef DEBUG_SSM_DRAC
+        std::cout << "Foe could break..." << std::endl;
+#endif
+        if (tExit1 != INVALID) {
+            // Vehicle 1 is expected to leave conflict area at t1
+#ifdef DEBUG_SSM_DRAC
+            std::cout << "  Ego expected to leave in " << tExit1 << "-> Foe needs drac=" << (2 * (v2 - dEntry2 / tExit1) / tExit1) << std::endl;
+#endif
+            drac = MIN2(drac, 2 * (v2 - dEntry2 / tExit1) / tExit1);
+        } else {
+            // Vehicle 1 is expected to stop on conflict area or earlier
+            if (tEntry1 != INVALID) {
+                // ... on conflict area => veh2 has to stop before entry
+#ifdef DEBUG_SSM_DRAC
+                std::cout << "  Ego is expected stop on conflict area -> Foe needs drac=" << computeDRAC(dEntry2, v2, 0) << std::endl;
+#endif
+                drac = MIN2(drac, computeDRAC(dEntry2, v2, 0));
+            } else {
+                // ... before conflict area
+#ifdef DEBUG_SSM_DRAC
+                std::cout << "  Ego is expected stop before conflict area -> no drac computation for foe (done for ego if applicable)" << std::endl;
+#endif
+            }
+        }
     }
 
     return drac > 0 ? drac : INVALID;
@@ -1948,47 +2039,47 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             myOutputFile->openTag("TTCSpan").writeAttr("values", makeStringWithNAs(e->TTCspan, INVALID)).closeTag();
         }
         if (e->minTTC.time == INVALID) {
-        	myOutputFile->openTag("minTTC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").closeTag();
+            myOutputFile->openTag("minTTC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").closeTag();
         } else {
-        	std::string time = toString(e->minTTC.time);
-        	std::string type = toString(int(e->minTTC.type));
-        	std::string value = toString(e->minTTC.value);
-        	if (myUseGeoCoords) {
-        		toGeo(e->minTTC.pos);
-        	}
-        	std::string position = toString(e->minTTC.pos, myUseGeoCoords ? gPrecisionGeo : gPrecision);
-        	myOutputFile->openTag("minTTC").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
+            std::string time = toString(e->minTTC.time);
+            std::string type = toString(int(e->minTTC.type));
+            std::string value = toString(e->minTTC.value);
+            if (myUseGeoCoords) {
+                toGeo(e->minTTC.pos);
+            }
+            std::string position = toString(e->minTTC.pos, myUseGeoCoords ? gPrecisionGeo : gPrecision);
+            myOutputFile->openTag("minTTC").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
         }
     }
     if (myComputeDRAC) {
         if (mySaveTrajectories) {
-            myOutputFile->openTag("DRACSpan").writeAttr("values", makeStringWithNAs(e->DRACspan, INVALID)).closeTag();
+            myOutputFile->openTag("DRACSpan").writeAttr("values", makeStringWithNAs(e->DRACspan, {0.0, INVALID})).closeTag();
         }
         if (e->maxDRAC.time == INVALID) {
-        	myOutputFile->openTag("maxDRAC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").closeTag();
+            myOutputFile->openTag("maxDRAC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").closeTag();
         } else {
-        	std::string time = toString(e->maxDRAC.time);
-        	std::string type = toString(int(e->maxDRAC.type));
-        	std::string value = toString(e->maxDRAC.value);
-        	if (myUseGeoCoords) {
-        		toGeo(e->maxDRAC.pos);
-        	}
-        	std::string position = toString(e->maxDRAC.pos, myUseGeoCoords ? gPrecisionGeo : gPrecision);
-        	myOutputFile->openTag("maxDRAC").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
+            std::string time = toString(e->maxDRAC.time);
+            std::string type = toString(int(e->maxDRAC.type));
+            std::string value = toString(e->maxDRAC.value);
+            if (myUseGeoCoords) {
+                toGeo(e->maxDRAC.pos);
+            }
+            std::string position = toString(e->maxDRAC.pos, myUseGeoCoords ? gPrecisionGeo : gPrecision);
+            myOutputFile->openTag("maxDRAC").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
         }
     }
     if (myComputePET) {
         if (e->PET.time == INVALID) {
-        	myOutputFile->openTag("PET").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").closeTag();
+            myOutputFile->openTag("PET").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").closeTag();
         } else {
-        	std::string time = toString(e->PET.time);
-        	std::string type = toString(int(e->PET.type));
-        	std::string value = toString(e->PET.value);
-        	if (myUseGeoCoords) {
-        		toGeo(e->PET.pos);
-        	}
-        	std::string position = toString(e->PET.pos, myUseGeoCoords ? gPrecisionGeo : gPrecision);
-        	myOutputFile->openTag("PET").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
+            std::string time = toString(e->PET.time);
+            std::string type = toString(int(e->PET.type));
+            std::string value = toString(e->PET.value);
+            if (myUseGeoCoords) {
+                toGeo(e->PET.pos);
+            }
+            std::string position = toString(e->PET.pos, myUseGeoCoords ? gPrecisionGeo : gPrecision);
+            myOutputFile->openTag("PET").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).closeTag();
         }
     }
     myOutputFile->closeTag();
@@ -1999,6 +2090,15 @@ MSDevice_SSM::makeStringWithNAs(std::vector<double> v, double NA, std::string se
     std::string res = "";
     for (std::vector<double>::const_iterator i = v.begin(); i != v.end(); ++i) {
         res += (i == v.begin() ? "" : sep) + (*i == NA ? "NA" : toString(*i));
+    }
+    return res;
+}
+
+std::string
+MSDevice_SSM::makeStringWithNAs(std::vector<double> v, std::vector<double> NAs, std::string sep) {
+    std::string res = "";
+    for (std::vector<double>::const_iterator i = v.begin(); i != v.end(); ++i) {
+        res += (i == v.begin() ? "" : sep) + (find(NAs.begin(), NAs.end(), *i) != NAs.end() ? "NA" : toString(*i));
     }
     return res;
 }

@@ -149,7 +149,7 @@ private:
             double value;
 
             ConflictPointInfo(double time, Position x, EncounterType type, double ssmValue) :
-            	time(time), pos(x), type(type), value(ssmValue) {};
+                time(time), pos(x), type(type), value(ssmValue) {};
         };
 
     public:
@@ -569,20 +569,24 @@ private:
 
 
     /** @brief Computes the DRAC (deceleration to avoid a collision) for a lead/follow situation as defined,
-     *         e.g., in Mahmud et al. (2016, Application of proximal surrogate indicators for safety evaluation)
-     *         for two vehicles with a given gap. Returns INVALID if no deceleration is required by the follower to avoid a crash.
+     *         e.g., in Guido et al. (2011, Safety performance measures:  a comparison between microsimulation and observational data)
+     *         for two vehicles with a given gap.
+     *         Returns 0.0 if no deceleration is required by the follower to avoid a crash, INVALID if collision is detected.
      */
     static double computeDRAC(double gap, double followerSpeed, double leaderSpeed);
 
     /** @brief Computes the DRAC a crossing situation, determining the minimal constant deceleration needed
-     *         for one of the vehicles to reach the conflict area after the other if the latter continues with
-     *         constant speed.
-     *         Returns INVALID if no deceleration is required by the follower to avoid a crash.
-     *  @param[in] d1,d2 The dsitances to the conflict area entry
-     *  @param[in] v1,v2 The current speeds
-     *  @param[in] t1,t2 The estimated conflict exit times (including extrapolation of current deceleration)
+     *         for one of the vehicles to reach the conflict area after the other has left.
+     *         for estimated leaving times, current deceleration is extrapolated, and acceleration is neglected.
+     *         Returns 0.0 if no deceleration is required by the follower to avoid a crash, INVALID if collision is detected.
+     *  @param[in] eInfo infos on the encounter. Used variables:
+     *  			 dEntry1,dEntry2 The distances to the conflict area entry
+     *  			 dExit1,dExit2 The distances to the conflict area exit
+     *  			 v1,v2 The current speeds
+     *  			 tEntry1,tEntry2 The estimated conflict entry times (including extrapolation of current acceleration)
+     *  		     tExit1,tExit2 The estimated conflict exit times (including extrapolation of current acceleration)
      */
-    static double computeDRAC(double d1, double d2, double v1, double v2, double t1, double t2);
+    static double computeDRAC(const EncounterApproachInfo& eInfo);
 
     /** @brief make a string of a double vector and treat a special value as invalid ("NA")
      *
@@ -592,6 +596,7 @@ private:
      * @return String concatenation of the vector entries
      */
     static std::string makeStringWithNAs(std::vector<double> v, double NA, std::string sep = " ");
+    static std::string makeStringWithNAs(std::vector<double> v, std::vector<double> NAs, std::string sep = " ");
 
     /// @name parameter load helpers (introduced for readability of buildVehicleDevices())
     /// @{
