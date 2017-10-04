@@ -232,13 +232,13 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
         output.writeAttr(SUMO_ATTR_ID, myChargeValues.at(0).vehicleID);
         output.writeAttr(SUMO_ATTR_TYPE, myChargeValues.at(0).vehicleType);
         output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE, charge.at(0));
-        output.writeAttr(SUMO_ATTR_CHARGINGBEGIN, vectorBeginEndCharge.at(0).first);
-        output.writeAttr(SUMO_ATTR_CHARGINGEND, vectorBeginEndCharge.at(0).second);
+        output.writeAttr(SUMO_ATTR_CHARGINGBEGIN, time2string(vectorBeginEndCharge.at(0).first));
+        output.writeAttr(SUMO_ATTR_CHARGINGEND, time2string(vectorBeginEndCharge.at(0).second));
         // iterate over charging values
         for (std::vector<MSChargingStation::charge>::const_iterator i = myChargeValues.begin(); i != myChargeValues.end(); i++) {
             // open tag for timestep and write all parameters
             output.openTag(SUMO_TAG_STEP);
-            output.writeAttr(SUMO_ATTR_TIME, i->timeStep);
+            output.writeAttr(SUMO_ATTR_TIME, time2string(i->timeStep));
             // charge values
             output.writeAttr(SUMO_ATTR_CHARGING_STATUS, i->status);
             output.writeAttr(SUMO_ATTR_ENERGYCHARGED, i->WCharged);
