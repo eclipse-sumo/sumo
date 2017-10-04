@@ -82,9 +82,9 @@ import xml.etree.ElementTree as ET
 
 
 def loadVTypeMap(fn):
-    '''readPairs(string) -> dict
+    '''loadVTypeMap(string) -> dict
 
-    Reads lines of the form 'origMode:leadMode:followMode:catchupMode:catchupFollowMode' (last two elements can be omitted) from a given file and write corresponding key:value pairs to PLATOON_VTYPES
+    Reads lines of the form 'origMode:leadMode:followMode:catchupMode:catchupFollowMode' (last three elements can be omitted) from a given file and write corresponding key:value pairs to PLATOON_VTYPES
     '''
     global PLATOON_VTYPES
 
