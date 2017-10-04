@@ -623,20 +623,22 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
 bool
 NWWriter_SUMO::writeInternalConnections(OutputDevice& into, const NBNode& n) {
     bool ret = false;
+    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     const std::vector<NBEdge*>& incoming = n.getIncomingEdges();
     for (std::vector<NBEdge*>::const_iterator i = incoming.begin(); i != incoming.end(); ++i) {
         NBEdge* from = *i;
         const std::vector<NBEdge::Connection>& connections = from->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator j = connections.begin(); j != connections.end(); ++j) {
             const NBEdge::Connection& c = *j;
+            LinkDirection dir = n.getDirection(from, c.toEdge, lefthand);
             assert(c.toEdge != 0);
             if (c.haveVia) {
                 // internal split
-                writeInternalConnection(into, c.id, c.toEdge->getID(), c.internalLaneIndex, c.toLane, c.viaID + "_0");
-                writeInternalConnection(into, c.viaID, c.toEdge->getID(), 0, c.toLane, "");
+                writeInternalConnection(into, c.id, c.toEdge->getID(), c.internalLaneIndex, c.toLane, c.viaID + "_0", dir);
+                writeInternalConnection(into, c.viaID, c.toEdge->getID(), 0, c.toLane, "", dir);
             } else {
                 // no internal split
-                writeInternalConnection(into, c.id, c.toEdge->getID(), c.internalLaneIndex, c.toLane, "");
+                writeInternalConnection(into, c.id, c.toEdge->getID(), c.internalLaneIndex, c.toLane, "", dir);
             }
             ret = true;
         }
@@ -648,7 +650,8 @@ NWWriter_SUMO::writeInternalConnections(OutputDevice& into, const NBNode& n) {
 void
 NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
                                        const std::string& from, const std::string& to,
-                                       int fromLane, int toLane, const std::string& via) {
+                                       int fromLane, int toLane, const std::string& via, 
+                                       LinkDirection dir) {
     into.openTag(SUMO_TAG_CONNECTION);
     into.writeAttr(SUMO_ATTR_FROM, from);
     into.writeAttr(SUMO_ATTR_TO, to);
@@ -657,7 +660,7 @@ NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
     if (via != "") {
         into.writeAttr(SUMO_ATTR_VIA, via);
     }
-    into.writeAttr(SUMO_ATTR_DIR, "s");
+    into.writeAttr(SUMO_ATTR_DIR, dir);
     into.writeAttr(SUMO_ATTR_STATE, (via != "" ? "m" : "M"));
     into.closeTag();
 }
