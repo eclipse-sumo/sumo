@@ -2048,7 +2048,17 @@ long
 GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != 0) {
-        myNet->clearJunctionConnections(junction, myUndoList);
+        // check if we're handling a selection
+        if(gSelected.isSelected(GLO_JUNCTION, junction->getGlID())) {
+            std::vector<GNEJunction*> selectedJunction = myNet->retrieveJunctions(true);
+            myUndoList->p_begin("clear connections of selected junctions");
+            for(auto i : selectedJunction) {
+                myNet->clearJunctionConnections(i, myUndoList);
+            }
+            myUndoList->p_end();
+        } else {
+            myNet->clearJunctionConnections(junction, myUndoList);
+        }
         update();
     }
     // destroy pop-up and set focus in view net
@@ -2062,7 +2072,17 @@ long
 GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != 0) {
-        myNet->resetJunctionConnections(junction, myUndoList);
+        // check if we're handling a selection
+        if(gSelected.isSelected(GLO_JUNCTION, junction->getGlID())) {
+            std::vector<GNEJunction*> selectedJunction = myNet->retrieveJunctions(true);
+            myUndoList->p_begin("reset connections of selected junctions");
+            for(auto i : selectedJunction) {
+                myNet->resetJunctionConnections(i, myUndoList);
+            }
+            myUndoList->p_end();
+        } else {
+            myNet->resetJunctionConnections(junction, myUndoList);
+        }
         update();
     }
     // destroy pop-up and set focus in view net
