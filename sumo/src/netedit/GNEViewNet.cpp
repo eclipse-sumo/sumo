@@ -1073,7 +1073,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
         }
     } else {
         // calculate offset of movement
-        Position offsetMovement = snapToActiveGrid(getPositionInformation() - myMovingReference);
+        Position offsetMovement = snapToActiveGrid(getPositionInformation()) - myMovingReference;
         if (myMovingSelection) {
             moveSelection(offsetMovement);
         } else if (myPolyToMove) {
