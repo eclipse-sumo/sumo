@@ -175,9 +175,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     new FXMenuSeparator(ret);
     // build selection and show parameters menu
     buildSelectionPopupEntry(ret);
-    buildShowParamsPopupEntry(ret, false);
-    // build separator
-    new FXMenuSeparator(ret);
+    buildShowParamsPopupEntry(ret);
     // show option to open additional dialog
     if(canOpenDialog(getTag())) {
         new FXMenuCommand(ret, ("Open " + toString(getTag()) + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
@@ -212,23 +210,20 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 
 GUIParameterTableWindow*
-GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    // Ignore Warning
-    UNUSED_PARAMETER(parent);
+GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // get attributes
     std::vector<SumoXMLAttr> attributes = getAttrs();
     // Create table
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, (int)attributes.size());
     // Iterate over attributes
-    for (std::vector<SumoXMLAttr>::iterator i = attributes.begin(); i != attributes.end(); i++) {
+    for (auto i : attributes) {
         // Add attribute and set it dynamic if aren't unique
-        if (GNEAttributeCarrier::isUnique(getTag(), *i)) {
-            ret->mkItem(toString(*i).c_str(), false, getAttribute(*i));
+        if (GNEAttributeCarrier::isUnique(getTag(), i)) {
+            ret->mkItem(toString(i).c_str(), false, getAttribute(i));
         } else {
-            ret->mkItem(toString(*i).c_str(), true, getAttribute(*i));
+            ret->mkItem(toString(i).c_str(), true, getAttribute(i));
         }
     }
-    /** @TODO complet with the rest of parameters **/
     // close building
     ret->closeBuilding();
     return ret;

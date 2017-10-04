@@ -203,8 +203,23 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 
 GUIParameterTableWindow*
-GNEJunction::getParameterWindow(GUIMainWindow& /*app*/, GUISUMOAbstractView&) {
-    return 0;
+GNEJunction::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
+    // get attributes
+    std::vector<SumoXMLAttr> attributes = getAttrs();
+    // Create table
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, (int)attributes.size());
+    // Iterate over attributes
+    for (auto i : attributes) {
+        // Add attribute and set it dynamic if aren't unique
+        if (GNEAttributeCarrier::isUnique(getTag(), i)) {
+            ret->mkItem(toString(i).c_str(), false, getAttribute(i));
+        } else {
+            ret->mkItem(toString(i).c_str(), true, getAttribute(i));
+        }
+    }
+    // close building
+    ret->closeBuilding();
+    return ret;
 }
 
 
