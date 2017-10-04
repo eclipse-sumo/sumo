@@ -22,12 +22,12 @@ class Phase:
 
     def __init__(self, duration, duration1, duration2, phaseDef):
         self._duration = duration
-        self._duration1 = duration1
-        self._duration2 = duration2
+        self._duration1 = duration1 # minimum duration (only for actuated tls)
+        self._duration2 = duration2 # maximum duration (only for actuated tls)
         self._phaseDef = phaseDef
 
     def __repr__(self):
-        return ("Phase:\nduration: %s\nduration1: %s\nduration2: %s\nphaseDef: %s\n" %
+        return ("Phase:\nduration: %s\nminDuration: %s\nmaxDuration: %s\nphaseDef: %s\n" %
                 (self._duration, self._duration1, self._duration2, self._phaseDef))
 
 
