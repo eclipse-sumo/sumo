@@ -6,5 +6,7 @@ districtMapper
 
 # test generating polygons from a district file
 districts2poly
-
 generateBidiDistricts
+
+# tests for filtering districts based on permissions
+filterDistricts
