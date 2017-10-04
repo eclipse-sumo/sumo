@@ -10,5 +10,8 @@ chargingStations
 # Vehicle taking different chargingStations and busstops, every with a different configuration with charging station output
 chargingStations_output
 
+# as above but with step length 0.2
+chargingStations_output_subseconds
+
 # Vehicle with a different stoppingTreshold taking different chargingStations, every with a different configuration 
 stoppingTreshold
