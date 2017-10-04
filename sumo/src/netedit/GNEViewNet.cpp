@@ -425,11 +425,10 @@ GNEViewNet::begingMoveSelection(GNEAttributeCarrier *originAC, const Position &o
                     myOriginShapesMovedEntireShapes[i] = i->getNBEdge()->getInnerGeometry();
                 }
             }
-            // obtain angle of edge
-            double angle = clickedEdge->getNBEdge()->getGeometry().beginEndAngle();
             // saved old position of Edges which both junction isn't noJunctionsSelected
             for(auto i : noJunctionsSelected) {
                 myOriginShapesMovedPartialShapes[i].originalShape = i->getNBEdge()->getInnerGeometry();
+                myOriginShapesMovedPartialShapes[i].inverted = (i->isInverted() != clickedEdge->isInverted());
             }
             // obtain index shape of clicked edge and move it
             myOriginShapesMovedPartialShapes[clickedEdge].originalPosition = originPosition;
@@ -443,7 +442,7 @@ GNEViewNet::begingMoveSelection(GNEAttributeCarrier *originAC, const Position &o
             // Obtain the offset (legA) over of segment regarding clicked position
             double offsetSegmentClickedEdge = segmentClickedEdge.nearest_offset_to_point2D(originPosition, false);
             double distanceToOffsetSegmentClickedEdge = segmentClickedEdge.positionAtOffset(offsetSegmentClickedEdge).distanceTo(originPosition);
-            // check if direction of distanceToOffsetSegmentFSTDJ has to be changed
+            // check if direction of distanceToOffsetSegmentClickedEdge has to be changed
             if(!segmentClickedEdge.positionAtOffset(offsetSegmentClickedEdge, distanceToOffsetSegmentClickedEdge).almostSame(originPosition)) {
                 distanceToOffsetSegmentClickedEdge *= -1;
             }
@@ -457,7 +456,7 @@ GNEViewNet::begingMoveSelection(GNEAttributeCarrier *originAC, const Position &o
                     segmentSelectedEdge.push_back(i->getGNEJunctionDestiny()->getPositionInView());
                     // get reference depending of this edge is the opposite edge of another alreaday inserted
                     if(myOriginShapesMovedPartialShapes[i].inverted) {
-                        myOriginShapesMovedPartialShapes[i].originalPosition = segmentSelectedEdge.positionAtOffset(offsetSegmentClickedEdge, distanceToOffsetSegmentClickedEdge);
+                        myOriginShapesMovedPartialShapes[i].originalPosition = segmentSelectedEdge.positionAtOffset(segmentSelectedEdge.length() - offsetSegmentClickedEdge, -1*distanceToOffsetSegmentClickedEdge);
                     } else {
                         myOriginShapesMovedPartialShapes[i].originalPosition = segmentSelectedEdge.positionAtOffset(offsetSegmentClickedEdge, distanceToOffsetSegmentClickedEdge);
                     }

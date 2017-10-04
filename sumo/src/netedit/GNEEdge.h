@@ -124,8 +124,11 @@ public:
     /// @brief update edge geometry after junction move
     void updateJunctionPosition(GNEJunction* junction, const Position& origPos);
 
-    /// Returns the street's geometry
+    /// @brief Returns the street's geometry
     Boundary getBoundary() const;
+
+    /// @brief return true if edge is inverted (Angle between origin and destiny junction is -PI/2 <= angle < PI/2
+    bool isInverted() const;
 
     /// @name inherited from GUIGlObject
     /// @{

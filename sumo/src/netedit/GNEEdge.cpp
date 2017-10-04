@@ -276,6 +276,12 @@ GNEEdge::getBoundary() const {
     return ret;
 }
 
+bool 
+GNEEdge::isInverted() const {
+    double angleBetweenOriginAndDestiny = myNBEdge.getGeometry().beginEndAngle();
+    return (angleBetweenOriginAndDestiny < -1.5707) || (angleBetweenOriginAndDestiny > 1.5707);
+}
+
 
 Boundary
 GNEEdge::getCenteringBoundary() const {
@@ -467,6 +473,7 @@ GNEEdge::setGeometry(PositionVector geom, bool inner) {
     myGNEJunctionSource->invalidateShape();
     myGNEJunctionDestiny->invalidateShape();
     myNet->refreshElement(this);
+
 }
 
 
