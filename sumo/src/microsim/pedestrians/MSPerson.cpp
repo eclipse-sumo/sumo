@@ -131,7 +131,6 @@ MSPerson::MSPersonStage_Walking::getEdges() const {
 
 void
 MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
-    previous->getEdge()->removePerson(person);
     myDeparted = now;
     myRouteStep = myRoute.begin();
     if (myWalkingTime == 0) {
@@ -296,7 +295,6 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SU
     SUMOVehicle* availableVehicle = net->getVehicleControl().getWaitingVehicle(myWaitingEdge, myLines, myWaitingPos, person->getID());
     if (availableVehicle != 0 && availableVehicle->getParameter().departProcedure == DEPART_TRIGGERED && !availableVehicle->hasDeparted()) {
         setVehicle(availableVehicle);
-        myWaitingEdge->removePerson(person);
         myVehicle->addPerson(person);
         net->getInsertionControl().add(myVehicle);
         net->getVehicleControl().removeWaiting(myWaitingEdge, myVehicle);
@@ -358,6 +356,8 @@ MSPerson::proceed(MSNet* net, SUMOTime time) {
     //if (getID() == "ego") {
     //    std::cout << time2string(time) << " person=" << getID() << " proceed priorStep=" << myStep - myPlan->begin() << " planSize=" << myPlan->size() << "\n";
     //}
+    // must be done before increasing myStep to avoid invalid state for rendering
+    prior->getEdge()->removePerson(this);
     myStep++;
     if (myStep != myPlan->end()) {
         (*myStep)->proceed(net, this, time, prior);
@@ -368,7 +368,6 @@ MSPerson::proceed(MSNet* net, SUMOTime time) {
         */
         return true;
     } else {
-        prior->getEdge()->removePerson(this);
         return false;
     }
 }

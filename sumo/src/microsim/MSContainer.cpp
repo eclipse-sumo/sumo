@@ -76,7 +76,6 @@ MSContainer::MSContainerStage_Driving::proceed(MSNet* net, MSTransportable* cont
     SUMOVehicle* availableVehicle = net->getVehicleControl().getWaitingVehicle(myWaitingEdge, myLines, myWaitingPos, container->getID());
     if (availableVehicle != 0 && availableVehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED && !availableVehicle->hasDeparted()) {
         setVehicle(availableVehicle);
-        myWaitingEdge->removeContainer(container);
         myVehicle->addContainer(container);
         net->getInsertionControl().add(myVehicle);
         net->getVehicleControl().removeWaiting(myWaitingEdge, myVehicle);
@@ -133,7 +132,6 @@ MSContainer::MSContainerStage_Tranship::~MSContainerStage_Tranship() {
 
 void
 MSContainer::MSContainerStage_Tranship::proceed(MSNet* /* net */, MSTransportable* container, SUMOTime now, Stage* previous) {
-    previous->getEdge()->removeContainer(container);
     myDeparted = now;
     myRouteStep = myRoute.end() - 1;   //define that the container is already on its destination edge
     myDepartPos = previous->getEdgePos(now);
@@ -262,12 +260,13 @@ bool
 MSContainer::proceed(MSNet* net, SUMOTime time) {
     Stage* prior = *myStep;
     prior->setArrived(time);
+    // must be done before increasing myStep to avoid invalid state for rendering
+    prior->getEdge()->removeContainer(this); 
     myStep++;
     if (myStep != myPlan->end()) {
         (*myStep)->proceed(net, this, time, prior);
         return true;
     } else {
-        prior->getEdge()->removeContainer(this);
         return false;
     }
 }
