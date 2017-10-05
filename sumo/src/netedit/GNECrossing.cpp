@@ -37,7 +37,6 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/common/ToString.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
@@ -183,27 +182,6 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (wrongMode) {
         mcCustomShape->disable();
     }
-    return ret;
-}
-
-
-GUIParameterTableWindow*
-GNECrossing::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
-    // get attributes
-    std::vector<SumoXMLAttr> attributes = getAttrs();
-    // Create table
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, (int)attributes.size());
-    // Iterate over attributes
-    for (auto i : attributes) {
-        // Add attribute and set it dynamic if aren't unique
-        if (GNEAttributeCarrier::isUnique(getTag(), i)) {
-            ret->mkItem(toString(i).c_str(), false, getAttribute(i));
-        } else {
-            ret->mkItem(toString(i).c_str(), true, getAttribute(i));
-        }
-    }
-    // close building
-    ret->closeBuilding();
     return ret;
 }
 

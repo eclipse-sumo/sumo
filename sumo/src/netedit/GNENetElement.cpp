@@ -27,6 +27,7 @@
 #include <config.h>
 #endif
 
+#include <utils/gui/div/GUIParameterTableWindow.h>
 
 #include "GNENetElement.h"
 #include "GNENet.h"
@@ -57,5 +58,25 @@ GNENetElement::getParentName() const {
     return myNet->getMicrosimID();
 }
 
+
+GUIParameterTableWindow* 
+GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    // get attributes
+    std::vector<SumoXMLAttr> attributes = getAttrs();
+    // Create table
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, (int)attributes.size());
+    // Iterate over attributes
+    for (auto i : attributes) {
+        // Add attribute and set it dynamic if aren't unique
+        if (GNEAttributeCarrier::isUnique(getTag(), i)) {
+            ret->mkItem(toString(i).c_str(), false, getAttribute(i));
+        } else {
+            ret->mkItem(toString(i).c_str(), true, getAttribute(i));
+        }
+    }
+    // close building
+    ret->closeBuilding();
+    return ret;
+}
 
 /****************************************************************************/

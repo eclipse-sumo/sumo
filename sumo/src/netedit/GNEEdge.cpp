@@ -36,7 +36,6 @@
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/GeomConvHelper.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/common/MsgHandler.h>
@@ -394,27 +393,6 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         }
         glPopName();
     }
-}
-
-
-GUIParameterTableWindow*
-GNEEdge::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
-    // get attributes
-    std::vector<SumoXMLAttr> attributes = getAttrs();
-    // Create table
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, (int)attributes.size());
-    // Iterate over attributes
-    for (auto i : attributes) {
-        // Add attribute and set it dynamic if aren't unique
-        if (GNEAttributeCarrier::isUnique(getTag(), i)) {
-            ret->mkItem(toString(i).c_str(), false, getAttribute(i));
-        } else {
-            ret->mkItem(toString(i).c_str(), true, getAttribute(i));
-        }
-    }
-    // close building
-    ret->closeBuilding();
-    return ret;
 }
 
 

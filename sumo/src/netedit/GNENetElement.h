@@ -81,6 +81,15 @@ public:
      */
     virtual const std::string& getParentName() const;
 
+    /**@brief Returns an own parameter window
+    *
+    * @param[in] app The application needed to build the parameter window
+    * @param[in] parent The parent window needed to build the parameter window
+    * @return The built parameter window
+    * @see GUIGlObject::getParameterWindow
+    */
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+
     /**@brief Returns an own popup-menu
      *
      * @param[in] app The application needed to build the popup-menu
@@ -89,15 +98,6 @@ public:
      * @see GUIGlObject::getPopUpMenu
      */
     virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
-
-    /**@brief Returns an own parameter window
-     *
-     * @param[in] app The application needed to build the parameter window
-     * @param[in] parent The parent window needed to build the parameter window
-     * @return The built parameter window
-     * @see GUIGlObject::getParameterWindow
-     */
-    virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;
