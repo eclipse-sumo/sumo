@@ -839,7 +839,7 @@ MSDevice_SSM::determinePET(EncounterApproachInfo& eInfo) const {
 
     if (type == ENCOUNTER_TYPE_FOLLOWING_FOLLOWER || type == ENCOUNTER_TYPE_FOLLOWING_LEADER) {
         // For a following situation, the corresponding PET-value is merely the time-headway.
-        // TODO: Determining these can be done by comparison of memorized gaps with memorized covered distances
+        //       Determining these could be done by comparison of memorized gaps with memorized covered distances
         //       Implementation is postponed. Tracing the time gaps (in contrast to crossing PET) corresponds to
         //       a vector of values not a single value.
         // pass
@@ -1285,7 +1285,7 @@ MSDevice_SSM::checkConflictEntryAndExit(EncounterApproachInfo& eInfo) {
         // ego must have left the conflict area in the last step. Determine exact exit time
         e->egoConflictExitTime = SIMTIME - TS + MSCFModel::passingTime(-prevEgoConflictExitDist, 0., -eInfo.egoConflictExitDist, e->ego->getPreviousSpeed(), e->ego->getSpeed());
         // Add cross section to calculate PET for foe
-        e->foePETCrossSections.push_back(std::make_pair(eInfo.foeConflictEntryCrossSection, e->egoConflictExitTime));
+//        e->foePETCrossSections.push_back(std::make_pair(eInfo.foeConflictEntryCrossSection, e->egoConflictExitTime));
 #ifdef DEBUG_SSM
         std::cout << "    ego left conflict area at t=" << e->egoConflictExitTime << std::endl;
 #endif
@@ -1301,7 +1301,7 @@ MSDevice_SSM::checkConflictEntryAndExit(EncounterApproachInfo& eInfo) {
         // foe must have left the conflict area in the last step. Determine exact exit time
         e->foeConflictExitTime = SIMTIME - TS + MSCFModel::passingTime(-prevFoeConflictExitDist, 0., -eInfo.foeConflictExitDist, e->foe->getPreviousSpeed(), e->foe->getSpeed());
         // Add cross section to calculate PET for ego
-        e->egoPETCrossSections.push_back(std::make_pair(eInfo.egoConflictEntryCrossSection, e->foeConflictExitTime));
+//        e->egoPETCrossSections.push_back(std::make_pair(eInfo.egoConflictEntryCrossSection, e->foeConflictExitTime));
 #ifdef DEBUG_SSM
         std::cout << "    foe left conflict area at t=" << e->foeConflictExitTime << std::endl;
 #endif
@@ -1816,9 +1816,10 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                 assert(foeDistToConflictFromJunctionEntry != INVALID);
 
                 // store conflict entry information in eInfo
-                // TODO: equip these with exit times to store relevant PET sections in encounter
-                eInfo.egoConflictEntryCrossSection = std::make_pair(egoConflictLane, egoDistToConflictFromJunctionEntry - egoInternalLaneLengthsBeforeCrossing);
-                eInfo.foeConflictEntryCrossSection = std::make_pair(foeConflictLane, foeDistToConflictFromJunctionEntry - foeInternalLaneLengthsBeforeCrossing);
+
+//                // TO-DO: equip these with exit times to store relevant PET sections in encounter
+//                eInfo.egoConflictEntryCrossSection = std::make_pair(egoConflictLane, egoDistToConflictFromJunctionEntry - egoInternalLaneLengthsBeforeCrossing);
+//                eInfo.foeConflictEntryCrossSection = std::make_pair(foeConflictLane, foeDistToConflictFromJunctionEntry - foeInternalLaneLengthsBeforeCrossing);
 
                 // Take into account the lateral position for the exact determination of the conflict point
                 // whether lateral position increases or decreases conflict distance depends on lane angles at conflict

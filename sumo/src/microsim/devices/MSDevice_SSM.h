@@ -223,9 +223,9 @@ private:
         /// @brief All values for DRAC
         std::vector<double> DRACspan;
 
-        /// @brief Cross sections at which a PET shall be calculated for the corresponding vehicle
-        std::vector<std::pair<std::pair<const MSLane*, double>, double> > egoPETCrossSections;
-        std::vector<std::pair<std::pair<const MSLane*, double>, double> > foePETCrossSections;
+//        /// @brief Cross sections at which a PET shall be calculated for the corresponding vehicle
+//        std::vector<std::pair<std::pair<const MSLane*, double>, double> > egoPETCrossSections;
+//        std::vector<std::pair<std::pair<const MSLane*, double>, double> > foePETCrossSections;
 
         /// @name Extremal values for the SSMs (as < <time,value>,Position>-pairs)
         /// @{
