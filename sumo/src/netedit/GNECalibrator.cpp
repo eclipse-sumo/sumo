@@ -29,7 +29,6 @@
 #include <string>
 #include <iostream>
 #include <utility>
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -330,24 +329,13 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         if (s.scale * exaggeration >= 1.) {
             // set color depending of selection status
             RGBColor textColor = isAdditionalSelected()? myViewNet->getNet()->selectionColor : RGBColor::BLACK;
-            GLHelper::setColor(textColor);
-            GLHelper::setColor(RGBColor(0, 0, 0));
-            glTranslated(0, 0, .1);
-            pfSetPosition(0, 0);
-            pfSetScale(3.f);
-            double w = pfdkGetStringWidth("C");
-            glRotated(180, 0, 1, 0);
-            glTranslated(-w / 2., 2, 0);
-            pfDrawString("C");
-            glTranslated(w / 2., -2, 0);
-
-            glTranslated(0, 2.5, 0);
-            glRotated(180, 1, 0, 0);
+            // draw "C"
+            GLHelper::drawText("C", Position(0, 1.5), 0.1, 3, textColor, 180);
             // draw "edge" or "lane "
             if(myLane) {
-                GLHelper::drawText("lane", Position(), .1, 1, textColor, 0);
+                GLHelper::drawText("lane", Position(0, 3), .1, 1, textColor, 180);
             } else if(myEdge) {
-                    GLHelper::drawText("edge", Position(), .1, 1, textColor, 0);
+                GLHelper::drawText("edge", Position(0, 3), .1, 1, textColor, 180);
             } else {
                 throw ProcessError("Both myEdge and myLane aren't defined");
             }
