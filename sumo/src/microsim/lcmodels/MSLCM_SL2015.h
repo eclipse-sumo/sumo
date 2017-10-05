@@ -386,6 +386,7 @@ protected:
     double myAssertive;
     // @brief dynamic component of willingness for longitudinal gap reduction
     double myImpatience;
+    double myMinImpatience;
     // @brief time to reach maximum impatience in seconds
     double myTimeToImpatience;
     // @brief lateral acceleration

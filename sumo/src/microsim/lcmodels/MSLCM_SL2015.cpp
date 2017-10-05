@@ -133,6 +133,7 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
                     v.getVehicleType().getMinGapLat()))),
     myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1)),
     myImpatience(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_IMPATIENCE, 0)),
+    myMinImpatience(myImpatience),
     myTimeToImpatience(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, std::numeric_limits<double>::max())),
     myAccelLat(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ACCEL_LAT, 1.0)) {
     initDerivedParameters();
@@ -238,12 +239,13 @@ MSLCM_SL2015::setOwnState(const int state) {
     if ((state & (LCA_STRATEGIC | LCA_SPEEDGAIN)) != 0 && (state & LCA_BLOCKED) != 0) {
         myImpatience = MIN2(1.0 , myImpatience + TS / myTimeToImpatience);
     } else {
-        // impatience decays twice as fast as it grows but only to the drive-specific level
-        myImpatience = MAX2(-1.0 , myImpatience - 2 * TS / myTimeToImpatience);
+        // impatience decays twice as fast as it grows but only to the driver-specific level
+        myImpatience = MAX2(myMinImpatience, myImpatience - 2 * TS / myTimeToImpatience);
     }
     if (DEBUG_COND) {
         std::cout << SIMTIME << " veh=" << myVehicle.getID()
                   << " setOwnState=" << toString((LaneChangeAction)state)
+                  << " myMinImpatience=" << myMinImpatience
                   << " myImpatience=" << myImpatience
                   << "\n";
     }
@@ -2781,6 +2783,7 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myAssertive = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_IMPATIENCE)) {
         myImpatience = doubleValue;
+        myMinImpatience = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE)) {
         myTimeToImpatience = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_ACCEL_LAT)) {
