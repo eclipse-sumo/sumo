@@ -1825,14 +1825,15 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, int laneOf
     if (gDebugFlag2) {
         std::cout << "    checkBlocking latDist=" << latDist << " mySafeLatDistRight=" << mySafeLatDistRight << " mySafeLatDistLeft=" << mySafeLatDistLeft << "\n";
     }
+    // if we can move at least a little bit in the desired direction, do so (rather than block)
     if (latDist < 0) {
-        if (mySafeLatDistRight <= NUMERICAL_EPS * TS) {
+        if (mySafeLatDistRight <= POSITION_EPS * TS) {
             return LCA_BLOCKED_RIGHT | LCA_OVERLAPPING;
         } else {
             latDist = MAX2(latDist, -mySafeLatDistRight);
         }
     } else {
-        if (mySafeLatDistLeft <= NUMERICAL_EPS * TS) {
+        if (mySafeLatDistLeft <= POSITION_EPS * TS) {
             return LCA_BLOCKED_LEFT | LCA_OVERLAPPING;
         } else {
             latDist = MIN2(latDist, mySafeLatDistLeft);
