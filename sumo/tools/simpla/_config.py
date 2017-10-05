@@ -12,16 +12,18 @@
 
 
 from collections import defaultdict
+import os
 import traci
 from simpla._platoonmode import PlatoonMode
+import simpla._reporting as rp
+from simpla import SimplaException
+
+warn = rp.Warner("Config")
+report = rp.Reporter("Config")
 
 # Default values for the configuration parameters are specified first.
 # They can be overriden by specification in a configuration file.
 # (see load() method below)
-
-
-# control level of verbosity
-VERBOSITY = 1
 
 # Rate for updating the platoon manager checks and advices
 CONTROL_RATE = 1.0
@@ -68,12 +70,8 @@ SPEEDFACTOR = {
     PlatoonMode.CATCHUP_FOLLOWER: None  # is set to the same as for catchup mode below if not explicitely set
 }
 
-
-# files with pickled vtype maps for platoon leaders and followers
-VTYPE_FILE_LEADER = ""
-VTYPE_FILE_FOLLOWER = ""
-VTYPE_FILE_CATCHUP = ""
-VTYPE_FILE_CATCHUP_FOLLOWER = ""
+# file with vtype maps for platoon types
+VTYPE_FILE = ""
 
 # map of original to platooning vTypes
 PLATOON_VTYPES = defaultdict(dict)
@@ -89,47 +87,43 @@ def loadVTypeMap(fn):
     global PLATOON_VTYPES
 
     with open(fn, "r") as f:
-        #         if VERBOSITY >= 2:
-        if VERBOSITY >= 0:
+        #         if rp.VERBOSITY >= 2:
+        if rp.VERBOSITY >= 0:
             print("Loading vehicle type mappings from file '%s'..." % fn)
         splits = [l.split(":") for l in f.readlines()]
         NrBadLines = 0
         for j, spl in enumerate(splits):
             if len(spl) >= 2 and len(spl) <= 5:
-                stripped = map(lambda x: x.strip(), spl)
+                stripped = list(map(lambda x: x.strip(), spl))
                 origType = stripped[0]
                 if origType == "":
-                    print("WARNING: original vType must be specified in line %s of vType file '%s'!" % (j, fn))
-                    continue
-
-                if VERBOSITY >= 2:
+                    raise SimplaException("Original vType must be specified in line %s of vType file '%s'!" % (j, fn))
+                if rp.VERBOSITY >= 2:
                     print("original type: '%s'" % origType)
 
                 leadType = stripped[1]
                 if leadType == "":
-                    print("WARNING: platoon leader vType must be specified in line %s of vType file '%s'!" % (j, fn))
-                    continue
-
-                if VERBOSITY >= 2:
-                    print("platoon leader type: '%s'" % origType)
+                    raise SimplaException("Platoon leader vType must be specified in line %s of vType file '%s'!" % (j, fn))
+                if rp.VERBOSITY >= 2:
+                    print("platoon leader type: '%s'" % leadType)
 
                 if (len(stripped) >= 3 and stripped[2] != ""):
                     followerType = stripped[2]
-                    if VERBOSITY >= 2:
+                    if rp.VERBOSITY >= 2:
                         print("platoon follower type: '%s'" % followerType)
                 else:
                     followerType = leadType
 
                 if (len(stripped) >= 4 and stripped[3] != ""):
                     catchupType = stripped[3]
-                    if VERBOSITY >= 2:
+                    if rp.VERBOSITY >= 2:
                         print("catchup type: '%s'" % catchupType)
                 else:
                     catchupType = origType
 
                 if len(stripped) >= 5 and stripped[4] != "":
                     catchupFollowerType = stripped[4]
-                    if VERBOSITY >= 2:
+                    if rp.VERBOSITY >= 2:
                         print("catchup follower type: '%s'" % catchupFollowerType)
                 else:
                     catchupFollowerType = origType + "_catchupFollower"
@@ -146,8 +140,7 @@ def loadVTypeMap(fn):
             else:
                 NrBadLines += 1
         if NrBadLines > 0:
-            print(
-                "WARNING: vType file '%s' contained %d lines that were not parsed into a colon-separated sequence of strings!" % (fn, NrBadLines))
+            warn("vType file '%s' contained %d lines that were not parsed into a colon-separated sequence of strings!" % (fn, NrBadLines))
 
 
 def load(filename):
@@ -155,31 +148,32 @@ def load(filename):
 
     This loads configuration parameters from a file and overwrites default values.
     '''
-    global VERBOSITY, CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, CATCHUP_DIST, PLATOON_SPLIT_TIME
+    global CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, CATCHUP_DIST, PLATOON_SPLIT_TIME
     global VTYPE_FILE, PLATOON_VTYPES, LC_MODE, SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR
 
+    configDir = os.path.dirname(filename)
     configElements = ET.parse(filename).getroot().getchildren()
     parsedTags = []
     for e in configElements:
         parsedTags.append(e.tag)
         if e.tag == "verbosity":
-            VERBOSITY = int(e.attrib.values()[0])
+            rp.VERBOSITY = int(list(e.attrib.values())[0])
         elif e.tag == "controlRate":
-            rate = e.attrib.values()[0]
+            rate = float(list(e.attrib.values())[0])
             if rate <= 0.:
-                print("WARNING: Parameter controlRate must be positive. Ignoring given value %s." % (rate))
+                warn("Parameter controlRate must be positive. Ignoring given value %s." % (rate))
             else:
                 CONTROL_RATE = float(rate)
         elif e.tag == "vehicleSelectors":
-            VEH_SELECTORS = map(lambda x: x.strip(), e.attrib.values()[0].split(","))
+            VEH_SELECTORS = list(map(lambda x: x.strip(), list(e.attrib.values())[0].split(",")))
         elif e.tag == "maxPlatoonGap":
-            MAX_PLATOON_GAP = float(e.attrib.values()[0])
+            MAX_PLATOON_GAP = float(list(e.attrib.values())[0])
         elif e.tag == "catchupDist":
-            CATCHUP_DIST = float(e.attrib.values()[0])
+            CATCHUP_DIST = float(list(e.attrib.values())[0])
         elif e.tag == "switchImpatienceFactor":
-            SWITCH_IMPATIENCE_FACTOR = max(float(e.attrib.values()[0]), 0.)
+            SWITCH_IMPATIENCE_FACTOR = max(float(list(e.attrib.values())[0]), 0.)
         elif e.tag == "platoonSplitTime":
-            PLATOON_SPLIT_TIME = float(e.attrib.values()[0])
+            PLATOON_SPLIT_TIME = float(list(e.attrib.values())[0])
         elif e.tag == "lcMode":
             if ("leader" in e.attrib):
                 LC_MODE[PlatoonMode.LEADER] = int(e.attrib["leader"])
@@ -203,7 +197,7 @@ def load(filename):
             if ("original" in e.attrib):
                 SPEEDFACTOR[PlatoonMode.NONE] = float(e.attrib["original"])
         elif e.tag == "vTypeMapFile":
-            VTYPE_FILE = e.attrib.values()[0]
+            VTYPE_FILE = os.path.join(configDir, list(e.attrib.values())[0])
         elif e.tag == "vTypeMap":
             origType = e.attrib["original"]
             PLATOON_VTYPES[origType][PlatoonMode.NONE] = origType
@@ -224,7 +218,7 @@ def load(filename):
                 PLATOON_VTYPES[origType][PlatoonMode.CATCHUP_FOLLOWER] = catchupFollowerType
                 # print("Registering vtype map '%s':'%s'"%(origType,followerType))
         else:
-            print("WARNING: Encountered unknown configuration parameter '%s'!" % e.tag)
+            warn("Encountered unknown configuration parameter '%s'!" % e.tag)
 
     if "vTypeMapFile" in parsedTags:
         # load vType mapping from file

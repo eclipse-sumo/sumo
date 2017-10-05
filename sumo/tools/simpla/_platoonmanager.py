@@ -17,14 +17,14 @@ import traci
 from traci.exceptions import TraCIException
 import traci.constants as tc
 
+import simpla._reporting as rp
 import simpla._config as cfg
 import simpla._pvehicle
-from simpla._reporting import Warner, Reporter, array2String
 from simpla._platoonmode import PlatoonMode
 from _collections import defaultdict
 
-warn = Warner("PlatoonManager")
-report = Reporter("PlatoonManager")
+warn = rp.Warner("PlatoonManager")
+report = rp.Reporter("PlatoonManager")
 
 
 class PlatoonManager(traci.StepListener):
@@ -61,7 +61,7 @@ class PlatoonManager(traci.StepListener):
         # map: ID -> vehicle
         self._connectedVehicles = dict()
         for vehID in traci.vehicle.getIDList():
-            if self._isConnected(vehID):
+            if self._hasConnectedType(vehID):
                 self._addVehicle(vehID)
 
         # integration step-length
@@ -79,13 +79,13 @@ class PlatoonManager(traci.StepListener):
 
         # fill global lookup table for vType parameters (used below in safetycheck)
         knownVTypes = traci.vehicletype.getIDList()
-        for origType, mappings in cfg.PLATOON_VTYPES.iteritems():
+        for origType, mappings in cfg.PLATOON_VTYPES.items():
             if origType not in knownVTypes:
                 warn("Unknown vType '%s'" % origType)
                 continue
             origLength = traci.vehicletype.getLength(origType)
             origEmergencyDecel = traci.vehicletype.getEmergencyDecel(origType)
-            for typeID in mappings.values() + [origType]:
+            for typeID in list(mappings.values()) + [origType]:
                 if typeID not in knownVTypes:
                     warn("Unknown vType '%s'" % typeID)
                     continue
@@ -108,8 +108,8 @@ class PlatoonManager(traci.StepListener):
 
         Manages platoons at each time step.
         NOTE: argument t is unused, larger step sizes than DeltaT are not supported.
-        NOTE: (prior to SUMO 1.0): Between two calls to step() it is required to call traci.simulationStep()!
         '''
+        if not t==0: warn("Step lengths that differ from SUMO's simulation step length are not supported and probably lead to undesired behavior.\nConsider decreasing simpla's control rate instead.")
         # Handle vehicles entering and leaving the simulation
         self._addDeparted()
         self._removeArrived()
@@ -179,7 +179,7 @@ class PlatoonManager(traci.StepListener):
                         vehAheadID = nextLeaderInfo[0]
                         if self._isConnected(vehAheadID):
                             veh.state.connectedVehicleAhead = True
-                            if cfg.VERBOSITY >= 4:
+                            if rp.VERBOSITY >= 4:
                                 report("Found connected vehicle '%s' downstream of vehicle '%s' (at distance %s)" %
                                        (vehAheadID, veh.getID(), dist + nextLeaderInfo[1]))
                             break
@@ -197,13 +197,13 @@ class PlatoonManager(traci.StepListener):
             # first store arrived vehicles platoonwise
             if not self._isConnected(ID):
                 continue
-            if cfg.VERBOSITY >= 2:
+            if rp.VERBOSITY >= 2:
                 report("Removing arrived vehicle '%s'" % ID)
             veh = self._connectedVehicles.pop(ID)
             toRemove[veh.getPlatoon().getID()].append(veh)
             count += 1
 
-        for pltnID, vehs in toRemove.iteritems():
+        for pltnID, vehs in toRemove.items():
             pltn = self._platoons[pltnID]
             pltn.removeVehicles(vehs)
             if pltn.size() == 0:
@@ -221,15 +221,8 @@ class PlatoonManager(traci.StepListener):
         '''
         count = 0
         for newID in traci.simulation.getDepartedIDList():
-            # Check if the vehicle selector applies to this vehicle
-            connected = False
-            typeID = traci.vehicle.getTypeID(newID)
-            for s in self._typeSubstrings:
-                if typeID.find(s) >= 0:
-                    connected = True
-                    break
-            # create a new PVehicle object
-            if connected:
+            # create a new PVehicle object if new vehicle is connected
+            if self._hasConnectedType(newID):
                 self._addVehicle(newID)
                 count += 1
         return count
@@ -248,7 +241,7 @@ class PlatoonManager(traci.StepListener):
         except KeyError as e:
             raise e
 
-        if cfg.VERBOSITY >= 2:
+        if rp.VERBOSITY >= 2:
             report("Adding vehicle '%s'" % vehID)
         self._connectedVehicles[vehID] = veh
         self._platoons[veh.getPlatoon().getID()] = veh.getPlatoon()
@@ -260,7 +253,7 @@ class PlatoonManager(traci.StepListener):
         1) checks whether a Platoon has to be split due to incoherence persisting over some time
         '''
         newPlatoons = []
-        for pltnID, pltn in self._platoons.iteritems():
+        for pltnID, pltn in self._platoons.items():
             # encourage all vehicles to adopt the current mode of the platoon
             # NOTE: for switching between platoon modes, there may be vehicles not
             #       complying immediately. They are asked to do so, here in each turn.
@@ -283,7 +276,7 @@ class PlatoonManager(traci.StepListener):
                         veh.resetSplitCountDown()
                     elif leader.getPlatoon() == veh.getPlatoon():
                         # the platoon order is violated.
-                        if cfg.VERBOSITY >= 2:
+                        if rp.VERBOSITY >= 2:
                             report("Platoon order for platoon '%s' is violated: real leader '%s' is not registered as leader of '%s'" % (
                                 pltnID, leaderID, veh.getID()), 1)
                         veh.setSplitConditions(False)
@@ -313,7 +306,7 @@ class PlatoonManager(traci.StepListener):
         '''
         # list of platoon ids that merged into another platoon
         toRemove = []
-        for pltnID, pltn in self._platoons.iteritems():
+        for pltnID, pltn in self._platoons.items():
             # platoon leader
             pltnLeader = pltn.getLeader()
             # try setting back mode to regular platoon mode if leader is kept in FOLLOWER mode due to safety reasons
@@ -373,23 +366,23 @@ class PlatoonManager(traci.StepListener):
                 if leader.getPlatoon().join(pltn):
                     toRemove.append(pltnID)
                     # Debug
-                    if cfg.VERBOSITY >= 2:
+                    if rp.VERBOSITY >= 2:
                         report("Platoon '%s' joined Platoon '%s', which now contains " % (pltn.getID(), leader.getPlatoon().getID()) +
                                "vehicles:\n%s" % str([veh.getID() for veh in leader.getPlatoon().getVehicles()]))
                     continue
                 else:
-                    if cfg.VERBOSITY >= 3:
+                    if rp.VERBOSITY >= 3:
                         report("Merging of platoons '%s' (%s) and '%s' (%s) would not be safe." % (pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()]),
                                                                                                    leader.getPlatoon().getID(), str([veh.getID() for veh in leader.getPlatoon().getVehicles()])))
             else:
                 # Join failed due to too large distance. Try to get closer (change to CATCHUP mode).
                 if pltn.setMode(PlatoonMode.CATCHUP):
                     # try to catch up with the platoon in front
-                    if cfg.VERBOSITY >= 3:
+                    if rp.VERBOSITY >= 3:
                         report("Activating 'catch-up' mode for platoon '%s' (%s)" %
                                (pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()])))
                 else:
-                    if cfg.VERBOSITY >= 3:
+                    if rp.VERBOSITY >= 3:
                         report("Switch to catchup mode would not be safe for platoon '%s' (%s) chasing platoon '%s' (%s)." % (pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()]),
                                                                                                                               leader.getPlatoon().getID(), str([veh.getID() for veh in leader.getPlatoon().getVehicles()])))
 
@@ -402,10 +395,10 @@ class PlatoonManager(traci.StepListener):
 
         Iterates through platoons and checks whether they are in an appropriate order.
         '''
-        if cfg.VERBOSITY >= 4:
+        if rp.VERBOSITY >= 4:
             report("Checking platoon ordering", 3)
 
-        for pltnID, pltn in self._platoons.iteritems():
+        for pltnID, pltn in self._platoons.items():
             if pltn.size() == 1:
                 continue
             # collect leaders within platoon
@@ -427,7 +420,7 @@ class PlatoonManager(traci.StepListener):
                 if not leaderFromeSamePlatoon:
                     intraPlatoonLeaders.append(None)
 
-                if cfg.VERBOSITY >= 4:
+                if rp.VERBOSITY >= 4:
                     report("Platoon %s: Leader for veh '%s' is '%s' (%s)"
                            % (pltn.getID(), veh.getID(), str(leaderID), ("same platoon" if (intraPlatoonLeaders[-1] is not None) else "not from same platoon")), 3)
 
@@ -442,9 +435,9 @@ class PlatoonManager(traci.StepListener):
         (if not several vehicles have the same actual leader. For those it is only guaranteed that one will be associated correctly, not specifying which one)
         '''
 
-        if cfg.VERBOSITY >= 4:
+        if rp.VERBOSITY >= 4:
             report("reorderVehicles(vehicles, actualLeaders)\nvehicles = %s\nactualLeaders=%s" %
-                   (array2String(vehicles), array2String(actualLeaders)), 3)
+                   (rp.array2String(vehicles), rp.array2String(actualLeaders)), 3)
 
         done = False
         # this is needed as abort criterion if two have the same leader (This cannot be excluded for sublane at least)
@@ -455,15 +448,15 @@ class PlatoonManager(traci.StepListener):
         while(not done and iter_count < nVeh):
             newVehOrder = None
             registeredLeaders = [None] + vehicles[:-1]
-            if cfg.VERBOSITY >= 4:
-                report("vehicles: %s" % array2String(vehicles), 3)
-                report("Actual leaders: %s" % array2String(actualLeaders), 3)
-                report("registered leaders: %s" % array2String(registeredLeaders), 3)
-            for (ego, registeredLeader, actualLeader) in reversed(zip(vehicles, registeredLeaders, actualLeaders)):
+            if rp.VERBOSITY >= 4:
+                report("vehicles: %s" % rp.array2String(vehicles), 3)
+                report("Actual leaders: %s" % rp.array2String(actualLeaders), 3)
+                report("registered leaders: %s" % rp.array2String(registeredLeaders), 3)
+            for (ego, registeredLeader, actualLeader) in reversed(list(zip(vehicles, registeredLeaders, actualLeaders))):
                 if (ego == actualLeader):
-                    if cfg.VERBOSITY >= 2:
+                    if rp.VERBOSITY >= 2:
                         warn("Platoon %s:\nVehicle '%s' was found as its own leader. Platoon order might be corrupted." % (
-                            array2String(vehicles), str(ego)))
+                            rp.array2String(vehicles), str(ego)))
                     return vehicles
 
                 if actualLeader is None:
@@ -480,23 +473,23 @@ class PlatoonManager(traci.StepListener):
 
                 # relocate ego
 
-                if cfg.VERBOSITY >= 4:
+                if rp.VERBOSITY >= 4:
                     report("relocating: %s to follow %s" % (str(ego), str(actualLeader)), 3)
-                    report("prior newVehOrder: %s" % array2String(newVehOrder), 3)
-                    report("prior actualLeaders: %s" % array2String(actualLeaders), 3)
+                    report("prior newVehOrder: %s" % rp.array2String(newVehOrder), 3)
+                    report("prior actualLeaders: %s" % rp.array2String(actualLeaders), 3)
                 oldEgoIndex = newVehOrder.index(ego)
                 del newVehOrder[oldEgoIndex]
                 del actualLeaders[oldEgoIndex]
 
-                if cfg.VERBOSITY >= 4:
-                    report("immed newVehOrder: %s" % array2String(newVehOrder), 3)
-                    report("immed actualLeaders: %s" % array2String(actualLeaders), 3)
+                if rp.VERBOSITY >= 4:
+                    report("immed newVehOrder: %s" % rp.array2String(newVehOrder), 3)
+                    report("immed actualLeaders: %s" % rp.array2String(actualLeaders), 3)
                 actualLeaderIndex = newVehOrder.index(actualLeader)
                 newVehOrder.insert(actualLeaderIndex + 1, ego)
                 actualLeaders.insert(actualLeaderIndex + 1, actualLeader)
-                if cfg.VERBOSITY >= 4:
-                    report("current newVehOrder: %s" % array2String(newVehOrder), 3)
-                    report("current actualLeaders: %s" % array2String(actualLeaders), 3)
+                if rp.VERBOSITY >= 4:
+                    report("current newVehOrder: %s" % rp.array2String(newVehOrder), 3)
+                    report("current actualLeaders: %s" % rp.array2String(actualLeaders), 3)
 
             done = newVehOrder is None
             if not done:
@@ -504,9 +497,9 @@ class PlatoonManager(traci.StepListener):
                 iter_count += 1
 
         if iter_count != 0:
-            if cfg.VERBOSITY >= 4:
+            if rp.VERBOSITY >= 4:
                 report("Ordering within Platoon %s was corrupted.\nNew Order: %s\nLeaders: %s" %
-                       (vehicles[0].getPlatoon().getID(), array2String(vehicles), array2String(actualLeaders)), 3)
+                       (vehicles[0].getPlatoon().getID(), rp.array2String(vehicles), rp.array2String(actualLeaders)), 3)
 
         return vehicles
 
@@ -528,14 +521,14 @@ class PlatoonManager(traci.StepListener):
                 if leader.state.edgeID == veh.state.edgeID:
                     # leader is on the same edge, advise follower to use the same lane
                     try:
-                        traci.vehicle.changeLane(veh.getID(), leader.state.laneIX, self._controlInterval)
+                        traci.vehicle.changeLane(veh.getID(), leader.state.laneIX, int(self._controlInterval*1000))
                     except traci.exceptions.TraCIException as e:
                         warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), e.message))
                         pass
                 else:
                     # leader is on another edge, just stay on the current and hope it is the right one
                     try:
-                        traci.vehicle.changeLane(veh.getID(), veh.state.laneIX, self._controlInterval)
+                        traci.vehicle.changeLane(veh.getID(), veh.state.laneIX, int(self._controlInterval*1000))
                     except traci.exceptions.TraCIException as e:
                         warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), e.message))
                         pass
@@ -549,3 +542,18 @@ class PlatoonManager(traci.StepListener):
             return True
         else:
             return False
+        
+    def _hasConnectedType(self, vehID):
+        '''_hasConnectedType(string) -> bool
+
+        Determines whether the given vehicle should be connected to the platoon manager
+        by comparing its vType with the type selector substrings specified in vehicleSelectors.
+        '''
+        vtype = traci.vehicle.getTypeID(vehID)
+        for selector_str in self._typeSubstrings:
+            if selector_str in vtype:
+                return True
+        return False
+        
+        
+

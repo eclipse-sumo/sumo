@@ -16,12 +16,12 @@ import traci
 import traci.constants as tc
 
 from simpla._platoon import Platoon
+import simpla._reporting as rp
 import simpla._config as cfg
-from simpla._reporting import Warner, Reporter
 from simpla._platoonmode import PlatoonMode
 
-warn = Warner("PVehicle")
-report = Reporter("PVehicle")
+warn = rp.Warner("PVehicle")
+report = rp.Reporter("PVehicle")
 
 # lookup table for vType parameters
 vTypeParameters = defaultdict(dict)
@@ -108,7 +108,7 @@ class PVehicle(object):
                 or mode not in cfg.PLATOON_VTYPES[origVType] \
                 or cfg.PLATOON_VTYPES[origVType][mode] is "":
             if "default" in cfg.PLATOON_VTYPES and mode in cfg.PLATOON_VTYPES["default"]:
-                if cfg.VERBOSITY >= 2:
+                if rp.VERBOSITY >= 2:
                     warn("Using default vType '%s' for vehicle '%s' (PlatoonMode: '%s')." %
                          (cfg.PLATOON_VTYPES["default"][mode], self._ID, PlatoonMode(mode).name))
                 return cfg.PLATOON_VTYPES["default"][mode]
@@ -116,7 +116,7 @@ class PVehicle(object):
                 warn("No vType specified for PlatoonMode '%s' for vehicle '%s'. Behavior within platoon is NOT altered." % (
                     PlatoonMode(mode).name, self._ID))
                 return origVType
-        if cfg.VERBOSITY >= 3:
+        if rp.VERBOSITY >= 3:
             report("Using vType '%s' for vehicle '%s' (PlatoonMode: '%s')." %
                    (cfg.PLATOON_VTYPES[origVType][mode], self._ID, PlatoonMode(mode).name))
         return cfg.PLATOON_VTYPES[origVType][mode]
@@ -173,7 +173,7 @@ class PVehicle(object):
             # do nothing mode is already chosen
             return
 
-        if cfg.VERBOSITY >= 3:
+        if rp.VERBOSITY >= 3:
             report("Vehicle '%s': Setting PlatoonMode '%s'" % (self._ID, PlatoonMode(mode).name))
 
         if self._vTypes[mode] != self._vTypes[self._currentPlatoonMode]:
@@ -209,7 +209,7 @@ class PVehicle(object):
         Increases the mode-specific waiting time for a switch, and decreases the active speed factor accordingly
         '''
         self._switchWaitingTime[mode] += increment
-        if cfg.VERBOSITY >= 4:
+        if rp.VERBOSITY >= 4:
             report("Vehicle '%s' increases switch waiting time for %s to %s" %
                    (self._ID, mode, self._switchWaitingTime[mode]), 3)
         self._setActiveSpeedFactor(self._switchWaitingTime[mode])
@@ -220,7 +220,7 @@ class PVehicle(object):
         Resets waiting time for a switch to a mode to 0. or, if mode==None, all times are reset to 0.
         The active speed factor is also reset.
         '''
-        if cfg.VERBOSITY >= 4:
+        if rp.VERBOSITY >= 4:
             report("Vehicle '%s' resets switch waiting time." % self._ID, 3)
         if mode is None:
             for e in PlatoonMode:
@@ -256,7 +256,7 @@ class PVehicle(object):
         Decreases the time until the vehicle is split from its platoon
         '''
         self._timeUntilSplit -= dt
-        if cfg.VERBOSITY >= 3:
+        if rp.VERBOSITY >= 3:
             report("Time until split from platoon for veh '%s': %s" % (self._ID, self._timeUntilSplit))
         return self._timeUntilSplit
 
@@ -346,7 +346,7 @@ class PVehicle(object):
         headwayDist = speed * tau
         followerBrakeGap = PVehicle.brakeGap(speed, maxDecel)
 
-        if cfg.VERBOSITY >= 4:
+        if rp.VERBOSITY >= 4:
             report("leaderSpeed = %s" % leaderSpeed +
                    "\nleaderDecel = %s" % leaderDecel +
                    "\ngap = %s" % gap +

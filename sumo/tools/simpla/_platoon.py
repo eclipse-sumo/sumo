@@ -11,12 +11,11 @@
 # @version $Id$
 
 
-from simpla._reporting import Warner, Reporter
 from simpla._platoonmode import PlatoonMode
-import simpla._config as cfg
+import simpla._reporting as rp
 
-warn = Warner("Platoon")
-report = Reporter("Platoon")
+warn = rp.Warner("Platoon")
+report = rp.Reporter("Platoon")
 
 
 class Platoon(object):
@@ -234,7 +233,7 @@ class Platoon(object):
             # only one vehicle remains, turn off its platoon-specific behavior
             self.setModeWithImpatience(PlatoonMode.NONE, self._controlInterval)
 
-        if cfg.VERBOSITY >= 2:
+        if rp.VERBOSITY >= 2:
             report("Platoon '%s' splits (newly formed platoon is '%s'):\n" % (self._ID, pltn.getID()) +
                    "Platoon '%s': %s\nPlatoon '%s': %s" % (self._ID, str([veh.getID() for veh in self._vehicles]),
                                                            pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()])), 1)

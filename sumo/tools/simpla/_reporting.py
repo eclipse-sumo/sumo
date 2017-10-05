@@ -11,10 +11,11 @@
 # @version $Id$
 
 
-import simpla._config as cfg
 import sys
 import traci
 
+# control level of verbosity
+VERBOSITY = 1
 
 def simTime():
     return traci.simulation.getCurrentTime() / 1000.
@@ -33,7 +34,7 @@ class Warner(object):
 
     def __call__(self, msg, minVerbosityLevel=0, omitReportTime=False):
 
-        if minVerbosityLevel <= cfg.VERBOSITY:
+        if minVerbosityLevel <= VERBOSITY:
             if omitReportTime:
                 sys.stderr.write("WARNING: " + str(msg) + " (" + self._domain + ")\n")
             else:
@@ -46,7 +47,7 @@ class Reporter(object):
         self._domain = domain
 
     def __call__(self, msg, minVerbosityLevel=0, omitReportTime=False):
-        if minVerbosityLevel <= cfg.VERBOSITY:
+        if minVerbosityLevel <= VERBOSITY:
             if omitReportTime:
                 print(str(msg) + " (" + self._domain + ")")
             else:

@@ -46,11 +46,21 @@ Notes:
 
 
 import traci
-import _config
-import _reporting
-import _platoonmanager
 
-warn = _reporting.Warner("simpla")
+class SimplaException(Exception):
+    '''
+    Simple exception raised by simpla.
+    '''
+    def __init__(self,*args,**kwargs):
+        super(SimplaException, self).__init__(*args,**kwargs)
+        
+
+
+import simpla._config
+import simpla._reporting as rp
+import simpla._platoonmanager
+
+warn = rp.Warner("simpla")
 _mgr = None
 _useStepListener = 'addStepListener' in dir(traci)
 _emergencyDecelImplemented = 'VAR_EMERGENCY_DECEL' in dir(traci.constants)
