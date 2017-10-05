@@ -332,7 +332,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_CROSSING);
         into.writeAttr(SUMO_ATTR_CROSSING_EDGES, c->edges);
         writeLane(into, c->id + "_0", 1, SVC_PEDESTRIAN, 0,
-                  NBEdge::UNSPECIFIED_OFFSET, c->width, c->shape, "", c->shape.length(), 0, false, "", &n, false, c->customShape.size() != 0);
+                  NBEdge::UNSPECIFIED_OFFSET, c->width, c->shape, "", MAX2(c->shape.length(), POSITION_EPS), 0, false, "", &n, false, c->customShape.size() != 0);
         into.closeTag();
     }
     // write pedestrian walking areas
