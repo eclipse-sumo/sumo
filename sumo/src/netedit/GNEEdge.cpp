@@ -32,7 +32,6 @@
 #include <cmath>
 #include <string>
 #include <algorithm>
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/geom/GeomHelper.h>

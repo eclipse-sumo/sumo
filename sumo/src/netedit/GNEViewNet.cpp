@@ -32,7 +32,6 @@
 #include <utility>
 #include <cmath>
 #include <limits>
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/foxtools/MFXCheckableButton.h>

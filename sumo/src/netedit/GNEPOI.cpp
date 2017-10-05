@@ -30,7 +30,6 @@
 
 #include <string>
 #include <utility>
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/GeomConvHelper.h>

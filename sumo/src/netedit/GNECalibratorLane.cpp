@@ -29,7 +29,6 @@
 #include <string>
 #include <iostream>
 #include <utility>
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
