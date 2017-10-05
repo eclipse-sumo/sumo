@@ -69,32 +69,18 @@ public:
     /// @name Methods to be implemented by derived classes
     /// @{
 
-    /** @brief Returns the information whether the value changes over simulation time
-     *
-     * @return Whether the value changes over simulation time
-     */
+    /// @brief Returns the information whether the value changes over simulation time
     virtual bool dynamic() const = 0;
 
-
-    /** @brief Forces an update of the value
-     */
+    /// @brief Forces an update of the value
     virtual void update() = 0;
 
-
-    /** @brief Returns a double-typed copy of the value-source
-     *
-     * @return A double-typed copy of the value-source
-     */
+    /// @brief Returns a double-typed copy of the value-source
     virtual ValueSource<double>* getdoubleSourceCopy() const = 0;
 
-
-    /** @brief Returns the name of the value
-     *
-     * @return The name of the value
-     */
+    /// @brief Returns the name of the value
     virtual const std::string& getName() const = 0;
     /// @}
-
 };
 
 
@@ -128,14 +114,12 @@ public:
      * @todo Consider using a reference to the table
      * @todo Check whether the name should be stored in GUIParameterTableItemInterface
      */
-    GUIParameterTableItem(FXTable* table, unsigned pos,
-                          const std::string& name, bool dynamic,
-                          ValueSource<T>* src)
-        : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(src),
-          myValue(src->getValue()), myTable(table) {
+    GUIParameterTableItem(FXTable* table, unsigned pos, const std::string& name, 
+        bool dynamic, ValueSource<T>* src) : 
+        myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(src),
+        myValue(src->getValue()), myTable(table) {
         init(dynamic, toString<T>(src->getValue()));
     }
-
 
     /** @brief Constructor for non-changing (static) values
      *
@@ -148,14 +132,12 @@ public:
      * @todo Check whether the name should be stored in GUIParameterTableItemInterface
      * @todo Should never be dynamic!?
      */
-    GUIParameterTableItem(FXTable* table, unsigned pos,
-                          const std::string& name, bool dynamic,
-                          T value)
-        : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
-          myValue(value), myTable(table) {
+    GUIParameterTableItem(FXTable* table, unsigned pos, const std::string& name, 
+        bool dynamic, T value) : 
+        myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
+        myValue(value), myTable(table) {
         init(dynamic, toString<T>(value));
     }
-
 
     /** @brief Constructor for string-typed, non-changing (static) values
      *
@@ -168,20 +150,17 @@ public:
      * @todo Check whether the name should be stored in GUIParameterTableItemInterface
      * @todo Should never be dynamic!?
      */
-    GUIParameterTableItem(FXTable* table, unsigned pos,
-                          const std::string& name, bool dynamic,
-                          std::string value)
-        : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
-          myValue(0), myTable(table) {
+    GUIParameterTableItem(FXTable* table, unsigned pos, const std::string& name, 
+        bool dynamic, std::string value) : 
+        myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), 
+        mySource(0), myValue(0), myTable(table) {
         init(dynamic, value);
     }
-
 
     /// @brief Destructor
     ~GUIParameterTableItem() {
         delete mySource;
     }
-
 
     /** @brief Initialises the line
      *
@@ -202,25 +181,15 @@ public:
         myTable->setItemJustify(myTablePosition, 2, FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
     }
 
-
-
-    /** @brief Returns the information whether this item may change
-     *
-     * @return Whether this item changes over time
-     */
+    /// @brief Returns the information whether this item may change over time
     bool dynamic() const {
         return myAmDynamic;
     }
 
-
-    /** @brief Returns the name of this value
-     *
-     * @return The name of this value
-     */
+    /// @brief Returns the name of this value
     const std::string& getName() const {
         return myName;
     }
-
 
     /** @brief Resets the value if it's dynamic
      *
@@ -240,11 +209,7 @@ public:
         }
     }
 
-
-    /** @brief Returns a copy of the source if the value is dynamic
-     *
-     * @return A copy of the value source
-     */
+    /// @brief Returns a copy of the source if the value is dynamic
     ValueSource<T>* getSourceCopy() const {
         if (mySource == 0) {
             return 0;
@@ -252,18 +217,13 @@ public:
         return mySource->copy();
     }
 
-
-    /** @brief Returns a double-typed copy of the source if the value is dynamic
-     *
-     * @return A double-typed copy of the value source
-     */
+    /// @brief Returns a double-typed copy of the source if the value is dynamic
     ValueSource<double>* getdoubleSourceCopy() const {
         if (mySource == 0) {
             return 0;
         }
         return mySource->makedoubleReturningCopy();
     }
-
 
 private:
     /// @brief Information whether the value may change
@@ -275,7 +235,7 @@ private:
     /// @brief The position within the table
     FXint myTablePosition;
 
-    /** @brief The source to gain new values from; this source is==0 if the values are not dynamic */
+    /// @brief The source to gain new values from; this source is==0 if the values are not dynamic
     ValueSource<T>* mySource;
 
     /// @brief A backup of the value to avoid the redrawing when nothing has changed
@@ -283,7 +243,6 @@ private:
 
     /// @brief The table this entry belongs to
     FXTable* myTable;
-
 };
 
 
