@@ -35,6 +35,7 @@
 #include "PHEMCEPHandler.h"
 #include "PHEMConstants.h"
 #endif
+#include <foreign/PHEMlight/cpp/Constants.h>
 #include <utils/options/OptionsCont.h>
 #include "HelpersPHEMlight.h"
 
@@ -280,7 +281,7 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
     PHEMlightdll::CEP* currCep = myCEPs.count(c) == 0 ? 0 : myCEPs.find(c)->second;
     if (currCep != 0) {
         const double corrAcc = getModifiedAccel(c, corrSpeed, a, slope);
-        if (corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) && currCep->getFuelType() != "BEV") {
+        if (currCep->getFuelType() != PHEMlightdll::Constants::strBEV && corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) && corrSpeed > PHEMlightdll::Constants::ZERO_SPEED_ACCURACY) {
             // the IDLE_SPEED fix above is now directly in the decel coast calculation.
             return 0;
         }
@@ -304,18 +305,18 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
         case PollutantsInterface::PM_X:
             return getEmission(oldCep, currCep, "PM", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::FUEL: {
-            if (fuelType == "D") { // divide by average diesel density of 836 g/l
+            if (fuelType == PHEMlightdll::Constants::strDiesel) { // divide by average diesel density of 836 g/l
                 return getEmission(oldCep, currCep, "FC", power, corrSpeed) / 836. / SECONDS_PER_HOUR * 1000.;
-            } else if (fuelType == "G") { // divide by average gasoline density of 742 g/l
+            } else if (fuelType == PHEMlightdll::Constants::strGasoline) { // divide by average gasoline density of 742 g/l
                 return getEmission(oldCep, currCep, "FC", power, corrSpeed) / 742. / SECONDS_PER_HOUR * 1000.;
-            } else if (fuelType == "BEV") {
+            } else if (fuelType == PHEMlightdll::Constants::strBEV) {
                 return 0;
             } else {
                 return getEmission(oldCep, currCep, "FC", power, corrSpeed) / SECONDS_PER_HOUR * 1000.; // surely false, but at least not additionally modified
             }
         }
         case PollutantsInterface::ELEC:
-            if (fuelType == "BEV") {
+            if (fuelType == PHEMlightdll::Constants::strBEV) {
                 return getEmission(oldCep, currCep, "FC", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
             }
             return 0;
