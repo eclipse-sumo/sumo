@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul  4 14:34:14 2017 by SUMO netconvert Version dev-SVN-r25036
+<!-- generated on Thu Oct  5 09:31:20 2017 by SUMO netconvert Version dev-SVN-r24506
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -511,24 +511,24 @@
     <connection from=":2_3" to="L14" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2_3" to="L14" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":2_3" to="L14" fromLane="2" toLane="2" dir="s" state="M"/>
-    <connection from=":3_0" to="L13" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":3_1" to="L18" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":3_2" to="L18" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":3_3" to="L16" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":3_4" to="L16" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":3_5" to="L16" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":3_0" to="L13" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":3_1" to="L18" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":3_2" to="L18" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":3_3" to="L16" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":3_4" to="L16" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":3_5" to="L16" fromLane="0" toLane="2" dir="r" state="M"/>
     <connection from=":3_6" to="L13" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":3_6" to="L13" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":3_6" to="L13" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from=":3_9" to="L18" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":3_9" to="L18" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":3_9" to="L18" fromLane="2" toLane="2" dir="s" state="M"/>
-    <connection from=":3_12" to="L16" fromLane="0" toLane="0" via=":3_15_0" dir="s" state="m"/>
-    <connection from=":3_15" to="L16" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":3_13" to="L16" fromLane="0" toLane="1" via=":3_16_0" dir="s" state="m"/>
-    <connection from=":3_16" to="L16" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":3_14" to="L16" fromLane="0" toLane="2" via=":3_17_0" dir="s" state="m"/>
-    <connection from=":3_17" to="L16" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":3_12" to="L16" fromLane="0" toLane="0" via=":3_15_0" dir="l" state="m"/>
+    <connection from=":3_15" to="L16" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":3_13" to="L16" fromLane="0" toLane="1" via=":3_16_0" dir="l" state="m"/>
+    <connection from=":3_16" to="L16" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":3_14" to="L16" fromLane="0" toLane="2" via=":3_17_0" dir="l" state="m"/>
+    <connection from=":3_17" to="L16" fromLane="0" toLane="2" dir="l" state="M"/>
     <connection from=":4_0" to="L17" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":4_0" to="L17" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":4_0" to="L17" fromLane="2" toLane="2" dir="s" state="M"/>
@@ -544,16 +544,16 @@
     <connection from=":6_0" to="L11" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":6_0" to="L11" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":6_0" to="L11" fromLane="2" toLane="2" dir="s" state="M"/>
-    <connection from=":6_3" to="L15" fromLane="0" toLane="1" via=":6_14_0" dir="s" state="m"/>
-    <connection from=":6_14" to="L15" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":6_4" to="L15" fromLane="0" toLane="2" via=":6_15_0" dir="s" state="m"/>
-    <connection from=":6_15" to="L15" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":6_5" to="L10" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":6_6" to="L10" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":6_7" to="L10" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":6_8" to="L11" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":6_9" to="L15" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":6_10" to="L15" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":6_3" to="L15" fromLane="0" toLane="1" via=":6_14_0" dir="l" state="m"/>
+    <connection from=":6_14" to="L15" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":6_4" to="L15" fromLane="0" toLane="2" via=":6_15_0" dir="l" state="m"/>
+    <connection from=":6_15" to="L15" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":6_5" to="L10" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":6_6" to="L10" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":6_7" to="L10" fromLane="0" toLane="2" dir="r" state="M"/>
+    <connection from=":6_8" to="L11" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":6_9" to="L15" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":6_10" to="L15" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":6_11" to="L10" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":6_11" to="L10" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":6_11" to="L10" fromLane="2" toLane="2" dir="s" state="M"/>
