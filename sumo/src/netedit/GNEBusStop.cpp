@@ -29,7 +29,7 @@
 #include <string>
 #include <iostream>
 #include <utility>
-#include <foreign/polyfonts/polyfonts.h>
+#include <foreign/fontstash/fontstash.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -152,46 +152,22 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Check if the distance is enought to draw details
     if (s.scale * exaggeration >= 10) {
 
-        // Add a draw matrix
+        // Add a draw matrix for details
         glPushMatrix();
-
-        // Set color of the lines
-        if (isAdditionalSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectionColor);
-        } else {
-            GLHelper::setColor(RGBColor(76, 170, 50));
-        }
 
         // Iterate over every line
         for (int i = 0; i < (int)myLines.size(); ++i) {
-            // Add a new push matrix
+            // push a new matrix for every line
             glPushMatrix();
 
-            // Traslate End positionof signal
-            glTranslated(mySignPos.x(), mySignPos.y(), 0);
+            // draw line with a color depending of the selection status
+            if (isAdditionalSelected()) {
+                GLHelper::drawText(myLines[i].c_str(), mySignPos + Position(1.2, (double)i), .1, 1.f, myViewNet->getNet()->selectionColor, myBlockIconRotation, FONS_ALIGN_LEFT);
+            } else {
+                GLHelper::drawText(myLines[i].c_str(), mySignPos + Position(1.2, (double)i), .1, 1.f, RGBColor(76, 170, 50), myBlockIconRotation, FONS_ALIGN_LEFT);
+            }
 
-            // Rotate 180 (Eje X -> Mirror)
-            glRotated(180, 1, 0, 0);
-
-            // Rotate again depending of the myBlockIconRotation
-            glRotated(myBlockIconRotation, 0, 0, 1);
-
-            // Set polygon mode
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-            // set polyfront position ot 0
-            pfSetPosition(0, 0);
-
-            // Set polyfront scale to 1
-            pfSetScale(1.f);
-
-            // traslate matrix for every line
-            glTranslated(1.2, -(double)i, 0);
-
-            // draw line
-            pfDrawString(myLines[i].c_str());
-
-            // pop matrix
+            // pop matrix for every line
             glPopMatrix();
         }
 

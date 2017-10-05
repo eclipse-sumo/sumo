@@ -29,7 +29,7 @@
 #include <string>
 #include <iostream>
 #include <utility>
-#include <foreign/polyfonts/polyfonts.h>
+#include <foreign/fontstash/fontstash.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -210,44 +210,20 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
 
     // draw details unless zoomed out to far
     if (s.scale * exaggeration >= 10) {
-        // Push sign matrix
+        // Push matrix for details
         glPushMatrix();
 
-        // Set color of the charging power
+        // push a new matrix for charging power
+        glPushMatrix();
+
+        // draw line with a color depending of the selection status
         if (isAdditionalSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectionColor);
+            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, myViewNet->getNet()->selectionColor, myBlockIconRotation, FONS_ALIGN_LEFT);
         } else {
-            GLHelper::setColor(RGBColor(114, 210, 252));
+            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, RGBColor(114, 210, 252), myBlockIconRotation, FONS_ALIGN_LEFT);
         }
 
-        // push charging power matrix
-        glPushMatrix();
-
-        // Traslate End positionof signal
-        glTranslated(mySignPos.x(), mySignPos.y(), 0);
-
-        // Rotate 180 (Eje X -> Mirror)
-        glRotated(180, 1, 0, 0);
-
-        // Rotate again using myBlockIconRotation
-        glRotated(myBlockIconRotation, 0, 0, 1);
-
-        // Set polygon mode
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-        // set polyfront position on 0,0
-        pfSetPosition(0, 0);
-
-        // Set polyfront scale to 1
-        pfSetScale(1.f);
-
-        // traslate matrix
-        glTranslated(1.2, 0, 0);
-
-        // draw charging power
-        pfDrawString((toString(myChargingPower) + " W").c_str());
-
-        // pop charging power matrix
+        // pop matrix for charging power
         glPopMatrix();
 
         // Set position over sign
