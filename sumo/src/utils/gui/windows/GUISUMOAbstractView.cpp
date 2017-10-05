@@ -285,7 +285,7 @@ GUISUMOAbstractView::paintGL() {
         glDisable(GL_DITHER);
     }
     glEnable(GL_BLEND);
-    glEnable(GL_LINE_SMOOTH);
+    glDisable(GL_LINE_SMOOTH);
 
     applyGLTransform();
     doPaintGL(GL_RENDER, myChanger->getViewport());
@@ -863,7 +863,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
         glDisable(GL_DITHER);
     }
     glEnable(GL_BLEND);
-    glEnable(GL_LINE_SMOOTH);
+    glDisable(GL_LINE_SMOOTH);
 
     applyGLTransform();
 
