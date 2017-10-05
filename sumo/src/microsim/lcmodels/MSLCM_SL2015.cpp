@@ -259,8 +259,8 @@ MSLCM_SL2015::setOwnState(const int state) {
 double
 MSLCM_SL2015::patchSpeed(const double min, const double wanted, const double max, const MSCFModel& cfModel) {
     gDebugFlag2 = DEBUG_COND;
-
-    const double newSpeed = _patchSpeed(min, wanted, max, cfModel);
+    // negative min speed may be passed when using ballistic updated
+    const double newSpeed = _patchSpeed(MAX2(min, 0.0), wanted, max, cfModel);
     if (gDebugFlag2) {
         const std::string patched = (wanted != newSpeed ? " patched=" + toString(newSpeed) : "");
         std::cout << SIMTIME
@@ -268,7 +268,9 @@ MSLCM_SL2015::patchSpeed(const double min, const double wanted, const double max
                   << " lane=" << myVehicle.getLane()->getID()
                   << " pos=" << myVehicle.getPositionOnLane()
                   << " v=" << myVehicle.getSpeed()
+                  << " min=" << min
                   << " wanted=" << wanted
+                  << " max=" << max
                   << patched
                   << "\n\n";
     }
@@ -1119,7 +1121,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                       << " veh=" << myVehicle.getID()
                       << " myLeftSpace=" << myLeftSpace
                       << " changeFully=" << myCanChangeFully
-                      << " blockedFully=" << blockedFully
+                      << " blockedFully=" << toString((LaneChangeAction)blockedFully)
                       << " remainingSeconds=" << remainingSeconds
                       << " plannedSpeed=" << plannedSpeed
                       << "\n";
@@ -1933,29 +1935,38 @@ MSLCM_SL2015::checkBlockingVehicles(
             // only check the current stripe occuped by foe (transform into edge-coordinates)
             double foeRight, foeLeft;
             vehicles.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
+            const bool overlapBefore = overlap(rightVehSide, leftVehSide, foeRight, foeLeft);
+            const bool overlapDest = overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft);
+            const bool overlapAny = overlap(rightNoOverlap, leftNoOverlap, foeRight, foeLeft);
             if (gDebugFlag2) {
                 std::cout << "   foe=" << vehDist.first->getID()
                           << " gap=" << vehDist.second
                           << " secGap=" << follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel())
                           << " foeRight=" << foeRight
                           << " foeLeft=" << foeLeft
-                          << " overlapBefore=" << overlap(rightVehSide, leftVehSide, foeRight, foeLeft)
-                          << " overlap=" << overlap(rightNoOverlap, leftNoOverlap, foeRight, foeLeft)
-                          << " overlapDest=" << overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)
+                          << " overlapBefore=" << overlapBefore
+                          << " overlap=" << overlapAny
+                          << " overlapDest=" << overlapDest
                           << "\n";
             }
-            if (overlap(rightNoOverlap, leftNoOverlap, foeRight, foeLeft)) {
+            if (overlapAny) {
                 if (vehDist.second < 0) {
-                    if (gDebugFlag2) {
-                        std::cout << "    overlap\n";
-                    }
-                    result |= (blockType | LCA_OVERLAPPING);
-                    if (collectBlockers == 0) {
-                        return result;
+                    if (overlapBefore && !overlapDest) {
+                        if (gDebugFlag2) {
+                            std::cout << "    ignoring current overlap to come clear\n";
+                        }
                     } else {
-                        collectBlockers->push_back(vehDist);
+                        if (gDebugFlag2) {
+                            std::cout << "    overlap (" << toString((LaneChangeAction)blockType) << ")\n";
+                        }
+                        result |= (blockType | LCA_OVERLAPPING);
+                        if (collectBlockers == 0) {
+                            return result;
+                        } else {
+                            collectBlockers->push_back(vehDist);
+                        }
                     }
-                } else if (overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)) {
+                } else if (overlapDest) {
                     const double decelFactor = (1 + 0.5 * myImpatience) * myAssertive;
                     const double secureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                     // @note for euler-update, a different value for secureGap2 may be obtained when applying decelFactor to followerDecel rather than secureGap

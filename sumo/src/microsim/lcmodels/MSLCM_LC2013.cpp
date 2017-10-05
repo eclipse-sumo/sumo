@@ -188,11 +188,15 @@ MSLCM_LC2013::patchSpeed(const double min, const double wanted, const double max
                   << " lane=" << myVehicle.getLane()->getID()
                   << " pos=" << myVehicle.getPositionOnLane()
                   << " v=" << myVehicle.getSpeed()
-                  << " wanted=" << wanted << "\n";
+                  << " min=" << min
+                  << " wanted=" << wanted
+                  << " max=" << max
+                  << "\n";
     }
 #endif
 
-    const double newSpeed = _patchSpeed(min, wanted, max, cfModel);
+    // negative min speed may be passed when using ballistic updated
+    const double newSpeed = _patchSpeed(MAX2(min, 0.0), wanted, max, cfModel);
 
 #ifdef DEBUG_PATCH_SPEED
     if (DEBUG_COND) {
