@@ -288,7 +288,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
             double w = pfdkGetStringWidth(speedToDraw.c_str());
             glRotated(180, 0, 1, 0);
             glTranslated(-w / 2., 0.3, 0);
-            pfDrawString(speedToDraw.c_str());
+            pfXXDrawString(speedToDraw.c_str());
         }
         glPopMatrix();
     }

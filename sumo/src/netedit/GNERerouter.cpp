@@ -336,7 +336,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
                 double w = pfdkGetStringWidth("U");
                 glRotated(180, 0, 1, 0);
                 glTranslated(-w / 2., 2, 0);
-                pfDrawString("U");
+                pfXXDrawString("U");
 
                 glTranslated(w / 2., -2, 0);
                 std::string str = toString((int)(myProbability * 100)) + "%";
@@ -344,7 +344,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
                 pfSetScale(.7f);
                 w = pfdkGetStringWidth(str.c_str());
                 glTranslated(-w / 2., 4, 0);
-                pfDrawString(str.c_str());
+                pfXXDrawString(str.c_str());
                 glPopMatrix();
             }
         }

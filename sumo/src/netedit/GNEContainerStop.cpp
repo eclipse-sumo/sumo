@@ -160,11 +160,15 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             // push a new matrix for every line
             glPushMatrix();
 
+            // Rotate and traslaste
+            glTranslated(mySignPos.x(), mySignPos.y(), 0);
+            glRotated(-1 * myBlockIconRotation, 0, 0, 1);
+
             // draw line with a color depending of the selection status
             if (isAdditionalSelected()) {
-                GLHelper::drawText(myLines[i].c_str(), mySignPos + Position(1.2, (double)i), .1, 1.f, myViewNet->getNet()->selectionColor, myBlockIconRotation, FONS_ALIGN_LEFT);
+                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, myViewNet->getNet()->selectionColor, 0, FONS_ALIGN_LEFT);
             } else {
-                GLHelper::drawText(myLines[i].c_str(), mySignPos + Position(1.2, (double)i), .1, 1.f, RGBColor(76, 170, 50), myBlockIconRotation, FONS_ALIGN_LEFT);
+                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, RGBColor(83, 89, 172), 0, FONS_ALIGN_LEFT);
             }
 
             // pop matrix for every line
