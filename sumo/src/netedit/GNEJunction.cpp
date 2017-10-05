@@ -164,7 +164,9 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
+    // build selection and show parameters menu
     buildSelectionPopupEntry(ret);
+    buildShowParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
     //if (parent.getVisualisationSettings()->editMode != GNE_MODE_CONNECT) {
     //    // XXX if joinable

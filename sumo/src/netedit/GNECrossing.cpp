@@ -172,7 +172,10 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
+    // build selection and show parameters menu
     buildSelectionPopupEntry(ret);
+    buildShowParamsPopupEntry(ret);
+    // build position copy entry
     buildPositionCopyEntry(ret, false);
     // create menu commands
     FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom crossing shape", 0, &parent, MID_GNE_CROSSING_EDIT_SHAPE);

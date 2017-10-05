@@ -295,7 +295,10 @@ GNEEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
+    // build selection and show parameters menu
     buildSelectionPopupEntry(ret);
+    buildShowParamsPopupEntry(ret);
+    // build position copy entry
     buildPositionCopyEntry(ret, false);
     return ret;
 }

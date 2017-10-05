@@ -456,7 +456,10 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildCenterPopupEntry(ret);
     new FXMenuCommand(ret, ("Copy " + toString(SUMO_TAG_EDGE) + " name to clipboard").c_str(), 0, ret, MID_COPY_EDGE_NAME);
     buildNameCopyPopupEntry(ret);
+    // build selection and show parameters menu
     buildSelectionPopupEntry(ret);
+    buildShowParamsPopupEntry(ret);
+    // build position copy entry
     buildPositionCopyEntry(ret, false);
     const int editMode = parent.getVisualisationSettings()->editMode;
     myTLSEditor = 0;
@@ -466,17 +469,17 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         FXIcon* bikeIcon = GUIIconSubSys::getIcon(ICON_LANEBIKE);
         FXIcon* busIcon = GUIIconSubSys::getIcon(ICON_LANEBUS);
         // Create basic commands
-        std::string plural = myNet->retrieveEdges(true).size() > 1? "s" : "";
+        std::string pluralEdges = myNet->retrieveEdges(true).size() > 1? "s" : "";
         new FXMenuCommand(ret, ("Split " + toString(SUMO_TAG_EDGE) + " here").c_str(), 0, &parent, MID_GNE_EDGE_SPLIT);
         new FXMenuCommand(ret, ("Split " + toString(SUMO_TAG_EDGE) + "s in both direction here").c_str(), 0, &parent, MID_GNE_EDGE_SPLIT_BIDI);
         new FXMenuCommand(ret, ("Reverse " + toString(SUMO_TAG_EDGE)).c_str(), 0, &parent, MID_GNE_EDGE_REVERSE);
         new FXMenuCommand(ret, "Add reverse direction", 0, &parent, MID_GNE_EDGE_ADD_REVERSE);
         new FXMenuCommand(ret, "Set geometry endpoint here", 0, &parent, MID_GNE_EDGE_SET_ENDPOINT);
         new FXMenuCommand(ret, "Restore geometry endpoint", 0, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
-        new FXMenuCommand(ret, ("Straighten " + toString(SUMO_TAG_EDGE) + plural).c_str(), 0, &parent, MID_GNE_EDGE_STRAIGHTEN);
+        new FXMenuCommand(ret, ("Straighten " + toString(SUMO_TAG_EDGE) + pluralEdges).c_str(), 0, &parent, MID_GNE_EDGE_STRAIGHTEN);
         if (gSelected.isSelected(GLO_LANE, getGlID())) {
-            std::string plural = myNet->retrieveLanes(true).size() > 1? "s" : "";
-            new FXMenuCommand(ret, ("Duplicate selected " + toString(SUMO_TAG_LANE) + plural).c_str(), 0, &parent, MID_GNE_LANE_DUPLICATE);
+            std::string pluralLanes = myNet->retrieveLanes(true).size() > 1? "s" : "";
+            new FXMenuCommand(ret, ("Duplicate selected " + toString(SUMO_TAG_LANE) + pluralLanes).c_str(), 0, &parent, MID_GNE_LANE_DUPLICATE);
             // Create panel for lane operations
             FXMenuPane* addSpecialLanes = new FXMenuPane(ret);
             ret->insertMenuPaneChild(addSpecialLanes);

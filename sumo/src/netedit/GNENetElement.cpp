@@ -60,7 +60,7 @@ GNENetElement::getParentName() const {
 
 
 GUIParameterTableWindow* 
-GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // get attributes
     std::vector<SumoXMLAttr> attributes = getAttrs();
     // Create table
