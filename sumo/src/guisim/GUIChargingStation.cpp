@@ -51,7 +51,7 @@
 #include <gui/GUIApplicationWindow.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <foreign/polyfonts/polyfonts.h>
+#include <foreign/fontstash/fontstash.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
@@ -155,31 +155,8 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
 
         // push charging power matrix
         glPushMatrix();
-
-        // Traslate End positionof signal
-        glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
-
-        // Rotate 180 (Eje X -> Mirror)
-        glRotated(180, 1, 0, 0);
-
-        // Rotate again using myBlockIconRotation
-        glRotated(myFGSignRot, 0, 0, 1);
-
-        // Set polygon mode
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-        // set polyfront position on 0,0
-        pfSetPosition(0, 0);
-
-        // Set polyfront scale to 1
-        pfSetScale(1.f);
-
-        // traslate matrix
-        glTranslated(1.2, 0, 0);
-
         // draw charging power
-        pfDrawString((toString(myChargingPower) + " W").c_str());
-
+        GLHelper::drawText((toString(myChargingPower) + " W").c_str(), myFGSignPos + Position(1.2, 0), .1, 1.f, RGBColor(114, 210, 252), myFGSignRot, FONS_ALIGN_LEFT);
         // pop charging power matrix
         glPopMatrix();
 

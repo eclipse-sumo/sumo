@@ -50,6 +50,7 @@
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <foreign/polyfonts/polyfonts.h>
+#include <foreign/fontstash/fontstash.h>
 #include <utils/geom/GeomHelper.h>
 #include <guisim/GUIBusStop.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -145,16 +146,16 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         // draw the lines
         const double rotSign = MSNet::getInstance()->lefthand() ? -1 : 1;
-        for (int i = 0; i != (int)myLines.size(); ++i) {
+        // Iterate over every line
+        for (int i = 0; i < (int)myLines.size(); ++i) {
+            // push a new matrix for every line
             glPushMatrix();
+            // traslate and rotate
             glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
-            glRotated(180, 1, 0, 0);
             glRotated(rotSign * myFGSignRot, 0, 0, 1);
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            pfSetPosition(0, 0);
-            pfSetScale(1.f);
-            glTranslated(1.2, -(double)i, 0);
-            pfDrawString(myLines[i].c_str());
+            // draw line
+            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, RGBColor(76, 170, 50), 0, FONS_ALIGN_LEFT);
+            // pop matrix for every line
             glPopMatrix();
         }
         for (std::vector<Position>::const_iterator i = myAccessCoords.begin(); i != myAccessCoords.end(); ++i) {
