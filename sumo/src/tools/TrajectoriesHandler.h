@@ -106,6 +106,7 @@ private:
     std::ostream* myStdOut;
     OutputDevice* myXMLOut;
     std::map<std::string, double> myLastV;
+    std::map<std::string, double> myLastSlope;
     SUMOTime myCurrentTime;
     double myStepSize;
     std::map<std::string, PollutantsInterface::Emissions> mySums;

@@ -155,10 +155,14 @@ TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
                                     double& a, double& s) {
     if (myComputeA && myLastV.count(id) == 0) {
         myLastV[id] = v;
+        myLastSlope[id] = s;
         return false;
     }
     if (myComputeAForward) {
         t -= TS;
+        const double nextS = s;
+        s = myLastSlope[id];
+        myLastSlope[id] = nextS;
     }
     const PollutantsInterface::Emissions e = computeEmissions(id, c, v, a, s);
     o << t << ";" << v << ";" << a << ";" << s << ";"
