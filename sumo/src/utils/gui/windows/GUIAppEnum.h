@@ -509,6 +509,29 @@ enum {
     MID_GNE_VIEWNET_SHOW_GRID,
     /// @}
 
+
+    /// @name GNEFrame messages
+    /// @{
+
+    /// @brief set longitud
+    MID_GNEFRAME_LONGITUDE,
+    /// @brief set latitud
+    MID_GNEFRAME_LATITUDE,
+    /// @brief enable or disable use GEO
+    MID_GNEFRAME_USEGEO,
+
+
+    // MID_GNE_WIZARD,
+    /// @brief attribute edited
+    MID_GNE_SET_ATTRIBUTE,
+    /// @brief attribute block shape
+    MID_GNE_SET_BLOCKING_SHAPE,
+    /// @brief attribute close shape
+    MID_GNE_SET_CLOSING_SHAPE,
+
+    /// @}
+
+
     /// @name GNESeletorFrame messages
     /// @{
 
@@ -838,18 +861,6 @@ enum {
     MID_GNE_FIXSTOPPINGPLACES_CHANGE,
     /// @}
 
-
-    /// @name non classified yet
-    /// @{
-
-    // MID_GNE_WIZARD,
-    /// @brief attribute edited
-    MID_GNE_SET_ATTRIBUTE,
-    /// @brief attribute block shape
-    MID_GNE_SET_BLOCKING_SHAPE,
-    /// @brief attribute close shape
-    MID_GNE_SET_CLOSING_SHAPE,
-    /// @}
 
     /// @brief last element of enum (not used)
     MID_LAST

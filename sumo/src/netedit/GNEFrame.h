@@ -41,16 +41,94 @@
 // ===========================================================================
 class GNEViewNet;
 class GNEUndoList;
+class GNEAttributeCarrier;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
 /**
  * @class GNEFrame
  * Abstract class for lateral frames in NetEdit
  */
 class GNEFrame : public FXVerticalFrame {
+
 public:
+
+    // ===========================================================================
+    // class GEOAttributes
+    // ===========================================================================
+
+    class GEOAttributes : public FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrame::GEOAttributes)
+
+    public:
+        /// @brief constructor
+        GEOAttributes(FXComposite* parent);
+
+        /// @brief destructor
+        ~GEOAttributes();
+
+        /// @brief show GEOAttribute for the current AttributeCarreira
+        void showGEOAttributes(GNEAttributeCarrier *ac);
+
+        /// @brief hide GEOAttributes
+        void hideGEOAttributes();
+
+        /// @brief update TextFields with the new GEO Attributes
+        void UpdateGEOAttributes();
+
+        /// @brief get GEO Attributes
+        std::map<SumoXMLAttr, std::string> getGEOAttributes() const;
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when user change the current Longitude
+        long onCmdSetLongitude(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user changes the current Latitude
+        long onCmdSetLatitude(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user enters a new length
+        long onCmdUseGEOParameters(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press the help button
+        long onCmdHelp(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        GEOAttributes() {}
+
+    private:
+        /// @brief current edited AC
+        GNEAttributeCarrier *myAc;
+
+        /// @brief Label for length
+        FXLabel* myLongitudeLabel;
+
+        /// @brief textField for length
+        FXTextField* myLongitudeTextField;
+
+        /// @brief Label for block movement
+        FXLabel* myLatitudeLabel;
+
+        /// @brief checkBox for block movement
+        FXTextField* myLatitudeTextField;
+
+        /// @brief Label for block movement
+        FXLabel* myUseGEOLabel;
+
+        /// @brief checkBox for block movement
+        FXCheckButton* myUseGEOCheckButton;
+
+        /// @brief button for help
+        FXButton* myHelpButton;
+    };
+
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -116,10 +194,10 @@ private:
     FXScrollWindow* myScrollWindowsContents;
 
     /// @brief Invalidated copy constructor.
-    GNEFrame(const GNEFrame&);
+    GNEFrame(const GNEFrame&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEFrame& operator=(const GNEFrame&);
+    GNEFrame& operator=(const GNEFrame&) = delete;
 };
 
 
