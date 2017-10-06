@@ -1,8 +1,8 @@
-SUMO duarouter Version svn
- Build features: x86_64-suse-linux-gnu InternalLanes DoublePrecision TRACI PROJ GDAL GUI Python
- Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
+SUMO duarouter Version dev-SVN-r26352
+ Build features: x64 Release PROJ GDAL GUI OSG ffmpeg
+ Copyright (C) 2001-2017 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 
-SUMO duarouter Version svn is part of SUMO.
+SUMO duarouter Version dev-SVN-r26352 is part of SUMO.
 SUMO is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or

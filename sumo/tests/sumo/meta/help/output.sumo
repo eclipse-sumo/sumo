@@ -1,5 +1,5 @@
-SUMO Version dev-SVN-r26256
- Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
+SUMO Version dev-SVN-r26352
+ Copyright (C) 2001-2017 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
 Usage: sumo [OPTION]*
@@ -328,7 +328,6 @@ Bluelight Device Options:
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
   --num-clients INT                    Expected number of connecting clients
-  --python-script STR                  Runs TraCI script with embedded python
 
 Mesoscopic Options:
   --mesosim                            Enables mesoscopic simulation
@@ -388,6 +387,8 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing

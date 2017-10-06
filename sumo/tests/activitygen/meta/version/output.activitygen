@@ -1,9 +1,9 @@
-SUMO activitygen Version svn
- Build features: x86_64-suse-linux-gnu InternalLanes DoublePrecision TRACI PROJ GDAL GUI Python
- Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
+SUMO activitygen Version dev-SVN-r26352
+ Build features: x64 Release PROJ GDAL GUI OSG ffmpeg
+ Copyright (C) 2001-2017 German Aerospace Center (DLR) and others; http://sumo.dlr.de
  Copyright (C) 2010-2012 Technische Universitaet Muenchen
 
-SUMO activitygen Version svn is part of SUMO.
+SUMO activitygen Version dev-SVN-r26352 is part of SUMO.
 SUMO is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or

@@ -1,5 +1,5 @@
-SUMO jtrrouter Version dev-SVN-r24744
- Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
+SUMO jtrrouter Version dev-SVN-r26352
+ Copyright (C) 2001-2017 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Router for the microscopic road traffic simulation SUMO based on junction
   turning ratios.
 
