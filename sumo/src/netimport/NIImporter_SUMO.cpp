@@ -157,6 +157,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                                ed->priority, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                geom, ed->streetName, "", ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
         e->setLoadedLength(ed->length);
+        e->updateParameter(ed->getMap());
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             WRITE_ERROR("Could not insert edge '" + ed->id + "'.");
             delete e;
@@ -219,6 +220,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
             nbe->setAcceleration(fromLaneIndex, lane->accelRamp);
             nbe->getLaneStruct(fromLaneIndex).oppositeID = lane->oppositeID;
+            nbe->getLaneStruct(fromLaneIndex).updateParameter(lane->getMap());
             if (lane->customShape) {
                 nbe->setLaneShape(fromLaneIndex, lane->shape);
             }
@@ -396,6 +398,9 @@ NIImporter_SUMO::myStartElement(int element,
             break;
         case SUMO_TAG_TLLOGIC:
             myCurrentTL = initTrafficLightLogic(attrs, myCurrentTL);
+            if (myCurrentTL) {
+                myLastParameterised.push_back(myCurrentTL);
+            }
             break;
         case SUMO_TAG_PHASE:
             addPhase(attrs, myCurrentTL);
@@ -409,6 +414,14 @@ NIImporter_SUMO::myStartElement(int element,
         case SUMO_TAG_ROUNDABOUT:
             addRoundabout(attrs);
             break;
+        case SUMO_TAG_PARAM:
+            if (myLastParameterised.size() != 0) {
+                bool ok = true;
+                const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+                // circumventing empty string test
+                const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+                myLastParameterised.back()->setParameter(key, val);
+            }
         default:
             break;
     }
@@ -425,6 +438,7 @@ NIImporter_SUMO::myEndElement(int element) {
                 myEdges[myCurrentEdge->id] = myCurrentEdge;
             }
             myCurrentEdge = 0;
+            myLastParameterised.pop_back();
             break;
         case SUMO_TAG_LANE:
             if (myCurrentEdge != 0) {
@@ -432,6 +446,7 @@ NIImporter_SUMO::myEndElement(int element) {
                 myCurrentEdge->lanes.push_back(myCurrentLane);
             }
             myCurrentLane = 0;
+            myLastParameterised.pop_back();
             break;
         case SUMO_TAG_TLLOGIC:
             if (!myCurrentTL) {
@@ -442,7 +457,15 @@ NIImporter_SUMO::myEndElement(int element) {
                     delete myCurrentTL;
                 }
                 myCurrentTL = 0;
+                myLastParameterised.pop_back();
             }
+            break;
+        case SUMO_TAG_JUNCTION:
+            if (myCurrentJunction.node != 0) {
+                myLastParameterised.pop_back();
+            }
+            break;
+        case SUMO_TAG_CONNECTION:
             break;
         default:
             break;
@@ -459,6 +482,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
         return;
     }
     myCurrentEdge = new EdgeAttrs();
+    myLastParameterised.push_back(myCurrentEdge);
     myCurrentEdge->builtEdge = 0;
     myCurrentEdge->id = id;
     // get the function
@@ -511,6 +535,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     myCurrentLane = new LaneAttrs();
+    myLastParameterised.push_back(myCurrentLane);
     myCurrentLane->customShape = attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, 0, ok, false);
     myCurrentLane->shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     if (myCurrentEdge->func == EDGEFUNC_CROSSING) {
@@ -580,6 +605,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     Position pos = readPosition(attrs, id, ok);
     NBNetBuilder::transformCoordinate(pos, true, myLocation);
     NBNode* node = new NBNode(id, pos, type);
+    myLastParameterised.push_back(node);
     if (!myNodeCont.insert(node)) {
         WRITE_ERROR("Problems on adding junction '" + id + "'.");
         delete node;

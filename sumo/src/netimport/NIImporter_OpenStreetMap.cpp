@@ -546,6 +546,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         numLanesBackward = 1;
     }
 
+    const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? toString(e->id) : "";
     if (ok) {
         LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
                                  e->getParameter("railway:preferred_direction", "") != "both" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
@@ -555,7 +556,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             assert(numLanesForward > 0);
             NBEdge* nbe = new NBEdge(id, from, to, type, speed, numLanesForward, tc.getPriority(type),
                                      forwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape,
-                                     StringUtils::escapeXML(e->streetName), toString(e->id), lsf, true);
+                                     StringUtils::escapeXML(e->streetName), origID, lsf, true);
             nbe->setPermissions(forwardPermissions);
             if ((e->myBuswayType & WAY_FORWARD) != 0) {
                 nbe->setPermissions(SVC_BUS, 0);
@@ -579,7 +580,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             assert(numLanesBackward > 0);
             NBEdge* nbe = new NBEdge("-" + id, to, from, type, speed, numLanesBackward, tc.getPriority(type),
                                      backwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(),
-                                     StringUtils::escapeXML(e->streetName), toString(e->id), lsf, true);
+                                     StringUtils::escapeXML(e->streetName), origID, lsf, true);
             nbe->setPermissions(backwardPermissions);
             if ((e->myBuswayType & WAY_BACKWARD) != 0) {
                 nbe->setPermissions(SVC_BUS, 0);
@@ -844,7 +845,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 key = "ignore";
             }
         }
-        if (key == "bridge" || key == "tunnel") {
+        if ((key == "bridge" || key == "tunnel") && OptionsCont::getOptions().getBool("osm.all-attributes")) {
             myCurrentEdge->setParameter(key, "true"); // could be differentiated further if necessary
         }
 
@@ -983,9 +984,10 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                               toString(myCurrentEdge->id) + "'.");
             }
-        } else if (key == "postal_code") {
+        } else if (key == "postal_code" && OptionsCont::getOptions().getBool("osm.all-attributes")) {
             myCurrentEdge->setParameter(key, value);
         } else if (key == "railway:preferred_direction") {
+            // this param is special because it influences network building (duplicate rail edges)
             myCurrentEdge->setParameter(key, value);
         } else if (key == "public_transport" && value == "platform") {
             myCurrentEdge->myCurrentIsPlatform = true;

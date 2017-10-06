@@ -467,6 +467,15 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     // build and insert the edges
     NBEdge* one = new NBEdge(firstEdgeName, edge->myFrom, node, edge, geoms.first, noLanesFirstEdge);
     NBEdge* two = new NBEdge(secondEdgeName, node, edge->myTo, edge, geoms.second, noLanesSecondEdge);
+    if (OptionsCont::getOptions().getBool("output.original-names")) {
+        const std::string origID = edge->getLaneStruct(0).getParameter(SUMO_PARAM_ORIGID, edge->getID());
+        if (firstEdgeName != origID) {
+            one->setOrigID(origID);
+        }
+        if (secondEdgeName != origID) {
+            two->setOrigID(origID);
+        }
+    }
     two->copyConnectionsFrom(edge);
     if (speed != -1.) {
         two->setSpeed(-1, speed);
@@ -1171,10 +1180,13 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs) {
             toChange.insert(it->second);
         }
     }
+    const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
     for (std::set<NBEdge*, Named::ComparatorIdLess>::iterator it = toChange.begin(); it != toChange.end(); ++it) {
         NBEdge* edge = *it;
         myEdges.erase(edge->getID());
-        edge->setOrigID(edge->getID());
+        if (origNames) {
+            edge->setOrigID(edge->getID());
+        }
         edge->setID(idSupplier.getNext());
         myEdges[edge->getID()] = edge;
     }

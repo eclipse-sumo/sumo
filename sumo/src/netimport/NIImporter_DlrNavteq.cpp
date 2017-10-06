@@ -379,8 +379,9 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         }
         geoms.insert(geoms.begin(), from->getPosition());
         geoms.push_back(to->getPosition());
+        const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? id : "";
         e = new NBEdge(id, from, to, "", speed, numLanes, priority,
-                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, id, LANESPREAD_CENTER);
+                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, origID, LANESPREAD_CENTER);
     }
 
     // NavTeq imports can be done with a typemap (if supplied), if not, the old defaults are used

@@ -71,6 +71,11 @@ public:
      */
     void setParameter(const std::string& key, const std::string& value);
 
+    /** @brief Removes a parameter
+     * @param[in] key The parameter's name
+     */
+    void unsetParameter(const std::string& key);
+
 
     /** @brief Adds or updates all given parameters from the map
      * @param[in] mapArg The keys/values to insert
@@ -90,7 +95,7 @@ public:
      * @param[in] defaultValue The default value to return if no value is stored under the key
      * @return The value stored under the key
      */
-    const std::string& getParameter(const std::string& key, const std::string& defaultValue) const;
+    const std::string& getParameter(const std::string& key, const std::string& defaultValue = "") const;
 
 
     /** @brief Returns the value for a given key converted to a double

@@ -160,6 +160,7 @@ NIImporter_ArcView::load() {
         }
     }
 
+    const bool saveOrigIDs = OptionsCont::getOptions().getBool("output.original-names");
     OGRFeature* poFeature;
     poLayer->ResetReading();
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
@@ -276,11 +277,12 @@ NIImporter_ArcView::load() {
         if (index >= 0 && poFeature->IsFieldSet(index)) {
             dir = poFeature->GetFieldAsString(index);
         }
+        const std::string origID = saveOrigIDs ? id : "";
         // add positive direction if wanted
         if (dir == "B" || dir == "F" || dir == "" || myOptions.getBool("shapefile.all-bidirectional")) {
             if (myEdgeCont.retrieve(id) == 0) {
                 LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
-                NBEdge* edge = new NBEdge(id, from, to, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape, name, id, spread);
+                NBEdge* edge = new NBEdge(id, from, to, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape, name, origID, spread);
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
             }
@@ -289,7 +291,7 @@ NIImporter_ArcView::load() {
         if (dir == "B" || dir == "T" || myOptions.getBool("shapefile.all-bidirectional")) {
             if (myEdgeCont.retrieve("-" + id) == 0) {
                 LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
-                NBEdge* edge = new NBEdge("-" + id, to, from, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), name, id, spread);
+                NBEdge* edge = new NBEdge("-" + id, to, from, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), name, origID, spread);
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
             }

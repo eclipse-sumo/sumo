@@ -296,7 +296,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                 //const double length = MAX2((*k).shape.length(), POSITION_EPS);
                 writeLane(into, (*k).getInternalLaneID(), (*k).vmax,
                           successor.permissions, successor.preferred,
-                          NBEdge::UNSPECIFIED_OFFSET, successor.width, (*k).shape, (*k).origID,
+                          NBEdge::UNSPECIFIED_OFFSET, successor.width, (*k).shape, &(*k),
                           length, (*k).internalLaneIndex, origNames, getOppositeInternalID(ec, *i, *k), &n);
                 haveVia = haveVia || (*k).haveVia;
             }
@@ -317,7 +317,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     into.writeAttr(SUMO_ATTR_ID, (*k).viaID);
                     into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
                     writeLane(into, (*k).viaID + "_0", (*k).vmax, SVCAll, SVCAll,
-                              NBEdge::UNSPECIFIED_OFFSET, successor.width, (*k).viaShape, (*k).origID,
+                              NBEdge::UNSPECIFIED_OFFSET, successor.width, (*k).viaShape, &(*k),
                               MAX2((*k).viaShape.length(), POSITION_EPS), // microsim needs positive length
                               0, origNames, "", &n);
                     into.closeTag();
@@ -332,7 +332,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_CROSSING);
         into.writeAttr(SUMO_ATTR_CROSSING_EDGES, c->edges);
         writeLane(into, c->id + "_0", 1, SVC_PEDESTRIAN, 0,
-                  NBEdge::UNSPECIFIED_OFFSET, c->width, c->shape, "", MAX2(c->shape.length(), POSITION_EPS), 0, false, "", &n, false, c->customShape.size() != 0);
+                  NBEdge::UNSPECIFIED_OFFSET, c->width, c->shape, 0, MAX2(c->shape.length(), POSITION_EPS), 0, false, "", &n, false, c->customShape.size() != 0);
         into.closeTag();
     }
     // write pedestrian walking areas
@@ -343,7 +343,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         into.writeAttr(SUMO_ATTR_ID, wa.id);
         into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_WALKINGAREA);
         writeLane(into, wa.id + "_0", 1, SVC_PEDESTRIAN, 0,
-                  NBEdge::UNSPECIFIED_OFFSET, wa.width, wa.shape, "", wa.length, 0, false, "", &n, false, wa.hasCustomShape);
+                  NBEdge::UNSPECIFIED_OFFSET, wa.width, wa.shape, 0, wa.length, 0, false, "", &n, false, wa.hasCustomShape);
         into.closeTag();
     }
     return ret;
@@ -383,10 +383,11 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool
     for (int i = 0; i < (int) lanes.size(); i++) {
         const NBEdge::Lane& l = lanes[i];
         writeLane(into, e.getLaneID(i), l.speed,
-                  l.permissions, l.preferred, l.endOffset, l.width, l.shape, l.origID,
+                  l.permissions, l.preferred, l.endOffset, l.width, l.shape, &l,
                   length, i, origNames, l.oppositeID, 0, l.accelRamp, l.customShape.size() > 0);
     }
     // close the edge
+    e.writeParams(into);
     into.closeTag();
 }
 
@@ -395,7 +396,7 @@ void
 NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
                          double speed, SVCPermissions permissions, SVCPermissions preferred,
                          double endOffset, double width, PositionVector shape,
-                         const std::string& origID, double length, int index, bool origNames,
+                         const Parameterised* params, double length, int index, bool origNames,
                          const std::string& oppositeID, const NBNode* node, bool accelRamp, bool customShape) {
     // output the lane's attributes
     into.openTag(SUMO_TAG_LANE).writeAttr(SUMO_ATTR_ID, lID);
@@ -436,11 +437,9 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
         into.writeAttr(SUMO_ATTR_LANE, oppositeID);
         into.closeTag();
     }
-    if (origNames && origID != "") {
-        into.openTag(SUMO_TAG_PARAM);
-        into.writeAttr(SUMO_ATTR_KEY, SUMO_PARAM_ORIGID);
-        into.writeAttr(SUMO_ATTR_VALUE, origID);
-        into.closeTag();
+
+    if (params != 0) {
+        params->writeParams(into);
     }
 
     into.closeTag();
@@ -512,12 +511,7 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n, const bool che
         // write right-of-way logics
         n.writeLogic(into, checkLaneFoes);
     }
-    if (origNames && n.getParameter(SUMO_PARAM_ORIGID, "") != "") {
-        into.openTag(SUMO_TAG_PARAM);
-        into.writeAttr(SUMO_ATTR_KEY, SUMO_PARAM_ORIGID);
-        into.writeAttr(SUMO_ATTR_VALUE, n.getParameter(SUMO_PARAM_ORIGID, ""));
-        into.closeTag();
-    }
+    n.writeParams(into);
     into.closeTag();
 }
 
@@ -793,8 +787,6 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
         into.writeAttr(SUMO_ATTR_TYPE, (*it)->getType());
         into.writeAttr(SUMO_ATTR_PROGRAMID, (*it)->getProgramID());
         into.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime((*it)->getOffset()));
-        // write params
-        (*it)->writeParams(into);
         // write the phases
         const bool varPhaseLength = (*it)->getType() != TLTYPE_STATIC;
         const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = (*it)->getPhases();
@@ -812,6 +804,8 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
             }
             into.closeTag();
         }
+        // write params
+        (*it)->writeParams(into);
         into.closeTag();
     }
     if (logics.size() > 0) {

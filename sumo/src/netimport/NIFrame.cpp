@@ -271,6 +271,9 @@ NIFrame::fillOptions() {
     oc.doRegister("osm.stop-output.length.train", new Option_Float(200));
     oc.addDescription("osm.stop-output.length.train", "Processing", "The default length of a train stop in FLOAT m");
 
+    oc.doRegister("osm.all-attributes", new Option_Bool(false));
+    oc.addDescription("osm.all-attributes", "Processing", "Whether additional attributes shall be imported");
+
     // register opendrive options
     oc.doRegister("opendrive.import-all-lanes", new Option_Bool(false));
     oc.addDescription("opendrive.import-all-lanes", "Processing", "Imports all lane types");

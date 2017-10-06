@@ -54,6 +54,12 @@ Parameterised::setParameter(const std::string& key, const std::string& value) {
 
 
 void
+Parameterised::unsetParameter(const std::string& key) {
+    myMap.erase(key);
+}
+
+
+void
 Parameterised::updateParameter(const std::map<std::string, std::string>& mapArg) {
     for (std::map<std::string, std::string>::const_iterator i = mapArg.begin(); i != mapArg.end(); ++i) {
         myMap[(*i).first] = (*i).second;

@@ -127,9 +127,12 @@ NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :
     permissions(SVCAll),
     preferred(0),
     endOffset(e->getEndOffset()), width(e->getLaneWidth()),
-    origID(origID_),
     accelRamp(false),
-    connectionsDone(false) {
+    connectionsDone(false) 
+{
+    if (origID_ != "") {
+        setParameter(SUMO_PARAM_ORIGID, origID_);
+    }
 }
 
 
@@ -265,7 +268,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
     mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET) {
-    init(nolanes, false, id);
+    init(nolanes, false, "");
 }
 
 
@@ -319,7 +322,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl, con
         setSpeed(i, tpl->getLaneSpeed(tplIndex));
         setPermissions(tpl->getPermissions(tplIndex), i);
         setLaneWidth(i, tpl->myLanes[tplIndex].width);
-        myLanes[i].origID = tpl->myLanes[tplIndex].origID;
+        myLanes[i].updateParameter(tpl->myLanes[tplIndex].getMap());;
         if (to == tpl->myTo) {
             setEndOffset(i, tpl->myLanes[tplIndex].endOffset);
         }
@@ -356,7 +359,7 @@ NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,
     // preserve lane-specific settings (geometry must be recomputed)
     // if new lanes are added they copy the values from the leftmost lane (if specified)
     const std::vector<Lane> oldLanes = myLanes;
-    init(nolanes, tryIgnoreNodePositions, oldLanes.empty() ? "" : oldLanes[0].origID);
+    init(nolanes, tryIgnoreNodePositions, oldLanes.empty() ? "" : oldLanes[0].getParameter(SUMO_PARAM_ORIGID));
     for (int i = 0; i < (int)nolanes; ++i) {
         PositionVector newShape = myLanes[i].shape;
         myLanes[i] = oldLanes[MIN2(i, (int)oldLanes.size() - 1)];
@@ -2713,10 +2716,13 @@ NBEdge::append(NBEdge* e) {
     myGeom.append(e->myGeom);
     for (int i = 0; i < (int)myLanes.size(); i++) {
         myLanes[i].shape.append(e->myLanes[i].shape);
-        if (myLanes[i].origID != e->myLanes[i].origID) {
-            myLanes[i].origID += " " + e->myLanes[i].origID;
-        } else if (myLanes[i].origID == "") {
-            myLanes[i].origID = getID() + " " + e->getID();
+        if (myLanes[i].knowsParameter(SUMO_PARAM_ORIGID) || e->myLanes[i].knowsParameter(SUMO_PARAM_ORIGID)
+                || OptionsCont::getOptions().getBool("output.original-names")) {
+            const std::string origID = myLanes[i].getParameter(SUMO_PARAM_ORIGID, getID());
+            const std::string origID2 = e->myLanes[i].getParameter(SUMO_PARAM_ORIGID, e->getID());
+            if (origID != origID2) {
+                myLanes[i].setParameter(SUMO_PARAM_ORIGID, origID + " " + origID2);
+            }
         }
         myLanes[i].connectionsDone = e->myLanes[i].connectionsDone;
     }
@@ -2791,7 +2797,7 @@ NBEdge::addLane(int index, bool recompute) {
         myLanes[index].preferred = myLanes[templateIndex].preferred;
         myLanes[index].endOffset = myLanes[templateIndex].endOffset;
         myLanes[index].width = myLanes[templateIndex].width;
-        myLanes[index].origID = myLanes[templateIndex].origID;
+        myLanes[index].updateParameter(myLanes[templateIndex].getMap());
     }
     const EdgeVector& incs = myFrom->getIncomingEdges();
     if (recompute) {
@@ -3136,7 +3142,7 @@ NBEdge::addRestrictedLane(double width, SUMOVehicleClass vclass) {
     // crossings can be guessed
     disallowVehicleClass(-1, vclass);
     // add new lane
-    myLanes.insert(myLanes.begin(), Lane(this, myLanes[0].origID));
+    myLanes.insert(myLanes.begin(), Lane(this, myLanes[0].getParameter(SUMO_PARAM_ORIGID)));
     myLanes[0].permissions = vclass;
     myLanes[0].width = width;
     // shift outgoing connections to the left
@@ -3234,8 +3240,15 @@ NBEdge::getFinalLength() const {
 
 void 
 NBEdge::setOrigID(const std::string origID) {
-    for (int i = 0; i < (int)myLanes.size(); i++) {
-        myLanes[i].origID = origID;
+    if (origID != "") {
+        for (int i = 0; i < (int)myLanes.size(); i++) {
+            myLanes[i].setParameter(SUMO_PARAM_ORIGID, origID);
+        }
+    } else {
+        // do not record empty origID parameter
+        for (int i = 0; i < (int)myLanes.size(); i++) {
+            myLanes[i].unsetParameter(SUMO_PARAM_ORIGID);
+        }
     }
 }
 

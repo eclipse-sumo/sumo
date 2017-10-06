@@ -1326,10 +1326,13 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs) {
             toChange.insert(it->second);
         }
     }
+    const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
     for (std::set<NBNode*, Named::ComparatorIdLess>::iterator it = toChange.begin(); it != toChange.end(); ++it) {
         NBNode* node = *it;
         myNodes.erase(node->getID());
-        node->setParameter(SUMO_PARAM_ORIGID, node->getID());
+        if (origNames) {
+            node->setParameter(SUMO_PARAM_ORIGID, node->getID());
+        }
         node->setID(idSupplier.getNext());
         myNodes[node->getID()] = node;
     }

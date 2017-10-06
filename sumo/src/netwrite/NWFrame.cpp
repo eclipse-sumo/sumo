@@ -147,6 +147,9 @@ NWFrame::checkOptions() {
     if (oc.isSet("dlr-navteq-output") && oc.isDefault("numerical-ids")) {
         oc.set("numerical-ids", "true");
     }
+    if (oc.isSet("dlr-navteq-output") && oc.isDefault("osm.all-attributes")) {
+        oc.set("osm.all-attributes", "true");
+    }
     if (oc.exists("ptline-output") && oc.isSet("ptline-output") && !oc.isSet("ptstop-output")) {
         WRITE_ERROR("public transport lines output requires 'ptstop-output' to be set");
         ok = false;

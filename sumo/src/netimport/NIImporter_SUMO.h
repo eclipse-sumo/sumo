@@ -35,6 +35,7 @@
 #include <map>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <utils/common/Parameterised.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
 
 
@@ -184,7 +185,7 @@ private:
      * @struct Connection
      * @brief A connection description.
      */
-    struct Connection {
+    struct Connection : public Parameterised {
         /// @brief The id of the target edge
         std::string toEdgeID;
         /// @brief The index of the target lane
@@ -211,7 +212,7 @@ private:
     /** @struct LaneAttrs
      * @brief Describes the values found in a lane's definition
      */
-    struct LaneAttrs {
+    struct LaneAttrs : public Parameterised {
         /// @brief The maximum velocity allowed on this lane
         double maxSpeed;
         /// @brief This lane's shape (needed to reconstruct edge shape for legacy networks)
@@ -238,7 +239,7 @@ private:
     /** @struct EdgeAttrs
      * @brief Describes the values found in an edge's definition and this edge's lanes
      */
-    struct EdgeAttrs {
+    struct EdgeAttrs : public Parameterised {
         /// @brief This edge's id
         std::string id;
         /// @brief This edge's street name
@@ -350,6 +351,9 @@ private:
 
     /// @brief Map from walkingArea edge IDs to custom shapes
     std::map<std::string, WalkingAreaParsedCustomShape> myWACustomShapes;
+
+    /// @brief element to receive parameters
+    std::vector<Parameterised*> myLastParameterised;
 
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;
