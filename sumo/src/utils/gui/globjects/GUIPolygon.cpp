@@ -38,7 +38,6 @@
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
-#include <foreign/polyfonts/polyfonts.h>
 
 //#define GUIPolygon_DEBUG_DRAW_VERTICES
 

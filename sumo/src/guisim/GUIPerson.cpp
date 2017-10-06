@@ -32,7 +32,6 @@
 #include <cmath>
 #include <vector>
 #include <string>
-#include <foreign/polyfonts/polyfonts.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/pedestrians/MSPerson.h>

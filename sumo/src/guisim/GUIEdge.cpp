@@ -34,7 +34,6 @@
 #include <cmath>
 #include <string>
 #include <algorithm>
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>

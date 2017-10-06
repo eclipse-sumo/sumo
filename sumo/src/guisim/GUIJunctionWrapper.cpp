@@ -51,7 +51,6 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
 //#define GUIJunctionWrapper_DEBUG_DRAW_NODE_SHAPE_VERTICES

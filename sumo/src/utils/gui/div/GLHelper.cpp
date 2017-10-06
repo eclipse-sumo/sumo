@@ -35,7 +35,6 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include <foreign/polyfonts/polyfonts.h>
 #define FONTSTASH_IMPLEMENTATION // Expands implementation
 #include <foreign/fontstash/fontstash.h>
 #include <utils/gui/globjects/GLIncludes.h>

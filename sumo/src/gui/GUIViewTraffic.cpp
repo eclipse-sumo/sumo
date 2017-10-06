@@ -59,7 +59,6 @@
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <gui/GUIApplicationWindow.h>
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/foxtools/MFXImageHelper.h>

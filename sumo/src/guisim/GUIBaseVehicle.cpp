@@ -32,7 +32,6 @@
 #include <cmath>
 #include <vector>
 #include <string>
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>

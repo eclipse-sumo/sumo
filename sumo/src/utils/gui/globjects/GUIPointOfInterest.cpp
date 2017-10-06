@@ -38,7 +38,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/div/GLHelper.h>
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include "GUIPointOfInterest.h"
 

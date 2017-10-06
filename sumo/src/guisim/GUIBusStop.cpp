@@ -49,7 +49,6 @@
 #include <gui/GUIApplicationWindow.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <foreign/polyfonts/polyfonts.h>
 #include <foreign/fontstash/fontstash.h>
 #include <utils/geom/GeomHelper.h>
 #include <guisim/GUIBusStop.h>

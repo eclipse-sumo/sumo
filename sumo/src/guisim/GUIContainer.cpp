@@ -31,7 +31,6 @@
 #include <cmath>
 #include <vector>
 #include <string>
-#include <foreign/polyfonts/polyfonts.h>
 #include <microsim/MSContainer.h>
 #include <microsim/MSCModel_NonInteracting.h>
 #include <microsim/logging/CastingFunctionBinding.h>
