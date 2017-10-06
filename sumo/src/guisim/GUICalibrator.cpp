@@ -39,7 +39,6 @@
 #include <microsim/MSEdge.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIEdge.h>
-#include "GUICalibrator.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
@@ -47,10 +46,11 @@
 #include <gui/GUIApplicationWindow.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <guisim/GUICalibrator.h>
 #include <utils/gui/globjects/GLIncludes.h>
+
+#include "GUICalibrator.h"
 
 
 // ===========================================================================
@@ -385,29 +385,9 @@ GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
         // draw text
         if (s.scale * exaggeration >= 1.) {
             glTranslated(0, 0, .1);
-            glColor3d(0, 0, 0);
-            pfSetPosition(0, 0);
-            pfSetScale(3.f);
-            double w = pfdkGetStringWidth("C");
-            glRotated(180, 0, 1, 0);
-            glTranslated(-w / 2., 2, 0);
-            pfDrawString("C");
-            glTranslated(w / 2., -2, 0);
-
-
-            pfSetPosition(0, 0);
-            pfSetScale(.7f);
-            w = pfdkGetStringWidth(flow.c_str());
-            glTranslated(-w / 2., 4, 0);
-            pfDrawString(flow.c_str());
-            glTranslated(w / 2., -4, 0);
-
-            pfSetPosition(0, 0);
-            pfSetScale(.7f);
-            w = pfdkGetStringWidth(speed.c_str());
-            glTranslated(-w / 2., 5, 0);
-            pfDrawString(speed.c_str());
-            glTranslated(-w / 2., -5, 0);
+            GLHelper::drawText("C", Position(0, 2), 0.1, 3, RGBColor::BLACK, 180);
+            GLHelper::drawText(flow, Position(0, 4), 0.1, 0.7, RGBColor::BLACK, 180);
+            GLHelper::drawText(speed, Position(0, 5), 0.1, 0.7, RGBColor::BLACK, 180);
         }
         glPopMatrix();
     }
