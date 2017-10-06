@@ -334,6 +334,9 @@ public:
     /* @brief map from LinkState to color constants  */
     static const RGBColor& getLinkColor(const LinkState& ls);
 
+    static const RGBColor SUMO_color_E3Entry;
+    static const RGBColor SUMO_color_E3Exit;
+
 
 };
 

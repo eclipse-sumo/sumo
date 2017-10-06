@@ -58,6 +58,11 @@ const RGBColor SUMO_color_ALLWAY_STOP(0, 0, 192);
 const RGBColor SUMO_color_ZIPPER(192, 128, 64);
 const RGBColor SUMO_color_DEADEND(0, 0, 0);
 
+/* -------------------------------------------------------------------------
+ * color constants for other objects
+ * ----------------------------------------------------------------------- */
+const RGBColor GUIVisualizationSettings::SUMO_color_E3Entry(0, 92, 64);
+const RGBColor GUIVisualizationSettings::SUMO_color_E3Exit(92, 0, 0);
 
 // ===========================================================================
 // member method definitions

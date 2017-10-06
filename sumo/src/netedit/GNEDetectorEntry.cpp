@@ -137,7 +137,7 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
     if (isAdditionalSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
-        GLHelper::setColor(RGBColor(0, 204, 0));
+        GLHelper::setColor(s.SUMO_color_E3Entry);
     }
     const double exaggeration = s.addSize.getExaggeration(s);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

@@ -101,12 +101,12 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
-    glColor3d(0, .8, 0);
+    GLHelper::setColor(s.SUMO_color_E3Entry);
     const double exaggeration = s.addSize.getExaggeration(s);
     for (i = myEntryDefinitions.begin(); i != myEntryDefinitions.end(); ++i) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, exaggeration);
     }
-    glColor3d(.8, 0, 0);
+    GLHelper::setColor(s.SUMO_color_E3Exit);
     for (i = myExitDefinitions.begin(); i != myExitDefinitions.end(); ++i) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, exaggeration);
     }
