@@ -18,19 +18,19 @@ from setuptools import setup, find_packages
 setup(
     name='sumolib',
 
-    version='0.29.1',
+    version='0.31.0',
 
     url='http://sumo.dlr.de/wiki/Tools/Sumolib',
     author='DLR and contributors',
     author_email='sumo@dlr.de',
 
-    license='GNU GPL v3',
+    license='EPL v2',
 
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
-        'LICENSE :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+        'LICENSE :: OSI Approved :: Eclipse Public License v2 (EPLv2)',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',

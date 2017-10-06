@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2017 German Aerospace Center (DLR) and others.
 # SUMOPy module
@@ -12,11 +13,10 @@
 # @date    
 # @version $Id$
 
-#!/usr/bin/env python
 """OpenGL editor"""
 if __name__ == '__main__':
     __version__ = "0.1a"
-    __licence__ = """licensed under the GPL."""
+    __licence__ = """licensed under the EPL."""
     __copyright__ = "(c) 2012-2017 University of Bologna - DICAM"
     __author__ = "Joerg Schweizer"
 

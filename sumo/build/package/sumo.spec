@@ -21,7 +21,7 @@ Name:           sumo
 Version:        svn
 Release:        0
 Summary:        Simulation of Urban Mobility - A Microscopic Traffic Simulation
-License:        GPL-3.0+
+License:        EPL-2.0
 Group:          Productivity/Scientific/Other
 Url:            http://sumo.dlr.de/
 Source0:        sumo-src-%{version}.tar.gz

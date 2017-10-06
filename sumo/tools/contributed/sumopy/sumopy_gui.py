@@ -21,7 +21,7 @@ bicycle and Personal Rapid Transit (PRT). SUMOPy consists of a GUI interface, ne
 """
 __appname__ = "SUMOPy"
 __version__ = "2.0"
-__licence__ = """SUMOPy as well as SUMO is licensed under the GPL."""
+__licence__ = """SUMOPy as well as SUMO are licensed under the EPL."""
 __copyright__ = "(c) 2012-2017 University of Bologna - DICAM"
 __author__ = "Joerg Schweizer"
 __usage__ = """USAGE:
