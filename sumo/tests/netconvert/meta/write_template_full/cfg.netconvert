@@ -161,6 +161,7 @@
         <osm.stop-output.length.bus value="15" type="FLOAT" help="The default length of a bus stop in FLOAT m"/>
         <osm.stop-output.length.tram value="25" type="FLOAT" help="The default length of a tram stop in FLOAT m"/>
         <osm.stop-output.length.train value="200" type="FLOAT" help="The default length of a train stop in FLOAT m"/>
+        <osm.all-attributes value="false" type="BOOL" help="Whether additional attributes shall be imported"/>
         <opendrive.import-all-lanes value="false" type="BOOL" help="Imports all lane types"/>
         <opendrive.ignore-widths value="false" type="BOOL" help="Whether lane widths shall be ignored."/>
         <opendrive.curve-resolution value="2" type="FLOAT" help="The geometry resolution in m when importing curved geometries as line segments."/>

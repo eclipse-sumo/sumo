@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul  5 15:56:38 2017 by SUMO netconvert Version dev-SVN-r25100
+<!-- generated on Fri Oct  6 17:16:14 2017 by SUMO netconvert Version dev-SVN-r26359
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumoID/sumo/data/typemap/opendriveNetconvert.typ.xml,input_types.typ.xml"/>
+        <type-files value="/scr1/sumo/data/typemap/opendriveNetconvert.typ.xml,input_types.typ.xml"/>
         <opendrive-files value="opendrive.xodr"/>
     </input>
 
@@ -104,14 +104,14 @@
     </edge>
 
     <tlLogic id="2" type="static" programID="0" offset="0">
-        <param key="connection:501.0.00" value="_Sg32"/>
-        <param key="connection:502.0.00" value="_Sg22"/>
-        <param key="connection:514.0.00" value="_Sg42"/>
-        <param key="connection:516.0.00" value="_Sg12"/>
         <phase duration="42" state="GGGgrrrrGGGgrrrr"/>
         <phase duration="3" state="yyyyrrrryyyyrrrr"/>
         <phase duration="42" state="rrrrGGGgrrrrGGGg"/>
         <phase duration="3" state="rrrryyyyrrrryyyy"/>
+        <param key="connection:501.0.00" value="_Sg32"/>
+        <param key="connection:502.0.00" value="_Sg22"/>
+        <param key="connection:514.0.00" value="_Sg42"/>
+        <param key="connection:516.0.00" value="_Sg12"/>
     </tlLogic>
 
     <junction id="2" type="traffic_light" x="200.00" y="86.70" incLanes="501.0.00_0 501.0.00_1 516.0.00_0 516.0.00_1 514.0.00_0 514.0.00_1 502.0.00_0 502.0.00_1" intLanes="" shape="201.06,95.40 208.70,87.76 208.70,85.64 201.06,78.00 198.94,78.00 191.30,85.64 191.30,87.76 198.94,95.40">

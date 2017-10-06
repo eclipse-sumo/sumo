@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul  5 15:56:38 2017 by SUMO netconvert Version dev-SVN-r25100
+<!-- generated on Fri Oct  6 17:16:14 2017 by SUMO netconvert Version dev-SVN-r26359
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -132,14 +132,14 @@
     </edge>
 
     <tlLogic id="2" type="static" programID="0" offset="0">
-        <param key="connection:-71.0.00" value="_Sg270"/>
-        <param key="connection:82.0.00" value="_Sg269"/>
-        <param key="connection:88.0.00" value="_Sg267"/>
-        <param key="connection:89.0.00" value="_Sg218"/>
         <phase duration="42" state="rrrGGgrrrGGg"/>
         <phase duration="3" state="rrryyyrrryyy"/>
         <phase duration="42" state="GGgrrrGGgrrr"/>
         <phase duration="3" state="yyyrrryyyrrr"/>
+        <param key="connection:-71.0.00" value="_Sg270"/>
+        <param key="connection:82.0.00" value="_Sg269"/>
+        <param key="connection:88.0.00" value="_Sg267"/>
+        <param key="connection:89.0.00" value="_Sg218"/>
     </tlLogic>
 
     <junction id="2" type="traffic_light" x="278.31" y="273.74" incLanes="82.0.00_0 88.0.00_0 88.0.00_1 88.0.00_2 88.0.00_3 -71.0.00_0 89.0.00_0 89.0.00_1 89.0.00_2 89.0.00_3" intLanes="" shape="287.30,276.26 292.68,270.90 287.78,264.46 271.13,264.38 264.32,267.38 264.29,274.98 265.78,277.18 282.42,277.27">

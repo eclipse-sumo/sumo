@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r26241
+SUMO netconvert Version dev-SVN-r26359
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -251,6 +251,8 @@ Processing Options:
                                          FLOAT m
   --osm.stop-output.length.train FLOAT  The default length of a train stop in
                                          FLOAT m
+  --osm.all-attributes                 Whether additional attributes shall be
+                                         imported
   --opendrive.import-all-lanes         Imports all lane types
   --opendrive.ignore-widths            Whether lane widths shall be ignored.
   --opendrive.curve-resolution FLOAT   The geometry resolution in m when

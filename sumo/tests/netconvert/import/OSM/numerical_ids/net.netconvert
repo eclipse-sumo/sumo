@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:40 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Fri Oct  6 17:26:55 2017 by SUMO netconvert Version dev-SVN-r26359
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -25,6 +25,7 @@
     </ramp_guessing>
 
     <processing>
+        <osm.all-attributes value="true"/>
         <numerical-ids value="true"/>
         <junctions.join value="true"/>
     </processing>
@@ -1634,6 +1635,7 @@
 
     <edge id="-22917251" from="32266936" to="32266938" name="Teltowkanalbrücke" priority="6" type="highway.tertiary">
         <lane id="-22917251_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="56.01" shape="474.41,48.86 479.23,104.67"/>
+        <param key="bridge" value="true"/>
     </edge>
     <edge id="-24214694" from="32266938" to="32266935" name="Wegedornstraße" priority="6" type="highway.tertiary">
         <lane id="-24214694_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="3.10" shape="479.67,109.75 479.93,112.84"/>
@@ -1661,6 +1663,7 @@
     </edge>
     <edge id="22917251" from="32266938" to="32266936" name="Teltowkanalbrücke" priority="6" type="highway.tertiary">
         <lane id="22917251_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="56.01" shape="475.94,104.95 471.12,49.15"/>
+        <param key="bridge" value="true"/>
     </edge>
     <edge id="24214694" from="32266935" to="32266938" name="Wegedornstraße" priority="6" type="highway.tertiary">
         <lane id="24214694_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="3.10" shape="476.65,113.13 476.38,110.03"/>

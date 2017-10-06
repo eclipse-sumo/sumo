@@ -429,6 +429,9 @@
         <!-- The default length of a train stop in FLOAT m -->
         <osm.stop-output.length.train value="200" type="FLOAT"/>
 
+        <!-- Whether additional attributes shall be imported -->
+        <osm.all-attributes value="false" type="BOOL"/>
+
         <!-- Imports all lane types -->
         <opendrive.import-all-lanes value="false" type="BOOL"/>
 

@@ -1,4 +1,4 @@
-# Generated on Tue Sep 19 08:53:12 2017 by SUMO netconvert Version dev-SVN-r26075
+# Generated on Fri Oct  6 17:26:53 2017 by SUMO netconvert Version dev-SVN-r26359
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
@@ -30,6 +30,7 @@
 #     </ramp_guessing>
 # 
 #     <processing>
+#         <osm.all-attributes value="true"/>
 #         <numerical-ids value="true"/>
 #         <reserved-ids value="edge_ids.txt"/>
 #         <geometry.remove value="true"/>
