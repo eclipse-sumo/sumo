@@ -89,48 +89,65 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         self._value = ""
         self._hadEOL = False
         self._hadKeywords = False
+        self._haveFixed = False
+
+    def checkDoxyLines(self, lines, idx, comment="///"):
+        fileRef = "%s @file    %s\n" % (comment, os.path.basename(self._file))
+        s = lines[idx].split()
+        if s != fileRef.split():
+            print(self._file, "broken @file reference", lines[idx].rstrip())
+            if self._fix and lines[idx].startswith("/// @file"):
+                lines[idx] = fileRef
+                self._haveFixed = True
+        idx += 1
+        s = lines[idx].split()
+        if s[:2] != [comment, "@author"]:
+            print(self._file, "broken @author reference", s)
+        idx += 1
+        while lines[idx].split()[:2] == [comment, "@author"]:
+            idx += 1
+        s = lines[idx].split()
+        if s[:2] != [comment, "@date"]:
+            print(self._file, "broken @date reference", s)
+        idx += 1
+        s = lines[idx].split()
+        if s[:2] != [comment, "@version"]:
+            print(self._file, "broken @version reference", s)
+        idx += 1
+        if lines[idx] not in (comment + "\n", "\n"):
+            print(self._file, "missing empty line", idx, lines[idx].rstrip())
+        idx += 1
+        while idx < len(lines) and lines[idx].split()[:1] == ["//"]:
+            idx += 1
+        return idx
 
     def checkFileHeader(self, ext):
         lines = open(self._file).readlines()
         if len(lines) == 0:
             print(self._file, "is empty")
             return
-        haveFixed = False
+        self._haveFixed = False
+        idx = 0
         if ext in (".cpp", ".h"):
-            if lines[0] == SEPARATOR:
-                fileRef = "/// @file    %s\n" % os.path.basename(self._file)
-                if lines[1] != fileRef:
-                    print(self._file, "broken @file reference", lines[1].rstrip())
-                    if self._fix and lines[1].startswith("/// @file"):
-                        lines[1] = fileRef
-                        haveFixed = True
-                s = lines[2].split()
-                if s[:2] != ["///", "@author"]:
-                    print(self._file, "broken @author reference", s)
-                idx = 3
-                while lines[idx].split()[:2] == ["///", "@author"]:
-                    idx += 1
-                s = lines[idx].split()
-                if s[:2] != ["///", "@date"]:
-                    print(self._file, "broken @date reference", s)
-                idx += 1
-                s = lines[idx].split()
-                if s[:2] != ["///", "@version"]:
-                    print(self._file, "broken @version reference", s)
-                idx += 1
-                if lines[idx] != "///\n":
-                    print(self._file, "missing empty line", idx, lines[idx].rstrip())
-                idx += 1
-                while lines[idx].split()[:1] == ["//"]:
-                    idx += 1
+            if lines[idx] == SEPARATOR:
+                haveEPL = "Eclipse" in lines[1]
+                if not haveEPL:
+                    idx = self.checkDoxyLines(lines, 1)
                 if lines[idx] != SEPARATOR:
                     print(self._file, "missing license start", idx, lines[idx].rstrip())
                 year = lines[idx + 2][17:21]
-                license = GPL_HEADER.replace("2001", year)
-                if "module" in lines[idx + 3]:
-                    fileLicense = "".join(lines[idx:idx + 3]) + "".join(lines[idx + 5:idx + 14])
+                if haveEPL:
+                    license = EPL_HEADER
+                    end = idx + 11
                 else:
-                    fileLicense = "".join(lines[idx:idx + 12])
+                    license = GPL_HEADER
+                    end = idx + 12
+                license = license.replace("2001", year)
+                if "module" in lines[idx + 3]:
+                    end += 2
+                    fileLicense = "".join(lines[idx:idx + 3]) + "".join(lines[idx + 5:end])
+                else:
+                    fileLicense = "".join(lines[idx:end])
                 if fileLicense != license:
                     print(self._file, "invalid license")
                     if options.verbose:
@@ -138,87 +155,74 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                         print(license)
                 elif self._epl:
                     newLicense = EPL_HEADER.replace("2001", year).splitlines(True)
-                    end = idx + 12
                     if "module" in lines[idx + 3]:
                         newLicense[3:3] = lines[idx+3:idx+5]
-                        end += 2
                     lines[idx:end] = newLicense
                     lines[end-2:end-2] = lines[:idx]
                     lines[:idx] = []
-                    haveFixed = True
+                    self._haveFixed = True
+                if haveEPL:
+                    self.checkDoxyLines(lines, end)
             else:
                 print(self._file, "header does not start")
         if ext in (".py", ".pyw"):
-            idx = 0
             if lines[0][:2] == '#!':
                 idx += 1
                 if lines[0] != '#!/usr/bin/env python\n':
                     print(self._file, "wrong shebang")
                     if self._fix:
                         lines[0] = '#!/usr/bin/env python\n'
-                        haveFixed = True
+                        self._haveFixed = True
             if lines[idx][:5] == '# -*-':
                 idx += 1
-            if lines[idx] != '"""\n':
-                print(self._file, "header does not start")
+            haveEPL = "Eclipse" in lines[idx]
+            if haveEPL:
+                license = EPL_HEADER.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "")
+                end = idx + 6
             else:
-                idx += 1
-                pre = idx
-                fileRef = "@file    %s\n" % os.path.basename(self._file)
-                if lines[idx] != fileRef:
-                    print(self._file, "broken @file reference", lines[idx].rstrip())
-                    if self._fix and lines[idx].startswith("@file"):
-                        lines[idx] = fileRef
-                        haveFixed = True
-                idx += 1
-                if not lines[idx].startswith("@author "):
-                    print(self._file, "broken @author reference", lines[idx].rstrip())
-                idx += 1
-                while lines[idx].startswith("@author "):
+                if lines[idx] != '"""\n':
+                    print(self._file, "header does not start")
+                else:
+                    pre = idx
+                    idx = self.checkDoxyLines(lines, 1, "")
+                    atlines = idx
                     idx += 1
-                if not lines[idx].startswith("@date "):
-                    print(self._file, "broken @date reference", lines[idx].rstrip())
-                idx += 1
-                if not lines[idx].startswith("@version "):
-                    print(self._file, "broken @version reference", lines[idx].rstrip())
-                idx += 1
-                if lines[idx] != "\n":
-                    print(self._file, "missing empty line", idx, lines[idx].rstrip())
-                atlines = idx
-                idx += 1
-                while idx < len(lines) and lines[idx][:4] != "SUMO":
-                    idx += 1
+                    while idx < len(lines) and lines[idx][:4] != "SUMO":
+                        idx += 1
                 if idx == len(lines):
                     print(self._file, "license not found")
+                license = GPL_HEADER.replace("//   ", "").replace("// ", "").replace("\n//", "\n")[:-1]
+                end = idx + 8
+            year = lines[idx + 1][16:20]
+            license = license.replace("2001", year).replace(SEPARATOR, "")
+            if "module" in lines[idx + 2]:
+                end += 2
+                fileLicense = "".join(lines[idx:idx + 2]) + "".join(lines[idx + 4:end])
+            else:
+                fileLicense = "".join(lines[idx:end])
+            if fileLicense != license:
+                print(self._file, "invalid license")
+                if options.verbose:
+                    print("!!%s!!" % os.path.commonprefix([fileLicense, license]))
+                    print(fileLicense)
+                    print(license)
+            elif self._epl:
+                newLicense = EPL_HEADER.replace("2001", year).replace(SEPARATOR, "")
+                newLicense = newLicense.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "").splitlines(True)
+                end = idx + 8
+                if "module" in lines[idx + 2]:
+                    newLicense[2:2] = ["# " + l for l in lines[idx+2:idx+4]]
+                    end += 2
+                newLines = lines[:pre-1] + newLicense + ["\n"] + ["# " + l for l in lines[pre:atlines]]
+                if atlines < idx - 3:
+                    newLines += ["\n", '"""\n'] + lines[atlines+1:idx-1] + lines[end:]
                 else:
-                    year = lines[idx + 1][14:18]
-                    license = GPL_HEADER.replace("2001", year).replace(SEPARATOR, "")
-                    license = license.replace("//   ", "").replace("// ", "").replace("\n//", "\n")[:-1]
-                    if "module" in lines[idx + 2]:
-                        fileLicense = "".join(lines[idx:idx + 2]) + "".join(lines[idx + 4:idx + 10])
-                    else:
-                        fileLicense = "".join(lines[idx:idx + 8])
-                    if fileLicense != license:
-                        print(self._file, "invalid license")
-                        if options.verbose:
-                            print("!!%s!!" % os.path.commonprefix([fileLicense, license]))
-                            print(fileLicense)
-                            print(license)
-                    elif self._epl:
-                        newLicense = EPL_HEADER.replace("2001", year).replace(SEPARATOR, "")
-                        newLicense = newLicense.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "").splitlines(True)
-                        end = idx + 8
-                        if "module" in lines[idx + 2]:
-                            newLicense[2:2] = ["# " + l for l in lines[idx+2:idx+4]]
-                            end += 2
-                        newLines = lines[:pre-1] + newLicense + ["\n"] + ["# " + l for l in lines[pre:atlines]]
-                        if atlines < idx - 3:
-                            newLines += ["\n", '"""\n'] + lines[atlines+1:idx-1] + lines[end:]
-                        else:
-                            newLines += ["\n"] + lines[end+1:]
-                        lines = newLines
-                        haveFixed = True
-        if haveFixed:
+                    newLines += ["\n"] + lines[end+1:]
+                lines = newLines
+                self._haveFixed = True
+            if haveEPL:
+                self.checkDoxyLines(lines, end+1, "#")
+        if self._haveFixed:
             open(self._file, "w").write("".join(lines))
 
     def startElement(self, name, attrs):
