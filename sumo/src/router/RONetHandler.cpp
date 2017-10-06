@@ -222,6 +222,8 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
     // add when both values are valid
     if (maxSpeed > 0 && length > 0 && id.length() > 0) {
         myCurrentEdge->addLane(new ROLane(id, myCurrentEdge, length, maxSpeed, permissions));
+    } else {
+        WRITE_WARNING("Ignoring lane '" + id + "' with speed " + toString(maxSpeed) + " and length " + toString(length));
     }
 }
 
