@@ -1,3 +1,6 @@
 # tests for ignoring keepClear rules
 ignoreKeepClear
 driveAfterRedTime
+
+# tests for ignoring right of way
+ignoreRightOfWay

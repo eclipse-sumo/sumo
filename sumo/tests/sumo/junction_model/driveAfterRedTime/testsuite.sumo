@@ -30,3 +30,6 @@ red_15s_brake_junction_foes_stopped
 
 # vehicle ignores red lights but must brake for foe vehicles that are too fast to stop
 red_15s_brake_foes
+
+# vehicle ignores red light (this time coming from the other direction
+red_15s_EW

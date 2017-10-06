@@ -1,0 +1,2 @@
+Warning: Teleporting vehicle 'ego.1'; collision with vehicle 'foe.1', lane=':C_3_0', gap=-1.00, time=104.00 stage=laneChange.
+Warning: Vehicle 'ego.1' ends teleporting on edge 'CE', time 104.00.

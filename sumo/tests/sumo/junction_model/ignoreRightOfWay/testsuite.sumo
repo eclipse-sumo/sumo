@@ -1,0 +1,11 @@
+# vehicles from the side road ignore the main road
+EW_ignores
+
+# some vehicles from the side road ignore the main road
+EW_ignores_some
+
+# left turning vehicles from the main road ignore foes
+NE_ignores
+
+# left turning vehicles from the main road ignore foes but only while they still stand
+NE_tls_ignore_slow
