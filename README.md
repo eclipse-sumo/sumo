@@ -37,12 +37,11 @@ the following command should work:
 Mailing List.
 =============
 
-To stay informed, we have a mailing list for SUMO. To subscribe, send mail to
-sumo-user-request@lists.sourceforge.net with the word subscribe in the message body.
-Messages to the list can be sent to sumo-user@lists.sourceforge.net.
-SUMO announcements will be made through the sumo-announce@lists.sourceforge.net list;
-you can subscribe to this list by sending a message "subscribe" to the list server at
-sumo-announce-request@lists.sourceforge.net.
+To stay informed, we have a mailing list for SUMO. You can subscribe at
+https://dev.eclipse.org/mailman/listinfo/sumo-user.
+Messages to the list can be sent to sumo-user@eclipse.org.
+SUMO announcements will be made through the sumo-announce@eclipse.org list;
+you can subscribe to this list at https://dev.eclipse.org/mailman/listinfo/sumo-announce.
 
 
 
@@ -80,16 +79,16 @@ Please use for bugs and requests our bug tracking tool which provides OpenID acc
 
         http://sumo.dlr.de/trac/
 
-or file them to the list sumo-users@lists.sourceforge.net. Before
+or file them to the list sumo-users@eclipse.org. Before
 filing a bug, please consider to check with a current subversion checkout
-that the problem still persists.
+whether the problem has already been fixed.
 
 
 
 License.
 ========
 
-SUMO is licensed under GPL, see the file COPYING for details. For the licenses of
-the different libraries and supplementary code, see 
+SUMO is licensed under the Eclipse Public License Version 2, see the file COPYING
+for details. For the licenses of the different libraries and supplementary code, see 
 
         http://sumo.dlr.de/wiki/License
