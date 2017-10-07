@@ -44,6 +44,7 @@
 // ===========================================================================
 // static member variables
 // ===========================================================================
+
 GeoConvHelper GeoConvHelper::myProcessing("!", Position(), Boundary(), Boundary());
 GeoConvHelper GeoConvHelper::myLoaded("!", Position(), Boundary(), Boundary());
 GeoConvHelper GeoConvHelper::myFinal("!", Position(), Boundary(), Boundary());
@@ -52,6 +53,7 @@ int GeoConvHelper::myNumLoaded = 0;
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
                              const Boundary& orig, const Boundary& conv, double scale, bool inverse):
     myProjString(proj),
@@ -179,11 +181,8 @@ GeoConvHelper::init(OptionsCont& oc) {
 
 
 void
-GeoConvHelper::init(const std::string& proj,
-                    const Position& offset,
-                    const Boundary& orig,
-                    const Boundary& conv,
-                    double scale) {
+GeoConvHelper::init(const std::string& proj, const Position& offset, const Boundary& orig,
+                    const Boundary& conv, double scale) {
     myProcessing = GeoConvHelper(proj, offset, orig, conv, scale);
     myFinal = myProcessing;
 }
