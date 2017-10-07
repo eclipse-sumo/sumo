@@ -76,7 +76,7 @@ public:
 
     /** @brief parses node attributes (not related to positioning)
      */
-    static void processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position,
+    static NBNode* processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position,
                                 bool updateEdgeGeometries,
                                 NBNodeCont& nc, NBTrafficLightLogicCont& tlc);
 
@@ -96,6 +96,13 @@ protected:
      */
     void myStartElement(int element,
                         const SUMOSAXAttributes& attrs);
+    /** @brief Called when a closing tag occurs
+     *
+     * @param[in] element ID of the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myEndElement
+     */
+    void myEndElement(int element);
     //@}
 
 
@@ -152,6 +159,8 @@ private:
     /// @brief The coordinate transformation which was used compute the node coordinates
     GeoConvHelper* myLocation;
 
+    /// @brief last item the could receive parameters
+    Parameterised* myLastParameterised;
 
 private:
     /** @brief invalid copy constructor */

@@ -92,6 +92,14 @@ NIXMLTrafficLightsHandler::myStartElement(
         case SUMO_TAG_DELETE:
             removeTlConnection(attrs);
             break;
+        case SUMO_TAG_PARAM:
+            if (myCurrentTL != 0) {
+                bool ok = true;
+                const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+                // circumventing empty string test
+                const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+                myCurrentTL->setParameter(key, val);
+            }
         default:
             break;
     }

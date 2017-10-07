@@ -63,18 +63,18 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont& nc,
                                      NBTypeCont& tc,
                                      NBDistrictCont& dc,
                                      NBTrafficLightLogicCont& tlc,
-                                     OptionsCont& options)
-    : SUMOSAXHandler("xml-edges - file"),
-      myOptions(options),
-      myNodeCont(nc),
-      myEdgeCont(ec),
-      myTypeCont(tc),
-      myDistrictCont(dc),
-      myTLLogicCont(tlc),
-      myCurrentEdge(0), myHaveReportedAboutOverwriting(false),
-      myHaveReportedAboutTypeOverride(false),
-      myHaveWarnedAboutDeprecatedLaneId(false),
-      myKeepEdgeShape(!options.getBool("plain.extend-edge-shape")) {
+                                     OptionsCont& options) : 
+    SUMOSAXHandler("xml-edges - file"),
+    myOptions(options),
+    myNodeCont(nc),
+    myEdgeCont(ec),
+    myTypeCont(tc),
+    myDistrictCont(dc),
+    myTLLogicCont(tlc),
+    myCurrentEdge(0), myHaveReportedAboutOverwriting(false),
+    myHaveReportedAboutTypeOverride(false),
+    myHaveWarnedAboutDeprecatedLaneId(false),
+    myKeepEdgeShape(!options.getBool("plain.extend-edge-shape")) {
 }
 
 
@@ -103,6 +103,14 @@ NIXMLEdgesHandler::myStartElement(int element,
         case SUMO_TAG_ROUNDABOUT:
             addRoundabout(attrs);
             break;
+        case SUMO_TAG_PARAM:
+            if (myLastParameterised.size() != 0) {
+                bool ok = true;
+                const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+                // circumventing empty string test
+                const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+                myLastParameterised.back()->setParameter(key, val);
+            }
         default:
             break;
     }
@@ -276,6 +284,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     if (myPermissions != SVC_UNSPECIFIED) {
         myCurrentEdge->setPermissions(myPermissions);
     }
+    myLastParameterised.push_back(myCurrentEdge);
 }
 
 
@@ -342,6 +351,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
         }
         myCurrentEdge->setLaneShape(lane, shape);
     }
+    myLastParameterised.push_back(&myCurrentEdge->getLaneStruct(lane));
 }
 
 
@@ -513,6 +523,7 @@ NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes& attrs) {
 void
 NIXMLEdgesHandler::myEndElement(int element) {
     if (element == SUMO_TAG_EDGE && myCurrentEdge != 0) {
+        myLastParameterised.pop_back();
         // add bike lane, wait until lanes are loaded to avoid building if it already exists
         if (myBikeLaneWidth != NBEdge::UNSPECIFIED_WIDTH) {
             myCurrentEdge->addBikeLane(myBikeLaneWidth);
@@ -659,6 +670,8 @@ NIXMLEdgesHandler::myEndElement(int element) {
             }
         }
         myCurrentEdge = 0;
+    } else if (element == SUMO_TAG_LANE) {
+        myLastParameterised.pop_back();
     }
 }
 

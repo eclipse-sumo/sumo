@@ -62,8 +62,9 @@ NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont& nc,
     myOptions(options),
     myNodeCont(nc),
     myTLLogicCont(tlc),
-    myLocation(0) {
-}
+    myLocation(0),
+    myLastParameterised(0)
+{ }
 
 
 NIXMLNodesHandler::~NIXMLNodesHandler() {
@@ -89,6 +90,26 @@ NIXMLNodesHandler::myStartElement(int element,
             break;
         case SUMO_TAG_DELETE:
             deleteNode(attrs);
+            break;
+        case SUMO_TAG_PARAM:
+            if (myLastParameterised != 0) {
+                bool ok = true;
+                const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+                // circumventing empty string test
+                const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+                myLastParameterised->setParameter(key, val);
+            }
+        default:
+            break;
+    }
+}
+
+
+void
+NIXMLNodesHandler::myEndElement(int element) {
+    switch (element) {
+        case SUMO_TAG_NODE:
+            myLastParameterised = 0;
             break;
         default:
             break;
@@ -141,11 +162,12 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
     if (myOptions.getBool("flip-y-axis")) {
         myPosition.mul(1.0, -1.0);
     }
-    processNodeType(attrs, node, myID, myPosition, updateEdgeGeometries, myNodeCont, myTLLogicCont);
+    node = processNodeType(attrs, node, myID, myPosition, updateEdgeGeometries, myNodeCont, myTLLogicCont);
+    myLastParameterised = node;
 }
 
 
-void
+NBNode*
 NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position,
                                    bool updateEdgeGeometries,
                                    NBNodeCont& nc, NBTrafficLightLogicCont& tlc) {
@@ -204,6 +226,7 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     if (attrs.hasAttribute(SUMO_ATTR_KEEP_CLEAR)) {
         node->setKeepClear(attrs.get<bool>(SUMO_ATTR_KEEP_CLEAR, nodeID.c_str(), ok));
     }
+    return node;
 }
 
 

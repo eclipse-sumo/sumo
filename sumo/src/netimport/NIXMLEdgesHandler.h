@@ -294,6 +294,8 @@ private:
     /// @brief Whether the edge shape shall be kept generally
     const bool myKeepEdgeShape;
 
+    /// @brief element to receive parameters
+    std::vector<Parameterised*> myLastParameterised;
 
 private:
 

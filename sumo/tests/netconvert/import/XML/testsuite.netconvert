@@ -75,5 +75,7 @@ node_radius
 
 # set a non-default node-radius
 node_radius_default
-
 connection_guessing
+
+# import params from plain xml
+params
