@@ -224,9 +224,7 @@
     <connection from="NC" to="CS" fromLane="1" toLane="1" via=":C_1_1" tl="C" linkIndex="2" dir="s" state="o"/>
     <connection from="NC" to="CE" fromLane="1" toLane="1" via=":C_3_0" tl="C" linkIndex="3" dir="l" state="o"/>
     <connection from="NC" to="CN" fromLane="1" toLane="1" via=":C_4_0" tl="C" linkIndex="4" dir="t" state="o"/>
-    <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_9_0" tl="C" linkIndex="9" dir="r" state="o">
-        <param key="userData_connection" value="connections what params too"/>
-    </connection>
+    <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_9_0" tl="C" linkIndex="9" dir="r" state="o"/>
     <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_10_0" tl="C" linkIndex="10" dir="s" state="o"/>
     <connection from="SC" to="CN" fromLane="1" toLane="1" via=":C_10_1" tl="C" linkIndex="11" dir="s" state="o"/>
     <connection from="SC" to="CW" fromLane="1" toLane="1" via=":C_12_0" tl="C" linkIndex="12" dir="l" state="o"/>
