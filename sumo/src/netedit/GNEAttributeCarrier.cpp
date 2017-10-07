@@ -305,6 +305,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
             case SUMO_TAG_POI:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE)); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LON, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAT, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_GEO, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "red"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
@@ -932,6 +935,8 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
             myUniqueAttrs[SUMO_TAG_JUNCTION].insert(SUMO_ATTR_TLID);
             // POI
             myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_POSITION);
+            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LON);
+            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LAT);
             // Rerouter
             myUniqueAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_EDGES);
             myUniqueAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_FILE);

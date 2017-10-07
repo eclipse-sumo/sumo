@@ -1933,7 +1933,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
     // check if ID is duplicated
     if (myPOIs.get(id) == NULL) {
         // create poly
-        GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, pos, width, height, false);
+        GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, pos, false, width, height, false);
         if (myPOIs.add(poi->getID(), poi)) {
             myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
             myViewNet->getUndoList()->add(new GNEChange_POI(this, poi, true), true);

@@ -330,6 +330,7 @@ GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string>& POIValues) {
     if (myViewNet->getNet()->addPOI(id, type, color, layer, angle, imgFile, pos, widthPOI, heightPOI)) {
         // Set manually the attribute block movement
         GNEPOI* poi = myViewNet->getNet()->retrievePOI(id);
+        poi->setAttribute(SUMO_ATTR_GEO, POIValues.at(SUMO_ATTR_GEO), myViewNet->getUndoList());
         poi->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, POIValues.at(GNE_ATTR_BLOCK_MOVEMENT), myViewNet->getUndoList());
         myViewNet->getUndoList()->p_end();
         return true;
@@ -389,10 +390,13 @@ void GNEPolygonFrame::DrawingMode::hide() {
 
 void
 GNEPolygonFrame::DrawingMode::startDrawing() {
-    // change buttons
-    myStartDrawingButton->disable();
-    myStopDrawingButton->enable();
-    myAbortDrawingButton->enable();
+    // Only start drawing if DrawingMode modul is shown
+    if(shown()) {
+        // change buttons
+        myStartDrawingButton->disable();
+        myStopDrawingButton->enable();
+        myAbortDrawingButton->enable();
+    }
 }
 
 

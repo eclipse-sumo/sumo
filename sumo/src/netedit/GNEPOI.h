@@ -63,12 +63,13 @@ public:
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the shape
      * @param[in] pos The position of the POI
+     * @param[in] useGEO Enable or disable save poi using GEO coordinates
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
      * @param[in] movementBlocked if movement of POI is blocked
      */
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle,
-           const std::string& imgFile, const Position& pos, double width, double height, bool movementBlocked);
+           const std::string& imgFile, const Position& pos, bool useGEO, double width, double height, bool movementBlocked);
 
     /// @brief Destructor
     ~GNEPOI();
@@ -155,12 +156,17 @@ public:
     /// @}
 
 protected:
-
     /// @brief lane in which this POI can be placed
     GNELane* myLane;
 
     /// @brief position over lane
     double myPositionOverLane;
+
+    /// @brief enable or disable save POI as GEO coordinate
+    bool myUseGEO;
+
+    /// @brief Position of POI in GEO coordinates
+    Position myGEOPosition;
 
 private:
     /// @brief set attribute after validation

@@ -168,7 +168,7 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
 
 
 void GNEPoly::writeShape(OutputDevice& device) {
-    writeXML(device);
+    writeXML(device, myUseGEO);
 }
 
 
