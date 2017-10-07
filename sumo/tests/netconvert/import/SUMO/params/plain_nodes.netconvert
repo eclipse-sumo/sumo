@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct  6 14:30:14 2017 by SUMO netconvert Version dev-SVN-r26359
+<!-- generated on Sat Oct  7 21:53:57 2017 by SUMO netconvert Version dev-SVN-r24506
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -33,7 +33,9 @@
 <nodes version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
-    <node id="C" x="100.00" y="100.00" type="traffic_light" tl="C"/>
+    <node id="C" x="100.00" y="100.00" type="traffic_light" tl="C">
+        <param key="userData_junction" value="what a lovely junction"/>
+    </node>
     <node id="E" x="200.00" y="100.00" type="priority"/>
     <node id="N" x="100.00" y="200.00" type="priority"/>
     <node id="S" x="100.00" y="0.00" type="priority"/>

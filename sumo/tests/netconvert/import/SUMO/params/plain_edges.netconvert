@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct  6 14:30:14 2017 by SUMO netconvert Version dev-SVN-r26359
+<!-- generated on Sat Oct  7 21:53:57 2017 by SUMO netconvert Version dev-SVN-r24506
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -37,6 +37,13 @@
     <edge id="CW" from="C" to="W" priority="2" numLanes="2" speed="13.89"/>
     <edge id="EC" from="E" to="C" priority="2" numLanes="2" speed="13.89"/>
     <edge id="NC" from="N" to="C" priority="2" numLanes="2" speed="13.89"/>
-    <edge id="SC" from="S" to="C" priority="2" numLanes="2" speed="13.89"/>
-    <edge id="WC" from="W" to="C" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="SC" from="S" to="C" priority="2" numLanes="2" speed="13.89">
+        <lane index="0">
+            <param key="origId" value="edge formerly known as &apos;3&apos;"/>
+        </lane>
+        <lane index="1"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="2" numLanes="2" speed="13.89">
+        <param key="userData" value="42"/>
+    </edge>
 </edges>

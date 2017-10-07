@@ -147,6 +147,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
         if (n->getKeepClear() == false) {
             device.writeAttr<bool>(SUMO_ATTR_KEEP_CLEAR, n->getKeepClear());
         }
+        n->writeParams(device);
         device.closeTag();
     }
     device.close();
@@ -262,9 +263,11 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                     edevice.writeAttr(SUMO_ATTR_LANE, lane.oppositeID);
                     edevice.closeTag();
                 }
+                lane.writeParams(edevice);
                 edevice.closeTag();
             }
         }
+        e->writeParams(edevice);
         edevice.closeTag();
         // write this edge's connections to the connections-files
         const std::vector<NBEdge::Connection> connections = e->getConnections();

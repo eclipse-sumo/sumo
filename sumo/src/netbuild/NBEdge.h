@@ -999,6 +999,9 @@ public:
     /// @brief whether one of the lanes has a custom shape
     bool hasCustomLaneShape() const;
 
+    /// @brief whether one of the lanes has parameters set
+    bool hasLaneParams() const;
+
     /// @brief computes the edge (step1: computation of approached edges)
     bool computeEdge2Edges(bool noLeftMovers);
 

@@ -1847,6 +1847,17 @@ NBEdge::hasCustomLaneShape() const {
     return false;
 }
 
+
+bool
+NBEdge::hasLaneParams() const {
+    for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
+        if (i->getMap().size() > 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool
 NBEdge::needsLaneSpecificOutput() const {
     return (hasLaneSpecificPermissions()
@@ -1855,6 +1866,7 @@ NBEdge::needsLaneSpecificOutput() const {
             || hasLaneSpecificEndOffset()
             || hasAccelLane()
             || hasCustomLaneShape()
+            || hasLaneParams()
             || (!myLanes.empty() && myLanes.back().oppositeID != ""));
 }
 
