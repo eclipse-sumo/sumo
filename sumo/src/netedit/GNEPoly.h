@@ -58,16 +58,17 @@ public:
      * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the polygon
      * @param[in] type The (abstract) type of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] useGEO Enable or disable use GEO coordinates
      * @param[in] color The color of the polygon
      * @param[in] layer The layer of the polygon
      * @param[in] angle The rotation of the polygon
      * @param[in] imgFile The raster image of the polygon
-     * @param[in] shape The shape of the polygon
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] movementBlocked if movement of POI is blocked
      * @param[in] shapeBlocked if shape of POI is blocked
      */
-    GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
+    GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool useGEO, bool fill,
             const RGBColor& color, double layer, double angle, const std::string& imgFile, bool movementBlocked, bool shapeBlocked);
 
     /// @brief Destructor
@@ -195,6 +196,12 @@ public:
 protected:
     /// @brief junction of which the shape is being edited (optional)
     GNENetElement* myNetElementShapeEdited;
+
+    /// @brief enable or disable save shape as GEO coordinate
+    bool myUseGEO;
+
+    /// @brief Latitude of Polygon
+    PositionVector myGeoShape;
 
     /// @brief flag to indicate if polygon is open or closed
     bool myClosedShape;

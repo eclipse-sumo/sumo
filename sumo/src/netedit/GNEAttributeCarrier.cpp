@@ -317,7 +317,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
             case SUMO_TAG_POLY:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SHAPE, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_GEOSHAPE, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "green"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_GEO, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILL, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAYER, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
@@ -813,6 +815,9 @@ GNEAttributeCarrier::isBool(SumoXMLTag tag, SumoXMLAttr attr) {
         myBoolAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_REROUTE);
         // Poly
         myBoolAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_FILL);
+        myBoolAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_GEO);
+        // POI
+        myBoolAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_GEO);
     }
     return myBoolAttrs[tag].count(attr) == 1;
 }
@@ -941,8 +946,11 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
             // POI
             myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LANE);
             myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_POSITION);
+            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LON);
+            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LAT);
             // POLY
             myUniqueAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_SHAPE);
+            myUniqueAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_GEOSHAPE);
         }
         return myUniqueAttrs[tag].count(attr) == 1;
     }
@@ -1235,6 +1243,8 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_ID] = "The id (a unique name) of the polygon";
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_COLOR] = "The RGBA color with which the polygon shall be displayed";
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_SHAPE] = "The shape of the polygon";
+        myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_GEOSHAPE] = "The shape of the polygon in GEO format";
+        myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_GEO] = "Enable or disable save shape in GEO format";
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_FILL] = "An information whether the polygon shall be filled";
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_LAYER] = "The layer in which the polygon lies";
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_TYPE] = "A typename for the polygon";

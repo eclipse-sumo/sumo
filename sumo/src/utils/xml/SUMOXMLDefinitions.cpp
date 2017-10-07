@@ -471,6 +471,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lon",                    SUMO_ATTR_LON },
     { "lat",                    SUMO_ATTR_LAT },
     { "geo",                    SUMO_ATTR_GEO },
+    { "geoShape",               SUMO_ATTR_GEOSHAPE },
     { "k",                      SUMO_ATTR_K },
     { "v",                      SUMO_ATTR_V },
     { "ref",                    SUMO_ATTR_REF },

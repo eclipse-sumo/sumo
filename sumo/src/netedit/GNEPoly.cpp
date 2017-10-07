@@ -66,17 +66,23 @@ const double GNEPoly::myHintSize = 0.8;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
+GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool useGEO, bool fill,
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool movementBlocked, bool shapeBlocked) :
     GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile),
     GNEShape(net, SUMO_TAG_POLY, ICON_LOCATEPOLY, movementBlocked, shapeBlocked),
     myNetElementShapeEdited(NULL),
     myClosedShape(shape.front() == shape.back()),
     mySimplifiedShape(false),
+    myUseGEO(useGEO),
     myCurrentMovingVertexIndex(-1) {
     // check if imgFile is valid
     if(!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
         setImgFile("");
+    }
+    // set GEO shape
+    myGeoShape = myShape;
+    for (int i = 0; i < (int) myGeoShape.size(); i++) {
+        GeoConvHelper::getFinal().cartesian2geo(myGeoShape[i]);
     }
 }
 
@@ -510,6 +516,8 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             return myID;
         case SUMO_ATTR_SHAPE:
             return toString(myShape);
+        case SUMO_ATTR_GEOSHAPE:
+            return toString(myGeoShape);
         case SUMO_ATTR_COLOR:
             return toString(myColor);
         case SUMO_ATTR_FILL:
@@ -522,6 +530,8 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             return myImgFile;
         case SUMO_ATTR_ANGLE:
             return toString(getNaviDegree());
+        case SUMO_ATTR_GEO:
+            return toString(myUseGEO);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_BLOCK_SHAPE:
@@ -542,12 +552,14 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_GEOSHAPE:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_FILL:
         case SUMO_ATTR_LAYER:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_IMGFILE:
         case SUMO_ATTR_ANGLE:
+        case SUMO_ATTR_GEO:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_BLOCK_SHAPE:
         case GNE_ATTR_CLOSE_SHAPE:
@@ -564,7 +576,8 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidID(value) && (myNet->retrievePolygon(value, false) == 0);
-        case SUMO_ATTR_SHAPE: {
+        case SUMO_ATTR_SHAPE: 
+        case SUMO_ATTR_GEOSHAPE: {
             bool ok = true;
             // check if shape can be parsed
             PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
@@ -589,6 +602,8 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_ANGLE:
             return canParse<double>(value);
+        case SUMO_ATTR_GEO:
+            return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_SHAPE:
@@ -630,6 +645,32 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             bool ok = true;
             // set new shape
             myShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
+            // set GEO shape
+            myGeoShape = myShape;
+            for (int i = 0; i < (int) myGeoShape.size(); i++) {
+                GeoConvHelper::getFinal().cartesian2geo(myGeoShape[i]);
+            }
+            // Check if new shape is closed
+            myClosedShape = (myShape.front() == myShape.back());
+            // refresh polygon in net to avoid grabbing problems
+            myNet->refreshPolygon(this);
+            // disable simplified shape flag
+            mySimplifiedShape = false;
+            // update geometry of shape edited element
+            if(myNetElementShapeEdited) {
+                myNetElementShapeEdited->updateGeometry();
+            }
+            break;
+        }  
+        case SUMO_ATTR_GEOSHAPE: {
+            bool ok = true;
+            // set new GEO shape
+            myGeoShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
+            // set shape
+            myShape = myGeoShape ;
+            for (int i = 0; i < (int) myShape.size(); i++) {
+                GeoConvHelper::getFinal().x2cartesian_const(myShape[i]);
+            }
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
             // refresh polygon in net to avoid grabbing problems
@@ -659,6 +700,9 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ANGLE:
             setNaviDegree(parse<double>(value));
+            break;
+        case SUMO_ATTR_GEO:
+            myUseGEO = parse<bool>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);
