@@ -37,7 +37,6 @@
 #include <cassert>
 #include <limits>
 #include <fxkeys.h>
-#include <foreign/polyfonts/polyfonts.h>
 #include <foreign/gl2ps/gl2ps.h>
 #include <utils/foxtools/FXSingleEventThread.h>
 #include <utils/foxtools/MFXCheckableButton.h>
@@ -61,6 +60,7 @@
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <foreign/fontstash/fontstash.h>
 
 #include "GUISUMOAbstractView.h"
 #include "GUIMainWindow.h"
@@ -522,18 +522,11 @@ GUISUMOAbstractView::displayLegend() {
     glVertex2d(-.98 + len, -1. + o2);
     glEnd();
 
-    double w = double(35) / double(getWidth());
-    double h = double(35) / double(getHeight());
-    pfSetPosition(double(-0.99), double(1. - o2 - oo));
-    pfSetScaleXY(w, h);
-    glRotated(180, 1, 0, 0);
-    pfDrawString("0m");
-    glRotated(-180, 1, 0, 0);
+    // draw 0
+    GLHelper::drawText("0", Position(-.99, -0.99 + o2 + oo), .1, 0.04, RGBColor::BLACK, 0, FONS_ALIGN_LEFT);
 
-    pfSetPosition(double(-.99 + len), double(1. - o2 - oo));
-    glRotated(180, 1, 0, 0);
-    pfDrawString((text.substr(0, noDigits) + "m").c_str());
-    glRotated(-180, 1, 0, 0);
+    // draw current scale
+    GLHelper::drawText((text.substr(0, noDigits) + "m").c_str(), Position(-.99 + len, -0.99 + o2 + oo), .1, 0.04, RGBColor::BLACK, 0, FONS_ALIGN_LEFT);
 
     // restore matrices
     glMatrixMode(GL_PROJECTION);
