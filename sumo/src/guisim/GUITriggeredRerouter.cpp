@@ -49,7 +49,6 @@
 #include <gui/GUIApplicationWindow.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
 
@@ -418,22 +417,12 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 glVertex2d(0 + 1.4, 6);
                 glEnd();
 
-                glTranslated(0, 0, .1);
-                glColor3d(0, 0, 0);
-                pfSetPosition(0, 0);
-                pfSetScale(3.f);
-                double w = pfdkGetStringWidth("U");
-                glRotated(180, 0, 1, 0);
-                glTranslated(-w / 2., 2, 0);
-                pfDrawString("U");
+                // draw "U"
+                GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
+                
+                // draw Probability
+                GLHelper::drawText((toString((int)(prob * 100)) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
 
-                glTranslated(w / 2., -2, 0);
-                std::string str = toString((int)(prob * 100)) + "%";
-                pfSetPosition(0, 0);
-                pfSetScale(.7f);
-                w = pfdkGetStringWidth(str.c_str());
-                glTranslated(-w / 2., 4, 0);
-                pfDrawString(str.c_str());
                 glPopMatrix();
             }
         }
