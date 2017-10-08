@@ -47,7 +47,6 @@
 #include <gui/GUIApplicationWindow.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -372,12 +371,9 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
             glColor3d(1, 1, 0);
             glTranslated(0, 0, .1);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            pfSetPosition(0, 0);
-            pfSetScale(1.2f);
-            double w = pfdkGetStringWidth(myLastValueString.c_str());
-            glRotated(180, 0, 1, 0);
-            glTranslated(-w / 2., 0.3, 0);
-            pfDrawString(myLastValueString.c_str());
+
+            // draw last value string
+            GLHelper::drawText(myLastValueString.c_str(), Position(0, 0), .1, 1.2, RGBColor(255,255,0), 180);
         }
         glPopMatrix();
     }
