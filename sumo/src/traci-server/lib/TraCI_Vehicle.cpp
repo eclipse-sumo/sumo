@@ -798,6 +798,22 @@ TraCI_Vehicle::setRouteID(const std::string& vehicleID, const std::string& route
     }
 }
 
+
+void 
+TraCI_Vehicle::setRoute(const std::string& vehicleID, const std::vector<std::string>& edgeIDs) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    ConstMSEdgeVector edges;
+    try {
+        MSEdge::parseEdgesList(edgeIDs, edges, "<unknown>");
+    } catch (ProcessError& e) {
+        throw TraCIException("Invalid edge list for vehicle '" + veh->getID() + "' (" + e.what() + ")");
+    }
+    if (!veh->replaceRouteEdges(edges, veh->getLane() == 0, true)) {
+        throw TraCIException("Route replacement failed for " + veh->getID());
+    }
+}
+
+
 void
 TraCI_Vehicle::setMaxSpeed(const std::string& vehicleID, double speed) {
     getVehicle(vehicleID)->getSingularType().setMaxSpeed(speed);
