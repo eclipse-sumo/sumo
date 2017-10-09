@@ -40,16 +40,8 @@
 // ===========================================================================
 // variable definitions
 // ===========================================================================
-// 80km/h will be the threshold for dividing between long/short foresight
-#define LOOK_FORWARD_SPEED_DIVIDER (double)14.
-
 #define MAGIC_OFFSET  1.
-// VARIANT_1 (lf*2)
-//#define LOOK_FORWARD_FAR  30.
-//#define LOOK_FORWARD_NEAR 10.
-
-#define LOOK_FORWARD_RIGHT (double)10.
-#define LOOK_FORWARD_LEFT  (double)20.
+#define LOOK_FORWARD (double)10.
 
 #define JAM_FACTOR (double)1.
 //#define JAM_FACTOR 2. // VARIANT_8 (makes vehicles more focused but also more "selfish")
@@ -135,7 +127,9 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myImpatience(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_IMPATIENCE, 0)),
     myMinImpatience(myImpatience),
     myTimeToImpatience(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, std::numeric_limits<double>::max())),
-    myAccelLat(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ACCEL_LAT, 1.0)) {
+    myAccelLat(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ACCEL_LAT, 1.0)),
+    myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)) 
+{
     initDerivedParameters();
 }
 
@@ -999,7 +993,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     //double laDist = laSpeed > LOOK_FORWARD_SPEED_DIVIDER
     //              ? laSpeed *  LOOK_FORWARD_FAR
     //              : laSpeed *  LOOK_FORWARD_NEAR;
-    double laDist = myLookAheadSpeed * (right ? LOOK_FORWARD_RIGHT : LOOK_FORWARD_LEFT) * myStrategicParam;
+    double laDist = myLookAheadSpeed * LOOK_FORWARD * myStrategicParam * (right ? 1 : myLookaheadLeft);
     laDist += myVehicle.getVehicleType().getLengthWithGap() * (double) 2.;
     // aggressive drivers may elect to use reduced strategic lookahead to optimize speed
     /*
@@ -2755,6 +2749,8 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myTimeToImpatience);
     } else if (key == toString(SUMO_ATTR_LCA_ACCEL_LAT)) {
         return toString(myAccelLat);
+    } else if (key == toString(SUMO_ATTR_LCA_LOOKAHEADLEFT)) {
+        return toString(myLookaheadLeft);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
@@ -2788,6 +2784,8 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myTimeToImpatience = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_ACCEL_LAT)) {
         myAccelLat = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_LOOKAHEADLEFT)) {
+        myLookaheadLeft = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }

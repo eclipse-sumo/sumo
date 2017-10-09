@@ -47,11 +47,7 @@
 // ===========================================================================
 // variable definitions
 // ===========================================================================
-// 80km/h will be the threshold for dividing between long/short foresight
-#define LOOK_FORWARD_SPEED_DIVIDER (double)14.
-
-#define LOOK_FORWARD_RIGHT (double)10.
-#define LOOK_FORWARD_LEFT  (double)20.
+#define LOOK_FORWARD (double)10.
 
 #define JAM_FACTOR (double)1.
 
@@ -90,7 +86,7 @@
 //#define DEBUG_INFORMED
 //#define DEBUG_INFORMER
 //#define DEBUG_CONSTRUCTOR
-//#define DEBUG_WANTS_CHANGE
+#define DEBUG_WANTS_CHANGE
 //#define DEBUG_SLOW_DOWN
 //#define DEBUG_SAVE_BLOCKER_LENGTH
 
@@ -111,6 +107,7 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     myCooperativeParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_PARAM, 1)),
     mySpeedGainParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 1)),
     myKeepRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 1)),
+    myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)), 
     myExperimentalParam1(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)),
     myChangeProbThresholdRight(2.0 * myKeepRightParam / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
     myChangeProbThresholdLeft(0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam)) {
@@ -1150,7 +1147,7 @@ MSLCM_LC2013::_wantsChange(
         myLookAheadSpeed = MAX2(LOOK_AHEAD_MIN_SPEED,
                                 (memoryFactor * myLookAheadSpeed + (1 - memoryFactor) * myVehicle.getSpeed()));
     }
-    double laDist = myLookAheadSpeed * (right ? LOOK_FORWARD_RIGHT : LOOK_FORWARD_LEFT) * myStrategicParam;
+    double laDist = myLookAheadSpeed * LOOK_FORWARD * myStrategicParam * (right ? 1 : myLookaheadLeft);
     laDist += myVehicle.getVehicleType().getLengthWithGap() * (double) 2.;
 
 
@@ -2034,6 +2031,8 @@ MSLCM_LC2013::getParameter(const std::string& key) const {
         return toString(mySpeedGainParam);
     } else if (key == toString(LCA_KEEPRIGHT)) {
         return toString(myKeepRightParam);
+    } else if (key == toString(SUMO_ATTR_LCA_LOOKAHEADLEFT)) {
+        return toString(myLookaheadLeft);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
@@ -2055,6 +2054,8 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
         mySpeedGainParam = doubleValue;
     } else if (key == toString(LCA_KEEPRIGHT)) {
         myKeepRightParam = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_LOOKAHEADLEFT)) {
+        myLookaheadLeft = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }

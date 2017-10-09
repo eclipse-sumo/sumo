@@ -391,6 +391,8 @@ protected:
     double myTimeToImpatience;
     // @brief lateral acceleration
     double myAccelLat;
+    // @brief the factor by which the lookahead distance to the left differs from the lookahead to the right
+    double myLookaheadLeft;
     //@}
 
     /// @name derived parameters

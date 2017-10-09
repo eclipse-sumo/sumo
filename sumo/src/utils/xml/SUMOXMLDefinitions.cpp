@@ -337,6 +337,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcImpatience",           SUMO_ATTR_LCA_IMPATIENCE },
     { "lcTimeToImpatience",     SUMO_ATTR_LCA_TIME_TO_IMPATIENCE },
     { "lcAccelLat",             SUMO_ATTR_LCA_ACCEL_LAT },
+    { "lcLookaheadLeft",        SUMO_ATTR_LCA_LOOKAHEADLEFT },
     { "lcExperimental1",        SUMO_ATTR_LCA_EXPERIMENTAL1 },
 
     { "jmCrossingGap",          SUMO_ATTR_JM_CROSSING_GAP },

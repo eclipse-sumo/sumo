@@ -254,6 +254,9 @@ protected:
     double mySpeedGainParam;
     double myKeepRightParam;
 
+    // @brief the factor by which the lookahead distance to the left differs from the lookahead to the right
+    double myLookaheadLeft;
+
     const double myExperimentalParam1; // for feature testing
     //@}
 
