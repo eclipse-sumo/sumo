@@ -59,19 +59,19 @@ public:
     // class GEOAttributes
     // ===========================================================================
 
-    class GEOAttributes : public FXGroupBox {
+    class GEOAttributes : private FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrame::GEOAttributes)
 
     public:
         /// @brief constructor
-        GEOAttributes(FXComposite* parent);
+        GEOAttributes(FXComposite* parent, GNEViewNet *viewNet);
 
         /// @brief destructor
         ~GEOAttributes();
 
-        /// @brief show GEOAttribute for the current AttributeCarreira
-        void showGEOAttributes(GNEAttributeCarrier *ac);
+        /// @brief show GEOAttribute for the current AttributeCarriers
+        void showGEOAttributes(const std::vector<GNEAttributeCarrier*> &ACs);
 
         /// @brief hide GEOAttributes
         void hideGEOAttributes();
@@ -84,6 +84,9 @@ public:
 
         /// @name FOX-callbacks
         /// @{
+
+        /// @brief Called when user change the current GEO Sahep
+        long onCmdSetGEOShape(FXObject*, FXSelector, void*);
 
         /// @brief Called when user change the current Longitude
         long onCmdSetLongitude(FXObject*, FXSelector, void*);
@@ -103,8 +106,23 @@ public:
         GEOAttributes() {}
 
     private:
-        /// @brief current edited AC
-        GNEAttributeCarrier *myAc;
+        /// @brief current ViewNet
+        GNEViewNet* myViewNet;
+
+        /// @brief current edited ACs
+        std::vector<GNEAttributeCarrier*> myACs;
+
+        /// @brief horizontal frame for GEO Shape
+        FXHorizontalFrame* myGEOShapeFrame;
+
+        /// @brief Label for GEO Shape
+        FXLabel* myGEOShapeLabel;
+
+        /// @brief checkBox for block movement
+        FXTextField* myGEOShapeTextField;
+
+        /// @brief horizontal frame for longitude
+        FXHorizontalFrame* myLongitudeFrame;
 
         /// @brief Label for length
         FXLabel* myLongitudeLabel;
@@ -112,16 +130,22 @@ public:
         /// @brief textField for length
         FXTextField* myLongitudeTextField;
 
-        /// @brief Label for block movement
+        /// @brief horizontal frame for Latitude
+        FXHorizontalFrame* myLatitudeFrame;
+
+        /// @brief Label for Latitude
         FXLabel* myLatitudeLabel;
 
-        /// @brief checkBox for block movement
+        /// @brief textField for latitude
         FXTextField* myLatitudeTextField;
 
-        /// @brief Label for block movement
+        /// @brief horizontal frame for use GEO
+        FXHorizontalFrame* myUseGEOFrame;
+
+        /// @brief Label for use GEO
         FXLabel* myUseGEOLabel;
 
-        /// @brief checkBox for block movement
+        /// @brief checkBox for use GEO
         FXCheckButton* myUseGEOCheckButton;
 
         /// @brief button for help

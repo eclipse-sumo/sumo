@@ -298,7 +298,6 @@ GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string>& polyValues
     if ((shape.size() > 0) && myViewNet->getNet()->addPolygon(id, type, color, layer, angle, imgFile, shape, fill)) {
         // set manually attributes use GEO, block movement and block shape
         GNEPoly* polygon = myViewNet->getNet()->retrievePolygon(id);
-        polygon->setAttribute(SUMO_ATTR_GEO, polyValues.at(SUMO_ATTR_GEO), myViewNet->getUndoList());
         polygon->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, polyValues.at(GNE_ATTR_BLOCK_MOVEMENT), myViewNet->getUndoList());
         polygon->setAttribute(GNE_ATTR_BLOCK_SHAPE, polyValues.at(GNE_ATTR_BLOCK_SHAPE), myViewNet->getUndoList());
         myViewNet->getUndoList()->p_end();
@@ -330,7 +329,6 @@ GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string>& POIValues) {
     if (myViewNet->getNet()->addPOI(id, type, color, layer, angle, imgFile, pos, widthPOI, heightPOI)) {
         // Set manually the attribute block movement
         GNEPOI* poi = myViewNet->getNet()->retrievePOI(id);
-        poi->setAttribute(SUMO_ATTR_GEO, POIValues.at(SUMO_ATTR_GEO), myViewNet->getUndoList());
         poi->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, POIValues.at(GNE_ATTR_BLOCK_MOVEMENT), myViewNet->getUndoList());
         myViewNet->getUndoList()->p_end();
         return true;

@@ -48,6 +48,7 @@
 // ===========================================================================
 
 FXDEFMAP(GNEFrame::GEOAttributes) GNEFrameGEOAttributes[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNEFRAME_GEOSHAPE,      GNEFrame::GEOAttributes::onCmdSetGEOShape),
     FXMAPFUNC(SEL_COMMAND,  MID_GNEFRAME_LONGITUDE,     GNEFrame::GEOAttributes::onCmdSetLongitude),
     FXMAPFUNC(SEL_COMMAND,  MID_GNEFRAME_LATITUDE,      GNEFrame::GEOAttributes::onCmdSetLatitude),
     FXMAPFUNC(SEL_COMMAND,  MID_GNEFRAME_USEGEO,        GNEFrame::GEOAttributes::onCmdUseGEOParameters),
@@ -65,24 +66,30 @@ FXIMPLEMENT(GNEFrame::GEOAttributes,    FXGroupBox,     GNEFrameGEOAttributes,  
 // GNEFrame::GEOAttributes - methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::GEOAttributes::GEOAttributes(FXComposite* parent):
+GNEFrame::GEOAttributes::GEOAttributes(FXComposite* parent, GNEViewNet *viewNet) :
     FXGroupBox(parent, "GEO Attributes", GUIDesignGroupBoxFrame),
-    myAc(NULL) {
+    myViewNet(viewNet) {
+
+    // Create Frame for GEO Shape
+    myGEOShapeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myGEOShapeLabel = new FXLabel(myGEOShapeFrame, toString(SUMO_ATTR_GEOSHAPE).c_str(), 0, GUIDesignLabelAttribute);
+    myGEOShapeTextField = new FXTextField(myGEOShapeFrame, GUIDesignTextFieldNCol, this, MID_GNEFRAME_GEOSHAPE, GUIDesignTextField);
+
 
     // Create Frame for longitude
-    FXHorizontalFrame* longitudeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLongitudeLabel = new FXLabel(longitudeFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelAttribute);
-    myLongitudeTextField = new FXTextField(longitudeFrame, GUIDesignTextFieldNCol, this, MID_GNEFRAME_LONGITUDE, GUIDesignTextField);
+    myLongitudeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLongitudeLabel = new FXLabel(myLongitudeFrame, toString(SUMO_ATTR_LON).c_str(), 0, GUIDesignLabelAttribute);
+    myLongitudeTextField = new FXTextField(myLongitudeFrame, GUIDesignTextFieldNCol, this, MID_GNEFRAME_LONGITUDE, GUIDesignTextField);
 
     // Create Frame for latitude
-    FXHorizontalFrame* latitudeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLatitudeLabel = new FXLabel(latitudeFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelAttribute);
-    myLatitudeTextField = new FXTextField(latitudeFrame, GUIDesignTextFieldNCol, this, MID_GNEFRAME_LATITUDE, GUIDesignTextField);
+    myLatitudeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLatitudeLabel = new FXLabel(myLatitudeFrame, toString(SUMO_ATTR_LAT).c_str(), 0, GUIDesignLabelAttribute);
+    myLatitudeTextField = new FXTextField(myLatitudeFrame, GUIDesignTextFieldNCol, this, MID_GNEFRAME_LATITUDE, GUIDesignTextField);
     
     // Create Frame for use GEO
-    FXHorizontalFrame* useGEOFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myUseGEOLabel = new FXLabel(useGEOFrame, "Use GEO attributes", 0, GUIDesignLabelAttribute);
-    myUseGEOCheckButton = new FXCheckButton(useGEOFrame, "false", this, MID_GNEFRAME_USEGEO, GUIDesignCheckButtonAttribute);
+    myUseGEOFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myUseGEOLabel = new FXLabel(myUseGEOFrame, "Use GEO", 0, GUIDesignLabelAttribute);
+    myUseGEOCheckButton = new FXCheckButton(myUseGEOFrame, "false", this, MID_GNEFRAME_USEGEO, GUIDesignCheckButtonAttribute);
     
     // Create help button
     myHelpButton = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
@@ -93,8 +100,10 @@ GNEFrame::GEOAttributes::~GEOAttributes() {}
 
 
 void 
-GNEFrame::GEOAttributes::showGEOAttributes(GNEAttributeCarrier *ac) {
-    myAc = ac;
+GNEFrame::GEOAttributes::showGEOAttributes(const std::vector<GNEAttributeCarrier*> &ACs) {
+    // make sure that ACs has elements
+    assert(ACs.size() > 0);
+    myACs = ACs;
     // fill attributes
     UpdateGEOAttributes();
     // show FXGroupBox
@@ -104,6 +113,7 @@ GNEFrame::GEOAttributes::showGEOAttributes(GNEAttributeCarrier *ac) {
 
 void 
 GNEFrame::GEOAttributes::hideGEOAttributes() {
+    myACs.clear();
     // hide FXGroupBox
     FXGroupBox::hide();
 }
@@ -111,12 +121,28 @@ GNEFrame::GEOAttributes::hideGEOAttributes() {
 
 void 
 GNEFrame::GEOAttributes::UpdateGEOAttributes() {
-    myLongitudeTextField->setText(myAc->getAttribute(SUMO_ATTR_LON).c_str());
-    myLatitudeTextField->setText(myAc->getAttribute(SUMO_ATTR_LON).c_str());
-    if(GNEAttributeCarrier::parse<bool>(myAc->getAttribute(SUMO_ATTR_GEO))) {
-        myUseGEOCheckButton->setCheck(TRUE);
+    // hide all frane parameters
+    myGEOShapeFrame->hide();
+    myLongitudeFrame->hide();
+    myLatitudeFrame->hide();
+    if(myACs.size() > 1) {
+        // only useGEO can be changed in multiple selections
+        bool useGEO = false;
+        for (auto i : myACs) {
+            useGEO &= GNEAttributeCarrier::parse<bool>(i->getAttribute(SUMO_ATTR_GEO));
+        }
+        myUseGEOCheckButton->setCheck(useGEO);
     } else {
-        myUseGEOCheckButton->setCheck(FALSE);
+        myUseGEOCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(myACs.front()->getAttribute(SUMO_ATTR_GEO)));
+        if(myACs.front()->getTag() == SUMO_TAG_POLY) {
+            myGEOShapeFrame->show();
+            myGEOShapeTextField->setText(myACs.front()->getAttribute(SUMO_ATTR_GEOSHAPE).c_str());
+        } else {
+            myLongitudeFrame->show();
+            myLatitudeFrame->show();
+            myLongitudeTextField->setText(myACs.front()->getAttribute(SUMO_ATTR_LON).c_str());
+            myLatitudeTextField->setText(myACs.front()->getAttribute(SUMO_ATTR_LAT).c_str());
+        }
     }
 }
 
@@ -124,8 +150,12 @@ GNEFrame::GEOAttributes::UpdateGEOAttributes() {
 std::map<SumoXMLAttr, std::string> 
 GNEFrame::GEOAttributes::getGEOAttributes() const {
     std::map<SumoXMLAttr, std::string> attributes;
-    attributes[SUMO_ATTR_LON] = myLongitudeTextField->getText().text();
-    attributes[SUMO_ATTR_LAT] = myLatitudeTextField->getText().text();
+    if(GNEAttributeCarrier::hasAttribute(myACs.front()->getTag(), SUMO_ATTR_GEOSHAPE)) {
+        attributes[SUMO_ATTR_GEOSHAPE] = myGEOShapeTextField->getText().text();
+    } else {
+        attributes[SUMO_ATTR_LON] = myLongitudeTextField->getText().text();
+        attributes[SUMO_ATTR_LAT] = myLatitudeTextField->getText().text();
+    }
     if(myUseGEOCheckButton->getCheck()) {
         attributes[SUMO_ATTR_GEO] = "true";
     } else {
@@ -136,13 +166,28 @@ GNEFrame::GEOAttributes::getGEOAttributes() const {
 
 
 long 
+GNEFrame::GEOAttributes::onCmdSetGEOShape(FXObject*, FXSelector, void*) {
+    if(myACs.front()->isValid(SUMO_ATTR_GEOSHAPE, myGEOShapeTextField->getText().text())) {
+        myACs.front()->setAttribute(SUMO_ATTR_GEOSHAPE, myGEOShapeTextField->getText().text(), myViewNet->getUndoList());
+    }
+    return 0;
+}
+
+
+long 
 GNEFrame::GEOAttributes::onCmdSetLongitude(FXObject*, FXSelector, void*) {
+    if(myACs.front()->isValid(SUMO_ATTR_LON, myLongitudeTextField->getText().text())) {
+        myACs.front()->setAttribute(SUMO_ATTR_LON, myLongitudeTextField->getText().text(), myViewNet->getUndoList());
+    }
     return 0;
 }
 
 
 long 
 GNEFrame::GEOAttributes::onCmdSetLatitude(FXObject*, FXSelector, void*) {
+    if(myACs.front()->isValid(SUMO_ATTR_LAT, myLongitudeTextField->getText().text())) {
+        myACs.front()->setAttribute(SUMO_ATTR_LAT, myLongitudeTextField->getText().text(), myViewNet->getUndoList());
+    }
     return 0;
 }
 

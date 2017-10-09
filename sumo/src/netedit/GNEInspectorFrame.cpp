@@ -122,6 +122,9 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
         myVectorOfAttributeInputs.push_back(new AttributeInput(myGroupBoxForAttributes, this));
     }
 
+    // Create GEO Parameters
+    myGEOAttributes = new GNEFrame::GEOAttributes(myContentFrame, myViewNet);
+
     // Create netedit parameters
     myNeteditParameters = new NeteditParameters(this);
 
@@ -185,6 +188,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myCopyTemplateButton->hide();
     mySetTemplateButton->hide();
     myNeteditParameters->hide();
+    myGEOAttributes->hideGEOAttributes();
     myGroupBoxForTreeList->hide();
     // If vector of attribute Carriers contain data
     if (myACs.size() > 0) {
@@ -226,9 +230,8 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
 
         // Iterate over attributes
         for (auto it : ACFrontAttrs) {
+            // disable editing for unique attributes in case of multi-selection
             if (myACs.size() > 1 && GNEAttributeCarrier::isUnique(ACFrontTag, it)) {
-                // disable editing for some attributes in case of multi-selection
-                // even displaying is problematic because of string rendering restrictions
                 continue;
             }
             // Declare a set of occuring values and insert attribute's values of item
@@ -246,7 +249,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
             }
             // Show attribute
             if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it == SUMO_ATTR_TLTYPE) || (it == SUMO_ATTR_TLID))) == false) {
-                (*itAttrs)->showAttribute(myACs.front()->getTag(), (it), oss.str());
+                (*itAttrs)->showAttribute(myACs.front()->getTag(), it, oss.str());
             }
             // update attribute iterator
             itAttrs++;
@@ -254,6 +257,12 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
 
         // show netedit parameters
         myNeteditParameters->show();
+        
+        // Show myGEOAttributes if we're inspecting a Shape
+        if(dynamic_cast<GNEShape*>(myACs.front())) {
+            myGEOAttributes->showGEOAttributes(myACs);
+        }
+
 
         // if we inspect a single Attribute carrier vector, show their childs
         if (myACs.size() == 1) {

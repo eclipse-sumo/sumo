@@ -513,6 +513,8 @@ enum {
     /// @name GNEFrame messages
     /// @{
 
+    /// @brief set GEO Shape
+    MID_GNEFRAME_GEOSHAPE,
     /// @brief set longitud
     MID_GNEFRAME_LONGITUDE,
     /// @brief set latitud

@@ -275,6 +275,9 @@ private:
     /// @brief Netedit Parameters
     NeteditParameters* myNeteditParameters;
 
+    /// @brief GEO Parameters
+    GNEFrame::GEOAttributes* myGEOAttributes;
+
     /// @brief back Button
     FXButton* myBackButton;
 
