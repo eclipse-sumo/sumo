@@ -91,8 +91,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_div", "z_lib
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_settings", "z_libutils_gui_settings\z_libutils_gui_settings.vcxproj", "{8C2F733C-1C8E-45C9-A546-17EF0146718D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_polyfonts", "zz_foreign_polyfonts\zz_foreign_polyfonts.vcxproj", "{306768A4-B73E-4B81-9EC0-B4836EFE0504}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_gl2ps", "zz_foreign_gl2ps\zz_foreign_gl2ps.vcxproj", "{272D2367-13FE-45C2-84AD-8480861DB43E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_windows", "z_libutils_gui_windows\z_libutils_gui_windows.vcxproj", "{25AF2C06-8B08-4B33-8775-657E27C304D9}"
