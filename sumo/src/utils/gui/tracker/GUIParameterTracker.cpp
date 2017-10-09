@@ -31,18 +31,19 @@
 
 #include <string>
 #include <fstream>
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <foreign/fontstash/fontstash.h>
 #include "GUIParameterTracker.h"
 #include <utils/gui/globjects/GLIncludes.h>
 
@@ -261,9 +262,6 @@ GUIParameterTracker::GUIParameterTrackerPanel::~GUIParameterTrackerPanel() {}
 
 void
 GUIParameterTracker::GUIParameterTrackerPanel::drawValues() {
-    pfSetScale((double) 0.1);
-    pfSetScaleXY((double)(.1 * 300. / myWidthInPixels), (double)(.1 * 300. / (double) myHeightInPixels));
-    //
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
@@ -282,6 +280,9 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues() {
 void
 GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
         double /*namePos*/) {
+    const double fontWidth = 0.1 * 300. / myWidthInPixels;
+    const double fontHeight = 0.1 * 300. /  myHeightInPixels;
+    //
     // apply scaling
     glPushMatrix();
 
@@ -349,55 +350,38 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     // draw min time
     SUMOTime beginStep = desc.getRecordingBegin();
     std::string begStr = time2string(beginStep);
-    double w = pfdkGetStringWidth(begStr.c_str());
-    glRotated(180, 1, 0, 0);
-    pfSetPosition(0, 0);
-    glTranslated(-0.8 - w / 2., 0.88, 0);
-    pfDrawString(begStr.c_str());
-    glTranslated(0.8 + w / 2., -0.88, 0);
-    glRotated(-180, 1, 0, 0);
+    double w = 50 / myWidthInPixels;
+    glTranslated(-0.8 - w / 2., -0.88, 0);
+    GLHelper::drawText(begStr, Position(0,0), 1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+    glTranslated(0.8 + w / 2., 0.88, 0);
 
     // draw max time
-    glRotated(180, 1, 0, 0);
-    pfSetPosition(0, 0);
-    glTranslated(0.75, 0.88, 0);
-    pfDrawString(time2string(beginStep + static_cast<SUMOTime>(values.size() * desc.getAggregationSpan())).c_str());
-    glTranslated(-0.75, -0.88, 0);
-    glRotated(-180, 1, 0, 0);
+    glTranslated(0.75, -0.88, 0);
+    GLHelper::drawText(time2string(beginStep + static_cast<SUMOTime>(values.size() * desc.getAggregationSpan())),
+            Position(0,0), 1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+    glTranslated(-0.75, 0.88, 0);
 
     // draw min value
-    glRotated(180, 1, 0, 0);
-    pfSetPosition(0, 0);
-    glTranslated(-0.98, 0.82, 0);
-    pfDrawString(toString(desc.getMin()).c_str());
-    glTranslated(0.98, -0.82, 0);
-    glRotated(-180, 1, 0, 0);
+    glTranslated(-0.98, -0.82, 0);
+    GLHelper::drawText(toString(desc.getMin()), Position(0,0), 1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+    glTranslated(0.98, 0.82, 0);
 
     // draw max value
-    glRotated(180, 1, 0, 0);
-    pfSetPosition(0, 0);
-    glTranslated(-0.98, -0.78, 0);
-    pfDrawString(toString(desc.getMax()).c_str());
-    glTranslated(0.98, 0.78, 0);
-    glRotated(-180, 1, 0, 0);
+    glTranslated(-0.98, 0.78, 0);
+    GLHelper::drawText(toString(desc.getMax()), Position(0,0), 1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+    glTranslated(0.98, -0.78, 0);
 
     // draw current value
-    glRotated(180, 1, 0, 0);
-    pfSetPosition(0, 0);
     double p = (double) 0.8 -
                ((double) 1.6 / (desc.getMax() - desc.getMin()) * (latest - desc.getMin()));
-    glTranslated(-0.98, p + .02, 0);
-    pfDrawString(toString(latest).c_str());
-    glTranslated(0.98, -(p + .02), 0);
-    glRotated(-180, 1, 0, 0);
+    glTranslated(-0.98, -(p + .02), 0);
+    GLHelper::drawText(toString(latest), Position(0,0), 1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+    glTranslated(0.98, p + .02, 0);
 
     // draw name
-    glRotated(180, 1, 0, 0);
-    pfSetPosition(0, 0);
-    glTranslated(-0.98, -.92, 0);
-    pfDrawString(desc.getName().c_str());
-    glTranslated(0.98, .92, 0);
-    glRotated(-180, 1, 0, 0);
+    glTranslated(-0.98, .92, 0);
+    GLHelper::drawText(desc.getName(), Position(0,0), 1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+    glTranslated(0.98, -.92, 0);
 }
 
 
