@@ -125,12 +125,14 @@ GNEFrame::GEOAttributes::UpdateGEOAttributes() {
     myGEOShapeFrame->hide();
     myLongitudeFrame->hide();
     myLatitudeFrame->hide();
+    // check if we're handling a single or multiple selection
     if(myACs.size() > 1) {
         // only useGEO can be changed in multiple selections
         bool useGEO = true;
         for (auto i : myACs) {
             useGEO &= GNEAttributeCarrier::parse<bool>(i->getAttribute(SUMO_ATTR_GEO));
         }
+
         myUseGEOCheckButton->setCheck(useGEO);
     } else {
         myUseGEOCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(myACs.front()->getAttribute(SUMO_ATTR_GEO)));
@@ -138,11 +140,16 @@ GNEFrame::GEOAttributes::UpdateGEOAttributes() {
         if(myACs.front()->getTag() == SUMO_TAG_POLY) {
             myGEOShapeFrame->show();
             myGEOShapeTextField->setText(myACs.front()->getAttribute(SUMO_ATTR_GEOSHAPE).c_str());
+            myGEOShapeTextField->setTextColor(FXRGB(0, 0, 0));
         } else {
+            // show longitude
             myLongitudeFrame->show();
-            myLatitudeFrame->show();
             myLongitudeTextField->setText(myACs.front()->getAttribute(SUMO_ATTR_LON).c_str());
+            myLongitudeTextField->setTextColor(FXRGB(0, 0, 0));
+            // show latitude
+            myLatitudeFrame->show();
             myLatitudeTextField->setText(myACs.front()->getAttribute(SUMO_ATTR_LAT).c_str());
+            myLatitudeTextField->setTextColor(FXRGB(0, 0, 0));
         }
     }
     // set text orf GEO button
@@ -174,8 +181,14 @@ GNEFrame::GEOAttributes::getGEOAttributes() const {
 
 long 
 GNEFrame::GEOAttributes::onCmdSetGEOShape(FXObject*, FXSelector, void*) {
-    if(myACs.front()->isValid(SUMO_ATTR_GEOSHAPE, myGEOShapeTextField->getText().text())) {
+    if(myGEOShapeTextField->getText().empty()) {
+        WRITE_WARNING("GEO Shapes cannot be empty.");
+    } else if(myACs.front()->isValid(SUMO_ATTR_GEOSHAPE, myGEOShapeTextField->getText().text())) {
         myACs.front()->setAttribute(SUMO_ATTR_GEOSHAPE, myGEOShapeTextField->getText().text(), myViewNet->getUndoList());
+        myGEOShapeTextField->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myGEOShapeTextField->setTextColor(FXRGB(255, 0, 0));
+        myGEOShapeTextField->killFocus();
     }
     return 0;
 }
@@ -185,6 +198,10 @@ long
 GNEFrame::GEOAttributes::onCmdSetLongitude(FXObject*, FXSelector, void*) {
     if(myACs.front()->isValid(SUMO_ATTR_LON, myLongitudeTextField->getText().text())) {
         myACs.front()->setAttribute(SUMO_ATTR_LON, myLongitudeTextField->getText().text(), myViewNet->getUndoList());
+        myLongitudeTextField->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myLongitudeTextField->setTextColor(FXRGB(255, 0, 0));
+        myLongitudeTextField->killFocus();
     }
     return 0;
 }
@@ -194,6 +211,10 @@ long
 GNEFrame::GEOAttributes::onCmdSetLatitude(FXObject*, FXSelector, void*) {
     if(myACs.front()->isValid(SUMO_ATTR_LAT, myLongitudeTextField->getText().text())) {
         myACs.front()->setAttribute(SUMO_ATTR_LAT, myLongitudeTextField->getText().text(), myViewNet->getUndoList());
+        myLatitudeTextField->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myLatitudeTextField->setTextColor(FXRGB(255, 0, 0));
+        myLatitudeTextField->killFocus();
     }
     return 0;
 }
@@ -201,23 +222,37 @@ GNEFrame::GEOAttributes::onCmdSetLatitude(FXObject*, FXSelector, void*) {
 
 long 
 GNEFrame::GEOAttributes::onCmdUseGEOParameters(FXObject*, FXSelector, void*) {
+    // change label of Check button depending of check
     if (myUseGEOCheckButton->getCheck()) {
         myUseGEOCheckButton->setText("true");
     } else {
         myUseGEOCheckButton->setText("false");
     }
-
+    // update GEO Attribute of entire selection
     for (auto i : myACs) {
         i->setAttribute(SUMO_ATTR_GEO, myUseGEOCheckButton->getText().text(), myViewNet->getUndoList());
     }
-
     return 1;
 }
 
 
 long 
 GNEFrame::GEOAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
-    return 0;
+    FXDialogBox* helpDialog = new FXDialogBox(this, "GEO attributes Help", GUIDesignDialogBox);
+    std::ostringstream help;
+    help
+        << " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n" 
+        << " GEO coordinates are represented as pairs of Longitude and Latitude\n"
+        << " in decimal degrees without extra symbols. (°,N,W..)\n"
+        << " - Longitude: East-west position of a point on the Earth's surface.\n"
+        << " - Latitude: North–south position of a point on the Earth's surface.\n"
+        << " - CheckBox 'use GEO' enable or disable saving position in GEO coordinates\n";
+    new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelLeft);
+    // "OK"
+    new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    helpDialog->create();
+    helpDialog->show();
+    return 1;
 }
 
 // ---------------------------------------------------------------------------
