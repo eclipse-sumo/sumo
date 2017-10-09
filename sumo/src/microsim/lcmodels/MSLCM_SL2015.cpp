@@ -239,8 +239,8 @@ MSLCM_SL2015::setOwnState(const int state) {
     if ((state & (LCA_STRATEGIC | LCA_SPEEDGAIN)) != 0 && (state & LCA_BLOCKED) != 0) {
         myImpatience = MIN2(1.0 , myImpatience + TS / myTimeToImpatience);
     } else {
-        // impatience decays twice as fast as it grows but only to the driver-specific level
-        myImpatience = MAX2(myMinImpatience, myImpatience - 2 * TS / myTimeToImpatience);
+        // impatience decays only to the driver-specific level
+        myImpatience = MAX2(myMinImpatience, myImpatience - TS / myTimeToImpatience);
     }
     if (DEBUG_COND) {
         std::cout << SIMTIME << " veh=" << myVehicle.getID()
