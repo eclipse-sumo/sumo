@@ -56,7 +56,7 @@ target_link_libraries(sumo ${sumolibs})
 
 add_executable(sumo-gui version.h ${sumoguiexec})
 target_link_libraries(sumo-gui gui guinetload guisim gui_dialogs utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
-        utils_gui_images utils_gui_tracker utils_foxtools osgview ${sumolibs} mesogui ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} foreign_gl2ps foreign_polyfonts)
+        utils_gui_images utils_gui_tracker utils_foxtools osgview ${sumolibs} mesogui ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} foreign_gl2ps)
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     target_link_libraries(sumo-gui opengl32 glu32)
 endif ()
