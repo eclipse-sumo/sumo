@@ -43,7 +43,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <foreign/polyfonts/polyfonts.h>
+#include <foreign/fontstash/fontstash.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
 
@@ -297,8 +297,8 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     const double height = (double) caller.getHeight();
     const double width = (double) caller.getWidth();
     const double barWidth = MAX2(1.0, width - 31);
-    pfSetScaleXY((double)(.08 * 300. / width), (double)(.08 * 300. / height));
-    const double h4 = ((double) 4 / height);
+    const double fontHeight = 0.08 * 300. / height;
+    const double fontWidth = 0.08 * 300. / width;
     const double h9 = ((double) 9 / height);
     const double h10 = ((double) 10 / height);
     const double h11 = ((double) 11 / height);
@@ -315,12 +315,9 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         glEnd();
         // draw the name
         if (i < (int)myTLLogic->getLinks().size()) {
-            glRotated(180, 1, 0, 0);
-            pfSetPosition(0, 0);
-            glTranslated(0.0, -h + h20 - h4, 0);
-            pfDrawString(myLinkNames[i].c_str());
-            glTranslated(-0.0, h - h20 + h4, 0);
-            glRotated(-180, 1, 0, 0);
+            glTranslated(0, h - h20, 0);
+            GLHelper::drawText(myLinkNames[i], Position(0,0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_BOTTOM, fontWidth);
+            glTranslated(0, -h + h20, 0);
             h2 += 20;
         }
         h -= h20;
@@ -385,8 +382,8 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                     // draw a thick block
                     glBegin(GL_QUADS);
                     glVertex2d(x, h - h16);
-                    glVertex2d(x, h - h4);
-                    glVertex2d(x2, h - h4);
+                    glVertex2d(x, h);
+                    glVertex2d(x2, h);
                     glVertex2d(x2, h - h16);
                     glEnd();
                     break;
@@ -417,24 +414,21 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         //h = (double)(myTLLogic->getLinks().size() * 20 + 12);
         double glh = (double)(1.0 - myTLLogic->getLinks().size() * h20 - h10);
         // current begin time
-        pfSetScaleXY((double)(.05 * 300. / width), (double)(.05 * 300. / height));
         // time ticks
         SUMOTime currTime = myFirstTime2Show;
         int pos = 31;// + /*!!!currTime*/ - myFirstTime2Show;
         double glpos = (double) pos / width;
+        const double ticSize = 4 / height;
         while (pos < width + 50) {
             const std::string timeStr = time2string(currTime);
-            const double w = pfdkGetStringWidth(timeStr.c_str());
-            glRotated(180, 1, 0, 0);
-            pfSetPosition(0, 0);
-            glTranslated(glpos - w / 2., -glh + h20 - h4, 0);
-            pfDrawString(timeStr.c_str());
-            glTranslated(-glpos + w / 2., glh - h20 + h4, 0);
-            glRotated(-180, 1, 0, 0);
+            const double w = 50 / width;
+            glTranslated(glpos - w / 2., glh - h20, 0);
+            GLHelper::drawText(timeStr, Position(0,0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+            glTranslated(-glpos + w / 2., -glh + h20, 0);
 
             glBegin(GL_LINES);
             glVertex2d(glpos, glh);
-            glVertex2d(glpos, glh - h4);
+            glVertex2d(glpos, glh - ticSize);
             glEnd();
 
             const double a = STEPS2TIME(tickDist) * barWidth / STEPS2TIME(myLastTime - myBeginTime);

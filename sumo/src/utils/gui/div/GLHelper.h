@@ -279,11 +279,15 @@ public:
     /// @brief gets the gl-color
     static RGBColor getColor();
 
-    /// @brief draw Text with given parameters
+    /* @brief draw Text with given parameters
+     * when width is not given (negative) the font is scaled proportionally in
+     * height and with according to size.
+    */
     static void drawText(const std::string& text, const Position& pos,
                          const double layer, const double size,
                          const RGBColor& col = RGBColor::BLACK, const double angle = 0,
-                         int align = 0);
+                         int align = 0,
+                         double width = -1);
 
     /// @brief draw Text box with given parameters
     static void drawTextBox(const std::string& text, const Position& pos,
