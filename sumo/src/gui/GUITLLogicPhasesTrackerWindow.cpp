@@ -296,6 +296,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // compute some values needed more than once
     const double height = (double) caller.getHeight();
     const double width = (double) caller.getWidth();
+    const double barWidth = MAX2(1.0, width - 31);
     pfSetScaleXY((double)(.08 * 300. / width), (double)(.08 * 300. / height));
     const double h4 = ((double) 4 / height);
     const double h9 = ((double) 9 / height);
@@ -344,7 +345,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // determine the initial offset
     double x = ((double) 31. / width);
     double ta = (double) leftOffset / width;
-    ta *= (double)(((width - 31.0) / ((double)(myLastTime - myBeginTime))));
+    ta *= (double)((barWidth / ((double)(myLastTime - myBeginTime))));
     x += ta;
 
     // and the initial phase information
@@ -360,7 +361,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         // compute the heigh and the width of the phase
         h = (double)(1.0 - h10);
         double a = (double) duration / width;
-        a *= (double)(((width - 31.0) / ((double)(myLastTime - myBeginTime))));
+        a *= (double)((barWidth / ((double)(myLastTime - myBeginTime))));
         const double x2 = x + a;
 
         // go through the links
@@ -408,9 +409,9 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         SUMOTime tickDist = TIME2STEPS(10);
         // patch distances - hack
         double t = myBeginOffset != 0 ? (double) myBeginOffset->getValue() : STEPS2TIME(myLastTime - myBeginTime);
-        while (t > (width - 31.) / 4.) {
+        while (t > barWidth / 4.) {
             tickDist += TIME2STEPS(10);
-            t -= (double)((width - 31.) / 4.);
+            t -= (double)(barWidth / 4.);
         }
         // draw time information
         //h = (double)(myTLLogic->getLinks().size() * 20 + 12);
@@ -436,7 +437,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             glVertex2d(glpos, glh - h4);
             glEnd();
 
-            const double a = STEPS2TIME(tickDist) * (width - 31.0) / STEPS2TIME(myLastTime - myBeginTime);
+            const double a = STEPS2TIME(tickDist) * barWidth / STEPS2TIME(myLastTime - myBeginTime);
             pos += (int) a;
             glpos += a / width;
             currTime += tickDist;
