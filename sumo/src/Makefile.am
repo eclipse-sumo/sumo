@@ -86,7 +86,6 @@ sumo_gui_LDADD =  ./gui/libgui.a \
 ./osgview/libosgview.a \
 $(sumo_LDADD) \
 ./foreign/gl2ps/libgl2ps.a \
-./foreign/polyfonts/libpolyfonts.a \
 ./gui/GUIManipulator.o \
 ./gui/GUITLLogicPhasesTrackerWindow.o \
 $(OSG_LIBS) $(FFMPEG_LIBS) \
