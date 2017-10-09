@@ -447,7 +447,6 @@ src/foreign/fontstash/Makefile
 src/foreign/gl2ps/Makefile
 src/foreign/PHEMlight/Makefile
 src/foreign/PHEMlight/cpp/Makefile
-src/foreign/polyfonts/Makefile
 src/foreign/rtree/Makefile
 src/foreign/tcpip/Makefile
 src/gui/Makefile
