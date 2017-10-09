@@ -143,7 +143,7 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
             glRotated(rotSign * myFGSignRot, 0, 0, 1);
             // draw line
-            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, RGBColor(76, 170, 50), 0, FONS_ALIGN_LEFT);
+            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, RGBColor(83, 89, 172, 255), 0, FONS_ALIGN_LEFT);
             // pop matrix for every line
             glPopMatrix();
         }
