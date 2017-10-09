@@ -653,16 +653,12 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdgesEnabled, S
             type = object->getType();
             if (type == GLO_LANE && selectEdgesEnabled) {
                 type = GLO_EDGE;
+                it = (dynamic_cast<GNELane*>(object))->getParentEdge().getGlID();
             }
             if (myTypeEntries[type].locked->getCheck()) {
                 continue;
             }
             GUIGlObjectStorage::gIDStorage.unblockObject(it);
-            if (type == GLO_EDGE) {
-                // @note edge may be selected/deselected multiple times but this shouldn't
-                // hurt unless we add SET_TOGGLE
-                it = (static_cast<GNELane*>(object))->getParentEdge().getGlID();
-            }
             // doing the switch outside the loop requires functional techniques. this was deemed to ugly
             switch (setOperation) {
                 case GNESelectorFrame::SET_ADD:
