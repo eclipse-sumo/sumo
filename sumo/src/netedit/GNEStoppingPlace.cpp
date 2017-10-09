@@ -82,7 +82,7 @@ GNEStoppingPlace::getPositionInView() const {
 
 
 void
-GNEStoppingPlace::moveGeometry(const Position& oldPos, const Position &offset) {
+GNEStoppingPlace::moveGeometry(const Position&, const Position &offset) {
     // First we need to change the absolute new positions to a relative positions
     double lenghtDifference = 0;
     if (myLane->getLaneShapeLength() > 0) {

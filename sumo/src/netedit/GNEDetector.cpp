@@ -103,7 +103,7 @@ double GNEDetector::getAbsolutePositionOverLane() const {
 }
 
 
-void GNEDetector::moveGeometry(const Position& oldPos, const Position &offset) {
+void GNEDetector::moveGeometry(const Position&, const Position &offset) {
     // First we need to change the absolute new position to a relative position
     double lenghtDifference = 0;
     if (myLane->getLaneShapeLength() > 0) {

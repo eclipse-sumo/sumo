@@ -303,8 +303,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_GEO:
             myUseGEO = parse<bool>(value);
             break;
-        case SUMO_ATTR_LON: {
-            bool ok = true;
+        case SUMO_ATTR_LON:
             // set new geo longitude
             myGEOPosition.setx(parse<double>(value));
             // set cartesian Position
@@ -312,9 +311,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             GeoConvHelper::getFinal().x2cartesian_const(*this);
             myNet->refreshPOI(this);
             break;
-        }
-        case SUMO_ATTR_LAT: {
-            bool ok = true;
+        case SUMO_ATTR_LAT:
             // set new geo latitude
             myGEOPosition.sety(parse<double>(value));
             // set cartesian Position
@@ -322,7 +319,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             GeoConvHelper::getFinal().x2cartesian_const(*this);
             myNet->refreshPOI(this);
             break;
-        }
         case SUMO_ATTR_TYPE:
             myType = value;
             break;

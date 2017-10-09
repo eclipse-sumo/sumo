@@ -127,7 +127,7 @@ public:
     /// @}
 
     bool locked(GUIGlObjectType type) {
-        return myTypeEntries[type].locked->getCheck();
+        return myTypeEntries[type].locked->getCheck() != FALSE;
     }
 
     /**@brief apply list of ids to the current selection according to SetOperation,

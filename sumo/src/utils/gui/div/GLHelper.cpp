@@ -36,6 +36,13 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #define FONTSTASH_IMPLEMENTATION // Expands implementation
+#ifdef _MSC_VER
+#pragma warning(disable: 4505) // do not warn about unused functions
+#endif
+#if __GNUC__ > 3
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+#endif
 #include <foreign/fontstash/fontstash.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #define GLFONTSTASH_IMPLEMENTATION // Expands implementation
@@ -542,5 +549,12 @@ GLHelper::debugVertices(const PositionVector& shape, double size, double layer) 
         GLHelper::drawText(toString(i), shape[i], layer, size, color, 0);
     }
 }
+
+
+#if __GNUC__ > 3
+#pragma GCC diagnostic pop
+#endif
+
+
 /****************************************************************************/
 
