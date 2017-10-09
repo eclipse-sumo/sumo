@@ -127,13 +127,14 @@ GNEFrame::GEOAttributes::UpdateGEOAttributes() {
     myLatitudeFrame->hide();
     if(myACs.size() > 1) {
         // only useGEO can be changed in multiple selections
-        bool useGEO = false;
+        bool useGEO = true;
         for (auto i : myACs) {
             useGEO &= GNEAttributeCarrier::parse<bool>(i->getAttribute(SUMO_ATTR_GEO));
         }
         myUseGEOCheckButton->setCheck(useGEO);
     } else {
         myUseGEOCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(myACs.front()->getAttribute(SUMO_ATTR_GEO)));
+        // show GEO shape only if we're inspecting a POLY
         if(myACs.front()->getTag() == SUMO_TAG_POLY) {
             myGEOShapeFrame->show();
             myGEOShapeTextField->setText(myACs.front()->getAttribute(SUMO_ATTR_GEOSHAPE).c_str());
@@ -143,6 +144,12 @@ GNEFrame::GEOAttributes::UpdateGEOAttributes() {
             myLongitudeTextField->setText(myACs.front()->getAttribute(SUMO_ATTR_LON).c_str());
             myLatitudeTextField->setText(myACs.front()->getAttribute(SUMO_ATTR_LAT).c_str());
         }
+    }
+    // set text orf GEO button
+    if (myUseGEOCheckButton->getCheck()) {
+        myUseGEOCheckButton->setText("true");
+    } else {
+        myUseGEOCheckButton->setText("false");
     }
 }
 
@@ -199,6 +206,11 @@ GNEFrame::GEOAttributes::onCmdUseGEOParameters(FXObject*, FXSelector, void*) {
     } else {
         myUseGEOCheckButton->setText("false");
     }
+
+    for (auto i : myACs) {
+        i->setAttribute(SUMO_ATTR_GEO, myUseGEOCheckButton->getText().text(), myViewNet->getUndoList());
+    }
+
     return 1;
 }
 
