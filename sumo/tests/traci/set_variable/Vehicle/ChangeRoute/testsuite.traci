@@ -4,6 +4,9 @@ Basic
 # Test behaviour when the vehicle is not on the route's starting edge
 FalseEdge
 
+# Test behaviour when one of the edges does not exist
+UnknownEdge
+
 # Test behaviour when the assigned route is disconnected
 disconnected
 
