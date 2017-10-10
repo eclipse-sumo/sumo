@@ -91,8 +91,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_div", "z_lib
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_settings", "z_libutils_gui_settings\z_libutils_gui_settings.vcxproj", "{8C2F733C-1C8E-45C9-A546-17EF0146718D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_polyfonts", "zz_foreign_polyfonts\zz_foreign_polyfonts.vcxproj", "{306768A4-B73E-4B81-9EC0-B4836EFE0504}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_gl2ps", "zz_foreign_gl2ps\zz_foreign_gl2ps.vcxproj", "{272D2367-13FE-45C2-84AD-8480861DB43E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_windows", "z_libutils_gui_windows\z_libutils_gui_windows.vcxproj", "{25AF2C06-8B08-4B33-8775-657E27C304D9}"
@@ -679,21 +677,6 @@ Global
 		{8C2F733C-1C8E-45C9-A546-17EF0146718D}.Unittest|Win32.ActiveCfg = Release|x64
 		{8C2F733C-1C8E-45C9-A546-17EF0146718D}.Unittest|x64.ActiveCfg = Release|x64
 		{8C2F733C-1C8E-45C9-A546-17EF0146718D}.Unittest|x64.Build.0 = Release|x64
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504}.Debug|Win32.ActiveCfg = Debug|Win32
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504}.Debug|Win32.Build.0 = Debug|Win32
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504}.Debug|x64.ActiveCfg = Debug|x64
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504}.Debug|x64.Build.0 = Debug|x64
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504}.Fastbuild|Win32.ActiveCfg = Fastbuild|Win32
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504}.Fastbuild|Win32.Build.0 = Fastbuild|Win32
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504}.Fastbuild|x64.ActiveCfg = Fastbuild|x64
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504}.Fastbuild|x64.Build.0 = Fastbuild|x64
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504}.Release|Win32.ActiveCfg = Release|Win32
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504}.Release|Win32.Build.0 = Release|Win32
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504}.Release|x64.ActiveCfg = Release|x64
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504}.Release|x64.Build.0 = Release|x64
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504}.Unittest|Win32.ActiveCfg = Release|x64
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504}.Unittest|x64.ActiveCfg = Release|x64
-		{306768A4-B73E-4B81-9EC0-B4836EFE0504}.Unittest|x64.Build.0 = Release|x64
 		{272D2367-13FE-45C2-84AD-8480861DB43E}.Debug|Win32.ActiveCfg = Debug|Win32
 		{272D2367-13FE-45C2-84AD-8480861DB43E}.Debug|Win32.Build.0 = Debug|Win32
 		{272D2367-13FE-45C2-84AD-8480861DB43E}.Debug|x64.ActiveCfg = Debug|x64
