@@ -306,7 +306,19 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE)); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "red"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAYER, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_HEIGHT, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_IMGFILE, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
+                break;
+            case SUMO_TAG_POILANE:
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE)); 
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION_LAT, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "red"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAYER, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "0"));
@@ -580,6 +592,7 @@ GNEAttributeCarrier::allowedShapeTags() {
     if (myAllowedShapeTags.empty()) {
         myAllowedShapeTags.push_back(SUMO_TAG_POLY);
         myAllowedShapeTags.push_back(SUMO_TAG_POI);
+        myAllowedShapeTags.push_back(SUMO_TAG_POILANE);
     }
     return myAllowedShapeTags;
 }
@@ -600,6 +613,7 @@ GNEAttributeCarrier::canBlockMovement(SumoXMLTag tag) {
         myBlockMovementTags.push_back(SUMO_TAG_REROUTER);
         myBlockMovementTags.push_back(SUMO_TAG_VSS);
         myBlockMovementTags.push_back(SUMO_TAG_POI);
+        myBlockMovementTags.push_back(SUMO_TAG_POILANE);
         myBlockMovementTags.push_back(SUMO_TAG_POLY);
     }
     return std::find(myBlockMovementTags.begin(), myBlockMovementTags.end(), tag) != myBlockMovementTags.end();
@@ -659,6 +673,8 @@ GNEAttributeCarrier::isInt(SumoXMLTag tag, SumoXMLAttr attr) {
         myNumericalIntAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_CONTAINER_CAPACITY);
         // POI
         myNumericalIntAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LAYER);
+        // POILane
+        myNumericalIntAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_LAYER);
         // Layer
         myNumericalIntAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_LAYER);
     }
@@ -736,6 +752,12 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_ANGLE);
         myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_WIDTH);
         myNumericalFloatAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_HEIGHT);
+        // POILane
+        myNumericalFloatAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_POSITION);
+        myNumericalFloatAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_POSITION_LAT);
+        myNumericalFloatAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_ANGLE);
+        myNumericalFloatAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_WIDTH);
+        myNumericalFloatAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_HEIGHT);
     }
     return myNumericalFloatAttrs[tag].count(attr) == 1;
 }
@@ -827,6 +849,8 @@ GNEAttributeCarrier::isColor(SumoXMLTag tag, SumoXMLAttr attr) {
     if (myColorAttrs.empty()) {
         // POI
         myColorAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_COLOR);
+        // POILane
+        myColorAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_COLOR);
         // Poly
         myColorAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_COLOR);
         // Route
@@ -928,10 +952,6 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
             myUniqueAttrs[SUMO_TAG_JUNCTION].insert(SUMO_ATTR_POSITION);
             myUniqueAttrs[SUMO_TAG_JUNCTION].insert(SUMO_ATTR_SHAPE);
             myUniqueAttrs[SUMO_TAG_JUNCTION].insert(SUMO_ATTR_TLID);
-            // POI
-            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_POSITION);
-            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LON);
-            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LAT);
             // Rerouter
             myUniqueAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_EDGES);
             myUniqueAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_FILE);
@@ -944,10 +964,11 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
             // VSS
             myUniqueAttrs[SUMO_TAG_VSS].insert(SUMO_ATTR_FILE);
             // POI
-            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LANE);
             myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_POSITION);
-            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LON);
-            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_LAT);
+            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_GEOPOSITION);
+            // POILane
+            myUniqueAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_LANE);
+            myUniqueAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_POSITION);
             // POLY
             myUniqueAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_SHAPE);
             myUniqueAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_GEOSHAPE);
@@ -984,8 +1005,6 @@ GNEAttributeCarrier::isPositive(SumoXMLTag tag, SumoXMLAttr attr) {
         myPositiveAttrs[SUMO_TAG_LANE].insert(SUMO_ATTR_SPEED);
         myPositiveAttrs[SUMO_TAG_LANE].insert(SUMO_ATTR_WIDTH);
         myPositiveAttrs[SUMO_TAG_LANE].insert(SUMO_ATTR_ENDOFFSET);
-        // poi
-        myPositiveAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_POSITION);
         // crossing
         myPositiveAttrs[SUMO_TAG_CROSSING].insert(SUMO_ATTR_PRIORITY);
         // connection
@@ -1036,6 +1055,8 @@ GNEAttributeCarrier::isPositive(SumoXMLTag tag, SumoXMLAttr attr) {
         // POI
         myPositiveAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_WIDTH);
         myPositiveAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_HEIGHT);
+        // POILane
+        myPositiveAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_POSITION);
     }
     return myPositiveAttrs[tag].count(attr) == 1;
 }
@@ -1078,6 +1099,8 @@ GNEAttributeCarrier::isFilename(SumoXMLTag tag, SumoXMLAttr attr) {
         myFileAttrs[SUMO_TAG_VSS].insert(SUMO_ATTR_FILE);
         // POI
         myFileAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_IMGFILE);
+        // POILane
+        myFileAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_IMGFILE);
         // POLY
         myFileAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_IMGFILE);
     }
@@ -1231,14 +1254,26 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         // POI
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_ID] = "The id (a unique name) of the POI";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_COLOR] = "The color with which the poi shall be displayed";
-        myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_LANE] = "The name of the lane the poi is located at; the lane must be a part of the loaded network";
-        myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_POSITION] = "The position on the named lane or in the net in meters at which the poi is located at";
+        myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_POSITION] = "The position in view";
+        myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_GEOPOSITION] = "The position in view in GEO coordinates";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_TYPE] = "A typename for the poi";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_LAYER] = "The layer of the poi for drawing and selecting";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_IMGFILE] = "A bitmap to use for rendering this poi";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_WIDTH] = "Width of rendered image in meters";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_HEIGHT] = "Height of rendered image in meters";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_ANGLE] = "Angle of rendered image in degree";
+        // POILane
+        myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_ID] = "The id (a unique name) of the POI";
+        myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_COLOR] = "The color with which the poi shall be displayed";
+        myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_LANE] = "The name of the lane the poi is located at; the lane must be a part of the loaded network";
+        myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_POSITION] = "The position on the named lane or in the net in meters at which the poi is located at";
+        myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_POSITION_LAT] = "The lateral offset on the named lane at which the poi is located at";
+        myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_TYPE] = "A typename for the poi";
+        myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_LAYER] = "The layer of the poi for drawing and selecting";
+        myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_IMGFILE] = "A bitmap to use for rendering this poi";
+        myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_WIDTH] = "Width of rendered image in meters";
+        myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_HEIGHT] = "Height of rendered image in meters";
+        myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_ANGLE] = "Angle of rendered image in degree";
         // Polygon
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_ID] = "The id (a unique name) of the polygon";
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_COLOR] = "The RGBA color with which the polygon shall be displayed";

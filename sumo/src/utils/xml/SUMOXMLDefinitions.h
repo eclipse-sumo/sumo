@@ -56,8 +56,10 @@ enum SumoXMLTag {
     SUMO_TAG_LANE,
     /// @brief begin/end of the description of a neighboring lane
     SUMO_TAG_NEIGH,
-    /// @brief begin/end of the description of a polygon
+    /// @brief begin/end of the description of a Point of interest
     SUMO_TAG_POI,
+    /// @brief begin/end of the description of a Point of interest over Lane (used by Netedit)
+    SUMO_TAG_POILANE,
     /// @brief begin/end of the description of a polygon
     SUMO_TAG_POLY,
     /// @brief begin/end of the description of a junction
@@ -700,6 +702,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_LAT,
     SUMO_ATTR_GEO,
     SUMO_ATTR_GEOSHAPE,
+    SUMO_ATTR_GEOPOSITION,
     SUMO_ATTR_K,
     SUMO_ATTR_V,
     SUMO_ATTR_REF,

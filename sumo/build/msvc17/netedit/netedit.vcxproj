@@ -185,6 +185,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNENet.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNENetElement.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEPOI.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEPOILane.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEPoly.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEPolygonFrame.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEProhibition.cpp" />
@@ -273,6 +274,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNENet.h" />
     <ClInclude Include="..\..\..\src\netedit\GNENetElement.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEPOI.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEPOILane.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEPoly.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEPolygonFrame.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEProhibition.h" />

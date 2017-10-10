@@ -65,7 +65,6 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height),
     GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI, movementBlocked, false),
-    myLane(NULL),
     myPositionOverLane(0),
     myUseGEO(useGEO) {
     // set GEO Position
@@ -150,24 +149,12 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             return myID;
         case SUMO_ATTR_COLOR:
             return toString(myColor);
-        case SUMO_ATTR_LANE:
-            if (myLane) {
-                return myLane->getID();
-            } else {
-                return "";
-            }
         case SUMO_ATTR_POSITION:
-            if (myLane) {
-                return toString(myPositionOverLane);
-            } else {
-                return toString(*this);
-            }
+            return toString(*this);
+        case SUMO_ATTR_GEOPOSITION:
+            return toString(myGEOPosition);
         case SUMO_ATTR_GEO:
             return toString(myUseGEO);
-        case SUMO_ATTR_LON:
-            return toString(myGEOPosition.x());
-        case SUMO_ATTR_LAT:
-            return toString(myGEOPosition.y());
         case SUMO_ATTR_TYPE:
             return myType;
         case SUMO_ATTR_LAYER:
@@ -183,7 +170,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         default:
-            throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
     }
 }
 
@@ -196,11 +183,9 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_COLOR:
-        case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_GEOPOSITION:
         case SUMO_ATTR_GEO:
-        case SUMO_ATTR_LON:
-        case SUMO_ATTR_LAT:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_LAYER:
         case SUMO_ATTR_IMGFILE:
@@ -223,25 +208,16 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidID(value) && (myNet->retrievePOI(value, false) == 0);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
-        case SUMO_ATTR_LANE:
-            if (value == "") {
-                return true;
-            } else {
-                return (myNet->retrieveLane(value, false) != NULL);
-            }
-        case SUMO_ATTR_POSITION:
-            if (myLane != NULL) {
-                return canParse<double>(value);
-            } else {
-                bool ok;
-                return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
-            }
+        case SUMO_ATTR_POSITION: {
+            bool ok;
+            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+        }
+        case SUMO_ATTR_GEOPOSITION: {
+            bool ok;
+            return GeomConvHelper::parseShapeReporting(value, "user-supplied GEO position", 0, ok, false).size() == 1;
+        }
         case SUMO_ATTR_GEO:
             return canParse<bool>(value);
-        case SUMO_ATTR_LON:
-            return canParse<double>(value);
-        case SUMO_ATTR_LAT:
-            return canParse<double>(value);
         case SUMO_ATTR_TYPE:
             return true;
         case SUMO_ATTR_LAYER:
@@ -285,39 +261,26 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
             break;
-        case SUMO_ATTR_LANE:
-            myLane = myNet->retrieveLane(value, false);
-            break;
-        case SUMO_ATTR_POSITION:
-            if (myLane) {
-                myPositionOverLane = parse<double>(value);
-            } else {
-                bool ok = true;
-                set(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
-            }
+        case SUMO_ATTR_POSITION: {
+            bool ok = true;
+            set(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
             // set GEO Position
             myGEOPosition = *this;
             GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
             myNet->refreshPOI(this);
             break;
+        }
+        case SUMO_ATTR_GEOPOSITION: {
+            bool ok = true;
+            myGEOPosition = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
+            // set cartesian Position
+            set(myGEOPosition);
+            GeoConvHelper::getFinal().x2cartesian_const(*this);
+            myNet->refreshPOI(this);
+            break;
+        }
         case SUMO_ATTR_GEO:
             myUseGEO = parse<bool>(value);
-            break;
-        case SUMO_ATTR_LON:
-            // set new geo longitude
-            myGEOPosition.setx(parse<double>(value));
-            // set cartesian Position
-            set(myGEOPosition);
-            GeoConvHelper::getFinal().x2cartesian_const(*this);
-            myNet->refreshPOI(this);
-            break;
-        case SUMO_ATTR_LAT:
-            // set new geo latitude
-            myGEOPosition.sety(parse<double>(value));
-            // set cartesian Position
-            set(myGEOPosition);
-            GeoConvHelper::getFinal().x2cartesian_const(*this);
-            myNet->refreshPOI(this);
             break;
         case SUMO_ATTR_TYPE:
             myType = value;
@@ -341,7 +304,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         default:
-            throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
     }
     // update view after every change
     myNet->getViewNet()->update();

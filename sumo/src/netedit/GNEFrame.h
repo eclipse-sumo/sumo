@@ -85,14 +85,8 @@ public:
         /// @name FOX-callbacks
         /// @{
 
-        /// @brief Called when user change the current GEO Sahep
-        long onCmdSetGEOShape(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user change the current Longitude
-        long onCmdSetLongitude(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user changes the current Latitude
-        long onCmdSetLatitude(FXObject*, FXSelector, void*);
+        /// @brief Called when user change the current GEO Attribute
+        long onCmdSetGEOAttribute(FXObject*, FXSelector, void*);
 
         /// @brief Called when user enters a new length
         long onCmdUseGEOParameters(FXObject*, FXSelector, void*);
@@ -109,35 +103,20 @@ public:
         /// @brief current ViewNet
         GNEViewNet* myViewNet;
 
+        /// @brief type of GEO Attribute
+        SumoXMLAttr myGEOAttribute;
+
         /// @brief current edited ACs
         std::vector<GNEAttributeCarrier*> myACs;
 
-        /// @brief horizontal frame for GEO Shape
-        FXHorizontalFrame* myGEOShapeFrame;
+        /// @brief horizontal frame for GEOAttribute
+        FXHorizontalFrame* myGEOAttributeFrame;
 
-        /// @brief Label for GEO Shape
-        FXLabel* myGEOShapeLabel;
+        /// @brief Label for GEOAttribute
+        FXLabel* myGEOAttributeLabel;
 
-        /// @brief checkBox for block movement
-        FXTextField* myGEOShapeTextField;
-
-        /// @brief horizontal frame for longitude
-        FXHorizontalFrame* myLongitudeFrame;
-
-        /// @brief Label for length
-        FXLabel* myLongitudeLabel;
-
-        /// @brief textField for length
-        FXTextField* myLongitudeTextField;
-
-        /// @brief horizontal frame for Latitude
-        FXHorizontalFrame* myLatitudeFrame;
-
-        /// @brief Label for Latitude
-        FXLabel* myLatitudeLabel;
-
-        /// @brief textField for latitude
-        FXTextField* myLatitudeTextField;
+        /// @brief textField for GEOAttribute
+        FXTextField* myGEOAttributeTextField;
 
         /// @brief horizontal frame for use GEO
         FXHorizontalFrame* myUseGEOFrame;
