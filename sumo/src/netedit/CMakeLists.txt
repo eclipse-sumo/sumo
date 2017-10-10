@@ -22,6 +22,8 @@ set(netedit_SRCS
    GNEJunction.cpp
    GNEPOI.h
    GNEPOI.cpp
+   GNEPOILane.h
+   GNEPOILane.cpp
    GNEPoly.h
    GNEPoly.cpp
    GNEProhibition.h

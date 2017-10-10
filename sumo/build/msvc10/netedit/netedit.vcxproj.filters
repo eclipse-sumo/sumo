@@ -381,6 +381,9 @@
     <ClCompile Include="..\..\..\src\netedit\GNECalibratorEdge.cpp">
       <Filter>Quellcodedateien\Items\Additionals\Calibrator</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEPOILane.cpp">
+      <Filter>Quellcodedateien\Items\Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -636,6 +639,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNECalibratorEdge.h">
       <Filter>Header-Dateien\Items\Additionals\Calibrator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEPOILane.h">
+      <Filter>Header-Dateien\Items\Shapes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
