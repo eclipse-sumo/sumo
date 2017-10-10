@@ -180,10 +180,6 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="..\zz_foreign_polyfonts\zz_foreign_polyfonts.vcxproj">
-      <Project>{306768a4-b73e-4b81-9ec0-b4836efe0504}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\zz_foreign_gl2ps\zz_foreign_gl2ps.vcxproj">
       <Project>{272D2367-13FE-45C2-84AD-8480861DB43E}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
