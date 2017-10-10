@@ -67,7 +67,8 @@ _emergencyDecelImplemented = 'VAR_EMERGENCY_DECEL' in dir(traci.constants)
 
 if not _emergencyDecelImplemented:
     # Old traci version. No emergency decel present.
-    warn("Using old traci version assuming emergency decel == decel", 0, True)
+    if rp.VERBOSITY >= 1:
+        warn("Using old traci version assuming emergency decel == decel", True)
     # Set emergency decel to decel
     traci.constants.VAR_EMERGENCY_DECEL = 0x7b
     traci.vehicletype.getEmergencyDecel = traci.vehicletype.getDecel
@@ -103,4 +104,5 @@ def update():
     if _mgr is not None:
         _mgr.step()
     else:
-        warn("call simpla.init(<config_file>) before simpla.update()!")
+        if rp.VERBOSITY >= 1:
+            warn("call simpla.init(<config_file>) before simpla.update()!")

@@ -26,6 +26,7 @@ report = rp.Reporter("PVehicle")
 # lookup table for vType parameters
 vTypeParameters = defaultdict(dict)
 
+WARNED_DEFAULT = dict([(mode, False) for mode in PlatoonMode])
 
 class pVehicleState(object):
 
@@ -102,19 +103,23 @@ class PVehicle(object):
         between original and platoon-vTypes. If the original vType is not mapped to any platoon-vtypes,
         the original vType is used for platooning as well
         '''
+        global WARNED_DEFAULT
         # original vType
         origVType = self._vTypes[PlatoonMode.NONE]
         if origVType not in cfg.PLATOON_VTYPES \
                 or mode not in cfg.PLATOON_VTYPES[origVType] \
                 or cfg.PLATOON_VTYPES[origVType][mode] is "":
             if "default" in cfg.PLATOON_VTYPES and mode in cfg.PLATOON_VTYPES["default"]:
-                if rp.VERBOSITY >= 2:
-                    warn("Using default vType '%s' for vehicle '%s' (PlatoonMode: '%s')." %
+                if rp.VERBOSITY >= 1 and not WARNED_DEFAULT[mode]:
+                    warn("Using default vType '%s' for vehicle '%s' (PlatoonMode: '%s'). This warning is issued only once." %
                          (cfg.PLATOON_VTYPES["default"][mode], self._ID, PlatoonMode(mode).name))
+                    WARNED_DEFAULT[mode]=True
                 return cfg.PLATOON_VTYPES["default"][mode]
             else:
-                warn("No vType specified for PlatoonMode '%s' for vehicle '%s'. Behavior within platoon is NOT altered." % (
+                if rp.VERBOSITY >= 1 and not WARNED_DEFAULT[mode]:
+                    warn("No vType specified for PlatoonMode '%s' for vehicle '%s'. Behavior within platoon is NOT altered. This warning is issued only once." % (
                     PlatoonMode(mode).name, self._ID))
+                    WARNED_DEFAULT[mode] = True
                 return origVType
         if rp.VERBOSITY >= 3:
             report("Using vType '%s' for vehicle '%s' (PlatoonMode: '%s')." %
@@ -238,8 +243,8 @@ class PVehicle(object):
         TODO: This mechanism does not work on highways, where the vehicles maxspeed is determining
               the travel speed and not the road's speed limit.
         '''
-        self._activeSpeedFactor = cfg.SPEEDFACTOR[self._currentPlatoonMode] / \
-            (1. + self._switchImpatienceFactor * switchWaitingTime)
+        self._activeSpeedFactor = cfg.SPEEDFACTOR[self._currentPlatoonMode] \
+            / (1. + self._switchImpatienceFactor * switchWaitingTime)
         traci.vehicle.setSpeedFactor(self._ID, self._activeSpeedFactor)
 
     def _resetActiveSpeedFactor(self):
@@ -256,7 +261,7 @@ class PVehicle(object):
         Decreases the time until the vehicle is split from its platoon
         '''
         self._timeUntilSplit -= dt
-        if rp.VERBOSITY >= 3:
+        if rp.VERBOSITY >= 4:
             report("Time until split from platoon for veh '%s': %s" % (self._ID, self._timeUntilSplit))
         return self._timeUntilSplit
 
@@ -295,10 +300,12 @@ class PVehicle(object):
 
         # Check value of switchImpatience
         if (switchImpatience > 1.):
-            warn("Given parameter switchImpatience > 1. Assuming == 1.")
+            if rp.VERBOSITY>=1:
+                warn("Given parameter switchImpatience > 1. Assuming == 1.")
             switchImpatience = 1.
         elif (switchImpatience < 0.):
-            warn("Given parameter switchImpatience < 0. Assuming == 0.")
+            if rp.VERBOSITY>=1:
+                warn("Given parameter switchImpatience < 0. Assuming == 0.")
             switchImpatience = 0.
 
         # obtain the preferred deceleration and the tau of the target vType
