@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 30 09:04:54 2017 by SUMO Version dev-SVN-r25733
+<!-- generated on Tue Oct 10 13:47:51 2017 by SUMO Version dev-SVN-r26400
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -23,6 +23,6 @@
 -->
 
 <lanechanges>
-    <change id="overtaking" type="DEFAULT_VEHTYPE" time="139.00" from="VODUGES_beg_0" to="-VODUGES_beg_0" dir="1" speed="1.98" reason="" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None"/>
-    <change id="overtaking" type="DEFAULT_VEHTYPE" time="219.00" from="-VODUGES_beg_0" to="VODUGES_beg_0" dir="-1" speed="9.89" reason="" leaderGap="12.66" leaderSecureGap="1.94" followerGap="66.67" followerSecureGap="20.74"/>
+    <change id="overtaking" type="DEFAULT_VEHTYPE" time="139.00" from="VODUGES_beg_0" to="-VODUGES_beg_0" dir="1" speed="1.98" pos="856.01" reason="" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None"/>
+    <change id="overtaking" type="DEFAULT_VEHTYPE" time="219.00" from="-VODUGES_beg_0" to="VODUGES_beg_0" dir="-1" speed="9.89" pos="117.78" reason="" leaderGap="12.66" leaderSecureGap="1.94" followerGap="66.67" followerSecureGap="20.74"/>
 </lanechanges>

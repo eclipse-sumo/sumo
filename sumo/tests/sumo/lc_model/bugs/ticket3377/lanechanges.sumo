@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon 04 Sep 2017 08:24:18 AM CEST by SUMO gui Version dev-SVN-r25811
+<!-- generated on Tue Oct 10 13:47:43 2017 by SUMO Version dev-SVN-r26400
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -23,8 +23,8 @@
 -->
 
 <lanechanges>
-    <change id="ego" type="tEgo" time="11.00" from="beg_0" to="beg_1" dir="1" speed="30.00" reason="speedGain" leaderGap="123.90" leaderSecureGap="63.00" followerGap="None" followerSecureGap="None"/>
-    <change id="ego" type="tEgo" time="21.00" from="beg_1" to="beg_2" dir="1" speed="30.00" reason="speedGain" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None"/>
-    <change id="ego" type="tEgo" time="49.00" from="beg_2" to="beg_1" dir="-1" speed="30.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="94.10" followerSecureGap="0.00"/>
-    <change id="ego" type="tEgo" time="66.00" from="beg_1" to="beg_0" dir="-1" speed="30.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None"/>
+    <change id="ego" type="tEgo" time="11.00" from="beg_0" to="beg_1" dir="1" speed="30.00" pos="335.10" reason="speedGain" leaderGap="123.90" leaderSecureGap="63.00" followerGap="None" followerSecureGap="None"/>
+    <change id="ego" type="tEgo" time="21.00" from="beg_1" to="beg_2" dir="1" speed="30.00" pos="635.10" reason="speedGain" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None"/>
+    <change id="ego" type="tEgo" time="49.00" from="beg_2" to="beg_1" dir="-1" speed="30.00" pos="1475.10" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="94.10" followerSecureGap="0.00"/>
+    <change id="ego" type="tEgo" time="66.00" from="beg_1" to="beg_0" dir="-1" speed="30.00" pos="1985.10" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None"/>
 </lanechanges>
