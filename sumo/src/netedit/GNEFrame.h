@@ -76,8 +76,8 @@ public:
         /// @brief hide GEOAttributes
         void hideGEOAttributes();
 
-        /// @brief update TextFields with the new GEO Attributes
-        void UpdateGEOAttributes();
+        /// @brief refresh TextFields with the new GEO Attributes
+        void refreshGEOAttributes();
 
         /// @brief get GEO Attributes
         std::map<SumoXMLAttr, std::string> getGEOAttributes() const;
@@ -192,14 +192,11 @@ protected:
     /// @brief FOX needs this
     GNEFrame() {}
 
-    /// @brief @brief the window to inform when the tls is modfied
+    /// @brief View Net for changes
     GNEViewNet* myViewNet;
 
-    /// @brief Font for the Header
-    FXFont* myFrameHeaderFont;
-
-    /// @brief the label for the frame's header
-    FXLabel* myFrameHeaderLabel;
+    /// @brief GEO Parameters
+    GNEFrame::GEOAttributes* myGEOAttributes;
 
     /// @brief Vertical frame that holds all widgets of frame
     FXVerticalFrame* myContentFrame;
@@ -216,6 +213,12 @@ protected:
 private:
     /// @brief scroll windows that holds the content frame
     FXScrollWindow* myScrollWindowsContents;
+
+    /// @brief Font for the Header
+    FXFont* myFrameHeaderFont;
+
+    /// @brief the label for the frame's header
+    FXLabel* myFrameHeaderLabel;
 
     /// @brief Invalidated copy constructor.
     GNEFrame(const GNEFrame&) = delete;

@@ -42,6 +42,7 @@
 #include "GNEViewParent.h"
 #include "GNEViewNet.h"
 #include "GNEAttributeCarrier.h"
+#include "GNEInspectorFrame.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -104,8 +105,8 @@ GNEFrame::GEOAttributes::showGEOAttributes(const std::vector<GNEAttributeCarrier
     // make sure that ACs has elements
     assert(ACs.size() > 0);
     myACs = ACs;
-    // fill attributes
-    UpdateGEOAttributes();
+    // fill attributes using refresh attributes
+    refreshGEOAttributes();
     // show FXGroupBox
     FXGroupBox::show();
 }
@@ -120,7 +121,7 @@ GNEFrame::GEOAttributes::hideGEOAttributes() {
 
 
 void 
-GNEFrame::GEOAttributes::UpdateGEOAttributes() {
+GNEFrame::GEOAttributes::refreshGEOAttributes() {
     // hide all frane parameters
     myGEOShapeFrame->hide();
     myLongitudeFrame->hide();
@@ -190,6 +191,8 @@ GNEFrame::GEOAttributes::onCmdSetGEOShape(FXObject*, FXSelector, void*) {
         myGEOShapeTextField->setTextColor(FXRGB(255, 0, 0));
         myGEOShapeTextField->killFocus();
     }
+    // refresh values of current inspected item (because attribute shape changes)
+    myViewNet->getViewParent()->getInspectorFrame()->refreshValues();
     return 0;
 }
 
@@ -203,19 +206,23 @@ GNEFrame::GEOAttributes::onCmdSetLongitude(FXObject*, FXSelector, void*) {
         myLongitudeTextField->setTextColor(FXRGB(255, 0, 0));
         myLongitudeTextField->killFocus();
     }
+    // refresh values of current inspected item (because attribute position changes)
+    myViewNet->getViewParent()->getInspectorFrame()->refreshValues();
     return 0;
 }
 
 
 long 
 GNEFrame::GEOAttributes::onCmdSetLatitude(FXObject*, FXSelector, void*) {
-    if(myACs.front()->isValid(SUMO_ATTR_LAT, myLongitudeTextField->getText().text())) {
-        myACs.front()->setAttribute(SUMO_ATTR_LAT, myLongitudeTextField->getText().text(), myViewNet->getUndoList());
+    if(myACs.front()->isValid(SUMO_ATTR_LAT, myLatitudeTextField->getText().text())) {
+        myACs.front()->setAttribute(SUMO_ATTR_LAT, myLatitudeTextField->getText().text(), myViewNet->getUndoList());
         myLatitudeTextField->setTextColor(FXRGB(0, 0, 0));
     } else {
         myLatitudeTextField->setTextColor(FXRGB(255, 0, 0));
         myLatitudeTextField->killFocus();
     }
+    // refresh values of current inspected item (because attribute position changes)
+    myViewNet->getViewParent()->getInspectorFrame()->refreshValues();
     return 0;
 }
 

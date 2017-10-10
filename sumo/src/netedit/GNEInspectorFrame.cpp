@@ -301,7 +301,8 @@ GNEInspectorFrame::inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* pr
 }
 
 
-void GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked) {
+void 
+GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked) {
     myPreviousElementDelete = previousElement;
     myPreviousElementDeleteWasMarked = previousElementWasMarked;
     // Show back button if myPreviousElementDelete is valid
@@ -311,6 +312,16 @@ void GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttri
         inspectElement(AC);
         myHeaderLeftFrame->show();
         myBackButton->show();
+    }
+}
+
+
+void 
+GNEInspectorFrame::refreshValues() {
+    for (auto i : myVectorOfAttributeInputs) {
+        if (i->getAttr() != SUMO_ATTR_NOTHING) {
+            i->refreshAttribute();
+        }
     }
 }
 
@@ -988,6 +999,8 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
             WRITE_WARNING("Value '" + newVal + "' for attribute " + toString(myAttr) + " of " + toString(myTag) + " isn't valid");
         }
     }
+    // refresh GEO Attributes
+    myInspectorFrameParent->myGEOAttributes->refreshGEOAttributes();
     // Update view net
     myInspectorFrameParent->getViewNet()->update();
     return 1;
