@@ -59,7 +59,7 @@ public:
      * @param[in] id The name of the polygon
      * @param[in] type The (abstract) type of the polygon
      * @param[in] shape The shape of the polygon
-     * @param[in] useGEO Enable or disable use GEO coordinates
+     * @param[in] geo specifiy if shape was loaded as GEO
      * @param[in] color The color of the polygon
      * @param[in] layer The layer of the polygon
      * @param[in] angle The rotation of the polygon
@@ -68,7 +68,7 @@ public:
      * @param[in] movementBlocked if movement of POI is blocked
      * @param[in] shapeBlocked if shape of POI is blocked
      */
-    GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool useGEO, bool fill,
+    GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill,
             const RGBColor& color, double layer, double angle, const std::string& imgFile, bool movementBlocked, bool shapeBlocked);
 
     /// @brief Destructor
@@ -196,9 +196,6 @@ public:
 protected:
     /// @brief junction of which the shape is being edited (optional)
     GNENetElement* myNetElementShapeEdited;
-
-    /// @brief enable or disable save shape as GEO coordinate
-    bool myUseGEO;
 
     /// @brief Latitude of Polygon
     PositionVector myGeoShape;

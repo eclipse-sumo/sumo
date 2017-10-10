@@ -199,8 +199,11 @@ GNEPolygonFrame::buildPoly(const PositionVector& drawedShape) {
         // generate new ID
         valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generatePolyID();
 
-        // obtain position
+        // obtain shape
         valuesOfElement[SUMO_ATTR_SHAPE] = toString(drawedShape);
+
+        // obtain geo (by default false)
+        valuesOfElement[SUMO_ATTR_GEO] = "false";
 
         // obtain block movement value
         valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockMovementEnabled());
@@ -291,11 +294,12 @@ GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string>& polyValues
     double angle = GNEAttributeCarrier::parse<double>(polyValues.at(SUMO_ATTR_ANGLE));
     std::string imgFile = polyValues.at(SUMO_ATTR_IMGFILE);
     PositionVector shape =  GeomConvHelper::parseShapeReporting(polyValues.at(SUMO_ATTR_SHAPE), "user-supplied position", 0, ok, true);
+    bool geo = GNEAttributeCarrier::parse<bool>(polyValues.at(SUMO_ATTR_GEO));
     bool fill = GNEAttributeCarrier::parse<bool>(polyValues.at(SUMO_ATTR_FILL));
 
     // create new Polygon only if number of shape points is greather than 2
     myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POLY));
-    if ((shape.size() > 0) && myViewNet->getNet()->addPolygon(id, type, color, layer, angle, imgFile, shape, fill)) {
+    if ((shape.size() > 0) && myViewNet->getNet()->addPolygon(id, type, color, layer, angle, imgFile, shape, geo, fill)) {
         // set manually attributes use GEO, block movement and block shape
         GNEPoly* polygon = myViewNet->getNet()->retrievePolygon(id);
         polygon->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, polyValues.at(GNE_ATTR_BLOCK_MOVEMENT), myViewNet->getUndoList());

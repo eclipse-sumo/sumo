@@ -177,7 +177,9 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
     const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, Shape::DEFAULT_TYPE);
     const RGBColor color = attrs.hasAttribute(SUMO_ATTR_COLOR) ? attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok) : myDefaultColor;
     PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
+    bool geo = false;
     if (attrs.getOpt<bool>(SUMO_ATTR_GEO, id.c_str(), ok, false)) {
+        geo = true;
         bool success = true;
         for (int i = 0; i < (int)shape.size(); i++) {
             if (useProcessing) {
@@ -201,7 +203,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
         WRITE_ERROR("Polygon's shape cannot be empty.");
         return;
     }
-    if (!myShapeContainer.addPolygon(id, type, color, layer, angle, imgFile, shape, fill, ignorePruning)) {
+    if (!myShapeContainer.addPolygon(id, type, color, layer, angle, imgFile, shape, geo, fill, ignorePruning)) {
         WRITE_ERROR("Polygon '" + id + "' already exists.");
     }
     myLastParameterised = myShapeContainer.getPolygons().get(id);

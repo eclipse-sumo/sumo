@@ -55,8 +55,8 @@ bool
 ShapeContainer::addPolygon(const std::string& id, const std::string& type,
                            const RGBColor& color, double layer,
                            double angle, const std::string& imgFile,
-                           const PositionVector& shape, bool fill, bool ignorePruning) {
-    return add(new SUMOPolygon(id, type, color, shape, fill, layer, angle, imgFile), ignorePruning);
+                           const PositionVector& shape, bool geo, bool fill, bool ignorePruning) {
+    return add(new SUMOPolygon(id, type, color, shape, geo, fill, layer, angle, imgFile), ignorePruning);
 }
 
 

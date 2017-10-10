@@ -56,15 +56,15 @@ public:
      * @param[in] angle The rotation of the polygon
      * @param[in] imgFile The raster image of the polygon
      * @param[in] shape The shape of the polygon
+     * @param[in] geo specifiy if shape was loaded as GEO
      * @param[in] fill Whether the polygon shall be filled
      */
     GUIPolygon(const std::string& id, const std::string& type,
-               const RGBColor& color, const PositionVector& shape, bool fill,
+               const RGBColor& color, const PositionVector& shape, bool geo, bool fill,
                double layer = 0, double angle = 0, const std::string& imgFile = "");
 
     /// @brief Destructor
     ~GUIPolygon();
-
 
 
     /// @name inherited from GUIGlObject

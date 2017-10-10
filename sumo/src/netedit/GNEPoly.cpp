@@ -66,14 +66,13 @@ const double GNEPoly::myHintSize = 0.8;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool useGEO, bool fill,
+GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill,
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool movementBlocked, bool shapeBlocked) :
-    GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile),
+    GUIPolygon(id, type, color, shape, geo, fill, layer, angle, imgFile),
     GNEShape(net, SUMO_TAG_POLY, ICON_LOCATEPOLY, movementBlocked, shapeBlocked),
     myNetElementShapeEdited(NULL),
     myClosedShape(shape.front() == shape.back()),
     mySimplifiedShape(false),
-    myUseGEO(useGEO),
     myCurrentMovingVertexIndex(-1) {
     // check if imgFile is valid
     if(!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
@@ -168,7 +167,7 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
 
 
 void GNEPoly::writeShape(OutputDevice& device) {
-    writeXML(device, myUseGEO);
+    writeXML(device, myGEO);
 }
 
 
@@ -531,7 +530,7 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ANGLE:
             return toString(getNaviDegree());
         case SUMO_ATTR_GEO:
-            return toString(myUseGEO);
+            return toString(myGEO);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_BLOCK_SHAPE:
@@ -702,7 +701,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             setNaviDegree(parse<double>(value));
             break;
         case SUMO_ATTR_GEO:
-            myUseGEO = parse<bool>(value);
+            myGEO = parse<bool>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);

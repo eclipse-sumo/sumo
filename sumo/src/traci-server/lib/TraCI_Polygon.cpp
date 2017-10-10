@@ -67,7 +67,7 @@ TraCI_Polygon::add(const std::string& polygonID, const TraCIPositionVector& shap
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     PositionVector pShape = TraCI::makePositionVector(shape);
     RGBColor col = TraCI::makeRGBColor(c);
-    if (!shapeCont.addPolygon(polygonID, type, col, (double)layer, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, pShape, fill)) {
+    if (!shapeCont.addPolygon(polygonID, type, col, (double)layer, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, pShape, false, fill)) {
         throw TraCIException("Could not add polygon '" + polygonID + "'");
     }
 }

@@ -65,8 +65,8 @@ bool
 GUIShapeContainer::addPolygon(const std::string& id, const std::string& type,
                               const RGBColor& color, double layer,
                               double angle, const std::string& imgFile,
-                              const PositionVector& shape, bool fill, bool /* ignorePruning */) {
-    GUIPolygon* p = new GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile);
+                              const PositionVector& shape, bool geo, bool fill, bool /* ignorePruning */) {
+    GUIPolygon* p = new GUIPolygon(id, type, color, shape, geo, fill, layer, angle, imgFile);
     AbstractMutex::ScopedLocker locker(myLock);
     if (!myPolygons.add(id, p)) {
         delete p;

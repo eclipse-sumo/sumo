@@ -60,10 +60,12 @@ public:
      * @param[in] angle The rotation of the polygon
      * @param[in] imgFile The raster image of the polygon
      * @param[in] shape The shape of the polygon
+     * @param[in] geo specifiy if shape was loaded as GEO
      * @param[in] fill Whether the polygon shall be filled
      */
     SUMOPolygon(const std::string& id, const std::string& type,
-                const RGBColor& color, const PositionVector& shape, bool fill,
+                const RGBColor& color, const PositionVector& shape, 
+                bool geo, bool fill,
                 double layer = DEFAULT_LAYER,
                 double angle = DEFAULT_ANGLE,
                 const std::string& imgFile = DEFAULT_IMG_FILE);
@@ -71,7 +73,6 @@ public:
 
     /// @brief Destructor
     virtual ~SUMOPolygon();
-
 
 
     /// @name Getter
@@ -92,7 +93,6 @@ public:
         return myFill;
     }
     /// @}
-
 
 
     /// @name Setter
@@ -123,9 +123,11 @@ protected:
     /// @brief The positions of the polygon
     PositionVector myShape;
 
+    /// @brief specify if shape is handled as GEO coordinate (Main used in netedit)
+    bool myGEO;
+
     /// @brief Information whether the polygon has to be filled
     bool myFill;
-
 };
 
 

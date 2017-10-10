@@ -1792,11 +1792,11 @@ GNENet::flowExists(const std::string& flowID) const {
 
 bool
 GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle,
-                   const std::string& imgFile, const PositionVector& shape, bool fill, bool /*ignorePruning*/) {
+                   const std::string& imgFile, const PositionVector& shape, bool geo, bool fill, bool /*ignorePruning*/) {
     // check if ID is duplicated
     if (myPolygons.get(id) == NULL) {
         // create poly
-        GNEPoly* poly = new GNEPoly(this, id, type, shape, false, fill, color, layer, angle, imgFile, false, false);
+        GNEPoly* poly = new GNEPoly(this, id, type, shape, geo, fill, color, layer, angle, imgFile, false, false);
         if (myPolygons.add(poly->getID(), poly)) {
             myViewNet->getUndoList()->p_begin("add " + toString(poly->getTag()));
             myViewNet->getUndoList()->add(new GNEChange_Poly(this, poly, true), true);

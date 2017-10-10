@@ -68,13 +68,13 @@ public:
      * @param[in] angle The rotation of the polygon
      * @param[in] imgFile The raster image of the polygon
      * @param[in] shape The shape of the polygon
+     * @param[in] geo specify if shape was loaded as GEO coordinate
      * @param[in] fill Whether the polygon shall be filled
      * @return whether the polygon could be added
      */
-    virtual bool addPolygon(const std::string& id, const std::string& type,
-                            const RGBColor& color, double layer,
-                            double angle, const std::string& imgFile,
-                            const PositionVector& shape, bool fill, bool ignorePruning = false);
+    virtual bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
+                            double angle, const std::string& imgFile, const PositionVector& shape, bool geo, 
+                            bool fill, bool ignorePruning = false);
 
 
     /** @brief Builds a POI using the given values and adds it to the container
