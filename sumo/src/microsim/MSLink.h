@@ -35,6 +35,7 @@
 #include <set>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/vehicle/SUMOVehicle.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
@@ -43,7 +44,6 @@
 // ===========================================================================
 class MSLane;
 class MSJunction;
-class SUMOVehicle;
 class MSVehicle;
 class MSPerson;
 class OutputDevice;
@@ -201,7 +201,7 @@ public:
     ApproachingVehicleInformation getApproaching(const SUMOVehicle* veh) const;
 
     /// @brief return all approaching vehicles
-    const std::map<const SUMOVehicle*, ApproachingVehicleInformation>& getApproaching() const {
+    const std::map<const SUMOVehicle*, ApproachingVehicleInformation, SUMOVehicle::ComparatorIdLess>& getApproaching() const {
         return myApproachingVehicles;
     }
 
@@ -524,7 +524,7 @@ private:
     /// @brief The lane approaching this link
     MSLane* myLaneBefore;
 
-    std::map<const SUMOVehicle*, ApproachingVehicleInformation> myApproachingVehicles;
+    std::map<const SUMOVehicle*, ApproachingVehicleInformation, SUMOVehicle::ComparatorIdLess> myApproachingVehicles;
     std::set<MSLink*> myBlockedFoeLinks;
 
     /// @brief The position within this respond
