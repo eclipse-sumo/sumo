@@ -103,5 +103,8 @@ bestOffset2_reserve
 bestOffset2_noReserve
 future_braking
 
+# configuring assymetry in strategic left-right lookahead
+lcLookaheadLeft
+
 # tests for various tickets
 bugs
