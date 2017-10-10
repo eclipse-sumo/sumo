@@ -49,7 +49,9 @@
         <xsd:attribute name="lcKeepRight" type="xsd:float"/>
         <xsd:attribute name="lcSublane" type="xsd:float"/>
         <xsd:attribute name="lcPushy" type="xsd:float"/>
-        <xsd:attribute name="lcAssertive" type="xsd:float"/>
+        <xsd:attribute name="lcPushyGap" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcAssertive" type="positiveFloatType"/>
+        <xsd:attribute name="lcLookaheadLeft" type="positiveFloatType"/>
         <xsd:attribute name="maxSpeedLat" type="positiveFloatType"/>
         <xsd:attribute name="latAlignment">
             <xsd:simpleType>
