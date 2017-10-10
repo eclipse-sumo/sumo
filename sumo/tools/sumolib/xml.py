@@ -224,19 +224,26 @@ def average(elements, attrname):
         raise Exception("average of 0 elements is not defined")
 
 
-def parse_fast(xmlfile, element_name, attrnames, warn=False):
+def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
     """
     Parses the given attrnames from all elements with element_name
     @Note: The element must be on its own line and the attributes must appear in
     the given order.
     @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
     """
-    pattern = '.*'.join(['<%s' % element_name] +
-                        ['%s="([^"]*)"' % attr for attr in attrnames])
-    attrnames = [_prefix_keyword(a, warn) for a in attrnames]
-    Record = namedtuple(element_name, attrnames)
+    prefixedAttrnames = [_prefix_keyword(a, warn) for a in attrnames]
+    if optional:
+        pattern = ''.join(['<%s' % element_name] +
+                          ['(\\s+%s="(?P<%s>[^"]*?)")?' % a for a in zip(attrnames, prefixedAttrnames)])
+    else:
+        pattern = '.*'.join(['<%s' % element_name] +
+                            ['%s="([^"]*)"' % attr for attr in attrnames])
+    Record = namedtuple(element_name, prefixedAttrnames)
     reprog = re.compile(pattern)
     for line in open(xmlfile):
         m = reprog.search(line)
         if m:
-            yield Record(*m.groups())
+            if optional:
+                yield Record(**m.groupdict())
+            else:
+                yield Record(*m.groups())
