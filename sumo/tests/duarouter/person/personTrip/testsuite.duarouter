@@ -62,4 +62,7 @@ access
 
 # output bus route as well
 ptline_routing
+
+# keep public transport lines even if they end early
+early_ending_flow
 errors
