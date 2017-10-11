@@ -230,7 +230,7 @@ def parse_routes(xmldoc, edge_id_list, verbinder_d):
                 "links": [start_link, ]     # finally translated to SUMO ids
             }
             # split into separate time intervals' relative flow data
-            for tIrFlow in map(str.strip, vehRtStatic.getAttribute('relFlow').split(',')):
+            for tIrFlow in map(str.strip, str(vehRtStatic.getAttribute('relFlow')).split(',')):
                 if len(tIrFlow) == 0:
                     continue
                 temp = tIrFlow.split()      # get "id", "tInterval:relFlow"
@@ -479,22 +479,20 @@ if __name__ == '__main__':
         description='road network conversion utility for static route flows'
         ' (VISSIM.inpx to SUMO); generates SUMO routes definition file from'
         ' given inpx and derived (by netconvert) SUMO net.')
-    parser.add_argument('--output-file', '-o', type=str, default='routes.rou.xml',
+    parser.add_argument('--output-file', '-o', default='routes.rou.xml',
                         help='output file name')
-    #parser.add_argument('--vissim-input', '-V', type=str,
-    parser.add_argument('vissim_input', help='VISSIM inpx file path')
-    #parser.add_argument('--SUMO-net', '-S', type=str,
-    parser.add_argument('SUMO_net', help='SUMO net file path')
+    parser.add_argument('--vissim-file', '-V', dest="vissim_file", help='VISSIM inpx file path')
+    parser.add_argument('--sumo-net-file', '-n', dest="sumo_net_file", help='SUMO net file path')
     args = parser.parse_args()
     #print("\n", args, "\n")
 
     #
     # Input data ##########
     #
-    print('\n---\n\n* loading VISSIM net:\n\t', args.vissim_input)
-    inpx_doc = minidom.parse(args.vissim_input)
-    print('\n---\n\n* loading SUMO net:\n\t', args.SUMO_net,)
-    sumo_doc = minidom.parse(args.SUMO_net)
+    print('\n---\n\n* loading VISSIM net:\n\t', args.vissim_file)
+    inpx_doc = minidom.parse(args.vissim_file)
+    print('\n---\n\n* loading SUMO net:\n\t', args.sumo_net_file,)
+    sumo_doc = minidom.parse(args.sumo_net_file)
 
     print('+ building edge list...')
     # for all normal edges
