@@ -78,9 +78,6 @@
 #include "GNEAdditionalDialog.h"
 #include "GNERerouter.h"
 #include "GNEConnection.h"
-#include "GNEChange_POI.h"
-#include "GNEChange_Poly.h"
-
 
 // ===========================================================================
 // FOX callback mapping

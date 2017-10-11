@@ -9,15 +9,15 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    GNEChange_POI.h
+/// @file    GNEChange_Shape.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Aug 2017
-/// @version $Id$
+/// @date    Oct 2017
+/// @version $Id: GNEChange_Shape.h 26300 2017-10-02 20:44:50Z behrisch $
 ///
-// A network change in which a single POI is created or deleted
+// A network change in which a single Shape is created or deleted
 /****************************************************************************/
-#ifndef GNEChange_POI_h
-#define GNEChange_POI_h
+#ifndef GNEChange_Shape_h
+#define GNEChange_Shape_h
 
 
 // ===========================================================================
@@ -37,28 +37,28 @@
 // class declarations
 // ===========================================================================
 class GNENet;
-class GNEPOI;
+class GNEShape;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
-* @class GNEChange_POI
-* A network change in which a single POI is created or deleted
+* @class GNEChange_Shape
+* A network change in which a single poly is created or deleted
 */
-class GNEChange_POI : public GNEChange {
-    FXDECLARE_ABSTRACT(GNEChange_POI)
+class GNEChange_Shape : public GNEChange {
+    FXDECLARE_ABSTRACT(GNEChange_Shape)
 
 public:
     /**@brief Constructor
-    * @param[in] net net in which POIgon will be inserted
-    * @param[in] POI The name of the POIgon
+    * @param[in] net net in which polygon will be inserted
+    * @param[in] shape the shape to be changed
     * @param[in] forward Whether to create/delete (true/false)
     */
-    GNEChange_POI(GNENet* net, GNEPOI* POI, bool forward);
+    GNEChange_Shape(GNENet* net, GNEShape* shape, bool forward);
 
     /// @brief Destructor
-    ~GNEChange_POI();
+    ~GNEChange_Shape();
 
     /// @name inherited from GNEChange
     /// @{
@@ -75,12 +75,9 @@ public:
     void redo();
     /// @}
 
-
 private:
-
-    /// @brief pointer to POI
-    GNEPOI* myPOI;
-
+    /// @brief pointer to shape
+    GNEShape* myShape;
 };
 
 #endif

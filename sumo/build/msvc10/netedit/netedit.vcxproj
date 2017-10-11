@@ -131,10 +131,9 @@
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Edge.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Junction.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Lane.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_POI.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Poly.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_RerouterInterval.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Selection.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Shape.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_TLS.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChargingStation.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEClosingLaneReroute.cpp" />
@@ -219,10 +218,9 @@
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Edge.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Junction.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Lane.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_POI.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Poly.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_RerouterInterval.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Selection.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Shape.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_TLS.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChargingStation.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEClosingLaneReroute.h" />

@@ -58,16 +58,13 @@
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
 #include "GNERerouter.h"
-#include "GNEChange_POI.h"
-#include "GNEChange_Poly.h"
-
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
 FXDEFMAP(GNEDeleteFrame) GNEDeleteFrameMap[] = {
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,                 GNEDeleteFrame::onCmdShowChildMenu),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,     GNEDeleteFrame::onCmdShowChildMenu),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETEFRAME_CENTER,     GNEDeleteFrame::onCmdCenterChildItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETEFRAME_INSPECT,    GNEDeleteFrame::onCmdInspectChildItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETEFRAME_DELETE,     GNEDeleteFrame::onCmdDeleteChildItem),
@@ -79,6 +76,7 @@ FXIMPLEMENT(GNEDeleteFrame, FXVerticalFrame, GNEDeleteFrameMap, ARRAYNUMBER(GNED
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Delete"),
     myMarkedAC(NULL) {

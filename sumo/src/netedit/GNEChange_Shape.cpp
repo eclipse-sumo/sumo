@@ -9,12 +9,12 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    GNEChange_POI.cpp
+/// @file    GNEChange_Shape.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Aug 2017
-/// @version $Id$
+/// @date    Oct 2017
+/// @version $Id: GNEChange_Shape.cpp 26421 2017-10-11 11:21:09Z palcraft $
 ///
-// A network change in which a single POI is created or deleted
+// A network change in which a single poly is created or deleted
 /****************************************************************************/
 
 // ===========================================================================
@@ -30,63 +30,67 @@
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 
-#include "GNEChange_POI.h"
-#include "GNEPOI.h"
-#include "GNENet.h"
+#include "GNEChange_Shape.h"
+#include "GNEShape.h"
 #include "GNEViewNet.h"
+#include "GNENet.h"
 
 
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
-FXIMPLEMENT_ABSTRACT(GNEChange_POI, GNEChange, NULL, 0)
+FXIMPLEMENT_ABSTRACT(GNEChange_Shape, GNEChange, NULL, 0)
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-
-/// @brief constructor for creating a POI
-GNEChange_POI::GNEChange_POI(GNENet* net, GNEPOI* POI, bool forward) :
+GNEChange_Shape::GNEChange_Shape(GNENet* net, GNEShape* shape, bool forward) :
     GNEChange(net, forward),
-    myPOI(POI) {
-    myPOI->incRef("GNEChange_POI");
+    myShape(shape) {
+    myShape->incRef("GNEChange_Shape");
     assert(myNet);
 }
 
 
-GNEChange_POI::~GNEChange_POI() {
-    assert(myPOI);
-    myPOI->decRef("GNEChange_POI");
-    if (myPOI->unreferenced()) {
+GNEChange_Shape::~GNEChange_Shape() {
+    assert(myShape);
+    myShape->decRef("GNEChange_Shape");
+    if (myShape->unreferenced()) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(SUMO_TAG_POI) + " '" + myPOI->getID() + "' from net");
+            WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net");
         }
-        // remove POIgon of net
-        if (myNet->removePOI(myPOI->getID()) == false) {
-            WRITE_ERROR("Trying to remove non-inserted ''" + myPOI->getID() + "' from net");
+        // remove shape of net
+        if(myShape->getTag() == SUMO_TAG_POLY) {
+            if (myNet->removePolygon(myShape->getID()) == false) {
+                WRITE_ERROR("Trying to remove non-inserted ''" + myShape->getID() + "' from net");
+            }
+        } else {
+            if (myNet->removePOI(myShape->getID()) == false) {
+                WRITE_ERROR("Trying to remove non-inserted ''" + myShape->getID() + "' from net");
+            }
         }
     }
 }
 
 
 void
-GNEChange_POI::undo() {
+GNEChange_Shape::undo() {
     if (myForward) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(SUMO_TAG_POI) + " '" + myPOI->getID() + "' from viewNet");
+            WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from viewNet");
         }
-        // remove POI of view
-        myNet->removeShapeOfView(myPOI);
+        // remove polygon of view
+        myNet->removeShapeOfView(myShape);
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding " + toString(SUMO_TAG_POI) + " '" + myPOI->getID() + "' into viewNet");
+            WRITE_WARNING("Adding " + toString(myShape->getTag()) + " '" + myShape->getID() + "' into viewNet");
         }
-        // Add POIgon to view
-        myNet->insertShapeInView(myPOI);
+        // Add polygon in view
+        myNet->insertShapeInView(myShape);
     }
     // Requiere always save shapes
     myNet->requiereSaveShapes();
@@ -94,21 +98,21 @@ GNEChange_POI::undo() {
 
 
 void
-GNEChange_POI::redo() {
+GNEChange_Shape::redo() {
     if (myForward) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding " + toString(SUMO_TAG_POI) + " '" + myPOI->getID() + "' into viewNet");
+            WRITE_WARNING("Adding " + toString(myShape->getTag()) + " '" + myShape->getID() + "' into viewNet");
         }
-        // Add POIgon into view
-        myNet->insertShapeInView(myPOI);
+        // Add polygon to view
+        myNet->insertShapeInView(myShape);
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(SUMO_TAG_POI) + " '" + myPOI->getID() + "' from viewNet");
+            WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from viewNet");
         }
-        // delete POI from view
-        myNet->removeShapeOfView(myPOI);
+        // delete poly of view
+        myNet->removeShapeOfView(myShape);
     }
     // Requiere always save shapes
     myNet->requiereSaveShapes();
@@ -116,20 +120,20 @@ GNEChange_POI::redo() {
 
 
 FXString
-GNEChange_POI::undoName() const {
+GNEChange_Shape::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_POI)).c_str();
+        return ("Undo create " + toString(myShape->getTag())).c_str();
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_POI)).c_str();
+        return ("Undo delete " + toString(myShape->getTag())).c_str();
     }
 }
 
 
 FXString
-GNEChange_POI::redoName() const {
+GNEChange_Shape::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_POI)).c_str();
+        return ("Redo create " + toString(myShape->getTag())).c_str();
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_POI)).c_str();
+        return ("Redo delete " + toString(myShape->getTag())).c_str();
     }
 }

@@ -69,8 +69,7 @@
 #include "GNEChange_Junction.h"
 #include "GNEChange_Lane.h"
 #include "GNEChange_Selection.h"
-#include "GNEChange_Poly.h"
-#include "GNEChange_POI.h"
+#include "GNEChange_Shape.h"
 #include "GNEConnection.h"
 #include "GNECrossing.h"
 #include "GNEDetector.h"
@@ -200,7 +199,7 @@ GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColo
         GNEPoly* poly = new GNEPoly(this, id, type, shape, geo, fill, color, layer, angle, imgFile, false, false);
         if (myPolygons.add(poly->getID(), poly)) {
             myViewNet->getUndoList()->p_begin("add " + toString(poly->getTag()));
-            myViewNet->getUndoList()->add(new GNEChange_Poly(this, poly, true), true);
+            myViewNet->getUndoList()->add(new GNEChange_Shape(this, poly, true), true);
             myViewNet->getUndoList()->p_end();
             return true;
         } else {
@@ -232,7 +231,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
         GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, pos, false, width, height, false);
         if (myPOIs.add(poi->getID(), poi)) {
             myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
-            myViewNet->getUndoList()->add(new GNEChange_POI(this, poi, true), true);
+            myViewNet->getUndoList()->add(new GNEChange_Shape(this, poi, true), true);
             myViewNet->getUndoList()->p_end();
             return true;
         } else {
@@ -591,13 +590,8 @@ GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
         undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
     }
     // delete shape
-    if(shape->getTag() == SUMO_TAG_POLY) {
-        myViewNet->getUndoList()->add(new GNEChange_Poly(myViewNet->getNet(), dynamic_cast<GNEPoly*>(shape), false), true);
-    } else {
-        myViewNet->getUndoList()->add(new GNEChange_POI(myViewNet->getNet(), dynamic_cast<GNEPOI*>(shape), false), true);
-    }
+    myViewNet->getUndoList()->add(new GNEChange_Shape(myViewNet->getNet(), shape, false), true);
     myViewNet->getUndoList()->p_end();
-
 }
 
 

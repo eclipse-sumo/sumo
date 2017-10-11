@@ -49,10 +49,6 @@
 #include "GNEAttributeCarrier.h"
 #include "GNEPoly.h"
 #include "GNEPOI.h"
-#include "GNEChange_Poly.h"
-#include "GNEChange_POI.h"
-
-
 
 // ===========================================================================
 // FOX callback mapping

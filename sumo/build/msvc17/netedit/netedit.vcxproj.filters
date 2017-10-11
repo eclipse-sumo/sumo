@@ -124,14 +124,8 @@
     <Filter Include="Quellcodedateien\Items\Shapes">
       <UniqueIdentifier>{91ea9e54-fde6-4096-989f-c07bb907fea4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header-Dateien\Items\Changes\Shapes">
-      <UniqueIdentifier>{8bf40540-9810-490a-94c7-85bca447295c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header-Dateien\Items\Shapes">
       <UniqueIdentifier>{1ed8a1dd-f1e0-4a35-8fc9-885daa342068}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Quellcodedateien\Items\Changes\Shapes">
-      <UniqueIdentifier>{e6a8a3b6-44b4-431c-9068-6e1faf9eda34}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -360,12 +354,6 @@
     <ClCompile Include="..\..\..\src\netedit\GNEPoly.cpp">
       <Filter>Quellcodedateien\Items\Shapes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_POI.cpp">
-      <Filter>Quellcodedateien\Items\Changes\Shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Poly.cpp">
-      <Filter>Quellcodedateien\Items\Changes\Shapes</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEShape.cpp">
       <Filter>Quellcodedateien\Items\Shapes</Filter>
     </ClCompile>
@@ -383,6 +371,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEPOILane.cpp">
       <Filter>Quellcodedateien\Items\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Shape.cpp">
+      <Filter>Quellcodedateien\Items\Changes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -610,9 +601,6 @@
     <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSignStep.h">
       <Filter>Header-Dateien\Items\Additionals\VariableSpeedSigns</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_POI.h">
-      <Filter>Header-Dateien\Items\Changes\Shapes</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEPOI.h">
       <Filter>Header-Dateien\Items\Shapes</Filter>
     </ClInclude>
@@ -621,9 +609,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEInternalLane.h">
       <Filter>Header-Dateien\Items</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Poly.h">
-      <Filter>Header-Dateien\Items\Changes\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEShape.h">
       <Filter>Header-Dateien\Items\Shapes</Filter>
@@ -642,6 +627,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEPOILane.h">
       <Filter>Header-Dateien\Items\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Shape.h">
+      <Filter>Header-Dateien\Items\Changes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
