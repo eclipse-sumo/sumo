@@ -269,6 +269,7 @@ GUIVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& 
 
 void
 GUIVehicle::drawAction_drawLinkItems(const GUIVisualizationSettings& s) const {
+    glTranslated(0, 0, getType() + .2); // draw on top of cars
     for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
         if ((*i).myLink == 0) {
             continue;
@@ -292,6 +293,7 @@ GUIVehicle::drawAction_drawLinkItems(const GUIVisualizationSettings& s) const {
             UNUSED_PARAMETER(avi); // only used for assertion
         }
     }
+    glTranslated(0, 0, getType() - .2); // draw on top of cars
 }
 
 
