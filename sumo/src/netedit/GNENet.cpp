@@ -1974,7 +1974,7 @@ GNENet::removeShapeOfView(GNEShape* s, bool isShapeForEditShapes) {
 void
 GNENet::refreshShape(GNEShape* s) {
     if (s->isShapeVisible()) {
-        myGrid.addAdditionalGLObject(dynamic_cast<GUIGlObject*>(s));
+        myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(s));
         myGrid.addAdditionalGLObject(dynamic_cast<GUIGlObject*>(s));
         myViewNet->update();
     } else {

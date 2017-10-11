@@ -71,7 +71,17 @@ GNEChange_Attribute::~GNEChange_Attribute() {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Deleting unreferenced " + toString(myAC->getTag()) + " '" + myAC->getID() + "' in GNEChange_Attribute");
         }
-        delete myAC;
+        // Check if attribute carrier is a shape
+        if(myShape) {
+            // remove shape using pecify functions
+            if(myShape->getTag() == SUMO_TAG_POLY) {
+                myShape->getNet()->removePolygon(myShape->getID());
+            } else if((myShape->getTag() == SUMO_TAG_POI) || (myShape->getTag() == SUMO_TAG_POILANE)) {
+                myShape->getNet()->removePOI(myShape->getID());
+            }
+        } else {
+            delete myAC;
+        }
     }
 }
 
