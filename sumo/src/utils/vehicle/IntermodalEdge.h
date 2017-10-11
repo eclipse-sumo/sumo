@@ -230,20 +230,20 @@ public:
 
     virtual double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double time) const {
         double length = this->getLength();
-        if (this->getEdge() == trip->from && !myForward) {
+        if (this->getEdge() == trip->from && !myForward && trip->departPos > myStartPos) {
             length = trip->departPos - myStartPos;
         }
-        if (this->getEdge() == trip->to && myForward) {
+        if (this->getEdge() == trip->to && myForward && trip->arrivalPos > myStartPos) {
             length = trip->arrivalPos - myStartPos;
         }
-        if (this->getEdge() == trip->from && myForward) {
+        if (this->getEdge() == trip->from && myForward && trip->departPos > myStartPos) {
             length -= (trip->departPos - myStartPos);
         }
-        if (this->getEdge() == trip->to && !myForward) {
+        if (this->getEdge() == trip->to && !myForward && trip->arrivalPos > myStartPos) {
             length -= (trip->arrivalPos - myStartPos);
         }
         // ensure that 'normal' edges always have a higher weight than connector edges
-        length = MAX2(length, POSITION_EPS);
+        length = MAX2(length, NUMERICAL_EPS);
         double tlsDelay = 0;
         // @note pedestrian traffic lights should never have LINKSTATE_TL_REDYELLOW
         if (this->getEdge()->isCrossing() && myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {

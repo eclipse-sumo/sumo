@@ -94,7 +94,7 @@ public:
         virtual const ROEdge* getOrigin() const = 0;
         virtual const ROEdge* getDestination() const = 0;
         virtual void saveVehicles(OutputDevice& /* os */, OutputDevice* const /* typeos */, bool /* asAlternatives */, OptionsCont& /* options */) const {}
-        virtual void saveAsXML(OutputDevice& os) const = 0;
+        virtual void saveAsXML(OutputDevice& os, const bool extended) const = 0;
         virtual bool isStop() const {
             return false;
         }
@@ -117,7 +117,7 @@ public:
         const ROEdge* getDestination() const {
             return edge;
         }
-        void saveAsXML(OutputDevice& os) const {
+        void saveAsXML(OutputDevice& os, const bool /* extended */) const {
             stopDesc.write(os);
         }
         bool isStop() const {
@@ -140,12 +140,17 @@ public:
      */
     class TripItem {
     public:
+        TripItem(const double _cost)
+            : cost(_cost) {}
+
         /// @brief Destructor
         virtual ~TripItem() {}
 
         virtual const ROEdge* getOrigin() const = 0;
         virtual const ROEdge* getDestination() const = 0;
-        virtual void saveAsXML(OutputDevice& os) const = 0;
+        virtual void saveAsXML(OutputDevice& os, const bool extended) const = 0;
+    protected:
+        double cost;
     };
 
     /**
@@ -155,8 +160,8 @@ public:
     class Ride : public TripItem {
     public:
         Ride(const ROEdge* const _from, const ROEdge* const _to,
-             const std::string& _lines, const std::string& _destStop = "")
-            : from(_from), to(_to), lines(_lines), destStop(_destStop) {}
+             const std::string& _lines, const double _cost, const std::string& _destStop = "")
+            : TripItem(_cost), from(_from), to(_to), lines(_lines), destStop(_destStop) {}
 
         const ROEdge* getOrigin() const {
             return from;
@@ -164,7 +169,7 @@ public:
         const ROEdge* getDestination() const {
             return to;
         }
-        void saveAsXML(OutputDevice& os) const;
+        void saveAsXML(OutputDevice& os, const bool extended) const;
 
     private:
         const ROEdge* const from;
@@ -184,21 +189,21 @@ public:
      */
     class Walk : public TripItem {
     public:
-        Walk(const ConstROEdgeVector& _edges,
+        Walk(const ConstROEdgeVector& _edges, const double _cost,
              double departPos = std::numeric_limits<double>::infinity(),
              double arrivalPos = std::numeric_limits<double>::infinity(),
              const std::string& _destStop = "")
-            : edges(_edges), dur(-1), v(-1), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
-        Walk(const ConstROEdgeVector& edges, const double duration, const double speed,
+             : TripItem(_cost), edges(_edges), dur(-1), v(-1), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
+        Walk(const ConstROEdgeVector& edges, const double _cost, const double duration, const double speed,
              const double departPos, const double arrivalPos, const std::string& _destStop)
-            : edges(edges), dur(duration), v(speed), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
+             : TripItem(_cost), edges(edges), dur(duration), v(speed), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
         const ROEdge* getOrigin() const {
             return edges.front();
         }
         const ROEdge* getDestination() const {
             return edges.back();
         }
-        void saveAsXML(OutputDevice& os) const;
+        void saveAsXML(OutputDevice& os, const bool extended) const;
 
     private:
         const ConstROEdgeVector edges;
@@ -264,9 +269,9 @@ public:
             return myTripItems.empty();
         }
         void saveVehicles(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const;
-        void saveAsXML(OutputDevice& os) const {
+        void saveAsXML(OutputDevice& os, const bool extended) const {
             for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
-                (*it)->saveAsXML(os);
+                (*it)->saveAsXML(os, extended);
             }
         }
         double getWalkFactor() const {

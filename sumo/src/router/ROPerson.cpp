@@ -94,7 +94,7 @@ ROPerson::addRide(const ROEdge* const from, const ROEdge* const to, const std::s
     if (myPlan.empty() || myPlan.back()->isStop()) {
         myPlan.push_back(new PersonTrip());
     }
-    myPlan.back()->addTripItem(new Ride(from, to, lines, destStop));
+    myPlan.back()->addTripItem(new Ride(from, to, lines, -1., destStop));
 }
 
 
@@ -103,7 +103,7 @@ ROPerson::addWalk(const ConstROEdgeVector& edges, const double duration, const d
     if (myPlan.empty() || myPlan.back()->isStop()) {
         myPlan.push_back(new PersonTrip());
     }
-    myPlan.back()->addTripItem(new Walk(edges, duration, speed, departPos, arrivalPos, busStop));
+    myPlan.back()->addTripItem(new Walk(edges, -1., duration, speed, departPos, arrivalPos, busStop));
 }
 
 
@@ -114,8 +114,11 @@ ROPerson::addStop(const SUMOVehicleParameter::Stop& stopPar, const ROEdge* const
 
 
 void
-ROPerson::Ride::saveAsXML(OutputDevice& os) const {
+ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended) const {
     os.openTag(SUMO_TAG_RIDE);
+    if (extended && cost >= 0.) {
+        os.writeAttr(SUMO_ATTR_COST, cost);
+    }
     if (from != 0) {
         os.writeAttr(SUMO_ATTR_FROM, from->getID());
     }
@@ -131,8 +134,11 @@ ROPerson::Ride::saveAsXML(OutputDevice& os) const {
 
 
 void
-ROPerson::Walk::saveAsXML(OutputDevice& os) const {
+ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended) const {
     os.openTag(SUMO_TAG_WALK);
+    if (extended && cost >= 0.) {
+        os.writeAttr(SUMO_ATTR_COST, cost);
+    }
     if (dur > 0) {
         os.writeAttr(SUMO_ATTR_DURATION, dur);
     }
@@ -171,16 +177,16 @@ ROPerson::computeIntermodal(const RORouterProvider& provider, PersonTrip* const 
         if (!it->edges.empty()) {
             if (it->line == "") {
                 if (it + 1 == result.end() && !trip->hasBusStopDest()) {
-                    trip->addTripItem(new Walk(it->edges, trip->getDepartPos(false), trip->getArrivalPos(false)));
+                    trip->addTripItem(new Walk(it->edges, it->cost, trip->getDepartPos(false), trip->getArrivalPos(false)));
                 } else {
-                    trip->addTripItem(new Walk(it->edges, trip->getDepartPos(false), trip->getArrivalPos(false), it->destStop));
+                    trip->addTripItem(new Walk(it->edges, it->cost, trip->getDepartPos(false), trip->getArrivalPos(false), it->destStop));
                 }
             } else if (veh != 0 && it->line == veh->getID()) {
-                trip->addTripItem(new Ride(it->edges.front(), it->edges.back(), veh->getID(), it->destStop));
+                trip->addTripItem(new Ride(it->edges.front(), it->edges.back(), veh->getID(), it->cost, it->destStop));
                 veh->getRouteDefinition()->addLoadedAlternative(new RORoute(veh->getID() + "_RouteDef", it->edges));
                 carUsed = true;
             } else {
-                trip->addTripItem(new Ride(0, 0, it->line, it->destStop));
+                trip->addTripItem(new Ride(0, 0, it->line, it->cost, it->destStop));
             }
         }
     }
@@ -237,7 +243,7 @@ ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlterna
     myParameter.write(os, options, SUMO_TAG_PERSON);
 
     for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
-        (*it)->saveAsXML(os);
+        (*it)->saveAsXML(os, asAlternatives);
     }
 
     for (std::map<std::string, std::string>::const_iterator j = myParameter.getMap().begin(); j != myParameter.getMap().end(); ++j) {

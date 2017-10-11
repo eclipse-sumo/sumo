@@ -65,10 +65,11 @@ private:
 
 public:
     struct TripItem {
-        TripItem(const std::string& _line = "") : line(_line) {}
+        TripItem(const std::string& _line = "") : line(_line), cost(0.) {}
         std::string line;
         std::string destStop;
         std::vector<const E*> edges;
+        double cost;
     };
 
     /// Constructor
@@ -215,19 +216,20 @@ public:
                  std::vector<TripItem>& into) {
         createNet();
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle, modeSet);
-        std::vector<const _IntermodalEdge*> intoPed;
+        std::vector<const _IntermodalEdge*> intoEdges;
         const bool success = myInternalRouter->compute(myIntermodalNet->getDepartEdge(from, departPos),
                              myIntermodalNet->getArrivalEdge(to, arrivalPos),
-                             &trip, msTime, intoPed);
+                             &trip, msTime, intoEdges);
         if (success) {
             std::string lastLine = "";
-            for (int i = 0; i < (int)intoPed.size(); ++i) {
-                if (intoPed[i]->includeInRoute(false)) {
-                    if (intoPed[i]->getLine() == "!stop") {
-                        into.back().destStop = intoPed[i]->getID();
+            double time = STEPS2TIME(msTime);
+            for (const _IntermodalEdge* iEdge: intoEdges) {
+                if (iEdge->includeInRoute(false)) {
+                    if (iEdge->getLine() == "!stop") {
+                        into.back().destStop = iEdge->getID();
                     } else {
-                        if (intoPed[i]->getLine() != lastLine) {
-                            lastLine = intoPed[i]->getLine();
+                        if (iEdge->getLine() != lastLine) {
+                            lastLine = iEdge->getLine();
                             if (lastLine == "!car") {
                                 into.push_back(TripItem(vehicle->getID()));
                             } else if (lastLine == "!ped") {
@@ -236,22 +238,29 @@ public:
                                 into.push_back(TripItem(lastLine));
                             }
                         }
-                        if (into.back().edges.empty() || into.back().edges.back() != intoPed[i]->getEdge()) {
-                            into.back().edges.push_back(intoPed[i]->getEdge());
+                        if (into.back().edges.empty() || into.back().edges.back() != iEdge->getEdge()) {
+                            into.back().edges.push_back(iEdge->getEdge());
                         }
                     }
+                }
+                const double edgeEffort = myInternalRouter->getEffort(iEdge, &trip, time);
+                time += edgeEffort;
+                if (!into.empty()) {
+                    into.back().cost += edgeEffort;
                 }
             }
         }
 #ifdef IntermodalRouter_DEBUG_ROUTES
         double time = STEPS2TIME(msTime);
-        for (int i = 0; i < intoPed.size(); ++i) {
-            time += myInternalRouter->getEffort(intoPed[i], &trip, time);
+        for (const _IntermodalEdge* iEdge : intoEdges) {
+            const double edgeEffort = myInternalRouter->getEffort(iEdge, &trip, time);
+            time += edgeEffort;
+            std::cout << iEdge->getID() << "(" << iEdge->getLine() << "): " << edgeEffort << std::endl;
         }
         std::cout << TIME2STEPS(msTime) << " trip from " << from->getID() << " to " << to->getID()
                   << " departPos=" << departPos
                   << " arrivalPos=" << arrivalPos
-                  << " edges=" << toString(intoPed)
+                  << " edges=" << toString(intoEdges)
 //                  << " resultEdges=" << toString(into)
                   << " time=" << time
                   << "\n";
