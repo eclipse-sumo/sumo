@@ -10,8 +10,8 @@
 //
 /****************************************************************************/
 /// @file    GNEPOI.cpp
-/// @author  Jakob Erdmann
-/// @date    Sept 2012
+/// @author  Pablo Alvarez Lopez
+/// @date    Jun 2017
 /// @version $Id$
 ///
 // A class for visualizing and editing POIS in netedit (adapted from
@@ -65,7 +65,6 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height),
     GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI, movementBlocked, false),
-    myPositionOverLane(0),
     myUseGEO(useGEO) {
     // set GEO Position
     myGEOPosition = pos;

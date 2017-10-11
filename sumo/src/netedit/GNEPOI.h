@@ -10,8 +10,8 @@
 //
 /****************************************************************************/
 /// @file    GNEPOI.h
-/// @author  Jakob Erdmann
-/// @date    Sept 2012
+/// @author  Pablo Alvarez Lopez
+/// @date    Jun 2017
 /// @version $Id$
 ///
 // A class for visualizing and editing POIS in netedit (adapted from
@@ -32,11 +32,6 @@
 
 #include "GNEShape.h"
 
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GeoConvHelper;
-class GNELane;
 
 // ===========================================================================
 // class definitions
@@ -156,12 +151,6 @@ public:
     /// @}
 
 protected:
-    /// @brief lane in which this POI can be placed
-    GNELane* myLane;
-
-    /// @brief position over lane
-    double myPositionOverLane;
-
     /// @brief enable or disable save POI as GEO coordinate
     bool myUseGEO;
 
