@@ -460,6 +460,11 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
             ? myLookaheadTime
             : TIME2STEPS(ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, STEPS2TIME(myLookaheadTime)))));
     //if (ego != 0) std::cout << SIMTIME << " ego=" << ego->getID() << " jmTimegapMinor=" << ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, -1) << " lookAhead=" << lookAhead << "\n";
+#ifdef MSLink_DEBUG_OPENED
+    if (gDebugFlag1) {
+        std::cout << "       imp=" << impatience << " atb=" << avi.arrivalTimeBraking << " at2=" << foeArrivalTime << " lA=" << lookAhead << " egoLT=" << leaveTime << "\n";
+    }
+#endif
     if (avi.leavingTime < arrivalTime) {
         // ego wants to be follower
         if (sameTargetLane && (arrivalTime - avi.leavingTime < lookAhead
