@@ -65,4 +65,7 @@ ptline_routing
 
 # keep public transport lines even if they end early
 early_ending_flow
+
+# keep public transport vehicles even if they end early
+early_pt
 errors
