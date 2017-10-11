@@ -465,11 +465,10 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
 #endif
             return true;
         }
-    } else if (foeArrivalTime > leaveTime) {
+    } else if (foeArrivalTime > leaveTime + lookAhead) {
         // ego wants to be leader.
-        if (sameTargetLane && (foeArrivalTime - leaveTime < lookAhead
-                               || unsafeMergeSpeeds(leaveSpeed, avi.arrivalSpeedBraking,
-                                       decel, veh->getVehicleType().getCarFollowModel().getMaxDecel()))) {
+        if (sameTargetLane && unsafeMergeSpeeds(leaveSpeed, avi.arrivalSpeedBraking,
+                    decel, veh->getVehicleType().getCarFollowModel().getMaxDecel())) {
 #ifdef MSLink_DEBUG_OPENED
             if (gDebugFlag1) {
                 std::cout << "      blocked (cannot lead)\n";
