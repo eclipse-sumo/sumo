@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/11/15 14:52:41 by SUMO duarouter Version dev-SVN-r19321
+<!-- generated on 10/11/17 12:13:44 by SUMO duarouter Version dev-SVN-r26415
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -31,10 +31,10 @@
         </routeDistribution>
     </vehicle>
     <person id="p0" depart="0.00">
-        <ride from="beg" to="middle" lines="p0_0"/>
-        <walk edges="middle end"/>
+        <ride cost="90.47" from="beg" to="middle" lines="p0_0"/>
+        <walk cost="399.92" edges="middle end"/>
     </person>
     <person id="p1" depart="0.00">
-        <walk edges="end middle beg"/>
+        <walk cost="1202.32" edges="end middle beg"/>
     </person>
 </routes>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 27 16:22:38 2014 by SUMO duarouter Version dev-SVN-r16072
+<!-- generated on 10/11/17 12:13:45 by SUMO duarouter Version dev-SVN-r26415
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -23,10 +23,10 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p0" depart="0">
-        <walk edges="beg middle end"/>
+    <person id="p0" depart="0.00">
+        <walk cost="1599.92" edges="beg middle end"/>
     </person>
-    <person id="p1" depart="0">
-        <walk edges="end middle beg"/>
+    <person id="p1" depart="0.00">
+        <walk cost="1200.08" edges="end middle beg"/>
     </person>
 </routes>
