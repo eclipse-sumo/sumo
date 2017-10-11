@@ -63,6 +63,13 @@ public:
     /// @name Implementations of the MSCFModel interface
     /// @{
 
+    /** @brief Applies interaction with stops and lane changing model influences
+     * @param[in] veh The ego vehicle
+     * @param[in] vPos The possible velocity
+     * @return The velocity after applying interactions with stops and lane change model influences
+     */
+    virtual double moveHelper(MSVehicle* const veh, double vPos) const;
+
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
      * this uses the maximumSafeStopSpeed
      * @param[in] veh The vehicle (EGO)
@@ -105,9 +112,10 @@ protected:
 
     /** @brief Applies driver imperfection (dawdling / sigma)
      * @param[in] speed The speed with no dawdling
+     * @param[in] sigma The sigma value to use
      * @return The speed after dawdling
      */
-    double dawdle(double speed) const;
+    double dawdle(double speed, double sigma) const;
 
 };
 

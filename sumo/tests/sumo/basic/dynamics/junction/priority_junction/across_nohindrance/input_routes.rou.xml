@@ -1,5 +1,5 @@
 <routes>
-    <vType id="DEFAULT_VEHTYPE"/>
+    <vType id="DEFAULT_VEHTYPE" jmSigmaMinor="0"/>
 
     <route id="NS" edges="NC CS"/>
     <route id="EW" edges="EC CW"/>

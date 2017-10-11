@@ -347,6 +347,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "jmIgnoreKeepClearTime",  SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME },
     { "jmIgnoreFoeSpeed",       SUMO_ATTR_JM_IGNORE_FOE_SPEED },
     { "jmIgnoreFoeProb",        SUMO_ATTR_JM_IGNORE_FOE_PROB },
+    { "jmSigmaMinor",           SUMO_ATTR_JM_SIGMA_MINOR },
 
     { "last",                   SUMO_ATTR_LAST },
     { "cost",                   SUMO_ATTR_COST },

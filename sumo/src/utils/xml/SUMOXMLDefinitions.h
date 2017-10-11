@@ -531,6 +531,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME,
     SUMO_ATTR_JM_IGNORE_FOE_SPEED,
     SUMO_ATTR_JM_IGNORE_FOE_PROB,
+    SUMO_ATTR_JM_SIGMA_MINOR,
     /// @}
 
     /// @name route alternatives / distribution attributes

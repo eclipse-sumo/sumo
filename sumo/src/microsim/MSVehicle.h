@@ -1161,6 +1161,9 @@ public:
     /// @brief whether the vehicle may safely move to the given lane with regard to upcoming links
     bool unsafeLinkAhead(const MSLane* lane) const;
 
+    /// @brief decide whether the vehicle is passing a minor link or has comitted to do so
+    bool passingMinor() const;
+
 
 #ifndef NO_TRACI
     /** @brief Returns the uninfluenced velocity
@@ -1457,14 +1460,14 @@ public:
     /// @brief sets position outside the road network
     void setVTDState(Position xyPos);
 
+#endif
+
     /// @brief compute safe speed for following the given leader
     double getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderInfo,
                               const double seen, const MSLane* const lane, double distToCrossing) const;
 
     /// @brief get a numerical value for the priority of the  upcoming link
     static int nextLinkPriority(const std::vector<MSLane*>& conts);
-
-#endif
 
     /// @name state io
     //@{

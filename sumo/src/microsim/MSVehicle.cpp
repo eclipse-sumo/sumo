@@ -4352,6 +4352,23 @@ MSVehicle::ignoreRed(const MSLink* link, bool canBrake) const {
 }
 
 
+bool 
+MSVehicle::passingMinor() const {
+    // either on an internal lane that was entered via minor link 
+    // or on approach to minor link below visibility distance
+    if (myLane == 0) {
+        return false;
+    }
+    if (myLane->getEdge().isInternal()) {
+        return !myLane->getIncomingLanes().front().viaLink->havePriority();
+    } else if (myLFLinkLanes.size() > 0 && myLFLinkLanes.front().myLink != 0) {
+        MSLink* link = myLFLinkLanes.front().myLink;
+        return !link->havePriority() && myLFLinkLanes.front().myDistance <= link->getFoeVisibilityDistance();
+    }
+    return false;
+}
+
+
 void
 MSVehicle::saveState(OutputDevice& out) {
     MSBaseVehicle::saveState(out);

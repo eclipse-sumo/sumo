@@ -53,6 +53,54 @@ MSCFModel_Krauss::~MSCFModel_Krauss() {}
 
 
 double
+MSCFModel_Krauss::moveHelper(MSVehicle* const veh, double vPos) const {
+    const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
+    const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
+    // we need the acceleration for emission computation;
+    //  in this case, we neglect dawdling, nonetheless, using
+    //  vSafe does not incorporate speed reduction due to interaction
+    //  on lane changing
+    const double vMin = minNextSpeed(oldV, veh);
+    // do not exceed max decel even if it is unsafe
+    double vMax = MAX2(vMin,
+                       MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe));
+#ifdef _DEBUG
+    //if (vMin > vMax) {
+    //    WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
+    //}
+#endif
+
+    const double sigma = (veh->passingMinor() 
+            ? veh->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_SIGMA_MINOR, myDawdle) 
+            : myDawdle);
+    const double vDawdle = MAX2(vMin, dawdle(vMax, sigma));
+
+    double vNext = veh->getLaneChangeModel().patchSpeed(vMin, vDawdle, vMax, *this);
+
+#ifdef DEBUG_MOVE_HELPER
+    if DEBUG_COND {
+    std::cout << "\nMOVE_HELPER\n"
+    << "veh '" << veh->getID() << "' vMin=" << vMin
+        << " vMax=" << vMax << " vDawdle=" << vDawdle
+        << " vSafe" << vSafe << " vNext=" << vNext << " vPos=" << vPos << " veh->getSpeed()=" << oldV
+        << "\n";
+    }
+#endif
+
+    // (Leo) At this point vNext may also be negative indicating a stop within next step.
+    // This would have resulted from a call to maximumSafeStopSpeed(), which does not
+    // consider deceleration bounds. Therefore, we cap vNext here.
+    if (!MSGlobals::gSemiImplicitEulerUpdate) {
+//        vNext = MAX2(vNext, veh->getSpeed() - ACCEL2SPEED(getMaxDecel()));
+        vNext = MAX2(vNext, minNextSpeed(veh->getSpeed(), veh));
+    }
+
+    return vNext;
+}
+
+
+
+double
 MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
     // NOTE: This allows return of smaller values than minNextSpeed().
     // Only relevant for the ballistic update: We give the argument headway=TS, to assure that
@@ -77,7 +125,7 @@ MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double g
 
 
 double
-MSCFModel_Krauss::dawdle(double speed) const {
+MSCFModel_Krauss::dawdle(double speed, double sigma) const {
     if (!MSGlobals::gSemiImplicitEulerUpdate) {
         // in case of the ballistic update, negative speeds indicate
         // a desired stop before the completion of the next timestep.
@@ -93,9 +141,9 @@ MSCFModel_Krauss::dawdle(double speed) const {
         // we should not prevent vehicles from driving just due to dawdling
         //  if someone is starting, he should definitely start
         // (but what about slow-to-start?)!!!
-        speed -= ACCEL2SPEED(myDawdle * speed * random);
+        speed -= ACCEL2SPEED(sigma * speed * random);
     } else {
-        speed -= ACCEL2SPEED(myDawdle * myAccel * random);
+        speed -= ACCEL2SPEED(sigma * myAccel * random);
     }
     return MAX2(0., speed);
 }
