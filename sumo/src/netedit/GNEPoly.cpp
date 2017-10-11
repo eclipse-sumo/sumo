@@ -10,8 +10,8 @@
 //
 /****************************************************************************/
 /// @file    GNEPoly.cpp
-/// @author  Jakob Erdmann
-/// @date    Sept 2012
+/// @author  Pablo Alvarez Lopez
+/// @date    Jun 2017
 /// @version $Id$
 ///
 // A class for visualizing and editing POIS in netedit (adapted from
