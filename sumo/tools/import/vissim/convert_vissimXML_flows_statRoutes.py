@@ -480,9 +480,11 @@ if __name__ == '__main__':
         ' (VISSIM.inpx to SUMO); generates SUMO routes definition file from'
         ' given inpx and derived (by netconvert) SUMO net.')
     parser.add_argument('--output-file', '-o', default='routes.rou.xml',
-                        help='output file name')
-    parser.add_argument('--vissim-file', '-V', dest="vissim_file", help='VISSIM inpx file path')
-    parser.add_argument('--sumo-net-file', '-n', dest="sumo_net_file", help='SUMO net file path')
+                        help='output file name (default: %(default)s)')
+    parser.add_argument('--vissim-file', '-V', dest="vissim_file", required=True,
+                        help='VISSIM inpx file path')
+    parser.add_argument('--sumo-net-file', '-n', dest="sumo_net_file", required=True,
+                        help='SUMO net file path')
     args = parser.parse_args()
     #print("\n", args, "\n")
 
