@@ -73,6 +73,7 @@
         <xsd:attribute name="jmIgnoreFoeSpeed" type="nonNegativeFloatType"/>
         <xsd:attribute name="jmIgnoreFoeProb" type="nonNegativeFloatType"/>
         <xsd:attribute name="jmSigmaMinor" type="nonNegativeFloatType"/>
+        <xsd:attribute name="jmTimegapMinor" type="nonNegativeFloatType"/>
         <xsd:attribute name="sigma">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:float">

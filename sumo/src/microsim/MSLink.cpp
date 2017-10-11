@@ -336,7 +336,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
                         // to the left must yield
                         || (arrivalTime == i->second.arrivalTime && posLat > foe->getLateralPositionOnLane()))) {
                     if (blockedByFoe(i->first, i->second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, false,
-                                     impatience, decel, waitingTime)) {
+                                     impatience, decel, waitingTime, ego)) {
 #ifdef MSLink_DEBUG_OPENED
                         if (gDebugFlag1) {
                             std::cout << SIMTIME << " blocked by " << foe->getID() << " arrival=" << arrivalTime << " foeArrival=" << i->second.arrivalTime << "\n";
@@ -414,7 +414,7 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) < i->first->getSpeed()
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) < RandHelper::rand())
                 && blockedByFoe(i->first, i->second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, sameTargetLane,
-                                            impatience, decel, waitingTime)) {
+                                            impatience, decel, waitingTime, ego)) {
             if (collectFoes == 0) {
                 return true;
             } else {
@@ -427,8 +427,10 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
 
 
 bool
-MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation& avi, SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
-                     bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime) const {
+MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation& avi, 
+        SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
+        bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
+        const SUMOVehicle* ego) const {
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag1) {
         std::cout << "    foe link=" << getViaLaneOrLane()->getID()
@@ -452,7 +454,12 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
         }
     }
     const SUMOTime foeArrivalTime = (SUMOTime)((1.0 - impatience) * avi.arrivalTime + impatience * avi.arrivalTimeBraking);
-    const SUMOTime lookAhead = myState == LINKSTATE_ZIPPER ? myLookaheadTimeZipper : myLookaheadTime;
+    const SUMOTime lookAhead = (myState == LINKSTATE_ZIPPER 
+        ? myLookaheadTimeZipper 
+        : (ego == 0 
+            ? myLookaheadTime
+            : TIME2STEPS(ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, STEPS2TIME(myLookaheadTime)))));
+    //if (ego != 0) std::cout << SIMTIME << " ego=" << ego->getID() << " jmTimegapMinor=" << ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, -1) << " lookAhead=" << lookAhead << "\n";
     if (avi.leavingTime < arrivalTime) {
         // ego wants to be follower
         if (sameTargetLane && (arrivalTime - avi.leavingTime < lookAhead
