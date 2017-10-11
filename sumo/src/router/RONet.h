@@ -32,7 +32,6 @@
 #include <config.h>
 #endif
 
-#include <queue>
 #include <vector>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/NamedObjectCont.h>
@@ -75,7 +74,7 @@ class OutputDevice;
 class RONet {
 public:
 
-    typedef std::map<const SUMOTime, std::deque<RORoutable*> > RoutablesMap;
+    typedef std::map<const SUMOTime, std::vector<RORoutable*> > RoutablesMap;
 
     /// @brief Constructor
     RONet();
@@ -544,6 +543,9 @@ private:
     /// @brief Known containers
     typedef std::multimap<const SUMOTime, const std::string> ContainerMap;
     ContainerMap myContainers;
+
+    /// @brief vehicles to keep for public transport routing
+    std::set<const RORoutable*> myPTVehicles;
 
     /// @brief Departure times for randomized flows
     std::map<std::string, std::vector<SUMOTime> > myDepartures;

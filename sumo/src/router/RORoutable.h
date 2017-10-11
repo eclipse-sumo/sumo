@@ -73,9 +73,18 @@ public:
     virtual ~RORoutable() {}
 
 
-    /** @brief Returns the type of the vehicle
+    /** @brief Returns the definition of the vehicle / person parameter
+    *
+    * @return The vehicle / person's parameter
+    */
+    inline const SUMOVehicleParameter& getParameter() const {
+        return myParameter;
+    }
+
+
+    /** @brief Returns the type of the routable
      *
-     * @return The vehicle's type
+     * @return The routable's type
      *
      * @todo Why not return a reference?
      */
@@ -84,9 +93,9 @@ public:
     }
 
 
-    /** @brief Returns the id of the vehicle
+    /** @brief Returns the id of the routable
      *
-     * @return The id of the vehicle
+     * @return The id of the routable
      */
     inline const std::string& getID() const {
         return myParameter.id;
@@ -163,13 +172,14 @@ protected:
     virtual void saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const = 0;
 
 
-protected:
+private:
     /// @brief The vehicle's parameter
     SUMOVehicleParameter myParameter;
 
     /// @brief The type of the vehicle
     const SUMOVTypeParameter* const myType;
 
+protected:
     /// @brief Whether the last routing was successful
     bool myRoutingSuccess;
 

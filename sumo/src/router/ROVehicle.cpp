@@ -52,7 +52,7 @@ ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
                      RORouteDef* route, const SUMOVTypeParameter* type,
                      const RONet* net, MsgHandler* errorHandler)
     : RORoutable(pars, type), myRoute(route) {
-    myParameter.stops.clear();
+    getParameter().stops.clear();
     if (route != 0 && route->getFirstRoute() != 0) {
         for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = route->getFirstRoute()->getStops().begin(); s != route->getFirstRoute()->getStops().end(); ++s) {
             addStop(*s, net, errorHandler);
@@ -84,11 +84,11 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, 
         return;
     }
     // where to insert the stop
-    std::vector<SUMOVehicleParameter::Stop>::iterator iter = myParameter.stops.begin();
+    std::vector<SUMOVehicleParameter::Stop>::iterator iter = getParameter().stops.begin();
     ConstROEdgeVector::iterator edgeIter = myStopEdges.begin();
-    if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(myParameter.stops.size())) {
-        if (myParameter.stops.size() > 0) {
-            iter = myParameter.stops.end();
+    if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(getParameter().stops.size())) {
+        if (getParameter().stops.size() > 0) {
+            iter = getParameter().stops.end();
             edgeIter = myStopEdges.end();
         }
     } else {
@@ -96,10 +96,10 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, 
             const ConstROEdgeVector edges = myRoute->getFirstRoute()->getEdgeVector();
             ConstROEdgeVector::const_iterator stopEdgeIt = std::find(edges.begin(), edges.end(), stopEdge);
             if (stopEdgeIt == edges.end()) {
-                iter = myParameter.stops.end();
+                iter = getParameter().stops.end();
                 edgeIter = myStopEdges.end();
             } else {
-                while (iter != myParameter.stops.end()) {
+                while (iter != getParameter().stops.end()) {
                     if (edgeIter > stopEdgeIt || (edgeIter == stopEdgeIt && iter->endPos >= stopPar.endPos)) {
                         break;
                     }
@@ -112,7 +112,7 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, 
             edgeIter += stopPar.index;
         }
     }
-    myParameter.stops.insert(iter, stopPar);
+    getParameter().stops.insert(iter, stopPar);
     myStopEdges.insert(edgeIter, stopEdge);
 }
 
@@ -164,24 +164,24 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
 
 void
 ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
-    if (typeos != 0  && myType != 0 && !myType->saved) {
-        myType->write(*typeos);
-        myType->saved = true;
+    if (typeos != 0 && getType() != 0 && !getType()->saved) {
+        getType()->write(*typeos);
+        getType()->saved = true;
     }
-    if (myType != 0 && !myType->saved) {
-        myType->write(os);
-        myType->saved = asAlternatives;
+    if (getType() != 0 && !getType()->saved) {
+        getType()->write(os);
+        getType()->saved = asAlternatives;
     }
 
     // write the vehicle (new style, with included routes)
-    myParameter.write(os, options);
+    getParameter().write(os, options);
 
     // save the route
     myRoute->writeXMLDefinition(os, this, asAlternatives, options.getBool("exit-times"));
-    for (std::vector<SUMOVehicleParameter::Stop>::const_iterator stop = myParameter.stops.begin(); stop != myParameter.stops.end(); ++stop) {
+    for (std::vector<SUMOVehicleParameter::Stop>::const_iterator stop = getParameter().stops.begin(); stop != getParameter().stops.end(); ++stop) {
         stop->write(os);
     }
-    myParameter.writeParams(os);
+    getParameter().writeParams(os);
     os.closeTag();
 }
 

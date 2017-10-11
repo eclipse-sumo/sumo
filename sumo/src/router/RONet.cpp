@@ -92,16 +92,26 @@ RONet::RONet()
 
 RONet::~RONet() {
     for (RoutablesMap::iterator routables = myRoutables.begin(); routables != myRoutables.end(); ++routables) {
-        for (std::deque<RORoutable*>::iterator r = routables->second.begin(); r != routables->second.end(); ++r) {
-            const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(*r);
+        for (RORoutable* const r : routables->second) {
+            const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(r);
             // delete routes and the vehicle
             if (veh != 0 && veh->getRouteDefinition()->getID()[0] == '!') {
                 if (!myRoutes.erase(veh->getRouteDefinition()->getID())) {
                     delete veh->getRouteDefinition();
                 }
             }
-            delete *r;
+            delete r;
         }
+    }
+    for (const RORoutable* const r : myPTVehicles) {
+        const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(r);
+        // delete routes and the vehicle
+        if (veh != 0 && veh->getRouteDefinition()->getID()[0] == '!') {
+            if (!myRoutes.erase(veh->getRouteDefinition()->getID())) {
+                delete veh->getRouteDefinition();
+            }
+        }
+        delete r;
     }
     for (std::map<std::string, SUMOVehicleParameter::Stop*>::iterator it = myBusStops.begin(); it != myBusStops.end(); ++it) {
         delete it->second;
@@ -488,8 +498,7 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
         if (i->first >= time) {
             break;
         }
-        for (std::deque<RORoutable*>::const_iterator r = i->second.begin(); r != i->second.end(); ++r) {
-            RORoutable* const routable = *r;
+        for (RORoutable* const routable : i->second) {
             const ROEdge* const depEdge = routable->getDepartEdge();
             bulkVehs[depEdge->getNumericalID()].push_back(routable);
             RORoutable* const first = bulkVehs[depEdge->getNumericalID()].front();
@@ -551,10 +560,14 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
                 if (i->first >= time) {
                     break;
                 }
-                for (std::deque<RORoutable*>::const_iterator r = i->second.begin(); r != i->second.end(); ++r) {
-                    RORoutable* const routable = *r;
-                    if (!ptRoutes && routable->isPublicTransport()) {
-                        continue;
+                for (RORoutable* const routable : i->second) {
+                    if (routable->isPublicTransport()) {
+                        if (routable->getParameter().repetitionNumber < 0 && !provider.getIntermodalRouter().hasNet()) {
+                            myPTVehicles.insert(routable);
+                        }
+                        if (!ptRoutes) {
+                            continue;
+                        }
                     }
 #ifdef HAVE_FOX
                     // add task
@@ -597,36 +610,35 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
         }
         const SUMOTime minTime = MIN2(routableTime, containerTime);
         if (routableTime == minTime) {
-            const RORoutable* const r = routables->second.front();
             // check whether to print the output
             if (lastTime != routableTime && lastTime != -1) {
                 // report writing progress
-                if (options.getInt("stats-period") >= 0 && ((int) routableTime % options.getInt("stats-period")) == 0) {
+                if (options.getInt("stats-period") >= 0 && ((int)routableTime % options.getInt("stats-period")) == 0) {
                     WRITE_MESSAGE("Read: " + toString(myReadRouteNo) + ",  Discarded: " + toString(myDiscardedRouteNo) + ",  Written: " + toString(myWrittenRouteNo));
                 }
             }
             lastTime = routableTime;
-
-            // ok, check whether it has been routed
-            if (r->getRoutingSuccess()) {
-                // write the route
-                r->write(*myRoutesOutput, myRouteAlternativesOutput, myTypesOutput, options);
-                myWrittenRouteNo++;
-            } else {
-                myDiscardedRouteNo++;
-            }
-            const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(r);
-            // delete routes and the vehicle
-            if (veh != 0 && veh->getRouteDefinition()->getID()[0] == '!') {
-                if (!myRoutes.erase(veh->getRouteDefinition()->getID())) {
-                    delete veh->getRouteDefinition();
+            for (const RORoutable* const r : routables->second) {
+                // ok, check whether it has been routed
+                if (r->getRoutingSuccess()) {
+                    // write the route
+                    r->write(*myRoutesOutput, myRouteAlternativesOutput, myTypesOutput, options);
+                    myWrittenRouteNo++;
+                } else {
+                    myDiscardedRouteNo++;
+                }
+                // delete routes and the vehicle
+                if (!r->isPublicTransport() || myPTVehicles.count(r) == 0) {
+                    const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(r);
+                    if (veh != 0 && veh->getRouteDefinition()->getID()[0] == '!') {
+                        if (!myRoutes.erase(veh->getRouteDefinition()->getID())) {
+                            delete veh->getRouteDefinition();
+                        }
+                    }
+                    delete r;
                 }
             }
-            routables->second.pop_front();
-            if (routables->second.empty()) {
-                myRoutables.erase(routables);
-            }
-            delete r;
+            myRoutables.erase(routables);
         }
         if (containerTime == minTime) {
             myRoutesOutput->writePreformattedTag(container->second);
@@ -684,14 +696,10 @@ RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
             router.addSchedule(*i->second, addStops);
         }
     }
-    for (RoutablesMap::const_iterator i = myInstance->myRoutables.begin(); i != myInstance->myRoutables.end(); ++i) {
-        for (std::deque<RORoutable*>::const_iterator r = i->second.begin(); r != i->second.end(); ++r) {
-            const ROVehicle* const veh = dynamic_cast<ROVehicle*>(*r);
-            // add single vehicles with line attribute which are not part of a flow
-            if (veh != 0 && veh->getParameter().line != "" && veh->getParameter().repetitionNumber < 0) {
-                router.addSchedule(veh->getParameter());
-            }
-        }
+    for (const RORoutable* const veh : myInstance->myPTVehicles) {
+        // add single vehicles with line attribute which are not part of a flow
+        // XXX this could introduce subtle order dependencies because myPTVehicles are a set
+        router.addSchedule(veh->getParameter());
     }
 }
 

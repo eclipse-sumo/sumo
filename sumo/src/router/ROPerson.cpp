@@ -171,7 +171,7 @@ bool
 ROPerson::computeIntermodal(const RORouterProvider& provider, PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler) {
     std::vector<ROIntermodalRouter::TripItem> result;
     provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), trip->getDepartPos(), trip->getArrivalPos(),
-                                           myType->maxSpeed * trip->getWalkFactor(), veh, trip->getModes(), myParameter.depart, result);
+                                           getType()->maxSpeed * trip->getWalkFactor(), veh, trip->getModes(), getParameter().depart, result);
     bool carUsed = false;
     for (std::vector<ROIntermodalRouter::TripItem>::const_iterator it = result.begin(); it != result.end(); ++it) {
         if (!it->edges.empty()) {
@@ -230,23 +230,23 @@ ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlterna
         (*it)->saveVehicles(os, typeos, asAlternatives, options);
     }
 
-    if (typeos != 0  && myType != 0 && !myType->saved) {
-        myType->write(*typeos);
-        myType->saved = true;
+    if (typeos != 0 && getType() != 0 && !getType()->saved) {
+        getType()->write(*typeos);
+        getType()->saved = true;
     }
-    if (myType != 0 && !myType->saved) {
-        myType->write(os);
-        myType->saved = asAlternatives;
+    if (getType() != 0 && !getType()->saved) {
+        getType()->write(os);
+        getType()->saved = asAlternatives;
     }
 
     // write the person
-    myParameter.write(os, options, SUMO_TAG_PERSON);
+    getParameter().write(os, options, SUMO_TAG_PERSON);
 
     for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
         (*it)->saveAsXML(os, asAlternatives);
     }
 
-    for (std::map<std::string, std::string>::const_iterator j = myParameter.getMap().begin(); j != myParameter.getMap().end(); ++j) {
+    for (std::map<std::string, std::string>::const_iterator j = getParameter().getMap().begin(); j != getParameter().getMap().end(); ++j) {
         os.openTag(SUMO_TAG_PARAM);
         os.writeAttr(SUMO_ATTR_KEY, (*j).first);
         os.writeAttr(SUMO_ATTR_VALUE, (*j).second);
