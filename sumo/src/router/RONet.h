@@ -489,7 +489,7 @@ public:
 
 
 private:
-    void checkFlows(SUMOTime time, MsgHandler* errorHandler);
+    void checkFlows(SUMOTime time, MsgHandler* errorHandler, const bool keepPT);
 
     void createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime time, const bool removeLoops);
 

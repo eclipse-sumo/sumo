@@ -90,6 +90,10 @@ public:
         return new IntermodalRouter<E, L, N, V, INTERNALROUTER>(myIntermodalNet);
     }
 
+    bool hasNet() const {
+        return myIntermodalNet != 0;
+    }
+
     void addAccess(const std::string& stopId, const E* stopEdge, const double pos) {
         assert(stopEdge != 0);
         if (myStopConnections.count(stopId) == 0) {

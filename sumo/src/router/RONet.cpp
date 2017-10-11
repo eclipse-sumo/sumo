@@ -399,7 +399,7 @@ RONet::addContainer(const SUMOTime depart, const std::string desc) {
 
 
 void
-RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
+RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler, const bool keepPT) {
     std::vector<std::string> toRemove;
     for (NamedObjectCont<SUMOVehicleParameter*>::IDMap::const_iterator i = myFlows.getMyMap().begin(); i != myFlows.getMyMap().end(); ++i) {
         SUMOVehicleParameter* pars = i->second;
@@ -470,7 +470,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                 addVehicle(newPars->id, veh);
                 delete newPars;
             }
-            if (pars->repetitionsDone == pars->repetitionNumber) {
+            if (pars->repetitionsDone == pars->repetitionNumber && (!keepPT || pars->line == "")) {
                 toRemove.push_back(i->first);
             }
         }
@@ -533,7 +533,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
                                 SUMOTime time) {
     MsgHandler* mh = (options.getBool("ignore-errors") ?
                       MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
-    checkFlows(time, mh);
+    checkFlows(time, mh, !provider.getIntermodalRouter().hasNet());
     SUMOTime lastTime = -1;
     const bool removeLoops = options.getBool("remove-loops");
     const int maxNumThreads = options.getInt("routing-threads");

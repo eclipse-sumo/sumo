@@ -85,7 +85,7 @@ private:
     SUMOTime myCurrentLoadTime;
 
     /// the number of routes to read in forward
-    SUMOTime myInAdvanceStepNo;
+    const SUMOTime myInAdvanceStepNo;
 
     /// the list of route loaders
     std::vector<SUMORouteLoader*> myRouteLoaders;
@@ -93,6 +93,13 @@ private:
     /** information whether all routes shall be loaded and whether
         they were loaded */
     bool myLoadAll, myAllLoaded;
+
+private:
+    /// @brief Invalidated copy constructor
+    SUMORouteLoaderControl(const SUMORouteLoaderControl& src);
+
+    /// @brief Invalidated assignment operator
+    SUMORouteLoaderControl& operator=(const SUMORouteLoaderControl& src);
 };
 
 
