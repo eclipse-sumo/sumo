@@ -242,7 +242,7 @@ PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const 
         SUMOPolygon* poly = new SUMOPolygon(
             StringUtils::escapeXML(id),
             StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
-            def.color, vec, def.allowFill && closedShape, (double)def.layer);
+            def.color, vec, false, def.allowFill && closedShape, (double)def.layer);
         if (withAttributes) {
             poly->updateParameter(edge->myAttributes);
         }
