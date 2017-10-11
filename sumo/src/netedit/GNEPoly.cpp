@@ -129,8 +129,8 @@ GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset)
         for (auto &i : myShape) {
             i.add(offset);
         }
-        // refresh element
-        myNet->refreshPolygon(this);
+        // refresh element to avoid grabbing problems
+        myNet->refreshShape(this);
     }
 }
 
@@ -358,7 +358,7 @@ GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
             // refresh polygon in net to avoid grabbing problems
-            myNet->refreshPolygon(this);
+            myNet->refreshShape(this);
             // disable simplified shape flag
             mySimplifiedShape = false;
         }
@@ -402,7 +402,7 @@ GNEPoly::openPolygon(bool allowUndo) {
             myClosedShape = false;
             myShape.pop_back();
             // refresh polygon in net to avoid grabbing problems
-            myNet->refreshPolygon(this);
+            myNet->refreshShape(this);
             // disable simplified shape flag
             mySimplifiedShape = false;
         }
@@ -424,7 +424,7 @@ GNEPoly::closePolygon(bool allowUndo) {
             myClosedShape = true;
             myShape.closePolygon();
             // refresh polygon in net to avoid grabbing problems
-            myNet->refreshPolygon(this);
+            myNet->refreshShape(this);
             // disable simplified shape flag
             mySimplifiedShape = false;
         }
@@ -468,7 +468,7 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
             // refresh polygon in net to avoid grabbing problems
-            myNet->refreshPolygon(this);
+            myNet->refreshShape(this);
             // disable simplified shape flag
             mySimplifiedShape = false;
         }
@@ -498,7 +498,7 @@ GNEPoly::simplifyShape(bool allowUndo) {
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
             // refresh polygon in net to avoid grabbing problems
-            myNet->refreshPolygon(this);
+            myNet->refreshShape(this);
         }
         // change flag after setting simplified shape
         mySimplifiedShape = true;
@@ -637,7 +637,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID: {
             std::string oldID = myID;
             myID = value;
-            myNet->changePolygonID(this, oldID);
+            myNet->changeShapeID(this, oldID);
             break;
         }
         case SUMO_ATTR_SHAPE: {
@@ -651,8 +651,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
-            // refresh polygon in net to avoid grabbing problems
-            myNet->refreshPolygon(this);
             // disable simplified shape flag
             mySimplifiedShape = false;
             // update geometry of shape edited element
@@ -672,8 +670,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
-            // refresh polygon in net to avoid grabbing problems
-            myNet->refreshPolygon(this);
             // disable simplified shape flag
             mySimplifiedShape = false;
             // update geometry of shape edited element
@@ -716,16 +712,14 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 myShape.pop_back();
             }
-            // refresh polygon in net to avoid grabbing problems
-            myNet->refreshPolygon(this);
             // disable simplified shape flag
             mySimplifiedShape = false;
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // update view after every change
-    myNet->getViewNet()->update();
+    // refresh polygon after every change
+    myNet->refreshShape(this);
 }
 
 

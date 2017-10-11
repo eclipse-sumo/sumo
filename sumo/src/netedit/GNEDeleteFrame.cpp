@@ -485,12 +485,9 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                 }
                 break;
             }
+            case GLO_POLYGON:
             case GLO_POI: {
-                myViewNet->getNet()->deletePOI(dynamic_cast<GNEPOI*>(ac), myViewNet->getUndoList());
-                break;
-            }
-            case GLO_POLYGON: {
-                myViewNet->getNet()->deletePolygon(dynamic_cast<GNEPoly*>(ac), myViewNet->getUndoList());
+                myViewNet->getNet()->deleteShape(dynamic_cast<GNEShape*>(ac), myViewNet->getUndoList());
                 break;
             }
             case GLO_CROSSING: {

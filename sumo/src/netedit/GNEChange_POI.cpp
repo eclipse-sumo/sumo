@@ -78,15 +78,15 @@ GNEChange_POI::undo() {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Removing " + toString(SUMO_TAG_POI) + " '" + myPOI->getID() + "' from viewNet");
         }
-        // remove POIgon of net
-        myNet->removePOIOfView(myPOI);
+        // remove POI of view
+        myNet->removeShapeOfView(myPOI);
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Adding " + toString(SUMO_TAG_POI) + " '" + myPOI->getID() + "' into viewNet");
         }
         // Add POIgon to view
-        myNet->insertPOIInView(myPOI);
+        myNet->insertShapeInView(myPOI);
     }
     // Requiere always save shapes
     myNet->requiereSaveShapes();
@@ -100,15 +100,15 @@ GNEChange_POI::redo() {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Adding " + toString(SUMO_TAG_POI) + " '" + myPOI->getID() + "' into viewNet");
         }
-        // Add POIgon to view
-        myNet->insertPOIInView(myPOI);
+        // Add POIgon into view
+        myNet->insertShapeInView(myPOI);
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Removing " + toString(SUMO_TAG_POI) + " '" + myPOI->getID() + "' from viewNet");
         }
         // delete POI from view
-        myNet->removePOIOfView(myPOI);
+        myNet->removeShapeOfView(myPOI);
     }
     // Requiere always save shapes
     myNet->requiereSaveShapes();

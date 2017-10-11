@@ -157,7 +157,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition) {
         std::map<SumoXMLAttr, std::string> valuesOfElement = myShapeAttributes->getAttributesAndValues();
 
         // generate new ID
-        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generatePOIID();
+        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateShapeID(SUMO_TAG_POI);
 
         // obtain position
         valuesOfElement[SUMO_ATTR_POSITION] = toString(clickedPosition);
@@ -197,7 +197,7 @@ GNEPolygonFrame::buildPoly(const PositionVector& drawedShape) {
         std::map<SumoXMLAttr, std::string> valuesOfElement = myShapeAttributes->getAttributesAndValues();
 
         // generate new ID
-        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generatePolyID();
+        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateShapeID(SUMO_TAG_POLY);
 
         // obtain shape
         valuesOfElement[SUMO_ATTR_SHAPE] = toString(drawedShape);

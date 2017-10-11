@@ -258,11 +258,8 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         // show netedit parameters
         myNeteditParameters->show();
         
-        // Show myGEOAttributes if we're inspecting a Shape
-        if(dynamic_cast<GNEShape*>(myACs.front())) {
-            myGEOAttributes->showGEOAttributes(myACs);
-        }
-
+        // Show myGEOAttributes if we're inspecting elements with GEO Attributes
+        myGEOAttributes->showGEOAttributes(myACs);
 
         // if we inspect a single Attribute carrier vector, show their childs
         if (myACs.size() == 1) {

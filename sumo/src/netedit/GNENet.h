@@ -55,7 +55,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "GNEChange.h"
-#include "GNEDetectorE3.h"
 #include "GNECalibrator.h"
 
 
@@ -70,17 +69,12 @@ class GNELane;
 class GNEJunction;
 class GNEUndoList;
 class GNEAdditional;
-class GNEBusStop;
-class GNEChargingStation;
-class GNEDetectorE1;
-class GNEDetectorE2;
-class GNEDetectorE3;
-class GNEDetectorE3EntryExit;
 class GNEConnection;
 class GNECrossing;
 class GNEShape;
 class GNEPoly;
 class GNEPOI;
+class GNEPOILane;
 
 // ===========================================================================
 // class definitions
@@ -158,6 +152,54 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
 
+    /// @name inherited from ShapeHandler
+    /// @{
+
+    /**@brief Builds a polygon using the given values and adds it to the container
+    * @param[in] id The name of the polygon
+    * @param[in] type The (abstract) type of the polygon
+    * @param[in] color The color of the polygon
+    * @param[in] layer The layer of the polygon
+    * @param[in] angle The rotation of the polygon
+    * @param[in] imgFile The raster image of the polygon
+    * @param[in] shape The shape of the polygon
+    * @param[in] geo specify if shape was loaded as GEO coordinate
+    * @param[in] fill Whether the polygon shall be filled
+    * @return whether the polygon could be added
+    */
+    bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
+                    double angle, const std::string& imgFile, const PositionVector& shape, bool fill,
+                    bool geo, bool ignorePruning = false);
+
+    /**@brief Removes a polygon from the container
+    * @param[in] id The id of the polygon
+    * @return Whether the polygon could be removed
+    */
+    bool removePolygon(const std::string& id);
+
+    /**@brief Builds a POI using the given values and adds it to the container
+    * @param[in] id The name of the POI
+    * @param[in] type The (abstract) type of the POI
+    * @param[in] color The color of the POI
+    * @param[in] layer The layer of the POI
+    * @param[in] angle The rotation of the POI
+    * @param[in] imgFile The raster image of the POI
+    * @param[in] pos The position of the POI
+    * @param[in] width The width of the POI image
+    * @param[in] height The height of the POI image
+    * @return whether the poi could be added
+    */
+    bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer,
+                double angle, const std::string& imgFile, const Position& pos, double width, double height,
+                bool ignorePruning = false);
+
+    /**@brief Removes a PoI from the container
+    * @param[in] id The id of the PoI
+    * @return Whether the poi could be removed
+    */
+    bool removePOI(const std::string& id);
+    /// @}
+
     /// @brief returns the bounder of the network
     const Boundary& getBoundary() const;
 
@@ -229,17 +271,11 @@ public:
      */
     void deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList);
 
-    /**@brief remove POI
-     * @param[in] POI The POI to be removed
+    /**@brief remove shape
+     * @param[in] shape The Shape to be removed
      * @param[in] undoList The undolist in which to mark changes
      */
-    void deletePOI(GNEPOI* POI, GNEUndoList* undoList);
-
-    /**@brief remove Polygon
-     * @param[in] Polygon The Polygon to be removed
-     * @param[in] undoList The undolist in which to mark changes
-     */
-    void deletePolygon(GNEPoly* polygon, GNEUndoList* undoList);
+    void deleteShape(GNEShape* shape, GNEUndoList* undoList);
 
     /**@brief duplicates lane
      * @param[in] lane The lane to be duplicated
@@ -321,6 +357,27 @@ public:
      */
     GNEEdge* retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard = true);
 
+    /**@brief get Polygon by id
+    * @param[in] id The id of the desired polygon
+    * @param[in] failHard Whether attempts to retrieve a nonexisting polygon should result in an exception
+    * @throws UnknownElement
+    */
+    GNEPoly* retrievePolygon(const std::string& id, bool failHard = true) const;
+
+    /**@brief get POI by id
+    * @param[in] id The id of the desired POI
+    * @param[in] failHard Whether attempts to retrieve a nonexisting POI should result in an exception
+    * @throws UnknownElement
+    */
+    GNEPOI* retrievePOI(const std::string& id, bool failHard = true) const;
+
+    /**@brief get POILane by id
+    * @param[in] id The id of the desired POILane
+    * @param[in] failHard Whether attempts to retrieve a nonexisting POILane should result in an exception
+    * @throws UnknownElement
+    */
+    GNEPOILane* retrievePOILane(const std::string& id, bool failHard = true) const;
+
     /**@brief get the attribute carriers based on GlIDs
      * @param[in] ids The set of ids for which to retrive the ACs
      * @param[in] type The GUI-type of the objects with the given ids
@@ -347,9 +404,15 @@ public:
     GNELane* retrieveLane(const std::string& id, bool failHard = true, bool checkVolatileChange = false);
 
     /**@brief return all junctions
-     * @param[in] onlySelected Whether to return only selected junctions
-     */
+    * @param[in] onlySelected Whether to return only selected junctions
+    */
     std::vector<GNEJunction*> retrieveJunctions(bool onlySelected = false);
+
+    /**@brief return all shapes
+    * @param[in] shapeTag Type of shape. SUMO_TAG_NOTHING returns all shapes
+    * @param[in] onlySelected Whether to return only selected junctions
+    */
+    std::vector<GNEShape*> retrieveShapes(SumoXMLTag shapeTag = SUMO_TAG_NOTHING, bool onlySelected = false);
 
     /**@brief save the network
      * @param[in] oc The OptionsCont which knows how and where to save
@@ -544,22 +607,6 @@ public:
     /// @brief Check if exist a flow with these ID
     bool flowExists(const std::string& flowID) const;
 
-    /**@brief Builds a polygon using the given values and adds it to the container
-     * @param[in] id The name of the polygon
-     * @param[in] type The (abstract) type of the polygon
-     * @param[in] color The color of the polygon
-     * @param[in] layer The layer of the polygon
-     * @param[in] angle The rotation of the polygon
-     * @param[in] imgFile The raster image of the polygon
-     * @param[in] shape The shape of the polygon
-     * @param[in] geo specify if shape was loaded as GEO coordinate
-     * @param[in] fill Whether the polygon shall be filled
-     * @return whether the polygon could be added
-     */
-    bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-                    double angle, const std::string& imgFile, const PositionVector& shape, bool fill,
-                    bool geo, bool ignorePruning = false);
-
     /**@brief Builds a special polygon used for edit Junctions's shapes
      * @param[in] netElement GNENetElement to be edited
      * @param[in] shape shape to be edited
@@ -569,77 +616,20 @@ public:
      */
     GNEPoly* addPolygonForEditShapes(GNENetElement* netElement, const PositionVector &shape,bool fill);
 
-    /**@brief Removes a polygon from the container
-     * @param[in] id The id of the polygon
-     * @return Whether the polygon could be removed
-     */
-    bool removePolygon(const std::string& id);
-
-    /// @brief insert created polygon in view net
-    void insertPolygonInView(GNEPoly* p, bool isPolygonForEditShapes = false);
-
-    /// @brief remove polygon of view net
-    void removePolygonOfView(GNEPoly* p, bool isPolygonForEditShapes = false);
-
-    /// @brief refresh polygon in view net
-    void refreshPolygon(GNEPoly* p);
-
-    /// @brief generate PolyID
-    std::string generatePolyID() const;
-
-    /**@brief get Polygon by id
-     * @param[in] id The id of the desired polygon
-     * @param[in] failHard Whether attempts to retrieve a nonexisting polygon should result in an exception
-     * @throws UnknownElement
-     */
-    GNEPoly* retrievePolygon(const std::string& id, bool failHard = true) const;
-
-    /// @brief change Polygon ID
-    void changePolygonID(GNEPoly* poly, const std::string& OldID);
-
-    /**@brief Builds a POI using the given values and adds it to the container
-     * @param[in] id The name of the POI
-     * @param[in] type The (abstract) type of the POI
-     * @param[in] color The color of the POI
-     * @param[in] layer The layer of the POI
-     * @param[in] angle The rotation of the POI
-     * @param[in] imgFile The raster image of the POI
-     * @param[in] pos The position of the POI
-     * @param[in] width The width of the POI image
-     * @param[in] height The height of the POI image
-     * @return whether the poi could be added
-     */
-    bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-                double angle, const std::string& imgFile, const Position& pos, double width, double height,
-                bool ignorePruning = false);
-
-    /**@brief Removes a PoI from the container
-     * @param[in] id The id of the PoI
-     * @return Whether the poi could be removed
-     */
-    bool removePOI(const std::string& id);
-
     /// @brief insert created shape in view net
-    void insertPOIInView(GNEPOI* p);
+    void insertShapeInView(GNEShape* s, bool isPolygonForEditShapes = false);
 
     /// @brief remove shape of view net
-    void removePOIOfView(GNEPOI* p);
+    void removeShapeOfView(GNEShape* s, bool isPolygonForEditShapes = false);
 
     /// @brief refresh shape in view net
-    void refreshPOI(GNEPOI* p);
+    void refreshShape(GNEShape* s);
 
-    /// @brief generate a POI ID
-    std::string generatePOIID() const;
+    /// @brief generate Shape ID
+    std::string generateShapeID(SumoXMLTag shapeTag) const;
 
-    /**@brief get POI by id
-     * @param[in] id The id of the desired POI
-     * @param[in] failHard Whether attempts to retrieve a nonexisting POI should result in an exception
-     * @throws UnknownElement
-     */
-    GNEPOI* retrievePOI(const std::string& id, bool failHard = true) const;
-
-    /// @brief change POI ID
-    void changePOIID(GNEPOI* POI, const std::string& OldID);
+    /// @brief change Shape ID
+    void changeShapeID(GNEShape* s, const std::string& OldID);
 
     /**@brief save shapes elements of the network
      * @param[in] filename name of the file in wich save shapes

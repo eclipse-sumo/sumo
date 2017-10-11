@@ -92,17 +92,26 @@ GNEFrame::GEOAttributes::showGEOAttributes(const std::vector<GNEAttributeCarrier
     // make sure that ACs has elements
     assert(ACs.size() > 0);
     myACs = ACs;
-    if(GNEAttributeCarrier::hasAttribute(ACs.front()->getTag(), SUMO_ATTR_GEOSHAPE)) {
+    if(ACs.front()->getTag() == SUMO_TAG_POLY) {
         myGEOAttribute = SUMO_ATTR_GEOSHAPE;
-    } else {
+        // set label name
+        myGEOAttributeLabel->setText(toString(myGEOAttribute).c_str());
+        // fill attributes using refresh attributes
+        refreshGEOAttributes();
+        // show FXGroupBox
+        FXGroupBox::show();
+    } else if(ACs.front()->getTag() == SUMO_TAG_POI) {
         myGEOAttribute = SUMO_ATTR_GEOPOSITION;
+        // set label name
+        myGEOAttributeLabel->setText(toString(myGEOAttribute).c_str());
+        // fill attributes using refresh attributes
+        refreshGEOAttributes();
+        // show FXGroupBox
+        FXGroupBox::show();
+    } else {
+        // hide GEO Attributes
+        hideGEOAttributes();
     }
-    // set label name
-    myGEOAttributeLabel->setText(toString(myGEOAttribute).c_str());
-    // fill attributes using refresh attributes
-    refreshGEOAttributes();
-    // show FXGroupBox
-    FXGroupBox::show();
 }
 
 

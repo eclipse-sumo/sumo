@@ -98,7 +98,7 @@ GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(getPositionInView()), true, toString(oldPos)));
         undoList->p_end();
         // Refresh element
-        myNet->refreshPOI(this);
+        myNet->refreshShape(this);
     }
 }
 
@@ -254,7 +254,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID: {
             std::string oldID = myID;
             myID = value;
-            myNet->changePOIID(this, oldID);
+            myNet->changeShapeID(this, oldID);
             break;
         }
         case SUMO_ATTR_COLOR:
@@ -266,7 +266,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             // set GEO Position
             myGEOPosition = *this;
             GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
-            myNet->refreshPOI(this);
             break;
         }
         case SUMO_ATTR_GEOPOSITION: {
@@ -275,7 +274,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             // set cartesian Position
             set(myGEOPosition);
             GeoConvHelper::getFinal().x2cartesian_const(*this);
-            myNet->refreshPOI(this);
             break;
         }
         case SUMO_ATTR_GEO:
@@ -305,8 +303,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
     }
-    // update view after every change
-    myNet->getViewNet()->update();
+    // refresh POI after every change
+    myNet->refreshShape(this);
 }
 
 /****************************************************************************/

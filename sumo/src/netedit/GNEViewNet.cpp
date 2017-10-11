@@ -367,7 +367,7 @@ void
 GNEViewNet::stopEditCustomShape() {
     // stop edit shape junction deleting myEditShapePoly
     if (myEditShapePoly != 0) {
-        myNet->removePolygonOfView(myEditShapePoly, true);
+        myNet->removeShapeOfView(myEditShapePoly, true);
         myNet->removePolygon(myEditShapePoly->getMicrosimID());
         myEditShapePoly = 0;
         // restore previous edit mode
@@ -1166,8 +1166,7 @@ GNEViewNet::hotkeyDel() {
         deleteSelectedLanes();
         deleteSelectedEdges();
         deleteSelectedJunctions();
-        deleteSelectedPOIs();
-        deleteSelectedPolygons();
+        deleteSelectedShapes();
         myUndoList->p_end();
     }
 }
@@ -2493,41 +2492,15 @@ GNEViewNet::deleteSelectedConnections() {
 
 
 void
-GNEViewNet::deleteSelectedPOIs() {
-    // obtain selected POIs
-    std::vector<GNEPOI*> selectedPOIs;
-    for (auto i : myNet->getPOIs().getMyMap()) {
-        GNEPOI* poi = reinterpret_cast<GNEPOI*>(i.second);
-        if (gSelected.isSelected(GLO_POI, poi->getGlID())) {
-            selectedPOIs.push_back(poi);
-        }
-    }
-    if (selectedPOIs.size() > 0) {
-        std::string plural = selectedPOIs.size() == 1 ? ("") : ("s");
-        myUndoList->p_begin("delete selected " + toString(SUMO_TAG_POI) + plural);
-        for (auto i : selectedPOIs) {
-            myNet->deletePOI(i, myUndoList);
-        }
-        myUndoList->p_end();
-    }
-}
-
-
-void
-GNEViewNet::deleteSelectedPolygons() {
-    // obtain selected Polygons
-    std::vector<GNEPoly*> selectedPolygons;
-    for (auto i : myNet->getPolygons().getMyMap()) {
-        GNEPoly* Polygon = reinterpret_cast<GNEPoly*>(i.second);
-        if (gSelected.isSelected(GLO_POLYGON, Polygon->getGlID())) {
-            selectedPolygons.push_back(Polygon);
-        }
-    }
-    if (selectedPolygons.size() > 0) {
-        std::string plural = selectedPolygons.size() == 1 ? ("") : ("s");
-        myUndoList->p_begin("delete selected " + toString(SUMO_TAG_POLY) + plural);
-        for (auto i : selectedPolygons) {
-            myNet->deletePolygon(i, myUndoList);
+GNEViewNet::deleteSelectedShapes(SumoXMLTag shapeTag) {
+    // obtain selected shapes
+    std::vector<GNEShape*> selectedShapes = myNet->retrieveShapes(shapeTag, true);
+    // remove it
+    if (selectedShapes.size() > 0) {
+        std::string plural = selectedShapes.size() == 1 ? ("") : ("s");
+        myUndoList->p_begin("delete selected " + toString(shapeTag) + plural);
+        for (auto i : selectedShapes) {
+            myNet->deleteShape(i, myUndoList);
         }
         myUndoList->p_end();
     }

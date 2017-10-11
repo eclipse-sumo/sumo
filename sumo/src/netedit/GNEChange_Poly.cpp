@@ -78,15 +78,15 @@ GNEChange_Poly::undo() {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Removing " + toString(SUMO_TAG_POLY) + " '" + myPoly->getID() + "' from viewNet");
         }
-        // remove polygon of net
-        myNet->removePolygonOfView(myPoly);
+        // remove polygon of view
+        myNet->removeShapeOfView(myPoly);
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Adding " + toString(SUMO_TAG_POLY) + " '" + myPoly->getID() + "' into viewNet");
         }
-        // Add polygon to view
-        myNet->insertPolygonInView(myPoly);
+        // Add polygon in view
+        myNet->insertShapeInView(myPoly);
     }
     // Requiere always save shapes
     myNet->requiereSaveShapes();
@@ -101,14 +101,14 @@ GNEChange_Poly::redo() {
             WRITE_WARNING("Adding " + toString(SUMO_TAG_POLY) + " '" + myPoly->getID() + "' into viewNet");
         }
         // Add polygon to view
-        myNet->insertPolygonInView(myPoly);
+        myNet->insertShapeInView(myPoly);
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Removing " + toString(SUMO_TAG_POLY) + " '" + myPoly->getID() + "' from viewNet");
         }
-        // delete poly from view
-        myNet->removePolygonOfView(myPoly);
+        // delete poly of view
+        myNet->removeShapeOfView(myPoly);
     }
     // Requiere always save shapes
     myNet->requiereSaveShapes();
