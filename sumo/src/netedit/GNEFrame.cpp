@@ -90,24 +90,29 @@ GNEFrame::GEOAttributes::~GEOAttributes() {}
 void 
 GNEFrame::GEOAttributes::showGEOAttributes(const std::vector<GNEAttributeCarrier*> &ACs) {
     // make sure that ACs has elements
-    assert(ACs.size() > 0);
-    myACs = ACs;
-    if(ACs.front()->getTag() == SUMO_TAG_POLY) {
-        myGEOAttribute = SUMO_ATTR_GEOSHAPE;
-        // set label name
-        myGEOAttributeLabel->setText(toString(myGEOAttribute).c_str());
-        // fill attributes using refresh attributes
-        refreshGEOAttributes();
-        // show FXGroupBox
-        FXGroupBox::show();
-    } else if(ACs.front()->getTag() == SUMO_TAG_POI) {
-        myGEOAttribute = SUMO_ATTR_GEOPOSITION;
-        // set label name
-        myGEOAttributeLabel->setText(toString(myGEOAttribute).c_str());
-        // fill attributes using refresh attributes
-        refreshGEOAttributes();
-        // show FXGroupBox
-        FXGroupBox::show();
+    if(ACs.size() > 0) {
+        // set myACs with the inspected elements
+        myACs = ACs;
+        if(ACs.front()->getTag() == SUMO_TAG_POLY) {
+            myGEOAttribute = SUMO_ATTR_GEOSHAPE;
+            // set label name
+            myGEOAttributeLabel->setText(toString(myGEOAttribute).c_str());
+            // fill attributes using refresh attributes
+            refreshGEOAttributes();
+            // show FXGroupBox
+            FXGroupBox::show();
+        } else if(ACs.front()->getTag() == SUMO_TAG_POI) {
+            myGEOAttribute = SUMO_ATTR_GEOPOSITION;
+            // set label name
+            myGEOAttributeLabel->setText(toString(myGEOAttribute).c_str());
+            // fill attributes using refresh attributes
+            refreshGEOAttributes();
+            // show FXGroupBox
+            FXGroupBox::show();
+        } else {
+            // hide GEO Attributes
+            hideGEOAttributes();
+        }
     } else {
         // hide GEO Attributes
         hideGEOAttributes();
@@ -126,28 +131,31 @@ GNEFrame::GEOAttributes::hideGEOAttributes() {
 
 void 
 GNEFrame::GEOAttributes::refreshGEOAttributes() {
-    // hide GEOAttribute Frame
-    myGEOAttributeFrame->hide();
-    // check if we're handling a single or multiple selection
-    if(myACs.size() > 1) {
-        // only useGEO can be changed in multiple selections
-        bool useGEO = true;
-        for (auto i : myACs) {
-            useGEO &= GNEAttributeCarrier::parse<bool>(i->getAttribute(SUMO_ATTR_GEO));
+    // only refresh element if myACs has elements
+    if(myACs.size() > 0) {
+        // hide GEOAttribute Frame
+        myGEOAttributeFrame->hide();
+        // check if we're handling a single or multiple selection
+        if(myACs.size() > 1) {
+            // only useGEO can be changed in multiple selections
+            bool useGEO = true;
+            for (auto i : myACs) {
+                useGEO &= GNEAttributeCarrier::parse<bool>(i->getAttribute(SUMO_ATTR_GEO));
+            }
+            myUseGEOCheckButton->setCheck(useGEO);
+        } else {
+            myUseGEOCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(myACs.front()->getAttribute(SUMO_ATTR_GEO)));
+            // show GEO Attribute (GNEShape or GNEPosition)
+            myGEOAttributeFrame->show();
+            myGEOAttributeTextField->setText(myACs.front()->getAttribute(myGEOAttribute).c_str());
+            myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
         }
-        myUseGEOCheckButton->setCheck(useGEO);
-    } else {
-        myUseGEOCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(myACs.front()->getAttribute(SUMO_ATTR_GEO)));
-        // show GEO Attribute (GNEShape or GNEPosition)
-        myGEOAttributeFrame->show();
-        myGEOAttributeTextField->setText(myACs.front()->getAttribute(myGEOAttribute).c_str());
-        myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
-    }
-    // set text orf GEO button
-    if (myUseGEOCheckButton->getCheck()) {
-        myUseGEOCheckButton->setText("true");
-    } else {
-        myUseGEOCheckButton->setText("false");
+        // set text orf GEO button
+        if (myUseGEOCheckButton->getCheck()) {
+            myUseGEOCheckButton->setText("true");
+        } else {
+            myUseGEOCheckButton->setText("false");
+        }
     }
 }
 
