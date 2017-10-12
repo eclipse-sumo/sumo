@@ -245,18 +245,16 @@ RONet::addRouteDef(RORouteDef* def) {
 
 
 void
-RONet::openOutput(const OptionsCont& options, const std::string altFilename) {
-    if (options.isSet("output-file") && options.getString("output-file") != "") {
-        myRoutesOutput = &OutputDevice::getDevice(options.getString("output-file"));
-        myRoutesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
-        myRoutesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");
-    }
-    if (altFilename != "") {
-        myRouteAlternativesOutput = &OutputDevice::getDevice(altFilename);
+RONet::openOutput(const OptionsCont& options) {
+    myRoutesOutput = &OutputDevice::getDevice(options.getString("output-file"));
+    myRoutesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
+    myRoutesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");
+    if (options.exists("alternatives-output") && options.isSet("alternatives-output")) {
+        myRouteAlternativesOutput = &OutputDevice::getDevice(options.getString("alternatives-output"));
         myRouteAlternativesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
         myRouteAlternativesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");
     }
-    if (options.isSet("vtype-output") && options.getString("vtype-output") != "") {
+    if (options.isSet("vtype-output")) {
         myTypesOutput = &OutputDevice::getDevice(options.getString("vtype-output"));
         myTypesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
         myTypesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");

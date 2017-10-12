@@ -422,14 +422,11 @@ public:
 
     /** @brief Opens the output for computed routes
      *
-     * If the second parameter is set, a second file for route alternatives
-     *  will be opened.
      * If one of the file outputs can not be build, an IOError is thrown.
      *
-     * @param[in] options The options to be asked for "output-file" and "vtype-output"
-     * @param[in] altFilename The name of the file for writing alternatives, "" means no alternatives
+     * @param[in] options The options to be asked for "output-file", "alternatives-output" and "vtype-output"
      */
-    void openOutput(const OptionsCont& options, const std::string altFilename = "");
+    void openOutput(const OptionsCont& options);
 
 
     /** @brief closes the file output for computed routes and deletes associated threads if necessary */

@@ -98,15 +98,6 @@ void
 computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // initialise the loader
     loader.openRoutes(net);
-    // prepare the output
-    const std::string& filename = oc.getString("output-file");
-    std::string altFilename = filename + ".alt";
-    const int len = (int)filename.length();
-    if (len > 4 && filename.substr(len - 4) == ".xml") {
-        altFilename = filename.substr(0, len - 4) + ".alt.xml";
-    } else if (len > 4 && filename.substr(len - 4) == ".sbx") {
-        altFilename = filename.substr(0, len - 4) + ".alt.sbx";
-    }
     // build the router
     SUMOAbstractRouter<ROEdge, ROVehicle>* router;
     const std::string measure = oc.getString("weight-attribute");
@@ -206,7 +197,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                               new ROIntermodalRouter(RONet::adaptIntermodalRouter));
     // process route definitions
     try {
-        net.openOutput(oc, altFilename);
+        net.openOutput(oc);
         loader.processRoutes(begin, end, string2time(oc.getString("route-steps")), net, provider);
         // end the processing
         net.cleanup();
