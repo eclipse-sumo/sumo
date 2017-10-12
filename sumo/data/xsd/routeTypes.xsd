@@ -52,6 +52,7 @@
         <xsd:attribute name="lcPushyGap" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcAssertive" type="positiveFloatType"/>
         <xsd:attribute name="lcLookaheadLeft" type="positiveFloatType"/>
+        <xsd:attribute name="lcSpeedGainRight" type="positiveFloatType"/>
         <xsd:attribute name="maxSpeedLat" type="positiveFloatType"/>
         <xsd:attribute name="latAlignment">
             <xsd:simpleType>

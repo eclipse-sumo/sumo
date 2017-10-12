@@ -256,6 +256,8 @@ protected:
 
     // @brief the factor by which the lookahead distance to the left differs from the lookahead to the right
     double myLookaheadLeft;
+    // @brief the factor by which the speedGain-threshold for the leftdiffers from the threshold for the right
+    double mySpeedGainRight;
 
     const double myExperimentalParam1; // for feature testing
     //@}

@@ -128,7 +128,8 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myMinImpatience(myImpatience),
     myTimeToImpatience(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, std::numeric_limits<double>::max())),
     myAccelLat(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ACCEL_LAT, 1.0)),
-    myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)) 
+    myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)),
+    mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)) 
 {
     initDerivedParameters();
 }
@@ -140,7 +141,7 @@ MSLCM_SL2015::~MSLCM_SL2015() {
 
 void
 MSLCM_SL2015::initDerivedParameters() {
-    myChangeProbThresholdRight = (2.0 / MAX2(NUMERICAL_EPS, mySpeedGainParam));
+    myChangeProbThresholdRight = ((0.2 / mySpeedGainRight) / MAX2(NUMERICAL_EPS, mySpeedGainParam));
     myChangeProbThresholdLeft = (0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam));
     mySpeedLossProbThreshold = (-0.1 + (1 - mySublaneParam));
 }
@@ -2751,6 +2752,8 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myAccelLat);
     } else if (key == toString(SUMO_ATTR_LCA_LOOKAHEADLEFT)) {
         return toString(myLookaheadLeft);
+    } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAINRIGHT)) {
+        return toString(mySpeedGainRight);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
@@ -2786,6 +2789,8 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myAccelLat = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_LOOKAHEADLEFT)) {
         myLookaheadLeft = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAINRIGHT)) {
+        mySpeedGainRight = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }

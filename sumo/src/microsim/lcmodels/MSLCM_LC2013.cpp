@@ -108,8 +108,9 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     mySpeedGainParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 1)),
     myKeepRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 1)),
     myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)), 
+    mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)), 
     myExperimentalParam1(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)),
-    myChangeProbThresholdRight(2.0 / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
+    myChangeProbThresholdRight((0.2 / mySpeedGainRight) / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
     myChangeProbThresholdLeft(0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam)) {
 #ifdef DEBUG_CONSTRUCTOR
     if (DEBUG_COND) {
@@ -2033,6 +2034,8 @@ MSLCM_LC2013::getParameter(const std::string& key) const {
         return toString(myKeepRightParam);
     } else if (key == toString(SUMO_ATTR_LCA_LOOKAHEADLEFT)) {
         return toString(myLookaheadLeft);
+    } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAINRIGHT)) {
+        return toString(mySpeedGainRight);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
@@ -2056,6 +2059,8 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
         myKeepRightParam = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_LOOKAHEADLEFT)) {
         myLookaheadLeft = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAINRIGHT)) {
+        mySpeedGainRight = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }
