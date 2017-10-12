@@ -153,7 +153,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 if (!geoConvHelper.x2cartesian(pos)) {
                     WRITE_ERROR("Unable to project coordinates for POI '" + id + "'.");
                 }
-                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, layer);
+                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, 0, layer);
                 if (toFill.add(poi)) {
                     parCont.push_back(poi);
                 }
@@ -202,7 +202,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_ERROR("Unable to project coordinates for POI '" + tid + "'.");
                     }
-                    PointOfInterest* poi = new PointOfInterest(tid, type, color, pos, layer);
+                    PointOfInterest* poi = new PointOfInterest(tid, type, color, pos, "", 0, 0, layer);
                     if (toFill.add(poi)) {
                         parCont.push_back(poi);
                     }

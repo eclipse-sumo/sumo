@@ -61,10 +61,10 @@ ShapeContainer::addPolygon(const std::string& id, const std::string& type,
 
 
 bool
-ShapeContainer::addPOI(const std::string& id, const std::string& type,
-                       const RGBColor& color, double layer, double angle, const std::string& imgFile,
-                       const Position& pos, double width, double height, bool ignorePruning) {
-    return add(new PointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height), ignorePruning);
+ShapeContainer::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
+                       const std::string &lane, double posOverLane, double posLat, double layer, double angle, 
+                       const std::string& imgFile, double width, double height, bool ignorePruning) {
+    return add(new PointOfInterest(id, type, color, pos, geo, lane, posOverLane, posLat, layer, angle, imgFile, width, height), ignorePruning);
 }
 
 

@@ -181,17 +181,21 @@ public:
     * @param[in] id The name of the POI
     * @param[in] type The (abstract) type of the POI
     * @param[in] color The color of the POI
+    * @param[in] pos The position of the POI
+    * @param[in[ geo use GEO coordinates (lon/lat)
+    * @param[in] lane The Lane in which this POI is placed
+    * @param[in] posOverLane The position over Lane
+    * @param[in] posLat The position lateral over Lane
     * @param[in] layer The layer of the POI
     * @param[in] angle The rotation of the POI
     * @param[in] imgFile The raster image of the POI
-    * @param[in] pos The position of the POI
     * @param[in] width The width of the POI image
     * @param[in] height The height of the POI image
     * @return whether the poi could be added
     */
-    bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-                double angle, const std::string& imgFile, const Position& pos, double width, double height,
-                bool ignorePruning = false);
+    bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
+                const std::string &lane, double posOverLane, double posLat, double layer, double angle, 
+                const std::string& imgFile, double width, double height, bool ignorePruning = false);
 
     /**@brief Removes a PoI from the container
     * @param[in] id The id of the PoI

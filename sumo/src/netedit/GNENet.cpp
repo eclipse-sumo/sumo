@@ -223,12 +223,13 @@ GNENet::removePolygon(const std::string& id) {
 
 
 bool
-GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle,
-    const std::string& imgFile, const Position& pos, double width, double height, bool /*ignorePruning */) {
+GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
+               const std::string &lane, double posOverLane, double posLat, double layer, double angle, 
+               const std::string& imgFile, double width, double height, bool /*ignorePruning*/) {
     // check if ID is duplicated
     if (myPOIs.get(id) == NULL) {
         // create poly
-        GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, pos, false, width, height, false);
+        GNEPOI* poi = new GNEPOI(this, id, type, color, pos, geo, layer, angle, imgFile, width, height, false);
         if (myPOIs.add(poi->getID(), poi)) {
             myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
             myViewNet->getUndoList()->add(new GNEChange_Shape(this, poi, true), true);

@@ -105,10 +105,9 @@ TraCI_POI::setColor(const std::string& poiID, const TraCIColor& c) {
 bool
 TraCI_POI::add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c, const std::string& type, int layer) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    return shapeCont.addPOI(poiID, type, TraCI::makeRGBColor(c), (double) layer,
+    return shapeCont.addPOI(poiID, type, TraCI::makeRGBColor(c), TraCI::makePosition(pos), false, "", 0, 0, (double) layer,
                             Shape::DEFAULT_ANGLE,
                             Shape::DEFAULT_IMG_FILE,
-                            TraCI::makePosition(pos),
                             Shape::DEFAULT_IMG_WIDTH,
                             Shape::DEFAULT_IMG_HEIGHT);
 }

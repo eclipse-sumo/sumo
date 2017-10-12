@@ -54,17 +54,17 @@ public:
      * @param[in] id The name of the POI
      * @param[in] type The (abstract) type of the POI
      * @param[in] color The color of the POI
+     * @param[in] pos The position of the POI
+     * @param[in[ geo use GEO coordinates (lon/lat)
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the shape
-     * @param[in] pos The position of the POI
-     * @param[in] useGEO Enable or disable save poi using GEO coordinates
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
      * @param[in] movementBlocked if movement of POI is blocked
      */
-    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle,
-           const std::string& imgFile, const Position& pos, bool useGEO, double width, double height, bool movementBlocked);
+    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo, 
+           double layer, double angle, const std::string& imgFile, double width, double height, bool movementBlocked);
 
     /// @brief Destructor
     ~GNEPOI();

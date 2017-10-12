@@ -424,6 +424,9 @@ protected:
     /// @brief add POI
     bool addPOI(const std::map<SumoXMLAttr, std::string>& POIValues);
 
+    /// @brief add POILane
+    bool addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues);
+
 private:
     /// @brief set parameters depending of the new additionalType
     void setParametersOfShape(SumoXMLTag actualShapeType);

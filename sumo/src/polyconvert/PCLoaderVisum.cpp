@@ -244,7 +244,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                 color = c;
             }
             if (!discard) {
-                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, layer);
+                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, 0, layer);
                 toFill.add(poi);
             }
         }
@@ -325,7 +325,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
                     }
-                    PointOfInterest* poi = new PointOfInterest(id, type, color, pos, layer);
+                    PointOfInterest* poi = new PointOfInterest(id, type, color, pos, "", 0, 0, layer);
                     toFill.add(poi);
                 }
             }

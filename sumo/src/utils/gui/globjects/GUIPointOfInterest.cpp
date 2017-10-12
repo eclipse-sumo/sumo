@@ -45,11 +45,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 GUIPointOfInterest::GUIPointOfInterest(const std::string& id, const std::string& type,
-                                       const RGBColor& color, const Position& pos,
+                                       const RGBColor& color, const Position& pos, bool geo,
+                                       const std::string &lane, double posOverLane, double posLat,
                                        double layer, double angle, const std::string& imgFile,
                                        double width, double height) :
-    PointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height),
+    PointOfInterest(id, type, color, pos, geo, lane, posOverLane, posLat, layer, angle, imgFile, width, height),
     GUIGlObject_AbstractAdd("poi", GLO_POI, id) {
 }
 
@@ -58,9 +60,7 @@ GUIPointOfInterest::~GUIPointOfInterest() {}
 
 
 GUIGLObjectPopupMenu*
-GUIPointOfInterest::getPopUpMenu(GUIMainWindow& app,
-                                 GUISUMOAbstractView& parent) {
-
+GUIPointOfInterest::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app, false);
     FXString t(myType.c_str());
@@ -76,10 +76,8 @@ GUIPointOfInterest::getPopUpMenu(GUIMainWindow& app,
 
 
 GUIParameterTableWindow*
-GUIPointOfInterest::getParameterWindow(GUIMainWindow& app,
-                                       GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 3 + (int)getMap().size());
+GUIPointOfInterest::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 3 + (int)getMap().size());
     // add items
     ret->mkItem("type", false, myType);
     ret->mkItem("layer", false, getLayer());
@@ -139,5 +137,6 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPopName();
 }
+
 /****************************************************************************/
 

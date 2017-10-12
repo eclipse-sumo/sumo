@@ -64,7 +64,7 @@
 GNEPOILane::GNEPOILane(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
     double layer, double angle, const std::string& imgFile, GNELane *lane, double posOverLane, double posLat,
     double width, double height, bool movementBlocked) :
-    GUIPointOfInterest(id, type, color, Position(), layer, angle, imgFile, width, height),
+    GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, width, height),
     GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI, movementBlocked, false),
     myLane(lane),
     myPosOverLane(posOverLane),

@@ -49,6 +49,8 @@
 #include "GNEAttributeCarrier.h"
 #include "GNEPoly.h"
 #include "GNEPOI.h"
+#include "GNEPOILane.h"
+#include "GNELane.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -140,29 +142,41 @@ GNEPolygonFrame::~GNEPolygonFrame() {
 
 GNEPolygonFrame::AddShapeResult
 GNEPolygonFrame::processClick(const Position& clickedPosition) {
+    // Declare map to keep values
+    std::map<SumoXMLAttr, std::string> valuesOfElement = myShapeAttributes->getAttributesAndValues();
     // check if current selected additional is valid
     if (myActualShapeType == SUMO_TAG_POI) {
-
         // show warning dialogbox and stop check if input parameters are valid
         if (myShapeAttributes->areValuesValid() == false) {
             myShapeAttributes->showWarningMessage();
             return ADDSHAPE_INVALID;
         }
-
-        // Declare map to keep values
-        std::map<SumoXMLAttr, std::string> valuesOfElement = myShapeAttributes->getAttributesAndValues();
-
         // generate new ID
-        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateShapeID(SUMO_TAG_POI);
-
+        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateShapeID(myActualShapeType);
         // obtain position
         valuesOfElement[SUMO_ATTR_POSITION] = toString(clickedPosition);
-
         // obtain block movement value
         valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockMovementEnabled());
-
         // return ADDSHAPE_SUCCESS if POI was sucesfully created
         if (addPOI(valuesOfElement)) {
+            return ADDSHAPE_SUCCESS;
+        } else {
+            return ADDSHAPE_INVALID;
+        }
+    } else  if (myActualShapeType == SUMO_TAG_POILANE) {
+        // show warning dialogbox and stop check if input parameters are valid
+        if (myShapeAttributes->areValuesValid() == false) {
+            myShapeAttributes->showWarningMessage();
+            return ADDSHAPE_INVALID;
+        }
+        // generate new ID
+        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateShapeID(myActualShapeType);
+        // obtain position
+        valuesOfElement[SUMO_ATTR_POSITION] = toString(clickedPosition);
+        // obtain block movement value
+        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockMovementEnabled());
+        // return ADDSHAPE_SUCCESS if POI was sucesfully created
+        if (addPOILane(valuesOfElement)) {
             return ADDSHAPE_SUCCESS;
         } else {
             return ADDSHAPE_INVALID;
@@ -318,18 +332,51 @@ GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string>& POIValues) {
     std::string type = POIValues.at(SUMO_ATTR_TYPE);
     RGBColor color = RGBColor::parseColor(POIValues.at(SUMO_ATTR_COLOR));
     double layer = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_LAYER));
+    Position pos = GeomConvHelper::parseShapeReporting(POIValues.at(SUMO_ATTR_POSITION), "netedit-given", 0, ok, false)[0];
+    bool geo = GNEAttributeCarrier::parse<bool>(POIValues.at(SUMO_ATTR_GEO));
     double angle = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_ANGLE));
     std::string imgFile = POIValues.at(SUMO_ATTR_IMGFILE);
-    Position pos = GeomConvHelper::parseShapeReporting(POIValues.at(SUMO_ATTR_POSITION), "netedit-given", 0, ok, false)[0];
     double widthPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_WIDTH));
     double heightPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_HEIGHT));
 
     // create new POI
     myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POI));
-    if (myViewNet->getNet()->addPOI(id, type, color, layer, angle, imgFile, pos, widthPOI, heightPOI)) {
+    if (myViewNet->getNet()->addPOI(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, widthPOI, heightPOI)) {
         // Set manually the attribute block movement
         GNEPOI* poi = myViewNet->getNet()->retrievePOI(id);
         poi->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, POIValues.at(GNE_ATTR_BLOCK_MOVEMENT), myViewNet->getUndoList());
+        myViewNet->getUndoList()->p_end();
+        return true;
+    } else {
+        // abort creation
+        myViewNet->getUndoList()->p_abort();
+        return false;
+    }
+}
+
+
+bool
+GNEPolygonFrame::addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues) {
+    bool ok = true;
+    // parse attributes from POIValues
+    std::string id = POIValues.at(SUMO_ATTR_ID);
+    std::string type = POIValues.at(SUMO_ATTR_TYPE);
+    RGBColor color = RGBColor::parseColor(POIValues.at(SUMO_ATTR_COLOR));
+    double layer = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_LAYER));
+    double angle = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_ANGLE));
+    std::string imgFile = POIValues.at(SUMO_ATTR_IMGFILE);
+    GNELane *lane = myViewNet->getNet()->retrieveLane(POIValues.at(SUMO_ATTR_LANE));
+    double posLane = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_POSITION));
+    double posLat = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_POSITION_LAT));
+    double widthPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_WIDTH));
+    double heightPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_HEIGHT));
+
+    // create new POILane
+    myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POILANE));
+    if (myViewNet->getNet()->addPOI(id, type, color, Position(), false, lane->getID(), posLane, posLat, layer, angle, imgFile, widthPOI, heightPOI)) {
+        // Set manually the attribute block movement
+        GNEPOILane* POILane = myViewNet->getNet()->retrievePOILane(id);
+        POILane->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, POIValues.at(GNE_ATTR_BLOCK_MOVEMENT), myViewNet->getUndoList());
         myViewNet->getUndoList()->p_end();
         return true;
     } else {

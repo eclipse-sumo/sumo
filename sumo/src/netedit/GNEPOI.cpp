@@ -61,11 +61,11 @@
 // method definitions
 // ===========================================================================
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
-               double layer, double angle, const std::string& imgFile, const Position& pos, bool useGEO,
+               const Position& pos, bool geo, double layer, double angle, const std::string& imgFile,
                double width, double height, bool movementBlocked) :
-    GUIPointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height),
+    GUIPointOfInterest(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, width, height),
     GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI, movementBlocked, false),
-    myUseGEO(useGEO) {
+    myUseGEO(geo) {
     // set GEO Position
     myGEOPosition = pos;
     GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
