@@ -41,6 +41,7 @@ class GNEEdge;
 class GNENet;
 class GNEAdditional;
 class GNEConnection;
+class GNEPOILane;
 
 // ===========================================================================
 // class definitions
@@ -55,8 +56,6 @@ class GNELane : public GNENetElement, public FXDelegator {
     FXDECLARE(GNELane)
 
 public:
-    /// @brief Definition of the additionals vector
-    typedef std::vector<GNEAdditional*> AdditionalVector;
 
     /**@brief Constructor
      * @param[in] idStorage The storage of gl-ids to get the one for this lane representation from
@@ -156,6 +155,15 @@ public:
     /// @brief get additional childs of lane
     const std::vector<GNEAdditional*>& getAdditionalChilds() const;
 
+    /// @brief add POILane child to this lane
+    void addPOILaneChild(GNEPOILane* POILane);
+
+    /// @brief remove POILane child to this lane
+    void removePOILaneChild(GNEPOILane* POILane);
+
+    /// @brief get POILanes childs of lane
+    const std::vector<GNEPOILane*>& getPOILaneChilds() const;
+
     /// @brief check if this lane is restricted
     bool isRestricted(SUMOVehicleClass vclass) const;
 
@@ -218,7 +226,10 @@ protected:
     /// @}
 
     /// @brief list with the additionals vinculated with this lane
-    AdditionalVector myAdditionals;
+    std::vector<GNEAdditional*> myAdditionals;
+
+    /// @brief list with the additionals vinculated with this lane
+    std::vector<GNEPOILane*> myPOILanes;
 
     /// @brief optional special color
     const RGBColor* mySpecialColor;
@@ -232,12 +243,6 @@ protected:
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief Invalidated copy constructor.
-    GNELane(const GNELane&);
-
-    /// @brief Invalidated assignment operator.
-    GNELane& operator=(const GNELane&);
 
     /// @brief draw lane markings
     void drawMarkings(const bool& selectedEdge, double scale) const;
@@ -275,6 +280,12 @@ private:
 
     /// @brief direction indicators for lanes
     void drawDirectionIndicators() const;
+
+    /// @brief Invalidated copy constructor.
+    GNELane(const GNELane&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNELane& operator=(const GNELane&) = delete;
 };
 
 

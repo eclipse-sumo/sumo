@@ -58,6 +58,7 @@
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
 #include "GNEConnection.h"
+#include "GNEPOILane.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -158,9 +159,9 @@ GNELane::drawArrows() const {
     // draw all links
     const std::vector<NBEdge::Connection>& edgeCons = myParentEdge.getNBEdge()->myConnections;
     NBNode* dest = myParentEdge.getNBEdge()->myTo;
-    for (std::vector<NBEdge::Connection>::const_iterator i = edgeCons.begin(); i != edgeCons.end(); ++i) {
-        if ((*i).fromLane == myIndex) {
-            LinkDirection dir = dest->getDirection(myParentEdge.getNBEdge(), i->toEdge, OptionsCont::getOptions().getBool("lefthand"));
+    for (auto i : edgeCons) {
+        if (i.fromLane == myIndex) {
+            LinkDirection dir = dest->getDirection(myParentEdge.getNBEdge(), i.toEdge, OptionsCont::getOptions().getBool("lefthand"));
             switch (dir) {
                 case LINKDIR_STRAIGHT:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
@@ -221,9 +222,8 @@ GNELane::drawLane2LaneConnections() const {
     std::vector<NBEdge::Connection> connections = myParentEdge.getNBEdge()->getConnectionsFromLane(myIndex);
     NBNode* node = myParentEdge.getNBEdge()->getToNode();
     const Position& startPos = getShape()[-1];
-    for (std::vector<NBEdge::Connection>::iterator it = connections.begin(); it != connections.end(); it++) {
-        const LinkState state = node->getLinkState(
-                                    myParentEdge.getNBEdge(), it->toEdge, it->fromLane, it->toLane, it->mayDefinitelyPass, it->tlID);
+    for (auto it : connections) {
+        const LinkState state = node->getLinkState(myParentEdge.getNBEdge(), it.toEdge, it.fromLane, it.toLane, it.mayDefinitelyPass, it.tlID);
         switch (state) {
             case LINKSTATE_TL_OFF_NOSIGNAL:
                 glColor3d(1, 1, 0);
@@ -251,7 +251,7 @@ GNELane::drawLane2LaneConnections() const {
             default:
                 throw ProcessError("Unexpected LinkState '" + toString(state) + "'");
         }
-        const Position& endPos = it->toEdge->getLaneShape(it->toLane)[0];
+        const Position& endPos = it.toEdge->getLaneShape(it.toLane)[0];
         glBegin(GL_LINES);
         glVertex2d(startPos.x(), startPos.y());
         glVertex2d(endPos.x(), endPos.y());
@@ -564,9 +564,9 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         if (myTLSEditor->controlsEdge(myParentEdge)) {
             new FXMenuCommand(ret, "Select state for all links from this edge:", 0, 0, 0);
             const std::vector<std::string> names = GNEInternalLane::LinkStateNames.getStrings();
-            for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); it++) {
-                FXuint state = GNEInternalLane::LinkStateNames.get(*it);
-                FXMenuRadio* mc = new FXMenuRadio(ret, (*it).c_str(), this, FXDataTarget::ID_OPTION + state);
+            for (auto it : names) {
+                FXuint state = GNEInternalLane::LinkStateNames.get(it);
+                FXMenuRadio* mc = new FXMenuRadio(ret, it.c_str(), this, FXDataTarget::ID_OPTION + state);
                 mc->setSelBackColor(MFXUtils::getFXColor(GNEInternalLane::colorForLinksState(state)));
                 mc->setBackColor(MFXUtils::getFXColor(GNEInternalLane::colorForLinksState(state)));
             }
@@ -643,20 +643,24 @@ GNELane::updateGeometry() {
         }
     }
     // Update geometry of additionals vinculated with this lane
-    for (AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
-        (*i)->updateGeometry();
+    for (auto i : myAdditionals) {
+        i->updateGeometry();
+    }
+    // Update geometry of POILanes vinculated with this lane
+    for (auto i : myPOILanes) {
+        i->updateGeometry();
     }
     // In Move mode, connections aren't updated
     if (myNet->getViewNet() && myNet->getViewNet()->getCurrentEditMode() != GNE_MODE_MOVE) {
         // Update incoming connections of this lane
         std::vector<GNEConnection*> incomingConnections = getGNEIncomingConnections();
-        for (std::vector<GNEConnection*>::iterator i = incomingConnections.begin(); i != incomingConnections.end(); i++) {
-            (*i)->updateGeometry();
+        for (auto i : incomingConnections) {
+            i->updateGeometry();
         }
         // Update outgoings connections of this lane
         std::vector<GNEConnection*> outGoingConnections = getGNEOutcomingConnections();
-        for (std::vector<GNEConnection*>::iterator i = outGoingConnections.begin(); i != outGoingConnections.end(); i++) {
-            (*i)->updateGeometry();
+        for (auto i : outGoingConnections) {
+            i->updateGeometry();
         }
     }
     // If lane has enought length for show textures of restricted lanes
@@ -719,7 +723,7 @@ GNELane::addAdditionalChild(GNEAdditional* additional) {
 
 void
 GNELane::removeAdditionalChild(GNEAdditional* additional) {
-    AdditionalVector::iterator it = std::find(myAdditionals.begin(), myAdditionals.end(), additional);
+    auto it = std::find(myAdditionals.begin(), myAdditionals.end(), additional);
     // Check if additional exist before remove
     if (it != myAdditionals.end()) {
         myAdditionals.erase(it);
@@ -732,6 +736,35 @@ GNELane::removeAdditionalChild(GNEAdditional* additional) {
 const std::vector<GNEAdditional*>&
 GNELane::getAdditionalChilds() const {
     return myAdditionals;
+}
+
+
+void 
+GNELane::addPOILaneChild(GNEPOILane* POILane) {
+    // Check if POILane exist before remove
+    if (std::find(myPOILanes.begin(), myPOILanes.end(), POILane) == myPOILanes.end()) {
+        myPOILanes.push_back(POILane);
+    } else {
+        throw ProcessError(toString(getTag()) + " with ID='" + POILane->getID() + "' was already inserted in lane with ID='" + getID() + "'");
+    }
+}
+
+
+void 
+GNELane::removePOILaneChild(GNEPOILane* POILane) {
+    auto it = std::find(myPOILanes.begin(), myPOILanes.end(), POILane);
+    // Check if POILane exist before remove
+    if (it != myPOILanes.end()) {
+        myPOILanes.erase(it);
+    } else {
+        throw ProcessError(toString(getTag()) + " with ID='" + POILane->getID() + "' doesn't exist in lane with ID='" + getID() + "'");
+    }
+}
+
+
+const std::vector<GNEPOILane*>&
+GNELane::getPOILaneChilds() const {
+    return myPOILanes;
 }
 
 
@@ -1070,11 +1103,11 @@ GNELane::getGNEIncomingConnections() {
     GNEJunction* junctionSource =  myParentEdge.getGNEJunctionSource();
     if (junctionSource) {
         // Iterate over incoming GNEEdges of junction
-        for (std::vector<GNEEdge*>::const_iterator i = junctionSource->getGNEIncomingEdges().begin(); i != junctionSource->getGNEIncomingEdges().end(); i++) {
+        for (auto i : junctionSource->getGNEIncomingEdges()) {
             // Iterate over connection of incoming edges
-            for (std::vector<GNEConnection*>::const_iterator j = (*i)->getGNEConnections().begin(); j != (*i)->getGNEConnections().end(); j++) {
-                if ((*j)->getNBEdgeConnection().fromLane == getIndex()) {
-                    incomingConnections.push_back(*j);
+            for (auto j : i->getGNEConnections()) {
+                if (j->getNBEdgeConnection().fromLane == getIndex()) {
+                    incomingConnections.push_back(j);
                 }
             }
         }
@@ -1089,9 +1122,9 @@ GNELane::getGNEOutcomingConnections() {
     const std::vector<GNEConnection*>& edgeConnections = myParentEdge.getGNEConnections();
     std::vector<GNEConnection*> outcomingConnections;
     // Obtain outgoing connections
-    for (std::vector<GNEConnection*>::const_iterator i = edgeConnections.begin(); i != edgeConnections.end(); i++) {
-        if ((*i)->getNBEdgeConnection().fromLane == getIndex()) {
-            outcomingConnections.push_back(*i);
+    for (auto i : edgeConnections) {
+        if (i->getNBEdgeConnection().fromLane == getIndex()) {
+            outcomingConnections.push_back(i);
         }
     }
     return outcomingConnections;
@@ -1102,13 +1135,13 @@ void
 GNELane::updateConnectionIDs() {
     // update incoming connections of lane
     std::vector<GNEConnection*> incomingConnections = getGNEIncomingConnections();
-    for (std::vector<GNEConnection*>::iterator i = incomingConnections.begin(); i != incomingConnections.end(); i++) {
-        (*i)->updateID();
+    for (auto i : incomingConnections) {
+        i->updateID();
     }
     // update outocming connections of lane
     std::vector<GNEConnection*> outcomingConnections = getGNEOutcomingConnections();
-    for (std::vector<GNEConnection*>::iterator i = outcomingConnections.begin(); i != outcomingConnections.end(); i++) {
-        (*i)->updateID();
+    for (auto i : outcomingConnections) {
+        i->updateID();
     }
 }
 

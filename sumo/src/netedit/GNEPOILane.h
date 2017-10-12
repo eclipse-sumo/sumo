@@ -63,12 +63,14 @@ public:
     * @param[in] imgFile The raster image of the shape
     * @param[in] lane lane in which tis POILane is placed
     * @param[in] posOverLane Position over lane in which this POILane is placed
+    * @param[in] posLat Lateral position over lane
     * @param[in] width The width of the POI image
     * @param[in] height The height of the POI image
     * @param[in] movementBlocked if movement of POI is blocked
     */
-    GNEPOILane(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle,
-           const std::string& imgFile, GNELane *lane, double posOverLane, double width, double height, bool movementBlocked);
+    GNEPOILane(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, 
+               double layer, double angle, const std::string& imgFile, GNELane *lane, double posOverLane, 
+               double posLat, double width, double height, bool movementBlocked);
 
     /// @brief Destructor
     ~GNEPOILane();
@@ -84,6 +86,9 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
 
     /// @name inherited from GNEShape
     /// @{
@@ -159,7 +164,10 @@ protected:
     GNELane* myLane;
 
     /// @brief position over lane
-    double myPositionOverLane;
+    double myPosOverLane;
+
+    /// @brief lateral position over lane
+    double myPosLat;
 
 private:
     /// @brief set attribute after validation

@@ -40,6 +40,7 @@
 class GNEEdge;
 class GNELane;
 class GNEAdditional;
+class GNEPOILane;
 
 // ===========================================================================
 // class definitions
@@ -91,6 +92,9 @@ private:
 
     /// @brief we need to preserve the list of additionals vinculated with this lane
     std::vector<GNEAdditional*> myAdditionalChilds;
+
+    /// @brief we need to preserve the list of POILanes vinculated with this lane
+    std::vector<GNEPOILane*> myPOILanes;
 
     /// @brief we need to preserve the list of additional sets in which this lane is a child
     std::vector<GNEAdditional*> myAdditionalParents;

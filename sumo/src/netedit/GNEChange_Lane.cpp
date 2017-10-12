@@ -34,6 +34,7 @@
 #include "GNELane.h"
 #include "GNENet.h"
 #include "GNEViewNet.h"
+#include "GNEPOILane.h"
 
 // ===========================================================================
 // FOX-declarations
@@ -58,6 +59,8 @@ GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane&
         myLane->incRef("GNEChange_Lane");
         // Save additionals of lane
         myAdditionalChilds = myLane->getAdditionalChilds();
+        // Save POILanes of lane
+        myPOILanes = myLane->getPOILaneChilds();
     } else {
         assert(forward);
     }
@@ -100,9 +103,13 @@ GNEChange_Lane::undo() {
         }
         // remove lane from edge
         myEdge->removeLane(myLane);
-        // Remove additional sets vinculated with this lane of net
-        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
-            myNet->deleteAdditional(*i);
+        // Remove additionals vinculated with this lane
+        for (auto i : myAdditionalChilds) {
+            myNet->deleteAdditional(i);
+        }
+        // Remove POILanes vinculated with this lane of net
+        for (auto i : myPOILanes) {
+            myNet->removeShapeOfView(i);
         }
     } else {
         // show extra information for tests
@@ -116,8 +123,12 @@ GNEChange_Lane::undo() {
         // add lane and their attributes to edge
         myEdge->addLane(myLane, myLaneAttrs);
         // add additional sets vinculated with this lane of net
-        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
-            myNet->insertAdditional(*i);
+        for (auto i : myAdditionalChilds) {
+            myNet->insertAdditional(i);
+        }
+        // add POILanes vinculated with this lane of net
+        for (auto i : myPOILanes) {
+            myNet->insertShapeInView(i);
         }
     }
 }
@@ -136,9 +147,13 @@ GNEChange_Lane::redo() {
         }
         // add lane and their attributes to edge
         myEdge->addLane(myLane, myLaneAttrs);
-        // add additional sets vinculated with this lane of net
-        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
-            myNet->insertAdditional(*i);
+        // add additional vinculated with this lane of net
+        for (auto i : myAdditionalChilds) {
+            myNet->insertAdditional(i);
+        }
+        // add POILanes vinculated with this lane of net
+        for (auto i : myPOILanes) {
+            myNet->insertShapeInView(i);
         }
     } else {
         // show extra information for tests
@@ -151,9 +166,13 @@ GNEChange_Lane::redo() {
         }
         // remove lane from edge
         myEdge->removeLane(myLane);
-        // Remove additional sets vinculated with this lane of net
-        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
-            myNet->deleteAdditional(*i);
+        // Remove additional vinculated with this lane of net
+        for (auto i : myAdditionalChilds) {
+            myNet->deleteAdditional(i);
+        }
+        // Remove POILanes vinculated with this lane of net
+        for (auto i : myPOILanes) {
+            myNet->removeShapeOfView(i);
         }
     }
 }
