@@ -30,6 +30,8 @@
 #ifndef NO_TRACI
 
 #include <utils/common/StdDefs.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeControl.h>
@@ -76,6 +78,26 @@ int
 TraCI_Simulation::getMinExpectedNumber() {
     return MSNet::getInstance()->getVehicleControl().getActiveVehicleCount() + MSNet::getInstance()->getInsertionControl().getPendingFlowCount();
 }
+
+
+std::string 
+TraCI_Simulation::getParameter(const std::string& objectID, const std::string& key) {
+    if (StringUtils::startsWith(key, "chargingStation.")) {
+        const std::string attrName = key.substr(16);
+        MSChargingStation* cs = MSNet::getInstance()->getChargingStation(objectID);
+        if (cs == 0) {
+            throw TraCIException("Invalid chargingStation '" + objectID + "'");
+        }
+        if (attrName == toString(SUMO_ATTR_TOTALENERGYCHARGED)) {
+            return toString(cs->getTotalCharged());
+        } else {
+            throw TraCIException("Invalid chargingStation parameter '" + attrName + "'");
+        }
+    } else {
+        throw TraCIException("Parameter '" + key + "' is not supported.");
+    }
+}
+
 
 #endif
 

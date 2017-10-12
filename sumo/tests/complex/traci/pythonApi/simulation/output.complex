@@ -1,4 +1,6 @@
 Loading configuration... done.
+Could not connect to TraCI server at localhost:41154 [Errno 111] Connection refused
+ Retrying in 1 seconds
 {114: ['horiz', 'horiz1'], 116: []}
 step 0
 {114: [], 116: ['horiz']}
@@ -48,6 +50,7 @@ distanceRoad 5131.87880547
 drivingDistanceRoad 5136.7
 clearing pending
 save simstate
+getParameter 0.00
 step 0
 {114: [], 116: []}
 step 1

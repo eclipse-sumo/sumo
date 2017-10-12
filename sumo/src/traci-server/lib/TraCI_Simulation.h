@@ -54,6 +54,8 @@ public:
 
     static int getMinExpectedNumber();
 
+    static std::string getParameter(const std::string& objectID, const std::string& key);
+
 private:
     /// @brief invalidated standard constructor
     TraCI_Simulation();

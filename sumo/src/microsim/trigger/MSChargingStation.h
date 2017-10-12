@@ -100,6 +100,10 @@ public:
     /// @brief Return true if in the current time step charging station is charging a vehicle
     bool isCharging() const;
 
+    double getTotalCharged() const {
+        return myTotalCharge;
+    }
+
     /// @brief add charge value for output
     void addChargeValueForOutput(double WCharged, MSDevice_Battery* battery);
 

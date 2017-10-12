@@ -82,6 +82,20 @@ print("clearing pending")
 traci.simulation.clearPending()
 print("save simstate")
 traci.simulation.saveState("state.xml")
+try:
+    print("getParameter", traci.simulation.getParameter("foo", "foo.bla"))
+except traci.TraCIException:
+    pass
+try:
+    print("getParameter", traci.simulation.getParameter("cs1", "chargingStation.bla"))
+except traci.TraCIException:
+    pass
+try:
+    print("getParameter", traci.simulation.getParameter("foo", "chargingStation.totalEnergyCharged"))
+except traci.TraCIException:
+    pass
+print("getParameter", traci.simulation.getParameter("cs1", "chargingStation.totalEnergyCharged"))
+
 for step in range(6):
     print("step", step)
     traci.simulationStep()
