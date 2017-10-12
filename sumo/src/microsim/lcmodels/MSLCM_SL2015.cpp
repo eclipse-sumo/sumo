@@ -140,7 +140,7 @@ MSLCM_SL2015::~MSLCM_SL2015() {
 
 void
 MSLCM_SL2015::initDerivedParameters() {
-    myChangeProbThresholdRight = (2.0 * myKeepRightParam / MAX2(NUMERICAL_EPS, mySpeedGainParam));
+    myChangeProbThresholdRight = (2.0 / MAX2(NUMERICAL_EPS, mySpeedGainParam));
     myChangeProbThresholdLeft = (0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam));
     mySpeedLossProbThreshold = (-0.1 + (1 - mySublaneParam));
 }
