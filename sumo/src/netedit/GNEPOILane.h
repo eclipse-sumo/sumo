@@ -160,14 +160,8 @@ public:
     /// @}
 
 protected:
-    /// @brief lane in which this POI can be placed
-    GNELane* myLane;
-
-    /// @brief position over lane
-    double myPosOverLane;
-
-    /// @brief lateral position over lane
-    double myPosLat;
+    /// @brief GNElane in which this POILane is placed
+    GNELane* myGNELane;
 
 private:
     /// @brief set attribute after validation

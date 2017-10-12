@@ -151,9 +151,6 @@ public:
     /// @}
 
 protected:
-    /// @brief enable or disable save POI as GEO coordinate
-    bool myUseGEO;
-
     /// @brief Position of POI in GEO coordinates
     Position myGEOPosition;
 

@@ -60,12 +60,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
                const Position& pos, bool geo, double layer, double angle, const std::string& imgFile,
                double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, width, height),
-    GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI, movementBlocked, false),
-    myUseGEO(geo) {
+    GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI, movementBlocked, false) {
     // set GEO Position
     myGEOPosition = pos;
     GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
@@ -76,7 +76,7 @@ GNEPOI::~GNEPOI() {}
 
 
 void GNEPOI::writeShape(OutputDevice& device) {
-    writeXML(device, myUseGEO, 0, "", myGEOPosition.x(), myGEOPosition.y());
+    writeXML(device, myGeo);
 }
 
 
@@ -153,7 +153,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_GEOPOSITION:
             return toString(myGEOPosition);
         case SUMO_ATTR_GEO:
-            return toString(myUseGEO);
+            return toString(myGeo);
         case SUMO_ATTR_TYPE:
             return myType;
         case SUMO_ATTR_LAYER:
@@ -277,7 +277,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_GEO:
-            myUseGEO = parse<bool>(value);
+            myGeo = parse<bool>(value);
             break;
         case SUMO_ATTR_TYPE:
             myType = value;

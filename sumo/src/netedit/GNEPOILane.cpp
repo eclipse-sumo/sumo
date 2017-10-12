@@ -66,9 +66,7 @@ GNEPOILane::GNEPOILane(GNENet* net, const std::string& id, const std::string& ty
     double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, width, height),
     GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI, movementBlocked, false),
-    myLane(lane),
-    myPosOverLane(posOverLane),
-    myPosLat(posLat) {
+    myGNELane(lane) {
 }
 
 
@@ -77,7 +75,7 @@ GNEPOILane::~GNEPOILane() {}
 
 void 
 GNEPOILane::writeShape(OutputDevice& device) {
-    writeXML(device, false, 0, myLane->getID(), myPosOverLane, myPosLat);
+    writeXML(device, false, 0, myGNELane->getID(), myPosOverLane, myPosLat);
 }
 
 
@@ -106,7 +104,7 @@ GNEPOILane::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) 
 
 void 
 GNEPOILane::updateGeometry() {
-    set(myLane->getShape().positionAtOffset(myPosOverLane, myPosLat));
+    set(myGNELane->getShape().positionAtOffset(myPosOverLane, myPosLat));
     myNet->refreshShape(this);
 }
 
@@ -157,7 +155,7 @@ GNEPOILane::getAttribute(SumoXMLAttr key) const {
     case SUMO_ATTR_COLOR:
         return toString(myColor);
     case SUMO_ATTR_LANE:
-        return myLane->getID();
+        return myLane;
     case SUMO_ATTR_POSITION:
         return toString(myPosOverLane);
     case SUMO_ATTR_POSITION_LAT:
@@ -265,9 +263,10 @@ GNEPOILane::setAttribute(SumoXMLAttr key, const std::string& value) {
         myColor = parse<RGBColor>(value);
         break;
     case SUMO_ATTR_LANE:
-        myLane->removePOILaneChild(this);
-        myLane = myNet->retrieveLane(value);
-        myLane->addPOILaneChild(this);
+        myLane = value;
+        myGNELane->removePOILaneChild(this);
+        myGNELane = myNet->retrieveLane(value);
+        myGNELane->addPOILaneChild(this);
         updateGeometry();
         break;
     case SUMO_ATTR_POSITION:

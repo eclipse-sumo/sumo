@@ -74,6 +74,10 @@ public:
                     double height = DEFAULT_IMG_HEIGHT) :
         Shape(id, type, color, layer, angle, imgFile),
         Position(pos),
+        myGeo(geo),
+        myLane(lane),
+        myPosOverLane(posOverLane),
+        myPosLat(posLat),
         myHalfImgWidth(width / 2.0),
         myHalfImgHeight(height / 2.0) {
     }
@@ -159,10 +163,22 @@ public:
 
 
 protected:
-    ///@brief The half width of the image when rendering this POI
+    /// @brief flag to check if POI was loaded as GEO Position (main used by netedit)
+    bool myGeo;
+
+    /// @brief ID of lane in which this POI is placed (main used by netedit)
+    std::string myLane;
+
+    /// @brief position over lane in which this POI is placed (main used by netedit)
+    double myPosOverLane;
+        
+    /// @brief latereal position over lane in which this POI is placed (main used by netedit)
+    double myPosLat;
+
+    /// @brief The half width of the image when rendering this POI
     double myHalfImgWidth;
 
-    ///@brief The half height of the image when rendering this POI
+    /// @brief The half height of the image when rendering this POI
     double myHalfImgHeight;
 
 };
