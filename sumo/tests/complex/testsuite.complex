@@ -7,6 +7,10 @@ sumo
 # complex traci tests
 traci
 
+# Tests for the SImple PLAtooning TraCI plugin.
+# Uses python unittest.
+simpla
+
 # complex jtrrouter tests
 jtrrouter
 
