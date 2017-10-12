@@ -74,6 +74,9 @@ public:
 
     virtual ~MSLCM_LC2013();
 
+    /// @brief init cached parameters derived directly from model parameters
+    void initDerivedParameters();
+
     bool debugVehicle() const;
 
     /** @brief Called to examine whether the vehicle wants to change
@@ -265,8 +268,8 @@ protected:
     /// @name derived parameters
     //@{
     // @brief willingness to encroach on other vehicles laterally (pushing them around)
-    const double myChangeProbThresholdRight;
-    const double myChangeProbThresholdLeft;
+    double myChangeProbThresholdRight;
+    double myChangeProbThresholdLeft;
     //@}
 };
 

@@ -109,9 +109,9 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     myKeepRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 1)),
     myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)), 
     mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)), 
-    myExperimentalParam1(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)),
-    myChangeProbThresholdRight((0.2 / mySpeedGainRight) / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
-    myChangeProbThresholdLeft(0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam)) {
+    myExperimentalParam1(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)) 
+{
+    initDerivedParameters();
 #ifdef DEBUG_CONSTRUCTOR
     if (DEBUG_COND) {
         std::cout << SIMTIME
@@ -127,6 +127,13 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
 
 MSLCM_LC2013::~MSLCM_LC2013() {
     changed();
+}
+
+
+void
+MSLCM_LC2013::initDerivedParameters() {
+    myChangeProbThresholdRight = (0.2 / mySpeedGainRight) / MAX2(NUMERICAL_EPS, mySpeedGainParam);
+    myChangeProbThresholdLeft = 0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam);
 }
 
 
@@ -2064,6 +2071,7 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }
+    initDerivedParameters();
 }
 
 /****************************************************************************/
