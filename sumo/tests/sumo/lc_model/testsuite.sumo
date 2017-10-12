@@ -9,6 +9,9 @@ keep_right
 
 # overtaking a slower vehicle
 overtaking
+
+# tests for changing to gain speed
+speedGain
 errors
 
 # testing cooperative speed adjustments
@@ -22,6 +25,5 @@ onRamp
 
 # test effects of apparentDecel on lane changing
 #apparentDecel
-
 
 bugs

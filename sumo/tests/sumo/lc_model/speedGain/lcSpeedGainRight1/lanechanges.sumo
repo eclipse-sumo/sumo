@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Oct 12 13:52:57 2017 by SUMO Version dev-SVN-r26445
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="ego" type="ego" time="29.00" from="beg_0" to="beg_1" dir="1" speed="13.16" pos="407.18" reason="speedGain" leaderGap="219.82" leaderSecureGap="22.48" followerGap="None" followerSecureGap="None"/>
+    <change id="ego" type="ego" time="63.00" from="beg_1" to="beg_0" dir="-1" speed="13.32" pos="878.87" reason="speedGain" leaderGap="220.13" leaderSecureGap="22.95" followerGap="169.87" followerSecureGap="0.00"/>
+    <change id="ego" type="ego" time="98.00" from="beg_0" to="beg_1" dir="1" speed="11.61" pos="1362.27" reason="speedGain" leaderGap="216.73" leaderSecureGap="17.84" followerGap="173.27" followerSecureGap="1.77"/>
+    <change id="ego" type="ego" time="132.00" from="beg_1" to="beg_0" dir="-1" speed="12.29" pos="1832.93" reason="speedGain" leaderGap="None" leaderSecureGap="None" followerGap="171.93" followerSecureGap="0.43"/>
+</lanechanges>
