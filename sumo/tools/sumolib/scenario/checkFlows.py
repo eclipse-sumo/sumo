@@ -10,7 +10,6 @@
 # @date    2014-09-11
 # @version $Id$
 
-"""
 
 from __future__ import absolute_import
 import sys
