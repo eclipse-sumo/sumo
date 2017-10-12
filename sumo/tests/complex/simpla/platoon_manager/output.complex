@@ -3,9 +3,11 @@ Loading configuration... done.
 Loading configuration... done.
 Loading configuration... done.
 Loading configuration... done.
+Loading configuration... done.
 
 
-Could not connect to TraCI server at localhost:51803 [Errno 111] Connection refused
+Testing adding and removing connected vehicles...
+Could not connect to TraCI server at localhost:40043 [Errno 111] Connection refused
  Retrying in 1 seconds
 Loading vehicle type mappings from file '/home/leo/sumo_master/sumo/tests/complex/simpla/platoon_manager/vtype.map'... (Config)
 original type: 'connected' (Config)
@@ -26,7 +28,8 @@ Managing all vTypes selected by ['connected'] (PlatoonManager)
 19.8: Removing arrived vehicle 'IAMconnectedTOO' (PlatoonManager)
 
 
-Could not connect to TraCI server at localhost:52753 [Errno 111] Connection refused
+Testing platoon manager initialization...
+Could not connect to TraCI server at localhost:38051 [Errno 111] Connection refused
  Retrying in 1 seconds
 Loading vehicle type mappings from file '/home/leo/sumo_master/sumo/tests/complex/simpla/platoon_manager/vtype.map'... (Config)
 original type: 'connected' (Config)
@@ -38,13 +41,15 @@ Initializing simpla.PlatoonManager... (PlatoonManager)
 Managing all vTypes selected by ['connected'] (PlatoonManager)
 
 
-Could not connect to TraCI server at localhost:60295 [Errno 111] Connection refused
+Testing specification per vtypemap xml-element...
+Could not connect to TraCI server at localhost:39397 [Errno 111] Connection refused
  Retrying in 1 seconds
 Initializing simpla.PlatoonManager... (PlatoonManager)
 Managing all vTypes selected by ['connected'] (PlatoonManager)
 
 
-Could not connect to TraCI server at localhost:33291 [Errno 111] Connection refused
+Testing Warnings...
+Could not connect to TraCI server at localhost:59517 [Errno 111] Connection refused
  Retrying in 1 seconds
 Loading vehicle type mappings from file '/home/leo/sumo_master/sumo/tests/complex/simpla/platoon_manager/vtype.map'... (Config)
 original type: 'connected' (Config)
@@ -57,7 +62,8 @@ Managing all vTypes selected by ['connected'] (PlatoonManager)
 1.0: Adding vehicle 'connected.1' (PlatoonManager)
 
 
-Could not connect to TraCI server at localhost:58581 [Errno 111] Connection refused
+Testing platoon formation...
+Could not connect to TraCI server at localhost:59467 [Errno 111] Connection refused
  Retrying in 1 seconds
 Loading vehicle type mappings from file '/home/leo/sumo_master/sumo/tests/complex/simpla/platoon_manager/vtype.map'... (Config)
 original type: 'connected' (Config)
@@ -74,3 +80,8 @@ Managing all vTypes selected by ['connected'] (PlatoonManager)
 75.0: Platoon '0' splits (ID of new platoon: '6'):
     Platoon '0': ['connected.1']
     Platoon '6': ['connected.2'] (PlatoonManager)
+
+
+Testing Exceptions for unknown vTypes...
+Could not connect to TraCI server at localhost:54345 [Errno 111] Connection refused
+ Retrying in 1 seconds

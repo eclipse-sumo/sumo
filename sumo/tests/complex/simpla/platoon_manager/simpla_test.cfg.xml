@@ -1,14 +1,5 @@
 <configuration>
 	
-    <vTypeMapFile value="vtype.map" />
-    <controlRate value="10." /> 
-    <vehicleSelectors value="connected" />
-    <maxPlatoonGap value="15.0" />
-    <catchupDist value="50.0" />
-    <switchImpatienceFactor value="0.1" />
-    <platoonSplitTime value="3.0" />
-    <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
-    <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" ></speedFactor>
-    <verbosity value="2" />
+    <vTypeMap original="unknownVTypeID" leader="leaderVTypeID" follower="followerVTypeID" catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
 
 </configuration>

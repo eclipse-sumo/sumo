@@ -49,11 +49,14 @@ class TestPlatoonManager(ut.TestCase):
     <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
     <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" ></speedFactor>
     <verbosity value="2" />
+"""
+    
+        self.cfg_body2=\
+"""
     <vTypeMap original="unknownVTypeID" leader="leaderVTypeID" follower="followerVTypeID" catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
-    <vTypeMap original="connected_pLeader" leader="leaderVTypeID" follower="followerVTypeID" catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
 """
         
-        self.cfg_body2=\
+        self.cfg_body3=\
 """
     <controlRate value="10." /> 
     <vehicleSelectors value="connected" />
@@ -111,6 +114,7 @@ class TestPlatoonManager(ut.TestCase):
         
         
     def test_init(self):
+        print("Testing platoon manager initialization...")
         self.patchSumoConfig()
         self.connectToSumo(self.SUMO_CFG)
         self.patchConfigFile(self.cfg_body0)
@@ -125,9 +129,10 @@ class TestPlatoonManager(ut.TestCase):
 
 
     def test_init_vtypemap(self):
+        print("Testing specification per vtypemap xml-element...")
         self.patchSumoConfig()
         self.connectToSumo(self.SUMO_CFG)
-        self.patchConfigFile(self.cfg_body2)
+        self.patchConfigFile(self.cfg_body3)
         simpla.load(self.CFG1)
 #         simpla.load(self.SIMPLA_CFG_VTYPEMAP)
         self.assertListEqual([r for t,r in rp.WARNING_LOG],[])
@@ -141,6 +146,7 @@ class TestPlatoonManager(ut.TestCase):
         
         
     def test_init_warn(self):
+        print("Testing Warnings...")
         self.patchSumoConfig(vtypes_fn="input_types2.typ.xml")
         self.connectToSumo(self.SUMO_CFG)
         #print (self.cfg_body1)
@@ -152,13 +158,8 @@ class TestPlatoonManager(ut.TestCase):
             "WARNING: emergencyDecel of mapped vType 'connected_pCatchupFollower' (10.5m.) does not equal emergencyDecel of original vType 'connected' (4.5m.) (PlatoonManager)",
             "WARNING: emergencyDecel of mapped vType 'connected_pFollower' (1.7m.) does not equal emergencyDecel of original vType 'connected' (4.5m.) (PlatoonManager)",
             "WARNING: emergencyDecel of mapped vType 'connected_pCatchup' (0.5m.) does not equal emergencyDecel of original vType 'connected' (4.5m.) (PlatoonManager)",
-            "WARNING: Unknown vType 'unknownVTypeID' (PlatoonManager)",
             "WARNING: length of mapped vType 'connected_pLeader' (10.0m.) does not equal length of original vType 'connected' (5.0m.)\nThis will probably lead to collisions. (PlatoonManager)",
             "WARNING: length of mapped vType 'connected_pCatchupFollower' (3.0m.) does not equal length of original vType 'connected' (5.0m.)\nThis will probably lead to collisions. (PlatoonManager)",
-            "WARNING: Unknown vType 'followerVTypeID' (PlatoonManager)",
-            "WARNING: Unknown vType 'leaderVTypeID' (PlatoonManager)",
-            "WARNING: Unknown vType 'catchupVTypeID' (PlatoonManager)",
-            "WARNING: Unknown vType 'catchupFollowerVTypeID' (PlatoonManager)"
             ]
         warnings_list=[r for t,r in rp.WARNING_LOG]
         #for w in warnings_list:
@@ -171,9 +172,22 @@ class TestPlatoonManager(ut.TestCase):
         self.assertEqual(rp.WARNING_LOG[-1][1], "WARNING: Step lengths that differ from SUMO's simulation step length are not supported and probably lead to undesired behavior.\nConsider decreasing simpla's control rate instead. (PlatoonManager)")
         
         
+        
+    def test_unknown_vtypes(self):
+        print("Testing Exceptions for unknown vTypes...")
+        self.patchSumoConfig(vtypes_fn="input_types2.typ.xml")
+        self.connectToSumo(self.SUMO_CFG)
+        #print (self.cfg_body1)
+        self.patchConfigFile(self.cfg_body2)
+        try:
+            simpla.load(self.CFG1)
+            self.assertTrue(False, "PlatoonManager() should raise an exception in case of unknown vtypes")
+        except simpla.SimplaException as e:
+            self.assertEqual(str(e), "vType 'unknownVTypeID' is unknown to sumo! Note: Platooning vTypes must be defined at startup.")
     
     
     def test_add_and_remove(self):
+        print("Testing adding and removing connected vehicles...")
         self.patchSumoConfig()
         self.connectToSumo(self.SUMO_CFG)
 
@@ -240,6 +254,7 @@ class TestPlatoonManager(ut.TestCase):
 
         
     def test_platoon_formation(self):
+        print("Testing platoon formation...")
         self.patchSumoConfig(net_fn="input_net2.net.xml", routes_fn="input_routes2.rou.xml")
         self.connectToSumo(self.SUMO_CFG)
 

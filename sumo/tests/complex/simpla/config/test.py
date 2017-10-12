@@ -82,6 +82,7 @@ class TestConfig(ut.TestCase):
             target_cfg.write(s.format(body=cfg_body))
     
     def test_empty_config(self):
+        print("Testing empty config...")
         self.patchConfigFile("")
         cfg.load(self.CFG1)
         self.assertEqual(rp.VERBOSITY, 1.)
@@ -107,6 +108,7 @@ class TestConfig(ut.TestCase):
                 
 
     def test_example_config(self):
+        print("Testing standard config...")
         self.patchConfigFile(self.cfg_body0)
         cfg.load(self.CFG1)
         self.assertEqual(rp.VERBOSITY, 2.)
@@ -131,6 +133,7 @@ class TestConfig(ut.TestCase):
         self.assertListEqual(list(rp.WARNING_LOG), [])
         
     def test_config_warnings(self):
+        print("Testing config warnings...")
         self.patchConfigFile(self.cfg_body1)
         cfg.load(self.CFG1)
         #cfg.load(TestConfig.CFG2)
@@ -156,6 +159,7 @@ class TestConfig(ut.TestCase):
         self.assertListEqual([], list(set(warning_list).difference(expected_warnings)))
         
     def test_corrupted_vTypeMapFile_raises_exception(self):
+        print("Testing malformed vtype map file causing exception...")
         self.patchConfigFile(self.cfg_body2)
         with self.assertRaises(SimplaException):
             cfg.load(self.CFG1)
@@ -169,6 +173,7 @@ class TestConfig(ut.TestCase):
             cfg.load(self.CFG1)
 
     def test_corrupted_vTypeMapFile_exception_text(self):
+        print("Testing exception messages...")
         self.patchConfigFile(self.cfg_body4)
         try:
             cfg.load(self.CFG1)
