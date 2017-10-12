@@ -63,6 +63,9 @@
         <!-- Keep vTypeDistribution ids when writing vehicles and their types -->
         <keep-vtype-distributions value="false" type="BOOL"/>
 
+        <!-- Write generated route alternatives to FILE -->
+        <alternatives-output value="" synonymes="alternatives" type="FILE"/>
+
         <!-- Write exit times (weights) for each edge -->
         <exit-times value="false" type="BOOL"/>
 

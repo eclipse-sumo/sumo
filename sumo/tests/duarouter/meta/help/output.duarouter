@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r26352
+SUMO duarouter Version dev-SVN-r26442
  Copyright (C) 2001-2017 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.
@@ -40,6 +40,7 @@ Output Options:
                                        FILE
   --keep-vtype-distributions         Keep vTypeDistribution ids when writing
                                        vehicles and their types
+  --alternatives-output FILE         Write generated route alternatives to FILE
   --exit-times                       Write exit times (weights) for each edge
 
 Processing Options:
