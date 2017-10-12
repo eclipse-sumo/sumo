@@ -1,0 +1,9 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" jmSigmaMinor="0"/>
+
+    <route id="NS" edges="NC CS"/>
+    <route id="EW" edges="EC CW"/>
+
+    <vehicle id="prio"   route="NS" depart="0" departPos="-40" departSpeed="max"/>
+    <vehicle id="noprio" route="EW" depart="0" departPos="-0.1" departSpeed="0"/>
+</routes>
