@@ -93,6 +93,7 @@ def stop():
     global _mgr
     if _mgr is not None:
         _mgr.stop()
+        traci.removeStepListener(_mgr)
     _mgr = None
 
 

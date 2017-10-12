@@ -129,16 +129,18 @@ class Platoon(object):
         Only checks for safety with regard to leaders.
         Note: safety assumptions of previous versions are dropped, now
         '''
+        old_mode = self.getMode()
+        success = False
         if mode == PlatoonMode.NONE:
             if self.size() == 1:
                 if (self._vehicles[0].isSwitchSafe(mode)):
                     self._vehicles[0].setPlatoonMode(mode)
-                    return True
+                    success = True
                 else:
-                    return False
+                    success = False
             else:
                 # PlatoonMode.NONE is only admissible for solitons
-                return False
+                success = False
 
         elif mode == PlatoonMode.LEADER:
             if self._vehicles[0].isSwitchSafe(mode):
@@ -146,9 +148,9 @@ class Platoon(object):
                 for veh in self._vehicles[1:]:
                     if veh.isSwitchSafe(PlatoonMode.FOLLOWER):
                         veh.setPlatoonMode(PlatoonMode.FOLLOWER)
-                return True
+                success = True
             else:
-                return False
+                success = False
 
         elif mode == PlatoonMode.CATCHUP:
             if self._vehicles[0].isSwitchSafe(mode):
@@ -156,9 +158,9 @@ class Platoon(object):
                 for veh in self._vehicles[1:]:
                     if veh.isSwitchSafe(PlatoonMode.CATCHUP_FOLLOWER):
                         veh.setPlatoonMode(PlatoonMode.CATCHUP_FOLLOWER)
-                return True
+                success = True
             else:
-                return False
+                success = False
 
         elif mode == PlatoonMode.CATCHUP_FOLLOWER or mode == PlatoonMode.FOLLOWER:
             if self._vehicles[0].isSwitchSafe(mode):
@@ -166,13 +168,20 @@ class Platoon(object):
                 for veh in self._vehicles[1:]:
                     if veh.isSwitchSafe(mode):
                         veh.setPlatoonMode(mode)
-                return True
+                success = True
             else:
-                return False
+                success = False
 
         else:
             raise ValueError("Unknown PlatoonMode %s" % str(mode))
-
+        
+        if rp.VERBOSITY >= 3 and success and not old_mode == mode:
+            report("Activated mode {mode} for platoon '{pltnID}' ({pltn_members})".format(
+                               mode=mode, pltnID=self.getID(), pltn_members=str([veh.getID() for veh in self.getVehicles()])))
+        
+        return success
+            
+    
     def adviseMemberModes(self):
         ''' adviseMemberModes() -> void
         Advise all member vehicles to adopt the adequate platoon mode if safely possible.

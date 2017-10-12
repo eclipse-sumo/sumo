@@ -165,7 +165,7 @@ def load(filename):
                 if verbosity in range(5):
                     rp.VERBOSITY  = verbosity
                 else:
-                    if rp.VERBOSITY >= 1: warn("Verbosity must be one of %s! Ignoring given value: %s"%(str(range(5)), verbosity),True)
+                    if rp.VERBOSITY >= 1: warn("Verbosity must be one of %s! Ignoring given value: %s"%(str(list(range(5))), verbosity),True)
         elif e.tag == "controlRate":
             if hasAttributes(e):
                 rate = float(list(e.attrib.values())[0])
@@ -282,6 +282,7 @@ def hasAttributes(element):
     '''
     check if xml element has at least one attribute 
     '''
+    #print("Checking element {tag}:\n{attributes}".format(tag=element.tag, attributes=str(element.attrib)))
     if len(element.attrib) == 0:
         warn("No attributes found for tag '%s'."%element.tag, True)
         return False

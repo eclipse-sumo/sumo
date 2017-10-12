@@ -130,7 +130,7 @@ class PlatoonManager(traci.StepListener):
                         typeID, mappedLength, origType, origLength), True)
                 if origEmergencyDecel != mappedEmergencyDecel:
                     if rp.VERBOSITY>=1:
-                        warn("emergencyDecel of mapped vType '%s' (%sm.) does not equal emergencyDecel of original vType '%s' (%sm.)" % (
+                        warn("emergencyDecel of mapped vType '%s' (%gm.) does not equal emergencyDecel of original vType '%s' (%gm.)" % (
                         typeID, mappedEmergencyDecel, origType, origEmergencyDecel), True)
                 simpla._pvehicle.vTypeParameters[typeID][tc.VAR_TAU] = traci.vehicletype.getTau(typeID)
                 simpla._pvehicle.vTypeParameters[typeID][tc.VAR_DECEL] = traci.vehicletype.getDecel(typeID)
@@ -165,6 +165,8 @@ class PlatoonManager(traci.StepListener):
         for veh in self._connectedVehicles.values():
             veh.setPlatoonMode(PlatoonMode.NONE)
             traci.vehicle.unsubscribe(veh.getID())
+        self._connectedVehicles = []
+        simpla._platoon.Platoon._nextID = 0
 
     def getPlatoonLeaders(self):
         '''getPlatoonLeaders() -> list(PVehicle)
@@ -282,6 +284,7 @@ class PlatoonManager(traci.StepListener):
         self._connectedVehicles[vehID] = veh
         self._platoons[veh.getPlatoon().getID()] = veh.getPlatoon()
 
+
     def _manageFollowers(self):
         '''_manageFollowers()
 
@@ -332,8 +335,8 @@ class PlatoonManager(traci.StepListener):
                     newPlatoons.append(newPlatoon)
                     if rp.VERBOSITY >= 2:
                         report("Platoon '%s' splits (ID of new platoon: '%s'):\n" % (pltn.getID(), newPlatoon.getID()) +
-                               "Platoon '%s': %s\nPlatoon '%s': %s" % (pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()]),
-                                                                       newPlatoon.getID(), str([veh.getID() for veh in newPlatoon.getVehicles()])), 1)
+                               "    Platoon '%s': %s\n    Platoon '%s': %s" % (pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()]),
+                                                                       newPlatoon.getID(), str([veh.getID() for veh in newPlatoon.getVehicles()])))
         for pltn in newPlatoons:
             self._platoons[pltn.getID()] = pltn
 
@@ -416,12 +419,7 @@ class PlatoonManager(traci.StepListener):
                                                                                                    leader.getPlatoon().getID(), str([veh.getID() for veh in leader.getPlatoon().getVehicles()])))
             else:
                 # Join failed due to too large distance. Try to get closer (change to CATCHUP mode).
-                if pltn.setMode(PlatoonMode.CATCHUP):
-                    # try to catch up with the platoon in front
-                    if rp.VERBOSITY >= 3:
-                        report("Activating 'catch-up' mode for platoon '%s' (%s)" %
-                               (pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()])))
-                else:
+                if not pltn.setMode(PlatoonMode.CATCHUP):
                     if rp.VERBOSITY >= 3:
                         report("Switch to catchup mode would not be safe for platoon '%s' (%s) chasing platoon '%s' (%s)." % (pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()]),
                                                                                                                               leader.getPlatoon().getID(), str([veh.getID() for veh in leader.getPlatoon().getVehicles()])))

@@ -14,7 +14,9 @@ from collections import deque
 import sys
 import traci
 
-
+VERBOSITY = 1
+WARNING_LOG = deque()
+REPORT_LOG = deque()
 
 def initDefaults():
     global VERBOSITY, MAX_LOG_SIZE, WARNING_LOG, REPORT_LOG
@@ -53,11 +55,13 @@ class Warner(object):
         global MAX_LOG_SIZE, WARNING_LOG
         if len(WARNING_LOG) >= MAX_LOG_SIZE:
             WARNING_LOG.popleft()
+        time = str(simTime())
         rep = "WARNING: " + str(msg) + " (" + self._domain + ")"
         if not omitReportTime:
-            rep = str(simTime()) + ": " + rep
-        sys.stderr.write(rep+"\n")
-        WARNING_LOG.append(rep)
+            sys.stderr.write(time + ": " + rep + "\n")
+        else:
+            sys.stderr.write(rep+"\n")
+        WARNING_LOG.append((time, rep))
 
 class Reporter(object):
 
@@ -68,8 +72,10 @@ class Reporter(object):
         global MAX_LOG_SIZE, REPORT_LOG
         if len(REPORT_LOG) >= MAX_LOG_SIZE:
             REPORT_LOG.popleft()
+        time = str(simTime())
         rep = str(msg) + " (" + self._domain + ")"
         if not omitReportTime:
-            rep = str(simTime()) + ": " + rep
-        sys.stdout.write(rep+"\n")
-        REPORT_LOG.append(rep)
+            sys.stdout.write(time + ": " + rep+"\n")
+        else:
+            sys.stdout.write(rep+"\n")
+        REPORT_LOG.append((time, rep))

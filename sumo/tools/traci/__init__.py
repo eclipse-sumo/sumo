@@ -137,6 +137,20 @@ def addStepListener(listener):
     return False
 
 
+def removeStepListener(listener):
+    """removeStepListener(traci.StepListener) -> bool
+
+    Remove the step listener from traci's step listener container.
+    Returns True if the listener was removed successfully, False if it wasn't registered.
+    """
+    if listener in _stepListeners:
+        _stepListeners.remove(listener)
+        return True
+    warnings.warn(
+        "removeStepListener(listener): listener %s not registered as step listener" % str(listener))
+    return False
+
+
 def getVersion():
     return _connections[""].getVersion()
 
