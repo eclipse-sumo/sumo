@@ -20,6 +20,7 @@ import traci.constants as tc
 import simpla._reporting as rp
 import simpla._config as cfg
 import simpla._pvehicle
+from simpla import SimplaException
 from simpla._platoonmode import PlatoonMode
 from _collections import defaultdict
 
@@ -112,16 +113,12 @@ class PlatoonManager(traci.StepListener):
         knownVTypes = traci.vehicletype.getIDList()
         for origType, mappings in cfg.PLATOON_VTYPES.items():
             if origType not in knownVTypes:
-                if rp.VERBOSITY>=1:
-                    warn("Unknown vType '%s'" % origType, True)
-                continue
+                raise SimplaException("vType '%s' is unknown to sumo! Note: Platooning vTypes must be defined at startup." % origType)
             origLength = traci.vehicletype.getLength(origType)
             origEmergencyDecel = traci.vehicletype.getEmergencyDecel(origType)
             for typeID in list(mappings.values()) + [origType]:
                 if typeID not in knownVTypes:
-                    if rp.VERBOSITY>=1:
-                        warn("Unknown vType '%s'" % typeID, True)
-                    continue
+                    raise SimplaException("vType '%s' is unknown to sumo! Note: Platooning vTypes must be defined at startup." % typeID)
                 mappedLength = traci.vehicletype.getLength(typeID)
                 mappedEmergencyDecel = traci.vehicletype.getEmergencyDecel(typeID)
                 if origLength != mappedLength:
