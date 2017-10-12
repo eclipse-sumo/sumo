@@ -966,7 +966,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             }
             case GNE_MODE_POLYGON: {
                 if (pointed_poi == NULL) {
-                    GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()));
+                    GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), pointed_lane);
                     // view net must be always update
                     update();
                     // process clickw depending of the result of "add additional"

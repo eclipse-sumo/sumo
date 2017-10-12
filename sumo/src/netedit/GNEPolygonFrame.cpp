@@ -57,7 +57,7 @@
 // ===========================================================================
 
 FXDEFMAP(GNEPolygonFrame) GNEShapeMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDITIONALFRAME_SELECTADDITIONALTYPE, GNEPolygonFrame::onCmdSelectShape),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECTADDITIONALTYPE,   GNEPolygonFrame::onCmdSelectShape),
 };
 
 FXDEFMAP(GNEPolygonFrame::ShapeAttributeSingle) GNESingleShapeParameterMap[] = {
@@ -77,9 +77,9 @@ FXDEFMAP(GNEPolygonFrame::NeteditAttributes) GNEEditorParametersMap[] = {
 };
 
 FXDEFMAP(GNEPolygonFrame::DrawingMode) GNEDrawingModeMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGONFRAME_STARTDRAWING,               GNEPolygonFrame::DrawingMode::onCmdStartDrawing),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGONFRAME_STOPDRAWING,                GNEPolygonFrame::DrawingMode::onCmdStopDrawing),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGONFRAME_ABORTDRAWING,               GNEPolygonFrame::DrawingMode::onCmdAbortDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_STARTDRAWING,              GNEPolygonFrame::DrawingMode::onCmdStartDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_STOPDRAWING,               GNEPolygonFrame::DrawingMode::onCmdStopDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_ABORTDRAWING,              GNEPolygonFrame::DrawingMode::onCmdAbortDrawing),
 };
 
 // Object implementation
@@ -141,12 +141,12 @@ GNEPolygonFrame::~GNEPolygonFrame() {
 
 
 GNEPolygonFrame::AddShapeResult
-GNEPolygonFrame::processClick(const Position& clickedPosition) {
+GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane *lane) {
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement = myShapeAttributes->getAttributesAndValues();
     // check if current selected additional is valid
     if (myActualShapeType == SUMO_TAG_POI) {
-        // show warning dialogbox and stop check if input parameters are valid
+        // show warning dialogbox and stop if input parameters are invalid
         if (myShapeAttributes->areValuesValid() == false) {
             myShapeAttributes->showWarningMessage();
             return ADDSHAPE_INVALID;
@@ -164,15 +164,22 @@ GNEPolygonFrame::processClick(const Position& clickedPosition) {
             return ADDSHAPE_INVALID;
         }
     } else  if (myActualShapeType == SUMO_TAG_POILANE) {
-        // show warning dialogbox and stop check if input parameters are valid
+        // show warning dialogbox and stop if input parameters are invalid
         if (myShapeAttributes->areValuesValid() == false) {
             myShapeAttributes->showWarningMessage();
             return ADDSHAPE_INVALID;
         }
+        // abort if lane is NULL
+        if(lane == NULL) {
+            WRITE_WARNING(toString(SUMO_TAG_POILANE) + " can be only placed over lanes");
+            return ADDSHAPE_INVALID;
+        }
         // generate new ID
         valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateShapeID(myActualShapeType);
-        // obtain position
-        valuesOfElement[SUMO_ATTR_POSITION] = toString(clickedPosition);
+        // obtain Lane
+        valuesOfElement[SUMO_ATTR_LANE] = lane->getID();
+        // obtain position over lane
+        valuesOfElement[SUMO_ATTR_POSITION] = toString(lane->getShape().nearest_offset_to_point2D(clickedPosition));
         // obtain block movement value
         valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockMovementEnabled());
         // return ADDSHAPE_SUCCESS if POI was sucesfully created

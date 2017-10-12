@@ -386,9 +386,10 @@ public:
 
     /**@brief process click over Viewnet
     * @param[in] clickedPosition clicked position over ViewNet
+    * @param[in] lane clicked lane
     * @return AddShapeStatus with the result of operation
     */
-    AddShapeResult processClick(const Position& clickedPosition);
+    AddShapeResult processClick(const Position& clickedPosition, GNELane *lane);
 
     /**@brief build Polygon using values of Fields and drawed shap
      * return true if was sucesfully created
