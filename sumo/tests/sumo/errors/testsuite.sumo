@@ -30,6 +30,12 @@ invalid_float
 invalid_bool
 invalid_step_length
 
+# Tests warning if the given default action step length is no multiple of the simulation step-length.
+action_step_fractional_warning
+
+# Tests warning if the given default action step length is negative.
+action_step_negative_warning
+
 # exit on too many teleports
 too_many_teleports
 
