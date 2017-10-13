@@ -881,6 +881,9 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 } else if (pointed_poi) {
                     pointedAC = pointed_poi;
                     pointedO = pointed_poi;
+                } else if (pointed_poiLane) {
+                    pointedAC = pointed_poiLane;
+                    pointedO = pointed_poiLane;
                 }
                 // obtain selected ACs
                 std::vector<GNEAttributeCarrier*> selectedElements;

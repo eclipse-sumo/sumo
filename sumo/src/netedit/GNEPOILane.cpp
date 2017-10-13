@@ -279,7 +279,7 @@ GNEPOILane::setAttribute(SumoXMLAttr key, const std::string& value) {
         myLane = value;
         myGNELane->removeShapeChild(this);
         myGNELane = myNet->retrieveLane(value);
-        myGNELane->removeShapeChild(this);
+        myGNELane->addShapeChild(this);
         updateGeometry();
         break;
     case SUMO_ATTR_POSITION:
