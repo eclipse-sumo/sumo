@@ -87,11 +87,11 @@ public:
     */
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
+    /// @name inherited from GNEShape
+    /// @{
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
-    /// @name inherited from GNEShape
-    /// @{
     /**@brief writte shape element into a xml file
     * @param[in] device device in which write parameters of additional element
     */

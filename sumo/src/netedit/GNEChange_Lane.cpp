@@ -60,7 +60,7 @@ GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane&
         // Save additionals of lane
         myAdditionalChilds = myLane->getAdditionalChilds();
         // Save POILanes of lane
-        myPOILanes = myLane->getPOILaneChilds();
+        myShapeChilds = myLane->getShapeChilds();
     } else {
         assert(forward);
     }
@@ -107,8 +107,8 @@ GNEChange_Lane::undo() {
         for (auto i : myAdditionalChilds) {
             myNet->deleteAdditional(i);
         }
-        // Remove POILanes vinculated with this lane of net
-        for (auto i : myPOILanes) {
+        // Remove Shapes vinculated with this lane of net
+        for (auto i : myShapeChilds) {
             myNet->removeShapeOfView(i);
         }
     } else {
@@ -126,8 +126,8 @@ GNEChange_Lane::undo() {
         for (auto i : myAdditionalChilds) {
             myNet->insertAdditional(i);
         }
-        // add POILanes vinculated with this lane of net
-        for (auto i : myPOILanes) {
+        // add Shapes vinculated with this lane in net
+        for (auto i : myShapeChilds) {
             myNet->insertShapeInView(i);
         }
     }
@@ -151,8 +151,8 @@ GNEChange_Lane::redo() {
         for (auto i : myAdditionalChilds) {
             myNet->insertAdditional(i);
         }
-        // add POILanes vinculated with this lane of net
-        for (auto i : myPOILanes) {
+        // add shapes vinculated with this lane in net
+        for (auto i : myShapeChilds) {
             myNet->insertShapeInView(i);
         }
     } else {
@@ -170,8 +170,8 @@ GNEChange_Lane::redo() {
         for (auto i : myAdditionalChilds) {
             myNet->deleteAdditional(i);
         }
-        // Remove POILanes vinculated with this lane of net
-        for (auto i : myPOILanes) {
+        // Remove shapes vinculated with this lane of net
+        for (auto i : myShapeChilds) {
             myNet->removeShapeOfView(i);
         }
     }

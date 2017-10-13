@@ -65,7 +65,7 @@ GNEPOILane::GNEPOILane(GNENet* net, const std::string& id, const std::string& ty
     double layer, double angle, const std::string& imgFile, GNELane *lane, double posOverLane, double posLat,
     double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, width, height),
-    GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI, movementBlocked, false),
+    GNEShape(net, SUMO_TAG_POILANE, ICON_LOCATEPOI, movementBlocked, false),
     myGNELane(lane) {
 }
 
@@ -104,6 +104,7 @@ GNEPOILane::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) 
 
 void 
 GNEPOILane::updateGeometry() {
+    // set new position regarding to lane
     set(myGNELane->getShape().positionAtOffset(myPosOverLane, myPosLat));
     myNet->refreshShape(this);
 }
@@ -264,9 +265,9 @@ GNEPOILane::setAttribute(SumoXMLAttr key, const std::string& value) {
         break;
     case SUMO_ATTR_LANE:
         myLane = value;
-        myGNELane->removePOILaneChild(this);
+        myGNELane->removeShapeChild(this);
         myGNELane = myNet->retrieveLane(value);
-        myGNELane->addPOILaneChild(this);
+        myGNELane->removeShapeChild(this);
         updateGeometry();
         break;
     case SUMO_ATTR_POSITION:

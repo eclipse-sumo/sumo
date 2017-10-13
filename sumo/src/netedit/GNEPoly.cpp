@@ -166,7 +166,13 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
 }
 
 
-void GNEPoly::writeShape(OutputDevice& device) {
+void 
+GNEPoly::updateGeometry() {
+    // Geometry of Polys should not be updated
+}
+
+void 
+GNEPoly::writeShape(OutputDevice& device) {
     writeXML(device, myGEO);
 }
 

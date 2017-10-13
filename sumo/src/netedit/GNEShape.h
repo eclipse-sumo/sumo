@@ -66,6 +66,11 @@ public:
     /// @brief Destructor
     ~GNEShape();
 
+    /**@brief update pre-computed geometry information
+    * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
+    */
+    virtual void updateGeometry() = 0;
+
     /**@brief writte shape element into a xml file
     * @param[in] device device in which write parameters of additional element
     */

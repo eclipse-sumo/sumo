@@ -58,7 +58,7 @@
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
 #include "GNEConnection.h"
-#include "GNEPOILane.h"
+#include "GNEShape.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -646,8 +646,8 @@ GNELane::updateGeometry() {
     for (auto i : myAdditionals) {
         i->updateGeometry();
     }
-    // Update geometry of POILanes vinculated with this lane
-    for (auto i : myPOILanes) {
+    // Update geometry of Shapes vinculated with this lane
+    for (auto i : myShapes) {
         i->updateGeometry();
     }
     // In Move mode, connections aren't updated
@@ -716,7 +716,7 @@ GNELane::addAdditionalChild(GNEAdditional* additional) {
     if (std::find(myAdditionals.begin(), myAdditionals.end(), additional) == myAdditionals.end()) {
         myAdditionals.push_back(additional);
     } else {
-        throw ProcessError(toString(getTag()) + " with ID='" + additional->getID() + "' was already inserted in lane with ID='" + getID() + "'");
+        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' was already inserted in lane with ID='" + getID() + "'");
     }
 }
 
@@ -728,7 +728,7 @@ GNELane::removeAdditionalChild(GNEAdditional* additional) {
     if (it != myAdditionals.end()) {
         myAdditionals.erase(it);
     } else {
-        throw ProcessError(toString(getTag()) + " with ID='" + additional->getID() + "' doesn't exist in lane with ID='" + getID() + "'");
+        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in lane with ID='" + getID() + "'");
     }
 }
 
@@ -740,31 +740,33 @@ GNELane::getAdditionalChilds() const {
 
 
 void 
-GNELane::addPOILaneChild(GNEPOILane* POILane) {
-    // Check if POILane exist before remove
-    if (std::find(myPOILanes.begin(), myPOILanes.end(), POILane) == myPOILanes.end()) {
-        myPOILanes.push_back(POILane);
+GNELane::addShapeChild(GNEShape* shape) {
+    // Check if Shape exist before remove
+    if (std::find(myShapes.begin(), myShapes.end(), shape) == myShapes.end()) {
+        myShapes.push_back(shape);
+        // update Geometry of shape after add
+        shape->updateGeometry();
     } else {
-        throw ProcessError(toString(getTag()) + " with ID='" + POILane->getID() + "' was already inserted in lane with ID='" + getID() + "'");
+        throw ProcessError(toString(shape->getTag()) + " with ID='" + shape->getID() + "' was already inserted in lane with ID='" + getID() + "'");
     }
 }
 
 
 void 
-GNELane::removePOILaneChild(GNEPOILane* POILane) {
-    auto it = std::find(myPOILanes.begin(), myPOILanes.end(), POILane);
-    // Check if POILane exist before remove
-    if (it != myPOILanes.end()) {
-        myPOILanes.erase(it);
+GNELane::removeShapeChild(GNEShape* shape) {
+    auto it = std::find(myShapes.begin(), myShapes.end(), shape);
+    // Check if Shape exist before remove
+    if (it != myShapes.end()) {
+        myShapes.erase(it);
     } else {
-        throw ProcessError(toString(getTag()) + " with ID='" + POILane->getID() + "' doesn't exist in lane with ID='" + getID() + "'");
+        throw ProcessError(toString(shape->getTag()) + " with ID='" + shape->getID() + "' doesn't exist in lane with ID='" + getID() + "'");
     }
 }
 
 
-const std::vector<GNEPOILane*>&
-GNELane::getPOILaneChilds() const {
-    return myPOILanes;
+const std::vector<GNEShape*>&
+GNELane::getShapeChilds() const {
+    return myShapes;
 }
 
 

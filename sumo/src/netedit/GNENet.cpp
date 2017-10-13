@@ -228,15 +228,30 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
                const std::string& imgFile, double width, double height, bool /*ignorePruning*/) {
     // check if ID is duplicated
     if (myPOIs.get(id) == NULL) {
-        // create poly
-        GNEPOI* poi = new GNEPOI(this, id, type, color, pos, geo, layer, angle, imgFile, width, height, false);
-        if (myPOIs.add(poi->getID(), poi)) {
-            myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
-            myViewNet->getUndoList()->add(new GNEChange_Shape(this, poi, true), true);
-            myViewNet->getUndoList()->p_end();
-            return true;
+        // create POI or POILane depending of parameter lane
+        if(lane == "") {
+            // create POI
+            GNEPOI* poi = new GNEPOI(this, id, type, color, pos, geo, layer, angle, imgFile, width, height, false);
+            if (myPOIs.add(poi->getID(), poi)) {
+                myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
+                myViewNet->getUndoList()->add(new GNEChange_Shape(this, poi, true), true);
+                myViewNet->getUndoList()->p_end();
+                return true;
+            } else {
+                throw ProcessError("Error adding GNEPOI into shapeContainer");
+            }
         } else {
-            throw ProcessError("Error adding GNEPOI into shapeContainer");
+            // create POILane
+            GNELane *retrievedLane = retrieveLane(lane);
+            GNEPOILane* poiLane = new GNEPOILane(this, id, type, color, layer, angle, imgFile, retrievedLane, posOverLane, posLat, width, height, false);
+            if (myPOIs.add(poiLane->getID(), poiLane)) {
+                myViewNet->getUndoList()->p_begin("add " + toString(poiLane->getTag()));
+                myViewNet->getUndoList()->add(new GNEChange_Shape(this, poiLane, true), true);
+                myViewNet->getUndoList()->p_end();
+                return true;
+            } else {
+                throw ProcessError("Error adding GNEPOILane into shapeContainer");
+            }
         }
     } else {
         return false;
@@ -1950,6 +1965,10 @@ GNENet::insertShapeInView(GNEShape* s, bool isShapeForEditShapes) {
         if(!isShapeForEditShapes) {
             requiereSaveShapes();
         }
+        // POILanes has to be added from lane
+        if(s->getTag() == SUMO_TAG_POILANE) {
+            retrieveLane(s->getAttribute(SUMO_ATTR_LANE))->addShapeChild(s);
+        }
     } else {
         throw ProcessError("Shape was already inserted in view");
     }
@@ -1965,6 +1984,10 @@ GNENet::removeShapeOfView(GNEShape* s, bool isShapeForEditShapes) {
         // shapes has to be saved if polygon isn't for edit shapes
         if(!isShapeForEditShapes) {
             requiereSaveShapes();
+        }
+        // POILanes has to be removed from lane
+        if(s->getTag() == SUMO_TAG_POILANE) {
+            retrieveLane(s->getAttribute(SUMO_ATTR_LANE))->removeShapeChild(s);
         }
     } else {
         throw ProcessError("Shape wasn't already inserted in view");

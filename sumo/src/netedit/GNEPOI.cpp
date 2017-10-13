@@ -103,6 +103,12 @@ GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
 }
 
 
+void 
+GNEPOI::updateGeometry() {
+    // Geometry of POIs should not be updated
+}
+
+
 Position
 GNEPOI::getPositionInView() const {
     return Position(x(), y());

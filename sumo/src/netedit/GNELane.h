@@ -41,7 +41,7 @@ class GNEEdge;
 class GNENet;
 class GNEAdditional;
 class GNEConnection;
-class GNEPOILane;
+class GNEShape;
 
 // ===========================================================================
 // class definitions
@@ -155,14 +155,14 @@ public:
     /// @brief get additional childs of lane
     const std::vector<GNEAdditional*>& getAdditionalChilds() const;
 
-    /// @brief add POILane child to this lane
-    void addPOILaneChild(GNEPOILane* POILane);
+    /// @brief add shape child to this lane
+    void addShapeChild(GNEShape* shape);
 
-    /// @brief remove POILane child to this lane
-    void removePOILaneChild(GNEPOILane* POILane);
+    /// @brief remove shape child of this lane
+    void removeShapeChild(GNEShape* shape);
 
-    /// @brief get POILanes childs of lane
-    const std::vector<GNEPOILane*>& getPOILaneChilds() const;
+    /// @brief get shape childs of lane
+    const std::vector<GNEShape*>& getShapeChilds() const;
 
     /// @brief check if this lane is restricted
     bool isRestricted(SUMOVehicleClass vclass) const;
@@ -228,8 +228,8 @@ protected:
     /// @brief list with the additionals vinculated with this lane
     std::vector<GNEAdditional*> myAdditionals;
 
-    /// @brief list with the additionals vinculated with this lane
-    std::vector<GNEPOILane*> myPOILanes;
+    /// @brief list with the shapes vinculated with this lane
+    std::vector<GNEShape*> myShapes;
 
     /// @brief optional special color
     const RGBColor* mySpecialColor;
