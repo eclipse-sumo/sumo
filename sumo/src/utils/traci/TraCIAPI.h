@@ -55,10 +55,6 @@
  */
 
 
-typedef long long int SUMOTime; // <utils/common/SUMOTime.h>
-#define SUMOTime_MAX std::numeric_limits<SUMOTime>::max()
-
-
 class TraCIAPI {
 public:
     /** @brief Constructor
