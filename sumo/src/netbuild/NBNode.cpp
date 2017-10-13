@@ -2504,6 +2504,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
             if (myWalkingAreaCustomShapes.size() > 0) {
                 EdgeVector crossed = prev.edges;
                 crossed.insert(crossed.end(), next.edges.begin(), next.edges.end());
+                std::sort(crossed.begin(), crossed.end());
                 for (auto wacs : myWalkingAreaCustomShapes) {
                     // every edge in wacs.edges must be part of crossed
                     if (wacs.shape.size() != 0 && wacs.edges.size() > 1 && std::includes(crossed.begin(), crossed.end(), wacs.edges.begin(), wacs.edges.end())) {
