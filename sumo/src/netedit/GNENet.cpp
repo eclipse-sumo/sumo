@@ -1607,10 +1607,16 @@ GNENet::removeSolitaryJunctions(GNEUndoList* undoList) {
 
 void
 GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) {
-    undoList->p_begin("Replace junction by geometry");
     assert(junction->getNBNode()->checkIsRemovable());
+    // start operation
+    undoList->p_begin("Replace junction by geometry");
+    // obtain Edges to join
     std::vector<std::pair<NBEdge*, NBEdge*> > toJoin = junction->getNBNode()->getEdgesToJoin();
+    // clear connections of junction to replace
+    clearJunctionConnections(junction, undoList);
+    // iterate over NBEdges to join
     for (auto j : toJoin) {
+        // obtain GNEEdges
         GNEEdge* begin = myEdges[j.first->getID()];
         GNEEdge* continuation = myEdges[j.second->getID()];
         // remove connections between the edges
@@ -1618,9 +1624,9 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
         for (auto con : connections) {
             undoList->add(new GNEChange_Connection(begin, con, false, false), true);
         }
-        // replace
+        // replace incoming edge
         replaceIncomingEdge(continuation, begin, undoList);
-        // fix shape
+        // fix shape of replaced edge
         PositionVector newShape = begin->getNBEdge()->getInnerGeometry();
         if (begin->getNBEdge()->hasDefaultGeometryEndpointAtNode(begin->getNBEdge()->getToNode())) {
             newShape.push_back(junction->getNBNode()->getPosition());
@@ -1636,7 +1642,9 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
         begin->setAttribute(GNE_ATTR_SHAPE_END, continuation->getAttribute(GNE_ATTR_SHAPE_END), undoList);
         begin->setAttribute(SUMO_ATTR_SHAPE, toString(newShape), undoList);
     }
+    //delete replaced junction
     deleteJunction(junction, undoList);
+    // finish operation
     undoList->p_end();
 }
 
