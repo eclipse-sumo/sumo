@@ -109,7 +109,7 @@ protected:
      * @param[in] net The net to assign to the built handlers
      * @return Whether the wished handler(s) could be built
      */
-    bool openTypedRoutes(const std::string& optionName, RONet& net);
+    bool openTypedRoutes(const std::string& optionName, RONet& net, const bool readAll=false);
 
 
     /**

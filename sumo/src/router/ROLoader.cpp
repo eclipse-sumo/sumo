@@ -160,7 +160,7 @@ void
 ROLoader::openRoutes(RONet& net) {
     // build loader
     // load relevant elements from additional file
-    bool ok = openTypedRoutes("additional-files", net);
+    bool ok = openTypedRoutes("additional-files", net, true);
     // load sumo routes, trips, and flows
     ok &= openTypedRoutes("route-files", net);
     // check
@@ -220,36 +220,30 @@ ROLoader::processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime
 
 bool
 ROLoader::openTypedRoutes(const std::string& optionName,
-                          RONet& net) {
-    // check whether the current loader is known
-    //  (not all routers import all route formats)
-    if (!myOptions.exists(optionName)) {
-        return true;
-    }
+                          RONet& net, const bool readAll) {
     // check whether the current loader is wished
     //  and the file(s) can be used
     if (!myOptions.isUsableFileList(optionName)) {
         return !myOptions.isSet(optionName);
     }
-    bool ok = true;
-    std::vector<std::string> files = myOptions.getStringVector(optionName);
-    for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
-        // build the instance when everything's all right
+    for (const std::string& fileIt : myOptions.getStringVector(optionName)) {
         try {
-            myLoaders.add(new SUMORouteLoader(new RORouteHandler(net, *fileIt, myOptions.getBool("repair"), myEmptyDestinationsAllowed, myOptions.getBool("ignore-errors"))));
-        } catch (ProcessError& e) {
-            std::string msg = "The loader for " + optionName + " from file '" + *fileIt + "' could not be initialised;";
-            std::string reason = e.what();
-            if (reason != "Process Error" && reason != "") {
-                msg = msg + "\n Reason: " + reason + ".";
+            RORouteHandler* handler = new RORouteHandler(net, fileIt, myOptions.getBool("repair"), myEmptyDestinationsAllowed, myOptions.getBool("ignore-errors"));
+            if (readAll) {
+                if (!XMLSubSys::runParser(*handler, fileIt)) {
+                    WRITE_ERROR("Loading of " + fileIt + " failed.");
+                    return false;
+                }
+                delete handler;
             } else {
-                msg = msg + "\n (unknown reason).";
+                myLoaders.add(new SUMORouteLoader(handler));
             }
-            WRITE_ERROR(msg);
-            ok = false;
+        } catch (ProcessError& e) {
+            WRITE_ERROR("The loader for " + optionName + " from file '" + fileIt + "' could not be initialised (" + e.what() + ").");
+            return false;
         }
     }
-    return ok;
+    return true;
 }
 
 
