@@ -1,0 +1,7 @@
+Loading net-file from 'net.net.xml'... done (1ms).
+Loading state from 'input_state.xml'... 
+done (1ms).
+Loading done.
+Simulation started with time: 1.00
+Simulation ended at time: 34.00
+Reason: All vehicles have left the simulation.
