@@ -709,17 +709,17 @@ TraCI_Vehicle::changeTarget(const std::string& vehicleID, const std::string& edg
 
 
 void
-TraCI_Vehicle::changeLane(const std::string& vehID, int laneIndex, SUMOTime duration) {
+TraCI_Vehicle::changeLane(const std::string& vehicleID, int laneIndex, SUMOTime duration) {
     std::vector<std::pair<SUMOTime, int> > laneTimeLine;
     laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
     laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + duration, laneIndex));
-    getVehicle(vehID)->getInfluencer().setLaneTimeLine(laneTimeLine);
+    getVehicle(vehicleID)->getInfluencer().setLaneTimeLine(laneTimeLine);
 }
 
 
 void 
-TraCI_Vehicle::changeSublane(const std::string& vehID, double latDist) {
-    getVehicle(vehID)->getInfluencer().setSublaneChange(latDist);
+TraCI_Vehicle::changeSublane(const std::string& vehicleID, double latDist) {
+    getVehicle(vehicleID)->getInfluencer().setSublaneChange(latDist);
 }
 
 
@@ -813,6 +813,56 @@ TraCI_Vehicle::setRoute(const std::string& vehicleID, const std::vector<std::str
     }
 }
 
+void 
+TraCI_Vehicle::setAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID, 
+            double time, SUMOTime begTime, SUMOTime endTime) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    MSEdge* edge = MSEdge::dictionary(edgeID);
+    if (edge == 0) {
+        throw TraCIException("Referended edge '" + edgeID + "' is not known.");
+    }
+    if (time != INVALID_DOUBLE_VALUE) {
+        // add time
+        if (begTime == 0 && endTime == SUMOTime_MAX) {
+            // clean up old values before setting whole range
+            while (veh->getWeightsStorage().knowsTravelTime(edge)) {
+                veh->getWeightsStorage().removeTravelTime(edge);
+            }
+        }
+        veh->getWeightsStorage().addTravelTime(edge, begTime, endTime, time);
+    } else {
+        // remove time
+        while (veh->getWeightsStorage().knowsTravelTime(edge)) {
+            veh->getWeightsStorage().removeTravelTime(edge);
+        }
+    }
+}
+
+
+void 
+TraCI_Vehicle::setEffort(const std::string& vehicleID, const std::string& edgeID, 
+            double effort, SUMOTime begTime, SUMOTime endTime) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    MSEdge* edge = MSEdge::dictionary(edgeID);
+    if (edge == 0) {
+        throw TraCIException("Referended edge '" + edgeID + "' is not known.");
+    }
+    if (effort != INVALID_DOUBLE_VALUE) {
+        // add effort
+        if (begTime == 0 && endTime == SUMOTime_MAX) {
+            // clean up old values before setting whole range
+            while (veh->getWeightsStorage().knowsEffort(edge)) {
+                veh->getWeightsStorage().removeEffort(edge);
+            }
+        }
+        veh->getWeightsStorage().addEffort(edge, begTime, endTime, effort);
+    } else {
+        // remove effort
+        while (veh->getWeightsStorage().knowsEffort(edge)) {
+            veh->getWeightsStorage().removeEffort(edge);
+        }
+    }
+}
 
 void
 TraCI_Vehicle::setMaxSpeed(const std::string& vehicleID, double speed) {

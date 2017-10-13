@@ -154,8 +154,8 @@ public:
                     int personNumber = 0);
 
     static void changeTarget(const std::string& vehicleID, const std::string& edgeID);
-    static void changeLane(const std::string& vehID, int laneIndex, SUMOTime duration);
-    static void changeSublane(const std::string& vehID, double latDist);
+    static void changeLane(const std::string& vehicleID, int laneIndex, SUMOTime duration);
+    static void changeSublane(const std::string& vehicleID, double latDist);
 
     static void moveTo(const std::string& vehicleID, const std::string& laneID, double position);
     static void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute);
@@ -164,6 +164,10 @@ public:
     static void setType(const std::string& vehicleID, const std::string& typeID);
     static void setRouteID(const std::string& vehicleID, const std::string& routeID);
     static void setRoute(const std::string& vehicleID, const std::vector<std::string>& edgeIDs);
+    static void setAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID, 
+            double time=INVALID_DOUBLE_VALUE, SUMOTime begTime=0, SUMOTime endTime=SUMOTime_MAX);
+    static void setEffort(const std::string& vehicleID, const std::string& edgeID, 
+            double effort=INVALID_DOUBLE_VALUE, SUMOTime begTime=0, SUMOTime endTime=SUMOTime_MAX);
     static void setMaxSpeed(const std::string& vehicleID, double speed);
     static void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED);
     static void setColor(const std::string& vehicleID, const TraCIColor& col);

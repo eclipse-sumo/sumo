@@ -697,9 +697,12 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time requires a compound object.", outputStorage);
                 }
                 int parameterCount = inputStorage.readInt();
+                std::string edgeID;
+                int begTime = 0; 
+                int endTime = -1;
+                double value = INVALID_DOUBLE_VALUE;
                 if (parameterCount == 4) {
                     // begin time
-                    int begTime = 0, endTime = 0;
                     if (!server.readTypeCheckingInt(inputStorage, begTime)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 4 parameters requires the begin time as first parameter.", outputStorage);
                     }
@@ -708,58 +711,31 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 4 parameters requires the end time as second parameter.", outputStorage);
                     }
                     // edge
-                    std::string edgeID;
                     if (!server.readTypeCheckingString(inputStorage, edgeID)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 4 parameters requires the referenced edge as third parameter.", outputStorage);
                     }
-                    MSEdge* edge = MSEdge::dictionary(edgeID);
-                    if (edge == 0) {
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
-                    }
                     // value
-                    double value = 0;
                     if (!server.readTypeCheckingDouble(inputStorage, value)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 4 parameters requires the travel time as double as fourth parameter.", outputStorage);
                     }
-                    // retrieve
-                    v->getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
                 } else if (parameterCount == 2) {
                     // edge
-                    std::string edgeID;
                     if (!server.readTypeCheckingString(inputStorage, edgeID)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 2 parameters requires the referenced edge as first parameter.", outputStorage);
                     }
-                    MSEdge* edge = MSEdge::dictionary(edgeID);
-                    if (edge == 0) {
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
-                    }
                     // value
-                    double value = 0;
                     if (!server.readTypeCheckingDouble(inputStorage, value)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 2 parameters requires the travel time as second parameter.", outputStorage);
                     }
-                    // retrieve
-                    while (v->getWeightsStorage().knowsTravelTime(edge)) {
-                        v->getWeightsStorage().removeTravelTime(edge);
-                    }
-                    v->getWeightsStorage().addTravelTime(edge, 0., double(SUMOTime_MAX), value);
                 } else if (parameterCount == 1) {
                     // edge
-                    std::string edgeID;
                     if (!server.readTypeCheckingString(inputStorage, edgeID)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 1 parameter requires the referenced edge as first parameter.", outputStorage);
-                    }
-                    MSEdge* edge = MSEdge::dictionary(edgeID);
-                    if (edge == 0) {
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
-                    }
-                    // retrieve
-                    while (v->getWeightsStorage().knowsTravelTime(edge)) {
-                        v->getWeightsStorage().removeTravelTime(edge);
                     }
                 } else {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time requires 1, 2, or 4 parameters.", outputStorage);
                 }
+                TraCI_Vehicle::setAdaptedTraveltime(id, edgeID, value, begTime, endTime == -1 ? SUMOTime_MAX : endTime);
             }
             break;
             case VAR_EDGE_EFFORT: {
@@ -767,9 +743,12 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort requires a compound object.", outputStorage);
                 }
                 int parameterCount = inputStorage.readInt();
+                std::string edgeID;
+                int begTime = 0; 
+                int endTime = -1;
+                double value = INVALID_DOUBLE_VALUE;
                 if (parameterCount == 4) {
                     // begin time
-                    int begTime = 0, endTime = 0;
                     if (!server.readTypeCheckingInt(inputStorage, begTime)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the begin time as first parameter.", outputStorage);
                     }
@@ -778,58 +757,31 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the end time as second parameter.", outputStorage);
                     }
                     // edge
-                    std::string edgeID;
                     if (!server.readTypeCheckingString(inputStorage, edgeID)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the referenced edge as third parameter.", outputStorage);
                     }
-                    MSEdge* edge = MSEdge::dictionary(edgeID);
-                    if (edge == 0) {
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
-                    }
                     // value
-                    double value = 0;
                     if (!server.readTypeCheckingDouble(inputStorage, value)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the travel time as fourth parameter.", outputStorage);
                     }
-                    // retrieve
-                    v->getWeightsStorage().addEffort(edge, begTime, endTime, value);
                 } else if (parameterCount == 2) {
                     // edge
-                    std::string edgeID;
                     if (!server.readTypeCheckingString(inputStorage, edgeID)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort using 2 parameters requires the referenced edge as first parameter.", outputStorage);
                     }
-                    MSEdge* edge = MSEdge::dictionary(edgeID);
-                    if (edge == 0) {
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
-                    }
-                    // value
-                    double value = 0;
                     if (!server.readTypeCheckingDouble(inputStorage, value)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort using 2 parameters requires the travel time as second parameter.", outputStorage);
                     }
-                    // retrieve
-                    while (v->getWeightsStorage().knowsEffort(edge)) {
-                        v->getWeightsStorage().removeEffort(edge);
-                    }
-                    v->getWeightsStorage().addEffort(edge, 0., double(SUMOTime_MAX), value);
                 } else if (parameterCount == 1) {
                     // edge
-                    std::string edgeID;
                     if (!server.readTypeCheckingString(inputStorage, edgeID)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort using 1 parameter requires the referenced edge as first parameter.", outputStorage);
-                    }
-                    MSEdge* edge = MSEdge::dictionary(edgeID);
-                    if (edge == 0) {
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
-                    }
-                    // retrieve
-                    while (v->getWeightsStorage().knowsEffort(edge)) {
-                        v->getWeightsStorage().removeEffort(edge);
                     }
                 } else {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort requires 1, 2, or 4 parameters.", outputStorage);
                 }
+                // retrieve
+                TraCI_Vehicle::setEffort(id, edgeID, value, begTime, endTime == -1 ? SUMOTime_MAX : endTime);
             }
             break;
             case CMD_REROUTE_TRAVELTIME: {
