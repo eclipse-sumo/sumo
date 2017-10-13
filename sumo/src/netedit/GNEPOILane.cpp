@@ -83,15 +83,11 @@ GNEPOILane::writeShape(OutputDevice& device) {
 
 
 void
-GNEPOILane::moveGeometry(const Position& /*oldPos*/, const Position &offset) {
-    // First we need to change the absolute new position to a relative position
-    double lenghtDifference = 0;
-    if (myGNELane->getLaneShapeLength() > 0) {
-        lenghtDifference = myGNELane->getLaneParametricLength() / myGNELane->getLaneShapeLength();
-    }
-    double relativePos = offset.x() / myGNELane->getLaneParametricLength() * lenghtDifference;
-    // change relative position position over lane
-    myPosOverLane += relativePos;
+GNEPOILane::moveGeometry(const Position& oldPos, const Position &offset) {
+    // Calculate new position using old position
+    Position newPosition = oldPos;
+    newPosition.add(offset);
+    myPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(newPosition, false) / myGNELane->getLaneShapeLength();
     // Update geometry
     updateGeometry();
 }
@@ -100,8 +96,10 @@ GNEPOILane::moveGeometry(const Position& /*oldPos*/, const Position &offset) {
 void
 GNEPOILane::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     if (!myBlockMovement) {
+        // restore old position before commit new position
+        double originalPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(oldPos, false);
         undoList->p_begin("position of " + toString(getTag()));
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosOverLane * myGNELane->getLaneParametricLength()), true, toString(oldPos.x())));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosOverLane * myGNELane->getLaneParametricLength()), true, toString(originalPosOverLane)));
         undoList->p_end();
     }
 }
@@ -118,7 +116,7 @@ GNEPOILane::updateGeometry() {
     // obtain fixed position over lane
     double fixedPositionOverLane = myPosOverLane > 1 ? 1 : myPosOverLane < 0 ? 0 : myPosOverLane;
     // set new position regarding to lane
-    set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane * myGNELane->getLaneParametricLength(), myPosLat));
+    set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane * myGNELane->getLaneShapeLength(), myPosLat));
     myNet->refreshShape(this);
 }
 

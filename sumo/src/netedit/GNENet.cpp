@@ -219,6 +219,10 @@ GNENet::removePolygon(const std::string& id) {
     if (poly == NULL) {
         return false;
     } else {
+        // remove polygon of view if is still visible
+        if(poly->isShapeVisible()) {
+            removeShapeOfView(poly);
+        }
         return myPolygons.remove(id);
     }
 }
@@ -270,6 +274,14 @@ GNENet::removePOI(const std::string& id) {
     if ((POI == NULL) && (POILane == NULL)) {
         return false;
     } else {
+        // remove POI of view if is visible
+        if(POI && POI->isShapeVisible()) {
+            removeShapeOfView(POI);
+        }
+        // remove POILane of view if is still visible
+        if(POILane && POILane->isShapeVisible()) {
+            removeShapeOfView(POILane);
+        }
         return myPOIs.remove(id);
     }
 }
