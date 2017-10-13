@@ -38,6 +38,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleType.h>
+#include <microsim/MSInsertionControl.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -745,10 +746,6 @@ TraCI_Vehicle::add(const std::string& vehicleID,
     }
 }
 
-void
-TraCI_Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double position) {
-    getVehicle(vehicleID);
-}
 
 void
 TraCI_Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute) {
@@ -889,6 +886,40 @@ TraCI_Vehicle::setSignals(const std::string& vehicleID, int signals) {
     if (signals >= 0) {
         veh->switchOnSignal(signals);
     }
+}
+
+
+void 
+TraCI_Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double position) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    MSLane* l = MSLane::dictionary(laneID);
+    if (l == 0) {
+        throw TraCIException("Unknown lane '" + laneID + "'.");
+    }
+    MSEdge& destinationEdge = l->getEdge();
+    if (!veh->willPass(&destinationEdge)) {
+        throw TraCIException("Vehicle '" + laneID + "' may be set onto an edge to pass only.");
+    }
+    veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
+    if (veh->getLane() != 0) {
+        veh->getLane()->removeVehicle(veh, MSMoveReminder::NOTIFICATION_TELEPORT);
+    } else {
+        veh->setTentativeLaneAndPosition(l, position);
+    }
+    while (veh->getEdge() != &destinationEdge) {
+        const MSEdge* nextEdge = veh->succEdge(1);
+        // let the vehicle move to the next edge
+        if (veh->enterLaneAtMove(nextEdge->getLanes()[0], true)) {
+            MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
+            continue;
+        }
+    }
+    if (!veh->isOnRoad()) {
+        MSNet::getInstance()->getInsertionControl().alreadyDeparted(veh);
+
+    }
+    l->forceVehicleInsertion(veh, position,
+            veh->hasDeparted() ? MSMoveReminder::NOTIFICATION_TELEPORT : MSMoveReminder::NOTIFICATION_DEPARTED);
 }
 
 

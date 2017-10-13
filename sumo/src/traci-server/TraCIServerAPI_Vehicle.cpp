@@ -830,34 +830,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second parameter for setting a position must be the position given as a double.", outputStorage);
                 }
                 // process
-                MSLane* l = MSLane::dictionary(laneID);
-                if (l == 0) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Unknown lane '" + laneID + "'.", outputStorage);
-                }
-                MSEdge& destinationEdge = l->getEdge();
-                if (!v->willPass(&destinationEdge)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Vehicle '" + laneID + "' may be set onto an edge to pass only.", outputStorage);
-                }
-                v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
-                if (v->getLane() != 0) {
-                    v->getLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
-                } else {
-                    v->setTentativeLaneAndPosition(l, position);
-                }
-                while (v->getEdge() != &destinationEdge) {
-                    const MSEdge* nextEdge = v->succEdge(1);
-                    // let the vehicle move to the next edge
-                    if (v->enterLaneAtMove(nextEdge->getLanes()[0], true)) {
-                        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
-                        continue;
-                    }
-                }
-                if (!v->isOnRoad()) {
-                    MSNet::getInstance()->getInsertionControl().alreadyDeparted(v);
-
-                }
-                l->forceVehicleInsertion(v, position,
-                                         v->hasDeparted() ? MSMoveReminder::NOTIFICATION_TELEPORT : MSMoveReminder::NOTIFICATION_DEPARTED);
+                TraCI_Vehicle::moveTo(id, laneID, position);
             }
             break;
             case VAR_SPEED: {
