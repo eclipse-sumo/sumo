@@ -142,6 +142,14 @@ SUMORouteHandler::myStartElement(int element,
             myActiveRouteID = "!" + myVehicleParameter->id;
             break;
         }
+        case SUMO_TAG_PERSONTRIP:
+        case SUMO_TAG_WALK:
+            if (attrs.hasAttribute(SUMO_ATTR_EDGES) || attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
+                addWalk(attrs);
+            } else {
+                addPersonTrip(attrs);
+            }
+            break;
         case SUMO_TAG_INTERVAL: {
             bool ok;
             myBeginDefault = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok);

@@ -175,52 +175,6 @@ RORouteHandler::myStartElement(int element,
             myActivePerson->addRide(from, to, desc, busStop);
             break;
         }
-        case SUMO_TAG_PERSONTRIP:
-        case SUMO_TAG_WALK: {
-            if (attrs.hasAttribute(SUMO_ATTR_EDGES) || attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
-                // XXX allow --repair?
-                bool ok = true;
-                if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
-                    const std::string routeID = attrs.get<std::string>(SUMO_ATTR_ROUTE, myVehicleParameter->id.c_str(), ok);
-                    RORouteDef* routeDef = myNet.getRouteDef(routeID);
-                    const RORoute* route = routeDef != 0 ? routeDef->getFirstRoute() : 0;
-                    if (route == 0) {
-                        throw ProcessError("The route '" + routeID + "' for walk of person '" + myVehicleParameter->id + "' is not known.");
-                    }
-                    myActiveRoute = route->getEdgeVector();
-                } else {
-                    myActiveRoute.clear();
-                    parseEdges(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, " walk for person '" + myVehicleParameter->id + "'");
-                }
-                const char* const objId = myVehicleParameter->id.c_str();
-                const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, objId, ok, -1);
-                if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-                    throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
-                }
-                const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, objId, ok, -1.);
-                if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
-                    throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
-                }
-                double departPos = std::numeric_limits<double>::infinity();
-                double arrivalPos = std::numeric_limits<double>::infinity();
-                if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
-                    departPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_DEPARTPOS, objId, myActiveRoute.front()->getLength(),
-                                attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, objId, ok));
-                }
-                if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-                    arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, objId, myActiveRoute.back()->getLength(),
-                                 attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, objId, ok));
-                }
-                const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, objId, ok, "");
-                if (!ok) {
-                    break;
-                }
-                myActivePerson->addWalk(myActiveRoute, duration, speed, departPos, arrivalPos, busStop);
-            } else {
-                addPersonTrip(attrs);
-            }
-            break;
-        }
         case SUMO_TAG_CONTAINER:
             myActiveContainerPlan = new OutputDevice_String(false, 1);
             myActiveContainerPlanSize = 0;
@@ -538,6 +492,7 @@ RORouteHandler::closePerson() {
     myActivePerson = 0;
 }
 
+
 void
 RORouteHandler::closeContainer() {
     myActiveContainerPlan->closeTag();
@@ -762,6 +717,48 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         myActivePerson->addTrip(from, to, modeSet, types, departPos, arrivalPos, busStop, walkFactor);
     }
     return ok;
+}
+
+
+bool
+RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
+    // XXX allow --repair?
+    bool ok = true;
+    if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
+        const std::string routeID = attrs.get<std::string>(SUMO_ATTR_ROUTE, myVehicleParameter->id.c_str(), ok);
+        RORouteDef* routeDef = myNet.getRouteDef(routeID);
+        const RORoute* route = routeDef != 0 ? routeDef->getFirstRoute() : 0;
+        if (route == 0) {
+            throw ProcessError("The route '" + routeID + "' for walk of person '" + myVehicleParameter->id + "' is not known.");
+        }
+        myActiveRoute = route->getEdgeVector();
+    } else {
+        myActiveRoute.clear();
+        parseEdges(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, " walk for person '" + myVehicleParameter->id + "'");
+    }
+    const char* const objId = myVehicleParameter->id.c_str();
+    const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, objId, ok, -1);
+    if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
+        throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
+    }
+    const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, objId, ok, -1.);
+    if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
+        throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
+    }
+    double departPos = std::numeric_limits<double>::infinity();
+    double arrivalPos = std::numeric_limits<double>::infinity();
+    if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
+        departPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_DEPARTPOS, objId, myActiveRoute.front()->getLength(),
+            attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, objId, ok));
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+        arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, objId, myActiveRoute.back()->getLength(),
+            attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, objId, ok));
+    }
+    const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, objId, ok, "");
+    if (ok) {
+        myActivePerson->addWalk(myActiveRoute, duration, speed, departPos, arrivalPos, busStop);
+    }
 }
 
 
