@@ -12,7 +12,7 @@
 /// @file    GNEPOI.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2017
-/// @version $Id: GNEPOI.h 26372 2017-10-07 12:33:09Z palcraft $
+/// @version $Id$
 ///
 // A class for visualizing and editing POIS in netedit over lanes (adapted from
 // GUIPointOfInterest and NLHandler)

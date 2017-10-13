@@ -12,7 +12,7 @@
 /// @file    GNEPOI.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2017
-/// @version $Id: GNEPOI.cpp 26411 2017-10-10 13:21:07Z palcraft $
+/// @version $Id$
 ///
 // A class for visualizing and editing POIS in netedit (adapted from
 // GUIPointOfInterest and NLHandler)

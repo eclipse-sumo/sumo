@@ -12,7 +12,7 @@
 /// @file    GNEChange_Shape.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2017
-/// @version $Id: GNEChange_Shape.h 26300 2017-10-02 20:44:50Z behrisch $
+/// @version $Id$
 ///
 // A network change in which a single Shape is created or deleted
 /****************************************************************************/

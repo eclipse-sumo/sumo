@@ -12,7 +12,7 @@
 /// @file    GNEChange_Shape.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2017
-/// @version $Id: GNEChange_Shape.cpp 26421 2017-10-11 11:21:09Z palcraft $
+/// @version $Id$
 ///
 // A network change in which a single poly is created or deleted
 /****************************************************************************/

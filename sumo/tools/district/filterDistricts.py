@@ -9,7 +9,7 @@
 # @file    filterDistricts.py
 # @author  Jakob Erdmann
 # @date    2017-10-05
-# @version $Id: filterDistricts.py 26301 2017-10-02 20:48:38Z namdre $
+# @version $Id$
 
 """
 Filters a TAZ file for a specific vehicle class
