@@ -246,9 +246,11 @@ RONet::addRouteDef(RORouteDef* def) {
 
 void
 RONet::openOutput(const OptionsCont& options) {
-    myRoutesOutput = &OutputDevice::getDevice(options.getString("output-file"));
-    myRoutesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
-    myRoutesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");
+    if (options.isSet("output-file") && options.getString("output-file") != "") {
+        myRoutesOutput = &OutputDevice::getDevice(options.getString("output-file"));
+        myRoutesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
+        myRoutesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");
+    }
     if (options.exists("alternatives-output") && options.isSet("alternatives-output")) {
         myRouteAlternativesOutput = &OutputDevice::getDevice(options.getString("alternatives-output"));
         myRouteAlternativesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
