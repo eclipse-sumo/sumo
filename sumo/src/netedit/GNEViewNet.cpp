@@ -59,6 +59,7 @@
 #include "GNELane.h"
 #include "GNEJunction.h"
 #include "GNEPOI.h"
+#include "GNEPOILane.h"
 #include "GNEApplicationWindow.h"
 #include "GNEViewParent.h"
 #include "GNENet.h"
@@ -162,6 +163,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myOppositeEdgeToMove(0),
     myPolyToMove(0),
     myPoiToMove(0),
+    myPoiLaneToMove(0),
     myAdditionalToMove(0),
     myMovingIndexShape(-1),
     myMovingSelection(false),
@@ -632,6 +634,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
         GNELane* pointed_lane = 0;
         GNEEdge* pointed_edge = 0;
         GNEPOI* pointed_poi = 0;
+        GNEPOILane* pointed_poiLane = 0;
         GNEPoly* pointed_poly = 0;
         GNECrossing* pointed_crossing = 0;
         GNEAdditional* pointed_additional = 0;
@@ -655,7 +658,11 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         pointed_edge = &(pointed_lane->getParentEdge());
                         break;
                     case GLO_POI:
-                        pointed_poi = (GNEPOI*)pointed;
+                        if(dynamic_cast<GNEPOI*>(pointed)) {
+                            pointed_poi = (GNEPOI*)pointed;
+                        } else {
+                            pointed_poiLane = (GNEPOILane*)pointed;
+                        }
                         break;
                     case GLO_POLYGON:
                         pointed_poly = (GNEPoly*)pointed;
@@ -751,6 +758,11 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     // Save original Position of Element and obtain moving reference
                     myMovingOriginalPosition = myPoiToMove->getPositionInView();
                     myMovingReference = getPositionInformation();
+                } else if (pointed_poiLane){
+                    myPoiLaneToMove = pointed_poiLane;
+                    myMovingOriginalPosition.set(GNEAttributeCarrier::parse<double>(pointed_poiLane->getAttribute(SUMO_ATTR_POSITION)), 0);
+                    // Set myMovingReference
+                    myMovingReference.set(pointed_poiLane->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false), 0, 0);
                 } else if (pointed_junction) {
                     if (gSelected.isSelected(GLO_JUNCTION, pointed_junction->getGlID())) {
                         begingMoveSelection(pointed_junction, getPositionInformation());
@@ -777,7 +789,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         myMovingSelection = true;
                     } else {
                         myAdditionalToMove = pointed_additional;
-                        if (myAdditionalToMove->getLane()) {
+                        if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_LANE)) {
                             if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_STARTPOS)) {
                                 // Obtain start position
                                 double startPos = GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_STARTPOS));
@@ -999,6 +1011,9 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     } else if (myPoiToMove) {
         myPoiToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
         myPoiToMove = 0;
+    } else if (myPoiLaneToMove) {
+        myPoiLaneToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
+        myPoiLaneToMove = 0;
     } else if (myJunctionToMove) {
         // position is already up to date but we must register with myUndoList
         if (!mergeJunctions(myJunctionToMove, myMovingOriginalPosition)) {
@@ -1082,6 +1097,10 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
         } else if (myPoiToMove) {
             // Move POI's geometry without commiting changes
             myPoiToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
+        } else if (myPoiLaneToMove) {
+            double posOfMouseOverLane = myPoiLaneToMove->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false);
+            myPoiLaneToMove->moveGeometry(myMovingOriginalPosition, Position(posOfMouseOverLane - myMovingReference.x(), 0));
+            myMovingReference.set(posOfMouseOverLane, 0, 0);
         } else if (myJunctionToMove) {
             // Move Junction's geometry without commiting changes
             myJunctionToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);

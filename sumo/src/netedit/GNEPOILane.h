@@ -87,6 +87,9 @@ public:
     */
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
+    /// @brief get GNELane
+    GNELane *getLane() const;
+
     /// @name inherited from GNEShape
     /// @{
     /// @brief update pre-computed geometry information

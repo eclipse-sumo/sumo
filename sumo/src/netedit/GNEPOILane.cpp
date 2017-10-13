@@ -83,13 +83,17 @@ GNEPOILane::writeShape(OutputDevice& device) {
 
 
 void
-GNEPOILane::moveGeometry(const Position& oldPos, const Position &offset) {
-    if (!myBlockMovement) {
-        // restore old position, apply offset and refresh element
-        set(oldPos);
-        add(offset);
-        myNet->refreshElement(this);
+GNEPOILane::moveGeometry(const Position& /*oldPos*/, const Position &offset) {
+    // First we need to change the absolute new position to a relative position
+    double lenghtDifference = 0;
+    if (myGNELane->getLaneShapeLength() > 0) {
+        lenghtDifference = myGNELane->getLaneParametricLength() / myGNELane->getLaneShapeLength();
     }
+    double relativePos = offset.x() / myGNELane->getLaneParametricLength() * lenghtDifference;
+    // change relative position position over lane
+    myPosOverLane += relativePos;
+    // Update geometry
+    updateGeometry();
 }
 
 
@@ -97,11 +101,15 @@ void
 GNEPOILane::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     if (!myBlockMovement) {
         undoList->p_begin("position of " + toString(getTag()));
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(getPositionInView()), true, toString(oldPos)));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosOverLane * myGNELane->getLaneParametricLength()), true, toString(oldPos.x())));
         undoList->p_end();
-        // Refresh element
-        myNet->refreshShape(this);
     }
+}
+
+
+GNELane*
+GNEPOILane::getLane() const {
+    return myGNELane;
 }
 
 
@@ -250,7 +258,6 @@ GNEPOILane::isValid(SumoXMLAttr key, const std::string& value) {
         throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
-
 
 // ===========================================================================
 // private

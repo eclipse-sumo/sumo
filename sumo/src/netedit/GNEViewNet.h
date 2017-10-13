@@ -85,6 +85,7 @@ class GNEFrame;
 class GNENetElement;
 class GNECrossing;
 class GNEAttributeCarrier;
+class GNEPOILane;
 
 // ===========================================================================
 // class definitions
@@ -431,6 +432,9 @@ private:
 
     /// @brief the poi which is being moved
     GNEPOI* myPoiToMove;
+
+    /// @brief the poiLane which is being moved
+    GNEPOILane* myPoiLaneToMove;
 
     /// @brief the stoppingPlace element which shape is being moved
     GNEAdditional* myAdditionalToMove;

@@ -213,8 +213,10 @@ GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColo
 
 bool
 GNENet::removePolygon(const std::string& id) {
-    GNEPoly* p = dynamic_cast<GNEPoly*>(myPolygons.get(id));
-    if (p == 0) {
+    // cast GNEPoly from polygon container
+    GNEPoly* poly = dynamic_cast<GNEPoly*>(myPolygons.get(id));
+    // remove only if casting was sucesfully
+    if (poly == NULL) {
         return false;
     } else {
         return myPolygons.remove(id);
@@ -261,8 +263,11 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
 
 bool
 GNENet::removePOI(const std::string& id) {
-    GNEPOI* p = dynamic_cast<GNEPOI*>(myPOIs.get(id));
-    if (p == 0) {
+    // cast GNEPOI and GNEPOILane from POI container
+    GNEPOI* POI = dynamic_cast<GNEPOI*>(myPOIs.get(id));
+    GNEPOILane* POILane = dynamic_cast<GNEPOILane*>(myPOIs.get(id));
+    // remove only if casting was sucesfully
+    if ((POI == NULL) && (POILane == NULL)) {
         return false;
     } else {
         return myPOIs.remove(id);
@@ -1958,17 +1963,18 @@ GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector 
 void
 GNENet::insertShapeInView(GNEShape* s, bool isShapeForEditShapes) {
     if (s->isShapeVisible() == false) {
+        // add shape to grid
         myGrid.addAdditionalGLObject(dynamic_cast<GUIGlObject*>(s));
-        myViewNet->update();
         s->setShapeVisible(true);
-        // shapes has to be saved if polygon isn't for edit shapes
-        if(!isShapeForEditShapes) {
-            requiereSaveShapes();
-        }
         // POILanes has to be added from lane
         if(s->getTag() == SUMO_TAG_POILANE) {
             retrieveLane(s->getAttribute(SUMO_ATTR_LANE))->addShapeChild(s);
         }
+        // shapes has to be saved if polygon isn't for edit shapes
+        if(!isShapeForEditShapes) {
+            requiereSaveShapes();
+        }
+        myViewNet->update();
     } else {
         throw ProcessError("Shape was already inserted in view");
     }
@@ -1978,17 +1984,18 @@ GNENet::insertShapeInView(GNEShape* s, bool isShapeForEditShapes) {
 void
 GNENet::removeShapeOfView(GNEShape* s, bool isShapeForEditShapes) {
     if (s->isShapeVisible()) {
+        // remove shape of grid
         myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(s));
-        myViewNet->update();
         s->setShapeVisible(false);
-        // shapes has to be saved if polygon isn't for edit shapes
-        if(!isShapeForEditShapes) {
-            requiereSaveShapes();
-        }
         // POILanes has to be removed from lane
         if(s->getTag() == SUMO_TAG_POILANE) {
             retrieveLane(s->getAttribute(SUMO_ATTR_LANE))->removeShapeChild(s);
         }
+        // shapes has to be saved if polygon isn't for edit shapes
+        if(!isShapeForEditShapes) {
+            requiereSaveShapes();
+        }
+        myViewNet->update();
     } else {
         throw ProcessError("Shape wasn't already inserted in view");
     }
@@ -1997,6 +2004,7 @@ GNENet::removeShapeOfView(GNEShape* s, bool isShapeForEditShapes) {
 
 void
 GNENet::refreshShape(GNEShape* s) {
+    // make sure that shape is visible
     if (s->isShapeVisible()) {
         myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(s));
         myGrid.addAdditionalGLObject(dynamic_cast<GUIGlObject*>(s));
