@@ -160,6 +160,7 @@ traci.vehicle.setAdaptedTraveltime(vehID, 0, 1000, "1o", 55)
 traci.vehicle.setEffort(vehID, 0, 1000, "1o", 54)
 traci.vehicle.setParameter(vehID, "foo", "bar")
 traci.vehicle.setParameter(vehID, "laneChangeModel.lcStrategic", "2.0")
+traci.vehicle.setSignals(vehID, 12)
 traci.vehicle.setStop(
     vehID, "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
 
@@ -359,6 +360,8 @@ traci.vehicle.add("rerouteTT", "horizontal")
 traci.vehicle.rerouteTraveltime("rerouteTT")
 # reroute again but travel times should only be updated once
 traci.vehicle.rerouteTraveltime("rerouteTT")
+traci.vehicle.add("rerouteEffort", "horizontal")
+traci.vehicle.rerouteEffort("rerouteEffort")
 print("step", step())
 print(traci.vehicle.getSubscriptionResults(vehID))
 

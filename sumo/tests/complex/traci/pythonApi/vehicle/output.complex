@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:44407 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:60346 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -104,7 +104,7 @@ Elec 0.0
 traveltime 55.0
 effort 54.0
 route valid True
-signals 0
+signals 12
 length 1.0
 maxSpeed 9.0
 speedFactor 1.1
@@ -620,47 +620,47 @@ pav edge= pos=-1001.0 stopState=0
 step 135
 pav edge= pos=-1001.0 stopState=0
 step 136
-pav edge=2fi pos=0.0 stopState=0
+pav edge= pos=-1001.0 stopState=0
 step 137
-pav edge=2fi pos=1.39569895987 stopState=0
+pav edge= pos=-1001.0 stopState=0
 step 138
-pav edge=2fi pos=4.12306837891 stopState=0
+pav edge= pos=-1001.0 stopState=0
 step 139
-pav edge=2fi pos=9.15830589526 stopState=0
+pav edge=2fi pos=0.0 stopState=0
 step 140
-pav edge=2fi pos=16.0995604007 stopState=0
+pav edge=2fi pos=1.31627216848 stopState=0
 step 141
-pav edge=2fi pos=25.3993403451 stopState=0
+pav edge=2fi pos=4.72373392424 stopState=0
 step 142
-pav edge=2fi pos=35.6425979389 stopState=0
+pav edge=2fi pos=9.81623093802 stopState=0
 step 143
-pav edge=2fi pos=42.3609474901 stopState=0
+pav edge=2fi pos=16.3724725716 stopState=0
 step 144
-pav edge=2fi pos=44.899803643 stopState=0
+pav edge=2fi pos=25.2975326903 stopState=0
 step 145
-pav edge=2fi pos=44.975528627 stopState=0
+pav edge=2fi pos=36.1516737578 stopState=0
 step 146
-pav edge=2fi pos=-1001.0 stopState=131
+pav edge=2fi pos=42.5058148254 stopState=0
 step 147
-pav edge=2fi pos=-1001.0 stopState=131
+pav edge=2fi pos=44.3727243389 stopState=0
 step 148
-pav edge=2fi pos=-1001.0 stopState=131
+pav edge=2fi pos=44.9216026699 stopState=0
 step 149
-pav edge=2fi pos=44.9983621034 stopState=131
+pav edge=2fi pos=-1001.0 stopState=131
 step 150
-pav edge=2fi pos=46.9117252713 stopState=0
+pav edge=2fi pos=-1001.0 stopState=131
 step 151
-pav edge=2fi pos=50.7866537169 stopState=0
+pav edge=2fi pos=-1001.0 stopState=131
 has battery device: true
 has vehroute device: false
 has rerouting device: false
 has rerouting device: true
 routing period: 0.00
 routing period: 45.00
-edge rerouting traveltime: 23.30
+edge rerouting traveltime: 23.65
 edge rerouting traveltime: 123.00
-vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim']
-vehicle count 20
+vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteEffort', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim']
+vehicle count 21
 examining elVeh
 speed -1001.0
 speed w/o traci -1001.0
@@ -724,8 +724,8 @@ lane change able right False
 lane change able left False
 lane change wish right False
 lane change wish left False
-vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim']
-vehicle count 20
+vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteEffort', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim']
+vehicle count 21
 examining elVeh
 speed -1001.0
 speed w/o traci -1001.0
@@ -789,8 +789,8 @@ lane change able right False
 lane change able left False
 lane change wish right False
 lane change wish left False
-vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim']
-vehicle count 20
+vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteEffort', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim']
+vehicle count 21
 examining elVeh
 speed -1001.0
 speed w/o traci -1001.0
@@ -854,8 +854,8 @@ lane change able right False
 lane change able left False
 lane change wish right False
 lane change wish left False
-vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim']
-vehicle count 20
+vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteEffort', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim']
+vehicle count 21
 examining elVeh
 speed -1001.0
 speed w/o traci -1001.0
@@ -922,14 +922,14 @@ lane change wish left False
 recovering from exception (Vehicle 'elVeh' does not support device parameter 'device.foo.bar' (No device of type 'foo' exists).)
 recovering from exception (Vehicle 'elVeh' does not support device parameter 'device.battery.foobar' (Parameter 'foobar' is not supported for device of type 'battery').)
 elVeh speed="0.0" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL"
-elVeh speed="1.95306443993" consumed="6.41" charged="0.00" cap="17493.59" maxCap="40000.00" station="NULL"
-elVeh speed="3.71807110538" consumed="16.44" charged="0.00" cap="17477.15" maxCap="40000.00" station="NULL"
-elVeh speed="6.24150421321" consumed="26.89" charged="0.00" cap="17450.26" maxCap="40000.00" station="NULL"
-elVeh speed="8.1151641133" consumed="29.88" charged="0.00" cap="17420.37" maxCap="40000.00" station="NULL"
-elVeh speed="9.33851323118" consumed="31.72" charged="0.00" cap="17388.65" maxCap="40000.00" station="NULL"
-elVeh speed="9.35519800377" consumed="25.81" charged="0.00" cap="17362.85" maxCap="40000.00" station="NULL"
-elVeh speed="9.36229028541" consumed="25.77" charged="0.00" cap="17337.07" maxCap="40000.00" station="NULL"
-elVeh speed="9.39056433267" consumed="25.97" charged="0.00" cap="17311.11" maxCap="40000.00" station="NULL"
-elVeh speed="9.14832608013" consumed="23.87" charged="0.00" cap="17287.24" maxCap="40000.00" station="NULL"
+elVeh speed="1.39319293941" consumed="4.35" charged="0.00" cap="17495.65" maxCap="40000.00" station="NULL"
+elVeh speed="3.24771768083" consumed="13.79" charged="0.00" cap="17481.86" maxCap="40000.00" station="NULL"
+elVeh speed="5.47612813644" consumed="24.09" charged="0.00" cap="17457.77" maxCap="40000.00" station="NULL"
+elVeh speed="8.04059165516" consumed="31.88" charged="0.00" cap="17425.89" maxCap="40000.00" station="NULL"
+elVeh speed="8.78815179402" consumed="27.70" charged="0.00" cap="17398.19" maxCap="40000.00" station="NULL"
+elVeh speed="8.8295116822" consumed="24.46" charged="0.00" cap="17373.73" maxCap="40000.00" station="NULL"
+elVeh speed="9.35876346147" consumed="28.45" charged="0.00" cap="17345.28" maxCap="40000.00" station="NULL"
+elVeh speed="9.29645253718" consumed="25.22" charged="0.00" cap="17320.05" maxCap="40000.00" station="NULL"
+elVeh speed="9.20272295307" consumed="24.80" charged="0.00" cap="17295.25" maxCap="40000.00" station="NULL"
 triptest route: ['3si', '4si']
 triptest route: ['3si', '4o', '4fi', '4si']
