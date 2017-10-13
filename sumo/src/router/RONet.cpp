@@ -367,8 +367,15 @@ bool
 RONet::addVehicle(const std::string& id, ROVehicle* veh) {
     if (myVehIDs.find(id) == myVehIDs.end()) {
         myVehIDs.insert(id);
+        if (veh->isPublicTransport()) {
+            if (!veh->isPartOfFlow()) {
+                myPTVehicles.push_back(veh);
+            }
+            if (OptionsCont::getOptions().exists("ptline-routing") && !OptionsCont::getOptions().getBool("ptline-routing")) {
+                return true;
+            }
+        }
         myRoutables[veh->getDepart()].push_back(veh);
-        myReadRouteNo++;
         return true;
     }
     WRITE_ERROR("Another vehicle with the id '" + id + "' exists.");
@@ -546,7 +553,6 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
     SUMOTime lastTime = -1;
     const bool removeLoops = options.getBool("remove-loops");
     const int maxNumThreads = options.getInt("routing-threads");
-    const bool ptRoutes = !options.exists("ptline-routing") || options.getBool("ptline-routing");
     if (myRoutables.size() != 0) {
         if (options.getBool("bulk-routing")) {
 #ifdef HAVE_FOX
@@ -561,14 +567,6 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
                     break;
                 }
                 for (RORoutable* const routable : i->second) {
-                    if (routable->isPublicTransport()) {
-                        if (routable->getParameter().repetitionNumber < 0 && !provider.getIntermodalRouter().hasNet()) {
-                            myPTVehicles.insert(routable);
-                        }
-                        if (!ptRoutes) {
-                            continue;
-                        }
-                    }
 #ifdef HAVE_FOX
                     // add task
                     if (maxNumThreads > 0) {
@@ -614,7 +612,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
             if (lastTime != routableTime && lastTime != -1) {
                 // report writing progress
                 if (options.getInt("stats-period") >= 0 && ((int)routableTime % options.getInt("stats-period")) == 0) {
-                    WRITE_MESSAGE("Read: " + toString(myReadRouteNo) + ",  Discarded: " + toString(myDiscardedRouteNo) + ",  Written: " + toString(myWrittenRouteNo));
+                    WRITE_MESSAGE("Read: " + toString(myVehIDs.size()) + ",  Discarded: " + toString(myDiscardedRouteNo) + ",  Written: " + toString(myWrittenRouteNo));
                 }
             }
             lastTime = routableTime;
@@ -628,7 +626,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
                     myDiscardedRouteNo++;
                 }
                 // delete routes and the vehicle
-                if (!r->isPublicTransport() || myPTVehicles.count(r) == 0) {
+                if (!r->isPublicTransport() || r->isPartOfFlow()) {
                     const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(r);
                     if (veh != 0 && veh->getRouteDefinition()->getID()[0] == '!') {
                         if (!myRoutes.erase(veh->getRouteDefinition()->getID())) {
@@ -698,7 +696,6 @@ RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
     }
     for (const RORoutable* const veh : myInstance->myPTVehicles) {
         // add single vehicles with line attribute which are not part of a flow
-        // XXX this could introduce subtle order dependencies because myPTVehicles are a set
         router.addSchedule(veh->getParameter());
     }
 }

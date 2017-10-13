@@ -542,7 +542,7 @@ private:
     ContainerMap myContainers;
 
     /// @brief vehicles to keep for public transport routing
-    std::set<const RORoutable*> myPTVehicles;
+    std::vector<const RORoutable*> myPTVehicles;
 
     /// @brief Departure times for randomized flows
     std::map<std::string, std::vector<SUMOTime> > myDepartures;

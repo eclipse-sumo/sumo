@@ -129,6 +129,10 @@ public:
         return myParameter.line != "";
     }
 
+    inline bool isPartOfFlow() const {
+        return myParameter.repetitionNumber >= 0;
+    }
+
     virtual void computeRoute(const RORouterProvider& provider,
                               const bool removeLoops, MsgHandler* errorHandler) = 0;
 
