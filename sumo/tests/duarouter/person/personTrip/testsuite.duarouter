@@ -68,4 +68,7 @@ early_ending_flow
 
 # keep public transport vehicles even if they end early
 early_pt
+
+# parse additionals first to get late public transport
+late_pt
 errors
