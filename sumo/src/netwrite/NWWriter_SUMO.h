@@ -100,27 +100,25 @@ public:
     static void writeRoundabouts(OutputDevice& into, const std::set<EdgeSet>& roundabouts,
                                  const NBEdgeCont& ec);
 
-protected:
+private:
     /// @name Methods for writing network parts
     /// @{
 
     /** @brief Writes internal edges (<edge ... with id[0]==':') of the given node
      * @param[in] into The device to write the edges into
      * @param[in] n The node to write the edges of
-     * @param[in] origNames Whether original names shall be written as parameter
      * @return Whether an internal edge was written
      */
-    static bool writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, const NBNode& n, bool origNames);
+    static bool writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, const NBNode& n);
 
 
     /** @brief Writes an edge (<edge ...)
      * @param[in] into The device to write the edge into
      * @param[in] e The edge to write
      * @param[in] noNames Whether names shall be ignored
-     * @param[in] origNames Whether original names shall be written as parameter
      * @see writeLane()
      */
-    static void writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool origNames);
+    static void writeEdge(OutputDevice& into, const NBEdge& e, bool noNames);
 
 
     /** @brief Writes a lane (<lane ...) of an edge
@@ -129,17 +127,15 @@ protected:
      * @param[in] origID The original ID of the edge in the input
      * @param[in] length Lane's length
      * @param[in] index The index of the lane within the edge
-     * @param[in] origNames Whether original names shall be written as parameter
      * @param[in] oppositeID The ID of the opposite lane for overtaking
-     * @param[in] node The node to check for custom shape data
      * @param[in] accelRamp whether this lane is an acceleration lane
      * @param[in] customShape whether this lane has a custom shape
      */
     static void writeLane(OutputDevice& into, const std::string& lID,
                           double speed, SVCPermissions permissions, SVCPermissions preferred,
                           double endOffset, double width, PositionVector shape,
-                          const Parameterised* params, double length, int index, bool origNames,
-                          const std::string& oppositeID, const NBNode* node = 0, bool accelRamp = false,
+                          const Parameterised* params, double length, int index,
+                          const std::string& oppositeID, bool accelRamp = false,
                           bool customShape = false);
 
 
@@ -148,7 +144,7 @@ protected:
      * @param[in] n The junction/node to write
      * @param[in] checkLaneFoes Whether laneConflicts shall be checked at this junction
      */
-    static void writeJunction(OutputDevice& into, const NBNode& n, const bool checkLaneFoes, bool origNames);
+    static void writeJunction(OutputDevice& into, const NBNode& n, const bool checkLaneFoes);
 
 
     /** @brief Writes internal junctions (<junction with id[0]==':' ...) of the given node
@@ -171,7 +167,6 @@ protected:
      */
     static void writeDistrict(OutputDevice& into, const NBDistrict& d);
 
-private:
     /** @brief Writes a single internal connection
      * @param[in] from The id of the from-edge
      * @param[in] to The id of the to-edge
