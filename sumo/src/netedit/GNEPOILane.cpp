@@ -64,7 +64,7 @@
 GNEPOILane::GNEPOILane(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
     double layer, double angle, const std::string& imgFile, GNELane *lane, double posOverLane, double posLat,
     double width, double height, bool movementBlocked) :
-    GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, width, height),
+    GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane / lane->getLaneParametricLength(), posLat, layer, angle, imgFile, width, height),
     GNEShape(net, SUMO_TAG_POILANE, ICON_LOCATEPOI, movementBlocked, false),
     myGNELane(lane) {
 }
@@ -75,7 +75,10 @@ GNEPOILane::~GNEPOILane() {}
 
 void 
 GNEPOILane::writeShape(OutputDevice& device) {
-    writeXML(device, false, 0, myGNELane->getID(), myPosOverLane, myPosLat);
+    // obtain fixed position over lane
+    double fixedPositionOverLane = myPosOverLane > 1 ? 1 : myPosOverLane < 0 ? 0 : myPosOverLane;
+    // write POILane using POI::writeXML
+    writeXML(device, false, 0, myGNELane->getID(), fixedPositionOverLane * myGNELane->getShape().length(), myPosLat);
 }
 
 
@@ -104,8 +107,10 @@ GNEPOILane::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) 
 
 void 
 GNEPOILane::updateGeometry() {
+    // obtain fixed position over lane
+    double fixedPositionOverLane = myPosOverLane > 1 ? 1 : myPosOverLane < 0 ? 0 : myPosOverLane;
     // set new position regarding to lane
-    set(myGNELane->getShape().positionAtOffset(myPosOverLane, myPosLat));
+    set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane * myGNELane->getLaneParametricLength(), myPosLat));
     myNet->refreshShape(this);
 }
 
@@ -158,7 +163,7 @@ GNEPOILane::getAttribute(SumoXMLAttr key) const {
     case SUMO_ATTR_LANE:
         return myLane;
     case SUMO_ATTR_POSITION:
-        return toString(myPosOverLane);
+        return toString(myPosOverLane * myGNELane->getLaneParametricLength());
     case SUMO_ATTR_POSITION_LAT:
         return toString(myPosLat);
     case SUMO_ATTR_TYPE:
@@ -271,10 +276,10 @@ GNEPOILane::setAttribute(SumoXMLAttr key, const std::string& value) {
         updateGeometry();
         break;
     case SUMO_ATTR_POSITION:
-        myPosOverLane = parse<double>(value);
+        myPosOverLane = parse<double>(value) / myGNELane->getLaneParametricLength();
         break;
     case SUMO_ATTR_POSITION_LAT:
-        myPosOverLane = parse<double>(value);
+        myPosLat = parse<double>(value);
         break;
     case SUMO_ATTR_TYPE:
         myType = value;
@@ -300,8 +305,8 @@ GNEPOILane::setAttribute(SumoXMLAttr key, const std::string& value) {
     default:
         throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
     }
-    // Refresh POI in view
-    myNet->refreshShape(this);
+    // update Geometry after every change
+    updateGeometry();
 }
 
 /****************************************************************************/
