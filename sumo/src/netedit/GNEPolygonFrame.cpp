@@ -362,7 +362,6 @@ GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string>& POIValues) {
 
 bool
 GNEPolygonFrame::addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues) {
-    bool ok = true;
     // parse attributes from POIValues
     std::string id = POIValues.at(SUMO_ATTR_ID);
     std::string type = POIValues.at(SUMO_ATTR_TYPE);

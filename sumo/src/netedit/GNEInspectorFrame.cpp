@@ -57,6 +57,7 @@
 #include "GNELane.h"
 #include "GNENet.h"
 #include "GNEPOI.h"
+#include "GNEPOILane.h"
 #include "GNEPoly.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
@@ -477,6 +478,9 @@ GNEInspectorFrame::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
 
 void
 GNEInspectorFrame::showAttributeCarrierChilds() {
+
+    /** NOTE: This function has to be simplified **/
+
     // Only show attributes of ONE attribute carrier
     assert(myACs.size() == 1);
     // clear items
@@ -647,12 +651,22 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
             break;
         }
         case GLO_POI: {
-            // insert POI root
-            GNEPOI* POI = dynamic_cast<GNEPOI*>(myACs.front());
-            FXTreeItem* POIItem = myTreelist->insertItem(0, 0, toString(POI->getTag()).c_str(), POI->getIcon(), POI->getIcon());
-            myTreeItemToACMap[POIItem] = POI;
-            POIItem->setExpanded(true);
-            break;
+            // check type of POI
+            if(myACs.front()->getTag() == SUMO_TAG_POI) {
+                // insert POI root
+                GNEPOI* POI = dynamic_cast<GNEPOI*>(myACs.front());
+                FXTreeItem* POIItem = myTreelist->insertItem(0, 0, toString(POI->getTag()).c_str(), POI->getIcon(), POI->getIcon());
+                myTreeItemToACMap[POIItem] = POI;
+                POIItem->setExpanded(true);
+                break;
+            } else {
+                // insert POILane root
+                GNEPOILane* POILane = dynamic_cast<GNEPOILane*>(myACs.front());
+                FXTreeItem* POILaneItem = myTreelist->insertItem(0, 0, toString(POILane->getTag()).c_str(), POILane->getIcon(), POILane->getIcon());
+                myTreeItemToACMap[POILaneItem] = POILane;
+                POILaneItem->setExpanded(true);
+                break;
+            }
         }
         case GLO_POLYGON: {
             // insert polygon root
