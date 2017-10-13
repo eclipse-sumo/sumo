@@ -1,3 +1,5 @@
+Parameter order has change for setAdaptedTraveltime(). Attempting legacy ordering. Please update your code
+Parameter order has change for setEffort(). Attempting legacy ordering. Please update your code
 Error: Answered with error to command 0xa4: Vehicle 'bla' is not known
 Warning: Vehicle '1' aborts stop.
 Error: Answered with error to command 0xc4: Invalid departure position.

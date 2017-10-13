@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:55756 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:54676 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -102,7 +102,7 @@ fuel 0.0
 noise 0.0
 Elec 0.0
 traveltime 55.0
-effort -1001.0
+effort 54.0
 route valid True
 signals 0
 length 1.0
@@ -141,6 +141,10 @@ lane change able right False
 lane change able left False
 lane change wish right False
 lane change wish left False
+reset traveltime -1001.0
+reset effort -1001.0
+set traveltime (default range) 23.0
+set effort (default range) 24.0
 vehicles ['horiz']
 vehicle count 1
 examining bla
