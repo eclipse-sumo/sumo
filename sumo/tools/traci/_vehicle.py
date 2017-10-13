@@ -19,6 +19,7 @@
 
 from __future__ import absolute_import
 import struct
+import sys
 from .domain import Domain
 from .storage import Storage
 from . import constants as tc
@@ -836,35 +837,81 @@ class VehicleDomain(Domain):
         self._connection._packStringList(edgeList)
         self._connection._sendExact()
 
-    def setAdaptedTraveltime(self, vehID, begTime, endTime, edgeID, time):
-        """setAdaptedTraveltime(string, double, string, double) -> None
-
+    def setAdaptedTraveltime(self, vehID, edgeID, time=None, begTime=None, endTime=None):
+        """setAdaptedTraveltime(string, string, double, int, int) -> None
         Inserts the information about the travel time of edge "edgeID" valid
         from begin time to end time into the vehicle's internal edge weights
-        container. .
+        container. 
+        If the time is not specified, any previously set values for that edge
+        are removed.
+        If begTime or endTime are not specified the value is set for the whole
+        simulation duration.
         """
-        self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME,
-                                       vehID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8)
-        self._connection._string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
-                                                tc.TYPE_INTEGER, endTime)
-        self._connection._packString(edgeID)
-        self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, time)
-        self._connection._sendExact()
+        if type(edgeID) != str and type(begTime) == str: 
+            # legacy handling
+            sys.stderr.write("Parameter order has change for setAdaptedTraveltime(). Attempting legacy ordering. Please update your code\n")
+            return self.setAdaptedTraveltime(vehID, begTime, endTime, edgeID, time)
+        if time is None:
+            # reset
+            self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME,
+                                           vehID, 1 + 4 + 1 + 4 + len(edgeID))
+            self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 1)
+            self._connection._packString(edgeID)
+            self._connection._sendExact()
+        elif begTime is None:
+            # set value for the whole simulation
+            self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME,
+                                           vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8)
+            self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
+            self._connection._packString(edgeID)
+            self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, time)
+            self._connection._sendExact()
+        else:
+            self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME,
+                                           vehID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8)
+            self._connection._string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
+                                                    tc.TYPE_INTEGER, endTime)
+            self._connection._packString(edgeID)
+            self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, time)
+            self._connection._sendExact()
 
-    def setEffort(self, vehID, begTime, endTime, edgeID, effort):
-        """setEffort(string, double, string, double) -> None
-
+    def setEffort(self, vehID, edgeID, effort=None, begTime=None, endTime=None):
+        """setEffort(string, string, double, int, int) -> None
         Inserts the information about the effort of edge "edgeID" valid from
         begin time to end time into the vehicle's internal edge weights
         container.
+        If the time is not specified, any previously set values for that edge
+        are removed.
+        If begTime or endTime are not specified the value is set for the whole
+        simulation duration.
         """
-        self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT,
-                                       vehID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID) + 1 + 4)
-        self._connection._string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
-                                                tc.TYPE_INTEGER, endTime)
-        self._connection._packString(edgeID)
-        self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, effort)
-        self._connection._sendExact()
+        if type(edgeID) != str and type(begTime) == str: 
+            # legacy handling
+            sys.stderr.write("Parameter order has change for setEffort(). Attempting legacy ordering. Please update your code\n")
+            return self.setEffort(vehID, begTime, endTime, edgeID, effort)
+        if effort is None:
+            # reset
+            self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT,
+                                           vehID, 1 + 4 + 1 + 4 + len(edgeID))
+            self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 1)
+            self._connection._packString(edgeID)
+            self._connection._sendExact()
+        elif begTime is None:
+            # set value for the whole simulation
+            self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT,
+                                           vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8)
+            self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
+            self._connection._packString(edgeID)
+            self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, effort)
+            self._connection._sendExact()
+        else:
+            self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT,
+                                           vehID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8)
+            self._connection._string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
+                                                    tc.TYPE_INTEGER, endTime)
+            self._connection._packString(edgeID)
+            self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, effort)
+            self._connection._sendExact()
 
     LAST_TRAVEL_TIME_UPDATE = -1
 

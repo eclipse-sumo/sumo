@@ -157,12 +157,21 @@ traci.vehicle.setColor(vehID, (255, 0, 0, 255))
 traci.vehicle.setLine(vehID, "S46")
 traci.vehicle.setVia(vehID, ["3o", "4o"])
 traci.vehicle.setAdaptedTraveltime(vehID, 0, 1000, "1o", 55)
+traci.vehicle.setEffort(vehID, 0, 1000, "1o", 54)
 traci.vehicle.setParameter(vehID, "foo", "bar")
 traci.vehicle.setParameter(vehID, "laneChangeModel.lcStrategic", "2.0")
 traci.vehicle.setStop(
     vehID, "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
 
 check(vehID)
+traci.vehicle.setAdaptedTraveltime(vehID,"1o")
+traci.vehicle.setEffort(vehID, "1o")
+print("reset traveltime", traci.vehicle.getAdaptedTraveltime(vehID, 0, "1o"))
+print("reset effort", traci.vehicle.getEffort(vehID, 0, "1o"))
+traci.vehicle.setAdaptedTraveltime(vehID,"1o", 23)
+traci.vehicle.setEffort(vehID, "1o", 24)
+print("set traveltime (default range)", traci.vehicle.getAdaptedTraveltime(vehID, 0, "1o"))
+print("set effort (default range)", traci.vehicle.getEffort(vehID, 0, "1o"))
 try:
     check("bla")
 except traci.TraCIException:
