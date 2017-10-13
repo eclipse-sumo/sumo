@@ -68,6 +68,7 @@ output:data\\{REPLACE data/}
 output:Could not connect to TraCI server
 output:Retrying in
 output:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
+output:Loading vehicle type mappings from file.*{REPLACE Loading vehicle type mappings from file '<vtype.map>'...}
 log:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
 net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
