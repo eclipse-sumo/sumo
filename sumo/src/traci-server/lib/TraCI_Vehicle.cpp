@@ -864,6 +864,34 @@ TraCI_Vehicle::setEffort(const std::string& vehicleID, const std::string& edgeID
     }
 }
 
+
+void 
+TraCI_Vehicle::rerouteTraveltime(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), MSNet::getInstance()->getRouterTT(), isOnInit(vehicleID));
+}
+
+
+void 
+TraCI_Vehicle::rerouteEffort(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), MSNet::getInstance()->getRouterEffort(), isOnInit(vehicleID));
+}
+
+
+void 
+TraCI_Vehicle::setSignals(const std::string& vehicleID, int signals) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    // set influencer to make the change persistent
+    veh->getInfluencer().setSignals(signals);
+    // set them now so that getSignals returns the correct value
+    veh->switchOffSignal(0x0fffffff);
+    if (signals >= 0) {
+        veh->switchOnSignal(signals);
+    }
+}
+
+
 void
 TraCI_Vehicle::setMaxSpeed(const std::string& vehicleID, double speed) {
     getVehicle(vehicleID)->getSingularType().setMaxSpeed(speed);

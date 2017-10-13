@@ -791,7 +791,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (inputStorage.readInt() != 0) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Rerouting should obtain an empty compound object.", outputStorage);
                 }
-                v->reroute(MSNet::getInstance()->getCurrentTimeStep(), MSNet::getInstance()->getRouterTT(), onInit);
+                TraCI_Vehicle::rerouteTraveltime(id);
             }
             break;
             case CMD_REROUTE_EFFORT: {
@@ -801,7 +801,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (inputStorage.readInt() != 0) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Rerouting should obtain an empty compound object.", outputStorage);
                 }
-                v->reroute(MSNet::getInstance()->getCurrentTimeStep(), MSNet::getInstance()->getRouterEffort(), onInit);
+                TraCI_Vehicle::rerouteEffort(id);
             }
             break;
             case VAR_SIGNALS: {
@@ -809,14 +809,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingInt(inputStorage, signals)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting signals requires an integer.", outputStorage);
                 }
-                // set influencer to make the change persistent
-                v->getInfluencer().setSignals(signals);
-                // set them now so that getSignals returns the correct value
-                v->switchOffSignal(0x0fffffff);
-                if (signals >= 0) {
-                    v->switchOnSignal(signals);
-                }
-
+                TraCI_Vehicle::setSignals(id, signals);
             }
             break;
             case VAR_MOVE_TO: {

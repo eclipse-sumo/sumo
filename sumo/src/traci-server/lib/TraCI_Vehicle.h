@@ -168,6 +168,9 @@ public:
             double time=INVALID_DOUBLE_VALUE, SUMOTime begTime=0, SUMOTime endTime=SUMOTime_MAX);
     static void setEffort(const std::string& vehicleID, const std::string& edgeID, 
             double effort=INVALID_DOUBLE_VALUE, SUMOTime begTime=0, SUMOTime endTime=SUMOTime_MAX);
+    static void rerouteTraveltime(const std::string& vehicleID);
+    static void rerouteEffort(const std::string& vehicleID);
+    static void setSignals(const std::string& vehicleID, int signals);
     static void setMaxSpeed(const std::string& vehicleID, double speed);
     static void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED);
     static void setColor(const std::string& vehicleID, const TraCIColor& col);
