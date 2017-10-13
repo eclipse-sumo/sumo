@@ -1,12 +1,15 @@
 import unittest as ut
 import os, sys, subprocess
+
+# Put tools into PYTHONPATH
+sumoHome = os.environ.get("SUMO_HOME", os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..')))
+sys.path.append(os.path.join(sumoHome, "tools"))
+
 import traci, sumolib
 import simpla._config as cfg
 import simpla._reporting as rp
 from simpla import SimplaException
 from simpla._platoonmode import PlatoonMode
-from traitlets.tests._warnings import expected_warnings
-import shutil
 
 class TestConfig(ut.TestCase):
     
