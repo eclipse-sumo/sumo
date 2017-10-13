@@ -114,6 +114,9 @@ public:
     /// length of memory for waiting times (in millisecs)
     static SUMOTime gWaitingTimeMemory;
 
+    /// default value for the interval between two action points for MSVehicle (defaults to DELTA_T)
+    static SUMOTime gActionStepLength;
+
 };
 
 

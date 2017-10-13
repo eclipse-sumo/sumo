@@ -74,6 +74,7 @@ const int VTYPEPARS_CAR_FOLLOW_MODEL = 1 << 19;
 const int VTYPEPARS_MAXSPEED_LAT_SET = 1 << 20;
 const int VTYPEPARS_LATALIGNMENT_SET = 1 << 21;
 const int VTYPEPARS_MINGAP_LAT_SET = 1 << 22;
+const int VTYPEPARS_ACTIONSTEPLENGTH_SET = 1 << 23;
 
 
 // ===========================================================================
@@ -151,6 +152,9 @@ public:
     double minGap;
     /// @brief The vehicle type's maximum speed [m/s]
     double maxSpeed;
+    /// @brief The vehicle type's default actionStepLength [ms], i.e. the interval between two control actions.
+    ///        The default value of 0ms. induces the value to be traced from MSGlobals::gActionStepLength
+    SUMOTime actionStepLength;
     /// @brief The probability when being added to a distribution without an explicit probability
     double defaultProbability;
     /// @brief The factor by which the maximum speed may deviate from the allowed max speed on the street

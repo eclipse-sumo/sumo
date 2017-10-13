@@ -54,6 +54,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN), osgFile("car-normal-citrus.obj"),
       cfModel(SUMO_TAG_CF_KRAUSS), lcModel(LCM_DEFAULT),
       maxSpeedLat(1.0), latAlignment(LATALIGN_CENTER), minGapLat(0.6),
+      actionStepLength(0),
       parametersSet(0), saved(false), onlyReferenced(false) {
     switch (vclass) {
         case SVC_PEDESTRIAN:
@@ -230,6 +231,10 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     }
     if (wasSet(VTYPEPARS_SPEEDFACTOR_SET)) {
         dev.writeAttr(SUMO_ATTR_SPEEDFACTOR, speedFactor);
+    }
+    if (wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
+        // Note: action step length is only exposed in seconds to the user
+        dev.writeAttr(SUMO_ATTR_ACTIONSTEPLENGTH, STEPS2TIME(actionStepLength));
     }
     if (wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
         dev.writeAttr(SUMO_ATTR_VCLASS, toString(vehicleClass));

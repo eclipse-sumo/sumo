@@ -63,5 +63,7 @@ MELoop* MSGlobals::gMesoNet;
 bool MSGlobals::gSemiImplicitEulerUpdate;
 
 SUMOTime MSGlobals::gWaitingTimeMemory;
+
+SUMOTime MSGlobals::gActionStepLength;
 /****************************************************************************/
 

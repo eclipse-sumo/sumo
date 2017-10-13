@@ -93,6 +93,7 @@
     <xsd:complexType name="processingType">
         <xsd:all>
             <xsd:element name="step-method.ballistic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="default.action-step-length" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="lateral-resolution" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="carfollow.model" type="strOptionType" minOccurs="0"/>
             <xsd:element name="route-steps" type="timeOptionType" minOccurs="0"/>

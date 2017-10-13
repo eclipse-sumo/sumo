@@ -44,6 +44,7 @@
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/xml/SUMOVehicleParserHelper.h>
 #include <microsim/MSBaseVehicle.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSRoute.h>
@@ -316,6 +317,8 @@ MSFrame::fillOptions() {
     oc.doRegister("time-to-impatience", new Option_String("300", "TIME"));
     oc.addDescription("time-to-impatience", "Processing", "Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth");
 
+    oc.doRegister("default.action-step-length", new Option_Float(0.0));
+    oc.addDescription("default.action-step-length", "Processing", "Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length.");
 
     // pedestrian model
     oc.doRegister("pedestrian.model", new Option_String("striping"));
@@ -618,6 +621,11 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSLane::initCollisionOptions(oc);
 
     DELTA_T = string2time(oc.getString("step-length"));
+
+    // Init default value for gActionStepLength
+    double givenDefaultActionStepLength = oc.getFloat("default.action-step-length");
+    MSGlobals::gActionStepLength = SUMOVehicleParserHelper::processActionStepLength(givenDefaultActionStepLength);
+
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output")) {
         MSBaseVehicle::initMoveReminderOutput(oc);

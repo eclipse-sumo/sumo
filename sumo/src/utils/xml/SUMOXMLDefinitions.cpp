@@ -272,6 +272,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "decel",                  SUMO_ATTR_DECEL },
     { "emergencyDecel",         SUMO_ATTR_EMERGENCYDECEL },
     { "apparentDecel",          SUMO_ATTR_APPARENTDECEL },
+    { "actionStepLength",       SUMO_ATTR_ACTIONSTEPLENGTH },
     { "vClass",                 SUMO_ATTR_VCLASS },
     { "repno",                  SUMO_ATTR_REPNUMBER },
     { "speedFactor",            SUMO_ATTR_SPEEDFACTOR },

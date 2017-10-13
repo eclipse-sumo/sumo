@@ -218,6 +218,14 @@ public:
     }
 
 
+    /** @brief Returns this type's default action step length
+     * @return The default action step length of this type
+     */
+    SUMOTime getActionStepLength() const {
+        return myParameter.actionStepLength;
+    }
+
+
     /** @brief Returns this type's impatience
      * @return The impatience of this type
      */
@@ -408,6 +416,16 @@ public:
      * @param[in] dev The new speed deviation of this type
      */
     void setSpeedDeviation(const double& dev);
+
+
+    /** @brief Set a new value for this type's action step length
+     *
+     * If the given value<0 then the one from the original type will
+     *  be used.
+     *
+     * @param[in] actionStepLength The new action step length of this type
+     */
+    void setActionStepLength(const double& actionStepLength);
 
 
     /** @brief Set a new value for this type's emission class

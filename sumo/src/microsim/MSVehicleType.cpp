@@ -182,6 +182,16 @@ MSVehicleType::setSpeedDeviation(const double& dev) {
 
 
 void
+MSVehicleType::setActionStepLength(const double& actionStepLength) {
+    if (myOriginalType != 0 && actionStepLength < 0) {
+        myParameter.actionStepLength = myOriginalType->myParameter.actionStepLength;
+    } else {
+        myParameter.actionStepLength = actionStepLength;
+    }
+}
+
+
+void
 MSVehicleType::setEmissionClass(SUMOEmissionClass eclass) {
     myParameter.emissionClass = eclass;
 }

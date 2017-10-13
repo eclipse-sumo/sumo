@@ -1165,6 +1165,13 @@ public:
     bool passingMinor() const;
 
 
+    /// @brief Selects the adequate value for the action step length of the vehicle.
+    ///        The choice hierarchy is vehPars.actionStepLength => vtypePars.stepLength => MSGlobals::gActionStepLength
+    /// @param[in] vehPars Vehicle's parameters
+    /// @param[in] vehPars VehicleType's parameters
+    /// @return Chosen actionStepLength for the vehicle
+    static SUMOTime selectVehicleActionStepLength(const SUMOVehicleParameter& vehPars, const SUMOVTypeParameter& vtypePars);
+
 #ifndef NO_TRACI
     /** @brief Returns the uninfluenced velocity
      *
@@ -1535,6 +1542,9 @@ protected:
 
     /// @brief This Vehicles driving state (pos and speed)
     State myState;
+
+    /// @brief The vehicle's action step length (may be subject to dynamic changes)
+    SUMOTime myActionStepLength;
 
     /// The lane the vehicle is on
     MSLane* myLane;

@@ -55,6 +55,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/xml/SUMOVehicleParserHelper.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/pedestrians/MSPModel.h>
@@ -595,6 +596,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     }
     myLaneChangeModel = MSAbstractLaneChangeModel::build(type->getLaneChangeModel(), *this);
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
+    myActionStepLength = MSVehicle::selectVehicleActionStepLength(*pars, type->getParameter());
 }
 
 
@@ -4368,6 +4370,16 @@ MSVehicle::passingMinor() const {
     return false;
 }
 
+SUMOTime
+MSVehicle::selectVehicleActionStepLength(const SUMOVehicleParameter& vehPars, const SUMOVTypeParameter& vtypePars) {
+    if (vehPars.wasSet(VEHPARS_ACTIONSTEPLENGTH_SET)) {
+        return vehPars.actionStepLength;
+    } else if (vtypePars.wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
+        return vtypePars.actionStepLength;
+    } else {
+        return MSGlobals::gActionStepLength;
+    }
+}
 
 void
 MSVehicle::saveState(OutputDevice& out) {
@@ -4382,6 +4394,9 @@ MSVehicle::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_POSITION, myState.myPos);
     out.writeAttr(SUMO_ATTR_SPEED, myState.mySpeed);
     out.writeAttr(SUMO_ATTR_POSITION_LAT, myState.myPosLat);
+    if (myParameter->wasSet(VEHPARS_ACTIONSTEPLENGTH_SET)){
+        out.writeAttr(SUMO_ATTR_ACTIONSTEPLENGTH, STEPS2TIME(myActionStepLength));
+    }
     // save stops and parameters
     for (std::list<Stop>::const_iterator it = myStops.begin(); it != myStops.end(); ++it) {
         it->write(out);
@@ -4392,7 +4407,6 @@ MSVehicle::saveState(OutputDevice& out) {
     }
     out.closeTag();
 }
-
 
 void
 MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
@@ -4412,8 +4426,15 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     myState.myPos = attrs.getFloat(SUMO_ATTR_POSITION);
     myState.mySpeed = attrs.getFloat(SUMO_ATTR_SPEED);
     myState.myPosLat = attrs.getFloat(SUMO_ATTR_POSITION_LAT);
+    if (attrs.hasAttribute(SUMO_ATTR_ACTIONSTEPLENGTH)){
+        myActionStepLength = SUMOVehicleParserHelper::processActionStepLength(attrs.getFloat(SUMO_ATTR_ACTIONSTEPLENGTH));
+        myParameter->parametersSet |= VEHPARS_ACTIONSTEPLENGTH_SET;
+    } else {
+        // state-saves with previous versions don't contain the actionStepLength attribute
+        myActionStepLength = MSGlobals::gActionStepLength;
+    }
+
     // no need to reset myCachedPosition here since state loading happens directly after creation
 }
-
 
 /****************************************************************************/

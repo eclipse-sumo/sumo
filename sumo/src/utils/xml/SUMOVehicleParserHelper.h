@@ -155,6 +155,16 @@ public:
     /// @brief parse departPos or arrivalPos for a walk
     static double parseWalkPos(SumoXMLAttr attr, const std::string& id, double maxPos, const std::string& val, std::mt19937* rng = 0);
 
+
+    /** @brief Checks and converts given value for the action step length from seconds
+     *   to miliseconds assuring it being a positive multiple of the simulation step width
+     *
+     *   @param[in] given The value parsed from the configuration (seconds).
+     *   @return The milisecond value rounded to the next positive multiple of the simulation step length.
+     */
+    static SUMOTime processActionStepLength(double given);
+
+
 private:
     /** @brief Parses attributes common to vehicles and flows
      *

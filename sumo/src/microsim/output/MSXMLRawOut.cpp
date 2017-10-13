@@ -144,6 +144,8 @@ MSXMLRawOut::writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) {
         of.writeAttr(SUMO_ATTR_ID, veh.getID());
         of.writeAttr(SUMO_ATTR_POSITION, veh.getPositionOnLane());
         of.writeAttr(SUMO_ATTR_SPEED, veh.getSpeed());
+        // TODO: activate action step length output, if required
+        //of.writeAttr(SUMO_ATTR_ACTIONSTEPLENGTH, veh.getActionStepLength());
         if (!MSGlobals::gUseMesoSim) {
             const MSVehicle& microVeh = static_cast<const MSVehicle&>(veh);
             // microsim-specific stuff

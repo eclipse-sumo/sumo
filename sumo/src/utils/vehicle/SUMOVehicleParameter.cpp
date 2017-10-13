@@ -42,7 +42,7 @@
 // ===========================================================================
 SUMOVehicleParameter::SUMOVehicleParameter()
     : vtypeid(DEFAULT_VTYPE_ID), color(RGBColor::DEFAULT_COLOR),
-      depart(-1), departProcedure(DEPART_GIVEN),
+      depart(-1), departProcedure(DEPART_GIVEN), actionStepLength(0),
       departLane(0), departLaneProcedure(DEPART_LANE_DEFAULT),
       departPos(0), departPosProcedure(DEPART_POS_DEFAULT),
       departPosLat(0), departPosLatProcedure(DEPART_POSLAT_DEFAULT),
@@ -295,6 +295,12 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
     if (wasSet(VEHPARS_CONTAINER_NUMBER_SET)) {
         dev.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, containerNumber);
     }
+
+    // action step length
+    if (wasSet(VEHPARS_ACTIONSTEPLENGTH_SET)) {
+        dev.writeAttr(SUMO_ATTR_ACTIONSTEPLENGTH, STEPS2TIME(actionStepLength));
+    }
+
 }
 
 

@@ -70,6 +70,7 @@ const int VEHPARS_CONTAINER_NUMBER_SET = 2 << 16;
 const int VEHPARS_DEPARTPOSLAT_SET = 2 << 17;
 const int VEHPARS_ARRIVALPOSLAT_SET = 2 << 18;
 const int VEHPARS_VIA_SET = 2 << 19;
+const int VEHPARS_ACTIONSTEPLENGTH_SET = 2 << 20;
 
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
@@ -460,7 +461,8 @@ public:
     std::string vtypeid;
     /// @brief The vehicle's color, TraCI may change this
     mutable RGBColor color;
-
+    /// @brief The vehicle's actionStepLength [ms], i.e. the interval between two control actions.
+    SUMOTime actionStepLength;
 
     /// @name Departure definition
     /// @{
