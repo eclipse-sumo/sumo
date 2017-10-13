@@ -54,7 +54,7 @@
         <xsd:attribute name="lcLookaheadLeft" type="positiveFloatType"/>
         <xsd:attribute name="lcSpeedGainRight" type="positiveFloatType"/>
         <xsd:attribute name="maxSpeedLat" type="positiveFloatType"/>
-        <xsd:attribute name="action-step-length" type="positiveFloatType"/>
+        <xsd:attribute name="actionStepLength" type="positiveFloatType"/>
         <xsd:attribute name="latAlignment">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -291,7 +291,7 @@
         <xsd:attribute name="routeLength" type="nonNegativeFloatType"/>
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
-        <xsd:attribute name="action-step-length" type="positiveFloatType"/>
+        <xsd:attribute name="actionStepLength" type="positiveFloatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowWithoutIDType">
