@@ -459,6 +459,26 @@ public:
     double getAcceleration() const {
         return myAcceleration;
     }
+
+
+    /** @brief Returns the vehicle's action step length,
+     *         i.e. the interval between two action points.
+     * @return The current action step length
+     */
+    double getActionStepLength() const {
+        return myActionStepLength;
+    }
+
+
+    /** @brief Returns the vehicle's action step length,
+     *         i.e. the interval between two action points.
+     * @return The current action step length
+     */
+    void setActionStepLength(SUMOTime asl) {
+        myParameter->parametersSet |= VEHPARS_ACTIONSTEPLENGTH_SET;
+        myActionStepLength = asl;
+    }
+
     //@}
 
 
