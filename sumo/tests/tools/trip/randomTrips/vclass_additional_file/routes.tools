@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/19/17 09:04:54 by SUMO duarouter Version dev-SVN-r24744
+<!-- generated on Fri Oct 13 08:03:56 2017 by SUMO duarouter Version dev-SVN-r24506
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -13,6 +13,7 @@
 
     <output>
         <output-file value="out.rou.xml"/>
+        <alternatives-output value="out.rou.alt.xml"/>
     </output>
 
     <processing>
