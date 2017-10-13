@@ -75,9 +75,16 @@ elmar_names:# Generated
 elmar_traffic_signals:# Generated
 elmar_prohibited_manoeuvres:# Generated
 elmar_connected_lanes:# Generated
+elmar_links:<proj.scale value="1e-005"/>{REPLACE <proj.scale value="1e-05"/>}
+elmar_nodes:<proj.scale value="1e-005"/>{REPLACE <proj.scale value="1e-05"/>}
+elmar_names:<proj.scale value="1e-005"/>{REPLACE <proj.scale value="1e-05"/>}
+elmar_traffic_signals:<proj.scale value="1e-005"/>{REPLACE <proj.scale value="1e-05"/>}
+elmar_prohibited_manoeuvres:<proj.scale value="1e-005"/>{REPLACE <proj.scale value="1e-05"/>}
+elmar_connected_lanes:<proj.scale value="1e-005"/>{REPLACE <proj.scale value="1e-05"/>}
 
 [floating_point_tolerance]
 net:0.0101
 output:0.0101
 foreign:0.0001
+ptlines:0.0101
 cfg:0.000000001
