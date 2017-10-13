@@ -573,6 +573,7 @@
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="lines" type="xsd:string" use="required"/>
                     <xsd:attribute name="arrivalPos" type="xsd:float"/>
+                    <xsd:attribute name="cost" type="xsd:float"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="walk">
@@ -587,6 +588,7 @@
                     <xsd:attribute name="departPos" type="departPosType"/>
                     <xsd:attribute name="departPosLat" type="xsd:float"/>
                     <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
+                    <xsd:attribute name="cost" type="xsd:float"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="stop" type="stopType"/>
