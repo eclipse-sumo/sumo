@@ -5,11 +5,11 @@
     <input>
         <net-file value="input_net.net.xml"/>
     </input>
-    
-    <processing>
-        <begin value="0" />
-        <end value="60" />
-    </processing>
+
+    <time>
+        <begin value="0"/>
+        <end value="60"/>
+    </time>
 
     <report>
         <no-step-log value="true"/>
