@@ -70,28 +70,26 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, S
 }
 
 
-GNEStoppingPlace::~GNEStoppingPlace() {
-}
+GNEStoppingPlace::~GNEStoppingPlace() {}
 
 
 Position
 GNEStoppingPlace::getPositionInView() const {
-    double stoppingPlaceCenter = (myStartPosRelative + myEndPosRelative) / 2 ;
-    return myLane->getShape().positionAtOffset(stoppingPlaceCenter * myLane->getLaneShapeLength());
+    double stoppingPlaceCenterRelative = (myEndPosRelative + myStartPosRelative)/2.0;
+    return myLane->getShape().positionAtOffset(stoppingPlaceCenterRelative * myLane->getLaneShapeLength());
 }
 
 
 void
-GNEStoppingPlace::moveGeometry(const Position&, const Position &offset) {
-    // First we need to change the absolute new positions to a relative positions
-    double lenghtDifference = 0;
-    if (myLane->getLaneShapeLength() > 0) {
-        lenghtDifference = myLane->getLaneParametricLength() / myLane->getLaneShapeLength();
-    }
-    double relativePos = offset.x() / myLane->getLaneParametricLength() * lenghtDifference;
+GNEStoppingPlace::moveGeometry(const Position& oldPos, const Position &offset) {
+    double halfStoppingPlaceLenghtRelative = (myEndPosRelative - myStartPosRelative)/2.0;
+    // Calculate new position using old position
+    Position newPosition = oldPos;
+    newPosition.add(offset);
+    double newStoppingPlaceCenter = myLane->getShape().nearest_offset_to_point2D(newPosition, false) / myLane->getLaneShapeLength();
     // change start position of stopping place
-    myStartPosRelative += relativePos;
-    myEndPosRelative += relativePos;
+    myStartPosRelative = newStoppingPlaceCenter - halfStoppingPlaceLenghtRelative;
+    myEndPosRelative = newStoppingPlaceCenter + halfStoppingPlaceLenghtRelative;
     // Update geometry
     updateGeometry();
 }
@@ -99,9 +97,11 @@ GNEStoppingPlace::moveGeometry(const Position&, const Position &offset) {
 
 void
 GNEStoppingPlace::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+    double halfStoppingPlaceLenghtRelative = (myEndPosRelative - myStartPosRelative)/2.0;
+    double oldStoppingPlaceCenterOffset = myLane->getShape().nearest_offset_to_point2D(oldPos, false) / myLane->getLaneShapeLength();
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(getAbsoluteStartPosition()), true, toString(oldPos.x())));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(getAbsoluteEndPosition()), true, toString(oldPos.y())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(getAbsoluteStartPosition()), true, toString((oldStoppingPlaceCenterOffset - halfStoppingPlaceLenghtRelative) * myLane->getLaneParametricLength())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(getAbsoluteEndPosition()), true, toString((oldStoppingPlaceCenterOffset + halfStoppingPlaceLenghtRelative) * myLane->getLaneParametricLength())));
     undoList->p_end();
     // Refresh element
     myViewNet->getNet()->refreshAdditional(this);

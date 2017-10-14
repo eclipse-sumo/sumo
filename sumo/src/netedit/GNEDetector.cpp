@@ -98,36 +98,40 @@ GNEDetector::setFilename(const std::string& filename) {
     myFilename = filename;
 }
 
-double GNEDetector::getAbsolutePositionOverLane() const {
+double 
+GNEDetector::getAbsolutePositionOverLane() const {
     return myPositionOverLane * myLane->getLaneParametricLength();
 }
 
 
-void GNEDetector::moveGeometry(const Position&, const Position &offset) {
-    // First we need to change the absolute new position to a relative position
-    double lenghtDifference = 0;
-    if (myLane->getLaneShapeLength() > 0) {
-        lenghtDifference = myLane->getLaneParametricLength() / myLane->getLaneShapeLength();
-    }
-    double relativePos = offset.x() / myLane->getLaneParametricLength() * lenghtDifference;
-    // change relative position position over lane
-    myPositionOverLane += relativePos;
+void
+GNEDetector::moveGeometry(const Position& oldPos, const Position &offset) {
+    // Calculate new position using old position
+    Position newPosition = oldPos;
+    newPosition.add(offset);
+    myPositionOverLane = myLane->getShape().nearest_offset_to_point2D(newPosition, false) / myLane->getLaneShapeLength();
     // Update geometry
     updateGeometry();
 }
 
 
-void GNEDetector::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-    undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(getAbsolutePositionOverLane()), true, toString(oldPos.x())));
-    undoList->p_end();
-    // Refresh element
-    myViewNet->getNet()->refreshAdditional(this);
+void
+GNEDetector::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+    if (!myBlocked) {
+        // restore old position before commit new position
+        double originalPosOverLane = myLane->getShape().nearest_offset_to_point2D(oldPos, false);
+        undoList->p_begin("position of " + toString(getTag()));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane * myLane->getLaneParametricLength()), true, toString(originalPosOverLane)));
+        undoList->p_end();
+    }
 }
 
-Position GNEDetector::getPositionInView() const {
+
+Position 
+GNEDetector::getPositionInView() const {
     return myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length());
 }
+
 
 const std::string&
 GNEDetector::getParentName() const {

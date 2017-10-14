@@ -789,34 +789,9 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         myMovingSelection = true;
                     } else {
                         myAdditionalToMove = pointed_additional;
-                        if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_LANE)) {
-                            if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_STARTPOS)) {
-                                // Obtain start position
-                                double startPos = GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_STARTPOS));
-                                if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_ENDPOS)) {
-                                    // Obtain end position
-                                    double endPos = GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_ENDPOS));
-                                    // Save both values in myMovingOriginalPosition
-                                    myMovingOriginalPosition.set(startPos, endPos);
-                                } else if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_LENGTH)) {
-                                    // Obtain length attribute
-                                    double length = GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_LENGTH));
-                                    // Save both values in myMovingOriginalPosition
-                                    myMovingOriginalPosition.set(startPos, length);
-                                } else {
-                                    // Save only startpos in myMovingOriginalPosition
-                                    myMovingOriginalPosition.set(startPos, 0);
-                                }
-                            } else if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_POSITION)) {
-                                myMovingOriginalPosition.set(GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_POSITION)), 0);
-                            }
-                            // Set myMovingReference
-                            myMovingReference.set(pointed_additional->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false), 0, 0);
-                        } else {
-                            // Save original Position of Element and obtain moving reference
-                            myMovingOriginalPosition = pointed_additional->getPositionInView();
-                            myMovingReference = getPositionInformation();
-                        }
+                        // Save original Position of Element and obtain moving reference
+                        myMovingOriginalPosition = myAdditionalToMove->getPositionInView();
+                        myMovingReference = getPositionInformation();
                     }
                 } else {
                     // process click
@@ -1110,15 +1085,8 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
             // move edge's geometry without commiting changes
             myMovingIndexShape = myEdgeToMove->moveVertexShape(myMovingIndexShape, myMovingOriginalPosition, offsetMovement);
         } else if (myAdditionalToMove  && (myAdditionalToMove->isAdditionalBlocked() == false)) {
-            // If additional is placed over lane, move it across it
-            if (myAdditionalToMove->getLane()) {
-                double posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false);
-                myAdditionalToMove->moveGeometry(myMovingOriginalPosition, Position(posOfMouseOverLane - myMovingReference.x(), 0));
-                myMovingReference.set(posOfMouseOverLane, 0, 0);
-            } else {
-                // Move additional's geometry without commiting changes
-                myAdditionalToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
-            }
+            // Move Additional geometry without commiting changes
+            myAdditionalToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
         } else if (myAmInRectSelect) {
             mySelCorner2 = getPositionInformation();
         }
