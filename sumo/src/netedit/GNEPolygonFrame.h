@@ -43,7 +43,7 @@ class GNEShape;
 // ===========================================================================
 /**
 * @class GNEPolygonFrame
-* The Widget for setting internal attributes of additional elements
+* The Widget for setting internal attributes of shape elements
 */
 class GNEPolygonFrame : public GNEFrame {
     /// @brief FOX-declaration
@@ -51,7 +51,7 @@ class GNEPolygonFrame : public GNEFrame {
 
 public:
 
-    /// @brief enum with all possible values after try to create an additional using frame
+    /// @brief enum with all possible values after try to create an shape using frame
     enum AddShapeResult {
         ADDSHAPE_SUCCESS,   // Shape was successfully created
         ADDSHAPE_NEWPOINT,  // New point was sucesfully added to temporal shape
@@ -75,19 +75,19 @@ public:
         ~ShapeAttributeSingle();
 
         /// @brief show name and value of attribute of type string
-        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::string value);
+        void showParameter(SumoXMLTag shapeTag, SumoXMLAttr shapeAttr, std::string value);
 
         /// @brief show name and value of parameters of type int
-        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, int value);
+        void showParameter(SumoXMLTag shapeTag, SumoXMLAttr shapeAttr, int value);
 
         /// @brief show name and value of parameters of type float/real/time
-        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, double value);
+        void showParameter(SumoXMLTag shapeTag, SumoXMLAttr shapeAttr, double value);
 
         /// @brief show name and value of parameters of type bool
-        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, bool value);
+        void showParameter(SumoXMLTag shapeTag, SumoXMLAttr shapeAttr, bool value);
 
         /// @brief show name and value of parameters of type Color
-        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, RGBColor value);
+        void showParameter(SumoXMLTag shapeTag, SumoXMLAttr shapeAttr, RGBColor value);
 
         /// @brief hide all parameters
         void hideParameter();
@@ -169,7 +169,7 @@ public:
         void clearAttributes();
 
         /// @brief add attribute
-        void addAttribute(SumoXMLTag additionalTag, SumoXMLAttr ShapeAttributeSingle);
+        void addAttribute(SumoXMLTag shapeTag, SumoXMLAttr ShapeAttributeSingle);
 
         /// @brief show group box
         void showShapeParameters();
@@ -203,10 +203,10 @@ public:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
 
-        /// @brief current additional tag
+        /// @brief current shape tag
         SumoXMLTag myShapeTag;
 
-        /// @brief vector with the additional parameters
+        /// @brief vector with the shape parameters
         std::vector<ShapeAttributeSingle*> myVectorOfsingleShapeParameter;
 
         /// @brief Index for myVectorOfsingleShapeParameter
@@ -225,156 +225,6 @@ public:
         FXButton* helpShape;
     };
 
-    // ===========================================================================
-    // class NeteditAttributes
-    // ===========================================================================
-
-    class NeteditAttributes : public FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEPolygonFrame::NeteditAttributes)
-
-    public:
-        /// @brief constructor
-        NeteditAttributes(FXComposite* parent);
-
-        /// @brief destructor
-        ~NeteditAttributes();
-
-        /// @brief show NeteditAttributes
-        void show(bool shapeEditing);
-
-        /// @brief hide NeteditAttributes
-        void hide();
-
-        /// @brief check if block movement is enabled
-        bool isBlockMovementEnabled() const;
-
-        /// @brief check if block shape is enabled
-        bool isBlockShapeEnabled() const;
-
-        /// @brief check if clse shape is enabled
-        bool isCloseShapeEnabled() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when user changes the checkbox "set blocking movement"
-        long onCmdSetBlockMovement(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user changes the checkbox "set blocking shape"
-        long onCmdSetBlockShape(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user change checkbox for open/closed polygon
-        long onCmdsetClosingShape(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        NeteditAttributes() {}
-
-    private:
-        /// @brief Label for block movement
-        FXLabel* myBlockMovementLabel;
-
-        /// @brief checkBox for block movement
-        FXCheckButton* myBlockMovementCheckButton;
-
-        /// @brief frame for Block shape
-        FXHorizontalFrame* myBlockShapeFrame;
-
-        /// @brief Label for block shape
-        FXLabel* myBlockShapeLabel;
-
-        /// @brief checkBox for block shape
-        FXCheckButton* myBlockShapeCheckButton;
-
-        /// @brief Frame for open/close polygon
-        FXHorizontalFrame* myClosePolygonFrame;
-
-        /// @brief Label for open/close polygon
-        FXLabel* myClosePolygonLabel;
-
-        /// @brief checkbox to enable/disable closing polygon
-        FXCheckButton* myClosePolygonCheckButton;
-    };
-
-    // ===========================================================================
-    // class DrawingMode
-    // ===========================================================================
-
-    class DrawingMode : public FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEPolygonFrame::DrawingMode)
-
-    public:
-        /// @brief constructor
-        DrawingMode(GNEPolygonFrame* polygonFrameParent);
-
-        /// @brief destructor
-        ~DrawingMode();
-
-        /// @brief show Drawing mode
-        void show();
-
-        /// @brief show Drawing mode
-        void hide();
-
-        /// @brief start drawing
-        void startDrawing();
-
-        /// @brief stop drawing and create polygon or
-        void stopDrawing();
-
-        /// @brief abort drawing
-        void abortDrawing();
-
-        /// @brief add new point to temporal shape
-        void addNewPoint(const Position& P);
-
-        /// @brief remove last added point
-        void removeLastPoint();
-
-        /// @brief get Temporal shape
-        const PositionVector& getTemporalShape() const;
-
-        /// @brief return true if currently a shape is drawed
-        bool isDrawing() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user press start drawing button
-        long onCmdStartDrawing(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user press stop drawing button
-        long onCmdStopDrawing(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user press abort drawing button
-        long onCmdAbortDrawing(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        DrawingMode() {}
-
-    private:
-        /// @brief polygon frame parent
-        GNEPolygonFrame* myPolygonFrameParent;
-
-        /// @brief button for start drawing
-        FXButton* myStartDrawingButton;
-
-        /// @brief button for stop drawing
-        FXButton* myStopDrawingButton;
-
-        /// @brief button for abort drawing
-        FXButton* myAbortDrawingButton;
-
-        /// @brief Label with information
-        FXLabel* myInformationLabel;
-
-        /// @brief current drawed shape
-        PositionVector myTemporalShapeShape;
-    };
-
     /**@brief Constructor
     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
     * @brief viewNet viewNet that uses this GNEFrame
@@ -391,25 +241,19 @@ public:
     */
     AddShapeResult processClick(const Position& clickedPosition, GNELane *lane);
 
-    /**@brief build Polygon using values of Fields and drawed shap
+    /**@brief build Polygon using values of Fields and drawed shape
      * return true if was sucesfully created
      * @note called when user stop drawing polygon
      */
     bool buildPoly(const PositionVector& drawedShape);
 
-    /// @brief get editor parameters
-    GNEPolygonFrame::NeteditAttributes* getNetEditParameters() const;
-
-    /// @brief get drawing mode
-    GNEPolygonFrame::DrawingMode* getDrawingMode() const;
-
     /// @name FOX-callbacks
     /// @{
-    /// @brief Called when the user select another additional Type
+    /// @brief Called when the user select another shape Type
     long onCmdSelectShape(FXObject*, FXSelector, void*);
     /// @}
 
-    /// @brief show additional frame and update use selected edges/lanes
+    /// @brief show shape frame and update use selected edges/lanes
     void show();
 
     /// @brief get list of selecte id's in string format
@@ -429,25 +273,19 @@ protected:
     bool addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues);
 
 private:
-    /// @brief set parameters depending of the new additionalType
+    /// @brief set parameters depending of the new shapeType
     void setParametersOfShape(SumoXMLTag actualShapeType);
 
-    /// @brief groupBox for Match Box of additionals
+    /// @brief groupBox for Match Box of shapes
     FXGroupBox* myGroupBoxForMyShapeMatchBox;
 
-    /// @brief combo box with the list of additional elements
+    /// @brief combo box with the list of shape elements
     FXComboBox* myShapeMatchBox;
 
-    /// @brief additional internal attributes
+    /// @brief shape internal attributes
     GNEPolygonFrame::ShapeAttributes* myShapeAttributes;
 
-    /// @brief Netedit parameter
-    GNEPolygonFrame::NeteditAttributes* myEditorParameters;
-
-    /// @brief drawing mode
-    GNEPolygonFrame::DrawingMode* myDrawingMode;
-
-    /// @brief actual additional type selected in the match Box
+    /// @brief actual shape type selected in the match Box
     SumoXMLTag myActualShapeType;
 };
 

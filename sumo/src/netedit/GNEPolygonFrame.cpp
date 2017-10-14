@@ -56,7 +56,7 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEPolygonFrame) GNEShapeMap[] = {
+FXDEFMAP(GNEPolygonFrame) GNEPolygonFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECTADDITIONALTYPE,   GNEPolygonFrame::onCmdSelectShape),
 };
 
@@ -66,28 +66,14 @@ FXDEFMAP(GNEPolygonFrame::ShapeAttributeSingle) GNESingleShapeParameterMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_ATTRIBUTEEDITOR,         GNEPolygonFrame::ShapeAttributeSingle::onCmdSetColorAttribute),
 };
 
-FXDEFMAP(GNEPolygonFrame::ShapeAttributes) GNEAdditionalParametersMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEPolygonFrame::ShapeAttributes::onCmdHelp),
-};
-
-FXDEFMAP(GNEPolygonFrame::NeteditAttributes) GNEEditorParametersMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT,          GNEPolygonFrame::NeteditAttributes::onCmdSetBlockMovement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_SHAPE,                     GNEPolygonFrame::NeteditAttributes::onCmdSetBlockShape),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_CLOSE,                     GNEPolygonFrame::NeteditAttributes::onCmdsetClosingShape),
-};
-
-FXDEFMAP(GNEPolygonFrame::DrawingMode) GNEDrawingModeMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_STARTDRAWING,              GNEPolygonFrame::DrawingMode::onCmdStartDrawing),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_STOPDRAWING,               GNEPolygonFrame::DrawingMode::onCmdStopDrawing),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_ABORTDRAWING,              GNEPolygonFrame::DrawingMode::onCmdAbortDrawing),
+FXDEFMAP(GNEPolygonFrame::ShapeAttributes) GNEShapeParametersMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                                       GNEPolygonFrame::ShapeAttributes::onCmdHelp),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPolygonFrame,                        FXVerticalFrame,    GNEShapeMap,                    ARRAYNUMBER(GNEShapeMap))
+FXIMPLEMENT(GNEPolygonFrame,                        FXVerticalFrame,    GNEPolygonFrameMap,             ARRAYNUMBER(GNEPolygonFrameMap))
 FXIMPLEMENT(GNEPolygonFrame::ShapeAttributeSingle,  FXHorizontalFrame,  GNESingleShapeParameterMap,     ARRAYNUMBER(GNESingleShapeParameterMap))
-FXIMPLEMENT(GNEPolygonFrame::ShapeAttributes,       FXGroupBox,         GNEAdditionalParametersMap,     ARRAYNUMBER(GNEAdditionalParametersMap))
-FXIMPLEMENT(GNEPolygonFrame::NeteditAttributes,     FXGroupBox,         GNEEditorParametersMap,         ARRAYNUMBER(GNEEditorParametersMap))
-FXIMPLEMENT(GNEPolygonFrame::DrawingMode,           FXGroupBox,         GNEDrawingModeMap,              ARRAYNUMBER(GNEDrawingModeMap))
+FXIMPLEMENT(GNEPolygonFrame::ShapeAttributes,       FXGroupBox,         GNEShapeParametersMap,          ARRAYNUMBER(GNEShapeParametersMap))
 
 // ===========================================================================
 // method definitions
@@ -103,11 +89,11 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     // Create FXListBox in myGroupBoxForMyShapeMatchBox
     myShapeMatchBox = new FXComboBox(myGroupBoxForMyShapeMatchBox, GUIDesignComboBoxNCol, this, MID_GNE_ADDITIONALFRAME_SELECTADDITIONALTYPE, GUIDesignComboBox);
 
-    // Create additional parameters
+    // Create shape parameters
     myShapeAttributes = new GNEPolygonFrame::ShapeAttributes(myViewNet, myContentFrame);
 
     // Create Netedit parameter
-    myEditorParameters = new GNEPolygonFrame::NeteditAttributes(myContentFrame);
+    myNeteditAttributes = new GNEPolygonFrame::NeteditAttributes(this);
 
     // Create drawing controls
     myDrawingMode = new GNEPolygonFrame::DrawingMode(this);
@@ -120,16 +106,16 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     // Set visible items
     myShapeMatchBox->setNumVisible((int)myShapeMatchBox->getNumItems());
 
-    // If there are additionals
+    // If there are shapes
     if (GNEAttributeCarrier::allowedShapeTags().size() > 0) {
         // Set myActualShapeType and show
         myActualShapeType = GNEAttributeCarrier::allowedShapeTags().front();
         setParametersOfShape(myActualShapeType);
         // show drawing controls if we're creating a polygon
         if (myActualShapeType == SUMO_TAG_POLY) {
-            myDrawingMode->show();
+            myDrawingMode->showDrawingMode();
         } else {
-            myDrawingMode->hide();
+            myDrawingMode->hideDrawingMode();
         }
     }
 }
@@ -144,7 +130,7 @@ GNEPolygonFrame::AddShapeResult
 GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane *lane) {
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement = myShapeAttributes->getAttributesAndValues();
-    // check if current selected additional is valid
+    // check if current selected shape is valid
     if (myActualShapeType == SUMO_TAG_POI) {
         // show warning dialogbox and stop if input parameters are invalid
         if (myShapeAttributes->areValuesValid() == false) {
@@ -156,7 +142,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane *lane) {
         // obtain position
         valuesOfElement[SUMO_ATTR_POSITION] = toString(clickedPosition);
         // obtain block movement value
-        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockMovementEnabled());
+        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myNeteditAttributes->isBlockMovementEnabled());
         // return ADDSHAPE_SUCCESS if POI was sucesfully created
         if (addPOI(valuesOfElement)) {
             return ADDSHAPE_SUCCESS;
@@ -181,7 +167,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane *lane) {
         // obtain position over lane
         valuesOfElement[SUMO_ATTR_POSITION] = toString(lane->getShape().nearest_offset_to_point2D(clickedPosition));
         // obtain block movement value
-        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockMovementEnabled());
+        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myNeteditAttributes->isBlockMovementEnabled());
         // return ADDSHAPE_SUCCESS if POI was sucesfully created
         if (addPOILane(valuesOfElement)) {
             return ADDSHAPE_SUCCESS;
@@ -223,10 +209,10 @@ GNEPolygonFrame::buildPoly(const PositionVector& drawedShape) {
         valuesOfElement[SUMO_ATTR_GEO] = "false";
 
         // obtain block movement value
-        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockMovementEnabled());
+        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myNeteditAttributes->isBlockMovementEnabled());
 
         // obtain block shape value
-        valuesOfElement[GNE_ATTR_BLOCK_SHAPE] = toString(myEditorParameters->isBlockShapeEnabled());
+        valuesOfElement[GNE_ATTR_BLOCK_SHAPE] = toString(myNeteditAttributes->isBlockShapeEnabled());
 
         // return ADDSHAPE_SUCCESS if POI was sucesfully created
         return addPolygon(valuesOfElement);
@@ -234,48 +220,59 @@ GNEPolygonFrame::buildPoly(const PositionVector& drawedShape) {
 }
 
 
-GNEPolygonFrame::NeteditAttributes*
-GNEPolygonFrame::getNetEditParameters() const {
-    return myEditorParameters;
-}
-
-
-GNEPolygonFrame::DrawingMode*
-GNEPolygonFrame::getDrawingMode() const {
-    return myDrawingMode;
-}
-
-
 long
 GNEPolygonFrame::onCmdSelectShape(FXObject*, FXSelector, void*) {
     // Flag to save if name is valid
-    bool additionalNameCorrect = false;
-    // set parameters of additional, if it's correct
+    bool shapeNameCorrect = false;
+    // set parameters of shape, if it's correct
     for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
         if (toString(i) == myShapeMatchBox->getText().text()) {
             myShapeMatchBox->setTextColor(FXRGB(0, 0, 0));
             myShapeAttributes->show();
-            myEditorParameters->show(i == SUMO_TAG_POLY);
+            myNeteditAttributes->showNeteditAttributes(i == SUMO_TAG_POLY);
             setParametersOfShape(i);
-            additionalNameCorrect = true;
+            shapeNameCorrect = true;
         }
     }
-    // if additional name isn't correct, hidde all
-    if (additionalNameCorrect == false) {
+    // if shape name isn't correct, hidde all
+    if (shapeNameCorrect == false) {
         myActualShapeType = SUMO_TAG_NOTHING;
         myShapeMatchBox->setTextColor(FXRGB(255, 0, 0));
         myShapeAttributes->hide();
-        myEditorParameters->hide();
-        myDrawingMode->hide();
+        myNeteditAttributes->hideNeteditAttributes();
+        myDrawingMode->hideDrawingMode();
     } else {
         // show drawing controls if we're creating a polygon
         if (myActualShapeType == SUMO_TAG_POLY) {
-            myDrawingMode->show();
+            myDrawingMode->showDrawingMode();
         } else {
-            myDrawingMode->hide();
+            myDrawingMode->hideDrawingMode();
         }
     }
     return 1;
+}
+
+
+void
+GNEPolygonFrame::show() {
+    // Show frame
+    GNEFrame::show();
+}
+
+
+std::string
+GNEPolygonFrame::getIdsSelected(const FXList* list) {
+    // Obtain Id's of list
+    std::string vectorOfIds;
+    for (int i = 0; i < list->getNumItems(); i++) {
+        if (list->isItemSelected(i)) {
+            if (vectorOfIds.size() > 0) {
+                vectorOfIds += " ";
+            }
+            vectorOfIds += (list->getItem(i)->getText()).text();
+        }
+    }
+    return vectorOfIds;
 }
 
 
@@ -391,160 +388,6 @@ GNEPolygonFrame::addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues)
 }
 
 // ---------------------------------------------------------------------------
-// GNEPolygonFrame::DrawingMode - methods
-// ---------------------------------------------------------------------------
-
-GNEPolygonFrame::DrawingMode::DrawingMode(GNEPolygonFrame* polygonFrameParent) :
-    FXGroupBox(polygonFrameParent->myContentFrame, "Drawing", GUIDesignGroupBoxFrame),
-    myPolygonFrameParent(polygonFrameParent) {
-    // create start and stop buttons
-    myStartDrawingButton = new FXButton(this, "Start drawing", 0, this, MID_GNE_POLYGONFRAME_STARTDRAWING, GUIDesignButton);
-    myStopDrawingButton = new FXButton(this, "Stop drawing", 0, this, MID_GNE_POLYGONFRAME_STOPDRAWING, GUIDesignButton);
-    myAbortDrawingButton = new FXButton(this, "Abort drawing", 0, this, MID_GNE_POLYGONFRAME_ABORTDRAWING, GUIDesignButton);
-
-    // create information label
-    std::ostringstream information;
-    information
-            << "- 'Start drawing' or ENTER\n"
-            << "  draws polygon boundary.\n"
-            << "- 'Stop drawing' or ENTER\n"
-            << "  creates polygon.\n"
-            << "- 'Abort drawing' or ESC\n"
-            << "  removes drawed polygon.";
-    myInformationLabel = new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelLeft);
-    // disable stop and abort functions as init
-    myStopDrawingButton->disable();
-    myAbortDrawingButton->disable();
-}
-
-
-GNEPolygonFrame::DrawingMode::~DrawingMode() {}
-
-
-void GNEPolygonFrame::DrawingMode::show() {
-    // abort current drawing before show
-    abortDrawing();
-    // show FXGroupBox
-    FXGroupBox::show();
-}
-
-
-void GNEPolygonFrame::DrawingMode::hide() {
-    // abort current drawing before hide
-    abortDrawing();
-    // show FXGroupBox
-    FXGroupBox::hide();
-}
-
-
-void
-GNEPolygonFrame::DrawingMode::startDrawing() {
-    // Only start drawing if DrawingMode modul is shown
-    if(shown()) {
-        // change buttons
-        myStartDrawingButton->disable();
-        myStopDrawingButton->enable();
-        myAbortDrawingButton->enable();
-    }
-}
-
-
-void
-GNEPolygonFrame::DrawingMode::stopDrawing() {
-    // check if shape has to be closed
-    if (myPolygonFrameParent->getNetEditParameters()->isCloseShapeEnabled()) {
-        myTemporalShapeShape.closePolygon();
-    }
-    // try to build polygon
-    if (myPolygonFrameParent->buildPoly(myTemporalShapeShape)) {
-        // clear created points
-        myTemporalShapeShape.clear();
-        myPolygonFrameParent->getViewNet()->update();
-        // change buttons
-        myStartDrawingButton->enable();
-        myStopDrawingButton->disable();
-        myAbortDrawingButton->disable();
-    } else {
-        // abort drawing if poligion cannot be created
-        abortDrawing();
-    }
-}
-
-
-void
-GNEPolygonFrame::DrawingMode::abortDrawing() {
-    // clear created points
-    myTemporalShapeShape.clear();
-    myPolygonFrameParent->getViewNet()->update();
-    // change buttons
-    myStartDrawingButton->enable();
-    myStopDrawingButton->disable();
-    myAbortDrawingButton->disable();
-}
-
-
-void
-GNEPolygonFrame::DrawingMode::addNewPoint(const Position& P) {
-    if (myStopDrawingButton->isEnabled()) {
-        myTemporalShapeShape.push_back(P);
-    } else {
-        throw ProcessError("A new point cannot be added if drawing wasn't started");
-    }
-}
-
-
-void
-GNEPolygonFrame::DrawingMode::removeLastPoint() {
-    if (myStopDrawingButton->isEnabled()) {
-        if (myTemporalShapeShape.size() > 0) {
-            myTemporalShapeShape.pop_back();
-        }
-    } else {
-        throw ProcessError("Last point cannot be removed if drawing wasn't started");
-    }
-}
-
-
-const PositionVector&
-GNEPolygonFrame::DrawingMode::getTemporalShape() const {
-    return myTemporalShapeShape;
-}
-
-
-bool
-GNEPolygonFrame::DrawingMode::isDrawing() const {
-    return myStopDrawingButton->isEnabled();
-}
-
-
-long
-GNEPolygonFrame::DrawingMode::onCmdStartDrawing(FXObject*, FXSelector, void*) {
-    startDrawing();
-    return 0;
-}
-
-
-long
-GNEPolygonFrame::DrawingMode::onCmdStopDrawing(FXObject*, FXSelector, void*) {
-    stopDrawing();
-    return 0;
-}
-
-
-long
-GNEPolygonFrame::DrawingMode::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
-    abortDrawing();
-    return 0;
-}
-
-
-void
-GNEPolygonFrame::show() {
-    // Show frame
-    GNEFrame::show();
-}
-
-// ---------------------------------------------------------------------------
 // GNEPolygonFrame::ShapeAttributeSingle - methods
 // ---------------------------------------------------------------------------
 
@@ -568,9 +411,9 @@ GNEPolygonFrame::ShapeAttributeSingle::~ShapeAttributeSingle() {}
 
 
 void
-GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::string value) {
-    myShapeTag = additionalTag;
-    myShapeAttr = additionalAttr;
+GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag shapeTag, SumoXMLAttr shapeAttr, std::string value) {
+    myShapeTag = shapeTag;
+    myShapeAttr = shapeAttr;
     myInvalidValue = "";
     myLabel->setText(toString(myShapeAttr).c_str());
     myLabel->show();
@@ -582,9 +425,9 @@ GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag additionalTag, S
 
 
 void
-GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, int value) {
-    myShapeTag = additionalTag;
-    myShapeAttr = additionalAttr;
+GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag shapeTag, SumoXMLAttr shapeAttr, int value) {
+    myShapeTag = shapeTag;
+    myShapeAttr = shapeAttr;
     myInvalidValue = "";
     myLabel->setText(toString(myShapeAttr).c_str());
     myLabel->show();
@@ -596,9 +439,9 @@ GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag additionalTag, S
 
 
 void
-GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, double value) {
-    myShapeTag = additionalTag;
-    myShapeAttr = additionalAttr;
+GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag shapeTag, SumoXMLAttr shapeAttr, double value) {
+    myShapeTag = shapeTag;
+    myShapeAttr = shapeAttr;
     myInvalidValue = "";
     myLabel->setText(toString(myShapeAttr).c_str());
     myLabel->show();
@@ -610,9 +453,9 @@ GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag additionalTag, S
 
 
 void
-GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, bool value) {
-    myShapeTag = additionalTag;
-    myShapeAttr = additionalAttr;
+GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag shapeTag, SumoXMLAttr shapeAttr, bool value) {
+    myShapeTag = shapeTag;
+    myShapeAttr = shapeAttr;
     myInvalidValue = "";
     myLabel->setText(toString(myShapeAttr).c_str());
     myLabel->show();
@@ -629,9 +472,9 @@ GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag additionalTag, S
 
 
 void
-GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, RGBColor value) {
-    myShapeTag = additionalTag;
-    myShapeAttr = additionalAttr;
+GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLTag shapeTag, SumoXMLAttr shapeAttr, RGBColor value) {
+    myShapeTag = shapeTag;
+    myShapeAttr = shapeAttr;
     myInvalidValue = "";
     mycolorEditor->setText(toString(myShapeAttr).c_str());
     mycolorEditor->show();
@@ -832,9 +675,9 @@ GNEPolygonFrame::ShapeAttributes::clearAttributes() {
 
 
 void
-GNEPolygonFrame::ShapeAttributes::addAttribute(SumoXMLTag additionalTag, SumoXMLAttr ShapeAttributeSingle) {
-    // Set current additional
-    myShapeTag = additionalTag;
+GNEPolygonFrame::ShapeAttributes::addAttribute(SumoXMLTag shapeTag, SumoXMLAttr ShapeAttributeSingle) {
+    // Set current shape
+    myShapeTag = shapeTag;
 
     if (myIndexParameter < maxNumberOfParameters) {
         // Check type of attribute list
@@ -988,118 +831,6 @@ GNEPolygonFrame::ShapeAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     helpDialog->create();
     helpDialog->show();
     return 1;
-}
-
-// ---------------------------------------------------------------------------
-// GNEPolygonFrame::NeteditAttributes - methods
-// ---------------------------------------------------------------------------
-
-GNEPolygonFrame::NeteditAttributes::NeteditAttributes(FXComposite* parent) :
-    FXGroupBox(parent, "Netedit attributes", GUIDesignGroupBoxFrame)  {
-    // Create Frame for block movement label and checkBox (By default disabled)
-    FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myBlockMovementLabel = new FXLabel(blockMovement, "block move", 0, GUIDesignLabelAttribute);
-    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT, GUIDesignCheckButtonAttribute);
-    myBlockMovementCheckButton->setCheck(false);
-    // Create Frame for block shape label and checkBox (By default disabled)
-    myBlockShapeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myBlockShapeLabel = new FXLabel(myBlockShapeFrame, "block shape", 0, GUIDesignLabelAttribute);
-    myBlockShapeCheckButton = new FXCheckButton(myBlockShapeFrame, "false", this, MID_GNE_SET_BLOCKING_SHAPE, GUIDesignCheckButtonAttribute);
-    // Create Frame for block close polygon and checkBox (By default disabled)
-    myClosePolygonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myClosePolygonLabel = new FXLabel(myClosePolygonFrame, "Close shape", 0, GUIDesignLabelAttribute);
-    myClosePolygonCheckButton = new FXCheckButton(myClosePolygonFrame, "false", this, MID_GNE_POLYGONFRAME_CLOSE, GUIDesignCheckButtonAttribute);
-    myBlockShapeCheckButton->setCheck(false);
-}
-
-
-GNEPolygonFrame::NeteditAttributes::~NeteditAttributes() {}
-
-
-void
-GNEPolygonFrame::NeteditAttributes::show(bool shapeEditing) {
-    // show block and closing sahpe depending of shapeEditing
-    if (shapeEditing) {
-        myBlockShapeFrame->show();
-        myClosePolygonFrame->show();
-    } else {
-        myBlockShapeFrame->hide();
-        myClosePolygonFrame->hide();
-    }
-    FXGroupBox::show();
-}
-
-
-void
-GNEPolygonFrame::NeteditAttributes::hide() {
-    FXGroupBox::hide();
-}
-
-
-bool
-GNEPolygonFrame::NeteditAttributes::isBlockMovementEnabled() const {
-    return myBlockMovementCheckButton->getCheck() == 1 ? true : false;
-}
-
-
-bool
-GNEPolygonFrame::NeteditAttributes::isBlockShapeEnabled() const {
-    return myBlockShapeCheckButton->getCheck() == 1 ? true : false;
-}
-
-
-bool
-GNEPolygonFrame::NeteditAttributes::isCloseShapeEnabled() const {
-    return myClosePolygonCheckButton->getCheck() == 1 ? true : false;
-}
-
-
-long
-GNEPolygonFrame::NeteditAttributes::onCmdSetBlockMovement(FXObject*, FXSelector, void*) {
-    if (myBlockMovementCheckButton->getCheck()) {
-        myBlockMovementCheckButton->setText("true");
-    } else {
-        myBlockMovementCheckButton->setText("false");
-    }
-    return 1;
-}
-
-
-long
-GNEPolygonFrame::NeteditAttributes::onCmdSetBlockShape(FXObject*, FXSelector, void*) {
-    if (myBlockShapeCheckButton->getCheck()) {
-        myBlockShapeCheckButton->setText("true");
-    } else {
-        myBlockShapeCheckButton->setText("false");
-    }
-    return 1;
-}
-
-
-long
-GNEPolygonFrame::NeteditAttributes::onCmdsetClosingShape(FXObject*, FXSelector, void*) {
-    if (myClosePolygonCheckButton->getCheck()) {
-        myClosePolygonCheckButton->setText("true");
-    } else {
-        myClosePolygonCheckButton->setText("false");
-    }
-    return 1;
-}
-
-
-std::string
-GNEPolygonFrame::getIdsSelected(const FXList* list) {
-    // Obtain Id's of list
-    std::string vectorOfIds;
-    for (int i = 0; i < list->getNumItems(); i++) {
-        if (list->isItemSelected(i)) {
-            if (vectorOfIds.size() > 0) {
-                vectorOfIds += " ";
-            }
-            vectorOfIds += (list->getItem(i)->getText()).text();
-        }
-    }
-    return vectorOfIds;
 }
 
 /****************************************************************************/

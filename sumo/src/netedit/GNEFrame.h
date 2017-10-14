@@ -56,6 +56,81 @@ class GNEFrame : public FXVerticalFrame {
 public:
 
     // ===========================================================================
+    // class NeteditAttributes
+    // ===========================================================================
+
+    class NeteditAttributes : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrame::NeteditAttributes)
+
+    public:
+        /// @brief constructor
+        NeteditAttributes(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~NeteditAttributes();
+
+        /// @brief show NeteditAttributes
+        void showNeteditAttributes(bool shapeEditing);
+
+        /// @brief hide NeteditAttributes
+        void hideNeteditAttributes();
+
+        /// @brief check if block movement is enabled
+        bool isBlockMovementEnabled() const;
+
+        /// @brief check if block shape is enabled
+        bool isBlockShapeEnabled() const;
+
+        /// @brief check if clse shape is enabled
+        bool isCloseShapeEnabled() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user changes the checkbox "set blocking movement"
+        long onCmdSetBlockMovement(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user changes the checkbox "set blocking shape"
+        long onCmdSetBlockShape(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user change checkbox for open/closed polygon
+        long onCmdsetClosingShape(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        NeteditAttributes() {}
+
+    private:
+        /// @brief GNEFrame parent
+        GNEFrame* myFrameParent;
+
+        /// @brief Label for block movement
+        FXLabel* myBlockMovementLabel;
+
+        /// @brief checkBox for block movement
+        FXCheckButton* myBlockMovementCheckButton;
+
+        /// @brief frame for Block shape
+        FXHorizontalFrame* myBlockShapeFrame;
+
+        /// @brief Label for block shape
+        FXLabel* myBlockShapeLabel;
+
+        /// @brief checkBox for block shape
+        FXCheckButton* myBlockShapeCheckButton;
+
+        /// @brief Frame for open/close polygon
+        FXHorizontalFrame* myClosePolygonFrame;
+
+        /// @brief Label for open/close polygon
+        FXLabel* myClosePolygonLabel;
+
+        /// @brief checkbox to enable/disable closing polygon
+        FXCheckButton* myClosePolygonCheckButton;
+    };
+
+    // ===========================================================================
     // class GEOAttributes
     // ===========================================================================
 
@@ -65,7 +140,7 @@ public:
 
     public:
         /// @brief constructor
-        GEOAttributes(FXComposite* parent, GNEViewNet *viewNet);
+        GEOAttributes(GNEFrame* frameParent);
 
         /// @brief destructor
         ~GEOAttributes();
@@ -100,8 +175,8 @@ public:
         GEOAttributes() {}
 
     private:
-        /// @brief current ViewNet
-        GNEViewNet* myViewNet;
+        /// @brief current GNEFrame parent
+        GNEFrame* myFrameParent;
 
         /// @brief type of GEO Attribute
         SumoXMLAttr myGEOAttribute;
@@ -129,6 +204,84 @@ public:
 
         /// @brief button for help
         FXButton* myHelpButton;
+    };
+
+    // ===========================================================================
+    // class DrawingMode
+    // ===========================================================================
+
+    class DrawingMode : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrame::DrawingMode)
+
+    public:
+        /// @brief constructor
+        DrawingMode(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~DrawingMode();
+
+        /// @brief show Drawing mode
+        void showDrawingMode();
+
+        /// @brief hide Drawing mode
+        void hideDrawingMode();
+
+        /// @brief start drawing
+        void startDrawing();
+
+        /// @brief stop drawing and create polygon or
+        void stopDrawing();
+
+        /// @brief abort drawing
+        void abortDrawing();
+
+        /// @brief add new point to temporal shape
+        void addNewPoint(const Position& P);
+
+        /// @brief remove last added point
+        void removeLastPoint();
+
+        /// @brief get Temporal shape
+        const PositionVector& getTemporalShape() const;
+
+        /// @brief return true if currently a shape is drawed
+        bool isDrawing() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user press start drawing button
+        long onCmdStartDrawing(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press stop drawing button
+        long onCmdStopDrawing(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press abort drawing button
+        long onCmdAbortDrawing(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        DrawingMode() {}
+
+    private:
+        /// @brief frame frame parent
+        GNEFrame* myFrameParent;
+
+        /// @brief button for start drawing
+        FXButton* myStartDrawingButton;
+
+        /// @brief button for stop drawing
+        FXButton* myStopDrawingButton;
+
+        /// @brief button for abort drawing
+        FXButton* myAbortDrawingButton;
+
+        /// @brief Label with information
+        FXLabel* myInformationLabel;
+
+        /// @brief current drawed shape
+        PositionVector myTemporalShapeShape;
     };
 
 
@@ -167,15 +320,21 @@ public:
     /// @brief get font of the header's frame
     FXFont* getFrameHeaderFont() const;
 
+    /// @brief get netedit attributes editor
+    GNEFrame::NeteditAttributes* getNeteditAttributes() const;
+
+    /// @brief get GEO Parameters editor
+    GNEFrame::GEOAttributes* getGEOAttributes() const;
+
+    /// @brief get drawing mode editor
+    GNEFrame::DrawingMode* getDrawingMode() const;
+
 protected:
     /// @brief FOX needs this
     GNEFrame() {}
 
     /// @brief View Net for changes
     GNEViewNet* myViewNet;
-
-    /// @brief GEO Parameters
-    GNEFrame::GEOAttributes* myGEOAttributes;
 
     /// @brief Vertical frame that holds all widgets of frame
     FXVerticalFrame* myContentFrame;
@@ -188,6 +347,15 @@ protected:
 
     /// @brief fame for right header elements
     FXHorizontalFrame* myHeaderRightFrame;
+
+    /// @brief Netedit parameter
+    GNEFrame::NeteditAttributes* myNeteditAttributes;
+
+    /// @brief GEO Parameters
+    GNEFrame::GEOAttributes* myGEOAttributes;
+
+    /// @brief drawing mode
+    GNEFrame::DrawingMode* myDrawingMode;
 
 private:
     /// @brief scroll windows that holds the content frame

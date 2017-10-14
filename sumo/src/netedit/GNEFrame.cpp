@@ -43,18 +43,34 @@
 #include "GNEViewNet.h"
 #include "GNEAttributeCarrier.h"
 #include "GNEInspectorFrame.h"
+#include "GNEPolygonFrame.h"
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEFrame::GEOAttributes) GNEFrameGEOAttributes[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNEFRAME_GEOATTRIBUTE,  GNEFrame::GEOAttributes::onCmdSetGEOAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNEFRAME_USEGEO,        GNEFrame::GEOAttributes::onCmdUseGEOParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                   GNEFrame::GEOAttributes::onCmdHelp),
+FXDEFMAP(GNEFrame::NeteditAttributes) GNEFrameNeteditAttributesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT,  GNEFrame::NeteditAttributes::onCmdSetBlockMovement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_SHAPE,             GNEFrame::NeteditAttributes::onCmdSetBlockShape),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_CLOSE,             GNEFrame::NeteditAttributes::onCmdsetClosingShape),
 };
 
-FXIMPLEMENT(GNEFrame::GEOAttributes,    FXGroupBox,     GNEFrameGEOAttributes,  ARRAYNUMBER(GNEFrameGEOAttributes))
+FXDEFMAP(GNEFrame::GEOAttributes) GNEFrameGEOAttributes[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNEFRAME_GEOATTRIBUTE,              GNEFrame::GEOAttributes::onCmdSetGEOAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNEFRAME_USEGEO,                    GNEFrame::GEOAttributes::onCmdUseGEOParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNEFrame::GEOAttributes::onCmdHelp),
+};
+
+FXDEFMAP(GNEFrame::DrawingMode) GNEFrameDrawingModeMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_STARTDRAWING,      GNEFrame::DrawingMode::onCmdStartDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_STOPDRAWING,       GNEFrame::DrawingMode::onCmdStopDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_ABORTDRAWING,      GNEFrame::DrawingMode::onCmdAbortDrawing),
+};
+
+// Object implementation
+FXIMPLEMENT(GNEFrame::NeteditAttributes,    FXGroupBox,     GNEFrameNeteditAttributesMap,   ARRAYNUMBER(GNEFrameNeteditAttributesMap))
+FXIMPLEMENT(GNEFrame::GEOAttributes,        FXGroupBox,     GNEFrameGEOAttributes,          ARRAYNUMBER(GNEFrameGEOAttributes))
+FXIMPLEMENT(GNEFrame::DrawingMode,          FXGroupBox,     GNEFrameDrawingModeMap,         ARRAYNUMBER(GNEFrameDrawingModeMap))
 
 
 // ===========================================================================
@@ -62,12 +78,109 @@ FXIMPLEMENT(GNEFrame::GEOAttributes,    FXGroupBox,     GNEFrameGEOAttributes,  
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
+// GNEFrame::NeteditAttributes - methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
+    FXGroupBox(frameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent) {
+    // Create Frame for block movement label and checkBox (By default disabled)
+    FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myBlockMovementLabel = new FXLabel(blockMovement, "block move", 0, GUIDesignLabelAttribute);
+    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT, GUIDesignCheckButtonAttribute);
+    myBlockMovementCheckButton->setCheck(false);
+    // Create Frame for block shape label and checkBox (By default disabled)
+    myBlockShapeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myBlockShapeLabel = new FXLabel(myBlockShapeFrame, "block shape", 0, GUIDesignLabelAttribute);
+    myBlockShapeCheckButton = new FXCheckButton(myBlockShapeFrame, "false", this, MID_GNE_SET_BLOCKING_SHAPE, GUIDesignCheckButtonAttribute);
+    // Create Frame for block close polygon and checkBox (By default disabled)
+    myClosePolygonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myClosePolygonLabel = new FXLabel(myClosePolygonFrame, "Close shape", 0, GUIDesignLabelAttribute);
+    myClosePolygonCheckButton = new FXCheckButton(myClosePolygonFrame, "false", this, MID_GNE_POLYGONFRAME_CLOSE, GUIDesignCheckButtonAttribute);
+    myBlockShapeCheckButton->setCheck(false);
+}
+
+
+GNEFrame::NeteditAttributes::~NeteditAttributes() {}
+
+
+void
+GNEFrame::NeteditAttributes::showNeteditAttributes(bool shapeEditing) {
+    // show block and closing sahpe depending of shapeEditing
+    if (shapeEditing) {
+        myBlockShapeFrame->show();
+        myClosePolygonFrame->show();
+    } else {
+        myBlockShapeFrame->hide();
+        myClosePolygonFrame->hide();
+    }
+    FXGroupBox::show();
+}
+
+
+void
+GNEFrame::NeteditAttributes::hideNeteditAttributes() {
+    FXGroupBox::hide();
+}
+
+
+bool
+GNEFrame::NeteditAttributes::isBlockMovementEnabled() const {
+    return myBlockMovementCheckButton->getCheck() == 1 ? true : false;
+}
+
+
+bool
+GNEFrame::NeteditAttributes::isBlockShapeEnabled() const {
+    return myBlockShapeCheckButton->getCheck() == 1 ? true : false;
+}
+
+
+bool
+GNEFrame::NeteditAttributes::isCloseShapeEnabled() const {
+    return myClosePolygonCheckButton->getCheck() == 1 ? true : false;
+}
+
+
+long
+GNEFrame::NeteditAttributes::onCmdSetBlockMovement(FXObject*, FXSelector, void*) {
+    if (myBlockMovementCheckButton->getCheck()) {
+        myBlockMovementCheckButton->setText("true");
+    } else {
+        myBlockMovementCheckButton->setText("false");
+    }
+    return 1;
+}
+
+
+long
+GNEFrame::NeteditAttributes::onCmdSetBlockShape(FXObject*, FXSelector, void*) {
+    if (myBlockShapeCheckButton->getCheck()) {
+        myBlockShapeCheckButton->setText("true");
+    } else {
+        myBlockShapeCheckButton->setText("false");
+    }
+    return 1;
+}
+
+
+long
+GNEFrame::NeteditAttributes::onCmdsetClosingShape(FXObject*, FXSelector, void*) {
+    if (myClosePolygonCheckButton->getCheck()) {
+        myClosePolygonCheckButton->setText("true");
+    } else {
+        myClosePolygonCheckButton->setText("false");
+    }
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
 // GNEFrame::GEOAttributes - methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::GEOAttributes::GEOAttributes(FXComposite* parent, GNEViewNet *viewNet) :
-    FXGroupBox(parent, "GEO Attributes", GUIDesignGroupBoxFrame),
-    myViewNet(viewNet) {
+GNEFrame::GEOAttributes::GEOAttributes(GNEFrame* frameParent) :
+    FXGroupBox(frameParent->myContentFrame, "GEO Attributes", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent) {
 
     // Create Frame for GEOAttribute
     myGEOAttributeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
@@ -175,14 +288,14 @@ GNEFrame::GEOAttributes::onCmdSetGEOAttribute(FXObject*, FXSelector, void*) {
     if(myGEOAttributeTextField->getText().empty()) {
         WRITE_WARNING("GEO Shapes cannot be empty.");
     } else if(myACs.front()->isValid(myGEOAttribute, myGEOAttributeTextField->getText().text())) {
-        myACs.front()->setAttribute(myGEOAttribute, myGEOAttributeTextField->getText().text(), myViewNet->getUndoList());
+        myACs.front()->setAttribute(myGEOAttribute, myGEOAttributeTextField->getText().text(), myFrameParent->getViewNet()->getUndoList());
         myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
     } else {
         myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
         myGEOAttributeTextField->killFocus();
     }
     // refresh values of current inspected item (because attribute shape changes)
-    myViewNet->getViewParent()->getInspectorFrame()->refreshValues();
+    myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->refreshValues();
     return 0;
 }
 
@@ -197,7 +310,7 @@ GNEFrame::GEOAttributes::onCmdUseGEOParameters(FXObject*, FXSelector, void*) {
     }
     // update GEO Attribute of entire selection
     for (auto i : myACs) {
-        i->setAttribute(SUMO_ATTR_GEO, myUseGEOCheckButton->getText().text(), myViewNet->getUndoList());
+        i->setAttribute(SUMO_ATTR_GEO, myUseGEOCheckButton->getText().text(), myFrameParent->getViewNet()->getUndoList());
     }
     return 1;
 }
@@ -223,12 +336,167 @@ GNEFrame::GEOAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
 }
 
 // ---------------------------------------------------------------------------
+// GNEFrame::DrawingMode - methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::DrawingMode::DrawingMode(GNEFrame* frameParent) :
+    FXGroupBox(frameParent->myContentFrame, "Drawing", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent) {
+    // create start and stop buttons
+    myStartDrawingButton = new FXButton(this, "Start drawing", 0, this, MID_GNE_POLYGONFRAME_STARTDRAWING, GUIDesignButton);
+    myStopDrawingButton = new FXButton(this, "Stop drawing", 0, this, MID_GNE_POLYGONFRAME_STOPDRAWING, GUIDesignButton);
+    myAbortDrawingButton = new FXButton(this, "Abort drawing", 0, this, MID_GNE_POLYGONFRAME_ABORTDRAWING, GUIDesignButton);
+
+    // create information label
+    std::ostringstream information;
+    information
+        << "- 'Start drawing' or ENTER\n"
+        << "  draws polygon boundary.\n"
+        << "- 'Stop drawing' or ENTER\n"
+        << "  creates polygon.\n"
+        << "- 'Abort drawing' or ESC\n"
+        << "  removes drawed polygon.";
+    myInformationLabel = new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelLeft);
+    // disable stop and abort functions as init
+    myStopDrawingButton->disable();
+    myAbortDrawingButton->disable();
+}
+
+
+GNEFrame::DrawingMode::~DrawingMode() {}
+
+
+void GNEFrame::DrawingMode::showDrawingMode() {
+    // abort current drawing before show
+    abortDrawing();
+    // show FXGroupBox
+    FXGroupBox::show();
+}
+
+
+void GNEFrame::DrawingMode::hideDrawingMode() {
+    // abort current drawing before hide
+    abortDrawing();
+    // show FXGroupBox
+    FXGroupBox::hide();
+}
+
+
+void
+GNEFrame::DrawingMode::startDrawing() {
+    // Only start drawing if DrawingMode modul is shown
+    if(shown()) {
+        // change buttons
+        myStartDrawingButton->disable();
+        myStopDrawingButton->enable();
+        myAbortDrawingButton->enable();
+    }
+}
+
+
+void
+GNEFrame::DrawingMode::stopDrawing() {
+    // check if shape has to be closed
+    if (myFrameParent->getNeteditAttributes()->isCloseShapeEnabled()) {
+        myTemporalShapeShape.closePolygon();
+    }
+    // try to build polygon
+    /**  
+    NOTE: This solution using dynamic_cast is provisional, and has to be changed
+          for task #1112.
+    **/
+    if (dynamic_cast<GNEPolygonFrame*>(myFrameParent)->buildPoly(myTemporalShapeShape)) {
+        // clear created points
+        myTemporalShapeShape.clear();
+        myFrameParent->getViewNet()->update();
+        // change buttons
+        myStartDrawingButton->enable();
+        myStopDrawingButton->disable();
+        myAbortDrawingButton->disable();
+    } else {
+        // abort drawing if polygon cannot be created
+        abortDrawing();
+    }
+}
+
+
+void
+GNEFrame::DrawingMode::abortDrawing() {
+    // clear created points
+    myTemporalShapeShape.clear();
+    myFrameParent->getViewNet()->update();
+    // change buttons
+    myStartDrawingButton->enable();
+    myStopDrawingButton->disable();
+    myAbortDrawingButton->disable();
+}
+
+
+void
+GNEFrame::DrawingMode::addNewPoint(const Position& P) {
+    if (myStopDrawingButton->isEnabled()) {
+        myTemporalShapeShape.push_back(P);
+    } else {
+        throw ProcessError("A new point cannot be added if drawing wasn't started");
+    }
+}
+
+
+void
+GNEFrame::DrawingMode::removeLastPoint() {
+    if (myStopDrawingButton->isEnabled()) {
+        if (myTemporalShapeShape.size() > 0) {
+            myTemporalShapeShape.pop_back();
+        }
+    } else {
+        throw ProcessError("Last point cannot be removed if drawing wasn't started");
+    }
+}
+
+
+const PositionVector&
+GNEFrame::DrawingMode::getTemporalShape() const {
+    return myTemporalShapeShape;
+}
+
+
+bool
+GNEFrame::DrawingMode::isDrawing() const {
+    return myStopDrawingButton->isEnabled();
+}
+
+
+long
+GNEFrame::DrawingMode::onCmdStartDrawing(FXObject*, FXSelector, void*) {
+    startDrawing();
+    return 0;
+}
+
+
+long
+GNEFrame::DrawingMode::onCmdStopDrawing(FXObject*, FXSelector, void*) {
+    stopDrawing();
+    return 0;
+}
+
+
+long
+GNEFrame::DrawingMode::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
+    abortDrawing();
+    return 0;
+}
+
+// ---------------------------------------------------------------------------
 // GNEFrame - methods
 // ---------------------------------------------------------------------------
 
 GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, const std::string& frameLabel) :
     FXVerticalFrame(horizontalFrameParent, GUIDesignAuxiliarFrame),
-    myViewNet(viewNet) {
+    myViewNet(viewNet),
+    myNeteditAttributes(NULL),
+    myGEOAttributes(NULL),
+    myDrawingMode(NULL) {
+
     // Create font
     myFrameHeaderFont = new FXFont(getApp(), "Arial", 14, FXFont::Bold),
 
@@ -316,5 +584,34 @@ GNEFrame::getFrameHeaderFont() const {
     return myFrameHeaderFont;
 }
 
+
+GNEFrame::NeteditAttributes*
+GNEFrame::getNeteditAttributes() const {
+    if(myNeteditAttributes) {
+        return myNeteditAttributes;
+    } else {
+        throw ProcessError("Netedit Attributes editor wasn't created");
+    }
+}
+
+
+GNEFrame::GEOAttributes* 
+GNEFrame::getGEOAttributes() const {
+    if(myGEOAttributes) {
+        return myGEOAttributes;
+    } else {
+        throw ProcessError("GEO Attributes editor wasn't created");
+    }
+}
+
+
+GNEFrame::DrawingMode*
+GNEFrame::getDrawingMode() const {
+    if(myDrawingMode) {
+        return myDrawingMode;
+    } else {
+        throw ProcessError("Drawing Mode editor wasn't created");
+    }
+}
 
 /****************************************************************************/

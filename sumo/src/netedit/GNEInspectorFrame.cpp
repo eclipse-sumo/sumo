@@ -83,15 +83,15 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
 
 
 FXDEFMAP(GNEInspectorFrame::AttributeInput) AttributeInputMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEInspectorFrame::AttributeInput::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_ATTRIBUTEEDITOR,  GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                              GNEInspectorFrame::AttributeInput::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_ATTRIBUTEEDITOR,             GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor)
 };
 
 
 FXDEFMAP(GNEInspectorFrame::NeteditParameters) NeteditParameterstMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT,  GNEInspectorFrame::NeteditParameters::onCmdSetBlockingMovement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_SHAPE,     GNEInspectorFrame::NeteditParameters::onCmdSetBlockingShape),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_CLOSING_SHAPE,      GNEInspectorFrame::NeteditParameters::onCmdSetClosingShape),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT,              GNEInspectorFrame::NeteditParameters::onCmdSetBlockingMovement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_SHAPE,                         GNEInspectorFrame::NeteditParameters::onCmdSetBlockingShape),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_CLOSING_SHAPE,                          GNEInspectorFrame::NeteditParameters::onCmdSetClosingShape),
 };
 
 // Object implementation
@@ -124,7 +124,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     }
 
     // Create GEO Parameters
-    myGEOAttributes = new GNEFrame::GEOAttributes(myContentFrame, myViewNet);
+    myGEOAttributes = new GNEFrame::GEOAttributes(this);
 
     // Create netedit parameters
     myNeteditParameters = new NeteditParameters(this);
