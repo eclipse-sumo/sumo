@@ -545,7 +545,6 @@ GLHelper::drawTextAtEnd(const std::string& text, const PositionVector& shape, do
 }
 
 
-
 void
 GLHelper::debugVertices(const PositionVector& shape, double size, double layer) {
     RGBColor color = RGBColor::fromHSV(RandHelper::rand(360), 1, 1);
@@ -553,11 +552,6 @@ GLHelper::debugVertices(const PositionVector& shape, double size, double layer) 
         GLHelper::drawText(toString(i), shape[i], layer, size, color, 0);
     }
 }
-
-
-#if __GNUC__ > 3
-#pragma GCC diagnostic pop
-#endif
 
 
 /****************************************************************************/
