@@ -465,7 +465,7 @@ public:
      *         i.e. the interval between two action points.
      * @return The current action step length
      */
-    double getActionStepLength() const {
+    SUMOTime getActionStepLength() const {
         return myActionStepLength;
     }
 
