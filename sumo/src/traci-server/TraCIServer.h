@@ -43,25 +43,21 @@
 #include <string>
 #include <set>
 
-#include "TraCIDefs.h"
-#include "TraCIConstants.h"
-
 #define BUILD_TCPIP
 #include <foreign/tcpip/socket.h>
 #include <foreign/tcpip/storage.h>
 #include <utils/common/NamedRTree.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
-
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/shapes/PointOfInterest.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include "TraCIDefs.h"
+#include "TraCIConstants.h"
 #include "TraCIServerAPI_Lane.h"
-
 
 
 // ===========================================================================

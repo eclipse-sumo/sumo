@@ -30,8 +30,8 @@
 
 #ifndef NO_TRACI
 
-#include "TraCIConstants.h"
 #include <microsim/output/MSDetectorControl.h>
+#include "TraCIConstants.h"
 #include "lib/TraCI_MultiEntryExit.h"
 #include "TraCIServerAPI_MultiEntryExit.h"
 
