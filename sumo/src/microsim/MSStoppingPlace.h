@@ -166,6 +166,11 @@ public:
         myAccessPos.insert(std::make_pair(lane, pos));
     }
 
+    /// @brief lanes and positions connected to this stop
+    const std::multimap<MSLane*, double>& getAccessPos() const {
+        return myAccessPos;
+    }
+
     /// @brief checks whether this stop provides access to the given edge
     bool hasAccess(const MSEdge* edge) const;
 

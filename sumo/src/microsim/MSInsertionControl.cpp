@@ -41,6 +41,7 @@
 #include "MSVehicleControl.h"
 #include "MSLane.h"
 #include "MSEdge.h"
+#include "MSNet.h"
 #include "MSRouteHandler.h"
 #include "MSInsertionControl.h"
 
@@ -300,5 +301,25 @@ MSInsertionControl::getPendingEmits(const MSLane* lane) {
     return myPendingEmitsForLane[lane];
 }
 
-/****************************************************************************/
 
+void
+MSInsertionControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const {
+    // fill the public transport router with pre-parsed public transport lines
+    for (const Flow& f : myFlows) {
+        if (f.pars->line != "") {
+            const MSRoute* route = MSRoute::dictionary(f.pars->routeid);
+            const std::vector<SUMOVehicleParameter::Stop>* addStops = 0;
+            if (route != 0) {
+                addStops = &route->getStops();
+            }
+            router.addSchedule(*f.pars, addStops);
+        }
+    }
+    for (const SUMOVehicle* const veh : myPTVehicles) {
+        // add single vehicles with line attribute which are not part of a flow
+        router.addSchedule(veh->getParameter());
+    }
+}
+
+
+/****************************************************************************/

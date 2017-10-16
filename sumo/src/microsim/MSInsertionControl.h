@@ -35,6 +35,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include "MSNet.h"
 #include "MSVehicleContainer.h"
 
 
@@ -152,6 +153,8 @@ public:
     /// @brief return the number of pending emits for the given lane
     int getPendingEmits(const MSLane* lane);
 
+    void adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const;
+
 private:
     /** @brief Tries to emit the vehicle
      *
@@ -225,6 +228,9 @@ private:
 
     /// @brief the number of pending emits for each edge in the current time step
     std::map<const MSLane*, int> myPendingEmitsForLane;
+
+    /// @brief List of vehicles which belong to public transport
+    std::vector<SUMOVehicle*> myPTVehicles;
 
 
 private:

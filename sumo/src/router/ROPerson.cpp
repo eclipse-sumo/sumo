@@ -205,7 +205,6 @@ ROPerson::computeRoute(const RORouterProvider& provider,
     for (std::vector<PlanItem*>::iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
         if ((*it)->needsRouting()) {
             PersonTrip* trip = static_cast<PersonTrip*>(*it);
-            ConstROEdgeVector edges;
             std::vector<ROVehicle*>& vehicles = trip->getVehicles();
             if (vehicles.empty()) {
                 computeIntermodal(provider, trip, 0, errorHandler);

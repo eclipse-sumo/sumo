@@ -150,10 +150,10 @@ protected:
                     const std::string& rid);
 
     /// @brief add a routing request for a walking or intermodal person
-    bool addPersonTrip(const SUMOSAXAttributes& attrs);
+    void addPersonTrip(const SUMOSAXAttributes& attrs);
 
     /// @brief add a fully specified walk
-    bool addWalk(const SUMOSAXAttributes& attrs);
+    void addWalk(const SUMOSAXAttributes& attrs);
 
 protected:
     /// @brief The current route

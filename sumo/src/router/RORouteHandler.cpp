@@ -665,15 +665,13 @@ RORouteHandler::parseEdges(const std::string& desc, ConstROEdgeVector& into,
 }
 
 
-bool
+void
 RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    const char* id = myVehicleParameter->id.c_str();
+    const char* const id = myVehicleParameter->id.c_str();
     assert(!attrs.hasAttribute(SUMO_ATTR_EDGES));
     const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, id, ok);
     const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, id, ok);
-    const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
-    const std::string types = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id, ok, "");
     const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, id, ok, "");
 
     const ROEdge* from = myNet.getEdge(fromID);
@@ -699,6 +697,8 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, id, to->getLength(),
                      attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, id, ok));
     }
+
+    const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
     SVCPermissions modeSet = 0;
     for (StringTokenizer st(modes); st.hasNext();) {
         const std::string mode = st.next();
@@ -712,15 +712,15 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             throw InvalidArgument("Unknown person mode '" + mode + "'.");
         }
     }
+    const std::string types = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id, ok, "");
     double walkFactor = attrs.getOpt<double>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
     if (ok) {
         myActivePerson->addTrip(from, to, modeSet, types, departPos, arrivalPos, busStop, walkFactor);
     }
-    return ok;
 }
 
 
-bool
+void
 RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
     // XXX allow --repair?
     bool ok = true;

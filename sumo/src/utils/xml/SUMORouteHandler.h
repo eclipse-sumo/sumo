@@ -137,10 +137,10 @@ protected:
     virtual void addStop(const SUMOSAXAttributes& attrs) = 0;
 
     /// @brief add a routing request for a walking or intermodal person
-    virtual bool addPersonTrip(const SUMOSAXAttributes& attrs) = 0;
+    virtual void addPersonTrip(const SUMOSAXAttributes& attrs) = 0;
 
     /// @brief add a fully specified walk
-    virtual bool addWalk(const SUMOSAXAttributes& attrs) = 0;
+    virtual void addWalk(const SUMOSAXAttributes& attrs) = 0;
 
     /// Checks whether the route file is sorted by departure time if needed
     bool checkLastDepart();

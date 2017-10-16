@@ -1037,25 +1037,27 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
 }
 
 
-bool
+void
 MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     myActiveRoute.clear();
     bool ok = true;
-    const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, 0, ok, -1);
+    MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
+    const char* const id = myVehicleParameter->id.c_str();
+    const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, id, ok, -1);
     if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
         throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
     }
     double speed = DEFAULT_PEDESTRIAN_SPEED;
-    const MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
+    const MSVehicleType* vtype = vehControl.getVType(myVehicleParameter->vtypeid, &myParsingRNG);
     // need to check for explicitly set speed since we might have // DEFAULT_VEHTYPE
     if (vtype != 0) {
         speed = vtype->getMaxSpeed() * vtype->computeChosenSpeedDeviation(&myParsingRNG);
     }
-    speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, 0, ok, speed);
+    speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id, ok, speed);
     if (speed <= 0) {
         throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
     }
-    const std::string fromID = attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok, "");
+    const std::string fromID = attrs.getOpt<std::string>(SUMO_ATTR_FROM, id, ok, "");
     const MSEdge* from = fromID != "" || myActivePlan->empty() ? MSEdge::dictionary(fromID) : &myActivePlan->back()->getDestination();
     if (from == 0) {
         throw ProcessError("The from edge '" + fromID + "' within a walk of person '" + myVehicleParameter->id + "' is not known.");
@@ -1069,7 +1071,57 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     double arrivalPos = 0;
     MSStoppingPlace* bs = 0;
     parseWalkPositions(attrs, myVehicleParameter->id, from, to, departPos, arrivalPos, bs, ok);
-    MSNet::getInstance()->getPedestrianRouter().compute(from, to, departPos, arrivalPos, speed, 0, 0, myActiveRoute);
+
+    const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
+    SVCPermissions modeSet = 0;
+    for (StringTokenizer st(modes); st.hasNext();) {
+        const std::string mode = st.next();
+        if (mode == "car") {
+            modeSet |= SVC_PASSENGER;
+        } else if (mode == "bicycle") {
+            modeSet |= SVC_BICYCLE;
+        } else if (mode == "public") {
+            modeSet |= SVC_BUS;
+        } else {
+            throw InvalidArgument("Unknown person mode '" + mode + "'.");
+        }
+    }
+    const std::string types = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id, ok, "");
+    std::vector<SUMOVehicleParameter> pars;
+    for (StringTokenizer st(types); st.hasNext();) {
+        pars.emplace_back(SUMOVehicleParameter());
+        pars.back().vtypeid = st.next();
+        pars.back().parametersSet |= VEHPARS_VTYPE_SET;
+        MSVehicleType* type = vehControl.getVType(pars.back().vtypeid);
+        if (type == 0) {
+            throw InvalidArgument("The vehicle type '" + pars.back().vtypeid + "' in a trip for person '" + myVehicleParameter->id + "' is not known.");
+        }
+        pars.back().id = myVehicleParameter->id + "_" + toString(pars.size()-1);
+    }
+    if ((modeSet & SVC_PASSENGER) != 0 && pars.empty()) {
+        pars.emplace_back(SUMOVehicleParameter());
+        pars.back().id = myVehicleParameter->id + "_0";
+    }
+
+    double walkFactor = attrs.getOpt<double>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
+    if (ok) {
+        if (pars.empty()) {
+            MSNet::getInstance()->getPedestrianRouter().compute(from, to, departPos, arrivalPos, speed, 0, 0, myActiveRoute);
+        } else {
+            for (SUMOVehicleParameter& p: pars) {
+                MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(p.vtypeid);
+                MSRoute routeDummy("", ConstMSEdgeVector(), false, 0, std::vector<SUMOVehicleParameter::Stop>());
+                SUMOVehicle* vehicle = vehControl.buildVehicle(&p, &routeDummy, type, !MSGlobals::gCheckRoutes);
+                std::vector<MSNet::MSIntermodalRouter::TripItem> result;
+                if (MSNet::getInstance()->getIntermodalRouter().compute(from, to, departPos, arrivalPos,
+                    type->getParameter().maxSpeed * walkFactor, vehicle, modeSet, p.depart, result)) {
+                    vehControl.addVehicle(p.id, vehicle);
+                    break;
+                }
+            }
+        }
+    }
+
     if (myActiveRoute.empty()) {
         const std::string error = "No connection found between '" + from->getID() + "' and '" + to->getID() + "' for person '" + myVehicleParameter->id + "'.";
         if (!MSGlobals::gCheckRoutes) {
@@ -1079,16 +1131,17 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             throw ProcessError(error);
         }
     }
-    assert(myActivePlan->empty());
-    myActivePlan->push_back(new MSTransportable::Stage_Waiting(
-        *myActiveRoute.front(), -1, myVehicleParameter->depart, departPos, "start", true));
+    if (myActivePlan->empty()) {
+        myActivePlan->push_back(new MSTransportable::Stage_Waiting(
+            *myActiveRoute.front(), -1, myVehicleParameter->depart, departPos, "start", true));
+    }
     const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, 0, ok, 0);
     myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));
     myActiveRoute.clear();
 }
 
 
-bool
+void
 MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
     try {
         myActiveRoute.clear();

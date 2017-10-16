@@ -20,7 +20,7 @@
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
-// The simulated network and simulation perfomer
+// The simulated network and simulation performer
 /****************************************************************************/
 #ifndef MSNet_h
 #define MSNet_h
@@ -49,7 +49,9 @@
 #include <utils/common/NamedRTree.h>
 #include <utils/vehicle/SUMOAbstractRouter.h>
 #include <utils/vehicle/PedestrianRouter.h>
+#include <utils/vehicle/IntermodalRouter.h>
 #include <microsim/trigger/MSChargingStation.h>
+#include "MSJunction.h"
 #include "MSParkingArea.h"
 #include "MSStoppingPlace.h"
 
@@ -109,7 +111,7 @@ public:
 
     //typedef PedestrianRouterDijkstra<MSEdge, MSLane> MSPedestrianRouterDijkstra;
     typedef PedestrianRouterDijkstra<MSEdge, MSLane, MSJunction, MSVehicle> MSPedestrianRouterDijkstra;
-
+    typedef IntermodalRouter<MSEdge, MSLane, MSJunction, SUMOVehicle> MSIntermodalRouter;
 
 
 public:
@@ -661,6 +663,9 @@ public:
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterEffort(
         const MSEdgeVector& prohibited = MSEdgeVector()) const;
     MSPedestrianRouterDijkstra& getPedestrianRouter(const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSIntermodalRouter& getIntermodalRouter(const MSEdgeVector& prohibited = MSEdgeVector()) const;
+
+    static void adaptIntermodalRouter(MSIntermodalRouter& router);
 
 
     /** @brief Returns an RTree that contains lane IDs
@@ -838,6 +843,7 @@ protected:
     mutable SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouterTT;
     mutable SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouterEffort;
     mutable MSPedestrianRouterDijkstra* myPedestrianRouter;
+    mutable MSIntermodalRouter* myIntermodalRouter;
 
 
     /// @brief An RTree structure holding lane IDs
