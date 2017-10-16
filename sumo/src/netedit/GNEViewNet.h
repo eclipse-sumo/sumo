@@ -219,6 +219,9 @@ public:
     /// @brief set as first geometry point the closes geometry point
     long onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*);
 
+    /// @brief Transform POI to POILane, and viceversa
+    long onCmdTransformPOI(FXObject*, FXSelector, void*);
+
     /// @brief duplicate selected lane
     long onCmdDuplicateLane(FXObject*, FXSelector, void*);
 
@@ -594,29 +597,35 @@ private:
     /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
     bool mergeJunctions(GNEJunction* moved, const Position &oldPos);
 
-    /// @brief try to retrieve an edge under mouse
+    /// @brief try to retrieve an edge at popup position
     GNEEdge* getEdgeAtPopupPosition();
 
-    /// @brief try to retrieve a lane under mouse
+    /// @brief try to retrieve a lane at popup position
     GNELane* getLaneAtPopupPosition();
 
-    /// @brief try to retrieve a junction under mouse
+    /// @brief try to retrieve a junction at popup position
     GNEJunction* getJunctionAtPopupPosition();
     
-    /// @brief try to retrieve a junction under mouse
+    /// @brief try to retrieve a connection at popup position
     GNEConnection* getConnectionAtPopupPosition();
 
-    /// @brief try to retrieve a crossing under mouse
+    /// @brief try to retrieve a crossing at popup position
     GNECrossing* getCrossingAtPopupPosition();
 
-    /// @brief try to retrieve multiple edges under mouse
+    /// @brief try to retrieve multiple edges at popup position
     std::set<GNEEdge*> getEdgesAtPopupPosition();
 
-    /// @brief try to retrieve a additional under mouse
+    /// @brief try to retrieve a additional at popup position
     GNEAdditional* getAdditionalAtPopupPosition();
 
-    /// @brief try to retrieve a polygon under mouse
+    /// @brief try to retrieve a polygon at popup position
     GNEPoly* getPolygonAtPopupPosition();
+
+    /// @brief try to retrieve a POILane at popup position
+    GNEPOI* getPOIAtPopupPosition();
+
+    /// @brief try to retrieve a POILane at popup position
+    GNEPOILane* getPOILaneAtPopupPosition();
 
     /// @brief restrict lane
     bool restrictLane(SUMOVehicleClass vclass);

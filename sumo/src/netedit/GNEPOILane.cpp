@@ -135,7 +135,12 @@ GNEPOILane::getParentName() const {
 
 GUIGLObjectPopupMenu*
 GNEPOILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    return GUIPointOfInterest::getPopUpMenu(app, parent);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    // build shape header
+    buildShapePopupOptions(app, ret, myType);
+    // add option for convert to GNEPOI
+    new FXMenuCommand(ret, ("Transform to " + toString(SUMO_TAG_POI)).c_str(), getIcon(), &parent, MID_GNE_POI_TRANSFORM);
+    return ret;
 }
 
 

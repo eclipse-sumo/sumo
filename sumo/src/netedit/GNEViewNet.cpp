@@ -136,6 +136,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_OPEN,                    GNEViewNet::onCmdOpenPolygon),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SET_FIRST_POINT,         GNEViewNet::onCmdSetFirstGeometryPoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPoint),
+    // POIs
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM,                   GNEViewNet::onCmdTransformPOI),
 };
 
 
@@ -1407,7 +1409,7 @@ GNEViewNet::getAdditionalAtPopupPosition() {
         int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed && (pointed->getType() == GLO_ADDITIONAL)) {
+        if (pointed) {
             return dynamic_cast<GNEAdditional*>(pointed);
         }
     }
@@ -1421,8 +1423,36 @@ GNEViewNet::getPolygonAtPopupPosition() {
         int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed && (pointed->getType() == GLO_POLYGON)) {
+        if (pointed) {
             return dynamic_cast<GNEPoly*>(pointed);
+        }
+    }
+    return 0;
+}
+
+
+GNEPOI* 
+GNEViewNet::getPOIAtPopupPosition() {
+    if (makeCurrent()) {
+        int id = getObjectAtPosition(getPopupPosition());
+        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        if (pointed) {
+            return dynamic_cast<GNEPOI*>(pointed);
+        }
+    }
+    return 0;
+}
+
+
+GNEPOILane* 
+GNEViewNet::getPOILaneAtPopupPosition() {
+    if (makeCurrent()) {
+        int id = getObjectAtPosition(getPopupPosition());
+        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        if (pointed) {
+            return dynamic_cast<GNEPOILane*>(pointed);
         }
     }
     return 0;
@@ -1651,6 +1681,12 @@ GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
             polygonUnderMouse->changeFirstGeometryPoint(polygonUnderMouse->getVertexIndex(getPopupPosition(), false));
         }
     }
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
     return 1;
 }
 

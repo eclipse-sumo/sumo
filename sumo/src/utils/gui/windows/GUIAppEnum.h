@@ -726,7 +726,7 @@ enum {
     /// @}
 
 
-    /// @name GNEPolygon messages
+    /// @name GNEPoly messages
     /// @{
 
     /// @brief simplify polygon geometry
@@ -741,6 +741,13 @@ enum {
     MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,
     /// @}
 
+
+    /// @name GNEPOI messages
+    /// @{
+
+    /// @brief Transform POI to POILane, and viceversa
+    MID_GNE_POI_TRANSFORM,
+    /// @}
 
     /// @name GNELane messages
     /// @{
