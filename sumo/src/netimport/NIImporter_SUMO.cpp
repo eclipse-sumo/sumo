@@ -743,30 +743,13 @@ NIImporter_SUMO::LaneAttrs*
 NIImporter_SUMO::getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id) {
     std::string edge_id;
     int index;
-    interpretLaneID(lane_id, edge_id, index);
+    NBHelpers::interpretLaneID(lane_id, edge_id, index);
     assert(edge->id == edge_id);
     if ((int)edge->lanes.size() <= index) {
         WRITE_ERROR("Unknown lane '" + lane_id + "' given in succedge.");
         return 0;
     } else {
         return edge->lanes[index];
-    }
-}
-
-
-void
-NIImporter_SUMO::interpretLaneID(const std::string& lane_id, std::string& edge_id, int& index) {
-    // assume lane_id = edge_id + '_' + index
-    const std::string::size_type sep_index = lane_id.rfind('_');
-    if (sep_index == std::string::npos) {
-        WRITE_ERROR("Invalid lane id '" + lane_id + "' (missing '_').");
-    }
-    edge_id = lane_id.substr(0, sep_index);
-    std::string index_string = lane_id.substr(sep_index + 1);
-    try {
-        index = TplConvert::_2int(index_string.c_str());
-    } catch (NumberFormatException) {
-        WRITE_ERROR("Invalid lane index '" + index_string + "' for lane '" + lane_id + "'.");
     }
 }
 

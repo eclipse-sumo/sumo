@@ -1942,7 +1942,7 @@ Position
 GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) {
     std::string edgeID;
     int laneIndex;
-    NIImporter_SUMO::interpretLaneID(laneID, edgeID, laneIndex);
+    NBHelpers::interpretLaneID(laneID, edgeID, laneIndex);
     NBEdge* edge = myNet->retrieveEdge(edgeID)->getNBEdge();
     if (edge == 0 || laneIndex < 0 || edge->getNumLanes() <= laneIndex) {
         WRITE_ERROR("Lane '" + laneID + "' to place poi '" + poiID + "' on is not known.");
