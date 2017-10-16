@@ -460,8 +460,8 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
             GNEEdge* edge;
             // first remove references of current rerouter in all edge childs
-            for (std::vector<GNEEdge*>::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-                (*i)->removeGNERerouter(this);
+            for (auto i : myEdges) {
+                i->removeGNERerouter(this);
             }
             // clear previous edges
             myEdges.clear();
@@ -480,8 +480,6 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             bool ok;
             myPosition = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false)[0];
-            updateGeometry();
-            getViewNet()->update();
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;
@@ -494,11 +492,12 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlocked = parse<bool>(value);
-            getViewNet()->update();
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // After setting attribute always update Geometry
+    updateGeometry();
 }
 
 

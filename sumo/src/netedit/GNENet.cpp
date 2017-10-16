@@ -1148,9 +1148,9 @@ void
 GNENet::refreshAdditional(GNEAdditional* additional) {
     // we need a special case for Calibrators
     SumoXMLTag tag = (additional->getTag() == SUMO_TAG_LANECALIBRATOR)? SUMO_TAG_CALIBRATOR : additional->getTag();
-    GNEAdditionals::iterator positionToRemove = myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), tag));
+    GNEAdditionals::iterator it = myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), tag));
     // Check if additional element exists before refresh
-    if (positionToRemove != myAdditionals.end()) {
+    if (it != myAdditionals.end()) {
         myGrid.removeAdditionalGLObject(additional);
         myGrid.addAdditionalGLObject(additional);
         update();

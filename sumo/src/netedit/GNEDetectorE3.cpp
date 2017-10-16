@@ -100,19 +100,21 @@ GNEDetectorE3::updateGeometry() {
     myShapeRotations.clear();
     myShapeLengths.clear();
 
-
     // iterate over entry childs and update their gemometries
-    for (std::vector<GNEDetectorEntry*>::iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
-        (*i)->updateGeometryByParent();
+    for (auto i : myGNEDetectorEntrys) {
+        i->updateGeometryByParent();
     }
 
     // iterate over entry childs and update their gemometries
-    for (std::vector<GNEDetectorExit*>::iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
-        (*i)->updateGeometryByParent();
+    for (auto i : myGNEDetectorExits) {
+        i->updateGeometryByParent();
     }
 
     // Update connection's geometry
     updateGeometryConnections();
+
+    // Refresh element (neccesary to avoid grabbing problems)
+    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
@@ -398,13 +400,9 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_X:
             myPosition.setx(parse<double>(value));
-            updateGeometry();
-            getViewNet()->update();
             break;
         case SUMO_ATTR_Y:
             myPosition.sety(parse<double>(value));
-            updateGeometry();
-            getViewNet()->update();
             break;
         case SUMO_ATTR_FREQUENCY:
             myFreq = parse<double>(value);
@@ -420,11 +418,12 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlocked = parse<bool>(value);
-            getViewNet()->update();
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // After setting attribute always update Geometry
+    updateGeometry();
 }
 
 

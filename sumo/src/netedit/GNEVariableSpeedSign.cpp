@@ -400,19 +400,18 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             bool ok;
             myPosition = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false)[0];
-            updateGeometry();
-            getViewNet()->update();
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlocked = parse<bool>(value);
-            getViewNet()->update();
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // After setting attribute always update Geometry
+    updateGeometry();
 }
 
 /****************************************************************************/

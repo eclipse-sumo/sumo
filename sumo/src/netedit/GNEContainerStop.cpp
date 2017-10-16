@@ -339,33 +339,27 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_STARTPOS:
             myStartPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
-            updateGeometry();
-            getViewNet()->update();
             break;
         case SUMO_ATTR_ENDPOS:
             myEndPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
-            updateGeometry();
-            getViewNet()->update();
             break;
         case SUMO_ATTR_NAME:
             myName = value;
-            getViewNet()->update();
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
-            getViewNet()->update();
             break;
         case SUMO_ATTR_LINES:
             myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
-            getViewNet()->update();
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlocked = parse<bool>(value);
-            getViewNet()->update();
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // After setting attribute always update Geometry
+    updateGeometry();
 }
 
 /****************************************************************************/

@@ -637,8 +637,6 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
         } else {
             throw ProcessError("Both myEdge and myLane aren't defined");
         }
-        updateGeometry();
-        getViewNet()->update();
         break;
     case SUMO_ATTR_FREQUENCY:
         myFrequency = parse<double>(value);
@@ -652,6 +650,8 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
     default:
         throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // After setting attribute always update Geometry
+    updateGeometry();
 }
 
 /****************************************************************************/

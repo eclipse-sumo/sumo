@@ -350,16 +350,12 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_POSITION:
             myPositionOverLane = parse<double>(value) / myLane->getLaneParametricLength();
-            updateGeometry();
-            getViewNet()->update();
             break;
         case SUMO_ATTR_FREQUENCY:
             myFreq = parse<double>(value);
             break;
         case SUMO_ATTR_LENGTH:
             myRelativeLength = parse<double>(value) / myLane->getLaneParametricLength();
-            updateGeometry();
-            getViewNet()->update();
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;
@@ -377,16 +373,16 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myJamThreshold = parse<double>(value);
             break;
         case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPosition = parse<bool>(value);
-            getViewNet()->update();
+            myFriendlyPosition = parse<bool>(value);;
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlocked = parse<bool>(value);
-            getViewNet()->update();
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // After setting attribute always update Geometry
+    updateGeometry();
 }
 
 /****************************************************************************/
