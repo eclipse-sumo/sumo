@@ -172,6 +172,7 @@ public:
     static void moveTo(const std::string& vehicleID, const std::string& laneID, double position);
     static void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute);
     static void setMaxSpeed(const std::string& vehicleID, double speed);
+    static void setActionStepLength(const std::string& vehicleID, double actionStepLength);
     static void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED);
     static void setColor(const std::string& vehicleID, const TraCIColor& col);
     static void setLine(const std::string& vehicleID, const std::string& line);

@@ -30,6 +30,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/xml/SUMOVehicleParserHelper.h>
 #include "TraCI_VehicleType.h"
 #include "TraCI.h"
 
@@ -55,6 +56,10 @@ double TraCI_VehicleType::getMaxSpeed(const std::string& typeID) {
     return v->getMaxSpeed();
 }
 
+double TraCI_VehicleType::getActionStepLength(const std::string& typeID) {
+    MSVehicleType* v = getVType(typeID);
+    return STEPS2TIME(v->getActionStepLength());
+}
 
 double TraCI_VehicleType::getSpeedFactor(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
@@ -144,6 +149,10 @@ void TraCI_VehicleType::setLength(const std::string& typeID, double length)  {
 void TraCI_VehicleType::setMaxSpeed(const std::string& typeID, double speed)  {
     MSVehicleType* v = getVType(typeID);
     v->setMaxSpeed(speed);
+}
+void TraCI_VehicleType::setActionStepLength(const std::string& typeID, double actionStepLength)  {
+    MSVehicleType* v = getVType(typeID);
+    v->setActionStepLength(SUMOVehicleParserHelper::processActionStepLength(actionStepLength));
 }
 void TraCI_VehicleType::setVehicleClass(const std::string& typeID, const std::string& clazz)  {
     MSVehicleType* v = getVType(typeID);

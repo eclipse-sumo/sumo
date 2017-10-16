@@ -31,6 +31,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/TplConvert.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/xml/SUMOVehicleParserHelper.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice.h>
@@ -926,6 +927,13 @@ TraCI_Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, d
 void
 TraCI_Vehicle::setMaxSpeed(const std::string& vehicleID, double speed) {
     getVehicle(vehicleID)->getSingularType().setMaxSpeed(speed);
+}
+
+
+void
+TraCI_Vehicle::setActionStepLength(const std::string& vehicleID, double actionStepLength) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    veh->getSingularType().setActionStepLength(SUMOVehicleParserHelper::processActionStepLength(actionStepLength));
 }
 
 void
