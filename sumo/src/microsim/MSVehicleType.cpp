@@ -65,6 +65,11 @@ MSVehicleType::MSVehicleType(const SUMOVTypeParameter& parameter)
     : myParameter(parameter), myIndex(myNextIndex++), myCarFollowModel(0), myOriginalType(0) {
     assert(getLength() > 0);
     assert(getMaxSpeed() > 0);
+
+    // Check if actionStepLength was set by user, if not init to global default
+    if (!myParameter.wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
+        myParameter.actionStepLength=MSGlobals::gActionStepLength;
+    }
 }
 
 
@@ -182,12 +187,14 @@ MSVehicleType::setSpeedDeviation(const double& dev) {
 
 
 void
-MSVehicleType::setActionStepLength(const double& actionStepLength) {
+MSVehicleType::setActionStepLength(const SUMOTime actionStepLength) {
     if (myOriginalType != 0 && actionStepLength < 0) {
         myParameter.actionStepLength = myOriginalType->myParameter.actionStepLength;
     } else {
         myParameter.actionStepLength = actionStepLength;
     }
+    // TODO: in seperate changeset
+//    myParameter.parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
 }
 
 
@@ -211,7 +218,6 @@ MSVehicleType::setWidth(const double& width) {
         myParameter.width = width;
     }
 }
-
 
 void
 MSVehicleType::setImpatience(const double impatience) {
@@ -338,7 +344,6 @@ MSVehicleType::duplicateType(const std::string& id, bool persistent) const {
     }
     return vtype;
 }
-
 
 
 /****************************************************************************/

@@ -326,14 +326,6 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     } else {
         ret->color = RGBColor::DEFAULT_COLOR;
     }
-
-    // parse action step length
-    if (attrs.hasAttribute(SUMO_ATTR_ACTIONSTEPLENGTH)) {
-        ret->parametersSet |= VEHPARS_ACTIONSTEPLENGTH_SET;
-        double givenActionStepLength = attrs.get<double>(SUMO_ATTR_ACTIONSTEPLENGTH, ret->id.c_str(), ok);
-        ret->actionStepLength = processActionStepLength(givenActionStepLength);
-    }
-
     // parse person number
     if (attrs.hasAttribute(SUMO_ATTR_PERSON_NUMBER)) {
         ret->parametersSet |= VEHPARS_PERSON_NUMBER_SET;

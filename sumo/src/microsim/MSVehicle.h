@@ -321,6 +321,24 @@ public:
     //@}
 
 
+    /** @brief Updates myActionStep to whether the vehicle is supposed to take action in the current simulation step
+     *
+     *  @param[in] t
+     */
+    void checkActionStep(const SUMOTime t);
+
+    /** @brief Resets the action offset for the vehicle
+     *
+     *  @param[in] offsetFromNow time difference from now for the next action, defaults to 0, which
+     *             implies an immediate action point in the current step.
+     *
+     *  @note to achieve a prolonged action interval when increasing the actionStepLength, this can be used
+     *        with offsetFromNow = newStepLength - (currentTime-lastUpdateTime)
+     */
+    void resetActionOffset(const SUMOTime offsetFromNow=0);
+
+
+
     /** @brief Compute safe velocities for the upcoming lanes based on positions and
      * speeds from the last time step. Also registers
      * ApproachingVehicleInformation for all links
@@ -466,17 +484,7 @@ public:
      * @return The current action step length
      */
     SUMOTime getActionStepLength() const {
-        return myActionStepLength;
-    }
-
-
-    /** @brief Returns the vehicle's action step length,
-     *         i.e. the interval between two action points.
-     * @return The current action step length
-     */
-    void setActionStepLength(SUMOTime asl) {
-        myParameter->parametersSet |= VEHPARS_ACTIONSTEPLENGTH_SET;
-        myActionStepLength = asl;
+        return myType->getActionStepLength();
     }
 
     //@}
@@ -1185,12 +1193,6 @@ public:
     bool passingMinor() const;
 
 
-    /// @brief Selects the adequate value for the action step length of the vehicle.
-    ///        The choice hierarchy is vehPars.actionStepLength => vtypePars.stepLength => MSGlobals::gActionStepLength
-    /// @param[in] vehPars Vehicle's parameters
-    /// @param[in] vehPars VehicleType's parameters
-    /// @return Chosen actionStepLength for the vehicle
-    static SUMOTime selectVehicleActionStepLength(const SUMOVehicleParameter& vehPars, const SUMOVTypeParameter& vtypePars);
 
 #ifndef NO_TRACI
     /** @brief Returns the uninfluenced velocity
@@ -1563,8 +1565,13 @@ protected:
     /// @brief This Vehicles driving state (pos and speed)
     State myState;
 
-    /// @brief The vehicle's action step length (may be subject to dynamic changes)
-    SUMOTime myActionStepLength;
+    /// @brief The flag myActionStep indicates whether the current time step is an action point for the vehicle.
+    bool myActionStep;
+    /// @brief Action offset (actions are taken at time myActionOffset + N*getActionStepLength())
+    ///        Initialized to 0, to be set at insertion.
+    SUMOTime myActionOffset;
+
+
 
     /// The lane the vehicle is on
     MSLane* myLane;

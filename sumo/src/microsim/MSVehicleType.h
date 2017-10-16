@@ -219,9 +219,9 @@ public:
 
 
     /** @brief Returns this type's default action step length
-     * @return The default action step length of this type
+     * @return The default action step length of this type (in ms.)
      */
-    SUMOTime getActionStepLength() const {
+    double getActionStepLength() const {
         return myParameter.actionStepLength;
     }
 
@@ -423,9 +423,9 @@ public:
      * If the given value<0 then the one from the original type will
      *  be used.
      *
-     * @param[in] actionStepLength The new action step length of this type
+     * @param[in] actionStepLength The new action step length of this type (in ms.)
      */
-    void setActionStepLength(const double& actionStepLength);
+    void setActionStepLength(const SUMOTime actionStepLength);
 
 
     /** @brief Set a new value for this type's emission class
@@ -454,7 +454,6 @@ public:
      * @param[in] shape The new shape of this type
      */
     void setShape(SUMOVehicleShape shape);
-
 
     /** @brief Set a new value for this type's impatience
      * @param[in] impatience The new impatience of this type
