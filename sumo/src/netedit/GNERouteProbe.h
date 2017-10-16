@@ -42,7 +42,7 @@ class GNEEdge;
 // ===========================================================================
 /**
  * @class GNERouteProbe
- * ------------
+ * @brief Representation of a RouteProbe in netedit
  */
 class GNERouteProbe : public GNEAdditional {
 public:
@@ -140,6 +140,9 @@ public:
     /// @}
 
 protected:
+    /// @brief The edge in which this RouteProbe is placed
+    GNEEdge* myEdge;
+
     /// @brief Frequency of RouteProbe
     double myFrequency;
 

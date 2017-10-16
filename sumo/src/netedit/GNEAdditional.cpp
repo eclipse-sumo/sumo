@@ -62,8 +62,6 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
-    myEdge(NULL),
-    myLane(NULL),
     myBlockIconRotation(0),
     myBlocked(false),
     myInspectionable(true),
@@ -143,17 +141,6 @@ GNEAdditional::setAdditionalID(const std::string& id) {
 }
 
 
-GNEEdge*
-GNEAdditional::getEdge() const {
-    return myEdge;
-}
-
-
-GNELane*
-GNEAdditional::getLane() const {
-    return myLane;
-}
-
 const std::string&
 GNEAdditional::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();
@@ -183,22 +170,24 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // get attributes
     std::vector<SumoXMLAttr> attributes = getAttrs();
     // Show position parameters
-    if (std::find(attributes.begin(), attributes.end(), SUMO_ATTR_LANE) != attributes.end()) {
+    if (hasAttribute(getTag(), SUMO_ATTR_LANE)) {
+        GNELane *lane = myViewNet->getNet()->retrieveLane(getAttribute(SUMO_ATTR_LANE));
         // Show menu command inner position
         const double innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
         new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), 0, 0, 0);
         // If shape isn't empty, show menu command lane position
         if (myShape.size() > 0) {
-            const double lanePos = myLane->getShape().nearest_offset_to_point2D(myShape[0]);
+            const double lanePos = lane->getShape().nearest_offset_to_point2D(myShape[0]);
             new FXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), 0, 0, 0);
         }
-    } else if (std::find(attributes.begin(), attributes.end(), SUMO_ATTR_EDGE) != attributes.end()) {
+    } else if (hasAttribute(getTag(), SUMO_ATTR_EDGE)) {
+        GNEEdge *edge = myViewNet->getNet()->retrieveEdge(getAttribute(SUMO_ATTR_EDGE));
         // Show menu command inner position
         const double innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
         new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), 0, 0, 0);
         // If shape isn't empty, show menu command edge position
         if (myShape.size() > 0) {
-            const double edgePos = myEdge->getLanes().at(0)->getShape().nearest_offset_to_point2D(myShape[0]);
+            const double edgePos = edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(myShape[0]);
             new FXMenuCommand(ret, ("Mouse position over " + toString(SUMO_TAG_EDGE) + ": " + toString(innerPos + edgePos)).c_str(), 0, 0, 0);
         }
     } else {
@@ -238,14 +227,14 @@ GNEAdditional::getCenteringBoundary() const {
 
 
 void
-GNEAdditional::setBlockIconRotation() {
+GNEAdditional::setBlockIconRotation(GNELane *additionalLane) {
     if (myShape.size() > 0 && myShape.length() != 0) {
         // If length of the shape is distint to 0, Obtain rotation of center of shape
         myBlockIconRotation = myShape.rotationDegreeAtOffset((myShape.length() / 2.)) - 90;
-    } else if (myLane != NULL) {
+    } else if (hasAttribute(getTag(), SUMO_ATTR_LANE)) {
         // If additional is over a lane, set rotation in the position over lane
-        double posOverLane = myLane->getShape().nearest_offset_to_point2D(getPositionInView());
-        myBlockIconRotation = myLane->getShape().rotationDegreeAtOffset(posOverLane) - 90;
+        double posOverLane = additionalLane->getShape().nearest_offset_to_point2D(getPositionInView());
+        myBlockIconRotation = additionalLane->getShape().rotationDegreeAtOffset(posOverLane) - 90;
     } else {
         // In other case, rotation is 0
         myBlockIconRotation = 0;
@@ -318,30 +307,30 @@ GNEAdditional::drawParentAndChildrenConnections() const {
 }
 
 
-void
-GNEAdditional::changeEdge(const std::string& edgeID) {
-    if (myEdge == NULL) {
+GNEEdge*
+GNEAdditional::changeEdge(GNEEdge *oldEdge, const std::string& newEdgeID) {
+    if (oldEdge == NULL) {
         throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't belong to an " + toString(SUMO_TAG_EDGE));
     } else {
-        myEdge->removeAdditionalChild(this);
-        myEdge = getViewNet()->getNet()->retrieveEdge(edgeID);
-        myEdge->addAdditionalChild(this);
+        oldEdge->removeAdditionalChild(this);
+        GNEEdge* newEdge = myViewNet->getNet()->retrieveEdge(newEdgeID);
+        newEdge->addAdditionalChild(this);
         updateGeometry();
-        getViewNet()->update();
+        return newEdge;
     }
 }
 
 
-void
-GNEAdditional::changeLane(const std::string& laneID) {
-    if (myLane == NULL) {
+GNELane*
+GNEAdditional::changeLane(GNELane *oldLane, const std::string& newLaneID) {
+    if (oldLane == NULL) {
         throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't belong to a " + toString(SUMO_TAG_LANE));
     } else {
-        myLane->removeAdditionalChild(this);
-        myLane = getViewNet()->getNet()->retrieveLane(laneID);
-        myLane->addAdditionalChild(this);
+        oldLane->removeAdditionalChild(this);
+        GNELane* newLane = myViewNet->getNet()->retrieveLane(newLaneID);
+        newLane->addAdditionalChild(this);
         updateGeometry();
-        getViewNet()->update();
+        return newLane;
     }
 }
 

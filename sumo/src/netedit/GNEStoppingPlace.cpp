@@ -61,12 +61,11 @@
 
 GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos, const std::string& name, bool friendlyPosition) :
     GNEAdditional(id, viewNet, tag, icon),
+    myLane(lane),
     myStartPosRelative(startPos / lane->getLaneParametricLength()),
     myEndPosRelative(endPos / lane->getLaneParametricLength()),
     myName(name),
     myFriendlyPosition(friendlyPosition) {
-    // This additional belongs to a Lane
-    myLane = lane;
 }
 
 
@@ -105,6 +104,12 @@ GNEStoppingPlace::commitGeometryMoving(const Position& oldPos, GNEUndoList* undo
     undoList->p_end();
     // Refresh element
     myViewNet->getNet()->refreshAdditional(this);
+}
+
+
+GNELane*
+GNEStoppingPlace::getLane() const {
+    return myLane;
 }
 
 

@@ -61,7 +61,7 @@
 
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, double relativePos, double frequency, const std::string& output, 
                              const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows, 
-                             const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) :
+                             const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes, GNEEdge *edge, GNELane *lane) :
     GNEAdditional(id, viewNet, tag, ICON_CALIBRATOR),
     myPositionOverLane(relativePos),
     myFrequency(frequency),
@@ -69,7 +69,10 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, SumoXML
     myRouteProbe(NULL), /** change this in the future **/
     myCalibratorRoutes(calibratorRoutes),
     myCalibratorFlows(calibratorFlows),
-    myCalibratorVehicleTypes(calibratorVehicleTypes) {
+    myCalibratorVehicleTypes(calibratorVehicleTypes),
+    myEdge(edge),
+    myLane(lane) {
+    assert((myEdge == NULL) ^ (myLane == NULL));
     // this additional ISN'T movable
     myMovable = false;
     // Center view in the position of calibrator
@@ -625,10 +628,10 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
         setAdditionalID(value);
         break;
     case SUMO_ATTR_EDGE:    // Only called by subClass GNECalibratorEdge
-        changeEdge(value);
+        myEdge = changeEdge(myEdge, value);
         break;
     case SUMO_ATTR_LANE:    // Only called by subClass GNECalibratorLane
-        changeLane(value);
+        myLane = changeLane(myLane, value);
         break;
     case SUMO_ATTR_POSITION:
         if(myEdge) {

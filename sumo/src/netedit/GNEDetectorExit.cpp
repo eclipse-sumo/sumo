@@ -94,7 +94,7 @@ GNEDetectorExit::updateGeometryByParent() {
     myBlockIconPosition = myShape.getLineCenter();
 
     // Set block icon rotation, and using their rotation for logo
-    setBlockIconRotation();
+    setBlockIconRotation(myLane);
 
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);
@@ -289,7 +289,7 @@ GNEDetectorExit::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
-            changeLane(value);
+            myLane = changeLane(myLane, value);
             break;
         case SUMO_ATTR_POSITION:
             myPositionOverLane = parse<double>(value) / myLane->getLaneParametricLength();

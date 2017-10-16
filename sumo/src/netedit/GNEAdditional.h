@@ -130,12 +130,6 @@ public:
     /// @brief set the ID of additional
     void setAdditionalID(const std::string& id);
 
-    /// @brief get edge of additional, or NULL if additional isn't placed over an edge
-    GNEEdge* getEdge() const;
-
-    /// @brief get lane of additional, or NULL if additional isn't placed over a Lane
-    GNELane* getLane() const;
-
     /// @name inherited from GUIGlObject
     /// @{
     /// @brief Returns the name (ID) of the parent object
@@ -197,30 +191,20 @@ public:
 
 protected:
     /**@brief change edge of additional
-     * @throw exception if additional doesn't belong to an edge
-     * @throw expcetion if edge doesn't exist
+     * @throw exception if oldEdge doesn't belong to an edge
+     * @throw exception if edge with ID  edgeID doesn't exist
      */
-    void changeEdge(const std::string& edgeID);
+    GNEEdge* changeEdge(GNEEdge *oldEdge, const std::string& newEdgeID);
 
     /**@brief change lane of additional
-     * @throw exception if additional doesn't belong to a lane
-     * @throw expcetion if edge doesn't exist
+    * @throw exception if oldLane doesn't belong to an edge
+    * @throw exception if lane with ID  edgeID doesn't exist
      */
-    void changeLane(const std::string& laneID);
+    GNELane* changeLane(GNELane *oldLane, const std::string& newLaneID);
 
 protected:
     /// @brief The GNEViewNet this additional element belongs
     GNEViewNet* myViewNet;
-
-    /**@brief The edge this additional belongs.
-     * @note is NULL if additional doesnt' belongs to a edge
-     */
-    GNEEdge* myEdge;
-
-    /**@brief The lane this additional belongs.
-     * @note is NULL if additional doesnt' belongs to a lane
-     */
-    GNELane* myLane;
 
     /**@brief The shape of the additional element
      * @note must be configured in updateGeometry()
@@ -242,13 +226,10 @@ protected:
     /// @name members and functions relative to block icon
     /// @{
     /// @brief set Rotation of block Icon (must be called in updateGeometry() function)
-    void setBlockIconRotation();
+    void setBlockIconRotation(GNELane *additionalLane = NULL);
 
     /// @brief draw lock icon
     void drawLockIcon(double size = 0.5) const;
-
-    /// @brief draw connections between Parent and childrens
-    void drawParentAndChildrenConnections() const;
 
     /// @brief position of the block icon
     Position myBlockIconPosition;
@@ -258,6 +239,16 @@ protected:
 
     /// @brief The rotation of the block icon
     double myBlockIconRotation;
+    /// @}
+
+    /// @name members and functions relative to connections between Additionals and their childs
+    /// @{
+
+    /// @brief draw connections between Parent and childrens
+    void drawParentAndChildrenConnections() const;
+
+    /// @brief Matrix with the Vertex's positions of connections between Additional Parent an their childs
+    std::vector<std::vector<Position> > myConnectionPositions;
     /// @}
 
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
@@ -274,9 +265,6 @@ protected:
 
     /// @brief pointer to additional dialog
     GNEAdditionalDialog* myAdditionalDialog;
-
-    /// @brief Matrix with the Vertex's positions of connections between Additional Parent an their childs
-    std::vector<std::vector<Position> > myConnectionPositions;
 
 private:
     /// @brief set attribute after validation

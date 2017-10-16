@@ -69,6 +69,9 @@ public:
      */
     virtual void writeAdditional(OutputDevice& device) const = 0;
 
+    /// @brief get Lane
+    GNELane *getLane() const;
+
     /// @brief get absolute start Position
     double getAbsoluteStartPosition() const;
 
@@ -136,6 +139,9 @@ public:
     /// @}
 
 protected:
+    /// @brief The lane in which this lane is placed
+    GNELane* myLane;
+
     /// @brief The relative [0,1] start position this stopping place is located at
     double myStartPosRelative;
 
@@ -159,7 +165,7 @@ private:
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief Invalidate set new position in the view
-    void setPosition(const Position& pos);
+    void setPosition(const Position& pos) = delete;
 };
 
 

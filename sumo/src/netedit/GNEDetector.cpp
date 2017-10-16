@@ -58,16 +58,21 @@
 
 GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double pos, double freq, const std::string& filename, bool friendlyPos) :
     GNEAdditional(id, viewNet, tag, icon),
+    myLane(lane),
     myPositionOverLane(pos / lane->getLaneParametricLength()),
     myFreq(freq),
     myFilename(filename),
     myFriendlyPosition(friendlyPos) {
-    // This additional belongs to a Lane
-    myLane = lane;
 }
 
 
 GNEDetector::~GNEDetector() {
+}
+
+
+GNELane*
+GNEDetector::getLane() const {
+    return myLane;
 }
 
 

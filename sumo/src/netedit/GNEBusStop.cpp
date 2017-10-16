@@ -91,7 +91,7 @@ GNEBusStop::updateGeometry() {
     myBlockIconPosition = myShape.getLineCenter();
 
     // Set block icon rotation, and using their rotation for sign
-    setBlockIconRotation();
+    setBlockIconRotation(myLane);
 
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);
@@ -339,7 +339,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
-            changeLane(value);
+            myLane = changeLane(myLane, value);
             break;
         case SUMO_ATTR_STARTPOS:
             myStartPosRelative = parse<double>(value) / myLane->getLaneParametricLength();

@@ -14,7 +14,7 @@
 /// @date    Nov 2015
 /// @version $Id$
 ///
-// A abstract class to define common parameters of detectors
+// A abstract class to define common parameters of detectors placed over lanes
 /****************************************************************************/
 #ifndef GNEDetector_h
 #define GNEDetector_h
@@ -69,6 +69,9 @@ public:
 
     /// @brief check if Position of detector is fixed
     virtual bool isDetectorPositionFixed() const = 0;
+
+    /// @brief get lane
+    GNELane *getLane() const;
 
     /// @brief returns the aggregation period the values the detector collects shall be summed up.
     double getFrequency() const;
@@ -149,6 +152,9 @@ public:
     /// @}
 
 protected:
+    /// @brief The lane in which this detector is placed
+    GNELane* myLane;
+
     /// @brief position of detector over Lane
     double myPositionOverLane;
 

@@ -61,13 +61,12 @@
 
 GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double frequency, const std::string& filename, double begin) :
     GNEAdditional(id, viewNet, SUMO_TAG_ROUTEPROBE, ICON_ROUTEPROBE),
+    myEdge(edge),
     myFrequency(frequency),
     myFilename(filename),
     myBegin(begin),
     myNumberOfLanes(0),
     myRelativePositionY(0) {
-    // This additional belongs to a edge
-    myEdge = edge;
     // this additional ISN'T movable
     myMovable = false;
     // Update geometry;
@@ -118,7 +117,7 @@ GNERouteProbe::updateGeometry() {
     myBlockIconOffset = Position(1.1, (-3.06) - myRelativePositionY);
 
     // Set block icon rotation, and using their rotation for logo
-    setBlockIconRotation();
+    setBlockIconRotation(firstLane);
 
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);
@@ -357,7 +356,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_EDGE:
-            changeEdge(value);
+            myEdge = changeEdge(myEdge, value);
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;

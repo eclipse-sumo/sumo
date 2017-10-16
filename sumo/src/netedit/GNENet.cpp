@@ -959,7 +959,7 @@ GNENet::retrieveJunction(const std::string& id, bool failHard) {
 GNEEdge*
 GNENet::retrieveEdge(const std::string& id, bool failHard) {
     auto i = myEdges.find(id);
-    // If edge was fund
+    // If edge was found
     if (i != myEdges.end()) {
         return i->second;
     } else if (failHard) {
@@ -1834,19 +1834,6 @@ GNENet::getAdditional(SumoXMLTag type, const std::string& id) const {
     } else {
         return NULL;
     }
-}
-
-
-std::string
-GNENet::getAdditionalID(SumoXMLTag type, const GNELane* lane, const double pos) const {
-    // we need a special case for Calibrators
-    SumoXMLTag tag = (type == SUMO_TAG_LANECALIBRATOR)? SUMO_TAG_CALIBRATOR : type;
-    for (auto it : myAdditionals) {
-        if ((it.second->getTag() == tag) && (it.second->getLane() != NULL) && (it.second->getLane() == lane) && (fabs(it.second->getPositionInView().x() - pos) < POSITION_EPS)) {
-            return it.second->getID();
-        }
-    }
-    return "";
 }
 
 

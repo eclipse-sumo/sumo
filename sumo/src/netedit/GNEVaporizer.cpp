@@ -61,11 +61,10 @@
 
 GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end) :
     GNEAdditional(viewNet->getNet()->generateVaporizerID(), viewNet, SUMO_TAG_VAPORIZER, ICON_VAPORIZER),
+    myEdge(edge),
     myStartTime(startTime),
     myEnd(end),
     myRelativePositionY(0) {
-    // This additional belongs to a edge
-    myEdge = edge;
     // this additional ISN'T movable
     myMovable = false;
     // Update geometry;
@@ -117,7 +116,7 @@ GNEVaporizer::updateGeometry() {
     myBlockIconOffset = Position(1.1, (-3.06) - myRelativePositionY);
 
     // Set block icon rotation, and using their rotation for logo
-    setBlockIconRotation();
+    setBlockIconRotation(firstLane);
 
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);
@@ -354,7 +353,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_EDGE:
-            changeEdge(value);
+            myEdge = changeEdge(myEdge, value);
             break;
         case SUMO_ATTR_STARTTIME:
             myStartTime = parse<double>(value);

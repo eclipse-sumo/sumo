@@ -573,13 +573,6 @@ public:
      */
     GNEAdditional* getAdditional(SumoXMLTag type, const std::string& id) const;
 
-    /**@brief Returns the additional close to the given position
-     * @param[in] type tag with the type of additional
-     * @param[in] lane the lane of the additional to return.
-     * @param[in] pos the position of the additional to return.
-     * @return The additional id on the location, or "" if don't exists
-     */
-    std::string getAdditionalID(SumoXMLTag type, const GNELane* lane, const double pos) const;
 
     /**@brief get vector with additionals
      * @param[in] type type of additional to get. SUMO_TAG_NOTHING will get all additionals

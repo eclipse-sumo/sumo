@@ -137,6 +137,9 @@ public:
     /// @}
 
 protected:
+    /// @brief The edge in which this vaporizer is placed
+    GNEEdge* myEdge;
+
     /// @brief start time of vaporizer
     double myStartTime;
 
