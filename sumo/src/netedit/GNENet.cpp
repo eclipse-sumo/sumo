@@ -199,7 +199,7 @@ GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColo
         GNEPoly* poly = new GNEPoly(this, id, type, shape, geo, fill, color, layer, angle, imgFile, false, false);
         if (myPolygons.add(poly->getID(), poly)) {
             myViewNet->getUndoList()->p_begin("add " + toString(poly->getTag()));
-            myViewNet->getUndoList()->add(new GNEChange_Shape(this, poly, true), true);
+            myViewNet->getUndoList()->add(new GNEChange_Shape(poly, true), true);
             myViewNet->getUndoList()->p_end();
             return true;
         } else {
@@ -240,7 +240,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
             GNEPOI* poi = new GNEPOI(this, id, type, color, pos, geo, layer, angle, imgFile, width, height, false);
             if (myPOIs.add(poi->getID(), poi)) {
                 myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
-                myViewNet->getUndoList()->add(new GNEChange_Shape(this, poi, true), true);
+                myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
                 myViewNet->getUndoList()->p_end();
                 return true;
             } else {
@@ -252,7 +252,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
             GNEPOILane* poiLane = new GNEPOILane(this, id, type, color, layer, angle, imgFile, retrievedLane, posOverLane, posLat, width, height, false);
             if (myPOIs.add(poiLane->getID(), poiLane)) {
                 myViewNet->getUndoList()->p_begin("add " + toString(poiLane->getTag()));
-                myViewNet->getUndoList()->add(new GNEChange_Shape(this, poiLane, true), true);
+                myViewNet->getUndoList()->add(new GNEChange_Shape(poiLane, true), true);
                 myViewNet->getUndoList()->p_end();
                 return true;
             } else {
@@ -432,16 +432,13 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
 void
 GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
-
     // obtain a copy of GNERerouters of edge
     std::vector<GNERerouter*> rerouters = edge->getGNERerouters();
-
     // delete additionals childs of edge
     std::vector<GNEAdditional*> copyOfEdgeAdditionals = edge->getAdditionalChilds();
     for (auto i : copyOfEdgeAdditionals) {
         undoList->add(new GNEChange_Additional(i, false), true);
     }
-
     // delete additionals childs of lane
     for (auto i : edge->getLanes()) {
         std::vector<GNEAdditional*> copyOfLaneAdditionals = i->getAdditionalChilds();
@@ -449,25 +446,27 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
             undoList->add(new GNEChange_Additional(j, false), true);
         }
     }
-
+    // delete shapes childs of lane
+    for (auto i : edge->getLanes()) {
+        std::vector<GNEShape*> copyOfLaneShapes = i->getShapeChilds();
+        for (auto j : copyOfLaneShapes) {
+            undoList->add(new GNEChange_Shape(j, false), true);
+        }
+    }
     // remove edge from crossings related with this edge
     edge->getGNEJunctionSource()->removeEdgeFromCrossings(edge, undoList);
     edge->getGNEJunctionDestiny()->removeEdgeFromCrossings(edge, undoList);
-
     // invalidate junctions
     edge->getGNEJunctionSource()->setLogicValid(false, undoList);
     edge->getGNEJunctionDestiny()->setLogicValid(false, undoList);
-
     // save selection status
     if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
         std::set<GUIGlID> deselected;
         deselected.insert(edge->getGlID());
         undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
     }
-
     // Delete edge
     undoList->add(new GNEChange_Edge(edge, false), true);
-
     // check if after removing there are Rerouters without edge Childs
     for (auto i : rerouters) {
         if (i->getEdgeChilds().size() == 0) {
@@ -484,13 +483,11 @@ void
 GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) {
     undoList->p_begin("replace " + toString(SUMO_TAG_EDGE));
     undoList->p_add(new GNEChange_Attribute(by, SUMO_ATTR_TO, which->getAttribute(SUMO_ATTR_TO)));
-
     // replace in additionals childs of edge
     std::vector<GNEAdditional*> copyOfEdgeAdditionals = which->getAdditionalChilds();
     for (auto i : copyOfEdgeAdditionals) {
         undoList->p_add(new GNEChange_Attribute(i, SUMO_ATTR_EDGE, by->getID()));
     }
-
     // replace in additionals childs of lane
     for (auto i : which->getLanes()) {
         std::vector<GNEAdditional*> copyOfLaneAdditionals = i->getAdditionalChilds();
@@ -498,25 +495,28 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
             undoList->p_add(new GNEChange_Attribute(i, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
         }
     }
-
+    // replace in shapes childs of lane
+    for (auto i : which->getLanes()) {
+        std::vector<GNEShape*> copyOfLaneShapes = i->getShapeChilds();
+        for (auto j : copyOfLaneShapes) {
+            undoList->p_add(new GNEChange_Attribute(i, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
+        }
+    }
     // replace in rerouters
     for (auto rerouter : which->getGNERerouters()) {
         replaceInListAttribute(rerouter, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
     }
-
     // replace in crossings
     for (auto crossing : which->getGNEJunctionDestiny()->getGNECrossings()) {
         // if at least one of the edges of junction to remove belongs to a crossing of the source junction, delete it
         replaceInListAttribute(crossing, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
     }
-
     // fix connections (make a copy because they will be modified
     std::vector<NBEdge::Connection> connections = which->getNBEdge()->getConnections();
     for (auto con : connections) {
         undoList->add(new GNEChange_Connection(which, con, false, false), true);
         undoList->add(new GNEChange_Connection(by, con, false, true), true);
     }
-
     // save selection status
     if (gSelected.isSelected(GLO_EDGE, which->getGlID())) {
         std::set<GUIGlID> deselected;
@@ -524,10 +524,8 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
         undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
     }
     undoList->add(new GNEChange_ReplaceEdgeInTLS(getTLLogicCont(), which->getNBEdge(), by->getNBEdge()), true);
-
     // Delete edge
     undoList->add(new GNEChange_Edge(which, false), true);
-
     // finish replace edge
     undoList->p_end();
 }
@@ -541,24 +539,25 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
         deleteEdge(edge, undoList);
     } else {
         undoList->p_begin("delete " + toString(SUMO_TAG_LANE));
-
         // delete additionals childs of lane
         std::vector<GNEAdditional*> copyOfAdditionals = lane->getAdditionalChilds();
         for (auto i : copyOfAdditionals) {
             undoList->add(new GNEChange_Additional(i, false), true);
         }
-
+        // delete POIShapes of Lane
+        std::vector<GNEShape*> copyOfShapes = lane->getShapeChilds();
+        for (auto i : copyOfShapes) {
+            undoList->add(new GNEChange_Shape(i, false), true);
+        }
         // invalidate junctions (saving connections)
         edge->getGNEJunctionSource()->setLogicValid(false, undoList);
         edge->getGNEJunctionDestiny()->setLogicValid(false, undoList);
-
         // save selection status
         if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
             std::set<GUIGlID> deselected;
             deselected.insert(edge->getGlID());
             undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
         }
-
         // delete lane
         const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
         undoList->add(new GNEChange_Lane(edge, lane, laneAttrs, false), true);
@@ -567,7 +566,6 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
             deselected.insert(lane->getGlID());
             undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
         }
-
         // remove lane requieres always a recompute (due geometry and connections)
         requireRecompute();
         undoList->p_end();
@@ -623,7 +621,7 @@ GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
         undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
     }
     // delete shape
-    myViewNet->getUndoList()->add(new GNEChange_Shape(myViewNet->getNet(), shape, false), true);
+    myViewNet->getUndoList()->add(new GNEChange_Shape(shape, false), true);
     myViewNet->getUndoList()->p_end();
 }
 

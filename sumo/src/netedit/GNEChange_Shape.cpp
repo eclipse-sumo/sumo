@@ -45,8 +45,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Shape, GNEChange, NULL, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_Shape::GNEChange_Shape(GNENet* net, GNEShape* shape, bool forward) :
-    GNEChange(net, forward),
+GNEChange_Shape::GNEChange_Shape(GNEShape* shape, bool forward) :
+    GNEChange(shape->getNet(), forward),
     myShape(shape) {
     myShape->incRef("GNEChange_Shape");
     assert(myNet);

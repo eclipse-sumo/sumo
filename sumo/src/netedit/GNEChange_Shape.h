@@ -51,11 +51,10 @@ class GNEChange_Shape : public GNEChange {
 
 public:
     /**@brief Constructor
-    * @param[in] net net in which polygon will be inserted
     * @param[in] shape the shape to be changed
     * @param[in] forward Whether to create/delete (true/false)
     */
-    GNEChange_Shape(GNENet* net, GNEShape* shape, bool forward);
+    GNEChange_Shape(GNEShape* shape, bool forward);
 
     /// @brief Destructor
     ~GNEChange_Shape();

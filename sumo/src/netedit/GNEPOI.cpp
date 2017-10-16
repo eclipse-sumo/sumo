@@ -111,7 +111,7 @@ GNEPOI::updateGeometry() {
 
 Position
 GNEPOI::getPositionInView() const {
-    return Position(x(), y());
+    return (*this);
 }
 
 
