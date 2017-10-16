@@ -70,6 +70,15 @@ sumonet_custom_washape
 # crossing positions should not be affected by offset of non-pedestrian lanes
 4_arm_endOffset
 
+# 4 arm junction with crossings on all sides and sidewalks between road and bike lane
+4_arm_outer_bikelane
+
+# 4 arm junction with crossings on all sides and sidewalks between road and bike lane (bike lane allows pedestrian)
+4_arm_outer_bikelane2
+
+# 4 arm junction with crossings on all sides and sidewalks between road and bike lane (extra edge to mode bike lane)
+4_arm_outer_bikelane3
+
 # a pedestrian path crosses a street with sidewalks
 path_across_street
 
