@@ -2352,10 +2352,10 @@ NBNode::buildWalkingAreas(int cornerDetail) {
             wa.width = MAX2(wa.width, l.width);
             if (connected.count(edge) == 0) {
                 if (edge->getFromNode() == this) {
-                    wa.nextSidewalks.push_back(edge->getID());
+                    wa.nextSidewalks.push_back(edge->getSidewalkID());
                     connectedPoints.push_back(edge->getLaneShape(0)[0]);
                 } else {
-                    wa.prevSidewalks.push_back(edge->getID());
+                    wa.prevSidewalks.push_back(edge->getSidewalkID());
                     connectedPoints.push_back(edge->getLaneShape(0)[-1]);
                 }
                 connected.insert(edge);

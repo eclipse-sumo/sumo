@@ -3116,6 +3116,21 @@ NBEdge::getFirstNonPedestrianLane(int direction) const {
     return myLanes[index];
 }
 
+std::string 
+NBEdge::getSidewalkID() {
+    // see IntermodalEdge::getSidewalk()
+    for (int i = 0; i < (int)myLanes.size(); i++) {
+        if (myLanes[i].permissions == SVC_PEDESTRIAN) {
+            return getLaneID(i);
+        }
+    }
+    for (int i = 0; i < (int)myLanes.size(); i++) {
+        if ((myLanes[i].permissions & SVC_PEDESTRIAN) != 0) {
+            return getLaneID(i);
+        }
+    }
+    return getLaneID(0);
+}
 
 void
 NBEdge::addSidewalk(double width) {

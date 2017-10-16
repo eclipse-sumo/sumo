@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Oct 16 13:27:47 2017 by SUMO netconvert Version dev-SVN-r26501
+<!-- generated on Mon Oct 16 14:55:40 2017 by SUMO netconvert Version dev-SVN-r26501
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -367,16 +367,16 @@
     <connection from=":C_c1" to=":C_w2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_c2" to=":C_w4" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_c3" to=":C_w6" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="NC" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="NC" to=":C_w0" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from=":C_w1" to=":C_c0" fromLane="0" toLane="0" tl="C" linkIndex="28" dir="s" state="M"/>
-    <connection from=":C_w1" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="EC" to=":C_w2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_w1" to="CN" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="EC" to=":C_w2" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from=":C_w3" to=":C_c1" fromLane="0" toLane="0" tl="C" linkIndex="29" dir="s" state="M"/>
-    <connection from=":C_w3" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="SC" to=":C_w4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_w3" to="CE" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="SC" to=":C_w4" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from=":C_w5" to=":C_c2" fromLane="0" toLane="0" tl="C" linkIndex="30" dir="s" state="M"/>
-    <connection from=":C_w5" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="WC" to=":C_w6" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_w5" to="CS" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="WC" to=":C_w6" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from=":C_w7" to=":C_c3" fromLane="0" toLane="0" tl="C" linkIndex="31" dir="s" state="M"/>
-    <connection from=":C_w7" to="CW" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_w7" to="CW" fromLane="0" toLane="1" dir="s" state="M"/>
 </net>

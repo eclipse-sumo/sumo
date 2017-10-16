@@ -44,6 +44,7 @@
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBTrafficLightLogic.h>
 #include <netbuild/NBDistrict.h>
+#include <netbuild/NBHelpers.h>
 #include "NWFrame.h"
 #include "NWWriter_SUMO.h"
 
@@ -194,11 +195,15 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 device.closeTag();
             }
             // optional connections from/to sidewalk
+            std::string edgeID;
+            int laneIndex;
             for (std::vector<std::string>::const_iterator it_sw = (*it).nextSidewalks.begin(); it_sw != (*it).nextSidewalks.end(); ++it_sw) {
-                NWWriter_SUMO::writeInternalConnection(device, (*it).id, (*it_sw), 0, 0, "");
+                NBHelpers::interpretLaneID(*it_sw, edgeID, laneIndex);
+                NWWriter_SUMO::writeInternalConnection(device, (*it).id, edgeID, 0, laneIndex, "");
             }
             for (std::vector<std::string>::const_iterator it_sw = (*it).prevSidewalks.begin(); it_sw != (*it).prevSidewalks.end(); ++it_sw) {
-                NWWriter_SUMO::writeInternalConnection(device, (*it_sw), (*it).id, 0, 0, "");
+                NBHelpers::interpretLaneID(*it_sw, edgeID, laneIndex);
+                NWWriter_SUMO::writeInternalConnection(device, edgeID, (*it).id, laneIndex, 0, "");
             }
         }
     }

@@ -586,6 +586,9 @@ public:
     /// @brief return the angle for computing pedestrian crossings at the given node
     double getCrossingAngle(NBNode* node);
 
+    /// @brief get the lane id for the canonical sidewalk lane
+    std::string getSidewalkID();
+
     /// @name Edge geometry access and computation
     //@{
     /** @brief Returns the geometry of the edge
