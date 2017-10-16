@@ -340,6 +340,15 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
     }
     switch (key) {
         case SUMO_ATTR_ID:
+            // change ID of Entry
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            // Change Ids of all Entry/Exits childs 
+            for (auto i : myGNEDetectorEntrys) {
+                i->setAttribute(SUMO_ATTR_ID, generateEntryID(), undoList);
+            }
+            for (auto i : myGNEDetectorExits) {
+                i->setAttribute(SUMO_ATTR_ID, generateExitID(), undoList);
+            }
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_X:
         case SUMO_ATTR_Y:
@@ -360,11 +369,7 @@ bool
 GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if (isValidID(value) && (myViewNet->getNet()->getAdditional(getTag(), value) == NULL)) {
-                return true;
-            } else {
-                return false;
-            }
+            return isValidAdditionalID(value);
         case SUMO_ATTR_X:
             return canParse<double>(value);
         case SUMO_ATTR_Y:
@@ -389,14 +394,7 @@ void
 GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            setAdditionalID(value);
-            // Change Ids of all Entry/Exits childs
-            for (std::vector<GNEDetectorEntry*>::iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
-                (*i)->setAdditionalID(generateEntryID());
-            }
-            for (std::vector<GNEDetectorExit*>::iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
-                (*i)->setAdditionalID(generateExitID());
-            }
+            changeAdditionalID(value);
             break;
         case SUMO_ATTR_X:
             myPosition.setx(parse<double>(value));

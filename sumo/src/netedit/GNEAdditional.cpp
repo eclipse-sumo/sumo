@@ -82,12 +82,6 @@ GNEAdditional::openAdditionalDialog() {
 }
 
 
-const std::string&
-GNEAdditional::getAdditionalID() const {
-    return getMicrosimID();
-}
-
-
 GNEViewNet*
 GNEAdditional::getViewNet() const {
     return myViewNet;
@@ -127,17 +121,6 @@ GNEAdditional::isAdditionalMovable() const {
 bool
 GNEAdditional::isAdditionalSelected() const {
     return gSelected.isSelected(getType(), getGlID());
-}
-
-
-void
-GNEAdditional::setAdditionalID(const std::string& id) {
-    // Save old ID
-    std::string oldID = getMicrosimID();
-    // set New ID
-    setMicrosimID(id);
-    // update additional ID in the container of net
-    myViewNet->getNet()->updateAdditionalID(oldID, this);
 }
 
 
@@ -303,6 +286,39 @@ GNEAdditional::drawParentAndChildrenConnections() const {
         }
         // Pop draw matrix
         glPopMatrix();
+    }
+}
+
+
+const std::string&
+GNEAdditional::getAdditionalID() const {
+    return getMicrosimID();
+}
+
+
+bool
+GNEAdditional::isValidAdditionalID(const std::string& newID) const {
+    if (isValidID(newID) && (myViewNet->getNet()->getAdditional(getTag(), newID) == NULL)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+void 
+GNEAdditional::changeAdditionalID(const std::string & newID) {
+    if(myViewNet->getNet()->getAdditional(getTag(), newID) != NULL) {
+        throw InvalidArgument("An Additional with tag " + toString(getTag()) + " and ID = " + newID + " already exists");
+    } else if (isValidID(newID) == false) {
+        throw InvalidArgument("Additional ID " + newID + " contains invalid characters");
+    } else {
+        // Save old ID
+        std::string oldID = getMicrosimID();
+        // set New ID
+        setMicrosimID(newID);
+        // update additional ID in the container of net
+        myViewNet->getNet()->updateAdditionalID(oldID, this);
     }
 }
 

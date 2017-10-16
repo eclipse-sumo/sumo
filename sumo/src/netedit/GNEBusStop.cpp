@@ -290,11 +290,7 @@ bool
 GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if (isValidID(value) && (myViewNet->getNet()->getAdditional(getTag(), value) == NULL)) {
-                return true;
-            } else {
-                return false;
-            }
+            return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
             if (myViewNet->getNet()->retrieveLane(value, false) != NULL) {
                 return true;
@@ -336,7 +332,7 @@ void
 GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            setAdditionalID(value);
+            changeAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
             myLane = changeLane(myLane, value);

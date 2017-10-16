@@ -346,11 +346,7 @@ bool
 GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if (isValidID(value) && (myViewNet->getNet()->getAdditional(getTag(), value) == NULL)) {
-                return true;
-            } else {
-                return false;
-            }
+            return isValidAdditionalID(value);
         case SUMO_ATTR_POSITION: {
             bool ok;
             return (GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1);
@@ -383,7 +379,7 @@ void
 GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            setAdditionalID(value);
+            changeAdditionalID(value);
             break;
         case SUMO_ATTR_LANES: {
             // Declare variables

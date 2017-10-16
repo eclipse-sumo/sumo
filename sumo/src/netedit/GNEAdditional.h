@@ -103,9 +103,6 @@ public:
     virtual Position getPositionInView() const = 0;
     /// @}
 
-    /// @brief returns the ID of additional
-    const std::string& getAdditionalID() const;
-
     /// @brief Returns a pointer to GNEViewNet in which additional element is located
     GNEViewNet* getViewNet() const;
 
@@ -126,9 +123,6 @@ public:
 
     // @brief Check if additional item is selected
     bool isAdditionalSelected() const;
-
-    /// @brief set the ID of additional
-    void setAdditionalID(const std::string& id);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -190,6 +184,18 @@ public:
     /// @}
 
 protected:
+    /// @brief returns Additional ID
+    const std::string& getAdditionalID() const;
+
+    /// @brief check if a new additional ID is valid
+    bool isValidAdditionalID(const std::string& newID) const;
+
+    /**@brief change ID of additional
+    * @throw exception if exist already an additional whith the same ID
+    * @throw exception if ID isn't valid
+    */
+    void changeAdditionalID(const std::string& newID);
+
     /**@brief change edge of additional
      * @throw exception if oldEdge doesn't belong to an edge
      * @throw exception if edge with ID  edgeID doesn't exist
