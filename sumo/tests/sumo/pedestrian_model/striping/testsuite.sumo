@@ -29,6 +29,9 @@ counterflow_change_direction
 # no sidewalks, walkingareas nor crossings
 no_sidewalks
 
+# multiple lanes that allow pedestrians on one edge. Prefere the exclusive lane
+multiple_pedestrian_lanes
+
 # Copy of disconnected_route
 disconnected_route
 
