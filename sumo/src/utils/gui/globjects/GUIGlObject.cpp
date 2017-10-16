@@ -273,6 +273,52 @@ GUIGlObject::setPrefix(const std::string& prefix) {
 }
 
 
+void 
+GUIGlObject::buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string &type) {
+    assert(ret);
+    // build header (<tag>:<ID>
+    buildPopupHeader(ret, app, false);
+    // build center
+    buildCenterPopupEntry(ret);
+    // build copy name
+    buildNameCopyPopupEntry(ret);
+    // build select/unselect
+    buildSelectionPopupEntry(ret);
+    // build show parameters
+    buildShowParamsPopupEntry(ret, false);
+    // build copy cursor position to clipboard
+    buildPositionCopyEntry(ret, false);
+    // only show type if isn't empty
+    if(type != "") {
+        new FXMenuCommand(ret, ("type: " + type + "").c_str(), 0, 0, 0);
+        new FXMenuSeparator(ret);
+    }
+}
+
+
+void 
+GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string &type) {
+    assert(ret);
+    // build header (<tag>:<ID>
+    buildPopupHeader(ret, app, false);
+    // build center
+    buildCenterPopupEntry(ret);
+    // build copy name
+    buildNameCopyPopupEntry(ret);
+    // build select/unselect
+    buildSelectionPopupEntry(ret);
+    // build show parameters
+    buildShowParamsPopupEntry(ret, false);
+    // build copy cursor position to clipboard
+    buildPositionCopyEntry(ret, false);
+    // only show type if isn't empty
+    if(type != "") {
+        new FXMenuCommand(ret, ("type: " + type + "").c_str(), 0, 0, 0);
+        new FXMenuSeparator(ret);
+    }
+}
+
+
 std::string
 GUIGlObject::createFullName() const {
     return myPrefix + ":" + getMicrosimID();

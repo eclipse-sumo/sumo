@@ -62,15 +62,8 @@ GUIPointOfInterest::~GUIPointOfInterest() {}
 GUIGLObjectPopupMenu*
 GUIPointOfInterest::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    buildPopupHeader(ret, app, false);
-    FXString t(myType.c_str());
-    new FXMenuCommand(ret, "(" + t + ")", 0, 0, 0);
-    new FXMenuSeparator(ret);
-    buildCenterPopupEntry(ret);
-    buildNameCopyPopupEntry(ret);
-    buildSelectionPopupEntry(ret);
-    buildShowParamsPopupEntry(ret, false);
-    buildPositionCopyEntry(ret, false);
+    // build shape header
+    buildShapePopupOptions(app, ret, myType);
     return ret;
 }
 

@@ -243,6 +243,12 @@ protected:
     /// @brief usually names are prefixed by a type-specific string. this method can be used to change the default
     void setPrefix(const std::string& prefix);
 
+    /// @brief build basic shape popup options. Used to unify pop-ups menu in netedit and SUMO-GUI
+    void buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string &type);
+
+    /// @brief build basic additional popup options. Used to unify pop-ups menu in netedit and SUMO-GUI
+    void buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string &type);
+
 private:
     /// @brief The numerical id of the object
     GUIGlID myGlID;
