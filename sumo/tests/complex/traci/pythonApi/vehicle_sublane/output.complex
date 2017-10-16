@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:32903 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:54350 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -921,15 +921,15 @@ lane change wish right False
 lane change wish left False
 recovering from exception (Vehicle 'elVeh' does not support device parameter 'device.foo.bar' (No device of type 'foo' exists).)
 recovering from exception (Vehicle 'elVeh' does not support device parameter 'device.battery.foobar' (Parameter 'foobar' is not supported for device of type 'battery').)
-elVeh speed="0.0" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL"
-elVeh speed="1.88056803495" consumed="6.13" charged="0.00" cap="17493.87" maxCap="40000.00" station="NULL"
-elVeh speed="3.85432450452" consumed="17.39" charged="0.00" cap="17476.48" maxCap="40000.00" station="NULL"
-elVeh speed="5.68961882303" consumed="22.92" charged="0.00" cap="17453.56" maxCap="40000.00" station="NULL"
-elVeh speed="8.04730844612" consumed="31.25" charged="0.00" cap="17422.31" maxCap="40000.00" station="NULL"
-elVeh speed="9.1839678955" consumed="30.79" charged="0.00" cap="17391.52" maxCap="40000.00" station="NULL"
-elVeh speed="9.26546115899" consumed="25.89" charged="0.00" cap="17365.63" maxCap="40000.00" station="NULL"
-elVeh speed="9.72164504558" consumed="29.20" charged="0.00" cap="17336.43" maxCap="40000.00" station="NULL"
-elVeh speed="9.5412820772" consumed="25.25" charged="0.00" cap="17311.18" maxCap="40000.00" station="NULL"
-elVeh speed="9.24606008185" consumed="23.84" charged="0.00" cap="17287.34" maxCap="40000.00" station="NULL"
+elVeh speed="0.0" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL" emissionClass=Energy/unknown electricityConsumption=0.00555555555556
+elVeh speed="1.88056803495" consumed="6.13" charged="0.00" cap="17493.87" maxCap="40000.00" station="NULL" emissionClass=Energy/unknown electricityConsumption=6.13390160078
+elVeh speed="3.85432450452" consumed="17.39" charged="0.00" cap="17476.48" maxCap="40000.00" station="NULL" emissionClass=Energy/unknown electricityConsumption=13.7310407922
+elVeh speed="5.68961882303" consumed="22.92" charged="0.00" cap="17453.56" maxCap="40000.00" station="NULL" emissionClass=Energy/unknown electricityConsumption=20.5219011965
+elVeh speed="8.04730844612" consumed="31.25" charged="0.00" cap="17422.31" maxCap="40000.00" station="NULL" emissionClass=Energy/unknown electricityConsumption=31.2503488442
+elVeh speed="9.1839678955" consumed="30.79" charged="0.00" cap="17391.52" maxCap="40000.00" station="NULL" emissionClass=Energy/unknown electricityConsumption=30.7885333366
+elVeh speed="9.26546115899" consumed="25.89" charged="0.00" cap="17365.63" maxCap="40000.00" station="NULL" emissionClass=Energy/unknown electricityConsumption=25.8927690423
+elVeh speed="9.72164504558" consumed="29.20" charged="0.00" cap="17336.43" maxCap="40000.00" station="NULL" emissionClass=Energy/unknown electricityConsumption=29.1970111739
+elVeh speed="9.5412820772" consumed="25.25" charged="0.00" cap="17311.18" maxCap="40000.00" station="NULL" emissionClass=Energy/unknown electricityConsumption=25.2535771751
+elVeh speed="9.24606008185" consumed="23.84" charged="0.00" cap="17287.34" maxCap="40000.00" station="NULL" emissionClass=Energy/unknown electricityConsumption=23.8410836722
 triptest route: ['3si', '4si']
 triptest route: ['3si', '4o', '4fi', '4si']

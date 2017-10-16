@@ -401,6 +401,7 @@ check(electricVeh)
 traci.vehicle.setLength(electricVeh, 8)
 traci.vehicle.setMaxSpeed(electricVeh, 10)
 check(electricVeh)
+traci.vehicle.setEmissionClass(electricVeh, "Energy/unknown")
 
 try:
     print(traci.vehicle.getParameter(electricVeh, "device.foo.bar"))
@@ -413,14 +414,17 @@ except traci.TraCIException as e:
 
 for i in range(10):
     step()
-    print('%s speed="%s" consumed="%s" charged="%s" cap="%s" maxCap="%s" station="%s"' % (
+    print('%s speed="%s" consumed="%s" charged="%s" cap="%s" maxCap="%s" station="%s" emissionClass=%s electricityConsumption=%s' % (
         electricVeh,
         traci.vehicle.getSpeed(electricVeh),
         traci.vehicle.getParameter(electricVeh, "device.battery.energyConsumed"),
         traci.vehicle.getParameter(electricVeh, "device.battery.energyCharged"),
         traci.vehicle.getParameter(electricVeh, "device.battery.actualBatteryCapacity"),
         traci.vehicle.getParameter(electricVeh, "device.battery.maximumBatteryCapacity"),
-        traci.vehicle.getParameter(electricVeh, "device.battery.chargingStationId")))
+        traci.vehicle.getParameter(electricVeh, "device.battery.chargingStationId"),
+        traci.vehicle.getEmissionClass(electricVeh),
+        traci.vehicle.getElectricityConsumption(electricVeh),
+        ))
 # test for adding a trip
 traci.route.add("trip2", ["3si", "4si"])
 traci.vehicle.add("triptest2", "trip2", typeID="reroutingType")
