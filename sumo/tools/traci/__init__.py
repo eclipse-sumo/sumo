@@ -24,6 +24,8 @@ import warnings
 import abc
 
 import sumolib  # noqa
+from sumolib.miscutils import getFreeSocketPort
+
 from .domain import _defaultDomains
 from .connection import Connection, _embedded
 from .exceptions import FatalTraCIError, TraCIException
