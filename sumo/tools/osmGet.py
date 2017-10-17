@@ -18,13 +18,16 @@ from __future__ import print_function
 import os
 try:
     import httplib
+    import urlparse
 except ImportError:
+    # python3
     import http.client as httplib
+    import urllib.parse as urlparse
+
 import optparse
 from os import path
 
 import sumolib  # noqa
-
 
 def readCompressed(conn, query, filename):
     conn.request("POST", "/api/interpreter", """
@@ -108,8 +111,18 @@ def get(args=None):
             b = e
         conn.close()
     else:
-        conn = httplib.HTTPConnection("www.overpass-api.de")
-        # conn = httplib.HTTPConnection("overpass.osm.rambler.ru")
+        host = 'www.overpass-api.de'
+        #host= 'overpass.osm.rambler.ru'
+        port = 443
+        
+        if os.environ.get("https_proxy") is not None:
+            proxy_url = os.environ.get("https_proxy")
+            url = urlparse.urlparse(proxy_url)
+            conn = httplib.HTTPSConnection(url.hostname, url.port)
+            conn.set_tunnel(host, port, {})
+        else:
+            conn = httplib.HTTPConnection(host)
+
         if options.area:
             if options.area < 3600000000:
                 options.area += 3600000000
