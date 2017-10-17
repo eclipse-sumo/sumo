@@ -268,6 +268,11 @@ public:
     /// @}
 
 
+    /// @brief Sets myTargetTime on server and sockets to the given value
+    /// @note  Used in MSStateHandler to update the server's time after loading a state
+    void setTargetTime(SUMOTime targetTime);
+
+
 private:
     /** @brief Constructor
      * @param[in] port The port to listen to (to open)

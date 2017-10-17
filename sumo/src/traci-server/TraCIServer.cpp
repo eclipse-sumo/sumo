@@ -1465,4 +1465,12 @@ TraCIServer::readTypeCheckingPolygon(tcpip::Storage& inputStorage, PositionVecto
     return true;
 }
 
+void
+TraCIServer::setTargetTime(SUMOTime targetTime) {
+    myTargetTime=targetTime;
+    for(auto& s : mySockets) {
+        s.second->targetTime = targetTime;
+    }
+}
+
 #endif

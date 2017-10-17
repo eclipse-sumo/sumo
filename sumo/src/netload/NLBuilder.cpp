@@ -59,6 +59,7 @@
 #include <microsim/MSFrame.h>
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSStateHandler.h>
+#include <traci-server/TraCIServer.h>
 
 #include "NLHandler.h"
 #include "NLEdgeControlBuilder.h"
@@ -194,6 +195,9 @@ NLBuilder::build() {
         XMLSubSys::runParser(h, f);
         if (myOptions.isDefault("begin")) {
             myOptions.set("begin", time2string(h.getTime()));
+            if (TraCIServer::getInstance()!=0) {
+                TraCIServer::getInstance()->setTargetTime(h.getTime());
+            }
         }
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return false;
