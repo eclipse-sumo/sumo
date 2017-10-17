@@ -61,8 +61,8 @@ public:
     ///@brief Destructor
     virtual ~NamedObjectCont() {
         // iterate over all elements to delete it
-        for (typename IDMap::iterator i = myMap.begin(); i != myMap.end(); i++) {
-            delete(*i).second;
+        for (auto i : myMap) {
+            delete i.second;
         }
     }
 
@@ -90,7 +90,7 @@ public:
      * @return If the item could been removed (an item with the id was within the container before)
      */
     virtual bool remove(const std::string& id) {
-        typename std::map<std::string, T>::iterator it = myMap.find(id);
+        auto it = myMap.find(id);
         if (it == myMap.end()) {
             return false;
         } else {
@@ -109,7 +109,7 @@ public:
      * @return The item stored under the given id, or 0 if no such item exists
      */
     T get(const std::string& id) const {
-        typename std::map<std::string, T>::const_iterator it = myMap.find(id);
+        auto it = myMap.find(id);
         if (it == myMap.end()) {
             return 0;
         } else {
@@ -119,8 +119,8 @@ public:
 
     /// @brief Removes all items from the container (deletes them, too)
     void clear() {
-        for (typename IDMap::iterator i = myMap.begin(); i != myMap.end(); i++) {
-            delete(*i).second;
+        for (auto i : myMap) {
+            delete i.second;
         }
         myMap.clear();
         myVector.clear();
@@ -139,14 +139,15 @@ public:
      *  known, false is returned.
      *
      * @param[in] id The id of the item to delete
+     * @param[in] deleteObject delete object after removing it from container
      * @return Whether the object could be deleted (was within the map)
      */
-    bool erase(const std::string& id) {
-        typename IDMap::iterator i = myMap.find(id);
+    bool erase(const std::string& id, bool deleteObject = true) {
+        auto i = myMap.find(id);
         if (i == myMap.end()) {
             return false;
         } else {
-            T o = (*i).second;
+            T o = i->second;
             myMap.erase(i);
             // and from the vector
             typename ObjectVector::iterator i2 =
@@ -155,7 +156,9 @@ public:
             if (i2 != myVector.end()) {
                 myVector.erase(i2);
             }
-            delete o;
+            if(deleteObject) {
+                delete o;
+            }
             return true;
         }
     }
@@ -164,20 +167,19 @@ public:
      * @param[in] into The container to fill
      */
     void insertIDs(std::vector<std::string>& into) const {
-        typename IDMap::const_iterator i;
-        for (i = myMap.begin(); i != myMap.end(); ++i) {
-            into.push_back((*i).first);
+        for (auto i : myMap) {
+            into.push_back(i.first);
         }
     }
 
     /// @brief change ID of a stored object
     bool changeID(const std::string& oldId, const std::string& newId) {
-        typename IDMap::iterator i = myMap.find(oldId);
+        auto i = myMap.find(oldId);
         if (i == myMap.end()) {
             return false;
         } else {
             // save Item, remove it from Map, and insert it again with the new ID
-            T item = (*i).second;
+            T item = i->second;
             myMap.erase(i);
             myMap.insert(std::make_pair(newId, item));
             return true;
