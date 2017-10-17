@@ -30,31 +30,36 @@ import subprocess
 from os.path import dirname, exists, getmtime, join, isdir
 
 UNKNOWN_REVISION = "UNKNOWN"
+GITDIR = '.git'
 SVNDIR = '.svn'
 SVN16FILE = 'entries'
 SVN16FILE2 = 'all-wcprops'
 SVN17FILE = 'wc.db'
+GITFILE = "index"
 
 
-def find_svnDir(searchRoot):
+def findRootDir(searchRoot):
     # we need to find the .svn folder
     # for subversion 1.7 and later, it only exists at the wc root and each
     # externals root
     candidates = [
         join(searchRoot, SVNDIR),              # src
         join(searchRoot, '..', SVNDIR),        # sumo
-        join(searchRoot, '..', '..', SVNDIR)]  # trunk
+        join(searchRoot, '..', '..', SVNDIR),  # trunk
+        join(searchRoot, '..', GITDIR),        # sumo
+        join(searchRoot, '..', '..', GITDIR)]  # trunk
     for d in candidates:
         if isdir(d):
             return d
     return None
 
 
-def find_svnFile(svnDir):
+def findVCSFile(rootDir):
     candidates = [
-        join(svnDir, SVN17FILE),
-        join(svnDir, SVN16FILE2),
-        join(svnDir, SVN16FILE)]
+        join(rootDir, SVN17FILE),
+        join(rootDir, SVN16FILE2),
+        join(rootDir, SVN16FILE),
+        join(rootDir, GITFILE)]
     for f in candidates:
         if exists(f):
             return f
@@ -62,6 +67,8 @@ def find_svnFile(svnDir):
 
 
 def parseRevision(svnFile):
+    if GITDIR in svnFile:
+        return UNKNOWN_REVISION
     if SVN17FILE in svnFile or SVN16FILE2 in svnFile:
         # new style wc.db
         svnRevision = -1
@@ -73,7 +80,7 @@ def parseRevision(svnFile):
                 except ValueError:
                     pass
         if svnRevision >= 0:
-            return svnRevision
+            return "dev-SVN-r%s" % svnRevision
         else:
             return UNKNOWN_REVISION
     else:
@@ -85,14 +92,14 @@ def parseRevision(svnFile):
             if revIndex >= 0:
                 revIndex += 10
                 svnRevision = l[revIndex:l.index('"', revIndex)]
-                return svnRevision
+                return "dev-SVN-r" + svnRevision
         return UNKNOWN_REVISION
 
 
-def create_version_file(versionFile, svnRevision, svnFile):
-    print('generating %s from revision in %s' % (versionFile, svnFile))
+def create_version_file(versionFile, revision, vcsFile):
+    print('generating %s from revision in %s' % (versionFile, vcsFile))
     with open(versionFile, 'w') as f:
-        print('#define VERSION_STRING "dev-SVN-r%s"' % svnRevision, file=f)
+        print('#define VERSION_STRING "%s"' % revision, file=f)
 
 
 def main():
@@ -104,30 +111,33 @@ def main():
         versionDir = sumoSrc
     versionFile = join(versionDir, 'version.h')
 
-    # determine svn dir
+    # determine dir
     if len(sys.argv) > 2:
-        svnDir = sys.argv[2]
+        vcsDir = sys.argv[2]
     else:
-        svnDir = find_svnDir(sumoSrc)
-    if svnDir is None or not exists(svnDir):
-        print("unknown revision - svn dir '%s' not found" % svnDir)
+        vcsDir = findRootDir(sumoSrc)
+    if vcsDir is None or not isdir(vcsDir):
+        print("unknown revision - version control dir '%s' not found" % vcsDir)
         if not exists(versionFile):
             create_version_file(versionFile, UNKNOWN_REVISION, "<None>")
     else:
-        # determine svn file
-        svnFile = find_svnFile(svnDir)
-        if svnFile is None:
-            print("unknown revision - no svn file found in %s" % svnDir)
+        # determine file
+        vcsFile = findVCSFile(vcsDir)
+        if vcsFile is None:
+            print("unknown revision - no version control file found in %s" % vcsDir)
             if not exists(versionFile):
                 create_version_file(versionFile, UNKNOWN_REVISION, "<None>")
-        if not exists(versionFile) or getmtime(versionFile) < getmtime(svnFile):
-            # svnFile is newer. lets update the revision number
+        elif not exists(versionFile) or getmtime(versionFile) < getmtime(vcsFile):
+            # vcsFile is newer. lets update the revision number
             try:
-                svnInfo = subprocess.check_output(['svn', 'info', sumoSrc])
-                svnRevision = int(re.search('Revision: (\d*)', svnInfo).group(1))
+                if GITDIR in vcsDir:
+                    revision = subprocess.check_output(['git', 'describe', '--always']).strip()
+                else:
+                    svnInfo = subprocess.check_output(['svn', 'info', sumoSrc])
+                    revision = "dev-SVN-r" + re.search('Revision: (\d*)', svnInfo).group(1)
             except:
-                svnRevision = parseRevision(svnFile)
-            create_version_file(versionFile, svnRevision, svnFile)
+                revision = parseRevision(vcsFile)
+            create_version_file(versionFile, revision, vcsFile)
 
 
 if __name__ == "__main__":
