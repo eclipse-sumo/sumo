@@ -79,6 +79,15 @@ sumonet_custom_washape
 # 4 arm junction with crossings on all sides and sidewalks between road and bike lane (extra edge to mode bike lane)
 4_arm_outer_bikelane3
 
+# a sidewalk is to the left of a road lane
+4_arm_leftsidewalk
+
+# a sidewalk is located between two road lanes
+4_arm_enclosed_sidewalk
+
+# a sidewalk is located between two road lanes of the same edge
+4_arm_enclosed_sidewalk2
+
 # a pedestrian path crosses a street with sidewalks
 path_across_street
 
