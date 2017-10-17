@@ -298,7 +298,7 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SU
         myVehicle->addPerson(person);
         net->getInsertionControl().add(myVehicle);
         net->getVehicleControl().removeWaiting(myWaitingEdge, myVehicle);
-        net->getVehicleControl().unregisterOneWaitingForPerson();
+        net->getVehicleControl().unregisterOneWaiting(true);
     } else {
         net->getPersonControl().addWaiting(myWaitingEdge, person);
         myWaitingEdge->addPerson(person);

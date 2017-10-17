@@ -112,8 +112,9 @@ public:
     /** @brief Tries to insert the vehicle into the internal vehicle container
      *
      * Checks whether another vehicle with the same id exists; returns false
-     *  if so. Otherwise, the vehicle is added to "myVehicleDict" and
-     *  true is returned.
+     *  if so. Otherwise, the vehicle is added to "myVehicleDict".
+     *  It also checks whether the vehicle has a "triggered" departure
+     *  and registers it accordingly.
      *
      * The vehicle control gets responsible for vehicle deletion.
      *
@@ -368,28 +369,24 @@ public:
      */
     SUMOVehicle* getWaitingVehicle(const MSEdge* const edge, const std::set<std::string>& lines, const double position, const std::string ridingID);
 
-    /** @brief increases the count of vehicles waiting for a person to allow recogniztion of person related deadlocks
+    /** @brief increases the count of vehicles waiting for a transport to allow recognition of person / container related deadlocks
      */
-    void registerOneWaitingForPerson() {
-        myWaitingForPerson++;
+    void registerOneWaiting(const bool isPerson) {
+        if (isPerson) {
+            myWaitingForPerson++;
+        } else {
+            myWaitingForContainer++;
+        }
     }
 
-    /** @brief decreases the count of vehicles waiting for a person to allow recogniztion of person related deadlocks
+    /** @brief decreases the count of vehicles waiting for a transport to allow recognition of person / container related deadlocks
      */
-    void unregisterOneWaitingForPerson() {
-        myWaitingForPerson--;
-    }
-
-    /** @brief increases the count of vehicles waiting for a container to allow recogniztion of container related deadlocks
-     */
-    void registerOneWaitingForContainer() {
-        myWaitingForContainer++;
-    }
-
-    /** @brief decreases the count of vehicles waiting for a container to allow recogniztion of container related deadlocks
-     */
-    void unregisterOneWaitingForContainer() {
-        myWaitingForContainer--;
+    void unregisterOneWaiting(const bool isPerson) {
+        if (isPerson) {
+            myWaitingForPerson--;
+        } else {
+            myWaitingForContainer--;
+        }
     }
 
     /// @brief registers one collision-related teleport

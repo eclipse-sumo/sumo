@@ -79,7 +79,7 @@ MSContainer::MSContainerStage_Driving::proceed(MSNet* net, MSTransportable* cont
         myVehicle->addContainer(container);
         net->getInsertionControl().add(myVehicle);
         net->getVehicleControl().removeWaiting(myWaitingEdge, myVehicle);
-        net->getVehicleControl().unregisterOneWaitingForContainer();
+        net->getVehicleControl().unregisterOneWaiting(false);
     } else {
         net->getContainerControl().addWaiting(myWaitingEdge, container);
         myWaitingEdge->addContainer(container);

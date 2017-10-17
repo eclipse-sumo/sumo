@@ -284,6 +284,7 @@ public:
     }
 
     void prohibit(const std::vector<E*>& toProhibit) {
+        createNet();
         std::vector<_IntermodalEdge*> toProhibitPE;
         for (typename std::vector<E*>::const_iterator it = toProhibit.begin(); it != toProhibit.end(); ++it) {
             toProhibitPE.push_back(myIntermodalNet->getBothDirections(*it).first);

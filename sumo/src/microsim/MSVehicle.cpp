@@ -1312,7 +1312,7 @@ MSVehicle::processNextStop(double currentVelocity) {
             // the triggering condition has been fulfilled. Maybe we want to wait a bit longer for additional riders (car pooling)
             stop.triggered = false;
             if (myAmRegisteredAsWaitingForPerson) {
-                MSNet::getInstance()->getVehicleControl().unregisterOneWaitingForPerson();
+                MSNet::getInstance()->getVehicleControl().unregisterOneWaiting(true);
                 myAmRegisteredAsWaitingForPerson = false;
 #ifdef DEBUG_STOPS
                 if (DEBUG_COND) {
@@ -1331,7 +1331,7 @@ MSVehicle::processNextStop(double currentVelocity) {
             // the triggering condition has been fulfilled
             stop.containerTriggered = false;
             if (myAmRegisteredAsWaitingForContainer) {
-                MSNet::getInstance()->getVehicleControl().unregisterOneWaitingForContainer();
+                MSNet::getInstance()->getVehicleControl().unregisterOneWaiting(false);
                 myAmRegisteredAsWaitingForContainer = false;
 #ifdef DEBUG_STOPS
                 if (DEBUG_COND) {
@@ -1354,7 +1354,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                     stop.triggered = false;
                 }
                 // we can only register after waiting for one step. otherwise we might falsely signal a deadlock
-                MSNet::getInstance()->getVehicleControl().registerOneWaitingForPerson();
+                MSNet::getInstance()->getVehicleControl().registerOneWaiting(true);
                 myAmRegisteredAsWaitingForPerson = true;
 #ifdef DEBUG_STOPS
                 if (DEBUG_COND) {
@@ -1368,7 +1368,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                     stop.containerTriggered = false;
                 }
                 // we can only register after waiting for one step. otherwise we might falsely signal a deadlock
-                MSNet::getInstance()->getVehicleControl().registerOneWaitingForContainer();
+                MSNet::getInstance()->getVehicleControl().registerOneWaiting(false);
                 myAmRegisteredAsWaitingForContainer = true;
 #ifdef DEBUG_STOPS
                 if (DEBUG_COND) {
@@ -4170,11 +4170,11 @@ bool
 MSVehicle::resumeFromStopping() {
     if (isStopped()) {
         if (myAmRegisteredAsWaitingForPerson) {
-            MSNet::getInstance()->getVehicleControl().unregisterOneWaitingForPerson();
+            MSNet::getInstance()->getVehicleControl().unregisterOneWaiting(true);
             myAmRegisteredAsWaitingForPerson = false;
         }
         if (myAmRegisteredAsWaitingForContainer) {
-            MSNet::getInstance()->getVehicleControl().unregisterOneWaitingForContainer();
+            MSNet::getInstance()->getVehicleControl().unregisterOneWaiting(false);
             myAmRegisteredAsWaitingForContainer = false;
         }
         // we have waited long enough and fulfilled any passenger-requirements

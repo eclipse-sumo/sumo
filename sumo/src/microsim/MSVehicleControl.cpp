@@ -187,6 +187,16 @@ MSVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
     if (it == myVehicleDict.end()) {
         // id not in myVehicleDict.
         myVehicleDict[id] = v;
+        const SUMOVehicleParameter& pars = v->getParameter();
+        if (pars.departProcedure == DEPART_TRIGGERED || pars.departProcedure == DEPART_CONTAINER_TRIGGERED) {
+            const MSEdge* const firstEdge = v->getRoute().getEdges()[0];
+            if (!MSGlobals::gUseMesoSim) {
+                // position will be checked against person position later
+                static_cast<MSVehicle*>(v)->setTentativeLaneAndPosition(firstEdge->getLanes()[0], v->getParameter().departPos);
+            }
+            addWaiting(v->getRoute().getEdges().front(), v);
+            registerOneWaiting(pars.departProcedure == DEPART_TRIGGERED);
+        }
         return true;
     }
     return false;
