@@ -1982,10 +1982,11 @@ MSDevice_SSM::flushConflicts(bool flushAll) {
     std::cout << "\n" << SIMTIME << " Device '" << getID() << "' flushConflicts()" << std::endl;
 #endif
     while (!myPastConflicts.empty()) {
-        if (flushAll || myPastConflicts.top()->begin <= myOldestActiveEncounterBegin) {
-            writeOutConflict(myPastConflicts.top());
-            delete myPastConflicts.top();
+        Encounter* top = myPastConflicts.top();
+        if (flushAll || top->begin <= myOldestActiveEncounterBegin) {
+            writeOutConflict(top);
             myPastConflicts.pop();
+            delete top;
         } else {
             break;
         }
