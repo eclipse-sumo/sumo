@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/24/17 13:24:39 by SUMO Version dev-SVN-r24460
+<!-- generated on Tue Oct 17 17:19:24 2017 by SUMO Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -23,13 +23,13 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="dev-SVN-r24460" time="2.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="svn" time="2.00">
     <route id="!0" state="0" edges="1si"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
     <vType id="idm" length="5.00" minGap="2.00" carFollowModel="IDM" accel="0.5" decel="3" tau="1" delta="1"/>
-    <vehicle id="0" type="idm" depart="0.00" route="!0" state="0 0 5.10 0" pos="5.60" speed="0.50" posLat="0.00"/>
+    <vehicle id="0" type="idm" depart="0.00" route="!0" state="0 0 5.10 0 1000" pos="5.60" speed="0.50" posLat="0.00"/>
     <lane id="1fi_0">
         <vehicles value=""/>
     </lane>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 13 17:22:13 2017 by SUMO Version svn
+<!-- generated on Tue Oct 17 17:19:11 2017 by SUMO Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -33,7 +33,7 @@
         <param key="has.rerouting.device" value="false"/>
     </vehicle>
 
-    <vehicle id="v1" type="type2" depart="4.00" actionStepLength="2.00" arrival="33.00">
+    <vehicle id="v1" type="type2" depart="4.00" arrival="33.00">
         <route edges="beg middle end"/>
     </vehicle>
 
