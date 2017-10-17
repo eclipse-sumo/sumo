@@ -368,8 +368,7 @@ void
 GNEViewNet::stopEditCustomShape() {
     // stop edit shape junction deleting myEditShapePoly
     if (myEditShapePoly != 0) {
-        myNet->removeShapeOfView(myEditShapePoly, true);
-        myNet->removePolygon(myEditShapePoly->getMicrosimID());
+        myNet->removePolygonForEditShapes(myEditShapePoly);
         myEditShapePoly = 0;
         // restore previous edit mode
         if (myEditMode != myPreviousEditMode) {

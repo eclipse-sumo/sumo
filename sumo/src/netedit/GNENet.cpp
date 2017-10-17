@@ -148,8 +148,6 @@ GNENet::~GNENet() {
         }
         delete it.second;
     }
-
-
     // show extra information for tests
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Deleting net builder in GNENet destructor");
@@ -196,34 +194,13 @@ GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColo
     // check if ID is duplicated
     if (myPolygons.get(id) == NULL) {
         // create poly
+        myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POLY));
         GNEPoly* poly = new GNEPoly(this, id, type, shape, geo, fill, color, layer, angle, imgFile, false, false);
-        if (myPolygons.add(poly->getID(), poly)) {
-            myViewNet->getUndoList()->p_begin("add " + toString(poly->getTag()));
-            myViewNet->getUndoList()->add(new GNEChange_Shape(poly, true), true);
-            myViewNet->getUndoList()->p_end();
-            return true;
-        } else {
-            throw ProcessError("Error adding GNEPOly into shapeContainer");
-        }
+        myViewNet->getUndoList()->add(new GNEChange_Shape(poly, true), true);
+        myViewNet->getUndoList()->p_end();
+        return true;
     } else {
         return false;
-    }
-}
-
-
-bool
-GNENet::removePolygon(const std::string& id) {
-    // cast GNEPoly from polygon container
-    GNEPoly* poly = dynamic_cast<GNEPoly*>(myPolygons.get(id));
-    // remove only if casting was sucesfully
-    if (poly == NULL) {
-        return false;
-    } else {
-        // remove polygon of view if is still visible
-        if(poly->isShapeVisible()) {
-            removeShapeOfView(poly);
-        }
-        return myPolygons.remove(id);
     }
 }
 
@@ -261,28 +238,6 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
         }
     } else {
         return false;
-    }
-}
-
-
-bool
-GNENet::removePOI(const std::string& id) {
-    // cast GNEPOI and GNEPOILane from POI container
-    GNEPOI* POI = dynamic_cast<GNEPOI*>(myPOIs.get(id));
-    GNEPOILane* POILane = dynamic_cast<GNEPOILane*>(myPOIs.get(id));
-    // remove only if casting was sucesfully
-    if ((POI == NULL) && (POILane == NULL)) {
-        return false;
-    } else {
-        // remove POI of view if is visible
-        if(POI && POI->isShapeVisible()) {
-            removeShapeOfView(POI);
-        }
-        // remove POILane of view if is still visible
-        if(POILane && POILane->isShapeVisible()) {
-            removeShapeOfView(POILane);
-        }
-        return myPOIs.remove(id);
     }
 }
 
@@ -1105,7 +1060,7 @@ GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
         for (auto it : getPolygons().getMyMap()) {
             GNEPoly* poly = dynamic_cast<GNEPoly*>(it.second);
             // only add visible polygons
-            if (poly && poly->isShapeVisible() && (!onlySelected || gSelected.isSelected(GLO_POLYGON, poly->getGlID()))) {
+            if (poly && (!onlySelected || gSelected.isSelected(GLO_POLYGON, poly->getGlID()))) {
                 result.push_back(poly);
             }
         }
@@ -1115,7 +1070,7 @@ GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
         for (auto it : getPOIs().getMyMap()) {
             GNEPOI* POI = dynamic_cast<GNEPOI*>(it.second);
             // only add visible POIs
-            if (POI && POI->isShapeVisible() && (!onlySelected || gSelected.isSelected(GLO_POI, POI->getGlID()))) {
+            if (POI && (!onlySelected || gSelected.isSelected(GLO_POI, POI->getGlID()))) {
                 result.push_back(POI);
             }
         }
@@ -1125,7 +1080,7 @@ GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
         for (auto it : getPOIs().getMyMap()) {
             GNEPOILane* POILane = dynamic_cast<GNEPOILane*>(it.second);
             // only add visible POILanes
-            if (POILane && POILane->isShapeVisible() && (!onlySelected || gSelected.isSelected(GLO_POI, POILane->getGlID()))) {
+            if (POILane && (!onlySelected || gSelected.isSelected(GLO_POI, POILane->getGlID()))) {
                 result.push_back(POILane);
             }
         }
@@ -1944,19 +1899,12 @@ GNENet::flowExists(const std::string& flowID) const {
 GNEPoly*
 GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector &shape, bool fill) {
     if(shape.size() > 0) {
-        // generate a ID for polygon used for shape
-        int counter = 0;
-        std::string polyID = "edit_shape:" + toString(counter);
-        while (myPolygons.get(polyID) != NULL) {
-            counter++;
-            polyID = "edit_shape:" + toString(counter);
-        }
         // create poly for edit shapes
-        GNEPoly* shapePoly = new GNEPoly(this, "edit_shape:" + toString(counter), "edit_shape", shape, false, true, RGBColor::GREEN, GLO_POLYGON, 0, "", false , false);
+        GNEPoly* shapePoly = new GNEPoly(this, "edit_shape", "edit_shape", shape, false, true, RGBColor::GREEN, GLO_POLYGON, 0, "", false , false);
         shapePoly->setShapeEditedElement(netElement);
         shapePoly->setFill(fill);
         shapePoly->setLineWidth(0.3);
-        insertShapeInView(shapePoly, true);
+        myGrid.addAdditionalGLObject(shapePoly);
         myViewNet->update();
         return shapePoly;  
     } else {
@@ -1965,58 +1913,22 @@ GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector 
 }
 
 
-void
-GNENet::insertShapeInView(GNEShape* s, bool isShapeForEditShapes) {
-    if (s->isShapeVisible() == false) {
-        // add shape to grid
-        myGrid.addAdditionalGLObject(dynamic_cast<GUIGlObject*>(s));
-        s->setShapeVisible(true);
-        // POILanes has to be added from lane
-        if(s->getTag() == SUMO_TAG_POILANE) {
-            retrieveLane(s->getAttribute(SUMO_ATTR_LANE))->addShapeChild(s);
-        }
-        // shapes has to be saved if polygon isn't for edit shapes
-        if(!isShapeForEditShapes) {
-            requiereSaveShapes();
-        }
+void 
+GNENet::removePolygonForEditShapes(GNEPoly* polygon) {
+    if(polygon) {
+        myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(polygon));
         myViewNet->update();
     } else {
-        throw ProcessError("Shape was already inserted in view");
-    }
-}
-
-
-void
-GNENet::removeShapeOfView(GNEShape* s, bool isShapeForEditShapes) {
-    if (s->isShapeVisible()) {
-        // remove shape of grid
-        myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(s));
-        s->setShapeVisible(false);
-        // POILanes has to be removed from lane
-        if(s->getTag() == SUMO_TAG_POILANE) {
-            retrieveLane(s->getAttribute(SUMO_ATTR_LANE))->removeShapeChild(s);
-        }
-        // shapes has to be saved if polygon isn't for edit shapes
-        if(!isShapeForEditShapes) {
-            requiereSaveShapes();
-        }
-        myViewNet->update();
-    } else {
-        throw ProcessError("Shape wasn't already inserted in view");
+        throw ProcessError("Polygon for edit shapes has to be inicializated");
     }
 }
 
 
 void
 GNENet::refreshShape(GNEShape* s) {
-    // make sure that shape is visible
-    if (s->isShapeVisible()) {
-        myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(s));
-        myGrid.addAdditionalGLObject(dynamic_cast<GUIGlObject*>(s));
-        myViewNet->update();
-    } else {
-        throw ProcessError("Shape wasn't inserted in view");
-    }
+    myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(s));
+    myGrid.addAdditionalGLObject(dynamic_cast<GUIGlObject*>(s));
+    myViewNet->update();
 }
 
 
@@ -2069,17 +1981,11 @@ void GNENet::saveShapes(const std::string& filename) {
     device.openTag("additionals");
     // write only visible polygons
     for (auto i : myPolygons.getMyMap()) {
-        GNEShape* shape = dynamic_cast<GNEShape*>(i.second);
-        if (shape->isShapeVisible()) {
-            shape->writeShape(device);
-        }
+        dynamic_cast<GNEShape*>(i.second)->writeShape(device);
     }
     // write only visible POIs
     for (auto i : myPOIs.getMyMap()) {
-        GNEShape* shape = dynamic_cast<GNEShape*>(i.second);
-        if (shape->isShapeVisible()) {
-            shape->writeShape(device);
-        }
+        dynamic_cast<GNEShape*>(i.second)->writeShape(device);
     }
     device.close();
     // change flag to true
@@ -2228,6 +2134,44 @@ GNENet::deleteSingleEdge(GNEEdge* edge) {
 }
 
 
+void 
+GNENet::insertShape(GNEShape *shape) {
+    // add shape to grid
+    myGrid.addAdditionalGLObject(dynamic_cast<GUIGlObject*>(shape));
+    // add shape depending of their types
+    if(shape->getTag() == SUMO_TAG_POLY) {
+        myPolygons.add(shape->getID(), dynamic_cast<GUIPolygon*>(shape));
+    } else {
+        myPOIs.add(shape->getID(), dynamic_cast<GUIPointOfInterest*>(shape));
+    }
+    // POILanes has to be added from lane
+    if(shape->getTag() == SUMO_TAG_POILANE) {
+        retrieveLane(shape->getAttribute(SUMO_ATTR_LANE))->addShapeChild(shape);
+    }
+    // insert shape requieres always save shapes
+    requiereSaveShapes();
+}
+
+
+void 
+GNENet::removeShape(GNEShape *shape) {
+    // remove shape froim grid
+    myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(shape));
+    // remove shape depending of their types
+    if(shape->getTag() == SUMO_TAG_POLY) {
+        myPolygons.erase(shape->getID(), false);
+    } else {
+        myPOIs.erase(shape->getID(), false);
+    }
+    // POILanes has to be removed from lane
+    if(shape->getTag() == SUMO_TAG_POILANE) {
+        retrieveLane(shape->getAttribute(SUMO_ATTR_LANE))->removeShapeChild(shape);
+    }
+    // remove shape requieres always save shapes
+    requiereSaveShapes();
+}
+
+
 void
 GNENet::update() {
     if (myViewNet) {
@@ -2298,18 +2242,12 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     if (volatileOptions) {
         // clear all Polys of grid
         for (auto i : myPolygons.getMyMap()) {
-            GNEShape* shape = dynamic_cast<GNEShape*>(i.second);
-            if (shape->isShapeVisible()) {
-                removeShapeOfView(shape);
-            }
+            myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(i.second));
         }
 
         // clear all POIs of grid
         for (auto i : myPOIs.getMyMap()) {
-            GNEShape* shape = dynamic_cast<GNEShape*>(i.second);
-            if (shape->isShapeVisible()) {
-                removeShapeOfView(shape);
-            }
+            myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(i.second));
         }
 
         // clear all additionals of grid

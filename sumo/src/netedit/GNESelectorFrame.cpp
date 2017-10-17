@@ -379,14 +379,14 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
     // iterate over all visible polygons to obtain unselected
     for (auto it : myViewNet->getNet()->getPolygons().getMyMap()) {
         GNEPoly* poly = dynamic_cast<GNEPoly*>(it.second);
-        if ((gSelected.isSelected(GLO_CROSSING, poly->getGlID()) == false) && (poly->isShapeVisible())) {
+        if (gSelected.isSelected(GLO_POLYGON, poly->getGlID()) == false) {
             unselectedElements.insert(poly->getGlID());
         }
     }
     // iterate over all visible POIs to obtain unselected
     for (auto it : myViewNet->getNet()->getPOIs().getMyMap()) {
         GNEPOI* POI = dynamic_cast<GNEPOI*>(it.second);
-        if ((gSelected.isSelected(GLO_CROSSING, POI->getGlID()) == false) && (POI->isShapeVisible())) {
+        if (gSelected.isSelected(GLO_POI, POI->getGlID()) == false) {
             unselectedElements.insert(POI->getGlID());
         }
     }

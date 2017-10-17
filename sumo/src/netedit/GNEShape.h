@@ -88,12 +88,6 @@ public:
     /// @brief return true if shape is blocked
     bool isShapeBlocked() const;
 
-    /// @brief check if shape is visible (Was added into view using insertPolygon/POIInView)
-    bool isShapeVisible() const;
-
-    /// @brief set flag to enable or disable if shape is visible
-    void setShapeVisible(bool visible);
-
     /// @brief draw lock icon
     void drawLockIcon(const Position& pos, double layer, double size = 0.5) const;
 
@@ -164,9 +158,6 @@ protected:
 
     /// @brief flag for block shape
     bool myBlockShape;
-
-    /// @brief flag for visible shape
-    bool myShapeVisible;
 
 private:
     /// @brief set attribute after validation

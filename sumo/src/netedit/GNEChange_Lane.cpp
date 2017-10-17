@@ -109,7 +109,7 @@ GNEChange_Lane::undo() {
         }
         // Remove Shapes vinculated with this lane of net
         for (auto i : myShapeChilds) {
-            myNet->removeShapeOfView(i);
+            myNet->removeShape(i);
         }
     } else {
         // show extra information for tests
@@ -128,7 +128,7 @@ GNEChange_Lane::undo() {
         }
         // add Shapes vinculated with this lane in net
         for (auto i : myShapeChilds) {
-            myNet->insertShapeInView(i);
+            myNet->removeShape(i);
         }
     }
 }
@@ -153,7 +153,7 @@ GNEChange_Lane::redo() {
         }
         // add shapes vinculated with this lane in net
         for (auto i : myShapeChilds) {
-            myNet->insertShapeInView(i);
+            myNet->removeShape(i);
         }
     } else {
         // show extra information for tests
@@ -172,7 +172,7 @@ GNEChange_Lane::redo() {
         }
         // Remove shapes vinculated with this lane of net
         for (auto i : myShapeChilds) {
-            myNet->removeShapeOfView(i);
+            myNet->removeShape(i);
         }
     }
 }

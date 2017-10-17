@@ -48,8 +48,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Shape, GNEChange, NULL, 0)
 GNEChange_Shape::GNEChange_Shape(GNEShape* shape, bool forward) :
     GNEChange(shape->getNet(), forward),
     myShape(shape) {
-    myShape->incRef("GNEChange_Shape");
     assert(myNet);
+    myShape->incRef("GNEChange_Shape");
 }
 
 
@@ -61,16 +61,14 @@ GNEChange_Shape::~GNEChange_Shape() {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net");
         }
-        // remove shape of net
+        // make sure that shape are removed of ShapeContainer
         if(myShape->getTag() == SUMO_TAG_POLY) {
-            if (myNet->removePolygon(myShape->getID()) == false) {
-                WRITE_ERROR("Trying to remove non-inserted ''" + myShape->getID() + "' from net");
-            }
+            myNet->myPolygons.erase(myShape->getID(), false);
         } else {
-            if (myNet->removePOI(myShape->getID()) == false) {
-                WRITE_ERROR("Trying to remove non-inserted ''" + myShape->getID() + "' from net");
-            }
+            myNet->myPOIs.erase(myShape->getID(), false);
         }
+        // delete shape
+        delete myShape;
     }
 }
 
@@ -82,18 +80,16 @@ GNEChange_Shape::undo() {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from viewNet");
         }
-        // remove polygon of view
-        myNet->removeShapeOfView(myShape);
+        // remove shape from net
+        myNet->removeShape(myShape);
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Adding " + toString(myShape->getTag()) + " '" + myShape->getID() + "' into viewNet");
         }
-        // Add polygon in view
-        myNet->insertShapeInView(myShape);
+        // Add shape in net
+        myNet->insertShape(myShape);
     }
-    // Requiere always save shapes
-    myNet->requiereSaveShapes();
 }
 
 
@@ -104,18 +100,16 @@ GNEChange_Shape::redo() {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Adding " + toString(myShape->getTag()) + " '" + myShape->getID() + "' into viewNet");
         }
-        // Add polygon to view
-        myNet->insertShapeInView(myShape);
+        // Add shape in net
+        myNet->insertShape(myShape);
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from viewNet");
         }
-        // delete poly of view
-        myNet->removeShapeOfView(myShape);
+        // remove shape from net
+        myNet->removeShape(myShape);
     }
-    // Requiere always save shapes
-    myNet->requiereSaveShapes();
 }
 
 

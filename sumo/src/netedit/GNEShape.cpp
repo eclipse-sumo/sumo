@@ -44,8 +44,7 @@ GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, GUIIcon icon, bool movementBlock
     GNEAttributeCarrier(tag, icon),
     myNet(net),
     myBlockMovement(movementBlocked),
-    myBlockShape(shapeBlocked),
-    myShapeVisible(false) {
+    myBlockShape(shapeBlocked) {
 }
 
 
@@ -67,18 +66,6 @@ GNEShape::isMovementBlocked() const {
 bool
 GNEShape::isShapeBlocked() const {
     return myBlockShape;
-}
-
-
-bool
-GNEShape::isShapeVisible() const {
-    return myShapeVisible;
-}
-
-
-void
-GNEShape::setShapeVisible(bool visible) {
-    myShapeVisible = visible;
 }
 
 

@@ -88,7 +88,9 @@ class GNENet : public GUIGlObject, public ShapeContainer {
     /// @brief declare friend class
     friend class GNEChange_Junction;
     friend class GNEChange_Edge;
+    friend class GNEChange_Lane;
     friend class GNEChange_Connection;
+    friend class GNEChange_Shape;
 
 public:
     /// @name color of selected objects
@@ -171,12 +173,6 @@ public:
                     double angle, const std::string& imgFile, const PositionVector& shape, bool fill,
                     bool geo, bool ignorePruning = false);
 
-    /**@brief Removes a polygon from the container
-    * @param[in] id The id of the polygon
-    * @return Whether the polygon could be removed
-    */
-    bool removePolygon(const std::string& id);
-
     /**@brief Builds a POI using the given values and adds it to the container
     * @param[in] id The name of the POI
     * @param[in] type The (abstract) type of the POI
@@ -196,12 +192,6 @@ public:
     bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
                 const std::string &lane, double posOverLane, double posLat, double layer, double angle, 
                 const std::string& imgFile, double width, double height, bool ignorePruning = false);
-
-    /**@brief Removes a PoI from the container
-    * @param[in] id The id of the PoI
-    * @return Whether the poi could be removed
-    */
-    bool removePOI(const std::string& id);
     /// @}
 
     /// @brief returns the bounder of the network
@@ -613,11 +603,8 @@ public:
      */
     GNEPoly* addPolygonForEditShapes(GNENetElement* netElement, const PositionVector &shape,bool fill);
 
-    /// @brief insert created shape in view net
-    void insertShapeInView(GNEShape* s, bool isPolygonForEditShapes = false);
-
-    /// @brief remove shape of view net
-    void removeShapeOfView(GNEShape* s, bool isPolygonForEditShapes = false);
+    /// @brief remove Polygon for edit shapes
+    void removePolygonForEditShapes(GNEPoly* polygon);
 
     /// @brief refresh shape in view net
     void refreshShape(GNEShape* s);
@@ -704,6 +691,12 @@ private:
 
     /// @brief deletes a single edge
     void deleteSingleEdge(GNEEdge* edge);
+
+    /// @brief insert shape
+    void insertShape(GNEShape *shape);
+
+    /// @brief remove created shape (but NOT delete)
+    void removeShape(GNEShape *shape);
 
     /// @brief notify myViewNet
     void update();
