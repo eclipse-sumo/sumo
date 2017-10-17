@@ -34,8 +34,8 @@ sumoProcess = subprocess.Popen([sumoBinary,
 vehID = "ego"
 traci.init(PORT)
 traci.simulationStep()
-traci.vehicle.setAdaptedTraveltime(vehID, 0, 3600 * 1000, "middle", 20)
-traci.vehicle.setAdaptedTraveltime(vehID, 0, 3600 * 1000, "middle3", 14)
+traci.vehicle.setAdaptedTraveltime(vehID, "middle", 20, 0, 3600 * 1000)
+traci.vehicle.setAdaptedTraveltime(vehID, "middle3", 14, 0, 3600 * 1000)
 traci.vehicle.rerouteTraveltime(vehID, False)
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
