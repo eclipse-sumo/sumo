@@ -3050,6 +3050,8 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
     assert(myState.mySpeed >= 0);
     myLane = enteredLane;
     myAmOnNet = true;
+    // schedule action for the next timestep
+    myActionOffset = MSNet::getInstance()->getCurrentTimeStep() + DELTA_T;
     if (notification != MSMoveReminder::NOTIFICATION_TELEPORT) {
         // set and activate the new lane's reminders, teleports already did that at enterLaneAtMove
         for (std::vector< MSMoveReminder* >::const_iterator rem = enteredLane->getMoveReminders().begin(); rem != enteredLane->getMoveReminders().end(); ++rem) {
@@ -4402,6 +4404,7 @@ MSVehicle::saveState(OutputDevice& out) {
     internals.push_back(toString(distance(myRoute->begin(), myCurrEdge)));
     internals.push_back(toString(myDepartPos));
     internals.push_back(toString(myWaitingTime));
+    internals.push_back(toString(myActionOffset));
     out.writeAttr(SUMO_ATTR_STATE, internals);
     out.writeAttr(SUMO_ATTR_POSITION, myState.myPos);
     out.writeAttr(SUMO_ATTR_SPEED, myState.mySpeed);
@@ -4428,6 +4431,10 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> routeOffset;
     bis >> myDepartPos;
     bis >> myWaitingTime;
+    bis >> myActionOffset;
+    if (bis.fail()) {
+        myActionOffset = myDeparture+DELTA_T;
+    }
     if (hasDeparted()) {
         myCurrEdge += routeOffset;
         myDeparture -= offset;
