@@ -13,3 +13,11 @@ ticket3349
 
 # Resuming with traci from loading a state without setting a begin option induces traci crash.
 ticket3505
+
+# Altered conditions similar to the ones causing bug 3505: 
+# load-offset > 0
+ticket3505_with_load_offset
+
+# Altered conditions similar to the ones causing bug 3505: 
+# begin > save-time
+ticket3505_test_with_begin_ge_savetime

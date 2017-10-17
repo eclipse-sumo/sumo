@@ -1,0 +1,6 @@
+Loading configuration... done.
+Starting...
+loadParams: ['-c', 'sumo.sumocfg']
+Could not connect to TraCI server at localhost:44063 [Errno 111] Connection refused
+ Retrying in 1 seconds
+300000
