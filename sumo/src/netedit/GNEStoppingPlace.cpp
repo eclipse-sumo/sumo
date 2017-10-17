@@ -102,8 +102,6 @@ GNEStoppingPlace::commitGeometryMoving(const Position& oldPos, GNEUndoList* undo
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(getAbsoluteStartPosition()), true, toString((oldStoppingPlaceCenterOffset - halfStoppingPlaceLenghtRelative) * myLane->getLaneParametricLength())));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(getAbsoluteEndPosition()), true, toString((oldStoppingPlaceCenterOffset + halfStoppingPlaceLenghtRelative) * myLane->getLaneParametricLength())));
     undoList->p_end();
-    // Refresh element
-    myViewNet->getNet()->refreshAdditional(this);
 }
 
 

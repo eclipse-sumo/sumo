@@ -93,8 +93,6 @@ GNEDetectorE3::updateGeometry() {
     // Set position
     myShape.push_back(myPosition);
 
-    // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshAdditional(this);
 
     // Clear all containers
     myShapeRotations.clear();
@@ -139,8 +137,6 @@ GNEDetectorE3::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoLis
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(myPosition.x()), true, toString(oldPos.x())));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(myPosition.y()), true, toString(oldPos.y())));
     undoList->p_end();
-    // Refresh element
-    myViewNet->getNet()->refreshAdditional(this);
 }
 
 
