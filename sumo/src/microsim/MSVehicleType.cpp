@@ -92,6 +92,7 @@ MSVehicleType::setLength(const double& length) {
     } else {
         myParameter.length = length;
     }
+    myParameter.parametersSet |= VTYPEPARS_LENGTH_SET;
 }
 
 
@@ -102,6 +103,7 @@ MSVehicleType::setHeight(const double& height) {
     } else {
         myParameter.height = height;
     }
+    myParameter.parametersSet |= VTYPEPARS_HEIGHT_SET;
 }
 
 
@@ -112,6 +114,7 @@ MSVehicleType::setMinGap(const double& minGap) {
     } else {
         myParameter.minGap = minGap;
     }
+    myParameter.parametersSet |= VTYPEPARS_MINGAP_SET;
 }
 
 
@@ -122,6 +125,7 @@ MSVehicleType::setMinGapLat(const double& minGapLat) {
     } else {
         myParameter.minGapLat = minGapLat;
     }
+    myParameter.parametersSet |= VTYPEPARS_MINGAP_LAT_SET;
 }
 
 
@@ -132,6 +136,7 @@ MSVehicleType::setMaxSpeed(const double& maxSpeed) {
     } else {
         myParameter.maxSpeed = maxSpeed;
     }
+    myParameter.parametersSet |= VTYPEPARS_MAXSPEED_SET;
 }
 
 
@@ -142,17 +147,20 @@ MSVehicleType::setMaxSpeedLat(const double& maxSpeedLat) {
     } else {
         myParameter.maxSpeedLat = maxSpeedLat;
     }
+    myParameter.parametersSet |= VTYPEPARS_MAXSPEED_LAT_SET;
 }
 
 
 void
 MSVehicleType::setVClass(SUMOVehicleClass vclass) {
     myParameter.vehicleClass = vclass;
+    myParameter.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
 }
 
 void
 MSVehicleType::setPreferredLateralAlignment(LateralAlignment latAlignment) {
     myParameter.latAlignment = latAlignment;
+    myParameter.parametersSet |= VTYPEPARS_LATALIGNMENT_SET;
 }
 
 
@@ -163,6 +171,7 @@ MSVehicleType::setDefaultProbability(const double& prob) {
     } else {
         myParameter.defaultProbability = prob;
     }
+    myParameter.parametersSet |= VTYPEPARS_PROBABILITY_SET;
 }
 
 
@@ -173,6 +182,7 @@ MSVehicleType::setSpeedFactor(const double& factor) {
     } else {
         myParameter.speedFactor.getParameter()[0] = factor;
     }
+    myParameter.parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
 }
 
 
@@ -183,6 +193,7 @@ MSVehicleType::setSpeedDeviation(const double& dev) {
     } else {
         myParameter.speedFactor.getParameter()[1] = dev;
     }
+    myParameter.parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
 }
 
 
@@ -193,20 +204,21 @@ MSVehicleType::setActionStepLength(const SUMOTime actionStepLength) {
     } else {
         myParameter.actionStepLength = actionStepLength;
     }
-    // TODO: in seperate changeset
-//    myParameter.parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
+    myParameter.parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
 }
 
 
 void
 MSVehicleType::setEmissionClass(SUMOEmissionClass eclass) {
     myParameter.emissionClass = eclass;
+    myParameter.parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
 }
 
 
 void
 MSVehicleType::setColor(const RGBColor& color) {
     myParameter.color = color;
+    myParameter.parametersSet |= VTYPEPARS_COLOR_SET;
 }
 
 
@@ -217,6 +229,7 @@ MSVehicleType::setWidth(const double& width) {
     } else {
         myParameter.width = width;
     }
+    myParameter.parametersSet |= VTYPEPARS_WIDTH_SET;
 }
 
 void
@@ -226,12 +239,14 @@ MSVehicleType::setImpatience(const double impatience) {
     } else {
         myParameter.impatience = impatience;
     }
+    myParameter.parametersSet |= VTYPEPARS_IMPATIENCE_SET;
 }
 
 
 void
 MSVehicleType::setShape(SUMOVehicleShape shape) {
     myParameter.shape = shape;
+    myParameter.parametersSet |= VTYPEPARS_SHAPE_SET;
 }
 
 
