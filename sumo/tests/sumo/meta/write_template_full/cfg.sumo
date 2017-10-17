@@ -228,6 +228,7 @@
         <window-size value="" type="STR" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="FLOAT" help="The aggregation period for value tracker windows"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable ovelay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
     </gui_only>

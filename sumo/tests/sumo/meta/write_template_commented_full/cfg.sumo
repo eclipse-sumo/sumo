@@ -582,6 +582,9 @@
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
 
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
+
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
 
