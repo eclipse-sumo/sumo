@@ -139,7 +139,7 @@ GNEPOILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build shape header
     buildShapePopupOptions(app, ret, myType);
     // add option for convert to GNEPOI
-    new FXMenuCommand(ret, ("Transform to " + toString(SUMO_TAG_POI)).c_str(), getIcon(), &parent, MID_GNE_POI_TRANSFORM);
+    new FXMenuCommand(ret, "Release from lane", getIcon(), &parent, MID_GNE_POI_TRANSFORM);
     return ret;
 }
 

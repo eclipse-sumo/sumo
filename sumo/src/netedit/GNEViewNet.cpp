@@ -1687,6 +1687,52 @@ GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
 
 long 
 GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
+    //GNEPOILane* POILane = getPOILaneAtPopupPosition();
+    GNEPOI* POI = getPOIAtPopupPosition();
+    if(POI) {
+        // obtain lanes around POILane boundary
+        std::vector<GUIGlID> GLIDs = getObjectsInBoundary(POI->getCenteringBoundary());
+        std::vector<GNELane*> lanes;
+        for (auto i : GLIDs) {
+            GNELane *lane = dynamic_cast<GNELane*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(i));
+            if(lane) {
+                lanes.push_back(lane);
+            }
+        }
+        if(lanes.empty()) {
+            WRITE_WARNING("No lanes around " + toString(SUMO_TAG_POILANE) + " to attach it");
+        } else {
+            // obtain nearest lane to POI
+            GNELane *nearestLane = lanes.front();
+            double minorLateralOffset = nearestLane->getShape().nearest_offset_to_point2D(POI->getPositionInView());
+            double minorDistance = nearestLane->getShape().positionAtOffset(minorLateralOffset).distanceTo(POI->getPositionInView());
+            for(auto i : lanes) {
+                double lateralOffset = i->getShape().nearest_offset_to_point2D(POI->getPositionInView());
+                double distance = i->getShape().positionAtOffset(lateralOffset).distanceTo(POI->getPositionInView());
+                if(distance < minorDistance) {
+                    minorLateralOffset = lateralOffset;
+                    minorDistance = distance;
+                    nearestLane = i;
+                }
+            }
+            // obtain values of POI
+            std::string id = POI->getID();
+            std::string type = POI->getType();
+            RGBColor color = POI->getColor();
+            Position pos = (*POI);
+            double layer = POI->getLayer();
+            double angle = POI->getNaviDegree(); 
+            std::string imgFile = POI->getImgFile();
+            double width = POI->getWidth();
+            double height = POI->getHeight();
+            // remove POI
+            myUndoList->p_begin("Transform POI to POILane");
+            myNet->deleteShape(POI, myUndoList);
+            // add POILane
+            myNet->addPOI(id, type, color, pos, false, nearestLane->getID(), minorDistance, minorLateralOffset, layer, angle, imgFile, width, height);
+            myUndoList->p_end();
+        }
+    }
     return 1;
 }
 

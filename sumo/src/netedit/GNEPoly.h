@@ -53,6 +53,7 @@ class GNEPoly : public GUIPolygon, public GNEShape {
 public:
     /// @brief needed to avoid diamond Problem between GUIPolygon and GNEShape
     using GNEShape::getID;
+    using Shape::getType;
 
     /** @brief Constructor
      * @param[in] net net in which this polygon is placed
