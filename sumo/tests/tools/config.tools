@@ -107,6 +107,7 @@ gpx:output.gpx
 match:match.txt
 image:image.svg
 csv:out*.csv
+csv:1.csv
 xml:out.xml
 xml2:out2.xml
 net:net.net.xml
