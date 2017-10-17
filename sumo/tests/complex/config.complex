@@ -22,6 +22,7 @@ copy_test_path:input_types2.typ.xml
 copy_test_path:settings.xml
 copy_test_path:sumo.sumocfg
 copy_test_path:sumo_log.sumocfg
+copy_test_path:input_state.xml
 copy_test_path:osm.xml
 copy_test_path:data
 copy_test_path:classes.txt

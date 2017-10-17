@@ -10,3 +10,6 @@ ticket3348
 
 # subscribe begin>0
 ticket3349
+
+# Resuming with traci from loading a state without setting a begin option induces traci crash.
+ticket3505
