@@ -1,0 +1,30 @@
+Could not connect to TraCI server at localhost:60773 [Errno 111] Connection refused
+ Retrying in 1 seconds
+Get before save....
+vtype
+4.0 == 4.0
+0.8 == 0.8
+0.9 == 0.9
+3.3 == 3.3
+99.9 == 99.9
+vehicle
+4.0 == 4.0
+0.8 == 0.8
+0.9 == 0.9
+3.3 == 3.3
+99.9 == 99.9
+Could not connect to TraCI server at localhost:41077 [Errno 111] Connection refused
+ Retrying in 1 seconds
+Get after load....
+vtype
+4.0 == 4.0
+0.8 == 0.8
+0.9 == 0.9
+3.3000000000000003 == 3.3
+99.9 == 99.9
+vehicle
+4.0 == 4.0
+0.8 == 0.8
+1.0 == 0.9
+3.3000000000000003 == 3.3
+99.9 == 99.9
