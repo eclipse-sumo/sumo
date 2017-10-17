@@ -335,7 +335,7 @@ class VehicleTypeDomain(Domain):
     def setTau(self, typeID, tau):
         """setTau(string, double) -> None
 
-        Sets the driver's reaction time in s for vehicles of this type.
+        Sets the driver's tau-parameter (reaction time or anticipation time depending on the car-following model) in s for vehicles of this type.
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_TAU, typeID, tau)
