@@ -2299,6 +2299,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                                   + "'; crossing '" + c->id
                                   + "' targets '" + c->nextWalkingArea
                                   + "' and '" + wa.id + "'.");
+                    c->valid = false;
                 }
                 c->nextWalkingArea = wa.id;
                 endCrossingWidth = c->width;
@@ -2318,6 +2319,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                                   + "'; crossing '" + c->id
                                   + "' is targeted by '" + c->prevWalkingArea
                                   + "' and '" + wa.id + "'.");
+                    c->valid = false;
                 }
                 c->prevWalkingArea = wa.id;
                 wa.nextCrossing = c->id;
