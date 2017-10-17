@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 10/11/17 14:47:34 by SUMO duarouter Version dev-SVN-r26415
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="hello.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <route-files value="input_person.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="output_person.rou.xml"/>
+    </output>
+
+    <processing>
+        <routing-threads value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="public" depart="4.00">
+        <walk edges="b" busStop="busstop1"/>
+        <ride busStop="busstop3" lines="100"/>
+        <walk edges="g"/>
+    </person>
+</routes>

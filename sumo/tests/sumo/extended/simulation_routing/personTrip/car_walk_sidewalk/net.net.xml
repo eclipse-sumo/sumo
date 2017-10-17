@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 19 May 2017 10:03:30 AM CEST by Netedit Version dev-SVN-r24351
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoID/sumo/tests/duarouter/person/personTrip/car_walk_sidewalk/input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoID/sumo/tests/duarouter/person/personTrip/car_walk_sidewalk/input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="500.00,0.00" convBoundary="0.00,0.00,2500.00,500.00" origBoundary="-500.00,0.00,2000.00,500.00" projParameter="!"/>
+
+    <edge id="beg" from="absBeg" to="beg" priority="-1">
+        <lane id="beg_0" index="0" allow="pedestrian" speed="27.80" length="500.00" shape="0.00,-8.25 498.55,-8.25"/>
+        <lane id="beg_1" index="1" disallow="pedestrian" speed="27.80" length="500.00" shape="0.00,-4.95 498.55,-4.95"/>
+        <lane id="beg_2" index="2" disallow="pedestrian" speed="27.80" length="500.00" shape="0.00,-1.65 498.55,-1.65"/>
+    </edge>
+    <edge id="beg2left" from="beg" to="begleft" priority="-1">
+        <lane id="beg2left_0" index="0" allow="pedestrian" speed="27.80" length="501.13" shape="504.95,1.45 504.95,495.25"/>
+        <lane id="beg2left_1" index="1" disallow="pedestrian" speed="27.80" length="501.13" shape="501.65,1.45 501.65,495.25"/>
+    </edge>
+    <edge id="end" from="end" to="absEnd" priority="-1">
+        <lane id="end_0" index="0" allow="pedestrian" speed="27.80" length="500.00" shape="1501.45,-8.25 1998.50,-8.25"/>
+        <lane id="end_1" index="1" disallow="pedestrian" speed="27.80" length="500.00" shape="1501.45,-4.95 1998.50,-4.95"/>
+        <lane id="end_2" index="2" disallow="pedestrian" speed="27.80" length="500.00" shape="1501.45,-1.65 1998.50,-1.65"/>
+    </edge>
+    <edge id="left" from="begleft" to="endleft" priority="-1">
+        <lane id="left_0" index="0" speed="27.00" length="991.87" shape="508.05,498.35 1491.95,498.35"/>
+    </edge>
+    <edge id="left2end" from="endleft" to="end" priority="-1">
+        <lane id="left2end_0" index="0" allow="pedestrian" speed="27.80" length="501.13" shape="1495.05,495.25 1495.05,1.45"/>
+        <lane id="left2end_1" index="1" disallow="pedestrian" speed="27.80" length="501.13" shape="1498.35,495.25 1498.35,1.45"/>
+    </edge>
+    <edge id="middle" from="beg" to="end" priority="-1">
+        <lane id="middle_0" index="0" allow="pedestrian" speed="13.90" length="1000.00" shape="508.05,-4.95 1491.95,-4.95"/>
+        <lane id="middle_1" index="1" disallow="pedestrian" speed="13.90" length="1000.00" shape="508.05,-1.65 1491.95,-1.65"/>
+    </edge>
+    <edge id="rend" from="absEnd" to="rabsEnd" priority="-1">
+        <lane id="rend_0" index="0" speed="27.80" length="500.00" shape="2001.50,-4.95 2500.00,-4.95"/>
+        <lane id="rend_1" index="1" speed="27.80" length="500.00" shape="2001.50,-1.65 2500.00,-1.65"/>
+    </edge>
+
+    <junction id="absBeg" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-9.85"/>
+    <junction id="absEnd" type="priority" x="2000.00" y="0.00" incLanes="end_0 end_1 end_2" intLanes="" shape="2001.50,-0.05 2001.50,-6.55 1998.50,-9.85 1998.50,-0.05">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="beg" type="priority" x="500.00" y="0.00" incLanes="beg_0 beg_1 beg_2" intLanes="" shape="500.05,1.45 506.55,1.45 508.05,-0.05 508.05,-6.55 498.55,-9.85 498.55,-0.05">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="begleft" type="priority" x="500.00" y="500.00" incLanes="beg2left_0 beg2left_1" intLanes="" shape="508.05,499.95 508.05,496.75 506.55,495.25 500.05,495.25">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="end" type="priority" x="1500.00" y="0.00" incLanes="left2end_0 left2end_1 middle_0 middle_1" intLanes="" shape="1493.45,1.45 1499.95,1.45 1501.45,-0.05 1501.45,-9.85 1491.95,-6.55 1491.95,-0.05">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="endleft" type="priority" x="1500.00" y="500.00" incLanes="left_0" intLanes="" shape="1499.95,495.25 1493.45,495.25 1491.95,496.75 1491.95,499.95">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="rabsEnd" type="dead_end" x="2500.00" y="0.00" incLanes="rend_0 rend_1" intLanes="" shape="2500.00,-6.55 2500.00,-0.05"/>
+
+    <connection from="beg" to="middle" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="beg" to="beg2left" fromLane="2" toLane="1" dir="l" state="M"/>
+    <connection from="beg2left" to="left" fromLane="1" toLane="0" dir="r" state="M"/>
+    <connection from="end" to="rend" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="end" to="rend" fromLane="2" toLane="1" dir="s" state="M"/>
+    <connection from="left" to="left2end" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from="left2end" to="end" fromLane="1" toLane="2" dir="l" state="M"/>
+    <connection from="middle" to="end" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>

@@ -1,0 +1,74 @@
+# Copy of basic
+basic
+
+# person with a type
+vtype
+
+# car use requested
+car
+
+# car use of a special type requested
+car_type
+
+# car and walk possible
+car_walk
+
+# like car_walk but the network has sidewalks
+car_walk_sidewalk
+
+# car and walk possible with arrivalpos 0
+car_walk_arrivalpos
+
+# public transport and walk possible
+public_walk
+
+# public transport without bus stops
+unusable_bus
+
+# public transport via bustops
+busstop
+
+# public transport via bustops, person arrives very early
+busstop_early
+
+# public transport via bustops but the person departs to late to use a bus
+busstop_too_late
+
+# public transport via bustops but the person misses barely misses the last bus
+busstop_too_late2
+
+# waiting for the bus would take too long. walking should be preferred.
+# The first bus departs much later than the walking arrival time
+prefer_walking
+
+# waiting for the bus would take too long. walking should be preferred.
+# In this case, the first bus departs too soon and the second bus in the line departs too late
+prefer_walking2
+
+# public transport via bustops with non matching stops for the same line
+busstop_unmatched
+
+# the desired trip is connected for some vClasses but not for the given one
+no_valid_connection
+
+# car and walk in one trip
+intermodal_car_walk
+
+# car and walk in one trip but no stop for changing modes
+intermodal_car_walk_no_place
+
+# train access
+access
+
+# output bus route as well
+ptline_routing
+
+# keep public transport lines even if they end early
+early_ending_flow
+
+# keep public transport vehicles even if they end early
+early_pt
+
+# parse additionals first to get late public transport
+late_pt
+errors

@@ -1,0 +1,15 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busstop1" lane="b_0" startPos="10" endPos="50" lines="100 101 102"/>
+    <busStop id="busstop2" lane="e_0" startPos="20" endPos="40" lines="100 101"/>
+    <busStop id="busstop3" lane="g_0" startPos="20" endPos="40" lines="100 101 102"/>
+    <busStop id="busstop4" lane="h_0" startPos="20" endPos="40" lines="100 101"/>
+    <vType id="BUS" accel="2.6" decel="4.5" sigma="0" length="12" minGap="3" maxSpeed="70" color="1,1,0" guiShape="bus"/>
+
+    <vehicle id="0" type="BUS" depart="10" line="100" color="1,1,0">
+        <route edges="b c e f g h"/>
+        <stop busStop="busstop1" until="50"/>
+        <stop busStop="busstop2" until="70"/>
+        <stop busStop="busstop3" until="110"/>
+        <stop busStop="busstop4" until="210"/>
+    </vehicle>
+</additional>

@@ -13,5 +13,8 @@ weights
 # test rerouting with fixed intermediate edges
 via
 
+# test routing persons
+personTrip
+
 # handle input errors
 errors
