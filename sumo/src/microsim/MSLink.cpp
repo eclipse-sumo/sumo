@@ -126,7 +126,9 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 #endif
     if (lane != 0) {
         const bool beforeInternalJunction = lane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal();
-        assert(lane->getIncomingLanes().size() == 1);
+        if (lane->getIncomingLanes().size() != 1) {
+            throw ProcessError("Internal lane '" + lane->getID() + "' has " + toString(lane->getIncomingLanes().size()) + " predecessors");
+        }
         // compute crossing points
         for (std::vector<const MSLane*>::const_iterator it_lane = myFoeLanes.begin(); it_lane != myFoeLanes.end(); ++it_lane) {
             const bool sameTarget = myLane == (*it_lane)->getLinkCont()[0]->getLane();

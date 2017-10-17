@@ -280,14 +280,14 @@ NLBuilder::buildNet() {
     MSJunctionControl* junctions = 0;
     SUMORouteLoaderControl* routeLoaders = 0;
     MSTLLogicControl* tlc = 0;
+    std::vector<SUMOTime> stateDumpTimes;
+    std::vector<std::string> stateDumpFiles;
     try {
         edges = myEdgeBuilder.build();
         junctions = myJunctionBuilder.build();
         routeLoaders = buildRouteLoaderControl(myOptions);
         tlc = myJunctionBuilder.buildTLLogics();
         MSFrame::buildStreams();
-        std::vector<SUMOTime> stateDumpTimes;
-        std::vector<std::string> stateDumpFiles;
         const std::vector<int> times = myOptions.getIntVector("save-state.times");
         for (std::vector<int>::const_iterator i = times.begin(); i != times.end(); ++i) {
             stateDumpTimes.push_back(TIME2STEPS(*i));
@@ -304,11 +304,6 @@ NLBuilder::buildNet() {
                 stateDumpFiles.push_back(prefix + "_" + time2string(*i) + suffix);
             }
         }
-        myNet.closeBuilding(myOptions, edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles,
-                            myXMLHandler.haveSeenInternalEdge(),
-                            myXMLHandler.haveSeenNeighs(),
-                            myXMLHandler.lefthand(),
-                            myXMLHandler.networkVersion());
     } catch (IOError& e) {
         delete edges;
         delete junctions;
@@ -322,6 +317,12 @@ NLBuilder::buildNet() {
         delete tlc;
         throw;
     }
+    // if anthing goes wrong after this point, the net is responsible for cleaning up
+    myNet.closeBuilding(myOptions, edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles,
+            myXMLHandler.haveSeenInternalEdge(),
+            myXMLHandler.haveSeenNeighs(),
+            myXMLHandler.lefthand(),
+            myXMLHandler.networkVersion());
 }
 
 
