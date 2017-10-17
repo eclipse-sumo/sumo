@@ -221,7 +221,7 @@ public:
     /** @brief Returns this type's default action step length
      * @return The default action step length of this type (in ms.)
      */
-    double getActionStepLength() const {
+    SUMOTime getActionStepLength() const {
         return myParameter.actionStepLength;
     }
 
