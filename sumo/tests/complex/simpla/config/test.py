@@ -208,5 +208,7 @@ class TestConfig(ut.TestCase):
         
         
 if __name__=="__main__":
-#    ut.main(argv=["unittest", "-b"])
-     ut.main(warnings="ignore")
+    if sys.version.startswith("3"):
+        ut.main(warnings="ignore")
+    else:
+        ut.main()
