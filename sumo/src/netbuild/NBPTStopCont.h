@@ -89,7 +89,6 @@ private:
     double computeCrossProductEdgePosition(const NBEdge* edge, const Position* closestPlatform) const;
 
 public:
-    static bool findLaneAndComputeBusStopExtend(NBPTStop* pStop, NBEdgeCont& cont);
     static NBEdge* getReverseEdge(NBEdge* edge);
 
 

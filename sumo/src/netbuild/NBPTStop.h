@@ -38,6 +38,7 @@
 // class declarations
 // ===========================================================================
 class OutputDevice;
+class NBEdgeCont;
 
 
 // ===========================================================================
@@ -65,7 +66,6 @@ public:
     const Position& getPosition();
     SVCPermissions getPermissions();
     void computExtent(double center, double d);
-    void setLaneID(const std::string& laneId);
     void write(OutputDevice& device);
     void reshiftPostion(const double offsetX, const double offsetY);
 
@@ -73,9 +73,11 @@ public:
     bool getIsMultipleStopPositions();
     void setIsMultipleStopPositions(bool multipleStopPositions);
     double getLength();
-    void setEdgeId(std::string edgeId);
+    bool setEdgeId(std::string edgeId, NBEdgeCont& ec);
     void registerAdditionalEdge(std::string wayId, std::string edgeId);
     void addPlatformCand(NBPTPlatform platform);
+    bool findLaneAndComputeBusStopExtend(NBEdgeCont& ec);
+
 private:
     const std::string myPTStopId;
     Position myPosition;

@@ -92,8 +92,7 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
                 waysIdsIt =  waysIds.begin();
                 for (; waysIdsIt != waysIds.end(); waysIdsIt++) {
                     if ((*waysIdsIt) == edgeCand.first) {
-                        stop->setEdgeId(edgeCand.second);
-                        NBPTStopCont::findLaneAndComputeBusStopExtend(stop, cont);
+                        stop->setEdgeId(edgeCand.second, cont);
                         stop->setMyOrigEdgeId(edgeCand.first);
                         origId = edgeCand.first;
                         found = true;
@@ -165,8 +164,7 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
                 WRITE_WARNING("Could not re-assign PT stop: " + stop->getID() + " probably broken osm file");
                 continue;
             }
-            stop->setEdgeId(reverse->getID());
-            NBPTStopCont::findLaneAndComputeBusStopExtend(stop, cont);
+            stop->setEdgeId(reverse->getID(), cont);
             WRITE_WARNING("PT stop: " + stop->getID() + " has been moved to edge: " + reverse->getID());
         }
 

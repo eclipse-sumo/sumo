@@ -29,6 +29,8 @@
 
 #include <utils/iodevices/OutputDevice.h>
 #include "NBPTStop.h"
+#include "NBEdge.h"
+#include "NBEdgeCont.h"
 
 
 // ===========================================================================
@@ -43,7 +45,6 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myName(name),
     myPermissions(svcPermissions),
     myIsMultipleStopPositions(false) {
-
 }
 
 std::string
@@ -74,9 +75,6 @@ void NBPTStop::computExtent(double center, double edgeLength) {
     myEndPos = MIN2(center + myPTStopLength / 2., edgeLength);
 }
 
-void NBPTStop::setLaneID(const std::string& laneId) {
-    myLaneId = laneId;
-}
 void NBPTStop::write(OutputDevice& device) {
     device.openTag(SUMO_TAG_BUS_STOP);
     device.writeAttr(SUMO_ATTR_ID, myPTStopId);
@@ -118,9 +116,13 @@ void NBPTStop::setIsMultipleStopPositions(bool multipleStopPositions) {
 double NBPTStop::getLength() {
     return myPTStopLength;
 }
-void NBPTStop::setEdgeId(std::string edgeId) {
+
+bool 
+NBPTStop::setEdgeId(std::string edgeId, NBEdgeCont& ec) {
     myEdgeId = edgeId;
+    return findLaneAndComputeBusStopExtend(ec);
 }
+
 void NBPTStop::registerAdditionalEdge(std::string wayId, std::string edgeId) {
     myAdditionalEdgeCandidates[wayId] = edgeId;
 }
@@ -130,7 +132,33 @@ const std::map<std::string, std::string>& NBPTStop::getMyAdditionalEdgeCandidate
 void NBPTStop::setMyOrigEdgeId(const std::string& myOrigEdgeId) {
     NBPTStop::myOrigEdgeId = myOrigEdgeId;
 }
+
 void NBPTStop::setMyPTStopLength(double myPTStopLength) {
     NBPTStop::myPTStopLength = myPTStopLength;
+}
+
+
+bool 
+NBPTStop::findLaneAndComputeBusStopExtend(NBEdgeCont& ec) {
+    myLaneId = "";
+    NBEdge* edge = ec.getByID(myEdgeId);
+    if (edge != nullptr) {
+        int laneNr = -1;
+        for (const auto& it : edge->getLanes()) {
+            if ((it.permissions & getPermissions()) > 0) {
+                ++laneNr;
+                break;
+            }
+            laneNr++;
+        }
+        if (laneNr != -1) {
+            myLaneId = edge->getLaneID(laneNr);
+            const PositionVector& shape = edge->getLaneShape(laneNr);
+            double offset = shape.nearest_offset_to_point2D(getPosition(), true);
+            computExtent(offset, shape.length());
+            return true;
+        }
+    }
+    return false;
 }
 
