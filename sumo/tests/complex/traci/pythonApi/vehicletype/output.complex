@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:45839 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:43399 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -15,6 +15,7 @@ accel 2.6
 decel 4.5
 emergencyDecel 4.5
 apparentDecel 4.5
+actionStepLength 1.0
 imperfection 0.5
 tau 1.0
 vClass passenger
@@ -38,6 +39,7 @@ accel 1.1
 decel 1.1
 emergencyDecel 2.2
 apparentDecel 3.3
+actionStepLength 2.0
 imperfection 0.1
 tau 1.1
 vClass bicycle

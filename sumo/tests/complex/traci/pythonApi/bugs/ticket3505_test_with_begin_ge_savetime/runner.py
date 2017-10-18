@@ -17,11 +17,12 @@ from __future__ import print_function
 import os
 import subprocess
 import sys
+
+sys.path.append(os.path.join(
+    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
+
 import traci
 
-sumoHome = os.path.abspath(
-    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..'))
-sys.path.append(os.path.join(sumoHome, "tools"))
 sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(
     os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'sumo'))
             

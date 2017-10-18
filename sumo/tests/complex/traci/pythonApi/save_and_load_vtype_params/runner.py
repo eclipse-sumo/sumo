@@ -17,6 +17,10 @@ from __future__ import absolute_import
 import os
 import subprocess
 import sys
+
+sys.path.append(os.path.join(
+    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
+
 import traci
 
 ix = sys.argv.index(":")
