@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04/28/17 10:22:13 by Netedit Version dev-SVN-r22761
+<!-- generated on Wed 18 Oct 2017 03:24:31 PM CEST by Netedit Version dev-SVN-r26576
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <new value="true"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Apr102152.3416/netedit.gui/netElements/edges/create\additionals.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Apr102152.3416/netedit.gui/netElements/edges/create\net.net.xml"/>
+        <additionals-output value="/home/erdm_ja/.texttest/tmp/netedit.gui.18Oct152413.19356/netedit.gui/netElements/edges/create/additionals.xml"/>
+        <shapes-output value="/home/erdm_ja/.texttest/tmp/netedit.gui.18Oct152413.19356/netedit.gui/netElements/edges/create/shapes.xml"/>
+        <output-file value="/home/erdm_ja/.texttest/tmp/netedit.gui.18Oct152413.19356/netedit.gui/netElements/edges/create/net.net.xml"/>
     </output>
 
     <processing>
@@ -23,11 +24,12 @@
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Apr102152.3416/netedit.gui/netElements/edges/create\log.txt"/>
+        <error-log value="/home/erdm_ja/.texttest/tmp/netedit.gui.18Oct152413.19356/netedit.gui/netElements/edges/create/log.txt"/>
     </report>
 
 </configuration>
@@ -87,9 +89,9 @@
     <connection from="gneE1" to="-gneE3" fromLane="0" toLane="0" via=":gneJ3_0_0" dir="l" state="M"/>
     <connection from="gneE2" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_0_0" dir="r" state="M"/>
 
-    <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_0" to="gneE3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ2_0" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ3_0" to="-gneE3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ1_0" to="gneE3" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ2_0" to="gneE1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":gneJ3_0" to="-gneE3" fromLane="0" toLane="0" dir="l" state="M"/>
 
 </net>
