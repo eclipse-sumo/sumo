@@ -489,7 +489,7 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
     myTreeItemsWithoutAC.clear();
     myGroupBoxForTreeList->show();
     // Switch gl type of ac
-    switch (dynamic_cast<GUIGlObject*>(myACs.front())->getType()) {
+    switch (myACs.front()->getGUIGLObject()->getType()) {
         case GLO_JUNCTION: {
             // insert junction root
             GNEJunction* junction = dynamic_cast<GNEJunction*>(myACs.front());

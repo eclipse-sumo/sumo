@@ -31,6 +31,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <netbuild/NBEdge.h>
 
 #include "GNEAttributeCarrier.h"
@@ -195,6 +196,16 @@ GNEAttributeCarrier::getIcon() const {
 GUIIcon
 GNEAttributeCarrier::getGUIIcon() const {
     return myIcon;
+}
+
+
+GUIGlObject* 
+GNEAttributeCarrier::getGUIGLObject() {
+    try {
+        return dynamic_cast<GUIGlObject*>(this);
+    } catch(std::bad_cast) {
+        throw ProcessError("Current Attribute Carrier doesn't have a associated GUIGlObject");
+    }
 }
 
 

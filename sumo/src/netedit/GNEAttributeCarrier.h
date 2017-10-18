@@ -72,7 +72,7 @@ public:
     /// @brief Destructor
     virtual ~GNEAttributeCarrier() {};
 
-    /// @brief This functions has to be implemented in allGNEAttributeCarrier
+    /// @brief This functions has to be implemented in all GNEAttributeCarriers
     /// @{
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
@@ -107,6 +107,11 @@ public:
 
     /// @brief get GUI icon assigned to this object
     GUIIcon getGUIIcon() const;
+
+    /**@brief get GUIGlObject vincuulated with this Attribute Carrier
+     * @throw ProcessError if AC cannot be casted to GUIGlObject
+     */
+    GUIGlObject* getGUIGLObject();
 
     /// @brief get vector of attributes
     std::vector<SumoXMLAttr> getAttrs() const;

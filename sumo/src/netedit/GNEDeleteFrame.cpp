@@ -117,7 +117,7 @@ GNEDeleteFrame::showChildsOfMarkedAttributeCarrier() {
     myTreeItemsWithoutAC.clear();
     // Switch gl type of ac
     if (myMarkedAC) {
-        switch (dynamic_cast<GUIGlObject*>(myMarkedAC)->getType()) {
+        switch (myMarkedAC->getGUIGLObject()->getType()) {
             case GLO_JUNCTION: {
                 // insert junction root
                 GNEJunction* junction = dynamic_cast<GNEJunction*>(myMarkedAC);
@@ -350,7 +350,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
         show();
     } else if(myDeleteOnlyGeometryPoints->getCheck()) {
         // check type of of GL object
-        switch (dynamic_cast<GUIGlObject*>(ac)->getType()) {
+        switch (ac->getGUIGLObject()->getType()) {
             case GLO_EDGE: {
                 GNEEdge* edge = dynamic_cast<GNEEdge*>(ac);
                 if(edge->getVertexIndex(clickedPosition, false) != -1) {
@@ -371,7 +371,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
         }
     } else{
         // check type of of GL object
-        switch (dynamic_cast<GUIGlObject*>(ac)->getType()) {
+        switch (ac->getGUIGLObject()->getType()) {
             case GLO_JUNCTION: {
                 GNEJunction* junction = dynamic_cast<GNEJunction*>(ac);
                 // obtain number of additionals of junction's childs

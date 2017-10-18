@@ -1916,7 +1916,7 @@ GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector 
 void 
 GNENet::removePolygonForEditShapes(GNEPoly* polygon) {
     if(polygon) {
-        myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(polygon));
+        myGrid.removeAdditionalGLObject(polygon->getGUIGLObject());
         myViewNet->update();
     } else {
         throw ProcessError("Polygon for edit shapes has to be inicializated");
@@ -1926,8 +1926,8 @@ GNENet::removePolygonForEditShapes(GNEPoly* polygon) {
 
 void
 GNENet::refreshShape(GNEShape* s) {
-    myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(s));
-    myGrid.addAdditionalGLObject(dynamic_cast<GUIGlObject*>(s));
+    myGrid.removeAdditionalGLObject(s->getGUIGLObject());
+    myGrid.addAdditionalGLObject(s->getGUIGLObject());
     myViewNet->update();
 }
 
@@ -2137,7 +2137,7 @@ GNENet::deleteSingleEdge(GNEEdge* edge) {
 void 
 GNENet::insertShape(GNEShape *shape) {
     // add shape to grid
-    myGrid.addAdditionalGLObject(dynamic_cast<GUIGlObject*>(shape));
+    myGrid.addAdditionalGLObject(shape->getGUIGLObject());
     // add shape depending of their types
     if(shape->getTag() == SUMO_TAG_POLY) {
         myPolygons.add(shape->getID(), dynamic_cast<GUIPolygon*>(shape));
@@ -2156,7 +2156,7 @@ GNENet::insertShape(GNEShape *shape) {
 void 
 GNENet::removeShape(GNEShape *shape) {
     // remove shape froim grid
-    myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(shape));
+    myGrid.removeAdditionalGLObject(shape->getGUIGLObject());
     // remove shape depending of their types
     if(shape->getTag() == SUMO_TAG_POLY) {
         myPolygons.erase(shape->getID(), false);
