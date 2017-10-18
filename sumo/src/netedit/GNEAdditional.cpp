@@ -203,9 +203,14 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 Boundary
 GNEAdditional::getCenteringBoundary() const {
-    Boundary b = myShape.getBoxBoundary();
-    b.grow(20);
-    return b;
+    // Return Boundary depenpding of myShape
+    if(myShape.size() > 0) {
+        Boundary b = myShape.getBoxBoundary();
+        b.grow(20);
+        return b;
+    } else {
+        return Boundary(-0.1, 0.1, 0,1, 0,1);
+    }
 }
 
 
