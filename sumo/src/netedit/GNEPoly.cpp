@@ -183,6 +183,12 @@ GNEPoly::getPositionInView() const {
 }
 
 
+GUIGlID 
+GNEPoly::getGlID() const {
+    return GUIPolygon::getGlID();
+}
+
+
 const std::string&
 GNEPoly::getParentName() const {
     if (myNetElementShapeEdited != NULL) {

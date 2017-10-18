@@ -127,6 +127,12 @@ GNEPOILane::getPositionInView() const {
 }
 
 
+GUIGlID 
+GNEPOILane::getGlID() const {
+    return GUIPointOfInterest::getGlID();
+}
+
+
 const std::string&
 GNEPOILane::getParentName() const {
     return myNet->getMicrosimID();

@@ -115,6 +115,12 @@ GNEPOI::getPositionInView() const {
 }
 
 
+GUIGlID 
+GNEPOI::getGlID() const {
+    return GUIPointOfInterest::getGlID();
+}
+
+
 const std::string&
 GNEPOI::getParentName() const {
     return myNet->getMicrosimID();

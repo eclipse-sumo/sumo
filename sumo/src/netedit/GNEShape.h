@@ -79,6 +79,9 @@ public:
     /// @brief Returns position of additional in view
     virtual Position getPositionInView() const = 0;
 
+    /// @brief Returns the numerical id of the object
+    virtual GUIGlID getGlID() const = 0;
+
     /// @brief get Net in which this element is placed
     GNENet* getNet() const;
 

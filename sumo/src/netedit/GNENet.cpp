@@ -570,9 +570,9 @@ void
 GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
     myViewNet->getUndoList()->p_begin("delete " + toString(shape->getTag()));
     // save selection status
-    if (gSelected.isSelected(GLO_POLYGON, dynamic_cast<GUIGlObject*>(shape)->getGlID())) {
+    if (gSelected.isSelected(GLO_POLYGON, shape->getGlID())) {
         std::set<GUIGlID> deselected;
-        deselected.insert(dynamic_cast<GUIGlObject*>(shape)->getGlID());
+        deselected.insert(shape->getGlID());
         undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
     }
     // delete shape
