@@ -57,29 +57,30 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
     double maxRampSpeed = oc.getFloat("ramps.max-ramp-speed");
     double rampLength = oc.getFloat("ramps.ramp-length");
     bool dontSplit = oc.getBool("ramps.no-split");
+    NBEdgeCont& ec = nb.getEdgeCont();
     std::set<NBEdge*> incremented;
+    // collect join exclusions
+    std::set<std::string> noramps;
+    if (oc.isSet("ramps.unset")) {
+        std::vector<std::string> edges = oc.getStringVector("ramps.unset");
+        noramps.insert(edges.begin(), edges.end());
+    }
+    // exclude roundabouts
+    const std::set<EdgeSet>& roundabouts = ec.getRoundabouts();
+    for (std::set<EdgeSet>::const_iterator it_round = roundabouts.begin();
+            it_round != roundabouts.end(); ++it_round) {
+        for (EdgeSet::const_iterator it_edge = it_round->begin(); it_edge != it_round->end(); ++it_edge) {
+            noramps.insert((*it_edge)->getID());
+        }
+    }
+    // exclude public transport edges
+    nb.getPTStopCont().addEdges2Keep(oc, noramps);
+    nb.getPTLineCont().addEdges2Keep(oc, noramps);
+
     // check whether on-off ramps shall be guessed
     if (oc.getBool("ramps.guess")) {
         NBNodeCont& nc = nb.getNodeCont();
-        NBEdgeCont& ec = nb.getEdgeCont();
         NBDistrictCont& dc = nb.getDistrictCont();
-        // collect join exclusions
-        std::set<std::string> noramps;
-        if (oc.isSet("ramps.unset")) {
-            std::vector<std::string> edges = oc.getStringVector("ramps.unset");
-            noramps.insert(edges.begin(), edges.end());
-        }
-        // exclude roundabouts
-        const std::set<EdgeSet>& roundabouts = ec.getRoundabouts();
-        for (std::set<EdgeSet>::const_iterator it_round = roundabouts.begin();
-                it_round != roundabouts.end(); ++it_round) {
-            for (EdgeSet::const_iterator it_edge = it_round->begin(); it_edge != it_round->end(); ++it_edge) {
-                noramps.insert((*it_edge)->getID());
-            }
-        }
-        // exclude public transport edges
-        nb.getPTStopCont().addEdges2Keep(oc, noramps);
-        nb.getPTLineCont().addEdges2Keep(oc, noramps);
 
         // if an edge is part of two ramps, ordering is important
         std::set<NBNode*, Named::ComparatorIdLess> potOnRamps;
@@ -108,6 +109,10 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
         NBDistrictCont& dc = nb.getDistrictCont();
         for (std::vector<std::string>::iterator i = edges.begin(); i != edges.end(); ++i) {
             NBEdge* e = ec.retrieve(*i);
+            if (noramps.count(*i) != 0) {
+                WRITE_WARNING("Can not build ramp on edge '" + *i + "' - the edge is unsuitable.");
+                continue;
+            }
             if (e == 0) {
                 WRITE_WARNING("Can not build on ramp on edge '" + *i + "' - the edge is not known.");
                 continue;
