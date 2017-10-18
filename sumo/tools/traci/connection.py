@@ -134,7 +134,7 @@ class Connection:
         self._beginMessage(cmdID, varID, objID, 1 + 8)
         self._string += struct.pack("!Bd", tc.TYPE_DOUBLE, value)
         self._sendExact()
-
+        
     def _sendByteCmd(self, cmdID, varID, objID, value):
         self._beginMessage(cmdID, varID, objID, 1 + 1)
         self._string += struct.pack("!BB", tc.TYPE_BYTE, value)

@@ -150,9 +150,9 @@ void TraCI_VehicleType::setMaxSpeed(const std::string& typeID, double speed)  {
     MSVehicleType* v = getVType(typeID);
     v->setMaxSpeed(speed);
 }
-void TraCI_VehicleType::setActionStepLength(const std::string& typeID, double actionStepLength)  {
+void TraCI_VehicleType::setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset)  {
     MSVehicleType* v = getVType(typeID);
-    v->setActionStepLength(SUMOVehicleParserHelper::processActionStepLength(actionStepLength));
+    v->setActionStepLength(SUMOVehicleParserHelper::processActionStepLength(actionStepLength), resetActionOffset);
 }
 void TraCI_VehicleType::setVehicleClass(const std::string& typeID, const std::string& clazz)  {
     MSVehicleType* v = getVType(typeID);

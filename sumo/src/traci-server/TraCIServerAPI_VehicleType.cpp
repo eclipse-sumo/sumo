@@ -57,7 +57,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
     if (variable != ID_LIST && variable != VAR_LENGTH && variable != VAR_MAXSPEED && variable != VAR_ACCEL
             && variable != VAR_DECEL && variable != VAR_EMERGENCY_DECEL && variable != VAR_APPARENT_DECEL
             && variable != VAR_TAU && variable != VAR_VEHICLECLASS && variable != VAR_EMISSIONCLASS
-            && variable != VAR_SHAPECLASS
+            && variable != VAR_SHAPECLASS && variable != VAR_ACTIONSTEPLENGTH
             && variable != VAR_SPEED_FACTOR && variable != VAR_SPEED_DEVIATION && variable != VAR_IMPERFECTION
             && variable != VAR_MINGAP && variable != VAR_WIDTH && variable != VAR_COLOR && variable != ID_COUNT
             && variable != VAR_HEIGHT
@@ -153,6 +153,11 @@ TraCIServerAPI_VehicleType::getVariable(const int variable, const std::string& i
             tempMsg.writeDouble(TraCI_VehicleType::getApparentDecel(id));
         }
         break;
+        case VAR_ACTIONSTEPLENGTH: {
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(TraCI_VehicleType::getActionStepLength(id));
+        }
+        break;
         case VAR_IMPERFECTION: {
             tempMsg.writeUnsignedByte(TYPE_DOUBLE);
             tempMsg.writeDouble(TraCI_VehicleType::getImperfection(id));
@@ -234,7 +239,7 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
             && variable != VAR_WIDTH && variable != VAR_MINGAP && variable != VAR_SHAPECLASS
             && variable != VAR_ACCEL && variable != VAR_IMPERFECTION
             && variable != VAR_DECEL && variable != VAR_EMERGENCY_DECEL && variable != VAR_APPARENT_DECEL
-            && variable != VAR_TAU && variable != VAR_COLOR
+            && variable != VAR_TAU && variable != VAR_COLOR && variable != VAR_ACTIONSTEPLENGTH
             && variable != VAR_HEIGHT
             && variable != VAR_MINGAP_LAT
             && variable != VAR_MAXSPEED_LAT
@@ -463,6 +468,18 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                 return server.writeErrorStatusCmd(cmd, "Invalid deceleration.", outputStorage);
             }
             TraCI_VehicleType::setApparentDecel(id, value);
+        }
+        break;
+        case VAR_ACTIONSTEPLENGTH: {
+            double value = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting action step length requires a double.", outputStorage);
+            }
+            if (fabs(value) == std::numeric_limits<double>::infinity()) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid action step length.", outputStorage);
+            }
+            bool resetActionOffset = value >= 0.0;
+            TraCI_VehicleType::setActionStepLength(id, fabs(value), resetActionOffset);
         }
         break;
         case VAR_IMPERFECTION: {

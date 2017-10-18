@@ -17,6 +17,7 @@ from .domain import Domain
 from .storage import Storage
 import struct
 from . import constants as tc
+from . import exceptions
 
 _RETURN_VALUE_FUNC = {tc.VAR_LENGTH: Storage.readDouble,
                       tc.VAR_MAXSPEED: Storage.readDouble,
@@ -26,6 +27,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_LENGTH: Storage.readDouble,
                       tc.VAR_DECEL: Storage.readDouble,
                       tc.VAR_EMERGENCY_DECEL: Storage.readDouble,
                       tc.VAR_APPARENT_DECEL: Storage.readDouble,
+                      tc.VAR_ACTIONSTEPLENGTH: Storage.readDouble,
                       tc.VAR_IMPERFECTION: Storage.readDouble,
                       tc.VAR_TAU: Storage.readDouble,
                       tc.VAR_VEHICLECLASS: Storage.readString,
@@ -91,18 +93,25 @@ class VehicleTypeDomain(Domain):
         return self._getUniversal(tc.VAR_DECEL, typeID)
 
     def getEmergencyDecel(self, typeID):
-        """getDecel(string) -> double
+        """getEmergencyDecel(string) -> double
 
         Returns the maximal physically possible deceleration in m/s^2 of vehicles of this type.
         """
         return self._getUniversal(tc.VAR_EMERGENCY_DECEL, typeID)
 
     def getApparentDecel(self, typeID):
-        """getDecel(string) -> double
+        """getApparentDecel(string) -> double
 
         Returns the apparent deceleration in m/s^2 of vehicles of this type.
         """
         return self._getUniversal(tc.VAR_APPARENT_DECEL, typeID)
+    
+    def getActionStepLength(self, typeID):
+        """getActionStepLength(string) -> double
+
+        Returns the action step length for vehicles of this type.
+        """
+        return self._getUniversal(tc.VAR_ACTIONSTEPLENGTH, typeID)
 
     def getImperfection(self, typeID):
         """getImperfection(string) -> double
@@ -282,7 +291,7 @@ class VehicleTypeDomain(Domain):
         Sets the preferred lateral alignment of this type.
         """
         self._connection._sendStringCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_LATALIGNMENT, typeID, clazz)
+            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_LATALIGNMENT, typeID, latAlignment)
 
     def setShapeClass(self, typeID, clazz):
         """setShapeClass(string, string) -> None
@@ -315,6 +324,23 @@ class VehicleTypeDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_EMERGENCY_DECEL, typeID, decel)
+
+    def setActionStepLength(self, typeID, actionStepLength, resetActionOffset=True):
+        """setActionStepLength(string, double, bool) -> None
+
+        Sets the action step length for vehicles of this type. If resetActionOffset == True (default), the 
+        next action point is scheduled immediately for all vehicles of the type. 
+        If resetActionOffset == False, the interval between the last and the next action point is 
+        updated to match the given value for all vehicles of the type, or if the latter is smaller 
+        than the time since the last action point, the next action follows immediately.
+        """
+        if actionStepLength < 0:
+            raise exceptions.TraCIException("Invalid value for actionStepLength. Given value must be non-negative.")
+        # Use negative value to indicate resetActionOffset == False
+        if not resetActionOffset:
+            actionStepLength*=-1
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_ACTIONSTEPLENGTH, typeID, actionStepLength)
 
     def setApparentDecel(self, typeID, decel):
         """setDecel(string, double) -> None

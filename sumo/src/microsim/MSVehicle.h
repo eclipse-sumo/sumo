@@ -329,14 +329,22 @@ public:
 
     /** @brief Resets the action offset for the vehicle
      *
-     *  @param[in] offsetFromNow time difference from now for the next action, defaults to 0, which
+     *  @param[in] timeUntilNextAction time interval from now for the next action, defaults to 0, which
      *             implies an immediate action point in the current step.
-     *
-     *  @note to achieve a prolonged action interval when increasing the actionStepLength, this can be used
-     *        with offsetFromNow = newStepLength - (currentTime-lastUpdateTime)
      */
-    void resetActionOffset(const SUMOTime offsetFromNow=0);
+    void resetActionOffset(const SUMOTime timeUntilNextAction=0);
 
+
+    /** @brief Process an updated action step length value (only affects the vehicle's *action offset*,
+     *         The actionStepLength is stored in the (singular) vtype)
+     *
+     *  @param[in] oldActionStepLength The action step length previous to the update
+     *  @param[in] actionStepLength The new action step length (stored in the vehicle's vtype).
+     *  @note      The current action step length is updated. This implies an immediate action
+     *             point, if the new step length is smaller than the length of the currently running
+     *             action interval (the difference between now and the last action time).
+     */
+    void updateActionOffset(const SUMOTime oldActionStepLength, const SUMOTime newActionStepLength);
 
 
     /** @brief Compute safe velocities for the upcoming lanes based on positions and

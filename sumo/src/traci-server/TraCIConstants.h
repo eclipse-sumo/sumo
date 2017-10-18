@@ -580,6 +580,9 @@
 // apparent deceleration (get: vehicles, vehicle types)
 #define VAR_APPARENT_DECEL 0x7c
 
+// action step length (get: vehicles, vehicle types)
+#define VAR_ACTIONSTEPLENGTH 0x7d
+
 // driver's desired headway (get: vehicle types)
 #define VAR_TAU 0x48
 

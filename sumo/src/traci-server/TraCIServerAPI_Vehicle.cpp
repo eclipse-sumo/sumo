@@ -97,6 +97,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_WIDTH && variable != VAR_MINGAP && variable != VAR_SHAPECLASS
             && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
             && variable != VAR_APPARENT_DECEL && variable != VAR_EMERGENCY_DECEL
+            && variable != VAR_ACTIONSTEPLENGTH
             && variable != VAR_TAU && variable != VAR_BEST_LANES && variable != DISTANCE_REQUEST
             && variable != VAR_LATALIGNMENT
             && variable != VAR_MAXSPEED_LAT
@@ -509,6 +510,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_WIDTH && variable != VAR_MINGAP && variable != VAR_SHAPECLASS
             && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
             && variable != VAR_APPARENT_DECEL && variable != VAR_EMERGENCY_DECEL
+            && variable != VAR_ACTIONSTEPLENGTH
             && variable != VAR_TAU && variable != VAR_LANECHANGE_MODE
             && variable != VAR_SPEED && variable != VAR_SPEEDSETMODE && variable != VAR_COLOR
             && variable != ADD && variable != ADD_FULL && variable != REMOVE
@@ -1316,6 +1318,18 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 } catch (TraCIException& e) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
                 }
+            }
+            break;
+            case VAR_ACTIONSTEPLENGTH: {
+                double value = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting action step length requires a double.", outputStorage);
+                }
+                if (fabs(value) == std::numeric_limits<double>::infinity()) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid action step length.", outputStorage);
+                }
+                bool resetActionOffset = value >= 0.0;
+                TraCI_Vehicle::setActionStepLength(id, fabs(value), resetActionOffset);
             }
             break;
             default:

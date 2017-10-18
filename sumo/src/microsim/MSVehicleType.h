@@ -420,12 +420,18 @@ public:
 
     /** @brief Set a new value for this type's action step length
      *
-     * If the given value<0 then the one from the original type will
-     *  be used.
-     *
      * @param[in] actionStepLength The new action step length of this type (in ms.)
+     * @param[in] resetActionOffset If True (default), the next action point is
+     *            scheduled immediately. if If resetActionOffset == False, the interval
+     *            between the last and the next action point is updated to match the given
+     *            value for all vehicles of this type, or if the latter is smaller than the
+     *            time since the last action point, the next action follows immediately.
+     *
+     * @note: Singular vtypes do not update the state of the corresponding vehicle, because
+     *        the global lookup would be too expensive. The caller is responsible to
+     *        perform the actionOffsetReset operation at caller context, where the vehicle is known.
      */
-    void setActionStepLength(const SUMOTime actionStepLength);
+    void setActionStepLength(const SUMOTime actionStepLength, bool resetActionOffset);
 
 
     /** @brief Set a new value for this type's emission class

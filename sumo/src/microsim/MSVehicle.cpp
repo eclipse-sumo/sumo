@@ -1501,9 +1501,28 @@ MSVehicle::checkActionStep(const SUMOTime t){
 }
 
 void
-MSVehicle::resetActionOffset(const SUMOTime offsetFromNow){
-    myActionOffset = MSNet::getInstance()->getCurrentTimeStep() + offsetFromNow;
+MSVehicle::resetActionOffset(const SUMOTime timeUntilNextAction){
+    myActionOffset = MSNet::getInstance()->getCurrentTimeStep() + timeUntilNextAction;
 }
+
+void
+MSVehicle::updateActionOffset(const SUMOTime oldActionStepLength, const SUMOTime newActionStepLength){
+    SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+    SUMOTime timeSinceLastAction = (now - myActionOffset)%oldActionStepLength;
+    if (timeSinceLastAction == 0) {
+        // Action was scheduled now, may be delayed be new action step length
+        timeSinceLastAction = oldActionStepLength;
+    }
+    if (timeSinceLastAction >= newActionStepLength) {
+        // Action point required in this step
+        myActionOffset = now;
+    } else {
+        SUMOTime timeUntilNextAction = newActionStepLength - timeSinceLastAction;
+        resetActionOffset(timeUntilNextAction);
+    }
+}
+
+
 
 void
 MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double lengthsInFront) {

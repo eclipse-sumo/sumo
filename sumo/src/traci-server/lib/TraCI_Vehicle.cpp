@@ -929,11 +929,25 @@ TraCI_Vehicle::setMaxSpeed(const std::string& vehicleID, double speed) {
     getVehicle(vehicleID)->getSingularType().setMaxSpeed(speed);
 }
 
-
 void
-TraCI_Vehicle::setActionStepLength(const std::string& vehicleID, double actionStepLength) {
+TraCI_Vehicle::setActionStepLength(const std::string& vehicleID, double actionStepLength, bool resetActionOffset) {
+    if (actionStepLength < 0.0) {
+        WRITE_ERROR("Invalid action step length (<0). Ignoring command setActionStepLength().");
+        return;
+    }
     MSVehicle* veh = getVehicle(vehicleID);
-    veh->getSingularType().setActionStepLength(SUMOVehicleParserHelper::processActionStepLength(actionStepLength));
+    if(actionStepLength==0.) {
+        veh->resetActionOffset();
+        return;
+    }
+    SUMOTime actionStepLengthMillisecs = SUMOVehicleParserHelper::processActionStepLength(actionStepLength);
+    SUMOTime previousActionStepLength = veh->getActionStepLength();
+    veh->getSingularType().setActionStepLength(actionStepLengthMillisecs, resetActionOffset);
+    if(resetActionOffset) {
+        veh->resetActionOffset();
+    } else {
+        veh->updateActionOffset(previousActionStepLength, actionStepLengthMillisecs);
+    }
 }
 
 void

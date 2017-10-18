@@ -198,13 +198,36 @@ MSVehicleType::setSpeedDeviation(const double& dev) {
 
 
 void
-MSVehicleType::setActionStepLength(const SUMOTime actionStepLength) {
-    if (myOriginalType != 0 && actionStepLength < 0) {
-        myParameter.actionStepLength = myOriginalType->myParameter.actionStepLength;
-    } else {
-        myParameter.actionStepLength = actionStepLength;
-    }
+MSVehicleType::setActionStepLength(const SUMOTime actionStepLength, bool resetActionOffset) {
+    assert(actionStepLength>=0.);
     myParameter.parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
+
+    if(myParameter.actionStepLength == actionStepLength) {
+        return;
+    }
+
+    if (isVehicleSpecific()) {
+        // don't perform vehicle lookup for singular vtype
+        myParameter.actionStepLength = actionStepLength;
+        return;
+    }
+
+    // For non-singular vType reset all vehicle's actionOffsets
+    SUMOTime previousActionStepLength = myParameter.actionStepLength;
+    myParameter.actionStepLength = actionStepLength;
+    // Iterate through vehicles
+    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    for (auto vehIt = vc.loadedVehBegin(); vehIt != vc.loadedVehEnd(); ++vehIt) {
+        MSVehicle* veh = static_cast<MSVehicle*>(vehIt->second);
+        if(&veh->getVehicleType() == this) {
+            // Found vehicle of this type. Perform requested actionOffsetReset
+            if(resetActionOffset) {
+                veh->resetActionOffset();
+            } else {
+                veh->updateActionOffset(previousActionStepLength, actionStepLength);
+            }
+        }
+    }
 }
 
 

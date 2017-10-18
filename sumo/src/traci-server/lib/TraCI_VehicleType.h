@@ -54,7 +54,7 @@ public:
 
     static void setLength(const std::string& typeID, double length);
     static void setMaxSpeed(const std::string& typeID, double speed);
-    static void setActionStepLength(const std::string& typeID, double actionStepLength);
+    static void setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset);
     static void setVehicleClass(const std::string& typeID, const std::string& clazz);
     static void setSpeedFactor(const std::string& typeID, double factor);
     static void setSpeedDeviation(const std::string& typeID, double deviation);
