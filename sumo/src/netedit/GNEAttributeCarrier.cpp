@@ -201,9 +201,11 @@ GNEAttributeCarrier::getGUIIcon() const {
 
 GUIGlObject* 
 GNEAttributeCarrier::getGUIGLObject() {
-    try {
-        return dynamic_cast<GUIGlObject*>(this);
-    } catch(std::bad_cast) {
+    GUIGlObject* GLObject = dynamic_cast<GUIGlObject*>(this);
+    // Make sure that casting was sucesfully
+    if(GLObject) {
+        return GLObject;
+    } else {
         throw ProcessError("Current Attribute Carrier doesn't have a associated GUIGlObject");
     }
 }
