@@ -62,6 +62,7 @@ Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie N42
 Warning: Incomplete route for ptline '4' (Buslinie N42: S+U Alexanderplatz => U Theodor-Heuss-Platz)
 Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie N42: U Theodor-Heuss-Platz => S+U Alexanderplatz. Ignoring!
 Warning: Incomplete route for ptline '5' (Buslinie N42: U Theodor-Heuss-Platz => S+U Alexanderplatz)
+Warning: Can not build ramp on edge '-338412122' - the edge is unsuitable.
 Warning: Found sharp turn with radius 6.74 at the start of edge '-41292662#2'.
 Warning: Found sharp turn with radius 1.76 at the start of edge '165358541'.
 Warning: Found sharp turn with radius 6.45 at the end of edge '186519599'.
