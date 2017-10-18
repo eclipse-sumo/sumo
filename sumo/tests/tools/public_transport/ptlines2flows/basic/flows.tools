@@ -1,5 +1,5 @@
-<?xml version="1.0"?>
-<!-- generated on 2017-10-18 09:12:34.487000 by $Id: ptlines2flows.py 26301 2017-10-02 20:48:38Z behrisch $
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2017-10-18 14:11:20.807000 by $Id: ptlines2flows.py 26571 2017-10-18 12:03:21Z behrisch $
   options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -37,10 +37,28 @@
         <stop busStop="2029039199" duration="30.00" until="159.00" />
         <stop busStop="2029039146" duration="30.00" until="221.00" />
     </route>
-    <flow id="bus_104:0" type="bus" route="0" begin="0" end="3600" period="600.0" line="104:0" />
-    <flow id="bus_104:1" type="bus" route="1" begin="0" end="3600" period="600.0" line="104:1" />
-    <flow id="bus_140:0" type="bus" route="2" begin="0" end="3600" period="600.0" line="140:0" />
-    <flow id="bus_N42:0" type="bus" route="5" begin="0" end="3600" period="600.0" line="N42:0" />
-    <flow id="bus_N42:1" type="bus" route="4" begin="0" end="3600" period="600.0" line="N42:1" />
-    <flow id="bus_140:1" type="bus" route="3" begin="0" end="3600" period="600.0" line="140:1" />
+    <flow id="bus_104:0" type="bus" route="0" begin="0" end="3600" period="600.0" line="104:0" >
+        <param key="name" value="Buslinie 104: Neu-Westend, Brixplatz => Stralau, Tunnelstraße"/>
+        <param key="completeness" value="1.00"/>
+    </flow>
+    <flow id="bus_104:1" type="bus" route="1" begin="0" end="3600" period="600.0" line="104:1" >
+        <param key="name" value="Buslinie 104: Stralau, Tunnelstraße => Neu-Westend, Brixplatz"/>
+        <param key="completeness" value="1.00"/>
+    </flow>
+    <flow id="bus_140:0" type="bus" route="2" begin="0" end="3600" period="600.0" line="140:0" >
+        <param key="name" value="Buslinie 140: S+U Tempelhof => S Ostbahnhof"/>
+        <param key="completeness" value="0.06"/>
+    </flow>
+    <flow id="bus_N42:0" type="bus" route="5" begin="0" end="3600" period="600.0" line="N42:0" >
+        <param key="name" value="Buslinie N42: U Theodor-Heuss-Platz => S+U Alexanderplatz"/>
+        <param key="completeness" value="0.11"/>
+    </flow>
+    <flow id="bus_N42:1" type="bus" route="4" begin="0" end="3600" period="600.0" line="N42:1" >
+        <param key="name" value="Buslinie N42: S+U Alexanderplatz => U Theodor-Heuss-Platz"/>
+        <param key="completeness" value="0.12"/>
+    </flow>
+    <flow id="bus_140:1" type="bus" route="3" begin="0" end="3600" period="600.0" line="140:1" >
+        <param key="name" value="Buslinie 140: S Ostbahnhof => S + U Tempelhof"/>
+        <param key="completeness" value="0.13"/>
+    </flow>
 </routes>
