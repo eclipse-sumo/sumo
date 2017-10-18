@@ -93,6 +93,7 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
                 for (; waysIdsIt != waysIds.end(); waysIdsIt++) {
                     if ((*waysIdsIt) == edgeCand.first) {
                         stop->setEdgeId(edgeCand.second);
+                        NBPTStopCont::findLaneAndComputeBusStopExtend(stop, cont);
                         stop->setMyOrigEdgeId(edgeCand.first);
                         origId = edgeCand.first;
                         found = true;
