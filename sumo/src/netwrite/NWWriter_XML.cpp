@@ -74,7 +74,7 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         writePTStops(oc, nb.getPTStopCont());
     }
     if (oc.exists("ptline-output") && oc.isSet("ptline-output")) {
-        writePTLines(oc, nb.getPTLineCont());
+        writePTLines(oc, nb.getPTLineCont(), nb.getEdgeCont());
     }
 }
 
@@ -400,12 +400,11 @@ NWWriter_XML::writePTStops(const OptionsCont& oc, NBPTStopCont& sc) {
     }
     device.close();
 }
-void NWWriter_XML::writePTLines(const OptionsCont& oc, NBPTLineCont& sc) {
+void NWWriter_XML::writePTLines(const OptionsCont& oc, NBPTLineCont& lc, NBEdgeCont& ec) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("ptline-output"));
     device.writeXMLHeader("additional", "additional_file.xsd");
-    for (std::vector<NBPTLine*>::const_iterator i = sc.begin(); i != sc.end(); ++i) {
-        NBPTLine* line = (*i);
-        line->write(device);
+    for (std::vector<NBPTLine*>::const_iterator i = lc.begin(); i != lc.end(); ++i) {
+        (*i)->write(device, ec);
     }
     device.close();
 }

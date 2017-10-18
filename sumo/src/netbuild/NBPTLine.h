@@ -31,6 +31,7 @@
 // ===========================================================================
 class OutputDevice;
 class NBPTStop;
+class NBEdgeCont;
 
 class NBPTLine {
 
@@ -41,7 +42,7 @@ public:
     long long int getLineID() const; 
     const std::string& getName() const ;
     std::vector<NBPTStop*> getStops();
-    void write(OutputDevice& device);
+    void write(OutputDevice& device, NBEdgeCont& ec);
     void setId(long long int id);
     void addWayNode(long long int way, long long int node);
     void setRef(std::string basic_string);

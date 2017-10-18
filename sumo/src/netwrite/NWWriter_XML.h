@@ -113,7 +113,7 @@ private:
      * @param[in] nc The pt stop container from which to read data
      */
     static void writePTStops(const OptionsCont& oc, NBPTStopCont& ec);
-    static void writePTLines(const OptionsCont& cont, NBPTLineCont& lineCont);
+    static void writePTLines(const OptionsCont& cont, NBPTLineCont& lc, NBEdgeCont& ec);
 };
 
 

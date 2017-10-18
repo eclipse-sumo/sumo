@@ -22,6 +22,7 @@
 #include <utility>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
+#include "NBEdgeCont.h"
 #include "NBPTLine.h"
 #include "NBPTStop.h"
 
@@ -48,7 +49,7 @@ NBPTLine::getLineID() const {
 std::vector<NBPTStop*> NBPTLine::getStops() {
     return myPTStops;
 }
-void NBPTLine::write(OutputDevice& device) {
+void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
     device.openTag(SUMO_TAG_PT_LINE);
     device.writeAttr(SUMO_ATTR_ID, myPTLineId);
     if (!myName.empty()) {
@@ -59,9 +60,17 @@ void NBPTLine::write(OutputDevice& device) {
     device.writeAttr(SUMO_ATTR_TYPE, myType);
     device.writeAttr("completeness", toString((double)myPTStops.size()/(double)myNumOfStops));
 
+    std::vector<std::string> validEdgeIDs;
+    // filter out edges that have been removed due to joining junctions 
+    // (therest of the route is valid)
+    for (NBEdge* e : myRoute) {
+        if (ec.retrieve(e->getID())) {
+            validEdgeIDs.push_back(e->getID());
+        }
+    }
     if (!myRoute.empty()) {
         device.openTag(SUMO_TAG_ROUTE);
-        device.writeAttr(SUMO_ATTR_EDGES, myRoute);
+        device.writeAttr(SUMO_ATTR_EDGES, validEdgeIDs);
         device.closeTag();
     }
 
