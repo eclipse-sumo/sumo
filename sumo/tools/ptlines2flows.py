@@ -8,12 +8,15 @@
 
 # @file    ptlines2flows.py
 # @author  Gregor Laemmel
+# @author  Jakob Erdmann
+# @author  Michael Behrisch
 # @date    2017-06-23
 # @version $Id$
 
 import os
 import sys
 import subprocess
+import collections
 
 from optparse import OptionParser
 
@@ -37,9 +40,10 @@ def get_options():
     optParser.add_option(
         "-r", "--routes-file", dest="routes", default="vehroutes.xml", help="file from '--vehroute-output'")
     optParser.add_option("-t", "--trips-file", dest="trips", default="trips.trips.xml", help="output trips file")
-    optParser.add_option("-p", "--period", dest="period", default="600", help="period")
-    optParser.add_option("-b", "--begin", dest="begin", default="0", help="start time")
-    optParser.add_option("-e", "--end", dest="end", default="3600", help="end time")
+    optParser.add_option("-p", "--period", type=float, default=600, help="period")
+    optParser.add_option("-b", "--begin", type=float, default=0, help="start time")
+    optParser.add_option("-e", "--end", type=float, default=3600, help="end time")
+    optParser.add_option("--min-stops", type=int, default=2, help="end time")
     optParser.add_option("-f", "--flow-attributes", dest="flowattrs",
                          default="", help="additional flow attributes")
     optParser.add_option("--use-osm-routes", default=False, action="store_true", dest='osmRoutes', help="use osm routes")
@@ -79,7 +83,7 @@ def main():
             stop_ids = []
             for stop in stops:
                 if not stop.id in stopsLanes:
-                    sys.stderr.write("Warning: skipping uknown stop '%s'\n" % stop.id)
+                    sys.stderr.write("Warning: skipping unknown stop '%s'\n" % stop.id)
                     continue
                 laneId = stopsLanes[stop.id]
                 edge_id, lane_index = laneId.rsplit("_", 1)
@@ -91,8 +95,8 @@ def main():
                 edge = net.getEdge(edge_id)
                 stop_ids.append(stop.id)
 
-            if fr is None:
-                sys.stderr.write("Warning: skipping line '%s' because it has no stops\n" % line.id)
+            if fr is None or len(stop_ids) < options.min_stops:
+                sys.stderr.write("Warning: skipping line '%s' because it has too few stops\n" % line.id)
                 trp_nr += 1
                 continue
 
@@ -158,10 +162,12 @@ def main():
                 else:
                     sys.stderr.write("Missing stop '%s' for flow '%s'\n" % (stop.busStop, id))
             foutflows.write('    </route>\n')
+        lineCount = collections.defaultdict(int)
         for flow, type in flows:
-            lineRef = trpIDLineMap[flow]
-            foutflows.write('    <flow id="%s_%s_%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s/>\n' %
-                            (type, lineRef, flow, type, flow, options.begin, options.end, options.period, lineRef, options.flowattrs))
+            lineRef = "%s:%s" % (trpIDLineMap[flow], lineCount[trpIDLineMap[flow]])
+            lineCount[trpIDLineMap[flow]] += 1
+            foutflows.write('    <flow id="%s_%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s/>\n' %
+                            (type, lineRef, type, flow, options.begin, options.end, options.period, lineRef, options.flowattrs))
         foutflows.write('</routes>\n')
 
     print("done.")
