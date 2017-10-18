@@ -51,6 +51,12 @@ def get_options():
     optParser.add_option("--use-osm-routes", default=False, action="store_true", dest='osmRoutes', help="use osm routes")
     optParser.add_option("--no-vtypes", default=False, action="store_true", dest='novtypes', help="do not write vtypes for generated flows")
     (options, args) = optParser.parse_args()
+
+    if options.netfile is None or options.ptlines is None or options.ptstops is None:
+        sys.stderr.write("Error: net-file, ptlines-file and ptstops-file must be set\n")
+        optParser.print_help()
+        sys.exit(1)
+        
     return options
 
 def writeTypes(fout):
