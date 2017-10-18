@@ -156,9 +156,9 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
 
         std::string edgeId = stop->getEdgeId();
         NBEdge* current = cont.getByID(edgeId);
-        int assingedTo = edgeId.at(0) == '-' ? BWD : FWD;
+        int assignedTo = edgeId.at(0) == '-' ? BWD : FWD;
 
-        if (dir != assingedTo) {
+        if (dir != assignedTo) {
             NBEdge* reverse = NBPTStopCont::getReverseEdge(current);
             if (reverse == nullptr) {
                 WRITE_WARNING("Could not re-assign PT stop: " + stop->getID() + " probably broken osm file");
