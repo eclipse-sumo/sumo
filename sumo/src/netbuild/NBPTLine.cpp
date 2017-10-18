@@ -36,9 +36,15 @@ void NBPTLine::addPTStop(NBPTStop* pStop) {
     myPTStops.push_back(pStop);
 
 }
-std::string NBPTLine::getName() {
+const std::string& NBPTLine::getName() const {
     return myName;
 }
+
+long long int 
+NBPTLine::getLineID() const {
+    return myPTLineId;
+}
+
 std::vector<NBPTStop*> NBPTLine::getStops() {
     return myPTStops;
 }

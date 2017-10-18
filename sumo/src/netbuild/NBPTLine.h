@@ -38,7 +38,8 @@ public:
     explicit NBPTLine(const std::string& name, const std::string& type);
 
     void addPTStop(NBPTStop* pStop);
-    std::string getName();
+    long long int getLineID() const; 
+    const std::string& getName() const ;
     std::vector<NBPTStop*> getStops();
     void write(OutputDevice& device);
     void setId(long long int id);

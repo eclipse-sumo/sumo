@@ -20,6 +20,7 @@
 
 #include <iostream>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include "NBPTLineCont.h"
 #include "NBPTStop.h"
@@ -253,7 +254,7 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, NBEdgeCont& cont) {
             }
         } else {
             if (it3 != pTLine->getMyWays().begin()) {
-                std::cout << "Warning: incomplete route for " << pTLine->getName() << std::endl;
+                WRITE_WARNING("Incomplete route for ptline '" + toString(pTLine->getLineID()) + "' (" + pTLine->getName() + ")");
             }
             prevWayEdges = currentWayEdges;
             prevWayMinusEdges = currentWayMinusEdges;
