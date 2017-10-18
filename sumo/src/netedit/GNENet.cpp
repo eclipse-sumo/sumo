@@ -1924,14 +1924,6 @@ GNENet::removePolygonForEditShapes(GNEPoly* polygon) {
 }
 
 
-void
-GNENet::refreshShape(GNEShape* s) {
-    myGrid.removeAdditionalGLObject(s->getGUIGLObject());
-    myGrid.addAdditionalGLObject(s->getGUIGLObject());
-    myViewNet->update();
-}
-
-
 std::string
 GNENet::generateShapeID(SumoXMLTag shapeTag) const {
     // generate tag depending of type of shape

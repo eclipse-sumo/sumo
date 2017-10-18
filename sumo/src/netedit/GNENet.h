@@ -606,9 +606,6 @@ public:
     /// @brief remove Polygon for edit shapes
     void removePolygonForEditShapes(GNEPoly* polygon);
 
-    /// @brief refresh shape in view net
-    void refreshShape(GNEShape* s);
-
     /// @brief generate Shape ID
     std::string generateShapeID(SumoXMLTag shapeTag) const;
 

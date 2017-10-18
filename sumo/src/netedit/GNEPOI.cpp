@@ -97,15 +97,14 @@ GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
         undoList->p_begin("position of " + toString(getTag()));
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(getPositionInView()), true, toString(oldPos)));
         undoList->p_end();
-        // Refresh element
-        myNet->refreshShape(this);
     }
 }
 
 
 void 
 GNEPOI::updateGeometry() {
-    // Geometry of POIs should not be updated
+    // simply refresh element in net
+    myNet->refreshElement(this);
 }
 
 
@@ -322,8 +321,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
     }
-    // refresh POI after every change
-    myNet->refreshShape(this);
+    // Update geometry after every change
+    updateGeometry();
 }
 
 /****************************************************************************/

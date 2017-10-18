@@ -129,8 +129,8 @@ GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset)
         for (auto &i : myShape) {
             i.add(offset);
         }
-        // refresh element to avoid grabbing problems
-        myNet->refreshShape(this);
+        //  update Geometry after moving
+        updateGeometry();
     }
 }
 
@@ -168,7 +168,8 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
 
 void 
 GNEPoly::updateGeometry() {
-    // Geometry of Polys should not be updated
+    // simply refresh element in net
+    myNet->refreshElement(this);
 }
 
 void 
@@ -369,10 +370,10 @@ GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
             myShape = modifiedShape;
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
-            // refresh polygon in net to avoid grabbing problems
-            myNet->refreshShape(this);
             // disable simplified shape flag
             mySimplifiedShape = false;
+            // update geometry to avoid grabbing Problems
+            updateGeometry();
         }
     } else {
         WRITE_WARNING("Number of remaining points insufficient")
@@ -413,10 +414,10 @@ GNEPoly::openPolygon(bool allowUndo) {
         } else {
             myClosedShape = false;
             myShape.pop_back();
-            // refresh polygon in net to avoid grabbing problems
-            myNet->refreshShape(this);
             // disable simplified shape flag
             mySimplifiedShape = false;
+            // update geometry to avoid grabbing Problems
+            updateGeometry();
         }
     } else {
         WRITE_WARNING("Polygon already opened")
@@ -435,10 +436,10 @@ GNEPoly::closePolygon(bool allowUndo) {
         } else {
             myClosedShape = true;
             myShape.closePolygon();
-            // refresh polygon in net to avoid grabbing problems
-            myNet->refreshShape(this);
             // disable simplified shape flag
             mySimplifiedShape = false;
+            // update geometry to avoid grabbing Problems
+            updateGeometry();
         }
     } else {
         WRITE_WARNING("Polygon already closed")
@@ -479,10 +480,10 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
             myShape = newShape;
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
-            // refresh polygon in net to avoid grabbing problems
-            myNet->refreshShape(this);
             // disable simplified shape flag
             mySimplifiedShape = false;
+            // update geometry to avoid grabbing Problems
+            updateGeometry();
         }
     }
 }
@@ -509,8 +510,8 @@ GNEPoly::simplifyShape(bool allowUndo) {
             myShape = simplifiedShape;
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
-            // refresh polygon in net to avoid grabbing problems
-            myNet->refreshShape(this);
+            // update geometry to avoid grabbing Problems
+            updateGeometry();
         }
         // change flag after setting simplified shape
         mySimplifiedShape = true;
@@ -730,8 +731,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // refresh polygon after every change
-    myNet->refreshShape(this);
+    // update geometry after every change
+    updateGeometry();
 }
 
 
