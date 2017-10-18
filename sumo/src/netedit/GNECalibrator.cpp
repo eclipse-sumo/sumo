@@ -75,8 +75,6 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, SumoXML
     assert((myEdge == NULL) ^ (myLane == NULL));
     // this additional ISN'T movable
     myMovable = false;
-    // Center view in the position of calibrator
-    myViewNet->centerTo(getGlID(), false);
 }
 
 

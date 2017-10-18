@@ -1236,6 +1236,8 @@ GNEAdditionalHandler::buildLaneCalibrator(GNEViewNet* viewNet, bool allowUndoRed
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CALIBRATOR));
             viewNet->getUndoList()->add(new GNEChange_Additional(calibratorLane, true), true);
             viewNet->getUndoList()->p_end();
+            // center after creation
+            viewNet->centerTo(calibratorLane->getGlID(), false);
         } else {
             viewNet->getNet()->insertAdditional(calibratorLane);
             lane->addAdditionalChild(calibratorLane);
@@ -1257,6 +1259,8 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CALIBRATOR));
             viewNet->getUndoList()->add(new GNEChange_Additional(calibratorEdge, true), true);
             viewNet->getUndoList()->p_end();
+            // center after creation
+            viewNet->centerTo(calibratorEdge->getGlID(), false);
         } else {
             viewNet->getNet()->insertAdditional(calibratorEdge);
             edge->addAdditionalChild(calibratorEdge);
@@ -1297,6 +1301,8 @@ GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, c
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_ROUTEPROBE));
             viewNet->getUndoList()->add(new GNEChange_Additional(routeProbe, true), true);
             viewNet->getUndoList()->p_end();
+            // center after creation
+            viewNet->centerTo(routeProbe->getGlID(), false);
         } else {
             viewNet->getNet()->insertAdditional(routeProbe);
             edge->addAdditionalChild(routeProbe);
@@ -1336,6 +1342,8 @@ GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GN
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_VAPORIZER));
         viewNet->getUndoList()->add(new GNEChange_Additional(vaporizer, true), true);
         viewNet->getUndoList()->p_end();
+        // center after creation
+        viewNet->centerTo(vaporizer->getGlID(), false);
     } else {
         viewNet->getNet()->insertAdditional(vaporizer);
         edge->addAdditionalChild(vaporizer);

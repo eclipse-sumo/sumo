@@ -69,8 +69,6 @@ GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge
     myRelativePositionY(0) {
     // this additional ISN'T movable
     myMovable = false;
-    // Center view in the position of routeProbe
-    myViewNet->centerTo(getGlID(), false);
 }
 
 

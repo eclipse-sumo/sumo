@@ -67,8 +67,6 @@ GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double startTime,
     myRelativePositionY(0) {
     // this additional ISN'T movable
     myMovable = false;
-    // Center view in the position of Vaporizer
-    myViewNet->centerTo(getGlID(), false);
 }
 
 
