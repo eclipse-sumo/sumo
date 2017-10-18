@@ -218,7 +218,7 @@ def _laneID2edgeID(laneID):
 
 
 def writeXMLHeader(outf, script, root=None):
-    outf.write("""<?xml version="1.0"?>
+    outf.write("""<?xml version="1.0" encoding="UTF-8"?>
 <!-- generated on %s by %s
   options: %s
 -->
