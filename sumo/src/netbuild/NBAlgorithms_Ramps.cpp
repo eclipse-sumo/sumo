@@ -77,6 +77,10 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
                 noramps.insert((*it_edge)->getID());
             }
         }
+        // exclude public transport edges
+        nb.getPTStopCont().addEdges2Keep(oc, noramps);
+        nb.getPTLineCont().addEdges2Keep(oc, noramps);
+
         // if an edge is part of two ramps, ordering is important
         std::set<NBNode*, Named::ComparatorIdLess> potOnRamps;
         std::set<NBNode*, Named::ComparatorIdLess> potOffRamps;
