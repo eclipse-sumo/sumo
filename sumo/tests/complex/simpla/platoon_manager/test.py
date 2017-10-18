@@ -116,6 +116,8 @@ class TestPlatoonManager(ut.TestCase):
         # reset simpla
         rp.initDefaults()
         cfg.initDefaults()
+        if os.path.exists(self.SUMO_CFG):
+            os.remove(self.SUMO_CFG)
         
         
     def test_init(self):

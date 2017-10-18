@@ -8,10 +8,13 @@
         <route-files value="{routes_file}"/>
     </input>
 
-    <processing>
+    <time>
         <begin value="0" />
         <end value="60" />
         <step-length value="0.1" />
+    </time>
+
+    <processing>
         <step-method.ballistic value="true" /> 
         <collision.action value="warn" />
     </processing>

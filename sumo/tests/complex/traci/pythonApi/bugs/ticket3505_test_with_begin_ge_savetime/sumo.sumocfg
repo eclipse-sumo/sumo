@@ -5,8 +5,11 @@
         <load-state value="input_state.xml" />
     </input>
 
+    <time>
+        <begin value="60" />
+    </time>
+    
     <processing>
-    <begin value="60" />
         <time-to-teleport value="-1"/>
     </processing>
 
