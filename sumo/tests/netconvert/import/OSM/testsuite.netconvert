@@ -1,6 +1,9 @@
 # direction of bus stops imported correctly based on pt lines
 bus_stop_direction_from_pt_lines
 
+# mport ptlines and handle network modification options
+ptline_network_modification
+
 # direction of bus stops imported (guessed) correctly
 bus_stop_direction_platform_tagged_as_highway
 
