@@ -56,10 +56,14 @@ def get_options(args=None):
                          default= 5, help="define the length of each parking space")
     optParser.add_option("-a", "--space-angle", dest="angle", type="int",
                          default= 315, help="define the name of the output file")
-    optParser.add_option("-d", "--space-distance", dest="dist", type="int",
+    optParser.add_option("-d", "--space-distance", dest="dist", type="float",
                          default= 5, help="define the distance between the locations of two parking spaces")
-    optParser.add_option("-o", "--rotation-angle", dest="rotation", type="int",
-                         default= 0, help="define the rotation angle of the parking lot")
+    optParser.add_option("-r", "--rotation-degree", dest="rotation", type="int",
+                         default= 0, help="define the rotation degree of the parking lot")
+    optParser.add_option("--adjustrate-x", dest="factorX", type="float",
+                         default= 0.28, help="define the modification rate of x-axis if the rotation exists")
+    optParser.add_option("--adjustrate-y", dest="factorY", type="float",
+                         default= 0.7, help="define the modification rate of y-axis if the rotation exists")
     optParser.add_option("--output-suffix", dest="suffix", help="output suffix", default="")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
@@ -72,6 +76,12 @@ def get_options(args=None):
     return options
 
 def main(options):
+    movingX = options.dist
+    movingY = options.dist
+    factorX = 0.
+    factorY = 1.
+    row = 0
+
     if options.bbox:
         xys = options.bbox.split(',')
         x = int(xys[0])
@@ -79,35 +89,40 @@ def main(options):
     else:
         x = options.xaxis
         y = options.yaxis
-    print (x)
-    print (y)
-        
+
+    if options.rotation != 0:
+        movingX = options.dist*(math.cos(options.rotation*math.pi/180.))
+        movingY = options.dist*(math.sin(options.rotation*math.pi/180.))
+        factorX = options.factorX
+        factorY = options.factorY
+
     if options.suffix:
         outfile = 'parking_%s.add.xml' %options.suffix
     else:
         outfile = 'parking_%s.add.xml' %options.parkId
 
-    print (outfile)
-    
     with open(outfile, 'w') as outf:
         outf.write('<?xml version="1.0" encoding="UTF-8"?>\n')
         outf.write('<additional>\n')
         outf.write('    <parkingArea id="%s" lane="%s" startPos="%s" endPos="%s">\n' %(options.parkId, options.connEdge, options.start, options.end))
-        
         for i in range(0,options.spaces):
             outf.write('        <space x="%s" y="%s" length="%s" angle="%s"/>\n' %(x,y,options.length, options.angle))
-            #todo: consider rotation-angle in order
             if options.bbox:
-                if x > int(xys[2]):
-                    if y < int(xys[3]):
-                        y += options.dist
-                    x = int(xys[0])
+                if x > float(xys[2]):
+                    row += 1
+                    if y < float(xys[3]):
+                        y = float(xys[1]) + row * options.dist*factorY
+                    else:
+                        print ("*** The maximum y is reached. Some of the parking lots are overlapped.")
+                    x = float(xys[0]) + row * movingX *factorX
                 else:
-                    x += options.dist
+                    x += movingX
+                    if options.rotation != 0:
+                        y += movingY 
             else:
+                # No rotation degree is considered.
                 x += options.dist
                 y += options.dist
-
         outf.write('    </parkingArea>\n')
         outf.write('</additional>\n')
 
