@@ -69,6 +69,10 @@ public:
     void reviseStops(NBEdgeCont& cont);
 
     void process(NBEdgeCont& cont);
+
+    /// @brief add edges that must be kept
+    void addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into);
+
 private:
     /// @brief Definition of the map of names to pt stops
     typedef std::map<std::string, NBPTStop*> PTStopsCont;

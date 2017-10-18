@@ -379,18 +379,8 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             const std::vector<std::string> edges = oc.getStringVector("geometry.remove.keep-edges.explicit");
             edges2keep.insert(edges.begin(), edges.end());
         }
-        if (oc.isSet("ptstop-output")) {
-            for (auto it = sc.begin(); it != sc.end(); it++) {
-                edges2keep.insert(it->second->getEdgeId());
-            }
-        }
-        if (oc.isSet("ptline-output")) {
-            for (auto it = lc.begin(); it != lc.end(); it++){
-                for (auto ed : (*it)->getRoute()){
-                    edges2keep.insert(ed->getID());
-                }
-            }
-        }
+        sc.addEdges2Keep(oc, edges2keep);
+        lc.addEdges2Keep(oc, edges2keep);
     }
     int no = 0;
     std::vector<NBNode*> toRemove;

@@ -20,6 +20,7 @@
 
 #include <iostream>
 #include <utils/common/MsgHandler.h>
+#include <utils/options/OptionsCont.h>
 #include "NBPTLineCont.h"
 #include "NBPTStop.h"
 #include "NBEdge.h"
@@ -287,3 +288,14 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, NBEdgeCont& cont) {
     pTLine->addEdgeVector(fr, to);
 }
 
+
+void 
+NBPTLineCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) {
+    if (oc.isSet("ptline-output")) {
+        for (auto line : myPTLines) {
+            for (auto edge : line->getRoute()){
+                into.insert(edge->getID());
+            }
+        }
+    }
+}

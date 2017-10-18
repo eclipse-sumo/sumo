@@ -19,6 +19,7 @@
 
 
 #include <utils/common/MsgHandler.h>
+#include <utils/options/OptionsCont.h>
 #include <microsim/MSLane.h>
 #include "NBPTStopCont.h"
 #include "NBEdgeCont.h"
@@ -287,4 +288,14 @@ void NBPTStopCont::reviseStops(NBEdgeCont& cont) {
         }
     }
 
+}
+
+
+void 
+NBPTStopCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) {
+    if (oc.isSet("ptstop-output")) {
+        for (auto stop : myPTStops) {
+            into.insert(stop.second->getEdgeId());
+        }
+    }
 }
