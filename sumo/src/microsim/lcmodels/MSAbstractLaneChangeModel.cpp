@@ -185,6 +185,8 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
         of.writeAttr("leaderSecureGap", myLastLeaderSecureGap == NO_NEIGHBOR ? "None" : toString(myLastLeaderSecureGap));
         of.writeAttr("followerGap", myLastFollowerGap == NO_NEIGHBOR ? "None" : toString(myLastFollowerGap));
         of.writeAttr("followerSecureGap", myLastFollowerSecureGap == NO_NEIGHBOR ? "None" : toString(myLastFollowerSecureGap));
+        of.writeAttr("origLeaderGap", myLastOrigLeaderGap == NO_NEIGHBOR ? "None" : toString(myLastOrigLeaderGap));
+        of.writeAttr("origLeaderSecureGap", myLastOrigLeaderSecureGap == NO_NEIGHBOR ? "None" : toString(myLastOrigLeaderSecureGap));
         if (MSGlobals::gLateralResolution > 0) {
             const double latGap = direction < 0 ? myLastLateralGapRight : myLastLateralGapLeft;
             of.writeAttr("latGap", latGap == NO_NEIGHBOR ? "None" : toString(latGap));
@@ -393,6 +395,14 @@ MSAbstractLaneChangeModel::setLeaderGaps(CLeaderDist leader, double secGap) {
 }
 
 void
+MSAbstractLaneChangeModel::setOrigLeaderGaps(CLeaderDist leader, double secGap) {
+    if (leader.first != 0) {
+        myLastOrigLeaderGap= leader.second + myVehicle.getVehicleType().getMinGap();
+        myLastOrigLeaderSecureGap = secGap;
+    }
+}
+
+void
 MSAbstractLaneChangeModel::setFollowerGaps(const MSLeaderDistanceInfo& vehicles) {
     int rightmost;
     int leftmost;
@@ -425,6 +435,25 @@ MSAbstractLaneChangeModel::setLeaderGaps(const MSLeaderDistanceInfo& vehicles) {
             if (netGap < myLastLeaderGap) {
                 myLastLeaderGap = netGap;
                 myLastLeaderSecureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+            }
+        }
+    }
+}
+
+void
+MSAbstractLaneChangeModel::setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicles) {
+    int rightmost;
+    int leftmost;
+    vehicles.getSubLanes(&myVehicle, 0, rightmost, leftmost);
+    for (int i = rightmost; i <= leftmost; ++i) {
+        CLeaderDist vehDist = vehicles[i];
+        if (vehDist.first != 0) {
+            const MSVehicle* leader = vehDist.first;
+            const MSVehicle* follower = &myVehicle;
+            const double netGap = vehDist.second + follower->getVehicleType().getMinGap();
+            if (netGap < myLastOrigLeaderGap) {
+                myLastOrigLeaderGap = netGap;
+                myLastOrigLeaderSecureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
             }
         }
     }

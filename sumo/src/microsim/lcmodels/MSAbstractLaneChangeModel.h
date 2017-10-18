@@ -169,8 +169,10 @@ public:
 
     void setFollowerGaps(CLeaderDist follower, double secGap);
     void setLeaderGaps(CLeaderDist, double secGap);
+    void setOrigLeaderGaps(CLeaderDist, double secGap);
     void setFollowerGaps(const MSLeaderDistanceInfo& vehicles);
     void setLeaderGaps(const MSLeaderDistanceInfo& vehicles);
+    void setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicles);
 
     virtual void prepareStep() {
         saveState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
@@ -182,6 +184,8 @@ public:
         myLastLeaderSecureGap = NO_NEIGHBOR;
         myLastFollowerGap = NO_NEIGHBOR;
         myLastFollowerSecureGap = NO_NEIGHBOR;
+        myLastOrigLeaderGap = NO_NEIGHBOR;
+        myLastOrigLeaderSecureGap = NO_NEIGHBOR;
         myCommittedSpeed = 0;
     }
 
@@ -492,6 +496,9 @@ protected:
     /// @brief the minimum longitudinal distances to vehicles on the target lane that would be necessary for stringent security
     double myLastLeaderSecureGap;
     double myLastFollowerSecureGap;
+    /// @brief acutal and secure distance to closest leader vehicle on the original when performing lane change
+    double myLastOrigLeaderGap;
+    double myLastOrigLeaderSecureGap;
 
     /* @brief to be called by derived classes in their changed() method.
      * If dir=0 is given, the current value remains unchanged */

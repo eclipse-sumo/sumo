@@ -618,6 +618,7 @@ MSLaneChanger::checkChange(
 
     double secureFrontGap = MSAbstractLaneChangeModel::NO_NEIGHBOR;
     double secureBackGap = MSAbstractLaneChangeModel::NO_NEIGHBOR;
+    double secureOrigFrontGap = MSAbstractLaneChangeModel::NO_NEIGHBOR;
     // safe back gap
     if ((blocked & blockedByFollower) == 0 && neighFollow.first != 0) {
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
@@ -663,7 +664,9 @@ MSLaneChanger::checkChange(
 
         }
     }
-
+    if (leader.first != 0) {
+        secureOrigFrontGap = vehicle->getCarFollowModel().getSecureGap(vehicle->getSpeed(), leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel());
+    }
 
     MSAbstractLaneChangeModel::MSLCMessager msg(leader.first, neighLead.first, neighFollow.first);
     int state = blocked | vehicle->getLaneChangeModel().wantsChange(
@@ -785,6 +788,7 @@ MSLaneChanger::checkChange(
         // this lane change will be executed, save gaps
         vehicle->getLaneChangeModel().setFollowerGaps(neighFollow, secureBackGap);
         vehicle->getLaneChangeModel().setLeaderGaps(neighLead, secureFrontGap);
+        vehicle->getLaneChangeModel().setOrigLeaderGaps(leader, secureOrigFrontGap);
     }
     return state;
 }
