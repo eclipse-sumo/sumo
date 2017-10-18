@@ -65,8 +65,6 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* v
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold) {
-    // Update geometry;
-    updateGeometry();
 }
 
 
@@ -125,7 +123,7 @@ GNEDetectorE2::updateGeometry() {
     setBlockIconRotation(myLane);
 
     // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshAdditional(this);
+    myViewNet->getNet()->refreshElement(this);
 }
 
 
@@ -277,7 +275,6 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
-            updateGeometry();
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

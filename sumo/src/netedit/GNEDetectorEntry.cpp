@@ -60,8 +60,6 @@
 GNEDetectorEntry::GNEDetectorEntry(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, double pos, bool friendlyPos) :
     GNEDetector(parent->generateEntryID(), viewNet, SUMO_TAG_DET_ENTRY, ICON_E3ENTRY, lane, pos, 0, "", friendlyPos),
     myE3Parent(parent) {
-    // Update geometry
-    updateGeometryByParent();
 }
 
 
@@ -97,7 +95,7 @@ GNEDetectorEntry::updateGeometryByParent() {
     setBlockIconRotation(myLane);
 
     // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshAdditional(this);
+    myViewNet->getNet()->refreshElement(this);
 }
 
 
@@ -246,7 +244,6 @@ GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
-            updateGeometry();
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

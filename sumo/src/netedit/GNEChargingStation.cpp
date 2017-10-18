@@ -67,8 +67,6 @@ GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNE
     myEfficiency(efficiency),
     myChargeInTransit(chargeInTransit),
     myChargeDelay(chargeDelay) {
-    // When a new additional element is created, updateGeometry() must be called
-    updateGeometry();
 }
 
 
@@ -99,7 +97,7 @@ GNEChargingStation::updateGeometry() {
     setBlockIconRotation(myLane);
 
     // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshAdditional(this);
+    myViewNet->getNet()->refreshElement(this);
 }
 
 

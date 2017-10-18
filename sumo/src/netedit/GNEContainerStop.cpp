@@ -62,8 +62,6 @@
 GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition) :
     GNEStoppingPlace(id, viewNet, SUMO_TAG_CONTAINER_STOP, ICON_CONTAINERSTOP, lane, startPos, endPos, name, friendlyPosition),
     myLines(lines) {
-    // When a new additional element is created, updateGeometry() must be called
-    updateGeometry();
 }
 
 
@@ -94,7 +92,7 @@ GNEContainerStop::updateGeometry() {
     setBlockIconRotation(myLane);
 
     // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshAdditional(this);
+    myViewNet->getNet()->refreshElement(this);
 }
 
 
@@ -278,7 +276,6 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case SUMO_ATTR_LINES:
         case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
-            updateGeometry();
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

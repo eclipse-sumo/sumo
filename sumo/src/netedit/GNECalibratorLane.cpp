@@ -65,8 +65,6 @@ GNECalibratorLane::GNECalibratorLane(const std::string& id, GNELane* lane, GNEVi
     GNECalibrator(id, viewNet, SUMO_TAG_LANECALIBRATOR, pos / lane->getLaneParametricLength(), frequency, output, calibratorRoutes, calibratorFlows, calibratorVehicleTypes, NULL, lane)  {
     // this additional ISN'T movable
     myMovable = false;
-    // Update geometry;
-    updateGeometry();
     // Center view in the position of calibrator
     myViewNet->centerTo(getGlID(), false);
 }

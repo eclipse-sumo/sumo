@@ -67,8 +67,6 @@ GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double startTime,
     myRelativePositionY(0) {
     // this additional ISN'T movable
     myMovable = false;
-    // Update geometry;
-    updateGeometry();
     // Center view in the position of Vaporizer
     myViewNet->centerTo(getGlID(), false);
 }
@@ -119,7 +117,7 @@ GNEVaporizer::updateGeometry() {
     setBlockIconRotation(firstLane);
 
     // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshAdditional(this);
+    myViewNet->getNet()->refreshElement(this);
 }
 
 
@@ -295,7 +293,6 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         case SUMO_ATTR_STARTTIME:
         case SUMO_ATTR_END:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
-            updateGeometry();
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

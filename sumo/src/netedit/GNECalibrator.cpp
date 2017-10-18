@@ -266,7 +266,7 @@ GNECalibrator::updateGeometry() {
         throw ProcessError("Both myEdge and myLane aren't defined");
     }
     // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshAdditional(this);
+    myViewNet->getNet()->refreshElement(this);
 }
 
 
@@ -553,7 +553,6 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
     case SUMO_ATTR_OUTPUT:
     case SUMO_ATTR_ROUTEPROBE:
         undoList->p_add(new GNEChange_Attribute(this, key, value));
-        updateGeometry();
         break;
     default:
         throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

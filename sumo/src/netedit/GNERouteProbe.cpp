@@ -69,8 +69,6 @@ GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge
     myRelativePositionY(0) {
     // this additional ISN'T movable
     myMovable = false;
-    // Update geometry;
-    updateGeometry();
     // Center view in the position of routeProbe
     myViewNet->centerTo(getGlID(), false);
 }
@@ -120,7 +118,7 @@ GNERouteProbe::updateGeometry() {
     setBlockIconRotation(firstLane);
 
     // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshAdditional(this);
+    myViewNet->getNet()->refreshElement(this);
 }
 
 
@@ -314,7 +312,6 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_BEGIN:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
-            updateGeometry();
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

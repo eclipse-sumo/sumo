@@ -68,8 +68,6 @@ GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position po
     myFilename(filename),
     myProbability(probability),
     myOff(off) {
-    // Update geometry;
-    updateGeometry();
 }
 
 
@@ -104,7 +102,7 @@ GNERerouter::updateGeometry() {
     updateConnections();
     */
     // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshAdditional(this);
+    myViewNet->getNet()->refreshElement(this);
 }
 
 
@@ -402,7 +400,6 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_OFF:
         case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
-            updateGeometry();
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

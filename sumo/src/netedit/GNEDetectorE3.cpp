@@ -68,8 +68,6 @@ GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Positio
     myFilename(filename),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold) {
-    // Update geometry;
-    updateGeometry();
 }
 
 
@@ -112,7 +110,7 @@ GNEDetectorE3::updateGeometry() {
     updateGeometryConnections();
 
     // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshAdditional(this);
+    myViewNet->getNet()->refreshElement(this);
 }
 
 
@@ -355,7 +353,6 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
         case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
-            updateGeometry();
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

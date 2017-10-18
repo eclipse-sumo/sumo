@@ -434,11 +434,6 @@ public:
     /// @brief refreshes boundary information for o and update
     void refreshElement(GUIGlObject* o);
 
-    /**@brief refreshes boundary information of an additional after a geometry update
-     * @note only non removed additional will be refresh
-     */
-    void refreshAdditional(GNEAdditional* additional);
-
     /// @brief generate an ID for vaporizers
     std::string generateVaporizerID() const;
 

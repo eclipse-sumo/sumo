@@ -64,8 +64,6 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* vi
     myFilename(filename),
     mySteps(steps),
     mySaveInFilename(false) {
-    // Update geometry;
-    updateGeometry();
 }
 
 
@@ -99,7 +97,7 @@ GNEVariableSpeedSign::updateGeometry() {
     updateConnections();
     */
     // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshAdditional(this);
+    myViewNet->getNet()->refreshElement(this);
 }
 
 
@@ -332,7 +330,6 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
         case SUMO_ATTR_FILE:
         case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
-            updateGeometry();
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
