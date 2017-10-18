@@ -139,7 +139,7 @@ GNEPOILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build shape header
     buildShapePopupOptions(app, ret, myType);
     // add option for convert to GNEPOI
-    new FXMenuCommand(ret, "Release from lane", getIcon(), &parent, MID_GNE_POI_TRANSFORM);
+    new FXMenuCommand(ret, ("Release from " + toString(SUMO_TAG_LANE)).c_str(), GUIIconSubSys::getIcon(ICON_LANE), &parent, MID_GNE_POI_TRANSFORM);
     return ret;
 }
 
@@ -159,8 +159,10 @@ GNEPOILane::getCenteringBoundary() const {
 void
 GNEPOILane::drawGL(const GUIVisualizationSettings& s) const {
     GUIPointOfInterest::drawGL(s);
+    // draw a label with the type of POI
+    GLHelper::drawText("POI Lane", *this, myLayer + .1, 0.6, myColor.invertedColor());
     // draw lock icon
-    drawLockIcon(*this, GLO_POI);
+    drawLockIcon(*this + Position(0, -0.5), GLO_POI, 0.2);
 }
 
 
