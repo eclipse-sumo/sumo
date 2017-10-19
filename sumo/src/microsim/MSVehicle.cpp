@@ -2111,28 +2111,17 @@ MSVehicle::getDeltaPos(double accel) {
     }
 }
 
-bool
-MSVehicle::executeMove() {
-#ifdef DEBUG_EXEC_MOVE
-    if (DEBUG_COND) std::cout << "\nEXECUTE_MOVE\n"
-                                  << SIMTIME
-                                  << " veh=" << getID()
-                                  << " speed=" << getSpeed() // toString(getSpeed(), 24)
-                                  << std::endl;
-#endif
+void
+MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMinDist) {
 
-    // get safe velocities from DriveProcessItems
-    double vSafe = 0; // maximum safe velocity (XXX: why init this as 0 !? (Leo)) Refs. #2575
-    double vSafeZipper = std::numeric_limits<double>::max(); // speed limit due to zipper merging
-    double vSafeMin = 0; // minimum safe velocity
-    // the distance to a link which should either be crossed this step or in
-    // front of which we need to stop
-    double vSafeMinDist = 0;
+    // Speed limit due to zipper merging
+    double vSafeZipper = std::numeric_limits<double>::max();
+
     myHaveToWaitOnNextLink = false;
 
+    // Get safe velocities from DriveProcessItems.
     assert(myLFLinkLanes.size() != 0 || isRemoteControlled());
-    DriveItemVector::iterator i;
-    for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
+    for (DriveItemVector::iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
         MSLink* link = (*i).myLink;
 
 #ifdef DEBUG_EXEC_MOVE
@@ -2279,7 +2268,7 @@ MSVehicle::executeMove() {
             || (!MSGlobals::gSemiImplicitEulerUpdate && (vSafe + NUMERICAL_EPS < vSafeMin && vSafeMin != 0))) { // this might be good for the euler case as well
         // cannot drive across a link so we need to stop before it
         // XXX: (Leo) This often called stopSpeed with vSafeMinDist==0 (for the ballistic update), since vSafe can become negative
-        //		For the Euler update the term '+ NUMERICAL_EPS' prevented a call here... Recheck, consider of -INVALID_SPEED instead of 0 to indicate absence of vSafeMin restrictions. Refs. #2577
+        //      For the Euler update the term '+ NUMERICAL_EPS' prevented a call here... Recheck, consider of -INVALID_SPEED instead of 0 to indicate absence of vSafeMin restrictions. Refs. #2577
         vSafe = MIN2(vSafe, getCarFollowModel().stopSpeed(this, getSpeed(), vSafeMinDist));
         vSafeMin = 0;
         myHaveToWaitOnNextLink = true;
@@ -2298,6 +2287,35 @@ MSVehicle::executeMove() {
     }
 
     vSafe = MIN2(vSafe, vSafeZipper);
+}
+
+
+bool
+MSVehicle::executeMove() {
+#ifdef DEBUG_EXEC_MOVE
+    if (DEBUG_COND) std::cout << "\nEXECUTE_MOVE\n"
+                                  << SIMTIME
+                                  << " veh=" << getID()
+                                  << " speed=" << getSpeed() // toString(getSpeed(), 24)
+                                  << std::endl;
+#endif
+
+
+    // Maximum safe velocity
+    double vSafe = std::numeric_limits<double>::max();
+    // Minimum safe velocity (lower bound).
+    double vSafeMin = -std::numeric_limits<double>::max();
+    // The distance to a link, which should either be crossed this step
+    // or in front of which we need to stop.
+    double vSafeMinDist = 0;
+
+    if (myActionStep) {
+        // Actuate control (i.e. choose bounds for safe speed in (euler) / after (ballistic) current sim step)
+        processLinkAproaches(vSafe, vSafeMin, vSafeMinDist);
+    } else {
+        //
+    }
+
 
 //#ifdef DEBUG_EXEC_MOVE
 //    if (DEBUG_COND) {
@@ -2399,7 +2417,7 @@ MSVehicle::executeMove() {
         if (myCurrEdge != myRoute->end() - 1) {
             MSLane* approachedLane = myLane;
             // move the vehicle forward
-            for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end() && approachedLane != 0 && myState.myPos > approachedLane->getLength(); ++i) {
+            for (DriveItemVector::iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end() && approachedLane != 0 && myState.myPos > approachedLane->getLength(); ++i) {
                 MSLink* link = (*i).myLink;
                 // check whether the vehicle was allowed to enter lane
                 //  otherwise it is decelerated and we do not need to test for it's

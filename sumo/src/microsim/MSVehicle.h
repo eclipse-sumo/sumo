@@ -383,6 +383,17 @@ public:
     bool executeMove();
 
 
+    /** @brief This method iterates through the driveprocess items for the vehicle
+     *         and adapts the given in/out parameters to the appropriate values.
+     *
+     *  @param[in/out] vSafe The maximal safe (or admissible) velocity.
+     *  @param[in/out] vSafeMin The minimal safe (or admissible) velocity (used her for ensuring the clearing of junctions in time).
+     *  @param[in/out] vSafeMinDist The distance to the next link, which should either be crossed this step, or in front of which the vehicle need to stop.
+     */
+    void processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMinDist);
+
+
+
     /** @brief calculates the distance covered in the next integration step given
      *         an acceleration and assuming the current velocity. (gives different
      *         results for different integration methods, e.g., euler vs. ballistic)
