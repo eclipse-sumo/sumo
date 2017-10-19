@@ -52,7 +52,7 @@ TraCI_Person::getIDList() {
         }
     }
     return std::move(ids);
-};
+}
 
 
 int
