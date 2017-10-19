@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun  1 09:22:35 2017 by SUMO Version dev-SVN-r23112
+<!-- generated on Thu Oct 19 14:47:33 2017 by SUMO Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -101,12 +101,12 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_right.1" depart="12.00" arrival="36.00">
-        <route edges="beg middle end2"/>
-    </vehicle>
-
     <vehicle id="flow_left.4" depart="18.00" arrival="37.00">
         <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.1" depart="12.00" arrival="37.00">
+        <route edges="beg middle end2"/>
     </vehicle>
 
     <vehicle id="calibtest.0.12" depart="28.00" arrival="39.00">
@@ -153,12 +153,12 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_right.3" depart="30.00" arrival="54.00">
-        <route edges="beg middle end2"/>
-    </vehicle>
-
     <vehicle id="flow_left.8" depart="36.00" arrival="55.00">
         <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.3" depart="30.00" arrival="55.00">
+        <route edges="beg middle end2"/>
     </vehicle>
 
     <vehicle id="calibtest.0.19" depart="46.00" arrival="57.00">
@@ -205,12 +205,12 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_right.5" depart="48.00" arrival="72.00">
-        <route edges="beg middle end2"/>
-    </vehicle>
-
     <vehicle id="flow_left.12" depart="54.00" arrival="73.00">
         <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.5" depart="48.00" arrival="73.00">
+        <route edges="beg middle end2"/>
     </vehicle>
 
     <vehicle id="calibtest.0.26" depart="64.00" arrival="75.00">
@@ -257,12 +257,12 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_right.7" depart="66.00" arrival="90.00">
-        <route edges="beg middle end2"/>
-    </vehicle>
-
     <vehicle id="flow_left.16" depart="72.00" arrival="91.00">
         <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.7" depart="66.00" arrival="91.00">
+        <route edges="beg middle end2"/>
     </vehicle>
 
     <vehicle id="calibtest.0.33" depart="82.00" arrival="93.00">
@@ -309,12 +309,12 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_right.9" depart="84.00" arrival="108.00">
-        <route edges="beg middle end2"/>
-    </vehicle>
-
     <vehicle id="flow_left.20" depart="90.00" arrival="109.00">
         <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.9" depart="84.00" arrival="109.00">
+        <route edges="beg middle end2"/>
     </vehicle>
 
     <vehicle id="flow_left.21" depart="96.00" arrival="114.00">

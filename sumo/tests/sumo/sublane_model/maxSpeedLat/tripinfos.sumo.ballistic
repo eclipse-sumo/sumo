@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun  1 09:22:58 2017 by SUMO Version dev-SVN-r23112
+<!-- generated on Thu Oct 19 14:47:58 2017 by SUMO Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -30,6 +30,6 @@
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="car" depart="0.00" departLane="beg_0" departPos="0.00" departPosLat="0.70" departSpeed="0.00" departDelay="0.00" arrival="41.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalPosLat="0.70" arrivalSpeed="13.71" duration="41.00" routeLength="500.00" waitSteps="0" timeLoss="4.32" rerouteNo="0" devices="tripinfo_car" vType="car" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="car2" depart="3.00" departLane="beg_0" departPos="0.00" departPosLat="-0.70" departSpeed="0.00" departDelay="1.00" arrival="46.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalPosLat="-0.70" arrivalSpeed="13.44" duration="43.00" routeLength="500.00" waitSteps="0" timeLoss="6.18" rerouteNo="0" devices="tripinfo_car2" vType="car2" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="bike" depart="0.00" departLane="beg_0" departPos="20.00" departPosLat="-1.28" departSpeed="0.00" departDelay="0.00" arrival="95.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalPosLat="-1.28" arrivalSpeed="5.07" duration="95.00" routeLength="480.00" waitSteps="0" timeLoss="7.77" rerouteNo="0" devices="tripinfo_bike" vType="bike" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="car2" depart="3.00" departLane="beg_0" departPos="0.00" departPosLat="-0.70" departSpeed="0.00" departDelay="1.00" arrival="46.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalPosLat="-0.60" arrivalSpeed="13.44" duration="43.00" routeLength="500.00" waitSteps="0" timeLoss="6.18" rerouteNo="0" devices="tripinfo_car2" vType="car2" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="bike" depart="0.00" departLane="beg_0" departPos="20.00" departPosLat="-1.28" departSpeed="0.00" departDelay="0.00" arrival="95.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalPosLat="-1.27" arrivalSpeed="5.07" duration="95.00" routeLength="480.00" waitSteps="0" timeLoss="7.77" rerouteNo="0" devices="tripinfo_bike" vType="bike" speedFactor="1.00" vaporized=""/>
 </tripinfos>

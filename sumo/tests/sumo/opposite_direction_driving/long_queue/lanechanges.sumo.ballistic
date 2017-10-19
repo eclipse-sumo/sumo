@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Oct 19 15:32:07 2017 by SUMO Version svn
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="overtaking" type="DEFAULT_VEHTYPE" time="137.00" from="VODUGES_beg_0" to="-VODUGES_beg_0" dir="1" speed="1.13" pos="855.99" reason="" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="4.14" origLeaderSecureGap="1.15"/>
+    <change id="overtaking" type="DEFAULT_VEHTYPE" time="161.00" from="-VODUGES_beg_0" to="VODUGES_beg_0" dir="-1" speed="13.87" pos="862.78" reason="" leaderGap="35.73" leaderSecureGap="14.39" followerGap="54.36" followerSecureGap="9.06" origLeaderGap="None" origLeaderSecureGap="None"/>
+</lanechanges>

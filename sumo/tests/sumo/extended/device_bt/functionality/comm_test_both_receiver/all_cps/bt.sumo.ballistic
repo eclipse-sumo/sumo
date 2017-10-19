@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr  5 13:45:21 2016 by SUMO Version dev-SVN-r20343
+<!-- generated on Thu Oct 19 14:47:42 2017 by SUMO Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -18,6 +18,10 @@
     <time>
         <begin value="0"/>
     </time>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -129,7 +133,6 @@
             <recognitionPoint t="183.00" observerPos="1498.35,512.32" observerSpeed="9.92" observerLaneID="left2end_0" observerLanePos="2501.32" seenPos="1530.07,498.35" seenSpeed="13.78" seenLaneID="end_0" seenLanePos="2525.56"/>
             <recognitionPoint t="184.00" observerPos="1498.35,504.77" observerSpeed="5.42" observerLaneID="left2end_0" observerLanePos="2508.99" seenPos="1543.77,498.35" seenSpeed="13.89" seenLaneID="end_0" seenLanePos="2539.39"/>
             <recognitionPoint t="185.00" observerPos="1508.07,498.35" observerSpeed="8.02" observerLaneID="end_0" observerLanePos="2515.71" seenPos="1557.53,498.35" seenSpeed="13.89" seenLaneID="end_0" seenLanePos="2553.28"/>
-            <recognitionPoint t="185.12" observerPos="1509.19,498.35" observerSpeed="10.62" observerLaneID="end_0" observerLanePos="2525.04" seenPos="1559.19,498.35" seenSpeed="13.89" seenLaneID="end_0" seenLanePos="2567.17"/>
         </seen>
     </bt>
 </bt-output>
