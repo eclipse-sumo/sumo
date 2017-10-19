@@ -2303,11 +2303,15 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                     c->valid = false;
                 }
                 c->nextWalkingArea = wa.id;
-                endCrossingWidth = c->width;
-                endCrossingShape = c->shape;
-                wa.width = MAX2(wa.width, endCrossingWidth);
-                connectsCrossing = true;
-                connectedPoints.push_back(c->shape[-1]);
+                if (c->edges.size() < wa.minPrevCrossingEdges) {
+                    // if there are multiple crossings, use the shape of the one that crosses fewer edges
+                    endCrossingWidth = c->width;
+                    endCrossingShape = c->shape;
+                    wa.width = MAX2(wa.width, endCrossingWidth);
+                    connectsCrossing = true;
+                    connectedPoints.push_back(c->shape[-1]);
+                    wa.minPrevCrossingEdges = c->edges.size();
+                }
                 if (gDebugFlag1) {
                     std::cout << "    crossing " << c->id << " ends\n";
                 }
@@ -2324,11 +2328,15 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                 }
                 c->prevWalkingArea = wa.id;
                 wa.nextCrossings.push_back(c->id);
-                startCrossingWidth = c->width;
-                startCrossingShape = c->shape;
-                wa.width = MAX2(wa.width, startCrossingWidth);
-                connectsCrossing = true;
-                connectedPoints.push_back(c->shape[0]);
+                if (c->edges.size() < wa.minNextCrossingEdges) {
+                    // if there are multiple crossings, use the shape of the one that crosses fewer edges
+                    startCrossingWidth = c->width;
+                    startCrossingShape = c->shape;
+                    wa.width = MAX2(wa.width, startCrossingWidth);
+                    connectsCrossing = true;
+                    connectedPoints.push_back(c->shape[0]);
+                    wa.minNextCrossingEdges = c->edges.size();
+                }
                 if (gDebugFlag1) {
                     std::cout << "    crossing " << c->id << " starts\n";
                 }

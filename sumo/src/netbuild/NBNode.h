@@ -168,7 +168,9 @@ public:
         WalkingArea(const std::string& _id, double _width) :
             id(_id),
             width(_width),
-            hasCustomShape(false)
+            hasCustomShape(false),
+            minNextCrossingEdges(std::numeric_limits<int>::max()),
+            minPrevCrossingEdges(std::numeric_limits<int>::max())
         { }
         /// @brief the (edge)-id of this walkingArea
         std::string id;
@@ -186,6 +188,10 @@ public:
         std::vector<std::string> prevSidewalks;
         /// @brief whether this walkingArea has a custom shape
         bool hasCustomShape;
+        /// @brief minimum number of edges crossed by nextCrossings
+        int minNextCrossingEdges;
+        /// @brief minimum number of edges crossed by incoming crossings
+        int minPrevCrossingEdges;
     };
 
     struct WalkingAreaCustomShape {
