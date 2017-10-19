@@ -788,7 +788,7 @@ SUMOVehicleParserHelper::processActionStepLength(double given) {
         result = DELTA_T;
     } else if (result % DELTA_T != 0) {
         std::stringstream ss;
-        result = (SUMOTime)DELTA_T*round(double(result)/double(DELTA_T));
+        result = (SUMOTime)(DELTA_T*round(double(result)/double(DELTA_T)));
         result = MAX2(DELTA_T, result);
         if (fabs(given*1000. - double(result)) > NUMERICAL_EPS) {
             ss << "The parameter action-step-length must be a non-negative multiple of the simulation step-length. Parsing given value ("
