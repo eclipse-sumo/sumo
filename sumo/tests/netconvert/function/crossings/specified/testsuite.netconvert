@@ -88,6 +88,9 @@ sumonet_custom_washape
 # a sidewalk is located between two road lanes of the same edge
 4_arm_enclosed_sidewalk2
 
+# 4 arm junction with crossings on all sides and additional diagonal crossings
+4_arm_pedscramble
+
 # a pedestrian path crosses a street with sidewalks
 path_across_street
 
