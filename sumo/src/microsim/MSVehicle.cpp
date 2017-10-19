@@ -560,7 +560,9 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myWaitingTime(0),
     myWaitingTimeCollector(),
     myTimeLoss(0),
-    myState(0, 0, 0, 0), //
+    myState(0, 0, 0, 0),
+    myActionStep(true),
+    myLastActionTime(0),
     myLane(0),
     myLastBestLanesEdge(0),
     myLastBestLanesInternalLane(0),
@@ -576,9 +578,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myStopDist(std::numeric_limits<double>::max()),
     myCollisionImmunity(-1),
     myCachedPosition(Position::INVALID),
-    myEdgeWeights(0),
-    myActionStep(true),
-    myActionOffset(0)
+    myEdgeWeights(0)
 #ifndef NO_TRACI
     , myInfluencer(0)
 #endif
@@ -1495,27 +1495,31 @@ MSVehicle::getStopEdges() const {
 }
 
 
-void
+bool
 MSVehicle::checkActionStep(const SUMOTime t){
-    myActionStep = (t-myActionOffset)%getActionStepLength() != 0;
+    myActionStep = (t-myLastActionTime)%getActionStepLength() == 0;
+    if (myActionStep) {
+        myLastActionTime=t;
+    }
+    return myActionStep;
 }
 
 void
 MSVehicle::resetActionOffset(const SUMOTime timeUntilNextAction){
-    myActionOffset = MSNet::getInstance()->getCurrentTimeStep() + timeUntilNextAction;
+    myLastActionTime = MSNet::getInstance()->getCurrentTimeStep() + timeUntilNextAction;
 }
 
 void
 MSVehicle::updateActionOffset(const SUMOTime oldActionStepLength, const SUMOTime newActionStepLength){
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-    SUMOTime timeSinceLastAction = (now - myActionOffset)%oldActionStepLength;
+    SUMOTime timeSinceLastAction = now - myLastActionTime;
     if (timeSinceLastAction == 0) {
         // Action was scheduled now, may be delayed be new action step length
         timeSinceLastAction = oldActionStepLength;
     }
     if (timeSinceLastAction >= newActionStepLength) {
         // Action point required in this step
-        myActionOffset = now;
+        myLastActionTime = now;
     } else {
         SUMOTime timeUntilNextAction = newActionStepLength - timeSinceLastAction;
         resetActionOffset(timeUntilNextAction);
@@ -1546,10 +1550,10 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
             << " skip = " << toString(!myActionStep)
             << std::endl;
 #endif
-    if (!myActionStep) {
+    if (!checkActionStep(t)) {
         return;
     }
-    planMoveInternal(t, ahead, myLFLinkLanes, myStopDist); // XXX: Why do we reach over myLFLinkLanes and myStopDist as arguments?! That only seems to obscure things (Leo). Refs. #2575
+    planMoveInternal(t, ahead, myLFLinkLanes, myStopDist);
 #ifdef DEBUG_PLAN_MOVE
     if (DEBUG_COND) {
         DriveItemVector::iterator i;
@@ -3070,7 +3074,7 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
     myLane = enteredLane;
     myAmOnNet = true;
     // schedule action for the next timestep
-    myActionOffset = MSNet::getInstance()->getCurrentTimeStep() + DELTA_T;
+    myLastActionTime = MSNet::getInstance()->getCurrentTimeStep() + DELTA_T;
     if (notification != MSMoveReminder::NOTIFICATION_TELEPORT) {
         // set and activate the new lane's reminders, teleports already did that at enterLaneAtMove
         for (std::vector< MSMoveReminder* >::const_iterator rem = enteredLane->getMoveReminders().begin(); rem != enteredLane->getMoveReminders().end(); ++rem) {
@@ -4423,7 +4427,7 @@ MSVehicle::saveState(OutputDevice& out) {
     internals.push_back(toString(distance(myRoute->begin(), myCurrEdge)));
     internals.push_back(toString(myDepartPos));
     internals.push_back(toString(myWaitingTime));
-    internals.push_back(toString(myActionOffset));
+    internals.push_back(toString(myLastActionTime));
     out.writeAttr(SUMO_ATTR_STATE, internals);
     out.writeAttr(SUMO_ATTR_POSITION, myState.myPos);
     out.writeAttr(SUMO_ATTR_SPEED, myState.mySpeed);
@@ -4450,10 +4454,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> routeOffset;
     bis >> myDepartPos;
     bis >> myWaitingTime;
-    bis >> myActionOffset;
-    if (bis.fail()) {
-        myActionOffset = myDeparture+DELTA_T;
-    }
+    bis >> myLastActionTime;
     if (hasDeparted()) {
         myCurrEdge += routeOffset;
         myDeparture -= offset;

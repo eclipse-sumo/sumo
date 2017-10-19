@@ -321,11 +321,12 @@ public:
     //@}
 
 
-    /** @brief Updates myActionStep to whether the vehicle is supposed to take action in the current simulation step
+    /** @brief Returns whether the vehicle is supposed to take action in the current simulation step
+     *         Updates myActionStep and myLastActionTime in case that the current simstep is an action step
      *
      *  @param[in] t
      */
-    void checkActionStep(const SUMOTime t);
+    bool checkActionStep(const SUMOTime t);
 
     /** @brief Resets the action offset for the vehicle
      *
@@ -1577,7 +1578,7 @@ protected:
     bool myActionStep;
     /// @brief Action offset (actions are taken at time myActionOffset + N*getActionStepLength())
     ///        Initialized to 0, to be set at insertion.
-    SUMOTime myActionOffset;
+    SUMOTime myLastActionTime;
 
 
 
