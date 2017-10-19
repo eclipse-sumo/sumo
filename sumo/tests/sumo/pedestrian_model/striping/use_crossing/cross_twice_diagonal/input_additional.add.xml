@@ -1,0 +1,16 @@
+<additional>
+    <tlLogic id="C" type="static" programID="pedScramble" offset="0">
+        <phase duration="23" state="gGGgrrrrgGGgrrrrrrrrrr"/>
+        <phase duration="5"  state="gGGgrrrrgGGgrrrrrrrrrr"/>
+        <phase duration="3"  state="yyygrrrryyygrrrrrrrrrr"/>
+        <phase duration="6"  state="rrrGrrrrrrrGrrrrrrrrrr"/>
+        <phase duration="3"  state="rrryrrrrrrryrrrrrrrrrr"/>
+        <phase duration="23" state="rrrrgGGgrrrrgGGgrrrrrr"/>
+        <phase duration="5"  state="rrrrgGGgrrrrgGGgrrrrrr"/>
+        <phase duration="3"  state="rrrryyygrrrryyygrrrrrr"/>
+        <phase duration="6"  state="rrrrrrrGrrrrrrrGrrrrrr"/>
+        <phase duration="3"  state="rrrrrrryrrrrrrryrrrrrr"/>
+        <phase duration="15" state="rrrrrrrrrrrrrrrrGGGGGG"/>
+        <phase duration="5"  state="rrrrrrrrrrrrrrrrrrrrrr"/>
+    </tlLogic>
+</additional>
