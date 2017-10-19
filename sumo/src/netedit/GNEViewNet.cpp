@@ -196,9 +196,12 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
 
     if (myTestingMode && OptionsCont::getOptions().isSet("window-size")) {
         std::vector<std::string> windowSize = OptionsCont::getOptions().getStringVector("window-size");
-        assert(windowSize.size() == 2);
-        myTestingWidth = GNEAttributeCarrier::parse<int>(windowSize[0]);
-        myTestingHeight = GNEAttributeCarrier::parse<int>(windowSize[1]);
+        if(windowSize.size() == 2 && GNEAttributeCarrier::canParse<int>(windowSize[0]) && GNEAttributeCarrier::canParse<int>(windowSize[1])) {
+            myTestingWidth = GNEAttributeCarrier::parse<int>(windowSize[0]);
+            myTestingHeight = GNEAttributeCarrier::parse<int>(windowSize[1]);
+        } else {
+            WRITE_ERROR("Invalid windows size-format: " + toString(windowSize) + "for option'window-size'");
+        }
     }
 }
 
