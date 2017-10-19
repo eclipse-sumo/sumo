@@ -231,7 +231,7 @@ MSDevice_SSM::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) 
         // File
         std::string file = getOutputFilename(v, deviceID);
 
-        const bool useGeo = useGeoCoords(v, deviceID);
+        const bool useGeo = useGeoCoords(v);
 
         // Build the device (XXX: who deletes it?)
         MSDevice_SSM* device = new MSDevice_SSM(v, deviceID, file, thresholds, trajectories, range, extraTime, useGeo);
