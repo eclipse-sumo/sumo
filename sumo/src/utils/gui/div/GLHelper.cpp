@@ -468,15 +468,18 @@ GLHelper::resetFont() {
     myFont = 0;
 }
 
-FONScontext* 
-GLHelper::getFont() {
+
+bool
+GLHelper::initFont() {
     if (myFont == 0) {
         myFont = glfonsCreate(2048, 2048, FONS_ZERO_BOTTOMLEFT);
-        const int fontNormal = fonsAddFontMem(myFont, "medium", data_font_Roboto_Medium_ttf, data_font_Roboto_Medium_ttf_len, 0);
-        fonsSetFont(myFont, fontNormal);
-        fonsSetSize(myFont, (float)myFontSize);
+        if (myFont != 0) {
+            const int fontNormal = fonsAddFontMem(myFont, "medium", data_font_Roboto_Medium_ttf, data_font_Roboto_Medium_ttf_len, 0);
+            fonsSetFont(myFont, fontNormal);
+            fonsSetSize(myFont, (float)myFontSize);
+        }
     }
-    return myFont;
+    return myFont != 0;
 }
 
 
@@ -488,7 +491,9 @@ GLHelper::drawText(const std::string& text, const Position& pos,
     if (width <= 0) {
         width = size;
     }
-    getFont(); // init myFont
+    if (!initFont()) {
+        return;
+    };
     glPushMatrix();
     glAlphaFunc(GL_GREATER, 0.5);
     glEnable(GL_ALPHA_TEST);
@@ -507,7 +512,9 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
                       const double layer, const double size,
                       const RGBColor& txtColor, const RGBColor& bgColor, const RGBColor& borderColor,
                       const double angle) {
-    getFont(); // init myFont
+    if (!initFont()) {
+        return;
+    };
     double boxAngle = angle + 90;
     if (boxAngle > 360) {
         boxAngle -= 360;
