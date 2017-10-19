@@ -603,7 +603,7 @@ private:
     static std::string getOutputFilename(const SUMOVehicle& v, std::string deviceID);
     static double getDetectionRange(const SUMOVehicle& v);
     static double getExtraTime(const SUMOVehicle& v);
-    static bool useGeoCoords(const SUMOVehicle& v, std::string deviceID);
+    static bool useGeoCoords(const SUMOVehicle& v);
     static bool requestsTrajectories(const SUMOVehicle& v);
     static bool getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceID,
                                          std::map<std::string, double>& thresholds);

@@ -241,13 +241,13 @@ MSDevice_SSM::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) 
 
 
 MSDevice_SSM::Encounter::Encounter(const MSVehicle* _ego, const MSVehicle* const _foe, double _begin, double extraTime) :
-    currentType(ENCOUNTER_TYPE_NOCONFLICT_AHEAD),
     ego(_ego),
     foe(_foe),
     egoID(_ego->getID()),
     foeID(_foe->getID()),
     begin(_begin),
     end(-INVALID),
+    currentType(ENCOUNTER_TYPE_NOCONFLICT_AHEAD),
     remainingExtraTime(extraTime),
     egoConflictEntryTime(INVALID),
     egoConflictExitTime(INVALID),
@@ -1021,10 +1021,9 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
             if (myComputeDRAC) {
                 // Intitial gap. (May be negative only if the leader speed is higher than the follower speed, i.e., dv < 0)
                 double g0 = followerConflictDist - leaderConflictDist - leaderLength;
-                // Speed difference. (Must be positive if g0<0)
-                double dv = leaderSpeed - followerSpeed;
                 if (g0 < 0) {
-                    assert(dv > 0);
+                    // Speed difference must be positive if g0<0.
+                    assert(leaderSpeed - followerSpeed > 0);
                     // no deceleration needed for dv>0 and gap after merge >= 0
                     drac = INVALID;
                 } else {
@@ -2559,7 +2558,7 @@ MSDevice_SSM::getOutputFilename(const SUMOVehicle& v, std::string deviceID) {
 }
 
 bool
-MSDevice_SSM::useGeoCoords(const SUMOVehicle& v, std::string deviceID) {
+MSDevice_SSM::useGeoCoords(const SUMOVehicle& v) {
     OptionsCont& oc = OptionsCont::getOptions();
     bool useGeo = false;
     if (v.getParameter().knowsParameter("device.ssm.geo")) {
