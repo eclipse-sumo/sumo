@@ -138,8 +138,9 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     }
     if (attrs.hasAttribute(SUMO_ATTR_END)) {
         ret->repetitionEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok);
-    } else if (endDefault >= TIME2STEPS(9223372036854773) || endDefault < 0) {
-        // see SUMOTIME_MAXSTRING (which differs slightly from SUMOTime_MAX)
+    } else if (!attrs.hasAttribute(SUMO_ATTR_NUMBER) && 
+            // see SUMOTIME_MAXSTRING (which differs slightly from SUMOTime_MAX)
+            (endDefault >= TIME2STEPS(9223372036854773) || endDefault < 0)) {
         WRITE_WARNING("Undefined end for flow '" + id + "', defaulting to 24hour duration.");
         ret->repetitionEnd = ret->depart + TIME2STEPS(24 * 3600);
     }
