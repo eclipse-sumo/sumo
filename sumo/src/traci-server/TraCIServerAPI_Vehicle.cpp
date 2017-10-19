@@ -541,7 +541,6 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
     if (v == 0 && shouldExist) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Vehicle '" + id + "' is not a micro-simulation vehicle", outputStorage);
     }
-    const bool onInit = v == 0 || v->getLane() == 0;
     try {
         switch (variable) {
             case CMD_STOP: {
