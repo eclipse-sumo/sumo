@@ -524,12 +524,15 @@ GUISUMOAbstractView::displayLegend() {
 
     const double fontHeight = 0.1 * 300. / getHeight();
     const double fontWidth = 0.1 * 300. / getWidth();
+    /** 
+    Currently disabled due Ticket 3519
     // draw 0
     GLHelper::drawText("0", Position(-.99, -0.99 + o2 + oo), 0.1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
 
     // draw current scale
     GLHelper::drawText((text.substr(0, noDigits) + "m").c_str(), Position(-.99 + len, -0.99 + o2 + oo), 0.1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
 
+    **/
     // restore matrices
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
