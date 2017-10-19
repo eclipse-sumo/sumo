@@ -65,6 +65,7 @@ def get_options(args=None):
     optParser.add_option("--adjustrate-y", dest="factorY", type="float",
                          default= 0.7, help="define the modification rate of y-axis if the rotation exists")
     optParser.add_option("--output-suffix", dest="suffix", help="output suffix", default="")
+    optParser.add_option("--fullname", dest="fullname", help="full name of parking area", default=None)
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
@@ -104,7 +105,8 @@ def main(options):
     with open(outfile, 'w') as outf:
         outf.write('<?xml version="1.0" encoding="UTF-8"?>\n')
         outf.write('<additional>\n')
-        outf.write('    <parkingArea id="%s" lane="%s" startPos="%s" endPos="%s">\n' %(options.parkId, options.connEdge, options.start, options.end))
+        name = ' name="%s"' % options.fullname if options.fullname is not None else ""
+        outf.write('    <parkingArea id="%s" lane="%s" startPos="%s" endPos="%s"%s>\n' %(options.parkId, options.connEdge, options.start, options.end, name))
         for i in range(0,options.spaces):
             outf.write('        <space x="%s" y="%s" length="%s" angle="%s"/>\n' %(x,y,options.length, options.angle))
             if options.bbox:
