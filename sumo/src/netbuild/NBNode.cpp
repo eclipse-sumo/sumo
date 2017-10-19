@@ -2532,6 +2532,10 @@ NBNode::crossingBetween(const NBEdge* e1, const NBEdge* e2) const {
     if (e1 == e2) {
         return false;
     }
+    if (myAllEdges.size() > 3) {
+        // pedestrian scramble
+        return false;
+    }
     for (auto c : getCrossings()) {
         const EdgeVector& edges = c->edges;
         EdgeVector::const_iterator it1 = find(edges.begin(), edges.end(), e1);
