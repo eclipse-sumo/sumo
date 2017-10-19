@@ -282,8 +282,14 @@ MSVehicleControl::addVTypeDistribution(const std::string& id, RandomDistributor<
 
 
 bool
+MSVehicleControl::hasVType(const std::string& id) const {
+    return myVTypeDict.count(id) > 0 || myVTypeDistDict.count(id) > 0;
+}
+
+
+bool
 MSVehicleControl::hasVTypeDistribution(const std::string& id) const {
-    return myVTypeDistDict.find(id) != myVTypeDistDict.end();
+    return myVTypeDistDict.count(id) > 0;
 }
 
 

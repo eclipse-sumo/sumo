@@ -162,6 +162,12 @@ MSRouteHandler::myStartElement(int element,
     try {
         switch (element) {
             case SUMO_TAG_PERSON:
+                if (!MSNet::getInstance()->getVehicleControl().hasVType(myVehicleParameter->vtypeid)) {
+                    const std::string error = "The type '" + myVehicleParameter->vtypeid + "' for person '" + myVehicleParameter->id + "' is not known.";
+                    delete myVehicleParameter;
+                    myVehicleParameter = 0;
+                    throw ProcessError(error);
+                }
                 myActivePlan = new MSTransportable::MSTransportablePlan();
                 break;
             case SUMO_TAG_CONTAINER:
@@ -712,19 +718,12 @@ MSRouteHandler::closeVehicle() {
 
 void
 MSRouteHandler::closePerson() {
-    MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
-    try {
-        if (myActivePlan->size() == 0) {
-            throw ProcessError("Person '" + myVehicleParameter->id + "' has no plan.");
-        }
-        if (type == 0) {
-            throw ProcessError("The type '" + myVehicleParameter->vtypeid + "' for person '" + myVehicleParameter->id + "' is not known.");
-        }
-    } catch (ProcessError&) {
+    if (myActivePlan->size() == 0) {
+        const std::string error = "Person '" + myVehicleParameter->id + "' has no plan.";
         delete myVehicleParameter;
         myVehicleParameter = 0;
         deleteActivePlans();
-        throw;
+        throw ProcessError(error);
     }
     // let's check whether this person had to depart before the simulation starts
     if (!(myAddVehiclesDirectly || checkLastDepart())
@@ -734,6 +733,8 @@ MSRouteHandler::closePerson() {
         deleteActivePlans();
         return;
     }
+    // type existence has been checked on opening
+    MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
     MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(myVehicleParameter, type, myActivePlan);
     // @todo: consider myScale?
     if (MSNet::getInstance()->getPersonControl().add(person)) {
@@ -1028,13 +1029,8 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
         throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
     }
-    double speed = DEFAULT_PEDESTRIAN_SPEED;
     const MSVehicleType* vtype = vehControl.getVType(myVehicleParameter->vtypeid, &myParsingRNG);
-    // need to check for explicitly set speed since we might have // DEFAULT_VEHTYPE
-    if (vtype != 0) {
-        speed = vtype->getMaxSpeed() * vtype->computeChosenSpeedDeviation(&myParsingRNG);
-    }
-    speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id, ok, speed);
+    const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id, ok, vtype->getMaxSpeed() * vtype->computeChosenSpeedDeviation(&myParsingRNG));
     if (speed <= 0) {
         throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
     }

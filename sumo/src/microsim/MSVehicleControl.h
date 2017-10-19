@@ -332,6 +332,16 @@ public:
     bool addVTypeDistribution(const std::string& id, RandomDistributor<MSVehicleType*>* vehTypeDistribution);
 
 
+    /** @brief Asks for existence of a vehicle type
+     *
+     * If vehicle type or distribution with the id exists, true is returned, false otherwise.
+     *
+     * @param[in] id The id of the type or distribution
+     * @return Whether the vehicle type or distribution exists
+     */
+    bool hasVType(const std::string& id) const;
+
+
     /** @brief Asks for a vehicle type distribution
      *
      * If vehicle type distribution with the id exists, true is returned, false otherwise.
