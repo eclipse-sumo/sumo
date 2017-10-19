@@ -168,7 +168,6 @@ public:
         WalkingArea(const std::string& _id, double _width) :
             id(_id),
             width(_width),
-            nextCrossing(""),
             hasCustomShape(false)
         { }
         /// @brief the (edge)-id of this walkingArea
@@ -179,8 +178,8 @@ public:
         double length;
         /// @brief The polygonal shape
         PositionVector shape;
-        /// @brief the lane-id of the next crossing
-        std::string nextCrossing;
+        /// @brief the lane-id of the next crossing(s)
+        std::vector<std::string> nextCrossings;
         /// @brief the lane-id of the next sidewalk lane or ""
         std::vector<std::string> nextSidewalks;
         /// @brief the lane-id of the previous sidewalk lane or ""

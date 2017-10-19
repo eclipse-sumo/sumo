@@ -2012,9 +2012,10 @@ NBNode::buildCrossingsAndWalkingAreas() {
             if (crossing->valid) {
                 WRITE_WARNING("Discarding invalid crossing '" + crossing->id + "' at junction '" + getID() + "' with edges '" + toString(crossing->edges) + "' (no walkingarea found).");
             }
-            for (std::vector<WalkingArea>::iterator it_wa = myWalkingAreas.begin(); it_wa != myWalkingAreas.end(); it_wa++) {
-                if ((*it_wa).nextCrossing == crossing->id) {
-                    (*it_wa).nextCrossing = "";
+            for (WalkingArea& wa : myWalkingAreas) {
+                std::vector<std::string>::iterator it_nc = std::find(wa.nextCrossings.begin(), wa.nextCrossings.end(), crossing->id);
+                if (it_nc != wa.nextCrossings.end()) {
+                    wa.nextCrossings.erase(it_nc);
                 }
             }
             crossing->valid = false;
@@ -2322,7 +2323,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                     c->valid = false;
                 }
                 c->prevWalkingArea = wa.id;
-                wa.nextCrossing = c->id;
+                wa.nextCrossings.push_back(c->id);
                 startCrossingWidth = c->width;
                 startCrossingShape = c->shape;
                 wa.width = MAX2(wa.width, startCrossingWidth);
@@ -2488,7 +2489,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
             }
             WalkingArea wa(":" + getID() + "_w" + toString(index++), prev.width);
             prev.nextWalkingArea = wa.id;
-            wa.nextCrossing = next.id;
+            wa.nextCrossings.push_back(next.id);
             next.prevWalkingArea = wa.id;
             // back of previous crossing
             PositionVector tmp = prev.shape;

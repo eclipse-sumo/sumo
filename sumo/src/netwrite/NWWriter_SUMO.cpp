@@ -177,12 +177,12 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         // write connections from pedestrian walking areas
         const std::vector<NBNode::WalkingArea>& WalkingAreas = node->getWalkingAreas();
         for (std::vector<NBNode::WalkingArea>::const_iterator it = WalkingAreas.begin(); it != WalkingAreas.end(); it++) {
-            if ((*it).nextCrossing != "") {
-                const NBNode::Crossing& nextCrossing = *node->getCrossing((*it).nextCrossing);
+            for (std::string cID : (*it).nextCrossings) {
+                const NBNode::Crossing& nextCrossing = *node->getCrossing(cID);
                 // connection to next crossing (may be tls-controlled)
                 device.openTag(SUMO_TAG_CONNECTION);
                 device.writeAttr(SUMO_ATTR_FROM, (*it).id);
-                device.writeAttr(SUMO_ATTR_TO, (*it).nextCrossing);
+                device.writeAttr(SUMO_ATTR_TO, cID);
                 device.writeAttr(SUMO_ATTR_FROM_LANE, 0);
                 device.writeAttr(SUMO_ATTR_TO_LANE, 0);
                 if (nextCrossing.tlID != "") {
@@ -469,8 +469,13 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n, const bool che
         }
     }
     std::vector<NBNode::Crossing*> crossings = n.getCrossings();
+    std::set<std::string> prevWAs;
+    // avoid duplicates
     for (auto c : crossings) {
-        incLanes += ' ' + c->prevWalkingArea + "_0";
+        if (prevWAs.count(c->prevWalkingArea) == 0) {
+            incLanes += ' ' + c->prevWalkingArea + "_0";
+            prevWAs.insert(c->prevWalkingArea);
+        }
     }
     into.writeAttr(SUMO_ATTR_INCLANES, incLanes);
     // write the internal lanes
