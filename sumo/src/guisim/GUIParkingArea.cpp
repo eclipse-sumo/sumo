@@ -131,7 +131,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth / 2.);
     // draw details unless zoomed out to far
     const double exaggeration = s.addSize.getExaggeration(s);
-    if (s.scale * exaggeration >= 10) {
+    if (s.scale * exaggeration >= 1) {
         // draw the lots
         glTranslated(0, 0, .1);
         std::map<unsigned int, LotSpaceDefinition >::const_iterator i;
@@ -156,7 +156,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             geom.push_back(Position(pos.x(), pos.y(), pos.z()));
             */
             GLHelper::setColor((*i).second.vehicle == 0 ? green : red);
-            GLHelper::drawBoxLines(geom, 0.1);
+            GLHelper::drawBoxLines(geom, 0.3);
             glPopMatrix();
         }
         GLHelper::setColor(blue);
