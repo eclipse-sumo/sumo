@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Oct 17 17:19:12 2017 by SUMO Version svn
+<!-- generated on Thu Oct 19 09:50:39 2017 by SUMO Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -33,13 +33,13 @@
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
     <vType id="t0" sigma="0"/>
-    <vehicle id="v0" type="t0" depart="0.00" route="r0" state="0 1 5.10 0 1000" pos="60.00" speed="0.00" posLat="0.00">
+    <vehicle id="v0" type="t0" depart="0.00" route="r0" state="0 1 5.10 0 19000" pos="60.00" speed="0.00" posLat="0.00">
         <stop lane="middle_0" startPos="59.80" endPos="60.00" duration="17.00"/>
         <stop lane="middle_0" startPos="149.80" endPos="150.00" duration="20.00"/>
         <stop busStop="busstop" duration="20.00" parking="1"/>
         <device id="tripinfo_v0" state="beg_0 0.00 0.00"/>
     </vehicle>
-    <vehicle id="v1" type="t0" depart="3.00" route="r0" state="4000 1 5.10 3000 5000" pos="52.50" speed="0.00" posLat="0.00">
+    <vehicle id="v1" type="t0" depart="3.00" route="r0" state="4000 1 5.10 3000 19000" pos="52.50" speed="0.00" posLat="0.00">
         <device id="tripinfo_v1" state="beg_0 0.00 0.00"/>
     </vehicle>
     <lane id="beg_0">
