@@ -121,7 +121,7 @@ public:
     }
 
     bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
-        return trip->modeSet && SVC_BUS == 0;
+        return (trip->modeSet & SVC_BUS) == 0;
     }
 };
 
