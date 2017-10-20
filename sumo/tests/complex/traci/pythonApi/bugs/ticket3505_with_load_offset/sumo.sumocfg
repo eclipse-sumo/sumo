@@ -8,6 +8,7 @@
 
     <processing>
         <time-to-teleport value="-1"/>
+        <step-method.ballistic value="true" />
     </processing>
 
     <report>
