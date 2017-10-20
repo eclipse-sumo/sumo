@@ -1543,14 +1543,10 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
                 << "\n";
     }
 #endif
-#ifdef DEBUG_ACTIONSTEPS
-    std::cout
-            << "\nPLAN_MOVE\n"
-            << STEPS2TIME(t)
-            << " skip = " << toString(!myActionStep)
-            << std::endl;
-#endif
     if (!checkActionStep(t)) {
+#ifdef DEBUG_ACTIONSTEPS
+    std::cout << STEPS2TIME(t) << " vehicle '" << getID() << "' skips action." << std::endl;
+#endif
         // Some action on the LCModel is needed here.
         // Sth. like: getLaneChangeModel().prepareStep()
         // E.g., the vsafes of inactive steps would be collected, if not cleared.
@@ -1560,6 +1556,11 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
         // pushing cooperation requests, this would be easier to handle, probably.
         return;
     }
+#ifdef DEBUG_ACTIONSTEPS
+    std::cout << STEPS2TIME(t) << " vehicle = '" << getID() << "' takes action." << std::endl;
+#endif
+
+
     planMoveInternal(t, ahead, myLFLinkLanes, myStopDist);
 #ifdef DEBUG_PLAN_MOVE
     if (DEBUG_COND) {
@@ -2317,11 +2318,20 @@ MSVehicle::executeMove() {
     double vSafeMinDist = 0;
 
     if (myActionStep) {
-        // Actuate control (i.e. choose bounds for safe speed in (euler) / after (ballistic) current sim step)
+        // Actuate control (i.e. choose bounds for safe speed in current simstep (euler), resp. after current sim step (ballistic))
         processLinkAproaches(vSafe, vSafeMin, vSafeMinDist);
+#ifdef DEBUG_ACTIONSTEPS
+    std::cout << STEPS2TIME(t) << " vehicle '" << getID() << "'\n"
+            "vsafe processLinkApproaches(): vsafe " << vsafe << std::endl;
+#endif
     } else {
         // Continue with current acceleration
         vSafe = getSpeed() + ACCEL2SPEED(myAcceleration);
+#ifdef DEBUG_ACTIONSTEPS
+    std::cout << STEPS2TIME(t) << " vehicle '" << getID() << "'\n"
+            "continues with constant accel " <<  myAcceleration << "...\n"
+            << "speed: "  << getSpeed() << " -> " << vsafe << std::endl;
+#endif
     }
 
 
@@ -2331,23 +2341,12 @@ MSVehicle::executeMove() {
 //    }
 //#endif
 
-    // apply speed reduction due to dawdling / lane changing but ensure minimum safe speed
-    double vNext;
-    if (MSGlobals::gSemiImplicitEulerUpdate) {
-        vNext = MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin);
-    } else {
-        // in case of ballistic position update, negative speeds can indicate desired stops within next timestep.
-        if (vSafeMin == 0) {
-            // (Leo) This should be an indication that it would even be safe to stop immediately ("implicit Euler logic")
-            //       Hence, stopping within next the timestep (negative vNext) is tolerated.
-            vNext = getCarFollowModel().moveHelper(this, vSafe);
-        } else {
-            vNext = MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin);
-        }
-        // (Leo) to avoid oscillations (< 1e-10) of vNext in a standing vehicle column, we cap off vNext
-        if (fabs(vNext) < NUMERICAL_EPS) {
-            vNext = 0.;
-        }
+    // Determine vNext = speed after current sim step (ballistic), resp. in current simstep (euler)
+    // Call to moveHelper applies speed reduction due to dawdling / lane changing but ensures minimum safe speed
+    double vNext = MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin);
+    // (Leo) to avoid tiny oscillations (< 1e-10) of vNext in a standing vehicle column (observed for ballistic update), we cap off vNext
+    if (fabs(vNext) < NUMERICAL_EPS) {
+        vNext = 0.;
     }
 #ifdef DEBUG_EXEC_MOVE
     if (DEBUG_COND) {
