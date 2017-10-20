@@ -2299,6 +2299,50 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
 }
 
 
+void
+MSVehicle::processTraCISpeedControl(double vSafe, double& vNext) {
+    if (myInfluencer != 0) {
+        if (myInfluencer->isVTDControlled()) {
+            vNext = myInfluencer->implicitSpeedVTD(this, myState.mySpeed);
+        }
+        const double vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed, this);
+        const double vMin = MAX2(0., getVehicleType().getCarFollowModel().minNextSpeed(myState.mySpeed, this));
+        vNext = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext, vSafe, vMin, vMax);
+    }
+}
+
+
+void MSVehicle::setBrakingSignals(double vNext) {
+    // To avoid casual blinking brake lights at high speeds due to dawdling of the
+    // leading vehicle, we don't show brake lights when the deceleration could be caused
+    // by frictional forces and air resistance (i.e. proportional to v^2, coefficient could be adapted further)
+    double pseudoFriction = (0.05 +  0.005 * getSpeed()) * getSpeed();
+    bool brakelightsOn = vNext < getSpeed() - ACCEL2SPEED(pseudoFriction);
+
+    if (vNext <= SUMO_const_haltingSpeed && !isStopped()) {
+        brakelightsOn = true;
+    }
+    if (brakelightsOn) {
+        switchOnSignal(VEH_SIGNAL_BRAKELIGHT);
+    } else {
+        switchOffSignal(VEH_SIGNAL_BRAKELIGHT);
+    }
+}
+
+
+void MSVehicle::updateWaitingTime(double vNext) {
+    if (vNext <= SUMO_const_haltingSpeed && !isStopped()) {
+        myWaitingTime += DELTA_T;
+        myWaitingTimeCollector.passTime(DELTA_T, true);
+    } else {
+        myWaitingTime = 0;
+        myWaitingTimeCollector.passTime(DELTA_T, false);
+    }
+}
+
+
+
+
 bool
 MSVehicle::executeMove() {
 #ifdef DEBUG_EXEC_MOVE
@@ -2372,42 +2416,16 @@ MSVehicle::executeMove() {
         vNext = MAX2(vNext, 0.);
     } else {
         // (Leo) Ballistic: negative vNext can be used to indicate a stop within next step.
-        // moveHelper() should take care of any bounds on the possible deceleration and
-        // restrict negativity of vNext, e.g., vNext = MAX2(vNext, myState.mySpeed - ACCEL2SPEED(getCarFollowModel().getMaxDecel()));
     }
 
 #ifndef NO_TRACI
-    if (myInfluencer != 0) {
-        if (myInfluencer->isVTDControlled()) {
-            vNext = myInfluencer->implicitSpeedVTD(this, myState.mySpeed);
-        }
-        const double vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed, this);
-//        const double vMin = MAX2(0., getVehicleType().getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed));
-        const double vMin = MAX2(0., getVehicleType().getCarFollowModel().minNextSpeed(myState.mySpeed, this));
-        vNext = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext, vSafe, vMin, vMax);
-    }
+    // Check for speed advices from the traci client
+    processTraCISpeedControl(vSafe, vNext);
 #endif
-    //     To avoid casual blinking brake lights at high speeds due to dawdling of the
-    //      leading vehicle, we don't show brake lights when the deceleration could be caused
-    //     by frictional forces and air resistance (i.e. proportional to v^2, coefficient could be adapted further)
-    double pseudoFriction = (0.05 +  0.005 * getSpeed()) * getSpeed();
-    bool brakelightsOn = vNext < getSpeed() - ACCEL2SPEED(pseudoFriction);
 
-    // visit waiting time
-    if (vNext <= SUMO_const_haltingSpeed && !isStopped()) {
-        myWaitingTime += DELTA_T;
-        myWaitingTimeCollector.passTime(DELTA_T, true);
-        brakelightsOn = true;
-    } else {
-        myWaitingTime = 0;
-        myWaitingTimeCollector.passTime(DELTA_T, false);
-    }
+    setBrakingSignals(vNext);
 
-    if (brakelightsOn) {
-        switchOnSignal(VEH_SIGNAL_BRAKELIGHT);
-    } else {
-        switchOffSignal(VEH_SIGNAL_BRAKELIGHT);
-    }
+    updateWaitingTime(vNext);
 
     // update position and speed
     updateState(vNext);
