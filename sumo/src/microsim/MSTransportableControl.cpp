@@ -253,6 +253,7 @@ MSTransportableControl::abortWaitingForVehicle() {
         const TransportableVector& pv = (*i).second;
         for (TransportableVector::const_iterator j = pv.begin(); j != pv.end(); ++j) {
             MSTransportable* p = (*j);
+            p->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
             if (dynamic_cast<MSPerson*>(p) != 0) {
                 edge->removePerson(p);
                 WRITE_WARNING("Person '" + p->getID() + "' aborted waiting for a ride that will never come.");
