@@ -10,4 +10,7 @@
     <person id="p1" depart="0">
         <personTrip from="end" to="beg" modes="public"/>
     </person>
+    <person id="walker" depart="0">
+        <personTrip from="beg" to="end"/>
+    </person>
 </routes>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 20 14:55:45 2017 by SUMO Version dev-SVN-r23985
+<!-- generated on 10/20/17 13:11:59 by SUMO Version dev-SVN-r26615
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -28,7 +28,7 @@
         <route edges="1to2 out"/>
     </vehicle>
 
-    <person id="p1" depart="100.00" arrival="103.00">
+    <person id="p1" depart="100.00" departPos="4.00" arrival="103.00">
         <ride from="1to2" to="out" lines="veh0"/>
     </person>
 
@@ -37,7 +37,7 @@
         <stop lane="1to2_0" endPos="4.00" triggered="1" expected="p1"/>
     </vehicle>
 
-    <person id="p2" depart="200.00">
+    <person id="p2" depart="200.00" departPos="4.00">
         <ride from="1to2" to="out" lines="veh0"/>
     </person>
 
