@@ -1030,7 +1030,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
         throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
     }
-    const MSVehicleType* vtype = vehControl.getVType(myVehicleParameter->vtypeid, &myParsingRNG);
+    const MSVehicleType* pedType = vehControl.getVType(myVehicleParameter->vtypeid, &myParsingRNG);
     const std::string fromID = attrs.getOpt<std::string>(SUMO_ATTR_FROM, id, ok, "");
     const MSEdge* from = fromID != "" || myActivePlan->empty() ? MSEdge::dictionary(fromID) : &myActivePlan->back()->getDestination();
     if (from == 0) {
@@ -1088,7 +1088,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     if (ok) {
         const std::string error = "No connection found between '" + from->getID() + "' and '" + to->getID() + "' for person '" + myVehicleParameter->id + "'.";
         if (pars.empty()) {
-            MSNet::getInstance()->getPedestrianRouter().compute(from, to, departPos, arrivalPos, speed > 0 ? speed : vtype->getMaxSpeed(), 0, 0, myActiveRoute);
+            MSNet::getInstance()->getPedestrianRouter().compute(from, to, departPos, arrivalPos, speed > 0 ? speed : pedType->getMaxSpeed(), 0, 0, myActiveRoute);
             if (myActiveRoute.empty()) {
                 if (!MSGlobals::gCheckRoutes) {
                     myActiveRoute.push_back(from);
@@ -1103,18 +1103,18 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             }
             myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));
         } else {
-            for (SUMOVehicleParameter* p: pars) {
-                MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(p->vtypeid);
+            for (SUMOVehicleParameter* vehPar: pars) {
+                MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vehPar->vtypeid);
                 if (type->getVehicleClass() != SVC_IGNORING && (from->getPermissions() & type->getVehicleClass()) == 0) {
-                    WRITE_WARNING("Ignoring vehicle type '" + type->getID() +"' when routing person '" + p->id + "' because it is not allowed on the start edge.");
+                    WRITE_WARNING("Ignoring vehicle type '" + type->getID() +"' when routing person '" + vehPar->id + "' because it is not allowed on the start edge.");
                     continue;
                 }
-                MSRoute* routeDummy = new MSRoute(p->id, ConstMSEdgeVector({from}), false, 0, std::vector<SUMOVehicleParameter::Stop>());
-                SUMOVehicle* vehicle = vehControl.buildVehicle(p, routeDummy, type, !MSGlobals::gCheckRoutes);
+                MSRoute* routeDummy = new MSRoute(vehPar->id, ConstMSEdgeVector({from}), false, 0, std::vector<SUMOVehicleParameter::Stop>());
+                SUMOVehicle* vehicle = vehControl.buildVehicle(vehPar, routeDummy, type, !MSGlobals::gCheckRoutes);
                 bool carUsed = false;
                 std::vector<MSNet::MSIntermodalRouter::TripItem> result;
                 if (MSNet::getInstance()->getIntermodalRouter().compute(from, to, departPos, arrivalPos,
-                    type->getParameter().maxSpeed * walkFactor, vehicle, modeSet, p->depart, result)) {
+                    pedType->getMaxSpeed() * walkFactor, vehicle, modeSet, vehPar->depart, result)) {
                     for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                         if (!it->edges.empty()) {
                             if (myActivePlan->empty()) {
@@ -1125,7 +1125,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                             } else if (it->line == vehicle->getID()) {
                                 myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, arrivalPos, std::vector<std::string>({it->line})));
                                 vehicle->replaceRouteEdges(it->edges, true);
-                                vehControl.addVehicle(p->id, vehicle);
+                                vehControl.addVehicle(vehPar->id, vehicle);
                                 carUsed = true;
                             } else {
                                 myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, arrivalPos, std::vector<std::string>({it->line})));
