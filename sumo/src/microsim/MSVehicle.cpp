@@ -2341,6 +2341,91 @@ void MSVehicle::updateWaitingTime(double vNext) {
 }
 
 
+void MSVehicle::updateTimeLoss(double vNext) {
+    // update time loss (depends on the updated edge)
+    if (!isStopped()) {
+        const double vmax = myLane->getVehicleMaxSpeed(this);
+        if (vmax > 0) {
+            myTimeLoss += TIME2STEPS(TS * (vmax - vNext) / vmax);
+        }
+    }
+}
+
+
+void
+MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, std::string& emergencyReason) {
+    for (std::vector<MSLane*>::reverse_iterator i = myFurtherLanes.rbegin(); i != myFurtherLanes.rend(); ++i) {
+        passedLanes.push_back(*i);
+    }
+    if (passedLanes.size() == 0 || passedLanes.back() != myLane) {
+        passedLanes.push_back(myLane);
+    }
+    // move on lane(s)
+    if (myState.myPos > myLane->getLength()) {
+        // we are moving at least to the next lane (maybe pass even more than one)
+        if (myCurrEdge != myRoute->end() - 1) {
+            MSLane* approachedLane = myLane;
+            // move the vehicle forward
+            for (DriveItemVector::iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end() && approachedLane != 0 && myState.myPos > approachedLane->getLength(); ++i) {
+                MSLink* link = (*i).myLink;
+                // check whether the vehicle was allowed to enter lane
+                //  otherwise it is decelerated and we do not need to test for it's
+                //  approach on the following lanes when a lane changing is performed
+                // proceed to the next lane
+                if (link != 0) {
+                    approachedLane = link->getViaLaneOrLane();
+#ifndef NO_TRACI
+                    if (myInfluencer == 0 || myInfluencer->getEmergencyBrakeRedLight()) {
+#endif
+                        if (link->haveRed() && !ignoreRed(link, false)) {
+                            emergencyReason = " because of a red traffic light";
+                            break;
+                        }
+#ifndef NO_TRACI
+                    }
+#endif
+                } else if (myState.myPos < myLane->getLength() + NUMERICAL_EPS) {
+                    approachedLane = myLane;
+                    myState.myPos = myLane->getLength();
+                } else {
+                    emergencyReason = " because there is no connection to the next edge";
+                    approachedLane = 0;
+                    break;
+                }
+                if (approachedLane != myLane && approachedLane != 0) {
+                    leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION, approachedLane);
+                    myState.myPos -= myLane->getLength();
+                    assert(myState.myPos > 0);
+                    enterLaneAtMove(approachedLane);
+                    if (MSGlobals::gUsingInternalLanes) {
+                        // erase leaders when past the junction
+                        if (link->getViaLane() == 0) {
+                            link->passedJunction(this);
+                        }
+                    }
+                    if (hasArrived()) {
+                        break;
+                    }
+                    if (getLaneChangeModel().isChangingLanes()) {
+                        if (link->getDirection() == LINKDIR_LEFT || link->getDirection() == LINKDIR_RIGHT) {
+                            // abort lane change
+                            WRITE_WARNING("Vehicle '" + getID() + "' could not finish continuous lane change (turn lane) time=" +
+                                          time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                            getLaneChangeModel().endLaneChangeManeuver();
+                        }
+                    }
+                    moved = true;
+                    if (approachedLane->getEdge().isVaporizing()) {
+                        leaveLane(MSMoveReminder::NOTIFICATION_VAPORIZED);
+                        break;
+                    }
+                }
+                passedLanes.push_back(approachedLane);
+            }
+        }
+    }
+}
+
 
 
 bool
@@ -2424,91 +2509,20 @@ MSVehicle::executeMove() {
 #endif
 
     setBrakingSignals(vNext);
-
     updateWaitingTime(vNext);
 
     // update position and speed
     updateState(vNext);
+
+    // Lanes, which the vehicle touched at some moment of the executed simstep
     std::vector<MSLane*> passedLanes;
-    for (std::vector<MSLane*>::reverse_iterator i = myFurtherLanes.rbegin(); i != myFurtherLanes.rend(); ++i) {
-        passedLanes.push_back(*i);
-    }
-    if (passedLanes.size() == 0 || passedLanes.back() != myLane) {
-        passedLanes.push_back(myLane);
-    }
-    bool moved = false; // whether this veh moves to another lane
+    // Whether the vehicle did move to another lane
+    bool moved = false;
+    // Reason for a possible emergency stop
     std::string emergencyReason = " for unknown reasons";
-    // move on lane(s)
-    if (myState.myPos > myLane->getLength()) {
-        // we are moving at least to the next lane (maybe pass even more than one)
-        if (myCurrEdge != myRoute->end() - 1) {
-            MSLane* approachedLane = myLane;
-            // move the vehicle forward
-            for (DriveItemVector::iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end() && approachedLane != 0 && myState.myPos > approachedLane->getLength(); ++i) {
-                MSLink* link = (*i).myLink;
-                // check whether the vehicle was allowed to enter lane
-                //  otherwise it is decelerated and we do not need to test for it's
-                //  approach on the following lanes when a lane changing is performed
-                // proceed to the next lane
-                if (link != 0) {
-                    approachedLane = link->getViaLaneOrLane();
-#ifndef NO_TRACI
-                    if (myInfluencer == 0 || myInfluencer->getEmergencyBrakeRedLight()) {
-#endif
-                        if (link->haveRed() && !ignoreRed(link, false)) {
-                            emergencyReason = " because of a red traffic light";
-                            break;
-                        }
-#ifndef NO_TRACI
-                    }
-#endif
-                } else if (myState.myPos < myLane->getLength() + NUMERICAL_EPS) {
-                    approachedLane = myLane;
-                    myState.myPos = myLane->getLength();
-                } else {
-                    emergencyReason = " because there is no connection to the next edge";
-                    approachedLane = 0;
-                    break;
-                }
-                if (approachedLane != myLane && approachedLane != 0) {
-                    leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION, approachedLane);
-                    myState.myPos -= myLane->getLength();
-                    assert(myState.myPos > 0);
-                    enterLaneAtMove(approachedLane);
-                    if (MSGlobals::gUsingInternalLanes) {
-                        // erase leaders when past the junction
-                        if (link->getViaLane() == 0) {
-                            link->passedJunction(this);
-                        }
-                    }
-                    if (hasArrived()) {
-                        break;
-                    }
-                    if (getLaneChangeModel().isChangingLanes()) {
-                        if (link->getDirection() == LINKDIR_LEFT || link->getDirection() == LINKDIR_RIGHT) {
-                            // abort lane change
-                            WRITE_WARNING("Vehicle '" + getID() + "' could not finish continuous lane change (turn lane) time=" +
-                                          time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-                            getLaneChangeModel().endLaneChangeManeuver();
-                        }
-                    }
-                    moved = true;
-                    if (approachedLane->getEdge().isVaporizing()) {
-                        leaveLane(MSMoveReminder::NOTIFICATION_VAPORIZED);
-                        break;
-                    }
-                }
-                passedLanes.push_back(approachedLane);
-            }
-        }
-    }
-    // update time loss (depends on the updated edge)
-    if (!isStopped()) {
-        const double vmax = myLane->getVehicleMaxSpeed(this);
-        if (vmax > 0) {
-            myTimeLoss += TIME2STEPS(TS * (vmax - vNext) / vmax);
-        }
-    }
+    processLaneAdvances(passedLanes, moved, emergencyReason);
+
+    updateTimeLoss(vNext);
     myCollisionImmunity = MAX2((SUMOTime) - 1, myCollisionImmunity - DELTA_T);
 
     if (!hasArrived() && !myLane->getEdge().isVaporizing()) {
