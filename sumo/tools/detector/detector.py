@@ -64,6 +64,8 @@ class DetectorReader(handler.ContentHandler):
         if id in self._det2edge:
             print("Warning! Detector %s already known." % id, file=sys.stderr)
             return
+        if edge is None:
+            raise RuntimeError("Detector '%s' has no edge" % id)
         if self._currentGroup:
             self._currentGroup.ids.append(id)
         else:
