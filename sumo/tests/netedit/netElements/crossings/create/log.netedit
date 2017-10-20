@@ -22,8 +22,6 @@ Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Key F5 (Compute) pressed
 Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
 Warning: Adding crossing into junction 'Center'
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Key F5 (Compute) pressed

@@ -339,8 +339,6 @@ Warning: The rail crossing '506357654' does not have any roads.
 Warning: The rail crossing '506357655' does not have any roads.
 Warning: The rail crossing '997027037' does not have any roads.
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
-Warning: Invalid pedestrian topology: crossing ':31154724_c0' has no target.
-Warning: Invalid pedestrian topology: crossing ':31154724_c0' has no target.
 Warning: Ambiguity in turnarounds computation at junction '1130114721'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
@@ -682,5 +680,3 @@ Warning: The rail crossing '506357654' does not have any roads.
 Warning: The rail crossing '506357655' does not have any roads.
 Warning: The rail crossing '997027037' does not have any roads.
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
-Warning: Invalid pedestrian topology: crossing ':31154724_c0' has no target.
-Warning: Invalid pedestrian topology: crossing ':31154724_c0' has no target.

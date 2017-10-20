@@ -15,7 +15,6 @@ Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Warning: Shapes saved
-Warning: Shapes has to be saved
 Warning: Removing poi 'POI_9' from net
 Warning: Removing poi 'POI_8' from net
 Warning: Removing poi 'POI_7' from net
@@ -31,6 +30,7 @@ Warning: Removing poi 'POI_0' from net
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
 Warning: Adding poi 'POI_0' into viewNet
+Warning: Shapes has to be saved
 Warning: Adding poi 'POI_1' into viewNet
 Warning: Adding poi 'POI_10' into viewNet
 Warning: Adding poi 'POI_11' into viewNet

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 21.09.2017 13:25:06 by Netedit Version dev-SVN-r22743
+<!-- generated on 19.10.2017 15:10:10 by Netedit Version dev-SVN-r22737
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Sep132249.3884/netedit.gui/additionalElements/vaporizer/volatileRecomputing\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Sep132249.3884/netedit.gui/additionalElements/vaporizer/volatileRecomputing\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/additionalElements/vaporizer/volatileRecomputing\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/additionalElements/vaporizer/volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Sep132249.3884/netedit.gui/additionalElements/vaporizer/volatileRecomputing\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Sep132249.3884/netedit.gui/additionalElements/vaporizer/volatileRecomputing\shapes.xml"/>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Sep132249.3884/netedit.gui/additionalElements/vaporizer/volatileRecomputing\net.net.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/additionalElements/vaporizer/volatileRecomputing\additionals.xml"/>
+        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/additionalElements/vaporizer/volatileRecomputing\shapes.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/additionalElements/vaporizer/volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
@@ -36,7 +36,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Sep132249.3884/netedit.gui/additionalElements/vaporizer/volatileRecomputing\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/additionalElements/vaporizer/volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>
@@ -106,8 +106,8 @@
     <connection from="gneE0" to="gneE1" fromLane="1" toLane="1" via=":gneJ1_0_0" tl="gneJ1" linkIndex="0" dir="t" state="o"/>
     <connection from="gneE1" to="gneE0" fromLane="1" toLane="1" via=":gneJ0_0_0" tl="gneJ0" linkIndex="0" dir="t" state="o"/>
 
-    <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="1" dir="t" state="M"/>
 
     <connection from=":gneJ0_w0" to="gneE0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="gneE1" to=":gneJ0_w0" fromLane="0" toLane="0" dir="s" state="M"/>

@@ -9,7 +9,6 @@ Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Warning: Shapes saved
-Warning: Shapes has to be saved
 Warning: Removing poly 'poly_5' from net
 Warning: Removing poly 'poly_4' from net
 Warning: Removing poly 'poly_3' from net
@@ -19,6 +18,7 @@ Warning: Removing poly 'poly_0' from net
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
 Warning: Adding poly 'poly_0' into viewNet
+Warning: Shapes has to be saved
 Warning: Adding poly 'poly_1' into viewNet
 Warning: Adding poly 'poly_2' into viewNet
 Warning: Adding poly 'poly_3' into viewNet

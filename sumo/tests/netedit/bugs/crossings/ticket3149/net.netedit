@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07.08.2017 13:07:57 by Netedit Version dev-SVN-r22743
+<!-- generated on 19.10.2017 15:21:03 by Netedit Version dev-SVN-r22737
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Aug130729.3260/netedit.gui/bugs/crossings/ticket3149\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Aug130729.3260/netedit.gui/bugs/crossings/ticket3149\additionals.xml"/>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Aug130729.3260/netedit.gui/bugs/crossings/ticket3149\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/bugs/crossings/ticket3149\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/bugs/crossings/ticket3149\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Aug130729.3260/netedit.gui/bugs/crossings/ticket3149\net.net.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/bugs/crossings/ticket3149\additionals.xml"/>
+        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/bugs/crossings/ticket3149\shapes.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/bugs/crossings/ticket3149\net.net.xml"/>
     </output>
 
     <processing>
@@ -34,7 +35,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Aug130729.3260/netedit.gui/bugs/crossings/ticket3149\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/bugs/crossings/ticket3149\log.txt"/>
     </report>
 
 </configuration>
@@ -237,20 +238,20 @@
     <connection from="8" to="6" fromLane="2" toLane="1" via=":B_1_0" dir="l" state="m"/>
     <connection from="8" to="6" fromLane="2" toLane="2" via=":B_2_0" dir="l" state="m"/>
 
-    <connection from=":A_0" to="4" fromLane="0" toLane="1" via=":A_5_0" dir="s" state="m"/>
-    <connection from=":A_5" to="4" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":A_1" to="4" fromLane="0" toLane="2" via=":A_6_0" dir="s" state="m"/>
-    <connection from=":A_6" to="4" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":A_2" to="4" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":A_3" to="5" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":A_4" to="5" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":B_0" to="3" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":B_1" to="6" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":B_2" to="6" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":B_3" to="3" fromLane="0" toLane="1" via=":B_5_0" dir="s" state="m"/>
-    <connection from=":B_5" to="3" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":B_4" to="3" fromLane="0" toLane="2" via=":B_6_0" dir="s" state="m"/>
-    <connection from=":B_6" to="3" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":A_0" to="4" fromLane="0" toLane="1" via=":A_5_0" dir="l" state="m"/>
+    <connection from=":A_5" to="4" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":A_1" to="4" fromLane="0" toLane="2" via=":A_6_0" dir="l" state="m"/>
+    <connection from=":A_6" to="4" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":A_2" to="4" fromLane="0" toLane="1" dir="L" state="M"/>
+    <connection from=":A_3" to="5" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":A_4" to="5" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":B_0" to="3" fromLane="0" toLane="1" dir="L" state="M"/>
+    <connection from=":B_1" to="6" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":B_2" to="6" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":B_3" to="3" fromLane="0" toLane="1" via=":B_5_0" dir="l" state="m"/>
+    <connection from=":B_5" to="3" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":B_4" to="3" fromLane="0" toLane="2" via=":B_6_0" dir="l" state="m"/>
+    <connection from=":B_6" to="3" fromLane="0" toLane="2" dir="l" state="M"/>
     <connection from=":Center_0" to="1" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":Center_0" to="1" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from=":Center_2" to="2" fromLane="0" toLane="1" dir="s" state="M"/>

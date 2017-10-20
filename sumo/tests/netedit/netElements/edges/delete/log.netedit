@@ -34,7 +34,6 @@ Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Removing busStop 'busStop_3_2_0' in GNEChange_Additional
 Warning: Setting new attribute edges '7' into crossing ':Center_c1'
-Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges '7' (no walkingarea found).
 Warning: Removing connection '6_1->4_3' from edge '6'
 Warning: Deleting unreferenced connection 'from6_1to4_3' in removeConnection()
 Warning: Removing connection '6_1->1_1' from edge '6'
@@ -214,7 +213,6 @@ Warning: Key F5 (Compute) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing busStop 'busStop_3_2_0' in GNEChange_Additional
 Warning: Setting new attribute edges '7' into crossing ':Center_c1'
-Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges '7' (no walkingarea found).
 Warning: Removing connection '6_1->4_3' from edge '6'
 Warning: Deleting unreferenced connection 'from6_1to4_3' in removeConnection()
 Warning: Removing connection '6_1->1_1' from edge '6'

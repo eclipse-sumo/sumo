@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 29/08/2017 9:39:10 by Netedit Version dev-SVN-r22880
+<!-- generated on 19.10.2017 14:06:17 by Netedit Version dev-SVN-r22737
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Aug091047.5056/netedit.gui/netElements/crossings/load_small\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/netElements/crossings/load_small\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Aug091047.5056/netedit.gui/netElements/crossings/load_small\additionals.xml"/>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Aug091047.5056/netedit.gui/netElements/crossings/load_small\net.net.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/netElements/crossings/load_small\additionals.xml"/>
+        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/netElements/crossings/load_small\shapes.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/netElements/crossings/load_small\net.net.xml"/>
     </output>
 
     <processing>
@@ -33,7 +34,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Aug091047.5056/netedit.gui/netElements/crossings/load_small\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/netElements/crossings/load_small\log.txt"/>
     </report>
 
 </configuration>
@@ -339,59 +340,59 @@
     <connection from="WC" to="CE" fromLane="4" toLane="4" via=":C_21_1" tl="C" linkIndex="22" dir="s" state="o"/>
     <connection from="WC" to="CN" fromLane="4" toLane="4" via=":C_23_0" tl="C" linkIndex="23" dir="l" state="o"/>
 
-    <connection from=":C_0" to="CW" fromLane="0" toLane="2" via=":C_24_0" dir="s" state="m"/>
-    <connection from=":C_24" to="CW" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":C_0" to="CW" fromLane="0" toLane="2" via=":C_24_0" dir="r" state="m"/>
+    <connection from=":C_24" to="CW" fromLane="0" toLane="2" dir="r" state="M"/>
     <connection from=":C_1" to="CS" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":C_2" to="CW" fromLane="0" toLane="3" via=":C_25_0" dir="s" state="m"/>
-    <connection from=":C_25" to="CW" fromLane="0" toLane="3" dir="s" state="M"/>
+    <connection from=":C_2" to="CW" fromLane="0" toLane="3" via=":C_25_0" dir="r" state="m"/>
+    <connection from=":C_25" to="CW" fromLane="0" toLane="3" dir="r" state="M"/>
     <connection from=":C_3" to="CS" fromLane="0" toLane="3" dir="s" state="M"/>
     <connection from=":C_3" to="CS" fromLane="1" toLane="4" dir="s" state="M"/>
-    <connection from=":C_5" to="CE" fromLane="0" toLane="4" via=":C_26_0" dir="s" state="m"/>
-    <connection from=":C_26" to="CE" fromLane="0" toLane="4" dir="s" state="M"/>
-    <connection from=":C_6" to="CN" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":C_5" to="CE" fromLane="0" toLane="4" via=":C_26_0" dir="l" state="m"/>
+    <connection from=":C_26" to="CE" fromLane="0" toLane="4" dir="l" state="M"/>
+    <connection from=":C_6" to="CN" fromLane="0" toLane="2" dir="r" state="M"/>
     <connection from=":C_7" to="CW" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":C_8" to="CN" fromLane="0" toLane="3" via=":C_27_0" dir="s" state="m"/>
-    <connection from=":C_27" to="CN" fromLane="0" toLane="3" dir="s" state="M"/>
+    <connection from=":C_8" to="CN" fromLane="0" toLane="3" via=":C_27_0" dir="r" state="m"/>
+    <connection from=":C_27" to="CN" fromLane="0" toLane="3" dir="r" state="M"/>
     <connection from=":C_9" to="CW" fromLane="0" toLane="3" dir="s" state="M"/>
     <connection from=":C_9" to="CW" fromLane="1" toLane="4" dir="s" state="M"/>
-    <connection from=":C_11" to="CS" fromLane="0" toLane="4" via=":C_28_0" dir="s" state="m"/>
-    <connection from=":C_28" to="CS" fromLane="0" toLane="4" dir="s" state="M"/>
-    <connection from=":C_12" to="CE" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":C_11" to="CS" fromLane="0" toLane="4" via=":C_28_0" dir="l" state="m"/>
+    <connection from=":C_28" to="CS" fromLane="0" toLane="4" dir="l" state="M"/>
+    <connection from=":C_12" to="CE" fromLane="0" toLane="2" dir="r" state="M"/>
     <connection from=":C_13" to="CN" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":C_14" to="CE" fromLane="0" toLane="3" via=":C_29_0" dir="s" state="m"/>
-    <connection from=":C_29" to="CE" fromLane="0" toLane="3" dir="s" state="M"/>
+    <connection from=":C_14" to="CE" fromLane="0" toLane="3" via=":C_29_0" dir="r" state="m"/>
+    <connection from=":C_29" to="CE" fromLane="0" toLane="3" dir="r" state="M"/>
     <connection from=":C_15" to="CN" fromLane="0" toLane="3" dir="s" state="M"/>
     <connection from=":C_15" to="CN" fromLane="1" toLane="4" dir="s" state="M"/>
-    <connection from=":C_17" to="CW" fromLane="0" toLane="4" via=":C_30_0" dir="s" state="m"/>
-    <connection from=":C_30" to="CW" fromLane="0" toLane="4" dir="s" state="M"/>
-    <connection from=":C_18" to="CS" fromLane="0" toLane="2" via=":C_31_0" dir="s" state="m"/>
-    <connection from=":C_31" to="CS" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":C_17" to="CW" fromLane="0" toLane="4" via=":C_30_0" dir="l" state="m"/>
+    <connection from=":C_30" to="CW" fromLane="0" toLane="4" dir="l" state="M"/>
+    <connection from=":C_18" to="CS" fromLane="0" toLane="2" via=":C_31_0" dir="r" state="m"/>
+    <connection from=":C_31" to="CS" fromLane="0" toLane="2" dir="r" state="M"/>
     <connection from=":C_19" to="CE" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":C_20" to="CS" fromLane="0" toLane="3" via=":C_32_0" dir="s" state="m"/>
-    <connection from=":C_32" to="CS" fromLane="0" toLane="3" dir="s" state="M"/>
+    <connection from=":C_20" to="CS" fromLane="0" toLane="3" via=":C_32_0" dir="r" state="m"/>
+    <connection from=":C_32" to="CS" fromLane="0" toLane="3" dir="r" state="M"/>
     <connection from=":C_21" to="CE" fromLane="0" toLane="3" dir="s" state="M"/>
     <connection from=":C_21" to="CE" fromLane="1" toLane="4" dir="s" state="M"/>
-    <connection from=":C_23" to="CN" fromLane="0" toLane="4" via=":C_33_0" dir="s" state="m"/>
-    <connection from=":C_33" to="CN" fromLane="0" toLane="4" dir="s" state="M"/>
-    <connection from=":E_0" to="EC" fromLane="0" toLane="4" dir="s" state="M"/>
-    <connection from=":N_0" to="NC" fromLane="0" toLane="4" dir="s" state="M"/>
-    <connection from=":S_0" to="SC" fromLane="0" toLane="4" dir="s" state="M"/>
-    <connection from=":W_0" to="WC" fromLane="0" toLane="4" dir="s" state="M"/>
+    <connection from=":C_23" to="CN" fromLane="0" toLane="4" via=":C_33_0" dir="l" state="m"/>
+    <connection from=":C_33" to="CN" fromLane="0" toLane="4" dir="l" state="M"/>
+    <connection from=":E_0" to="EC" fromLane="0" toLane="4" dir="t" state="M"/>
+    <connection from=":N_0" to="NC" fromLane="0" toLane="4" dir="t" state="M"/>
+    <connection from=":S_0" to="SC" fromLane="0" toLane="4" dir="t" state="M"/>
+    <connection from=":W_0" to="WC" fromLane="0" toLane="4" dir="t" state="M"/>
 
     <connection from=":C_c0" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_c1" to=":C_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_c2" to=":C_w2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_c3" to=":C_w3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w0" to=":C_c3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_w0" to=":C_c3" fromLane="0" toLane="0" tl="C" linkIndex="27" dir="s" state="M"/>
     <connection from=":C_w0" to="CW" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="NC" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w1" to=":C_c0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_w1" to=":C_c0" fromLane="0" toLane="0" tl="C" linkIndex="24" dir="s" state="M"/>
     <connection from=":C_w1" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="EC" to=":C_w1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w2" to=":C_c1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_w2" to=":C_c1" fromLane="0" toLane="0" tl="C" linkIndex="25" dir="s" state="M"/>
     <connection from=":C_w2" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="SC" to=":C_w2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w3" to=":C_c2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_w3" to=":C_c2" fromLane="0" toLane="0" tl="C" linkIndex="26" dir="s" state="M"/>
     <connection from=":C_w3" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="WC" to=":C_w3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":E_w0" to="EC" fromLane="0" toLane="0" dir="s" state="M"/>
