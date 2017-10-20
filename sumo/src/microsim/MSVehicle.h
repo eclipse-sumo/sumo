@@ -507,6 +507,14 @@ public:
         return myType->getActionStepLength();
     }
 
+
+    /** @brief Returns the time of the vehicle's last action point.
+     * @return The time of the last action point
+     */
+    SUMOTime getLastActionTime() const {
+        return myLastActionTime;
+    }
+
     //@}
 
 
