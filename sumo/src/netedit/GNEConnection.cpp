@@ -120,7 +120,15 @@ GNEConnection::updateGeometry() {
         myShape.push_back(laneShapeFrom.positionAtOffset(laneShapeFrom.length() - 1));
         myShape.push_back(laneShapeTo.positionAtOffset(1));
     }
-
+    if (nbCon.haveVia && nbCon.shape.size() != 0) {
+        // create marker for interal junction waiting position (contPos)
+        const double orthoLength = 0.5;
+        Position pos = nbCon.shape.back();
+        myInternalJunctionMarker = nbCon.shape.getOrthogonal(pos, 10, true, 0.1);
+        if (myInternalJunctionMarker.length() < orthoLength) {
+            myInternalJunctionMarker.extrapolate(orthoLength - myInternalJunctionMarker.length());
+        }
+    }
     // Obtain lengths and shape rotations
     int segments = (int) myShape.size() - 1;
     if (segments >= 0) {
@@ -282,6 +290,9 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             // draw a list of lines
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.2);
+            glTranslated(0, 0, 0.1);
+            GLHelper::setColor(GLHelper::getColor().changedBrightness(51));;
+            GLHelper::drawLine(myInternalJunctionMarker);
         }
         // Pop name
         glPopName();

@@ -160,6 +160,9 @@ protected:
 
     /// @brief The lengths of the shape parts
     std::vector<double> myShapeLengths;
+
+    /// @brief waiting position for internal junction
+    PositionVector myInternalJunctionMarker;
     /// @}
 
     /// @brief Linkstate. @note cached because after 'undo' the connection needs to be drawn while the node logic (NBRequest) has not been recomputed
