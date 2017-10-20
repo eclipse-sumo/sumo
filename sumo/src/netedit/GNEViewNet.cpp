@@ -740,7 +740,9 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_MOVE: {
-                // first obtain 
+                // first obtain moving reference (common for all)
+                myMovingReference = snapToActiveGrid(getPositionInformation());
+                // check what type of AC will be moved
                 if (pointed_poly) {
                     // set Poly to move
                     myPolyToMove = pointed_poly;
@@ -755,27 +757,22 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     } else {
                         myMovingIndexShape = -1;
                     }
-                    // obtain moving reference
-                    myMovingReference = getPositionInformation();
                 } else if (pointed_poi) {
                     myPoiToMove = pointed_poi;
-                    // Save original Position of Element and obtain moving reference
+                    // Save original Position of Element
                     myMovingOriginalPosition = myPoiToMove->getPositionInView();
-                    myMovingReference = getPositionInformation();
                 } else if (pointed_poiLane){
                     myPoiLaneToMove = pointed_poiLane;
-                    // Save original Position of Element and obtain moving reference
+                    // Save original Position of Element
                     myMovingOriginalPosition = myPoiLaneToMove->getPositionInView();
-                    myMovingReference = getPositionInformation();
                 } else if (pointed_junction) {
                     if (gSelected.isSelected(GLO_JUNCTION, pointed_junction->getGlID())) {
                         begingMoveSelection(pointed_junction, getPositionInformation());
                     } else {
                         myJunctionToMove = pointed_junction;
                     }
-                    // Save original Position of Element and obtain moving reference
+                    // Save original Position of Element
                     myMovingOriginalPosition = pointed_junction->getPositionInView();
-                    myMovingReference = getPositionInformation();
                 } else if (pointed_edge) {
                     if (gSelected.isSelected(GLO_EDGE, pointed_edge->getGlID())) {
                         begingMoveSelection(pointed_edge, getPositionInformation());
@@ -787,15 +784,13 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         myMovingIndexShape = myEdgeToMove->getVertexIndex(getPositionInformation());
                     }
                     myMovingOriginalPosition = getPositionInformation();
-                    myMovingReference = getPositionInformation();
                 } else if (pointed_additional) {
                     if (gSelected.isSelected(GLO_ADDITIONAL, pointed_additional->getGlID())) {
                         myMovingSelection = true;
                     } else {
                         myAdditionalToMove = pointed_additional;
-                        // Save original Position of Element and obtain moving reference
+                        // Save original Position of Element
                         myMovingOriginalPosition = myAdditionalToMove->getPositionInView();
-                        myMovingReference = getPositionInformation();
                     }
                 } else {
                     // process click
@@ -1065,8 +1060,15 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
             myViewParent->getDeleteFrame()->updateCurrentLabel(ac);
         }
     } else {
-        // calculate offset of movement
-        Position offsetMovement = snapToActiveGrid(getPositionInformation()) - myMovingReference;
+        // calculate offset of movement depending of showGrid
+        Position offsetMovement;
+        if(myVisualizationSettings->showGrid) {
+            offsetMovement = snapToActiveGrid(getPositionInformation()) - myMovingOriginalPosition;
+        } else {
+            offsetMovement = getPositionInformation() - myMovingReference;
+        }
+        // @note  #3521: Add checkBox to allow moving elements... has to behere implemented 
+        // check what type of additional is moved
         if (myMovingSelection) {
             moveSelection(offsetMovement);
         } else if (myPolyToMove) {
