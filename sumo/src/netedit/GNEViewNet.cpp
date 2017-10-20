@@ -802,7 +802,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             case GNE_MODE_DELETE: {
                 // Check if Control key is pressed
                 bool markElementMode = (((FXEvent*)eventData)->state & CONTROLMASK) != 0;
-                GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(pointed);
+                // obtain attribute carrier related to pointed object
+                GNEAttributeCarrier* ac = myNet->retrieveAttributeCarrier(pointed->getGlID());
                 if ((pointed_lane != NULL) && mySelectEdges) {
                     ac = pointed_edge;
                 }
@@ -863,8 +864,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 std::vector<GNEAttributeCarrier*> selectedElements;
                 std::vector<GNEAttributeCarrier*> selectedFilteredElements;
                 if (pointedO && gSelected.isSelected(pointedO->getType(), pointedO->getGlID())) {
-                    std::set<GUIGlID> selectedIDs = gSelected.getSelected(pointedO->getType());
-                    selectedElements = myNet->retrieveAttributeCarriers(selectedIDs, pointedO->getType());
+                    // retrieve selected Attribute Carriers
+                    selectedElements = myNet->retrieveAttributeCarriers(gSelected.getSelected(pointedO->getType()), pointedO->getType());
                     // filter selected elements (example: if we have two E2 and one busStop selected, and user click over one E2,
                     // attribues of busstop musn't be shown
                     for (auto i : selectedElements) {
@@ -1052,12 +1053,8 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
         setFocus();
         // show object information in delete frame
         if (makeCurrent()) {
-            // obtain ac of globjectID
-            int glid = getObjectUnderCursor();
-            GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(glid));
-            GUIGlObjectStorage::gIDStorage.unblockObject(glid);
             // Update current label of delete frame
-            myViewParent->getDeleteFrame()->updateCurrentLabel(ac);
+            myViewParent->getDeleteFrame()->updateCurrentLabel(myNet->retrieveAttributeCarrier(getObjectUnderCursor()));
         }
     } else {
         // calculate offset of movement depending of showGrid

@@ -686,18 +686,15 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdgesEnabled, S
 
 std::vector<GUIGlID>
 GNESelectorFrame::getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, double val, const std::string& expr) {
-    GUIGlObject* object;
     GNEAttributeCarrier* ac;
     std::vector<GUIGlID> result;
     const std::set<GUIGlID> allIDs = myViewNet->getNet()->getGlIDs();
     const bool numerical = GNEAttributeCarrier::isNumerical(ACTag, ACAttr);
     for (auto it : allIDs) {
-        object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(it);
-        if (!object) {
-            throw ProcessError("Unkown object passed to GNESelectorFrame::getMatches (id=" + toString(it) + ").");
-        }
-        ac = dynamic_cast<GNEAttributeCarrier*>(object);
-        if (ac && ac->getTag() == ACTag) { // not all objects need to be attribute carriers
+        // retrieve Attribute Carrier related to GLID
+        ac = myViewNet->getNet()->retrieveAttributeCarrier(it);
+        // not all objects need to be attribute carriers
+        if (ac->getTag() == ACTag) { 
             if (expr == "") {
                 result.push_back(it);
             } else if (numerical) {

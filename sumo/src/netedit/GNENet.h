@@ -371,10 +371,17 @@ public:
     * @throws UnknownElement
     */
     GNEPOILane* retrievePOILane(const std::string& id, bool failHard = true) const;
+    
+    /**@brief get a single attribute carrier based on a GLID
+    * @param[in] ids the GL IDs for which to retrive the AC
+    * @param[in] failHard Whether attempts to retrieve a nonexisting AttributeCarrier should result in an exception
+    * @throws InvalidArgument if GL ID doesn't have a associated Attribute Carrier
+    */
+    GNEAttributeCarrier* retrieveAttributeCarrier(const GUIGlID id, bool failHard = true);
 
     /**@brief get the attribute carriers based on GlIDs
      * @param[in] ids The set of ids for which to retrive the ACs
-     * @param[in] type The GUI-type of the objects with the given ids
+     * @param[in] type The GUI-type of the objects with the given ids. 
      * @throws InvalidArgument if any given id does not match the declared type
      */
     std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(const std::set<GUIGlID>& ids, GUIGlObjectType type);

@@ -559,15 +559,7 @@ GNEDeleteFrame::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
 
 long
 GNEDeleteFrame::onCmdCenterChildItem(FXObject*, FXSelector, void*) {
-    if (dynamic_cast<GNENetElement*>(myClickedAC)) {
-        myViewNet->centerTo(dynamic_cast<GNENetElement*>(myClickedAC)->getGlID(), false);
-    } else if (dynamic_cast<GNEAdditional*>(myClickedAC)) {
-        myViewNet->centerTo(dynamic_cast<GNEAdditional*>(myClickedAC)->getGlID(), false);
-    } else if (dynamic_cast<GNEPOI*>(myClickedAC)) {
-        myViewNet->centerTo(dynamic_cast<GNEPOI*>(myClickedAC)->getGlID(), false);
-    } else if (dynamic_cast<GNEPoly*>(myClickedAC)) {
-        myViewNet->centerTo(dynamic_cast<GNEPoly*>(myClickedAC)->getGlID(), false);
-    }
+    myViewNet->centerTo(myClickedAC->getGUIGLObject()->getGlID(), false);
     myViewNet->update();
     return 1;
 }

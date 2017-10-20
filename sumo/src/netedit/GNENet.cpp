@@ -1107,50 +1107,38 @@ GNENet::generateVaporizerID() const {
 }
 
 
+GNEAttributeCarrier* 
+GNENet::retrieveAttributeCarrier(GUIGlID id, bool failHard) {
+    // obtain blocked GUIGlObject
+    GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    // Make sure that object exists
+    if (object != NULL) {
+        // unblock and try to parse to AtributeCarrier
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(object);
+        // If was sucesfully parsed, return it
+        if (ac == NULL) {
+            throw ProcessError("GUIGlObject does not match the declared type");
+        } else {
+            return ac;
+        }
+    } else if (failHard) {
+        return NULL;
+    } else {
+        throw ProcessError("Attempted to retrieve non-existant GUIGlObject");
+    }
+}
+
+
 std::vector<GNEAttributeCarrier*>
 GNENet::retrieveAttributeCarriers(const std::set<GUIGlID>& ids, GUIGlObjectType type) {
     std::vector<GNEAttributeCarrier*> result;
+    // iterate over GUIGLIdsd
     for (auto it : ids) {
-        GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(it);
-        if (object != 0) {
-            std::string id = object->getMicrosimID();
-            GUIGlObjectStorage::gIDStorage.unblockObject(it);
-            GNEAttributeCarrier* ac = 0;
-            switch (type) {
-                case GLO_JUNCTION:
-                    ac = dynamic_cast<GNEJunction*>(object);
-                    break;
-                case GLO_EDGE:
-                    ac = dynamic_cast<GNEEdge*>(object);
-                    break;
-                case GLO_LANE:
-                    ac = dynamic_cast<GNELane*>(object);
-                    break;
-                case GLO_ADDITIONAL:
-                    ac = dynamic_cast<GNEAdditional*>(object);
-                    break;
-                case GLO_CONNECTION:
-                    ac = dynamic_cast<GNEConnection*>(object);
-                    break;
-                case GLO_CROSSING:
-                    ac = dynamic_cast<GNECrossing*>(object);
-                    break;
-                case GLO_POLYGON:
-                    ac = dynamic_cast<GNEPoly*>(object);
-                    break;
-                case GLO_POI:
-                    ac = dynamic_cast<GNEPOI*>(object);
-                    break;
-                default:
-                    break;
-            }
-            if (ac == 0) {
-                throw ProcessError("GUIGlObject does not match the declared type");
-            } else {
-                result.push_back(ac);
-            }
-        } else {
-            throw ProcessError("Attempted to retrieve non-existant GUIGlObject");
+        // obtain attribute carrier vinculated to GLID
+        GNEAttributeCarrier* ac = retrieveAttributeCarrier(it);
+        if (ac->getGUIGLObject()->getType() == type) {
+            result.push_back(ac);
         }
     }
     return result;
