@@ -23,7 +23,7 @@ from sikuli import *
 DELAY = 0.2
 DELAY_QUESTION = 1
 DELAY_REFERENCE = 50
-DELAY_QUIT = 5
+DELAY_QUIT = 3
 
 Settings.MoveMouseDelay = 0.2
 Settings.DelayBeforeDrop = 0.2
@@ -946,7 +946,7 @@ def selectItems(elementClass, elementType, attribute, value):
     # focus current frame
     focusOnFrame()
     # jump to elementClass
-    for x in range(0, 5):
+    for x in range(0, 13):
         typeTab()
     # paste the new elementClass
     pasteIntoTextField(elementClass)
@@ -1001,7 +1001,7 @@ def modificationModeRemove():
     # focus current frame
     focusOnFrame()
     # jump to value
-    for x in range(0, 2):
+    for x in range(0, 10):
         typeTab()
     # select it
     typeSpace()
@@ -1016,7 +1016,7 @@ def modificationModeKeep():
     # focus current frame
     focusOnFrame()
     # jump to value
-    for x in range(0, 3):
+    for x in range(0, 11):
         typeTab()
     # select it
     typeSpace()
@@ -1031,7 +1031,7 @@ def modificationModeReplace():
     # focus current frame
     focusOnFrame()
     # jump to value
-    for x in range(0, 4):
+    for x in range(0, 12):
         typeTab()
     # select it
     typeSpace()
@@ -1063,7 +1063,7 @@ def selectionRectangle(match, startX, startY, endX, endY):
 def selectionClear(previouslyInserted=False):
     # focus current frame
     focusOnFrame()
-    for x in range(0, 14):
+    for x in range(0, 22):
         typeTab()
     # type space to select clear option
     typeSpace()
@@ -1077,7 +1077,7 @@ def selectionClear(previouslyInserted=False):
 def selectionInvert():
     # focus current frame
     focusOnFrame()
-    for x in range(0, 15):
+    for x in range(0, 23):
         typeTab()
     # type space to select invert opetion
     typeSpace()
