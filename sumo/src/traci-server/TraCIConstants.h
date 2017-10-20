@@ -583,6 +583,9 @@
 // action step length (get: vehicles, vehicle types)
 #define VAR_ACTIONSTEPLENGTH 0x7d
 
+// last action time (get: vehicles)
+#define VAR_LASTACTIONTIME 0x7f
+
 // driver's desired headway (get: vehicle types)
 #define VAR_TAU 0x48
 

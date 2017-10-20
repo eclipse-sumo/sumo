@@ -560,6 +560,19 @@ TraCI_Vehicle::getDecel(const std::string& vehicleID) {
 }
 
 
+double TraCI_Vehicle::getEmergencyDecel(const std::string& vehicleID) {
+    return getVehicleType(vehicleID).getCarFollowModel().getEmergencyDecel();
+}
+double TraCI_Vehicle::getApparentDecel(const std::string& vehicleID) {
+    return getVehicleType(vehicleID).getCarFollowModel().getApparentDecel();
+}
+double TraCI_Vehicle::getActionStepLength(const std::string& vehicleID) {
+    return STEPS2TIME(getVehicleType(vehicleID).getActionStepLength());
+}
+double TraCI_Vehicle::getLastActionTime(const std::string& vehicleID) {
+    return STEPS2TIME(getVehicle(vehicleID)->getLastActionTime());
+}
+
 double
 TraCI_Vehicle::getTau(const std::string& vehicleID) {
     return getVehicleType(vehicleID).getCarFollowModel().getHeadwayTime();

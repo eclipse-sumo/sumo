@@ -115,6 +115,8 @@ public:
     static double getDecel(const std::string& vehicleID);
     static double getEmergencyDecel(const std::string& vehicleID);
     static double getApparentDecel(const std::string& vehicleID);
+    static double getActionStepLength(const std::string& vehicleID);
+    static double getLastActionTime(const std::string& vehicleID);
     static double getTau(const std::string& vehicleID);
     static double getImperfection(const std::string& vehicleID);
     static double getSpeedDeviation(const std::string& vehicleID);

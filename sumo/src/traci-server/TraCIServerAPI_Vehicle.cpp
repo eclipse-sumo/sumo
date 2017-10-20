@@ -479,6 +479,11 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeString(TraCI_Vehicle::getParameter(id, paramName));
             }
             break;
+            case VAR_LASTACTIONTIME: {
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(TraCI_Vehicle::getLastActionTime(id));
+            }
+            break;
             default:
                 TraCIServerAPI_VehicleType::getVariable(variable, TraCI_Vehicle::getVehicleType(id).getID(), tempMsg);
                 break;
