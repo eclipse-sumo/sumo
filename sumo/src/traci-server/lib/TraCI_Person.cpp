@@ -253,7 +253,7 @@ TraCI_Person::add(const std::string& personID, const std::string& edgeID, double
     plan->push_back(new MSTransportable::Stage_Waiting(*edge, 0, depart, pos, "awaiting departure", true));
 
     try {
-        MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(params, vehicleType, plan);
+        MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(params, vehicleType, plan, false);
         MSNet::getInstance()->getPersonControl().add(person);
     } catch (ProcessError& e) {
         delete params;

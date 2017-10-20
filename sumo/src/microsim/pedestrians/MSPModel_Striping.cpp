@@ -426,7 +426,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
             if (prevLane != 0) {
                 prohibited.push_back(&prevLane->getEdge());
             }
-            MSNet::getInstance()->getPedestrianRouter(prohibited).compute(currentEdge, nextRouteEdge, 0, arrivalPos, ped.myStage->getMaxSpeed(), 0, junction, crossingRoute, true);
+            MSNet::getInstance()->getPedestrianRouter(prohibited).compute(currentEdge, nextRouteEdge, 0, arrivalPos, ped.myStage->getMaxSpeed(ped.myPerson), 0, junction, crossingRoute, true);
             if DEBUGCOND(ped) {
                 std::cout
                         << "   nre=" << nextRouteEdge->getID()
@@ -871,7 +871,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         const MSLane* nextLane = p.myNLI.lane;
         const MSLink* link = p.myNLI.link;
         const double dist = p.distToLaneEnd();
-        const double speed = p.myStage->getMaxSpeed();
+        const double speed = p.myStage->getMaxSpeed(p.myPerson);
         if (nextLane != 0 && dist <= LOOKAHEAD_ONCOMING) {
             const double currentLength = (p.myWalkingAreaPath == 0 ? lane->getLength() : p.myWalkingAreaPath->length);
             const Obstacles& nextObs = getNextLaneObstacles(
@@ -1122,7 +1122,7 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walk
         if (mayStartForward && mayStartBackward) {
             // figure out the best direction via routing
             ConstMSEdgeVector crossingRoute;
-            MSNet::getInstance()->getPedestrianRouter().compute(currentEdge, route.back(), myRelX, myStage->getArrivalPos(), myStage->getMaxSpeed(), 0, 0, crossingRoute, true);
+            MSNet::getInstance()->getPedestrianRouter().compute(currentEdge, route.back(), myRelX, myStage->getArrivalPos(), myStage->getMaxSpeed(person), 0, 0, crossingRoute, true);
             if (crossingRoute.size() > 1) {
                 // route found
                 const MSEdge* nextEdge = crossingRoute[1];
@@ -1346,7 +1346,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     const int stripes = (int)obs.size();
     const int sMax =  stripes - 1;
     assert(stripes == numStripes(myLane));
-    const double vMax = myStage->getMaxSpeed();
+    const double vMax = myStage->getMaxSpeed(myPerson);
     // ultimate goal is to choose the prefered stripe (chosen)
     const int current = stripe();
     const int other = otherStripe();
@@ -1521,7 +1521,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                   << " vy=" << ySpeed
                   << " xd=" << xDist
                   << " yd=" << yDist
-                  << " vMax=" << myStage->getMaxSpeed()
+                  << " vMax=" << myStage->getMaxSpeed(myPerson)
                   << " wTime=" << myStage->getWaitingTime(currentTime)
                   << " jammed=" << myAmJammed
                   << "\n   distance=" << toString(distance)

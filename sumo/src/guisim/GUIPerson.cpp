@@ -150,8 +150,8 @@ GUIPerson::GUIPersonPopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*) {
 /* -------------------------------------------------------------------------
  * GUIPerson - methods
  * ----------------------------------------------------------------------- */
-GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) :
-    MSPerson(pars, vtype, plan),
+GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const bool fromRouteFile) :
+    MSPerson(pars, vtype, plan, fromRouteFile),
     GUIGlObject(GLO_PERSON, pars->id),
     myPositionInVehicle(Position::INVALID) {
 }

@@ -75,6 +75,9 @@ private:
         void abortWalk() {
             myPerson = 0;
         }
+        const MSPerson* getPerson() const {
+            return myPerson;
+        }
 
     private:
         MSPerson::MSPersonStage_Walking& myParent;

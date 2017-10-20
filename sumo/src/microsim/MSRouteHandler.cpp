@@ -735,7 +735,7 @@ MSRouteHandler::closePerson() {
     }
     // type existence has been checked on opening
     MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
-    MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(myVehicleParameter, type, myActivePlan);
+    MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(myVehicleParameter, type, myActivePlan, true);
     // @todo: consider myScale?
     if (MSNet::getInstance()->getPersonControl().add(person)) {
         registerLastDepart();
@@ -774,6 +774,7 @@ MSRouteHandler::closeContainer() {
     myVehicleParameter = 0;
     myActiveContainerPlan = 0;
 }
+
 
 void
 MSRouteHandler::closeFlow() {
@@ -1030,10 +1031,6 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
     }
     const MSVehicleType* vtype = vehControl.getVType(myVehicleParameter->vtypeid, &myParsingRNG);
-    const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id, ok, vtype->getMaxSpeed() * vtype->computeChosenSpeedDeviation(&myParsingRNG));
-    if (speed <= 0) {
-        throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
-    }
     const std::string fromID = attrs.getOpt<std::string>(SUMO_ATTR_FROM, id, ok, "");
     const MSEdge* from = fromID != "" || myActivePlan->empty() ? MSEdge::dictionary(fromID) : &myActivePlan->back()->getDestination();
     if (from == 0) {
@@ -1082,12 +1079,16 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         pars.back()->departProcedure = DEPART_TRIGGERED;
     }
 
+    const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id, ok, -1.);
+    if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
+        throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
+    }
     const double walkFactor = attrs.getOpt<double>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
     const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, 0, ok, 0);
     if (ok) {
         const std::string error = "No connection found between '" + from->getID() + "' and '" + to->getID() + "' for person '" + myVehicleParameter->id + "'.";
         if (pars.empty()) {
-            MSNet::getInstance()->getPedestrianRouter().compute(from, to, departPos, arrivalPos, speed, 0, 0, myActiveRoute);
+            MSNet::getInstance()->getPedestrianRouter().compute(from, to, departPos, arrivalPos, speed > 0 ? speed : vtype->getMaxSpeed(), 0, 0, myActiveRoute);
             if (myActiveRoute.empty()) {
                 if (!MSGlobals::gCheckRoutes) {
                     myActiveRoute.push_back(from);

@@ -48,8 +48,8 @@ GUITransportableControl::~GUITransportableControl() {
 
 
 MSTransportable*
-GUITransportableControl::buildPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
-    return new GUIPerson(pars, vtype, plan);
+GUITransportableControl::buildPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const bool fromRouteFile) const {
+    return new GUIPerson(pars, vtype, plan, fromRouteFile);
 }
 
 

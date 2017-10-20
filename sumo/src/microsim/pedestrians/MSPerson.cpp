@@ -264,6 +264,11 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
 }
 
 
+double
+MSPerson::MSPersonStage_Walking::getMaxSpeed(const MSPerson* person) const {
+    return mySpeed > 0 ? mySpeed : person->getVehicleType().getMaxSpeed() * person->getSpeedFactor();
+}
+
 
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Driving - methods
@@ -335,8 +340,8 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
 /* -------------------------------------------------------------------------
  * MSPerson - methods
  * ----------------------------------------------------------------------- */
-MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan)
-    : MSTransportable(pars, vtype, plan) {
+MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor)
+    : MSTransportable(pars, vtype, plan), myChosenSpeedFactor(speedFactor) {
 }
 
 
@@ -416,7 +421,8 @@ MSPerson::tripInfoOutput(OutputDevice& os) const {
 
 void
 MSPerson::routeOutput(OutputDevice& os) const {
-    os.openTag(SUMO_TAG_PERSON).writeAttr(SUMO_ATTR_ID, getID()).writeAttr(SUMO_ATTR_DEPART, time2string(getDesiredDepart()));
+    const std::string typeID = getVehicleType().getID() != DEFAULT_PEDTYPE_ID ? getVehicleType().getID() : "";
+    myParameter->write(os, OptionsCont::getOptions(), SUMO_TAG_PERSON, typeID);
     if (myStep == myPlan->end()) {
         os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
     }
@@ -427,16 +433,6 @@ MSPerson::routeOutput(OutputDevice& os) const {
     os.lf();
 }
 
-
-double
-MSPerson::getSpeedFactor() const {
-    if (getCurrentStageType() == MOVING_WITHOUT_VEHICLE) {
-        MSPersonStage_Walking* walkingStage =  dynamic_cast<MSPersonStage_Walking*>(*myStep);
-        assert(walkingStage != 0);
-        return walkingStage->getMaxSpeed() / myVType->getMaxSpeed();
-    }
-    return 1;
-}
 
 /****************************************************************************/
 

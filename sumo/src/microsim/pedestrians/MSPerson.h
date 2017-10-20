@@ -74,9 +74,6 @@ public:
      * Only the duration is needed
      */
     class MSPersonStage_Walking : public MSTransportable::Stage {
-        friend class MSPModel;
-        friend class GUIPerson; // debugging
-
     public:
         /// constructor
         MSPersonStage_Walking(const ConstMSEdgeVector& route, MSStoppingPlace* toStop, SUMOTime walkingTime,
@@ -145,9 +142,8 @@ public:
 
         /// @brief accessors to be used by MSPModel
         //@{
-        inline double getMaxSpeed() const {
-            return mySpeed;
-        }
+        double getMaxSpeed(const MSPerson* person) const;
+
         inline double getDepartPos() const {
             return myDepartPos;
         }
@@ -266,7 +262,7 @@ public:
 
 public:
     /// constructor
-    MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan);
+    MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor);
 
     /// destructor
     virtual ~MSPerson();
@@ -300,8 +296,12 @@ public:
         return false;
     }
 
-    double getSpeedFactor() const;
+    inline double getSpeedFactor() const {
+        return myChosenSpeedFactor;
+    }
 
+private:
+    const double myChosenSpeedFactor;
 
 private:
     /// @brief Invalidated copy constructor.
