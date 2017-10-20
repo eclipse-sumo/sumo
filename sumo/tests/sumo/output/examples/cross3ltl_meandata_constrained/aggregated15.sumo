@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct 11 21:43:25 2017 by SUMO Version dev-SVN-r24506
+<!-- generated on Fri Oct 20 17:03:19 2017 by SUMO Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -523,7 +523,7 @@
     <interval begin="915.00" end="930.00" id="dump_15">
         <edge id="1fi" sampledSeconds="161.39" traveltime="25.00" overlapTraveltime="25.47" density="43.30" occupancy="21.41" waitingTime="0.00" speed="9.95" departed="3" arrived="4" entered="3" left="2" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="1o" sampledSeconds="170.44" traveltime="47.36" overlapTraveltime="47.88" density="23.25" occupancy="11.48" waitingTime="0.00" speed="10.31" departed="0" arrived="0" entered="5" left="3" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="1si" sampledSeconds="453.17" traveltime="537.49" overlapTraveltime="548.82" density="127.39" occupancy="21.22" waitingTime="351.00" speed="0.44" departed="0" arrived="0" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1si" sampledSeconds="453.17" traveltime="537.50" overlapTraveltime="548.83" density="127.39" occupancy="21.22" waitingTime="351.00" speed="0.44" departed="0" arrived="0" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="2fi" sampledSeconds="158.52" traveltime="24.54" overlapTraveltime="25.01" density="42.53" occupancy="20.90" waitingTime="0.00" speed="10.14" departed="2" arrived="0" entered="5" left="6" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="2o" sampledSeconds="141.22" traveltime="47.40" overlapTraveltime="47.92" density="19.27" occupancy="9.52" waitingTime="0.00" speed="10.30" departed="0" arrived="0" entered="2" left="4" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="2si" sampledSeconds="274.12" traveltime="49.85" overlapTraveltime="50.90" density="77.06" occupancy="12.78" waitingTime="154.00" speed="4.76" departed="0" arrived="0" entered="6" left="0" laneChangedFrom="0" laneChangedTo="0"/>

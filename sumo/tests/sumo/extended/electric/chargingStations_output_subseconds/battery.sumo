@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 17:36:18 2017 by SUMO Version dev-SVN-r26327
+<!-- generated on Fri Oct 20 16:35:09 2017 by SUMO Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -805,7 +805,7 @@
         <vehicle id="veh2" energyConsumed="0.1229" actualBatteryCapacity="9956.7819" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="1.0000" acceleration="0.0000" x="-930.0706" y="995.0500" lane="D2_0" posOnLane="69.9294" timeStopped="0"/>
     </timestep>
     <timestep time="33.60">
-        <vehicle id="veh0" energyConsumed="0.0139" actualBatteryCapacity="13097.1103" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="-0.0000" x="-880.0000" y="998.3500" lane="D2_1" posOnLane="120.0000" timeStopped="2"/>
+        <vehicle id="veh0" energyConsumed="0.0139" actualBatteryCapacity="13097.1103" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="0.0000" x="-880.0000" y="998.3500" lane="D2_1" posOnLane="120.0000" timeStopped="2"/>
         <vehicle id="veh1" energyConsumed="-1.3759" actualBatteryCapacity="12022.1490" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="7.4410" acceleration="-3.3333" x="-905.2713" y="998.3500" lane="D2_1" posOnLane="94.7287" timeStopped="0"/>
         <vehicle id="veh2" energyConsumed="-0.1279" actualBatteryCapacity="9956.9099" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.3532" acceleration="-3.2342" x="-930.0000" y="995.0500" lane="D2_0" posOnLane="70.0000" timeStopped="0"/>
     </timestep>
@@ -817,7 +817,7 @@
     <timestep time="34.00">
         <vehicle id="veh0" energyConsumed="0.0139" actualBatteryCapacity="13102.5825" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="0.0000" x="-880.0000" y="998.3500" lane="D2_1" posOnLane="120.0000" timeStopped="4"/>
         <vehicle id="veh1" energyConsumed="-1.0372" actualBatteryCapacity="12024.3686" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="6.1861" acceleration="-3.0930" x="-902.6731" y="998.3500" lane="D2_1" posOnLane="97.3269" timeStopped="0"/>
-        <vehicle id="veh2" energyConsumed="0.0139" actualBatteryCapacity="9962.1879" maximumBatteryCapacity="35000.0000" chargingStationId="CS1" energyCharged="2.6389" energyChargedInTransit="0.0000" energyChargedStopped="2.6389" speed="0.0000" acceleration="-0.0000" x="-930.0000" y="995.0500" lane="D2_0" posOnLane="70.0000" timeStopped="2"/>
+        <vehicle id="veh2" energyConsumed="0.0139" actualBatteryCapacity="9962.1879" maximumBatteryCapacity="35000.0000" chargingStationId="CS1" energyCharged="2.6389" energyChargedInTransit="0.0000" energyChargedStopped="2.6389" speed="0.0000" acceleration="0.0000" x="-930.0000" y="995.0500" lane="D2_0" posOnLane="70.0000" timeStopped="2"/>
     </timestep>
     <timestep time="34.20">
         <vehicle id="veh0" energyConsumed="0.0139" actualBatteryCapacity="13105.3186" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="0.0000" x="-880.0000" y="998.3500" lane="D2_1" posOnLane="120.0000" timeStopped="5"/>
@@ -911,7 +911,7 @@
     </timestep>
     <timestep time="37.80">
         <vehicle id="veh0" energyConsumed="0.0139" actualBatteryCapacity="13154.5686" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="0.0000" x="-880.0000" y="998.3500" lane="D2_1" posOnLane="120.0000" timeStopped="23"/>
-        <vehicle id="veh1" energyConsumed="0.0139" actualBatteryCapacity="12074.9868" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="-0.0000" x="-894.5010" y="998.3500" lane="D2_1" posOnLane="105.4990" timeStopped="2"/>
+        <vehicle id="veh1" energyConsumed="0.0139" actualBatteryCapacity="12074.9868" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="0.0000" x="-894.5010" y="998.3500" lane="D2_1" posOnLane="105.4990" timeStopped="2"/>
         <vehicle id="veh2" energyConsumed="0.0139" actualBatteryCapacity="10012.0629" maximumBatteryCapacity="35000.0000" chargingStationId="CS1" energyCharged="2.6389" energyChargedInTransit="0.0000" energyChargedStopped="2.6389" speed="0.0000" acceleration="0.0000" x="-930.0000" y="995.0500" lane="D2_0" posOnLane="70.0000" timeStopped="21"/>
     </timestep>
     <timestep time="38.00">
@@ -1387,7 +1387,7 @@
     <timestep time="56.80">
         <vehicle id="veh0" energyConsumed="0.0139" actualBatteryCapacity="13170.6191" maximumBatteryCapacity="35000.0000" chargingStationId="CS3" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="0.0000" x="-830.0000" y="995.0500" lane="D2_0" posOnLane="170.0000" timeStopped="14"/>
         <vehicle id="veh1" energyConsumed="-0.0850" actualBatteryCapacity="12151.6709" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="1.5882" acceleration="-1.5882" x="-845.8892" y="995.0500" lane="D2_0" posOnLane="154.1108" timeStopped="0"/>
-        <vehicle id="veh2" energyConsumed="0.0139" actualBatteryCapacity="10132.0300" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="-0.0000" x="-880.0000" y="998.3500" lane="D2_1" posOnLane="120.0000" timeStopped="2"/>
+        <vehicle id="veh2" energyConsumed="0.0139" actualBatteryCapacity="10132.0300" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="0.0000" x="-880.0000" y="998.3500" lane="D2_1" posOnLane="120.0000" timeStopped="2"/>
     </timestep>
     <timestep time="57.00">
         <vehicle id="veh0" energyConsumed="0.0139" actualBatteryCapacity="13173.4385" maximumBatteryCapacity="35000.0000" chargingStationId="CS3" energyCharged="2.8333" energyChargedInTransit="0.0000" energyChargedStopped="2.8333" speed="0.0000" acceleration="0.0000" x="-830.0000" y="995.0500" lane="D2_0" posOnLane="170.0000" timeStopped="15"/>
@@ -1431,7 +1431,7 @@
     </timestep>
     <timestep time="58.60">
         <vehicle id="veh0" energyConsumed="0.0139" actualBatteryCapacity="13195.9941" maximumBatteryCapacity="35000.0000" chargingStationId="CS3" energyCharged="2.8333" energyChargedInTransit="0.0000" energyChargedStopped="2.8333" speed="0.0000" acceleration="0.0000" x="-830.0000" y="995.0500" lane="D2_0" posOnLane="170.0000" timeStopped="23"/>
-        <vehicle id="veh1" energyConsumed="0.0139" actualBatteryCapacity="12151.4123" maximumBatteryCapacity="35000.0000" chargingStationId="CS3" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="-0.0000" x="-844.5010" y="995.0500" lane="D2_0" posOnLane="155.4990" timeStopped="2"/>
+        <vehicle id="veh1" energyConsumed="0.0139" actualBatteryCapacity="12151.4123" maximumBatteryCapacity="35000.0000" chargingStationId="CS3" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="0.0000" x="-844.5010" y="995.0500" lane="D2_0" posOnLane="155.4990" timeStopped="2"/>
         <vehicle id="veh2" energyConsumed="0.0139" actualBatteryCapacity="10156.6550" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="0.0000" x="-880.0000" y="998.3500" lane="D2_1" posOnLane="120.0000" timeStopped="11"/>
     </timestep>
     <timestep time="58.80">

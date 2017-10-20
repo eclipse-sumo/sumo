@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/15/17 15:16:14 by SUMO Version dev-SVN-r22880
+<!-- generated on Fri Oct 20 16:35:09 2017 by SUMO Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -181,7 +181,7 @@
         <vehicle id="veh0" energyConsumed="-4.6022" actualBatteryCapacity="12943.9629" maximumBatteryCapacity="35000.0000" chargingStationId="CS3" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="-5.0000" x="-830.0000" y="995.0500" lane="D2_0" posOnLane="170.0000" timeStopped="1"/>
     </timestep>
     <timestep time="50.00">
-        <vehicle id="veh0" energyConsumed="0.0139" actualBatteryCapacity="12943.9490" maximumBatteryCapacity="35000.0000" chargingStationId="CS3" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="-0.0000" x="-830.0000" y="995.0500" lane="D2_0" posOnLane="170.0000" timeStopped="2"/>
+        <vehicle id="veh0" energyConsumed="0.0139" actualBatteryCapacity="12943.9490" maximumBatteryCapacity="35000.0000" chargingStationId="CS3" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="0.0000" x="-830.0000" y="995.0500" lane="D2_0" posOnLane="170.0000" timeStopped="2"/>
     </timestep>
     <timestep time="51.00">
         <vehicle id="veh0" energyConsumed="0.0139" actualBatteryCapacity="12943.9351" maximumBatteryCapacity="35000.0000" chargingStationId="CS3" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="0.0000" x="-830.0000" y="995.0500" lane="D2_0" posOnLane="170.0000" timeStopped="3"/>

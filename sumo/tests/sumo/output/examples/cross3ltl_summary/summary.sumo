@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct 11 21:43:25 2017 by SUMO Version dev-SVN-r24506
+<!-- generated on Fri Oct 20 17:03:18 2017 by SUMO Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -752,7 +752,7 @@
     <step time="720.00" loaded="252" inserted="242" running="153" waiting="10" ended="89" meanWaitingTime="5.72" meanTravelTime="270.11" halting="31" meanSpeed="7.88" meanSpeedRelative="0.66"/>
     <step time="721.00" loaded="252" inserted="244" running="155" waiting="8" ended="89" meanWaitingTime="5.80" meanTravelTime="270.11" halting="28" meanSpeed="7.88" meanSpeedRelative="0.66"/>
     <step time="722.00" loaded="252" inserted="245" running="156" waiting="7" ended="89" meanWaitingTime="5.83" meanTravelTime="270.11" halting="22" meanSpeed="7.92" meanSpeedRelative="0.67"/>
-    <step time="723.00" loaded="252" inserted="245" running="155" waiting="7" ended="90" meanWaitingTime="5.83" meanTravelTime="273.59" halting="16" meanSpeed="7.97" meanSpeedRelative="0.67"/>
+    <step time="723.00" loaded="252" inserted="245" running="155" waiting="7" ended="90" meanWaitingTime="5.83" meanTravelTime="273.59" halting="16" meanSpeed="7.98" meanSpeedRelative="0.67"/>
     <step time="724.00" loaded="252" inserted="245" running="155" waiting="7" ended="90" meanWaitingTime="5.83" meanTravelTime="273.59" halting="15" meanSpeed="8.07" meanSpeedRelative="0.68"/>
     <step time="725.00" loaded="252" inserted="245" running="155" waiting="7" ended="90" meanWaitingTime="5.83" meanTravelTime="273.59" halting="15" meanSpeed="8.12" meanSpeedRelative="0.69"/>
     <step time="726.00" loaded="252" inserted="245" running="155" waiting="7" ended="90" meanWaitingTime="5.83" meanTravelTime="273.59" halting="15" meanSpeed="8.19" meanSpeedRelative="0.69"/>
