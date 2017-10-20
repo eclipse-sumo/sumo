@@ -62,7 +62,7 @@ int MSVehicleType::myNextIndex = 0;
 // method definitions
 // ===========================================================================
 MSVehicleType::MSVehicleType(const SUMOVTypeParameter& parameter)
-    : myParameter(parameter), myIndex(myNextIndex++), myCarFollowModel(0), myOriginalType(0) {
+    : myParameter(parameter), myWarnedActionStepLengthTauOnce(false), myIndex(myNextIndex++), myCarFollowModel(0), myOriginalType(0) {
     assert(getLength() > 0);
     assert(getMaxSpeed() > 0);
 
@@ -70,6 +70,7 @@ MSVehicleType::MSVehicleType(const SUMOVTypeParameter& parameter)
     if (!myParameter.wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
         myParameter.actionStepLength=MSGlobals::gActionStepLength;
     }
+
 }
 
 
@@ -206,15 +207,16 @@ MSVehicleType::setActionStepLength(const SUMOTime actionStepLength, bool resetAc
         return;
     }
 
+    SUMOTime previousActionStepLength = myParameter.actionStepLength;
+    myParameter.actionStepLength = actionStepLength;
+    check();
+
     if (isVehicleSpecific()) {
         // don't perform vehicle lookup for singular vtype
-        myParameter.actionStepLength = actionStepLength;
         return;
     }
 
     // For non-singular vType reset all vehicle's actionOffsets
-    SUMOTime previousActionStepLength = myParameter.actionStepLength;
-    myParameter.actionStepLength = actionStepLength;
     // Iterate through vehicles
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     for (auto vehIt = vc.loadedVehBegin(); vehIt != vc.loadedVehEnd(); ++vehIt) {
@@ -358,6 +360,7 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             vtype->myCarFollowModel = new MSCFModel_Krauss(vtype, accel, decel, emergencyDecel, apparentDecel, sigma, tau);
             break;
     }
+    vtype->check();
     return vtype;
 }
 
@@ -381,6 +384,20 @@ MSVehicleType::duplicateType(const std::string& id, bool persistent) const {
         throw ProcessError("could not add " + singular + "type " + vtype->getID());
     }
     return vtype;
+}
+
+void
+MSVehicleType::check() {
+    if( !myWarnedActionStepLengthTauOnce
+            && myParameter.wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)
+            && STEPS2TIME(myParameter.actionStepLength) > getCarFollowModel().getHeadwayTime()) {
+        myWarnedActionStepLengthTauOnce=true;
+        std::stringstream s;
+        s << "Given action step length " << STEPS2TIME(myParameter.actionStepLength) << " for vehicle type '" << getID()
+                << "' is larger than its parameter tau (=" << getCarFollowModel().getHeadwayTime() <<")!"
+                << " This may lead to collisions. (This warning is only issued once per vehicle type).";
+        WRITE_WARNING(s.str());
+    }
 }
 
 

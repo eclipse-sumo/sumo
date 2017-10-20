@@ -517,10 +517,19 @@ public:
         return myParameter;
     }
 
+    /** @brief Checks whether vehicle type parameters may be problematic
+     *         (Currently, only the value for the action step length is
+     *         compared with the value for the desired headway time.)
+     */
+    void check();
 
 private:
     /// @brief the parameter container
     SUMOVTypeParameter myParameter;
+
+    /// @brief Indicator whether the user was already warned once about an action step length
+    ///        larger than the desired time headway.
+    bool myWarnedActionStepLengthTauOnce;
 
     /// @brief the running index
     const int myIndex;
