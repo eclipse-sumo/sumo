@@ -115,6 +115,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_EMERGENCY_DECEL: Storage.readDouble,
                       tc.VAR_APPARENT_DECEL: Storage.readDouble,
                       tc.VAR_ACTIONSTEPLENGTH: Storage.readDouble,
+                      tc.VAR_LASTACTIONTIME: Storage.readDouble,
                       tc.VAR_IMPERFECTION: Storage.readDouble,
                       tc.VAR_TAU: Storage.readDouble,
                       tc.VAR_BEST_LANES: _readBestLanes,
@@ -536,6 +537,13 @@ class VehicleDomain(Domain):
         """getActionStepLength(string) -> double
 
         Returns the action step length for this vehicle.
+        """
+        return self._getUniversal(tc.VAR_ACTIONSTEPLENGTH, vehID)
+    
+    def getLastActionTime(self, vehID):
+        """getLastActionTime(string) -> double
+
+        Returns the time of last action poitn for this vehicle.
         """
         return self._getUniversal(tc.VAR_ACTIONSTEPLENGTH, vehID)
     
