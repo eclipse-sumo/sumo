@@ -266,7 +266,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
             dev.writeAttr("traveltime", sampleSeconds / numVehicles).writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         } else {
             double traveltime = myParent->myMaxTravelTime;
-            if (frontTravelledDistance > 0.f) {
+            if (frontTravelledDistance > NUMERICAL_EPS) {
                 traveltime = MIN2(traveltime, myLaneLength * frontSampleSeconds / frontTravelledDistance);
                 dev.writeAttr("traveltime", traveltime);
             } else if (defaultTravelTime >= 0.) {
