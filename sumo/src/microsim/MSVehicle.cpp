@@ -1551,6 +1551,13 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
             << std::endl;
 #endif
     if (!checkActionStep(t)) {
+        // Some action on the LCModel is needed here.
+        // Sth. like: getLaneChangeModel().prepareStep()
+        // E.g., the vsafes of inactive steps would be collected, if not cleared.
+        // (but maybe that is not so bad on the other hand -- think of asynchronously active vehicles)
+        // This touches the topic of perspective for the informLeader/informFollower stuff...
+        // If it was this vehicle checking for possible cooperative actions instead of the other
+        // pushing cooperation requests, this would be easier to handle, probably.
         return;
     }
     planMoveInternal(t, ahead, myLFLinkLanes, myStopDist);
@@ -2313,7 +2320,8 @@ MSVehicle::executeMove() {
         // Actuate control (i.e. choose bounds for safe speed in (euler) / after (ballistic) current sim step)
         processLinkAproaches(vSafe, vSafeMin, vSafeMinDist);
     } else {
-        //
+        // Continue with current acceleration
+        vSafe = getSpeed() + ACCEL2SPEED(myAcceleration);
     }
 
 
