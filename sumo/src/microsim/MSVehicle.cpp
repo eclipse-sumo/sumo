@@ -1732,6 +1732,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             const double arrivalSpeed = (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN ?
                                          myParameter->arrivalSpeed : laneMaxV);
             // subtract the arrival speed from the remaining distance so we get one additional driving step with arrival speed
+            // XXX: This does not work for ballistic update refs #2579
             const double distToArrival = seen + myArrivalPos - lane->getLength() - SPEED2DIST(arrivalSpeed);
             const double va = MAX2(NUMERICAL_EPS, cfModel.freeSpeed(this, getSpeed(), distToArrival, arrivalSpeed));
             v = MIN2(v, va);
@@ -2345,7 +2346,8 @@ MSVehicle::executeMove() {
     // Call to moveHelper applies speed reduction due to dawdling / lane changing but ensures minimum safe speed
     double vNext = MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin);
     // (Leo) to avoid tiny oscillations (< 1e-10) of vNext in a standing vehicle column (observed for ballistic update), we cap off vNext
-    if (fabs(vNext) < NUMERICAL_EPS) {
+    //       (We assure to do this only for vNext<<NUMERICAL_EPS since otherwise this would nullify the workaround for #2995
+    if (fabs(vNext) < 0.1*NUMERICAL_EPS) {
         vNext = 0.;
     }
 #ifdef DEBUG_EXEC_MOVE
