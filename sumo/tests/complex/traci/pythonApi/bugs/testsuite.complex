@@ -1,3 +1,5 @@
+# Save CF parameters changed over traci.  Note: The initial test version does not test the complete set of corresponding parameters.
+ticket3522
 ticket1010
 ticket2321
 ticket2777
