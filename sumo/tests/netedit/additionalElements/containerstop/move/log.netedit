@@ -1,42 +1,42 @@
 Warning: Adding containerStop 'containerStop_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Setting new attribute startPos '4.42' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '14.42' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute startPos '12.00' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '22.00' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute startPos '19.58' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '29.58' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute startPos '12.00' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '22.00' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute startPos '-6.94' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '3.06' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute startPos '11.24' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '21.24' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute startPos '41.09' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '51.09' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute startPos '25.94' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '35.94' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '8.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '18.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '15.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '25.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '23.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '33.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '15.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '25.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '-4.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '6.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '15.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '25.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '45.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '55.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '27.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '37.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '51.09' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting previous attribute startPos '41.09' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute endPos '55.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute startPos '45.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '21.24' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting previous attribute startPos '11.24' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute endPos '25.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute startPos '15.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '3.06' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting previous attribute startPos '-6.94' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute endPos '6.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute startPos '-4.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '22.00' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting previous attribute startPos '12.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute endPos '25.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute startPos '15.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '29.58' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting previous attribute startPos '19.58' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute endPos '33.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute startPos '23.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '22.00' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting previous attribute startPos '12.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute endPos '25.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute startPos '15.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '14.42' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting previous attribute startPos '4.42' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute endPos '18.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute startPos '8.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '22.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Setting previous attribute startPos '12.00' into containerStop 'containerStop_gneE0_0_0'
@@ -46,29 +46,29 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding containerStop 'containerStop_gneE0_0_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute startPos '4.42' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '14.42' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '8.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '18.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute startPos '12.00' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '22.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '15.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '25.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute startPos '19.58' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '29.58' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '23.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '33.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute startPos '12.00' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '22.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '15.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '25.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute startPos '-6.94' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '3.06' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '-4.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '6.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute startPos '11.24' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '21.24' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '15.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '25.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute startPos '41.09' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '51.09' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '45.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '55.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute startPos '25.94' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '35.94' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '27.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '37.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()

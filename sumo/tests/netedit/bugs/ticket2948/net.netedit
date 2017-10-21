@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 29/08/2017 10:55:08 by Netedit Version dev-SVN-r22880
+<!-- generated on Sa 21 Okt 2017 13:34:00 CEST by Netedit Version UNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -10,8 +10,9 @@
     </input>
 
     <output>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Aug095012.3312/netedit.gui/bugs/ticket2948\additionals.xml"/>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Aug095012.3312/netedit.gui/bugs/ticket2948\net.net.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/bugs/ticket2948/additionals.xml"/>
+        <shapes-output value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/bugs/ticket2948/shapes.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/bugs/ticket2948/net.net.xml"/>
     </output>
 
     <processing>
@@ -28,7 +29,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Aug095012.3312/netedit.gui/bugs/ticket2948\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/bugs/ticket2948/log.txt"/>
     </report>
 
 </configuration>
@@ -39,7 +40,7 @@
     <location netOffset="0.00,0.00" convBoundary="47.20,25.00,87.20,65.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" speed="20.00" length="7.90" shape="88.85,61.75 88.54,63.89 87.63,65.43 86.09,66.34 83.95,66.65"/>
+        <lane id=":gneJ1_0_0" index="0" speed="20.00" length="7.90" shape="88.85,61.75 88.54,63.89 87.63,65.42 86.09,66.34 83.95,66.65"/>
     </edge>
     <edge id=":gneJ1_1" function="internal">
         <lane id=":gneJ1_1_0" index="0" speed="20.00" length="2.58" shape="83.95,63.35 84.65,63.25 85.15,62.95 85.45,62.45 85.55,61.75"/>
@@ -169,15 +170,15 @@
     <connection from="gneE3" to="gneE4" fromLane="0" toLane="0" via=":gneJ4_0_0" tl="gneJ4" linkIndex="0" dir="s" state="o"/>
     <connection from="gneE4" to="gneE5" fromLane="0" toLane="0" via=":gneJ5_1_0" tl="gneJ5" linkIndex="1" dir="r" state="o"/>
 
-    <connection from=":gneJ1_0" to="-gneE0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_1" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ1_0" to="-gneE0" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":gneJ1_1" to="gneE1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":gneJ2_0" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ2_1" to="-gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ3_0" to="gneE3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ3_1" to="-gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ3_0" to="gneE3" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ3_1" to="-gneE2" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":gneJ4_0" to="gneE4" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ4_1" to="-gneE3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ5_0" to="-gneE4" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ5_1" to="gneE5" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ5_0" to="-gneE4" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":gneJ5_1" to="gneE5" fromLane="0" toLane="0" dir="r" state="M"/>
 
 </net>

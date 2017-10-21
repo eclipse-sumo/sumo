@@ -2,12 +2,12 @@ Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '100.00'
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
-Warning: Setting new attribute pos '26.91' into detExit 'e3Detector_0detExit0'
+Warning: Setting new attribute pos '27.00' into detExit 'e3Detector_0detExit0'
 Warning: Setting new attribute blockMovement 'true' into detExit 'e3Detector_0detExit0'
 Warning: Setting new attribute blockMovement 'false' into detExit 'e3Detector_0detExit0'
-Warning: Setting new attribute pos '22.58' into detExit 'e3Detector_0detExit0'
+Warning: Setting new attribute pos '23.00' into detExit 'e3Detector_0detExit0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '26.91' into detExit 'e3Detector_0detExit0'
+Warning: Setting previous attribute pos '27.00' into detExit 'e3Detector_0detExit0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '1' into detExit 'e3Detector_0detExit0'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -23,13 +23,13 @@ Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '26.91' into detExit 'e3Detector_0detExit0'
+Warning: Setting new attribute pos '27.00' into detExit 'e3Detector_0detExit0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into detExit 'e3Detector_0detExit0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'false' into detExit 'e3Detector_0detExit0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '22.58' into detExit 'e3Detector_0detExit0'
+Warning: Setting new attribute pos '23.00' into detExit 'e3Detector_0detExit0'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

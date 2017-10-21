@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 31.07.2017 13:56:43 by Netedit Version dev-SVN-r22743
+<!-- generated on Sa 21 Okt 2017 13:11:20 CEST by Netedit Version UNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul131644.3900/netedit.gui/additionalElements/detexit/inspect_selection\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul131644.3900/netedit.gui/additionalElements/detexit/inspect_selection\additionals.xml"/>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul131644.3900/netedit.gui/additionalElements/detexit/inspect_selection\input_net.net.xml"/>
+        <sumo-additionals-file value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/additionalElements/detexit/inspect_selection/input_additionals.add.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/additionalElements/detexit/inspect_selection/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul131644.3900/netedit.gui/additionalElements/detexit/inspect_selection\net.net.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/additionalElements/detexit/inspect_selection/additionals.xml"/>
+        <shapes-output value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/additionalElements/detexit/inspect_selection/shapes.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/additionalElements/detexit/inspect_selection/net.net.xml"/>
     </output>
 
     <processing>
@@ -33,7 +34,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.31Jul131644.3900/netedit.gui/additionalElements/detexit/inspect_selection\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/additionalElements/detexit/inspect_selection/log.txt"/>
     </report>
 
 </configuration>
@@ -76,7 +77,7 @@
     <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" tl="gneJ1" linkIndex="0" dir="t" state="o"/>
     <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_0_0" tl="gneJ0" linkIndex="0" dir="t" state="o"/>
 
-    <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>

@@ -1,27 +1,27 @@
 Warning: Adding e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Setting new attribute pos '11.70' into e1Detector 'e1Detector_gneE0_0_0'
-Warning: Setting new attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
-Warning: Setting new attribute pos '26.85' into e1Detector 'e1Detector_gneE0_0_0'
-Warning: Setting new attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
-Warning: Setting new attribute pos '-0.88' into e1Detector 'e1Detector_gneE0_0_0'
-Warning: Setting new attribute pos '15.79' into e1Detector 'e1Detector_gneE0_0_0'
-Warning: Setting new attribute pos '47.91' into e1Detector 'e1Detector_gneE0_0_0'
-Warning: Setting new attribute pos '31.24' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '13.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '18.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '28.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '18.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '0.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '18.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '50.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '32.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '47.91' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting previous attribute pos '50.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '15.79' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting previous attribute pos '18.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '-0.88' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting previous attribute pos '0.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting previous attribute pos '18.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '26.85' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting previous attribute pos '28.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting previous attribute pos '18.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '11.70' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting previous attribute pos '13.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -30,21 +30,21 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '11.70' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '13.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '18.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '26.85' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '28.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '18.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '-0.88' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '0.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '15.79' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '18.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '47.91' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '50.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '31.24' into e1Detector 'e1Detector_gneE0_0_0'
+Warning: Setting new attribute pos '32.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
