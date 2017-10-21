@@ -48,6 +48,9 @@ class GNERouteProbe;
  * class for represent Calibratos in netedit
  */
 class GNECalibrator : public GNEAdditional {
+    /// @brief declare friend class
+    friend class GNEChange_CalibratorItem;
+
 public:
 
     /**@brief Constructor
@@ -96,15 +99,6 @@ public:
 
     /// @brief get calibrator routes
     const std::vector<GNECalibratorRoute>& getCalibratorRoutes() const;
-
-    /// @brief set calibrator vehicleTypes values
-    void setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType>& calibratorVehicleType);
-
-    /// @brief set calibrator flow values
-    void setCalibratorFlows(const std::vector<GNECalibratorFlow>& calibratorFlows);
-
-    /// @brief set calibrator route values
-    void setCalibratorRoutes(const std::vector<GNECalibratorRoute>& calibratorRoutes);
 
     /// @brief generate a vehicleType ID
     std::string generateVehicleTypeID() const;
@@ -224,6 +218,15 @@ protected:
 
     /// @brief calibrator vehicleType values
     std::vector<GNECalibratorVehicleType> myCalibratorVehicleTypes;
+
+    /// @brief set calibrator vehicleTypes values
+    void setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType>& calibratorVehicleType);
+
+    /// @brief set calibrator flow values
+    void setCalibratorFlows(const std::vector<GNECalibratorFlow>& calibratorFlows);
+
+    /// @brief set calibrator route values
+    void setCalibratorRoutes(const std::vector<GNECalibratorRoute>& calibratorRoutes);
 
 private:
     /// @brief set attribute after validation

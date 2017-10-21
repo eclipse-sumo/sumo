@@ -60,9 +60,6 @@ public:
     /// @brief destructor
     ~GNECalibratorDialog();
 
-    /// @brief get calibrator parent
-    GNECalibrator* getCalibratorParent() const;
-
     /// @name FOX-callbacks
     /// @{
     /// @brief event after press accept button
@@ -100,6 +97,15 @@ protected:
     /// @brief pointer to calibrator parent
     GNECalibrator* myCalibratorParent;
 
+    /// @brief vector with the modified calibrator routes 
+    std::vector<GNECalibratorRoute> myModifiedCalibratorRoutes;
+
+    /// @brief vector with the modified calibrator flows 
+    std::vector<GNECalibratorFlow> myModifiedCalibratorFlows;
+
+    /// @brief vector with the modified calibrator vehicle types 
+    std::vector<GNECalibratorVehicleType> myModifiedCalibratorVehicleTypes;
+
     /// @brief button for add new route
     FXButton* myAddRoute;
 
@@ -121,15 +127,6 @@ protected:
     /// @brief list with vehicle types
     FXTable* myVehicleTypeList;
 
-    /// @brief vector with a copy of calibrator routes (used by reset)
-    std::vector<GNECalibratorRoute> myCopyOfCalibratorRoutes;
-
-    /// @brief vector with a copy of calibrator flows (used by reset)
-    std::vector<GNECalibratorFlow> myCopyOfCalibratorFlows;
-
-    /// @brief vector with a copy of calibrator vehicle types (used by reset)
-    std::vector<GNECalibratorVehicleType> myCopyOfCalibratorVehicleTypes;
-
     /// @brief update data table with routes
     void updateRouteTable();
 
@@ -144,10 +141,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNECalibratorDialog(const GNECalibratorDialog&);
+    GNECalibratorDialog(const GNECalibratorDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNECalibratorDialog& operator=(const GNECalibratorDialog&);
+    GNECalibratorDialog& operator=(const GNECalibratorDialog&) = delete;
 };
 
 #endif

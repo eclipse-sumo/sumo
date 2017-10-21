@@ -390,24 +390,6 @@ GNECalibrator::getCalibratorRoutes() const {
 }
 
 
-void
-GNECalibrator::setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) {
-    myCalibratorVehicleTypes = calibratorVehicleTypes;
-}
-
-
-void
-GNECalibrator::setCalibratorFlows(const std::vector<GNECalibratorFlow>& calibratorFlows) {
-    myCalibratorFlows = calibratorFlows;
-}
-
-
-void
-GNECalibrator::setCalibratorRoutes(const std::vector<GNECalibratorRoute>& calibratorRoutes) {
-    myCalibratorRoutes = calibratorRoutes;
-}
-
-
 std::string
 GNECalibrator::generateVehicleTypeID() const {
     int counter = 0;
@@ -608,6 +590,23 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
     default:
         throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+void
+GNECalibrator::setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) {
+    myCalibratorVehicleTypes = calibratorVehicleTypes;
+}
+
+
+void
+GNECalibrator::setCalibratorFlows(const std::vector<GNECalibratorFlow>& calibratorFlows) {
+    myCalibratorFlows = calibratorFlows;
+}
+
+
+void
+GNECalibrator::setCalibratorRoutes(const std::vector<GNECalibratorRoute>& calibratorRoutes) {
+    myCalibratorRoutes = calibratorRoutes;
 }
 
 // ===========================================================================
