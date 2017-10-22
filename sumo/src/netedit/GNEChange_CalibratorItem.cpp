@@ -45,24 +45,24 @@ FXIMPLEMENT_ABSTRACT(GNEChange_CalibratorItem, GNEChange, NULL, 0)
 // ===========================================================================
 
 
-/// @brief constructor for changing selection
 GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibrator *calibrator, 
     const std::vector<GNECalibratorRoute>& newCalibratorRoutes, 
     const std::vector<GNECalibratorFlow>& newCalibratorFlows,
     const std::vector<GNECalibratorVehicleType>& newCalibratorVehicleTypes) :
     GNEChange(calibrator->getViewNet()->getNet(), true),
     myCalibrator(calibrator),
+    // save old values
     myOldCalibratorRoutes(calibrator->getCalibratorRoutes()),
     myOldCalibratorFlows(calibrator->getCalibratorFlows()),
     myOldCalibratorVehicleTypes(calibrator->getCalibratorVehicleTypes()),
+    // save new values
     myNewCalibratorRoutes(newCalibratorRoutes),
     myNewCalibratorFlows(newCalibratorFlows),
     myNewCalibratorVehicleTypes(newCalibratorVehicleTypes) {
 }
 
 
-GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
-}
+GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {}
 
 
 void

@@ -48,6 +48,7 @@
 #include "GNENet.h"
 #include "GNECalibratorFlow.h"
 #include "GNECalibrator.h"
+#include "GNECalibratorDialog.h"
 
 
 // ===========================================================================
@@ -55,25 +56,20 @@
 // ===========================================================================
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent) :
-    myCalibratorParent(calibratorParent), myFlowID(calibratorParent->generateFlowID()), myVehicleType(""), myRoute(""), myColor(RGBColor::BLACK), myDepartLane("first"),
-    myDepartPos("base"), myDepartSpeed("0"), myArrivalLane("current"), myArrivalPos("max"), myArrivalSpeed("current"),
+GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
+    myCalibratorParent(calibratorDialog->getEditedCalibrator()), myFlowID(calibratorDialog->generateFlowID()), 
+    myVehicleType(calibratorDialog->getModifiedCalibratorVehicleTypes().front().getVehicleTypeID()), 
+    myRoute(calibratorDialog->getModifiedCalibratorRoutes().front().getRouteID()), 
+    myColor(RGBColor::BLACK), myDepartLane("first"), myDepartPos("base"), myDepartSpeed("0"), myArrivalLane("current"), myArrivalPos("max"), myArrivalSpeed("current"),
     myLine(""), myPersonNumber(0), myContainerNumber(0), myReroute(false), myDepartPosLat("center"), myArrivalPosLat(""),
-    myBegin(0), myEnd(0), myVehsPerHour(0), myPeriod(0), myProbability(0), myNumber(0), myTypeOfFlow(GNE_CALIBRATORFLOW_VEHSPERHOUR) {
-    if (myCalibratorParent->getCalibratorRoutes().size() > 0) {
-        myRoute = myCalibratorParent->getCalibratorRoutes().front().getRouteID();
-    }
-    if (myCalibratorParent->getCalibratorVehicleTypes().size() > 0) {
-        myVehicleType = myCalibratorParent->getCalibratorVehicleTypes().front().getVehicleTypeID();
-    }
-}
+    myBegin(0), myEnd(0), myVehsPerHour(0), myPeriod(0), myProbability(0), myNumber(0), myTypeOfFlow(GNE_CALIBRATORFLOW_VEHSPERHOUR) {}
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string vehicleType, std::string route,
+GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, const std::string &flowID, const std::string &vehicleType, const std::string &route,
                                      const RGBColor& color, std::string departLane, std::string departPos, std::string departSpeed, std::string arrivalLane, std::string arrivalPos,
                                      std::string arrivalSpeed, std::string line, int personNumber, int containerNumber, bool reroute, std::string departPosLat,
                                      std::string arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability, int number) :
-    myCalibratorParent(calibratorParent), myFlowID(calibratorParent->generateFlowID()), myVehicleType(vehicleType), myRoute(route), myColor(color), myDepartLane("first"),
+    myCalibratorParent(calibratorParent), myFlowID(flowID), myVehicleType(vehicleType), myRoute(route), myColor(color), myDepartLane("first"),
     myDepartPos("base"), myDepartSpeed("0"), myArrivalLane("current"), myArrivalPos("max"), myArrivalSpeed("current"),
     myLine(""), myPersonNumber(0), myContainerNumber(0), myReroute(false), myDepartPosLat("center"), myArrivalPosLat(""),
     myBegin(0), myEnd(0), myVehsPerHour(0), myPeriod(0), myProbability(0), myNumber(0), myTypeOfFlow(GNE_CALIBRATORFLOW_VEHSPERHOUR) {
@@ -272,12 +268,11 @@ bool
 GNECalibratorFlow::setVehicleType(std::string vehicleType) {
     if (vehicleType.empty()) {
         return false;
-    } else if (myCalibratorParent->getViewNet()->getNet()->vehicleTypeExists(vehicleType) == false) {
-        return false;
     } else {
         myVehicleType = vehicleType;
         return true;
     }
+    /// note: make sure that vehicle type exists
 }
 
 
@@ -285,12 +280,11 @@ bool
 GNECalibratorFlow::setRoute(std::string route) {
     if (route.empty()) {
         return false;
-    } else if (myCalibratorParent->getViewNet()->getNet()->routeExists(route) == false) {
-        return false;
     } else {
         myRoute = route;
         return true;
     }
+    /// note: make sure that vehicle type exists
 }
 
 

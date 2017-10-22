@@ -100,15 +100,6 @@ public:
     /// @brief get calibrator routes
     const std::vector<GNECalibratorRoute>& getCalibratorRoutes() const;
 
-    /// @brief generate a vehicleType ID
-    std::string generateVehicleTypeID() const;
-
-    /// @brief generate a flow ID
-    std::string generateFlowID() const;
-
-    /// @brief generate a route ID
-    std::string generateRouteID() const;
-
     /// @brief check if a vehicelType with ID = vehicleTypeID exists
     bool vehicleTypeExists(std::string vehicleTypeID) const;
 

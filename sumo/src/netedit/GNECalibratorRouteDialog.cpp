@@ -101,7 +101,7 @@ GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorDialog* calibrat
     }
 
     // create copy of GNECalibratorRoute
-    myCopyOfCalibratorRoute = new GNECalibratorRoute(myCalibratorRoute->getCalibratorParent());
+    myCopyOfCalibratorRoute = new GNECalibratorRoute(calibratorDialog);
 
     // copy all values of myCalibratorRoute into myCopyOfCalibratorRoute to set initial values
     (*myCopyOfCalibratorRoute) = (*myCalibratorRoute);

@@ -55,10 +55,28 @@ class GNECalibratorDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief Constructor
-    GNECalibratorDialog(GNECalibrator* calibratorParent);
+    GNECalibratorDialog(GNECalibrator* editedCalibrator);
 
     /// @brief destructor
     ~GNECalibratorDialog();
+
+    /// @brief get edited calibrator
+    GNECalibrator* getEditedCalibrator() const;
+
+    /// @brief return current modified calibrator routes
+    const std::vector<GNECalibratorRoute>& getModifiedCalibratorRoutes() const;
+
+    /// @brief return current modified calibrator vehicle types
+    const std::vector<GNECalibratorVehicleType>& getModifiedCalibratorVehicleTypes() const;
+
+    /// @brief generate a vehicleType ID
+    std::string generateVehicleTypeID() const;
+
+    /// @brief generate a flow ID
+    std::string generateFlowID() const;
+
+    /// @brief generate a route ID
+    std::string generateRouteID() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -94,17 +112,18 @@ protected:
     /// @brief FOX needs this
     GNECalibratorDialog() {}
 
-    /// @brief pointer to calibrator parent
-    GNECalibrator* myCalibratorParent;
+private:
+    /// @brief pointer to edited calibrator
+    GNECalibrator* myEditedCalibrator;
 
     /// @brief vector with the modified calibrator routes 
     std::vector<GNECalibratorRoute> myModifiedCalibratorRoutes;
 
-    /// @brief vector with the modified calibrator flows 
-    std::vector<GNECalibratorFlow> myModifiedCalibratorFlows;
-
     /// @brief vector with the modified calibrator vehicle types 
     std::vector<GNECalibratorVehicleType> myModifiedCalibratorVehicleTypes;
+
+    /// @brief vector with the modified calibrator flows 
+    std::vector<GNECalibratorFlow> myModifiedCalibratorFlows;
 
     /// @brief button for add new route
     FXButton* myAddRoute;

@@ -46,6 +46,7 @@
 
 #include "GNECalibratorRoute.h"
 #include "GNECalibrator.h"
+#include "GNECalibratorDialog.h"
 #include "GNEEdge.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"
@@ -56,13 +57,13 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent) :
-    myCalibratorParent(calibratorParent), myRouteID(calibratorParent->generateRouteID()), myColor(RGBColor::BLACK) {
+GNECalibratorRoute::GNECalibratorRoute(GNECalibratorDialog* calibratorDialog) :
+    myCalibratorParent(calibratorDialog->getEditedCalibrator()), myRouteID(calibratorDialog->generateRouteID()), myColor(RGBColor::BLACK) {
 }
 
 
 GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<std::string> edges, const RGBColor& color) :
-    myCalibratorParent(calibratorParent), myRouteID(calibratorParent->generateRouteID()), myColor(color) {
+    myCalibratorParent(calibratorParent), myRouteID(""), myColor(color) {
     // set values using set functions to avoid non-valid values
     setRouteID(routeID);
     setEdges(edges);

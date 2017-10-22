@@ -39,6 +39,7 @@
 // ===========================================================================
 
 class GNECalibrator;
+class GNECalibratorDialog;
 
 // ===========================================================================
 // class definitions
@@ -49,8 +50,8 @@ class GNECalibrator;
  */
 class GNECalibratorVehicleType {
 public:
-    /// @brief constructor
-    GNECalibratorVehicleType(GNECalibrator* calibratorParent);
+    /// @brief constructor (Used only in GNECalibratorDialog)
+    GNECalibratorVehicleType(GNECalibratorDialog* calibratorDialog);
 
     /// @brief parameter constructor
     GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID,

@@ -38,6 +38,7 @@
 // ===========================================================================
 
 class GNECalibrator;
+class GNECalibratorDialog;
 
 // ===========================================================================
 // class definitions
@@ -57,14 +58,15 @@ public:
         GNE_CALIBRATORFLOW_PROBABILITY
     };
 
-    /// @brief constructor
-    GNECalibratorFlow(GNECalibrator* calibratorParent);
+    /// @brief constructor (used only in GNECalibratorDialog)
+    GNECalibratorFlow(GNECalibratorDialog* calibratorDialog);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string vehicleType, std::string route, const RGBColor& color, std::string departLane,
-                      std::string departPos, std::string departSpeed, std::string arrivalLane, std::string arrivalPos, std::string arrivalSpeed, std::string line,
-                      int personNumber, int containerNumber, bool reroute, std::string departPosLat, std::string arrivalPosLat, double begin, double end,
-                      double vehsPerHour, double period, double probability, int number);
+    GNECalibratorFlow(GNECalibrator* calibratorParent, const std::string &flowID, const std::string &vehicleType, const std::string &route, 
+                      const RGBColor& color, std::string departLane, std::string departPos, std::string departSpeed, std::string arrivalLane, 
+                      std::string arrivalPos, std::string arrivalSpeed, std::string line, int personNumber, int containerNumber, bool reroute, 
+                      std::string departPosLat, std::string arrivalPosLat, double begin, double end, double vehsPerHour, double period, 
+                      double probability, int number);
 
     /// @brief destructor
     ~GNECalibratorFlow();

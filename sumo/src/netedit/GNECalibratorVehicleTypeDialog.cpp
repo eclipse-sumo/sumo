@@ -202,7 +202,7 @@ GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorDial
     myTextFieldMaxSpeedLat = new FXTextField(columnRightValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
 
     // create copy of GNECalibratorVehicleType
-    myCopyOfCalibratorVehicleType = new GNECalibratorVehicleType(myCalibratorVehicleType->getCalibratorParent());
+    myCopyOfCalibratorVehicleType = new GNECalibratorVehicleType(calibratorDialog);
 
     // copy all values of myCalibratorVehicleType into myCopyOfCalibratorVehicleType to set initial values
     (*myCopyOfCalibratorVehicleType) = (*myCalibratorVehicleType);

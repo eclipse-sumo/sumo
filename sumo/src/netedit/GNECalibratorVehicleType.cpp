@@ -46,6 +46,7 @@
 
 #include "GNECalibratorVehicleType.h"
 #include "GNECalibrator.h"
+#include "GNECalibratorDialog.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"
 
@@ -55,8 +56,8 @@
 // ===========================================================================
 
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorParent) :
-    myCalibratorParent(calibratorParent), myVehicleTypeID(calibratorParent->generateVehicleTypeID()) {
+GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibratorDialog* calibratorDialog) :
+    myCalibratorParent(calibratorDialog->getEditedCalibrator()), myVehicleTypeID(calibratorDialog->generateVehicleTypeID()) {
     // setset default parameters
     setAccel();
     setDecel();
@@ -92,7 +93,7 @@ GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorPare
         SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
         const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
         double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) :
-    myCalibratorParent(calibratorParent), myVehicleTypeID(calibratorParent->generateVehicleTypeID()) {
+    myCalibratorParent(calibratorParent), myVehicleTypeID("") {
     // set parameters using the set functions, to avoid non valid values
     setVehicleTypeID(vehicleTypeID);
     setAccel(accel);

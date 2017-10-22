@@ -390,36 +390,6 @@ GNECalibrator::getCalibratorRoutes() const {
 }
 
 
-std::string
-GNECalibrator::generateVehicleTypeID() const {
-    int counter = 0;
-    while (myViewNet->getNet()->vehicleTypeExists(toString(SUMO_TAG_VTYPE) + toString(counter))) {
-        counter++;
-    }
-    return (toString(SUMO_TAG_VTYPE) + toString(counter));
-}
-
-
-std::string
-GNECalibrator::generateFlowID() const {
-    int counter = 0;
-    while (myViewNet->getNet()->flowExists(toString(SUMO_TAG_FLOW) + toString(counter))) {
-        counter++;
-    }
-    return (toString(SUMO_TAG_FLOW) + toString(counter));
-}
-
-
-std::string
-GNECalibrator::generateRouteID() const {
-    int counter = 0;
-    while (myViewNet->getNet()->routeExists(toString(SUMO_TAG_ROUTE) + toString(counter))) {
-        counter++;
-    }
-    return (toString(SUMO_TAG_ROUTE) + toString(counter));
-}
-
-
 bool
 GNECalibrator::vehicleTypeExists(std::string vehicleTypeID) const {
     for (auto i : myCalibratorVehicleTypes) {

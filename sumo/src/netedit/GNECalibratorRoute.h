@@ -39,6 +39,7 @@
 
 class GNECalibrator;
 class GNEEdge;
+class GNECalibratorDialog;
 
 // ===========================================================================
 // class definitions
@@ -48,10 +49,10 @@ class GNEEdge;
  * vehicle route used by GNECalibrators
  */
 class GNECalibratorRoute {
-public:
 
-    /// @brief default constructor
-    GNECalibratorRoute(GNECalibrator* calibratorParent);
+public:
+    /// @brief default constructor (used only in GNECalibratorDialog)
+    GNECalibratorRoute(GNECalibratorDialog* calibratorDialog);
 
     /// @brief parameter constructor 1 (Using edges IDs)
     GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<std::string> edges, const RGBColor& color);

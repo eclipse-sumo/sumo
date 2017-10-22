@@ -53,7 +53,7 @@ class GNECalibratorFlowDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorFlow& calibratorFlow, bool updatingElement);
+    GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, std::vector<GNECalibratorFlow>::iterator editedCalibratorFlowParent, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorFlowDialog();
@@ -78,22 +78,20 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNECalibratorFlowDialog() {}
+    GNECalibratorFlowDialog() : myModifiedCalibratorFlow(NULL) {} 
 
-    /// @brief update data fields
-    void updateCalibratorFlowValues();
-
+private:
     /// @brief pointer to GNECalibratorDialog parent
     GNECalibratorDialog* myCalibratorDialogParent;
 
-    /// @brief pointer to rerouter interval
-    GNECalibratorFlow* myCalibratorFlow;
+    /// @brief interator to edited calibrator flow
+    std::vector<GNECalibratorFlow>::iterator myEditedCalibratorFlow;
+
+    /// @brief current modified calibrator dialog
+    GNECalibratorFlow myModifiedCalibratorFlow;
 
     /// @brief flag to indicate if flow are being created or modified
     bool myUpdatingElement;
-
-    /// @brief pointer in which save modifications of CalibratorFlow
-    GNECalibratorFlow* myCopyOfCalibratorFlow;
 
     /// @brief flag to check if current calibrator flow is valid
     bool myCalibratorFlowValid;
@@ -176,12 +174,14 @@ protected:
     /// @brief TextField for Probability
     FXTextField* myTextFieldProbability;
 
-private:
+    /// @brief update data fields
+    void updateCalibratorFlowValues();
+
     /// @brief Invalidated copy constructor.
-    GNECalibratorFlowDialog(const GNECalibratorFlowDialog&);
+    GNECalibratorFlowDialog(const GNECalibratorFlowDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNECalibratorFlowDialog& operator=(const GNECalibratorFlowDialog&);
+    GNECalibratorFlowDialog& operator=(const GNECalibratorFlowDialog&) = delete;
 };
 
 #endif
