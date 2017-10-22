@@ -9,7 +9,7 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    GNEPOI.h
+/// @file    GNEPOILane.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2017
 /// @version $Id$
