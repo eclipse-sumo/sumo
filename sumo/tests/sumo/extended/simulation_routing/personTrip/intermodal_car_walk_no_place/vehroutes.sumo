@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/11/15 14:47:18 by SUMO duarouter Version dev-SVN-r19321
+<!-- generated on 10/23/17 12:30:49 by SUMO Version dev-SVN-r26651
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="input_net.net.xml"/>
+        <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
     </input>
 
     <output>
-        <output-file value="routes.rou.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.skip-ptlines value="true"/>
     </output>
 
     <report>
@@ -23,10 +24,12 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p0" depart="0.00">
-        <walk edges="beg middle end"/>
-    </person>
-    <person id="p1" depart="0.00">
+    <person id="p1" depart="0.00" arrival="799.00">
         <walk edges="end middle beg"/>
     </person>
+
+    <person id="p0" depart="0.00" arrival="1612.00">
+        <walk edges="beg middle end"/>
+    </person>
+
 </routes>

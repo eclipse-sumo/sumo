@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/26/17 10:25:34 by SUMO duarouter Version dev-SVN-r26222
+<!-- generated on 10/23/17 11:16:05 by SUMO Version dev-SVN-r26651
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="input_net.net.xml"/>
-        <additional-files value="input_additional.add.xml"/>
+        <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
     </input>
 
     <output>
-        <output-file value="routes.rou.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.skip-ptlines value="true"/>
     </output>
 
     <report>
@@ -24,13 +25,15 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p0" depart="0.00">
-        <walk edges="beg" busStop="beg_0"/>
-        <ride busStop="left_0" lines="bus"/>
-        <ride busStop="end_0" lines="bus2"/>
+    <person id="p0" depart="0.00" arrival="742.00">
+        <walk edges="beg"/>
+        <ride from="beg" to="left" lines="bus"/>
+        <ride from="left" to="end" lines="bus2"/>
         <walk edges="end"/>
     </person>
-    <person id="p1" depart="2000.00">
+
+    <person id="p1" depart="2000.00" arrival="3598.00">
         <walk edges="beg middle end"/>
     </person>
+
 </routes>
