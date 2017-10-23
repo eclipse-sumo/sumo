@@ -1,16 +1,16 @@
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Shapes has to be saved
 Warning: Adding poi 'POI_1' into viewNet
-Warning: Setting new attribute pos '23.27,13.12' into poi 'POI_0'
-Warning: Setting new attribute pos '23.27,-4.74' into poi 'POI_1'
+Warning: Setting new attribute pos '24.00,12.00' into poi 'POI_0'
+Warning: Setting new attribute pos '24.00,-6.00' into poi 'POI_1'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '2.00,-12.00' into poi 'POI_1'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '2.00,13.00' into poi 'POI_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '23.27,13.12' into poi 'POI_0'
+Warning: Setting new attribute pos '24.00,12.00' into poi 'POI_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute pos '23.27,-4.74' into poi 'POI_1'
+Warning: Setting new attribute pos '24.00,-6.00' into poi 'POI_1'
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

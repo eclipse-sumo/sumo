@@ -27,16 +27,16 @@ Warning: Adding poi 'POI_8' into viewNet
 Warning: Adding poi 'POI_9' into viewNet
 Warning: Adding poi 'POI_10' into viewNet
 Error: Loading of shapes failed.
-Error: Could not load 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Sep141932.5628/netedit.gui/shapeElements/poi/load\paris.ico'.
+Error: Could not load '/home/user070065n-su/.texttest/tmp/netedit.gui.1_from_23Okt140424.31248/netedit.gui/shapeElements/poi/load/paris.ico'.
 Loading failed!
-Error: Could not load 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Sep141932.5628/netedit.gui/shapeElements/poi/load\paris.ico'.
+Error: Could not load '/home/user070065n-su/.texttest/tmp/netedit.gui.1_from_23Okt140424.31248/netedit.gui/shapeElements/poi/load/paris.ico'.
 Loading failed!
-Error: Could not load 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Sep141932.5628/netedit.gui/shapeElements/poi/load\paris.ico'.
+Error: Could not load '/home/user070065n-su/.texttest/tmp/netedit.gui.1_from_23Okt140424.31248/netedit.gui/shapeElements/poi/load/paris.ico'.
 Loading failed!
-Error: Could not load 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Sep141932.5628/netedit.gui/shapeElements/poi/load\paris.ico'.
+Error: Could not load '/home/user070065n-su/.texttest/tmp/netedit.gui.1_from_23Okt140424.31248/netedit.gui/shapeElements/poi/load/paris.ico'.
 Loading failed!
 Warning: Current Viewport values: 0.00, 0.00, 80.00. Zoom = '100.00'
-Error: Could not load 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Sep141932.5628/netedit.gui/shapeElements/poi/load\paris.ico'.
+Error: Could not load '/home/user070065n-su/.texttest/tmp/netedit.gui.1_from_23Okt140424.31248/netedit.gui/shapeElements/poi/load/paris.ico'.
 Loading failed!
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
@@ -47,7 +47,7 @@ Warning: Created connection 'fromgneE4_0togneE6_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE6_0togneE7_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE7_0togneE8_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE4_0' in retrieveGNEConnection()
-Error: Could not load 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Sep141932.5628/netedit.gui/shapeElements/poi/load\paris.ico'.
+Error: Could not load '/home/user070065n-su/.texttest/tmp/netedit.gui.1_from_23Okt140424.31248/netedit.gui/shapeElements/poi/load/paris.ico'.
 Loading failed!
 Warning: Removing poi 'POI_10' from net
 Warning: Removing poi 'POI_9' from net

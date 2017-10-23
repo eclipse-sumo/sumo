@@ -643,3 +643,40 @@ Warning: Lane '82654055#1_8' is not connected from any incoming edge at junction
 Warning: Lane '82654055#1_9' is not connected from any incoming edge at junction '366661569'.
 Warning: Lane '82654055#1_10' is not connected from any incoming edge at junction '366661569'.
 Warning: Lane '82654055#1_11' is not connected from any incoming edge at junction '366661569'.
+Warning: Lane '82659290#0_8' is not connected from any incoming edge at junction '3153666983'.
+Warning: Lane '82659290#0_9' is not connected from any incoming edge at junction '3153666983'.
+Warning: Lane '82659290#0_10' is not connected from any incoming edge at junction '3153666983'.
+Warning: Lane '82659290#2_8' is not connected from any incoming edge at junction '295705005'.
+Warning: Lane '82659290#2_9' is not connected from any incoming edge at junction '295705005'.
+Warning: Lane '82659290#2_10' is not connected from any incoming edge at junction '295705005'.
+Warning: Lane '85255869#0_8' is not connected from any incoming edge at junction '26708008'.
+Warning: Invalid pedestrian topology: crossing ':31154724_c0' has no target.
+Warning: The rail crossing '1157325170' does not have any roads.
+Warning: The rail crossing '1615477665' does not have any roads.
+Warning: The rail crossing '1673527106' does not have any roads.
+Warning: The rail crossing '1673527109' does not have any roads.
+Warning: The rail crossing '1827996436' does not have any roads.
+Warning: The rail crossing '1827996440' does not have any roads.
+Warning: The rail crossing '1827996511' does not have any roads.
+Warning: The rail crossing '1827996525' does not have any roads.
+Warning: The rail crossing '1828018031' does not have any roads.
+Warning: The rail crossing '1828018034' does not have any roads.
+Warning: The rail crossing '1828018084' does not have any roads.
+Warning: The rail crossing '1828018088' does not have any roads.
+Warning: The rail crossing '1840326416' does not have any roads.
+Warning: The rail crossing '1840326419' does not have any roads.
+Warning: The rail crossing '1840382342' does not have any roads.
+Warning: The rail crossing '1864428533' does not have any roads.
+Warning: The rail crossing '1864428534' does not have any roads.
+Warning: The rail crossing '2831092402' does not have any roads.
+Warning: The rail crossing '2831092403' does not have any roads.
+Warning: The rail crossing '2924018416' does not have any roads.
+Warning: The rail crossing '2924018417' does not have any roads.
+Warning: The rail crossing '2924018418' does not have any roads.
+Warning: The rail crossing '3104326557' does not have any roads.
+Warning: The rail crossing '3104326558' does not have any roads.
+Warning: The rail crossing '3269783482' does not have any roads.
+Warning: The rail crossing '506357654' does not have any roads.
+Warning: The rail crossing '506357655' does not have any roads.
+Warning: The rail crossing '997027037' does not have any roads.
+Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.

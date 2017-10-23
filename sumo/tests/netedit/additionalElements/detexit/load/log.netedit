@@ -4,9 +4,9 @@ Warning: The lane 'dummyLane' to use within the detExit is not known.
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
-Warning: Essential string attribute 'pos' of detExit is missing; detExit cannot be created
-Warning: Format of essential string attribute 'pos' of detExit is invalid; detExit cannot be created
-Warning: Format of essential string attribute 'pos' of detExit is invalid; detExit cannot be created
+Warning: Essential float attribute 'pos' of detExit is missing; detExit cannot be created
+Warning: Format of essential float attribute 'pos' of detExit is invalid; detExit cannot be created
+Warning: Format of essential float attribute 'pos' of detExit is invalid; Cannot be parsed to float; detExit cannot be created
 Warning: Invalid position for detExit.
 Warning: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Warning: Optional bool attribute 'friendlyPos' of detExit is missing; Default value '0' will be used.

@@ -28,7 +28,7 @@ Warning: Adding poly 'poly_17' into viewNet
 Error: Attribute 'type' in definition of poly 'poly_18' is empty.
 Warning: Adding poly 'poly_18' into viewNet
 Warning: Adding poly 'poly_19' into viewNet
-Error: Could not load 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Sep141932.5628/netedit.gui/shapeElements/poly/load\paris.ico'.
+Error: Could not load '/home/user070065n-su/.texttest/tmp/netedit.gui.1_from_23Okt140424.31248/netedit.gui/shapeElements/poly/load/paris.ico'.
 Loading failed!
 Warning: Adding poly 'poly_20' into viewNet
 Error: Attribute 'imgFile' in definition of poly 'poly_21' is empty.
