@@ -566,6 +566,14 @@ public:
     }
 
 
+    /** @brief Returns whether the current simulation step is an action point for the vehicle
+     * @return Whether the vehicle has an action point in the current step.
+     */
+    inline bool isActive() const {
+        return myActionStep;
+    }
+
+
     /** @brief Returns the information whether the front of the vehicle is on the given lane
      * @return Whether the vehicle's front is on that lane
      */

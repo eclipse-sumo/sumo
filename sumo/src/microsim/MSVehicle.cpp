@@ -91,10 +91,10 @@
 //#define DEBUG_STOPS
 //#define DEBUG_BESTLANES
 //#define DEBUG_IGNORE_RED
-//#define DEBUG_COND (getID() == "ego")
+//#define DEBUG_COND (getID() == "blocker")
 //#define DEBUG_COND (isSelected())
 
-//#define DEBUG_ACTIONSTEPS
+//#define DEBUG_ACTIONSTEPLENGTH
 
 #define STOPPING_PLACE_OFFSET 0.5
 
@@ -1445,6 +1445,11 @@ MSVehicle::processNextStop(double currentVelocity) {
             if (myState.pos() >= reachedThreshold && fitsOnStoppingPlace && currentVelocity <= SUMO_const_haltingSpeed && myLane == stop.lane) {
                 // ok, we may stop (have reached the stop)
                 stop.reached = true;
+#ifdef DEBUG_STOPS
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " vehicle '" << getID() << "' reached next stop." << std::endl;
+                }
+#endif
                 if (MSStopOut::active()) {
                     MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber());
                 }
@@ -1544,7 +1549,7 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
     }
 #endif
     if (!checkActionStep(t)) {
-#ifdef DEBUG_ACTIONSTEPS
+#ifdef DEBUG_ACTIONSTEPLENGTH
     std::cout << STEPS2TIME(t) << " vehicle '" << getID() << "' skips action." << std::endl;
 #endif
         // Some action on the LCModel is needed here.
@@ -1555,43 +1560,44 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
         // If it was this vehicle checking for possible cooperative actions instead of the other
         // pushing cooperation requests, this would be easier to handle, probably.
         return;
-    }
-#ifdef DEBUG_ACTIONSTEPS
-    std::cout << STEPS2TIME(t) << " vehicle = '" << getID() << "' takes action." << std::endl;
+    } else {
+#ifdef DEBUG_ACTIONSTEPLENGTH
+        std::cout << STEPS2TIME(t) << " vehicle = '" << getID() << "' takes action." << std::endl;
 #endif
 
 
-    planMoveInternal(t, ahead, myLFLinkLanes, myStopDist);
+        planMoveInternal(t, ahead, myLFLinkLanes, myStopDist);
 #ifdef DEBUG_PLAN_MOVE
-    if (DEBUG_COND) {
-        DriveItemVector::iterator i;
-        for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
-            std::cout
-                    << " vPass=" << (*i).myVLinkPass
-                    << " vWait=" << (*i).myVLinkWait
-                    << " linkLane=" << ((*i).myLink == 0 ? "NULL" : (*i).myLink->getViaLaneOrLane()->getID())
-                    << " request=" << (*i).mySetRequest
-                    << "\n";
+        if (DEBUG_COND) {
+            DriveItemVector::iterator i;
+            for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
+                std::cout
+                << " vPass=" << (*i).myVLinkPass
+                << " vWait=" << (*i).myVLinkWait
+                << " linkLane=" << ((*i).myLink == 0 ? "NULL" : (*i).myLink->getViaLaneOrLane()->getID())
+                << " request=" << (*i).mySetRequest
+                << "\n";
+            }
         }
-    }
 #endif
-    checkRewindLinkLanes(lengthsInFront, myLFLinkLanes);
+        checkRewindLinkLanes(lengthsInFront, myLFLinkLanes);
 #ifdef DEBUG_PLAN_MOVE
-    if (DEBUG_COND) {
-        std::cout << " after checkRewindLinkLanes\n";
-        DriveItemVector::iterator i;
-        for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
-            std::cout
-                    << " vPass=" << (*i).myVLinkPass
-                    << " vWait=" << (*i).myVLinkWait
-                    << " linkLane=" << ((*i).myLink == 0 ? "NULL" : (*i).myLink->getViaLaneOrLane()->getID())
-                    << " request=" << (*i).mySetRequest
-                    << " atime=" << (*i).myArrivalTime
-                    << " atimeB=" << (*i).myArrivalTimeBraking
-                    << "\n";
+        if (DEBUG_COND) {
+            std::cout << " after checkRewindLinkLanes\n";
+            DriveItemVector::iterator i;
+            for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
+                std::cout
+                << " vPass=" << (*i).myVLinkPass
+                << " vWait=" << (*i).myVLinkWait
+                << " linkLane=" << ((*i).myLink == 0 ? "NULL" : (*i).myLink->getViaLaneOrLane()->getID())
+                << " request=" << (*i).mySetRequest
+                << " atime=" << (*i).myArrivalTime
+                << " atimeB=" << (*i).myArrivalTimeBraking
+                << "\n";
+            }
         }
-    }
 #endif
+    }
     getLaneChangeModel().resetChanged();
 }
 
@@ -2450,17 +2456,17 @@ MSVehicle::executeMove() {
     if (myActionStep) {
         // Actuate control (i.e. choose bounds for safe speed in current simstep (euler), resp. after current sim step (ballistic))
         processLinkAproaches(vSafe, vSafeMin, vSafeMinDist);
-#ifdef DEBUG_ACTIONSTEPS
-    std::cout << STEPS2TIME(t) << " vehicle '" << getID() << "'\n"
-            "vsafe processLinkApproaches(): vsafe " << vsafe << std::endl;
+#ifdef DEBUG_ACTIONSTEPLENGTH
+    std::cout << SIMTIME << " vehicle '" << getID() << "'\n"
+            "   vsafe from processLinkApproaches(): vsafe " << vSafe << std::endl;
 #endif
     } else {
         // Continue with current acceleration
         vSafe = getSpeed() + ACCEL2SPEED(myAcceleration);
-#ifdef DEBUG_ACTIONSTEPS
-    std::cout << STEPS2TIME(t) << " vehicle '" << getID() << "'\n"
-            "continues with constant accel " <<  myAcceleration << "...\n"
-            << "speed: "  << getSpeed() << " -> " << vsafe << std::endl;
+#ifdef DEBUG_ACTIONSTEPLENGTH
+    std::cout << SIMTIME << " vehicle '" << getID() << "' skips processLinkApproaches()\n"
+            "   continues with constant accel " <<  myAcceleration << "...\n"
+            << "speed: "  << getSpeed() << " -> " << vSafe << std::endl;
 #endif
     }
 
@@ -2473,7 +2479,7 @@ MSVehicle::executeMove() {
 
     // Determine vNext = speed after current sim step (ballistic), resp. in current simstep (euler)
     // Call to moveHelper applies speed reduction due to dawdling / lane changing but ensures minimum safe speed
-    double vNext = MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin);
+    double vNext = myActionStep ? MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin) : vSafe;
     // (Leo) to avoid tiny oscillations (< 1e-10) of vNext in a standing vehicle column (observed for ballistic update), we cap off vNext
     //       (We assure to do this only for vNext<<NUMERICAL_EPS since otherwise this would nullify the workaround for #2995
     if (fabs(vNext) < 0.1*NUMERICAL_EPS*TS) {
@@ -2481,7 +2487,7 @@ MSVehicle::executeMove() {
     }
 #ifdef DEBUG_EXEC_MOVE
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " moveHelper vSafe=" << vSafe << " vSafeMin=" << vSafeMin << " vNext=" << vNext << "\n";
+        std::cout << SIMTIME << " moveHelper vSafe=" << vSafe << " vSafeMin=" << (vSafeMin==-std::numeric_limits<double>::max()?"-Inf":toString(vSafeMin)) << " vNext=" << vNext << "\n";
     }
 #endif
 
@@ -2555,7 +2561,14 @@ MSVehicle::executeMove() {
             setEmergencyBlueLight(MSNet::getInstance()->getCurrentTimeStep());
         }
         // State needs to be reset for all vehicles before the next call to MSEdgeControl::changeLanes
-        getLaneChangeModel().prepareStep();
+        if (myActionStep) {
+            // check (#2681): Can this be skipped?
+            getLaneChangeModel().prepareStep();
+        } else {
+#ifdef DEBUG_ACTIONSTEPLENGTH
+            std::cout<< SIMTIME << " veh '" << getID() << "' skips LCM->prepareStep()." << std::endl;
+#endif
+        }
         myAngle = computeAngle();
     }
 
