@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 19 15:32:07 2017 by SUMO Version svn
+<!-- generated on Fri Oct 20 19:05:40 2017 by SUMO Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -27,6 +27,6 @@
 -->
 
 <lanechanges>
-    <change id="overtaking" type="emergency" time="66.00" from="VODUGES_beg_0" to="-VODUGES_beg_0" dir="1" speed="12.65" pos="818.37" reason="" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="26.61" origLeaderSecureGap="30.44"/>
-    <change id="overtaking" type="emergency" time="85.00" from="-VODUGES_beg_0" to="VODUGES_beg_0" dir="-1" speed="13.72" pos="926.99" reason="" leaderGap="None" leaderSecureGap="None" followerGap="66.51" followerSecureGap="0.00" origLeaderGap="None" origLeaderSecureGap="None"/>
+    <change id="overtaking" type="emergency" time="67.00" from="VODUGES_beg_0" to="-VODUGES_beg_0" dir="1" speed="11.40" pos="828.01" reason="" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="16.97" origLeaderSecureGap="25.85"/>
+    <change id="overtaking" type="emergency" time="86.00" from="-VODUGES_beg_0" to="VODUGES_beg_0" dir="-1" speed="13.03" pos="920.37" reason="" leaderGap="None" leaderSecureGap="None" followerGap="73.13" followerSecureGap="0.00" origLeaderGap="None" origLeaderSecureGap="None"/>
 </lanechanges>
