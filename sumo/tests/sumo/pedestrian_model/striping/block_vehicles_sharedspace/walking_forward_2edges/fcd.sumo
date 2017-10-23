@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Oct 23 13:33:11 2017 by SUMO Version dev-SVN-r26667
+<!-- generated on Mon Oct 23 15:41:20 2017 by SUMO Version dev-SVN-r26667
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -29,7 +29,7 @@
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <vehicle id="v0" x="104.95" y="50.00" angle="0.00" type="car" speed="20.84" pos="50.00" lane="SC_0" slope="0.00"/>
+        <vehicle id="v0" x="104.95" y="50.00" angle="0.00" type="car" speed="20.07" pos="50.00" lane="SC_0" slope="0.00"/>
         <person id="p0" x="106.23" y="108.05" angle="0.00" speed="0.00" pos="0.00" edge="CN" slope="0.00"/>
     </timestep>
     <timestep time="1.00">

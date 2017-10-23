@@ -702,6 +702,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     return false;
                 }
             }
+            if (!nextLane->checkForPedestrians(aVehicle, speed, dist, -seen, patchSpeed)) {
+                return false;
+            }
             // check next lane's maximum velocity
             const double nspeed = cfModel.freeSpeed(aVehicle, speed, seen, nextLane->getVehicleMaxSpeed(aVehicle), true);
             if (nspeed < speed) {
@@ -3072,11 +3075,10 @@ MSLane::checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& di
                     << " isInsertionSuccess lane=" << getID()
                         << " veh=" << aVehicle->getID()
                         << " pos=" << pos
-                        << " posLat=" << posLat
+                        << " posLat=" << aVehicle->getLateralPositionOnLane()
                         << " patchSpeed=" << patchSpeed
                         << " speed=" << speed
-                        << " nspeed=" << nspeed
-                        << " nextLane=" << nextLane->getID()
+                        << " stopSpeed=" << stopSpeed
                         << " pedestrianLeader=" << leader.first->getID()
                         << " failed (@796)!\n";
 #endif
