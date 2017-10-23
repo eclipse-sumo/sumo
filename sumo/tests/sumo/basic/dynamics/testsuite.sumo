@@ -1,3 +1,6 @@
+# basic tests with action step length != simulation step length
+action_step_length
+
 # avoid spill back of jams onto a junction (checkRewindLinkLanes)
 avoid_spill_back
 

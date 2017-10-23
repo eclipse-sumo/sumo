@@ -1,0 +1,6 @@
+# Test speed adaption when changing to a consecutive lane with lower speed.
+adapt_speed_to_new_lane
+
+# tests stopping to the point
+# 
+stop_at_point
