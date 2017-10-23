@@ -87,7 +87,7 @@ MSCFModel::brakeGapEuler(const double speed, const double decel, const double he
 
 
 double
-MSCFModel::freeSpeed(const double currentSpeed, const double decel, const double dist, const double targetSpeed, const bool onInsertion) {
+MSCFModel::freeSpeed(const double currentSpeed, const double decel, const double dist, const double targetSpeed, const bool onInsertion, const double actionStepLength) {
     // XXX: (Leo) This seems to be exclusively called with decel = myDecel (max deceleration) and is not overridden
     // by any specific CFModel. That may cause undesirable hard braking (at junctions where the vehicle
     // changes to a road with a lower speed limit).
@@ -112,7 +112,7 @@ MSCFModel::freeSpeed(const double currentSpeed, const double decel, const double
         // ballistic update (Leo)
         // calculate maximum next speed vN that is adjustable to vT=targetSpeed after a distance d=dist
         // and given a maximal deceleration b=decel, denote the current speed by v0.
-        // the distance covered by a trajectory that attains vN in the next timestep and decelerates afterwards
+        // the distance covered by a trajectory that attains vN in the next action step (length=dt) and decelerates afterwards
         // with b is given as
         // d = 0.5*dt*(v0+vN) + (t-dt)*vN - 0.5*b*(t-dt)^2, (1)
         // where time t of arrival at d with speed vT is
@@ -125,7 +125,7 @@ MSCFModel::freeSpeed(const double currentSpeed, const double decel, const double
         assert(currentSpeed >= 0);
         assert(targetSpeed >= 0);
 
-        const double dt = onInsertion ? 0 : TS; // handles case that vehicle is inserted just now (at the end of move)
+        const double dt = onInsertion ? 0 : actionStepLength; // handles case that vehicle is inserted just now (at the end of move)
         const double v0 = currentSpeed;
         const double vT = targetSpeed;
         const double b = decel;
@@ -138,13 +138,16 @@ MSCFModel::freeSpeed(const double currentSpeed, const double decel, const double
         // 2) We ignore the (possible) constraint vN >= v0 - b*dt, which could lead to a problem if v0 - t*b > vT.
         //    (moveHelper() is responsible for assuring that the next velocity is chosen in accordance with maximal decelerations)
 
+        // If implied accel a leads to v0 + a*asl < vT, choose acceleration s.th. v0 + a*asl = vT
         if (0.5 * (v0 + vT)*dt >= d) {
-            return vT;    // (#)
+            // Attain vT after time asl
+            return v0 + TS*(vT-v0)/actionStepLength;
+        } else {
+            const double q = ((dt * v0 - 2 * d) * b - vT * vT); // (q < 0 is fulfilled because of (#))
+            const double p = 0.5 * b * dt;
+            const double vN = -p + sqrt(p * p - q); // target speed at time t0+asl
+            return v0 + TS*(vN-v0)/actionStepLength;
         }
-
-        const double q = ((dt * v0 - 2 * d) * b - vT * vT); // (q < 0 is fulfilled because of (#))
-        const double p = 0.5 * b * dt;
-        return -p + sqrt(p * p - q);
     }
 }
 
@@ -175,7 +178,6 @@ MSCFModel::moveHelper(MSVehicle* const veh, double vPos) const {
         // vNext can be a large negative value at this point. We cap vNext here.
         vNext = MAX2(vNext, vMin);
     }
-
     return vNext;
 }
 
@@ -215,8 +217,8 @@ MSCFModel::minNextSpeed(double speed, const MSVehicle* const /*veh*/) const {
 
 
 double
-MSCFModel::freeSpeed(const MSVehicle* const /* veh */, double speed, double seen, double maxSpeed, const bool onInsertion) const {
-    double vSafe = freeSpeed(speed, myDecel, seen, maxSpeed, onInsertion);
+MSCFModel::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion) const {
+    double vSafe = freeSpeed(speed, myDecel, seen, maxSpeed, onInsertion, STEPS2TIME(veh->getActionStepLength()));
     return vSafe;
 }
 
@@ -666,7 +668,7 @@ MSCFModel::maximumSafeStopSpeedBallistic(double g /*gap*/, double v /*currentSpe
 
     // In the usual case during the driving task, the vehicle goes by
     // a current speed v0=v, and we seek to determine a safe acceleration a (possibly <0)
-    // such that starting to break after accelerating with a for the time tau
+    // such that starting to break after accelerating with a for the time tau=headway
     // still allows us to stop in time.
 
     const double tau = headway;

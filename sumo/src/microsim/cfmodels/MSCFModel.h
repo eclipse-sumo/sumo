@@ -294,7 +294,7 @@ public:
 
     static double brakeGapEuler(const double speed, const double decel, const double headwayTime);
 
-    static double freeSpeed(const double currentSpeed, const double decel, const double dist, const double maxSpeed, const bool onInsertion);
+    static double freeSpeed(const double currentSpeed, const double decel, const double dist, const double maxSpeed, const bool onInsertion, const double actionStepLength);
 
     /** @brief Returns the minimum gap to reserve if the leader is braking at maximum (>=0)
       * @param[in] speed EGO's speed
