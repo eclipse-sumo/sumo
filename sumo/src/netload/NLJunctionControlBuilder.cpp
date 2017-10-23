@@ -107,6 +107,7 @@ NLJunctionControlBuilder::openJunction(const std::string& id,
     myType = type;
     myPosition.set(x, y);
     myShape = shape;
+    myAdditionalParameter.clear();
 }
 
 
@@ -155,6 +156,7 @@ NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
             throw InvalidArgument("Another junction with the id '" + myActiveID + "' exists.");
         }
     }
+    junction->updateParameter(myAdditionalParameter);
 }
 
 

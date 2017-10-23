@@ -70,7 +70,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myCurrentIsInternalToSkip(false),
     myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
     myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
-    myAmInTLLogicMode(false), myCurrentIsBroken(false),
+    myAmParsingTLLogicOrJunction(false), myCurrentIsBroken(false),
     myHaveWarnedAboutDeprecatedLanes(false),
     myLastParameterised(0),
     myHaveSeenInternalEdge(false),
@@ -256,6 +256,7 @@ NLHandler::myEndElement(int element) {
                     WRITE_ERROR(e.what());
                 }
             }
+            myAmParsingTLLogicOrJunction = false;
             break;
         case SUMO_TAG_TLLOGIC:
             if (!myCurrentIsBroken) {
@@ -265,7 +266,7 @@ NLHandler::myEndElement(int element) {
                     WRITE_ERROR(e.what());
                 }
             }
-            myAmInTLLogicMode = false;
+            myAmParsingTLLogicOrJunction = false;
             break;
         case SUMO_TAG_WAUT:
             closeWAUT();
@@ -525,7 +526,7 @@ NLHandler::addParam(const SUMOSAXAttributes& attrs) {
         myLastParameterised->setParameter(key, val);
     }
     // set
-    if (ok && myAmInTLLogicMode) {
+    if (ok && myAmParsingTLLogicOrJunction) {
         assert(key != "");
         assert(val != "");
         myJunctionControlBuilder.addParam(key, val);
@@ -630,6 +631,7 @@ NLHandler::initJunctionLogic(const SUMOSAXAttributes& attrs) {
     if (myCurrentIsBroken) {
         return;
     }
+    myAmParsingTLLogicOrJunction = true;
     bool ok = true;
     // we either a have a junction or a legacy network with ROWLogic
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
@@ -642,7 +644,7 @@ NLHandler::initJunctionLogic(const SUMOSAXAttributes& attrs) {
 void
 NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
     myCurrentIsBroken = false;
-    myAmInTLLogicMode = true;
+    myAmParsingTLLogicOrJunction = true;
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");

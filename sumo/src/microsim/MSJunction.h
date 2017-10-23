@@ -38,6 +38,7 @@
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/Named.h>
+#include <utils/common/Parameterised.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -60,7 +61,7 @@ typedef std::vector<const MSEdge*> ConstMSEdgeVector;
  * @class MSJunction
  * @brief The base class for an intersection
  */
-class MSJunction : public Named {
+class MSJunction : public Named, public Parameterised {
 public:
     /** @brief Constructor
      * @param[in] id The id of the junction

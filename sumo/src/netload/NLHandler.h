@@ -320,7 +320,7 @@ protected:
     std::string myCurrentDistrictID;
 
     /// internal information whether a tls-logic is currently read
-    bool myAmInTLLogicMode;
+    bool myAmParsingTLLogicOrJunction;
 
     /// The id of the currently processed WAUT
     std::string myCurrentWAUTID;

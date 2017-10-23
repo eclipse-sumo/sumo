@@ -96,15 +96,21 @@ GUIJunctionWrapper::getPopUpMenu(GUIMainWindow& app,
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
+    buildShowParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
     return ret;
 }
 
 
 GUIParameterTableWindow*
-GUIJunctionWrapper::getParameterWindow(GUIMainWindow& /*app*/,
-                                       GUISUMOAbstractView&) {
-    return 0;
+GUIJunctionWrapper::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
+    GUIParameterTableWindow* ret =
+        new GUIParameterTableWindow(app, *this, 12 + (int)myJunction.getMap().size());
+    // add items
+    ret->mkItem("type", false, toString(myJunction.getType()));
+    // close building
+    ret->closeBuilding(&myJunction);
+    return ret;
 }
 
 
