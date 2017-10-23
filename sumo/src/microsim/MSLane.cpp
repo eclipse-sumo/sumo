@@ -792,6 +792,49 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
         }
     }
+
+    // check for pedestrians on the insertion lane
+    if (getEdge().getPersons().size() > 0 && MSPModel::getModel()->hasPedestrians(this)) {
+#ifdef DEBUG_INSERTION
+        if (DEBUG_COND2(aVehicle)) {
+            std::cout << SIMTIME << " check for pedestrians on lane=" << getID() << " pos=" << pos << "\n";
+        }
+#endif
+        PersonDist leader = MSPModel::getModel()->nextBlocking(this, pos - aVehicle->getVehicleType().getLength(),
+                aVehicle->getRightSideOnLane(), aVehicle->getRightSideOnLane() + aVehicle->getVehicleType().getWidth(), ceil(speed / aVehicle->getCarFollowModel().getMaxDecel()));
+        if (leader.first != 0) {
+            const double gap = leader.second - aVehicle->getVehicleType().getLengthWithGap();
+            const double stopSpeed = aVehicle->getCarFollowModel().stopSpeed(aVehicle, speed, gap);
+            if (gap < 0 || checkFailure(aVehicle, speed, dist, stopSpeed, patchSpeed, "")) {
+                // we may not drive with the given velocity - we crash into the pedestrian
+#ifdef DEBUG_INSERTION
+                if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
+                    << " isInsertionSuccess lane=" << getID()
+                        << " veh=" << aVehicle->getID()
+                        << " pos=" << pos
+                        << " posLat=" << posLat
+                        << " patchSpeed=" << patchSpeed
+                        << " speed=" << speed
+                        << " nspeed=" << nspeed
+                        << " nextLane=" << nextLane->getID()
+                        << " pedestrianLeader=" << leader.first->getID()
+                        << " failed (@821)!\n";
+#endif
+                return false;
+    }
+
+
+
+#ifdef DEBUG_PLAN_MOVE
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << "    pedLeader=" << leader.first->getID() << " dist=" << leader.second << " v=" << v << "\n";
+            }
+#endif
+        }
+    }
+
+
+
     MSLane* shadowLane = aVehicle->getLaneChangeModel().getShadowLane(this);
 #ifdef DEBUG_INSERTION
     if (DEBUG_COND2(aVehicle)) {
