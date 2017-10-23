@@ -276,7 +276,7 @@ public:
                             MSMoveReminder::Notification notification);
 
     // XXX: Documentation?
-    bool checkFailure(MSVehicle* aVehicle, double& speed, double& dist, const double nspeed, const bool patchSpeed, const std::string errorMsg) const;
+    bool checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, const double nspeed, const bool patchSpeed, const std::string errorMsg) const;
 
     /** @brief inserts vehicle as close as possible to the last vehicle on this
      * lane (or at the end of the lane if there is no leader)
@@ -1104,6 +1104,9 @@ protected:
 
     /// @brief departure position where the vehicle fits fully onto the lane (if possible)
     double basePos(const MSVehicle& veh) const;
+
+    /// @brief check whether pedestrians on this lane interfere with vehicle insertion
+    bool checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& dist, double pos, bool patchSpeed) const;
 
     /// Unique numerical ID (set on reading by netload)
     int myNumericalID;

@@ -137,7 +137,7 @@ public:
     void alreadyDeparted(SUMOVehicle* veh);
 
     /// @brief stops trying to emit the given vehicle (and delete it)
-    void descheduleDeparture(SUMOVehicle* veh);
+    void descheduleDeparture(const SUMOVehicle* veh);
 
 
     /// @brief clears out all pending vehicles from a route, "" for all routes
@@ -196,7 +196,7 @@ private:
     std::set<SUMOVehicle*> myEmitCandidates;
 
     /// @brief Set of vehicles which shall not be inserted anymore
-    std::set<SUMOVehicle*> myAbortedEmits;
+    std::set<const SUMOVehicle*> myAbortedEmits;
 
     /** @struct Stop
      * @brief Definition of vehicle stop (position and duration)

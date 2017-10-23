@@ -250,7 +250,7 @@ MSInsertionControl::getPendingFlowCount() const {
 
 
 void
-MSInsertionControl::descheduleDeparture(SUMOVehicle* veh) {
+MSInsertionControl::descheduleDeparture(const SUMOVehicle* veh) {
     myAbortedEmits.insert(veh);
 }
 
