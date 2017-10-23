@@ -135,6 +135,9 @@
         <!-- Write vehroute output for vehicles which have not arrived at simulation end -->
         <vehroute-output.write-unfinished value="false" type="BOOL"/>
 
+        <!-- Skip vehroute output for public transport vehicles -->
+        <vehroute-output.skip-ptlines value="false" type="BOOL"/>
+
         <!-- Save links states into FILE -->
         <link-output value="" type="FILE"/>
 
@@ -146,6 +149,12 @@
 
         <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
         <stop-output value="" type="FILE"/>
+
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR"/>
 
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
@@ -494,9 +503,6 @@
 
         <!-- Expected number of connecting clients -->
         <num-clients value="1" type="INT"/>
-
-        <!-- Runs TraCI script with embedded python -->
-        <python-script value="" type="STR"/>
 
     </traci_server>
 

@@ -51,10 +51,13 @@
         <vehroute-output.intended-depart value="false" synonymes="vehroutes.intended-depart" type="BOOL" help="Write the output with the intended instead of the real departure time"/>
         <vehroute-output.route-length value="false" synonymes="vehroutes.route-length" type="BOOL" help="Include total route length in the output"/>
         <vehroute-output.write-unfinished value="false" type="BOOL" help="Write vehroute output for vehicles which have not arrived at simulation end"/>
+        <vehroute-output.skip-ptlines value="false" type="BOOL" help="Skip vehroute output for public transport vehicles"/>
         <link-output value="" type="FILE" help="Save links states into FILE"/>
         <bt-output value="" type="FILE" help="Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender)"/>
         <lanechange-output value="" type="FILE" help="Record lane changes and their motivations for all vehicles into FILE"/>
         <stop-output value="" type="FILE" help="Record stops and loading/unloading of passenger and containers for all vehicles into FILE"/>
+        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
+        <movereminder-output.vehicles value="" type="STR" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
@@ -193,7 +196,6 @@
     <traci_server>
         <remote-port value="0" type="INT" help="Enables TraCI Server if set"/>
         <num-clients value="1" type="INT" help="Expected number of connecting clients"/>
-        <python-script value="" type="STR" help="Runs TraCI script with embedded python"/>
     </traci_server>
 
     <mesoscopic>

@@ -52,6 +52,9 @@ write_unfinished_exit_times
 # output of person route
 with_person
 
+# output of stops
+with_stops
+
 # one vehicle with route distribution in input
 route_dist
 
