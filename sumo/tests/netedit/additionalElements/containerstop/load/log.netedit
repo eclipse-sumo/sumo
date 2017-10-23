@@ -1,17 +1,20 @@
 Warning: Adding containerStop 'containerStop_00' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Essential string attribute 'id' of containerStop is missing; containerStop cannot be created
+Warning: Essential string attribute 'lane' of containerStop is missing; containerStop cannot be created
+Warning: Essential float attribute 'startPos' of containerStop is missing; containerStop cannot be created
+Warning: Essential float attribute 'endPos' of containerStop is missing; containerStop cannot be created
 Warning: Essential string attribute 'id' of containerStop is missing; containerStop cannot be created
 Warning: The id 'id with spaces' of additional containerStop contains invalid characters.
 Warning: There is another containerStop with the same ID='containerStop_00'.
 Warning: Essential string attribute 'lane' of containerStop with ID 'containerStop_01' is missing; containerStop cannot be created
 Warning: The lane 'dummyLane' to use within the containerStop 'containerStop_02' is not known.
 Warning: Essential float attribute 'startPos' of containerStop with ID 'containerStop_03' is missing; containerStop cannot be created
-Warning: Format of essential float attribute 'startPos' of containerStop with ID 'containerStop_04' is invalid; Cannot be parsed to float; containerStop cannot be created
+Warning: Format of essential float attribute 'startPos' of containerStop with ID 'containerStop_04' is invalid; containerStop cannot be created
 Warning: Invalid position for containerStop with ID = 'containerStop_05'.
 Warning: Invalid position for containerStop with ID = 'containerStop_06'.
 Warning: Essential float attribute 'endPos' of containerStop with ID 'containerStop_07' is missing; containerStop cannot be created
-Warning: Format of essential float attribute 'endPos' of containerStop with ID 'containerStop_08' is invalid; Cannot be parsed to float; containerStop cannot be created
+Warning: Format of essential float attribute 'endPos' of containerStop with ID 'containerStop_08' is invalid; containerStop cannot be created
 Warning: Invalid position for containerStop with ID = 'containerStop_09'.
 Warning: Invalid position for containerStop with ID = 'containerStop_10'.
 Warning: Adding containerStop 'containerStop_11' in GNEChange_Additional
