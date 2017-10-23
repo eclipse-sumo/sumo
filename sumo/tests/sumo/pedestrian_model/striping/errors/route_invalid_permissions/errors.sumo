@@ -1,2 +1,2 @@
-Error: Pedestrian 'p0' could not find sidewalk on edge 'end', time=0.00.
+Error: Person 'p0' could not find sidewalk on edge 'end', time=0.00.
 Quitting (on error).
