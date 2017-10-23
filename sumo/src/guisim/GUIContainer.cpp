@@ -131,19 +131,39 @@ GUIParameterTableWindow*
 GUIContainer::getParameterWindow(GUIMainWindow& app,
                                  GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 8);
+        new GUIParameterTableWindow(app, *this, 12 + (int)getParameter().getMap().size());
     // add items
-    //ret->mkItem("type [NAME]", false, myType->getID());
     ret->mkItem("stage", false, getCurrentStageDescription());
     ret->mkItem("start edge [id]", false, getFromEdge()->getID());
     ret->mkItem("dest edge [id]", false, getDestination().getID());
     ret->mkItem("edge [id]", false, getEdge()->getID());
     ret->mkItem("position [m]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getEdgePos));
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getSpeed));
+    ret->mkItem("speed factor", false, getSpeedFactor());
     ret->mkItem("angle [degree]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getAngle));
     ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getWaitingSeconds));
+    ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
     // close building
-    ret->closeBuilding();
+    ret->closeBuilding(&getParameter());
+    return ret;
+}
+
+
+GUIParameterTableWindow*
+GUIContainer::getTypeParameterWindow(GUIMainWindow& app,
+                                  GUISUMOAbstractView&) {
+    GUIParameterTableWindow* ret =
+        new GUIParameterTableWindow(app, *this, 8 + (int)myVType->getParameter().getMap().size());
+    // add items
+    ret->mkItem("Type Information:", false, "");
+    ret->mkItem("type [id]", false, myVType->getID());
+    ret->mkItem("length", false, myVType->getLength());
+    ret->mkItem("width", false, myVType->getWidth());
+    ret->mkItem("height", false, myVType->getHeight());
+    ret->mkItem("minGap", false, myVType->getMinGap());
+    ret->mkItem("maximum speed [m/s]", false, myVType->getMaxSpeed());
+    // close building
+    ret->closeBuilding(&(myVType->getParameter()));
     return ret;
 }
 

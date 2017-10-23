@@ -206,7 +206,7 @@ GUIParameterTableWindow*
 GUIPerson::getParameterWindow(GUIMainWindow& app,
                               GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 15);
+        new GUIParameterTableWindow(app, *this, 12 + (int)getParameter().getMap().size());
     // add items
     ret->mkItem("stage", false, getCurrentStageDescription());
     ret->mkItem("start edge [id]", false, getFromEdge()->getID());
@@ -217,8 +217,9 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("speed factor", false, getSpeedFactor());
     ret->mkItem("angle [degree]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getNaviDegree));
     ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getWaitingSeconds));
+    ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
     // close building
-    ret->closeBuilding();
+    ret->closeBuilding(&getParameter());
     return ret;
 }
 
@@ -240,7 +241,6 @@ GUIPerson::getTypeParameterWindow(GUIMainWindow& app,
     ret->closeBuilding(&(myVType->getParameter()));
     return ret;
 }
-
 
 
 Boundary
