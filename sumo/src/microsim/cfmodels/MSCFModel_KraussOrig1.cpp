@@ -58,10 +58,6 @@ double
 MSCFModel_KraussOrig1::moveHelper(MSVehicle* const veh, double vPos) const {
     const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
     const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
-    // we need the acceleration for emission computation;
-    //  in this case, we neglect dawdling, nonetheless, using
-    //  vSafe does not incorporate speed reduction due to interaction
-    //  on lane changing
     const double vMin = minNextSpeed(oldV, veh);
     // do not exceed max decel even if it is unsafe
     double vMax = MAX2(vMin,
