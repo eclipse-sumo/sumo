@@ -2476,7 +2476,7 @@ MSVehicle::executeMove() {
     double vNext = MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin);
     // (Leo) to avoid tiny oscillations (< 1e-10) of vNext in a standing vehicle column (observed for ballistic update), we cap off vNext
     //       (We assure to do this only for vNext<<NUMERICAL_EPS since otherwise this would nullify the workaround for #2995
-    if (fabs(vNext) < 0.1*NUMERICAL_EPS) {
+    if (fabs(vNext) < 0.1*NUMERICAL_EPS*TS) {
         vNext = 0.;
     }
 #ifdef DEBUG_EXEC_MOVE
@@ -2587,19 +2587,15 @@ MSVehicle::updateState(double vNext) {
     // update position and speed
     double deltaPos; // positional change
     if (MSGlobals::gSemiImplicitEulerUpdate) {
+        // euler
         deltaPos = SPEED2DIST(vNext);
     } else {
         // ballistic
-        // XXX: this is ok for the euler update, too. However, small differences
-        //		will to the above formula result from rounding. (introduced this too have
-        // 		exact cooincidence of test results, refactor after merge to trunk)
         deltaPos = getDeltaPos(SPEED2ACCEL(vNext - myState.mySpeed));
     }
 
     // the *mean* acceleration during the next step (probably most appropriate for emission calculation)
-    // TODO: recheck, approve, refs. #2579
-    // NOTE: for the ballistic update this is in general
-    // not equal to  vNext - myState.mySpeed
+    // NOTE: for the ballistic update vNext may be negative, indicating a stop.
     myAcceleration = SPEED2ACCEL(MAX2(vNext, 0.) - myState.mySpeed);
 
 //#ifdef DEBUG_EXEC_MOVE
