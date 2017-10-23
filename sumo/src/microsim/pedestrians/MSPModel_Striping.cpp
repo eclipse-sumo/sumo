@@ -134,7 +134,7 @@ MSPModel_Striping::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage,
     assert(person->getCurrentStageType() == MSTransportable::MOVING_WITHOUT_VEHICLE);
     const MSLane* lane = getSidewalk<MSEdge, MSLane>(person->getEdge());
     if (lane == 0) {
-        std::string error = "Pedestrian '" + person->getID() + "' could not find sidewalk on edge '" + person->getEdge()->getID() + "', time="
+        std::string error = "Person '" + person->getID() + "' could not find sidewalk on edge '" + person->getEdge()->getID() + "', time="
                             + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".";
         if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
             WRITE_WARNING(error);
@@ -387,7 +387,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
     int nextDir = UNDEFINED_DIRECTION;
 
     if (nextRouteLane == 0 && nextRouteEdge != 0) {
-        std::string error = "Pedestrian '" + ped.myPerson->getID() + "' could not find sidewalk on edge '" + nextRouteEdge->getID() + "', time="
+        std::string error = "Person '" + ped.myPerson->getID() + "' could not find sidewalk on edge '" + nextRouteEdge->getID() + "', time="
                             + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".";
         if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
             WRITE_WARNING(error);
@@ -461,7 +461,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                               << "' to '" << (nextRouteEdge == 0 ? "NULL" : nextRouteEdge->getID())
                               << "\n";
                 }
-                WRITE_WARNING("Pedestrian '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID() + "', time=" +
+                WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID() + "', time=" +
                               time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 // error indicated by nextDir == UNDEFINED_DIRECTION
             }

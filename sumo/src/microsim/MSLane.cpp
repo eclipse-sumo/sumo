@@ -1226,7 +1226,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             if (leader.first != 0 && leader.second < length) {
                 WRITE_WARNING(
                     "Vehicle '" + v->getID()
-                    + "' collision with pedestrian '" + leader.first->getID()
+                    + "' collision with person '" + leader.first->getID()
                     + "', lane='" + getID()
                     + "', gap=" + toString(leader.second - length)
                     + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
@@ -1274,7 +1274,7 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
             if (colliderBoundary.overlapsWith((*it_p)->getBoundingBox())) {
                 WRITE_WARNING(
                     "Vehicle '" + collider->getID()
-                    + "' collision with pedestrian '" + (*it_p)->getID()
+                    + "' collision with person '" + (*it_p)->getID()
                     + "', lane='" + getID()
                     + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
                     + " stage=" + stage + ".");
