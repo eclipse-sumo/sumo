@@ -638,7 +638,7 @@ TraCI_Vehicle::setStop(const std::string& vehicleID,
         stoppingPlaceType = SUMO_TAG_BUS_STOP;
     }
     if ((flags & 16) != 0) {
-        stoppingPlaceType = SUMO_TAG_BUS_STOP;
+        stoppingPlaceType = SUMO_TAG_CONTAINER_STOP;
     }
     if ((flags & 32) != 0) {
         stoppingPlaceType = SUMO_TAG_CHARGING_STATION;
