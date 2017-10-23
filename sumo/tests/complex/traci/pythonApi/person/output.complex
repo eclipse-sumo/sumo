@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:43304 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:48181 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -12,7 +12,7 @@ persons ['detour', 'detour2', 'horiz', 'newPerson', 'tripTest']
 person count 5
 examining horiz
 speed 1.22501255666
-pos (759.1336009754515, 504.975)
+pos (759.1336009754515, 504.95000000000005)
 angle 270.0
 road 2fi
 type pType2@horiz
@@ -37,7 +37,7 @@ persons ['detour', 'detour2', 'horiz', 'newPerson', 'tripTest']
 person count 5
 examining horiz
 speed 1.29945443516
-pos (755.3334206637228, 504.975)
+pos (755.3334206637228, 504.95000000000005)
 angle 270.0
 road 2fi
 type pType2@horiz

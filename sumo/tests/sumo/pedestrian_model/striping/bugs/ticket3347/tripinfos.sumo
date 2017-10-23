@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep  5 22:04:42 2017 by SUMO Version dev-SVN-r24506
+<!-- generated on Mon Oct 23 13:46:23 2017 by SUMO Version dev-SVN-r26667
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -38,10 +38,10 @@
     <personinfo id="p1" depart="11.00">
         <walk depart="11.00" arrival="102.00" arrivalPos="90.45"/>
     </personinfo>
-    <personinfo id="p3" depart="13.00">
-        <walk depart="13.00" arrival="102.00" arrivalPos="90.45"/>
-    </personinfo>
     <personinfo id="p2" depart="12.00">
         <walk depart="12.00" arrival="102.00" arrivalPos="90.45"/>
+    </personinfo>
+    <personinfo id="p3" depart="13.00">
+        <walk depart="13.00" arrival="102.00" arrivalPos="90.45"/>
     </personinfo>
 </tripinfos>

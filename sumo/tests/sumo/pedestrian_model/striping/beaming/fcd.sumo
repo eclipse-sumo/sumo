@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/01/15 08:56:52 by SUMO Version dev-SVN-r19469
+<!-- generated on Mon Oct 23 13:46:23 2017 by SUMO Version dev-SVN-r26667
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -29,10 +29,10 @@
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <person id="test" x="99.05" y="497.68" angle="90.00" speed="0.00" pos="100.00" edge="beg" slope="0.00"/>
+        <person id="test" x="99.05" y="497.07" angle="90.00" speed="0.00" pos="100.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="1.00">
-        <person id="test" x="1603.31" y="497.68" angle="90.00" speed="499.50" pos="99.50" edge="end" slope="0.00"/>
+        <person id="test" x="1603.31" y="497.07" angle="90.00" speed="499.50" pos="99.50" edge="end" slope="0.00"/>
     </timestep>
     <timestep time="2.00">
         <person id="test" x="1603.80" y="495.35" angle="0.00" speed="0.00" pos="100.00" edge="end" slope="0.00"/>

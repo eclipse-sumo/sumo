@@ -150,12 +150,6 @@
         <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
         <stop-output value="" type="FILE"/>
 
-        <!-- Save movereminder states of selected vehicles into FILE -->
-        <movereminder-output value="" type="FILE"/>
-
-        <!-- List of vehicle ids which shall save their movereminder states -->
-        <movereminder-output.vehicles value="" type="STR"/>
-
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -271,7 +265,7 @@
         <pedestrian.model value="striping" type="STR"/>
 
         <!-- Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos; -->
-        <pedestrian.striping.stripe-width value="0.65" type="FLOAT"/>
+        <pedestrian.striping.stripe-width value="0.64" type="FLOAT"/>
 
         <!-- factor for random slow-downs [0,1] for use with model &apos;striping&apos; -->
         <pedestrian.striping.dawdling value="0.2" type="FLOAT"/>
@@ -504,6 +498,9 @@
         <!-- Expected number of connecting clients -->
         <num-clients value="1" type="INT"/>
 
+        <!-- Runs TraCI script with embedded python -->
+        <python-script value="" type="STR"/>
+
     </traci_server>
 
     <mesoscopic>
@@ -587,9 +584,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

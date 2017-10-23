@@ -1,5 +1,5 @@
 <routes>    
-    <vType id="car" sigma="0" speedFactor="1.5"/>
+    <vType id="car" sigma="0" speedFactor="1.5" width="2.1"/>
     <person id="p0" depart="0">
         <walk edges="CN" departPos="0.0"/>
     </person>
