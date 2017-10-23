@@ -68,12 +68,6 @@ GNEDetectorEntry::~GNEDetectorEntry() {}
 
 void
 GNEDetectorEntry::updateGeometry() {
-    myE3Parent->updateGeometry();
-}
-
-
-void
-GNEDetectorEntry::updateGeometryByParent() {
     // Clear all containers
     myShapeRotations.clear();
     myShapeLengths.clear();
@@ -96,6 +90,9 @@ GNEDetectorEntry::updateGeometryByParent() {
 
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshElement(this);
+
+    // update yellow connections between Entry and their parent
+    myE3Parent->updateGeometryConnections();
 }
 
 

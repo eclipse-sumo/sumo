@@ -68,9 +68,6 @@ public:
     /// @brief get E3 Detector parent
     GNEDetectorE3* getE3Parent() const;
 
-    /// @brief update pre-computed geometry information called by E3 parent
-    void updateGeometryByParent();
-
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information

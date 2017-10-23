@@ -94,6 +94,9 @@ public:
     /// @brief get number of exit childs
     int getNumberOfExitChilds() const;
 
+    /// @brief update Connection's geometry
+    void updateGeometryConnections();
+
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
@@ -177,14 +180,11 @@ private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief update Connection's geometry
-    void updateGeometryConnections();
-
     /// @brief Invalidated copy constructor.
-    GNEDetectorE3(const GNEDetectorE3&);
+    GNEDetectorE3(const GNEDetectorE3&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEDetectorE3& operator=(const GNEDetectorE3&);
+    GNEDetectorE3& operator=(const GNEDetectorE3&) = delete;
 };
 
 #endif

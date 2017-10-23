@@ -91,21 +91,6 @@ GNEDetectorE3::updateGeometry() {
     // Set position
     myShape.push_back(myPosition);
 
-
-    // Clear all containers
-    myShapeRotations.clear();
-    myShapeLengths.clear();
-
-    // iterate over entry childs and update their gemometries
-    for (auto i : myGNEDetectorEntrys) {
-        i->updateGeometryByParent();
-    }
-
-    // iterate over entry childs and update their gemometries
-    for (auto i : myGNEDetectorExits) {
-        i->updateGeometryByParent();
-    }
-
     // Update connection's geometry
     updateGeometryConnections();
 
@@ -271,6 +256,58 @@ GNEDetectorE3::getNumberOfExitChilds() const {
 
 
 void
+GNEDetectorE3::updateGeometryConnections() {
+    myConnectionPositions.clear();
+    // Iterate over Entrys
+    for (std::vector<GNEDetectorEntry*>::iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
+        std::vector<Position> posConnection;
+        double A = std::abs((*i)->getPositionInView().x() - getPositionInView().x());
+        double B = std::abs((*i)->getPositionInView().y() - getPositionInView().y());
+        // Set positions of connection's vertex. Connection is build from Entry to E3
+        posConnection.push_back((*i)->getPositionInView());
+        if (getPositionInView().x() > (*i)->getPositionInView().x()) {
+            if (getPositionInView().y() > (*i)->getPositionInView().y()) {
+                posConnection.push_back(Position((*i)->getPositionInView().x() + A, (*i)->getPositionInView().y()));
+            } else {
+                posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() - B));
+            }
+        } else {
+            if (getPositionInView().y() > (*i)->getPositionInView().y()) {
+                posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() + B));
+            } else {
+                posConnection.push_back(Position((*i)->getPositionInView().x() - A, (*i)->getPositionInView().y()));
+            }
+        }
+        posConnection.push_back(getPositionInView());
+        myConnectionPositions.push_back(posConnection);
+    }
+    // Iterate over exits
+    for (std::vector<GNEDetectorExit*>::iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
+        std::vector<Position> posConnection;
+        double A = std::abs((*i)->getPositionInView().x() - getPositionInView().x());
+        double B = std::abs((*i)->getPositionInView().y() - getPositionInView().y());
+        // Set positions of connection's vertex. Connection is build from Entry to E3
+        posConnection.push_back((*i)->getPositionInView());
+        if (getPositionInView().x() > (*i)->getPositionInView().x()) {
+            if (getPositionInView().y() > (*i)->getPositionInView().y()) {
+                posConnection.push_back(Position((*i)->getPositionInView().x() + A, (*i)->getPositionInView().y()));
+            } else {
+                posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() - B));
+            }
+        } else {
+            if (getPositionInView().y() > (*i)->getPositionInView().y()) {
+                posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() + B));
+            } else {
+                posConnection.push_back(Position((*i)->getPositionInView().x() - A, (*i)->getPositionInView().y()));
+            }
+        }
+        posConnection.push_back(getPositionInView());
+        myConnectionPositions.push_back(posConnection);
+    }
+}
+
+
+void
 GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     // Start drawing adding an gl identificator
     glPushName(getGlID());
@@ -417,58 +454,6 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // After setting attribute always update Geometry
     updateGeometry();
-}
-
-
-void
-GNEDetectorE3::updateGeometryConnections() {
-    myConnectionPositions.clear();
-    // Iterate over Entrys
-    for (std::vector<GNEDetectorEntry*>::iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
-        std::vector<Position> posConnection;
-        double A = std::abs((*i)->getPositionInView().x() - getPositionInView().x());
-        double B = std::abs((*i)->getPositionInView().y() - getPositionInView().y());
-        // Set positions of connection's vertex. Connection is build from Entry to E3
-        posConnection.push_back((*i)->getPositionInView());
-        if (getPositionInView().x() > (*i)->getPositionInView().x()) {
-            if (getPositionInView().y() > (*i)->getPositionInView().y()) {
-                posConnection.push_back(Position((*i)->getPositionInView().x() + A, (*i)->getPositionInView().y()));
-            } else {
-                posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() - B));
-            }
-        } else {
-            if (getPositionInView().y() > (*i)->getPositionInView().y()) {
-                posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() + B));
-            } else {
-                posConnection.push_back(Position((*i)->getPositionInView().x() - A, (*i)->getPositionInView().y()));
-            }
-        }
-        posConnection.push_back(getPositionInView());
-        myConnectionPositions.push_back(posConnection);
-    }
-    // Iterate over exits
-    for (std::vector<GNEDetectorExit*>::iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
-        std::vector<Position> posConnection;
-        double A = std::abs((*i)->getPositionInView().x() - getPositionInView().x());
-        double B = std::abs((*i)->getPositionInView().y() - getPositionInView().y());
-        // Set positions of connection's vertex. Connection is build from Entry to E3
-        posConnection.push_back((*i)->getPositionInView());
-        if (getPositionInView().x() > (*i)->getPositionInView().x()) {
-            if (getPositionInView().y() > (*i)->getPositionInView().y()) {
-                posConnection.push_back(Position((*i)->getPositionInView().x() + A, (*i)->getPositionInView().y()));
-            } else {
-                posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() - B));
-            }
-        } else {
-            if (getPositionInView().y() > (*i)->getPositionInView().y()) {
-                posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() + B));
-            } else {
-                posConnection.push_back(Position((*i)->getPositionInView().x() - A, (*i)->getPositionInView().y()));
-            }
-        }
-        posConnection.push_back(getPositionInView());
-        myConnectionPositions.push_back(posConnection);
-    }
 }
 
 /****************************************************************************/
