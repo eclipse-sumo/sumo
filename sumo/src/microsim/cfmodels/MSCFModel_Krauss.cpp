@@ -56,10 +56,6 @@ double
 MSCFModel_Krauss::moveHelper(MSVehicle* const veh, double vPos) const {
     const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
     const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
-    // we need the acceleration for emission computation;
-    //  in this case, we neglect dawdling, nonetheless, using
-    //  vSafe does not incorporate speed reduction due to interaction
-    //  on lane changing
     const double vMin = minNextSpeed(oldV, veh);
     // do not exceed max decel even if it is unsafe
     double vMax = MAX2(vMin,
@@ -77,6 +73,9 @@ MSCFModel_Krauss::moveHelper(MSVehicle* const veh, double vPos) const {
 
     double vNext = veh->getLaneChangeModel().patchSpeed(vMin, vDawdle, vMax, *this);
 
+    assert(vNext>=vMin);
+    assert(vNext<=vMax);
+
 #ifdef DEBUG_MOVE_HELPER
     if DEBUG_COND {
     std::cout << "\nMOVE_HELPER\n"
@@ -87,14 +86,6 @@ MSCFModel_Krauss::moveHelper(MSVehicle* const veh, double vPos) const {
     }
 #endif
 
-    // (Leo) At this point vNext may also be negative indicating a stop within next step.
-    // This would have resulted from a call to maximumSafeStopSpeed(), which does not
-    // consider deceleration bounds. Therefore, we cap vNext here.
-    if (!MSGlobals::gSemiImplicitEulerUpdate) {
-//        vNext = MAX2(vNext, veh->getSpeed() - ACCEL2SPEED(getMaxDecel()));
-        vNext = MAX2(vNext, minNextSpeed(veh->getSpeed(), veh));
-    }
-
     return vNext;
 }
 
@@ -103,9 +94,9 @@ MSCFModel_Krauss::moveHelper(MSVehicle* const veh, double vPos) const {
 double
 MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
     // NOTE: This allows return of smaller values than minNextSpeed().
-    // Only relevant for the ballistic update: We give the argument headway=TS, to assure that
-    // the stopping position is approached with a uniform deceleration also for tau!=TS.
-    return MIN2(maximumSafeStopSpeed(gap, speed, false, TS), maxNextSpeed(speed, veh));
+    // Only relevant for the ballistic update: We give the argument headway=veh->getActionStepLength(), to assure that
+    // the stopping position is approached with a uniform deceleration also for tau!=veh->getActionStepLength().
+    return MIN2(maximumSafeStopSpeed(gap, speed, false, STEPS2TIME(veh->getActionStepLength())), maxNextSpeed(speed, veh));
 }
 
 
