@@ -309,19 +309,41 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
     case SUMO_ATTR_NUMBER:
         return canParse<int>(value);
     case SUMO_ATTR_DEPARTLANE:
-        /**return (myCalibratorParent->getViewNet()->getNet()->retrieveLane(value, false) != NULL);**/
-        return true;
+        if ((value == "random") || (value == "free") || (value == "allowed") || (value == "best") || (value == "first")) {
+            return true;
+        } else {
+            return (myCalibratorParent->getViewNet()->getNet()->retrieveLane(value, false) != NULL);
+        }
     case SUMO_ATTR_DEPARTPOS:
-        return canParse<double>(value);
+        if ((value == "random") || (value == "free") || (value == "random_free") || (value == "base") || (value == "last")) {
+            return true;
+        } else {
+            return canParse<double>(value);
+        }
     case SUMO_ATTR_DEPARTSPEED:
-        return canParse<double>(value);
+        if ((value == "random") || (value == "max")) {
+            return true;
+        } else {
+            return canParse<double>(value);
+        }
     case SUMO_ATTR_ARRIVALLANE:
-        /**return (myCalibratorParent->getViewNet()->getNet()->retrieveLane(value, false) != NULL);**/
-        return true;
+        if (value == "current") {
+            return true;
+        } else {
+            return (myCalibratorParent->getViewNet()->getNet()->retrieveLane(value, false) != NULL);
+        }
     case SUMO_ATTR_ARRIVALPOS:
-        return canParse<double>(value);
+        if ((value == "random") || (value == "max")) {
+            return true;
+        } else {
+            return canParse<double>(value);
+        }
     case SUMO_ATTR_ARRIVALSPEED:
-        return canParse<double>(value);
+        if (value == "current") {
+            return true;
+        } else {
+            return canParse<double>(value);
+        }
     case SUMO_ATTR_LINE:
         return true;
     case SUMO_ATTR_PERSON_NUMBER:
@@ -331,9 +353,17 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
     case SUMO_ATTR_REROUTE:
         return canParse<bool>(value);
     case SUMO_ATTR_DEPARTPOS_LAT:
-        return canParse<double>(value);
+        if ((value == "random") || (value == "free") || (value == "random_free") || (value == "left") || (value == "right") || (value == "center")) {
+            return true;
+        } else {
+            return canParse<double>(value);
+        }
     case SUMO_ATTR_ARRIVALPOS_LAT:
-        return canParse<double>(value);
+        if ((value == "") || (value == "left") || (value == "right") || (value == "center")) {
+            return true;
+        } else {
+            return canParse<double>(value);
+        }
     default:
         throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

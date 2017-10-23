@@ -53,6 +53,7 @@
 #include "GNEChange_Attribute.h"
 #include "GNERouteProbe.h"
 #include "GNECalibratorDialog.h"
+#include "GNECalibratorFlow.h"
 
 
 // ===========================================================================
