@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/20/17 22:44:08 by SUMO Version dev-SVN-r26639
+<!-- generated on 10/23/17 07:14:58 by SUMO Version dev-SVN-r26651
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -13,6 +13,7 @@
 
     <output>
         <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.skip-ptlines value="true"/>
     </output>
 
     <report>
@@ -24,55 +25,15 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="bus.0" depart="0.00" line="bus" arrival="211.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="beg beg left end end"/>
-            <route edges="beg beg2left left left2end end"/>
-        </routeDistribution>
-        <stop busStop="beg_0" until="10.00"/>
-        <stop busStop="left_0" until="110.00"/>
-        <stop busStop="end_0" until="210.00"/>
-    </vehicle>
-
     <person id="p0" depart="0.00" arrival="526.00">
         <walk edges="beg"/>
         <ride from="beg" to="end" lines="bus"/>
         <walk edges="end"/>
     </person>
 
-    <vehicle id="bus.1" depart="300.00" line="bus" arrival="526.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="300.00" probability="0" edges="beg beg left end end"/>
-            <route edges="beg beg2left left left2end end"/>
-        </routeDistribution>
-        <stop busStop="beg_0" until="10.00"/>
-        <stop busStop="left_0" until="110.00"/>
-        <stop busStop="end_0" until="210.00"/>
-    </vehicle>
-
     <person id="p1" depart="0.00" arrival="802.00">
         <walk edges="end middle beg"/>
     </person>
-
-    <vehicle id="bus.2" depart="600.00" line="bus" arrival="811.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="600.00" probability="0" edges="beg beg left end end"/>
-            <route edges="beg beg2left left left2end end"/>
-        </routeDistribution>
-        <stop busStop="beg_0" until="10.00"/>
-        <stop busStop="left_0" until="110.00"/>
-        <stop busStop="end_0" until="210.00"/>
-    </vehicle>
-
-    <vehicle id="bus.3" depart="900.00" line="bus" arrival="1111.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="900.00" probability="0" edges="beg beg left end end"/>
-            <route edges="beg beg2left left left2end end"/>
-        </routeDistribution>
-        <stop busStop="beg_0" until="10.00"/>
-        <stop busStop="left_0" until="110.00"/>
-        <stop busStop="end_0" until="210.00"/>
-    </vehicle>
 
     <person id="walker" depart="0.00" arrival="1603.00">
         <walk edges="beg middle end"/>
