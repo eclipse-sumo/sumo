@@ -16,9 +16,6 @@ ramps
 # dynamics at roundabout
 roundabout
 
-# effects of the visibility attribute for links 
-visibility
-
 # tests for vehicle insertion (especially for high flows)
 insertion
 
