@@ -29,14 +29,16 @@
 #include <config.h>
 #endif
 
+#include <utils/xml/SUMOXMLDefinitions.h>
+
 #include "GNEAdditionalDialog.h"
-#include "GNECalibratorFlow.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
 class GNECalibratorDialog;
+class GNECalibratorFlow;
 
 // ===========================================================================
 // class definitions
@@ -53,7 +55,7 @@ class GNECalibratorFlowDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, std::vector<GNECalibratorFlow>::iterator editedCalibratorFlowParent, bool updatingElement);
+    GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorFlow* editedCalibratorFlowParent, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorFlowDialog();
@@ -78,17 +80,14 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNECalibratorFlowDialog() : myModifiedCalibratorFlow(NULL) {} 
+    GNECalibratorFlowDialog() {} 
 
 private:
     /// @brief pointer to GNECalibratorDialog parent
     GNECalibratorDialog* myCalibratorDialogParent;
 
     /// @brief interator to edited calibrator flow
-    std::vector<GNECalibratorFlow>::iterator myEditedCalibratorFlow;
-
-    /// @brief current modified calibrator dialog
-    GNECalibratorFlow myModifiedCalibratorFlow;
+    GNECalibratorFlow *myEditedCalibratorFlow;
 
     /// @brief flag to indicate if flow are being created or modified
     bool myUpdatingElement;

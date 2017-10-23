@@ -122,9 +122,6 @@ private:
     /// @brief vector with the modified calibrator vehicle types 
     std::vector<GNECalibratorVehicleType> myModifiedCalibratorVehicleTypes;
 
-    /// @brief vector with the modified calibrator flows 
-    std::vector<GNECalibratorFlow> myModifiedCalibratorFlows;
-
     /// @brief button for add new route
     FXButton* myAddRoute;
 

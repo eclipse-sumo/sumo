@@ -37,6 +37,7 @@
 #include "GNECalibrator.h"
 #include "GNEVariableSpeedSign.h"
 #include "GNERerouterInterval.h"
+#include "GNECalibratorFlow.h"
 
 // ===========================================================================
 // class declarations
@@ -336,7 +337,7 @@ public:
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
     static bool buildLaneCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& outfile, double freq,
-                                    const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows,
+                                    const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
                                     const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes);
 
 
@@ -356,7 +357,7 @@ public:
     * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
     */
     static bool buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& outfile, double freq,
-                                    const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows,
+                                    const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
                                     const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes);
 
     /**@brief builds a rerouter

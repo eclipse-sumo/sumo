@@ -53,6 +53,7 @@
 #include "GNEChange_Attribute.h"
 #include "GNERouteProbe.h"
 #include "GNECalibratorDialog.h"
+#include "GNECalibratorFlow.h"
 
 
 // ===========================================================================
@@ -60,7 +61,7 @@
 // ===========================================================================
 
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, double relativePos, double frequency, const std::string& output, 
-                             const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows, 
+                             const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow*> &calibratorFlows, 
                              const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes, GNEEdge *edge, GNELane *lane) :
     GNEAdditional(id, viewNet, tag, ICON_CALIBRATOR),
     myPositionOverLane(relativePos),
@@ -171,57 +172,7 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
     }
     // Write all flows of this calibrator
     for (auto i : myCalibratorFlows) {
-        // Open flow tag
-        device.openTag(i.getTag());
-        // Write begin
-        device.writeAttr(SUMO_ATTR_BEGIN, i.getBegin());
-        // Write end
-        device.writeAttr(SUMO_ATTR_END, i.getEnd());
-        // Write type
-        device.writeAttr(SUMO_ATTR_TYPE, i.getVehicleType());
-        // Write route
-        device.writeAttr(SUMO_ATTR_ROUTE, i.getRoute());
-        // Write color
-        device.writeAttr(SUMO_ATTR_COLOR, i.getColor());
-        // Write depart lane
-        device.writeAttr(SUMO_ATTR_DEPARTLANE, i.getDepartLane());
-        // Write depart pos
-        device.writeAttr(SUMO_ATTR_DEPARTPOS, i.getDepartPos());
-        // Write depart speed
-        device.writeAttr(SUMO_ATTR_DEPARTSPEED, i.getDepartSpeed());
-        // Write arrival lane
-        device.writeAttr(SUMO_ATTR_ARRIVALLANE, i.getArrivalLane());
-        // Write arrival pos
-        device.writeAttr(SUMO_ATTR_ARRIVALPOS, i.getArrivalPos());
-        // Write arrival speed
-        device.writeAttr(SUMO_ATTR_ARRIVALSPEED, i.getArrivalSpeed());
-        // Write line
-        device.writeAttr(SUMO_ATTR_LINE, i.getLine());
-        // Write person number
-        device.writeAttr(SUMO_ATTR_PERSON_NUMBER, i.getPersonNumber());
-        // Write container number
-        device.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, i.getContainerNumber());
-        // Write reroute
-        device.writeAttr(SUMO_ATTR_REROUTE, i.getReroute());
-        // Write departPosLat
-        device.writeAttr(SUMO_ATTR_DEPARTPOS_LAT, i.getDepartPosLat());
-        // Write arrivalPosLat
-        device.writeAttr(SUMO_ATTR_ARRIVALPOS_LAT, i.getArrivalPosLat());
-        // Write number
-        device.writeAttr(SUMO_ATTR_NUMBER, i.getNumber());
-        // Write type of flow
-        if (i.getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD) {
-            // write period
-            device.writeAttr(SUMO_ATTR_PERIOD, i.getPeriod());
-        } else if (i.getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR) {
-            // write vehs per hour
-            device.writeAttr(SUMO_ATTR_VEHSPERHOUR, i.getVehsPerHour());
-        } else if (i.getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY) {
-            // write probability
-            device.writeAttr(SUMO_ATTR_PROB, i.getProbability());
-        }
-        // Close flow tag
-        device.closeTag();
+        i->writeFlow(device);
     }
     // Close tag
     device.closeTag();
@@ -361,8 +312,16 @@ GNECalibrator::addCalibratorVehicleType(const GNECalibratorVehicleType& vehicleT
 
 
 void
-GNECalibrator::addCalibratorFlow(const GNECalibratorFlow& flow) {
+GNECalibrator::addCalibratorFlow(GNECalibratorFlow* flow) {
+    assert(flow);
     myCalibratorFlows.push_back(flow);
+}
+
+
+void 
+GNECalibrator::removeCalibratorFLow(GNECalibratorFlow* flow) {
+    assert(flow);
+    myCalibratorFlows.erase(std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), flow));
 }
 
 
@@ -378,7 +337,7 @@ GNECalibrator::getCalibratorVehicleTypes() const {
 }
 
 
-const std::vector<GNECalibratorFlow>&
+const std::vector<GNECalibratorFlow*>&
 GNECalibrator::getCalibratorFlows() const {
     return myCalibratorFlows;
 }
@@ -404,7 +363,7 @@ GNECalibrator::vehicleTypeExists(std::string vehicleTypeID) const {
 bool
 GNECalibrator::flowExists(std::string flowID) const {
     for (auto i : myCalibratorFlows) {
-        if (i.getFlowID() == flowID) {
+        if (i->getID() == flowID) {
             return true;
         }
     }
@@ -434,10 +393,10 @@ GNECalibrator::getCalibratorVehicleType(const std::string& vehicleTypeID) {
 }
 
 
-const GNECalibratorFlow&
+GNECalibratorFlow*
 GNECalibrator::getCalibratorFlow(const std::string& flowID) {
     for (auto &i : myCalibratorFlows) {
-        if (i.getFlowID() == flowID) {
+        if (i->getID() == flowID) {
             return i;
         }
     }
@@ -566,13 +525,6 @@ void
 GNECalibrator::setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) {
     myCalibratorVehicleTypes = calibratorVehicleTypes;
 }
-
-
-void
-GNECalibrator::setCalibratorFlows(const std::vector<GNECalibratorFlow>& calibratorFlows) {
-    myCalibratorFlows = calibratorFlows;
-}
-
 
 void
 GNECalibrator::setCalibratorRoutes(const std::vector<GNECalibratorRoute>& calibratorRoutes) {

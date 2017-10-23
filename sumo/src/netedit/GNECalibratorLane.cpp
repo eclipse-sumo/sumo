@@ -61,11 +61,15 @@
 
 GNECalibratorLane::GNECalibratorLane(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos,
     double frequency, const std::string& output, const std::vector<GNECalibratorRoute>& calibratorRoutes,
-    const std::vector<GNECalibratorFlow>& calibratorFlows, const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) :
+    const std::vector<GNECalibratorFlow*>& calibratorFlows, const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) :
     GNECalibrator(id, viewNet, SUMO_TAG_LANECALIBRATOR, pos / lane->getLaneParametricLength(), frequency, output, calibratorRoutes, calibratorFlows, calibratorVehicleTypes, NULL, lane)  {
     // this additional ISN'T movable
     myMovable = false;
 }
 
 
-GNECalibratorLane::~GNECalibratorLane() {}
+GNECalibratorLane::~GNECalibratorLane() {
+    for (auto i : myCalibratorFlows) {
+        delete i;
+    }
+}

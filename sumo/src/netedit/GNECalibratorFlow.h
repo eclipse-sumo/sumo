@@ -33,6 +33,8 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/RGBColor.h>
 
+#include "GNEAttributeCarrier.h"
+
 // ===========================================================================
 // class declaration
 // ===========================================================================
@@ -47,7 +49,7 @@ class GNECalibratorDialog;
  * @class GNECalibratorFlow
  * flow flow used by GNECalibrators
  */
-class GNECalibratorFlow {
+class GNECalibratorFlow : public GNEAttributeCarrier {
 public:
 
     /// @brief type of flow
@@ -63,264 +65,51 @@ public:
 
     /// @brief parameter constructor
     GNECalibratorFlow(GNECalibrator* calibratorParent, const std::string &flowID, const std::string &vehicleType, const std::string &route, 
-                      const RGBColor& color, std::string departLane, std::string departPos, std::string departSpeed, std::string arrivalLane, 
-                      std::string arrivalPos, std::string arrivalSpeed, std::string line, int personNumber, int containerNumber, bool reroute, 
-                      std::string departPosLat, std::string arrivalPosLat, double begin, double end, double vehsPerHour, double period, 
-                      double probability, int number);
+                      const RGBColor&color, const std::string &departLane, const std::string &departPos, const std::string &departSpeed, const std::string &arrivalLane, 
+                      const std::string &arrivalPos, const std::string &arrivalSpeed, const std::string &line, int personNumber, int containerNumber, bool reroute, 
+                      const std::string &departPosLat, const std::string &arrivalPosLat, double begin, double end, double vehsPerHour, double period, 
+                      double probability, int number, GNECalibratorFlow::TypeOfFlow flowType);
 
     /// @brief destructor
     ~GNECalibratorFlow();
 
+    /// @brief write Flow values into a XML
+    void writeFlow(OutputDevice& device);
+
     /// @brief get pointer to calibrator parent
     GNECalibrator* getCalibratorParent() const;
 
-    /// @brief get tag
-    SumoXMLTag getTag() const;
-
-    /// @brief get ID of flow
-    const std::string& getFlowID() const;
-
-    /// @brief get vehicle type of flow
-    const std::string& getVehicleType() const;
-
-    /// @brief get route in which this flow is used
-    const std::string& getRoute() const;
-
-    /// @brief get color of flow
-    const RGBColor& getColor() const;
-
-    /// @brief get depart lane
-    const std::string& getDepartLane() const;
-
-    /// @brief get depart position
-    const std::string& getDepartPos() const;
-
-    /// @brief get arrival speed
-    const std::string& getDepartSpeed() const;
-
-    /// @brief get arrival lane
-    const std::string& getArrivalLane() const;
-
-    /// @brief get arrival position
-    const std::string& getArrivalPos() const;
-
-    /// @brief get arrival speed
-    const std::string& getArrivalSpeed() const;
-
-    /// @brief get line of busStop/containerStop
-    const std::string& getLine() const;
-
-    /// @brief get number of persons
-    int getPersonNumber() const;
-
-    /// @brief get number of containers
-    int getContainerNumber() const;
-
-    /// @brief get reroute
-    bool getReroute() const;
-
-    /// @brief get departPosLat
-    std::string getDepartPosLat() const;
-
-    //// @brief set arrivalPosLat
-    std::string getArrivalPosLat() const;
-
-    /// @name value specific of
-    ///{
-    /// @brief get begin time step
-    double getBegin() const;
-
-    /// @brief get end time step
-    double getEnd() const;
-
-    /// @brief get flows per hour
-    double getVehsPerHour() const;
-
-    /// @brief get period of flow
-    double getPeriod() const;
-
-    /// @brief get probability of flow
-    double getProbability() const;
-
-    /// @brief get number of flows
-    int getNumber() const;
-
     /// @brief get type of flow
-    TypeOfFlow getFlowType() const;
-    /// @}
+    GNECalibratorFlow::TypeOfFlow getFlowType() const;
 
-    /**@brief set ID of flow
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setFlowID(std::string ID);
+    /// @brief set type of flow
+    void setFlowType(GNECalibratorFlow::TypeOfFlow type);
 
-    /**@brief set vehicleType of flow
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setVehicleType(std::string vehicleType);
-
-    /**@brief set route in which this flow is used
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setRoute(std::string route);
-
-    /**@brief set color of flow
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setColor(const RGBColor& color);
-
-    /**@brief set color of flow (String version)
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setColor(std::string = "black");
-
-    /**@brief set depart lane
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setDepartLane(std::string departLane = "first");
-
-    /**@brief set depart position
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setDepartPos(std::string departPos = "base");
-
-    /**@brief set depart speed
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setDepartSpeed(std::string departSpeed = "0");
-
-    /**@brief set arrival lane
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setArrivalLane(std::string arrivalLane = "current");
-
-    /**@brief set arrival position
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setArrivalPos(std::string arrivalPos = "max");
-
-    /**@brief set arrival speed
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setArrivalSpeed(std::string arrivalSpeed = "current");
-
-    /**@brief set line of busStop/containerStop
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setLine(std::string line = "");
-
-    /**@brief set number of persons
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setPersonNumber(int personNumber = 0);
-
-    /**@brief set number of persons (String)
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setPersonNumber(std::string personNumber = "0");
-
-    /**@brief set number of container
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setContainerNumber(int containerNumber = 0);
-
-    /**@brief set number of container (string)
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setContainerNumber(std::string containerNumber = "0");
-
-    /**@brief set reroute
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setReroute(bool value);
-
-    /**@brief set reroute (string)
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setReroute(std::string value);
-
-    /**@brief set departPosLat
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setDepartPosLat(std::string departPosLat = "center");
-
-    /**@brief set arrivalPosLat
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setArrivalPosLat(std::string arrivalPosLat = "");
-
-    /// @name values specific of Flows
+    /// @brief inherited from GNEAttributeCarrier
     /// @{
-    /**@brief set begin step
-    * @return true if was sucesfully set, or false if value isn't valid
+    /* @brief method for getting the Attribute of an XML key
+    * @param[in] key The attribute key
+    * @return string with the value associated to key
     */
-    bool setBegin(double begin);
+    std::string getAttribute(SumoXMLAttr key) const;
 
-    /**@brief set begin step (string)
-    * @return true if was sucesfully set, or false if value isn't valid
+    /* @brief method for setting the attribute and letting the object perform additional changes
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    * @param[in] net optionally the GNENet to inform about gui updates
     */
-    bool setBegin(std::string begin);
+    virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
-    /**@brief set end step
-    * @return true if was sucesfully set, or false if value isn't valid
+    /* @brief method for setting the attribute and letting the object perform additional changes
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
     */
-    bool setEnd(double end);
-
-    /**@brief set end step (string)
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setEnd(std::string end);
-
-    /**@brief set flows per hour
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setVehsPerHour(double vehsPerHour);
-
-    /**@brief set flows per hour (string)
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setVehsPerHour(std::string vehsPerHour);
-
-    /**@brief set period of flows
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setPeriod(double period);
-
-    /**@brief set period of flows (string)
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setPeriod(std::string period);
-
-    /**@brief set probability of flow
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setProbability(double probability);
-
-    /**@brief set probability of flow (string)
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setProbability(std::string probability);
-
-    /**@brief set number of flows
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setNumber(int number);
-
-    /**@brief set number of flows (string)
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setNumber(std::string number);
-
-    /**@brief set type of flow
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setTypeOfFlow(TypeOfFlow type);
+    virtual bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
-    /// @brief overload operator ==
-    bool operator==(const GNECalibratorFlow& calibratorFlow) const;
-
-private:
+protected:
     /// @brief pointer to calibrator parent
     GNECalibrator* myCalibratorParent;
 
@@ -394,7 +183,17 @@ private:
     /// @}
 
     /// @brief type of flow
-    TypeOfFlow myTypeOfFlow;
+    TypeOfFlow myFlowType;
+
+private:
+    /// @brief method for setting the attribute and nothing else
+    void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief Invalidated copy constructor.
+    GNECalibratorFlow(const GNECalibratorFlow&) = delete;
+
+    /// @brief Invalidated assignment operator
+    GNECalibratorFlow& operator=(const GNECalibratorFlow& src) = delete;
 };
 
 #endif

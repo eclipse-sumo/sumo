@@ -75,6 +75,7 @@ class GNEShape;
 class GNEPoly;
 class GNEPOI;
 class GNEPOILane;
+class GNECalibratorFlow;
 
 // ===========================================================================
 // class definitions
@@ -585,7 +586,7 @@ public:
     const GNECalibratorVehicleType& getGNECalibratorVehicleType(const std::string& calibratorVehicleTypeID) const;
 
     /// @brief Returns a reference to a calibrator flow finding in all calibrators of net
-    const GNECalibratorFlow& getGNECalibratorFlow(const std::string& calibratorFlowID) const;
+    GNECalibratorFlow* getGNECalibratorFlow(const std::string& calibratorFlowID) const;
 
     /// @brief Check if exist a route with these ID
     bool routeExists(const std::string& routeID) const;

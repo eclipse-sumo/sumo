@@ -31,7 +31,6 @@
 
 #include "GNEAdditional.h"
 #include "GNECalibratorRoute.h"
-#include "GNECalibratorFlow.h"
 #include "GNECalibratorVehicleType.h"
 
 // ===========================================================================
@@ -39,6 +38,7 @@
 // ===========================================================================
 
 class GNERouteProbe;
+class GNECalibratorFlow;
 
 // ===========================================================================
 // class definitions
@@ -68,7 +68,7 @@ public:
      * @throw process error if both GNEEdge or GNELane are NULL, or both are defined
      */
     GNECalibrator(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, double relativePos, double frequency, const std::string& output,
-                  const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows,
+                  const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
                   const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes, GNEEdge *edge, GNELane *lane);
 
     /// @brief virtual Destructor (To force this class abstract)
@@ -86,7 +86,10 @@ public:
     void addCalibratorVehicleType(const GNECalibratorVehicleType& vehicleType);
 
     /// @brief add calibrator flow
-    void addCalibratorFlow(const GNECalibratorFlow& flow);
+    void addCalibratorFlow(GNECalibratorFlow* flow);
+
+    /// @brief remove calibrator flow
+    void removeCalibratorFLow(GNECalibratorFlow* flow);
 
     /// @brief add calibrator route
     void addCalibratorRoute(const GNECalibratorRoute& route);
@@ -95,7 +98,7 @@ public:
     const std::vector<GNECalibratorVehicleType>& getCalibratorVehicleTypes() const;
 
     /// @brief get calibrator flows
-    const std::vector<GNECalibratorFlow>& getCalibratorFlows() const;
+    const std::vector<GNECalibratorFlow*>& getCalibratorFlows() const;
 
     /// @brief get calibrator routes
     const std::vector<GNECalibratorRoute>& getCalibratorRoutes() const;
@@ -114,10 +117,10 @@ public:
      */
     const GNECalibratorVehicleType& getCalibratorVehicleType(const std::string& vehicleTypeID);
 
-    /**@brief get reference to calibrator flow
+    /**@brief get pointer to calibrator flow
      * @throw ivalid argument if calibrator doesn't exist
      */
-    const GNECalibratorFlow& getCalibratorFlow(const std::string& flowID);
+    GNECalibratorFlow* getCalibratorFlow(const std::string& flowID);
 
     /**@brief get reference calibrator route
      * @throw ivalid argument if calibrator doesn't exist
@@ -205,16 +208,13 @@ protected:
     std::vector<GNECalibratorRoute> myCalibratorRoutes;
 
     /// @brief calibrator flow values
-    std::vector<GNECalibratorFlow> myCalibratorFlows;
+    std::vector<GNECalibratorFlow*> myCalibratorFlows;
 
     /// @brief calibrator vehicleType values
     std::vector<GNECalibratorVehicleType> myCalibratorVehicleTypes;
 
     /// @brief set calibrator vehicleTypes values
     void setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType>& calibratorVehicleType);
-
-    /// @brief set calibrator flow values
-    void setCalibratorFlows(const std::vector<GNECalibratorFlow>& calibratorFlows);
 
     /// @brief set calibrator route values
     void setCalibratorRoutes(const std::vector<GNECalibratorRoute>& calibratorRoutes);

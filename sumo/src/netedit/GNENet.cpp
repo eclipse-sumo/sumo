@@ -88,6 +88,7 @@
 #include "GNERerouter.h"
 #include "GNEAdditionalHandler.h"
 #include "GNEDialog_FixAdditionalPositions.h"
+#include "GNECalibratorFlow.h"
 
 
 FXIMPLEMENT_ABSTRACT(GNENet::GNEChange_ReplaceEdgeInTLS, GNEChange, NULL, 0)
@@ -1819,7 +1820,7 @@ GNENet::getGNECalibratorVehicleType(const std::string& calibratorVehicleTypeID) 
 }
 
 
-const GNECalibratorFlow&
+GNECalibratorFlow*
 GNENet::getGNECalibratorFlow(const std::string& calibratorFlowID) const {
     std::vector<GNEAdditional*> calibrators = getAdditionals(SUMO_TAG_CALIBRATOR);
     for (auto i : calibrators) {

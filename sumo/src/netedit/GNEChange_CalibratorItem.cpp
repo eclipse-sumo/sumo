@@ -33,6 +33,7 @@
 #include "GNENet.h"
 #include "GNEViewNet.h"
 #include "GNECalibrator.h"
+#include "GNECalibratorFlow.h"
 
 
 // ===========================================================================
@@ -47,17 +48,14 @@ FXIMPLEMENT_ABSTRACT(GNEChange_CalibratorItem, GNEChange, NULL, 0)
 
 GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibrator *calibrator, 
     const std::vector<GNECalibratorRoute>& newCalibratorRoutes, 
-    const std::vector<GNECalibratorFlow>& newCalibratorFlows,
     const std::vector<GNECalibratorVehicleType>& newCalibratorVehicleTypes) :
     GNEChange(calibrator->getViewNet()->getNet(), true),
     myCalibrator(calibrator),
     // save old values
     myOldCalibratorRoutes(calibrator->getCalibratorRoutes()),
-    myOldCalibratorFlows(calibrator->getCalibratorFlows()),
     myOldCalibratorVehicleTypes(calibrator->getCalibratorVehicleTypes()),
     // save new values
     myNewCalibratorRoutes(newCalibratorRoutes),
-    myNewCalibratorFlows(newCalibratorFlows),
     myNewCalibratorVehicleTypes(newCalibratorVehicleTypes) {
 }
 
@@ -70,11 +68,10 @@ GNEChange_CalibratorItem::undo() {
     // show extra information for tests
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Setting previous " + 
-                      toString(myOldCalibratorFlows.size() + myOldCalibratorRoutes.size() + myOldCalibratorVehicleTypes.size()) + 
+                      toString(myOldCalibratorRoutes.size() + myOldCalibratorVehicleTypes.size()) + 
                       " calibrator values into " + toString(myCalibrator->getTag()) + " '" + myCalibrator->getID() + "'");
     }
     // set original calibrators values
-    myCalibrator->setCalibratorFlows(myOldCalibratorFlows);
     myCalibrator->setCalibratorRoutes(myOldCalibratorRoutes);
     myCalibrator->setCalibratorVehicleTypes(myOldCalibratorVehicleTypes);
     // enable save additionals
@@ -87,11 +84,10 @@ GNEChange_CalibratorItem::redo() {
     // show extra information for tests
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Setting new " + 
-            toString(myNewCalibratorFlows.size() + myNewCalibratorRoutes.size() + myNewCalibratorVehicleTypes.size()) + 
+            toString(myNewCalibratorRoutes.size() + myNewCalibratorVehicleTypes.size()) + 
             " calibrator values into " + toString(myCalibrator->getTag()) + " '" + myCalibrator->getID() + "'");
     }
     // set new calibrators values
-    myCalibrator->setCalibratorFlows(myNewCalibratorFlows);
     myCalibrator->setCalibratorRoutes(myNewCalibratorRoutes);
     myCalibrator->setCalibratorVehicleTypes(myNewCalibratorVehicleTypes);
     // enable save additionals
