@@ -1114,10 +1114,10 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                     MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vehPar->vtypeid);
                     if (type->getVehicleClass() != SVC_IGNORING && (from->getPermissions() & type->getVehicleClass()) == 0) {
                         WRITE_WARNING("Ignoring vehicle type '" + type->getID() + "' when routing person '" + vehPar->id + "' because it is not allowed on the start edge.");
-                        continue;
+                    } else {
+                        const MSRoute* const routeDummy = new MSRoute(vehPar->id, ConstMSEdgeVector({ from }), false, 0, std::vector<SUMOVehicleParameter::Stop>());
+                        vehicle = vehControl.buildVehicle(vehPar, routeDummy, type, !MSGlobals::gCheckRoutes);
                     }
-                    const MSRoute* const routeDummy = new MSRoute(vehPar->id, ConstMSEdgeVector({ from }), false, 0, std::vector<SUMOVehicleParameter::Stop>());
-                    vehicle = vehControl.buildVehicle(vehPar, routeDummy, type, !MSGlobals::gCheckRoutes);
                 }
                 bool carUsed = false;
                 std::vector<MSNet::MSIntermodalRouter::TripItem> result;
