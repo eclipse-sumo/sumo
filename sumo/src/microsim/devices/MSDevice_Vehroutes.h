@@ -196,6 +196,9 @@ private:
     /// @brief A shortcut for the Option "vehroute-output.route-length"
     static bool myRouteLength;
 
+    /// @brief A shortcut for the Option "vehroute-output.skip-ptlines"
+    static bool mySkipPTLines;
+
 
     /** @class StateListener
      * @brief A class that is notified about reroutings

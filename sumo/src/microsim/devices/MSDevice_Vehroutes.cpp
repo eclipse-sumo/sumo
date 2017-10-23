@@ -52,6 +52,7 @@ bool MSDevice_Vehroutes::myDUAStyle = false;
 bool MSDevice_Vehroutes::mySorted = false;
 bool MSDevice_Vehroutes::myIntendedDepart = false;
 bool MSDevice_Vehroutes::myRouteLength = false;
+bool MSDevice_Vehroutes::mySkipPTLines = false;
 MSDevice_Vehroutes::StateListener MSDevice_Vehroutes::myStateListener;
 std::map<const SUMOTime, int> MSDevice_Vehroutes::myDepartureCounts;
 std::map<const SUMOTime, std::map<const std::string, std::string> > MSDevice_Vehroutes::myRouteInfos;
@@ -73,6 +74,7 @@ MSDevice_Vehroutes::init() {
         mySorted = myDUAStyle || OptionsCont::getOptions().getBool("vehroute-output.sorted");
         myIntendedDepart = OptionsCont::getOptions().getBool("vehroute-output.intended-depart");
         myRouteLength = OptionsCont::getOptions().getBool("vehroute-output.route-length");
+        mySkipPTLines = OptionsCont::getOptions().getBool("vehroute-output.skip-ptlines");
         MSNet::getInstance()->addVehicleStateListener(&myStateListener);
     }
 }
@@ -239,6 +241,9 @@ MSDevice_Vehroutes::generateOutput() const {
 
 void
 MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
+    if (mySkipPTLines && myHolder.getParameter().line != "") {
+        return;
+    }
     OutputDevice& routeOut = OutputDevice::getDeviceByOption("vehroute-output");
     OutputDevice_String od(routeOut.isBinary(), 1);
     SUMOVehicleParameter tmp = myHolder.getParameter();

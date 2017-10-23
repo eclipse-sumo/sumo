@@ -197,6 +197,9 @@ MSFrame::fillOptions() {
     oc.doRegister("vehroute-output.write-unfinished", new Option_Bool(false));
     oc.addDescription("vehroute-output.write-unfinished", "Output", "Write vehroute output for vehicles which have not arrived at simulation end");
 
+    oc.doRegister("vehroute-output.skip-ptlines", new Option_Bool(false));
+    oc.addDescription("vehroute-output.skip-ptlines", "Output", "Skip vehroute output for public transport vehicles");
+
     oc.doRegister("link-output", new Option_FileName());
     oc.addDescription("link-output", "Output", "Save links states into FILE");
 
