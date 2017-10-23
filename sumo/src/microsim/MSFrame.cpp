@@ -327,7 +327,7 @@ MSFrame::fillOptions() {
     oc.doRegister("pedestrian.model", new Option_String("striping"));
     oc.addDescription("pedestrian.model", "Processing", "Select among pedestrian models ['nonInteracting', 'striping', 'remote']");
 
-    oc.doRegister("pedestrian.striping.stripe-width", new Option_Float(0.65));
+    oc.doRegister("pedestrian.striping.stripe-width", new Option_Float(0.64));
     oc.addDescription("pedestrian.striping.stripe-width", "Processing", "Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'");
 
     oc.doRegister("pedestrian.striping.dawdling", new Option_Float(0.2));
