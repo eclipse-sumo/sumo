@@ -31,6 +31,7 @@ PORT = sumolib.miscutils.getFreeSocketPort()
 sumoProcess = subprocess.Popen([sumoBinary,
                                 '-c', 'sumo.sumocfg',
                                 '--ignore-route-errors',
+                                '--vehroute-output', 'vehroutes.xml',
                                 '--additional-files',
                                 'input_additional.add.xml,input_additional2.add.xml',
                                 '--remote-port', str(PORT)], stdout=sys.stdout)
@@ -166,6 +167,7 @@ traci.vehicle.setParameter(vehID, "laneChangeModel.lcStrategic", "2.0")
 traci.vehicle.setSignals(vehID, 12)
 traci.vehicle.setStop(
     vehID, "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
+sys.stderr.flush()
 
 check(vehID)
 traci.vehicle.setAdaptedTraveltime(vehID,"1o")

@@ -1,6 +1,4 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:40203 [Errno 111] Connection refused
- Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -662,7 +660,7 @@ pav edge=2fi pos=-1001.0 stopState=131
 step 151
 pav edge=2fi pos=-1001.0 stopState=131
 has battery device: true
-has vehroute device: false
+has vehroute device: true
 has rerouting device: false
 has rerouting device: true
 routing period: 0.00

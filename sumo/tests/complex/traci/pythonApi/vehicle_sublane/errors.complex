@@ -1,5 +1,7 @@
-Parameter order has change for setAdaptedTraveltime(). Attempting legacy ordering. Please update your code
-Parameter order has change for setEffort(). Attempting legacy ordering. Please update your code
+D:/behr_mi/Projekte/Vabene/trunk/SE/extern/sumo/tests\..\tests/complex/traci/pythonApi/vehicle/runner.py:163: UserWarning: Parameter order has changed for setAdaptedTraveltime(). Attempting legacy ordering. Please update your code.
+  traci.vehicle.setAdaptedTraveltime(vehID, 0, 1000, "1o", 55)
+D:/behr_mi/Projekte/Vabene/trunk/SE/extern/sumo/tests\..\tests/complex/traci/pythonApi/vehicle/runner.py:164: UserWarning: Parameter order has changed for setEffort(). Attempting legacy ordering. Please update your code.
+  traci.vehicle.setEffort(vehID, 0, 1000, "1o", 54)
 Error: Answered with error to command 0xa4: Vehicle 'bla' is not known
 Warning: Vehicle '1' aborts stop.
 Error: Answered with error to command 0xc4: Invalid departure position.
@@ -8,5 +10,89 @@ Warning: Departure time for vehicle 'departInThePast' is in the past; using curr
 Warning: Vehicle 'parking2' aborts stop.
 Warning: Teleporting vehicle 'collider'; collision with vehicle 'blocker', lane='2fi_0', gap=-4.19', latGap=-1.80, time=117.00 stage=events.
 Warning: Vehicle 'collider' ends teleporting on edge '2si', time 117.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=131.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=131.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=132.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=132.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=133.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=133.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=134.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=134.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=135.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=135.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=136.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=136.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=137.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=137.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=138.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=138.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=139.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=139.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=140.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=140.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=141.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=141.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=142.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=142.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=143.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=143.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=144.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=144.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=145.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=145.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=146.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=146.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=147.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=147.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=148.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=148.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=149.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=149.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=150.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=150.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=151.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=151.00.
 Error: Answered with error to command 0xa4: Vehicle 'elVeh' does not support device parameter 'device.foo.bar' (No device of type 'foo' exists).
 Error: Answered with error to command 0xa4: Vehicle 'elVeh' does not support device parameter 'device.battery.foobar' (Parameter 'foobar' is not supported for device of type 'battery').
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=152.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=152.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=153.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=153.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=154.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=154.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=155.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=155.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=155.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=155.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=156.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=156.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=156.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=156.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=157.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=157.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=157.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=157.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=158.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=158.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=158.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=158.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=159.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=159.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=159.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=159.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=160.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=160.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=160.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=160.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=161.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=161.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=161.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=161.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=162.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=162.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=162.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=162.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=163.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=163.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=163.00.
+Warning: Could not find connection between lane 3fi_0 and lane disconnected_0 for vehicle failVeh, time=163.00.
