@@ -1125,19 +1125,19 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                     pedType->getMaxSpeed() * walkFactor, vehicle, modeSet, myVehicleParameter->depart, result)) {
                     for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                         if (!it->edges.empty()) {
-                            bs = MSNet::getInstance()->getBusStop(it->destStop);
                             if (myActivePlan->empty()) {
                                 myActivePlan->push_back(new MSTransportable::Stage_Waiting(*from, -1, myVehicleParameter->depart, departPos, "start", true));
                             }
+                            bs = MSNet::getInstance()->getBusStop(it->destStop);
                             if (it->line == "") {
-                                myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(it->edges, bs, duration, speed, departPos, arrivalPos, departPosLat));
+                                myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(it->edges, bs, duration, speed, departPos, bs != 0 ? bs->getEndLanePosition() : arrivalPos, departPosLat));
                             } else if (vehicle != 0 && it->line == vehicle->getID()) {
-                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, arrivalPos, std::vector<std::string>({it->line})));
+                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, bs != 0 ? bs->getEndLanePosition() : arrivalPos, std::vector<std::string>({ it->line })));
                                 vehicle->replaceRouteEdges(it->edges, true);
                                 vehControl.addVehicle(vehPar->id, vehicle);
                                 carUsed = true;
                             } else {
-                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, arrivalPos, std::vector<std::string>({it->line})));
+                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, bs != 0 ? bs->getEndLanePosition() : arrivalPos, std::vector<std::string>({ it->line })));
                             }
                         }
                     }
