@@ -92,10 +92,11 @@
 //#define DEBUG_STOPS
 //#define DEBUG_BESTLANES
 //#define DEBUG_IGNORE_RED
+//#define DEBUG_ACTIONSTEPLENGTH
 //#define DEBUG_COND (getID() == "blocker")
+#define DEBUG_COND (true)
 //#define DEBUG_COND (isSelected())
 
-//#define DEBUG_ACTIONSTEPLENGTH
 
 #define STOPPING_PLACE_OFFSET 0.5
 
@@ -1290,7 +1291,8 @@ MSVehicle::processNextStop(double currentVelocity) {
 
 #ifdef DEBUG_STOPS
         if (DEBUG_COND) {
-            std::cout << SIMTIME << " vehicle '" << getID() << "' reached stop." << std::endl;
+            std::cout << SIMTIME << " vehicle '" << getID() << "' reached stop.\n"
+                    << "Remaining duration: " << STEPS2TIME(stop.duration) << std::endl;
         }
 #endif
         // ok, we have already reached the next stop
@@ -1374,7 +1376,7 @@ MSVehicle::processNextStop(double currentVelocity) {
 #endif
             }
             // we have to wait some more time
-            stop.duration -= DELTA_T;
+            stop.duration -= getActionStepLength();
 
             if (MSGlobals::gSemiImplicitEulerUpdate) {
                 // euler
