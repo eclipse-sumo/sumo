@@ -89,7 +89,7 @@ double MSPModel_Striping::dawdling;
 SUMOTime MSPModel_Striping::jamTime;
 const double MSPModel_Striping::LOOKAHEAD_SAMEDIR(4.0); // seconds
 const double MSPModel_Striping::LOOKAHEAD_ONCOMING(10.0); // seconds
-const double MSPModel_Striping::LOOKAROUND_VEHICLES(60.0); // seconds
+const double MSPModel_Striping::LOOKAROUND_VEHICLES(60.0); // meters
 const double MSPModel_Striping::LATERAL_PENALTY(-1.); // meters
 const double MSPModel_Striping::OBSTRUCTED_PENALTY(-300000.); // meters
 const double MSPModel_Striping::INAPPROPRIATE_PENALTY(-20000.); // meters
@@ -923,15 +923,21 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             // @todo: improve efficiency by using the same iterator for all pedestrians on this lane
             Obstacles vehObs(stripes, Obstacle(dir));
             const int current = p.stripe();
-            for (MSLane::AnyVehicleIterator it = lane->anyVehiclesUpstreamBegin(); it != lane->anyVehiclesUpstreamEnd(); ++it) {
+            MSLane::AnyVehicleIterator begin = (dir == FORWARD ? lane->anyVehiclesUpstreamBegin() : lane->anyVehiclesBegin());
+            MSLane::AnyVehicleIterator end = (dir == FORWARD ? lane->anyVehiclesUpstreamEnd() : lane->anyVehiclesEnd());
+            for (MSLane::AnyVehicleIterator it = begin; it != end; ++it) {
                 const MSVehicle* veh = *it;
                 const double vehBack = veh->getBackPositionOnLane(lane);
                 const double vehFront = vehBack + veh->getVehicleType().getLength();
-                if ((dir == FORWARD && vehFront > p.getMinX() - LOOKAROUND_VEHICLES && vehBack <= p.getMaxX() + LOOKAHEAD_SAMEDIR)
-                        || (dir == BACKWARD && vehFront < p.getMaxX() && vehFront >= p.getMinX() - LOOKAROUND_VEHICLES)) {
+                // ensure that vehicles are not blocked
+                const double vehNextSpeed = MAX2(veh->getSpeed(), 1.0);
+                const double clearance = SAFETY_GAP + vehNextSpeed * LOOKAHEAD_SAMEDIR;
+                if ((dir == FORWARD && vehFront + clearance > p.getMinX() && vehBack <= p.getMaxX() + LOOKAHEAD_SAMEDIR)
+                        || (dir == BACKWARD && vehBack < p.getMaxX() && vehFront >= p.getMinX() - LOOKAROUND_VEHICLES)) {
                     Obstacle vo(vehBack, veh->getSpeed(), OBSTACLE_VEHICLE, veh->getID(), 0);
                     // moving vehicles block space along their path
-                    vo.xFwd += veh->getVehicleType().getLength() + SAFETY_GAP * veh->getSpeed() * LOOKAHEAD_SAMEDIR;
+                    vo.xFwd += veh->getVehicleType().getLength() + clearance;
+                    vo.xBack -= SAFETY_GAP;
                     // relY increases from left to right (the other way around from vehicles)
                     // XXX lateral offset for partial vehicles
                     const double vehYmax = 0.5 * (lane->getWidth() + veh->getVehicleType().getWidth() - stripeWidth) - veh->getLateralPositionOnLane();
@@ -1497,7 +1503,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                       MIN2(maxYSpeed, DIST2SPEED(yDist)) :
                       MAX2(-maxYSpeed, DIST2SPEED(yDist)));
         }
-    } else if (utility[chosen] <= OBSTRUCTION_THRESHOLD && obs[chosen].type == OBSTACLE_VEHICLE
+    } else if (utility[next] <= OBSTRUCTION_THRESHOLD && obs[next].type == OBSTACLE_VEHICLE
                // still on the road
                && stripe() == stripe(myRelY)) {
         // step aside to let the vehicle pass
