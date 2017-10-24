@@ -20,6 +20,7 @@
 from __future__ import absolute_import
 import struct
 import sys
+import warnings
 from .domain import Domain
 from .storage import Storage
 from . import constants as tc
@@ -866,7 +867,7 @@ class VehicleDomain(Domain):
         """
         if type(edgeID) != str and type(begTime) == str: 
             # legacy handling
-            sys.stderr.write("Parameter order has change for setAdaptedTraveltime(). Attempting legacy ordering. Please update your code\n")
+            warnings.warn("Parameter order has changed for setAdaptedTraveltime(). Attempting legacy ordering. Please update your code.", stacklevel=2)
             return self.setAdaptedTraveltime(vehID, begTime, endTime, edgeID, time)
         if time is None:
             # reset
@@ -904,7 +905,7 @@ class VehicleDomain(Domain):
         """
         if type(edgeID) != str and type(begTime) == str: 
             # legacy handling
-            sys.stderr.write("Parameter order has change for setEffort(). Attempting legacy ordering. Please update your code\n")
+            warnings.warn("Parameter order has changed for setEffort(). Attempting legacy ordering. Please update your code.", stacklevel=2)
             return self.setEffort(vehID, begTime, endTime, edgeID, effort)
         if effort is None:
             # reset
