@@ -19,8 +19,8 @@ class TestPlatoonManager(ut.TestCase):
         ut.TestCase.setUp(self)
         testDir = os.path.dirname(os.path.realpath(__file__))
         # Declare simpla config files
-        self.CFG0 = os.path.join(os.path.dirname(os.path.realpath(__file__)),'simpla.cfg.xml')
-        self.CFG1 = os.path.join(os.path.dirname(os.path.realpath(__file__)),'simpla_test.cfg.xml')
+        self.CFG0 = 'simpla.cfg.xml'
+        self.CFG1 = 'simpla_test.cfg.xml'
         
         self.SIMPLA_CFG = os.path.join(testDir, "simpla.cfg.xml")
         self.SIMPLA_CFG_WARN = os.path.join(testDir, "simpla_test_warn.cfg.xml")
