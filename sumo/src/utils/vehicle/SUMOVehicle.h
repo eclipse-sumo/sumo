@@ -164,7 +164,7 @@ public:
      * @param[in] check Whether the route should be checked for validity
      * @return Whether the new route was accepted
      */
-    virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit = false, bool check = false, bool addStops = true) = 0;
+    virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit = false, bool check = false) = 0;
 
     /// Replaces the current route by the given one
     virtual bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0, bool addStops = true) = 0;

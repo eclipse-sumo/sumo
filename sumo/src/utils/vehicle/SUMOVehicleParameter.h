@@ -571,7 +571,7 @@ public:
         /// @brief at which position in the stops list
         int index;
         /// @brief Information for the output which parameter were set
-        int parametersSet;
+        int parametersSet = 0;
 
         /** @brief Writes the stop as XML
          *

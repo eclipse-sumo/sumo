@@ -334,10 +334,6 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
     if ((parametersSet & STOP_PARKING_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_PARKING, parking);
     }
-    // look, we are writing the set of expected persons in its current state...
-    //  if this method is used somewhere in the simulation output,
-    //  one should consider keeping the original values additionally,
-    //  as the ones we write may hev changed.
     if ((parametersSet & STOP_EXPECTED_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_EXPECTED, awaitedPersons);
     }

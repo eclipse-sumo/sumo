@@ -865,10 +865,12 @@ public:
     /// @name vehicle stops definitions and i/o
     //@{
 
-    /** @struct Stop
+    /** @class Stop
      * @brief Definition of vehicle stop (position and duration)
      */
-    struct Stop {
+    class Stop {
+    public:
+        Stop(const SUMOVehicleParameter::Stop& par) : pars(par) {}
         /// @brief The edge in the route to stop at
         MSRouteIterator edge;
         /// @brief The lane to stop at
@@ -881,26 +883,20 @@ public:
         MSParkingArea* parkingarea;
         /// @brief (Optional) charging station if one is assigned to the stop
         MSChargingStation* chargingStation;
-        /// @brief The stopping position start
-        double startPos;
-        /// @brief The stopping position end
-        double endPos;
+        /// @brief The stop parameter
+        const SUMOVehicleParameter::Stop pars;
         /// @brief The stopping duration
         SUMOTime duration;
-        /// @brief The time at which the vehicle may continue its journey
-        SUMOTime until;
         /// @brief whether an arriving person lets the vehicle continue
         bool triggered;
         /// @brief whether an arriving container lets the vehicle continue
         bool containerTriggered;
-        /// @brief whether the vehicle is removed from the net while stopping
-        bool parking;
         /// @brief Information whether the stop has been reached
         bool reached;
-        /// @brief IDs of persons the vehicle has to wait for until departing
-        std::set<std::string> awaitedPersons;
-        /// @brief IDs of containers the vehicle has to wait for until departing
-        std::set<std::string> awaitedContainers;
+        /// @brief The number of still expected persons
+        int numExpectedPerson;
+        /// @brief The number of still expected containers
+        int numExpectedContainer;
         /// @brief The time at which the vehicle is able to board another person
         SUMOTime timeToBoardNextPerson;
         /// @brief The time at which the vehicle is able to load another container
@@ -912,6 +908,10 @@ public:
 
         /// @brief return halting position for upcoming stop;
         double getEndPos(const SUMOVehicle& veh) const;
+    private:
+        /// @brief Invalidated assignment operator
+        Stop& operator=(const Stop& src);
+
     };
 
 

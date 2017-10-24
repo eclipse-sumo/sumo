@@ -654,9 +654,9 @@ GUIVehicle::getStopInfo() const {
     } else {
         return "";
     }
-    if (myStops.front().triggered) {
+    if (myStops.front().pars.triggered) {
         result += ", triggered";
-    } else if (myStops.front().containerTriggered) {
+    } else if (myStops.front().pars.containerTriggered) {
         result += ", containerTriggered";
     } else {
         result += ", duration=" + time2string(myStops.front().duration);

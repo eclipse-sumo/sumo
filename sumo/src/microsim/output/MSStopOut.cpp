@@ -102,7 +102,7 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const MSVehicle::Stop& stop) {
     myDevice.writeAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID());
     myDevice.writeAttr(SUMO_ATTR_LANE, stop.lane->getID());
     myDevice.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
-    myDevice.writeAttr(SUMO_ATTR_PARKING, stop.parking);
+    myDevice.writeAttr(SUMO_ATTR_PARKING, stop.pars.parking);
     myDevice.writeAttr("started", time2string(si.started));
     myDevice.writeAttr("ended", time2string(MSNet::getInstance()->getCurrentTimeStep()));
     myDevice.writeAttr("initialPersons", si.initialNumPersons);

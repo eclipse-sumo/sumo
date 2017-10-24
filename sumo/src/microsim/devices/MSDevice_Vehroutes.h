@@ -33,7 +33,9 @@
 
 #include "MSDevice.h"
 #include <microsim/MSNet.h>
+#include <microsim/MSVehicle.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/iodevices/OutputDevice_String.h>
 
 
 // ===========================================================================
@@ -117,6 +119,7 @@ public:
         return "vehroute";
     }
 
+    void stopEnded(const MSVehicle::Stop& stop);
 
     /** @brief Called on writing vehroutes output
      *
@@ -289,6 +292,8 @@ private:
 
     /// @brief The lateral depart position
     double myDepartPosLat;
+
+    OutputDevice_String myStopOut;
 
 private:
     /// @brief Invalidated copy constructor.

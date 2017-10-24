@@ -119,7 +119,8 @@ MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& i
     myDepartLane(-1),
     myDepartPos(-1),
     myDepartSpeed(-1),
-    myDepartPosLat(0) {
+    myDepartPosLat(0),
+    myStopOut(false, 2) {
     myCurrentRoute->addReference();
 }
 
@@ -162,6 +163,12 @@ MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, double /*lastPos*/, MSMoveRemi
         }
     }
     return mySaveExits;
+}
+
+
+void
+MSDevice_Vehroutes::stopEnded(const MSVehicle::Stop& stop) {
+    stop.pars.write(myStopOut);
 }
 
 
@@ -313,12 +320,7 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
             od.closeTag();
         }
     }
-    for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myHolder.getParameter().stops.begin(); i != myHolder.getParameter().stops.end(); ++i) {
-        i->write(od);
-    }
-    for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myHolder.getRoute().getStops().begin(); i != myHolder.getRoute().getStops().end(); ++i) {
-        i->write(od);
-    }
+    od << myStopOut.getString();
     myHolder.getParameter().writeParams(od);
     od.closeTag();
     od.lf();

@@ -61,6 +61,7 @@
 #include <microsim/pedestrians/MSPModel.h>
 #include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/devices/MSDevice_Routing.h>
+#include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/output/MSStopOut.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
@@ -1001,7 +1002,7 @@ MSVehicle::getBackPosition() const {
 bool
 MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset, bool collision,
                    MSRouteIterator* searchStart) {
-    Stop stop;
+    Stop stop(stopPar);
     stop.lane = MSLane::dictionary(stopPar.lane);
     if (!stop.lane->allowsVehicleClass(myType->getVehicleClass())) {
         errorMsg = "Vehicle '" + myParameter->id + "' is not allowed to stop on lane '" + stopPar.lane + "'.";
@@ -1011,22 +1012,18 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     stop.containerstop = MSNet::getInstance()->getContainerStop(stopPar.containerstop);
     stop.parkingarea = MSNet::getInstance()->getParkingArea(stopPar.parkingarea);
     stop.chargingStation = MSNet::getInstance()->getChargingStation(stopPar.chargingStation);
-    stop.startPos = stopPar.startPos;
-    stop.endPos = stopPar.endPos;
     stop.duration = stopPar.duration;
-    stop.until = stopPar.until;
-    stop.timeToBoardNextPerson = 0;
-    stop.timeToLoadNextContainer = 0;
-    stop.awaitedPersons = stopPar.awaitedPersons;
-    stop.awaitedContainers = stopPar.awaitedContainers;
-    if (stop.until != -1) {
-        stop.until += untilOffset;
-    }
     stop.triggered = stopPar.triggered;
     stop.containerTriggered = stopPar.containerTriggered;
-    stop.parking = stopPar.parking;
+    stop.timeToBoardNextPerson = 0;
+    stop.timeToLoadNextContainer = 0;
+    if (stopPar.until != -1) {
+        const_cast<SUMOVehicleParameter::Stop&>(stop.pars).until += untilOffset;
+    }
     stop.collision = collision;
     stop.reached = false;
+    stop.numExpectedPerson = (int)stopPar.awaitedPersons.size();
+    stop.numExpectedContainer = (int)stopPar.awaitedContainers.size();
     std::string stopType = "stop";
     std::string stopID = "";
     if (stop.busstop != 0) {
@@ -1044,11 +1041,11 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     }
     const std::string errorMsgStart = stopID == "" ? stopType : stopType + " '" + stopID + "'";
 
-    if (stop.startPos < 0 || stop.endPos > stop.lane->getLength()) {
+    if (stop.pars.startPos < 0 || stop.pars.endPos > stop.lane->getLength()) {
         errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' has an invalid position.";
         return false;
     }
-    if (stopType != "stop" && myType->getLength() / 2. > stop.endPos - stop.startPos) {
+    if (stopType != "stop" && myType->getLength() / 2. > stop.pars.endPos - stop.pars.startPos) {
         errorMsg = errorMsgStart + " on lane '" + stopPar.lane + "' is too short for vehicle '" + myParameter->id + "'.";
     }
     // if stop is on an internal edge the normal edge before the intersection is used
@@ -1064,26 +1061,26 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(myStops.size())) {
         if (myStops.size() > 0) {
             prevStopEdge = myStops.back().edge;
-            prevStopPos = myStops.back().endPos;
+            prevStopPos = myStops.back().pars.endPos;
             iter = myStops.end();
             stop.edge = find(prevStopEdge, myRoute->end(), stopEdge);
-            if (prevStopEdge == stop.edge && prevStopPos > stop.endPos) {
+            if (prevStopEdge == stop.edge && prevStopPos > stop.pars.endPos) {
                 stop.edge = find(prevStopEdge + 1, myRoute->end(), stopEdge);
             }
         }
     } else {
         if (stopPar.index == STOP_INDEX_FIT) {
             while (iter != myStops.end() && (iter->edge < stop.edge ||
-                                             (iter->endPos < stop.endPos && iter->edge == stop.edge))) {
+                (iter->pars.endPos < stop.pars.endPos && iter->edge == stop.edge))) {
                 prevStopEdge = iter->edge;
-                prevStopPos = iter->endPos;
+                prevStopPos = iter->pars.endPos;
                 ++iter;
             }
         } else {
             int index = stopPar.index;
             while (index > 0) {
                 prevStopEdge = iter->edge;
-                prevStopPos = iter->endPos;
+                prevStopPos = iter->pars.endPos;
                 ++iter;
                 --index;
             }
@@ -1091,7 +1088,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         }
     }
     if (stop.edge == myRoute->end() || prevStopEdge > stop.edge ||
-            (prevStopEdge == stop.edge && prevStopPos > stop.endPos && !collision)
+        (prevStopEdge == stop.edge && prevStopPos > stop.pars.endPos && !collision)
             || (stop.lane->getEdge().isInternal() && stop.lane->getNextNormal() != *(stop.edge + 1))) {
         if (stop.edge != myRoute->end()) {
             // check if the edge occurs again later in the route
@@ -1106,9 +1103,9 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     const double endPosOffset = stop.lane->getEdge().isInternal() ? (*stop.edge)->getLength() : 0;
     if (collision) {
         assert(myCurrEdge == stop.edge);
-        myState.myPos = stop.endPos;
+        myState.myPos = stop.pars.endPos;
         myState.mySpeed = 0;
-    } else if (myCurrEdge == stop.edge && myState.myPos > stop.endPos + endPosOffset - getCarFollowModel().brakeGap(myState.mySpeed)) {
+    } else if (myCurrEdge == stop.edge && myState.myPos > stop.pars.endPos + endPosOffset - getCarFollowModel().brakeGap(myState.mySpeed)) {
         errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is too close to break.";
         return false;
     }
@@ -1123,7 +1120,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         if (myParameter->departPosProcedure == DEPART_POS_BASE || myParameter->departPosProcedure == DEPART_POS_DEFAULT) {
             pos = MIN2(static_cast<double>(getVehicleType().getLength() + POSITION_EPS), (*myCurrEdge)->getLength());
         }
-        if (pos > stop.endPos + endPosOffset) {
+        if (pos > stop.pars.endPos + endPosOffset) {
             if (stop.edge != myRoute->end()) {
                 // check if the edge occurs again later in the route
                 MSRouteIterator next = stop.edge + 1;
@@ -1136,7 +1133,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     if (iter != myStops.begin()) {
         std::list<Stop>::iterator iter2 = iter;
         iter2--;
-        if (stop.until >= 0 && iter2->until > stop.until) {
+        if (stop.pars.until >= 0 && iter2->pars.until > stop.pars.until) {
             errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' ends earlier than previous stop.";
         }
     }
@@ -1195,12 +1192,13 @@ MSVehicle::replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg)
     stopPar.startPos = parkingArea->getBeginLanePosition();
     stopPar.endPos = parkingArea->getEndLanePosition();
     stopPar.duration = duration;
-    stopPar.until = stop.until;
-    stopPar.awaitedPersons = stop.awaitedPersons;
-    stopPar.awaitedContainers = stop.awaitedContainers;
-    stopPar.triggered = stop.triggered;
-    stopPar.containerTriggered = stop.containerTriggered;
-    stopPar.parking = stop.parking;
+    stopPar.until = stop.pars.until;
+    stopPar.awaitedPersons = stop.pars.awaitedPersons;
+    stopPar.awaitedContainers = stop.pars.awaitedContainers;
+    stopPar.triggered = stop.pars.triggered;
+    stopPar.containerTriggered = stop.pars.containerTriggered;
+    stopPar.parking = stop.pars.parking;
+    stopPar.parametersSet = stop.pars.parametersSet;
 
     // remove stops equals to parking area
     while (removeStops > 0) {
@@ -1257,7 +1255,7 @@ MSVehicle::collisionStopTime() const {
 
 bool
 MSVehicle::isParking() const {
-    return isStopped() && myStops.begin()->parking;
+    return isStopped() && myStops.begin()->pars.parking;
 }
 
 
@@ -1269,7 +1267,7 @@ MSVehicle::isStoppedTriggered() const {
 
 bool
 MSVehicle::isStoppedInRange(double pos) const {
-    return isStopped() && myStops.begin()->startPos <= pos && myStops.begin()->endPos >= pos;
+    return isStopped() && myStops.begin()->pars.startPos <= pos && myStops.begin()->pars.endPos >= pos;
 }
 
 
@@ -1297,11 +1295,9 @@ MSVehicle::processNextStop(double currentVelocity) {
         // ok, we have already reached the next stop
         // any waiting persons may board now
         MSNet* const net = MSNet::getInstance();
-        bool boarded = net->hasPersons() && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, &stop);
-        boarded &= stop.awaitedPersons.size() == 0;
+        const bool boarded = net->hasPersons() && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, &stop) && stop.numExpectedPerson == 0;
         // load containers
-        bool loaded = net->hasContainers() && net->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this, &stop);
-        loaded &= stop.awaitedContainers.size() == 0;
+        const bool loaded = net->hasContainers() && net->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this, &stop) && stop.numExpectedContainer == 0;
         if (boarded) {
             if (stop.busstop != 0) {
                 const std::vector<MSTransportable*>& persons = myPersonDevice->getTransportables();
@@ -1398,7 +1394,7 @@ MSVehicle::processNextStop(double currentVelocity) {
         // is the next stop on the current lane?
         if (stop.edge == myCurrEdge) {
             // get the stopping position
-            double endPos = stop.endPos;
+            double endPos = stop.pars.endPos;
             bool useStoppingPlace = false;
             bool fitsOnStoppingPlace = true;
             if (stop.busstop != 0) {
@@ -1441,7 +1437,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                 endPos += myLane->getLength();
             }
 
-            const double reachedThreshold = (useStoppingPlace ? endPos - STOPPING_PLACE_OFFSET : stop.startPos) - NUMERICAL_EPS;
+            const double reachedThreshold = (useStoppingPlace ? endPos - STOPPING_PLACE_OFFSET : stop.pars.startPos) - NUMERICAL_EPS;
             if (myState.pos() >= reachedThreshold && fitsOnStoppingPlace && currentVelocity <= SUMO_const_haltingSpeed && myLane == stop.lane) {
                 // ok, we may stop (have reached the stop)
                 stop.reached = true;
@@ -1456,11 +1452,11 @@ MSVehicle::processNextStop(double currentVelocity) {
                 MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
                 MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_STARTING_STOP);
                 // compute stopping time
-                if (stop.until >= 0) {
+                if (stop.pars.until >= 0) {
                     if (stop.duration == -1) {
-                        stop.duration = stop.until - MSNet::getInstance()->getCurrentTimeStep();
+                        stop.duration = stop.pars.until - MSNet::getInstance()->getCurrentTimeStep();
                     } else {
-                        stop.duration = MAX2(stop.duration, stop.until - MSNet::getInstance()->getCurrentTimeStep());
+                        stop.duration = MAX2(stop.duration, stop.pars.until - MSNet::getInstance()->getCurrentTimeStep());
                     }
                 }
                 if (stop.busstop != 0) {
@@ -3352,7 +3348,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         const Stop& nextStop = myStops.front();
         nextStopLane = nextStop.lane;
         nextStopEdge = nextStop.edge;
-        nextStopPos = nextStop.startPos;
+        nextStopPos = nextStop.pars.startPos;
     }
     if (myParameter->arrivalLaneProcedure == ARRIVAL_LANE_GIVEN && nextStopEdge == myRoute->end()) {
         nextStopEdge = (myRoute->end() - 1);
@@ -3756,16 +3752,9 @@ MSVehicle::addPerson(MSTransportable* person) {
         myMoveReminders.push_back(std::make_pair(myPersonDevice, 0.));
     }
     myPersonDevice->addTransportable(person);
-    if (myStops.size() > 0 && myStops.front().reached && myStops.front().triggered) {
-        int numExpected = (int) myStops.front().awaitedPersons.size();
-        if (numExpected != 0) {
-            // I added the if-statement and number retrieval, assuming that it should be a "conditional short jump" only and
-            //  in most cases we won't have the list of expected passenger - only for simulating car-sharing, probably.
-            //  Bus drivers usually do not know the names of the passengers.
-            myStops.front().awaitedPersons.erase(person->getID());
-            numExpected = (int) myStops.front().awaitedPersons.size();
-        }
-        if (numExpected == 0) {
+    if (myStops.size() > 0 && myStops.front().reached && myStops.front().triggered && myStops.front().numExpectedPerson > 0) {
+        myStops.front().numExpectedPerson -= (int)myStops.front().pars.awaitedPersons.count(person->getID());
+        if (myStops.front().numExpectedPerson == 0) {
             myStops.front().duration = 0;
         }
     }
@@ -3778,13 +3767,9 @@ MSVehicle::addContainer(MSTransportable* container) {
         myMoveReminders.push_back(std::make_pair(myContainerDevice, 0.));
     }
     myContainerDevice->addTransportable(container);
-    if (myStops.size() > 0 && myStops.front().reached && myStops.front().containerTriggered) {
-        int numExpected = (int) myStops.front().awaitedContainers.size();
-        if (numExpected != 0) {
-            myStops.front().awaitedContainers.erase(container->getID());
-            numExpected = (int) myStops.front().awaitedContainers.size();
-        }
-        if (numExpected == 0) {
+    if (myStops.size() > 0 && myStops.front().reached && myStops.front().pars.containerTriggered && myStops.front().numExpectedContainer > 0) {
+        myStops.front().numExpectedContainer -= (int)myStops.front().pars.awaitedContainers.count(container->getID());
+        if (myStops.front().numExpectedContainer == 0) {
             myStops.front().duration = 0;
         }
     }
@@ -4135,7 +4120,7 @@ MSVehicle::addTraciStop(MSLane* const lane, const double startPos, const double 
                         const bool parking, const bool triggered, const bool containerTriggered, std::string& errorMsg) {
     //if the stop exists update the duration
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
-        if (iter->lane == lane && fabs(iter->endPos - endPos) < POSITION_EPS) {
+        if (iter->lane == lane && fabs(iter->pars.endPos - endPos) < POSITION_EPS) {
             if (duration == 0 && !iter->reached) {
                 myStops.erase(iter);
                 updateBestLanes(true);
@@ -4156,10 +4141,17 @@ MSVehicle::addTraciStop(MSLane* const lane, const double startPos, const double 
     newStop.containerTriggered = containerTriggered;
     newStop.parking = parking;
     newStop.index = STOP_INDEX_FIT;
-    const bool result = addStop(newStop, errorMsg);
-    if (result) {
-        myParameter->stops.push_back(newStop);
+    newStop.parametersSet = STOP_START_SET | STOP_END_SET;
+    if (triggered) {
+        newStop.parametersSet |= STOP_TRIGGER_SET;
     }
+    if (containerTriggered) {
+        newStop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
+    }
+    if (parking) {
+        newStop.parametersSet |= STOP_PARKING_SET;
+    }
+    const bool result = addStop(newStop, errorMsg);
     if (myLane != 0) {
         updateBestLanes(true);
     }
@@ -4235,7 +4227,7 @@ MSVehicle::addTraciStopAtStoppingPlace(const std::string& stopId, const SUMOTime
             }
             break;
         default:
-            throw ProcessError("Invalid Stopping place type '" + toString(stoppingPlaceType) + "'");
+            throw ProcessError("Invalid stopping place type '" + toString(stoppingPlaceType) + "'");
     }
     newStop.duration = duration;
     newStop.until = until;
@@ -4246,10 +4238,16 @@ MSVehicle::addTraciStopAtStoppingPlace(const std::string& stopId, const SUMOTime
     newStop.lane = bs->getLane().getID();
     newStop.endPos = bs->getEndLanePosition();
     newStop.startPos = bs->getBeginLanePosition();
-    const bool result = addStop(newStop, errorMsg);
-    if (result) {
-        myParameter->stops.push_back(newStop);
+    if (triggered) {
+        newStop.parametersSet |= STOP_TRIGGER_SET;
     }
+    if (containerTriggered) {
+        newStop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
+    }
+    if (parking) {
+        newStop.parametersSet |= STOP_PARKING_SET;
+    }
+    const bool result = addStop(newStop, errorMsg);
     if (myLane != 0) {
         updateBestLanes(true);
     }
@@ -4284,6 +4282,10 @@ MSVehicle::resumeFromStopping() {
         }
         // the current stop is no longer valid
         MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
+        MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
+        if (vehroutes != 0) {
+            vehroutes->stopEnded(myStops.front());
+        }
         if (MSStopOut::active()) {
             MSStopOut::getInstance()->stopEnded(this, myStops.front());
         }
@@ -4378,29 +4380,29 @@ MSVehicle::Stop::write(OutputDevice& dev) const {
     }
     if (busstop == 0 && containerstop == 0) {
         dev.writeAttr(SUMO_ATTR_LANE, lane->getID());
-        dev.writeAttr(SUMO_ATTR_STARTPOS, startPos);
-        dev.writeAttr(SUMO_ATTR_ENDPOS, endPos);
+        dev.writeAttr(SUMO_ATTR_STARTPOS, pars.startPos);
+        dev.writeAttr(SUMO_ATTR_ENDPOS, pars.endPos);
     }
     if (duration >= 0) {
         dev.writeAttr(SUMO_ATTR_DURATION, STEPS2TIME(duration));
     }
-    if (until >= 0) {
-        dev.writeAttr(SUMO_ATTR_UNTIL, STEPS2TIME(until));
+    if (pars.until >= 0) {
+        dev.writeAttr(SUMO_ATTR_UNTIL, STEPS2TIME(pars.until));
     }
-    if (triggered) {
-        dev.writeAttr(SUMO_ATTR_TRIGGERED, triggered);
+    if (pars.triggered) {
+        dev.writeAttr(SUMO_ATTR_TRIGGERED, pars.triggered);
     }
-    if (containerTriggered) {
-        dev.writeAttr(SUMO_ATTR_CONTAINER_TRIGGERED, containerTriggered);
+    if (pars.containerTriggered) {
+        dev.writeAttr(SUMO_ATTR_CONTAINER_TRIGGERED, pars.containerTriggered);
     }
-    if (parking) {
-        dev.writeAttr(SUMO_ATTR_PARKING, parking);
+    if (pars.parking) {
+        dev.writeAttr(SUMO_ATTR_PARKING, pars.parking);
     }
-    if (awaitedPersons.size() > 0) {
-        dev.writeAttr(SUMO_ATTR_EXPECTED, joinToString(awaitedPersons, " "));
+    if (pars.awaitedPersons.size() > 0) {
+        dev.writeAttr(SUMO_ATTR_EXPECTED, joinToString(pars.awaitedPersons, " "));
     }
-    if (awaitedContainers.size() > 0) {
-        dev.writeAttr(SUMO_ATTR_EXPECTED_CONTAINERS, joinToString(awaitedContainers, " "));
+    if (pars.awaitedContainers.size() > 0) {
+        dev.writeAttr(SUMO_ATTR_EXPECTED_CONTAINERS, joinToString(pars.awaitedContainers, " "));
     }
     dev.closeTag();
 }
@@ -4417,7 +4419,7 @@ MSVehicle::Stop::getEndPos(const SUMOVehicle& veh) const {
     } else if (chargingStation != 0) {
         return chargingStation->getLastFreePos(veh);
     }
-    return endPos;
+    return pars.endPos;
 }
 
 

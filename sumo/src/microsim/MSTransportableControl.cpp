@@ -165,7 +165,7 @@ MSTransportableControl::boardAnyWaiting(MSEdge* edge, MSVehicle* vehicle, MSVehi
         const std::string& line = vehicle->getParameter().line == "" ? vehicle->getParameter().id : vehicle->getParameter().line;
         SUMOTime currentTime =  MSNet::getInstance()->getCurrentTimeStep();
         for (TransportableVector::iterator i = wait.begin(); i != wait.end();) {
-            if ((*i)->isWaitingFor(line) && vehicle->getVehicleType().getPersonCapacity() > vehicle->getPersonNumber() && stop->timeToBoardNextPerson <= currentTime && stop->startPos <= (*i)->getEdgePos() && (*i)->getEdgePos() <= stop->endPos) {
+            if ((*i)->isWaitingFor(line) && vehicle->getVehicleType().getPersonCapacity() > vehicle->getPersonNumber() && stop->timeToBoardNextPerson <= currentTime && stop->pars.startPos <= (*i)->getEdgePos() && (*i)->getEdgePos() <= stop->pars.endPos) {
                 edge->removePerson(*i);
                 vehicle->addPerson(*i);
                 //if the time a person needs to enter the vehicle extends the duration of the stop of the vehicle extend
@@ -207,7 +207,7 @@ MSTransportableControl::loadAnyWaiting(MSEdge* edge, MSVehicle* vehicle, MSVehic
             SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
             if ((*i)->isWaitingFor(line) && vehicle->getVehicleType().getContainerCapacity() > vehicle->getContainerNumber()
                     && stop->timeToLoadNextContainer <= currentTime
-                    && stop->startPos <= (*i)->getEdgePos() && (*i)->getEdgePos() <= stop->endPos) {
+                    && stop->pars.startPos <= (*i)->getEdgePos() && (*i)->getEdgePos() <= stop->pars.endPos) {
                 edge->removeContainer(*i);
                 vehicle->addContainer(*i);
                 //if the time a container needs to get loaded on the vehicle extends the duration of the stop of the vehicle extend
