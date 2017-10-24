@@ -39,6 +39,7 @@
 #include "GNELane.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"
+#include "GNEUndoList.h"
 
 
 // ===========================================================================
@@ -59,15 +60,15 @@ FXIMPLEMENT(GNECalibratorRouteDialog, FXDialogBox, GNECalibratorRouteDialogMap, 
 // member method definitions
 // ===========================================================================
 
-GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorRoute& calibratorRoute, bool updatingElement) :
-    GNEAdditionalDialog(calibratorRoute.getCalibratorParent(), 400, 300),
+GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorRoute* calibratorRoute, bool updatingElement) :
+    GNEAdditionalDialog(calibratorDialog->getEditedCalibrator(), 400, 300),
     myCalibratorDialogParent(calibratorDialog),
-    myCalibratorRoute(&calibratorRoute),
+    myEditedCalibratorRoute(calibratorRoute),
     myUpdatingElement(updatingElement),
     myCalibratorRouteValid(true) {
     // change default header
-    changeAdditionalDialogHeader("Edit " + toString(calibratorRoute.getTag()) + " of " + toString(calibratorRoute.getCalibratorParent()->getTag()) +
-                                 " '" + calibratorRoute.getCalibratorParent()->getID() + "'");
+    changeAdditionalDialogHeader("Edit " + toString(myEditedCalibratorRoute->getTag()) + " of " + toString(myEditedCalibratorRoute->getCalibratorParent()->getTag()) +
+                                 " '" + myEditedCalibratorRoute->getCalibratorParent()->getID() + "'");
 
     // Create auxiliar frames for data
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -95,26 +96,20 @@ GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorDialog* calibrat
     myListOfEdgesOfRoute = new FXList(columnRight, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignListExtended);
 
     // fill list of net's edges
-    std::vector<GNEEdge*> edgesOfNet = calibratorRoute.getCalibratorParent()->getViewNet()->getNet()->retrieveEdges();
-    for (std::vector<GNEEdge*>::iterator i = edgesOfNet.begin(); i != edgesOfNet.end(); i++) {
-        myListOfEdgesOfNet->appendItem((*i)->getID().c_str());
+    std::vector<GNEEdge*> edgesOfNet = myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getNet()->retrieveEdges();
+    for (auto i : edgesOfNet) {
+        myListOfEdgesOfNet->appendItem(i->getID().c_str());
     }
-
-    // create copy of GNECalibratorRoute
-    myCopyOfCalibratorRoute = new GNECalibratorRoute(calibratorDialog);
-
-    // copy all values of myCalibratorRoute into myCopyOfCalibratorRoute to set initial values
-    (*myCopyOfCalibratorRoute) = (*myCalibratorRoute);
 
     // update tables
     updateCalibratorRouteValues();
+
+    // start a undo list editing
+    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change Route values");
 }
 
 
-GNECalibratorRouteDialog::~GNECalibratorRouteDialog() {
-    // delete copy
-    delete myCopyOfCalibratorRoute;
-}
+GNECalibratorRouteDialog::~GNECalibratorRouteDialog() {}
 
 
 long
@@ -124,20 +119,25 @@ GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
+        std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
+        std::string operation2 = myUpdatingElement ? ("updated") : ("created");
+        std::string parentTagString = toString(myEditedCalibratorRoute->getCalibratorParent()->getTag());
+        std::string tagString = toString(myEditedCalibratorRoute->getTag());
+        // open warning dialog box
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error " + std::string(myUpdatingElement ? ("updating") : ("creating")) + " " + toString(myCalibratorRoute->getCalibratorParent()->getTag()) +
-                               "'s " + toString(myCalibratorRoute->getTag())).c_str(), "%s",
-                              (toString(myCalibratorRoute->getCalibratorParent()->getTag()) + "'s " + toString(myCalibratorRoute->getTag()) +
-                               " cannot be " + std::string(myUpdatingElement ? ("updated") : ("created")) + " because parameter " + toString(myInvalidAttr) +
-                               " is invalid.").c_str());
+            ("Error " + operation1 + " " + parentTagString + "'s " + tagString).c_str(), "%s",
+            (parentTagString + "'s " + tagString + " cannot be " + operation2 + 
+                " because parameter " + toString(myInvalidAttr) +
+                " is invalid.").c_str());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
         }
         return 0;
     } else {
-        // copy all values of myCopyOfCalibratorRoute into myCalibratorRoute
-        (*myCalibratorRoute) = (*myCopyOfCalibratorRoute);
+        // finish editing
+        myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_end();
+        // stop dialgo sucesfully
         getApp()->stopModal(this, TRUE);
         return 1;
     }
@@ -146,6 +146,8 @@ GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorRouteDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+    // abort editing
+    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abort();
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -154,8 +156,9 @@ GNECalibratorRouteDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorRouteDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // copy all values of myCalibratorRoute into myCopyOfCalibratorRoute to set initial values
-    (*myCopyOfCalibratorRoute) = (*myCalibratorRoute);
+    // abort an start editing
+    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abort();
+    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change flow values");
     // update fields
     updateCalibratorRouteValues();
     return 1;
@@ -169,9 +172,7 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     myInvalidAttr = SUMO_ATTR_NOTHING;
 
     // set color of myTextFieldRouteID, depending if current value is valid or not
-    if (myCopyOfCalibratorRoute->getRouteID() == myTextFieldRouteID->getText().text()) {
-        myTextFieldRouteID->setTextColor(FXRGB(0, 0, 0));
-    } else if (myCopyOfCalibratorRoute->setRouteID(myTextFieldRouteID->getText().text())) {
+    if (myEditedCalibratorRoute->getID() == myTextFieldRouteID->getText().text()) {
         myTextFieldRouteID->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldRouteID->setTextColor(FXRGB(255, 0, 0));
@@ -180,13 +181,12 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     }
 
     // set color of myTextFieldRouteEdges, depending if current value is valEdges or not
-    if (myCopyOfCalibratorRoute->setEdges(myTextFieldEdges->getText().text())) {
+    if (myEditedCalibratorRoute->isValid(SUMO_ATTR_EDGES, myTextFieldEdges->getText().text())) {
         myTextFieldEdges->setTextColor(FXRGB(0, 0, 0));
         // fill list of router's edges
         myListOfEdgesOfRoute->clearItems();
-        std::vector<GNEEdge*> edgesOfRouter = myCopyOfCalibratorRoute->getEdges();
-        for (std::vector<GNEEdge*>::iterator i = edgesOfRouter.begin(); i != edgesOfRouter.end(); i++) {
-            myListOfEdgesOfRoute->appendItem((*i)->getID().c_str());
+        for (auto i : myEditedCalibratorRoute->getGNEEdges()) {
+            myListOfEdgesOfRoute->appendItem(i->getID().c_str());
         }
     } else {
         myTextFieldEdges->setTextColor(FXRGB(255, 0, 0));
@@ -195,9 +195,7 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     }
 
     // set color of myTextFieldColor, depending if current value is valid or not
-    if (myCopyOfCalibratorRoute->getColor() == RGBColor::parseColor(myTextFieldColor->getText().text())) {
-        myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
-    } else if (myCopyOfCalibratorRoute->setColor(myTextFieldColor->getText().text())) {
+    if (myEditedCalibratorRoute->isValid(SUMO_ATTR_COLOR, myTextFieldColor->getText().text())) {
         myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
@@ -210,14 +208,13 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
 
 void
 GNECalibratorRouteDialog::updateCalibratorRouteValues() {
-    myTextFieldRouteID->setText(myCopyOfCalibratorRoute->getRouteID().c_str());
-    myTextFieldEdges->setText(joinToString(myCopyOfCalibratorRoute->getEdgesIDs(), " ").c_str());
-    myTextFieldColor->setText(toString(myCopyOfCalibratorRoute->getColor()).c_str());
+    myTextFieldRouteID->setText(myEditedCalibratorRoute->getID().c_str());
+    myTextFieldEdges->setText(myEditedCalibratorRoute->getAttribute(SUMO_ATTR_EDGES).c_str());
+    myTextFieldColor->setText(myEditedCalibratorRoute->getAttribute(SUMO_ATTR_COLOR).c_str());
     // fill list of router's edges
     myListOfEdgesOfRoute->clearItems();
-    std::vector<GNEEdge*> edgesOfRouter = myCopyOfCalibratorRoute->getEdges();
-    for (std::vector<GNEEdge*>::iterator i = edgesOfRouter.begin(); i != edgesOfRouter.end(); i++) {
-        myListOfEdgesOfRoute->appendItem((*i)->getID().c_str());
+    for (auto i : myEditedCalibratorRoute->getGNEEdges()) {
+        myListOfEdgesOfRoute->appendItem(i->getID().c_str());
     }
 }
 

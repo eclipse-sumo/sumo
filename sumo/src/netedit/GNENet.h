@@ -580,7 +580,7 @@ public:
     int getNumberOfAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
     /// @brief Returns a reference to a calibrator route finding in all calibrators of net
-    const GNECalibratorRoute& getGNECalibratorRoute(const std::string& calibratorRouteID) const;
+    GNECalibratorRoute* getGNECalibratorRoute(const std::string& calibratorRouteID) const;
 
     /// @brief Returns a reference to a calibrator vehicle type finding in all calibrators of net
     GNECalibratorVehicleType* getGNECalibratorVehicleType(const std::string& calibratorVehicleTypeID) const;

@@ -34,6 +34,8 @@
 #include "GNEViewNet.h"
 #include "GNECalibrator.h"
 #include "GNECalibratorFlow.h"
+#include "GNECalibratorRoute.h"
+#include "GNECalibratorVehicleType.h"
 
 
 // ===========================================================================
@@ -46,14 +48,9 @@ FXIMPLEMENT_ABSTRACT(GNEChange_CalibratorItem, GNEChange, NULL, 0)
 // ===========================================================================
 
 
-GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibrator *calibrator, 
-    const std::vector<GNECalibratorRoute>& newCalibratorRoutes) :
+GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibrator *calibrator) :
     GNEChange(calibrator->getViewNet()->getNet(), true),
-    myCalibrator(calibrator),
-    // save old values
-    myOldCalibratorRoutes(calibrator->getCalibratorRoutes()),
-    // save new values
-    myNewCalibratorRoutes(newCalibratorRoutes) {
+    myCalibrator(calibrator) {
 }
 
 
@@ -65,11 +62,13 @@ GNEChange_CalibratorItem::undo() {
     // show extra information for tests
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Setting previous " + 
-                      toString(myOldCalibratorRoutes.size()) + 
+                      toString(0) + 
                       " calibrator values into " + toString(myCalibrator->getTag()) + " '" + myCalibrator->getID() + "'");
     }
+    /*
     // set original calibrators values
     myCalibrator->setCalibratorRoutes(myOldCalibratorRoutes);
+    */
     // enable save additionals
     myCalibrator->getViewNet()->getNet()->requiereSaveAdditionals();
 }
@@ -80,11 +79,13 @@ GNEChange_CalibratorItem::redo() {
     // show extra information for tests
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Setting new " + 
-            toString(myNewCalibratorRoutes.size()) + 
+            toString(0) + 
             " calibrator values into " + toString(myCalibrator->getTag()) + " '" + myCalibrator->getID() + "'");
     }
+    /*
     // set new calibrators values
     myCalibrator->setCalibratorRoutes(myNewCalibratorRoutes);
+    */
     // enable save additionals
     myCalibrator->getViewNet()->getNet()->requiereSaveAdditionals();
 }

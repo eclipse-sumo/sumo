@@ -42,6 +42,8 @@
 
 class GNECalibrator;
 class GNECalibratorFlow;
+class GNECalibratorRoute;
+class GNECalibratorVehicleType;
 
 // ===========================================================================
 // class definitions
@@ -55,10 +57,9 @@ class GNEChange_CalibratorItem : public GNEChange {
 
 public:
     /**@brief Constructor for modifying selection
-     * @param[in] calibrator GNECalibrator in which apply changes
      * @param[in] newCalibratorRoutes vector with the new calibratorRoutes of calibrator
      */
-    GNEChange_CalibratorItem(GNECalibrator *calibrator, const std::vector<GNECalibratorRoute>& newCalibratorRoutes);
+    GNEChange_CalibratorItem(GNECalibrator *calibrator);
 
     /// @brief Destructor
     ~GNEChange_CalibratorItem();
@@ -82,15 +83,6 @@ public:
 private:
     /// @brief calibrator in which apply changes
     GNECalibrator *myCalibrator;
-
-    /// @brief old calibrator route values
-    std::vector<GNECalibratorRoute> myOldCalibratorRoutes;
-
-    /// @brief old calibrator vehicleType values
-    std::vector<GNECalibratorVehicleType*> myOldCalibratorVehicleTypes;
-
-    /// @brief old calibrator route values
-    std::vector<GNECalibratorRoute> myNewCalibratorRoutes;
 };
 
 #endif

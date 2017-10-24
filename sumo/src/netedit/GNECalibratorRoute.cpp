@@ -48,9 +48,13 @@
 #include "GNECalibrator.h"
 #include "GNECalibratorDialog.h"
 #include "GNEEdge.h"
+#include "GNELane.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNEJunction.h"
+#include "GNEChange_Attribute.h"
+#include "GNEUndoList.h"
+
 
 
 // ===========================================================================
@@ -58,26 +62,45 @@
 // ===========================================================================
 
 GNECalibratorRoute::GNECalibratorRoute(GNECalibratorDialog* calibratorDialog) :
-    myCalibratorParent(calibratorDialog->getEditedCalibrator()), myRouteID(calibratorDialog->generateRouteID()), myColor(RGBColor::BLACK) {
+    GNEAttributeCarrier(SUMO_TAG_ROUTE, ICON_EMPTY),
+    myCalibratorParent(calibratorDialog->getEditedCalibrator()), 
+    myRouteID(calibratorDialog->generateRouteID()), 
+    myColor(RGBColor::BLACK) {
+    // add the Edge in which Calibrator is placed as default Edge
+    if(GNEAttributeCarrier::hasAttribute(myCalibratorParent->getTag(), SUMO_ATTR_EDGE)) {
+        myEdges.push_back(myCalibratorParent->getViewNet()->getNet()->retrieveEdge(myCalibratorParent->getAttribute(SUMO_ATTR_EDGE)));
+    } else {
+        GNELane *lane = myCalibratorParent->getViewNet()->getNet()->retrieveLane(myCalibratorParent->getAttribute(SUMO_ATTR_LANE));
+        myEdges.push_back(myCalibratorParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID()));
+    }
 }
 
 
-GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<std::string> edges, const RGBColor& color) :
-    myCalibratorParent(calibratorParent), myRouteID(""), myColor(color) {
-    // set values using set functions to avoid non-valid values
-    setRouteID(routeID);
-    setEdges(edges);
+GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, const std::string &routeID, const std::vector<GNEEdge*> &edges, const RGBColor& color) :
+    GNEAttributeCarrier(SUMO_TAG_ROUTE, ICON_EMPTY),
+    myCalibratorParent(calibratorParent), 
+    myRouteID(routeID), 
+    myEdges(edges),
+    myColor(color) {
 }
 
-
-GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<GNEEdge*> edges, const RGBColor& color) :
-    myCalibratorParent(calibratorParent), myRouteID(""), myColor(color) {
-    // set values using set functions to avoid non-valid values
-    setRouteID(routeID);
-    setEdges(edges);
-}
 
 GNECalibratorRoute::~GNECalibratorRoute() {}
+
+
+void 
+GNECalibratorRoute::writeRoute(OutputDevice& device) {
+    // Open route tag
+    device.openTag(getTag());
+    // Write route ID
+    device.writeAttr(SUMO_ATTR_BEGIN, myRouteID);
+    // Write edge IDs
+    device.writeAttr(SUMO_ATTR_BEGIN, getAttribute(SUMO_ATTR_EDGES));
+    // Write Color
+    device.writeAttr(SUMO_ATTR_BEGIN, myColor);
+    // Close flow tag
+    device.closeTag();
+}
 
 
 GNECalibrator*
@@ -86,137 +109,139 @@ GNECalibratorRoute::getCalibratorParent() const {
 }
 
 
-SumoXMLTag
-GNECalibratorRoute::getTag() const {
-    return SUMO_TAG_ROUTE;
-}
-
-
-const std::string&
-GNECalibratorRoute::getRouteID() const {
-    return myRouteID;
-}
-
-
-std::vector<std::string>
-GNECalibratorRoute::getEdgesIDs() const {
-    std::vector<std::string> edgeIDs;
-    for (std::vector<GNEEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        edgeIDs.push_back((*i)->getID());
-    }
-    return edgeIDs;
-}
-
-
 const std::vector<GNEEdge*>&
-GNECalibratorRoute::getEdges() const {
+GNECalibratorRoute::getGNEEdges() const {
     return myEdges;
 }
 
 
-const RGBColor&
-GNECalibratorRoute::getColor() const {
-    return myColor;
-}
-
-
-bool
-GNECalibratorRoute::setRouteID(std::string routeID) {
-    if (routeID.empty()) {
-        return false;
-    } else if (myCalibratorParent->getViewNet()->getNet()->routeExists(routeID)) {
-        return false;
-    } else {
-        myRouteID = routeID;
-        return true;
+std::string 
+GNECalibratorRoute::getAttribute(SumoXMLAttr key) const {
+    switch (key) {
+    case SUMO_ATTR_ID:
+        return myRouteID;
+    case SUMO_ATTR_EDGES: {
+        // obtain ID's of Edges
+        std::vector<std::string> edgeIDs;
+        for (auto i : myEdges) {
+            edgeIDs.push_back(i->getID());
+        }
+        return joinToString(edgeIDs, " ");
+    }
+    case SUMO_ATTR_COLOR:
+        return toString(myColor);
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-bool
-GNECalibratorRoute::setEdges(const std::vector<std::string>& edgeIDs) {
-    std::vector<GNEEdge*> edges;
-    GNEEdge* edgeTmp;
-    for (std::vector<std::string>::const_iterator i = edgeIDs.begin(); i != edgeIDs.end(); i++) {
-        // check that current edges exist in the net
-        edgeTmp = myCalibratorParent->getViewNet()->getNet()->retrieveEdge((*i), false);
-        if (edgeTmp != NULL) {
-            edges.push_back(edgeTmp);
-        } else {
+void 
+GNECalibratorRoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    if (value == getAttribute(key)) {
+        return; //avoid needless changes, later logic relies on the fact that attributes have changed
+    }
+    switch (key) {
+    case SUMO_ATTR_ID:
+    case SUMO_ATTR_EDGES:
+    case SUMO_ATTR_COLOR:
+        undoList->p_add(new GNEChange_Attribute(this, key, value));
+        break;
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool 
+GNECalibratorRoute::isValid(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+    case SUMO_ATTR_ID:
+        return isValidID(value);
+    case SUMO_ATTR_EDGES: {
+        std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+        std::vector<GNEEdge*> edges;
+        // Empty Edges aren't valid
+        if (edgeIds.empty()) {
             return false;
         }
+        // Iterate over parsed edges and check that exists
+        for (auto i : edgeIds) {
+            GNEEdge* retrievedEdge = myCalibratorParent->getViewNet()->getNet()->retrieveEdge(i, false);
+            if (retrievedEdge == NULL) {
+                return false;
+            } else {
+                edges.push_back(retrievedEdge);
+            }
+        }
+        // all edges exist, then check if compounds a valid route
+        return isRouteValid(edges);
     }
-    return setEdges(edges);
+    case SUMO_ATTR_COLOR:
+        return canParse<RGBColor>(value);
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
+
+void 
+GNECalibratorRoute::setAttribute(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+    case SUMO_ATTR_ID:
+        myRouteID = value;
+        // changeID(value);
+        break;
+    case SUMO_ATTR_EDGES: {
+        // clear old edges
+        myEdges.clear();
+        std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+        // Iterate over parsed edges and check that exists
+        for (auto i : edgeIds) {
+            myEdges.push_back(myCalibratorParent->getViewNet()->getNet()->retrieveEdge(i));
+        }
+        break;
+    }
+    case SUMO_ATTR_COLOR:
+        myColor = parse<RGBColor>(value);
+        break;
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
-bool
-GNECalibratorRoute::setEdges(const std::vector<GNEEdge*>& edges) {
-    myEdges = edges;
-    return true;
-}
-
-
-bool
-GNECalibratorRoute::setEdges(const std::string& edgeIDs) {
-    if (GNEAttributeCarrier::canParse<std::vector<std::string> >(edgeIDs)) {
-        return setEdges(GNEAttributeCarrier::parse<std::vector<std::string> >(edgeIDs));
-    } else {
+bool 
+GNECalibratorRoute::isRouteValid(const std::vector<GNEEdge*> &edges) const {
+    if(edges.size() == 0) {
+        // routes cannot be empty
         return false;
-    }
-}
-
-
-bool
-GNECalibratorRoute::setColor(const RGBColor& color) {
-    myColor = color;
-    return true;
-}
-
-
-bool
-GNECalibratorRoute::setColor(std::string color) {
-    if (GNEAttributeCarrier::canParse<RGBColor>(color)) {
-        return setColor(GNEAttributeCarrier::parse<RGBColor>(color));
+    } else if(edges.size() == 1) {
+        // routes with a single edge are valid
+        return true;
     } else {
-        return false;
-    }
-}
-
-
-std::string
-GNECalibratorRoute::checkEdgeRoute(const std::vector<std::string>& edgeIDs) const {
-    std::vector<GNEEdge*> edges;
-    // check that there aren't to equal adjacent edges
-    for (std::vector<std::string>::const_iterator i = edgeIDs.begin() + 1; i != edgeIDs.end(); i++) {
-        GNEEdge* retrievedEdge = myCalibratorParent->getViewNet()->getNet()->retrieveEdge((*i), false);
-        if (retrievedEdge != NULL) {
-            edges.push_back(retrievedEdge);
-        } else {
-            return (toString(SUMO_TAG_EDGE) + " '" + *i + "' doesn't exist");
+        // iterate over edges to check that compounds a chain
+        auto it = edges.begin();
+        while (it != edges.end() - 1) {
+            GNEEdge *currentEdge = *it;
+            GNEEdge *nextEdge = *(it+1);
+            // consecutive edges aren't allowed
+            if(currentEdge->getID() == nextEdge->getID()) {
+                return false;
+            }
+            // make sure that edges are consecutives
+            if(std::find(currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().begin(),
+                         currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end(),
+                         nextEdge) == currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end()) {
+                return false;
+            }
+            it++;
         }
     }
-    // check that there aren't to equal adjacent edges
-    for (std::vector<GNEEdge*>::const_iterator i = edges.begin() + 1; i != edges.end(); i++) {
-        if ((*(i - 1))->getID() == (*i)->getID()) {
-            return (toString(SUMO_TAG_EDGE) + " '" + (*i)->getID() + "' is adjacent to itself");
-        }
-    }
-    // check that edges are adjacents
-    for (std::vector<GNEEdge*>::const_iterator i = edges.begin() + 1; i != edges.end(); i++) {
-        std::vector<GNEEdge*> adyacents = (*(i - 1))->getGNEJunctionDestiny()->getGNEOutgoingEdges();
-        if (std::find(adyacents.begin(), adyacents.end(), (*i)) == adyacents.end()) {
-            return (toString(SUMO_TAG_EDGE) + " '" + (*(i - 1))->getID() + "' isn't adjacent to " + toString(SUMO_TAG_EDGE) + " '" + (*i)->getID() + "'");
-        }
-    }
-    // all ok, then return ""
-    return "";
-}
-
-
-bool
-GNECalibratorRoute::operator==(const GNECalibratorRoute& calibratorRoute) const {
-    return (myRouteID == calibratorRoute.getRouteID());
+    return true;
 }
 
 /****************************************************************************/

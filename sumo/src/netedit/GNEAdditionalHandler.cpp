@@ -55,6 +55,7 @@
 #include "GNECalibratorEdge.h"
 #include "GNECalibratorLane.h"
 #include "GNECalibratorVehicleType.h"
+#include "GNECalibratorRoute.h"
 
 
 // ===========================================================================
@@ -290,7 +291,7 @@ GNEAdditionalHandler::parseCalibratorRoute(const SUMOSAXAttributes& attrs, const
         // create vehicle type if calibrator parent is currently defined
         if ((myCalibratorParent != NULL) && (abort == false)) {
             // create vehicle type and add it to calibrator parent
-            GNECalibratorRoute route(myCalibratorParent, routeID, edges, color);
+            GNECalibratorRoute *route = new GNECalibratorRoute(myCalibratorParent, routeID, edges, color);
             myCalibratorParent->addCalibratorRoute(route);
         }
     }
@@ -619,7 +620,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
         double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_POSITION, abort);
         double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_FREQUENCY, abort);
         // std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
-        std::vector<GNECalibratorRoute> calibratorRoutes;
+        std::vector<GNECalibratorRoute*> calibratorRoutes;
         std::vector<GNECalibratorFlow*> calibratorFlows;
         std::vector<GNECalibratorVehicleType*> calibratorVehicleTypes;
         // Continue if all parameters were sucesfully loaded
@@ -957,7 +958,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             std::string outfile = values[SUMO_ATTR_OUTPUT];
             double freq = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_FREQUENCY]);
             // declare Calibrator values
-            std::vector<GNECalibratorRoute> calibratorRoutes;
+            std::vector<GNECalibratorRoute*> calibratorRoutes;
             std::vector<GNECalibratorFlow*> calibratorFlows;
             std::vector<GNECalibratorVehicleType*> calibratorVehicleTypes;
             // Build calibrator lane
@@ -976,7 +977,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             std::string outfile = values[SUMO_ATTR_OUTPUT];
             double freq = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_FREQUENCY]);
             // declare Calibrator values
-            std::vector<GNECalibratorRoute> calibratorRoutes;
+            std::vector<GNECalibratorRoute*> calibratorRoutes;
             std::vector<GNECalibratorFlow*> calibratorFlows;
             std::vector<GNECalibratorVehicleType*> calibratorVehicleTypes;
             // Build calibrator lane
@@ -1229,7 +1230,7 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo,
 
 bool
 GNEAdditionalHandler::buildLaneCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& outfile, const double freq,
-                                      const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
+                                      const std::vector<GNECalibratorRoute*>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
                                       const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, id) == NULL) {
         GNECalibratorLane* calibratorLane = new GNECalibratorLane(id, lane, viewNet, pos, freq, outfile, calibratorRoutes, calibratorFlows, calibratorVehicleTypes);
@@ -1252,7 +1253,7 @@ GNEAdditionalHandler::buildLaneCalibrator(GNEViewNet* viewNet, bool allowUndoRed
 
 bool
 GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge *edge, double pos, const std::string& outfile, const double freq,
-    const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
+    const std::vector<GNECalibratorRoute*>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
     const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, id) == NULL) {
         GNECalibratorEdge* calibratorEdge = new GNECalibratorEdge(id, edge, viewNet, pos, freq, outfile, calibratorRoutes, calibratorFlows, calibratorVehicleTypes);

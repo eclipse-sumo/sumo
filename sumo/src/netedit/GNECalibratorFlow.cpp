@@ -65,7 +65,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
     myCalibratorParent(calibratorDialog->getEditedCalibrator()), 
     myFlowID(calibratorDialog->generateFlowID()), 
     myVehicleType(calibratorDialog->getEditedCalibrator()->getCalibratorVehicleTypes().front()->getID()), 
-    myRoute(calibratorDialog->getEditedCalibrator()->getCalibratorRoutes().front().getRouteID()), 
+    myRoute(calibratorDialog->getEditedCalibrator()->getCalibratorRoutes().front()->getID()), 
     myColor(getDefaultValue<RGBColor>(SUMO_TAG_FLOW, SUMO_ATTR_COLOR)), 
     myDepartLane(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTLANE)), 
     myDepartPos(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTPOS)), 

@@ -33,6 +33,8 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/RGBColor.h>
 
+#include "GNEAttributeCarrier.h"
+
 // ===========================================================================
 // class declaration
 // ===========================================================================
@@ -48,78 +50,52 @@ class GNECalibratorDialog;
  * @class GNECalibratorRoute
  * vehicle route used by GNECalibrators
  */
-class GNECalibratorRoute {
+class GNECalibratorRoute : public GNEAttributeCarrier {
 
 public:
     /// @brief default constructor (used only in GNECalibratorDialog)
     GNECalibratorRoute(GNECalibratorDialog* calibratorDialog);
 
-    /// @brief parameter constructor 1 (Using edges IDs)
-    GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<std::string> edges, const RGBColor& color);
-
-    /// @brief parameter constructor 2 (Using GNEEdges)
-    GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<GNEEdge*> edges, const RGBColor& color);
+    /// @brief parameter constructor
+    GNECalibratorRoute(GNECalibrator* calibratorParent, const std::string &routeID, const std::vector<GNEEdge*> &edges, const RGBColor &color);
 
     /// @brief destructor
     ~GNECalibratorRoute();
 
+    /// @brief write Route values into a XML
+    void writeRoute(OutputDevice& device);
+
     /// @brief get pointer to calibrator parent
     GNECalibrator* getCalibratorParent() const;
 
-    /// @brief get tag
-    SumoXMLTag getTag() const;
+    /// @brief get GNEEdges of Calibrator ROute
+    const std::vector<GNEEdge*> &getGNEEdges() const;
 
-    /// @brief get route ID
-    const std::string& getRouteID() const;
-
-    /// @brief get IDs of Edges
-    std::vector<std::string> getEdgesIDs() const;
-
-    /// @brief get edges
-    const std::vector<GNEEdge*>& getEdges() const;
-
-    /// @brief get color of route
-    const RGBColor& getColor() const;
-
-    /**@brief set route ID
-    * @return true if was sucesfully set, or false if value isn't valid
+    /// @brief inherited from GNEAttributeCarrier
+    /// @{
+    /* @brief method for getting the Attribute of an XML key
+    * @param[in] key The attribute key
+    * @return string with the value associated to key
     */
-    bool setRouteID(std::string routeID);
+    std::string getAttribute(SumoXMLAttr key) const;
 
-    /**@brief set edges of route using IDs
-    * @return true if was sucesfully set, or false if value isn't valid
+    /* @brief method for setting the attribute and letting the object perform additional changes
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    * @param[in] net optionally the GNENet to inform about gui updates
     */
-    bool setEdges(const std::vector<std::string>& edgeIDs);
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
-    /**@brief set edges of route using pointers
-    * @return true if was sucesfully set, or false if value isn't valid
+    /* @brief method for setting the attribute and letting the object perform additional changes
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
     */
-    bool setEdges(const std::vector<GNEEdge*>& edges);
+    bool isValid(SumoXMLAttr key, const std::string& value);
+    /// @}
 
-    /**@brief set edges of route using a single string
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setEdges(const std::string& edgeIDs);
-
-    /**@brief set color of route
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setColor(const RGBColor& color);
-
-    /**@brief set color of route (String Version
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setColor(std::string color = "black");
-
-    /**@brief check if a list of edges is valid to set a route
-    * @return "" if is correct, a error string in other case
-    */
-    std::string checkEdgeRoute(const std::vector<std::string>& edge) const;
-
-    /// @brief overload operator ==
-    bool operator==(const GNECalibratorRoute& calibratorRoute) const;
-
-private:
+protected:
     /// @brief pointer to calibrator parent
     GNECalibrator* myCalibratorParent;
 
@@ -129,8 +105,21 @@ private:
     /// @brief edges of route
     std::vector<GNEEdge*> myEdges;
 
-    /// @brief color of flow
+    /// @brief color of ROute
     RGBColor myColor;
+
+private:
+    /// @brief method for setting the attribute and nothing else
+    void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief check if a route is valid
+    bool isRouteValid(const std::vector<GNEEdge*> &edges) const;
+
+    /// @brief Invalidated copy constructor.
+    GNECalibratorRoute(GNECalibratorRoute*) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNECalibratorRoute& operator=(GNECalibratorRoute*) = delete;
 };
 
 #endif

@@ -55,6 +55,7 @@
 #include "GNECalibratorDialog.h"
 #include "GNECalibratorFlow.h"
 #include "GNECalibratorVehicleType.h"
+#include "GNECalibratorRoute.h"
 
 
 // ===========================================================================
@@ -62,7 +63,7 @@
 // ===========================================================================
 
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, double relativePos, double frequency, const std::string& output, 
-                             const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow*> &calibratorFlows, 
+                             const std::vector<GNECalibratorRoute*>& calibratorRoutes, const std::vector<GNECalibratorFlow*> &calibratorFlows, 
                              const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes, GNEEdge *edge, GNELane *lane) :
     GNEAdditional(id, viewNet, tag, ICON_CALIBRATOR),
     myPositionOverLane(relativePos),
@@ -101,16 +102,7 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);
     // write all routes of this calibrator
     for (auto i : myCalibratorRoutes) {
-        // Open route tag
-        device.openTag(i.getTag());
-        // Write route ID
-        device.writeAttr(SUMO_ATTR_BEGIN, i.getRouteID());
-        // Write edge IDs
-        device.writeAttr(SUMO_ATTR_BEGIN, i.getEdgesIDs());
-        // Write Color
-        device.writeAttr(SUMO_ATTR_BEGIN, i.getColor());
-        // Close flow tag
-        device.closeTag();
+        i->writeRoute(device);
     }
     // write all vehicle types of this calibrator
     for (auto i : myCalibratorVehicleTypes) {
@@ -280,8 +272,16 @@ GNECalibrator::removeCalibratorFLow(GNECalibratorFlow* flow) {
 
 
 void
-GNECalibrator::addCalibratorRoute(const GNECalibratorRoute& route) {
+GNECalibrator::addCalibratorRoute(GNECalibratorRoute *route) {
+    assert(route);
     myCalibratorRoutes.push_back(route);
+}
+
+
+void
+GNECalibrator::removeCalibratorRoute(GNECalibratorRoute *route) {
+    assert(route);
+    myCalibratorRoutes.erase(std::find(myCalibratorRoutes.begin(), myCalibratorRoutes.end(), route));
 }
 
 
@@ -297,7 +297,7 @@ GNECalibrator::getCalibratorFlows() const {
 }
 
 
-const std::vector<GNECalibratorRoute>&
+const std::vector<GNECalibratorRoute*>&
 GNECalibrator::getCalibratorRoutes() const {
     return myCalibratorRoutes;
 }
@@ -328,7 +328,7 @@ GNECalibrator::flowExists(std::string flowID) const {
 bool
 GNECalibrator::routeExists(std::string routeID) const {
     for (auto i : myCalibratorRoutes) {
-        if (i.getRouteID() == routeID) {
+        if (i->getID() == routeID) {
             return true;
         }
     }
@@ -358,10 +358,10 @@ GNECalibrator::getCalibratorFlow(const std::string& flowID) {
 }
 
 
-const GNECalibratorRoute&
+GNECalibratorRoute*
 GNECalibrator::getCalibratorRoute(const std::string& routeID) {
-    for (auto  &i : myCalibratorRoutes) {
-        if (i.getRouteID() == routeID) {
+    for (auto  i : myCalibratorRoutes) {
+        if (i->getID() == routeID) {
             return i;
         }
     }
@@ -481,7 +481,7 @@ GNECalibrator::setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleT
 }
 
 void
-GNECalibrator::setCalibratorRoutes(const std::vector<GNECalibratorRoute>& calibratorRoutes) {
+GNECalibrator::setCalibratorRoutes(const std::vector<GNECalibratorRoute*>& calibratorRoutes) {
     myCalibratorRoutes = calibratorRoutes;
 }
 

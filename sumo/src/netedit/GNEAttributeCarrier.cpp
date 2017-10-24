@@ -508,7 +508,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_ROUTE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_EDGES, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_EDGES, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "black"));
                 break;
             case SUMO_TAG_VTYPE:

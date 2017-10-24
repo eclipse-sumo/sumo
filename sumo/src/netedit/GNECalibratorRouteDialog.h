@@ -44,7 +44,7 @@ class GNECalibratorDialog;
 
 /**
  * @class GNECalibratorRouteDialog
- * @brief Dialog for edit rerouter intervals
+ * @brief Dialog for edit Calibrator Routes
  */
 
 class GNECalibratorRouteDialog : public GNEAdditionalDialog {
@@ -53,7 +53,7 @@ class GNECalibratorRouteDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorRouteDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorRoute& calibratorRoute, bool updatingElement);
+    GNECalibratorRouteDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorRoute* calibratorRoute, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorRouteDialog();
@@ -84,13 +84,10 @@ protected:
     GNECalibratorDialog* myCalibratorDialogParent;
 
     /// @brief pointer to modified rerouter interval
-    GNECalibratorRoute* myCalibratorRoute;
+    GNECalibratorRoute* myEditedCalibratorRoute;
 
     /// @brief flag to indicate if flow are being created or modified
     bool myUpdatingElement;
-
-    /// @brief pointer in which save modifications of CalibratorRoute
-    GNECalibratorRoute* myCopyOfCalibratorRoute;
 
     /// @brief flag to check if current calibrator vehicleType is valid
     bool myCalibratorRouteValid;
@@ -115,10 +112,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNECalibratorRouteDialog(const GNECalibratorRouteDialog&);
+    GNECalibratorRouteDialog(const GNECalibratorRouteDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNECalibratorRouteDialog& operator=(const GNECalibratorRouteDialog&);
+    GNECalibratorRouteDialog& operator=(const GNECalibratorRouteDialog&) = delete;
 };
 
 #endif

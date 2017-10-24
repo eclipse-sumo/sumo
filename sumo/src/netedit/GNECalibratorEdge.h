@@ -54,7 +54,7 @@ public:
     * @param[in] calibratorVehicleTypes vector with the CalibratorVehicleType of calibrator
     */
     GNECalibratorEdge(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, double pos, double frequency, const std::string& output,
-                      const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
+                      const std::vector<GNECalibratorRoute*>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
                       const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes);
 
     /// @brief Destructor

@@ -1796,7 +1796,7 @@ GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
 }
 
 
-const GNECalibratorRoute&
+GNECalibratorRoute*
 GNENet::getGNECalibratorRoute(const std::string& calibratorRouteID) const {
     std::vector<GNEAdditional*> calibrators = getAdditionals(SUMO_TAG_CALIBRATOR);
     for (auto i : calibrators) {

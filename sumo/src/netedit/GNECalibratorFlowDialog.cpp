@@ -40,6 +40,7 @@
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNECalibratorFlow.h"
+#include "GNECalibratorRoute.h"
 #include "GNECalibratorVehicleType.h"
 #include "GNECalibrator.h"
 #include "GNEUndoList.h"
@@ -154,10 +155,10 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibrator
     myComboBoxVehicleType->setNumVisible((int)myCalibratorDialogParent->getEditedCalibrator()->getCalibratorVehicleTypes().size());
 
     // fill comboBox of Routes
-    for (auto i : myCalibratorDialogParent->getModifiedCalibratorRoutes()) {
-        myComboBoxRoute->appendItem(i.getRouteID().c_str());
+    for (auto i : myCalibratorDialogParent->getEditedCalibrator()->getCalibratorRoutes()) {
+        myComboBoxRoute->appendItem(i->getID().c_str());
     }
-    myComboBoxRoute->setNumVisible((int)myCalibratorDialogParent->getModifiedCalibratorRoutes().size());
+    myComboBoxRoute->setNumVisible((int)myCalibratorDialogParent->getEditedCalibrator()->getCalibratorRoutes().size());
 
     // update tables
     updateCalibratorFlowValues();
@@ -177,13 +178,14 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
-        std::string operation = myUpdatingElement ? ("updating") : ("creating");
+        std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
+        std::string operation2 = myUpdatingElement ? ("updated") : ("created");
         std::string parentTagString = toString(myEditedCalibratorFlow->getCalibratorParent()->getTag());
         std::string tagString = toString(myEditedCalibratorFlow->getTag());
         // open warning dialog box
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error " + operation + " " + parentTagString + "'s " + tagString).c_str(), "%s",
-                              (parentTagString + "'s " + tagString + " cannot be " + operation + 
+                              ("Error " + operation1 + " " + parentTagString + "'s " + tagString).c_str(), "%s",
+                              (parentTagString + "'s " + tagString + " cannot be " + operation2 + 
                                " because parameter " + toString(myInvalidAttr) +
                                " is invalid.").c_str());
         // write warning if netedit is running in testing mode
