@@ -151,13 +151,16 @@ def main(options):
         net = None
         skip = False
         appOptions = []
-        for f in optionsFiles:
+        for f in reversed(optionsFiles):
             for o in open(f).read().split():
                 if skip:
                     skip = False
                     continue
                 if o == "--xml-validation" and options.skip_validation:
                     skip = True
+                    continue
+                if o == "{CLEAR}":
+                    appOptions = []
                     continue
                 appOptions.append(o)
                 if "=" in o:
