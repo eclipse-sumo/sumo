@@ -767,13 +767,13 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
     const EdgeVector incoming = moved->getNBNode()->getIncomingEdges();
     for (EdgeVector::const_iterator it = incoming.begin(); it != incoming.end(); it++) {
         GNEEdge* oldEdge = myEdges[(*it)->getID()];
-        remapEdge(oldEdge, oldEdge->getGNEJunctionSource(), target, undoList);
+        remapEdge(oldEdge, oldEdge->getGNEJunctionSource(), target, undoList, true, false);
     }
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector outgoing = moved->getNBNode()->getOutgoingEdges();
     for (EdgeVector::const_iterator it = outgoing.begin(); it != outgoing.end(); it++) {
         GNEEdge* oldEdge = myEdges[(*it)->getID()];
-        remapEdge(oldEdge, target, oldEdge->getGNEJunctionDestiny(), undoList);
+        remapEdge(oldEdge, target, oldEdge->getGNEJunctionDestiny(), undoList, false, true);
     }
     // deleted moved junction
     deleteJunction(moved, undoList);
@@ -782,7 +782,7 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
 
 
 void
-GNENet::remapEdge(GNEEdge* oldEdge, GNEJunction* from, GNEJunction* to, GNEUndoList* undoList, bool keepEndpoints) {
+GNENet::remapEdge(GNEEdge* oldEdge, GNEJunction* from, GNEJunction* to, GNEUndoList* undoList, bool preserveShapeStart, bool preserveShapeEnd) {
     // remove all crossings asociated to this edge before remap
     std::vector<GNECrossing*> crossingsOfOldEdge = oldEdge->getGNECrossings();
     for (auto i : crossingsOfOldEdge) {
@@ -793,9 +793,11 @@ GNENet::remapEdge(GNEEdge* oldEdge, GNEJunction* from, GNEJunction* to, GNEUndoL
     if (from != to) {
         GNEEdge* newEdge = createEdge(from, to, oldEdge, undoList, oldEdge->getMicrosimID(), false, true);
         newEdge->setAttribute(SUMO_ATTR_SHAPE, oldEdge->getAttribute(SUMO_ATTR_SHAPE), undoList);
-        if (keepEndpoints) {
-            // preserve endpoints even if they where not customized
+        // selectively preserve endpoints
+        if (preserveShapeStart) {
             newEdge->setAttribute(GNE_ATTR_SHAPE_START, toString(oldEdge->getNBEdge()->getGeometry().front()), undoList);
+        }
+        if (preserveShapeEnd) {
             newEdge->setAttribute(GNE_ATTR_SHAPE_END, toString(oldEdge->getNBEdge()->getGeometry().back()), undoList);
         }
     }
@@ -1451,11 +1453,11 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     // remap edges
     for (auto it : allIncoming) {
         GNEEdge* oldEdge = myEdges[it->getID()];
-        remapEdge(oldEdge, oldEdge->getGNEJunctionSource(), joined, undoList, true);
+        remapEdge(oldEdge, oldEdge->getGNEJunctionSource(), joined, undoList, true, true);
     }
     for (auto it : allOutgoing) {
         GNEEdge* oldEdge = myEdges[it->getID()];
-        remapEdge(oldEdge, joined, oldEdge->getGNEJunctionDestiny(), undoList, true);
+        remapEdge(oldEdge, joined, oldEdge->getGNEJunctionDestiny(), undoList, true, true);
     }
     // delete original junctions
     for (auto it : selectedJunctions) {

@@ -710,7 +710,7 @@ private:
     /* @brief helper function for changing the endpoints of a junction
      * @param[in] keepEndpoints Whether to keep the original edge endpoints (influences junction shape)
      */
-    void remapEdge(GNEEdge* oldEdge, GNEJunction* from, GNEJunction* to, GNEUndoList* undoList, bool keepEndpoints = false);
+    void remapEdge(GNEEdge* oldEdge, GNEJunction* from, GNEJunction* to, GNEUndoList* undoList, bool preserveShapeStart, bool preserveShapeEnd);
 
     /// @brief return true if there are already a Junction in the given position, false in other case
     bool checkJunctionPosition(const Position& pos);
