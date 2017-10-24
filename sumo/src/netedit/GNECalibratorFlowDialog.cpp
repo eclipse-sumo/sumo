@@ -40,6 +40,8 @@
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNECalibratorFlow.h"
+#include "GNECalibratorVehicleType.h"
+#include "GNECalibrator.h"
 #include "GNEUndoList.h"
 
 
@@ -146,10 +148,10 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibrator
     myTextFieldProbability = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
 
     // fill comboBox of VTypes
-    for (auto i : myCalibratorDialogParent->getModifiedCalibratorVehicleTypes()) {
-        myComboBoxVehicleType->appendItem(i.getVehicleTypeID().c_str());
+    for (auto i : myCalibratorDialogParent->getEditedCalibrator()->getCalibratorVehicleTypes()) {
+        myComboBoxVehicleType->appendItem(i->getID().c_str());
     }
-    myComboBoxVehicleType->setNumVisible((int)myCalibratorDialogParent->getModifiedCalibratorVehicleTypes().size());
+    myComboBoxVehicleType->setNumVisible((int)myCalibratorDialogParent->getEditedCalibrator()->getCalibratorVehicleTypes().size());
 
     // fill comboBox of Routes
     for (auto i : myCalibratorDialogParent->getModifiedCalibratorRoutes()) {

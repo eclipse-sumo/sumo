@@ -9,7 +9,7 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    GNECalibratorVehicleType.cpp
+/// @file    GNEcalibratorVehicleType->cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2016
 /// @version $Id$
@@ -49,41 +49,43 @@
 #include "GNECalibratorDialog.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"
+#include "GNEUndoList.h"
+#include "GNEChange_Attribute.h"
 
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-
 GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibratorDialog* calibratorDialog) :
-    myCalibratorParent(calibratorDialog->getEditedCalibrator()), myVehicleTypeID(calibratorDialog->generateVehicleTypeID()) {
-    // setset default parameters
-    setAccel();
-    setDecel();
-    setSigma();
-    setTau();
-    setLength();
-    setMinGap();
-    setMaxSpeed();
-    setSpeedFactor();
-    setSpeedDev();
-    setColor();
-    setVClass();
-    setEmissionClass();
-    setShape();
-    setWidth();
-    setFilename();
-    setImpatience();
-    setLaneChangeModel();
-    setCarFollowModel();
-    setPersonCapacity();
-    setContainerCapacity();
-    setBoardingDuration();
-    setLoadingDuration();
-    setLatAlignment();
-    setMinGapLat();
-    setMaxSpeedLat();
+    GNEAttributeCarrier(SUMO_TAG_VTYPE, ICON_EMPTY),
+    myCalibratorParent(calibratorDialog->getEditedCalibrator()), 
+    myVehicleTypeID(calibratorDialog->generateVehicleTypeID()),
+    myAccel(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_ACCEL)),
+    myDecel(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_DECEL)),
+    mySigma(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_SIGMA)),
+    myTau(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_TAU)),
+    myLength(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_LENGTH)),
+    myMinGap(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_MINGAP)),
+    myMaxSpeed(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_MAXSPEED)),
+    mySpeedFactor(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_SPEEDFACTOR)),
+    mySpeedDev(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_SPEEDDEV)),
+    myColor(getDefaultValue<RGBColor>(SUMO_TAG_VTYPE, SUMO_ATTR_COLOR)),
+    myVClass(getDefaultValue<SUMOVehicleClass>(SUMO_TAG_VTYPE, SUMO_ATTR_VCLASS)),
+    myEmissionClass(getDefaultValue<std::string>(SUMO_TAG_VTYPE, SUMO_ATTR_EMISSIONCLASS)),
+    myShape(getDefaultValue<SUMOVehicleShape>(SUMO_TAG_VTYPE, SUMO_ATTR_GUISHAPE)),
+    myWidth(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_WIDTH)),
+    myFilename(getDefaultValue<std::string>(SUMO_TAG_VTYPE, SUMO_ATTR_IMGFILE)),
+    myImpatience(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_IMPATIENCE)),
+    myLaneChangeModel(getDefaultValue<std::string>(SUMO_TAG_VTYPE, SUMO_ATTR_LANE_CHANGE_MODEL)),
+    myCarFollowModel(getDefaultValue<std::string>(SUMO_TAG_VTYPE, SUMO_ATTR_CAR_FOLLOW_MODEL)),
+    myPersonCapacity(getDefaultValue<int>(SUMO_TAG_VTYPE, SUMO_ATTR_PERSON_CAPACITY)),
+    myContainerCapacity(getDefaultValue<int>(SUMO_TAG_VTYPE, SUMO_ATTR_CONTAINER_CAPACITY)),
+    myBoardingDuration(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_BOARDING_DURATION)),
+    myLoadingDuration(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_LOADING_DURATION)),
+    myLatAlignment(getDefaultValue<std::string>(SUMO_TAG_VTYPE, SUMO_ATTR_LATALIGNMENT)),
+    myMinGapLat(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_MINGAP_LAT)),
+    myMaxSpeedLat(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_MAXSPEED_LAT)) {
 }
 
 
@@ -93,38 +95,99 @@ GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorPare
         SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
         const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
         double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) :
-    myCalibratorParent(calibratorParent), myVehicleTypeID("") {
-    // set parameters using the set functions, to avoid non valid values
-    setVehicleTypeID(vehicleTypeID);
-    setAccel(accel);
-    setDecel(decel);
-    setSigma(sigma);
-    setTau(tau);
-    setLength(length);
-    setMinGap(minGap);
-    setMaxSpeed(maxSpeed);
-    setSpeedFactor(speedFactor);
-    setSpeedDev(speedDev);
-    setColor(color);
-    setVClass(vClass);
-    setEmissionClass(emissionClass);
-    setShape(shape);
-    setWidth(width);
-    setFilename(filename);
-    setImpatience(impatience);
-    setLaneChangeModel(laneChangeModel);
-    setCarFollowModel(carFollowModel);
-    setPersonCapacity(personCapacity);
-    setContainerCapacity(containerCapacity);
-    setBoardingDuration(boardingDuration);
-    setLoadingDuration(loadingDuration);
-    setLatAlignment(latAlignment);
-    setMinGapLat(minGapLat);
-    setMaxSpeedLat(maxSpeedLat);
+    GNEAttributeCarrier(SUMO_TAG_VTYPE, ICON_EMPTY),
+    myCalibratorParent(calibratorParent), 
+    myVehicleTypeID(vehicleTypeID),
+    myAccel(accel),
+    myDecel(decel),
+    mySigma(sigma),
+    myTau(tau),
+    myLength(length),
+    myMinGap(minGap),
+    myMaxSpeed(maxSpeed),
+    mySpeedFactor(speedFactor),
+    mySpeedDev(speedDev),
+    myColor(color),
+    myVClass(vClass),
+    myEmissionClass(emissionClass),
+    myShape(shape),
+    myWidth(width),
+    myFilename(filename),
+    myImpatience(impatience),
+    myLaneChangeModel(laneChangeModel),
+    myCarFollowModel(carFollowModel),
+    myPersonCapacity(personCapacity),
+    myContainerCapacity(containerCapacity),
+    myBoardingDuration(boardingDuration),
+    myLoadingDuration(loadingDuration),
+    myLatAlignment(latAlignment),
+    myMinGapLat(minGapLat),
+    myMaxSpeedLat(maxSpeedLat) {
 }
 
 
 GNECalibratorVehicleType::~GNECalibratorVehicleType() {}
+
+
+void 
+GNECalibratorVehicleType::writeVehicleType(OutputDevice& device) {
+    // Open vehicle type tag
+    device.openTag(getTag());
+    // write id
+    device.writeAttr(SUMO_ATTR_ID, myVehicleTypeID);
+    //write accel
+    device.writeAttr(SUMO_ATTR_ACCEL, myAccel);
+    // write decel
+    device.writeAttr(SUMO_ATTR_DECEL, myDecel);
+    // write sigma
+    device.writeAttr(SUMO_ATTR_SIGMA, mySigma);
+    // write tau
+    device.writeAttr(SUMO_ATTR_TAU, myTau);
+    // write lenght
+    device.writeAttr(SUMO_ATTR_LENGTH, myLength);
+    // write min gap
+    device.writeAttr(SUMO_ATTR_MINGAP, myMinGap);
+    // write max speed
+    device.writeAttr(SUMO_ATTR_MAXSPEED, myMaxSpeed);
+    // write speed factor
+    device.writeAttr(SUMO_ATTR_SPEEDFACTOR, mySpeedFactor);
+    // write speed dev
+    device.writeAttr(SUMO_ATTR_SPEEDDEV, mySpeedDev);
+    // write color
+    device.writeAttr(SUMO_ATTR_COLOR, myColor);
+    // write vehicle class
+    device.writeAttr(SUMO_ATTR_VCLASS, myVClass);
+    // write emission class
+    device.writeAttr(SUMO_ATTR_EMISSIONCLASS, myEmissionClass);
+    // write shape
+    device.writeAttr(SUMO_ATTR_GUISHAPE, myShape);
+    // write width
+    device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
+    // write filename
+    device.writeAttr(SUMO_ATTR_IMGFILE, myFilename);
+    // write impatience
+    device.writeAttr(SUMO_ATTR_IMPATIENCE, myImpatience);
+    // write lane change model
+    device.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, myLaneChangeModel);
+    // write car follow model
+    device.writeAttr(SUMO_ATTR_CAR_FOLLOW_MODEL, myCarFollowModel);
+    // write person capacity
+    device.writeAttr(SUMO_ATTR_PERSON_CAPACITY, myPersonCapacity);
+    // write container capacity
+    device.writeAttr(SUMO_ATTR_CONTAINER_CAPACITY, myContainerCapacity);
+    // write boarding duration
+    device.writeAttr(SUMO_ATTR_BOARDING_DURATION, myBoardingDuration);
+    // write loading duration
+    device.writeAttr(SUMO_ATTR_LOADING_DURATION, myLoadingDuration);
+    // write get lat alignment
+    device.writeAttr(SUMO_ATTR_LATALIGNMENT, myLatAlignment);
+    // write min gap lat
+    device.writeAttr(SUMO_ATTR_MINGAP_LAT, myMinGapLat);
+    // write max speed lat
+    device.writeAttr(SUMO_ATTR_MAXSPEED_LAT, myMaxSpeedLat);
+    // Close vehicle type tag
+    device.closeTag();
+}
 
 
 GNECalibrator*
@@ -133,641 +196,259 @@ GNECalibratorVehicleType::getCalibratorParent() const {
 }
 
 
-SumoXMLTag
-GNECalibratorVehicleType::getTag() const {
-    return SUMO_TAG_VTYPE;
+std::string 
+GNECalibratorVehicleType::getAttribute(SumoXMLAttr key) const {
+    switch (key) {
+    case SUMO_ATTR_ID:
+        return myVehicleTypeID;
+    case SUMO_ATTR_ACCEL:
+        return toString(myAccel);
+    case SUMO_ATTR_DECEL:
+        return toString(myDecel);
+    case SUMO_ATTR_SIGMA:
+        return toString(mySigma);
+    case SUMO_ATTR_TAU:
+        return toString(myTau);
+    case SUMO_ATTR_LENGTH:
+        return toString(myLength);
+    case SUMO_ATTR_MINGAP:
+        return toString(myMinGap);
+    case SUMO_ATTR_MAXSPEED:
+        return toString(myMaxSpeed);
+    case SUMO_ATTR_SPEEDFACTOR:
+        return toString(mySpeedFactor);
+    case SUMO_ATTR_SPEEDDEV:
+        return toString(mySpeedDev);
+    case SUMO_ATTR_COLOR:
+        return toString(myColor);
+    case SUMO_ATTR_VCLASS:
+        return toString(myVClass);
+    case SUMO_ATTR_EMISSIONCLASS:
+        return myEmissionClass;
+    case SUMO_ATTR_GUISHAPE:
+        return toString(myShape);
+    case SUMO_ATTR_WIDTH:
+        return toString(myWidth);
+    case SUMO_ATTR_IMGFILE:
+        return myFilename;
+    case SUMO_ATTR_IMPATIENCE:
+        return toString(myImpatience);
+    case SUMO_ATTR_LANE_CHANGE_MODEL:
+        return myLaneChangeModel;
+    case SUMO_ATTR_CAR_FOLLOW_MODEL:
+        return myCarFollowModel;
+    case SUMO_ATTR_PERSON_CAPACITY:
+        return toString(myPersonCapacity);
+    case SUMO_ATTR_CONTAINER_CAPACITY:
+        return toString(myContainerCapacity);
+    case SUMO_ATTR_BOARDING_DURATION:
+        return toString(myBoardingDuration);
+    case SUMO_ATTR_LOADING_DURATION:
+        return toString(myLoadingDuration);
+    case SUMO_ATTR_LATALIGNMENT:
+        return myLatAlignment;
+    case SUMO_ATTR_MINGAP_LAT:
+        return toString(myMinGapLat);
+    case SUMO_ATTR_MAXSPEED_LAT:
+        return toString(myMaxSpeedLat);
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
-std::string
-GNECalibratorVehicleType::getVehicleTypeID() const {
-    return myVehicleTypeID;
+void 
+GNECalibratorVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    if (value == getAttribute(key)) {
+        return; //avoid needless changes, later logic relies on the fact that attributes have changed
+    }
+    switch (key) {
+    case SUMO_ATTR_ID:
+    case SUMO_ATTR_ACCEL:
+    case SUMO_ATTR_DECEL:
+    case SUMO_ATTR_SIGMA:
+    case SUMO_ATTR_TAU:
+    case SUMO_ATTR_LENGTH:
+    case SUMO_ATTR_MINGAP:
+    case SUMO_ATTR_MAXSPEED:
+    case SUMO_ATTR_SPEEDFACTOR:
+    case SUMO_ATTR_SPEEDDEV:
+    case SUMO_ATTR_COLOR:
+    case SUMO_ATTR_VCLASS:
+    case SUMO_ATTR_EMISSIONCLASS:
+    case SUMO_ATTR_GUISHAPE:
+    case SUMO_ATTR_WIDTH:
+    case SUMO_ATTR_IMGFILE:
+    case SUMO_ATTR_IMPATIENCE:
+    case SUMO_ATTR_LANE_CHANGE_MODEL:
+    case SUMO_ATTR_CAR_FOLLOW_MODEL:
+    case SUMO_ATTR_PERSON_CAPACITY:
+    case SUMO_ATTR_CONTAINER_CAPACITY:
+    case SUMO_ATTR_BOARDING_DURATION:
+    case SUMO_ATTR_LOADING_DURATION:
+    case SUMO_ATTR_LATALIGNMENT:
+    case SUMO_ATTR_MINGAP_LAT:
+    case SUMO_ATTR_MAXSPEED_LAT:
+        undoList->p_add(new GNEChange_Attribute(this, key, value));
+        break;
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
-double
-GNECalibratorVehicleType::getAccel() const {
-    return myAccel;
-}
-
-
-double
-GNECalibratorVehicleType::getDecel() const {
-    return myDecel;
-}
-
-
-double
-GNECalibratorVehicleType::getSigma() const {
-    return mySigma;
-}
-
-
-double
-GNECalibratorVehicleType::getTau() const {
-    return myTau;
-}
-
-
-double
-GNECalibratorVehicleType::getLength() const {
-    return myLength;
-}
-
-
-double
-GNECalibratorVehicleType::getMinGap() const {
-    return myMinGap;
-}
-
-
-double
-GNECalibratorVehicleType::getMaxSpeed() const {
-    return myMaxSpeed;
-}
-
-
-double
-GNECalibratorVehicleType::getSpeedFactor() const {
-    return mySpeedFactor;
-}
-
-
-double
-GNECalibratorVehicleType::getSpeedDev() const {
-    return mySpeedDev;
-}
-
-
-const RGBColor&
-GNECalibratorVehicleType::getColor() const {
-    return myColor;
-}
-
-
-SUMOVehicleClass
-GNECalibratorVehicleType::getVClass() const {
-    return myVClass;
-}
-
-
-std::string
-GNECalibratorVehicleType::getEmissionClass() const {
-    return myEmissionClass;
-}
-
-
-SUMOVehicleShape
-GNECalibratorVehicleType::getShape() const {
-    return myShape;
-}
-
-
-double
-GNECalibratorVehicleType::getWidth() const {
-    return myWidth;
-}
-
-
-std::string
-GNECalibratorVehicleType::getFilename() const {
-    return myFilename;
-}
-
-
-double
-GNECalibratorVehicleType::getImpatience() const {
-    return myImpatience;
-}
-
-
-std::string
-GNECalibratorVehicleType::getLaneChangeModel() const {
-    return myLaneChangeModel;
-}
-
-
-std::string
-GNECalibratorVehicleType::getCarFollowModel() const {
-    return myCarFollowModel;
-}
-
-
-int
-GNECalibratorVehicleType::getPersonCapacity() const {
-    return myPersonCapacity;
-}
-
-
-int
-GNECalibratorVehicleType::getContainerCapacity() const {
-    return myContainerCapacity;
-}
-
-
-double
-GNECalibratorVehicleType::getBoardingDuration() const {
-    return myBoardingDuration;
-}
-
-
-double
-GNECalibratorVehicleType::getLoadingDuration() const {
-    return myLoadingDuration;
-}
-
-
-std::string
-GNECalibratorVehicleType::getLatAlignment() const {
-    return myLatAlignment;
-}
-
-
-double
-GNECalibratorVehicleType::getMinGapLat() const {
-    return myMinGapLat;
-}
-
-
-double
-GNECalibratorVehicleType::getMaxSpeedLat() const {
-    return myMaxSpeedLat;
-}
-
-bool
-GNECalibratorVehicleType::setVehicleTypeID(std::string vehicleTypeID) {
-    if (vehicleTypeID.empty()) {
-        return false;
-    } else if (myCalibratorParent->getViewNet()->getNet()->vehicleTypeExists(vehicleTypeID)) {
-        return false;
-    } else {
-        myVehicleTypeID = vehicleTypeID;
+bool 
+GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+    case SUMO_ATTR_ID:
+        return isValidID(value);
+    case SUMO_ATTR_ACCEL:
+        return canParse<double>(value);
+    case SUMO_ATTR_DECEL:
+        return canParse<double>(value);
+    case SUMO_ATTR_SIGMA:
+        return canParse<double>(value);
+    case SUMO_ATTR_TAU:
+        return canParse<double>(value);
+    case SUMO_ATTR_LENGTH:
+        return canParse<double>(value);
+    case SUMO_ATTR_MINGAP:
+        return canParse<double>(value);
+    case SUMO_ATTR_MAXSPEED:
+        return canParse<double>(value);
+    case SUMO_ATTR_SPEEDFACTOR:
+        return canParse<double>(value);
+    case SUMO_ATTR_SPEEDDEV:
+        return canParse<double>(value);
+    case SUMO_ATTR_COLOR:
+        return canParse<RGBColor>(value);
+    case SUMO_ATTR_VCLASS:
+        return canParseVehicleClasses(value);
+    case SUMO_ATTR_EMISSIONCLASS:
         return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setAccel(double accel) {
-    if (accel < 0) {
-        return false;
-    } else {
-        myAccel = accel;
+    case SUMO_ATTR_GUISHAPE:
+        return canParseVehicleShape(value);
+    case SUMO_ATTR_WIDTH:
+        return canParse<double>(value);
+    case SUMO_ATTR_IMGFILE:
+        return isValidFilename(value);
+    case SUMO_ATTR_IMPATIENCE:
+        return canParse<double>(value);
+    case SUMO_ATTR_LANE_CHANGE_MODEL:
+        /** note: Only certain Lane Changing models are valid **/
         return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setAccel(std::string accel) {
-    if (GNEAttributeCarrier::canParse<double>(accel)) {
-        return setAccel(GNEAttributeCarrier::parse<double>(accel));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setDecel(double decel) {
-    if (decel < 0) {
-        return false;
-    } else {
-        myDecel = decel;
+    case SUMO_ATTR_CAR_FOLLOW_MODEL:
+        /** note: Only certain Car following models are valid **/
         return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setDecel(std::string decel) {
-    if (GNEAttributeCarrier::canParse<double>(decel)) {
-        return setDecel(GNEAttributeCarrier::parse<double>(decel));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setSigma(double sigma) {
-    if (sigma < 0) {
-        return false;
-    } else {
-        mySigma = sigma;
-        return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setSigma(std::string sigma) {
-    if (GNEAttributeCarrier::canParse<double>(sigma)) {
-        return setSigma(GNEAttributeCarrier::parse<double>(sigma));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setTau(double tau) {
-    if (tau < 0) {
-        return false;
-    } else {
-        myTau = tau;
-        return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setTau(std::string tau) {
-    if (GNEAttributeCarrier::canParse<double>(tau)) {
-        return setTau(GNEAttributeCarrier::parse<double>(tau));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setLength(double length) {
-    if (length < 0) {
-        return false;
-    } else {
-        myLength = length;
-        return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setLength(std::string length) {
-    if (GNEAttributeCarrier::canParse<double>(length)) {
-        return setLength(GNEAttributeCarrier::parse<double>(length));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setMinGap(double minGap) {
-    if (minGap < 0) {
-        return false;
-    } else {
-        myMinGap = minGap;
-        return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setMinGap(std::string minGap) {
-    if (GNEAttributeCarrier::canParse<double>(minGap)) {
-        return setMinGap(GNEAttributeCarrier::parse<double>(minGap));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setMaxSpeed(double maxSpeed) {
-    if (maxSpeed < 0) {
-        return false;
-    } else {
-        myMaxSpeed = maxSpeed;
-        return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setMaxSpeed(std::string maxSpeed) {
-    if (GNEAttributeCarrier::canParse<double>(maxSpeed)) {
-        return setMaxSpeed(GNEAttributeCarrier::parse<double>(maxSpeed));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setSpeedFactor(double speedFactor) {
-    if (speedFactor < 0) {
-        return false;
-    } else {
-        mySpeedFactor = speedFactor;
-        return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setSpeedFactor(std::string speedFactor) {
-    if (GNEAttributeCarrier::canParse<double>(speedFactor)) {
-        return setSpeedFactor(GNEAttributeCarrier::parse<double>(speedFactor));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setSpeedDev(double speedDev) {
-    if (speedDev < 0) {
-        return false;
-    } else {
-        mySpeedDev = speedDev;
-        return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setSpeedDev(std::string speedDev) {
-    if (GNEAttributeCarrier::canParse<double>(speedDev)) {
-        return setSpeedDev(GNEAttributeCarrier::parse<double>(speedDev));
-    } else {
-        return false;
-    }
-}
-
-bool GNECalibratorVehicleType::setColor(const RGBColor& color) {
-    myColor = color;
-    return false;
-}
-
-
-bool
-GNECalibratorVehicleType::setColor(std::string color) {
-    if (GNEAttributeCarrier::canParse<RGBColor>(color)) {
-        return setColor(GNEAttributeCarrier::parse<RGBColor>(color));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setVClass(SUMOVehicleClass vClass) {
-    myVClass = vClass;
-    return true;
-}
-
-
-bool
-GNECalibratorVehicleType::setVClass(std::string vClass) {
-    if (canParseVehicleClasses(vClass)) {
-        return setVClass(getVehicleClassID(vClass));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setEmissionClass(std::string emissionClass) {
-    myEmissionClass = emissionClass;
-    return true;
-}
-
-
-bool
-GNECalibratorVehicleType::setShape(SUMOVehicleShape shape) {
-    myShape = shape;
-    return true;
-}
-
-
-bool
-GNECalibratorVehicleType::setShape(std::string shape) {
-    if (canParseVehicleShape(shape)) {
-        return setShape(getVehicleShapeID(shape));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setWidth(double width) {
-    if (width < 0) {
-        return false;
-    } else {
-        myWidth = width;
-        return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setWidth(std::string width) {
-    if (GNEAttributeCarrier::canParse<double>(width)) {
-        return setWidth(GNEAttributeCarrier::parse<double>(width));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setFilename(std::string filename) {
-    myFilename = filename;
-    return true;
-}
-
-
-bool
-GNECalibratorVehicleType::setImpatience(double impatience) {
-    if (impatience < 0) {
-        return false;
-    } else {
-        myImpatience = impatience;
-        return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setImpatience(std::string impatience) {
-    if (GNEAttributeCarrier::canParse<double>(impatience)) {
-        return setImpatience(GNEAttributeCarrier::parse<double>(impatience));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setLaneChangeModel(std::string laneChangeModel) {
-    myLaneChangeModel = laneChangeModel;
-    return true;
-}
-
-
-bool
-GNECalibratorVehicleType::setCarFollowModel(std::string carFollowModel) {
-    myCarFollowModel = carFollowModel;
-    return true;
-}
-
-
-bool
-GNECalibratorVehicleType::setPersonCapacity(int personCapacity) {
-    if (personCapacity < 0) {
-        return false;
-    } else {
-        myPersonCapacity = personCapacity;
-        return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setPersonCapacity(std::string personCapacity) {
-    if (GNEAttributeCarrier::canParse<double>(personCapacity)) {
-        double personCapacityD = GNEAttributeCarrier::parse<double>(personCapacity);
-        // Check that double doesn't have decimals
-        if (fmod(personCapacityD, 1) == 0) {
-            return setPersonCapacity((int)personCapacityD);
+    case SUMO_ATTR_PERSON_CAPACITY:
+        return canParse<int>(value);
+    case SUMO_ATTR_CONTAINER_CAPACITY:
+        return canParse<int>(value);
+    case SUMO_ATTR_BOARDING_DURATION:
+        return canParse<double>(value);
+    case SUMO_ATTR_LOADING_DURATION:
+        return canParse<double>(value);
+    case SUMO_ATTR_LATALIGNMENT:
+        if ((value == "") || (value == "left") || (value == "right") || (value == "center")) {
+            return true;
         } else {
-            return false;
+            return canParse<double>(value);
         }
-    } else {
-        return false;
+    case SUMO_ATTR_MINGAP_LAT:
+        return canParse<double>(value);
+    case SUMO_ATTR_MAXSPEED_LAT:
+        return canParse<double>(value);
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-bool
-GNECalibratorVehicleType::setContainerCapacity(int containerCapacity) {
-    if (containerCapacity < 0) {
-        return false;
-    } else {
-        myContainerCapacity = containerCapacity;
-        return true;
+void 
+GNECalibratorVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+    case SUMO_ATTR_ID:
+        myVehicleTypeID = value;
+        // changeID(value);
+        break;
+    case SUMO_ATTR_ACCEL:
+        myAccel = parse<double>(value);
+        break;
+    case SUMO_ATTR_DECEL:
+        myDecel = parse<double>(value);
+        break;
+    case SUMO_ATTR_SIGMA:
+        mySigma = parse<double>(value);
+        break;
+    case SUMO_ATTR_TAU:
+        myTau = parse<double>(value);
+        break;
+    case SUMO_ATTR_LENGTH:
+        myLength = parse<double>(value);
+        break;
+    case SUMO_ATTR_MINGAP:
+        myMinGap = parse<double>(value);
+        break;
+    case SUMO_ATTR_MAXSPEED:
+        myMaxSpeed = parse<double>(value);
+        break;
+    case SUMO_ATTR_SPEEDFACTOR:
+        mySpeedFactor = parse<double>(value);
+        break;
+    case SUMO_ATTR_SPEEDDEV:
+        mySpeedDev = parse<double>(value);
+        break;
+    case SUMO_ATTR_COLOR:
+        myColor = parse<RGBColor>(value);
+        break;
+    case SUMO_ATTR_VCLASS:
+        myVClass = getVehicleClassID(value);
+        break;
+    case SUMO_ATTR_EMISSIONCLASS:
+        myEmissionClass = value;
+        break;
+    case SUMO_ATTR_GUISHAPE:
+        myShape = getVehicleShapeID(value);
+        break;
+    case SUMO_ATTR_WIDTH:
+        myWidth = parse<double>(value);
+        break;
+    case SUMO_ATTR_IMGFILE:
+        myFilename = value;
+        break;
+    case SUMO_ATTR_IMPATIENCE:
+        myImpatience = parse<double>(value);
+        break;
+    case SUMO_ATTR_LANE_CHANGE_MODEL:
+        myLaneChangeModel = value;
+        break;
+    case SUMO_ATTR_CAR_FOLLOW_MODEL:
+        myCarFollowModel = value;
+        break;
+    case SUMO_ATTR_PERSON_CAPACITY:
+        myPersonCapacity = parse<int>(value);
+        break;
+    case SUMO_ATTR_CONTAINER_CAPACITY:
+        myContainerCapacity = parse<int>(value);
+        break;
+    case SUMO_ATTR_BOARDING_DURATION:
+        myBoardingDuration = parse<double>(value);
+        break;
+    case SUMO_ATTR_LOADING_DURATION:
+        myLoadingDuration = parse<double>(value);
+        break;
+    case SUMO_ATTR_LATALIGNMENT:
+        myLatAlignment = value;
+        break;
+    case SUMO_ATTR_MINGAP_LAT:
+        myMinGapLat = parse<double>(value);
+        break;
+    case SUMO_ATTR_MAXSPEED_LAT:
+        myMaxSpeedLat = parse<double>(value);
+        break;
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-bool
-GNECalibratorVehicleType::setContainerCapacity(std::string containerCapacity) {
-    if (GNEAttributeCarrier::canParse<double>(containerCapacity)) {
-        double containerCapacityD = GNEAttributeCarrier::parse<double>(containerCapacity);
-        // Check that double doesn't have decimals
-        if (fmod(containerCapacityD, 1) == 0) {
-            return setContainerCapacity((int)containerCapacityD);
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setBoardingDuration(double boardingDuration) {
-    if (boardingDuration < 0) {
-        return false;
-    } else {
-        myBoardingDuration = boardingDuration;
-        return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setBoardingDuration(std::string boardingDuration) {
-    if (GNEAttributeCarrier::canParse<double>(boardingDuration)) {
-        return setBoardingDuration(GNEAttributeCarrier::parse<double>(boardingDuration));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setLoadingDuration(double loadingDuration) {
-    if (loadingDuration < 0) {
-        return false;
-    } else {
-        myLoadingDuration = loadingDuration;
-        return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setLoadingDuration(std::string loadingDuration) {
-    if (GNEAttributeCarrier::canParse<double>(loadingDuration)) {
-        return setLoadingDuration(GNEAttributeCarrier::parse<double>(loadingDuration));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setLatAlignment(std::string latAlignment) {
-    if ((latAlignment == "left") || (latAlignment == "right") || (latAlignment == "center") ||
-            (latAlignment == "compact") || (latAlignment == "nice") || (latAlignment == "arbitrary")) {
-        myLatAlignment = latAlignment;
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setMinGapLat(double minGapLat) {
-    if (minGapLat < 0) {
-        return false;
-    } else {
-        myMinGapLat = minGapLat;
-        return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setMinGapLat(std::string minGapLat) {
-    if (GNEAttributeCarrier::canParse<double>(minGapLat)) {
-        return setMinGapLat(GNEAttributeCarrier::parse<double>(minGapLat));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setMaxSpeedLat(double maxSpeedLat) {
-    if (maxSpeedLat < 0) {
-        return false;
-    } else {
-        myMaxSpeedLat = maxSpeedLat;
-        return true;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::setMaxSpeedLat(std::string maxSpeedLat) {
-    if (GNEAttributeCarrier::canParse<double>(maxSpeedLat)) {
-        return setMaxSpeedLat(GNEAttributeCarrier::parse<double>(maxSpeedLat));
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECalibratorVehicleType::operator==(const GNECalibratorVehicleType& calibratorVehicleType) const {
-    return (myVehicleTypeID == calibratorVehicleType.getVehicleTypeID());
 }
 
 /****************************************************************************/

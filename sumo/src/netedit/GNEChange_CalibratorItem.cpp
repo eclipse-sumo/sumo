@@ -47,16 +47,13 @@ FXIMPLEMENT_ABSTRACT(GNEChange_CalibratorItem, GNEChange, NULL, 0)
 
 
 GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibrator *calibrator, 
-    const std::vector<GNECalibratorRoute>& newCalibratorRoutes, 
-    const std::vector<GNECalibratorVehicleType>& newCalibratorVehicleTypes) :
+    const std::vector<GNECalibratorRoute>& newCalibratorRoutes) :
     GNEChange(calibrator->getViewNet()->getNet(), true),
     myCalibrator(calibrator),
     // save old values
     myOldCalibratorRoutes(calibrator->getCalibratorRoutes()),
-    myOldCalibratorVehicleTypes(calibrator->getCalibratorVehicleTypes()),
     // save new values
-    myNewCalibratorRoutes(newCalibratorRoutes),
-    myNewCalibratorVehicleTypes(newCalibratorVehicleTypes) {
+    myNewCalibratorRoutes(newCalibratorRoutes) {
 }
 
 
@@ -68,12 +65,11 @@ GNEChange_CalibratorItem::undo() {
     // show extra information for tests
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Setting previous " + 
-                      toString(myOldCalibratorRoutes.size() + myOldCalibratorVehicleTypes.size()) + 
+                      toString(myOldCalibratorRoutes.size()) + 
                       " calibrator values into " + toString(myCalibrator->getTag()) + " '" + myCalibrator->getID() + "'");
     }
     // set original calibrators values
     myCalibrator->setCalibratorRoutes(myOldCalibratorRoutes);
-    myCalibrator->setCalibratorVehicleTypes(myOldCalibratorVehicleTypes);
     // enable save additionals
     myCalibrator->getViewNet()->getNet()->requiereSaveAdditionals();
 }
@@ -84,12 +80,11 @@ GNEChange_CalibratorItem::redo() {
     // show extra information for tests
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Setting new " + 
-            toString(myNewCalibratorRoutes.size() + myNewCalibratorVehicleTypes.size()) + 
+            toString(myNewCalibratorRoutes.size()) + 
             " calibrator values into " + toString(myCalibrator->getTag()) + " '" + myCalibrator->getID() + "'");
     }
     // set new calibrators values
     myCalibrator->setCalibratorRoutes(myNewCalibratorRoutes);
-    myCalibrator->setCalibratorVehicleTypes(myNewCalibratorVehicleTypes);
     // enable save additionals
     myCalibrator->getViewNet()->getNet()->requiereSaveAdditionals();
 }

@@ -29,14 +29,15 @@
 #include <config.h>
 #endif
 
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include "GNEAdditionalDialog.h"
-#include "GNECalibratorVehicleType.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
 class GNECalibratorDialog;
+class GNECalibratorVehicleType;
 
 // ===========================================================================
 // class definitions
@@ -53,7 +54,7 @@ class GNECalibratorVehicleTypeDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorVehicleTypeDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorVehicleType& calibratorVehicleType, bool updatingElement);
+    GNECalibratorVehicleTypeDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorVehicleType* calibratorVehicleType, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorVehicleTypeDialog();
@@ -87,13 +88,10 @@ protected:
     GNECalibratorDialog* myCalibratorDialogParent;
 
     /// @brief pointer to original calibrator vehicle type
-    GNECalibratorVehicleType* myCalibratorVehicleType;
+    GNECalibratorVehicleType* myEditedVehicleType;
 
     /// @brief flag to indicate if flow are being created or modified
     bool myUpdatingElement;
-
-    /// @brief pointer in which save modifications of CalibratorVehicleType
-    GNECalibratorVehicleType* myCopyOfCalibratorVehicleType;
 
     /// @brief flag to check if current calibrator vehicleType is valid
     bool myCalibratorVehicleTypeValid;
@@ -187,10 +185,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNECalibratorVehicleTypeDialog(const GNECalibratorVehicleTypeDialog&);
+    GNECalibratorVehicleTypeDialog(const GNECalibratorVehicleTypeDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNECalibratorVehicleTypeDialog& operator=(const GNECalibratorVehicleTypeDialog&);
+    GNECalibratorVehicleTypeDialog& operator=(const GNECalibratorVehicleTypeDialog&) = delete;
 };
 
 #endif

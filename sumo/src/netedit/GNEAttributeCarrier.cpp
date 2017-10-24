@@ -523,7 +523,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SPEEDFACTOR, "1.0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SPEEDDEV, "0.0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "1,1,0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_VCLASS, "unknown"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_VCLASS, "passenger"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_EMISSIONCLASS, "P_7_7"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_GUISHAPE, "unknown"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "2.0"));

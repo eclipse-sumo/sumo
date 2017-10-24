@@ -57,10 +57,8 @@ public:
     /**@brief Constructor for modifying selection
      * @param[in] calibrator GNECalibrator in which apply changes
      * @param[in] newCalibratorRoutes vector with the new calibratorRoutes of calibrator
-     * @param[in] newCalibratorVehicleTypes vector with the new CalibratorVehicleType of calibrator    
      */
-    GNEChange_CalibratorItem(GNECalibrator *calibrator, const std::vector<GNECalibratorRoute>& newCalibratorRoutes, 
-                             const std::vector<GNECalibratorVehicleType>& newCalibratorVehicleTypes);
+    GNEChange_CalibratorItem(GNECalibrator *calibrator, const std::vector<GNECalibratorRoute>& newCalibratorRoutes);
 
     /// @brief Destructor
     ~GNEChange_CalibratorItem();
@@ -89,13 +87,10 @@ private:
     std::vector<GNECalibratorRoute> myOldCalibratorRoutes;
 
     /// @brief old calibrator vehicleType values
-    std::vector<GNECalibratorVehicleType> myOldCalibratorVehicleTypes;
+    std::vector<GNECalibratorVehicleType*> myOldCalibratorVehicleTypes;
 
     /// @brief old calibrator route values
     std::vector<GNECalibratorRoute> myNewCalibratorRoutes;
-
-    /// @brief old calibrator vehicleType values
-    std::vector<GNECalibratorVehicleType> myNewCalibratorVehicleTypes;
 };
 
 #endif

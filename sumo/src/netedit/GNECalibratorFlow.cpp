@@ -47,6 +47,8 @@
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNECalibratorFlow.h"
+#include "GNECalibratorVehicleType.h"
+#include "GNECalibratorRoute.h"
 #include "GNECalibrator.h"
 #include "GNECalibratorDialog.h"
 #include "GNEChange_Attribute.h"
@@ -62,8 +64,8 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
     GNEAttributeCarrier(SUMO_TAG_FLOW, ICON_EMPTY),
     myCalibratorParent(calibratorDialog->getEditedCalibrator()), 
     myFlowID(calibratorDialog->generateFlowID()), 
-    myVehicleType(calibratorDialog->getModifiedCalibratorVehicleTypes().front().getVehicleTypeID()), 
-    myRoute(calibratorDialog->getModifiedCalibratorRoutes().front().getRouteID()), 
+    myVehicleType(calibratorDialog->getEditedCalibrator()->getCalibratorVehicleTypes().front()->getID()), 
+    myRoute(calibratorDialog->getEditedCalibrator()->getCalibratorRoutes().front().getRouteID()), 
     myColor(getDefaultValue<RGBColor>(SUMO_TAG_FLOW, SUMO_ATTR_COLOR)), 
     myDepartLane(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTLANE)), 
     myDepartPos(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTPOS)), 
@@ -353,10 +355,10 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
     case SUMO_ATTR_REROUTE:
         return canParse<bool>(value);
     case SUMO_ATTR_DEPARTPOS_LAT:
-        if ((value == "random") || (value == "free") || (value == "random_free") || (value == "left") || (value == "right") || (value == "center")) {
+        if ((value == "left") || (value == "right") || (value == "center") || (value == "compact") || (value == "nice") || (value == "arbitrary")) {
             return true;
         } else {
-            return canParse<double>(value);
+            return false;
         }
     case SUMO_ATTR_ARRIVALPOS_LAT:
         if ((value == "") || (value == "left") || (value == "right") || (value == "center")) {

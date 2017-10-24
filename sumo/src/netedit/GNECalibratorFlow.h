@@ -99,14 +99,14 @@ public:
     * @param[in] undoList The undoList on which to register changes
     * @param[in] net optionally the GNENet to inform about gui updates
     */
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
     /* @brief method for setting the attribute and letting the object perform additional changes
     * @param[in] key The attribute key
     * @param[in] value The new value
     * @param[in] undoList The undoList on which to register changes
     */
-    virtual bool isValid(SumoXMLAttr key, const std::string& value);
+    bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
 protected:
@@ -193,7 +193,7 @@ private:
     GNECalibratorFlow(const GNECalibratorFlow&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNECalibratorFlow& operator=(const GNECalibratorFlow& src) = delete;
+    GNECalibratorFlow& operator=(const GNECalibratorFlow&) = delete;
 };
 
 #endif

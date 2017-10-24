@@ -66,9 +66,6 @@ public:
     /// @brief return current modified calibrator routes
     const std::vector<GNECalibratorRoute>& getModifiedCalibratorRoutes() const;
 
-    /// @brief return current modified calibrator vehicle types
-    const std::vector<GNECalibratorVehicleType>& getModifiedCalibratorVehicleTypes() const;
-
     /// @brief generate a vehicleType ID
     std::string generateVehicleTypeID() const;
 
@@ -118,9 +115,6 @@ private:
 
     /// @brief vector with the modified calibrator routes 
     std::vector<GNECalibratorRoute> myModifiedCalibratorRoutes;
-
-    /// @brief vector with the modified calibrator vehicle types 
-    std::vector<GNECalibratorVehicleType> myModifiedCalibratorVehicleTypes;
 
     /// @brief button for add new route
     FXButton* myAddRoute;

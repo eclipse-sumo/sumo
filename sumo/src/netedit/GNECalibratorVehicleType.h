@@ -9,7 +9,7 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    GNECalibratorVehicleType.h
+/// @file    GNEcalibratorVehicleType->h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 /// @version $Id$
@@ -34,6 +34,8 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/RGBColor.h>
 
+#include "GNEAttributeCarrier.h"
+
 // ===========================================================================
 // class declaration
 // ===========================================================================
@@ -48,7 +50,7 @@ class GNECalibratorDialog;
  * @class GNECalibratorVehicleType
  * vehicleType vehicleType used by GNECalibrators
  */
-class GNECalibratorVehicleType {
+class GNECalibratorVehicleType : public GNEAttributeCarrier {
 public:
     /// @brief constructor (Used only in GNECalibratorDialog)
     GNECalibratorVehicleType(GNECalibratorDialog* calibratorDialog);
@@ -65,322 +67,35 @@ public:
     /// @brief destructor
     ~GNECalibratorVehicleType();
 
+    /// @brief write Flow values into a XML
+    void writeVehicleType(OutputDevice& device);
+
     /// @brief get pointer to calibrator parent
     GNECalibrator* getCalibratorParent() const;
 
-    /// @brief get tag
-    SumoXMLTag getTag() const;
-
-    /// @brief get VehicleTypeID
-    std::string getVehicleTypeID() const;
-
-    /// @brief get accel
-    double getAccel() const;
-
-    /// @brief get decel
-    double getDecel() const;
-
-    /// @brief get sigma
-    double getSigma() const;
-
-    /// @brief get tau
-    double getTau() const;
-
-    /// @brief get length
-    double getLength() const;
-
-    /// @brief get min gap
-    double getMinGap() const;
-
-    /// @brief get max speed
-    double getMaxSpeed() const;
-
-    /// @brief get speed factor
-    double getSpeedFactor() const;
-
-    /// @brief get speed dev
-    double getSpeedDev() const;
-
-    /// @brief get color
-    const RGBColor& getColor() const;
-
-    /// @brief get VClass
-    SUMOVehicleClass getVClass() const;
-
-    /// @brief get emission class
-    std::string getEmissionClass() const;
-
-    /// @brief get shape
-    SUMOVehicleShape getShape() const;
-
-    /// @brief get width
-    double getWidth() const;
-
-    /// @brief get filename
-    std::string getFilename() const;
-
-    /// @brief get impatience
-    double getImpatience() const;
-
-    /// @brief get lane change model
-    std::string getLaneChangeModel() const;
-
-    /// @brief get car follow model
-    std::string getCarFollowModel() const;
-
-    /// @brief get person capacity
-    int getPersonCapacity() const;
-
-    /// @brief get container capacity
-    int getContainerCapacity() const;
-
-    /// @brief get boarding duration
-    double getBoardingDuration() const;
-
-    /// @brief get loading duration
-    double getLoadingDuration() const;
-
-    /// @brief get lateral lat
-    std::string getLatAlignment() const;
-
-    /// @brief get min gap lat
-    double getMinGapLat() const;
-
-    /// @brief get max speed lat
-    double getMaxSpeedLat() const;
-
-    /**@brief set vehicleType ID
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setVehicleTypeID(std::string vehicleTypeID);
-
-    /**@brief set accel
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setAccel(double accel = 2.6);
-
-    /**@brief set accel (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setAccel(std::string accel);
-
-    /**@brief set decel
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setDecel(double decel = 4.5);
-
-    /**@brief set decel (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setDecel(std::string decel);
-
-    /**@brief set sigma
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setSigma(double sigma = 0.5);
-
-    /**@brief set sigma (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setSigma(std::string sigma);
-
-    /**@brief set tau
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setTau(double tau = 1.0);
-
-    /**@brief set tau (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setTau(std::string tau);
-
-    /**@brief set length
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setLength(double length = 5.0);
-
-    /**@brief set length (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setLength(std::string length);
-
-    /**@brief set min gap
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setMinGap(double minGap = 2.5);
-
-    /**@brief set min gap (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setMinGap(std::string minGap);
-
-    /**@brief set max speed
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setMaxSpeed(double maxSpeed = 70.0);
-
-    /**@brief set max speed (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setMaxSpeed(std::string maxSpeed);
-
-    /**@brief set speed factor
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setSpeedFactor(double speedFactor = 1.0);
-
-    /**@brief set speed factor (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setSpeedFactor(std::string speedFactor);
-
-    /**@brief set speed dev
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setSpeedDev(double speedDev = 0.0);
-
-    /**@brief set speed dev (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setSpeedDev(std::string speedDev);
-
-    /**@brief set color
-    * @return true if was sucesfully set, or false if value isn't valid
+    /// @brief inherited from GNEAttributeCarrier
+    /// @{
+    /* @brief method for getting the Attribute of an XML key
+    * @param[in] key The attribute key
+    * @return string with the value associated to key
     */
-    bool setColor(const RGBColor& color);
+    std::string getAttribute(SumoXMLAttr key) const;
 
-    /**@brief set color (String version)
-    * @return true if was sucesfully set, or false if value isn't valid
+    /* @brief method for setting the attribute and letting the object perform additional changes
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    * @param[in] net optionally the GNENet to inform about gui updates
     */
-    bool setColor(std::string color = "1,1,0");
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
-    /**@brief set VClass
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setVClass(SUMOVehicleClass vClass = SVC_PRIVATE);
-
-    /**@brief set VClass (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setVClass(std::string vClass);
-
-    /**@brief set emission class
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setEmissionClass(std::string emissionClass = "P_7_7");
-
-    /**@brief set shape (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setShape(std::string shape);
-
-    /**@brief set shape
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setShape(SUMOVehicleShape shape = SVS_PASSENGER);
-
-    /**@brief set width
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setWidth(double width = 2.0);
-
-    /**@brief set width (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setWidth(std::string width);
-
-    /**@brief set filename
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setFilename(std::string filename = "");
-
-    /**@brief set impatience
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setImpatience(double impatience = 0.0);
-
-    /**@brief set impatience (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setImpatience(std::string impatience);
-
-    /**@brief set lane change model
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setLaneChangeModel(std::string laneChangeModel = "LC2013");
-
-    /**@brief set car follow model
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setCarFollowModel(std::string carFollowModel = "Krauss");
-
-    /**@brief set person capacity
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setPersonCapacity(int personCapacity = 4);
-
-    /**@brief set person capacity (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setPersonCapacity(std::string personCapacity);
-
-    /**@brief set container capacity
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setContainerCapacity(int containerCapacity = 0);
-
-    /**@brief set container capacity (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setContainerCapacity(std::string containerCapacity);
-
-    /**@brief set boarding duration
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setBoardingDuration(double boardingDuration = 0.5);
-
-    /**@brief set boarding duration (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setBoardingDuration(std::string boardingDuration);
-
-    /**@brief set loading duration
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setLoadingDuration(double loadingDuration = 90.0);
-
-    /**@brief set loading duration (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setLoadingDuration(std::string loadingDuration);
-
-    /**@brief set lateral lat
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setLatAlignment(std::string latAlignment = "center");
-
-    /**@brief set min gap lat
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setMinGapLat(double minGapLat = 0.12);
-
-    /**@brief set min gap lat (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setMinGapLat(std::string minGapLat);
-
-    /**@brief set max speed lat
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setMaxSpeedLat(double maxSpeedLat = 1.0);
-
-    /**@brief set max speed lat (string version)
-     * @return true if was sucesfully set, or false if value isn't valid
-     */
-    bool setMaxSpeedLat(std::string maxSpeedLat);
-
-    /// @brief overload operator ==
-    bool operator==(const GNECalibratorVehicleType& calibratorVehicleType) const;
+    /* @brief method for setting the attribute and letting the object perform additional changes
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    */
+    bool isValid(SumoXMLAttr key, const std::string& value);
+    /// @}
 
 private:
     /// @brief pointer to calibrator parent
@@ -463,6 +178,16 @@ private:
 
     /// @brief The maximum lateral speed when using the sublane-model
     double myMaxSpeedLat;
+
+private:
+    /// @brief method for setting the attribute and nothing else
+    void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief Invalidated copy constructor.
+    GNECalibratorVehicleType(GNECalibratorVehicleType*) = delete;
+
+    /// @brief Invalidated assignment operator
+    GNECalibratorVehicleType* operator=(GNECalibratorVehicleType*) = delete;
 };
 
 #endif

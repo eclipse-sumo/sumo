@@ -1809,7 +1809,7 @@ GNENet::getGNECalibratorRoute(const std::string& calibratorRouteID) const {
 }
 
 
-const GNECalibratorVehicleType&
+GNECalibratorVehicleType*
 GNENet::getGNECalibratorVehicleType(const std::string& calibratorVehicleTypeID) const {
     std::vector<GNEAdditional*> calibrators = getAdditionals(SUMO_TAG_CALIBRATOR);
     for (auto i : calibrators) {

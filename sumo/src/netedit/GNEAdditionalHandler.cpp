@@ -54,6 +54,7 @@
 #include "GNEViewNet.h"
 #include "GNECalibratorEdge.h"
 #include "GNECalibratorLane.h"
+#include "GNECalibratorVehicleType.h"
 
 
 // ===========================================================================
@@ -334,11 +335,11 @@ GNEAdditionalHandler::parseCalibratorVehicleType(const SUMOSAXAttributes& attrs,
             WRITE_WARNING(toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' cannot be created; Another " + toString(SUMO_TAG_VTYPE) + " with the same ID was previously declared");
         } else if (myCalibratorParent != NULL) {
             // create vehicle type and add it to calibrator parent
-            GNECalibratorVehicleType vehicleType(myCalibratorParent, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed,
-                                                 speedFactor, speedDev, color, vClass, emissionClass, shape, width, filename, impatience,
-                                                 laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration,
-                                                 loadingDuration, latAlignment, minGapLat, maxSpeedLat);
-            myCalibratorParent->addCalibratorVehicleType(vehicleType);
+            GNECalibratorVehicleType *vType = new GNECalibratorVehicleType(myCalibratorParent, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed,
+                                                                           speedFactor, speedDev, color, vClass, emissionClass, shape, width, filename, impatience,
+                                                                           laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration,
+                                                                           loadingDuration, latAlignment, minGapLat, maxSpeedLat);
+            myCalibratorParent->addCalibratorVehicleType(vType);
         }
     }
 }
@@ -620,7 +621,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
         // std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
         std::vector<GNECalibratorRoute> calibratorRoutes;
         std::vector<GNECalibratorFlow*> calibratorFlows;
-        std::vector<GNECalibratorVehicleType> calibratorVehicleTypes;
+        std::vector<GNECalibratorVehicleType*> calibratorVehicleTypes;
         // Continue if all parameters were sucesfully loaded
         if (!abort) {
             // get pointer to lane and edge
@@ -958,7 +959,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             // declare Calibrator values
             std::vector<GNECalibratorRoute> calibratorRoutes;
             std::vector<GNECalibratorFlow*> calibratorFlows;
-            std::vector<GNECalibratorVehicleType> calibratorVehicleTypes;
+            std::vector<GNECalibratorVehicleType*> calibratorVehicleTypes;
             // Build calibrator lane
             if (lane) {
                 return buildCalibrator(viewNet, allowUndoRedo, id, lane, pos, outfile, freq, calibratorRoutes, calibratorFlows, calibratorVehicleTypes);
@@ -977,7 +978,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             // declare Calibrator values
             std::vector<GNECalibratorRoute> calibratorRoutes;
             std::vector<GNECalibratorFlow*> calibratorFlows;
-            std::vector<GNECalibratorVehicleType> calibratorVehicleTypes;
+            std::vector<GNECalibratorVehicleType*> calibratorVehicleTypes;
             // Build calibrator lane
             if (lane) {
                 return buildLaneCalibrator(viewNet, allowUndoRedo, id, lane, pos, outfile, freq, calibratorRoutes, calibratorFlows, calibratorVehicleTypes);
@@ -1229,7 +1230,7 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo,
 bool
 GNEAdditionalHandler::buildLaneCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& outfile, const double freq,
                                       const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
-                                      const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) {
+                                      const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, id) == NULL) {
         GNECalibratorLane* calibratorLane = new GNECalibratorLane(id, lane, viewNet, pos, freq, outfile, calibratorRoutes, calibratorFlows, calibratorVehicleTypes);
         if (allowUndoRedo) {
@@ -1252,7 +1253,7 @@ GNEAdditionalHandler::buildLaneCalibrator(GNEViewNet* viewNet, bool allowUndoRed
 bool
 GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge *edge, double pos, const std::string& outfile, const double freq,
     const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
-    const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) {
+    const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, id) == NULL) {
         GNECalibratorEdge* calibratorEdge = new GNECalibratorEdge(id, edge, viewNet, pos, freq, outfile, calibratorRoutes, calibratorFlows, calibratorVehicleTypes);
         if (allowUndoRedo) {

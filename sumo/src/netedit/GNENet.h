@@ -583,7 +583,7 @@ public:
     const GNECalibratorRoute& getGNECalibratorRoute(const std::string& calibratorRouteID) const;
 
     /// @brief Returns a reference to a calibrator vehicle type finding in all calibrators of net
-    const GNECalibratorVehicleType& getGNECalibratorVehicleType(const std::string& calibratorVehicleTypeID) const;
+    GNECalibratorVehicleType* getGNECalibratorVehicleType(const std::string& calibratorVehicleTypeID) const;
 
     /// @brief Returns a reference to a calibrator flow finding in all calibrators of net
     GNECalibratorFlow* getGNECalibratorFlow(const std::string& calibratorFlowID) const;

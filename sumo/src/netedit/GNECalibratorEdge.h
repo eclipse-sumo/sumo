@@ -55,7 +55,7 @@ public:
     */
     GNECalibratorEdge(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, double pos, double frequency, const std::string& output,
                       const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
-                      const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes);
+                      const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes);
 
     /// @brief Destructor
     ~GNECalibratorEdge();

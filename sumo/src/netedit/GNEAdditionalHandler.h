@@ -51,6 +51,7 @@ class GNEEdge;
 class GNELane;
 class GNEDetectorE3;
 class GNECalibrator;
+class GNECalibratorVehicleType;
 
 // ===========================================================================
 // class definitions
@@ -338,7 +339,7 @@ public:
      */
     static bool buildLaneCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& outfile, double freq,
                                     const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
-                                    const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes);
+                                    const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes);
 
 
     /**@brief builds a microscopic calibrator over an edge
@@ -358,7 +359,7 @@ public:
     */
     static bool buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& outfile, double freq,
                                     const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
-                                    const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes);
+                                    const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes);
 
     /**@brief builds a rerouter
      * @param[in] viewNet viewNet in which element will be inserted
@@ -480,7 +481,7 @@ protected:
     SumoXMLTag myLastTag;
 
     /// @brief vector in wich save calibratorVehicleTypes during loading calibrators
-    std::vector<GNECalibratorVehicleType> myLoadingCalibratorVehicleTypes;
+    std::vector<GNECalibratorVehicleType*> myLoadingCalibratorVehicleTypes;
 
     /// @brief used to check hierarchy of aditionals with parents and childs (for example, E3)
     bool checkAdditionalParent(SumoXMLTag currentTag);

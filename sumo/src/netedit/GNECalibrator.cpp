@@ -54,6 +54,7 @@
 #include "GNERouteProbe.h"
 #include "GNECalibratorDialog.h"
 #include "GNECalibratorFlow.h"
+#include "GNECalibratorVehicleType.h"
 
 
 // ===========================================================================
@@ -62,7 +63,7 @@
 
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, double relativePos, double frequency, const std::string& output, 
                              const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow*> &calibratorFlows, 
-                             const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes, GNEEdge *edge, GNELane *lane) :
+                             const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes, GNEEdge *edge, GNELane *lane) :
     GNEAdditional(id, viewNet, tag, ICON_CALIBRATOR),
     myPositionOverLane(relativePos),
     myFrequency(frequency),
@@ -113,62 +114,7 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
     }
     // write all vehicle types of this calibrator
     for (auto i : myCalibratorVehicleTypes) {
-        // Open vehicle type tag
-        device.openTag(i.getTag());
-        // write id
-        device.writeAttr(SUMO_ATTR_ID, i.getVehicleTypeID());
-        //write accel
-        device.writeAttr(SUMO_ATTR_ACCEL, i.getAccel());
-        // write decel
-        device.writeAttr(SUMO_ATTR_DECEL, i.getDecel());
-        // write sigma
-        device.writeAttr(SUMO_ATTR_SIGMA, i.getSigma());
-        // write tau
-        device.writeAttr(SUMO_ATTR_TAU, i.getTau());
-        // write lenght
-        device.writeAttr(SUMO_ATTR_LENGTH, i.getLength());
-        // write min gap
-        device.writeAttr(SUMO_ATTR_MINGAP, i.getMinGap());
-        // write max speed
-        device.writeAttr(SUMO_ATTR_MAXSPEED, i.getMaxSpeed());
-        // write speed factor
-        device.writeAttr(SUMO_ATTR_SPEEDFACTOR, i.getSpeedFactor());
-        // write speed dev
-        device.writeAttr(SUMO_ATTR_SPEEDDEV, i.getSpeedDev());
-        // write color
-        device.writeAttr(SUMO_ATTR_COLOR, i.getColor());
-        // write vehicle class
-        device.writeAttr(SUMO_ATTR_VCLASS, i.getVClass());
-        // write emission class
-        device.writeAttr(SUMO_ATTR_EMISSIONCLASS, i.getEmissionClass());
-        // write shape
-        device.writeAttr(SUMO_ATTR_SHAPE, i.getShape());
-        // write width
-        device.writeAttr(SUMO_ATTR_WIDTH, i.getWidth());
-        // write filename
-        device.writeAttr(SUMO_ATTR_FILE, i.getFilename());
-        // write impatience
-        device.writeAttr(SUMO_ATTR_IMPATIENCE, i.getImpatience());
-        // write lane change model
-        device.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, i.getLaneChangeModel());
-        // write car follow model
-        device.writeAttr(SUMO_ATTR_CAR_FOLLOW_MODEL, i.getCarFollowModel());
-        // write person capacity
-        device.writeAttr(SUMO_ATTR_PERSON_CAPACITY, i.getPersonCapacity());
-        // write container capacity
-        device.writeAttr(SUMO_ATTR_CONTAINER_CAPACITY, i.getContainerCapacity());
-        // write boarding duration
-        device.writeAttr(SUMO_ATTR_BOARDING_DURATION, i.getBoardingDuration());
-        // write loading duration
-        device.writeAttr(SUMO_ATTR_LOADING_DURATION, i.getLoadingDuration());
-        // write get lat alignment
-        device.writeAttr(SUMO_ATTR_LATALIGNMENT, i.getLatAlignment());
-        // write min gap lat
-        device.writeAttr(SUMO_ATTR_MINGAP_LAT, i.getMinGapLat());
-        // write max speed lat
-        device.writeAttr(SUMO_ATTR_MAXSPEED_LAT, i.getMaxSpeedLat());
-        // Close vehicle type tag
-        device.closeTag();
+        i->writeVehicleType(device);
     }
     // Write all flows of this calibrator
     for (auto i : myCalibratorFlows) {
@@ -306,8 +252,16 @@ GNECalibrator::openAdditionalDialog() {
 
 
 void
-GNECalibrator::addCalibratorVehicleType(const GNECalibratorVehicleType& vehicleType) {
+GNECalibrator::addCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
+    assert(vehicleType);
     myCalibratorVehicleTypes.push_back(vehicleType);
+}
+
+
+void
+GNECalibrator::removeCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
+    assert(vehicleType);
+    myCalibratorVehicleTypes.erase(std::find(myCalibratorVehicleTypes.begin(), myCalibratorVehicleTypes.end(), vehicleType));
 }
 
 
@@ -331,7 +285,7 @@ GNECalibrator::addCalibratorRoute(const GNECalibratorRoute& route) {
 }
 
 
-const std::vector<GNECalibratorVehicleType>&
+const std::vector<GNECalibratorVehicleType*>&
 GNECalibrator::getCalibratorVehicleTypes() const {
     return myCalibratorVehicleTypes;
 }
@@ -352,7 +306,7 @@ GNECalibrator::getCalibratorRoutes() const {
 bool
 GNECalibrator::vehicleTypeExists(std::string vehicleTypeID) const {
     for (auto i : myCalibratorVehicleTypes) {
-        if (i.getVehicleTypeID() == vehicleTypeID) {
+        if (i->getID() == vehicleTypeID) {
             return true;
         }
     }
@@ -382,10 +336,10 @@ GNECalibrator::routeExists(std::string routeID) const {
 }
 
 
-const GNECalibratorVehicleType&
+GNECalibratorVehicleType*
 GNECalibrator::getCalibratorVehicleType(const std::string& vehicleTypeID) {
-    for (auto &i : myCalibratorVehicleTypes) {
-        if (i.getVehicleTypeID() == vehicleTypeID) {
+    for (auto i : myCalibratorVehicleTypes) {
+        if (i->getID() == vehicleTypeID) {
             return i;
         }
     }
@@ -395,7 +349,7 @@ GNECalibrator::getCalibratorVehicleType(const std::string& vehicleTypeID) {
 
 GNECalibratorFlow*
 GNECalibrator::getCalibratorFlow(const std::string& flowID) {
-    for (auto &i : myCalibratorFlows) {
+    for (auto i : myCalibratorFlows) {
         if (i->getID() == flowID) {
             return i;
         }
@@ -522,7 +476,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 void
-GNECalibrator::setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) {
+GNECalibrator::setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes) {
     myCalibratorVehicleTypes = calibratorVehicleTypes;
 }
 
