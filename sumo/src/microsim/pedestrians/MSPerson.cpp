@@ -332,6 +332,9 @@ MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os) const {
 void
 MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
     os.openTag("ride").writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID()).writeAttr(SUMO_ATTR_TO, getDestination().getID());
+    if (myDestinationStop != 0) {
+        os.writeAttr(SUMO_ATTR_BUS_STOP, myDestinationStop->getID());
+    }
     os.writeAttr(SUMO_ATTR_LINES, myLines).closeTag();
 }
 

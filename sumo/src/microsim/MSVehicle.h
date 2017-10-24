@@ -904,6 +904,7 @@ public:
         /// @brief Whether this stop was triggered by a collision
         bool collision;
 
+        /// @brief Write the current stop configuration (used for state saving)
         void write(OutputDevice& dev) const;
 
         /// @brief return halting position for upcoming stop;

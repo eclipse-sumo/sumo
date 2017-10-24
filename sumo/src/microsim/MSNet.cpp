@@ -1019,6 +1019,7 @@ MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
         }
     }
     myInstance->getInsertionControl().adaptIntermodalRouter(router);
+    myInstance->getVehicleControl().adaptIntermodalRouter(router);
 }
 
 

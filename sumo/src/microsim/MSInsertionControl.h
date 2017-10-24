@@ -198,11 +198,11 @@ private:
     /// @brief Set of vehicles which shall not be inserted anymore
     std::set<const SUMOVehicle*> myAbortedEmits;
 
-    /** @struct Stop
-     * @brief Definition of vehicle stop (position and duration)
+    /** @struct Flow
+     * @brief Definition of vehicle flow with the current index for vehicle numbering
      */
     struct Flow {
-        /// @brief The paramters
+        /// @brief The parameters
         SUMOVehicleParameter* pars;
         /// @brief the running index
         int index;
@@ -228,9 +228,6 @@ private:
 
     /// @brief the number of pending emits for each edge in the current time step
     std::map<const MSLane*, int> myPendingEmitsForLane;
-
-    /// @brief List of vehicles which belong to public transport
-    std::vector<SUMOVehicle*> myPTVehicles;
 
 
 private:

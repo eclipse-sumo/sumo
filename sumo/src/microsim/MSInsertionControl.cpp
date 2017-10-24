@@ -315,10 +315,6 @@ MSInsertionControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) con
             router.addSchedule(*f.pars, addStops);
         }
     }
-    for (const SUMOVehicle* const veh : myPTVehicles) {
-        // add single vehicles with line attribute which are not part of a flow
-        router.addSchedule(veh->getParameter());
-    }
 }
 
 

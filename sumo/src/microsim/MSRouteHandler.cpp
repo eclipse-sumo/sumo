@@ -1125,6 +1125,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                     pedType->getMaxSpeed() * walkFactor, vehicle, modeSet, myVehicleParameter->depart, result)) {
                     for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                         if (!it->edges.empty()) {
+                            bs = MSNet::getInstance()->getBusStop(it->destStop);
                             if (myActivePlan->empty()) {
                                 myActivePlan->push_back(new MSTransportable::Stage_Waiting(*from, -1, myVehicleParameter->depart, departPos, "start", true));
                             }

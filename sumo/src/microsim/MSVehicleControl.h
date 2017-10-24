@@ -38,6 +38,7 @@
 #include <utils/distribution/RandomDistributor.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include "MSNet.h"
 
 
 // ===========================================================================
@@ -465,6 +466,8 @@ public:
         return myMinDeceleration;
     }
 
+    void adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const;
+
 private:
     /** @brief Checks whether the vehicle type (distribution) may be added
      *
@@ -475,12 +478,13 @@ private:
     bool checkVType(const std::string& id);
 
 protected:
-    /// @name Vehicle statistics (always accessable)
+    /// @name Vehicle statistics (always accessible)
     /// @{
 
     /// @brief The number of build vehicles
     int myLoadedVehNo;
 
+private:
     /// @brief The number of vehicles within the network (build and inserted but not removed)
     int myRunningVehNo;
 
@@ -519,6 +523,7 @@ protected:
     /// @}
 
 
+protected:
     /// @name Vehicle container
     /// @{
 
@@ -529,6 +534,7 @@ protected:
     /// @}
 
 
+private:
     /// @name Vehicle type container
     /// @{
 
@@ -568,6 +574,9 @@ protected:
 
     /// @brief The minimum deceleration capability for all vehicles in the network
     double myMinDeceleration;
+
+    /// @brief List of vehicles which belong to public transport
+    std::vector<SUMOVehicle*> myPTVehicles;
 
 private:
     /// @brief invalidated copy constructor

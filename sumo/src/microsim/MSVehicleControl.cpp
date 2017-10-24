@@ -200,6 +200,9 @@ MSVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
             addWaiting(v->getRoute().getEdges().front(), v);
             registerOneWaiting(pars.departProcedure == DEPART_TRIGGERED);
         }
+        if (pars.line != "" && pars.repetitionNumber < 0) {
+            myPTVehicles.push_back(v);
+        }
         return true;
     }
     return false;
@@ -409,6 +412,16 @@ int
 MSVehicleControl::getTeleportCount() const {
     return (MSLane::teleportOnCollision() ? myCollisions : 0) + myTeleportsJam + myTeleportsYield + myTeleportsWrongLane;
 }
+
+
+void
+MSVehicleControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const {
+    for (const SUMOVehicle* const veh : myPTVehicles) {
+        // add single vehicles with line attribute which are not part of a flow
+        router.addSchedule(veh->getParameter());
+    }
+}
+
 
 /****************************************************************************/
 
