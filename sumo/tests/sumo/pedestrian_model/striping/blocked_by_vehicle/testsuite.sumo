@@ -11,6 +11,9 @@ shared_lane_block_evasion
 # a pedestrian is walking upstream and multiple vehicles are oncoming
 backward_multiple_vehicles
 
+# a pedestrian is walking downstream and is blocked by multiple vehicles
+forward_multiple_vehicles
+
 # a person disembarks from a vehicle to start walking and must not cause a collision
 disembark
 
