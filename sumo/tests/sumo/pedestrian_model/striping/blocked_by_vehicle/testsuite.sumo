@@ -8,6 +8,9 @@ shared_lane_block_half_backward
 # a vehicle is moving on the same lane as the pedestrians and prevents them from passing each for some time
 shared_lane_block_evasion
 
+# a pedestrian is walking upstream and multiple vehicles are oncoming
+backward_multiple_vehicles
+
 # a person disembarks from a vehicle to start walking and must not cause a collision
 disembark
 
