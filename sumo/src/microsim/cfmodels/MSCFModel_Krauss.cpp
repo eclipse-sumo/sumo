@@ -57,9 +57,13 @@ MSCFModel_Krauss::moveHelper(MSVehicle* const veh, double vPos) const {
     const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
     const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     const double vMin = minNextSpeed(oldV, veh);
+
+    // aMax: Maximal admissible acceleration until the next action step, such that the vehicle's maximal
+    // desired speed on the current lane will not be exceeded.
+    double aMax = (veh->getLane()->getVehicleMaxSpeed(veh) - oldV)/STEPS2TIME(veh->getActionStepLength());
+
     // do not exceed max decel even if it is unsafe
-    double vMax = MAX2(vMin,
-                       MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe));
+    double vMax = MAX2(vMin,MIN3(oldV + ACCEL2SPEED(aMax), maxNextSpeed(oldV, veh), vSafe));
 #ifdef _DEBUG
     //if (vMin > vMax) {
     //    WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
