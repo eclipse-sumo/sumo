@@ -14,6 +14,9 @@ backward_multiple_vehicles
 # a pedestrian is walking downstream and is blocked by multiple vehicles
 forward_multiple_vehicles
 
+# a wide vehicle is blocking the whole lane. It should be evaded to avoid deadlock
+evade_stopped
+
 # a person disembarks from a vehicle to start walking and must not cause a collision
 disembark
 

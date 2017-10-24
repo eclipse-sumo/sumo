@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Oct 24 16:46:07 2017 by SUMO Version dev-SVN-r26708
+<!-- generated on Tue Oct 24 17:23:36 2017 by SUMO Version dev-SVN-r26708
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -87,161 +87,175 @@
     <timestep time="11.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="45.28" y="-0.54" angle="90.00" speed="1.39" pos="45.28" edge="beg" slope="0.00"/>
+        <person id="p0" x="44.90" y="-0.54" angle="90.00" speed="1.01" pos="44.90" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="12.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="46.67" y="-0.37" angle="90.00" speed="1.39" pos="46.67" edge="beg" slope="0.00"/>
+        <person id="p0" x="46.29" y="-0.37" angle="90.00" speed="1.39" pos="46.29" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="13.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="48.00" y="-0.37" angle="90.00" speed="1.33" pos="48.00" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.00" y="-0.37" angle="90.00" speed="0.71" pos="47.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="14.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="48.00" y="-1.01" angle="90.00" speed="0.00" pos="48.00" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.00" y="-0.37" angle="90.00" speed="0.00" pos="47.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="15.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="49.39" y="-1.01" angle="90.00" speed="1.39" pos="49.39" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.00" y="-0.37" angle="90.00" speed="0.00" pos="47.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="16.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="50.78" y="-1.01" angle="90.00" speed="1.39" pos="50.78" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.00" y="-0.37" angle="90.00" speed="0.00" pos="47.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="17.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="52.17" y="-1.01" angle="90.00" speed="1.39" pos="52.17" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.00" y="-0.37" angle="90.00" speed="0.00" pos="47.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="18.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="53.55" y="-1.01" angle="90.00" speed="1.39" pos="53.55" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.00" y="-0.37" angle="90.00" speed="0.00" pos="47.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="19.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="54.94" y="-1.01" angle="90.00" speed="1.39" pos="54.94" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.00" y="-0.37" angle="90.00" speed="0.00" pos="47.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="20.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="56.33" y="-1.01" angle="90.00" speed="1.39" pos="56.33" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.00" y="-0.37" angle="90.00" speed="0.00" pos="47.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="21.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="57.72" y="-1.01" angle="90.00" speed="1.39" pos="57.72" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.00" y="-0.37" angle="90.00" speed="0.00" pos="47.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="22.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="59.11" y="-1.01" angle="90.00" speed="1.39" pos="59.11" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.00" y="-0.37" angle="90.00" speed="0.00" pos="47.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="23.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="60.50" y="-1.01" angle="90.00" speed="1.39" pos="60.50" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.00" y="-0.37" angle="90.00" speed="0.00" pos="47.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="24.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="61.89" y="-1.01" angle="90.00" speed="1.39" pos="61.89" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.00" y="-0.37" angle="90.00" speed="0.00" pos="47.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="25.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="63.28" y="-1.01" angle="90.00" speed="1.39" pos="63.28" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.00" y="-0.37" angle="90.00" speed="0.00" pos="47.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="26.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="60.00" y="-1.65" angle="90.00" type="bus" speed="0.00" pos="60.00" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="64.67" y="-1.01" angle="90.00" speed="1.39" pos="64.67" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.00" y="-0.37" angle="90.00" speed="0.00" pos="47.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="27.00">
         <vehicle id="bike" x="47.50" y="-1.65" angle="90.00" type="bike" speed="0.00" pos="47.50" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="61.20" y="-1.65" angle="90.00" type="bus" speed="1.20" pos="61.20" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="66.05" y="-1.01" angle="90.00" speed="1.39" pos="66.05" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.00" y="-0.37" angle="90.00" speed="0.00" pos="47.00" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="28.00">
         <vehicle id="bike" x="48.70" y="-1.65" angle="90.00" type="bike" speed="1.20" pos="48.70" lane="beg_0" slope="0.00"/>
         <vehicle id="bus" x="63.60" y="-1.65" angle="90.00" type="bus" speed="2.40" pos="63.60" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="67.44" y="-1.01" angle="90.00" speed="1.39" pos="67.44" edge="beg" slope="0.00"/>
+        <person id="p0" x="48.20" y="-0.37" angle="90.00" speed="1.20" pos="48.20" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="29.00">
         <vehicle id="bike" x="51.10" y="-1.65" angle="90.00" type="bike" speed="2.40" pos="51.10" lane="beg_0" slope="0.00"/>
-        <vehicle id="bus" x="66.12" y="-1.65" angle="90.00" type="bus" speed="2.52" pos="66.12" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="68.83" y="-1.01" angle="90.00" speed="1.39" pos="68.83" edge="beg" slope="0.00"/>
+        <vehicle id="bus" x="67.20" y="-1.65" angle="90.00" type="bus" speed="3.60" pos="67.20" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="49.59" y="-0.37" angle="90.00" speed="1.39" pos="49.59" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="30.00">
-        <vehicle id="bike" x="53.62" y="-1.65" angle="90.00" type="bike" speed="2.52" pos="53.62" lane="beg_0" slope="0.00"/>
-        <vehicle id="bus" x="67.51" y="-1.65" angle="90.00" type="bus" speed="1.39" pos="67.51" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="70.22" y="-1.01" angle="90.00" speed="1.39" pos="70.22" edge="beg" slope="0.00"/>
+        <vehicle id="bike" x="54.40" y="-1.65" angle="90.00" type="bike" speed="3.30" pos="54.40" lane="beg_0" slope="0.00"/>
+        <vehicle id="bus" x="72.00" y="-1.65" angle="90.00" type="bus" speed="4.80" pos="72.00" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="50.98" y="-0.37" angle="90.00" speed="1.39" pos="50.98" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="31.00">
-        <vehicle id="bike" x="55.00" y="-1.65" angle="90.00" type="bike" speed="1.39" pos="55.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="bus" x="68.89" y="-1.65" angle="90.00" type="bus" speed="1.39" pos="68.89" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="71.61" y="-1.01" angle="90.00" speed="1.39" pos="71.61" edge="beg" slope="0.00"/>
+        <vehicle id="bike" x="58.85" y="-1.65" angle="90.00" type="bike" speed="4.45" pos="58.85" lane="beg_0" slope="0.00"/>
+        <vehicle id="bus" x="77.00" y="-1.65" angle="90.00" type="bus" speed="5.00" pos="77.00" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="52.37" y="-0.37" angle="90.00" speed="1.39" pos="52.37" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="32.00">
-        <vehicle id="bike" x="56.39" y="-1.65" angle="90.00" type="bike" speed="1.39" pos="56.39" lane="beg_0" slope="0.00"/>
-        <vehicle id="bus" x="70.28" y="-1.65" angle="90.00" type="bus" speed="1.39" pos="70.28" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="73.00" y="-1.01" angle="90.00" speed="1.39" pos="73.00" edge="beg" slope="0.00"/>
+        <vehicle id="bike" x="63.67" y="-1.65" angle="90.00" type="bike" speed="4.82" pos="63.67" lane="beg_0" slope="0.00"/>
+        <vehicle id="bus" x="82.00" y="-1.65" angle="90.00" type="bus" speed="5.00" pos="82.00" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="53.75" y="-0.37" angle="90.00" speed="1.39" pos="53.75" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="33.00">
-        <vehicle id="bike" x="57.78" y="-1.65" angle="90.00" type="bike" speed="1.39" pos="57.78" lane="beg_0" slope="0.00"/>
-        <vehicle id="bus" x="71.67" y="-1.65" angle="90.00" type="bus" speed="1.39" pos="71.67" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="74.39" y="-1.01" angle="90.00" speed="1.39" pos="74.39" edge="beg" slope="0.00"/>
+        <vehicle id="bike" x="68.59" y="-1.65" angle="90.00" type="bike" speed="4.91" pos="68.59" lane="beg_0" slope="0.00"/>
+        <vehicle id="bus" x="87.00" y="-1.65" angle="90.00" type="bus" speed="5.00" pos="87.00" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="55.14" y="-0.37" angle="90.00" speed="1.39" pos="55.14" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="34.00">
-        <vehicle id="bike" x="59.17" y="-1.65" angle="90.00" type="bike" speed="1.39" pos="59.17" lane="beg_0" slope="0.00"/>
-        <vehicle id="bus" x="73.06" y="-1.65" angle="90.00" type="bus" speed="1.39" pos="73.06" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="75.78" y="-1.01" angle="90.00" speed="1.39" pos="75.78" edge="beg" slope="0.00"/>
+        <vehicle id="bike" x="73.54" y="-1.65" angle="90.00" type="bike" speed="4.96" pos="73.54" lane="beg_0" slope="0.00"/>
+        <vehicle id="bus" x="92.00" y="-1.65" angle="90.00" type="bus" speed="5.00" pos="92.00" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="56.53" y="-0.37" angle="90.00" speed="1.39" pos="56.53" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="35.00">
-        <vehicle id="bike" x="60.56" y="-1.65" angle="90.00" type="bike" speed="1.39" pos="60.56" lane="beg_0" slope="0.00"/>
-        <vehicle id="bus" x="74.45" y="-1.65" angle="90.00" type="bus" speed="1.39" pos="74.45" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="77.17" y="-1.01" angle="90.00" speed="1.39" pos="77.17" edge="beg" slope="0.00"/>
+        <vehicle id="bike" x="78.52" y="-1.65" angle="90.00" type="bike" speed="4.98" pos="78.52" lane="beg_0" slope="0.00"/>
+        <vehicle id="bus" x="97.00" y="-1.65" angle="90.00" type="bus" speed="5.00" pos="97.00" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="57.92" y="-0.37" angle="90.00" speed="1.39" pos="57.92" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="36.00">
-        <vehicle id="bike" x="61.95" y="-1.65" angle="90.00" type="bike" speed="1.39" pos="61.95" lane="beg_0" slope="0.00"/>
-        <vehicle id="bus" x="75.84" y="-1.65" angle="90.00" type="bus" speed="1.39" pos="75.84" lane="beg_0" slope="0.00"/>
-        <person id="p0" x="78.55" y="-1.01" angle="90.00" speed="1.39" pos="78.55" edge="beg" slope="0.00"/>
+        <vehicle id="bike" x="83.51" y="-1.65" angle="90.00" type="bike" speed="4.99" pos="83.51" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="59.31" y="-0.37" angle="90.00" speed="1.39" pos="59.31" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="37.00">
-        <vehicle id="bike" x="63.34" y="-1.65" angle="90.00" type="bike" speed="1.39" pos="63.34" lane="beg_0" slope="0.00"/>
-        <vehicle id="bus" x="78.43" y="-1.65" angle="90.00" type="bus" speed="2.59" pos="78.43" lane="beg_0" slope="0.00"/>
+        <vehicle id="bike" x="89.07" y="-1.65" angle="90.00" type="bike" speed="5.56" pos="89.07" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="60.70" y="-0.37" angle="90.00" speed="1.39" pos="60.70" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="38.00">
-        <vehicle id="bike" x="65.93" y="-1.65" angle="90.00" type="bike" speed="2.59" pos="65.93" lane="beg_0" slope="0.00"/>
-        <vehicle id="bus" x="82.22" y="-1.65" angle="90.00" type="bus" speed="3.79" pos="82.22" lane="beg_0" slope="0.00"/>
+        <vehicle id="bike" x="94.62" y="-1.65" angle="90.00" type="bike" speed="5.56" pos="94.62" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="62.09" y="-0.37" angle="90.00" speed="1.39" pos="62.09" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="39.00">
-        <vehicle id="bike" x="69.32" y="-1.65" angle="90.00" type="bike" speed="3.39" pos="69.32" lane="beg_0" slope="0.00"/>
-        <vehicle id="bus" x="87.21" y="-1.65" angle="90.00" type="bus" speed="4.99" pos="87.21" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="63.48" y="-0.37" angle="90.00" speed="1.39" pos="63.48" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="40.00">
-        <vehicle id="bike" x="73.92" y="-1.65" angle="90.00" type="bike" speed="4.59" pos="73.92" lane="beg_0" slope="0.00"/>
-        <vehicle id="bus" x="92.21" y="-1.65" angle="90.00" type="bus" speed="5.00" pos="92.21" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="64.87" y="-0.37" angle="90.00" speed="1.39" pos="64.87" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="41.00">
-        <vehicle id="bike" x="78.81" y="-1.65" angle="90.00" type="bike" speed="4.89" pos="78.81" lane="beg_0" slope="0.00"/>
-        <vehicle id="bus" x="97.21" y="-1.65" angle="90.00" type="bus" speed="5.00" pos="97.21" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="66.25" y="-0.37" angle="90.00" speed="1.39" pos="66.25" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="42.00">
-        <vehicle id="bike" x="83.76" y="-1.65" angle="90.00" type="bike" speed="4.95" pos="83.76" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="67.64" y="-0.37" angle="90.00" speed="1.39" pos="67.64" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="43.00">
-        <vehicle id="bike" x="89.31" y="-1.65" angle="90.00" type="bike" speed="5.56" pos="89.31" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="69.03" y="-0.37" angle="90.00" speed="1.39" pos="69.03" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="44.00">
-        <vehicle id="bike" x="94.87" y="-1.65" angle="90.00" type="bike" speed="5.56" pos="94.87" lane="beg_0" slope="0.00"/>
+        <person id="p0" x="70.42" y="-0.37" angle="90.00" speed="1.39" pos="70.42" edge="beg" slope="0.00"/>
     </timestep>
-    <timestep time="45.00"/>
+    <timestep time="45.00">
+        <person id="p0" x="71.81" y="-0.37" angle="90.00" speed="1.39" pos="71.81" edge="beg" slope="0.00"/>
+    </timestep>
+    <timestep time="46.00">
+        <person id="p0" x="73.20" y="-0.37" angle="90.00" speed="1.39" pos="73.20" edge="beg" slope="0.00"/>
+    </timestep>
+    <timestep time="47.00">
+        <person id="p0" x="74.59" y="-0.37" angle="90.00" speed="1.39" pos="74.59" edge="beg" slope="0.00"/>
+    </timestep>
+    <timestep time="48.00">
+        <person id="p0" x="75.98" y="-0.37" angle="90.00" speed="1.39" pos="75.98" edge="beg" slope="0.00"/>
+    </timestep>
+    <timestep time="49.00">
+        <person id="p0" x="77.37" y="-0.37" angle="90.00" speed="1.39" pos="77.37" edge="beg" slope="0.00"/>
+    </timestep>
+    <timestep time="50.00">
+        <person id="p0" x="78.75" y="-0.37" angle="90.00" speed="1.39" pos="78.75" edge="beg" slope="0.00"/>
+    </timestep>
+    <timestep time="51.00"/>
 </fcd-export>
