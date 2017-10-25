@@ -25,16 +25,12 @@ Stage = collections.namedtuple('Stage', ['stageType', 'line', 'destStop', 'edges
 def _readStage(result):
     # compound size and type
     _, _, stageType = result.read("!iBi")
-    print("type", stageType)
     result.read("!B")                   # Type
     line = result.readString()
-    print("line", line)
     result.read("!B")                   # Type
     destStop = result.readString()
-    print("destStop", destStop)
     result.read("!B")                   # Type
     edges = result.readStringList()
-    print(edges)
     _, travelTime, _, cost = result.read("!BdBd")
     return Stage(stageType, line, destStop, edges, travelTime, cost)
 

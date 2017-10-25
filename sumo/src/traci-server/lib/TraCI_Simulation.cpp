@@ -143,7 +143,7 @@ TraCI_Simulation::findIntermodalRoute(const std::string& from, const std::string
             throw TraCIException("Unknown person mode '" + mode + "'.");
         }
     }
-    const MSVehicleType* pedType = vehControl.getVType(pType);
+    const MSVehicleType* pedType = vehControl.hasVType(pType) ? vehControl.getVType(pType) : vehControl.getVType(DEFAULT_PEDTYPE_ID);
     const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : depart;
     if (modeSet == 0) {
         ConstMSEdgeVector edges;
