@@ -82,7 +82,11 @@ public:
     /** @brief Called to examine whether the vehicle wants to change
      * using the given laneOffset.
      * This method gets the information about the surrounding vehicles
-     * and whether another lane may be more preferable */
+     * and whether another lane may be more preferable
+     *
+     * TODO: better documentation, refs #2
+     *
+     * */
     int wantsChange(
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,

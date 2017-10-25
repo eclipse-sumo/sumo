@@ -755,7 +755,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
 
                 // next step's gap with possibly less than maximal help deceleration (in case vsafe1 > neighNewSpeed)
                 double decel2 = SPEED2ACCEL(nv->getSpeed() - vsafe1);
-                nextGap = myCarFollowModel.gapExtrapolation(TS,
+                nextGap = myCarFollowModel.gapExtrapolation(myVehicle.getActionStepLengthSecs(),
                           neighFollow.second, myVehicle.getSpeed(),
                           nv->getSpeed(), plannedAccel, -decel2,
                           myVehicle.getMaxSpeedOnLane(), nv->getMaxSpeedOnLane());
@@ -1054,6 +1054,7 @@ MSLCM_LC2013::_wantsChange(
     // currentDist is the distance that the vehicle can go on its route without having to
     // change lanes from the current lane. neighDist as currentDist for the considered target lane (i.e., neigh)
     // If this is true I suggest to put this into the docu of wantsChange()
+    // Another thing: "preb" probably means "previous best (lanes)"?!
     double currentDist = 0;
     double neighDist = 0;
     int currIdx = 0;
@@ -1149,8 +1150,8 @@ MSLCM_LC2013::_wantsChange(
     if (myVehicle.getSpeed() > myLookAheadSpeed) {
         myLookAheadSpeed = myVehicle.getSpeed();
     } else {
-        // memory decay factor for this time step
-        const double memoryFactor = 1. - (1. - LOOK_AHEAD_SPEED_MEMORY) * TS;
+        // memory decay factor for this action step
+        const double memoryFactor = 1. - (1. - LOOK_AHEAD_SPEED_MEMORY) * myVehicle.getActionStepLengthSecs();
         assert(memoryFactor > 0.);
         myLookAheadSpeed = MAX2(LOOK_AHEAD_MIN_SPEED,
                                 (memoryFactor * myLookAheadSpeed + (1 - memoryFactor) * myVehicle.getSpeed()));
@@ -1182,6 +1183,7 @@ MSLCM_LC2013::_wantsChange(
 
     // Next we assign to roundabout edges a larger distance than to normal edges
     // in order to decrease sense of lc urgency and induce higher usage of inner roundabout lanes.
+    // TODO: include ticket860 code
     // 1) get information about the next upcoming roundabout
     double roundaboutDistanceAhead = 0;
     double roundaboutDistanceAheadNeigh = 0;
@@ -1261,7 +1263,7 @@ MSLCM_LC2013::_wantsChange(
                 if (vSafeFuture < vSafe) {
                     const double relativeGain = deltaV / MAX2(vMax,
                                                 RELGAIN_NORMALIZATION_MIN_SPEED);
-                    mySpeedGainProbability += TS * relativeGain;
+                    mySpeedGainProbability += myVehicle.getActionStepLengthSecs() * relativeGain;
                     changeLeftToAvoidOvertakeRight = true;
                 }
 #ifdef DEBUG_WANTS_CHANGE
@@ -1497,6 +1499,7 @@ MSLCM_LC2013::_wantsChange(
     if (acceleratingLeader) {
         // followSpeed allows acceleration for 1 step, to always compare speeds
         // after 1 second of acceleration we have call the function with a correct speed value
+        // TODO: This should be explained better. Refs #2
         const double correctedSpeed = (myVehicle.getSpeed() + myVehicle.getCarFollowModel().getMaxAccel()
                                        - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxAccel()));
 
@@ -1554,7 +1557,7 @@ MSLCM_LC2013::_wantsChange(
         if (thisLaneVSafe - 5 / 3.6 > neighLaneVSafe) {
             // ok, the current lane is faster than the right one...
             if (mySpeedGainProbability < 0) {
-                mySpeedGainProbability *= pow(0.5, TS);
+                mySpeedGainProbability *= pow(0.5, myVehicle.getActionStepLengthSecs());
                 //myKeepRightProbability /= 2.0;
             }
         } else {
@@ -1569,7 +1572,7 @@ MSLCM_LC2013::_wantsChange(
             //      changing to the left. Another solution could be the seperation of mySpeedGainProbability into
             //      two variables (one for left and one for right). Refs #2578
             if (mySpeedGainProbability < 0 || relativeGain > 0) {
-                mySpeedGainProbability -= TS * relativeGain;
+                mySpeedGainProbability -= myVehicle.getActionStepLengthSecs() * relativeGain;
             }
 
             // honor the obligation to keep right (Rechtsfahrgebot)
@@ -1592,11 +1595,11 @@ MSLCM_LC2013::_wantsChange(
                 const double relativeGain = (vMax - leader.first->getLane()->getVehicleMaxSpeed(leader.first)) / MAX2(vMax,
                                             RELGAIN_NORMALIZATION_MIN_SPEED);
                 // tiebraker to avoid buridans paradox see #1312
-                mySpeedGainProbability += TS * relativeGain;
+                mySpeedGainProbability += myVehicle.getActionStepLengthSecs() * relativeGain;
             }
 
             const double deltaProb = (myChangeProbThresholdRight * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
-            myKeepRightProbability -= TS * deltaProb;
+            myKeepRightProbability -= myVehicle.getActionStepLengthSecs() * deltaProb;
 
 #ifdef DEBUG_WANTS_CHANGE
             if (DEBUG_COND) {
@@ -1650,15 +1653,15 @@ MSLCM_LC2013::_wantsChange(
         if (thisLaneVSafe > neighLaneVSafe) {
             // this lane is better
             if (mySpeedGainProbability > 0) {
-                mySpeedGainProbability *= pow(0.5, TS);
+                mySpeedGainProbability *= pow(0.5, myVehicle.getActionStepLengthSecs());
             }
         } else if (thisLaneVSafe == neighLaneVSafe) {
             if (mySpeedGainProbability > 0) {
-                mySpeedGainProbability *= pow(0.8, TS);
+                mySpeedGainProbability *= pow(0.8, myVehicle.getActionStepLengthSecs());
             }
         } else {
             // left lane is better
-            mySpeedGainProbability += TS * relativeGain;
+            mySpeedGainProbability += myVehicle.getActionStepLengthSecs() * relativeGain;
         }
         // VARIANT_19 (stayRight)
         //if (neighFollow.first != 0) {

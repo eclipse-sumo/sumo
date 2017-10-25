@@ -70,7 +70,11 @@ public:
     /** @brief Called to examine whether the vehicle wants to change
      * with the given laneOffset (using the sublane model)
      * This method gets the information about the surrounding vehicles
-     * and whether another lane may be more preferable */
+     * and whether another lane may be more preferable
+     *
+     * TODO better documentation. Refs #2
+     * A.o.: When is this called (as a wantsChange() exists as well!? What's the difference?)
+     * */
     int wantsChangeSublane(int laneOffset,
                            LaneChangeAction alternatives,
                            const MSLeaderDistanceInfo& leaders,
@@ -86,9 +90,12 @@ public:
                            double& latDist, int& blocked);
 
     /** @brief Called to examine whether the vehicle wants to change
-     * using the given laneOffset (this is a wrapper around wantsChangeSublane).
+     * using the given laneOffset (this is a wrapper around wantsChangeSublane). XXX: no, it wraps _wantsChangeSublane
      * This method gets the information about the surrounding vehicles
-     * and whether another lane may be more preferable */
+     * and whether another lane may be more preferable
+     *
+     * TODO: better documentation. Refs #2
+     * */
     int wantsChange(
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
@@ -259,6 +266,7 @@ protected:
     static LaneChangeAction getLCA(int state, double latDist);
 
     /// @brief compute strategic lane change actions
+    /// TODO: Better documentation, refs #2
     int checkStrategicChange(int ret,
                              int laneOffset,
                              const std::vector<MSVehicle::LaneQ>& preb,
