@@ -618,7 +618,6 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gMesoOvertaking = oc.getBool("meso-overtaking");
     MSGlobals::gMesoTLSPenalty = oc.getFloat("meso-tls-penalty");
     MSGlobals::gMesoMinorPenalty = string2time(oc.getString("meso-minor-penalty"));
-    MSGlobals::gSemiImplicitEulerUpdate = !oc.getBool("step-method.ballistic");
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gUsingInternalLanes = false;
     }
@@ -628,7 +627,15 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
 
     DELTA_T = string2time(oc.getString("step-length"));
 
+
+    bool integrationMethodSet = !oc.isDefault("step-method.ballistic");
+    bool actionStepLengthSet  = !oc.isDefault("default.action-step-length");
+    MSGlobals::gSemiImplicitEulerUpdate = !oc.getBool("step-method.ballistic");
     // Init default value for gActionStepLength
+    if (MSGlobals::gSemiImplicitEulerUpdate && actionStepLengthSet && !integrationMethodSet) {
+        WRITE_MESSAGE("Integration method was set to 'ballistic', since a default action step length was specified.");
+        MSGlobals::gSemiImplicitEulerUpdate = false;
+    }
     double givenDefaultActionStepLength = oc.getFloat("default.action-step-length");
     MSGlobals::gActionStepLength = SUMOVehicleParserHelper::processActionStepLength(givenDefaultActionStepLength);
 
