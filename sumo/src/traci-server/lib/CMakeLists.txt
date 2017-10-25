@@ -1,3 +1,18 @@
+if(SWIG_FOUND)
+    include(${SWIG_USE_FILE})
+    set(CMAKE_SWIG_FLAGS "")
+    set_source_files_properties(swig_traci.i PROPERTIES CPLUSPLUS ON)
+
+    option(BUILD_PYTHON "Build Python SWIG module" ON)
+    if(BUILD_PYTHON)
+        find_package(PythonLibs REQUIRED)
+        include_directories(${PYTHON_INCLUDE_PATH})
+
+        swig_add_module(swig_traci python swig_traci.i)
+        swig_link_libraries(swig_traci ${sumolibs} ${PYTHON_LIBRARIES})
+    endif()
+endif()
+
 set(traciserver_lib_STAT_SRCS
         TraCI.cpp
         TraCI.h

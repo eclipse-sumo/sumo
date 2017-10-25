@@ -138,6 +138,11 @@ endif (X11_FOUND)
 
 find_package(FFMPEG)
 
+find_package(SWIG)
+if (SWIG_FOUND)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+endif ()
+
 
 if (BUILD_GTEST_FROM_GIT)
     message("GTest not found building from scratch")
