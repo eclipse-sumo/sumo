@@ -1,6 +1,9 @@
 # the standard structure for model tests
 circle
 
+# the standard structure for model tests
+circle_actionsteplength
+
 # idm model test
 idm
 
