@@ -567,7 +567,7 @@ double TraCI_Vehicle::getApparentDecel(const std::string& vehicleID) {
     return getVehicleType(vehicleID).getCarFollowModel().getApparentDecel();
 }
 double TraCI_Vehicle::getActionStepLength(const std::string& vehicleID) {
-    return STEPS2TIME(getVehicleType(vehicleID).getActionStepLength());
+    return getVehicleType(vehicleID).getActionStepLengthSecs();
 }
 double TraCI_Vehicle::getLastActionTime(const std::string& vehicleID) {
     return STEPS2TIME(getVehicle(vehicleID)->getLastActionTime());

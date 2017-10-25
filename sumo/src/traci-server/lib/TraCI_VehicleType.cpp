@@ -58,7 +58,7 @@ double TraCI_VehicleType::getMaxSpeed(const std::string& typeID) {
 
 double TraCI_VehicleType::getActionStepLength(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
-    return STEPS2TIME(v->getActionStepLength());
+    return v->getActionStepLengthSecs();
 }
 
 double TraCI_VehicleType::getSpeedFactor(const std::string& typeID) {
