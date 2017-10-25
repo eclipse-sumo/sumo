@@ -60,6 +60,7 @@
 //#define DEBUG_SURROUNDING_VEHICLES // debug getRealFollower() and getRealLeader()
 //#define DEBUG_CHANGE_OPPOSITE
 //#define DEBUG_COND (vehicle->getLaneChangeModel().debugVehicle())
+//#define DEBUG_ACTIONSTEPLENGTH
 #define DEBUG_COND false
 
 
@@ -234,74 +235,88 @@ MSLaneChanger::change() {
         registerUnchanged(vehicle);
         return false;
     }
-    std::pair<MSVehicle* const, double> leader = getRealLeader(myCandi);
-    if (myChanger.size() == 1 || vehicle->getLaneChangeModel().isOpposite()) {
-        if (changeOpposite(leader)) {
-            return true;
-        }
-        registerUnchanged(vehicle);
-        return false;
-    }
 
+
+    // recheck (#2681): Is it ok to move the traci call in front of the opposite change check?
 #ifndef NO_TRACI
     if (vehicle->isRemoteControlled()) {
         registerUnchanged(vehicle);
         return false;
     }
 #endif
-    vehicle->updateBestLanes(); // needed?
-    for (int i = 0; i < (int) myChanger.size(); ++i) {
-        vehicle->adaptBestLanesOccupation(i, myChanger[i].dens);
-    }
-    const std::vector<MSVehicle::LaneQ>& preb = vehicle->getBestLanes();
-    // check whether the vehicle wants and is able to change to right lane
-    int stateRight = 0;
-    if (mayChange(-1)) {
-        stateRight = checkChangeWithinEdge(-1, leader, preb);
-        // change if the vehicle wants to and is allowed to change
-        if ((stateRight & LCA_RIGHT) != 0 && (stateRight & LCA_BLOCKED) == 0) {
-            vehicle->getLaneChangeModel().setOwnState(stateRight);
-            startChange(vehicle, myCandi, -1);
-            return true;
+
+
+    if (vehicle->isActive()){
+        // recheck (#2681): Can this be skipped?
+        // Check for changes to the opposite lane if vehicle is active
+        std::pair<MSVehicle* const, double> leader = getRealLeader(myCandi);
+        if (myChanger.size() == 1 || vehicle->getLaneChangeModel().isOpposite()) {
+            if (changeOpposite(leader)) {
+                return true;
+            }
+            registerUnchanged(vehicle);
+            return false;
         }
-        if ((stateRight & LCA_RIGHT) != 0 && (stateRight & LCA_URGENT) != 0) {
-            (myCandi - 1)->lastBlocked = vehicle;
-            if ((myCandi - 1)->firstBlocked == 0) {
-                (myCandi - 1)->firstBlocked = vehicle;
+
+        vehicle->updateBestLanes(); // needed?
+        for (int i = 0; i < (int) myChanger.size(); ++i) {
+            vehicle->adaptBestLanesOccupation(i, myChanger[i].dens);
+        }
+
+        const std::vector<MSVehicle::LaneQ>& preb = vehicle->getBestLanes();
+        // check whether the vehicle wants and is able to change to right lane
+        int stateRight = 0;
+        if (mayChange(-1)) {
+            stateRight = checkChangeWithinEdge(-1, leader, preb);
+            // change if the vehicle wants to and is allowed to change
+            if ((stateRight & LCA_RIGHT) != 0 && (stateRight & LCA_BLOCKED) == 0) {
+                vehicle->getLaneChangeModel().setOwnState(stateRight);
+                startChange(vehicle, myCandi, -1);
+                return true;
+            }
+            if ((stateRight & LCA_RIGHT) != 0 && (stateRight & LCA_URGENT) != 0) {
+                (myCandi - 1)->lastBlocked = vehicle;
+                if ((myCandi - 1)->firstBlocked == 0) {
+                    (myCandi - 1)->firstBlocked = vehicle;
+                }
             }
         }
-    }
 
-    // check whether the vehicle wants and is able to change to left lane
-    int stateLeft = 0;
-    if (mayChange(1)) {
-        stateLeft = checkChangeWithinEdge(1, leader, preb);
-        // change if the vehicle wants to and is allowed to change
-        if ((stateLeft & LCA_LEFT) != 0 && (stateLeft & LCA_BLOCKED) == 0) {
-            vehicle->getLaneChangeModel().setOwnState(stateLeft);
-            startChange(vehicle, myCandi, 1);
-            return true;
-        }
-        if ((stateLeft & LCA_LEFT) != 0 && (stateLeft & LCA_URGENT) != 0) {
-            (myCandi + 1)->lastBlocked = vehicle;
-            if ((myCandi + 1)->firstBlocked == 0) {
-                (myCandi + 1)->firstBlocked = vehicle;
+        // check whether the vehicle wants and is able to change to left lane
+        int stateLeft = 0;
+        if (mayChange(1)) {
+            stateLeft = checkChangeWithinEdge(1, leader, preb);
+            // change if the vehicle wants to and is allowed to change
+            if ((stateLeft & LCA_LEFT) != 0 && (stateLeft & LCA_BLOCKED) == 0) {
+                vehicle->getLaneChangeModel().setOwnState(stateLeft);
+                startChange(vehicle, myCandi, 1);
+                return true;
+            }
+            if ((stateLeft & LCA_LEFT) != 0 && (stateLeft & LCA_URGENT) != 0) {
+                (myCandi + 1)->lastBlocked = vehicle;
+                if ((myCandi + 1)->firstBlocked == 0) {
+                    (myCandi + 1)->firstBlocked = vehicle;
+                }
             }
         }
-    }
 
-    if ((stateRight & LCA_URGENT) != 0 && (stateLeft & LCA_URGENT) != 0) {
-        // ... wants to go to the left AND to the right
-        // just let them go to the right lane...
-        stateLeft = 0;
-    }
-    vehicle->getLaneChangeModel().setOwnState(stateRight | stateLeft);
+        if ((stateRight & LCA_URGENT) != 0 && (stateLeft & LCA_URGENT) != 0) {
+            // ... wants to go to the left AND to the right
+            // just let them go to the right lane...
+            stateLeft = 0;
+        }
+        vehicle->getLaneChangeModel().setOwnState(stateRight | stateLeft);
 
-    // only emergency vehicles should change to the opposite side on a
-    // multi-lane road
-    if (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
-            && changeOpposite(leader)) {
-        return true;
+        // only emergency vehicles should change to the opposite side on a
+        // multi-lane road
+        if (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
+                && changeOpposite(leader)) {
+            return true;
+        }
+    } else {
+#ifdef DEBUG_ACTIONSTEPLENGTH
+        std::cout<< SIMTIME << " veh '" << vehicle->getID() << "' skips regular change checks." << std::endl;
+#endif
     }
     registerUnchanged(vehicle);
     return false;
@@ -1005,6 +1020,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
 #endif
 
     // compute wish to change
+    // Does "preb" mean "previousBestLanes" ??? If so *rename*
     std::vector<MSVehicle::LaneQ> preb = vehicle->getBestLanes();
     if (isOpposite) {
         // compute the remaining distance that can be drive on the opposite side
