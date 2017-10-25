@@ -1,3 +1,6 @@
 Error: Answered with error to command 0xab: Parameter 'foo.bla' is not supported.
 Error: Answered with error to command 0xab: Invalid chargingStation parameter 'bla'
 Error: Answered with error to command 0xab: Invalid chargingStation 'foo'
+Error: Answered with error to command 0xab: Unknown bus stop 'foo'.
+Error: Answered with error to command 0xab: Unknown from edge 'foo'.
+Error: Answered with error to command 0xab: Unknown from edge 'foo'.

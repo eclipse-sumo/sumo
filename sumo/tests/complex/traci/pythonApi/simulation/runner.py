@@ -95,6 +95,21 @@ try:
 except traci.TraCIException:
     pass
 print("getParameter", traci.simulation.getParameter("cs1", "chargingStation.totalEnergyCharged"))
+try:
+    print("getBusStopWaiting", traci.simulation.getBusStopWaiting("foo"))
+except traci.TraCIException:
+    pass
+print("getBusStopWaiting", traci.simulation.getBusStopWaiting("bs"))
+try:
+    print("findRoute", traci.simulation.findRoute("foo", "fup"))
+except traci.TraCIException:
+    pass
+print("findRoute", traci.simulation.findRoute("o", "2o"))
+try:
+    print("findIntermodalRoute", traci.simulation.findIntermodalRoute("foo", "fup"))
+except traci.TraCIException:
+    pass
+print("findIntermodalRoute", traci.simulation.findIntermodalRoute("o", "2o"))
 
 for step in range(6):
     print("step", step)

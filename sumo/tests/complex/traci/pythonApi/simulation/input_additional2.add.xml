@@ -1,3 +1,4 @@
 <add>
     <chargingStation id="cs1" lane="o_0" pos="10" endPos="20"/>
+    <busStop id="bs" lane="o_0" endPos="50"/>
 </add>
