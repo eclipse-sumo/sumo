@@ -163,7 +163,7 @@ class Connection:
 
     def _readSubscription(self, result):
         # to enable this you also need to set _DEBUG to True in storage.py
-        result.printDebug()
+        # result.printDebug()
         result.readLength()
         response = result.read("!B")[0]
         isVariableSubscription = response >= tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and response <= tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE

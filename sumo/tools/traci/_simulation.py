@@ -14,10 +14,29 @@
 # @version $Id$
 
 from __future__ import absolute_import
+import struct
+import collections
+from . import constants as tc
 from .domain import Domain
 from .storage import Storage
-import struct
-from . import constants as tc
+
+Stage = collections.namedtuple('Stage', ['stageType', 'line', 'destStop', 'edges', 'travelTime', 'cost'])
+
+def _readStage(result):
+    # compound size and type
+    _, _, stageType = result.read("!iBi")
+    print("type", stageType)
+    result.read("!B")                   # Type
+    line = result.readString()
+    print("line", line)
+    result.read("!B")                   # Type
+    destStop = result.readString()
+    print("destStop", destStop)
+    result.read("!B")                   # Type
+    edges = result.readStringList()
+    print(edges)
+    _, travelTime, _, cost = result.read("!BdBd")
+    return Stage(stageType, line, destStop, edges, travelTime, cost)
 
 _RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP: Storage.readInt,
                       tc.VAR_LOADED_VEHICLES_NUMBER: Storage.readInt,
@@ -169,11 +188,11 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_MIN_EXPECTED_VEHICLES)
 
-    def getBusStopWaiting(self):
+    def getBusStopWaiting(self, stopID):
         """getBusStopWaiting() -> integer
         Get the total number of waiting persons at the named bus stop.
         """
-        return self._getUniversal(tc.VAR_BUS_STOP_WAITING)
+        return self._getUniversal(tc.VAR_BUS_STOP_WAITING, stopID)
 
     def getStartingTeleportNumber(self):
         """getStartingTeleportNumber() -> integer
@@ -309,6 +328,35 @@ class SimulationDomain(Domain):
         self._connection._packString(edgeID2, tc.POSITION_ROADMAP)
         self._connection._string += struct.pack("!dBB", pos2, 0, distType)
         return self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.DISTANCE_REQUEST, "").readDouble()
+
+    def findRoute(self, fromEdge, toEdge, vtype="", depart=-1., routingMode=0):
+        self._connection._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.FIND_ROUTE, "",
+                                       1 + 4 + 1 + 4 + len(fromEdge) + 1 + 4 + len(toEdge) + 1 + 4 + len(vtype) + 1 + 8 + 1 + 4)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
+        self._connection._packString(fromEdge)
+        self._connection._packString(toEdge)
+        self._connection._packString(vtype)
+        self._connection._string += struct.pack("!BdBi", tc.TYPE_DOUBLE, depart, tc.TYPE_INTEGER, routingMode)
+        return _readStage(self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.FIND_ROUTE, ""))
+
+    def findIntermodalRoute(self, fromEdge, toEdge, modes="", depart=-1., routingMode=0, speed=-1., walkFactor=-1., departPos=-1., arrivalPos=-1., departPosLat=-1., ptype="", vtype=""):
+        self._connection._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.FIND_INTERMODAL_ROUTE, "",
+                                       1 + 4 + 1 + 4 + len(fromEdge) + 1 + 4 + len(toEdge) + 1 + 4 + len(modes) + 1 + 8 + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 4 + len(ptype) + 1 + 4 + len(vtype))
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 12)
+        self._connection._packString(fromEdge)
+        self._connection._packString(toEdge)
+        self._connection._packString(modes)
+        self._connection._string += struct.pack("!BdBi", tc.TYPE_DOUBLE, depart, tc.TYPE_INTEGER, routingMode)
+        self._connection._string += struct.pack("!BdBd", tc.TYPE_DOUBLE, speed, tc.TYPE_DOUBLE, walkFactor)
+        self._connection._string += struct.pack("!BdBdBd", tc.TYPE_DOUBLE, departPos, tc.TYPE_DOUBLE, arrivalPos, tc.TYPE_DOUBLE, departPosLat)
+        self._connection._packString(ptype)
+        self._connection._packString(vtype)
+        answer = self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.FIND_INTERMODAL_ROUTE, "")
+        result = []
+        for c in range(answer.readInt()):
+            answer.read("!B")                   # Type
+            result.append(_readStage(answer))
+        return result
 
     def clearPending(self, routeID=""):
         self._connection._beginMessage(tc.CMD_SET_SIM_VARIABLE, tc.CMD_CLEAR_PENDING_VEHICLES, "",
