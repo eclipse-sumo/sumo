@@ -1,2 +1,22 @@
 # tests for setting apparentDecel  and emergentDecel to be distinct from decel
 apparentDecel_emergencyDecel
+
+# test different combinations of tau (the reaction time assumed by the driver) and actionStepLength (the true reaction time).
+tau
+
+# Test speed adaption when changing to a consecutive lane with lower speed.
+# All approaching vehicles should adapt their speed smoothly, non-oscillatingly to the lower speed of the consecutive lane. The last inserted vehicle starts slower than the maximal speed on the consecutive lane, but should not choose an acceleration, which leads to higher speeds than the consecutive lane's maximal speed. 
+adapt_speed_to_new_lane
+
+# tests stopping to the point.
+# Moreover, the vehicle's speed should not exceed the lane's maximal speed (13.89 m/s^2), and the stop duration should equal 10s.
+# 
+stop_at_point
+
+# First vehicle stops. Follower should not collide.
+# 
+stop_at_point_with_follower
+
+# First vehicle stops. Follower should not collide. Different actionOffsets.
+# 
+stop_at_point_with_follower_insertion_offset
