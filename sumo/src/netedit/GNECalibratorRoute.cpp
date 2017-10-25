@@ -64,7 +64,7 @@
 GNECalibratorRoute::GNECalibratorRoute(GNECalibratorDialog* calibratorDialog) :
     GNEAttributeCarrier(SUMO_TAG_ROUTE, ICON_EMPTY),
     myCalibratorParent(calibratorDialog->getEditedCalibrator()), 
-    myRouteID(calibratorDialog->generateRouteID()), 
+    myRouteID(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->generateCalibratorRouteID()), 
     myColor(RGBColor::BLACK) {
     // add the Edge in which Calibrator is placed as default Edge
     if(GNEAttributeCarrier::hasAttribute(myCalibratorParent->getTag(), SUMO_ATTR_EDGE)) {

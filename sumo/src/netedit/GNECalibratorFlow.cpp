@@ -63,7 +63,7 @@
 GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
     GNEAttributeCarrier(SUMO_TAG_FLOW, ICON_EMPTY),
     myCalibratorParent(calibratorDialog->getEditedCalibrator()), 
-    myFlowID(calibratorDialog->generateFlowID()), 
+    myFlowID(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->generateCalibratorFlowID()), 
     myVehicleType(calibratorDialog->getEditedCalibrator()->getCalibratorVehicleTypes().front()->getID()), 
     myRoute(calibratorDialog->getEditedCalibrator()->getCalibratorRoutes().front()->getID()), 
     myColor(getDefaultValue<RGBColor>(SUMO_TAG_FLOW, SUMO_ATTR_COLOR)), 

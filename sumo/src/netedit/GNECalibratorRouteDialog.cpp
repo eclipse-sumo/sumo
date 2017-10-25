@@ -105,7 +105,7 @@ GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorDialog* calibrat
     updateCalibratorRouteValues();
 
     // start a undo list editing
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change Route values");
+    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change route values");
 }
 
 
@@ -158,7 +158,7 @@ long
 GNECalibratorRouteDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // abort an start editing
     myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abort();
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change flow values");
+    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change route values");
     // update fields
     updateCalibratorRouteValues();
     return 1;

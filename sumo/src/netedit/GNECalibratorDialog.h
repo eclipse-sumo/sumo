@@ -63,15 +63,6 @@ public:
     /// @brief get edited calibrator
     GNECalibrator* getEditedCalibrator() const;
 
-    /// @brief generate a vehicleType ID
-    std::string generateVehicleTypeID() const;
-
-    /// @brief generate a flow ID
-    std::string generateFlowID() const;
-
-    /// @brief generate a route ID
-    std::string generateRouteID() const;
-
     /// @name FOX-callbacks
     /// @{
     /// @brief event after press accept button

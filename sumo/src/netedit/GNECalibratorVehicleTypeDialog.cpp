@@ -207,7 +207,7 @@ GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorDial
     updateCalibratorVehicleTypeValues();
 
     // start a undo list editing
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change flow values");
+    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change vehicle type values");
 }
 
 
@@ -248,9 +248,8 @@ GNECalibratorVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorVehicleTypeDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // abort an start editing
+    // abort editing
     myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abort();
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change vehicleType values");
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -259,8 +258,9 @@ GNECalibratorVehicleTypeDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorVehicleTypeDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // copy all values of myCalibratorVehicleType into myEditedVehicleType to set initial values
-    //(*myEditedVehicleType) = (*myCalibratorVehicleType);
+    // abort an start editing
+    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abort();
+    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change vehicle type values");
     // update fields
     updateCalibratorVehicleTypeValues();
     return 1;

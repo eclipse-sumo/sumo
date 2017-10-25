@@ -57,9 +57,22 @@ class GNEChange_CalibratorItem : public GNEChange {
 
 public:
     /**@brief Constructor for modifying selection
-     * @param[in] newCalibratorRoutes vector with the new calibratorRoutes of calibrator
-     */
-    GNEChange_CalibratorItem(GNECalibrator *calibrator);
+    * @param[in] calibratorFlow calibrator flow to be added
+    * @param[in] forward Whether to create/delete (true/false)
+    */
+    GNEChange_CalibratorItem(GNECalibratorFlow* calibratorFlow, bool forward);
+
+    /**@brief Constructor for modifying selection
+    * @param[in] calibratorRoute calibrator route to be added
+    * @param[in] forward Whether to create/delete (true/false)
+    */
+    GNEChange_CalibratorItem(GNECalibratorRoute* calibratorRoute, bool forward);
+
+    /**@brief Constructor for modifying selection
+    * @param[in] calibratorVehicleType calibrator vehicle type to be added
+    * @param[in] forward Whether to create/delete (true/false)
+    */
+    GNEChange_CalibratorItem(GNECalibratorVehicleType* calibratorVehicleType, bool forward);
 
     /// @brief Destructor
     ~GNEChange_CalibratorItem();
@@ -79,10 +92,15 @@ public:
     void redo();
     /// @}
 
-
 private:
-    /// @brief calibrator in which apply changes
-    GNECalibrator *myCalibrator;
+    /// @brief  modified calibrator flow
+    GNECalibratorFlow* myCalibratorFlow;
+
+    /// @brief modified calibrator route
+    GNECalibratorRoute* myCalibratorRoute;
+
+    /// @brief modified calibrator vehicle type
+    GNECalibratorVehicleType* myCalibratorVehicleType;
 };
 
 #endif

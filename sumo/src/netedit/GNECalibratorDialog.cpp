@@ -58,6 +58,7 @@ FXDEFMAP(GNECalibratorDialog) GNECalibratorDialogMap[] = {
     FXMAPFUNC(SEL_CLICKED,  MID_GNE_CALIBRATORDIALOG_TABLE_VEHICLETYPE, GNECalibratorDialog::onCmdClickedVehicleType),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,      GNECalibratorDialog::onCmdAccept),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,      GNECalibratorDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,      GNECalibratorDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONRESET,       GNECalibratorDialog::onCmdReset),
 };
 
@@ -115,6 +116,9 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
     updateVehicleTypeTable();
     updateFlowTable();
 
+    // start a undo list editing
+    myEditedCalibrator->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedCalibrator->getTag()) + " values");
+
     // Execute additional dialog (To make it modal)
     execute();
 }
@@ -129,40 +133,10 @@ GNECalibratorDialog::getEditedCalibrator() const {
 }
 
 
-std::string
-GNECalibratorDialog::generateVehicleTypeID() const {
-    int counter = 0;
-    while (myEditedCalibrator->getViewNet()->getNet()->vehicleTypeExists(toString(SUMO_TAG_VTYPE) + toString(counter))) {
-        counter++;
-    }
-    return (toString(SUMO_TAG_VTYPE) + toString(counter));
-}
-
-
-std::string
-GNECalibratorDialog::generateFlowID() const {
-    int counter = 0;
-    while (myEditedCalibrator->getViewNet()->getNet()->flowExists(toString(SUMO_TAG_FLOW) + toString(counter))) {
-        counter++;
-    }
-    return (toString(SUMO_TAG_FLOW) + toString(counter));
-}
-
-
-std::string
-GNECalibratorDialog::generateRouteID() const {
-    int counter = 0;
-    while (myEditedCalibrator->getViewNet()->getNet()->routeExists(toString(SUMO_TAG_ROUTE) + toString(counter))) {
-        counter++;
-    }
-    return (toString(SUMO_TAG_ROUTE) + toString(counter));
-}
-
-
 long
 GNECalibratorDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // set new values allowing to undo it
-    myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibrator), true);
+    // finish editing
+    myEditedCalibrator->getViewNet()->getUndoList()->p_end();
     // Stop Modal
     getApp()->stopModal(this, TRUE);
     return 1;
@@ -171,6 +145,8 @@ GNECalibratorDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+    // abort editing
+    myEditedCalibrator->getViewNet()->getUndoList()->p_abort();
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -179,6 +155,9 @@ GNECalibratorDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorDialog::onCmdReset(FXObject*, FXSelector, void*) {
+    // abort an start editing
+    myEditedCalibrator->getViewNet()->getUndoList()->p_abort();
+    myEditedCalibrator->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedCalibrator->getTag()) + " values");
     // update tables
     updateRouteTable();
     updateVehicleTypeTable();
@@ -189,16 +168,16 @@ GNECalibratorDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorDialog::onCmdAddRoute(FXObject*, FXSelector, void*) {
-    // create empty calibrator route and configure it with GNECalibratorRouteDialog
+    // create nes calibrator route and configure it with GNECalibratorRouteDialog
     GNECalibratorRoute *newRoute = new GNECalibratorRoute(this);
+    myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(newRoute, true), true);
     if (GNECalibratorRouteDialog(this, newRoute, false).execute() == TRUE) {
-        // if new route was sucesfully configured, add it to edited calibrator
-        myEditedCalibrator->addCalibratorRoute(newRoute);
         // update routes table
         updateRouteTable();
         return 1;
     } else {
-        delete newRoute;
+        // if new route wasn0t sucesfully configured, remove it of edited calibrator
+        myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(newRoute, false), true);
         return 0;
     }
 }
@@ -241,20 +220,20 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
                     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                         WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                     }
-                    // remove calibrator flows
+                    // remove affected flows of calibrator flows
                     for(auto j : calibratorFlowsToErase) {
-                        myEditedCalibrator->removeCalibratorFLow(j);
-                        delete j;
+                        myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(j, false), true);
                     }
-                    // update flows table
+                    // remove route of calibrator routes
+                    myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibrator->getCalibratorRoutes().at(i), false), true);
+                    // update flows and route table
                     updateFlowTable();
+                    updateRouteTable();
                     return 1;
                 }
             } else {
-                GNECalibratorRoute* routeToErase = myEditedCalibrator->getCalibratorRoutes().at(i);
-                // remove vehicle
-                myEditedCalibrator->removeCalibratorRoute(routeToErase);
-                delete routeToErase;
+                // remove route
+                myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibrator->getCalibratorRoutes().at(i), false), true);
                 // update routes table
                 updateRouteTable();
                 return 1;
@@ -275,18 +254,18 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
+    // only add flow if there is CalibratorRoutes and Calibrator vehicle types
     if((myEditedCalibrator->getCalibratorRoutes().size() > 0) && (myEditedCalibrator->getCalibratorVehicleTypes().size() > 0)) {
-        // create empty calibrator and insert it in myModifiedCalibratorFlows
+        // create new calibrator and configure it with GNECalibratorFlowDialog
         GNECalibratorFlow *newFlow = new GNECalibratorFlow(this);
-        // pop it if modification with GNECalibratorFlowDialog isn't sucesfully
+        myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(newFlow, true), true);
         if (GNECalibratorFlowDialog(this, newFlow, false).execute() == TRUE) {
-
-            myEditedCalibrator->addCalibratorFlow(newFlow);
             // update flows table
             updateFlowTable();
             return 1;
         } else {
-            delete newFlow;
+            // if new route wasn0t sucesfully configured, remove it from edited calibrator
+            myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(newFlow, false), true);
             return 0;
         }
     } else {
@@ -301,9 +280,7 @@ GNECalibratorDialog::onCmdClickedFlow(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)myEditedCalibrator->getCalibratorFlows().size(); i++) {
         if (myFlowList->getItem(i, 3)->hasFocus()) {
             // remove flow of calibrator flows
-            GNECalibratorFlow *flowToRemove = myEditedCalibrator->getCalibratorFlows().at(i);
-            myEditedCalibrator->removeCalibratorFLow(flowToRemove);
-            delete flowToRemove;
+            myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibrator->getCalibratorFlows().at(i), false), true);
             // update flows table
             updateFlowTable();
             return 1;
@@ -323,17 +300,16 @@ GNECalibratorDialog::onCmdClickedFlow(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
-    // create empty calibrator flow and configure it with GNECalibratorVehicleTypeDialog
+    // create new calibrator flow and configure it with GNECalibratorVehicleTypeDialog
     GNECalibratorVehicleType* newVehicleType = new GNECalibratorVehicleType(this);
+    myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(newVehicleType, true), true);
     if (GNECalibratorVehicleTypeDialog(this, newVehicleType, false).execute() == TRUE) {
-        // if new vehicle type was sucesfully configured, add it to modified calibrator vehicle types
-        myEditedCalibrator->addCalibratorVehicleType(newVehicleType);
         // update vehicle types table
         updateVehicleTypeTable();
         return 1;
     } else {
-        // delete created vehicleType
-        delete newVehicleType;
+        // if new route wasn't sucesfully configured, remove it from edited calibrator
+        myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(newVehicleType, false), true);
         return 0;
     }
 }
@@ -371,20 +347,20 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                         WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                     }
-                    // remove calibrator flows
+                    // remove affected flows of calibrator flows
                     for(auto j : calibratorFlowsToErase) {
-                        myEditedCalibrator->removeCalibratorFLow(j);
-                        delete j;
+                        myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(j, false), true);
                     }
-                    // update flows table
+                    // remove vehicle type of calibrator vehicle types
+                    myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibrator->getCalibratorVehicleTypes().at(i), false), true);
+                    // update flows and vehicle types table
                     updateFlowTable();
+                    updateVehicleTypeTable();
                     return 1;
                 }
             } else {
-                GNECalibratorVehicleType* vehicleTypeToErase = myEditedCalibrator->getCalibratorVehicleTypes().at(i);
-                // remove vehicle
-                myEditedCalibrator->removeCalibratorVehicleType(vehicleTypeToErase);
-                delete vehicleTypeToErase;
+                // remove vehicle type of calibrator vehicle types
+                myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibrator->getCalibratorVehicleTypes().at(i), false), true);
                 // update vehicle types table
                 updateVehicleTypeTable();
                 return 1;

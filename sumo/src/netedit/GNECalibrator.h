@@ -82,24 +82,6 @@ public:
     /// @brief open Calibrator Dialog
     void openAdditionalDialog();
 
-    /// @brief add calibrator vehicleType
-    void addCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
-
-    /// @brief remove calibrator vehicleType
-    void removeCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
-
-    /// @brief add calibrator flow
-    void addCalibratorFlow(GNECalibratorFlow* flow);
-
-    /// @brief remove calibrator flow
-    void removeCalibratorFLow(GNECalibratorFlow* flow);
-
-    /// @brief add calibrator route
-    void addCalibratorRoute(GNECalibratorRoute *route);
-
-    /// @brief add calibrator route
-    void removeCalibratorRoute(GNECalibratorRoute *route);
-
     /// @brief get calibrator vehicleTypes
     const std::vector<GNECalibratorVehicleType*>& getCalibratorVehicleTypes() const;
 
@@ -108,30 +90,6 @@ public:
 
     /// @brief get calibrator routes
     const std::vector<GNECalibratorRoute*>& getCalibratorRoutes() const;
-
-    /// @brief check if a vehicelType with ID = vehicleTypeID exists
-    bool vehicleTypeExists(std::string vehicleTypeID) const;
-
-    /// @brief check if a flow with ID = flowID exists
-    bool flowExists(std::string flowID) const;
-
-    /// @brief check if a route with ID = routeID exists
-    bool routeExists(std::string routeID) const;
-
-    /**@brief get reference to calibrator vehicle type
-     * @throw ivalid argument if calibrator doesn't exist
-     */
-    GNECalibratorVehicleType* getCalibratorVehicleType(const std::string& vehicleTypeID);
-
-    /**@brief get pointer to calibrator flow
-     * @throw ivalid argument if calibrator doesn't exist
-     */
-    GNECalibratorFlow* getCalibratorFlow(const std::string& flowID);
-
-    /**@brief get reference calibrator route
-     * @throw ivalid argument if calibrator doesn't exist
-     */
-    GNECalibratorRoute* getCalibratorRoute(const std::string& routeID);
 
     /// @name Functions related with geometry of element
     /// @{
@@ -219,11 +177,23 @@ protected:
     /// @brief The lane in which CalibratorLaness are placed
     GNELane* myLane;
 
-    /// @brief set calibrator vehicleTypes values
-    void setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType*>& calibratorVehicleType);
+    /// @brief add calibrator route
+    void addCalibratorRoute(GNECalibratorRoute* route);
 
-    /// @brief set calibrator route values
-    void setCalibratorRoutes(const std::vector<GNECalibratorRoute*>& calibratorRoutes);
+    /// @brief add calibrator vehicleType
+    void addCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
+
+    /// @brief add calibrator flow
+    void addCalibratorFlow(GNECalibratorFlow* flow);
+
+    /// @brief add calibrator route
+    void removeCalibratorRoute(GNECalibratorRoute *route);
+
+    /// @brief remove calibrator vehicleType
+    void removeCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
+
+    /// @brief remove calibrator flow
+    void removeCalibratorFlow(GNECalibratorFlow* flow);
 
 private:
     /// @brief set attribute after validation

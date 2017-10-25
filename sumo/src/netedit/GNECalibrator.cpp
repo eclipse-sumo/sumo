@@ -119,13 +119,13 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
 
 void
 GNECalibrator::moveGeometry(const Position&, const Position&) {
-    // This additional cannot be moved currently
+    // This additional cannot be moved
 }
 
 
 void
 GNECalibrator::commitGeometryMoving(const Position&, GNEUndoList*) {
-    // This additional cannot be moved currently
+    // This additional cannot be moved
 }
 
 
@@ -243,48 +243,6 @@ GNECalibrator::openAdditionalDialog() {
 }
 
 
-void
-GNECalibrator::addCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
-    assert(vehicleType);
-    myCalibratorVehicleTypes.push_back(vehicleType);
-}
-
-
-void
-GNECalibrator::removeCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
-    assert(vehicleType);
-    myCalibratorVehicleTypes.erase(std::find(myCalibratorVehicleTypes.begin(), myCalibratorVehicleTypes.end(), vehicleType));
-}
-
-
-void
-GNECalibrator::addCalibratorFlow(GNECalibratorFlow* flow) {
-    assert(flow);
-    myCalibratorFlows.push_back(flow);
-}
-
-
-void 
-GNECalibrator::removeCalibratorFLow(GNECalibratorFlow* flow) {
-    assert(flow);
-    myCalibratorFlows.erase(std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), flow));
-}
-
-
-void
-GNECalibrator::addCalibratorRoute(GNECalibratorRoute *route) {
-    assert(route);
-    myCalibratorRoutes.push_back(route);
-}
-
-
-void
-GNECalibrator::removeCalibratorRoute(GNECalibratorRoute *route) {
-    assert(route);
-    myCalibratorRoutes.erase(std::find(myCalibratorRoutes.begin(), myCalibratorRoutes.end(), route));
-}
-
-
 const std::vector<GNECalibratorVehicleType*>&
 GNECalibrator::getCalibratorVehicleTypes() const {
     return myCalibratorVehicleTypes;
@@ -300,72 +258,6 @@ GNECalibrator::getCalibratorFlows() const {
 const std::vector<GNECalibratorRoute*>&
 GNECalibrator::getCalibratorRoutes() const {
     return myCalibratorRoutes;
-}
-
-
-bool
-GNECalibrator::vehicleTypeExists(std::string vehicleTypeID) const {
-    for (auto i : myCalibratorVehicleTypes) {
-        if (i->getID() == vehicleTypeID) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
-bool
-GNECalibrator::flowExists(std::string flowID) const {
-    for (auto i : myCalibratorFlows) {
-        if (i->getID() == flowID) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
-bool
-GNECalibrator::routeExists(std::string routeID) const {
-    for (auto i : myCalibratorRoutes) {
-        if (i->getID() == routeID) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
-GNECalibratorVehicleType*
-GNECalibrator::getCalibratorVehicleType(const std::string& vehicleTypeID) {
-    for (auto i : myCalibratorVehicleTypes) {
-        if (i->getID() == vehicleTypeID) {
-            return i;
-        }
-    }
-    throw InvalidArgument(toString(getTag()) + " " + getID() + " doesn't have a " + toString(SUMO_TAG_VTYPE) + " with id = '" + vehicleTypeID + "'");
-}
-
-
-GNECalibratorFlow*
-GNECalibrator::getCalibratorFlow(const std::string& flowID) {
-    for (auto i : myCalibratorFlows) {
-        if (i->getID() == flowID) {
-            return i;
-        }
-    }
-    throw InvalidArgument(toString(getTag()) + " " + getID() + " doesn't have a " + toString(SUMO_TAG_FLOW) + " with id = '" + flowID + "'");
-}
-
-
-GNECalibratorRoute*
-GNECalibrator::getCalibratorRoute(const std::string& routeID) {
-    for (auto  i : myCalibratorRoutes) {
-        if (i->getID() == routeID) {
-            return i;
-        }
-    }
-    throw InvalidArgument(toString(getTag()) + " " + getID() + " doesn't have a " + toString(SUMO_TAG_ROUTE) + " with id = '" + routeID + "'");
 }
 
 
@@ -475,14 +367,41 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-void
-GNECalibrator::setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes) {
-    myCalibratorVehicleTypes = calibratorVehicleTypes;
-}
 
 void
-GNECalibrator::setCalibratorRoutes(const std::vector<GNECalibratorRoute*>& calibratorRoutes) {
-    myCalibratorRoutes = calibratorRoutes;
+GNECalibrator::addCalibratorRoute(GNECalibratorRoute *route) {
+    myCalibratorRoutes.push_back(route);
+}
+
+
+void
+GNECalibrator::addCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
+    myCalibratorVehicleTypes.push_back(vehicleType);
+}
+
+
+void
+GNECalibrator::addCalibratorFlow(GNECalibratorFlow* flow) {
+    assert(flow);
+    myCalibratorFlows.push_back(flow);
+}
+
+
+void
+GNECalibrator::removeCalibratorRoute(GNECalibratorRoute *route) {
+    myCalibratorRoutes.erase(std::find(myCalibratorRoutes.begin(), myCalibratorRoutes.end(), route));
+}
+
+
+void
+GNECalibrator::removeCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
+    myCalibratorVehicleTypes.erase(std::find(myCalibratorVehicleTypes.begin(), myCalibratorVehicleTypes.end(), vehicleType));
+}
+
+
+void 
+GNECalibrator::removeCalibratorFlow(GNECalibratorFlow* flow) {
+    myCalibratorFlows.erase(std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), flow));
 }
 
 // ===========================================================================

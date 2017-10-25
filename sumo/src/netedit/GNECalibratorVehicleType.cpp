@@ -60,7 +60,7 @@
 GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibratorDialog* calibratorDialog) :
     GNEAttributeCarrier(SUMO_TAG_VTYPE, ICON_EMPTY),
     myCalibratorParent(calibratorDialog->getEditedCalibrator()), 
-    myVehicleTypeID(calibratorDialog->generateVehicleTypeID()),
+    myVehicleTypeID(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->generateCalibratorVehicleTypeID()),
     myAccel(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_ACCEL)),
     myDecel(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_DECEL)),
     mySigma(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_SIGMA)),

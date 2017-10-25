@@ -54,6 +54,8 @@
 #include "GNERouteProbe.h"
 #include "GNECalibratorDialog.h"
 #include "GNECalibratorFlow.h"
+#include "GNECalibratorRoute.h"
+#include "GNECalibratorVehicleType.h"
 
 
 // ===========================================================================
@@ -69,17 +71,4 @@ GNECalibratorEdge::GNECalibratorEdge(const std::string& id, GNEEdge* edge, GNEVi
 }
 
 
-GNECalibratorEdge::~GNECalibratorEdge() {
-    // delete Calibrator flows
-    for (auto i : myCalibratorFlows) {
-        delete i;
-    }
-    // delete Calibrator routes
-    for (auto i : myCalibratorRoutes) {
-        delete i;
-    }
-    // delete Calibrator vehicle types
-    for (auto i : myCalibratorVehicleTypes) {
-        delete i;
-    }
-}
+GNECalibratorEdge::~GNECalibratorEdge() {}

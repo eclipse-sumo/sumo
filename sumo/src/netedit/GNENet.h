@@ -550,9 +550,9 @@ public:
 
     /**@brief Returns the named additional
      * @param[in] id The id of the additional to return.
-     * @param[in] hardFail enable or disable exception if additional to insert is duplicated
+     * @param[in] failHard Whether attempts to retrieve a nonexisting additional should result in an exception
      */
-    GNEAdditional* retrieveAdditional(const std::string& idl, bool hardFail = true) const;
+    GNEAdditional* retrieveAdditional(const std::string& id, bool hardFail = true) const;
 
     /**@brief return all additionals
      * @param[in] onlySelected Whether to return only selected additionals
@@ -566,7 +566,6 @@ public:
      */
     GNEAdditional* getAdditional(SumoXMLTag type, const std::string& id) const;
 
-
     /**@brief get vector with additionals
      * @param[in] type type of additional to get. SUMO_TAG_NOTHING will get all additionals
      * @return vector with pointers to additionals.
@@ -579,23 +578,37 @@ public:
      */
     int getNumberOfAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
-    /// @brief Returns a reference to a calibrator route finding in all calibrators of net
-    GNECalibratorRoute* getGNECalibratorRoute(const std::string& calibratorRouteID) const;
+    /// @name Calibrator Items
+    /// @{
 
-    /// @brief Returns a reference to a calibrator vehicle type finding in all calibrators of net
-    GNECalibratorVehicleType* getGNECalibratorVehicleType(const std::string& calibratorVehicleTypeID) const;
+    /**@brief Returns the named calibrator route
+    * @param[in] id The id of the calibrator route to return.
+    * @param[in] failHard Whether attempts to retrieve a nonexisting calibrator route should result in an exception
+    */
+    GNECalibratorRoute* retrieveCalibratorRoute(const std::string& id, bool hardFail = true) const;
 
-    /// @brief Returns a reference to a calibrator flow finding in all calibrators of net
-    GNECalibratorFlow* getGNECalibratorFlow(const std::string& calibratorFlowID) const;
+    /**@brief Returns the named calibrator vehicle type
+    * @param[in] id The id of the calibrator vehicle type to return.
+    * @param[in] failHard Whether attempts to retrieve a nonexisting calibrator vehicle type should result in an exception
+    */
+    GNECalibratorVehicleType* retrieveCalibratorVehicleType(const std::string& id, bool hardFail = true) const;
 
-    /// @brief Check if exist a route with these ID
-    bool routeExists(const std::string& routeID) const;
+    /**@brief Returns the named calibrator flow
+    * @param[in] id The id of the calibrator flow to return.
+    * @param[in] failHard Whether attempts to retrieve a nonexisting calibrator flow should result in an exception
+    */
+    GNECalibratorFlow* retrieveCalibratorFlow(const std::string& id, bool hardFail = true) const;
 
-    /// @brief Check if exist a vehicle type with these ID
-    bool vehicleTypeExists(const std::string& vehicleTypeID) const;
+    /// @brief generate a new Calibrator Route ID
+    std::string generateCalibratorRouteID() const;
 
-    /// @brief Check if exist a flow with these ID
-    bool flowExists(const std::string& flowID) const;
+    /// @brief generate a new Calibrator Vehicle Type ID
+    std::string generateCalibratorVehicleTypeID() const;
+
+    /// @brief generate a new Calibrator Flow ID
+    std::string generateCalibratorFlowID() const;
+
+    /// @}
 
     /**@brief Builds a special polygon used for edit Junctions's shapes
      * @param[in] netElement GNENetElement to be edited
