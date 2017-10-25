@@ -36,7 +36,7 @@
 // class declarations
 // ===========================================================================
 class MSInductLoop;
-class TraCIVehicleData;
+struct TraCIVehicleData;
 
 
 // ===========================================================================

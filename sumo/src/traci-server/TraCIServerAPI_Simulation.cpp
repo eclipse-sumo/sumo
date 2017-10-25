@@ -68,6 +68,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             && variable != VAR_DELTA_T && variable != VAR_NET_BOUNDING_BOX
             && variable != VAR_MIN_EXPECTED_VEHICLES
             && variable != POSITION_CONVERSION && variable != DISTANCE_REQUEST
+            && variable != FIND_ROUTE && variable != FIND_INTERMODAL_ROUTE
             && variable != VAR_BUS_STOP_WAITING
             && variable != VAR_PARKING_STARTING_VEHICLES_NUMBER && variable != VAR_PARKING_STARTING_VEHICLES_IDS
             && variable != VAR_PARKING_ENDING_VEHICLES_NUMBER && variable != VAR_PARKING_ENDING_VEHICLES_IDS
@@ -184,11 +185,89 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                     return false;
                 }
                 break;
-            case VAR_BUS_STOP_WAITING: {
-                std::string id;
-                if (!server.readTypeCheckingString(inputStorage, id)) {
-                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of persons at busstop requires a string.", outputStorage);
+            case FIND_ROUTE: {
+                if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a compound object.", outputStorage);
                 }
+                if (inputStorage.readInt() != 5) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires five parameter.", outputStorage);
+                }
+                std::string from, to, vtype;
+                double depart;
+                int routingMode;
+                if (!server.readTypeCheckingString(inputStorage, from)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as first parameter.", outputStorage);
+                }
+                if (!server.readTypeCheckingString(inputStorage, to)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as second parameter.", outputStorage);
+                }
+                if (!server.readTypeCheckingString(inputStorage, vtype)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as third parameter.", outputStorage);
+                }
+                if (!server.readTypeCheckingDouble(inputStorage, depart)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as fourth parameter.", outputStorage);
+                }
+                if (!server.readTypeCheckingInt(inputStorage, routingMode)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires an integer as fifth parameter.", outputStorage);
+                }
+                writeStage(tempMsg, TraCI_Simulation::findRoute(from, to, vtype, TIME2STEPS(depart), routingMode));
+                break;
+            }
+            case FIND_INTERMODAL_ROUTE: {
+                if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of an intermodal route requires a compound object.", outputStorage);
+                }
+                if (inputStorage.readInt() != 12) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of an intermodal route requires twelve parameter.", outputStorage);
+                }
+                std::string from, to, modes, ptype, vtype;
+                double depart, speed, walkFactor, departPos, arrivalPos, departPosLat;
+                int routingMode;
+                if (!server.readTypeCheckingString(inputStorage, from)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as first parameter.", outputStorage);
+                }
+                if (!server.readTypeCheckingString(inputStorage, to)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as second parameter.", outputStorage);
+                }
+                if (!server.readTypeCheckingString(inputStorage, modes)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as third parameter.", outputStorage);
+                }
+                if (!server.readTypeCheckingDouble(inputStorage, depart)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as fourth parameter.", outputStorage);
+                }
+                if (!server.readTypeCheckingInt(inputStorage, routingMode)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires an integer as fifth parameter.", outputStorage);
+                }
+                if (!server.readTypeCheckingDouble(inputStorage, speed)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as sixth parameter.", outputStorage);
+                }
+                if (!server.readTypeCheckingDouble(inputStorage, walkFactor)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as seventh parameter.", outputStorage);
+                }
+                if (!server.readTypeCheckingDouble(inputStorage, departPos)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as eigth parameter.", outputStorage);
+                }
+                if (!server.readTypeCheckingDouble(inputStorage, arrivalPos)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as nineth parameter.", outputStorage);
+                }
+                if (!server.readTypeCheckingDouble(inputStorage, departPosLat)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as tenth parameter.", outputStorage);
+                }
+                if (!server.readTypeCheckingString(inputStorage, ptype)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as eleventh parameter.", outputStorage);
+                }
+                if (!server.readTypeCheckingString(inputStorage, vtype)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as twelvth parameter.", outputStorage);
+                }
+                const std::vector<TraCIStage> result = TraCI_Simulation::findIntermodalRoute(from, to, modes, TIME2STEPS(depart), routingMode, speed, walkFactor, departPos, arrivalPos, departPosLat, ptype, vtype);
+                tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+                tempMsg.writeInt((int)result.size());
+                for (const TraCIStage s : result) {
+                    writeStage(tempMsg, s);
+                }
+                break;
+            }
+            case VAR_BUS_STOP_WAITING: {
                 MSStoppingPlace* s = MSNet::getInstance()->getBusStop(id);
                 if (s == 0) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Unknown bus stop '" + id + "'.", outputStorage);
@@ -273,6 +352,25 @@ TraCIServerAPI_Simulation::writeVehicleStateIDs(TraCIServer& server, tcpip::Stor
     const std::vector<std::string>& ids = server.getVehicleStateChanges().find(state)->second;
     outputStorage.writeUnsignedByte(TYPE_STRINGLIST);
     outputStorage.writeStringList(ids);
+}
+
+
+void
+TraCIServerAPI_Simulation::writeStage(tcpip::Storage& outputStorage, const TraCIStage& stage) {
+    outputStorage.writeUnsignedByte(TYPE_COMPOUND);
+    outputStorage.writeInt(6);
+    outputStorage.writeUnsignedByte(TYPE_INTEGER);
+    outputStorage.writeInt(stage.type);
+    outputStorage.writeUnsignedByte(TYPE_STRING);
+    outputStorage.writeString(stage.line);
+    outputStorage.writeUnsignedByte(TYPE_STRING);
+    outputStorage.writeString(stage.destStop);
+    outputStorage.writeUnsignedByte(TYPE_STRINGLIST);
+    outputStorage.writeStringList(stage.edges);
+    outputStorage.writeUnsignedByte(TYPE_DOUBLE);
+    outputStorage.writeDouble(stage.travelTime);
+    outputStorage.writeUnsignedByte(TYPE_DOUBLE);
+    outputStorage.writeDouble(stage.cost);
 }
 
 

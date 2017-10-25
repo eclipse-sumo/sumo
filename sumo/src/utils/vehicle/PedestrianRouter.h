@@ -85,9 +85,8 @@ public:
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
-    bool compute(const E* from, const E* to, double departPos, double arrivalPos, double speed,
-                 SUMOTime msTime, const N* onlyNode, std::vector<const E*>& into, bool allEdges = false) {
-        //startQuery();
+    double compute(const E* from, const E* to, double departPos, double arrivalPos, double speed,
+                   SUMOTime msTime, const N* onlyNode, std::vector<const E*>& into, bool allEdges = false) {
         if (getSidewalk<E, L>(from) == 0) {
             WRITE_WARNING("Departure edge '" + from->getID() + "' does not allow pedestrians.");
             return false;
@@ -101,18 +100,16 @@ public:
         const bool success = myInternalRouter->compute(myPedNet->getDepartEdge(from),
                              myPedNet->getArrivalEdge(to),
                              &trip, msTime, intoPed);
+        double time = 0.;
         if (success) {
-            for (int i = 0; i < (int)intoPed.size(); ++i) {
-                if (intoPed[i]->includeInRoute(allEdges)) {
-                    into.push_back(intoPed[i]->getEdge());
+            for (const _IntermodalEdge* pedEdge : intoPed) {
+                if (pedEdge->includeInRoute(allEdges)) {
+                    into.push_back(pedEdge->getEdge());
                 }
+                time += myInternalRouter->getEffort(pedEdge, &trip, time);
             }
         }
 #ifdef PedestrianRouter_DEBUG_ROUTES
-        double time = msTime;
-        for (int i = 0; i < intoPed.size(); ++i) {
-            time += myInternalRouter->getEffort(intoPed[i], &trip, time);
-        }
         std::cout << TIME2STEPS(msTime) << " trip from " << from->getID() << " to " << to->getID()
                   << " departPos=" << departPos
                   << " arrivalPos=" << arrivalPos
@@ -122,8 +119,7 @@ public:
                   << " time=" << time
                   << "\n";
 #endif
-        //endQuery();
-        return success;
+        return success ? time : -1.;
     }
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time

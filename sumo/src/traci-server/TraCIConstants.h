@@ -846,6 +846,12 @@
 // add a fully specified instance (vehicle)
 #define ADD_FULL 0x85
 
+// find a car based route
+#define FIND_ROUTE 0x86
+
+// find an intermodal route
+#define FIND_INTERMODAL_ROUTE 0x87
+
 // force rerouting based on travel time (vehicles)
 #define CMD_REROUTE_TRAVELTIME 0x90
 

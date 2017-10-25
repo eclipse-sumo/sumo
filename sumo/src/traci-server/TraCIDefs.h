@@ -91,6 +91,7 @@ struct TraCIBoundary {
     double xMax, yMax, zMax;
 };
 
+
 struct TraCIValue {
     union {
         double scalar;
@@ -100,6 +101,7 @@ struct TraCIValue {
     std::string string;
     std::vector<std::string> stringList;
 };
+
 
 class TraCIPhase {
 public:
@@ -158,11 +160,8 @@ public:
 };
 
 
-class TraCIVehicleData {
-public:
-    /* @brief Constructor
-    (mirrors MSInductLoop::VehicleData) */
-    TraCIVehicleData() {}
+/// @brief mirrors MSInductLoop::VehicleData
+struct TraCIVehicleData {
     /// @brief The id of the vehicle
     std::string id;
     /// @brief Length of the vehicle
@@ -177,8 +176,6 @@ public:
 
 
 struct TraCINextTLSData {
-    /* @brief Constructor */
-    TraCINextTLSData() {}
     /// @brief The id of the next tls
     std::string id;
     /// @brief The tls index of the controlled link
@@ -191,8 +188,6 @@ struct TraCINextTLSData {
 
 
 struct TraCIBestLanesData {
-    /* @brief Constructor */
-    TraCIBestLanesData() {}
     /// @brief The id of the lane
     std::string laneID;
     /// @brief The length than can be driven from that lane without lane change
@@ -207,7 +202,23 @@ struct TraCIBestLanesData {
     std::vector<std::string> continuationLanes;
 };
 
-/// @}
+
+class TraCIStage {
+public:
+    TraCIStage(int _type) : type(_type) {}
+    /// @brief The type of stage (walking, driving, ...)
+    int type;
+    /// @brief The line or the id of the vehicle type
+    std::string line;
+    /// @brief The id of the destination stop
+    std::string destStop;
+    /// @brief The sequence of edges to travel
+    std::vector<std::string> edges;
+    /// @brief duration of the stage
+    double travelTime;
+    /// @brief effort needed
+    double cost;
+};
 
 
 #endif
