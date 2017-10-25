@@ -1,0 +1,2 @@
+# tests for setting apparentDecel  and emergentDecel to be distinct from decel
+apparentDecel_emergencyDecel
