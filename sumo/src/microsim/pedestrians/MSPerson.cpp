@@ -139,7 +139,7 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
         }
         return;
     }
-    if (previous->getEdgePos(now) >= 0) {
+    if (previous->getEdgePos(now) >= 0 && previous->getEdge() == *myRouteStep) {
         myDepartPos = previous->getEdgePos(now);
         if (myWalkingTime > 0) {
             mySpeed = computeAverageSpeed();
@@ -215,6 +215,9 @@ MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os) const {
 void
 MSPerson::MSPersonStage_Walking::routeOutput(OutputDevice& os) const {
     os.openTag("walk").writeAttr(SUMO_ATTR_EDGES, myRoute);
+    if (myDestinationStop != 0) {
+        os.writeAttr(SUMO_ATTR_BUS_STOP, myDestinationStop->getID());
+    }
     if (myWalkingTime > 0) {
         os.writeAttr(SUMO_ATTR_DURATION, time2string(myWalkingTime));
     } else if (mySpeed > 0) {

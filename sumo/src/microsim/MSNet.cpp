@@ -1014,7 +1014,7 @@ MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
     // add access to all public transport stops
     for (const auto& i : myInstance->myBusStopDict.getMyMap()) {
         router.addAccess(i.first, &i.second->getLane().getEdge(), i.second->getEndLanePosition());
-        for (const auto& a : i.second->getAccessPos()) {
+        for (const auto& a : i.second->getAllAccessPos()) {
             router.addAccess(i.first, &a.first->getEdge(), a.second);
         }
     }

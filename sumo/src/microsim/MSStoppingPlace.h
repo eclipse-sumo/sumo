@@ -167,9 +167,12 @@ public:
     }
 
     /// @brief lanes and positions connected to this stop
-    const std::multimap<MSLane*, double>& getAccessPos() const {
+    const std::multimap<MSLane*, double>& getAllAccessPos() const {
         return myAccessPos;
     }
+
+    /// @brief the position on the given edge which is connected to this stop, -1 on failure
+    double getAccessPos(const MSEdge* edge) const;
 
     /// @brief checks whether this stop provides access to the given edge
     bool hasAccess(const MSEdge* edge) const;

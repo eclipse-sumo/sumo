@@ -1130,14 +1130,15 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                             }
                             bs = MSNet::getInstance()->getBusStop(it->destStop);
                             if (it->line == "") {
-                                myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(it->edges, bs, duration, speed, departPos, bs != 0 ? bs->getEndLanePosition() : arrivalPos, departPosLat));
+                                const double depPos = myActivePlan->back()->getDestinationStop() != 0 ? myActivePlan->back()->getDestinationStop()->getAccessPos(it->edges.front()): departPos;
+                                myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(it->edges, bs, duration, speed, depPos, bs != 0 ? bs->getAccessPos(it->edges.back()) : arrivalPos, departPosLat));
                             } else if (vehicle != 0 && it->line == vehicle->getID()) {
-                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, bs != 0 ? bs->getEndLanePosition() : arrivalPos, std::vector<std::string>({ it->line })));
+                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, bs != 0 ? bs->getAccessPos(it->edges.back()) : arrivalPos, std::vector<std::string>({ it->line })));
                                 vehicle->replaceRouteEdges(it->edges, true);
                                 vehControl.addVehicle(vehPar->id, vehicle);
                                 carUsed = true;
                             } else {
-                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, bs != 0 ? bs->getEndLanePosition() : arrivalPos, std::vector<std::string>({ it->line })));
+                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, bs != 0 ? bs->getAccessPos(it->edges.back()) : arrivalPos, std::vector<std::string>({ it->line })));
                             }
                         }
                     }
