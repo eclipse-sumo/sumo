@@ -1,4 +1,4 @@
-Could not connect to TraCI server at localhost:52471 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:37363 [Errno 111] Connection refused
  Retrying in 1 seconds
 Get before save....
 vtype
@@ -7,13 +7,15 @@ vtype
 (0.9, '== 0.9')
 (3.3, '== 3.3')
 (99.9, '== 99.9')
+(1.5, '==1.5')
 vehicle
 (4.0, '== 4.0')
 (0.8, '== 0.8')
 (0.9, '== 0.9')
 (3.3, '== 3.3')
 (99.9, '== 99.9')
-Could not connect to TraCI server at localhost:44869 [Errno 111] Connection refused
+(1.5, '==1.5')
+Could not connect to TraCI server at localhost:51379 [Errno 111] Connection refused
  Retrying in 1 seconds
 Get after load....
 vtype
@@ -22,9 +24,11 @@ vtype
 (0.9, '== 0.9')
 (3.3000000000000003, '== 3.3')
 (99.9, '== 99.9')
+(1.5, '==1.5')
 vehicle
 (4.0, '== 4.0')
 (0.8, '== 0.8')
 (1.0, '== 0.9')
 (3.3000000000000003, '== 3.3')
 (99.9, '== 99.9')
+(1.5, '==1.5')

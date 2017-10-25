@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 20 15:14:04 2017 by SUMO Version svn
+<!-- generated on Wed Oct 25 15:51:42 2017 by SUMO Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -16,14 +16,26 @@
         <save-state.files value="state.xml"/>
     </output>
 
+    <time>
+        <step-length value="0.5"/>
+    </time>
+
+    <processing>
+        <default.action-step-length value="0.5"/>
+    </processing>
+
     <report>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
     <traci_server>
-        <remote-port value="55967"/>
+        <remote-port value="35975"/>
     </traci_server>
+
+    <gui_only>
+        <tracker-interval value="0.5"/>
+    </gui_only>
 
 </configuration>
 -->
@@ -33,16 +45,16 @@
     <delay number="3" begin="3" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" accel="0.8" decel="4.5" sigma="0"/>
-    <vType id="t1" length="4.00" minGap="0.80" maxSpeed="99.90" speedFactor="0.90" width="3.30" accel="2.5" decel="3.5"/>
-    <vType id="t2" length="5.00" minGap="1.50" maxSpeed="20.00" actionStepLength="2.00" color="yellow" accel="2.5" decel="4.5" sigma="0.5"/>
-    <vType id="t2@veh2" length="4.00" minGap="0.80" maxSpeed="99.90" actionStepLength="2.00" width="3.30" color="yellow" accel="2.5" decel="4.5" sigma="0.5"/>
-    <vehicle id="veh0" type="DEFAULT_VEHTYPE" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" state="0 1 100.00 0 49000" pos="21.40" speed="5.60" posLat="0.00">
+    <vType id="t1" length="4.00" minGap="0.80" maxSpeed="99.90" speedFactor="0.90" actionStepLength="1.50" width="3.30" accel="2.5" decel="3.5" tau="1.5"/>
+    <vType id="t2" length="5.00" minGap="1.50" maxSpeed="20.00" actionStepLength="2.00" color="yellow" accel="2.5" decel="4.5" sigma="0.5" tau="2.0"/>
+    <vType id="t2@veh2" length="4.00" minGap="0.80" maxSpeed="99.90" actionStepLength="1.50" width="3.30" color="yellow" accel="2.5" decel="4.5" sigma="0.5" tau="2.0"/>
+    <vehicle id="veh0" type="DEFAULT_VEHTYPE" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" state="0 1 100.00 0 49500" pos="18.60" speed="5.60" posLat="0.00">
         <device id="vehroute_veh0" state="0 0.00 10.00 100.00 0"/>
     </vehicle>
-    <vehicle id="veh1" type="t1" depart="10.00" departPos="100.00" departSpeed="10.00" route="r1" state="10000 1 100.00 0 49000" pos="10.08" speed="3.94" posLat="0.00">
+    <vehicle id="veh1" type="t1" depart="10.00" departPos="100.00" departSpeed="10.00" route="r1" state="10000 1 100.00 0 49500" pos="4.71" speed="3.64" posLat="0.00">
         <device id="vehroute_veh1" state="0 0.00 10.00 100.00 0"/>
     </vehicle>
-    <vehicle id="veh2" type="t2@veh2" depart="20.00" departPos="100.00" departSpeed="10.00" route="r1" state="20000 0 100.00 0 49000" pos="362.83" speed="8.11" posLat="0.00">
+    <vehicle id="veh2" type="t2@veh2" depart="20.00" departPos="100.00" departSpeed="10.00" route="r1" state="20000 0 100.00 0 49500" pos="362.98" speed="7.86" posLat="0.00">
         <device id="vehroute_veh2" state="0 0.00 10.00 100.00 0"/>
     </vehicle>
     <lane id="0/0to0/1_0">

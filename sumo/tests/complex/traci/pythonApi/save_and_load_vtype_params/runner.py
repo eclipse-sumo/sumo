@@ -32,6 +32,7 @@ loadParams = sys.argv[ix + 1:]
 PORT=traci.getFreeSocketPort()
 sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(
     os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'sumo'))
+#~ sumoBinary = os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', 'bin', 'sumo-gui')
 traci.start([sumoBinary] + saveParams)
 tend = 55.
 traci.simulationStep()
@@ -46,6 +47,8 @@ traci.vehicletype.setLength("t1", 4.0)
 traci.vehicletype.setMinGap("t1", 0.8)
 traci.vehicletype.setSpeedFactor("t1", 0.9)
 traci.vehicletype.setWidth("t1", 3.3)
+traci.vehicletype.setActionStepLength("t1", 2.6)
+traci.vehicletype.setActionStepLength("t1", 1.5)
 #traci.vehicletype.setTau("t1", 1.3)
 traci.vehicletype.setMaxSpeed("t1", 99.9)
 while traci.simulation.getCurrentTime() < (tend-10.)*1000:
@@ -63,6 +66,8 @@ traci.vehicle.setSpeedFactor("veh2", 0.9)
 traci.vehicle.setWidth("veh2", 3.3)
 #traci.vehicle.setTau("veh2", 1.3)
 traci.vehicle.setMaxSpeed("veh2", 99.9)
+traci.vehicle.setActionStepLength("veh2", 2.6)
+traci.vehicle.setActionStepLength("veh2", 1.5)
 
 print("Get before save....")
 
@@ -80,6 +85,7 @@ print(traci.vehicletype.getSpeedFactor("t1") , "== 0.9")
 print(traci.vehicletype.getWidth("t1") , "== 3.3")
 #print(traci.vehicletype.getTau("t1") , "== 1.3")
 print(traci.vehicletype.getMaxSpeed("t1") , "== 99.9")
+print(traci.vehicletype.getActionStepLength("t1") , "==1.5")
 
 print("vehicle")
 #print(traci.vehicle.getImperfection("veh0") , "== 1.0")
@@ -95,6 +101,7 @@ print(traci.vehicle.getSpeedFactor("veh2") , "== 0.9")
 print(traci.vehicle.getWidth("veh2") , "== 3.3")
 #print(traci.vehicle.getTau("veh2") , "== 1.3")
 print(traci.vehicle.getMaxSpeed("veh2") , "== 99.9")
+print(traci.vehicle.getActionStepLength("veh2") , "==1.5")
 
 while traci.simulation.getCurrentTime() < tend*1000:
     traci.simulationStep()
@@ -121,6 +128,7 @@ print(traci.vehicletype.getSpeedFactor("t1") , "== 0.9")
 print(traci.vehicletype.getWidth("t1") , "== 3.3")
 #print(traci.vehicletype.getTau("t1") , "== 1.3")
 print(traci.vehicletype.getMaxSpeed("t1") , "== 99.9")
+print(traci.vehicletype.getActionStepLength("t1") , "==1.5")
 
 print("vehicle")
 #print(traci.vehicle.getImperfection("veh0") , "== 1.0")
@@ -136,6 +144,7 @@ print(traci.vehicle.getSpeedFactor("veh2") , "== 0.9")
 print(traci.vehicle.getWidth("veh2") , "== 3.3")
 #print(traci.vehicle.getTau("veh2") , "== 1.3")
 print(traci.vehicle.getMaxSpeed("veh2") , "== 99.9")
+print(traci.vehicle.getActionStepLength("veh2") , "==1.5")
 
 while traci.simulation.getCurrentTime() < tend*1000:
     traci.simulationStep()

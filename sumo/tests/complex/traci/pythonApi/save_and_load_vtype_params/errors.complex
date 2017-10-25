@@ -1,5 +1,4 @@
-Warning: Given action step length 2 for vehicle type 't2' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).
-Warning: Given action step length 2 for vehicle type 't2' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).
-Warning: Given action step length 2 for vehicle type 't2@veh2' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).
-Warning: Teleporting vehicle 'veh2'; collision with vehicle 'veh1', lane='3/1to2/1_0', gap=-0.86, time=100.00 stage=move.
-Warning: Vehicle 'veh2' ends teleporting on edge '2/1to1/1', time 100.00.
+Warning: The parameter action-step-length must be a non-negative multiple of the simulation step-length. Parsing given value (2.6 s.) to nearest positive multiple (=2.5 s.)
+Warning: Given action step length 2.5 for vehicle type 't1' is larger than its parameter tau (=1.5)! This may lead to collisions. (This warning is only issued once per vehicle type).
+Warning: The parameter action-step-length must be a non-negative multiple of the simulation step-length. Parsing given value (2.6 s.) to nearest positive multiple (=2.5 s.)
+Warning: Given action step length 2.5 for vehicle type 't2@veh2' is larger than its parameter tau (=2)! This may lead to collisions. (This warning is only issued once per vehicle type).

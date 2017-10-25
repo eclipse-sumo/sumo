@@ -1,6 +1,6 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType sigma="0" id="default" length="5" minGap="2"/>
-    <vType sigma="0" id="t2" length="5" minGap="2" speedfactor="2.0" />
+    <vType sigma="0" id="t2" length="5" minGap="2" speedFactor="2.0" />
     <route id="r0" edges="gneE0"/>
     <vehicle id="0" type="default" depart="0" departPos="100" arrivalPos="300" route="r0">
         <stop lane="gneE0_0" startPos="200" endPos="220" duration="10"/>

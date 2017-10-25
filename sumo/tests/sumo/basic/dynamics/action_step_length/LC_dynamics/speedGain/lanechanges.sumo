@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct 18 15:19:11 2017 by SUMO Version dev-SVN-r26551
+<!-- generated on Wed Oct 25 14:15:50 2017 by SUMO Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -15,6 +15,15 @@
         <lanechange-output value="lanechanges.xml"/>
     </output>
 
+    <time>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <default.action-step-length value="1"/>
+    </processing>
+
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
@@ -22,12 +31,16 @@
         <no-step-log value="true"/>
     </report>
 
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
+
 </configuration>
 -->
 
 <lanechanges>
-    <change id="ego" type="ego" time="29.00" from="beg_0" to="beg_1" dir="1" speed="13.16" pos="407.18" reason="speedGain" leaderGap="219.82" leaderSecureGap="22.48" followerGap="None" followerSecureGap="None" origLeaderGap="19.82" origLeaderSecureGap="22.48"/>
-    <change id="ego" type="ego" time="42.00" from="beg_1" to="beg_0" dir="-1" speed="13.89" pos="587.75" reason="keepRight" leaderGap="343.25" leaderSecureGap="25.06" followerGap="46.75" followerSecureGap="0.00" origLeaderGap="143.25" origLeaderSecureGap="25.06"/>
-    <change id="ego" type="ego" time="97.00" from="beg_0" to="beg_1" dir="1" speed="13.23" pos="1351.04" reason="speedGain" leaderGap="219.96" leaderSecureGap="22.69" followerGap="170.04" followerSecureGap="0.00" origLeaderGap="19.96" origLeaderSecureGap="22.69"/>
-    <change id="ego" type="ego" time="107.00" from="beg_1" to="beg_0" dir="-1" speed="13.89" pos="1489.94" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="28.94" followerSecureGap="0.00" origLeaderGap="161.06" origLeaderSecureGap="25.06"/>
+    <change id="ego" type="ego" time="29.10" from="beg_0" to="beg_1" dir="1" speed="12.06" pos="408.28" reason="speedGain" leaderGap="219.52" leaderSecureGap="21.13" followerGap="None" followerSecureGap="None" origLeaderGap="19.52" origLeaderSecureGap="21.13"/>
+    <change id="ego" type="ego" time="42.10" from="beg_1" to="beg_0" dir="-1" speed="13.89" pos="584.66" reason="keepRight" leaderGap="347.14" leaderSecureGap="28.22" followerGap="42.86" followerSecureGap="0.00" origLeaderGap="147.14" origLeaderSecureGap="28.22"/>
+    <change id="ego" type="ego" time="98.10" from="beg_0" to="beg_1" dir="1" speed="11.79" pos="1361.01" reason="speedGain" leaderGap="218.79" leaderSecureGap="20.11" followerGap="171.21" followerSecureGap="0.00" origLeaderGap="18.79" origLeaderSecureGap="20.11"/>
+    <change id="ego" type="ego" time="108.10" from="beg_1" to="beg_0" dir="-1" speed="13.89" pos="1495.18" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="25.38" followerSecureGap="0.00" origLeaderGap="164.62" origLeaderSecureGap="28.22"/>
 </lanechanges>
