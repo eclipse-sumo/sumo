@@ -448,6 +448,7 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
     for (auto i : which->getLanes()) {
         std::vector<GNEAdditional*> copyOfLaneAdditionals = i->getAdditionalChilds();
         for (auto j : copyOfLaneAdditionals) {
+            UNUSED_PARAMETER(j);
             undoList->p_add(new GNEChange_Attribute(i, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
         }
     }
@@ -455,6 +456,7 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
     for (auto i : which->getLanes()) {
         std::vector<GNEShape*> copyOfLaneShapes = i->getShapeChilds();
         for (auto j : copyOfLaneShapes) {
+            UNUSED_PARAMETER(j);
             undoList->p_add(new GNEChange_Attribute(i, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
         }
     }
@@ -1030,7 +1032,7 @@ GNENet::retrieveLane(const std::string& id, bool failHard, bool checkVolatileCha
             }
         } else {
             // check if the recomputing with volatile option has changed the number of lanes (needed for additionals)
-            if(checkVolatileChange && (myEdgesAndNumberOfLanes.count(edge_id) == 1) && myEdgesAndNumberOfLanes[edge_id] != edge->getLanes().size()) {
+            if(checkVolatileChange && (myEdgesAndNumberOfLanes.count(edge_id) == 1) && myEdgesAndNumberOfLanes[edge_id] != (int)edge->getLanes().size()) {
                 return edge->getLanes().at(lane->getIndex() + 1);
             }
             return lane;

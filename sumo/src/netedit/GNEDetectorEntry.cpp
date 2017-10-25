@@ -277,7 +277,7 @@ GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
-            myLane, changeLane(myLane, value);
+            myLane = changeLane(myLane, value);
             break;
         case SUMO_ATTR_POSITION:
             myPositionOverLane = parse<double>(value) / myLane->getLaneParametricLength();
