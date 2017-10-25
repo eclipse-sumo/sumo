@@ -128,10 +128,6 @@ set(netedit_SRCS
    GNEVaporizer.cpp
    GNECalibrator.h
    GNECalibrator.cpp
-   GNECalibratorEdge.h
-   GNECalibratorEdge.cpp
-   GNECalibratorLane.h
-   GNECalibratorLane.cpp
    GNECalibratorFlow.h
    GNECalibratorFlow.cpp
    GNECalibratorVehicleType.h

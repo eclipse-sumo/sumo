@@ -328,17 +328,12 @@ public:
      * @param[in] lane The lane the calibrator is placed at
      * @param[in] pos The position on the edge the calibrator lies at
      * @param[in] outfile te file in which write results
-     * @param[in] calibratorRoutes routes of calibrator
-     * @param[in] calibratorFlows flows of calibrator
-     * @param[in] calibratorVehicleTypes vehicleTypes of calibrator
      * @return true if was sucesfully created, false in other case
      * @todo Is the position correct/needed
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
-    static bool buildLaneCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& outfile, double freq,
-                                    const std::vector<GNECalibratorRoute*>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
-                                    const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes);
+    static bool buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& outfile, double freq);
 
 
     /**@brief builds a microscopic calibrator over an edge
@@ -348,17 +343,12 @@ public:
     * @param[in] edge The edge the calibrator is placed at
     * @param[in] pos The position on the edge the calibrator lies at
     * @param[in] outfile te file in which write results
-    * @param[in] calibratorRoutes routes of calibrator
-    * @param[in] calibratorFlows flows of calibrator
-    * @param[in] calibratorVehicleTypes vehicleTypes of calibrator
     * @return true if was sucesfully created, false in other case
     * @todo Is the position correct/needed
     * @return true if was sucesfully created, false in other case
     * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
     */
-    static bool buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& outfile, double freq,
-                                    const std::vector<GNECalibratorRoute*>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
-                                    const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes);
+    static bool buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& outfile, double freq);
 
     /**@brief builds a rerouter
      * @param[in] viewNet viewNet in which element will be inserted

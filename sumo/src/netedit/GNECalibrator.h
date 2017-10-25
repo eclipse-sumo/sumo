@@ -53,26 +53,34 @@ class GNECalibrator : public GNEAdditional {
 
 public:
 
-    /**@brief Constructor
-     * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
-     * @param[in] tag type of calibrator (placed over edge or over lane)
-     * @param[in] relativePos relative [0-1]position of the calibrator on the edge (Currently not used)
-     * @param[in] frequency the aggregation interval in which to calibrate the flows
-     * @param[in] output The output file for writing calibrator information
-     * @param[in] calibratorRoutes vector with the calibratorRoutes of calibrator
-     * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
-     * @param[in] calibratorVehicleTypes vector with the CalibratorVehicleType of calibrator
-     * @param[in] edge GNEEdge in which this calibrator is placed
-     * @param[in] lane GNELane in which this calibrator is placed
-     * @throw process error if both GNEEdge or GNELane are NULL, or both are defined
-     */
-    GNECalibrator(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, double relativePos, double frequency, const std::string& output,
-                  const std::vector<GNECalibratorRoute*>& calibratorRoutes, const std::vector<GNECalibratorFlow*>& calibratorFlows,
-                  const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes, GNEEdge *edge, GNELane *lane);
+    /**@brief Constructor using edge
+    * @param[in] id The storage of gl-ids to get the one for this lane representation from
+    * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+    * @param[in] edge Edge of this calibrator belongs
+    * @param[in] pos position of the calibrator on the edge (Currently not used)
+    * @param[in] frequency the aggregation interval in which to calibrate the flows
+    * @param[in] output The output file for writing calibrator information
+    * @param[in] calibratorRoutes vector with the calibratorRoutes of calibrator
+    * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
+    * @param[in] calibratorVehicleTypes vector with the CalibratorVehicleType of calibrator
+    */
+    GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, double frequency, const std::string& output);
 
-    /// @brief virtual Destructor (To force this class abstract)
-    virtual ~GNECalibrator() = 0;
+    /**@brief Constructor using lane
+    * @param[in] id The storage of gl-ids to get the one for this lane representation from
+    * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+    * @param[in] lane Lane of this calibrator belongs
+    * @param[in] pos position of the calibrator on the edge (Currently not used)
+    * @param[in] frequency the aggregation interval in which to calibrate the flows
+    * @param[in] output The output file for writing calibrator information
+    * @param[in] calibratorRoutes vector with the calibratorRoutes of calibrator
+    * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
+    * @param[in] calibratorVehicleTypes vector with the CalibratorVehicleType of calibrator
+    */
+    GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, double frequency, const std::string& output);
+
+    /// @brief Destructor
+    ~GNECalibrator();
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element

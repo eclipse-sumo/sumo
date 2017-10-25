@@ -62,20 +62,26 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, double relativePos, double frequency, const std::string& output, 
-                             const std::vector<GNECalibratorRoute*>& calibratorRoutes, const std::vector<GNECalibratorFlow*> &calibratorFlows, 
-                             const std::vector<GNECalibratorVehicleType*>& calibratorVehicleTypes, GNEEdge *edge, GNELane *lane) :
-    GNEAdditional(id, viewNet, tag, ICON_CALIBRATOR),
+GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double relativePos, double frequency, const std::string& output) :
+    GNEAdditional(id, viewNet, SUMO_TAG_CALIBRATOR, ICON_CALIBRATOR),
+    myEdge(edge),
+    myLane(NULL), 
     myPositionOverLane(relativePos),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(NULL), /** change this in the future **/
-    myCalibratorRoutes(calibratorRoutes),
-    myCalibratorFlows(calibratorFlows),
-    myCalibratorVehicleTypes(calibratorVehicleTypes),
-    myEdge(edge),
-    myLane(lane) {
-    assert((myEdge == NULL) ^ (myLane == NULL));
+    myRouteProbe(NULL) /** change this in the future **/ {
+    // this additional ISN'T movable
+    myMovable = false;
+}
+
+GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double relativePos, double frequency, const std::string& output) :
+    GNEAdditional(id, viewNet, SUMO_TAG_LANECALIBRATOR, ICON_CALIBRATOR),
+    myEdge(NULL),
+    myLane(lane),
+    myPositionOverLane(relativePos),
+    myFrequency(frequency),
+    myOutput(output),
+    myRouteProbe(NULL) /** change this in the future **/ {
     // this additional ISN'T movable
     myMovable = false;
 }
@@ -136,8 +142,8 @@ GNECalibrator::updateGeometry() {
     myShapeLengths.clear();
     // clear Shape
     myShape.clear();
-    
-    if(myLane != NULL) {
+    // get shape depending of we have a edge or a lane
+    if(myLane) {
         // Get shape of lane parent
         myShape.push_back(myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length()));
         // Save rotation (angle) of the vector constructed by points f and s
@@ -159,6 +165,7 @@ GNECalibrator::updateGeometry() {
 
 Position
 GNECalibrator::getPositionInView() const {
+    // get position depending of we have a edge or a lane
     if(myLane) {
         return myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length());
     } else if(myEdge) {
@@ -171,6 +178,7 @@ GNECalibrator::getPositionInView() const {
 
 const std::string&
 GNECalibrator::getParentName() const {
+    // get parent name depending of we have a edge or a lane
     if(myLane) {
         return myLane->getMicrosimID();
     } else if(myEdge) {
