@@ -274,9 +274,9 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
     switch (key) {
     case SUMO_ATTR_ID:
         return getAdditionalID();
-    case SUMO_ATTR_EDGE:    // Only called by subClass GNECalibratorEdge
+    case SUMO_ATTR_EDGE:
         return myEdge->getID();
-    case SUMO_ATTR_LANE:    // Only called by subClass GNECalibratorLane
+    case SUMO_ATTR_LANE:
         return myLane->getID();
     case SUMO_ATTR_POSITION:
         if(myEdge) {
@@ -309,8 +309,8 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
     }
     switch (key) {
     case SUMO_ATTR_ID:
-    case SUMO_ATTR_EDGE:    // Only called by subClass GNECalibratorEdge
-    case SUMO_ATTR_LANE:    // Only called by subClass GNECalibratorLane
+    case SUMO_ATTR_EDGE:
+    case SUMO_ATTR_LANE:
     case SUMO_ATTR_POSITION:
     case SUMO_ATTR_FREQUENCY:
     case SUMO_ATTR_OUTPUT:
@@ -329,13 +329,13 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
     case SUMO_ATTR_ID:
         return isValidAdditionalID(value);
-    case SUMO_ATTR_EDGE:    // Only called by subClass GNECalibratorEdge
+    case SUMO_ATTR_EDGE:
         if (myViewNet->getNet()->retrieveEdge(value, false) != NULL) {
             return true;
         } else {
             return false;
         }
-    case SUMO_ATTR_LANE:    // Only called by subClass GNECalibratorLane
+    case SUMO_ATTR_LANE:
         if (myViewNet->getNet()->retrieveLane(value, false) != NULL) {
             return true;
         } else {
@@ -422,10 +422,10 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
     case SUMO_ATTR_ID:
         changeAdditionalID(value);
         break;
-    case SUMO_ATTR_EDGE:    // Only called by subClass GNECalibratorEdge
+    case SUMO_ATTR_EDGE:
         myEdge = changeEdge(myEdge, value);
         break;
-    case SUMO_ATTR_LANE:    // Only called by subClass GNECalibratorLane
+    case SUMO_ATTR_LANE:
         myLane = changeLane(myLane, value);
         break;
     case SUMO_ATTR_POSITION:
