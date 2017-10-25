@@ -487,12 +487,20 @@ public:
     }
 
 
-    /** @brief Returns the vehicle's action step length,
+    /** @brief Returns the vehicle's action step length in millisecs,
      *         i.e. the interval between two action points.
-     * @return The current action step length
+     * @return The current action step length in ms.
      */
     SUMOTime getActionStepLength() const {
         return myType->getActionStepLength();
+    }
+
+    /** @brief Returns the vehicle's action step length in secs,
+     *         i.e. the interval between two action points.
+     * @return The current action step length in s.
+     */
+    double getActionStepLengthSecs() const {
+        return myType->getActionStepLengthSecs();
     }
 
 

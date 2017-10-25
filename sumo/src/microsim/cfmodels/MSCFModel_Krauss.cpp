@@ -39,6 +39,14 @@
 #include <utils/common/RandHelper.h>
 
 
+
+// ===========================================================================
+// DEBUG constants
+// ===========================================================================
+//#define DEBUG_MOVE_HELPER
+//#define DEBUG_COND (true)
+
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -60,7 +68,7 @@ MSCFModel_Krauss::moveHelper(MSVehicle* const veh, double vPos) const {
 
     // aMax: Maximal admissible acceleration until the next action step, such that the vehicle's maximal
     // desired speed on the current lane will not be exceeded.
-    double aMax = (veh->getLane()->getVehicleMaxSpeed(veh) - oldV)/STEPS2TIME(veh->getActionStepLength());
+    double aMax = (veh->getLane()->getVehicleMaxSpeed(veh) - oldV)/veh->getActionStepLengthSecs();
 
     // do not exceed max decel even if it is unsafe
     double vMax = MAX2(vMin,MIN3(oldV + ACCEL2SPEED(aMax), maxNextSpeed(oldV, veh), vSafe));
@@ -98,9 +106,9 @@ MSCFModel_Krauss::moveHelper(MSVehicle* const veh, double vPos) const {
 double
 MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
     // NOTE: This allows return of smaller values than minNextSpeed().
-    // Only relevant for the ballistic update: We give the argument headway=veh->getActionStepLength(), to assure that
-    // the stopping position is approached with a uniform deceleration also for tau!=veh->getActionStepLength().
-    return MIN2(maximumSafeStopSpeed(gap, speed, false, STEPS2TIME(veh->getActionStepLength())), maxNextSpeed(speed, veh));
+    // Only relevant for the ballistic update: We give the argument headway=veh->getActionStepLengthSecs(), to assure that
+    // the stopping position is approached with a uniform deceleration also for tau!=veh->getActionStepLengthSecs().
+    return MIN2(maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
 

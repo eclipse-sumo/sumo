@@ -162,7 +162,7 @@ MSCFModel::moveHelper(MSVehicle* const veh, double vPos) const {
     double vMin, vNext;
     // aMax: Maximal admissible acceleration until the next action step, such that the vehicle's maximal
     // desired speed on the current lane will not be exceeded.
-    double aMax = (veh->getMaxSpeedOnLane()-oldV)/STEPS2TIME(veh->getActionStepLength());
+    double aMax = (veh->getMaxSpeedOnLane()-oldV)/veh->getActionStepLengthSecs();
     const double vMax = MIN3(oldV + ACCEL2SPEED(aMax), maxNextSpeed(oldV, veh), vSafe);
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         // we cannot rely on never braking harder than maxDecel because TraCI or strange cf models may decide to do so
@@ -221,7 +221,7 @@ MSCFModel::minNextSpeed(double speed, const MSVehicle* const /*veh*/) const {
 
 double
 MSCFModel::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion) const {
-    double vSafe = freeSpeed(speed, myDecel, seen, maxSpeed, onInsertion, STEPS2TIME(veh->getActionStepLength()));
+    double vSafe = freeSpeed(speed, myDecel, seen, maxSpeed, onInsertion, veh->getActionStepLengthSecs());
     return vSafe;
 }
 

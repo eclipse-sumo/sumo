@@ -229,7 +229,7 @@ public:
     /** @brief Returns this type's default action step length in seconds
      * @return The default action step length of this type (in s.)
      */
-    SUMOTime getActionStepLengthSecs() const {
+    double getActionStepLengthSecs() const {
         return myCachedActionStepLengthSecs;
     }
 
