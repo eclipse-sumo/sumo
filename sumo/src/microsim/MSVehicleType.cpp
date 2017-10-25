@@ -70,7 +70,7 @@ MSVehicleType::MSVehicleType(const SUMOVTypeParameter& parameter)
     if (!myParameter.wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
         myParameter.actionStepLength=MSGlobals::gActionStepLength;
     }
-
+    myCachedActionStepLengthSecs = STEPS2TIME(myParameter.actionStepLength);
 }
 
 
@@ -209,6 +209,7 @@ MSVehicleType::setActionStepLength(const SUMOTime actionStepLength, bool resetAc
 
     SUMOTime previousActionStepLength = myParameter.actionStepLength;
     myParameter.actionStepLength = actionStepLength;
+    myCachedActionStepLengthSecs = STEPS2TIME(myParameter.actionStepLength);
     check();
 
     if (isVehicleSpecific()) {

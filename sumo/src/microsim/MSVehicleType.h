@@ -226,6 +226,14 @@ public:
     }
 
 
+    /** @brief Returns this type's default action step length in seconds
+     * @return The default action step length of this type (in s.)
+     */
+    SUMOTime getActionStepLengthSecs() const {
+        return myCachedActionStepLengthSecs;
+    }
+
+
     /** @brief Returns this type's impatience
      * @return The impatience of this type
      */
@@ -526,6 +534,9 @@ public:
 private:
     /// @brief the parameter container
     SUMOVTypeParameter myParameter;
+
+    /// @brief the vtypes actionsStepLength in seconds (cached because needed very often)
+    double myCachedActionStepLengthSecs;
 
     /// @brief Indicator whether the user was already warned once about an action step length
     ///        larger than the desired time headway.
