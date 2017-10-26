@@ -498,7 +498,7 @@ NBOwnTLDef::patchStateForCrossings(const std::string& state, const std::vector<N
                 for (EdgeVector::const_iterator it = cross.edges.begin(); it != cross.edges.end(); ++it) {
                     const NBEdge* edge = *it;
                     const LinkDirection i2dir = cross.node->getDirection(fromEdges[i2], toEdges[i2]);
-                    if (state[i2] != 'r' && (edge == fromEdges[i2] ||
+                    if (state[i2] != 'r' && state[i2] != 's' && (edge == fromEdges[i2] ||
                                              (edge == toEdges[i2] && (i2dir == LINKDIR_STRAIGHT || i2dir == LINKDIR_PARTLEFT || i2dir == LINKDIR_PARTRIGHT)))) {
                         isForbidden = true;
                         break;
