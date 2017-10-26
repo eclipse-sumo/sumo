@@ -1,6 +1,11 @@
 set(netconvertlibs
         netwrite netimport netbuild foreign_eulerspiral ${GDAL_LIBRARY} netimport_vissim netimport_vissim_typeloader netimport_vissim_tempstructs ${commonlibs})
 
+set(sumolibs
+        netload microsim microsim_cfmodels microsim_lcmodels microsim_devices microsim_output microsim_pedestrians microsim_trigger microsim_actions
+        microsim_traffic_lights mesosim traciserver traciserver_lib ${commonvehiclelibs} ${GRPC_LIBS}
+        ${PYTHON_LIBRARIES})
+
 add_subdirectory(activitygen)
 add_subdirectory(dfrouter)
 add_subdirectory(duarouter)
@@ -45,11 +50,6 @@ else ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(sumoguiexec
             guisim_main.cpp)
 endif ()
-
-set(sumolibs
-        netload microsim microsim_cfmodels microsim_lcmodels microsim_devices microsim_output microsim_pedestrians microsim_trigger microsim_actions
-        microsim_traffic_lights mesosim traciserver traciserver_lib ${commonvehiclelibs} ${GRPC_LIBS}
-        ${PYTHON_LIBRARIES})
 
 add_executable(sumo version.h ${sumoexec})
 target_link_libraries(sumo ${sumolibs})

@@ -46,13 +46,13 @@
 #define WIN32
 #endif
 
-/* Temporary workaround to enable cmake compilation with MSVC */
-#ifndef HAVE_ENABLED
-#define HAVE_ENABLED "CMakeWindows"
-#endif
-
 /* Define for dynamic Fox linkage */
 #define FOXDLL 1
+
+/* Temporary workaround to enable cmake compilation with MSVC */
+#ifndef HAVE_ENABLED
+#include <config.h>
+#else
 
 /* defines the epsilon to use on position comparison */
 #define POSITION_EPS 0.1
@@ -71,5 +71,7 @@
 /* Definition for the character function of Xerces  */
 #define XERCES3_SIZE_t XMLSize_t //Xerces >= 3.0
 //#define XERCES3_SIZE_t unsigned int //Xerces < 3.0
+
+#endif // HAVE_ENABLED
 
 #endif
