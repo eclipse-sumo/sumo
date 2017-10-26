@@ -59,6 +59,7 @@
 #include "GNEViewParent.h"
 #include "GNEConnection.h"
 #include "GNEShape.h"
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // FOX callback mapping

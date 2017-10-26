@@ -89,13 +89,20 @@
 #include "GNEAdditionalHandler.h"
 #include "GNEDialog_FixAdditionalPositions.h"
 #include "GNECalibratorFlow.h"
+#include "GNECalibratorRoute.h"
+#include "GNECalibratorVehicleType.h"
 
+
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 
 FXIMPLEMENT_ABSTRACT(GNENet::GNEChange_ReplaceEdgeInTLS, GNEChange, NULL, 0)
 
 // ===========================================================================
 // static members
 // ===========================================================================
+
 const RGBColor GNENet::selectionColor(0, 0, 204, 255);
 const RGBColor GNENet::selectedLaneColor(0, 0, 128, 255);
 const RGBColor GNENet::selectedConnectionColor(0, 0, 100, 255);
@@ -105,6 +112,7 @@ const double GNENet::Z_INITIALIZED = 1;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
 GNENet::GNENet(NBNetBuilder* netBuilder) :
     GUIGlObject(GLO_NETWORK, ""),
     ShapeContainer(),
@@ -1698,7 +1706,7 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
     // we need a special case for Calibrators
     SumoXMLTag tag = (additional->getTag() == SUMO_TAG_LANECALIBRATOR)? SUMO_TAG_CALIBRATOR : additional->getTag();
     // obtain iterator to additional to remove
-    GNEAdditionals::iterator additionalToRemove = myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), tag));
+    auto additionalToRemove = myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), tag));
     // Check if additional element exists before deletion
     if (additionalToRemove == myAdditionals.end()) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist");
@@ -1716,7 +1724,7 @@ void
 GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) {
     // we need a special case for Calibrators
     SumoXMLTag tag = (additional->getTag() == SUMO_TAG_LANECALIBRATOR)? SUMO_TAG_CALIBRATOR : additional->getTag();
-    GNEAdditionals::iterator additionalToUpdate = myAdditionals.find(std::pair<std::string, SumoXMLTag>(oldID, tag));
+    auto additionalToUpdate = myAdditionals.find(std::pair<std::string, SumoXMLTag>(oldID, tag));
     if (additionalToUpdate == myAdditionals.end()) {
         throw ProcessError(toString(additional->getTag()) + "  with old ID='" + oldID + "' doesn't exist");
     } else {
@@ -1800,15 +1808,14 @@ GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
 
 GNECalibratorRoute* 
 GNENet::retrieveCalibratorRoute(const std::string& id, bool hardFail) const {
-    /*
-    for (auto i : myAdditionals) {
+    // iterate over calibrator routes
+    for (auto i : myCalibratorRoutes) {
         if (i.second->getID() == id) {
             return i.second;
         }
     }
-    */
     if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant additional");
+        throw ProcessError("Attempted to retrieve non-existant calibrator route");
     } else {
         return NULL;
     }
@@ -1817,15 +1824,14 @@ GNENet::retrieveCalibratorRoute(const std::string& id, bool hardFail) const {
 
 GNECalibratorVehicleType* 
 GNENet::retrieveCalibratorVehicleType(const std::string& id, bool hardFail) const {
-    /*
-    for (auto i : myAdditionals) {
-    if (i.second->getID() == id) {
-    return i.second;
+    // iterate over vehicle types
+    for (auto i : myCalibratorVehicleTypes) {
+        if (i.second->getID() == id) {
+            return i.second;
+        }
     }
-    }
-    */
     if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant additional");
+        throw ProcessError("Attempted to retrieve non-existant calibrator vehicle type");
     } else {
         return NULL;
     }
@@ -1834,15 +1840,14 @@ GNENet::retrieveCalibratorVehicleType(const std::string& id, bool hardFail) cons
 
 GNECalibratorFlow* 
 GNENet::retrieveCalibratorFlow(const std::string& id, bool hardFail ) const {
-    /*
-    for (auto i : myAdditionals) {
-    if (i.second->getID() == id) {
-    return i.second;
+    // iterate over flows
+    for (auto i : myCalibratorFlows) {
+        if (i.second->getID() == id) {
+            return i.second;
+        }
     }
-    }
-    */
     if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant additional");
+        throw ProcessError("Attempted to retrieve non-existant calibrator flow");
     } else {
         return NULL;
     }
@@ -1851,19 +1856,31 @@ GNENet::retrieveCalibratorFlow(const std::string& id, bool hardFail ) const {
 
 std::string 
 GNENet::generateCalibratorRouteID() const {
-    return "";
+    int counter = 0;
+    while(myCalibratorRoutes.count(toString(SUMO_TAG_ROUTE) + toString(counter)) != 0) {
+        counter++;
+    }
+    return toString(SUMO_TAG_ROUTE) + toString(counter);
 }
 
 
 std::string 
 GNENet::generateCalibratorVehicleTypeID() const {
-    return "";
+    int counter = 0;
+    while(myCalibratorVehicleTypes.count(toString(SUMO_TAG_VTYPE) + toString(counter)) != 0) {
+        counter++;
+    }
+    return toString(SUMO_TAG_VTYPE) + toString(counter);
 }
 
 
 std::string 
 GNENet::generateCalibratorFlowID() const {
-    return "";
+    int counter = 0;
+    while(myCalibratorFlows.count(toString(SUMO_TAG_FLOW) + toString(counter)) != 0) {
+        counter++;
+    }
+    return toString(SUMO_TAG_FLOW) + toString(counter);
 }
 
 
@@ -1976,6 +1993,69 @@ GNENet::isShapeSelected(SumoXMLTag tag, const std::string& ID) const {
         return gSelected.isSelected(GLO_POI, retrievePOILane(ID)->getGlID());
     } else {
         throw ProcessError("Invalid Shape");
+    }
+}
+
+
+void 
+GNENet::insertCalibratorRoute(GNECalibratorRoute* route) {
+    if (myCalibratorRoutes.find(route->getID()) == myCalibratorRoutes.end()) {
+        myCalibratorRoutes[route->getID()] = route;
+    } else {
+        throw ProcessError("Route already inserted");
+    }
+}
+
+
+void 
+GNENet::deleteCalibratorRoute(GNECalibratorRoute* route) {
+    auto it = myCalibratorRoutes.find(route->getID());
+    if (it != myCalibratorRoutes.end()) {
+        myCalibratorRoutes.erase(it);
+    } else {
+        throw ProcessError("Route wasn't inserted");
+    }
+}
+
+
+void 
+GNENet::insertCalibratorFlow(GNECalibratorFlow* flow) {
+    if (myCalibratorFlows.find(flow->getID()) == myCalibratorFlows.end()) {
+        myCalibratorFlows[flow->getID()] = flow;
+    } else {
+        throw ProcessError("Flow already inserted");
+    }
+}
+
+
+void 
+GNENet::deleteCalibratorFlow(GNECalibratorFlow* flow) {
+    auto it = myCalibratorFlows.find(flow->getID());
+    if (it != myCalibratorFlows.end()) {
+        myCalibratorFlows.erase(it);
+    } else {
+        throw ProcessError("Flow wasn't inserted");
+    }
+}
+
+
+void 
+GNENet::insertCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
+    if (myCalibratorVehicleTypes.find(vehicleType->getID()) == myCalibratorVehicleTypes.end()) {
+        myCalibratorVehicleTypes[vehicleType->getID()] = vehicleType;
+    } else {
+        throw ProcessError("Vehicle Type already inserted");
+    }
+}
+
+
+void 
+GNENet::deleteCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
+    auto it = myCalibratorVehicleTypes.find(vehicleType->getID());
+    if (it != myCalibratorVehicleTypes.end()) {
+        myCalibratorVehicleTypes.erase(it);
+    } else {
+        throw ProcessError("Vehicle Type wasn't inserted");
     }
 }
 
@@ -2179,8 +2259,8 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     myNetBuilder->compute(oc, liveExplicitTurnarounds, volatileOptions);
     // update ids if necessary
     if (oc.getBool("numerical-ids") || oc.isSet("reserved-ids")) {
-        GNEEdges newEdgeMap;
-        GNEJunctions newJunctionMap;
+        std::map<std::string, GNEEdge*> newEdgeMap;
+        std::map<std::string, GNEJunction*> newJunctionMap;
         // fill newEdgeMap
         for (auto it : myEdges) {
             it.second->setMicrosimID(it.second->getNBEdge()->getID());
@@ -2214,20 +2294,20 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         }
 
         // clear all additionals of grid
-        GNEAdditionals copyOfAdditionals = myAdditionals;
+        auto copyOfAdditionals = myAdditionals;
         for (auto it : copyOfAdditionals) {
             myGrid.removeAdditionalGLObject(it.second);
         }
 
         // remove all edges of grid and net
-        GNEEdges copyOfEdges = myEdges;
+        auto copyOfEdges = myEdges;
         for (auto it : copyOfEdges) {
             myGrid.removeAdditionalGLObject(it.second);
             myEdges.erase(it.second->getMicrosimID());
         }
 
         // removes all junctions of grid and net
-        GNEJunctions copyOfJunctions = myJunctions;
+        auto copyOfJunctions = myJunctions;
         for (auto it : copyOfJunctions) {
             myGrid.removeAdditionalGLObject(it.second);
             myJunctions.erase(it.second->getMicrosimID());

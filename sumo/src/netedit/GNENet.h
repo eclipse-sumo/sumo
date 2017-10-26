@@ -55,7 +55,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "GNEChange.h"
-#include "GNECalibrator.h"
 
 
 // ===========================================================================
@@ -76,6 +75,9 @@ class GNEPoly;
 class GNEPOI;
 class GNEPOILane;
 class GNECalibratorFlow;
+class GNECalibratorRoute;
+class GNECalibratorVehicleType;
+class GNEViewNet;
 
 // ===========================================================================
 // class definitions
@@ -92,6 +94,7 @@ class GNENet : public GUIGlObject, public ShapeContainer {
     friend class GNEChange_Lane;
     friend class GNEChange_Connection;
     friend class GNEChange_Shape;
+    friend class GNEChange_CalibratorItem;
 
 public:
     /// @name color of selected objects
@@ -649,21 +652,23 @@ protected:
     /// @brief The internal netbuilder
     NBNetBuilder* myNetBuilder;
 
-    /// @name internal GNE components
-    /// @{
-    typedef std::map<std::string, GNEJunction*> GNEJunctions;
-    typedef std::map<std::string, GNEEdge*> GNEEdges;
-    typedef std::map<std::pair<std::string, SumoXMLTag>, GNEAdditional*> GNEAdditionals;
-    // @}
-
     /// @brief map with the name and pointer to junctions of net
-    GNEJunctions myJunctions;
+    std::map<std::string, GNEJunction*> myJunctions;
 
     /// @brief map with the name and pointer to edges of net
-    GNEEdges myEdges;
+    std::map<std::string, GNEEdge*> myEdges;
 
     /// @brief map with the name and pointer to additional elements of net
-    GNEAdditionals myAdditionals;
+    std::map<std::pair<std::string, SumoXMLTag>, GNEAdditional*> myAdditionals;
+
+    /// @brief map with the name and pointer to Calibrator Routes of net
+    std::map<std::string, GNECalibratorRoute*> myCalibratorRoutes;
+
+    /// @brief map with the name and pointer to Calibrator Vehicle Types of net
+    std::map<std::string, GNECalibratorVehicleType*> myCalibratorVehicleTypes;
+
+    /// @brief map with the name and pointer to Calibrator Flows of net
+    std::map<std::string, GNECalibratorFlow*> myCalibratorFlows;
 
     /// @name ID Suppliers for newly created edges and junctions
     // @{
@@ -682,6 +687,41 @@ protected:
 
     /// @brief Flag to check if shapes hast o be saved
     bool myShapesSaved;
+
+    /// @name insetion of deletingCalibrator Items
+    /// @{
+
+    /**@brief insert Calibrator Route in net
+     * @throw processError if route was already inserted
+     */
+    void insertCalibratorRoute(GNECalibratorRoute* route);
+
+    /**@brief delete Calibrator Route in net
+    * @throw processError if route wasn't previously inserted
+    */
+    void deleteCalibratorRoute(GNECalibratorRoute* route);
+
+    /**@brief insert Calibrator Flow in net
+    * @throw processError if flow was already inserted
+    */
+    void insertCalibratorFlow(GNECalibratorFlow* flow);
+
+    /**@brief delete Calibrator Flow in net
+    * @throw processError if flow wasn't previously inserted
+    */
+    void deleteCalibratorFlow(GNECalibratorFlow* flow);
+
+    /**@brief insert Calibrator VehicleType in net
+    * @throw processError if vehicleType was already inserted
+    */
+    void insertCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
+
+    /**@brief delete Calibrator VehicleType in net
+    * @throw processError if vehicleType wasn't previously inserted
+    */
+    void deleteCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
+
+    /// @}
 
 private:
     /// @brief Init Junctions and edges

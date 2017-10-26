@@ -115,28 +115,25 @@ GNEChange_CalibratorItem::undo() {
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing calibrator flow of calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
             }
-            // remove calibrator flow of calibrator
+            // remove calibrator flow of calibrator and net
             myCalibratorFlow->getCalibratorParent()->removeCalibratorFlow(myCalibratorFlow);
-            // enable save additionals
-            myCalibratorFlow->getCalibratorParent()->getViewNet()->getNet()->requiereSaveAdditionals();
+            myNet->deleteCalibratorFlow(myCalibratorFlow);
         } else if (myCalibratorRoute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing calibrator route of calibrator '" + myCalibratorRoute->getCalibratorParent()->getID() + "'");
             }
-            // remove calibrator route of calibrator
+            // remove calibrator route of calibrator and net
             myCalibratorRoute->getCalibratorParent()->removeCalibratorRoute(myCalibratorRoute);
-            // enable save additionals
-            myCalibratorRoute->getCalibratorParent()->getViewNet()->getNet()->requiereSaveAdditionals();
+            myNet->deleteCalibratorRoute(myCalibratorRoute);
         } else if (myCalibratorVehicleType) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing calibrator vehicle type of calibrator '" + myCalibratorVehicleType->getCalibratorParent()->getID() + "'");
             }
-            // remove calibrator vehicle type of calibrator
+            // remove calibrator vehicle type of calibrator and net
             myCalibratorVehicleType->getCalibratorParent()->removeCalibratorVehicleType(myCalibratorVehicleType);
-            // enable save additionals
-            myCalibratorVehicleType->getCalibratorParent()->getViewNet()->getNet()->requiereSaveAdditionals();
+            myNet->deleteCalibratorVehicleType(myCalibratorVehicleType);
         } else {
             throw ProcessError("There isn't a defined Calibrator item");
         }
@@ -146,32 +143,31 @@ GNEChange_CalibratorItem::undo() {
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Adding calibrator flow into calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
             }
-            // add calibrator flow into calibrator
+            // add calibrator flow into calibrator and net
             myCalibratorFlow->getCalibratorParent()->addCalibratorFlow(myCalibratorFlow);
-            // enable save additionals
-            myCalibratorFlow->getCalibratorParent()->getViewNet()->getNet()->requiereSaveAdditionals();
+            myNet->insertCalibratorFlow(myCalibratorFlow);
         } else if (myCalibratorRoute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Adding calibrator route into calibrator '" + myCalibratorRoute->getCalibratorParent()->getID() + "'");
             }
-            // add calibrator route into calibrator
+            // add calibrator route into calibrator and net
             myCalibratorRoute->getCalibratorParent()->addCalibratorRoute(myCalibratorRoute);
-            // enable save additionals
-            myCalibratorRoute->getCalibratorParent()->getViewNet()->getNet()->requiereSaveAdditionals();
+            myNet->insertCalibratorRoute(myCalibratorRoute);
         } else if (myCalibratorVehicleType) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Adding calibrator vehicle type into calibrator '" + myCalibratorVehicleType->getCalibratorParent()->getID() + "'");
             }
-            // add calibrator vehicle type into calibrator
+            // add calibrator vehicle type into calibrator and net
             myCalibratorVehicleType->getCalibratorParent()->addCalibratorVehicleType(myCalibratorVehicleType);
-            // enable save additionals
-            myCalibratorVehicleType->getCalibratorParent()->getViewNet()->getNet()->requiereSaveAdditionals();
+            myNet->insertCalibratorVehicleType(myCalibratorVehicleType);
         } else {
             throw ProcessError("There isn't a defined Calibrator item");
         }
     }
+    // enable save additionals
+    myNet->requiereSaveAdditionals();
 }
 
 
@@ -183,28 +179,25 @@ GNEChange_CalibratorItem::redo() {
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Adding calibrator flow into calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
             }
-            // add calibrator flow into calibrator
+            // add calibrator flow into calibrator and net
             myCalibratorFlow->getCalibratorParent()->addCalibratorFlow(myCalibratorFlow);
-            // enable save additionals
-            myCalibratorFlow->getCalibratorParent()->getViewNet()->getNet()->requiereSaveAdditionals();
+            myNet->insertCalibratorFlow(myCalibratorFlow);
         } else if (myCalibratorRoute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Adding calibrator route into calibrator '" + myCalibratorRoute->getCalibratorParent()->getID() + "'");
             }
-            // add calibrator route into calibrator
+            // add calibrator route into calibrator and net
             myCalibratorRoute->getCalibratorParent()->addCalibratorRoute(myCalibratorRoute);
-            // enable save additionals
-            myCalibratorRoute->getCalibratorParent()->getViewNet()->getNet()->requiereSaveAdditionals();
+            myNet->insertCalibratorRoute(myCalibratorRoute);
         } else if (myCalibratorVehicleType) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Adding calibrator vehicle type into calibrator '" + myCalibratorVehicleType->getCalibratorParent()->getID() + "'");
             }
-            // add calibrator vehicle type into calibrator
+            // add calibrator vehicle type into calibrator and net
             myCalibratorVehicleType->getCalibratorParent()->addCalibratorVehicleType(myCalibratorVehicleType);
-            // enable save additionals
-            myCalibratorVehicleType->getCalibratorParent()->getViewNet()->getNet()->requiereSaveAdditionals();
+            myNet->insertCalibratorVehicleType(myCalibratorVehicleType);
         } else {
             throw ProcessError("There isn't a defined Calibrator item");
         }
@@ -214,32 +207,31 @@ GNEChange_CalibratorItem::redo() {
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing calibrator flow of calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
             }
-            // remove calibrator flow of calibrator
+            // remove calibrator flow of calibrator and net
             myCalibratorFlow->getCalibratorParent()->removeCalibratorFlow(myCalibratorFlow);
-            // enable save additionals
-            myCalibratorFlow->getCalibratorParent()->getViewNet()->getNet()->requiereSaveAdditionals();
+            myNet->deleteCalibratorFlow(myCalibratorFlow);
         } else if (myCalibratorRoute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing calibrator route of calibrator '" + myCalibratorRoute->getCalibratorParent()->getID() + "'");
             }
-            // remove calibrator route of calibrator
+            // remove calibrator route of calibrator and net
             myCalibratorRoute->getCalibratorParent()->removeCalibratorRoute(myCalibratorRoute);
-            // enable save additionals
-            myCalibratorRoute->getCalibratorParent()->getViewNet()->getNet()->requiereSaveAdditionals();
+            myNet->deleteCalibratorRoute(myCalibratorRoute);
         } else if (myCalibratorVehicleType) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing calibrator vehicle type of calibrator '" + myCalibratorVehicleType->getCalibratorParent()->getID() + "'");
             }
-            // remove calibrator vehicle type of calibrator
+            // remove calibrator vehicle type of calibrator and net
             myCalibratorVehicleType->getCalibratorParent()->removeCalibratorVehicleType(myCalibratorVehicleType);
-            // enable save additionals
-            myCalibratorVehicleType->getCalibratorParent()->getViewNet()->getNet()->requiereSaveAdditionals();
+            myNet->deleteCalibratorVehicleType(myCalibratorVehicleType);
         } else {
             throw ProcessError("There isn't a defined Calibrator item");
         }
     }
+    // enable save additionals
+    myNet->requiereSaveAdditionals();
 }
 
 
