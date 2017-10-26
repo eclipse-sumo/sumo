@@ -47,14 +47,11 @@
 // ===========================================================================
 
 FXDEFMAP(GNECalibratorRouteDialog) GNECalibratorRouteDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,   GNECalibratorRouteDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,   GNECalibratorRouteDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONRESET,    GNECalibratorRouteDialog::onCmdReset),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CALIBRATORDIALOG_SET_VARIABLE,  GNECalibratorRouteDialog::onCmdSetVariable),
 };
 
 // Object implementation
-FXIMPLEMENT(GNECalibratorRouteDialog, FXDialogBox, GNECalibratorRouteDialogMap, ARRAYNUMBER(GNECalibratorRouteDialogMap))
+FXIMPLEMENT(GNECalibratorRouteDialog, GNEAdditionalDialog, GNECalibratorRouteDialogMap, ARRAYNUMBER(GNECalibratorRouteDialogMap))
 
 // ===========================================================================
 // member method definitions

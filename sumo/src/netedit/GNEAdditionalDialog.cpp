@@ -41,24 +41,23 @@
 // ===========================================================================
 
 FXDEFMAP(GNEAdditionalDialog) GNEAdditionalDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GNEAdditionalDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL, GNEAdditionalDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDITIONALDIALOG_BUTTONRESET,  GNEAdditionalDialog::onCmdReset),
+    FXMAPFUNC(SEL_KEYPRESS,     0,                                      GNEAdditionalDialog::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,   0,                                      GNEAdditionalDialog::onKeyRelease),
+    FXMAPFUNC(SEL_CLOSE,        0,                                      GNEAdditionalDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,      MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,  GNEAdditionalDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,      MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,  GNEAdditionalDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,      MID_GNE_ADDITIONALDIALOG_BUTTONRESET,   GNEAdditionalDialog::onCmdReset),
 };
 
 // Object abstract implementation
-FXIMPLEMENT_ABSTRACT(GNEAdditionalDialog, FXDialogBox, GNEAdditionalDialogMap, ARRAYNUMBER(GNEAdditionalDialogMap))
+FXIMPLEMENT_ABSTRACT(GNEAdditionalDialog, FXTopWindow, GNEAdditionalDialogMap, ARRAYNUMBER(GNEAdditionalDialogMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* parent, int width, int height) :
-    FXDialogBox(parent->getViewNet(), ("Edit '" + parent->getID() + "' data").c_str(), GUIDesignDialogBoxExplicit, 0, 0, width, height, 0, 0, 0, 0) {
-    // check that parent isn't NULL
-    assert(parent != NULL);
-    // set icon
-    setIcon(parent->getIcon());
+    FXTopWindow(parent->getViewNet(), ("Edit '" + parent->getID() + "' data").c_str(), parent->getIcon(), parent->getIcon(), GUIDesignDialogBoxExplicit, 0, 0, width, height, 0, 0, 0, 0, 4, 4) {
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // Create frame for contents
@@ -76,10 +75,36 @@ GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* parent, int width, int h
 GNEAdditionalDialog::~GNEAdditionalDialog() {}
 
 
+FXint 
+GNEAdditionalDialog::openAsModalDialog(FXuint placement) {
+    // create Dialog
+    create();
+    // show in the given position
+    show(placement);
+    // refresh APP
+    getApp()->refresh();
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    return getApp()->runModalFor(this);
+}
+
+
+long 
+GNEAdditionalDialog::onKeyPress(FXObject*sender, FXSelector sel,void* ptr) {
+    return FXTopWindow::onKeyPress(sender,sel,ptr);
+}
+
+
+long 
+GNEAdditionalDialog::onKeyRelease(FXObject*sender, FXSelector sel,void* ptr){
+    return FXTopWindow::onKeyRelease(sender,sel,ptr);
+}
+
+
 void
 GNEAdditionalDialog::changeAdditionalDialogHeader(const std::string& newHeader) {
     // change FXDialogBox title
     setTitle(newHeader.c_str());
 }
+
 
 /****************************************************************************/

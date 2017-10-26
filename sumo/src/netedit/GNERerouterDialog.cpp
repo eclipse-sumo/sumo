@@ -44,13 +44,10 @@
 FXDEFMAP(GNERerouterDialog) GNERerouterDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_REROUTEDIALOG_ADD_INTERVAL,     GNERerouterDialog::onCmdAddInterval),
     FXMAPFUNC(SEL_CLICKED,  MID_GNE_REROUTEDIALOG_TABLE_INTERVAL,   GNERerouterDialog::onCmdClickedInterval),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,   GNERerouterDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,   GNERerouterDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONRESET,    GNERerouterDialog::onCmdReset),
 };
 
 // Object implementation
-FXIMPLEMENT(GNERerouterDialog, FXDialogBox, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
+FXIMPLEMENT(GNERerouterDialog, GNEAdditionalDialog, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
 
 // ===========================================================================
 // member method definitions
@@ -73,8 +70,8 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     myCopyOfRerouterIntervals = myRerouterParent->getRerouterIntervals();
     updateIntervalTable();
 
-    // Execute additional dialog (To make it modal)
-    execute();
+    // Open dialog as modal
+    openAsModalDialog();
 }
 
 
@@ -163,7 +160,7 @@ long
 GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
     // create empty rerouter interval and configure it with GNERerouterIntervalDialog
     GNERerouterInterval newInterval(myRerouterParent, 0, 0);
-    if (GNERerouterIntervalDialog(this, newInterval).execute() == TRUE) {
+    if (GNERerouterIntervalDialog(this, newInterval).openAsModalDialog() == TRUE) {
         // if new interval was sucesfully configured, add it to myCopyOfRerouterIntervals
         myCopyOfRerouterIntervals.push_back(newInterval);
         updateIntervalTable();
@@ -189,7 +186,7 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)myCopyOfRerouterIntervals.size(); i++) {
         if (myIntervalList->getItem(i, 0)->hasFocus() || myIntervalList->getItem(i, 1)->hasFocus()) {
             // edit interval
-            GNERerouterIntervalDialog(this, *(myCopyOfRerouterIntervals.begin() + i)).execute();
+            GNERerouterIntervalDialog(this, *(myCopyOfRerouterIntervals.begin() + i)).openAsModalDialog();
             return 1;
         }
     }

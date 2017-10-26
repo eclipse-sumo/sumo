@@ -47,7 +47,7 @@ class GNEAdditional;
  * @class GNEAdditionalDialog
  * @brief Dialog to edit sequences, parameters, etc.. of Additionals
  */
-class GNEAdditionalDialog : public FXDialogBox {
+class GNEAdditionalDialog : protected FXTopWindow {
     /// @brief FOX-declaration abstract
     FXDECLARE_ABSTRACT(GNEAdditionalDialog)
 
@@ -58,8 +58,8 @@ public:
     /// @brief destructor
     ~GNEAdditionalDialog();
 
-    /// @brief change additional dialog header
-    void changeAdditionalDialogHeader(const std::string& newHeader);
+    /// @brief execute dialog as modal
+    FXint openAsModalDialog(FXuint placement=PLACEMENT_CURSOR);
 
     /// @name FOX-callbacks
     /// @{
@@ -71,11 +71,21 @@ public:
 
     /// @brief event after press cancel button
     virtual long onCmdReset(FXObject*, FXSelector, void*) = 0;
+
+    /// @brief event after press a key
+    long onKeyPress(FXObject*sender, FXSelector sel,void* ptr);
+
+    /// @brief event after release a key
+    long onKeyRelease(FXObject*sender, FXSelector sel,void* ptr);
+
     /// @}
 
 protected:
     /// @brief FOX needs this
     GNEAdditionalDialog() {}
+
+    /// @brief change additional dialog header
+    void changeAdditionalDialogHeader(const std::string& newHeader);
 
     /// @brief frame for contents
     FXVerticalFrame* myContentFrame;
@@ -91,10 +101,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor
-    GNEAdditionalDialog(const GNEAdditionalDialog&);
+    GNEAdditionalDialog(const GNEAdditionalDialog&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEAdditionalDialog& operator=(const GNEAdditionalDialog&);
+    GNEAdditionalDialog& operator=(const GNEAdditionalDialog&) = delete;
 };
 
 #endif

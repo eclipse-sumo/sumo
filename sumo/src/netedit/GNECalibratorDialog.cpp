@@ -56,14 +56,10 @@ FXDEFMAP(GNECalibratorDialog) GNECalibratorDialogMap[] = {
     FXMAPFUNC(SEL_CLICKED,  MID_GNE_CALIBRATORDIALOG_TABLE_FLOW,        GNECalibratorDialog::onCmdClickedFlow),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CALIBRATORDIALOG_ADD_VEHICLETYPE,   GNECalibratorDialog::onCmdAddVehicleType),
     FXMAPFUNC(SEL_CLICKED,  MID_GNE_CALIBRATORDIALOG_TABLE_VEHICLETYPE, GNECalibratorDialog::onCmdClickedVehicleType),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,      GNECalibratorDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,      GNECalibratorDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,      GNECalibratorDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONRESET,       GNECalibratorDialog::onCmdReset),
 };
 
 // Object implementation
-FXIMPLEMENT(GNECalibratorDialog, FXDialogBox, GNECalibratorDialogMap, ARRAYNUMBER(GNECalibratorDialogMap))
+FXIMPLEMENT(GNECalibratorDialog, GNEAdditionalDialog, GNECalibratorDialogMap, ARRAYNUMBER(GNECalibratorDialogMap))
 
 // ===========================================================================
 // member method definitions
@@ -119,8 +115,8 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
     // start a undo list editing
     myEditedCalibrator->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedCalibrator->getTag()) + " values");
 
-    // Execute additional dialog (To make it modal)
-    execute();
+    // Open dialog as modal
+    openAsModalDialog();
 }
 
 
@@ -171,7 +167,7 @@ GNECalibratorDialog::onCmdAddRoute(FXObject*, FXSelector, void*) {
     // create nes calibrator route and configure it with GNECalibratorRouteDialog
     GNECalibratorRoute *newRoute = new GNECalibratorRoute(this);
     myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(newRoute, true), true);
-    if (GNECalibratorRouteDialog(this, newRoute, false).execute() == TRUE) {
+    if (GNECalibratorRouteDialog(this, newRoute, false).openAsModalDialog() == TRUE) {
         // update routes table
         updateRouteTable();
         return 1;
@@ -240,7 +236,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
             }
         } else if (myRouteList->getItem(i, 0)->hasFocus() || myRouteList->getItem(i, 1)->hasFocus()) {
             // modify route of calibrator routes
-            if (GNECalibratorRouteDialog(this, myEditedCalibrator->getCalibratorRoutes().at(i), true).execute() == TRUE) {
+            if (GNECalibratorRouteDialog(this, myEditedCalibrator->getCalibratorRoutes().at(i), true).openAsModalDialog() == TRUE) {
                 // update routes table
                 updateRouteTable();
             }
@@ -259,7 +255,7 @@ GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
         // create new calibrator and configure it with GNECalibratorFlowDialog
         GNECalibratorFlow *newFlow = new GNECalibratorFlow(this);
         myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(newFlow, true), true);
-        if (GNECalibratorFlowDialog(this, newFlow, false).execute() == TRUE) {
+        if (GNECalibratorFlowDialog(this, newFlow, false).openAsModalDialog() == TRUE) {
             // update flows table
             updateFlowTable();
             return 1;
@@ -286,7 +282,7 @@ GNECalibratorDialog::onCmdClickedFlow(FXObject*, FXSelector, void*) {
             return 1;
         } else if (myFlowList->getItem(i, 0)->hasFocus() || myFlowList->getItem(i, 1)->hasFocus() || myFlowList->getItem(i, 2)->hasFocus()) {
             // modify flow of calibrator flows
-            if (GNECalibratorFlowDialog(this, myEditedCalibrator->getCalibratorFlows().at(i), true).execute() == TRUE) {
+            if (GNECalibratorFlowDialog(this, myEditedCalibrator->getCalibratorFlows().at(i), true).openAsModalDialog() == TRUE) {
                 // update flows table
                 updateFlowTable();
             }
@@ -303,7 +299,7 @@ GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
     // create new calibrator flow and configure it with GNECalibratorVehicleTypeDialog
     GNECalibratorVehicleType* newVehicleType = new GNECalibratorVehicleType(this);
     myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(newVehicleType, true), true);
-    if (GNECalibratorVehicleTypeDialog(this, newVehicleType, false).execute() == TRUE) {
+    if (GNECalibratorVehicleTypeDialog(this, newVehicleType, false).openAsModalDialog() == TRUE) {
         // update vehicle types table
         updateVehicleTypeTable();
         return 1;
@@ -367,7 +363,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
             }
         } else if (myVehicleTypeList->getItem(i, 0)->hasFocus() || myVehicleTypeList->getItem(i, 1)->hasFocus()) {
             // modify vehicle type of calibratorVehicleTypes
-            if (GNECalibratorVehicleTypeDialog(this, myEditedCalibrator->getCalibratorVehicleTypes().at(i), true).execute() == TRUE) {
+            if (GNECalibratorVehicleTypeDialog(this, myEditedCalibrator->getCalibratorVehicleTypes().at(i), true).openAsModalDialog() == TRUE) {
                 // update vehicle types table
                 updateVehicleTypeTable();
             }

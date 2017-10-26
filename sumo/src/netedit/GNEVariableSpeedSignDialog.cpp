@@ -40,15 +40,12 @@
 // ===========================================================================
 
 FXDEFMAP(GNEVariableSpeedSignDialog) GNERerouterDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,       MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,  GNEVariableSpeedSignDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,       MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,  GNEVariableSpeedSignDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,       MID_GNE_ADDITIONALDIALOG_BUTTONRESET,   GNEVariableSpeedSignDialog::onCmdReset),
     FXMAPFUNC(SEL_COMMAND,       MID_GNE_VARIABLESPEEDSIGN_ADDROW,    GNEVariableSpeedSignDialog::onCmdAddRow),
     FXMAPFUNC(SEL_DOUBLECLICKED, MID_GNE_VARIABLESPEEDSIGN_REMOVEROW, GNEVariableSpeedSignDialog::onCmdRemoveRow),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEVariableSpeedSignDialog, FXDialogBox, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
+FXIMPLEMENT(GNEVariableSpeedSignDialog, GNEAdditionalDialog, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
 
 // ===========================================================================
 // member method definitions
@@ -80,8 +77,8 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* var
     // update table
     updateTable();
 
-    // Execute additional dialog (To make it modal)
-    execute();
+    // Open dialog as modal
+    openAsModalDialog();
 }
 
 GNEVariableSpeedSignDialog::~GNEVariableSpeedSignDialog() {

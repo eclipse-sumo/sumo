@@ -51,8 +51,8 @@
 
 FXDEFMAP(GNEDialog_FixAdditionalPositions) GNEDialog_FixAdditionalPositionsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,                  GNEDialog_FixAdditionalPositions::onCmdSelectOption),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,   GNEDialog_FixAdditionalPositions::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,   GNEDialog_FixAdditionalPositions::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,  GNEDialog_FixAdditionalPositions::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,  GNEDialog_FixAdditionalPositions::onCmdCancel),
 };
 
 // Object implementation
