@@ -140,7 +140,9 @@ find_package(FFMPEG)
 
 find_package(SWIG)
 if (SWIG_FOUND)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+    if (NOT MSVC)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+    endif ()
 endif ()
 
 
