@@ -91,6 +91,9 @@ sumonet_custom_washape
 # 4 arm junction with crossings on all sides and additional diagonal crossings
 4_arm_pedscramble
 
+# 4 arm junction with crossings on all sides and type traffic_light_right_on_red
+4_arm_right_on_red
+
 # a pedestrian path crosses a street with sidewalks
 path_across_street
 
