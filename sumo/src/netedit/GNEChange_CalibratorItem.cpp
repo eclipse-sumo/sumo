@@ -75,7 +75,7 @@ GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorVehicleType* cal
 }
 
 
-GNEChange_CalibratorItem::GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
+GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
     if(myCalibratorFlow) {
         myCalibratorFlow->decRef("GNEChange_CalibratorItem");
         if (myCalibratorFlow->unreferenced()) {
