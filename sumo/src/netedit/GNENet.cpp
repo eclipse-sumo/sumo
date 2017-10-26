@@ -1682,16 +1682,14 @@ GNENet::removeExplicitTurnaround(std::string id) {
 
 void
 GNENet::insertAdditional(GNEAdditional* additional, bool hardFail) {
-    // we need a special case for Calibrators
-    SumoXMLTag tag = (additional->getTag() == SUMO_TAG_LANECALIBRATOR)? SUMO_TAG_CALIBRATOR : additional->getTag();
     // Check if additional element exists before insertion
-    if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), tag)) != myAdditionals.end()) {
+    if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())) != myAdditionals.end()) {
         // Throw exception only if hardFail is enabled
         if (hardFail) {
-            throw ProcessError(toString(tag) + " with ID='" + additional->getID() + "' already exist");
+            throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' already exist");
         }
     } else {
-        myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), tag)] = additional;
+        myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
         myGrid.addAdditionalGLObject(additional);
         // update geometry after insertion of additionals
         additional->updateGeometry();
@@ -1703,10 +1701,8 @@ GNENet::insertAdditional(GNEAdditional* additional, bool hardFail) {
 
 void
 GNENet::deleteAdditional(GNEAdditional* additional) {
-    // we need a special case for Calibrators
-    SumoXMLTag tag = (additional->getTag() == SUMO_TAG_LANECALIBRATOR)? SUMO_TAG_CALIBRATOR : additional->getTag();
     // obtain iterator to additional to remove
-    auto additionalToRemove = myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), tag));
+    auto additionalToRemove = myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag()));
     // Check if additional element exists before deletion
     if (additionalToRemove == myAdditionals.end()) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist");
@@ -1722,15 +1718,13 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
 
 void
 GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) {
-    // we need a special case for Calibrators
-    SumoXMLTag tag = (additional->getTag() == SUMO_TAG_LANECALIBRATOR)? SUMO_TAG_CALIBRATOR : additional->getTag();
-    auto additionalToUpdate = myAdditionals.find(std::pair<std::string, SumoXMLTag>(oldID, tag));
+    auto additionalToUpdate = myAdditionals.find(std::pair<std::string, SumoXMLTag>(oldID, additional->getTag()));
     if (additionalToUpdate == myAdditionals.end()) {
         throw ProcessError(toString(additional->getTag()) + "  with old ID='" + oldID + "' doesn't exist");
     } else {
         // remove an insert additional again into container
         myAdditionals.erase(additionalToUpdate);
-        myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), tag)] = additional;
+        myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
         // additionals has to be saved
         requiereSaveAdditionals();
     }
@@ -1766,12 +1760,10 @@ GNENet::retrieveAdditionals(bool onlySelected) {
 
 GNEAdditional*
 GNENet::getAdditional(SumoXMLTag type, const std::string& id) const {
-    // we need a special case for Calibrators
-    SumoXMLTag tag = (type == SUMO_TAG_LANECALIBRATOR)? SUMO_TAG_CALIBRATOR : type;
     if (myAdditionals.empty()) {
         return NULL;
-    } else if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(id, tag)) != myAdditionals.end())  {
-        return myAdditionals.at(std::pair<std::string, SumoXMLTag>(id, tag));
+    } else if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(id, type)) != myAdditionals.end())  {
+        return myAdditionals.at(std::pair<std::string, SumoXMLTag>(id, type));
     } else {
         return NULL;
     }
@@ -1780,11 +1772,9 @@ GNENet::getAdditional(SumoXMLTag type, const std::string& id) const {
 
 std::vector<GNEAdditional*>
 GNENet::getAdditionals(SumoXMLTag type) const {
-    // we need a special case for Calibrators
-    SumoXMLTag tag = (type == SUMO_TAG_LANECALIBRATOR)? SUMO_TAG_CALIBRATOR : type;
     std::vector<GNEAdditional*> vectorOfAdditionals;
     for (auto i : myAdditionals) {
-        if (tag == SUMO_TAG_NOTHING || tag == i.second->getTag()) {
+        if ((type == SUMO_TAG_NOTHING) || (type == i.second->getTag())) {
             vectorOfAdditionals.push_back(i.second);
         }
     }
@@ -1794,11 +1784,9 @@ GNENet::getAdditionals(SumoXMLTag type) const {
 
 int
 GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
-    // we need a special case for Calibrators
-    SumoXMLTag tag = (type == SUMO_TAG_LANECALIBRATOR)? SUMO_TAG_CALIBRATOR : type;
     int counter = 0;
     for (auto i : myAdditionals) {
-        if (tag == SUMO_TAG_NOTHING || tag == i.second->getTag()) {
+        if ((type == SUMO_TAG_NOTHING) || (type == i.second->getTag())) {
             counter++;
         }
     }
