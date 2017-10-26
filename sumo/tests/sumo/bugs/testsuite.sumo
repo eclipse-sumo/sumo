@@ -18,8 +18,6 @@ ticket73
 
 # Tests for ticket#139 (crash when overwriting default type with a distribution)
 ticket139
-
-
 collision
 
 # collision of long vehicles
@@ -42,7 +40,6 @@ ticket235
 
 # Tests for ticket#331 (vehicles are inserted beyond the lane's end)
 ticket331
-
 ticket376
 
 # The following deadlock should be detected and resolved:
@@ -133,6 +130,7 @@ ticket929
 ticket941
 ticket963
 ticket967
+ticket1006
 
 # meandata on circular nets
 ticket1032
@@ -158,24 +156,20 @@ ticket1097
 
 # at revision 16874 this test showcases ticket #1400 (vehicles intersect physically but no collision warning is issued).
 ticket1107
-
 ticket1114
 ticket1217
 ticket1223
 
 # testing stopping to the point: vehicle should come to halt exactly at pos=25
 ticket1224
-
 ticket1273
 
 # Wiedemann model collision
 ticket1351
-
 ticket1402
 
 # meandata with teleports
 ticket1452
-
 ticket1520
 ticket1539
 ticket1549
@@ -259,4 +253,3 @@ ticket3258
 
 # The long vehicle on the short lane should not imply density values larger than the inverse of its length. (The bug resolution uses the inverse of the minimal observed length for passing vehicles to bound the output value.)
 ticket3265
-
