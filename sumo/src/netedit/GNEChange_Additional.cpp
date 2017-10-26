@@ -91,6 +91,10 @@ GNEChange_Additional::~GNEChange_Additional() {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Deleting unreferenced " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
         }
+        // make sure that additional isn't in net before removing
+        if(myNet->retrieveAdditional(myAdditional->getID(), false)) {
+            myNet->deleteAdditional(myAdditional);
+        }
         delete myAdditional;
     }
 }
