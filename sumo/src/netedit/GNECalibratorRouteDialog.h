@@ -104,12 +104,6 @@ protected:
     /// @brief color of route
     FXTextField* myTextFieldColor;
 
-    /// @brief list of edges of net
-    FXList* myListOfEdgesOfNet;
-
-    /// @brief list of edges of route
-    FXList* myListOfEdgesOfRoute;
-
 private:
     /// @brief Invalidated copy constructor.
     GNECalibratorRouteDialog(const GNECalibratorRouteDialog&) = delete;

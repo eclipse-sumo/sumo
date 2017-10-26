@@ -269,9 +269,12 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // At start we assumed, that all values are valid
     myCalibratorVehicleTypeValid = true;
     myInvalidAttr = SUMO_ATTR_NOTHING;
+    // get pointer to undo list (Only for code legilibity)
+    GNEUndoList *undoList = myEditedVehicleType->getCalibratorParent()->getViewNet()->getUndoList();
     // set color of myComboBoxShape, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_SHAPE, myComboBoxShape->getText().text())) {
         myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_SHAPE, myComboBoxShape->getText().text(), undoList);
     } else {
         myComboBoxShape->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -280,6 +283,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myComboBoxVClass, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text())) {
         myComboBoxVClass->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text(), undoList);
         setVClassLabelImage();
     } else {
         myComboBoxVClass->setTextColor(FXRGB(255, 0, 0));
@@ -289,6 +293,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldVehicleTypeID, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text())) {
         myTextFieldVehicleTypeID->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text(), undoList);
     } else {
         myTextFieldVehicleTypeID->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -297,6 +302,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldAccel, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_ACCEL, myTextFieldAccel->getText().text())) {
         myTextFieldAccel->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_ACCEL, myTextFieldAccel->getText().text(), undoList);
     } else {
         myTextFieldAccel->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -305,6 +311,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldDecel, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_DECEL, myTextFieldDecel->getText().text())) {
         myTextFieldDecel->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_DECEL, myTextFieldDecel->getText().text(), undoList);
     } else {
         myTextFieldDecel->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -313,6 +320,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldSigma, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_SIGMA, myTextFieldSigma->getText().text())) {
         myTextFieldSigma->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_SIGMA, myTextFieldSigma->getText().text(), undoList);
     } else {
         myTextFieldSigma->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -321,6 +329,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldTau, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_TAU, myTextFieldTau->getText().text())) {
         myTextFieldTau->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_TAU, myTextFieldTau->getText().text(), undoList);
     } else {
         myTextFieldTau->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -329,6 +338,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldLength, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_LENGTH, myTextFieldLength->getText().text())) {
         myTextFieldLength->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_LENGTH, myTextFieldLength->getText().text(), undoList);
     } else {
         myTextFieldLength->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -337,6 +347,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldMinGap, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_MINGAP, myTextFieldMinGap->getText().text())) {
         myTextFieldMinGap->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_MINGAP, myTextFieldMinGap->getText().text(), undoList);
     } else {
         myTextFieldMinGap->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -345,6 +356,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldMaxSpeed, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_MAXSPEED, myTextFieldMaxSpeed->getText().text())) {
         myTextFieldMaxSpeed->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_MAXSPEED, myTextFieldMaxSpeed->getText().text(), undoList);
     } else {
         myTextFieldMaxSpeed->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -353,6 +365,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldSpeedFactor, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_SPEEDFACTOR, myTextFieldSpeedFactor->getText().text())) {
         myTextFieldSpeedFactor->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_SPEEDFACTOR, myTextFieldSpeedFactor->getText().text(), undoList);
     } else {
         myTextFieldSpeedFactor->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -361,6 +374,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldSpeedDev, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_SPEEDDEV, myTextFieldSpeedDev->getText().text())) {
         myTextFieldSpeedDev->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_SPEEDDEV, myTextFieldSpeedDev->getText().text(), undoList);
     } else {
         myTextFieldSpeedDev->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -369,6 +383,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldColor, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_COLOR, myTextFieldColor->getText().text())) {
         myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_COLOR, myTextFieldColor->getText().text(), undoList);
     } else {
         myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -377,6 +392,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldEmissionClass, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_EMISSIONCLASS, myTextFieldEmissionClass->getText().text())) {
         myTextFieldEmissionClass->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_EMISSIONCLASS, myTextFieldEmissionClass->getText().text(), undoList);
     } else {
         myTextFieldEmissionClass->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -385,6 +401,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldWidth, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_WIDTH, myTextFieldWidth->getText().text())) {
         myTextFieldWidth->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_WIDTH, myTextFieldWidth->getText().text(), undoList);
     } else {
         myTextFieldWidth->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -393,6 +410,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldFilename, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_FILE, myTextFieldFilename->getText().text())) {
         myTextFieldFilename->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_FILE, myTextFieldFilename->getText().text(), undoList);
     } else {
         myTextFieldFilename->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -401,6 +419,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldImpatience, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_IMPATIENCE, myTextFieldImpatience->getText().text())) {
         myTextFieldImpatience->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_IMPATIENCE, myTextFieldImpatience->getText().text(), undoList);
     } else {
         myTextFieldImpatience->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -409,6 +428,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldLaneChangeModel, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_LANE_CHANGE_MODEL, myTextFieldLaneChangeModel->getText().text())) {
         myTextFieldLaneChangeModel->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_LANE_CHANGE_MODEL, myTextFieldLaneChangeModel->getText().text(), undoList);
     } else {
         myTextFieldLaneChangeModel->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -417,6 +437,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldCarFollowModel, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_CAR_FOLLOW_MODEL, myTextFieldCarFollowModel->getText().text())) {
         myTextFieldCarFollowModel->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL, myTextFieldCarFollowModel->getText().text(), undoList);
     } else {
         myTextFieldCarFollowModel->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -425,6 +446,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldPersonCapacity, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_PERSON_CAPACITY, myTextFieldPersonCapacity->getText().text())) {
         myTextFieldPersonCapacity->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_PERSON_CAPACITY, myTextFieldPersonCapacity->getText().text(), undoList);
     } else {
         myTextFieldPersonCapacity->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -433,6 +455,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldContainerCapacity, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_CONTAINER_CAPACITY, myTextFieldContainerCapacity->getText().text())) {
         myTextFieldContainerCapacity->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_CONTAINER_CAPACITY, myTextFieldContainerCapacity->getText().text(), undoList);
     } else {
         myTextFieldContainerCapacity->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -441,6 +464,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldBoardingDuration, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_BOARDING_DURATION, myTextFieldBoardingDuration->getText().text())) {
         myTextFieldBoardingDuration->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_BOARDING_DURATION, myTextFieldBoardingDuration->getText().text(), undoList);
     } else {
         myTextFieldBoardingDuration->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -449,6 +473,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldLoadingDuration, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_LOADING_DURATION, myTextFieldLoadingDuration->getText().text())) {
         myTextFieldLoadingDuration->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_LOADING_DURATION, myTextFieldLoadingDuration->getText().text(), undoList);
     } else {
         myTextFieldLoadingDuration->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -457,6 +482,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldLatAlignment, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_LATALIGNMENT, myTextFieldLatAlignment->getText().text())) {
         myTextFieldLatAlignment->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_LATALIGNMENT, myTextFieldLatAlignment->getText().text(), undoList);
     } else {
         myTextFieldLatAlignment->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -465,6 +491,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldMinGapLat, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_MINGAP, myTextFieldMinGapLat->getText().text())) {
         myTextFieldMinGapLat->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_MINGAP, myTextFieldMinGapLat->getText().text(), undoList);
     } else {
         myTextFieldMinGapLat->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
@@ -473,6 +500,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldVehicleTypeID, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_MAXSPEED, myTextFieldMaxSpeedLat->getText().text())) {
         myTextFieldMaxSpeedLat->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_MAXSPEED, myTextFieldMaxSpeedLat->getText().text(), undoList);
     } else {
         myTextFieldMaxSpeedLat->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;

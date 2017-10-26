@@ -84,20 +84,6 @@ GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorDialog* calibrat
     new FXLabel(columnLeft, toString(SUMO_ATTR_COLOR).c_str(), 0, GUIDesignLabelLeftThick);
     myTextFieldColor = new FXTextField(columnRight, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
 
-    // create Edges of net's elements
-    new FXLabel(columnLeft, (toString(SUMO_TAG_EDGE) + "s of " + toString(SUMO_TAG_NET)).c_str(), 0, GUIDesignLabelLeftThick);
-    myListOfEdgesOfNet = new FXList(columnLeft, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignListExtended);
-
-    // create Edges of route's elements
-    new FXLabel(columnRight, ("current " + toString(SUMO_TAG_EDGE) + "s of " + toString(SUMO_TAG_ROUTE)).c_str(), 0, GUIDesignLabelLeftThick);
-    myListOfEdgesOfRoute = new FXList(columnRight, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignListExtended);
-
-    // fill list of net's edges
-    std::vector<GNEEdge*> edgesOfNet = myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getNet()->retrieveEdges();
-    for (auto i : edgesOfNet) {
-        myListOfEdgesOfNet->appendItem(i->getID().c_str());
-    }
-
     // update tables
     updateCalibratorRouteValues();
 
@@ -167,10 +153,13 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // At start we assumed, that all values are valid
     myCalibratorRouteValid = true;
     myInvalidAttr = SUMO_ATTR_NOTHING;
-
+    // get pointer to undo list (Only for code legilibity)
+    GNEUndoList *undoList = myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getUndoList();
     // set color of myTextFieldRouteID, depending if current value is valid or not
     if (myEditedCalibratorRoute->getID() == myTextFieldRouteID->getText().text()) {
         myTextFieldRouteID->setTextColor(FXRGB(0, 0, 0));
+        myEditedCalibratorRoute->setAttribute(SUMO_ATTR_ID, myTextFieldRouteID->getText().text(), undoList);
+
     } else {
         myTextFieldRouteID->setTextColor(FXRGB(255, 0, 0));
         myCalibratorRouteValid = false;
@@ -180,11 +169,7 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldRouteEdges, depending if current value is valEdges or not
     if (myEditedCalibratorRoute->isValid(SUMO_ATTR_EDGES, myTextFieldEdges->getText().text())) {
         myTextFieldEdges->setTextColor(FXRGB(0, 0, 0));
-        // fill list of router's edges
-        myListOfEdgesOfRoute->clearItems();
-        for (auto i : myEditedCalibratorRoute->getGNEEdges()) {
-            myListOfEdgesOfRoute->appendItem(i->getID().c_str());
-        }
+        myEditedCalibratorRoute->setAttribute(SUMO_ATTR_EDGES, myTextFieldEdges->getText().text(), undoList);
     } else {
         myTextFieldEdges->setTextColor(FXRGB(255, 0, 0));
         myCalibratorRouteValid = false;
@@ -194,6 +179,7 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldColor, depending if current value is valid or not
     if (myEditedCalibratorRoute->isValid(SUMO_ATTR_COLOR, myTextFieldColor->getText().text())) {
         myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
+        myEditedCalibratorRoute->setAttribute(SUMO_ATTR_COLOR, myTextFieldColor->getText().text(), undoList);
     } else {
         myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
         myCalibratorRouteValid = false;
@@ -208,11 +194,6 @@ GNECalibratorRouteDialog::updateCalibratorRouteValues() {
     myTextFieldRouteID->setText(myEditedCalibratorRoute->getID().c_str());
     myTextFieldEdges->setText(myEditedCalibratorRoute->getAttribute(SUMO_ATTR_EDGES).c_str());
     myTextFieldColor->setText(myEditedCalibratorRoute->getAttribute(SUMO_ATTR_COLOR).c_str());
-    // fill list of router's edges
-    myListOfEdgesOfRoute->clearItems();
-    for (auto i : myEditedCalibratorRoute->getGNEEdges()) {
-        myListOfEdgesOfRoute->appendItem(i->getID().c_str());
-    }
 }
 
 /****************************************************************************/
