@@ -80,6 +80,9 @@ public:
     /// @brief reverts and discards ALL active command groups
     void p_abort();
 
+    /// @brief reverts last command group
+    void p_abortLastCommandGroup();
+
     /// @brief undo the last command group
     void undo();
 

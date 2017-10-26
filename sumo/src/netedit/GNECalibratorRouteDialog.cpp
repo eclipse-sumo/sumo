@@ -143,8 +143,8 @@ GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorRouteDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // abort editing
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abort();
+    // abort last command
+    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -153,8 +153,8 @@ GNECalibratorRouteDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorRouteDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // abort an start editing
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abort();
+    // abort last command an start editing again
+    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
     myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change route values");
     // update fields
     updateCalibratorRouteValues();

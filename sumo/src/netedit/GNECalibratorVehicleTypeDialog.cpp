@@ -245,8 +245,8 @@ GNECalibratorVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorVehicleTypeDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // abort editing
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abort();
+    // abort last command
+    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -255,8 +255,8 @@ GNECalibratorVehicleTypeDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorVehicleTypeDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // abort an start editing
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abort();
+    // abort last command and start editing again
+    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
     myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change vehicle type values");
     // update fields
     updateCalibratorVehicleTypeValues();

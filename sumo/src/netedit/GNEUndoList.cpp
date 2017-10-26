@@ -111,6 +111,16 @@ GNEUndoList::p_abort() {
 }
 
 
+void 
+GNEUndoList::p_abortLastCommandGroup() {
+    if(myCommandGroups.size() > 0) {
+        myCommandGroups.top()->undo();
+        myCommandGroups.pop();
+        abort();
+    }
+}
+
+
 void
 GNEUndoList::undo() {
     //std::cout << undoName().text() << "\n";
