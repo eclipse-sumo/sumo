@@ -142,9 +142,10 @@ MSRightOfWayJunction::postloadInit() {
                     if (sortedLinks[c].second->getLane() == 0) { // dead end
                         continue;
                     }
-                    if (linkFoes.test(c)) {
+                    const bool sameSource = (*j) != sortedLinks[li].second && (*j)->getLaneBefore() == sortedLinks[li].first;
+                    if (linkFoes.test(c) || sameSource) {
                         myLinkFoeInternalLanes[*j].push_back(myInternalLanes[li]);
-                        if (linkResponse.test(c)) {
+                        if (linkResponse.test(c) || sameSource) {
                             const std::vector<MSLane::IncomingLaneInfo>& l = myInternalLanes[li]->getIncomingLanes();
                             if (l.size() == 1 && l[0].lane->getEdge().isInternal()) {
                                 myLinkFoeInternalLanes[*j].push_back(l[0].lane);
