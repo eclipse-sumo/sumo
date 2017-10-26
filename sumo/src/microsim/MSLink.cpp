@@ -205,26 +205,18 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         for (MSLinkCont::const_iterator it = predLinks.begin(); it != predLinks.end(); ++it) {
             const MSLane* sibling = (*it)->getViaLane();
             if (sibling != lane && sibling != 0) {
-                std::vector<double> intersections1 = lane->getShape().intersectsAtLengths2D(sibling->getShape());
+                // assume that siblings have a similar shape for their whole length
+                const double minLength = MIN2(lane->getLength(), sibling->getLength());
+                myLengthsBehindCrossing.push_back(std::make_pair(
+                            lane->getLength() - minLength,
+                            sibling->getLength() - minLength));
+                myFoeLanes.push_back(sibling);
 #ifdef MSLink_DEBUG_CROSSING_POINTS
-                //std::cout << " intersections1=" << toString(intersections1) << "\n";
+                std::cout << " adding same-origin foe" << sibling->getID()
+                    << " dist1=" << myLengthsBehindCrossing.back().first
+                    << " dist2=" << myLengthsBehindCrossing.back().second
+                    << "\n";
 #endif
-                if (intersections1.size() > 0) {
-                    std::sort(intersections1.begin(), intersections1.end());
-                    if (intersections1.back() > NUMERICAL_EPS) {
-                        // siblings share a common shape up to the last crossing point so intersections are identical and only need to be computed once
-                        myLengthsBehindCrossing.push_back(std::make_pair(
-                                                              lane->getLength() - intersections1.back(),
-                                                              sibling->getLength() - intersections1.back()));
-                        myFoeLanes.push_back(sibling);
-#ifdef MSLink_DEBUG_CROSSING_POINTS
-                        std::cout << " adding same-origin foe" << sibling->getID()
-                                  << " dist1=" << myLengthsBehindCrossing.back().first
-                                  << " dist2=" << myLengthsBehindCrossing.back().second
-                                  << "\n";
-#endif
-                    }
-                }
             }
         }
     }
@@ -820,7 +812,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                             // or there is no crossing point
                             continue; // next vehicle
                         }
-                        gap = distToCrossing - leaderBackDist - (sameTarget ? ego->getVehicleType().getMinGap() : 0);
+                        gap = distToCrossing - leaderBackDist - ((sameTarget || sameSource) ? ego->getVehicleType().getMinGap() : 0);
                     }
                     if (gDebugFlag1) {
                         std::cout << " leader=" << leader->getID() << " contLane=" << contLane << " cannotIgnore=" << cannotIgnore << "\n";
