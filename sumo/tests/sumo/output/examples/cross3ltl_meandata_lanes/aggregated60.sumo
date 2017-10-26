@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 20 17:03:19 2017 by SUMO Version svn
+<!-- generated on Thu Oct 26 17:01:59 2017 by SUMO Version dev-SVN-r26746
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -591,13 +591,13 @@
             <lane id="1si_2" sampledSeconds="934.18" traveltime="163.41" overlapTraveltime="168.35" density="65.65" occupancy="32.72" waitingTime="667.00" speed="1.44" departed="0" arrived="0" entered="8" left="2" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
         <edge id="2fi">
-            <lane id="2fi_0" sampledSeconds="544.17" traveltime="24.57" overlapTraveltime="25.04" density="36.50" occupancy="17.95" waitingTime="0.00" speed="10.12" departed="7" arrived="9" entered="15" left="15" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="2fi_0" sampledSeconds="544.22" traveltime="24.57" overlapTraveltime="25.04" density="36.50" occupancy="17.95" waitingTime="0.00" speed="10.12" departed="7" arrived="9" entered="15" left="15" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
         <edge id="2o">
             <lane id="2o_0" sampledSeconds="653.11" traveltime="46.87" overlapTraveltime="47.36" density="22.28" occupancy="10.99" waitingTime="0.00" speed="10.42" departed="0" arrived="0" entered="19" left="15" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
         <edge id="2si">
-            <lane id="2si_0" sampledSeconds="477.57" traveltime="87.03" overlapTraveltime="87.51" density="33.56" occupancy="16.68" waitingTime="312.00" speed="2.77" departed="0" arrived="0" entered="2" left="7" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="2si_0" sampledSeconds="477.52" traveltime="87.02" overlapTraveltime="87.50" density="33.56" occupancy="16.68" waitingTime="312.00" speed="2.77" departed="0" arrived="0" entered="2" left="7" laneChangedFrom="0" laneChangedTo="0"/>
             <lane id="2si_1" sampledSeconds="288.81" traveltime="52.69" overlapTraveltime="53.37" density="20.30" occupancy="10.02" waitingTime="160.00" speed="4.54" departed="0" arrived="0" entered="7" left="6" laneChangedFrom="0" laneChangedTo="0"/>
             <lane id="2si_2" sampledSeconds="238.05" traveltime="39.94" overlapTraveltime="42.56" density="16.73" occupancy="8.28" waitingTime="85.00" speed="5.69" departed="0" arrived="0" entered="6" left="2" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
