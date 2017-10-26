@@ -90,6 +90,7 @@ protected:
     /// @brief frame for contents
     FXVerticalFrame* myContentFrame;
 
+private:
     /// @brief accept button
     FXButton* myAcceptButton;
 
@@ -99,7 +100,6 @@ protected:
     /// @brief cancel button
     FXButton* myResetButton;
 
-private:
     /// @brief Invalidated copy constructor
     GNEAdditionalDialog(const GNEAdditionalDialog&) = delete;
 

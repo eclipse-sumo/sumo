@@ -106,5 +106,4 @@ GNEAdditionalDialog::changeAdditionalDialogHeader(const std::string& newHeader) 
     setTitle(newHeader.c_str());
 }
 
-
 /****************************************************************************/
