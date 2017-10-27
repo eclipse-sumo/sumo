@@ -82,7 +82,7 @@ def compound_object(element_name, attrnames, warn=False):
             if attrs is None:
                 attrs = {}
             clazz = compound_object(name, attrs.keys())
-            child = clazz([attrs.get(a) for a in attrs.keys()], _NO_CHILDREN)
+            child = clazz([attrs.get(a) for a in sorted(attrs.keys())], _NO_CHILDREN)
             if len(self._child_dict) == 0:
                 self._child_dict = OrderedDict()
             self._child_dict.setdefault(name, []).append(child)
