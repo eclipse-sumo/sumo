@@ -82,16 +82,17 @@
 // ===========================================================================
 // debug defines
 // ===========================================================================
-//#define DEBUG_PATCH_SPEED
+#define DEBUG_PATCH_SPEED
 //#define DEBUG_INFORMED
 //#define DEBUG_INFORMER
 //#define DEBUG_CONSTRUCTOR
-#define DEBUG_WANTS_CHANGE
+//#define DEBUG_WANTS_CHANGE
 //#define DEBUG_SLOW_DOWN
 //#define DEBUG_SAVE_BLOCKER_LENGTH
 
 //#define DEBUG_COND (myVehicle.getID() == "disabled")
-#define DEBUG_COND (myVehicle.isSelected())
+//#define DEBUG_COND (myVehicle.isSelected())
+#define DEBUG_COND (true)
 
 // ===========================================================================
 // member method definitions
@@ -221,7 +222,7 @@ MSLCM_LC2013::_patchSpeed(const double min, const double wanted, const double ma
 #ifdef DEBUG_PATCH_SPEED
     if (DEBUG_COND) {
         std::cout
-                << "\n" << SIMTIME << " patchSpeed state=" << state << " myVSafes=" << toString(myVSafes)
+                << "\n" << SIMTIME << " patchSpeed state=" << state << " myLCAccelerationAdvices=" << toString(myLCAccelerationAdvices)
                 << " \nspeed=" << myVehicle.getSpeed()
                 << " min=" << min
                 << " wanted=" << wanted << std::endl;
@@ -256,8 +257,9 @@ MSLCM_LC2013::_patchSpeed(const double min, const double wanted, const double ma
 
     double nVSafe = wanted;
     bool gotOne = false;
-    for (std::vector<double>::const_iterator i = myVSafes.begin(); i != myVSafes.end(); ++i) {
-        double v = (*i);
+    for (std::vector<double>::const_iterator i = myLCAccelerationAdvices.begin(); i != myLCAccelerationAdvices.end(); ++i) {
+        double a = (*i);
+        double v = myVehicle.getSpeed() + ACCEL2SPEED(a);
 
         if (v >= min && v <= max && (MSGlobals::gSemiImplicitEulerUpdate
                                      // ballistic update: (negative speeds may appear, e.g. min<0, v<0), BUT:
@@ -406,7 +408,7 @@ MSLCM_LC2013::inform(void* info, MSVehicle* sender) {
     UNUSED_PARAMETER(sender);
     Info* pinfo = (Info*)info;
     assert(pinfo->first >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
-    myVSafes.push_back(pinfo->first);
+    addLCSpeedAdvice(pinfo->first);
     myOwnState |= pinfo->second;
 #ifdef DEBUG_INFORMED
     if (DEBUG_COND) {
@@ -443,10 +445,10 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                            double remainingSeconds) {
     double plannedSpeed = MIN2(myVehicle.getSpeed(),
                                myVehicle.getCarFollowModel().stopSpeed(&myVehicle, myVehicle.getSpeed(), myLeftSpace - myLeadingBlockerLength));
-    for (std::vector<double>::const_iterator i = myVSafes.begin(); i != myVSafes.end(); ++i) {
-        double v = (*i);
-        if (v >= myVehicle.getSpeed() - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())) {
-            plannedSpeed = MIN2(plannedSpeed, v);
+    for (std::vector<double>::const_iterator i = myLCAccelerationAdvices.begin(); i != myLCAccelerationAdvices.end(); ++i) {
+        const double a = *i;
+        if (a >= -myVehicle.getCarFollowModel().getMaxDecel()) {
+            plannedSpeed = MIN2(plannedSpeed, myVehicle.getSpeed() + ACCEL2SPEED(a));
         }
     }
 #ifdef DEBUG_INFORMER
@@ -531,7 +533,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                               << "\n";
                 }
 #endif
-                myVSafes.push_back(nextSpeed);
+                addLCSpeedAdvice(nextSpeed);
                 return nextSpeed;
             } else {
                 // leader is fast enough anyway
@@ -551,7 +553,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                               << "\n";
                 }
 #endif
-                myVSafes.push_back(targetSpeed);
+                addLCSpeedAdvice(targetSpeed);
                 return plannedSpeed;
             }
         } else {
@@ -579,7 +581,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         const double dv = SPEED2DIST(myVehicle.getSpeed() - nextNVSpeed);
         const double targetSpeed = myCarFollowModel.followSpeed(
                                        &myVehicle, myVehicle.getSpeed(), neighLead.second - dv, nextNVSpeed, nv->getCarFollowModel().getMaxDecel());
-        myVSafes.push_back(targetSpeed);
+        addLCSpeedAdvice(targetSpeed);
 #ifdef DEBUG_INFORMER
         if (DEBUG_COND) {
             std::cout << " not blocked by leader nv=" <<  nv->getID()
@@ -930,7 +932,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             // speed difference to create a sufficiently large gap
             const double needDV = overtakeDist / remainingSeconds;
             // make sure the deceleration is not to strong (XXX: should be assured in moveHelper -> TODO: remove the MAX2 if agreed) -> prob with possibly non-existing maximal deceleration for som CF Models(?) Refs. #2578
-            myVSafes.push_back(MAX2(vhelp - needDV, myVehicle.getSpeed() - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())));
+            addLCSpeedAdvice(MAX2(vhelp - needDV, myVehicle.getSpeed() - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())));
 
 #ifdef DEBUG_INFORMER
             if (DEBUG_COND) {
@@ -941,7 +943,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                           << " vneigh=" << nv->getSpeed()
                           << " vhelp=" << vhelp
                           << " needDV=" << needDV
-                          << " vsafe=" << myVSafes.back()
+                          << " vsafe=" << myLCAccelerationAdvices.back()
                           << "\n";
             }
 #endif
@@ -1008,7 +1010,7 @@ MSLCM_LC2013::prepareStep() {
     myOwnState = (myOwnState & LCA_STRATEGIC) ? (myOwnState & LCA_WANTS_LANECHANGE) : 0;
     myLeadingBlockerLength = 0;
     myLeftSpace = 0;
-    myVSafes.clear();
+    myLCAccelerationAdvices.clear();
     myDontBrake = false;
     // truncate to work around numerical instability between different builds
     mySpeedGainProbability = ceil(mySpeedGainProbability * 100000.0) * 0.00001;
@@ -1028,7 +1030,7 @@ MSLCM_LC2013::changed() {
         myLeftSpace = 0;
     }
     myLookAheadSpeed = LOOK_AHEAD_MIN_SPEED;
-    myVSafes.clear();
+    myLCAccelerationAdvices.clear();
     myDontBrake = false;
 }
 
@@ -1121,7 +1123,7 @@ MSLCM_LC2013::_wantsChange(
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
                   << " _wantsChange state=" << myOwnState
-                  << " myVSafes=" << toString(myVSafes)
+                  << " myLCAccelerationAdvices=" << toString(myLCAccelerationAdvices)
                   << " firstBlocked=" << Named::getIDSecure(*firstBlocked)
                   << " lastBlocked=" << Named::getIDSecure(*lastBlocked)
                   << " leader=" << Named::getIDSecure(leader.first)
@@ -1255,7 +1257,7 @@ MSLCM_LC2013::_wantsChange(
                     vSafe = MAX2(vSafe, nv->getSpeed());
                 }
                 thisLaneVSafe = MIN2(thisLaneVSafe, vSafe);
-                myVSafes.push_back(vSafe);
+                addLCSpeedAdvice(vSafe);
                 // only generate impulse for overtaking left shortly before braking would be necessary
                 const double deltaGapFuture = deltaV * 8;
                 const double vSafeFuture = myCarFollowModel.followSpeed(
@@ -1273,7 +1275,7 @@ MSLCM_LC2013::_wantsChange(
                               << " deltaV=" << deltaV
                               << " nvSpeed=" << nv->getSpeed()
                               << " mySpeedGainProbability=" << mySpeedGainProbability
-                              << " plannedSpeed=" << myVSafes.back()
+                              << " planned acceleration =" << myLCAccelerationAdvices.back()
                               << "\n";
                 }
 #endif
@@ -1932,10 +1934,10 @@ MSLCM_LC2013::slowDownForBlocked(MSVehicle** blocked, int state) {
                 } else {
                     state |= LCA_AMBACKBLOCKER;
                 }
-                myVSafes.push_back(myCarFollowModel.followSpeed(
-                                       &myVehicle, myVehicle.getSpeed(),
-                                       (double)(gap - POSITION_EPS), (*blocked)->getSpeed(),
-                                       (*blocked)->getCarFollowModel().getMaxDecel()));
+                addLCSpeedAdvice(myCarFollowModel.followSpeed(
+                        &myVehicle, myVehicle.getSpeed(),
+                        (double)(gap - POSITION_EPS), (*blocked)->getSpeed(),
+                        (*blocked)->getCarFollowModel().getMaxDecel()));
 
                 //(*blocked) = 0; // VARIANT_14 (furtherBlock)
 #ifdef DEBUG_SLOW_DOWN
@@ -1944,7 +1946,7 @@ MSLCM_LC2013::slowDownForBlocked(MSVehicle** blocked, int state) {
                               << " veh=" << myVehicle.getID()
                               << " slowing down for"
                               << " blocked=" << Named::getIDSecure(*blocked)
-                              << " helpSpeed=" << myVSafes.back()
+                              << " helpSpeed=" << myLCAccelerationAdvices.back()
                               << "\n";
                 }
 #endif
@@ -2029,6 +2031,12 @@ MSLCM_LC2013::adaptSpeedToPedestrians(const MSLane* lane, double& v) {
 #endif
         }
     }
+}
+
+
+void MSLCM_LC2013::addLCSpeedAdvice(const double vSafe) {
+    const double accel = SPEED2ACCEL(myVehicle.getSpeed()-vSafe);
+    myLCAccelerationAdvices.push_back(accel);
 }
 
 
