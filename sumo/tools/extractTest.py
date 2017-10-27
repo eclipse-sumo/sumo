@@ -50,6 +50,7 @@ def get_options(args=None):
         "-f", "--file", help="read list of source and target dirs from")
     optParser.add_option("-i", "--intelligent-names", dest="names", action="store_true",
                          default=False, help="generate cfg name from directory name")
+    optParser.add_option("-v", "--verbose", action="store_true", default=False, help="more information")
     optParser.add_option(
         "-a", "--application", help="sets the application to be used")
     optParser.add_option("-s", "--skip-configuration",
@@ -204,6 +205,8 @@ def main(options):
                 # binary is now called differently but app still has the old
                 # name
                 app = "netgenerate"
+            if options.verbose:
+                print("calling %s for testPath '%s' with  options '%s'" % (checkBinary(app), testPath, " ".join(appOptions)))
             subprocess.call([checkBinary(app)] + appOptions)
         elif app == "tools":
             if os.name == "posix" or options.file:
