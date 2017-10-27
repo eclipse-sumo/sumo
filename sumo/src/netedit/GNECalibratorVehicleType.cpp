@@ -226,7 +226,7 @@ GNECalibratorVehicleType::getAttribute(SumoXMLAttr key) const {
     case SUMO_ATTR_EMISSIONCLASS:
         return myEmissionClass;
     case SUMO_ATTR_GUISHAPE:
-        return toString(myShape);
+        return getVehicleShapeName(myShape);
     case SUMO_ATTR_WIDTH:
         return toString(myWidth);
     case SUMO_ATTR_IMGFILE:

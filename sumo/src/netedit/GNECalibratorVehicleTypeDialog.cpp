@@ -76,32 +76,34 @@ GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorDial
     FXVerticalFrame* columnRightLabel = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
     FXVerticalFrame* columnRightValues = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
 
-    // FXComboBox for VClass
+    // create FXComboBox for VClass
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_VCLASS).c_str(), 0, GUIDesignLabelThick);
     myComboBoxVClass = new FXComboBox(columnLeftLabel, GUIDesignComboBoxNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
     myComboBoxVClassLabelImage = new FXLabel(columnLeftValues, "", 0, GUIDesignLabelIconExtendedx46Ticked);
     myComboBoxVClassLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
-    // fill combo Box
+    // fill combo Box with all VClass
     std::vector<std::string> VClassStrings = SumoVehicleClassStrings.getStrings();
     for (auto i : VClassStrings) {
         if (i != SumoVehicleClassStrings.getString(SVC_IGNORING)) {
             myComboBoxVClass->appendItem(i.c_str());
         }
     }
+    // only show 10 VClasses
     myComboBoxVClass->setNumVisible(10);
 
-    // FXComboBox for Shape
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_SHAPE).c_str(), 0, GUIDesignLabelThick);
+    // create combo bof for vehicle shapes
+    new FXLabel(columnRightLabel, toString(SUMO_ATTR_GUISHAPE).c_str(), 0, GUIDesignLabelThick);
     myComboBoxShape = new FXComboBox(columnRightLabel, GUIDesignComboBoxNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
     myComboBoxShapeLabelImage = new FXLabel(columnRightValues, "", 0, GUIDesignLabelIconExtendedx46Ticked);
     myComboBoxShapeLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
-    // fill combo Box
+    // fill combo Box with all vehicle shapes
     std::vector<std::string> VShapeStrings = SumoVehicleShapeStrings.getStrings();
-    for (std::vector<std::string>::iterator i = VShapeStrings.begin(); i != VShapeStrings.end(); i++) {
-        if ((*i) != SumoVehicleShapeStrings.getString(SVS_UNKNOWN)) {
-            myComboBoxShape->appendItem(i->c_str());
+    for (auto i : VShapeStrings) {
+        if (i != SumoVehicleShapeStrings.getString(SVS_UNKNOWN)) {
+            myComboBoxShape->appendItem(i.c_str());
         }
     }
+    // only show 10 Shapes
     myComboBoxShape->setNumVisible(10);
 
     // 01 create FXTextField and Label for vehicleTypeID
@@ -157,7 +159,7 @@ GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorDial
     myTextFieldWidth = new FXTextField(columnRightValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
 
     // 02 create FXTextField and Label for Filename
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_FILE).c_str(), 0, GUIDesignLabelThick);
+    new FXLabel(columnRightLabel, toString(SUMO_ATTR_IMGFILE).c_str(), 0, GUIDesignLabelThick);
     myTextFieldFilename = new FXTextField(columnRightValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
 
     // 03 create FXTextField and Label for Impatience
@@ -272,13 +274,13 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // get pointer to undo list (Only for code legilibity)
     GNEUndoList *undoList = myEditedVehicleType->getCalibratorParent()->getViewNet()->getUndoList();
     // set color of myComboBoxShape, depending if current value is valid or not
-    if (myEditedVehicleType->isValid(SUMO_ATTR_SHAPE, myComboBoxShape->getText().text())) {
+    if (myEditedVehicleType->isValid(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text())) {
         myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
-        myEditedVehicleType->setAttribute(SUMO_ATTR_SHAPE, myComboBoxShape->getText().text(), undoList);
+        myEditedVehicleType->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(), undoList);
     } else {
         myComboBoxShape->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
-        myInvalidAttr = SUMO_ATTR_SHAPE;
+        myInvalidAttr = SUMO_ATTR_GUISHAPE;
     }
     // set color of myComboBoxVClass, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text())) {
@@ -408,13 +410,13 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_WIDTH;
     }
     // set color of myTextFieldFilename, depending if current value is valid or not
-    if (myEditedVehicleType->isValid(SUMO_ATTR_FILE, myTextFieldFilename->getText().text())) {
+    if (myEditedVehicleType->isValid(SUMO_ATTR_IMGFILE, myTextFieldFilename->getText().text())) {
         myTextFieldFilename->setTextColor(FXRGB(0, 0, 0));
-        myEditedVehicleType->setAttribute(SUMO_ATTR_FILE, myTextFieldFilename->getText().text(), undoList);
+        myEditedVehicleType->setAttribute(SUMO_ATTR_IMGFILE, myTextFieldFilename->getText().text(), undoList);
     } else {
         myTextFieldFilename->setTextColor(FXRGB(255, 0, 0));
         myCalibratorVehicleTypeValid = false;
-        myInvalidAttr = SUMO_ATTR_FILE;
+        myInvalidAttr = SUMO_ATTR_IMGFILE;
     }
     // set color of myTextFieldImpatience, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_IMPATIENCE, myTextFieldImpatience->getText().text())) {
