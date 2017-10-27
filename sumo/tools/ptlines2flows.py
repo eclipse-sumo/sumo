@@ -70,8 +70,8 @@ def writeTypes(fout):
     <vType id="aerialway" vClass="bus"/>
     <vType id="ferry" vClass="ship"/>""", file=fout)
 
-def main():
-    options = get_options()
+
+def createTrips(options):
     print("generating trips...")
     net = sumolib.net.readNet(options.netfile)
     stopsLanes = {}
@@ -134,6 +134,10 @@ def main():
             fouttrips.write('    </trip>\n')
         fouttrips.write("</routes>\n")
     print("done.")
+    return trpMap
+
+
+def runSimulation(options):
     print("running SUMO to determine actual departure times...")
     subprocess.call([sumolib.checkBinary("sumo"), "-r", options.trips, "-n", options.netfile,
                      "--no-step-log",
@@ -144,6 +148,8 @@ def main():
                      "--stop-output", options.stopinfos, ])
     print("done.")
 
+
+def createRoutes(options, trpMap):
     print("creating routes...")
     stopsUntil = {}
     for stop in sumolib.output.parse_fast(options.stopinfos, 'stopinfo', ['id', 'ended', 'busStop']):
@@ -181,6 +187,13 @@ def main():
         foutflows.write('</routes>\n')
 
     print("done.")
+
+
+def main():
+    options = get_options()
+    trpMap = createTrips(options)
+    runSimulation(options)
+    createRoutes(options, trpMap)
 
 
 if __name__ == "__main__":
