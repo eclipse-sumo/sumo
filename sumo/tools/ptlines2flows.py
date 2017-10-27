@@ -19,6 +19,7 @@ import sys
 import codecs
 import subprocess
 import collections
+from xml.sax.saxutils import escape
 
 from optparse import OptionParser
 
@@ -92,7 +93,10 @@ def main():
                     sys.stderr.write("Warning: skipping unknown stop '%s'\n" % stop.id)
                     continue
                 laneId = stopsLanes[stop.id]
-                edge_id, lane_index = laneId.rsplit("_", 1)
+                try:
+                    edge_id, lane_index = laneId.rsplit("_", 1)
+                except ValueError:
+                    sys.exit("Invalid lane '%s' for stop '%s'" % (laneId, stop.id))
                 if fr == None:
                     fr = edge_id
                     dep_lane = laneId
@@ -173,7 +177,7 @@ def main():
             foutflows.write('    <flow id="%s_%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s>\n' %
                             (type, lineRef, type, flow, options.begin, options.end, options.period, lineRef, options.flowattrs))
             foutflows.write('        <param key="name" value="%s"/>\n        <param key="completeness" value="%s"/>\n    </flow>\n' %
-                            (name, completeness))
+                            (escape(name), completeness))
         foutflows.write('</routes>\n')
 
     print("done.")
