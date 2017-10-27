@@ -58,7 +58,7 @@ FXIMPLEMENT(GNECalibratorRouteDialog, GNEAdditionalDialog, GNECalibratorRouteDia
 // ===========================================================================
 
 GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorRoute* calibratorRoute, bool updatingElement) :
-    GNEAdditionalDialog(calibratorDialog->getEditedCalibrator(), 400, 300),
+    GNEAdditionalDialog(calibratorDialog->getEditedCalibrator(), 400, 120),
     myCalibratorDialogParent(calibratorDialog),
     myEditedCalibratorRoute(calibratorRoute),
     myUpdatingElement(updatingElement),
@@ -159,7 +159,9 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     if (myEditedCalibratorRoute->getID() == myTextFieldRouteID->getText().text()) {
         myTextFieldRouteID->setTextColor(FXRGB(0, 0, 0));
         myEditedCalibratorRoute->setAttribute(SUMO_ATTR_ID, myTextFieldRouteID->getText().text(), undoList);
-
+    } else if(myEditedCalibratorRoute->isValid(SUMO_ATTR_ID, myTextFieldRouteID->getText().text())) {
+        myTextFieldRouteID->setTextColor(FXRGB(0, 0, 0));
+        myEditedCalibratorRoute->setAttribute(SUMO_ATTR_ID, myTextFieldRouteID->getText().text(), undoList);
     } else {
         myTextFieldRouteID->setTextColor(FXRGB(255, 0, 0));
         myCalibratorRouteValid = false;

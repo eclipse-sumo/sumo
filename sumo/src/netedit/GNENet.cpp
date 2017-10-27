@@ -1872,6 +1872,39 @@ GNENet::generateCalibratorFlowID() const {
 }
 
 
+void
+GNENet::changeCalibratorRouteID(GNECalibratorRoute *route, const std::string &oldID) {
+    if(myCalibratorRoutes.count(oldID) > 0) {
+        myCalibratorRoutes.erase(oldID);
+        myCalibratorRoutes[route->getID()] = route;
+    } else {
+        throw ProcessError("Route wasn't inserted");
+    }
+}
+
+
+void
+GNENet::changeCalibratorVehicleTypeID(GNECalibratorVehicleType *vehicleType, const std::string &oldID) {
+    if(myCalibratorVehicleTypes.count(oldID) > 0) {
+        myCalibratorVehicleTypes.erase(oldID);
+        myCalibratorVehicleTypes[vehicleType->getID()] = vehicleType;
+    } else {
+        throw ProcessError("VehicleType wasn't inserted");
+    }
+}
+
+
+void
+GNENet::changeCalibratorFlowID(GNECalibratorFlow *flow, const std::string &oldID) {
+    if(myCalibratorFlows.count(oldID) > 0) {
+        myCalibratorFlows.erase(oldID);
+        myCalibratorFlows[flow->getID()] = flow;
+    } else {
+        throw ProcessError("Flow wasn't inserted");
+    }
+}
+
+
 GNEPoly*
 GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector &shape, bool fill) {
     if(shape.size() > 0) {

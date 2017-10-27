@@ -301,7 +301,7 @@ bool
 GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
     case SUMO_ATTR_ID:
-        return isValidID(value);
+        return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorVehicleType(value, false) == NULL);
     case SUMO_ATTR_ACCEL:
         return canParse<double>(value);
     case SUMO_ATTR_DECEL:
@@ -335,11 +335,11 @@ GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
     case SUMO_ATTR_IMPATIENCE:
         return canParse<double>(value);
     case SUMO_ATTR_LANE_CHANGE_MODEL:
-        /** note: Only certain Lane Changing models are valid **/
-        return true;
+        return (value == "LC2013") || (value =="SL2015") || (value== "DK2008");
     case SUMO_ATTR_CAR_FOLLOW_MODEL:
-        /** note: Only certain Car following models are valid **/
-        return true;
+        return (value == "Krauss") || (value =="KraussOrig1")  || (value =="PWagner2009")  || 
+               (value =="BKerner")  || (value =="IDM")  || (value =="IDMM")  || (value =="KraussPS")  || 
+               (value =="KraussAB") || (value =="SmartSK") || (value =="Wiedemann") || (value =="Daniel1");
     case SUMO_ATTR_PERSON_CAPACITY:
         return canParse<int>(value);
     case SUMO_ATTR_CONTAINER_CAPACITY:
@@ -367,10 +367,12 @@ GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
 void 
 GNECalibratorVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_ID:
+    case SUMO_ATTR_ID: {
+        std::string oldID = myVehicleTypeID;
         myVehicleTypeID = value;
-        // changeID(value);
+        myCalibratorParent->getViewNet()->getNet()->changeCalibratorVehicleTypeID(this, oldID);
         break;
+    }
     case SUMO_ATTR_ACCEL:
         myAccel = parse<double>(value);
         break;

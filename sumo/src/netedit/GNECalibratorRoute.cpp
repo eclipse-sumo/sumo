@@ -157,7 +157,7 @@ bool
 GNECalibratorRoute::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
     case SUMO_ATTR_ID:
-        return isValidID(value);
+        return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value, false) == NULL);
     case SUMO_ATTR_EDGES: {
         std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
         std::vector<GNEEdge*> edges;
@@ -191,10 +191,12 @@ GNECalibratorRoute::isValid(SumoXMLAttr key, const std::string& value) {
 void 
 GNECalibratorRoute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_ID:
+    case SUMO_ATTR_ID: {
+        std::string oldID = myRouteID;
         myRouteID = value;
-        // changeID(value);
+        myCalibratorParent->getViewNet()->getNet()->changeCalibratorRouteID(this, oldID);
         break;
+    }
     case SUMO_ATTR_EDGES: {
         // clear old edges
         myEdges.clear();

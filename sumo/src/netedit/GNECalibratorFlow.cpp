@@ -291,7 +291,7 @@ bool
 GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
     case SUMO_ATTR_ID:
-        return isValidID(value);
+        return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorFlow(value, false) == NULL);
     case SUMO_ATTR_TYPE:
         return isValidID(value);
     case SUMO_ATTR_ROUTE:
@@ -299,17 +299,17 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
     case SUMO_ATTR_COLOR:
         return canParse<RGBColor>(value);
     case SUMO_ATTR_BEGIN:
-        return canParse<double>(value);
+        return canParse<double>(value) && (parse<double>(value) >= 0);
     case SUMO_ATTR_END:
-        return canParse<double>(value);
+        return canParse<double>(value) && (parse<double>(value) >= 0);
     case SUMO_ATTR_VEHSPERHOUR:
-        return canParse<double>(value);
+        return canParse<double>(value) && (parse<double>(value) >= 0);
     case SUMO_ATTR_PERIOD:
-        return canParse<double>(value);
+        return canParse<double>(value) && (parse<double>(value) >= 0);
     case SUMO_ATTR_PROB:
-        return canParse<double>(value);
+        return canParse<double>(value)  && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
     case SUMO_ATTR_NUMBER:
-        return canParse<int>(value);
+        return canParse<int>(value) && parse<int>(value) >= 0;
     case SUMO_ATTR_DEPARTLANE:
         if ((value == "random") || (value == "free") || (value == "allowed") || (value == "best") || (value == "first")) {
             return true;
@@ -349,9 +349,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
     case SUMO_ATTR_LINE:
         return true;
     case SUMO_ATTR_PERSON_NUMBER:
-        return canParse<int>(value);
+        return canParse<int>(value) && parse<int>(value) >= 0;
     case SUMO_ATTR_CONTAINER_NUMBER:
-        return canParse<int>(value);
+        return canParse<int>(value) && parse<int>(value) >= 0;
     case SUMO_ATTR_REROUTE:
         return canParse<bool>(value);
     case SUMO_ATTR_DEPARTPOS_LAT:
@@ -378,10 +378,12 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
 void 
 GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_ID:
+    case SUMO_ATTR_ID: {
+        std::string oldID = myFlowID;
         myFlowID = value;
-        // changeID(value);
+        myCalibratorParent->getViewNet()->getNet()->changeCalibratorFlowID(this, oldID);
         break;
+    }
     case SUMO_ATTR_TYPE:
         myVehicleType = value;
         break;

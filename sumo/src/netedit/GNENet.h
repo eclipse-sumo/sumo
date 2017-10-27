@@ -582,6 +582,7 @@ public:
     int getNumberOfAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
     /// @name Calibrator Items
+    /// @note all three duplicates functions will be unified using GNERoute class
     /// @{
 
     /**@brief Returns the named calibrator route
@@ -610,6 +611,15 @@ public:
 
     /// @brief generate a new Calibrator Flow ID
     std::string generateCalibratorFlowID() const;
+
+    /// @brief change Calibrator Route ID
+    void changeCalibratorRouteID(GNECalibratorRoute *route, const std::string &oldID);
+
+    /// @brief change Calibrator Vehicle Type ID
+    void changeCalibratorVehicleTypeID(GNECalibratorVehicleType *vehicleType, const std::string &oldID);
+
+    /// @brief change Calibrator Flow ID
+    void changeCalibratorFlowID(GNECalibratorFlow *flow, const std::string &oldID);
 
     /// @}
 

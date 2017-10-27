@@ -66,7 +66,7 @@ FXIMPLEMENT(GNECalibratorFlowDialog, GNEAdditionalDialog, GNECalibratorFlowDialo
 // ===========================================================================
 
 GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorFlow* editedCalibratorFlow, bool updatingElement) :
-    GNEAdditionalDialog(editedCalibratorFlow->getCalibratorParent(), 600, 500),
+    GNEAdditionalDialog(editedCalibratorFlow->getCalibratorParent(), 600, 300),
     myCalibratorDialogParent(calibratorDialog),
     myEditedCalibratorFlow(editedCalibratorFlow),
     myUpdatingElement(updatingElement),
@@ -232,7 +232,10 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // get pointer to undo list (Only for code legilibity)
     GNEUndoList *undoList = myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList();
     // set color of myTextFieldFlowID, depending if current value is valid or not
-    if (myEditedCalibratorFlow->isValid(SUMO_ATTR_ID, myTextFieldFlowID->getText().text())) {
+    if (myEditedCalibratorFlow->getID() == myTextFieldFlowID->getText().text()) {
+        myTextFieldFlowID->setTextColor(FXRGB(0, 0, 0));
+        myEditedCalibratorFlow->setAttribute(SUMO_ATTR_ID, myTextFieldFlowID->getText().text(), undoList);
+    } else if(myEditedCalibratorFlow->isValid(SUMO_ATTR_ID, myTextFieldFlowID->getText().text())) {
         myTextFieldFlowID->setTextColor(FXRGB(0, 0, 0));
         myEditedCalibratorFlow->setAttribute(SUMO_ATTR_ID, myTextFieldFlowID->getText().text(), undoList);
     } else {

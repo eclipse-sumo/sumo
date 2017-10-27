@@ -59,7 +59,7 @@ FXIMPLEMENT(GNECalibratorVehicleTypeDialog, GNEAdditionalDialog, GNECalibratorVe
 // ===========================================================================
 
 GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorVehicleType* calibratorVehicleType, bool updatingElement) :
-    GNEAdditionalDialog(calibratorVehicleType->getCalibratorParent(), 500, 375),
+    GNEAdditionalDialog(calibratorVehicleType->getCalibratorParent(), 500, 370),
     myCalibratorDialogParent(calibratorDialog),
     myEditedVehicleType(calibratorVehicleType),
     myUpdatingElement(updatingElement),
@@ -294,6 +294,9 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     }
     // set color of myTextFieldVehicleTypeID, depending if current value is valid or not
     if (myEditedVehicleType->isValid(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text())) {
+        myTextFieldVehicleTypeID->setTextColor(FXRGB(0, 0, 0));
+        myEditedVehicleType->setAttribute(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text(), undoList);
+    } else if(myEditedVehicleType->isValid(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text())) {
         myTextFieldVehicleTypeID->setTextColor(FXRGB(0, 0, 0));
         myEditedVehicleType->setAttribute(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text(), undoList);
     } else {
