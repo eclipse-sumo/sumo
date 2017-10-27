@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 20 14:05:03 2017 by SUMO Version svn
+<!-- generated on Fr 27 Okt 2017 16:40:15 CEST by SUMO gui Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -23,21 +23,27 @@
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <message-log value="stdout"/>
+        <error-log value="stderr"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
+
+    <gui_only>
+        <quit-on-end value="true"/>
+    </gui_only>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v0" type="type1" depart="0.00" line="line1" arrival="34.00">
+    <vehicle id="v0" type="type1" depart="0.00" line="line1" arrival="43.00">
         <route edges="beg middle end"/>
         <stop lane="middle_0" startPos="199.80" endPos="200.00" duration="0.00"/>
         <param key="has.rerouting.device" value="false"/>
     </vehicle>
 
-    <vehicle id="v1" type="type2" depart="5.00" arrival="35.00">
+    <vehicle id="v1" type="type2" depart="6.00" arrival="44.00">
         <route edges="beg middle end"/>
     </vehicle>
 

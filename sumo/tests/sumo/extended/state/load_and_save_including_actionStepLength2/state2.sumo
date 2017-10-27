@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 20 14:05:03 2017 by SUMO Version svn
+<!-- generated on Fr 27 Okt 2017 16:40:15 CEST by SUMO gui Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -27,16 +27,22 @@
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <message-log value="stdout"/>
+        <error-log value="stderr"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
+
+    <gui_only>
+        <quit-on-end value="true"/>
+    </gui_only>
 
 </configuration>
 -->
 
 <snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="svn" time="10.00">
     <route id="r0" state="1" edges="beg middle end"/>
-    <delay number="2" begin="2" end="0" depart="5.00" time="0.00"/>
+    <delay number="2" begin="2" end="0" depart="6.00" time="0.00"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE" actionStepLength="3.00"/>
     <vType id="type0" sigma="0.00"/>
@@ -45,12 +51,12 @@
         <param key="has.rerouting.device" value="false"/>
     </vType>
     <vTypeDistribution id="testDist" vTypes="type0 type1" probabilities="1.00 1.00"/>
-    <vehicle id="v0" type="type1" depart="0.00" line="line1" route="r0" state="0 1 -1.00 0 9000" pos="45.99" speed="13.89" posLat="0.00">
+    <vehicle id="v0" type="type1" depart="0.00" line="line1" route="r0" state="0 1 -1.00 0 9000" pos="36.61" speed="12.02" posLat="0.00">
         <stop lane="middle_0" startPos="199.80" endPos="200.00" duration="0.00"/>
         <param key="has.rerouting.device" value="false"/>
         <device id="vehroute_v0" state="-1 0.00 -1.00 -1.00 0"/>
     </vehicle>
-    <vehicle id="v1" type="type2" depart="0.00" route="r0" state="5000 1 5.10 0 9000" pos="3.80" speed="3.60" posLat="0.00">
+    <vehicle id="v1" type="type2" depart="0.00" route="r0" state="6000 1 5.10 0 9000" pos="0.60" speed="1.00" posLat="0.00">
         <device id="vehroute_v1" state="0 0.00 0.00 5.10 0"/>
     </vehicle>
     <lane id="beg_0">
