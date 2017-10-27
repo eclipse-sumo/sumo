@@ -52,9 +52,11 @@ else ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 endif ()
 
 add_executable(sumo version.h ${sumoexec})
+set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumoD)
 target_link_libraries(sumo ${sumolibs})
 
 add_executable(sumo-gui version.h ${sumoguiexec})
+set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME_DEBUG sumo-guiD)
 target_link_libraries(sumo-gui gui guinetload guisim gui_dialogs utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
         utils_gui_images utils_gui_tracker utils_foxtools osgview ${sumolibs} mesogui ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} foreign_gl2ps)
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
@@ -62,9 +64,11 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 endif ()
 
 add_executable(netconvert version.h netconvert_main.cpp)
+set_target_properties(netconvert PROPERTIES OUTPUT_NAME_DEBUG netconvertD)
 target_link_libraries(netconvert ${netconvertlibs})
 
 add_executable(od2trips version.h od2trips_main.cpp)
+set_target_properties(od2trips PROPERTIES OUTPUT_NAME_DEBUG od2tripsD)
 target_link_libraries(od2trips od utils_vehicle ${commonlibs})
 
 configure_file(config.h.cmake config.h)

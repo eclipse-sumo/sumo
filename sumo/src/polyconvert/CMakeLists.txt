@@ -22,10 +22,8 @@ set(polyconvert_SRCS
 )
 
 add_executable(polyconvert ${polyconvert_SRCS})
-
+set_target_properties(polyconvert PROPERTIES OUTPUT_NAME_DEBUG polyconvertD)
 target_link_libraries(polyconvert ${commonlibs} ${GDAL_LIBRARY})
-
-install(TARGETS polyconvert DESTINATION bin)
 
 add_custom_command(OUTPUT pc_typemap.h
                    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/typemap.py poly
