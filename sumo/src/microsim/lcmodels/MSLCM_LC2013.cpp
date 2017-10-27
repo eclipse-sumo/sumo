@@ -82,7 +82,7 @@
 // ===========================================================================
 // debug defines
 // ===========================================================================
-#define DEBUG_PATCH_SPEED
+//#define DEBUG_PATCH_SPEED
 //#define DEBUG_INFORMED
 //#define DEBUG_INFORMER
 //#define DEBUG_CONSTRUCTOR
@@ -92,7 +92,7 @@
 
 //#define DEBUG_COND (myVehicle.getID() == "disabled")
 //#define DEBUG_COND (myVehicle.isSelected())
-#define DEBUG_COND (true)
+#define DEBUG_COND (false)
 
 // ===========================================================================
 // member method definitions
