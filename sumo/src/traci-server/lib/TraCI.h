@@ -70,7 +70,7 @@ public:
     static void load(const std::vector<std::string>& args);
 
     /// @brief Advances by one step (or up to the given time)
-    void simulationStep(SUMOTime time = 0);
+    //static void simulationStep(const SUMOTime time = 0);
 
     /// @brief {object->{variable->value}}
     typedef std::map<int, TraCIValue> TraCIValues;

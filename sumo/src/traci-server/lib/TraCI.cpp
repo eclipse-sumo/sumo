@@ -61,6 +61,12 @@ TraCI::load(const std::vector<std::string>& args) {
     myLoadArgs = args;
 }
 
+/*
+void
+TraCI::simulationStep(const SUMOTime time) {
+}
+*/
+
 void
 TraCI::close() {
 }
