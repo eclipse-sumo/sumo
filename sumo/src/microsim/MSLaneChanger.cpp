@@ -60,8 +60,8 @@
 //#define DEBUG_SURROUNDING_VEHICLES // debug getRealFollower() and getRealLeader()
 //#define DEBUG_CHANGE_OPPOSITE
 //#define DEBUG_COND (vehicle->getLaneChangeModel().debugVehicle())
-//#define DEBUG_ACTIONSTEPLENGTH
-#define DEBUG_COND false
+//#define DEBUG_ACTIONSTEPS
+#define DEBUG_COND true
 
 
 
@@ -225,6 +225,12 @@ MSLaneChanger::change() {
     // left.
     // If candidate isn't on an allowed lane, changing to an allowed has
     // priority.
+
+#ifdef DEBUG_ACTIONSTEPS
+        std::cout<< "\nCHANGE" << std::endl;
+#endif
+
+
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
 
@@ -237,7 +243,6 @@ MSLaneChanger::change() {
     }
 
 
-    // recheck (#2681): Is it ok to move the traci call in front of the opposite change check?
 #ifndef NO_TRACI
     if (vehicle->isRemoteControlled()) {
         registerUnchanged(vehicle);
@@ -247,7 +252,6 @@ MSLaneChanger::change() {
 
 
     if (vehicle->isActive()){
-        // recheck (#2681): Can this be skipped?
         // Check for changes to the opposite lane if vehicle is active
         std::pair<MSVehicle* const, double> leader = getRealLeader(myCandi);
         if (myChanger.size() == 1 || vehicle->getLaneChangeModel().isOpposite()) {
@@ -314,7 +318,7 @@ MSLaneChanger::change() {
             return true;
         }
     } else {
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
         std::cout<< SIMTIME << " veh '" << vehicle->getID() << "' skips regular change checks." << std::endl;
 #endif
     }
@@ -688,8 +692,8 @@ MSLaneChanger::checkChange(
                     laneOffset, msg, blocked, leader, neighLead, neighFollow, *targetLane, preb, &(myCandi->lastBlocked), &(myCandi->firstBlocked));
 
     if (blocked == 0 && (state & LCA_WANTS_LANECHANGE) != 0 && neighLead.first != 0) {
-        // do are more carefull (but expensive) check to ensure that a
-        // safety-critical leader is not being overloocked
+        // do a more careful (but expensive) check to ensure that a
+        // safety-critical leader is not being overlooked
         const double seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
         const double speed = vehicle->getSpeed();
         const double dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
