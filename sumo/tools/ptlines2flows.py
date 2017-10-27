@@ -164,7 +164,10 @@ def createRoutes(options, trpMap):
         for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
             id = vehicle.id
             flows.append((id, vehicle.type))
-            edges = vehicle.routeDistribution[0]._child_dict['route'][1].edges
+            try:
+                edges = vehicle.routeDistribution[0]._child_dict['route'][1].edges
+            except StandardError:
+                sys.exit("could not parse edges for vehicle '%s'" % id)
             stops = vehicle.stop
             foutflows.write('    <route id="%s" edges="%s" >\n' % (id, edges))
             for stop in stops:
