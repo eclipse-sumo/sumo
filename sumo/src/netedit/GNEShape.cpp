@@ -30,6 +30,7 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 
 #include "GNEShape.h"
 #include "GNENet.h"
@@ -80,21 +81,21 @@ GNEShape::drawLockIcon(const Position& pos, double layer, double size) const {
         glRotated(180, 0, 0, 1);
         // Set draw color
         glColor3d(1, 1, 1);
-        // Draw icon depending of the state of additional
-        if (myNet->isShapeSelected(getTag(), getID())) {
+        // Draw icon depending of the selection status
+        if (gSelected.isSelected(getGUIGLObject()->getType(), getGlID())) {
             if (myBlockMovement) {
-                // Draw lock texture if additional is movable, is blocked and is selected
+                // Draw lock texture if shape is movable, is blocked and is selected
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCKSELECTED), size);
             } else {
-                // Draw empty texture if additional is movable, isn't blocked and is selected
+                // Draw empty texture if shape is movable, isn't blocked and is selected
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_EMPTYSELECTED), size);
             }
         } else {
             if (myBlockMovement) {
-                // Draw lock texture if additional is movable and is blocked
+                // Draw lock texture if shape is movable and is blocked
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCK), size);
             } else {
-                // Draw empty texture if additional is movable and isn't blocked
+                // Draw empty texture if shape is movable and isn't blocked
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_EMPTY), size);
             }
         }

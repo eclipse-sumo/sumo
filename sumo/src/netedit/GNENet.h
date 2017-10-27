@@ -89,12 +89,14 @@ class GNEViewNet;
 class GNENet : public GUIGlObject, public ShapeContainer {
 
     /// @brief declare friend class
+    friend class GNEAdditionalHandler;
     friend class GNEChange_Junction;
     friend class GNEChange_Edge;
     friend class GNEChange_Lane;
     friend class GNEChange_Connection;
     friend class GNEChange_Shape;
     friend class GNEChange_CalibratorItem;
+    friend class GNEChange_Additional;
 
 public:
     /// @name color of selected objects
@@ -424,11 +426,6 @@ public:
      */
     void save(OptionsCont& oc);
 
-    /**@brief save additional elements of the network
-     * @param[in] filename name of the file in wich save additionals
-     */
-    void saveAdditionals(const std::string& filename);
-
     /**@brief save plain xml representation of the network (and nothing else)
      * @param[in] oc The OptionsCont which knows how and where to save
      */
@@ -514,12 +511,6 @@ public:
     /// @brief inform the net about the need for recomputation
     void requireRecompute();
 
-    /// @brief inform that additionals has to be saved
-    void requiereSaveAdditionals();
-
-    /// @brief inform that shapes has to be saved
-    void requiereSaveShapes();
-
     /// @brief check if net has GNECrossings
     bool netHasGNECrossings() const;
 
@@ -535,21 +526,8 @@ public:
     /// @brief remove edge id from the list of explicit turnarounds
     void removeExplicitTurnaround(std::string id);
 
-    /**@brief Insert a additional element previously created in GNEAdditionalHandler
-     * @param[in] additional pointer to the additional element to add
-     * @param[in] hardFail enable or disable exception if additional to insert is duplicated
-     */
-    void insertAdditional(GNEAdditional* additional, bool hardFail = true);
-
-    /**@brief delete additional element previously inserted
-     * @param[in] additional The additional element to remove
-     */
-    void deleteAdditional(GNEAdditional* additional);
-
-    /**@brief update additional ID in container
-     * @note this function is automatically called when user changes the ID of an additional
-     */
-    void updateAdditionalID(const std::string& oldID, GNEAdditional* additional);
+    /// @name Functions related to Additional Items
+    /// @{
 
     /**@brief Returns the named additional
      * @param[in] id The id of the additional to return.
@@ -581,7 +559,22 @@ public:
      */
     int getNumberOfAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
-    /// @name Calibrator Items
+    /**@brief update additional ID in container
+    * @note this function is automatically called when user changes the ID of an additional
+    */
+    void updateAdditionalID(const std::string& oldID, GNEAdditional* additional);
+
+    /// @brief inform that additionals has to be saved
+    void requiereSaveAdditionals();
+
+    /**@brief save additional elements of the network
+    * @param[in] filename name of the file in wich save additionals
+    */
+    void saveAdditionals(const std::string& filename);
+
+    /// @}
+
+    /// @name Functions related to Calibrator Items
     /// @note all three duplicates functions will be unified using GNERoute class
     /// @{
 
@@ -623,6 +616,9 @@ public:
 
     /// @}
 
+    /// @name Functions related to Shapes
+    /// @{
+
     /**@brief Builds a special polygon used for edit Junctions's shapes
      * @param[in] netElement GNENetElement to be edited
      * @param[in] shape shape to be edited
@@ -641,6 +637,9 @@ public:
     /// @brief change Shape ID
     void changeShapeID(GNEShape* s, const std::string& OldID);
 
+    /// @brief inform that shapes has to be saved
+    void requiereSaveShapes();
+
     /**@brief save shapes elements of the network
      * @param[in] filename name of the file in wich save shapes
      */
@@ -648,9 +647,7 @@ public:
 
     /// @brief get number of shapes
     int getNumberOfShapes() const;
-
-    /// @brief Check if shape item is selected
-    bool isShapeSelected(SumoXMLTag tag, const std::string& ID) const;
+    /// @}
 
 protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
@@ -698,7 +695,22 @@ protected:
     /// @brief Flag to check if shapes hast o be saved
     bool myShapesSaved;
 
-    /// @name insetion of deletingCalibrator Items
+    /// @name Insertion and erasing of GNEAdditionals items
+    /// @{
+
+    /**@brief Insert a additional element int GNENet container. 
+     * @throw processError if route was already inserted
+     */
+    void insertAdditional(GNEAdditional* additional);
+
+    /**@brief delete additional element of GNENet container
+     * @throw processError if additional wasn't previously inserted
+     */
+    void deleteAdditional(GNEAdditional* additional);
+
+    /// @}
+
+    /// @name Insertion and erasing of GNECalibrator items
     /// @{
 
     /**@brief insert Calibrator Route in net

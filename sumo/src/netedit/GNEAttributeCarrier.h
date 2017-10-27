@@ -109,9 +109,14 @@ public:
     /// @brief get GUI icon assigned to this object
     GUIIcon getGUIIcon() const;
 
-    /**@brief get GUIGlObject vincuulated with this Attribute Carrier
-     * @throw ProcessError if AC cannot be casted to GUIGlObject
+    /**@brief get const pointer to GUIGlObject vinculated with this Attribute Carrier
+     * @throw ProcessError if AC cannot be casted to const GUIGlObject
      */
+    const GUIGlObject* getGUIGLObject() const;
+
+    /**@brief get pointer to GUIGlObject vinculated with this Attribute Carrier
+    * @throw ProcessError if AC cannot be casted to GUIGlObject
+    */
     GUIGlObject* getGUIGLObject();
 
     /// @brief get vector of attributes

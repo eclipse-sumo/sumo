@@ -157,6 +157,42 @@ GNENet::~GNENet() {
         }
         delete it.second;
     }
+    // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
+    for (auto it : myAdditionals) {
+        it.second->decRef("GNENet::~GNENet");
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
+        }
+        delete it.second;
+    }
+    // Drop calibrator flows (Only used for additionals that were inserted without using GNEChange_CalibratorItem)
+    for (auto it : myCalibratorFlows) {
+        it.second->decRef("GNENet::~GNENet");
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
+        }
+        delete it.second;
+    }
+    // Drop calibrator routes (Only used for additionals that were inserted without using GNEChange_CalibratorItem)
+    for (auto it : myCalibratorRoutes) {
+        it.second->decRef("GNENet::~GNENet");
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
+        }
+        delete it.second;
+    }
+    // Drop calibrator vehicle types (Only used for additionals that were inserted without using GNEChange_CalibratorItem)
+    for (auto it : myCalibratorVehicleTypes) {
+        it.second->decRef("GNENet::~GNENet");
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
+        }
+        delete it.second;
+    }
     // show extra information for tests
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Deleting net builder in GNENet destructor");
@@ -837,57 +873,6 @@ GNENet::save(OptionsCont& oc) {
 
 
 void
-GNENet::saveAdditionals(const std::string& filename) {
-    // obtain invalid stopping places and detectors
-    std::vector<GNEStoppingPlace*> invalidStoppingPlaces;
-    std::vector<GNEDetector*> invalidDetectors;
-    for (auto i : myAdditionals) {
-        GNEStoppingPlace* stoppingPlace = dynamic_cast<GNEStoppingPlace*>(i.second);
-        GNEDetector* detector = dynamic_cast<GNEDetector*>(i.second);
-        // check if has to be fixed
-        if ((stoppingPlace != NULL) && (stoppingPlace->areStoppingPlacesPositionsFixed() == false)) {
-            invalidStoppingPlaces.push_back(stoppingPlace);
-        } else if ((detector != NULL) && (detector->isDetectorPositionFixed() == false)) {
-            invalidDetectors.push_back(detector);
-        }
-    }
-    // if there are invalid StoppingPlaces or detectors, open GNEDialog_FixAdditionalPositions
-    if (invalidStoppingPlaces.size() > 0 || invalidDetectors.size() > 0) {
-        // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
-        // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
-        GNEDialog_FixAdditionalPositions fixAdditionalPositionsDialog(myViewNet, invalidStoppingPlaces, invalidDetectors);
-        if (fixAdditionalPositionsDialog.execute() == 0) {
-            // Here a console message
-            ;
-        } else {
-            // save additionals
-            OutputDevice& device = OutputDevice::getDevice(filename);
-            device.openTag("additionals");
-            for (auto i : myAdditionals) {
-                i.second->writeAdditional(device);
-            }
-            device.close();
-        }
-        // set focus again in viewNet
-        myViewNet->setFocus();
-    } else {
-        OutputDevice& device = OutputDevice::getDevice(filename);
-        device.openTag("additionals");
-        for (auto i : myAdditionals) {
-            i.second->writeAdditional(device);
-        }
-        device.close();
-    }
-    // change value of flag
-    myAdditionalsSaved = true;
-    // show debug information
-    if(OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Additionals saved");
-    }
-}
-
-
-void
 GNENet::savePlain(OptionsCont& oc) {
     // compute without volatile options
     computeAndUpdate(oc, false);
@@ -1334,25 +1319,6 @@ GNENet::requireRecompute() {
     myNeedRecompute = true;
 }
 
-void 
-GNENet::requiereSaveAdditionals() {
-    if((myAdditionalsSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Additionals has to be saved");
-    }
-    myAdditionalsSaved = false;
-    myViewNet->getViewParent()->getGNEAppWindows()->enableSaveAdditionalsMenu();
-}
-
-
-void 
-GNENet::requiereSaveShapes() {
-    if((myShapesSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Shapes has to be saved");
-    }
-    myShapesSaved = false;
-    myViewNet->getViewParent()->getGNEAppWindows()->enableSaveShapesMenu();
-}
-
 
 bool
 GNENet::netHasGNECrossings() const {
@@ -1680,57 +1646,6 @@ GNENet::removeExplicitTurnaround(std::string id) {
 }
 
 
-void
-GNENet::insertAdditional(GNEAdditional* additional, bool hardFail) {
-    // Check if additional element exists before insertion
-    if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())) != myAdditionals.end()) {
-        // Throw exception only if hardFail is enabled
-        if (hardFail) {
-            throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' already exist");
-        }
-    } else {
-        myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
-        myGrid.addAdditionalGLObject(additional);
-        // update geometry after insertion of additionals
-        additional->updateGeometry();
-        // additionals has to be saved
-        requiereSaveAdditionals();
-    }
-}
-
-
-void
-GNENet::deleteAdditional(GNEAdditional* additional) {
-    // obtain iterator to additional to remove
-    auto additionalToRemove = myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag()));
-    // Check if additional element exists before deletion
-    if (additionalToRemove == myAdditionals.end()) {
-        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist");
-    } else {
-        myAdditionals.erase(additionalToRemove);
-        myGrid.removeAdditionalGLObject(additional);
-        update();
-        // additionals has to be saved
-        requiereSaveAdditionals();
-    }
-}
-
-
-void
-GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) {
-    auto additionalToUpdate = myAdditionals.find(std::pair<std::string, SumoXMLTag>(oldID, additional->getTag()));
-    if (additionalToUpdate == myAdditionals.end()) {
-        throw ProcessError(toString(additional->getTag()) + "  with old ID='" + oldID + "' doesn't exist");
-    } else {
-        // remove an insert additional again into container
-        myAdditionals.erase(additionalToUpdate);
-        myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
-        // additionals has to be saved
-        requiereSaveAdditionals();
-    }
-}
-
-
 GNEAdditional*
 GNENet::retrieveAdditional(const std::string& id, bool hardFail) const {
     for (auto i : myAdditionals) {
@@ -1791,6 +1706,82 @@ GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
         }
     }
     return counter;
+}
+
+
+void
+GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) {
+    auto additionalToUpdate = myAdditionals.find(std::pair<std::string, SumoXMLTag>(oldID, additional->getTag()));
+    if (additionalToUpdate == myAdditionals.end()) {
+        throw ProcessError(toString(additional->getTag()) + "  with old ID='" + oldID + "' doesn't exist");
+    } else {
+        // remove an insert additional again into container
+        myAdditionals.erase(additionalToUpdate);
+        myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
+        // additionals has to be saved
+        requiereSaveAdditionals();
+    }
+}
+
+
+void 
+GNENet::requiereSaveAdditionals() {
+    if((myAdditionalsSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Additionals has to be saved");
+    }
+    myAdditionalsSaved = false;
+    myViewNet->getViewParent()->getGNEAppWindows()->enableSaveAdditionalsMenu();
+}
+
+
+void
+GNENet::saveAdditionals(const std::string& filename) {
+    // obtain invalid stopping places and detectors
+    std::vector<GNEStoppingPlace*> invalidStoppingPlaces;
+    std::vector<GNEDetector*> invalidDetectors;
+    for (auto i : myAdditionals) {
+        GNEStoppingPlace* stoppingPlace = dynamic_cast<GNEStoppingPlace*>(i.second);
+        GNEDetector* detector = dynamic_cast<GNEDetector*>(i.second);
+        // check if has to be fixed
+        if ((stoppingPlace != NULL) && (stoppingPlace->areStoppingPlacesPositionsFixed() == false)) {
+            invalidStoppingPlaces.push_back(stoppingPlace);
+        } else if ((detector != NULL) && (detector->isDetectorPositionFixed() == false)) {
+            invalidDetectors.push_back(detector);
+        }
+    }
+    // if there are invalid StoppingPlaces or detectors, open GNEDialog_FixAdditionalPositions
+    if (invalidStoppingPlaces.size() > 0 || invalidDetectors.size() > 0) {
+        // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
+        // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
+        GNEDialog_FixAdditionalPositions fixAdditionalPositionsDialog(myViewNet, invalidStoppingPlaces, invalidDetectors);
+        if (fixAdditionalPositionsDialog.execute() == 0) {
+            // Here a console message
+            ;
+        } else {
+            // save additionals
+            OutputDevice& device = OutputDevice::getDevice(filename);
+            device.openTag("additionals");
+            for (auto i : myAdditionals) {
+                i.second->writeAdditional(device);
+            }
+            device.close();
+        }
+        // set focus again in viewNet
+        myViewNet->setFocus();
+    } else {
+        OutputDevice& device = OutputDevice::getDevice(filename);
+        device.openTag("additionals");
+        for (auto i : myAdditionals) {
+            i.second->writeAdditional(device);
+        }
+        device.close();
+    }
+    // change value of flag
+    myAdditionalsSaved = true;
+    // show debug information
+    if(OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Additionals saved");
+    }
 }
 
 
@@ -1976,6 +1967,16 @@ GNENet::changeShapeID(GNEShape* s, const std::string& OldID) {
 }
 
 
+void 
+GNENet::requiereSaveShapes() {
+    if((myShapesSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Shapes has to be saved");
+    }
+    myShapesSaved = false;
+    myViewNet->getViewParent()->getGNEAppWindows()->enableSaveShapesMenu();
+}
+
+
 void GNENet::saveShapes(const std::string& filename) {
     // save Shapes
     OutputDevice& device = OutputDevice::getDevice(filename);
@@ -2004,16 +2005,35 @@ GNENet::getNumberOfShapes() const {
 }
 
 
-bool
-GNENet::isShapeSelected(SumoXMLTag tag, const std::string& ID) const {
-    if (tag == SUMO_TAG_POLY) {
-        return gSelected.isSelected(GLO_POLYGON, retrievePolygon(ID)->getGlID());
-    } else if (tag == SUMO_TAG_POI) {
-        return gSelected.isSelected(GLO_POI, retrievePOI(ID)->getGlID());
-    } else if (tag == SUMO_TAG_POILANE) {
-        return gSelected.isSelected(GLO_POI, retrievePOILane(ID)->getGlID());
+void
+GNENet::insertAdditional(GNEAdditional* additional) {
+    // Check if additional element exists before insertion
+    if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())) == myAdditionals.end()) {
+        myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
+        myGrid.addAdditionalGLObject(additional);
+        // update geometry after insertion of additionals
+        additional->updateGeometry();
+        // additionals has to be saved
+        requiereSaveAdditionals();
     } else {
-        throw ProcessError("Invalid Shape");
+        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' already exist");
+    }
+}
+
+
+void
+GNENet::deleteAdditional(GNEAdditional* additional) {
+    // obtain iterator to additional to remove
+    auto additionalToRemove = myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag()));
+    // Check if additional element exists before deletion
+    if (additionalToRemove == myAdditionals.end()) {
+        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist");
+    } else {
+        myAdditionals.erase(additionalToRemove);
+        myGrid.removeAdditionalGLObject(additional);
+        update();
+        // additionals has to be saved
+        requiereSaveAdditionals();
     }
 }
 
