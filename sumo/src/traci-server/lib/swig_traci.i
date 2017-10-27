@@ -8,6 +8,11 @@
 #include <utils/geom/PositionVector.h>
 %}
 
+// replacing vector instances of standard types, see https://stackoverflow.com/questions/8469138
+%include "std_vector.i"
+%include "std_string.i"
+%template(StringVector) std::vector<std::string>;
+
 // Process symbols in header
 %include "TraCI.h"
 %include "../TraCIDefs.h"

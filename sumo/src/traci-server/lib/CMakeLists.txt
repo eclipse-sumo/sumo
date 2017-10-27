@@ -8,8 +8,8 @@ if(SWIG_FOUND)
         find_package(PythonLibs REQUIRED)
         include_directories(${PYTHON_INCLUDE_PATH})
 
-        swig_add_module(swig_traci_py python swig_traci.i)
-        swig_link_libraries(swig_traci_py ${sumolibs} ${PYTHON_LIBRARIES})
+        swig_add_module(swig_traci python swig_traci.i)
+        swig_link_libraries(swig_traci ${sumolibs} ${PYTHON_LIBRARIES})
     endif()
 
     option(BUILD_JAVA "Build Java SWIG module" ON)
