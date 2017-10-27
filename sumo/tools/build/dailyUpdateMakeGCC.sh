@@ -23,8 +23,8 @@ cd $PREFIX/sumo
 make distclean &> /dev/null
 make -f Makefile.cvs clean &> /dev/null
 basename $MAKELOG >> $STATUSLOG
-svn up &> $MAKELOG || (echo "svn up failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-SVNREV=`grep -io 'revision [0-9]*' $MAKELOG | cut -d ' ' -f 2 | tail -1`
+git pull &> $MAKELOG || (echo "git pull failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+GITREV=`git describe --always`
 make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 ./configure --prefix=$PREFIX/sumo $CONFIGURE_OPT >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 if make >> $MAKELOG 2>&1; then
@@ -62,13 +62,13 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; th
   if test ${FILEPREFIX::6} == "extra_"; then
     tests/runInternalTests.py --gui "b $FILEPREFIX" &> $TESTLOG
   else
-    tests/runTests.sh -b $FILEPREFIX -name `date +%d%b%y`r$SVNREV &> $TESTLOG
+    tests/runTests.sh -b $FILEPREFIX -name `date +%d%b%y`r$GITREV &> $TESTLOG
     if which Xvfb &>/dev/null; then
-      tests/runTests.sh -a sumo.gui -b $FILEPREFIX -name `date +%d%b%y`r$SVNREV >> $TESTLOG 2>&1
-      tests/runTests.sh -a netedit.gui -b $FILEPREFIX -name `date +%d%b%y`r$SVNREV >> $TESTLOG 2>&1
+      tests/runTests.sh -a sumo.gui -b $FILEPREFIX -name `date +%d%b%y`r$GITREV >> $TESTLOG 2>&1
+      tests/runTests.sh -a netedit.gui -b $FILEPREFIX -name `date +%d%b%y`r$GITREV >> $TESTLOG 2>&1
     fi
   fi
-  tests/runTests.sh -b $FILEPREFIX -name `date +%d%b%y`r$SVNREV -coll >> $TESTLOG 2>&1
+  tests/runTests.sh -b $FILEPREFIX -name `date +%d%b%y`r$GITREV -coll >> $TESTLOG 2>&1
   echo "batchreport" >> $STATUSLOG
   rsync -rL $SUMO_REPORT $REMOTEDIR
 fi

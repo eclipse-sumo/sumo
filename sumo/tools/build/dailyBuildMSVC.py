@@ -14,7 +14,7 @@
 # @version $Id$
 
 """
-Does the nightly svn update on the windows server and the visual
+Does the nightly git pull on the windows server and the visual
 studio build. The script is also used for the meso build.
 Some paths especially for the names of the texttest output dirs are
 hard coded into this script.
@@ -40,32 +40,15 @@ def repositoryUpdate(options, repoLogFile):
     if options.no_update:
         return ""
     with open(repoLogFile, 'w') as log:
-        subprocess.call(
-            "svn.exe up %s\\trunk" % options.rootDir, stdout=log, stderr=subprocess.STDOUT)
-    update_log = open(repoLogFile).read()
-    match_rev = re.search('At revision (\d*)\.', update_log)
-    if match_rev:
-        svnrev = match_rev.group(1)
-    else:
-        open(repoLogFile, 'a').write("Error parsing svn revision\n")
-        sys.exit()
-    end_marker = 'Fetching external'
-    if end_marker in update_log:
-        update_lines = len(
-            update_log[:update_log.index(end_marker)].splitlines())
-    else:
-        open(repoLogFile, 'a').write("Error parsing svn output\n")
-        sys.exit()
-
-    if update_lines < 3 and not options.force:
-        open(repoLogFile, 'a').write(
-            "No changes since last update, skipping build and test\n")
-        print("No changes since last update, skipping build and test")
-        sys.exit()
-    return svnrev
+        cwd = os.getcwd()
+        os.chdir(options.rootDir)
+        subprocess.call(["git", "pull"], stdout=log, stderr=subprocess.STDOUT)
+        gitrev = subprocess.check_output(["git", "describe", "--always"]).strip()
+        os.chdir(cwd)
+    return gitrev
 
 
-def runTests(options, env, svnrev, debugSuffix=""):
+def runTests(options, env, gitrev, debugSuffix=""):
     if options.no_tests:
         return
     prefix = env["FILEPREFIX"] + debugSuffix
@@ -93,7 +76,7 @@ def runTests(options, env, svnrev, debugSuffix=""):
     log = open(testLog, 'w')
     # provide more information than just the date:
     fullOpt = ["-b", prefix, "-name", "%sr%s" %
-               (date.today().strftime("%d%b%y"), svnrev)]
+               (date.today().strftime("%d%b%y"), gitrev)]
     ttBin = "texttestc.py"
     if options.suffix == "extra":
         runInternalTests.runInternal(
@@ -115,7 +98,7 @@ def runTests(options, env, svnrev, debugSuffix=""):
 
 optParser = optparse.OptionParser()
 optParser.add_option("-r", "--root-dir", dest="rootDir",
-                     default=r"D:\Sumo", help="root for svn and log output")
+                     default=r"D:\Sumo", help="root for git and log output")
 optParser.add_option(
     "-s", "--suffix", default="", help="suffix to the fileprefix")
 optParser.add_option("-p", "--project", default=r"trunk\sumo\build\msvc10\prj.sln",
@@ -157,7 +140,7 @@ if "VS100COMNTOOLS" in env:
 if "VS120COMNTOOLS" in env:
     compiler = os.path.join(env["VS120COMNTOOLS"], "..", "IDE", "devenv.exe")
     msvcVersion = "msvc12"
-svnrev = repositoryUpdate(options, os.path.join(
+gitrev = repositoryUpdate(options, os.path.join(
     options.remoteDir, msvcVersion + options.suffix + "Update.log"))
 
 maxTime = 0
@@ -173,7 +156,7 @@ for platform, dllDir in platformDlls:
     makeLog = prefix + "Release.log"
     makeAllLog = prefix + "Debug.log"
     statusLog = prefix + "status.log"
-    binDir = "sumo-svn/bin/"
+    binDir = "sumo-git/bin/"
 
     for f in [makeLog, makeAllLog] + glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")):
         try:
@@ -266,11 +249,11 @@ for platform, dllDir in platformDlls:
             (errno, strerror) = ziperr.args
             print("Warning: Could not zip to %s!" % binaryZip, file=log)
             print("I/O error(%s): %s" % (errno, strerror), file=log)
-    runTests(options, env, svnrev)
+    runTests(options, env, gitrev)
     log = open(statusLog, 'w')
     status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
     log.close()
-runTests(options, env, svnrev, "D")
+runTests(options, env, gitrev, "D")
 log = open(prefix + "Dstatus.log", 'w')
 status.printStatus(makeAllLog, makeAllLog, env["SMTP_SERVER"], log)
 log.close()
