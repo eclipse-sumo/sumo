@@ -265,6 +265,8 @@ public:
     virtual void* inform(void* info, MSVehicle* sender) = 0;
 
     /** @brief Called to adapt the speed in order to allow a lane change.
+     *         It uses information on LC-related desired speed-changes from
+     *         the call to wantsChange() at the end of the previous simulation step
      *
      * It is guaranteed that min<=wanted<=max, but the implementation needs
      * to make sure that the return value is between min and max.
