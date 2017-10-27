@@ -1,4 +1,5 @@
-# basic tests with action step length != simulation step length
+# Basic tests with action step length != simulation step length.
+# Note that this suite uses the ballistic update
 action_step_length
 
 # avoid spill back of jams onto a junction (checkRewindLinkLanes)

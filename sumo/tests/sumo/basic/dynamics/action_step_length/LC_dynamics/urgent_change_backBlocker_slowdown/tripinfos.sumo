@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Feb  1 16:14:22 2017 by SUMO Version dev-SVN-r22813
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <step-length value="0.2"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="needsHelp" depart="0.00" departLane="end_1" departPos="196.99" departSpeed="0.00" departDelay="0.00" arrival="90.80" arrivalLane="end2_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="90.80" routeLength="3002.06" waitSteps="2" timeLoss="7.18" rerouteNo="0" devices="tripinfo_needsHelp" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="speedAssist" depart="0.00" departLane="end_0" departPos="185.00" departSpeed="3.00" departDelay="0.00" arrival="92.00" arrivalLane="end2_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="92.00" routeLength="3014.05" waitSteps="0" timeLoss="7.98" rerouteNo="0" devices="tripinfo_speedAssist" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+</tripinfos>
