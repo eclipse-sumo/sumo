@@ -82,7 +82,7 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myMarkedAC(NULL) {
     // Create Groupbox for current element
     myGroupBoxCurrentElement = new FXGroupBox(myContentFrame, "Current element", GUIDesignGroupBoxFrame);
-    myCurrentElementLabel = new FXLabel(myGroupBoxCurrentElement, "No item under cursor", 0, GUIDesignLabelLeft);
+    myCurrentElementLabel = new FXLabel(myGroupBoxCurrentElement, "No item under cursor", 0, GUIDesignLabelFrameInformation);
 
     // Create Groupbox for current element
     myGroupBoxOptions = new FXGroupBox(myContentFrame, "Options", GUIDesignGroupBoxFrame);
@@ -97,12 +97,12 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
 
     // Create groupbox for tree list
     myGroupBoxTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
-    myMarkedElementLabel = new FXLabel(myGroupBoxTreeList, "No item marked", 0, GUIDesignLabelLeft);
+    myMarkedElementLabel = new FXLabel(myGroupBoxTreeList, "No item marked", 0, GUIDesignLabelFrameInformation);
     myTreelist = new FXTreeList(myGroupBoxTreeList, this, MID_GNE_DELETEFRAME_CHILDS, GUIDesignTreeListFrame);
 
     // Create groupbox for help
     myGroupBoxInformation = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
-    myInformationLabel = new FXLabel(myGroupBoxInformation, " - Left click to delete element.\n - Hold <CTRL> and left click\n   to mark element.\n - Left click in another element\n   dismark marked element.", 0, GUIDesignLabelLeft);
+    myInformationLabel = new FXLabel(myGroupBoxInformation, " - Left click to delete element.\n - Hold <CTRL> and left click\n   to mark element.\n - Left click in another element\n   dismark marked element.", 0, GUIDesignLabelFrameInformation);
 }
 
 

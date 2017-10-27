@@ -139,28 +139,28 @@
 
 /// @name FXLabels
 /// @{
-/// @brief label extended over frame without thick and with text justify to left
-#define GUIDesignLabelLeft                  (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
+/// @brief label extended over frame without thick and with text justify to left and height of 23
+#define GUIDesignLabelLeft                  (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief label extended over frame without thick and with text justify to right
-#define GUIDesignLabelRight                 (JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
+/// @brief label extended over frame without thick and with text justify to right and height of 23
+#define GUIDesignLabelRight                 (JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief label extended over frame without thickand  with text justify to center
-#define GUIDesignLabelCenter                (JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
+/// @brief label extended over frame without thickand  with text justify to center and height of 23
+#define GUIDesignLabelCenter                (JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief label extended over frame with thick and with text justify to left
-#define GUIDesignLabelThick                 (FRAME_THICK | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
+/// @brief label extended over frame with thick and with text justify to left and height of 23
+#define GUIDesignLabelThick                 (FRAME_THICK | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief label extended over frame with thick and with text justify to left
-#define GUIDesignLabelLeftThick             (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
+/// @brief label extended over frame with thick and with text justify to left and height of 23
+#define GUIDesignLabelLeftThick             (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief label extended over frame with thick and with text justify to right
-#define GUIDesignLabelRightThick            (FRAME_THICK | JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
+/// @brief label extended over frame with thick and with text justify to right and height of 23
+#define GUIDesignLabelRightThick            (FRAME_THICK | JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief label extended over frame with thick and with text justify to center
-#define GUIDesignLabelCenterThick           (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
+/// @brief label extended over frame with thick and with text justify to center and height of 23
+#define GUIDesignLabelCenterThick           (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief label extended over the matrix column with thick frame
+/// @brief label extended over the matrix column with thick frame and height of 23
 #define GUIDesignLabelAttribute             (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, 100, 23, 2, 2, 2, 2
 
 /// @brief label extended over over frame without thickand with text justify to center and withouht vertical spaces
@@ -177,13 +177,16 @@
 
 /// @brief label ticked filled extended over frame used for VClasses. can be used by icons of 64x32 pixels
 #define GUIDesignLabelIconExtendedx46Ticked (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 46, 2, 2, 2, 2
+
+/// @brief label extended over frame without thick and with text justify to left, used to show information in frames
+#define GUIDesignLabelFrameInformation      (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 /// @}
 
 
 /// @name FXComboBox
 /// @{
 /// @brief Combo box editable extended over the all frame
-#define GUIDesignComboBox                   (FRAME_THICK | LAYOUT_FILL_X)
+#define GUIDesignComboBox                   (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
 /// @brief Combo box static     (not editable)
 #define GUIDesignComboBoxStatic             (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2

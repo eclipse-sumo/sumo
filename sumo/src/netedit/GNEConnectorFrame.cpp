@@ -88,7 +88,7 @@ GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myGroupBoxDescription = new FXGroupBox(myContentFrame, "Lane", GUIDesignGroupBoxFrame);
 
     // Create label for lane description and update it
-    myLaneDescriptionLabel = new FXLabel(myGroupBoxDescription, "", 0, GUIDesignLabelLeft);
+    myLaneDescriptionLabel = new FXLabel(myGroupBoxDescription, "", 0, GUIDesignLabelFrameInformation);
     updateDescription();
 
     // Create GroupBox for Buttons
@@ -127,8 +127,8 @@ GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myGroupBoxSelection = new FXGroupBox(myContentFrame, "Selection", GUIDesignGroupBoxFrame);
 
     // Selection Hint
-    myHoldShiftLabel = new FXLabel(myGroupBoxSelection, "Hold <SHIFT> while clicking\nto create unyielding\nconnections (pass=true).", 0, GUIDesignLabelLeft);
-    myHoldControlLabel = new FXLabel(myGroupBoxSelection, "Hold <CTRL> while clicking\nto create conflicting\nconnections (i.e. at zipper nodes)", 0, GUIDesignLabelLeft);
+    myHoldShiftLabel = new FXLabel(myGroupBoxSelection, "Hold <SHIFT> while clicking\nto create unyielding\nconnections (pass=true).", 0, GUIDesignLabelFrameInformation);
+    myHoldControlLabel = new FXLabel(myGroupBoxSelection, "Hold <CTRL> while clicking\nto create conflicting\nconnections (i.e. at zipper nodes)", 0, GUIDesignLabelFrameInformation);
 
     // init colors here to avoid static order fiasco (https://isocpp.org/wiki/faq/ctors#static-init-order)
     sourceColor = RGBColor::CYAN;

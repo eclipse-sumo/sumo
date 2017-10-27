@@ -1324,7 +1324,7 @@ GNEAdditionalFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
             << "\n"
             << "Block movement: if is enabled, the created additional element will be blocked. i.e. cannot be moved with\n"
             << "the mouse. This option can be modified with the Inspector.";
-    new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelLeft);
+    new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // "OK"
     new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     helpDialog->create();

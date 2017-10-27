@@ -327,7 +327,7 @@ GNEFrame::GEOAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
         << " - Longitude: East-west position of a point on the Earth's surface.\n"
         << " - Latitude: North–south position of a point on the Earth's surface.\n"
         << " - CheckBox 'use GEO' enable or disable saving position in GEO coordinates\n";
-    new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelLeft);
+    new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // "OK"
     new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     helpDialog->create();
@@ -356,7 +356,7 @@ GNEFrame::DrawingMode::DrawingMode(GNEFrame* frameParent) :
         << "  creates polygon.\n"
         << "- 'Abort drawing' or ESC\n"
         << "  removes drawed polygon.";
-    myInformationLabel = new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelLeft);
+    myInformationLabel = new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // disable stop and abort functions as init
     myStopDrawingButton->disable();
     myAbortDrawingButton->disable();
@@ -508,7 +508,7 @@ GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet
     myHeaderLeftFrame->hide();
 
     // Create titel frame
-    myFrameHeaderLabel = new FXLabel(myHeaderFrame, frameLabel.c_str(), 0, GUIDesignLabelLeft);
+    myFrameHeaderLabel = new FXLabel(myHeaderFrame, frameLabel.c_str(), 0, GUIDesignLabelFrameInformation);
 
     // Create frame for right elements of header (By default unused)
     myHeaderRightFrame = new FXHorizontalFrame(myHeaderFrame, GUIDesignAuxiliarHorizontalFrame);

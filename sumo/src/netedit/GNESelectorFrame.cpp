@@ -77,7 +77,6 @@ FXIMPLEMENT(GNESelectorFrame, FXVerticalFrame, GNESelectorFrameMap, ARRAYNUMBER(
 // method definitions
 // ===========================================================================
 
-
 GNESelectorFrame::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2) { 
     count = new FXLabel(parent, "0", 0, GUIDesignLabelLeft);
     typeName = new FXLabel(parent, label.c_str(), 0, GUIDesignLabelLeft);
@@ -162,7 +161,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // Create groupbox for information about selections
     FXGroupBox* selectionHintGroupBox = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
     // Create Selection Hint
-    new FXLabel(selectionHintGroupBox, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected items.", 0, GUIDesignLabelLeft);
+    new FXLabel(selectionHintGroupBox, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected items.", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -546,7 +545,7 @@ GNESelectorFrame::onCmdHelp(FXObject*, FXSelector, void*) {
             << "junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
             << "junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
             << "edge; speed; '>10' -> match all edges with a speed above 10\n";
-    new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelLeft);
+    new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // "OK"
     new FXButton(helpDialog, "OK\t\tSave modifications", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     helpDialog->create();
