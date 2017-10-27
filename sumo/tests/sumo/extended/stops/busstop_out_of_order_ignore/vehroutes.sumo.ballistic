@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 19 15:30:40 2017 by SUMO Version svn
+<!-- generated on Fri Oct 27 15:18:25 2017 by SUMO Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -40,7 +40,6 @@
     <vehicle id="wrong1" depart="100.00" arrival="200.00">
         <route edges="beg end"/>
         <stop busStop="bs1" duration="10.00"/>
-        <stop busStop="bs0" duration="10.00"/>
         <stop busStop="bs2" duration="10.00"/>
         <stop busStop="bs3" duration="10.00"/>
     </vehicle>
@@ -50,23 +49,18 @@
         <stop busStop="bs0" duration="10.00"/>
         <stop busStop="bs1" duration="10.00"/>
         <stop busStop="bs3" duration="10.00"/>
-        <stop busStop="bs2" duration="10.00"/>
     </vehicle>
 
     <vehicle id="wrong3" depart="300.00" arrival="399.00">
         <route edges="beg end"/>
         <stop busStop="bs0" duration="10.00"/>
         <stop busStop="bs2" duration="10.00"/>
-        <stop busStop="bs1" duration="10.00"/>
         <stop busStop="bs3" duration="10.00"/>
     </vehicle>
 
     <vehicle id="wrong_all" depart="400.00" arrival="461.00">
         <route edges="beg end"/>
         <stop busStop="bs3" duration="10.00"/>
-        <stop busStop="bs2" duration="10.00"/>
-        <stop busStop="bs1" duration="10.00"/>
-        <stop busStop="bs0" duration="10.00"/>
     </vehicle>
 
 </routes>
