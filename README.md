@@ -27,10 +27,14 @@ You can download SUMO from SourceForge via our downloads site:
 
 
 As the program is still under development and is extended continuously, we advice you to
-use the latest sources from our Subversion repository. Using a command line svn client
+use the latest sources from our GitHub repository. Using a command line client
 the following command should work:
 
-        svn co https://svn.code.sf.net/p/sumo/code/trunk/sumo
+        git clone https://github.com/DLR-TS/sumo.git
+
+(or if you still prefer subversion)
+
+        svn co https://github.com/DLR-TS/sumo.git
 
 
 
@@ -75,12 +79,12 @@ homepage.
 Bugs.
 =====
 
-Please use for bugs and requests our bug tracking tool which provides OpenID access
+Please use for bugs and requests the GitHub bug tracking tool
 
-        http://sumo.dlr.de/trac/
+        https://github.com/DLR-TS/sumo
 
 or file them to the list sumo-users@eclipse.org. Before
-filing a bug, please consider to check with a current subversion checkout
+filing a bug, please consider to check with a current repository checkout
 whether the problem has already been fixed.
 
 
