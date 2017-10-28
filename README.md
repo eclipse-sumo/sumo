@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/planetsumo/sumo.svg?branch=master)](https://travis-ci.org/planetsumo/sumo)
+[![Build Status](https://travis-ci.org/DLR-TS/sumo.svg?branch=master)](https://travis-ci.org/DLR-TS/sumo)
 
                            SUMO - Simulation of Urban MObility 
 
