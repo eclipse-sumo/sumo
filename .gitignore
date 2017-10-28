@@ -27,6 +27,7 @@ Makefile.in
 lib*.a
 .deps
 .libs
+*.o
 *.pyc
 *.sdf
 *.suo
