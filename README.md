@@ -35,8 +35,8 @@ Mailing List
 
 To stay informed, we have a mailing list for SUMO. You can subscribe at
 https://dev.eclipse.org/mailman/listinfo/sumo-user.
-Messages to the list can be sent to mailto:sumo-user@eclipse.org.
-SUMO announcements will be made through the mailto:sumo-announce@eclipse.org list;
+Messages to the list can be sent to sumo-user@eclipse.org.
+SUMO announcements will be made through the sumo-announce@eclipse.org list;
 you can subscribe to this list at https://dev.eclipse.org/mailman/listinfo/sumo-announce.
 
 
@@ -67,7 +67,7 @@ Bugs
 ----
 
 Please use for bugs and requests the [GitHub bug tracking tool](https://github.com/DLR-TS/sumo/issues).
-or file them to the list mailto:sumo-users@eclipse.org. Before
+or file them to the list sumo-user@eclipse.org. Before
 filing a bug, please consider to check with a current repository checkout
 whether the problem has already been fixed.
 
