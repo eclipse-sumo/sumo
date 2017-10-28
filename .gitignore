@@ -1,0 +1,32 @@
+# root dir, mostly configure / make stuff
+/aclocal.m4
+/autom4te.cache
+/config.guess
+/config.log
+/config.status
+/config.sub
+/configure
+/depcomp
+/examples
+/install-sh
+/libtool
+/ltmain.sh
+/missing
+/sumo-*.tar.gz
+/sumo-*.zip
+# src dir, mostly configure / make stuff
+/src/config.h
+/src/config.h.in
+/src/stamp-h1
+/src/version.h
+# global patterns
+Makefile
+Makefile.in
+*.vcxproj.user
+*.class
+lib*.a
+.deps
+.libs
+*.pyc
+*.sdf
+*.suo
