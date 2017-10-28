@@ -41,7 +41,7 @@ def repositoryUpdate(options, repoLogFile):
         return ""
     with open(repoLogFile, 'w') as log:
         cwd = os.getcwd()
-        os.chdir(options.rootDir)
+        os.chdir(os.path.join(options.rootDir, "git"))
         subprocess.call(["git", "pull"], stdout=log, stderr=subprocess.STDOUT)
         gitrev = subprocess.check_output(["git", "describe", "--always"]).strip()
         os.chdir(cwd)
