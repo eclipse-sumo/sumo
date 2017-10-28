@@ -101,7 +101,7 @@ $(TRACI_DIRS) $(GUI_DIRS)
 if WITH_VERSION_H
 VERSION_H = version.h
 all: $(VERSION_H)
-$(VERSION_H): ../.svn
+$(VERSION_H): ../.git
 	../tools/build/version.py $(CURDIR)
 endif
 
