@@ -7,7 +7,7 @@ dnl create an config-header
 AC_CONFIG_HEADER(src/config.h)
 
 dnl enable automake-support
-AM_INIT_AUTOMAKE([gnu dist-zip tar-ustar])
+AM_INIT_AUTOMAKE([foreign dist-zip tar-ustar])
 
 AC_LANG([C++])
 
