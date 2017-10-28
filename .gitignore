@@ -14,11 +14,45 @@
 /missing
 /sumo-*.tar.gz
 /sumo-*.zip
+# bin dir
+/bin/TraCITestClient*
+/bin/activitygen*
+/bin/dfrouter*
+/bin/duarouter*
+/bin/emissionsDrivingCycle*
+/bin/emissionsMap*
+/bin/jtrrouter*
+/bin/marouter*
+/bin/netconvert*
+/bin/netedit*
+/bin/netgenerate*
+/bin/od2trips*
+/bin/polyconvert*
+/bin/sumo*
+/bin/sumo-gui*
 # src dir, mostly configure / make stuff
 /src/config.h
 /src/config.h.in
 /src/stamp-h1
 /src/version.h
+/src/activitygen/activitygen
+/src/dfrouter/dfrouter
+/src/duarouter/duarouter
+/src/jtrrouter/jtrrouter
+/src/marouter/marouter
+/src/netconvert
+/src/netedit/netedit
+/src/netgen/netgenerate
+/src/netimport/typemap.h
+/src/od2trips
+/src/polyconvert/pc_typemap.h
+/src/polyconvert/polyconvert
+/src/sumo
+/src/sumo-gui
+/src/tools/emissionsDrivingCycle
+/src/tools/emissionsMap
+/src/traci_testclient/TraCITestClient
+/unittest/src/sumo-unittest
 # global patterns
 Makefile
 Makefile.in
