@@ -51,8 +51,8 @@ try:
 #            subprocess.call('make clean; make -j 16', shell=True)
             shutil.copytree('bin', '../bin%s' % desc,
                             ignore=shutil.ignore_patterns('Makefile*', '*.bat', '*.jar'))
-            subprocess.call('strip -R .note.gnu.build-id bin%s/*' % desc, shell=True)
-            subprocess.call("sed -i 's/%s/%s/' bin%s/*" % (desc, len(desc) * "0", desc), shell=True)
+            subprocess.call('strip -R .note.gnu.build-id ../bin%s/*' % desc, shell=True)
+            subprocess.call("sed -i 's/%s/%s/' ../bin%s/*" % (desc, len(desc) * "0", desc), shell=True)
     for line in subprocess.check_output('fdupes -1 -q ../binv*', shell=True).splitlines():
         dups = line.split()
         for d in dups[1:]:
