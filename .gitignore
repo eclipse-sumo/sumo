@@ -30,6 +30,11 @@
 /bin/polyconvert*
 /bin/sumo*
 /bin/sumo-gui*
+/bin/testcommon*
+/bin/testfoxtools*
+/bin/testgeom*
+/bin/testmicrosim*
+/bin/testnetbuild*
 # src dir, mostly configure / make stuff
 /src/config.h
 /src/config.h.in
