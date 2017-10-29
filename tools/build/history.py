@@ -36,7 +36,7 @@ if os.path.exists(LOCK):
     sys.exit("History building is still locked!")
 open(LOCK, 'w').close()
 try:
-    subprocess.call(["git", "checkout", "master"])
+    subprocess.call(["git", "checkout", "-q", "master"])
     subprocess.call(["git", "pull"])
     commits = {}
     for line in subprocess.check_output(["git", "log", "%s..%s" % (options.begin, options.end)]).splitlines():
@@ -45,10 +45,10 @@ try:
             commits[h] = subprocess.check_output(["git", "describe", h]).strip()
     for h, desc in sorted(commits.items(), key=lambda x: x[1]):
         if not os.path.exists('bin%s' % desc):
-            ret = subprocess.call(["git", "checkout", h])
+            ret = subprocess.call(["git", "checkout", "-q", h])
             if ret != 0:
                 break
-#            subprocess.call('make clean; make -j 16', shell=True)
+            subprocess.call('make clean; make -j 16', shell=True)
             shutil.copytree('bin', '../bin%s' % desc,
                             ignore=shutil.ignore_patterns('Makefile*', '*.bat', '*.jar'))
             subprocess.call('strip -R .note.gnu.build-id ../bin%s/*' % desc, shell=True)
@@ -57,7 +57,7 @@ try:
         dups = line.split()
         for d in dups[1:]:
             subprocess.call('ln -sf %s %s' % (dups[0], d), shell=True)
-    subprocess.call(["git", "checkout", "master"])
+    subprocess.call(["git", "checkout", "-q", "master"])
 except:
     traceback.print_exc()
 os.remove(LOCK)
