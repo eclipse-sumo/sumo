@@ -17,7 +17,7 @@ at the German Aerospace Center](http://www.dlr.de/ts).
 Where to get it
 ---------------
 
-You can download SUMO from SourceForge via our [downloads site](http://sumo.dlr.de/wiki/Downloads)
+You can download SUMO from SourceForge via our [downloads site](http://sumo.dlr.de/wiki/Downloads).
 
 As the program is still under development and is extended continuously, we advice you to
 use the latest sources from our GitHub repository. Using a command line client
@@ -66,7 +66,7 @@ homepage.
 Bugs
 ----
 
-Please use for bugs and requests the [GitHub bug tracking tool](https://github.com/DLR-TS/sumo/issues).
+Please use for bugs and requests the [GitHub bug tracking tool](https://github.com/DLR-TS/sumo/issues)
 or file them to the list sumo-user@eclipse.org. Before
 filing a bug, please consider to check with a current repository checkout
 whether the problem has already been fixed.
