@@ -1,6 +1,6 @@
 SUBDIRS = src unittest bin
 
-EXTRA_DIST = README ChangeLog AUTHORS COPYING INSTALL NEWS sumo.doxyconf
+EXTRA_DIST = README.md ChangeLog AUTHORS COPYING sumo.doxyconf
 
 doc: pydoc doxygen userdoc javadoc
 
