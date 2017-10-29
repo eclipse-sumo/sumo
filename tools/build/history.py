@@ -52,12 +52,12 @@ try:
             shutil.copytree('bin', '../bin%s' % desc,
                             ignore=shutil.ignore_patterns('Makefile*', '*.bat', '*.jar'))
             subprocess.call('strip -R .note.gnu.build-id bin%s/*' % desc, shell=True)
-            subprocess.call(
-                "sed -i 's/dev-SVN-r%s/dev-SVN-r00000/' bin%s/*" % (desc, desc), shell=True)
-    for line in subprocess.check_output('fdupes -1 -q bin*', shell=True).splitlines():
+            subprocess.call("sed -i 's/%s/%s/' bin%s/*" % (desc, len(desc) * "0", desc), shell=True)
+    for line in subprocess.check_output('fdupes -1 -q ../binv*', shell=True).splitlines():
         dups = line.split()
         for d in dups[1:]:
-            subprocess.call('ln -sf ../%s %s' % (dups[0], d), shell=True)
+            subprocess.call('ln -sf %s %s' % (dups[0], d), shell=True)
+    subprocess.call(["git", "checkout", "master"])
 except:
     traceback.print_exc()
 os.remove(LOCK)
