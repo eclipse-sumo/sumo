@@ -1,0 +1,9 @@
+[submodule "tools/contributed/TraCI4J"]
+	path = tools/contributed/TraCI4J
+	url = https://github.com/egueli/TraCI4J
+[submodule "tools/contributed/traci4matlab"]
+	path = tools/contributed/traci4matlab
+	url = https://github.com/pipeacosta/traci4matlab
+[submodule "tools/contributed/sumolib4matlab"]
+	path = tools/contributed/sumolib4matlab
+	url = https://github.com/pipeacosta/sumolib4matlab
