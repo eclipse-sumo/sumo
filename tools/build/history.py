@@ -43,12 +43,12 @@ try:
         if line.startswith("commit "):
             h = line.split()[1]
             commits[h] = subprocess.check_output(["git", "describe", h]).strip()
-    for h, desc in commits.items():
+    for h, desc in sorted(commits.items(), key=lambda x: x[1]):
         if not os.path.exists('bin%s' % desc):
             ret = subprocess.call(["git", "checkout", h])
             if ret != 0:
                 break
-            subprocess.call('make clean; make -j 16', shell=True)
+#            subprocess.call('make clean; make -j 16', shell=True)
             shutil.copytree('bin', '../bin%s' % desc,
                             ignore=shutil.ignore_patterns('Makefile*', '*.bat', '*.jar'))
             subprocess.call('strip -R .note.gnu.build-id bin%s/*' % desc, shell=True)
