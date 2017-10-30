@@ -9,7 +9,7 @@
 # @file    keywords.py
 # @author  Michael Behrisch
 # @date    2017-10-30
-# @version $Id: v0_31_0-826-g40b80d93bd Michael Behrisch <oss@behrisch.de> 2017-10-30 13:05:13 +0100 $
+# @version $Id$
 #
 # Inspired by https://github.com/rsmith-nl/git-keywords
 #  by R.F. Smith <rsmith@xs4all.nl>
@@ -17,7 +17,13 @@
 #  by Martin Turon
 
 """Fills the Id keyword from the latest git commit and tag and
-   substitutes them in the standard input."""
+   substitutes them in the standard input.
+
+   To activate this filter add the following lines to your ~/.gitconfig:
+   [filter "keywords"]
+       clean  = .git_filters/keywords.py clean
+       smudge = .git_filters/keywords.py %f
+"""
 
 from __future__ import print_function
 import os
