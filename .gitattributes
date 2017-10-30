@@ -8,7 +8,7 @@
 # Declare files that will always have LF line endings on checkout.
 *.h    text eol=lf
 *.cpp  text eol=lf
-*.py   text eol=lf
+*.py   text eol=lf filter=keywords
 *.pyw  text eol=lf
 *.pl   text eol=lf
 *.java text eol=lf
