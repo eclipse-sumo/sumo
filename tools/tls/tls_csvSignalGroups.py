@@ -9,7 +9,7 @@
 # @file    tls_csvSignalGroups.py
 # @author  Mirko Barthauer (Technische Universitaet Braunschweig)
 # @date    2017-10-17
-# @version $Id$
+# @version $Id: tls_csvSignalGroups.py 26651 2017-10-22 20:33:14Z behrisch $
 """
 This script helps with converting a CSV input file with green times per signal group into the SUMO format. Additionally, it supports creating template CSV input files 
 from a SUMO network file. The input CSV file(s) contain input blocks divided by titles in brackets. The block [general] sets general information relating to the 
@@ -64,7 +64,7 @@ except ImportError:
 
 class TlLogic(sumolib.net.TLSProgram):
 
-    def __init__(self, id, programID, cycleTime, offset = 0, parameters = {}, net = None, useTlIndex = True, debug = False):
+    def __init__(self, id, programID, cycleTime, offset = 0, parameters = {}, net = None, debug = False):
         if(not isinstance( cycleTime, int ) or cycleTime < 1):
             print("Invalid cycle time = %s" % str(cycleTime))
                 
@@ -72,7 +72,6 @@ class TlLogic(sumolib.net.TLSProgram):
         self._cycleTime = cycleTime # cycle time [s]
         self._programID = programID
         self._parameters = parameters
-        self._useTlIndex = useTlIndex
         self.net = net
         self._signalGroups = {}
         self.__signalGroupOrder = []
@@ -137,29 +136,22 @@ class TlLogic(sumolib.net.TLSProgram):
                                 print("Valid description from %s to %s (SG %s, tlIndex %d)" % (connIn.getID(), connOut.getID(), sgID, tlIndex))
                             self._signalGroups[sgID].addConnection(connIn, connOut, tlIndex)
                             self._tlIndexToSignalGroup[tlIndex] = sgID
-                            
-            for sgID in self._signalGroups:
-                self._signalGroups[sgID].checkYielding()
         
     def xmlOutput(self, doc):
-        # transform signal group based information to "phase" elements of constant signal states
-        self._allTimes.sort()        
-        if(self._useTlIndex and len(self._tlIndexToSignalGroup) > 0):
+        # transform signal group based information to "phase" elements of constant signal states # TODO: insert tlIndex in completeSignals query
+        self._allTimes.sort()
+        tlIndices = []
+        if(len(self._tlIndexToSignalGroup) > 0):
             tlIndices = list(self._tlIndexToSignalGroup.keys())
             tlIndices.sort()
-            sgIndices = [self._tlIndexToSignalGroup[i] for i in tlIndices]
-        elif(len(self.__signalGroupOrder) == len(self._signalGroups)):
-            sgIndices = self.__signalGroupOrder
-        else:
-            sgIndices = list(self._signalGroups.keys())
-            sgIndices.sort()
-        
+        elif(self._debug):
+            print("No tlIndex to signal group relation available: Signal program will be empty.")
         tlEl = doc.createElement("tlLogic")
         tlEl.setAttribute("id", self._id)
         tlEl.setAttribute("type", "static")
         tlEl.setAttribute("programID", self._programID)
         tlEl.setAttribute("offset", self._offset)
-        commentNode = doc.createComment(" Order of signal groups: %s " % " ".join(sgIndices))
+        commentNode = doc.createComment(" Order of signal groups: %s " % " ".join([self._tlIndexToSignalGroup[tlIndex] for tlIndex in tlIndices]))
         tlEl.appendChild(commentNode)
         
         # output custom parameters
@@ -170,12 +162,16 @@ class TlLogic(sumolib.net.TLSProgram):
             tlEl.appendChild(parEl)
 
         for i in range(0, len(self._allTimes)-1):
+            states = {}
+            for tlIndex in self._tlIndexToSignalGroup:
+                sgID = self._tlIndexToSignalGroup[tlIndex]
+                states[tlIndex] = self._signalGroups[sgID].completeSignals[tlIndex][self._allTimes[i]]
             # fill duration up to the cycle time
             if(i == len(self._allTimes)-2):
                 duration =  self._cycleTime - self._allTimes[i]
             else:
                 duration = self._allTimes[i+1] - self._allTimes[i]
-            states = "".join([self._signalGroups[sg].completeSignals[self._allTimes[i]] for sg in sgIndices])
+            states = "".join([states[tlIndex] for tlIndex in tlIndices])
             phaseEl = doc.createElement("phase")
             phaseEl.setAttribute("duration", str(duration))
             phaseEl.setAttribute("state", states)
@@ -195,8 +191,7 @@ class SignalGroup(object):
         self._freeTimes = []
         self.completeSignals = {}
         self.tlLogic = None
-        self._indexPerJunction = {}
-        self._yield = False
+        self._tlIndexToYield = {}
     
     def addFreeTime(self, fromTime, toTime):
         if(fromTime != toTime):
@@ -206,47 +201,39 @@ class SignalGroup(object):
         junction = connIn.getEdge().getToNode()
         # get junction index of the connection
         connections = junction.getConnections()
-        junctionIndex = -1
+        ownConn = None
         for conn in connections:
             if(conn.getFromLane() == connIn and conn.getToLane() == connOut):
                 junctionIndex = conn.getJunctionIndex()
+                ownConn = conn
                 break
-        if(junctionIndex >= 0):
-            if(junction not in self._indexPerJunction):
-                self._indexPerJunction[junction] = [junctionIndex]
-            elif(junctionIndex not in self._indexPerJunction[junction]):
-                self._indexPerJunction[junction].append(junctionIndex)
-    
-    def checkYielding(self):
-        wait = False
-        for junction in self._indexPerJunction:
+        # store yielding info based on tlIndex values
+        if(ownConn is not None):
+            self._tlIndexToYield[tlIndex] = []
             connections = junction.getConnections()
-            
             for conn in connections:
-                if(conn.getTLLinkIndex() != ''):
-                    otherJunctionIndex = conn.getJunctionIndex()
-                    if(otherJunctionIndex not in self._indexPerJunction[junction]):
-                        for ownIndex in self._indexPerJunction[junction]:
-                            wait = junction._prohibits[ownIndex][-(otherJunctionIndex - 1)] == '1'
-                            if(wait):
-                                break
-                if(wait):
-                    break
-        self._yield = wait
-        if(not self._yield and self._free.lower() == 'g' and self._stop.lower() == 'y'):
-            self._free = self._free.upper()
-            self._stop = self._stop.upper()
+                if(self.connectionYields(ownConn, conn)):
+                    self._tlIndexToYield[tlIndex].append(conn.getTLLinkIndex())
+
+    def connectionYields(self, ownConn, conn):
+        result = False
+        if(ownConn.getJunction() == conn.getJunction()):
+            otherTlIndex = conn.getTLLinkIndex()
+            if(otherTlIndex>=0 and otherTlIndex not in self._tlIndexToYield and conn.getTLSID() == self.tlLogic._id):
+                result = ownConn.getJunction()._prohibits[ownConn.getJunctionIndex()][-(conn.getJunctionIndex() - 1)] == '1'
+        return result
     
     def calculateCompleteSignals(self, times):
-        for time in times:
-            self.completeSignals[time] = self.getStateAt(time)
+        for tlIndex in self._tlIndexToYield:
+            self.completeSignals[tlIndex] = {}
+            for time in times:
+                self.completeSignals[tlIndex][time] = self.getStateAt(time, tlIndex)
     
-    def getStateAt(self, time): 
-        if(self._yield): # return off/blinking if no times are set
-            result = "o"
-        else:
-            result = "O"
-        if(len(self._times) > 0):
+    def getStateAt(self, time, tlIndex, checkPriority = True):
+        result = "o"
+        wait = False
+        
+        if(len(self._times) > 0 and tlIndex in self._tlIndexToYield):
             timeKeys = list(self._times.keys())
             timeKeys.sort()
             relevantKey = None
@@ -258,6 +245,21 @@ class SignalGroup(object):
                         relevantKey = timeKeys[i]
                         break
             result = self._times[relevantKey]
+            
+            if(checkPriority and result in ["o", "g", "y"]):
+                for yieldTlIndex in self._tlIndexToYield[tlIndex]:
+                    # ask signal state of signal to yield
+                    if(yieldTlIndex in self.tlLogic._tlIndexToSignalGroup):
+                        sgID = self.tlLogic._tlIndexToSignalGroup[yieldTlIndex]
+                        yieldSignal = self.tlLogic._signalGroups[sgID].getStateAt(time, yieldTlIndex, checkPriority = False)
+                        wait = yieldSignal in ["g", "G", "o", "O", "u", "y", "Y"]
+                        #print("SG %s at time %d (state %s) has to wait for SG %s (state %s)? %s" % (self._id, time, result, sgID, yieldSignal, str(wait)))
+                        if(wait):
+                            break
+        else:
+            wait = len(self._tlIndexToYield[tlIndex]) > 0
+        if(result in ["g", "o"] and not wait): # prioritary signal
+            result = result.upper()
         return result
     
     def __str__(self):
@@ -300,7 +302,6 @@ def getOptions():
     argParser.add_argument("--delimiter", action="store", default=";", help="CSV delimiter used for input and template files.")
     argParser.add_argument("-n", "--net", action="store", default="", help="File path to SUMO network file")
     argParser.add_argument("-m", "--make-input-dir", action="store", default="", help="Create input file template(s) from the SUMO network file in the given directory.")
-    argParser.add_argument("-t", "--tl-index", action="store_true", default=True, help="Use tl indices from the SUMO network file for output")
     argParser.add_argument("-d", "--debug", action="store_true", default=False, help="Output debugging information")
     options = argParser.parse_args()
     
@@ -401,7 +402,7 @@ if __name__ == "__main__":
                         signalGroupOrder.append(sg._id)
         
         # build everything together
-        tlLogic = TlLogic(key, subkey, cycleTime, parameters = parameters, net = net, useTlIndex = options.tl_index, debug = options.debug)
+        tlLogic = TlLogic(key, subkey, cycleTime, parameters = parameters, net = net, debug = options.debug)
         tlLogic.addSignalGroups(signalGroups, signalGroupOrder)
         tlLogic.setSignalGroupRelations(sgToLinks)
         tlLogic.setFreeTime()

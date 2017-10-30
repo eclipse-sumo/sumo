@@ -1,3 +1,4 @@
+# each direction gets an exclusive green phase
 prio
 2green
 leftTurnPhase
