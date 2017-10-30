@@ -48,10 +48,13 @@ def gitid(fname):
             if l.startswith('Date'):
                 r += " " + l[5:].strip()
             if l.startswith('Author'):
-                r += " " + l[7:].strip()
+                if '<' in l and '>' in l:
+                    r += " " + l[l.index("<") + 1:l.index(">")]
+                else:
+                    r += " " + l[7:].strip()
     except subprocess.CalledProcessError:
         return UNMANGLED
-    return '$' + 'Id: %s %s $' % (fname, r)
+    return '$' + 'Id: %s %s $' % (os.path.basename(fname), r)
 
 
 if __name__ == '__main__':
