@@ -12,7 +12,7 @@
 /// @file    GNEVariableSpeedSign.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
+/// @version $Id: GNEVariableSpeedSign.cpp 26572 2017-10-18 12:03:56Z palcraft $
 ///
 //
 /****************************************************************************/
@@ -58,11 +58,10 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> /* lanes */, const std::string& filename, const std::vector<GNEVariableSpeedSignStep>& steps) :
+GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> /* lanes */, const std::string& filename) :
     GNEAdditional(id, viewNet, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGN),
     myPosition(pos),
     myFilename(filename),
-    mySteps(steps),
     mySaveInFilename(false) {
 }
 
@@ -143,31 +142,17 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
         // Write filename attribute
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
         // Save values in a different file
-        /*
-        OutputDevice& deviceVSS = OutputDevice::getDevice(currentDirectory + myFilename);
+        OutputDevice& deviceVSS = OutputDevice::getDevice(/**currentDirectory +**/ myFilename);
         deviceVSS.openTag("VSS");
-        for (std::vector<GNEVariableSpeedSignStep>::const_iterator i = myVSSValues.begin(); i != myVSSValues.end(); ++i) {
-            // Open VSS tag
-            deviceVSS.openTag(SUMO_TAG_STEP);
-            // Write TimeSTep
-            deviceVSS.writeAttr(SUMO_ATTR_TIME, i->getTime());
-            // Write speed
-            deviceVSS.writeAttr(SUMO_ATTR_SPEED, i->getSpeed());
-            // Close VSS tag
-            deviceVSS.closeTag();
+        // write steps
+        for (auto i : mySteps) {
+            i->writeStep(device);
         }
         deviceVSS.close();
-        */
     } else {
-        for (std::vector<GNEVariableSpeedSignStep>::const_iterator i = mySteps.begin(); i != mySteps.end(); ++i) {
-            // Open VSS tag
-            device.openTag(SUMO_TAG_STEP);
-            // Write TimeSTep
-            device.writeAttr(SUMO_ATTR_TIME, i->getTime());
-            // Write speed
-            device.writeAttr(SUMO_ATTR_SPEED, i->getSpeed());
-            // Close VSS tag
-            device.closeTag();
+        // write steps
+        for (auto i : mySteps) {
+            i->writeStep(device);
         }
     }
     // Close tag
@@ -181,7 +166,7 @@ GNEVariableSpeedSign::getFilename() const {
 }
 
 
-const std::vector<GNEVariableSpeedSignStep>&
+const std::vector<GNEVariableSpeedSignStep*>&
 GNEVariableSpeedSign::getSteps() const {
     return mySteps;
 }
@@ -194,13 +179,7 @@ GNEVariableSpeedSign::setFilename(const std::string& filename) {
 
 
 void
-GNEVariableSpeedSign::setVariableSpeedSignSteps(const std::vector<GNEVariableSpeedSignStep>& steps) {
-    mySteps = steps;
-}
-
-
-void
-GNEVariableSpeedSign::addStep(const GNEVariableSpeedSignStep& step) {
+GNEVariableSpeedSign::addStep(GNEVariableSpeedSignStep* step) {
     mySteps.push_back(step);
 }
 

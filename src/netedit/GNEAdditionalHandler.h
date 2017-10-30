@@ -12,7 +12,7 @@
 /// @file    GNEAdditionalHandler.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
+/// @version $Id: GNEAdditionalHandler.h 26719 2017-10-25 12:40:23Z palcraft $
 ///
 // Builds trigger objects for netedit
 /****************************************************************************/
@@ -381,11 +381,10 @@ public:
      * @param[in] id The id of the lane speed trigger
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
-     * @param[in] steps Step and speed values of variable speed signal
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
-    static bool buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& file, const std::vector<GNEVariableSpeedSignStep>& steps);
+    static bool buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& file);
 
     /**@brief Builds a vaporizer (lane speed trigger)
      * @param[in] viewNet viewNet in which element will be inserted

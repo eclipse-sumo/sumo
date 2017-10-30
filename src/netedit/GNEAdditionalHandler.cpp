@@ -12,7 +12,7 @@
 /// @file    GNEAdditionalHandler.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
+/// @version $Id: GNEAdditionalHandler.cpp 26719 2017-10-25 12:40:23Z palcraft $
 ///
 // Builds trigger objects for netedit
 /****************************************************************************/
@@ -423,6 +423,8 @@ GNEAdditionalHandler::parseVariableSpeedSignStep(const SUMOSAXAttributes& attrs,
     double speed = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_SPEED, abort);
     // Continue if all parameters were sucesfully loaded
     if ((!abort) && (myVariableSpeedSignParent != NULL)) {
+        ;
+        /*
         // create step and check that is valid
         GNEVariableSpeedSignStep step(myVariableSpeedSignParent, time, speed);
         // show warning if is duplicated
@@ -432,6 +434,7 @@ GNEAdditionalHandler::parseVariableSpeedSignStep(const SUMOSAXAttributes& attrs,
         } else {
             myVariableSpeedSignParent->addStep(step);
         }
+        */
     }
 }
 
@@ -447,9 +450,6 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
     double posy = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_Y, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // obtain VSS Values
-        // @todo
-        std::vector<GNEVariableSpeedSignStep> steps;
         // Obtain pointer to lanes
         std::vector<GNELane*> lanes;
         for (std::vector<std::string>::iterator i = lanesID.begin(); (i < lanesID.end()) && (abort == false); i++) {
@@ -462,7 +462,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
             }
         }
         // if operation of build variable speed signal was sucesfully, save Id
-        if ((abort == false) && buildVariableSpeedSign(myViewNet, myUndoAdditionals, id, Position(posx, posy), lanes, file, steps)) {
+        if ((abort == false) && buildVariableSpeedSign(myViewNet, myUndoAdditionals, id, Position(posx, posy), lanes, file)) {
             myLastTag = tag;
         }
     }
@@ -942,16 +942,14 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", 0, ok, false);
             // Parse lane Ids
             std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> >(values[SUMO_ATTR_LANES]);
-            // By default, steps are empty
-            std::vector<GNEVariableSpeedSignStep> steps;
             // Obtain pointers to lanes
             std::vector<GNELane*> lanes;
-            for (int i = 0; i < (int)laneIds.size(); i++) {
-                lanes.push_back(viewNet->getNet()->retrieveLane(laneIds.at(i)));
+            for (auto i: laneIds) {
+                lanes.push_back(viewNet->getNet()->retrieveLane(i));
             }
             std::string file = values[SUMO_ATTR_FILE];
             if (pos.size() == 1) {
-                return buildVariableSpeedSign(viewNet, allowUndoRedo, id, pos[0], lanes, file, steps);
+                return buildVariableSpeedSign(viewNet, allowUndoRedo, id, pos[0], lanes, file);
             } else {
                 return false;
             }
@@ -1312,9 +1310,9 @@ GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, c
 
 
 bool
-GNEAdditionalHandler::buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNELane*>& lanes, const std::string& file, const std::vector<GNEVariableSpeedSignStep>& steps) {
+GNEAdditionalHandler::buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNELane*>& lanes, const std::string& file) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_VSS, id) == NULL) {
-        GNEVariableSpeedSign* variableSpeedSign = new GNEVariableSpeedSign(id, viewNet, pos, lanes, file, steps);
+        GNEVariableSpeedSign* variableSpeedSign = new GNEVariableSpeedSign(id, viewNet, pos, lanes, file);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_VSS));
             viewNet->getUndoList()->add(new GNEChange_Additional(variableSpeedSign, true), true);

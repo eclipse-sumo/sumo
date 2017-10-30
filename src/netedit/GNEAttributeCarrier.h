@@ -12,7 +12,7 @@
 /// @file    GNEAttributeCarrier.h
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id$
+/// @version $Id: GNEAttributeCarrier.h 26765 2017-10-27 12:28:35Z palcraft $
 ///
 // Abstract Base class for gui objects which carry attributes
 /****************************************************************************/
@@ -29,6 +29,7 @@
 #include <config.h>
 #endif
 
+#include <fx.h>
 #include <string>
 #include <vector>
 #include <map>
@@ -40,6 +41,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
 #include <utils/gui/images/GUIIcons.h>
+
 #include "GNEReferenceCounter.h"
 
 

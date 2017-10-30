@@ -12,7 +12,7 @@
 /// @file    GNEVariableSpeedSign.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id$
+/// @version $Id: GNEVariableSpeedSign.h 26300 2017-10-02 20:44:50Z behrisch $
 ///
 //
 /****************************************************************************/
@@ -48,9 +48,8 @@ public:
      * @param[in] pos position (center) of the variable speed sign in the map
      * @param[in] lanes vector with the lanes of variable speed signal
      * @param[in] filename The path to the definition file
-     * @param[in] steps vector with the steps of variable speed signal
      */
-    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::vector<GNEVariableSpeedSignStep>& vssValues);
+    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename);
 
     /// @brief Destructor
     ~GNEVariableSpeedSign();
@@ -67,16 +66,16 @@ public:
     const std::string& getFilename() const;
 
     /// @brief get values of variable speed signal
-    const std::vector<GNEVariableSpeedSignStep>& getSteps() const;
+    const std::vector<GNEVariableSpeedSignStep*>& getSteps() const;
 
     /// @brief set filename of variable speed sign
     void setFilename(const std::string& filename);
 
     /// @brief set values of variable speed signal
-    void setVariableSpeedSignSteps(const std::vector<GNEVariableSpeedSignStep>& steps);
+    void setVariableSpeedSignSteps(const std::vector<GNEVariableSpeedSignStep*>& steps);
 
     /// @brief insert a new step in variable speed signal
-    void addStep(const GNEVariableSpeedSignStep& step);
+    void addStep(GNEVariableSpeedSignStep* step);
 
     /// @name Functions related with geometry of element
     /// @{
@@ -144,7 +143,7 @@ protected:
     std::string myFilename;
 
     /// @brief values of variable speed signal
-    std::vector<GNEVariableSpeedSignStep> mySteps;
+    std::vector<GNEVariableSpeedSignStep*> mySteps;
 
     /// @brief enable or disable save in external filename
     bool mySaveInFilename;

@@ -12,7 +12,7 @@
 /// @file    GNEVariableSpeedSignDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    April 2016
-/// @version $Id$
+/// @version $Id: GNEVariableSpeedSignDialog.cpp 26739 2017-10-26 09:05:34Z palcraft $
 ///
 // A class for edit phases of Variable Speed Signals
 /****************************************************************************/
@@ -51,9 +51,9 @@ FXIMPLEMENT(GNEVariableSpeedSignDialog, GNEAdditionalDialog, GNERerouterDialogMa
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* variableSpeedSignParent) :
-    GNEAdditionalDialog(variableSpeedSignParent, 240, 240),
-    myVariableSpeedSignParent(variableSpeedSignParent) {
+GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* editedVariableSpeedSign) :
+    GNEAdditionalDialog(myEditedVariableSpeedSign, 240, 240),
+    myEditedVariableSpeedSign(editedVariableSpeedSign) {
 
     // create List with the data
     myDataList = new FXTable(myContentFrame, this, MID_GNE_VARIABLESPEEDSIGN_REMOVEROW, GUIDesignTableLimitedHeight);
@@ -71,9 +71,6 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* var
     // create Button for insert row
     myAddRow = new FXButton(myRowFrame, "Add", 0, this, MID_GNE_VARIABLESPEEDSIGN_ADDROW, GUIDesignButtonIcon);
 
-    // Get values of variable speed signal
-    mySteps = myVariableSpeedSignParent->getSteps();
-
     // update table
     updateTable();
 
@@ -81,15 +78,20 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* var
     openAsModalDialog();
 }
 
-GNEVariableSpeedSignDialog::~GNEVariableSpeedSignDialog() {
+GNEVariableSpeedSignDialog::~GNEVariableSpeedSignDialog() {}
+
+
+GNEVariableSpeedSign* 
+GNEVariableSpeedSignDialog::getEditedVariableSpeedSign() const {
+    return myEditedVariableSpeedSign;
 }
 
 
 long
 GNEVariableSpeedSignDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     // Declare variables for time and speed
-    GNEVariableSpeedSignStep step(myVariableSpeedSignParent);
-
+    /*
+    GNEVariableSpeedSignStep step(myEditedVariableSpeedSign);
     // Get Time
     if (GNEAttributeCarrier::canParse<double>(myRowStep->getText().text()) == false) {
         return 0;
@@ -110,7 +112,7 @@ GNEVariableSpeedSignDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     } else {
         return false;
     }
-
+    */
     // Update table
     updateTable();
     return 1;
@@ -123,8 +125,10 @@ GNEVariableSpeedSignDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myDataList->getNumRows(); i++) {
         if (myDataList->getItem(i, 2)->isSelected()) {
             // Remove element of table and map
+            /*
             mySteps.erase(mySteps.begin() + i);
             myDataList->removeRows(i);
+            */
             // update table
             updateTable();
             return 1;
@@ -136,8 +140,8 @@ GNEVariableSpeedSignDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
 
 long
 GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // Save new data in Variable Speed Signal edited
-    myVariableSpeedSignParent->setVariableSpeedSignSteps(mySteps);
+
+
     // Stop Modal with positive out
     getApp()->stopModal(this, TRUE);
     return 1;
@@ -146,6 +150,7 @@ GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNEVariableSpeedSignDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+
     // Stop Modal with negative out
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -154,8 +159,8 @@ GNEVariableSpeedSignDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEVariableSpeedSignDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // Get old values
-    mySteps = myVariableSpeedSignParent->getSteps();
+
+
     updateTable();
     return 1;
 }
@@ -166,7 +171,7 @@ GNEVariableSpeedSignDialog::updateTable() {
     // clear table
     myDataList->clearItems();
     // set number of rows
-    myDataList->setTableSize(int(mySteps.size()), 3);
+    myDataList->setTableSize(int(myEditedVariableSpeedSign->getSteps().size()), 3);
     // Configure list
     myDataList->setVisibleColumns(3);
     myDataList->setColumnWidth(0, getWidth() / 3);
@@ -180,12 +185,12 @@ GNEVariableSpeedSignDialog::updateTable() {
     int indexRow = 0;
     FXTableItem* item = 0;
     // iterate over values
-    for (std::vector<GNEVariableSpeedSignStep>::iterator i = mySteps.begin(); i != mySteps.end(); i++) {
+    for (auto i : myEditedVariableSpeedSign->getSteps()) {
         // Set time
-        item = new FXTableItem(toString(i->getTime()).c_str());
+        item = new FXTableItem(i->getAttribute(SUMO_ATTR_TIME).c_str());
         myDataList->setItem(indexRow, 0, item);
         // Set speed
-        item = new FXTableItem(toString(i->getSpeed()).c_str());
+        item = new FXTableItem(i->getAttribute(SUMO_ATTR_SPEED).c_str());
         myDataList->setItem(indexRow, 1, item);
         // set remove
         item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));

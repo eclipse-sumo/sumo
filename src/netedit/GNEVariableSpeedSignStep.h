@@ -12,7 +12,7 @@
 /// @file    GNEVariableSpeedSignStep.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Apr 2017
-/// @version $Id$
+/// @version $Id: GNEVariableSpeedSignStep.h 26300 2017-10-02 20:44:50Z behrisch $
 ///
 //
 /****************************************************************************/
@@ -33,11 +33,14 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
+#include "GNEAttributeCarrier.h"
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
 class GNEVariableSpeedSign;
+class GNEVariableSpeedSignDialog;
 
 // ===========================================================================
 // class definitions
@@ -46,10 +49,10 @@ class GNEVariableSpeedSign;
  * @class GNEVariableSpeedSignStep
  * class used to represent a interval used in variable speed sign
  */
-class GNEVariableSpeedSignStep {
+class GNEVariableSpeedSignStep : public GNEAttributeCarrier {
 public:
     /// @brief default constructor
-    GNEVariableSpeedSignStep(GNEVariableSpeedSign* variableSpeedSignParent);
+    GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* variableSpeedSignDialog);
 
     /// @brief constructor
     GNEVariableSpeedSignStep(GNEVariableSpeedSign* variableSpeedSignParent, double time, double speed);
@@ -60,42 +63,32 @@ public:
     /// @brief get variable speed sign parent
     GNEVariableSpeedSign* getVariableSpeedSignParent() const;
 
-    /// @brief get tag
-    SumoXMLTag getTag() const;
+    /// @brief write step into XML
+    void writeStep(OutputDevice& device);
 
-    /// @brief get time
-    double getTime() const;
+    /// @brief inherited from GNEAttributeCarrier
+    /// @{
+    /* @brief method for getting the Attribute of an XML key
+    * @param[in] key The attribute key
+    * @return string with the value associated to key
+    */
+    std::string getAttribute(SumoXMLAttr key) const;
 
-    /// @brief get speed
-    double getSpeed() const;
+    /* @brief method for setting the attribute and letting the object perform additional changes
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    * @param[in] net optionally the GNENet to inform about gui updates
+    */
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
-    /**@brief set time
-     * @brief return true if was sucesfully set, false in other case
-     */
-    bool setTime(double time);
-
-    /**@brief set speed time
-     * @brief return true if was sucesfully set, false in other case
-     */
-    bool setSpeed(double speed);
-
-    /// @brief overload operator ==
-    bool operator==(const GNEVariableSpeedSignStep& variableSpeedSignStep) const;
-
-    /// @brief overload operator !=
-    bool operator!=(const GNEVariableSpeedSignStep& variableSpeedSignStep) const;
-
-    /// @brief overload operator >
-    bool operator>(const GNEVariableSpeedSignStep& variableSpeedSignStep) const;
-
-    /// @brief overload operator <
-    bool operator<(const GNEVariableSpeedSignStep& variableSpeedSignStep) const;
-
-    /// @brief overload operator >=
-    bool operator>=(const GNEVariableSpeedSignStep& variableSpeedSignStep) const;
-
-    /// @brief overload operator <=
-    bool operator<=(const GNEVariableSpeedSignStep& variableSpeedSignStep) const;
+    /* @brief method for setting the attribute and letting the object perform additional changes
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    */
+    bool isValid(SumoXMLAttr key, const std::string& value);
+    /// @}
 
 protected:
     /// @brief pointer to variable speed sign parent
@@ -109,6 +102,16 @@ protected:
 
     /// @brief XML Tag of a variable speed sign interval
     SumoXMLTag myTag;
+
+private:
+    /// @brief method for setting the attribute and nothing else
+    void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief Invalidated copy constructor.
+    GNEVariableSpeedSignStep(const GNEVariableSpeedSignStep&) = delete;
+
+    /// @brief Invalidated assignment operator
+    GNEVariableSpeedSignStep& operator=(const GNEVariableSpeedSignStep&) = delete;
 };
 
 #endif

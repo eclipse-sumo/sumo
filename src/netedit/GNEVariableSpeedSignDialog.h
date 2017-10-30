@@ -12,7 +12,7 @@
 /// @file    GNEVariableSpeedSignDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    April 2016
-/// @version $Id$
+/// @version $Id: GNEVariableSpeedSignDialog.h 26300 2017-10-02 20:44:50Z behrisch $
 ///
 // A class for edit phases of Variable Speed Signals
 /****************************************************************************/
@@ -54,10 +54,13 @@ class GNEVariableSpeedSignDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNEVariableSpeedSignDialog(GNEVariableSpeedSign* variableSpeedSignParent);
+    GNEVariableSpeedSignDialog(GNEVariableSpeedSign* editedVariableSpeedSign);
 
     /// @brief destructor
     ~GNEVariableSpeedSignDialog();
+
+    /// @brief get edited Variable Speed Sign
+    GNEVariableSpeedSign* getEditedVariableSpeedSign() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -82,10 +85,7 @@ protected:
     GNEVariableSpeedSignDialog() {}
 
     /// @brief Pointer to Variable Speed Signal
-    GNEVariableSpeedSign* myVariableSpeedSignParent;
-
-    /// @brief Map with the temporal VSSValues
-    std::vector<GNEVariableSpeedSignStep> mySteps;
+    GNEVariableSpeedSign* myEditedVariableSpeedSign;
 
     /// @brief Table with the data
     FXTable* myDataList;
@@ -107,10 +107,10 @@ private:
     void updateTable();
 
     /// @brief Invalidated copy constructor.
-    GNEVariableSpeedSignDialog(const GNEVariableSpeedSignDialog&);
+    GNEVariableSpeedSignDialog(const GNEVariableSpeedSignDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEVariableSpeedSignDialog& operator=(const GNEVariableSpeedSignDialog&);
+    GNEVariableSpeedSignDialog& operator=(const GNEVariableSpeedSignDialog&) = delete;
 };
 
 #endif
