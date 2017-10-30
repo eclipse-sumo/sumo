@@ -10,6 +10,7 @@
 # @author  Mirko Barthauer (Technische Universitaet Braunschweig)
 # @date    2017-10-17
 # @version $Id$
+
 """
 This script helps with converting a CSV input file with green times per signal group into the SUMO format. Additionally, it supports creating template CSV input files 
 from a SUMO network file. The input CSV file(s) contain input blocks divided by titles in brackets. The block [general] sets general information relating to the 
@@ -41,9 +42,8 @@ transOff = duration [s] for special signal state after green (usually yellow)
 
 The keywords may have a different order than shown above. The definition of a second green time per cycle (keywords "on2" and "off2") is optional, so are the keywords.
 Call the script with --help to see all the available command line parameters.
-
-
 """
+
 from __future__ import absolute_import
 from __future__ import print_function
 

@@ -9,14 +9,14 @@
 # @file    generateParkingLots.py
 # @author  Yun-Pang Floetteroed
 # @date    2017-10-13
-# @version $Id: generateParkingLots.py
+# @version $Id$
 
 """
 - generate The Webster's equation is used to optimize the cycle length
   and the green times of the traffic lights in a sumo network
   with a given route file.
-
 """
+
 from __future__ import absolute_import
 from __future__ import print_function
 
