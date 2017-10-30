@@ -9,7 +9,7 @@
 # @file    tls_csvSignalGroups.py
 # @author  Mirko Barthauer (Technische Universitaet Braunschweig)
 # @date    2017-10-17
-# @version $Id: tls_csvSignalGroups.py 26651 2017-10-22 20:33:14Z behrisch $
+# @version $Id$
 """
 This script helps with converting a CSV input file with green times per signal group into the SUMO format. Additionally, it supports creating template CSV input files 
 from a SUMO network file. The input CSV file(s) contain input blocks divided by titles in brackets. The block [general] sets general information relating to the 
