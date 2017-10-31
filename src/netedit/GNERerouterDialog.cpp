@@ -88,8 +88,8 @@ GNERerouterDialog::getRerouterParent() const {
 bool
 GNERerouterDialog::findInterval(double begin, double end) const {
     // Iterate over intervals
-    for (std::vector<GNERerouterInterval>::const_iterator i = myCopyOfRerouterIntervals.begin(); i != myCopyOfRerouterIntervals.end(); i++) {
-        if ((i->getBegin() == begin) && (i->getEnd() == end)) {
+    for (auto i : myCopyOfRerouterIntervals) {
+        if ((i->getAttribute(SUMO_ATTR_BEGIN) == toString(begin)) && (i->getAttribute(SUMO_ATTR_END) == toString(end))) {
             return true;
         }
     }
@@ -98,7 +98,7 @@ GNERerouterDialog::findInterval(double begin, double end) const {
 
 
 bool
-GNERerouterDialog::checkModifyInterval(const GNERerouterInterval& rerouterInterval, double newBegin, double newEnd) const {
+GNERerouterDialog::checkModifyInterval(GNERerouterInterval* rerouterInterval, double newBegin, double newEnd) const {
     // first check that values are correct
     if ((newBegin < 0) || (newEnd < 0)) {
         return false;
@@ -108,15 +108,20 @@ GNERerouterDialog::checkModifyInterval(const GNERerouterInterval& rerouterInterv
         return false;
     }
     // declare a temporal copy of rerouter intervals to check overlapping
-    std::vector<GNERerouterInterval> auxCopyOfRerouterIntervals = myCopyOfRerouterIntervals;
-    std::vector<GNERerouterInterval>::iterator it = std::find(auxCopyOfRerouterIntervals.begin(), auxCopyOfRerouterIntervals.end(), rerouterInterval);
+    std::vector<GNERerouterInterval*> auxCopyOfRerouterIntervals = myCopyOfRerouterIntervals;
+    auto it = std::find(auxCopyOfRerouterIntervals.begin(), auxCopyOfRerouterIntervals.end(), rerouterInterval);
     // if wasn't found add it (we're adding a new interval)
     if (it == auxCopyOfRerouterIntervals.end()) {
+        /*
         auxCopyOfRerouterIntervals.push_back(GNERerouterInterval(rerouterInterval.getRerouterParent(), newBegin, newEnd));
+        */
+        ;
     } else {
         // set new values and check overlapping
-        it->setBegin(newBegin);
+        /*
+        it->setA(newBegin);
         it->setEnd(newEnd);
+        */
     }
     // check overlapping
     if (myRerouterParent->checkOverlapping(auxCopyOfRerouterIntervals)) {
@@ -162,7 +167,9 @@ GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
     GNERerouterInterval newInterval(myRerouterParent, 0, 0);
     if (GNERerouterIntervalDialog(this, newInterval).openAsModalDialog() == TRUE) {
         // if new interval was sucesfully configured, add it to myCopyOfRerouterIntervals
+        /*
         myCopyOfRerouterIntervals.push_back(newInterval);
+        */
         updateIntervalTable();
         return 1;
     } else {
@@ -185,8 +192,10 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     // check if some begin or o end  button was pressed
     for (int i = 0; i < (int)myCopyOfRerouterIntervals.size(); i++) {
         if (myIntervalList->getItem(i, 0)->hasFocus() || myIntervalList->getItem(i, 1)->hasFocus()) {
+            /*
             // edit interval
             GNERerouterIntervalDialog(this, *(myCopyOfRerouterIntervals.begin() + i)).openAsModalDialog();
+            */
             return 1;
         }
     }
@@ -216,12 +225,12 @@ GNERerouterDialog::updateIntervalTable() {
     // sort rerouter intervals
     std::sort(myCopyOfRerouterIntervals.begin(), myCopyOfRerouterIntervals.end());
     // iterate over values
-    for (std::vector<GNERerouterInterval>::iterator i = myCopyOfRerouterIntervals.begin(); i != myCopyOfRerouterIntervals.end(); i++) {
+    for (auto i : myCopyOfRerouterIntervals) {
         // Set time
-        item = new FXTableItem(toString(i->getBegin()).c_str());
+        item = new FXTableItem(i->getAttribute(SUMO_ATTR_BEGIN).c_str());
         myIntervalList->setItem(indexRow, 0, item);
         // Set speed
-        item = new FXTableItem(toString(i->getEnd()).c_str());
+        item = new FXTableItem(i->getAttribute(SUMO_ATTR_END).c_str());
         myIntervalList->setItem(indexRow, 1, item);
         // set remove
         item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));

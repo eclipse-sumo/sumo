@@ -163,25 +163,25 @@ protected:
     bool myBeginEndValid;
 
     /// @brief vector with the closingLaneReroutes
-    std::vector<GNEClosingLaneReroute> myCopyOfClosingLaneReroutes;
+    std::vector<GNEClosingLaneReroute*> myCopyOfClosingLaneReroutes;
 
     /// @brief flag to check if closing lane reroutes are valid
     bool myClosingLaneReroutesValid;
 
     /// @brief vector with a copy of the closingReroutes
-    std::vector<GNEClosingReroute> myCopyOfClosingReroutes;
+    std::vector<GNEClosingReroute*> myCopyOfClosingReroutes;
 
     /// @brief flag to check if closing reroutes are valid
     bool myClosingReroutesValid;
 
     /// @brief vector with a copy of the destProbReroutes
-    std::vector<GNEDestProbReroute> myCopyOfDestProbReroutes;
+    std::vector<GNEDestProbReroute*> myCopyOfDestProbReroutes;
 
     /// @brief flag to check if Destiny probability reroutes are valid
     bool myDestProbReroutesValid;
 
     /// @brief vector with a copy of the routeProbReroutes
-    std::vector<GNERouteProbReroute> myCopyOfRouteProbReroutes;
+    std::vector<GNERouteProbReroute*> myCopyOfRouteProbReroutes;
 
     /// @brief flag to check if route prob reroutes are valid
     bool myRouteProbReroutesValid;

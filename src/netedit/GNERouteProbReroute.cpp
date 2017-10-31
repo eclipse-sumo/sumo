@@ -30,75 +30,101 @@
 
 #include "GNERouteProbReroute.h"
 #include "GNEEdge.h"
-
+#include "GNEChange_Attribute.h"
+#include "GNEUndoList.h"
+#include "GNERerouter.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNERouteProbReroute::GNERouteProbReroute(GNERerouterInterval& rerouterIntervalParent, std::string newRouteId, double probability) :
-    myRerouterIntervalParent(&rerouterIntervalParent),
+GNERouteProbReroute::GNERouteProbReroute(GNERerouterInterval* rerouterIntervalParent, std::string newRouteId, double probability) :
+    GNEAttributeCarrier(SUMO_TAG_ROUTE_PROB_REROUTE, ICON_EMPTY),
+    myRerouterIntervalParent(rerouterIntervalParent),
     myNewRouteId(newRouteId),
-    myProbability(probability),
-    myTag(SUMO_TAG_ROUTE_PROB_REROUTE) {
-    // set probability manually to avoid non valid values
-    setProbability(probability);
+    myProbability(probability) {
 }
 
 
-GNERouteProbReroute::~GNERouteProbReroute() {
+GNERouteProbReroute::~GNERouteProbReroute() {}
+
+
+void 
+GNERouteProbReroute::writeRouteProbReroute(OutputDevice& device) const {
+    // open Tag
+    device.openTag(getTag());
+    // write Route ID
+    device.writeAttr(SUMO_ATTR_ROUTE, myNewRouteId);
+    // write Probability
+    device.writeAttr(SUMO_ATTR_PROB, myProbability);
+    // close tag
+    device.closeTag();
 }
 
 
-std::string
-GNERouteProbReroute::getNewRouteId() const {
-    return myNewRouteId;
+GNERerouterInterval*
+GNERouteProbReroute::getRerouterIntervalParent() const {
+    return myRerouterIntervalParent;
 }
 
-
-void
-GNERouteProbReroute::setNewRouteId(std::string newRouteId) {
-    myNewRouteId = newRouteId;
-}
-
-
-double
-GNERouteProbReroute::getProbability() const {
-    return myProbability;
-}
-
-
-bool
-GNERouteProbReroute::setProbability(double probability) {
-    if (probability >= 0 && probability <= 1) {
-        myProbability = probability;
-        return true;
-    } else {
-        return false;
+std::string 
+GNERouteProbReroute::getAttribute(SumoXMLAttr key) const {
+    switch (key) {
+    case SUMO_ATTR_ID:
+        return myNewRouteId;
+    case SUMO_ATTR_PROB:
+        return toString(myProbability);
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-SumoXMLTag
-GNERouteProbReroute::getTag() const {
-    return myTag;
+void 
+GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    if (value == getAttribute(key)) {
+        return; //avoid needless changes, later logic relies on the fact that attributes have changed
+    }
+    switch (key) {
+    case SUMO_ATTR_ID:
+    case SUMO_ATTR_PROB:
+        undoList->p_add(new GNEChange_Attribute(this, key, value));
+        break;
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
-const GNERerouterInterval&
-GNERouteProbReroute::getRerouterIntervalParent() const {
-    return *myRerouterIntervalParent;
+bool 
+GNERouteProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+    case SUMO_ATTR_ID:
+        return isValidID(value);
+    case SUMO_ATTR_PROB:
+        return canParse<RGBColor>(value);
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
+// ===========================================================================
+// private
+// ===========================================================================
 
-bool
-GNERouteProbReroute::operator==(const GNERouteProbReroute& routeProbReroute) const {
-    if ((myRerouterIntervalParent == routeProbReroute.myRerouterIntervalParent) &&
-            (myNewRouteId == routeProbReroute.myNewRouteId) &&
-            (myProbability && routeProbReroute.myProbability)) {
-        return true;
-    } else {
-        return false;
+void 
+GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+    case SUMO_ATTR_ID: {
+        myNewRouteId = value;
+        break;
+    }
+    case SUMO_ATTR_PROB: {
+        myProbability = parse<double>(value);
+        break;
+    }
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

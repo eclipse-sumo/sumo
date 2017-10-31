@@ -55,6 +55,11 @@
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
+#include "GNEClosingLaneReroute.h"
+#include "GNEClosingReroute.h"
+#include "GNEDestProbReroute.h"
+#include "GNERouteProbReroute.h"
+
 
 
 // ===========================================================================
@@ -156,45 +161,26 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_Y, myPosition.y());
 
     // write intervals
-    for (std::vector<GNERerouterInterval>::const_iterator i = myRerouterIntervals.begin(); i != myRerouterIntervals.end(); i++) {
+    for (auto i : myRerouterIntervals) {
         device.openTag(i->getTag());
-        device.writeAttr(SUMO_ATTR_BEGIN, i->getBegin());
-        device.writeAttr(SUMO_ATTR_END, i->getEnd());
-
+        device.writeAttr(SUMO_ATTR_BEGIN, i->getAttribute(SUMO_ATTR_BEGIN));
+        device.writeAttr(SUMO_ATTR_END, i->getAttribute(SUMO_ATTR_END));
         // write closing lane reroutes
-        for (std::vector<GNEClosingLaneReroute>::const_iterator j = i->getClosingLaneReroutes().begin(); j != i->getClosingLaneReroutes().end(); j++) {
-            device.openTag(j->getTag());
-            device.writeAttr(SUMO_ATTR_LANE, j->getClosedLane()->getID());
-            device.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(j->getAllowedVehicles()));
-            device.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNames(j->getDisallowedVehicles()));
-            device.closeTag();
+        for (auto j : i->getClosingLaneReroutes()) {
+            j->writeClosingLaneReroute(device);
         }
-
         // write closing reroutes
-        for (std::vector<GNEClosingReroute>::const_iterator j = i->getClosingReroutes().begin(); j != i->getClosingReroutes().end(); j++) {
-            device.openTag(j->getTag());
-            device.writeAttr(SUMO_ATTR_EDGE, j->getClosedEdge()->getID());
-            device.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(j->getAllowedVehicles()));
-            device.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNames(j->getDisallowedVehicles()));
-            device.closeTag();
+        for (auto j : i->getClosingReroutes()) {
+            j->writeClosingReroute(device);
         }
-
         // write dest prob reroutes
-        for (std::vector<GNEDestProbReroute>::const_iterator j = i->getDestProbReroutes().begin(); j != i->getDestProbReroutes().end(); j++) {
-            device.openTag(j->getTag());
-            device.writeAttr(SUMO_ATTR_EDGE, j->getNewDestination()->getID());
-            device.writeAttr(SUMO_ATTR_PROB, j->getProbability());
-            device.closeTag();
+        for (auto j : i->getDestProbReroutes()) {
+            j->writeDestProbReroute(device);
         }
-
         // write route prob reroutes
-        for (std::vector<GNERouteProbReroute>::const_iterator j = i->getRouteProbReroutes().begin(); j != i->getRouteProbReroutes().end(); j++) {
-            device.openTag(j->getTag());
-            device.writeAttr(SUMO_ATTR_ROUTE, j->getNewRouteId());
-            device.writeAttr(SUMO_ATTR_PROB, j->getProbability());
-            device.closeTag();
+        for (auto j : i->getRouteProbReroutes()) {
+            j->writeRouteProbReroute(device);
         }
-
         // Close tag
         device.closeTag();
     }
@@ -237,9 +223,9 @@ GNERerouter::getEdgeChilds() const {
 
 
 bool
-GNERerouter::addRerouterInterval(const GNERerouterInterval& rerouterInterval) {
+GNERerouter::addRerouterInterval(GNERerouterInterval* rerouterInterval) {
     // obtain a copy of current rerouter Intervals to check overlapping
-    std::vector<GNERerouterInterval> copyOfMyRerouterIntervals;
+    std::vector<GNERerouterInterval*> copyOfMyRerouterIntervals;
     copyOfMyRerouterIntervals.push_back(rerouterInterval);
     if (checkOverlapping(copyOfMyRerouterIntervals)) {
         myRerouterIntervals = copyOfMyRerouterIntervals;
@@ -250,14 +236,14 @@ GNERerouter::addRerouterInterval(const GNERerouterInterval& rerouterInterval) {
 }
 
 
-const std::vector<GNERerouterInterval>&
+const std::vector<GNERerouterInterval*>&
 GNERerouter::getRerouterIntervals() const {
     return myRerouterIntervals;
 }
 
 
 bool
-GNERerouter::setRerouterIntervals(const std::vector<GNERerouterInterval>& rerouterIntervals) {
+GNERerouter::setRerouterIntervals(const std::vector<GNERerouterInterval*>& rerouterIntervals) {
     if (checkOverlapping(rerouterIntervals)) {
         myRerouterIntervals = rerouterIntervals;
         return true;
@@ -497,26 +483,28 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 bool
-GNERerouter::checkOverlapping(std::vector<GNERerouterInterval> rerouterIntervals) {
+GNERerouter::checkOverlapping(std::vector<GNERerouterInterval*> rerouterIntervals) {
     // only can be overlapping if there are more than two elements
     if (rerouterIntervals.size() <= 1) {
         return true;
     }
+    /*
     // first short vector
     std::sort(rerouterIntervals.begin(), rerouterIntervals.end());
 
     // first check that all Begins are differents
-    for (std::vector<GNERerouterInterval>::const_iterator i = (rerouterIntervals.begin() + 1); i != rerouterIntervals.end(); i++) {
+    for (std::vector<GNERerouterInterval*>::const_iterator i = (rerouterIntervals.begin() + 1); i != rerouterIntervals.end(); i++) {
         if ((i - 1)->getBegin() == i->getBegin()) {
             return false;
         }
     }
     // now check that end of every interval isn't overlapped with the begin of the next interval
-    for (std::vector<GNERerouterInterval>::const_iterator i = rerouterIntervals.begin(); i != (rerouterIntervals.end() - 1); i++) {
+    for (std::vector<GNERerouterInterval*>::const_iterator i = rerouterIntervals.begin(); i != (rerouterIntervals.end() - 1); i++) {
         if (i->getEnd() > (i + 1)->getBegin()) {
             return false;
         }
     }
+    */
 
     // all ok, then return true
     return true;

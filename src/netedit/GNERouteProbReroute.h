@@ -33,6 +33,8 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
+#include "GNEAttributeCarrier.h"
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -48,48 +50,62 @@ class GNERerouterInterval;
  * @class GNERerouter
  * GNERouteProbReroute
  */
-class GNERouteProbReroute {
+class GNERouteProbReroute : public GNEAttributeCarrier {
 public:
     /// @brief constructor
-    GNERouteProbReroute(GNERerouterInterval& rerouterIntervalParent, std::string newRouteId, double probability);
+    GNERouteProbReroute(GNERerouterInterval* rerouterIntervalParent, std::string newRouteId, double probability);
 
     /// @brief destructor
     ~GNERouteProbReroute();
 
-    /// @brief get new route id
-    std::string getNewRouteId() const;
-
-    /// @brief set new route id
-    void setNewRouteId(std::string newRouteId);
-
-    /// @brief get probability
-    double getProbability() const;
-
-    /// @brief set probability, if the new probability is valid
-    bool setProbability(double probability);
-
-    /// @brief get tag
-    SumoXMLTag getTag() const;
+    // @brief write destiny probability reroute
+    void writeRouteProbReroute(OutputDevice& device) const;
 
     /// @brief get rerouter interval parent
-    const GNERerouterInterval& getRerouterIntervalParent() const;
+    GNERerouterInterval* getRerouterIntervalParent() const;
 
-    /// @brief overload == operator
-    bool operator==(const GNERouteProbReroute& routeProbReroute) const;
+    /// @name inherited from GNEAttributeCarrier
+    /// @{
+    /* @brief method for getting the Attribute of an XML key
+    * @param[in] key The attribute key
+    * @return string with the value associated to key
+    */
+    std::string getAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for setting the attribute and letting the object perform additional changes
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    */
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    /* @brief method for checking if the key and their correspond attribute are valids
+    * @param[in] key The attribute key
+    * @param[in] value The value asociated to key key
+    * @return true if the value is valid, false in other case
+    */
+    bool isValid(SumoXMLAttr key, const std::string& value);
+    /// @}
 
 protected:
     /// @brief reference to rerouter interval parent
     GNERerouterInterval* myRerouterIntervalParent;
 
     /// @brief id of new route
-    /// @todo change string to GNERoute
     std::string myNewRouteId;
 
     /// @brief probability with which a vehicle will use the given edge as destination
     double myProbability;
 
-    /// @brief XML Tag of route probability reroute
-    SumoXMLTag myTag;
+private:
+    /// @brief set attribute after validation
+    void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief Invalidated copy constructor.
+    GNERouteProbReroute(const GNERouteProbReroute&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNERouteProbReroute& operator=(const GNERouteProbReroute&) = delete;
 };
 
 #endif

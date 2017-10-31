@@ -81,15 +81,15 @@ public:
     /**@brief add rerouter interval
      * @return true if was sucesfully added, false if wasn't added due overlapping
      */
-    bool addRerouterInterval(const GNERerouterInterval& rerouterInterval);
+    bool addRerouterInterval(GNERerouterInterval* rerouterInterval);
 
     /// @brief get rerouter intervals
-    const std::vector<GNERerouterInterval>& getRerouterIntervals() const;
+    const std::vector<GNERerouterInterval*>& getRerouterIntervals() const;
 
     /**@brief set rerouter intervals
      * @return true if was sucesfully set, false if wasn't set due overlapping
      */
-    bool setRerouterIntervals(const std::vector<GNERerouterInterval>& rerouterIntervals);
+    bool setRerouterIntervals(const std::vector<GNERerouterInterval*>& rerouterIntervals);
 
     /// @name Functions related with geometry of element
     /// @{
@@ -149,7 +149,7 @@ public:
     /// @}
 
     /// @brief check overlapping of a vector of rerouter intervals
-    bool checkOverlapping(std::vector<GNERerouterInterval> rerouterIntervals);
+    bool checkOverlapping(std::vector<GNERerouterInterval*> rerouterIntervals);
 
 protected:
     /// @brief position of rerouter in view
@@ -168,17 +168,17 @@ protected:
     bool myOff;
 
     /// @brief set with the GNERerouterInterval
-    std::vector<GNERerouterInterval> myRerouterIntervals;
+    std::vector<GNERerouterInterval*> myRerouterIntervals;
 
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNERerouter(const GNERerouter&);
+    GNERerouter(const GNERerouter&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNERerouter& operator=(const GNERerouter&);
+    GNERerouter& operator=(const GNERerouter&) = delete;
 };
 
 #endif

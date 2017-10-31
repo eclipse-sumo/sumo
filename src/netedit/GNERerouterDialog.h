@@ -66,7 +66,7 @@ public:
     bool findInterval(double begin, double end) const;
 
     /// @brief check if begin and end of an existent interval can be modified
-    bool checkModifyInterval(const GNERerouterInterval& rerouterInterval, double newBegin, double newEnd) const;
+    bool checkModifyInterval(GNERerouterInterval* rerouterInterval, double newBegin, double newEnd) const;
 
     /// @name FOX-callbacks
     /// @{
@@ -100,7 +100,7 @@ protected:
     FXTable* myIntervalList;
 
     /// @brief set with a copy of rerouter intervals
-    std::vector<GNERerouterInterval> myCopyOfRerouterIntervals;
+    std::vector<GNERerouterInterval*> myCopyOfRerouterIntervals;
 
     /// @brief update data table
     void updateIntervalTable();

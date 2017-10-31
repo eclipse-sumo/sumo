@@ -32,122 +32,30 @@
 #include "GNERerouterInterval.h"
 #include "GNEEdge.h"
 #include "GNELane.h"
-
+#include "GNEClosingLaneReroute.h"
+#include "GNEClosingReroute.h"
+#include "GNEDestProbReroute.h"
+#include "GNERouteProbReroute.h"
+#include "GNERerouter.h"
+#include "GNEUndoList.h"
+#include "GNEChange_Attribute.h"
+#include "GNEViewNet.h"
+#include "GNENet.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNERerouterInterval::GNERerouterInterval(GNERerouter* rerouterParent, double begin, double end) :
+    GNEAttributeCarrier(SUMO_TAG_INTERVAL, ICON_EMPTY),
     myRerouterParent(rerouterParent),
     myBegin(begin),
-    myEnd(end),
-    myTag(SUMO_TAG_INTERVAL) {
+    myEnd(end) {
     assert(begin <= end);
 }
 
 
 GNERerouterInterval::~GNERerouterInterval() {
-}
-
-
-bool
-GNERerouterInterval::insertClosinLanegReroutes(const GNEClosingLaneReroute& clr) {
-    if (std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), clr) != myClosingLaneReroutes.end()) {
-        WRITE_WARNING(toString(clr.getTag()) + " for lane '" + clr.getClosedLane()->getID() + "' was already inserted; duplicates aren't allowed");
-        return false;
-    } else {
-        myClosingLaneReroutes.push_back(clr);
-        return true;
-    }
-}
-
-
-bool
-GNERerouterInterval::removeClosingLaneReroutes(const GNEClosingLaneReroute& clr) {
-    std::vector<GNEClosingLaneReroute>::iterator i = std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), clr);
-    if (i == myClosingLaneReroutes.end()) {
-        WRITE_WARNING(toString(clr.getTag()) + " for lane '" + clr.getClosedLane()->getID() + "' wasn't previously inserted");
-        return false;
-    } else {
-        myClosingLaneReroutes.erase(i);
-        return true;
-    }
-}
-
-
-bool
-GNERerouterInterval::insertClosingReroutes(const GNEClosingReroute& cr) {
-    if (std::find(myClosingReroutes.begin(), myClosingReroutes.end(), cr) != myClosingReroutes.end()) {
-        WRITE_WARNING(toString(cr.getTag()) + " for edge '" + cr.getClosedEdge()->getID() + "' was already inserted; duplicates aren't allowed");
-        return false;
-    } else {
-        myClosingReroutes.push_back(cr);
-        return true;
-    }
-}
-
-
-bool
-GNERerouterInterval::removeClosingReroutes(const GNEClosingReroute& cr) {
-    std::vector<GNEClosingReroute>::iterator i = std::find(myClosingReroutes.begin(), myClosingReroutes.end(), cr);
-    if (i == myClosingReroutes.end()) {
-        WRITE_WARNING(toString(cr.getTag()) + " for edge '" + cr.getClosedEdge()->getID() + "' wasn't previously inserted");
-        return false;
-    } else {
-        myClosingReroutes.erase(i);
-        return true;
-    }
-}
-
-
-bool
-GNERerouterInterval::insertDestProbReroutes(const GNEDestProbReroute& dpr) {
-    if (std::find(myDestProbReroutes.begin(), myDestProbReroutes.end(), dpr) != myDestProbReroutes.end()) {
-        WRITE_WARNING(toString(dpr.getTag()) + " to edge '" + dpr.getNewDestination()->getID() + "' was already inserted; duplicates aren't allowed");
-        return false;
-    } else {
-        myDestProbReroutes.push_back(dpr);
-        return true;
-    }
-}
-
-
-bool
-GNERerouterInterval::removeDestProbReroutes(const GNEDestProbReroute& dpr) {
-    std::vector<GNEDestProbReroute>::iterator i = std::find(myDestProbReroutes.begin(), myDestProbReroutes.end(), dpr);
-    if (i == myDestProbReroutes.end()) {
-        WRITE_WARNING(toString(dpr.getTag()) + " to edge '" + dpr.getNewDestination()->getID() + "' wasn't previously inserted");
-        return false;
-    } else {
-        myDestProbReroutes.erase(i);
-        return true;
-    }
-}
-
-
-bool
-GNERerouterInterval::insertRouteProbReroute(const GNERouteProbReroute& rpr) {
-    if (std::find(myRouteProbReroutes.begin(), myRouteProbReroutes.end(), rpr) != myRouteProbReroutes.end()) {
-        WRITE_WARNING(toString(rpr.getTag()) + " for route '" + rpr.getNewRouteId() + "' was already inserted; duplicates aren't allowed");
-        return false;
-    } else {
-        myRouteProbReroutes.push_back(rpr);
-        return true;
-    }
-}
-
-
-bool
-GNERerouterInterval::removeRouteProbReroute(const GNERouteProbReroute& rpr) {
-    std::vector<GNERouteProbReroute>::iterator i = std::find(myRouteProbReroutes.begin(), myRouteProbReroutes.end(), rpr);
-    if (i == myRouteProbReroutes.end()) {
-        WRITE_WARNING(toString(rpr.getTag()) + " for route '" + rpr.getNewRouteId() + "' wasn't previously inserted");
-        return false;
-    } else {
-        myRouteProbReroutes.erase(i);
-        return true;
-    }
 }
 
 
@@ -157,145 +65,176 @@ GNERerouterInterval::getRerouterParent() const {
 }
 
 
-SumoXMLTag
-GNERerouterInterval::getTag() const {
-    return myTag;
+std::string 
+GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
+    switch (key) {
+    case SUMO_ATTR_BEGIN:
+        return toString(myBegin);
+    case SUMO_ATTR_END:
+        return toString(myEnd);
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
-double
-GNERerouterInterval::getBegin() const {
-    return myBegin;
+void 
+GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    if (value == getAttribute(key)) {
+        return; //avoid needless changes, later logic relies on the fact that attributes have changed
+    }
+    switch (key) {
+    case SUMO_ATTR_BEGIN:
+    case SUMO_ATTR_END:
+        undoList->p_add(new GNEChange_Attribute(this, key, value));
+        break;
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
-double
-GNERerouterInterval::getEnd() const {
-    return myEnd;
+bool 
+GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+    case SUMO_ATTR_BEGIN:
+        return canParse<double>(value) && parse<double>(value) <= myEnd;
+    case SUMO_ATTR_END:
+        return canParse<double>(value) && parse<double>(value) >= myBegin;
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
-void
-GNERerouterInterval::setBegin(double begin) {
-    myBegin = begin;
-}
-
-
-void
-GNERerouterInterval::setEnd(double end) {
-    myEnd = end;
-}
-
-
-const std::vector<GNEClosingLaneReroute>&
+const std::vector<GNEClosingLaneReroute*>&
 GNERerouterInterval::getClosingLaneReroutes() const {
     return myClosingLaneReroutes;
 }
 
 
-const std::vector<GNEClosingReroute>&
+const std::vector<GNEClosingReroute*>&
 GNERerouterInterval::getClosingReroutes() const {
     return myClosingReroutes;
 }
 
 
-const std::vector<GNEDestProbReroute>&
+const std::vector<GNEDestProbReroute*>&
 GNERerouterInterval::getDestProbReroutes() const {
     return myDestProbReroutes;
 }
 
 
-const std::vector<GNERouteProbReroute>&
+const std::vector<GNERouteProbReroute*>&
 GNERerouterInterval::getRouteProbReroutes() const {
     return myRouteProbReroutes;
 }
 
 
-void
-GNERerouterInterval::setClosingLaneReroutes(const std::vector<GNEClosingLaneReroute>& closingLaneReroutes) {
-    myClosingLaneReroutes = closingLaneReroutes;
-}
-
-
-void
-GNERerouterInterval::setClosingReroutes(const std::vector<GNEClosingReroute>& closingReroutes) {
-    myClosingReroutes = closingReroutes;
-}
-
-
-void
-GNERerouterInterval::setDestProbReroutes(const std::vector<GNEDestProbReroute>& destProbReroutes) {
-    myDestProbReroutes = destProbReroutes;
-}
-
-
-void
-GNERerouterInterval::setRouteProbReroutes(const std::vector<GNERouteProbReroute>& rerouteProbabilityReroutes) {
-    myRouteProbReroutes = rerouteProbabilityReroutes;
-}
-
-
-GNERerouterInterval&
-GNERerouterInterval::operator=(const GNERerouterInterval& rerouterInterval) {
-    if (this != &rerouterInterval) {
-        myRerouterParent = rerouterInterval.myRerouterParent;
-        myBegin = rerouterInterval.myBegin;
-        myEnd = rerouterInterval.myEnd;
-    }
-    return *this;
-}
-
-
-bool
-GNERerouterInterval::operator==(const GNERerouterInterval& rerouterInterval) const {
-    return (myBegin == rerouterInterval.myBegin) && (myEnd == rerouterInterval.myEnd);
-}
-
-
-bool
-GNERerouterInterval::operator>(const GNERerouterInterval& rerouterInterval) const {
-    if (myBegin > rerouterInterval.myBegin) {
-        return true;
-    } else if (myBegin == rerouterInterval.myBegin) {
-        return (myEnd > rerouterInterval.myEnd);
+void 
+GNERerouterInterval::addClosingLaneReroutes(GNEClosingLaneReroute* closingLaneReroute) {
+    auto it = std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), closingLaneReroute);
+    if(it == myClosingLaneReroutes.end()) {
+        myClosingLaneReroutes.push_back(closingLaneReroute);
     } else {
-        return false;
+        throw ProcessError("Closing lane Reroute already exist");
     }
 }
 
 
-bool
-GNERerouterInterval::operator>=(const GNERerouterInterval& rerouterInterval) const {
-    if (myBegin > rerouterInterval.myBegin) {
-        return true;
-    } else if (myBegin == rerouterInterval.myBegin) {
-        return (myEnd >= rerouterInterval.myEnd);
+void 
+GNERerouterInterval::removeClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute) {
+    auto it = std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), closingLaneReroute);
+    if(it != myClosingLaneReroutes.end()) {
+        myClosingLaneReroutes.erase(it);
     } else {
-        return false;
+        throw ProcessError("Closing lane Reroute doesn't exist");
     }
 }
 
 
-bool
-GNERerouterInterval::operator<(const GNERerouterInterval& rerouterInterval) const {
-    if (myBegin < rerouterInterval.myBegin) {
-        return true;
-    } else if (myBegin == rerouterInterval.myBegin) {
-        return (myEnd < rerouterInterval.myEnd);
+void 
+GNERerouterInterval::addClosingReroute(GNEClosingReroute* closingReroute) {
+    auto it = std::find(myClosingReroutes.begin(), myClosingReroutes.end(), closingReroute);
+    if(it != myClosingReroutes.end()) {
+        myClosingReroutes.push_back(closingReroute);
     } else {
-        return false;
+        throw ProcessError("Closing Reroute already exist");
     }
 }
 
 
-bool
-GNERerouterInterval::operator<=(const GNERerouterInterval& rerouterInterval) const {
-    if (myBegin < rerouterInterval.myBegin) {
-        return true;
-    } else if (myBegin == rerouterInterval.myBegin) {
-        return (myEnd <= rerouterInterval.myEnd);
+void 
+GNERerouterInterval::removeClosingReroute(GNEClosingReroute* closingReroute) {
+    auto it = std::find(myClosingReroutes.begin(), myClosingReroutes.end(), closingReroute);
+    if(it != myClosingReroutes.end()) {
+        myClosingReroutes.erase(it);
     } else {
-        return false;
+        throw ProcessError("Closing Reroute doesn't exist");
+    }
+}
+
+
+void 
+GNERerouterInterval::addDestProbReroute(GNEDestProbReroute* destProbReroute) {
+    auto it = std::find(myDestProbReroutes.begin(), myDestProbReroutes.end(), destProbReroute);
+    if(it == myDestProbReroutes.end()) {
+        myDestProbReroutes.push_back(destProbReroute);
+    } else {
+        throw ProcessError("Destiny Probability Reroute already exist");
+    }
+}
+
+
+void 
+GNERerouterInterval::removeDestProbReroute(GNEDestProbReroute* destProbReroute) {
+    auto it = std::find(myDestProbReroutes.begin(), myDestProbReroutes.end(), destProbReroute);
+    if(it != myDestProbReroutes.end()) {
+        myDestProbReroutes.erase(it);
+    } else {
+        throw ProcessError("Destiny Probability Reroute doesn't exist");
+    }
+}
+
+
+void 
+GNERerouterInterval::addRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute) {
+    auto it = std::find(myRouteProbReroutes.begin(), myRouteProbReroutes.end(), routeProbabilityReroute);
+    if(it == myRouteProbReroutes.end()) {
+        myRouteProbReroutes.push_back(routeProbabilityReroute);
+    } else {
+        throw ProcessError("Route Probability Reroute already exist");
+    }
+}
+
+
+void 
+GNERerouterInterval::removeRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute) {
+    auto it = std::find(myRouteProbReroutes.begin(), myRouteProbReroutes.end(), routeProbabilityReroute);
+    if(it != myRouteProbReroutes.end()) {
+        myRouteProbReroutes.erase(it);
+    } else {
+        throw ProcessError("Route Probability Reroute doesn't exist");
+    }
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
+
+void 
+GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+    case SUMO_ATTR_BEGIN: {
+        myBegin = parse<double>(value);
+        break;
+    }
+    case SUMO_ATTR_END: {
+        myEnd = parse<double>(value);
+        break;
+    }
+    default:
+        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

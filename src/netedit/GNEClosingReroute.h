@@ -34,6 +34,8 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
+#include "GNEAttributeCarrier.h"
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -49,41 +51,43 @@ class GNERerouterInterval;
  * the rerouter to close the street (edge)
  */
 
-class GNEClosingReroute {
+class GNEClosingReroute : public GNEAttributeCarrier{
 public:
     /// @brief constructor
-    GNEClosingReroute(GNERerouterInterval& rerouterIntervalParent, GNEEdge* closedEdge,
+    GNEClosingReroute(GNERerouterInterval* rerouterIntervalParent, GNEEdge* closedEdge,
                       SVCPermissions allowedVehicles = SVC_IGNORING, SVCPermissions disallowedVehicles = SVC_IGNORING);
 
     /// @brief destructor
     ~GNEClosingReroute();
 
-    /// @brief get allowed vehicles
-    SVCPermissions getAllowedVehicles() const;
-
-    /// @brief get disallowed vehicles
-    SVCPermissions getDisallowedVehicles() const;
-
-    /// @brief set allowed vehicles
-    void setAllowedVehicles(SVCPermissions allowed);
-
-    /// @brief set disallowed vehicles
-    void setDisallowedVehicles(SVCPermissions disallowed);
-
-    /// @brief get closed edge
-    GNEEdge* getClosedEdge() const;
-
-    /// @brief set closed edge
-    void setClosedEdge(GNEEdge* edge);
-
-    /// @brief get tag
-    SumoXMLTag getTag() const;
+    /// @brief write ClosingReroute
+    void writeClosingReroute(OutputDevice& device) const;
 
     /// @brief get rerouter interval parent
-    const GNERerouterInterval& getRerouterIntervalParent() const;
+    GNERerouterInterval* getRerouterIntervalParent() const;
 
-    /// @brief overload operator ==
-    bool operator==(const GNEClosingReroute& closingReroute) const;
+    /// @name inherited from GNEAttributeCarrier
+    /// @{
+    /* @brief method for getting the Attribute of an XML key
+    * @param[in] key The attribute key
+    * @return string with the value associated to key
+    */
+    std::string getAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for setting the attribute and letting the object perform additional changes
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    */
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    /* @brief method for checking if the key and their correspond attribute are valids
+    * @param[in] key The attribute key
+    * @param[in] value The value asociated to key key
+    * @return true if the value is valid, false in other case
+    */
+    bool isValid(SumoXMLAttr key, const std::string& value);
+    /// @}
 
 protected:
     /// @brief reference to rerouter interval parent
@@ -98,8 +102,15 @@ protected:
     /// @brief codified disallowed vehicles
     SVCPermissions myDisallowedVehicles;
 
-    /// @brief XML Tag of closing reroute
-    SumoXMLTag myTag;
+private:
+    /// @brief set attribute after validation
+    void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief Invalidated copy constructor.
+    GNEClosingReroute(const GNEClosingReroute&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNEClosingReroute& operator=(const GNEClosingReroute&) = delete;
 };
 
 #endif

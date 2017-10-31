@@ -32,12 +32,18 @@
 #include <vector>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include "GNERerouter.h"
 
-#include "GNEClosingLaneReroute.h"
-#include "GNEClosingReroute.h"
-#include "GNEDestProbReroute.h"
-#include "GNERouteProbReroute.h"
+#include "GNEAttributeCarrier.h"
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+
+class GNERerouter;
+class GNEClosingLaneReroute;
+class GNEClosingReroute;
+class GNEDestProbReroute;
+class GNERouteProbReroute;
 
 // ===========================================================================
 // class definitions
@@ -46,7 +52,7 @@
  * @class GNERerouterInterval
  * class used to represent a interval used in rerouters
  */
-class GNERerouterInterval {
+class GNERerouterInterval : public GNEAttributeCarrier {
 public:
     /// @brief constructor
     GNERerouterInterval(GNERerouter* rerouterParent, double begin, double end);
@@ -54,105 +60,67 @@ public:
     /// @brief destructor
     ~GNERerouterInterval();
 
-    /**@brief insert a new closing lane reroute
-     * @return true if insertion was sucesfully, false if is duplicated
-     */
-    bool insertClosinLanegReroutes(const GNEClosingLaneReroute& clr);
-
-    /**@brief remove a previously inserted closing reroute
-     * @return true if deletetion was sucesfully, false if wasn't found
-     */
-    bool removeClosingLaneReroutes(const GNEClosingLaneReroute& clr);
-
-    /**@brief insert a new closing lane reroute
-     * @return true if insertion was sucesfully, false if is duplicated
-     */
-    bool insertClosingReroutes(const GNEClosingReroute& cr);
-
-    /**@brief remove a previously inserted closing reroute
-     * @return true if deletetion was sucesfully, false if wasn't found
-     */
-    bool removeClosingReroutes(const GNEClosingReroute& cr);
-
-    /**@brief insert destiny probability reroute
-     * @return true if deletetion was sucesfully, false if wasn't found
-     */
-    bool insertDestProbReroutes(const GNEDestProbReroute& dpr);
-
-    /**@brief remove a previously inserted destiny probability reroute
-     * @return true if deletetion was sucesfully, false if wasn't found
-     */
-    bool removeDestProbReroutes(const GNEDestProbReroute& dpr);
-
-    /**@brief insert route probability reroute
-     * @return true if insertion was sucesfully, false if is duplicated
-     */
-    bool insertRouteProbReroute(const GNERouteProbReroute& rpr);
-
-    /**@brief remove a previously inserted route probability reroute
-     * @return true if deletetion was sucesfully, false if wasn't found
-     */
-    bool removeRouteProbReroute(const GNERouteProbReroute& rpr);
-
     /// @brief get rerouter parent
     GNERerouter* getRerouterParent() const;
 
-    /// @brief get tag
-    SumoXMLTag getTag() const;
+    /// @name inherited from GNEAttributeCarrier
+    /// @{
+    /* @brief method for getting the Attribute of an XML key
+    * @param[in] key The attribute key
+    * @return string with the value associated to key
+    */
+    std::string getAttribute(SumoXMLAttr key) const;
 
-    /// @brief get begin time
-    double getBegin() const;
+    /* @brief method for setting the attribute and letting the object perform additional changes
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    */
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
-    /// @brief get end time
-    double getEnd() const;
-
-    /// @brief set begin time
-    void setBegin(double begin);
-
-    /// @brief set end time
-    void setEnd(double end);
+    /* @brief method for checking if the key and their correspond attribute are valids
+    * @param[in] key The attribute key
+    * @param[in] value The value asociated to key key
+    * @return true if the value is valid, false in other case
+    */
+    bool isValid(SumoXMLAttr key, const std::string& value);
+    /// @}
 
     /// @brief get closing reroutes
-    const std::vector<GNEClosingLaneReroute>& getClosingLaneReroutes() const;
+    const std::vector<GNEClosingLaneReroute*>& getClosingLaneReroutes() const;
 
     /// @brief get closing reroutes
-    const std::vector<GNEClosingReroute>& getClosingReroutes() const;
+    const std::vector<GNEClosingReroute*>& getClosingReroutes() const;
 
     /// @brief get destiny probability reroutes
-    const std::vector<GNEDestProbReroute>& getDestProbReroutes() const;
+    const std::vector<GNEDestProbReroute*>& getDestProbReroutes() const;
 
     /// @brief get reoute probability reroutes
-    const std::vector<GNERouteProbReroute>& getRouteProbReroutes() const;
+    const std::vector<GNERouteProbReroute*>& getRouteProbReroutes() const;
 
-    /// @brief set closing reroutes
-    void setClosingLaneReroutes(const std::vector<GNEClosingLaneReroute>& closingLaneReroutes);
+    /// @brief add closing reroute
+    void addClosingLaneReroutes(GNEClosingLaneReroute* closingLaneReroute);
 
-    /// @brief set closing reroutes
-    void setClosingReroutes(const std::vector<GNEClosingReroute>& closingReroutes);
+    /// @brief add closing reroute
+    void removeClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute);
 
-    /// @brief set destiny probability reroutes
-    void setDestProbReroutes(const std::vector<GNEDestProbReroute>& destProbReroutes);
+    /// @brief add closing reroute
+    void addClosingReroute(GNEClosingReroute* closingReroute);
 
-    /// @brief set reoute probability reroutes
-    void setRouteProbReroutes(const std::vector<GNERouteProbReroute>& rerouteProbabilityReroutes);
+    /// @brief add closing reroute
+    void removeClosingReroute(GNEClosingReroute* closingReroute);
 
-    /// @brief overload operator =
-    GNERerouterInterval& operator=(const GNERerouterInterval& rerouterInterval);
+    /// @brief add destiny probability reroute
+    void addDestProbReroute(GNEDestProbReroute* destProbReroute);
 
-    /// @brief overload operator =
-    bool operator==(const GNERerouterInterval& rerouterInterval) const;
+    /// @brief add destiny probability reroute
+    void removeDestProbReroute(GNEDestProbReroute* destProbReroute);
 
-    /// @brief overload operator >
-    bool operator>(const GNERerouterInterval& rerouterInterval) const;
+    /// @brief add reoute probability reroute
+    void addRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute);
 
-    /// @brief overload operator >=
-    bool operator>=(const GNERerouterInterval& rerouterInterval) const;
-
-    /// @brief overload operator <
-    bool operator<(const GNERerouterInterval& rerouterInterval) const;
-
-    /// @brief overload operator <=
-    bool operator<=(const GNERerouterInterval& rerouterInterval) const;
+    /// @brief add reoute probability reroute
+    void removeRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute);
 
 protected:
     /// @brief pointer to rerouter parent
@@ -164,20 +132,27 @@ protected:
     /// @brief end timeStep
     double myEnd;
 
-    /// @brief XML Tag of a rerouter interval
-    SumoXMLTag myTag;
-
     /// @brief vector with the closingLaneReroutes
-    std::vector<GNEClosingLaneReroute> myClosingLaneReroutes;
+    std::vector<GNEClosingLaneReroute*> myClosingLaneReroutes;
 
     /// @brief vector with the closingReroutes
-    std::vector<GNEClosingReroute> myClosingReroutes;
+    std::vector<GNEClosingReroute*> myClosingReroutes;
 
     /// @brief vector with the destProbReroutes
-    std::vector<GNEDestProbReroute> myDestProbReroutes;
+    std::vector<GNEDestProbReroute*> myDestProbReroutes;
 
     /// @brief vector with the routeProbReroutes
-    std::vector<GNERouteProbReroute> myRouteProbReroutes;
+    std::vector<GNERouteProbReroute*> myRouteProbReroutes;
+
+private:
+    /// @brief set attribute after validation
+    void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief Invalidated copy constructor.
+    GNERerouterInterval(GNERerouterInterval*) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNERerouterInterval& operator=(GNERerouterInterval*) = delete;
 };
 
 #endif
