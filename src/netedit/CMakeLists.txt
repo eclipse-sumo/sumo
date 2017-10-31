@@ -62,8 +62,8 @@ set(netedit_SRCS
    GNEChange_Selection.cpp
    GNEChange_Additional.h
    GNEChange_Additional.cpp
-   GNEChange_RerouterInterval.h
-   GNEChange_RerouterInterval.cpp
+   GNEChange_RerouterItem.h
+   GNEChange_RerouterItem.cpp
    GNEChange_CalibratorItem.h
    GNEChange_CalibratorItem.cpp
    GNEChange_Shape.h

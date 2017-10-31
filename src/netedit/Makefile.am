@@ -45,7 +45,7 @@ GNEChange_Attribute.h GNEChange_Attribute.cpp \
 GNEChange_TLS.h GNEChange_TLS.cpp \
 GNEChange_Selection.h GNEChange_Selection.cpp \
 GNEChange_Additional.h GNEChange_Additional.cpp \
-GNEChange_RerouterInterval.h GNEChange_RerouterInterval.cpp \
+GNEChange_RerouterItem.h GNEChange_RerouterItem.cpp \
 GNEChange_CalibratorItem.h GNEChange_CalibratorItem.cpp \
 GNEChange_Shape.h GNEChange_Shape.cpp \
 GNEUndoList.h GNEUndoList.cpp \

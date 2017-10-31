@@ -336,7 +336,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNEChange_CalibratorItem.cpp">
       <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_RerouterInterval.cpp">
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_RerouterItem.cpp">
       <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSign.cpp">
@@ -568,7 +568,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNEChange_CalibratorItem.h">
       <Filter>Header-Dateien\Items\Changes\Additionals</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_RerouterInterval.h">
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_RerouterItem.h">
       <Filter>Header-Dateien\Items\Changes\Additionals</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEChange_TLS.h">
