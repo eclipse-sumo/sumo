@@ -33,16 +33,17 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 
-#include "GNECalibratorDialog.h"
-#include "GNECalibrator.h"
 #include "GNEChange_CalibratorItem.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"
+#include "GNECalibratorDialog.h"
 #include "GNECalibratorFlowDialog.h"
 #include "GNECalibratorRouteDialog.h"
 #include "GNECalibratorVehicleTypeDialog.h"
 #include "GNEUndoList.h"
+#include "GNECalibrator.h"
 #include "GNECalibratorFlow.h"
+#include "GNECalibratorVehicleType.h"
 
 
 // ===========================================================================

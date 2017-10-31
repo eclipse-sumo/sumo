@@ -9,9 +9,9 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    GNEChange_Attribute.cpp
+/// @file    GNEChange_CalibratorItem.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Nov 1017
+/// @date    Nov 2017
 /// @version $Id$
 ///
 // A change in the values of Calibrators in netedit
@@ -32,9 +32,8 @@
 #include <fx.h>
 #include <utils/foxtools/fxexdefs.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+
 #include "GNEChange.h"
-#include "GNECalibratorRoute.h"
-#include "GNECalibratorVehicleType.h"
 
 // ===========================================================================
 // class declarations
@@ -56,20 +55,20 @@ class GNEChange_CalibratorItem : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_CalibratorItem)
 
 public:
-    /**@brief Constructor for modifying selection
-    * @param[in] calibratorFlow calibrator flow to be added
+    /**@brief Constructor
+    * @param[in] calibratorFlow calibrator flow to be added or removed
     * @param[in] forward Whether to create/delete (true/false)
     */
     GNEChange_CalibratorItem(GNECalibratorFlow* calibratorFlow, bool forward);
 
-    /**@brief Constructor for modifying selection
-    * @param[in] calibratorRoute calibrator route to be added
+    /**@brief Constructor
+    * @param[in] calibratorRoute calibrator route to be added or removed
     * @param[in] forward Whether to create/delete (true/false)
     */
     GNEChange_CalibratorItem(GNECalibratorRoute* calibratorRoute, bool forward);
 
-    /**@brief Constructor for modifying selection
-    * @param[in] calibratorVehicleType calibrator vehicle type to be added
+    /**@brief Constructor
+    * @param[in] calibratorVehicleType calibrator vehicle type to be added or removed
     * @param[in] forward Whether to create/delete (true/false)
     */
     GNEChange_CalibratorItem(GNECalibratorVehicleType* calibratorVehicleType, bool forward);
@@ -93,7 +92,7 @@ public:
     /// @}
 
 private:
-    /// @brief  modified calibrator flow
+    /// @brief modified calibrator flow
     GNECalibratorFlow* myCalibratorFlow;
 
     /// @brief modified calibrator route

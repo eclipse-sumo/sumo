@@ -9,9 +9,9 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    GNEChange_Attribute.cpp
+/// @file    GNEChange_CalibratorItem.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Nov 1017
+/// @date    Nov 2017
 /// @version $Id$
 ///
 // A change in the values of Calibrators in netedit
