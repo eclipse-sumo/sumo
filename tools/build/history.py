@@ -44,7 +44,7 @@ try:
             h = line.split()[1]
             commits[h] = subprocess.check_output(["git", "describe", h]).strip()
     for h, desc in sorted(commits.items(), key=lambda x: x[1]):
-        if not os.path.exists('bin%s' % desc):
+        if not os.path.exists('../bin%s' % desc):
             ret = subprocess.call(["git", "checkout", "-q", h])
             if ret != 0:
                 break

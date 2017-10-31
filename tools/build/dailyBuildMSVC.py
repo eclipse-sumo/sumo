@@ -101,23 +101,21 @@ optParser.add_option("-r", "--root-dir", dest="rootDir",
                      default=r"D:\Sumo", help="root for git and log output")
 optParser.add_option(
     "-s", "--suffix", default="", help="suffix to the fileprefix")
-optParser.add_option("-p", "--project", default=r"trunk\sumo\build\msvc10\prj.sln",
+optParser.add_option("-p", "--project", default=r"git\sumo\build\msvc10\prj.sln",
                      help="path to project solution relative to the root dir")
-optParser.add_option("-b", "--bin-dir", dest="binDir", default=r"trunk\sumo\bin",
+optParser.add_option("-b", "--bin-dir", dest="binDir", default=r"git\sumo\bin",
                      help="directory containg the binaries, relative to the root dir")
-optParser.add_option("-t", "--tests-dir", dest="testsDir", default=r"trunk\sumo\tests",
+optParser.add_option("-t", "--tests-dir", dest="testsDir", default=r"git\sumo\tests",
                      help="directory containg the tests, relative to the root dir")
 optParser.add_option("-m", "--remote-dir", dest="remoteDir",
                      default=r"O:\Daten\Sumo\daily",
                      help="directory to move the results to")
 optParser.add_option("-l", "--add-solution", dest="addSln",
-                     default=r"trunk\sumo\build\msvc10\tools.sln",
+                     default=r"git\sumo\build\msvc10\tools.sln",
                      help="path to an additional solution to build")
 optParser.add_option("-d", "--dll-dirs", dest="dllDirs",
                      default=r"Win32:bin,x64:bin64",
                      help="path to dependency dlls for the relevant platforms")
-optParser.add_option("-f", "--force", action="store_true",
-                     default=False, help="force rebuild even if no source changed")
 optParser.add_option("-u", "--no-update", action="store_true",
                      default=False, help="skip repository update")
 optParser.add_option("-n", "--no-tests", action="store_true",
