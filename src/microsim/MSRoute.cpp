@@ -282,7 +282,7 @@ MSRoute::getDistanceBetween(double fromPos, double toPos,
     if (fromEdge->isInternal()) {
         const MSEdge* pred = fromEdge->getPredecessors().front();
         assert(pred != 0);
-        return fromPos + getDistanceBetween(pred->getLength(), toPos, pred, toEdge, includeInternal);
+        return getDistanceBetween(pred->getLength(), toPos, pred, toEdge, includeInternal) - fromPos;
     }
     if (toEdge->isInternal()) {
         const MSEdge* pred = toEdge->getPredecessors().front();

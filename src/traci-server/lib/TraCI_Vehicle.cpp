@@ -411,7 +411,7 @@ TraCI_Vehicle::getDrivingDistance(const std::string& vehicleID, const std::strin
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
         double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), position,
-                          veh->getEdge(), TraCI::getEdge(edgeID));
+                          &veh->getLane()->getEdge(), TraCI::getEdge(edgeID));
         if (distance == std::numeric_limits<double>::max()) {
             return INVALID_DOUBLE_VALUE;
         }
