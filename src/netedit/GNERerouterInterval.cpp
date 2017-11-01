@@ -41,17 +41,25 @@
 #include "GNEChange_Attribute.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"
+#include "GNERerouterDialog.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
+GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
+    GNEAttributeCarrier(SUMO_TAG_INTERVAL, ICON_EMPTY),
+    myRerouterParent(rerouterDialog->getEditedRerouter()),
+    myBegin(getDefaultValue<double>(SUMO_TAG_INTERVAL, SUMO_ATTR_BEGIN)),
+    myEnd(getDefaultValue<double>(SUMO_TAG_INTERVAL, SUMO_ATTR_END)) {
+}
+
 
 GNERerouterInterval::GNERerouterInterval(GNERerouter* rerouterParent, double begin, double end) :
     GNEAttributeCarrier(SUMO_TAG_INTERVAL, ICON_EMPTY),
     myRerouterParent(rerouterParent),
     myBegin(begin),
     myEnd(end) {
-    assert(begin <= end);
 }
 
 
@@ -186,7 +194,7 @@ GNERerouterInterval::removeClosingLaneReroute(GNEClosingLaneReroute* closingLane
 void 
 GNERerouterInterval::addClosingReroute(GNEClosingReroute* closingReroute) {
     auto it = std::find(myClosingReroutes.begin(), myClosingReroutes.end(), closingReroute);
-    if(it != myClosingReroutes.end()) {
+    if(it == myClosingReroutes.end()) {
         myClosingReroutes.push_back(closingReroute);
     } else {
         throw ProcessError("Closing Reroute already exist");

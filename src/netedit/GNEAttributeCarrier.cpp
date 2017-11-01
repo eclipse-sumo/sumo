@@ -562,12 +562,12 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_CLOSING_REROUTE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ALLOW, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ALLOW, "all"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DISALLOW, ""));
                 break;
             case SUMO_TAG_CLOSING_LANE_REROUTE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ALLOW, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ALLOW, "all"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DISALLOW, ""));
                 break;
             case SUMO_TAG_DEST_PROB_REROUTE:
@@ -1524,6 +1524,8 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_VTYPE][SUMO_ATTR_LATALIGNMENT] = "The preferred lateral alignment when using the sublane-model";
         myAttrDefinitions[SUMO_TAG_VTYPE][SUMO_ATTR_MINGAP_LAT] = "The minimum lateral gap at a speed difference of 50km/h when using the sublane-model";
         myAttrDefinitions[SUMO_TAG_VTYPE][SUMO_ATTR_MAXSPEED_LAT] = "The maximum lateral speed when using the sublane-model";
+    
+        /***** COMPLETE REROUTER VALUES ****/
     }
     return myAttrDefinitions[tag][attr];
 }

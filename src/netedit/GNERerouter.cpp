@@ -382,13 +382,23 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
 
 void 
 GNERerouter::addRerouterInterval(GNERerouterInterval* rerouterInterval) {
-
+    auto it = std::find(myRerouterIntervals.begin(), myRerouterIntervals.end(), rerouterInterval);
+    if(it == myRerouterIntervals.end()) {
+        myRerouterIntervals.push_back(rerouterInterval);
+    } else {
+        throw ProcessError("Rerouter Interval already exist");
+    }
 }
 
 
 void 
 GNERerouter::removeRerouterInterval(GNERerouterInterval* rerouterInterval) {
-
+    auto it = std::find(myRerouterIntervals.begin(), myRerouterIntervals.end(), rerouterInterval);
+    if(it != myRerouterIntervals.end()) {
+        myRerouterIntervals.erase(it);
+    } else {
+        throw ProcessError("Rerouter Interval doesn't exist");
+    }
 }
 
 

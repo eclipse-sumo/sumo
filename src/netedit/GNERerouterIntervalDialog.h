@@ -41,7 +41,7 @@
 // class declarations
 // ===========================================================================
 
-class GNERerouterDialog;
+class GNERerouterInterval;
 
 
 // ===========================================================================
@@ -59,10 +59,13 @@ class GNERerouterIntervalDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNERerouterIntervalDialog(GNERerouterDialog* rerouterDialog, GNERerouterInterval& rerouterInterval);
+    GNERerouterIntervalDialog(GNERerouterInterval* rerouterInterval);
 
     /// @brief destructor
     ~GNERerouterIntervalDialog();
+
+    /// @brief get edited Rerouter Interval
+    GNERerouterInterval* getEditedRerouterInterval() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -120,9 +123,6 @@ protected:
     /// @brief FOX needs this
     GNERerouterIntervalDialog() {}
 
-    /// @brief pointer to GNERerouterDialog parent
-    GNERerouterDialog* myRerouterDialogParent;
-
     /// @brief pointer to rerouter interval
     GNERerouterInterval* myRerouterInterval;
 
@@ -162,30 +162,19 @@ protected:
     /// @brief flag to check if begin an end are valid
     bool myBeginEndValid;
 
-    /// @brief vector with the closingLaneReroutes
-    std::vector<GNEClosingLaneReroute*> myCopyOfClosingLaneReroutes;
-
     /// @brief flag to check if closing lane reroutes are valid
     bool myClosingLaneReroutesValid;
-
-    /// @brief vector with a copy of the closingReroutes
-    std::vector<GNEClosingReroute*> myCopyOfClosingReroutes;
 
     /// @brief flag to check if closing reroutes are valid
     bool myClosingReroutesValid;
 
-    /// @brief vector with a copy of the destProbReroutes
-    std::vector<GNEDestProbReroute*> myCopyOfDestProbReroutes;
-
     /// @brief flag to check if Destiny probability reroutes are valid
     bool myDestProbReroutesValid;
-
-    /// @brief vector with a copy of the routeProbReroutes
-    std::vector<GNERouteProbReroute*> myCopyOfRouteProbReroutes;
 
     /// @brief flag to check if route prob reroutes are valid
     bool myRouteProbReroutesValid;
 
+private:
     /// @brief update data of closing lane reroute table
     void updateClosingLaneReroutesTable();
 
@@ -198,12 +187,11 @@ protected:
     /// @brief update data of probabilitry reroutes table
     void updateRouteProbReroutesTable();
 
-private:
     /// @brief Invalidated copy constructor.
-    GNERerouterIntervalDialog(const GNERerouterIntervalDialog&);
+    GNERerouterIntervalDialog(const GNERerouterIntervalDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNERerouterIntervalDialog& operator=(const GNERerouterIntervalDialog&);
+    GNERerouterIntervalDialog& operator=(const GNERerouterIntervalDialog&) = delete;
 };
 
 #endif

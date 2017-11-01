@@ -40,6 +40,7 @@
 // ===========================================================================
 
 class GNERerouter;
+class GNERerouterDialog;
 class GNEClosingLaneReroute;
 class GNEClosingReroute;
 class GNEDestProbReroute;
@@ -57,6 +58,9 @@ class GNERerouterInterval : public GNEAttributeCarrier {
     friend class GNEChange_RerouterItem;
 
 public:
+    /// @brief constructor (Used in GNERerouterDialog)
+    GNERerouterInterval(GNERerouterDialog* rerouterDialog);
+
     /// @brief constructor
     GNERerouterInterval(GNERerouter* rerouterParent, double begin, double end);
 

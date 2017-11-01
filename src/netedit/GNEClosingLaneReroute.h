@@ -42,6 +42,7 @@
 
 class GNELane;
 class GNERerouterInterval;
+class GNERerouterIntervalDialog;
 
 // ===========================================================================
 // class definitions
@@ -52,6 +53,9 @@ class GNERerouterInterval;
  */
 class GNEClosingLaneReroute : public GNEAttributeCarrier {
 public:
+    /// @brief constructor (Used in GNERerouterIntervalDialog)
+    GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouterIntervalDialog);
+
     /// @brief constructor
     GNEClosingLaneReroute(GNERerouterInterval* rerouterIntervalParent, GNELane* closedLane,
                           SVCPermissions allowedVehicles = SVC_IGNORING, SVCPermissions disallowedVehicles = SVC_IGNORING);

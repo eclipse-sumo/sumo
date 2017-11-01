@@ -36,10 +36,19 @@
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNERerouterInterval.h"
+#include "GNERerouterIntervalDialog.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
+GNEDestProbReroute::GNEDestProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
+    GNEAttributeCarrier(SUMO_TAG_DEST_PROB_REROUTE, ICON_EMPTY),
+    myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
+    myNewEdgeDestination(rerouterIntervalDialog->getEditedRerouterInterval()->getRerouterParent()->getEdgeChilds().at(0)),
+    myProbability(getDefaultValue<double>(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_ATTR_PROB)) {
+}
+
 
 GNEDestProbReroute::GNEDestProbReroute(GNERerouterInterval* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
     GNEAttributeCarrier(SUMO_TAG_DEST_PROB_REROUTE, ICON_EMPTY),

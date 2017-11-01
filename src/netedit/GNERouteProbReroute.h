@@ -41,6 +41,7 @@
 
 class GNEEdge;
 class GNERerouterInterval;
+class GNERerouterIntervalDialog;
 
 // ===========================================================================
 // class definitions
@@ -52,6 +53,9 @@ class GNERerouterInterval;
  */
 class GNERouteProbReroute : public GNEAttributeCarrier {
 public:
+    /// @brief constructor (Used in GNERerouterIntervalDialog)
+    GNERouteProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog);
+
     /// @brief constructor
     GNERouteProbReroute(GNERerouterInterval* rerouterIntervalParent, std::string newRouteId, double probability);
 

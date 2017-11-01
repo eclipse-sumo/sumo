@@ -42,6 +42,7 @@
 
 class GNEEdge;
 class GNERerouterInterval;
+class GNERerouterIntervalDialog;
 
 // ===========================================================================
 // class definitions
@@ -50,9 +51,11 @@ class GNERerouterInterval;
  * @class GNEClosingReroute
  * the rerouter to close the street (edge)
  */
-
 class GNEClosingReroute : public GNEAttributeCarrier{
 public:
+    /// @brief constructor (Used in GNERerouterIntervalDialog)
+    GNEClosingReroute(GNERerouterIntervalDialog* rerouterIntervalDialog);
+
     /// @brief constructor
     GNEClosingReroute(GNERerouterInterval* rerouterIntervalParent, GNEEdge* closedEdge,
                       SVCPermissions allowedVehicles = SVC_IGNORING, SVCPermissions disallowedVehicles = SVC_IGNORING);

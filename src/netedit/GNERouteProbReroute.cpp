@@ -33,10 +33,19 @@
 #include "GNEChange_Attribute.h"
 #include "GNEUndoList.h"
 #include "GNERerouter.h"
+#include "GNERerouterIntervalDialog.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
+GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
+    GNEAttributeCarrier(SUMO_TAG_ROUTE_PROB_REROUTE, ICON_EMPTY),
+    myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
+    myNewRouteId(getDefaultValue<std::string>(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_ATTR_ID)),
+    myProbability(getDefaultValue<double>(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_ATTR_PROB)) {
+}
+
 
 GNERouteProbReroute::GNERouteProbReroute(GNERerouterInterval* rerouterIntervalParent, std::string newRouteId, double probability) :
     GNEAttributeCarrier(SUMO_TAG_ROUTE_PROB_REROUTE, ICON_EMPTY),

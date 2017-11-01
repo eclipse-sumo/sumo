@@ -55,7 +55,7 @@ FXIMPLEMENT(GNERerouterDialog, GNEAdditionalDialog, GNERerouterDialogMap, ARRAYN
 
 GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     GNEAdditionalDialog(rerouterParent, 320, 240),
-    myRerouterParent(rerouterParent) {
+    myEditedRerouter(rerouterParent) {
 
     // create add buton and label
     FXHorizontalFrame* buttonAndLabelInterval = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -67,7 +67,7 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     myIntervalList->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myIntervalList->setSelTextColor(FXRGBA(0, 0, 0, 255));
     myIntervalList->setEditable(false);
-    myCopyOfRerouterIntervals = myRerouterParent->getRerouterIntervals();
+    myCopyOfRerouterIntervals = myEditedRerouter->getRerouterIntervals();
     updateIntervalTable();
 
     // Open dialog as modal
@@ -80,8 +80,8 @@ GNERerouterDialog::~GNERerouterDialog() {
 
 
 GNERerouter*
-GNERerouterDialog::getRerouterParent() const {
-    return myRerouterParent;
+GNERerouterDialog::getEditedRerouter() const {
+    return myEditedRerouter;
 }
 
 
@@ -124,7 +124,7 @@ GNERerouterDialog::checkModifyInterval(GNERerouterInterval* rerouterInterval, do
         */
     }
     // check overlapping
-    if (myRerouterParent->checkOverlapping(auxCopyOfRerouterIntervals)) {
+    if (myEditedRerouter->checkOverlapping(auxCopyOfRerouterIntervals)) {
         return true;
     } else {
         return false;
@@ -138,7 +138,7 @@ GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // in this point we need to use GNEChange_RerouterInterval to allow undo/redos of rerouterIntervals
     // see Ticket #2844
     // set new intervals into rerouter
-    myRerouterParent->setRerouterIntervals(myCopyOfRerouterIntervals);
+    myEditedRerouter->setRerouterIntervals(myCopyOfRerouterIntervals);
     */
     // Stop Modal
     getApp()->stopModal(this, TRUE);
@@ -157,7 +157,7 @@ GNERerouterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 long
 GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // Copy original intervals again and update table
-    myCopyOfRerouterIntervals = myRerouterParent->getRerouterIntervals();
+    myCopyOfRerouterIntervals = myEditedRerouter->getRerouterIntervals();
     updateIntervalTable();
     return 1;
 }
@@ -166,8 +166,8 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 long
 GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
     // create empty rerouter interval and configure it with GNERerouterIntervalDialog
-    GNERerouterInterval newInterval(myRerouterParent, 0, 0);
-    if (GNERerouterIntervalDialog(this, newInterval).openAsModalDialog() == TRUE) {
+    GNERerouterInterval *newInterval = new GNERerouterInterval(myEditedRerouter, 0, 0);
+    if (GNERerouterIntervalDialog(newInterval).openAsModalDialog() == TRUE) {
         // if new interval was sucesfully configured, add it to myCopyOfRerouterIntervals
         /*
         myCopyOfRerouterIntervals.push_back(newInterval);

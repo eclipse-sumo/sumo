@@ -30,17 +30,28 @@
 
 #include "GNEClosingLaneReroute.h"
 #include "GNELane.h"
+#include "GNEEdge.h"
 #include "GNEUndoList.h"
 #include "GNEChange_Attribute.h"
 #include "GNERerouter.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNERerouterInterval.h"
+#include "GNERerouterIntervalDialog.h"
 
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
+GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
+    GNEAttributeCarrier(SUMO_TAG_CLOSING_LANE_REROUTE, ICON_EMPTY),
+    myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
+    myClosedLane(rerouterIntervalDialog->getEditedRerouterInterval()->getRerouterParent()->getEdgeChilds().at(0)->getLanes().at(0)),
+    myAllowedVehicles(parseVehicleClasses(getDefaultValue<std::string>(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_ALLOW))),
+    myDisallowedVehicles(parseVehicleClasses(getDefaultValue<std::string>(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_DISALLOW))) {
+}
+
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval* rerouterIntervalParent, GNELane* closedLane, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles) :
     GNEAttributeCarrier(SUMO_TAG_CLOSING_LANE_REROUTE, ICON_EMPTY),

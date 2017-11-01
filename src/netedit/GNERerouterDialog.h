@@ -59,8 +59,8 @@ public:
     /// @brief destructor
     ~GNERerouterDialog();
 
-    /// @brief get rerouter parent
-    GNERerouter* getRerouterParent() const;
+    /// @brief get edited rerouter
+    GNERerouter* getEditedRerouter() const;
 
     /// @brief check if a interval exists
     bool findInterval(double begin, double end) const;
@@ -90,8 +90,8 @@ protected:
     /// @brief FOX needs this
     GNERerouterDialog() {}
 
-    /// @brief pointer to rerouter parent
-    GNERerouter* myRerouterParent;
+    /// @brief pointer to edited rerouter
+    GNERerouter* myEditedRerouter;
 
     /// @brief button for add new interval
     FXButton* myAddInterval;
@@ -107,10 +107,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNERerouterDialog(const GNERerouterDialog&);
+    GNERerouterDialog(const GNERerouterDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNERerouterDialog& operator=(const GNERerouterDialog&);
+    GNERerouterDialog& operator=(const GNERerouterDialog&) = delete;
 };
 
 #endif
