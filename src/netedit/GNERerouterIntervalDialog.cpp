@@ -45,6 +45,7 @@
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
+#include "GNEChange_RerouterItem.h"
 
 
 // ===========================================================================
@@ -295,46 +296,44 @@ GNERerouterIntervalDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 long
 GNERerouterIntervalDialog::onCmdAddClosingLaneReroute(FXObject*, FXSelector, void*) {
-    /*
-    // add new element and update table
-    myCopyOfClosingLaneReroutes.push_back(new GNEClosingLaneReroute(myEditedRerouterInterval, NULL));
-    */
+    // create closing lane reroute
+    GNEClosingLaneReroute *closingLaneReroute = new GNEClosingLaneReroute(this);
+    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(closingLaneReroute, true), true);
+    // update closing lane reroutes table
     updateClosingLaneReroutesTable();
-    onCmdEditClosingLaneReroute(0, 0, 0);
     return 1;
 }
 
 
 long
 GNERerouterIntervalDialog::onCmdAddClosingReroute(FXObject*, FXSelector, void*) {
-    /*
-    // add new element and update table
-    myCopyOfClosingReroutes.push_back(new GNEClosingReroute(myEditedRerouterInterval, NULL));
-    */
+    // create closing reroute
+    GNEClosingReroute *closingReroute = new GNEClosingReroute(this);
+    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(closingReroute, true), true);
+    // update closing reroutes table
     updateClosingReroutesTable();
-    onCmdEditClosingLaneReroute(0, 0, 0);
     return 1;
 }
 
 
 long
 GNERerouterIntervalDialog::onCmdAddDestProbReroute(FXObject*, FXSelector, void*) {
-    /*
-    // add new element and update table
-    myCopyOfDestProbReroutes.push_back(new GNEDestProbReroute(myEditedRerouterInterval, NULL, 0));
-    */
+    // create closing reroute and add it to table
+    GNEDestProbReroute *destProbReroute = new GNEDestProbReroute(this);
+    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(destProbReroute, true), true);
+    // update dest Prob reroutes table
     updateDestProbReroutesTable();
-    onCmdEditDestProbReroute(0, 0, 0);
     return 1;
 }
 
 
 long
 GNERerouterIntervalDialog::onCmdAddRouteProbReroute(FXObject*, FXSelector, void*) {
-    // add new element and update table
-    //myCopyOfRouteProbReroutes.push_back(GNERouteProbReroute(myEditedRerouterInterval, "", 0));
+    // create route Prob Reroute
+    GNERouteProbReroute *routeProbReroute = new GNERouteProbReroute(this);
+    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(routeProbReroute, true), true);
+    // update route prob reroutes table
     updateRouteProbReroutesTable();
-    onCmdEditRouteProbReroute(0, 0, 0);
     return 1;
 }
 
@@ -586,7 +585,7 @@ GNERerouterIntervalDialog::updateClosingLaneReroutesTable() {
     // iterate over values
     for (auto i : myEditedRerouterInterval->getClosingLaneReroutes()) {
         // Set closing edge
-        item = new FXTableItem(i->getAttribute(SUMO_ATTR_LANE).c_str());
+        item = new FXTableItem(i->getAttribute(SUMO_ATTR_ID).c_str());
         myClosingLaneRerouteList->setItem(indexRow, 0, item);
         // set allow vehicles
         item = new FXTableItem(i->getAttribute(SUMO_ATTR_ALLOW).c_str());
@@ -640,7 +639,7 @@ GNERerouterIntervalDialog::updateClosingReroutesTable() {
     // iterate over values
     for (auto i : myEditedRerouterInterval->getClosingReroutes()) {
         // Set closing edge
-        item = new FXTableItem(i->getAttribute(SUMO_ATTR_EDGE).c_str());
+        item = new FXTableItem(i->getAttribute(SUMO_ATTR_ID).c_str());
         myClosingRerouteList->setItem(indexRow, 0, item);
         // set allow vehicles
         item = new FXTableItem(i->getAttribute(SUMO_ATTR_ALLOW).c_str());
@@ -692,7 +691,7 @@ GNERerouterIntervalDialog::updateDestProbReroutesTable() {
     // iterate over values
     for (auto i : myEditedRerouterInterval->getDestProbReroutes()) {
         // Set new destination
-        item = new FXTableItem(i->getAttribute(SUMO_ATTR_EDGE).c_str());
+        item = new FXTableItem(i->getAttribute(SUMO_ATTR_ID).c_str());
         myDestProbRerouteList->setItem(indexRow, 0, item);
         // Set probability
         item = new FXTableItem(i->getAttribute(SUMO_ATTR_PROB).c_str());
@@ -741,7 +740,7 @@ GNERerouterIntervalDialog::updateRouteProbReroutesTable() {
     // iterate over values
     for (auto i : myEditedRerouterInterval->getRouteProbReroutes()) {
         // Set new route
-        item = new FXTableItem(i->getAttribute(SUMO_ATTR_ROUTE).c_str());
+        item = new FXTableItem(i->getAttribute(SUMO_ATTR_ID).c_str());
         myRouteProbRerouteList->setItem(indexRow, 0, item);
         // Set probability
         item = new FXTableItem(i->getAttribute(SUMO_ATTR_PROB).c_str());

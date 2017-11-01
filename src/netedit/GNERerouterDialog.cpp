@@ -176,9 +176,6 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
     for (int i = 0; i < (int)myEditedRerouter->getRerouterIntervals().size(); i++) {
         if (myIntervalList->getItem(i, 2)->hasFocus()) {
-            // remove row and interval
-            myIntervalList->removeRows(i);
-
             // drop all closing reroutes of interval
             for(auto i : myEditedRerouter->getRerouterIntervals().at(i)->getClosingReroutes()) {
                 myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(i, false), true);
@@ -195,6 +192,8 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
             for(auto i : myEditedRerouter->getRerouterIntervals().at(i)->getDestProbReroutes()) {
                 myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(i, false), true);
             }
+            // remove row of list
+            myIntervalList->removeRows(i);
             // remove interval
             myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(myEditedRerouter->getRerouterIntervals().at(i), false), true);
             return 1;
