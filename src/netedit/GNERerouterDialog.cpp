@@ -177,20 +177,20 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)myEditedRerouter->getRerouterIntervals().size(); i++) {
         if (myIntervalList->getItem(i, 2)->hasFocus()) {
             // drop all closing reroutes of interval
-            for(auto i : myEditedRerouter->getRerouterIntervals().at(i)->getClosingReroutes()) {
-                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(i, false), true);
+            for(auto j : myEditedRerouter->getRerouterIntervals().at(i)->getClosingReroutes()) {
+                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(j, false), true);
             }
             // drop all closing lane reroutes of interval
-            for(auto i : myEditedRerouter->getRerouterIntervals().at(i)->getClosingLaneReroutes()) {
-                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(i, false), true);
+            for(auto j : myEditedRerouter->getRerouterIntervals().at(i)->getClosingLaneReroutes()) {
+                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(j, false), true);
             }
             // drop all route probability reroutes of interval
-            for(auto i : myEditedRerouter->getRerouterIntervals().at(i)->getRouteProbReroutes()) {
-                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(i, false), true);
+            for(auto j : myEditedRerouter->getRerouterIntervals().at(i)->getRouteProbReroutes()) {
+                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(j, false), true);
             }
             // drop all destiny probability reroutes of interval
-            for(auto i : myEditedRerouter->getRerouterIntervals().at(i)->getDestProbReroutes()) {
-                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(i, false), true);
+            for(auto j : myEditedRerouter->getRerouterIntervals().at(i)->getDestProbReroutes()) {
+                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(j, false), true);
             }
             // remove row of list
             myIntervalList->removeRows(i);
