@@ -58,6 +58,7 @@ std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNonEditableA
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myPositiveAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myProbabilityAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myFileAttrs;
+std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myVClassAttrs;
 std::map<SumoXMLTag, SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalWithParentTags;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::vector<std::string> > > GNEAttributeCarrier::myDiscreteChoices;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::string > > GNEAttributeCarrier::myAttrDefinitions;
@@ -554,6 +555,28 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
             case SUMO_TAG_STEP:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TIME, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SPEED, "50.0"));
+                break;
+            case SUMO_TAG_INTERVAL:
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_BEGIN, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_BEGIN, "100"));
+                break;
+            case SUMO_TAG_CLOSING_REROUTE:
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ALLOW, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DISALLOW, ""));
+                break;
+            case SUMO_TAG_CLOSING_LANE_REROUTE:
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ALLOW, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DISALLOW, ""));
+                break;
+            case SUMO_TAG_DEST_PROB_REROUTE:
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "0"));
+                break;
+            case SUMO_TAG_ROUTE_PROB_REROUTE:
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "0"));
                 break;
             default:
                 // Throw exception if tag isn't defined
@@ -1097,6 +1120,10 @@ GNEAttributeCarrier::isProbability(SumoXMLTag tag, SumoXMLAttr attr) {
         myProbabilityAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_PROB);
         // flow
         myProbabilityAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PROB);
+        // destiny probability reroute
+        myProbabilityAttrs[SUMO_TAG_DEST_PROB_REROUTE].insert(SUMO_ATTR_PROB);
+        // route prob reroute
+        myProbabilityAttrs[SUMO_TAG_ROUTE_PROB_REROUTE].insert(SUMO_ATTR_PROB);
     }
     return myProbabilityAttrs[tag].count(attr) == 1;
 }
@@ -1130,6 +1157,27 @@ GNEAttributeCarrier::isFilename(SumoXMLTag tag, SumoXMLAttr attr) {
         myFileAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_IMGFILE);
     }
     return myFileAttrs[tag].count(attr) == 1;
+}
+
+
+bool 
+GNEAttributeCarrier::isVClass(SumoXMLTag tag, SumoXMLAttr attr) {
+    // define on first access
+    if (myVClassAttrs.empty()) {
+        // Edge
+        myFileAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_ALLOW);
+        myFileAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_DISALLOW);
+        // Lane
+        myFileAttrs[SUMO_TAG_LANE].insert(SUMO_ATTR_ALLOW);
+        myFileAttrs[SUMO_TAG_LANE].insert(SUMO_ATTR_DISALLOW);
+        // Closing Reroute
+        myFileAttrs[SUMO_TAG_CLOSING_REROUTE].insert(SUMO_ATTR_ALLOW);
+        myFileAttrs[SUMO_TAG_CLOSING_REROUTE].insert(SUMO_ATTR_DISALLOW);
+        // Closing Lane Reroute
+        myFileAttrs[SUMO_TAG_CLOSING_LANE_REROUTE].insert(SUMO_ATTR_ALLOW);
+        myFileAttrs[SUMO_TAG_CLOSING_LANE_REROUTE].insert(SUMO_ATTR_DISALLOW);
+    }
+    return myVClassAttrs[tag].count(attr) == 1;
 }
 
 

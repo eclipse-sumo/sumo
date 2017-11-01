@@ -81,9 +81,9 @@ GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
     case SUMO_ATTR_ID:
         return myClosedLane->getID();
     case SUMO_ATTR_ALLOW:
-        return toString(myAllowedVehicles);
+        return getVehicleClassNames(myAllowedVehicles);
     case SUMO_ATTR_DISALLOW:
-        return toString(myDisallowedVehicles);
+        return getVehicleClassNames(myDisallowedVehicles);
     default:
         throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -113,11 +113,9 @@ GNEClosingLaneReroute::isValid(SumoXMLAttr key, const std::string& value) {
     case SUMO_ATTR_ID:
         return (myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveLane(value, false) != NULL);
     case SUMO_ATTR_ALLOW:
-        return true;
-        /** falta **/
+        return canParseVehicleClasses(value);
     case SUMO_ATTR_DISALLOW:
-        return true;
-        /** falta **/
+        return canParseVehicleClasses(value);
     default:
         throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -135,11 +133,11 @@ GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
         break;
     }
     case SUMO_ATTR_ALLOW: {
-        myAllowedVehicles;
+        myAllowedVehicles = parseVehicleClasses(value);
         break;
     }
     case SUMO_ATTR_DISALLOW: {
-        myAllowedVehicles;
+        myAllowedVehicles = parseVehicleClasses(value);
         break;
     }
     default:

@@ -193,6 +193,9 @@ public:
     /// @brief whether a string attribute is a filename
     static bool isFilename(SumoXMLTag tag, SumoXMLAttr attr);
 
+    /// @brief whether a string attribute is a list of Vehicle Classes
+    static bool isVClass(SumoXMLTag tag, SumoXMLAttr attr);
+
     /// @brief whether an attribute is non editable
     static bool isNonEditable(SumoXMLTag tag, SumoXMLAttr attr);
 
@@ -347,6 +350,11 @@ public:
                 errorFormat = "Filename contains invalid characters; ";
                 parsedOk = false;
             }
+            // set extra check for filename values
+            if (isVClass(tag, attribute) && (canParseVehicleClasses(parsedAttribute) == false)) {
+                errorFormat = "List of VClasses isn't valid; ";
+                parsedOk = false;
+            }
             // set extra check for Vehicle Classes
             if ((!parsedOk) && (attribute == SUMO_ATTR_VCLASS)) {
                 errorFormat = "Is not a part of defined set of Vehicle Classes; ";
@@ -463,8 +471,11 @@ private:
     /// @brief map with the probability attributes
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myProbabilityAttrs;
 
-    /// @brief map with the empty attributes
+    /// @brief map with the file attributes
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myFileAttrs;
+
+    /// @brief map with the Vehicle Class attributes
+    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myVClassAttrs;
 
     /// @brief map with the allowed tags of additionals with parent and their parent
     static std::map<SumoXMLTag, SumoXMLTag> myAllowedAdditionalWithParentTags;

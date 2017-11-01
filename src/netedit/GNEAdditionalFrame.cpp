@@ -732,6 +732,11 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
         if (GNEAttributeCarrier::isValidFilename(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "input contains invalid characters for a filename";
         }
+    } else if (GNEAttributeCarrier::isVClass(myAdditionalTag, myAdditionalAttr)) {
+        // check if lists of Vclass are valid
+        if(canParseVehicleClasses(myTextFieldStrings->getText().text()) == false) {
+            myInvalidValue = "list of VClass isn't valid";
+        }
     } else if (myAdditionalAttr == SUMO_ATTR_ROUTEPROBE) {
         // check if filename format is valid
         if (GNEAttributeCarrier::isValidID(myTextFieldStrings->getText().text()) == false) {
