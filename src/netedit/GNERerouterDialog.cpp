@@ -165,7 +165,7 @@ GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
         return 1;
     } else {
         // if new interval wasn't sucesfully configured, remove it from rerouter
-        myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(newInterval, true), true);
+        myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(newInterval, false), true);
         return 0;
     }
 }

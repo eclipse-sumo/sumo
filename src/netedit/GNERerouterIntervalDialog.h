@@ -124,7 +124,7 @@ protected:
     GNERerouterIntervalDialog() {}
 
     /// @brief pointer to rerouter interval
-    GNERerouterInterval* myRerouterInterval;
+    GNERerouterInterval* myEditedRerouterInterval;
 
     /// @brief begin time text field
     FXTextField* myBeginTextField;
