@@ -5,8 +5,8 @@ Simulation started with time: 0.00
 Simulation ended at time: 898.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 727ms
- Real time factor: 1235.21
+ Duration: 444ms
+ Real time factor: 2022.52
  UPS: 0.000000
 Vehicles: 
  Inserted: 0
@@ -24,4 +24,5 @@ Statistics (avg):
 Pedestrian Statistics (avg of 300 walks):
  RouteLength: 79.00
  Duration: 324.96
+ TimeLoss: 248.02
 

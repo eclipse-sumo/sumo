@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep  5 22:01:56 2017 by SUMO Version dev-SVN-r24506
+<!-- generated on Wed Nov  1 14:06:12 2017 by SUMO Version v0_31_0-844-g4947727
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -29,6 +29,6 @@
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <personinfo id="p1" depart="0.00">
-        <walk depart="0.00" arrival="383.00" arrivalPos="712.49"/>
+        <walk depart="0.00" arrival="383.00" arrivalPos="712.49" duration="383.00" routeLength="766.99" timeLoss="-0.49" maxSpeed="2.00"/>
     </personinfo>
 </tripinfos>

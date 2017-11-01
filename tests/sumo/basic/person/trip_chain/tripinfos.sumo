@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep  5 22:01:56 2017 by SUMO Version dev-SVN-r24506
+<!-- generated on Wed Nov  1 14:06:13 2017 by SUMO Version v0_31_0-844-g4947727
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -32,9 +32,9 @@
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="train0" depart="50.00" departLane="1/4to1/3_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="192.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="142.00" routeLength="467.98" waitSteps="0" timeLoss="11.68" rerouteNo="0" devices="tripinfo_train0 person_train0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="person0" depart="0.00">
-        <walk depart="0.00" arrival="47.00" arrivalPos="55.00"/>
+        <walk depart="0.00" arrival="47.00" arrivalPos="55.00" duration="47.00" routeLength="65.50" timeLoss="-0.16" maxSpeed="1.39"/>
         <ride waitingTime="74.00" vehicle="train0" depart="121.00" arrival="140.00" arrivalPos="92.00"/>
-        <walk depart="140.00" arrival="195.00" arrivalPos="45.00"/>
+        <walk depart="140.00" arrival="195.00" arrivalPos="45.00" duration="55.00" routeLength="77.00" timeLoss="-0.44" maxSpeed="1.39"/>
         <stop duration="20.00" arrival="215.00" arrivalPos="45.00" actType="singing"/>
         <ride waitingTime="0.00" vehicle="car0" depart="215.00" arrival="235.00" arrivalPos="92.00"/>
     </personinfo>
