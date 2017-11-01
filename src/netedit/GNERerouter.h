@@ -46,6 +46,9 @@ class GNERerouterInterval;
  * Rerouter changes the route of a vehicle as soon as the vehicle moves onto a specified edge.
  */
 class GNERerouter : public GNEAdditional {
+    /// @brief declare friend class
+    friend class GNEChange_RerouterItem;
+
 public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -78,18 +81,8 @@ public:
     /// @brief get edge chidls
     const std::vector<GNEEdge*>& getEdgeChilds() const;
 
-    /**@brief add rerouter interval
-     * @return true if was sucesfully added, false if wasn't added due overlapping
-     */
-    bool addRerouterInterval(GNERerouterInterval* rerouterInterval);
-
     /// @brief get rerouter intervals
     const std::vector<GNERerouterInterval*>& getRerouterIntervals() const;
-
-    /**@brief set rerouter intervals
-     * @return true if was sucesfully set, false if wasn't set due overlapping
-     */
-    bool setRerouterIntervals(const std::vector<GNERerouterInterval*>& rerouterIntervals);
 
     /// @name Functions related with geometry of element
     /// @{
@@ -169,6 +162,12 @@ protected:
 
     /// @brief set with the GNERerouterInterval
     std::vector<GNERerouterInterval*> myRerouterIntervals;
+
+    /// @brief add rerouter interval
+    void addRerouterInterval(GNERerouterInterval* rerouterInterval);
+
+    /// @brief add rerouter interval
+    void removeRerouterInterval(GNERerouterInterval* rerouterInterval);
 
 private:
     /// @brief set attribute after validation

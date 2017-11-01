@@ -156,65 +156,86 @@ GNEChange_RerouterItem::~GNEChange_RerouterItem() {
 
 void
 GNEChange_RerouterItem::undo() {
-    /*
+
     if (myForward) {
-        if(myRerouterFlow) {
+        if(myRerouterInterval) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing rerouter flow of rerouter '" + myRerouterFlow->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Removing Rerouter Interval from Reroute '" + myRerouterInterval->getRerouterParent()->getID() + "'");
             }
-            // remove rerouter flow of rerouter and net
-            myRerouterFlow->getRerouterParent()->removeRerouterFlow(myRerouterFlow);
-            myNet->deleteRerouterFlow(myRerouterFlow);
-        } else if (myRerouterRoute) {
+            // remove rerouter interval from Rerouter
+            myRerouterInterval->getRerouterParent()->removeRerouterInterval(myRerouterInterval);
+        } else if (myClosingReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing rerouter route of rerouter '" + myRerouterRoute->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Removing Closing Reroute from Interval '" + myClosingReroute->getRerouterIntervalParent()->getID() + "'");
             }
-            // remove rerouter route of rerouter and net
-            myRerouterRoute->getRerouterParent()->removeRerouterRoute(myRerouterRoute);
-            myNet->deleteRerouterRoute(myRerouterRoute);
-        } else if (myRerouterVehicleType) {
+            // remove Closing Reroute from Interval
+            myClosingReroute->getRerouterIntervalParent()->removeClosingReroute(myClosingReroute);
+        } else if (myClosingLaneReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing rerouter vehicle type of rerouter '" + myRerouterVehicleType->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Removing Closing Lane Reroute from Interval '" + myClosingLaneReroute->getRerouterIntervalParent()->getID() + "'");
             }
-            // remove rerouter vehicle type of rerouter and net
-            myRerouterVehicleType->getRerouterParent()->removeRerouterVehicleType(myRerouterVehicleType);
-            myNet->deleteRerouterVehicleType(myRerouterVehicleType);
+            // remove Closing Lane Reroute from Interval
+            myClosingLaneReroute->getRerouterIntervalParent()->removeClosingLaneReroute(myClosingLaneReroute);
+        } else if (myDestProbReroute) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Removing Dest Probability Reroute from Interval '" + myDestProbReroute->getRerouterIntervalParent()->getID() + "'");
+            }
+            // remove Destiny Probability Reroute from Interval
+            myDestProbReroute->getRerouterIntervalParent()->removeDestProbReroute(myDestProbReroute);
+        } else if (myRouteProbReroute) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Removing Route Probability Reroute from Interval '" + myRouteProbReroute->getRerouterIntervalParent()->getID() + "'");
+            }
+            // remove Route Probability Reroute from Interval
+            myRouteProbReroute->getRerouterIntervalParent()->removeRouteProbReroute(myRouteProbReroute);
         } else {
             throw ProcessError("There isn't a defined Rerouter item");
         }
     } else {
-        if(myRerouterFlow) {
+        if(myRerouterInterval) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding rerouter flow into rerouter '" + myRerouterFlow->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Adding Rerouter Interval to Reroute '" + myRerouterInterval->getRerouterParent()->getID() + "'");
             }
-            // add rerouter flow into rerouter and net
-            myRerouterFlow->getRerouterParent()->addRerouterFlow(myRerouterFlow);
-            myNet->insertRerouterFlow(myRerouterFlow);
-        } else if (myRerouterRoute) {
+            // add rerouter interval to Rerouter
+            myRerouterInterval->getRerouterParent()->addRerouterInterval(myRerouterInterval);
+        } else if (myClosingReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding rerouter route into rerouter '" + myRerouterRoute->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Adding Closing Reroute to Interval '" + myClosingReroute->getRerouterIntervalParent()->getID() + "'");
             }
-            // add rerouter route into rerouter and net
-            myRerouterRoute->getRerouterParent()->addRerouterRoute(myRerouterRoute);
-            myNet->insertRerouterRoute(myRerouterRoute);
-        } else if (myRerouterVehicleType) {
+            // add Closing Reroute to Interval
+            myClosingReroute->getRerouterIntervalParent()->addClosingReroute(myClosingReroute);
+        } else if (myClosingLaneReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding rerouter vehicle type into rerouter '" + myRerouterVehicleType->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Adding Closing Lane Reroute to Interval '" + myClosingLaneReroute->getRerouterIntervalParent()->getID() + "'");
             }
-            // add rerouter vehicle type into rerouter and net
-            myRerouterVehicleType->getRerouterParent()->addRerouterVehicleType(myRerouterVehicleType);
-            myNet->insertRerouterVehicleType(myRerouterVehicleType);
+            // add Closing Lane Reroute to Interval
+            myClosingLaneReroute->getRerouterIntervalParent()->addClosingLaneReroute(myClosingLaneReroute);
+        } else if (myDestProbReroute) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Adding Dest Probability Reroute to Interval '" + myDestProbReroute->getRerouterIntervalParent()->getID() + "'");
+            }
+            // add Destiny Probability Reroute to Interval
+            myDestProbReroute->getRerouterIntervalParent()->addDestProbReroute(myDestProbReroute);
+        } else if (myRouteProbReroute) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Adding Route Probability Reroute to Interval '" + myRouteProbReroute->getRerouterIntervalParent()->getID() + "'");
+            }
+            // add Route Probability Reroute to Interval
+            myRouteProbReroute->getRerouterIntervalParent()->addRouteProbReroute(myRouteProbReroute);
         } else {
             throw ProcessError("There isn't a defined Rerouter item");
         }
     }
-    */
     // enable save additionals
     myNet->requiereSaveAdditionals();
 }
@@ -222,65 +243,85 @@ GNEChange_RerouterItem::undo() {
 
 void
 GNEChange_RerouterItem::redo() {
-    /*
     if (myForward) {
-        if(myRerouterFlow) {
+        if(myRerouterInterval) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding rerouter flow into rerouter '" + myRerouterFlow->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Adding Rerouter Interval to Reroute '" + myRerouterInterval->getRerouterParent()->getID() + "'");
             }
-            // add rerouter flow into rerouter and net
-            myRerouterFlow->getRerouterParent()->addRerouterFlow(myRerouterFlow);
-            myNet->insertRerouterFlow(myRerouterFlow);
-        } else if (myRerouterRoute) {
+            // add rerouter interval to Rerouter
+            myRerouterInterval->getRerouterParent()->addRerouterInterval(myRerouterInterval);
+        } else if (myClosingReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding rerouter route into rerouter '" + myRerouterRoute->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Adding Closing Reroute to Interval '" + myClosingReroute->getRerouterIntervalParent()->getID() + "'");
             }
-            // add rerouter route into rerouter and net
-            myRerouterRoute->getRerouterParent()->addRerouterRoute(myRerouterRoute);
-            myNet->insertRerouterRoute(myRerouterRoute);
-        } else if (myRerouterVehicleType) {
+            // add Closing Reroute to Interval
+            myClosingReroute->getRerouterIntervalParent()->addClosingReroute(myClosingReroute);
+        } else if (myClosingLaneReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding rerouter vehicle type into rerouter '" + myRerouterVehicleType->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Adding Closing Lane Reroute to Interval '" + myClosingLaneReroute->getRerouterIntervalParent()->getID() + "'");
             }
-            // add rerouter vehicle type into rerouter and net
-            myRerouterVehicleType->getRerouterParent()->addRerouterVehicleType(myRerouterVehicleType);
-            myNet->insertRerouterVehicleType(myRerouterVehicleType);
+            // add Closing Lane Reroute to Interval
+            myClosingLaneReroute->getRerouterIntervalParent()->addClosingLaneReroute(myClosingLaneReroute);
+        } else if (myDestProbReroute) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Adding Dest Probability Reroute to Interval '" + myDestProbReroute->getRerouterIntervalParent()->getID() + "'");
+            }
+            // add Destiny Probability Reroute to Interval
+            myDestProbReroute->getRerouterIntervalParent()->addDestProbReroute(myDestProbReroute);
+        } else if (myRouteProbReroute) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Adding Route Probability Reroute to Interval '" + myRouteProbReroute->getRerouterIntervalParent()->getID() + "'");
+            }
+            // add Route Probability Reroute to Interval
+            myRouteProbReroute->getRerouterIntervalParent()->addRouteProbReroute(myRouteProbReroute);
         } else {
             throw ProcessError("There isn't a defined Rerouter item");
         }
     } else {
-        if(myRerouterFlow) {
+        if(myRerouterInterval) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing rerouter flow of rerouter '" + myRerouterFlow->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Removing Rerouter Interval from Reroute '" + myRerouterInterval->getRerouterParent()->getID() + "'");
             }
-            // remove rerouter flow of rerouter and net
-            myRerouterFlow->getRerouterParent()->removeRerouterFlow(myRerouterFlow);
-            myNet->deleteRerouterFlow(myRerouterFlow);
-        } else if (myRerouterRoute) {
+            // remove rerouter interval from Rerouter
+            myRerouterInterval->getRerouterParent()->removeRerouterInterval(myRerouterInterval);
+        } else if (myClosingReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing rerouter route of rerouter '" + myRerouterRoute->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Removing Closing Reroute from Interval '" + myClosingReroute->getRerouterIntervalParent()->getID() + "'");
             }
-            // remove rerouter route of rerouter and net
-            myRerouterRoute->getRerouterParent()->removeRerouterRoute(myRerouterRoute);
-            myNet->deleteRerouterRoute(myRerouterRoute);
-        } else if (myRerouterVehicleType) {
+            // remove Closing Reroute from Interval
+            myClosingReroute->getRerouterIntervalParent()->removeClosingReroute(myClosingReroute);
+        } else if (myClosingLaneReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing rerouter vehicle type of rerouter '" + myRerouterVehicleType->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Removing Closing Lane Reroute from Interval '" + myClosingLaneReroute->getRerouterIntervalParent()->getID() + "'");
             }
-            // remove rerouter vehicle type of rerouter and net
-            myRerouterVehicleType->getRerouterParent()->removeRerouterVehicleType(myRerouterVehicleType);
-            myNet->deleteRerouterVehicleType(myRerouterVehicleType);
+            // remove Closing Lane Reroute from Interval
+            myClosingLaneReroute->getRerouterIntervalParent()->removeClosingLaneReroute(myClosingLaneReroute);
+        } else if (myDestProbReroute) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Removing Dest Probability Reroute from Interval '" + myDestProbReroute->getRerouterIntervalParent()->getID() + "'");
+            }
+            // remove Destiny Probability Reroute from Interval
+            myDestProbReroute->getRerouterIntervalParent()->removeDestProbReroute(myDestProbReroute);
+        } else if (myRouteProbReroute) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Removing Route Probability Reroute from Interval '" + myRouteProbReroute->getRerouterIntervalParent()->getID() + "'");
+            }
+            // remove Route Probability Reroute from Interval
+            myRouteProbReroute->getRerouterIntervalParent()->removeRouteProbReroute(myRouteProbReroute);
         } else {
             throw ProcessError("There isn't a defined Rerouter item");
         }
     }
-    */
     // enable save additionals
     myNet->requiereSaveAdditionals();
 }

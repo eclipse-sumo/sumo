@@ -134,10 +134,12 @@ GNERerouterDialog::checkModifyInterval(GNERerouterInterval* rerouterInterval, do
 
 long
 GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    /*
     // in this point we need to use GNEChange_RerouterInterval to allow undo/redos of rerouterIntervals
     // see Ticket #2844
     // set new intervals into rerouter
     myRerouterParent->setRerouterIntervals(myCopyOfRerouterIntervals);
+    */
     // Stop Modal
     getApp()->stopModal(this, TRUE);
     return 1;

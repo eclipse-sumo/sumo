@@ -132,7 +132,7 @@ GNERerouterInterval::getRouteProbReroutes() const {
 
 
 void 
-GNERerouterInterval::addClosingLaneReroutes(GNEClosingLaneReroute* closingLaneReroute) {
+GNERerouterInterval::addClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute) {
     auto it = std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), closingLaneReroute);
     if(it == myClosingLaneReroutes.end()) {
         myClosingLaneReroutes.push_back(closingLaneReroute);

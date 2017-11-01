@@ -222,34 +222,9 @@ GNERerouter::getEdgeChilds() const {
 }
 
 
-bool
-GNERerouter::addRerouterInterval(GNERerouterInterval* rerouterInterval) {
-    // obtain a copy of current rerouter Intervals to check overlapping
-    std::vector<GNERerouterInterval*> copyOfMyRerouterIntervals;
-    copyOfMyRerouterIntervals.push_back(rerouterInterval);
-    if (checkOverlapping(copyOfMyRerouterIntervals)) {
-        myRerouterIntervals = copyOfMyRerouterIntervals;
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 const std::vector<GNERerouterInterval*>&
 GNERerouter::getRerouterIntervals() const {
     return myRerouterIntervals;
-}
-
-
-bool
-GNERerouter::setRerouterIntervals(const std::vector<GNERerouterInterval*>& rerouterIntervals) {
-    if (checkOverlapping(rerouterIntervals)) {
-        myRerouterIntervals = rerouterIntervals;
-        return true;
-    } else {
-        return false;
-    }
 }
 
 
@@ -427,6 +402,18 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void 
+GNERerouter::addRerouterInterval(GNERerouterInterval* rerouterInterval) {
+
+}
+
+
+void 
+GNERerouter::removeRerouterInterval(GNERerouterInterval* rerouterInterval) {
+
 }
 
 

@@ -53,6 +53,9 @@ class GNERouteProbReroute;
  * class used to represent a interval used in rerouters
  */
 class GNERerouterInterval : public GNEAttributeCarrier {
+    /// @brief declare friend class
+    friend class GNEChange_RerouterItem;
+
 public:
     /// @brief constructor
     GNERerouterInterval(GNERerouter* rerouterParent, double begin, double end);
@@ -98,30 +101,6 @@ public:
     /// @brief get reoute probability reroutes
     const std::vector<GNERouteProbReroute*>& getRouteProbReroutes() const;
 
-    /// @brief add closing reroute
-    void addClosingLaneReroutes(GNEClosingLaneReroute* closingLaneReroute);
-
-    /// @brief add closing reroute
-    void removeClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute);
-
-    /// @brief add closing reroute
-    void addClosingReroute(GNEClosingReroute* closingReroute);
-
-    /// @brief add closing reroute
-    void removeClosingReroute(GNEClosingReroute* closingReroute);
-
-    /// @brief add destiny probability reroute
-    void addDestProbReroute(GNEDestProbReroute* destProbReroute);
-
-    /// @brief add destiny probability reroute
-    void removeDestProbReroute(GNEDestProbReroute* destProbReroute);
-
-    /// @brief add reoute probability reroute
-    void addRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute);
-
-    /// @brief add reoute probability reroute
-    void removeRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute);
-
 protected:
     /// @brief pointer to rerouter parent
     GNERerouter* myRerouterParent;
@@ -143,6 +122,30 @@ protected:
 
     /// @brief vector with the routeProbReroutes
     std::vector<GNERouteProbReroute*> myRouteProbReroutes;
+
+    /// @brief add closing reroute
+    void addClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute);
+
+    /// @brief add closing reroute
+    void removeClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute);
+
+    /// @brief add closing reroute
+    void addClosingReroute(GNEClosingReroute* closingReroute);
+
+    /// @brief add closing reroute
+    void removeClosingReroute(GNEClosingReroute* closingReroute);
+
+    /// @brief add destiny probability reroute
+    void addDestProbReroute(GNEDestProbReroute* destProbReroute);
+
+    /// @brief add destiny probability reroute
+    void removeDestProbReroute(GNEDestProbReroute* destProbReroute);
+
+    /// @brief add reoute probability reroute
+    void addRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute);
+
+    /// @brief add reoute probability reroute
+    void removeRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute);
 
 private:
     /// @brief set attribute after validation
