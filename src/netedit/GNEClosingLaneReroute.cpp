@@ -59,7 +59,7 @@ GNEClosingLaneReroute::writeClosingLaneReroute(OutputDevice& device) const {
     // open closing reroute tag
     device.openTag(getTag());
     // write Lane ID
-    device.writeAttr(SUMO_ATTR_LANE, myClosedLane->getID());
+    device.writeAttr(SUMO_ATTR_ID, myClosedLane->getID());
     // write Allowed vehicles
     device.writeAttr(SUMO_ATTR_ALLOW, myAllowedVehicles);
     // write disallowed vehicles
@@ -78,7 +78,7 @@ GNEClosingLaneReroute::getRerouterIntervalParent() const {
 std::string 
 GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-    case SUMO_ATTR_LANE:
+    case SUMO_ATTR_ID:
         return myClosedLane->getID();
     case SUMO_ATTR_ALLOW:
         return toString(myAllowedVehicles);
@@ -96,7 +96,7 @@ GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value, G
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-    case SUMO_ATTR_LANE:
+    case SUMO_ATTR_ID:
     case SUMO_ATTR_ALLOW:
     case SUMO_ATTR_DISALLOW:
         undoList->p_add(new GNEChange_Attribute(this, key, value));

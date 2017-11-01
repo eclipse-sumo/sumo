@@ -55,11 +55,6 @@
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
-#include "GNEClosingLaneReroute.h"
-#include "GNEClosingReroute.h"
-#include "GNEDestProbReroute.h"
-#include "GNERouteProbReroute.h"
-
 
 
 // ===========================================================================
@@ -160,29 +155,9 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_X, myPosition.x());
     device.writeAttr(SUMO_ATTR_Y, myPosition.y());
 
-    // write intervals
+    // write intervals and their values
     for (auto i : myRerouterIntervals) {
-        device.openTag(i->getTag());
-        device.writeAttr(SUMO_ATTR_BEGIN, i->getAttribute(SUMO_ATTR_BEGIN));
-        device.writeAttr(SUMO_ATTR_END, i->getAttribute(SUMO_ATTR_END));
-        // write closing lane reroutes
-        for (auto j : i->getClosingLaneReroutes()) {
-            j->writeClosingLaneReroute(device);
-        }
-        // write closing reroutes
-        for (auto j : i->getClosingReroutes()) {
-            j->writeClosingReroute(device);
-        }
-        // write dest prob reroutes
-        for (auto j : i->getDestProbReroutes()) {
-            j->writeDestProbReroute(device);
-        }
-        // write route prob reroutes
-        for (auto j : i->getRouteProbReroutes()) {
-            j->writeRouteProbReroute(device);
-        }
-        // Close tag
-        device.closeTag();
+        i->writeRerouterInterval(device);
     }
 
     // Close tag

@@ -57,7 +57,7 @@ GNEDestProbReroute::writeDestProbReroute(OutputDevice& device) const {
     // open tag
     device.openTag(getTag());
     // write edge ID
-    device.writeAttr(SUMO_ATTR_EDGE, myNewEdgeDestination->getID());
+    device.writeAttr(SUMO_ATTR_ID, myNewEdgeDestination->getID());
     // write probability
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
     // close tag
@@ -74,7 +74,7 @@ GNEDestProbReroute::getRerouterIntervalParent() const {
 std::string 
 GNEDestProbReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-    case SUMO_ATTR_EDGE:
+    case SUMO_ATTR_ID:
         return myNewEdgeDestination->getID();
     case SUMO_ATTR_PROB:
         return toString(myProbability);
@@ -90,7 +90,7 @@ GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-    case SUMO_ATTR_EDGE:
+    case SUMO_ATTR_ID:
     case SUMO_ATTR_PROB:
         undoList->p_add(new GNEChange_Attribute(this, key, value));
         break;
@@ -103,7 +103,7 @@ GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
 bool 
 GNEDestProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_EDGE:
+    case SUMO_ATTR_ID:
         return (myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveEdge(value, false) != NULL);
     case SUMO_ATTR_PROB:
         return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= 1;
@@ -119,7 +119,7 @@ GNEDestProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
 void 
 GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_EDGE: {
+    case SUMO_ATTR_ID: {
         myNewEdgeDestination = myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveEdge(value);
         break;
     }

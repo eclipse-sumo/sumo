@@ -55,7 +55,35 @@ GNERerouterInterval::GNERerouterInterval(GNERerouter* rerouterParent, double beg
 }
 
 
-GNERerouterInterval::~GNERerouterInterval() {
+GNERerouterInterval::~GNERerouterInterval() {}
+
+
+void 
+GNERerouterInterval::writeRerouterInterval(OutputDevice& device) const {
+    // openTag
+    device.openTag(getTag());
+    // write begin
+    device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
+    //write end
+    device.writeAttr(SUMO_ATTR_END, myEnd);
+    // write closing reroutes
+    for (auto i : myClosingReroutes) {
+        i->writeClosingReroute(device);
+    }
+    // write closing lane reroutes
+    for (auto i : myClosingLaneReroutes) {
+        i->writeClosingLaneReroute(device);
+    }
+    // write dest prob reroutes
+    for (auto i : myDestProbReroutes) {
+        i->writeDestProbReroute(device);
+    }
+    // write route prob reroutes
+    for (auto i: myRouteProbReroutes) {
+        i->writeRouteProbReroute(device);
+    }
+    // Close tag
+    device.closeTag();
 }
 
 
@@ -68,6 +96,8 @@ GNERerouterInterval::getRerouterParent() const {
 std::string 
 GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
     switch (key) {
+    case SUMO_ATTR_ID:
+        return toString(myBegin) + toString(myEnd);
     case SUMO_ATTR_BEGIN:
         return toString(myBegin);
     case SUMO_ATTR_END:

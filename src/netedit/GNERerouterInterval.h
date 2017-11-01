@@ -63,6 +63,9 @@ public:
     /// @brief destructor
     ~GNERerouterInterval();
 
+    /// @brief write Interval and all of their values
+    void writeRerouterInterval(OutputDevice& device) const;
+
     /// @brief get rerouter parent
     GNERerouter* getRerouterParent() const;
 

@@ -54,7 +54,7 @@ GNERouteProbReroute::writeRouteProbReroute(OutputDevice& device) const {
     // open Tag
     device.openTag(getTag());
     // write Route ID
-    device.writeAttr(SUMO_ATTR_ROUTE, myNewRouteId);
+    device.writeAttr(SUMO_ATTR_ID, myNewRouteId);
     // write Probability
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
     // close tag
@@ -66,6 +66,7 @@ GNERerouterInterval*
 GNERouteProbReroute::getRerouterIntervalParent() const {
     return myRerouterIntervalParent;
 }
+
 
 std::string 
 GNERouteProbReroute::getAttribute(SumoXMLAttr key) const {
