@@ -57,6 +57,7 @@ SUMOTime MSDevice_Tripinfo::myTotalDepartDelay(0);
 int MSDevice_Tripinfo::myWalkCount(0);
 double MSDevice_Tripinfo::myTotalWalkRouteLength(0);
 SUMOTime MSDevice_Tripinfo::myTotalWalkDuration(0);
+SUMOTime MSDevice_Tripinfo::myTotalWalkTimeLoss(0);
 
 // ===========================================================================
 // method definitions
@@ -275,10 +276,11 @@ MSDevice_Tripinfo::updateStatistics(SUMOTime timeLoss) const {
 
 
 void
-MSDevice_Tripinfo::addPedestrianData(double walkLength, SUMOTime walkDuration) {
+MSDevice_Tripinfo::addPedestrianData(double walkLength, SUMOTime walkDuration, SUMOTime walkTimeLoss) {
     myWalkCount++;
     myTotalWalkRouteLength += walkLength;
     myTotalWalkDuration += walkDuration;
+    myTotalWalkTimeLoss += walkTimeLoss;
 }
 
 std::string
@@ -295,7 +297,8 @@ MSDevice_Tripinfo::printStatistics() {
     if (myWalkCount > 0) {
         msg << "Pedestrian Statistics (avg of " << myWalkCount << " walks):\n"
             << " RouteLength: " << getAvgWalkRouteLength() << "\n"
-            << " Duration: " << getAvgWalkDuration() << "\n";
+            << " Duration: " << getAvgWalkDuration() << "\n"
+            << " TimeLoss: " << getAvgWalkTimeLoss() << "\n";
     }
     return msg.str();
 }
@@ -362,6 +365,16 @@ double
 MSDevice_Tripinfo::getAvgWalkDuration() {
     if (myWalkCount > 0) {
         return STEPS2TIME(myTotalWalkDuration / myWalkCount);
+    } else {
+        return 0;
+    }
+}
+
+
+double
+MSDevice_Tripinfo::getAvgWalkTimeLoss() {
+    if (myWalkCount > 0) {
+        return STEPS2TIME(myTotalWalkTimeLoss / myWalkCount);
     } else {
         return 0;
     }

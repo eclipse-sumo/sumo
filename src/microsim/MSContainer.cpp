@@ -94,7 +94,7 @@ MSContainer::MSContainerStage_Driving::getStageDescription() const {
 
 
 void
-MSContainer::MSContainerStage_Driving::tripInfoOutput(OutputDevice& os) const {
+MSContainer::MSContainerStage_Driving::tripInfoOutput(OutputDevice& os, MSTransportable*) const {
     os.openTag("transport");
     os.writeAttr("waitingTime", time2string(myDeparted - myWaitingSince));
     os.writeAttr("vehicle", myVehicleID);
@@ -191,7 +191,7 @@ MSContainer::MSContainerStage_Tranship::getEdges() const {
 
 
 void
-MSContainer::MSContainerStage_Tranship::tripInfoOutput(OutputDevice& os) const {
+MSContainer::MSContainerStage_Tranship::tripInfoOutput(OutputDevice& os, MSTransportable*) const {
     os.openTag("tranship");
     os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", time2string(myArrived));
@@ -273,10 +273,10 @@ MSContainer::proceed(MSNet* net, SUMOTime time) {
 
 
 void
-MSContainer::tripInfoOutput(OutputDevice& os) const {
+MSContainer::tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const {
     os.openTag("containerinfo").writeAttr("id", getID()).writeAttr("depart", time2string(getDesiredDepart()));
     for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        (*i)->tripInfoOutput(os);
+        (*i)->tripInfoOutput(os, transportable);
     }
     os.closeTag();
 }

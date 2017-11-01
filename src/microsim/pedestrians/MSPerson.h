@@ -116,7 +116,7 @@ public:
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void tripInfoOutput(OutputDevice& os) const;
+        virtual void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const;
 
         /** @brief Called on writing vehroute output
          * @param[in] os The stream to write the information into
@@ -250,7 +250,7 @@ public:
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void tripInfoOutput(OutputDevice& os) const;
+        virtual void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const;
 
         /** @brief Called on writing vehroute output
          *
@@ -282,7 +282,7 @@ public:
     * @param[in] os The stream to write the information into
     * @exception IOError not yet implemented
     */
-    virtual void tripInfoOutput(OutputDevice& os) const;
+    virtual void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const;
 
     /** @brief Called on writing vehroute output
     *

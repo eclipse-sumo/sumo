@@ -71,7 +71,7 @@ public:
     static void generateOutputForUnfinished();
 
     /// @brief record tripinfo data for pedestrians
-    static void addPedestrianData(double walkLength, SUMOTime walkDuration);
+    static void addPedestrianData(double walkLength, SUMOTime walkDuration, SUMOTime walkTimeLoss);
 
     /// @brief get statistics for printing to stdout
     static std::string printStatistics();
@@ -85,6 +85,7 @@ public:
 
     static double getAvgWalkRouteLength();
     static double getAvgWalkDuration();
+    static double getAvgWalkTimeLoss();
 
 public:
     /// @brief Destructor.
@@ -232,6 +233,7 @@ private:
     static int myWalkCount;
     static double myTotalWalkRouteLength;
     static SUMOTime myTotalWalkDuration;
+    static SUMOTime myTotalWalkTimeLoss;
 
 private:
     /// @brief Invalidated copy constructor.

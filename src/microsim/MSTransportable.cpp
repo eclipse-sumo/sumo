@@ -165,7 +165,7 @@ MSTransportable::Stage_Waiting::proceed(MSNet* net, MSTransportable* transportab
 
 
 void
-MSTransportable::Stage_Waiting::tripInfoOutput(OutputDevice& os) const {
+MSTransportable::Stage_Waiting::tripInfoOutput(OutputDevice& os, MSTransportable*) const {
     if (myType != WAITING_FOR_DEPART) {
         os.openTag("stop");
         os.writeAttr("duration", time2string(myArrived - myDeparted));

@@ -92,11 +92,11 @@ MSTransportableControl::get(const std::string& id) const {
 void
 MSTransportableControl::erase(MSTransportable* transportable) {
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
-        transportable->tripInfoOutput(OutputDevice::getDeviceByOption("tripinfo-output"));
+        transportable->tripInfoOutput(OutputDevice::getDeviceByOption("tripinfo-output"), transportable);
     } else if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
         // collecting statistics is a sideffect
         OutputDevice_String dev;
-        transportable->tripInfoOutput(dev);
+        transportable->tripInfoOutput(dev, transportable);
     }
     if (OptionsCont::getOptions().isSet("vehroute-output")) {
         transportable->routeOutput(OutputDevice::getDeviceByOption("vehroute-output"));
