@@ -99,13 +99,10 @@ protected:
     /// @brief list with intervals
     FXTable* myIntervalList;
 
-    /// @brief set with a copy of rerouter intervals
-    std::vector<GNERerouterInterval*> myCopyOfRerouterIntervals;
-
+private:
     /// @brief update data table
     void updateIntervalTable();
 
-private:
     /// @brief Invalidated copy constructor.
     GNERerouterDialog(const GNERerouterDialog&) = delete;
 

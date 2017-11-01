@@ -73,6 +73,12 @@ public:
     /// @brief get rerouter parent
     GNERerouter* getRerouterParent() const;
 
+    /// @brief get begin
+    double getBegin() const;
+
+    /// @brief get end
+    double getEnd() const;
+
     /// @name inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key

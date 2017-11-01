@@ -101,6 +101,18 @@ GNERerouterInterval::getRerouterParent() const {
 }
 
 
+double 
+GNERerouterInterval::getBegin() const {
+    return myBegin;
+}
+
+
+double 
+GNERerouterInterval::getEnd() const {
+    return myEnd;
+}
+
+
 std::string 
 GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
     switch (key) {

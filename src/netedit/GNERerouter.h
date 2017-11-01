@@ -141,8 +141,8 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
-    /// @brief check overlapping of a vector of rerouter intervals
-    bool checkOverlapping(std::vector<GNERerouterInterval*> rerouterIntervals);
+    /// @brief check if current intervals are overlapped
+    bool checkOverlapping();
 
 protected:
     /// @brief position of rerouter in view
@@ -170,6 +170,9 @@ protected:
     void removeRerouterInterval(GNERerouterInterval* rerouterInterval);
 
 private:
+    /// @brief sort intervals
+    void sortIntervals();
+
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

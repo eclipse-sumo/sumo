@@ -385,6 +385,8 @@ GNERerouter::addRerouterInterval(GNERerouterInterval* rerouterInterval) {
     auto it = std::find(myRerouterIntervals.begin(), myRerouterIntervals.end(), rerouterInterval);
     if(it == myRerouterIntervals.end()) {
         myRerouterIntervals.push_back(rerouterInterval);
+        // sort intervals always after a adding/restoring
+        sortIntervals();
     } else {
         throw ProcessError("Rerouter Interval already exist");
     }
@@ -396,6 +398,8 @@ GNERerouter::removeRerouterInterval(GNERerouterInterval* rerouterInterval) {
     auto it = std::find(myRerouterIntervals.begin(), myRerouterIntervals.end(), rerouterInterval);
     if(it != myRerouterIntervals.end()) {
         myRerouterIntervals.erase(it);
+        // sort intervals always after a adding/restoring
+        sortIntervals();
     } else {
         throw ProcessError("Rerouter Interval doesn't exist");
     }
@@ -455,30 +459,35 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 bool
-GNERerouter::checkOverlapping(std::vector<GNERerouterInterval*> rerouterIntervals) {
-    // only can be overlapping if there are more than two elements
-    if (rerouterIntervals.size() <= 1) {
-        return true;
-    }
-    /*
-    // first short vector
-    std::sort(rerouterIntervals.begin(), rerouterIntervals.end());
+GNERerouter::checkOverlapping() {
+    // first sort intervals
+    sortIntervals();
 
-    // first check that all Begins are differents
-    for (std::vector<GNERerouterInterval*>::const_iterator i = (rerouterIntervals.begin() + 1); i != rerouterIntervals.end(); i++) {
-        if ((i - 1)->getBegin() == i->getBegin()) {
-            return false;
-        }
-    }
-    // now check that end of every interval isn't overlapped with the begin of the next interval
-    for (std::vector<GNERerouterInterval*>::const_iterator i = rerouterIntervals.begin(); i != (rerouterIntervals.end() - 1); i++) {
-        if (i->getEnd() > (i + 1)->getBegin()) {
-            return false;
-        }
-    }
-    */
 
     // all ok, then return true
     return true;
 }
+
+
+void 
+GNERerouter::sortIntervals() {
+    // declare a vector to keep sorted intervals
+    std::vector<GNERerouterInterval*> sortedIntervals;
+    // sort intervals usin begin as criterium
+    while (myRerouterIntervals.size() > 0) {
+        int begin_small = 0;
+        // find the interval with the small begin
+        for(int i = 0; i < (int)myRerouterIntervals.size(); i++) {
+            if(myRerouterIntervals.at(i)->getBegin() < myRerouterIntervals.at(begin_small)->getBegin()) {
+                begin_small = i;
+            }
+        }
+        // add it to sortd intervals and remove it from myRerouterIntervals
+        sortedIntervals.push_back(myRerouterIntervals.at(begin_small));
+        myRerouterIntervals.erase(myRerouterIntervals.begin() + begin_small);
+    }
+    // restore myRerouterIntervals using sorted intervals
+    myRerouterIntervals = sortedIntervals;
+}
+
 /****************************************************************************/
