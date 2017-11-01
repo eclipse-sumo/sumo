@@ -279,14 +279,25 @@ MSRoute::dict_saveState(OutputDevice& out) {
 double
 MSRoute::getDistanceBetween(double fromPos, double toPos,
                             const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal) const {
+    /// XXX routes that start and end within the same intersection are not supported
+    //std::cout << SIMTIME << " getDistanceBetween from=" << fromEdge->getID() << " to=" << toEdge->getID() << " fromPos=" << fromPos << " toPos=" << toPos << " includeInternal=" << includeInternal << "\n";
     if (fromEdge->isInternal()) {
-        const MSEdge* pred = fromEdge->getPredecessors().front();
-        assert(pred != 0);
-        return getDistanceBetween(pred->getLength(), toPos, pred, toEdge, includeInternal) - fromPos;
+        if (fromEdge == myEdges.front()) {
+            const MSEdge* succ = fromEdge->getSuccessors().front();
+            assert(succ != 0);
+            //std::cout << "  recurse fromSucc=" << succ->getID() << "\n";
+            return (fromEdge->getLength() - fromPos) + getDistanceBetween(0, toPos, succ, toEdge, includeInternal);
+        } else {
+            const MSEdge* pred = fromEdge->getPredecessors().front();
+            assert(pred != 0);
+            //std::cout << "  recurse fromPred=" << pred->getID() << "\n";
+            return getDistanceBetween(pred->getLength(), toPos, pred, toEdge, includeInternal) - fromPos;
+        }
     }
     if (toEdge->isInternal()) {
         const MSEdge* pred = toEdge->getPredecessors().front();
         assert(pred != 0);
+        //std::cout << "  recurse toPred=" << pred->getID() << "\n";
         return toPos + getDistanceBetween(fromPos, pred->getLength(), fromEdge, pred, includeInternal);
     }
     ConstMSEdgeVector::const_iterator it = std::find(myEdges.begin(), myEdges.end(), fromEdge);

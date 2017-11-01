@@ -569,10 +569,15 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
             distance = roadPos2.second - roadPos1.second;
         } else {
             ConstMSEdgeVector newRoute;
+            if (roadPos2.first->isInternal()) {
+                distance = roadPos2.second;
+                roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
+                roadPos2.second = roadPos2.first->getLength();
+            }
             MSNet::getInstance()->getRouterTT().compute(
                 &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), 0, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
             MSRoute route("", newRoute, false, 0, std::vector<SUMOVehicleParameter::Stop>());
-            distance = route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
+            distance += route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
         }
     } else {
         // compute air distance (default)
