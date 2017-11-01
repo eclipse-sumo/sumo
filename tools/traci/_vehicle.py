@@ -599,7 +599,7 @@ class VehicleDomain(Domain):
         self._connection._subscribe(tc.CMD_SUBSCRIBE_VEHICLE_VARIABLE, begin, end, vehID,
                                     (tc.VAR_LEADER,), {tc.VAR_LEADER: struct.pack("!Bd", tc.TYPE_DOUBLE, dist)})
 
-    def getDrivingDistance(self, vehID, edgeID, pos, laneID=0):
+    def getDrivingDistance(self, vehID, edgeID, pos, laneIndex=0):
         """getDrivingDistance(string, string, double, integer) -> double
 
         Return the distance to the given edge and position along the vehicles route.
@@ -609,7 +609,7 @@ class VehicleDomain(Domain):
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
         self._connection._packString(edgeID, tc.POSITION_ROADMAP)
         self._connection._string += struct.pack("!dBB",
-                                                pos, laneID, tc.REQUEST_DRIVINGDIST)
+                                                pos, laneIndex, tc.REQUEST_DRIVINGDIST)
         return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID).readDouble()
 
     def getDrivingDistance2D(self, vehID, x, y):
