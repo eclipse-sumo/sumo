@@ -40,6 +40,8 @@
 /src/config.h.in
 /src/stamp-h1
 /src/version.h
+/src/tags
+/src/cscope.out
 /src/activitygen/activitygen
 /src/dfrouter/dfrouter
 /src/duarouter/duarouter
