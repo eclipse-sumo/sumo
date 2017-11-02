@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun  6 13:06:55 2014 by SUMO sumo Version dev-SVN-r16550
+<!-- generated on Thu Nov  2 15:38:05 2017 by SUMO Version v0_31_0-870-g7affc8e
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -20,7 +20,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -3045,7 +3045,7 @@
     </timestep>
     <timestep time="603.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="165.67" speed="11.11"/>
+            <vehicle id="veh0" pos="82.83" speed="11.11"/>
         </edge>
     </timestep>
     <timestep time="604.00">
@@ -3175,7 +3175,7 @@
     </timestep>
     <timestep time="629.00">
         <edge id="1si">
-            <vehicle id="veh0" pos="118.58" speed="13.89"/>
+            <vehicle id="veh0" pos="0.00" speed="6.40"/>
         </edge>
     </timestep>
     <timestep time="630.00">
@@ -3575,7 +3575,7 @@
     </timestep>
     <timestep time="709.00">
         <edge id="1fi">
-            <vehicle id="veh0" pos="82.83" speed="11.11"/>
+            <vehicle id="veh0" pos="0.00" speed="3.02"/>
         </edge>
     </timestep>
     <timestep time="710.00">
@@ -3784,8 +3784,8 @@
         </edge>
     </timestep>
     <timestep time="751.00">
-        <edge id="1o">
-            <vehicle id="veh0" pos="0.00" speed="11.11"/>
+        <edge id="1si">
+            <vehicle id="veh0" pos="118.58" speed="13.89"/>
         </edge>
     </timestep>
     <timestep time="752.00">
@@ -4440,7 +4440,7 @@
     </timestep>
     <timestep time="882.00">
         <edge id="1o">
-            <vehicle id="veh0" pos="195.46" speed="11.11"/>
+            <vehicle id="veh0" pos="97.73" speed="11.11"/>
         </edge>
     </timestep>
     <timestep time="883.00">
