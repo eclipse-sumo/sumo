@@ -46,8 +46,10 @@
 // ===========================================================================
 
 FXDEFMAP(GNERerouterDialog) GNERerouterDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REROUTEDIALOG_ADD_INTERVAL,     GNERerouterDialog::onCmdAddInterval),
-    FXMAPFUNC(SEL_CLICKED,  MID_GNE_REROUTEDIALOG_TABLE_INTERVAL,   GNERerouterDialog::onCmdClickedInterval),
+    FXMAPFUNC(SEL_COMMAND,          MID_GNE_REROUTEDIALOG_ADD_INTERVAL,     GNERerouterDialog::onCmdAddInterval),
+    FXMAPFUNC(SEL_CLICKED,          MID_GNE_REROUTEDIALOG_TABLE_INTERVAL,   GNERerouterDialog::onCmdClickedInterval),
+    FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_REROUTEDIALOG_TABLE_INTERVAL,   GNERerouterDialog::onCmdClickedInterval),
+    FXMAPFUNC(SEL_TRIPLECLICKED,    MID_GNE_REROUTEDIALOG_TABLE_INTERVAL,   GNERerouterDialog::onCmdClickedInterval),
 };
 
 // Object implementation
@@ -101,25 +103,6 @@ GNERerouterDialog::findInterval(double begin, double end) const {
         }
     }
     return false;
-}
-
-
-bool
-GNERerouterDialog::checkModifyInterval(GNERerouterInterval* rerouterInterval, double newBegin, double newEnd) const {
-    // first check that values are correct
-    if ((newBegin < 0) || (newEnd < 0)) {
-        return false;
-    } else if ((newBegin == 0) && (newEnd == 0)) {
-        return false;
-    } else if (newBegin >= newEnd) {
-        return false;
-    }
-    // check overlapping
-    if (myEditedRerouter->checkOverlapping()) {
-        return true;
-    } else {
-        return false;
-    }
 }
 
 
@@ -194,10 +177,10 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
             while (rerouterInterval->getDestProbReroutes().size() > 0) {
                 myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval->getDestProbReroutes().front(), false), true);
             }
-            // remove row of table
-            myIntervalTable->removeRows(i);
             // remove interval
             myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval, false), true);
+            // update interval table after removing
+            updateIntervalTable();
             return 1;
         }
     }
@@ -206,6 +189,8 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
         if (myIntervalTable->getItem(i, 0)->hasFocus() || myIntervalTable->getItem(i, 1)->hasFocus()) {
             // edit interval
             GNERerouterIntervalDialog(myEditedRerouter->getRerouterIntervals().at(i)).openAsModalDialog();
+            // update interval table after editing
+            updateIntervalTable();
             return 1;
         }
     }

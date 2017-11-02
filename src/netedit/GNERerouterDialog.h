@@ -65,9 +65,6 @@ public:
     /// @brief check if a interval exists
     bool findInterval(double begin, double end) const;
 
-    /// @brief check if begin and end of an existent interval can be modified
-    bool checkModifyInterval(GNERerouterInterval* rerouterInterval, double newBegin, double newEnd) const;
-
     /// @name FOX-callbacks
     /// @{
     /// @brief event after press accept button
