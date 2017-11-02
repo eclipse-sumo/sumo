@@ -157,7 +157,7 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 long
 GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
     // create empty rerouter interval and configure it with GNERerouterIntervalDialog
-    GNERerouterInterval *newInterval = new GNERerouterInterval(myEditedRerouter, 0, 0);
+    GNERerouterInterval *newInterval = new GNERerouterInterval(this);
     myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(newInterval, true), true);
     if (GNERerouterIntervalDialog(newInterval).openAsModalDialog() == TRUE) {
         // if new interval was sucesfully configured, update interval table

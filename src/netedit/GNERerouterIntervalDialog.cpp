@@ -167,8 +167,6 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                               ("Error updating " + toString(myEditedRerouterInterval->getTag()) + " of " + toString(myEditedRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
                               (toString(myEditedRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myEditedRerouterInterval->getTag()) +
                                " cannot be updated because " + toString(myEditedRerouterInterval->getTag()) + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
-
-
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
