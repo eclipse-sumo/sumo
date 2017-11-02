@@ -141,12 +141,7 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    // obtain ID's of Edges
-    std::vector<std::string> edgeIDs;
-    for (std::vector<GNEEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        edgeIDs.push_back((*i)->getID());
-    }
-    device.writeAttr(SUMO_ATTR_EDGES, joinToString(edgeIDs, " ").c_str());
+    device.writeAttr(SUMO_ATTR_EDGES, parseGNEEdges(myEdges));
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
     if (!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
@@ -298,14 +293,8 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
-        case SUMO_ATTR_EDGES: {
-            // obtain ID's of Edges
-            std::vector<std::string> edgeIDs;
-            for (std::vector<GNEEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-                edgeIDs.push_back((*i)->getID());
-            }
-            return joinToString(edgeIDs, " ");
-        }
+        case SUMO_ATTR_EDGES:
+            return parseGNEEdges(myEdges);
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_FILE:
@@ -348,24 +337,16 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
-        case SUMO_ATTR_EDGES: {
-            std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
-            // Empty Edges aren't valid
-            if (edgeIds.empty()) {
+        case SUMO_ATTR_EDGES:
+            if(value.empty()) {
                 return false;
+            } else {
+                return checkGNEEdgesValid(myViewNet->getNet(), value);
             }
-            // Iterate over parsed edges and check that exists
-            for (int i = 0; i < (int)edgeIds.size(); i++) {
-                if (myViewNet->getNet()->retrieveEdge(edgeIds.at(i), false) == NULL) {
-                    return false;
-                }
-            }
-            // all edges exist, then is valid
-            return true;
-        }
-        case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_POSITION: {
             bool ok;
             return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+        }
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_PROB:
@@ -413,24 +394,15 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_EDGES: {
-            // Declare auxiliar variables
-            std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
-            GNEEdge* edge;
-            // first remove references of current rerouter in all edge childs
+            // remove references of this rerouter in all edge childs
             for (auto i : myEdges) {
                 i->removeGNERerouter(this);
             }
-            // clear previous edges
-            myEdges.clear();
-            // Iterate over parsed edges and obtain pointer to edges
-            for (int i = 0; i < (int)edgeIds.size(); i++) {
-                edge = myViewNet->getNet()->retrieveEdge(edgeIds.at(i), false);
-                if (edge) {
-                    myEdges.push_back(edge);
-                    edge->addGNERerouter(this);
-                } else {
-                    throw InvalidArgument("Trying to set an non-valid edge in " + getID());
-                }
+            // set new edges
+            myEdges = parseGNEEdges(myViewNet->getNet(), value);
+            // add references to this rerouter in all newedge childs
+            for (auto i : myEdges) {
+                i->addGNERerouter(this);
             }
             break;
         }

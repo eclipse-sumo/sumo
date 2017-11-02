@@ -244,16 +244,8 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return false;
-        case SUMO_ATTR_EDGES: {
-            std::vector<std::string> NBEdgeIDs = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
-            // Obtain NBEdges of GNENet and check if exists
-            for (std::vector<std::string>::iterator i = NBEdgeIDs.begin(); i != NBEdgeIDs.end(); i++) {
-                if (myNet->retrieveEdge((*i), false) == NULL) {
-                    return false;
-                }
-            }
-            return true;
-        }
+        case SUMO_ATTR_EDGES:
+            return checkGNEEdgesValid(myNet, value);
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && isPositive<double>(value);
         case SUMO_ATTR_PRIORITY:
@@ -303,12 +295,13 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(getTag()) + " isn't allowed");
         case SUMO_ATTR_EDGES: {
-            // remove edges of crossing
+            // obtain GNEEdges
+            std::vector<GNEEdge*> edges = parseGNEEdges(myNet, value);
+            // remove NBEdges of crossing
             myCrossing->edges.clear();
-            std::vector<std::string> NBEdgeIDs = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
-            // Obtain NBEdges of GNENet and insert it in the crossing
-            for (std::vector<std::string>::iterator i = NBEdgeIDs.begin(); i != NBEdgeIDs.end(); i++) {
-                myCrossing->edges.push_back(myNet->retrieveEdge(*i)->getNBEdge());
+            // set NBEdge of every GNEEdge into Crossing Edges
+            for (auto i : edges) {
+                myCrossing->edges.push_back(i->getNBEdge());
             }
             // update geometry of parent junction
             myParentJunction->updateGeometry();

@@ -95,7 +95,7 @@ GNECalibratorRoute::writeRoute(OutputDevice& device) {
     // Write route ID
     device.writeAttr(SUMO_ATTR_BEGIN, myRouteID);
     // Write edge IDs
-    device.writeAttr(SUMO_ATTR_BEGIN, getAttribute(SUMO_ATTR_EDGES));
+    device.writeAttr(SUMO_ATTR_BEGIN, parseGNEEdges(myEdges));
     // Write Color
     device.writeAttr(SUMO_ATTR_BEGIN, myColor);
     // Close flow tag
@@ -120,14 +120,8 @@ GNECalibratorRoute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
     case SUMO_ATTR_ID:
         return myRouteID;
-    case SUMO_ATTR_EDGES: {
-        // obtain ID's of Edges
-        std::vector<std::string> edgeIDs;
-        for (auto i : myEdges) {
-            edgeIDs.push_back(i->getID());
-        }
-        return joinToString(edgeIDs, " ");
-    }
+    case SUMO_ATTR_EDGES:
+        return parseGNEEdges(myEdges);
     case SUMO_ATTR_COLOR:
         return toString(myColor);
     default:
@@ -158,25 +152,13 @@ GNECalibratorRoute::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
     case SUMO_ATTR_ID:
         return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value, false) == NULL);
-    case SUMO_ATTR_EDGES: {
-        std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
-        std::vector<GNEEdge*> edges;
-        // Empty Edges aren't valid
-        if (edgeIds.empty()) {
+    case SUMO_ATTR_EDGES:
+        if(checkGNEEdgesValid(myCalibratorParent->getViewNet()->getNet(), value)) {
+            // all edges exist, then check if compounds a valid route
+            return isRouteValid(parseGNEEdges(myCalibratorParent->getViewNet()->getNet(), value));
+        } else {
             return false;
         }
-        // Iterate over parsed edges and check that exists
-        for (auto i : edgeIds) {
-            GNEEdge* retrievedEdge = myCalibratorParent->getViewNet()->getNet()->retrieveEdge(i, false);
-            if (retrievedEdge == NULL) {
-                return false;
-            } else {
-                edges.push_back(retrievedEdge);
-            }
-        }
-        // all edges exist, then check if compounds a valid route
-        return isRouteValid(edges);
-    }
     case SUMO_ATTR_COLOR:
         return canParse<RGBColor>(value);
     default:
@@ -197,16 +179,9 @@ GNECalibratorRoute::setAttribute(SumoXMLAttr key, const std::string& value) {
         myCalibratorParent->getViewNet()->getNet()->changeCalibratorRouteID(this, oldID);
         break;
     }
-    case SUMO_ATTR_EDGES: {
-        // clear old edges
-        myEdges.clear();
-        std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
-        // Iterate over parsed edges and check that exists
-        for (auto i : edgeIds) {
-            myEdges.push_back(myCalibratorParent->getViewNet()->getNet()->retrieveEdge(i));
-        }
+    case SUMO_ATTR_EDGES:
+        myEdges = parseGNEEdges(myCalibratorParent->getViewNet()->getNet(), value);
         break;
-    }
     case SUMO_ATTR_COLOR:
         myColor = parse<RGBColor>(value);
         break;
