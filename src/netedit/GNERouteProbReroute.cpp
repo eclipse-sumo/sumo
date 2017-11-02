@@ -112,7 +112,7 @@ GNERouteProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
     case SUMO_ATTR_ID:
         return isValidID(value);
     case SUMO_ATTR_PROB:
-        return canParse<RGBColor>(value);
+        return canParse<double>(value);
     default:
         throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
