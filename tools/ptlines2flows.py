@@ -50,6 +50,7 @@ def get_options():
     optParser.add_option("-f", "--flow-attributes", dest="flowattrs",
                          default="", help="additional flow attributes")
     optParser.add_option("--use-osm-routes", default=False, action="store_true", dest='osmRoutes', help="use osm routes")
+    optParser.add_option("--ignore-errors", default=False, action="store_true", dest='ignoreErrors', help="ignore problems with the input data")
     optParser.add_option("--no-vtypes", default=False, action="store_true", dest='novtypes', help="do not write vtypes for generated flows")
     (options, args) = optParser.parse_args()
 
@@ -96,7 +97,11 @@ def createTrips(options):
                 try:
                     edge_id, lane_index = laneId.rsplit("_", 1)
                 except ValueError:
-                    sys.exit("Invalid lane '%s' for stop '%s'" % (laneId, stop.id))
+                    if options.ignoreErrors:
+                        sys.stderr.write("Warning: ignoring stop '%s' on invalid lane '%s'\n" % (stop.id, laneId))
+                        continue
+                    else:
+                        sys.exit("Invalid lane '%s' for stop '%s'" % (laneId, stop.id))
                 if fr == None:
                     fr = edge_id
                     dep_lane = laneId
@@ -167,7 +172,11 @@ def createRoutes(options, trpMap):
             try:
                 edges = vehicle.routeDistribution[0]._child_dict['route'][1].edges
             except StandardError:
-                sys.exit("could not parse edges for vehicle '%s'" % id)
+                if options.ignoreErrors:
+                    sys.stderr.write("Warning: Could not parse edges for vehicle '%s'\n" % id)
+                    continue
+                else:
+                    sys.exit("Could not parse edges for vehicle '%s'\n" % id)
             stops = vehicle.stop
             foutflows.write('    <route id="%s" edges="%s" >\n' % (id, edges))
             for stop in stops:
