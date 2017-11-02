@@ -67,10 +67,10 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     new FXLabel(buttonAndLabelInterval, ("Add new " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
 
     // Create table
-    myIntervalList = new FXTable(myContentFrame, this, MID_GNE_REROUTEDIALOG_TABLE_INTERVAL, GUIDesignTableAdditionals);
-    myIntervalList->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myIntervalList->setSelTextColor(FXRGBA(0, 0, 0, 255));
-    myIntervalList->setEditable(false);
+    myIntervalTable = new FXTable(myContentFrame, this, MID_GNE_REROUTEDIALOG_TABLE_INTERVAL, GUIDesignTableAdditionals);
+    myIntervalTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
+    myIntervalTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
+    myIntervalTable->setEditable(false);
 
     // update intervals
     updateIntervalTable();
@@ -175,33 +175,35 @@ long
 GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
     for (int i = 0; i < (int)myEditedRerouter->getRerouterIntervals().size(); i++) {
-        if (myIntervalList->getItem(i, 2)->hasFocus()) {
+        if (myIntervalTable->getItem(i, 2)->hasFocus()) {
+            // get rerouter interval to remove
+            GNERerouterInterval *rerouterInterval = myEditedRerouter->getRerouterIntervals().at(i);
             // drop all closing reroutes of interval
-            for(auto j : myEditedRerouter->getRerouterIntervals().at(i)->getClosingReroutes()) {
-                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(j, false), true);
+            while (rerouterInterval->getClosingReroutes().size() > 0) {
+                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval->getClosingReroutes().front(), false), true);
             }
             // drop all closing lane reroutes of interval
-            for(auto j : myEditedRerouter->getRerouterIntervals().at(i)->getClosingLaneReroutes()) {
-                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(j, false), true);
+            while (rerouterInterval->getClosingLaneReroutes().size() > 0) {
+                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval->getClosingLaneReroutes().front(), false), true);
             }
             // drop all route probability reroutes of interval
-            for(auto j : myEditedRerouter->getRerouterIntervals().at(i)->getRouteProbReroutes()) {
-                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(j, false), true);
+            while (rerouterInterval->getRouteProbReroutes().size() > 0) {
+                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval->getRouteProbReroutes().front(), false), true);
             }
             // drop all destiny probability reroutes of interval
-            for(auto j : myEditedRerouter->getRerouterIntervals().at(i)->getDestProbReroutes()) {
-                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(j, false), true);
+            while (rerouterInterval->getDestProbReroutes().size() > 0) {
+                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval->getDestProbReroutes().front(), false), true);
             }
-            // remove row of list
-            myIntervalList->removeRows(i);
+            // remove row of table
+            myIntervalTable->removeRows(i);
             // remove interval
-            myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(myEditedRerouter->getRerouterIntervals().at(i), false), true);
+            myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval, false), true);
             return 1;
         }
     }
     // check if some begin or o end  button was pressed
     for (int i = 0; i < (int)myEditedRerouter->getRerouterIntervals().size(); i++) {
-        if (myIntervalList->getItem(i, 0)->hasFocus() || myIntervalList->getItem(i, 1)->hasFocus()) {
+        if (myIntervalTable->getItem(i, 0)->hasFocus() || myIntervalTable->getItem(i, 1)->hasFocus()) {
             // edit interval
             GNERerouterIntervalDialog(myEditedRerouter->getRerouterIntervals().at(i)).openAsModalDialog();
             return 1;
@@ -215,18 +217,18 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
 void
 GNERerouterDialog::updateIntervalTable() {
     // clear table
-    myIntervalList->clearItems();
+    myIntervalTable->clearItems();
     // set number of rows
-    myIntervalList->setTableSize(int(myEditedRerouter->getRerouterIntervals().size()), 3);
+    myIntervalTable->setTableSize(int(myEditedRerouter->getRerouterIntervals().size()), 3);
     // Configure list
-    myIntervalList->setVisibleColumns(4);
-    myIntervalList->setColumnWidth(0, 137);
-    myIntervalList->setColumnWidth(1, 136);
-    myIntervalList->setColumnWidth(2, GUIDesignTableIconCellWidth);
-    myIntervalList->setColumnText(0, toString(SUMO_ATTR_BEGIN).c_str());
-    myIntervalList->setColumnText(1, toString(SUMO_ATTR_END).c_str());
-    myIntervalList->setColumnText(2, "");
-    myIntervalList->getRowHeader()->setWidth(0);
+    myIntervalTable->setVisibleColumns(4);
+    myIntervalTable->setColumnWidth(0, 137);
+    myIntervalTable->setColumnWidth(1, 136);
+    myIntervalTable->setColumnWidth(2, GUIDesignTableIconCellWidth);
+    myIntervalTable->setColumnText(0, toString(SUMO_ATTR_BEGIN).c_str());
+    myIntervalTable->setColumnText(1, toString(SUMO_ATTR_END).c_str());
+    myIntervalTable->setColumnText(2, "");
+    myIntervalTable->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
     FXTableItem* item = 0;
@@ -234,15 +236,15 @@ GNERerouterDialog::updateIntervalTable() {
     for (auto i : myEditedRerouter->getRerouterIntervals()) {
         // Set time
         item = new FXTableItem(i->getAttribute(SUMO_ATTR_BEGIN).c_str());
-        myIntervalList->setItem(indexRow, 0, item);
+        myIntervalTable->setItem(indexRow, 0, item);
         // Set speed
         item = new FXTableItem(i->getAttribute(SUMO_ATTR_END).c_str());
-        myIntervalList->setItem(indexRow, 1, item);
+        myIntervalTable->setItem(indexRow, 1, item);
         // set remove
         item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
-        myIntervalList->setItem(indexRow, 2, item);
+        myIntervalTable->setItem(indexRow, 2, item);
         // Update index
         indexRow++;
     }

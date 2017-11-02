@@ -117,7 +117,7 @@ std::string
 GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
     switch (key) {
     case SUMO_ATTR_ID:
-        return toString(myBegin) + toString(myEnd);
+        return myRerouterParent->getID() + "_" + toString(myBegin) + "_" + toString(myEnd);
     case SUMO_ATTR_BEGIN:
         return toString(myBegin);
     case SUMO_ATTR_END:
@@ -148,9 +148,9 @@ bool
 GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
     case SUMO_ATTR_BEGIN:
-        return canParse<double>(value) && parse<double>(value) <= myEnd;
+        return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= myEnd);
     case SUMO_ATTR_END:
-        return canParse<double>(value) && parse<double>(value) >= myBegin;
+        return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) >= myBegin);
     default:
         throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

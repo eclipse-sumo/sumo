@@ -148,16 +148,16 @@ protected:
     FXButton* myAddRouteProbReroute;
 
     /// @brief list with closing lane reroutes
-    FXTable* myClosingLaneRerouteList;
+    FXTable* myClosingLaneRerouteTable;
 
     /// @brief list with closing reroutes
-    FXTable* myClosingRerouteList;
+    FXTable* myClosingRerouteTable;
 
     /// @brief list with destiny probability reroutes
-    FXTable* myDestProbRerouteList;
+    FXTable* myDestProbRerouteTable;
 
     /// @brief list with route probability reroute
-    FXTable* myRouteProbRerouteList;
+    FXTable* myRouteProbRerouteTable;
 
     /// @brief flag to check if begin an end are valid
     bool myBeginEndValid;

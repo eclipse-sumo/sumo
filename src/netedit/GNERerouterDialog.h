@@ -97,7 +97,7 @@ protected:
     FXButton* myAddInterval;
 
     /// @brief list with intervals
-    FXTable* myIntervalList;
+    FXTable* myIntervalTable;
 
 private:
     /// @brief update data table
