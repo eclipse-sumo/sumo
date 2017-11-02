@@ -142,6 +142,9 @@ protected:
     /// @brief filename of variable speed sign
     std::string myFilename;
 
+    /// @brief vector of lanes of this VSS
+    std::vector<GNELane*> myLanes;
+
     /// @brief values of variable speed signal
     std::vector<GNEVariableSpeedSignStep*> mySteps;
 
@@ -153,10 +156,10 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNEVariableSpeedSign(const GNEVariableSpeedSign&);
+    GNEVariableSpeedSign(const GNEVariableSpeedSign&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEVariableSpeedSign& operator=(const GNEVariableSpeedSign&);
+    GNEVariableSpeedSign& operator=(const GNEVariableSpeedSign&) = delete;
 };
 
 #endif

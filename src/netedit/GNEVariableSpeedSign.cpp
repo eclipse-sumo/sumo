@@ -58,10 +58,11 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> /* lanes */, const std::string& filename) :
+GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename) :
     GNEAdditional(id, viewNet, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGN),
     myPosition(pos),
     myFilename(filename),
+    myLanes(lanes),
     mySaveInFilename(false) {
 }
 
@@ -134,7 +135,7 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANES, /*joinToString(getLaneChildIds(), " ").c_str()*/"");
+    device.writeAttr(SUMO_ATTR_LANES, parseGNELanes(myLanes));
     device.writeAttr(SUMO_ATTR_X, myPosition.x());
     device.writeAttr(SUMO_ATTR_Y, myPosition.y());
     // If filenam isn't empty and save in filename is enabled, save in a different file. In other case, save in the same additional XML
@@ -284,7 +285,7 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANES:
-            return /*joinToString(getLaneChildIds(), " ")*/ "";
+            return parseGNELanes(myLanes);
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_FILE:
@@ -325,20 +326,12 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
             bool ok;
             return (GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1);
         }
-        case SUMO_ATTR_LANES: {
-            std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
-            // Empty Lanes aren't valid
-            if (laneIds.empty()) {
+        case SUMO_ATTR_LANES:
+            if(value.empty()) {
                 return false;
+            } else {
+                return checkGNELanesValid(myViewNet->getNet(), value);
             }
-            // Iterate over parsed lanes
-            for (int i = 0; i < (int)laneIds.size(); i++) {
-                if (myViewNet->getNet()->retrieveLane(laneIds.at(i), false) == NULL) {
-                    return false;
-                }
-            }
-            return true;
-        }
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -355,22 +348,9 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             changeAdditionalID(value);
             break;
-        case SUMO_ATTR_LANES: {
-            // Declare variables
-            std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
-            std::vector<GNELane*> lanes;
-            GNELane* lane;
-            // Iterate over parsed lanes and obtain pointer to lanes
-            for (int i = 0; i < (int)laneIds.size(); i++) {
-                lane = myViewNet->getNet()->retrieveLane(laneIds.at(i), false);
-                if (lane) {
-                    lanes.push_back(lane);
-                }
-            }
-            // Set new childs
-            //setLaneChilds(lanes);
+        case SUMO_ATTR_LANES:
+            myLanes = parseGNELanes(myViewNet->getNet(), value);
             break;
-        }
         case SUMO_ATTR_POSITION:
             bool ok;
             myPosition = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false)[0];
