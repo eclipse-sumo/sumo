@@ -49,6 +49,8 @@
 // class declarations
 // ===========================================================================
 class GNENet;
+class GNEEdge;
+class GNELane;
 class GNEUndoList;
 class GUIGlObject;
 
@@ -409,6 +411,34 @@ public:
         return parse<T>(parsedAttribute);
     }
 
+
+protected:
+
+    /// @brief check if a list of edge IDs is valid
+    bool checkGNEEdgesValid(GNENet *net, const std::string &value) const;
+
+    /// @brief check if a list of Lane IDs is valid
+    bool checkGNELanesValid(GNENet *net, const std::string &value) const;
+
+    /**@brief parse string into vector of GNEEdges
+    * @throw exception one of GNEEdges doesn't exist
+    */
+    std::vector<GNEEdge*> parseGNEEdges(GNENet *net, const std::string &value) const;
+
+    /**@brief parse string into vector of GNELanes
+    * @throw exception one of GNELanes doesn't exist
+    */
+    std::vector<GNELane*> parseGNELanes(GNENet *net, const std::string &value) const;
+
+    /**@brief parse vector of GNEEdges into string
+    * @throw exception one of GNEEdges doesn't exist
+    */
+    std::string parseGNEEdges(const std::vector<GNEEdge*> &edges) const;
+
+    /**@brief parse vector of GNELanes into string
+    * @throw exception one of GNELanes doesn't exist
+    */
+    std::string parseGNELanes(const std::vector<GNELane*> &lanes) const;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

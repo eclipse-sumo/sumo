@@ -184,31 +184,7 @@ public:
     /// @}
 
 protected:
-    /// @brief returns Additional ID
-    const std::string& getAdditionalID() const;
 
-    /// @brief check if a new additional ID is valid
-    bool isValidAdditionalID(const std::string& newID) const;
-
-    /**@brief change ID of additional
-    * @throw exception if exist already an additional whith the same ID
-    * @throw exception if ID isn't valid
-    */
-    void changeAdditionalID(const std::string& newID);
-
-    /**@brief change edge of additional
-     * @throw exception if oldEdge doesn't belong to an edge
-     * @throw exception if edge with ID  edgeID doesn't exist
-     */
-    GNEEdge* changeEdge(GNEEdge *oldEdge, const std::string& newEdgeID);
-
-    /**@brief change lane of additional
-    * @throw exception if oldLane doesn't belong to an edge
-    * @throw exception if lane with ID  edgeID doesn't exist
-     */
-    GNELane* changeLane(GNELane *oldLane, const std::string& newLaneID);
-
-protected:
     /// @brief The GNEViewNet this additional element belongs
     GNEViewNet* myViewNet;
 
@@ -245,6 +221,35 @@ protected:
 
     /// @brief The rotation of the block icon
     double myBlockIconRotation;
+    /// @}
+
+    /// @name Functions relative to change values in setAttribute(...)
+    /// @{
+
+    /// @brief returns Additional ID
+    const std::string& getAdditionalID() const;
+
+    /// @brief check if a new additional ID is valid
+    bool isValidAdditionalID(const std::string& newID) const;
+
+    /**@brief change ID of additional
+    * @throw exception if exist already an additional whith the same ID
+    * @throw exception if ID isn't valid
+    */
+    void changeAdditionalID(const std::string& newID);
+
+    /**@brief change edge of additional
+    * @throw exception if oldEdge doesn't belong to an edge
+    * @throw exception if edge with ID  edgeID doesn't exist
+    */
+    GNEEdge* changeEdge(GNEEdge *oldEdge, const std::string& newEdgeID);
+
+    /**@brief change lane of additional
+    * @throw exception if oldLane doesn't belong to an edge
+    * @throw exception if lane with ID  edgeID doesn't exist
+    */
+    GNELane* changeLane(GNELane *oldLane, const std::string& newLaneID);
+
     /// @}
 
     /// @name members and functions relative to connections between Additionals and their childs
