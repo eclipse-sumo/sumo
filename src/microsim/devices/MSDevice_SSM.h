@@ -643,6 +643,9 @@ private:
     /// Output device
     OutputDevice* myOutputFile;
 
+    /// @brief remember which files were created already (don't duplicate xml root-elements)
+    static std::set<std::string> createdOutputFiles;
+
 private:
     /// @brief Invalidated copy constructor.
     MSDevice_SSM(const MSDevice_SSM&);
