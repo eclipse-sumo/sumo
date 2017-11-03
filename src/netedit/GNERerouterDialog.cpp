@@ -96,11 +96,29 @@ GNERerouterDialog::getEditedRerouter() const {
 
 long
 GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // finish editing
-    myEditedRerouter->getViewNet()->getUndoList()->p_end();
-    // Stop Modal
-    getApp()->stopModal(this, TRUE);
-    return 1;
+    // get number of Rerouter intervals overlapped
+    int numberOfOverlappings = myEditedRerouter->checkOverlapping();
+    // overlapped intervals aren't allowed
+    if(numberOfOverlappings > 0) {
+        // write warning if netedit is running in testing mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
+        }
+        // open warning Box
+        std::string errorMessage = numberOfOverlappings > 1? ("There are " + toString(numberOfOverlappings) + " intervals overlapped.") : ("There is " + toString(numberOfOverlappings) + " interval overlapped.");
+        FXMessageBox::warning(getApp(), MBOX_OK, "Overlapping detected", "%s", ("Values of '" + myEditedRerouter->getID() + "' cannot be saved. " + errorMessage).c_str());
+        // write warning if netedit is running in testing mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
+        }
+        return 0;
+    } else {
+        // finish editing
+        myEditedRerouter->getViewNet()->getUndoList()->p_end();
+        // Stop Modal
+        getApp()->stopModal(this, TRUE);
+        return 1;
+    }
 }
 
 

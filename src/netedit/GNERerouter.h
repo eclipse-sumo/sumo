@@ -84,6 +84,14 @@ public:
     /// @brief get rerouter intervals
     const std::vector<GNERerouterInterval*>& getRerouterIntervals() const;
 
+    /**@brief check if current intervals are overlappedç
+    * @return number of overlapped intervalsç
+    */
+    int checkOverlapping() const;
+
+    /// @brief sort intervals
+    void sortIntervals();
+
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
@@ -141,9 +149,6 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
-    /// @brief check if current intervals are overlapped
-    bool checkOverlapping();
-
 protected:
     /// @brief position of rerouter in view
     Position myPosition;
@@ -170,9 +175,6 @@ protected:
     void removeRerouterInterval(GNERerouterInterval* rerouterInterval);
 
 private:
-    /// @brief sort intervals
-    void sortIntervals();
-
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
