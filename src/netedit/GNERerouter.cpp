@@ -92,12 +92,25 @@ GNERerouter::updateGeometry() {
     // Set position
     myShape.push_back(myPosition);
 
-    /*
-    // Add shape of childs (To avoid graphics errors)
-    for (childEdges::iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
-        myShape.append(i->edge->getLanes().at(0)->getShape());
-    }
+    // clear position and rotations
+    mySymbolsPositionAndRotation.clear();
 
+    // calculate position and rotation of every simbol for every lane
+    for (auto i : myEdges) {
+        for(auto j : i->getLanes()) {
+            std::pair<Position, double> posRot;
+            // set position and lenght depending of shape's lengt
+            if(j->getShape().length() - 6 > 0) {
+                posRot.first = j->getShape().positionAtOffset(j->getShape().length() - 6);
+                posRot.second = j->getShape().rotationDegreeAtOffset(j->getShape().length() - 6);
+            } else {
+                posRot.first = j->getShape().positionAtOffset(j->getShape().length());
+                posRot.second = j->getShape().rotationDegreeAtOffset(j->getShape().length());
+            }
+            mySymbolsPositionAndRotation.push_back(posRot); 
+        }
+    }
+    /*
     // Update geometry of additional parent
     updateConnections();
     */
@@ -266,58 +279,43 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     // Show Lock icon depending of the Edit mode
     drawLockIcon(0.4);
 
-    /*
     // Draw symbols in every lane
     const double exaggeration = s.addSize.getExaggeration(s);
 
     if (s.scale * exaggeration >= 3) {
         // draw rerouter symbol over all lanes
+        for(auto i : mySymbolsPositionAndRotation) {
+            glPushMatrix();
+            glTranslated(i.first.x(), i.first.y(), getType());
+            glRotated(i.second, 0, 0, 1);
+            glScaled(exaggeration, exaggeration, 1);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-        for (childEdges::const_iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
-            for (int lanePosIt = 0; lanePosIt < (int)i->positionsOverLanes.size(); lanePosIt++) {
-                glPushMatrix();
-                glTranslated(i->positionsOverLanes.at(lanePosIt).x(), i->positionsOverLanes.at(lanePosIt).y(), 0);
-                glRotated(i->rotationsOverLanes.at(lanePosIt), 0, 0, 1);
-                glTranslated(0, 0, getType());
-                glScaled(exaggeration, exaggeration, 1);
-                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            glBegin(GL_TRIANGLES);
+            glColor3d(1, .8f, 0);
+            // base
+            glVertex2d(0 - 1.4, 0);
+            glVertex2d(0 - 1.4, 6);
+            glVertex2d(0 + 1.4, 6);
+            glVertex2d(0 + 1.4, 0);
+            glVertex2d(0 - 1.4, 0);
+            glVertex2d(0 + 1.4, 6);
+            glEnd();
 
-                glBegin(GL_TRIANGLES);
-                glColor3d(1, .8f, 0);
-                // base
-                glVertex2d(0 - 1.4, 0);
-                glVertex2d(0 - 1.4, 6);
-                glVertex2d(0 + 1.4, 6);
-                glVertex2d(0 + 1.4, 0);
-                glVertex2d(0 - 1.4, 0);
-                glVertex2d(0 + 1.4, 6);
-                glEnd();
+            // draw "U"
+            GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
 
-                glTranslated(0, 0, .1);
-                glColor3d(0, 0, 0);
-                pfSetPosition(0, 0);
-                pfSetScale(3.f);
-                double w = pfdkGetStringWidth("U");
-                glRotated(180, 0, 1, 0);
-                glTranslated(-w / 2., 2, 0);
-                pfXXDrawString("U");
+            // draw Probability
+            GLHelper::drawText((toString((int)(myProbability * 100)) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
 
-                glTranslated(w / 2., -2, 0);
-                std::string str = toString((int)(myProbability * 100)) + "%";
-                pfSetPosition(0, 0);
-                pfSetScale(.7f);
-                w = pfdkGetStringWidth(str.c_str());
-                glTranslated(-w / 2., 4, 0);
-                pfXXDrawString(str.c_str());
-                glPopMatrix();
-            }
+            glPopMatrix();
         }
         glPopName();
     }
 
     // Draw connections
-    drawConnections();
-    */
+    //drawConnections();
+
     // Pop name
     glPopName();
 

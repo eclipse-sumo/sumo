@@ -167,6 +167,9 @@ protected:
 
     /// @brief set with the GNERerouterInterval
     std::vector<GNERerouterInterval*> myRerouterIntervals;
+    
+    /// @brief position and rotation of every U simbol over lane
+    std::vector<std::pair<Position, double> > mySymbolsPositionAndRotation;
 
     /// @brief add rerouter interval
     void addRerouterInterval(GNERerouterInterval* rerouterInterval);
