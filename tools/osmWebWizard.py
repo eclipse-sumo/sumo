@@ -185,10 +185,10 @@ class Builder(object):
 
         self.report("Converting map data")
         osmBuild.build(options)
-
+        ptOptions = None
         if self.data["publicTransport"]:
             self.report("Generating public transport schedule")
-            ptlines2flows.main(ptlines2flows.get_options([
+            ptOptions = [
                 "-n", self.files["net"],
                 "-e", self.data["duration"],
                 "-p", "600",
@@ -199,7 +199,8 @@ class Builder(object):
                 #"--no-vtypes",
                 "--vtype-prefix", "pt_",
                 "--flow-attributes", 'departPos="0"',
-                ]))
+                ]
+            ptlines2flows.main(ptlines2flows.get_options(ptOptions))
 
         if self.data["vehicles"]:
             # routenames stores all routefiles and will join the items later, will
@@ -234,10 +235,15 @@ class Builder(object):
             # create a batch file for reproducing calls to randomTrips.py
             randomTripsPath = os.path.join(
                 SUMO_HOME, "tools", "randomTrips.py")
+            ptlines2flowsPath = os.path.join(
+                SUMO_HOME, "tools", "ptlines2flows.py")
             batchFile = "build.bat"
             with open(batchFile, 'w') as f:
                 if os.name == "posix":
                     f.write("#!/bin/bash\n")
+                if ptOptions is not None:
+                    f.write("python \"%s\" %s\n" %
+                            (ptlines2flowsPath, " ".join(map(quoted_str, ptOptions))))
                 for opts in sorted(randomTripsCalls):
                     f.write("python \"%s\" %s\n" %
                             (randomTripsPath, " ".join(map(quoted_str, opts))))
