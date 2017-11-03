@@ -33,7 +33,6 @@
 #include <utils/common/MsgHandler.h>
 
 #include "GNECalibratorFlowDialog.h"
-#include "GNECalibratorDialog.h"
 #include "GNECalibrator.h"
 #include "GNEEdge.h"
 #include "GNELane.h"
@@ -65,15 +64,15 @@ FXIMPLEMENT(GNECalibratorFlowDialog, GNEAdditionalDialog, GNECalibratorFlowDialo
 // member method definitions
 // ===========================================================================
 
-GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorFlow* editedCalibratorFlow, bool updatingElement) :
+GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibratorFlow, bool updatingElement) :
     GNEAdditionalDialog(editedCalibratorFlow->getCalibratorParent(), 600, 300),
-    myCalibratorDialogParent(calibratorDialog),
     myEditedCalibratorFlow(editedCalibratorFlow),
     myUpdatingElement(updatingElement),
     myCalibratorFlowValid(true) {
     // change default header
-    changeAdditionalDialogHeader("Edit " + toString(myEditedCalibratorFlow->getTag()) + " of " + toString(myEditedCalibratorFlow->getCalibratorParent()->getTag()) +
-                                 " '" + myEditedCalibratorFlow->getCalibratorParent()->getID() + "'");
+    std::string typeOfOperation = myUpdatingElement? "Edit " + toString(myEditedCalibratorFlow->getTag()) + " of " : "Create " + toString(myEditedCalibratorFlow->getTag()) + " for ";
+    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedCalibratorFlow->getCalibratorParent()->getTag()) + " '" + myEditedCalibratorFlow->getCalibratorParent()->getID() + "'");
+
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
     FXVerticalFrame* columnLeftLabel = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
@@ -149,22 +148,22 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibrator
     myTextFieldProbability = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
 
     // fill comboBox of VTypes
-    for (auto i : myCalibratorDialogParent->getEditedCalibrator()->getCalibratorVehicleTypes()) {
+    for (auto i : myEditedCalibratorFlow->getCalibratorParent()->getCalibratorVehicleTypes()) {
         myComboBoxVehicleType->appendItem(i->getID().c_str());
     }
-    myComboBoxVehicleType->setNumVisible((int)myCalibratorDialogParent->getEditedCalibrator()->getCalibratorVehicleTypes().size());
+    myComboBoxVehicleType->setNumVisible((int)myEditedCalibratorFlow->getCalibratorParent()->getCalibratorVehicleTypes().size());
 
     // fill comboBox of Routes
-    for (auto i : myCalibratorDialogParent->getEditedCalibrator()->getCalibratorRoutes()) {
+    for (auto i : myEditedCalibratorFlow->getCalibratorParent()->getCalibratorRoutes()) {
         myComboBoxRoute->appendItem(i->getID().c_str());
     }
-    myComboBoxRoute->setNumVisible((int)myCalibratorDialogParent->getEditedCalibrator()->getCalibratorRoutes().size());
+    myComboBoxRoute->setNumVisible((int)myEditedCalibratorFlow->getCalibratorParent()->getCalibratorRoutes().size());
 
     // update tables
     updateCalibratorFlowValues();
 
     // start a undo list editing
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change flow values");
+    myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedCalibratorFlow->getTag()) + " values");
 }
 
 
@@ -195,7 +194,7 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         return 0;
     } else {
         // finish editing
-        myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_end();
+        myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList()->p_end();
         // stop dialgo sucesfully
         getApp()->stopModal(this, TRUE);
         return 1;
@@ -206,7 +205,7 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 long
 GNECalibratorFlowDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // abort last command
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -216,8 +215,8 @@ GNECalibratorFlowDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 long
 GNECalibratorFlowDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // abort last command an start editing again
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change flow values");
+    myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedCalibratorFlow->getTag()) + " values");
     // update tables
     updateCalibratorFlowValues();
     return 1;

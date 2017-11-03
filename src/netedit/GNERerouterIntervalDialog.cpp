@@ -99,7 +99,7 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval* rerout
     myRouteProbReroutesValid(true) {
     // change default header
     std::string typeOfOperation = myUpdatingElement? "Edit " + toString(myEditedRerouterInterval->getTag()) + " of " : "Create " + toString(myEditedRerouterInterval->getTag()) + " for ";
-    changeAdditionalDialogHeader(typeOfOperation  + toString(myEditedRerouterInterval->getRerouterParent()->getTag()) + " '" + myEditedRerouterInterval->getRerouterParent()->getID() + "'");
+    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedRerouterInterval->getRerouterParent()->getTag()) + " '" + myEditedRerouterInterval->getRerouterParent()->getID() + "'");
 
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);

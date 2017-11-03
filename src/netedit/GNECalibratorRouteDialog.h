@@ -30,13 +30,12 @@
 #endif
 
 #include "GNEAdditionalDialog.h"
-#include "GNECalibratorRoute.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNECalibratorDialog;
+class GNECalibratorRoute;
 
 // ===========================================================================
 // class definitions
@@ -53,7 +52,7 @@ class GNECalibratorRouteDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorRouteDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorRoute* calibratorRoute, bool updatingElement);
+    GNECalibratorRouteDialog(GNECalibratorRoute* editedCalibratorRoute, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorRouteDialog();
@@ -77,12 +76,6 @@ protected:
     /// @brief FOX needs this
     GNECalibratorRouteDialog() {}
 
-    /// @brief update data fields
-    void updateCalibratorRouteValues();
-
-    /// @brief pointer to GNECalibratorDialog parent
-    GNECalibratorDialog* myCalibratorDialogParent;
-
     /// @brief pointer to modified rerouter interval
     GNECalibratorRoute* myEditedCalibratorRoute;
 
@@ -103,6 +96,9 @@ protected:
 
     /// @brief color of route
     FXTextField* myTextFieldColor;
+
+    /// @brief update data fields
+    void updateCalibratorRouteValues();
 
 private:
     /// @brief Invalidated copy constructor.

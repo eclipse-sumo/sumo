@@ -31,7 +31,7 @@
 
 #include <fx.h>
 #include <vector>
-
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
 // class declarations

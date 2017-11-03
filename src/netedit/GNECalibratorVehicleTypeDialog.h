@@ -29,14 +29,12 @@
 #include <config.h>
 #endif
 
-#include <utils/xml/SUMOXMLDefinitions.h>
 #include "GNEAdditionalDialog.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNECalibratorDialog;
 class GNECalibratorVehicleType;
 
 // ===========================================================================
@@ -54,7 +52,7 @@ class GNECalibratorVehicleTypeDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorVehicleTypeDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorVehicleType* calibratorVehicleType, bool updatingElement);
+    GNECalibratorVehicleTypeDialog(GNECalibratorVehicleType* editedCalibratorVehicleType, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorVehicleTypeDialog();
@@ -78,17 +76,8 @@ protected:
     /// @brief FOX needs this
     GNECalibratorVehicleTypeDialog() {}
 
-    /// @brief update data fields
-    void updateCalibratorVehicleTypeValues();
-
-    /// @brief set VClass texture
-    void setVClassLabelImage();
-
-    /// @brief pointer to GNECalibratorDialog parent
-    GNECalibratorDialog* myCalibratorDialogParent;
-
     /// @brief pointer to original calibrator vehicle type
-    GNECalibratorVehicleType* myEditedVehicleType;
+    GNECalibratorVehicleType* myEditedCalibratorVehicleType;
 
     /// @brief flag to indicate if flow are being created or modified
     bool myUpdatingElement;
@@ -182,6 +171,12 @@ protected:
 
     /// @brief FXTextfield for MaxSpeedLat
     FXTextField* myTextFieldMaxSpeedLat;
+
+    /// @brief update data fields
+    void updateCalibratorVehicleTypeValues();
+
+    /// @brief set VClass texture
+    void setVClassLabelImage();
 
 private:
     /// @brief Invalidated copy constructor.

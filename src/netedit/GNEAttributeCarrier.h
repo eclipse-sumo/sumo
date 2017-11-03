@@ -35,6 +35,7 @@
 #include <map>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOVehicleClass.h>

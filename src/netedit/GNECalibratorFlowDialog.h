@@ -29,15 +29,12 @@
 #include <config.h>
 #endif
 
-#include <utils/xml/SUMOXMLDefinitions.h>
-
 #include "GNEAdditionalDialog.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNECalibratorDialog;
 class GNECalibratorFlow;
 
 // ===========================================================================
@@ -55,7 +52,7 @@ class GNECalibratorFlowDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorFlow* editedCalibratorFlowParent, bool updatingElement);
+    GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibratorFlowParent, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorFlowDialog();
@@ -81,10 +78,6 @@ public:
 protected:
     /// @brief FOX needs this
     GNECalibratorFlowDialog() {} 
-
-private:
-    /// @brief pointer to GNECalibratorDialog parent
-    GNECalibratorDialog* myCalibratorDialogParent;
 
     /// @brief interator to edited calibrator flow
     GNECalibratorFlow *myEditedCalibratorFlow;
@@ -176,6 +169,7 @@ private:
     /// @brief update data fields
     void updateCalibratorFlowValues();
 
+private:
     /// @brief Invalidated copy constructor.
     GNECalibratorFlowDialog(const GNECalibratorFlowDialog&) = delete;
 

@@ -33,8 +33,8 @@
 #include <utils/common/MsgHandler.h>
 
 #include "GNECalibratorRouteDialog.h"
-#include "GNECalibratorDialog.h"
 #include "GNECalibrator.h"
+#include "GNECalibratorRoute.h"
 #include "GNEEdge.h"
 #include "GNELane.h"
 #include "GNEViewNet.h"
@@ -57,15 +57,14 @@ FXIMPLEMENT(GNECalibratorRouteDialog, GNEAdditionalDialog, GNECalibratorRouteDia
 // member method definitions
 // ===========================================================================
 
-GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorRoute* calibratorRoute, bool updatingElement) :
-    GNEAdditionalDialog(calibratorDialog->getEditedCalibrator(), 400, 120),
-    myCalibratorDialogParent(calibratorDialog),
-    myEditedCalibratorRoute(calibratorRoute),
+GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorRoute* editedCalibratorRoute, bool updatingElement) :
+    GNEAdditionalDialog(editedCalibratorRoute->getCalibratorParent(), 400, 120),
+    myEditedCalibratorRoute(editedCalibratorRoute),
     myUpdatingElement(updatingElement),
     myCalibratorRouteValid(true) {
     // change default header
-    changeAdditionalDialogHeader("Edit " + toString(myEditedCalibratorRoute->getTag()) + " of " + toString(myEditedCalibratorRoute->getCalibratorParent()->getTag()) +
-                                 " '" + myEditedCalibratorRoute->getCalibratorParent()->getID() + "'");
+    std::string typeOfOperation = myUpdatingElement? "Edit " + toString(myEditedCalibratorRoute->getTag()) + " of " : "Create " + toString(myEditedCalibratorRoute->getTag()) + " for ";
+    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedCalibratorRoute->getCalibratorParent()->getTag()) + " '" + myEditedCalibratorRoute->getCalibratorParent()->getID() + "'");
 
     // Create auxiliar frames for data
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -88,7 +87,7 @@ GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorDialog* calibrat
     updateCalibratorRouteValues();
 
     // start a undo list editing
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change route values");
+    myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedCalibratorRoute->getTag()) + " values");
 }
 
 
@@ -119,7 +118,7 @@ GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         return 0;
     } else {
         // finish editing
-        myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_end();
+        myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getUndoList()->p_end();
         // stop dialgo sucesfully
         getApp()->stopModal(this, TRUE);
         return 1;
@@ -130,7 +129,7 @@ GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 long
 GNECalibratorRouteDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // abort last command
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -140,8 +139,8 @@ GNECalibratorRouteDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 long
 GNECalibratorRouteDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // abort last command an start editing again
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
-    myCalibratorDialogParent->getEditedCalibrator()->getViewNet()->getUndoList()->p_begin("change route values");
+    myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedCalibratorRoute->getTag()) + " values");
     // update fields
     updateCalibratorRouteValues();
     return 1;
