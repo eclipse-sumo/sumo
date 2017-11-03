@@ -400,6 +400,7 @@ on("ready", function(){
         var data = {
             poly: elem("#polygons").checked,
             duration: parseInt(elem("#duration").value),
+            publicTransport: elem("#publicTransport").checked,
             vehicles: {}
         };
 

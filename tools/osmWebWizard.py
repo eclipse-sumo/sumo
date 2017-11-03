@@ -33,6 +33,7 @@ import base64
 import osmGet
 import osmBuild
 import randomTrips
+import ptlines2flows
 import sumolib  # noqa
 from webWizard.SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 
@@ -59,7 +60,8 @@ vehicleParameters = {
     "rail_urban": ["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "urban", "--min-distance", "1800", "--trip-attributes",                'departLane="best"', "--validate"],
     "rail":       ["--vehicle-class", "rail",       "--vclass", "rail",       "--prefix", "rail",  "--min-distance", "2400", "--trip-attributes",                'departLane="best"', "--validate"],
     "ship":       ["--vehicle-class", "ship",       "--vclass", "ship",       "--prefix", "ship",                                                                                      "--validate"],
-    "pedestrian": ["--vehicle-class", "pedestrian", "--pedestrians",          "--prefix", "ped",   "--max-distance", "2000", "--trip-attributes", 'speedDev="0.1"', ]
+    "pedestrian": ["--vehicle-class", "pedestrian", "--pedestrians", "--prefix", "ped",   "--max-distance", "2000", "--trip-attributes", 'speedDev="0.1"', ],
+    "persontrips":["--vehicle-class", "pedestrian", "--persontrips", "--prefix", "ped",                             "--trip-attributes", 'speedDev="0.1" modes="public"', ],
 }
 
 vehicleNames = {
@@ -147,6 +149,7 @@ class Builder(object):
 
         options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
         self.additionalFiles = []
+        self.routenames = []
 
         if self.data["poly"]:
             # output name for the poly file, will be used by osmBuild and
@@ -167,11 +170,15 @@ class Builder(object):
             typefiles.append(typemaps["ships"])
         if "bicycle" in self.data["vehicles"]:
             typefiles.append(typemaps["bicycles"])
-        if "bus" in self.data["vehicles"]:
+        # special treatment for public transport
+        if self.data["publicTransport"]:
             self.filename("stops", "_stops.add.xml")
             netconvertOptions += ",--ptstop-output,%s" % self.files["stops"]
-            netconvertOptions += ",--osm.stop-output.length,25"
+            self.filename("ptlines", "_ptlines.xml")
+            self.filename("ptroutes", "_pt.rou.xml")
+            netconvertOptions += ",--ptline-output,%s" % self.files["ptlines"]
             self.additionalFiles.append(self.files["stops"])
+            self.routenames.append(self.files["ptroutes"])
 
         options += ["--netconvert-typemap", ','.join(typefiles)]
         options += ["--netconvert-options", netconvertOptions]
@@ -179,10 +186,24 @@ class Builder(object):
         self.report("Converting map data")
         osmBuild.build(options)
 
+        if self.data["publicTransport"]:
+            self.report("Generating public transport schedule")
+            ptlines2flows.main(ptlines2flows.get_options([
+                "-n", self.files["net"],
+                "-e", self.data["duration"],
+                "-p", "600",
+                "--ptstops", self.files["stops"],
+                "--ptlines", self.files["ptlines"],
+                "-o", self.files["ptroutes"],
+                "--ignore-errors",
+                #"--no-vtypes",
+                "--vtype-prefix", "pt_",
+                "--flow-attributes", 'departPos="0"',
+                ]))
+
         if self.data["vehicles"]:
             # routenames stores all routefiles and will join the items later, will
             # be used by sumo-gui
-            self.routenames = []
             randomTripsCalls = []
 
             self.edges = sumolib.net.readNet(self.files["net"]).getEdges()
@@ -194,9 +215,12 @@ class Builder(object):
                 self.filename("trips", ".%s.trips.xml" % vehicle)
 
                 try:
-                    options = self.parseTripOpts(vehicle, options)
+                    options = self.parseTripOpts(vehicle, options, self.data["publicTransport"])
                 except ZeroDivisionError:
                     continue
+
+                if vehicle == "pedestrian" and self.data["publicTransport"]:
+                    options += ["--additional-files", ",".join([self.files["stops"], self.files["ptroutes"]])]
 
                 randomTrips.main(randomTrips.get_options(options))
                 randomTripsCalls.append(options)
@@ -216,7 +240,7 @@ class Builder(object):
                     f.write("python \"%s\" %s\n" %
                             (randomTripsPath, " ".join(map(quoted_str, opts))))
 
-    def parseTripOpts(self, vehicle, options):
+    def parseTripOpts(self, vehicle, options, publicTransport):
         "Return an option list for randomTrips.py for a given vehicle"
 
         # calculate the total length of the available lanes
@@ -229,7 +253,10 @@ class Builder(object):
 
         opts = ["-n", self.files["net"], "--seed", RANDOMSEED, "--fringe-factor", options["fringeFactor"],
                 "-p", period, "-r", self.files["route"], "-o", self.files["trips"], "-e", self.data["duration"]]
-        opts += vehicleParameters[vehicle]
+        if vehicle == "pedestrian" and publicTransport:
+            opts += vehicleParameters["persontrips"]
+        else:
+            opts += vehicleParameters[vehicle]
         return opts
 
     def makeConfigFile(self):
@@ -379,7 +406,9 @@ if __name__ == "__main__":
                               u'bus': {u'count': 1, u'fringeFactor': 2},
                               u'ship': {u'count': 1, u'fringeFactor': 40}},
                 u'osm': os.path.abspath('osm_bbox.osm.xml'),
-                u'poly': True}
+                u'poly': True,
+                u'publicTransport': True,
+                }
         builder = Builder(data, True)
         builder.build()
         builder.makeConfigFile()

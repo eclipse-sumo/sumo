@@ -32,7 +32,7 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
-def get_options():
+def get_options(args=None):
     optParser = OptionParser()
     optParser.add_option("-n", "--net-file", dest="netfile", help="network file")
     optParser.add_option("-l", "--ptlines-file", dest="ptlines", help="public transit lines file")
@@ -52,7 +52,8 @@ def get_options():
     optParser.add_option("--use-osm-routes", default=False, action="store_true", dest='osmRoutes', help="use osm routes")
     optParser.add_option("--ignore-errors", default=False, action="store_true", dest='ignoreErrors', help="ignore problems with the input data")
     optParser.add_option("--no-vtypes", default=False, action="store_true", dest='novtypes', help="do not write vtypes for generated flows")
-    (options, args) = optParser.parse_args()
+    optParser.add_option("--vtype-prefix", default="", dest='vtypeprefix', help="prefix for vtype ids")
+    (options, args) = optParser.parse_args(args=args)
 
     if options.netfile is None or options.ptlines is None or options.ptstops is None:
         sys.stderr.write("Error: net-file, ptlines-file and ptstops-file must be set\n")
@@ -61,15 +62,15 @@ def get_options():
         
     return options
 
-def writeTypes(fout):
-    print("""    <vType id="bus" vClass="bus"/>
-    <vType id="tram" vClass="tram"/>
-    <vType id="train" vClass="rail"/>
-    <vType id="subway" vClass="rail_urban"/>
-    <vType id="monorail" vClass="rail"/>
-    <vType id="trolleybus" vClass="bus"/>
-    <vType id="aerialway" vClass="bus"/>
-    <vType id="ferry" vClass="ship"/>""", file=fout)
+def writeTypes(fout, prefix):
+    print("""    <vType id="%sbus" vClass="bus"/>
+    <vType id="%stram" vClass="tram"/>
+    <vType id="%strain" vClass="rail"/>
+    <vType id="%ssubway" vClass="rail_urban"/>
+    <vType id="%smonorail" vClass="rail"/>
+    <vType id="%strolleybus" vClass="bus"/>
+    <vType id="%saerialway" vClass="bus"/>
+    <vType id="%sferry" vClass="ship"/>""" % tuple([prefix]*8), file=fout)
 
 
 def createTrips(options):
@@ -83,7 +84,7 @@ def createTrips(options):
     with open(options.trips, 'w') as fouttrips:
         sumolib.writeXMLHeader(
             fouttrips, "$Id$", "routes")
-        writeTypes(fouttrips)
+        writeTypes(fouttrips, options.vtypeprefix)
         trp_nr = 0
         for line in sumolib.output.parse(options.ptlines, 'ptLine'):
             fr = None
@@ -121,16 +122,16 @@ def createTrips(options):
                 if (lenE > 3):
                     vias = ' '.join(edges[0:lenE])
                     fouttrips.write(
-                        '    <trip id="%s" type="%s" depart="0" departLane="%s" from="%s" to="%s" via="%s">\n' % (
-                            trp_nr, line.type, 'best', fr, to, vias))
+                        '    <trip id="%s" type="%s%s" depart="0" departLane="%s" from="%s" to="%s" via="%s">\n' % (
+                            trp_nr, options.vtypeprefix, line.type, 'best', fr, to, vias))
                 else:
                     fouttrips.write(
-                        '    <trip id="%s" type="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (
-                            trp_nr, line.type, 'best', fr, to))
+                        '    <trip id="%s" type="%s%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (
+                            trp_nr, options.vtypeprefix, line.type, 'best', fr, to))
             else:
                 fouttrips.write(
-                    '    <trip id="%s" type="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (
-                        trp_nr, line.type, 'best', fr, to))
+                    '    <trip id="%s" type="%s%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (
+                        trp_nr, options.vtypeprefix, line.type, 'best', fr, to))
 
             trpMap[str(trp_nr)] = (line.line, line.attr_name, line.completeness)
             trp_nr += 1
@@ -165,10 +166,9 @@ def createRoutes(options, trpMap):
         sumolib.writeXMLHeader(
             foutflows, "$Id$", "routes")
         if not options.novtypes:
-            writeTypes(foutflows)
+            writeTypes(foutflows, options.vtypeprefix)
         for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
             id = vehicle.id
-            flows.append((id, vehicle.type))
             try:
                 edges = vehicle.routeDistribution[0]._child_dict['route'][1].edges
             except StandardError:
@@ -177,6 +177,7 @@ def createRoutes(options, trpMap):
                     continue
                 else:
                     sys.exit("Could not parse edges for vehicle '%s'\n" % id)
+            flows.append((id, vehicle.type))
             stops = vehicle.stop
             foutflows.write('    <route id="%s" edges="%s" >\n' % (id, edges))
             for stop in stops:
@@ -201,12 +202,11 @@ def createRoutes(options, trpMap):
     print("done.")
 
 
-def main():
-    options = get_options()
+def main(options):
     trpMap = createTrips(options)
     runSimulation(options)
     createRoutes(options, trpMap)
 
 
 if __name__ == "__main__":
-    main()
+    main(get_options())
