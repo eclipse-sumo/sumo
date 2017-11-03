@@ -617,7 +617,7 @@ def main(args=None):
             # this is a little hackish since we zip and remove all files by glob, which may have undesired side effects
             # also note that the 7z file does not have an "_" before the
             # iteration number in order to be not picked up by the remove
-            for s in zipProcesses.keys():
+            for s in list(zipProcesses.keys()):
                 if zipProcesses[s].poll() is not None:
                     for f in glob.glob("*_%03i*" % s):
                         try:
