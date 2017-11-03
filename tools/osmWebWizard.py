@@ -236,6 +236,8 @@ class Builder(object):
                 SUMO_HOME, "tools", "randomTrips.py")
             batchFile = "build.bat"
             with open(batchFile, 'w') as f:
+                if os.name == "posix":
+                    f.write("#!/bin/bash\n")
                 for opts in sorted(randomTripsCalls):
                     f.write("python \"%s\" %s\n" %
                             (randomTripsPath, " ".join(map(quoted_str, opts))))
