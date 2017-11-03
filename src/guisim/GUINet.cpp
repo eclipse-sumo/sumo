@@ -418,7 +418,7 @@ GUIParameterTableWindow*
 GUINet::getParameterWindow(GUIMainWindow& app,
                            GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 32);
+        new GUIParameterTableWindow(app, *this, 35);
     // add items
     ret->mkItem("loaded vehicles [#]", true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getLoadedVehicleNo));
@@ -475,6 +475,11 @@ GUINet::getParameterWindow(GUIMainWindow& app,
             ret->mkItem("avg. trip time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTimeLoss));
             ret->mkItem("avg. trip depart delay [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDepartDelay));
             ret->mkItem("avg. trip speed [m/s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTripSpeed));
+            if (myPersonControl != 0) {
+                ret->mkItem("avg. walk length [m]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkRouteLength));
+                ret->mkItem("avg. walk duration [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkDuration));
+                ret->mkItem("avg. walk time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkTimeLoss));
+            }
         }
     }
     ret->mkItem("nodes [#]", false, (int)getJunctionIDs(false).size());

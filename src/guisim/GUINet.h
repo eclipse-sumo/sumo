@@ -224,6 +224,15 @@ public:
     double getAvgTripSpeed() const {
         return MSDevice_Tripinfo::getAvgDuration() != 0 ? MSDevice_Tripinfo::getAvgRouteLength() / MSDevice_Tripinfo::getAvgDuration() : 0;
     }
+    double getAvgWalkRouteLength() const {
+        return MSDevice_Tripinfo::getAvgWalkRouteLength();
+    }
+    double getAvgWalkDuration() const {
+        return MSDevice_Tripinfo::getAvgWalkDuration();
+    }
+    double getAvgWalkTimeLoss() const {
+        return MSDevice_Tripinfo::getAvgWalkTimeLoss();
+    }
 
     /** @brief Returns the person control
      *
