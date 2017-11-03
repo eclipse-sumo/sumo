@@ -302,11 +302,12 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SU
         // the arrival stop may have an access point
         myWaitingEdge = &previous->getDestinationStop()->getLane().getEdge();
         myStopWaitPos = previous->getDestinationStop()->getWaitPosition();
+        myWaitingPos = previous->getDestinationStop()->getWaitingPositionOnLane();
     } else {
         myWaitingEdge = previous->getEdge();
         myStopWaitPos = Position::INVALID;
+        myWaitingPos = previous->getEdgePos(now);
     }
-    myWaitingPos = previous->getEdgePos(now);
     myWaitingSince = now;
     SUMOVehicle* availableVehicle = net->getVehicleControl().getWaitingVehicle(myWaitingEdge, myLines, myWaitingPos, person->getID());
     if (availableVehicle != 0 && availableVehicle->getParameter().departProcedure == DEPART_TRIGGERED && !availableVehicle->hasDeparted()) {

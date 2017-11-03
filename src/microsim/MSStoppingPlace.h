@@ -142,6 +142,14 @@ public:
      */
     Position getWaitPosition() const;
 
+    /** @brief Returns the lane position corresponding to getWaitPosition()
+     *
+     * @return The waiting position along the stop lane
+     */
+    double getWaitingPositionOnLane() const {
+        return myWaitingPos;
+    }
+
 
     /** @brief For vehicles at the stop this gives the the actual stopping
      *         position of the vehicle. For all others the last free stopping position
