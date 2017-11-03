@@ -127,6 +127,10 @@ GNEEdge::updateGeometry() {
     for (auto i : myAdditionals) {
         i->updateGeometry();
     }
+    // Update geometry of rerouters vinculated to this edge
+    for (auto i : myReroutes) {
+        i->updateGeometry();
+    }
 }
 
 

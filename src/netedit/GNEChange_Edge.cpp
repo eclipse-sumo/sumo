@@ -82,12 +82,12 @@ GNEChange_Edge::undo() {
         // delete edge from net
         myNet->deleteSingleEdge(myEdge);
         // 1 - Remove additionals childs of this edge
-        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
-            myNet->deleteAdditional(*i);
+        for (auto i : myAdditionalChilds) {
+            myNet->deleteAdditional(i);
         }
         // 2 - Remove references to this edge in GNERerouters
-        for (std::vector<GNERerouter*>::iterator i = myGNERerouters.begin(); i != myGNERerouters.end(); i++) {
-            (*i)->removeEdgeChild(myEdge);
+        for (auto i : myGNERerouters) {
+            i->removeEdgeChild(myEdge);
         }
     } else {
         // show extra information for tests
@@ -97,12 +97,12 @@ GNEChange_Edge::undo() {
         // insert edge into net
         myNet->insertEdge(myEdge);
         // 1 - add additionals childs of this edge
-        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
-            myNet->insertAdditional(*i);
+        for (auto i : myAdditionalChilds) {
+            myNet->insertAdditional(i);
         }
         // 2 - Add references to this edge in GNERerouters
-        for (std::vector<GNERerouter*>::iterator i = myGNERerouters.begin(); i != myGNERerouters.end(); i++) {
-            (*i)->addEdgeChild(myEdge);
+        for (auto i : myGNERerouters) {
+            i->addEdgeChild(myEdge);
         }
     }
 }
@@ -118,12 +118,12 @@ GNEChange_Edge::redo() {
         // insert edge into net
         myNet->insertEdge(myEdge);
         // 1 - Add additionals childs of this edge
-        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
-            myNet->insertAdditional(*i);
+        for (auto i : myAdditionalChilds) {
+            myNet->insertAdditional(i);
         }
         // 2 - Add references to this edge in GNERerouters
-        for (std::vector<GNERerouter*>::iterator i = myGNERerouters.begin(); i != myGNERerouters.end(); i++) {
-            (*i)->addEdgeChild(myEdge);
+        for (auto i : myGNERerouters) {
+            i->addEdgeChild(myEdge);
         }
     } else {
         // show extra information for tests
@@ -133,12 +133,12 @@ GNEChange_Edge::redo() {
         // delte edge from net
         myNet->deleteSingleEdge(myEdge);
         // 1 - Remove additionals childs of this edge
-        for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
-            myNet->deleteAdditional(*i);
+        for (auto i : myAdditionalChilds) {
+            myNet->deleteAdditional(i);
         }
         // 2 - Remove references to this edge in GNERerouters
-        for (std::vector<GNERerouter*>::iterator i = myGNERerouters.begin(); i != myGNERerouters.end(); i++) {
-            (*i)->removeEdgeChild(myEdge);
+        for (auto i : myGNERerouters) {
+            i->removeEdgeChild(myEdge);
         }
     }
 }
