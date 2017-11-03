@@ -62,9 +62,6 @@ public:
     /// @brief get edited rerouter
     GNERerouter* getEditedRerouter() const;
 
-    /// @brief check if a interval exists
-    bool findInterval(double begin, double end) const;
-
     /// @name FOX-callbacks
     /// @{
     /// @brief event after press accept button

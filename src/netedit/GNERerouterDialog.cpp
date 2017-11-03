@@ -66,7 +66,7 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     // create add buton and label
     FXHorizontalFrame* buttonAndLabelInterval = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     myAddInterval = new FXButton(buttonAndLabelInterval, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_INTERVAL, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelInterval, ("Add new " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
+    new FXLabel(buttonAndLabelInterval, ("Add new " + toString(SUMO_TAG_INTERVAL)).c_str(), 0, GUIDesignLabelThick);
 
     // Create table
     myIntervalTable = new FXTable(myContentFrame, this, MID_GNE_REROUTEDIALOG_TABLE_INTERVAL, GUIDesignTableAdditionals);
@@ -91,18 +91,6 @@ GNERerouterDialog::~GNERerouterDialog() {}
 GNERerouter*
 GNERerouterDialog::getEditedRerouter() const {
     return myEditedRerouter;
-}
-
-
-bool
-GNERerouterDialog::findInterval(double begin, double end) const {
-    // Iterate over intervals
-    for (auto i : myEditedRerouter->getRerouterIntervals()) {
-        if ((i->getBegin() == begin) && (i->getEnd() == end)) {
-            return true;
-        }
-    }
-    return false;
 }
 
 
@@ -142,7 +130,7 @@ GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
     // create empty rerouter interval and configure it with GNERerouterIntervalDialog
     GNERerouterInterval *newInterval = new GNERerouterInterval(this);
     myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(newInterval, true), true);
-    if (GNERerouterIntervalDialog(newInterval).openAsModalDialog() == TRUE) {
+    if (GNERerouterIntervalDialog(newInterval, false).openAsModalDialog() == TRUE) {
         // if new interval was sucesfully configured, update interval table
         updateIntervalTable();
         return 1;
@@ -188,7 +176,7 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)myEditedRerouter->getRerouterIntervals().size(); i++) {
         if (myIntervalTable->getItem(i, 0)->hasFocus() || myIntervalTable->getItem(i, 1)->hasFocus()) {
             // edit interval
-            GNERerouterIntervalDialog(myEditedRerouter->getRerouterIntervals().at(i)).openAsModalDialog();
+            GNERerouterIntervalDialog(myEditedRerouter->getRerouterIntervals().at(i), true).openAsModalDialog();
             // update interval table after editing
             updateIntervalTable();
             return 1;

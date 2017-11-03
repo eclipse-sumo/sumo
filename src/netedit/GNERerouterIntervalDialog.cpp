@@ -88,17 +88,18 @@ FXIMPLEMENT(GNERerouterIntervalDialog, GNEAdditionalDialog, GNERerouterIntervalD
 // member method definitions
 // ===========================================================================
 
-GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval* rerouterInterval /** create or edit **/) :
+GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval* rerouterInterval, bool updatingElement) :
     GNEAdditionalDialog(rerouterInterval->getRerouterParent(), 640, 480),
     myEditedRerouterInterval(rerouterInterval),
+    myUpdatingElement(updatingElement),
     myBeginEndValid(true),
     myClosingLaneReroutesValid(true),
     myClosingReroutesValid(true),
     myDestProbReroutesValid(true),
     myRouteProbReroutesValid(true) {
     // change default header
-    changeAdditionalDialogHeader("Edit " + toString(myEditedRerouterInterval->getTag()) + " of " + toString(myEditedRerouterInterval->getRerouterParent()->getTag()) +
-                                 " '" + myEditedRerouterInterval->getRerouterParent()->getID() + "'");
+    std::string typeOfOperation = myUpdatingElement? "Edit " + toString(myEditedRerouterInterval->getTag()) + " of " : "Create " + toString(myEditedRerouterInterval->getTag()) + " for ";
+    changeAdditionalDialogHeader(typeOfOperation  + toString(myEditedRerouterInterval->getRerouterParent()->getTag()) + " '" + myEditedRerouterInterval->getRerouterParent()->getID() + "'");
 
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -168,16 +169,16 @@ GNERerouterIntervalDialog::getEditedRerouterInterval() const {
 
 long
 GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    // set strings for dialogs
+    std::string errorTitle = "Error" + toString(myUpdatingElement? "updating" : "creating") + " " + toString(myEditedRerouterInterval->getTag()) + " of " + toString(myEditedRerouterInterval->getRerouterParent()->getTag());
+    std::string operationType = toString(myEditedRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myEditedRerouterInterval->getTag()) + " cannot be " + (myUpdatingElement? "updated" : "created") + " because ";
     if (myBeginEndValid == false) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
         // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myEditedRerouterInterval->getTag()) + " of " + toString(myEditedRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
-                              (toString(myEditedRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myEditedRerouterInterval->getTag()) +
-                               " cannot be updated because " + toString(myEditedRerouterInterval->getTag()) + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
+        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + toString(myEditedRerouterInterval->getTag()) + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
@@ -192,10 +193,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
         // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myEditedRerouterInterval->getTag()) + " of " + toString(myEditedRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
-                              (toString(myEditedRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myEditedRerouterInterval->getTag()) +
-                               " cannot be updated because at least one " + toString(myEditedRerouterInterval->getTag()) + "'s element must be defined.").c_str());
+        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "at least one " + toString(myEditedRerouterInterval->getTag()) + "'s element must be defined.").c_str());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
@@ -207,10 +205,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
         // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myEditedRerouterInterval->getTag()) + " of " + toString(myEditedRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
-                              (toString(myEditedRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myEditedRerouterInterval->getTag()) +
-                               " cannot be updated because there are invalid " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s.").c_str());
+        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s.").c_str());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
@@ -222,10 +217,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
         // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myEditedRerouterInterval->getTag()) + " of " + toString(myEditedRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
-                              (toString(myEditedRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myEditedRerouterInterval->getTag()) +
-                               " cannot be updated because there are invalid " + toString(SUMO_TAG_CLOSING_REROUTE) + "s.").c_str());
+        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_CLOSING_REROUTE) + "s.").c_str());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
@@ -237,10 +229,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
         // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myEditedRerouterInterval->getTag()) + " of " + toString(myEditedRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
-                              (toString(myEditedRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myEditedRerouterInterval->getTag()) +
-                               " cannot be updated because there are invalid " + toString(SUMO_TAG_DEST_PROB_REROUTE) + "s.").c_str());
+        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_DEST_PROB_REROUTE) + "s.").c_str());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
@@ -252,10 +241,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
         // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myEditedRerouterInterval->getTag()) + " of " + toString(myEditedRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
-                              (toString(myEditedRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myEditedRerouterInterval->getTag()) +
-                               " cannot be updated because there are invalid " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s.").c_str());
+        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s.").c_str());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");

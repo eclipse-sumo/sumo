@@ -59,7 +59,7 @@ class GNERerouterIntervalDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNERerouterIntervalDialog(GNERerouterInterval* rerouterInterval);
+    GNERerouterIntervalDialog(GNERerouterInterval* rerouterInterval, bool updatingElement);
 
     /// @brief destructor
     ~GNERerouterIntervalDialog();
@@ -125,6 +125,9 @@ protected:
 
     /// @brief pointer to rerouter interval
     GNERerouterInterval* myEditedRerouterInterval;
+
+    /// @brief flag to indicate if rerouter interval is being created or modified
+    bool myUpdatingElement;
 
     /// @brief begin time text field
     FXTextField* myBeginTextField;
