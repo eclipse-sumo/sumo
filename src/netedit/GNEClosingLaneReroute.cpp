@@ -72,9 +72,9 @@ GNEClosingLaneReroute::writeClosingLaneReroute(OutputDevice& device) const {
     // write Lane ID
     device.writeAttr(SUMO_ATTR_ID, myClosedLane->getID());
     // write Allowed vehicles
-    device.writeAttr(SUMO_ATTR_ALLOW, myAllowedVehicles);
+    device.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(myAllowedVehicles));
     // write disallowed vehicles
-    device.writeAttr(SUMO_ATTR_DISALLOW, myDisallowedVehicles);
+    device.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNames(myDisallowedVehicles));
     // close closing reroute tag
     device.closeTag();
 }

@@ -34,6 +34,8 @@
 #include "GNEUndoList.h"
 #include "GNERerouter.h"
 #include "GNERerouterIntervalDialog.h"
+#include "GNEViewNet.h"
+#include "GNENet.h"
 
 // ===========================================================================
 // member method definitions
@@ -42,7 +44,7 @@
 GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAttributeCarrier(SUMO_TAG_ROUTE_PROB_REROUTE, ICON_EMPTY),
     myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
-    myNewRouteId(getDefaultValue<std::string>(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_ATTR_ID)),
+    myNewRouteId(rerouterIntervalDialog->getEditedRerouterInterval()->getRerouterParent()->getViewNet()->getNet()->generateCalibratorRouteID()),
     myProbability(getDefaultValue<double>(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_ATTR_PROB)) {
 }
 
