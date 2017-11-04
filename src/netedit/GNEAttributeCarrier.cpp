@@ -1527,8 +1527,26 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_VTYPE][SUMO_ATTR_LATALIGNMENT] = "The preferred lateral alignment when using the sublane-model";
         myAttrDefinitions[SUMO_TAG_VTYPE][SUMO_ATTR_MINGAP_LAT] = "The minimum lateral gap at a speed difference of 50km/h when using the sublane-model";
         myAttrDefinitions[SUMO_TAG_VTYPE][SUMO_ATTR_MAXSPEED_LAT] = "The maximum lateral speed when using the sublane-model";
-    
-        /***** COMPLETE REROUTER VALUES ****/
+        // step
+        myAttrDefinitions[SUMO_TAG_STEP][SUMO_ATTR_TIME] = "Time";
+        myAttrDefinitions[SUMO_TAG_STEP][SUMO_ATTR_SPEED] = "Speed";
+        // interval
+        myAttrDefinitions[SUMO_TAG_INTERVAL][SUMO_ATTR_BEGIN] = "Begin";
+        myAttrDefinitions[SUMO_TAG_INTERVAL][SUMO_ATTR_END] = "End";
+        // closing reroute
+        myAttrDefinitions[SUMO_TAG_CLOSING_REROUTE][SUMO_ATTR_ID] = "Edge ID";
+        myAttrDefinitions[SUMO_TAG_CLOSING_REROUTE][SUMO_ATTR_ALLOW] = "allowed vehicles";
+        myAttrDefinitions[SUMO_TAG_CLOSING_REROUTE][SUMO_ATTR_DISALLOW] = "disallowed vehicles";
+        // closing lane reroute
+        myAttrDefinitions[SUMO_TAG_CLOSING_LANE_REROUTE][SUMO_ATTR_ID] = "Lane ID";
+        myAttrDefinitions[SUMO_TAG_CLOSING_LANE_REROUTE][SUMO_ATTR_ALLOW] = "allowed vehicles";
+        myAttrDefinitions[SUMO_TAG_CLOSING_LANE_REROUTE][SUMO_ATTR_DISALLOW] = "disallowed vehicles";
+        // destiny probability reroute
+        myAttrDefinitions[SUMO_TAG_DEST_PROB_REROUTE][SUMO_ATTR_ID] = "Edge ID";
+        myAttrDefinitions[SUMO_TAG_DEST_PROB_REROUTE][SUMO_ATTR_PROB] = "probability";
+        // route probability reroute
+        myAttrDefinitions[SUMO_TAG_ROUTE_PROB_REROUTE][SUMO_ATTR_ID] = "Route";
+        myAttrDefinitions[SUMO_TAG_ROUTE_PROB_REROUTE][SUMO_ATTR_PROB] = "probability";
     }
     return myAttrDefinitions[tag][attr];
 }
