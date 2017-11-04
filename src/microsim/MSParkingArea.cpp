@@ -34,7 +34,6 @@
 #include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
-#include <utils/foxtools/MFXMutex.h>
 #include "MSLane.h"
 #include "MSTransportable.h"
 #include "MSParkingArea.h"
