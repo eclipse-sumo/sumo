@@ -110,10 +110,34 @@ GNERerouter::updateGeometry() {
             mySymbolsPositionAndRotation.push_back(posRot); 
         }
     }
-    /*
-    // Update geometry of additional parent
-    updateConnections();
-    */
+
+    // drop connections between parent and childs
+    myConnectionPositions.clear();
+
+    // calculate geometry for connections between parent and childs
+    for (auto i : mySymbolsPositionAndRotation) {
+        std::vector<Position> posConnection;
+        double A = std::abs(i.first.x() - getPositionInView().x());
+        double B = std::abs(i.first.y() - getPositionInView().y());
+        // Set positions of connection's vertex. Connection is build from Entry to E3
+        posConnection.push_back(i.first);
+        if (getPositionInView().x() > i.first.x()) {
+            if (getPositionInView().y() > i.first.y()) {
+                posConnection.push_back(Position(i.first.x() + A, i.first.y()));
+            } else {
+                posConnection.push_back(Position(i.first.x(), i.first.y() - B));
+            }
+        } else {
+            if (getPositionInView().y() > i.first.y()) {
+                posConnection.push_back(Position(i.first.x(), i.first.y() + B));
+            } else {
+                posConnection.push_back(Position(i.first.x() - A, i.first.y()));
+            }
+        }
+        posConnection.push_back(getPositionInView());
+        myConnectionPositions.push_back(posConnection);
+    }
+
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshElement(this);
 }
@@ -287,7 +311,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         for(auto i : mySymbolsPositionAndRotation) {
             glPushMatrix();
             glTranslated(i.first.x(), i.first.y(), getType());
-            glRotated(i.second, 0, 0, 1);
+            glRotated(-1*i.second, 0, 0, 1);
             glScaled(exaggeration, exaggeration, 1);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -314,7 +338,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // Draw connections
-    //drawConnections();
+    drawParentAndChildrenConnections();
 
     // Pop name
     glPopName();
