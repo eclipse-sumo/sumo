@@ -54,45 +54,6 @@ GNENetElement::getNet() const {
 }
 
 
-const std::vector<GNEAdditional*>& 
-GNENetElement::getAdditionalParents() const {
-    return myAdditionalParents;
-}
-
-
-const std::vector<GNEAdditional*>& 
-GNENetElement::getAdditionalChilds() const {
-    return myAdditionalChilds;
-}
-
-
-const std::string&
-GNENetElement::getParentName() const {
-    return myNet->getMicrosimID();
-}
-
-
-GUIParameterTableWindow* 
-GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
-    // get attributes
-    std::vector<SumoXMLAttr> attributes = getAttrs();
-    // Create table
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, (int)attributes.size());
-    // Iterate over attributes
-    for (auto i : attributes) {
-        // Add attribute and set it dynamic if aren't unique
-        if (GNEAttributeCarrier::isUnique(getTag(), i)) {
-            ret->mkItem(toString(i).c_str(), false, getAttribute(i));
-        } else {
-            ret->mkItem(toString(i).c_str(), true, getAttribute(i));
-        }
-    }
-    // close building
-    ret->closeBuilding();
-    return ret;
-}
-
-
 void
 GNENetElement::addAdditionalParent(GNEAdditional* additional) {
     // First check that additional wasn't already inserted
@@ -145,5 +106,45 @@ GNENetElement::removeAdditionalChild(GNEAdditional* additional) {
         updateGeometry();
     }
 }
+
+
+const std::vector<GNEAdditional*>& 
+GNENetElement::getAdditionalParents() const {
+    return myAdditionalParents;
+}
+
+
+const std::vector<GNEAdditional*>& 
+GNENetElement::getAdditionalChilds() const {
+    return myAdditionalChilds;
+}
+
+
+const std::string&
+GNENetElement::getParentName() const {
+    return myNet->getMicrosimID();
+}
+
+
+GUIParameterTableWindow* 
+GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
+    // get attributes
+    std::vector<SumoXMLAttr> attributes = getAttrs();
+    // Create table
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, (int)attributes.size());
+    // Iterate over attributes
+    for (auto i : attributes) {
+        // Add attribute and set it dynamic if aren't unique
+        if (GNEAttributeCarrier::isUnique(getTag(), i)) {
+            ret->mkItem(toString(i).c_str(), false, getAttribute(i));
+        } else {
+            ret->mkItem(toString(i).c_str(), true, getAttribute(i));
+        }
+    }
+    // close building
+    ret->closeBuilding();
+    return ret;
+}
+
 
 /****************************************************************************/

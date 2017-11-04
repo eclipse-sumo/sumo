@@ -230,18 +230,6 @@ public:
     /// @brief override to also set lane ids
     void setMicrosimID(const std::string& newID);
 
-    /// @brief add a reference to a rerouter that has this edge as parameter
-    void addGNERerouter(GNERerouter* rerouter);
-
-    /// @brief remove a reference to a rerouter that has this edge as parameter
-    void removeGNERerouter(GNERerouter* rerouter);
-
-    /// @brief get rerouters vinculated with this edge
-    const std::vector<GNERerouter*>& getGNERerouters() const;
-
-    /// @brief get number of rerouters that has this edge as parameters
-    int getNumberOfGNERerouters() const;
-
     /// @brief check if edge has a restricted lane
     bool hasRestrictedLane(SUMOVehicleClass vclass) const;
 
@@ -259,6 +247,9 @@ public:
 
     /// @brief get GNECrossings vinculated with this Edge
     std::vector<GNECrossing*> getGNECrossings();
+
+    /// @brief remove Edge of Additional Parent
+    void removeEdgeOfAdditionalParents(GNEUndoList *undolist, bool allowEmpty);
 
 protected:
     /// @brief the underlying NBEdge
@@ -287,9 +278,6 @@ protected:
 
     /// @brief modification status of the connections
     std::string myConnectionStatus;
-
-    /// @brief list of reroutes that has this edge as parameter
-    std::vector<GNERerouter*> myReroutes;
 
 private:
     /// @brief set attribute after validation

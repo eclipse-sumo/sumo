@@ -86,18 +86,6 @@ private:
      * @note we assume shared responsibility for the pointer (via reference counting)
      */
     GNEEdge* myEdge;
-
-    /// @brief we need to preserve the list of additionals vinculated with this edge
-    std::vector<GNEAdditional*> myAdditionalChilds;
-
-    /// @brief we need to preserve the list of rerouters in which this edge is a child
-    std::vector<GNERerouter*> myGNERerouters;
-
-    /// @brief we need to preserve additional vinculated with the lanes of edge
-    std::map<GNELane*, std::vector<GNEAdditional*> > myAdditionalLanes;
-
-    /// @brief we need to preserve the additional sets in which the edge of lanes are childs
-    std::map<GNELane*, std::vector<GNEAdditional*> > myAdditionalsLanes;
 };
 
 #endif

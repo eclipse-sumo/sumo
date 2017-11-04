@@ -432,21 +432,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
 void
 GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
-    // declare empty vectors of GNERerouters
-    std::vector<GNERerouter*> reroutersToRemove;
-    std::vector<GNERerouter*> reroutersToUpdate;
-    // divide rerouter vectors into two different vectors, depending of their number of edges
-    for(auto i : edge->getGNERerouters()) {
-        if (i->getEdgeChilds().size() == 1) {
-            reroutersToRemove.push_back(i);
-        } else {
-            reroutersToUpdate.push_back(i);
-        }
-    }
-    // Remove GNERerouters that have only this edge as parameter
-    for (auto i : reroutersToRemove) {
-        undoList->add(new GNEChange_Additional(i, false), true);
-    }
+    edge->removeEdgeOfAdditionalParents(undoList, false);
     // delete all additionals childs of edge
     while (edge->getAdditionalChilds().size() > 0) {
         undoList->add(new GNEChange_Additional(edge->getAdditionalChilds().front(), false), true);
@@ -483,10 +469,6 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     requireRecompute();
     // finish delete edge
     undoList->p_end();
-    // update rerouters that has this edge as parameter
-    for(auto i : reroutersToUpdate) {
-        i->updateGeometry();
-    }
 }
 
 
@@ -515,7 +497,7 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
         }
     }
     // replace in rerouters
-    for (auto rerouter : which->getGNERerouters()) {
+    for (auto rerouter : which->getAdditionalParents()) {
         replaceInListAttribute(rerouter, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
     }
     // replace in crossings

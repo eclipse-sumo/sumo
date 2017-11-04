@@ -1277,8 +1277,8 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, con
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(rerouter);
-            for (std::vector<GNEEdge*>::const_iterator i = edges.begin(); i != edges.end(); i++) {
-                (*i)->addGNERerouter(rerouter);
+            for (auto i : edges) {
+                i->addAdditionalParent(rerouter);
             }
         }
         return true;

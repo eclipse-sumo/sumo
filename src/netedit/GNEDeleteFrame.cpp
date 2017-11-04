@@ -232,22 +232,22 @@ GNEDeleteFrame::showChildsOfMarkedAttributeCarrier() {
                 }
                 // insert additionals of edge
                 for (int i = 0; i < (int)edge->getAdditionalChilds().size(); i++) {
-                    GNEAdditional* additional = edge->getAdditionalChilds().at(i);
-                    FXTreeItem* additionalItem = myTreelist->insertItem(0, edgeItem, (toString(additional->getTag()) + " " + toString(i)).c_str(), additional->getIcon(), additional->getIcon());
-                    myTreeItemToACMap[additionalItem] = additional;
+                    GNEAdditional* additionalChild = edge->getAdditionalChilds().at(i);
+                    FXTreeItem* additionalItem = myTreelist->insertItem(0, edgeItem, (toString(additionalChild->getTag()) + " " + toString(i)).c_str(), additionalChild->getIcon(), additionalChild->getIcon());
+                    myTreeItemToACMap[additionalItem] = additionalChild;
                     additionalItem->setExpanded(true);
                 }
-                // add a extra section for rerouter in which this edge is part
-                if (edge->getNumberOfGNERerouters() > 0) {
-                    FXTreeItem* rerouters = myTreelist->insertItem(0, edgeItem, (toString(SUMO_TAG_REROUTER) + "s").c_str(), edge->getGNERerouters().front()->getIcon(), edge->getGNERerouters().front()->getIcon());
-                    myTreeItemsWithoutAC.insert(rerouters);
-                    rerouters->setExpanded(true);
+                // add a extra section for additional parent in which this edge is part
+                if (edge->getAdditionalParents().size() > 0) {
+                    FXTreeItem* additionalParents = myTreelist->insertItem(0, edgeItem, "part of", 0, 0);
+                    myTreeItemsWithoutAC.insert(additionalParents);
+                    additionalParents->setExpanded(true);
                     // insert reroutes of edge
-                    for (int i = 0; i < (int)edge->getNumberOfGNERerouters(); i++) {
-                        GNERerouter* rerouter = edge->getGNERerouters().at(i);
-                        FXTreeItem* rerouterItem = myTreelist->insertItem(0, rerouters, (toString(rerouter->getTag()) + " " + toString(i)).c_str(), rerouter->getIcon(), rerouter->getIcon());
-                        myTreeItemToACMap[rerouterItem] = rerouter;
-                        rerouterItem->setExpanded(true);
+                    for (int i = 0; i < (int)edge->getAdditionalParents().size(); i++) {
+                        GNEAdditional* additionalParent = edge->getAdditionalParents().at(i);
+                        FXTreeItem* additionalItem = myTreelist->insertItem(0, additionalParents, (toString(additionalParent->getTag()) + " " + toString(i)).c_str(), additionalParent->getIcon(), additionalParent->getIcon());
+                        myTreeItemToACMap[additionalItem] = additionalParent;
+                        additionalItem->setExpanded(true);
                     }
                 }
                 break;
@@ -413,40 +413,40 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                 if(edge->getVertexIndex(clickedPosition, false) != -1) {
                     edge->deleteGeometryPoint(clickedPosition);
                 } else {
-                    int numberOfAdditionals = (int)edge->getAdditionalChilds().size();
-                    int numberOfRerouters = (int)edge->getGNERerouters().size();
+                    int numberOfAdditionalChilds = (int)edge->getAdditionalChilds().size();
+                    int numberOfAdditionalParents = (int)edge->getAdditionalParents().size();
                     // Iterate over lanes and obtain total number of additional childs
                     for (auto i : edge->getLanes()) {
-                        numberOfAdditionals += (int)i->getAdditionalChilds().size();
+                        numberOfAdditionalChilds += (int)i->getAdditionalChilds().size();
                     }
                     // Check if edge can be deleted
                     if (myAutomaticallyDeleteAdditionalsCheckButton->getCheck()) {
                         myViewNet->getNet()->deleteEdge(edge, myViewNet->getUndoList());
                     } else {
-                        if (numberOfAdditionals > 0) {
+                        if (numberOfAdditionalChilds > 0) {
                             // write warning if netedit is running in testing mode
                             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                                 WRITE_WARNING("Opening FXMessageBox 'Force deletion needed'");
                             }
-                            std::string plural = numberOfAdditionals > 1 ? "s" : "";
+                            std::string plural = numberOfAdditionalChilds > 1 ? "s" : "";
                             // Open warning DialogBox
                             FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(edge->getTag())).c_str(), "%s",
                                                   (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because owns " +
-                                                   toString(numberOfAdditionals) + " additional child" + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
+                                                   toString(numberOfAdditionalChilds) + " additional" + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                             // write warning if netedit is running in testing mode
                             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                                 WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");
                             }
-                        } else if (numberOfRerouters > 0) {
+                        } else if (numberOfAdditionalParents > 0) {
                             // write warning if netedit is running in testing mode
                             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                                 WRITE_WARNING("Opening FXMessageBox 'Force deletion needed'");
                             }
-                            std::string plural = numberOfRerouters > 1 ? "s" : "";
+                            std::string plural = numberOfAdditionalParents > 1 ? "s" : "";
                             // Open warning DialogBox
                             FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(edge->getTag())).c_str(), "%s",
                                                   (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because is part of " +
-                                                   toString(numberOfRerouters) + " " + toString(SUMO_TAG_REROUTER) + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
+                                                   toString(numberOfAdditionalParents) + " additional" + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                             // write warning if netedit is running in testing mode
                             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                                 WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");

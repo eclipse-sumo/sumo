@@ -60,11 +60,6 @@ class GNEAdditional;
 
 class GNENetElement : public GUIGlObject, public GNEAttributeCarrier {
 
-    /// @brief declare friend class
-    friend class GNEChange_Additional;
-    friend class GNEAdditional;
-    friend class GNEAdditionalHandler;
-
 public:
     /**@brief Constructor.
      * @param[in] net The net to inform about gui updates
@@ -85,6 +80,18 @@ public:
 
     /// @brief get Net in which this element is placed
     GNENet* getNet() const;
+
+    /// @brief add additional child to this edge
+    void addAdditionalParent(GNEAdditional* additional);
+
+    /// @brief remove additional child from this edge
+    void removeAdditionalParent(GNEAdditional* additional);
+
+    /// @brief add additional child to this edge
+    void addAdditionalChild(GNEAdditional* additional);
+
+    /// @brief remove additional child from this edge
+    void removeAdditionalChild(GNEAdditional* additional);
 
     /// @brief return vector of additionals that have as Parameter this edge (For example, Rerouters)
     const std::vector<GNEAdditional*>& getAdditionalParents() const;
@@ -159,19 +166,6 @@ protected:
 
     /// @brief list of Additional Childs of this NetElement
     std::vector<GNEAdditional*> myAdditionalChilds;
-
-    /// @brief add additional child to this edge
-    void addAdditionalParent(GNEAdditional* additional);
-
-    /// @brief remove additional child from this edge
-    void removeAdditionalParent(GNEAdditional* additional);
-
-    /// @brief add additional child to this edge
-    void addAdditionalChild(GNEAdditional* additional);
-
-    /// @brief remove additional child from this edge
-    void removeAdditionalChild(GNEAdditional* additional);
-
 
 private:
     /// @brief set attribute after validation

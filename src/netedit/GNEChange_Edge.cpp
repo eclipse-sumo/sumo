@@ -52,10 +52,6 @@ GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
     myEdge(edge) {
     assert(myNet);
     edge->incRef("GNEChange_Edge");
-    // Save additionals of edge
-    myAdditionalChilds = myEdge->getAdditionalChilds();
-    // save rerouters of edge
-    myGNERerouters = myEdge->getGNERerouters();
 }
 
 
@@ -81,14 +77,6 @@ GNEChange_Edge::undo() {
         }
         // delete edge from net
         myNet->deleteSingleEdge(myEdge);
-        // 1 - Remove additionals childs of this edge
-        for (auto i : myAdditionalChilds) {
-            myNet->deleteAdditional(i);
-        }
-        // 2 - Remove references to this edge in GNERerouters
-        for (auto i : myGNERerouters) {
-            i->removeEdgeChild(myEdge);
-        }
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -96,14 +84,6 @@ GNEChange_Edge::undo() {
         }
         // insert edge into net
         myNet->insertEdge(myEdge);
-        // 1 - add additionals childs of this edge
-        for (auto i : myAdditionalChilds) {
-            myNet->insertAdditional(i);
-        }
-        // 2 - Add references to this edge in GNERerouters
-        for (auto i : myGNERerouters) {
-            i->addEdgeChild(myEdge);
-        }
     }
 }
 
@@ -117,14 +97,6 @@ GNEChange_Edge::redo() {
         }
         // insert edge into net
         myNet->insertEdge(myEdge);
-        // 1 - Add additionals childs of this edge
-        for (auto i : myAdditionalChilds) {
-            myNet->insertAdditional(i);
-        }
-        // 2 - Add references to this edge in GNERerouters
-        for (auto i : myGNERerouters) {
-            i->addEdgeChild(myEdge);
-        }
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -132,14 +104,6 @@ GNEChange_Edge::redo() {
         }
         // delte edge from net
         myNet->deleteSingleEdge(myEdge);
-        // 1 - Remove additionals childs of this edge
-        for (auto i : myAdditionalChilds) {
-            myNet->deleteAdditional(i);
-        }
-        // 2 - Remove references to this edge in GNERerouters
-        for (auto i : myGNERerouters) {
-            i->removeEdgeChild(myEdge);
-        }
     }
 }
 

@@ -52,8 +52,8 @@
 #include "GNEConnection.h"
 #include "GNERouteProbe.h"
 #include "GNEVaporizer.h"
-#include "GNERerouter.h"
 #include "GNECrossing.h"
+#include "GNEChange_Additional.h"
 
 
 // ===========================================================================
@@ -123,12 +123,12 @@ GNEEdge::updateGeometry() {
     for (auto i : myLanes) {
         i->updateGeometry();
     }
-    // Update geometry of additionals vinculated to this edge
+    // Update geometry of additionals childs vinculated to this edge
     for (auto i : myAdditionalChilds) {
         i->updateGeometry();
     }
-    // Update geometry of rerouters vinculated to this edge
-    for (auto i : myReroutes) {
+    // Update geometry of additional parents vinculated to this edge
+    for (auto i : myAdditionalParents) {
         i->updateGeometry();
     }
 }
@@ -579,6 +579,36 @@ GNEEdge::getGNECrossings() {
         }
     }
     return crossings;
+}
+
+
+void 
+GNEEdge::removeEdgeOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty) {
+    // iterate over all additional parents of edge
+    for(auto i : myAdditionalParents) {
+        // Obtain attribute EDGES of additional
+        std::vector<std::string>  edgeIDs = parse<std::vector<std::string> >(i->getAttribute(SUMO_ATTR_EDGES));
+        // check that at least there is an Edge
+        if(edgeIDs.empty()) {
+            throw ProcessError("Additional edge childs is empty");
+        } else if((edgeIDs.size() == 1) && (allowEmpty == false)) {
+            // remove entire Additional if SUMO_ATTR_EDGES cannot be empty
+            if(edgeIDs.front() == getID()) {
+                undoList->add(new GNEChange_Additional(i, false), true);
+            } else {
+                throw ProcessError("Edge ID wasnt' found in Additional");
+            }
+        } else {
+            auto it = std::find(edgeIDs.begin(), edgeIDs.end(), getID());
+            if(it != edgeIDs.end()) {
+                // set new attribute in Additional
+                edgeIDs.erase(it);
+                i->setAttribute(SUMO_ATTR_EDGES, toString(edgeIDs), undoList);
+            } else {
+                throw ProcessError("Edge ID wasnt' found in Additional");
+            }
+        }
+    }
 }
 
 
@@ -1195,39 +1225,6 @@ GNEEdge::setMicrosimID(const std::string& newID) {
     for (auto i : myLanes) {
         i->setMicrosimID(getNBEdge()->getLaneID(i->getIndex()));
     }
-}
-
-
-void
-GNEEdge::addGNERerouter(GNERerouter* rerouter) {
-    if (std::find(myReroutes.begin(), myReroutes.end(), rerouter) == myReroutes.end()) {
-        myReroutes.push_back(rerouter);
-    } else {
-        throw ProcessError(toString(rerouter->getTag()) + " '" + rerouter->getID() + "' was previously inserted");
-    }
-}
-
-
-void
-GNEEdge::removeGNERerouter(GNERerouter* rerouter) {
-    std::vector<GNERerouter*>::iterator it = std::find(myReroutes.begin(), myReroutes.end(), rerouter);
-    if (it != myReroutes.end()) {
-        myReroutes.erase(it);
-    } else {
-        throw ProcessError(toString(rerouter->getTag()) + " '" + rerouter->getID() + "' wasn't previously inserted");
-    }
-}
-
-
-const std::vector<GNERerouter*>&
-GNEEdge::getGNERerouters() const {
-    return myReroutes;
-}
-
-
-int
-GNEEdge::getNumberOfGNERerouters() const {
-    return (int)myReroutes.size();
 }
 
 

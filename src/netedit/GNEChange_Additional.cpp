@@ -148,7 +148,7 @@ GNEChange_Additional::undo() {
         if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
             GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
             for (auto i : myEdgeChilds) {
-                i->removeGNERerouter(rerouter);
+                i->removeAdditionalParent(rerouter);
             }
         }
     } else {
@@ -197,7 +197,7 @@ GNEChange_Additional::undo() {
         if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
             GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
             for (auto i : myEdgeChilds) {
-                i->addGNERerouter(rerouter);
+                i->addAdditionalParent(rerouter);
             }
         }
     }
@@ -254,7 +254,7 @@ GNEChange_Additional::redo() {
         if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
             GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
             for (auto i : myEdgeChilds) {
-                i->addGNERerouter(rerouter);
+                i->addAdditionalParent(rerouter);
             }
         }
     } else {
@@ -302,7 +302,7 @@ GNEChange_Additional::redo() {
         if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
             GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
             for (auto i : myEdgeChilds) {
-                i->removeGNERerouter(rerouter);
+                i->removeAdditionalParent(rerouter);
             }
         }
     }
