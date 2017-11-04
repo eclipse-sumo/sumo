@@ -39,7 +39,6 @@ class PositionVector;
 class GNETLSEditorFrame;
 class GNEEdge;
 class GNENet;
-class GNEAdditional;
 class GNEConnection;
 class GNEShape;
 
@@ -146,15 +145,6 @@ public:
     /// @brief returns the length of the lane's shape
     double getLaneShapeLength() const;
 
-    /// @brief add additional child to this lane
-    void addAdditionalChild(GNEAdditional* additional);
-
-    /// @brief remove additional child to this lane
-    void removeAdditionalChild(GNEAdditional* additional);
-
-    /// @brief get additional childs of lane
-    const std::vector<GNEAdditional*>& getAdditionalChilds() const;
-
     /// @brief add shape child to this lane
     void addShapeChild(GNEShape* shape);
 
@@ -224,9 +214,6 @@ protected:
     /// @brief Rotations of textures of restricted lanes
     std::vector<double> myLaneRestrictedTextureRotations;
     /// @}
-
-    /// @brief list with the additionals vinculated with this lane
-    std::vector<GNEAdditional*> myAdditionals;
 
     /// @brief list with the shapes vinculated with this lane
     std::vector<GNEShape*> myShapes;

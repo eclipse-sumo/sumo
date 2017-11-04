@@ -39,7 +39,6 @@ class GNENet;
 class GNEJunction;
 class GNELane;
 class GNEConnection;
-class GNEAdditional;
 class GNERouteProbe;
 class GNEVaporizer;
 class GNERerouter;
@@ -66,9 +65,6 @@ public:
 
     /// @brief Definition of the connection's vector
     typedef std::vector<GNEConnection*> ConnectionVector;
-
-    /// @brief Definition of the additionals vector
-    typedef std::vector<GNEAdditional*> AdditionalVector;
 
     /**@brief Constructor.
      * @param[in] nbe The represented edge
@@ -234,15 +230,6 @@ public:
     /// @brief override to also set lane ids
     void setMicrosimID(const std::string& newID);
 
-    /// @brief add additional child to this edge
-    void addAdditionalChild(GNEAdditional* additional);
-
-    /// @brief remove additional child from this edge
-    void removeAdditionalChild(GNEAdditional* additional);
-
-    /// @brief return list of additionals associated with this edge
-    const std::vector<GNEAdditional*>& getAdditionalChilds() const;
-
     /// @brief add a reference to a rerouter that has this edge as parameter
     void addGNERerouter(GNERerouter* rerouter);
 
@@ -300,9 +287,6 @@ protected:
 
     /// @brief modification status of the connections
     std::string myConnectionStatus;
-
-    /// @brief list with the additionals vinculated with this edge
-    AdditionalVector myAdditionals;
 
     /// @brief list of reroutes that has this edge as parameter
     std::vector<GNERerouter*> myReroutes;

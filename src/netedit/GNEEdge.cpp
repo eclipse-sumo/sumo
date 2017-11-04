@@ -124,7 +124,7 @@ GNEEdge::updateGeometry() {
         i->updateGeometry();
     }
     // Update geometry of additionals vinculated to this edge
-    for (auto i : myAdditionals) {
+    for (auto i : myAdditionalChilds) {
         i->updateGeometry();
     }
     // Update geometry of rerouters vinculated to this edge
@@ -531,8 +531,8 @@ GNEEdge::clearGNEConnections() {
 
 int
 GNEEdge::getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const {
-    AdditionalVector routeProbes;
-    for (auto i : myAdditionals) {
+    std::vector<GNEAdditional*> routeProbes;
+    for (auto i : myAdditionalChilds) {
         if (i->getTag() == routeProbe->getTag()) {
             routeProbes.push_back(i);
         }
@@ -549,8 +549,8 @@ GNEEdge::getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const {
 
 int
 GNEEdge::getVaporizerRelativePosition(GNEVaporizer* vaporizer) const {
-    AdditionalVector vaporizers;
-    for (auto i : myAdditionals) {
+    std::vector<GNEAdditional*> vaporizers;
+    for (auto i : myAdditionalChilds) {
         if (i->getTag() == vaporizer->getTag()) {
             vaporizers.push_back(i);
         }
@@ -1195,39 +1195,6 @@ GNEEdge::setMicrosimID(const std::string& newID) {
     for (auto i : myLanes) {
         i->setMicrosimID(getNBEdge()->getLaneID(i->getIndex()));
     }
-}
-
-
-void
-GNEEdge::addAdditionalChild(GNEAdditional* additional) {
-    // First check that additional wasn't already inserted
-    if (std::find(myAdditionals.begin(), myAdditionals.end(), additional) != myAdditionals.end()) {
-        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' was already inserted in " + toString(getTag()) + " with ID='" + getID() + "'");
-    } else {
-        myAdditionals.push_back(additional);
-        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
-        updateGeometry();
-    }
-}
-
-
-void
-GNEEdge::removeAdditionalChild(GNEAdditional* additional) {
-    // First check that additional was already inserted
-    AdditionalVector::iterator it = std::find(myAdditionals.begin(), myAdditionals.end(), additional);
-    if (it == myAdditionals.end()) {
-        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
-    } else {
-        myAdditionals.erase(it);
-        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
-        updateGeometry();
-    }
-}
-
-
-const std::vector<GNEAdditional*>&
-GNEEdge::getAdditionalChilds() const {
-    return myAdditionals;
 }
 
 

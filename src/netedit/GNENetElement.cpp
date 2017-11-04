@@ -30,6 +30,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 
 #include "GNENetElement.h"
+#include "GNEAdditional.h"
 #include "GNENet.h"
 
 // ===========================================================================
@@ -50,6 +51,18 @@ GNENetElement::~GNENetElement() {}
 GNENet*
 GNENetElement::getNet() const {
     return myNet;
+}
+
+
+const std::vector<GNEAdditional*>& 
+GNENetElement::getAdditionalParents() const {
+    return myAdditionalParents;
+}
+
+
+const std::vector<GNEAdditional*>& 
+GNENetElement::getAdditionalChilds() const {
+    return myAdditionalChilds;
 }
 
 
@@ -77,6 +90,60 @@ GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // close building
     ret->closeBuilding();
     return ret;
+}
+
+
+void
+GNENetElement::addAdditionalParent(GNEAdditional* additional) {
+    // First check that additional wasn't already inserted
+    if (std::find(myAdditionalParents.begin(), myAdditionalParents.end(), additional) != myAdditionalParents.end()) {
+        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' was already inserted in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else {
+        myAdditionalParents.push_back(additional);
+        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
+        updateGeometry();
+    }
+}
+
+
+void
+GNENetElement::removeAdditionalParent(GNEAdditional* additional) {
+    // First check that additional was already inserted
+    auto it = std::find(myAdditionalParents.begin(), myAdditionalParents.end(), additional);
+    if (it == myAdditionalParents.end()) {
+        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else {
+        myAdditionalParents.erase(it);
+        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
+        updateGeometry();
+    }
+}
+
+
+void
+GNENetElement::addAdditionalChild(GNEAdditional* additional) {
+    // First check that additional wasn't already inserted
+    if (std::find(myAdditionalChilds.begin(), myAdditionalChilds.end(), additional) != myAdditionalChilds.end()) {
+        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' was already inserted in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else {
+        myAdditionalChilds.push_back(additional);
+        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
+        updateGeometry();
+    }
+}
+
+
+void
+GNENetElement::removeAdditionalChild(GNEAdditional* additional) {
+    // First check that additional was already inserted
+    auto it = std::find(myAdditionalChilds.begin(), myAdditionalChilds.end(), additional);
+    if (it == myAdditionalChilds.end()) {
+        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else {
+        myAdditionalChilds.erase(it);
+        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
+        updateGeometry();
+    }
 }
 
 /****************************************************************************/

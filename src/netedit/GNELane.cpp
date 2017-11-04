@@ -644,7 +644,7 @@ GNELane::updateGeometry() {
         }
     }
     // Update geometry of additionals vinculated with this lane
-    for (auto i : myAdditionals) {
+    for (auto i : myAdditionalChilds) {
         i->updateGeometry();
     }
     // Update geometry of Shapes vinculated with this lane
@@ -709,34 +709,6 @@ GNELane::getLaneParametricLength() const  {
 double
 GNELane::getLaneShapeLength() const {
     return getShape().length();
-}
-
-void
-GNELane::addAdditionalChild(GNEAdditional* additional) {
-    // Check if additional exist before remove
-    if (std::find(myAdditionals.begin(), myAdditionals.end(), additional) == myAdditionals.end()) {
-        myAdditionals.push_back(additional);
-    } else {
-        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' was already inserted in lane with ID='" + getID() + "'");
-    }
-}
-
-
-void
-GNELane::removeAdditionalChild(GNEAdditional* additional) {
-    auto it = std::find(myAdditionals.begin(), myAdditionals.end(), additional);
-    // Check if additional exist before remove
-    if (it != myAdditionals.end()) {
-        myAdditionals.erase(it);
-    } else {
-        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in lane with ID='" + getID() + "'");
-    }
-}
-
-
-const std::vector<GNEAdditional*>&
-GNELane::getAdditionalChilds() const {
-    return myAdditionals;
 }
 
 
