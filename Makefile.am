@@ -33,10 +33,10 @@ userdoc:
 javadoc:
 	rm -rf docs/javadoc
 	mkdir docs/javadoc
-	mvn --batch-mode -f tools/contributed/traci4j/pom.xml javadoc:javadoc
-	mv tools/contributed/traci4j/target/site/apidocs docs/javadoc/traci4j
-	ant -f tools/contributed/traas/build.xml javadoc
-	mv tools/contributed/traas/javadoc docs/javadoc/traas
+	mvn --batch-mode -f tools/contributed/TraCI4J/pom.xml javadoc:javadoc || true
+	mv tools/contributed/TraCI4J/target/site/apidocs docs/javadoc/traci4j || true
+	ant -f tools/contributed/traas/build.xml javadoc || true
+	mv tools/contributed/traas/javadoc docs/javadoc/traas || true
 
 man:
 	rm -rf docs/man
@@ -113,16 +113,12 @@ examples:
 	tools/extractTest.py -x -f tests/examples.txt
 
 traas:
-	ant -f tools/contributed/traas/build.xml clean release
-	cp tools/contributed/traas/dist/TraaS.jar bin
+	ant -f tools/contributed/traas/build.xml clean release || true
+	cp tools/contributed/traas/dist/TraaS.jar bin || true
 
 traci4j:
-	mvn --batch-mode -f tools/contributed/traci4j/pom.xml clean install || true
-	cp tools/contributed/traci4j/target/*.jar bin || true
-
-trafficmodeler:
-	cd tools/contributed/trafficmodeler && ./build.sh
-	cp tools/contributed/trafficmodeler/jar/*.jar bin
+	mvn --batch-mode -f tools/contributed/TraCI4J/pom.xml clean install || true
+	cp tools/contributed/TraCI4J/target/*.jar bin || true
 
 sumo$(EXEEXT) netconvert$(EXEEXT) \
         netgenerate$(EXEEXT) duarouter$(EXEEXT) \
