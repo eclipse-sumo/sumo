@@ -245,7 +245,7 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return false;
         case SUMO_ATTR_EDGES:
-            return checkGNEEdgesValid(myNet, value);
+            return checkGNEEdgesValid(myNet, value, false);
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && isPositive<double>(value);
         case SUMO_ATTR_PRIORITY:

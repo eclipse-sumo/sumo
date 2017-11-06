@@ -401,7 +401,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
             if(value.empty()) {
                 return false;
             } else {
-                return checkGNEEdgesValid(myViewNet->getNet(), value);
+                return checkGNEEdgesValid(myViewNet->getNet(), value, false);
             }
         case SUMO_ATTR_POSITION: {
             bool ok;

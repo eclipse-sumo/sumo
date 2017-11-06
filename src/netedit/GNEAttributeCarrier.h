@@ -412,34 +412,42 @@ public:
         return parse<T>(parsedAttribute);
     }
 
+    /// @name function used to parse GNEEdges and GNELanes
+    /// @{
 
-protected:
+    /** @brief check if a list of edge IDs is valid
+     * @brief value string with a list of edges
+     * @brief report enable or disable show warning if edges aren't valid
+     */
+    static bool checkGNEEdgesValid(GNENet *net, const std::string &value, bool report);
 
-    /// @brief check if a list of edge IDs is valid
-    bool checkGNEEdgesValid(GNENet *net, const std::string &value) const;
-
-    /// @brief check if a list of Lane IDs is valid
-    bool checkGNELanesValid(GNENet *net, const std::string &value) const;
+    /**@brief check if a list of Lane IDs is valid
+     * @brief value string with a list of lanes
+     * @brief report enable or disable show warning if lanes aren't valid
+     */
+    static bool checkGNELanesValid(GNENet *net, const std::string &value, bool report);
 
     /**@brief parse string into vector of GNEEdges
     * @throw exception one of GNEEdges doesn't exist
     */
-    std::vector<GNEEdge*> parseGNEEdges(GNENet *net, const std::string &value) const;
+    static std::vector<GNEEdge*> parseGNEEdges(GNENet *net, const std::string &value);
 
     /**@brief parse string into vector of GNELanes
     * @throw exception one of GNELanes doesn't exist
     */
-    std::vector<GNELane*> parseGNELanes(GNENet *net, const std::string &value) const;
+    static std::vector<GNELane*> parseGNELanes(GNENet *net, const std::string &value);
 
     /**@brief parse vector of GNEEdges into string
     * @throw exception one of GNEEdges doesn't exist
     */
-    std::string parseGNEEdges(const std::vector<GNEEdge*> &edges) const;
+    static std::string parseGNEEdges(const std::vector<GNEEdge*> &edges);
 
     /**@brief parse vector of GNELanes into string
     * @throw exception one of GNELanes doesn't exist
     */
-    std::string parseGNELanes(const std::vector<GNELane*> &lanes) const;
+    static std::string parseGNELanes(const std::vector<GNELane*> &lanes);
+
+    /// @}
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

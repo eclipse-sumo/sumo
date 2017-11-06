@@ -330,7 +330,7 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
             if(value.empty()) {
                 return false;
             } else {
-                return checkGNELanesValid(myViewNet->getNet(), value);
+                return checkGNELanesValid(myViewNet->getNet(), value, false);
             }
         case SUMO_ATTR_FILE:
             return isValidFilename(value);

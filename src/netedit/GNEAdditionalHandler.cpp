@@ -198,29 +198,26 @@ GNEAdditionalHandler::parseCalibratorRoute(const SUMOSAXAttributes& attrs, const
     bool abort = false;
     // parse attribute of calibrator routes
     std::string routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::vector<std::string> edgeIDs = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, routeID, tag, SUMO_ATTR_EDGES, abort);
+    std::string edgeIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, routeID, tag, SUMO_ATTR_EDGES, abort);
     RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, routeID, tag, SUMO_ATTR_COLOR, abort, false);
 
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // declare vector with pointers to GNEEdges
+        // obtain edges
         std::vector<GNEEdge*> edges;
-        for (std::vector<std::string>::const_iterator i = edgeIDs.begin(); (i != edgeIDs.end()) && (abort == false); i++) {
-            GNEEdge* retrievedEdge = myViewNet->getNet()->retrieveEdge((*i), false);
-            // stop
-            if (retrievedEdge != NULL) {
-                edges.push_back(retrievedEdge);
-            } else {
-                WRITE_WARNING(toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' cannot be created; " +
-                              toString(SUMO_TAG_EDGE) + " with id '" + (*i) + "' doesn't exist in net");
-            }
+        if(GNEAttributeCarrier::checkGNEEdgesValid(myViewNet->getNet(), edgeIDs, true)) {
+            edges = GNEAttributeCarrier::parseGNEEdges(myViewNet->getNet(), edgeIDs);
         }
-
+        // get calibrator parent
         GNECalibrator *calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent));
-
-
-        // create vehicle type if calibrator parent is currently defined
-        if (calibrator != NULL) {
+        // check that all parameters are valid
+        if (GNEAttributeCarrier::isValidID(routeID) == false) {
+            WRITE_WARNING("The id '" + routeID + "' of additional " + toString(tag) + " contains invalid characters.");
+        } else if(myViewNet->getNet()->retrieveCalibratorRoute(routeID, false) != NULL) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + routeID + "'.");
+        } else if (calibrator == NULL) {
+            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_CALIBRATOR) + ".");
+        } else if (edges.size() > 0) {
             // create vehicle type and add it to calibrator parent
             buildCalibratorRoute(myViewNet, myUndoAdditionals, calibrator, routeID, edges, color);
         }
