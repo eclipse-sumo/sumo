@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'NE'; waited too long (yield), lane=':C_2_0', time=29.00.
+Warning: Teleporting vehicle 'SW'; waited too long (yield), lane=':C_10_0', time=29.00.
+Warning: Vehicle 'NE' ends teleporting on edge 'CE', time 29.00.
+Warning: Vehicle 'SW' ends teleporting on edge 'CW', time 29.00.

@@ -10,3 +10,6 @@ one_green2yellow
 
 # vehicles passes an intersection via an internal junction but has to wait for a foe vehicle first
 internal_junction_with_foe
+
+# left turning vehicles should be able to pass the intersection simultaneously even though both have straight going follower vehicles
+symmetrical_left_turn_with_straight_followers
