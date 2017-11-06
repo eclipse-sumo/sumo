@@ -363,21 +363,15 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
     // parse attributes of VSS
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
     std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort, false);
-    std::vector<std::string> lanesID = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, id, tag, SUMO_ATTR_LANES, abort);
+    std::string lanesIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANES, abort);
     double posx = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_X, abort);
     double posy = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_Y, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // Obtain pointer to lanes
+        // obtain lanes
         std::vector<GNELane*> lanes;
-        for (std::vector<std::string>::iterator i = lanesID.begin(); (i < lanesID.end()) && (abort == false); i++) {
-            GNELane* lane = myViewNet->getNet()->retrieveLane((*i), false);
-            if (lane != NULL) {
-                lanes.push_back(lane);
-            } else {
-                WRITE_WARNING(toString(SUMO_TAG_VSS) + " with ID = '" + id + "' cannot be created; " + toString(SUMO_TAG_LANE) + " '" + (*i) + "' doesn't exist.");
-                abort = true;
-            }
+        if(GNEAttributeCarrier::checkGNELanesValid(myViewNet->getNet(), lanesIDs, true)) {
+            lanes = GNEAttributeCarrier::parseGNELanes(myViewNet->getNet(), lanesIDs);
         }
         // if operation of build variable speed signal was sucesfully, save Id
         if ((abort == false) && buildVariableSpeedSign(myViewNet, myUndoAdditionals, id, Position(posx, posy), lanes, file)) {
@@ -406,8 +400,12 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
         if(GNEAttributeCarrier::checkGNEEdgesValid(myViewNet->getNet(), edgesIDs, true)) {
             edges = GNEAttributeCarrier::parseGNEEdges(myViewNet->getNet(), edgesIDs);
         }
-        // if operation of build variable speed signal was sucesfully, save Id
-        if (buildRerouter(myViewNet, myUndoAdditionals, id, Position(posx, posy), edges, probability, file, off)) {
+        // check that all parameters are valid
+        if (GNEAttributeCarrier::isValidID(id) == false) {
+            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
+        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        } else if ((edgesIDs.size() > 0) && buildRerouter(myViewNet, myUndoAdditionals, id, Position(posx, posy), edges, probability, file, off)) {
             // set myLastInsertedAdditionalParent due this additional can have childs
             myLastInsertedAdditionalParent = id;
         }
@@ -856,14 +854,10 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             std::string id = values[SUMO_ATTR_ID];
             bool ok;
             PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", 0, ok, false);
-            // Parse lane Ids
-            std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> >(values[SUMO_ATTR_LANES]);
-            // Obtain pointers to lanes
-            std::vector<GNELane*> lanes;
-            for (auto i: laneIds) {
-                lanes.push_back(viewNet->getNet()->retrieveLane(i));
-            }
+            std::vector<GNELane*> lanes = GNEAttributeCarrier::parseGNELanes(viewNet->getNet(), values[SUMO_ATTR_LANES]);
+            // get rest of parameters
             std::string file = values[SUMO_ATTR_FILE];
+            // build VSS
             if (pos.size() == 1) {
                 return buildVariableSpeedSign(viewNet, allowUndoRedo, id, pos[0], lanes, file);
             } else {
