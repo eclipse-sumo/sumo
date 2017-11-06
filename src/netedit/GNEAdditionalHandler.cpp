@@ -56,6 +56,7 @@
 #include "GNECalibratorVehicleType.h"
 #include "GNECalibratorRoute.h"
 #include "GNEChange_CalibratorItem.h"
+#include "GNEChange_RerouterItem.h"
 
 
 // ===========================================================================
@@ -147,13 +148,12 @@ GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, con
     double endTime = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_END, abort);
     // Continue if all parameters were successfully loaded
     if (!abort) {
-        // get edge
+        // get GNEEdge
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
+        // check that all parameters are valid
         if (edge == NULL) {
-            // Write error if lane isn't valid
             WRITE_WARNING("The edge '" + edgeId + "' to use within the " + toString(tag) + " is not known.");
         } else if (startTime > endTime) {
-            // write error if time interval ins't valid
             WRITE_WARNING("Time interval of " + toString(tag) + " isn't valid. Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
         } else if(buildVaporizer(myViewNet, myUndoAdditionals, edge, startTime, endTime)) {
             // myLastInsertedAdditionalParent must be empty because this additional doens't have childs
@@ -203,13 +203,13 @@ GNEAdditionalHandler::parseCalibratorRoute(const SUMOSAXAttributes& attrs, const
 
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // obtain edges
+        // obtain edges (And show warnings if isn't valid)
         std::vector<GNEEdge*> edges;
         if(GNEAttributeCarrier::checkGNEEdgesValid(myViewNet->getNet(), edgeIDs, true)) {
             edges = GNEAttributeCarrier::parseGNEEdges(myViewNet->getNet(), edgeIDs);
         }
         // get calibrator parent
-        GNECalibrator *calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent));
+        GNECalibrator *calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
         // check that all parameters are valid
         if (GNEAttributeCarrier::isValidID(routeID) == false) {
             WRITE_WARNING("The id '" + routeID + "' of additional " + toString(tag) + " contains invalid characters.");
@@ -259,7 +259,7 @@ GNEAdditionalHandler::parseCalibratorVehicleType(const SUMOSAXAttributes& attrs,
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get calibrator parent
-        GNECalibrator *calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent));
+        GNECalibrator *calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
         // check that all parameters are valid
         if (GNEAttributeCarrier::isValidID(vehicleTypeID) == false) {
             WRITE_WARNING("The id '" + vehicleTypeID + "' of additional " + toString(tag) + " contains invalid characters.");
@@ -307,12 +307,14 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain route, vehicle type and calibrator parent
-        GNECalibrator *calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent));
+        GNECalibrator *calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
         GNECalibratorRoute *route = myViewNet->getNet()->retrieveCalibratorRoute(routeID, false);
         GNECalibratorVehicleType *vtype = myViewNet->getNet()->retrieveCalibratorVehicleType(vehicleTypeID, false);
         GNECalibratorFlow::TypeOfFlow flowType = getTypeOfFlowDistribution(flowID, vehsPerHour, period, probability);
         // check that all parameters are valid
-        if (myViewNet->getNet()->retrieveCalibratorFlow(flowID, false) != NULL) {
+        if (GNEAttributeCarrier::isValidID(flowID) == false) {
+            WRITE_WARNING("The id '" + flowID + "' of additional " + toString(tag) + " contains invalid characters.");
+        } else if (myViewNet->getNet()->retrieveCalibratorFlow(flowID, false) != NULL) {
             WRITE_WARNING(toString(SUMO_TAG_FLOW) + " with ID = '" + flowID + "' cannot be created; Another " + toString(SUMO_TAG_FLOW) + " with the same ID was previously declared");
             abort = true;
         } else if (route == NULL) {
@@ -338,22 +340,16 @@ GNEAdditionalHandler::parseVariableSpeedSignStep(const SUMOSAXAttributes& attrs,
     double time = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_TIME, abort);
     double speed = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_SPEED, abort);
     // Continue if all parameters were sucesfully loaded
-    /*
-    if ((!abort) && (myVariableSpeedSignParent != NULL)) {
-        ;
-
-        // create step and check that is valid
-        GNEVariableSpeedSignStep step(myVariableSpeedSignParent, time, speed);
-        // show warning if is duplicated
-        if (std::find(myVariableSpeedSignParent->getSteps().begin(), myVariableSpeedSignParent->getSteps().end(), step) != myVariableSpeedSignParent->getSteps().end()) {
-            WRITE_WARNING(toString(step.getTag()) + " cannot be inserted into " + toString(myVariableSpeedSignParent->getTag()) + " with id = '" + myVariableSpeedSignParent->getID() +
-                          "'; Already exist another " + toString(step.getTag()) + " with the same " + toString(SUMO_ATTR_TIME) + ".");
+    if (!abort) {
+        // get Variable Speed Signal
+        GNEVariableSpeedSign *variableSpeedSign = dynamic_cast<GNEVariableSpeedSign*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
+        // check that all parameters are valid
+        if (variableSpeedSign == NULL) {
+            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_VSS) + ".");
         } else {
-            myVariableSpeedSignParent->addStep(step);
+            buildVariableSpeedSignStep(myViewNet, true, time, speed);
         }
-
     }
-    */
 }
 
 
@@ -373,8 +369,12 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
         if(GNEAttributeCarrier::checkGNELanesValid(myViewNet->getNet(), lanesIDs, true)) {
             lanes = GNEAttributeCarrier::parseGNELanes(myViewNet->getNet(), lanesIDs);
         }
-        // if operation of build variable speed signal was sucesfully, save Id
-        if ((abort == false) && buildVariableSpeedSign(myViewNet, myUndoAdditionals, id, Position(posx, posy), lanes, file)) {
+        // check that all parameters are valid
+        if (GNEAttributeCarrier::isValidID(id) == false) {
+            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
+        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        } else if ((lanes.size() > 0) && buildVariableSpeedSign(myViewNet, myUndoAdditionals, id, Position(posx, posy), lanes, file)) {
             // set myLastInsertedAdditionalParent due this additional can have childs
             myLastInsertedAdditionalParent = id;
         }
@@ -535,33 +535,56 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
         laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, typeOfCalibrator, SUMO_ATTR_LANE, abort, false);
     } else {
         WRITE_WARNING("additional " + toString(tag) + " must have either a lane or an edge attribute.");
-
+        abort = true;
     }
     // if loading first calibrators values was sucesfully, continue)
     if(!abort) {
-        // parse rest of attributes of calibrator
-        std::string outfile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, typeOfCalibrator, SUMO_ATTR_OUTPUT, abort, false);
-        double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_POSITION, abort);
-        double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_FREQUENCY, abort);
-        // std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
-        // Continue if all parameters were sucesfully loaded
-        if (!abort) {
-            // get pointer to lane and edge
-            GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
-            GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
-            // check that all parameters are valid
-            if (edgeID != "" && laneId != "") {
-                WRITE_WARNING("additional " + toString(typeOfCalibrator) + " with id '" + id + "' can be only placed over either a lane or an edge, not in both.");
-            } else if (GNEAttributeCarrier::isValidID(id) == false) {
-                WRITE_WARNING("The id '" + id + "' of additional " + toString(typeOfCalibrator) + " contains invalid characters.");
-            } else if (myViewNet->getNet()->getAdditional(typeOfCalibrator, id) != NULL) {
-                WRITE_WARNING("There is another " + toString(typeOfCalibrator) + " with the same ID='" + id + "'.");
-            } else if (edge == NULL && lane == NULL) {
-                WRITE_WARNING("The lane '" + laneId + "' or edge '" + edgeID + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
-            } else if (((lane != NULL) && buildCalibrator(myViewNet, myUndoAdditionals, id, lane, position, outfile, freq)) ||
-                       ((edge != NULL) && buildCalibrator(myViewNet, myUndoAdditionals, id, edge, position, outfile, freq))) {
-                // set myLastInsertedAdditionalParent due this additional can have childs
-                myLastInsertedAdditionalParent = id;
+        // make sure that either lane or edge is defined, not both
+        if (edgeID != "" && laneId != "") {
+            WRITE_WARNING("additional " + toString(typeOfCalibrator) + " with id '" + id + "' can be only placed over either a lane or an edge, not in both.");
+        } else if(edgeID != "") {
+            // parse rest of attributes of calibrator
+            std::string outfile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, typeOfCalibrator, SUMO_ATTR_OUTPUT, abort, false);
+            double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_POSITION, abort);
+            double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_FREQUENCY, abort);
+            // std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
+            // Continue if all parameters were sucesfully loaded
+            if (!abort) {
+                // get pointer and edge
+                GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
+                // check that all parameters are valid
+                if (GNEAttributeCarrier::isValidID(id) == false) {
+                    WRITE_WARNING("The id '" + id + "' of additional " + toString(typeOfCalibrator) + " contains invalid characters.");
+                } else if (myViewNet->getNet()->getAdditional(typeOfCalibrator, id) != NULL) {
+                    WRITE_WARNING("There is another " + toString(typeOfCalibrator) + " with the same ID='" + id + "'.");
+                } else if (edge == NULL) {
+                    WRITE_WARNING("The  edge '" + edgeID + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
+                } else if (buildCalibrator(myViewNet, myUndoAdditionals, id, edge, position, outfile, freq)) {
+                    // set myLastInsertedAdditionalParent due this additional can have childs
+                    myLastInsertedAdditionalParent = id;
+                }
+            }
+        } else {
+            // parse rest of attributes of calibrator
+            std::string outfile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, typeOfCalibrator, SUMO_ATTR_OUTPUT, abort, false);
+            double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_POSITION, abort);
+            double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_FREQUENCY, abort);
+            // std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
+            // Continue if all parameters were sucesfully loaded
+            if (!abort) {
+                // get pointer to lane
+                GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
+                // check that all parameters are valid
+                if (GNEAttributeCarrier::isValidID(id) == false) {
+                    WRITE_WARNING("The id '" + id + "' of additional " + toString(typeOfCalibrator) + " contains invalid characters.");
+                } else if (myViewNet->getNet()->getAdditional(typeOfCalibrator, id) != NULL) {
+                    WRITE_WARNING("There is another " + toString(typeOfCalibrator) + " with the same ID='" + id + "'.");
+                } else if (lane == NULL) {
+                    WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
+                } else if (buildCalibrator(myViewNet, myUndoAdditionals, id, lane, position, outfile, freq)) {
+                    // set myLastInsertedAdditionalParent due this additional can have childs
+                    myLastInsertedAdditionalParent = id;
+                }
             }
         }
     }
@@ -1260,6 +1283,7 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, con
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(rerouter);
+            // add this rerouter as parent of all edges
             for (auto i : edges) {
                 i->addAdditionalParent(rerouter);
             }
@@ -1272,8 +1296,25 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, con
 
 
 bool 
-GNEAdditionalHandler::buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEEdge* edge, double startTime, double end) {
-    return false;
+GNEAdditionalHandler::buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouter* rerouterParent, double begin, double end) {
+    // first create rerouter interval and add it into rerouter parent
+    GNERerouterInterval *rerouterInterval = new GNERerouterInterval(rerouterParent, begin, end);
+    rerouterParent->addRerouterInterval(rerouterInterval);
+    // remove it if there is overlapping with another intervals
+    if (rerouterParent->checkOverlapping() == 0) {
+        // create Flow and add it to calibrator parent
+        if (allowUndoRedo) {
+            viewNet->getUndoList()->p_begin("add " + toString(rerouterInterval->getTag()));
+            viewNet->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval, true), true);
+            viewNet->getUndoList()->p_end();
+        }
+        return true;
+    } else {
+        // delete created rerouter interval
+        rerouterParent->removeRerouterInterval(rerouterInterval);
+        delete rerouterInterval;
+        throw ProcessError("Could not build " + toString(SUMO_TAG_INTERVAL) + " with begin '" + toString(begin) + "' and '" + toString(end) +"' in '" + rerouterParent->getID() + "' due overlapping.");
+    }
 }
 
 
@@ -1308,14 +1349,22 @@ GNEAdditionalHandler::buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndo
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(variableSpeedSign);
-            //// for (std::vector<GNEEdge*>::const_iterator i = edges.begin(); i != edges.end(); i++) {
-            ////    (*i)->addGNERerouter(rerouter);
-            //// }
+            // add this VSS as parent of all edges
+            for(auto i : lanes) {
+                i->addAdditionalParent(variableSpeedSign);
+            }
         }
         return true;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_VSS) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
+}
+
+
+bool 
+GNEAdditionalHandler::buildVariableSpeedSignStep(GNEViewNet* /*viewNet*/, bool /*allowUndoRedo*/, double /*time*/, double /*speed*/) {
+    /// implement
+    return true;
 }
 
 

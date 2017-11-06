@@ -386,10 +386,15 @@ public:
      */
     static bool buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& file, bool off);
     
-    /**
-    DOCUMENTAR
+    /**@brief builds a rerouter interval
+    * @param[in] viewNet viewNet in which element will be inserted
+    * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
+    * @param[in] rerouterParent rerouter in which interval is placed
+    * @param[in] begin begin of interval
+    * @param[in] end end of interval
+    * @return true if was sucesfully created, false in other case
     */
-    static bool buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEEdge* edge, double startTime, double end);
+    static bool buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouter* rerouterParent, double begin, double end);
 
     /**@brief builds a Route probe
      * @param[in] viewNet viewNet in which element will be inserted
@@ -400,7 +405,7 @@ public:
      * @param[in] file The file to read the routeprobe definitions from
      * @param[in] begin The time at which to start generating output
      * @return true if was sucesfully created, false in other case
-     * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
+     * @exception InvalidArgument If the Route Probe can not be added to the net (is duplicate)
      */
     static bool buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double freq, const std::string& file, double begin);
 
@@ -411,9 +416,19 @@ public:
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
      * @return true if was sucesfully created, false in other case
-     * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
+     * @exception InvalidArgument If the VariableSpeedSign can not be added to the net (is duplicate)
      */
     static bool buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& file);
+
+    /**@brief Builds a VariableSpeedSign Step
+    * @param[in] viewNet viewNet in which element will be inserted
+    * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
+    * @param[in] time step's time
+    * @param[in] speed step's speed
+    * @return true if was sucesfully created, false in other case
+    * @exception InvalidArgument If the Variable Speed Sign Step can not be added to the net (is duplicate)
+    */
+    static bool buildVariableSpeedSignStep(GNEViewNet* viewNet, bool allowUndoRedo, double time, double speed);
 
     /**@brief Builds a vaporizer (lane speed trigger)
      * @param[in] viewNet viewNet in which element will be inserted

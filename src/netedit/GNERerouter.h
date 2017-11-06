@@ -48,6 +48,7 @@ class GNERerouterInterval;
 class GNERerouter : public GNEAdditional {
     /// @brief declare friend class
     friend class GNEChange_RerouterItem;
+    friend class GNEAdditionalHandler;
 
 public:
     /**@brief Constructor
@@ -84,8 +85,8 @@ public:
     /// @brief get rerouter intervals
     const std::vector<GNERerouterInterval*>& getRerouterIntervals() const;
 
-    /**@brief check if current intervals are overlappedç
-    * @return number of overlapped intervalsç
+    /**@brief check if current intervals are overlapped
+    * @return number of overlapped intervals
     */
     int checkOverlapping() const;
 

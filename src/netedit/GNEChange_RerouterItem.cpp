@@ -156,7 +156,6 @@ GNEChange_RerouterItem::~GNEChange_RerouterItem() {
 
 void
 GNEChange_RerouterItem::undo() {
-
     if (myForward) {
         if(myRerouterInterval) {
             // show extra information for tests
