@@ -18,7 +18,7 @@
 
 
 Name:           sumo
-Version:        svn
+Version:        git
 Release:        0
 Summary:        Simulation of Urban Mobility - A Microscopic Traffic Simulation
 License:        EPL-2.0
@@ -68,6 +68,7 @@ mv docs/tutorial docs/examples
 %if 0%{?sles_version}
 find . -name "*.jar" | xargs rm
 %endif
+find . -name "*.py" | xargs sed -i 's,^#!/usr/bin/env python$,#!/usr/bin/python,'
 
 %build
 %configure
@@ -99,7 +100,7 @@ install -Dm644 %{SOURCE4} %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %defattr(-,root,root)
 %{_bindir}/*
 %{_prefix}/lib/sumo
-%doc AUTHORS COPYING README ChangeLog docs/pydoc docs/userdoc docs/examples
+%doc AUTHORS COPYING README.md ChangeLog docs/pydoc docs/userdoc docs/examples
 %{_mandir}/man1/*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
