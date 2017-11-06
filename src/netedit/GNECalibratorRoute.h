@@ -112,9 +112,6 @@ private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief check if a route is valid
-    bool isRouteValid(const std::vector<GNEEdge*> &edges) const;
-
     /// @brief Invalidated copy constructor.
     GNECalibratorRoute(GNECalibratorRoute*) = delete;
 

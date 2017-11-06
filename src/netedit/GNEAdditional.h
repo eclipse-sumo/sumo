@@ -183,6 +183,12 @@ public:
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
     /// @}
 
+    /** @brief check if a route is valid
+     * @param[in] edges vector with the route's edges
+     * @param[in] report enable or disable writting warnings if route isn't valid
+     */
+    static bool isRouteValid(const std::vector<GNEEdge*> &edges, bool report);
+
 protected:
 
     /// @brief The GNEViewNet this additional element belongs

@@ -335,7 +335,6 @@ public:
      */
     static bool buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& outfile, double freq);
 
-
     /**@brief builds a microscopic calibrator over an edge
     * @param[in] viewNet viewNet in which element will be inserted
     * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
@@ -350,6 +349,31 @@ public:
     */
     static bool buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& outfile, double freq);
 
+    /**
+    DOCUMENTAR
+    */
+    static bool buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, const std::string &routeID, const std::vector<GNEEdge*> &edges, const RGBColor& color);
+
+    /**
+    DOCUMENTAR
+    */
+    static bool buildCalibratorVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, std::string vehicleTypeID,
+                                           double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
+                                           double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
+                                           SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
+                                           const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
+                                           double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat);
+
+    /**
+    DOCUMENTAR
+    */
+    static bool buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, const std::string &flowID, GNECalibratorRoute *route, GNECalibratorVehicleType *vtype, const RGBColor&color, 
+                                    const std::string &departLane, const std::string &departPos, const std::string &departSpeed, const std::string &arrivalLane, 
+                                    const std::string &arrivalPos, const std::string &arrivalSpeed, const std::string &line, int personNumber, int containerNumber, bool reroute, 
+                                    const std::string &departPosLat, const std::string &arrivalPosLat, double begin, double end, double vehsPerHour, double period, 
+                                    double probability, int number, GNECalibratorFlow::TypeOfFlow flowType);
+
+
     /**@brief builds a rerouter
      * @param[in] viewNet viewNet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
@@ -361,6 +385,11 @@ public:
      * @return true if was sucesfully created, false in other case
      */
     static bool buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& file, bool off);
+    
+    /**
+    DOCUMENTAR
+    */
+    static bool buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEEdge* edge, double startTime, double end);
 
     /**@brief builds a Route probe
      * @param[in] viewNet viewNet in which element will be inserted
@@ -441,11 +470,6 @@ public:
     */
     static bool fixE2DetectorPositionPosition(double& pos, double& length, const double laneLength, const bool friendlyPos);
 
-    /**@brief reset last Tag and clear non-valid Additionals (For example, created E3 withouts Entry/Exit childs)
-     * @note must be called after a XML parsing
-     */
-    void resetLastTag();
-
 protected:
     /// @brief pointer to View's Net
     GNEViewNet* myViewNet;
@@ -453,26 +477,8 @@ protected:
     /// @brief flag to check if created additionals must be undo and redo
     bool myUndoAdditionals;
 
-    /// @brief Pointer to the last inserted E3
-    GNEDetectorE3* myE3Parent;
-
-    /// @brief Pointer to the last inserted Calibrator
-    GNECalibrator* myCalibratorParent;
-
-    /// @brief Pointer to the last inserted variableSpeedSign
-    GNEVariableSpeedSign* myVariableSpeedSignParent;
-
-    /// @brief pointer to rerouterInterval in which insert GNEClosingReroute, GNEDestProbReroute, etc.
-    GNERerouterInterval* rerouterIntervalToInsertValues;
-
-    /// @brief last used Tag
-    SumoXMLTag myLastTag;
-
-    /// @brief vector in wich save calibratorVehicleTypes during loading calibrators
-    std::vector<GNECalibratorVehicleType*> myLoadingCalibratorVehicleTypes;
-
-    /// @brief used to check hierarchy of aditionals with parents and childs (for example, E3)
-    bool checkAdditionalParent(SumoXMLTag currentTag);
+    /// @brief ID of last inserted Additional parent (needed for additionasl that own a child)
+    std::string myLastInsertedAdditionalParent;
 
 private:
     /// @brief get a error message, if configuration of flow distribution is invalid

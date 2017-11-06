@@ -155,7 +155,7 @@ GNECalibratorRoute::isValid(SumoXMLAttr key, const std::string& value) {
     case SUMO_ATTR_EDGES:
         if(checkGNEEdgesValid(myCalibratorParent->getViewNet()->getNet(), value)) {
             // all edges exist, then check if compounds a valid route
-            return isRouteValid(parseGNEEdges(myCalibratorParent->getViewNet()->getNet(), value));
+            return GNEAdditional::isRouteValid(parseGNEEdges(myCalibratorParent->getViewNet()->getNet(), value), false);
         } else {
             return false;
         }
@@ -190,35 +190,5 @@ GNECalibratorRoute::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-
-bool 
-GNECalibratorRoute::isRouteValid(const std::vector<GNEEdge*> &edges) const {
-    if(edges.size() == 0) {
-        // routes cannot be empty
-        return false;
-    } else if(edges.size() == 1) {
-        // routes with a single edge are valid
-        return true;
-    } else {
-        // iterate over edges to check that compounds a chain
-        auto it = edges.begin();
-        while (it != edges.end() - 1) {
-            GNEEdge *currentEdge = *it;
-            GNEEdge *nextEdge = *(it+1);
-            // consecutive edges aren't allowed
-            if(currentEdge->getID() == nextEdge->getID()) {
-                return false;
-            }
-            // make sure that edges are consecutives
-            if(std::find(currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().begin(),
-                         currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end(),
-                         nextEdge) == currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end()) {
-                return false;
-            }
-            it++;
-        }
-    }
-    return true;
-}
 
 /****************************************************************************/

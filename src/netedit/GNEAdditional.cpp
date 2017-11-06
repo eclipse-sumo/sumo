@@ -49,6 +49,7 @@
 #include "GNEAdditional.h"
 #include "GNELane.h"
 #include "GNEEdge.h"
+#include "GNEJunction.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
@@ -211,6 +212,41 @@ GNEAdditional::getCenteringBoundary() const {
     } else {
         return Boundary(-0.1, 0.1, 0,1, 0,1);
     }
+}
+
+
+bool 
+GNEAdditional::isRouteValid(const std::vector<GNEEdge*> &edges, bool report) {
+    if(edges.size() == 0) {
+        // routes cannot be empty
+        return false;
+    } else if(edges.size() == 1) {
+        // routes with a single edge are valid
+        return true;
+    } else {
+        // iterate over edges to check that compounds a chain
+        auto it = edges.begin();
+        while (it != edges.end() - 1) {
+            GNEEdge *currentEdge = *it;
+            GNEEdge *nextEdge = *(it+1);
+            // consecutive edges aren't allowed
+            if(currentEdge->getID() == nextEdge->getID()) {
+                return false;
+            }
+            // make sure that edges are consecutives
+            if(std::find(currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().begin(),
+                currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end(),
+                nextEdge) == currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end()) {
+                if(report) {
+                    WRITE_WARNING("Parameter 'Route' invalid. " + toString(currentEdge->getTag()) + " '" + currentEdge->getID() + 
+                                  "' ins't consecutive to " + toString(nextEdge->getTag()) + " '" + nextEdge->getID() + "'");
+                }
+                return false;
+            }
+            it++;
+        }
+    }
+    return true;
 }
 
 

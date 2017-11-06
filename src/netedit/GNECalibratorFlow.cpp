@@ -64,8 +64,8 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
     GNEAttributeCarrier(SUMO_TAG_FLOW, ICON_EMPTY),
     myCalibratorParent(calibratorDialog->getEditedCalibrator()), 
     myFlowID(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->generateCalibratorFlowID()), 
-    myVehicleType(calibratorDialog->getEditedCalibrator()->getCalibratorVehicleTypes().front()->getID()), 
-    myRoute(calibratorDialog->getEditedCalibrator()->getCalibratorRoutes().front()->getID()), 
+    myVehicleType(calibratorDialog->getEditedCalibrator()->getCalibratorVehicleTypes().front()), 
+    myRoute(calibratorDialog->getEditedCalibrator()->getCalibratorRoutes().front()), 
     myColor(getDefaultValue<RGBColor>(SUMO_TAG_FLOW, SUMO_ATTR_COLOR)), 
     myDepartLane(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTLANE)), 
     myDepartPos(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTPOS)), 
@@ -88,7 +88,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
     myFlowType(GNE_CALIBRATORFLOW_VEHSPERHOUR) {}
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, const std::string &flowID, const std::string &vehicleType, const std::string &route,
+GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, const std::string &flowID, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route,
                                      const RGBColor& color, const std::string &departLane, const std::string &departPos, const std::string &departSpeed, const std::string &arrivalLane, 
                                      const std::string &arrivalPos, const std::string &arrivalSpeed, const std::string &line, int personNumber, int containerNumber, bool reroute, 
                                      const std::string &departPosLat, const std::string &arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability, 
@@ -204,9 +204,9 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
     case SUMO_ATTR_ID:
         return myFlowID;
     case SUMO_ATTR_TYPE:
-        return myVehicleType;
+        return myVehicleType->getID();
     case SUMO_ATTR_ROUTE:
-        return myRoute;
+        return myRoute->getID();
     case SUMO_ATTR_COLOR:
         return toString(myColor);
     case SUMO_ATTR_BEGIN:
@@ -293,9 +293,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
     case SUMO_ATTR_ID:
         return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorFlow(value, false) == NULL);
     case SUMO_ATTR_TYPE:
-        return isValidID(value);
+        return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorVehicleType(value, false) != NULL);
     case SUMO_ATTR_ROUTE:
-        return isValidID(value);
+        return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value, false) != NULL);
     case SUMO_ATTR_COLOR:
         return canParse<RGBColor>(value);
     case SUMO_ATTR_BEGIN:
@@ -385,10 +385,10 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
         break;
     }
     case SUMO_ATTR_TYPE:
-        myVehicleType = value;
+        myVehicleType = myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorVehicleType(value);
         break;
     case SUMO_ATTR_ROUTE:
-        myRoute = value;
+        myRoute = myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value);
         break;
     case SUMO_ATTR_COLOR:
         myColor = parse<RGBColor>(value);

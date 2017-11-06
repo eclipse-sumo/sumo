@@ -1270,8 +1270,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
         if (!XMLSubSys::runParser(additionalHandler, additionalPath, false)) {
             WRITE_MESSAGE("Loading of " + additionalPath + " failed.");
         } else {
-            // reset last tag (needed to avoid invalid E3s)
-            additionalHandler.resetLastTag();
+            // update view
             update();
         }
         // clear myEdgesAndNumberOfLanes after reload additionals

@@ -50,6 +50,7 @@ class GNECalibratorRoute;
 class GNECalibrator : public GNEAdditional {
     /// @brief declare friend class
     friend class GNEChange_CalibratorItem;
+    friend class GNEAdditionalHandler;
 
 public:
 

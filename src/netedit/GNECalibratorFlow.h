@@ -41,6 +41,8 @@
 
 class GNECalibrator;
 class GNECalibratorDialog;
+class GNECalibratorVehicleType;
+class GNECalibratorRoute;
 
 // ===========================================================================
 // class definitions
@@ -64,7 +66,7 @@ public:
     GNECalibratorFlow(GNECalibratorDialog* calibratorDialog);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNECalibrator* calibratorParent, const std::string &flowID, const std::string &vehicleType, const std::string &route, 
+    GNECalibratorFlow(GNECalibrator* calibratorParent, const std::string &flowID, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route, 
                       const RGBColor&color, const std::string &departLane, const std::string &departPos, const std::string &departSpeed, const std::string &arrivalLane, 
                       const std::string &arrivalPos, const std::string &arrivalSpeed, const std::string &line, int personNumber, int containerNumber, bool reroute, 
                       const std::string &departPosLat, const std::string &arrivalPosLat, double begin, double end, double vehsPerHour, double period, 
@@ -117,10 +119,10 @@ protected:
     std::string myFlowID;
 
     /// @brief type of flow
-    std::string myVehicleType;
+    GNECalibratorVehicleType* myVehicleType;
 
     /// @brief route in which this flow is used
-    std::string myRoute;
+    GNECalibratorRoute* myRoute;
 
     /// @brief color of flow
     RGBColor myColor;
