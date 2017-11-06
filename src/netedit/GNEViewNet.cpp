@@ -802,8 +802,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             case GNE_MODE_DELETE: {
                 // Check if Control key is pressed
                 bool markElementMode = (((FXEvent*)eventData)->state & CONTROLMASK) != 0;
-                // obtain attribute carrier related to pointed object
-                GNEAttributeCarrier* ac = myNet->retrieveAttributeCarrier(pointed->getGlID());
+                // obtain attribute carrier related to pointed object (if exists)
+                GNEAttributeCarrier* ac = pointed? myNet->retrieveAttributeCarrier(pointed->getGlID()) : NULL;
                 if ((pointed_lane != NULL) && mySelectEdges) {
                     ac = pointed_edge;
                 }
