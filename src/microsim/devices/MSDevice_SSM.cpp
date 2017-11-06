@@ -162,6 +162,8 @@ std::ostream& operator<<(std::ostream& out, MSDevice_SSM::EncounterType type) {
 
 std::set<MSDevice*>* MSDevice_SSM::instances = new std::set<MSDevice*>();
 
+std::set<std::string> MSDevice_SSM::createdOutputFiles;
+
 const std::set<MSDevice*>&
 MSDevice_SSM::getInstances() {
     return *instances;
@@ -176,6 +178,10 @@ MSDevice_SSM::cleanup() {
             static_cast<MSDevice_SSM*>(*ii)->flushConflicts(true);
         }
         instances->clear();
+    }
+    for (auto& fn : createdOutputFiles){
+        OutputDevice* file = &OutputDevice::getDevice(fn);
+        file->closeTag();
     }
 }
 
@@ -2131,7 +2137,10 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
     myOutputFile = &OutputDevice::getDevice(outputFilename);
 //    TODO: make xsd, include header
 //    myOutputFile.writeXMLHeader("SSMLog", "SSMLog.xsd");
-    myOutputFile->openTag("SSMLog");
+    if (createdOutputFiles.count(outputFilename) == 0){
+        myOutputFile->openTag("SSMLog");
+        createdOutputFiles.insert(outputFilename);
+    }
 
     // register at static instance container
     instances->insert(this);
@@ -2158,7 +2167,6 @@ MSDevice_SSM::~MSDevice_SSM() {
     instances->erase((MSDevice*) this);
     resetEncounters();
     flushConflicts(true);
-    myOutputFile->closeTag();
 }
 
 
