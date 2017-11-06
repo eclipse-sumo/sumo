@@ -643,8 +643,12 @@ GNELane::updateGeometry() {
             myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
     }
-    // Update geometry of additionals vinculated with this lane
+    // Update geometry of additionals chiolds vinculated with this lane
     for (auto i : myAdditionalChilds) {
+        i->updateGeometry();
+    }
+    // Update geometry of additionals àremtvinculated with this lane
+    for (auto i : myAdditionalParents) {
         i->updateGeometry();
     }
     // Update geometry of Shapes vinculated with this lane
@@ -654,12 +658,12 @@ GNELane::updateGeometry() {
     // In Move mode, connections aren't updated
     if (myNet->getViewNet() && myNet->getViewNet()->getCurrentEditMode() != GNE_MODE_MOVE) {
         // Update incoming connections of this lane
-        std::vector<GNEConnection*> incomingConnections = getGNEIncomingConnections();
+        auto incomingConnections = getGNEIncomingConnections();
         for (auto i : incomingConnections) {
             i->updateGeometry();
         }
         // Update outgoings connections of this lane
-        std::vector<GNEConnection*> outGoingConnections = getGNEOutcomingConnections();
+        auto outGoingConnections = getGNEOutcomingConnections();
         for (auto i : outGoingConnections) {
             i->updateGeometry();
         }

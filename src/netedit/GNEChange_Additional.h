@@ -102,6 +102,9 @@ private:
 
     /// @brief list of Edge childs (used by Rerouters)
     std::vector<GNEEdge*> myEdgeChilds;
+
+    /// @brief list of Edge childs (used by VSS)
+    std::vector<GNELane*> myLaneChilds;
 };
 
 #endif

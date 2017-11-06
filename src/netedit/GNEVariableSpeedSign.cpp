@@ -197,6 +197,12 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
 }
 
 
+const std::vector<GNELane*> &
+GNEVariableSpeedSign::getLanes() const {
+    return myLanes;
+}
+
+
 const std::string&
 GNEVariableSpeedSign::getFilename() const {
     return myFilename;

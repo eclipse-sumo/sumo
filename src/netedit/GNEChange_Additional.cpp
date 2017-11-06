@@ -39,6 +39,7 @@
 #include "GNEDetectorExit.h"
 #include "GNEStoppingPlace.h"
 #include "GNERerouter.h"
+#include "GNEVariableSpeedSign.h"
 
 
 // ===========================================================================
@@ -76,9 +77,13 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
     } else if (myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
         myE3Parent = dynamic_cast<GNEDetectorExit*>(myAdditional)->getE3Parent();
     }
-    // handle additional with edge chidls
+    // handle additional with edge childs
     if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
         myEdgeChilds = dynamic_cast<GNERerouter*>(myAdditional)->getEdgeChilds();
+    }
+    // handle additional with lane childs
+    if (myAdditional->getTag() == SUMO_TAG_VSS) {
+        myLaneChilds = dynamic_cast<GNEVariableSpeedSign*>(myAdditional)->getLanes();
     }
 }
 
@@ -151,6 +156,13 @@ GNEChange_Additional::undo() {
                 i->removeAdditionalParent(rerouter);
             }
         }
+        // 7 - if Additional if a VSS, remove it of all of their lane childs
+        if (myAdditional->getTag() == SUMO_TAG_VSS) {
+            GNEVariableSpeedSign* vss = dynamic_cast<GNEVariableSpeedSign*>(myAdditional);
+            for (auto i : myLaneChilds) {
+                i->removeAdditionalParent(vss);
+            }
+        }
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -198,6 +210,13 @@ GNEChange_Additional::undo() {
             GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
             for (auto i : myEdgeChilds) {
                 i->addAdditionalParent(rerouter);
+            }
+        }
+        // 7 - if Additional if a VSS, add it into all of their lane childs
+        if (myAdditional->getTag() == SUMO_TAG_VSS) {
+            GNEVariableSpeedSign* vss = dynamic_cast<GNEVariableSpeedSign*>(myAdditional);
+            for (auto i : myLaneChilds) {
+                i->addAdditionalParent(vss);
             }
         }
     }
@@ -257,6 +276,13 @@ GNEChange_Additional::redo() {
                 i->addAdditionalParent(rerouter);
             }
         }
+        // 7 - if Additional if a VSS, add it into all of their lane childs
+        if (myAdditional->getTag() == SUMO_TAG_VSS) {
+            GNEVariableSpeedSign* vss = dynamic_cast<GNEVariableSpeedSign*>(myAdditional);
+            for (auto i : myLaneChilds) {
+                i->addAdditionalParent(vss);
+            }
+        }
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -303,6 +329,13 @@ GNEChange_Additional::redo() {
             GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
             for (auto i : myEdgeChilds) {
                 i->removeAdditionalParent(rerouter);
+            }
+        }
+        // 7 - if Additional if a VSS, remove it of all of their lane childs
+        if (myAdditional->getTag() == SUMO_TAG_VSS) {
+            GNEVariableSpeedSign* vss = dynamic_cast<GNEVariableSpeedSign*>(myAdditional);
+            for (auto i : myLaneChilds) {
+                i->removeAdditionalParent(vss);
             }
         }
     }
