@@ -14,6 +14,7 @@
 /missing
 /sumo-*.tar.gz
 /sumo-*.zip
+/diff.*
 # bin dir
 /bin/TraCITestClient*
 /bin/activitygen*
