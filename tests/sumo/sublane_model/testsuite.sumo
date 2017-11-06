@@ -106,5 +106,8 @@ future_braking
 # configuring assymetry in strategic left-right lookahead
 lcLookaheadLeft
 
+# when checking for linkleaders, vehicles on a sibling lane should only affect ego if there is lateral overlap (see ticket3573)
+junction_leader_sibling_pass
+
 # tests for various tickets
 bugs

@@ -24,6 +24,3 @@ ticket3333
 
 # invalid sublane change
 ticket3372
-
-# when checking for linkleaders, vehicles on a sibling lane should only affect ego if there is lateral overlap
-ticket3573
