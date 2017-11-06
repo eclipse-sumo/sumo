@@ -87,15 +87,51 @@ GNEVariableSpeedSign::updateGeometry() {
 
     // Set position
     myShape.push_back(myPosition);
-    /*
-    // Add shape of childs (To avoid graphics errors)
-    for (childLanes::iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
-        myShape.append(i->lane->getShape());
+
+    // clear mySymbolsPositionAndRotation
+    mySymbolsPositionAndRotation.clear();
+
+    // calculate position and rotation of every simbol for every lane
+    for (auto i : myLanes) {
+        std::pair<Position, double> posRot;
+        // set position and lenght depending of shape's lengt
+        if(i->getShape().length() - 6 > 0) {
+            posRot.first = i->getShape().positionAtOffset(i->getShape().length() - 6);
+            posRot.second = i->getShape().rotationDegreeAtOffset(i->getShape().length() - 6);
+        } else {
+            posRot.first = i->getShape().positionAtOffset(i->getShape().length());
+            posRot.second = i->getShape().rotationDegreeAtOffset(i->getShape().length());
+        }
+        mySymbolsPositionAndRotation.push_back(posRot); 
     }
 
-    // Update connections
-    updateConnections();
-    */
+    // drop connections between parent and childs
+    myConnectionPositions.clear();
+
+    // calculate geometry for connections between parent and childs
+    for (auto i : mySymbolsPositionAndRotation) {
+        std::vector<Position> posConnection;
+        double A = std::abs(i.first.x() - getPositionInView().x());
+        double B = std::abs(i.first.y() - getPositionInView().y());
+        // Set positions of connection's vertex. Connection is build from Entry to E3
+        posConnection.push_back(i.first);
+        if (getPositionInView().x() > i.first.x()) {
+            if (getPositionInView().y() > i.first.y()) {
+                posConnection.push_back(Position(i.first.x() + A, i.first.y()));
+            } else {
+                posConnection.push_back(Position(i.first.x(), i.first.y() - B));
+            }
+        } else {
+            if (getPositionInView().y() > i.first.y()) {
+                posConnection.push_back(Position(i.first.x(), i.first.y() + B));
+            } else {
+                posConnection.push_back(Position(i.first.x() - A, i.first.y()));
+            }
+        }
+        posConnection.push_back(getPositionInView());
+        myConnectionPositions.push_back(posConnection);
+    }
+
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshElement(this);
 }
@@ -215,22 +251,15 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     // Show Lock icon depending of the Edit mode
     drawLockIcon(0.4);
 
-    // Push matrix to draw every symbol over lane
-    glPushMatrix();
-
-    // Translate to 0,0
-    glTranslated(0, 0, getType());
-    /*
-    // Obtain exaggeration
+    // obtain exxageration
     const double exaggeration = s.addSize.getExaggeration(s);
 
-    // Iterate over lanes
-    for (childLanes::const_iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
-        // Draw every signal over Lane
+    // iterate over symbols and rotation
+    for (auto i : mySymbolsPositionAndRotation) {
         glPushMatrix();
         glScaled(exaggeration, exaggeration, 1);
-        glTranslated(i->positionOverLane.x(), i->positionOverLane.y(), 0);
-        glRotated(i->rotationOverLane, 0, 0, 1);
+        glTranslated(i.first.x(), i.first.y(), getType());
+        glRotated(-1*i.second, 0, 0, 1);
         glTranslated(0, -1.5, 0);
 
         int noPoints = 9;
@@ -246,28 +275,21 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(0, 0, .1);
             glColor3d(0, 0, 0);
             GLHelper::drawFilledCircle((double) 1.1, noPoints);
-            // Draw speed
-            double speed = i->lane->getSpeed();
-            // Show as Km/h
-            speed *= 3.6f;
-            if (((int) speed + 1) % 10 == 0) {
-                speed = (double)(((int) speed + 1) / 10 * 10);
-            }
             // draw the speed string
-            std::string speedToDraw = toString<double>(speed);
+            //draw
             glColor3d(1, 1, 0);
             glTranslated(0, 0, .1);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            pfSetPosition(0, 0);
-            pfSetScale(1.2f);
-            double w = pfdkGetStringWidth(speedToDraw.c_str());
-            glRotated(180, 0, 1, 0);
-            glTranslated(-w / 2., 0.3, 0);
-            pfXXDrawString(speedToDraw.c_str());
+
+            // draw last value string
+            GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor(255,255,0), 180);
         }
         glPopMatrix();
     }
-    */
+
+    // Draw connections
+    drawParentAndChildrenConnections();
+
     // Pop symbol matrix
     glPopMatrix();
 
