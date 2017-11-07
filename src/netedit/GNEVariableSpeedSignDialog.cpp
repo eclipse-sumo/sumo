@@ -44,8 +44,10 @@
 // ===========================================================================
 
 FXDEFMAP(GNEVariableSpeedSignDialog) GNERerouterDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,       MID_GNE_VARIABLESPEEDSIGN_ADDROW,    GNEVariableSpeedSignDialog::onCmdAddRow),
-    FXMAPFUNC(SEL_DOUBLECLICKED, MID_GNE_VARIABLESPEEDSIGN_REMOVEROW, GNEVariableSpeedSignDialog::onCmdRemoveRow),
+    FXMAPFUNC(SEL_COMMAND,          MID_GNE_VARIABLESPEEDSIGN_ADDROW,       GNEVariableSpeedSignDialog::onCmdAddRow),
+    FXMAPFUNC(SEL_CLICKED,          MID_GNE_VARIABLESPEEDSIGN_CLICKEDROW,   GNEVariableSpeedSignDialog::onCmdClickedRow),
+    FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_VARIABLESPEEDSIGN_CLICKEDROW,   GNEVariableSpeedSignDialog::onCmdClickedRow),
+    FXMAPFUNC(SEL_TRIPLECLICKED,    MID_GNE_VARIABLESPEEDSIGN_CLICKEDROW,   GNEVariableSpeedSignDialog::onCmdClickedRow),
 };
 
 // Object implementation
@@ -56,24 +58,18 @@ FXIMPLEMENT(GNEVariableSpeedSignDialog, GNEAdditionalDialog, GNERerouterDialogMa
 // ===========================================================================
 
 GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* editedVariableSpeedSign) :
-    GNEAdditionalDialog(editedVariableSpeedSign, 240, 240),
+    GNEAdditionalDialog(editedVariableSpeedSign, 300, 400),
     myEditedVariableSpeedSign(editedVariableSpeedSign) {
-
-    // create List with the data
-    myDataList = new FXTable(myContentFrame, this, MID_GNE_VARIABLESPEEDSIGN_REMOVEROW, GUIDesignTableLimitedHeight);
-    myDataList->setEditable(false);
 
     // create Horizontal frame for row elements
     myRowFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
 
-    // create Text field for the timeStep
-    myRowStep = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGN_CHANGEVALUE, GUIDesignTextField);
-
-    // create Text field for the speed
-    myRowSpeed = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGN_CHANGEVALUE, GUIDesignTextField);
-
     // create Button for insert row
     myAddRow = new FXButton(myRowFrame, "Add", 0, this, MID_GNE_VARIABLESPEEDSIGN_ADDROW, GUIDesignButtonIcon);
+
+    // create List with the data
+    myDataList = new FXTable(myContentFrame, this, MID_GNE_VARIABLESPEEDSIGN_CLICKEDROW, GUIDesignTableAdditionals);
+    myDataList->setEditable(true);
 
     // update table
     updateTableSteps();
@@ -108,21 +104,8 @@ GNEVariableSpeedSignDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
 
 
 long
-GNEVariableSpeedSignDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
-    // Iterate over rows to find the row to erase
-    for (int i = 0; i < myDataList->getNumRows(); i++) {
-        if (myDataList->getItem(i, 2)->isSelected()) {
-            // Remove element of table and map
-            /*
-            mySteps.erase(mySteps.begin() + i);
-            myDataList->removeRows(i);
-            */
-            // update table
-            updateTableSteps();
-            return 1;
-        }
-    }
-    return 0;
+GNEVariableSpeedSignDialog::onCmdClickedRow(FXObject*, FXSelector, void*) {
+    return true;
 }
 
 
@@ -168,12 +151,12 @@ GNEVariableSpeedSignDialog::updateTableSteps() {
     myDataList->setTableSize(int(myEditedVariableSpeedSign->getSteps().size()), 3);
     // Configure list
     myDataList->setVisibleColumns(3);
-    myDataList->setColumnWidth(0, getWidth() / 3);
-    myDataList->setColumnWidth(1, getWidth() / 3);
-    myDataList->setColumnWidth(2, getWidth() / 3 - 10);
+    myDataList->setColumnWidth(0, 126);
+    myDataList->setColumnWidth(1, 126);
+    myDataList->setColumnWidth(2, GUIDesignTableIconCellWidth);
     myDataList->setColumnText(0, "timeStep");
     myDataList->setColumnText(1, "speed (km/h)");
-    myDataList->setColumnText(2, "remove");
+    myDataList->setColumnText(2, "");
     myDataList->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
@@ -186,9 +169,10 @@ GNEVariableSpeedSignDialog::updateTableSteps() {
         // Set speed
         item = new FXTableItem(i->getAttribute(SUMO_ATTR_SPEED).c_str());
         myDataList->setItem(indexRow, 1, item);
-        // set remove
+        // set remove ICON
         item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
+        item->setEnabled(false);
         myDataList->setItem(indexRow, 2, item);
         // Update index
         indexRow++;

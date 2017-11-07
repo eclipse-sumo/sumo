@@ -791,9 +791,7 @@ enum {
     /// @brief add row
     MID_GNE_VARIABLESPEEDSIGN_ADDROW,
     /// @brief remove row
-    MID_GNE_VARIABLESPEEDSIGN_REMOVEROW,
-    /// @brief change value
-    MID_GNE_VARIABLESPEEDSIGN_CHANGEVALUE,
+    MID_GNE_VARIABLESPEEDSIGN_CLICKEDROW,
     /// @}
 
 

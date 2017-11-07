@@ -67,8 +67,8 @@ public:
     /// @brief event called after press add row button
     long onCmdAddRow(FXObject*, FXSelector, void*);
 
-    /// @brief event called after press remove row
-    long onCmdRemoveRow(FXObject*, FXSelector, void*);
+    /// @brief event called after clicked a row
+    long onCmdClickedRow(FXObject*, FXSelector, void*);
 
     /// @brief event called after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
