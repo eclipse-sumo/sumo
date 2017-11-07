@@ -56,6 +56,7 @@ public:
     /// @brief add edges that must be kept
     void addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into);
 
+    std::set<std::string>& getServedPTStops();
 private:
 
     static const int FWD;
@@ -70,6 +71,8 @@ private:
     long long int myIdCnt;
     void reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont);
     void constructRoute(NBPTLine* myPTLine, NBEdgeCont& cont);
+
+    std::set<std::string> myServedPTStops;
 };
 
 

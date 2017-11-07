@@ -132,6 +132,21 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         myPTLineCont.process(myEdgeCont);
         PROGRESS_TIME_MESSAGE(before);
     }
+
+    if (oc.exists("ptline-output") && oc.isSet("ptline-output") && oc.exists("ptline-clean-up") && oc.getBool("ptline-clean-up")){
+        before = SysUtils::getCurrentMillis();
+        PROGRESS_BEGIN_MESSAGE("Cleaning up public transport stops that are not served by any line");
+        myPTStopCont.postprocess(myPTLineCont.getServedPTStops());
+        PROGRESS_TIME_MESSAGE(before);
+    }
+
+    if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
+        before = SysUtils::getCurrentMillis();
+        PROGRESS_BEGIN_MESSAGE("Align pt stop id signs with corresponding edge id signs");
+        myPTStopCont.alginIdSigns();
+        PROGRESS_TIME_MESSAGE(before);
+    }
+
     if (oc.getBool("junctions.join") || (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))) {
         // preliminary geometry computations to determine the length of edges
         // This depends on turning directions and sorting of edge list

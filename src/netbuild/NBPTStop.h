@@ -78,8 +78,9 @@ public:
     void addPlatformCand(NBPTPlatform platform);
     bool findLaneAndComputeBusStopExtend(NBEdgeCont& ec);
 
+    void setMyPTStopId(std::string id);
 private:
-    const std::string myPTStopId;
+    std::string myPTStopId;
     Position myPosition;
     std::string myEdgeId;
     std::map<std::string, std::string> myAdditionalEdgeCandidates;

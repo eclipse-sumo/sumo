@@ -161,4 +161,8 @@ NBPTStop::findLaneAndComputeBusStopExtend(NBEdgeCont& ec) {
     }
     return false;
 }
+void NBPTStop::setMyPTStopId(std::string id) {
+    myPTStopId = id;
+}
+
 

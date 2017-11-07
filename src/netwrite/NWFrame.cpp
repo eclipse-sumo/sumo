@@ -108,6 +108,8 @@ NWFrame::fillOptions(bool forNetgen) {
         oc.addDescription("ptstop-output", "Output", "Writes public transport stops to FILE");
         oc.doRegister("ptline-output", new Option_FileName());
         oc.addDescription("ptline-output", "Output", "Writes public transport lines to FILE");
+        oc.doRegister("ptline-clean-up", new Option_Bool(false));
+        oc.addDescription("ptline-clean-up", "Output", "Clean-up pt stops that are not served by any line");
     }
 
     // register opendrive options

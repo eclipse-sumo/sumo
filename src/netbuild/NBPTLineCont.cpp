@@ -167,7 +167,7 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
             stop->setEdgeId(reverse->getID(), cont);
             WRITE_WARNING("PT stop: " + stop->getID() + " has been moved to edge: " + reverse->getID());
         }
-
+        myServedPTStops.insert(stop->getID());
     }
 }
 void NBPTLineCont::constructRoute(NBPTLine* pTLine, NBEdgeCont& cont) {
@@ -298,4 +298,7 @@ NBPTLineCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) 
             }
         }
     }
+}
+std::set<std::string>& NBPTLineCont::getServedPTStops() {
+    return myServedPTStops;
 }

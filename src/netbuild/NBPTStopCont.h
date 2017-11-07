@@ -70,6 +70,8 @@ public:
 
     void process(NBEdgeCont& cont);
 
+    void postprocess(std::set<std::string>& usedStops);
+
     /// @brief add edges that must be kept
     void addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into);
 
@@ -92,6 +94,7 @@ public:
     static NBEdge* getReverseEdge(NBEdge* edge);
 
 
+    void alginIdSigns();
 };
 
 #endif //SUMO_NBPTSTOPCONT_H

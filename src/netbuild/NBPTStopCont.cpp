@@ -69,7 +69,7 @@ void NBPTStopCont::process(NBEdgeCont& cont) {
         if (!platformsDefined) {
             //create pt stop for reverse edge if edge exist
             NBPTStop* reverseStop = getReverseStop(stop, cont);
-            if (reverseStop != 0) {
+            if (reverseStop != nullptr) {
                 reverseStops.push_back(reverseStop);
             }
         } else if (multipleStopPositions) {
@@ -79,7 +79,7 @@ void NBPTStopCont::process(NBEdgeCont& cont) {
         } else {
             //create pt stop for each side of the street where a platform is defined (create additional pt stop as needed)
             NBPTStop* additionalStop = assignAndCreatNewPTStopAsNeeded(stop, cont);
-            if (additionalStop != 0) {
+            if (additionalStop != nullptr) {
                 reverseStops.push_back(additionalStop);
             }
         }
@@ -116,7 +116,7 @@ NBPTStop* NBPTStopCont::getReverseStop(NBPTStop* pStop, NBEdgeCont& cont) {
     if (reverse != nullptr) {
 
         Position* pos = new Position(pStop->getPosition());
-        NBPTStop* ret = new NBPTStop("-1" + pStop->getID(), *pos, reverse->getID(), reverse->getID(),
+        NBPTStop* ret = new NBPTStop("-" + pStop->getID(), *pos, reverse->getID(), reverse->getID(),
                                      pStop->getLength(), pStop->getName(), pStop->getPermissions());
         return ret;
 
@@ -169,7 +169,7 @@ void NBPTStopCont::assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCo
     NBEdge* reverse = NBPTStopCont::getReverseEdge(edge);
     NBPTPlatform* closestPlatform = getClosestPlatformToPTStopPosition(pStop);
     pStop->setMyPTStopLength(closestPlatform->getMyLength());
-    if (reverse != 0) {
+    if (reverse != nullptr) {
 
         //TODO make isLeft in PositionVector static [GL May '17]
 //        if (PositionVector::isLeft(edge->getFromNode()->getPosition(),edge->getToNode()->getPosition(),closestPlatform)){
@@ -261,11 +261,35 @@ void NBPTStopCont::reviseStops(NBEdgeCont& cont) {
 }
 
 
-void 
+void
 NBPTStopCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) {
     if (oc.isSet("ptstop-output")) {
         for (auto stop : myPTStops) {
             into.insert(stop.second->getEdgeId());
         }
     }
+}
+void NBPTStopCont::postprocess(std::set<std::string>& usedStops) {
+    for (auto i = myPTStops.begin(); i != myPTStops.end();) {
+        if (usedStops.find(i->second->getID()) == usedStops.end()) {
+            myPTStops.erase(i++);
+        } else {
+            i++;
+        }
+    }
+}
+void NBPTStopCont::alginIdSigns() {
+    for (auto i : myPTStops) {
+        std::string sId = i.second->getID();
+        const char& esign = i.second->getEdgeId().at(0);
+        char ssign = sId.at(0);
+        if (esign != ssign && (esign == '-' || ssign == '-')) {
+            if (esign == '-') {
+                i.second->setMyPTStopId("-"+sId);
+            } else {
+                i.second->setMyPTStopId(sId.substr(1,sId.length()));
+            }
+        }
+    }
+
 }
