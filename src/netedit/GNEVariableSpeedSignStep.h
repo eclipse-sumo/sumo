@@ -66,6 +66,9 @@ public:
     /// @brief write step into XML
     void writeStep(OutputDevice& device);
 
+    /// @brief get time
+    double getTime() const;
+
     /// @brief inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key

@@ -77,6 +77,13 @@ GNEVariableSpeedSignStep::writeStep(OutputDevice& device) {
     device.closeTag();
 }
 
+
+double 
+GNEVariableSpeedSignStep::getTime() const {
+    return myTime;
+}
+
+
 std::string 
 GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
     switch (key) {
