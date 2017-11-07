@@ -145,7 +145,8 @@ GNEVariableSpeedSign::getPositionInView() const {
 
 void
 GNEVariableSpeedSign::openAdditionalDialog() {
-    GNEVariableSpeedSignDialog variableSpeedSignDialog(this);
+    // Open VSS dialog
+    GNEVariableSpeedSignDialog(this);
 }
 
 

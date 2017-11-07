@@ -104,7 +104,7 @@ protected:
 
 private:
     /// @brief update data table
-    void updateTable();
+    void updateTableSteps();
 
     /// @brief Invalidated copy constructor.
     GNEVariableSpeedSignDialog(const GNEVariableSpeedSignDialog&) = delete;

@@ -33,6 +33,10 @@
 
 #include "GNEVariableSpeedSignDialog.h"
 #include "GNEVariableSpeedSign.h"
+#include "GNEViewNet.h"
+#include "GNENet.h"
+#include "GNEUndoList.h"
+#include "GNEChange_VariableSpeedSignItem.h"
 
 
 // ===========================================================================
@@ -52,7 +56,7 @@ FXIMPLEMENT(GNEVariableSpeedSignDialog, GNEAdditionalDialog, GNERerouterDialogMa
 // ===========================================================================
 
 GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* editedVariableSpeedSign) :
-    GNEAdditionalDialog(myEditedVariableSpeedSign, 240, 240),
+    GNEAdditionalDialog(editedVariableSpeedSign, 240, 240),
     myEditedVariableSpeedSign(editedVariableSpeedSign) {
 
     // create List with the data
@@ -72,11 +76,15 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* edi
     myAddRow = new FXButton(myRowFrame, "Add", 0, this, MID_GNE_VARIABLESPEEDSIGN_ADDROW, GUIDesignButtonIcon);
 
     // update table
-    updateTable();
+    updateTableSteps();
+
+    // start a undo list editing
+    myEditedVariableSpeedSign->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedVariableSpeedSign->getTag()) + " values");
 
     // Open dialog as modal
     openAsModalDialog();
 }
+
 
 GNEVariableSpeedSignDialog::~GNEVariableSpeedSignDialog() {}
 
@@ -90,31 +98,11 @@ GNEVariableSpeedSignDialog::getEditedVariableSpeedSign() const {
 long
 GNEVariableSpeedSignDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     // Declare variables for time and speed
-    /*
-    GNEVariableSpeedSignStep step(myEditedVariableSpeedSign);
-    // Get Time
-    if (GNEAttributeCarrier::canParse<double>(myRowStep->getText().text()) == false) {
-        return 0;
-    } else {
-        step.setTime(GNEAttributeCarrier::parse<double>(myRowStep->getText().text()));
-    }
+    GNEVariableSpeedSignStep *step = new GNEVariableSpeedSignStep(this);
+    myEditedVariableSpeedSign->getViewNet()->getUndoList()->add(new GNEChange_VariableSpeedSignItem(step, true), true);
 
-    // get SPeed
-    if (GNEAttributeCarrier::canParse<double>(myRowSpeed->getText().text()) == false) {
-        return 0;
-    } else {
-        step.setSpeed(GNEAttributeCarrier::parse<double>(myRowSpeed->getText().text()));
-    }
-
-    // Set new time and their speed if don't exist already
-    if (std::find(mySteps.begin(), mySteps.end(), step) == mySteps.end()) {
-        mySteps.push_back(step);
-    } else {
-        return false;
-    }
-    */
     // Update table
-    updateTable();
+    updateTableSteps();
     return 1;
 }
 
@@ -130,7 +118,7 @@ GNEVariableSpeedSignDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
             myDataList->removeRows(i);
             */
             // update table
-            updateTable();
+            updateTableSteps();
             return 1;
         }
     }
@@ -142,7 +130,10 @@ long
 GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 
-    // Stop Modal with positive out
+
+    // finish editing
+    myEditedVariableSpeedSign->getViewNet()->getUndoList()->p_end();
+    // stop dialgo sucesfully
     getApp()->stopModal(this, TRUE);
     return 1;
 }
@@ -150,8 +141,9 @@ GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNEVariableSpeedSignDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-
-    // Stop Modal with negative out
+    // abort last command
+    myEditedVariableSpeedSign->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
 }
@@ -159,15 +151,17 @@ GNEVariableSpeedSignDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEVariableSpeedSignDialog::onCmdReset(FXObject*, FXSelector, void*) {
-
-
-    updateTable();
+    // abort last command an start editing again
+    myEditedVariableSpeedSign->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    myEditedVariableSpeedSign->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedVariableSpeedSign->getTag()) + " values");
+    // update steps tables
+    updateTableSteps();
     return 1;
 }
 
 
 void
-GNEVariableSpeedSignDialog::updateTable() {
+GNEVariableSpeedSignDialog::updateTableSteps() {
     // clear table
     myDataList->clearItems();
     // set number of rows
