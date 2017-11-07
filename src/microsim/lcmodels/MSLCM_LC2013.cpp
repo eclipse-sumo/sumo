@@ -757,7 +757,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
 
                 // next step's gap with possibly less than maximal help deceleration (in case vsafe1 > neighNewSpeed)
                 double decel2 = SPEED2ACCEL(nv->getSpeed() - vsafe1);
-                nextGap = myCarFollowModel.gapExtrapolation(myVehicle.getActionStepLengthSecs(),
+                nextGap = myCarFollowModel.gapExtrapolation(TS,
                           neighFollow.second, myVehicle.getSpeed(),
                           nv->getSpeed(), plannedAccel, -decel2,
                           myVehicle.getMaxSpeedOnLane(), nv->getMaxSpeedOnLane());
@@ -766,14 +766,13 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                 // Thus, the gap resulting from vsafe is larger or equal to next_gap
                 // in contrast to the euler case, where nv's follow speed doesn't depend on the actual speed,
                 // we need to assure, that nv doesn't accelerate
-                vsafe = MIN2(nv->getSpeed(),
-                             MAX2(neighNewSpeed,
+                vsafe = MIN2(nv->getSpeed(), MAX2(neighNewSpeed,
                                   nv->getCarFollowModel().followSpeed(nv,
                                           nv->getSpeed(), nextGap,
                                           MAX2(0., plannedSpeed),
                                           myCarFollowModel.getMaxDecel())));
 
-                assert(vsafe >= vsafe1);
+                assert(vsafe >= vsafe1-NUMERICAL_EPS);
 
 #ifdef DEBUG_INFORMER
                 if (DEBUG_COND) {
