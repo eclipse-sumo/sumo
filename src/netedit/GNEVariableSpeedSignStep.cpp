@@ -121,9 +121,9 @@ bool
 GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
     case SUMO_ATTR_TIME:
-        return canParse<double>(value);
+        return canParse<double>(value) && (parse<double>(value) >= 0);
     case SUMO_ATTR_SPEED:
-        return canParse<double>(value);
+        return canParse<double>(value)&& (parse<double>(value) >= 0);
     default:
         throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

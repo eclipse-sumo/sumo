@@ -65,10 +65,13 @@ public:
     /// @name FOX-callbacks
     /// @{
     /// @brief event called after press add row button
-    long onCmdAddRow(FXObject*, FXSelector, void*);
+    long onCmdAddStep(FXObject*, FXSelector, void*);
+
+    /// @brief event called after edit row
+    long onCmdEditStep(FXObject*, FXSelector, void*);
 
     /// @brief event called after clicked a row
-    long onCmdClickedRow(FXObject*, FXSelector, void*);
+    long onCmdClickedStep(FXObject*, FXSelector, void*);
 
     /// @brief event called after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
@@ -88,13 +91,15 @@ protected:
     GNEVariableSpeedSign* myEditedVariableSpeedSign;
 
     /// @brief Table with the data
-    FXTable* myDataList;
+    FXTable* myStepsTable;
 
     /// @brief Horizontal frame for row elements
     FXHorizontalFrame* myAddStepFrame;
 
     /// @brief Button for insert row
     FXButton* myAddStepButton;
+
+    bool myStepsValids;
 
 private:
     /// @brief update data table
