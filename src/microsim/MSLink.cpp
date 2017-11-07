@@ -46,6 +46,10 @@
 
 //#define MSLink_DEBUG_CROSSING_POINTS
 //#define MSLink_DEBUG_OPENED
+//#define DEBUG_APPROACHING
+//#define DEBUG_COND (myLane->getID()=="43[0]_0" && myLaneBefore->getID()==":33_0_0")
+//#define DEBUG_COND (myLane->getID()=="end_0")
+//#define DEBUG_COND (true)
 
 // ===========================================================================
 // static member variables
@@ -254,9 +258,32 @@ void
 MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime, const double arrivalSpeed, const double leaveSpeed,
                        const bool setRequest, const SUMOTime arrivalTimeBraking, const double arrivalSpeedBraking, const SUMOTime waitingTime, double dist) {
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, approaching->getVehicleType().getLength());
+#ifdef DEBUG_APPROACHING
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " Link ''" << (myLaneBefore==0?"NULL":myLaneBefore->getID()) << "'->'" << (myLane==0?"NULL":myLane->getID()) << "' Adding approaching vehicle '" << approaching->getID() << "'\nCurrently registered vehicles:" << std::endl;
+        for (auto i = myApproachingVehicles.begin(); i!= myApproachingVehicles.end(); ++i){
+            std::cout << "'" << i->first->getID() << "'" << std::endl;
+        }
+    }
+#endif
     myApproachingVehicles.insert(std::make_pair(approaching,
                                  ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest,
                                          arrivalTimeBraking, arrivalSpeedBraking, waitingTime, dist)));
+}
+
+
+void
+MSLink::setApproaching(const SUMOVehicle* approaching, ApproachingVehicleInformation ai) {
+
+#ifdef DEBUG_APPROACHING
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " Link ''" << (myLaneBefore==0?"NULL":myLaneBefore->getID()) << "'->'" << (myLane==0?"NULL":myLane->getID()) << "' Adding approaching vehicle '" << approaching->getID() << "'\nCurrently registered vehicles:" << std::endl;
+        for (auto i = myApproachingVehicles.begin(); i!= myApproachingVehicles.end(); ++i){
+            std::cout << "'" << i->first->getID() << "'" << std::endl;
+        }
+    }
+#endif
+    myApproachingVehicles.insert(std::make_pair(approaching, ai));
 }
 
 
@@ -280,6 +307,16 @@ MSLink::willHaveBlockedFoe() const {
 
 void
 MSLink::removeApproaching(const SUMOVehicle* veh) {
+
+#ifdef DEBUG_APPROACHING
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " Link ''" << (myLaneBefore==0?"NULL":myLaneBefore->getID()) << "'->'" << (myLane==0?"NULL":myLane->getID()) << std::endl;
+        std::cout << "' Removing approaching vehicle '" << veh->getID() << "'\nCurrently registered vehicles:" << std::endl;
+        for (auto i = myApproachingVehicles.begin(); i!= myApproachingVehicles.end(); ++i){
+            std::cout << "'" << i->first->getID() << "'" << std::endl;
+        }
+    }
+#endif
     myApproachingVehicles.erase(veh);
 }
 

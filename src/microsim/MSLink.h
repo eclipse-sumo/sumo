@@ -190,6 +190,9 @@ public:
                         const SUMOTime arrivalTimeBraking, const double arrivalSpeedBraking,
                         const SUMOTime waitingTime, double dist);
 
+    /** @brief Sets the information about an approaching vehicle */
+    void setApproaching(const SUMOVehicle* approaching, ApproachingVehicleInformation ai);
+
     /// @brief removes the vehicle from myApproachingVehicles
     void removeApproaching(const SUMOVehicle* veh);
 
