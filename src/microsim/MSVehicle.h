@@ -1597,6 +1597,22 @@ protected:
      */
     void processTraCISpeedControl(double vSafe, double& vNext);
 
+    /** @brief Check whether the drive items (myLFLinkLanes) are up to date,
+     *         and update them if required.
+     *  @note  This is the case if a lane change was completed in the last step and
+     *         no action step was scheduled in between, i.e., no call to planMove() was issued.
+     *         Only the links corresponding to the drive items are updated to the
+     *         corresponding parallel links.
+     */
+    void updateDriveItems();
+
+    /** @brief Erase passed drive items from myLFLinkLanes (and unregister approaching information for
+     *         corresponding links). Further, myNextDriveItem is reset.
+     *  @note  This is called in planMove() if the vehicle has no actionstep. All items until the position
+     *         myNextDriveItem are deleted. This can happen if myNextDriveItem was increased in processLaneAdvances()
+     *         of the previous step.
+     */
+    void removePassedDriveItems();
 
     /** @brief Updates the vehicle's waiting time counters (accumulated and consecutive)
      */
@@ -1687,6 +1703,7 @@ protected:
 
     /// @brief The information into which lanes the vehicle laps into
     std::vector<MSLane*> myFurtherLanes;
+    /// @brief lateral positions on further lanes
     std::vector<double> myFurtherLanesPosLat;
 
     /// @brief State of things of the vehicle that can be on or off
@@ -1715,6 +1732,10 @@ protected:
     mutable Position myCachedPosition;
 
 protected:
+
+    /// @brief Drive process items represent bounds on the safe velocity
+    ///        corresponding to the upcoming links.
+    /// @todo: improve documentation
     struct DriveProcessItem {
         MSLink* myLink;
         double myVLinkPass;
@@ -1767,9 +1788,16 @@ protected:
         }
     };
 
-    /// Container for used Links/visited Lanes during lookForward.
+    /// Container for used Links/visited Lanes during planMove() and executeMove.
+    // TODO: Consider making LFLinkLanes a std::deque for efficient front removal (needs refactoring in checkRewindLinkLanes()...)
     typedef std::vector< DriveProcessItem > DriveItemVector;
     DriveItemVector myLFLinkLanes;
+    /** @brief iterator pointing to the next item in myLFLinkLanes
+    *   @note  This is updated whenever the vehicle advances to a subsequent lane (see processLaneAdvances())
+    *          and used for inter-actionpoint actualization of myLFLinkLanes (i.e. deletion of passed items)
+    *          in planMove().
+    */
+    DriveItemVector::iterator myNextDriveItem;
 
     /// @todo: documentation
     void planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist) const;
