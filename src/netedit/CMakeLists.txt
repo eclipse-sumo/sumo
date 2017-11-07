@@ -66,6 +66,8 @@ set(netedit_SRCS
    GNEChange_RerouterItem.cpp
    GNEChange_CalibratorItem.h
    GNEChange_CalibratorItem.cpp
+   GNEChange_VariableSpeedSignItem.h   
+   GNEChange_VariableSpeedSignItem.cpp
    GNEChange_Shape.h
    GNEChange_Shape.cpp
    GNEUndoList.h

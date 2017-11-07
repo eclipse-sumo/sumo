@@ -152,6 +152,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Selection.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Shape.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_TLS.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_VariableSpeedSignItem.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChargingStation.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEClosingLaneReroute.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEClosingReroute.cpp" />
@@ -237,6 +238,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Selection.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Shape.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_TLS.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_VariableSpeedSignItem.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChargingStation.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEClosingLaneReroute.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEClosingReroute.h" />

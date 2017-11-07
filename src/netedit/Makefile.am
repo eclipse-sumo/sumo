@@ -47,6 +47,7 @@ GNEChange_Selection.h GNEChange_Selection.cpp \
 GNEChange_Additional.h GNEChange_Additional.cpp \
 GNEChange_RerouterItem.h GNEChange_RerouterItem.cpp \
 GNEChange_CalibratorItem.h GNEChange_CalibratorItem.cpp \
+GNEChange_VariableSpeedSignItem.h GNEChange_VariableSpeedSignItem.cpp \
 GNEChange_Shape.h GNEChange_Shape.cpp \
 GNEUndoList.h GNEUndoList.cpp \
 GNEAttributeCarrier.h GNEAttributeCarrier.cpp \
