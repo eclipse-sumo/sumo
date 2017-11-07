@@ -57,6 +57,7 @@
 #include "GNECalibratorRoute.h"
 #include "GNEChange_CalibratorItem.h"
 #include "GNEChange_RerouterItem.h"
+#include "GNEChange_VariableSpeedSignItem.h"
 
 
 // ===========================================================================
@@ -161,7 +162,6 @@ GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, con
         }
     }
 }
-
 
 
 void
@@ -347,7 +347,7 @@ GNEAdditionalHandler::parseVariableSpeedSignStep(const SUMOSAXAttributes& attrs,
         if (variableSpeedSign == NULL) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_VSS) + ".");
         } else {
-            buildVariableSpeedSignStep(myViewNet, true, time, speed);
+            buildVariableSpeedSignStep(myViewNet, true, variableSpeedSign, time, speed);
         }
     }
 }
@@ -1362,8 +1362,17 @@ GNEAdditionalHandler::buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndo
 
 
 bool 
-GNEAdditionalHandler::buildVariableSpeedSignStep(GNEViewNet* /*viewNet*/, bool /*allowUndoRedo*/, double /*time*/, double /*speed*/) {
-    /// implement
+GNEAdditionalHandler::buildVariableSpeedSignStep(GNEViewNet* viewNet, bool allowUndoRedo, GNEVariableSpeedSign *VSSParent, double time, double speed) {
+    // create Variable Speed Sign
+    GNEVariableSpeedSignStep *variableSpeedSignStep = new GNEVariableSpeedSignStep(VSSParent, time, speed);
+    // add it depending of allow undoRedo
+    if (allowUndoRedo) {
+        viewNet->getUndoList()->p_begin("add " + toString(variableSpeedSignStep->getTag()));
+        viewNet->getUndoList()->add(new GNEChange_VariableSpeedSignItem(variableSpeedSignStep, true), true);
+        viewNet->getUndoList()->p_end();
+    } else {
+        VSSParent->addVariableSpeedSignStep(variableSpeedSignStep);
+    }
     return true;
 }
 

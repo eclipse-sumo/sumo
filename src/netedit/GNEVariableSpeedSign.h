@@ -40,6 +40,10 @@
  * allows the simulation of variable speed signs
  */
 class GNEVariableSpeedSign : public GNEAdditional {
+    /// @brief declare friend class
+    friend class GNEChange_VariableSpeedSignItem;
+    friend class GNEAdditionalHandler;
+
 public:
 
     /**@brief Constructor
@@ -62,20 +66,14 @@ public:
     /// @brief open GNEVariableSpeedSignDialog
     void openAdditionalDialog();
 
-    /// @brief get filename of variable speed sign
-    const std::string& getFilename() const;
-
     /// @brief get lanes of VSS
     const std::vector<GNELane*> &getLanes() const;
 
     /// @brief get values of variable speed signal
     const std::vector<GNEVariableSpeedSignStep*>& getSteps() const;
 
-    /// @brief set filename of variable speed sign
-    void setFilename(const std::string& filename);
-
-    /// @brief insert a new step in variable speed signal
-    void addStep(GNEVariableSpeedSignStep* step);
+    /// @brief sort steps
+    void sortSteps();
 
     /// @name Functions related with geometry of element
     /// @{
@@ -153,6 +151,12 @@ protected:
 
     /// @brief position and rotation of every U simbol over lane
     std::vector<std::pair<Position, double> > mySymbolsPositionAndRotation;
+
+    /// @brief insert a new step in variable speed signal
+    void addVariableSpeedSignStep(GNEVariableSpeedSignStep* step);
+
+    /// @brief remove an existent step of variable speed signal
+    void removeVariableSpeedSignStep(GNEVariableSpeedSignStep* step);
 
 private:
     /// @brief set attribute after validation

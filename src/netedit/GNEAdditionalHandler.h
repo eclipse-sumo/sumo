@@ -423,12 +423,13 @@ public:
     /**@brief Builds a VariableSpeedSign Step
     * @param[in] viewNet viewNet in which element will be inserted
     * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
+    * @param[in] VSSParent Variable Speed Sign parent
     * @param[in] time step's time
     * @param[in] speed step's speed
     * @return true if was sucesfully created, false in other case
     * @exception InvalidArgument If the Variable Speed Sign Step can not be added to the net (is duplicate)
     */
-    static bool buildVariableSpeedSignStep(GNEViewNet* viewNet, bool allowUndoRedo, double time, double speed);
+    static bool buildVariableSpeedSignStep(GNEViewNet* viewNet, bool allowUndoRedo, GNEVariableSpeedSign *VSSParent, double time, double speed);
 
     /**@brief Builds a vaporizer (lane speed trigger)
      * @param[in] viewNet viewNet in which element will be inserted

@@ -203,27 +203,14 @@ GNEVariableSpeedSign::getLanes() const {
 }
 
 
-const std::string&
-GNEVariableSpeedSign::getFilename() const {
-    return myFilename;
-}
-
-
 const std::vector<GNEVariableSpeedSignStep*>&
 GNEVariableSpeedSign::getSteps() const {
     return mySteps;
 }
 
 
-void
-GNEVariableSpeedSign::setFilename(const std::string& filename) {
-    myFilename = filename;
-}
-
-
-void
-GNEVariableSpeedSign::addStep(GNEVariableSpeedSignStep* step) {
-    mySteps.push_back(step);
+void 
+GNEVariableSpeedSign::sortSteps() {
 }
 
 
@@ -366,6 +353,32 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+void 
+GNEVariableSpeedSign::addVariableSpeedSignStep(GNEVariableSpeedSignStep* step) {
+    auto it = std::find(mySteps.begin(), mySteps.end(), step);
+    if(it == mySteps.end()) {
+        mySteps.push_back(step);
+        // sort steps always after a adding/restoring
+        sortSteps();
+    } else {
+        throw ProcessError("Rerouter Interval already exist");
+    }
+}
+
+
+void 
+GNEVariableSpeedSign::removeVariableSpeedSignStep(GNEVariableSpeedSignStep* step) {
+    auto it = std::find(mySteps.begin(), mySteps.end(), step);
+    if(it != mySteps.end()) {
+        mySteps.erase(it);
+        // sort steps always after a adding/restoring
+        sortSteps();
+    } else {
+        throw ProcessError("Rerouter Interval doesn't exist");
     }
 }
 
