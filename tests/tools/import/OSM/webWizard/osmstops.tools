@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 27 10:18:41 2017 by SUMO netconvert Version dev-SVN-r26241
+<!-- generated on Tue Nov  7 15:40:39 2017 by SUMO netconvert Version v0_31_0-928-g16b3457
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -11,10 +11,11 @@
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/tools.27Sep101838.8522/tools/import/OSM/webWizard/2017-09-27-10-18-39/osm.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/tools.07Nov154035.25630/tools/import/OSM/webWizard/2017-11-07-15-40-37/osm.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
         <ptstop-output value="osm_stops.add.xml"/>
+        <ptline-output value="osm_ptlines.xml"/>
     </output>
 
     <projection>
@@ -33,7 +34,6 @@
     </ramp_guessing>
 
     <processing>
-        <osm.stop-output.length value="25"/>
         <geometry.remove value="true"/>
         <roundabouts.guess value="true"/>
         <junctions.join value="true"/>
@@ -49,10 +49,10 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="-12915545317" name="U-Bhf Weinmeisterstraße/Gipsstraße" lane="-36892597#0_1" startPos="43.85" endPos="58.85" friendlyPos="true"/>
-    <busStop id="-12915579613" name="S Hackescher Markt" lane="-275177453_1" startPos="0.00" endPos="6.50" friendlyPos="true"/>
-    <busStop id="-12959830765" name="Neustädtische Kirchstr." lane="-153698380_1" startPos="65.54" endPos="90.54" friendlyPos="true"/>
-    <busStop id="-12959830774" name="U Stadtmitte" lane="-196850606#2_1" startPos="35.94" endPos="60.94" friendlyPos="true"/>
+    <busStop id="-2915545317" name="U-Bhf Weinmeisterstraße/Gipsstraße" lane="-36892597#0_1" startPos="43.85" endPos="58.85" friendlyPos="true"/>
+    <busStop id="-2915579613" name="S Hackescher Markt" lane="-275177453_1" startPos="0.00" endPos="6.50" friendlyPos="true"/>
+    <busStop id="-2959830765" name="Neustädtische Kirchstr." lane="-153698380_1" startPos="65.54" endPos="90.54" friendlyPos="true"/>
+    <busStop id="-2959830774" name="U Stadtmitte" lane="-196850606#2_1" startPos="35.94" endPos="60.94" friendlyPos="true"/>
     <busStop id="1633759760" name="Hackescher Markt" lane="23960874_0" startPos="36.03" endPos="61.03" friendlyPos="true"/>
     <busStop id="1633759766" name="Hackescher Markt" lane="30721657_0" startPos="37.32" endPos="62.32" friendlyPos="true"/>
     <busStop id="1745157971" name="S Hackescher Markt" lane="32590640_0" startPos="3.07" endPos="203.07" friendlyPos="true"/>

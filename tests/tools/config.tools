@@ -122,6 +122,7 @@ histogram:histogram.dat
 fullstats:fullstats.dat
 osmimport:*/osm.net.xml
 osmstops:*/osm_stops.add.xml
+osmlines:*/osm_ptlines.xml
 osmbatch:*/build.bat
 osmtrips:*/osm.pedestrian.trips.xml
 districts:districts.xml
