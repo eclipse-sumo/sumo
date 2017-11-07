@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/06/17 14:39:02 by Netedit Version dev-SVN-r22743
+<!-- generated on 07/11/2017 19:18:51 by Netedit Version v0_31_0-935-g778fa9a3d0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.06Jul143847.6696/netedit.gui/bugs/ticket3278\additionals.xml"/>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.06Jul143847.6696/netedit.gui/bugs/ticket3278\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.07Nov172945.5792/netedit.gui/bugs/grid/ticket3278\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.06Jul143847.6696/netedit.gui/bugs/ticket3278\net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.07Nov172945.5792/netedit.gui/bugs/grid/ticket3278\additionals.xml"/>
+        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.07Nov172945.5792/netedit.gui/bugs/grid/ticket3278\shapes.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.07Nov172945.5792/netedit.gui/bugs/grid/ticket3278\net.net.xml"/>
     </output>
 
     <processing>
@@ -25,7 +26,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.06Jul143847.6696/netedit.gui/bugs/ticket3278\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.07Nov172945.5792/netedit.gui/bugs/grid/ticket3278\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -34,7 +35,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.06Jul143847.6696/netedit.gui/bugs/ticket3278\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.07Nov172945.5792/netedit.gui/bugs/grid/ticket3278\log.txt"/>
     </report>
 
 </configuration>
@@ -140,16 +141,13 @@
         <lane id=":Center_c1_0" index="0" allow="pedestrian" speed="1.00" length="13.10" width="4.00" shape="34.54,43.80 43.80,34.54"/>
     </edge>
     <edge id=":Center_w0" function="walkingarea">
-        <lane id=":Center_w0_0" index="0" allow="pedestrian" speed="1.00" length="16.95" width="3.20" shape="37.72,37.79 35.46,40.06 35.39,40.13 33.13,42.39 43.45,58.05 46.65,58.05 46.75,58.05 49.95,58.05 50.05,58.05 53.25,58.05 53.35,58.05 56.55,58.05 58.05,56.55 58.05,53.35 58.05,53.25 58.05,50.05"/>
+        <lane id=":Center_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.70" width="3.20" shape="43.45,58.05 46.65,58.05 46.75,58.05 49.95,58.05 50.05,58.05 53.25,58.05 53.35,58.05 56.55,58.05 58.05,56.55 58.05,53.35 58.05,53.25 58.05,50.05 58.05,49.95 58.05,46.75 58.05,46.65 58.05,43.45 56.55,32.69 53.35,32.69 53.25,32.69 50.05,32.69 49.95,32.69 46.75,32.69 46.65,32.69 43.45,32.69 42.39,33.13 40.13,35.39 40.06,35.46 37.79,37.72 37.72,37.79 35.46,40.06 35.39,40.13 33.13,42.39"/>
     </edge>
     <edge id=":Center_w1" function="walkingarea">
-        <lane id=":Center_w1_0" index="0" allow="pedestrian" speed="1.00" length="13.07" width="3.20" shape="58.05,49.95 58.05,46.75 58.05,46.65 58.05,43.45 56.55,32.69 53.35,32.69 53.25,32.69 50.05,32.69 49.95,32.69 46.75,32.69 46.65,32.69 43.45,32.69 42.39,33.13 40.13,35.39 40.06,35.46 37.79,37.72"/>
+        <lane id=":Center_w1_0" index="0" allow="pedestrian" speed="1.00" length="25.43" width="3.00" shape="55.05,56.55 58.05,56.55 33.48,42.74 35.60,44.86"/>
     </edge>
     <edge id=":Center_w2" function="walkingarea">
-        <lane id=":Center_w2_0" index="0" allow="pedestrian" speed="1.00" length="25.43" width="3.00" shape="55.05,56.55 58.05,56.55 33.48,42.74 35.60,44.86"/>
-    </edge>
-    <edge id=":Center_w3" function="walkingarea">
-        <lane id=":Center_w3_0" index="0" allow="pedestrian" speed="1.00" length="15.55" width="4.00" shape="45.22,35.95 42.39,33.13 58.55,43.45 54.55,43.45"/>
+        <lane id=":Center_w2_0" index="0" allow="pedestrian" speed="1.00" length="15.55" width="4.00" shape="45.22,35.95 42.39,33.13 58.55,43.45 54.55,43.45"/>
     </edge>
     <edge id=":D_0" function="internal">
         <lane id=":D_0_0" index="0" speed="13.90" length="4.82" shape="100.00,48.35 101.24,49.18 101.65,50.00 101.24,50.83 100.00,51.65"/>
@@ -200,7 +198,7 @@
     <junction id="C" type="priority" x="20.00" y="20.00" incLanes="3_0 3_1" intLanes=":C_0_0" shape="20.04,19.96 15.37,24.63 19.96,20.04">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 5_0 5_1 7_0 7_1 :Center_w3_0 :Center_w2_0" intLanes=":Center_20_0 :Center_1_0 :Center_1_1 :Center_21_0 :Center_22_0 :Center_5_0 :Center_6_0 :Center_7_0 :Center_8_0 :Center_9_0 :Center_10_0 :Center_11_0 :Center_11_1 :Center_23_0 :Center_24_0 :Center_15_0 :Center_16_0 :Center_17_0 :Center_18_0 :Center_19_0 :Center_c0_0 :Center_c1_0" shape="43.45,58.05 56.55,58.05 58.05,56.55 58.05,43.45 56.55,32.69 43.45,32.69 42.39,33.13 33.13,42.39">
+    <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 5_0 5_1 7_0 7_1 :Center_w2_0 :Center_w1_0" intLanes=":Center_20_0 :Center_1_0 :Center_1_1 :Center_21_0 :Center_22_0 :Center_5_0 :Center_6_0 :Center_7_0 :Center_8_0 :Center_9_0 :Center_10_0 :Center_11_0 :Center_11_1 :Center_23_0 :Center_24_0 :Center_15_0 :Center_16_0 :Center_17_0 :Center_18_0 :Center_19_0 :Center_c0_0 :Center_c1_0" shape="43.45,58.05 56.55,58.05 58.05,56.55 58.05,43.45 56.55,32.69 43.45,32.69 42.39,33.13 33.13,42.39">
         <request index="0" response="1000000000000000000000" foes="1010000010000011000000" cont="1"/>
         <request index="1" response="0000000000000000000000" foes="0001111110000111000000" cont="0"/>
         <request index="2" response="0000000000000000000000" foes="0001111110000111000000" cont="0"/>
@@ -259,35 +257,35 @@
     <connection from="8" to="1" fromLane="1" toLane="1" via=":Center_8_0" dir="l" state="m"/>
     <connection from="8" to="4" fromLane="1" toLane="1" via=":Center_9_0" dir="t" state="m"/>
 
-    <connection from=":A_0" to="5" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":B_0" to="6" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":C_0" to="7" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":Center_0" to="3" fromLane="0" toLane="0" via=":Center_20_0" dir="s" state="m"/>
-    <connection from=":Center_20" to="3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":A_0" to="5" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":B_0" to="6" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":C_0" to="7" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":Center_0" to="3" fromLane="0" toLane="0" via=":Center_20_0" dir="r" state="m"/>
+    <connection from=":Center_20" to="3" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":Center_1" to="1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Center_1" to="1" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":Center_3" to="4" fromLane="0" toLane="1" via=":Center_21_0" dir="s" state="m"/>
-    <connection from=":Center_21" to="4" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":Center_4" to="2" fromLane="0" toLane="1" via=":Center_22_0" dir="s" state="m"/>
-    <connection from=":Center_22" to="2" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":Center_5" to="2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_6" to="3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_7" to="3" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":Center_8" to="1" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":Center_9" to="4" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":Center_10" to="4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Center_3" to="4" fromLane="0" toLane="1" via=":Center_21_0" dir="l" state="m"/>
+    <connection from=":Center_21" to="4" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":Center_4" to="2" fromLane="0" toLane="1" via=":Center_22_0" dir="t" state="m"/>
+    <connection from=":Center_22" to="2" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":Center_5" to="2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":Center_6" to="3" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from=":Center_7" to="3" fromLane="0" toLane="1" dir="L" state="M"/>
+    <connection from=":Center_8" to="1" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":Center_9" to="4" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":Center_10" to="4" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":Center_11" to="2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Center_11" to="2" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":Center_13" to="3" fromLane="0" toLane="1" via=":Center_23_0" dir="s" state="m"/>
-    <connection from=":Center_23" to="3" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":Center_14" to="1" fromLane="0" toLane="1" via=":Center_24_0" dir="s" state="m"/>
-    <connection from=":Center_24" to="1" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":Center_15" to="1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_16" to="4" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_17" to="4" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":Center_18" to="2" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":Center_19" to="3" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":D_0" to="8" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":Center_13" to="3" fromLane="0" toLane="1" via=":Center_23_0" dir="l" state="m"/>
+    <connection from=":Center_23" to="3" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":Center_14" to="1" fromLane="0" toLane="1" via=":Center_24_0" dir="t" state="m"/>
+    <connection from=":Center_24" to="1" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":Center_15" to="1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":Center_16" to="4" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":Center_17" to="4" fromLane="0" toLane="1" dir="R" state="M"/>
+    <connection from=":Center_18" to="2" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":Center_19" to="3" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":D_0" to="8" fromLane="0" toLane="1" dir="t" state="M"/>
 
     <connection from=":A_w0" to="5" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1" to=":A_w0" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -295,18 +293,18 @@
     <connection from="2" to=":B_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_w0" to="7" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="3" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_c0" to=":Center_w2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_c1" to=":Center_w3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_w0" to="3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Center_c0" to=":Center_w1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Center_c1" to=":Center_w2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Center_w0" to="2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Center_w0" to="4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Center_w0" to="1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Center_w0" to="3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="8" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_w1" to="4" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_w1" to="1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="5" to=":Center_w1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="7" to=":Center_w1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_w2" to=":Center_c1" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from=":Center_w3" to=":Center_c0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="5" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="7" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Center_w1" to=":Center_c1" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from=":Center_w2" to=":Center_c0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":D_w0" to="8" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="4" to=":D_w0" fromLane="0" toLane="0" dir="s" state="M"/>
 </net>

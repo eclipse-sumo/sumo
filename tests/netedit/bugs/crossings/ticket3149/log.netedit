@@ -546,6 +546,7 @@ Warning: Created connection 'from8_2to6_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_2to6_2' in retrieveGNEConnection()
 Warning: Additionals saved
 Warning: Deleting unreferenced busStop 'busStop_8_2_1'
+Warning: Additionals has to be saved
 Warning: Deleting unreferenced busStop 'busStop_7_1_3'
 Warning: Deleting unreferenced busStop 'busStop_4_2_2'
 Warning: Deleting unreferenced busStop 'busStop_3_2_0'

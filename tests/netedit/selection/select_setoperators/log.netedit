@@ -857,6 +857,7 @@ Warning: Deleting unreferenced lane '6_2' in GNEEdge destructor
 Warning: Deleting unreferenced detExit 'e3Detector_3detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_3detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_3'
+Warning: Additionals has to be saved
 Warning: Deleting unreferenced detExit 'e3Detector_2detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_2'

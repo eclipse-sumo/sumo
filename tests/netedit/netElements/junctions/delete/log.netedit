@@ -9,9 +9,9 @@ Warning: Adding busStop 'busStop_gneE4_0_7' in GNEChange_Additional
 Warning: Adding busStop 'busStop_gneE5_0_8' in GNEChange_Additional
 Warning: Adding busStop 'busStop_gneE6_0_9' in GNEChange_Additional
 Warning: Adding busStop 'busStop_gneE7_0_6' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: The lane 'gneJ17_0' to use within the detEntry is not known.
 Warning: The lane '-gneJ12_0' to use within the detExit is not known.
-Warning: e3Detectors without detEntrys or detExit aren't allowed; e3Detector with ID = 'e3Detector_0' cannot be created.
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE10_0to-gneE17_0' in retrieveGNEConnection()
@@ -828,6 +828,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Warning: Removing edge 'gneE19' from net
 Warning: Removing junction 'gneJ19' from net
+Warning: e3Detector with ID 'e3Detector_0' cannot be writed in additional file because doesn't have childs.
 Warning: Additionals saved
 Warning: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE12_0to-gneE11_0' in retrieveGNEConnection()
@@ -891,6 +892,8 @@ Warning: Deleting unreferenced edge 'gneE0' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNEChange_Attribute
 Warning: Deleting NBNode of 'gneJ0' in GNEJunction destructor
+Warning: Deleting unreferenced e3Detector 'e3Detector_0'
+Warning: Additionals has to be saved
 Warning: Deleting unreferenced busStop 'busStop_gneE7_0_6'
 Warning: Deleting unreferenced busStop 'busStop_gneE6_0_9'
 Warning: Deleting unreferenced busStop 'busStop_gneE5_0_8'

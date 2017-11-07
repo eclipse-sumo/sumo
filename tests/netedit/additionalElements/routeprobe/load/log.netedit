@@ -30,6 +30,7 @@ Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced routeProbe 'routeProbe_17'
+Warning: Additionals has to be saved
 Warning: Deleting unreferenced routeProbe 'routeProbe_16'
 Warning: Deleting unreferenced routeProbe 'routeProbe_15'
 Warning: Deleting unreferenced routeProbe 'routeProbe_14'

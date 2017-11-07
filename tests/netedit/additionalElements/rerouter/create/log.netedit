@@ -21,6 +21,7 @@ Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced rerouter 'rerouter_2'
+Warning: Additionals has to be saved
 Warning: Deleting unreferenced rerouter 'rerouter_1'
 Warning: Deleting unreferenced rerouter 'rerouter_0'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

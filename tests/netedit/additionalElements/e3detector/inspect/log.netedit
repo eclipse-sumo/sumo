@@ -118,6 +118,7 @@ Warning: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
+Warning: Additionals has to be saved
 Warning: Deleting unreferenced detEntry 'correctIDdetEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_1'
 Warning: Deleting unreferenced e3Detector 'correctID'

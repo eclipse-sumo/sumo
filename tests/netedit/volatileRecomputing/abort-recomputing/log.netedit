@@ -73,6 +73,7 @@ Warning: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
+Warning: Additionals has to be saved
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced busStop 'busStop_gneE7_0_6'

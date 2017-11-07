@@ -482,6 +482,7 @@ Warning: Adding busStop 'busStop_3_1_0' in GNEChange_Additional
 Warning: Selected 1 elements in GNEChange_Selection
 Warning: Additionals saved
 Warning: Deleting unreferenced detExit 'e3Detector_3detExit0'
+Warning: Additionals has to be saved
 Warning: Deleting unreferenced e3Detector 'e3Detector_3'
 Warning: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_2'

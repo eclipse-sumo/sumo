@@ -26,6 +26,7 @@ Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced vaporizer 'vaporizer_3'
+Warning: Additionals has to be saved
 Warning: Deleting unreferenced vaporizer 'vaporizer_2'
 Warning: Deleting unreferenced vaporizer 'vaporizer_1'
 Warning: Deleting unreferenced vaporizer 'vaporizer_0'
