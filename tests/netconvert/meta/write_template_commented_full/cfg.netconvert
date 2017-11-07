@@ -123,6 +123,9 @@
         <!-- Writes public transport lines to FILE -->
         <ptline-output value="" type="FILE"/>
 
+        <!-- Clean-up pt stops that are not served by any line -->
+        <ptline-clean-up value="false" type="BOOL"/>
+
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
 

@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r26366
+SUMO netconvert Version v0_31_0-918-g2d7b1ad
  Copyright (C) 2001-2017 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -66,6 +66,8 @@ Output Options:
   --street-sign-output FILE            Writes street signs as POIs to FILE
   --ptstop-output FILE                 Writes public transport stops to FILE
   --ptline-output FILE                 Writes public transport lines to FILE
+  --ptline-clean-up                    Clean-up pt stops that are not served by
+                                         any line
   --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
                                          whenever the angular change  between
                                          straight segments exceeds FLOAT degrees
