@@ -79,10 +79,9 @@
 //#define DEBUG_PEDESTRIAN_COLLISIONS
 //#define DEBUG_LANE_SORTER
 
-//#define DEBUG_COND (getID() == "disabled")
 #define DEBUG_COND (true)
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
-#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
+//#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 
 // ===========================================================================
 // static member definitions
@@ -1294,6 +1293,10 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         return false;
     }
 #endif
+
+    // No self-collisions! (This is assumed to be ensured at caller side)
+    assert(collider != victim);
+
     const bool colliderOpposite = collider->getLaneChangeModel().isOpposite();
     const bool bothOpposite = victim->getLaneChangeModel().isOpposite() && colliderOpposite;
     if (bothOpposite) {
@@ -1305,7 +1308,8 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         gap = -gap - 2 * myCollisionMinGapFactor * collider->getVehicleType().getMinGap();
     }
 #ifdef DEBUG_COLLISIONS
-    if (DEBUG_COND) std::cout << SIMTIME
+    if (DEBUG_COND && (DEBUG_COND2(collider) || DEBUG_COND2(victim))) {
+        std::cout << SIMTIME
                                   << " thisLane=" << getID()
                                   << " collider=" << collider->getID()
                                   << " victim=" << victim->getID()
@@ -1317,6 +1321,7 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                                   << " victimLat=" << victim->getCenterOnEdge(this)
                                   << " gap=" << gap
                                   << "\n";
+    }
 #endif
     if (gap < -NUMERICAL_EPS) {
         double latGap = 0;
