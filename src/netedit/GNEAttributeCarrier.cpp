@@ -556,7 +556,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_MAXSPEED_LAT, "1.0"));
                 break;
             case SUMO_TAG_STEP:
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TIME, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TIME, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SPEED, "50.0"));
                 break;
             case SUMO_TAG_INTERVAL:

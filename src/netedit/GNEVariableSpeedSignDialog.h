@@ -91,16 +91,10 @@ protected:
     FXTable* myDataList;
 
     /// @brief Horizontal frame for row elements
-    FXHorizontalFrame* myRowFrame;
-
-    /// @bbriefie Text field with step
-    FXTextField* myRowStep;
-
-    /// @brief Text field with speed
-    FXTextField* myRowSpeed;
+    FXHorizontalFrame* myAddStepFrame;
 
     /// @brief Button for insert row
-    FXButton* myAddRow;
+    FXButton* myAddStepButton;
 
 private:
     /// @brief update data table
