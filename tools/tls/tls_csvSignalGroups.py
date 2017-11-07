@@ -161,14 +161,14 @@ class TlLogic(sumolib.net.TLSProgram):
             parEl.setAttribute("value", self._parameters[key])
             tlEl.appendChild(parEl)
 
-        for i in range(0, len(self._allTimes)-1):
+        for i in range(0, len(self._allTimes)):
             states = {}
             for tlIndex in self._tlIndexToSignalGroup:
                 sgID = self._tlIndexToSignalGroup[tlIndex]
                 states[tlIndex] = self._signalGroups[sgID].completeSignals[tlIndex][self._allTimes[i]]
             # fill duration up to the cycle time
-            if(i == len(self._allTimes)-2):
-                duration =  self._cycleTime - self._allTimes[i]
+            if(i == len(self._allTimes)-1):
+                duration = self._cycleTime - self._allTimes[i]
             else:
                 duration = self._allTimes[i+1] - self._allTimes[i]
             states = "".join([states[tlIndex] for tlIndex in tlIndices])
@@ -219,12 +219,14 @@ class SignalGroup(object):
         result = False
         if(ownConn.getJunction() == conn.getJunction()):
             otherTlIndex = conn.getTLLinkIndex()
-            if(otherTlIndex>=0 and otherTlIndex not in self._tlIndexToYield and conn.getTLSID() == self.tlLogic._id):
-                result = ownConn.getJunction()._prohibits[ownConn.getJunctionIndex()][-(conn.getJunctionIndex() - 1)] == '1'
+            if(otherTlIndex>=0 and conn.getTLSID() == self.tlLogic._id):
+                prohibits = ownConn.getJunction()._prohibits
+                result = prohibits[ownConn.getJunctionIndex()][len(prohibits)-conn.getJunctionIndex() - 1] == '1'
         return result
     
     def calculateCompleteSignals(self, times):
         for tlIndex in self._tlIndexToYield:
+            print("SG %s: tlIndex %d: yield tlIndices %s" % (self._id, tlIndex, str(self._tlIndexToYield[tlIndex])))
             self.completeSignals[tlIndex] = {}
             for time in times:
                 self.completeSignals[tlIndex][time] = self.getStateAt(time, tlIndex)
@@ -234,9 +236,10 @@ class SignalGroup(object):
         wait = False
         
         if(len(self._times) > 0 and tlIndex in self._tlIndexToYield):
+           
             timeKeys = list(self._times.keys())
             timeKeys.sort()
-            relevantKey = None
+            relevantKey = None            
             if(time < timeKeys[0] or time >= timeKeys[len(timeKeys)-1]):
                 relevantKey = timeKeys[len(timeKeys)-1]
             else:
@@ -246,14 +249,14 @@ class SignalGroup(object):
                         break
             result = self._times[relevantKey]
             
-            if(checkPriority and result in ["o", "g", "y"]):
+            if(checkPriority and result in ["o", "g"]):
                 for yieldTlIndex in self._tlIndexToYield[tlIndex]:
                     # ask signal state of signal to yield
                     if(yieldTlIndex in self.tlLogic._tlIndexToSignalGroup):
                         sgID = self.tlLogic._tlIndexToSignalGroup[yieldTlIndex]
                         yieldSignal = self.tlLogic._signalGroups[sgID].getStateAt(time, yieldTlIndex, checkPriority = False)
-                        wait = yieldSignal in ["g", "G", "o", "O", "u", "y", "Y"]
-                        #print("SG %s at time %d (state %s) has to wait for SG %s (state %s)? %s" % (self._id, time, result, sgID, yieldSignal, str(wait)))
+                        wait = yieldSignal in ["g", "G", "o", "O"] # Do not bother for "y" or "u": prioritary vehicles should not drive
+                        #("SG %s (tlIndex %d) at time %d (state %s) has to wait for SG %s (tlIndex %d, state %s)? %s" % (self._id, tlIndex, time, result, sgID, yieldTlIndex, yieldSignal, str(wait)))
                         if(wait):
                             break
         else:
