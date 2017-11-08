@@ -2442,6 +2442,10 @@ MSLCM_SL2015::keepLatGap(int state,
             blocked = LCA_OVERLAPPING | LCA_BLOCKED_RIGHT;
         }
     }
+    // if we move, even though we wish to stay, update the change reason
+    if (fabs(latDist) > NUMERICAL_EPS * myVehicle.getActionStepLengthSecs() && oldLatDist == 0) {
+        state &= ~(LCA_CHANGE_REASONS | LCA_STAY);
+    }
     // update blocked status
     if (fabs(latDist - oldLatDist) > NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) {
         if (gDebugFlag2) {
