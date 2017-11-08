@@ -14,6 +14,9 @@ ticket3050
 # vehicle behavior of building an rescue lane
 ticket3107
 
+# invalid cyclical sublane change (interaction of strategic stay and sublane changing for compact alignment)
+ticket3184
+
 # insertion must check all sublanes for partial vehicles
 ticket3195
 
