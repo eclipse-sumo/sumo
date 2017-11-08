@@ -35,19 +35,19 @@ sys.argv[1] = "py2exe"
 
 base = os.path.abspath(os.path.dirname(__file__))
 oldDir = os.getcwd()
+os.chdir(base)
+# add sumo configs and input files
+files = [d for d in os.listdir(".") if os.path.isdir(d)]
+for pattern in ['*.sumocfg', 'input_additional.add.xml', '*.gif']:
+    files += glob.glob(pattern)
+zipfName = inZip.replace("sumo-", "sumo-game-")
+subprocess.call(['git', 'archive', 'HEAD', '-o', zipfName] + files)
+# run py2exe
 tmpDir = tempfile.mkdtemp()
 os.chdir(tmpDir)
 os.mkdir("dist")
-
 setup(console=[os.path.join(base, 'runner.py')])
-
-for pattern in ['*.sumocfg', 'input_additional.add.xml', '*.gif']:
-    for f in glob.glob(os.path.join(base, pattern)):
-        shutil.copy2(f, "dist")
-for d in os.listdir(base):
-    path = os.path.join(base, d)
-    if os.path.isdir(path):
-        subprocess.call(['svn', 'export', path, os.path.join("dist", d)])
+# collect sumo binaries and dlls
 osgPlugins = None
 with zipfile.ZipFile(inZip) as binZip:
     for f in binZip.namelist():
@@ -72,9 +72,8 @@ if osgPlugins:
     subprocess.call([sevenZip, 'x', os.path.join(
         os.path.dirname(inZip), '..', '3D_Modell_Forschungskreuzung_BS.7z')])
     os.chdir("..")
-zipf = zipfile.ZipFile(
-    inZip.replace("sumo-", "sumo-game-"), 'w', zipfile.ZIP_DEFLATED)
-
+# package the zip
+zipf = zipfile.ZipFile(zipfName, 'a', zipfile.ZIP_DEFLATED)
 root_len = len(os.path.abspath("."))
 for root, dirs, files in os.walk("."):
     archive_root = os.path.abspath(root)[root_len:]
