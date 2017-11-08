@@ -20,6 +20,7 @@ Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Warning: Additionals saved
 Warning: Deleting unreferenced routeProbe 'routeProbe_17'
+Warning: Additionals has to be saved
 Warning: Deleting unreferenced routeProbe 'routeProbe_16'
 Warning: Deleting unreferenced routeProbe 'routeProbe_15'
 Warning: Deleting unreferenced routeProbe 'routeProbe_14'
@@ -37,7 +38,6 @@ Warning: Deleting unreferenced routeProbe 'routeProbe_02'
 Warning: Deleting unreferenced routeProbe 'routeProbe_01'
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
-Warning: Additionals has to be saved
 Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
@@ -60,4 +60,20 @@ Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_01' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_02' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_03' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_05' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_06' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_07' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_08' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_09' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_10' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_11' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_12' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_13' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_14' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_15' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_16' in GNENet destructor
+Warning: Deleting unreferenced routeProbe 'routeProbe_17' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
