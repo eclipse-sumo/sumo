@@ -1527,108 +1527,73 @@ Warning: skipping line '32' because it has too few stops
 Warning: skipping line '41' because it has too few stops
 Warning: skipping line '42' because it has too few stops
 Warning: skipping line '45' because it has too few stops
-Warning: busStop '322796388' on lane '237751551#0_0' is too short for vehicle '4'.
 Warning: busStop '474366009' on lane '25946663_0' is too short for vehicle '15'.
 Warning: busStop '474366009' on lane '25946663_0' is too short for vehicle '17'.
 Warning: busStop '474366009' on lane '25946663_0' is too short for vehicle '27'.
 Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle '28'.
 Warning: Vehicle '30' is not allowed to stop on lane '274513583_0'.
-Warning: busStop '322796388' on lane '237751551#0_0' is too short for vehicle '34'.
-Warning: busStop '322796388' on lane '237751551#0_0' is too short for vehicle '36'.
 Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle '39'.
 Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle '39'.
-Warning: busStop '2094266778' on lane '272795471_0' is too short for vehicle '39'.
 Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle '39'.
-Warning: busStop '2098267288' on lane '272795472#1_0' is too short for vehicle '39'.
-Warning: busStop '323203892' on lane '199847339_0' is too short for vehicle '39'.
 Warning: Vehicle '40' is not allowed to depart on any lane of its first edge.
-Warning: busStop '253846340' on lane '70268945_0' is too short for vehicle '43'.
-Warning: busStop '253845582' on lane '70268945_0' is too short for vehicle '43'.
-Warning: busStop '446289301' on lane '70268945_0' is too short for vehicle '43'.
-Warning: busStop '446289301' on lane '70268945_0' is too short for vehicle '44'.
-Warning: busStop '253845582' on lane '70268945_0' is too short for vehicle '44'.
-Warning: busStop '253846340' on lane '70268945_0' is too short for vehicle '44'.
-Warning: busStop '322796388' on lane '237751551#0_0' is too short for vehicle '47'.
 Warning: Vehicle '30' is not allowed on destination edge '274513583'.
 Warning: No route for vehicle '30' found.
 Warning: No connection between edge '272795472#1' and edge '199847339' found.
 Warning: Vehicle '39' has no valid route from edge '272795472#1' to stop edge '199847339'.
-Warning: Vehicle '43' performs emergency stop at the end of lane '70268945_0' for unknown reasons (decel=-3.01, offset = 0.00), time=156.00.
+Warning: Vehicle '43' performs emergency stop at the end of lane '70268945_0' for unknown reasons (decel=-4.39, offset = 0.00), time=166.00.
 Warning: Vehicle '16' performs emergency stop at the end of lane '72984377_0' for unknown reasons (decel=-4.83, offset = 0.00), time=177.00.
 Warning: Vehicle '4' performs emergency stop at the end of lane '230976795_0' for unknown reasons (decel=-5.12, offset = 0.00), time=206.00.
 Warning: Vehicle '18' performs emergency stop at the end of lane '72984377_0' for unknown reasons (decel=-4.83, offset = 0.00), time=230.00.
-Warning: Vehicle '44' performs emergency stop at the end of lane '70268945_0' for unknown reasons (decel=0.00, offset = 1.00), time=236.00.
-Warning: Vehicle '34' performs emergency stop at the end of lane '230976795_0' for unknown reasons (decel=-5.12, offset = 0.00), time=256.00.
-Warning: Vehicle '44' performs emergency stop at the end of lane '70268945_0' for unknown reasons (decel=0.00, offset = 1.00), time=268.00.
+Warning: Vehicle '44' performs emergency stop at the end of lane '70268945_0' for unknown reasons (decel=0.00, offset = 1.00), time=247.00.
+Warning: Vehicle '34' performs emergency stop at the end of lane '230976795_0' for unknown reasons (decel=-3.80, offset = 0.00), time=255.00.
+Warning: Vehicle '44' performs emergency stop at the end of lane '70268945_0' for unknown reasons (decel=0.00, offset = 1.00), time=279.00.
 Warning: Vehicle '26' performs emergency stop at the end of lane '72984377_0' for unknown reasons (decel=-4.83, offset = 0.00), time=283.00.
-Warning: Vehicle '36' performs emergency stop at the end of lane '230976795_0' for unknown reasons (decel=-5.12, offset = 0.00), time=306.00.
 Warning: Vehicle '48' performs emergency stop at the end of lane '72984377_0' for unknown reasons (decel=-4.83, offset = 0.00), time=336.00.
-Warning: Teleporting vehicle '30'; waited too long (wrong lane), lane='153698380_1', time=351.00.
-Warning: Vehicle '30' ends teleporting on edge '153698380', time 351.00.
-Warning: Teleporting vehicle '30'; waited too long (wrong lane), lane='153698380_1', time=663.00.
-Warning: Vehicle '30' teleports beyond arrival edge '274513583', time 711.00.
-Warning: Teleporting vehicle '39'; waited too long (wrong lane), lane='272795472#1_0', time=725.00.
-Warning: Vehicle '39' ends teleporting on edge '199847339', time 725.00.
+Warning: Teleporting vehicle '30'; waited too long (wrong lane), lane='153698380_1', time=352.00.
+Warning: Vehicle '30' ends teleporting on edge '153698380', time 352.00.
+Warning: Vehicle '47' performs emergency stop at the end of lane '230976795_0' for unknown reasons (decel=-3.80, offset = 0.00), time=353.00.
+Warning: Teleporting vehicle '30'; waited too long (wrong lane), lane='153698380_1', time=664.00.
+Warning: Vehicle '30' teleports beyond arrival edge '274513583', time 712.00.
+Warning: Teleporting vehicle '39'; waited too long (wrong lane), lane='272795472#1_0', time=727.00.
+Warning: Vehicle '39' ends teleporting on edge '199847339', time 727.00.
 Warning: Could not parse edges for vehicle '30'
 Warning: busStop '474366009' on lane '25946663_0' is too short for vehicle 'pt_light_rail_S5:0.0'.
-Warning: busStop '253846340' on lane '70268945_0' is too short for vehicle 'pt_subway_U55:0.0'.
-Warning: busStop '253845582' on lane '70268945_0' is too short for vehicle 'pt_subway_U55:0.0'.
-Warning: busStop '446289301' on lane '70268945_0' is too short for vehicle 'pt_subway_U55:0.0'.
 Warning: busStop '474366009' on lane '25946663_0' is too short for vehicle 'pt_light_rail_S7:0.0'.
-Warning: busStop '322796388' on lane '237751551#0_0' is too short for vehicle 'pt_light_rail_S1:1.0'.
 Warning: busStop '474366009' on lane '25946663_0' is too short for vehicle 'pt_light_rail_S75:0.0'.
-Warning: busStop '322796388' on lane '237751551#0_0' is too short for vehicle 'pt_light_rail_S2:0.0'.
-Warning: busStop '446289301' on lane '70268945_0' is too short for vehicle 'pt_subway_U55:1.0'.
 Warning: busStop '253845582' for vehicle 'pt_subway_U55:1.0' on lane '70268945_0' is not downstream the current route.
 Warning: busStop '253846340' for vehicle 'pt_subway_U55:1.0' on lane '70268945_0' is not downstream the current route.
-Warning: busStop '322796388' on lane '237751551#0_0' is too short for vehicle 'pt_light_rail_S25:0.0'.
-Warning: busStop '322796388' on lane '237751551#0_0' is too short for vehicle 'pt_light_rail_S2:2.0'.
 Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle 'pt_bus_N6:0.0'.
 Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
 Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
-Warning: busStop '2094266778' on lane '272795471_0' is too short for vehicle 'pt_subway_U2:0.0'.
 Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
-Warning: busStop '2098267288' on lane '272795472#1_0' is too short for vehicle 'pt_subway_U2:0.0'.
-Warning: busStop '323203892' on lane '199847339_0' is too short for vehicle 'pt_subway_U2:0.0'.
-Warning: Vehicle 'pt_subway_U55:0.0' performs emergency stop at the end of lane '70268945_0' for unknown reasons (decel=-3.01, offset = 0.00), time=173.00.
+Warning: Vehicle 'pt_subway_U55:0.0' performs emergency stop at the end of lane '70268945_0' for unknown reasons (decel=-4.39, offset = 0.00), time=174.00.
 Warning: Vehicle 'pt_light_rail_S5:1.0' performs emergency stop at the end of lane '72984377_0' for unknown reasons (decel=-4.83, offset = 0.00), time=188.00.
 Warning: Vehicle 'pt_light_rail_S1:1.0' performs emergency stop at the end of lane '230976795_0' for unknown reasons (decel=-5.12, offset = 0.00), time=211.00.
-Warning: Vehicle 'pt_subway_U55:1.0' performs emergency stop at the end of lane '70268945_0' for unknown reasons (decel=-3.80, offset = 0.00), time=221.00.
 Warning: Vehicle 'pt_light_rail_S7:1.0' performs emergency stop at the end of lane '72984377_0' for unknown reasons (decel=-4.83, offset = 0.00), time=252.00.
-Warning: Vehicle 'pt_light_rail_S25:0.0' performs emergency stop at the end of lane '230976795_0' for unknown reasons (decel=-5.12, offset = 0.00), time=311.00.
+Warning: Vehicle 'pt_light_rail_S2:0.0' performs emergency stop at the end of lane '230976795_0' for unknown reasons (decel=-3.80, offset = 0.00), time=260.00.
 Warning: Vehicle 'pt_light_rail_S75:1.0' performs emergency stop at the end of lane '72984377_0' for unknown reasons (decel=-4.83, offset = 0.00), time=316.00.
+Warning: Vehicle 'pt_light_rail_S2:2.0' performs emergency stop at the end of lane '230976795_0' for unknown reasons (decel=-3.80, offset = 0.00), time=358.00.
 Warning: Vehicle 'pt_light_rail_S75:2.0' performs emergency stop at the end of lane '72984377_0' for unknown reasons (decel=-4.83, offset = 0.00), time=380.00.
 Warning: busStop '474366009' on lane '25946663_0' is too short for vehicle 'pt_light_rail_S5:0.1'.
-Warning: busStop '253846340' on lane '70268945_0' is too short for vehicle 'pt_subway_U55:0.1'.
-Warning: busStop '253845582' on lane '70268945_0' is too short for vehicle 'pt_subway_U55:0.1'.
-Warning: busStop '446289301' on lane '70268945_0' is too short for vehicle 'pt_subway_U55:0.1'.
 Warning: busStop '474366009' on lane '25946663_0' is too short for vehicle 'pt_light_rail_S7:0.1'.
-Warning: busStop '322796388' on lane '237751551#0_0' is too short for vehicle 'pt_light_rail_S1:1.1'.
 Warning: busStop '474366009' on lane '25946663_0' is too short for vehicle 'pt_light_rail_S75:0.1'.
-Warning: busStop '322796388' on lane '237751551#0_0' is too short for vehicle 'pt_light_rail_S2:0.1'.
-Warning: busStop '446289301' on lane '70268945_0' is too short for vehicle 'pt_subway_U55:1.1'.
 Warning: busStop '253845582' for vehicle 'pt_subway_U55:1.1' on lane '70268945_0' is not downstream the current route.
 Warning: busStop '253846340' for vehicle 'pt_subway_U55:1.1' on lane '70268945_0' is not downstream the current route.
-Warning: busStop '322796388' on lane '237751551#0_0' is too short for vehicle 'pt_light_rail_S25:0.1'.
-Warning: busStop '322796388' on lane '237751551#0_0' is too short for vehicle 'pt_light_rail_S2:2.1'.
 Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle 'pt_bus_N6:0.1'.
 Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.1'.
 Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.1'.
-Warning: busStop '2094266778' on lane '272795471_0' is too short for vehicle 'pt_subway_U2:0.1'.
 Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle 'pt_subway_U2:0.1'.
-Warning: busStop '2098267288' on lane '272795472#1_0' is too short for vehicle 'pt_subway_U2:0.1'.
-Warning: busStop '323203892' on lane '199847339_0' is too short for vehicle 'pt_subway_U2:0.1'.
-Warning: Teleporting vehicle 'pt_subway_U2:0.0'; waited too long (wrong lane), lane='272795472#1_0', time=729.00.
-Warning: Vehicle 'pt_subway_U2:0.0' ends teleporting on edge '199847339', time 729.00.
-Warning: Vehicle 'pt_subway_U55:0.1' performs emergency stop at the end of lane '70268945_0' for unknown reasons (decel=-3.01, offset = 0.00), time=773.00.
+Warning: Teleporting vehicle 'pt_subway_U2:0.0'; waited too long (wrong lane), lane='272795472#1_0', time=731.00.
+Warning: Vehicle 'pt_subway_U2:0.0' ends teleporting on edge '199847339', time 731.00.
+Warning: Vehicle 'pt_subway_U55:0.1' performs emergency stop at the end of lane '70268945_0' for unknown reasons (decel=-4.39, offset = 0.00), time=774.00.
 Warning: Vehicle 'pt_light_rail_S5:1.1' performs emergency stop at the end of lane '72984377_0' for unknown reasons (decel=-4.83, offset = 0.00), time=788.00.
 Warning: Vehicle 'pt_light_rail_S1:1.1' performs emergency stop at the end of lane '230976795_0' for unknown reasons (decel=-5.12, offset = 0.00), time=811.00.
-Warning: Vehicle 'pt_subway_U55:1.1' performs emergency stop at the end of lane '70268945_0' for unknown reasons (decel=-3.80, offset = 0.00), time=821.00.
 Warning: Vehicle 'pt_light_rail_S7:1.1' performs emergency stop at the end of lane '72984377_0' for unknown reasons (decel=-4.83, offset = 0.00), time=852.00.
-Warning: Vehicle 'pt_light_rail_S25:0.1' performs emergency stop at the end of lane '230976795_0' for unknown reasons (decel=-5.12, offset = 0.00), time=911.00.
+Warning: Vehicle 'pt_light_rail_S2:0.1' performs emergency stop at the end of lane '230976795_0' for unknown reasons (decel=-3.80, offset = 0.00), time=860.00.
 Warning: Vehicle 'pt_light_rail_S75:1.1' performs emergency stop at the end of lane '72984377_0' for unknown reasons (decel=-4.83, offset = 0.00), time=916.00.
+Warning: Vehicle 'pt_light_rail_S2:2.1' performs emergency stop at the end of lane '230976795_0' for unknown reasons (decel=-3.80, offset = 0.00), time=958.00.
 Warning: Vehicle 'pt_light_rail_S75:2.1' performs emergency stop at the end of lane '72984377_0' for unknown reasons (decel=-4.83, offset = 0.00), time=980.00.
-Warning: Teleporting vehicle 'pt_subway_U2:0.1'; waited too long (wrong lane), lane='272795472#1_0', time=1329.00.
-Warning: Vehicle 'pt_subway_U2:0.1' ends teleporting on edge '199847339', time 1329.00.
+Warning: Teleporting vehicle 'pt_subway_U2:0.1'; waited too long (wrong lane), lane='272795472#1_0', time=1331.00.
+Warning: Vehicle 'pt_subway_U2:0.1' ends teleporting on edge '199847339', time 1331.00.
 Warning: Person 'ped10' aborted waiting for a ride that will never come.
 Warning: Person 'ped33' aborted waiting for a ride that will never come.
