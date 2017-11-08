@@ -67,10 +67,11 @@ def writeTypes(fout, prefix):
     <vType id="%stram" vClass="tram"/>
     <vType id="%strain" vClass="rail"/>
     <vType id="%ssubway" vClass="rail_urban"/>
+    <vType id="%slight_rail" vClass="rail_urban"/>
     <vType id="%smonorail" vClass="rail"/>
     <vType id="%strolleybus" vClass="bus"/>
     <vType id="%saerialway" vClass="bus"/>
-    <vType id="%sferry" vClass="ship"/>""" % tuple([prefix]*8), file=fout)
+    <vType id="%sferry" vClass="ship"/>""" % tuple([prefix]*9), file=fout)
 
 
 def createTrips(options):

@@ -714,6 +714,9 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             } else if (key == "train") {
                 myToFill[myLastNodeID]->permissions = SVC_RAIL;
                 myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length.train");
+            } else if (key == "subway" || key == "light_rail") {
+                myToFill[myLastNodeID]->permissions = SVC_RAIL_URBAN;
+                myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length.train");
             } else if (key == "bus") {
                 myToFill[myLastNodeID]->permissions = SVC_BUS;
                 myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length.bus");
@@ -1163,7 +1166,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
             }
         } else if (key == "route") {
             std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
-            if (value == "train" || value == "subway" || value == "monorail" || value == "tram" || value == "bus"
+            if (value == "train" || value == "subway" || value == "light_rail" || value == "monorail" || value == "tram" || value == "bus"
                     || value == "trolleybus" || value == "arialway" || value == "ferry") {
                 myPTRouteType = value;
             }
