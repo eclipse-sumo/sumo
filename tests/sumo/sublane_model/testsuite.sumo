@@ -109,5 +109,13 @@ lcLookaheadLeft
 # when checking for linkleaders, vehicles on a sibling lane should only affect ego if there is lateral overlap (see ticket3573)
 junction_leader_sibling_pass
 
+# when checking for linkleaders, vehicles on a sibling lane should only affect ego if there is lateral overlap (see ticket3573)
+junction_leader_sibling_block
+
+# when checking for linkleaders, vehicles on a sibling lane should only affect ego if there is lateral overlap (see ticket3573)
+# 
+# ego is blocked before entering the internal edge
+junction_leader_sibling_block2
+
 # tests for various tickets
 bugs
