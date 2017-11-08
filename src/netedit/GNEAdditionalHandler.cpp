@@ -108,20 +108,20 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
         case SUMO_TAG_DET_EXIT:
             parseAndBuildDetectorExit(attrs, tag);
             break;
-        case SUMO_TAG_VSS:
-            parseAndBuildVariableSpeedSign(attrs, tag);
-            break;
-        case SUMO_TAG_REROUTER:
-            parseAndBuildRerouter(attrs, tag);
-            break;
-        case SUMO_TAG_CALIBRATOR:
-            parseAndBuildCalibrator(attrs, tag);
+        case SUMO_TAG_ROUTEPROBE:
+            parseAndBuildRouteProbe(attrs, tag);
             break;
         case SUMO_TAG_VAPORIZER:
             parseAndBuildVaporizer(attrs, tag);
             break;
-        case SUMO_TAG_ROUTEPROBE:
-            parseAndBuildRouteProbe(attrs, tag);
+        case SUMO_TAG_VSS:
+            parseAndBuildVariableSpeedSign(attrs, tag);
+            break;
+        case SUMO_TAG_STEP:
+            parseVariableSpeedSignStep(attrs, tag);
+            break;
+        case SUMO_TAG_CALIBRATOR:
+            parseAndBuildCalibrator(attrs, tag);
             break;
         case SUMO_TAG_VTYPE:
             parseCalibratorVehicleType(attrs, tag);
@@ -132,8 +132,23 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
         case SUMO_TAG_FLOW:
             parseCalibratorFlow(attrs, tag);
             break;
-        case SUMO_TAG_STEP:
-            parseVariableSpeedSignStep(attrs, tag);
+        case SUMO_TAG_REROUTER:
+            parseAndBuildRerouter(attrs, tag);
+            break;
+        case SUMO_TAG_INTERVAL:
+            parseAndBuildRerouterInterval(attrs, tag);
+            break;
+        case SUMO_TAG_CLOSING_LANE_REROUTE:
+            parseAndBuildRerouterClosingLaneReroute(attrs, tag);
+            break;
+        case SUMO_TAG_CLOSING_REROUTE:
+            parseAndBuildRerouterClosingReroute(attrs, tag);
+            break;
+        case SUMO_TAG_DEST_PROB_REROUTE:
+            parseAndBuildRerouterDestProbReroute(attrs, tag);
+            break;
+        case SUMO_TAG_ROUTE_PROB_REROUTE:
+            parseAndBuildRerouterRouteProbReroute(attrs, tag);
             break;
         default:
             break;
@@ -411,6 +426,84 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
             myLastInsertedAdditionalParent = id;
         }
     }
+}
+
+
+void 
+GNEAdditionalHandler::parseAndBuildRerouterInterval(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+    bool abort = false;
+    // parse attributes of Rerouter
+    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
+    std::string edgesIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_EDGES, abort);
+    std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort, false);
+    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_PROB, abort);
+    bool off = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_OFF, abort);
+    double posx = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_X, abort);
+    double posy = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_Y, abort);
+    // Continue if all parameters were sucesfully loaded
+    if (!abort) {
+        // obtain edges
+        std::vector<GNEEdge*> edges;
+        if(GNEAttributeCarrier::checkGNEEdgesValid(myViewNet->getNet(), edgesIDs, true)) {
+            edges = GNEAttributeCarrier::parseGNEEdges(myViewNet->getNet(), edgesIDs);
+        }
+        // check that all parameters are valid
+        if (GNEAttributeCarrier::isValidID(id) == false) {
+            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
+        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        } else if ((edgesIDs.size() > 0) && buildRerouter(myViewNet, myUndoAdditionals, id, Position(posx, posy), edges, probability, file, off)) {
+            // set myLastInsertedAdditionalParent due this additional can have childs
+            myLastInsertedAdditionalParent = id;
+        }
+    }
+}
+
+
+void 
+GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+    /*
+    bool abort = false;
+    // parse attributes of Rerouter
+    std::string laneID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
+    std::string allow;
+    std::string disallow;
+    // Continue if all parameters were sucesfully loaded
+    if (!abort) {
+        // obtain lane
+        GNELane *lane= myViewNet->getNet()->retrieveLane(laneID, false, true);
+        GNERerouterInterval *rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
+
+        myLastInsertedAdditionalParent;
+        // check that all parameters are valid
+        if (GNEAttributeCarrier::isValidID(id) == false) {
+            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
+        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        } else if ((edgesIDs.size() > 0) && buildRerouter(myViewNet, myUndoAdditionals, id, Position(posx, posy), edges, probability, file, off)) {
+            // set myLastInsertedAdditionalParent due this additional can have childs
+            myLastInsertedAdditionalParent = id;
+        }
+    }
+    */
+}
+
+
+void 
+GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+
+}
+
+
+void 
+GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+
+}
+
+
+void 
+GNEAdditionalHandler::parseAndBuildRerouterRouteProbReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+
 }
 
 

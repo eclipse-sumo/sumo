@@ -106,6 +106,36 @@ public:
      */
     void parseAndBuildRerouter(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
+    /**@brief Parses his values and builds a Rerouter Interval
+    * @param[in] attrs SAX-attributes which define the trigger
+    * @param[in] tag of the additional
+    */
+    void parseAndBuildRerouterInterval(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
+    /**@brief Parses his values and builds a Closing Lane reroute
+    * @param[in] attrs SAX-attributes which define the trigger
+    * @param[in] tag of the additional
+    */
+    void parseAndBuildRerouterClosingLaneReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
+    /**@brief Parses his values and builds a Closing Reroute
+    * @param[in] attrs SAX-attributes which define the trigger
+    * @param[in] tag of the additional
+    */
+    void parseAndBuildRerouterClosingReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
+    /**@brief Parses his values and builds a Destiny Prob Reroute
+    * @param[in] attrs SAX-attributes which define the trigger
+    * @param[in] tag of the additional
+    */
+    void parseAndBuildRerouterDestProbReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
+    /**@brief Parses his values and builds a Route Prob Reroute
+    * @param[in] attrs SAX-attributes which define the trigger
+    * @param[in] tag of the additional
+    */
+    void parseAndBuildRerouterRouteProbReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
     /**@brief Parses his values and builds a bus stop
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
