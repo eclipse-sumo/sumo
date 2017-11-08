@@ -94,8 +94,8 @@
 //#define DEBUG_IGNORE_RED
 //#define DEBUG_ACTIONSTEPLENGTH
 //#define DEBUG_COND (getID() == "blocker")
-#define DEBUG_COND (true)
-//#define DEBUG_COND (isSelected())
+//#define DEBUG_COND (true)
+#define DEBUG_COND (isSelected())
 
 
 #define STOPPING_PLACE_OFFSET 0.5
@@ -1837,11 +1837,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         const bool canBrake = seen >= brakeDist;
 #ifdef DEBUG_PLAN_MOVE
         gDebugFlag1 = DEBUG_COND;
-        if (DEBUG_COND) std::cout
+        if (DEBUG_COND) {
+            std::cout
                     << " stopDist=" << stopDist
                     << " vLinkWait=" << vLinkWait
                     << " brakeDist=" << brakeDist
                     << "\n";
+        }
 #endif
         if (yellowOrRed && canBrake && !ignoreRed(*link, canBrake)) {
             // the vehicle is able to brake in front of a yellow/red traffic light
@@ -2738,6 +2740,11 @@ MSVehicle::executeMove() {
             MSNet::getInstance()->getVehicleControl().registerEmergencyStop();
             myState.myPos = myLane->getLength();
             myState.mySpeed = 0;
+            myAcceleration = 0;
+            // reset drive items and link approaches
+            removeApproachingInformation(myLFLinkLanes);
+            myLFLinkLanes.clear();
+            myNextDriveItem = myLFLinkLanes.begin();
         }
         const MSLane* oldBackLane = getBackLane();
         if (getLaneChangeModel().isOpposite()) {
