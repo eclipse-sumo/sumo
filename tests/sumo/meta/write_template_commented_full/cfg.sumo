@@ -147,6 +147,12 @@
         <!-- Record lane changes and their motivations for all vehicles into FILE -->
         <lanechange-output value="" type="FILE"/>
 
+        <!-- Record start of lane change manoeuvres -->
+        <lanechange-output.started value="false" type="BOOL"/>
+
+        <!-- Record end of lane change manoeuvres -->
+        <lanechange-output.ended value="false" type="BOOL"/>
+
         <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
         <stop-output value="" type="FILE"/>
 
@@ -497,9 +503,6 @@
 
         <!-- Expected number of connecting clients -->
         <num-clients value="1" type="INT"/>
-
-        <!-- Runs TraCI script with embedded python -->
-        <python-script value="" type="STR"/>
 
     </traci_server>
 

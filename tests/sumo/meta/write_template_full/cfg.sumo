@@ -55,6 +55,8 @@
         <link-output value="" type="FILE" help="Save links states into FILE"/>
         <bt-output value="" type="FILE" help="Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender)"/>
         <lanechange-output value="" type="FILE" help="Record lane changes and their motivations for all vehicles into FILE"/>
+        <lanechange-output.started value="false" type="BOOL" help="Record start of lane change manoeuvres"/>
+        <lanechange-output.ended value="false" type="BOOL" help="Record end of lane change manoeuvres"/>
         <stop-output value="" type="FILE" help="Record stops and loading/unloading of passenger and containers for all vehicles into FILE"/>
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
@@ -194,7 +196,6 @@
     <traci_server>
         <remote-port value="0" type="INT" help="Enables TraCI Server if set"/>
         <num-clients value="1" type="INT" help="Expected number of connecting clients"/>
-        <python-script value="" type="STR" help="Runs TraCI script with embedded python"/>
     </traci_server>
 
     <mesoscopic>
