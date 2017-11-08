@@ -46,7 +46,7 @@ netedit.moveElement(match, 150, 260, 250, 260)
 netedit.inspectMode()
 
 # inspect chargingStation
-netedit.leftClick(match, 300, 260)
+netedit.leftClick(match, 350, 260)
 
 # block additional
 netedit.modifyBoolAttribute(10)
@@ -61,7 +61,7 @@ netedit.moveElement(match, 250, 260, 350, 260)
 netedit.inspectMode()
 
 # inspect chargingStation
-netedit.leftClick(match, 300, 260)
+netedit.leftClick(match, 350, 260)
 
 # unblock additional
 netedit.modifyBoolAttribute(10)
