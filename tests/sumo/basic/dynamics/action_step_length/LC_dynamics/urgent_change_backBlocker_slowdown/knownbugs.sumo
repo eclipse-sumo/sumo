@@ -6,3 +6,10 @@ ignore_other_errors:1
 bug_id:[zeitlupe]
 full_description:[zeitlupe]
 brief_description:[zeitlupe]
+
+[Reported by leo at 08Nov13:07:56]
+search_string:.*
+search_file:tripinfos
+bug_id:[zeitlupe]
+full_description:[zeitlupe]
+brief_description:[zeitlupe]
