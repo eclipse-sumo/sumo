@@ -59,9 +59,9 @@
 //#define DEBUG_CHECK_CHANGE
 //#define DEBUG_SURROUNDING_VEHICLES // debug getRealFollower() and getRealLeader()
 //#define DEBUG_CHANGE_OPPOSITE
-//#define DEBUG_COND (vehicle->getLaneChangeModel().debugVehicle())
 //#define DEBUG_ACTIONSTEPS
-#define DEBUG_COND true
+//#define DEBUG_COND (vehicle->getLaneChangeModel().debugVehicle())
+#define DEBUG_COND (vehicle->isSelected())
 
 
 
@@ -638,10 +638,23 @@ MSLaneChanger::checkChange(
     double secureFrontGap = MSAbstractLaneChangeModel::NO_NEIGHBOR;
     double secureBackGap = MSAbstractLaneChangeModel::NO_NEIGHBOR;
     double secureOrigFrontGap = MSAbstractLaneChangeModel::NO_NEIGHBOR;
+
     // safe back gap
     if ((blocked & blockedByFollower) == 0 && neighFollow.first != 0) {
+        // Calculate secure gap conservatively with vNextFollower / vNextLeader as
+        // extrapolated speeds after the driver's expected reaction time (tau).
+        // NOTE: there exists a possible source for collisions if the follower and the leader
+        //       have desynchronized action steps as the extrapolated speeds can be exceeded in this case
+
+        // Expected reaction time (tau) for the follower-vehicle.
+        // (substracted TS since at this point the vehicles' states are already updated)
+        // XXX: How does the ego vehicle know the value of tau for the neighboring vehicle?
+        const double followerTauRemainder = MAX2(neighFollow.first->getCarFollowModel().getHeadwayTime()-TS, 0.);
+        const double vNextFollower = neighFollow.first->getSpeed() + MAX2(0., followerTauRemainder*neighFollow.first->getAcceleration());
+        const double vNextLeader = vehicle->getSpeed() + MIN2(0., followerTauRemainder*vehicle->getAcceleration());
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-        secureBackGap = neighFollow.first->getCarFollowModel().getSecureGap(neighFollow.first->getSpeed(), vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxDecel());
+        secureBackGap = neighFollow.first->getCarFollowModel().getSecureGap(vNextFollower,
+                vNextLeader, vehicle->getCarFollowModel().getMaxDecel());
         if (neighFollow.second < secureBackGap) {
             blocked |= blockedByFollower;
 
@@ -652,8 +665,8 @@ MSLaneChanger::checkChange(
                           << " back gap unsafe: "
                           << "gap = " << neighFollow.second
                           << ", secureGap = "
-                          << neighFollow.first->getCarFollowModel().getSecureGap(neighFollow.first->getSpeed(),
-                                  vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxDecel())
+                          << neighFollow.first->getCarFollowModel().getSecureGap(vNextFollower,
+                                  vNextLeader, vehicle->getCarFollowModel().getMaxDecel())
                           << std::endl;
             }
 #endif
@@ -663,8 +676,20 @@ MSLaneChanger::checkChange(
 
     // safe front gap
     if ((blocked & blockedByLeader) == 0 && neighLead.first != 0) {
+        // Calculate secure gap conservatively with vNextFollower / vNextLeader as
+        // extrapolated speeds after the driver's expected reaction time (tau).
+        // NOTE: there exists a possible source for collisions if the follower and the leader
+        //       have desynchronized action steps as the extrapolated speeds can be exceeded in this case
+
+        // Expected reaction time (tau) for the follower-vehicle.
+        // (substracted TS since at this point the vehicles' states are already updated)
+        // XXX: How does the ego vehicle know the value of tau for the neighboring vehicle?
+        const double followerTauRemainder = MAX2(vehicle->getCarFollowModel().getHeadwayTime()-TS, 0.);
+        const double vNextFollower = vehicle->getSpeed() + MAX2(0., followerTauRemainder*vehicle->getAcceleration());
+        const double vNextLeader = neighLead.first->getSpeed() + MIN2(0., followerTauRemainder*neighLead.first->getAcceleration());
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-        secureFrontGap = vehicle->getCarFollowModel().getSecureGap(vehicle->getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel());
+        secureFrontGap = vehicle->getCarFollowModel().getSecureGap(vNextFollower,
+                vNextLeader, neighLead.first->getCarFollowModel().getMaxDecel());
         if (neighLead.second < secureFrontGap) {
             blocked |= blockedByLeader;
 
@@ -675,8 +700,8 @@ MSLaneChanger::checkChange(
                           << " front gap unsafe: "
                           << "gap = " << neighLead.second
                           << ", secureGap = "
-                          << vehicle->getCarFollowModel().getSecureGap(vehicle->getSpeed(),
-                                  neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())
+                          << vehicle->getCarFollowModel().getSecureGap(vNextFollower,
+                                  vNextLeader, neighLead.first->getCarFollowModel().getMaxDecel())
                           << std::endl;
             }
 #endif
