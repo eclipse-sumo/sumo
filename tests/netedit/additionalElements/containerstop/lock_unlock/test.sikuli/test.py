@@ -46,7 +46,7 @@ netedit.moveElement(match, 150, 275, 250, 275)
 netedit.inspectMode()
 
 # inspect containerStop
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(match, 350, 255)
 
 # block additional
 netedit.modifyBoolAttribute(7)
@@ -61,7 +61,7 @@ netedit.moveElement(match, 250, 270, 350, 270)
 netedit.inspectMode()
 
 # inspect containerStop
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(match, 350, 255)
 
 # unblock additional
 netedit.modifyBoolAttribute(7)
