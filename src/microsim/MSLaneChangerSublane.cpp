@@ -175,12 +175,31 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     //      - vehicle must be moved to the lane where it's midpoint is (either old or new)
     //      - shadow vehicle must be created/moved to the other lane if the vehicle intersects it
     // 3) updated dens of all lanes that hold the vehicle or its shadow
-    const int direction = vehicle->getLateralPositionOnLane() < 0 ? -1 : 1;
+    const int direction = latDist == 0 ? 0 : (latDist < 0 ? -1 : 1);
     ChangerIt to = from;
     if (mayChange(direction)) {
         to = from + direction;
     } else {
         /// XXX assert(false);
+    }
+    if (MSAbstractLaneChangeModel::haveLCOutput() && MSAbstractLaneChangeModel::outputLCStarted()
+            // non-sublane change started
+            && ((vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) != 0)
+            && ((vehicle->getLaneChangeModel().getOwnState() & LCA_STAY) == 0)
+            // no changing in previous step (either not wanted or blocked)
+            && (((vehicle->getLaneChangeModel().getPrevState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) == 0)
+                || ((vehicle->getLaneChangeModel().getPrevState() & LCA_STAY) != 0)
+                || ((vehicle->getLaneChangeModel().getPrevState() & LCA_BLOCKED) != 0))
+            ) {
+        //std::cout << SIMTIME << " veh=" << vehicle->getID() << " laneChangeStarted state=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getOwnState()) 
+        //    << " prevState=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getPrevState()) 
+        //    << " filter=" << toString((LaneChangeAction)(LCA_CHANGE_REASONS & ~LCA_SUBLANE)) 
+        //    << " filtered=" << toString((LaneChangeAction)(vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE))) 
+        //    << "\n";
+        vehicle->getLaneChangeModel().setLeaderGaps(getLeaders(to, vehicle));
+        vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
+        vehicle->getLaneChangeModel().setOrigLeaderGaps(getLeaders(from, vehicle));
+        vehicle->getLaneChangeModel().laneChangeOutput("changeStarted", from->lane, to->lane, direction);
     }
     const bool changedToNewLane = to != from && fabs(vehicle->getLateralPositionOnLane()) > 0.5 * vehicle->getLane()->getWidth() && mayChange(direction);
     if (changedToNewLane) {
@@ -206,6 +225,15 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         assert(to != from);
         const double latOffset = vehicle->getLane()->getRightSideOnEdge() - shadowLane->getRightSideOnEdge();
         (myChanger.begin() + shadowLane->getIndex())->ahead.addLeader(vehicle, false, latOffset);
+    }
+    if (MSAbstractLaneChangeModel::haveLCOutput() && MSAbstractLaneChangeModel::outputLCEnded()
+            // non-sublane change ended
+            && ((vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) != 0)
+            && vehicle->getLaneChangeModel().sublaneChangeCompleted(latDist)) {
+        vehicle->getLaneChangeModel().setLeaderGaps(getLeaders(to, vehicle));
+        vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
+        vehicle->getLaneChangeModel().setOrigLeaderGaps(getLeaders(from, vehicle));
+        vehicle->getLaneChangeModel().laneChangeOutput("changeEnded", from->lane, to->lane, direction);
     }
 
 

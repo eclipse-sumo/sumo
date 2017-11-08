@@ -109,7 +109,6 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myLookAheadSpeed(LOOK_AHEAD_MIN_SPEED),
     myLastEdge(0),
     myCanChangeFully(true),
-    myPreviousState(0),
     myOrigLatDist(0),
     mySafeLatDistRight(0),
     mySafeLatDistLeft(0),
@@ -230,7 +229,6 @@ MSLCM_SL2015::wantsChangeSublane(
 void
 MSLCM_SL2015::setOwnState(const int state) {
     MSAbstractLaneChangeModel::setOwnState(state);
-    myPreviousState = state;
     if ((state & (LCA_STRATEGIC | LCA_SPEEDGAIN)) != 0 && (state & LCA_BLOCKED) != 0) {
         myImpatience = MIN2(1.0 , myImpatience + myVehicle.getActionStepLengthSecs() / myTimeToImpatience);
     } else {
@@ -2873,6 +2871,11 @@ MSLCM_SL2015::wantsChange(
     }
 
     return result;
+}
+
+bool 
+MSLCM_SL2015::sublaneChangeCompleted(double latDist) {
+    return latDist == myOrigLatDist;
 }
 
 /****************************************************************************/

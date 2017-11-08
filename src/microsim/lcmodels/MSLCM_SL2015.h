@@ -140,6 +140,9 @@ public:
     /// @brief try to set the given parameter for this laneChangeModel. Throw exception for unsupported key
     void setParameter(const std::string& key, const std::string& value);
 
+    /// @brief whether the current change completes the manoeuvre
+    bool sublaneChangeCompleted(double latDist);
+
 protected:
 
     /// @brief helper function for doing the actual work
@@ -368,9 +371,6 @@ protected:
 
     /// @brief whether the current lane changing meneuver can be finished in a single step
     bool myCanChangeFully;
-
-    /// @brief lane changing state from the previous simulation step
-    int myPreviousState;
 
     /// @brief the complete lateral distance the vehicle wants to travel to finish its maneuver
     double myOrigLatDist;

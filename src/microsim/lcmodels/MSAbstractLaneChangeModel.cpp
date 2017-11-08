@@ -45,6 +45,8 @@
  * ----------------------------------------------------------------------- */
 bool MSAbstractLaneChangeModel::myAllowOvertakingRight(false);
 bool MSAbstractLaneChangeModel::myLCOutput(false);
+bool MSAbstractLaneChangeModel::myLCStartedOutput(false);
+bool MSAbstractLaneChangeModel::myLCEndedOutput(false);
 const double MSAbstractLaneChangeModel::NO_NEIGHBOR(std::numeric_limits<double>::max());
 
 /* -------------------------------------------------------------------------
@@ -55,6 +57,8 @@ void
 MSAbstractLaneChangeModel::initGlobalOptions(const OptionsCont& oc) {
     myAllowOvertakingRight = oc.getBool("lanechange.overtake-right");
     myLCOutput = oc.isSet("lanechange-output");
+    myLCStartedOutput = oc.getBool("lanechange-output.started");
+    myLCEndedOutput = oc.getBool("lanechange-output.ended");
 }
 
 
@@ -85,6 +89,8 @@ MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
 MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneChangeModel model) :
     myVehicle(v),
     myOwnState(0),
+    myPreviousState(0),
+    myPreviousState2(0),
     mySpeedLat(0),
     myCommittedSpeed(0),
     myLaneChangeCompletion(1.0),
@@ -103,7 +109,9 @@ MSAbstractLaneChangeModel::~MSAbstractLaneChangeModel() {
 
 void
 MSAbstractLaneChangeModel::setOwnState(const int state) {
+    myPreviousState2 = myPreviousState;
     myOwnState = state;
+    myPreviousState = state; // myOwnState is modified in prepareStep so we make a backup
     // reset lateral influence after step is completed
     if (myVehicle.hasInfluencer()) {
         myVehicle.getInfluencer().setSublaneChange(0);
@@ -169,9 +177,15 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
     source->leftByLaneChange(&myVehicle);
     myVehicle.enterLaneAtLaneChange(target);
     target->enteredByLaneChange(&myVehicle);
+    laneChangeOutput("change", source, target, direction);
+    changed();
+}
+
+void
+MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* source, MSLane* target, int direction) {
     if (myLCOutput) {
         OutputDevice& of = OutputDevice::getDeviceByOption("lanechange-output");
-        of.openTag("change");
+        of.openTag(tag);
         of.writeAttr(SUMO_ATTR_ID, myVehicle.getID());
         of.writeAttr(SUMO_ATTR_TYPE, myVehicle.getVehicleType().getID());
         of.writeAttr(SUMO_ATTR_TIME, time2string(MSNet::getInstance()->getCurrentTimeStep()));
@@ -193,9 +207,7 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
         }
         of.closeTag();
     }
-    changed();
 }
-
 
 bool
 MSAbstractLaneChangeModel::updateCompletion() {

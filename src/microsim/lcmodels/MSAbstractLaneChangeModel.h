@@ -144,6 +144,16 @@ public:
         return myLCOutput;
     }
 
+    /// @brief whether start of maneuvers shall be recorede
+    static bool outputLCStarted() {
+        return myLCStartedOutput;
+    }
+
+    /// @brief whether start of maneuvers shall be recorede
+    static bool outputLCEnded() {
+        return myLCEndedOutput;
+    }
+
     /** @brief Constructor
      * @param[in] v The vehicle this lane-changer belongs to
      * @param[in] model The type of lane change model
@@ -155,6 +165,11 @@ public:
 
     inline int getOwnState() const {
         return myOwnState;
+    }
+
+    inline int getPrevState() const {
+        /// at the time of this call myPreviousState already holds the new value
+        return myPreviousState2;
     }
 
     virtual void setOwnState(const int state);
@@ -401,6 +416,14 @@ public:
     /// @brief called once when the vehicles primary lane changes
     void primaryLaneChanged(MSLane* source, MSLane* target, int direction);
 
+    /// @brief called once the vehicle ends a lane change manoeuvre (non-instant)
+    void laneChangeOutput(const std::string& tag, MSLane* source, MSLane* target, int direction);
+
+    /// @brief whether the current change completes the manoeuvre
+    virtual bool sublaneChangeCompleted(double latDist) {
+        throw ProcessError("Method not implemented by model " + toString(myModel));
+    }
+
     /// @brief set approach information for the shadow vehicle
     void setShadowApproachingInformation(MSLink* link) const;
     void removeShadowApproachingInformation() const;
@@ -450,6 +473,11 @@ protected:
 
     /// @brief The current state of the vehicle
     int myOwnState;
+    /// @brief lane changing state from the previous simulation step
+    int myPreviousState;
+    /// @brief lane changing state from step before the previous simulation step
+    int myPreviousState2;
+
     std::map<int, std::pair<int, int> > mySavedStates;
 
     /// @brief the current lateral speed
@@ -511,6 +539,8 @@ protected:
 
     /// @brief whether to record lane-changing
     static bool myLCOutput;
+    static bool myLCStartedOutput;
+    static bool myLCEndedOutput;
 
 
 private:
