@@ -180,7 +180,7 @@ class TlLogic(sumolib.net.TLSProgram):
 
 class SignalGroup(object):
     
-    def __init__(self, id, free = "g", transTimeOn = 0, transTimeOff = 0):
+    def __init__(self, id, free = "g", transTimeOn = 0, transTimeOff = 0, debug = False):
         self._id = id
         self._free = free
         self._red = "r"
@@ -192,6 +192,7 @@ class SignalGroup(object):
         self.completeSignals = {}
         self.tlLogic = None
         self._tlIndexToYield = {}
+        self._debug = debug
     
     def addFreeTime(self, fromTime, toTime):
         if(fromTime != toTime):
@@ -226,7 +227,8 @@ class SignalGroup(object):
     
     def calculateCompleteSignals(self, times):
         for tlIndex in self._tlIndexToYield:
-            print("SG %s: tlIndex %d: yield tlIndices %s" % (self._id, tlIndex, str(self._tlIndexToYield[tlIndex])))
+            if self._debug:
+                print("SG %s: tlIndex %d: yield tlIndices %s" % (self._id, tlIndex, str(self._tlIndexToYield[tlIndex])))
             self.completeSignals[tlIndex] = {}
             for time in times:
                 self.completeSignals[tlIndex][time] = self.getStateAt(time, tlIndex)
@@ -396,7 +398,10 @@ if __name__ == "__main__":
                                 colIndices[line[colIndex].strip()] = colIndex
                         secondFreeTime = "on2" in colIndices.keys() and "off2" in colIndices.keys()
                     else:
-                        sg = SignalGroup(line[colIndices["id"]], transTimeOn = int(line[colIndices["transOn"]]), transTimeOff = int(line[colIndices["transOff"]]))
+                        sg = SignalGroup(line[colIndices["id"]], 
+                                transTimeOn = int(line[colIndices["transOn"]]), 
+                                transTimeOff = int(line[colIndices["transOff"]]),
+                                debug = options.debug)
                         sg.addFreeTime(int(line[colIndices["on1"]]), int(line[colIndices["off1"]]))
                         if(secondFreeTime):
                             if(line[colIndices["on2"]] != "" and line[colIndices["off2"]] != ""):
