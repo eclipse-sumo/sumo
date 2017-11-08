@@ -40,6 +40,7 @@
 #include "GNENet.h"
 #include "GNECalibratorVehicleType.h"
 #include "GNEUndoList.h"
+#include "GNEChange_CalibratorItem.h"
 
 
 // ===========================================================================
@@ -203,8 +204,16 @@ GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorVehi
     // update fields
     updateCalibratorVehicleTypeValues();
 
-    // start a undo list editing
-    myEditedCalibratorVehicleType->getCalibratorParent()->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedCalibratorVehicleType->getTag()) + " values");
+    // start a undo list for editing local to this additional
+    initChanges();
+
+    // add element if we aren't updating an existent element
+    if(myUpdatingElement == false) {
+        myEditedCalibratorVehicleType->getCalibratorParent()->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibratorVehicleType, true), true);
+    }
+
+    // open as modal dialog
+    openAsModalDialog();
 }
 
 
@@ -234,8 +243,8 @@ GNECalibratorVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         return 0;
     } else {
-        // finish editing
-        myEditedCalibratorVehicleType->getCalibratorParent()->getViewNet()->getUndoList()->p_end();
+        // accept changes before closing dialog
+        acceptChanges();
         // stop dialgo sucesfully
         getApp()->stopModal(this, TRUE);
         return 1;
@@ -245,8 +254,8 @@ GNECalibratorVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorVehicleTypeDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // abort last command
-    myEditedCalibratorVehicleType->getCalibratorParent()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    // cancel changes
+    cancelChanges();
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -255,9 +264,8 @@ GNECalibratorVehicleTypeDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorVehicleTypeDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // abort last command and start editing again
-    myEditedCalibratorVehicleType->getCalibratorParent()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
-    myEditedCalibratorVehicleType->getCalibratorParent()->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedCalibratorVehicleType->getTag()) + " values");
+    // reset changes
+    resetChanges();
     // update fields
     updateCalibratorVehicleTypeValues();
     return 1;

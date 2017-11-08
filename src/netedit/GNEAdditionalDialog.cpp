@@ -34,6 +34,7 @@
 #include "GNEAdditionalDialog.h"
 #include "GNEAdditional.h"
 #include "GNEViewNet.h"
+#include "GNEUndoList.h"
 
 
 // ===========================================================================
@@ -57,7 +58,10 @@ FXIMPLEMENT_ABSTRACT(GNEAdditionalDialog, FXTopWindow, GNEAdditionalDialogMap, A
 // ===========================================================================
 
 GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* parent, int width, int height) :
-    FXTopWindow(parent->getViewNet(), ("Edit '" + parent->getID() + "' data").c_str(), parent->getIcon(), parent->getIcon(), GUIDesignDialogBoxExplicit, 0, 0, width, height, 0, 0, 0, 0, 4, 4) {
+    FXTopWindow(parent->getViewNet(), ("Edit '" + parent->getID() + "' data").c_str(), parent->getIcon(), parent->getIcon(), GUIDesignDialogBoxExplicit, 0, 0, width, height, 0, 0, 0, 0, 4, 4),
+    myNumberOfChanges(0),
+    myChangesDescription("change " + toString(parent->getTag()) + " values"),
+    myUndoList(parent->getViewNet()->getUndoList()) {
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // Create frame for contents
@@ -65,9 +69,9 @@ GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* parent, int width, int h
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose", GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL, GUIDesignButtonCancel);
-    myResetButton = new FXButton(buttonsFrame,  "reset\t\tclose",  GUIIconSubSys::getIcon(ICON_RESET), this, MID_GNE_ADDITIONALDIALOG_BUTTONRESET,  GUIDesignButtonReset);
+    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose accepting changes",  GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonAccept);
+    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose discarding changes", GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL, GUIDesignButtonCancel);
+    myResetButton = new FXButton(buttonsFrame,  "reset\t\treset to previous values",  GUIIconSubSys::getIcon(ICON_RESET),  this, MID_GNE_ADDITIONALDIALOG_BUTTONRESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
@@ -104,6 +108,40 @@ void
 GNEAdditionalDialog::changeAdditionalDialogHeader(const std::string& newHeader) {
     // change FXDialogBox title
     setTitle(newHeader.c_str());
+}
+
+
+void 
+GNEAdditionalDialog::initChanges() {
+    // init commandGroup
+    myUndoList->p_begin(myChangesDescription);
+    // save number of command group changes
+    myNumberOfChanges = myUndoList->currentCommandGroupSize();
+}
+
+
+void 
+GNEAdditionalDialog::acceptChanges() {
+    // commit changes or abort last command group depending of number of changes did
+    if(myNumberOfChanges < myUndoList->currentCommandGroupSize()) {
+        myUndoList->p_end();
+    } else {
+        myUndoList->p_abortLastCommandGroup();
+    }
+}
+
+
+void 
+GNEAdditionalDialog::cancelChanges() {
+    myUndoList->p_abortLastCommandGroup();
+}
+
+
+void 
+GNEAdditionalDialog::resetChanges() {
+    // abort last command group an start editing again
+    myUndoList->p_abortLastCommandGroup();
+    myUndoList->p_begin(myChangesDescription);
 }
 
 /****************************************************************************/

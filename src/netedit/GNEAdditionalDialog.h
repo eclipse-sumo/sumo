@@ -38,6 +38,7 @@
 // ===========================================================================
 
 class GNEAdditional;
+class GNEUndoList;
 
 // ===========================================================================
 // class definitions
@@ -57,9 +58,6 @@ public:
 
     /// @brief destructor
     ~GNEAdditionalDialog();
-
-    /// @brief execute dialog as modal
-    FXint openAsModalDialog(FXuint placement=PLACEMENT_CURSOR);
 
     /// @name FOX-callbacks
     /// @{
@@ -84,11 +82,26 @@ protected:
     /// @brief FOX needs this
     GNEAdditionalDialog() {}
 
+    /// @brief frame for contents
+    FXVerticalFrame* myContentFrame;
+
+    /// @brief execute dialog as modal
+    FXint openAsModalDialog(FXuint placement=PLACEMENT_CURSOR);
+
     /// @brief change additional dialog header
     void changeAdditionalDialogHeader(const std::string& newHeader);
 
-    /// @brief frame for contents
-    FXVerticalFrame* myContentFrame;
+    /// @brief init a new group of changes that will be do it in dialog
+    void initChanges();
+
+    /// @brief Accept changes did in this dialog.
+    void acceptChanges();
+
+    /// @brief Cancel changes did in this dialog.
+    void cancelChanges();
+
+    /// @brief reset changes did in this dialog.
+    void resetChanges();
 
 private:
     /// @brief accept button
@@ -99,6 +112,15 @@ private:
 
     /// @brief cancel button
     FXButton* myResetButton;
+
+    /// @brief description of changes did in this additional dialog
+    std::string myChangesDescription;
+
+    /// @brief number of GNEChanges_... in dialog
+    int myNumberOfChanges;
+
+    /// @brief pointer to UndoList
+    GNEUndoList *myUndoList;
 
     /// @brief Invalidated copy constructor
     GNEAdditionalDialog(const GNEAdditionalDialog&) = delete;

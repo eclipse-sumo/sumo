@@ -153,6 +153,17 @@ GNEUndoList::p_add(GNEChange_Attribute* cmd) {
     }
 }
 
+
+int
+GNEUndoList::currentCommandGroupSize() const {
+    if(myCommandGroups.size() > 0) {
+        return myCommandGroups.top()->size();
+    } else {
+        return 0;
+    }
+}
+
+
 long
 GNEUndoList::p_onUpdUndo(FXObject* sender, FXSelector, void*) {
     bool enable = canUndo() && !hasCommandGroup();

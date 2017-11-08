@@ -77,8 +77,8 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* edi
     // update table
     updateTableSteps();
 
-    // start a undo list editing
-    myEditedVariableSpeedSign->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedVariableSpeedSign->getTag()) + " values");
+    // start a undo list for editing local to this additional
+    initChanges();
 
     // Open dialog as modal
     openAsModalDialog();
@@ -164,8 +164,8 @@ GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         return 0;
     } else {
-        // finish editing
-        myEditedVariableSpeedSign->getViewNet()->getUndoList()->p_end();
+        // accept changes before closing dialog
+        acceptChanges();
         // sort steps after finish
         myEditedVariableSpeedSign->sortSteps();
         // stop dialgo sucesfully
@@ -177,8 +177,8 @@ GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNEVariableSpeedSignDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // abort last command
-    myEditedVariableSpeedSign->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    // cancel changes
+    cancelChanges();
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -187,9 +187,8 @@ GNEVariableSpeedSignDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEVariableSpeedSignDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // abort last command an start editing again
-    myEditedVariableSpeedSign->getViewNet()->getUndoList()->p_abortLastCommandGroup();
-    myEditedVariableSpeedSign->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedVariableSpeedSign->getTag()) + " values");
+    // reset changes
+    resetChanges();
     // update steps tables
     updateTableSteps();
     return 1;

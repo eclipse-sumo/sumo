@@ -40,6 +40,7 @@
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
+#include "GNEChange_CalibratorItem.h"
 
 
 // ===========================================================================
@@ -86,8 +87,16 @@ GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorRoute* editedCal
     // update tables
     updateCalibratorRouteValues();
 
-    // start a undo list editing
-    myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedCalibratorRoute->getTag()) + " values");
+    // start a undo list for editing local to this additional
+    initChanges();
+
+    // add element if we aren't updating an existent element
+    if(myUpdatingElement == false) {
+        myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibratorRoute, true), true);
+    }
+
+    // open as modal dialog
+    openAsModalDialog();
 }
 
 
@@ -117,8 +126,8 @@ GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         return 0;
     } else {
-        // finish editing
-        myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getUndoList()->p_end();
+        // accept changes before closing dialog
+        acceptChanges();
         // stop dialgo sucesfully
         getApp()->stopModal(this, TRUE);
         return 1;
@@ -128,8 +137,8 @@ GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorRouteDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // abort last command
-    myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    // cancel changes
+    cancelChanges();
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -138,9 +147,8 @@ GNECalibratorRouteDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorRouteDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // abort last command an start editing again
-    myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
-    myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedCalibratorRoute->getTag()) + " values");
+    // reset changes
+    resetChanges();
     // update fields
     updateCalibratorRouteValues();
     return 1;

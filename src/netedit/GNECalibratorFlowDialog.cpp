@@ -43,6 +43,7 @@
 #include "GNECalibratorVehicleType.h"
 #include "GNECalibrator.h"
 #include "GNEUndoList.h"
+#include "GNEChange_CalibratorItem.h"
 
 
 // ===========================================================================
@@ -162,8 +163,16 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibr
     // update tables
     updateCalibratorFlowValues();
 
-    // start a undo list editing
-    myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedCalibratorFlow->getTag()) + " values");
+    // start a undo list for editing local to this additional
+    initChanges();
+
+    // add element if we aren't updating an existent element
+    if(myUpdatingElement == false) {
+        myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibratorFlow, true), true);
+    }
+
+    // open as modal dialog
+    openAsModalDialog();
 }
 
 
@@ -193,8 +202,8 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         return 0;
     } else {
-        // finish editing
-        myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList()->p_end();
+        // accept changes before closing dialog
+        acceptChanges();
         // stop dialgo sucesfully
         getApp()->stopModal(this, TRUE);
         return 1;
@@ -204,8 +213,8 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorFlowDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // abort last command
-    myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    // cancel changes
+    cancelChanges();
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -214,9 +223,8 @@ GNECalibratorFlowDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorFlowDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // abort last command an start editing again
-    myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
-    myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedCalibratorFlow->getTag()) + " values");
+    // reset changes
+    resetChanges();
     // update tables
     updateCalibratorFlowValues();
     return 1;

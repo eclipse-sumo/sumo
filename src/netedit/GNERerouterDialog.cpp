@@ -77,8 +77,8 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     // update intervals
     updateIntervalTable();
 
-    // start a undo list editing
-    myEditedRerouter->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedRerouter->getTag()) + " values");
+    // start a undo list for editing local to this additional
+    initChanges();
 
     // Open dialog as modal
     openAsModalDialog();
@@ -113,8 +113,8 @@ GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         return 0;
     } else {
-        // finish editing
-        myEditedRerouter->getViewNet()->getUndoList()->p_end();
+        // accept changes before closing dialog
+        acceptChanges();
         // Stop Modal
         getApp()->stopModal(this, TRUE);
         return 1;
@@ -124,8 +124,8 @@ GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNERerouterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // abort editing
-    myEditedRerouter->getViewNet()->getUndoList()->p_abort();
+    // cancel changes
+    cancelChanges();
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -134,9 +134,8 @@ GNERerouterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // abort an start editing
-    myEditedRerouter->getViewNet()->getUndoList()->p_abort();
-    myEditedRerouter->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedRerouter->getTag()) + " values");
+    // reset changes
+    resetChanges();
     // update interval table
     updateIntervalTable();
     return 1;
@@ -146,17 +145,10 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 long
 GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
     // create empty rerouter interval and configure it with GNERerouterIntervalDialog
-    GNERerouterInterval *newInterval = new GNERerouterInterval(this);
-    myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(newInterval, true), true);
-    if (GNERerouterIntervalDialog(newInterval, false).openAsModalDialog() == TRUE) {
-        // if new interval was sucesfully configured, update interval table
-        updateIntervalTable();
-        return 1;
-    } else {
-        // if new interval wasn't sucesfully configured, remove it from rerouter
-        myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(newInterval, false), true);
-        return 0;
-    }
+    GNERerouterIntervalDialog(new GNERerouterInterval(this), false);
+    // update interval table
+    updateIntervalTable();
+    return 1;
 }
 
 
@@ -194,7 +186,7 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)myEditedRerouter->getRerouterIntervals().size(); i++) {
         if (myIntervalTable->getItem(i, 0)->hasFocus() || myIntervalTable->getItem(i, 1)->hasFocus()) {
             // edit interval
-            GNERerouterIntervalDialog(myEditedRerouter->getRerouterIntervals().at(i), true).openAsModalDialog();
+            GNERerouterIntervalDialog(myEditedRerouter->getRerouterIntervals().at(i), true);
             // update interval table after editing
             updateIntervalTable();
             return 1;

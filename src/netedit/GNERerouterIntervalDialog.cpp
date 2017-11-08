@@ -147,14 +147,22 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval* rerout
     myRouteProbRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myRouteProbRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
     
-    // start a undo list editing
-    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedRerouterInterval->getTag()) + " values");
-
     // update tables
     updateClosingLaneReroutesTable();
     updateClosingReroutesTable();
     updateDestProbReroutesTable();
     updateRouteProbReroutesTable();
+    
+    // start a undo list for editing local to this additional
+    initChanges();
+
+    // add element if we aren't updating an existent element
+    if(myUpdatingElement == false) {
+        myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(myEditedRerouterInterval, true), true);
+    }
+
+    // open as modal dialog
+    openAsModalDialog();
 }
 
 
@@ -248,8 +256,8 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         return 0;
     } else {
-        // finish editing
-        myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->p_end();
+        // accept changes before closing dialog
+        acceptChanges();
         // Stop Modal
         getApp()->stopModal(this, TRUE);
         return 1;
@@ -259,8 +267,8 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNERerouterIntervalDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // abort last command group
-    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    // cancel changes
+    cancelChanges();
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -269,9 +277,8 @@ GNERerouterIntervalDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNERerouterIntervalDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // abort last command group an start editing again
-    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
-    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->p_begin("change " + toString(myEditedRerouterInterval->getTag()) + " values");
+    // reset changes
+    resetChanges();
     // update tables
     updateClosingLaneReroutesTable();
     updateClosingReroutesTable();
