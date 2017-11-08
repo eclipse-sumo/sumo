@@ -52,6 +52,7 @@ class GNERouteProbReroute;
 class GNERerouterInterval : public GNEAttributeCarrier {
     /// @brief declare friend class
     friend class GNEChange_RerouterItem;
+    friend class GNEAdditionalHandler;
 
 public:
     /// @brief constructor (Used in GNERerouterDialog)

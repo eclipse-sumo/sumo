@@ -30,7 +30,14 @@
 
 #include "GNEAdditionalHandler.h"
 #include "GNEBusStop.h"
+#include "GNECalibrator.h"
+#include "GNECalibratorFlow.h"
+#include "GNECalibratorRoute.h"
+#include "GNECalibratorVehicleType.h"
 #include "GNEChange_Additional.h"
+#include "GNEChange_CalibratorItem.h"
+#include "GNEChange_RerouterItem.h"
+#include "GNEChange_VariableSpeedSignItem.h"
 #include "GNEChargingStation.h"
 #include "GNEClosingLaneReroute.h"
 #include "GNEClosingReroute.h"
@@ -51,14 +58,8 @@
 #include "GNERouteProbe.h"
 #include "GNEUndoList.h"
 #include "GNEVaporizer.h"
+#include "GNEVariableSpeedSign.h"
 #include "GNEViewNet.h"
-#include "GNECalibrator.h"
-#include "GNECalibratorVehicleType.h"
-#include "GNECalibratorRoute.h"
-#include "GNEChange_CalibratorItem.h"
-#include "GNEChange_RerouterItem.h"
-#include "GNEChange_VariableSpeedSignItem.h"
-
 
 // ===========================================================================
 // member method definitions
@@ -310,7 +311,7 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
         GNECalibrator *calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
         GNECalibratorRoute *route = myViewNet->getNet()->retrieveCalibratorRoute(routeID, false);
         GNECalibratorVehicleType *vtype = myViewNet->getNet()->retrieveCalibratorVehicleType(vehicleTypeID, false);
-        GNECalibratorFlow::TypeOfFlow flowType = getTypeOfFlowDistribution(flowID, vehsPerHour, period, probability);
+        int flowType = getTypeOfFlowDistribution(flowID, vehsPerHour, period, probability);
         // check that all parameters are valid
         if (GNEAttributeCarrier::isValidID(flowID) == false) {
             WRITE_WARNING("The id '" + flowID + "' of additional " + toString(tag) + " contains invalid characters.");
@@ -1246,17 +1247,18 @@ GNEAdditionalHandler::buildCalibratorVehicleType(GNEViewNet* viewNet, bool allow
 
 
 bool 
-GNEAdditionalHandler::buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, const std::string &flowID, GNECalibratorRoute *route, GNECalibratorVehicleType *vtype, const RGBColor&color, 
+GNEAdditionalHandler::buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, 
+    const std::string &flowID, GNECalibratorRoute *route, GNECalibratorVehicleType *vtype, const RGBColor&color, 
     const std::string &departLane, const std::string &departPos, const std::string &departSpeed, const std::string &arrivalLane, 
     const std::string &arrivalPos, const std::string &arrivalSpeed, const std::string &line, int personNumber, int containerNumber, bool reroute, 
     const std::string &departPosLat, const std::string &arrivalPosLat, double begin, double end, double vehsPerHour, double period, 
-    double probability, int number, GNECalibratorFlow::TypeOfFlow flowType) {
+    double probability, int number, int flowType) {
 
     if (viewNet->getNet()->retrieveCalibratorFlow(flowID) == NULL) {
         // create Flow and add it to calibrator parent
         GNECalibratorFlow *flow = new GNECalibratorFlow(calibratorParent, flowID, vtype, route, color, departLane, departPos, departSpeed,
             arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute,
-            departPosLat, arrivalPosLat, begin, end, vehsPerHour, period, probability, number, flowType);
+            departPosLat, arrivalPosLat, begin, end, vehsPerHour, period, probability, number, static_cast<GNECalibratorFlow::TypeOfFlow>(flowType));
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(flow->getTag()));
             viewNet->getUndoList()->add(new GNEChange_CalibratorItem(flow, true), true);
@@ -1302,19 +1304,84 @@ GNEAdditionalHandler::buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoR
     rerouterParent->addRerouterInterval(rerouterInterval);
     // remove it if there is overlapping with another intervals
     if (rerouterParent->checkOverlapping() == 0) {
-        // create Flow and add it to calibrator parent
+        // if allowUndoRedo is enabled, remove it and add it again using GNEChange_RerouterItem
         if (allowUndoRedo) {
+            rerouterParent->removeRerouterInterval(rerouterInterval);
             viewNet->getUndoList()->p_begin("add " + toString(rerouterInterval->getTag()));
             viewNet->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval, true), true);
             viewNet->getUndoList()->p_end();
         }
         return true;
     } else {
-        // delete created rerouter interval
+        // delete created rerouter interval and throw exception
         rerouterParent->removeRerouterInterval(rerouterInterval);
         delete rerouterInterval;
         throw ProcessError("Could not build " + toString(SUMO_TAG_INTERVAL) + " with begin '" + toString(begin) + "' and '" + toString(end) +"' in '" + rerouterParent->getID() + "' due overlapping.");
     }
+}
+
+
+bool 
+GNEAdditionalHandler::buildClosingLaneReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNELane* closedLane, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles) {
+    // create closing lane reorute
+    GNEClosingLaneReroute *closingLaneReroute = new GNEClosingLaneReroute(rerouterIntervalParent, closedLane, allowedVehicles, disallowedVehicles);
+    // add it to interval parent depending of allowUndoRedo
+    if (allowUndoRedo) {
+        viewNet->getUndoList()->p_begin("add " + toString(closingLaneReroute->getTag()));
+        viewNet->getUndoList()->add(new GNEChange_RerouterItem(closingLaneReroute, true), true);
+        viewNet->getUndoList()->p_end();
+    } else {
+        rerouterIntervalParent->addClosingLaneReroute(closingLaneReroute);
+    }
+    return true;
+}
+
+
+bool 
+GNEAdditionalHandler::buildClosingReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles) {
+    // create closing reroute
+    GNEClosingReroute *closingReroute = new GNEClosingReroute(rerouterIntervalParent, closedEdge, allowedVehicles, disallowedVehicles);
+    // add it to interval parent depending of allowUndoRedo
+    if (allowUndoRedo) {
+        viewNet->getUndoList()->p_begin("add " + toString(closingReroute->getTag()));
+        viewNet->getUndoList()->add(new GNEChange_RerouterItem(closingReroute, true), true);
+        viewNet->getUndoList()->p_end();
+    } else {
+        rerouterIntervalParent->addClosingReroute(closingReroute);
+    }
+    return true;
+}
+
+
+bool 
+GNEAdditionalHandler::builDestProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability) {
+    // create dest probability reroute
+    GNEDestProbReroute *destProbReroute = new GNEDestProbReroute(rerouterIntervalParent, newEdgeDestination, probability);
+    // add it to interval parent depending of allowUndoRedo
+    if (allowUndoRedo) {
+        viewNet->getUndoList()->p_begin("add " + toString(destProbReroute->getTag()));
+        viewNet->getUndoList()->add(new GNEChange_RerouterItem(destProbReroute, true), true);
+        viewNet->getUndoList()->p_end();
+    } else {
+        rerouterIntervalParent->addDestProbReroute(destProbReroute);
+    }
+    return true;
+}
+
+
+bool 
+GNEAdditionalHandler::buildRouteProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, const std::string &newRouteId, double probability) {
+    // create rout prob rereoute
+    GNERouteProbReroute *routeProbReroute = new GNERouteProbReroute(rerouterIntervalParent, newRouteId, probability);
+    // add it to interval parent depending of allowUndoRedo
+    if (allowUndoRedo) {
+        viewNet->getUndoList()->p_begin("add " + toString(routeProbReroute->getTag()));
+        viewNet->getUndoList()->add(new GNEChange_RerouterItem(routeProbReroute, true), true);
+        viewNet->getUndoList()->p_end();
+    } else {
+        rerouterIntervalParent->addRouteProbReroute(routeProbReroute);
+    }
+    return true;
 }
 
 
@@ -1480,7 +1547,7 @@ bool GNEAdditionalHandler::checkAndFixDetectorPositionPosition(double& pos, cons
 }
 
 
-GNECalibratorFlow::TypeOfFlow
+int
 GNEAdditionalHandler::getTypeOfFlowDistribution(std::string flowID, double vehsPerHour, double period, double probability) {
     if ((vehsPerHour == -1) && (period == -1) && (probability == -1)) {
         WRITE_WARNING("A type of distribution (" + toString(SUMO_ATTR_VEHSPERHOUR) + ", " +  toString(SUMO_ATTR_PERIOD) + " or " +

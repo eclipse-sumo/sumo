@@ -33,11 +33,9 @@
 #include <vector>
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/Position.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOSAXHandler.h>
 
-#include "GNECalibrator.h"
-#include "GNEVariableSpeedSign.h"
-#include "GNERerouterInterval.h"
-#include "GNECalibratorFlow.h"
 
 // ===========================================================================
 // class declarations
@@ -51,6 +49,12 @@ class GNEEdge;
 class GNELane;
 class GNEDetectorE3;
 class GNECalibrator;
+class GNEVariableSpeedSign;
+class GNERerouterInterval;
+class GNERerouter;
+class GNECalibratorRoute;
+class GNECalibratorVehicleType;
+
 
 // ===========================================================================
 // class definitions
@@ -367,11 +371,11 @@ public:
     /**
     DOCUMENTAR
     */
-    static bool buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, const std::string &flowID, GNECalibratorRoute *route, GNECalibratorVehicleType *vtype, const RGBColor&color, 
-                                    const std::string &departLane, const std::string &departPos, const std::string &departSpeed, const std::string &arrivalLane, 
-                                    const std::string &arrivalPos, const std::string &arrivalSpeed, const std::string &line, int personNumber, int containerNumber, bool reroute, 
-                                    const std::string &departPosLat, const std::string &arrivalPosLat, double begin, double end, double vehsPerHour, double period, 
-                                    double probability, int number, GNECalibratorFlow::TypeOfFlow flowType);
+    static bool buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, const std::string &flowID, GNECalibratorRoute *route, 
+                                    GNECalibratorVehicleType *vtype, const RGBColor&color, const std::string &departLane, const std::string &departPos, 
+                                    const std::string &departSpeed, const std::string &arrivalLane, const std::string &arrivalPos, const std::string &arrivalSpeed, 
+                                    const std::string &line, int personNumber, int containerNumber, bool reroute, const std::string &departPosLat, 
+                                    const std::string &arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability, int number, int flowType);
 
 
     /**@brief builds a rerouter
@@ -395,6 +399,26 @@ public:
     * @return true if was sucesfully created, false in other case
     */
     static bool buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouter* rerouterParent, double begin, double end);
+
+    /**
+    DOCUMENTAR
+    */
+    static bool buildClosingLaneReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNELane* closedLane, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles);
+
+    /**
+    DOCUMENTAR
+    */
+    static bool buildClosingReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles);
+
+    /**
+    DOCUMENTAR
+    */
+    static bool builDestProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability);
+
+    /**
+    DOCUMENTAR
+    */
+    static bool buildRouteProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, const std::string &newRouteId, double probability);
 
     /**@brief builds a Route probe
      * @param[in] viewNet viewNet in which element will be inserted
@@ -498,7 +522,7 @@ protected:
 
 private:
     /// @brief get a error message, if configuration of flow distribution is invalid
-    GNECalibratorFlow::TypeOfFlow getTypeOfFlowDistribution(std::string flowID, double vehsPerHour, double period, double probability);
+    int getTypeOfFlowDistribution(std::string flowID, double vehsPerHour, double period, double probability);
 };
 
 

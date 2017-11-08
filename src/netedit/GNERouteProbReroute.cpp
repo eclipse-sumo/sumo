@@ -49,7 +49,7 @@ GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterInte
 }
 
 
-GNERouteProbReroute::GNERouteProbReroute(GNERerouterInterval* rerouterIntervalParent, std::string newRouteId, double probability) :
+GNERouteProbReroute::GNERouteProbReroute(GNERerouterInterval* rerouterIntervalParent, const std::string &newRouteId, double probability) :
     GNEAttributeCarrier(SUMO_TAG_ROUTE_PROB_REROUTE, ICON_EMPTY),
     myRerouterIntervalParent(rerouterIntervalParent),
     myNewRouteId(newRouteId),
