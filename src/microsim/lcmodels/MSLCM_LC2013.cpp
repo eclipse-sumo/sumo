@@ -91,8 +91,8 @@
 //#define DEBUG_SAVE_BLOCKER_LENGTH
 
 //#define DEBUG_COND (myVehicle.getID() == "disabled")
-//#define DEBUG_COND (myVehicle.isSelected())
-#define DEBUG_COND (false)
+#define DEBUG_COND (myVehicle.isSelected())
+//#define DEBUG_COND (false)
 
 // ===========================================================================
 // member method definitions
@@ -577,8 +577,21 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
     } else if (neighLead.first != 0) { // (remainUnblocked)
         // we are not blocked now. make sure we stay far enough from the leader
         MSVehicle* nv = neighLead.first;
-        const double nextNVSpeed = nv->getSpeed() - HELP_OVERTAKE; // conservative
-        const double dv = SPEED2DIST(myVehicle.getSpeed() - nextNVSpeed);
+        double dv, nextNVSpeed;
+        if (MSGlobals::gSemiImplicitEulerUpdate) {
+            // XXX: the decrement (HELP_OVERTAKE) should be scaled with timestep length, I think.
+            //      It seems to function as an estimate nv's speed in the next simstep!? (so HELP_OVERTAKE should be an acceleration value.)
+            nextNVSpeed = nv->getSpeed() - HELP_OVERTAKE; // conservative
+            dv = SPEED2DIST(myVehicle.getSpeed() - nextNVSpeed);
+        } else {
+            // Estimate neigh's speed after actionstep length
+            // @note The possible breaking can be underestimated by the formula, so this is a potential
+            //       source of collisions if actionsteplength>simsteplength.
+            const double nvMaxDecel = HELP_OVERTAKE;
+            nextNVSpeed = nv->getSpeed() - nvMaxDecel*myVehicle.getActionStepLengthSecs(); // conservative
+            // Estimated gap reduction until next action step if own speed stays constant
+            dv = SPEED2DIST(myVehicle.getSpeed() - nextNVSpeed);
+        }
         const double targetSpeed = myCarFollowModel.followSpeed(
                                        &myVehicle, myVehicle.getSpeed(), neighLead.second - dv, nextNVSpeed, nv->getCarFollowModel().getMaxDecel());
         addLCSpeedAdvice(targetSpeed);
