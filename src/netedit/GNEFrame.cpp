@@ -322,11 +322,11 @@ GNEFrame::GEOAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     std::ostringstream help;
     help
         << " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n" 
-        << " GEO coordinates are represented as pairs of Longitude and Latitude\n"
-        << " in decimal degrees without extra symbols. (°,N,W..)\n"
+        << " For a GEO-referenced network, geo coordinates are represented as pairs of Longitude and Latitude\n"
+        << " in decimal degrees without extra symbols. (N,W..)\n"
         << " - Longitude: East-west position of a point on the Earth's surface.\n"
-        << " - Latitude: North–south position of a point on the Earth's surface.\n"
-        << " - CheckBox 'use GEO' enable or disable saving position in GEO coordinates\n";
+        << " - Latitude: North-south position of a point on the Earth's surface.\n"
+        << " - CheckBox 'use GEO' enables or disables saving position in GEO coordinates\n";
     new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // "OK"
     new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
