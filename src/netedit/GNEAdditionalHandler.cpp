@@ -194,10 +194,8 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, co
     if (!abort) {
         // get edge
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
-        // check that all parameters are valid
-        if (GNEAttributeCarrier::isValidID(id) == false) {
-            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
-        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+        // check that all elements are valid
+        if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else if (edge == NULL) {
             // Write error if lane isn't valid
@@ -227,10 +225,8 @@ GNEAdditionalHandler::parseCalibratorRoute(const SUMOSAXAttributes& attrs, const
         }
         // get calibrator parent
         GNECalibrator *calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
-        // check that all parameters are valid
-        if (GNEAttributeCarrier::isValidID(routeID) == false) {
-            WRITE_WARNING("The id '" + routeID + "' of additional " + toString(tag) + " contains invalid characters.");
-        } else if(myViewNet->getNet()->retrieveCalibratorRoute(routeID, false) != NULL) {
+        // check that all elements are valid
+        if(myViewNet->getNet()->retrieveCalibratorRoute(routeID, false) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + routeID + "'.");
         } else if (calibrator == NULL) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_CALIBRATOR) + ".");
@@ -277,10 +273,8 @@ GNEAdditionalHandler::parseCalibratorVehicleType(const SUMOSAXAttributes& attrs,
     if (!abort) {
         // get calibrator parent
         GNECalibrator *calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
-        // check that all parameters are valid
-        if (GNEAttributeCarrier::isValidID(vehicleTypeID) == false) {
-            WRITE_WARNING("The id '" + vehicleTypeID + "' of additional " + toString(tag) + " contains invalid characters.");
-        } else if(myViewNet->getNet()->retrieveCalibratorVehicleType(vehicleTypeID, false) != NULL) {
+        // check that all elements are valid
+        if(myViewNet->getNet()->retrieveCalibratorVehicleType(vehicleTypeID, false) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + vehicleTypeID + "'.");
         } else if (calibrator == NULL) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_CALIBRATOR) + ".");
@@ -328,10 +322,8 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
         GNECalibratorRoute *route = myViewNet->getNet()->retrieveCalibratorRoute(routeID, false);
         GNECalibratorVehicleType *vtype = myViewNet->getNet()->retrieveCalibratorVehicleType(vehicleTypeID, false);
         int flowType = getTypeOfFlowDistribution(flowID, vehsPerHour, period, probability);
-        // check that all parameters are valid
-        if (GNEAttributeCarrier::isValidID(flowID) == false) {
-            WRITE_WARNING("The id '" + flowID + "' of additional " + toString(tag) + " contains invalid characters.");
-        } else if (myViewNet->getNet()->retrieveCalibratorFlow(flowID, false) != NULL) {
+        // check that all elements are valid
+        if (myViewNet->getNet()->retrieveCalibratorFlow(flowID, false) != NULL) {
             WRITE_WARNING(toString(SUMO_TAG_FLOW) + " with ID = '" + flowID + "' cannot be created; Another " + toString(SUMO_TAG_FLOW) + " with the same ID was previously declared");
             abort = true;
         } else if (route == NULL) {
@@ -388,10 +380,8 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
         if(GNEAttributeCarrier::checkGNELanesValid(myViewNet->getNet(), lanesIDs, true)) {
             lanes = GNEAttributeCarrier::parseGNELanes(myViewNet->getNet(), lanesIDs);
         }
-        // check that all parameters are valid
-        if (GNEAttributeCarrier::isValidID(id) == false) {
-            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
-        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+        // check that all elements are valid
+        if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else if ((lanes.size() > 0) && buildVariableSpeedSign(myViewNet, myUndoAdditionals, id, Position(posx, posy), lanes, file)) {
             // set myLastInsertedAdditionalParent due this additional can have childs
@@ -421,10 +411,8 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
         if(GNEAttributeCarrier::checkGNEEdgesValid(myViewNet->getNet(), edgesIDs, true)) {
             edges = GNEAttributeCarrier::parseGNEEdges(myViewNet->getNet(), edgesIDs);
         }
-        // check that all parameters are valid
-        if (GNEAttributeCarrier::isValidID(id) == false) {
-            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
-        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+        // check that all elements are valid
+        if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else if ((edgesIDs.size() > 0) && buildRerouter(myViewNet, myUndoAdditionals, id, Position(posx, posy), edges, probability, file, off)) {
             // set myLastInsertedAdditionalParent due this additional can have childs
@@ -454,10 +442,8 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(const SUMOSAXAttributes& att
         if(GNEAttributeCarrier::checkGNEEdgesValid(myViewNet->getNet(), edgesIDs, true)) {
             edges = GNEAttributeCarrier::parseGNEEdges(myViewNet->getNet(), edgesIDs);
         }
-        // check that all parameters are valid
-        if (GNEAttributeCarrier::isValidID(id) == false) {
-            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
-        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+        // check that all elements are valid
+        if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else if ((edgesIDs.size() > 0) && buildRerouter(myViewNet, myUndoAdditionals, id, Position(posx, posy), edges, probability, file, off)) {
             // set myLastInsertedAdditionalParent due this additional can have childs
@@ -482,10 +468,8 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(const SUMOSAXAttri
         GNERerouterInterval *rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
 
         myLastInsertedAdditionalParent;
-        // check that all parameters are valid
-        if (GNEAttributeCarrier::isValidID(id) == false) {
-            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
-        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+        // check that all elements are valid
+        if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else if ((edgesIDs.size() > 0) && buildRerouter(myViewNet, myUndoAdditionals, id, Position(posx, posy), edges, probability, file, off)) {
             // set myLastInsertedAdditionalParent due this additional can have childs
@@ -529,10 +513,8 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
-        // check that all parameters are valid
-        if (GNEAttributeCarrier::isValidID(id) == false) {
-            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
-        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+        // check that all elements are valid
+        if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else if (lane == NULL) {
             // Write error if lane isn't valid
@@ -563,10 +545,8 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
-        // check that all parameters are valid
-        if (GNEAttributeCarrier::isValidID(id) == false) {
-            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
-        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+        // check that all elements are valid
+        if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else if (lane == NULL) {
             // Write error if lane isn't valid
@@ -600,10 +580,8 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
-        // check that all parameters are valid
-        if (GNEAttributeCarrier::isValidID(id) == false) {
-            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
-        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+        // check that all elements are valid
+        if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else if (lane == NULL) {
             // Write error if lane isn't valid
@@ -640,10 +618,8 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
         if (!abort) {
             // get pointer and edge
             GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
-            // check that all parameters are valid
-            if (GNEAttributeCarrier::isValidID(id) == false) {
-                WRITE_WARNING("The id '" + id + "' of additional " + toString(typeOfCalibrator) + " contains invalid characters.");
-            } else if (myViewNet->getNet()->getAdditional(typeOfCalibrator, id) != NULL) {
+            // check that all elements are valid
+            if (myViewNet->getNet()->getAdditional(typeOfCalibrator, id) != NULL) {
                 WRITE_WARNING("There is another " + toString(typeOfCalibrator) + " with the same ID='" + id + "'.");
             } else if (edge == NULL) {
                 WRITE_WARNING("The  edge '" + edgeID + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
@@ -666,10 +642,8 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
         if (!abort) {
             // get pointer to lane
             GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
-            // check that all parameters are valid
-            if (GNEAttributeCarrier::isValidID(id) == false) {
-                WRITE_WARNING("The id '" + id + "' of additional " + toString(typeOfCalibrator) + " contains invalid characters.");
-            } else if (myViewNet->getNet()->getAdditional(typeOfCalibrator, id) != NULL) {
+            // check that all elements are valid
+            if (myViewNet->getNet()->getAdditional(typeOfCalibrator, id) != NULL) {
                 WRITE_WARNING("There is another " + toString(typeOfCalibrator) + " with the same ID='" + id + "'.");
             } else if (lane == NULL) {
                 WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
@@ -699,10 +673,8 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
-        // check that all parameters are valid
-        if (GNEAttributeCarrier::isValidID(id) == false) {
-            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
-        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+        // check that all elements are valid
+        if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else if (lane == NULL) {
             // Write error if lane isn't valid
@@ -736,10 +708,8 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
-        // check that all parameters are valid
-        if (GNEAttributeCarrier::isValidID(id) == false) {
-            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
-        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+        // check that all elements are valid
+        if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else if (lane == NULL) {
             // Write error if lane isn't valid
@@ -769,10 +739,8 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, co
     myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // check that all parameters are valid
-        if (GNEAttributeCarrier::isValidID(id) == false) {
-            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
-        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+        // check that all elements are valid
+        if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else if (buildDetectorE3(myViewNet, true, id, Position(posx, posy), frequency, file, haltingTimeThreshold, haltingSpeedThreshold)) {
             // set myLastInsertedAdditionalParent due this additional can have childs and was sucesfully created
