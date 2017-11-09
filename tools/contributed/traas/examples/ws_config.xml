@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sumo>
+  <host value="127.0.0.1" />
+  <port value="8080" />
+  <name value="TRAAS_WS" />
+  <config_file value="simulation/config.sumo.cfg" />
+  <sumo_bin value="sumo-gui" />
+</sumo>
