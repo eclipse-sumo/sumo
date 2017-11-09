@@ -221,9 +221,17 @@ protected:
         return dist / abs(laneOffset) > lookForwardDist;
     }
 
+
     /// @brief information regarding save velocity (unused) and state flags of the ego vehicle
     typedef std::pair<double, int> Info;
 
+    /** @brief Takes a vSafe (speed advice for speed in the next simulation step), converts it into an acceleration
+     *         and stores it into myLCAccelerationAdvices.
+     *  @note  This construction was introduced to deal with action step lengths,
+     *         where operation on the speed in the next sim step had to be replaced by acceleration
+     *         throughout the next action step.
+     */
+    void addLCSpeedAdvice(const double vSafe);
 
     /// @brief update expected speeds for each sublane of the current edge
     void updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int sublaneOffset, int laneIndex);
@@ -357,8 +365,9 @@ protected:
      * determining urgency of strategic lane changes */
     double myLookAheadSpeed;
 
-    /// @brief speed adaptation requests by ego and surrounding vehicles
-    std::vector<double> myVSafes;
+    /// @brief vector of LC-related acceleration recommendations
+    ///        Filled in wantsChange() and applied in patchSpeed()
+    std::vector<double> myLCAccelerationAdvices;
 
     /// @brief expected travel speeds on all sublanes on the current edge(!)
     std::vector<double> myExpectedSublaneSpeeds;
