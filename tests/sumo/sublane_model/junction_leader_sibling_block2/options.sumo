@@ -3,4 +3,3 @@
 --lanechange-output lanechanges.xml
 --tripinfo-output tripinfos.xml
 --collision.check-junctions
---time-to-teleport 10
