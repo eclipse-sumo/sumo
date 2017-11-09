@@ -426,28 +426,20 @@ void
 GNEAdditionalHandler::parseAndBuildRerouterInterval(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of Rerouter
-    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string edgesIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_EDGES, abort);
-    std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort, false);
-    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_PROB, abort);
-    bool off = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_OFF, abort);
-    double posx = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_X, abort);
-    double posy = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_Y, abort);
+    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_PROB, abort);
+    double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_PROB, abort);
     // Due this additional can have childs, we need to reset myLastInsertedAdditionalParent
     myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // obtain edges
-        std::vector<GNEEdge*> edges;
-        if(GNEAttributeCarrier::checkGNEEdgesValid(myViewNet->getNet(), edgesIDs, true)) {
-            edges = GNEAttributeCarrier::parseGNEEdges(myViewNet->getNet(), edgesIDs);
-        }
+        // obtain rerouter
+        GNERerouter *rerouter = dynamic_cast<GNERerouter*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
         // check that all elements are valid
-        if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
-        } else if ((edgesIDs.size() > 0) && buildRerouter(myViewNet, myUndoAdditionals, id, Position(posx, posy), edges, probability, file, off)) {
+        if (rerouter == NULL) {
+            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_REROUTER) + ".");
+        } else if (buildRerouterInterval(myViewNet, true, rerouter, begin, end)) {
             // set myLastInsertedAdditionalParent due this additional can have childs
-            myLastInsertedAdditionalParent = id;
+            myLastInsertedAdditionalParent = rerouter->getID() + "_" + toString(begin) + "_" + toString(end);
         }
     }
 }
@@ -455,7 +447,6 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(const SUMOSAXAttributes& att
 
 void 
 GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
-    /*
     bool abort = false;
     // parse attributes of Rerouter
     std::string laneID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
@@ -464,37 +455,84 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(const SUMOSAXAttri
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain lane
-        GNELane *lane= myViewNet->getNet()->retrieveLane(laneID, false, true);
+        GNELane *lane = myViewNet->getNet()->retrieveLane(laneID, false, true);
         GNERerouterInterval *rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
-
-        myLastInsertedAdditionalParent;
         // check that all elements are valid
-        if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
-        } else if ((edgesIDs.size() > 0) && buildRerouter(myViewNet, myUndoAdditionals, id, Position(posx, posy), edges, probability, file, off)) {
-            // set myLastInsertedAdditionalParent due this additional can have childs
-            myLastInsertedAdditionalParent = id;
+        if (lane == NULL) {
+            WRITE_WARNING("The lane '" + laneID + "' to use within the " + toString(tag) + " is not known.");
+        } else if (rerouterInterval == NULL) {
+            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_INTERVAL) + ".");
+        } else {
+            //buildRerouterClosingLaneReroute(...)
         }
     }
-    */
 }
 
 
 void 
 GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
-
+    bool abort = false;
+    // parse attributes of Rerouter
+    std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
+    std::string allow;
+    std::string disallow;
+    // Continue if all parameters were sucesfully loaded
+    if (!abort) {
+        // obtain edge
+        GNEEdge *edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
+        GNERerouterInterval *rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
+        // check that all elements are valid
+        if (edge == NULL) {
+            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
+        } else if (rerouterInterval == NULL) {
+            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_INTERVAL) + ".");
+        } else {
+            //buildRerouterClosingReroute(...)
+        }
+    }
 }
 
 
 void 
 GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
-
+    bool abort = false;
+    // parse attributes of Rerouter
+    std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
+    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_PROB, abort);
+    // Continue if all parameters were sucesfully loaded
+    if (!abort) {
+        // obtain edge
+        GNEEdge *edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
+        GNERerouterInterval *rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
+        // check that all elements are valid
+        if (edge == NULL) {
+            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
+        } else if (rerouterInterval == NULL) {
+            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_INTERVAL) + ".");
+        } else {
+            //buildRerouterDestProbReroute(...)
+        }
+    }
 }
 
 
 void 
 GNEAdditionalHandler::parseAndBuildRerouterRouteProbReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
-
+    bool abort = false;
+    // parse attributes of Rerouter
+    std::string routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
+    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_PROB, abort);
+    // Continue if all parameters were sucesfully loaded
+    if (!abort) {
+        // obtain edge
+        GNERerouterInterval *rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
+        // check that all elements are valid
+        if (rerouterInterval == NULL) {
+            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_INTERVAL) + ".");
+        } else {
+            //buildRerouterRouteProbReroute(...)
+        }
+    }
 }
 
 
