@@ -84,6 +84,10 @@ public:
 
         double dens;
 
+        /// relative indices of internal lanes with the same origin lane (siblings)
+        /// only used for changes on internal edges
+        std::vector<int>          siblings;
+
         /// @name Members which are used only by MSLaneChangerSublane
         /// @{
         // the vehicles in from of the current vehicle (only on the current edge, continously updated during change() )

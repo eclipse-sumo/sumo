@@ -45,7 +45,19 @@
 // member method definitions
 // ===========================================================================
 MSLaneChangerSublane::MSLaneChangerSublane(const std::vector<MSLane*>* lanes, bool allowChanging) :
-    MSLaneChanger(lanes, allowChanging) {
+    MSLaneChanger(lanes, allowChanging) 
+{
+    // initialize siblings
+    if (myChanger.front().lane->isInternal()) {
+        for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
+            for (ChangerIt ce2 = myChanger.begin(); ce2 != myChanger.end(); ++ce2) {
+                if (ce != ce2 && ce->lane->getIncomingLanes().front().lane == ce2->lane->getIncomingLanes().front().lane) {
+                    //std::cout << "addSibling lane=" << ce->lane->getID() << " offset=" << ce2->lane->getIndex() - ce->lane->getIndex() << "\n";
+                    ce->siblings.push_back(ce2->lane->getIndex() - ce->lane->getIndex());
+                }
+            }
+        }
+    }
 }
 
 
@@ -114,6 +126,11 @@ MSLaneChangerSublane::change() {
     int sublaneIndex = 0;
     for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
         vehicle->getLaneChangeModel().updateExpectedSublaneSpeeds(ce->aheadNext, sublaneIndex, ce->lane->getIndex());
+        for (int offset : ce->siblings) {
+            // treat sibling lanes (internal lanes with the same origin lane) as if they have the same geometry
+            ChangerIt ceSib = ce + offset;
+            vehicle->getLaneChangeModel().updateExpectedSublaneSpeeds(ceSib->aheadNext, sublaneIndex, ceSib->lane->getIndex());
+        }
         sublaneIndex += ce->ahead.numSublanes();
     }
 
@@ -308,6 +325,9 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* ego) 
         double speed = ego->getSpeed();
         double dist = ego->getCarFollowModel().brakeGap(speed) + ego->getVehicleType().getMinGap();
         if (seen > dist) {
+            if (gDebugFlag1) {
+                std::cout << " aborting forward search. dist=" << dist << " seen=" << seen << "\n";
+            }
             return result;
         }
         const std::vector<MSLane*>& bestLaneConts = veh(myCandi)->getBestLanesContinuation(targetLane);

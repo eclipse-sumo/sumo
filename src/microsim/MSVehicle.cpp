@@ -1836,7 +1836,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         const double brakeDist = cfModel.brakeGap(myState.mySpeed, cfModel.getMaxDecel(), 0.);
         const bool canBrake = seen >= brakeDist;
 #ifdef DEBUG_PLAN_MOVE
-        gDebugFlag1 = DEBUG_COND;
         if (DEBUG_COND) {
             std::cout
                     << " stopDist=" << stopDist
@@ -2074,7 +2073,33 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
             //std::cout << SIMTIME << " veh=" << getID() << " is blocked on link to " << (*link)->getViaLaneOrLane()->getID() << " by pedestrian. dist=" << it->distToCrossing << "\n";
             adaptToLeader(std::make_pair(this, -1), seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
         } else if (link->isLeader(this, leader)) {
-            adaptToLeader(it->vehAndGap, seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
+            if (MSGlobals::gLateralResolution > 0 &&
+                    // sibling link (XXX: could also be partial occupator where this check fails)
+                    &leader->getLane()->getEdge() == &lane->getEdge()) {
+                // check for sublane obstruction (trivial for sibling link leaders)
+                const MSLane* conflictLane = link->getInternalLaneBefore();
+                MSLeaderInfo linkLeadersAhead = MSLeaderInfo(conflictLane);
+                linkLeadersAhead.addLeader(leader, false, 0); // assume sibling lane has the same geometry as the leader lane
+                const double latOffset = isShadowLink ? (getLane()->getRightSideOnEdge() - getLaneChangeModel().getShadowLane()->getRightSideOnEdge()) : 0;
+                // leader is neither on lane nor conflictLane (the conflict is only established geometrically)
+                adaptToLeaders(linkLeadersAhead, latOffset, seen, lastLink, leader->getLane(), v, vLinkPass);
+#ifdef DEBUG_PLAN_MOVE
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " veh=" << getID() 
+                        << " siblingFoe link=" << link->getViaLaneOrLane()->getID() 
+                        << " isShadowLink=" << isShadowLink
+                        << " lane=" << lane->getID() 
+                        << " foe=" << leader->getID() 
+                        << " foeLane=" << leader->getLane()->getID() 
+                        << " latOffset=" << latOffset
+                        << " latOffsetFoe=" << leader->getLatOffset(lane)
+                        << " linkLeadersAhead=" << linkLeadersAhead.toString() 
+                        << "\n";
+                }
+#endif
+            } else {
+                adaptToLeader(it->vehAndGap, seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
+            }
             if (lastLink != 0) {
                 // we are not yet on the junction with this linkLeader.
                 // at least we can drive up to the previous link and stop there
