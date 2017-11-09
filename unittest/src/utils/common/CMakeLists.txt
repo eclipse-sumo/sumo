@@ -5,9 +5,10 @@ add_executable(testcommon
         RGBColorTest.cpp
         ValueTimeLineTest.cpp
         )
+set_target_properties(testcommon PROPERTIES OUTPUT_NAME_DEBUG testcommonD)
 
 if (NOT APPLE)
-    target_link_libraries(testcommon -Wl,--start-group ${commonlibs} -Wl,--end-group ${GTEST_BOTH_LIBRARIES} pthread)
+    target_link_libraries(testcommon -Wl,--start-group ${commonlibs} -Wl,--end-group ${GTEST_BOTH_LIBRARIES})
 else ()
     target_link_libraries(testcommon ${commonlibs} ${GTEST_BOTH_LIBRARIES} pthread)
 endif ()

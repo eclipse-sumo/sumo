@@ -4,9 +4,10 @@ add_executable(testgeom
         PositionVectorTest.cpp
         GeomHelperTest.cpp
         )
+set_target_properties(testgeom PROPERTIES OUTPUT_NAME_DEBUG testgeomD)
 
 if (NOT APPLE)
-    target_link_libraries(testgeom -Wl,--start-group ${commonlibs} -Wl,--end-group ${GTEST_BOTH_LIBRARIES} pthread)
+    target_link_libraries(testgeom -Wl,--start-group ${commonlibs} -Wl,--end-group ${GTEST_BOTH_LIBRARIES})
 else ()
     target_link_libraries(testgeom ${commonlibs} ${GTEST_BOTH_LIBRARIES} pthread)
 endif ()
