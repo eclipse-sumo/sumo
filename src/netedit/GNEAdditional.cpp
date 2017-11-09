@@ -59,18 +59,14 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon) :
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable) :
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
     myBlockIconRotation(0),
     myBlocked(false),
-    myInspectionable(true),
-    mySelectable(true),
-    myMovable(true),
-    myAdditionalDialog(NULL) {
-    // Set rotation left hand
-    myRotationLefthand = OptionsCont::getOptions().getBool("lefthand");
+    myMovable(movable),
+    myAdditionalParent(NULL) {
 }
 
 
@@ -98,24 +94,6 @@ GNEAdditional::getShape() const {
 bool
 GNEAdditional::isAdditionalBlocked() const {
     return myBlocked;
-}
-
-
-bool
-GNEAdditional::isAdditionalInspectionable() const {
-    return myInspectionable;
-}
-
-
-bool
-GNEAdditional::isAdditionalSelectable() const {
-    return mySelectable;
-}
-
-
-bool
-GNEAdditional::isAdditionalMovable() const {
-    return myMovable;
 }
 
 

@@ -60,13 +60,11 @@
 // ===========================================================================
 
 GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end) :
-    GNEAdditional(viewNet->getNet()->generateVaporizerID(), viewNet, SUMO_TAG_VAPORIZER, ICON_VAPORIZER),
+    GNEAdditional(viewNet->getNet()->generateVaporizerID(), viewNet, SUMO_TAG_VAPORIZER, ICON_VAPORIZER, false),
     myEdge(edge),
     myStartTime(startTime),
     myEnd(end),
     myRelativePositionY(0) {
-    // this additional ISN'T movable
-    myMovable = false;
 }
 
 

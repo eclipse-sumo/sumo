@@ -30,7 +30,12 @@
 #endif
 
 #include "GNEAdditional.h"
-#include "GNEVariableSpeedSignStep.h"
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+
+class GNEVariableSpeedSignStep;
 
 // ===========================================================================
 // class definitions

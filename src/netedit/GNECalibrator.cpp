@@ -70,9 +70,8 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge
     myFrequency(frequency),
     myOutput(output),
     myRouteProbe(NULL) /** change this in the future **/ {
-    // this additional ISN'T movable
-    myMovable = false;
 }
+
 
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double relativePos, double frequency, const std::string& output) :
     GNEAdditional(id, viewNet, SUMO_TAG_LANECALIBRATOR, ICON_CALIBRATOR),
@@ -82,8 +81,6 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane
     myFrequency(frequency),
     myOutput(output),
     myRouteProbe(NULL) /** change this in the future **/ {
-    // this additional ISN'T movable
-    myMovable = false;
 }
 
 

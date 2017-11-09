@@ -59,6 +59,7 @@
 #include "GNEUndoList.h"
 #include "GNEVaporizer.h"
 #include "GNEVariableSpeedSign.h"
+#include "GNEVariableSpeedSignStep.h"
 #include "GNEViewNet.h"
 
 // ===========================================================================

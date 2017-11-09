@@ -31,6 +31,7 @@
 
 #include "GNEChange_VariableSpeedSignItem.h"
 #include "GNEVariableSpeedSign.h"
+#include "GNEVariableSpeedSignStep.h"
 #include "GNENet.h"
 #include "GNEViewNet.h"
 

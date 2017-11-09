@@ -52,6 +52,7 @@
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
 #include "GNEVariableSpeedSignDialog.h"
+#include "GNEVariableSpeedSignStep.h"
 
 
 // ===========================================================================

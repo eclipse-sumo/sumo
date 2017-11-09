@@ -60,15 +60,13 @@
 // ===========================================================================
 
 GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double frequency, const std::string& filename, double begin) :
-    GNEAdditional(id, viewNet, SUMO_TAG_ROUTEPROBE, ICON_ROUTEPROBE),
+    GNEAdditional(id, viewNet, SUMO_TAG_ROUTEPROBE, ICON_ROUTEPROBE, false),
     myEdge(edge),
     myFrequency(frequency),
     myFilename(filename),
     myBegin(begin),
     myNumberOfLanes(0),
     myRelativePositionY(0) {
-    // this additional ISN'T movable
-    myMovable = false;
 }
 
 

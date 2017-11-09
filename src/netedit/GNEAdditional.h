@@ -65,8 +65,9 @@ public:
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] icon GUIIcon associated to the additional
+     * @param[in] movable Flag to indicate if this additional is movable 
      */
-    GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon);
+    GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable = true);
 
     /// @brief Destructor
     ~GNEAdditional();
@@ -111,15 +112,6 @@ public:
 
     /// @brief Check if additional item is currently blocked (i.e. cannot be moved with mouse)
     bool isAdditionalBlocked() const;
-
-    /// @brief check if additional element is inspectionable (With GNEInspectorFrame)
-    bool isAdditionalInspectionable() const;
-
-    /// @brief check if additional element is selectable (With GNESelectorFrame)
-    bool isAdditionalSelectable() const;
-
-    /// @brief check if additional element is movable
-    bool isAdditionalMovable() const;
 
     // @brief Check if additional item is selected
     bool isAdditionalSelected() const;
@@ -190,7 +182,6 @@ public:
     static bool isRouteValid(const std::vector<GNEEdge*> &edges, bool report);
 
 protected:
-
     /// @brief The GNEViewNet this additional element belongs
     GNEViewNet* myViewNet;
 
@@ -208,8 +199,14 @@ protected:
     std::vector<double> myShapeLengths;
     /// @}
 
-    /// @brief rotation depending of the option "Lefthand"
-    bool myRotationLefthand;
+    /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
+    bool myBlocked;
+
+    /// @brief pointer to Addititional parent
+    GNEAdditional*myAdditionalParent;
+
+    /// @brief vector with the Additional childs
+    std::vector<GNEAdditional*> myAdditionalChilds;
 
     /// @name members and functions relative to block icon
     /// @{
@@ -268,22 +265,10 @@ protected:
     std::vector<std::vector<Position> > myConnectionPositions;
     /// @}
 
-    /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
-    bool myBlocked;
-
-    /// @brief boolean to check if additional element is inspectionable (With GNEInspectorFrame). By default true
-    bool myInspectionable;
-
-    /// @brief boolean to check if additional element is selectable (With GNESelectorFrame). By default true
-    bool mySelectable;
-
-    /// @brief boolean to check if additional element is movable (with the mouse). By default true
+private:
+    /// @brief flag to check if this additional is movable
     bool myMovable;
 
-    /// @brief pointer to additional dialog
-    GNEAdditionalDialog* myAdditionalDialog;
-
-private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
