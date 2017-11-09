@@ -71,7 +71,7 @@
 # Originally from VTK project
 
 
-find_path(FFMPEG_INCLUDE_DIR1 avformat.h
+find_path(FFMPEG_INCLUDE_DIR1 libavformat/avformat.h
   $ENV{FFMPEG_DIR}
   $ENV{FFMPEG_DIR}/ffmpeg
   $ENV{FFMPEG_DIR}/libavformat
@@ -85,7 +85,7 @@ find_path(FFMPEG_INCLUDE_DIR1 avformat.h
   /usr/local/include/libavformat
 )
 
-find_path(FFMPEG_INCLUDE_DIR2 avutil.h
+find_path(FFMPEG_INCLUDE_DIR2 libavutil/avutil.h
   $ENV{FFMPEG_DIR}
   $ENV{FFMPEG_DIR}/ffmpeg
   $ENV{FFMPEG_DIR}/libavutil
@@ -99,7 +99,7 @@ find_path(FFMPEG_INCLUDE_DIR2 avutil.h
   /usr/local/include/libavutil
 )
 
-find_path(FFMPEG_INCLUDE_DIR3 avcodec.h
+find_path(FFMPEG_INCLUDE_DIR3 libavcodec/avcodec.h
   $ENV{FFMPEG_DIR}
   $ENV{FFMPEG_DIR}/ffmpeg
   $ENV{FFMPEG_DIR}/libavcodec
@@ -113,7 +113,7 @@ find_path(FFMPEG_INCLUDE_DIR3 avcodec.h
   /usr/local/include/libavcodec
 )
 
-find_path(FFMPEG_INCLUDE_DIR4 swscale.h
+find_path(FFMPEG_INCLUDE_DIR4 libswscale/swscale.h
   $ENV{FFMPEG_DIR}
   $ENV{FFMPEG_DIR}/ffmpeg
   $ENV{FFMPEG_DIR}/libswscale
@@ -127,7 +127,7 @@ find_path(FFMPEG_INCLUDE_DIR4 swscale.h
   /usr/local/include/libswscale
 )
 
-find_path(FFMPEG_INCLUDE_DIR5 avdevice.h
+find_path(FFMPEG_INCLUDE_DIR5 libavdevice/avdevice.h
   $ENV{FFMPEG_DIR}
   $ENV{FFMPEG_DIR}/ffmpeg
   $ENV{FFMPEG_DIR}/libavdevice
@@ -158,8 +158,7 @@ endif()
 
 if(FFMPEG_INCLUDE_DIR5)
   set(FFMPEG_INCLUDE_DIR ${FFMPEG_INCLUDE_DIR}
-                         ${FFMPEG_INCLUDE_DIR5}
-                         ${FFMPEG_INCLUDE_DIR5}/..)
+                         ${FFMPEG_INCLUDE_DIR5})
 endif()
 
 find_library(FFMPEG_avformat_LIBRARY avformat
