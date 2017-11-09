@@ -100,6 +100,13 @@ public:
      */
     void parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
+    /**@brief Parses his values and builds a Variable Speed Signal Step
+    * @param[in] attrs SAX-attributes which define the trigger
+    * @param[in] tag of the additional
+    * @see buildLaneSpeedTrigger
+    */
+    void parseAndBuildVariableSpeedSignStep(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
     /**@brief Parses his values and builds a rerouter
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
@@ -200,25 +207,20 @@ public:
      * @param[in] attrs SAX-attributes which define the routes
      * @param[in] tag of the additional
      */
-    void parseCalibratorRoute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildCalibratorRoute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses vehicle type values of Calibrators
      * @param[in] attrs SAX-attributes which define the vehicle types
      * @param[in] tag of the additional
      */
-    void parseCalibratorVehicleType(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildCalibratorVehicleType(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses flow values of Calibrators
      * @param[in] attrs SAX-attributes which define the flows
      * @param[in] tag of the additional
      */
-    void parseCalibratorFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
-    /**@brief Parses step values of VariableSpeedSigns
-     * @param[in] attrs SAX-attributes which define the steps
-     * @param[in] tag of the additional
-     */
-    void parseVariableSpeedSignStep(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
     /// @}
 
     /// @name building methods
@@ -406,7 +408,6 @@ public:
                                     const std::string &departSpeed, const std::string &arrivalLane, const std::string &arrivalPos, const std::string &arrivalSpeed, 
                                     const std::string &line, int personNumber, int containerNumber, bool reroute, const std::string &departPosLat, 
                                     const std::string &arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability, int number, int flowType);
-
 
     /**@brief builds a rerouter
      * @param[in] viewNet viewNet in which element will be inserted

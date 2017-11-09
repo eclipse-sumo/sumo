@@ -60,7 +60,11 @@
 
 #include "GNEAdditional.h"
 #include "GNEAdditionalFrame.h"
+#include "GNEAdditionalHandler.h"
 #include "GNEApplicationWindow.h"
+#include "GNECalibratorFlow.h"
+#include "GNECalibratorRoute.h"
+#include "GNECalibratorVehicleType.h"
 #include "GNEChange_Additional.h"
 #include "GNEChange_Attribute.h"
 #include "GNEChange_Connection.h"
@@ -74,23 +78,20 @@
 #include "GNECrossing.h"
 #include "GNEDetector.h"
 #include "GNEDetectorE2.h"
+#include "GNEDialog_FixAdditionalPositions.h"
 #include "GNEEdge.h"
 #include "GNEJunction.h"
-#include "GNEPoly.h"
-#include "GNEPOI.h"
-#include "GNEPOILane.h"
 #include "GNELane.h"
 #include "GNENet.h"
+#include "GNEPOI.h"
+#include "GNEPOILane.h"
+#include "GNEPoly.h"
+#include "GNERerouter.h"
+#include "GNERerouterInterval.h"
 #include "GNEStoppingPlace.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
-#include "GNERerouter.h"
-#include "GNEAdditionalHandler.h"
-#include "GNEDialog_FixAdditionalPositions.h"
-#include "GNECalibratorFlow.h"
-#include "GNECalibratorRoute.h"
-#include "GNECalibratorVehicleType.h"
 
 
 // ===========================================================================
@@ -1681,6 +1682,24 @@ GNENet::getAdditionals(SumoXMLTag type) const {
         }
     }
     return vectorOfAdditionals;
+}
+
+
+GNERerouterInterval *
+GNENet::getRerouterInterval(const std::string &rerouterIntervalID) const {
+    // iterate over additionals and obtain Rerouters
+    for (auto i : myAdditionals) {
+        if (i.second->getTag() == SUMO_TAG_REROUTER) {
+            GNERerouter *rerouter = dynamic_cast<GNERerouter*>(i.second);
+            // iterate over intervals of rerouter.
+            for (auto j : rerouter->getRerouterIntervals()) {
+                if (j->getID() == rerouterIntervalID) {
+                    return j;
+                }
+            }
+        }
+    }
+    return NULL;
 }
 
 

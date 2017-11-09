@@ -60,23 +60,25 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
+class GNEAdditional;
 class GNEApplicationWindow;
 class GNEAttributeCarrier;
-class GNENetElement;
-class GNEEdge;
-class GNELane;
-class GNEJunction;
-class GNEUndoList;
-class GNEAdditional;
-class GNEConnection;
-class GNECrossing;
-class GNEShape;
-class GNEPoly;
-class GNEPOI;
-class GNEPOILane;
 class GNECalibratorFlow;
 class GNECalibratorRoute;
 class GNECalibratorVehicleType;
+class GNEConnection;
+class GNECrossing;
+class GNEEdge;
+class GNEJunction;
+class GNELane;
+class GNENetElement;
+class GNEPOI;
+class GNEPOILane;
+class GNEPoly;
+class GNERerouterInterval;
+class GNEShape;
+class GNEUndoList;
 class GNEViewNet;
 
 // ===========================================================================
@@ -552,6 +554,12 @@ public:
      * @return vector with pointers to additionals.
      */
     std::vector<GNEAdditional*> getAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING) const;
+
+    /* @brief retrieve Rerouter Interval
+     * @param rerouterIntervalID ID of rerouter interval
+     * @param rerouter interval if was found, or NULL in other case
+     */
+    GNERerouterInterval *getRerouterInterval(const std::string &rerouterIntervalID) const;
 
     /**@brief Returns the number of additionals of the net
      * @param[in] type type of additional to count. SUMO_TAG_NOTHING will count all additionals
