@@ -141,7 +141,7 @@ public:
     void setParameter(const std::string& key, const std::string& value);
 
     /// @brief whether the current change completes the manoeuvre
-    bool sublaneChangeCompleted(double latDist);
+    bool sublaneChangeCompleted(const double latDist) const;
 
 protected:
 

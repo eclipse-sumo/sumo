@@ -2875,7 +2875,7 @@ MSLCM_SL2015::wantsChange(
 }
 
 bool 
-MSLCM_SL2015::sublaneChangeCompleted(double latDist) {
+MSLCM_SL2015::sublaneChangeCompleted(const double latDist) const {
     return latDist == myOrigLatDist;
 }
 

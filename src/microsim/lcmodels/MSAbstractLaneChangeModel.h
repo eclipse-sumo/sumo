@@ -403,7 +403,7 @@ public:
     /// @brief reserve space at the end of the lane to avoid dead locks
     virtual void saveBlockerLength(double length) {
         UNUSED_PARAMETER(length);
-    };
+    }
 
     void setShadowPartialOccupator(MSLane* lane) {
         myPartiallyOccupatedByShadow.push_back(lane);
@@ -420,7 +420,8 @@ public:
     void laneChangeOutput(const std::string& tag, MSLane* source, MSLane* target, int direction);
 
     /// @brief whether the current change completes the manoeuvre
-    virtual bool sublaneChangeCompleted(double latDist) {
+    virtual bool sublaneChangeCompleted(const double latDist) const {
+        UNUSED_PARAMETER(latDist);
         throw ProcessError("Method not implemented by model " + toString(myModel));
     }
 
