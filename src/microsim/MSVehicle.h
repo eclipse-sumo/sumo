@@ -746,6 +746,13 @@ public:
     /** @brief Update of members if vehicle leaves a new lane in the lane change step or at arrival. */
     void leaveLane(const MSMoveReminder::Notification reason, const MSLane* approachedLane = 0);
 
+    /** @brief Check whether the drive items (myLFLinkLanes) are up to date,
+     *         and update them if required.
+     *  @note  This is the case if a lane change was completed.
+     *         Only the links corresponding to the drive items are updated to the
+     *         corresponding parallel links.
+     */
+    void updateDriveItems();
 
     MSAbstractLaneChangeModel& getLaneChangeModel();
     const MSAbstractLaneChangeModel& getLaneChangeModel() const;
@@ -1597,14 +1604,6 @@ protected:
      */
     void processTraCISpeedControl(double vSafe, double& vNext);
 
-    /** @brief Check whether the drive items (myLFLinkLanes) are up to date,
-     *         and update them if required.
-     *  @note  This is the case if a lane change was completed in the last step and
-     *         no action step was scheduled in between, i.e., no call to planMove() was issued.
-     *         Only the links corresponding to the drive items are updated to the
-     *         corresponding parallel links.
-     */
-    void updateDriveItems();
 
     /** @brief Erase passed drive items from myLFLinkLanes (and unregister approaching information for
      *         corresponding links). Further, myNextDriveItem is reset.

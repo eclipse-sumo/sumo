@@ -207,6 +207,8 @@ MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* sour
         }
         of.closeTag();
     }
+    // Assure that the drive items are up to date (even if the following step is no actionstep for the vehicle).
+    myVehicle.updateDriveItems();
 }
 
 bool
