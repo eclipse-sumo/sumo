@@ -1,21 +1,24 @@
-/*   
-    Copyright (C) 2017 Mario Krumnow, Dresden University of Technology
-
-    This file is part of TraaS.
-
-    TraaS is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License.
-
-    TraaS is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with TraaS.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2017 German Aerospace Center (DLR) and others.
+// TraaS module
+// Copyright (C) 2016-2017 Dresden University of Technology
+/****************************************************************************/
+//
+//   This program and the accompanying materials
+//   are made available under the terms of the Eclipse Public License v2.0
+//   which accompanies this distribution, and is available at
+//   http://www.eclipse.org/legal/epl-v20.html
+//
+/****************************************************************************/
+/// @file    SubscriptionContext.java
+/// @author  Mario Krumnow
+/// @author  Evamarie Wiessner
+/// @date    2016
+/// @version $Id$
+///
+//
+/****************************************************************************/
 package de.tudresden.sumo.subscription;
 
 import de.tudresden.sumo.config.Constants;

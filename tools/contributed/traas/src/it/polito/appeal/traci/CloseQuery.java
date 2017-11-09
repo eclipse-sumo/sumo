@@ -1,22 +1,24 @@
-/*   
-    Copyright (C) 2011 ApPeAL Group, Politecnico di Torino
-
-    This file is part of TraCI4J.
-
-    TraCI4J is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    TraCI4J is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with TraCI4J.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2017 German Aerospace Center (DLR) and others.
+// TraCI4J module
+// Copyright (C) 2011 ApPeAL Group, Politecnico di Torino
+/****************************************************************************/
+//
+//   This program and the accompanying materials
+//   are made available under the terms of the Eclipse Public License v2.0
+//   which accompanies this distribution, and is available at
+//   http://www.eclipse.org/legal/epl-v20.html
+//
+/****************************************************************************/
+/// @file    CloseQuery.java
+/// @author  Enrico Gueli
+/// @author  Mario Krumnow
+/// @date    2011
+/// @version $Id$
+///
+//
+/****************************************************************************/
 package it.polito.appeal.traci;
 
 import it.polito.appeal.traci.protocol.Command;
