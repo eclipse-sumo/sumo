@@ -2672,8 +2672,8 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                         leaveLane(MSMoveReminder::NOTIFICATION_VAPORIZED);
                         ++myNextDriveItem; break;
                     }
+                    passedLanes.push_back(approachedLane);
                 }
-                passedLanes.push_back(approachedLane);
             }
             // NOTE: Passed drive items will be erased in the next simstep's planMove()
 
