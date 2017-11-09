@@ -200,9 +200,9 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         //    << " filter=" << toString((LaneChangeAction)(LCA_CHANGE_REASONS & ~LCA_SUBLANE)) 
         //    << " filtered=" << toString((LaneChangeAction)(vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE))) 
         //    << "\n";
-        vehicle->getLaneChangeModel().setLeaderGaps(getLeaders(to, vehicle));
+        vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);
         vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
-        vehicle->getLaneChangeModel().setOrigLeaderGaps(getLeaders(from, vehicle));
+        vehicle->getLaneChangeModel().setOrigLeaderGaps(from->aheadNext);
         vehicle->getLaneChangeModel().laneChangeOutput("changeStarted", from->lane, to->lane, direction);
     }
     const bool changedToNewLane = to != from && fabs(vehicle->getLateralPositionOnLane()) > 0.5 * vehicle->getLane()->getWidth() && mayChange(direction);
@@ -211,9 +211,9 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         to->lane->myTmpVehicles.insert(to->lane->myTmpVehicles.begin(), vehicle);
         to->dens += vehicle->getVehicleType().getLengthWithGap();
         if (MSAbstractLaneChangeModel::haveLCOutput()) {
-            vehicle->getLaneChangeModel().setLeaderGaps(getLeaders(to, vehicle));
+            vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);
             vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
-            vehicle->getLaneChangeModel().setOrigLeaderGaps(getLeaders(from, vehicle));
+            vehicle->getLaneChangeModel().setOrigLeaderGaps(from->aheadNext);
         }
         vehicle->getLaneChangeModel().startLaneChangeManeuver(from->lane, to->lane, direction);
         to->ahead.addLeader(vehicle, false, 0);
@@ -234,9 +234,9 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
             // non-sublane change ended
             && ((vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) != 0)
             && vehicle->getLaneChangeModel().sublaneChangeCompleted(latDist)) {
-        vehicle->getLaneChangeModel().setLeaderGaps(getLeaders(to, vehicle));
+        vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);
         vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
-        vehicle->getLaneChangeModel().setOrigLeaderGaps(getLeaders(from, vehicle));
+        vehicle->getLaneChangeModel().setOrigLeaderGaps(from->aheadNext);
         vehicle->getLaneChangeModel().laneChangeOutput("changeEnded", from->lane, to->lane, direction);
     }
 
@@ -337,10 +337,10 @@ MSLaneChangerSublane::checkChangeSublane(
 
     //gDebugFlag1 = vehicle->getLaneChangeModel().debugVehicle();
 
-    MSLeaderDistanceInfo neighLeaders = getLeaders(target, vehicle);
+    MSLeaderDistanceInfo neighLeaders = target->aheadNext;
     MSLeaderDistanceInfo neighFollowers = target->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
     MSLeaderDistanceInfo neighBlockers(&neighLane, vehicle, vehicle->getLane()->getRightSideOnEdge() - neighLane.getRightSideOnEdge());
-    MSLeaderDistanceInfo leaders = getLeaders(myCandi, vehicle);
+    MSLeaderDistanceInfo leaders = myCandi->aheadNext;
     MSLeaderDistanceInfo followers = myCandi->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
     MSLeaderDistanceInfo blockers(vehicle->getLane(), vehicle, 0);
 
