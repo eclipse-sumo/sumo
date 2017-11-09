@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 09 Nov 2017 02:06:01 PM CET by Netedit Version v0_31_0-1039-gceb91e4
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumo/tests/sumo/bugs/ticket3584/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumo/tests/sumo/bugs/ticket3584/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-100.00,0.00,20.84,0.00" origBoundary="0.00,0.00,1600.00,800.00" projParameter="!"/>
+
+    <edge id="beg" from="gneJ2" to="gneJ3" priority="1">
+        <lane id="beg_0" index="0" speed="13.89" length="20.84" shape="0.00,-1.65 20.84,-1.65"/>
+    </edge>
+    <edge id="pred" from="gneJ7" to="gneJ2" priority="1">
+        <lane id="pred_0" index="0" speed="13.89" length="100.00" shape="-100.00,-1.65 0.00,-1.65"/>
+    </edge>
+
+    <junction id="gneJ2" type="priority" x="0.00" y="0.00" incLanes="pred_0" intLanes="" shape="0.00,-0.05 0.00,-3.25 0.00,-0.05">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="gneJ3" type="dead_end" x="20.84" y="0.00" incLanes="beg_0" intLanes="" shape="20.84,-3.25 20.84,-0.05"/>
+    <junction id="gneJ7" type="dead_end" x="-100.00" y="0.00" incLanes="" intLanes="" shape="-100.00,-0.05 -100.00,-3.25"/>
+
+    <connection from="pred" to="beg" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
