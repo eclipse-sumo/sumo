@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/01/15 08:56:51 by SUMO Version dev-SVN-r19469
+<!-- generated on Thu Nov  9 16:57:49 2017 by SUMO Version v0_31_0-889-g053ce4c
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -17,6 +17,7 @@
 
     <processing>
         <pedestrian.model value="striping"/>
+        <pedestrian.striping.dawdling value="0"/>
     </processing>
 
     <report>
@@ -50,7 +51,7 @@
     </timestep>
     <timestep time="4.00">
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting for dummy"/>
+            <person id="visitor2" pos="9.79" angle="270.00" stage="waiting for dummy"/>
         </edge>
     </timestep>
 </netstate>
