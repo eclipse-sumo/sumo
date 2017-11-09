@@ -33,8 +33,6 @@ userdoc:
 javadoc:
 	rm -rf docs/javadoc
 	mkdir docs/javadoc
-	mvn --batch-mode -f tools/contributed/TraCI4J/pom.xml javadoc:javadoc || true
-	mv tools/contributed/TraCI4J/target/site/apidocs docs/javadoc/traci4j || true
 	ant -f tools/contributed/traas/build.xml javadoc || true
 	mv tools/contributed/traas/javadoc docs/javadoc/traas || true
 
@@ -94,7 +92,7 @@ dist-tests:
 	tar -czf $(PACKAGE)-tests-$(VERSION).tar.gz $(distdir)
 	$(am__remove_distdir)
 
-dist-complete: dist dist-doc dist-tests traas traci4j
+dist-complete: dist dist-doc dist-tests traas
 	mv $(PACKAGE)-$(VERSION).tar.gz $(PACKAGE)-src-$(VERSION).tar.gz
 	mv $(PACKAGE)-$(VERSION).zip $(PACKAGE)-src-$(VERSION).zip
 	tar -xzf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)
@@ -115,10 +113,6 @@ examples:
 traas:
 	ant -f tools/contributed/traas/build.xml clean release || true
 	cp tools/contributed/traas/dist/TraaS.jar bin || true
-
-traci4j:
-	mvn --batch-mode -f tools/contributed/TraCI4J/pom.xml clean install || true
-	cp tools/contributed/TraCI4J/target/*.jar bin || true
 
 sumo$(EXEEXT) netconvert$(EXEEXT) \
         netgenerate$(EXEEXT) duarouter$(EXEEXT) \
