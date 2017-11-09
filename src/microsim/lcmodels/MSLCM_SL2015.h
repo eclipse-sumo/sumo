@@ -226,7 +226,7 @@ protected:
 
 
     /// @brief update expected speeds for each sublane of the current edge
-    void updateExpectedSublaneSpeeds(const MSLeaderInfo& ahead, int sublaneOffset, int laneIndex);
+    void updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int sublaneOffset, int laneIndex);
 
     /// @brief decide in which direction to move in case both directions are desirable
     StateAndDist decideDirection(StateAndDist sd1, StateAndDist sd2) const;

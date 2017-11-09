@@ -263,7 +263,7 @@ public:
     }
 
     /// @brief update expected speeds for each sublane of the current edge
-    virtual void updateExpectedSublaneSpeeds(const MSLeaderInfo& ahead, int sublaneOffset, int laneIndex) {
+    virtual void updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int sublaneOffset, int laneIndex) {
         UNUSED_PARAMETER(&ahead);
         UNUSED_PARAMETER(sublaneOffset);
         UNUSED_PARAMETER(laneIndex);

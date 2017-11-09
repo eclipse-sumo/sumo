@@ -74,8 +74,9 @@ MSLaneChanger::ChangeElem::ChangeElem(MSLane* _lane) :
     hoppedVeh(0),
     lastBlocked(0),
     firstBlocked(0),
-    ahead(lane) {
-}
+    ahead(lane),
+    aheadNext(lane, 0, 0)
+{ }
 
 // ===========================================================================
 // member method definitions

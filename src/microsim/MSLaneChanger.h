@@ -86,8 +86,11 @@ public:
 
         /// @name Members which are used only by MSLaneChangerSublane
         /// @{
-        // the vehicles in from of the current vehicle
+        // the vehicles in from of the current vehicle (only on the current edge, continously updated during change() )
         MSLeaderInfo ahead;
+
+        // the vehicles in from of the current vehicle (including those on the next edge, contiously update during change() ))
+        MSLeaderDistanceInfo aheadNext;
         ///@}
 
     };

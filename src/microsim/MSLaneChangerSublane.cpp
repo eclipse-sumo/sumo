@@ -105,11 +105,15 @@ MSLaneChangerSublane::change() {
     for (int i = 0; i < (int) myChanger.size(); ++i) {
         vehicle->adaptBestLanesOccupation(i, myChanger[i].dens);
     }
+    // update leaders beyond the current edge for all lanes
+    for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
+        ce->aheadNext = getLeaders(ce, vehicle);
+    }
 
     // update expected speeds
     int sublaneIndex = 0;
     for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
-        vehicle->getLaneChangeModel().updateExpectedSublaneSpeeds(ce->ahead, sublaneIndex, ce->lane->getIndex());
+        vehicle->getLaneChangeModel().updateExpectedSublaneSpeeds(ce->aheadNext, sublaneIndex, ce->lane->getIndex());
         sublaneIndex += ce->ahead.numSublanes();
     }
 

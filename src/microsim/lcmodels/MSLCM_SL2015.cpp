@@ -1670,7 +1670,7 @@ MSLCM_SL2015::saveBlockerLength(const MSVehicle* blocker, int lcaCounter) {
 
 
 void
-MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderInfo& ahead, int sublaneOffset, int laneIndex) {
+MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int sublaneOffset, int laneIndex) {
     const std::vector<MSLane*>& lanes = myVehicle.getLane()->getEdge().getLanes();
     const std::vector<MSVehicle::LaneQ>& preb = myVehicle.getBestLanes();
     const MSLane* lane = lanes[laneIndex];
@@ -1682,7 +1682,8 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderInfo& ahead, int sublane
         if (lane->allowsVehicleClass(myVehicle.getVehicleType().getVehicleClass())) {
             // lane allowed, find potential leaders and compute safe speeds
             // XXX anticipate future braking if leader has a lower speed than myVehicle
-            const MSVehicle* leader = ahead[sublane];
+            const MSVehicle* leader = ahead[sublane].first;
+            const double gap = ahead[sublane].second;
             double vSafe;
             if (leader == 0) {
                 vSafe = myCarFollowModel.followSpeed(&myVehicle, vMax, preb[laneIndex].length, 0, 0);
@@ -1691,9 +1692,9 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderInfo& ahead, int sublane
                     // assume that the leader will continue accelerating to its maximum speed
                     vSafe = leader->getLane()->getVehicleMaxSpeed(leader);
                 } else {
-                    const double gap = leader->getBackPositionOnLane(lane) - myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getMinGap();
                     vSafe = myCarFollowModel.followSpeed(
                                 &myVehicle, vMax, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                    if (DEBUG_COND) std::cout << SIMTIME << " veh=" << myVehicle.getID() << " updateExpectedSublaneSpeeds edgeSublane=" << edgeSublane << " leader=" << leader->getID() << " gap=" << gap << " vSafe=" << vSafe << "\n";
                     const double deltaV = vMax - leader->getSpeed();
                     if (deltaV > 0 && gap / deltaV < 5) {
                         // anticipate future braking
