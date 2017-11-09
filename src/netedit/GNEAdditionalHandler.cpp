@@ -379,6 +379,8 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
     std::string lanesIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANES, abort);
     double posx = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_X, abort);
     double posy = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_Y, abort);
+    // Due this additional can have childs, we need to reset myLastInsertedAdditionalParent
+    myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain lanes
@@ -410,6 +412,8 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
     bool off = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_OFF, abort);
     double posx = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_X, abort);
     double posy = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_Y, abort);
+    // Due this additional can have childs, we need to reset myLastInsertedAdditionalParent
+    myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain edges
@@ -441,6 +445,8 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(const SUMOSAXAttributes& att
     bool off = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_OFF, abort);
     double posx = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_X, abort);
     double posy = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_Y, abort);
+    // Due this additional can have childs, we need to reset myLastInsertedAdditionalParent
+    myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain edges
@@ -616,7 +622,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
 void
 GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
-    // due there is two differents calibratos, has to be parsed in a different way
+    // due there is two differents calibrators, has to be parsed in a different way
     std::string edgeID, laneId, id;
     SumoXMLTag typeOfCalibrator = tag;
     // change tag depending of XML parmeters
@@ -624,64 +630,56 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
         typeOfCalibrator = SUMO_TAG_CALIBRATOR;
         id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", typeOfCalibrator, SUMO_ATTR_ID, abort);
         edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, typeOfCalibrator, SUMO_ATTR_EDGE, abort, false);
+        std::string outfile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, typeOfCalibrator, SUMO_ATTR_OUTPUT, abort, false);
+        double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_POSITION, abort);
+        double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_FREQUENCY, abort);
+        // std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
+        // Due this additional can have childs, we need to reset myLastInsertedAdditionalParent
+        myLastInsertedAdditionalParent = "";
+        // Continue if all parameters were sucesfully loaded
+        if (!abort) {
+            // get pointer and edge
+            GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
+            // check that all parameters are valid
+            if (GNEAttributeCarrier::isValidID(id) == false) {
+                WRITE_WARNING("The id '" + id + "' of additional " + toString(typeOfCalibrator) + " contains invalid characters.");
+            } else if (myViewNet->getNet()->getAdditional(typeOfCalibrator, id) != NULL) {
+                WRITE_WARNING("There is another " + toString(typeOfCalibrator) + " with the same ID='" + id + "'.");
+            } else if (edge == NULL) {
+                WRITE_WARNING("The  edge '" + edgeID + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
+            } else if (buildCalibrator(myViewNet, myUndoAdditionals, id, edge, position, outfile, freq)) {
+                // set myLastInsertedAdditionalParent due this additional can have childs
+                myLastInsertedAdditionalParent = id;
+            }
+        }
     } else if(attrs.hasAttribute(SUMO_ATTR_LANE)) {
         typeOfCalibrator = SUMO_TAG_LANECALIBRATOR;
         id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", typeOfCalibrator, SUMO_ATTR_ID, abort);
         laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, typeOfCalibrator, SUMO_ATTR_LANE, abort, false);
-    } else {
-        WRITE_WARNING("additional " + toString(tag) + " must have either a lane or an edge attribute.");
-        abort = true;
-    }
-    // if loading first calibrators values was sucesfully, continue)
-    if(!abort) {
-        // make sure that either lane or edge is defined, not both
-        if (edgeID != "" && laneId != "") {
-            WRITE_WARNING("additional " + toString(typeOfCalibrator) + " with id '" + id + "' can be only placed over either a lane or an edge, not in both.");
-        } else if(edgeID != "") {
-            // parse rest of attributes of calibrator
-            std::string outfile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, typeOfCalibrator, SUMO_ATTR_OUTPUT, abort, false);
-            double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_POSITION, abort);
-            double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_FREQUENCY, abort);
-            // std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
-            // Continue if all parameters were sucesfully loaded
-            if (!abort) {
-                // get pointer and edge
-                GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
-                // check that all parameters are valid
-                if (GNEAttributeCarrier::isValidID(id) == false) {
-                    WRITE_WARNING("The id '" + id + "' of additional " + toString(typeOfCalibrator) + " contains invalid characters.");
-                } else if (myViewNet->getNet()->getAdditional(typeOfCalibrator, id) != NULL) {
-                    WRITE_WARNING("There is another " + toString(typeOfCalibrator) + " with the same ID='" + id + "'.");
-                } else if (edge == NULL) {
-                    WRITE_WARNING("The  edge '" + edgeID + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
-                } else if (buildCalibrator(myViewNet, myUndoAdditionals, id, edge, position, outfile, freq)) {
-                    // set myLastInsertedAdditionalParent due this additional can have childs
-                    myLastInsertedAdditionalParent = id;
-                }
-            }
-        } else {
-            // parse rest of attributes of calibrator
-            std::string outfile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, typeOfCalibrator, SUMO_ATTR_OUTPUT, abort, false);
-            double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_POSITION, abort);
-            double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_FREQUENCY, abort);
-            // std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
-            // Continue if all parameters were sucesfully loaded
-            if (!abort) {
-                // get pointer to lane
-                GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
-                // check that all parameters are valid
-                if (GNEAttributeCarrier::isValidID(id) == false) {
-                    WRITE_WARNING("The id '" + id + "' of additional " + toString(typeOfCalibrator) + " contains invalid characters.");
-                } else if (myViewNet->getNet()->getAdditional(typeOfCalibrator, id) != NULL) {
-                    WRITE_WARNING("There is another " + toString(typeOfCalibrator) + " with the same ID='" + id + "'.");
-                } else if (lane == NULL) {
-                    WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
-                } else if (buildCalibrator(myViewNet, myUndoAdditionals, id, lane, position, outfile, freq)) {
-                    // set myLastInsertedAdditionalParent due this additional can have childs
-                    myLastInsertedAdditionalParent = id;
-                }
+        std::string outfile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, typeOfCalibrator, SUMO_ATTR_OUTPUT, abort, false);
+        double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_POSITION, abort);
+        double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_FREQUENCY, abort);
+        // std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
+        // Due this additional can have childs, we need to reset myLastInsertedAdditionalParent
+        myLastInsertedAdditionalParent = "";
+        // Continue if all parameters were sucesfully loaded
+        if (!abort) {
+            // get pointer to lane
+            GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
+            // check that all parameters are valid
+            if (GNEAttributeCarrier::isValidID(id) == false) {
+                WRITE_WARNING("The id '" + id + "' of additional " + toString(typeOfCalibrator) + " contains invalid characters.");
+            } else if (myViewNet->getNet()->getAdditional(typeOfCalibrator, id) != NULL) {
+                WRITE_WARNING("There is another " + toString(typeOfCalibrator) + " with the same ID='" + id + "'.");
+            } else if (lane == NULL) {
+                WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
+            } else if (buildCalibrator(myViewNet, myUndoAdditionals, id, lane, position, outfile, freq)) {
+                // set myLastInsertedAdditionalParent due this additional can have childs
+                myLastInsertedAdditionalParent = id;
             }
         }
+    } else {
+        WRITE_WARNING("additional " + toString(tag) + " must have either a lane or an edge attribute.");
     }
 }
 

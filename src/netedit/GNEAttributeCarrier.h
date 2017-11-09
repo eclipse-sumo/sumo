@@ -300,20 +300,25 @@ public:
             }
             // declare a string for details about error formats
             std::string errorFormat;
+            // set extra check for ID Values
+            if(attribute == SUMO_ATTR_ID && !isValidID(parsedAttribute)) {
+                errorFormat = "'" + parsedAttribute + "' contains invalid characters";
+                parsedOk = false;
+            }
             // Set extra checks for int values
             if (isInt(tag, attribute)) {
                 if (canParse<int>(parsedAttribute)) {
                     // parse to int and check if can be negative
                     int parsedIntAttribute = parse<int>(parsedAttribute);
                     if (isPositive(tag, attribute) && parsedIntAttribute < 0) {
-                        errorFormat = "Cannot be negative; ";
+                        errorFormat = "Cannot be negative";
                         parsedOk = false;
                     }
                 } else if (canParse<double>(parsedAttribute)) {
-                    errorFormat = "Float cannot be reinterpreted as int; ";
+                    errorFormat = "Float cannot be reinterpreted as int";
                     parsedOk = false;
                 } else {
-                    errorFormat = "Cannot be parsed to int; ";
+                    errorFormat = "Cannot be parsed to int";
                     parsedOk = false;
                 }
             }
@@ -322,11 +327,11 @@ public:
                 if (canParse<double>(parsedAttribute)) {
                     // parse to double and check if can be negative
                     if (isPositive(tag, attribute) && parse<double>(parsedAttribute) < 0) {
-                        errorFormat = "Cannot be negative; ";
+                        errorFormat = "Cannot be negative";
                         parsedOk = false;
                     }
                 } else {
-                    errorFormat = "Cannot be parsed to float; ";
+                    errorFormat = "Cannot be parsed to float";
                     parsedOk = false;
                 }
             }
@@ -335,40 +340,40 @@ public:
                 if (canParse<double>(parsedAttribute)) {
                     // parse to SUMO Real and check if is negative
                     if (parse<double>(parsedAttribute) < 0) {
-                        errorFormat = "Time cannot be negative; ";
+                        errorFormat = "Time cannot be negative";
                         parsedOk = false;
                     }
                 } else {
-                    errorFormat = "Cannot be parsed to time; ";
+                    errorFormat = "Cannot be parsed to time";
                     parsedOk = false;
                 }
             }
             // set extra check for color values
             if (isColor(tag, attribute) && !canParse<RGBColor>(parsedAttribute)) {
-                errorFormat = "Invalid RGB format or named color; ";
+                errorFormat = "Invalid RGB format or named color";
                 parsedOk = false;
             }
             // set extra check for filename values
             if (isFilename(tag, attribute) && (isValidFilename(parsedAttribute) == false)) {
-                errorFormat = "Filename contains invalid characters; ";
+                errorFormat = "Filename contains invalid characters";
                 parsedOk = false;
             }
             // set extra check for filename values
             if (isVClass(tag, attribute) && (canParseVehicleClasses(parsedAttribute) == false)) {
-                errorFormat = "List of VClasses isn't valid; ";
+                errorFormat = "List of VClasses isn't valid";
                 parsedOk = false;
             }
             // set extra check for Vehicle Classes
             if ((!parsedOk) && (attribute == SUMO_ATTR_VCLASS)) {
-                errorFormat = "Is not a part of defined set of Vehicle Classes; ";
+                errorFormat = "Is not a part of defined set of Vehicle Classes";
             }
             // set extra check for Vehicle Classes
             if ((!parsedOk) && (attribute == SUMO_ATTR_GUISHAPE)) {
-                errorFormat = "Is not a part of defined set of Gui Vehicle Shapes; ";
+                errorFormat = "Is not a part of defined set of Gui Vehicle Shapes";
             }
             // set extra check for RouteProbes
             if ((attribute == SUMO_ATTR_ROUTEPROBE) && !isValidID(parsedAttribute)) {
-                errorFormat = "RouteProbe ID contains invalid characters; ";
+                errorFormat = "RouteProbe ID contains invalid characters";
                 parsedOk = false;
             }
             // If attribute has an invalid format
@@ -379,11 +384,11 @@ public:
                     // report warning of default value
                     if (report) {
                         WRITE_WARNING("Format of optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                        additionalOfWarningMessage + " is invalid; " + errorFormat + "Default value '" + toString(parsedAttribute) + "' will be used.");
+                                        additionalOfWarningMessage + " is invalid; " + errorFormat + "; Default value '" + toString(parsedAttribute) + "' will be used.");
                     }
                 } else {
                     WRITE_WARNING("Format of essential " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                    additionalOfWarningMessage +  " is invalid; " + errorFormat + "" + toString(tag) + " cannot be created");
+                                    additionalOfWarningMessage +  " is invalid; " + errorFormat + "; " + toString(tag) + " cannot be created");
                     // abort parsing of element
                     abort = true;
                     // set default value
