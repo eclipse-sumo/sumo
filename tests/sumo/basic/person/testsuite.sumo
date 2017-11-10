@@ -61,6 +61,9 @@ trip_chain
 # tests if a person leaves a vehicle not only if the destination edge is reached but also if the vehicle that is transporting the person reached its current destination stop (plus minos some tolerance)
 leaving_vehicle_at_stop
 
+# tests if a person leaves a vehicle not only if the destination edge is reached but also if the vehicle that is transporting the person reached its current destination stop (plus minos some tolerance)
+leaving_vehicle_at_stop_subsecond
+
 # test wheather the personNumber of a vehicle decreases if persons leave the vehicle at a stop
 person_number
 
