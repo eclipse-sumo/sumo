@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep 12 08:26:57 2017 by SUMO netconvert Version dev-SVN-r25972
+<!-- generated on Fri Nov 10 14:24:21 2017 by SUMO netconvert Version v0_31_0-1066-g5500226
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -176,7 +176,7 @@
         <lane id="25029060_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="92.17" shape="323.18,277.91 405.17,249.13"/>
     </edge>
     <edge id="307318879#0" from="3124193130" to="3125752473" priority="1" type="highway.footway" spreadType="center">
-        <lane id="307318879#0_0" index="0" allow="pedestrian" speed="2.78" length="0.01" width="2.00" shape="195.42,201.78 195.42,201.77"/>
+        <lane id="307318879#0_0" index="0" allow="pedestrian" speed="2.78" length="0.10" width="2.00" shape="195.42,201.78 195.42,201.77"/>
     </edge>
     <edge id="307318879#1" from="3125752473" to="3124193229" priority="1" type="highway.footway" spreadType="center" shape="195.42,201.77 196.76,199.30 183.22,192.69">
         <lane id="307318879#1_0" index="0" allow="pedestrian" speed="2.78" length="17.86" width="2.00" shape="196.49,199.79 196.76,199.30 185.46,193.78"/>
