@@ -274,9 +274,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         if (connections.empty()) {
             // if there are no connections and this appears to be customized, preserve the information
             const int numOutgoing = (int)e->getToNode()->getOutgoingEdges().size();
-            if (numOutgoing > 1 ||
-                    (numOutgoing == 1 &&
-                     (!e->isTurningDirectionAt(e->getToNode()->getOutgoingEdges().front()) || hasTurns))) {
+            if (numOutgoing > 0) {
                 const SVCPermissions inPerm = e->getPermissions();
                 SVCPermissions outPerm = 0;
                 for (auto out : e->getToNode()->getOutgoingEdges()) {
