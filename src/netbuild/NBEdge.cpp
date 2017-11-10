@@ -3259,10 +3259,7 @@ NBEdge::getFinalLength() const {
         geom.push_front_noDoublePos(getFromNode()->getCenter());
         result = geom.length();
     }
-    if (result <= 0) {
-        result = POSITION_EPS;
-    }
-    return result;
+    return MAX2(result, POSITION_EPS);
 }
 
 void 
