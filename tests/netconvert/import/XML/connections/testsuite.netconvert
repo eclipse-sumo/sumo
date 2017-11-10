@@ -82,3 +82,6 @@ visibility
 # custom speed
 speed
 shape
+
+# some edges are disconnected explicitly
+unconnected
