@@ -90,6 +90,7 @@
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
 //#define DEBUG_COND (myVehicle.getID() == "E1")
 #define DEBUG_COND (myVehicle.isSelected())
+//#define DEBUG_COND (true)
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "disabled") // test stops_overtaking
@@ -276,6 +277,10 @@ MSLCM_SL2015::patchSpeed(const double min, const double wanted, const double max
 
 double
 MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double max, const MSCFModel& cfModel) {
+    if (wanted <= 0) {
+        return wanted;
+    }
+
     int state = myOwnState;
 
     // letting vehicles merge in at the end of the lane in case of counter-lane change, step#2
@@ -947,17 +952,17 @@ MSLCM_SL2015::_wantsChangeSublane(
                   << " myState=" << toString((LaneChangeAction)myOwnState)
                   << " firstBlocked=" << Named::getIDSecure(*firstBlocked)
                   << " lastBlocked=" << Named::getIDSecure(*lastBlocked)
-                  << " leaders=" << leaders.toString()
-                  << " followers=" << followers.toString()
-                  << " blockers=" << blockers.toString()
-                  << " neighLeaders=" << neighLeaders.toString()
-                  << " neighFollowers=" << neighFollowers.toString()
-                  << " neighBlockers=" << neighBlockers.toString()
-                  << " changeToBest=" << changeToBest
+                  << "\n         leaders=" << leaders.toString()
+                  << "\n       followers=" << followers.toString()
+                  << "\n        blockers=" << blockers.toString()
+                  << "\n    neighLeaders=" << neighLeaders.toString()
+                  << "\n  neighFollowers=" << neighFollowers.toString()
+                  << "\n   neighBlockers=" << neighBlockers.toString()
+                  << "\n   changeToBest=" << changeToBest
                   << " latLaneDist=" << latLaneDist
                   << " leftLimit=" << leftLimit
                   << " rightLimit=" << rightLimit
-                  << " expectedSpeeds=" << toString(myExpectedSublaneSpeeds)
+                  << "\n   expectedSpeeds=" << toString(myExpectedSublaneSpeeds)
                   << "\n";
     }
 
@@ -1917,7 +1922,7 @@ MSLCM_SL2015::checkBlockingVehicles(
     const double rightNoOverlap = MIN2(rightVehSideDest, rightVehSide);
     const double leftNoOverlap = MAX2(leftVehSideDest, leftVehSide);
     if (gDebugFlag2) {
-        std::cout << "  checkBlocking"
+        std::cout << "  checkBlockingVehicles"
                   << " latDist=" << latDist
                   << " foeOffset=" << foeOffset
                   << " vehRight=" << rightVehSide
