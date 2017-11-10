@@ -425,7 +425,7 @@ NBEdge::init(int noLanes, bool tryIgnoreNodePositions, const std::string& origID
         myGeom.push_back(myTo->getPosition());
     }
     if (myGeom.size() == 2 && myGeom[0] == myGeom[1]) {
-        WRITE_ERROR("Edge's '" + myID + "' from- and to-node are at the same position.");
+        WRITE_WARNING("Edge's '" + myID + "' from- and to-node are at the same position.");
         myGeom[1].add(Position(POSITION_EPS, POSITION_EPS));
     }
     //
