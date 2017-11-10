@@ -210,8 +210,9 @@ MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os, MSTransportabl
     MSDevice_Tripinfo::addPedestrianData(distance, duration, timeLoss);
     os.openTag("walk");
     os.writeAttr("depart", time2string(myDeparted));
+    os.writeAttr("departPos", myDepartPos);
     os.writeAttr("arrival", time2string(myArrived));
-    os.writeAttr("arrivalPos", toString(myArrivalPos));
+    os.writeAttr("arrivalPos", myArrivalPos);
     os.writeAttr("duration", time2string(duration));
     os.writeAttr("routeLength", distance);
     os.writeAttr("timeLoss", time2string(timeLoss));

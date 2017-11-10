@@ -192,10 +192,13 @@ MSContainer::MSContainerStage_Tranship::getEdges() const {
 
 void
 MSContainer::MSContainerStage_Tranship::tripInfoOutput(OutputDevice& os, MSTransportable*) const {
+    const SUMOTime duration = myArrived - myDeparted;
     os.openTag("tranship");
     os.writeAttr("depart", time2string(myDeparted));
+    os.writeAttr("departPos", myDepartPos);
     os.writeAttr("arrival", time2string(myArrived));
-    os.writeAttr("arrivalPos", toString(myArrivalPos));
+    os.writeAttr("arrivalPos", myArrivalPos);
+    os.writeAttr("duration", time2string(duration));
     os.closeTag();
 }
 
