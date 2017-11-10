@@ -258,16 +258,19 @@ class Net:
         foundSinks = []
         for edgeObj in sorted(self._edges.values()):
             if len(sources) == 0 and (len(edgeObj.source.inEdges) == 0 or edgeObj in self._possibleSources):
-                self.addSourceEdge(edgeObj)
                 if edgeObj.numLanes > 0:
+                    self.addSourceEdge(edgeObj)
                     foundSources.append(edgeObj.label)
             if len(sinks) == 0 and (len(edgeObj.target.outEdges) == 0 or edgeObj in self._possibleSinks):
-                self.addSinkEdge(edgeObj)
                 if edgeObj.numLanes > 0:
                     if edgeObj.label in foundSources:
                         print("Error! Edge '%s' is simultaneously source and sink." % edgeObj.label)
                         return False
+                    self.addSinkEdge(edgeObj)
                     foundSinks.append(edgeObj.label)
+        if options.verbose:
+            print("Loaded %s sources and %s sinks from detector file. Added %s sources and %s sinks from the network" % (
+                len(sources), len(sinks), len(foundSources), len(foundSinks)))
         if options.source_sink_output:
             with open(options.source_sink_output, 'w') as outf:
                 outf.write('<detectors>\n')
