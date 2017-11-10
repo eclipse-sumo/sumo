@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov  1 14:06:13 2017 by SUMO Version v0_31_0-844-g4947727
+<!-- generated on Fri Nov 10 08:20:04 2017 by SUMO Version v0_31_0-1053-gb13f456
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -34,10 +34,10 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="bus.0" depart="0.00" departLane="1/4to1/3_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="118.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="118.00" routeLength="473.08" waitSteps="0" timeLoss="11.32" rerouteNo="0" devices="tripinfo_bus.0 person_bus.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="bus.0" depart="0.00" departLane="1/4to1/3_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="118.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="118.00" routeLength="473.08" waitSteps="0" timeLoss="11.33" rerouteNo="0" devices="tripinfo_bus.0 person_bus.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="person0" depart="0.00">
-        <walk depart="0.00" arrival="47.00" arrivalPos="55.00" duration="47.00" routeLength="65.50" timeLoss="-0.16" maxSpeed="1.39"/>
+        <walk depart="0.00" departPos="80.00" arrival="47.00" arrivalPos="55.00" duration="47.00" routeLength="65.50" timeLoss="-0.16" maxSpeed="1.39"/>
         <ride waitingTime="20.00" vehicle="bus.0" depart="67.00" arrival="86.00" arrivalPos="92.00"/>
-        <walk depart="86.00" arrival="130.00" arrivalPos="30.00" duration="44.00" routeLength="62.00" timeLoss="-0.64" maxSpeed="1.39"/>
+        <walk depart="86.00" departPos="60.00" arrival="130.00" arrivalPos="30.00" duration="44.00" routeLength="62.00" timeLoss="-0.64" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>

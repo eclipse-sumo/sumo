@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov  1 14:06:41 2017 by SUMO Version v0_31_0-844-g4947727
+<!-- generated on Fri Nov 10 08:20:32 2017 by SUMO Version v0_31_0-1053-gb13f456
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -29,21 +29,21 @@
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <personinfo id="pEW" depart="20.00">
-        <walk depart="20.00" arrival="21.00" arrivalPos="95.25" duration="1.00" routeLength="0.10" timeLoss="0.90" maxSpeed="1.00"/>
+        <walk depart="20.00" departPos="0.00" arrival="21.00" arrivalPos="95.25" duration="1.00" routeLength="0.10" timeLoss="0.90" maxSpeed="1.00"/>
     </personinfo>
     <personinfo id="pEN" depart="25.00">
-        <walk depart="25.00" arrival="26.00" arrivalPos="98.55" duration="1.00" routeLength="0.10" timeLoss="0.90" maxSpeed="1.00"/>
+        <walk depart="25.00" departPos="0.00" arrival="26.00" arrivalPos="98.55" duration="1.00" routeLength="0.10" timeLoss="0.90" maxSpeed="1.00"/>
     </personinfo>
     <personinfo id="pWN" depart="0.00">
-        <walk depart="0.00" arrival="95.00" arrivalPos="98.55" duration="95.00" routeLength="193.80" timeLoss="-98.80" maxSpeed="1.00"/>
+        <walk depart="0.00" departPos="0.00" arrival="95.00" arrivalPos="98.55" duration="95.00" routeLength="193.80" timeLoss="-98.80" maxSpeed="1.00"/>
     </personinfo>
     <personinfo id="pNW" depart="10.00">
-        <walk depart="10.00" arrival="108.00" arrivalPos="95.25" duration="98.00" routeLength="193.80" timeLoss="-95.80" maxSpeed="1.00"/>
+        <walk depart="10.00" departPos="0.00" arrival="108.00" arrivalPos="95.25" duration="98.00" routeLength="193.80" timeLoss="-95.80" maxSpeed="1.00"/>
     </personinfo>
     <personinfo id="pWE" depart="5.00">
-        <walk depart="5.00" arrival="198.00" arrivalPos="98.55" duration="193.00" routeLength="193.80" timeLoss="-0.80" maxSpeed="1.00"/>
+        <walk depart="5.00" departPos="0.00" arrival="198.00" arrivalPos="98.55" duration="193.00" routeLength="193.80" timeLoss="-0.80" maxSpeed="1.00"/>
     </personinfo>
     <personinfo id="pNE" depart="15.00">
-        <walk depart="15.00" arrival="212.00" arrivalPos="98.55" duration="197.00" routeLength="197.10" timeLoss="-0.10" maxSpeed="1.00"/>
+        <walk depart="15.00" departPos="0.00" arrival="212.00" arrivalPos="98.55" duration="197.00" routeLength="197.10" timeLoss="-0.10" maxSpeed="1.00"/>
     </personinfo>
 </tripinfos>
