@@ -1288,8 +1288,18 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                         std::cout << "  mWAPath shape=" << myWalkingAreaPath->shape << " length=" << myWalkingAreaPath->length << "\n";
                     }
                 } else {
-                    // disconnnected route. move to the next edge (arbitrariliy, maintaining current direction)
+                    // disconnnected route. move to the next edge 
                     if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
+                        // try to determine direction from topology, otherwise maintain current direction
+                        const MSEdge* currRouteEdge = myStage->getRouteEdge();
+                        const MSEdge* nextRouteEdge = myStage->getNextRouteEdge();
+                        if ((nextRouteEdge->getToJunction() == currRouteEdge->getFromJunction())
+                                || nextRouteEdge->getToJunction() == currRouteEdge->getToJunction()) {
+                            myDir = BACKWARD;
+                        } else if ((nextRouteEdge->getFromJunction() == currRouteEdge->getFromJunction())
+                                || nextRouteEdge->getFromJunction() == currRouteEdge->getToJunction()) {
+                            myDir = FORWARD;
+                        }
                         myStage->moveToNextEdge(myPerson, currentTime, 0);
                         myLane = myNLI.lane;
                         assert(myLane != 0);
