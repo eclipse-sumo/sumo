@@ -188,10 +188,12 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
         }
     } else {
         // disconnected defaults to forward
-        if (myRoute.front()->getFromJunction() == myRoute[1]->getToJunction()) {
+        if ((myRoute.front()->getFromJunction() == myRoute[1]->getToJunction())
+                || (myRoute.front()->getFromJunction() == myRoute[1]->getFromJunction())) {
             departFwd = false;
         }
-        if (myRoute[myRoute.size() - 2]->getFromJunction() == myRoute.back()->getToJunction()) {
+        if ((myRoute.back()->getToJunction() == myRoute[myRoute.size() - 2]->getFromJunction())
+               || (myRoute.back()->getToJunction() == myRoute[myRoute.size() - 2]->getToJunction())) {
             arriveFwd = false;
         }
     }
