@@ -72,3 +72,4 @@ remove_lane
 # load a network with edge types and write it to plain-xml and .net.xml
 edge_types
 params
+short_edge
