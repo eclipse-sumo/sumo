@@ -16,7 +16,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 from optparse import OptionParser
 
-optParser = OptionParser(usage="usage: %prog [options] <input_flows.csv>")
+optParser = OptionParser(usage="usage: %prog [options]")
 optParser.add_option(
     "-f", "--flows", type="string", help="read detector flows from FILE(s) (mandatory)", metavar="FILE")
 optParser.add_option("-o", "--output", type="string", help="filtered file", metavar="FILE")
@@ -24,6 +24,11 @@ optParser.add_option("-d", "--detectors", help="read detector list from file")
 optParser.add_option("-b", "--begin", type="int", default=0, help="begin interval in minutes (inclusive)")
 optParser.add_option("-e", "--end", type="int", default=1440, help="end interval in minutes (exclusive)")
 (options, args) = optParser.parse_args()
+
+if options.flows is None:
+    sys.exit("Option --flow must be given")
+if options.output is None:
+    options.output = options.flows + ".filtered.csv"
 
 with open(options.output, 'w') as outf:
     for line in open(options.flows):
