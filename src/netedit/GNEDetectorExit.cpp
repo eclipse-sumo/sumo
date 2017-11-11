@@ -263,7 +263,7 @@ GNEDetectorExit::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_PARENT:
-            return (myViewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, false) != NULL);
+            return (myViewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, value) != NULL);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
