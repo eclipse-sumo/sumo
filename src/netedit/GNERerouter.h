@@ -73,15 +73,6 @@ public:
     /// @brief open GNERerouterDialog
     void openAdditionalDialog();
 
-    /// @brief add edge child
-    void addEdgeChild(GNEEdge* edge);
-
-    /// @brief remove edge child
-    void removeEdgeChild(GNEEdge* edge);
-
-    /// @brief get edge chidls
-    const std::vector<GNEEdge*>& getEdgeChilds() const;
-
     /// @brief get rerouter intervals
     const std::vector<GNERerouterInterval*>& getRerouterIntervals() const;
 
@@ -153,9 +144,6 @@ public:
 protected:
     /// @brief position of rerouter in view
     Position myPosition;
-
-    /// @brief edges of Rerouter
-    std::vector<GNEEdge*> myEdges;
 
     /// @brief filename of rerouter
     std::string myFilename;

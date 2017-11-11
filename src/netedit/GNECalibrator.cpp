@@ -63,7 +63,7 @@
 // ===========================================================================
 
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double relativePos, double frequency, const std::string& output) :
-    GNEAdditional(id, viewNet, SUMO_TAG_CALIBRATOR, ICON_CALIBRATOR),
+    GNEAdditional(id, viewNet, SUMO_TAG_CALIBRATOR, ICON_CALIBRATOR, true),
     myEdge(edge),
     myLane(NULL), 
     myPositionOverLane(relativePos),
@@ -74,7 +74,7 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge
 
 
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double relativePos, double frequency, const std::string& output) :
-    GNEAdditional(id, viewNet, SUMO_TAG_LANECALIBRATOR, ICON_CALIBRATOR),
+    GNEAdditional(id, viewNet, SUMO_TAG_LANECALIBRATOR, ICON_CALIBRATOR, true),
     myEdge(NULL),
     myLane(lane),
     myPositionOverLane(relativePos),

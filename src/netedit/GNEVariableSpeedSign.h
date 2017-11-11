@@ -71,9 +71,6 @@ public:
     /// @brief open GNEVariableSpeedSignDialog
     void openAdditionalDialog();
 
-    /// @brief get lanes of VSS
-    const std::vector<GNELane*> &getLanes() const;
-
     /// @brief get values of variable speed signal
     const std::vector<GNEVariableSpeedSignStep*>& getSteps() const;
 
@@ -144,9 +141,6 @@ protected:
 
     /// @brief filename of variable speed sign
     std::string myFilename;
-
-    /// @brief vector of lanes of this VSS
-    std::vector<GNELane*> myLanes;
 
     /// @brief values of variable speed signal
     std::vector<GNEVariableSpeedSignStep*> mySteps;

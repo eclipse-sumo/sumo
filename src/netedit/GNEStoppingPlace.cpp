@@ -60,7 +60,7 @@
 // ===========================================================================
 
 GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos, const std::string& name, bool friendlyPosition) :
-    GNEAdditional(id, viewNet, tag, icon),
+    GNEAdditional(id, viewNet, tag, icon, true),
     myLane(lane),
     myStartPosRelative(startPos / lane->getLaneParametricLength()),
     myEndPosRelative(endPos / lane->getLaneParametricLength()),

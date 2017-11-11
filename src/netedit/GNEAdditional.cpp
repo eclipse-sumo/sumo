@@ -70,6 +70,41 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
 }
 
 
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, GNEAdditional *additionalParent) :
+    GUIGlObject(GLO_ADDITIONAL, id),
+    GNEAttributeCarrier(tag, icon),
+    myViewNet(viewNet),
+    myBlockIconRotation(0),
+    myBlocked(false),
+    myMovable(movable),
+    myAdditionalParent(additionalParent) {
+}
+
+
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, std::vector<GNEEdge*> edgeChilds) :
+    GUIGlObject(GLO_ADDITIONAL, id),
+    GNEAttributeCarrier(tag, icon),
+    myViewNet(viewNet),
+    myBlockIconRotation(0),
+    myBlocked(false),
+    myMovable(movable),
+    myAdditionalParent(NULL),
+    myEdgeChilds(edgeChilds) {
+}
+
+
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, std::vector<GNELane*> laneChilds) :
+    GUIGlObject(GLO_ADDITIONAL, id),
+    GNEAttributeCarrier(tag, icon),
+    myViewNet(viewNet),
+    myBlockIconRotation(0),
+    myBlocked(false),
+    myMovable(movable),
+    myAdditionalParent(NULL),
+    myLaneChilds(laneChilds) {
+}
+
+
 GNEAdditional::~GNEAdditional() {}
 
 
@@ -102,10 +137,26 @@ GNEAdditional::isAdditionalSelected() const {
     return gSelected.isSelected(getType(), getGlID());
 }
 
+GNEAdditional*
+GNEAdditional::getAdditionalParent() const {
+    return myAdditionalParent;
+}
 
 const std::vector<GNEAdditional*>& 
 GNEAdditional::getAdditionalChilds() const {
     return myAdditionalChilds;
+}
+
+
+const std::vector<GNEEdge*>&
+GNEAdditional::getEdgeChilds() const {
+    return myEdgeChilds;
+}
+
+
+const std::vector<GNELane*>&
+GNEAdditional::getLaneChilds() const {
+    return myLaneChilds;
 }
 
 
@@ -410,6 +461,58 @@ GNEAdditional::removeAdditionalChild(GNEAdditional* additional) {
     } else {
         myAdditionalChilds.erase(it);
         updateGeometry();
+    }
+}
+
+
+void
+GNEAdditional::addEdgeChild(GNEEdge* edge) {
+    // Check that edge is valid and doesn't exist previously
+    if (edge == NULL) {
+        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else if (std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge) != myEdgeChilds.end()) {
+        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else {
+        myEdgeChilds.push_back(edge);
+    }
+}
+
+
+void
+GNEAdditional::removeEdgeChild(GNEEdge* edge) {
+    // Check that edge is valid and exist previously
+    if (edge == NULL) {
+        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else if (std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge) == myEdgeChilds.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else {
+        myEdgeChilds.erase(std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge));
+    }
+}
+
+
+void
+GNEAdditional::addLaneChild(GNELane* lane) {
+    // Check that lane is valid and doesn't exist previously
+    if (lane == NULL) {
+        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else if (std::find(myLaneChilds.begin(), myLaneChilds.end(), lane) != myLaneChilds.end()) {
+        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else {
+        myLaneChilds.push_back(lane);
+    }
+}
+
+
+void
+GNEAdditional::removeLaneChild(GNELane* lane) {
+    // Check that lane is valid and exist previously
+    if (lane == NULL) {
+        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else if (std::find(myLaneChilds.begin(), myLaneChilds.end(), lane) == myLaneChilds.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else {
+        myLaneChilds.erase(std::find(myLaneChilds.begin(), myLaneChilds.end(), lane));
     }
 }
 

@@ -62,9 +62,8 @@
 // ===========================================================================
 
 GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, double probability, bool off) :
-    GNEAdditional(id, viewNet, SUMO_TAG_REROUTER, ICON_REROUTER),
+    GNEAdditional(id, viewNet, SUMO_TAG_REROUTER, ICON_REROUTER, true, edges),
     myPosition(pos),
-    myEdges(edges),
     myFilename(filename),
     myProbability(probability),
     myOff(off) {
@@ -96,7 +95,7 @@ GNERerouter::updateGeometry() {
     mySymbolsPositionAndRotation.clear();
 
     // calculate position and rotation of every simbol for every lane
-    for (auto i : myEdges) {
+    for (auto i : myEdgeChilds) {
         for(auto j : i->getLanes()) {
             std::pair<Position, double> posRot;
             // set position and lenght depending of shape's lengt
@@ -178,7 +177,7 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_EDGES, parseGNEEdges(myEdges));
+    device.writeAttr(SUMO_ATTR_EDGES, parseGNEEdges(myEdgeChilds));
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
     if (!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
@@ -194,38 +193,6 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
 
     // Close tag
     device.closeTag();
-}
-
-
-void
-GNERerouter::addEdgeChild(GNEEdge* edge) {
-    // Check that edge is valid and doesn't exist previously
-    if (edge == NULL) {
-        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
-    } else if (std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end()) {
-        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
-    } else {
-        myEdges.push_back(edge);
-    }
-}
-
-
-void
-GNERerouter::removeEdgeChild(GNEEdge* edge) {
-    // Check that edge is valid and exist previously
-    if (edge == NULL) {
-        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
-    } else if (std::find(myEdges.begin(), myEdges.end(), edge) == myEdges.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
-    } else {
-        myEdges.erase(std::find(myEdges.begin(), myEdges.end(), edge));
-    }
-}
-
-
-const std::vector<GNEEdge*>&
-GNERerouter::getEdgeChilds() const {
-    return myEdges;
 }
 
 
@@ -354,7 +321,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_EDGES:
-            return parseGNEEdges(myEdges);
+            return parseGNEEdges(myEdgeChilds);
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_FILE:
@@ -455,13 +422,13 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_EDGES: {
             // remove references of this rerouter in all edge childs
-            for (auto i : myEdges) {
+            for (auto i : myEdgeChilds) {
                 i->removeAdditionalParent(this);
             }
             // set new edges
-            myEdges = parseGNEEdges(myViewNet->getNet(), value);
+            myEdgeChilds = parseGNEEdges(myViewNet->getNet(), value);
             // add references to this rerouter in all newedge childs
-            for (auto i : myEdges) {
+            for (auto i : myEdgeChilds) {
                 i->addAdditionalParent(this);
             }
             break;

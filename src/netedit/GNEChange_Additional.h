@@ -91,11 +91,8 @@ private:
     /// @brief pointer to edge (used by additionals with edge parent)
     GNEEdge* myEdgeParent;
 
-    /// @brief pointer to E3 parent (used by Entry/exits)
-    GNEDetectorE3* myE3Parent;
-
-    /// @brief list of additional childs (used by E3 Detector)
-    std::vector<GNEAdditional*> myAdditionalChilds;
+    /// @brief pointer to additional (used by additional with parents, for example Entry/exits)
+    GNEAdditional* myAdditionalParent;
 
     /// @brief list of Edge childs (used by Rerouters)
     std::vector<GNEEdge*> myEdgeChilds;

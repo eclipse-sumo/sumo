@@ -60,10 +60,9 @@
 // ===========================================================================
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename) :
-    GNEAdditional(id, viewNet, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGN),
+    GNEAdditional(id, viewNet, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGN, true, lanes),
     myPosition(pos),
     myFilename(filename),
-    myLanes(lanes),
     mySaveInFilename(false) {
 }
 
@@ -93,7 +92,7 @@ GNEVariableSpeedSign::updateGeometry() {
     mySymbolsPositionAndRotation.clear();
 
     // calculate position and rotation of every simbol for every lane
-    for (auto i : myLanes) {
+    for (auto i : myLaneChilds) {
         std::pair<Position, double> posRot;
         // set position and lenght depending of shape's lengt
         if(i->getShape().length() - 6 > 0) {
@@ -173,7 +172,7 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANES, parseGNELanes(myLanes));
+    device.writeAttr(SUMO_ATTR_LANES, parseGNELanes(myLaneChilds));
     device.writeAttr(SUMO_ATTR_X, myPosition.x());
     device.writeAttr(SUMO_ATTR_Y, myPosition.y());
     // If filenam isn't empty and save in filename is enabled, save in a different file. In other case, save in the same additional XML
@@ -196,12 +195,6 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
     }
     // Close tag
     device.closeTag();
-}
-
-
-const std::vector<GNELane*> &
-GNEVariableSpeedSign::getLanes() const {
-    return myLanes;
 }
 
 
@@ -319,7 +312,7 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANES:
-            return parseGNELanes(myLanes);
+            return parseGNELanes(myLaneChilds);
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_FILE:
@@ -409,7 +402,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_LANES:
-            myLanes = parseGNELanes(myViewNet->getNet(), value);
+            myLaneChilds = parseGNELanes(myViewNet->getNet(), value);
             break;
         case SUMO_ATTR_POSITION:
             bool ok;

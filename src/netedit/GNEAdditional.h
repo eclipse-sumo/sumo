@@ -65,14 +65,44 @@ class GNEAdditional : public GUIGlObject, public GNEAttributeCarrier {
     friend class GNEAdditionalHandler;
 
 public:
-    /**@brief Constructor.
+    /**@brief Constructor
      * @param[in] id Gl-id of the additional element (Must be unique)
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] icon GUIIcon associated to the additional
      * @param[in] movable Flag to indicate if this additional is movable 
      */
-    GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable = true);
+    GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable);
+
+    /**@brief Constructor used by Additionals that have another additional sparent
+    * @param[in] id Gl-id of the additional element (Must be unique)
+    * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+    * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
+    * @param[in] icon GUIIcon associated to the additional
+    * @param[in] movable Flag to indicate if this additional is movable 
+    * @param[in] additionalParent pointer to additional parent
+    */
+    GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, GNEAdditional *additionalParent);
+
+    /**@brief Constructor used by Additionals that have Edge childs
+    * @param[in] id Gl-id of the additional element (Must be unique)
+    * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+    * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
+    * @param[in] icon GUIIcon associated to the additional
+    * @param[in] movable Flag to indicate if this additional is movable 
+    * @param[in] edgeChilds vector of edge childs
+    */
+    GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, std::vector<GNEEdge*> edgeChilds);
+
+    /**@brief Constructor used by Additionals that have lane childs
+    * @param[in] id Gl-id of the additional element (Must be unique)
+    * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+    * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
+    * @param[in] icon GUIIcon associated to the additional
+    * @param[in] movable Flag to indicate if this additional is movable 
+    * @param[in] laneChilds vector of lane childs
+    */
+    GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, std::vector<GNELane*> laneChilds);
 
     /// @brief Destructor
     ~GNEAdditional();
@@ -120,9 +150,17 @@ public:
 
     // @brief Check if additional item is selected
     bool isAdditionalSelected() const;
+    
+    GNEAdditional *getAdditionalParent() const;
 
     /// @brief return vector of additionals that have as Parent this edge (For example, Calibrators)
     const std::vector<GNEAdditional*>& getAdditionalChilds() const;
+
+    /// @brief get edge chidls
+    const std::vector<GNEEdge*>& getEdgeChilds() const;
+
+    /// @brief get lanes of VSS
+    const std::vector<GNELane*> &getLaneChilds() const;
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -216,6 +254,12 @@ protected:
     /// @brief vector with the Additional childs
     std::vector<GNEAdditional*> myAdditionalChilds;
 
+    /// @brief vector with the edge childs of this additional
+    std::vector<GNEEdge*> myEdgeChilds;
+
+    /// @brief vector with the lane childs of this additional
+    std::vector<GNELane*> myLaneChilds;
+
     /// @name members and functions relative to block icon
     /// @{
     /// @brief set Rotation of block Icon (must be called in updateGeometry() function)
@@ -269,7 +313,7 @@ protected:
 
     /// @}
 
-    /// @name members and functions relative to additional childs of this additional
+    /// @name members and functions relative to  childs of this additional
     /// @{
 
     /// @brief add additional child to this additional
@@ -277,6 +321,18 @@ protected:
 
     /// @brief remove additional child from this additional
     void removeAdditionalChild(GNEAdditional* additional);
+
+    /// @brief add edge child
+    void addEdgeChild(GNEEdge* edge);
+
+    /// @brief remove edge child
+    void removeEdgeChild(GNEEdge* edge);
+
+    /// @brief add lane child
+    void addLaneChild(GNELane* lane);
+
+    /// @brief remove lane child
+    void removeLaneChild(GNELane* lane);
 
     /// @}
 

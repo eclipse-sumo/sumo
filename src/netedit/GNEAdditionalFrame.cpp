@@ -417,6 +417,10 @@ GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
         deselected.insert(additional->getGlID());
         myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), deselected, true), true);
     }
+    // first remove all additional childs of this additional calling this function recursively
+    while(additional->getAdditionalChilds().size() > 0) {
+        removeAdditional(additional->getAdditionalChilds().front());
+    }
     // remove additional
     myViewNet->getUndoList()->add(new GNEChange_Additional(additional, false), true);
     myViewNet->getUndoList()->p_end();
