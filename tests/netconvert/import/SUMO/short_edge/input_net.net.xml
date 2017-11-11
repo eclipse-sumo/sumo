@@ -37,12 +37,12 @@
     </edge>
 
     <edge id="CW" from="C" to="E" priority="2" shape="0.00,0.00 0.00,0.00">
-        <lane id="CW_0" index="0" speed="13.89" length="0.00" shape="0.00,-4.95 0.00,-4.95"/>
-        <lane id="CW_1" index="1" speed="13.89" length="0.00" shape="0.00,-1.65 0.00,-1.65"/>
+        <lane id="CW_0" index="0" speed="13.89" length="0.01" shape="0.00,-4.95 0.00,-4.95"/>
+        <lane id="CW_1" index="1" speed="13.89" length="0.01" shape="0.00,-1.65 0.00,-1.65"/>
     </edge>
     <edge id="WC" from="E" to="C" priority="2" shape="0.00,0.00 0.00,0.00">
-        <lane id="WC_0" index="0" speed="13.89" length="0.00" shape="0.00,4.95 0.00,4.95"/>
-        <lane id="WC_1" index="1" speed="13.89" length="0.00" shape="0.00,1.65 0.00,1.65"/>
+        <lane id="WC_0" index="0" speed="13.89" length="0.01" shape="0.00,4.95 0.00,4.95"/>
+        <lane id="WC_1" index="1" speed="13.89" length="0.01" shape="0.00,1.65 0.00,1.65"/>
     </edge>
 
     <tlLogic id="C" type="actuated" programID="0" offset="0">
