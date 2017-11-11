@@ -48,8 +48,11 @@ GUITransportableControl::~GUITransportableControl() {
 
 
 MSTransportable*
-GUITransportableControl::buildPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const bool fromRouteFile) const {
-    return new GUIPerson(pars, vtype, plan, fromRouteFile);
+GUITransportableControl::buildPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, 
+        std::mt19937* rng) const 
+{
+    const double speedFactor = vtype->computeChosenSpeedDeviation(rng);
+    return new GUIPerson(pars, vtype, plan, speedFactor);
 }
 
 

@@ -61,7 +61,7 @@ class GUIPerson : public MSPerson, public GUIGlObject {
 public:
     /** @brief Constructor
      */
-    GUIPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const bool fromRouteFile);
+    GUIPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor);
 
 
     /// @brief destructor

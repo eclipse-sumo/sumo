@@ -37,7 +37,6 @@
 #include <microsim/pedestrians/MSPerson.h>
 #include "MSContainer.h"
 #include "MSVehicle.h"
-#include "MSRouteHandler.h"
 #include "MSTransportableControl.h"
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/OutputDevice_String.h>
@@ -288,8 +287,11 @@ MSTransportableControl::abortWaiting(MSTransportable* t) {
 
 
 MSTransportable*
-MSTransportableControl::buildPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const bool fromRouteFile) const {
-    return new MSPerson(pars, vtype, plan, vtype->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : 0));
+MSTransportableControl::buildPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, 
+        std::mt19937* rng) const 
+{
+    const double speedFactor = vtype->computeChosenSpeedDeviation(rng);
+    return new MSPerson(pars, vtype, plan, speedFactor);
 }
 
 
