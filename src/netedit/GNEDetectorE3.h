@@ -47,8 +47,6 @@ class GNEDetectorExit;
  * Class for multy Entry/multy Exits detectors
  */
 class GNEDetectorE3 : public GNEAdditional {
-    /// @brief declare friend class (needed to manage Entry/Exit childs)
-    friend class GNEChange_Additional;
 
 public:
     /**@brief GNEDetectorE3 Constructor
@@ -75,24 +73,6 @@ public:
 
     /// @brief gererate a new ID for an Exit detector child
     std::string generateExitID();
-
-    /// @brief add an Entry child
-    void addEntryChild(GNEDetectorEntry* entry);
-
-    /// @brief delete an Entry child
-    void removeEntryChild(GNEDetectorEntry* entry);
-
-    /// @brief add an Exit child
-    void addExitChild(GNEDetectorExit* exit);
-
-    /// @brief delete an Exit child
-    void removeExitChild(GNEDetectorExit* exit);
-
-    /// @brief get number of entry childs
-    int getNumberOfEntryChilds() const;
-
-    /// @brief get number of exit childs
-    int getNumberOfExitChilds() const;
 
     /// @brief update Connection's geometry
     void updateGeometryConnections();
@@ -169,12 +149,6 @@ protected:
 
     /// @brief The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
     double mySpeedThreshold;
-
-    /// @brief vector with the GNEDetectorE3EntryExits of the detector
-    std::vector<GNEDetectorEntry*> myGNEDetectorEntrys;
-
-    /// @brief vector with the GNEDetectorE3EntryExits of the detector
-    std::vector<GNEDetectorExit*> myGNEDetectorExits;
 
 private:
     /// @brief set attribute after validation

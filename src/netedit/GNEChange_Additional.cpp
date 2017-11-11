@@ -69,9 +69,7 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
     }
     // handle additional with childs
     if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
-        GNEDetectorE3* E3 = dynamic_cast<GNEDetectorE3*>(myAdditional);
-        myEntryChilds = E3->myGNEDetectorEntrys;
-        myExitChilds = E3->myGNEDetectorExits;
+        myAdditionalChilds = myAdditional->getAdditionalChilds();
     } else if (myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
         myE3Parent = dynamic_cast<GNEDetectorEntry*>(myAdditional)->getE3Parent();
     } else if (myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
@@ -124,13 +122,8 @@ GNEChange_Additional::undo() {
         }
         // 3 - If additional is an E3 Detector, delete Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
-            for (auto i : myEntryChilds) {
-                // delete entry of their lane parent before remove
-                myNet->retrieveLane(i->getAttribute(SUMO_ATTR_LANE))->removeAdditionalChild(i);
-                myNet->deleteAdditional(i);
-            }
-            for (auto i : myExitChilds) {
-                // delete entry of their lane parent before remove
+            for (auto i : myAdditionalChilds) {
+                // delete entry and exits of their lane parent before remove
                 myNet->retrieveLane(i->getAttribute(SUMO_ATTR_LANE))->removeAdditionalChild(i);
                 myNet->deleteAdditional(i);
             }
@@ -138,14 +131,14 @@ GNEChange_Additional::undo() {
         // 4 - If additiona is an Entry detector, remove it from E3 parent
         if (myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
             assert(myE3Parent);
-            myE3Parent->removeEntryChild(dynamic_cast<GNEDetectorEntry*>(myAdditional));
+            myE3Parent->removeAdditionalChild(myAdditional);
             myE3Parent->updateGeometry();
             myNet->getViewNet()->update();
         }
         // 5 - If additiona is an Exit detector, remove it from E3 parent
         if (myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
             assert(myE3Parent);
-            myE3Parent->removeExitChild(dynamic_cast<GNEDetectorExit*>(myAdditional));
+            myE3Parent->removeAdditionalChild(myAdditional);
             myE3Parent->updateGeometry();
             myNet->getViewNet()->update();
         }
@@ -180,13 +173,8 @@ GNEChange_Additional::undo() {
         }
         // 3 - If additional is an E3 detector, add it their Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
-            for (auto i : myEntryChilds) {
-                // add entry of their lane parent before insert
-                myNet->retrieveLane(i->getAttribute(SUMO_ATTR_LANE))->addAdditionalChild(i);
-                myNet->insertAdditional(i);
-            }
-            for (auto i : myExitChilds) {
-                // add entry of their lane parent before insert
+            for (auto i : myAdditionalChilds) {
+                // add entry and exitsof their lane parent before insert
                 myNet->retrieveLane(i->getAttribute(SUMO_ATTR_LANE))->addAdditionalChild(i);
                 myNet->insertAdditional(i);
             }
@@ -194,14 +182,14 @@ GNEChange_Additional::undo() {
         // 4 - If additional is an Exit detector, add id to E3 parent
         if (myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
             assert(myE3Parent);
-            myE3Parent->addEntryChild(dynamic_cast<GNEDetectorEntry*>(myAdditional));
+            myE3Parent->addAdditionalChild(myAdditional);
             myE3Parent->updateGeometry();
             myNet->getViewNet()->update();
         }
         // 5 - If additional is an Exit detector, add id to E3 parent
         if (myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
             assert(myE3Parent);
-            myE3Parent->addExitChild(dynamic_cast<GNEDetectorExit*>(myAdditional));
+            myE3Parent->addAdditionalChild(myAdditional);
             myE3Parent->updateGeometry();
             myNet->getViewNet()->update();
         }
@@ -244,13 +232,8 @@ GNEChange_Additional::redo() {
         }
         // 3 - If additional is an E3 detector, add it their Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
-            for (auto i : myEntryChilds) {
-                // add entry of their lane parent before insert
-                myNet->retrieveLane(i->getAttribute(SUMO_ATTR_LANE))->addAdditionalChild(i);
-                myNet->insertAdditional(i);
-            }
-            for (auto i : myExitChilds) {
-                // add entry of their lane parent before insert
+            for (auto i : myAdditionalChilds) {
+                // add entry and exits of their lane parent before insert
                 myNet->retrieveLane(i->getAttribute(SUMO_ATTR_LANE))->addAdditionalChild(i);
                 myNet->insertAdditional(i);
             }
@@ -258,14 +241,14 @@ GNEChange_Additional::redo() {
         // 4 - If additional is an Entry detector, add id to E3 parent
         if (myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
             assert(myE3Parent);
-            myE3Parent->addEntryChild(dynamic_cast<GNEDetectorEntry*>(myAdditional));
+            myE3Parent->addAdditionalChild(myAdditional);
             myE3Parent->updateGeometry();
             myNet->getViewNet()->update();
         }
         // 5 - If additional is an Exit detector, add id to E3 parent
         if (myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
             assert(myE3Parent);
-            myE3Parent->addExitChild(dynamic_cast<GNEDetectorExit*>(myAdditional));
+            myE3Parent->addAdditionalChild(myAdditional);
             myE3Parent->updateGeometry();
             myNet->getViewNet()->update();
         }
@@ -299,13 +282,8 @@ GNEChange_Additional::redo() {
         }
         // 3 - If additional is an E3 Detector, delete Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
-            for (auto i : myEntryChilds) {
-                // delete entry of their lane parent before remove
-                myNet->retrieveLane(i->getAttribute(SUMO_ATTR_LANE))->removeAdditionalChild(i);
-                myNet->deleteAdditional(i);
-            }
-            for (auto i : myExitChilds) {
-                // delete entry of their lane parent before remove
+            for (auto i : myAdditionalChilds) {
+                // delete entry and exits of their lane parent before remove
                 myNet->retrieveLane(i->getAttribute(SUMO_ATTR_LANE))->removeAdditionalChild(i);
                 myNet->deleteAdditional(i);
             }
@@ -313,14 +291,14 @@ GNEChange_Additional::redo() {
         // 4 - If additiona is an Entry detector, remove it from E3 parent
         if (myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
             assert(myE3Parent);
-            myE3Parent->removeEntryChild(dynamic_cast<GNEDetectorEntry*>(myAdditional));
+            myE3Parent->removeAdditionalChild(myAdditional);
             myE3Parent->updateGeometry();
             myNet->getViewNet()->update();
         }
         // 5 - If additiona is an Exit detector, remove it from E3 parent
         if (myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
             assert(myE3Parent);
-            myE3Parent->removeExitChild(dynamic_cast<GNEDetectorExit*>(myAdditional));
+            myE3Parent->removeAdditionalChild(myAdditional);
             myE3Parent->updateGeometry();
             myNet->getViewNet()->update();
         }

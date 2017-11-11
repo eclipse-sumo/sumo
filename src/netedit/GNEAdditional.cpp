@@ -103,6 +103,12 @@ GNEAdditional::isAdditionalSelected() const {
 }
 
 
+const std::vector<GNEAdditional*>& 
+GNEAdditional::getAdditionalChilds() const {
+    return myAdditionalChilds;
+}
+
+
 const std::string&
 GNEAdditional::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();
@@ -366,6 +372,44 @@ GNEAdditional::changeLane(GNELane *oldLane, const std::string& newLaneID) {
         newLane->addAdditionalChild(this);
         updateGeometry();
         return newLane;
+    }
+}
+
+
+void 
+GNEAdditional::changeAdditionalParent(const std::string& newAdditionalParentID) {
+    if(myAdditionalParent == NULL) {
+        throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't have an additional parent");
+    } else {
+        myAdditionalParent->removeAdditionalChild(this);
+        GNEAdditional* newAdditionalParent = myViewNet->getNet()->retrieveAdditional(newAdditionalParentID);
+        newAdditionalParent->addAdditionalChild(this);
+        updateGeometry();
+    }
+}
+
+
+void
+GNEAdditional::addAdditionalChild(GNEAdditional* additional) {
+    // First check that additional wasn't already inserted
+    if (std::find(myAdditionalChilds.begin(), myAdditionalChilds.end(), additional) != myAdditionalChilds.end()) {
+        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' was already inserted in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else {
+        myAdditionalChilds.push_back(additional);
+        updateGeometry();
+    }
+}
+
+
+void
+GNEAdditional::removeAdditionalChild(GNEAdditional* additional) {
+    // First check that additional was already inserted
+    auto it = std::find(myAdditionalChilds.begin(), myAdditionalChilds.end(), additional);
+    if (it == myAdditionalChilds.end()) {
+        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else {
+        myAdditionalChilds.erase(it);
+        updateGeometry();
     }
 }
 

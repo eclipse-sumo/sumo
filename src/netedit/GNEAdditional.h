@@ -59,6 +59,11 @@ class GNEAdditionalDialog;
  */
 
 class GNEAdditional : public GUIGlObject, public GNEAttributeCarrier {
+
+    /// @brief declare friend class (needed to manage Entry/Exit childs)
+    friend class GNEChange_Additional;
+    friend class GNEAdditionalHandler;
+
 public:
     /**@brief Constructor.
      * @param[in] id Gl-id of the additional element (Must be unique)
@@ -115,6 +120,9 @@ public:
 
     // @brief Check if additional item is selected
     bool isAdditionalSelected() const;
+
+    /// @brief return vector of additionals that have as Parent this edge (For example, Calibrators)
+    const std::vector<GNEAdditional*>& getAdditionalChilds() const;
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -243,15 +251,32 @@ protected:
 
     /**@brief change edge of additional
     * @throw exception if oldEdge doesn't belong to an edge
-    * @throw exception if edge with ID  edgeID doesn't exist
+    * @throw exception if edge with ID newEdgeID doesn't exist
     */
     GNEEdge* changeEdge(GNEEdge *oldEdge, const std::string& newEdgeID);
 
     /**@brief change lane of additional
     * @throw exception if oldLane doesn't belong to an edge
-    * @throw exception if lane with ID  edgeID doesn't exist
+    * @throw exception if lane with ID newLaneID doesn't exist
     */
     GNELane* changeLane(GNELane *oldLane, const std::string& newLaneID);
+
+    /**@brief change additional parent of additional
+    * @throw exception if this additional doesn't have previously a defined Additional parent
+    * @throw exception if additional with ID newAdditionalParentID doesn't exist
+    */
+    void changeAdditionalParent(const std::string& newAdditionalParentID);
+
+    /// @}
+
+    /// @name members and functions relative to additional childs of this additional
+    /// @{
+
+    /// @brief add additional child to this additional
+    void addAdditionalChild(GNEAdditional* additional);
+
+    /// @brief remove additional child from this additional
+    void removeAdditionalChild(GNEAdditional* additional);
 
     /// @}
 

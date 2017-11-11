@@ -1211,7 +1211,7 @@ GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, bool allowUndoRedo
             if (viewNet->getNet()->getAdditional(E3Parent->getTag(), E3Parent->getID()) == NULL) {
                 viewNet->getNet()->insertAdditional(E3Parent);
             }
-            E3Parent->addEntryChild(entry);
+            E3Parent->addAdditionalChild(entry);
             viewNet->getNet()->insertAdditional(entry);
             lane->addAdditionalChild(entry);
             // update geometry for draw lines
@@ -1247,7 +1247,7 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo,
             if (viewNet->getNet()->getAdditional(E3Parent->getTag(), E3Parent->getID()) == NULL) {
                 viewNet->getNet()->insertAdditional(E3Parent);
             }
-            E3Parent->addExitChild(exit);
+            E3Parent->addAdditionalChild(exit);
             viewNet->getNet()->insertAdditional(exit);
             lane->addAdditionalChild(exit);
             // update geometry for draw lines
