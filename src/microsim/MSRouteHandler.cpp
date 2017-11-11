@@ -1166,15 +1166,13 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
             throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
         }
-        double speed = DEFAULT_PEDESTRIAN_SPEED;
         const MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
-        // need to check for explicitly set speed since we might have // DEFAULT_VEHTYPE
-        if (vtype != 0) {
-            speed = vtype->getMaxSpeed() * vtype->computeChosenSpeedDeviation(&myParsingRNG);
-        }
-        speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, 0, ok, speed);
-        if (speed <= 0) {
-            throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
+        double speed = -1; // default to vType speed
+        if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+            speed = attrs.get<double>(SUMO_ATTR_SPEED, 0, ok);
+            if (speed <= 0) {
+                throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
+            }
         }
         double departPos = 0;
         double arrivalPos = 0;
