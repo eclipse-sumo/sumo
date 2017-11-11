@@ -1778,7 +1778,10 @@ GNENet::saveAdditionals(const std::string& filename) {
         OutputDevice& device = OutputDevice::getDevice(filename);
         device.openTag("additionals");
         for (auto i : myAdditionals) {
-            i.second->writeAdditional(device);
+            // only save additionals that doesn't have Additional parents
+            if(i.second->getAdditionalParent() == NULL) {
+                i.second->writeAdditional(device);
+            }
         }
         device.close();
     }

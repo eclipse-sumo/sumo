@@ -178,7 +178,7 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
         glRotated(myBlockIconRotation, 0, 0, -1);
         //move to logo position
         glTranslated(1.9, 0, 0);
-        // draw E2 logo
+        // draw Entry logo
         if (isAdditionalSelected()) {
             GLHelper::drawText("E3", Position(), .1, 2.8, myViewNet->getNet()->selectedAdditionalColor);
         } else {
@@ -188,7 +188,7 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(1.7, 0, 0);
         // Rotate depending of myBlockIconRotation
         glRotated(90, 0, 0, 1);
-        // draw E2 logo
+        // draw Entry text
         if (isAdditionalSelected()) {
             GLHelper::drawText("Entry", Position(), .1, 1, myViewNet->getNet()->selectedAdditionalColor);
         } else {
