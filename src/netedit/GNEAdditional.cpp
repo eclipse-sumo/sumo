@@ -63,8 +63,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
-    myBlockIconRotation(0),
     myBlocked(false),
+    myBlockIconRotation(0),
     myMovable(movable),
     myAdditionalParent(NULL) {
 }

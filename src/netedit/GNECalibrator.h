@@ -179,6 +179,12 @@ public:
     /// @}
 
 protected:
+    /// @brief The edge in which Calibrators are placed
+    GNEEdge* myEdge;
+
+    /// @brief The lane in which CalibratorLane are placed
+    GNELane* myLane;
+
     /// @brief position over Lane
     double myPositionOverLane;
 
@@ -199,12 +205,6 @@ protected:
 
     /// @brief calibrator vehicleType values
     std::vector<GNECalibratorVehicleType*> myCalibratorVehicleTypes;
-
-    /// @brief The edge in which Calibrators are placed
-    GNEEdge* myEdge;
-
-    /// @brief The lane in which CalibratorLane are placed
-    GNELane* myLane;
 
 private:
     /// @brief set attribute after validation

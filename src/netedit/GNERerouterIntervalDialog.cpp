@@ -680,7 +680,7 @@ GNERerouterIntervalDialog::updateRouteProbReroutesTable() {
     // Declare pointer to FXTableItem
     FXTableItem* item = 0;
     // iterate over values
-    for (int i = 0; i < myEditedRerouterInterval->getRouteProbReroutes().size(); i++) {
+    for (int i = 0; i < (int)myEditedRerouterInterval->getRouteProbReroutes().size(); i++) {
         // Set new route
         item = new FXTableItem(myEditedRerouterInterval->getRouteProbReroutes().at(i)->getAttribute(SUMO_ATTR_ID).c_str());
         myRouteProbRerouteTable->setItem(i, 0, item);
