@@ -198,14 +198,40 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
 }
 
 
+void 
+GNEVariableSpeedSign::addVariableSpeedSignStep(GNEVariableSpeedSignStep* step) {
+    auto it = std::find(mySteps.begin(), mySteps.end(), step);
+    if(it == mySteps.end()) {
+        mySteps.push_back(step);
+        // sort steps always after a adding/restoring
+        sortVariableSpeedSignSteps();
+    } else {
+        throw ProcessError("Variable Speed Sign Step already exist");
+    }
+}
+
+
+void 
+GNEVariableSpeedSign::removeVariableSpeedSignStep(GNEVariableSpeedSignStep* step) {
+    auto it = std::find(mySteps.begin(), mySteps.end(), step);
+    if(it != mySteps.end()) {
+        mySteps.erase(it);
+        // sort steps always after a adding/restoring
+        sortVariableSpeedSignSteps();
+    } else {
+        throw ProcessError("Variable Speed Sign Step doesn't exist");
+    }
+}
+
+
 const std::vector<GNEVariableSpeedSignStep*>&
-GNEVariableSpeedSign::getSteps() const {
+GNEVariableSpeedSign::getVariableSpeedSignSteps() const {
     return mySteps;
 }
 
 
 void 
-GNEVariableSpeedSign::sortSteps() {
+GNEVariableSpeedSign::sortVariableSpeedSignSteps() {
     // declare a vector to keep sorted steps
     std::vector<GNEVariableSpeedSignStep*> sortedSteps;
     // sort intervals usin time as criterium
@@ -365,32 +391,6 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-}
-
-
-void 
-GNEVariableSpeedSign::addVariableSpeedSignStep(GNEVariableSpeedSignStep* step) {
-    auto it = std::find(mySteps.begin(), mySteps.end(), step);
-    if(it == mySteps.end()) {
-        mySteps.push_back(step);
-        // sort steps always after a adding/restoring
-        sortSteps();
-    } else {
-        throw ProcessError("Rerouter Interval already exist");
-    }
-}
-
-
-void 
-GNEVariableSpeedSign::removeVariableSpeedSignStep(GNEVariableSpeedSignStep* step) {
-    auto it = std::find(mySteps.begin(), mySteps.end(), step);
-    if(it != mySteps.end()) {
-        mySteps.erase(it);
-        // sort steps always after a adding/restoring
-        sortSteps();
-    } else {
-        throw ProcessError("Rerouter Interval doesn't exist");
     }
 }
 

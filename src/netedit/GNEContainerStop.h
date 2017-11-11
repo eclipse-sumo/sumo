@@ -37,14 +37,6 @@
 #include "GNEAttributeCarrier.h"
 #include "GNEStoppingPlace.h"
 
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GUIGLObjectPopupMenu;
-class PositionVector;
-class GNELane;
-class GNENet;
 
 // ===========================================================================
 // class definitions
@@ -55,6 +47,7 @@ class GNENet;
  * @brief A lane area vehicles can halt at (netedit-version)
  */
 class GNEContainerStop : public GNEStoppingPlace {
+
 public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from

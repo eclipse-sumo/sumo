@@ -44,6 +44,7 @@ class GNEDetectorE3;
  * Class for detector of type Entry
  */
 class GNEDetectorEntry  : public GNEDetector {
+
 public:
     /**@brief Constructor
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs

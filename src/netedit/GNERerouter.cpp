@@ -196,6 +196,32 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
 }
 
 
+void 
+GNERerouter::addRerouterInterval(GNERerouterInterval* rerouterInterval) {
+    auto it = std::find(myRerouterIntervals.begin(), myRerouterIntervals.end(), rerouterInterval);
+    if(it == myRerouterIntervals.end()) {
+        myRerouterIntervals.push_back(rerouterInterval);
+        // sort intervals always after a adding/restoring
+        sortIntervals();
+    } else {
+        throw ProcessError("Rerouter Interval already exist");
+    }
+}
+
+
+void 
+GNERerouter::removeRerouterInterval(GNERerouterInterval* rerouterInterval) {
+    auto it = std::find(myRerouterIntervals.begin(), myRerouterIntervals.end(), rerouterInterval);
+    if(it != myRerouterIntervals.end()) {
+        myRerouterIntervals.erase(it);
+        // sort intervals always after a adding/restoring
+        sortIntervals();
+    } else {
+        throw ProcessError("Rerouter Interval doesn't exist");
+    }
+}
+
+
 const std::vector<GNERerouterInterval*>&
 GNERerouter::getRerouterIntervals() const {
     return myRerouterIntervals;
@@ -203,7 +229,7 @@ GNERerouter::getRerouterIntervals() const {
 
 
 int
-GNERerouter::checkOverlapping() const {
+GNERerouter::getNumberOfOverlappedIntervals() const {
     int numOverlappings = 0;
     // iterate over intervals to save the number of overlappings
     for (int i = 0; i < (int)(myRerouterIntervals.size() - 1); i++) {
@@ -384,32 +410,6 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-}
-
-
-void 
-GNERerouter::addRerouterInterval(GNERerouterInterval* rerouterInterval) {
-    auto it = std::find(myRerouterIntervals.begin(), myRerouterIntervals.end(), rerouterInterval);
-    if(it == myRerouterIntervals.end()) {
-        myRerouterIntervals.push_back(rerouterInterval);
-        // sort intervals always after a adding/restoring
-        sortIntervals();
-    } else {
-        throw ProcessError("Rerouter Interval already exist");
-    }
-}
-
-
-void 
-GNERerouter::removeRerouterInterval(GNERerouterInterval* rerouterInterval) {
-    auto it = std::find(myRerouterIntervals.begin(), myRerouterIntervals.end(), rerouterInterval);
-    if(it != myRerouterIntervals.end()) {
-        myRerouterIntervals.erase(it);
-        // sort intervals always after a adding/restoring
-        sortIntervals();
-    } else {
-        throw ProcessError("Rerouter Interval doesn't exist");
     }
 }
 

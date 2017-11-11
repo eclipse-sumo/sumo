@@ -151,30 +151,6 @@ GNEVaporizer::writeAdditional(OutputDevice& device) const {
 }
 
 
-double
-GNEVaporizer::getStartTime() const {
-    return myStartTime;
-}
-
-
-double
-GNEVaporizer::getEnd() const {
-    return myEnd;
-}
-
-
-void
-GNEVaporizer::setStartTime(double startTime) {
-    myStartTime = startTime;
-}
-
-
-void
-GNEVaporizer::setEndTime(double end) {
-    myEnd = end;
-}
-
-
 const std::string&
 GNEVaporizer::getParentName() const {
     return myEdge->getMicrosimID();

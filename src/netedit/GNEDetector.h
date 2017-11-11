@@ -32,12 +32,6 @@
 #include "GNEAdditional.h"
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-class GNEAdditional;
-class GNEViewNet;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -45,6 +39,7 @@ class GNEViewNet;
  * @briefA abstract class to define common parameters and functions of detectors
  */
 class GNEDetector : public GNEAdditional {
+
 public:
     /**@brief Constructor.
      * @param[in] id Gl-id of the detector (Must be unique)

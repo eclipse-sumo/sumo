@@ -52,6 +52,7 @@ class GNECalibratorRoute;
  * flow flow used by GNECalibrators
  */
 class GNECalibratorFlow : public GNEAttributeCarrier {
+
 public:
 
     /// @brief type of flow

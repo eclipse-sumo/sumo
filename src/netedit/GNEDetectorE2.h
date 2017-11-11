@@ -31,10 +31,6 @@
 
 #include "GNEDetector.h"
 
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNEDetector;
 
 // ===========================================================================
 // class definitions
@@ -44,6 +40,7 @@ class GNEDetector;
  * class for detector of type E2
  */
 class GNEDetectorE2 : public GNEDetector {
+
 public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from

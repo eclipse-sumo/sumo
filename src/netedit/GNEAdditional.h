@@ -41,13 +41,12 @@
 // class declarations
 // ===========================================================================
 
-class GUIGLObjectPopupMenu;
-class PositionVector;
+class GNEAdditionalDialog;
 class GNEEdge;
 class GNELane;
 class GNENet;
 class GNEViewNet;
-class GNEAdditionalDialog;
+class GUIGLObjectPopupMenu;
 
 // ===========================================================================
 // class definitions
@@ -57,12 +56,7 @@ class GNEAdditionalDialog;
  * @class GNEAdditional
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-
 class GNEAdditional : public GUIGlObject, public GNEAttributeCarrier {
-
-    /// @brief declare friend class (needed to manage Entry/Exit childs)
-    friend class GNEChange_Additional;
-    friend class GNEAdditionalHandler;
 
 public:
     /**@brief Constructor
@@ -151,16 +145,40 @@ public:
     // @brief Check if additional item is selected
     bool isAdditionalSelected() const;
     
+    // @brief get additional parent
     GNEAdditional *getAdditionalParent() const;
+
+    /// @name members and functions relative to  childs of this additional
+    /// @{
+
+    /// @brief add additional child to this additional
+    void addAdditionalChild(GNEAdditional* additional);
+
+    /// @brief remove additional child from this additional
+    void removeAdditionalChild(GNEAdditional* additional);
 
     /// @brief return vector of additionals that have as Parent this edge (For example, Calibrators)
     const std::vector<GNEAdditional*>& getAdditionalChilds() const;
 
+    /// @brief add edge child
+    void addEdgeChild(GNEEdge* edge);
+
+    /// @brief remove edge child
+    void removeEdgeChild(GNEEdge* edge);
+
     /// @brief get edge chidls
     const std::vector<GNEEdge*>& getEdgeChilds() const;
 
+    /// @brief add lane child
+    void addLaneChild(GNELane* lane);
+
+    /// @brief remove lane child
+    void removeLaneChild(GNELane* lane);
+
     /// @brief get lanes of VSS
     const std::vector<GNELane*> &getLaneChilds() const;
+
+    /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -310,29 +328,6 @@ protected:
     * @throw exception if additional with ID newAdditionalParentID doesn't exist
     */
     void changeAdditionalParent(const std::string& newAdditionalParentID);
-
-    /// @}
-
-    /// @name members and functions relative to  childs of this additional
-    /// @{
-
-    /// @brief add additional child to this additional
-    void addAdditionalChild(GNEAdditional* additional);
-
-    /// @brief remove additional child from this additional
-    void removeAdditionalChild(GNEAdditional* additional);
-
-    /// @brief add edge child
-    void addEdgeChild(GNEEdge* edge);
-
-    /// @brief remove edge child
-    void removeEdgeChild(GNEEdge* edge);
-
-    /// @brief add lane child
-    void addLaneChild(GNELane* lane);
-
-    /// @brief remove lane child
-    void removeLaneChild(GNELane* lane);
 
     /// @}
 

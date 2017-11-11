@@ -51,6 +51,7 @@ class GNERerouterIntervalDialog;
  * forces the rerouter to assign a new route
  */
 class GNEDestProbReroute : public GNEAttributeCarrier {
+
 public:
     /// @brief constructor (Used in GNERerouterIntervalDialog)
     GNEDestProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog);

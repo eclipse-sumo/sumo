@@ -51,6 +51,7 @@ class GNECalibratorDialog;
  * vehicleType vehicleType used by GNECalibrators
  */
 class GNECalibratorVehicleType : public GNEAttributeCarrier {
+
 public:
     /// @brief constructor (Used only in GNECalibratorDialog)
     GNECalibratorVehicleType(GNECalibratorDialog* calibratorDialog);

@@ -46,9 +46,6 @@ class GNERerouterInterval;
  * Rerouter changes the route of a vehicle as soon as the vehicle moves onto a specified edge.
  */
 class GNERerouter : public GNEAdditional {
-    /// @brief declare friend class
-    friend class GNEChange_RerouterItem;
-    friend class GNEAdditionalHandler;
 
 public:
     /**@brief Constructor
@@ -73,16 +70,25 @@ public:
     /// @brief open GNERerouterDialog
     void openAdditionalDialog();
 
+    /// @name Functions related with rerouter intervals
+    /// @{
+
+    /// @brief add rerouter interval
+    void addRerouterInterval(GNERerouterInterval* rerouterInterval);
+
+    /// @brief add rerouter interval
+    void removeRerouterInterval(GNERerouterInterval* rerouterInterval);
+
     /// @brief get rerouter intervals
     const std::vector<GNERerouterInterval*>& getRerouterIntervals() const;
 
-    /**@brief check if current intervals are overlapped
-    * @return number of overlapped intervals
-    */
-    int checkOverlapping() const;
+    /// @brief get number of overlapped intervals
+    int getNumberOfOverlappedIntervals() const;
 
     /// @brief sort intervals
     void sortIntervals();
+
+    /// @}
 
     /// @name Functions related with geometry of element
     /// @{
@@ -159,12 +165,6 @@ protected:
     
     /// @brief position and rotation of every U simbol over lane
     std::vector<std::pair<Position, double> > mySymbolsPositionAndRotation;
-
-    /// @brief add rerouter interval
-    void addRerouterInterval(GNERerouterInterval* rerouterInterval);
-
-    /// @brief add rerouter interval
-    void removeRerouterInterval(GNERerouterInterval* rerouterInterval);
 
 private:
     /// @brief set attribute after validation

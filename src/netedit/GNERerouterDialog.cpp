@@ -97,7 +97,7 @@ GNERerouterDialog::getEditedRerouter() const {
 long
 GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // get number of Rerouter intervals overlapped
-    int numberOfOverlappings = myEditedRerouter->checkOverlapping();
+    int numberOfOverlappings = myEditedRerouter->getNumberOfOverlappedIntervals();
     // overlapped intervals aren't allowed
     if(numberOfOverlappings > 0) {
         // write warning if netedit is running in testing mode

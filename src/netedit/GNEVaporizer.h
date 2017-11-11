@@ -31,20 +31,16 @@
 
 #include "GNEAdditional.h"
 
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNEEdge;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class GNEVaporizer
- * ------------
+ * @brief Representation of a vaporizer in netedit
  */
 class GNEVaporizer : public GNEAdditional {
+
 public:
     /**@brief Constructor
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
@@ -82,23 +78,6 @@ public:
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
     /// @}
-
-    /**@brief remove reference to edge
-     *  @note this function will be called automatically in destructor of GNEEdge
-     */
-    void removeEdgeReference();
-
-    /// @brief get start time
-    double getStartTime() const;
-
-    /// @brief get end
-    double getEnd() const;
-
-    /// @brief set start time
-    void setStartTime(double startTime);
-
-    /// @brief set end
-    void setEndTime(double end);
 
     /// @name inherited from GUIGlObject
     /// @{

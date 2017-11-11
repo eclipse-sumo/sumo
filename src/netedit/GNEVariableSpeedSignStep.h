@@ -50,6 +50,7 @@ class GNEVariableSpeedSignDialog;
  * class used to represent a interval used in variable speed sign
  */
 class GNEVariableSpeedSignStep : public GNEAttributeCarrier {
+
 public:
     /// @brief default constructor
     GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* variableSpeedSignDialog);

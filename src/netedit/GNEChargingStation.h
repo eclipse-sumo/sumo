@@ -33,19 +33,11 @@
 
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GUIGLObjectPopupMenu;
-class PositionVector;
-class GNELane;
-class GNENet;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
 class GNEChargingStation : public GNEStoppingPlace {
+
 public:
     /**@brief Constructor of charging station
      * @param[in] id The storage of gl-ids to get the one for this lane representation from

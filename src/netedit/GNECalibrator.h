@@ -48,9 +48,6 @@ class GNECalibratorRoute;
  * class for represent Calibratos in netedit
  */
 class GNECalibrator : public GNEAdditional {
-    /// @brief declare friend class
-    friend class GNEChange_CalibratorItem;
-    friend class GNEAdditionalHandler;
 
 public:
 
@@ -91,14 +88,37 @@ public:
     /// @brief open Calibrator Dialog
     void openAdditionalDialog();
 
-    /// @brief get calibrator vehicleTypes
-    const std::vector<GNECalibratorVehicleType*>& getCalibratorVehicleTypes() const;
+    /// @name Functions related with Calibrator items
+    /// @{
+
+    /// @brief add calibrator route
+    void addCalibratorRoute(GNECalibratorRoute* route);
+
+    /// @brief add calibrator route
+    void removeCalibratorRoute(GNECalibratorRoute *route);
+
+    /// @brief get calibrator routes
+    const std::vector<GNECalibratorRoute*>& getCalibratorRoutes() const;
+
+    /// @brief add calibrator flow
+    void addCalibratorFlow(GNECalibratorFlow* flow);
+
+    /// @brief remove calibrator flow
+    void removeCalibratorFlow(GNECalibratorFlow* flow);
 
     /// @brief get calibrator flows
     const std::vector<GNECalibratorFlow*>& getCalibratorFlows() const;
 
-    /// @brief get calibrator routes
-    const std::vector<GNECalibratorRoute*>& getCalibratorRoutes() const;
+    /// @brief add calibrator vehicleType
+    void addCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
+
+    /// @brief remove calibrator vehicleType
+    void removeCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
+
+    /// @brief get calibrator vehicleTypes
+    const std::vector<GNECalibratorVehicleType*>& getCalibratorVehicleTypes() const;
+
+    /// @}
 
     /// @name Functions related with geometry of element
     /// @{
@@ -183,26 +203,8 @@ protected:
     /// @brief The edge in which Calibrators are placed
     GNEEdge* myEdge;
 
-    /// @brief The lane in which CalibratorLaness are placed
+    /// @brief The lane in which CalibratorLane are placed
     GNELane* myLane;
-
-    /// @brief add calibrator route
-    void addCalibratorRoute(GNECalibratorRoute* route);
-
-    /// @brief add calibrator vehicleType
-    void addCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
-
-    /// @brief add calibrator flow
-    void addCalibratorFlow(GNECalibratorFlow* flow);
-
-    /// @brief add calibrator route
-    void removeCalibratorRoute(GNECalibratorRoute *route);
-
-    /// @brief remove calibrator vehicleType
-    void removeCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
-
-    /// @brief remove calibrator flow
-    void removeCalibratorFlow(GNECalibratorFlow* flow);
 
 private:
     /// @brief set attribute after validation

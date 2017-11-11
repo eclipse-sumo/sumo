@@ -1196,26 +1196,13 @@ GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, bool allowUndoRedo
     } else {
         GNEDetectorEntry* entry = new GNEDetectorEntry(viewNet, E3Parent, lane, pos, friendlyPos);
         if (allowUndoRedo) {
-            // insert E3 parent in net if previoulsy wasn't inserted
-            if (viewNet->getNet()->getAdditional(E3Parent->getTag(), E3Parent->getID()) == NULL) {
-                viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E3DETECTOR));
-                viewNet->getUndoList()->add(new GNEChange_Additional(E3Parent, true), true);
-                viewNet->getUndoList()->p_end();
-            }
-            // Create detector Entry if don't exist already in the net
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DET_ENTRY));
             viewNet->getUndoList()->add(new GNEChange_Additional(entry, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            // insert E3 parent in net if previoulsy wasn't inserted
-            if (viewNet->getNet()->getAdditional(E3Parent->getTag(), E3Parent->getID()) == NULL) {
-                viewNet->getNet()->insertAdditional(E3Parent);
-            }
-            E3Parent->addAdditionalChild(entry);
             viewNet->getNet()->insertAdditional(entry);
             lane->addAdditionalChild(entry);
-            // update geometry for draw lines
-            E3Parent->updateGeometry();
+            E3Parent->addAdditionalChild(entry);
         }
         return true;
     }
@@ -1232,26 +1219,13 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo,
     } else {
         GNEDetectorExit* exit = new GNEDetectorExit(viewNet, E3Parent, lane, pos, friendlyPos);
         if (allowUndoRedo) {
-            // insert E3 parent in net if previoulsy wasn't inserted
-            if (viewNet->getNet()->getAdditional(E3Parent->getTag(), E3Parent->getID()) == NULL) {
-                viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E3DETECTOR));
-                viewNet->getUndoList()->add(new GNEChange_Additional(E3Parent, true), true);
-                viewNet->getUndoList()->p_end();
-            }
-            // Create detector Exit if don't exist already in the net
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DET_EXIT));
             viewNet->getUndoList()->add(new GNEChange_Additional(exit, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            // insert E3 parent in net if previoulsy wasn't inserted
-            if (viewNet->getNet()->getAdditional(E3Parent->getTag(), E3Parent->getID()) == NULL) {
-                viewNet->getNet()->insertAdditional(E3Parent);
-            }
-            E3Parent->addAdditionalChild(exit);
             viewNet->getNet()->insertAdditional(exit);
             lane->addAdditionalChild(exit);
-            // update geometry for draw lines
-            E3Parent->updateGeometry();
+            E3Parent->addAdditionalChild(exit);
         }
         return true;
     }
@@ -1408,7 +1382,7 @@ GNEAdditionalHandler::buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoR
     GNERerouterInterval *rerouterInterval = new GNERerouterInterval(rerouterParent, begin, end);
     rerouterParent->addRerouterInterval(rerouterInterval);
     // remove it if there is overlapping with another intervals
-    if (rerouterParent->checkOverlapping() == 0) {
+    if (rerouterParent->getNumberOfOverlappedIntervals() == 0) {
         // if allowUndoRedo is enabled, remove it and add it again using GNEChange_RerouterItem
         if (allowUndoRedo) {
             rerouterParent->removeRerouterInterval(rerouterInterval);

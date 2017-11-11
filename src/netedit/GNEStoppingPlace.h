@@ -31,13 +31,6 @@
 
 #include "GNEAdditional.h"
 
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GUIGLObjectPopupMenu;
-class PositionVector;
-class GNENet;
 
 // ===========================================================================
 // class definitions
@@ -47,6 +40,7 @@ class GNENet;
  * @briefA abstract class to define common parameters and functions of stopping places
  */
 class GNEStoppingPlace : public GNEAdditional {
+
 public:
     /**@brief Constructor.
      * @param[in] id Gl-id of the stopping place (Must be unique)

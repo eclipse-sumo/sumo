@@ -52,6 +52,7 @@ class GNERerouterIntervalDialog;
  * forces the rerouter to close the lane
  */
 class GNEClosingLaneReroute : public GNEAttributeCarrier {
+
 public:
     /// @brief constructor (Used in GNERerouterIntervalDialog)
     GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouterIntervalDialog);

@@ -44,6 +44,7 @@ class GNEDetectorE3;
  * class for detector of type exit
  */
 class GNEDetectorExit  : public GNEDetector {
+
 public:
     /**@brief Constructor
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs

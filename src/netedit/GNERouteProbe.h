@@ -31,11 +31,6 @@
 
 #include "GNEAdditional.h"
 
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNEEdge;
 
 // ===========================================================================
 // class definitions
@@ -45,6 +40,7 @@ class GNEEdge;
  * @brief Representation of a RouteProbe in netedit
  */
 class GNERouteProbe : public GNEAdditional {
+
 public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
