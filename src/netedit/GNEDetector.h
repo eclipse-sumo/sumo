@@ -51,8 +51,9 @@ public:
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      * @param[in] friendlyPos enable or disable friendly positions
+     * @param[in] additionalParent additional parent of this detector
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double pos, double freq, const std::string& filename, bool friendlyPos);
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double pos, double freq, const std::string& filename, bool friendlyPos, GNEAdditional *additionalParent);
 
     /// @brief Destructor
     ~GNEDetector();
@@ -67,23 +68,6 @@ public:
 
     /// @brief get lane
     GNELane *getLane() const;
-
-    /// @brief returns the aggregation period the values the detector collects shall be summed up.
-    double getFrequency() const;
-
-    /// @brief returns the path to the output file
-    const std::string& getFilename() const;
-
-    /**@brief Set a new frequency in detector
-     * @param[in] freq new frequency of detector
-     * @throws InvalidArgument if value of frequency isn't valid
-     */
-    void setFrequency(const double freq);
-
-    /**@brief Set a new filename in detector
-     * @param[in] filename new filename of detector
-     */
-    void setFilename(const std::string& filename);
 
     /// @brief get absolute position over Lane
     double getAbsolutePositionOverLane() const;

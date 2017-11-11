@@ -66,9 +66,6 @@ public:
     /// @brief check if Position of detector is fixed
     bool isDetectorPositionFixed() const;
 
-    /// @brief get E3 Detector parent
-    GNEDetectorE3* getE3Parent() const;
-
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
@@ -108,9 +105,6 @@ public:
     /// @}
 
 private:
-    /// @brief pointer to E3 parent
-    GNEDetectorE3* myE3Parent;
-
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
@@ -119,18 +113,6 @@ private:
 
     /// @brief Invalidated assignment operator.
     GNEDetectorExit& operator=(const GNEDetectorExit&) = delete;
-
-    /// @brief Invalidated get filename
-    const std::string& getFilename() const = delete;
-
-    /// @brief Invalidated set frequency
-    int getFrequency() const = delete;
-
-    /// @brief Invalidated set filename
-    void setFrequency(double freq) = delete;
-
-    /// @brief Invalidated
-    void setFilename(const std::string& filename) = delete;
 };
 
 

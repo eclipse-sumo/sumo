@@ -156,9 +156,6 @@ protected:
     /// @brief enable or disable save in external filename
     bool mySaveInFilename;
 
-    /// @brief position and rotation of every U simbol over lane
-    std::vector<std::pair<Position, double> > mySymbolsPositionAndRotation;
-
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

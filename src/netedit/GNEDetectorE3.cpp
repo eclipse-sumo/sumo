@@ -92,7 +92,7 @@ GNEDetectorE3::updateGeometry() {
     myShape.push_back(myPosition);
 
     // Update connection's geometry
-    updateGeometryConnections();
+    updateChildConnections();
 
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshElement(this);
@@ -179,35 +179,6 @@ GNEDetectorE3::getParentName() const {
 
 
 void
-GNEDetectorE3::updateGeometryConnections() {
-    myConnectionPositions.clear();
-    // Iterate over Entrys
-    for (auto i : myAdditionalChilds) {
-        std::vector<Position> posConnection;
-        double A = std::abs(i->getPositionInView().x() - getPositionInView().x());
-        double B = std::abs(i->getPositionInView().y() - getPositionInView().y());
-        // Set positions of connection's vertex. Connection is build from Entry to E3
-        posConnection.push_back(i->getPositionInView());
-        if (getPositionInView().x() > i->getPositionInView().x()) {
-            if (getPositionInView().y() > i->getPositionInView().y()) {
-                posConnection.push_back(Position(i->getPositionInView().x() + A, i->getPositionInView().y()));
-            } else {
-                posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() - B));
-            }
-        } else {
-            if (getPositionInView().y() > i->getPositionInView().y()) {
-                posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() + B));
-            } else {
-                posConnection.push_back(Position(i->getPositionInView().x() - A, i->getPositionInView().y()));
-            }
-        }
-        posConnection.push_back(getPositionInView());
-        myConnectionPositions.push_back(posConnection);
-    }
-}
-
-
-void
 GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     // Start drawing adding an gl identificator
     glPushName(getGlID());
@@ -231,7 +202,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     drawLockIcon(0.4);
 
     // Draw connections
-    drawParentAndChildrenConnections();
+    drawChildConnections();
 
     // Pop name
     glPopName();

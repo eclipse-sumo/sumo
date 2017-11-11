@@ -107,6 +107,7 @@ protected:
     /// @brief attribute vehicle types
     std::string myVehicleTypes;
 
+private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

@@ -163,9 +163,6 @@ protected:
     /// @brief set with the GNERerouterInterval
     std::vector<GNERerouterInterval*> myRerouterIntervals;
     
-    /// @brief position and rotation of every U simbol over lane
-    std::vector<std::pair<Position, double> > mySymbolsPositionAndRotation;
-
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

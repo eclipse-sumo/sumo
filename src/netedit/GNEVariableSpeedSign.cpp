@@ -91,46 +91,9 @@ GNEVariableSpeedSign::updateGeometry() {
     // clear mySymbolsPositionAndRotation
     mySymbolsPositionAndRotation.clear();
 
-    // calculate position and rotation of every simbol for every lane
-    for (auto i : myLaneChilds) {
-        std::pair<Position, double> posRot;
-        // set position and lenght depending of shape's lengt
-        if(i->getShape().length() - 6 > 0) {
-            posRot.first = i->getShape().positionAtOffset(i->getShape().length() - 6);
-            posRot.second = i->getShape().rotationDegreeAtOffset(i->getShape().length() - 6);
-        } else {
-            posRot.first = i->getShape().positionAtOffset(i->getShape().length());
-            posRot.second = i->getShape().rotationDegreeAtOffset(i->getShape().length());
-        }
-        mySymbolsPositionAndRotation.push_back(posRot); 
-    }
+    // update child connections
+    updateChildConnections();
 
-    // drop connections between parent and childs
-    myConnectionPositions.clear();
-
-    // calculate geometry for connections between parent and childs
-    for (auto i : mySymbolsPositionAndRotation) {
-        std::vector<Position> posConnection;
-        double A = std::abs(i.first.x() - getPositionInView().x());
-        double B = std::abs(i.first.y() - getPositionInView().y());
-        // Set positions of connection's vertex. Connection is build from Entry to E3
-        posConnection.push_back(i.first);
-        if (getPositionInView().x() > i.first.x()) {
-            if (getPositionInView().y() > i.first.y()) {
-                posConnection.push_back(Position(i.first.x() + A, i.first.y()));
-            } else {
-                posConnection.push_back(Position(i.first.x(), i.first.y() - B));
-            }
-        } else {
-            if (getPositionInView().y() > i.first.y()) {
-                posConnection.push_back(Position(i.first.x(), i.first.y() + B));
-            } else {
-                posConnection.push_back(Position(i.first.x() - A, i.first.y()));
-            }
-        }
-        posConnection.push_back(getPositionInView());
-        myConnectionPositions.push_back(posConnection);
-    }
 
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshElement(this);
@@ -319,7 +282,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // Draw connections
-    drawParentAndChildrenConnections();
+    drawChildConnections();
 
     // Pop symbol matrix
     glPopMatrix();

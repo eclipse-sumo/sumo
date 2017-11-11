@@ -58,8 +58,7 @@
 // ===========================================================================
 
 GNEDetectorEntry::GNEDetectorEntry(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, double pos, bool friendlyPos) :
-    GNEDetector(parent->generateEntryID(), viewNet, SUMO_TAG_DET_ENTRY, ICON_E3ENTRY, lane, pos, 0, "", friendlyPos),
-    myE3Parent(parent) {
+    GNEDetector(parent->generateEntryID(), viewNet, SUMO_TAG_DET_ENTRY, ICON_E3ENTRY, lane, pos, 0, "", friendlyPos, parent) {
 }
 
 
@@ -91,14 +90,8 @@ GNEDetectorEntry::updateGeometry() {
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshElement(this);
 
-    // update yellow connections between Entry and their parent
-    myE3Parent->updateGeometryConnections();
-}
-
-
-GNEDetectorE3*
-GNEDetectorEntry::getE3Parent() const {
-    return myE3Parent;
+    // update E3 parent Geometry
+    myAdditionalParent->updateGeometry();
 }
 
 

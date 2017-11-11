@@ -427,16 +427,102 @@ GNEAdditional::drawLockIcon(double size) const {
 
 
 void
-GNEAdditional::drawParentAndChildrenConnections() const {
+GNEAdditional::updateChildConnections() {
+    // first clear connection positions
+    myChildConnectionPositions.clear();
+    mySymbolsPositionAndRotation.clear();
+
+    // calculate position and rotation of every simbol for every edge
+    for (auto i : myEdgeChilds) {
+        for(auto j : i->getLanes()) {
+            std::pair<Position, double> posRot;
+            // set position and lenght depending of shape's lengt
+            if(j->getShape().length() - 6 > 0) {
+                posRot.first = j->getShape().positionAtOffset(j->getShape().length() - 6);
+                posRot.second = j->getShape().rotationDegreeAtOffset(j->getShape().length() - 6);
+            } else {
+                posRot.first = j->getShape().positionAtOffset(j->getShape().length());
+                posRot.second = j->getShape().rotationDegreeAtOffset(j->getShape().length());
+            }
+            mySymbolsPositionAndRotation.push_back(posRot); 
+        }
+    }
+
+    // calculate position and rotation of every simbol for every lane
+    for (auto i : myLaneChilds) {
+        std::pair<Position, double> posRot;
+        // set position and lenght depending of shape's lengt
+        if(i->getShape().length() - 6 > 0) {
+            posRot.first = i->getShape().positionAtOffset(i->getShape().length() - 6);
+            posRot.second = i->getShape().rotationDegreeAtOffset(i->getShape().length() - 6);
+        } else {
+            posRot.first = i->getShape().positionAtOffset(i->getShape().length());
+            posRot.second = i->getShape().rotationDegreeAtOffset(i->getShape().length());
+        }
+        mySymbolsPositionAndRotation.push_back(posRot); 
+    }
+
+    // calculate position for every additional child
+    for (auto i : myAdditionalChilds) {
+        std::vector<Position> posConnection;
+        double A = std::abs(i->getPositionInView().x() - getPositionInView().x());
+        double B = std::abs(i->getPositionInView().y() - getPositionInView().y());
+        // Set positions of connection's vertex. Connection is build from Entry to E3
+        posConnection.push_back(i->getPositionInView());
+        if (getPositionInView().x() > i->getPositionInView().x()) {
+            if (getPositionInView().y() > i->getPositionInView().y()) {
+                posConnection.push_back(Position(i->getPositionInView().x() + A, i->getPositionInView().y()));
+            } else {
+                posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() - B));
+            }
+        } else {
+            if (getPositionInView().y() > i->getPositionInView().y()) {
+                posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() + B));
+            } else {
+                posConnection.push_back(Position(i->getPositionInView().x() - A, i->getPositionInView().y()));
+            }
+        }
+        posConnection.push_back(getPositionInView());
+        myChildConnectionPositions.push_back(posConnection);
+    }
+
+    // calculate geometry for connections between parent and childs
+    for (auto i : mySymbolsPositionAndRotation) {
+        std::vector<Position> posConnection;
+        double A = std::abs(i.first.x() - getPositionInView().x());
+        double B = std::abs(i.first.y() - getPositionInView().y());
+        // Set positions of connection's vertex. Connection is build from Entry to E3
+        posConnection.push_back(i.first);
+        if (getPositionInView().x() > i.first.x()) {
+            if (getPositionInView().y() > i.first.y()) {
+                posConnection.push_back(Position(i.first.x() + A, i.first.y()));
+            } else {
+                posConnection.push_back(Position(i.first.x(), i.first.y() - B));
+            }
+        } else {
+            if (getPositionInView().y() > i.first.y()) {
+                posConnection.push_back(Position(i.first.x(), i.first.y() + B));
+            } else {
+                posConnection.push_back(Position(i.first.x() - A, i.first.y()));
+            }
+        }
+        posConnection.push_back(getPositionInView());
+        myChildConnectionPositions.push_back(posConnection);
+    }
+}
+
+
+void
+GNEAdditional::drawChildConnections() const {
     // Iterate over myConnectionPositions
-    for (std::vector<std::vector<Position> >::const_iterator i = myConnectionPositions.begin(); i != myConnectionPositions.end(); i++) {
+    for (auto i : myChildConnectionPositions) {
         // Add a draw matrix
         glPushMatrix();
         // traslate in the Z axis
         glTranslated(0, 0, getType() - 0.01);
         // Set color of the base
         GLHelper::setColor(RGBColor(255, 235, 0));
-        for (std::vector<Position>::const_iterator j = (*i).begin(); (j + 1) != (*i).end(); j++) {
+        for (auto j = i.begin(); (j + 1) != i.end(); j++) {
             // Draw Lines
             GLHelper::drawLine((*j), (*(j + 1)));
         }

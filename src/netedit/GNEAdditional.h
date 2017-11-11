@@ -334,16 +334,22 @@ protected:
     /// @name members and functions relative to connections between Additionals and their childs
     /// @{
 
-    /// @brief draw connections between Parent and childrens
-    void drawParentAndChildrenConnections() const;
+    /// @brief update Connection's geometry
+    void updateChildConnections();
 
-    /// @brief Matrix with the Vertex's positions of connections between Additional Parent an their childs
-    std::vector<std::vector<Position> > myConnectionPositions;
+    /// @brief draw connections between Parent and childrens
+    void drawChildConnections() const;
+
+    /// @brief position and rotation of every simbol over lane
+    std::vector<std::pair<Position, double> > mySymbolsPositionAndRotation;
     /// @}
 
 private:
     /// @brief flag to check if this additional is movable
     bool myMovable;
+
+    /// @brief Matrix with the Vertex's positions of connections between parents an their childs
+    std::vector<std::vector<Position> > myChildConnectionPositions;
 
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;

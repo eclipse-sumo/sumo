@@ -58,9 +58,7 @@
 // ===========================================================================
 
 GNEDetectorExit::GNEDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, double pos, bool friendlyPos) :
-    GNEDetector(parent->generateExitID(), viewNet, SUMO_TAG_DET_EXIT, ICON_E3EXIT, lane, pos, 0, "", friendlyPos),
-    myE3Parent(parent) {
-    myShape.push_back(myE3Parent->getPositionInView());
+    GNEDetector(parent->generateExitID(), viewNet, SUMO_TAG_DET_EXIT, ICON_E3EXIT, lane, pos, 0, "", friendlyPos, parent) {
 }
 
 
@@ -92,14 +90,8 @@ GNEDetectorExit::updateGeometry() {
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshElement(this);
 
-    // update yellow connections between Exit and their parent
-    myE3Parent->updateGeometryConnections();
-}
-
-
-GNEDetectorE3*
-GNEDetectorExit::getE3Parent() const {
-    return myE3Parent;
+    // update E3 parent Geometry
+    myAdditionalParent->updateGeometry();
 }
 
 

@@ -67,9 +67,6 @@ public:
     /// @brief gererate a new ID for an Exit detector child
     std::string generateExitID();
 
-    /// @brief update Connection's geometry
-    void updateGeometryConnections();
-
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
