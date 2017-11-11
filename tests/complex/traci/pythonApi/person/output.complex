@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:48181 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:42040 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -36,12 +36,12 @@ step 5
 persons ['detour', 'detour2', 'horiz', 'newPerson', 'tripTest']
 person count 5
 examining horiz
-speed 1.29945443516
-pos (755.3334206637228, 504.95000000000005)
+speed 1.30985007064
+pos (755.303019221229, 504.95000000000005)
 angle 270.0
 road 2fi
 type pType2@horiz
-lanePos 244.666579336
+lanePos 244.696980779
 color (255, 255, 0, 255)
 length 2.0
 MinGap 2.22
@@ -84,7 +84,7 @@ persons on edge :0_10 at time 17.0: ['newPerson']
 detour2 edges ['3si', '2o', '2fi', '2si', '4si']
 detour2 edges after routing [':0_w2', '4si']
 :0_w1
-10.1970556479
+10.1968710641
 :0_c0
 recovering from exception after asking for invalid stage index
 recovering from exception after asking for invalid stage index
