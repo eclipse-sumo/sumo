@@ -189,6 +189,8 @@ public:
     /// @brief return value for lane coloring according to the given scheme
     double getColorValue(int activeScheme) const;
 
+    /// @brief remove lane of Additional Parent
+    void removeLaneOfAdditionalParents(GNEUndoList *undoList, bool allowEmpty);
 
 protected:
     /// @brief FOX needs this

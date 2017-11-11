@@ -249,7 +249,7 @@ public:
     std::vector<GNECrossing*> getGNECrossings();
 
     /// @brief remove Edge of Additional Parent
-    void removeEdgeOfAdditionalParents(GNEUndoList *undolist, bool allowEmpty);
+    void removeEdgeOfAdditionalParents(GNEUndoList *undoList, bool allowEmpty);
 
 protected:
     /// @brief the underlying NBEdge

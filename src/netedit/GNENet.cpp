@@ -429,6 +429,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
 void
 GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
+    // remove edge of additional parents (For example, Rerouters)
     edge->removeEdgeOfAdditionalParents(undoList, false);
     // delete all additionals childs of edge
     while (edge->getAdditionalChilds().size() > 0) {
@@ -436,7 +437,8 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     }
     // delete all additionals childs of lane
     for (auto i : edge->getLanes()) {
-        std::vector<GNEAdditional*> copyOfLaneAdditionals = i->getAdditionalChilds();
+        // remove lane of additional parents (For example, VSS)
+        i->removeLaneOfAdditionalParents(undoList, false);
         while (i->getAdditionalChilds().size() > 0) {
             undoList->add(new GNEChange_Additional(i->getAdditionalChilds().front(), false), true);
         }
@@ -530,15 +532,15 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
         deleteEdge(edge, undoList);
     } else {
         undoList->p_begin("delete " + toString(SUMO_TAG_LANE));
+        // remove lane of additional parents (For example, VSS)
+        lane->removeLaneOfAdditionalParents(undoList, false);
         // delete additionals childs of lane
-        std::vector<GNEAdditional*> copyOfAdditionals = lane->getAdditionalChilds();
-        for (auto i : copyOfAdditionals) {
-            undoList->add(new GNEChange_Additional(i, false), true);
+        while (lane->getAdditionalChilds().size() > 0) {
+            undoList->add(new GNEChange_Additional(lane->getAdditionalChilds().front(), false), true);
         }
         // delete POIShapes of Lane
-        std::vector<GNEShape*> copyOfShapes = lane->getShapeChilds();
-        for (auto i : copyOfShapes) {
-            undoList->add(new GNEChange_Shape(i, false), true);
+        while (lane->getShapeChilds().size() > 0) {
+            undoList->add(new GNEChange_Shape(lane->getShapeChilds().front(), false), true);
         }
         // invalidate junctions (saving connections)
         edge->getGNEJunctionSource()->setLogicValid(false, undoList);
