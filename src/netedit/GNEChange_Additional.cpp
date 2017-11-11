@@ -56,7 +56,9 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
     myAdditional(additional),
     myLaneParent(NULL),
     myEdgeParent(NULL),
-    myAdditionalParent(NULL) {
+    myAdditionalParent(myAdditional->getAdditionalParent()),
+    myEdgeChilds(myAdditional->getEdgeChilds()),
+    myLaneChilds(myAdditional->getLaneChilds()) {
     assert(myNet);
     myAdditional->incRef("GNEChange_Additional");
     // handle additionals with lane parent
@@ -67,15 +69,6 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
     if (GNEAttributeCarrier::hasAttribute(myAdditional->getTag(), SUMO_ATTR_EDGE)) {
         myEdgeParent = myNet->retrieveEdge(myAdditional->getAttribute(SUMO_ATTR_EDGE));
     }
-    // handle additional with childs
-    if (myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
-        myAdditionalParent = myAdditional->getAdditionalParent();
-    } else if (myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
-        myAdditionalParent = myAdditional->getAdditionalParent();
-    }
-
-    myEdgeChilds = myAdditional->getEdgeChilds();
-    myLaneChilds = myAdditional->getLaneChilds();
 }
 
 
@@ -109,28 +102,21 @@ GNEChange_Additional::undo() {
         if (myLaneParent) {
             myLaneParent->removeAdditionalChild(myAdditional);
         }
-        // 2 - If additional own a lane parent, remove it from edge
+        // 2 - If additional own a edge parent, remove it from edge
         if (myEdgeParent) {
             myEdgeParent->removeAdditionalChild(myAdditional);
         }
-        // 4 - If additiona is an Entry detector, remove it from E3 parent
+        // 3 - If additiona has a parent, remove it from their additional childs
         if (myAdditionalParent) {
             myAdditionalParent->removeAdditionalChild(myAdditional);
-            myAdditionalParent->updateGeometry();
         }
-        // 6 - if Additional if a rerouter, remove it of all of their edge childs
-        if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
-            GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
-            for (auto i : myEdgeChilds) {
-                i->removeAdditionalParent(rerouter);
-            }
+        // 4 - if Additional has edge childs, remove it of their additional parents
+        for (auto i : myEdgeChilds) {
+            i->removeAdditionalParent(myAdditional);
         }
-        // 7 - if Additional if a VSS, remove it of all of their lane childs
-        if (myAdditional->getTag() == SUMO_TAG_VSS) {
-            GNEVariableSpeedSign* vss = dynamic_cast<GNEVariableSpeedSign*>(myAdditional);
-            for (auto i : myLaneChilds) {
-                i->removeAdditionalParent(vss);
-            }
+        // 5 - if Additional has lane childs, remove it of their additional parents
+        for (auto i : myLaneChilds) {
+            i->removeAdditionalParent(myAdditional);
         }
     } else {
         // show extra information for tests
@@ -143,28 +129,21 @@ GNEChange_Additional::undo() {
         if (myLaneParent) {
             myLaneParent->addAdditionalChild(myAdditional);
         }
-        // 2 - If additional own a lane parent, add it to edge
+        // 2 - If additional own a edge parent, add it to edge
         if (myEdgeParent != NULL) {
             myEdgeParent->addAdditionalChild(myAdditional);
         }
-        // 4 - If additional is an Exit detector, add id to E3 parent
+        // 3 - If additional has a parent, add it into additional parent
         if (myAdditionalParent) {
             myAdditionalParent->addAdditionalChild(myAdditional);
-            myAdditionalParent->updateGeometry();
         }
-        // 6 - if Additional if a rerouter, add it of all of their edge childs
-        if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
-            GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
-            for (auto i : myEdgeChilds) {
-                i->addAdditionalParent(rerouter);
-            }
+        // 4 - if Additional has edge childs, add id into additional parents
+        for (auto i : myEdgeChilds) {
+            i->addAdditionalParent(myAdditional);
         }
-        // 7 - if Additional if a VSS, add it into all of their lane childs
-        if (myAdditional->getTag() == SUMO_TAG_VSS) {
-            GNEVariableSpeedSign* vss = dynamic_cast<GNEVariableSpeedSign*>(myAdditional);
-            for (auto i : myLaneChilds) {
-                i->addAdditionalParent(vss);
-            }
+        // 5 - if Additional has lane childs, add id into additional parents
+        for (auto i : myLaneChilds) {
+            i->addAdditionalParent(myAdditional);
         }
     }
     // Requiere always save additionals
@@ -185,61 +164,48 @@ GNEChange_Additional::redo() {
         if (myLaneParent) {
             myLaneParent->addAdditionalChild(myAdditional);
         }
-        // 2 - If additional own a lane parent, add it to edge
+        // 2 - If additional own a edge parent, add it to edge
         if (myEdgeParent != NULL) {
             myEdgeParent->addAdditionalChild(myAdditional);
         }
-        // 4 - If additional is an Entry detector, add id to E3 parent
+        // 3 - If additional has a parent, add it into additional parent
         if (myAdditionalParent) {
             myAdditionalParent->addAdditionalChild(myAdditional);
-            myAdditionalParent->updateGeometry();
         }
-        // 6 - if Additional if a rerouter, add it of all of their edge childs
-        if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
-            GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
-            for (auto i : myEdgeChilds) {
-                i->addAdditionalParent(rerouter);
-            }
+        // 4 - if Additional has edge childs, add id into additional parents
+        for (auto i : myEdgeChilds) {
+            i->addAdditionalParent(myAdditional);
         }
-        // 7 - if Additional if a VSS, add it into all of their lane childs
-        if (myAdditional->getTag() == SUMO_TAG_VSS) {
-            GNEVariableSpeedSign* vss = dynamic_cast<GNEVariableSpeedSign*>(myAdditional);
-            for (auto i : myLaneChilds) {
-                i->addAdditionalParent(vss);
-            }
+        // 5 - if Additional has lane childs, add id into additional parents
+        for (auto i : myLaneChilds) {
+            i->addAdditionalParent(myAdditional);
         }
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Removing " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         }
+        // delete additional of test
         myNet->deleteAdditional(myAdditional);
         // 1 - If additional own a lane parent, remove it from lane
         if (myLaneParent) {
             myLaneParent->removeAdditionalChild(myAdditional);
         }
-        // 2 - If additional own a lane parent, remove it from edge
+        // 2 - If additional own a edge parent, remove it from edge
         if (myEdgeParent) {
             myEdgeParent->removeAdditionalChild(myAdditional);
         }
-        // 4 - If additiona is an Entry detector, remove it from E3 parent
+        // 3 - If additiona has a parent, remove it from their additional childs
         if (myAdditionalParent) {
             myAdditionalParent->removeAdditionalChild(myAdditional);
-            myAdditionalParent->updateGeometry();
         }
-        // 6 - if Additional if a rerouter, remove it of all of their edge childs
-        if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
-            GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
-            for (auto i : myEdgeChilds) {
-                i->removeAdditionalParent(rerouter);
-            }
+        // 4 - if Additional has edge childs, remove it of their additional parents
+        for (auto i : myEdgeChilds) {
+            i->removeAdditionalParent(myAdditional);
         }
-        // 7 - if Additional if a VSS, remove it of all of their lane childs
-        if (myAdditional->getTag() == SUMO_TAG_VSS) {
-            GNEVariableSpeedSign* vss = dynamic_cast<GNEVariableSpeedSign*>(myAdditional);
-            for (auto i : myLaneChilds) {
-                i->removeAdditionalParent(vss);
-            }
+        // 5 - if Additional has lane childs, remove it of their additional parents
+        for (auto i : myLaneChilds) {
+            i->removeAdditionalParent(myAdditional);
         }
     }
     // Requiere always save additionals
