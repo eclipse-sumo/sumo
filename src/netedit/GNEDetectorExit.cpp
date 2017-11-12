@@ -214,7 +214,7 @@ GNEDetectorExit::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANE:
-            return toString(myLane->getAttribute(SUMO_ATTR_ID));
+            return myLane->getID();
         case SUMO_ATTR_POSITION:
             return toString(getAbsolutePositionOverLane());
         case SUMO_ATTR_FRIENDLY_POS:

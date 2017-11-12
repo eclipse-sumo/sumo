@@ -291,7 +291,7 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANE:
-            return toString(myLane->getAttribute(SUMO_ATTR_ID));
+            return myLane->getID();
         case SUMO_ATTR_STARTPOS:
             return toString(getAbsoluteStartPosition());
         case SUMO_ATTR_ENDPOS:
