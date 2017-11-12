@@ -12,7 +12,7 @@
 /// @file    IntermodalRouter.h
 /// @author  Jakob Erdmann
 /// @date    Mon, 03 March 2014
-/// @version $Id$
+/// @version $Id: IntermodalRouter.h 26549 2017-10-17 19:58:44Z behrisch $
 ///
 // The Pedestrian Router build a special network and (delegegates to a SUMOAbstractRouter)
 /****************************************************************************/
@@ -112,7 +112,7 @@ public:
                 _IntermodalEdge* carSplit = 0;
                 if (myCarLookup.count(stopEdge) > 0) {
                     carSplit = new CarEdge<E, L, N, V>(myNumericalID++, stopEdge, pos);
-                    splitEdge(myCarLookup[stopEdge], carSplit, pos, fwdSplit, backSplit);
+                    splitEdge(myCarLookup[stopEdge], carSplit, pos, stopConn, fwdSplit, backSplit);
                 }
 
                 _IntermodalEdge* const prevDep = myIntermodalNet->getDepartEdge(stopEdge, pos);
@@ -301,7 +301,7 @@ private:
         myIntermodalNet(net), myNumericalID((int)net->getAllEdges().size()) {}
 
     int splitEdge(_IntermodalEdge* const toSplit, _IntermodalEdge* afterSplit, const double pos,
-                  _IntermodalEdge* const fwdConn, _IntermodalEdge* const backConn = 0) {
+                  _IntermodalEdge* const stopConn, _IntermodalEdge* const fwdConn = 0, _IntermodalEdge* const backConn = 0) {
         int splitIndex = 1;
         std::vector<_IntermodalEdge*>& splitList = myAccessSplits[toSplit];
         if (splitList.empty()) {
@@ -330,20 +330,20 @@ private:
             splitList.insert(splitIt + 1, afterSplit);
         }
         // add access to / from edge
-        _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, fwdConn);
-        myIntermodalNet->addEdge(access);
-        beforeSplit->addSuccessor(access);
-        access->addSuccessor(fwdConn);
-        if (backConn == 0) {
-            _AccessEdge* exit = new _AccessEdge(myNumericalID++, fwdConn, afterSplit);
+        for (_IntermodalEdge* conn : { stopConn, fwdConn, backConn }) {
+            if (conn != 0) {
+                _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, conn);
+                myIntermodalNet->addEdge(access);
+                beforeSplit->addSuccessor(access);
+                access->addSuccessor(conn);
+            }
+        }
+        if (fwdConn == 0) {
+            // pedestrian case only, exit from public to pedestrian
+            _AccessEdge* exit = new _AccessEdge(myNumericalID++, stopConn, afterSplit);
             myIntermodalNet->addEdge(exit);
-            fwdConn->addSuccessor(exit);
+            stopConn->addSuccessor(exit);
             exit->addSuccessor(afterSplit);
-        } else {
-            _AccessEdge* backward = new _AccessEdge(myNumericalID++, beforeSplit, backConn);
-            myIntermodalNet->addEdge(backward);
-            beforeSplit->addSuccessor(backward);
-            backward->addSuccessor(backConn);
         }
         return splitIndex;
     }
