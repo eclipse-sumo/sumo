@@ -1,5 +1,12 @@
 %module swig_traci
 
+// ignore constant conditional expression warnings
+%begin %{
+#ifdef _MSC_VER
+#pragma warning(disable:4127)
+#endif
+%}
+
 // Add necessary symbols to generated header
 %{
 #include <traci-server/lib/TraCI.h>
