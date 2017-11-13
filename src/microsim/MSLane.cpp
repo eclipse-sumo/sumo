@@ -667,21 +667,14 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
 
             // check leader on next lane
-            // XXX check all leaders in the sublane case
             double gap = 0;
-            MSVehicle* leader = nextLane->getLastAnyVehicle();
-            if (leader != 0) {
+            MSLeaderInfo leaders = nextLane->getLastVehicleInformation(aVehicle, 0, 0);
+            if (leaders.hasVehicles()) {
+                const double nspeed = nextLane->safeInsertionSpeed(aVehicle, seen, leaders, speed);
 #ifdef DEBUG_INSERTION
                 if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                                                         << "leader on lane '" << nextLane->getID() << "': " << leader->getID() << "\n";
+                                                         << "leader on lane '" << nextLane->getID() << "': " << leaders.toString() << " nspeed=" << nspeed << "\n";
 #endif
-                gap = seen + leader->getBackPositionOnLane(nextLane) -  aVehicle->getVehicleType().getMinGap();
-            }
-            if (leader != 0) {
-                if (gap < 0) {
-                    return false;
-                }
-                const double nspeed = cfModel.insertionFollowSpeed(aVehicle, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                 if (checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
                     // we may not drive with the given velocity - we crash into the leader
 #ifdef DEBUG_INSERTION
