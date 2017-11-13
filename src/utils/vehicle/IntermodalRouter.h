@@ -12,7 +12,7 @@
 /// @file    IntermodalRouter.h
 /// @author  Jakob Erdmann
 /// @date    Mon, 03 March 2014
-/// @version $Id: IntermodalRouter.h 26549 2017-10-17 19:58:44Z behrisch $
+/// @version $Id$
 ///
 // The Pedestrian Router build a special network and (delegegates to a SUMOAbstractRouter)
 /****************************************************************************/
