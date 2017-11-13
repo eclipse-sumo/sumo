@@ -349,25 +349,20 @@ private:
     }
 
     void addCarEdges(const std::vector<E*>& edges) {
-        for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            const E* const edge = *i;
+        for (const E* const edge: edges) {
             if (!edge->isInternal()) {
                 myCarLookup[edge] = new CarEdge<E, L, N, V>(myNumericalID++, edge);
                 myIntermodalNet->addEdge(myCarLookup[edge]);
             }
         }
-        for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            const E* const edge = *i;
+        for (const E* const edge : edges) {
             if (!edge->isInternal()) {
-                _IntermodalEdge* startConnector = myIntermodalNet->getDepartEdge(edge);
-                _IntermodalEdge* endConnector = myIntermodalNet->getArrivalEdge(edge);
                 _IntermodalEdge* carEdge = getCarEdge(edge);
-                const std::vector<E*>& successors = edge->getSuccessors();
-                for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
-                    carEdge->addSuccessor(getCarEdge(*it));
+                for (const E* const suc: edge->getSuccessors()) {
+                    carEdge->addSuccessor(getCarEdge(suc));
                 }
-                startConnector->addSuccessor(carEdge);
-                carEdge->addSuccessor(endConnector);
+                myIntermodalNet->getDepartEdge(edge)->addSuccessor(carEdge);
+                carEdge->addSuccessor(myIntermodalNet->getArrivalEdge(edge));
             }
         }
     }
