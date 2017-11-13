@@ -633,6 +633,8 @@ enum {
     MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_BOOL,
     /// @brief attribute block movement
     MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT,
+    /// @brief attribute Parent
+    MID_GNE_ADDITIONALFRAME_CHANGEPARENT,
     /// @brief add row
     MID_GNE_ADDITIONALFRAME_ADDROW,
     /// @brief remove row

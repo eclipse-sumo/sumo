@@ -89,6 +89,7 @@ FXDEFMAP(GNEInspectorFrame::AttributeInput) AttributeInputMap[] = {
 
 
 FXDEFMAP(GNEInspectorFrame::NeteditParameters) NeteditParameterstMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CHANGEPARENT,               GNEInspectorFrame::NeteditParameters::onCmdChangeAdditionalParent),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT,              GNEInspectorFrame::NeteditParameters::onCmdSetBlockingMovement),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_SHAPE,                         GNEInspectorFrame::NeteditParameters::onCmdSetBlockingShape),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_CLOSING_SHAPE,                          GNEInspectorFrame::NeteditParameters::onCmdSetClosingShape),
@@ -421,24 +422,19 @@ GNEInspectorFrame::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
 
 long
 GNEInspectorFrame::onCmdCenterItem(FXObject*, FXSelector, void*) {
-    if (dynamic_cast<GNENetElement*>(myRightClickedAC)) {
-        myViewNet->centerTo(dynamic_cast<GNENetElement*>(myRightClickedAC)->getGlID(), false);
-    } else if (dynamic_cast<GNEAdditional*>(myRightClickedAC)) {
-        myViewNet->centerTo(dynamic_cast<GNEAdditional*>(myRightClickedAC)->getGlID(), false);
-    } else if (dynamic_cast<GNEPOI*>(myRightClickedAC)) {
-        myViewNet->centerTo(dynamic_cast<GNEPOI*>(myRightClickedAC)->getGlID(), false);
-    } else if (dynamic_cast<GNEPoly*>(myRightClickedAC)) {
-        myViewNet->centerTo(dynamic_cast<GNEPoly*>(myRightClickedAC)->getGlID(), false);
+    if(myRightClickedAC != NULL) {
+        myViewNet->centerTo(myRightClickedAC->getGUIGLObject()->getGlID(), false);
+        myViewNet->update();
     }
-    myViewNet->update();
     return 1;
 }
 
 
 long
 GNEInspectorFrame::onCmdInspectItem(FXObject*, FXSelector, void*) {
-    assert(myACs.size() == 1);
-    inspectChild(myRightClickedAC, myACs.front());
+    if((myACs.size() > 0) && (myRightClickedAC != NULL)) {
+        inspectChild(myRightClickedAC, myACs.front());
+    }
     return 1;
 }
 
@@ -1046,18 +1042,26 @@ GNEInspectorFrame::AttributeInput::stripWhitespaceAfterComma(const std::string& 
 GNEInspectorFrame::NeteditParameters::NeteditParameters(GNEInspectorFrame* inspectorFrameParent) :
     FXGroupBox(inspectorFrameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
     myInspectorFrameParent(inspectorFrameParent) {
-    // Create check box and for block movement
-    FXHorizontalFrame* blockMovementHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLabelBlockMovement = new FXLabel(blockMovementHorizontalFrame, "Block move", 0, GUIDesignLabelAttribute);
-    myCheckBoxBlockMovement = new FXCheckButton(blockMovementHorizontalFrame, "", this, MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT, GUIDesignCheckButtonAttribute);
-    // Create check box and for block shape
-    FXHorizontalFrame* blockShapeHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLabelBlockShape = new FXLabel(blockShapeHorizontalFrame, "Block shape", 0, GUIDesignLabelAttribute);
-    myCheckBoxBlockShape = new FXCheckButton(blockShapeHorizontalFrame, "", this, MID_GNE_SET_BLOCKING_SHAPE, GUIDesignCheckButtonAttribute);
-    // Create check box and for close shape
-    FXHorizontalFrame* closeShapeHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLabelCloseShape = new FXLabel(closeShapeHorizontalFrame, "Close shape", 0, GUIDesignLabelAttribute);
-    myCheckBoxCloseShape = new FXCheckButton(closeShapeHorizontalFrame, "", this, MID_GNE_SET_CLOSING_SHAPE, GUIDesignCheckButtonAttribute);
+
+    // Create elements for additional parent
+    myHorizontalFrameAdditionalParent = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLabelAdditionalParent = new FXLabel(myHorizontalFrameAdditionalParent, "Block move", 0, GUIDesignLabelAttribute);
+    myTextFieldAdditionalParent = new FXTextField(myHorizontalFrameAdditionalParent, GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_CHANGEPARENT, GUIDesignTextField);
+    
+    // Create elements for block movement
+    myHorizontalFrameBlockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLabelBlockMovement = new FXLabel(myHorizontalFrameBlockMovement, "Block move", 0, GUIDesignLabelAttribute);
+    myCheckBoxBlockMovement = new FXCheckButton(myHorizontalFrameBlockMovement, "", this, MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT, GUIDesignCheckButtonAttribute);
+    
+    // Create elements for block shape
+    myHorizontalFrameBlockShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLabelBlockShape = new FXLabel(myHorizontalFrameBlockShape, "Block shape", 0, GUIDesignLabelAttribute);
+    myCheckBoxBlockShape = new FXCheckButton(myHorizontalFrameBlockShape, "", this, MID_GNE_SET_BLOCKING_SHAPE, GUIDesignCheckButtonAttribute);
+    
+    // Create elements for close shape
+    myHorizontalFrameCloseShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLabelCloseShape = new FXLabel(myHorizontalFrameCloseShape, "Close shape", 0, GUIDesignLabelAttribute);
+    myCheckBoxCloseShape = new FXCheckButton(myHorizontalFrameCloseShape, "", this, MID_GNE_SET_CLOSING_SHAPE, GUIDesignCheckButtonAttribute);
 }
 
 
@@ -1076,8 +1080,7 @@ GNEInspectorFrame::NeteditParameters::show() {
             movementBlocked &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_MOVEMENT));
         }
         // show block movement
-        myLabelBlockMovement->show();
-        myCheckBoxBlockMovement->show();
+        myHorizontalFrameBlockMovement->show();
         myCheckBoxBlockMovement->setCheck(movementBlocked);
         // update label
         if (movementBlocked) {
@@ -1096,8 +1099,7 @@ GNEInspectorFrame::NeteditParameters::show() {
             shapeBlocked &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_SHAPE));
         }
         // show block shape
-        myLabelBlockShape->show();
-        myCheckBoxBlockShape->show();
+        myHorizontalFrameBlockShape->hide();
         myCheckBoxBlockShape->setCheck(shapeBlocked);
         // update label
         if (shapeBlocked) {
@@ -1111,8 +1113,7 @@ GNEInspectorFrame::NeteditParameters::show() {
             shapeClosed &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_CLOSE_SHAPE));
         }
         // show close shape
-        myLabelCloseShape->show();
-        myCheckBoxCloseShape->show();
+        myHorizontalFrameCloseShape->hide();
         myCheckBoxCloseShape->setCheck(shapeClosed);
         // update label
         if (shapeClosed) {
@@ -1121,19 +1122,43 @@ GNEInspectorFrame::NeteditParameters::show() {
             myCheckBoxCloseShape->setText("false");
         }
     }
+    // If item is an additional and has another additional as parent
+    if (myInspectorFrameParent->getInspectedACs().size() == 1) {
+        // check if is an additional AND has an additional parent
+        GNEAdditional *additional = dynamic_cast<GNEAdditional*>(myInspectorFrameParent->getInspectedACs().front());
+        if(additional && additional->getAdditionalParent()) {
+            // show groupBox
+            FXGroupBox::show();
+            // show block movement
+            myHorizontalFrameAdditionalParent->show();
+            myLabelAdditionalParent->setText((toString(additional->getAdditionalParent()->getTag()) + " parent").c_str());
+            myTextFieldAdditionalParent->setText(additional->getAdditionalParent()->getID().c_str());
+        }
+    }
 }
 
 
 void
 GNEInspectorFrame::NeteditParameters::hide() {
     // hide all elements of GroupBox
-    myLabelBlockMovement->hide();
-    myCheckBoxBlockMovement->hide();
-    myLabelBlockShape->hide();
-    myCheckBoxBlockShape->hide();
-    myLabelCloseShape->hide();
-    myCheckBoxCloseShape->hide();
+    myHorizontalFrameAdditionalParent->hide();
+    myHorizontalFrameBlockMovement->hide();
+    myHorizontalFrameBlockShape->hide();
+    myHorizontalFrameCloseShape->hide();
     FXGroupBox::hide();
+}
+
+
+long 
+GNEInspectorFrame::NeteditParameters::onCmdChangeAdditionalParent(FXObject*, FXSelector, void*) {
+    if(myInspectorFrameParent->getInspectedACs().front()->isValid(GNE_ATTR_PARENT, myTextFieldAdditionalParent->getText().text())) {
+        myInspectorFrameParent->getInspectedACs().front()->setAttribute(GNE_ATTR_PARENT, myTextFieldAdditionalParent->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
+        myTextFieldAdditionalParent->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldAdditionalParent->setTextColor(FXRGB(255, 0, 0));
+        myTextFieldAdditionalParent->killFocus();
+    }
+    return 1;
 }
 
 

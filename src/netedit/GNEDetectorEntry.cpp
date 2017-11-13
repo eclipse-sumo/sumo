@@ -99,7 +99,7 @@ void
 GNEDetectorEntry::writeAdditional(OutputDevice& device) const {
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
+    device.writeAttr(SUMO_ATTR_POSITION, getAbsolutePositionOverLane());
     device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     device.closeTag();
 }

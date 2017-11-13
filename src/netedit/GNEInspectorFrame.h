@@ -155,6 +155,9 @@ public:
 
         /// @name FOX-callbacks
         /// @{
+        /// @brief called when user change the parent of an additional
+        long onCmdChangeAdditionalParent(FXObject*, FXSelector, void*);
+
         /// @brief called when user toogle the blocking movement CheckBox
         long onCmdSetBlockingMovement(FXObject*, FXSelector, void*);
 
@@ -173,17 +176,35 @@ public:
         /// @brief pointer to inspector frame parent
         GNEInspectorFrame* myInspectorFrameParent;
 
+        /// @frame horizontal frame for change additional parent
+        FXHorizontalFrame* myHorizontalFrameAdditionalParent;
+
+        /// @brief Label for additional parent
+        FXLabel* myLabelAdditionalParent;
+
+        /// @brief pointer for change additional parent
+        FXTextField* myTextFieldAdditionalParent;
+
+        /// @frame horizontal frame for block movement
+        FXHorizontalFrame* myHorizontalFrameBlockMovement;
+
         /// @brief Label for Check blocked movement
         FXLabel* myLabelBlockMovement;
 
         /// @brief pointer to check box "Block movement"
         FXCheckButton* myCheckBoxBlockMovement;
 
+        /// @frame horizontal frame for block shape
+        FXHorizontalFrame* myHorizontalFrameBlockShape;
+
         /// @brief Label for Check blocked shape
         FXLabel* myLabelBlockShape;
 
         /// @brief pointer to check box "Block Shape"
         FXCheckButton* myCheckBoxBlockShape;
+
+        /// @frame horizontal frame for close shape
+        FXHorizontalFrame* myHorizontalFrameCloseShape;
 
         /// @brief Label for close shape
         FXLabel* myLabelCloseShape;

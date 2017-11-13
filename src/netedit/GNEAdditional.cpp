@@ -598,9 +598,11 @@ GNEAdditional::changeAdditionalParent(const std::string& newAdditionalParentID) 
     if(myAdditionalParent == NULL) {
         throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't have an additional parent");
     } else {
+        // remove this additional of the childs of parent additional
         myAdditionalParent->removeAdditionalChild(this);
-        GNEAdditional* newAdditionalParent = myViewNet->getNet()->retrieveAdditional(newAdditionalParentID);
-        newAdditionalParent->addAdditionalChild(this);
+        myAdditionalParent = myViewNet->getNet()->retrieveAdditional(newAdditionalParentID);
+        // add this additional int the childs of parent additional
+        myAdditionalParent->addAdditionalChild(this);
         updateGeometry();
     }
 }
