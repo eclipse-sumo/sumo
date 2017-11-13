@@ -231,7 +231,7 @@ MSFrame::fillOptions() {
     oc.addDescription("save-state.period", "Output", "save state repeatedly after TIME period");
     oc.doRegister("save-state.prefix", new Option_FileName("state"));
     oc.addDescription("save-state.prefix", "Output", "Prefix for network states");
-    oc.doRegister("save-state.suffix", new Option_FileName(".sbx"));
+    oc.doRegister("save-state.suffix", new Option_String(".sbx"));
     oc.addDescription("save-state.suffix", "Output", "Suffix for network states (.sbx or .xml)");
     oc.doRegister("save-state.files", new Option_FileName());//
     oc.addDescription("save-state.files", "Output", "Files for network states");
