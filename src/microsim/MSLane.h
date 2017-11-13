@@ -1100,7 +1100,7 @@ protected:
 
     /** @brief return the maximum safe speed for insertion behind leaders
      * (a negative value indicates that safe insertion is impossible) */
-    double safeInsertionSpeed(const MSVehicle* veh, const MSLeaderInfo& leaders, double speed);
+    double safeInsertionSpeed(const MSVehicle* veh, double positionOffset, const MSLeaderInfo& leaders, double speed);
 
     /// @brief departure position where the vehicle fits fully onto the lane (if possible)
     double basePos(const MSVehicle& veh) const;

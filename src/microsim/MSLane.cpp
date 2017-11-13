@@ -741,7 +741,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     // get the pointer to the vehicle next in front of the given position
     MSLeaderInfo leaders = getLastVehicleInformation(aVehicle, 0, pos);
     //if (aVehicle->getID() == "disabled") std::cout << " leaders=" << leaders.toString() << "\n";
-    const double nspeed = safeInsertionSpeed(aVehicle, leaders, speed);
+    const double nspeed = safeInsertionSpeed(aVehicle, -pos, leaders, speed);
     if (nspeed < 0 || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
         // XXX: checking for nspeed<0... Might appear naturally with ballistic update (see #860, Leo)
         // TODO: check if ballistic update needs adjustments here, refs. #2577
@@ -924,12 +924,12 @@ MSLane::forceVehicleInsertion(MSVehicle* veh, double pos, MSMoveReminder::Notifi
 
 
 double
-MSLane::safeInsertionSpeed(const MSVehicle* veh, const MSLeaderInfo& leaders, double speed) {
+MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo& leaders, double speed) {
     double nspeed = speed;
     for (int i = 0; i < leaders.numSublanes(); ++i) {
         const MSVehicle* leader = leaders[i];
         if (leader != 0) {
-            const double gap = leader->getBackPositionOnLane(this) - veh->getPositionOnLane() - veh->getVehicleType().getMinGap();
+            const double gap = leader->getBackPositionOnLane(this) + seen - veh->getVehicleType().getMinGap();
             if (gap < 0) {
                 return -1;
             }
