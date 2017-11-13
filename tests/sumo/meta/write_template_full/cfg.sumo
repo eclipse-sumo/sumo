@@ -61,7 +61,7 @@
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
-        <save-state.suffix value=".sbx" type="FILE" help="Suffix for network states (.sbx or .xml)"/>
+        <save-state.suffix value=".sbx" type="STR" help="Suffix for network states (.sbx or .xml)"/>
         <save-state.files value="" type="FILE" help="Files for network states"/>
     </output>
 

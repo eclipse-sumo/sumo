@@ -1,4 +1,4 @@
-SUMO Version v0_31_0-948-g553d739
+SUMO Version v0_31_0-1096-g53a82dd
  Copyright (C) 2001-2017 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -94,7 +94,7 @@ Output Options:
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
   --save-state.prefix FILE             Prefix for network states
-  --save-state.suffix FILE             Suffix for network states (.sbx or .xml)
+  --save-state.suffix STR              Suffix for network states (.sbx or .xml)
   --save-state.files FILE              Files for network states
 
 Time Options:
