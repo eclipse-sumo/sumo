@@ -29,9 +29,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_FOX
-#include <fx.h>
-#endif
 #include "IntermodalEdge.h"
 
 
@@ -53,31 +50,6 @@ public:
         return true;
     }
 
-    const std::vector<_IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass) const {
-        if (vClass == SVC_IGNORING /* || !RONet::getInstance()->hasPermissions() */) {
-            return this->myFollowingEdges;
-        }
-#ifdef HAVE_FOX
-        FXMutexLock locker(myLock);
-#endif
-        typename std::map<SUMOVehicleClass, std::vector<_IntermodalEdge*> >::const_iterator i = myClassesSuccessorMap.find(vClass);
-        if (i != myClassesSuccessorMap.end()) {
-            // can use cached value
-            return i->second;
-        } else {
-            // this vClass is requested for the first time. rebuild all successors
-            const std::set<const E*> classedCarFollowers = std::set<const E*>(this->getEdge()->getSuccessors(vClass).begin(), this->getEdge()->getSuccessors(vClass).end());
-            for (typename std::vector<_IntermodalEdge*>::const_iterator e = this->myFollowingEdges.begin(); e != this->myFollowingEdges.end(); ++e) {
-                if (!(*e)->includeInRoute(true) || (*e)->getEdge() == this->getEdge() || classedCarFollowers.count((*e)->getEdge()) > 0) {
-                    myClassesSuccessorMap[vClass].push_back(*e);
-                }
-            }
-            return myClassesSuccessorMap[vClass];
-        }
-
-    }
-
-
     bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
         return trip->vehicle == 0 || this->getEdge()->prohibits(trip->vehicle);
     }
@@ -98,14 +70,6 @@ public:
 private:
     /// @brief the starting position for split edges
     const double myStartPos;
-
-    /// @brief The successors available for a given vClass
-    mutable std::map<SUMOVehicleClass, std::vector<_IntermodalEdge*> > myClassesSuccessorMap;
-
-#ifdef HAVE_FOX
-    /// The mutex used to avoid concurrent updates of myClassesSuccessorMap
-    mutable FXMutex myLock;
-#endif
 };
 
 

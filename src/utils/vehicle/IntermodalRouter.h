@@ -11,10 +11,11 @@
 /****************************************************************************/
 /// @file    IntermodalRouter.h
 /// @author  Jakob Erdmann
+/// @author  Michael Behrisch
 /// @date    Mon, 03 March 2014
 /// @version $Id$
 ///
-// The Pedestrian Router build a special network and (delegegates to a SUMOAbstractRouter)
+// The IntermodalRouter builds a special network and (delegates to a SUMOAbstractRouter)
 /****************************************************************************/
 #ifndef IntermodalRouter_h
 #define IntermodalRouter_h
@@ -86,7 +87,7 @@ public:
     };
 
     /// Constructor
-    IntermodalRouter(CreateNetCallback callback, int carWalkTransfer=PT_STOP_ACCESS|NO_CAR_EDGES) :
+    IntermodalRouter(CreateNetCallback callback, int carWalkTransfer=PT_STOP_ACCESS) :
         SUMOAbstractRouter<E, _IntermodalTrip>(0, "IntermodalRouter"),
         myAmClone(false), myInternalRouter(0), myIntermodalNet(0), myNumericalID(0),
         myCallback(callback), myCarWalkTransfer(carWalkTransfer) {
@@ -370,16 +371,19 @@ private:
                 myIntermodalNet->addEdge(myCarLookup[edge]);
             }
         }
-        for (auto const edgePair : myCarLookup) {
+        for (const auto& edgePair : myCarLookup) {
             _IntermodalEdge* const carEdge = edgePair.second;
             for (const E* const suc : edgePair.first->getSuccessors()) {
-                carEdge->addSuccessor(getCarEdge(suc));
-                if ((suc->getPermissions() & SVC_PEDESTRIAN) != 0) {
-                    _IntermodalEdge* pedFwd = myIntermodalNet->getBothDirections(suc).first;
-                    if ((suc->getPermissions() & SVC_PASSENGER) == 0 && (myCarWalkTransfer & NO_CAR_EDGES) != 0) {
-                        carEdge->addSuccessor(pedFwd);
-                    } else if ((myCarWalkTransfer & MODE_EDGES) != 0) {
-                        carEdge->addSuccessor(pedFwd);
+                _IntermodalEdge* const sucCarEdge = getCarEdge(suc);
+                if (sucCarEdge != nullptr) {
+                    carEdge->addSuccessor(sucCarEdge);
+                    if ((suc->getPermissions() & SVC_PEDESTRIAN) != 0) {
+                        _IntermodalEdge* pedFwd = myIntermodalNet->getBothDirections(suc).first;
+                        if ((suc->getPermissions() & SVC_PASSENGER) == 0 && (myCarWalkTransfer & NO_CAR_EDGES) != 0) {
+                            carEdge->addSuccessor(pedFwd);
+                        } else if ((myCarWalkTransfer & MODE_EDGES) != 0) {
+                            carEdge->addSuccessor(pedFwd);
+                        }
                     }
                 }
             }
