@@ -343,7 +343,7 @@ GUINet::getRTFactor() const {
     if (myLastSimDuration == 0) {
         return -1;
     }
-    return (double) 1000. / (double) myLastSimDuration;
+    return (double)DELTA_T / (double)myLastSimDuration;
 }
 
 
