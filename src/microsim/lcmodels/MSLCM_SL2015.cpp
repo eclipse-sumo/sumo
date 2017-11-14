@@ -2595,6 +2595,8 @@ MSLCM_SL2015::computeSpeedLat(double latDist) {
     double speedBound = DIST2SPEED(latDist);
     // for lat-gap keeping manoeuvres myOrigLatDist may be 0
     const double fullLatDist = latDist > 0 ? MIN2(mySafeLatDistLeft, MAX2(myOrigLatDist, latDist)) : MAX2(-mySafeLatDistRight, MIN2(myOrigLatDist, latDist));
+
+    gDebugFlag2 = DEBUG_COND;
     if (gDebugFlag2) {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
@@ -2650,6 +2652,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist) {
     if (gDebugFlag2) {
         std::cout << "   computeSpeedLat e)\n";
     }
+    gDebugFlag2=false;
     return speedDecelSafe;
 }
 
@@ -2659,13 +2662,37 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
                               const MSLeaderDistanceInfo& leaders,
                               const MSLeaderDistanceInfo& neighLeaders,
                               const MSLane& neighLane) {
+    gDebugFlag2=DEBUG_COND;
     if (!blocked && !blockedFully && !myCanChangeFully) {
         // round to full action steps
-        double secondsToLeaveLane = ceil(fabs(myOrigLatDist) / myVehicle.getVehicleType().getMaxSpeedLat() / myVehicle.getActionStepLengthSecs()) * myVehicle.getActionStepLengthSecs();
-        // XXX myAccelLat must be taken into account
-        myCommittedSpeed = MIN3(myLeftSpace / secondsToLeaveLane,
-                                myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle),
-                                myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
+        double secondsToLeaveLane;
+        if (MSGlobals::gSemiImplicitEulerUpdate) {
+            secondsToLeaveLane = ceil(fabs(myOrigLatDist) / myVehicle.getVehicleType().getMaxSpeedLat() / myVehicle.getActionStepLengthSecs()) * myVehicle.getActionStepLengthSecs();
+            // XXX myAccelLat must be taken into account (refs #3601, see ballistic case for solution)
+
+            // XXX This also causes probs: if the difference between the current speed and the committed is higher than the maximal decel,
+            //     the vehicle may pass myLeftSpace before completing the maneuver.
+            myCommittedSpeed = MIN3(myLeftSpace / secondsToLeaveLane,
+                                    myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle),
+                                    myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
+        } else {
+
+            // Calculate seconds needed for leaving lane assuming start from lateral speed zero, and lat.accel == -lat.decel
+            secondsToLeaveLane = MSCFModel::estimateArrivalTime(fabs(myOrigLatDist), 0., 0., myVehicle.getVehicleType().getMaxSpeedLat(), myAccelLat, myAccelLat);
+            // round to full action steps
+            secondsToLeaveLane = ceil(secondsToLeaveLane/myVehicle.getActionStepLengthSecs())*myVehicle.getActionStepLengthSecs();
+
+            // committed speed will eventually be pushed into a drive item during the next planMove() step. This item
+            // will not be read before the next action step at current time + actionStepLength-TS, so we need to schedule the corresponding speed.
+            const double timeTillActionStep = myVehicle.getActionStepLengthSecs()-TS;
+            const double nextActionStepSpeed = MAX2(0., myVehicle.getSpeed() + timeTillActionStep*myVehicle.getAcceleration());
+            //const double nextLatDist = fabs(myOrigLatDist) - MIN2(myAccelLat, 0.5*fabs(myOrigLatDist)/secondsToLeaveLane)*timeTillActionStep;
+            const double avoidArrivalSpeed = nextActionStepSpeed + TS*MSCFModel::avoidArrivalAccel(myLeftSpace, secondsToLeaveLane-timeTillActionStep, nextActionStepSpeed);
+
+            myCommittedSpeed = MIN3(avoidArrivalSpeed,
+                                    myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle),
+                                    myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
+        }
         myCommittedSpeed = commitFollowSpeed(myCommittedSpeed, myOrigLatDist, secondsToLeaveLane, leaders, myVehicle.getLane()->getRightSideOnEdge());
         myCommittedSpeed = commitFollowSpeed(myCommittedSpeed, myOrigLatDist, secondsToLeaveLane, neighLeaders, neighLane.getRightSideOnEdge());
         if (myCommittedSpeed < myVehicle.getCarFollowModel().minNextSpeed(myVehicle.getSpeed(), &myVehicle)) {
@@ -2680,6 +2707,7 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
                       << "\n";
         }
     }
+    gDebugFlag2=false;
 }
 
 double
