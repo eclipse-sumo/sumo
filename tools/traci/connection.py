@@ -259,7 +259,7 @@ class Connection:
         Load a simulation from the given arguments.
         """
         self._queue.append(tc.CMD_LOAD)
-        self._string += struct.pack("!BB", 1 + 1 + 1 + 4 + sum(map(len, args)) + 4 * len(args), tc.CMD_LOAD)
+        self._string += struct.pack("!BiB", 0, 1 + 4 + 1 + 1 + 4 + sum(map(len, args)) + 4 * len(args), tc.CMD_LOAD)
         self._packStringList(args)
         self._sendExact()
 
