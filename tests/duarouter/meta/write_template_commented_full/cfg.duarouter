@@ -162,6 +162,9 @@
         <!-- Use FLOAT as a factor on pedestrian maximum speed during intermodal routing -->
         <persontrip.walkfactor value="0.9" type="FLOAT"/>
 
+        <!-- Where are mode changes from car to walking allowed (possible values: &apos;ptStops&apos;, &apos;deadEnds&apos;, &apos;allJunctions&apos; and combinations) -->
+        <persontrip.transfer.car-walk value="" type="STR"/>
+
     </processing>
 
     <defaults>

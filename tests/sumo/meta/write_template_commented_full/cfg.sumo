@@ -300,6 +300,9 @@
         <!-- Use FLOAT as a factor on pedestrian maximum speed during intermodal routing -->
         <persontrip.walkfactor value="0.9" type="FLOAT"/>
 
+        <!-- Where are mode changes from car to walking allowed (possible values: &apos;ptStops&apos;, &apos;deadEnds&apos;, &apos;allJunctions&apos; and combinations) -->
+        <persontrip.transfer.car-walk value="" type="STR"/>
+
         <!-- The probability for a vehicle to have a &apos;rerouting&apos; device -->
         <device.rerouting.probability value="0" type="FLOAT"/>
 
@@ -587,6 +590,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
