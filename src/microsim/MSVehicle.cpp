@@ -2886,11 +2886,12 @@ MSVehicle::updateState(double vNext) {
     // NOTE: for the ballistic update vNext may be negative, indicating a stop.
     myAcceleration = SPEED2ACCEL(MAX2(vNext, 0.) - myState.mySpeed);
 
-//#ifdef DEBUG_EXEC_MOVE
-//    if (DEBUG_COND) {
-//        std::cout << "deltaPos = " << deltaPos << std::endl;
-//    }
-//#endif
+#ifdef DEBUG_EXEC_MOVE
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " updateState() for veh '" << getID() << "': deltaPos=" << deltaPos
+                << " pos=" << myState.myPos << " newPos=" << myState.myPos+deltaPos << std::endl;
+    }
+#endif
 
     myState.myPreviousSpeed = myState.mySpeed;
     myState.mySpeed = MAX2(vNext, 0.);
