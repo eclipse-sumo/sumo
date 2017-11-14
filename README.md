@@ -85,13 +85,14 @@ EPL requires that "derivative works" be licensed under the terms of the EPL
 whereas "separate modules of software" may be licensed arbitrarily. Please follow the links
 below for lists of files where modifications are considered derivative work.
 
-We currently consider all modifications to src and tools as derivative work except for the following cases:
+We currently consider all modifications to [src](src/README_Contributing.md) and [tools](tools/README_Contributing.md) (including the subdirectories) as derivative work except for the following cases:
 - TraCI client applications that use the public TraCI client libraries
-- car following models that inherit from MSCFModel (excluding [modifications of the existing models](src/microsim/cfmodels/README_EPL.md))
-- lane changing models that inherit from MSAbstractLaneChangeModel (excluding [modifications of the existing models](src/microsim/cfmodels/README_EPL.md))
-- simulation output modules (excluding [changes to the existing classes](src/microsim/output/README_EPL.md))
-- vehicle device modules (excluding [changes to the existing classes](src/microsim/device/README_EPL.md))
-- network import modules (excluding [changes to the existing classes](src/netimport/README_EPL.md))
-- network export modules (excluding [changes to the existing classes](src/netwrite/README_EPL.md))
-- software that build upon the existing Python and Java tools libraries (excluding [changes to the existing](tools/README_EPL.md))
+- separate modules residing in [src](src/README_Contributing.md)
+- car following models that inherit from MSCFModel (excluding [modifications of the existing models](src/microsim/cfmodels/README_Contributing.md))
+- lane changing models that inherit from MSAbstractLaneChangeModel (excluding [modifications of the existing models](src/microsim/lcmodels/README_Contributing.md))
+- simulation output modules (excluding [changes to the existing classes](src/microsim/output/README_Contributing.md))
+- vehicle device modules (excluding [changes to the existing classes](src/microsim/device/README_Contributing.md))
+- network import modules (excluding [changes to the existing classes](src/netimport/README_Contributing.md))
+- network export modules (excluding [changes to the existing classes](src/netwrite/README_Contributing.md))
+- software that build upon the existing Python and Java tools libraries (excluding [changes to the existing](tools/README_Contributing.md))
 

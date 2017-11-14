@@ -72,9 +72,24 @@ public:
         double cost;
     };
 
+    /** @brief where mode changes are possible
+    */
+    enum ModeChangeOptions {
+        /// @brief public transport stops and access
+        PT_STOP_ACCESS = 1,
+        /// @brief parking places (not implemented)
+        PARKING = 2,
+        /// @brief junctions with edges allowing the additional mode but no cars
+        NO_CAR_EDGES = 4,
+        /// @brief junctions with edges allowing the additional mode
+        MODE_EDGES = 8
+    };
+
     /// Constructor
-    IntermodalRouter(CreateNetCallback callback) :
-        SUMOAbstractRouter<E, _IntermodalTrip>(0, "IntermodalRouter"), myAmClone(false), myInternalRouter(0), myIntermodalNet(0), myNumericalID(0), myCallback(callback) {
+    IntermodalRouter(CreateNetCallback callback, int carWalkTransfer=PT_STOP_ACCESS|NO_CAR_EDGES) :
+        SUMOAbstractRouter<E, _IntermodalTrip>(0, "IntermodalRouter"),
+        myAmClone(false), myInternalRouter(0), myIntermodalNet(0), myNumericalID(0),
+        myCallback(callback), myCarWalkTransfer(carWalkTransfer) {
     }
 
     /// Destructor
@@ -298,7 +313,7 @@ private:
     IntermodalRouter(_IntermodalNetwork* net):
         SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(true),
         myInternalRouter(new INTERNALROUTER(net->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic)),
-        myIntermodalNet(net), myNumericalID((int)net->getAllEdges().size()) {}
+        myIntermodalNet(net), myNumericalID((int)net->getAllEdges().size()), myCarWalkTransfer(0) {}
 
     int splitEdge(_IntermodalEdge* const toSplit, _IntermodalEdge* afterSplit, const double pos,
                   _IntermodalEdge* const stopConn, _IntermodalEdge* const fwdConn = 0, _IntermodalEdge* const backConn = 0) {
@@ -350,20 +365,26 @@ private:
 
     void addCarEdges(const std::vector<E*>& edges) {
         for (const E* const edge: edges) {
-            if (!edge->isInternal()) {
+            if (!edge->isInternal() && !edge->isCrossing() && !edge->isWalkingArea()) {
                 myCarLookup[edge] = new CarEdge<E, L, N, V>(myNumericalID++, edge);
                 myIntermodalNet->addEdge(myCarLookup[edge]);
             }
         }
-        for (const E* const edge : edges) {
-            if (!edge->isInternal()) {
-                _IntermodalEdge* carEdge = getCarEdge(edge);
-                for (const E* const suc: edge->getSuccessors()) {
-                    carEdge->addSuccessor(getCarEdge(suc));
+        for (auto const edgePair : myCarLookup) {
+            _IntermodalEdge* const carEdge = edgePair.second;
+            for (const E* const suc : edgePair.first->getSuccessors()) {
+                carEdge->addSuccessor(getCarEdge(suc));
+                if ((suc->getPermissions() & SVC_PEDESTRIAN) != 0) {
+                    _IntermodalEdge* pedFwd = myIntermodalNet->getBothDirections(suc).first;
+                    if ((suc->getPermissions() & SVC_PASSENGER) == 0 && (myCarWalkTransfer & NO_CAR_EDGES) != 0) {
+                        carEdge->addSuccessor(pedFwd);
+                    } else if ((myCarWalkTransfer & MODE_EDGES) != 0) {
+                        carEdge->addSuccessor(pedFwd);
+                    }
                 }
-                myIntermodalNet->getDepartEdge(edge)->addSuccessor(carEdge);
-                carEdge->addSuccessor(myIntermodalNet->getArrivalEdge(edge));
             }
+            myIntermodalNet->getDepartEdge(edgePair.first)->addSuccessor(carEdge);
+            carEdge->addSuccessor(myIntermodalNet->getArrivalEdge(edgePair.first));
         }
     }
 
@@ -378,10 +399,10 @@ private:
     }
 
     /// @brief Returns the associated car edge
-    _IntermodalEdge* getCarEdge(const E* e) {
+    _IntermodalEdge* getCarEdge(const E* e) const {
         typename std::map<const E*, _IntermodalEdge*>::const_iterator it = myCarLookup.find(e);
         if (it == myCarLookup.end()) {
-            throw ProcessError("Car edge '" + e->getID() + "' not found in pedestrian network.");
+            return 0;
         }
         return it->second;
     }
@@ -392,6 +413,7 @@ private:
     _IntermodalNetwork* myIntermodalNet;
     int myNumericalID;
     CreateNetCallback myCallback;
+    const int myCarWalkTransfer;
 
     /// @brief retrieve the car edge for the given input edge E
     std::map<const E*, _IntermodalEdge*> myCarLookup;
