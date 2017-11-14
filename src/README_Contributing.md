@@ -38,6 +38,6 @@ Exceptions with separate lists are:
 - car following models that inherit from MSCFModel (excluding [modifications of the existing models](microsim/cfmodels/README_Contributing.md))
 - lane changing models that inherit from MSAbstractLaneChangeModel (excluding [modifications of the existing models](microsim/lcmodels/README_Contributing.md))
 - simulation output modules (excluding [changes to the existing classes](microsim/output/README_Contributing.md))
-- vehicle device modules (excluding [changes to the existing classes](microsim/device/README_Contributing.md))
+- vehicle device modules (excluding [changes to the existing classes](microsim/devices/README_Contributing.md))
 - network import modules (excluding [changes to the existing classes](netimport/README_Contributing.md))
 - network export modules (excluding [changes to the existing classes](netwrite/README_Contributing.md))
