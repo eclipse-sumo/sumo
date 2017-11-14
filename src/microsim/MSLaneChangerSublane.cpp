@@ -42,6 +42,11 @@
 
 
 // ===========================================================================
+// DEBUG constants
+// ===========================================================================
+#define DEBUG_COND (vehicle->getLaneChangeModel().debugVehicle())
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 MSLaneChangerSublane::MSLaneChangerSublane(const std::vector<MSLane*>* lanes, bool allowChanging) :
@@ -212,11 +217,13 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
                 || ((vehicle->getLaneChangeModel().getPrevState() & LCA_STAY) != 0)
                 || ((vehicle->getLaneChangeModel().getPrevState() & LCA_BLOCKED) != 0))
             ) {
-        //std::cout << SIMTIME << " veh=" << vehicle->getID() << " laneChangeStarted state=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getOwnState()) 
-        //    << " prevState=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getPrevState()) 
-        //    << " filter=" << toString((LaneChangeAction)(LCA_CHANGE_REASONS & ~LCA_SUBLANE)) 
-        //    << " filtered=" << toString((LaneChangeAction)(vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE))) 
-        //    << "\n";
+        if DEBUG_COND {
+            std::cout << SIMTIME << " veh=" << vehicle->getID() << " laneChangeStarted state=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getOwnState())
+                    << " prevState=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getPrevState())
+                    << " filter=" << toString((LaneChangeAction)(LCA_CHANGE_REASONS & ~LCA_SUBLANE))
+                    << " filtered=" << toString((LaneChangeAction)(vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)))
+                    << "\n";
+        }
         vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);
         vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
         vehicle->getLaneChangeModel().setOrigLeaderGaps(from->aheadNext);
@@ -285,20 +292,17 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
 
 
 MSLeaderDistanceInfo
-MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* ego) const {
-    //if (ego->getID() == "C" && SIMTIME == 17) {
-    //    std::cout << "DEBUG\n";
-    //}
+MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* vehicle) const {
     // get the leading vehicle on the lane to change to
-    if (gDebugFlag1) {
-        std::cout << SIMTIME << " getLeaders lane=" << target->lane->getID() << " ego=" << ego->getID() << " ahead=" << target->ahead.toString() << "\n";
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " getLeaders lane=" << target->lane->getID() << " ego=" << vehicle->getID() << " ahead=" << target->ahead.toString() << "\n";
     }
     MSLeaderDistanceInfo result(target->lane, 0, 0);
     for (int i = 0; i < target->ahead.numSublanes(); ++i) {
         const MSVehicle* veh = target->ahead[i];
         if (veh != 0) {
-            const double gap = veh->getBackPositionOnLane(target->lane) - ego->getPositionOnLane() - ego->getVehicleType().getMinGap();
-            if (gDebugFlag1) {
+            const double gap = veh->getBackPositionOnLane(target->lane) - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap();
+            if (DEBUG_COND) {
                 std::cout << " ahead lead=" << veh->getID() << " leadBack=" << veh->getBackPositionOnLane() << " gap=" << gap << "\n";
             }
             result.addLeader(veh, gap, 0, i);
@@ -306,12 +310,12 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* ego) 
     }
     // if there are vehicles on the target lane with the same position as ego,
     // they may not have been added to 'ahead' yet
-    const MSLeaderInfo& aheadSamePos = target->lane->getLastVehicleInformation(0, 0, ego->getPositionOnLane(), false);
+    const MSLeaderInfo& aheadSamePos = target->lane->getLastVehicleInformation(0, 0, vehicle->getPositionOnLane(), false);
     for (int i = 0; i < aheadSamePos.numSublanes(); ++i) {
         const MSVehicle* veh = aheadSamePos[i];
-        if (veh != 0 && veh != ego) {
-            const double gap = veh->getBackPositionOnLane(target->lane) - ego->getPositionOnLane() - ego->getVehicleType().getMinGap();
-            if (gDebugFlag1) {
+        if (veh != 0 && veh != vehicle) {
+            const double gap = veh->getBackPositionOnLane(target->lane) - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap();
+            if (DEBUG_COND) {
                 std::cout << " further lead=" << veh->getID() << " leadBack=" << veh->getBackPositionOnLane(target->lane) << " gap=" << gap << "\n";
             }
             result.addLeader(veh, gap, 0, i);
@@ -321,21 +325,21 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* ego) 
     if (result.numFreeSublanes() > 0) {
         MSLane* targetLane = target->lane;
 
-        double seen = ego->getLane()->getLength() - ego->getPositionOnLane();
-        double speed = ego->getSpeed();
-        double dist = ego->getCarFollowModel().brakeGap(speed) + ego->getVehicleType().getMinGap();
+        double seen = vehicle->getLane()->getLength() - vehicle->getPositionOnLane();
+        double speed = vehicle->getSpeed();
+        double dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
         if (seen > dist) {
-            if (gDebugFlag1) {
+            if (DEBUG_COND) {
                 std::cout << " aborting forward search. dist=" << dist << " seen=" << seen << "\n";
             }
             return result;
         }
         const std::vector<MSLane*>& bestLaneConts = veh(myCandi)->getBestLanesContinuation(targetLane);
-        if (gDebugFlag1) {
+        if (DEBUG_COND) {
             std::cout << " add consecutive before=" << result.toString() << " dist=" << dist;
         }
-        target->lane->getLeadersOnConsecutive(dist, seen, speed, ego, bestLaneConts, result);
-        if (gDebugFlag1) {
+        target->lane->getLeadersOnConsecutive(dist, seen, speed, vehicle, bestLaneConts, result);
+        if (DEBUG_COND) {
             std::cout << " after=" << result.toString() << "\n";
         }
     }
@@ -355,8 +359,6 @@ MSLaneChangerSublane::checkChangeSublane(
     const MSLane& neighLane = *(target->lane);
     int blocked = 0;
 
-    //gDebugFlag1 = vehicle->getLaneChangeModel().debugVehicle();
-
     MSLeaderDistanceInfo neighLeaders = target->aheadNext;
     MSLeaderDistanceInfo neighFollowers = target->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
     MSLeaderDistanceInfo neighBlockers(&neighLane, vehicle, vehicle->getLane()->getRightSideOnEdge() - neighLane.getRightSideOnEdge());
@@ -364,7 +366,7 @@ MSLaneChangerSublane::checkChangeSublane(
     MSLeaderDistanceInfo followers = myCandi->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
     MSLeaderDistanceInfo blockers(vehicle->getLane(), vehicle, 0);
 
-    if (gDebugFlag1) std::cout << SIMTIME
+    if (DEBUG_COND) std::cout << SIMTIME
                                    << " checkChangeSublane: veh=" << vehicle->getID()
                                    << " laneOffset=" << laneOffset
                                    << "\n  leaders=" << leaders.toString()
@@ -399,7 +401,6 @@ MSLaneChangerSublane::checkChangeSublane(
     //}
 #endif
     vehicle->getLaneChangeModel().saveState(laneOffset, oldstate, state);
-    gDebugFlag1 = false;
     return state;
 }
 
