@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov  8 15:59:34 2017 by SUMO Version v0_31_0-948-g553d739
+<!-- generated on Tue Nov 14 16:39:55 2017 by SUMO Version b'v0_31_0-1122-g3ab9178'
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -31,8 +31,7 @@
 -->
 
 <lanechanges>
-    <changeStarted id="A" type="t0" time="1.00" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="13.89" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="1.90"/>
-    <change id="A" type="t0" time="3.00" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="41.67" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="0.80"/>
-    <changeStarted id="A" type="t0" time="12.00" from="beg_1" to="beg_1" dir="1" speed="13.89" pos="166.68" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="0.40"/>
-    <changeEnded id="A" type="t0" time="12.00" from="beg_1" to="beg_1" dir="1" speed="13.89" pos="166.68" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="0.40"/>
+    <changeStarted id="A" type="t0" time="1.00" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="13.99" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="1.90"/>
+    <change id="A" type="t0" time="3.00" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="41.77" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="0.80"/>
+    <changeStarted id="A" type="t0" time="12.00" from="beg_1" to="beg_1" dir="1" speed="13.89" pos="166.78" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="0.40"/>
 </lanechanges>
