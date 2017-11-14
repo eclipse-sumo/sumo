@@ -673,9 +673,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 const double nspeed = nextLane->safeInsertionSpeed(aVehicle, seen, leaders, speed);
 #ifdef DEBUG_INSERTION
                 if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                                                         << "leader on lane '" << nextLane->getID() << "': " << leaders.toString() << " nspeed=" << nspeed << "\n";
+                                                         << " leader on lane '" << nextLane->getID() << "': " << leaders.toString() << " nspeed=" << nspeed << "\n";
 #endif
-                if (checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
+                if (nspeed < 0 || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
                     // we may not drive with the given velocity - we crash into the leader
 #ifdef DEBUG_INSERTION
                     if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
@@ -687,7 +687,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                                                              << " speed=" << speed
                                                              << " nspeed=" << nspeed
                                                              << " nextLane=" << nextLane->getID()
-                                                             << " lead=" << leader->getID()
                                                              << " gap=" << gap
                                                              << " failed (@641)!\n";
 #endif
