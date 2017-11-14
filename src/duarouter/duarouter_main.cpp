@@ -193,8 +193,18 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTimeStatic);
         }
     }
+    int carWalk = 0;
+    for (const std::string& opt : oc.getStringVector("persontrip.transfer.car-walk")) {
+        if (opt == "ptStops") {
+            carWalk |= ROIntermodalRouter::PT_STOPS;
+        } else if (opt == "deadEnds") {
+            carWalk |= ROIntermodalRouter::DEAD_ENDS;
+        } else if (opt == "allJunctions") {
+            carWalk |= ROIntermodalRouter::ALL_JUNCTIONS;
+        }
+    }
     RORouterProvider provider(router, new PedestrianRouterDijkstra<ROEdge, ROLane, RONode, ROVehicle>(),
-                              new ROIntermodalRouter(RONet::adaptIntermodalRouter));
+                              new ROIntermodalRouter(RONet::adaptIntermodalRouter, carWalk));
     // process route definitions
     try {
         net.openOutput(oc);

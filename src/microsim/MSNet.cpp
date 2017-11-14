@@ -1002,7 +1002,17 @@ MSNet::getPedestrianRouter(const MSEdgeVector& prohibited) const {
 MSNet::MSIntermodalRouter&
 MSNet::getIntermodalRouter(const MSEdgeVector& prohibited) const {
     if (myIntermodalRouter == 0) {
-        myIntermodalRouter = new MSIntermodalRouter(MSNet::adaptIntermodalRouter);
+        int carWalk = 0;
+        for (const std::string& opt : OptionsCont::getOptions().getStringVector("persontrip.transfer.car-walk")) {
+            if (opt == "ptStops") {
+                carWalk |= MSIntermodalRouter::PT_STOPS;
+            } else if (opt == "deadEnds") {
+                carWalk |= MSIntermodalRouter::DEAD_ENDS;
+            } else if (opt == "allJunctions") {
+                carWalk |= MSIntermodalRouter::ALL_JUNCTIONS;
+            }
+        }
+        myIntermodalRouter = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk);
     }
     myIntermodalRouter->prohibit(prohibited);
     return *myIntermodalRouter;

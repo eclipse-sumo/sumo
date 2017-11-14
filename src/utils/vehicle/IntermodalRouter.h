@@ -77,17 +77,15 @@ public:
     */
     enum ModeChangeOptions {
         /// @brief public transport stops and access
-        PT_STOP_ACCESS = 1,
-        /// @brief parking places (not implemented)
-        PARKING = 2,
+        PT_STOPS = 1,
         /// @brief junctions with edges allowing the additional mode but no cars
-        NO_CAR_EDGES = 4,
+        DEAD_ENDS = 2,
         /// @brief junctions with edges allowing the additional mode
-        MODE_EDGES = 8
+        ALL_JUNCTIONS = 4
     };
 
     /// Constructor
-    IntermodalRouter(CreateNetCallback callback, int carWalkTransfer=PT_STOP_ACCESS) :
+    IntermodalRouter(CreateNetCallback callback, int carWalkTransfer) :
         SUMOAbstractRouter<E, _IntermodalTrip>(0, "IntermodalRouter"),
         myAmClone(false), myInternalRouter(0), myIntermodalNet(0), myNumericalID(0),
         myCallback(callback), myCarWalkTransfer(carWalkTransfer) {
@@ -347,7 +345,7 @@ private:
         }
         // add access to / from edge
         for (_IntermodalEdge* conn : { stopConn, fwdConn, backConn }) {
-            if (conn != 0) {
+            if (conn != 0 && (conn == stopConn || (myCarWalkTransfer | PT_STOPS) != 0)) {
                 _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, conn);
                 myIntermodalNet->addEdge(access);
                 beforeSplit->addSuccessor(access);
@@ -379,9 +377,9 @@ private:
                     carEdge->addSuccessor(sucCarEdge);
                     if ((suc->getPermissions() & SVC_PEDESTRIAN) != 0) {
                         _IntermodalEdge* pedFwd = myIntermodalNet->getBothDirections(suc).first;
-                        if ((suc->getPermissions() & SVC_PASSENGER) == 0 && (myCarWalkTransfer & NO_CAR_EDGES) != 0) {
+                        if ((suc->getPermissions() & SVC_PASSENGER) == 0 && (myCarWalkTransfer & DEAD_ENDS) != 0) {
                             carEdge->addSuccessor(pedFwd);
-                        } else if ((myCarWalkTransfer & MODE_EDGES) != 0) {
+                        } else if ((myCarWalkTransfer & ALL_JUNCTIONS) != 0) {
                             carEdge->addSuccessor(pedFwd);
                         }
                     }

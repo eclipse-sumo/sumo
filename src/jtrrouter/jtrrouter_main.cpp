@@ -150,7 +150,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                                           oc.getBool("ignore-vclasses"), oc.getBool("allow-loops"));
     RORouteDef::setUsingJTRR();
     RORouterProvider provider(router, new PedestrianRouterDijkstra<ROEdge, ROLane, RONode, ROVehicle>(),
-                              new ROIntermodalRouter(RONet::adaptIntermodalRouter));
+                              new ROIntermodalRouter(RONet::adaptIntermodalRouter, 0));
     loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),
                          string2time(oc.getString("route-steps")), net, provider);
     net.cleanup();
