@@ -560,9 +560,11 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     }
 
 #ifdef DEBUG_INSERTION
-    if (DEBUG_COND2(aVehicle)) std::cout << "\nIS_INSERTION_SUCCESS\n"
-                                             << SIMTIME  << " lane=" << getID()
-                                             << " veh '" << aVehicle->getID() << "'\n";
+    if (DEBUG_COND2(aVehicle)) {
+        std::cout << "\nIS_INSERTION_SUCCESS\n"
+                << SIMTIME  << " lane=" << getID()
+                << " veh '" << aVehicle->getID() << "'\n";
+    }
 #endif
 
     aVehicle->setTentativeLaneAndPosition(this, pos, posLat);
@@ -658,7 +660,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     std::stringstream msg;
                     msg << "scheduled stop on lane '" << nextStop.lane->getID() << "' too close";
                     const double distToStop = seen + nextStop.pars.endPos;
-                    if (checkFailure(aVehicle, speed, dist, cfModel.stopSpeed(aVehicle, speed, distToStop),
+                    if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, distToStop),
                                      patchSpeed, msg.str())) {
                         // we may not drive with the given velocity - we cannot stop at the stop
                         return false;
@@ -675,7 +677,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
                                                          << " leader on lane '" << nextLane->getID() << "': " << leaders.toString() << " nspeed=" << nspeed << "\n";
 #endif
-                if (nspeed < 0 || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
+                if (nspeed == INVALID_SPEED || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
                     // we may not drive with the given velocity - we crash into the leader
 #ifdef DEBUG_INSERTION
                     if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
@@ -687,6 +689,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                                                              << " speed=" << speed
                                                              << " nspeed=" << nspeed
                                                              << " nextLane=" << nextLane->getID()
+                                                             << " lead=" << leaders.toString()
                                                              << " gap=" << gap
                                                              << " failed (@641)!\n";
 #endif
@@ -734,10 +737,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     MSLeaderInfo leaders = getLastVehicleInformation(aVehicle, 0, pos);
     //if (aVehicle->getID() == "disabled") std::cout << " leaders=" << leaders.toString() << "\n";
     const double nspeed = safeInsertionSpeed(aVehicle, -pos, leaders, speed);
-    if (nspeed < 0 || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
-        // XXX: checking for nspeed<0... Might appear naturally with ballistic update (see #860, Leo)
-        // TODO: check if ballistic update needs adjustments here, refs. #2577
-
+    if (nspeed == INVALID_SPEED || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
         // we may not drive with the given velocity - we crash into the leader
 #ifdef DEBUG_INSERTION
         if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
@@ -923,7 +923,7 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo
         if (leader != 0) {
             const double gap = leader->getBackPositionOnLane(this) + seen - veh->getVehicleType().getMinGap();
             if (gap < 0) {
-                return -1;
+                return INVALID_SPEED;
             }
             nspeed = MIN2(nspeed,
                           veh->getCarFollowModel().insertionFollowSpeed(veh, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()));

@@ -221,6 +221,10 @@ MSCFModel::minNextSpeed(double speed, const MSVehicle* const /*veh*/) const {
 
 double
 MSCFModel::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion) const {
+    if (maxSpeed < 0.) {
+        // can occur for ballistic update (in context of driving at red light)
+        return maxSpeed;
+    }
     double vSafe = freeSpeed(speed, myDecel, seen, maxSpeed, onInsertion, veh->getActionStepLengthSecs());
     return vSafe;
 }
