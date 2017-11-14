@@ -336,7 +336,30 @@ public:
      * @return Returns the estimated time needed to cover the given distance
      *         If distance will never be covered with the given parameters INVALID_DOUBLE (from MSLink.h) is returned.
      */
-    double estimateArrivalTime(double dist, double speed, double maxSpeed, double accel) const;
+    static double estimateArrivalTime(double dist, double speed, double maxSpeed, double accel);
+
+    /** @brief Computes the time needed to travel a distance dist given an initial speed, arrival speed,
+     *         constant acceleration and deceleration. The speed during traveling is assumed not to exceed the max speed.
+     * @param[in] dist Distance to be covered (assumed >= 0.)
+     * @param[in] initialSpeed Initial speed of vehicle
+     * @param[in] arrivalSpeed desired arrival speed of vehicle
+     * @param[in] accel Assumed acceleration until reaching maxspeed.
+     * @param[in] accel Assumed deceleration until reaching targetspeed.
+     * @return Returns the estimated time needed to cover the given distance
+     *         If distance will never be covered with the given parameters INVALID_DOUBLE (from MSLink.h) is returned.
+     * @note Currently, this is still a stub for actually very special situations in LC context:
+     *       It is assumed that 0==initialSpeed==arrivalSpeed<=maxspeed, accel==decel>0 (because currently
+     *       this is only used for lane change purposes, where lateral accel == lateral decel)
+     */
+    static double estimateArrivalTime(double dist, double initialSpeed, double arrivalSpeed, double maxSpeed, double accel, double decel);
+
+    /** @brief Computes the acceleration needed to arrive not before the given time
+     * @param[in] dist - the distance of the critical point
+     * @param[in] time - the time after which an arrival at dist is allowed
+     * @param[in] speed - the current speed
+     * @return Returns the acceleration which would ensure an arrival at distance dist earliest for the given time
+     */
+    static double avoidArrivalAccel(double dist, double time, double speed);
 
 
     /** @brief Computes the minimal possible arrival speed after covering a given distance

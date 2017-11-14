@@ -334,7 +334,7 @@ MSCFModel::getMinimalArrivalTime(double dist, double currentSpeed, double arriva
 
 
 double
-MSCFModel::estimateArrivalTime(double dist, double speed, double maxSpeed, double accel) const {
+MSCFModel::estimateArrivalTime(double dist, double speed, double maxSpeed, double accel) {
     assert(speed >= 0.);
     assert(dist >= 0.);
 
@@ -372,6 +372,49 @@ MSCFModel::estimateArrivalTime(double dist, double speed, double maxSpeed, doubl
 
 }
 
+double
+MSCFModel::estimateArrivalTime(double dist, double initialSpeed, double arrivalSpeed, double maxSpeed, double accel, double decel) {
+    if(dist<=0) return 0.;
+
+    // stub-assumptions
+    assert(accel==decel);
+    assert(accel>0);
+    assert(initialSpeed==0);
+    assert(arrivalSpeed==0);
+    assert(maxSpeed>0);
+
+
+    double accelTime = (maxSpeed-initialSpeed)/accel;
+    // "ballistic" estimate for the distance covered during acceleration phase
+    double accelDist = accelTime*(initialSpeed + 0.5*(maxSpeed-initialSpeed));
+    double arrivalTime;
+    if (accelDist >= dist*0.5){
+        // maximal speed will not be attained during maneuver
+        arrivalTime = 4*sqrt(accelDist)/accel;
+    } else {
+        // Calculate time to move with constant, maximal lateral speed
+        const double constSpeedTime = (dist-accelDist*2)/maxSpeed;
+        arrivalTime = accelTime + constSpeedTime;
+    }
+    return arrivalTime;
+}
+
+
+double
+MSCFModel::avoidArrivalAccel(double dist, double time, double speed) {
+    assert(time>0 || dist==0);
+    if (dist==0) {
+        return -std::numeric_limits<double>::max();
+    } else if (time*speed > 2*dist) {
+        // stop before dist is necessary. We need
+        //            d = v*v/(2*a)
+        return - 0.5*speed*speed/dist;
+    } else {
+        // we seek the solution a of
+        //            d = v*t + a*t*t/2
+        return 2*(dist/time - speed)/time;
+    }
+}
 
 
 double
