@@ -436,9 +436,9 @@ GUINet::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getTeleportCount));
     ret->mkItem("halting [#]", true,
                 new FunctionBinding<MSNet, int>(this, &GUINet::getHaltingVehicleNumber));
-    ret->mkItem("mean speed [m/s]", true,
+    ret->mkItem("avg. speed [m/s]", true,
                 new FunctionBinding<MSNet, double>(this, &GUINet::getVehicleMeanSpeed));
-    ret->mkItem("mean speed relative", true,
+    ret->mkItem("avg. relative speed", true,
                 new FunctionBinding<MSNet, double>(this, &GUINet::getVehicleMeanSpeedRelative));
     if (myPersonControl != 0) {
         ret->mkItem("loaded persons [#]", true,
@@ -460,14 +460,14 @@ GUINet::getParameterWindow(GUIMainWindow& app,
                 &(getNet()), &GUINet::getVisDuration));
         */
         ret->mkItem("idle duration [ms]", true, new FunctionBinding<GUINet, int>(this, &GUINet::getIdleDuration));
-        ret->mkItem("duration factor []", true, new FunctionBinding<GUINet, double>(this, &GUINet::getRTFactor));
+        ret->mkItem("duration factor", true, new FunctionBinding<GUINet, double>(this, &GUINet::getRTFactor));
         /*
         ret->mkItem("mean duration factor []", true,
             new FuncBinding_IntParam<GUINet, double>(
                 &(getNet()), &GUINet::getMeanRTFactor), 1);
                 */
-        ret->mkItem("ups [#]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getUPS));
-        ret->mkItem("mean ups [#]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getMeanUPS));
+        ret->mkItem("updates per second", true, new FunctionBinding<GUINet, double>(this, &GUINet::getUPS));
+        ret->mkItem("avg. updates per second", true, new FunctionBinding<GUINet, double>(this, &GUINet::getMeanUPS));
         if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
             ret->mkItem("avg. trip length [m]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgRouteLength));
             ret->mkItem("avg. trip duration [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDuration));
