@@ -8,7 +8,6 @@
     </input>
 
     <output>
-        <collision.action value="teleport" /> 
         <fcd-output value="fcd.xml" />
     </output>
 
