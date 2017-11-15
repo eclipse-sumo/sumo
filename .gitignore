@@ -36,6 +36,8 @@
 /bin/testgeom*
 /bin/testmicrosim*
 /bin/testnetbuild*
+/bin/*.dll
+/bin/osgPlugins*
 # src dir, mostly configure / make stuff
 /src/config.h
 /src/config.h.in
