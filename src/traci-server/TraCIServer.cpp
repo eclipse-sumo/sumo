@@ -823,6 +823,10 @@ TraCIServer::dispatchCommand() {
                 break;
             case CMD_SETORDER: {
                 const int order = myInputStorage.readInt();
+#ifdef DEBUG_MULTI_CLIENTS
+                    std::cout << "       commandId == CMD_SETORDER"
+                              << ", order index is " << order << std::endl;
+#endif
                 if (order > MAX_ORDER) {
                     return writeErrorStatusCmd(CMD_SETORDER, "A set order command needs an int argument below " + toString(MAX_ORDER) + ".", myOutputStorage);
                 }
