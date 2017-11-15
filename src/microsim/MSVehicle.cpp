@@ -936,8 +936,11 @@ MSVehicle::getRerouteOrigin() const {
 }
 
 void
-MSVehicle::setAngle(double angle) {
+MSVehicle::setAngle(double angle, bool straightenFurther) {
     myAngle = angle;
+    if (straightenFurther && myFurtherLanesPosLat.size() > 0) {
+        myFurtherLanesPosLat[myFurtherLanesPosLat.size() - 1] = getLateralPositionOnLane();
+    }
 }
 
 
@@ -975,7 +978,7 @@ MSVehicle::computeAngle() const {
     }
 #ifdef DEBUG_FURTHER
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " computeAngle veh=" << getID() << " p1=" << p1 << " p2=" << p2 << " angle=" << result << "\n";
+        std::cout << SIMTIME << " computeAngle veh=" << getID() << " p1=" << p1 << " p2=" << p2 << " angle=" << RAD2DEG(result) << " naviDegree=" << GeomHelper::naviDegree(result) << "\n";
     }
 #endif
     return result;

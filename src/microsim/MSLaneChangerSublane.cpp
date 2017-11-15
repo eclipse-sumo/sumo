@@ -285,8 +285,8 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
                 << " oldA=" << RAD2DEG(vehicle->getAngle())
                 << " newA=" << RAD2DEG(laneAngle + changeAngle)
                 << "\n";
-    vehicle->setAngle(laneAngle + changeAngle);
-
+    vehicle->setAngle(laneAngle + changeAngle,
+            vehicle->getLaneChangeModel().sublaneChangeCompleted(latDist));
     return changedToNewLane;
 }
 

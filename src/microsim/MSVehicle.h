@@ -684,8 +684,8 @@ public:
     /// @brief compute the current vehicle angle
     double computeAngle() const;
 
-    /// @brief Set a custom vehicle angle in rad
-    void setAngle(double angle);
+    /// @brief Set a custom vehicle angle in rad, optionally updates furtherLanePosLat
+    void setAngle(double angle, bool straightenFurther=false);
 
     /** Returns true if the two vehicles overlap. */
     static bool overlap(const MSVehicle* veh1, const MSVehicle* veh2) {
