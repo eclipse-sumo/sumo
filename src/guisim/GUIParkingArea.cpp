@@ -156,7 +156,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             geom.push_back(Position(pos.x(), pos.y(), pos.z()));
             */
             GLHelper::setColor((*i).second.vehicle == 0 ? green : red);
-            GLHelper::drawBoxLines(geom, 0.3);
+            GLHelper::drawBoxLines(geom, 0.1 * exaggeration);
             glPopMatrix();
         }
         GLHelper::setColor(blue);
@@ -186,7 +186,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(grey);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
         if (s.scale * exaggeration >= 4.5) {
-            GLHelper::drawText("P", Position(), .1, 1.6 * exaggeration, blue, mySignRot);
+            GLHelper::drawText("P", Position(), .1, 1.6, blue, mySignRot);
         }
     }
     glPopMatrix();
