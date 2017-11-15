@@ -4,8 +4,9 @@ netgenerate_SOURCES = netgen_main.cpp NGEdge.cpp NGEdge.h NGFrame.cpp NGFrame.h 
 NGNet.h NGNet.cpp NGNode.cpp NGNode.h \
 NGRandomNetBuilder.h NGRandomNetBuilder.cpp
 
-netgenerate_LDADD   = ../netbuild/libnetbuild.a \
+netgenerate_LDADD   = \
 ../netwrite/libnetwrite.a \
+../netbuild/libnetbuild.a \
 ../utils/geom/libgeom.a \
 ../utils/options/liboptions.a \
 ../utils/xml/libxml.a \

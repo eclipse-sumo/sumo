@@ -130,6 +130,17 @@ protected:
         WAY_UNKNOWN = 4
     };
 
+    enum ParkingType {
+        PARKING_NONE = 0,
+        PARKING_LEFT = 1,
+        PARKING_RIGHT = 2,
+        PARKING_BOTH = WAY_FORWARD | WAY_BACKWARD,
+        PARKING_UNKNOWN = 4,
+        PARKING_FORBIDDEN = 8,
+        PARKING_PERPENDICULAR = 16,
+        PARKING_DIAGONAL = 32
+    };
+
 
     /** @brief An internal definition of a loaded edge
      */
@@ -140,6 +151,7 @@ protected:
             id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN),
             myCyclewayType(WAY_UNKNOWN), // building of extra lane depends on bikelaneWidth of loaded typemap
             myBuswayType(WAY_NONE), // buslanes are always built when declared
+            myParkingType(PARKING_NONE), // parking areas exported optionally
             myLayer(0), // layer is non-zero only in conflict areas
             myCurrentIsRoad(false),
             myCurrentIsPlatform(false) { }
@@ -163,6 +175,8 @@ protected:
         WayType myCyclewayType;
         /// @brief Information about the kind of busway along this road
         WayType myBuswayType;
+        /// @brief Information about road-side parking
+        int myParkingType;
         /// @brief Information about the relative z-ordering of ways
         int myLayer;
         /// @brief The list of nodes this edge is made of

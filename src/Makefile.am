@@ -61,8 +61,8 @@ netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netimport/vissim/libvissimimport.a \
 ./netimport/vissim/typeloader/libvissimtypeload.a \
 ./netimport/vissim/tempstructs/libvissimtmpstr.a \
-./netbuild/libnetbuild.a \
 ./netwrite/libnetwrite.a \
+./netbuild/libnetbuild.a \
 ./foreign/eulerspiral/libeulerspiral.a \
 $(COMMON_LIBS) \
 $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)

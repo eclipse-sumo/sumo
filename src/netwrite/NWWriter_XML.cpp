@@ -36,6 +36,7 @@
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBPTLineCont.h>
+#include <netbuild/NBParking.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
@@ -75,6 +76,10 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     if (oc.exists("ptline-output") && oc.isSet("ptline-output")) {
         writePTLines(oc, nb.getPTLineCont(), nb.getEdgeCont());
+    }
+
+    if (oc.exists("parking-output") && oc.isSet("parking-output")) {
+        writeParkingAreas(oc, nb.getParkingCont(), nb.getEdgeCont());
     }
 }
 
@@ -402,6 +407,15 @@ void NWWriter_XML::writePTLines(const OptionsCont& oc, NBPTLineCont& lc, NBEdgeC
     device.writeXMLHeader("additional", "additional_file.xsd");
     for (std::vector<NBPTLine*>::const_iterator i = lc.begin(); i != lc.end(); ++i) {
         (*i)->write(device, ec);
+    }
+    device.close();
+}
+
+void NWWriter_XML::writeParkingAreas(const OptionsCont& oc, NBParkingCont& pc, NBEdgeCont& ec) {
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("parking-output"));
+    device.writeXMLHeader("additional", "additional_file.xsd");
+    for (NBParking& p : pc) {
+        p.write(device, ec);
     }
     device.close();
 }

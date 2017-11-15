@@ -552,6 +552,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                                  e->getParameter("railway:preferred_direction", "") != "both" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
 
         id = StringUtils::escapeXML(id);
+        const std::string reverseID = "-" + id;
+
         if (addForward) {
             assert(numLanesForward > 0);
             NBEdge* nbe = new NBEdge(id, from, to, type, speed, numLanesForward, tc.getPriority(type),
@@ -578,7 +580,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
         if (addBackward) {
             assert(numLanesBackward > 0);
-            NBEdge* nbe = new NBEdge("-" + id, to, from, type, speed, numLanesBackward, tc.getPriority(type),
+            NBEdge* nbe = new NBEdge(reverseID, to, from, type, speed, numLanesBackward, tc.getPriority(type),
                                      backwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(),
                                      StringUtils::escapeXML(e->streetName), origID, lsf, true);
             nbe->setPermissions(backwardPermissions);
@@ -598,6 +600,30 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '-" + id + "'.");
+            }
+        }
+        if ((e->myParkingType & PARKING_BOTH) != 0 && OptionsCont::getOptions().isSet("parking-output")) {
+            if ((e->myParkingType & PARKING_RIGHT) != 0) {
+                if (addForward) {
+                    nb.getParkingCont().push_back(NBParking(id, id));
+                } else {
+                    /// XXX parking area should be added on the left side of a reverse one-way street
+                    if ((e->myParkingType & PARKING_LEFT) == 0 && !addBackward) {
+                        /// put it on the wrong side (better than nothing)
+                        nb.getParkingCont().push_back(NBParking(reverseID, reverseID));
+                    }
+                }
+            }
+            if ((e->myParkingType & PARKING_LEFT) != 0) {
+                if (addBackward) {
+                    nb.getParkingCont().push_back(NBParking(reverseID, reverseID));
+                } else {
+                    /// XXX parking area should be added on the left side of an one-way street
+                    if ((e->myParkingType & PARKING_RIGHT) == 0 && !addForward) {
+                        /// put it on the wrong side (better than nothing)
+                        nb.getParkingCont().push_back(NBParking(id, id));
+                    }
+                }
             }
         }
     }
@@ -852,11 +878,11 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         if ((key == "bridge" || key == "tunnel") && OptionsCont::getOptions().getBool("osm.all-attributes")) {
             myCurrentEdge->setParameter(key, "true"); // could be differentiated further if necessary
         }
-
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes")
                 && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks" && key != "layer"
                 && key != "route"
+                && !StringUtils::startsWith(key, "parking")
                 && key != "postal_code" && key != "railway:preferred_direction" && key != "public_transport") {
             return;
         }
@@ -995,6 +1021,12 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             myCurrentEdge->setParameter(key, value);
         } else if (key == "public_transport" && value == "platform") {
             myCurrentEdge->myCurrentIsPlatform = true;
+        } else if (key == "parking:lane:both" && !StringUtils::startsWith(value, "no")) {
+            myCurrentEdge->myParkingType |= PARKING_BOTH;
+        } else if (key == "parking:lane:left" && !StringUtils::startsWith(value, "no")) {
+            myCurrentEdge->myParkingType |= PARKING_LEFT;
+        } else if (key == "parking:lane:right" && !StringUtils::startsWith(value, "no")) {
+            myCurrentEdge->myParkingType |= PARKING_RIGHT;
         }
     }
 }

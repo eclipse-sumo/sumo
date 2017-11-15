@@ -31,6 +31,8 @@ set(netbuild_STAT_SRCS
    NBNodeCont.h
    NBNodeShapeComputer.cpp
    NBNodeShapeComputer.h
+   NBParking.cpp
+   NBParking.h
    NBPTStop.cpp
    NBPTStop.h
    NBPTStopCont.cpp

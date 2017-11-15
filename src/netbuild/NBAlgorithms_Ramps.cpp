@@ -76,6 +76,7 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
     // exclude public transport edges
     nb.getPTStopCont().addEdges2Keep(oc, noramps);
     nb.getPTLineCont().addEdges2Keep(oc, noramps);
+    nb.getParkingCont().addEdges2Keep(oc, noramps);
 
     // check whether on-off ramps shall be guessed
     if (oc.getBool("ramps.guess")) {

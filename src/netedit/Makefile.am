@@ -100,8 +100,8 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../netimport/vissim/libvissimimport.a \
 ../netimport/vissim/typeloader/libvissimtypeload.a \
 ../netimport/vissim/tempstructs/libvissimtmpstr.a \
-../netbuild/libnetbuild.a \
 ../netwrite/libnetwrite.a \
+../netbuild/libnetbuild.a \
 ../utils/distribution/libdistribution.a \
 ../foreign/eulerspiral/libeulerspiral.a \
 ../utils/gui/windows/libguiutilsWindows.a \

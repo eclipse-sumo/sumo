@@ -41,6 +41,7 @@
 #include "NBTypeCont.h"
 #include "NBNodeCont.h"
 #include "NBNode.h"
+#include "NBParking.h"
 #include "NBTrafficLightLogicCont.h"
 #include "NBDistrictCont.h"
 #include "NBPTStopCont.h"
@@ -187,6 +188,10 @@ public:
         return myPTLineCont;
     }
     /// @}
+    
+    NBParkingCont& getParkingCont() {
+        return myParkingCont;
+    }
 
     /// @brief notify about style of loaded network (Without internal edges
     void haveLoadedNetworkWithoutInternalEdges() {
@@ -252,6 +257,8 @@ protected:
 
     /// @brief The used container for pt stops
     NBPTLineCont myPTLineCont;
+
+    NBParkingCont myParkingCont;
 
     /// @brief whether a .net.xml without internal edges was loaded
     bool myHaveLoadedNetworkWithoutInternalEdges;

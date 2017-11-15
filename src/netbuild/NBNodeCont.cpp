@@ -58,6 +58,7 @@
 #include "NBNodeCont.h"
 #include "NBPTStopCont.h"
 #include "NBPTLineCont.h"
+#include "NBParking.h"
 
 
 // ===========================================================================
@@ -367,6 +368,7 @@ NBNodeCont::removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKe
 int
 NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
                                 NBTrafficLightLogicCont& tlc, NBPTStopCont& sc, NBPTLineCont& lc,
+                                NBParkingCont& pc,
                                 bool removeGeometryNodes) {
     // load edges that shall not be modified
     std::set<std::string> edges2keep;
@@ -381,6 +383,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
         }
         sc.addEdges2Keep(oc, edges2keep);
         lc.addEdges2Keep(oc, edges2keep);
+        pc.addEdges2Keep(oc, edges2keep);
     }
     int no = 0;
     std::vector<NBNode*> toRemove;

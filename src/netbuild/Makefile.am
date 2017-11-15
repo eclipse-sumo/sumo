@@ -24,6 +24,7 @@ NBOwnTLDef.cpp NBOwnTLDef.h \
 NBLoadedTLDef.cpp NBLoadedTLDef.h \
 NBLoadedSUMOTLDef.cpp NBLoadedSUMOTLDef.h \
 NBNetBuilder.cpp NBNetBuilder.h \
+NBParking.h NBParking.cpp \
 NBPTLine.h NBPTLine.cpp \
 NBPTLineCont.h NBPTLineCont.cpp \
 NBPTPlatform.h NBPTPlatform.cpp

@@ -45,6 +45,7 @@ class NBEdgeCont;
 class NBNetBuilder;
 class NBNode;
 class NBNodeCont;
+class NBParkingCont;
 class NBPTStopCont;
 class NBPTLineCont;
 class NBTrafficLightLogicCont;
@@ -114,6 +115,9 @@ private:
      */
     static void writePTStops(const OptionsCont& oc, NBPTStopCont& ec);
     static void writePTLines(const OptionsCont& cont, NBPTLineCont& lc, NBEdgeCont& ec);
+
+    /// @brief writes imported parking areas to file
+    static void writeParkingAreas(const OptionsCont& cont, NBParkingCont& pc, NBEdgeCont& ec);
 };
 
 
