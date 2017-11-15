@@ -24,6 +24,9 @@ import os
 import sys
 import traceback
 
+import version
+
+
 optParser = optparse.OptionParser()
 optParser.add_option("-b", "--begin", default="ebef3bdbdf", help="first revision to build")
 optParser.add_option("-e", "--end", default="HEAD", help="last revision to build")
@@ -42,7 +45,7 @@ try:
     for line in subprocess.check_output(["git", "log", "%s..%s" % (options.begin, options.end)]).splitlines():
         if line.startswith("commit "):
             h = line.split()[1]
-            commits[h] = subprocess.check_output(["git", "describe", "--always", h]).strip()
+            commits[h] = version.gitDescribe()
     for h, desc in sorted(commits.items(), key=lambda x: x[1]):
         if not os.path.exists('../bin%s' % desc):
             ret = subprocess.call(["git", "checkout", "-q", h])

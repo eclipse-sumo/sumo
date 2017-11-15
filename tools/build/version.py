@@ -96,6 +96,17 @@ def parseRevision(svnFile):
         return UNKNOWN_REVISION
 
 
+def gitDescribe():
+    d = subprocess.check_output(["git", "describe", "--long", "--always"]).strip()
+    if "-" in d:
+        d = d.replace("-g", "-")
+        m1 = d.find("-") + 1
+        m2 = d.find("-", m1)
+        diff = max(0, 4 - (m2 - m1))
+        d = d[:m1].replace("-", "+") + (diff * "0") + d[m1:]
+    return d
+
+
 def create_version_file(versionFile, revision, vcsFile):
     print('generating %s from revision in %s' % (versionFile, vcsFile))
     with open(versionFile, 'w') as f:
@@ -131,7 +142,7 @@ def main():
             # vcsFile is newer. lets update the revision number
             try:
                 if GITDIR in vcsDir:
-                    revision = subprocess.check_output(['git', 'describe', '--always']).strip()
+                    revision = gitDescribe()
                 else:
                     svnInfo = subprocess.check_output(['svn', 'info', sumoSrc])
                     revision = "dev-SVN-r" + re.search('Revision: (\d*)', svnInfo).group(1)

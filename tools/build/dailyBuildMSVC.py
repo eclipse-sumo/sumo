@@ -33,6 +33,7 @@ import shutil
 import sys
 
 import status
+import version
 import wix
 
 
@@ -43,7 +44,7 @@ def repositoryUpdate(options, repoLogFile):
         cwd = os.getcwd()
         os.chdir(os.path.join(options.rootDir, "git"))
         subprocess.call(["git", "pull"], stdout=log, stderr=subprocess.STDOUT)
-        gitrev = subprocess.check_output(["git", "describe", "--always"]).strip()
+        gitrev = version.gitDescribe()
         os.chdir(cwd)
     return gitrev
 
