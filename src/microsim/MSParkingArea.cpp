@@ -126,7 +126,7 @@ MSParkingArea::getVehicleAngle(const SUMOVehicle& forVehicle) {
 
 double
 MSParkingArea::getSpaceDim() const {
-    return (myEndPos - myBegPos) / myCapacity;
+    return myLane.interpolateLanePosToGeometryPos((myEndPos - myBegPos) / myCapacity);
 }
 
 
