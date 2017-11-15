@@ -30,7 +30,7 @@ from xml.sax import make_parser, handler
 from optparse import OptionParser
 from collections import defaultdict
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.output  # noqa
+import sumolib  # noqa
 from sumolib.net.lane import get_allowed  # noqa
 import detector  # noqa
 
@@ -830,7 +830,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
                     self._net.getEdge(edge).detGroup.append(group)
         sources = set()
         sinks = set()
-        for det in sumolib.output.parse(detFile, "detectorDefinition"):
+        for det in sumolib.xml.parse(detFile, ["detectorDefinition", "e1Detector"]):
             if hasattr(det, "type"):
                 if det.type == "source":
                     if options.lanebased:
