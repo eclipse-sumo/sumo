@@ -41,3 +41,14 @@ Warning: Found sharp turn with radius 4.20 at the start of edge '245105013'.
 Warning: Found sharp turn with radius 6.42 at the start of edge '47765615#1'.
 Warning: Found sharp turn with radius 2.04 at the start of edge '70214888#3'.
 Warning: Found angle of 138.43 degrees at edge '71960638#0', segment 5
+Warning: Ignoring parking area on edge '71028777#1' due to insufficient space.
+Warning: Ignoring parking area on edge '-71028777#1' due to insufficient space.
+Warning: Ignoring parking area on edge '142575693#4' due to insufficient space.
+Warning: Ignoring parking area on edge '142575693#6' due to insufficient space.
+Warning: Ignoring parking area on edge '143308521#9' due to insufficient space.
+Warning: Ignoring parking area on edge '-143308521#9' due to insufficient space.
+Warning: Ignoring parking area on edge '143308521#10' due to insufficient space.
+Warning: Ignoring parking area on edge '-143308521#10' due to insufficient space.
+Warning: Ignoring parking area on edge '143308542#7' due to insufficient space.
+Warning: Ignoring parking area on edge '143308546#0' due to insufficient space.
+Warning: Ignoring parking area on edge '143308546#5' due to insufficient space.

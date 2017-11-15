@@ -126,6 +126,9 @@
         <!-- Clean-up pt stops that are not served by any line -->
         <ptline-clean-up value="false" type="BOOL"/>
 
+        <!-- Writes parking areas to FILE -->
+        <parking-output value="" type="FILE"/>
+
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
 
