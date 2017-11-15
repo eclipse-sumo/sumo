@@ -141,7 +141,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             glRotated((*i).second.myRotation, 0, 0, 1);
             Position pos = (*i).second.myPosition;
             PositionVector geom;
-            double w = (*i).second.myWidth / 2.;
+            double w = (*i).second.myWidth / 2. - 0.1 * exaggeration;
             double h = (*i).second.myLength;
             geom.push_back(Position(- w, + 0, 0.));
             geom.push_back(Position(+ w, + 0, 0.));
