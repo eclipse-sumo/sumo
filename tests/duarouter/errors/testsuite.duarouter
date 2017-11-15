@@ -58,3 +58,6 @@ unknown_vType
 
 # unknown vType should be replaced by DEFAULT_VEHTYPE when ignoring errors
 unknown_vType_ignore
+
+# Tests what happens if invalid stops are loaded (duplicate IDs)
+invalid_stops
