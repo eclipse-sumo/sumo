@@ -581,6 +581,13 @@ public:
         return myActionStep;
     }
 
+    /** @brief Returns whether the next simulation step will be an action point for the vehicle
+     * @return Whether the vehicle has scheduled an action point for the next step.
+     */
+    inline bool isActionStep(SUMOTime t) const {
+        return (t - myLastActionTime)%getActionStepLength() == 0;
+    }
+
 
     /** @brief Returns the information whether the front of the vehicle is on the given lane
      * @return Whether the vehicle's front is on that lane

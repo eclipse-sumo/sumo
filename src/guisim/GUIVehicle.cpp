@@ -396,45 +396,57 @@ GUIVehicle::getColorValue(int activeScheme) const {
         case 8:
             return getSpeed();
         case 9:
-            return getWaitingSeconds();
+            // color by action step
+            if (isActionStep(SIMSTEP)) {
+                // Upcoming simstep is actionstep (t was already increased before drawing)
+                return 1.;
+            } else if (isActive()) {
+                // Completed simstep was actionstep
+                return 2.;
+            } else {
+                // not active
+                return 0.;
+            }
         case 10:
-            return getAccumulatedWaitingSeconds();
+            return getWaitingSeconds();
         case 11:
-            return getLastLaneChangeOffset();
+            return getAccumulatedWaitingSeconds();
         case 12:
-            return getLane()->getVehicleMaxSpeed(this);
+            return getLastLaneChangeOffset();
         case 13:
-            return getCO2Emissions();
+            return getLane()->getVehicleMaxSpeed(this);
         case 14:
-            return getCOEmissions();
+            return getCO2Emissions();
         case 15:
-            return getPMxEmissions();
+            return getCOEmissions();
         case 16:
-            return getNOxEmissions();
+            return getPMxEmissions();
         case 17:
-            return getHCEmissions();
+            return getNOxEmissions();
         case 18:
-            return getFuelConsumption();
+            return getHCEmissions();
         case 19:
-            return getHarmonoise_NoiseEmissions();
+            return getFuelConsumption();
         case 20:
+            return getHarmonoise_NoiseEmissions();
+        case 21:
             if (getNumberReroutes() == 0) {
                 return -1;
             }
             return getNumberReroutes();
-        case 21:
-            return gSelected.isSelected(GLO_VEHICLE, getGlID());
         case 22:
-            return getBestLaneOffset();
+            return gSelected.isSelected(GLO_VEHICLE, getGlID());
         case 23:
-            return getAcceleration();
+            return getBestLaneOffset();
         case 24:
-            return getTimeGapOnLane();
+            return getAcceleration();
         case 25:
-            return STEPS2TIME(getDepartDelay());
+            return getTimeGapOnLane();
         case 26:
-            return getElectricityConsumption();
+            return STEPS2TIME(getDepartDelay());
         case 27:
+            return getElectricityConsumption();
+        case 28:
             return getTimeLossSeconds();
     }
     return 0;

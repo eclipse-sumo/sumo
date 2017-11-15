@@ -67,6 +67,7 @@ extern SUMOTime DELTA_T;
 #define STEPFLOOR(x) (int(x/DELTA_T)*DELTA_T)
 #define STEPS2MS(x) (x)
 
+#define SIMSTEP MSNet::getInstance()->getCurrentTimeStep()
 #define SIMTIME STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
 
 // ===========================================================================

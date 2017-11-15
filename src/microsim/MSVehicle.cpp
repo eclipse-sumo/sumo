@@ -1507,7 +1507,7 @@ MSVehicle::getStopEdges() const {
 
 bool
 MSVehicle::checkActionStep(const SUMOTime t){
-    myActionStep = (t-myLastActionTime)%getActionStepLength() == 0;
+    myActionStep = isActionStep(t);
     if (myActionStep) {
         myLastActionTime=t;
     }
