@@ -2480,8 +2480,12 @@ MSLCM_SL2015::keepLatGap(int state,
         if ((state & LCA_CHANGE_REASONS) == 0) {
             state |= LCA_SUBLANE;
         }
-    } else if ((state & LCA_SUBLANE) != 0) {
-        state |= LCA_STAY;
+    } else {
+        if ((state & LCA_SUBLANE) != 0) {
+            state |= LCA_STAY;
+        }
+        // avoid setting blinker due to numerical issues
+        latDist = 0;
     }
     if (gDebugFlag2) {
         std::cout << "       latDist2=" << latDist
