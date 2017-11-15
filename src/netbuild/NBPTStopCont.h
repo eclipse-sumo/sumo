@@ -68,7 +68,7 @@ public:
      */
     void reviseStops(NBEdgeCont& cont);
 
-    void process(NBEdgeCont& cont);
+    void process(NBEdgeCont& cont, bool ptlineOutput);
 
     void postprocess(std::set<std::string>& usedStops);
 

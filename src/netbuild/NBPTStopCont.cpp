@@ -53,43 +53,41 @@ NBPTStop* NBPTStopCont::get(std::string id) {
 }
 
 
-void NBPTStopCont::process(NBEdgeCont& cont) {
+void NBPTStopCont::process(NBEdgeCont& cont, bool ptlineOutput) {
 
-//    PTStopsCont::iterator end = myPTStops.end();
+    if (!ptlineOutput) {
+        std::vector<NBPTStop*> reverseStops;
+        //frst pass localize pt stop at correct side of the street; create stop for opposite side if needed
+        for (auto& myPTStop : myPTStops) {
 
-    std::vector<NBPTStop*> reverseStops;
+            NBPTStop* stop = myPTStop.second;
 
-    //frst pass localize pt stop at correct side of the street; create stop for opposite side if needed
-    for (auto& myPTStop : myPTStops) {
+            bool multipleStopPositions = stop->getIsMultipleStopPositions();
+            bool platformsDefined = !stop->getPlatformCands().empty();
+            if (!platformsDefined) {
+                //create pt stop for reverse edge if edge exist
+                NBPTStop* reverseStop = getReverseStop(stop, cont);
+                if (reverseStop != nullptr) {
+                    reverseStops.push_back(reverseStop);
+                }
+            } else if (multipleStopPositions) {
+                //create pt stop for closest platform at corresponding edge
+                assignPTStopToEdgeOfClosestPlatform(stop, cont);
 
-        NBPTStop* stop = myPTStop.second;
-
-        bool multipleStopPositions = stop->getIsMultipleStopPositions();
-        bool platformsDefined = !stop->getPlatformCands().empty();
-        if (!platformsDefined) {
-            //create pt stop for reverse edge if edge exist
-            NBPTStop* reverseStop = getReverseStop(stop, cont);
-            if (reverseStop != nullptr) {
-                reverseStops.push_back(reverseStop);
-            }
-        } else if (multipleStopPositions) {
-            //create pt stop for closest platform at corresponding edge
-            assignPTStopToEdgeOfClosestPlatform(stop, cont);
-
-        } else {
-            //create pt stop for each side of the street where a platform is defined (create additional pt stop as needed)
-            NBPTStop* additionalStop = assignAndCreatNewPTStopAsNeeded(stop, cont);
-            if (additionalStop != nullptr) {
-                reverseStops.push_back(additionalStop);
+            } else {
+                //create pt stop for each side of the street where a platform is defined (create additional pt stop as needed)
+                NBPTStop* additionalStop = assignAndCreatNewPTStopAsNeeded(stop, cont);
+                if (additionalStop != nullptr) {
+                    reverseStops.push_back(additionalStop);
+                }
             }
         }
-    }
 
-    //insrt new stops if any
-    for (auto& reverseStop : reverseStops) {
-        insert(reverseStop);
+        //insrt new stops if any
+        for (auto& reverseStop : reverseStops) {
+            insert(reverseStop);
+        }
     }
-
 
     //scnd pass set correct lane
     for (auto i = myPTStops.begin(); i != myPTStops.end();) {
@@ -285,9 +283,9 @@ void NBPTStopCont::alginIdSigns() {
         char ssign = sId.at(0);
         if (esign != ssign && (esign == '-' || ssign == '-')) {
             if (esign == '-') {
-                i.second->setMyPTStopId("-"+sId);
+                i.second->setMyPTStopId("-" + sId);
             } else {
-                i.second->setMyPTStopId(sId.substr(1,sId.length()));
+                i.second->setMyPTStopId(sId.substr(1, sId.length()));
             }
         }
     }
