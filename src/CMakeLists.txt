@@ -55,11 +55,14 @@ add_executable(sumo version.h ${sumoexec})
 set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumoD)
 target_link_libraries(sumo ${sumolibs})
 
-add_executable(sumo-gui version.h ${sumoguiexec})
+add_executable(sumo-gui version.h ${sumoguiexec} guisim.rc)
 set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME_DEBUG sumo-guiD)
-target_link_libraries(sumo-gui gui guinetload guisim gui_dialogs utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
-        utils_gui_images utils_gui_tracker utils_foxtools osgview ${sumolibs} mesogui ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} foreign_gl2ps)
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+target_link_libraries(sumo-gui gui guinetload guisim gui_dialogs
+        utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
+        utils_gui_images utils_gui_tracker utils_foxtools osgview ${sumolibs} mesogui
+        ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} foreign_gl2ps)
+if (MSVC)
+    set_target_properties(sumo-gui PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
     target_link_libraries(sumo-gui opengl32 glu32)
 endif ()
 
