@@ -327,8 +327,13 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     if (sublane >= 0 && sublane < (int)myVehicles.size()) {
         // sublane is already given
         // overlapping vehicles are stored preferably
-        if ((missingGap > myMissingGaps[sublane] || (gap < 0 && myDistances[sublane] > 0))
-                && !(gap > 0 && myDistances[sublane] < 0)) {
+        // among those vehicles with missing gap, closer ones are preferred 
+        if ((missingGap > myMissingGaps[sublane] 
+                    || (missingGap > 0 && gap < myDistances[sublane]) 
+                    || (gap < 0 && myDistances[sublane] > 0))
+                && !(gap > 0 && myDistances[sublane] < 0)
+                && !(myMissingGaps[sublane] > 0 && myDistances[sublane] < gap)
+                ) {
             if (myVehicles[sublane] == 0) {
                 myFreeSublanes--;
             }
@@ -344,8 +349,13 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
         if ((egoRightMost < 0 || (egoRightMost <= sublane && sublane <= egoLeftMost))
                 // overlapping vehicles are stored preferably
-                && (missingGap > myMissingGaps[sublane] || (gap < 0 && myDistances[sublane] > 0))
-                && !(gap > 0 && myDistances[sublane] < 0)) {
+                // among those vehicles with missing gap, closer ones are preferred 
+                && (missingGap > myMissingGaps[sublane] 
+                    || (missingGap > 0 && gap < myDistances[sublane]) 
+                    || (gap < 0 && myDistances[sublane] > 0))
+                && !(gap > 0 && myDistances[sublane] < 0)
+                && !(myMissingGaps[sublane] > 0 && myDistances[sublane] < gap)
+                ) {
             if (myVehicles[sublane] == 0) {
                 myFreeSublanes--;
             }
