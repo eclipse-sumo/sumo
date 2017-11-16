@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 16 15:15:31 2017 by SUMO netconvert Version v0_31_0+1157-43f025d
+<!-- generated on Thu Nov 16 16:06:59 2017 by SUMO netconvert Version v0_31_0+1171-6f608ff
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -42,32 +42,32 @@
     <busStop id="-3812676502" name="Zur Nachtheide" lane="-93704176#0_1" startPos="1372.36" endPos="1387.36" friendlyPos="true"/>
     <busStop id="-3895454719" name="Zur Nachtheide" lane="-93704176#0_1" startPos="1356.09" endPos="1371.09" friendlyPos="true"/>
     <busStop id="1865677162" name="Krankenhaus Köpenick/Südseite" lane="176156044#5_0" startPos="26.01" endPos="72.00" friendlyPos="true">
-        <access lane="-10855364#0_0" pos="41.89"/>
-        <access lane="10855364#0_0" pos="32.78"/>
-        <access lane="54048877#1_0" pos="29.23"/>
-        <access lane="414498858_0" pos="192.87"/>
+        <access lane="-10855364#0_0" pos="41.89" friendlyPos="1"/>
+        <access lane="10855364#0_0" pos="32.78" friendlyPos="1"/>
+        <access lane="54048877#1_0" pos="29.23" friendlyPos="1"/>
+        <access lane="414498858_0" pos="192.87" friendlyPos="1"/>
     </busStop>
     <busStop id="1865677163" name="Pablo-Neruda-Straße" lane="176156044#6_0" startPos="46.28" endPos="65.52" friendlyPos="true">
-        <access lane="10699438#2_0" pos="40.96"/>
-        <access lane="10699438#3_0" pos="0.00"/>
-        <access lane="185867069_0" pos="5.32"/>
-        <access lane="26708288#0_0" pos="2.54"/>
+        <access lane="10699438#2_0" pos="40.96" friendlyPos="1"/>
+        <access lane="10699438#3_0" pos="0.00" friendlyPos="1"/>
+        <access lane="185867069_0" pos="5.32" friendlyPos="1"/>
+        <access lane="26708288#0_0" pos="2.54" friendlyPos="1"/>
     </busStop>
     <busStop id="1865877888" name="Betriebshof Köpenick" lane="176023646#3_0" startPos="0.00" endPos="36.13" friendlyPos="true">
-        <access lane="-403449586#0_0" pos="10.50"/>
-        <access lane="403449586#0_0" pos="137.48"/>
-        <access lane="70415298#6_0" pos="61.27"/>
-        <access lane="-70415298#6_0" pos="0.00"/>
+        <access lane="-403449586#0_0" pos="10.50" friendlyPos="1"/>
+        <access lane="403449586#0_0" pos="137.48" friendlyPos="1"/>
+        <access lane="70415298#6_0" pos="61.27" friendlyPos="1"/>
+        <access lane="-70415298#6_0" pos="0.00" friendlyPos="1"/>
     </busStop>
     <busStop id="1865877909" name="Mayschweg" lane="107701628_0" startPos="80.49" endPos="101.22" friendlyPos="true">
-        <access lane="93704176#0_0" pos="1686.84"/>
-        <access lane="-93704176#0_0" pos="17.93"/>
-        <access lane="93704176#1_0" pos="0.00"/>
-        <access lane="-93704176#1_0" pos="3.34"/>
+        <access lane="93704176#0_0" pos="1686.84" friendlyPos="1"/>
+        <access lane="-93704176#0_0" pos="17.93" friendlyPos="1"/>
+        <access lane="93704176#1_0" pos="0.00" friendlyPos="1"/>
+        <access lane="-93704176#1_0" pos="3.34" friendlyPos="1"/>
     </busStop>
     <busStop id="1865877925" name="Segewaldweg" lane="107701628_0" startPos="364.54" endPos="383.11" friendlyPos="true">
-        <access lane="-93704176#0_0" pos="304.28"/>
-        <access lane="93704176#0_0" pos="1401.05"/>
+        <access lane="-93704176#0_0" pos="304.28" friendlyPos="1"/>
+        <access lane="93704176#0_0" pos="1401.05" friendlyPos="1"/>
     </busStop>
     <busStop id="1907517438" name="Pablo-Neruda-Straße" lane="44956230#1_1" startPos="23.70" endPos="39.94" friendlyPos="true"/>
     <busStop id="1965562491" name="Krankenhaus Köpenick/Besuchereingang" lane="31012749#3_1" startPos="14.70" endPos="27.16" friendlyPos="true"/>
@@ -81,37 +81,37 @@
     <busStop id="-3239724400" name="Krankenhaus Köpenick/Südseite" lane="-10855364#0_1" startPos="9.11" endPos="55.10" friendlyPos="true"/>
     <busStop id="3239724408" name="Müggelheimer Straße/Wendenschloßstraße" lane="32204601#3_1" startPos="47.00" endPos="58.69" friendlyPos="true"/>
     <busStop id="3257062964" name="Dregerhoffstraße" lane="319292807_0" startPos="1147.84" endPos="1172.84" friendlyPos="true">
-        <access lane="-93704176#0_0" pos="1059.95"/>
-        <access lane="93704176#0_0" pos="646.42"/>
-        <access lane="-151020315#0_0" pos="1000.97"/>
-        <access lane="151020315#0_0" pos="0.00"/>
+        <access lane="-93704176#0_0" pos="1059.95" friendlyPos="1"/>
+        <access lane="93704176#0_0" pos="646.42" friendlyPos="1"/>
+        <access lane="-151020315#0_0" pos="1000.97" friendlyPos="1"/>
+        <access lane="151020315#0_0" pos="0.00" friendlyPos="1"/>
     </busStop>
     <busStop id="3257062965" name="Lienhardweg" lane="319292807_0" startPos="473.93" endPos="498.93" friendlyPos="true">
-        <access lane="-93704176#0_0" pos="1706.37"/>
-        <access lane="93704176#0_0" pos="0.00"/>
-        <access lane="-214614381#1_0" pos="0.00"/>
-        <access lane="214614381#1_0" pos="1754.45"/>
+        <access lane="-93704176#0_0" pos="1706.37" friendlyPos="1"/>
+        <access lane="93704176#0_0" pos="0.00" friendlyPos="1"/>
+        <access lane="-214614381#1_0" pos="0.00" friendlyPos="1"/>
+        <access lane="214614381#1_0" pos="1754.45" friendlyPos="1"/>
     </busStop>
     <busStop id="3257062966" name="Mayschweg" lane="176023646#0_0" startPos="0.00" endPos="14.59" friendlyPos="true">
-        <access lane="151260829#1_0" pos="17.67"/>
-        <access lane="93704176#2_0" pos="0.21"/>
-        <access lane="-93704176#2_0" pos="30.05"/>
-        <access lane="93704176#1_0" pos="3.34"/>
+        <access lane="151260829#1_0" pos="17.67" friendlyPos="1"/>
+        <access lane="93704176#2_0" pos="0.21" friendlyPos="1"/>
+        <access lane="-93704176#2_0" pos="30.05" friendlyPos="1"/>
+        <access lane="93704176#1_0" pos="3.34" friendlyPos="1"/>
     </busStop>
     <busStop id="3257062967" name="Müggelbergallee" lane="319292807_0" startPos="87.60" endPos="112.60" friendlyPos="true"/>
     <busStop id="3257062969" name="Pritstabelstraße" lane="319292807_0" startPos="1461.24" endPos="1486.24" friendlyPos="true">
-        <access lane="93704176#0_0" pos="959.52"/>
-        <access lane="-93704176#0_0" pos="745.87"/>
-        <access lane="-151020315#0_0" pos="700.01"/>
-        <access lane="151020315#0_0" pos="300.61"/>
+        <access lane="93704176#0_0" pos="959.52" friendlyPos="1"/>
+        <access lane="-93704176#0_0" pos="745.87" friendlyPos="1"/>
+        <access lane="-151020315#0_0" pos="700.01" friendlyPos="1"/>
+        <access lane="151020315#0_0" pos="300.61" friendlyPos="1"/>
     </busStop>
     <busStop id="3257062970" name="Segewaldweg" lane="319292807_0" startPos="1944.39" endPos="1969.39" friendlyPos="true">
-        <access lane="-93704176#0_0" pos="262.69"/>
-        <access lane="93704176#0_0" pos="1442.64"/>
+        <access lane="-93704176#0_0" pos="262.69" friendlyPos="1"/>
+        <access lane="93704176#0_0" pos="1442.64" friendlyPos="1"/>
     </busStop>
     <busStop id="3257062973" name="Zur Nachtheide" lane="319292807_0" startPos="831.04" endPos="856.04" friendlyPos="true">
-        <access lane="93704176#0_0" pos="329.65"/>
-        <access lane="-93704176#0_0" pos="1376.89"/>
+        <access lane="93704176#0_0" pos="329.65" friendlyPos="1"/>
+        <access lane="-93704176#0_0" pos="1376.89" friendlyPos="1"/>
     </busStop>
     <busStop id="344853528" name="Anemonenstraße" lane="37850032#0_1" startPos="21.78" endPos="36.78" friendlyPos="true"/>
     <busStop id="361152198" name="Müggelheimer Straße/Wendenschloßstraße" lane="32204600#1_1" startPos="19.66" endPos="37.55" friendlyPos="true"/>
@@ -124,28 +124,28 @@
     <busStop id="3812676498" name="Segewaldweg" lane="93704176#0_1" startPos="1436.22" endPos="1451.22" friendlyPos="true"/>
     <busStop id="3812676502" name="Zur Nachtheide" lane="93704176#0_1" startPos="322.82" endPos="337.82" friendlyPos="true"/>
     <busStop id="3893875075" name="Müggelheimer Straße/Wendenschloßstraße" lane="25309191_0" startPos="17.55" endPos="35.44" friendlyPos="true">
-        <access lane="283006419#0_0" pos="56.60"/>
-        <access lane="32204600#1_0" pos="55.41"/>
-        <access lane="283006419#1_0" pos="0.00"/>
-        <access lane="176063642#2_0" pos="0.20"/>
+        <access lane="283006419#0_0" pos="56.60" friendlyPos="1"/>
+        <access lane="32204600#1_0" pos="55.41" friendlyPos="1"/>
+        <access lane="283006419#1_0" pos="0.00" friendlyPos="1"/>
+        <access lane="176063642#2_0" pos="0.20" friendlyPos="1"/>
     </busStop>
     <busStop id="3895454718" name="Betriebshof Köpenick" lane="143847359#0_0" startPos="30.91" endPos="52.75" friendlyPos="true">
-        <access lane="403449586#0_0" pos="113.22"/>
-        <access lane="-403449586#0_0" pos="34.76"/>
-        <access lane="70415298#6_0" pos="61.27"/>
-        <access lane="-70415298#6_0" pos="0.00"/>
+        <access lane="403449586#0_0" pos="113.22" friendlyPos="1"/>
+        <access lane="-403449586#0_0" pos="34.76" friendlyPos="1"/>
+        <access lane="70415298#6_0" pos="61.27" friendlyPos="1"/>
+        <access lane="-70415298#6_0" pos="0.00" friendlyPos="1"/>
     </busStop>
     <busStop id="3895454719" name="Zur Nachtheide" lane="93704176#0_1" startPos="339.11" endPos="354.11" friendlyPos="true"/>
     <busStop id="94951410" name="Pablo-Neruda-Straße" lane="10699464#0_0" startPos="140.69" endPos="156.92" friendlyPos="true">
-        <access lane="10780554_0" pos="0.00"/>
-        <access lane="238053686#1_0" pos="2.15"/>
-        <access lane="238053686#0_0" pos="23.92"/>
-        <access lane="44956230#1_0" pos="12.18"/>
+        <access lane="10780554_0" pos="0.00" friendlyPos="1"/>
+        <access lane="238053686#1_0" pos="2.15" friendlyPos="1"/>
+        <access lane="238053686#0_0" pos="23.92" friendlyPos="1"/>
+        <access lane="44956230#1_0" pos="12.18" friendlyPos="1"/>
     </busStop>
     <busStop id="95948746" name="Krankenhaus Köpenick/Südseite" lane="10699464#3_0" startPos="317.37" endPos="352.44" friendlyPos="true">
-        <access lane="-10855364#0_0" pos="4.62"/>
-        <access lane="10855364#0_0" pos="70.43"/>
-        <access lane="-10855364#1_0" pos="1.32"/>
-        <access lane="10855364#1_0" pos="0.00"/>
+        <access lane="-10855364#0_0" pos="4.62" friendlyPos="1"/>
+        <access lane="10855364#0_0" pos="70.43" friendlyPos="1"/>
+        <access lane="-10855364#1_0" pos="1.32" friendlyPos="1"/>
+        <access lane="10855364#1_0" pos="0.00" friendlyPos="1"/>
     </busStop>
 </additional>
