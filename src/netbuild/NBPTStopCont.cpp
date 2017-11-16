@@ -298,7 +298,8 @@ void NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadiu
     NamedRTree r = cont.rebuildRTree();
 
     for (auto ptStop : myPTStops) {
-        if (isRailway(ptStop.second->getPermissions())) {
+        const std::string& stopEdgeID = ptStop.second->getEdgeId();
+        if (isRailway(cont.getByID(stopEdgeID)->getPermissions())) {
             std::set<std::string> ids;
             Named::StoringVisitor visitor(ids);
             const Position& pos = ptStop.second->getPosition();
