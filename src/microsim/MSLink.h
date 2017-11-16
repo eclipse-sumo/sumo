@@ -447,7 +447,7 @@ public:
     void writeApproaching(OutputDevice& od, const std::string fromLaneID) const;
 
     /// @brief erase vehicle from myLinkLeaders of this links junction
-    void passedJunction(const MSVehicle* vehicle);
+    void passedJunction(const MSVehicle* vehicle) const;
 
     /// @brief return the link that is parallel to this lane or 0
     MSLink* getParallelLink(int direction) const;

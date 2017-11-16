@@ -2108,9 +2108,19 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                 // at least we can drive up to the previous link and stop there
                 v = MAX2(v, lastLink->myVLinkWait);
             }
-            // if blocked by a leader from the same lane we must yield our request
-            if (v < SUMO_const_haltingSpeed && leader->getLane()->getLogicalPredecessorLane() == myLane->getLogicalPredecessorLane()) {
+            // if blocked by a leader from the same or next lane we must yield our request
+            if (v < SUMO_const_haltingSpeed 
+                    //&& leader->getSpeed() < SUMO_const_haltingSpeed
+                    && (leader->getLane()->getLogicalPredecessorLane() == myLane->getLogicalPredecessorLane()
+                        || leader->getLane()->getLogicalPredecessorLane() == myLane)) {
                 setRequest = false;
+                if (lastLink != 0 && leader->getLane()->getLogicalPredecessorLane() == myLane) {
+                    // we are not yet on the junction so must abort that request as well
+                    // (or maybe we are already on the junction and the leader is a partial occupator beyond)
+                    lastLink->mySetRequest = false;
+                }
+                // other vehicles may become junction leader when yielding 
+                link->passedJunction(this);
             }
         }
     }

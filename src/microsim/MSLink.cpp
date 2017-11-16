@@ -991,7 +991,7 @@ MSLink::computeParallelLink(int direction) {
 }
 
 void
-MSLink::passedJunction(const MSVehicle* vehicle) {
+MSLink::passedJunction(const MSVehicle* vehicle) const {
     if (myJunction != 0) {
         myJunction->passedJunction(vehicle);
     }
