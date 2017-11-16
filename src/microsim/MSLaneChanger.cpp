@@ -91,6 +91,15 @@ MSLaneChanger::MSLaneChanger(const std::vector<MSLane*>* lanes, bool allowChangi
         myChanger.push_back(ChangeElem(*lane));
         myChanger.back().mayChangeRight = lane != lanes->begin();
         myChanger.back().mayChangeLeft = (lane + 1) != lanes->end();
+        // avoid changing on internal sibling lane
+        if ((*lane)->isInternal()) {
+            if (myChanger.back().mayChangeRight && (*lane)->getLogicalPredecessorLane() == (*(lane - 1))->getLogicalPredecessorLane()) {
+                myChanger.back().mayChangeRight = false;
+            }
+            if (myChanger.back().mayChangeLeft && (*lane)->getLogicalPredecessorLane() == (*(lane + 1))->getLogicalPredecessorLane()) {
+                myChanger.back().mayChangeLeft = false;
+            }
+        }
     }
 }
 
