@@ -46,7 +46,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/// @brief the pedestrian network storing edges, connections and the mappings to the "real" edges
+/// @brief the intermodal network storing edges, connections and the mappings to the "real" edges
 template<class E, class L, class N, class V>
 class IntermodalNetwork {
 private:
@@ -55,17 +55,17 @@ private:
     typedef std::pair<_IntermodalEdge*, _IntermodalEdge*> EdgePair;
 
 public:
-    /* brief build the pedestrian network (once)
-     * @param noE The number of edges in the dictionary of E
+    /* @brief build the pedestrian part of the intermodal network (once)
+     * @param edges The list of MSEdge or ROEdge to build from
+     * @param numericalID the start number for the creation of new edges
      */
     IntermodalNetwork(const std::vector<E*>& edges, int numericalID = 0) {
 #ifdef IntermodalRouter_DEBUG_NETWORK
         std::cout << "initIntermodalNetwork\n";
 #endif
-        // build the Intermodal edges and the lookup tables
+        // build the pedestrian edges and the depart / arrival connectors with lookup tables
         bool haveSeenWalkingArea = false;
-        for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            const E* const edge = *i;
+        for (const E* const edge: edges) {
             if (edge->isInternal()) {
                 continue;
             }
@@ -95,9 +95,8 @@ public:
         }
 
         // build the connections
-        for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            E* const edge = *i;
-            const L* sidewalk = getSidewalk<E, L>(edge);
+        for (const E* const edge : edges) {
+            const L* const sidewalk = getSidewalk<E, L>(edge);
             if (edge->isInternal() || sidewalk == 0) {
                 continue;
             }
@@ -108,21 +107,19 @@ public:
             std::cout << "  building connections from " << sidewalk->getID() << "\n";
 #endif
             if (haveSeenWalkingArea) {
-                std::vector<const L*> outgoing = sidewalk->getOutgoingLanes();
+                const std::vector<const L*> outgoing = sidewalk->getOutgoingLanes();
                 // if one of the outgoing lanes is a walking area it must be used.
                 // All other connections shall be ignored
                 bool hasWalkingArea = false;
-                for (typename std::vector<const L*>::iterator it = outgoing.begin(); it != outgoing.end(); ++it) {
-                    const L* target = *it;
-                    const E* targetEdge = &(target->getEdge());
+                for (const L* target : outgoing) {
+                    const E* const targetEdge = &(target->getEdge());
                     if (targetEdge->isWalkingArea()) {
                         hasWalkingArea = true;
                         break;
                     }
                 }
-                for (typename std::vector<const L*>::iterator it = outgoing.begin(); it != outgoing.end(); ++it) {
-                    const L* target = *it;
-                    const E* targetEdge = &(target->getEdge());
+                for (const L* target : outgoing) {
+                    const E* const targetEdge = &(target->getEdge());
                     const bool used = (target == getSidewalk<E, L>(targetEdge)
                                        && (!hasWalkingArea || targetEdge->isWalkingArea()));
 #ifdef IntermodalRouter_DEBUG_NETWORK
@@ -142,12 +139,10 @@ public:
             } else {
                 // we have a network without pedestrian structures. Assume that
                 // all sidewalks at a crossing are interconnected
-                const N* toNode = edge->getToJunction();
-                std::vector<const E*> outgoing = toNode->getOutgoing();
-                for (typename std::vector<const E*>::iterator it = outgoing.begin(); it != outgoing.end(); ++it) {
+                const N* const toNode = edge->getToJunction();
+                for (const E* const targetEdge : toNode->getOutgoing()) {
                     // build forward and backward connections for all outgoing sidewalks
-                    const E* targetEdge = *it;
-                    const L* target = getSidewalk<E, L>(targetEdge);
+                    const L* const target = getSidewalk<E, L>(targetEdge);
                     if (targetEdge->isInternal() || target == 0) {
                         continue;
                     }
@@ -159,11 +154,9 @@ public:
                     std::cout << "     " << targetPair.second->getID() << " -> " << pair.second->getID() << "\n";
 #endif
                 }
-                std::vector<const E*> incoming = toNode->getIncoming();
-                for (typename std::vector<const E*>::iterator it = incoming.begin(); it != incoming.end(); ++it) {
+                for (const E* const targetEdge : toNode->getIncoming()) {
                     // build forward-to-backward connections for all incoming sidewalks
-                    const E* targetEdge = *it;
-                    const L* target = getSidewalk<E, L>(targetEdge);
+                    const L* const target = getSidewalk<E, L>(targetEdge);
                     if (targetEdge->isInternal() || target == 0 || targetEdge == edge) {
                         continue;
                     }
@@ -173,12 +166,9 @@ public:
                     std::cout << "     " << pair.first->getID() << " -> " << targetPair.second->getID() << "\n";
 #endif
                 }
-                const N* fromNode = edge->getFromJunction();
-                outgoing = fromNode->getOutgoing();
-                for (typename std::vector<const E*>::iterator it = outgoing.begin(); it != outgoing.end(); ++it) {
+                for (const E* const targetEdge : edge->getFromJunction()->getOutgoing()) {
                     // build backward-to-forward connections for all outgoing sidewalks at the fromNode
-                    const E* targetEdge = *it;
-                    const L* target = getSidewalk<E, L>(targetEdge);
+                    const L* const target = getSidewalk<E, L>(targetEdge);
                     if (targetEdge->isInternal() || target == 0 || targetEdge == edge) {
                         continue;
                     }
