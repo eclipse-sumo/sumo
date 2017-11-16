@@ -221,7 +221,7 @@ NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
     double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "access", ok, false);
     if (!ok || !myHandler->checkStopPos(pos, pos, lane->getLength(), 0, friendlyPos)) {
-        throw InvalidArgument("Invalid position for access in stop '" + myCurrentStop->getID() + "'.");
+        throw InvalidArgument("Invalid position " + toString(pos) + " for access on lane '" + lane->getID() + "' in stop '" + myCurrentStop->getID() + "'.");
     }
     // add bus stop access
     if (myCurrentStop != 0) {
