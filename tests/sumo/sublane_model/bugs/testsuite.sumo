@@ -37,3 +37,6 @@ ticket3613
 
 # collision at lane split
 ticket3618
+
+# collision on parallel internal edges
+ticket3619
