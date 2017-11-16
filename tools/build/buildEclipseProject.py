@@ -43,7 +43,7 @@ else:
             xercesBin = folder
             xercesLib = folder[:-3] + "lib"
             xercesInc = folder[:-3] + "include"
-        elif (folder.lower().find("proj_gdal-1800") != -1):
+        elif (folder.lower().find("proj_gdal-1911") != -1):
             gdalBin = folder
             gdalLib = folder[:-3] + "lib"
             gdalInc = folder[:-3] + "include"
@@ -87,46 +87,17 @@ else:
         os.environ["GDAL_BIN"] = gdalBin
         os.environ["GDAL_INCLUDE"] = gdalInc
         os.environ["GDAL_LIB"] = gdalLib
-
-        # Create directory for VS15, or clear it if already exists
-        if not os.path.exists(os.environ["SUMO_HOME"] + "/build/tests/msvc15"):
-            print ("Creating directory for Visual Studio 2015")
-            os.makedirs(os.environ["SUMO_HOME"] + "/build/tests/msvc15")
-        else:
-            print ("Cleaning directory of Visual Studio 2015")
-            shutil.rmtree(os.environ["SUMO_HOME"] + "/build/tests/msvc15")
-            os.makedirs(os.environ["SUMO_HOME"] + "/build/tests/msvc15")
-        # Create solution for visual studio 2015
-        print ("Creating solution for Visual Studio 2017")
-        VS15Generation = subprocess.Popen(
-            "cmake ../../../ -G \"Visual Studio 14 2015 Win64\"", cwd=os.environ["SUMO_HOME"] + "/build/tests/msvc15")
-        # Wait to the end of generation
-        VS15Generation.wait()
-        # Create directory for VS17, or clear it if already exists
-        if not os.path.exists(os.environ["SUMO_HOME"] + "/build/tests/msvc17"):
-            print ("Creating directory for Visual Studio 2017")
-            os.makedirs(os.environ["SUMO_HOME"] + "/build/tests/msvc17")
-        else:
-            print ("cleaning directory of Visual Studio 2017")
-            shutil.rmtree(os.environ["SUMO_HOME"] + "/build/tests/msvc17")
-            os.makedirs(os.environ["SUMO_HOME"] + "/build/tests/msvc17")
-        # Create solution for visual studio 2017
-        print ("Creating solution for Visual Studio 2017")
-        VS17Generation = subprocess.Popen(
-            "cmake ../../../ -G \"Visual Studio 15 2017 Win64\"", cwd=os.environ["SUMO_HOME"] + "/build/tests/msvc17")
-        # Wait to the end of generation
-        VS17Generation.wait()
         # Create directory for Eclipse, or clear it if already exists
-        if not os.path.exists(os.environ["SUMO_HOME"] + "/build/tests/eclipse"):
+        if not os.path.exists(os.environ["SUMO_HOME"] + "/build/autobuild/eclipse"):
             print ("Creating directory for Eclipse")
-            os.makedirs(os.environ["SUMO_HOME"] + "/build/tests/eclipse")
+            os.makedirs(os.environ["SUMO_HOME"] + "/build/autobuild/eclipse")
         else:
             print ("cleaning directory of Eclipse")
-            shutil.rmtree(os.environ["SUMO_HOME"] + "/build/tests/eclipse")
-            os.makedirs(os.environ["SUMO_HOME"] + "/build/tests/eclipse")
+            shutil.rmtree(os.environ["SUMO_HOME"] + "/build/autobuild/eclipse")
+            os.makedirs(os.environ["SUMO_HOME"] + "/build/autobuild/eclipse")
         # Create solution for Eclipse
         print ("Creating solution for Eclipse")
         eclipseGeneration = subprocess.Popen(
-            "cmake ../../../ -G \"Eclipse CDT4\"", cwd=os.environ["SUMO_HOME"] + "/build/tests/msvc17")
+            "cmake ../../../ -G \"Eclipse CDT4\"", cwd=os.environ["SUMO_HOME"] + "/build/autobuild/msvc17")
         # Wait to the end of generation
         eclipseGeneration.wait()
