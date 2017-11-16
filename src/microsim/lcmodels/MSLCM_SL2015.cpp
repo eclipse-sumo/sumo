@@ -765,6 +765,10 @@ MSLCM_SL2015::prepareStep() {
     myDontBrake = false;
     myCFRelated.clear();
     myCFRelatedReady = false;
+    const double halfWidth = getWidth() * 0.5;
+    const double center = myVehicle.getCenterOnEdge();
+    mySafeLatDistRight = center - halfWidth;
+    mySafeLatDistLeft = myVehicle.getLane()->getEdge().getWidth() - center - halfWidth;
     // truncate to work around numerical instability between different builds
     mySpeedGainProbabilityRight = ceil(mySpeedGainProbabilityRight * 100000.0) * 0.00001;
     mySpeedGainProbabilityLeft = ceil(mySpeedGainProbabilityLeft * 100000.0) * 0.00001;
@@ -1087,6 +1091,11 @@ MSLCM_SL2015::_wantsChangeSublane(
     }
 
     if ((ret & LCA_STAY) != 0 && latDist == 0) {
+        // ensure that mySafeLatDistLeft / mySafeLatDistRight are up to date for the 
+        // subsquent check with laneOffset = 0
+        const double center = myVehicle.getCenterOnEdge();
+        updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), center, 1.0, mySafeLatDistRight, mySafeLatDistLeft);
+        updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), center, 1.0, mySafeLatDistRight, mySafeLatDistLeft);
         return ret;
     }
     if ((ret & LCA_URGENT) != 0) {
@@ -1834,10 +1843,7 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, int laneOf
     }
 
     // reduce latDist to avoid blockage with overlapping vehicles (no minGapLat constraints)
-    const double halfWidth = getWidth() * 0.5;
     const double center = myVehicle.getCenterOnEdge();
-    mySafeLatDistRight = center - halfWidth;
-    mySafeLatDistLeft = myVehicle.getLane()->getEdge().getWidth() - center - halfWidth;
     updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectLeadBlockers);
     updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectFollowBlockers);
     if (laneOffset != 0) {
@@ -2656,7 +2662,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist) {
     if (gDebugFlag2) {
         std::cout << "   computeSpeedLat e)\n";
     }
-    gDebugFlag2=false;
+    gDebugFlag2 = false;
     return speedDecelSafe;
 }
 
@@ -2666,7 +2672,6 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
                               const MSLeaderDistanceInfo& leaders,
                               const MSLeaderDistanceInfo& neighLeaders,
                               const MSLane& neighLane) {
-    gDebugFlag2=DEBUG_COND;
     if (!blocked && !blockedFully && !myCanChangeFully) {
         // round to full action steps
         double secondsToLeaveLane;
@@ -2711,7 +2716,6 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
                       << "\n";
         }
     }
-    gDebugFlag2=false;
 }
 
 double
