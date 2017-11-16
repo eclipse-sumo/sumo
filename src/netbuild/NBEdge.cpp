@@ -2599,15 +2599,17 @@ PositionVector
 NBEdge::getCWBoundaryLine(const NBNode& n) const {
     PositionVector ret;
     double width;
+    int lane;
     if (myFrom == (&n)) {
         // outgoing
-        ret = myLanes[0].shape;
-        width = getLaneWidth(0);
+        lane = getFirstAllowedLaneIndex(NBNode::FORWARD);
+        ret = myLanes[lane].shape;
     } else {
         // incoming
-        ret = myLanes.back().shape.reverse();
-        width = getLaneWidth((int)getNumLanes() - 1);
+        lane = getFirstAllowedLaneIndex(NBNode::BACKWARD);
+        ret = myLanes[lane].shape.reverse();
     }
+    width = getLaneWidth(lane);
     ret.move2side(width * 0.5);
     return ret;
 }
@@ -2617,15 +2619,17 @@ PositionVector
 NBEdge::getCCWBoundaryLine(const NBNode& n) const {
     PositionVector ret;
     double width;
+    int lane;
     if (myFrom == (&n)) {
         // outgoing
-        ret = myLanes.back().shape;
-        width = getLaneWidth((int)getNumLanes() - 1);
+        lane = getFirstAllowedLaneIndex(NBNode::BACKWARD);
+        ret = myLanes[lane].shape;
     } else {
         // incoming
-        ret = myLanes[0].shape.reverse();
-        width = getLaneWidth(0);
+        lane = getFirstAllowedLaneIndex(NBNode::FORWARD);
+        ret = myLanes[lane].shape.reverse();
     }
+    width = getLaneWidth(lane);
     ret.move2side(-width * 0.5);
     return ret;
 }
@@ -3075,6 +3079,20 @@ NBEdge::getFirstNonPedestrianLaneIndex(int direction, bool exclusive) const {
         }
     }
     return -1;
+}
+
+
+int
+NBEdge::getFirstAllowedLaneIndex(int direction) const {
+    assert(direction == NBNode::FORWARD || direction == NBNode::BACKWARD);
+    const int start = (direction == NBNode::FORWARD ? 0 : (int)myLanes.size() - 1);
+    const int end = (direction == NBNode::FORWARD ? (int)myLanes.size() : - 1);
+    for (int i = start; i != end; i += direction) {
+        if (myLanes[i].permissions != 0) {
+            return i;
+        }
+    }
+    return end - direction;
 }
 
 
