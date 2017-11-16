@@ -1175,6 +1175,10 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                 MSLane::AnyVehicleIterator end = foeLane->anyVehiclesEnd();
                 for (MSLane::AnyVehicleIterator it_veh = foeLane->anyVehiclesBegin(); it_veh != end; ++it_veh) {
                     MSVehicle* victim = (MSVehicle*)*it_veh;
+                    if (victim == collider) {
+                        // may happen if the vehicles lane and shadow lane are siblings
+                        continue;
+                    }
                     //std::cout << "             victim " << victim->getID() << "\n";
 #ifdef DEBUG_JUNCTION_COLLISIONS
                     if (DEBUG_COND && DEBUG_COND2(collider)) {
