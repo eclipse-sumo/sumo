@@ -84,6 +84,10 @@ public:
 
         double dens;
 
+        /// @brief whether changing is possible to either direction
+        bool mayChangeRight;
+        bool mayChangeLeft;
+
         /// relative indices of internal lanes with the same origin lane (siblings)
         /// only used for changes on internal edges
         std::vector<int>          siblings;

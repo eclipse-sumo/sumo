@@ -89,6 +89,8 @@ MSLaneChanger::MSLaneChanger(const std::vector<MSLane*>* lanes, bool allowChangi
     myChanger.reserve(lanes->size());
     for (std::vector<MSLane*>::const_iterator lane = lanes->begin(); lane != lanes->end(); ++lane) {
         myChanger.push_back(ChangeElem(*lane));
+        myChanger.back().mayChangeRight = lane != lanes->begin();
+        myChanger.back().mayChangeLeft = (lane + 1) != lanes->end();
     }
 }
 
@@ -208,9 +210,9 @@ MSLaneChanger::mayChange(int direction) const {
         return false;
     }
     if (direction == -1) {
-        return (myCandi != myChanger.begin()    && (myCandi - 1)->lane->allowsVehicleClass(veh(myCandi)->getVehicleType().getVehicleClass()));
+        return myCandi->mayChangeRight && (myCandi - 1)->lane->allowsVehicleClass(veh(myCandi)->getVehicleType().getVehicleClass());
     } else if (direction == 1) {
-        return (myCandi + 1) != myChanger.end() && (myCandi + 1)->lane->allowsVehicleClass(veh(myCandi)->getVehicleType().getVehicleClass());
+        return myCandi->mayChangeLeft && (myCandi + 1)->lane->allowsVehicleClass(veh(myCandi)->getVehicleType().getVehicleClass());
     } else {
         return false;
     }
