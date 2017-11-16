@@ -1,4 +1,4 @@
-SUMO netconvert Version v0_31_0-1115-g1a96580
+SUMO netconvert Version v0_31_0+1157-43f025d
  Copyright (C) 2001-2017 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -69,6 +69,11 @@ Output Options:
   --ptline-clean-up                    Clean-up pt stops that are not served by
                                          any line
   --parking-output FILE                Writes parking areas to FILE
+  --osm.stop-output.footway-access-distance FLOAT  The search radius for
+                                         finding suitable road accesses for rail
+                                         stops
+  --osm.stop-output.footway-max-accesses INT  The maximum roud accesses
+                                         registered per rail stops
   --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
                                          whenever the angular change  between
                                          straight segments exceeds FLOAT degrees

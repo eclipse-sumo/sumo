@@ -36,15 +36,17 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name, SVCPermissions svcPermissions) :
-    myPTStopId(ptStopId),
-    myPosition(position),
-    myEdgeId(edgeId),
-    myOrigEdgeId(origEdgeId),
-    myPTStopLength(length),
-    myName(name),
-    myPermissions(svcPermissions),
-    myIsMultipleStopPositions(false) {
+NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length,
+                   std::string name, SVCPermissions svcPermissions)
+        :
+        myPTStopId(ptStopId),
+        myPosition(position),
+        myEdgeId(edgeId),
+        myOrigEdgeId(origEdgeId),
+        myPTStopLength(length),
+        myName(name),
+        myPermissions(svcPermissions),
+        myIsMultipleStopPositions(false) {
 }
 
 std::string
@@ -85,6 +87,15 @@ void NBPTStop::write(OutputDevice& device) {
     device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
     device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
+    if (myAccesses.size() > 0) {
+
+        for (auto laneID :myAccesses) {
+            device.openTag(SUMO_TAG_ACCESS);
+            device.writeAttr(SUMO_ATTR_LANE,laneID);
+            device.writeAttr(SUMO_ATTR_POSITION,0);
+            device.closeTag();
+        }
+    }
     device.closeTag();
 
 }
@@ -117,7 +128,7 @@ double NBPTStop::getLength() {
     return myPTStopLength;
 }
 
-bool 
+bool
 NBPTStop::setEdgeId(std::string edgeId, NBEdgeCont& ec) {
     myEdgeId = edgeId;
     return findLaneAndComputeBusStopExtend(ec);
@@ -138,7 +149,7 @@ void NBPTStop::setMyPTStopLength(double myPTStopLength) {
 }
 
 
-bool 
+bool
 NBPTStop::findLaneAndComputeBusStopExtend(NBEdgeCont& ec) {
     myLaneId = "";
     NBEdge* edge = ec.getByID(myEdgeId);
@@ -163,6 +174,9 @@ NBPTStop::findLaneAndComputeBusStopExtend(NBEdgeCont& ec) {
 }
 void NBPTStop::setMyPTStopId(std::string id) {
     myPTStopId = id;
+}
+void NBPTStop::addAccess(std::string laneID) {
+    myAccesses.push_back(laneID);
 }
 
 

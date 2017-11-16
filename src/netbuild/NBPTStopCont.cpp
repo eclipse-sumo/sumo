@@ -53,41 +53,42 @@ NBPTStop* NBPTStopCont::get(std::string id) {
 }
 
 
-void NBPTStopCont::process(NBEdgeCont& cont, bool ptlineOutput) {
+void NBPTStopCont::localizePTStops(NBEdgeCont& cont) {
+    std::vector<NBPTStop*> reverseStops;
+    //frst pass localize pt stop at correct side of the street; create stop for opposite side if needed
+    for (auto& myPTStop : myPTStops) {
 
-    if (!ptlineOutput) {
-        std::vector<NBPTStop*> reverseStops;
-        //frst pass localize pt stop at correct side of the street; create stop for opposite side if needed
-        for (auto& myPTStop : myPTStops) {
+        NBPTStop* stop = myPTStop.second;
 
-            NBPTStop* stop = myPTStop.second;
+        bool multipleStopPositions = stop->getIsMultipleStopPositions();
+        bool platformsDefined = !stop->getPlatformCands().empty();
+        if (!platformsDefined) {
+            //create pt stop for reverse edge if edge exist
+            NBPTStop* reverseStop = getReverseStop(stop, cont);
+            if (reverseStop != nullptr) {
+                reverseStops.push_back(reverseStop);
+            }
+        } else if (multipleStopPositions) {
+            //create pt stop for closest platform at corresponding edge
+            assignPTStopToEdgeOfClosestPlatform(stop, cont);
 
-            bool multipleStopPositions = stop->getIsMultipleStopPositions();
-            bool platformsDefined = !stop->getPlatformCands().empty();
-            if (!platformsDefined) {
-                //create pt stop for reverse edge if edge exist
-                NBPTStop* reverseStop = getReverseStop(stop, cont);
-                if (reverseStop != nullptr) {
-                    reverseStops.push_back(reverseStop);
-                }
-            } else if (multipleStopPositions) {
-                //create pt stop for closest platform at corresponding edge
-                assignPTStopToEdgeOfClosestPlatform(stop, cont);
-
-            } else {
-                //create pt stop for each side of the street where a platform is defined (create additional pt stop as needed)
-                NBPTStop* additionalStop = assignAndCreatNewPTStopAsNeeded(stop, cont);
-                if (additionalStop != nullptr) {
-                    reverseStops.push_back(additionalStop);
-                }
+        } else {
+            //create pt stop for each side of the street where a platform is defined (create additional pt stop as needed)
+            NBPTStop* additionalStop = assignAndCreatNewPTStopAsNeeded(stop, cont);
+            if (additionalStop != nullptr) {
+                reverseStops.push_back(additionalStop);
             }
         }
-
-        //insrt new stops if any
-        for (auto& reverseStop : reverseStops) {
-            insert(reverseStop);
-        }
     }
+
+    //insrt new stops if any
+    for (auto& reverseStop : reverseStops) {
+        insert(reverseStop);
+    }
+}
+
+void NBPTStopCont::assignLanes(NBEdgeCont& cont) {
+
 
     //scnd pass set correct lane
     for (auto i = myPTStops.begin(); i != myPTStops.end();) {
@@ -291,3 +292,47 @@ void NBPTStopCont::alginIdSigns() {
     }
 
 }
+void NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, int maxCount) {
+
+
+    NamedRTree r = cont.rebuildRTree();
+
+    for (auto ptStop : myPTStops) {
+        if (isRailway(ptStop.second->getPermissions())) {
+            std::set<std::string> ids;
+            Named::StoringVisitor visitor(ids);
+            const Position& pos = ptStop.second->getPosition();
+            float min[2] = {static_cast<float>(pos.x() - maxRadius), static_cast<float>(pos.y() - maxRadius)};
+            float max[2] = {static_cast<float>(pos.x() + maxRadius), static_cast<float>(pos.y() + maxRadius)};
+            r.Search(min, max, visitor);
+            std::vector<NBEdge*> edgCants;
+            for (const auto& id : ids) {
+                NBEdge* e = cont.getByID(id);
+                edgCants.push_back(e);
+            }
+            std::sort(edgCants.begin(), edgCants.end(), [pos](NBEdge* a, NBEdge* b) {
+              return a->getGeometry().distance2D(pos, false) < b->getGeometry().distance2D(pos, false);
+            });
+            int cnt = 0;
+            for (auto edge : edgCants) {
+                int laneIdx = 0;
+                for (auto lane : edge->getLanes()){
+                    if (lane.permissions == SVC_PEDESTRIAN){
+                        ptStop.second->addAccess(edge->getLaneID(laneIdx));
+                        cnt++;
+                        break;
+                    }
+                    laneIdx++;
+                }
+                if (cnt == maxCount){
+                    break;
+                }
+
+            }
+
+        }
+    }
+
+
+}
+

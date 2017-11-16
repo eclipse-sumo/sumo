@@ -68,7 +68,11 @@ public:
      */
     void reviseStops(NBEdgeCont& cont);
 
-    void process(NBEdgeCont& cont, bool ptlineOutput);
+    void assignLanes(NBEdgeCont& cont);
+
+    void localizePTStops(NBEdgeCont& cont);
+
+    void findAccessEdgesForRailStops(NBEdgeCont& cont, double d, int i);
 
     void postprocess(std::set<std::string>& usedStops);
 

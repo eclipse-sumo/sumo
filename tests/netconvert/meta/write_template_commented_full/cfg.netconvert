@@ -129,6 +129,12 @@
         <!-- Writes parking areas to FILE -->
         <parking-output value="" type="FILE"/>
 
+        <!-- The search radius for finding suitable road accesses for rail stops -->
+        <osm.stop-output.footway-access-distance value="150" type="FLOAT"/>
+
+        <!-- The maximum roud accesses registered per rail stops -->
+        <osm.stop-output.footway-max-accesses value="5" type="INT"/>
+
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
 

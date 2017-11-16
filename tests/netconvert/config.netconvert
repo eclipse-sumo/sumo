@@ -29,6 +29,9 @@ copy_test_path:edge_ids.txt
 copy_test_path:data
 copy_test_path:additional.xml
 copy_test_path:ptlines.xml
+copy_test_path:osmNetconvertPedestrians.typ.xml
+copy_test_path:osmNetconvert.typ.xml
+copy_test_path:osmNetconvertUrbanDe.typ.xml
 
 [collate_file]
 net:net.net.xml

@@ -1245,5 +1245,16 @@ NBEdgeCont::checkGrade(double threshold) const {
         }
     }
 }
+NamedRTree NBEdgeCont::rebuildRTree() {
+    NamedRTree r;
+    for (auto edge : myEdges){
+        const Boundary& bound = edge.second->getGeometry().getBoxBoundary();
+        float min[2] = {static_cast<float>(bound.xmin()), static_cast<float>(bound.ymin())};
+        float max[2] = {static_cast<float>(bound.xmax()), static_cast<float>(bound.ymax())};
+        r.Insert(min,max,edge.second);
+
+    }
+    return r;
+}
 
 /****************************************************************************/

@@ -1,3 +1,6 @@
+# guess road acesses for rail stop
+rail_stop_road_access
+
 # direction of bus stops imported correctly based on pt lines
 bus_stop_direction_from_pt_lines
 

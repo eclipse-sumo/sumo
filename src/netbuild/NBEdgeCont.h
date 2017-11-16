@@ -40,6 +40,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/common/NamedRTree.h>
 
 
 // ===========================================================================
@@ -672,6 +673,8 @@ private:
     /// @brief Edges marked as belonging to a roundabout after guessing
     std::set<EdgeSet> myGuessedRoundabouts;
 
+public:
+    NamedRTree rebuildRTree();
 
 private:
     /// @brief invalidated copy constructor
@@ -679,7 +682,6 @@ private:
 
     /// @brief invalidated assignment operator
     NBEdgeCont& operator=(const NBEdgeCont& s);
-
 
 };
 

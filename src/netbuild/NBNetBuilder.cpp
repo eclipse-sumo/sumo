@@ -122,7 +122,10 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Processing public transport stops");
-        myPTStopCont.process(myEdgeCont, (oc.exists("ptline-output") && oc.isSet("ptline-output")));
+        if (!(oc.exists("ptline-output") && oc.isSet("ptline-output"))){
+            myPTStopCont.localizePTStops(myEdgeCont);
+        }
+        myPTStopCont.assignLanes(myEdgeCont);
         PROGRESS_TIME_MESSAGE(before);
     }
 
@@ -518,6 +521,15 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_TIME_MESSAGE(before);
     }
 
+    //find accesses for pt rail stops
+    if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
+        before = SysUtils::getCurrentMillis();
+        PROGRESS_BEGIN_MESSAGE("Find accesses for pt rail stops");
+        double maxRadius = oc.getFloat("osm.stop-output.footway-access-distance");
+        int maxCount = oc.getInt("osm.stop-output.footway-max-accesses");
+        myPTStopCont.findAccessEdgesForRailStops(myEdgeCont, maxRadius, maxCount);
+        PROGRESS_TIME_MESSAGE(before);
+    }
 
     // report
     WRITE_MESSAGE("-----------------------------------------------------");

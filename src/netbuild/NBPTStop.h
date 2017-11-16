@@ -79,6 +79,7 @@ public:
     bool findLaneAndComputeBusStopExtend(NBEdgeCont& ec);
 
     void setMyPTStopId(std::string id);
+    void addAccess(std::string laneID);
 private:
     std::string myPTStopId;
     Position myPosition;
@@ -101,6 +102,8 @@ private:
 
     double myStartPos;
     double myEndPos;
+
+    std::vector<std::string> myAccesses;
 
 
 private:

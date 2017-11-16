@@ -49,6 +49,8 @@
         <ptline-output value="" type="FILE" help="Writes public transport lines to FILE"/>
         <ptline-clean-up value="false" type="BOOL" help="Clean-up pt stops that are not served by any line"/>
         <parking-output value="" type="FILE" help="Writes parking areas to FILE"/>
+        <osm.stop-output.footway-access-distance value="150" type="FLOAT" help="The search radius for finding suitable road accesses for rail stops"/>
+        <osm.stop-output.footway-max-accesses value="5" type="INT" help="The maximum roud accesses registered per rail stops"/>
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
     </output>
 
