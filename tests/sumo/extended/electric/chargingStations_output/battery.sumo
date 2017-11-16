@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 20 16:35:08 2017 by SUMO Version svn
+<!-- generated on Thu Nov 16 21:48:43 2017 by SUMO Version v0_31_0+1176-104ac3e
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -934,7 +934,7 @@
     <timestep time="183.00">
         <vehicle id="veh0" energyConsumed="7.9906" actualBatteryCapacity="12522.9902" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="13.8900" acceleration="0.0000" x="-144.6200" y="995.0500" lane="L2_0" posOnLane="355.3800" timeStopped="0"/>
         <vehicle id="veh1" energyConsumed="7.9906" actualBatteryCapacity="11291.2683" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="13.8900" acceleration="0.0000" x="202.1400" y="991.7500" lane="L12_0" posOnLane="200.6400" timeStopped="0"/>
-        <vehicle id="veh2" energyConsumed="7.9906" actualBatteryCapacity="9360.9159" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="13.8900" acceleration="0.0000" x="97.4090" y="991.7500" lane="L12_0" posOnLane="95.9090" timeStopped="0"/>
+        <vehicle id="veh2" energyConsumed="7.9906" actualBatteryCapacity="9360.9159" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="13.8900" acceleration="0.0000" x="97.4090" y="995.0500" lane="L12_1" posOnLane="95.9090" timeStopped="0"/>
     </timestep>
     <timestep time="184.00">
         <vehicle id="veh0" energyConsumed="7.9906" actualBatteryCapacity="12514.9995" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="13.8900" acceleration="0.0000" x="-130.7300" y="995.0500" lane="L2_0" posOnLane="369.2700" timeStopped="0"/>
