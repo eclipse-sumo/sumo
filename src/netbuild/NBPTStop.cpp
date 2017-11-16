@@ -93,6 +93,7 @@ void NBPTStop::write(OutputDevice& device) {
             device.openTag(SUMO_TAG_ACCESS);
             device.writeAttr(SUMO_ATTR_LANE,std::get<0>(tuple));
             device.writeAttr(SUMO_ATTR_POSITION,std::get<1>(tuple));
+            device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
             device.closeTag();
         }
     }
