@@ -329,7 +329,11 @@ RONetHandler::parseAccess(const SUMOSAXAttributes& attrs) {
     if (edge == 0) {
         throw InvalidArgument("Unknown lane '" + lane + "' for access.");
     }
-    const double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0);
+    double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0);
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "access", ok, false);
+    if (!ok || !SUMORouteHandler::checkStopPos(pos, pos, edge->getLength(), POSITION_EPS, friendlyPos)) {
+        throw InvalidArgument("Invalid position " + toString(pos) + " for access on lane '" + lane + "'.");
+    }
     if (!ok) {
         throw ProcessError();
     }
