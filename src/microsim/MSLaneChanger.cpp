@@ -407,9 +407,8 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
 std::pair<MSVehicle* const, double>
 MSLaneChanger::getRealLeader(const ChangerIt& target) const {
     assert(veh(myCandi) != 0);
-
-#ifdef DEBUG_SURROUNDING_VEHICLES
     MSVehicle* vehicle = veh(myCandi);
+#ifdef DEBUG_SURROUNDING_VEHICLES
     if (DEBUG_COND) {
         std::cout << SIMTIME << " veh '" << vehicle->getID() << "' looks for leader on lc-target lane '" << target->lane->getID() << "'." << std::endl;
     }
