@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Oct 16 13:23:49 2017 by SUMO netconvert Version dev-SVN-r26501
+<!-- generated on Thu Nov 16 09:25:25 2017 by SUMO netconvert Version v0_31_0+1157-43f025d
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -365,10 +365,10 @@
         <request index="38" response="0000000000000000000000000000000000000000" foes="0000000000000010000000000010000000100000" cont="0"/>
         <request index="39" response="0000000000000000000000000000000000000000" foes="0000000000001110000000000000000000000000" cont="0"/>
     </junction>
-    <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0 CE_1 CE_2 CEb_0 CEb_1" intLanes="" shape="200.00,91.85 200.00,100.05 200.00,109.35"/>
-    <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="CN_0 CN_1 CN_2 CNb_0 CNb_1" intLanes="" shape="108.15,200.00 99.95,200.00 90.65,200.00"/>
-    <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0 CS_1 CS_2 CSb_0 CSb_1" intLanes="" shape="91.85,0.00 100.05,0.00 109.35,0.00"/>
-    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1 CW_2 CWb_0 CWb_1" intLanes="" shape="0.00,108.15 0.00,99.95 0.00,90.65"/>
+    <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0 CE_1 CE_2 CEb_0 CEb_1" intLanes="" shape="200.00,91.85 200.00,108.35 200.00,109.35"/>
+    <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="CN_0 CN_1 CN_2 CNb_0 CNb_1" intLanes="" shape="108.15,200.00 91.65,200.00 90.65,200.00"/>
+    <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0 CS_1 CS_2 CSb_0 CSb_1" intLanes="" shape="91.85,0.00 108.35,0.00 109.35,0.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1 CW_2 CWb_0 CWb_1" intLanes="" shape="0.00,108.15 0.00,91.65 0.00,90.65"/>
 
     <junction id=":C_28_0" type="internal" x="91.15" y="105.97" incLanes=":C_0_0" intLanes=":C_5_0 :C_8_0 :C_8_1 :C_13_0 :C_17_0 :C_26_0 :C_27_0 :C_c0_0 :C_c9_0"/>
     <junction id=":C_29_0" type="internal" x="100.05" y="105.52" incLanes=":C_3_0 SC_1 SC_2" intLanes=":C_5_0 :C_6_0 :C_8_0 :C_8_1 :C_10_0 :C_12_0 :C_14_0 :C_15_0 :C_15_1 :C_20_0 :C_22_0 :C_22_1 :C_24_0 :C_c0_0 :C_c3_0"/>
