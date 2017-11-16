@@ -87,12 +87,12 @@ void NBPTStop::write(OutputDevice& device) {
     device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
     device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
-    if (myAccesses.size() > 0) {
+    if (!myAccesses.empty()) {
 
-        for (auto laneID :myAccesses) {
+        for (auto tuple :myAccesses) {
             device.openTag(SUMO_TAG_ACCESS);
-            device.writeAttr(SUMO_ATTR_LANE,laneID);
-            device.writeAttr(SUMO_ATTR_POSITION,0);
+            device.writeAttr(SUMO_ATTR_LANE,std::get<0>(tuple));
+            device.writeAttr(SUMO_ATTR_POSITION,std::get<1>(tuple));
             device.closeTag();
         }
     }
@@ -175,8 +175,8 @@ NBPTStop::findLaneAndComputeBusStopExtend(NBEdgeCont& ec) {
 void NBPTStop::setMyPTStopId(std::string id) {
     myPTStopId = id;
 }
-void NBPTStop::addAccess(std::string laneID) {
-    myAccesses.push_back(laneID);
+void NBPTStop::addAccess(std::string laneID, double offset) {
+    myAccesses.push_back(std::make_tuple(laneID,offset));
 }
 
 
