@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 16 00:11:00 2017 by SUMO Version v0_31_0+1151-53ec744
+<!-- generated on Thu Nov 16 01:31:45 2017 by SUMO Version v0_31_0+1153-8ed35c9
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -28,6 +28,6 @@
 -->
 
 <lanechanges>
-    <change id="follower" type="t1" time="5.00" from="end_4" to="end_3" dir="-1" speed="27.78" pos="78.33" reason="cooperative|urgent" leaderGap="None" leaderSecureGap="None" followerGap="11.17" followerSecureGap="0.00" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <change id="ego" type="t0" time="5.00" from="end_3" to="end_4" dir="1" speed="16.77" pos="55.49" reason="strategic|urgent" leaderGap="17.84" leaderSecureGap="0.00" followerGap="None" followerSecureGap="None" origLeaderGap="1.67" origLeaderSecureGap="7.30" latGap="None"/>
+    <change id="follower" type="t1" time="5.00" from="end_4" to="end_3" dir="-1" speed="27.78" pos="78.83" reason="cooperative|urgent" leaderGap="None" leaderSecureGap="None" followerGap="11.67" followerSecureGap="0.00" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="ego" type="t0" time="5.00" from="end_3" to="end_4" dir="1" speed="16.77" pos="55.49" reason="strategic|urgent" leaderGap="18.34" leaderSecureGap="0.00" followerGap="None" followerSecureGap="None" origLeaderGap="1.67" origLeaderSecureGap="7.30" latGap="None"/>
 </lanechanges>
