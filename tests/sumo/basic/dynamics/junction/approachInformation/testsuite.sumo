@@ -13,3 +13,6 @@ internal_junction_with_foe
 
 # left turning vehicles should be able to pass the intersection simultaneously even though both have straight going follower vehicles
 symmetrical_left_turn_with_straight_followers
+
+# as above but with a larger junction so that the straight going vehicles already move onto the intersection
+symmetrical_left_turn_with_straight_followers2
