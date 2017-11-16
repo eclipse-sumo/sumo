@@ -396,7 +396,7 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
                   << " posLat=" << vehicle->getLateralPositionOnLane()
                   //<< " completion=" << lcm.getLaneChangeCompletion()
                   << " shadowLane=" << Named::getIDSecure(lcm.getShadowLane())
-                  << " shadowHopped=" << Named::getIDSecure(shadow->lane)
+                  //<< " shadowHopped=" << Named::getIDSecure(shadow->lane)
                   << "\n";
     }
 #endif
@@ -450,30 +450,45 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
         }
 #endif
         // There's no leader on the target lane. Look for leaders on consecutive lanes.
+        // (there might also be partial leaders due to continuous lane changing)
         MSLane* targetLane = target->lane;
-        if (targetLane->myPartialVehicles.size() > 0) {
-            assert(targetLane->myPartialVehicles.size() > 0);
-            std::vector<MSVehicle*>::const_iterator i = targetLane->myPartialVehicles.begin();
-            MSVehicle* leader = *i;
-            double leaderPos = leader->getBackPositionOnLane(targetLane);
-            while (++i != targetLane->myPartialVehicles.end()) {
-                if ((*i)->getBackPositionOnLane(targetLane) < leader->getBackPositionOnLane(targetLane)) {
-                    leader = *i;
-                    leaderPos = leader->getBackPositionOnLane(targetLane);
-                }
+        const double egoBack = vehicle->getBackPositionOnLane();
+        double leaderBack = targetLane->getLength();
+        for (MSVehicle* pl : targetLane->myPartialVehicles) {
+            double plBack = pl->getBackPositionOnLane(targetLane);
+            if (plBack < leaderBack && 
+                    pl->getPositionOnLane(targetLane) + pl->getVehicleType().getMinGap() >= egoBack) {
+                neighLead = pl;
+                leaderBack = plBack;
             }
-            return std::pair<MSVehicle*, double>(leader, leaderPos - veh(myCandi)->getPositionOnLane() - veh(myCandi)->getVehicleType().getMinGap());
+        }
+        if (neighLead != 0) {
+#ifdef DEBUG_SURROUNDING_VEHICLES
+            if (DEBUG_COND)  std::cout << "  found leader=" << neighLead->getID() << " (partial)\n";
+#endif
+            return std::pair<MSVehicle*, double>(neighLead, leaderBack - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap());
         }
         double seen = myCandi->lane->getLength() - veh(myCandi)->getPositionOnLane();
         double speed = veh(myCandi)->getSpeed();
         double dist = veh(myCandi)->getCarFollowModel().brakeGap(speed) + veh(myCandi)->getVehicleType().getMinGap();
         if (seen > dist) {
+#ifdef DEBUG_SURROUNDING_VEHICLES
+            if (DEBUG_COND)  std::cout << "  found no leader within dist=" << dist << "\n";
+#endif
             return std::pair<MSVehicle* const, double>(static_cast<MSVehicle*>(0), -1);
         }
         const std::vector<MSLane*>& bestLaneConts = veh(myCandi)->getBestLanesContinuation(targetLane);
-        return target->lane->getLeaderOnConsecutive(dist, seen, speed, *veh(myCandi), bestLaneConts);
+
+        std::pair<MSVehicle* const, double> result = target->lane->getLeaderOnConsecutive(dist, seen, speed, *veh(myCandi), bestLaneConts);
+#ifdef DEBUG_SURROUNDING_VEHICLES
+        if (DEBUG_COND)  std::cout << "  found consecutiveLeader=" << Named::getIDSecure(result.first) << "\n";
+#endif
+        return result;
     } else {
         MSVehicle* candi = veh(myCandi);
+#ifdef DEBUG_SURROUNDING_VEHICLES
+        if (DEBUG_COND)  std::cout << "  found leader=" << neighLead->getID() << "\n";
+#endif
         return std::pair<MSVehicle* const, double>(neighLead, neighLead->getBackPositionOnLane(target->lane) - candi->getPositionOnLane() - candi->getVehicleType().getMinGap());
     }
 }
