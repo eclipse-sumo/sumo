@@ -91,6 +91,10 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     MSDevice_Bluelight::buildVehicleDevices(v, into);
 }
 
+void 
+MSDevice::cleanupAll() {
+    MSDevice_Routing::cleanup();
+}
 
 void
 MSDevice::insertDefaultAssignmentOptions(const std::string& deviceName, const std::string& optionsTopic, OptionsCont& oc) {

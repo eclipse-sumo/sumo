@@ -94,6 +94,8 @@ public:
     /// @brief return the name for this type of device
     virtual const std::string deviceName() const = 0;
 
+    /// @brief perform cleanup for all devices
+    static void cleanupAll();
 
 public:
     /** @brief Constructor
