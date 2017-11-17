@@ -324,7 +324,9 @@ void NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadiu
                 for (auto lane : edge->getLanes()){
                     if (lane.permissions == SVC_PEDESTRIAN){
                         double offset = lane.shape.nearest_offset_to_point2D(pos,false);
-                        ptStop.second->addAccess(edge->getLaneID(laneIdx),offset);
+                        double finalLength = edge->getFinalLength();
+                        double laneLength = lane.shape.length();
+                        ptStop.second->addAccess(edge->getLaneID(laneIdx),offset*finalLength/laneLength);
                         cnt++;
                         break;
                     }
