@@ -982,7 +982,7 @@ MSLink::getParallelLink(int direction) const {
 MSLink*
 MSLink::computeParallelLink(int direction) {
     MSLane* before = getLaneBefore()->getParallelLane(direction);
-    MSLane* after = getViaLaneOrLane()->getParallelLane(direction);
+    MSLane* after = getLane()->getParallelLane(direction);
     if (before != 0 && after != 0) {
         return MSLinkContHelper::getConnectingLink(*before, *after);
     } else {
