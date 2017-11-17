@@ -1166,7 +1166,6 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
             throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
         }
-        const MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
         double speed = -1; // default to vType speed
         if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
             speed = attrs.get<double>(SUMO_ATTR_SPEED, 0, ok);

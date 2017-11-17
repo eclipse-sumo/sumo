@@ -268,6 +268,8 @@ NBPTStopCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) 
         }
     }
 }
+
+
 void NBPTStopCont::postprocess(std::set<std::string>& usedStops) {
     for (auto i = myPTStops.begin(); i != myPTStops.end();) {
         if (usedStops.find(i->second->getID()) == usedStops.end()) {
@@ -277,6 +279,8 @@ void NBPTStopCont::postprocess(std::set<std::string>& usedStops) {
         }
     }
 }
+
+
 void NBPTStopCont::alginIdSigns() {
     for (auto i : myPTStops) {
         std::string sId = i.second->getID();
