@@ -741,6 +741,10 @@ GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector , void* data) {
 
 long
 GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector , void* data) {
+    // if popup exist but isn't shown, destroy it first
+    if(myPopup && (myPopup->shown() == false)) {
+        destroyPopup();
+    }
     if(myPopup == NULL) {
         if (myViewportChooser == 0 || !myViewportChooser->haveGrabbed()) {
             myChanger->onMouseMove(data);

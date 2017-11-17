@@ -131,6 +131,8 @@ GNEEdge::updateGeometry() {
     for (auto i : myAdditionalParents) {
         i->updateGeometry();
     }
+    // refresh element
+    myNet->refreshElement(this);
 }
 
 
@@ -1101,8 +1103,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs) {
     for (auto i : myGNEJunctionDestiny->getGNEEdges()) {
         i->remakeGNEConnections();
     }
-    // Update element
-    myNet->refreshElement(this);
+    // Update geometry with the new lane
     updateGeometry();
 }
 
