@@ -1276,7 +1276,7 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
 
 bool 
 GNEAdditionalHandler::buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, const std::string &routeID, const std::vector<GNEEdge*> &edges, const RGBColor& color) {
-    if (viewNet->getNet()->retrieveCalibratorRoute(routeID) == NULL) {
+    if (viewNet->getNet()->retrieveCalibratorRoute(routeID, false) == NULL) {
         // create route and add it to calibrator parent
         GNECalibratorRoute *route = new GNECalibratorRoute(calibratorParent, routeID, edges, color);
         if (allowUndoRedo) {
@@ -1303,7 +1303,7 @@ GNEAdditionalHandler::buildCalibratorVehicleType(GNEViewNet* viewNet, bool allow
     SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
     const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
     double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) {
-    if (viewNet->getNet()->retrieveCalibratorVehicleType(vehicleTypeID) == NULL) {
+    if (viewNet->getNet()->retrieveCalibratorVehicleType(vehicleTypeID, false) == NULL) {
         // create vehicle type and add it to calibrator parent
         GNECalibratorVehicleType *vType = new GNECalibratorVehicleType(calibratorParent, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed,
             speedFactor, speedDev, color, vClass, emissionClass, shape, width, filename, impatience,
@@ -1333,7 +1333,7 @@ GNEAdditionalHandler::buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRed
     const std::string &departPosLat, const std::string &arrivalPosLat, double begin, double end, double vehsPerHour, double period, 
     double probability, int number, int flowType) {
 
-    if (viewNet->getNet()->retrieveCalibratorFlow(flowID) == NULL) {
+    if (viewNet->getNet()->retrieveCalibratorFlow(flowID, false) == NULL) {
         // create Flow and add it to calibrator parent
         GNECalibratorFlow *flow = new GNECalibratorFlow(calibratorParent, flowID, vtype, route, color, departLane, departPos, departSpeed,
             arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute,
