@@ -24,3 +24,9 @@ wiedemann
 
 # the standard structure for model tests
 kraussX
+
+# drive in circles with overtaking
+circle_two_lanes
+
+# drive in circles with overtaking
+circle_two_lanes_actionsteplength
