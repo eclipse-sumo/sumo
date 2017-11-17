@@ -334,6 +334,8 @@ MSPerson::MSPersonStage_Driving::getStageDescription() const {
 
 void
 MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os, MSTransportable*) const {
+    double distance = -1; // XXX
+    MSDevice_Tripinfo::addRideData(distance, myArrived - myDeparted, myVehicleVClass, myVehicleLine);
     os.openTag("ride");
     os.writeAttr("waitingTime", time2string(myDeparted - myWaitingSince));
     os.writeAttr("vehicle", myVehicleID);
