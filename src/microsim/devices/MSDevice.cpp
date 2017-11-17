@@ -94,6 +94,7 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
 void 
 MSDevice::cleanupAll() {
     MSDevice_Routing::cleanup();
+    MSDevice_Tripinfo::cleanup();
 }
 
 void

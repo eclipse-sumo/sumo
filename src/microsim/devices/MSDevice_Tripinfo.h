@@ -97,6 +97,9 @@ public:
     ~MSDevice_Tripinfo();
 
 
+    /// @brief resets counters
+    static void cleanup();
+
 
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
     /// @{

@@ -106,6 +106,28 @@ MSDevice_Tripinfo::~MSDevice_Tripinfo() {
     myPendingOutput.erase(this);
 }
 
+void
+MSDevice_Tripinfo::cleanup() {
+    myVehicleCount = 0;
+    myTotalRouteLength = 0;
+    myTotalDuration = 0;
+    myTotalWaitingTime = 0;
+    myTotalTimeLoss = 0;
+    myTotalDepartDelay = 0;
+
+    myWalkCount = 0;
+    myTotalWalkRouteLength = 0;
+    myTotalWalkDuration = 0;
+    myTotalWalkTimeLoss = 0;
+
+    myRideCount = 0;
+    myRideBusCount = 0;
+    myRideRailCount = 0;
+    myRideBikeCount = 0;
+    myRideAbortCount = 0;
+    myTotalRideRouteLength = 0;
+    myTotalRideDuration = 0;
+}
 
 bool
 MSDevice_Tripinfo::notifyMove(SUMOVehicle& veh, double /*oldPos*/,
