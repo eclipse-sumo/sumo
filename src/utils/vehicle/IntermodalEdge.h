@@ -46,22 +46,22 @@
 
 template <class E, class L>
 inline const L* getSidewalk(const E* edge) {
-    if (edge == 0) {
-        return 0;
+    if (edge == nullptr) {
+        return nullptr;
     }
     // prefer lanes that are exclusive to pedestrians
     const std::vector<L*>& lanes = edge->getLanes();
-    for (typename std::vector<L*>::const_iterator it = lanes.begin(); it != lanes.end(); ++it) {
-        if ((*it)->getPermissions() == SVC_PEDESTRIAN) {
-            return *it;
+    for (const L* const lane : lanes) {
+        if (lane->getPermissions() == SVC_PEDESTRIAN) {
+            return lane;
         }
     }
-    for (typename std::vector<L*>::const_iterator it = lanes.begin(); it != lanes.end(); ++it) {
-        if ((*it)->allowsVehicleClass(SVC_PEDESTRIAN)) {
-            return *it;
+    for (const L* const lane : lanes) {
+        if (lane->allowsVehicleClass(SVC_PEDESTRIAN)) {
+            return lane;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -121,7 +121,7 @@ public:
         myNumericalID(numericalID),
         myEdge(edge),
         myLine(line),
-        myLength(edge->getLength()) { }
+        myLength(edge == nullptr ? 0. : edge->getLength()) { }
 
     virtual ~IntermodalEdge() {}
 
@@ -167,11 +167,11 @@ public:
     }
 
     virtual double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
-        return 0;
+        return 0.;
     }
 
     static double getTravelTimeStatic(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
-        return edge->getTravelTime(trip, time);
+        return edge == nullptr ? 0. : edge->getTravelTime(trip, time);
     }
 
     inline double getLength() const {
