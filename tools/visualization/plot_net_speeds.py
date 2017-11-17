@@ -23,6 +23,7 @@ import sumolib  # noqa
 from sumolib.visualization import helpers
 
 import matplotlib.pyplot as plt
+import matplotlib
 
 
 def main(args=None):
@@ -84,7 +85,7 @@ def main(args=None):
     # drawing the legend, at least for the colors
     print("%s -> %s" % (minV, maxV))
     sm = matplotlib.cm.ScalarMappable(
-        cmap=get_cmap(options.colormap), norm=plt.normalize(vmin=minV, vmax=maxV))
+        cmap=matplotlib.cm.get_cmap(options.colormap), norm=plt.normalize(vmin=minV, vmax=maxV))
     # "fake up the array of the scalar mappable. Urgh..." (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
     sm._A = []
     plt.colorbar(sm)
