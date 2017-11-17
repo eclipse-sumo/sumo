@@ -58,7 +58,7 @@ def connect(port=8813, numRetries=10, host="localhost", proc=None):
             if wait < numRetries + 1:
                 print(" Retrying in %s seconds" % wait)
                 time.sleep(wait)
-    raise FatalTraCIError(str(e))
+    raise FatalTraCIError("Could not connect in %s tries" % (numRetries + 1))
 
 
 def init(port=8813, numRetries=10, host="localhost", label="default"):

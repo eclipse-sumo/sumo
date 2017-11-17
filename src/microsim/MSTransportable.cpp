@@ -337,6 +337,8 @@ void
 MSTransportable::Stage_Driving::setVehicle(SUMOVehicle* v) {
     myVehicle = v;
     myVehicleID = v->getID();
+    myVehicleLine = v->getParameter().line; 
+    myVehicleVClass = v->getVClass();
 }
 
 

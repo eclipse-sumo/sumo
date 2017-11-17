@@ -624,7 +624,7 @@ MSNet::clearAll() {
     MSLane::clear();
     MSRoute::clear();
     delete MSVehicleTransfer::getInstance();
-    MSDevice_Routing::cleanup();
+    MSDevice::cleanupAll();
     MSTrigger::cleanup();
     MSCalibrator::cleanup();
     MSPModel::cleanup();

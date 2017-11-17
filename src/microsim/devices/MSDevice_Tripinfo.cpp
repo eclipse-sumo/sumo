@@ -59,6 +59,14 @@ double MSDevice_Tripinfo::myTotalWalkRouteLength(0);
 SUMOTime MSDevice_Tripinfo::myTotalWalkDuration(0);
 SUMOTime MSDevice_Tripinfo::myTotalWalkTimeLoss(0);
 
+int MSDevice_Tripinfo::myRideCount(0);
+int MSDevice_Tripinfo::myRideBusCount(0);
+int MSDevice_Tripinfo::myRideRailCount(0);
+int MSDevice_Tripinfo::myRideBikeCount(0);
+int MSDevice_Tripinfo::myRideAbortCount(0);
+double MSDevice_Tripinfo::myTotalRideRouteLength(0);
+SUMOTime MSDevice_Tripinfo::myTotalRideDuration(0);
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -98,6 +106,28 @@ MSDevice_Tripinfo::~MSDevice_Tripinfo() {
     myPendingOutput.erase(this);
 }
 
+void
+MSDevice_Tripinfo::cleanup() {
+    myVehicleCount = 0;
+    myTotalRouteLength = 0;
+    myTotalDuration = 0;
+    myTotalWaitingTime = 0;
+    myTotalTimeLoss = 0;
+    myTotalDepartDelay = 0;
+
+    myWalkCount = 0;
+    myTotalWalkRouteLength = 0;
+    myTotalWalkDuration = 0;
+    myTotalWalkTimeLoss = 0;
+
+    myRideCount = 0;
+    myRideBusCount = 0;
+    myRideRailCount = 0;
+    myRideBikeCount = 0;
+    myRideAbortCount = 0;
+    myTotalRideRouteLength = 0;
+    myTotalRideDuration = 0;
+}
 
 bool
 MSDevice_Tripinfo::notifyMove(SUMOVehicle& veh, double /*oldPos*/,
@@ -283,6 +313,28 @@ MSDevice_Tripinfo::addPedestrianData(double walkLength, SUMOTime walkDuration, S
     myTotalWalkTimeLoss += walkTimeLoss;
 }
 
+void 
+MSDevice_Tripinfo::addRideData(double rideLength, SUMOTime rideDuration, SUMOVehicleClass vClass, const std::string& line) {
+    myRideCount++;
+    if (rideDuration > 0) {
+        myTotalRideRouteLength += rideLength;
+        myTotalRideDuration += rideDuration;
+        if (!line.empty()) {
+            if (isRailway(vClass)) {
+                myRideRailCount++;
+            } else if (vClass == SVC_BICYCLE) {
+                myRideBikeCount++;
+            } else {
+                // some kind of road vehicle
+                myRideBusCount++;
+            }
+        }
+    } else {
+        myRideAbortCount++;
+    }
+}
+
+
 std::string
 MSDevice_Tripinfo::printStatistics() {
     std::ostringstream msg;
@@ -299,6 +351,14 @@ MSDevice_Tripinfo::printStatistics() {
             << " RouteLength: " << getAvgWalkRouteLength() << "\n"
             << " Duration: " << getAvgWalkDuration() << "\n"
             << " TimeLoss: " << getAvgWalkTimeLoss() << "\n";
+    }
+    if (myRideCount > 0) {
+        msg << "Ride Statistics (avg of " << myRideCount << " rides):\n"
+            << " Duration: " << getAvgRideDuration() << "\n"
+            << " Bus: " << myRideBusCount << "\n"
+            << " Train: " << myRideRailCount << "\n"
+            << " Bike: " << myRideBikeCount << "\n"
+            << " Aborted: " << myRideAbortCount << "\n";
     }
     return msg.str();
 }
@@ -380,6 +440,15 @@ MSDevice_Tripinfo::getAvgWalkTimeLoss() {
     }
 }
 
+
+double
+MSDevice_Tripinfo::getAvgRideDuration() {
+    if (myRideCount > 0) {
+        return STEPS2TIME(myTotalRideDuration / myRideCount);
+    } else {
+        return 0;
+    }
+}
 
 void
 MSDevice_Tripinfo::saveState(OutputDevice& out) const {

@@ -669,7 +669,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
 
             // check leader on next lane
-            double gap = 0;
             MSLeaderInfo leaders = nextLane->getLastVehicleInformation(aVehicle, 0, 0);
             if (leaders.hasVehicles()) {
                 const double nspeed = nextLane->safeInsertionSpeed(aVehicle, seen, leaders, speed);

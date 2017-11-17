@@ -268,6 +268,8 @@ NBPTStopCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) 
         }
     }
 }
+
+
 void NBPTStopCont::postprocess(std::set<std::string>& usedStops) {
     for (auto i = myPTStops.begin(); i != myPTStops.end();) {
         if (usedStops.find(i->second->getID()) == usedStops.end()) {
@@ -277,6 +279,8 @@ void NBPTStopCont::postprocess(std::set<std::string>& usedStops) {
         }
     }
 }
+
+
 void NBPTStopCont::alginIdSigns() {
     for (auto i : myPTStops) {
         std::string sId = i.second->getID();
@@ -299,7 +303,9 @@ void NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadiu
 
     for (auto ptStop : myPTStops) {
         const std::string& stopEdgeID = ptStop.second->getEdgeId();
-        if (isRailway(cont.getByID(stopEdgeID)->getPermissions())) {
+        NBEdge* stopEdge = cont.getByID(stopEdgeID);
+        //std::cout << "findAccessEdgesForRailStops edge=" << stopEdgeID << " exists=" << (stopEdge != 0) << "\n";
+        if (stopEdge != 0 && isRailway(stopEdge->getPermissions())) {
             std::set<std::string> ids;
             Named::StoringVisitor visitor(ids);
             const Position& pos = ptStop.second->getPosition();
@@ -320,7 +326,9 @@ void NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadiu
                 for (auto lane : edge->getLanes()){
                     if (lane.permissions == SVC_PEDESTRIAN){
                         double offset = lane.shape.nearest_offset_to_point2D(pos,false);
-                        ptStop.second->addAccess(edge->getLaneID(laneIdx),offset);
+                        double finalLength = edge->getFinalLength();
+                        double laneLength = lane.shape.length();
+                        ptStop.second->addAccess(edge->getLaneID(laneIdx),offset*finalLength/laneLength);
                         cnt++;
                         break;
                     }

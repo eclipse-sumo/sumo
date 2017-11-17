@@ -73,6 +73,9 @@ public:
     /// @brief record tripinfo data for pedestrians
     static void addPedestrianData(double walkLength, SUMOTime walkDuration, SUMOTime walkTimeLoss);
 
+    /// @brief record tripinfo data for rides
+    static void addRideData(double rideLength, SUMOTime rideDuration, SUMOVehicleClass vClass, const std::string& line);
+
     /// @brief get statistics for printing to stdout
     static std::string printStatistics();
 
@@ -87,10 +90,15 @@ public:
     static double getAvgWalkDuration();
     static double getAvgWalkTimeLoss();
 
+    static double getAvgRideDuration();
+
 public:
     /// @brief Destructor.
     ~MSDevice_Tripinfo();
 
+
+    /// @brief resets counters
+    static void cleanup();
 
 
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
@@ -234,6 +242,14 @@ private:
     static double myTotalWalkRouteLength;
     static SUMOTime myTotalWalkDuration;
     static SUMOTime myTotalWalkTimeLoss;
+
+    static int myRideCount;
+    static int myRideBusCount;
+    static int myRideRailCount;
+    static int myRideBikeCount;
+    static int myRideAbortCount;;
+    static double myTotalRideRouteLength;
+    static SUMOTime myTotalRideDuration;
 
 private:
     /// @brief Invalidated copy constructor.

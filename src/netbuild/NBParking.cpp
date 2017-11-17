@@ -28,6 +28,7 @@
 #endif
 
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include "NBParking.h"
 #include "NBEdge.h"
@@ -53,7 +54,7 @@ NBParking::write(OutputDevice& device, NBEdgeCont& ec) const {
         }
         // keep minimum distance of 5m to junction corners
         const int cornerDistance = 5;
-        int capacity = (e->getFinalLength() - 2 * cornerDistance) / 7.5;
+        int capacity = (int)((e->getFinalLength() - 2 * cornerDistance) / 7.5);
         if (capacity <= 0) {
             WRITE_WARNING("Ignoring parking area on edge '" + e->getID() + "' due to insufficient space."); 
             return;
@@ -83,7 +84,9 @@ NBParking::write(OutputDevice& device, NBEdgeCont& ec) const {
 
 void 
 NBParkingCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) {
-    for (NBParking& p : *this) {
-        into.insert(p.getID());
+    if (oc.isSet("parking-output")) {
+        for (NBParking& p : *this) {
+            into.insert(p.getID());
+        }
     }
 }

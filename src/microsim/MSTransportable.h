@@ -31,6 +31,7 @@
 #include <set>
 #include <cassert>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Boundary.h>
@@ -356,7 +357,10 @@ public:
 
         /// @brief The taken vehicle
         SUMOVehicle* myVehicle;
+        /// @brief cached vehicle data for output after the vehicle has been removed
         std::string myVehicleID;
+        std::string myVehicleLine;
+        SUMOVehicleClass myVehicleVClass;
 
         double myWaitingPos;
         /// @brief The time since which this person is waiting for a ride
