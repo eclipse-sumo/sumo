@@ -1,13 +1,12 @@
 Warning: Adding laneCalibrator 'calibrator01' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Essential string attribute 'id' of laneCalibrator is missing; laneCalibrator cannot be created
-Warning: The id 'ID with spaces' of additional laneCalibrator contains invalid characters.
+Warning: Format of essential string attribute 'id' of laneCalibrator is invalid; 'ID with spaces' contains invalid characters; laneCalibrator cannot be created
 Warning: Format of essential string attribute 'id' of laneCalibrator is invalid; laneCalibrator cannot be created
 Warning: There is another laneCalibrator with the same ID='calibrator01'.
 Warning: Adding laneCalibrator 'calibrator02' in GNEChange_Additional
 Warning: additional calibrator must have either a lane or an edge attribute.
-Warning: The lane '' or edge '' to use within the calibrator '' is not known.
-Warning: The lane 'dummylane' or edge '' to use within the laneCalibrator 'calibrator04' is not known.
+Warning: The lane 'dummylane' to use within the laneCalibrator 'calibrator04' is not known.
 Warning: Adding laneCalibrator 'calibrator05' in GNEChange_Additional
 Warning: Optional float attribute 'pos' of laneCalibrator with ID 'calibrator06' is missing; Default value '0.00' will be used.
 Warning: Adding laneCalibrator 'calibrator06' in GNEChange_Additional
@@ -34,6 +33,7 @@ Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced laneCalibrator 'calibrator20'
+Warning: Additionals has to be saved
 Warning: Deleting unreferenced laneCalibrator 'calibrator19'
 Warning: Deleting unreferenced laneCalibrator 'calibrator18'
 Warning: Deleting unreferenced laneCalibrator 'calibrator17'
