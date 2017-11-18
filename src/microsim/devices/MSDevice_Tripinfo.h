@@ -247,7 +247,7 @@ private:
     static int myRideBusCount;
     static int myRideRailCount;
     static int myRideBikeCount;
-    static int myRideAbortCount;;
+    static int myRideAbortCount;
     static double myTotalRideRouteLength;
     static SUMOTime myTotalRideDuration;
 
