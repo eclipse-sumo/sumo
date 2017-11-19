@@ -31,15 +31,7 @@ netedit.selectMode()
 netedit.selectItems("Net Element", "edge", "allow", "passenger")
 
 # save selection
-netedit.focusOnFrame()
-for x in range(0, 16):
-    netedit.typeTab()
-netedit.typeSpace()
-# jump to filename textfield
-netedit.typeTwoKeys("f", Key.ALT)
-filename = os.path.join(netedit.textTestSandBox, "selection.txt")
-netedit.pasteIntoTextField(filename)
-netedit.typeEnter()
+netedit.saveSelection()
 
 # quit netedit
 netedit.quit(neteditProcess, True)
