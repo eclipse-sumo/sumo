@@ -1,31 +1,50 @@
 Warning: Current Viewport values: 25.00, 25.00, 25.00. Zoom = '100.00'
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Value 'dummyLane' for attribute lane of detEntry isn't valid
 Warning: Value '' for attribute lane of detEntry isn't valid
+Warning: Setting new attribute lane 'gneE3_1' into detEntry 'e3Detector_0detEntry0'
 Warning: Value '' for attribute pos of detEntry isn't valid
 Warning: Value '' for attribute pos of detEntry isn't valid
 Warning: Setting new attribute pos '25' into detEntry 'e3Detector_0detEntry0'
 Warning: Setting new attribute friendlyPos 'true' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute parentOfAdditional 'e3Detector_1' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute blockMovement 'true' into detEntry 'e3Detector_0detEntry0'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockMovement '0' into detEntry 'e3Detector_0detEntry0'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute parentOfAdditional 'e3Detector_0' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '29.50' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute lane 'gneE3_0' into detEntry 'e3Detector_0detEntry0'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
+Warning: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute lane 'gneE3_1' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '25' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute parentOfAdditional 'e3Detector_1' into detEntry 'e3Detector_0detEntry0'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockMovement 'true' into detEntry 'e3Detector_0detEntry0'
+Warning: e3Detector with ID 'e3Detector_0' cannot be writed in additional file because doesn't have childs.
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
@@ -37,6 +56,7 @@ Warning: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Additionals has to be saved
+Warning: Deleting unreferenced e3Detector 'e3Detector_1'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

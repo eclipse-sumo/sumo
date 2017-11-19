@@ -10,8 +10,10 @@ Warning: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_5' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_5detEntry0' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Removing e3Detector 'e3Detector_3' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_5detEntry0' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_4detEntry0' in GNEChange_Additional
@@ -45,17 +47,21 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding detEntry 'e3Detector_5detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Opening FXMessageBox 'Force deletion needed'
 Warning: Closed FXMessageBox 'Force deletion needed' with 'OK'
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Removing e3Detector 'e3Detector_3' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing detEntry 'e3Detector_5detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
