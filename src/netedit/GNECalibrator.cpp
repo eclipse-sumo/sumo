@@ -62,22 +62,22 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double relativePos, double frequency, const std::string& output) :
+GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, double frequency, const std::string& output) :
     GNEAdditional(id, viewNet, SUMO_TAG_CALIBRATOR, ICON_CALIBRATOR, true),
     myEdge(edge),
     myLane(NULL), 
-    myPositionOverLane(relativePos),
+    myPositionOverLane(pos / edge->getLanes().at(0)->getLaneParametricLength()),
     myFrequency(frequency),
     myOutput(output),
     myRouteProbe(NULL) /** change this in the future **/ {
 }
 
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double relativePos, double frequency, const std::string& output) :
+GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, double frequency, const std::string& output) :
     GNEAdditional(id, viewNet, SUMO_TAG_LANECALIBRATOR, ICON_CALIBRATOR, true),
     myEdge(NULL),
     myLane(lane),
-    myPositionOverLane(relativePos),
+    myPositionOverLane(pos / lane->getLaneParametricLength()),
     myFrequency(frequency),
     myOutput(output),
     myRouteProbe(NULL) /** change this in the future **/ {
@@ -381,15 +381,15 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
     case SUMO_ATTR_POSITION:
         if (canParse<double>(value)) {
             // obtain relative new start position
-            double newStartPos;
+            double newPosition;
             if(myEdge) {
-                newStartPos = parse<double>(value) / myEdge->getLanes().at(0)->getLaneParametricLength();
+                newPosition = parse<double>(value) / myEdge->getLanes().at(0)->getLaneParametricLength();
             } else if (myLane) {
-                newStartPos = parse<double>(value) / myLane->getLaneParametricLength();
+                newPosition = parse<double>(value) / myLane->getLaneParametricLength();
             } else {
                 throw ProcessError("Both myEdge and myLane aren't defined");
             }
-            if ((newStartPos < 0) || (newStartPos > 1)) {
+            if ((newPosition < 0) || (newPosition > 1)) {
                 return false;
             } else {
                 return true;
@@ -430,9 +430,9 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
         break;
     case SUMO_ATTR_POSITION:
         if(myEdge) {
-            myPositionOverLane = parse<double>(value) / myEdge->getLanes().at(0)->getShape().length();
+            myPositionOverLane = parse<double>(value) / myEdge->getLanes().at(0)->getLaneParametricLength();
         } else if (myLane) {
-            myPositionOverLane = parse<double>(value) / myLane->getShape().length();
+            myPositionOverLane = parse<double>(value) / myLane->getLaneParametricLength();
         } else {
             throw ProcessError("Both myEdge and myLane aren't defined");
         }
