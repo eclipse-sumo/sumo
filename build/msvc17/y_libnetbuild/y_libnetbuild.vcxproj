@@ -160,6 +160,7 @@
     <ClCompile Include="..\..\..\src\netbuild\NBNodeCont.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBNodeShapeComputer.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBOwnTLDef.cpp" />
+    <ClCompile Include="..\..\..\src\netbuild\NBParking.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBPTLine.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBPTLineCont.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBPTPlatform.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="..\..\..\src\netbuild\NBNodeCont.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBNodeShapeComputer.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBOwnTLDef.h" />
+    <ClInclude Include="..\..\..\src\netbuild\NBParking.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBPTLine.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBPTLineCont.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBPTPlatform.h" />
