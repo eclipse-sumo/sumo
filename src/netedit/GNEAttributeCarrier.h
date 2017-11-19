@@ -301,9 +301,14 @@ public:
             // declare a string for details about error formats
             std::string errorFormat;
             // set extra check for ID Values
-            if(attribute == SUMO_ATTR_ID && !isValidID(parsedAttribute)) {
-                errorFormat = "'" + parsedAttribute + "' contains invalid characters; ";
-                parsedOk = false;
+            if(attribute == SUMO_ATTR_ID) {
+                if(parsedAttribute.empty()) {
+                    errorFormat = "ID cannot be empty; ";
+                    parsedOk = false;
+                } else if(isValidID(parsedAttribute) == false) {
+                    errorFormat = "'" + parsedAttribute + "' contains invalid characters; ";
+                    parsedOk = false;
+                }
             }
             // Set extra checks for int values
             if (isInt(tag, attribute)) {

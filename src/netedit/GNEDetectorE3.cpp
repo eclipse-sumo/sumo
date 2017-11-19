@@ -243,7 +243,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
+        case SUMO_ATTR_ID: {
             // change ID of Entry
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             // Change Ids of all Entry/Exits childs 
@@ -252,9 +252,10 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                     i->setAttribute(SUMO_ATTR_ID, generateEntryID(), undoList);
                 } else {
                     i->setAttribute(SUMO_ATTR_ID, generateExitID(), undoList);
-
                 }
             }
+            break;
+        }
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_X:
         case SUMO_ATTR_Y:
