@@ -9,7 +9,7 @@ Warning: Optional float attribute 'efficiency' of chargingStation is missing; De
 Warning: Optional bool attribute 'chargeInTransit' of chargingStation is missing; Default value '0' will be used.
 Warning: Optional time attribute 'chargeDelay' of chargingStation is missing; Default value '0.00' will be used.
 Warning: Essential string attribute 'id' of chargingStation is missing; chargingStation cannot be created
-Warning: The id 'id with spaces' of additional chargingStation contains invalid characters.
+Warning: Format of essential string attribute 'id' of chargingStation is invalid; 'id with spaces' contains invalid characters; chargingStation cannot be created
 Warning: There is another chargingStation with the same ID='chargingStation_0'.
 Warning: Essential string attribute 'lane' of chargingStation with ID 'chargingStation_1' is missing; chargingStation cannot be created
 Warning: The lane 'dummyLane' to use within the chargingStation 'chargingStation_2' is not known.

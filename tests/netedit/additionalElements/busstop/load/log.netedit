@@ -5,7 +5,7 @@ Warning: Essential string attribute 'lane' of busStop is missing; busStop cannot
 Warning: Essential float attribute 'startPos' of busStop is missing; busStop cannot be created
 Warning: Essential float attribute 'endPos' of busStop is missing; busStop cannot be created
 Warning: Essential string attribute 'id' of busStop is missing; busStop cannot be created
-Warning: The id 'ID with spaces' of additional busStop contains invalid characters.
+Warning: Format of essential string attribute 'id' of busStop is invalid; 'ID with spaces' contains invalid characters; busStop cannot be created
 Warning: There is another busStop with the same ID='busStop_00'.
 Warning: Essential string attribute 'lane' of busStop with ID 'busStop_01' is missing; busStop cannot be created
 Warning: The lane 'dummyLane' to use within the busStop 'busStop_02' is not known.

@@ -1,7 +1,7 @@
 Warning: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Essential string attribute 'id' of routeProbe is missing; routeProbe cannot be created
-Warning: The id 'id with spaces' of additional routeProbe contains invalid characters.
+Warning: Format of essential string attribute 'id' of routeProbe is invalid; 'id with spaces' contains invalid characters; routeProbe cannot be created
 Warning: Format of essential string attribute 'id' of routeProbe is invalid; routeProbe cannot be created
 Warning: There is another routeProbe with the same ID='routeProbe_01'.
 Warning: Adding routeProbe 'routeProbe_02' in GNEChange_Additional

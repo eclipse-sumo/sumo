@@ -10,7 +10,7 @@ Warning: Optional float attribute 'speedThreshold' of e2Detector is missing; Def
 Warning: Optional float attribute 'jamThreshold' of e2Detector is missing; Default value '10.00' will be used.
 Warning: Optional bool attribute 'cont' of e2Detector is missing; Default value '0' will be used.
 Warning: Optional bool attribute 'friendlyPos' of e2Detector is missing; Default value '0' will be used.
-Warning: The id 'id with spaces' of additional e2Detector contains invalid characters.
+Warning: Format of essential string attribute 'id' of e2Detector is invalid; 'id with spaces' contains invalid characters; e2Detector cannot be created
 Warning: There is another e2Detector with the same ID='E2_01'.
 Warning: The lane 'dummyLane' to use within the e2Detector 'E2_02' is not known.
 Warning: Essential string attribute 'lane' of e2Detector with ID 'E2_03' is missing; e2Detector cannot be created
