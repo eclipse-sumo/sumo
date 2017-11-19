@@ -1099,7 +1099,7 @@ GNEInspectorFrame::NeteditParameters::show() {
             shapeBlocked &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_SHAPE));
         }
         // show block shape
-        myHorizontalFrameBlockShape->hide();
+        myHorizontalFrameBlockShape->show();
         myCheckBoxBlockShape->setCheck(shapeBlocked);
         // update label
         if (shapeBlocked) {
@@ -1113,7 +1113,7 @@ GNEInspectorFrame::NeteditParameters::show() {
             shapeClosed &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_CLOSE_SHAPE));
         }
         // show close shape
-        myHorizontalFrameCloseShape->hide();
+        myHorizontalFrameCloseShape->show();
         myCheckBoxCloseShape->setCheck(shapeClosed);
         // update label
         if (shapeClosed) {
