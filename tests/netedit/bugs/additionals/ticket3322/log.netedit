@@ -14,7 +14,6 @@ Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
 Warning: Format of optional string attribute 'lanes' of variableSpeedSign with ID 'variableSpeedSign_0' is invalid; Default value '' will be used.
-Warning: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Removing e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
@@ -26,6 +25,7 @@ Warning: Removing connection 'gneE0_2->gneE1_2' from edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Warning: Removing edge 'gneE0' from net
+Warning: Removing rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Removing calibrator 'calibrator_gneE1_2' in GNEChange_Additional
 Warning: Removing routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Warning: Removing vaporizer 'vaporizer_0' in GNEChange_Additional
@@ -38,11 +38,9 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Removing edge 'gneE1' from net
-Warning: Removing rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Removing junction 'gneJ1' from net
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding junction 'gneJ1' into net
-Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Adding edge 'gneE1' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
@@ -55,6 +53,7 @@ Warning: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator_gneE1_2' in GNEChange_Additional
+Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Adding edge 'gneE0' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE0'
@@ -72,8 +71,8 @@ Warning: Opening FXMessageBox 'Force deletion needed'
 Warning: Closed FXMessageBox 'Force deletion needed' with 'OK'
 Warning: Key F5 (Compute) pressed
 Warning: Additionals saved
-Warning: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0'
 Warning: Deleting unreferenced vaporizer 'vaporizer_0'
+Warning: Additionals has to be saved
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
 Warning: Deleting unreferenced rerouter 'rerouter_0'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'

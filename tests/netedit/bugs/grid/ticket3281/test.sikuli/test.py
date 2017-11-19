@@ -47,8 +47,8 @@ netedit.moveElement(match, 215, 232, 215, 432)
 netedit.rebuildNetwork()
 
 # Check undo and redo
-netedit.undo(match, 3)
-netedit.redo(match, 3)
+netedit.undo(match, 2)
+netedit.redo(match, 2)
 
 # save newtork
 netedit.saveNetwork()

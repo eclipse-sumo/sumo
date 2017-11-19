@@ -5,11 +5,9 @@ Warning: Adding edge 'gneE0' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Warning: Setting new attribute shape '100.00,0.00' into edge 'gneE0'
+Warning: Merged shape's point
 Warning: Setting new attribute shape '100.00,-100.00' into edge 'gneE0'
 Warning: Key F5 (Compute) pressed
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute shape '100.00,0.00' into edge 'gneE0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute shape '' into edge 'gneE0'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -26,8 +24,6 @@ Warning: Adding edge 'gneE0' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute shape '100.00,0.00' into edge 'gneE0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute shape '100.00,-100.00' into edge 'gneE0'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
