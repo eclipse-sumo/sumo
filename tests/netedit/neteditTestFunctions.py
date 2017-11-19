@@ -931,12 +931,30 @@ def abortSelection():
 
 
 def selectDefault():
-    for x in range(0, 11):
+    for x in range(0, 19):
         typeTab()
     # type enter to select it
     typeEnter()
 
 
+"""
+@brief save selection
+"""
+
+
+def saveSelection():
+    focusOnFrame()
+    #jump to save
+    for x in range(0, 24):
+        typeTab()
+    typeSpace()
+    # jump to filename textfield
+    typeTwoKeys("f", Key.ALT)
+    filename = os.path.join(textTestSandBox, "selection.txt")
+    pasteIntoTextField(filename)
+    typeEnter()
+    
+    
 """
 @brief select items
 """
@@ -986,8 +1004,9 @@ def deleteSelectedItems():
 def modificationModeAdd():
     # focus current frame
     focusOnFrame()
-    # go to first editable element of frame
-    typeTab()
+    # jump to mode "add"
+    for x in range(0, 9):
+        typeTab()
     # select it
     typeSpace()
 
@@ -1000,7 +1019,7 @@ def modificationModeAdd():
 def modificationModeRemove():
     # focus current frame
     focusOnFrame()
-    # jump to value
+    # jump to mode "remove"
     for x in range(0, 10):
         typeTab()
     # select it
@@ -1015,7 +1034,7 @@ def modificationModeRemove():
 def modificationModeKeep():
     # focus current frame
     focusOnFrame()
-    # jump to value
+    # jump to mode "keep"
     for x in range(0, 11):
         typeTab()
     # select it
@@ -1030,7 +1049,7 @@ def modificationModeKeep():
 def modificationModeReplace():
     # focus current frame
     focusOnFrame()
-    # jump to value
+    # jump to mode "replace"
     for x in range(0, 12):
         typeTab()
     # select it
