@@ -110,6 +110,16 @@ Warning: Setting new attribute angle '180' into poly 'poly_5'
 Warning: Setting new attribute angle '180' into poly 'poly_6'
 Warning: Setting new attribute angle '180' into poly 'poly_7'
 Warning: Setting new attribute angle '180' into poly 'poly_8'
+Warning: Setting new attribute geo 'true' into poly 'poly_0'
+Warning: Setting new attribute geo 'true' into poly 'poly_1'
+Warning: Setting new attribute geo 'true' into poly 'poly_12'
+Warning: Setting new attribute geo 'true' into poly 'poly_2'
+Warning: Setting new attribute geo 'true' into poly 'poly_3'
+Warning: Setting new attribute geo 'true' into poly 'poly_4'
+Warning: Setting new attribute geo 'true' into poly 'poly_5'
+Warning: Setting new attribute geo 'true' into poly 'poly_6'
+Warning: Setting new attribute geo 'true' into poly 'poly_7'
+Warning: Setting new attribute geo 'true' into poly 'poly_8'
 Warning: Setting new attribute blockMovement 'true' into poly 'poly_0'
 Warning: Setting new attribute blockMovement 'true' into poly 'poly_1'
 Warning: Setting new attribute blockMovement 'true' into poly 'poly_12'
@@ -190,6 +200,10 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockShape '0' into poly 'poly_8'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockShape '0' into poly 'poly_7'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockShape '0' into poly 'poly_6'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockShape 'true' into poly 'poly_6'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockShape 'true' into poly 'poly_7'
 Warning: Keys Ctrl + Y (Redo) pressed
