@@ -36,10 +36,10 @@ netedit.leftClick(match, 100, 100)
 # change color to white (To see icon)
 netedit.modifyShapeDefaultValue(3, "white")
 
-# Change parameter 6 with a valid value
+# Change parameter 6 with a valid value (To see icon)
 netedit.modifyAttribute(6, "10")
 
-# Change parameter 6 with a valid value
+# Change parameter 6 with a valid value (To see icon)
 netedit.modifyAttribute(7, "10")
 
 # change imgfile (valid)
@@ -55,13 +55,13 @@ netedit.inspectMode()
 netedit.leftClick(match, 100, 100)
 
 # block POI
-netedit.modifyBoolAttribute(10)
+netedit.modifyBoolAttribute(12)
 
-# inspect first POI
+# inspect second POI
 netedit.leftClick(match, 100, 350)
 
 # block POI
-netedit.modifyBoolAttribute(10)
+netedit.modifyBoolAttribute(12)
 
 # go to move mode
 netedit.moveMode()
@@ -79,13 +79,13 @@ netedit.inspectMode()
 netedit.leftClick(match, 100, 100)
 
 # unblock POI
-netedit.modifyBoolAttribute(10)
+netedit.modifyBoolAttribute(12)
 
 # inspect first POI
 netedit.leftClick(match, 100, 350)
 
 # unblock POI
-netedit.modifyBoolAttribute(10)
+netedit.modifyBoolAttribute(12)
 
 # go to move mode
 netedit.moveMode()
