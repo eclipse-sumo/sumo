@@ -4,3 +4,4 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.141-b15, mixed mode)
 Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Error: Could not load 'paris.ico'.
 Loading failed!
+Error: Shape of a(n) user-supplied GEO position is broken: the position is neither x,y nor x,y,z.

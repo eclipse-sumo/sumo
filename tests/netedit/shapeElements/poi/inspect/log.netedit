@@ -12,10 +12,9 @@ Warning: Value 'dummyColor' for attribute color of poi isn't valid
 Warning: Setting new attribute color '255,255,500' into poi 'newID'
 Warning: Setting new attribute color 'blue' into poi 'newID'
 Warning: Setting new attribute color '125,60,200' into poi 'newID'
-Warning: Value 'dummyValue' for attribute lane of poi isn't valid
-Warning: Setting new attribute lane 'gneE1_0' into poi 'newID'
+Warning: Setting new attribute type 'dummyValue' into poi 'newID'
 Warning: Setting new attribute type 'myOwnType' into poi 'newID'
-Warning: Setting new attribute layer '0' into poi 'newID'
+Warning: Setting new attribute layer '3' into poi 'newID'
 Warning: Setting new attribute layer '-2' into poi 'newID'
 Warning: Setting new attribute layer '2' into poi 'newID'
 Warning: Setting new attribute width '0' into poi 'newID'
@@ -33,9 +32,17 @@ Warning: Setting new attribute angle '0' into poi 'newID'
 Warning: Setting new attribute angle '-12' into poi 'newID'
 Warning: Setting new attribute angle '500' into poi 'newID'
 Warning: Setting new attribute angle '30' into poi 'newID'
+Error: Shape of a(n) user-supplied GEO position is broken: the position is neither x,y nor x,y,z.
+Warning: GEO Shapes cannot be empty.
+Warning: Setting new attribute geoPosition '3.73,74.30' into poi 'newID'
+Warning: Setting new attribute geo 'true' into poi 'newID'
 Warning: Setting new attribute blockMovement 'true' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poi 'newID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poi 'newID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geoPosition '-4.60,7.50' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute angle '500.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -61,13 +68,13 @@ Warning: Setting previous attribute width '0.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute layer '-2.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute layer '0.00' into poi 'newID'
+Warning: Setting previous attribute layer '3.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute layer '0.00' into poi 'newID'
+Warning: Setting previous attribute layer '3.00' into poi 'newID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute type 'dummyValue' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute type '' into poi 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute lane '' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute color 'blue' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -82,10 +89,6 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute id 'POI_0' into poi ''
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poi 'POI_1' from viewNet
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing poi 'POI_0' from viewNet
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Adding poi 'POI_0' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poi 'POI_1' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -101,11 +104,11 @@ Warning: Setting new attribute color 'blue' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute color '125,60,200' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute lane 'gneE1_0' into poi 'newID'
+Warning: Setting new attribute type 'dummyValue' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute type 'myOwnType' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute layer '0' into poi 'newID'
+Warning: Setting new attribute layer '3' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute layer '-2' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -132,6 +135,10 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '500' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '30' into poi 'newID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geoPosition '3.73,74.30' into poi 'newID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'newID'
 Warning: Shapes saved
