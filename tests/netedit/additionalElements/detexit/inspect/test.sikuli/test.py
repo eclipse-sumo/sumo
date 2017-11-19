@@ -36,6 +36,9 @@ netedit.changeAdditional("e3Detector")
 # create E3
 netedit.leftClick(match, 250, 400)
 
+# create second E3
+netedit.leftClick(match, 350, 400)
+
 # select exit detector
 netedit.changeAdditional("detExit")
 
@@ -56,7 +59,7 @@ netedit.modifyAttribute(0, "dummyLane")
 netedit.modifyAttribute(0, "")
 
 # Change parameter 0 with a valid value (other lane)
-netedit.modifyAttribute(0, "gneE3_0")
+netedit.modifyAttribute(0, "gneE3_1")
 
 # Change parameter 1 with a non valid value (dummy position X)
 netedit.modifyAttribute(1, "dummy position")
@@ -67,12 +70,24 @@ netedit.modifyAttribute(1, "")
 # Change parameter 1 with a valid value (different position X)
 netedit.modifyAttribute(1, "25")
 
-# Change boolean parameter 1
+# Change boolean parameter 2
 netedit.modifyBoolAttribute(2)
 
+# Change parameter 1 with a non valid value (Invalid E3 ID)
+netedit.modifyAttribute(3, "invalidE3")
+
+# Change parameter 1 with a non valid value (Invalid E3 ID)
+netedit.modifyAttribute(3, "e3Detector_1")
+
+# Change boolean parameter 4 (block)
+netedit.modifyBoolAttribute(4)
+
 # Check undos and redos
-netedit.undo(match, 5)
-netedit.redo(match, 5)
+netedit.undo(match, 8)
+netedit.redo(match, 8)
+
+# save additionals
+netedit.saveAdditionals()
 
 # save additionals
 netedit.saveAdditionals()
