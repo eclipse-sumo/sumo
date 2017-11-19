@@ -7,7 +7,7 @@ Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Value 'e3Detector_1' for attribute id of e3Detector isn't valid
 Warning: Value 'Id with spaces' for attribute id of e3Detector isn't valid
 Warning: Setting new attribute id 'correctID' into e3Detector 'e3Detector_0'
-Warning: Setting new attribute id 'correctIDdetEntry0' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute id 'correctIDdetExit0' into detEntry 'e3Detector_0detEntry0'
 Warning: Setting new attribute x '0' into e3Detector 'correctID'
 Warning: Setting new attribute x '0' into e3Detector 'correctID'
 Warning: Setting new attribute x '25' into e3Detector 'correctID'
@@ -55,7 +55,7 @@ Warning: Setting previous attribute x '0.00' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute x '22.29' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute id 'e3Detector_0detEntry0' into detEntry 'correctIDdetEntry0'
+Warning: Setting previous attribute id 'e3Detector_0detEntry0' into detEntry 'correctIDdetExit0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute id 'e3Detector_0' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -78,7 +78,7 @@ Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute id 'correctID' into e3Detector 'e3Detector_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute id 'correctIDdetEntry0' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute id 'correctIDdetExit0' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute x '0' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -119,7 +119,7 @@ Warning: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
 Warning: Additionals has to be saved
-Warning: Deleting unreferenced detEntry 'correctIDdetEntry0'
+Warning: Deleting unreferenced detEntry 'correctIDdetExit0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_1'
 Warning: Deleting unreferenced e3Detector 'correctID'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
