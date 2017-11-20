@@ -703,7 +703,14 @@ TraCITestClient::testAPI() {
                   << " length=" << c.length
                   << "\n";
     }
+    answerLog << "    getFoes: " << joinToString(lane.getFoes("e_vu0_0", "e_m4_0"), " ") << "\n";
+    try {
+        answerLog << "    getFoes (invalid): " << joinToString(lane.getFoes("e_vu0_0", "e_m4_1"), " ") << "\n";
+    } catch (tcpip::SocketException&) {}
     answerLog << "    getInternalFoes: " << joinToString(lane.getInternalFoes(":n_m4_2_0"), " ") << "\n";
+    try {
+        answerLog << "    getInternalFoes (invalid): " << joinToString(lane.getInternalFoes("dummy"), " ") << "\n";
+    } catch (tcpip::SocketException&) {}
 
     // route
     answerLog << "  route:\n";

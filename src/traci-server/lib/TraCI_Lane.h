@@ -79,7 +79,8 @@ public:
     static int getLastStepVehicleNumber(std::string laneID);
     static int getLastStepHaltingNumber(std::string laneID);
     static std::vector<std::string> getLastStepVehicleIDs(std::string laneID);
-    static std::vector<std::string> getFoes(std::string laneID);
+    static std::vector<std::string> getFoes(const std::string& laneID, const std::string& toLaneID);
+    static std::vector<std::string> getInternalFoes(const std::string& laneID);
 
     // Setter
     static void setAllowed(std::string laneID, std::vector<std::string> allowedClasses);

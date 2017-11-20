@@ -266,9 +266,24 @@ TraCI_Lane::getLastStepVehicleIDs(std::string laneID) {
     return vehIDs;
 }
 
+std::vector<std::string> 
+TraCI_Lane::getFoes(const std::string& laneID, const std::string& toLaneID) {
+    std::vector<std::string> foeIDs;
+    const MSLane* from = getLane(laneID);
+    const MSLane* to = getLane(toLaneID);
+    const MSLink* link = MSLinkContHelper::getConnectingLink(*from, *to);
+    if (link == 0) {
+        throw TraCIException("No connection from lane '" + laneID + "' to lane '" + toLaneID + "'");
+    }
+    for (MSLink* foe : link->getFoeLinks()) {
+        foeIDs.push_back(foe->getLaneBefore()->getID());
+    }
+    return foeIDs;
+}
+
 
 std::vector<std::string>
-TraCI_Lane::getFoes(std::string laneID) {
+TraCI_Lane::getInternalFoes(const std::string& laneID) {
     const MSLane *lane = getLane(laneID);
     const std::vector<const MSLane*> *foeLanes;
     std::vector<const MSLane*>::const_iterator it;
@@ -282,7 +297,6 @@ TraCI_Lane::getFoes(std::string laneID) {
             foeIDs.push_back((*it)->getID());
         }
     }
-
     return foeIDs;
 }
 

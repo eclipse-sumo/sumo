@@ -1135,9 +1135,37 @@ TraCIAPI::LaneScope::getLastStepVehicleIDs(const std::string& laneID) const {
     return myParent.getStringVector(CMD_GET_LANE_VARIABLE, LAST_STEP_VEHICLE_ID_LIST, laneID);
 }
 
+
+std::vector<std::string> 
+TraCIAPI::LaneScope::getFoes(const std::string& laneID, const std::string& toLaneID) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(toLaneID);
+    myParent.send_commandGetVariable(CMD_GET_LANE_VARIABLE, VAR_FOES, laneID, &content);
+    tcpip::Storage inMsg;
+    myParent.processGET(inMsg, CMD_GET_LANE_VARIABLE, TYPE_STRINGLIST);
+    int size = inMsg.readInt();
+    std::vector<std::string> r;
+    for (int i = 0; i < size; ++i) {
+        r.push_back(inMsg.readString());
+    }
+    return r;
+}
+
 std::vector<std::string>
-TraCIAPI::LaneScope::getInternalFoes(const std::string laneID) const {
-    return myParent.getStringVector(CMD_GET_LANE_VARIABLE, LANE_FOES, laneID);
+TraCIAPI::LaneScope::getInternalFoes(const std::string& laneID) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString("");
+    myParent.send_commandGetVariable(CMD_GET_LANE_VARIABLE, VAR_FOES, laneID, &content);
+    tcpip::Storage inMsg;
+    myParent.processGET(inMsg, CMD_GET_LANE_VARIABLE, TYPE_STRINGLIST);
+    int size = inMsg.readInt();
+    std::vector<std::string> r;
+    for (int i = 0; i < size; ++i) {
+        r.push_back(inMsg.readString());
+    }
+    return r;
 }
 
 

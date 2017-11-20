@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Nov 20 21:56:08 2017
+TraCITestClient output file. Date: Mon Nov 20 22:41:14 2017
 
 
 -> Command sent: <SimulationStep>:
@@ -20,6 +20,7 @@ testAPI:
     approachedLane=e_shape1_1 hasPrio=1 isOpen=1 hasFoe=0 approachedInternal=:n_m7_0_1 state=M direction=r length=7.91
     approachedLane=e_shape1_2 hasPrio=1 isOpen=1 hasFoe=0 approachedInternal=:n_m7_0_2 state=M direction=r length=7.91
     approachedLane=e_shape0_0 hasPrio=1 isOpen=1 hasFoe=0 approachedInternal=:n_m7_3_0 state=M direction=l length=19.06
+    getFoes: e_m3_0 e_m3_1 e_m3_2
     getInternalFoes: :n_m4_7_0 :n_m4_0_1 :n_m4_4_0 :n_m4_4_1 :n_m4_4_2
   route:
     add:
