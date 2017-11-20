@@ -83,7 +83,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     RGBColor color = RGBColor::parseColor(oc.getString("color"));
     double layer = oc.getFloat("layer");
     std::string idField = oc.getString("shapefile.id-column");
-    bool useRunningID = oc.getBool("shapefile.use-running-id");
+    bool useRunningID = oc.getBool("shapefile.use-running-id") || idField == "";
     // start parsing
     std::string shpName = file + ".shp";
     int fillType = -1;

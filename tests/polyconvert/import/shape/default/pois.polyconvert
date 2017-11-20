@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 09/08/16 09:31:11 by SUMO polyconvert Version dev-SVN-r21433
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <shapefile-prefixes value="data/shape"/>
+        <shapefile.use-running-id value="true"/>
+    </input>
+
+    <output>
+        <output-file value="pois.poi.xml"/>
+    </output>
+
+    <projection>
+        <proj.scale value="0"/>
+    </projection>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poly id="0" type="unknown" color="51,128,255" fill="1" layer="-1.00" shape="550.00,626.00 948.00,674.00 871.00,283.00 344.00,258.00 379.00,507.00 550.00,626.00"/>
+</additional>
