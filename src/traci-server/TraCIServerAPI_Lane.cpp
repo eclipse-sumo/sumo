@@ -64,8 +64,8 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             && variable != LAST_STEP_MEAN_SPEED && variable != LAST_STEP_VEHICLE_NUMBER
             && variable != LAST_STEP_VEHICLE_ID_LIST && variable != LAST_STEP_OCCUPANCY && variable != LAST_STEP_VEHICLE_HALTING_NUMBER
             && variable != LAST_STEP_LENGTH && variable != VAR_CURRENT_TRAVELTIME
-            && variable != LANE_ALLOWED && variable != LANE_DISALLOWED && variable != VAR_WIDTH && variable != ID_COUNT
-            && variable != VAR_PARAMETER
+            && variable != LANE_ALLOWED && variable != LANE_DISALLOWED && variable != LANE_FOES
+            && variable != VAR_WIDTH && variable != ID_COUNT && variable != VAR_PARAMETER
        ) {
         return server.writeErrorStatusCmd(CMD_GET_LANE_VARIABLE, "Get Lane Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -157,6 +157,11 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             case LANE_DISALLOWED: {
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
                 tempMsg.writeStringList(TraCI_Lane::getDisallowed(id));
+            }
+            break;
+            case LANE_FOES: {
+                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                tempMsg.writeStringList(TraCI_Lane::getFoes(id));
             }
             break;
             case VAR_SHAPE: {

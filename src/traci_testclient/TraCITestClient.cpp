@@ -703,6 +703,7 @@ TraCITestClient::testAPI() {
                   << " length=" << c.length
                   << "\n";
     }
+    answerLog << "    getInternalFoes: " << joinToString(lane.getInternalFoes(":n_m4_2_0"), " ") << "\n";
 
     // route
     answerLog << "  route:\n";

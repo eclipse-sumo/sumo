@@ -32,7 +32,7 @@
 // ****************************************
 // VERSION
 // ****************************************
-#define TRACI_VERSION 16
+#define TRACI_VERSION 17
 
 // ****************************************
 // COMMANDS
@@ -543,6 +543,9 @@
 
 // list of not allowed vehicle classes (get&set: lanes)
 #define LANE_DISALLOWED 0x35
+
+// list of all higher prioritized foes (get: lanes)
+#define LANE_FOES 0x37
 
 // slope (get: edge, lane, vehicle, person)
 #define VAR_SLOPE 0x36

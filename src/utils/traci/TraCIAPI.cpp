@@ -1135,6 +1135,11 @@ TraCIAPI::LaneScope::getLastStepVehicleIDs(const std::string& laneID) const {
     return myParent.getStringVector(CMD_GET_LANE_VARIABLE, LAST_STEP_VEHICLE_ID_LIST, laneID);
 }
 
+std::vector<std::string>
+TraCIAPI::LaneScope::getInternalFoes(const std::string laneID) const {
+    return myParent.getStringVector(CMD_GET_LANE_VARIABLE, LANE_FOES, laneID);
+}
+
 
 void
 TraCIAPI::LaneScope::setAllowed(const std::string& laneID, const std::vector<std::string>& allowedClasses) const {

@@ -311,6 +311,7 @@ public:
         int getLastStepVehicleNumber(const std::string& laneID) const;
         int getLastStepHaltingNumber(const std::string& laneID) const;
         std::vector<std::string> getLastStepVehicleIDs(const std::string& laneID) const;
+        std::vector<std::string> getInternalFoes(const std::string laneID) const;
 
         void setAllowed(const std::string& laneID, const std::vector<std::string>& allowedClasses) const;
         void setDisallowed(const std::string& laneID, const std::vector<std::string>& disallowedClasses) const;

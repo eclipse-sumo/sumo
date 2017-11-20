@@ -267,6 +267,24 @@ TraCI_Lane::getLastStepVehicleIDs(std::string laneID) {
 }
 
 
+std::vector<std::string>
+TraCI_Lane::getFoes(std::string laneID) {
+    const MSLane *lane = getLane(laneID);
+    const std::vector<const MSLane*> *foeLanes;
+    std::vector<const MSLane*>::const_iterator it;
+    std::vector<std::string> foeIDs;
+
+    if (lane->isInternal()) {
+        MSLink *link = lane->getLinkCont().front();
+        foeLanes = &link->getFoeLanes();
+
+        for (it = foeLanes->begin(); foeLanes->end() != it; ++it) {
+            foeIDs.push_back((*it)->getID());
+        }
+    }
+
+    return foeIDs;
+}
 
 
 void
