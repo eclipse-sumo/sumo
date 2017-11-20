@@ -95,6 +95,8 @@ try:
 except traci.TraCIException:
     pass
 print("getParameter", traci.simulation.getParameter("cs1", "chargingStation.totalEnergyCharged"))
+print("getParameter parkingArea.capacity", traci.simulation.getParameter("pa1", "parkingArea.capacity"))
+print("getParameter parkingArea.occupancy", traci.simulation.getParameter("pa1", "parkingArea.occupancy"))
 try:
     print("getBusStopWaiting", traci.simulation.getBusStopWaiting("foo"))
 except traci.TraCIException:

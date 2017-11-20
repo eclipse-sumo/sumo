@@ -207,6 +207,19 @@ TraCI_Simulation::getParameter(const std::string& objectID, const std::string& k
         } else {
             throw TraCIException("Invalid chargingStation parameter '" + attrName + "'");
         }
+    } else if (StringUtils::startsWith(key, "parkingArea.")) {
+        const std::string attrName = key.substr(12);
+        MSParkingArea* pa = MSNet::getInstance()->getParkingArea(objectID);
+        if (pa == 0) {
+            throw TraCIException("Invalid parkingArea '" + objectID + "'");
+        }
+        if (attrName == "capacity") {
+            return toString(pa->getCapacity());
+        } else if (attrName == "occupancy") {
+            return toString(pa->getOccupancy());
+        } else {
+            throw TraCIException("Invalid parkingArea parameter '" + attrName + "'");
+        }
     } else {
         throw TraCIException("Parameter '" + key + "' is not supported.");
     }
