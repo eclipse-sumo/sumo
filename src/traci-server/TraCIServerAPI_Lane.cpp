@@ -255,7 +255,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 case VAR_PARAMETER: {
                     std::string paramName = "";
                     if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                        return server.writeErrorStatusCmd(RESPONSE_GET_LANE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                        return server.writeErrorStatusCmd(CMD_GET_LANE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
                     }
                     tempMsg.writeUnsignedByte(TYPE_STRING);
                     tempMsg.writeString(TraCI_Lane::getParameter(id, paramName));
