@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:36528 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:38768 [Errno 111] Connection refused
  Retrying in 1 seconds
 {114: ['horiz', 'horiz1'], 116: []}
 step 0
@@ -51,7 +51,7 @@ drivingDistanceRoad 5136.7
 clearing pending
 save simstate
 getParameter 0.00
-getParameter parkingArea.capacity 1
+getParameter parkingArea.capacity 6
 getParameter parkingArea.occupancy 0
 getBusStopWaiting 0
 findRoute Stage(stageType=3, line='', destStop='', edges=['o', '2o'], travelTime=738.4, cost=738.4)
