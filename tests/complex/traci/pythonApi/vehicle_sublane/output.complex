@@ -1,4 +1,6 @@
 Loading configuration... done.
+Could not connect to TraCI server at localhost:56688 [Errno 111] Connection refused
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -648,9 +650,9 @@ pav edge=2fi pos=22.7822008538 stopState=0
 step 145
 pav edge=2fi pos=32.750886326 stopState=0
 step 146
-pav edge=2fi pos=40.646099216 stopState=0
+pav edge=2fi pos=40.631099216 stopState=0
 step 147
-pav edge=2fi pos=44.9046073733 stopState=0
+pav edge=2fi pos=44.8746073733 stopState=0
 step 148
 pav edge=2fi pos=-1001.0 stopState=131
 step 149
