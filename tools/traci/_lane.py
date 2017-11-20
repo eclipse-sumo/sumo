@@ -70,6 +70,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_LENGTH: Storage.readDouble,
                       tc.VAR_CURRENT_TRAVELTIME: Storage.readDouble,
                       tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,
                       tc.LAST_STEP_VEHICLE_HALTING_NUMBER: Storage.readInt,
+                      tc.VAR_FOES: Storage.readStringList,
                       tc.LAST_STEP_VEHICLE_ID_LIST: Storage.readStringList}
 
 
@@ -264,6 +265,22 @@ class LaneDomain(Domain):
         Returns the ids of the vehicles for the last time step on the given lane.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, laneID)
+
+    def getFoes(self, laneID, toLaneID):
+        """getFoes(string, string) -> list(string)
+        Returns the ids of incoming lanes that have right of way over the connection from laneID to toLaneID
+        """
+        self._connection._beginMessage(
+                tc.CMD_GET_LANE_VARIABLE, tc.VAR_FOES, laneID, 1 + 4 + len(toLaneID))
+        self._connection._packString(toLaneID)
+        return Storage.readStringList(
+                self._connection._checkResult(tc.CMD_GET_LANE_VARIABLE, tc.VAR_FOES, laneID))
+
+    def getInternalFoes(self, laneID):
+        """getFoes(string) -> list(string)
+        Returns the ids of internal lanes that are in conflict with the given internal lane id
+        """
+        return getFoes(laneID, "")
 
     def setAllowed(self, laneID, allowedClasses):
         """setAllowed(string, list) -> None

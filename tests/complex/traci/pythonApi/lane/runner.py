@@ -75,6 +75,8 @@ print("after setMaxSpeed", traci.lane.getMaxSpeed(laneID))
 traci.lane.setLength(laneID, 123.)
 print("after setLength", traci.lane.getLength(laneID))
 
+print("foes", traci.lane.getFoes("1si_0", "3o_0"))
+
 traci.lane.subscribe(laneID)
 print(traci.lane.getSubscriptionResults(laneID))
 for step in range(3, 6):
