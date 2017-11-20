@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 17 10:02:43 2017 by SUMO netconvert Version v0_31_0+1118-001553d3f4
+<!-- generated on Mon Nov 20 14:45:04 2017 by SUMO netconvert Version v0_31_0+1228-0bd30b2
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -54,8 +54,8 @@
         <access lane="26708288#0_0" pos="2.54" friendlyPos="1"/>
     </busStop>
     <busStop id="1865877888" name="Betriebshof Köpenick" lane="176023646#3_0" startPos="0.00" endPos="36.13" friendlyPos="true">
-        <access lane="403449586#0_0" pos="137.48" friendlyPos="1"/>
         <access lane="-403449586#0_0" pos="10.50" friendlyPos="1"/>
+        <access lane="403449586#0_0" pos="137.48" friendlyPos="1"/>
         <access lane="70415298#6_0" pos="61.27" friendlyPos="1"/>
         <access lane="-70415298#6_0" pos="0.00" friendlyPos="1"/>
     </busStop>
@@ -96,7 +96,7 @@
         <access lane="151260829#1_0" pos="17.67" friendlyPos="1"/>
         <access lane="93704176#2_0" pos="0.21" friendlyPos="1"/>
         <access lane="-93704176#2_0" pos="30.01" friendlyPos="1"/>
-        <access lane="-93704176#1_0" pos="0.00" friendlyPos="1"/>
+        <access lane="93704176#1_0" pos="3.34" friendlyPos="1"/>
     </busStop>
     <busStop id="3257062967" name="Müggelbergallee" lane="319292807_0" startPos="87.60" endPos="112.60" friendlyPos="true"/>
     <busStop id="3257062969" name="Pritstabelstraße" lane="319292807_0" startPos="1461.24" endPos="1486.24" friendlyPos="true">
@@ -145,7 +145,7 @@
     <busStop id="95948746" name="Krankenhaus Köpenick/Südseite" lane="10699464#3_0" startPos="317.37" endPos="352.44" friendlyPos="true">
         <access lane="-10855364#0_0" pos="4.63" friendlyPos="1"/>
         <access lane="10855364#0_0" pos="70.32" friendlyPos="1"/>
-        <access lane="10855364#1_0" pos="0.00" friendlyPos="1"/>
         <access lane="-10855364#1_0" pos="1.32" friendlyPos="1"/>
+        <access lane="10855364#1_0" pos="0.00" friendlyPos="1"/>
     </busStop>
 </additional>
