@@ -118,6 +118,10 @@ MSLaneChangerSublane::change() {
         return false;
     }
 #endif
+    if (!vehicle->isActive()){
+        registerUnchanged(vehicle);
+        return false;
+    }
     vehicle->updateBestLanes(); // needed?
     for (int i = 0; i < (int) myChanger.size(); ++i) {
         vehicle->adaptBestLanesOccupation(i, myChanger[i].dens);
