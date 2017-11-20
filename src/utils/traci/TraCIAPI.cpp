@@ -1154,18 +1154,7 @@ TraCIAPI::LaneScope::getFoes(const std::string& laneID, const std::string& toLan
 
 std::vector<std::string>
 TraCIAPI::LaneScope::getInternalFoes(const std::string& laneID) const {
-    tcpip::Storage content;
-    content.writeUnsignedByte(TYPE_STRING);
-    content.writeString("");
-    myParent.send_commandGetVariable(CMD_GET_LANE_VARIABLE, VAR_FOES, laneID, &content);
-    tcpip::Storage inMsg;
-    myParent.processGET(inMsg, CMD_GET_LANE_VARIABLE, TYPE_STRINGLIST);
-    int size = inMsg.readInt();
-    std::vector<std::string> r;
-    for (int i = 0; i < size; ++i) {
-        r.push_back(inMsg.readString());
-    }
-    return r;
+    return getFoes(laneID, "");
 }
 
 
