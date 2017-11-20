@@ -45,7 +45,7 @@ try:
     for line in subprocess.check_output(["git", "log", "%s..%s" % (options.begin, options.end)]).splitlines():
         if line.startswith("commit "):
             h = line.split()[1]
-            commits[h] = version.gitDescribe()
+            commits[h] = version.gitDescribe(h)
     for h, desc in sorted(commits.items(), key=lambda x: x[1]):
         if not os.path.exists('../bin%s' % desc):
             ret = subprocess.call(["git", "checkout", "-q", h])

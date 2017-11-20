@@ -96,8 +96,8 @@ def parseRevision(svnFile):
         return UNKNOWN_REVISION
 
 
-def gitDescribe():
-    d = subprocess.check_output(["git", "describe", "--long", "--always"]).strip()
+def gitDescribe(commit="HEAD"):
+    d = subprocess.check_output(["git", "describe", "--long", "--always", commit]).strip()
     if "-" in d:
         d = d.replace("-g", "-")
         m1 = d.find("-") + 1
@@ -118,6 +118,9 @@ def main():
     # determine output file
     if len(sys.argv) > 1:
         versionDir = sys.argv[1]
+        if sys.argv[1] == "-":
+            print(gitDescribe())
+            return
     else:
         versionDir = sumoSrc
     versionFile = join(versionDir, 'version.h')
