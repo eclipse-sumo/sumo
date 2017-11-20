@@ -52,6 +52,7 @@ net:net.net.xml
 vss:vss.xml
 rawdump:rawdump.xml
 fcd:fcd.xml
+lanechanges:lanechanges.xml
 results:results.csv
 tls_state:tls_state.xml
 log:log.txt
@@ -77,6 +78,7 @@ vehroutes2:<!--{[->]}-->
 tripinfo:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 fcd:<!--{[->]}-->
+lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
 tls_state:<!--{[->]}-->
 state:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}

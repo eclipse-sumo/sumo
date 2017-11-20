@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 20 Nov 2017 03:53:12 PM CET by Netedit Version v0_31_0+1228-0bd30b2
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumo/tests/complex/traci/pythonApi/bugs/ticket3634/input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumo/tests/complex/traci/pythonApi/bugs/ticket3634/input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,0.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
+
+    <edge id="beg" from="gneJ2" to="gneJ3" priority="1">
+        <lane id="beg_0" index="0" speed="13.89" length="1000.00" shape="0.00,-4.95 1000.00,-4.95"/>
+        <lane id="beg_1" index="1" speed="13.89" length="1000.00" shape="0.00,-1.65 1000.00,-1.65"/>
+    </edge>
+
+    <junction id="gneJ2" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-6.55"/>
+    <junction id="gneJ3" type="dead_end" x="1000.00" y="0.00" incLanes="beg_0 beg_1" intLanes="" shape="1000.00,-6.55 1000.00,-0.05"/>
+
+</net>
