@@ -197,74 +197,27 @@ public:
     }
 
 
-    /* @brief Adds a read bus stop to the network
+    /* @brief Adds a read stopping place (bus, train, container, parking)  to the network
      *
-     * If the bus stop is already known (another one with the same id exists),
+     * If the place is already known (another one with the same id and category exists),
      *  an error is generated and given to msg-error-handler. The stop
      *  is deleted in this case
      *
-     * @param[in] node The stop to add
+     * @param[in] id The name of the stop to add
+     * @param[in] category The type of stop
+     * @param[in] stop The detailed stop description
      */
-    void addBusStop(const std::string& id, SUMOVehicleParameter::Stop* stop);
+    void addStoppingPlace(const std::string& id, const SumoXMLTag category, SUMOVehicleParameter::Stop* stop);
 
-
-    /* @brief Adds a read container stop to the network
+    /** @brief Retrieves a stopping place from the network
      *
-     * If the container stop is already known (another one with the same id exists),
-     *  an error is generated and given to msg-error-handler. The stop
-     *  is deleted in this case
-     *
-     * @param[in] node The stop to add
-     */
-    void addContainerStop(const std::string& id, SUMOVehicleParameter::Stop* stop);
-
-
-    /* @brief Adds a read parking area to the network
-     *
-     * If the parking area is already known (another one with the same id exists),
-     *  an error is generated and given to msg-error-handler. The stop
-     *  is deleted in this case
-     *
-     * @param[in] node The stop to add
-     */
-    void addParkingArea(const std::string& id, SUMOVehicleParameter::Stop* stop);
-
-    /** @brief Retrieves a bus stop from the network
-     *
-     * @param[in] name The name of the stop to retrieve
+     * @param[in] id The name of the stop to retrieve
+     * @param[in] category The type of stop
      * @return The named stop if known, otherwise 0
      */
-    const SUMOVehicleParameter::Stop* getBusStop(const std::string& id) const {
-        std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myBusStops.find(id);
-        if (it == myBusStops.end()) {
-            return 0;
-        }
-        return it->second;
-    }
-
-
-    /** @brief Retrieves a container stop from the network
-     *
-     * @param[in] name The name of the stop to retrieve
-     * @return The named stop if known, otherwise 0
-     */
-    const SUMOVehicleParameter::Stop* getContainerStop(const std::string& id) const {
-        std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myContainerStops.find(id);
-        if (it == myContainerStops.end()) {
-            return 0;
-        }
-        return it->second;
-    }
-
-
-    /** @brief Retrieves a parking area from the network
-     *
-     * @param[in] name The name of the stop to retrieve
-     * @return The named stop if known, otherwise 0
-     */
-    const SUMOVehicleParameter::Stop* getParkingArea(const std::string& id) const {
-        std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myParkingAreas.find(id);
-        if (it == myParkingAreas.end()) {
+    const SUMOVehicleParameter::Stop* getStoppingPlace(const std::string& id, const SumoXMLTag category) const {
+        const auto it = myStoppingPlaces.find(std::make_pair(id, category));
+        if (it == myStoppingPlaces.end()) {
             return 0;
         }
         return it->second;
@@ -505,14 +458,8 @@ private:
     /// @brief Known edges
     NamedObjectCont<ROEdge*> myEdges;
 
-    /// @brief Known bus stops
-    std::map<std::string, SUMOVehicleParameter::Stop*> myBusStops;
-
-    /// @brief Known container stops
-    std::map<std::string, SUMOVehicleParameter::Stop*> myContainerStops;
-
-    /// @brief Known parking areas
-    std::map<std::string, SUMOVehicleParameter::Stop*> myParkingAreas;
+    /// @brief Known bus / train / container stops and parking areas
+    std::map<std::pair<std::string, SumoXMLTag>, SUMOVehicleParameter::Stop*> myStoppingPlaces;
 
     /// @brief Known vehicle types
     NamedObjectCont<SUMOVTypeParameter*> myVehicleTypes;

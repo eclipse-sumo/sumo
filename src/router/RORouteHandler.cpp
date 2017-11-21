@@ -579,7 +579,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     // try to parse the assigned bus stop
     ROEdge* edge = 0;
     if (stop.busstop != "") {
-        const SUMOVehicleParameter::Stop* busstop = myNet.getBusStop(stop.busstop);
+        const SUMOVehicleParameter::Stop* busstop = myNet.getStoppingPlace(stop.busstop, SUMO_TAG_BUS_STOP);
         if (busstop == 0) {
             myErrorOutput->inform("Unknown bus stop '" + stop.busstop + "'" + errorSuffix);
             return;
@@ -590,9 +590,10 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
     } // try to parse the assigned container stop
     else if (stop.containerstop != "") {
-        const SUMOVehicleParameter::Stop* containerstop = myNet.getContainerStop(stop.containerstop);
+        const SUMOVehicleParameter::Stop* containerstop = myNet.getStoppingPlace(stop.containerstop, SUMO_TAG_CONTAINER_STOP);
         if (containerstop == 0) {
             myErrorOutput->inform("Unknown container stop '" + stop.containerstop + "'" + errorSuffix);
+            return;
         }
         stop.lane = containerstop->lane;
         stop.endPos = containerstop->endPos;
@@ -600,9 +601,10 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
     } // try to parse the assigned parking area
     else if (stop.parkingarea != "") {
-        const SUMOVehicleParameter::Stop* parkingarea = myNet.getParkingArea(stop.parkingarea);
+        const SUMOVehicleParameter::Stop* parkingarea = myNet.getStoppingPlace(stop.parkingarea, SUMO_TAG_PARKING_AREA);
         if (parkingarea == 0) {
             myErrorOutput->inform("Unknown parking area '" + stop.parkingarea + "'" + errorSuffix);
+            return;
         }
         stop.lane = parkingarea->lane;
         stop.endPos = parkingarea->endPos;

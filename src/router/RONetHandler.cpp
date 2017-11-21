@@ -311,13 +311,7 @@ RONetHandler::parseStoppingPlace(const SUMOSAXAttributes& attrs, const SumoXMLTa
     if (!ok || !SUMORouteHandler::checkStopPos(myCurrentStoppingPlace->startPos, myCurrentStoppingPlace->endPos, edge->getLength(), POSITION_EPS, friendlyPos)) {
         throw InvalidArgument("Invalid position for " + toString(element) + " '" + id + "'.");
     }
-    if (element == SUMO_TAG_CONTAINER_STOP) {
-        myNet.addContainerStop(id, myCurrentStoppingPlace);
-    } else if (element == SUMO_TAG_PARKING_AREA) {
-        myNet.addParkingArea(id, myCurrentStoppingPlace);
-    } else {
-        myNet.addBusStop(id, myCurrentStoppingPlace);
-    }
+    myNet.addStoppingPlace(id, element, myCurrentStoppingPlace);
 }
 
 

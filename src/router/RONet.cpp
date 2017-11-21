@@ -113,11 +113,8 @@ RONet::~RONet() {
         }
         delete r;
     }
-    for (std::map<std::string, SUMOVehicleParameter::Stop*>::iterator it = myBusStops.begin(); it != myBusStops.end(); ++it) {
-        delete it->second;
-    }
-    for (std::map<std::string, SUMOVehicleParameter::Stop*>::iterator it = myContainerStops.begin(); it != myContainerStops.end(); ++it) {
-        delete it->second;
+    for (auto stopDesc : myStoppingPlaces) {
+        delete stopDesc.second;
     }
     myNodes.clear();
     myEdges.clear();
@@ -206,35 +203,14 @@ RONet::addNode(RONode* node) {
 
 
 void
-RONet::addBusStop(const std::string& id, SUMOVehicleParameter::Stop* stop) {
-    std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myBusStops.find(id);
-    if (it != myBusStops.end()) {
-        WRITE_ERROR("The bus stop '" + id + "' occurs at least twice.");
+RONet::addStoppingPlace(const std::string& id, const SumoXMLTag category, SUMOVehicleParameter::Stop* stop) {
+    const std::pair<std::string, SumoXMLTag> key = std::make_pair(id, category == SUMO_TAG_TRAIN_STOP ? SUMO_TAG_BUS_STOP : category);
+    if (myStoppingPlaces.find(key) != myStoppingPlaces.end()) {
+        WRITE_ERROR("The " + toString(category) + " '" + id + "' occurs at least twice.");
         delete stop;
+    } else {
+        myStoppingPlaces[key] = stop;
     }
-    myBusStops[id] = stop;
-}
-
-
-void
-RONet::addContainerStop(const std::string& id, SUMOVehicleParameter::Stop* stop) {
-    std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myContainerStops.find(id);
-    if (it != myContainerStops.end()) {
-        WRITE_ERROR("The container stop '" + id + "' occurs at least twice.");
-        delete stop;
-    }
-    myContainerStops[id] = stop;
-}
-
-
-void
-RONet::addParkingArea(const std::string& id, SUMOVehicleParameter::Stop* stop) {
-    std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myParkingAreas.find(id);
-    if (it != myParkingAreas.end()) {
-        WRITE_ERROR("The parking area '" + id + "' occurs at least twice.");
-        delete stop;
-    }
-    myParkingAreas[id] = stop;
 }
 
 
@@ -677,10 +653,10 @@ RONet::getEdgeMap() const {
 void
 RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
     // add access to all public transport stops
-    for (std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator i = myInstance->myBusStops.begin(); i != myInstance->myBusStops.end(); ++i) {
-        router.addAccess(i->first, myInstance->getEdgeForLaneID(i->second->lane), i->second->endPos);
-        for (std::multimap<std::string, double>::const_iterator a = i->second->accessPos.begin(); a != i->second->accessPos.end(); ++a) {
-            router.addAccess(i->first, myInstance->getEdgeForLaneID(a->first), a->second);
+    for (auto stop : myInstance->myStoppingPlaces) {
+        router.addAccess(stop.first.first, myInstance->getEdgeForLaneID(stop.second->lane), stop.second->endPos);
+        for (std::multimap<std::string, double>::const_iterator a = stop.second->accessPos.begin(); a != stop.second->accessPos.end(); ++a) {
+            router.addAccess(stop.first.first, myInstance->getEdgeForLaneID(a->first), a->second);
         }
     }
     // fill the public transport router with pre-parsed public transport lines
