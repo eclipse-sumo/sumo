@@ -586,6 +586,7 @@ public:
      */
     inline bool isActionStep(SUMOTime t) const {
         return (t - myLastActionTime)%getActionStepLength() == 0;
+//        return t%getActionStepLength() == 0; // synchronized actions for all vehicles with identical actionsteplengths
     }
 
 
