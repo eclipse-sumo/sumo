@@ -1,4 +1,4 @@
-SUMO duarouter Version v0_31_0-940-g2875adb48a
+SUMO duarouter Version v0_31_0+1143-87c09f1032
  Copyright (C) 2001-2017 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.
@@ -100,8 +100,7 @@ Processing Options:
                                        maximum speed during intermodal routing
   --persontrip.transfer.car-walk STR  Where are mode changes from car to walking
                                        allowed (possible values: 'ptStops',
-                                       'deadEnds', 'allJunctions' and
-                                       combinations)
+                                       'allJunctions' and combinations)
 
 Defaults Options:
   --departlane STR                   Assigns a default depart lane

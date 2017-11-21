@@ -156,6 +156,12 @@
         <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
         <stop-output value="" type="FILE"/>
 
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR"/>
+
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -300,7 +306,7 @@
         <!-- Use FLOAT as a factor on pedestrian maximum speed during intermodal routing -->
         <persontrip.walkfactor value="0.9" type="FLOAT"/>
 
-        <!-- Where are mode changes from car to walking allowed (possible values: &apos;ptStops&apos;, &apos;deadEnds&apos;, &apos;allJunctions&apos; and combinations) -->
+        <!-- Where are mode changes from car to walking allowed (possible values: &apos;ptStops&apos;, &apos;allJunctions&apos; and combinations) -->
         <persontrip.transfer.car-walk value="" type="STR"/>
 
         <!-- The probability for a vehicle to have a &apos;rerouting&apos; device -->
