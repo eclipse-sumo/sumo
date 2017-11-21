@@ -78,10 +78,8 @@ public:
     enum ModeChangeOptions {
         /// @brief public transport stops and access
         PT_STOPS = 1,
-        /// @brief junctions with edges allowing the additional mode but no cars
-        DEAD_ENDS = 2,
         /// @brief junctions with edges allowing the additional mode
-        ALL_JUNCTIONS = 4
+        ALL_JUNCTIONS = 2
     };
 
     /// Constructor
@@ -365,6 +363,7 @@ private:
     void addCarEdges(const std::vector<E*>& edges) {
         for (const E* const edge: edges) {
             if (!edge->isInternal() && !edge->isCrossing() && !edge->isWalkingArea()) {
+                // TODO what about TAZ?
                 myCarLookup[edge] = new CarEdge<E, L, N, V>(myNumericalID++, edge);
                 myIntermodalNet->addEdge(myCarLookup[edge]);
             }
@@ -375,12 +374,22 @@ private:
                 _IntermodalEdge* const sucCarEdge = getCarEdge(suc);
                 if (sucCarEdge != nullptr) {
                     carEdge->addSuccessor(sucCarEdge);
-                    if ((suc->getPermissions() & SVC_PEDESTRIAN) != 0) {
-                        _IntermodalEdge* pedFwd = myIntermodalNet->getBothDirections(suc).first;
-                        if ((suc->getPermissions() & SVC_PASSENGER) == 0 && (myCarWalkTransfer & DEAD_ENDS) != 0) {
-                            carEdge->addSuccessor(pedFwd);
-                        } else if ((myCarWalkTransfer & ALL_JUNCTIONS) != 0) {
-                            carEdge->addSuccessor(pedFwd);
+                }
+            }
+            if ((myCarWalkTransfer & ALL_JUNCTIONS) != 0) {
+                _IntermodalEdge* const walkCon = myIntermodalNet->getWalkingConnector(edgePair.first);
+                if (walkCon != 0) {
+                    carEdge->addSuccessor(walkCon);
+                } else {
+                    // we are on an edge where pedestrians are forbidden and want to continue on an arbitrary pedestrian edge
+                    for (const E* const out : edgePair.first->getToJunction()->getOutgoing()) {
+                        if (getSidewalk<E, L>(out) != 0) {
+                            carEdge->addSuccessor(myIntermodalNet->getBothDirections(out).first);
+                        }
+                    }
+                    for (const E* const in : edgePair.first->getToJunction()->getIncoming()) {
+                        if (getSidewalk<E, L>(in) != 0) {
+                            carEdge->addSuccessor(myIntermodalNet->getBothDirections(in).second);
                         }
                     }
                 }

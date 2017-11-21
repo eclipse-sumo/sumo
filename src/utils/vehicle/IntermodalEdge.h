@@ -157,7 +157,7 @@ public:
         myFollowingEdges.erase(std::find(myFollowingEdges.begin(), myFollowingEdges.end(), edge));
     }
 
-    const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass /*vClass*/) const {
+    virtual const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass /*vClass*/) const {
         // the network is already tailored. No need to check for permissions here
         return myFollowingEdges;
     }

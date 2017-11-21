@@ -63,10 +63,11 @@ public:
 #ifdef IntermodalRouter_DEBUG_NETWORK
         std::cout << "initIntermodalNetwork\n";
 #endif
+        const bool pedestrianOnly = numericalID == 0;
         // build the pedestrian edges and the depart / arrival connectors with lookup tables
         bool haveSeenWalkingArea = false;
         for (const E* const edge: edges) {
-            if (edge->isInternal()) {
+            if (edge->isInternal() || edge->isTazConnector()) {
                 continue;
             }
             const L* lane = getSidewalk<E, L>(edge);
@@ -94,6 +95,28 @@ public:
             }
         }
 
+        // build the walking connectors if there are no walking areas
+        for (const E* const edge : edges) {
+            if (edge->isInternal() || edge->isTazConnector()) {
+                continue;
+            }
+            if (haveSeenWalkingArea) {
+                if (!pedestrianOnly && getSidewalk<E, L>(edge) == nullptr) {
+                    const N* const node = edge->getToJunction();
+                    if (myWalkingConnectorLookup.count(node) == 0) {
+                        addEdge(new _IntermodalEdge(node->getID() + "_walking_connector", numericalID++, nullptr, "!connector"));
+                        myWalkingConnectorLookup[node] = myEdges.back();
+                    }
+                }
+            } else {
+                for (const N* const node : { edge->getFromJunction(), edge->getToJunction() }) {
+                    if (myWalkingConnectorLookup.count(node) == 0) {
+                        addEdge(new _IntermodalEdge(node->getID() + "_walking_connector", numericalID++, nullptr, "!connector"));
+                        myWalkingConnectorLookup[node] = myEdges.back();
+                    }
+                }
+            }
+        }
         // build the connections
         for (const E* const edge : edges) {
             const L* const sidewalk = getSidewalk<E, L>(edge);
@@ -110,10 +133,10 @@ public:
                 const std::vector<const L*> outgoing = sidewalk->getOutgoingLanes();
                 // if one of the outgoing lanes is a walking area it must be used.
                 // All other connections shall be ignored
+                // if it has no outgoing walking area, it probably is a walking area itself
                 bool hasWalkingArea = false;
                 for (const L* target : outgoing) {
-                    const E* const targetEdge = &(target->getEdge());
-                    if (targetEdge->isWalkingArea()) {
+                    if (target->getEdge().isWalkingArea()) {
                         hasWalkingArea = true;
                         break;
                     }
@@ -136,48 +159,18 @@ public:
 #endif
                     }
                 }
-            } else {
-                // we have a network without pedestrian structures. Assume that
-                // all sidewalks at a crossing are interconnected
-                const N* const toNode = edge->getToJunction();
-                for (const E* const targetEdge : toNode->getOutgoing()) {
-                    // build forward and backward connections for all outgoing sidewalks
-                    const L* const target = getSidewalk<E, L>(targetEdge);
-                    if (targetEdge->isInternal() || target == 0) {
-                        continue;
-                    }
-                    const EdgePair& targetPair = getBothDirections(targetEdge);
-                    pair.first->addSuccessor(targetPair.first);
-                    targetPair.second->addSuccessor(pair.second);
-#ifdef IntermodalRouter_DEBUG_NETWORK
-                    std::cout << "     " << pair.first->getID() << " -> " << targetPair.first->getID() << "\n";
-                    std::cout << "     " << targetPair.second->getID() << " -> " << pair.second->getID() << "\n";
-#endif
-                }
-                for (const E* const targetEdge : toNode->getIncoming()) {
-                    // build forward-to-backward connections for all incoming sidewalks
-                    const L* const target = getSidewalk<E, L>(targetEdge);
-                    if (targetEdge->isInternal() || target == 0 || targetEdge == edge) {
-                        continue;
-                    }
-                    const EdgePair& targetPair = getBothDirections(targetEdge);
-                    pair.first->addSuccessor(targetPair.second); // change direction
-#ifdef IntermodalRouter_DEBUG_NETWORK
-                    std::cout << "     " << pair.first->getID() << " -> " << targetPair.second->getID() << "\n";
-#endif
-                }
-                for (const E* const targetEdge : edge->getFromJunction()->getOutgoing()) {
-                    // build backward-to-forward connections for all outgoing sidewalks at the fromNode
-                    const L* const target = getSidewalk<E, L>(targetEdge);
-                    if (targetEdge->isInternal() || target == 0 || targetEdge == edge) {
-                        continue;
-                    }
-                    const EdgePair& targetPair = getBothDirections(targetEdge);
-                    pair.second->addSuccessor(targetPair.first);
-#ifdef IntermodalRouter_DEBUG_NETWORK
-                    std::cout << "     " << pair.second->getID() << " -> " << targetPair.first->getID() << "\n";
-#endif
-                }
+            }
+            // we may have a network without pedestrian structures or a car-only edge. Assume that
+            // all sidewalks at a crossing are interconnected
+            _IntermodalEdge* const toNodeConn = myWalkingConnectorLookup[edge->getToJunction()];
+            if (toNodeConn != nullptr) {
+                pair.first->addSuccessor(toNodeConn);
+                toNodeConn->addSuccessor(pair.second);
+            }
+            _IntermodalEdge* const fromNodeConn = myWalkingConnectorLookup[edge->getFromJunction()];
+            if (fromNodeConn != nullptr) {
+                pair.second->addSuccessor(fromNodeConn);
+                fromNodeConn->addSuccessor(pair.first);
             }
             if (edge->isWalkingArea()) {
                 continue;
@@ -224,7 +217,7 @@ public:
     }
 
     /// @brief Returns the pair of forward and backward edge
-    const EdgePair& getBothDirections(const E* e) {
+    const EdgePair& getBothDirections(const E* e) const {
         typename std::map<const E*, EdgePair>::const_iterator it = myBidiLookup.find(e);
         if (it == myBidiLookup.end()) {
             assert(false);
@@ -234,7 +227,7 @@ public:
     }
 
     /// @brief Returns the departing Intermodal edge
-    _IntermodalEdge* getDepartEdge(const E* e, const double pos = -1.) {
+    _IntermodalEdge* getDepartEdge(const E* e, const double pos = -1.) const {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myDepartLookup.find(e);
         if (it == myDepartLookup.end()) {
             throw ProcessError("Depart edge '" + e->getID() + "' not found in pedestrian network.");
@@ -250,7 +243,7 @@ public:
     }
 
     /// @brief Returns the arriving Intermodal edge
-    _IntermodalEdge* getArrivalEdge(const E* e, const double pos = -1.) {
+    _IntermodalEdge* getArrivalEdge(const E* e, const double pos = -1.) const {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myArrivalLookup.find(e);
         if (it == myArrivalLookup.end()) {
             throw ProcessError("Arrival edge '" + e->getID() + "' not found in pedestrian network.");
@@ -263,6 +256,24 @@ public:
             ++splitIt;
         }
         return *splitIt;
+    }
+
+    /// @brief Returns the outgoing pedestrian edge, which is either a walking area or a walking connector
+    _IntermodalEdge* getWalkingConnector(const E* e) const {
+        typename std::map<const N*, _IntermodalEdge*>::const_iterator it = myWalkingConnectorLookup.find(e->getToJunction());
+        if (it == myWalkingConnectorLookup.end()) {
+            const L* const sidewalk = getSidewalk<E, L>(e);
+            if (e->isInternal() || sidewalk == 0) {
+                return 0;
+            }
+            for (const L* target : sidewalk->getOutgoingLanes()) {
+                if (target->getEdge().isWalkingArea()) {
+                    return getBothDirections(&target->getEdge()).first;
+                }
+            }
+            return 0;
+        }
+        return it->second;
     }
 
 
@@ -278,6 +289,9 @@ private:
 
     /// @brief retrieve the arrival edges for the given input edge E
     std::map<const E*, std::vector<_IntermodalEdge*> > myArrivalLookup;
+
+    /// @brief the walking connector edge (fake walking area)
+    std::map<const N*, _IntermodalEdge*> myWalkingConnectorLookup;
 
 };
 

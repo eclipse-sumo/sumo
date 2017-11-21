@@ -1006,8 +1006,6 @@ MSNet::getIntermodalRouter(const MSEdgeVector& prohibited) const {
         for (const std::string& opt : OptionsCont::getOptions().getStringVector("persontrip.transfer.car-walk")) {
             if (opt == "ptStops") {
                 carWalk |= MSIntermodalRouter::PT_STOPS;
-            } else if (opt == "deadEnds") {
-                carWalk |= MSIntermodalRouter::DEAD_ENDS;
             } else if (opt == "allJunctions") {
                 carWalk |= MSIntermodalRouter::ALL_JUNCTIONS;
             }
