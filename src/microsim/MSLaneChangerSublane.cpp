@@ -228,7 +228,6 @@ bool
 MSLaneChangerSublane::continueChangeSublane(MSVehicle* vehicle, ChangerIt& from) {
     // lateral distance to complete maneuver
     const double remLatDist = vehicle->getLaneChangeModel().getManeuverDist();
-    const int direction = remLatDist < 0 ? -1 : 1;
     if (remLatDist == 0) {
         registerUnchanged(vehicle);
         return false;
