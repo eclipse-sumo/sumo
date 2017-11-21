@@ -1064,7 +1064,7 @@ enum LaneChangeAction {
     /// @brief blocked in all directions
     LCA_BLOCKED = LCA_BLOCKED_LEFT | LCA_BLOCKED_RIGHT | LCA_INSUFFICIENT_SPACE,
     /// @brief reasons of lane change
-    LCA_CHANGE_REASONS = (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT | LCA_SUBLANE)
+    LCA_CHANGE_REASONS = (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT | LCA_SUBLANE | LCA_TRACI)
                          // LCA_BLOCKED_BY_CURRENT_LEADER = 1 << 28
                          // LCA_BLOCKED_BY_CURRENT_FOLLOWER = 1 << 29
                          /// @}

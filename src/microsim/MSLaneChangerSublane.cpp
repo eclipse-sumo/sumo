@@ -300,6 +300,12 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
                 << "\n";
     vehicle->setAngle(laneAngle + changeAngle,
             vehicle->getLaneChangeModel().sublaneChangeCompleted(latDist));
+
+    // check if a traci manoeuvre must continue
+    if ((vehicle->getLaneChangeModel().getOwnState() & LCA_TRACI) != 0) {
+        if (vehicle->getLaneChangeModel().debugVehicle()) std::cout << SIMTIME << " continue TraCI-manoeuvre remainingLatDist=" << vehicle->getLaneChangeModel().getManeuverDist() - latDist << "\n";
+        vehicle->getInfluencer().setSublaneChange(vehicle->getLaneChangeModel().getManeuverDist() - latDist);
+    }
     return changedToNewLane;
 }
 
@@ -465,13 +471,13 @@ MSLaneChangerSublane::checkChangeSublane(
     // ensure that a continuous lane change manoeuvre can be completed
     // before the next turning movement
 
-    const int oldstate = state;
 #ifndef NO_TRACI
     // let TraCI influence the wish to change lanes and the security to take
+    const int oldstate = state;
     state = vehicle->influenceChangeDecision(state);
-    //if (vehicle->getID() == "150_2_36000000") {
-    //    std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) << " veh=" << vehicle->getID() << " oldstate=" << oldstate << " newstate=" << state << "\n";
-    //}
+    if (DEBUG_COND && state != oldstate) {
+        std::cout << SIMTIME << " veh=" << vehicle->getID() << " stateAfterTraCI=" << toString((LaneChangeAction)state) << " original=" << toString((LaneChangeAction)oldstate) << "\n";
+    }
 #endif
     vehicle->getLaneChangeModel().saveState(laneOffset, oldstate, state);
     return state;

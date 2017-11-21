@@ -112,10 +112,6 @@ MSAbstractLaneChangeModel::setOwnState(const int state) {
     myPreviousState2 = myPreviousState;
     myOwnState = state;
     myPreviousState = state; // myOwnState is modified in prepareStep so we make a backup
-    // reset lateral influence after step is completed
-    if (myVehicle.hasInfluencer()) {
-        myVehicle.getInfluencer().setSublaneChange(0);
-    }
 }
 
 void

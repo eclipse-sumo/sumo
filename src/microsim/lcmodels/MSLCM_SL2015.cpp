@@ -2321,10 +2321,16 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     if (gDebugFlag2) {
         std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ret=" << ret;
     }
-    ret = myVehicle.influenceChangeDecision(ret);
-    if ((ret & lcaCounter) != 0) {
-        // we are not interested in traci requests for the opposite direction here
-        ret &= ~(LCA_TRACI | lcaCounter | LCA_URGENT);
+    int retTraCI = myVehicle.influenceChangeDecision(ret);
+    if ((retTraCI & LCA_TRACI) != 0) {
+        if ((retTraCI & LCA_STAY) != 0) {
+            ret = retTraCI;
+            latDist = 0;
+        } else if (((retTraCI & LCA_RIGHT) != 0 && laneOffset < 0)
+                || ((retTraCI & LCA_LEFT) != 0 && laneOffset > 0)) {
+            ret = retTraCI;
+            latDist = latLaneDist;
+        }
     }
     if (gDebugFlag2) {
         std::cout << " reqAfterInfluence=" << ret << " ret=" << ret << "\n";
@@ -2477,6 +2483,8 @@ MSLCM_SL2015::keepLatGap(int state,
     if (myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0) {
         // @note: the influence is reset in MSAbstractLaneChangeModel::setOwnState at the end of the lane-changing code for this vehicle
         latDist = myVehicle.getInfluencer().getLatDist();
+        state |= LCA_TRACI;
+        if (gDebugFlag2) std::cout << "     traci influenced latDist=" << latDist << "\n";
     }
     // if we cannot move in the desired direction, consider the maneuver blocked anyway
     bool nonSublaneChange = (state & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT)) != 0;
@@ -2495,14 +2503,14 @@ MSLCM_SL2015::keepLatGap(int state,
             blocked = LCA_OVERLAPPING | LCA_BLOCKED_RIGHT;
         }
     }
-    // if we move, even though we wish to stay, update the change reason
+    // if we move, even though we wish to stay, update the change reason (except for TraCI)
     if (fabs(latDist) > NUMERICAL_EPS * myVehicle.getActionStepLengthSecs() && oldLatDist == 0) {
-        state &= ~(LCA_CHANGE_REASONS | LCA_STAY);
+        state &= (~(LCA_CHANGE_REASONS | LCA_STAY) | LCA_TRACI);
     }
     // update blocked status
     if (fabs(latDist - oldLatDist) > NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) {
         if (gDebugFlag2) {
-            std::cout << "     latDistUpdated=" << latDist << "oldLatDist=" << oldLatDist << "\n";
+            std::cout << "     latDistUpdated=" << latDist << " oldLatDist=" << oldLatDist << "\n";
         }
         blocked = checkBlocking(neighLane, latDist, targetDistLat, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, nonSublaneChange);
     }

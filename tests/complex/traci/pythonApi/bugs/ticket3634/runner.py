@@ -43,5 +43,6 @@ traci.simulationStep()
 vehID = "v0"
 traci.vehicle.setLaneChangeMode(vehID, 0b0100000000)
 traci.vehicle.changeLane(vehID, 1, 0)
-traci.simulationStep()
+for i in range(20):
+    traci.simulationStep()
 traci.close()
