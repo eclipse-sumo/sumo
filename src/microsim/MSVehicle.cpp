@@ -2376,7 +2376,7 @@ MSVehicle::removePassedDriveItems() {
                 const MSLane* to = j.myLink->getViaLaneOrLane();
                 const MSLane* from = j.myLink->getLaneBefore();
                 std::cout << "\n    Link at distance " << j.myDistance << ": '"
-                        << (to==0?"NONE":to->getID()) << "' -> '" << (from==0?"NONE":from->getID()) << "'";
+                        << (from==0?"NONE":from->getID()) << "' -> '" << (to==0?"NONE":to->getID()) << "'";
             }
         }
         std::cout << "\n    myNextDriveItem: ";
@@ -2387,7 +2387,7 @@ MSVehicle::removePassedDriveItems() {
                 const MSLane* to = myNextDriveItem->myLink->getViaLaneOrLane();
                 const MSLane* from = myNextDriveItem->myLink->getLaneBefore();
                 std::cout << "\n    Link at distance " << myNextDriveItem->myDistance << ": '"
-                        << (to==0?"NONE":to->getID()) << "' -> '" << (from==0?"NONE":from->getID()) << "'";
+                        << (from==0?"NONE":from->getID()) << "' -> '" << (to==0?"NONE":to->getID()) << "'";
             }
         }
         std::cout << std::endl;
@@ -2403,7 +2403,7 @@ MSVehicle::removePassedDriveItems() {
                 const MSLane* to = j->myLink->getViaLaneOrLane();
                 const MSLane* from = j->myLink->getLaneBefore();
                 std::cout << "Link at distance " << j->myDistance << ": '"
-                        << (to==0?"NONE":to->getID()) << "' -> '" << (from==0?"NONE":from->getID()) << "'";
+                        << (from==0?"NONE":from->getID()) << "' -> '" << (to==0?"NONE":to->getID()) << "'";
             }
             std::cout << std::endl;
         }
