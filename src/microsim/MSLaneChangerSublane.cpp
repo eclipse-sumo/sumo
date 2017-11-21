@@ -177,6 +177,7 @@ MSLaneChangerSublane::change() {
         std::cout << SIMTIME << " decision=" << toString((LaneChangeAction)decision.state) << " dir=" << decision.dir << " latDist=" << decision.latDist << " maneuverDist=" << decision.maneuverDist << "\n";
     }
     vehicle->getLaneChangeModel().setOwnState(decision.state);
+    vehicle->getLaneChangeModel().setManeuverDist(decision.maneuverDist);
     if ((decision.state & LCA_WANTS_LANECHANGE) != 0 && (decision.state & LCA_BLOCKED) == 0) {
         // change if the vehicle wants to and is allowed to change
         if (vehicle->getLaneChangeModel().debugVehicle()) {
@@ -186,6 +187,7 @@ MSLaneChangerSublane::change() {
     } else {
         // @note this assumes vehicles can instantly abort any maneuvre in case of emergency (when it is in an action step)
         vehicle->getLaneChangeModel().setSpeedLat(0);
+        vehicle->getLaneChangeModel().setManeuverDist(0.);
         if (vehicle->getLaneChangeModel().debugVehicle()) {
             std::cout << SIMTIME << " veh '" << vehicle->getID() << "' aborts sublane maneuver." << std::endl;
         }
@@ -238,7 +240,9 @@ MSLaneChangerSublane::continueChangeSublane(MSVehicle* vehicle, ChangerIt& from)
                 << std::endl;
     }
 
-    return startChangeSublane(vehicle, from, nextLatDist);
+    bool changed = startChangeSublane(vehicle, from, nextLatDist);
+    vehicle->getLaneChangeModel().setManeuverDist(vehicle->getLaneChangeModel().getManeuverDist() - nextLatDist);
+    return changed;
 }
 
 
