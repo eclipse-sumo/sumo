@@ -44,6 +44,9 @@ parking_delay_insertion
 # (see ticket 420)
 triggered_defaults_to_parking
 
+# test behavior of a vehicle with triggered stop as well as stop duration
+triggered_duration
+
 # Tests whether stopped vehicles can be overtaken
 overtaking
 
