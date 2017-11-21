@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug  4 10:41:28 2017 by SUMO Version dev-SVN-r25472
+<!-- generated on Tue Nov 21 12:42:37 2017 by SUMO Version UNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -131,13 +131,13 @@
         <vehicle id="L" x="245.09" y="-3.15" angle="86.97" type="t0" speed="13.89" pos="44.25" lane="middle_1" slope="0.00"/>
     </timestep>
     <timestep time="27.00">
-        <vehicle id="L" x="258.77" y="-3.15" angle="90.00" type="t0" speed="13.89" pos="58.14" lane="middle_1" slope="0.00"/>
+        <vehicle id="L" x="258.77" y="-2.15" angle="86.97" type="t0" speed="13.89" pos="58.14" lane="middle_1" slope="0.00"/>
     </timestep>
     <timestep time="28.00">
-        <vehicle id="L" x="272.45" y="-2.15" angle="86.97" type="t0" speed="13.89" pos="72.03" lane="middle_1" slope="0.00"/>
+        <vehicle id="L" x="272.45" y="-2.05" angle="89.70" type="t0" speed="13.89" pos="72.03" lane="middle_1" slope="0.00"/>
     </timestep>
     <timestep time="29.00">
-        <vehicle id="L" x="286.13" y="-2.05" angle="89.70" type="t0" speed="13.89" pos="85.92" lane="middle_1" slope="0.00"/>
+        <vehicle id="L" x="286.13" y="-2.05" angle="90.00" type="t0" speed="13.89" pos="85.92" lane="middle_1" slope="0.00"/>
     </timestep>
     <timestep time="30.00">
         <vehicle id="L" x="299.81" y="-2.05" angle="90.00" type="t0" speed="13.89" pos="99.81" lane="middle_1" slope="0.00"/>
