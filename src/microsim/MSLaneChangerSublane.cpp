@@ -266,27 +266,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     } else {
         /// XXX assert(false);
     }
-    if (MSAbstractLaneChangeModel::haveLCOutput() && MSAbstractLaneChangeModel::outputLCStarted()
-            // non-sublane change started
-            && ((vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) != 0)
-            && ((vehicle->getLaneChangeModel().getOwnState() & LCA_STAY) == 0)
-            // no changing in previous step (either not wanted or blocked)
-            && (((vehicle->getLaneChangeModel().getPrevState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) == 0)
-                || ((vehicle->getLaneChangeModel().getPrevState() & LCA_STAY) != 0)
-                || ((vehicle->getLaneChangeModel().getPrevState() & LCA_BLOCKED) != 0))
-            ) {
-        if DEBUG_COND {
-            std::cout << SIMTIME << " veh=" << vehicle->getID() << " laneChangeStarted state=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getOwnState())
-                    << " prevState=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getPrevState())
-                    << " filter=" << toString((LaneChangeAction)(LCA_CHANGE_REASONS & ~LCA_SUBLANE))
-                    << " filtered=" << toString((LaneChangeAction)(vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)))
-                    << "\n";
-        }
-        vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);
-        vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
-        vehicle->getLaneChangeModel().setOrigLeaderGaps(from->aheadNext);
-        vehicle->getLaneChangeModel().laneChangeOutput("changeStarted", from->lane, to->lane, direction);
-    }
+    outputLCStarted(vehicle, from, to, direction);
     const bool changedToNewLane = checkChangeToNewLane(vehicle, direction, from, to);
 
     MSLane* oldShadowLane = vehicle->getLaneChangeModel().getShadowLane();
@@ -297,16 +277,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         const double latOffset = vehicle->getLane()->getRightSideOnEdge() - shadowLane->getRightSideOnEdge();
         (myChanger.begin() + shadowLane->getIndex())->ahead.addLeader(vehicle, false, latOffset);
     }
-    if (MSAbstractLaneChangeModel::haveLCOutput() && MSAbstractLaneChangeModel::outputLCEnded()
-            // non-sublane change ended
-            && ((vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) != 0)
-            && vehicle->getLaneChangeModel().sublaneChangeCompleted(latDist)) {
-        vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);
-        vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
-        vehicle->getLaneChangeModel().setOrigLeaderGaps(from->aheadNext);
-        vehicle->getLaneChangeModel().laneChangeOutput("changeEnded", from->lane, to->lane, direction);
-    }
-
+    outputLCEnded(vehicle, from, to, direction, latDist);
 
     // compute new angle of the vehicle from the x- and y-distances travelled within last time step
     // (should happen last because primaryLaneChanged() also triggers angle computation)
@@ -352,6 +323,44 @@ MSLaneChangerSublane::checkChangeToNewLane(MSVehicle* vehicle, const int directi
         from->ahead.addLeader(vehicle, false, 0);
     }
     return changedToNewLane;
+}
+
+void 
+MSLaneChangerSublane::outputLCStarted(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction) {
+    if (MSAbstractLaneChangeModel::haveLCOutput() && MSAbstractLaneChangeModel::outputLCStarted()
+            // non-sublane change started
+            && ((vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) != 0)
+            && ((vehicle->getLaneChangeModel().getOwnState() & LCA_STAY) == 0)
+            // no changing in previous step (either not wanted or blocked)
+            && (((vehicle->getLaneChangeModel().getPrevState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) == 0)
+                || ((vehicle->getLaneChangeModel().getPrevState() & LCA_STAY) != 0)
+                || ((vehicle->getLaneChangeModel().getPrevState() & LCA_BLOCKED) != 0))
+            ) {
+        if DEBUG_COND {
+            std::cout << SIMTIME << " veh=" << vehicle->getID() << " laneChangeStarted state=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getOwnState())
+                    << " prevState=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getPrevState())
+                    << " filter=" << toString((LaneChangeAction)(LCA_CHANGE_REASONS & ~LCA_SUBLANE))
+                    << " filtered=" << toString((LaneChangeAction)(vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)))
+                    << "\n";
+        }
+        vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);
+        vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
+        vehicle->getLaneChangeModel().setOrigLeaderGaps(from->aheadNext);
+        vehicle->getLaneChangeModel().laneChangeOutput("changeStarted", from->lane, to->lane, direction);
+    }
+}
+
+void 
+MSLaneChangerSublane::outputLCEnded(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction, double latDist) {
+    if (MSAbstractLaneChangeModel::haveLCOutput() && MSAbstractLaneChangeModel::outputLCEnded()
+            // non-sublane change ended
+            && ((vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) != 0)
+            && vehicle->getLaneChangeModel().sublaneChangeCompleted(latDist)) {
+        vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);
+        vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
+        vehicle->getLaneChangeModel().setOrigLeaderGaps(from->aheadNext);
+        vehicle->getLaneChangeModel().laneChangeOutput("changeEnded", from->lane, to->lane, direction);
+    }
 }
 
 
