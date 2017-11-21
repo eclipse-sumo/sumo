@@ -87,7 +87,7 @@ public:
                            const std::vector<MSVehicle::LaneQ>& preb,
                            MSVehicle** lastBlocked,
                            MSVehicle** firstBlocked,
-                           double& latDist, int& blocked);
+                           double& latDist, double& targetDistLat, int& blocked);
 
     /** @brief Called to examine whether the vehicle wants to change
      * using the given laneOffset (this is a wrapper around wantsChangeSublane). XXX: no, it wraps _wantsChangeSublane
@@ -134,6 +134,12 @@ public:
 
     void setOwnState(const int state);
 
+    /// @brief Updates the remaining distance for the current maneuver while it is continued within non-action steps
+    void setManeuverDist(const double dist);
+
+    /// @brief Returns the remaining unblocked distance for the current maneuver.
+    double getManeuverDist() const;
+
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const;
 
@@ -142,6 +148,9 @@ public:
 
     /// @brief whether the current change completes the manoeuvre
     bool sublaneChangeCompleted(const double latDist) const;
+
+    /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
+    double computeSpeedLat(double latDist) const;
 
 protected:
 
@@ -159,7 +168,7 @@ protected:
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
         MSVehicle** firstBlocked,
-        double& latDist, int& blocked);
+        double& latDist, double& targetDistLat, int& blocked);
 
 
     /* @brief decide whether we will overtake or follow blocking leaders
@@ -239,6 +248,7 @@ protected:
     /// @brief decide in which direction to move in case both directions are desirable
     StateAndDist decideDirection(StateAndDist sd1, StateAndDist sd2) const;
 
+
 protected:
 
     /// @brief send a speed recommendation to the given vehicle
@@ -254,7 +264,7 @@ protected:
     static CLeaderDist getSlowest(const MSLeaderDistanceInfo& ldi);
 
     /// @brief restrict latDist to permissible speed and determine blocking state depending on that distance
-    int checkBlocking(const MSLane& neighLane, double& latDist, int laneOffset,
+    int checkBlocking(const MSLane& neighLane, double& latDist, double& targetDistLat, int laneOffset,
                       const MSLeaderDistanceInfo& leaders,
                       const MSLeaderDistanceInfo& followers,
                       const MSLeaderDistanceInfo& blockers,
@@ -309,6 +319,7 @@ protected:
                    const MSLane& neighLane,
                    int laneOffset,
                    double& latDist,
+                   double& targetDistLat,
                    int& blocked);
 
 
@@ -320,9 +331,6 @@ protected:
 
     /// @brief compute the gap factor for the given state
     double computeGapFactor(int state) const;
-
-    /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
-    double computeSpeedLat(double latDist);
 
     /// @brief return the widht of this vehicle (padded for numerical stability)
     double getWidth() const;
@@ -382,7 +390,7 @@ protected:
     bool myCanChangeFully;
 
     /// @brief the complete lateral distance the vehicle wants to travel to finish its maneuver
-    double myOrigLatDist;
+    double myManeuverDist;
 
     /// @brief the lateral distance the vehicle can safely move in the currently considered direction
     double mySafeLatDistRight;

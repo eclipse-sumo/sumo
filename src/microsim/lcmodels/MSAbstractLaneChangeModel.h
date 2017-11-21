@@ -115,14 +115,17 @@ public:
     struct StateAndDist {
         // @brief LaneChangeAction flags
         int state;
-        // @brief lateralDistance
+        // @brief Lateral distance to be completed in the next step
         double latDist;
+        // @brief Full lateral distance required for the completion of the envisioned maneuver
+        double maneuverDist;
         // @brief direction that was checked
         int dir;
 
-        StateAndDist(int _state, double _latDist, int _dir) :
+        StateAndDist(int _state, double _latDist, double _targetDist, int _dir) :
             state(_state),
             latDist(_latDist),
+            maneuverDist(_targetDist),
             dir(_dir) {}
 
         bool sameDirection(const StateAndDist& other) const {
@@ -173,6 +176,10 @@ public:
     }
 
     virtual void setOwnState(const int state);
+
+    /// @brief Sets the value of myManeuverDist
+    virtual void setManeuverDist (const double maneuverDist);
+    virtual double getManeuverDist () const;
 
     const std::pair<int, int>& getSavedState(const int dir) const {
         return mySavedStates.find(dir)->second;
@@ -244,7 +251,7 @@ public:
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
         MSVehicle** firstBlocked,
-        double& latDist, int& blocked) {
+        double& latDist, double& targetDistLat, int& blocked) {
         UNUSED_PARAMETER(laneOffset);
         UNUSED_PARAMETER(alternatives);
         UNUSED_PARAMETER(&leaders);
@@ -258,6 +265,7 @@ public:
         UNUSED_PARAMETER(lastBlocked);
         UNUSED_PARAMETER(firstBlocked);
         UNUSED_PARAMETER(latDist);
+        UNUSED_PARAMETER(targetDistLat);
         UNUSED_PARAMETER(blocked);
         throw ProcessError("Method not implemented by model " + toString(myModel));
     }
@@ -444,6 +452,12 @@ public:
 
     void setSpeedLat(double speedLat) {
         mySpeedLat = speedLat;
+    }
+
+    /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
+    virtual double computeSpeedLat(double remLatDist) const {
+        UNUSED_PARAMETER(remLatDist);
+        throw ProcessError("Method not implemented by model " + toString(myModel));
     }
 
     /// @brief try to retrieve the given parameter from this laneChangeModel. Throw exception for unsupported key

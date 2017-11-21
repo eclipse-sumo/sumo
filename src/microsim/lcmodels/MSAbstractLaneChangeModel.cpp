@@ -118,6 +118,17 @@ MSAbstractLaneChangeModel::setOwnState(const int state) {
     }
 }
 
+void
+MSAbstractLaneChangeModel::setManeuverDist(const double dist) {
+    UNUSED_PARAMETER(dist);
+}
+
+double
+MSAbstractLaneChangeModel::getManeuverDist () const {
+    return 0.;
+}
+
+
 bool
 MSAbstractLaneChangeModel::congested(const MSVehicle* const neighLeader) {
     if (neighLeader == 0) {

@@ -45,6 +45,8 @@
 // DEBUG constants
 // ===========================================================================
 #define DEBUG_COND (vehicle->getLaneChangeModel().debugVehicle())
+#define DEBUG_ACTIONSTEPS
+
 
 // ===========================================================================
 // member method definitions
@@ -119,9 +121,28 @@ MSLaneChangerSublane::change() {
     }
 #endif
     if (!vehicle->isActive()){
-        registerUnchanged(vehicle);
-        return false;
+#ifdef DEBUG_ACTIONSTEPS
+        if DEBUG_COND {
+            std::cout<< SIMTIME << " veh '" << vehicle->getID() << "' skips regular change checks." << std::endl;
+        }
+#endif
+        // Resume change
+        bool changed = continueChangeSublane(vehicle, myCandi);
+#ifdef DEBUG_ACTIONSTEPS
+        if DEBUG_COND {
+            std::cout<< SIMTIME << " veh '" << vehicle->getID() << "' lcm->maneuverDist="<<vehicle->getLaneChangeModel().getManeuverDist()
+                    << " lcm->speedLat=" << vehicle->getLaneChangeModel().getSpeedLat() << std::endl;
+        }
+#endif
+        return changed;
     }
+
+#ifdef DEBUG_ACTIONSTEPS
+        if DEBUG_COND {
+            std::cout<< SIMTIME << " veh '" << vehicle->getID() << "' at plans sublane maneuver."
+                    << std::endl;
+        }
+#endif
     vehicle->updateBestLanes(); // needed?
     for (int i = 0; i < (int) myChanger.size(); ++i) {
         vehicle->adaptBestLanesOccupation(i, myChanger[i].dens);
@@ -152,16 +173,22 @@ MSLaneChangerSublane::change() {
 
     StateAndDist decision = vehicle->getLaneChangeModel().decideDirection(current,
                             vehicle->getLaneChangeModel().decideDirection(right, left));
+    if (vehicle->getLaneChangeModel().debugVehicle()) {
+        std::cout << SIMTIME << " decision=" << toString((LaneChangeAction)decision.state) << " dir=" << decision.dir << " latDist=" << decision.latDist << " maneuverDist=" << decision.maneuverDist << "\n";
+    }
     vehicle->getLaneChangeModel().setOwnState(decision.state);
     if ((decision.state & LCA_WANTS_LANECHANGE) != 0 && (decision.state & LCA_BLOCKED) == 0) {
         // change if the vehicle wants to and is allowed to change
         if (vehicle->getLaneChangeModel().debugVehicle()) {
-            std::cout << SIMTIME << " decision=" << toString((LaneChangeAction)decision.state) << " latDist=" << decision.latDist << "\n";
+            std::cout << SIMTIME << " Performing sublane change..." << std::endl;
         }
         return startChangeSublane(vehicle, myCandi, decision.latDist);
     } else {
-        // @note this assumes vehicles can instantly abort any maneuvre in case of emergency
+        // @note this assumes vehicles can instantly abort any maneuvre in case of emergency (when it is in an action step)
         vehicle->getLaneChangeModel().setSpeedLat(0);
+        if (vehicle->getLaneChangeModel().debugVehicle()) {
+            std::cout << SIMTIME << " veh '" << vehicle->getID() << "' aborts sublane maneuver." << std::endl;
+        }
     }
 
     if ((right.state & (LCA_URGENT)) != 0 && (left.state & (LCA_URGENT)) != 0) {
@@ -176,10 +203,10 @@ MSLaneChangerSublane::change() {
 
 MSLaneChangerSublane::StateAndDist
 MSLaneChangerSublane::checkChangeHelper(MSVehicle* vehicle, int laneOffset, LaneChangeAction alternatives) {
-    StateAndDist result = StateAndDist(0, 0, 0);
+    StateAndDist result = StateAndDist(0, 0, 0, 0);
     if (mayChange(laneOffset)) {
         const std::vector<MSVehicle::LaneQ>& preb = vehicle->getBestLanes();
-        result.state = checkChangeSublane(laneOffset, alternatives, preb, result.latDist);
+        result.state = checkChangeSublane(laneOffset, alternatives, preb, result.latDist, result.maneuverDist);
         result.dir = laneOffset;
         if ((result.state & LCA_WANTS_LANECHANGE) != 0 && (result.state & LCA_URGENT) != 0 && (result.state & LCA_BLOCKED) != 0) {
             (myCandi + laneOffset)->lastBlocked = vehicle;
@@ -189,6 +216,29 @@ MSLaneChangerSublane::checkChangeHelper(MSVehicle* vehicle, int laneOffset, Lane
         }
     }
     return result;
+}
+
+
+
+///  @brief Continue a sublane-lane change maneuver and return whether the midpoint was passed in this step
+//          (used to continue sublane changing in non-action steps).
+bool
+MSLaneChangerSublane::continueChangeSublane(MSVehicle* vehicle, ChangerIt& from) {
+    // lateral distance to complete maneuver
+    const double remLatDist = vehicle->getLaneChangeModel().getManeuverDist();
+    const int direction = remLatDist < 0 ? -1 : 1;
+    if (remLatDist == 0) {
+        registerUnchanged(vehicle);
+        return false;
+    }
+    const double nextLatDist = SPEED2DIST(vehicle->getLaneChangeModel().computeSpeedLat(remLatDist));
+    if DEBUG_COND {
+        std::cout << SIMTIME << " vehicle '" << vehicle->getID() << "' continueChangeSublane()"
+                << " remLatDist="<< remLatDist << " nextLatDist=" << nextLatDist
+                << std::endl;
+    }
+
+    return startChangeSublane(vehicle, from, nextLatDist);
 }
 
 
@@ -233,22 +283,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         vehicle->getLaneChangeModel().setOrigLeaderGaps(from->aheadNext);
         vehicle->getLaneChangeModel().laneChangeOutput("changeStarted", from->lane, to->lane, direction);
     }
-    const bool changedToNewLane = to != from && fabs(vehicle->getLateralPositionOnLane()) > 0.5 * vehicle->getLane()->getWidth() && mayChange(direction);
-    if (changedToNewLane) {
-        vehicle->myState.myPosLat -= direction * 0.5 * (from->lane->getWidth() + to->lane->getWidth());
-        to->lane->myTmpVehicles.insert(to->lane->myTmpVehicles.begin(), vehicle);
-        to->dens += vehicle->getVehicleType().getLengthWithGap();
-        if (MSAbstractLaneChangeModel::haveLCOutput()) {
-            vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);
-            vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
-            vehicle->getLaneChangeModel().setOrigLeaderGaps(from->aheadNext);
-        }
-        vehicle->getLaneChangeModel().startLaneChangeManeuver(from->lane, to->lane, direction);
-        to->ahead.addLeader(vehicle, false, 0);
-    } else {
-        registerUnchanged(vehicle);
-        from->ahead.addLeader(vehicle, false, 0);
-    }
+    const bool changedToNewLane = checkChangeToNewLane(vehicle, direction, from, to);
 
     MSLane* oldShadowLane = vehicle->getLaneChangeModel().getShadowLane();
     vehicle->getLaneChangeModel().updateShadowLane();
@@ -291,6 +326,27 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
                 << "\n";
     vehicle->setAngle(laneAngle + changeAngle,
             vehicle->getLaneChangeModel().sublaneChangeCompleted(latDist));
+    return changedToNewLane;
+}
+
+bool
+MSLaneChangerSublane::checkChangeToNewLane(MSVehicle* vehicle, const int direction, ChangerIt from, ChangerIt to) {
+    const bool changedToNewLane = to != from && fabs(vehicle->getLateralPositionOnLane()) > 0.5 * vehicle->getLane()->getWidth() && mayChange(direction);
+    if (changedToNewLane) {
+        vehicle->myState.myPosLat -= direction * 0.5 * (from->lane->getWidth() + to->lane->getWidth());
+        to->lane->myTmpVehicles.insert(to->lane->myTmpVehicles.begin(), vehicle);
+        to->dens += vehicle->getVehicleType().getLengthWithGap();
+        if (MSAbstractLaneChangeModel::haveLCOutput()) {
+            vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);
+            vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
+            vehicle->getLaneChangeModel().setOrigLeaderGaps(from->aheadNext);
+        }
+        vehicle->getLaneChangeModel().startLaneChangeManeuver(from->lane, to->lane, direction);
+        to->ahead.addLeader(vehicle, false, 0);
+    } else {
+        registerUnchanged(vehicle);
+        from->ahead.addLeader(vehicle, false, 0);
+    }
     return changedToNewLane;
 }
 
@@ -356,7 +412,8 @@ MSLaneChangerSublane::checkChangeSublane(
     int laneOffset,
     LaneChangeAction alternatives,
     const std::vector<MSVehicle::LaneQ>& preb,
-    double& latDist) const {
+    double& latDist,
+    double& targetDistLat) const {
 
     ChangerIt target = myCandi + laneOffset;
     MSVehicle* vehicle = veh(myCandi);
@@ -385,12 +442,12 @@ MSLaneChangerSublane::checkChangeSublane(
                          leaders, followers, blockers,
                          neighLeaders, neighFollowers, neighBlockers,
                          neighLane, preb,
-                         &(myCandi->lastBlocked), &(myCandi->firstBlocked), latDist, blocked);
+                         &(myCandi->lastBlocked), &(myCandi->firstBlocked), latDist, targetDistLat, blocked);
     int state = blocked | wish;
 
     // XXX
-    // do are more carefull (but expensive) check to ensure that a
-    // safety-critical leader is not being overloocked
+    // do are more careful (but expensive) check to ensure that a
+    // safety-critical leader is not being overlooked
 
     // XXX
     // ensure that a continuous lane change manoeuvre can be completed

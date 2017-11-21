@@ -70,15 +70,25 @@ protected:
      * @param[in] leaders The candidate vehicle's leaders
      * @param[in] preb The bestLanse of the candidaet vehicle
      * @param[out] latDist The distance by which the vehicle changes laterally
+     * @param[out] targetDistLat The lateral distance for the complete envisioned maneuver
+     *                           (used for maneuver continuation in non-actionsteps).
      */
     int checkChangeSublane(
         int laneOffset,
         LaneChangeAction alternatives,
         const std::vector<MSVehicle::LaneQ>& preb,
-        double& latDist) const;
+        double& latDist,
+        double& targetDistLat) const;
 
     ///  @brief change by the specified amount and return whether a new lane was entered
     bool startChangeSublane(MSVehicle* vehicle, ChangerIt& from, double latDist);
+
+    ///  @brief Continue a sublane-lane change maneuver and return whether the midpoint was passed in this step
+    //          (used to continue sublane changing in non-action steps).
+    bool continueChangeSublane(MSVehicle* vehicle, ChangerIt& from);
+
+    /// @brief check whether the given vehicle has entered the new lane 'to->lane' during a sublane LC-step
+    bool checkChangeToNewLane(MSVehicle* vehicle, const int direction, ChangerIt from, ChangerIt to);
 
     /// @brief get leaders for ego on the given lane
     MSLeaderDistanceInfo getLeaders(const ChangerIt& target, const MSVehicle* ego) const;
