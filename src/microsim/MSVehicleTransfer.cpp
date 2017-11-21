@@ -80,6 +80,9 @@ void
 MSVehicleTransfer::remove(MSVehicle* veh) {
     for (VehicleInfVector::iterator i = myVehicles.begin(); i != myVehicles.end(); ++i) {
         if (i->myVeh == veh) {
+            if (i->myParking) {
+                veh->getLane()->removeParking(veh);
+            }
             myVehicles.erase(i);
             break;
         }
