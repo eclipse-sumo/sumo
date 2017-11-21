@@ -2502,7 +2502,7 @@ MSLCM_SL2015::keepLatGap(int state,
     // update blocked status
     if (fabs(latDist - oldLatDist) > NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) {
         if (gDebugFlag2) {
-            std::cout << "     latDistUpdated=" << latDist << oldLatDist=" << oldLatDist << "\n";
+            std::cout << "     latDistUpdated=" << latDist << "oldLatDist=" << oldLatDist << "\n";
         }
         blocked = checkBlocking(neighLane, latDist, targetDistLat, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, nonSublaneChange);
     }
