@@ -85,6 +85,9 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
         case SUMO_TAG_BUS_STOP:
             parseAndBuildBusStop(attrs, tag);
             break;
+        case SUMO_TAG_TRAIN_STOP:
+            parseAndBuildBusStop(attrs, SUMO_TAG_BUS_STOP);
+            break;
         case SUMO_TAG_CONTAINER_STOP:
             parseAndBuildContainerStop(attrs, tag);
             break;
