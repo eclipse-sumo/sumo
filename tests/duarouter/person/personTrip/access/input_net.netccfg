@@ -3,8 +3,8 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="../networkInputs/dua2s/input_dua2s.nod.xml"/>
-        <edge-files value="../networkInputs/dua2s/input_dua2s.edg.xml"/>
+        <node-files value="../../../../networkInputs/dua2s/input_dua2s.nod.xml"/>
+        <edge-files value="../../../../networkInputs/dua2s/input_dua2s.edg.xml,input_edges.edg.xml"/>
     </input>
 
     <output>
