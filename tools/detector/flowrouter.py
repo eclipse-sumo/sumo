@@ -713,8 +713,10 @@ class Net:
             return
         totalFlow = 0
         numSources = 0
+        unusedSources = []
         for srcEdge in self._source.outEdges:
             if len(srcEdge.routes) == 0:
+                unusedSources.append(srcEdge.target.outEdges[0].label)
                 continue
             assert len(srcEdge.target.outEdges) == 1
             totalFlow += srcEdge.flow
@@ -749,6 +751,15 @@ class Net:
         if options.verbose:
             print("Writing %s vehicles from %s sources between time %s and %s" % (
                 totalFlow, numSources, begin, end))
+            if len(unusedSources) > 0:
+                print("  unused sources:", " ".join(unusedSources))
+
+        for s in self._sink.inEdges:
+            queue = [s]
+            s.isOnSinkPath = True
+            while queue:
+                edgeObj = queue.pop(0)
+
 
     def writeFlowPOIs(self, poiOut, suffix=""):
         if not poiOut:
