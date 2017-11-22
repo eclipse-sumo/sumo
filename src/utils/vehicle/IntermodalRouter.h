@@ -274,8 +274,8 @@ public:
             std::cout << iEdge->getID() << "(" << iEdge->getLine() << "): " << edgeEffort << std::endl;
         }
         std::cout << TIME2STEPS(msTime) << " trip from " << from->getID() << " to " << to->getID()
-                  << " departPos=" << departPos
-                  << " arrivalPos=" << arrivalPos
+                  << " departPos=" << trip.departPos
+                  << " arrivalPos=" << trip.arrivalPos
                   << " edges=" << toString(intoEdges)
 //                  << " resultEdges=" << toString(into)
                   << " time=" << time
@@ -321,14 +321,14 @@ private:
         }
         typename std::vector<_IntermodalEdge*>::iterator splitIt = splitList.begin();
         double relPos = pos;
-        while (splitIt != splitList.end() && relPos > (*splitIt)->getLength() + NUMERICAL_EPS) {
+        while (splitIt != splitList.end() && relPos > (*splitIt)->getLength()) {
             relPos -= (*splitIt)->getLength();
             ++splitIt;
             splitIndex++;
         }
         assert(splitIt != splitList.end());
         _IntermodalEdge* const beforeSplit = *splitIt;
-        if (fabs(relPos - beforeSplit->getLength()) < NUMERICAL_EPS && splitIt + 1 != splitList.end()) {
+        if (fabs(relPos - beforeSplit->getLength()) < POSITION_EPS && splitIt + 1 != splitList.end()) {
             // don't split, use the present split edges
             splitIndex = -1;
             afterSplit = *(splitIt + 1);
