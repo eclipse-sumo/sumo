@@ -62,6 +62,9 @@ access
 
 # train access
 access_shortcut
+
+# two train access points on the same very short edge
+access_twice
 car_public_walk
 
 # bug: person does not board the train when changing access position to 450
