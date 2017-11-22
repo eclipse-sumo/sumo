@@ -6,3 +6,6 @@ restriction-output
 
 # only rate by mininimu distance
 min-dist
+
+# only rate by mininimum air distance
+min-air-dist

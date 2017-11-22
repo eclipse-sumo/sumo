@@ -53,6 +53,8 @@ def get_options():
                          help="Implausibility factor for the absolute detour time in (routeDuration-shortestDuration) in seconds")
     optParser.add_option("--min-dist", type="float", default=0, dest="min_dist",
                          help="Minimum shortest-path distance below which routes are implausible")
+    optParser.add_option("--min-air-dist", type="float", default=0, dest="min_air_dist",
+                         help="Minimum air distance below which routes are implausible")
     optParser.add_option("--standalone", action="store_true",
                          default=False, help="Parse stand-alone routes that are not define as child-element of a vehicle")
     optParser.add_option("--blur", type="float", default=0,
@@ -154,7 +156,8 @@ def main():
         ri.implausibility = (options.airdist_ratio_factor * ri.airDistRatio +
                              options.detour_factor * ri.detour +
                              options.detour_ratio_factor * ri.detourRatio +
-                             max(0, options.min_dist / ri.shortest_path_distance - 1))
+                             max(0, options.min_dist / ri.shortest_path_distance - 1) +
+                             max(0, options.min_air_dist / ri.airDist - 1))
         allRoutesStats.add(ri.implausibility, rID)
         if ri.implausibility > options.threshold:
             implausible.append((ri.implausibility, rID, ri))
@@ -185,10 +188,10 @@ def main():
             generate_poly(net, rID, colorgen(), 100, False, ri.edges, options.blur, outf, score)
         outf.write('</additional>\n')
 
-    sys.stdout.write('score\troute\t(airDistRatio, detourRatio, detour, shortestDist)\n')
+    sys.stdout.write('score\troute\t(airDistRatio, detourRatio, detour, shortestDist, airDist)\n')
     for score, rID, ri in sorted(implausible):
         # , ' '.join(ri.edges)))
-        sys.stdout.write('%.7f\t%s\t%s\n' % (score, rID, (ri.airDistRatio, ri.detourRatio, ri.detour, ri.shortest_path_distance)))
+        sys.stdout.write('%.7f\t%s\t%s\n' % (score, rID, (ri.airDistRatio, ri.detourRatio, ri.detour, ri.shortest_path_distance, ri.airDist)))
 
     print(allRoutesStats)
     print(implausibleRoutesStats)

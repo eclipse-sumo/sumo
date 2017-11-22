@@ -1,0 +1,7 @@
+input_net.net.xml routes.rou.xml 
+--airdist-ratio-factor 0
+--detour-ratio-factor 0
+--detour-factor 0
+--min-air-dist 1200
+--threshold 0
+tools/route/implausibleRoutes.py 
