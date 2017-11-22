@@ -804,6 +804,12 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
             WRITE_MESSAGE("Loading of " + file + " failed.");
         }
         update();
+        if (myMDIClient->numChildren() > 0) {
+            GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
+            if (w != 0) {
+                w->getView()->update();
+            }
+        }
     }
     return 1;
 }
