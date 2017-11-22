@@ -68,6 +68,7 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PHASE_CREATE,    GNETLSEditorFrame::onCmdPhaseCreate),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PHASE_CREATE,    GNETLSEditorFrame::onUpdNeedsDef),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PHASE_DELETE,    GNETLSEditorFrame::onCmdPhaseDelete),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::onCmdCleanup),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PHASE_DELETE,    GNETLSEditorFrame::onUpdNeedsDefAndPhase),
     FXMAPFUNC(SEL_SELECTED,   MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
     FXMAPFUNC(SEL_DESELECTED, MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
@@ -143,6 +144,7 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
 
     // create delete phase button
     myDeleteSelectedPhaseButton = new FXButton(myGroupBoxPhases, "Delete Phase\t\tDelete selected phase", 0, this, MID_GNE_TLSFRAME_PHASE_DELETE, GUIDesignButton);
+    new FXButton(myGroupBoxPhases, "Cleanup States\t\tClean unused states from all phase.", 0, this, MID_GNE_TLSFRAME_CLEANUP, GUIDesignButton);
 
     // create groupbox for modifications
     myGroupBoxModifications = new FXGroupBox(myContentFrame, "Modifications", GUIDesignGroupBoxFrame);
@@ -396,6 +398,15 @@ GNETLSEditorFrame::onCmdPhaseDelete(FXObject*, FXSelector, void*) {
     const int newRow = MAX2((int)0, (int)myPhaseTable->getCurrentRow() - 1);
     myEditedDef->getLogic()->deletePhase(myPhaseTable->getCurrentRow());
     initPhaseTable(newRow);
+    myPhaseTable->setFocus();
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::onCmdCleanup(FXObject*, FXSelector, void*) {
+    myHaveModifications = myEditedDef->cleanupStates();
+    initPhaseTable(0);
     myPhaseTable->setFocus();
     return 1;
 }

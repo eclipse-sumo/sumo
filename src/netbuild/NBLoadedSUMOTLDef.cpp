@@ -515,5 +515,18 @@ NBLoadedSUMOTLDef::reconstructLogic() {
 #endif
 }
 
+bool 
+NBLoadedSUMOTLDef::cleanupStates() {
+    int maxIndex = -1;
+    for (NBConnection& c : myControlledLinks) {
+        maxIndex = MAX2(maxIndex, c.getTLIndex());
+    }
+    if (maxIndex >= 0 && maxIndex + 1 < myTLLogic->getNumLinks()) {
+        myTLLogic->setStateLength(maxIndex + 1);
+        return true;
+    }
+    return false;
+}
+
 /****************************************************************************/
 

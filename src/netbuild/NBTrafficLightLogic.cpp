@@ -127,6 +127,22 @@ NBTrafficLightLogic::deletePhase(int index) {
 
 
 void
+NBTrafficLightLogic::setStateLength(int numLinks, LinkState fill) {
+    if (myNumLinks > numLinks) {
+        for (PhaseDefinition& p : myPhases) {
+            p.state = p.state.substr(0, numLinks);
+        }
+    } else {
+        std::string add(fill, numLinks - myNumLinks);
+        for (PhaseDefinition& p : myPhases) {
+            p.state = p.state + add;
+        }
+    }
+    myNumLinks = numLinks;
+}
+
+
+void
 NBTrafficLightLogic::resetPhases() {
     myNumLinks = 0;
     myPhases.clear();

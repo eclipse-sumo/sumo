@@ -150,6 +150,11 @@ public:
     */
     void deletePhase(int index);
 
+    /* @brief changes state size either by cutting of at the end or by adding
+     * new states at the end
+    */
+    void setStateLength(int numLinks, LinkState fill = LINKSTATE_TL_RED);
+
     /* @brief deletes all phases and reset the expect number of links
     */
     void resetPhases();

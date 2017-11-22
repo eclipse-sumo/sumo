@@ -607,6 +607,8 @@ enum {
     MID_GNE_TLSFRAME_PHASE_CREATE,
     /// @brief delete  phase thable
     MID_GNE_TLSFRAME_PHASE_DELETE,
+    /// @brief cleanup unused states
+    MID_GNE_TLSFRAME_CLEANUP,
     /// @}
 
 

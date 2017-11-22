@@ -184,6 +184,9 @@ public:
     /// @brief Called when the user deletes a Phase
     long onCmdPhaseDelete(FXObject*, FXSelector, void*);
 
+    /// @brief Called when the user cleans up states
+    long onCmdCleanup(FXObject*, FXSelector, void*);
+
     /// @brief Called when the user edits a Phase
     long onCmdPhaseEdit(FXObject*, FXSelector, void*);
 
