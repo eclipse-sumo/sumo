@@ -404,10 +404,16 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return canParse<double>(value) && isPositive<double>(value);
-        case SUMO_ATTR_TLLINKINDEX: 
-            return (getNBEdgeConnection().tlID != "" && canParse<int>(value) && isPositive<int>(value) 
-                    && getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0
-                    && (*getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().begin())->compute(OptionsCont::getOptions())->getNumLinks() > parse<int>(value));
+        case SUMO_ATTR_TLLINKINDEX:  
+            if (getNBEdgeConnection().tlID != "" && canParse<int>(value) && parse<int>(value) >= 0
+                    && getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0) {
+                NBTrafficLightDefinition* def = *getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().begin();
+                def->setParticipantsInformation();
+                NBTrafficLightLogic* logic = def->compute(OptionsCont::getOptions());
+                return logic != 0 && logic->getNumLinks() > parse<int>(value);
+            } else {
+                return false;
+            }
         case SUMO_ATTR_SPEED:
             return canParse<double>(value) && isPositive<double>(value);
         case SUMO_ATTR_CUSTOMSHAPE: {

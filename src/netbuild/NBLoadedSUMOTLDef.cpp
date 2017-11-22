@@ -177,6 +177,9 @@ NBLoadedSUMOTLDef::amInvalid() const {
     if (myControlledNodes.size() != myOriginalNodes.size()) {
         return true;
     }
+    if (myIncomingEdges.size() == 0) {
+        return true;
+    }
     for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
         if (myOriginalNodes.count(*i) != 1) {
             return true;
