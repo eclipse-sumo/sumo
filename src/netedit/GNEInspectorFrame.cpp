@@ -196,18 +196,19 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     if (myACs.size() > 0) {
         // Set header
         std::string headerString;
+        if (dynamic_cast<GNENetElement*>(myACs.front())) {
+            headerString = "Net: ";
+        } else if (dynamic_cast<GNEAdditional*>(myACs.front())) {
+            headerString = "Additional: ";
+        } else if (dynamic_cast<GNEShape*>(myACs.front())) {
+            headerString = "Shape: ";
+        }
         if (myACs.size() > 1) {
-            headerString = "Selection: " + toString(myACs.size()) + " " + toString(myACs.front()->getTag()) + "s";
-        } else {
-            if (dynamic_cast<GNENetElement*>(myACs.front())) {
-                headerString = "Net: " + toString(myACs.front()->getTag());
-            } else if (dynamic_cast<GNEAdditional*>(myACs.front())) {
-                headerString = "Additional: " + toString(myACs.front()->getTag());
-            } else if (dynamic_cast<GNEShape*>(myACs.front())) {
-                headerString = "Shape: " + toString(myACs.front()->getTag());
-            } else {
-                headerString = toString(myACs.front()->getTag());
-            }
+            headerString += toString(myACs.size()) + " ";
+        }
+        headerString += toString(myACs.front()->getTag());
+        if (myACs.size() > 1) {
+            headerString += "s";
         }
         // Set headerString into header label
         getFrameHeaderLabel()->setText(headerString.c_str());
@@ -280,7 +281,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
             }
         }
     } else {
-        getFrameHeaderLabel()->setText("No Object selected");
+        getFrameHeaderLabel()->setText("Inspect");
         myContentFrame->recalc();
     }
 }
