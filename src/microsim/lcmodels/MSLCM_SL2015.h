@@ -87,7 +87,7 @@ public:
                            const std::vector<MSVehicle::LaneQ>& preb,
                            MSVehicle** lastBlocked,
                            MSVehicle** firstBlocked,
-                           double& latDist, double& targetDistLat, int& blocked);
+                           double& latDist, double& maneuverDist, int& blocked);
 
     /** @brief Called to examine whether the vehicle wants to change
      * using the given laneOffset (this is a wrapper around wantsChangeSublane). XXX: no, it wraps _wantsChangeSublane
@@ -172,7 +172,7 @@ protected:
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
         MSVehicle** firstBlocked,
-        double& latDist, double& targetDistLat, int& blocked);
+        double& latDist, double& maneuverDist, int& blocked);
 
 
     /* @brief decide whether we will overtake or follow blocking leaders
@@ -268,7 +268,7 @@ protected:
     static CLeaderDist getSlowest(const MSLeaderDistanceInfo& ldi);
 
     /// @brief restrict latDist to permissible speed and determine blocking state depending on that distance
-    int checkBlocking(const MSLane& neighLane, double& latDist, double& targetDistLat, int laneOffset,
+    int checkBlocking(const MSLane& neighLane, double& latDist, double& maneuverDist, int laneOffset,
                       const MSLeaderDistanceInfo& leaders,
                       const MSLeaderDistanceInfo& followers,
                       const MSLeaderDistanceInfo& blockers,
@@ -322,7 +322,7 @@ protected:
                    const MSLane& neighLane,
                    int laneOffset,
                    double& latDist,
-                   double& targetDistLat,
+                   double& maneuverDist,
                    int& blocked);
 
 

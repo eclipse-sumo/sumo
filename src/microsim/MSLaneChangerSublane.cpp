@@ -432,7 +432,7 @@ MSLaneChangerSublane::checkChangeSublane(
     LaneChangeAction alternatives,
     const std::vector<MSVehicle::LaneQ>& preb,
     double& latDist,
-    double& targetDistLat) const {
+    double& maneuverDist) const {
 
     ChangerIt target = myCandi + laneOffset;
     MSVehicle* vehicle = veh(myCandi);
@@ -461,7 +461,7 @@ MSLaneChangerSublane::checkChangeSublane(
                          leaders, followers, blockers,
                          neighLeaders, neighFollowers, neighBlockers,
                          neighLane, preb,
-                         &(myCandi->lastBlocked), &(myCandi->firstBlocked), latDist, targetDistLat, blocked);
+                         &(myCandi->lastBlocked), &(myCandi->firstBlocked), latDist, maneuverDist, blocked);
     int state = blocked | wish;
 
     // XXX

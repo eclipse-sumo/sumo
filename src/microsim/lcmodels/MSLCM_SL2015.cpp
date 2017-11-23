@@ -166,7 +166,7 @@ MSLCM_SL2015::wantsChangeSublane(
     const std::vector<MSVehicle::LaneQ>& preb,
     MSVehicle** lastBlocked,
     MSVehicle** firstBlocked,
-    double& latDist, double& targetDistLat, int& blocked) {
+    double& latDist, double& maneuverDist, int& blocked) {
 
     gDebugFlag2 = DEBUG_COND;
     const std::string changeType = laneOffset == -1 ? "right" : (laneOffset == 1 ? "left" : "current");
@@ -189,11 +189,11 @@ MSLCM_SL2015::wantsChangeSublane(
                                      leaders, followers, blockers,
                                      neighLeaders, neighFollowers, neighBlockers,
                                      neighLane, preb,
-                                     lastBlocked, firstBlocked, latDist, targetDistLat, blocked);
+                                     lastBlocked, firstBlocked, latDist, maneuverDist, blocked);
 
     result = keepLatGap(result, leaders, followers, blockers,
                         neighLeaders, neighFollowers, neighBlockers,
-                        neighLane, laneOffset, latDist, targetDistLat, blocked);
+                        neighLane, laneOffset, latDist, maneuverDist, blocked);
 
     result |= getLCA(result, latDist);
 
@@ -210,7 +210,7 @@ MSLCM_SL2015::wantsChangeSublane(
                       << " veh=" << myVehicle.getID()
                       << " wantsChangeTo=" << changeType
                       << " latDist=" << latDist
-                      << " targetDistLat=" << targetDistLat
+                      << " maneuverDist=" << maneuverDist
                       << " state=" << toString((LaneChangeAction)result)
                       << ((blocked & LCA_BLOCKED) ? " (blocked)" : "")
                       << ((blocked & LCA_OVERLAPPING) ? " (overlap)" : "")
@@ -912,7 +912,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     const std::vector<MSVehicle::LaneQ>& preb,
     MSVehicle** lastBlocked,
     MSVehicle** firstBlocked,
-    double& latDist, double& targetDistLat, int& blocked) {
+    double& latDist, double& maneuverDist, int& blocked) {
 
     const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     // compute bestLaneOffset
@@ -1149,7 +1149,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         int blockedFully = 0;
 
         const double gapFactor = computeGapFactor(LCA_STRATEGIC);
-        blocked = checkBlocking(neighLane, latDist, targetDistLat, laneOffset,
+        blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                 leaders, followers, blockers,
                                 neighLeaders, neighFollowers, neighBlockers, &collectLeadBlockers, &collectFollowBlockers,
                                 false, gapFactor, &blockedFully);
@@ -1192,7 +1192,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         if (!cancelRequest(ret)) {
             if ((ret & LCA_STAY) == 0) {
                 latDist = latLaneDist;
-                blocked = checkBlocking(neighLane, latDist, targetDistLat, laneOffset,
+                blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                         leaders, followers, blockers,
                                         neighLeaders, neighFollowers, neighBlockers);
             }
@@ -1239,7 +1239,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         ret |= LCA_COOPERATIVE | LCA_URGENT ;//| LCA_CHANGE_TO_HELP;
         if (!cancelRequest(ret)) {
             latDist = amBlockingFollowerPlusNB() ? latLaneDist : myManeuverDist;
-            blocked = checkBlocking(neighLane, latDist, targetDistLat, laneOffset,
+            blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                     leaders, followers, blockers,
                                     neighLeaders, neighFollowers, neighBlockers);
             return ret;
@@ -1452,7 +1452,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                 assert(myVehicle.getLane()->getIndex() > neighLane.getIndex());
                 if (!cancelRequest(ret)) {
                     latDist = latLaneDist;
-                    blocked = checkBlocking(neighLane, latDist, targetDistLat, laneOffset,
+                    blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                             leaders, followers, blockers,
                                             neighLeaders, neighFollowers, neighBlockers);
                     return ret;
@@ -1476,7 +1476,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             ret |= LCA_SPEEDGAIN;
             if (!cancelRequest(ret)) {
                 int blockedFully = 0;
-                blocked = checkBlocking(neighLane, latDist, targetDistLat, laneOffset,
+                blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                         leaders, followers, blockers,
                                         neighLeaders, neighFollowers, neighBlockers,
                                         0, 0, false, 0, &blockedFully);
@@ -1507,7 +1507,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             ret |= LCA_SPEEDGAIN;
             if (!cancelRequest(ret)) {
                 int blockedFully = 0;
-                blocked = checkBlocking(neighLane, latDist, targetDistLat, laneOffset,
+                blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                         leaders, followers, blockers,
                                         neighLeaders, neighFollowers, neighBlockers,
                                         0, 0, false, 0, &blockedFully);
@@ -1605,7 +1605,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                                            << "\n";
             ret |= LCA_SUBLANE;
             if (!cancelRequest(ret)) {
-                blocked = checkBlocking(neighLane, latDist, targetDistLat, laneOffset,
+                blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                         leaders, followers, blockers,
                                         neighLeaders, neighFollowers, neighBlockers);
                 return ret;
@@ -1841,7 +1841,7 @@ MSLCM_SL2015::getSlowest(const MSLeaderDistanceInfo& ldi) {
 
 
 int
-MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& targetDistLat, int laneOffset,
+MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& maneuverDist, int laneOffset,
                             const MSLeaderDistanceInfo& leaders,
                             const MSLeaderDistanceInfo& followers,
                             const MSLeaderDistanceInfo& /*blockers */,
@@ -1856,7 +1856,7 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& ta
     // truncate latDist according to maxSpeedLat
     if (!keepLatGapManeuver) {
         myManeuverDist = latDist;
-        targetDistLat = latDist;
+        maneuverDist = latDist;
     }
     const double maxDist = SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat());
     latDist = MAX2(MIN2(latDist, maxDist), -maxDist);
@@ -2361,7 +2361,7 @@ MSLCM_SL2015::keepLatGap(int state,
                          const MSLane& neighLane,
                          int laneOffset,
                          double& latDist,
-                         double& targetDistLat,
+                         double& maneuverDist,
                          int& blocked) {
 
     /* @notes
@@ -2469,7 +2469,7 @@ MSLCM_SL2015::keepLatGap(int state,
             // shift further to the left but no further than there is physical space
             const double delta = MIN2(equalDeficit - surplusGapRight, physicalGapLeft);
             latDist = delta;
-            targetDistLat = delta;
+            maneuverDist = delta;
             if (gDebugFlag2) {
                 std::cout << "    insufficient latSpace, move left: delta=" << delta << "\n";
             }
@@ -2477,7 +2477,7 @@ MSLCM_SL2015::keepLatGap(int state,
             // shift further to the right but no further than there is physical space
             const double delta = MIN2(equalDeficit - surplusGapLeft, physicalGapRight);
             latDist = -delta;
-            targetDistLat = -delta;
+            maneuverDist = -delta;
             if (gDebugFlag2) {
                 std::cout << "    insufficient latSpace, move right: delta=" << delta << "\n";
             }
@@ -2485,13 +2485,13 @@ MSLCM_SL2015::keepLatGap(int state,
     } else {
         // sufficient space. move as far as the gaps permit
         latDist = MAX2(MIN2(latDist, surplusGapLeft), -surplusGapRight);
-        targetDistLat = MAX2(MIN2(targetDistLat, surplusGapLeft), -surplusGapRight);
+        maneuverDist = MAX2(MIN2(maneuverDist, surplusGapLeft), -surplusGapRight);
     }
     // take into account overriding traci sublane-request
     if (myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0) {
         // @note: the influence is reset in MSAbstractLaneChangeModel::setOwnState at the end of the lane-changing code for this vehicle
         latDist = myVehicle.getInfluencer().getLatDist();
-        targetDistLat = myVehicle.getInfluencer().getLatDist();
+        maneuverDist = myVehicle.getInfluencer().getLatDist();
         state |= LCA_TRACI;
         if (gDebugFlag2) std::cout << "     traci influenced latDist=" << latDist << "\n";
     }
@@ -2521,7 +2521,7 @@ MSLCM_SL2015::keepLatGap(int state,
         if (gDebugFlag2) {
             std::cout << "     latDistUpdated=" << latDist << " oldLatDist=" << oldLatDist << "\n";
         }
-        blocked = checkBlocking(neighLane, latDist, targetDistLat, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, nonSublaneChange);
+        blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, nonSublaneChange);
     }
     if (fabs(latDist) > NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) {
         state = (state & ~LCA_STAY);
@@ -2939,13 +2939,13 @@ MSLCM_SL2015::wantsChange(
     MSLeaderDistanceInfo neighFollowers(neighFollow, dummy);
     MSLeaderDistanceInfo neighBlockers(std::make_pair((MSVehicle*)0, -1), dummy);
 
-    double targetDistLat;
+    double maneuverDist;
     int result = _wantsChangeSublane(laneOffset,
                                      alternatives,
                                      leaders, followers, blockers,
                                      neighLeaders, neighFollowers, neighBlockers,
                                      neighLane, preb,
-                                     lastBlocked, firstBlocked, latDist, targetDistLat, blocked);
+                                     lastBlocked, firstBlocked, latDist, maneuverDist, blocked);
 
     myManeuverDist = 0;
     myCanChangeFully = true;
