@@ -1735,7 +1735,7 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
     const MSLane* lane = lanes[laneIndex];
     const double vMax = lane->getVehicleMaxSpeed(&myVehicle);
     assert(preb.size() == lanes.size());
-    assert(sublaneOffset + ahead.numSublanes() <= myExpectedSublaneSpeeds.size());
+    assert(sublaneOffset + ahead.numSublanes() <= (int)myExpectedSublaneSpeeds.size());
 
     for (int sublane = 0; sublane < (int)ahead.numSublanes(); ++sublane) {
         const int edgeSublane = sublane + sublaneOffset;

@@ -734,7 +734,7 @@ MSE2Collector::VehicleInfo*
 MSE2Collector::makeVehicleInfo(const SUMOVehicle& veh, const MSLane* enteredLane) const {
     // The vehicle's distance to the detector end
     std::size_t j = std::find(myLanes.begin(), myLanes.end(), enteredLane->getID()) - myLanes.begin();
-    assert(j >= 0 && j < myLanes.size());
+    assert(j >= 0 && j < (int)myLanes.size());
     double entryOffset = myOffsets[j];
     double distToDetectorEnd = myDetectorLength - (entryOffset + veh.getPositionOnLane());
     bool onDetector = -entryOffset < veh.getPositionOnLane() && distToDetectorEnd > -veh.getVehicleType().getLength();

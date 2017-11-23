@@ -88,8 +88,9 @@ public:
             }
             if (!edge->isWalkingArea()) {
                 // depart and arrival edges (the router can decide the initial direction to take and the direction to arrive from)
-                addConnectors(new _IntermodalEdge(edge->getID() + "_depart_connector", numericalID++, edge, "!connector"),
-                              new _IntermodalEdge(edge->getID() + "_arrival_connector", numericalID++, edge, "!connector"), 0);
+                _IntermodalEdge* const departConn = new _IntermodalEdge(edge->getID() + "_depart_connector", numericalID++, edge, "!connector");
+                _IntermodalEdge* const arrivalConn = new _IntermodalEdge(edge->getID() + "_arrival_connector", numericalID++, edge, "!connector"); 
+                addConnectors(departConn, arrivalConn, 0);
             }
         }
 
