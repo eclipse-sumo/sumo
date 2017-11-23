@@ -59,7 +59,8 @@
 #include <mesosim/MESegment.h>
 
 //#define DEBUG_REROUTER
-#define DEBUGCOND (veh.getID() == "disabled")
+#define DEBUG_PARKING
+#define DEBUGCOND (veh.isSelected())
 
 // ===========================================================================
 // static member defintion
@@ -543,6 +544,14 @@ MSTriggeredRerouter::rerouteParkingZone(const MSTriggeredRerouter::RerouteInterv
     if (destParkArea != 0 &&
             destParkArea->getOccupancy() == destParkArea->getCapacity()) {
 
+#ifdef DEBUG_PARKING
+    if (DEBUGCOND) {
+        std::cout << SIMTIME << " veh=" << veh.getID() 
+            << " rerouteParkingZone dest=" << destParkArea->getID()
+            << "\n";
+    }
+#endif
+
         typedef std::map<std::string, double> ParkingParamMap_t;
         typedef std::map<MSParkingArea*, ParkingParamMap_t> MSParkingAreaMap_t;
 
@@ -673,10 +682,24 @@ MSTriggeredRerouter::rerouteParkingZone(const MSTriggeredRerouter::RerouteInterv
                         }
 
                         parkAreas[pa] = parkValues;
+
+#ifdef DEBUG_PARKING
+                        if (DEBUGCOND) {
+                            std::cout << "    altPA=" << pa->getID() 
+                                << " vals=" << joinToString(parkValues, " ", ":")
+                                << "\n";
+                        }
+#endif
                     }
                 }
             }
         }
+
+#ifdef DEBUG_PARKING
+    if (DEBUGCOND) {
+        std::cout << "  maxValues=" << joinToString(maxValues, " ", ":") << "\n";
+    }
+#endif
 
         // minimum cost to get the parking area
         double minParkingCost = 0.0;
@@ -710,8 +733,20 @@ MSTriggeredRerouter::rerouteParkingZone(const MSTriggeredRerouter::RerouteInterv
                 minParkingCost = parkingCost;
                 nearParkArea = it->first;
             }
+
+#ifdef DEBUG_PARKING
+            if (DEBUGCOND) {
+                std::cout << "    altPA=" << it->first->getID() << " score=" << parkingCost << "\n";
+            }
+#endif
         }
     }
+
+#ifdef DEBUG_PARKING
+    if (DEBUGCOND) {
+        std::cout << "  parkingResult=" << Named::getIDSecure(nearParkArea) << "\n";
+    }
+#endif
 
     return nearParkArea;
 }
