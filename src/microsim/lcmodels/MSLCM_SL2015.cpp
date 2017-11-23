@@ -2405,7 +2405,7 @@ MSLCM_SL2015::keepLatGap(int state,
     // if the current maneuver is blocked we will stay where we are
     const double oldCenter = myVehicle.getCenterOnEdge();
     // surplus gaps. these are used to collect various constraints
-    // if they do not permit the desired manoeuvre, should override it to better maintain distance
+    // if they do not permit the desired maneuvre, should override it to better maintain distance
     // stay within the current edge
     double surplusGapRight = oldCenter - halfWidth;
     double surplusGapLeft = myVehicle.getLane()->getEdge().getWidth() - oldCenter - halfWidth;
@@ -2469,6 +2469,7 @@ MSLCM_SL2015::keepLatGap(int state,
             // shift further to the left but no further than there is physical space
             const double delta = MIN2(equalDeficit - surplusGapRight, physicalGapLeft);
             latDist = delta;
+            targetDistLat = delta;
             if (gDebugFlag2) {
                 std::cout << "    insufficient latSpace, move left: delta=" << delta << "\n";
             }
@@ -2476,6 +2477,7 @@ MSLCM_SL2015::keepLatGap(int state,
             // shift further to the right but no further than there is physical space
             const double delta = MIN2(equalDeficit - surplusGapLeft, physicalGapRight);
             latDist = -delta;
+            targetDistLat = -delta;
             if (gDebugFlag2) {
                 std::cout << "    insufficient latSpace, move right: delta=" << delta << "\n";
             }
@@ -2483,11 +2485,13 @@ MSLCM_SL2015::keepLatGap(int state,
     } else {
         // sufficient space. move as far as the gaps permit
         latDist = MAX2(MIN2(latDist, surplusGapLeft), -surplusGapRight);
+        targetDistLat = MAX2(MIN2(targetDistLat, surplusGapLeft), -surplusGapRight);
     }
     // take into account overriding traci sublane-request
     if (myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0) {
         // @note: the influence is reset in MSAbstractLaneChangeModel::setOwnState at the end of the lane-changing code for this vehicle
         latDist = myVehicle.getInfluencer().getLatDist();
+        targetDistLat = myVehicle.getInfluencer().getLatDist();
         state |= LCA_TRACI;
         if (gDebugFlag2) std::cout << "     traci influenced latDist=" << latDist << "\n";
     }
