@@ -217,7 +217,7 @@ public:
         IntermodalEdge<E, L, N, V>(edge->getID() + (edge->isWalkingArea() ? "" : (forward ? "_fwd" : "_bwd")) + toString(pos), numericalID, edge, "!ped"),
         myLane(lane),
         myForward(forward),
-        myStartPos(pos >= 0 ? pos : 0.) { }
+        myStartPos(pos >= 0 ? pos : (forward ? 0. : edge->getLength())) { }
 
     bool includeInRoute(bool allEdges) const {
         return allEdges || (!this->getEdge()->isCrossing() && !this->getEdge()->isWalkingArea());
@@ -236,24 +236,24 @@ public:
 
     virtual double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double time) const {
         double length = this->getLength();
-        if (this->getEdge() == trip->from && !myForward && trip->departPos > myStartPos) {
-            length = trip->departPos - myStartPos;
+        if (this->getEdge() == trip->from && !myForward && trip->departPos < myStartPos) {
+            length = trip->departPos - (myStartPos - this->getLength());
         }
-        if (this->getEdge() == trip->to && myForward && trip->arrivalPos > myStartPos) {
+        if (this->getEdge() == trip->to && myForward && trip->arrivalPos < myStartPos + this->getLength()) {
             length = trip->arrivalPos - myStartPos;
         }
         if (this->getEdge() == trip->from && myForward && trip->departPos > myStartPos) {
             length -= (trip->departPos - myStartPos);
         }
-        if (this->getEdge() == trip->to && !myForward && trip->arrivalPos > myStartPos) {
-            length -= (trip->arrivalPos - myStartPos);
+        if (this->getEdge() == trip->to && !myForward && trip->arrivalPos > myStartPos - this->getLength()) {
+            length -= (trip->arrivalPos - (myStartPos - this->getLength()));
         }
         // ensure that 'normal' edges always have a higher weight than connector edges
         length = MAX2(length, NUMERICAL_EPS);
         double tlsDelay = 0;
         // @note pedestrian traffic lights should never have LINKSTATE_TL_REDYELLOW
         if (this->getEdge()->isCrossing() && myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
-            // red traffic lights occurring later in the route may be green by the time we arive
+            // red traffic lights occurring later in the route may be green by the time we arrive
             tlsDelay += MAX2(double(0), TL_RED_PENALTY - (time - STEPS2TIME(trip->departTime)));
         }
 #ifdef IntermodalRouter_DEBUG_EFFORTS

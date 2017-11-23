@@ -141,9 +141,13 @@ public:
                     depConn->addSuccessor(carSplit);
                 }
 
+                _IntermodalEdge* const prevArr = myIntermodalNet->getArrivalEdge(stopEdge, pos);
                 _IntermodalEdge* const arrConn = new _IntermodalEdge(stopEdge->getID() + "_arrival_connector" + toString(pos), myNumericalID++, stopEdge, "!connector");
                 fwdSplit->addSuccessor(arrConn);
                 backBeforeSplit->addSuccessor(arrConn);
+                arrConn->setLength(fwdSplit->getLength());
+                // no need to set connections to the old arrival edge, successors have been fixed at splitting
+                prevArr->setLength(backSplit->getLength());
                 if (carSplit != 0) {
                     carSplit->addSuccessor(arrConn);
                 }
@@ -233,8 +237,8 @@ public:
         createNet();
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle, modeSet);
         std::vector<const _IntermodalEdge*> intoEdges;
-        const bool success = myInternalRouter->compute(myIntermodalNet->getDepartEdge(from, departPos),
-                             myIntermodalNet->getArrivalEdge(to, arrivalPos),
+        const bool success = myInternalRouter->compute(myIntermodalNet->getDepartEdge(from, trip.departPos),
+                             myIntermodalNet->getArrivalEdge(to, trip.arrivalPos),
                              &trip, msTime, intoEdges);
         if (success) {
             std::string lastLine = "";
