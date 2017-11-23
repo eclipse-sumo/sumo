@@ -3,7 +3,7 @@
 	
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
 	
-    <vehicle id="0" depart="0">
+    <vehicle id="0" depart="0" arrivalPos="250">
         <route edges="a"/>
         <stop parkingArea="ParkAreaA" duration="10"/>
     </vehicle>

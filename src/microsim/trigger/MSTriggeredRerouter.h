@@ -179,7 +179,8 @@ public:
 
     double getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight) const;
 
-    MSParkingArea* rerouteParkingZone(const MSTriggeredRerouter::RerouteInterval* rerouteDef, SUMOVehicle& veh) const;
+    MSParkingArea* rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef, 
+            SUMOVehicle& veh, bool& newDestination) const;
 
 protected:
     /// @name inherited from GenericSAXHandler
