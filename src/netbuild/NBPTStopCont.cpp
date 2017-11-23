@@ -19,6 +19,7 @@
 
 
 #include <utils/common/MsgHandler.h>
+#include <utils/geom/Boundary.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSLane.h>
 #include "NBPTStopCont.h"
@@ -297,10 +298,13 @@ void NBPTStopCont::alginIdSigns() {
 
 }
 void NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, int maxCount) {
-
-
-    NamedRTree r = cont.rebuildRTree();
-
+    NamedRTree r;
+    for (auto edge : cont) {
+        const Boundary& bound = edge.second->getGeometry().getBoxBoundary();
+        float min[2] = { static_cast<float>(bound.xmin()), static_cast<float>(bound.ymin()) };
+        float max[2] = { static_cast<float>(bound.xmax()), static_cast<float>(bound.ymax()) };
+        r.Insert(min, max, edge.second);
+    }
     for (auto ptStop : myPTStops) {
         const std::string& stopEdgeID = ptStop.second->getEdgeId();
         NBEdge* stopEdge = cont.getByID(stopEdgeID);

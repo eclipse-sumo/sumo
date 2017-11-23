@@ -673,9 +673,6 @@ private:
     /// @brief Edges marked as belonging to a roundabout after guessing
     std::set<EdgeSet> myGuessedRoundabouts;
 
-public:
-    NamedRTree rebuildRTree();
-
 private:
     /// @brief invalidated copy constructor
     NBEdgeCont(const NBEdgeCont& s);
