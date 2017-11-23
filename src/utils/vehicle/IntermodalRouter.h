@@ -117,14 +117,15 @@ public:
         if (lane != 0) {
             const std::pair<_IntermodalEdge*, _IntermodalEdge*>& pair = myIntermodalNet->getBothDirections(stopEdge);
             _IntermodalEdge* const fwdSplit = new PedestrianEdge<E, L, N, V>(myNumericalID++, stopEdge, lane, true, pos);
-            const int splitIndex = splitEdge(pair.first, fwdSplit, pos, stopConn);
+            const int splitIndex = splitEdge(pair.first, fwdSplit, pos, true, stopConn);
             _IntermodalEdge* const backSplit = new PedestrianEdge<E, L, N, V>(myNumericalID++, stopEdge, lane, false, pos);
-            splitEdge(pair.second, backSplit, stopEdge->getLength() - pos, stopConn);
+            splitEdge(pair.second, backSplit, stopEdge->getLength() - pos, false, stopConn);
             if (splitIndex >= 0) {
+                // add car split
                 _IntermodalEdge* carSplit = 0;
                 if (myCarLookup.count(stopEdge) > 0) {
                     carSplit = new CarEdge<E, L, N, V>(myNumericalID++, stopEdge, pos);
-                    splitEdge(myCarLookup[stopEdge], carSplit, pos, stopConn, fwdSplit, backSplit);
+                    splitEdge(myCarLookup[stopEdge], carSplit, pos, true, stopConn, fwdSplit, backSplit);
                 }
 
                 _IntermodalEdge* const prevDep = myIntermodalNet->getDepartConnector(stopEdge, splitIndex - 1);
@@ -143,11 +144,13 @@ public:
                 }
 
                 _IntermodalEdge* const prevArr = myIntermodalNet->getArrivalConnector(stopEdge, splitIndex - 1);
+                _IntermodalEdge* const fwdBeforeSplit = myAccessSplits[pair.first][splitIndex - 1];
                 _IntermodalEdge* const arrConn = new _IntermodalEdge(stopEdge->getID() + "_arrival_connector" + toString(pos), myNumericalID++, stopEdge, "!connector");
                 fwdSplit->addSuccessor(arrConn);
                 backBeforeSplit->addSuccessor(arrConn);
                 arrConn->setLength(fwdSplit->getLength());
-                // no need to set connections to the old arrival edge, successors have been fixed at splitting
+                fwdSplit->removeSuccessor(prevArr);
+                fwdBeforeSplit->addSuccessor(prevArr);
                 prevArr->setLength(backSplit->getLength());
                 if (carSplit != 0) {
                     carSplit->addSuccessor(arrConn);
@@ -248,6 +251,9 @@ public:
                 if (iEdge->includeInRoute(false)) {
                     if (iEdge->getLine() == "!stop") {
                         into.back().destStop = iEdge->getID();
+                        if (lastLine == "!ped") {
+                            lastLine = ""; // a stop always starts a new trip item
+                        }
                     } else {
                         if (iEdge->getLine() != lastLine) {
                             lastLine = iEdge->getLine();
@@ -317,7 +323,7 @@ private:
         myInternalRouter(new INTERNALROUTER(net->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic)),
         myIntermodalNet(net), myNumericalID((int)net->getAllEdges().size()), myCarWalkTransfer(0) {}
 
-    int splitEdge(_IntermodalEdge* const toSplit, _IntermodalEdge* afterSplit, const double pos,
+    int splitEdge(_IntermodalEdge* const toSplit, _IntermodalEdge* afterSplit, const double pos, const bool forward,
                   _IntermodalEdge* const stopConn, _IntermodalEdge* const fwdConn = 0, _IntermodalEdge* const backConn = 0) {
         std::vector<_IntermodalEdge*>& splitList = myAccessSplits[toSplit];
         if (splitList.empty()) {
@@ -347,6 +353,12 @@ private:
             beforeSplit->addSuccessor(afterSplit);
             afterSplit->setLength(beforeSplit->getLength() - relPos);
             beforeSplit->setLength(relPos);
+            if (!forward) {
+                // rename backward edges for easier referencing
+                const std::string newID = beforeSplit->getID();
+                beforeSplit->setID(afterSplit->getID());
+                afterSplit->setID(newID);
+            }
             splitIndex++;
             splitList.insert(splitList.begin() + splitIndex, afterSplit);
         }

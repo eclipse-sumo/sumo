@@ -233,7 +233,7 @@ public:
         const std::vector<_IntermodalEdge*>& splitList = it->second;
         typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
         double totalLength = 0.;
-        while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() + POSITION_EPS < pos) {
+        while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() < pos) {
             totalLength += (*splitIt)->getLength();
             ++splitIt;
         }
@@ -254,7 +254,7 @@ public:
         const std::vector<_IntermodalEdge*>& splitList = it->second;
         typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
         double totalLength = 0.;
-        while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() + POSITION_EPS < pos) {
+        while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() < pos) {
             totalLength += (*splitIt)->getLength();
             ++splitIt;
         }
