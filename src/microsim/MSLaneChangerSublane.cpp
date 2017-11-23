@@ -251,6 +251,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     vehicle->myCachedPosition = Position::INVALID;
     vehicle->getLaneChangeModel().setSpeedLat(DIST2SPEED(latDist));
     vehicle->getLaneChangeModel().setManeuverDist(vehicle->getLaneChangeModel().getManeuverDist() - latDist);
+    vehicle->getLaneChangeModel().updateSafeLatDist(latDist);
 
     // 2) distinguish several cases
     //   a) vehicle moves completely within the same lane

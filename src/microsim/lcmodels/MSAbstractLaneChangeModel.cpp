@@ -119,6 +119,11 @@ MSAbstractLaneChangeModel::setManeuverDist(const double dist) {
     UNUSED_PARAMETER(dist);
 }
 
+void
+MSAbstractLaneChangeModel::updateSafeLatDist(const double travelledLatDist) {
+    UNUSED_PARAMETER(travelledLatDist);
+}
+
 double
 MSAbstractLaneChangeModel::getManeuverDist () const {
     return 0.;

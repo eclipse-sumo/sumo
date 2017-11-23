@@ -271,6 +271,13 @@ MSLCM_SL2015::getManeuverDist () const {
 }
 
 
+void
+MSLCM_SL2015::updateSafeLatDist(const double travelledLatDist) {
+    mySafeLatDistLeft -= travelledLatDist;
+    mySafeLatDistRight += travelledLatDist;
+}
+
+
 double
 MSLCM_SL2015::patchSpeed(const double min, const double wanted, const double max, const MSCFModel& cfModel) {
     gDebugFlag2 = DEBUG_COND;
