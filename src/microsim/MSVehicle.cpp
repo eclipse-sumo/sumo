@@ -1432,6 +1432,8 @@ MSVehicle::processNextStop(double currentVelocity) {
                 endPos = stop.parkingarea->getLastFreePos(*this);
                 if (stop.parkingarea->getOccupancy() == stop.parkingarea->getCapacity()) {
                     fitsOnStoppingPlace = false;
+                    // leave enough space so parking vehicles can exit
+                    endPos -= getVehicleType().getMinGap();
                     // trigger potential parkingZoneReroute
                     for (std::vector< MSMoveReminder* >::const_iterator rem = myLane->getMoveReminders().begin(); rem != myLane->getMoveReminders().end(); ++rem) {
                         addReminder(*rem);
