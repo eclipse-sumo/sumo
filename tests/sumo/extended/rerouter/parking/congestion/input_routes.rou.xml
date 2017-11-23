@@ -5,7 +5,7 @@
 	    <param key="parking.distance.weight" value="1"/>
     </vType>
 	
-    <route id="route1" edges="a b">
+    <route id="route1" edges="a b c">
 		<stop index="1" parkingArea="ParkAreaB" duration="20" parking="true"/>
     </route>
 
