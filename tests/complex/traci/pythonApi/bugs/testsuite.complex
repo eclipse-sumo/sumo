@@ -26,3 +26,4 @@ ticket3505_with_load_offset
 # begin > save-time
 ticket3505_test_with_begin_ge_savetime
 ticket3634
+ticket3648
