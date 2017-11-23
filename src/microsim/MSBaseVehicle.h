@@ -425,6 +425,11 @@ public:
      */
     void addStops(const bool ignoreStopErrors);
 
+    /// @brief whether this vehicle is selected in the GUI
+    virtual bool isSelected() const {
+        return false;
+    }
+
 protected:
     /** @brief (Re-)Calculates the arrival position and lane from the vehicle parameters
      */

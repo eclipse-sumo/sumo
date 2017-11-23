@@ -349,6 +349,9 @@ public:
     /// @brief Returns this vehicles impatience
     virtual double getImpatience() const = 0;
 
+    /// @brief whether this vehicle is selected in the GUI
+    virtual bool isSelected() const = 0;
+
     /// @name state io
     //@{
 
