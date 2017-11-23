@@ -298,7 +298,6 @@ protected:
                              int currIdx,
                              int bestLaneOffset,
                              bool changeToBest,
-                             int lcaCounter,
                              double currentDist,
                              double neighDist,
                              double laDist,
