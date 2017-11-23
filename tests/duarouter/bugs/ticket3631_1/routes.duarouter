@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 11/23/17 12:34:22 by SUMO duarouter Version v0_31_0+1143-87c09f1032
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <route-files value="input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="pcw0_0" depart="triggered">
+        <route edges="-133146799 133146799 25783535#0 25783535#1 25783535#2"/>
+    </vehicle>
+    <person id="pcw0" depart="400.00">
+        <ride from="-133146799" to="25783535#2" lines="pcw0_0"/>
+    </person>
+</routes>

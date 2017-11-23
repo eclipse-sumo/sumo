@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="1026362973" name="Jesewitz (bei Leipzig)" lane="88361116#2_0" startPos="270.18" endPos="470.18" friendlyPos="true">
+        <access lane="220947325#0_0" pos="0.00" friendlyPos="1"/>
+    </busStop>
+    <busStop id="2589322673" name="Jesewitz (bei Leipzig)" lane="172485822#3_0" startPos="3.79" endPos="28.79" friendlyPos="true">
+        <access lane="220947325#0_0" pos="1.37" friendlyPos="1"/>
+    </busStop>
+</additional>
