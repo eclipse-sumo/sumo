@@ -2250,19 +2250,19 @@ GNENet::insertShape(GNEShape *shape) {
 
 void 
 GNENet::removeShape(GNEShape *shape) {
-    // remove shape froim grid
+    // remove shape from grid
     myGrid.removeAdditionalGLObject(shape->getGUIGLObject());
     // remove shape depending of their types
     if(shape->getTag() == SUMO_TAG_POLY) {
-        myPolygons.erase(shape->getID(), false);
+        myPolygons.remove(shape->getID(), false);
     } else {
-        myPOIs.erase(shape->getID(), false);
+        myPOIs.remove(shape->getID(), false);
     }
     // POILanes has to be removed from lane
     if(shape->getTag() == SUMO_TAG_POILANE) {
         retrieveLane(shape->getAttribute(SUMO_ATTR_LANE))->removeShapeChild(shape);
     }
-    // remove shape requieres always save shapes
+    // remove shape requires always save shapes
     requiereSaveShapes();
 }
 

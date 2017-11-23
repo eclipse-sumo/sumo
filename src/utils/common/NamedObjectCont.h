@@ -45,18 +45,13 @@
  * @brief A map of named object pointers
  *
  * An associative storage (map) for objects (pointers to them to be exact),
- *  which do have a name. In order to get the stored objects as a list,
- *  each insertion/deletion sets the internal state value "myHaveChanged"
- *  to true, indicating the list must be rebuild.
+ *  which do have a name.
  */
 template<class T>
 class NamedObjectCont {
 public:
     /// @brief Definition of the key to pointer map type
     typedef std::map< std::string, T > IDMap;
-
-    /// @brief Constructor
-    NamedObjectCont() : myHaveChanged(false) { }
 
     ///@brief Destructor
     virtual ~NamedObjectCont() {
@@ -75,12 +70,11 @@ public:
      * @param[in] item The item to add
      * @return If the item could been added (no item with the same id was within the container before)
      */
-    virtual bool add(const std::string& id, T item) {
+    bool add(const std::string& id, T item) {
         if (myMap.find(id) != myMap.end()) {
             return false;
         }
         myMap.insert(std::make_pair(id, item));
-        myHaveChanged = true;
         return true;
     }
 
@@ -89,14 +83,15 @@ public:
      * @param[in] del delete item after removing of container
      * @return If the item could been removed (an item with the id was within the container before)
      */
-    virtual bool remove(const std::string& id) {
+    bool remove(const std::string& id, const bool del = true) {
         auto it = myMap.find(id);
         if (it == myMap.end()) {
             return false;
         } else {
-            delete it->second;
+            if (del) {
+                delete it->second;
+            }
             myMap.erase(it);
-            myHaveChanged = true;
             return true;
         }
     }
@@ -123,44 +118,11 @@ public:
             delete i.second;
         }
         myMap.clear();
-        myVector.clear();
-        myHaveChanged = true;
     }
 
     /// @brief Returns the number of stored items within the container
     int size() const {
         return (int) myMap.size();
-    }
-
-    /** @brief Removes the named item from the container
-     *
-     * If the named object exists, it is deleted, the key is
-     *  removed from the map, and true is returned. If the id was not
-     *  known, false is returned.
-     *
-     * @param[in] id The id of the item to delete
-     * @param[in] deleteObject delete object after removing it from container
-     * @return Whether the object could be deleted (was within the map)
-     */
-    bool erase(const std::string& id, bool deleteObject = true) {
-        auto i = myMap.find(id);
-        if (i == myMap.end()) {
-            return false;
-        } else {
-            T o = i->second;
-            myMap.erase(i);
-            // and from the vector
-            typename ObjectVector::iterator i2 =
-                find(myVector.begin(), myVector.end(), o);
-            myHaveChanged = true;
-            if (i2 != myVector.end()) {
-                myVector.erase(i2);
-            }
-            if(deleteObject) {
-                delete o;
-            }
-            return true;
-        }
     }
 
     /* @brief Fills the given vector with the stored objects' ids
@@ -193,20 +155,8 @@ public:
 
 
 private:
-    /// @brief Definition of the container type iterator
-    typedef typename IDMap::iterator myContIt;
-
     /// @brief The map from key to object
     IDMap myMap;
-
-    /// @brief Definition objects vector
-    typedef std::vector<T> ObjectVector;
-
-    /// @brief The stored vector of all known items
-    mutable ObjectVector myVector;
-
-    /// @brief Information whether the vector is out of sync with the map
-    mutable bool myHaveChanged;
 };
 
 

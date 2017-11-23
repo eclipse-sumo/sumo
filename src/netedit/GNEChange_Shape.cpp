@@ -63,12 +63,10 @@ GNEChange_Shape::~GNEChange_Shape() {
         }
         // make sure that shape are removed of ShapeContainer
         if(myShape->getTag() == SUMO_TAG_POLY) {
-            myNet->myPolygons.erase(myShape->getID(), false);
+            myNet->myPolygons.remove(myShape->getID());
         } else {
-            myNet->myPOIs.erase(myShape->getID(), false);
+            myNet->myPOIs.remove(myShape->getID());
         }
-        // delete shape
-        delete myShape;
     }
 }
 

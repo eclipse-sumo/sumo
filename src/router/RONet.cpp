@@ -96,7 +96,7 @@ RONet::~RONet() {
             const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(r);
             // delete routes and the vehicle
             if (veh != 0 && veh->getRouteDefinition()->getID()[0] == '!') {
-                if (!myRoutes.erase(veh->getRouteDefinition()->getID())) {
+                if (!myRoutes.remove(veh->getRouteDefinition()->getID())) {
                     delete veh->getRouteDefinition();
                 }
             }
@@ -107,7 +107,7 @@ RONet::~RONet() {
         const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(r);
         // delete routes and the vehicle
         if (veh != 0 && veh->getRouteDefinition()->getID()[0] == '!') {
-            if (!myRoutes.erase(veh->getRouteDefinition()->getID())) {
+            if (!myRoutes.remove(veh->getRouteDefinition()->getID())) {
                 delete veh->getRouteDefinition();
             }
         }
@@ -469,7 +469,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler, const bool keepPT) {
         }
     }
     for (std::vector<std::string>::const_iterator i = toRemove.begin(); i != toRemove.end(); ++i) {
-        myFlows.erase(*i);
+        myFlows.remove(*i);
     }
 }
 
@@ -605,7 +605,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
                 if (!r->isPublicTransport() || r->isPartOfFlow()) {
                     const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(r);
                     if (veh != 0 && veh->getRouteDefinition()->getID()[0] == '!') {
-                        if (!myRoutes.erase(veh->getRouteDefinition()->getID())) {
+                        if (!myRoutes.remove(veh->getRouteDefinition()->getID())) {
                             delete veh->getRouteDefinition();
                         }
                     }
