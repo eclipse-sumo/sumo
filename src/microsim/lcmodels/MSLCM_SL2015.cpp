@@ -2403,7 +2403,7 @@ MSLCM_SL2015::keepLatGap(int state,
     double surplusGapRight = oldCenter - halfWidth;
     double surplusGapLeft = myVehicle.getLane()->getEdge().getWidth() - oldCenter - halfWidth;
     if (gDebugFlag2) {
-        std::cout << "    keepLatGap laneOffset=" << laneOffset
+        std::cout << "\n  " << SIMTIME << " keepLatGap() laneOffset=" << laneOffset
                   << " latDist=" << latDist
                   << " state=" << toString((LaneChangeAction)state)
                   << " blocked=" << toString((LaneChangeAction)blocked)
@@ -2965,7 +2965,7 @@ MSLCM_SL2015::wantsChange(
 
 bool 
 MSLCM_SL2015::sublaneChangeCompleted(const double latDist) const {
-    return latDist == myManeuverDist;
+    return latDist == 0 || myManeuverDist == 0;
 }
 
 /****************************************************************************/

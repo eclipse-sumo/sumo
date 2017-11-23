@@ -240,7 +240,6 @@ MSLaneChangerSublane::continueChangeSublane(MSVehicle* vehicle, ChangerIt& from)
     }
 
     bool changed = startChangeSublane(vehicle, from, nextLatDist);
-    vehicle->getLaneChangeModel().setManeuverDist(vehicle->getLaneChangeModel().getManeuverDist() - nextLatDist);
     return changed;
 }
 
@@ -251,6 +250,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     vehicle->myState.myPosLat += latDist;
     vehicle->myCachedPosition = Position::INVALID;
     vehicle->getLaneChangeModel().setSpeedLat(DIST2SPEED(latDist));
+    vehicle->getLaneChangeModel().setManeuverDist(vehicle->getLaneChangeModel().getManeuverDist() - latDist);
 
     // 2) distinguish several cases
     //   a) vehicle moves completely within the same lane
