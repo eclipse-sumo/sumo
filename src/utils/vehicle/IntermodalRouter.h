@@ -154,6 +154,8 @@ public:
                 prevArr->setLength(backSplit->getLength());
                 if (carSplit != 0) {
                     carSplit->addSuccessor(arrConn);
+                    carSplit->removeSuccessor(prevArr);
+                    myAccessSplits[myCarLookup[stopEdge]][splitIndex - 1]->addSuccessor(prevArr);
                 }
                 myIntermodalNet->addConnectors(depConn, arrConn, splitIndex);
             }
