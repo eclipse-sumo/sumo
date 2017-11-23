@@ -127,8 +127,9 @@ public:
                     splitEdge(myCarLookup[stopEdge], carSplit, pos, stopConn, fwdSplit, backSplit);
                 }
 
-                _IntermodalEdge* const prevDep = myIntermodalNet->getDepartEdge(stopEdge, pos);
-                _IntermodalEdge* const backBeforeSplit = myAccessSplits[pair.second][myAccessSplits[pair.second].size() - 1 - splitIndex];
+                _IntermodalEdge* const prevDep = myIntermodalNet->getDepartConnector(stopEdge, splitIndex - 1);
+                const std::vector<_IntermodalEdge*>& backSplitList = myAccessSplits[pair.second];
+                _IntermodalEdge* const backBeforeSplit = backSplitList[backSplitList.size() - 1 - splitIndex];
                 // depart and arrival edges (the router can decide the initial direction to take and the direction to arrive from)
                 _IntermodalEdge* const depConn = new _IntermodalEdge(stopEdge->getID() + "_depart_connector" + toString(pos), myNumericalID++, stopEdge, "!connector");
                 depConn->addSuccessor(fwdSplit);
@@ -141,7 +142,7 @@ public:
                     depConn->addSuccessor(carSplit);
                 }
 
-                _IntermodalEdge* const prevArr = myIntermodalNet->getArrivalEdge(stopEdge, pos);
+                _IntermodalEdge* const prevArr = myIntermodalNet->getArrivalConnector(stopEdge, splitIndex - 1);
                 _IntermodalEdge* const arrConn = new _IntermodalEdge(stopEdge->getID() + "_arrival_connector" + toString(pos), myNumericalID++, stopEdge, "!connector");
                 fwdSplit->addSuccessor(arrConn);
                 backBeforeSplit->addSuccessor(arrConn);
@@ -318,24 +319,27 @@ private:
 
     int splitEdge(_IntermodalEdge* const toSplit, _IntermodalEdge* afterSplit, const double pos,
                   _IntermodalEdge* const stopConn, _IntermodalEdge* const fwdConn = 0, _IntermodalEdge* const backConn = 0) {
-        int splitIndex = 1;
         std::vector<_IntermodalEdge*>& splitList = myAccessSplits[toSplit];
         if (splitList.empty()) {
             splitList.push_back(toSplit);
         }
-        typename std::vector<_IntermodalEdge*>::iterator splitIt = splitList.begin();
         double relPos = pos;
-        while (splitIt != splitList.end() && relPos > (*splitIt)->getLength()) {
-            relPos -= (*splitIt)->getLength();
-            ++splitIt;
+        int splitIndex = 0;
+        for (const _IntermodalEdge* const splitEdge : splitList) {
+            if (relPos < splitEdge->getLength() + POSITION_EPS) {
+                break;
+            }
+            relPos -= splitEdge->getLength();
             splitIndex++;
         }
-        assert(splitIt != splitList.end());
-        _IntermodalEdge* const beforeSplit = *splitIt;
-        if (fabs(relPos - beforeSplit->getLength()) < POSITION_EPS && splitIt + 1 != splitList.end()) {
+        assert(splitIndex < (int)splitList.size());
+        _IntermodalEdge* beforeSplit = splitList[splitIndex];
+        bool connectPed = (myCarWalkTransfer | PT_STOPS) != 0;
+        if (splitIndex + 1 < (int)splitList.size() && fabs(relPos - beforeSplit->getLength()) < POSITION_EPS) {
             // don't split, use the present split edges
+            afterSplit = splitList[splitIndex + 1];
             splitIndex = -1;
-            afterSplit = *(splitIt + 1);
+            connectPed = false;
         } else {
             myIntermodalNet->addEdge(afterSplit);
             afterSplit->setSuccessors(beforeSplit->getSuccessors(SVC_IGNORING));
@@ -343,11 +347,12 @@ private:
             beforeSplit->addSuccessor(afterSplit);
             afterSplit->setLength(beforeSplit->getLength() - relPos);
             beforeSplit->setLength(relPos);
-            splitList.insert(splitIt + 1, afterSplit);
+            splitIndex++;
+            splitList.insert(splitList.begin() + splitIndex, afterSplit);
         }
         // add access to / from edge
         for (_IntermodalEdge* conn : { stopConn, fwdConn, backConn }) {
-            if (conn != 0 && (conn == stopConn || (myCarWalkTransfer | PT_STOPS) != 0)) {
+            if (conn != 0 && (conn == stopConn || connectPed)) {
                 _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, conn);
                 myIntermodalNet->addEdge(access);
                 beforeSplit->addSuccessor(access);
@@ -398,8 +403,8 @@ private:
                     }
                 }
             }
-            myIntermodalNet->getDepartEdge(edgePair.first)->addSuccessor(carEdge);
-            carEdge->addSuccessor(myIntermodalNet->getArrivalEdge(edgePair.first));
+            myIntermodalNet->getDepartConnector(edgePair.first)->addSuccessor(carEdge);
+            carEdge->addSuccessor(myIntermodalNet->getArrivalConnector(edgePair.first));
         }
     }
 

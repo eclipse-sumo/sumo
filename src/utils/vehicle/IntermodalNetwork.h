@@ -88,10 +88,8 @@ public:
             }
             if (!edge->isWalkingArea()) {
                 // depart and arrival edges (the router can decide the initial direction to take and the direction to arrive from)
-                addEdge(new _IntermodalEdge(edge->getID() + "_depart_connector", numericalID++, edge, "!connector"));
-                myDepartLookup[edge].push_back(myEdges.back());
-                addEdge(new _IntermodalEdge(edge->getID() + "_arrival_connector", numericalID++, edge, "!connector"));
-                myArrivalLookup[edge].push_back(myEdges.back());
+                addConnectors(new _IntermodalEdge(edge->getID() + "_depart_connector", numericalID++, edge, "!connector"),
+                              new _IntermodalEdge(edge->getID() + "_arrival_connector", numericalID++, edge, "!connector"), 0);
             }
         }
 
@@ -176,11 +174,11 @@ public:
                 continue;
             }
             // build connections from depart connector
-            _IntermodalEdge* startConnector = getDepartEdge(edge);
+            _IntermodalEdge* startConnector = getDepartConnector(edge);
             startConnector->addSuccessor(pair.first);
             startConnector->addSuccessor(pair.second);
             // build connections to arrival connector
-            _IntermodalEdge* endConnector = getArrivalEdge(edge);
+            _IntermodalEdge* endConnector = getArrivalConnector(edge);
             pair.first->addSuccessor(endConnector);
             pair.second->addSuccessor(endConnector);
 #ifdef IntermodalRouter_DEBUG_NETWORK
@@ -221,16 +219,16 @@ public:
         typename std::map<const E*, EdgePair>::const_iterator it = myBidiLookup.find(e);
         if (it == myBidiLookup.end()) {
             assert(false);
-            throw ProcessError("Edge '" + e->getID() + "' not found in pedestrian network '");
+            throw ProcessError("Edge '" + e->getID() + "' not found in intermodal network '");
         }
         return (*it).second;
     }
 
-    /// @brief Returns the departing Intermodal edge
-    _IntermodalEdge* getDepartEdge(const E* e, const double pos = -1.) const {
+    /// @brief Returns the departing intermodal edge
+    _IntermodalEdge* getDepartEdge(const E* e, const double pos) const {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myDepartLookup.find(e);
         if (it == myDepartLookup.end()) {
-            throw ProcessError("Depart edge '" + e->getID() + "' not found in pedestrian network.");
+            throw ProcessError("Depart edge '" + e->getID() + "' not found in intermodal network.");
         }
         const std::vector<_IntermodalEdge*>& splitList = it->second;
         typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
@@ -242,11 +240,16 @@ public:
         return *splitIt;
     }
 
-    /// @brief Returns the arriving Intermodal edge
-    _IntermodalEdge* getArrivalEdge(const E* e, const double pos = -1.) const {
+    /// @brief Returns the departing intermodal connector at the given split offset
+    _IntermodalEdge* getDepartConnector(const E* e, const int splitIndex=0) const {
+        return myDepartLookup.find(e)->second[splitIndex];
+    }
+
+    /// @brief Returns the arriving intermodal edge
+    _IntermodalEdge* getArrivalEdge(const E* e, const double pos) const {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myArrivalLookup.find(e);
         if (it == myArrivalLookup.end()) {
-            throw ProcessError("Arrival edge '" + e->getID() + "' not found in pedestrian network.");
+            throw ProcessError("Arrival edge '" + e->getID() + "' not found in intermodal network.");
         }
         const std::vector<_IntermodalEdge*>& splitList = it->second;
         typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
@@ -256,6 +259,11 @@ public:
             ++splitIt;
         }
         return *splitIt;
+    }
+
+    /// @brief Returns the arriving intermodal connector at the given split offset
+    _IntermodalEdge* getArrivalConnector(const E* e, const int splitIndex=0) const {
+        return myArrivalLookup.find(e)->second[splitIndex];
     }
 
     /// @brief Returns the outgoing pedestrian edge, which is either a walking area or a walking connector

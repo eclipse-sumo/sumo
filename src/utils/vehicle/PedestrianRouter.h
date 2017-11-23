@@ -97,8 +97,8 @@ public:
         }
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, onlyNode);
         std::vector<const _IntermodalEdge*> intoPed;
-        const bool success = myInternalRouter->compute(myPedNet->getDepartEdge(from),
-                             myPedNet->getArrivalEdge(to),
+        const bool success = myInternalRouter->compute(myPedNet->getDepartConnector(from),
+                             myPedNet->getArrivalConnector(to),
                              &trip, msTime, intoPed);
         double time = 0.;
         if (success) {

@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/11/17 14:47:34 by SUMO duarouter Version dev-SVN-r26415
+<!-- generated on 11/23/17 11:07:19 by SUMO duarouter Version v0_31_0+1143-87c09f1032
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
-        <net-file value="hello.net.xml"/>
+        <net-file value="input_net.net.xml"/>
         <additional-files value="input_additional.add.xml"/>
-        <route-files value="input_person.rou.xml"/>
+        <route-files value="input_routes.rou.xml"/>
     </input>
 
     <output>
-        <output-file value="output_person.rou.xml"/>
+        <output-file value="routes.rou.xml"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
     </output>
 
-    <processing>
-        <routing-threads value="0"/>
-    </processing>
-
     <report>
-        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
     </report>
 
 </configuration>
@@ -30,6 +28,6 @@
     <person id="public" depart="4.00">
         <walk cost="40.00" edges="b" busStop="busstop1"/>
         <ride cost="106.00" busStop="busstop3" lines="100"/>
-        <walk cost="0.00" edges="g"/>
+        <walk cost="46.80" edges="g"/>
     </person>
 </routes>
