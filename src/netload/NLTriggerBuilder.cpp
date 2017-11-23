@@ -363,7 +363,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     for (std::vector<std::string>::iterator i = edgeIDs.begin(); i != edgeIDs.end(); ++i) {
         MSEdge* edge = MSEdge::dictionary(*i);
         if (edge == 0) {
-            throw InvalidArgument("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
+            throw InvalidArgument("The edge '" + (*i) + "' to use within MSTriggeredRerouter '" + id + "' is not known.");
         }
         edges.push_back(edge);
     }
