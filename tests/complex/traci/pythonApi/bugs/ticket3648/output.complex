@@ -1,4 +1,4 @@
-Could not connect to TraCI server at localhost:40085 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:60256 [Errno 111] Connection refused
  Retrying in 1 seconds
 2.0 2.6 gneE0
 3.0 7.8 gneE0
@@ -35,7 +35,7 @@ Could not connect to TraCI server at localhost:40085 [Errno 111] Connection refu
 34.0 385.568592593 gneE3
 35.0 396.328728395 gneE3
 36.0 402.588864198 gneE3
-37.0 72.859 gneE4
-38.0 84.3191358025 gneE4
-39.0 98.2091358025 gneE4
-40.0 112.099135802 gneE4
+37.0 411.449 gneE4
+38.0 422.909135802 gneE4
+39.0 436.799135802 gneE4
+40.0 450.689135802 gneE4

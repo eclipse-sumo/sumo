@@ -394,7 +394,18 @@ double
 TraCI_Vehicle::getDistance(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
-        double distance = veh->getRoute().getDistanceBetween(veh->getDepartPos(), veh->getPositionOnLane(), veh->getRoute().getEdges()[0],  &veh->getLane()->getEdge());
+        double distance;
+        if (veh->getLane()->isInternal()) {
+            // route edge still points to the edge before the intersection
+            const double normalEnd = (*veh->getCurrentRouteEdge())->getLength();
+            distance = (veh->getRoute().getDistanceBetween(veh->getDepartPos(), normalEnd, 
+                    veh->getRoute().begin(),  veh->getCurrentRouteEdge()) 
+                    + veh->getRoute().getDistanceBetween(normalEnd, veh->getPositionOnLane(),
+                        *veh->getCurrentRouteEdge(), &veh->getLane()->getEdge()));
+        } else {
+            distance = veh->getRoute().getDistanceBetween(veh->getDepartPos(), veh->getPositionOnLane(), 
+                veh->getRoute().begin(),  veh->getCurrentRouteEdge());
+        }
         if (distance == std::numeric_limits<double>::max()) {
             return INVALID_DOUBLE_VALUE;
         } else {
