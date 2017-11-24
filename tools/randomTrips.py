@@ -57,6 +57,8 @@ def get_options(args=None):
                          default=False, help="create a person file with pedestrian trips instead of vehicle trips")
     optParser.add_option("--persontrips", action="store_true",
                          default=False, help="create a person file with person trips instead of vehicle trips")
+    optParser.add_option("--persontrip.transfer.car-walk", dest="carWalkMode", 
+            help="Where are mode changes from car to walking allowed (possible values: 'ptStops', 'allJunctions' and combinations)")
     optParser.add_option("--prefix", dest="tripprefix",
                          default="", help="prefix for the trip ids")
     optParser.add_option("-t", "--trip-attributes", dest="tripattrs",
@@ -437,6 +439,8 @@ def main(options):
                 '--begin', str(options.begin), '--end', str(options.end), '--no-step-log', '--no-warnings']
         if options.additional is not None:
             args += ['--additional-files', options.additional]
+        if options.carWalkMode is not None:
+            args += ['--persontrip.transfer.car-walk', options.carWalkMode]
         print("calling ", " ".join(args))
         subprocess.call(args)
 
