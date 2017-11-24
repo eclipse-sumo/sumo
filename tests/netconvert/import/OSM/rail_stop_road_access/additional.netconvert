@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 20 14:45:04 2017 by SUMO netconvert Version v0_31_0+1228-0bd30b2
+<!-- generated on Fri Nov 24 12:30:57 2017 by SUMO netconvert Version v0_31_0+1305-90c1338
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -42,16 +42,16 @@
     <busStop id="-3812676502" name="Zur Nachtheide" lane="-93704176#0_1" startPos="1372.36" endPos="1387.36" friendlyPos="true"/>
     <busStop id="-3895454719" name="Zur Nachtheide" lane="-93704176#0_1" startPos="1356.09" endPos="1371.09" friendlyPos="true"/>
     <busStop id="1865677162" name="Krankenhaus Köpenick/Südseite" lane="176156044#5_0" startPos="26.01" endPos="72.00" friendlyPos="true">
+        <access lane="26284993#1_0" pos="46.45" friendlyPos="1"/>
         <access lane="-10855364#0_0" pos="41.91" friendlyPos="1"/>
         <access lane="10855364#0_0" pos="32.73" friendlyPos="1"/>
         <access lane="54048877#1_0" pos="29.23" friendlyPos="1"/>
-        <access lane="414498858_0" pos="192.87" friendlyPos="1"/>
     </busStop>
     <busStop id="1865677163" name="Pablo-Neruda-Straße" lane="176156044#6_0" startPos="46.28" endPos="65.52" friendlyPos="true">
         <access lane="10699438#2_0" pos="41.16" friendlyPos="1"/>
-        <access lane="10699438#3_0" pos="0.00" friendlyPos="1"/>
-        <access lane="185867069_0" pos="6.51" friendlyPos="1"/>
-        <access lane="26708288#0_0" pos="2.54" friendlyPos="1"/>
+        <access lane="30803555#1_0" pos="0.20" friendlyPos="1"/>
+        <access lane="30803555#2_0" pos="0.00" friendlyPos="1"/>
+        <access lane="30803555#0_0" pos="1.43" friendlyPos="1"/>
     </busStop>
     <busStop id="1865877888" name="Betriebshof Köpenick" lane="176023646#3_0" startPos="0.00" endPos="36.13" friendlyPos="true">
         <access lane="-403449586#0_0" pos="10.50" friendlyPos="1"/>
@@ -62,8 +62,8 @@
     <busStop id="1865877909" name="Mayschweg" lane="107701628_0" startPos="80.49" endPos="101.22" friendlyPos="true">
         <access lane="93704176#0_0" pos="1687.10" friendlyPos="1"/>
         <access lane="-93704176#0_0" pos="17.92" friendlyPos="1"/>
+        <access lane="-414498877#0_0" pos="56.00" friendlyPos="1"/>
         <access lane="93704176#1_0" pos="0.00" friendlyPos="1"/>
-        <access lane="-93704176#1_0" pos="3.34" friendlyPos="1"/>
     </busStop>
     <busStop id="1865877925" name="Segewaldweg" lane="107701628_0" startPos="364.54" endPos="383.11" friendlyPos="true">
         <access lane="-93704176#0_0" pos="304.23" friendlyPos="1"/>
@@ -143,9 +143,9 @@
         <access lane="44956230#1_0" pos="12.13" friendlyPos="1"/>
     </busStop>
     <busStop id="95948746" name="Krankenhaus Köpenick/Südseite" lane="10699464#3_0" startPos="317.37" endPos="352.44" friendlyPos="true">
+        <access lane="26284993#1_0" pos="9.37" friendlyPos="1"/>
         <access lane="-10855364#0_0" pos="4.63" friendlyPos="1"/>
         <access lane="10855364#0_0" pos="70.32" friendlyPos="1"/>
         <access lane="-10855364#1_0" pos="1.32" friendlyPos="1"/>
-        <access lane="10855364#1_0" pos="0.00" friendlyPos="1"/>
     </busStop>
 </additional>

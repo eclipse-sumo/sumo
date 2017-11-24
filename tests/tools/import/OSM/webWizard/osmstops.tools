@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 17 10:08:22 2017 by SUMO netconvert Version v0_31_0+1188-dba1603
+<!-- generated on Fri Nov 24 12:30:53 2017 by SUMO netconvert Version v0_31_0+1305-90c1338
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -11,7 +11,7 @@
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/dynamic_gui.17Nov100816.14514/tools/import/OSM/webWizard/2017-11-17-10-08-19/osm.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/dynamic_gui.24Nov123047.23995/tools/import/OSM/webWizard/2017-11-24-12-30-50/osm.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
         <ptstop-output value="osm_stops.add.xml"/>
@@ -87,11 +87,11 @@
     <busStop id="1827996414" name="Spandauer Straße/Marienkirche" lane="72157174#1_1" startPos="23.51" endPos="36.01" friendlyPos="true"/>
     <busStop id="1827996417" name="Spandauer Straße/Marienkirche" lane="24914992_1" startPos="0.00" endPos="11.50" friendlyPos="true"/>
     <busStop id="1930939368" name="S Friedrichstraße" lane="237751551#0_0" startPos="1454.13" endPos="1654.13" friendlyPos="true">
+        <access lane="194073677_0" pos="16.24" friendlyPos="1"/>
+        <access lane="-194073677_0" pos="101.29" friendlyPos="1"/>
         <access lane="254523892#1_0" pos="9.10" friendlyPos="1"/>
         <access lane="237520773#0_0" pos="0.00" friendlyPos="1"/>
         <access lane="254523895#0_0" pos="4.65" friendlyPos="1"/>
-        <access lane="254523872_0" pos="0.00" friendlyPos="1"/>
-        <access lane="254523895#1_0" pos="0.00" friendlyPos="1"/>
     </busStop>
     <busStop id="2071423334" name="U Französische Straße" lane="295255789_0" startPos="42.31" endPos="67.31" friendlyPos="true">
         <access lane="-196850605_0" pos="0.24" friendlyPos="1"/>
@@ -177,7 +177,7 @@
         <access lane="317859982#0_0" pos="28.53" friendlyPos="1"/>
         <access lane="24240246#0_0" pos="25.31" friendlyPos="1"/>
         <access lane="231716555_0" pos="5.56" friendlyPos="1"/>
-        <access lane="317859977_0" pos="3.95" friendlyPos="1"/>
+        <access lane="327735420_0" pos="0.00" friendlyPos="1"/>
     </busStop>
     <busStop id="2603331683" name="Friedrichstraße" lane="25946668_0" startPos="0.00" endPos="142.73" friendlyPos="true">
         <access lane="254523901_0" pos="18.65" friendlyPos="1"/>
@@ -188,10 +188,10 @@
     </busStop>
     <busStop id="2603331695" lane="25946663_0" startPos="0.00" endPos="129.89" friendlyPos="true">
         <access lane="274524373_0" pos="2.18" friendlyPos="1"/>
+        <access lane="-194073677_0" pos="58.01" friendlyPos="1"/>
+        <access lane="194073677_0" pos="59.52" friendlyPos="1"/>
         <access lane="274524385#1_0" pos="0.00" friendlyPos="1"/>
         <access lane="274524385#0_0" pos="3.81" friendlyPos="1"/>
-        <access lane="274524368_0" pos="0.00" friendlyPos="1"/>
-        <access lane="274524385#2_0" pos="0.00" friendlyPos="1"/>
     </busStop>
     <busStop id="270720402" name="Mollstraße/Prenzlauer Allee" lane="24914141#1_1" startPos="39.37" endPos="64.37" friendlyPos="true"/>
     <busStop id="27411231" name="S Alexanderplatz" lane="72984377_0" startPos="0.00" endPos="164.25" friendlyPos="true">
@@ -257,7 +257,7 @@
         <access lane="24240246#0_0" pos="62.23" friendlyPos="1"/>
         <access lane="24913304#2_0" pos="109.30" friendlyPos="1"/>
         <access lane="231716555_0" pos="5.56" friendlyPos="1"/>
-        <access lane="317859977_0" pos="3.95" friendlyPos="1"/>
+        <access lane="327735420_0" pos="0.00" friendlyPos="1"/>
     </busStop>
     <busStop id="30353449" name="S Oranienburger Straße" lane="230976793_0" startPos="0.00" endPos="116.55" friendlyPos="true">
         <access lane="-165415464#1_0" pos="11.58" friendlyPos="1"/>
@@ -307,8 +307,8 @@
         <access lane="274524373_0" pos="2.18" friendlyPos="1"/>
         <access lane="274524385#0_0" pos="3.81" friendlyPos="1"/>
         <access lane="274524385#1_0" pos="0.00" friendlyPos="1"/>
-        <access lane="274524368_0" pos="0.00" friendlyPos="1"/>
-        <access lane="274524385#2_0" pos="0.00" friendlyPos="1"/>
+        <access lane="-194073677_0" pos="55.71" friendlyPos="1"/>
+        <access lane="194073677_0" pos="61.82" friendlyPos="1"/>
     </busStop>
     <busStop id="474368351" name="S Friedrichstraße" lane="230976796_0" startPos="656.94" endPos="856.94" friendlyPos="true">
         <access lane="237519485_0" pos="19.27" friendlyPos="1"/>
