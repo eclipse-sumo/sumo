@@ -9,3 +9,7 @@ congestion
 
 # afte rerouting use new parkingArea as the final destination
 newDestination
+
+# afte rerouting use new parkingArea as the final destination. 
+# The vehicle route never passes the original parking edge
+newDestination2
