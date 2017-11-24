@@ -652,7 +652,7 @@ MSVehicle::hasArrived() const {
 
 
 bool
-MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool addStops) {
+MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool addStops, bool removeStops) {
     const ConstMSEdgeVector& edges = newRoute->getEdges();
     // assert the vehicle may continue (must not be "teleported" or whatever to another position)
     if (!onInit && !newRoute->contains(*myCurrEdge)) {
@@ -681,12 +681,14 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool a
     myNumberReroutes++;
     MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE);
     // recheck old stops
-    for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
-        if (find(myCurrEdge, edges.end(), &iter->lane->getEdge()) == edges.end()) {
-            iter = myStops.erase(iter);
-        } else {
-            iter->edge = find(myCurrEdge, edges.end(), &iter->lane->getEdge());
-            ++iter;
+    if (removeStops) {
+        for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
+            if (find(myCurrEdge, edges.end(), &iter->lane->getEdge()) == edges.end()) {
+                iter = myStops.erase(iter);
+            } else {
+                iter->edge = find(myCurrEdge, edges.end(), &iter->lane->getEdge());
+                ++iter;
+            }
         }
     }
     // add new stops

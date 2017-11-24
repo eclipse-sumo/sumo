@@ -224,7 +224,7 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
 
 
 bool
-MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit, bool check) {
+MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit, bool check, bool removeStops) {
     if (edges.empty()) {
         WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
         return false;
@@ -267,7 +267,7 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit, bool che
             return false;
         }
     }
-    if (!replaceRoute(newRoute, onInit, (int)edges.size() - oldSize, false)) {
+    if (!replaceRoute(newRoute, onInit, (int)edges.size() - oldSize, false, removeStops)) {
         newRoute->addReference();
         newRoute->release();
         return false;

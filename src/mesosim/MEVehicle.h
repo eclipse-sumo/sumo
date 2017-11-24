@@ -309,7 +309,7 @@ public:
 
 
     /// Replaces the current route by the given one
-    bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0, bool addStops = true);
+    bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true);
 
     /** @brief Returns whether the vehicle is allowed to pass the next junction
      * @return true iff the vehicle may drive over the next junction

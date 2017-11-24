@@ -177,8 +177,9 @@ MEVehicle::isParking() const {
 
 
 bool
-MEVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool addStops) {
+MEVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool addStops, bool removeStops) {
     UNUSED_PARAMETER(addStops); // @todo recheck!
+    UNUSED_PARAMETER(removeStops); // @todo recheck!
     const ConstMSEdgeVector& edges = newRoute->getEdges();
     // assert the vehicle may continue (must not be "teleported" or whatever to another position)
     if (!onInit && !newRoute->contains(*myCurrEdge)) {

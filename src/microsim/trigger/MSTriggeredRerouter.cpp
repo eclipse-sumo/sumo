@@ -403,7 +403,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
                 edges.insert(edges.end(), edgesFromPark.begin() + 1, edgesFromPark.end());
             }
 
-            veh.replaceRouteEdges(edges);
+            veh.replaceRouteEdges(edges, false, false, false);
             std::string errorMsg;
             if (!veh.replaceParkingArea(newParkingArea, errorMsg)) {
                 WRITE_WARNING("Vehicle '" + veh.getID() + "' at rerouter '" + getID()
