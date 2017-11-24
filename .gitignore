@@ -64,6 +64,9 @@
 /src/tools/emissionsMap
 /src/traci_testclient/TraCITestClient
 /unittest/src/sumo-unittest
+# tool dir 
+/tools/game/*.netstate.xml
+/tools/game/*.tlsstate.xml
 # global patterns
 Makefile
 Makefile.in
