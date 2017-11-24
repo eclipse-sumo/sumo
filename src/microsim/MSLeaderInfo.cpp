@@ -33,6 +33,7 @@
 #include <utils/common/ToString.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicle.h>
+//#include <microsim/lcmodels/MSAbstractLaneChangeModel.h> //(refs #3651) 
 #include <microsim/MSNet.h>
 #include "MSLeaderInfo.h"
 
@@ -118,8 +119,17 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
     // map center-line based coordinates into [0, myWidth] coordinates
     const double vehCenter = veh->getLateralPositionOnLane() + 0.5 * myWidth + latOffset;
     const double vehHalfWidth = 0.5 * veh->getVehicleType().getWidth();
-    const double rightVehSide = MAX2(0.,  vehCenter - vehHalfWidth);
-    const double leftVehSide = MIN2(myWidth, vehCenter + vehHalfWidth);
+    double rightVehSide = MAX2(0.,  vehCenter - vehHalfWidth);
+    double leftVehSide = MIN2(myWidth, vehCenter + vehHalfWidth);
+// FIXME (refs #3651): Following approach for fixing actionstep/sublane collisionsinduces segfault
+//    if (veh->getActionStepLength()!=TS) {
+//        if (veh->getLaneChangeModel().getManeuverDist() < 0.) {
+//            rightVehSide -= veh->getVehicleType().getMaxSpeedLat()*veh->getActionStepLength();
+//        } else {
+//            leftVehSide += veh->getVehicleType().getMaxSpeedLat()*veh->getActionStepLength();
+//        }
+//    }
+
     rightmost = (int)floor((rightVehSide + NUMERICAL_EPS) / MSGlobals::gLateralResolution);
     leftmost = MIN2((int)myVehicles.size() - 1, (int)floor((leftVehSide - NUMERICAL_EPS) / MSGlobals::gLateralResolution));
     //if (veh->getID() == "Pepoli_11_41") std::cout << SIMTIME << " veh=" << veh->getID()
