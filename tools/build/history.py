@@ -28,7 +28,7 @@ import version
 
 
 optParser = optparse.OptionParser()
-optParser.add_option("-b", "--begin", default="ebef3bdbdf", help="first revision to build")
+optParser.add_option("-b", "--begin", default="51bb151", help="first revision to build")
 optParser.add_option("-e", "--end", default="HEAD", help="last revision to build")
 optParser.add_option("-s", "--step", type="int",
                      default=1, help="increment")
