@@ -24,7 +24,7 @@ make distclean &> /dev/null
 make -f Makefile.cvs clean &> /dev/null
 basename $MAKELOG >> $STATUSLOG
 git pull &> $MAKELOG || (echo "git pull failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-GITREV=`tools/version.py -`
+GITREV=`tools/build/version.py -`
 make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 ./configure --prefix=$PREFIX/sumo $CONFIGURE_OPT >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 if make >> $MAKELOG 2>&1; then
