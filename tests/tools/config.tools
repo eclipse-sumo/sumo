@@ -183,6 +183,8 @@ csv:\r$
 net:0.0101
 image:0.001
 osmbatch:0.001
+osmlines:0.0101
+osmstops:0.0101
 osmtrips:0.0101
 
 [unordered_text]
