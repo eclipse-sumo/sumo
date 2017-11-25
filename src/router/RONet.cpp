@@ -654,7 +654,7 @@ void
 RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
     // add access to all public transport stops
     for (auto stop : myInstance->myStoppingPlaces) {
-        router.addAccess(stop.first.first, myInstance->getEdgeForLaneID(stop.second->lane), stop.second->endPos);
+        router.addAccess(stop.first.first, myInstance->getEdgeForLaneID(stop.second->lane), (stop.second->startPos + stop.second->endPos) / 2.);
         for (std::multimap<std::string, double>::const_iterator a = stop.second->accessPos.begin(); a != stop.second->accessPos.end(); ++a) {
             router.addAccess(stop.first.first, myInstance->getEdgeForLaneID(a->first), a->second);
         }

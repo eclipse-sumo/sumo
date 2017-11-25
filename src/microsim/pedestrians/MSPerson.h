@@ -76,7 +76,7 @@ public:
     class MSPersonStage_Walking : public MSTransportable::Stage {
     public:
         /// constructor
-        MSPersonStage_Walking(const ConstMSEdgeVector& route, MSStoppingPlace* toStop, SUMOTime walkingTime,
+        MSPersonStage_Walking(const std::string& personID, const ConstMSEdgeVector& route, MSStoppingPlace* toStop, SUMOTime walkingTime,
                               double speed, double departPos, double arrivalPos, double departPosLat);
 
         /// destructor

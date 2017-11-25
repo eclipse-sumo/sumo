@@ -989,14 +989,13 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         if (bs == 0) {
             throw ProcessError("Unknown bus stop '" + bsID + "' for " + description + ".");
         }
-        arrivalPos = bs->getEndLanePosition();
         if (toEdge == 0) {
             toEdge = &bs->getLane().getEdge();
         }
-        if (!bs->hasAccess(toEdge)) {
+        arrivalPos = bs->getAccessPos(toEdge);
+        if (arrivalPos < 0) {
             throw ProcessError("Bus stop '" + bsID + "' is not connected to arrival edge '" + toEdge->getID() + "' for " + description + ".");
         }
-        arrivalPos = (bs->getBeginLanePosition() + bs->getEndLanePosition()) / 2.;
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
             const double arrPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge->getLength(),
                                   attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), &myParsingRNG);
@@ -1106,14 +1105,14 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                 myActivePlan->push_back(new MSTransportable::Stage_Waiting(
                     *myActiveRoute.front(), -1, myVehicleParameter->depart, departPos, "start", true));
             }
-            myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));
+            myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));
         } else {
             for (SUMOVehicleParameter* vehPar: pars) {
                 SUMOVehicle* vehicle = 0;
                 if (vehPar != 0) {
                     MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vehPar->vtypeid);
                     if (type->getVehicleClass() != SVC_IGNORING && (from->getPermissions() & type->getVehicleClass()) == 0) {
-                        WRITE_WARNING("Ignoring vehicle type '" + type->getID() + "' when routing person '" + vehPar->id + "' because it is not allowed on the start edge.");
+                        WRITE_WARNING("Ignoring vehicle type '" + type->getID() + "' when routing person '" + myVehicleParameter->id + "' because it is not allowed on the start edge.");
                     } else {
                         const MSRoute* const routeDummy = new MSRoute(vehPar->id, ConstMSEdgeVector({ from }), false, 0, std::vector<SUMOVehicleParameter::Stop>());
                         vehicle = vehControl.buildVehicle(vehPar, routeDummy, type, !MSGlobals::gCheckRoutes);
@@ -1131,7 +1130,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                             bs = MSNet::getInstance()->getBusStop(it->destStop);
                             if (it->line == "") {
                                 const double depPos = myActivePlan->back()->getDestinationStop() != 0 ? myActivePlan->back()->getDestinationStop()->getAccessPos(it->edges.front()): departPos;
-                                myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(it->edges, bs, duration, speed, depPos, bs != 0 ? bs->getAccessPos(it->edges.back()) : arrivalPos, departPosLat));
+                                myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, it->edges, bs, duration, speed, depPos, bs != 0 ? bs->getAccessPos(it->edges.back()) : arrivalPos, departPosLat));
                             } else if (vehicle != 0 && it->line == vehicle->getID()) {
                                 myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, bs != 0 ? bs->getAccessPos(it->edges.back()) : arrivalPos, std::vector<std::string>({ it->line })));
                                 vehicle->replaceRouteEdges(it->edges, true);
@@ -1200,7 +1199,7 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
                 *myActiveRoute.front(), -1, myVehicleParameter->depart, departPos, "start", true));
         }
         const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, 0, ok, 0);
-        myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));
+        myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));
         myActiveRoute.clear();
     } catch (ProcessError&) {
         deleteActivePlans();

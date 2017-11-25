@@ -55,19 +55,24 @@
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Walking - methods
  * ----------------------------------------------------------------------- */
-MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const ConstMSEdgeVector& route,
+MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& personID,
+        const ConstMSEdgeVector& route,
         MSStoppingPlace* toStop,
         SUMOTime walkingTime, double speed,
         double departPos, double arrivalPos, double departPosLat) :
-    MSTransportable::Stage(*route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
-                               arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + route.back()->getID()), MOVING_WITHOUT_VEHICLE), myWalkingTime(walkingTime), myRoute(route),
+    MSTransportable::Stage(*route.back(), toStop,
+                           SUMOVehicleParameter::interpretEdgePos(arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS,
+                                                                  "person '" + personID + "' walking to " + route.back()->getID()),
+                           MOVING_WITHOUT_VEHICLE),
+    myWalkingTime(walkingTime),
+    myRoute(route),
     myCurrentInternalEdge(0),
     myDepartPos(departPos),
     myDepartPosLat(departPosLat),
     mySpeed(speed),
     myPedestrianState(0) {
-    myDepartPos = SUMOVehicleParameter::interpretEdgePos(
-                      myDepartPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS, "person walking from " + myRoute.front()->getID());
+    myDepartPos = SUMOVehicleParameter::interpretEdgePos(departPos, route.front()->getLength(), SUMO_ATTR_DEPARTPOS,
+                                                         "person '" + personID + "' walking from " + route.front()->getID());
     if (walkingTime > 0) {
         mySpeed = computeAverageSpeed();
     }

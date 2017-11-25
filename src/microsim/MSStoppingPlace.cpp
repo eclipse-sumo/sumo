@@ -149,7 +149,7 @@ MSStoppingPlace::computeLastFreePos() {
 double
 MSStoppingPlace::getAccessPos(const MSEdge* edge) const {
     if (edge == &myLane.getEdge()) {
-        return myEndPos;
+        return (myBegPos + myEndPos) / 2.;
     }
     for (std::multimap<MSLane*, double>::const_iterator i = myAccessPos.begin(); i != myAccessPos.end(); ++i) {
         if (edge == &i->first->getEdge()) {

@@ -329,7 +329,7 @@ TraCI_Person::appendWalkingStage(const std::string& personID, const std::vector<
             throw TraCIException("Invalid stopping place id '" + stopID + "' for person: '" + personID + "'");
         }
     }
-    p->appendStage(new MSPerson::MSPersonStage_Walking(edges, bs, TIME2STEPS(duration), speed, p->getArrivalPos(), arrivalPos, 0));
+    p->appendStage(new MSPerson::MSPersonStage_Walking(p->getID(), edges, bs, TIME2STEPS(duration), speed, p->getArrivalPos(), arrivalPos, 0));
 }
 
 
@@ -375,7 +375,7 @@ TraCI_Person::rerouteTraveltime(const std::string& personID) {
         newEdges.insert(newEdges.begin(), from);
     }
     //std::cout << " from=" << from->getID() << " to=" << to->getID() << " newEdges=" << toString(newEdges) << "\n";
-    MSPerson::MSPersonStage_Walking* newStage = new MSPerson::MSPersonStage_Walking(newEdges, 0, -1, speed, departPos, arrivalPos, 0);
+    MSPerson::MSPersonStage_Walking* newStage = new MSPerson::MSPersonStage_Walking(p->getID(), newEdges, 0, -1, speed, departPos, arrivalPos, 0);
     if (p->getNumRemainingStages() == 1) {
         // Do not remove the last stage (a waiting stage would be added otherwise)
         p->appendStage(newStage);
