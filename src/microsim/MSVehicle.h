@@ -901,7 +901,7 @@ public:
         /// @brief (Optional) parkingArea if one is assigned to the stop
         MSParkingArea* parkingarea;
         /// @brief (Optional) charging station if one is assigned to the stop
-        MSChargingStation* chargingStation;
+        MSStoppingPlace* chargingStation;
         /// @brief The stop parameter
         const SUMOVehicleParameter::Stop pars;
         /// @brief The stopping duration

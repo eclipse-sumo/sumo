@@ -431,8 +431,7 @@ void
 NLTriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
                                      double frompos, double topos, const SumoXMLTag element, std::string ptStopName) {
     myCurrentStop = new MSStoppingPlace(id, lines, *lane, frompos, topos, ptStopName);
-    const bool success = element == SUMO_TAG_CONTAINER_STOP ? net.addContainerStop(myCurrentStop) : net.addBusStop(myCurrentStop);
-    if (!success) {
+    if (!net.addStoppingPlace(element, myCurrentStop)) {
         delete myCurrentStop;
         myCurrentStop = 0;
         throw InvalidArgument("Could not build " + toString(element) + " '" + id + "'; probably declared twice.");
@@ -447,9 +446,8 @@ NLTriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
                                    unsigned int capacity,
                                    double width, double length, double angle) {
     // Close previous parking area if there are not lots inside
-
     MSParkingArea* stop = new MSParkingArea(id, lines, *lane, frompos, topos, capacity, width, length, angle);
-    if (!net.addParkingArea(stop)) {
+    if (!net.addStoppingPlace(SUMO_TAG_PARKING_AREA, stop)) {
         delete stop;
         throw InvalidArgument("Could not build parking area '" + id + "'; probably declared twice.");
     } else {
@@ -483,10 +481,9 @@ void
 NLTriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
                                        double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay) {
     MSChargingStation* chargingStation = new MSChargingStation(id, *lane, frompos, topos, chargingPower, efficiency, chargeInTransit, chargeDelay);
-
-    if (!net.addChargingStation(chargingStation)) {
+    if (!net.addStoppingPlace(SUMO_TAG_CHARGING_STATION, chargingStation)) {
         delete chargingStation;
-        throw InvalidArgument("Could not build Charging Station '" + id + "'; probably declared twice.");
+        throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");
     }
 }
 

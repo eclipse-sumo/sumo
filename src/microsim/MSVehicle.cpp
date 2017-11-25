@@ -1020,10 +1020,10 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         errorMsg = "Vehicle '" + myParameter->id + "' is not allowed to stop on lane '" + stopPar.lane + "'.";
         return false;
     }
-    stop.busstop = MSNet::getInstance()->getBusStop(stopPar.busstop);
-    stop.containerstop = MSNet::getInstance()->getContainerStop(stopPar.containerstop);
-    stop.parkingarea = MSNet::getInstance()->getParkingArea(stopPar.parkingarea);
-    stop.chargingStation = MSNet::getInstance()->getChargingStation(stopPar.chargingStation);
+    stop.busstop = MSNet::getInstance()->getStoppingPlace(stopPar.busstop, SUMO_TAG_BUS_STOP);
+    stop.containerstop = MSNet::getInstance()->getStoppingPlace(stopPar.containerstop, SUMO_TAG_CONTAINER_STOP);
+    stop.parkingarea = static_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(stopPar.parkingarea, SUMO_TAG_PARKING_AREA));
+    stop.chargingStation = MSNet::getInstance()->getStoppingPlace(stopPar.chargingStation, SUMO_TAG_CHARGING_STATION);
     stop.duration = stopPar.duration;
     stop.triggered = stopPar.triggered;
     stop.containerTriggered = stopPar.containerTriggered;
@@ -4489,42 +4489,26 @@ MSVehicle::addTraciStopAtStoppingPlace(const std::string& stopId, const SUMOTime
     }
 
     SUMOVehicleParameter::Stop newStop;
-    MSStoppingPlace* bs = 0;
     switch (stoppingPlaceType) {
         case SUMO_TAG_BUS_STOP:
             newStop.busstop = stopId;
-            bs = MSNet::getInstance()->getBusStop(stopId);
-            if (bs == 0) {
-                errorMsg = "The bus stop '" + stopId + "' is not known for vehicle '" + getID() + "'";
-                return false;
-            }
             break;
         case SUMO_TAG_CONTAINER_STOP:
             newStop.containerstop = stopId;
-            bs = MSNet::getInstance()->getContainerStop(stopId);
-            if (bs == 0) {
-                errorMsg = "The container stop '" + stopId + "' is not known for vehicle '" + getID() + "'";
-                return false;
-            }
             break;
         case SUMO_TAG_CHARGING_STATION:
             newStop.chargingStation = stopId;
-            bs = MSNet::getInstance()->getChargingStation(stopId);
-            if (bs == 0) {
-                errorMsg = "The charging station '" + stopId + "' is not known for vehicle '" + getID() + "'";
-                return false;
-            }
             break;
         case SUMO_TAG_PARKING_AREA:
             newStop.parkingarea = stopId;
-            bs = MSNet::getInstance()->getParkingArea(stopId);
-            if (bs == 0) {
-                errorMsg = "The parking area '" + stopId + "' is not known for vehicle '" + getID() + "'";
-                return false;
-            }
             break;
         default:
             throw ProcessError("Invalid stopping place type '" + toString(stoppingPlaceType) + "'");
+    }
+    MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(stopId, stoppingPlaceType);
+    if (bs == 0) {
+        errorMsg = "The " + toString(stoppingPlaceType) + " '" + stopId + "' is not known for vehicle '" + getID() + "'";
+        return false;
     }
     newStop.duration = duration;
     newStop.until = until;

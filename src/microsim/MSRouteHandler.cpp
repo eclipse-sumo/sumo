@@ -1,4 +1,4 @@
-/****************************************************************************/
+/************************************************-****************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
 /****************************************************************************/
@@ -183,7 +183,7 @@ MSRouteHandler::myStartElement(int element,
                 MSStoppingPlace* bs = 0;
                 MSEdge* to = 0;
                 if (bsID != "") {
-                    bs = MSNet::getInstance()->getBusStop(bsID);
+                    bs = MSNet::getInstance()->getStoppingPlace(bsID, SUMO_TAG_BUS_STOP);
                     if (bs == 0) {
                         throw ProcessError("Unknown bus stop '" + bsID + "' for person '" + myVehicleParameter->id + "'.");
                     }
@@ -227,7 +227,7 @@ MSRouteHandler::myStartElement(int element,
                     std::string csID = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, 0, ok, "");
                     MSStoppingPlace* cs = 0;
                     if (csID != "") {
-                        cs = MSNet::getInstance()->getContainerStop(csID);
+                        cs = MSNet::getInstance()->getStoppingPlace(csID, SUMO_TAG_CONTAINER_STOP);
                         if (cs == 0) {
                             throw ProcessError("Unknown container stop '" + csID + "' for container '" + myVehicleParameter->id + "'.");
                         }
@@ -280,7 +280,7 @@ MSRouteHandler::myStartElement(int element,
                 std::string csID = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, 0, ok, "");
                 MSStoppingPlace* cs = 0;
                 if (csID != "") {
-                    cs = MSNet::getInstance()->getContainerStop(csID);
+                    cs = MSNet::getInstance()->getStoppingPlace(csID, SUMO_TAG_CONTAINER_STOP);
                     if (cs == 0) {
                         throw ProcessError("Unknown container stop '" + csID + "' for container '" + myVehicleParameter->id + "'.");
                     }
@@ -843,7 +843,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     // try to parse the assigned bus stop
     if (stop.busstop != "") {
         // ok, we have a bus stop
-        MSStoppingPlace* bs = MSNet::getInstance()->getBusStop(stop.busstop);
+        MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(stop.busstop, SUMO_TAG_BUS_STOP);
         if (bs == 0) {
             WRITE_ERROR("The busStop '" + stop.busstop + "' is not known" + errorSuffix);
             return;
@@ -856,7 +856,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     } //try to parse the assigned container stop
     else if (stop.containerstop != "") {
         // ok, we have obviously a container stop
-        MSStoppingPlace* cs = MSNet::getInstance()->getContainerStop(stop.containerstop);
+        MSStoppingPlace* cs = MSNet::getInstance()->getStoppingPlace(stop.containerstop, SUMO_TAG_CONTAINER_STOP);
         if (cs == 0) {
             WRITE_ERROR("The containerStop '" + stop.containerstop + "' is not known" + errorSuffix);
             return;
@@ -869,7 +869,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     } //try to parse the assigned parking area
     else if (stop.parkingarea != "") {
         // ok, we have obviously a parking area
-        MSStoppingPlace* pa = MSNet::getInstance()->getParkingArea(stop.parkingarea);
+        MSStoppingPlace* pa = MSNet::getInstance()->getStoppingPlace(stop.parkingarea, SUMO_TAG_PARKING_AREA);
         if (pa == 0) {
             WRITE_ERROR("The parkingArea '" + stop.parkingarea + "' is not known" + errorSuffix);
             return;
@@ -881,7 +881,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         edge = &l.getEdge();
     } else if (stop.chargingStation != "") {
         // ok, we have a charging station
-        MSChargingStation* cs = MSNet::getInstance()->getChargingStation(stop.chargingStation);
+        MSStoppingPlace* cs = MSNet::getInstance()->getStoppingPlace(stop.chargingStation, SUMO_TAG_CHARGING_STATION);
         if (cs != 0) {
             const MSLane& l = cs->getLane();
             stop.lane = l.getID();
@@ -985,7 +985,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
 
     std::string bsID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
     if (bsID != "") {
-        bs = MSNet::getInstance()->getBusStop(bsID);
+        bs = MSNet::getInstance()->getStoppingPlace(bsID, SUMO_TAG_BUS_STOP);
         if (bs == 0) {
             throw ProcessError("Unknown bus stop '" + bsID + "' for " + description + ".");
         }
@@ -1127,7 +1127,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                             if (myActivePlan->empty()) {
                                 myActivePlan->push_back(new MSTransportable::Stage_Waiting(*from, -1, myVehicleParameter->depart, departPos, "start", true));
                             }
-                            bs = MSNet::getInstance()->getBusStop(it->destStop);
+                            bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
                             if (it->line == "") {
                                 const double depPos = myActivePlan->back()->getDestinationStop() != 0 ? myActivePlan->back()->getDestinationStop()->getAccessPos(it->edges.front()): departPos;
                                 myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, it->edges, bs, duration, speed, depPos, bs != 0 ? bs->getAccessPos(it->edges.back()) : arrivalPos, departPosLat));

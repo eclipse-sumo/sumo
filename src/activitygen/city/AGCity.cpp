@@ -85,18 +85,16 @@ AGCity::completeStreets() {
     }
 
     //completing streets from edges of the network not handled/present in STAT file (no population no work position)
-    std::map<std::string, ROEdge*>::const_iterator itE;
-    std::vector<AGStreet*>::iterator itS;
-
-    for (itE = net->getEdgeMap().begin(); itE != net->getEdgeMap().end(); ++itE) {
+    for (const auto& itE : net->getEdgeMap()) {
+        std::vector<AGStreet*>::iterator itS;
         for (itS = streets.begin(); itS != streets.end(); ++itS) {
-            if (*itS == itE->second) {
+            if (*itS == itE.second) {
                 break;
             }
         }
         //if this edge isn't represented by a street
-        if (itS == streets.end() && !itE->second->isInternal()) {
-            streets.push_back(static_cast<AGStreet*>(itE->second));
+        if (itS == streets.end() && !itE.second->isInternal()) {
+            streets.push_back(static_cast<AGStreet*>(itE.second));
         }
     }
 }

@@ -206,7 +206,7 @@ MSTriggeredRerouter::myStartElement(int element,
         if (parkingarea == "") {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": No parking area id given.");
         }
-        MSParkingArea* pa = MSNet::getInstance()->getParkingArea(parkingarea);
+        MSParkingArea* pa = static_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(parkingarea, SUMO_TAG_PARKING_AREA));
         if (pa == 0) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Parking area '" + parkingarea + "' is not known.");
         }

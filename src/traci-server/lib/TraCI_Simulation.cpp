@@ -198,7 +198,7 @@ std::string
 TraCI_Simulation::getParameter(const std::string& objectID, const std::string& key) {
     if (StringUtils::startsWith(key, "chargingStation.")) {
         const std::string attrName = key.substr(16);
-        MSChargingStation* cs = MSNet::getInstance()->getChargingStation(objectID);
+        MSChargingStation* cs = static_cast<MSChargingStation*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_CHARGING_STATION));
         if (cs == 0) {
             throw TraCIException("Invalid chargingStation '" + objectID + "'");
         }
@@ -209,7 +209,7 @@ TraCI_Simulation::getParameter(const std::string& objectID, const std::string& k
         }
     } else if (StringUtils::startsWith(key, "parkingArea.")) {
         const std::string attrName = key.substr(12);
-        MSParkingArea* pa = MSNet::getInstance()->getParkingArea(objectID);
+        MSParkingArea* pa = static_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_PARKING_AREA));
         if (pa == 0) {
             throw TraCIException("Invalid parkingArea '" + objectID + "'");
         }

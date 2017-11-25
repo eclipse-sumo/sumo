@@ -268,7 +268,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 break;
             }
             case VAR_BUS_STOP_WAITING: {
-                MSStoppingPlace* s = MSNet::getInstance()->getBusStop(id);
+                MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(id, SUMO_TAG_BUS_STOP);
                 if (s == 0) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Unknown bus stop '" + id + "'.", outputStorage);
                 }

@@ -852,93 +852,29 @@ MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState
 }
 
 
-
-// ------ Insertion and retrieval of bus stops ------
 bool
-MSNet::addBusStop(MSStoppingPlace* busStop) {
-    return myBusStopDict.add(busStop->getID(), busStop);
+MSNet::addStoppingPlace(const SumoXMLTag category, MSStoppingPlace* stop) {
+    return myStoppingPlaces[category == SUMO_TAG_TRAIN_STOP ? SUMO_TAG_BUS_STOP : category].add(stop->getID(), stop);
 }
 
 
 MSStoppingPlace*
-MSNet::getBusStop(const std::string& id) const {
-    return myBusStopDict.get(id);
-}
-
-
-std::string
-MSNet::getBusStopID(const MSLane* lane, const double pos) const {
-    for (const auto& it : myBusStopDict) {
-        MSStoppingPlace* stop = it.second;
-        if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
-            return stop->getID();
-        }
+MSNet::getStoppingPlace(const std::string& id, const SumoXMLTag category) const {
+    if (myStoppingPlaces.count(category) > 0) {
+        return myStoppingPlaces.find(category)->second.get(id);
     }
-    return "";
-}
-
-// ------ Insertion and retrieval of container stops ------
-bool
-MSNet::addContainerStop(MSStoppingPlace* containerStop) {
-    return myContainerStopDict.add(containerStop->getID(), containerStop);
-}
-
-MSStoppingPlace*
-MSNet::getContainerStop(const std::string& id) const {
-    return myContainerStopDict.get(id);
-}
-
-std::string
-MSNet::getContainerStopID(const MSLane* lane, const double pos) const {
-    for (const auto& it : myContainerStopDict) {
-        MSStoppingPlace* stop = it.second;
-        if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
-            return stop->getID();
-        }
-    }
-    return "";
-}
-
-// ------ Insertion and retrieval of container stops ------
-bool
-MSNet::addParkingArea(MSParkingArea* parkingArea) {
-    return myParkingAreaDict.add(parkingArea->getID(), parkingArea);
-}
-
-MSParkingArea*
-MSNet::getParkingArea(const std::string& id) const {
-    return myParkingAreaDict.get(id);
-}
-
-std::string
-MSNet::getParkingAreaID(const MSLane* lane, const double pos) const {
-    for (const auto& it : myParkingAreaDict) {
-        MSParkingArea* stop = it.second;
-        if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
-            return stop->getID();
-        }
-    }
-    return "";
-}
-
-bool
-MSNet::addChargingStation(MSChargingStation* chargingStation) {
-    return myChargingStationDict.add(chargingStation->getID(), chargingStation);
-}
-
-
-MSChargingStation*
-MSNet::getChargingStation(const std::string& id) const {
-    return myChargingStationDict.get(id);
+    return 0;
 }
 
 
 std::string
-MSNet::getChargingStationID(const MSLane* lane, const double pos) const {
-    for (const auto& it : myChargingStationDict) {
-        MSChargingStation* chargingStation = it.second;
-        if (&chargingStation->getLane() == lane && chargingStation->getBeginLanePosition() <= pos && chargingStation->getEndLanePosition() >= pos) {
-            return chargingStation->getID();
+MSNet::getStoppingPlaceID(const MSLane* lane, const double pos, const SumoXMLTag category) const {
+    if (myStoppingPlaces.count(category) > 0) {
+        for (const auto& it : myStoppingPlaces.find(category)->second) {
+            MSStoppingPlace* stop = it.second;
+            if (&stop->getLane() == lane && stop->getBeginLanePosition() <= pos && stop->getEndLanePosition() >= pos) {
+                return stop->getID();
+            }
         }
     }
     return "";
@@ -947,9 +883,11 @@ MSNet::getChargingStationID(const MSLane* lane, const double pos) const {
 
 void
 MSNet::writeChargingStationOutput() const {
-    OutputDevice& output = OutputDevice::getDeviceByOption("chargingstations-output");
-    for (const auto& it : myChargingStationDict) {
-        it.second->writeChargingStationOutput(output);
+    if (myStoppingPlaces.count(SUMO_TAG_CHARGING_STATION) > 0) {
+        OutputDevice& output = OutputDevice::getDeviceByOption("chargingstations-output");
+        for (const auto& it : myStoppingPlaces.find(SUMO_TAG_CHARGING_STATION)->second) {
+            static_cast<MSChargingStation*>(it.second)->writeChargingStationOutput(output);
+        }
     }
 }
 
@@ -1016,7 +954,7 @@ MSNet::getIntermodalRouter(const MSEdgeVector& prohibited) const {
 void
 MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
     // add access to all public transport stops
-    for (const auto& i : myInstance->myBusStopDict) {
+    for (const auto& i : myInstance->myStoppingPlaces[SUMO_TAG_BUS_STOP]) {
         router.addAccess(i.first, &i.second->getLane().getEdge(), i.second->getEndLanePosition());
         for (const auto& a : i.second->getAllAccessPos()) {
             router.addAccess(i.first, &a.first->getEdge(), a.second);

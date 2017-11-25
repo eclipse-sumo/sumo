@@ -128,12 +128,13 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, double /* oldPos */, double 
     }
 
     // Check if vehicle has under their position one charge Station
-    const std::string chargingStationID = MSNet::getInstance()->getChargingStationID(veh.getLane(), veh.getPositionOnLane());
+    const std::string chargingStationID = MSNet::getInstance()->getStoppingPlaceID(veh.getLane(), veh.getPositionOnLane(), SUMO_TAG_CHARGING_STATION);
 
     // If vehicle is over a charging station
     if (chargingStationID != "") {
         // if the vehicle is almost stopped, or charge in transit is enabled, then charge vehicle
-        if ((veh.getSpeed() < myStoppingTreshold) || (MSNet::getInstance()->getChargingStation(chargingStationID)->getChargeInTransit() == 1)) {
+        MSChargingStation* const cs = static_cast<MSChargingStation*>(MSNet::getInstance()->getStoppingPlace(chargingStationID, SUMO_TAG_CHARGING_STATION));
+        if ((veh.getSpeed() < myStoppingTreshold) || cs->getChargeInTransit()) {
             // Set Flags Stopped/intransit to
             if (veh.getSpeed() < myStoppingTreshold) {
                 // vehicle ist almost stopped, then is charging stopped
@@ -150,7 +151,7 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, double /* oldPos */, double 
             }
 
             // get pointer to charging station
-            myActChargingStation = MSNet::getInstance()->getChargingStation(chargingStationID);
+            myActChargingStation = cs;
 
             // Only update charging start time if vehicle allow charge in transit, or in other case
             // if the vehicle not allow charge in transit but it's stopped.

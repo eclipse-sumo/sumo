@@ -75,26 +75,18 @@ GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
 void
 GUITriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
                                       double frompos, double topos, const SumoXMLTag element, std::string name) {
-    bool success = false;
-    GUIGlObject* o = 0;
     if (element == SUMO_TAG_CONTAINER_STOP) {
         //TODO: shall we also allow names for container stops? might make sense [GL March '17]
-        GUIContainerStop* stop = new GUIContainerStop(id, lines, *lane, frompos, topos);
-        success = net.addContainerStop(stop);
-        o = stop;
-        myCurrentStop = stop;
+        myCurrentStop = new GUIContainerStop(id, lines, *lane, frompos, topos);
     } else {
-        GUIBusStop* stop = new GUIBusStop(id, lines, *lane, frompos, topos, name);
-        success = net.addBusStop(stop);
-        o = stop;
-        myCurrentStop = stop;
+        myCurrentStop = new GUIBusStop(id, lines, *lane, frompos, topos, name);
     }
-    if (!success) {
-        delete o;
+    if (!net.addStoppingPlace(element, myCurrentStop)) {
+        delete myCurrentStop;
         myCurrentStop = 0;
         throw InvalidArgument("Could not build " + toString(element) + " '" + id + "'; probably declared twice.");
     }
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(o);
+    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(dynamic_cast<GUIGlObject*>(myCurrentStop));
 }
 
 
@@ -106,9 +98,8 @@ GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
                                     unsigned int capacity,
                                     double width, double length, double angle) {
     assert(myParkingArea == 0);
-
     GUIParkingArea* stop = new GUIParkingArea(id, lines, *lane, frompos, topos, capacity, width, length, angle);
-    if (!net.addParkingArea(stop)) {
+    if (!net.addStoppingPlace(SUMO_TAG_PARKING_AREA, stop)) {
         delete stop;
         throw InvalidArgument("Could not build parking area '" + id + "'; probably declared twice.");
     } else {
@@ -120,12 +111,10 @@ void
 GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
                                         double chargingPower, double efficiency, bool chargeInTransit, int chargeDelay) {
     GUIChargingStation* chargingStation = new GUIChargingStation(id, *lane, frompos, topos, chargingPower, efficiency, chargeInTransit, chargeDelay);
-
-    if (!net.addChargingStation(chargingStation)) {
+    if (!net.addStoppingPlace(SUMO_TAG_CHARGING_STATION, chargingStation)) {
         delete chargingStation;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");
     }
-
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(chargingStation);
 }
 

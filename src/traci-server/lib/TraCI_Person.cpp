@@ -275,7 +275,7 @@ TraCI_Person::appendDrivingStage(const std::string& personID, const std::string&
     }
     MSStoppingPlace* bs = 0;
     if (stopID != "") {
-        bs = MSNet::getInstance()->getBusStop(stopID);
+        bs = MSNet::getInstance()->getStoppingPlace(stopID, SUMO_TAG_BUS_STOP);
         if (bs == 0) {
             throw TraCIException("Invalid stopping place id '" + stopID + "' for person: '" + personID + "'");
         }
@@ -292,7 +292,7 @@ TraCI_Person::appendWaitingStage(const std::string& personID, double duration, c
     }
     MSStoppingPlace* bs = 0;
     if (stopID != "") {
-        bs = MSNet::getInstance()->getBusStop(stopID);
+        bs = MSNet::getInstance()->getStoppingPlace(stopID, SUMO_TAG_BUS_STOP);
         if (bs == 0) {
             throw TraCIException("Invalid stopping place id '" + stopID + "' for person: '" + personID + "'");
         }
@@ -324,7 +324,7 @@ TraCI_Person::appendWalkingStage(const std::string& personID, const std::vector<
     }
     MSStoppingPlace* bs = 0;
     if (stopID != "") {
-        bs = MSNet::getInstance()->getBusStop(stopID);
+        bs = MSNet::getInstance()->getStoppingPlace(stopID, SUMO_TAG_BUS_STOP);
         if (bs == 0) {
             throw TraCIException("Invalid stopping place id '" + stopID + "' for person: '" + personID + "'");
         }
