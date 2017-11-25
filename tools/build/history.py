@@ -30,8 +30,6 @@ import version
 optParser = optparse.OptionParser()
 optParser.add_option("-b", "--begin", default="51bb151", help="first revision to build")
 optParser.add_option("-e", "--end", default="HEAD", help="last revision to build")
-optParser.add_option("-s", "--step", type="int",
-                     default=1, help="increment")
 options, args = optParser.parse_args()
 
 LOCK = "../history.lock"
@@ -50,7 +48,7 @@ try:
         if not os.path.exists('../bin%s' % desc):
             ret = subprocess.call(["git", "checkout", "-q", h])
             if ret != 0:
-                break
+                continue
             subprocess.call('make clean; make -j 16', shell=True)
             shutil.copytree('bin', '../bin%s' % desc,
                             ignore=shutil.ignore_patterns('Makefile*', '*.bat', '*.jar'))
