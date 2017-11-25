@@ -1046,7 +1046,7 @@ GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
     std::vector<GNEShape*> result;
     // fill polygons
     if((shapeTag == SUMO_TAG_NOTHING) || (shapeTag == SUMO_TAG_POLY)) {
-        for (auto it : getPolygons().getMyMap()) {
+        for (const auto& it : getPolygons()) {
             GNEPoly* poly = dynamic_cast<GNEPoly*>(it.second);
             // only add visible polygons
             if (poly && (!onlySelected || gSelected.isSelected(GLO_POLYGON, poly->getGlID()))) {
@@ -1056,7 +1056,7 @@ GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
     }
     // fill POIs
     if((shapeTag == SUMO_TAG_NOTHING) || (shapeTag == SUMO_TAG_POI)) {
-        for (auto it : getPOIs().getMyMap()) {
+        for (const auto& it : getPOIs()) {
             GNEPOI* POI = dynamic_cast<GNEPOI*>(it.second);
             // only add visible POIs
             if (POI && (!onlySelected || gSelected.isSelected(GLO_POI, POI->getGlID()))) {
@@ -1066,7 +1066,7 @@ GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
     }
     // fill POILanes
     if((shapeTag == SUMO_TAG_NOTHING) || (shapeTag == SUMO_TAG_POILANE)) {
-        for (auto it : getPOIs().getMyMap()) {
+        for (auto it : getPOIs()) {
             GNEPOILane* POILane = dynamic_cast<GNEPOILane*>(it.second);
             // only add visible POILanes
             if (POILane && (!onlySelected || gSelected.isSelected(GLO_POI, POILane->getGlID()))) {
@@ -1150,24 +1150,24 @@ GNENet::getGlIDs(GUIGlObjectType type) {
             knownTypes.insert(GLO_POLYGON);
             knownTypes.insert(GLO_POI);
             // obtain all GLIDS calling getGlIDs(...) recursively
-            for (auto it : knownTypes) {
+            for (const auto& it : knownTypes) {
                 const std::set<GUIGlID> tmp = getGlIDs(it);
                 result.insert(tmp.begin(), tmp.end());
             }
             break;
         }
         case GLO_JUNCTION:
-            for (auto it : myJunctions) {
+            for (const auto& it : myJunctions) {
                 result.insert(it.second->getGlID());
             }
             break;
         case GLO_EDGE:
-            for (auto it : myEdges) {
+            for (const auto& it : myEdges) {
                 result.insert(it.second->getGlID());
             }
             break;
         case GLO_LANE: {
-            for (auto i : myEdges) {
+            for (const auto& i : myEdges) {
                 // iterate over every edge's lane
                 for (auto j : i.second->getLanes()) {
                     result.insert(j->getGlID());
@@ -1177,7 +1177,7 @@ GNENet::getGlIDs(GUIGlObjectType type) {
         }
         case GLO_TLLOGIC: {
             // return all junctions which have a traffic light (we do not have a GUIGlObject for each traffic light)
-            for (auto it : myJunctions) {
+            for (const auto& it : myJunctions) {
                 if (it.second->getNBNode()->isTLControlled()) {
                     result.insert(it.second->getGlID());
                 }
@@ -1186,16 +1186,16 @@ GNENet::getGlIDs(GUIGlObjectType type) {
         }
         case GLO_ADDITIONAL: {
             // Iterate over all additionals of net
-            for (auto it : myAdditionals) {
+            for (const auto& it : myAdditionals) {
                 // Insert every additional in result
                 result.insert(it.second->getGlID());
             }
             break;
         }
         case GLO_CONNECTION: {
-            for (auto i : myEdges) {
+            for (const auto& i : myEdges) {
                 // Iterate over edge's connections
-                for (auto j : i.second->getGNEConnections()) {
+                for (const auto& j : i.second->getGNEConnections()) {
                     // Insert every connection of edge in result
                     result.insert(j->getGlID());
                 }
@@ -1203,9 +1203,9 @@ GNENet::getGlIDs(GUIGlObjectType type) {
             break;
         }
         case GLO_CROSSING: {
-            for (auto i : myJunctions) {
+            for (const auto& i : myJunctions) {
                 // Iterate over junction's crossings
-                for (auto j : i.second->getGNECrossings()) {
+                for (const auto& j : i.second->getGNECrossings()) {
                     // Insert every crossing of junction in result
                     result.insert(j->getGlID());
                 }
@@ -1213,13 +1213,13 @@ GNENet::getGlIDs(GUIGlObjectType type) {
             break;
         }
         case GLO_POLYGON: {
-            for (auto i : myPolygons.getMyMap()) {
+            for (const auto& i : myPolygons) {
                 result.insert(dynamic_cast<GNEPoly*>(i.second)->getGlID());
             }
             break;
         }
         case GLO_POI: {
-            for (auto i : myPOIs.getMyMap()) {
+            for (const auto& i : myPOIs) {
                 result.insert(dynamic_cast<GNEPOI*>(i.second)->getGlID());
             }
             break;
@@ -1993,11 +1993,11 @@ void GNENet::saveShapes(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.openTag("additionals");
     // write only visible polygons
-    for (auto i : myPolygons.getMyMap()) {
+    for (const auto& i : myPolygons) {
         dynamic_cast<GNEShape*>(i.second)->writeShape(device);
     }
     // write only visible POIs
-    for (auto i : myPOIs.getMyMap()) {
+    for (const auto& i : myPOIs) {
         dynamic_cast<GNEShape*>(i.second)->writeShape(device);
     }
     device.close();
@@ -2336,18 +2336,18 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     // if volatile options are true
     if (volatileOptions) {
         // clear all Polys of grid
-        for (auto i : myPolygons.getMyMap()) {
+        for (const auto& i : myPolygons) {
             myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(i.second));
         }
 
         // clear all POIs of grid
-        for (auto i : myPOIs.getMyMap()) {
+        for (const auto& i : myPOIs) {
             myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(i.second));
         }
 
         // clear all additionals of grid
         auto copyOfAdditionals = myAdditionals;
-        for (auto it : copyOfAdditionals) {
+        for (const auto& it : copyOfAdditionals) {
             myGrid.removeAdditionalGLObject(it.second);
         }
 
@@ -2378,7 +2378,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     // update precomputed geometries
     initGNEConnections();
 
-    for (auto it : myJunctions) {
+    for (const auto& it : myJunctions) {
         it.second->setLogicValid(true, myViewNet->getUndoList());
         // updated shape
         it.second->updateGeometry();

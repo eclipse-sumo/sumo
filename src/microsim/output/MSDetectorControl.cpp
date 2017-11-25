@@ -117,14 +117,13 @@ MSDetectorControl::getTypedDetectors(SumoXMLTag type) const {
 
 void
 MSDetectorControl::updateDetectors(const SUMOTime step) {
-    for (std::map<SumoXMLTag, NamedObjectCont<MSDetectorFileOutput*> >::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-        const std::map<std::string, MSDetectorFileOutput*>& dets = getTypedDetectors((*i).first).getMyMap();
-        for (std::map<std::string, MSDetectorFileOutput*>::const_iterator j = dets.begin(); j != dets.end(); ++j) {
-            (*j).second->detectorUpdate(step);
+    for (const auto& i : myDetectors) {
+        for (const auto& j : getTypedDetectors(i.first)) {
+            j.second->detectorUpdate(step);
         }
     }
-    for (std::vector<MSMeanData*>::const_iterator i = myMeanData.begin(); i != myMeanData.end(); ++i) {
-        (*i)->detectorUpdate(step);
+    for (MSMeanData* const i : myMeanData) {
+        i->detectorUpdate(step);
     }
 }
 

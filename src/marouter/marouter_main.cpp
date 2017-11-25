@@ -127,7 +127,7 @@ computeAllPairs(RONet& net, OptionsCont& oc) {
     Dijkstra router(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &getTravelTime);
     ConstROEdgeVector into;
     const int numInternalEdges = net.getInternalEdgeNumber();
-    const int numTotalEdges = (int)net.getEdgeNo();
+    const int numTotalEdges = (int)net.getEdgeNumber();
     for (int i = numInternalEdges; i < numTotalEdges; i++) {
         const Dijkstra::EdgeInfo& ei = router.getEdgeInfo(i);
         if (!ei.edge->isInternal()) {

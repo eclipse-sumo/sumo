@@ -131,9 +131,8 @@ std::vector<GUIGlID>
 GUIShapeContainer::getPOIIds() const {
     AbstractMutex::ScopedLocker locker(myLock);
     std::vector<GUIGlID> ret;
-    const std::map<std::string, PointOfInterest*>& pois = getPOIs().getMyMap();
-    for (std::map<std::string, PointOfInterest*>::const_iterator it = pois.begin(); it != pois.end(); ++it) {
-        ret.push_back(static_cast<GUIPointOfInterest*>(it->second)->getGlID());
+    for (const auto& poi : getPOIs()) {
+        ret.push_back(static_cast<GUIPointOfInterest*>(poi.second)->getGlID());
     }
     return ret;
 }
@@ -143,9 +142,8 @@ std::vector<GUIGlID>
 GUIShapeContainer::getPolygonIDs() const {
     AbstractMutex::ScopedLocker locker(myLock);
     std::vector<GUIGlID> ret;
-    const std::map<std::string, SUMOPolygon*>& polygons = getPolygons().getMyMap();
-    for (std::map<std::string, SUMOPolygon*>::const_iterator it = polygons.begin(); it != polygons.end(); ++it) {
-        ret.push_back(static_cast<GUIPolygon*>(it->second)->getGlID());
+    for (const auto& poly : getPolygons()) {
+        ret.push_back(static_cast<GUIPolygon*>(poly.second)->getGlID());
     }
     return ret;
 }

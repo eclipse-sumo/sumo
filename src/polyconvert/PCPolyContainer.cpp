@@ -121,17 +121,17 @@ PCPolyContainer::save(const std::string& file, bool useGeo) {
         GeoConvHelper::writeLocation(out);
     }
     // write polygons
-    for (std::map<std::string, SUMOPolygon*>::const_iterator i = myPolygons.getMyMap().begin(); i != myPolygons.getMyMap().end(); ++i) {
-        i->second->writeXML(out, useGeo);
+    for (auto i : myPolygons) {
+        i.second->writeXML(out, useGeo);
     }
     // write pois
     const double zOffset = OptionsCont::getOptions().getFloat("poi-layer-offset");
-    for (std::map<std::string, PointOfInterest*>::const_iterator i = myPOIs.getMyMap().begin(); i != myPOIs.getMyMap().end(); ++i) {
-        std::map<std::string, LanePos>::const_iterator it = myLanePosPois.find(i->first);
+    for (auto i : myPOIs) {
+        std::map<std::string, LanePos>::const_iterator it = myLanePosPois.find(i.first);
         if (it == myLanePosPois.end()) {
-            i->second->writeXML(out, useGeo, zOffset);
+            i.second->writeXML(out, useGeo, zOffset);
         } else {
-            i->second->writeXML(out, useGeo, zOffset, it->second.laneID, it->second.pos, it->second.posLat);
+            i.second->writeXML(out, useGeo, zOffset, it->second.laneID, it->second.pos, it->second.posLat);
         }
     }
     out.close();
@@ -172,14 +172,14 @@ PCPolyContainer::saveDlrTDP(const std::string& prefix) {
     // write format specifier
     out << "# ID\tCITY\tTYPE\tNAME\tgeo_x\tgeo_y\n";
     int id = 0;
-    for (std::map<std::string, PointOfInterest*>::const_iterator i = myPOIs.getMyMap().begin(); i != myPOIs.getMyMap().end(); ++i) {
-        Position pos(*(i->second));
+    for (const auto& i : myPOIs) {
+        Position pos(*i.second);
         gch.cartesian2geo(pos);
         pos.mul(geoScale);
         out << id << "\t";
         out << "" << "\t";
-        out << i->second->getType() << "\t";
-        out << i->first << "\t";
+        out << i.second->getType() << "\t";
+        out << i.first << "\t";
         out << pos.x() << "\t";
         out << pos.y() << "\t";
         id++;
@@ -192,13 +192,13 @@ PCPolyContainer::saveDlrTDP(const std::string& prefix) {
     // write format specifier
     out2 << "# ID\tCITY\tTYPE\tNAME\tgeo_x1\tgeo_y1\t[geo_x2 geo_y2 ...]\n";
     id = 0;
-    for (std::map<std::string, SUMOPolygon*>::const_iterator i = myPolygons.getMyMap().begin(); i != myPolygons.getMyMap().end(); ++i) {
+    for (const auto& i : myPolygons) {
         out2 << id << "\t";
         out2 << "" << "\t";
-        out2 << i->second->getType() << "\t";
-        out2 << i->first << "\t";
+        out2 << i.second->getType() << "\t";
+        out2 << i.first << "\t";
 
-        PositionVector shape(i->second->getShape());
+        PositionVector shape(i.second->getShape());
         for (int i = 0; i < (int) shape.size(); i++) {
             Position pos = shape[i];
             gch.cartesian2geo(pos);

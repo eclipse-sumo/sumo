@@ -67,9 +67,8 @@ RODFNet::~RODFNet() {
 
 void
 RODFNet::buildApproachList() {
-    const std::map<std::string, ROEdge*>& edges = getEdgeMap();
-    for (std::map<std::string, ROEdge*>::const_iterator rit = edges.begin(); rit != edges.end(); ++rit) {
-        ROEdge* ce = (*rit).second;
+    for (const auto& rit : getEdgeMap()) {
+        ROEdge* ce = rit.second;
         if (ce->isInternal()) {
             continue;
         }

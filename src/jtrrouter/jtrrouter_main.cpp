@@ -81,9 +81,8 @@ initNet(RONet& net, ROLoader& loader,
     ROJTREdgeBuilder builder;
     loader.loadNet(net, builder);
     // set the turn defaults
-    const std::map<std::string, ROEdge*>& edges = net.getEdgeMap();
-    for (std::map<std::string, ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-        static_cast<ROJTREdge*>((*i).second)->setTurnDefaults(turnDefs);
+    for (const auto& i : net.getEdgeMap()) {
+        static_cast<ROJTREdge*>(i.second)->setTurnDefaults(turnDefs);
     }
 }
 
@@ -146,7 +145,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     net.openOutput(oc);
     // build the router
     ROJTRRouter* router = new ROJTRRouter(oc.getBool("ignore-errors"), oc.getBool("accept-all-destinations"),
-                                          (int)(((double) net.getEdgeNo()) * OptionsCont::getOptions().getFloat("max-edges-factor")),
+                                          (int)(((double) net.getEdgeNumber()) * OptionsCont::getOptions().getFloat("max-edges-factor")),
                                           oc.getBool("ignore-vclasses"), oc.getBool("allow-loops"));
     RORouteDef::setUsingJTRR();
     RORouterProvider provider(router, new PedestrianRouterDijkstra<ROEdge, ROLane, RONode, ROVehicle>(),

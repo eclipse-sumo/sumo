@@ -148,9 +148,14 @@ public:
         }
     }
 
-    /// @brief Returns a reference to the internal map
-    const IDMap& getMyMap() const {
-        return myMap;
+    /// @brief Returns a reference to the begin iterator for the internal map
+    typename IDMap::const_iterator begin() const {
+        return myMap.begin();
+    }
+
+    /// @brief Returns a reference to the end iterator for the internal map
+    typename IDMap::const_iterator end() const {
+        return myMap.end();
     }
 
 

@@ -260,9 +260,8 @@ GUINet::initGUIStructures() {
     // initialise detector storage for gui
     const std::vector<SumoXMLTag> types = myDetectorControl->getAvailableTypes();
     for (std::vector<SumoXMLTag>::const_iterator i = types.begin(); i != types.end(); ++i) {
-        const std::map<std::string, MSDetectorFileOutput*>& dets = myDetectorControl->getTypedDetectors(*i).getMyMap();
-        for (std::map<std::string, MSDetectorFileOutput*>::const_iterator j = dets.begin(); j != dets.end(); ++j) {
-            GUIDetectorWrapper* wrapper = (*j).second->buildDetectorGUIRepresentation();
+        for (const auto& j : myDetectorControl->getTypedDetectors(*i)) {
+            GUIDetectorWrapper* wrapper = j.second->buildDetectorGUIRepresentation();
             if (wrapper != 0) {
                 myDetectorWrapper.push_back(wrapper);
                 myGrid.addAdditionalGLObject(wrapper);
@@ -283,9 +282,8 @@ GUINet::initGUIStructures() {
     // initialise junction storage for gui
     int size = myJunctions->size();
     myJunctionWrapper.reserve(size);
-    const std::map<std::string, MSJunction*>& junctions = myJunctions->getMyMap();
-    for (std::map<std::string, MSJunction*>::const_iterator i = junctions.begin(); i != junctions.end(); ++i) {
-        myJunctionWrapper.push_back(new GUIJunctionWrapper(*(*i).second));
+    for (const auto& i : *myJunctions) {
+        myJunctionWrapper.push_back(new GUIJunctionWrapper(*i.second));
     }
     // build the visualization tree
     for (std::vector<GUIEdge*>::iterator i = myEdgeWrapper.begin(); i != myEdgeWrapper.end(); ++i) {

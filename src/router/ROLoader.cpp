@@ -282,9 +282,8 @@ ROLoader::loadWeights(RONet& net, const std::string& optionName,
         }
     }
     // build edge-internal time lines
-    const std::map<std::string, ROEdge*>& edges = net.getEdgeMap();
-    for (std::map<std::string, ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-        (*i).second->buildTimeLines(measure, boundariesOverride);
+    for (const auto& i : net.getEdgeMap()) {
+        i.second->buildTimeLines(measure, boundariesOverride);
     }
     return true;
 }

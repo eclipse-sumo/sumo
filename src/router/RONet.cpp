@@ -113,13 +113,6 @@ RONet::~RONet() {
         }
         delete r;
     }
-    for (auto stopDesc : myStoppingPlaces) {
-        delete stopDesc.second;
-    }
-    myNodes.clear();
-    myEdges.clear();
-    myVehicleTypes.clear();
-    myRoutes.clear();
     myRoutables.clear();
 }
 
@@ -204,12 +197,9 @@ RONet::addNode(RONode* node) {
 
 void
 RONet::addStoppingPlace(const std::string& id, const SumoXMLTag category, SUMOVehicleParameter::Stop* stop) {
-    const std::pair<std::string, SumoXMLTag> key = std::make_pair(id, category == SUMO_TAG_TRAIN_STOP ? SUMO_TAG_BUS_STOP : category);
-    if (myStoppingPlaces.find(key) != myStoppingPlaces.end()) {
+    if (!myStoppingPlaces[category == SUMO_TAG_TRAIN_STOP ? SUMO_TAG_BUS_STOP : category].add(id, stop)) {
         WRITE_ERROR("The " + toString(category) + " '" + id + "' occurs at least twice.");
         delete stop;
-    } else {
-        myStoppingPlaces[key] = stop;
     }
 }
 
@@ -394,13 +384,13 @@ RONet::addContainer(const SUMOTime depart, const std::string desc) {
 void
 RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler, const bool keepPT) {
     std::vector<std::string> toRemove;
-    for (NamedObjectCont<SUMOVehicleParameter*>::IDMap::const_iterator i = myFlows.getMyMap().begin(); i != myFlows.getMyMap().end(); ++i) {
-        SUMOVehicleParameter* pars = i->second;
+    for (const auto& i : myFlows) {
+        SUMOVehicleParameter* pars = i.second;
         if (pars->repetitionProbability > 0) {
             const SUMOTime origDepart = pars->depart;
             while (pars->depart < time) {
                 if (pars->repetitionEnd <= pars->depart) {
-                    toRemove.push_back(i->first);
+                    toRemove.push_back(i.first);
                     break;
                 }
                 // only call rand if all other conditions are met
@@ -464,7 +454,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler, const bool keepPT) {
                 delete newPars;
             }
             if (pars->repetitionsDone == pars->repetitionNumber && (!keepPT || pars->line == "")) {
-                toRemove.push_back(i->first);
+                toRemove.push_back(i.first);
             }
         }
     }
@@ -633,7 +623,7 @@ RONet::furtherStored() {
 
 
 int
-RONet::getEdgeNo() const {
+RONet::getEdgeNumber() const {
     return myEdges.size();
 }
 
@@ -644,30 +634,24 @@ RONet::getInternalEdgeNumber() const {
 }
 
 
-const std::map<std::string, ROEdge*>&
-RONet::getEdgeMap() const {
-    return myEdges.getMyMap();
-}
-
-
 void
 RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
     // add access to all public transport stops
-    for (auto stop : myInstance->myStoppingPlaces) {
-        router.addAccess(stop.first.first, myInstance->getEdgeForLaneID(stop.second->lane), (stop.second->startPos + stop.second->endPos) / 2.);
+    for (const auto& stop : myInstance->myStoppingPlaces[SUMO_TAG_BUS_STOP]) {
+        router.addAccess(stop.first, myInstance->getEdgeForLaneID(stop.second->lane), (stop.second->startPos + stop.second->endPos) / 2.);
         for (std::multimap<std::string, double>::const_iterator a = stop.second->accessPos.begin(); a != stop.second->accessPos.end(); ++a) {
-            router.addAccess(stop.first.first, myInstance->getEdgeForLaneID(a->first), a->second);
+            router.addAccess(stop.first, myInstance->getEdgeForLaneID(a->first), a->second);
         }
     }
     // fill the public transport router with pre-parsed public transport lines
-    for (std::map<std::string, SUMOVehicleParameter*>::const_iterator i = myInstance->myFlows.getMyMap().begin(); i != myInstance->myFlows.getMyMap().end(); ++i) {
-        if (i->second->line != "") {
-            RORouteDef* route = myInstance->getRouteDef(i->second->routeid);
+    for (const auto& i : myInstance->myFlows) {
+        if (i.second->line != "") {
+            RORouteDef* route = myInstance->getRouteDef(i.second->routeid);
             const std::vector<SUMOVehicleParameter::Stop>* addStops = 0;
             if (route != 0 && route->getFirstRoute() != 0) {
                 addStops = &route->getFirstRoute()->getStops();
             }
-            router.addSchedule(*i->second, addStops);
+            router.addSchedule(*i.second, addStops);
         }
     }
     for (const RORoutable* const veh : myInstance->myPTVehicles) {

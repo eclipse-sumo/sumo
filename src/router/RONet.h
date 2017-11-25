@@ -216,11 +216,10 @@ public:
      * @return The named stop if known, otherwise 0
      */
     const SUMOVehicleParameter::Stop* getStoppingPlace(const std::string& id, const SumoXMLTag category) const {
-        const auto it = myStoppingPlaces.find(std::make_pair(id, category));
-        if (it == myStoppingPlaces.end()) {
-            return 0;
+        if (myStoppingPlaces.count(category) > 0) {
+            return myStoppingPlaces.find(category)->second.get(id);
         }
-        return it->second;
+        return 0;
     }
     //@}
 
@@ -370,9 +369,6 @@ public:
     //@}
 
 
-
-
-
     /** @brief Opens the output for computed routes
      *
      * If one of the file outputs can not be build, an IOError is thrown.
@@ -387,12 +383,14 @@ public:
 
 
     /// Returns the total number of edges the network contains including internal edges
-    int getEdgeNo() const;
+    int getEdgeNumber() const;
 
     /// Returns the number of internal edges the network contains
     int getInternalEdgeNumber() const;
 
-    const std::map<std::string, ROEdge*>& getEdgeMap() const;
+    const NamedObjectCont<ROEdge*>& getEdgeMap() const {
+        return myEdges;
+    }
 
     static void adaptIntermodalRouter(ROIntermodalRouter& router);
 
@@ -459,7 +457,7 @@ private:
     NamedObjectCont<ROEdge*> myEdges;
 
     /// @brief Known bus / train / container stops and parking areas
-    std::map<std::pair<std::string, SumoXMLTag>, SUMOVehicleParameter::Stop*> myStoppingPlaces;
+    std::map<SumoXMLTag, NamedObjectCont<SUMOVehicleParameter::Stop*> > myStoppingPlaces;
 
     /// @brief Known vehicle types
     NamedObjectCont<SUMOVTypeParameter*> myVehicleTypes;

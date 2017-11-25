@@ -868,9 +868,8 @@ MSNet::getBusStop(const std::string& id) const {
 
 std::string
 MSNet::getBusStopID(const MSLane* lane, const double pos) const {
-    const std::map<std::string, MSStoppingPlace*>& vals = myBusStopDict.getMyMap();
-    for (std::map<std::string, MSStoppingPlace*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
-        MSStoppingPlace* stop = it->second;
+    for (const auto& it : myBusStopDict) {
+        MSStoppingPlace* stop = it.second;
         if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
             return stop->getID();
         }
@@ -891,9 +890,8 @@ MSNet::getContainerStop(const std::string& id) const {
 
 std::string
 MSNet::getContainerStopID(const MSLane* lane, const double pos) const {
-    const std::map<std::string, MSStoppingPlace*>& vals = myContainerStopDict.getMyMap();
-    for (std::map<std::string, MSStoppingPlace*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
-        MSStoppingPlace* stop = it->second;
+    for (const auto& it : myContainerStopDict) {
+        MSStoppingPlace* stop = it.second;
         if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
             return stop->getID();
         }
@@ -914,9 +912,8 @@ MSNet::getParkingArea(const std::string& id) const {
 
 std::string
 MSNet::getParkingAreaID(const MSLane* lane, const double pos) const {
-    const std::map<std::string, MSParkingArea*>& vals = myParkingAreaDict.getMyMap();
-    for (std::map<std::string, MSParkingArea*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
-        MSParkingArea* stop = it->second;
+    for (const auto& it : myParkingAreaDict) {
+        MSParkingArea* stop = it.second;
         if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
             return stop->getID();
         }
@@ -938,9 +935,8 @@ MSNet::getChargingStation(const std::string& id) const {
 
 std::string
 MSNet::getChargingStationID(const MSLane* lane, const double pos) const {
-    const std::map<std::string, MSChargingStation*>& vals = myChargingStationDict.getMyMap();
-    for (std::map<std::string, MSChargingStation*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
-        MSChargingStation* chargingStation = it->second;
+    for (const auto& it : myChargingStationDict) {
+        MSChargingStation* chargingStation = it.second;
         if (&chargingStation->getLane() == lane && chargingStation->getBeginLanePosition() <= pos && chargingStation->getEndLanePosition() >= pos) {
             return chargingStation->getID();
         }
@@ -952,8 +948,8 @@ MSNet::getChargingStationID(const MSLane* lane, const double pos) const {
 void
 MSNet::writeChargingStationOutput() const {
     OutputDevice& output = OutputDevice::getDeviceByOption("chargingstations-output");
-    for (std::map<std::string, MSChargingStation*>::const_iterator it = myChargingStationDict.getMyMap().begin(); it != myChargingStationDict.getMyMap().end(); it++) {
-        it->second->writeChargingStationOutput(output);
+    for (const auto& it : myChargingStationDict) {
+        it.second->writeChargingStationOutput(output);
     }
 }
 
@@ -1020,7 +1016,7 @@ MSNet::getIntermodalRouter(const MSEdgeVector& prohibited) const {
 void
 MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
     // add access to all public transport stops
-    for (const auto& i : myInstance->myBusStopDict.getMyMap()) {
+    for (const auto& i : myInstance->myBusStopDict) {
         router.addAccess(i.first, &i.second->getLane().getEdge(), i.second->getEndLanePosition());
         for (const auto& a : i.second->getAllAccessPos()) {
             router.addAccess(i.first, &a.first->getEdge(), a.second);
