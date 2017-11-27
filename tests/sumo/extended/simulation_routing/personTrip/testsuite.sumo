@@ -82,6 +82,9 @@ car_public_walk4
 # bug: car always drives to the end of the access edge
 car_public_walk5
 
+# check correct routing network when using internal edges
+car_public_walk_internal
+
 # output bus route as well
 ptline_routing
 
