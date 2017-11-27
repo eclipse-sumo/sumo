@@ -4,7 +4,7 @@
        <stop busStop="beg_0" until="10"/>
        <stop busStop="end_0" until="110"/>
     </flow>
-    <person id="p0" depart="520">
+    <person id="p0" depart="720">
         <personTrip from="beg" to="end" modes="public"/>
     </person>
 </routes>

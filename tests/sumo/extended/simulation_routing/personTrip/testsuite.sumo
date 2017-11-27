@@ -54,6 +54,15 @@ no_valid_connection
 # car and walk in one trip
 intermodal_car_walk
 
+# car and walk in one trip
+intermodal_car_walk_ptstop
+
+# car and walk in one trip
+intermodal_car_walk_junction
+
+# car and walk in one trip
+intermodal_car_walk_input
+
 # car and walk in one trip but no stop for changing modes
 intermodal_car_walk_no_place
 
