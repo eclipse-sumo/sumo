@@ -65,6 +65,7 @@ def readEdgeData(edgeDataFile, begin, end):
     edgeFlow = defaultdict(lambda : 0)
     for interval in parse(edgeDataFile, "interval", attr_conversions={"begin":float, "end":float}):
         interval.begin
+        #print("reading intervals for begin=%s end=%s (current interval begin=%s end=%s)" % (begin, end, interval.begin, interval.end))
         if interval.begin < end and interval.end > begin:
             # if read interval is partly outside comparison interval we must scale demand
             validInterval = interval.end - interval.begin
@@ -142,12 +143,13 @@ def main(options):
         intervalEndM = intervalBeginM + options.interval
         if options.verbose:
             print("Reading flows")
-        detReader.readFlows(options.flowfile, options.flowcol, time="Time", timeVal=intervalBeginM, timeMax=intervalEndM)
+        detReader.readFlows(options.flowfile, flow=options.flowcol, time="Time", timeVal=intervalBeginM, timeMax=intervalEndM)
         if options.verbose:
             print("Reading edgeData")
         edgeFlow = readEdgeData(options.edgeDataFile, time, time + options.interval * 60)
         printFlows(options, edgeFlow, detReader)
         calcStatistics(options, intervalBeginM, edgeFlow, detReader)
+        detReader.clearFlows()
         time += options.interval * 60
 
 if __name__ == "__main__":
