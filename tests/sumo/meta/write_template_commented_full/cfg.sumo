@@ -306,8 +306,8 @@
         <!-- Use FLOAT as a factor on pedestrian maximum speed during intermodal routing -->
         <persontrip.walkfactor value="0.9" type="FLOAT"/>
 
-        <!-- Where are mode changes from car to walking allowed (possible values: &apos;ptStops&apos;, &apos;allJunctions&apos; and combinations) -->
-        <persontrip.transfer.car-walk value="" type="STR"/>
+        <!-- Where are mode changes from car to walking allowed (possible values: &apos;parkingAreas&apos;, &apos;ptStops&apos;, &apos;allJunctions&apos; and combinations) -->
+        <persontrip.transfer.car-walk value="parkingAreas" type="STR"/>
 
         <!-- The probability for a vehicle to have a &apos;rerouting&apos; device -->
         <device.rerouting.probability value="0" type="FLOAT"/>

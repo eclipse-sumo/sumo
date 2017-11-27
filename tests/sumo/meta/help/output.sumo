@@ -212,8 +212,8 @@ Routing Options:
                                          maximum speed during intermodal routing
   --persontrip.transfer.car-walk STR   Where are mode changes from car to
                                          walking allowed (possible values:
-                                         'ptStops', 'allJunctions' and
-                                         combinations)
+                                         'parkingAreas', 'ptStops',
+                                         'allJunctions' and combinations)
   --device.rerouting.probability FLOAT  The probability for a vehicle to have a
                                          'rerouting' device
   --device.rerouting.explicit STR      Assign a 'rerouting' device to named
