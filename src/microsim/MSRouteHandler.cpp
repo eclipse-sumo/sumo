@@ -1189,7 +1189,7 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         if (myActiveRoute.empty()) {
             throw ProcessError("No edges to walk for person '" + myVehicleParameter->id + "'.");
         }
-        if (!myActivePlan->empty() && &myActivePlan->back()->getDestination() != myActiveRoute.front()) {
+        if (!myActivePlan->empty() && &myActivePlan->back()->getDestination() != myActiveRoute.front() && myActivePlan->back()->getDestination().getToJunction() != myActiveRoute.front()->getFromJunction()) {
             if (myActivePlan->back()->getDestinationStop() == 0 || !myActivePlan->back()->getDestinationStop()->hasAccess(myActiveRoute.front())) {
                 throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + myActiveRoute.front()->getID() + " != " + myActivePlan->back()->getDestination().getID() + ").");
             }
