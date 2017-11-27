@@ -636,11 +636,15 @@ RONet::getInternalEdgeNumber() const {
 
 void
 RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
+    // add access to all parking areas
+    for (const auto& i : myInstance->myStoppingPlaces[SUMO_TAG_PARKING_AREA]) {
+        router.addAccess(i.first, myInstance->getEdgeForLaneID(i.second->lane), (i.second->startPos + i.second->endPos) / 2., SUMO_TAG_PARKING_AREA);
+    }
     // add access to all public transport stops
     for (const auto& stop : myInstance->myStoppingPlaces[SUMO_TAG_BUS_STOP]) {
-        router.addAccess(stop.first, myInstance->getEdgeForLaneID(stop.second->lane), (stop.second->startPos + stop.second->endPos) / 2.);
+        router.addAccess(stop.first, myInstance->getEdgeForLaneID(stop.second->lane), (stop.second->startPos + stop.second->endPos) / 2., SUMO_TAG_BUS_STOP);
         for (std::multimap<std::string, double>::const_iterator a = stop.second->accessPos.begin(); a != stop.second->accessPos.end(); ++a) {
-            router.addAccess(stop.first, myInstance->getEdgeForLaneID(a->first), a->second);
+            router.addAccess(stop.first, myInstance->getEdgeForLaneID(a->first), a->second, SUMO_TAG_BUS_STOP);
         }
     }
     // fill the public transport router with pre-parsed public transport lines

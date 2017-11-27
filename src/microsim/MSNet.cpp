@@ -938,7 +938,9 @@ MSNet::getIntermodalRouter(const MSEdgeVector& prohibited) const {
     if (myIntermodalRouter == 0) {
         int carWalk = 0;
         for (const std::string& opt : OptionsCont::getOptions().getStringVector("persontrip.transfer.car-walk")) {
-            if (opt == "ptStops") {
+            if (opt == "parkingAreas") {
+                carWalk |= MSIntermodalRouter::PARKING_AREAS;
+            } else if (opt == "ptStops") {
                 carWalk |= MSIntermodalRouter::PT_STOPS;
             } else if (opt == "allJunctions") {
                 carWalk |= MSIntermodalRouter::ALL_JUNCTIONS;
@@ -953,11 +955,15 @@ MSNet::getIntermodalRouter(const MSEdgeVector& prohibited) const {
 
 void
 MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
+    // add access to all parking areas
+    for (const auto& i : myInstance->myStoppingPlaces[SUMO_TAG_PARKING_AREA]) {
+        router.addAccess(i.first, &i.second->getLane().getEdge(), i.second->getAccessPos(&i.second->getLane().getEdge()), SUMO_TAG_PARKING_AREA);
+    }
     // add access to all public transport stops
     for (const auto& i : myInstance->myStoppingPlaces[SUMO_TAG_BUS_STOP]) {
-        router.addAccess(i.first, &i.second->getLane().getEdge(), i.second->getEndLanePosition());
+        router.addAccess(i.first, &i.second->getLane().getEdge(), i.second->getAccessPos(&i.second->getLane().getEdge()), SUMO_TAG_BUS_STOP);
         for (const auto& a : i.second->getAllAccessPos()) {
-            router.addAccess(i.first, &a.first->getEdge(), a.second);
+            router.addAccess(i.first, &a.first->getEdge(), a.second, SUMO_TAG_BUS_STOP);
         }
     }
     myInstance->getInsertionControl().adaptIntermodalRouter(router);

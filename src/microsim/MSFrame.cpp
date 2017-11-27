@@ -361,8 +361,8 @@ MSFrame::fillOptions() {
     oc.doRegister("persontrip.walkfactor", new Option_Float(double(0.9)));
     oc.addDescription("persontrip.walkfactor", "Routing", "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing");
 
-    oc.doRegister("persontrip.transfer.car-walk", new Option_String());
-    oc.addDescription("persontrip.transfer.car-walk", "Routing", "Where are mode changes from car to walking allowed (possible values: 'ptStops', 'allJunctions' and combinations)");
+    oc.doRegister("persontrip.transfer.car-walk", new Option_String("parkingAreas"));
+    oc.addDescription("persontrip.transfer.car-walk", "Routing", "Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations)");
 
     // devices
     oc.addOptionSubTopic("Emissions");

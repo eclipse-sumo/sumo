@@ -195,7 +195,9 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     }
     int carWalk = 0;
     for (const std::string& opt : oc.getStringVector("persontrip.transfer.car-walk")) {
-        if (opt == "ptStops") {
+        if (opt == "parkingAreas") {
+            carWalk |= ROIntermodalRouter::PARKING_AREAS;
+        } else if (opt == "ptStops") {
             carWalk |= ROIntermodalRouter::PT_STOPS;
         } else if (opt == "allJunctions") {
             carWalk |= ROIntermodalRouter::ALL_JUNCTIONS;
