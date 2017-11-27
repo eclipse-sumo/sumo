@@ -681,14 +681,13 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool a
     myNumberReroutes++;
     MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE);
     // recheck old stops
-    if (removeStops) {
-        for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
-            if (find(myCurrEdge, edges.end(), &iter->lane->getEdge()) == edges.end()) {
-                iter = myStops.erase(iter);
-            } else {
-                iter->edge = find(myCurrEdge, edges.end(), &iter->lane->getEdge());
-                ++iter;
-            }
+    for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
+        if (removeStops && find(myCurrEdge, edges.end(), &iter->lane->getEdge()) == edges.end()) {
+            iter = myStops.erase(iter);
+        } else {
+            // iter->edge may point to edges.end() if removeStops is false but it should be replaced by the triggered rerouter anyway
+            iter->edge = find(myCurrEdge, edges.end(), &iter->lane->getEdge());
+            ++iter;
         }
     }
     // add new stops
