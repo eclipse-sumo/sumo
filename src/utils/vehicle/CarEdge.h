@@ -67,9 +67,9 @@ public:
         } else {
             // this vClass is requested for the first time. rebuild all successors
             const std::set<const E*> classedCarFollowers = std::set<const E*>(this->getEdge()->getSuccessors(vClass).begin(), this->getEdge()->getSuccessors(vClass).end());
-            for (typename std::vector<_IntermodalEdge*>::const_iterator e = this->myFollowingEdges.begin(); e != this->myFollowingEdges.end(); ++e) {
-                if (!(*e)->includeInRoute(true) || (*e)->getEdge() == this->getEdge() || classedCarFollowers.count((*e)->getEdge()) > 0) {
-                    myClassesSuccessorMap[vClass].push_back(*e);
+            for (_IntermodalEdge* const e : this->myFollowingEdges) {
+                if (!e->includeInRoute(true) || e->getEdge() == this->getEdge() || classedCarFollowers.count(e->getEdge()) > 0) {
+                    myClassesSuccessorMap[vClass].push_back(e);
                 }
             }
             return myClassesSuccessorMap[vClass];
