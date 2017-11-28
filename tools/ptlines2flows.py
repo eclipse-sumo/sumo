@@ -19,6 +19,7 @@ import sys
 import codecs
 import subprocess
 import collections
+import random
 from xml.sax.saxutils import escape
 
 from optparse import OptionParser
@@ -50,6 +51,8 @@ def get_options(args=None):
     optParser.add_option("-f", "--flow-attributes", dest="flowattrs",
                          default="", help="additional flow attributes")
     optParser.add_option("--use-osm-routes", default=False, action="store_true", dest='osmRoutes', help="use osm routes")
+    optParser.add_option("--random-begin", default=False, action="store_true", dest='randomBegin', help="randomize begin times within period")
+    optParser.add_option("--seed", type="int", help="random seed")
     optParser.add_option("--ignore-errors", default=False, action="store_true", dest='ignoreErrors', help="ignore problems with the input data")
     optParser.add_option("--no-vtypes", default=False, action="store_true", dest='novtypes', help="do not write vtypes for generated flows")
     optParser.add_option("--vtype-prefix", default="", dest='vtypeprefix', help="prefix for vtype ids")
@@ -194,8 +197,11 @@ def createRoutes(options, trpMap):
             line, name, completeness = trpMap[flow]
             lineRef = "%s:%s" % (line, lineCount[line])
             lineCount[line] += 1
+            begin = options.begin
+            if options.randomBegin:
+                begin += int(random.random() * options.period)
             foutflows.write('    <flow id="%s_%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s>\n' %
-                            (type, lineRef, type, flow, options.begin, options.end, options.period, lineRef, options.flowattrs))
+                            (type, lineRef, type, flow, begin, options.end, options.period, lineRef, options.flowattrs))
             foutflows.write('        <param key="name" value="%s"/>\n        <param key="completeness" value="%s"/>\n    </flow>\n' %
                             (escape(name), completeness))
         foutflows.write('</routes>\n')
@@ -204,6 +210,8 @@ def createRoutes(options, trpMap):
 
 
 def main(options):
+    if options.seed:
+        random.seed(options.seed)
     trpMap = createTrips(options)
     runSimulation(options)
     createRoutes(options, trpMap)
