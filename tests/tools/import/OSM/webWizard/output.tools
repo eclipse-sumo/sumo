@@ -107,45 +107,45 @@ done.
    48 types loaded.
    4222 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Removing self-loops... done (1ms).
+Removing self-loops... done (0ms).
 Processing public transport stops... done (0ms).
 Revising public transport stops based on pt lines... 
-done (3ms).
+done (2ms).
 Align pt stop id signs with corresponding edge id signs... done (0ms).
 Joining junction clusters... 
-done (10ms).
+done (6ms).
  Joined 55 junction cluster(s).
-Removing empty nodes and geometry nodes... done (12ms).
+Removing empty nodes and geometry nodes... done (6ms).
    525 nodes removed.
-Moving network to origin... done (17ms).
+Moving network to origin... done (9ms).
 Computing turning directions... 
-done (3ms).
-Guessing and setting on-/off-ramps... done (5ms).
-Sorting nodes' edges... done (5ms).
-Computing node shapes... done (92ms).
-Computing edge shapes... done (37ms).
-Computing node types... done (2ms).
+done (1ms).
+Guessing and setting on-/off-ramps... done (2ms).
+Sorting nodes' edges... done (2ms).
+Computing node shapes... done (64ms).
+Computing edge shapes... done (29ms).
+Computing node types... done (0ms).
 Guessed 877 pedestrian crossings.
-Computing priorities... done (3ms).
-Computing approached edges... done (4ms).
+Computing priorities... done (1ms).
+Computing approached edges... done (1ms).
 Guessing and setting roundabouts... 
  Guessed 4 roundabout(s).
-done (3ms).
-Computing approaching lanes... done (15ms).
-Dividing of lanes on approached lanes... done (8ms).
-Processing turnarounds... done (1ms).
+done (2ms).
+Computing approaching lanes... done (8ms).
+Dividing of lanes on approached lanes... done (4ms).
+Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (1ms).
-Assigning nodes to traffic lights... done (1ms).
+Assigning nodes to traffic lights... done (0ms).
 Joining traffic light nodes... done (2ms).
 Computing traffic light control information... 
 done (1ms).
-Computing node logics... done (14ms).
+Computing node logics... done (12ms).
 Computing traffic light logics... 
 done (5ms).
  48 traffic light(s) computed.
 Building inner edges... 
-done (44ms).
-Find accesses for pt rail stops... done (35ms).
+done (35ms).
+Find accesses for pt rail stops... done (22ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -158,15 +158,15 @@ Summary:
   Applied offset     : -388415.86,-5817979.56
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
-Writing network... done (770ms).
+Writing network... done (496ms).
 Success.
-Written configuration to '/scr2/texttest_tmp/dynamic_gui.24Nov123047.23995/tools/import/OSM/webWizard/2017-11-24-12-30-50/osm.netccfg'
-Parsing network projection from '/scr2/texttest_tmp/dynamic_gui.24Nov123047.23995/tools/import/OSM/webWizard/2017-11-24-12-30-50/osm.net.xml'... done.
+Written configuration to '/scr2/texttest_tmp/tools.28Nov162100.8519/tools/import/OSM/webWizard/2017-11-28-16-21-02/osm.netccfg'
+Parsing network projection from '/scr2/texttest_tmp/tools.28Nov162100.8519/tools/import/OSM/webWizard/2017-11-28-16-21-02/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing relations from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
-Written configuration to '/scr2/texttest_tmp/dynamic_gui.24Nov123047.23995/tools/import/OSM/webWizard/2017-11-24-12-30-50/osm.polycfg'
+Written configuration to '/scr2/texttest_tmp/tools.28Nov162100.8519/tools/import/OSM/webWizard/2017-11-28-16-21-02/osm.polycfg'
 Success.
 Success.
 Success.
@@ -175,48 +175,48 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'... done (542ms).
-Loading additional-files from 'osm.poly.xml'... done (116ms).
+Loading net-file from 'osm.net.xml'... done (561ms).
+Loading additional-files from 'osm.poly.xml'... done (122ms).
 Loading additional-files from 'osm_stops.add.xml'... done (6ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 2897.00
+Simulation ended at time: 2916.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 5073ms
- Real time factor: 571.062
- UPS: 27160.457323
+ Duration: 6433ms
+ Real time factor: 453.288
+ UPS: 20951.655526
 Vehicles: 
- Inserted: 439
+ Inserted: 429
  Running: 0
  Waiting: 0
-Teleports: 3 (Yield: 1, Wrong Lane: 2)
-Emergency Stops: 22
+Teleports: 1 (Wrong Lane: 1)
+Emergency Stops: 20
 Persons: 
  Inserted: 211
  Running: 0
 Statistics (avg):
- RouteLength: 1944.78
- Duration: 313.86
- WaitingTime: 50.40
- TimeLoss: 99.39
- DepartDelay: 4.43
-Pedestrian Statistics (avg of 456 walks):
- RouteLength: 433.66
- Duration: 442.65
- TimeLoss: 130.42
-Ride Statistics (avg of 51 rides):
- Duration: 52.45
- Bus: 2
- Train: 44
+ RouteLength: 1933.33
+ Duration: 314.18
+ WaitingTime: 47.94
+ TimeLoss: 96.61
+ DepartDelay: 1.04
+Pedestrian Statistics (avg of 500 walks):
+ RouteLength: 384.98
+ Duration: 387.77
+ TimeLoss: 110.59
+Ride Statistics (avg of 67 rides):
+ Duration: 51.12
+ Bus: 4
+ Train: 54
  Bike: 0
- Aborted: 5
+ Aborted: 9
 
-DijkstraRouterTT answered 13674 queries and explored 11.33 edges on average.
-DijkstraRouterTT spent 50ms answering queries (0.00ms on average).
-DijkstraRouterTT answered 429 queries and explored 681.23 edges on average.
-DijkstraRouterTT spent 110ms answering queries (0.26ms on average).
-Building scenario in '/scr2/texttest_tmp/dynamic_gui.24Nov123047.23995/tools/import/OSM/webWizard/2017-11-24-12-30-50'
+DijkstraRouter answered 13548 queries and explored 11.66 edges on average.
+DijkstraRouter spent 45ms answering queries (0.00ms on average).
+DijkstraRouter answered 449 queries and explored 683.11 edges on average.
+DijkstraRouter spent 141ms answering queries (0.31ms on average).
+Building scenario in '/scr2/texttest_tmp/tools.28Nov162100.8519/tools/import/OSM/webWizard/2017-11-28-16-21-02'
 generating trips...
 done.
 running SUMO to determine actual departure times...

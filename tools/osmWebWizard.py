@@ -192,6 +192,8 @@ class Builder(object):
                 "-n", self.files["net"],
                 "-e", self.data["duration"],
                 "-p", "600",
+                "--random-begin",
+                "--seed", "42",
                 "--ptstops", self.files["stops"],
                 "--ptlines", self.files["ptlines"],
                 "-o", self.files["ptroutes"],

@@ -1,5 +1,5 @@
 #!/bin/bash
-python "/scr1/sumo/tools/ptlines2flows.py" -n osm.net.xml -e 900 -p 600 --ptstops osm_stops.add.xml --ptlines osm_ptlines.xml -o osm_pt.rou.xml --ignore-errors --vtype-prefix pt_ --flow-attributes 'departPos="0"'
+python "/scr1/sumo/tools/ptlines2flows.py" -n osm.net.xml -e 900 -p 600 --random-begin --seed 42 --ptstops osm_stops.add.xml --ptlines osm_ptlines.xml -o osm_pt.rou.xml --ignore-errors --vtype-prefix pt_ --flow-attributes 'departPos="0"'
 python "/scr1/sumo/tools/randomTrips.py" -n osm.net.xml --seed 42 --fringe-factor 1 -p 3.958910 -r osm.pedestrian.rou.xml -o osm.pedestrian.trips.xml -e 900 --vehicle-class pedestrian --persontrips --prefix ped --trip-attributes 'speedDev="0.1" modes="public"' --additional-files osm_stops.add.xml,osm_pt.rou.xml
 python "/scr1/sumo/tools/randomTrips.py" -n osm.net.xml --seed 42 --fringe-factor 2 -p 9.066825 -r osm.bicycle.rou.xml -o osm.bicycle.trips.xml -e 900 --vehicle-class bicycle --vclass bicycle --prefix bike --max-distance 8000 --trip-attributes 'speedDev="0.1" departLane="best"' --validate
 python "/scr1/sumo/tools/randomTrips.py" -n osm.net.xml --seed 42 --fringe-factor 2 -p 20.923739 -r osm.bus.rou.xml -o osm.bus.trips.xml -e 900 --vehicle-class bus --vclass bus --prefix bus --min-distance 600 --trip-attributes 'departLane="best"' --validate
