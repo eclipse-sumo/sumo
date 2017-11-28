@@ -64,6 +64,7 @@ copy_test_path:weights.src.xml
 copy_test_path:weights.dst.xml
 copy_test_path:weights.via.xml
 copy_test_path:ptlines.xml
+copy_test_path:input_edgedata.xml
 copy_test_path:config.txt
 
 [collate_file]
