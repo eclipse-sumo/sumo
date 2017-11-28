@@ -287,7 +287,7 @@ private:
      * @param[in] v The vehicle that is rerouted
      * @param[in] t The time for which the effort shall be returned
      * @return The effort (time to pass in this case) for an edge
-     * @see DijkstraRouterTT_ByProxi
+     * @see DijkstraRouter_ByProxi
      */
     static double getEffort(const MSEdge* const e, const SUMOVehicle* const v, double t);
 

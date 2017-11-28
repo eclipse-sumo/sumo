@@ -60,8 +60,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/shapes/ShapeContainer.h>
-#include <utils/vehicle/DijkstraRouterEffort.h>
-#include <utils/vehicle/DijkstraRouterTT.h>
+#include <utils/vehicle/DijkstraRouter.h>
 #include <utils/vehicle/AStarRouter.h>
 #include <utils/vehicle/PedestrianRouter.h>
 #include <utils/xml/SUMORouteLoaderControl.h>
@@ -897,7 +896,7 @@ MSNet::getRouterTT(const MSEdgeVector& prohibited) const {
     if (myRouterTT == 0) {
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingAlgorithm == "dijkstra") {
-            myRouterTT = new DijkstraRouterTT<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
+            myRouterTT = new DijkstraRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
                 MSEdge::getAllEdges(), true, &MSNet::getTravelTime);
         } else {
             if (routingAlgorithm != "astar") {
@@ -915,7 +914,7 @@ MSNet::getRouterTT(const MSEdgeVector& prohibited) const {
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSNet::getRouterEffort(const MSEdgeVector& prohibited) const {
     if (myRouterEffort == 0) {
-        myRouterEffort = new DijkstraRouterEffort<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
+        myRouterEffort = new DijkstraRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
             MSEdge::getAllEdges(), true, &MSNet::getEffort, &MSNet::getTravelTime);
     }
     dynamic_cast<prohibited_withPermissions<MSEdge, SUMOVehicle>*>(myRouterEffort)->prohibit(prohibited);

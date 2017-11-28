@@ -43,8 +43,8 @@
 #include <router/ROLoader.h>
 #include <router/RONet.h>
 #include <router/ROEdge.h>
-#include <utils/vehicle/DijkstraRouterTT.h>
-#include <utils/vehicle/DijkstraRouterEffort.h>
+#include <utils/vehicle/DijkstraRouter.h>
+#include <utils/vehicle/DijkstraRouter.h>
 #include <utils/vehicle/AStarRouter.h>
 #include <utils/vehicle/CHRouter.h>
 #include <utils/vehicle/CHRouterWrapper.h>
@@ -107,10 +107,10 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     if (measure == "traveltime") {
         if (routingAlgorithm == "dijkstra") {
             if (net.hasPermissions()) {
-                router = new DijkstraRouterTT<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
+                router = new DijkstraRouter<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                     ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
             } else {
-                router = new DijkstraRouterTT<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
+                router = new DijkstraRouter<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                     ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
             }
         } else if (routingAlgorithm == "astar") {
@@ -165,7 +165,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
         }
     } else {
-        DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >::Operation op;
+        DijkstraRouter<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >::Operation op;
         if (measure == "CO") {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::CO>;
         } else if (measure == "CO2") {
@@ -186,10 +186,10 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             throw ProcessError("Unknown measure (weight attribute '" + measure + "')!");
         }
         if (net.hasPermissions()) {
-            router = new DijkstraRouterEffort<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
+            router = new DijkstraRouter<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTimeStatic);
         } else {
-            router = new DijkstraRouterEffort<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
+            router = new DijkstraRouter<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, &ROEdge::getTravelTimeStatic);
         }
     }

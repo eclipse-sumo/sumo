@@ -45,7 +45,7 @@
 #include <map>
 #include <utils/common/ToString.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/vehicle/DijkstraRouterTT.h>
+#include <utils/vehicle/DijkstraRouter.h>
 #include <utils/common/RandHelper.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>

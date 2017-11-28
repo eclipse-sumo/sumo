@@ -4,8 +4,7 @@ set(utils_vehicle_STAT_SRCS
    CHBuilder.h
    CHRouter.h
    CHRouterWrapper.h
-   DijkstraRouterTT.h
-   DijkstraRouterEffort.h
+   DijkstraRouter.h
    IntermodalEdge.h
    IntermodalNetwork.h
    IntermodalRouter.h

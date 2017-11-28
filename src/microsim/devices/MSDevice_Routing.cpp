@@ -42,7 +42,7 @@
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/StaticCommand.h>
 #include <utils/common/StringUtils.h>
-#include <utils/vehicle/DijkstraRouterTT.h>
+#include <utils/vehicle/DijkstraRouter.h>
 #include <utils/vehicle/AStarRouter.h>
 #include <utils/vehicle/CHRouter.h>
 #include <utils/vehicle/CHRouterWrapper.h>
@@ -368,10 +368,10 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
         const bool mayHaveRestrictions = MSNet::getInstance()->hasPermissions() || oc.getInt("remote-port") != 0;
         if (routingAlgorithm == "dijkstra") {
             if (mayHaveRestrictions) {
-                myRouter = new DijkstraRouterTT<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
+                myRouter = new DijkstraRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
                     MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort);
             } else {
-                myRouter = new DijkstraRouterTT<MSEdge, SUMOVehicle, noProhibitions<MSEdge, SUMOVehicle> >(
+                myRouter = new DijkstraRouter<MSEdge, SUMOVehicle, noProhibitions<MSEdge, SUMOVehicle> >(
                     MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort);
             }
         } else if (routingAlgorithm == "astar") {

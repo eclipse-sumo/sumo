@@ -39,7 +39,7 @@
 #include <utils/common/ToString.h>
 #include "SUMOAbstractRouter.h"
 #include "SUMOVehicleParameter.h"
-#include "DijkstraRouterTT.h"
+#include "DijkstraRouter.h"
 #include "IntermodalNetwork.h"
 #include "CarEdge.h"
 #include "PedestrianRouter.h"
@@ -54,7 +54,7 @@
  * @class IntermodalRouter
  * The router for pedestrians (on a bidirectional network of sidewalks and crossings)
  */
-template<class E, class L, class N, class V, class INTERNALROUTER = DijkstraRouterTT<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > >
+template<class E, class L, class N, class V, class INTERNALROUTER = DijkstraRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > >
 class IntermodalRouter : public SUMOAbstractRouter<E, IntermodalTrip<E, N, V> > {
 private:
     typedef void(* CreateNetCallback)(IntermodalRouter<E, L, N, V, INTERNALROUTER>&);

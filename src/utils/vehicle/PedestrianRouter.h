@@ -37,7 +37,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
 #include "SUMOAbstractRouter.h"
-#include "DijkstraRouterTT.h"
+#include "DijkstraRouter.h"
 #include "IntermodalNetwork.h"
 
 //#define PedestrianRouter_DEBUG_ROUTES
@@ -157,7 +157,7 @@ private:
 // common specializations
 template<class E, class L, class N, class V>
 class PedestrianRouterDijkstra : public PedestrianRouter < E, L, N, V,
-    DijkstraRouterTT<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > > { };
+    DijkstraRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > > { };
 
 
 #endif

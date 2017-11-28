@@ -22,10 +22,7 @@
     <ClInclude Include="..\..\..\src\utils\vehicle\AStarRouter.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\vehicle\DijkstraRouterEffort.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\vehicle\DijkstraRouterTT.h">
+    <ClInclude Include="..\..\..\src\utils\vehicle\DijkstraRouter.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\vehicle\GawronCalculator.h">

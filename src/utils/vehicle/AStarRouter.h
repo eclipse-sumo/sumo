@@ -17,7 +17,7 @@
 /// @version $Id$
 ///
 // A* Algorithm using euclidean distance heuristic.
-// Based on DijkstraRouterTT. For routing by effort a novel heuristic would be needed.
+// Based on DijkstraRouter. For routing by effort a novel heuristic would be needed.
 /****************************************************************************/
 #ifndef AStarRouter_h
 #define AStarRouter_h

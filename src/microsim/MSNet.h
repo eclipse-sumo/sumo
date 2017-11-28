@@ -550,7 +550,7 @@ public:
      * @param[in] v The vehicle that is rerouted
      * @param[in] t The time for which the travel time shall be returned [s]
      * @return The travel time for an edge
-     * @see DijkstraRouterTT_ByProxi
+     * @see DijkstraRouter_ByProxi
      */
     static double getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, double t);
 
@@ -560,7 +560,7 @@ public:
      * @param[in] v The vehicle that is rerouted
      * @param[in] t The time for which the effort shall be returned [s]
      * @return The effort (abstract) for an edge
-     * @see DijkstraRouterTT_ByProxi
+     * @see DijkstraRouter_ByProxi
      */
     static double getEffort(const MSEdge* const e, const SUMOVehicle* const v, double t);
 
