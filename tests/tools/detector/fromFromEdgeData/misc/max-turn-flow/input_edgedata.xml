@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 11/28/17 15:42:22 by SUMO Version dev-SVN-r26691
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="flows.tools"/>
+        <additional-files value="routes.tools,add.xml"/>
+    </input>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="3601.00" id="all">
+        <edge id="-1" sampledSeconds="4339.58" traveltime="4.16" overlapTraveltime="4.35" density="12.05" occupancy="2.86" waitingTime="0.00" speed="24.15" departed="0" arrived="1000" entered="1000" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="-2" sampledSeconds="345.88" traveltime="8.33" overlapTraveltime="7.12" density="0.96" occupancy="0.13" waitingTime="0.00" speed="14.75" departed="1000" arrived="0" entered="0" left="1000" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1" sampledSeconds="348.34" traveltime="8.41" overlapTraveltime="7.17" density="0.97" occupancy="0.13" waitingTime="0.00" speed="14.64" departed="1000" arrived="0" entered="0" left="1000" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="2" sampledSeconds="4338.58" traveltime="4.15" overlapTraveltime="4.35" density="12.05" occupancy="2.86" waitingTime="0.00" speed="24.16" departed="0" arrived="1000" entered="1000" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+    </interval>
+</meandata>
