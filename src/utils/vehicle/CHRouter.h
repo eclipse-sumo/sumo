@@ -38,6 +38,7 @@
 #include <limits>
 #include <algorithm>
 #include <iterator>
+#include <deque>
 #include <utils/common/SysUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
