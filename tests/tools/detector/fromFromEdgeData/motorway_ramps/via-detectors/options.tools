@@ -1,4 +1,2 @@
 -d input_detectors.det.xml -f input_flows.txt -e input_edgedata.xml
 --verbose
---via-detectors
---limit 10

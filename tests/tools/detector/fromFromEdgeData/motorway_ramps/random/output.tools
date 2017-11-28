@@ -1,10 +1,12 @@
-Reading net
-13 edges read
-Reading detectors
-Loaded 3 sources and 3 sinks from detector file. Added 0 sources and 0 sinks from the network
 Reading flows
-Calculating routes
-3 sources, 1 unlimited
-3 sinks, 1 unlimited
-Writing 2500 vehicles from 2 sources between time 0 and 3600
-  unused sources: on7
+Reading edgeData
+# detNames RouteFlow DetFlow ratio
+1_ 2000.0 2000.0 0.0
+9_ 1985.0 2000.0 -0.0075
+off3 515.0 500.0 0.03
+on3 500.0 500.0 0.0
+# interval 0
+# avgRouteFlow avgDetFlow avgDev RMSE RMSPE
+# 1250.0 1250.0 7.5 10.6066017178 0.0154616460961
+Reading flows
+Reading edgeData

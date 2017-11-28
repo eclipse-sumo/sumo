@@ -25,3 +25,5 @@ Reading edgeData
 # interval 0
 # avgRouteFlow avgDetFlow avgDev RMSE RMSPE
 # 126.238095238 127.571428571 1.33333333333 5.30947042467 0.201939515378
+Reading flows
+Reading edgeData
