@@ -65,8 +65,9 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
     fragments = [buildFragment(wixBin, os.path.join(
         sumoRoot, d), "INSTALLDIR", tmpDir, log) for d in ["bin", "data", "tools"]]
     for d in ["userdoc", "pydoc", "javadoc", "tutorial", "examples"]:
-        fragments.append(
-            buildFragment(wixBin, os.path.join(sumoRoot, "docs", d), "DOCDIR", tmpDir, log))
+        docDir = os.path.join(sumoRoot, "docs", d)
+        if os.path.exists(docDir):
+            fragments.append(buildFragment(wixBin, docDir, "DOCDIR", tmpDir, log))
     for wxs in glob.glob(wxsPattern):
         with open(wxs) as wxsIn:
             with open(os.path.join(tmpDir, os.path.basename(wxs)), "w") as wxsOut:
