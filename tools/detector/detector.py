@@ -20,6 +20,16 @@ from xml.sax import make_parser, handler
 
 MAX_POS_DEVIATION = 10
 
+def relError(actual, expected):
+    if expected == 0:
+        if actual == 0:
+            return 0
+        else:
+            return 1
+    else:
+        return (actual - expected) / expected
+
+
 
 class DetectorGroupData:
 
@@ -99,6 +109,7 @@ class DetectorReader(handler.ContentHandler):
             self._currentGroup = None
 
     def addFlow(self, det, flow, speed=0.0):
+        #print("addFlow det=%s flow=%s" % (det, flow))
         if det in self._det2edge:
             edge = self._det2edge[det]
             for group in self._edge2DetData[edge]:

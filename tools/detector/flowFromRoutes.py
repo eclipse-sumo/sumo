@@ -23,6 +23,7 @@ from xml.sax import make_parser, handler
 from optparse import OptionParser
 
 import detector
+from detector import relError
 
 
 class LaneMap:
@@ -106,6 +107,9 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         if self._begin is not None:
             print('# interval', self._begin)
         print('# avgRouteFlow avgDetFlow avgDev RMSE RMSPE')
+        if n == 0:
+            # avoid division by zero
+            n = -1
         print('#', rSum / n, dSum / n, sumAbsDev / n,
               math.sqrt(sumSquaredDev / n), math.sqrt(sumSquaredPercent / n))
 
@@ -136,9 +140,9 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
             for group, edge, rflow, dflow in sorted(output):
                 if dflow > 0 or options.respectzero:
                     if options.edgenames:
-                        print(group, edge, rflow, dflow, (rflow - dflow) / dflow)
+                        print(group, edge, rflow, dflow, relError(rflow, dflow))
                     else:
-                        print(group, rflow, dflow, (rflow - dflow) / dflow)
+                        print(group, rflow, dflow, relError(rflow, dflow))
         else:
             for group, edge, flow in sorted(output):
                 if options.edgenames:
