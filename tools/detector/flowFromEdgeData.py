@@ -49,7 +49,7 @@ def get_options(args=None):
     optParser.add_option("--edge-names", action="store_true", dest="edgenames",
                          default=False, help="include detector group edge name in output")
     optParser.add_option( "-b", "--begin", type="float", default=0, help="begin time in minutes")
-    optParser.add_option( "--end", type="float", default=1440, help="end time in minutes (default 1440)")
+    optParser.add_option( "--end", type="float", default=None, help="end time in minutes")
     optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
@@ -57,8 +57,6 @@ def get_options(args=None):
         optParser.print_help()
         sys.exit()
 
-    options.beginS = options.begin * 60
-    options.endS = options.end * 60
     return options
 
 
@@ -141,19 +139,22 @@ class LaneMap:
 
 def main(options):
     detReader = detector.DetectorReader(options.detfile, LaneMap())
-    time = options.beginS
-    while time < options.endS:
+    time = options.begin * 60
+    haveDetFlows = True
+    while ((options.end is None and haveDetFlows)
+            or (options.end is not None and time < options.end * 60)):
         intervalBeginM = time / 60
         intervalEndM = intervalBeginM + options.interval
         if options.verbose:
             print("Reading flows")
-        detReader.readFlows(options.flowfile, flow=options.flowcol, time="Time", timeVal=intervalBeginM, timeMax=intervalEndM)
+        haveDetFlows = detReader.readFlows(options.flowfile, flow=options.flowcol, time="Time", timeVal=intervalBeginM, timeMax=intervalEndM)
         if options.verbose:
             print("Reading edgeData")
         edgeFlow = readEdgeData(options.edgeDataFile, time, time + options.interval * 60)
-        printFlows(options, edgeFlow, detReader)
-        calcStatistics(options, intervalBeginM, edgeFlow, detReader)
-        detReader.clearFlows()
+        if haveDetFlows:
+            printFlows(options, edgeFlow, detReader)
+            calcStatistics(options, intervalBeginM, edgeFlow, detReader)
+            detReader.clearFlows()
         time += options.interval * 60
 
 if __name__ == "__main__":
