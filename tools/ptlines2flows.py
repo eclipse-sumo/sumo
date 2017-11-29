@@ -55,6 +55,7 @@ def get_options(args=None):
     optParser.add_option("--seed", type="int", help="random seed")
     optParser.add_option("--ignore-errors", default=False, action="store_true", dest='ignoreErrors', help="ignore problems with the input data")
     optParser.add_option("--no-vtypes", default=False, action="store_true", dest='novtypes', help="do not write vtypes for generated flows")
+    optParser.add_option("--bus.parking", default=False, action="store_true", dest='busparking', help="let busses clear the road while stopping")
     optParser.add_option("--vtype-prefix", default="", dest='vtypeprefix', help="prefix for vtype ids")
     (options, args) = optParser.parse_args(args=args)
 
@@ -182,13 +183,14 @@ def createRoutes(options, trpMap):
                 else:
                     sys.exit("Could not parse edges for vehicle '%s'\n" % id)
             flows.append((id, vehicle.type))
+            parking = ' parking="true"' if vehicle.type == "bus" and options.busparking else ''
             stops = vehicle.stop
             foutflows.write('    <route id="%s" edges="%s" >\n' % (id, edges))
             for stop in stops:
                 if (id, stop.busStop) in stopsUntil:
                     foutflows.write(
-                        '        <stop busStop="%s" duration="%s" until="%s" />\n' % (
-                            stop.busStop, stop.duration, stopsUntil[(id, stop.busStop)]))
+                        '        <stop busStop="%s" duration="%s" until="%s"%s/>\n' % (
+                            stop.busStop, stop.duration, stopsUntil[(id, stop.busStop)], parking))
                 else:
                     sys.stderr.write("Missing stop '%s' for flow '%s'\n" % (stop.busStop, id))
             foutflows.write('    </route>\n')
