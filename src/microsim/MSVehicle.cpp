@@ -2150,6 +2150,9 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderIn
     assert(leaderInfo.first != 0);
     const MSCFModel& cfModel = getCarFollowModel();
     double vsafeLeader = 0;
+    if (!MSGlobals::gSemiImplicitEulerUpdate) {
+        vsafeLeader = -std::numeric_limits<double>::max();
+    }
     if (leaderInfo.second >= 0) {
         vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCarFollowModel().getApparentDecel());
     } else {
