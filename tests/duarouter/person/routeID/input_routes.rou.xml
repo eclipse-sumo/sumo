@@ -8,8 +8,8 @@
     <person id="p1" depart="0">
         <walk route="backward"/>
     </person>
-    <person id="p2" depart="0">
-        <walk route="forward" departPos="0" arrivalPos="random"/>
+    <person id="p2" depart="0" departPos="0">
+        <walk route="forward" arrivalPos="random"/>
     </person>
 
 </routes>

@@ -8,7 +8,7 @@
        <stop busStop="left_0" until="1070"/>
        <stop busStop="end_0" until="1110"/>
     </flow>
-    <person id="p0" depart="0">
+    <person id="p0" depart="200">
         <personTrip from="beg" to="end" modes="public"/>
     </person>
 </routes>
