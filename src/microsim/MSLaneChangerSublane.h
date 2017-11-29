@@ -97,9 +97,9 @@ protected:
     /// @brief helper function that calls checkChangeSublane and sets blocker information
     StateAndDist checkChangeHelper(MSVehicle* vehicle, int laneOffset, LaneChangeAction alternatives);
 
-    /// @brrief optional output for start of lane-change maneuvre
+    /// @brief optional output for start of lane-change maneuvre
     void outputLCStarted(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction);
-    /// @brrief optional output for end of lane-change maneuvre
+    /// @brief optional output for end of lane-change maneuvre
     void outputLCEnded(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction, double latDist);
 
 private:

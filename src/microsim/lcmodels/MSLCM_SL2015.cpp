@@ -87,6 +87,12 @@
 // exponential averaging factor for expected sublane speeds
 #define SPEEDGAIN_MEMORY_FACTOR 0.5
 
+
+
+// ===========================================================================
+// Debug flags
+// ===========================================================================
+#define DEBUG_ACTIONSTEPS
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
 //#define DEBUG_COND (myVehicle.getID() == "E1")
 #define DEBUG_COND (myVehicle.isSelected())
@@ -201,7 +207,7 @@ MSLCM_SL2015::wantsChangeSublane(
     double latDistTmp = latDist;
     latDist = SPEED2DIST(computeSpeedLat(latDist));
     if (gDebugFlag2 && latDist != latDistTmp) {
-        std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myManeuverDist=" << myManeuverDist << " latDist=" << latDistTmp << " mySpeedPrev=" << mySpeedLat << " speedLat=" << DIST2SPEED(latDist) << " latDist2=" << latDist << "\n";
+        std::cout << SIMTIME << " veh=" << myVehicle.getID() << " maneuverDist=" << maneuverDist << " latDist=" << latDistTmp << " mySpeedPrev=" << mySpeedLat << " speedLat=" << DIST2SPEED(latDist) << " latDist2=" << latDist << "\n";
     }
 
     if (gDebugFlag2) {
@@ -1577,7 +1583,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                                        << " latDist=" << latDist
                                        << " latDistSublane=" << latDistSublane
                                        << " relGainSublane=" << computeSpeedGain(latDistSublane, defaultNextSpeed)
-                                       << " origLatDist=" << myManeuverDist
+                                       << " maneuverDist=" << maneuverDist
                                        << " myCanChangeFully=" << myCanChangeFully
                                        << " prevState=" << toString((LaneChangeAction)myPreviousState)
                                        << "\n";
@@ -1899,7 +1905,7 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& ma
 
     myCanChangeFully = (myManeuverDist == 0 || latDist == myManeuverDist);
     if (gDebugFlag2) {
-        std::cout << "    checkBlocking fully=" << myCanChangeFully << " latDist=" << latDist << " origLatDist=" << myManeuverDist << "\n";
+        std::cout << "    checkBlocking fully=" << myCanChangeFully << " latDist=" << latDist << " myManeuverDist=" << myManeuverDist << "\n";
     }
     // destination sublanes must be safe
     // intermediate sublanes must not be blocked by overlapping vehicles
@@ -1935,6 +1941,9 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& ma
         // contrast, cautious drivers need to check latDist and origLatDist to
         // ensure that the maneuver can be finished without encroaching on other vehicles.
         blocked |= blockedFully;
+    } else {
+        // XXX: in case of action step length > simulation step length, pushing may lead to collisions,
+        //      because maneuver is continued until myManeuverDist is reached (perhaps set myManeuverDist=latDist)
     }
     if (collectFollowBlockers != 0 && collectLeadBlockers != 0) {
         // prevent vehicles from being classified as leader and follower simultaneously
@@ -1990,7 +1999,7 @@ MSLCM_SL2015::checkBlockingVehicles(
             if (!leaders) {
                 std::swap(leader, follower);
             }
-            // only check the current stripe occuped by foe (transform into edge-coordinates)
+            // only check the current stripe occupied by foe (transform into edge-coordinates)
             double foeRight, foeLeft;
             vehicles.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
             const bool overlapBefore = overlap(rightVehSide, leftVehSide, foeRight, foeLeft);
@@ -2486,6 +2495,9 @@ MSLCM_SL2015::keepLatGap(int state,
         // sufficient space. move as far as the gaps permit
         latDist = MAX2(MIN2(latDist, surplusGapLeft), -surplusGapRight);
         maneuverDist = MAX2(MIN2(maneuverDist, surplusGapLeft), -surplusGapRight);
+        if (gDebugFlag2) {
+            std::cout << "     adapted latDist=" << latDist << " maneuverDist="<< maneuverDist<<" (old=" << oldLatDist << ")\n";
+        }
     }
     // take into account overriding traci sublane-request
     if (myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0) {
@@ -2569,7 +2581,7 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                 const double gap = MIN2(fabs(foeRight - oldCenter), fabs(foeLeft - oldCenter)) - halfWidth;
                 const double deltaV = MIN2(LATGAP_SPEED_THRESHOLD, MAX3(LATGAP_SPEED_THRESHOLD2, myVehicle.getSpeed(), (double)fabs(myVehicle.getSpeed() - foe->getSpeed())));
                 const double desiredMinGap = baseMinGap * deltaV / LATGAP_SPEED_THRESHOLD;
-                const double currentMinGap = desiredMinGap * gapFactor; // pushy vehicles may accept a lower lateral gap temperarily
+                const double currentMinGap = desiredMinGap * gapFactor; // pushy vehicles may accept a lower lateral gap temporarily
                 /*
                 if (netOverlap != 0) {
                     // foe vehicle is follower with its front ahead of the ego midpoint
@@ -2663,7 +2675,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist) const {
                   << std::endl;
     }
     if (speedDecel * speedAccel <= 0 && (
-                // speedAccel and speedDecel bracket speed 0. This means we can end the manoeuvre
+                // speedAccel and speedDecel bracket speed 0. This means we can end the maneuvre
                 (latDist >= 0 && speedAccel >= speedBound && speedBound >= speedDecel)
                 || (latDist <= 0 && speedAccel <= speedBound && speedBound <= speedDecel))) {
         // we can reach the desired value in this step

@@ -22,6 +22,12 @@
 /****************************************************************************/
 
 // ===========================================================================
+// DEBUG
+// ===========================================================================
+#define DEBUG_COND (myVehicle.isSelected())
+
+
+// ===========================================================================
 // included modules
 // ===========================================================================
 #ifdef _MSC_VER
@@ -328,7 +334,7 @@ MSAbstractLaneChangeModel::updateShadowLane() {
         for (int i = 0; i < (int)further.size(); ++i) {
             MSLane* shadowFurther = getShadowLane(further[i], furtherPosLat[i]);
             if (debugVehicle()) {
-                std::cout << SIMTIME << "   further=" << further[i]->getID() << " shadowFurther=" << Named::getIDSecure(shadowFurther) << "\n";
+                std::cout << SIMTIME << "   further=" << further[i]->getID() << " (posLat=" << furtherPosLat[i] << ") shadowFurther=" << Named::getIDSecure(shadowFurther) << "\n";
             }
             if (shadowFurther != 0 && MSLinkContHelper::getConnectingLink(*shadowFurther, *passed.back()) != 0) {
                 passed.push_back(shadowFurther);
@@ -342,10 +348,12 @@ MSAbstractLaneChangeModel::updateShadowLane() {
             endLaneChangeManeuver();
         }
     }
-    if (debugVehicle()) std::cout << SIMTIME << " updateShadowLane veh=" << myVehicle.getID()
+    if (debugVehicle()) {
+        std::cout << SIMTIME << " updateShadowLane veh=" << myVehicle.getID()
                                       << " newShadowLane=" << Named::getIDSecure(myShadowLane)
-                                      << "\n   before:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << " further=" << toString(myVehicle.getFurtherLanes()) << " passed=" << toString(passed)
-                                      << "\n";
+                                      << "\n   before:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << " further=" << toString(myVehicle.getFurtherLanes()) << " passed=" << toString(passed);
+        std::cout << std::endl;
+    }
     myVehicle.updateFurtherLanes(myShadowFurtherLanes, myShadowFurtherLanesPosLat, passed);
     if (debugVehicle()) std::cout
                 << "\n   after:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << "\n";

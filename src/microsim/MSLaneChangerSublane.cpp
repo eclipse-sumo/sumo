@@ -45,6 +45,7 @@
 // DEBUG constants
 // ===========================================================================
 #define DEBUG_COND (vehicle->getLaneChangeModel().debugVehicle())
+//#define DEBUG_COND (vehicle->getID() == "disabled")
 #define DEBUG_ACTIONSTEPS
 
 
@@ -139,7 +140,7 @@ MSLaneChangerSublane::change() {
 
 #ifdef DEBUG_ACTIONSTEPS
         if DEBUG_COND {
-            std::cout<< SIMTIME << " veh '" << vehicle->getID() << "' at plans sublane maneuver."
+            std::cout<< "\n" << SIMTIME << " veh '" << vehicle->getID() << "' at plans sublane maneuver."
                     << std::endl;
         }
 #endif
@@ -174,14 +175,14 @@ MSLaneChangerSublane::change() {
     StateAndDist decision = vehicle->getLaneChangeModel().decideDirection(current,
                             vehicle->getLaneChangeModel().decideDirection(right, left));
     if (vehicle->getLaneChangeModel().debugVehicle()) {
-        std::cout << SIMTIME << " decision=" << toString((LaneChangeAction)decision.state) << " dir=" << decision.dir << " latDist=" << decision.latDist << " maneuverDist=" << decision.maneuverDist << "\n";
+        std::cout << "\n" << SIMTIME << " decision=" << toString((LaneChangeAction)decision.state) << " dir=" << decision.dir << " latDist=" << decision.latDist << " maneuverDist=" << decision.maneuverDist << "\n";
     }
     vehicle->getLaneChangeModel().setOwnState(decision.state);
     vehicle->getLaneChangeModel().setManeuverDist(decision.maneuverDist);
     if ((decision.state & LCA_WANTS_LANECHANGE) != 0 && (decision.state & LCA_BLOCKED) == 0) {
         // change if the vehicle wants to and is allowed to change
-        if (vehicle->getLaneChangeModel().debugVehicle()) {
-            std::cout << SIMTIME << " Performing sublane change..." << std::endl;
+        if DEBUG_COND {
+            std::cout << SIMTIME << "veh '"<< vehicle->getID() << "' performing sublane change..." << std::endl;
         }
         return startChangeSublane(vehicle, myCandi, decision.latDist);
     } else {
@@ -291,7 +292,8 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         changeAngle = atan2(latDist, vehicle->getVehicleType().getLength() + SPEED2DIST(vehicle->getSpeed()));
     }
     if (vehicle->getLaneChangeModel().debugVehicle()) std::cout << SIMTIME << " startChangeSublane shadowLane"
-                << " latDist=" << latDist
+            << " maneuverDist=" << vehicle->getLaneChangeModel().getManeuverDist()
+            << " latDist=" << latDist
                 << " old=" << Named::getIDSecure(oldShadowLane)
                 << " new=" << Named::getIDSecure(vehicle->getLaneChangeModel().getShadowLane())
                 << " laneA=" << RAD2DEG(laneAngle)
