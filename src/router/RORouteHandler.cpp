@@ -689,11 +689,10 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         ok = false;
     }
 
-    double departPos = std::numeric_limits<double>::infinity();
-    double arrivalPos = std::numeric_limits<double>::infinity();
+    double departPos = 0.;
+    double arrivalPos = 0.;
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
-        departPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_DEPARTPOS, id, from->getLength(),
-                    attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, id, ok));
+        WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
     }
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
         arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, id, to->getLength(),
@@ -747,11 +746,10 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
         throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
     }
-    double departPos = std::numeric_limits<double>::infinity();
-    double arrivalPos = std::numeric_limits<double>::infinity();
+    double departPos = 0.;
+    double arrivalPos = 0.;
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
-        departPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_DEPARTPOS, objId, myActiveRoute.front()->getLength(),
-            attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, objId, ok));
+        WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
     }
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
         arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, objId, myActiveRoute.back()->getLength(),

@@ -977,11 +977,19 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
 void
 MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID,
                                    const MSEdge* fromEdge, const MSEdge*& toEdge,
-                                   double& departPos, double& arrivalPos, MSStoppingPlace*& bs, bool& ok) {
+                                   double& departPos, double& arrivalPos, MSStoppingPlace*& bs,
+                                   const MSTransportable::Stage* const lastStage, bool& ok) {
     const std::string description = "person '" + personID + "' walking from " + fromEdge->getID();
 
-    departPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_DEPARTPOS, description, fromEdge->getLength(),
-                attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, description.c_str(), ok, "0"), &myParsingRNG);
+    if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
+        WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
+    }
+    departPos = 0.;
+    if (lastStage->getDestinationStop() != nullptr) {
+        departPos = lastStage->getDestinationStop()->getAccessPos(fromEdge);
+    } else if (&lastStage->getDestination() == fromEdge) {
+        departPos = lastStage->getArrivalPos();
+    }
 
     std::string bsID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
     if (bsID != "") {
@@ -1043,7 +1051,14 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     double departPos = 0;
     double arrivalPos = 0;
     MSStoppingPlace* bs = 0;
-    parseWalkPositions(attrs, myVehicleParameter->id, from, to, departPos, arrivalPos, bs, ok);
+    if (myActivePlan->empty()) {
+        double initialDepartPos = myVehicleParameter->departPos;
+        if (myVehicleParameter->departPosProcedure == DEPART_POS_RANDOM) {
+            initialDepartPos = RandHelper::rand(from->getLength(), &myParsingRNG);
+        }
+        myActivePlan->push_back(new MSTransportable::Stage_Waiting(*from, -1, myVehicleParameter->depart, initialDepartPos, "start", true));
+    }
+    parseWalkPositions(attrs, myVehicleParameter->id, from, to, departPos, arrivalPos, bs, myActivePlan->back(), ok);
 
     const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
     SVCPermissions modeSet = 0;
@@ -1101,10 +1116,6 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                     throw ProcessError(error);
                 }
             }
-            if (myActivePlan->empty()) {
-                myActivePlan->push_back(new MSTransportable::Stage_Waiting(
-                    *myActiveRoute.front(), -1, myVehicleParameter->depart, departPos, "start", true));
-            }
             myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));
         } else {
             for (SUMOVehicleParameter* vehPar: pars) {
@@ -1124,9 +1135,6 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                     pedType->getMaxSpeed() * walkFactor, vehicle, modeSet, myVehicleParameter->depart, result)) {
                     for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                         if (!it->edges.empty()) {
-                            if (myActivePlan->empty()) {
-                                myActivePlan->push_back(new MSTransportable::Stage_Waiting(*from, -1, myVehicleParameter->depart, departPos, "start", true));
-                            }
                             bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
                             if (it->line == "") {
                                 const double depPos = myActivePlan->back()->getDestinationStop() != 0 ? myActivePlan->back()->getDestinationStop()->getAccessPos(it->edges.front()): departPos;
@@ -1185,20 +1193,23 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         } else {
             MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
         }
-        parseWalkPositions(attrs, myVehicleParameter->id, myActiveRoute.front(), myActiveRoute.back(), departPos, arrivalPos, bs, ok);
+        if (myActivePlan->empty()) {
+            double initialDepartPos = myVehicleParameter->departPos;
+            if (myVehicleParameter->departPosProcedure == DEPART_POS_RANDOM) {
+                initialDepartPos = RandHelper::rand(myActiveRoute.front()->getLength(), &myParsingRNG);
+            }
+            myActivePlan->push_back(new MSTransportable::Stage_Waiting(*myActiveRoute.front(), -1, myVehicleParameter->depart, initialDepartPos, "start", true));
+        }
+        parseWalkPositions(attrs, myVehicleParameter->id, myActiveRoute.front(), myActiveRoute.back(), departPos, arrivalPos, bs, myActivePlan->back(), ok);
         if (myActiveRoute.empty()) {
             throw ProcessError("No edges to walk for person '" + myVehicleParameter->id + "'.");
         }
-        if (!myActivePlan->empty() && &myActivePlan->back()->getDestination() != myActiveRoute.front() &&
+        if (&myActivePlan->back()->getDestination() != myActiveRoute.front() &&
             myActivePlan->back()->getDestination().getToJunction() != myActiveRoute.front()->getFromJunction() &&
             myActivePlan->back()->getDestination().getToJunction() != myActiveRoute.front()->getToJunction()) {
             if (myActivePlan->back()->getDestinationStop() == 0 || !myActivePlan->back()->getDestinationStop()->hasAccess(myActiveRoute.front())) {
                 throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + myActiveRoute.front()->getID() + " not connected to " + myActivePlan->back()->getDestination().getID() + ").");
             }
-        }
-        if (myActivePlan->empty()) {
-            myActivePlan->push_back(new MSTransportable::Stage_Waiting(
-                *myActiveRoute.front(), -1, myVehicleParameter->depart, departPos, "start", true));
         }
         const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, 0, ok, 0);
         myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));

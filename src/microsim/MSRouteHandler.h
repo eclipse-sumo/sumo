@@ -151,7 +151,8 @@ protected:
     ///@ brief parse depart- and arrival positions of a walk
     void parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID,
                             const MSEdge* fromEdge, const MSEdge*& toEdge,
-                            double& departPos, double& arrivalPos, MSStoppingPlace*& bs, bool& ok);
+                            double& departPos, double& arrivalPos, MSStoppingPlace*& bs,
+                            const MSTransportable::Stage* const lastStage, bool& ok);
 
 protected:
     /// @brief The current route
