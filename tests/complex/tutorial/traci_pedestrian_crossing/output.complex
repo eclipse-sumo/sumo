@@ -88,7 +88,7 @@ Persons:
  Inserted: 94
  Running: 2
 
-DijkstraRouterTT answered 1185 queries and explored 7.00 edges on average.
-DijkstraRouterTT spent 1ms answering queries (0.00ms on average).
-DijkstraRouterTT answered 999 queries and explored 2.00 edges on average.
-DijkstraRouterTT spent 1ms answering queries (0.00ms on average).
+DijkstraRouter answered 1185 queries and explored 7.00 edges on average.
+DijkstraRouter spent 1ms answering queries (0.00ms on average).
+DijkstraRouter answered 999 queries and explored 2.00 edges on average.
+DijkstraRouter spent 1ms answering queries (0.00ms on average).

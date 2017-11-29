@@ -25,7 +25,7 @@ import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')
-            
+subprocess.call([sumoBinary, "save_state.sumocfg"])
 ## LOAD
 loadParams = ["-c", "sumo.sumocfg"]
 print("Starting...")
