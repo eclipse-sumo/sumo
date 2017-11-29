@@ -145,6 +145,8 @@ def main(options):
             or (options.end is not None and time < options.end * 60)):
         intervalBeginM = time / 60
         intervalEndM = intervalBeginM + options.interval
+        if options.end is not None:
+            intervalEndM = min(intervalEndM, options.end)
         if options.verbose:
             print("Reading flows")
         haveDetFlows = detReader.readFlows(options.flowfile, flow=options.flowcol, time="Time", timeVal=intervalBeginM, timeMax=intervalEndM)

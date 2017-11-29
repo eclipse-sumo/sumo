@@ -189,7 +189,10 @@ if options.interval:
     start = options.begin # minutes
     while ((options.end is None and haveFlows)
             or (options.end is not None and start < options.end)):
-        reader.reset(start, start + options.interval)
+        end = start + options.interval
+        if options.end is not None:
+            end = min(end, options.end)
+        reader.reset(start, end)
         if options.verbose:
             print("Reading routes")
         parser.parse(options.routefile)
