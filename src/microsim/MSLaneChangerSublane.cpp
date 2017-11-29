@@ -255,26 +255,39 @@ MSLaneChangerSublane::continueChangeSublane(MSVehicle* vehicle, ChangerIt& from)
 
 bool
 MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, double latDist) {
-    // 1) update vehicles lateral position according to latDist and target lane
-    vehicle->myState.myPosLat += latDist;
-    vehicle->myCachedPosition = Position::INVALID;
-    vehicle->getLaneChangeModel().setSpeedLat(DIST2SPEED(latDist));
-    vehicle->getLaneChangeModel().setManeuverDist(vehicle->getLaneChangeModel().getManeuverDist() - latDist);
-    vehicle->getLaneChangeModel().updateSafeLatDist(latDist);
+    // Prevent continuation of LC beyond lane borders if change is not allowed
+    const double distToRightLaneBorder = latDist < 0 ? vehicle->getLane()->getWidth()*0.5 + vehicle->getLateralPositionOnLane() - vehicle->getWidth()*0.5 : 0.;
+    const double distToLeftLaneBorder = latDist > 0 ? vehicle->getLane()->getWidth()*0.5 - vehicle->getLateralPositionOnLane() - vehicle->getWidth()*0.5 : 0.;
+    // determine direction of LC    
+    const int direction = (latDist >= -distToRightLaneBorder && latDist <= distToLeftLaneBorder) ? 0 : (latDist < 0 ? -1 : 1);
+    ChangerIt to = from;
+    if (mayChange(direction)) {
+        to = from + direction;
+    } else {
+        // This may occur during maneuver continuation in non-actionsteps.
+        // TODO: Understand better why and test later if additional sublane actionstep debugging resolves this
+        // (XXX: perhaps one should try to extrapolate check for this case before to avoid maneuver initialization
+        //       similar as for continuous LC in MSLaneChanger::checkChange())
+        //assert(false);
+        abortLCManeuver(vehicle);
+        return false;
+    }
 
+    // The following does:
+    // 1) update vehicles lateral position according to latDist and target lane
     // 2) distinguish several cases
     //   a) vehicle moves completely within the same lane
     //   b) vehicle intersects another lane
     //      - vehicle must be moved to the lane where it's midpoint is (either old or new)
     //      - shadow vehicle must be created/moved to the other lane if the vehicle intersects it
     // 3) updated dens of all lanes that hold the vehicle or its shadow
-    const int direction = latDist == 0 ? 0 : (latDist < 0 ? -1 : 1);
-    ChangerIt to = from;
-    if (mayChange(direction)) {
-        to = from + direction;
-    } else {
-        /// XXX assert(false);
-    }
+
+    vehicle->myState.myPosLat += latDist;
+    vehicle->myCachedPosition = Position::INVALID;
+    vehicle->getLaneChangeModel().setSpeedLat(DIST2SPEED(latDist));
+    vehicle->getLaneChangeModel().setManeuverDist(vehicle->getLaneChangeModel().getManeuverDist() - latDist);
+    vehicle->getLaneChangeModel().updateSafeLatDist(latDist);
+
     outputLCStarted(vehicle, from, to, direction);
     const bool changedToNewLane = checkChangeToNewLane(vehicle, direction, from, to);
 
@@ -282,7 +295,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     vehicle->getLaneChangeModel().updateShadowLane();
     MSLane* shadowLane = vehicle->getLaneChangeModel().getShadowLane();
     if (shadowLane != 0 && shadowLane != oldShadowLane) {
-        assert(to != from);
+        assert(to != from || !vehicle->isActive());
         const double latOffset = vehicle->getLane()->getRightSideOnEdge() - shadowLane->getRightSideOnEdge();
         (myChanger.begin() + shadowLane->getIndex())->ahead.addLeader(vehicle, false, latOffset);
     }
