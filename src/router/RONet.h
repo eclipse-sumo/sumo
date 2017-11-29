@@ -378,6 +378,15 @@ public:
     void openOutput(const OptionsCont& options);
 
 
+    /** @brief Writes the intermodal network and weights if requested
+     *
+     * If one of the file outputs can not be build, an IOError is thrown.
+     *
+     * @param[in] options The options to be asked for "intermodal-network-output" and "intermodal-weight-output"
+     */
+    void writeIntermodal(const OptionsCont& options, ROIntermodalRouter& router) const;
+
+
     /** @brief closes the file output for computed routes and deletes associated threads if necessary */
     void cleanup();
 

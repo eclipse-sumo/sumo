@@ -231,6 +231,25 @@ RONet::openOutput(const OptionsCont& options) {
 
 
 void
+RONet::writeIntermodal(const OptionsCont& options, ROIntermodalRouter& router) const {
+    if (options.exists("intermodal-network-output") && options.isSet("intermodal-network-output")) {
+        OutputDevice::createDeviceByOption("intermodal-network-output", "intermodal");
+        router.writeNetwork(OutputDevice::getDevice(options.getString("intermodal-network-output")));
+    }
+    if (options.exists("intermodal-weight-output") && options.isSet("intermodal-weight-output")) {
+        OutputDevice::createDeviceByOption("intermodal-weight-output", "weights", "meandata_file.xsd");
+        OutputDevice& dev = OutputDevice::getDeviceByOption("intermodal-weight-output");
+        dev.openTag(SUMO_TAG_INTERVAL);
+        dev.writeAttr(SUMO_ATTR_ID, "intermodalweights");
+        dev.writeAttr(SUMO_ATTR_BEGIN, 0);
+        dev.writeAttr(SUMO_ATTR_END, SUMOTime_MAX);
+        dev.closeTag();
+        router.writeWeights(dev);
+    }
+}
+
+
+void
 RONet::cleanup() {
     // end writing
     if (myRoutesOutput != 0) {

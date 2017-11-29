@@ -79,6 +79,12 @@ RODUAFrame::addImportOptions() {
     oc.addSynonyme("alternatives-output", "alternatives");
     oc.addDescription("alternatives-output", "Output", "Write generated route alternatives to FILE");
 
+    oc.doRegister("intermodal-network-output", new Option_FileName());
+    oc.addDescription("intermodal-network-output", "Output", "Write edge splits and connectivity to FILE");
+
+    oc.doRegister("intermodal-weight-output", new Option_FileName());
+    oc.addDescription("intermodal-weight-output", "Output", "Write intermodal edges with lengths and travel times to FILE");
+
     // register import options
     oc.doRegister("weight-files", 'w', new Option_FileName());
     oc.addSynonyme("weight-files", "weights");

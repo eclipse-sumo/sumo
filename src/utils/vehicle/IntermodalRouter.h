@@ -346,6 +346,32 @@ public:
         myInternalRouter->prohibit(toProhibitPE);
     }
 
+    void writeNetwork(OutputDevice& dev) {
+        createNet();
+        for (_IntermodalEdge* e : myIntermodalNet->getAllEdges()) {
+            dev.openTag(SUMO_TAG_EDGE);
+            dev.writeAttr(SUMO_ATTR_ID, e->getID());
+            dev.writeAttr(SUMO_ATTR_LENGTH, e->getLength());
+            std::string succStr;
+            for (_IntermodalEdge* suc : e->getSuccessors(SVC_IGNORING)) {
+                succStr += suc->getID() + " ";
+            }
+            dev.writeAttr("successors", succStr);
+            dev.closeTag();
+        }
+    }
+
+    void writeWeights(OutputDevice& dev) {
+        createNet();
+        for (_IntermodalEdge* e : myIntermodalNet->getAllEdges()) {
+            dev.openTag(SUMO_TAG_EDGE);
+            dev.writeAttr(SUMO_ATTR_ID, e->getID());
+            dev.writeAttr("traveltime", 0. /* e->getTravelTime() */);
+            dev.writeAttr("effort", 0. /* e->getEffort() */);
+            dev.closeTag();
+        }
+    }
+
 private:
     IntermodalRouter(_IntermodalNetwork* net):
         SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(true),
@@ -457,7 +483,7 @@ private:
     }
 
     inline void createNet() {
-        if (myIntermodalNet == 0) {
+        if (myIntermodalNet == nullptr) {
             myIntermodalNet = new _IntermodalNetwork(E::getAllEdges(), myNumericalID);
             myNumericalID = (int)myIntermodalNet->getAllEdges().size();
             addCarEdges(E::getAllEdges());

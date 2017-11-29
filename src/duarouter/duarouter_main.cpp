@@ -209,6 +209,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     try {
         net.openOutput(oc);
         loader.processRoutes(begin, end, string2time(oc.getString("route-steps")), net, provider);
+        net.writeIntermodal(oc, provider.getIntermodalRouter());
         // end the processing
         net.cleanup();
     } catch (ProcessError&) {
