@@ -216,10 +216,10 @@ ROEdge::getStoredEffort(double time, double& ret) const {
             return false;
         }
         if (myInterpolate) {
-            double inTT = myTravelTimes.getValue(time);
-            double ratio = (double)(myEfforts.getSplitTime(time, time + (SUMOTime)inTT) - time) / inTT;
-            if (ratio >= 0) {
-                ret = ratio * myEfforts.getValue(time) + (1 - ratio) * myEfforts.getValue(time + (SUMOTime)inTT);
+            const double inTT = myTravelTimes.getValue(time);
+            const double ratio = (myEfforts.getSplitTime(time, time + inTT) - time) / inTT;
+            if (ratio >= 0.) {
+                ret = ratio * myEfforts.getValue(time) + (1. - ratio) * myEfforts.getValue(time + inTT);
                 return true;
             }
         }
