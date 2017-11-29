@@ -1,0 +1,15 @@
+Reading detectors
+Reading routes
+Reading emitters
+Reading flows
+# detNames RouteFlow DetFlow ratio
+1_ 2000.0 2000.0 0.0
+9_ 2000.0 2000.0 0.0
+off3 500.0 500.0 0.0
+on3 500.0 500.0 0.0
+# interval 0
+# avgRouteFlow avgDetFlow avgDev RMSE RMSPE
+# 1250.0 1250.0 0.0 0.0 0.0
+Reading routes
+Reading emitters
+Reading flows
