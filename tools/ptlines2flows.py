@@ -80,7 +80,6 @@ def writeTypes(fout, prefix):
 
 def createTrips(options):
     print("generating trips...")
-    net = sumolib.net.readNet(options.netfile)
     stopsLanes = {}
     for stop in sumolib.output.parse_fast(options.ptstops, 'busStop', ['id', 'lane']):
         stopsLanes[stop.id] = stop.lane
@@ -113,7 +112,6 @@ def createTrips(options):
                     dep_lane = laneId
 
                 to = edge_id
-                edge = net.getEdge(edge_id)
                 stop_ids.append(stop.id)
 
             if fr is None or len(stop_ids) < options.min_stops:
