@@ -4,9 +4,9 @@
         <route edges="beg"/>
     </vehicle>
     <person id="p0" depart="0" departPos="60.0">
-        <walk edges="beg" speed="0.5"/>
+        <walk edges="beg" speed="0.5" arrivalPos="-0.01"/>
     </person>
     <person id="p1" depart="0" departPos="53.0">
-        <walk edges="beg"/>
+        <walk edges="beg" arrivalPos="-0.01"/>
     </person>
 </routes>

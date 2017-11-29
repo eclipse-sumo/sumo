@@ -5,6 +5,6 @@
         <stop lane="SC_0" endPos="50" duration="100"/>
     </vehicle>
     <person id="p0" depart="0" departPos="20.0">
-        <walk edges="SC"/>
+        <walk edges="SC" arrivalPos="-0.01"/>
     </person>
 </routes>

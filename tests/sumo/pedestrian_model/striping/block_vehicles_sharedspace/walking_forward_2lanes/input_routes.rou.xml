@@ -6,7 +6,7 @@
    <route id="r0" edges="e1 e2"/>
 
    <person id="person" depart="0">
-		<walk edges="e1 e2"/>
+		<walk edges="e1 e2" arrivalPos="-0.01"/>
 	</person>
 	
     <flow id="car" route="r0" type="car" begin="15" period="5" number="7"/>
