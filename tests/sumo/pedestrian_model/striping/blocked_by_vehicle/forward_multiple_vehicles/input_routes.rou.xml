@@ -8,7 +8,7 @@
     <vehicle id="bike" type="bike" depart="0" departPos="40">
         <route edges="beg"/>
     </vehicle>
-    <person id="p0" depart="0">
-        <walk edges="beg" departPos="30.0" arrivalPos="80" departPosLat="1.6"/>
+    <person id="p0" depart="0" departPos="30.0">
+        <walk edges="beg" arrivalPos="80" departPosLat="1.6"/>
     </person>
 </routes>

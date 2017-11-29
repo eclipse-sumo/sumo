@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/27/17 14:11:56 by SUMO Version v0_31_0+1143-87c09f1032
+<!-- generated on 11/29/17 13:36:56 by SUMO Version v0_31_0+1143-87c09f1032
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -24,13 +24,22 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="p0_0" depart="triggered" arrival="102.00">
+    <vehicle id="p0_0" depart="triggered" arrival="101.00">
         <route edges="beg middle"/>
     </vehicle>
 
-    <person id="p0" depart="0.00" arrival="504.00">
+    <vehicle id="p1_0" depart="triggered" arrival="102.00">
+        <route edges="beg beg2left left left2end"/>
+    </vehicle>
+
+    <person id="p0" depart="0.00" arrival="499.00">
         <ride from="beg" to="middle" lines="p0_0"/>
         <walk edges="end"/>
+    </person>
+
+    <person id="p1" depart="0.00" arrival="905.00">
+        <ride from="beg" to="left2end" lines="p1_0"/>
+        <walk edges="middle"/>
     </person>
 
 </routes>
