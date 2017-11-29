@@ -185,22 +185,30 @@ MSLaneChangerSublane::change() {
             std::cout << SIMTIME << "veh '"<< vehicle->getID() << "' performing sublane change..." << std::endl;
         }
         return startChangeSublane(vehicle, myCandi, decision.latDist);
-    } else {
-        // @note this assumes vehicles can instantly abort any maneuvre in case of emergency (when it is in an action step)
-        vehicle->getLaneChangeModel().setSpeedLat(0);
-        vehicle->getLaneChangeModel().setManeuverDist(0.);
-        if (vehicle->getLaneChangeModel().debugVehicle()) {
-            std::cout << SIMTIME << " veh '" << vehicle->getID() << "' aborts sublane maneuver." << std::endl;
-        }
     }
+    // @note this assumes vehicles can instantly abort any maneuvre in case of emergency
+    abortLCManeuver(vehicle);
 
     if ((right.state & (LCA_URGENT)) != 0 && (left.state & (LCA_URGENT)) != 0) {
         // ... wants to go to the left AND to the right
         // just let them go to the right lane...
         left.state = 0;
     }
-    registerUnchanged(vehicle);
     return false;
+}
+
+
+void
+MSLaneChangerSublane::abortLCManeuver(MSVehicle* vehicle){
+#ifdef DEBUG_ACTIONSTEPS
+        if DEBUG_COND {
+            std::cout << SIMTIME << " veh '" << vehicle->getID() << "' aborts LC-continuation."
+                    << std::endl;
+        }
+#endif
+    vehicle->getLaneChangeModel().setSpeedLat(0);
+    vehicle->getLaneChangeModel().setManeuverDist(0.);
+    registerUnchanged(vehicle);
 }
 
 
