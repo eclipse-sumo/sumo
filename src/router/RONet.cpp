@@ -243,8 +243,8 @@ RONet::writeIntermodal(const OptionsCont& options, ROIntermodalRouter& router) c
         dev.writeAttr(SUMO_ATTR_ID, "intermodalweights");
         dev.writeAttr(SUMO_ATTR_BEGIN, 0);
         dev.writeAttr(SUMO_ATTR_END, SUMOTime_MAX);
-        dev.closeTag();
         router.writeWeights(dev);
+        dev.closeTag();
     }
 }
 
