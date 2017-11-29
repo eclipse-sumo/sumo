@@ -66,6 +66,12 @@
         <!-- Write generated route alternatives to FILE -->
         <alternatives-output value="" synonymes="alternatives" type="FILE"/>
 
+        <!-- Write edge splits and connectivity to FILE -->
+        <intermodal-network-output value="" type="FILE"/>
+
+        <!-- Write intermodal edges with lengths and travel times to FILE -->
+        <intermodal-weight-output value="" type="FILE"/>
+
         <!-- Write exit times (weights) for each edge -->
         <exit-times value="false" type="BOOL"/>
 
