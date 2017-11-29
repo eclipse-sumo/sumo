@@ -37,6 +37,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "SUMOAbstractRouter.h"
 #include "SUMOVehicleParameter.h"
 #include "DijkstraRouter.h"
