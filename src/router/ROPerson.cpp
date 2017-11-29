@@ -146,10 +146,10 @@ ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended) const {
         os.writeAttr(SUMO_ATTR_SPEED, v);
     }
     os.writeAttr(SUMO_ATTR_EDGES, edges);
-    if (dep != std::numeric_limits<double>::infinity()) {
+    if (dep != 0.) {
         os.writeAttr(SUMO_ATTR_DEPARTPOS, dep);
     }
-    if (arr != std::numeric_limits<double>::infinity()) {
+    if (arr != 0.) {
         os.writeAttr(SUMO_ATTR_ARRIVALPOS, arr);
     }
     if (destStop != "") {
