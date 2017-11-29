@@ -945,6 +945,11 @@ MSVehicle::getRerouteOrigin() const {
 
 void
 MSVehicle::setAngle(double angle, bool straightenFurther) {
+#ifdef DEBUG_FURTHER
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh '" << getID() << " setAngle(" << angle <<  ") straightenFurther=" << straightenFurther << std::endl;
+    }
+#endif
     myAngle = angle;
     if (straightenFurther && myFurtherLanesPosLat.size() > 0) {
         myFurtherLanesPosLat[myFurtherLanesPosLat.size() - 1] = getLateralPositionOnLane();
@@ -2844,6 +2849,11 @@ MSVehicle::executeMove() {
         if (getLaneChangeModel().isOpposite()) {
             passedLanes.clear(); // ignore back occupation
         }
+#ifdef DEBUG_ACTIONSTEPLENGTH
+        if DEBUG_COND {
+            std::cout<< SIMTIME << " veh '" << getID() << "' updates further lanes." << std::endl;
+        }
+#endif
         myState.myBackPos = updateFurtherLanes(myFurtherLanes, myFurtherLanesPosLat, passedLanes);
         // bestLanes need to be updated before lane changing starts. NOTE: This call is also a presumption for updateDriveItems()
         updateBestLanes();
