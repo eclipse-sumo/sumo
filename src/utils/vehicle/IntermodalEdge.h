@@ -35,9 +35,10 @@
 #include <vector>
 #include <algorithm>
 #include <assert.h>
+#include <utils/common/Named.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
-#include <utils/common/Named.h>
+#include <utils/common/ValueTimeLine.h>
 
 #define TL_RED_PENALTY 20
 
@@ -121,7 +122,8 @@ public:
         myNumericalID(numericalID),
         myEdge(edge),
         myLine(line),
-        myLength(edge == nullptr ? 0. : edge->getLength()) { }
+        myLength(edge == nullptr ? 0. : edge->getLength()),
+        myEfforts(nullptr) { }
 
     virtual ~IntermodalEdge() {}
 
@@ -170,8 +172,16 @@ public:
         return 0.;
     }
 
-    static double getTravelTimeStatic(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
+    static inline double getTravelTimeStatic(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
         return edge == nullptr ? 0. : edge->getTravelTime(trip, time);
+    }
+
+    virtual double getEffort(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
+        return 0.;
+    }
+
+    static inline double getEffortStatic(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
+        return edge == nullptr || !edge->hasEffort() ? 0. : edge->getEffort(trip, time);
     }
 
     inline double getLength() const {
@@ -180,6 +190,10 @@ public:
 
     inline void setLength(const double length) {
         myLength = length;
+    }
+
+    virtual bool hasEffort() {
+        return myEfforts != nullptr;
     }
 
 protected:
@@ -198,6 +212,9 @@ private:
 
     /// @brief adaptable length (for splitted edges)
     double myLength;
+
+    /// @brief Container for passing effort varying over time for the edge
+    ValueTimeLine<double>* myEfforts;
 
 private:
     /// @brief Invalidated copy constructor
