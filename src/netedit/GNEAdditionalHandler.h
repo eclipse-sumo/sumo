@@ -419,7 +419,7 @@ public:
      * @param[in] file The file to read the reroute definitions from
      * @return true if was sucesfully created, false in other case
      */
-    static bool buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& file, bool off);
+    static bool buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& file, bool off, double timeThreshold);
     
     /**@brief builds a rerouter interval
     * @param[in] viewNet viewNet in which element will be inserted

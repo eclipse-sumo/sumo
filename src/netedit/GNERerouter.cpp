@@ -61,13 +61,14 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, double probability, bool off) :
+GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, double probability, bool off, double timeThreshold) :
     GNEAdditional(id, viewNet, SUMO_TAG_REROUTER, ICON_REROUTER, true, edges),
     myPosition(pos),
     myFilename(filename),
     myProbability(probability),
-    myOff(off) {
-}
+    myOff(off),
+    myTimeThreshold(timeThreshold)
+{ }
 
 
 GNERerouter::~GNERerouter() {
@@ -138,6 +139,9 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
     if (!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
+    }
+    if (myTimeThreshold > 0) {
+        device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, myTimeThreshold);
     }
     device.writeAttr(SUMO_ATTR_OFF, myOff);
     device.writeAttr(SUMO_ATTR_X, myPosition.x());
@@ -311,6 +315,8 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
             return myFilename;
         case SUMO_ATTR_PROB:
             return toString(myProbability);
+        case SUMO_ATTR_HALTING_TIME_THRESHOLD:
+            return toString(myTimeThreshold);
         case SUMO_ATTR_OFF:
             return toString(myOff);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -332,6 +338,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_PROB:
+        case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_OFF:
         case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -361,6 +368,8 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidFilename(value);
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_HALTING_TIME_THRESHOLD:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_OFF:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -398,6 +407,9 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFilename = value;
             break;
         case SUMO_ATTR_PROB:
+            myProbability = parse<double>(value);
+            break;
+        case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             myProbability = parse<double>(value);
             break;
         case SUMO_ATTR_OFF:
