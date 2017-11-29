@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 24 08:55:14 2017 by SUMO duarouter Version v0_31_0+1301-485338d
+<!-- generated on 11/29/17 14:37:01 by SUMO duarouter Version v0_31_0+1143-87c09f1032
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -28,7 +28,7 @@
     <person id="p0" depart="0.00">
         <walk cost="0.00" edges="beg" busStop="beg2left"/>
         <ride cost="60.00" busStop="left2end" lines="train"/>
-        <walk cost="359.92" edges="end"/>
+        <walk cost="40.00" edges="end"/>
     </person>
     <person id="p1" depart="0.00">
         <walk cost="800.00" edges="end middle beg" busStop="beg2left"/>

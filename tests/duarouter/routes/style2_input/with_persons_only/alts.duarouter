@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 27 15:53:24 2014 by SUMO duarouter Version dev-SVN-r16065
+<!-- generated on 11/29/17 14:36:43 by SUMO duarouter Version v0_31_0+1143-87c09f1032
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -12,6 +12,7 @@
 
     <output>
         <output-file value="routes.rou.xml"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
     </output>
 
     <report>
@@ -23,8 +24,8 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p1" depart="0">
-        <walk edges="middle end" departPos="2" arrivalPos="23"/>
-        <stop lane="end_0" duration="10"/>
+    <person id="p1" depart="0.00" departPos="2.00">
+        <walk edges="middle end" arrivalPos="23.00"/>
+        <stop lane="end_0" duration="10.00"/>
     </person>
 </routes>

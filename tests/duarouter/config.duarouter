@@ -18,6 +18,8 @@ vtypes:vtypes.rou.xml
 cfg:config.cfg
 log:log.txt
 landmarks:landmarks.csv
+weights:weights.xml
+additional:additional.xml
 
 [run_dependent_text]
 errors:The length does not include*{LINES 1}
@@ -25,6 +27,8 @@ log:The length does not include*{LINES 1}
 routes:<!--{[->]}-->
 alts:<!--{[->]}-->
 vtypes:<!--{[->]}-->
+weights:<!--{[->]}-->
+additional:<!--{[->]}-->
 output:ms answering queries
 log:ms answering queries
 

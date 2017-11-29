@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/20/17 19:03:17 by SUMO Version dev-SVN-r26639
+<!-- generated on 11/29/17 14:17:18 by SUMO Version v0_31_0+1143-87c09f1032
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -12,6 +12,7 @@
 
     <output>
         <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.skip-ptlines value="true"/>
     </output>
 
     <report>
@@ -34,7 +35,7 @@
         </routeDistribution>
     </vehicle>
 
-    <person id="p1" depart="0.00" arrival="803.00">
+    <person id="p1" depart="0.00" arrival="1202.00">
         <walk edges="end middle beg"/>
     </person>
 

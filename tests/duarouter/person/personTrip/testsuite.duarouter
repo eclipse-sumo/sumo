@@ -96,4 +96,7 @@ early_pt
 
 # parse additionals first to get late public transport
 late_pt
+
+# testing intermodal net output
+write_net_weight
 errors

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/29/17 14:37:00 by SUMO duarouter Version v0_31_0+1143-87c09f1032
+<!-- generated on 11/29/17 14:37:02 by SUMO duarouter Version v0_31_0+1143-87c09f1032
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -14,6 +14,8 @@
     <output>
         <output-file value="routes.rou.xml"/>
         <alternatives-output value="routes.rou.alt.xml"/>
+        <intermodal-network-output value="additional.xml"/>
+        <intermodal-weight-output value="weights.xml"/>
     </output>
 
     <report>
@@ -25,7 +27,14 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p0" depart="3.00">
-        <walk cost="1200.00" edges="beg middle end"/>
+    <vehicle id="p0_0" depart="triggered">
+        <routeDistribution last="0">
+            <route cost="0.00" probability="0.00000000" edges="beg beg2left"/>
+        </routeDistribution>
+    </vehicle>
+    <person id="p0" depart="0.00">
+        <ride cost="26.93" from="beg" to="beg2left" busStop="beg2left" lines="p0_0"/>
+        <ride cost="333.07" busStop="left2end" lines="train"/>
+        <walk cost="201.30" edges="left2end end"/>
     </person>
 </routes>

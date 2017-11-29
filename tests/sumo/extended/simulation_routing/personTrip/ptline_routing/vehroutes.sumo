@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/27/17 14:11:58 by SUMO Version v0_31_0+1143-87c09f1032
+<!-- generated on 11/29/17 14:34:52 by SUMO Version v0_31_0+1143-87c09f1032
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -41,12 +41,6 @@
         <stop busStop="end_0" until="200.00"/>
     </vehicle>
 
-    <person id="p0" depart="0.00" arrival="338.00">
-        <walk edges="beg" busStop="beg_0"/>
-        <ride from="beg" to="end" busStop="end_0" lines="bus"/>
-        <walk edges="end"/>
-    </person>
-
     <vehicle id="bus.2" depart="200.00" line="bus" arrival="338.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="200.00" probability="0" edges="beg beg end end"/>
@@ -65,7 +59,7 @@
         <stop busStop="end_0" until="400.00"/>
     </vehicle>
 
-    <vehicle id="bus.4" depart="400.00" line="bus" arrival="538.00">
+    <vehicle id="bus.4" depart="400.00" line="bus" arrival="534.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="400.00" probability="0" edges="beg beg end end"/>
             <route edges="beg middle end"/>
@@ -73,5 +67,11 @@
         <stop busStop="beg_0" until="400.00"/>
         <stop busStop="end_0" until="500.00"/>
     </vehicle>
+
+    <person id="p0" depart="0.00" arrival="739.00">
+        <walk edges="beg" busStop="beg_0"/>
+        <ride from="beg" to="end" busStop="end_0" lines="bus"/>
+        <walk edges="end"/>
+    </person>
 
 </routes>
