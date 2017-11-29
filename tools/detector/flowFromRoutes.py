@@ -171,6 +171,8 @@ optParser.add_option("--long-names", action="store_true", dest="longnames",
                      default=False, help="do not use abbreviated names for detector groups")
 optParser.add_option("--edge-names", action="store_true", dest="edgenames",
                      default=False, help="include detector group edge name in output")
+optParser.add_option( "-b", "--begin", type="float", default=0, help="begin time in minutes")
+optParser.add_option( "--end", type="float", default=None, help="end time in minutes")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 (options, args) = optParser.parse_args()
@@ -184,8 +186,9 @@ reader = DetectorRouteEmitterReader(options.detfile)
 parser.setContentHandler(reader)
 if options.interval:
     haveFlows = True
-    start = 0
-    while haveFlows:
+    start = options.begin # minutes
+    while ((options.end is None and haveFlows)
+            or (options.end is not None and start < options.end)):
         reader.reset(start, start + options.interval)
         if options.verbose:
             print("Reading routes")
