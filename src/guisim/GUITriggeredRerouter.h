@@ -69,6 +69,7 @@ public:
     GUITriggeredRerouter(const std::string& id,
                          const MSEdgeVector& edges, double prob,
                          const std::string& aXMLFilename, bool off,
+                         SUMOTime timeThreshold,
                          SUMORTree& rtree);
 
 

@@ -223,8 +223,9 @@ GUITriggeredRerouter::GUITriggeredRerouter(
     const std::string& id,
     const MSEdgeVector& edges,
     double prob, const std::string& aXMLFilename, bool off,
+    SUMOTime timeThreshold,
     SUMORTree& rtree) :
-    MSTriggeredRerouter(id, edges, prob, aXMLFilename, off),
+    MSTriggeredRerouter(id, edges, prob, aXMLFilename, off, timeThreshold),
     GUIGlObject_AbstractAdd("rerouter", GLO_TRIGGER, id) {
     // add visualisation objects for edges which trigger the rerouter
     for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {

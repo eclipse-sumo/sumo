@@ -345,6 +345,8 @@ public:
 
     virtual SUMOTime getWaitingTime() const = 0;
 
+    virtual SUMOTime getAccumulatedWaitingTime() const = 0;
+
     virtual SUMOTime getDepartDelay() const = 0;
 
     /// @brief Returns this vehicles impatience

@@ -277,6 +277,11 @@ public:
         return MAX2(SUMOTime(0), myEventTime - myBlockTime);
     }
 
+    /// @brief Returns the duration for which the vehicle was blocked
+    inline SUMOTime getAccumulatedWaitingTime() const {
+        return getWaitingTime();
+    }
+
 
     /** @brief Returns the number of seconds waited (speed was lesser than 0.1m/s)
      *

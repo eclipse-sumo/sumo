@@ -632,13 +632,11 @@ public:
 
     /** @brief Returns the SUMOTime waited (speed was lesser than 0.1m/s) within the last t millisecs
      *
-     * @param[in] t specifies the length of the interval over which the cumulated waiting time is to be summed up (defaults to and must not exceed MSGlobals::gWaitingTimeMemory)
-     * @return The time the vehicle was standing within the last t millisecs
+     * @return The time the vehicle was standing within the configured memory interval
      */
-    SUMOTime getAccumulatedWaitingTime(SUMOTime t = MSGlobals::gWaitingTimeMemory) const {
-        return myWaitingTimeCollector.cumulatedWaitingTime(t);
+    SUMOTime getAccumulatedWaitingTime() const {
+        return myWaitingTimeCollector.cumulatedWaitingTime(MSGlobals::gWaitingTimeMemory);
     }
-
 
     /** @brief Returns the number of seconds waited (speed was lesser than 0.1m/s)
      *

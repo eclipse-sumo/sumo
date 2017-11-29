@@ -80,7 +80,8 @@ public:
      */
     MSTriggeredRerouter(const std::string& id,
                         const MSEdgeVector& edges,
-                        double prob, const std::string& file, bool off);
+                        double prob, const std::string& file, bool off,
+                        SUMOTime timeThreshold);
 
 
     /** @brief Destructor */
@@ -215,6 +216,9 @@ protected:
 
     /// Information whether the current rerouting probability is the user-given
     bool myAmInUserMode;
+
+    // @brief waiting time threshold for activation
+    SUMOTime myTimeThreshold;
 
     /// @name members used during loading
     //@{

@@ -73,11 +73,16 @@ MSEdge MSTriggeredRerouter::mySpecialDest_terminateRoute("MSTriggeredRerouter_te
 // ===========================================================================
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
         const MSEdgeVector& edges,
-        double prob, const std::string& file, bool off) :
+        double prob, const std::string& file, bool off,
+        SUMOTime timeThreshold) :
     MSTrigger(id),
     MSMoveReminder(id),
     SUMOSAXHandler(file),
-    myProbability(prob), myUserProbability(prob), myAmInUserMode(false) {
+    myProbability(prob), 
+    myUserProbability(prob), 
+    myAmInUserMode(false),
+    myTimeThreshold(timeThreshold)
+{
     // build actors
     for (MSEdgeVector::const_iterator j = edges.begin(); j != edges.end(); ++j) {
         if (MSGlobals::gUseMesoSim) {
@@ -362,6 +367,9 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     double prob = myAmInUserMode ? myUserProbability : myProbability;
     if (RandHelper::rand() > prob) {
         return false; // XXX another interval could appear later but we would have to track whether the current interval was already tried
+    }
+    if (myTimeThreshold > 0 && MAX2(veh.getWaitingTime(), veh.getAccumulatedWaitingTime()) < myTimeThreshold) {
+        return true; // waiting time may be reached later
     }
     // if we have a closingLaneReroute, only vehicles with a rerouting device can profit from rerouting (otherwise, edge weights will not reflect local jamming)
     const bool hasReroutingDevice = veh.getDevice(typeid(MSDevice_Routing)) != 0;
