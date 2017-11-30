@@ -56,5 +56,5 @@ if __name__ == "__main__":
                 if options.geo:
                     trace = [net.convertLonLat2XY(*pos) for pos in trace]
                 edges = sumolib.route.mapTrace(trace, net, options.delta, options.verbose)
-                outf.write('    <route id="%s" edges="%s">\n' % (id, " ".join(edges)))
+                outf.write('    <route id="%s" edges="%s"/>\n' % (id, " ".join(edges)))
         outf.write('</routes>\n')
