@@ -11,6 +11,12 @@ AM_INIT_AUTOMAKE([foreign dist-zip tar-ustar])
 
 AC_LANG([C++])
 
+# avoiding warnings on ubuntu 16.04, there seem to be two variants of the ARFLAGS, one for automake, one for libttol
+ARFLAGS=cr
+AC_SUBST(ARFLAGS)
+AR_FLAGS=cr
+AC_SUBST(AR_FLAGS)
+
 dnl the debug check has to be made before the program checks because it modifies
 dnl CXXFLAGS.
 
