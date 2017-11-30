@@ -2581,7 +2581,8 @@ MSVehicle::updateDriveItems() {
 }
 
 
-void MSVehicle::setBrakingSignals(double vNext) {
+void
+MSVehicle::setBrakingSignals(double vNext) {
     // To avoid casual blinking brake lights at high speeds due to dawdling of the
     // leading vehicle, we don't show brake lights when the deceleration could be caused
     // by frictional forces and air resistance (i.e. proportional to v^2, coefficient could be adapted further)
@@ -2599,7 +2600,8 @@ void MSVehicle::setBrakingSignals(double vNext) {
 }
 
 
-void MSVehicle::updateWaitingTime(double vNext) {
+void
+MSVehicle::updateWaitingTime(double vNext) {
     if (vNext <= SUMO_const_haltingSpeed && !isStopped()) {
         myWaitingTime += DELTA_T;
         myWaitingTimeCollector.passTime(DELTA_T, true);
@@ -2610,12 +2612,13 @@ void MSVehicle::updateWaitingTime(double vNext) {
 }
 
 
-void MSVehicle::updateTimeLoss(double vNext) {
+void
+MSVehicle::updateTimeLoss(double vNext) {
     // update time loss (depends on the updated edge)
     if (!isStopped()) {
         const double vmax = myLane->getVehicleMaxSpeed(this);
         if (vmax > 0) {
-            myTimeLoss += TIME2STEPS(TS * (vmax - vNext) / vmax);
+            myTimeLoss += TS * (vmax - vNext) / vmax;
         }
     }
 }

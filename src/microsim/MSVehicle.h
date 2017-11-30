@@ -626,7 +626,7 @@ public:
      * @return The time the vehicle lost due to various effects
      */
     SUMOTime getTimeLoss() const {
-        return myTimeLoss;
+        return TIME2STEPS(myTimeLoss);
     }
 
 
@@ -661,7 +661,7 @@ public:
     /** @brief Returns the time loss in seconds
      */
     double getTimeLossSeconds() const {
-        return STEPS2TIME(myTimeLoss);
+        return myTimeLoss;
     }
 
 
@@ -1653,8 +1653,8 @@ protected:
     SUMOTime myWaitingTime;
     WaitingTimeCollector myWaitingTimeCollector;
 
-    /// @brief the time loss due to writing with less than maximum speed
-    SUMOTime myTimeLoss;
+    /// @brief the time loss in seconds due to driving with less than maximum speed
+    double myTimeLoss;
 
     /// @brief This Vehicles driving state (pos and speed)
     State myState;
