@@ -106,7 +106,8 @@ FXThreadEvent::~FXThreadEvent() {
 void FXThreadEvent::signal() {
 #ifndef WIN32
     FXuint seltype = SEL_THREAD;
-    ::write(event[PIPE_WRITE], &seltype, sizeof(seltype));
+    FXint res = ::write(event[PIPE_WRITE], &seltype, sizeof(seltype));
+    UNUSED_PARAMETER(res); // to make the compiler happy
 #else
     ::SetEvent(event);
 #endif
@@ -116,7 +117,8 @@ void FXThreadEvent::signal() {
 // this method is meant to be called from the worker thread
 void FXThreadEvent::signal(FXuint seltype) {
 #ifndef WIN32
-    ::write(event[PIPE_WRITE], &seltype, sizeof(seltype));
+    FXint res = ::write(event[PIPE_WRITE], &seltype, sizeof(seltype));
+    UNUSED_PARAMETER(res); // to make the compiler happy
 #else
     UNUSED_PARAMETER(seltype);
     ::SetEvent(event);
@@ -129,7 +131,8 @@ void FXThreadEvent::signal(FXuint seltype) {
 long FXThreadEvent::onThreadSignal(FXObject*, FXSelector, void*) {
     FXuint seltype = SEL_THREAD;
 #ifndef WIN32
-    ::read(event[PIPE_READ], &seltype, sizeof(seltype));
+    FXint res = ::read(event[PIPE_READ], &seltype, sizeof(seltype));
+    UNUSED_PARAMETER(res); // to make the compiler happy
 #else
     //FIXME need win32 support
 #endif
@@ -147,6 +150,4 @@ long FXThreadEvent::onThreadEvent(FXObject*, FXSelector sel, void*) {
 }
 
 
-
 /****************************************************************************/
-
