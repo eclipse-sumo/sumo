@@ -989,6 +989,8 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         departPos = lastStage->getDestinationStop()->getAccessPos(fromEdge);
     } else if (&lastStage->getDestination() == fromEdge) {
         departPos = lastStage->getArrivalPos();
+    } else if (lastStage->getDestination().getToJunction() == fromEdge->getToJunction()) {
+        departPos = fromEdge->getLength();
     }
 
     std::string bsID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
@@ -1140,8 +1142,13 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                                 const double depPos = myActivePlan->back()->getDestinationStop() != 0 ? myActivePlan->back()->getDestinationStop()->getAccessPos(it->edges.front()): departPos;
                                 myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, it->edges, bs, duration, speed, depPos, bs != 0 ? bs->getAccessPos(it->edges.back()) : arrivalPos, departPosLat));
                             } else if (vehicle != 0 && it->line == vehicle->getID()) {
-                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, bs != 0 ? bs->getAccessPos(it->edges.back()) : arrivalPos, std::vector<std::string>({ it->line })));
+                                double vehicleArrivalPos = bs != 0 ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength();
+                                if (it + 1 == result.end()) {
+                                    vehicleArrivalPos = arrivalPos;
+                                }
+                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, vehicleArrivalPos, std::vector<std::string>({ it->line })));
                                 vehicle->replaceRouteEdges(it->edges, true);
+                                vehicle->setArrivalPos(vehicleArrivalPos);
                                 vehControl.addVehicle(vehPar->id, vehicle);
                                 carUsed = true;
                             } else {
