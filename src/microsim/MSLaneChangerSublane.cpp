@@ -295,7 +295,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     vehicle->getLaneChangeModel().updateShadowLane();
     MSLane* shadowLane = vehicle->getLaneChangeModel().getShadowLane();
     if (shadowLane != 0 && shadowLane != oldShadowLane) {
-        assert(to != from || !vehicle->isActive());
+        assert(to != from || oldShadowLane == 0);
         const double latOffset = vehicle->getLane()->getRightSideOnEdge() - shadowLane->getRightSideOnEdge();
         (myChanger.begin() + shadowLane->getIndex())->ahead.addLeader(vehicle, false, latOffset);
     }
