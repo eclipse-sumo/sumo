@@ -66,6 +66,11 @@ def compound_object(element_name, attrnames, warn=False):
         def hasAttribute(self, name):
             return name in self._fields
 
+        def getAttribute(self, name):
+            if self.hasAttribute(name):
+                return self.__dict__[name]
+            raise AttributeError
+
         def setAttribute(self, name, value):
             if name not in self._fields:
                 self._original_fields.append(name)
