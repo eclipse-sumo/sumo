@@ -50,6 +50,7 @@ def get_options(args=None):
                          default=False, help="include detector group edge name in output")
     optParser.add_option( "-b", "--begin", type="float", default=0, help="begin time in minutes")
     optParser.add_option( "--end", type="float", default=None, help="end time in minutes")
+    optParser.add_option("-o", "--output-file", dest="output", help="write output to file instead of printing it to console", metavar="FILE")
     optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
@@ -81,7 +82,7 @@ def readEdgeData(edgeDataFile, begin, end):
 
 def printFlows(options, edgeFlow, detReader):
     edgeIDCol = "edge " if options.edgenames else ""
-    print('# detNames %sRouteFlow DetFlow ratio' % edgeIDCol)
+    print('# detNames %sRouteFlow DetFlow ratio' % edgeIDCol, file=options.outfile)
     output = []
     for edge, detData in detReader._edge2DetData.iteritems():
         detString = []
@@ -99,9 +100,9 @@ def printFlows(options, edgeFlow, detReader):
     for group, edge, rflow, dflow in sorted(output):
         if dflow > 0 or options.respectzero:
             if options.edgenames:
-                print(group, edge, rflow, dflow, relError(rflow, dflow))
+                print(group, edge, rflow, dflow, relError(rflow, dflow), file=options.outfile)
             else:
-                print(group, rflow, dflow, relError(rflow, dflow))
+                print(group, rflow, dflow, relError(rflow, dflow), file=options.outfile)
 
 def calcStatistics(options, begin, edgeFlow, detReader):
     rSum = 0
@@ -124,13 +125,14 @@ def calcStatistics(options, begin, edgeFlow, detReader):
                     if dFlow > 0:
                         sumSquaredPercent += dev * dev / dFlow / dFlow
                     n += 1
-    print('# interval', begin)
-    print('# avgRouteFlow avgDetFlow avgDev RMSE RMSPE')
+    print('# interval', begin, file=options.outfile)
+    print('# avgRouteFlow avgDetFlow avgDev RMSE RMSPE', file=options.outfile)
     if n == 0:
         # avoid division by zero
         n = -1
     print('#', rSum / n, dSum / n, sumAbsDev / n,
-          math.sqrt(sumSquaredDev / n), math.sqrt(sumSquaredPercent / n))
+          math.sqrt(sumSquaredDev / n), math.sqrt(sumSquaredPercent / n),
+          file=options.outfile)
 
 class LaneMap:
     def get(self, key, default):
@@ -138,6 +140,10 @@ class LaneMap:
 
 
 def main(options):
+    if options.output is None:
+        options.outfile = sys.stdout
+    else:
+        options.outfile = open(options.output, 'w')
     detReader = detector.DetectorReader(options.detfile, LaneMap())
     time = options.begin * 60
     haveDetFlows = True
@@ -158,6 +164,7 @@ def main(options):
             calcStatistics(options, intervalBeginM, edgeFlow, detReader)
             detReader.clearFlows()
         time += options.interval * 60
+    options.outfile.close()
 
 if __name__ == "__main__":
     main(get_options())
