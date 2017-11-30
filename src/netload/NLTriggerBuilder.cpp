@@ -64,7 +64,7 @@
 // method definitions
 // ===========================================================================
 NLTriggerBuilder::NLTriggerBuilder()
-    : myHandler(0), myParkingArea(0) {}
+    : myHandler(0), myParkingArea(0), myCurrentStop(0) {}
 
 
 NLTriggerBuilder::~NLTriggerBuilder() {}
