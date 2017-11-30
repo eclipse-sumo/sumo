@@ -33,7 +33,7 @@
 #include <utils/common/ToString.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicle.h>
-//#include <microsim/lcmodels/MSAbstractLaneChangeModel.h> //(refs #3651) 
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/MSNet.h>
 #include "MSLeaderInfo.h"
 
@@ -121,16 +121,19 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
     const double vehHalfWidth = 0.5 * veh->getVehicleType().getWidth();
     double rightVehSide = MAX2(0.,  vehCenter - vehHalfWidth);
     double leftVehSide = MIN2(myWidth, vehCenter + vehHalfWidth);
-// FIXME (refs #3651): Following approach for fixing actionstep/sublane collisionsinduces segfault
-//    if (veh->getActionStepLength()!=TS) {
-//        if (veh->getLaneChangeModel().getManeuverDist() < 0.) {
-//            rightVehSide -= veh->getVehicleType().getMaxSpeedLat()*veh->getActionStepLength();
-//        } else {
-//            leftVehSide += veh->getVehicleType().getMaxSpeedLat()*veh->getActionStepLength();
-//        }
-//    }
+    // Reserve some additional space if the vehicle is performing a maneuver continuation.
+    if (veh->getActionStepLength()!=DELTA_T) {
+        if (veh->getLaneChangeModel().getManeuverDist() < 0. || veh->getLaneChangeModel().getSpeedLat() < 0.) {
+            const double maneuverDist = MIN2(veh->getVehicleType().getMaxSpeedLat()*veh->getActionStepLengthSecs(), -MIN2(0., veh->getLaneChangeModel().getManeuverDist()));
+            rightVehSide -= maneuverDist;
+        }
+        if (veh->getLaneChangeModel().getManeuverDist() > 0. || veh->getLaneChangeModel().getSpeedLat() > 0.) {
+            const double maneuverDist = MIN2(veh->getVehicleType().getMaxSpeedLat()*veh->getActionStepLengthSecs(), MAX2(0., veh->getLaneChangeModel().getManeuverDist()));
+            leftVehSide += maneuverDist;
+        }
+    }
 
-    rightmost = (int)floor((rightVehSide + NUMERICAL_EPS) / MSGlobals::gLateralResolution);
+    rightmost = MAX2(0, (int)floor((rightVehSide + NUMERICAL_EPS) / MSGlobals::gLateralResolution));
     leftmost = MIN2((int)myVehicles.size() - 1, (int)floor((leftVehSide - NUMERICAL_EPS) / MSGlobals::gLateralResolution));
     //if (veh->getID() == "Pepoli_11_41") std::cout << SIMTIME << " veh=" << veh->getID()
     //    << std::setprecision(10)
