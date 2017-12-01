@@ -281,6 +281,13 @@ void
 MSLCM_SL2015::updateSafeLatDist(const double travelledLatDist) {
     mySafeLatDistLeft -= travelledLatDist;
     mySafeLatDistRight += travelledLatDist;
+
+    if (fabs(mySafeLatDistLeft) < NUMERICAL_EPS) {
+        mySafeLatDistLeft = 0.;
+    }
+    if (fabs(mySafeLatDistRight) < NUMERICAL_EPS) {
+        mySafeLatDistRight = 0.;
+    }
 }
 
 
