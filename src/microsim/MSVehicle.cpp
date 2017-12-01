@@ -2945,8 +2945,6 @@ MSVehicle::getBackLane() const {
 double
 MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<double>& furtherLanesPosLat,
                               const std::vector<MSLane*>& passedLanes) {
-
-    // XXX only reset / set the values that were changed
 #ifdef DEBUG_FURTHER
     if (DEBUG_COND) std::cout << SIMTIME
                                   << " updateFurtherLanes oldFurther=" << toString(furtherLanes)
@@ -2957,44 +2955,55 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<do
     for (std::vector<MSLane*>::iterator i = furtherLanes.begin(); i != furtherLanes.end(); ++i) {
         (*i)->resetPartialOccupation(this);
     }
-    const MSLane* firstOldFurther = furtherLanes.size() > 0 ? furtherLanes.front() : 0;
-    bool newFurther = true;
-    // update furtherLanes
-    double result = myState.myPos - getVehicleType().getLength();
-    furtherLanes.clear();
-    if (passedLanes.size() > 0) {
-        double leftLength = getVehicleType().getLength() - myState.myPos;
-        std::vector<MSLane*>::const_reverse_iterator i = passedLanes.rbegin() + 1;
-        while (leftLength > 0 && i != passedLanes.rend()) {
-            furtherLanes.push_back(*i);
-            // add new lateral values until hitting the first known further lane
-            if (*i == firstOldFurther) {
-                newFurther = false;
-            }
-            if (newFurther) {
-                furtherLanesPosLat.insert(furtherLanesPosLat.begin(), myState.myPosLat);
+
+    std::vector<MSLane*> newFurther;
+    std::vector<double> newFurtherPosLat;
+    double backPosOnPreviousLane = myState.myPos - getLength();
+    if (passedLanes.size() > 1) {
+        // There are candidates for further lanes. (passedLanes[-1] is the current lane, or current shadow lane in context of updateShadowLanes())
+        std::vector<MSLane*>::const_iterator fi = furtherLanes.begin();
+        std::vector<double>::const_iterator fpi = furtherLanesPosLat.begin();
+        for (auto pi = passedLanes.rbegin() + 1; pi != passedLanes.rend() && backPosOnPreviousLane < 0; ++pi) {
+            // As long as vehicle back reaches into passed lane, add it to the further lanes
+            newFurther.push_back(*pi);
+            backPosOnPreviousLane += (*pi)->setPartialOccupation(this);
+            if (fi != furtherLanes.end() && *pi == *fi) {
+                // Lateral position on this lane is already known. Assume constant and use old value.
+                newFurtherPosLat.push_back(*fpi);
+                ++fi; ++fpi;
+            } else {
+                // The lane *pi was not in furtherLanes before.
+                // If it is downstream, we assume as lateral position the current position
+                // If it is a new lane upstream (can appear as shadow further in case of LC-maneuvering, e.g.)
+                // we assign the last known lateral position.
+                if (newFurtherPosLat.size()==0) {
+                    newFurtherPosLat.push_back(myState.myPosLat);
+                } else {
+                    newFurtherPosLat.push_back(newFurtherPosLat.back());
+                }
             }
 #ifdef DEBUG_FURTHER
             if (DEBUG_COND) {
-                std::cout << SIMTIME << " updateFurtherLanes \n";
+                std::cout << SIMTIME << " updateFurtherLanes \n"
+                << "    further lane '" << (*pi)->getID() << "' backPosOnPreviousLane=" << backPosOnPreviousLane
+                << std::endl;
             }
 #endif
-            leftLength -= (*i)->setPartialOccupation(this);
-            ++i;
         }
-        result = -leftLength;
+        furtherLanes = newFurther;
+        furtherLanesPosLat = newFurtherPosLat;
+    } else {
+        furtherLanes.clear();
+        furtherLanesPosLat.clear();
     }
-    assert(furtherLanesPosLat.size() >= furtherLanes.size());
-    furtherLanesPosLat.erase(furtherLanesPosLat.begin() + furtherLanes.size(), furtherLanesPosLat.end());
-    assert(furtherLanesPosLat.size() == furtherLanes.size());
 #ifdef DEBUG_FURTHER
     if (DEBUG_COND) std::cout
                 << " newFurther=" << toString(furtherLanes)
                 << " newFurtherPosLat=" << toString(furtherLanesPosLat)
-                << " newBackPos=" << result
+                << " newBackPos=" << backPosOnPreviousLane
                 << "\n";
 #endif
-    return result;
+    return backPosOnPreviousLane;
 }
 
 
