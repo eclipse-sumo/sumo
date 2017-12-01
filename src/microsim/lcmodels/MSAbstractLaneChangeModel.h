@@ -458,7 +458,7 @@ public:
     }
 
     /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
-    virtual double computeSpeedLat(double remLatDist) const {
+    virtual double computeSpeedLat(double remLatDist) {
         UNUSED_PARAMETER(remLatDist);
         throw ProcessError("Method not implemented by model " + toString(myModel));
     }

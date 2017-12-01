@@ -154,7 +154,7 @@ public:
     bool sublaneChangeCompleted(const double latDist) const;
 
     /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
-    double computeSpeedLat(double latDist) const;
+    double computeSpeedLat(double latDist);
 
 protected:
 

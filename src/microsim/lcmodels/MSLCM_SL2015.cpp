@@ -2642,14 +2642,29 @@ MSLCM_SL2015::getWidth() const {
 
 
 double
-MSLCM_SL2015::computeSpeedLat(double latDist) const {
+MSLCM_SL2015::computeSpeedLat(double latDist) {
     int currentDirection = mySpeedLat >= 0 ? 1 : -1;
     int directionWish = latDist >= 0 ? 1 : -1;
     const double maxSpeedLat = myVehicle.getVehicleType().getMaxSpeedLat();
-    // reduced lateral speed (in the desired direction)
-    double speedDecel = MAX2(MIN2(mySpeedLat + directionWish * ACCEL2SPEED(-myAccelLat), maxSpeedLat), -maxSpeedLat);
-    // reduce lateral speed more strongly to ensure safety
+
+    if (debugVehicle()) {
+        std::cout << SIMTIME
+                  << " veh=" << myVehicle.getID()
+                  << " computeSpeedLat()"
+                  << " currentDirection=" << currentDirection
+                  << " directionWish=" << directionWish
+                  << std::endl;
+    }
+    // reduced lateral speed (in the desired direction). Don't change direction against desired.
+    double speedDecel;
+    if (directionWish == 1) {
+        speedDecel = MAX2(mySpeedLat - ACCEL2SPEED(myAccelLat), 0.);
+    } else {
+        speedDecel = MIN2(mySpeedLat + ACCEL2SPEED(myAccelLat), 0.);
+    }
+    // Eventually reduce lateral speed even more to ensure safety
     double speedDecelSafe = latDist >= 0 ? MIN2(speedDecel, DIST2SPEED(mySafeLatDistLeft)) : MAX2(speedDecel, DIST2SPEED(-mySafeLatDistRight));
+
     // increased lateral speed (in the desired direction)
     double speedAccel = MAX2(MIN2(mySpeedLat + directionWish * ACCEL2SPEED(myAccelLat), maxSpeedLat), -maxSpeedLat);
     // increase lateral speed more strongly to ensure safety (when moving in the wrong direction)
@@ -2657,10 +2672,15 @@ MSLCM_SL2015::computeSpeedLat(double latDist) const {
 
     // can we reach the target distance in a single step? (XXX: assumes "Euler" update)
     double speedBound = DIST2SPEED(latDist);
-    // for lat-gap keeping manoeuvres myOrigLatDist may be 0
+    // for lat-gap keeping maneuvres myOrigLatDist may be 0
     const double fullLatDist = latDist > 0 ? MIN2(mySafeLatDistLeft, MAX2(myManeuverDist, latDist)) : MAX2(-mySafeLatDistRight, MIN2(myManeuverDist, latDist));
 
-    if (gDebugFlag2) {
+    // update myManeuverDist, if safety constraints apply in its direction
+    if (myManeuverDist*latDist > 0) {
+        myManeuverDist = fullLatDist;
+    }
+
+    if (debugVehicle()) {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
                   << " speedLat=" << mySpeedLat
@@ -2675,7 +2695,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist) const {
                   << std::endl;
     }
     if (speedDecel * speedAccel <= 0 && (
-                // speedAccel and speedDecel bracket speed 0. This means we can end the maneuvre
+                // speedAccel and speedDecel bracket speed 0. This means we can end the maneuver
                 (latDist >= 0 && speedAccel >= speedBound && speedBound >= speedDecel)
                 || (latDist <= 0 && speedAccel <= speedBound && speedBound <= speedDecel))) {
         // we can reach the desired value in this step
