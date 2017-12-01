@@ -2663,7 +2663,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist) {
         speedDecel = MIN2(mySpeedLat + ACCEL2SPEED(myAccelLat), 0.);
     }
     // Eventually reduce lateral speed even more to ensure safety
-    double speedDecelSafe = latDist >= 0 ? MIN2(speedDecel, DIST2SPEED(mySafeLatDistLeft)) : MAX2(speedDecel, DIST2SPEED(-mySafeLatDistRight));
+    double speedDecelSafe = MAX2(MIN2(speedDecel, DIST2SPEED(mySafeLatDistLeft)), DIST2SPEED(-mySafeLatDistRight));
 
     // increased lateral speed (in the desired direction)
     double speedAccel = MAX2(MIN2(mySpeedLat + directionWish * ACCEL2SPEED(myAccelLat), maxSpeedLat), -maxSpeedLat);
