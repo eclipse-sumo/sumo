@@ -420,8 +420,8 @@ public:
     static double speedAfterTime(const double t, const double oldSpeed, const double dist);
 
 
-    /// @brief calculates the distance travelled after braking for time t
-    static double distAfterTime(double t, double speed, double decel);
+    /// @brief calculates the distance travelled after accelerating for time t
+    static double distAfterTime(double t, double speed, double accel);
 
 
 

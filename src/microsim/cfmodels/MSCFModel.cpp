@@ -254,7 +254,7 @@ MSCFModel::insertionStopSpeed(const MSVehicle* const veh, double speed, double g
 double
 MSCFModel::followSpeedTransient(double duration, const MSVehicle* const /*veh*/, double /*speed*/, double gap2pred, double predSpeed, double predMaxDecel) const {
     // minimium distance covered by the leader if braking
-    double leaderMinDist = gap2pred + distAfterTime(duration, predSpeed, predMaxDecel);
+    double leaderMinDist = gap2pred + distAfterTime(duration, predSpeed, -predMaxDecel);
     // if ego would not brake it could drive with speed leaderMinDist / duration
     // due to potentential ego braking it can safely drive faster
     if (MSGlobals::gSemiImplicitEulerUpdate) {
@@ -303,8 +303,11 @@ MSCFModel::followSpeedTransient(double duration, const MSVehicle* const /*veh*/,
 }
 
 double
-MSCFModel::distAfterTime(double t, double speed, double decel) {
-    assert(decel > 0);
+MSCFModel::distAfterTime(double t, double speed, const double accel) {
+    if (accel >= 0.) {
+        return (speed + 0.5*accel*t)*t;
+    }
+    const double decel = -accel;
     if (speed <= decel * t) {
         // braking to a full stop
         return brakeGap(speed, decel, 0);
