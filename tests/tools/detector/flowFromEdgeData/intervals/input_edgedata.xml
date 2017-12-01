@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 11/28/17 15:42:22 by SUMO Version dev-SVN-r26691
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="flows.tools"/>
+        <additional-files value="routes.tools,add.xml"/>
+    </input>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="3600.00" id="all">
+        <edge id="A" departed="0" entered="700"/>
+    </interval>
+    <interval begin="3600.00" end="7200.00" id="all">
+        <edge id="A" departed="0" entered="600"/>
+    </interval>
+    <interval begin="7200.00" end="10800.00" id="all">
+        <edge id="A" departed="0" entered="2200"/>
+    </interval>
+    <interval begin="10800.00" end="14400.00" id="all">
+        <edge id="A" departed="0" entered="2500"/>
+    </interval>
+</meandata>

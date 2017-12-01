@@ -1,0 +1,4 @@
+-d input_detectors.det.xml -f input_flows.txt -e input_edgedata.xml
+--begin 0
+--end 60
+--verbose

@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<detectors>
+   <detectorDefinition id="A" lane="A_0" pos="5"/>
+</detectors>

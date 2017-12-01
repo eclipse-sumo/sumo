@@ -2,3 +2,6 @@
 bell_pfe
 motorway_ramps
 misc
+
+# aggregation for different time ranges and intervals
+intervals
