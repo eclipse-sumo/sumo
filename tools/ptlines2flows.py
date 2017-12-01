@@ -47,7 +47,7 @@ def get_options(args=None):
     optParser.add_option("-p", "--period", type=float, default=600, help="period")
     optParser.add_option("-b", "--begin", type=float, default=0, help="start time")
     optParser.add_option("-e", "--end", type=float, default=3600, help="end time")
-    optParser.add_option("--min-stops", type=int, default=2, help="end time")
+    optParser.add_option("--min-stops", type=int, default=2, help="only import lines with at least this number of stops")
     optParser.add_option("-f", "--flow-attributes", dest="flowattrs",
                          default="", help="additional flow attributes")
     optParser.add_option("--use-osm-routes", default=False, action="store_true", dest='osmRoutes', help="use osm routes")
@@ -91,8 +91,6 @@ def createTrips(options):
         writeTypes(fouttrips, options.vtypeprefix)
         trp_nr = 0
         for line in sumolib.output.parse(options.ptlines, 'ptLine'):
-            fr = None
-            to = None
             stop_ids = []
             for stop in line.busStop:
                 if not stop.id in stopsLanes:
@@ -107,33 +105,30 @@ def createTrips(options):
                         continue
                     else:
                         sys.exit("Invalid lane '%s' for stop '%s'" % (laneId, stop.id))
-                if fr == None:
-                    fr = edge_id
-                    dep_lane = laneId
-
-                to = edge_id
                 stop_ids.append(stop.id)
 
-            if fr is None or len(stop_ids) < options.min_stops:
+            if len(stop_ids) < options.min_stops:
                 sys.stderr.write("Warning: skipping line '%s' because it has too few stops\n" % line.id)
                 trp_nr += 1
                 continue
 
             if options.osmRoutes and line.route is not None:
-                edges = line.route[0].edges.split(' ')
-                lenE = len(edges)
-                if (lenE > 3):
-                    vias = ' '.join(edges[0:lenE])
-                    fouttrips.write(
-                        '    <trip id="%s" type="%s%s" depart="0" departLane="%s" from="%s" to="%s" via="%s">\n' % (
-                            trp_nr, options.vtypeprefix, line.type, 'best', fr, to, vias))
-                else:
-                    fouttrips.write(
-                        '    <trip id="%s" type="%s%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (
-                            trp_nr, options.vtypeprefix, line.type, 'best', fr, to))
-            else:
+                edges = line.route[0].edges.split()
+                vias = ''
+                if len(edges) > 2:
+                    vias = ' via="%s"' % (' '.join(edges[1:-1]))
                 fouttrips.write(
-                    '    <trip id="%s" type="%s%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (
+                    '    <trip id="%s" type="%s%s" depart="0" departLane="%s" from="%s" to="%s"%s>\n' % (
+                        trp_nr, options.vtypeprefix, line.type, 'best', edges[0], edges[-1], vias))
+            else:
+                if len(stop_ids) == 0:
+                    sys.stderr.write("Warning: skipping line '%s' because it has no stops\n" % line.id)
+                    trp_nr += 1
+                    continue
+                fr, _ = stopsLanes[stop_ids[0]].rsplit("_", 1)
+                to, _ = stopsLanes[stop_ids[-1]].rsplit("_", 1)
+                fouttrips.write(
+                    '    <trip id="%s" type="%s%s" depart="0" departLane="%s" from="%s" to="%s">\n' % (
                         trp_nr, options.vtypeprefix, line.type, 'best', fr, to))
 
             trpMap[str(trp_nr)] = (line.line, line.attr_name, line.completeness)
