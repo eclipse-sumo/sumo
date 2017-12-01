@@ -378,6 +378,8 @@ MSCFModel::estimateArrivalTime(double dist, double speed, double maxSpeed, doubl
 
 double
 MSCFModel::estimateArrivalTime(double dist, double initialSpeed, double arrivalSpeed, double maxSpeed, double accel, double decel) {
+    UNUSED_PARAMETER(arrivalSpeed); // only in assertion
+    UNUSED_PARAMETER(decel); // only in assertion
     if(dist<=0) return 0.;
 
     // stub-assumptions

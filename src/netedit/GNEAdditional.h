@@ -267,7 +267,7 @@ protected:
     bool myBlocked;
 
     /// @brief pointer to Addititional parent
-    GNEAdditional*myAdditionalParent;
+    GNEAdditional* myAdditionalParent;
 
     /// @brief vector with the Additional childs
     std::vector<GNEAdditional*> myAdditionalChilds;
@@ -350,9 +350,6 @@ private:
 
     /// @brief Matrix with the Vertex's positions of connections between parents an their childs
     std::vector<std::vector<Position> > myChildConnectionPositions;
-
-    /// @brief set attribute after validation
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief Invalidated copy constructor.
     GNEAdditional(const GNEAdditional&) = delete;

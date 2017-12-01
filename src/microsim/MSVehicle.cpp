@@ -2470,13 +2470,12 @@ MSVehicle::updateDriveItems() {
     }
     // Lane must have been changed, determine the change direction
     MSLink* parallelLink = nextPlannedLink->getParallelLink(1);
-    int lcDir = 0;
     if (parallelLink != 0 && parallelLink->getLaneBefore() == getLane()) {
-        lcDir = 1;
+        // lcDir = 1;
     } else {
         parallelLink = nextPlannedLink->getParallelLink(-1);
         if (parallelLink != 0 && parallelLink->getLaneBefore() == getLane()) {
-            lcDir = -1;
+            // lcDir = -1;
         } else {
             // If the vehicle's current lane is not the approaching lane for the next
             // drive process item's link, it is expected to lead to a parallel link,
