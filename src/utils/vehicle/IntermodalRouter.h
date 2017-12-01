@@ -446,8 +446,7 @@ private:
 
     void addCarEdges(const std::vector<E*>& edges) {
         for (const E* const edge: edges) {
-            if (!edge->isInternal() && !edge->isCrossing() && !edge->isWalkingArea()) {
-                // TODO what about TAZ?
+            if (edge->getFunction() == EDGEFUNC_NORMAL) {
                 myCarLookup[edge] = new CarEdge<E, L, N, V>(myNumericalID++, edge);
                 myIntermodalNet->addEdge(myCarLookup[edge]);
             }
