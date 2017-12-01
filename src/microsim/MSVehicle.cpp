@@ -652,7 +652,7 @@ MSVehicle::hasArrived() const {
 
 
 bool
-MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool addStops, bool removeStops) {
+MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool addRouteStops, bool removeStops) {
     const ConstMSEdgeVector& edges = newRoute->getEdges();
     // assert the vehicle may continue (must not be "teleported" or whatever to another position)
     if (!onInit && !newRoute->contains(*myCurrEdge)) {
@@ -670,6 +670,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool a
         }
         myCurrEdge = newCurrEdge;
     }
+    const bool stopsFromScratch = onInit && myRoute->getStops().empty();
     // check whether the old route may be deleted (is not used by anyone else)
     newRoute->addReference();
     myRoute->release();
@@ -680,23 +681,29 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool a
     // save information that the vehicle was rerouted
     myNumberReroutes++;
     MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE);
-    // recheck old stops
-    for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
-        if (removeStops && find(myCurrEdge, edges.end(), &iter->lane->getEdge()) == edges.end()) {
-            iter = myStops.erase(iter);
-        } else {
-            // iter->edge may point to edges.end() if removeStops is false but it should be replaced by the triggered rerouter anyway
-            iter->edge = find(myCurrEdge, edges.end(), &iter->lane->getEdge());
-            ++iter;
+    // if we did not drive yet it may be best to simply reassign the stops from scratch
+    if (stopsFromScratch) {
+        myStops.clear();
+        addStops(!MSGlobals::gCheckRoutes);
+    } else {
+        // recheck old stops
+        for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
+            if (removeStops && find(myCurrEdge, edges.end(), &iter->lane->getEdge()) == edges.end()) {
+                iter = myStops.erase(iter);
+            } else {
+                // iter->edge may point to edges.end() if removeStops is false but it should be replaced by the triggered rerouter anyway
+                iter->edge = find(myCurrEdge, edges.end(), &iter->lane->getEdge());
+                ++iter;
+            }
         }
-    }
-    // add new stops
-    if (addStops) {
-        for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = newRoute->getStops().begin(); i != newRoute->getStops().end(); ++i) {
-            std::string error;
-            addStop(*i, error);
-            if (error != "") {
-                WRITE_WARNING(error);
+        // add new stops
+        if (addRouteStops) {
+            for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = newRoute->getStops().begin(); i != newRoute->getStops().end(); ++i) {
+                std::string error;
+                addStop(*i, error);
+                if (error != "") {
+                    WRITE_WARNING(error);
+                }
             }
         }
     }
