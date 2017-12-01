@@ -134,7 +134,7 @@ def createTrips(options):
             trpMap[str(trp_nr)] = (line.line, line.attr_name, line.completeness)
             trp_nr += 1
             for stop in stop_ids:
-                fouttrips.write('        <stop busStop="%s" duration="30" />\n' % (stop))
+                fouttrips.write('        <stop busStop="%s" duration="30"/>\n' % (stop))
             fouttrips.write('    </trip>\n')
         fouttrips.write("</routes>\n")
     print("done.")
@@ -168,7 +168,10 @@ def createRoutes(options, trpMap):
         for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
             id = vehicle.id
             try:
-                edges = vehicle.routeDistribution[0]._child_dict['route'][1].edges
+                if vehicle.route is not None:
+                    edges = vehicle.route[0].edges
+                else:
+                    edges = vehicle.routeDistribution[0].route[1].edges
             except StandardError:
                 if options.ignoreErrors:
                     sys.stderr.write("Warning: Could not parse edges for vehicle '%s'\n" % id)
