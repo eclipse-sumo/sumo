@@ -182,7 +182,7 @@ MSLaneChangerSublane::change() {
     if ((decision.state & LCA_WANTS_LANECHANGE) != 0 && (decision.state & LCA_BLOCKED) == 0) {
         // change if the vehicle wants to and is allowed to change
         if DEBUG_COND {
-            std::cout << SIMTIME << "veh '"<< vehicle->getID() << "' performing sublane change..." << std::endl;
+            std::cout << SIMTIME << " veh '"<< vehicle->getID() << "' performing sublane change..." << std::endl;
         }
         return startChangeSublane(vehicle, myCandi, decision.latDist);
     }
@@ -285,6 +285,10 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     vehicle->myState.myPosLat += latDist;
     vehicle->myCachedPosition = Position::INVALID;
     vehicle->getLaneChangeModel().setSpeedLat(DIST2SPEED(latDist));
+    if DEBUG_COND {
+        std::cout << SIMTIME << " vehicle '" << vehicle->getID() << "' with maneuverDist=" << vehicle->getLaneChangeModel().getManeuverDist()
+                << " increments lateral position by latDist=" << latDist << std::endl;
+    }
     vehicle->getLaneChangeModel().setManeuverDist(vehicle->getLaneChangeModel().getManeuverDist() - latDist);
     vehicle->getLaneChangeModel().updateSafeLatDist(latDist);
 
