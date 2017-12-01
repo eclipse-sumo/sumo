@@ -154,7 +154,8 @@ public:
     bool sublaneChangeCompleted(const double latDist) const;
 
     /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
-    double computeSpeedLat(double latDist);
+    ///        and updates maneuverDist according to lateral safety constraints.
+    double computeSpeedLat(double latDist, double& maneuverDist);
 
 protected:
 
@@ -350,7 +351,8 @@ protected:
     void commitManoeuvre(int blocked, int blockedFully,
                          const MSLeaderDistanceInfo& leaders,
                          const MSLeaderDistanceInfo& neighLeaders,
-                         const MSLane& neighLane);
+                         const MSLane& neighLane,
+                         double maneuverDist);
 
     /// @brief compute speed when committing to an urgent change that is safe in regard to leading vehicles
     double commitFollowSpeed(double speed, double latDist, double secondsToLeaveLane, const MSLeaderDistanceInfo& leaders, double foeOffset) const;

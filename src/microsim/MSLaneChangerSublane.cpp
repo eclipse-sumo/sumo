@@ -236,12 +236,12 @@ MSLaneChangerSublane::checkChangeHelper(MSVehicle* vehicle, int laneOffset, Lane
 bool
 MSLaneChangerSublane::continueChangeSublane(MSVehicle* vehicle, ChangerIt& from) {
     // lateral distance to complete maneuver
-    const double remLatDist = vehicle->getLaneChangeModel().getManeuverDist();
+    double remLatDist = vehicle->getLaneChangeModel().getManeuverDist();
     if (remLatDist == 0) {
         registerUnchanged(vehicle);
         return false;
     }
-    const double nextLatDist = SPEED2DIST(vehicle->getLaneChangeModel().computeSpeedLat(remLatDist));
+    const double nextLatDist = SPEED2DIST(vehicle->getLaneChangeModel().computeSpeedLat(remLatDist, remLatDist));
     if DEBUG_COND {
         std::cout << SIMTIME << " vehicle '" << vehicle->getID() << "' continueChangeSublane()"
                 << " remLatDist="<< remLatDist << " nextLatDist=" << nextLatDist
