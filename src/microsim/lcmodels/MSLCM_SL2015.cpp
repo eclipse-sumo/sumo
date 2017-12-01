@@ -202,10 +202,9 @@ MSLCM_SL2015::wantsChangeSublane(
                         neighLane, laneOffset, latDist, maneuverDist, blocked);
 
     result |= getLCA(result, latDist);
-
     // take into account lateral acceleration
     double latDistTmp = latDist;
-    latDist = SPEED2DIST(computeSpeedLat(latDist));
+    latDist = SPEED2DIST(computeSpeedLat(latDist, maneuverDist));
     if (gDebugFlag2 && latDist != latDistTmp) {
         std::cout << SIMTIME << " veh=" << myVehicle.getID() << " maneuverDist=" << maneuverDist << " latDist=" << latDistTmp << " mySpeedPrev=" << mySpeedLat << " speedLat=" << DIST2SPEED(latDist) << " latDist2=" << latDist << "\n";
     }
@@ -1178,7 +1177,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             informFollowers(blocked, myLca, collectFollowBlockers, remainingSeconds, plannedSpeed);
         }
         if (plannedSpeed > 0) {
-            commitManoeuvre(blocked, blockedFully, leaders, neighLeaders, neighLane);
+            commitManoeuvre(blocked, blockedFully, leaders, neighLeaders, neighLane, maneuverDist);
         }
         if (gDebugFlag2) {
             std::cout << STEPS2TIME(currentTime)
@@ -2649,7 +2648,7 @@ MSLCM_SL2015::getWidth() const {
 
 
 double
-MSLCM_SL2015::computeSpeedLat(double latDist) {
+MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) {
     int currentDirection = mySpeedLat >= 0 ? 1 : -1;
     int directionWish = latDist >= 0 ? 1 : -1;
     const double maxSpeedLat = myVehicle.getVehicleType().getMaxSpeedLat();
@@ -2680,11 +2679,11 @@ MSLCM_SL2015::computeSpeedLat(double latDist) {
     // can we reach the target distance in a single step? (XXX: assumes "Euler" update)
     double speedBound = DIST2SPEED(latDist);
     // for lat-gap keeping maneuvres myOrigLatDist may be 0
-    const double fullLatDist = latDist > 0 ? MIN2(mySafeLatDistLeft, MAX2(myManeuverDist, latDist)) : MAX2(-mySafeLatDistRight, MIN2(myManeuverDist, latDist));
+    const double fullLatDist = latDist > 0 ? MIN2(mySafeLatDistLeft, MAX2(maneuverDist, latDist)) : MAX2(-mySafeLatDistRight, MIN2(maneuverDist, latDist));
 
-    // update myManeuverDist, if safety constraints apply in its direction
-    if (myManeuverDist*latDist > 0) {
-        myManeuverDist = fullLatDist;
+    // update maneuverDist, if safety constraints apply in its direction
+    if (maneuverDist*latDist > 0) {
+        maneuverDist = fullLatDist;
     }
 
     if (debugVehicle()) {
@@ -2692,7 +2691,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist) {
                   << " veh=" << myVehicle.getID()
                   << " speedLat=" << mySpeedLat
                   << " latDist=" << latDist
-                  << " myManeuverDist=" << myManeuverDist
+                  << " maneuverDist=" << maneuverDist
                   << " mySafeLatDistRight=" << mySafeLatDistRight
                   << " mySafeLatDistLeft=" << mySafeLatDistLeft
                   << " fullLatDist=" << fullLatDist
@@ -2750,12 +2749,13 @@ void
 MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
                               const MSLeaderDistanceInfo& leaders,
                               const MSLeaderDistanceInfo& neighLeaders,
-                              const MSLane& neighLane) {
+                              const MSLane& neighLane,
+                              double maneuverDist) {
     if (!blocked && !blockedFully && !myCanChangeFully) {
         // round to full action steps
         double secondsToLeaveLane;
         if (MSGlobals::gSemiImplicitEulerUpdate) {
-            secondsToLeaveLane = ceil(fabs(myManeuverDist) / myVehicle.getVehicleType().getMaxSpeedLat() / myVehicle.getActionStepLengthSecs()) * myVehicle.getActionStepLengthSecs();
+            secondsToLeaveLane = ceil(fabs(maneuverDist) / myVehicle.getVehicleType().getMaxSpeedLat() / myVehicle.getActionStepLengthSecs()) * myVehicle.getActionStepLengthSecs();
             // XXX myAccelLat must be taken into account (refs #3601, see ballistic case for solution)
 
             // XXX This also causes probs: if the difference between the current speed and the committed is higher than the maximal decel,
@@ -2766,7 +2766,7 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
         } else {
 
             // Calculate seconds needed for leaving lane assuming start from lateral speed zero, and lat.accel == -lat.decel
-            secondsToLeaveLane = MSCFModel::estimateArrivalTime(fabs(myManeuverDist), 0., 0., myVehicle.getVehicleType().getMaxSpeedLat(), myAccelLat, myAccelLat);
+            secondsToLeaveLane = MSCFModel::estimateArrivalTime(fabs(maneuverDist), 0., 0., myVehicle.getVehicleType().getMaxSpeedLat(), myAccelLat, myAccelLat);
             // round to full action steps
             secondsToLeaveLane = ceil(secondsToLeaveLane/myVehicle.getActionStepLengthSecs())*myVehicle.getActionStepLengthSecs();
 
@@ -2781,8 +2781,8 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
                                     myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle),
                                     myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
         }
-        myCommittedSpeed = commitFollowSpeed(myCommittedSpeed, myManeuverDist, secondsToLeaveLane, leaders, myVehicle.getLane()->getRightSideOnEdge());
-        myCommittedSpeed = commitFollowSpeed(myCommittedSpeed, myManeuverDist, secondsToLeaveLane, neighLeaders, neighLane.getRightSideOnEdge());
+        myCommittedSpeed = commitFollowSpeed(myCommittedSpeed, maneuverDist, secondsToLeaveLane, leaders, myVehicle.getLane()->getRightSideOnEdge());
+        myCommittedSpeed = commitFollowSpeed(myCommittedSpeed, maneuverDist, secondsToLeaveLane, neighLeaders, neighLane.getRightSideOnEdge());
         if (myCommittedSpeed < myVehicle.getCarFollowModel().minNextSpeed(myVehicle.getSpeed(), &myVehicle)) {
             myCommittedSpeed = 0;
         }
