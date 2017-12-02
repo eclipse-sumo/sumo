@@ -29,6 +29,37 @@ def relError(actual, expected):
     else:
         return (actual - expected) / expected
 
+def parseFlowFile(flowFile, detCol="Detector", timeCol="Time", flowCol="qPKW", speedCol="vPKW", begin=None, end=None):
+        detIdx = -1
+        flowIdx = -1
+        speedIdx = -1
+        timeIdx = -1
+        with open(flowFile) as f:
+            for l in f:
+                if ';' not in l:
+                    continue
+                flowDef = [e.strip() for e in l.split(';')]
+                if detIdx == -1 and detCol in flowDef:
+                    # init columns
+                    detIdx = flowDef.index(detCol)
+                    if flowCol in flowDef:
+                        flowIdx = flowDef.index(flowCol)
+                    if speedCol in flowDef:
+                        speedIdx = flowDef.index(speedCol)
+                    if timeCol in flowDef:
+                        timeIdx = flowDef.index(timeCol)
+                elif flowIdx != -1:
+                    # columns are initialized
+                    if timeIdx == -1 or begin is None:
+                        curTime = None
+                        timeIsValid = True
+                    else:
+                        curTime = float(flowDef[timeIdx])
+                        timeIsValid = (end is None and curTime == begin) or (
+                            curTime >= begin and curTime < end)
+                    if timeIsValid:
+                        speed = float(flowDef[speedIdx]) if speedIdx != -1 else None
+                        yield (flowDef[detIdx], curTime, float(flowDef[flowIdx]), speed)
 
 
 class DetectorGroupData:
@@ -42,11 +73,15 @@ class DetectorGroupData:
         self.entryCount = 0
         if id is not None:
             self.ids.append(id)
+        # timeline data (see readFlowsTimeline)
+        self.begin = 0
+        self.timeline = []
+        self.interval = None
 
     def addDetFlow(self, flow, speed):
         oldFlow = self.totalFlow
         self.totalFlow += flow
-        if flow > 0:
+        if flow > 0 and speed is not None:
             self.avgSpeed = (
                 self.avgSpeed * oldFlow + speed * flow) / self.totalFlow
         self.entryCount += 1
@@ -122,40 +157,15 @@ class DetectorReader(handler.ContentHandler):
             for group in groupList:
                 group.clearFlow()
 
+
     def readFlows(self, flowFile, det="Detector", flow="qPKW", speed=None, time=None, timeVal=None, timeMax=None):
-        detIdx = -1
-        flowIdx = -1
-        speedIdx = -1
-        timeIdx = -1
+        values = parseFlowFile(flowFile, 
+                detCol=det, timeCol=time, flowCol=flow, 
+                speedCol=speed, begin=timeVal, end=timeMax)
         hadFlow = False
-        with open(flowFile) as f:
-            for l in f:
-                if ';' not in l:
-                    continue
-                flowDef = [e.strip() for e in l.split(';')]
-                if detIdx == -1 and det in flowDef:
-                    detIdx = flowDef.index(det)
-                    if flow in flowDef:
-                        flowIdx = flowDef.index(flow)
-                    if speed in flowDef:
-                        speedIdx = flowDef.index(speed)
-                    if time in flowDef:
-                        timeIdx = flowDef.index(time)
-                elif flowIdx != -1:
-                    if timeIdx == -1 or timeVal is None:
-                        timeIsValid = True
-                    else:
-                        curTime = float(flowDef[timeIdx])
-                        timeIsValid = (timeMax is None and curTime == timeVal) or (
-                            curTime >= timeVal and curTime < timeMax)
-                    if timeIsValid:
-                        hadFlow = True
-                        if speedIdx != -1:
-                            self.addFlow(
-                                flowDef[detIdx], float(flowDef[flowIdx]), float(flowDef[speedIdx]))
-                        else:
-                            self.addFlow(
-                                flowDef[detIdx], float(flowDef[flowIdx]))
+        for det, time, flow, speed in values:
+            hadFlow = True
+            self.addFlow(det, flow, speed)
         return hadFlow
 
     def findTimes(self, flowFile, tMin, tMax, det="Detector", time="Time"):
@@ -175,3 +185,4 @@ class DetectorReader(handler.ContentHandler):
                     if tMax is None or tMax < curTime:
                         tMax = curTime
         return tMin, tMax
+
