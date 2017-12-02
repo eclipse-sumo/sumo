@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Mar  7 13:04:56 2017" north="767.39" south="0.00" east="1737.68" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Sat Dec  2 19:35:22 2017" north="767.39" south="0.00" east="1737.68" west="0.00"/>
     <road name="Teltowkanalbrücke" length="56.01306154" id="870" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -23712,15 +23712,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":57343359_0_0" length="0.10000000" id="1483" junction="65">
+    <road name=":57343359_0_0" length="8.40592576" id="1483" junction="65">
         <link>
             <predecessor elementType="road" elementId="993" contactPoint="end"/>
             <successor elementType="road" elementId="940" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="3.20493458" y="346.89965079" hdg="-0.94759700" length="0.00000000">
-                <line/>
+            <geometry s="0.00000000" x="3.14505038" y="350.09909041" hdg="-3.12287775" length="8.40592576">
+                <paramPoly3 aU="-0.00000000" bU="12.70219431" cU="-10.13043398" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="5.10421868" dV="0.00000000"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -23728,6 +23728,7 @@
         </elevationProfile>
         <lateralProfile/>
         <lanes>
+            <laneOffset s="0" a="3.20" b="0" c="0" d="0"/>
             <laneSection s="0">
                 <center>
                     <lane id="0" type="none" level="true">

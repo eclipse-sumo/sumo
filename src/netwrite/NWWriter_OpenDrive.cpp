@@ -208,11 +208,12 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     continue;
                 }
                 const double width = c.toEdge->getLaneWidth(c.toLane);
-                const PositionVector begShape = getLeftLaneBorder(inEdge, c.fromLane);
-                const PositionVector endShape = getLeftLaneBorder(outEdge, c.toLane);
+                PositionVector begShape = getLeftLaneBorder(inEdge, c.fromLane);
+                PositionVector endShape = getLeftLaneBorder(outEdge, c.toLane);
                 //std::cout << "computing reference line for internal lane " << c.getInternalLaneID() << " begLane=" << inEdge->getLaneShape(c.fromLane) << " endLane=" << outEdge->getLaneShape(c.toLane) << "\n";
 
                 double length;
+                double laneOffset = 0;
                 PositionVector fallBackShape;
                 fallBackShape.push_back(begShape.back());
                 fallBackShape.push_back(endShape.front());
@@ -224,6 +225,17 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     // problem with turnarounds is known, method currently returns 'ok' (#2539)
                     if (!ok) {
                         WRITE_WARNING("Could not compute smooth shape from lane '" + inEdge->getLaneID(c.fromLane) + "' to lane '" + outEdge->getLaneID(c.toLane) + "'. Use option 'junctions.scurve-stretch' or increase radius of junction '" + inEdge->getToNode()->getID() + "' to fix this.");
+                    } else if (length <= NUMERICAL_EPS) {
+                        // left-curving geometry-like edges must use the right
+                        // side as reference line and shift
+                        begShape = getRightLaneBorder(inEdge, c.fromLane);
+                        endShape = getRightLaneBorder(outEdge, c.toLane);
+                        init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok, 0, straightThresh);
+                        if (init.size() != 0) {
+                            length = bezier(init, 12).length2D();
+                            laneOffset = width;
+                            //std::cout << " internalLane=" << c.getInternalLaneID() << " length=" << length << "\n";
+                        }
                     }
                 } else {
                     length = bezier(init, 12).length2D();
@@ -255,7 +267,9 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 elevationOSS.setPrecision(8);
 #ifdef DEBUG_SMOOTH_GEOM
                 if (DEBUGCOND) {
-                    std::cout << "write planview for internal edge " << c.getInternalLaneID() << " init=" << init << " fallback=" << fallBackShape << "\n";
+                    std::cout << "write planview for internal edge " << c.getInternalLaneID() << " init=" << init << " fallback=" << fallBackShape 
+                        << " begShape=" << begShape << " endShape=" << endShape
+                        << "\n";
                 }
 #endif
                 if (init.size() == 0) {
@@ -268,6 +282,9 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 writeElevationProfile(fallBackShape, device, elevationOSS);
                 device << "        <lateralProfile/>\n";
                 device << "        <lanes>\n";
+                if (laneOffset != 0) {
+                    device << "            <laneOffset s=\"0\" a=\"" << laneOffset << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
+                }
                 device << "            <laneSection s=\"0\">\n";
                 writeEmptyCenterLane(device, "none", 0);
                 device << "                <right>\n";
@@ -411,7 +428,7 @@ NWWriter_OpenDrive::getLaneType(SVCPermissions permissions) {
 
 
 PositionVector
-NWWriter_OpenDrive::getLeftLaneBorder(const NBEdge* edge, int laneIndex) {
+NWWriter_OpenDrive::getLeftLaneBorder(const NBEdge* edge, int laneIndex, double widthOffset) {
     if (laneIndex == -1) {
         // leftmost lane
         laneIndex = (int)edge->getNumLanes() - 1;
@@ -424,7 +441,7 @@ NWWriter_OpenDrive::getLeftLaneBorder(const NBEdge* edge, int laneIndex) {
     // computations based on the reference line
     // This assumes that the 'stop line' for all lanes is colinear!
     const int leftmost = (int)edge->getNumLanes() - 1;
-    double widthOffset = -(edge->getLaneWidth(leftmost) / 2);
+    widthOffset -= (edge->getLaneWidth(leftmost) / 2);
     // collect lane widths from left border of edge to left border of lane to connect to
     for (int i = leftmost; i > laneIndex; i--) {
         widthOffset += edge->getLaneWidth(i);
@@ -434,6 +451,11 @@ NWWriter_OpenDrive::getLeftLaneBorder(const NBEdge* edge, int laneIndex) {
         result.move2side(widthOffset);
     } catch (InvalidArgument&) { }
     return result;
+}
+
+PositionVector
+NWWriter_OpenDrive::getRightLaneBorder(const NBEdge* edge, int laneIndex) {
+    return getLeftLaneBorder(edge, laneIndex, edge->getLaneWidth(laneIndex));
 }
 
 

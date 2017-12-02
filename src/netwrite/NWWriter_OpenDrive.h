@@ -87,7 +87,8 @@ protected:
     static std::string getLaneType(SVCPermissions permissions);
 
     /// @brief get the left border of the given lane (the leftmost one by default)
-    static PositionVector getLeftLaneBorder(const NBEdge* edge, int laneIndex = -1);
+    static PositionVector getLeftLaneBorder(const NBEdge* edge, int laneIndex = -1, double widthOffset = 0);
+    static PositionVector getRightLaneBorder(const NBEdge* edge, int laneIndex = -1);
 
     /// @brief check if the lane geometries are compatible with OpenDRIVE assumptions (colinear stop line)
     static void checkLaneGeometries(const NBEdge* e);
