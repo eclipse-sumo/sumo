@@ -769,12 +769,32 @@ TraCI_Vehicle::add(const std::string& vehicleID,
     if (veh != 0) {
         throw TraCIException("The vehicle " + vehicleID + " to add already exists.");
     }
+    UNUSED_PARAMETER(routeID);
+    UNUSED_PARAMETER(typeID);
+    UNUSED_PARAMETER(depart);
+    UNUSED_PARAMETER(departLane);
+    UNUSED_PARAMETER(departPos);
+    UNUSED_PARAMETER(departSpeed);
+    UNUSED_PARAMETER(arrivalLane);
+    UNUSED_PARAMETER(arrivalPos);
+    UNUSED_PARAMETER(arrivalSpeed);
+    UNUSED_PARAMETER(fromTaz);
+    UNUSED_PARAMETER(toTaz);
+    UNUSED_PARAMETER(line);
+    UNUSED_PARAMETER(personCapacity);
+    UNUSED_PARAMETER(personNumber);
 }
 
 
 void
 TraCI_Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute) {
     getVehicle(vehicleID);
+    UNUSED_PARAMETER(edgeID);
+    UNUSED_PARAMETER(lane);
+    UNUSED_PARAMETER(x);
+    UNUSED_PARAMETER(y);
+    UNUSED_PARAMETER(angle);
+    UNUSED_PARAMETER(keepRoute);
 }
 
 void
@@ -789,6 +809,7 @@ TraCI_Vehicle::slowDown(const std::string& vehicleID, double speed, SUMOTime dur
 void
 TraCI_Vehicle::setSpeed(const std::string& vehicleID, double speed) {
     getVehicle(vehicleID);
+    UNUSED_PARAMETER(speed);
 }
 
 void 
@@ -851,7 +872,7 @@ TraCI_Vehicle::setAdaptedTraveltime(const std::string& vehicleID, const std::str
                 veh->getWeightsStorage().removeTravelTime(edge);
             }
         }
-        veh->getWeightsStorage().addTravelTime(edge, begTime, endTime, time);
+        veh->getWeightsStorage().addTravelTime(edge, STEPS2TIME(begTime), STEPS2TIME(endTime), time);
     } else {
         // remove time
         while (veh->getWeightsStorage().knowsTravelTime(edge)) {
@@ -877,7 +898,7 @@ TraCI_Vehicle::setEffort(const std::string& vehicleID, const std::string& edgeID
                 veh->getWeightsStorage().removeEffort(edge);
             }
         }
-        veh->getWeightsStorage().addEffort(edge, begTime, endTime, effort);
+        veh->getWeightsStorage().addEffort(edge, STEPS2TIME(begTime), STEPS2TIME(endTime), effort);
     } else {
         // remove effort
         while (veh->getWeightsStorage().knowsEffort(edge)) {
@@ -977,6 +998,7 @@ TraCI_Vehicle::setActionStepLength(const std::string& vehicleID, double actionSt
 void
 TraCI_Vehicle::remove(const std::string& vehicleID, char reason) {
     getVehicle(vehicleID);
+    UNUSED_PARAMETER(reason);
 }
 
 
@@ -996,6 +1018,7 @@ TraCI_Vehicle::setLine(const std::string& vehicleID, const std::string& line) {
 void
 TraCI_Vehicle::setVia(const std::string& vehicleID, const std::vector<std::string>& via) {
     getVehicle(vehicleID);
+    UNUSED_PARAMETER(via);
 }
 
 void
@@ -1006,6 +1029,7 @@ TraCI_Vehicle::setShapeClass(const std::string& vehicleID, const std::string& cl
 void
 TraCI_Vehicle::setEmissionClass(const std::string& vehicleID, const std::string& clazz) {
     getVehicle(vehicleID);
+    UNUSED_PARAMETER(clazz);
 }
 
 

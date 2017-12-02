@@ -63,16 +63,17 @@ TraCI_Simulation::getDeltaT(){
 
 TraCIBoundary
 TraCI_Simulation::getNetBoundary() {
-	Boundary b = GeoConvHelper::getFinal().getConvBoundary();
-	TraCIBoundary tb;
-	tb.xMin = b.xmin();
-	tb.xMax = b.xmax();
-	tb.yMin = b.ymin();
-	tb.yMax = b.ymax();
-	tb.zMin = b.zmin();
-	tb.zMax = b.zmax();
-	return tb;
+    Boundary b = GeoConvHelper::getFinal().getConvBoundary();
+    TraCIBoundary tb;
+    tb.xMin = b.xmin();
+    tb.xMax = b.xmax();
+    tb.yMin = b.ymin();
+    tb.yMax = b.ymax();
+    tb.zMin = b.zmin();
+    tb.zMax = b.zmax();
+    return tb;
 }
+
 
 int
 TraCI_Simulation::getMinExpectedNumber() {
@@ -82,6 +83,7 @@ TraCI_Simulation::getMinExpectedNumber() {
 
 TraCIStage
 TraCI_Simulation::findRoute(const std::string& from, const std::string& to, const std::string& typeID, const SUMOTime depart, const int routingMode) {
+    UNUSED_PARAMETER(routingMode);
     TraCIStage result(MSTransportable::DRIVING);
     const MSEdge* const fromEdge = MSEdge::dictionary(from);
     if (fromEdge == 0) {
@@ -120,6 +122,8 @@ TraCI_Simulation::findIntermodalRoute(const std::string& from, const std::string
     const std::string modes, const SUMOTime depart, const int routingMode, const double speed, const double walkFactor,
     const double departPos, const double arrivalPos, const double departPosLat,
     const std::string& pType, const std::string& vehType) {
+    UNUSED_PARAMETER(routingMode);
+    UNUSED_PARAMETER(departPosLat);
     std::vector<TraCIStage> result;
     const MSEdge* const fromEdge = MSEdge::dictionary(from);
     if (fromEdge == 0) {
