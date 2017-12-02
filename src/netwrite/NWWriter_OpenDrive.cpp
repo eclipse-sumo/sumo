@@ -429,9 +429,10 @@ NWWriter_OpenDrive::getLaneType(SVCPermissions permissions) {
 
 PositionVector
 NWWriter_OpenDrive::getLeftLaneBorder(const NBEdge* edge, int laneIndex, double widthOffset) {
+    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     if (laneIndex == -1) {
         // leftmost lane
-        laneIndex = (int)edge->getNumLanes() - 1;
+        laneIndex = lefthand ? 0 : (int)edge->getNumLanes() - 1;
     }
     /// it would be tempting to use
     // PositionVector result = edge->getLaneShape(laneIndex);
@@ -440,11 +441,17 @@ NWWriter_OpenDrive::getLeftLaneBorder(const NBEdge* edge, int laneIndex, double 
     // In OpenDRIVE this gap does not exists so we have to do all lateral
     // computations based on the reference line
     // This assumes that the 'stop line' for all lanes is colinear!
-    const int leftmost = (int)edge->getNumLanes() - 1;
+    const int leftmost = lefthand ? 0 : (int)edge->getNumLanes() - 1;
     widthOffset -= (edge->getLaneWidth(leftmost) / 2);
     // collect lane widths from left border of edge to left border of lane to connect to
-    for (int i = leftmost; i > laneIndex; i--) {
-        widthOffset += edge->getLaneWidth(i);
+    if (lefthand) {
+        for (int i = leftmost; i < laneIndex; i++) {
+            widthOffset += edge->getLaneWidth(i);
+        }
+    } else {
+        for (int i = leftmost; i > laneIndex; i--) {
+            widthOffset += edge->getLaneWidth(i);
+        }
     }
     PositionVector result = edge->getLaneShape(leftmost);
     try {
