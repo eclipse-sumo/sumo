@@ -70,7 +70,16 @@ main(int argc, char** argv) {
         XMLSubSys::init();
         OptionsIO::setArgs(argc, argv);
         // load the net
-        ret = NLBuilder::loadAndRun();
+        MSNet::SimulationState state = MSNet::SIMSTATE_LOADING;
+        while (state == MSNet::SIMSTATE_LOADING) {
+            MSNet* net = NLBuilder::init();
+            if (net != nullptr) {
+                state = net->simulate(string2time(oc.getString("begin")), string2time(oc.getString("end")));
+                delete net;
+            } else {
+                break;
+            }
+        }
     } catch (const ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());

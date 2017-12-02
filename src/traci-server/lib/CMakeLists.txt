@@ -9,7 +9,7 @@ if(SWIG_FOUND)
         include_directories(${PYTHON_INCLUDE_PATH})
 
         swig_add_module(swig_traci python swig_traci.i)
-        swig_link_libraries(swig_traci ${sumolibs} ${PYTHON_LIBRARIES})
+        swig_link_libraries(swig_traci -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive ${PYTHON_LIBRARIES})
     endif()
 
     option(BUILD_JAVA "Build Java SWIG module" ON)
@@ -20,7 +20,7 @@ if(SWIG_FOUND)
         include_directories(${JNI_INCLUDE_DIRS})
 
         swig_add_module(swig_traci_java java swig_traci.i)
-        swig_link_libraries(swig_traci_java ${sumolibs})
+        swig_link_libraries(swig_traci_java -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive)
     endif()
 endif()
 

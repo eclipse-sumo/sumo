@@ -313,9 +313,8 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     WRITE_MESSAGE("Simulation started with time: " + time2string(start));
     // the simulation loop
     SimulationState state = SIMSTATE_RUNNING;
+    // state loading may have changed the start time so we need to reinit it
     myStep = start;
-    // preload the routes especially for TraCI
-    loadRoutes();
 #ifndef NO_TRACI
 #ifdef HAVE_PYTHON
     if (OptionsCont::getOptions().isSet("python-script")) {
@@ -343,8 +342,8 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
 #endif
 #ifndef NO_TRACI
         if (state == SIMSTATE_LOADING) {
-            OptionsIO::setArgs(TraCI::getLoadArgs());
-            TraCI::getLoadArgs().clear();
+            OptionsIO::setArgs(TraCIServer::getInstance()->getLoadArgs());
+            TraCIServer::getInstance()->getLoadArgs().clear();
         } else if (state != SIMSTATE_RUNNING) {
             if (TraCIServer::getInstance() != 0 && !TraCIServer::wasClosed()) {
                 // overrides SIMSTATE_END_STEP_REACHED, e.g. (TraCI ignore SUMO's --end option)
@@ -561,7 +560,7 @@ MSNet::simulationState(SUMOTime stopTime) const {
     if (TraCIServer::wasClosed()) {
         return SIMSTATE_CONNECTION_CLOSED;
     }
-    if (!TraCI::getLoadArgs().empty()) {
+    if (TraCIServer::getInstance() != 0 && !TraCIServer::getInstance()->getLoadArgs().empty()) {
         return SIMSTATE_LOADING;
     }
     if ((stopTime < 0 || myStep > stopTime) && TraCIServer::getInstance() == 0) {

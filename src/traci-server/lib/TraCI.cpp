@@ -42,12 +42,9 @@
 #include <microsim/MSFrame.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSRouteHandler.h>
+#include <netload/NLBuilder.h>
 #include "TraCI.h"
 
-// ===========================================================================
-// static member definitions
-// ===========================================================================
-std::vector<std::string> TraCI::myLoadArgs;
 
 // ===========================================================================
 // member definitions
@@ -58,14 +55,22 @@ TraCI::connect(const std::string& host, int port) {
 
 void
 TraCI::load(const std::vector<std::string>& args) {
-    myLoadArgs = args;
+    OptionsIO::setArgs(args);
+    NLBuilder::init();
 }
 
-/*
+
 void
 TraCI::simulationStep(const SUMOTime time) {
+    if (time == 0) {
+        MSNet::getInstance()->simulationStep();
+    } else {
+        while (MSNet::getInstance()->getCurrentTimeStep() < time) {
+            MSNet::getInstance()->simulationStep();
+        }
+    }
 }
-*/
+
 
 void
 TraCI::close() {

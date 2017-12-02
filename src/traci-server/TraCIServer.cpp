@@ -557,7 +557,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
                     myCurrentSocket = removeCurrentSocket();
                 }
             }
-            if (!TraCI::getLoadArgs().empty()) {
+            if (!myLoadArgs.empty()) {
 #ifdef DEBUG_MULTI_CLIENTS
                 std::cout << "  Breaking loop to load new simulation." << std::endl;
 #endif
@@ -766,7 +766,7 @@ TraCIServer::dispatchCommand() {
                           << ", args = " << toString(args) << std::endl;
 #endif
                 try {
-                    TraCI::load(args);
+                    myLoadArgs = args;
                     success = true;
                     writeStatusCmd(CMD_LOAD, RTYPE_OK, "");
                     // XXX: This only cares for the client that issued the load command.

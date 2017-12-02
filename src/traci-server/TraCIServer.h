@@ -272,6 +272,10 @@ public:
     /// @note  Used in MSStateHandler to update the server's time after loading a state
     void setTargetTime(SUMOTime targetTime);
 
+    std::vector<std::string>& getLoadArgs() {
+        return myLoadArgs;
+    }
+
 
 private:
     /** @brief Constructor
@@ -390,6 +394,7 @@ private:
 
     std::map<std::string, MSVehicle*> myVTDControlledVehicles;
 
+    std::vector<std::string> myLoadArgs;
 
     /** @class Subscription
      * @brief Representation of a subscription

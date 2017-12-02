@@ -70,7 +70,7 @@ public:
     static void load(const std::vector<std::string>& args);
 
     /// @brief Advances by one step (or up to the given time)
-    //static void simulationStep(const SUMOTime time = 0);
+    static void simulationStep(const SUMOTime time = 0);
 
     /// @brief {object->{variable->value}}
     typedef std::map<int, TraCIValue> TraCIValues;
@@ -99,10 +99,6 @@ public:
     static const MSLane* getLaneChecking(const std::string& edgeID, int laneIndex, double pos);
     static std::pair<MSLane*, double> convertCartesianToRoadMap(Position pos);
 
-    static std::vector<std::string>& getLoadArgs() {
-        return myLoadArgs;
-    }
-
 private:
     /// @brief invalidated copy constructor
     TraCI(const TraCI& src);
@@ -112,8 +108,6 @@ private:
 
     SubscribedValues mySubscribedValues;
     SubscribedContextValues mySubscribedContextValues;
-
-    static std::vector<std::string> myLoadArgs;
 };
 
 

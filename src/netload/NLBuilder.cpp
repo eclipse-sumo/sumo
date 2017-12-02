@@ -222,59 +222,54 @@ NLBuilder::build() {
 }
 
 
-int
-NLBuilder::loadAndRun() {
-    MSNet::SimulationState state = MSNet::SIMSTATE_LOADING;
-    while (state == MSNet::SIMSTATE_LOADING) {
-        OptionsCont& oc = OptionsCont::getOptions();
-        oc.clear();
-        MSFrame::fillOptions();
-        OptionsIO::getOptions();
-        if (oc.processMetaOptions(OptionsIO::getArgC() < 2)) {
-            SystemFrame::close();
-            return 0;
-        }
-        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
-        if (!MSFrame::checkOptions()) {
-            throw ProcessError();
-        }
-        MsgHandler::initOutputOptions();
-        RandHelper::initRandGlobal();
-        RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
-        RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
-        MSFrame::setMSGlobals(oc);
-        MSVehicleControl* vc = 0;
-        if (MSGlobals::gUseMesoSim) {
-            vc = new MEVehicleControl();
-        } else {
-            vc = new MSVehicleControl();
-        }
-        MSNet* net = new MSNet(vc, new MSEventControl(), new MSEventControl(), new MSEventControl());
+MSNet*
+NLBuilder::init() {
+    OptionsCont& oc = OptionsCont::getOptions();
+    oc.clear();
+    MSFrame::fillOptions();
+    OptionsIO::getOptions();
+    if (oc.processMetaOptions(OptionsIO::getArgC() < 2)) {
+        SystemFrame::close();
+        return nullptr;
+    }
+    XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+    if (!MSFrame::checkOptions()) {
+        throw ProcessError();
+    }
+    MsgHandler::initOutputOptions();
+    RandHelper::initRandGlobal();
+    RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
+    RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
+    MSFrame::setMSGlobals(oc);
+    MSVehicleControl* vc = 0;
+    if (MSGlobals::gUseMesoSim) {
+        vc = new MEVehicleControl();
+    } else {
+        vc = new MSVehicleControl();
+    }
+    MSNet* net = new MSNet(vc, new MSEventControl(), new MSEventControl(), new MSEventControl());
 #ifndef NO_TRACI
-        // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
-        TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
+    // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
+    TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
 #endif
 
-        NLEdgeControlBuilder eb;
-        NLDetectorBuilder db(*net);
-        NLJunctionControlBuilder jb(*net, db);
-        NLTriggerBuilder tb;
-        NLHandler handler("", *net, db, tb, eb, jb);
-        tb.setHandler(&handler);
-        NLBuilder builder(oc, *net, eb, jb, db, handler);
-        MsgHandler::getErrorInstance()->clear();
-        MsgHandler::getWarningInstance()->clear();
-        MsgHandler::getMessageInstance()->clear();
-        if (builder.build()) {
-            state = net->simulate(string2time(oc.getString("begin")), string2time(oc.getString("end")));
-            delete net;
-        } else {
-            MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
-            delete net;
-            return 1;
-        }
+    NLEdgeControlBuilder eb;
+    NLDetectorBuilder db(*net);
+    NLJunctionControlBuilder jb(*net, db);
+    NLTriggerBuilder tb;
+    NLHandler handler("", *net, db, tb, eb, jb);
+    tb.setHandler(&handler);
+    NLBuilder builder(oc, *net, eb, jb, db, handler);
+    MsgHandler::getErrorInstance()->clear();
+    MsgHandler::getWarningInstance()->clear();
+    MsgHandler::getMessageInstance()->clear();
+    if (builder.build()) {
+        // preload the routes especially for TraCI
+        net->loadRoutes();
+        return net;
     }
-    return 0;
+    delete net;
+    throw ProcessError();
 }
 
 

@@ -189,8 +189,8 @@ GUIRunThread::makeStep() {
         MSNet::SimulationState state = myNet->simulationState(mySimEndTime);
 #ifndef NO_TRACI
         if (state == MSNet::SIMSTATE_LOADING) {
-            OptionsIO::setArgs(TraCI::getLoadArgs());
-            TraCI::getLoadArgs().clear();
+            OptionsIO::setArgs(TraCIServer::getInstance()->getLoadArgs());
+            TraCIServer::getInstance()->getLoadArgs().clear();
         } else if (state != MSNet::SIMSTATE_RUNNING) {
             if (TraCIServer::getInstance() != 0 && !TraCIServer::wasClosed()) {
                 state = MSNet::SIMSTATE_RUNNING;

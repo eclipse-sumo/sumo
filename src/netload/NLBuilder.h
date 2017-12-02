@@ -100,9 +100,9 @@ public:
     virtual bool build();
 
     /**
-    * loads the net, additional routes and the detectors and starts the simulation
+    * loads the net, additional routes and the detectors
     */
-    static int loadAndRun();
+    static MSNet* init();
 
 
 protected:
