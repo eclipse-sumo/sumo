@@ -52,17 +52,19 @@ def get_options(args=None):
     optParser.add_option( "-b", "--begin", type="float", default=0, help="begin time in minutes")
     optParser.add_option( "--end", type="float", default=None, help="end time in minutes")
     optParser.add_option("-o", "--output-file", dest="output", help="write output to file instead of printing it to console", metavar="FILE")
+    optParser.add_option("--flow-output", dest="flowout", help="write output in flowfile format to FILE", metavar="FILE")
     optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
-    if not options.detfile or not options.edgeDataFile or not options.flowfile:
+    if not options.detfile or not options.edgeDataFile or (not options.flowfile
+            and not options.flowout):
         optParser.print_help()
         sys.exit()
 
     return options
 
 
-def readEdgeData(edgeDataFile, begin, end):
+def readEdgeData(edgeDataFile, begin, end, detReader, flowout):
     edgeFlow = defaultdict(lambda : 0)
     for interval in parse(edgeDataFile, "interval", attr_conversions={"begin":float, "end":float}):
         if DEBUG:
@@ -76,8 +78,16 @@ def readEdgeData(edgeDataFile, begin, end):
                 validInterval -= interval.end - end
             scale = validInterval / (interval.end - interval.begin)
             # store data
+            if flowout:
+                f = open(flowout, 'a')
             for edge in interval.edge:
                 edgeFlow[edge.id] += (int(edge.departed) + int(edge.entered)) * scale
+                if flowout:
+                    for group in detReader.getEdgeDetGroups(edge.id):
+                        f.write(";".join(map(str, [group.ids[0], interval.begin / 60,
+                            edgeFlow[edge.id], edge.speed])) + "\n")
+            if flowout:
+                f.close()
             if DEBUG:
                 print("    validInterval=%s scale=%s" % (validInterval, scale))
     return edgeFlow
@@ -147,6 +157,15 @@ def main(options):
         options.outfile = sys.stdout
     else:
         options.outfile = open(options.output, 'w')
+    if options.flowout:
+        with open(options.flowout, 'w') as f:
+            f.write("Detector;Time;qPKW;vPKW\n")
+        options.begin = None
+        for interval in parse(options.edgeDataFile, "interval", attr_conversions={"begin":float, "end":float}):
+            if options.begin is None:
+                options.begin = interval.begin / 60
+            options.end = interval.end / 60
+
     detReader = detector.DetectorReader(options.detfile, LaneMap())
     time = options.begin * 60
     haveDetFlows = True
@@ -156,13 +175,15 @@ def main(options):
         intervalEndM = intervalBeginM + options.interval
         if options.end is not None:
             intervalEndM = min(intervalEndM, options.end)
-        if options.verbose:
-            print("Reading flows")
-        haveDetFlows = detReader.readFlows(options.flowfile, flow=options.flowcol, time="Time", timeVal=intervalBeginM, timeMax=intervalEndM)
+        if options.flowfile:
+            if options.verbose:
+                print("Reading flows")
+            haveDetFlows = detReader.readFlows(options.flowfile, flow=options.flowcol, time="Time", timeVal=intervalBeginM, timeMax=intervalEndM)
         if options.verbose:
             print("Reading edgeData")
-        edgeFlow = readEdgeData(options.edgeDataFile, time, intervalEndM * 60)
-        if haveDetFlows:
+        edgeFlow = readEdgeData(options.edgeDataFile, time, intervalEndM * 60,
+                detReader, options.flowout)
+        if haveDetFlows and options.flowfile:
             printFlows(options, edgeFlow, detReader)
             calcStatistics(options, intervalBeginM, edgeFlow, detReader)
             detReader.clearFlows()
