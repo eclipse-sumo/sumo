@@ -50,7 +50,7 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-int OptionsIO::myArgC;
+int OptionsIO::myArgC = 0;
 char** OptionsIO::myArgV;
 
 
@@ -66,9 +66,10 @@ OptionsIO::setArgs(int argc, char** argv) {
 
 void
 OptionsIO::setArgs(const std::vector<std::string>& args) {
+    char* const app = myArgC > 0 ? myArgV[0] : 0;
     myArgC = (int)args.size() + 1;
     char** argv = new char* [myArgC];
-    argv[0] = myArgV[0];
+    argv[0] = app;
     for (int i = 1; i < myArgC; i++) {
         argv[i] = new char[args[i - 1].size() + 1];
         std::strcpy(argv[i], args[i - 1].c_str());

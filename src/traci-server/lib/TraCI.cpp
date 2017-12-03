@@ -55,6 +55,7 @@ TraCI::connect(const std::string& host, int port) {
 
 void
 TraCI::load(const std::vector<std::string>& args) {
+    XMLSubSys::init(); // this may be not good for multiple loads
     OptionsIO::setArgs(args);
     NLBuilder::init();
 }
