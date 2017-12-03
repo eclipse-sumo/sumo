@@ -14,11 +14,17 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+import os
 import sys
 from collections import defaultdict
 from xml.sax import make_parser, handler
 
 MAX_POS_DEVIATION = 10
+
+class LaneMap:
+    def get(self, key, default):
+        return key[0:-2]
+
 
 def relError(actual, expected):
     if expected == 0:
@@ -64,19 +70,20 @@ def parseFlowFile(flowFile, detCol="Detector", timeCol="Time", flowCol="qPKW", s
 
 class DetectorGroupData:
 
-    def __init__(self, pos, isValid, id=None):
+    def __init__(self, pos, isValid, id=None, detType=None):
         self.ids = []
         self.pos = pos
         self.isValid = isValid
         self.totalFlow = 0
         self.avgSpeed = 0
         self.entryCount = 0
+        self.type = detType
         if id is not None:
             self.ids.append(id)
-        # timeline data (see readFlowsTimeline)
         self.begin = 0
-        self.timeline = []
+        self.lastTime = None
         self.interval = None
+        self.timeline = []
 
     def addDetFlow(self, flow, speed):
         oldFlow = self.totalFlow
@@ -86,10 +93,42 @@ class DetectorGroupData:
                 self.avgSpeed * oldFlow + speed * flow) / self.totalFlow
         self.entryCount += 1
 
-    def clearFlow(self):
+    def addDetFlowTime(self, time, flow, speed):
+        if self.interval is None:
+            raise RuntimeError("DetectorGroupData interval not initialized")
+        time -= self.begin
+        index = int(time / self.interval)
+        if index > len(self.timeline):
+            # missing entries in between
+            raise RuntimeError("Data interval is higher than aggregation interval")
+        if index == len(self.timeline):
+            # new entry
+            if time % self.interval != 0 and time > self.interval:
+                raise RuntimeError("Aggregation interval is not a multiple of data interval (%s time=%s begin=%s)" % (self.interval, time, self.begin))
+            self.timeline.append([0, 0])
+        oldFlow, oldSpeed = self.timeline[index]
+        newFlow = oldFlow + flow
+        if flow > 0 and speed is not None:
+            newSpeed = (oldSpeed * oldFlow + speed * flow) / newFlow
+        else:
+            newSpeed = oldSpeed
+        self.timeline[index] = [newFlow, newSpeed]
+        self.entryCount += 1
+
+    def clearFlow(self, begin, interval):
         self.totalFlow = 0
         self.avgSpeed = 0
         self.entryCount = 0
+        self.begin = begin
+        self.lastTime = None
+        self.interval = interval
+        self.timeline = []
+
+    def getName(self, longName):
+        name = os.path.commonprefix(self.ids)
+        if name == "" or longName:
+            name = ';'.join(sorted(self.ids))
+        return name
 
 
 class DetectorReader(handler.ContentHandler):
@@ -105,7 +144,7 @@ class DetectorReader(handler.ContentHandler):
             parser.setContentHandler(self)
             parser.parse(detFile)
 
-    def addDetector(self, id, pos, edge):
+    def addDetector(self, id, pos, edge, detType):
         if id in self._det2edge:
             print("Warning! Detector %s already known." % id, file=sys.stderr)
             return
@@ -122,7 +161,7 @@ class DetectorReader(handler.ContentHandler):
                     break
             if not haveGroup:
                 self._edge2DetData[edge].append(
-                    DetectorGroupData(pos, True, id))
+                    DetectorGroupData(pos, True, id, detType))
         self._det2edge[id] = edge
 
     def getEdgeDetGroups(self, edge):
@@ -130,8 +169,9 @@ class DetectorReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'detectorDefinition' or name == 'e1Detector':
+            detType = attrs['type'] if attrs.has_key('type') else None
             self.addDetector(attrs['id'], float(attrs['pos']),
-                             self._laneMap.get(attrs['lane'], self._currentEdge))
+                    self._laneMap.get(attrs['lane'], self._currentEdge), detType)
         elif name == 'group':
             self._currentGroup = DetectorGroupData(float(attrs['pos']),
                                                    attrs.get('valid', "1") == "1")
@@ -143,19 +183,23 @@ class DetectorReader(handler.ContentHandler):
         if name == 'group':
             self._currentGroup = None
 
-    def addFlow(self, det, flow, speed=0.0):
-        #print("addFlow det=%s flow=%s" % (det, flow))
+    def getGroup(self, det):
         if det in self._det2edge:
             edge = self._det2edge[det]
             for group in self._edge2DetData[edge]:
                 if det in group.ids:
-                    group.addDetFlow(flow, speed)
-                    break
+                    return group
+        return None
 
-    def clearFlows(self):
+    def addFlow(self, det, flow, speed=0.0):
+        group = self.getGroup(det)
+        if group is not None:
+            group.addDetFlow(flow, speed)
+
+    def clearFlows(self, begin=0, interval=None):
         for groupList in self._edge2DetData.itervalues():
             for group in groupList:
-                group.clearFlow()
+                group.clearFlow(begin, interval)
 
 
     def readFlows(self, flowFile, det="Detector", flow="qPKW", speed=None, time=None, timeVal=None, timeMax=None):
@@ -166,6 +210,16 @@ class DetectorReader(handler.ContentHandler):
         for det, time, flow, speed in values:
             hadFlow = True
             self.addFlow(det, flow, speed)
+        return hadFlow
+
+    def readFlowsTimeline(self, flowFile, interval, **args):
+        values = parseFlowFile(flowFile, **args)
+        hadFlow = False
+        for det, time, flow, speed in values:
+            hadFlow = True
+            group = self.getGroup(det)
+            if group is not None:
+                group.addDetFlowTime(time, flow, speed)
         return hadFlow
 
     def findTimes(self, flowFile, tMin, tMax, det="Detector", time="Time"):
@@ -185,4 +239,12 @@ class DetectorReader(handler.ContentHandler):
                     if tMax is None or tMax < curTime:
                         tMax = curTime
         return tMin, tMax
+
+
+    def getGroups(self):
+        for edge, detData in self._edge2DetData.items():
+            for group in detData:
+                if group.isValid:
+                    yield edge, group
+
 
