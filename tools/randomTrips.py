@@ -270,7 +270,7 @@ def buildTripGenerator(net, options):
 
 
 def is_walk_attribute(attr):
-    for cand in ['departPos', 'arrivalPos', 'speed=', 'duration=', 'busStop=']:
+    for cand in ['arrivalPos', 'speed=', 'duration=', 'busStop=']:
         if cand in attr:
             return True
     return False
@@ -284,7 +284,7 @@ def is_persontrip_attribute(attr):
 
 
 def is_person_attribute(attr):
-    for cand in ['type']:
+    for cand in ['departPos', 'type']:
         if cand in attr:
             return True
     return False
