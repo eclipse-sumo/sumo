@@ -99,8 +99,13 @@ class DetectorGroupData:
         time -= self.begin
         index = int(time / self.interval)
         if index > len(self.timeline):
-            # missing entries in between
-            raise RuntimeError("Data interval is higher than aggregation interval")
+            if len(self.timeline) == 0:
+                # init
+                self.timeline = [[None, None] for i in range(index)]
+                self.timeline.append([0, 0])
+            else:
+                raise RuntimeError("Data interval is higher than aggregation interval (%s, time=%s, begin=%s, lastTime=%s)" % (
+                    self.interval, time ,self.begin, len(self.timeline) * self.interval))
         if index == len(self.timeline):
             # new entry
             if time % self.interval != 0 and time > self.interval:

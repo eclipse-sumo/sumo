@@ -90,7 +90,15 @@ def printFlows(options, edgeFlow, detReader):
 
 
 def initDataList(begin, end, interval):
-    return [0] * int(math.ceil((end - begin) / interval))
+    return [None] * int(math.ceil((end - begin) / interval))
+
+def addToDataList(data, i, val):
+    if val is not None:
+        if data[i] is None:
+            data[i] = val
+        else:
+            data[i] += val
+
 
 
 def plot(options, allData, prefix="", linestyle="-"):
@@ -129,7 +137,7 @@ def main(options):
             for edge, group in detReader.getGroups():
                 assert(len(group.timeline) <= len(data))
                 for i, (flow, speed) in enumerate(group.timeline):
-                    data[i] += flow
+                    addToDataList(data, i, flow)
             allData.append(data)
         plot(options, allData)
         if options.show:
@@ -144,7 +152,7 @@ def main(options):
                     assert(len(group.timeline) <= len(data))
                     if group.type == detType :
                         for i, (flow, speed) in enumerate(group.timeline):
-                            data[i] += flow
+                            addToDataList(data, i, flow)
                 allData.append(data)
             plot(options, allData, detType, linestyle)
         if options.show:
@@ -158,7 +166,7 @@ def main(options):
                 group = detReader.getGroup(det)
                 assert(len(group.timeline) <= len(data))
                 for i, (flow, speed) in enumerate(group.timeline):
-                    data[i] += flow
+                    addToDataList(data, i, flow)
                 allData.append(data)
             plot(options, allData, "%s (%s)" % (groupName, group.type))
         if options.show:
