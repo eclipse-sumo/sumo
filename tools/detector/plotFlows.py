@@ -53,6 +53,7 @@ def get_options(args=None):
     optParser.add_option("--extension", help="extension for saving plots", default="png")
     optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
     optParser.add_option("-g", "--group-by", dest="groupby", help="group detectors (all, none, type) ", default="all")
+    optParser.add_option("--single-plot", action="store_true", dest="singleplot", default=False, help="put averything in a single plot")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     options, args = optParser.parse_args(args=args)
     if not options.detfile or not options.flowfiles:
@@ -92,16 +93,19 @@ def initDataList(begin, end, interval):
     return [0] * int(math.ceil((end - begin) / interval))
 
 
-def plot(options, allData, prefix=""):
-    fig = plt.figure()
+def plot(options, allData, prefix="", linestyle="-"):
+    if not options.singleplot:
+        fig = plt.figure()
+        labelsuffix = ""
+    else:
+        labelsuffix = " %s" % prefix
+
     plt.ylabel("Avg. Simulation Flow %s" % prefix)
     plt.xlabel("Minutes")
     x = range(int(options.begin), int(options.end), options.interval)
     for f, data in zip(options.flowfiles, allData):
-        plt.plot(x, data, label=f[-12:-4])
+        plt.plot(x, data, label=f[-12:-4] + labelsuffix, linestyle=linestyle)
     plt.legend(loc='best')
-    if options.show:
-        plt.show()
 
 
 def main(options):
@@ -116,6 +120,8 @@ def main(options):
         detReader.clearFlows(options.begin, options.interval) # initialize
         detReader.readFlowsTimeline(f, options.interval, begin=options.begin, end=options.end, flowCol=options.flowcol)
     # aggregated detectors
+    if options.singleplot:
+        plt.figure(figsize=(14, 9), dpi=100)
     if options.groupby == "all":
         allData = [] # one list for each file 
         for detReader, f in zip(detReaders, options.flowfiles):
@@ -126,8 +132,11 @@ def main(options):
                     data[i] += flow
             allData.append(data)
         plot(options, allData)
+        if options.show:
+            plt.show()
+
     elif options.groupby == "type":
-        for detType in ["source", "sink", "between"]:
+        for detType, linestyle in [("source", "-"), ("sink", ":"), ("between", "--")]:
             allData = [] # one list for each file 
             for detReader, f in zip(detReaders, options.flowfiles):
                 data = initDataList(options.begin, options.end, options.interval)
@@ -137,7 +146,10 @@ def main(options):
                         for i, (flow, speed) in enumerate(group.timeline):
                             data[i] += flow
                 allData.append(data)
-            plot(options, allData, detType)
+            plot(options, allData, detType, linestyle)
+        if options.show:
+            plt.show()
+
     elif options.groupby == "none":
         for det, groupName in [(g.ids[0], g.getName(options.longnames)) for e, g in detReaders[0].getGroups()]:
             allData = [] # one list for each file 
@@ -149,6 +161,9 @@ def main(options):
                     data[i] += flow
                 allData.append(data)
             plot(options, allData, "%s (%s)" % (groupName, group.type))
+        if options.show:
+            plt.show()
+
     else:
         raise RuntimeError("group-by '%s' not supported" % options.groupby)
 
