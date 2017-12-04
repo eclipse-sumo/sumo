@@ -462,7 +462,7 @@ MSLCM_SL2015::inform(void* info, MSVehicle* sender) {
     }
     //myOwnState &= 0xffffffff; // reset all bits of MyLCAEnum but only those
     myOwnState |= pinfo->second;
-    if (gDebugFlag2 || DEBUG_COND) {
+    if (gDebugFlag2 || DEBUG_COND || sender->getLaneChangeModel().debugVehicle()) {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
                   << " informedBy=" << sender->getID()
@@ -1739,6 +1739,10 @@ MSLCM_SL2015::saveBlockerLength(const MSVehicle* blocker, int lcaCounter) {
 void MSLCM_SL2015::addLCSpeedAdvice(const double vSafe) {
     const double accel = SPEED2ACCEL(vSafe-myVehicle.getSpeed());
     myLCAccelerationAdvices.push_back(accel);
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << myVehicle.getID() << " accepted LC speed advice "
+                << "vSafe="<< vSafe << " -> accel="<< accel <<  "\n";
+    }
 }
 
 
@@ -2835,12 +2839,32 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
             // will not be read before the next action step at current time + actionStepLength-TS, so we need to schedule the corresponding speed.
             const double timeTillActionStep = myVehicle.getActionStepLengthSecs()-TS;
             const double nextActionStepSpeed = MAX2(0., myVehicle.getSpeed() + timeTillActionStep*myVehicle.getAcceleration());
-            //const double nextLatDist = fabs(myOrigLatDist) - MIN2(myAccelLat, 0.5*fabs(myOrigLatDist)/secondsToLeaveLane)*timeTillActionStep;
-            const double avoidArrivalSpeed = nextActionStepSpeed + TS*MSCFModel::avoidArrivalAccel(myLeftSpace, secondsToLeaveLane-timeTillActionStep, nextActionStepSpeed);
+            double nextLeftSpace;
+            if (nextActionStepSpeed > 0.) {
+                nextLeftSpace = myLeftSpace - timeTillActionStep*(myVehicle.getSpeed() + nextActionStepSpeed)*0.5;
+            } else if (myVehicle.getAcceleration() == 0) {
+                nextLeftSpace = myLeftSpace;
+            } else {
+                assert(myVehicle.getAcceleration() < 0.);
+                nextLeftSpace = myLeftSpace + (myVehicle.getSpeed()*myVehicle.getSpeed()/myVehicle.getAcceleration())*0.5;
+            }
+            const double avoidArrivalSpeed = nextActionStepSpeed + TS*MSCFModel::avoidArrivalAccel(nextLeftSpace, secondsToLeaveLane-timeTillActionStep, nextActionStepSpeed);
 
             myCommittedSpeed = MIN3(avoidArrivalSpeed,
                                     myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle),
                                     myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
+
+            if (gDebugFlag2) {
+                std::cout << SIMTIME
+                          << " veh=" << myVehicle.getID()
+                          << " avoidArrivalSpeed=" << avoidArrivalSpeed
+                          << " currentSpeed=" << myVehicle.getSpeed()
+                          << " myLeftSpace=" << myLeftSpace
+                          << "\n             nextLeftSpace=" << nextLeftSpace
+                          << " nextLeftSpace=" << nextActionStepSpeed
+                          << " nextActionStepRemainingSeconds=" << secondsToLeaveLane-timeTillActionStep
+                          << "\n";
+            }
         }
         myCommittedSpeed = commitFollowSpeed(myCommittedSpeed, maneuverDist, secondsToLeaveLane, leaders, myVehicle.getLane()->getRightSideOnEdge());
         myCommittedSpeed = commitFollowSpeed(myCommittedSpeed, maneuverDist, secondsToLeaveLane, neighLeaders, neighLane.getRightSideOnEdge());

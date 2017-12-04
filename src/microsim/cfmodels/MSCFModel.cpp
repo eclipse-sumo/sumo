@@ -412,7 +412,7 @@ MSCFModel::estimateArrivalTime(double dist, double initialSpeed, double arrivalS
 double
 MSCFModel::avoidArrivalAccel(double dist, double time, double speed) {
     assert(time>0 || dist==0);
-    if (dist==0) {
+    if (dist<=0) {
         return -std::numeric_limits<double>::max();
     } else if (time*speed > 2*dist) {
         // stop before dist is necessary. We need
