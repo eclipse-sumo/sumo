@@ -551,6 +551,38 @@ MSVehicle::Influencer::getRouterTT() const {
 }
 
 #endif
+/* -------------------------------------------------------------------------
+ * Stop-methods
+ * ----------------------------------------------------------------------- */
+double
+MSVehicle::Stop::getEndPos(const SUMOVehicle& veh) const {
+    if (busstop != 0) {
+        return busstop->getLastFreePos(veh);
+    } else if (containerstop != 0) {
+        return containerstop->getLastFreePos(veh);
+    } else if (parkingarea != 0) {
+        return parkingarea->getLastFreePos(veh);
+    } else if (chargingStation != 0) {
+        return chargingStation->getLastFreePos(veh);
+    }
+    return pars.endPos;
+}
+
+
+std::string
+MSVehicle::Stop::getDescription() const {
+    if (parkingarea != 0) {
+        return "parkingArea:" + parkingarea->getID();
+    } else if (containerstop != 0) {
+        return "containerStop:" + containerstop->getID();
+    } else if (busstop != 0) {
+        return "busStop:" + busstop->getID();
+    } else if (chargingStation != 0) {
+        return "chargingStation:" + chargingStation->getID();
+    } else {
+        return "lane:" + lane->getID() + " pos:" + toString(pars.endPos);
+    }
+}
 
 
 /* -------------------------------------------------------------------------
@@ -4716,21 +4748,6 @@ MSVehicle::Stop::write(OutputDevice& dev) const {
         dev.writeAttr(SUMO_ATTR_EXPECTED_CONTAINERS, joinToString(pars.awaitedContainers, " "));
     }
     dev.closeTag();
-}
-
-
-double
-MSVehicle::Stop::getEndPos(const SUMOVehicle& veh) const {
-    if (busstop != 0) {
-        return busstop->getLastFreePos(veh);
-    } else if (containerstop != 0) {
-        return containerstop->getLastFreePos(veh);
-    } else if (parkingarea != 0) {
-        return parkingarea->getLastFreePos(veh);
-    } else if (chargingStation != 0) {
-        return chargingStation->getLastFreePos(veh);
-    }
-    return pars.endPos;
 }
 
 

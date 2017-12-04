@@ -926,6 +926,9 @@ public:
 
         /// @brief return halting position for upcoming stop;
         double getEndPos(const SUMOVehicle& veh) const;
+
+        /// @brief get a short description for showing in the gui
+        std::string getDescription() const;
     private:
         /// @brief Invalidated assignment operator
         Stop& operator=(const Stop& src);

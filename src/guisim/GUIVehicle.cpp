@@ -663,6 +663,8 @@ GUIVehicle::getStopInfo() const {
         result += "parking";
     } else if (isStopped()) {
         result += "stopped";
+    } else if (hasStops()) {
+        return "next: " + myStops.front().getDescription();
     } else {
         return "";
     }
@@ -670,6 +672,8 @@ GUIVehicle::getStopInfo() const {
         result += ", triggered";
     } else if (myStops.front().pars.containerTriggered) {
         result += ", containerTriggered";
+    } else if (myStops.front().collision) {
+        result += ", collision";
     } else {
         result += ", duration=" + time2string(myStops.front().duration);
     }
