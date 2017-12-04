@@ -103,7 +103,7 @@ protected:
     /// @brief optional output for start of lane-change maneuvre
     void outputLCStarted(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction);
     /// @brief optional output for end of lane-change maneuvre
-    void outputLCEnded(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction, double latDist);
+    void outputLCEnded(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction);
 
 private:
     /// Default constructor.

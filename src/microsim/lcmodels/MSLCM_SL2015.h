@@ -150,9 +150,6 @@ public:
     /// @brief try to set the given parameter for this laneChangeModel. Throw exception for unsupported key
     void setParameter(const std::string& key, const std::string& value);
 
-    /// @brief whether the current change completes the manoeuvre
-    bool sublaneChangeCompleted(const double latDist) const;
-
     /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
     ///        and updates maneuverDist according to lateral safety constraints.
     double computeSpeedLat(double latDist, double& maneuverDist);

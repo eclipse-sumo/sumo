@@ -3074,9 +3074,4 @@ MSLCM_SL2015::wantsChange(
     return result;
 }
 
-bool 
-MSLCM_SL2015::sublaneChangeCompleted(const double latDist) const {
-    return latDist == 0 || myManeuverDist == 0;
-}
-
 /****************************************************************************/

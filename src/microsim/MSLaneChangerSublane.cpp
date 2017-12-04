@@ -289,6 +289,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         std::cout << SIMTIME << " vehicle '" << vehicle->getID() << "' with maneuverDist=" << vehicle->getLaneChangeModel().getManeuverDist()
                 << " increments lateral position by latDist=" << latDist << std::endl;
     }
+    const bool completedManeuver = vehicle->getLaneChangeModel().getManeuverDist() - latDist == 0.;
     vehicle->getLaneChangeModel().setManeuverDist(vehicle->getLaneChangeModel().getManeuverDist() - latDist);
     vehicle->getLaneChangeModel().updateSafeLatDist(latDist);
 
@@ -303,7 +304,9 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         const double latOffset = vehicle->getLane()->getRightSideOnEdge() - shadowLane->getRightSideOnEdge();
         (myChanger.begin() + shadowLane->getIndex())->ahead.addLeader(vehicle, false, latOffset);
     }
-    outputLCEnded(vehicle, from, to, direction, latDist);
+    if (completedManeuver) {
+        outputLCEnded(vehicle, from, to, direction);
+    }
 
     // compute new angle of the vehicle from the x- and y-distances travelled within last time step
     // (should happen last because primaryLaneChanged() also triggers angle computation)
@@ -316,9 +319,10 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         // angle is between vehicle front and vehicle back (and depending on travelled distance)
         changeAngle = atan2(latDist, vehicle->getVehicleType().getLength() + SPEED2DIST(vehicle->getSpeed()));
     }
-    if (vehicle->getLaneChangeModel().debugVehicle()) std::cout << SIMTIME << " startChangeSublane shadowLane"
-            << " maneuverDist=" << vehicle->getLaneChangeModel().getManeuverDist()
-            << " latDist=" << latDist
+    if (vehicle->getLaneChangeModel().debugVehicle()) {
+        std::cout << SIMTIME << " startChangeSublane shadowLane"
+                << " maneuverDist=" << vehicle->getLaneChangeModel().getManeuverDist()
+                << " latDist=" << latDist
                 << " old=" << Named::getIDSecure(oldShadowLane)
                 << " new=" << Named::getIDSecure(vehicle->getLaneChangeModel().getShadowLane())
                 << " laneA=" << RAD2DEG(laneAngle)
@@ -326,8 +330,8 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
                 << " oldA=" << RAD2DEG(vehicle->getAngle())
                 << " newA=" << RAD2DEG(laneAngle + changeAngle)
                 << "\n";
-    vehicle->setAngle(laneAngle + changeAngle,
-            vehicle->getLaneChangeModel().sublaneChangeCompleted(latDist));
+    }
+    vehicle->setAngle(laneAngle + changeAngle, completedManeuver);
 
     // check if a traci manoeuvre must continue
     if ((vehicle->getLaneChangeModel().getOwnState() & LCA_TRACI) != 0) {
@@ -384,11 +388,10 @@ MSLaneChangerSublane::outputLCStarted(MSVehicle* vehicle, ChangerIt& from, Chang
 }
 
 void 
-MSLaneChangerSublane::outputLCEnded(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction, double latDist) {
+MSLaneChangerSublane::outputLCEnded(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction) {
     if (MSAbstractLaneChangeModel::haveLCOutput() && MSAbstractLaneChangeModel::outputLCEnded()
             // non-sublane change ended
-            && ((vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) != 0)
-            && vehicle->getLaneChangeModel().sublaneChangeCompleted(latDist)) {
+            && ((vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) != 0)) {
         vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);
         vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
         vehicle->getLaneChangeModel().setOrigLeaderGaps(from->aheadNext);
