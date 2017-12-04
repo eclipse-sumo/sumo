@@ -162,7 +162,7 @@ protected:
     bool myOff;
 
     /// @brief attribute to configure activation time threshold
-    bool myTimeThreshold;
+    double myTimeThreshold;
 
     /// @brief set with the GNERerouterInterval
     std::vector<GNERerouterInterval*> myRerouterIntervals;

@@ -410,7 +410,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             myProbability = parse<double>(value);
             break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            myProbability = parse<double>(value);
+            myTimeThreshold = parse<double>(value);
             break;
         case SUMO_ATTR_OFF:
             myOff = parse<bool>(value);
