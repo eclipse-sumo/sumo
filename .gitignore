@@ -16,6 +16,7 @@
 /sumo-*.zip
 /diff.*
 /compile
+/cmake-build
 # bin dir
 /bin/TraCITestClient*
 /bin/activitygen*
