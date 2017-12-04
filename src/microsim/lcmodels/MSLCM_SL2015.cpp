@@ -2664,9 +2664,17 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                                                << " surplusGapLeft=" << surplusGapLeft
                                                << "\n";
                 if (foeCenter < oldCenter) {
-                    surplusGapRight = MIN2(surplusGapRight, gap - currentMinGap);
+                    // If foe is maneuvering towards ego, reserve some additional distance.
+                    // But don't expect the foe to come closer than currentMinGap if it isn't already there.
+                    //   (XXX: How can the ego know the foe's maneuver dist?)
+                    const double foeManeuverDist = MAX2(0., foe->getLaneChangeModel().getManeuverDist());
+                    surplusGapRight = MIN3(surplusGapRight, gap - currentMinGap, MAX2(currentMinGap, gap - foeManeuverDist));
                 } else {
-                    surplusGapLeft = MIN2(surplusGapLeft, gap - currentMinGap);
+                    // If foe is maneuvering towards ego, reserve some additional distance.
+                    // But don't expect the foe to come closer than currentMinGap if it isn't already there.
+                    //   (XXX: How can the ego know the foe's maneuver dist?)
+                    const double foeManeuverDist = -MIN2(0., foe->getLaneChangeModel().getManeuverDist());
+                    surplusGapLeft = MIN3(surplusGapLeft, gap - currentMinGap, MAX2(currentMinGap, gap - foeManeuverDist));
                 }
                 if (saveMinGap) {
                     if (foeCenter < oldCenter) {
