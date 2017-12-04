@@ -73,7 +73,7 @@ Parameterised::knowsParameter(const std::string& key) const {
 }
 
 
-const std::string&
+const std::string
 Parameterised::getParameter(const std::string& key, const std::string& defaultValue) const {
     std::map<std::string, std::string>::const_iterator i = myMap.find(key);
     if (i != myMap.end()) {
