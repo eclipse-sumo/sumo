@@ -1007,7 +1007,6 @@ public:
     bool isStoppedInRange(double pos) const;
     /// @}
 
-    bool knowsEdgeTest(MSEdge& edge) const;
     int getLaneIndex() const;
 
     /**
