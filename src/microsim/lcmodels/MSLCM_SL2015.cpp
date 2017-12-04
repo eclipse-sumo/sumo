@@ -2136,7 +2136,7 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
         if (vehDist.first != 0 && myCFRelated.count(vehDist.first) == 0) {
             double foeRight, foeLeft;
             vehicles.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
-            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0 || (myVehicle.getSpeed() < SUMO_const_haltingSpeed && vehDist.first->getSpeed() < SUMO_const_haltingSpeed))) {
+            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0)) {
                 if (gDebugFlag2) {
                     std::cout << " ignoring cfrelated foe=" << vehDist.first->getID() << " gap=" << vehDist.second
                               << " sublane=" << i
