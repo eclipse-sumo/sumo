@@ -138,8 +138,22 @@ NLBuilder::build() {
     buildNet();
     // @note on loading order constraints:
     // - additional-files before route-files and state-files due to referencing
-    // - weight-files before additional-files since the latter might contain trips which depend on the weights
+    // - additional-files before weight-files since the latter might contain intermodal edge data and the intermodal net depends on the stops and public transport from the additionals
 
+    // load additional net elements (sources, detectors, ...)
+    if (myOptions.isSet("additional-files")) {
+        if (!load("additional-files")) {
+            return false;
+        }
+        // load shapes with separate handler
+        NLShapeHandler sh("", myNet.getShapeContainer());
+        if (!ShapeHandler::loadFiles(myOptions.getStringVector("additional-files"), sh)) {
+            return false;
+        }
+        if (myXMLHandler.haveSeenAdditionalSpeedRestrictions()) {
+            myNet.getEdgeControl().setAdditionalRestrictions();
+        }
+    }
     // load weights if wished
     if (myOptions.isSet("weight-files")) {
         if (!myOptions.isUsableFileList("weight-files")) {
@@ -170,20 +184,6 @@ NLBuilder::build() {
             if (!XMLSubSys::runParser(handler, *i)) {
                 return false;
             }
-        }
-    }
-    // load additional net elements (sources, detectors, ...)
-    if (myOptions.isSet("additional-files")) {
-        if (!load("additional-files")) {
-            return false;
-        }
-        // load shapes with separate handler
-        NLShapeHandler sh("", myNet.getShapeContainer());
-        if (!ShapeHandler::loadFiles(myOptions.getStringVector("additional-files"), sh)) {
-            return false;
-        }
-        if (myXMLHandler.haveSeenAdditionalSpeedRestrictions()) {
-            myNet.getEdgeControl().setAdditionalRestrictions();
         }
     }
     // load the previous state if wished

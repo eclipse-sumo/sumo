@@ -153,43 +153,12 @@ MSDevice_Routing::checkOptions(OptionsCont& oc) {
 
 void
 MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
-    OptionsCont& oc = OptionsCont::getOptions();
-    bool needRerouting = v.getParameter().wasSet(VEHPARS_FORCE_REROUTE);
-    needRerouting |= equippedByDefaultAssignmentOptions(oc, "rerouting", v);
-    if (!needRerouting && oc.getFloat("device.rerouting.probability") == 0 && !oc.isSet("device.rerouting.explicit")) {
-        // no route computation is modelled
-        return;
-    }
-    if (needRerouting) {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (v.getParameter().wasSet(VEHPARS_FORCE_REROUTE) || equippedByDefaultAssignmentOptions(oc, "rerouting", v)) {
         // route computation is enabled
         myWithTaz = oc.getBool("device.rerouting.with-taz");
         const SUMOTime period = string2time(oc.getString("device.rerouting.period"));
         const SUMOTime prePeriod = string2time(oc.getString("device.rerouting.pre-period"));
-        // initialise edge efforts if not done before
-        if (myEdgeSpeeds.size() == 0) {
-            myAdaptationSteps = oc.getInt("device.rerouting.adaptation-steps");
-            const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
-            const bool useLoaded = oc.getBool("device.rerouting.init-with-loaded-weights");
-            const double currentSecond = SIMTIME;
-            for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-                while ((*i)->getNumericalID() >= (int)myEdgeSpeeds.size()) {
-                    myEdgeSpeeds.push_back(0);
-                    if (myAdaptationSteps > 0) {
-                        myPastEdgeSpeeds.push_back(std::vector<double>());
-                    }
-                }
-                if (useLoaded) {
-                    myEdgeSpeeds[(*i)->getNumericalID()] = (*i)->getLength() / MSNet::getTravelTime(*i, 0, currentSecond);
-                } else {
-                    myEdgeSpeeds[(*i)->getNumericalID()] = (*i)->getMeanSpeed();
-                }
-                if (myAdaptationSteps > 0) {
-                    myPastEdgeSpeeds[(*i)->getNumericalID()] = std::vector<double>(myAdaptationSteps, myEdgeSpeeds[(*i)->getNumericalID()]);
-                }
-            }
-            myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
-            myRandomizeWeightsFactor = oc.getFloat("weights.random-factor");
-        }
         // make the weights be updated
         if (myAdaptationInterval == -1) {
             myAdaptationInterval = string2time(oc.getString("device.rerouting.adaptation-interval"));
@@ -251,6 +220,35 @@ MSDevice_Routing::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification
 }
 
 
+void
+MSDevice_Routing::initEdgeWeights() {
+    if (myEdgeSpeeds.empty()) {
+        const OptionsCont& oc = OptionsCont::getOptions();
+        myAdaptationSteps = oc.getInt("device.rerouting.adaptation-steps");
+        const bool useLoaded = oc.getBool("device.rerouting.init-with-loaded-weights");
+        const double currentSecond = SIMTIME;
+        for (const MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
+            while (edge->getNumericalID() >= (int)myEdgeSpeeds.size()) {
+                myEdgeSpeeds.push_back(0);
+                if (myAdaptationSteps > 0) {
+                    myPastEdgeSpeeds.push_back(std::vector<double>());
+                }
+            }
+            if (useLoaded) {
+                myEdgeSpeeds[edge->getNumericalID()] = edge->getLength() / MSNet::getTravelTime(edge, 0, currentSecond);
+            } else {
+                myEdgeSpeeds[edge->getNumericalID()] = edge->getMeanSpeed();
+            }
+            if (myAdaptationSteps > 0) {
+                myPastEdgeSpeeds[edge->getNumericalID()] = std::vector<double>(myAdaptationSteps, myEdgeSpeeds[edge->getNumericalID()]);
+            }
+        }
+        myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
+        myRandomizeWeightsFactor = oc.getFloat("weights.random-factor");
+    }
+}
+
+
 SUMOTime
 MSDevice_Routing::preInsertionReroute(const SUMOTime currentTime) {
     if (mySkipRouting == currentTime) {
@@ -301,6 +299,7 @@ MSDevice_Routing::getAssumedSpeed(const MSEdge* edge) {
 
 SUMOTime
 MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) {
+    initEdgeWeights();
     if (MSNet::getInstance()->getVehicleControl().getDepartedVehicleNo() == 0) {
         return myAdaptationInterval;
     }
@@ -352,6 +351,7 @@ MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) {
 
 void
 MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
+    initEdgeWeights();
     //check whether the weights did change since the last reroute
     if (myLastRouting >= myLastAdaptation) {
         return;

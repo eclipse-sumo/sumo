@@ -110,7 +110,7 @@ public:
 
     /// @brief returns whether any routing actions take place
     static bool isEnabled() {
-        return !myWithTaz && !myEdgeSpeeds.empty();
+        return !myWithTaz && myAdaptationInterval >= 0;
     }
 
     /// @brief return the router instance
@@ -244,6 +244,8 @@ private:
      */
     MSDevice_Routing(SUMOVehicle& holder, const std::string& id, SUMOTime period, SUMOTime preInsertionPeriod);
 
+    /// @brief initialize the edge weights if not done before
+    static void initEdgeWeights();
 
     /** @brief Performs rerouting before insertion into the network
      *
