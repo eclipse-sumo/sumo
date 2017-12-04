@@ -287,7 +287,8 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     vehicle->getLaneChangeModel().setSpeedLat(DIST2SPEED(latDist));
     if DEBUG_COND {
         std::cout << SIMTIME << " vehicle '" << vehicle->getID() << "' with maneuverDist=" << vehicle->getLaneChangeModel().getManeuverDist()
-                << " increments lateral position by latDist=" << latDist << std::endl;
+                << " and committedSpeed=" << vehicle->getLaneChangeModel().getCommittedSpeed()
+                        << " increments lateral position by latDist=" << latDist << std::endl;
     }
     const bool completedManeuver = vehicle->getLaneChangeModel().getManeuverDist() - latDist == 0.;
     vehicle->getLaneChangeModel().setManeuverDist(vehicle->getLaneChangeModel().getManeuverDist() - latDist);
