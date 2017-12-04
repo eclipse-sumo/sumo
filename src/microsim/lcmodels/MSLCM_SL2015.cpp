@@ -2052,11 +2052,45 @@ MSLCM_SL2015::checkBlockingVehicles(
                         }
                     }
                 } else if (overlapDest) {
+                    // Estimate state after actionstep (follower may be accelerating!)
+                    // A comparison between secure gap depending on the expected speeds and the extrapolated gap
+                    // determines whether the s is blocking the lane change.
+                    // (Note that the longitudinal state update has already taken effect before LC dynamics (thus "-TS" below), would be affected by #3665)
+
+                    // Use conservative estimate for time until next action step
+                    // (XXX: how can the ego know the foe's action step length?)
+                    const double timeTillAction = MAX2(follower->getActionStepLengthSecs(),leader->getActionStepLengthSecs()) - TS;
+                    // Ignore decel for follower
+                    const double followerAccel = MAX2(0., follower->getAcceleration());
+                    const double leaderAccel = leader->getAcceleration();
+                    // Expected gap after next actionsteps
+                    const double expectedGap = MSCFModel::gapExtrapolation(timeTillAction, vehDist.second, leader->getSpeed(), follower->getSpeed(), leaderAccel, followerAccel, std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
+
+                    // Determine expected speeds and corresponding secure gap at the extrapolated timepoint
+                    const double followerExpectedSpeed = follower->getSpeed() + timeTillAction*followerAccel;
+                    const double leaderExpectedSpeed = MAX2(0., leader->getSpeed() + timeTillAction*leaderAccel);
+                    const double expectedSecureGap = follower->getCarFollowModel().getSecureGap(followerExpectedSpeed, leaderExpectedSpeed, leader->getCarFollowModel().getMaxDecel());
+
+#ifdef DEBUG_ACTIONSTEPS
+                    if (gDebugFlag2) {
+                        std::cout << "    timeTillAction=" << timeTillAction
+                                << " followerAccel=" << followerAccel
+                                << " followerExpectedSpeed=" << followerExpectedSpeed
+                                << " leaderAccel=" << leaderAccel
+                                << " leaderExpectedSpeed=" << leaderExpectedSpeed
+                                << "\n    gap=" << vehDist.second
+                                << " gapChange=" << (expectedGap-vehDist.second)
+                                << " expectedGap=" << expectedGap
+                                << " expectedSecureGap=" << expectedSecureGap
+                                << std::endl;
+                    }
+#endif
+
                     const double decelFactor = (1 + 0.5 * myImpatience) * myAssertive;
-                    const double secureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+
                     // @note for euler-update, a different value for secureGap2 may be obtained when applying decelFactor to followerDecel rather than secureGap
-                    const double secureGap2 = secureGap / decelFactor;
-                    if (vehDist.second < secureGap2) {
+                    const double secureGap2 = expectedSecureGap / decelFactor;
+                    if (expectedGap < secureGap2) {
                         // Foe is a blocker. Update lateral safe gaps accordingly.
                         if (foeRight > leftVehSide) {
                             safeLatGapLeft = MIN2(safeLatGapLeft, foeRight-leftVehSide);
@@ -2065,8 +2099,8 @@ MSLCM_SL2015::checkBlockingVehicles(
                         }
 
                         if (gDebugFlag2) {
-                            std::cout << "    blocked by " << vehDist.first->getID() << " gap=" << vehDist.second
-                                      << " secGap=" << secureGap << " secGap2=" << secureGap2 << " decelFactor=" << decelFactor << "\n";
+                            std::cout << "    blocked by " << vehDist.first->getID() << " gap=" << vehDist.second << " expectedGap=" << expectedGap
+                                      << " expectedSecureGap=" << expectedSecureGap << " secGap2=" << secureGap2 << " decelFactor=" << decelFactor << "\n";
                         }
                         result |= blockType;
                         if (collectBlockers == 0) {
@@ -2074,9 +2108,9 @@ MSLCM_SL2015::checkBlockingVehicles(
                         } else {
                             collectBlockers->push_back(vehDist);
                         }
-                    } else if (gDebugFlag2 && vehDist.second < secureGap) {
-                        std::cout << "    ignore blocker " << vehDist.first->getID() << " gap=" << vehDist.second
-                                  << " secGap=" << secureGap << " secGap2=" << secureGap2 << " decelFactor=" << decelFactor << "\n";
+                    } else if (gDebugFlag2 && expectedGap < expectedSecureGap) {
+                        std::cout << "    ignore blocker " << vehDist.first->getID() << " gap=" << vehDist.second << " expectedGap=" << expectedGap
+                                  << " expectedSecureGap=" << expectedSecureGap << " secGap2=" << secureGap2 << " decelFactor=" << decelFactor << "\n";
                     }
                 }
             }
