@@ -285,6 +285,7 @@ protected:
     /// @brief check whether any of the vehicles overlaps with ego
     int checkBlockingVehicles(const MSVehicle* ego, const MSLeaderDistanceInfo& vehicles,
                               double latDist, double foeOffset, bool leaders, LaneChangeAction blockType,
+                              double& safeLatGapRight, double& safeLatGapLeft,
                               std::vector<CLeaderDist>* collectBlockers = 0) const;
 
     /// @brief return whether the given intervals overlap
