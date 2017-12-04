@@ -489,7 +489,8 @@ GUIVehicle::drawBestLanes() const {
 
 
 void
-GUIVehicle::drawRouteHelper(const MSRoute& r, double exaggeration) const {
+GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r) const {
+    const double exaggeration = s.vehicleSize.getExaggeration(s);
     MSRouteIterator i = r.begin();
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
     // draw continuation lanes when drawing the current route where available
@@ -508,6 +509,18 @@ GUIVehicle::drawRouteHelper(const MSRoute& r, double exaggeration) const {
             }
         }
         GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
+    }
+    for (const Stop& stop : myStops) {
+        Position pos = stop.lane->geometryPositionAtOffset(stop.getEndPos(*this)); 
+        GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth()), 0.1);
+        std::string label = "stop";
+        if (stop.pars.until >= 0) {
+            label += " until:" + time2string(stop.pars.until);
+        }
+        if (stop.duration >= 0) {
+            label += " duration:" + time2string(stop.duration);
+        }
+        GLHelper::drawText(label, pos, 1.0, s.vehicleName.size / s.scale, s.vehicleName.color);
     }
 }
 

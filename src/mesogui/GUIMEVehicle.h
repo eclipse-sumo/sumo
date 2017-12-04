@@ -43,6 +43,7 @@
 // class declarations
 // ===========================================================================
 class GUISUMOAbstractView;
+class GUIVisualizationSettings;
 
 
 // ===========================================================================
@@ -105,7 +106,7 @@ public:
     /** @brief Draws the route
      * @param[in] r The route to draw
      */
-    void drawRouteHelper(const MSRoute& r, double exaggeration) const;
+    void drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r) const;
 
     /// @brief retrieve information about the current stop state
     std::string getStopInfo() const;

@@ -33,6 +33,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/devices/MSDevice.h>
@@ -211,7 +212,8 @@ GUIMEVehicle::getColorValue(int activeScheme) const {
 
 
 void
-GUIMEVehicle::drawRouteHelper(const MSRoute& r, double exaggeration) const {
+GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r) const {
+    const double exaggeration = s.vehicleSize.getExaggeration(s);
     MSRouteIterator i = r.begin();
     for (; i != r.end(); ++i) {
         const GUILane* lane = static_cast<GUILane*>((*i)->getLanes()[0]);

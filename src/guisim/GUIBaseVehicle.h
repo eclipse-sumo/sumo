@@ -108,7 +108,7 @@ public:
     /** @brief Draws the route
      * @param[in] r The route to draw
      */
-    virtual void drawRouteHelper(const MSRoute& r, double exaggeration) const = 0;
+    virtual void drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r) const = 0;
 
     /// @brief retrieve information about the current stop state
     virtual std::string getStopInfo() const = 0;

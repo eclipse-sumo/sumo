@@ -92,7 +92,7 @@ public:
     /** @brief Draws the route
      * @param[in] r The route to draw
      */
-    void drawRouteHelper(const MSRoute& r, double exaggeration) const;
+    void drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r) const;
 
     void drawAction_drawVehicleBlinker(double length) const;
     void drawAction_drawVehicleBrakeLight(double length, bool onlyOne = 1) const;

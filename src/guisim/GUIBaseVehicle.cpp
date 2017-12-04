@@ -1203,15 +1203,14 @@ GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, double
         colors[3] = 0;
     }
     glColor3dv(colors);
-    const double exaggeration = s.vehicleSize.getExaggeration(s);
     if (routeNo == 0) {
-        drawRouteHelper(myVehicle.getRoute(), exaggeration);
+        drawRouteHelper(s, myVehicle.getRoute());
         return;
     }
     --routeNo; // only prior routes are stored
     const MSRoute* route = myRoutes->getRoute(routeNo);
     if (route != 0) {
-        drawRouteHelper(*route, exaggeration);
+        drawRouteHelper(s, *route);
     }
 }
 
