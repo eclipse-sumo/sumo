@@ -178,10 +178,36 @@ MSPerson::MSPersonStage_Walking::computeAverageSpeed() const {
 
 double
 MSPerson::MSPersonStage_Walking::walkDistance() const {
-    /// XXX internal edges not included
     double length = 0;
-    for (ConstMSEdgeVector::const_iterator i = myRoute.begin(); i != myRoute.end(); ++i) {
-        length += (*i)->getLength();
+    for (const MSEdge* edge : myRoute) {
+        length += edge->getLength();
+    }
+    if (myRoute.size() > 1 && MSPModel::getModel()->usingInternalLanes()) {
+        // use lower bound for distance to pass the intersection
+        for (ConstMSEdgeVector::const_iterator i = myRoute.begin(); i != myRoute.end() - 1; ++i) {
+            const MSEdge* fromEdge = *i;
+            const MSEdge* toEdge = *(i + 1);
+            const MSLane* from = getSidewalk<MSEdge, MSLane>(fromEdge);
+            const MSLane* to = getSidewalk<MSEdge, MSLane>(toEdge);
+            Position fromPos;
+            Position toPos;
+            if (from != 0 && to != 0) {
+                if (fromEdge->getToJunction() == toEdge->getFromJunction()) {
+                    fromPos = from->getShape().back();
+                    toPos = to->getShape().front();
+                } else if (fromEdge->getToJunction() == toEdge->getToJunction()) {
+                    fromPos = from->getShape().back();
+                    toPos = to->getShape().back();
+                } else if (fromEdge->getFromJunction() == toEdge->getFromJunction()) {
+                    fromPos = from->getShape().front();
+                    toPos = to->getShape().front();
+                } else if (fromEdge->getFromJunction() == toEdge->getToJunction()) {
+                    fromPos = from->getShape().front();
+                    toPos = to->getShape().back();
+                }
+                length += fromPos.distanceTo2D(toPos);
+            }
+        }
     }
     // determine walking direction for depart and arrival
     bool departFwd = true;

@@ -36,6 +36,7 @@ public:
     PedestrianState* add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now) override;
     void remove(PedestrianState* state) override;
     void cleanupHelper() override;
+    bool usingInternalLanes();
 
     SUMOTime execute(SUMOTime time);
     class Event : public Command {

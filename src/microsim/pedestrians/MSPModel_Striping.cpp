@@ -207,6 +207,11 @@ MSPModel_Striping::hasPedestrians(const MSLane* lane) {
 }
 
 
+bool 
+MSPModel_Striping::usingInternalLanes() {
+    return MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
+}
+
 PersonDist
 MSPModel_Striping::nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime) {
     PersonDist result((const MSPerson*)0, -1);

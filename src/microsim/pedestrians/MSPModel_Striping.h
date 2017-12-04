@@ -85,6 +85,9 @@ public:
     /// @brief whether the given lane has pedestrians on it
     bool hasPedestrians(const MSLane* lane);
 
+    /// @brief whether movements on intersections are modelled
+    bool usingInternalLanes();
+
     /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
     PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0);
 

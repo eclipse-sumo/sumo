@@ -118,6 +118,9 @@ public:
     /// @brief return whether the route may traversed with the given starting direction
     static bool canTraverse(int dir, const ConstMSEdgeVector& route);
 
+    /// @brief whether movements on intersections are modelled
+    virtual bool usingInternalLanes() = 0;
+
 private:
     static MSPModel* myModel;
 

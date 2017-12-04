@@ -66,6 +66,11 @@ public:
     /// @brief remove the specified person from the pedestrian simulation
     void remove(PedestrianState* state);
 
+    /// @brief whether movements on intersections are modelled
+    bool usingInternalLanes() { 
+        return false;
+    }
+
 private:
     class MoveToNextEdge : public Command {
     public:
