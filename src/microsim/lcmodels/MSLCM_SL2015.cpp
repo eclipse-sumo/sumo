@@ -2051,7 +2051,7 @@ MSLCM_SL2015::checkBlockingVehicles(
                             collectBlockers->push_back(vehDist);
                         }
                     }
-                } else if (overlapDest) {
+                } else if (overlapDest || !myCanChangeFully) {
                     // Estimate state after actionstep (follower may be accelerating!)
                     // A comparison between secure gap depending on the expected speeds and the extrapolated gap
                     // determines whether the s is blocking the lane change.
