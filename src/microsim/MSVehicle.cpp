@@ -2743,6 +2743,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                     }
 #endif
                 } else if (myState.myPos < myLane->getLength() + NUMERICAL_EPS) {
+                    // avoid warning due to numerical instability
                     approachedLane = myLane;
                     myState.myPos = myLane->getLength();
                 } else {
@@ -2795,6 +2796,9 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
             }
         }
 #endif
+        } else if (!hasArrived() && myState.myPos < myLane->getLength() + NUMERICAL_EPS) {
+            // avoid warning due to numerical instability when stopping at the end of the route
+            myState.myPos = myLane->getLength();
         }
 
     }
@@ -2909,7 +2913,7 @@ MSVehicle::executeMove() {
             WRITE_WARNING("Vehicle '" + getID() + "' performs emergency stop at the end of lane '" + myLane->getID()
                           + "'" + emergencyReason
                           + " (decel=" + toString(myAcceleration - myState.mySpeed)
-                          + ", offset = " + toString(myState.myPos - myLane->getLength())
+                          + ", offset=" + toString(myState.myPos - myLane->getLength())
                           + "), time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             MSNet::getInstance()->getVehicleControl().registerEmergencyStop();
             myState.myPos = myLane->getLength();
