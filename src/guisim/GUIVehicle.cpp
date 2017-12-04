@@ -510,10 +510,11 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r)
         }
         GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
     }
+    int stopIndex = 0;
     for (const Stop& stop : myStops) {
         Position pos = stop.lane->geometryPositionAtOffset(stop.getEndPos(*this)); 
         GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth()), 0.1);
-        std::string label = "stop";
+        std::string label = "stop " + toString(stopIndex);
         if (stop.pars.until >= 0) {
             label += " until:" + time2string(stop.pars.until);
         }
@@ -521,6 +522,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r)
             label += " duration:" + time2string(stop.duration);
         }
         GLHelper::drawText(label, pos, 1.0, s.vehicleName.size / s.scale, s.vehicleName.color);
+        stopIndex++;
     }
 }
 
