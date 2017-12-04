@@ -461,7 +461,7 @@ def main(options):
         trip_generator.via_generator.write_weights(
             options.weights_outprefix + VIA_SUFFIX)
 
-    # return wether trips could be genreated as requested
+    # return wether trips could be generated as requested
     return trip_generator is not None
 
 if __name__ == "__main__":
