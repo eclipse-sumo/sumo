@@ -22,6 +22,7 @@ from sumolib.output import parse
 from sumolib.miscutils import Statistics
 
 def main(tripinfos, lengthThreshold = 0.1):
+    lengthThreshold = float(lengthThreshold)
     stats = Statistics('walkfactor')
     statsZeroDuration = Statistics('length of zero-duration walks')
     statsShort = Statistics('duration of short walks (length <= %s)' % lengthThreshold)
