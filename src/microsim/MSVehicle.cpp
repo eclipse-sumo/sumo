@@ -585,6 +585,46 @@ MSVehicle::Stop::getDescription() const {
 }
 
 
+void
+MSVehicle::Stop::write(OutputDevice& dev) const {
+    // lots of duplication with SUMOVehicleParameter::Stop::write()
+    dev.openTag(SUMO_TAG_STOP);
+    if (busstop != 0) {
+        dev.writeAttr(SUMO_ATTR_BUS_STOP, busstop->getID());
+    }
+    if (containerstop != 0) {
+        dev.writeAttr(SUMO_ATTR_CONTAINER_STOP, containerstop->getID());
+    }
+    if (busstop == 0 && containerstop == 0) {
+        dev.writeAttr(SUMO_ATTR_LANE, lane->getID());
+        dev.writeAttr(SUMO_ATTR_STARTPOS, pars.startPos);
+        dev.writeAttr(SUMO_ATTR_ENDPOS, pars.endPos);
+    }
+    if (duration >= 0) {
+        dev.writeAttr(SUMO_ATTR_DURATION, STEPS2TIME(duration));
+    }
+    if (pars.until >= 0) {
+        dev.writeAttr(SUMO_ATTR_UNTIL, STEPS2TIME(pars.until));
+    }
+    if (pars.triggered) {
+        dev.writeAttr(SUMO_ATTR_TRIGGERED, pars.triggered);
+    }
+    if (pars.containerTriggered) {
+        dev.writeAttr(SUMO_ATTR_CONTAINER_TRIGGERED, pars.containerTriggered);
+    }
+    if (pars.parking) {
+        dev.writeAttr(SUMO_ATTR_PARKING, pars.parking);
+    }
+    if (pars.awaitedPersons.size() > 0) {
+        dev.writeAttr(SUMO_ATTR_EXPECTED, joinToString(pars.awaitedPersons, " "));
+    }
+    if (pars.awaitedContainers.size() > 0) {
+        dev.writeAttr(SUMO_ATTR_EXPECTED_CONTAINERS, joinToString(pars.awaitedContainers, " "));
+    }
+    dev.closeTag();
+}
+
+
 /* -------------------------------------------------------------------------
  * MSVehicle-methods
  * ----------------------------------------------------------------------- */
@@ -4708,46 +4748,6 @@ MSVehicle::isRemoteControlled() const {
 bool
 MSVehicle::wasRemoteControlled(SUMOTime lookBack) const {
     return myInfluencer != 0 && myInfluencer->getLastAccessTimeStep() + lookBack >= MSNet::getInstance()->getCurrentTimeStep();
-}
-
-
-void
-MSVehicle::Stop::write(OutputDevice& dev) const {
-    // lots of duplication with SUMOVehicleParameter::Stop::write()
-    dev.openTag(SUMO_TAG_STOP);
-    if (busstop != 0) {
-        dev.writeAttr(SUMO_ATTR_BUS_STOP, busstop->getID());
-    }
-    if (containerstop != 0) {
-        dev.writeAttr(SUMO_ATTR_CONTAINER_STOP, containerstop->getID());
-    }
-    if (busstop == 0 && containerstop == 0) {
-        dev.writeAttr(SUMO_ATTR_LANE, lane->getID());
-        dev.writeAttr(SUMO_ATTR_STARTPOS, pars.startPos);
-        dev.writeAttr(SUMO_ATTR_ENDPOS, pars.endPos);
-    }
-    if (duration >= 0) {
-        dev.writeAttr(SUMO_ATTR_DURATION, STEPS2TIME(duration));
-    }
-    if (pars.until >= 0) {
-        dev.writeAttr(SUMO_ATTR_UNTIL, STEPS2TIME(pars.until));
-    }
-    if (pars.triggered) {
-        dev.writeAttr(SUMO_ATTR_TRIGGERED, pars.triggered);
-    }
-    if (pars.containerTriggered) {
-        dev.writeAttr(SUMO_ATTR_CONTAINER_TRIGGERED, pars.containerTriggered);
-    }
-    if (pars.parking) {
-        dev.writeAttr(SUMO_ATTR_PARKING, pars.parking);
-    }
-    if (pars.awaitedPersons.size() > 0) {
-        dev.writeAttr(SUMO_ATTR_EXPECTED, joinToString(pars.awaitedPersons, " "));
-    }
-    if (pars.awaitedContainers.size() > 0) {
-        dev.writeAttr(SUMO_ATTR_EXPECTED_CONTAINERS, joinToString(pars.awaitedContainers, " "));
-    }
-    dev.closeTag();
 }
 
 
