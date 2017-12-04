@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/29/17 14:36:07 by SUMO Version v0_31_0+1143-87c09f1032
+<!-- generated on Mon Dec  4 22:06:12 2017 by SUMO Version v0_31_0+1440-84b336d
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -37,9 +37,9 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="car_SE.0" depart="46.00" departLane="SC_3" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="64.90" arrivalLane="CE_3" arrivalPos="86.15" arrivalSpeed="13.89" duration="18.90" routeLength="174.95" waitSteps="0" timeLoss="5.59" rerouteNo="0" devices="tripinfo_car_SE.0" vType="car" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="car_SE.1" depart="50.00" departLane="SC_3" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="72.40" arrivalLane="CE_3" arrivalPos="86.15" arrivalSpeed="13.89" duration="22.40" routeLength="174.95" waitSteps="0" timeLoss="9.13" rerouteNo="0" devices="tripinfo_car_SE.1" vType="car" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="car_SE.0" depart="46.00" departLane="SC_3" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="64.90" arrivalLane="CE_3" arrivalPos="86.15" arrivalSpeed="13.89" duration="18.90" routeLength="174.95" waitSteps="0" timeLoss="5.60" rerouteNo="0" devices="tripinfo_car_SE.0" vType="car" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="car_SE.1" depart="50.00" departLane="SC_3" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="72.40" arrivalLane="CE_3" arrivalPos="86.15" arrivalSpeed="13.89" duration="22.40" routeLength="174.95" waitSteps="0" timeLoss="9.12" rerouteNo="0" devices="tripinfo_car_SE.1" vType="car" speedFactor="1.00" vaporized=""/>
     <personinfo id="p0" depart="0.00">
-        <walk depart="0.00" departPos="11.00" arrival="73.70" arrivalPos="0.00" duration="73.70" routeLength="74.40" timeLoss="20.13" maxSpeed="1.39"/>
+        <walk depart="0.00" departPos="11.00" arrival="73.70" arrivalPos="0.00" duration="73.70" routeLength="102.10" timeLoss="0.19" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>
