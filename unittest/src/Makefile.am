@@ -31,7 +31,7 @@ sumo_unittest_LDADD   = \
 ./microsim/MSEventControlTest.o \
 $(GUI_TESTS) \
 ../../src/traci-server/libtraciserver.a \
-../../src/traci-server/lib/libtraci.a \
+../../src/libsumo/libsumostatic.a \
 ../../src/traci-server/TraCIServer.o \
 ../../src/netbuild/libnetbuild.a \
 ../../src/netload/libnetload.a \
