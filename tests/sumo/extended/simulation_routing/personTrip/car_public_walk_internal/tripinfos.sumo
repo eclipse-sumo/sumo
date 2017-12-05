@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec  4 22:05:20 2017 by SUMO Version v0_31_0+1440-84b336d
+<!-- generated on Tue Dec  5 13:19:05 2017 by SUMO Version v0_31_0+1460-a4547fc
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -34,9 +34,9 @@
     <tripinfo id="train.0" depart="0.00" departLane="gneE0_0" departPos="109.60" departSpeed="0.00" departDelay="0.00" arrival="128.00" arrivalLane="gneE0_0" arrivalPos="1529.03" arrivalSpeed="13.89" duration="128.00" routeLength="1419.43" waitSteps="0" timeLoss="23.75" rerouteNo="1" devices="vehroute_train.0 tripinfo_train.0 routing_train.0" vType="train" speedFactor="1.00" vaporized=""/>
     <tripinfo id="train.1" depart="300.00" departLane="gneE0_0" departPos="109.60" departSpeed="0.00" departDelay="0.00" arrival="429.00" arrivalLane="gneE0_0" arrivalPos="1529.03" arrivalSpeed="13.89" duration="129.00" routeLength="1419.43" waitSteps="0" timeLoss="23.75" rerouteNo="1" devices="vehroute_train.1 tripinfo_train.1 routing_train.1 person_train.1" vType="train" speedFactor="1.00" vaporized=""/>
     <personinfo id="p0" depart="0.00">
-        <ride waitingTime="0.00" vehicle="p0_0" depart="0.00" arrival="25.00" arrivalPos="498.55"/>
+        <ride waitingTime="0.00" vehicle="p0_0" depart="0.00" arrival="25.00" arrivalPos="498.55" duration="25.00" routeLength="509.21"/>
         <walk depart="25.00" departPos="0.00" arrival="226.00" arrivalPos="250.00" duration="201.00" routeLength="250.00" timeLoss="21.00" maxSpeed="1.39"/>
-        <ride waitingTime="99.00" vehicle="train.1" depart="325.00" arrival="406.00" arrivalPos="1240.00"/>
+        <ride waitingTime="99.00" vehicle="train.1" depart="325.00" arrival="406.00" arrivalPos="1240.00" duration="81.00" routeLength="1000.00"/>
         <walk depart="406.00" departPos="250.00" arrival="611.00" arrivalPos="0.00" duration="205.00" routeLength="252.85" timeLoss="22.95" maxSpeed="1.39"/>
     </personinfo>
     <tripinfo id="train.2" depart="600.00" departLane="gneE0_0" departPos="109.60" departSpeed="0.00" departDelay="0.00" arrival="728.00" arrivalLane="gneE0_0" arrivalPos="1529.03" arrivalSpeed="13.89" duration="128.00" routeLength="1419.43" waitSteps="0" timeLoss="23.75" rerouteNo="1" devices="vehroute_train.2 tripinfo_train.2 routing_train.2" vType="train" speedFactor="1.00" vaporized=""/>
