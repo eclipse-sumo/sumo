@@ -58,6 +58,8 @@ def get_options(args=None):
     optParser.add_option("--types", help="only export the given list of types (using OSM nomenclature)")
     optParser.add_option("--bus.parking", default=False, action="store_true", dest='busparking', help="let busses clear the road while stopping")
     optParser.add_option("--vtype-prefix", default="", dest='vtypeprefix', help="prefix for vtype ids")
+    optParser.add_option("-d", "--stop-duration", default=30, type="float", dest='stopduration', 
+            help="Configure the minimum stopping duration")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
 
@@ -146,7 +148,7 @@ def createTrips(options):
 
             trpMap[line.id] = (line.line, line.attr_name, line.completeness)
             for stop in stop_ids:
-                fouttrips.write('        <stop busStop="%s" duration="30"/>\n' % (stop))
+                fouttrips.write('        <stop busStop="%s" duration="%s"/>\n' % (stop, options.stopduration))
             fouttrips.write('    </trip>\n')
         fouttrips.write("</routes>\n")
     print("done.")
