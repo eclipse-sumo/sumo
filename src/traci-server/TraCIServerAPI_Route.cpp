@@ -35,7 +35,7 @@
 #include <microsim/MSRoute.h>
 #include <microsim/MSEdge.h>
 #include "TraCIConstants.h"
-#include <libsumo/TraCI_Route.h>
+#include <libsumo/Route.h>
 #include "TraCIServerAPI_Route.h"
 
 
@@ -63,15 +63,15 @@ TraCIServerAPI_Route::processGet(TraCIServer& server, tcpip::Storage& inputStora
         switch (variable) {
             case ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(TraCI_Route::getIDList());
+                tempMsg.writeStringList(libsumo::Route::getIDList());
                 break;
             case ID_COUNT:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_Route::getIDCount());
+                tempMsg.writeInt(libsumo::Route::getIDCount());
                 break;
             case VAR_EDGES:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(TraCI_Route::getEdges(id));
+                tempMsg.writeStringList(libsumo::Route::getEdges(id));
                 break;
             case VAR_PARAMETER: {
                 std::string paramName = "";
@@ -79,7 +79,7 @@ TraCIServerAPI_Route::processGet(TraCIServer& server, tcpip::Storage& inputStora
                     return server.writeErrorStatusCmd(CMD_GET_ROUTE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
                 }
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(TraCI_Route::getParameter(id, paramName));
+                tempMsg.writeString(libsumo::Route::getParameter(id, paramName));
                 break;
             }
             default:
@@ -114,7 +114,7 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
                 if (!server.readTypeCheckingStringList(inputStorage, edgeIDs)) {
                     return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "A string list is needed for adding a new route.", outputStorage);
                 }
-                TraCI_Route::add(id, edgeIDs);
+                libsumo::Route::add(id, edgeIDs);
             }
             break;
             case VAR_PARAMETER: {
@@ -131,7 +131,7 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
                 if (!server.readTypeCheckingString(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
                 }
-                TraCI_Route::setParameter(id, name, value);
+                libsumo::Route::setParameter(id, name, value);
             }
             break;
             default:

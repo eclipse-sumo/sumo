@@ -9,7 +9,7 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    TraCI_POI.h
+/// @file    POI.h
 /// @author  Daniel Krajzewicz
 /// @author  Mario Krumnow
 /// @author  Michael Behrisch
@@ -19,8 +19,8 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-#ifndef TraCI_POI_h
-#define TraCI_POI_h
+#ifndef POI_h
+#define POI_h
 
 
 // ===========================================================================
@@ -46,43 +46,44 @@ class PointOfInterest;
 // class definitions
 // ===========================================================================
 /**
- * @class TraCI_POI
+ * @class POI
  * @brief C++ TraCI client API implementation
  */
-class TraCI_POI {
-public:
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
-    static std::string getType(const std::string& poiID);
-    static TraCIPosition getPosition(const std::string& poiID);
-    static TraCIColor getColor(const std::string& poiID);
-    static std::string getParameter(const std::string& poiID, const std::string& param);
+namespace libsumo {
+    class POI {
+    public:
+        static std::vector<std::string> getIDList();
+        static int getIDCount();
+        static std::string getType(const std::string& poiID);
+        static TraCIPosition getPosition(const std::string& poiID);
+        static TraCIColor getColor(const std::string& poiID);
+        static std::string getParameter(const std::string& poiID, const std::string& param);
 
-    static void setType(const std::string& poiID, const std::string& setType);
-    static void setColor(const std::string& poiID, const TraCIColor& c);
-    static void setPosition(const std::string& poiID, const TraCIPosition& pos);
-    static bool add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c, const std::string& type, int layer);
-    static bool remove(const std::string& poiID, int layer = 0);
+        static void setType(const std::string& poiID, const std::string& setType);
+        static void setColor(const std::string& poiID, const TraCIColor& c);
+        static void setPosition(const std::string& poiID, const TraCIPosition& pos);
+        static bool add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c, const std::string& type, int layer);
+        static bool remove(const std::string& poiID, int layer = 0);
 
-    static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-    static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
-    static void setParameter(const std::string& poiID, const std::string& param, const std::string& value);
+        static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
+        static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
+        static void setParameter(const std::string& poiID, const std::string& param, const std::string& value);
 
-private:
-    static PointOfInterest* getPoI(const std::string& id);
+    private:
+        static PointOfInterest* getPoI(const std::string& id);
 
-    /// @brief invalidated standard constructor
-    TraCI_POI();
+        /// @brief invalidated standard constructor
+        POI();
 
-    /// @brief invalidated copy constructor
-    TraCI_POI(const TraCI_POI& src);
+        /// @brief invalidated copy constructor
+        POI(const POI& src);
 
-    /// @brief invalidated assignment operator
-    TraCI_POI& operator=(const TraCI_POI& src);
-};
+        /// @brief invalidated assignment operator
+        POI& operator=(const POI& src);
+    };
+}
 
 
 #endif
 
 /****************************************************************************/
-

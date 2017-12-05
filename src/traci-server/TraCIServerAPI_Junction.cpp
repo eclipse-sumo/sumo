@@ -35,7 +35,7 @@
 
 #include <microsim/MSJunctionControl.h>
 #include "TraCIServer.h"
-#include <libsumo/TraCI_Junction.h>
+#include <libsumo/Junction.h>
 #include "TraCIServerAPI_Junction.h"
 
 
@@ -63,22 +63,22 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
         switch (variable) {
             case ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(TraCI_Junction::getIDList());
+                tempMsg.writeStringList(libsumo::Junction::getIDList());
                 break;
             case ID_COUNT:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_Junction::getIDCount());
+                tempMsg.writeInt(libsumo::Junction::getIDCount());
                 break;
             case VAR_POSITION: {
                 tempMsg.writeUnsignedByte(POSITION_2D);
-                TraCIPosition p = TraCI_Junction::getPosition(id);
+                TraCIPosition p = libsumo::Junction::getPosition(id);
                 tempMsg.writeDouble(p.x);
                 tempMsg.writeDouble(p.y);
                 break;
             }
             case VAR_SHAPE: {
                 tempMsg.writeUnsignedByte(TYPE_POLYGON);
-                const TraCIPositionVector shp = TraCI_Junction::getShape(id);
+                const TraCIPositionVector shp = libsumo::Junction::getShape(id);
                 tempMsg.writeUnsignedByte(MIN2(255, (int) shp.size()));
                 for (int iPoint = 0; iPoint < MIN2(255, (int) shp.size()); ++iPoint) {
                     tempMsg.writeDouble(shp[iPoint].x);
@@ -101,7 +101,7 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
 
 bool
 TraCIServerAPI_Junction::getPosition(const std::string& id, Position& p) {
-    MSJunction* j = TraCI_Junction::getJunction(id);
+    MSJunction* j = libsumo::Junction::getJunction(id);
     if (j == 0) {
         return false;
     }

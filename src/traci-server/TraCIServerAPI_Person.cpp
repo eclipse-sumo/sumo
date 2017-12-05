@@ -38,7 +38,7 @@
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
 #include "TraCIServerAPI_Person.h"
-#include <libsumo/TraCI_Person.h>
+#include <libsumo/Person.h>
 #include "TraCIServerAPI_VehicleType.h"
 
 
@@ -77,22 +77,22 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
         if (variable == ID_LIST || variable == ID_COUNT) {
             if (variable == ID_LIST) {
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(TraCI_Person::getIDList());
+                tempMsg.writeStringList(libsumo::Person::getIDList());
             } else {
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_Person::getIDCount());
+                tempMsg.writeInt(libsumo::Person::getIDCount());
             }
         } else {
             switch (variable) {
                 case VAR_POSITION: {
-                    TraCIPosition pos = TraCI_Person::getPosition(id);
+                    TraCIPosition pos = libsumo::Person::getPosition(id);
                     tempMsg.writeUnsignedByte(POSITION_2D);
                     tempMsg.writeDouble(pos.x);
                     tempMsg.writeDouble(pos.y);
                 }
                 break;
                 case VAR_POSITION3D: {
-                    TraCIPosition pos = TraCI_Person::getPosition(id);
+                    TraCIPosition pos = libsumo::Person::getPosition(id);
                     tempMsg.writeUnsignedByte(POSITION_3D);
                     tempMsg.writeDouble(pos.x);
                     tempMsg.writeDouble(pos.y);
@@ -101,22 +101,22 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 break;
                 case VAR_ANGLE:
                     tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(TraCI_Person::getAngle(id));
+                    tempMsg.writeDouble(libsumo::Person::getAngle(id));
                     break;
                 case VAR_SPEED:
                     tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(TraCI_Person::getSpeed(id));
+                    tempMsg.writeDouble(libsumo::Person::getSpeed(id));
                     break;
                 case VAR_ROAD_ID:
                     tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(TraCI_Person::getRoadID(id));
+                    tempMsg.writeString(libsumo::Person::getRoadID(id));
                     break;
                 case VAR_LANEPOSITION:
                     tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(TraCI_Person::getLanePosition(id));
+                    tempMsg.writeDouble(libsumo::Person::getLanePosition(id));
                     break;
                 case VAR_COLOR: {
-                    TraCIColor col = TraCI_Person::getColor(id);
+                    TraCIColor col = libsumo::Person::getColor(id);
                     tempMsg.writeUnsignedByte(TYPE_COLOR);
                     tempMsg.writeUnsignedByte(col.r);
                     tempMsg.writeUnsignedByte(col.g);
@@ -126,15 +126,15 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 break;
                 case VAR_WAITING_TIME:
                     tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(TraCI_Person::getWaitingTime(id));
+                    tempMsg.writeDouble(libsumo::Person::getWaitingTime(id));
                     break;
                 case VAR_TYPE:
                     tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(TraCI_Person::getTypeID(id));
+                    tempMsg.writeString(libsumo::Person::getTypeID(id));
                     break;
                 case VAR_NEXT_EDGE:
                     tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(TraCI_Person::getNextEdge(id));
+                    tempMsg.writeString(libsumo::Person::getNextEdge(id));
                     break;
                 case VAR_EDGES: {
                     int nextStageIndex = 0;
@@ -142,7 +142,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                         return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
                     }
                     tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                    tempMsg.writeStringList(TraCI_Person::getEdges(id, nextStageIndex));
+                    tempMsg.writeStringList(libsumo::Person::getEdges(id, nextStageIndex));
                     break;
                 }
                 case VAR_STAGE: {
@@ -151,16 +151,16 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                         return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
                     }
                     tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                    tempMsg.writeInt(TraCI_Person::getStage(id, nextStageIndex));
+                    tempMsg.writeInt(libsumo::Person::getStage(id, nextStageIndex));
                     break;
                 }
                 case VAR_STAGES_REMAINING:
                     tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                    tempMsg.writeInt(TraCI_Person::getRemainingStages(id));
+                    tempMsg.writeInt(libsumo::Person::getRemainingStages(id));
                     break;
                 case VAR_VEHICLE: {
                     tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(TraCI_Person::getVehicle(id));
+                    tempMsg.writeString(libsumo::Person::getVehicle(id));
                     break;
                 }
                 case VAR_PARAMETER: {
@@ -169,11 +169,11 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                         return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
                     }
                     tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(TraCI_Person::getParameter(id, paramName));
+                    tempMsg.writeString(libsumo::Person::getParameter(id, paramName));
                     break;
                 }
                 default:
-                    TraCIServerAPI_VehicleType::getVariable(variable, TraCI_Person::getTypeID(id), tempMsg);
+                    TraCIServerAPI_VehicleType::getVariable(variable, libsumo::Person::getTypeID(id), tempMsg);
                     break;
             }
         }
@@ -227,9 +227,9 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Setting speed requires a double.", outputStorage);
             }
             // set the speed for all (walking) stages
-            TraCI_Person::setSpeed(id,speed);
+            libsumo::Person::setSpeed(id, speed);
             // modify the vType so that stages added later are also affected
-            TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, TraCI_Person::getSingularVType(id), server, inputStorage, outputStorage);
+            TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, libsumo::Person::getSingularVType(id), server, inputStorage, outputStorage);
         }
         break;
         case VAR_TYPE: {
@@ -237,7 +237,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             if (!server.readTypeCheckingString(inputStorage, vTypeID)) {
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The vehicle type id must be given as a string.", outputStorage);
             }
-            TraCI_Person::setType(id,vTypeID);
+            libsumo::Person::setType(id, vTypeID);
             break;
         }
         case ADD: {
@@ -263,7 +263,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             if (!server.readTypeCheckingDouble(inputStorage, pos)) {
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Fourth parameter (position) requires a double.", outputStorage);
             }
-            TraCI_Person::add(id, edgeID, pos, STEPS2TIME(depart), vTypeID);
+            libsumo::Person::add(id, edgeID, pos, STEPS2TIME(depart), vTypeID);
         }
         break;
         case APPEND_STAGE: {
@@ -292,7 +292,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 if (!server.readTypeCheckingString(inputStorage, stopID)) {
                     return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
                 }
-                TraCI_Person::appendDrivingStage(id,edgeID,lines,stopID);
+                libsumo::Person::appendDrivingStage(id, edgeID, lines, stopID);
             } else if (stageType == MSTransportable::WAITING) {
                 // append waiting stage
                 if (numParameters != 4) {
@@ -310,7 +310,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 if (!server.readTypeCheckingString(inputStorage, stopID)) {
                     return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
                 }
-                TraCI_Person::appendWaitingStage(id, STEPS2TIME(duration), description, stopID);
+                libsumo::Person::appendWaitingStage(id, STEPS2TIME(duration), description, stopID);
             } else if (stageType == MSTransportable::MOVING_WITHOUT_VEHICLE) {
                 // append walking stage
                 if (numParameters != 6) {
@@ -336,7 +336,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 if (!server.readTypeCheckingString(inputStorage, stopID)) {
                     return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
                 }
-                TraCI_Person::appendWalkingStage(id,edgeIDs,arrivalPos, STEPS2TIME(duration), speed,stopID);
+                libsumo::Person::appendWalkingStage(id, edgeIDs, arrivalPos, STEPS2TIME(duration), speed, stopID);
             } else {
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Invalid stage type for person '" + id + "'", outputStorage);
             }
@@ -347,7 +347,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
                 return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
             }
-            TraCI_Person::removeStage(id, nextStageIndex);
+            libsumo::Person::removeStage(id, nextStageIndex);
         }
         break;
         case CMD_REROUTE_TRAVELTIME: {
@@ -357,7 +357,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             if (inputStorage.readInt() != 0) {
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Rerouting should obtain an empty compound object.", outputStorage);
             }
-            TraCI_Person::rerouteTraveltime(id);
+            libsumo::Person::rerouteTraveltime(id);
         }
         break;
         case VAR_PARAMETER: {
@@ -374,12 +374,12 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             if (!server.readTypeCheckingString(inputStorage, value)) {
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
             }
-            TraCI_Person::setParameter(id, name, value);
+            libsumo::Person::setParameter(id, name, value);
         }
         break;
         default:
             try {
-                if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_PERSON_VARIABLE, variable, TraCI_Person::getSingularVType(id), server, inputStorage, outputStorage)) {
+                if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_PERSON_VARIABLE, variable, libsumo::Person::getSingularVType(id), server, inputStorage, outputStorage)) {
                     return false;
                 }
             } catch (ProcessError& e) {

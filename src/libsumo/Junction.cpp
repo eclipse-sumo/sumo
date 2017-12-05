@@ -9,7 +9,7 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    TraCI_Junction.cpp
+/// @file    Junction.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann
@@ -35,42 +35,44 @@
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSJunctionControl.h>
-#include "TraCI_Junction.h"
-#include "TraCI_Simulation.h"
+#include "Junction.h"
+#include "Simulation.h"
 
 
 // ===========================================================================
 // member definitions
 // ===========================================================================
-std::vector<std::string>
-TraCI_Junction::getIDList() {
-    std::vector<std::string> ids;
-    MSNet::getInstance()->getJunctionControl().insertIDs(ids);
-    return ids;
-}
-
-int
-TraCI_Junction::getIDCount() {
-    return (int) getIDList().size();
-}
-
-TraCIPosition
-TraCI_Junction::getPosition(const std::string& junctionID) {
-    return TraCI_Simulation::makeTraCIPosition(getJunction(junctionID)->getPosition());
-}
-
-TraCIPositionVector
-TraCI_Junction::getShape(const std::string& junctionID) {
-    return TraCI_Simulation::makeTraCIPositionVector(getJunction(junctionID)->getShape());
-}
-
-MSJunction*
-TraCI_Junction::getJunction(const std::string& id) {
-    MSJunction* j = MSNet::getInstance()->getJunctionControl().get(id);
-    if (j == 0) {
-        throw TraCIException("Junction '" + id + "' is not known");
+namespace libsumo {
+    std::vector<std::string>
+        Junction::getIDList() {
+        std::vector<std::string> ids;
+        MSNet::getInstance()->getJunctionControl().insertIDs(ids);
+        return ids;
     }
-    return j;
+
+    int
+        Junction::getIDCount() {
+        return (int)getIDList().size();
+    }
+
+    TraCIPosition
+        Junction::getPosition(const std::string& junctionID) {
+        return Simulation::makeTraCIPosition(getJunction(junctionID)->getPosition());
+    }
+
+    TraCIPositionVector
+        Junction::getShape(const std::string& junctionID) {
+        return Simulation::makeTraCIPositionVector(getJunction(junctionID)->getShape());
+    }
+
+    MSJunction*
+        Junction::getJunction(const std::string& id) {
+        MSJunction* j = MSNet::getInstance()->getJunctionControl().get(id);
+        if (j == 0) {
+            throw TraCIException("Junction '" + id + "' is not known");
+        }
+        return j;
+    }
 }
 
 

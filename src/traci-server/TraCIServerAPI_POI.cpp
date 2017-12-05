@@ -37,7 +37,7 @@
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include "TraCIConstants.h"
-#include <libsumo/TraCI_POI.h>
+#include <libsumo/POI.h>
 #include "TraCIServerAPI_POI.h"
 
 // ===========================================================================
@@ -71,33 +71,33 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
         switch (variable) {
             case ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(TraCI_POI::getIDList());
+                tempMsg.writeStringList(libsumo::POI::getIDList());
                 break;
             case ID_COUNT:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int) TraCI_POI::getIDCount());
+                tempMsg.writeInt((int) libsumo::POI::getIDCount());
                 break;
             case VAR_TYPE:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(TraCI_POI::getType(id));
+                tempMsg.writeString(libsumo::POI::getType(id));
                 break;
             case VAR_COLOR:
                 tempMsg.writeUnsignedByte(TYPE_COLOR);
-                tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).r);
-                tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).g);
-                tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).b);
-                tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).a);
+                tempMsg.writeUnsignedByte(libsumo::POI::getColor(id).r);
+                tempMsg.writeUnsignedByte(libsumo::POI::getColor(id).g);
+                tempMsg.writeUnsignedByte(libsumo::POI::getColor(id).b);
+                tempMsg.writeUnsignedByte(libsumo::POI::getColor(id).a);
                 break;
             case VAR_POSITION:
                 tempMsg.writeUnsignedByte(POSITION_2D);
-                tempMsg.writeDouble(TraCI_POI::getPosition(id).x);
-                tempMsg.writeDouble(TraCI_POI::getPosition(id).y);
+                tempMsg.writeDouble(libsumo::POI::getPosition(id).x);
+                tempMsg.writeDouble(libsumo::POI::getPosition(id).y);
                 break;
             case VAR_POSITION3D:
                 tempMsg.writeUnsignedByte(POSITION_3D);
-                tempMsg.writeDouble(TraCI_POI::getPosition(id).x);
-                tempMsg.writeDouble(TraCI_POI::getPosition(id).y);
-                tempMsg.writeDouble(TraCI_POI::getPosition(id).z);
+                tempMsg.writeDouble(libsumo::POI::getPosition(id).x);
+                tempMsg.writeDouble(libsumo::POI::getPosition(id).y);
+                tempMsg.writeDouble(libsumo::POI::getPosition(id).z);
                 break;
             case VAR_PARAMETER: {
                 std::string paramName = "";
@@ -105,7 +105,7 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                     return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
                 }
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(TraCI_POI::getParameter(id, paramName));
+                tempMsg.writeString(libsumo::POI::getParameter(id, paramName));
                 break;
             }
             default:
@@ -146,7 +146,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingString(inputStorage, type)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The type must be given as a string.", outputStorage);
                 }
-                TraCI_POI::setType(id, type);
+                libsumo::POI::setType(id, type);
             }
             break;
             case VAR_COLOR: {
@@ -154,7 +154,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingColor(inputStorage, col)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The color must be given using an according type.", outputStorage);
                 }
-                TraCI_POI::setColor(id, col);
+                libsumo::POI::setColor(id, col);
             }
             break;
             case VAR_POSITION: {
@@ -162,7 +162,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingPosition2D(inputStorage, pos)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The position must be given using an accoring type.", outputStorage);
                 }
-                TraCI_POI::setPosition(id, pos);
+                libsumo::POI::setPosition(id, pos);
             }
             break;
             case ADD: {
@@ -188,7 +188,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The fourth PoI parameter must be the position.", outputStorage);
                 }
                 //
-                if (!TraCI_POI::add(id, pos, col, type, layer)) {
+                if (!libsumo::POI::add(id, pos, col, type, layer)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "Could not add PoI.", outputStorage);
                 }
             }
@@ -198,7 +198,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingInt(inputStorage, layer)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The layer must be given using an int.", outputStorage);
                 }
-                if (!TraCI_POI::remove(id, layer)) {
+                if (!libsumo::POI::remove(id, layer)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "Could not remove PoI '" + id + "'", outputStorage);
                 }
             }
@@ -217,7 +217,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingString(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
                 }
-                TraCI_POI::setParameter(id, name, value);
+                libsumo::POI::setParameter(id, name, value);
             }
             break;
             default:

@@ -36,7 +36,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
-#include <libsumo/TraCI_TrafficLight.h>
+#include <libsumo/TrafficLight.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_TrafficLight.h"
 
@@ -68,18 +68,18 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
         switch (variable) {
         case ID_LIST:
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(TraCI_TrafficLight::getIDList());
+            tempMsg.writeStringList(libsumo::TrafficLight::getIDList());
             break;
         case ID_COUNT:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt(TraCI_TrafficLight::getIDCount());
+            tempMsg.writeInt(libsumo::TrafficLight::getIDCount());
             break;
         case TL_RED_YELLOW_GREEN_STATE:
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(TraCI_TrafficLight::getRedYellowGreenState(id));
+            tempMsg.writeString(libsumo::TrafficLight::getRedYellowGreenState(id));
             break;
         case TL_COMPLETE_DEFINITION_RYG: {
-            std::vector<TraCILogic> logics = TraCI_TrafficLight::getCompleteRedYellowGreenDefinition(id);
+            std::vector<TraCILogic> logics = libsumo::TrafficLight::getCompleteRedYellowGreenDefinition(id);
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
             tcpip::Storage tempContent;
             int cnt = 0;
@@ -127,10 +127,10 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
         }
         case TL_CONTROLLED_LANES:
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(TraCI_TrafficLight::getControlledLanes(id));
+            tempMsg.writeStringList(libsumo::TrafficLight::getControlledLanes(id));
             break;
         case TL_CONTROLLED_LINKS: {
-            const std::vector<std::vector<TraCILink> > links = TraCI_TrafficLight::getControlledLinks(id);
+            const std::vector<std::vector<TraCILink> > links = libsumo::TrafficLight::getControlledLinks(id);
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
             tcpip::Storage tempContent;
             int cnt = 0;
@@ -152,19 +152,19 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
         }
         case TL_CURRENT_PHASE:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt(TraCI_TrafficLight::getPhase(id));
+            tempMsg.writeInt(libsumo::TrafficLight::getPhase(id));
             break;
         case TL_CURRENT_PROGRAM:
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(TraCI_TrafficLight::getProgram(id));
+            tempMsg.writeString(libsumo::TrafficLight::getProgram(id));
             break;
         case TL_PHASE_DURATION:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int)TraCI_TrafficLight::getPhaseDuration(id));
+            tempMsg.writeInt((int)libsumo::TrafficLight::getPhaseDuration(id));
             break;
         case TL_NEXT_SWITCH:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int)TraCI_TrafficLight::getNextSwitch(id));
+            tempMsg.writeInt((int)libsumo::TrafficLight::getNextSwitch(id));
             break;
         case VAR_PARAMETER: {
             std::string paramName = "";
@@ -172,12 +172,12 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                 return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
             }
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(TraCI_TrafficLight::getParameter(id, paramName));
+            tempMsg.writeString(libsumo::TrafficLight::getParameter(id, paramName));
             break;
         }
         case TL_CONTROLLED_JUNCTIONS: {
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(TraCI_TrafficLight::getControlledJunctions(id));
+            tempMsg.writeStringList(libsumo::TrafficLight::getControlledJunctions(id));
             break;
         }
         case TL_EXTERNAL_STATE: {
@@ -271,7 +271,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 if (!server.readTypeCheckingInt(inputStorage, index)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The phase index must be given as an integer.", outputStorage);
                 }
-                TraCI_TrafficLight::setPhase(id, index);
+                libsumo::TrafficLight::setPhase(id, index);
             }
             break;
             case TL_PROGRAM: {
@@ -279,7 +279,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 if (!server.readTypeCheckingString(inputStorage, subID)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The program must be given as a string.", outputStorage);
                 }
-                TraCI_TrafficLight::setProgram(id, subID);
+                libsumo::TrafficLight::setProgram(id, subID);
             }
             break;
             case TL_PHASE_DURATION: {
@@ -287,7 +287,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 if (!server.readTypeCheckingInt(inputStorage, duration)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The phase duration must be given as an integer.", outputStorage);
                 }
-                TraCI_TrafficLight::setPhaseDuration(id, duration);
+                libsumo::TrafficLight::setPhaseDuration(id, duration);
             }
             break;
             case TL_RED_YELLOW_GREEN_STATE: {
@@ -295,7 +295,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 if (!server.readTypeCheckingString(inputStorage, state)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The phase must be given as a string.", outputStorage);
                 }
-                TraCI_TrafficLight::setRedYellowGreenState(id, state);
+                libsumo::TrafficLight::setRedYellowGreenState(id, state);
             }
             break;
             case TL_COMPLETE_PROGRAM_RYG: {
@@ -339,7 +339,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                     }
                     logic.phases.emplace_back(TraCIPhase(duration, minDuration, maxDuration, state));
                 }
-                TraCI_TrafficLight::setCompleteRedYellowGreenDefinition(id, logic);
+                libsumo::TrafficLight::setCompleteRedYellowGreenDefinition(id, logic);
             }
             break;
             case VAR_PARAMETER: {
@@ -356,7 +356,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 if (!server.readTypeCheckingString(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
                 }
-                TraCI_TrafficLight::setParameter(id, name, value);
+                libsumo::TrafficLight::setParameter(id, name, value);
             }
             break;
             default:

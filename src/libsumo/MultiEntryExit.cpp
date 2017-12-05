@@ -9,7 +9,7 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    TraCI_MultiEntryExit.cpp
+/// @file    MultiEntryExit.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann
@@ -34,58 +34,60 @@
 #include <microsim/output/MSE2Collector.h>
 #include <microsim/MSNet.h>
 #include <traci-server/TraCIDefs.h>
-#include "TraCI_MultiEntryExit.h"
+#include "MultiEntryExit.h"
 
 
 // ===========================================================================
 // member definitions
 // ===========================================================================
-std::vector<std::string>
-TraCI_MultiEntryExit::getIDList() {
-    std::vector<std::string> ids;
-    MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).insertIDs(ids);
-    return ids;
-}
-
-
-int
-TraCI_MultiEntryExit::getIDCount() {
-    std::vector<std::string> ids;
-    return (int)MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).size();
-}
-
-
-int
-TraCI_MultiEntryExit::getLastStepVehicleNumber(const std::string& detID) {
-    return getDetector(detID)->getVehiclesWithin();
-}
-
-
-double
-TraCI_MultiEntryExit::getLastStepMeanSpeed(const std::string& detID) {
-    return getDetector(detID)->getCurrentMeanSpeed();
-}
-
-
-std::vector<std::string>
-TraCI_MultiEntryExit::getLastStepVehicleIDs(const std::string& detID) {
-    return getDetector(detID)->getCurrentVehicleIDs();
-}
-
-
-int
-TraCI_MultiEntryExit::getLastStepHaltingNumber(const std::string& detID) {
-    return getDetector(detID)->getCurrentHaltingNumber();
-}
-
-
-MSE3Collector*
-TraCI_MultiEntryExit::getDetector(const std::string& id) {
-    MSE3Collector* e3 = dynamic_cast<MSE3Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).get(id));
-    if (e3 == 0) {
-        throw TraCIException("Multi entry exit detector '" + id + "' is not known");
+namespace libsumo {
+    std::vector<std::string>
+        MultiEntryExit::getIDList() {
+        std::vector<std::string> ids;
+        MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).insertIDs(ids);
+        return ids;
     }
-    return e3;
+
+
+    int
+        MultiEntryExit::getIDCount() {
+        std::vector<std::string> ids;
+        return (int)MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).size();
+    }
+
+
+    int
+        MultiEntryExit::getLastStepVehicleNumber(const std::string& detID) {
+        return getDetector(detID)->getVehiclesWithin();
+    }
+
+
+    double
+        MultiEntryExit::getLastStepMeanSpeed(const std::string& detID) {
+        return getDetector(detID)->getCurrentMeanSpeed();
+    }
+
+
+    std::vector<std::string>
+        MultiEntryExit::getLastStepVehicleIDs(const std::string& detID) {
+        return getDetector(detID)->getCurrentVehicleIDs();
+    }
+
+
+    int
+        MultiEntryExit::getLastStepHaltingNumber(const std::string& detID) {
+        return getDetector(detID)->getCurrentHaltingNumber();
+    }
+
+
+    MSE3Collector*
+        MultiEntryExit::getDetector(const std::string& id) {
+        MSE3Collector* e3 = dynamic_cast<MSE3Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).get(id));
+        if (e3 == 0) {
+            throw TraCIException("Multi entry exit detector '" + id + "' is not known");
+        }
+        return e3;
+    }
 }
 
 

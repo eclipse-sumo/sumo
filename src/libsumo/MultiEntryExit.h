@@ -9,15 +9,15 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    TraCI_InductionLoop.h
+/// @file    MultiEntryExit.h
 /// @author  Michael Behrisch
 /// @date    15.03.2017
 /// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-#ifndef TraCI_InductionLoop_h
-#define TraCI_InductionLoop_h
+#ifndef MultiEntryExit_h
+#define MultiEntryExit_h
 
 
 // ===========================================================================
@@ -35,47 +35,42 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSInductLoop;
-struct TraCIVehicleData;
+class MSE2Collector;
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class TraCI_InductionLoop
+ * @class MultiEntryExit
  * @brief C++ TraCI client API implementation
  */
-class TraCI_InductionLoop {
-public:
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
-    static double getPosition(const std::string& detID);
-    static std::string getLaneID(const std::string& detID);
-    static int getLastStepVehicleNumber(const std::string& detID);
-    static double getLastStepMeanSpeed(const std::string& detID);
-    static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
-    static double getLastStepOccupancy(const std::string& detID);
-    static double getLastStepMeanLength(const std::string& detID);
-    static double getTimeSinceDetection(const std::string& detID);
-    static std::vector<TraCIVehicleData> getVehicleData(const std::string& detID);
+namespace libsumo {
+    class MultiEntryExit {
+    public:
+        static std::vector<std::string> getIDList();
+        static int getIDCount();
+        static int getLastStepVehicleNumber(const std::string& detID);
+        static double getLastStepMeanSpeed(const std::string& detID);
+        static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
+        static int getLastStepHaltingNumber(const std::string& detID);
 
-private:
-    static MSInductLoop* getDetector(const std::string& detID);
+    private:
+        static MSE3Collector* getDetector(const std::string& detID);
 
-    /// @brief invalidated standard constructor
-    TraCI_InductionLoop();
+        /// @brief invalidated standard constructor
+        MultiEntryExit();
 
-    /// @brief invalidated copy constructor
-    TraCI_InductionLoop(const TraCI_InductionLoop& src);
+        /// @brief invalidated copy constructor
+        MultiEntryExit(const MultiEntryExit& src);
 
-    /// @brief invalidated assignment operator
-    TraCI_InductionLoop& operator=(const TraCI_InductionLoop& src);
+        /// @brief invalidated assignment operator
+        MultiEntryExit& operator=(const MultiEntryExit& src);
 
-};
+    };
+}
 
 
 #endif
 
 /****************************************************************************/
-

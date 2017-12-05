@@ -36,7 +36,7 @@
 #include "TraCIConstants.h"
 #include "TraCIDefs.h"
 #include "TraCIServer.h"
-#include <libsumo/TraCI_LaneArea.h>
+#include <libsumo/LaneArea.h>
 #include "TraCIServerAPI_LaneArea.h"
 
 
@@ -76,51 +76,51 @@ TraCIServerAPI_LaneArea::processGet(TraCIServer& server, tcpip::Storage& inputSt
         switch (variable) {
             case ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(TraCI_LaneArea::getIDList());
+                tempMsg.writeStringList(libsumo::LaneArea::getIDList());
                 break;
             case ID_COUNT:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_LaneArea::getIDCount());
+                tempMsg.writeInt(libsumo::LaneArea::getIDCount());
                 break;
             case LAST_STEP_VEHICLE_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_LaneArea::getLastStepVehicleNumber(id));
+                tempMsg.writeInt(libsumo::LaneArea::getLastStepVehicleNumber(id));
                 break;
             case LAST_STEP_MEAN_SPEED:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_LaneArea::getLastStepMeanSpeed(id));
+                tempMsg.writeDouble(libsumo::LaneArea::getLastStepMeanSpeed(id));
                 break;
             case LAST_STEP_VEHICLE_ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(TraCI_LaneArea::getLastStepVehicleIDs(id));
+                tempMsg.writeStringList(libsumo::LaneArea::getLastStepVehicleIDs(id));
                 break;
             case LAST_STEP_VEHICLE_HALTING_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_LaneArea::getLastStepHaltingNumber(id));
+                tempMsg.writeInt(libsumo::LaneArea::getLastStepHaltingNumber(id));
                 break;
             case JAM_LENGTH_VEHICLE:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_LaneArea::getJamLengthVehicle(id));
+                tempMsg.writeInt(libsumo::LaneArea::getJamLengthVehicle(id));
                 break;
             case JAM_LENGTH_METERS:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_LaneArea::getJamLengthMeters(id));
+                tempMsg.writeDouble(libsumo::LaneArea::getJamLengthMeters(id));
                 break;
             case LAST_STEP_OCCUPANCY:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_LaneArea::getLastStepOccupancy(id));
+                tempMsg.writeDouble(libsumo::LaneArea::getLastStepOccupancy(id));
                 break;
             case VAR_POSITION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_LaneArea::getPosition(id));
+                tempMsg.writeDouble(libsumo::LaneArea::getPosition(id));
                 break;
             case VAR_LANE_ID:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(TraCI_LaneArea::getLaneID(id));
+                tempMsg.writeString(libsumo::LaneArea::getLaneID(id));
                 break;
             case VAR_LENGTH:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_LaneArea::getLength(id));
+                tempMsg.writeDouble(libsumo::LaneArea::getLength(id));
                 break;
             default:
                 break;

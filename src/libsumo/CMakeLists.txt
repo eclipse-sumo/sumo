@@ -23,33 +23,33 @@ if(SWIG_FOUND)
 endif()
 
 set(libsumostatic_STAT_SRCS
-        TraCI_InductionLoop.cpp
-        TraCI_InductionLoop.h
-        TraCI_Junction.cpp
-        TraCI_Junction.h
-        TraCI_Lane.cpp
-        TraCI_Lane.h
-        TraCI_LaneArea.cpp
-        TraCI_LaneArea.h
-        TraCI_MultiEntryExit.h
-        TraCI_MultiEntryExit.cpp
-        TraCI_Person.cpp
-        TraCI_Person.h
-        TraCI_POI.cpp
-        TraCI_POI.h
-        TraCI_Polygon.h
-        TraCI_Polygon.cpp
-        TraCI_Route.h
-        TraCI_Route.cpp
-        TraCI_Simulation.cpp
-        TraCI_Simulation.h
-        TraCI_TrafficLight.cpp
-        TraCI_TrafficLight.h
-        TraCI_Vehicle.h
-        TraCI_Vehicle.cpp
-        TraCI_VehicleType.cpp
-        TraCI_VehicleType.h
-        TraCI_Edge.cpp TraCI_Edge.h)
+        InductionLoop.cpp
+        InductionLoop.h
+        Junction.cpp
+        Junction.h
+        Lane.cpp
+        Lane.h
+        LaneArea.cpp
+        LaneArea.h
+        MultiEntryExit.h
+        MultiEntryExit.cpp
+        Person.cpp
+        Person.h
+        POI.cpp
+        POI.h
+        Polygon.h
+        Polygon.cpp
+        Route.h
+        Route.cpp
+        Simulation.cpp
+        Simulation.h
+        TrafficLight.cpp
+        TrafficLight.h
+        Vehicle.h
+        Vehicle.cpp
+        VehicleType.cpp
+        VehicleType.h
+        Edge.cpp Edge.h)
 
 add_library(libsumostatic STATIC ${libsumostatic_STAT_SRCS})
 set_property(TARGET libsumostatic PROPERTY PROJECT_LABEL "z_libsumostatic")

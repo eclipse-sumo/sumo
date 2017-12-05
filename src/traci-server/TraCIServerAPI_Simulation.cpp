@@ -43,7 +43,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSStoppingPlace.h>
-#include <libsumo/TraCI_Simulation.h>
+#include <libsumo/Simulation.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Simulation.h"
 
@@ -88,7 +88,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
         switch (variable) {
             case VAR_TIME_STEP:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int)TraCI_Simulation::getCurrentTime());
+                tempMsg.writeInt((int)libsumo::Simulation::getCurrentTime());
                 break;
             case VAR_LOADED_VEHICLES_NUMBER:
                 writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_BUILT);
@@ -146,11 +146,11 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 break;
             case VAR_DELTA_T:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int)TraCI_Simulation::getDeltaT());
+                tempMsg.writeInt((int)libsumo::Simulation::getDeltaT());
                 break;
             case VAR_NET_BOUNDING_BOX: {
                 tempMsg.writeUnsignedByte(TYPE_BOUNDINGBOX);
-                TraCIBoundary tb = TraCI_Simulation::getNetBoundary();
+                TraCIBoundary tb = libsumo::Simulation::getNetBoundary();
                 tempMsg.writeDouble(tb.xMin);
                 tempMsg.writeDouble(tb.yMin);
                 tempMsg.writeDouble(tb.xMax);
@@ -160,7 +160,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
             case VAR_MIN_EXPECTED_VEHICLES:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_Simulation::getMinExpectedNumber());
+                tempMsg.writeInt(libsumo::Simulation::getMinExpectedNumber());
                 break;
             case POSITION_CONVERSION:
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
@@ -209,7 +209,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingInt(inputStorage, routingMode)) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires an integer as fifth parameter.", outputStorage);
                 }
-                writeStage(tempMsg, TraCI_Simulation::findRoute(from, to, vtype, TIME2STEPS(depart), routingMode));
+                writeStage(tempMsg, libsumo::Simulation::findRoute(from, to, vtype, TIME2STEPS(depart), routingMode));
                 break;
             }
             case FIND_INTERMODAL_ROUTE: {
@@ -258,7 +258,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingString(inputStorage, vtype)) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as twelvth parameter.", outputStorage);
                 }
-                const std::vector<TraCIStage> result = TraCI_Simulation::findIntermodalRoute(from, to, modes, TIME2STEPS(depart), routingMode, speed, walkFactor, departPos, arrivalPos, departPosLat, ptype, vtype);
+                const std::vector<TraCIStage> result = libsumo::Simulation::findIntermodalRoute(from, to, modes, TIME2STEPS(depart), routingMode, speed, walkFactor, departPos, arrivalPos, departPosLat, ptype, vtype);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tempMsg.writeInt((int)result.size());
                 for (const TraCIStage s : result) {
@@ -281,7 +281,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
                 }
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(TraCI_Simulation::getParameter(id, paramName));
+                tempMsg.writeString(libsumo::Simulation::getParameter(id, paramName));
             }
             break;
         }
@@ -432,7 +432,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip:
             int laneIdx = inputStorage.readUnsignedByte();
             try {
                 // convert edge,offset,laneIdx to cartesian position
-                cartesianPos = geoPos = TraCI_Simulation::getLaneChecking(roadID, laneIdx, pos)->getShape().positionAtOffset(pos);
+                cartesianPos = geoPos = libsumo::Simulation::getLaneChecking(roadID, laneIdx, pos)->getShape().positionAtOffset(pos);
                 z = cartesianPos.z();
                 GeoConvHelper::getFinal().cartesian2geo(geoPos);
             } catch (TraCIException& e) {
@@ -504,7 +504,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
             try {
                 std::string roadID = inputStorage.readString();
                 roadPos1.second = inputStorage.readDouble();
-                roadPos1.first = TraCI_Simulation::getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos1.second);
+                roadPos1.first = libsumo::Simulation::getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos1.second);
                 pos1 = roadPos1.first->getShape().positionAtOffset(roadPos1.second);
             } catch (TraCIException& e) {
                 server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
@@ -534,7 +534,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
             try {
                 std::string roadID = inputStorage.readString();
                 roadPos2.second = inputStorage.readDouble();
-                roadPos2.first = TraCI_Simulation::getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos2.second);
+                roadPos2.first = libsumo::Simulation::getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos2.second);
                 pos2 = roadPos2.first->getShape().positionAtOffset(roadPos2.second);
             } catch (TraCIException& e) {
                 server.writeStatusCmd(commandId, RTYPE_ERR, e.what());

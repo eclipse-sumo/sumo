@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2017 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2017 German Aerospace Center (DLR) and others.
 /****************************************************************************/
 //
 //   This program and the accompanying materials
@@ -9,17 +9,15 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    TraCI_Route.h
-/// @author  Daniel Krajzewicz
-/// @author  Mario Krumnow
+/// @file    InductionLoop.h
 /// @author  Michael Behrisch
-/// @date    30.05.2012
+/// @date    15.03.2017
 /// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-#ifndef TraCI_Route_h
-#define TraCI_Route_h
+#ifndef InductionLoop_h
+#define InductionLoop_h
 
 
 // ===========================================================================
@@ -32,50 +30,53 @@
 #endif
 
 #include <vector>
-#include <traci-server/TraCIDefs.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSRoute;
+class MSInductLoop;
+struct TraCIVehicleData;
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class TraCI_Route
+ * @class InductionLoop
  * @brief C++ TraCI client API implementation
  */
-class TraCI_Route {
-public:
+namespace libsumo {
+    class InductionLoop {
+    public:
+        static std::vector<std::string> getIDList();
+        static int getIDCount();
+        static double getPosition(const std::string& detID);
+        static std::string getLaneID(const std::string& detID);
+        static int getLastStepVehicleNumber(const std::string& detID);
+        static double getLastStepMeanSpeed(const std::string& detID);
+        static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
+        static double getLastStepOccupancy(const std::string& detID);
+        static double getLastStepMeanLength(const std::string& detID);
+        static double getTimeSinceDetection(const std::string& detID);
+        static std::vector<TraCIVehicleData> getVehicleData(const std::string& detID);
 
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
-    static std::vector<std::string> getEdges(const std::string& routeID);
-    static std::string getParameter(const std::string& routeID, const std::string& param);
+    private:
+        static MSInductLoop* getDetector(const std::string& detID);
 
-    static void add(const std::string& routeID, const std::vector<std::string>& edgeIDs);
-    static void setParameter(const std::string& routeID, const std::string& key, const std::string& value); // not needed so far
+        /// @brief invalidated standard constructor
+        InductionLoop();
 
-    static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-    static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
+        /// @brief invalidated copy constructor
+        InductionLoop(const InductionLoop& src);
 
-    static const MSRoute* getRoute(const std::string& id);
+        /// @brief invalidated assignment operator
+        InductionLoop& operator=(const InductionLoop& src);
 
-private:
-    /// @brief invalidated standard constructor
-    TraCI_Route();
-
-    /// @brief invalidated copy constructor
-    TraCI_Route(const TraCI_Route& src);
-
-    /// @brief invalidated assignment operator
-    TraCI_Route& operator=(const TraCI_Route& src);
-};
+    };
+}
 
 
 #endif
 
 /****************************************************************************/
-

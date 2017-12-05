@@ -34,7 +34,7 @@
 
 #include <microsim/MSNet.h>
 #include <microsim/output/MSDetectorControl.h>
-#include <libsumo/TraCI_InductionLoop.h>
+#include <libsumo/InductionLoop.h>
 #include "TraCIConstants.h"
 #include "TraCIDefs.h"
 #include "TraCIServerAPI_InductionLoop.h"
@@ -68,46 +68,46 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
         switch (variable) {
             case ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(TraCI_InductionLoop::getIDList());
+                tempMsg.writeStringList(libsumo::InductionLoop::getIDList());
                 break;
             case ID_COUNT:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_InductionLoop::getIDCount());
+                tempMsg.writeInt(libsumo::InductionLoop::getIDCount());
                 break;
             case VAR_POSITION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_InductionLoop::getPosition(id));
+                tempMsg.writeDouble(libsumo::InductionLoop::getPosition(id));
                 break;
             case VAR_LANE_ID:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(TraCI_InductionLoop::getLaneID(id));
+                tempMsg.writeString(libsumo::InductionLoop::getLaneID(id));
                 break;
             case LAST_STEP_VEHICLE_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_InductionLoop::getLastStepVehicleNumber(id));
+                tempMsg.writeInt(libsumo::InductionLoop::getLastStepVehicleNumber(id));
                 break;
             case LAST_STEP_MEAN_SPEED:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_InductionLoop::getLastStepMeanSpeed(id));
+                tempMsg.writeDouble(libsumo::InductionLoop::getLastStepMeanSpeed(id));
                 break;
             case LAST_STEP_VEHICLE_ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(TraCI_InductionLoop::getLastStepVehicleIDs(id));
+                tempMsg.writeStringList(libsumo::InductionLoop::getLastStepVehicleIDs(id));
                 break;
             case LAST_STEP_OCCUPANCY:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_InductionLoop::getLastStepOccupancy(id));
+                tempMsg.writeDouble(libsumo::InductionLoop::getLastStepOccupancy(id));
                 break;
             case LAST_STEP_LENGTH:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_InductionLoop::getLastStepMeanLength(id));
+                tempMsg.writeDouble(libsumo::InductionLoop::getLastStepMeanLength(id));
                 break;
             case LAST_STEP_TIME_SINCE_DETECTION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_InductionLoop::getTimeSinceDetection(id));
+                tempMsg.writeDouble(libsumo::InductionLoop::getTimeSinceDetection(id));
                 break;
             case LAST_STEP_VEHICLE_DATA: {
-                std::vector<TraCIVehicleData> vd = TraCI_InductionLoop::getVehicleData(id);
+                std::vector<TraCIVehicleData> vd = libsumo::InductionLoop::getVehicleData(id);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tcpip::Storage tempContent;
                 int cnt = 0;

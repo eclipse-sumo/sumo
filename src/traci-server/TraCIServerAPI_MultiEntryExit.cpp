@@ -32,7 +32,7 @@
 
 #include <microsim/output/MSDetectorControl.h>
 #include "TraCIConstants.h"
-#include <libsumo/TraCI_MultiEntryExit.h>
+#include <libsumo/MultiEntryExit.h>
 #include "TraCIServerAPI_MultiEntryExit.h"
 
 
@@ -61,27 +61,27 @@ TraCIServerAPI_MultiEntryExit::processGet(TraCIServer& server, tcpip::Storage& i
         switch (variable) {
             case ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(TraCI_MultiEntryExit::getIDList());
+                tempMsg.writeStringList(libsumo::MultiEntryExit::getIDList());
                 break;
             case ID_COUNT:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_MultiEntryExit::getIDCount());
+                tempMsg.writeInt(libsumo::MultiEntryExit::getIDCount());
                 break;
             case LAST_STEP_VEHICLE_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_MultiEntryExit::getLastStepVehicleNumber(id));
+                tempMsg.writeInt(libsumo::MultiEntryExit::getLastStepVehicleNumber(id));
                 break;
             case LAST_STEP_MEAN_SPEED:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_MultiEntryExit::getLastStepMeanSpeed(id));
+                tempMsg.writeDouble(libsumo::MultiEntryExit::getLastStepMeanSpeed(id));
                 break;
             case LAST_STEP_VEHICLE_ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(TraCI_MultiEntryExit::getLastStepVehicleIDs(id));
+                tempMsg.writeStringList(libsumo::MultiEntryExit::getLastStepVehicleIDs(id));
                 break;
             case LAST_STEP_VEHICLE_HALTING_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_MultiEntryExit::getLastStepHaltingNumber(id));
+                tempMsg.writeInt(libsumo::MultiEntryExit::getLastStepHaltingNumber(id));
                 break;
             default:
                 break;

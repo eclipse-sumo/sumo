@@ -9,15 +9,15 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    TraCI_MultiEntryExit.h
+/// @file    LaneArea.h
 /// @author  Michael Behrisch
 /// @date    15.03.2017
 /// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-#ifndef TraCI_MultiEntryExit_h
-#define TraCI_MultiEntryExit_h
+#ifndef LaneArea_h
+#define LaneArea_h
 
 
 // ===========================================================================
@@ -42,34 +42,41 @@ class MSE2Collector;
 // class definitions
 // ===========================================================================
 /**
- * @class TraCI_MultiEntryExit
+ * @class LaneArea
  * @brief C++ TraCI client API implementation
  */
-class TraCI_MultiEntryExit {
-public:
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
-    static int getLastStepVehicleNumber(const std::string& detID);
-    static double getLastStepMeanSpeed(const std::string& detID);
-    static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
-    static int getLastStepHaltingNumber(const std::string& detID);
+namespace libsumo {
+    class LaneArea {
+    public:
+        static std::vector<std::string> getIDList();
+        static int getIDCount();
+        static int getJamLengthVehicle(const std::string& detID);
+        static double getJamLengthMeters(const std::string& detID);
+        static double getLastStepMeanSpeed(const std::string& detID);
+        static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
+        static double getLastStepOccupancy(const std::string& detID);
+        static double getPosition(const std::string& detID);
+        static std::string getLaneID(const std::string& detID);
+        static double getLength(const std::string& detID);
+        static int getLastStepVehicleNumber(const std::string& detID);
+        static int getLastStepHaltingNumber(const std::string& detID);
 
-private:
-    static MSE3Collector* getDetector(const std::string& detID);
+    private:
+        static MSE2Collector* getDetector(const std::string& detID);
 
-    /// @brief invalidated standard constructor
-    TraCI_MultiEntryExit();
+        /// @brief invalidated standard constructor
+        LaneArea();
 
-    /// @brief invalidated copy constructor
-    TraCI_MultiEntryExit(const TraCI_MultiEntryExit& src);
+        /// @brief invalidated copy constructor
+        LaneArea(const LaneArea& src);
 
-    /// @brief invalidated assignment operator
-    TraCI_MultiEntryExit& operator=(const TraCI_MultiEntryExit& src);
+        /// @brief invalidated assignment operator
+        LaneArea& operator=(const LaneArea& src);
 
-};
+    };
+}
 
 
 #endif
 
 /****************************************************************************/
-

@@ -9,7 +9,7 @@
 
 // Add necessary symbols to generated header
 %{
-#include <libsumo/TraCI_Simulation.h>
+#include <libsumo/Simulation.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 %}
@@ -21,7 +21,7 @@
 
 // Process symbols in header
 %include "../traci-server/TraCIDefs.h"
-%include "TraCI_Simulation.h"
+%include "Simulation.h"
 
 
 // exception handling

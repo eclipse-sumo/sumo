@@ -9,7 +9,7 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    TraCI_Junction.h
+/// @file    Route.h
 /// @author  Daniel Krajzewicz
 /// @author  Mario Krumnow
 /// @author  Michael Behrisch
@@ -18,8 +18,8 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-#ifndef TraCI_Junction_h
-#define TraCI_Junction_h
+#ifndef Route_h
+#define Route_h
 
 
 // ===========================================================================
@@ -38,47 +38,45 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSJunction;
-
+class MSRoute;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class TraCI_Junction
+ * @class Route
  * @brief C++ TraCI client API implementation
  */
-class TraCI_Junction {
-public:
+namespace libsumo {
+    class Route {
+    public:
 
+        static std::vector<std::string> getIDList();
+        static int getIDCount();
+        static std::vector<std::string> getEdges(const std::string& routeID);
+        static std::string getParameter(const std::string& routeID, const std::string& param);
 
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
-    static TraCIPosition getPosition(const std::string& junctionID);
-    static TraCIPositionVector getShape(const std::string& junctionID);
+        static void add(const std::string& routeID, const std::vector<std::string>& edgeIDs);
+        static void setParameter(const std::string& routeID, const std::string& key, const std::string& value); // not needed so far
 
+        static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
+        static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
 
-    static std::string getType(const std::string& poiID);
-    static TraCIColor getColor(const std::string& poiID);
+        static const MSRoute* getRoute(const std::string& id);
 
+    private:
+        /// @brief invalidated standard constructor
+        Route();
 
-    static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-    static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
-    static MSJunction* getJunction(const std::string& id);
+        /// @brief invalidated copy constructor
+        Route(const Route& src);
 
-private:
-    /// @brief invalidated standard constructor
-    TraCI_Junction();
-
-    /// @brief invalidated copy constructor
-    TraCI_Junction(const TraCI_Junction& src);
-
-    /// @brief invalidated assignment operator
-    TraCI_Junction& operator=(const TraCI_Junction& src);
-};
+        /// @brief invalidated assignment operator
+        Route& operator=(const Route& src);
+    };
+}
 
 
 #endif
 
 /****************************************************************************/
-

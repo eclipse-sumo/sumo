@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2017 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2017 German Aerospace Center (DLR) and others.
 /****************************************************************************/
 //
 //   This program and the accompanying materials
@@ -9,15 +9,17 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    TraCI_LaneArea.h
+/// @file    Junction.h
+/// @author  Daniel Krajzewicz
+/// @author  Mario Krumnow
 /// @author  Michael Behrisch
-/// @date    15.03.2017
+/// @date    30.05.2012
 /// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-#ifndef TraCI_LaneArea_h
-#define TraCI_LaneArea_h
+#ifndef Junction_h
+#define Junction_h
 
 
 // ===========================================================================
@@ -30,52 +32,54 @@
 #endif
 
 #include <vector>
+#include <traci-server/TraCIDefs.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSE2Collector;
+class MSJunction;
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class TraCI_LaneArea
+ * @class Junction
  * @brief C++ TraCI client API implementation
  */
-class TraCI_LaneArea {
-public:
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
-    static int getJamLengthVehicle(const std::string& detID);
-    static double getJamLengthMeters(const std::string& detID);
-    static double getLastStepMeanSpeed(const std::string& detID);
-    static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
-    static double getLastStepOccupancy(const std::string& detID);
-    static double getPosition(const std::string& detID);
-    static std::string getLaneID(const std::string& detID);
-    static double getLength(const std::string& detID);
-    static int getLastStepVehicleNumber(const std::string& detID);
-    static int getLastStepHaltingNumber(const std::string& detID);
+namespace libsumo {
+    class Junction {
+    public:
 
-private:
-    static MSE2Collector* getDetector(const std::string& detID);
 
-    /// @brief invalidated standard constructor
-    TraCI_LaneArea();
+        static std::vector<std::string> getIDList();
+        static int getIDCount();
+        static TraCIPosition getPosition(const std::string& junctionID);
+        static TraCIPositionVector getShape(const std::string& junctionID);
 
-    /// @brief invalidated copy constructor
-    TraCI_LaneArea(const TraCI_LaneArea& src);
 
-    /// @brief invalidated assignment operator
-    TraCI_LaneArea& operator=(const TraCI_LaneArea& src);
+        static std::string getType(const std::string& poiID);
+        static TraCIColor getColor(const std::string& poiID);
 
-};
+
+        static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
+        static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
+        static MSJunction* getJunction(const std::string& id);
+
+    private:
+        /// @brief invalidated standard constructor
+        Junction();
+
+        /// @brief invalidated copy constructor
+        Junction(const Junction& src);
+
+        /// @brief invalidated assignment operator
+        Junction& operator=(const Junction& src);
+    };
+}
 
 
 #endif
 
 /****************************************************************************/
-
