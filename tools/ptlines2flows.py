@@ -194,7 +194,7 @@ def createRoutes(options, trpMap):
                     continue
                 else:
                     sys.exit("Could not parse edges for vehicle '%s'\n" % id)
-            flows.append((id, vehicle.type, vehicle.depart))
+            flows.append((id, vehicle.type, float(vehicle.depart)))
             actualDepart[id] = float(vehicle.depart)
             parking = ' parking="true"' if vehicle.type == "bus" and options.busparking else ''
             stops = vehicle.stop
@@ -212,12 +212,13 @@ def createRoutes(options, trpMap):
                 sys.stderr.write("Warning: No stops for flow '%s'\n" % id)
             foutflows.write('    </route>\n')
         lineCount = collections.defaultdict(int)
+        flow_duration = options.end - options.begin
         for flow, type, begin in flows:
             line, name, completeness = trpMap[flow]
             lineRef = "%s:%s" % (line, lineCount[line])
             lineCount[line] += 1
-            foutflows.write('    <flow id="%s_%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s>\n' %
-                            (type, lineRef, type, flow, begin, options.end, options.period, lineRef, options.flowattrs))
+            foutflows.write('    <flow id="%s_%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s>\n' % (
+                type, lineRef, type, flow, begin, begin + flow_duration, options.period, lineRef, options.flowattrs))
             foutflows.write('        <param key="name" value="%s"/>\n        <param key="completeness" value="%s"/>\n    </flow>\n' %
                             (escape(name), completeness))
         foutflows.write('</routes>\n')
