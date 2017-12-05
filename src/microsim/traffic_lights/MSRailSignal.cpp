@@ -43,6 +43,8 @@
 #include "MSPhaseDefinition.h"
 #include "MSTLLogicControl.h"
 
+//#define DEBUG_SUCCEEDINGBLOCKS
+#define DEBUG_COND (getID() == "disabled")
 
 class ApproachingVehicleInformation;
 // ===========================================================================
@@ -138,6 +140,14 @@ MSRailSignal::init(NLDetectorBuilder&) {
             }
         }
     }
+#ifdef DEBUG_SUCCEEDINGBLOCKS
+    if (DEBUG_COND) {
+        std::cout << "railSignal=" << getID() << " mySucceedingBlocks:\n";
+        for (auto item : mySucceedingBlocks) {
+            std::cout << "   toLane=" << item.first->getID() << " succ=" << toString(item.second) << "\n";
+        }
+    }
+#endif
 
 
     for (std::map<MSLane*, std::vector<const MSLane*> >::iterator it = mySucceedingBlocks.begin(); it != mySucceedingBlocks.end(); it++) {
