@@ -92,11 +92,12 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
                 waysIdsIt =  waysIds.begin();
                 for (; waysIdsIt != waysIds.end(); waysIdsIt++) {
                     if ((*waysIdsIt) == edgeCand.first) {
-                        stop->setEdgeId(edgeCand.second, cont);
-                        stop->setMyOrigEdgeId(edgeCand.first);
-                        origId = edgeCand.first;
-                        found = true;
-                        break;
+                        if (stop->setEdgeId(edgeCand.second, cont)) {
+                            stop->setMyOrigEdgeId(edgeCand.first);
+                            origId = edgeCand.first;
+                            found = true;
+                            break;
+                        }
                     }
                 }
                 if (found) {

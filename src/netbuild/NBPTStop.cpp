@@ -152,7 +152,6 @@ void NBPTStop::setMyPTStopLength(double myPTStopLength) {
 
 bool
 NBPTStop::findLaneAndComputeBusStopExtend(NBEdgeCont& ec) {
-    myLaneId = "";
     NBEdge* edge = ec.getByID(myEdgeId);
     if (edge != nullptr) {
         int laneNr = -1;
