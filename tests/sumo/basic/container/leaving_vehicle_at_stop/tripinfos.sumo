@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 10 08:20:04 2017 by SUMO Version v0_31_0-1053-gb13f456
+<!-- generated on Tue Dec  5 13:33:47 2017 by SUMO Version v0_31_0+1462-22ffc08
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -26,13 +26,13 @@
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <containerinfo id="container0" depart="0.00">
-        <tranship depart="0.00" departPos="80.00" arrival="54.00" arrivalPos="55.00" duration="54.00"/>
-        <transport waitingTime="101.00" vehicle="truck0" depart="155.00" arrival="174.00" arrivalPos="92.00"/>
+        <tranship depart="0.00" departPos="80.00" arrival="54.00" arrivalPos="55.00" duration="54.00" routeLength="75.00" maxSpeed="1.39"/>
+        <transport waitingTime="101.00" vehicle="truck0" depart="155.00" arrival="174.00" arrivalPos="92.00" duration="19.00" routeLength="190.08"/>
     </containerinfo>
     <tripinfo id="truck0" depart="50.00" departLane="1/4to1/3_0" departPos="25.10" departSpeed="0.00" departDelay="0.00" arrival="196.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="146.00" routeLength="447.98" waitSteps="0" timeLoss="11.14" rerouteNo="0" devices="tripinfo_truck0 container_truck0" vType="truck" speedFactor="1.00" vaporized=""/>
     <containerinfo id="container1" depart="0.00">
-        <tranship depart="0.00" departPos="80.00" arrival="54.00" arrivalPos="55.00" duration="54.00"/>
-        <transport waitingTime="198.00" vehicle="truck1" depart="252.00" arrival="271.00" arrivalPos="92.00"/>
+        <tranship depart="0.00" departPos="80.00" arrival="54.00" arrivalPos="55.00" duration="54.00" routeLength="75.00" maxSpeed="1.39"/>
+        <transport waitingTime="198.00" vehicle="truck1" depart="252.00" arrival="271.00" arrivalPos="92.00" duration="19.00" routeLength="190.08"/>
     </containerinfo>
     <tripinfo id="truck1" depart="55.00" departLane="1/4to1/3_0" departPos="25.10" departSpeed="0.00" departDelay="5.00" arrival="293.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="238.00" routeLength="447.98" waitSteps="89" timeLoss="103.14" rerouteNo="0" devices="tripinfo_truck1 container_truck1" vType="truck" speedFactor="1.00" vaporized=""/>
 </tripinfos>
