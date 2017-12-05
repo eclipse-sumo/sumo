@@ -631,6 +631,7 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
     }
     // restore matrices
     glPushMatrix();
+    front = getPosition();
     glTranslated(front.x(), front.y(), getType());
     glRotated(angle, 0, 0, 1);
     const double upscale = s.vehicleSize.getExaggeration(s);
