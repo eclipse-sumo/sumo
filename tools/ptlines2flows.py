@@ -55,14 +55,19 @@ def get_options(args=None):
     optParser.add_option("--seed", type="int", help="random seed")
     optParser.add_option("--ignore-errors", default=False, action="store_true", dest='ignoreErrors', help="ignore problems with the input data")
     optParser.add_option("--no-vtypes", default=False, action="store_true", dest='novtypes', help="do not write vtypes for generated flows")
+    optParser.add_option("--types", help="only export the given list of types (using OSM nomenclature)")
     optParser.add_option("--bus.parking", default=False, action="store_true", dest='busparking', help="let busses clear the road while stopping")
     optParser.add_option("--vtype-prefix", default="", dest='vtypeprefix', help="prefix for vtype ids")
+    optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
 
     if options.netfile is None or options.ptlines is None or options.ptstops is None:
         sys.stderr.write("Error: net-file, ptlines-file and ptstops-file must be set\n")
         optParser.print_help()
         sys.exit(1)
+
+    if options.types is not None:
+        options.types = options.types.split(',')
         
     return options
 
@@ -110,6 +115,11 @@ def createTrips(options):
                     else:
                         sys.exit("Invalid lane '%s' for stop '%s'" % (laneId, stop.id))
                 stop_ids.append(stop.id)
+
+            if options.types is not None and not line.type in options.types:
+                if options.verbose:
+                    print("Skipping line '%s' because it has type '%s'\n" % (line.id, line.type))
+                continue
 
             if len(stop_ids) < options.min_stops:
                 sys.stderr.write("Warning: skipping line '%s' because it has too few stops\n" % line.id)
