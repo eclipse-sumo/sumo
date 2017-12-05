@@ -122,21 +122,20 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   </PropertyGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Edge.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_InductionLoop.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Junction.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Lane.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_LaneArea.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_MultiEntryExit.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Person.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_POI.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Polygon.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Route.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Simulation.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_TrafficLight.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Vehicle.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_VehicleType.cpp" />
+    <ClCompile Include="..\..\..\src\libsumo\Edge.cpp" />
+    <ClCompile Include="..\..\..\src\libsumo\InductionLoop.cpp" />
+    <ClCompile Include="..\..\..\src\libsumo\Junction.cpp" />
+    <ClCompile Include="..\..\..\src\libsumo\Lane.cpp" />
+    <ClCompile Include="..\..\..\src\libsumo\LaneArea.cpp" />
+    <ClCompile Include="..\..\..\src\libsumo\MultiEntryExit.cpp" />
+    <ClCompile Include="..\..\..\src\libsumo\Person.cpp" />
+    <ClCompile Include="..\..\..\src\libsumo\POI.cpp" />
+    <ClCompile Include="..\..\..\src\libsumo\Polygon.cpp" />
+    <ClCompile Include="..\..\..\src\libsumo\Route.cpp" />
+    <ClCompile Include="..\..\..\src\libsumo\Simulation.cpp" />
+    <ClCompile Include="..\..\..\src\libsumo\TrafficLight.cpp" />
+    <ClCompile Include="..\..\..\src\libsumo\Vehicle.cpp" />
+    <ClCompile Include="..\..\..\src\libsumo\VehicleType.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServer.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_LaneArea.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Edge.cpp" />
@@ -154,21 +153,20 @@
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_VehicleType.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Edge.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_InductionLoop.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Junction.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Lane.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_LaneArea.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_MultiEntryExit.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Person.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_POI.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Polygon.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Route.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Simulation.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_TrafficLight.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Vehicle.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_VehicleType.h" />
+    <ClInclude Include="..\..\..\src\libsumo\Edge.h" />
+    <ClInclude Include="..\..\..\src\libsumo\InductionLoop.h" />
+    <ClInclude Include="..\..\..\src\libsumo\Junction.h" />
+    <ClInclude Include="..\..\..\src\libsumo\Lane.h" />
+    <ClInclude Include="..\..\..\src\libsumo\LaneArea.h" />
+    <ClInclude Include="..\..\..\src\libsumo\MultiEntryExit.h" />
+    <ClInclude Include="..\..\..\src\libsumo\Person.h" />
+    <ClInclude Include="..\..\..\src\libsumo\POI.h" />
+    <ClInclude Include="..\..\..\src\libsumo\Polygon.h" />
+    <ClInclude Include="..\..\..\src\libsumo\Route.h" />
+    <ClInclude Include="..\..\..\src\libsumo\Simulation.h" />
+    <ClInclude Include="..\..\..\src\libsumo\TrafficLight.h" />
+    <ClInclude Include="..\..\..\src\libsumo\Vehicle.h" />
+    <ClInclude Include="..\..\..\src\libsumo\VehicleType.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIConstants.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIDefs.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServer.h" />
