@@ -46,7 +46,7 @@
 #include "TraCIServerAPI_Edge.h"
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <utils/emissions/HelpersHarmonoise.h>
-#include "lib/TraCI_Edge.h"
+#include <libsumo/TraCI_Edge.h>
 
 
 // ===========================================================================

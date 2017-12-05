@@ -52,7 +52,7 @@
 
 #ifndef NO_TRACI
 #include <traci-server/TraCIServer.h>
-#include <traci-server/lib/TraCI.h>
+#include <libsumo/TraCI_Simulation.h>
 #endif
 
 

@@ -9,17 +9,15 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    TraCI.h
-/// @author  Daniel Krajzewicz
-/// @author  Mario Krumnow
-/// @author  Michael Behrisch
-/// @date    30.05.2012
+/// @file    TraCI_Simulation.h
+/// @author  Robert Hilbrich
+/// @date    15.09.2017
 /// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-#ifndef TraCI_h
-#define TraCI_h
+#ifndef TraCI_Simulation_h
+#define TraCI_Simulation_h
 
 
 // ===========================================================================
@@ -32,9 +30,12 @@
 #endif
 
 #include <vector>
-#include <map>
 #include <traci-server/TraCIDefs.h>
 
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class Position;
 class PositionVector;
 class RGBColor;
@@ -46,19 +47,16 @@ class MSLane;
 // class definitions
 // ===========================================================================
 /**
- * @class TraCI
+ * @class TraCI_Simulation
  * @brief C++ TraCI client API implementation
  */
-class TraCI {
+class TraCI_Simulation {
 public:
-    /// @name Connection handling
-    /// @{
-
     /** @brief Connects to the specified SUMO server
-     * @param[in] host The name of the host to connect to
-     * @param[in] port The port to connect to
-     * @exception tcpip::SocketException if the connection fails
-     */
+    * @param[in] host The name of the host to connect to
+    * @param[in] port The port to connect to
+    * @exception tcpip::SocketException if the connection fails
+    */
     //void connect(const std::string& host, int port);
 
 
@@ -99,19 +97,34 @@ public:
     static const MSLane* getLaneChecking(const std::string& edgeID, int laneIndex, double pos);
     static std::pair<MSLane*, double> convertCartesianToRoadMap(Position pos);
 
+    static SUMOTime getCurrentTime();
+
+    static SUMOTime getDeltaT();
+
+    static TraCIBoundary getNetBoundary();
+
+    static int getMinExpectedNumber();
+
+    static TraCIStage findRoute(const std::string& from, const std::string& to, const std::string& typeID, const SUMOTime depart, const int routingMode);
+
+    static std::vector<TraCIStage> findIntermodalRoute(const std::string& from, const std::string& to, const std::string modes,
+                                                       const SUMOTime depart, const int routingMode, const double speed, const double walkFactor,
+                                                       const double departPos, const double arrivalPos, const double departPosLat,
+                                                       const std::string& pType, const std::string& vehType);
+
+    static std::string getParameter(const std::string& objectID, const std::string& key);
+
 private:
-    /// @brief invalidated copy constructor
-    TraCI(const TraCI& src);
-
-    /// @brief invalidated assignment operator
-    TraCI& operator=(const TraCI& src);
-
     SubscribedValues mySubscribedValues;
     SubscribedContextValues mySubscribedContextValues;
+
+    /// @brief invalidated standard constructor
+    TraCI_Simulation();
+
+    /// @brief invalidated copy constructor
+    TraCI_Simulation(const TraCI_Simulation& src);
+
+    /// @brief invalidated assignment operator
+    TraCI_Simulation& operator=(const TraCI_Simulation& src);
 };
-
-
 #endif
-
-/****************************************************************************/
-

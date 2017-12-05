@@ -17,6 +17,3 @@ TraCIServerAPI_Simulation.h TraCIServerAPI_Simulation.cpp \
 TraCIServerAPI_TrafficLight.h TraCIServerAPI_TrafficLight.cpp \
 TraCIServerAPI_Vehicle.h TraCIServerAPI_Vehicle.cpp \
 TraCIServerAPI_VehicleType.h TraCIServerAPI_VehicleType.cpp
-
-SUBDIRS = lib
-

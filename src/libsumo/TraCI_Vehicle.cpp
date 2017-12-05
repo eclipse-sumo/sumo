@@ -45,7 +45,7 @@
 #include <microsim/MSLane.h>
 #include <traci-server/TraCIDefs.h>
 #include <traci-server/TraCIConstants.h>
-#include "TraCI.h"
+#include "TraCI_Simulation.h"
 #include "TraCI_Vehicle.h"
 
 
@@ -114,7 +114,7 @@ TraCIPosition
 TraCI_Vehicle::getPosition(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (isVisible(veh)) {
-        return TraCI::makeTraCIPosition(veh->getPosition());
+        return TraCI_Simulation::makeTraCIPosition(veh->getPosition());
     } else {
         TraCIPosition result;
         result.x = INVALID_DOUBLE_VALUE;
@@ -177,7 +177,7 @@ TraCI_Vehicle::getRouteIndex(const std::string& vehicleID) {
 
 TraCIColor
 TraCI_Vehicle::getColor(const std::string& vehicleID) {
-    return TraCI::makeTraCIColor(getVehicle(vehicleID)->getParameter().color);
+    return TraCI_Simulation::makeTraCIColor(getVehicle(vehicleID)->getParameter().color);
 }
 
 double
@@ -275,7 +275,7 @@ TraCI_Vehicle::getAccumulatedWaitingTime(const std::string& vehicleID) {
 double
 TraCI_Vehicle::getAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID, int time) {
     MSVehicle* veh = getVehicle(vehicleID);
-    MSEdge* edge = TraCI::getEdge(edgeID);
+    MSEdge* edge = TraCI_Simulation::getEdge(edgeID);
     double value = INVALID_DOUBLE_VALUE;;
     veh->getWeightsStorage().retrieveExistingTravelTime(edge, time, value);
     return value;
@@ -285,7 +285,7 @@ TraCI_Vehicle::getAdaptedTraveltime(const std::string& vehicleID, const std::str
 double
 TraCI_Vehicle::getEffort(const std::string& vehicleID, const std::string& edgeID, int time) {
     MSVehicle* veh = getVehicle(vehicleID);
-    MSEdge* edge = TraCI::getEdge(edgeID);
+    MSEdge* edge = TraCI_Simulation::getEdge(edgeID);
     double value = INVALID_DOUBLE_VALUE;;
     veh->getWeightsStorage().retrieveExistingEffort(edge, time, value);
     return value;
@@ -422,7 +422,7 @@ TraCI_Vehicle::getDrivingDistance(const std::string& vehicleID, const std::strin
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
         double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), position,
-                          &veh->getLane()->getEdge(), TraCI::getEdge(edgeID));
+                          &veh->getLane()->getEdge(), TraCI_Simulation::getEdge(edgeID));
         if (distance == std::numeric_limits<double>::max()) {
             return INVALID_DOUBLE_VALUE;
         }
@@ -437,7 +437,7 @@ double
 TraCI_Vehicle::getDrivingDistance2D(const std::string& vehicleID, double x, double y) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
-        std::pair<MSLane*, double> roadPos = TraCI::convertCartesianToRoadMap(Position(x, y));
+        std::pair<MSLane*, double> roadPos = TraCI_Simulation::convertCartesianToRoadMap(Position(x, y));
         double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), roadPos.second,
                           veh->getEdge(), &roadPos.first->getEdge());
         if (distance == std::numeric_limits<double>::max()) {

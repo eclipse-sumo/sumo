@@ -36,7 +36,7 @@
 #include "TraCIConstants.h"
 #include "TraCIDefs.h"
 #include "TraCIServer.h"
-#include "lib/TraCI_LaneArea.h"
+#include <libsumo/TraCI_LaneArea.h>
 #include "TraCIServerAPI_LaneArea.h"
 
 

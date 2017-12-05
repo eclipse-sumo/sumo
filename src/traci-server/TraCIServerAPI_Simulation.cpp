@@ -43,10 +43,9 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSStoppingPlace.h>
-#include <traci-server/lib/TraCI.h>
+#include <libsumo/TraCI_Simulation.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Simulation.h"
-#include "lib/TraCI_Simulation.h"
 
 
 // ===========================================================================
@@ -433,7 +432,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip:
             int laneIdx = inputStorage.readUnsignedByte();
             try {
                 // convert edge,offset,laneIdx to cartesian position
-                cartesianPos = geoPos = TraCI::getLaneChecking(roadID, laneIdx, pos)->getShape().positionAtOffset(pos);
+                cartesianPos = geoPos = TraCI_Simulation::getLaneChecking(roadID, laneIdx, pos)->getShape().positionAtOffset(pos);
                 z = cartesianPos.z();
                 GeoConvHelper::getFinal().cartesian2geo(geoPos);
             } catch (TraCIException& e) {
@@ -505,7 +504,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
             try {
                 std::string roadID = inputStorage.readString();
                 roadPos1.second = inputStorage.readDouble();
-                roadPos1.first = TraCI::getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos1.second);
+                roadPos1.first = TraCI_Simulation::getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos1.second);
                 pos1 = roadPos1.first->getShape().positionAtOffset(roadPos1.second);
             } catch (TraCIException& e) {
                 server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
@@ -535,7 +534,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
             try {
                 std::string roadID = inputStorage.readString();
                 roadPos2.second = inputStorage.readDouble();
-                roadPos2.first = TraCI::getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos2.second);
+                roadPos2.first = TraCI_Simulation::getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos2.second);
                 pos2 = roadPos2.first->getShape().positionAtOffset(roadPos2.second);
             } catch (TraCIException& e) {
                 server.writeStatusCmd(commandId, RTYPE_ERR, e.what());

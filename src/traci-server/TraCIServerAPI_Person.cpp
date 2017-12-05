@@ -38,7 +38,7 @@
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
 #include "TraCIServerAPI_Person.h"
-#include "lib/TraCI_Person.h"
+#include <libsumo/TraCI_Person.h>
 #include "TraCIServerAPI_VehicleType.h"
 
 

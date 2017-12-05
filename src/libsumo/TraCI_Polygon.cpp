@@ -24,7 +24,7 @@
 #include <utils/shapes/ShapeContainer.h>
 
 #include "TraCI_Polygon.h"
-#include "TraCI.h"
+#include "TraCI_Simulation.h"
 
 std::vector<std::string> TraCI_Polygon::getIDList() {
     std::vector<std::string> ids;
@@ -37,14 +37,14 @@ std::string TraCI_Polygon::getType(const std::string& polygonID) {
 }
 TraCIPositionVector TraCI_Polygon::getShape(const std::string& polygonID) {
     SUMOPolygon* p = getPolygon(polygonID);
-    return TraCI::makeTraCIPositionVector(p->getShape());
+    return TraCI_Simulation::makeTraCIPositionVector(p->getShape());
 }
 bool TraCI_Polygon::getFilled(const std::string& polygonID) {
     return getPolygon(polygonID)->getFill();
 }
 TraCIColor TraCI_Polygon::getColor(const std::string& polygonID) {
     SUMOPolygon* p = getPolygon(polygonID);
-    return TraCI::makeTraCIColor(p->getColor());
+    return TraCI_Simulation::makeTraCIColor(p->getColor());
 }
 std::string TraCI_Polygon::getParameter(const std::string& polygonID, const std::string& paramName) {
     return getPolygon(polygonID)->getParameter(paramName, "");
@@ -54,19 +54,19 @@ void TraCI_Polygon::setType(const std::string& polygonID, const std::string& set
     p->setType(setType);
 }
 void TraCI_Polygon::setShape(const std::string& polygonID, const TraCIPositionVector& shape) {
-    PositionVector positionVector = TraCI::makePositionVector(shape);
+    PositionVector positionVector = TraCI_Simulation::makePositionVector(shape);
     getPolygon(polygonID); // just to check whether it exists
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     shapeCont.reshapePolygon(polygonID, positionVector);
 }
 void TraCI_Polygon::setColor(const std::string& polygonID, const TraCIColor& c) {
-    getPolygon(polygonID)->setColor(TraCI::makeRGBColor(c));
+    getPolygon(polygonID)->setColor(TraCI_Simulation::makeRGBColor(c));
 }
 void
 TraCI_Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& c, bool fill, const std::string& type, int layer) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    PositionVector pShape = TraCI::makePositionVector(shape);
-    RGBColor col = TraCI::makeRGBColor(c);
+    PositionVector pShape = TraCI_Simulation::makePositionVector(shape);
+    RGBColor col = TraCI_Simulation::makeRGBColor(c);
     if (!shapeCont.addPolygon(polygonID, type, col, (double)layer, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, pShape, false, fill)) {
         throw TraCIException("Could not add polygon '" + polygonID + "'");
     }

@@ -37,8 +37,8 @@
 #include <utils/common/StdDefs.h>
 #include <microsim/MSNet.h>
 #include <utils/shapes/ShapeContainer.h>
-#include <traci-server/lib/TraCI_Polygon.h>
-#include <traci-server/lib/TraCI.h>
+#include <libsumo/TraCI_Polygon.h>
+#include <libsumo/TraCI_Simulation.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Polygon.h"
 
@@ -161,7 +161,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingPolygon(inputStorage, shape)) {
                     return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The shape must be given using an accoring type.", outputStorage);
                 }
-                TraCI_Polygon::setShape(id, TraCI::makeTraCIPositionVector(shape));
+                TraCI_Polygon::setShape(id, TraCI_Simulation::makeTraCIPositionVector(shape));
             }
             break;
             case VAR_FILL: {
@@ -199,7 +199,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingPolygon(inputStorage, shape)) {
                     return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The fifth polygon parameter must be the shape.", outputStorage);
                 }
-                TraCIPositionVector tp = TraCI::makeTraCIPositionVector(shape);
+                TraCIPositionVector tp = TraCI_Simulation::makeTraCIPositionVector(shape);
 
                 TraCI_Polygon::add(id, tp, col, fill, type, layer);
 

@@ -36,7 +36,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSJunctionControl.h>
 #include "TraCI_Junction.h"
-#include "TraCI.h"
+#include "TraCI_Simulation.h"
 
 
 // ===========================================================================
@@ -56,12 +56,12 @@ TraCI_Junction::getIDCount() {
 
 TraCIPosition
 TraCI_Junction::getPosition(const std::string& junctionID) {
-    return TraCI::makeTraCIPosition(getJunction(junctionID)->getPosition());
+    return TraCI_Simulation::makeTraCIPosition(getJunction(junctionID)->getPosition());
 }
 
 TraCIPositionVector
 TraCI_Junction::getShape(const std::string& junctionID) {
-    return TraCI::makeTraCIPositionVector(getJunction(junctionID)->getShape());
+    return TraCI_Simulation::makeTraCIPositionVector(getJunction(junctionID)->getShape());
 }
 
 MSJunction*

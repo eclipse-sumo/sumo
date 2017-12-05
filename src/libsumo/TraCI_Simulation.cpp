@@ -33,6 +33,8 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <utils/options/OptionsIO.h>
+#include <utils/xml/XMLSubSys.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSInsertionControl.h>
@@ -42,14 +44,191 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSStoppingPlace.h>
-#include <traci-server/lib/TraCI.h>
+#include <netload/NLBuilder.h>
 #include "TraCI_Simulation.h"
 #include <traci-server/TraCIDefs.h>
+
 
 // ===========================================================================
 // member definitions
 // ===========================================================================
-SUMOTime 
+/* void
+TraCI_Simulation::connect(const std::string& host, int port) {
+}*/
+
+void
+TraCI_Simulation::load(const std::vector<std::string>& args) {
+    XMLSubSys::init(); // this may be not good for multiple loads
+    OptionsIO::setArgs(args);
+    NLBuilder::init();
+}
+
+
+void
+TraCI_Simulation::simulationStep(const SUMOTime time) {
+    if (time == 0) {
+        MSNet::getInstance()->simulationStep();
+    } else {
+        while (MSNet::getInstance()->getCurrentTimeStep() < time) {
+            MSNet::getInstance()->simulationStep();
+        }
+    }
+}
+
+
+void
+TraCI_Simulation::close() {
+}
+
+
+/* void
+TraCI_Simulation::subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const {
+}
+
+void
+TraCI_Simulation::subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<
+int>& vars) const {
+} */
+
+
+const TraCI_Simulation::SubscribedValues&
+TraCI_Simulation::getSubscriptionResults() const {
+    return mySubscribedValues;
+}
+
+
+const TraCI_Simulation::TraCIValues&
+TraCI_Simulation::getSubscriptionResults(const std::string& objID) const {
+    if (mySubscribedValues.find(objID) != mySubscribedValues.end()) {
+        return mySubscribedValues.find(objID)->second;
+    } else {
+        throw; // Something?
+    }
+}
+
+
+const TraCI_Simulation::SubscribedContextValues&
+TraCI_Simulation::getContextSubscriptionResults() const {
+    return mySubscribedContextValues;
+}
+
+
+const TraCI_Simulation::SubscribedValues&
+TraCI_Simulation::getContextSubscriptionResults(const std::string& objID) const {
+    if (mySubscribedContextValues.find(objID) != mySubscribedContextValues.end()) {
+        return mySubscribedContextValues.find(objID)->second;
+    } else {
+        throw; // Something?
+    }
+}
+
+
+TraCIPositionVector
+TraCI_Simulation::makeTraCIPositionVector(const PositionVector& positionVector) {
+    TraCIPositionVector tp;
+    for (int i = 0; i < (int)positionVector.size(); ++i) {
+        tp.push_back(makeTraCIPosition(positionVector[i]));
+    }
+    return tp;
+}
+
+
+PositionVector
+TraCI_Simulation::makePositionVector(const TraCIPositionVector& vector) {
+    PositionVector pv;
+    for (int i = 0; i < (int)vector.size(); i++) {
+        pv.push_back(Position(vector[i].x, vector[i].y));
+    }
+    return pv;
+}
+
+
+TraCIColor
+TraCI_Simulation::makeTraCIColor(const RGBColor& color) {
+    TraCIColor tc;
+    tc.a = color.alpha();
+    tc.b = color.blue();
+    tc.g = color.green();
+    tc.r = color.red();
+    return tc;
+}
+
+
+RGBColor
+TraCI_Simulation::makeRGBColor(const TraCIColor& c) {
+    return RGBColor((unsigned char)c.r, (unsigned char)c.g, (unsigned char)c.b, (unsigned char)c.a);
+}
+
+
+TraCIPosition
+TraCI_Simulation::makeTraCIPosition(const Position& position) {
+    TraCIPosition p;
+    p.x = position.x();
+    p.y = position.y();
+    p.z = position.z();
+    return p;
+}
+
+
+Position
+TraCI_Simulation::makePosition(const TraCIPosition& tpos) {
+    Position p;
+    p.set(tpos.x, tpos.y, tpos.z);
+    return p;
+}
+
+
+MSEdge*
+TraCI_Simulation::getEdge(const std::string& edgeID) {
+    MSEdge* edge = MSEdge::dictionary(edgeID);
+    if (edge == 0) {
+        throw TraCIException("Referenced edge '" + edgeID + "' is not known.");
+    }
+    return edge;
+}
+
+const MSLane*
+TraCI_Simulation::getLaneChecking(const std::string& edgeID, int laneIndex, double pos) {
+    const MSEdge* edge = MSEdge::dictionary(edgeID);
+    if (edge == 0) {
+        throw TraCIException("Unknown edge " + edgeID);
+    }
+    if (laneIndex < 0 || laneIndex >= (int)edge->getLanes().size()) {
+        throw TraCIException("Invalid lane index for " + edgeID);
+    }
+    const MSLane* lane = edge->getLanes()[laneIndex];
+    if (pos < 0 || pos > lane->getLength()) {
+        throw TraCIException("Position on lane invalid");
+    }
+    return lane;
+}
+
+
+std::pair<MSLane*, double>
+TraCI_Simulation::convertCartesianToRoadMap(Position pos) {
+    /// XXX use rtree instead
+    std::pair<MSLane*, double> result;
+    std::vector<std::string> allEdgeIds;
+    double minDistance = std::numeric_limits<double>::max();
+
+    allEdgeIds = MSNet::getInstance()->getEdgeControl().getEdgeNames();
+    for (std::vector<std::string>::iterator itId = allEdgeIds.begin(); itId != allEdgeIds.end(); itId++) {
+        const std::vector<MSLane*>& allLanes = MSEdge::dictionary((*itId))->getLanes();
+        for (std::vector<MSLane*>::const_iterator itLane = allLanes.begin(); itLane != allLanes.end(); itLane++) {
+            const double newDistance = (*itLane)->getShape().distance2D(pos);
+            if (newDistance < minDistance) {
+                minDistance = newDistance;
+                result.first = (*itLane);
+            }
+        }
+    }
+    // @todo this may be a place where 3D is required but 2D is delivered
+    result.second = result.first->getShape().nearest_offset_to_point2D(pos, false);
+    return result;
+}
+
+
+SUMOTime
 TraCI_Simulation::getCurrentTime(){
     return MSNet::getInstance()->getCurrentTimeStep();
 }

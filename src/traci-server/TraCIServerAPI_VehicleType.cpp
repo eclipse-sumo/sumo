@@ -38,10 +38,9 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
-#include <traci-server/lib/TraCI_VehicleType.h>
+#include <libsumo/TraCI_VehicleType.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_VehicleType.h"
-#include "lib/TraCI.h"
 
 
 // ===========================================================================

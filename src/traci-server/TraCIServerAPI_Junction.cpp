@@ -35,7 +35,7 @@
 
 #include <microsim/MSJunctionControl.h>
 #include "TraCIServer.h"
-#include "lib/TraCI_Junction.h"
+#include <libsumo/TraCI_Junction.h>
 #include "TraCIServerAPI_Junction.h"
 
 

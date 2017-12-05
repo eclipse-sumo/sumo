@@ -32,7 +32,7 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
 #include "TraCI_VehicleType.h"
-#include "TraCI.h"
+#include "TraCI_Simulation.h"
 
 
 // ===========================================================================
@@ -119,7 +119,7 @@ double TraCI_VehicleType::getHeight(const std::string& typeID) {
 }
 TraCIColor TraCI_VehicleType::getColor(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
-    return TraCI::makeTraCIColor(v->getColor());
+    return TraCI_Simulation::makeTraCIColor(v->getColor());
 }
 double TraCI_VehicleType::getMinGapLat(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
@@ -212,7 +212,7 @@ void TraCI_VehicleType::setTau(const std::string& typeID, double tau)  {
 }
 void TraCI_VehicleType::setColor(const std::string& typeID, const TraCIColor& c)  {
     MSVehicleType* v = getVType(typeID);
-    v->setColor(TraCI::makeRGBColor(c));
+    v->setColor(TraCI_Simulation::makeRGBColor(c));
 
 }
 void TraCI_VehicleType::setMinGapLat(const std::string& typeID, double minGapLat)  {

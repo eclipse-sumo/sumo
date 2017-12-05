@@ -35,7 +35,7 @@
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
 #include "TraCI_POI.h"
-#include "TraCI.h"
+#include "TraCI_Simulation.h"
 
 
 
@@ -65,7 +65,7 @@ TraCIColor
 TraCI_POI::getColor(const std::string& poiID) {
     PointOfInterest* sumoPoi = getPoI(poiID);
     RGBColor col = sumoPoi->getColor();
-    return TraCI::makeTraCIColor(col);
+    return TraCI_Simulation::makeTraCIColor(col);
 }
 
 TraCIPosition
@@ -93,19 +93,19 @@ TraCI_POI::setType(const std::string& poiID, const std::string& type) {
 void
 TraCI_POI::setPosition(const std::string& poiID, const TraCIPosition& pos) {
     PointOfInterest* p = getPoI(poiID);
-    p->set(TraCI::makePosition(pos));
+    p->set(TraCI_Simulation::makePosition(pos));
 }
 
 void
 TraCI_POI::setColor(const std::string& poiID, const TraCIColor& c) {
     PointOfInterest* p = getPoI(poiID);
-    p->setColor(TraCI::makeRGBColor(c));
+    p->setColor(TraCI_Simulation::makeRGBColor(c));
 }
 
 bool
 TraCI_POI::add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c, const std::string& type, int layer) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    return shapeCont.addPOI(poiID, type, TraCI::makeRGBColor(c), TraCI::makePosition(pos), false, "", 0, 0, (double) layer,
+    return shapeCont.addPOI(poiID, type, TraCI_Simulation::makeRGBColor(c), TraCI_Simulation::makePosition(pos), false, "", 0, 0, (double) layer,
                             Shape::DEFAULT_ANGLE,
                             Shape::DEFAULT_IMG_FILE,
                             Shape::DEFAULT_IMG_WIDTH,

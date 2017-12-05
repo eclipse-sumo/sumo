@@ -3,7 +3,7 @@ set(netconvertlibs
 
 set(sumolibs
         netload microsim microsim_cfmodels microsim_lcmodels microsim_devices microsim_output microsim_pedestrians microsim_trigger microsim_actions
-        microsim_traffic_lights mesosim traciserver traciserver_lib ${commonvehiclelibs} ${GRPC_LIBS}
+        microsim_traffic_lights mesosim traciserver libsumostatic ${commonvehiclelibs} ${GRPC_LIBS}
         ${PYTHON_LIBRARIES})
 
 add_subdirectory(activitygen)
@@ -14,6 +14,7 @@ add_subdirectory(gui)
 add_subdirectory(guinetload)
 add_subdirectory(guisim)
 add_subdirectory(jtrrouter)
+add_subdirectory(libsumo)
 add_subdirectory(marouter)
 add_subdirectory(mesogui)
 add_subdirectory(mesosim)

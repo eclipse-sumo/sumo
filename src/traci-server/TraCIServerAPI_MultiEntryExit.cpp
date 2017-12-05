@@ -32,7 +32,7 @@
 
 #include <microsim/output/MSDetectorControl.h>
 #include "TraCIConstants.h"
-#include "lib/TraCI_MultiEntryExit.h"
+#include <libsumo/TraCI_MultiEntryExit.h>
 #include "TraCIServerAPI_MultiEntryExit.h"
 
 

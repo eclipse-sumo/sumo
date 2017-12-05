@@ -43,7 +43,7 @@
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
 #include "TraCIServerAPI_Lane.h"
-#include "lib/TraCI_Lane.h"
+#include <libsumo/TraCI_Lane.h>
 
 
 // ===========================================================================

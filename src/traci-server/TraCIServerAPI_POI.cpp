@@ -37,7 +37,7 @@
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include "TraCIConstants.h"
-#include "lib/TraCI_POI.h"
+#include <libsumo/TraCI_POI.h>
 #include "TraCIServerAPI_POI.h"
 
 // ===========================================================================

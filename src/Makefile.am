@@ -6,8 +6,8 @@ GUI_DIRS = gui guinetload guisim netedit mesogui osgview
 endif
 
 if TRACI
-TRACI_LIBS = ./traci-server/libtraciserver.a ./traci-server/lib/libtraci.a ./utils/traci/libtraciclient.a  
-TRACI_DIRS = traci-server traci_testclient
+TRACI_LIBS = ./traci-server/libtraciserver.a ./libsumo/libsumostatic.a ./utils/traci/libtraciclient.a  
+TRACI_DIRS = libsumo traci-server traci_testclient
 endif
 
 bin_PROGRAMS = od2trips sumo netconvert $(GUI_APPS)

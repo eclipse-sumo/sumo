@@ -1,8 +1,6 @@
-noinst_LIBRARIES = libtraci.a
+noinst_LIBRARIES = libsumostatic.a
 
-libtraci_a_SOURCES = TraCI.cpp \
-TraCI.h \
-TraCI_Edge.cpp \
+libsumostatic_a_SOURCES = TraCI_Edge.cpp \
 TraCI_Edge.h \
 TraCI_InductionLoop.cpp \
 TraCI_InductionLoop.h \

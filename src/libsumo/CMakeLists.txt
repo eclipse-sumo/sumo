@@ -17,14 +17,12 @@ if(SWIG_FOUND)
         include(UseJava)
         include_directories(${JNI_INCLUDE_DIRS})
         set(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_BINARY_DIR}/java)
-        swig_add_module(swig_traci_java java libsumo.i)
-        swig_link_libraries(swig_traci_java -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive)
+        swig_add_module(libsumo java libsumo.i)
+        swig_link_libraries(libsumo -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive)
     endif()
 endif()
 
-set(traciserver_lib_STAT_SRCS
-        TraCI.cpp
-        TraCI.h
+set(libsumostatic_STAT_SRCS
         TraCI_InductionLoop.cpp
         TraCI_InductionLoop.h
         TraCI_Junction.cpp
@@ -53,5 +51,5 @@ set(traciserver_lib_STAT_SRCS
         TraCI_VehicleType.h
         TraCI_Edge.cpp TraCI_Edge.h)
 
-add_library(traciserver_lib STATIC ${traciserver_lib_STAT_SRCS})
-set_property(TARGET traciserver_lib PROPERTY PROJECT_LABEL "z_traciserver_lib")
+add_library(libsumostatic STATIC ${libsumostatic_STAT_SRCS})
+set_property(TARGET libsumostatic PROPERTY PROJECT_LABEL "z_libsumostatic")
