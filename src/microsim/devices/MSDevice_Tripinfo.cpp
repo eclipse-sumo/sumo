@@ -64,6 +64,7 @@ int MSDevice_Tripinfo::myRideBusCount(0);
 int MSDevice_Tripinfo::myRideRailCount(0);
 int MSDevice_Tripinfo::myRideBikeCount(0);
 int MSDevice_Tripinfo::myRideAbortCount(0);
+double MSDevice_Tripinfo::myTotalRideWaitingTime(0);
 double MSDevice_Tripinfo::myTotalRideRouteLength(0);
 SUMOTime MSDevice_Tripinfo::myTotalRideDuration(0);
 
@@ -125,6 +126,7 @@ MSDevice_Tripinfo::cleanup() {
     myRideRailCount = 0;
     myRideBikeCount = 0;
     myRideAbortCount = 0;
+    myTotalRideWaitingTime = 0;
     myTotalRideRouteLength = 0;
     myTotalRideDuration = 0;
 }
@@ -314,9 +316,10 @@ MSDevice_Tripinfo::addPedestrianData(double walkLength, SUMOTime walkDuration, S
 }
 
 void 
-MSDevice_Tripinfo::addRideData(double rideLength, SUMOTime rideDuration, SUMOVehicleClass vClass, const std::string& line) {
+MSDevice_Tripinfo::addRideData(double rideLength, SUMOTime rideDuration, SUMOVehicleClass vClass, const std::string& line, SUMOTime waitingTime) {
     myRideCount++;
     if (rideDuration > 0) {
+        myTotalRideWaitingTime += waitingTime;
         myTotalRideRouteLength += rideLength;
         myTotalRideDuration += rideDuration;
         if (!line.empty()) {
@@ -354,6 +357,7 @@ MSDevice_Tripinfo::printStatistics() {
     }
     if (myRideCount > 0) {
         msg << "Ride Statistics (avg of " << myRideCount << " rides):\n"
+            << " WaitingTime: " << getAvgRideWaitingTime() << "\n"
             << " Duration: " << getAvgRideDuration() << "\n"
             << " Bus: " << myRideBusCount << "\n"
             << " Train: " << myRideRailCount << "\n"
@@ -445,6 +449,15 @@ double
 MSDevice_Tripinfo::getAvgRideDuration() {
     if (myRideCount > 0) {
         return STEPS2TIME(myTotalRideDuration / myRideCount);
+    } else {
+        return 0;
+    }
+}
+
+double
+MSDevice_Tripinfo::getAvgRideWaitingTime() {
+    if (myRideCount > 0) {
+        return STEPS2TIME(myTotalRideWaitingTime / myRideCount);
     } else {
         return 0;
     }

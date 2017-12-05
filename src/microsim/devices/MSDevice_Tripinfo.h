@@ -74,7 +74,7 @@ public:
     static void addPedestrianData(double walkLength, SUMOTime walkDuration, SUMOTime walkTimeLoss);
 
     /// @brief record tripinfo data for rides
-    static void addRideData(double rideLength, SUMOTime rideDuration, SUMOVehicleClass vClass, const std::string& line);
+    static void addRideData(double rideLength, SUMOTime rideDuration, SUMOVehicleClass vClass, const std::string& line, SUMOTime waitingTime);
 
     /// @brief get statistics for printing to stdout
     static std::string printStatistics();
@@ -90,6 +90,7 @@ public:
     static double getAvgWalkDuration();
     static double getAvgWalkTimeLoss();
 
+    static double getAvgRideWaitingTime();
     static double getAvgRideDuration();
 
 public:
@@ -248,6 +249,7 @@ private:
     static int myRideRailCount;
     static int myRideBikeCount;
     static int myRideAbortCount;
+    static double myTotalRideWaitingTime;
     static double myTotalRideRouteLength;
     static SUMOTime myTotalRideDuration;
 
