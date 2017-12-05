@@ -270,6 +270,9 @@ private:
     /// @brief direction indicators for lanes
     void drawDirectionIndicators() const;
 
+    /// @brief set color according to edit mode and visualisation settings
+    void setLaneColor(const GUIVisualizationSettings& s) const;
+
     /// @brief Invalidated copy constructor.
     GNELane(const GNELane&) = delete;
 

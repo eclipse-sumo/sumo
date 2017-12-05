@@ -276,24 +276,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // Check if edge parent or this lane is selected
     const bool selectedEdge = gSelected.isSelected(myParentEdge.getType(), myParentEdge.getGlID());
     const bool selected = gSelected.isSelected(getType(), getGlID());
-    // Set color
-    if (mySpecialColor != 0) {
-        // If special color is enabled, set it
-        GLHelper::setColor(*mySpecialColor);
-    } else if (selected && s.laneColorer.getActive() != 1) {
-        // override with special colors (unless the color scheme is based on selection)
-        GLHelper::setColor(GNENet::selectedLaneColor);
-    } else if (selectedEdge && s.laneColorer.getActive() != 1) {
-        // override with special colors (unless the color scheme is based on selection)
-        GLHelper::setColor(GNENet::selectionColor);
-    } else {
-        // Get normal lane color
-        const GUIColorer& c = s.laneColorer;
-        if (!setFunctionalColor(c.getActive()) && !setMultiColor(c)) {
-            GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
-        }
-    }
-
+    setLaneColor(s);
     // start drawing lane checking whether it is not too small
     const double selectionScale = selected || selectedEdge ? s.selectionScale : 1;
     double exaggeration = selectionScale * s.laneWidthExaggeration; // * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
@@ -360,6 +343,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
             // Draw direction indicators if the correspondient option is enabled
             if (s.showLaneDirection) {
+                setLaneColor(s);
                 drawDirectionIndicators();
             }
             if (s.drawLinkJunctionIndex.show) {
@@ -904,6 +888,28 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
+void 
+GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
+    const bool selectedEdge = gSelected.isSelected(myParentEdge.getType(), myParentEdge.getGlID());
+    const bool selected = gSelected.isSelected(getType(), getGlID());
+    if (mySpecialColor != 0) {
+        // If special color is enabled, set it
+        GLHelper::setColor(*mySpecialColor);
+    } else if (selected && s.laneColorer.getActive() != 1) {
+        // override with special colors (unless the color scheme is based on selection)
+        GLHelper::setColor(GNENet::selectedLaneColor);
+    } else if (selectedEdge && s.laneColorer.getActive() != 1) {
+        // override with special colors (unless the color scheme is based on selection)
+        GLHelper::setColor(GNENet::selectionColor);
+    } else {
+        // Get normal lane color
+        const GUIColorer& c = s.laneColorer;
+        if (!setFunctionalColor(c.getActive()) && !setMultiColor(c)) {
+            GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
+        }
+    }
+}
+
 bool
 GNELane::setFunctionalColor(int activeScheme) const {
     switch (activeScheme) {
@@ -1061,7 +1067,6 @@ GNELane::drawCrossties(double length, double spacing, double halfWidth) const {
 void
 GNELane::drawDirectionIndicators() const {
     const double width = myParentEdge.getNBEdge()->getLaneWidth(myIndex);
-    glColor3d(0.3, 0.3, 0.3);
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION + 0.1);
     int e = (int) getShape().size() - 1;
