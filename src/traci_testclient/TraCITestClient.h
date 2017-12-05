@@ -83,6 +83,11 @@ protected:
     void commandClose();
 
 
+    /** @brief Sends and validates a SetOrder command
+     */
+    void commandSetOrder(int order);
+
+
     /** @brief Sends and validates a GetVariable command
      * @param[in] domID The ID of the domain the addressed object belongs to
      * @param[in] varID The ID of the variable one asks for

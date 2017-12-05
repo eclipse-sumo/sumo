@@ -135,6 +135,19 @@ TraCIAPI::send_commandClose() const {
 
 
 void
+TraCIAPI::send_commandSetOrder(int order) const {
+    tcpip::Storage outMsg;
+    // command length
+    outMsg.writeUnsignedByte(1 + 1 + 4);
+    // command id
+    outMsg.writeUnsignedByte(CMD_SETORDER);
+    // client index
+    outMsg.writeInt(order);
+    mySocket->sendExact(outMsg);
+}
+
+
+void
 TraCIAPI::send_commandGetVariable(int domID, int varID, const std::string& objID, tcpip::Storage* add) const {
     if (mySocket == 0) {
         throw tcpip::SocketException("Socket is not initialised");

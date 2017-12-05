@@ -840,6 +840,10 @@ protected:
     void send_commandClose() const;
 
 
+    /** @brief Sends a SetOrder command
+     */
+    void send_commandSetOrder(int order) const;
+
     /** @brief Sends a GetVariable request
      * @param[in] domID The domain of the variable
      * @param[in] varID The variable to retrieve

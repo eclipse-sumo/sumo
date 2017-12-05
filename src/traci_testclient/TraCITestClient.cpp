@@ -156,9 +156,14 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             std::string objID;
             defFile >> domID >> varID >> objID;
             commandSetValue(domID, varID, objID, defFile);
-        }  else if (lineCommand.compare("testAPI") == 0) {
+        } else if (lineCommand.compare("testAPI") == 0) {
             // call all native API methods
             testAPI();
+        } else if (lineCommand.compare("setorder") == 0) {
+            // call setOrder
+            int order;
+            defFile >> order;
+            commandSetOrder(order);
         } else {
             msg << "Error in definition file: " << lineCommand << " is not a valid command";
             errorMsg(msg);
@@ -199,6 +204,21 @@ TraCITestClient::commandClose() {
         tcpip::Storage inMsg;
         std::string acknowledgement;
         check_resultState(inMsg, CMD_CLOSE, false, &acknowledgement);
+        answerLog << acknowledgement << std::endl;
+    } catch (tcpip::SocketException& e) {
+        answerLog << e.what() << std::endl;
+    }
+}
+
+
+void
+TraCITestClient::commandSetOrder(int order) {
+    try {
+        send_commandSetOrder(order);
+        answerLog << std::endl << "-> Command sent: <SetOrder>:" << std::endl;
+        tcpip::Storage inMsg;
+        std::string acknowledgement;
+        check_resultState(inMsg, CMD_SETORDER, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
     } catch (tcpip::SocketException& e) {
         answerLog << e.what() << std::endl;
