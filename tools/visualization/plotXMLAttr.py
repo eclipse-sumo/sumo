@@ -21,22 +21,26 @@ sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse
 from sumolib.miscutils import Statistics
 
-def main(xmlfile, tag, attr):
-    stats = Statistics('%s %s' % (tag, attr))
-    for elem in parse(xmlfile, tag):
-        stats.add(float(elem.getAttribute(attr)), elem.id)
-    print(stats)
+def main(tag, attr, *xmlfiles):
+    data = []
+    for xmlfile in xmlfiles:
+        stats = Statistics('%s %s' % (tag, attr))
+        for elem in parse(xmlfile, tag):
+            stats.add(float(elem.getAttribute(attr)), elem.id)
+        print(stats)
+        data.append(stats.values)
     try:
         import matplotlib.pyplot as plt
     except Exception as e:
         sys.exit(e)
     fig = plt.figure()
+    plt.xticks(range(len(xmlfiles)), xmlfiles)
     plt.ylabel("%s %s" % (tag, attr))
-    plt.xlabel(xmlfile)
-    plt.boxplot([stats.values])
-    plt.legend(loc='best')
+    plt.boxplot(data)
     plt.show()
 
 
 if __name__ == "__main__":
+    if len(sys.argv) < 4:
+        sys.exit("usage: %s <tag> <attr> <xmlfile>*" % __file__)
     main(*sys.argv[1:])
