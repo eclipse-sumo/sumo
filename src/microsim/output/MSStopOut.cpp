@@ -96,6 +96,10 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const MSVehicle::Stop& stop) {
         WRITE_WARNING("Vehicle '" + veh->getID() + "' is not stopped.");
         return;
     }
+    double delay = -1;
+    if (stop.pars.until >= 0) {
+        delay = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - stop.pars.until);
+    }
     StopInfo& si = myStopped[veh];
     myDevice.openTag("stopinfo");
     myDevice.writeAttr(SUMO_ATTR_ID, veh->getID());
@@ -105,6 +109,7 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const MSVehicle::Stop& stop) {
     myDevice.writeAttr(SUMO_ATTR_PARKING, stop.pars.parking);
     myDevice.writeAttr("started", time2string(si.started));
     myDevice.writeAttr("ended", time2string(MSNet::getInstance()->getCurrentTimeStep()));
+    myDevice.writeAttr("delay", delay);
     myDevice.writeAttr("initialPersons", si.initialNumPersons);
     myDevice.writeAttr("loadedPersons", si.loadedPersons);
     myDevice.writeAttr("unloadedPersons", si.unloadedPersons);
