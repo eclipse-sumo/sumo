@@ -343,7 +343,12 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
             // Draw direction indicators if the correspondient option is enabled
             if (s.showLaneDirection) {
-                setLaneColor(s);
+                if (drawAsRailway(s)) {
+                    // improve visibility of superposed rail edges
+                    setLaneColor(s);
+                } else {
+                    glColor3d(0.3, 0.3, 0.3);
+                }
                 drawDirectionIndicators();
             }
             if (s.drawLinkJunctionIndex.show) {

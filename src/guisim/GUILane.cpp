@@ -558,6 +558,12 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                         drawLane2LaneConnections();
                     }
                     if (s.showLaneDirection) {
+                        if (drawAsRailway(s)) {
+                            // improve visibility of superposed rail edges
+                            setColor(s);
+                        } else {
+                            glColor3d(0.3, 0.3, 0.3);
+                        }
                         drawDirectionIndicators();
                     }
                     glTranslated(0, 0, .1);
@@ -691,7 +697,6 @@ GUILane::drawCrossties(double length, double spacing, double halfWidth) const {
 
 void
 GUILane::drawDirectionIndicators() const {
-    glColor3d(0.3, 0.3, 0.3);
     glPushMatrix();
     glTranslated(0, 0, GLO_EDGE);
     int e = (int) getShape().size() - 1;
