@@ -336,8 +336,8 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
 
     // check if a traci manoeuvre must continue
     if ((vehicle->getLaneChangeModel().getOwnState() & LCA_TRACI) != 0) {
-        if (vehicle->getLaneChangeModel().debugVehicle()) std::cout << SIMTIME << " continue TraCI-manoeuvre remainingLatDist=" << vehicle->getLaneChangeModel().getManeuverDist() - latDist << "\n";
-        vehicle->getInfluencer().setSublaneChange(vehicle->getLaneChangeModel().getManeuverDist() - latDist);
+        if (vehicle->getLaneChangeModel().debugVehicle()) std::cout << SIMTIME << " continue TraCI-manoeuvre remainingLatDist=" << vehicle->getLaneChangeModel().getManeuverDist() << "\n";
+        vehicle->getInfluencer().setSublaneChange(vehicle->getLaneChangeModel().getManeuverDist());
     }
     return changedToNewLane;
 }
