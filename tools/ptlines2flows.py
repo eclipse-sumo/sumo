@@ -189,14 +189,17 @@ def createRoutes(options, trpMap):
             parking = ' parking="true"' if vehicle.type == "bus" and options.busparking else ''
             stops = vehicle.stop
             foutflows.write('    <route id="%s" edges="%s" >\n' % (id, edges))
-            for stop in stops:
-                if (id, stop.busStop) in stopsUntil:
-                    untilZeroBased = stopsUntil[(id, stop.busStop)] - actualDepart[id]
-                    foutflows.write(
-                        '        <stop busStop="%s" duration="%s" until="%s"%s/>\n' % (
-                            stop.busStop, stop.duration, untilZeroBased, parking))
-                else:
-                    sys.stderr.write("Missing stop '%s' for flow '%s'\n" % (stop.busStop, id))
+            if vehicle.stop is not None:
+                for stop in stops:
+                    if (id, stop.busStop) in stopsUntil:
+                        untilZeroBased = stopsUntil[(id, stop.busStop)] - actualDepart[id]
+                        foutflows.write(
+                            '        <stop busStop="%s" duration="%s" until="%s"%s/>\n' % (
+                                stop.busStop, stop.duration, untilZeroBased, parking))
+                    else:
+                        sys.stderr.write("Warning: Missing stop '%s' for flow '%s'\n" % (stop.busStop, id))
+            else:
+                sys.stderr.write("Warning: No stops for flow '%s'\n" % id)
             foutflows.write('    </route>\n')
         lineCount = collections.defaultdict(int)
         for flow, type, begin in flows:
