@@ -235,6 +235,20 @@ MSLaneChangerSublane::checkChangeHelper(MSVehicle* vehicle, int laneOffset, Lane
 //          (used to continue sublane changing in non-action steps).
 bool
 MSLaneChangerSublane::continueChangeSublane(MSVehicle* vehicle, ChangerIt& from) {
+#ifndef NO_TRACI
+    // let TraCI influence the wish to change lanes and the security to take
+    const int oldstate = vehicle->getLaneChangeModel().getOwnState();
+    vehicle->getLaneChangeModel().setOwnState(vehicle->influenceChangeDecision(oldstate));
+    if (DEBUG_COND && vehicle->getLaneChangeModel().getOwnState() != oldstate) {
+        std::cout << SIMTIME << " veh=" << vehicle->getID() << " stateAfterTraCI=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getOwnState()) << " original=" << toString((LaneChangeAction)oldstate) << "\n";
+    }
+    // Adjust maneuver dist according to overriding traci sublane-request
+    if (/* (vehicle->getLaneChangeModel().getOwnState() & LCA_TRACI)!=0 && */ vehicle->hasInfluencer() && vehicle->getInfluencer().getLatDist() != 0) {
+        vehicle->getLaneChangeModel().setManeuverDist(vehicle->getInfluencer().getLatDist());
+        if (gDebugFlag2) std::cout << "     traci influenced latDist=" << vehicle->getInfluencer().getLatDist() << "\n";
+    }
+#endif
+
     // lateral distance to complete maneuver
     double remLatDist = vehicle->getLaneChangeModel().getManeuverDist();
     if (remLatDist == 0) {
@@ -334,9 +348,9 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     }
     vehicle->setAngle(laneAngle + changeAngle, completedManeuver);
 
-    // check if a traci manoeuvre must continue
+    // check if a traci maneuver must continue
     if ((vehicle->getLaneChangeModel().getOwnState() & LCA_TRACI) != 0) {
-        if (vehicle->getLaneChangeModel().debugVehicle()) std::cout << SIMTIME << " continue TraCI-manoeuvre remainingLatDist=" << vehicle->getLaneChangeModel().getManeuverDist() << "\n";
+        if (vehicle->getLaneChangeModel().debugVehicle()) std::cout << SIMTIME << " continue TraCI-maneuver remainingLatDist=" << vehicle->getLaneChangeModel().getManeuverDist() - latDist << "\n";
         vehicle->getInfluencer().setSublaneChange(vehicle->getLaneChangeModel().getManeuverDist());
     }
     return changedToNewLane;
