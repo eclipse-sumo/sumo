@@ -90,6 +90,7 @@ public:
     static double getAvgWalkDuration();
     static double getAvgWalkTimeLoss();
 
+    static double getAvgRideRouteLength();
     static double getAvgRideWaitingTime();
     static double getAvgRideDuration();
 

@@ -358,6 +358,7 @@ MSDevice_Tripinfo::printStatistics() {
     if (myRideCount > 0) {
         msg << "Ride Statistics (avg of " << myRideCount << " rides):\n"
             << " WaitingTime: " << getAvgRideWaitingTime() << "\n"
+            << " RouteLength: " << getAvgRideRouteLength() << "\n"
             << " Duration: " << getAvgRideDuration() << "\n"
             << " Bus: " << myRideBusCount << "\n"
             << " Train: " << myRideRailCount << "\n"
@@ -462,6 +463,16 @@ MSDevice_Tripinfo::getAvgRideWaitingTime() {
         return 0;
     }
 }
+
+double
+MSDevice_Tripinfo::getAvgRideRouteLength() {
+    if (myRideCount > 0) {
+        return myTotalRideRouteLength / myRideCount;
+    } else {
+        return 0;
+    }
+}
+
 
 void
 MSDevice_Tripinfo::saveState(OutputDevice& out) const {

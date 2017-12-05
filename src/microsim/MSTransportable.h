@@ -124,7 +124,7 @@ public:
         void setDeparted(SUMOTime now);
 
         /// logs end of the step
-        void setArrived(SUMOTime now);
+        virtual void setArrived(SUMOTime now);
 
         /// Whether the transportable waits for a vehicle of the line specified.
         virtual bool isWaitingFor(const std::string& line) const;
@@ -341,6 +341,9 @@ public:
 
         void setVehicle(SUMOVehicle* v);
 
+        /// @brief marks arrival time and records driven distance
+        void setArrived(SUMOTime now);
+
         /** @brief Called for writing the events output
         * @param[in] os The stream to write the information into
         * @exception IOError not yet implemented
@@ -363,6 +366,7 @@ public:
         std::string myVehicleID;
         std::string myVehicleLine;
         SUMOVehicleClass myVehicleVClass;
+        double myVehicleDistance;
 
         double myWaitingPos;
         /// @brief The time since which this person is waiting for a ride

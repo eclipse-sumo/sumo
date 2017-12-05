@@ -332,6 +332,18 @@ MSTransportable::Stage_Driving::getEdges() const {
     return result;
 }
 
+void
+MSTransportable::Stage_Driving::setArrived(SUMOTime now) {
+    MSTransportable::Stage::setArrived(now); 
+    if (myVehicle != 0) {
+        // distance was previously set to driven distance upon embarking
+        myVehicleDistance = myVehicle->getRoute().getDistanceBetween(
+                myVehicle->getDepartPos(), myVehicle->getPositionOnLane(), 
+                myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge()) - myVehicleDistance;
+    } else {
+        myVehicleDistance = -1;
+    }
+}
 
 void
 MSTransportable::Stage_Driving::setVehicle(SUMOVehicle* v) {
@@ -339,6 +351,9 @@ MSTransportable::Stage_Driving::setVehicle(SUMOVehicle* v) {
     myVehicleID = v->getID();
     myVehicleLine = v->getParameter().line; 
     myVehicleVClass = v->getVClass();
+    myVehicleDistance = myVehicle->getRoute().getDistanceBetween(
+            myVehicle->getDepartPos(), myVehicle->getPositionOnLane(), 
+            myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge());
 }
 
 

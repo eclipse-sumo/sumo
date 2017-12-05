@@ -365,15 +365,17 @@ MSPerson::MSPersonStage_Driving::getStageDescription() const {
 
 void
 MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os, MSTransportable*) const {
-    double distance = -1; // XXX
-    SUMOTime waitingTime = myDeparted - myWaitingSince;
-    MSDevice_Tripinfo::addRideData(distance, myArrived - myDeparted, myVehicleVClass, myVehicleLine, waitingTime);
+    const SUMOTime waitingTime = myDeparted - myWaitingSince;
+    const SUMOTime duration = myArrived - myDeparted;
+    MSDevice_Tripinfo::addRideData(myVehicleDistance, duration, myVehicleVClass, myVehicleLine, waitingTime);
     os.openTag("ride");
     os.writeAttr("waitingTime", time2string(waitingTime));
     os.writeAttr("vehicle", myVehicleID);
     os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", time2string(myArrived));
     os.writeAttr("arrivalPos", toString(myArrivalPos));
+    os.writeAttr("duration", time2string(duration));
+    os.writeAttr("routeLength", myVehicleDistance);
     os.closeTag();
 }
 
