@@ -358,7 +358,7 @@ MSFrame::fillOptions() {
     oc.doRegister("astar.landmark-distances", new Option_FileName());
     oc.addDescription("astar.landmark-distances", "Routing", "Initialize lookup table for astar ALT-variant from the given file");
 
-    oc.doRegister("persontrip.walkfactor", new Option_Float(double(0.9)));
+    oc.doRegister("persontrip.walkfactor", new Option_Float(double(0.75)));
     oc.addDescription("persontrip.walkfactor", "Routing", "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing");
 
     oc.doRegister("persontrip.transfer.car-walk", new Option_String("parkingAreas"));
