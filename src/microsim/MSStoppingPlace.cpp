@@ -108,6 +108,7 @@ void
 MSStoppingPlace::addTransportable(MSTransportable* p) {
     myWaitingTransportables.push_back(p);
     myWaitingPos -= p->getVehicleType().getLength();
+    myWaitingPos = MAX2(myBegPos, myWaitingPos);
 }
 
 
