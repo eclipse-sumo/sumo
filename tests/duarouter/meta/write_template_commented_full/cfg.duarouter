@@ -166,7 +166,7 @@
         <logit.theta value="-1" synonymes="lTheta" type="FLOAT"/>
 
         <!-- Use FLOAT as a factor on pedestrian maximum speed during intermodal routing -->
-        <persontrip.walkfactor value="0.9" type="FLOAT"/>
+        <persontrip.walkfactor value="0.75" type="FLOAT"/>
 
         <!-- Where are mode changes from car to walking allowed (possible values: &apos;parkingAreas&apos;, &apos;ptStops&apos;, &apos;allJunctions&apos; and combinations) -->
         <persontrip.transfer.car-walk value="parkingAreas" type="STR"/>

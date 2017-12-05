@@ -1533,43 +1533,30 @@ Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle '
 Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle '39'.
 Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle '39'.
 Warning: Vehicle '40' is not allowed to depart on any lane of its first edge.
-Warning: busStop '2915579613' for vehicle '37' on lane '275177453_1' is not downstream the current route.
+Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle '28'.
 Warning: Vehicle '30' is not allowed on destination edge '274513583'.
 Warning: No route for vehicle '30' found.
-Warning: busStop '253845582' for vehicle '44' on lane '70268945_0' is not downstream the current route.
-Warning: busStop '253846340' for vehicle '44' on lane '70268945_0' is not downstream the current route.
-Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle '28'.
+Warning: busStop '2915579613' for vehicle '37' on lane '275177453_1' is not downstream the current route.
 Warning: No connection between edge '272795472#1' and edge '199847339' found.
 Warning: Vehicle '39' has no valid route from edge '272795472#1' to stop edge '199847339'.
 Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle '39'.
 Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle '39'.
 Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle '39'.
-Warning: Teleporting vehicle '30'; waited too long (wrong lane), lane='153698380_1', time=351.00.
-Warning: Vehicle '30' ends teleporting on edge '153698380', time 351.00.
-Warning: Teleporting vehicle '30'; waited too long (wrong lane), lane='153698380_1', time=664.00.
-Warning: Vehicle '30' teleports beyond arrival edge '274513583', time 712.00.
-Warning: Teleporting vehicle '39'; waited too long (wrong lane), lane='272795472#1_0', time=727.00.
-Warning: Vehicle '39' ends teleporting on edge '199847339', time 727.00.
+Warning: busStop '253845582' for vehicle '44' on lane '70268945_0' is not downstream the current route.
+Warning: busStop '253846340' for vehicle '44' on lane '70268945_0' is not downstream the current route.
+Warning: Teleporting vehicle '30'; waited too long (wrong lane), lane='153698380_1', time=715.00.
+Warning: Vehicle '30' ends teleporting on edge '153698380', time 715.00.
+Warning: Teleporting vehicle '30'; waited too long (wrong lane), lane='153698380_1', time=1029.00.
+Warning: Vehicle '30' teleports beyond arrival edge '274513583', time 1077.00.
+Warning: Teleporting vehicle '39'; waited too long (wrong lane), lane='272795472#1_0', time=1168.00.
+Warning: Vehicle '39' ends teleporting on edge '199847339', time 1168.00.
 Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle 'pt_bus_N6:0.0'.
 Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
 Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
 Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
-Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle 'pt_bus_N6:0.1'.
-Warning: Teleporting vehicle 'pt_bus_147:0.0'; waited too long (wrong lane), lane='153698380_1', time=835.00.
-Warning: Vehicle 'pt_bus_147:0.0' ends teleporting on edge '153698380', time 835.00.
-Warning: Teleporting vehicle 'pt_subway_U2:0.0'; waited too long (wrong lane), lane='272795472#1_0', time=1149.00.
-Warning: Vehicle 'pt_subway_U2:0.0' ends teleporting on edge '199847339', time 1149.00.
-Warning: Teleporting vehicle 'bus40'; waited too long (yield), lane='-153698380_1', time=1153.00.
-Warning: Vehicle 'bus40' ends teleporting on edge '155186522#0', time 1153.00.
-Warning: Teleporting vehicle 'pt_bus_147:0.0'; waited too long (wrong lane), lane='153698380_1', time=1256.00.
-Warning: Vehicle 'pt_bus_147:0.0' teleports beyond arrival edge '274513583', time 1304.00.
-Warning: Person 'ped150' aborted waiting for a ride that will never come.
-Warning: Person 'ped108' aborted waiting for a ride that will never come.
-Warning: Person 'ped111' aborted waiting for a ride that will never come.
-Warning: Person 'ped124' aborted waiting for a ride that will never come.
-Warning: Person 'ped18' aborted waiting for a ride that will never come.
-Warning: Person 'ped12' aborted waiting for a ride that will never come.
-Warning: Person 'ped45' aborted waiting for a ride that will never come.
-Warning: Person 'ped185' aborted waiting for a ride that will never come.
-Warning: Person 'ped14' aborted waiting for a ride that will never come.
-Warning: Person 'ped103' aborted waiting for a ride that will never come.
+Warning: Teleporting vehicle 'pt_bus_147:0.0'; waited too long (wrong lane), lane='153698380_1', time=716.00.
+Warning: Vehicle 'pt_bus_147:0.0' ends teleporting on edge '153698380', time 716.00.
+Warning: Teleporting vehicle 'pt_bus_147:0.0'; waited too long (wrong lane), lane='153698380_1', time=1035.00.
+Warning: Vehicle 'pt_bus_147:0.0' teleports beyond arrival edge '274513583', time 1083.00.
+Warning: Teleporting vehicle 'pt_subway_U2:0.0'; waited too long (wrong lane), lane='272795472#1_0', time=1172.00.
+Warning: Vehicle 'pt_subway_U2:0.0' ends teleporting on edge '199847339', time 1172.00.
