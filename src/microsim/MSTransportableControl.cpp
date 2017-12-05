@@ -254,13 +254,17 @@ MSTransportableControl::abortWaitingForVehicle() {
         for (TransportableVector::const_iterator j = pv.begin(); j != pv.end(); ++j) {
             MSTransportable* p = (*j);
             p->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
+            std::string transportableType;
             if (dynamic_cast<MSPerson*>(p) != 0) {
                 edge->removePerson(p);
-                WRITE_WARNING("Person '" + p->getID() + "' aborted waiting for a ride that will never come.");
+                transportableType = "Person";
             } else {
+                transportableType = "Container";
                 edge->removeContainer(p);
-                WRITE_WARNING("Container '" + p->getID() + "' aborted waiting for a transport that will never come.");
             }
+            MSTransportable::Stage_Driving* stage = dynamic_cast<MSTransportable::Stage_Driving*>(p->getCurrentStage());
+            const std::string waitDescription = stage == 0 ? "waiting" : stage->getWaitingDescription();
+            WRITE_WARNING(transportableType + " '" + p->getID() + "' aborted " + waitDescription + ".");
             erase(p);
         }
     }

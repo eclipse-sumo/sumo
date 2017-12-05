@@ -351,6 +351,15 @@ MSTransportable::Stage_Driving::abort(MSTransportable* t) {
 }
 
 
+std::string
+MSTransportable::Stage_Driving::getWaitingDescription() const {
+    return isWaiting4Vehicle() ? ("waiting for " + joinToString(myLines, ",") 
+            + " at " + (myDestinationStop == 0 
+                ? ("edge '" + myWaitingEdge->getID() + "'")
+                : ("busStop '" + myDestinationStop->getID() + "'"))
+            ) : "";
+}
+
 
 void
 MSTransportable::Stage_Driving::beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
