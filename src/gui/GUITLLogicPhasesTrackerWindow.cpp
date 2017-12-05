@@ -243,7 +243,11 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         myPhases.clear();
         myDurations.clear();
         // insert phases
-        const MSSimpleTrafficLightLogic::Phases& phases = static_cast<MSSimpleTrafficLightLogic*>(myTLLogic)->getPhases();
+        MSSimpleTrafficLightLogic* simpleTLLogic = dynamic_cast<MSSimpleTrafficLightLogic*>(myTLLogic);
+        if (simpleTLLogic == 0) {
+            return;
+        }
+        const MSSimpleTrafficLightLogic::Phases& phases = simpleTLLogic->getPhases();
         MSSimpleTrafficLightLogic::Phases::const_iterator j;
         myLastTime = 0;
         myBeginTime = 0;
