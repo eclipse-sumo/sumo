@@ -89,8 +89,12 @@ def createTrips(options):
         sumolib.writeXMLHeader(
             fouttrips, "$Id$", "routes")
         writeTypes(fouttrips, options.vtypeprefix)
-        trp_nr = 0
-        for line in sumolib.output.parse(options.ptlines, 'ptLine'):
+
+        departTimes = [0 for line in sumolib.output.parse_fast(options.ptlines, 'ptLine', ['id'])]
+        if options.randomBegin:
+            departTimes = sorted([int(random.random() * options.period) for t in departTimes])
+
+        for trp_nr, line in enumerate(sumolib.output.parse(options.ptlines, 'ptLine')):
             stop_ids = []
             for stop in line.busStop:
                 if not stop.id in stopsLanes:
@@ -109,30 +113,28 @@ def createTrips(options):
 
             if len(stop_ids) < options.min_stops:
                 sys.stderr.write("Warning: skipping line '%s' because it has too few stops\n" % line.id)
-                trp_nr += 1
                 continue
 
+            begin = departTimes[trp_nr]
             if options.osmRoutes and line.route is not None:
                 edges = line.route[0].edges.split()
                 vias = ''
                 if len(edges) > 2:
                     vias = ' via="%s"' % (' '.join(edges[1:-1]))
                 fouttrips.write(
-                    '    <trip id="%s" type="%s%s" depart="0" departLane="%s" from="%s" to="%s"%s>\n' % (
-                        trp_nr, options.vtypeprefix, line.type, 'best', edges[0], edges[-1], vias))
+                    '    <trip id="%s" type="%s%s" depart="%s" departLane="%s" from="%s" to="%s"%s>\n' % (
+                        line.id, options.vtypeprefix, line.type, begin, 'best', edges[0], edges[-1], vias))
             else:
                 if len(stop_ids) == 0:
                     sys.stderr.write("Warning: skipping line '%s' because it has no stops\n" % line.id)
-                    trp_nr += 1
                     continue
                 fr, _ = stopsLanes[stop_ids[0]].rsplit("_", 1)
                 to, _ = stopsLanes[stop_ids[-1]].rsplit("_", 1)
                 fouttrips.write(
-                    '    <trip id="%s" type="%s%s" depart="0" departLane="%s" from="%s" to="%s">\n' % (
-                        trp_nr, options.vtypeprefix, line.type, 'best', fr, to))
+                    '    <trip id="%s" type="%s%s" depart="%s" departLane="%s" from="%s" to="%s">\n' % (
+                        line.id, options.vtypeprefix, line.type, begin, 'best', fr, to))
 
-            trpMap[str(trp_nr)] = (line.line, line.attr_name, line.completeness)
-            trp_nr += 1
+            trpMap[line.id] = (line.line, line.attr_name, line.completeness)
             for stop in stop_ids:
                 fouttrips.write('        <stop busStop="%s" duration="30"/>\n' % (stop))
             fouttrips.write('    </trip>\n')
@@ -143,7 +145,10 @@ def createTrips(options):
 
 def runSimulation(options):
     print("running SUMO to determine actual departure times...")
-    subprocess.call([sumolib.checkBinary("sumo"), "-r", options.trips, "-n", options.netfile,
+    subprocess.call([sumolib.checkBinary("sumo"), 
+                     "-n", options.netfile,
+                     "-r", options.trips,
+                     "--begin", str(options.begin),
                      "--no-step-log",
                      "--ignore-route-errors",
                      "--error-log", options.trips + ".errorlog",
@@ -157,10 +162,11 @@ def createRoutes(options, trpMap):
     print("creating routes...")
     stopsUntil = {}
     for stop in sumolib.output.parse_fast(options.stopinfos, 'stopinfo', ['id', 'ended', 'busStop']):
-        stopsUntil[(stop.id, stop.busStop)] = stop.ended
+        stopsUntil[(stop.id, stop.busStop)] = float(stop.ended)
 
     with codecs.open(options.outfile, 'w', encoding="UTF8") as foutflows:
         flows = []
+        actualDepart = {} # departure may be delayed when the edge is not yet empty
         sumolib.writeXMLHeader(
             foutflows, "$Id$", "routes")
         if not options.novtypes:
@@ -178,26 +184,25 @@ def createRoutes(options, trpMap):
                     continue
                 else:
                     sys.exit("Could not parse edges for vehicle '%s'\n" % id)
-            flows.append((id, vehicle.type))
+            flows.append((id, vehicle.type, vehicle.depart))
+            actualDepart[id] = float(vehicle.depart)
             parking = ' parking="true"' if vehicle.type == "bus" and options.busparking else ''
             stops = vehicle.stop
             foutflows.write('    <route id="%s" edges="%s" >\n' % (id, edges))
             for stop in stops:
                 if (id, stop.busStop) in stopsUntil:
+                    untilZeroBased = stopsUntil[(id, stop.busStop)] - actualDepart[id]
                     foutflows.write(
                         '        <stop busStop="%s" duration="%s" until="%s"%s/>\n' % (
-                            stop.busStop, stop.duration, stopsUntil[(id, stop.busStop)], parking))
+                            stop.busStop, stop.duration, untilZeroBased, parking))
                 else:
                     sys.stderr.write("Missing stop '%s' for flow '%s'\n" % (stop.busStop, id))
             foutflows.write('    </route>\n')
         lineCount = collections.defaultdict(int)
-        for flow, type in flows:
+        for flow, type, begin in flows:
             line, name, completeness = trpMap[flow]
             lineRef = "%s:%s" % (line, lineCount[line])
             lineCount[line] += 1
-            begin = options.begin
-            if options.randomBegin:
-                begin += int(random.random() * options.period)
             foutflows.write('    <flow id="%s_%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s>\n' %
                             (type, lineRef, type, flow, begin, options.end, options.period, lineRef, options.flowattrs))
             foutflows.write('        <param key="name" value="%s"/>\n        <param key="completeness" value="%s"/>\n    </flow>\n' %
