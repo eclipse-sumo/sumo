@@ -633,6 +633,8 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
     glPushMatrix();
     glTranslated(front.x(), front.y(), getType());
     glRotated(angle, 0, 0, 1);
+    const double upscale = s.vehicleSize.getExaggeration(s);
+    glScaled(upscale, upscale, 1);
     glPushMatrix();
 }
 
