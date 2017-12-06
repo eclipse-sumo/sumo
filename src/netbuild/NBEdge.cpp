@@ -1542,9 +1542,9 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
 
         assert(shape.size() >= 2);
         // get internal splits if any
+        con.id = innerID + "_" + toString(edgeIndex);
         if (crossingPositions.first >= 0) {
             std::pair<PositionVector, PositionVector> split = shape.splitAt(crossingPositions.first);
-            con.id = innerID + "_" + toString(edgeIndex);
             con.shape = split.first;
             con.foeIncomingLanes = joinToString(tmpFoeIncomingLanes, " ");
             con.foeInternalLinks = foeInternalLinks; // resolve link indices to lane ids later
@@ -1553,7 +1553,6 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             con.viaShape = split.second;
             con.haveVia = true;
         } else {
-            con.id = innerID + "_" + toString(edgeIndex);
             con.shape = shape;
         }
         con.internalLaneIndex = internalLaneIndex;
