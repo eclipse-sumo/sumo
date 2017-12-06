@@ -72,8 +72,9 @@ protected:
     /// @brief write internal edge to device
     static void writeInternalEdge(OutputDevice& device, 
             const NBEdge* inEdge, int nodeID,
+            int edgeID, int inEdgeID, int outEdgeID,
             const std::vector<NBEdge::Connection>& parallel,
-            int& edgeID, StringBijection<int>& edgeMap,
+            const bool isOuterEdge,
             const double straightThresh);
 
     /// @brief write geometry as sequence of lines (sumo style)
