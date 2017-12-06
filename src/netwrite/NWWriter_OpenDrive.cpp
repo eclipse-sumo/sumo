@@ -334,8 +334,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, const NBEdge* inEdge
     }
 
     device.openTag("road");
-    // XXX device.writeAttr("name", cLeft.id);
-    device.writeAttr("name", cLeft.getInternalLaneID());
+    device.writeAttr("name", cLeft.id);
     device.setPrecision(8); // length requires higher precision
     device.writeAttr("length", MAX2(POSITION_EPS, length));
     device.setPrecision(gPrecision);
