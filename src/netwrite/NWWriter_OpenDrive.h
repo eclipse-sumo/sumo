@@ -31,6 +31,7 @@
 
 #include <utils/common/StringBijection.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <netbuild/NBEdge.h>
 
 
 // ===========================================================================
@@ -66,6 +67,13 @@ protected:
     static void writeNormalEdge(OutputDevice& device, const NBEdge* e,
             int edgeID, int fromNodeID, int toNodeID,
             const bool origNames,
+            const double straightThresh);
+
+    /// @brief write internal edge to device
+    static void writeInternalEdge(OutputDevice& device, 
+            const NBEdge* inEdge, int nodeID,
+            const std::vector<NBEdge::Connection>& parallel,
+            int& edgeID, StringBijection<int>& edgeMap,
             const double straightThresh);
 
     /// @brief write geometry as sequence of lines (sumo style)

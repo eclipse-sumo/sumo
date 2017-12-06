@@ -32,7 +32,6 @@
 #include "NWWriter_OpenDrive.h"
 #include <utils/iodevices/OutputDevice_String.h>
 #include <utils/common/MsgHandler.h>
-#include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
@@ -98,6 +97,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     device.writeAttr("maxPrg", 0);
     */
     device.closeTag();
+
+    // write normal edges (road)
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         const NBEdge* e = (*i).second;
         const int fromNodeID = e->getIncomingEdges().size() > 0 ? getID(e->getFromNode()->getID(), nodeMap, nodeID) : INVALID_ID;
@@ -109,116 +110,30 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     device.lf();
 
-
     // write junction-internal edges (road). In OpenDRIVE these are called 'paths' or 'connecting roads'
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
+        const int nID = getID(n->getID(), nodeMap, nodeID);
         const std::vector<NBEdge*>& incoming = (*i).second->getIncomingEdges();
         for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
             const NBEdge* inEdge = *j;
-            const std::vector<NBEdge::Connection>& elv = inEdge->getConnections();
-            for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                const NBEdge::Connection& c = *k;
-                const NBEdge* outEdge = c.toEdge;
-                if (outEdge == 0) {
-                    continue;
-                }
-                const double width = c.toEdge->getLaneWidth(c.toLane);
-                PositionVector begShape = getLeftLaneBorder(inEdge, c.fromLane);
-                PositionVector endShape = getLeftLaneBorder(outEdge, c.toLane);
-                //std::cout << "computing reference line for internal lane " << c.getInternalLaneID() << " begLane=" << inEdge->getLaneShape(c.fromLane) << " endLane=" << outEdge->getLaneShape(c.toLane) << "\n";
-
-                double length;
-                double laneOffset = 0;
-                PositionVector fallBackShape;
-                fallBackShape.push_back(begShape.back());
-                fallBackShape.push_back(endShape.front());
-                const bool turnaround = inEdge->isTurningDirectionAt(outEdge);
-                bool ok = true;
-                PositionVector init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok, 0, straightThresh);
-                if (init.size() == 0) {
-                    length = fallBackShape.length2D();
-                    // problem with turnarounds is known, method currently returns 'ok' (#2539)
-                    if (!ok) {
-                        WRITE_WARNING("Could not compute smooth shape from lane '" + inEdge->getLaneID(c.fromLane) + "' to lane '" + outEdge->getLaneID(c.toLane) + "'. Use option 'junctions.scurve-stretch' or increase radius of junction '" + inEdge->getToNode()->getID() + "' to fix this.");
-                    } else if (length <= NUMERICAL_EPS) {
-                        // left-curving geometry-like edges must use the right
-                        // side as reference line and shift
-                        begShape = getRightLaneBorder(inEdge, c.fromLane);
-                        endShape = getRightLaneBorder(outEdge, c.toLane);
-                        init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok, 0, straightThresh);
-                        if (init.size() != 0) {
-                            length = bezier(init, 12).length2D();
-                            laneOffset = width;
-                            //std::cout << " internalLane=" << c.getInternalLaneID() << " length=" << length << "\n";
-                        }
+            // group parallel edges
+            const NBEdge* outEdge = 0;
+            std::vector<NBEdge::Connection> parallel;
+            for (const NBEdge::Connection& c : inEdge->getConnections()) {
+                assert(c.toEdge != 0);
+                // write all single
+                if (true || outEdge != c.toEdge) {
+                    if (outEdge != 0) {
+                        writeInternalEdge(device, inEdge, nID, parallel, edgeID, edgeMap, straightThresh);
+                        parallel.clear();
                     }
-                } else {
-                    length = bezier(init, 12).length2D();
+                    outEdge = c.toEdge;
                 }
-
-                device.openTag("road");
-                device.writeAttr("name", c.getInternalLaneID());
-                device.setPrecision(8); // length requires higher precision
-                device.writeAttr("length", MAX2(POSITION_EPS, length));
-                device.setPrecision(gPrecision);
-                device.writeAttr("id", getID(c.getInternalLaneID(), edgeMap, edgeID));
-                device.writeAttr("junction", getID(n->getID(), nodeMap, nodeID));
-                device.openTag("link");
-                device.openTag("predecessor");
-                device.writeAttr("elementType", "road");
-                device.writeAttr("elementId", getID(inEdge->getID(), edgeMap, edgeID));
-                device.writeAttr("contactPoint", "end");
-                device.closeTag();
-                device.openTag("successor");
-                device.writeAttr("elementType", "road");
-                device.writeAttr("elementId", getID(outEdge->getID(), edgeMap, edgeID));
-                device.writeAttr("contactPoint", "start");
-                device.closeTag();
-                device.closeTag();
-                device.openTag("type").writeAttr("s", 0).writeAttr("type", "town").closeTag();
-                device.openTag("planView");
-                device.setPrecision(8); // geometry hdg requires higher precision
-                OutputDevice_String elevationOSS(false, 3);
-                elevationOSS.setPrecision(8);
-#ifdef DEBUG_SMOOTH_GEOM
-                if (DEBUGCOND) {
-                    std::cout << "write planview for internal edge " << c.getInternalLaneID() << " init=" << init << " fallback=" << fallBackShape 
-                        << " begShape=" << begShape << " endShape=" << endShape
-                        << "\n";
-                }
-#endif
-                if (init.size() == 0) {
-                    writeGeomLines(fallBackShape, device, elevationOSS);
-                } else {
-                    writeGeomPP3(device, elevationOSS, init, length);
-                }
-                device.setPrecision(gPrecision);
-                device.closeTag();
-                writeElevationProfile(fallBackShape, device, elevationOSS);
-                device << "        <lateralProfile/>\n";
-                device << "        <lanes>\n";
-                if (laneOffset != 0) {
-                    device << "            <laneOffset s=\"0\" a=\"" << laneOffset << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
-                }
-                device << "            <laneSection s=\"0\">\n";
-                writeEmptyCenterLane(device, "none", 0);
-                device << "                <right>\n";
-                device << "                    <lane id=\"-1\" type=\"" << getLaneType(outEdge->getPermissions(c.toLane)) << "\" level=\"true\">\n";
-                device << "                        <link>\n";
-                device << "                            <predecessor id=\"-" << inEdge->getNumLanes() - c.fromLane << "\"/>\n";
-                device << "                            <successor id=\"-" << outEdge->getNumLanes() - c.toLane << "\"/>\n";
-                device << "                        </link>\n";
-                device << "                        <width sOffset=\"0\" a=\"" << width << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
-                device << "                        <roadMark sOffset=\"0\" type=\"none\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
-                device << "                    </lane>\n";
-                device << "                 </right>\n";
-                device << "            </laneSection>\n";
-                device << "        </lanes>\n";
-                device << "        <objects/>\n";
-                device << "        <signals/>\n";
-                device.closeTag();
+                parallel.push_back(c);
             }
+            writeInternalEdge(device, inEdge, nID, parallel, edgeID, edgeMap, straightThresh);
+            parallel.clear();
         }
     }
 
@@ -359,6 +274,115 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     }
     device.closeTag();
     checkLaneGeometries(e);
+}
+
+
+void
+NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, const NBEdge* inEdge, int nodeID,
+        const std::vector<NBEdge::Connection>& parallel,
+        int& edgeID, StringBijection<int>& edgeMap,
+        const double straightThresh) 
+{
+    if (parallel.size() == 0) {
+        return;
+    }
+    const NBEdge::Connection& c = parallel.front();
+    const NBEdge* outEdge = c.toEdge;
+    const double width = c.toEdge->getLaneWidth(c.toLane);
+    PositionVector begShape = getLeftLaneBorder(inEdge, c.fromLane);
+    PositionVector endShape = getLeftLaneBorder(outEdge, c.toLane);
+    //std::cout << "computing reference line for internal lane " << c.getInternalLaneID() << " begLane=" << inEdge->getLaneShape(c.fromLane) << " endLane=" << outEdge->getLaneShape(c.toLane) << "\n";
+
+    double length;
+    double laneOffset = 0;
+    PositionVector fallBackShape;
+    fallBackShape.push_back(begShape.back());
+    fallBackShape.push_back(endShape.front());
+    const bool turnaround = inEdge->isTurningDirectionAt(outEdge);
+    bool ok = true;
+    PositionVector init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok, 0, straightThresh);
+    if (init.size() == 0) {
+        length = fallBackShape.length2D();
+        // problem with turnarounds is known, method currently returns 'ok' (#2539)
+        if (!ok) {
+            WRITE_WARNING("Could not compute smooth shape from lane '" + inEdge->getLaneID(c.fromLane) + "' to lane '" + outEdge->getLaneID(c.toLane) + "'. Use option 'junctions.scurve-stretch' or increase radius of junction '" + inEdge->getToNode()->getID() + "' to fix this.");
+        } else if (length <= NUMERICAL_EPS) {
+            // left-curving geometry-like edges must use the right
+            // side as reference line and shift
+            begShape = getRightLaneBorder(inEdge, c.fromLane);
+            endShape = getRightLaneBorder(outEdge, c.toLane);
+            init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok, 0, straightThresh);
+            if (init.size() != 0) {
+                length = bezier(init, 12).length2D();
+                laneOffset = width;
+                //std::cout << " internalLane=" << c.getInternalLaneID() << " length=" << length << "\n";
+            }
+        }
+    } else {
+        length = bezier(init, 12).length2D();
+    }
+
+    device.openTag("road");
+    device.writeAttr("name", c.getInternalLaneID());
+    device.setPrecision(8); // length requires higher precision
+    device.writeAttr("length", MAX2(POSITION_EPS, length));
+    device.setPrecision(gPrecision);
+    device.writeAttr("id", getID(c.getInternalLaneID(), edgeMap, edgeID));
+    device.writeAttr("junction", nodeID);
+    device.openTag("link");
+    device.openTag("predecessor");
+    device.writeAttr("elementType", "road");
+    device.writeAttr("elementId", getID(inEdge->getID(), edgeMap, edgeID));
+    device.writeAttr("contactPoint", "end");
+    device.closeTag();
+    device.openTag("successor");
+    device.writeAttr("elementType", "road");
+    device.writeAttr("elementId", getID(outEdge->getID(), edgeMap, edgeID));
+    device.writeAttr("contactPoint", "start");
+    device.closeTag();
+    device.closeTag();
+    device.openTag("type").writeAttr("s", 0).writeAttr("type", "town").closeTag();
+    device.openTag("planView");
+    device.setPrecision(8); // geometry hdg requires higher precision
+    OutputDevice_String elevationOSS(false, 3);
+    elevationOSS.setPrecision(8);
+#ifdef DEBUG_SMOOTH_GEOM
+    if (DEBUGCOND) {
+        std::cout << "write planview for internal edge " << c.getInternalLaneID() << " init=" << init << " fallback=" << fallBackShape 
+            << " begShape=" << begShape << " endShape=" << endShape
+            << "\n";
+    }
+#endif
+    if (init.size() == 0) {
+        writeGeomLines(fallBackShape, device, elevationOSS);
+    } else {
+        writeGeomPP3(device, elevationOSS, init, length);
+    }
+    device.setPrecision(gPrecision);
+    device.closeTag();
+    writeElevationProfile(fallBackShape, device, elevationOSS);
+    device << "        <lateralProfile/>\n";
+    device << "        <lanes>\n";
+    if (laneOffset != 0) {
+        device << "            <laneOffset s=\"0\" a=\"" << laneOffset << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
+    }
+    device << "            <laneSection s=\"0\">\n";
+    writeEmptyCenterLane(device, "none", 0);
+    device << "                <right>\n";
+    device << "                    <lane id=\"-1\" type=\"" << getLaneType(outEdge->getPermissions(c.toLane)) << "\" level=\"true\">\n";
+    device << "                        <link>\n";
+    device << "                            <predecessor id=\"-" << inEdge->getNumLanes() - c.fromLane << "\"/>\n";
+    device << "                            <successor id=\"-" << outEdge->getNumLanes() - c.toLane << "\"/>\n";
+    device << "                        </link>\n";
+    device << "                        <width sOffset=\"0\" a=\"" << width << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
+    device << "                        <roadMark sOffset=\"0\" type=\"none\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
+    device << "                    </lane>\n";
+    device << "                 </right>\n";
+    device << "            </laneSection>\n";
+    device << "        </lanes>\n";
+    device << "        <objects/>\n";
+    device << "        <signals/>\n";
+    device.closeTag();
 }
 
 
