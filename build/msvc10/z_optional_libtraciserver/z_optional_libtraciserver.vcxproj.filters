@@ -102,6 +102,9 @@
     <ClCompile Include="..\..\..\src\libsumo\TrafficLight.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\libsumo\Helper.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\traci-server\TraCIConstants.h">
@@ -195,6 +198,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\libsumo\TrafficLight.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\libsumo\Helper.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
