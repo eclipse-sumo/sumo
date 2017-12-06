@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed Dec  6 23:04:14 2017" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed Dec  6 23:10:38 2017" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
     <road name="" length="98.50000000" id="100" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -469,7 +469,7 @@
                             <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="0.00"/>
                     </lane>
                  </right>
@@ -508,7 +508,7 @@
                             <successor id="-1"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="0.00"/>
                     </lane>
                  </right>
@@ -622,7 +622,7 @@
                             <successor id="-3"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="0.00"/>
                     </lane>
                  </right>
@@ -661,7 +661,7 @@
                             <successor id="-4"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="0.00"/>
                     </lane>
                  </right>
@@ -814,7 +814,7 @@
                             <successor id="-4"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="0.00"/>
                     </lane>
                  </right>
