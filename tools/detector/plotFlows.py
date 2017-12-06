@@ -53,6 +53,8 @@ def get_options(args=None):
     optParser.add_option("--extension", help="extension for saving plots", default="png")
     optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
     optParser.add_option("-g", "--group-by", dest="groupby", help="group detectors (all, none, type) ", default="all")
+    optParser.add_option("-t", "--type-filter", dest="typefilter", help="only show selected types")
+    optParser.add_option("--id-filter", dest="idfilter", help="filter detector ids")
     optParser.add_option("--single-plot", action="store_true", dest="singleplot", default=False, help="put averything in a single plot")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     options, args = optParser.parse_args(args=args)
@@ -135,6 +137,8 @@ def main(options):
         for detReader, f in zip(detReaders, options.flowfiles):
             data = initDataList(options.begin, options.end, options.interval)
             for edge, group in detReader.getGroups():
+                if options.idfilter is not None and options.idfilter not in group.ids[0]:
+                    continue
                 assert(len(group.timeline) <= len(data))
                 for i, (flow, speed) in enumerate(group.timeline):
                     addToDataList(data, i, flow)
@@ -149,6 +153,8 @@ def main(options):
             for detReader, f in zip(detReaders, options.flowfiles):
                 data = initDataList(options.begin, options.end, options.interval)
                 for edge, group in detReader.getGroups():
+                    if options.idfilter is not None and options.idfilter not in group.ids[0]:
+                        continue
                     assert(len(group.timeline) <= len(data))
                     if group.type == detType :
                         for i, (flow, speed) in enumerate(group.timeline):
@@ -164,6 +170,10 @@ def main(options):
             for detReader, f in zip(detReaders, options.flowfiles):
                 data = initDataList(options.begin, options.end, options.interval)
                 group = detReader.getGroup(det)
+                if options.typefilter is not None and group.type != options.typefilter:
+                    continue
+                if options.idfilter is not None and options.idfilter not in group.ids[0]:
+                    continue
                 assert(len(group.timeline) <= len(data))
                 for i, (flow, speed) in enumerate(group.timeline):
                     addToDataList(data, i, flow)
