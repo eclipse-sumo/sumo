@@ -70,7 +70,7 @@ def get_options(args=None):
 
     if options.types is not None:
         options.types = options.types.split(',')
-        
+
     return options
 
 def writeTypes(fout, prefix):
@@ -146,7 +146,7 @@ def createTrips(options):
                     '    <trip id="%s" type="%s%s" depart="%s" departLane="%s" from="%s" to="%s">\n' % (
                         line.id, options.vtypeprefix, line.type, begin, 'best', fr, to))
 
-            trpMap[line.id] = (line.line, line.attr_name, line.completeness)
+            trpMap[line.id] = (line.line.replace(" ", "_"), line.attr_name, line.completeness)
             for stop in stop_ids:
                 fouttrips.write('        <stop busStop="%s" duration="%s"/>\n' % (stop, options.stopduration))
             fouttrips.write('    </trip>\n')
