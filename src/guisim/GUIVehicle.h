@@ -95,7 +95,7 @@ public:
     void drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r) const;
 
     void drawAction_drawVehicleBlinker(double length) const;
-    void drawAction_drawVehicleBrakeLight(double length, bool onlyOne = 1) const;
+    void drawAction_drawVehicleBrakeLight(double length, bool onlyOne = false) const;
     void drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& s) const;
     void drawAction_drawLinkItems(const GUIVisualizationSettings& s) const;
     void drawAction_drawVehicleBlueLight() const;

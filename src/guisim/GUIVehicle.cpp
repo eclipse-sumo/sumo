@@ -629,6 +629,14 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
         carriageBackOffset -= carriageLengthWithGap;
         GLHelper::setColor(current);
     }
+    if (getVType().getGuiShape() == SVS_RAIL_CAR) {
+        glPushMatrix();
+        glTranslated(front.x(), front.y(), getType());
+        glRotated(angle, 0, 0, 1);
+        drawAction_drawVehicleBlinker(carriageLength);
+        drawAction_drawVehicleBrakeLight(carriageLength);
+        glPopMatrix();
+    }
     // restore matrices
     glPushMatrix();
     front = getPosition();

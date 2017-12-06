@@ -381,7 +381,7 @@ GUIBaseVehicle::drawPoly(double* poses, double offset) {
 }
 
 
-void
+bool
 GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) const {
     RGBColor current = GLHelper::getColor();
     RGBColor lighter = current.changedBrightness(51);
@@ -393,6 +393,7 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
     glRotated(90, 0, 0, 1);
     glScaled(length, width, 1.);
     SUMOVehicleShape shape = getVType().getGuiShape();
+    bool drawCarriages = false;
 
     // draw main body
     switch (shape) {
@@ -533,6 +534,7 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
         case SVS_RAIL_CAR:
         case SVS_RAIL_CARGO:
             drawAction_drawCarriageClass(s, shape, false);
+            drawCarriages = true;
             break;
         case SVS_E_VEHICLE:
             drawPoly(vehiclePoly_EVehicleBody, 4);
@@ -838,6 +840,7 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
     */
 
     glPopMatrix();
+    return drawCarriages;
 }
 
 
@@ -890,7 +893,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         }
         */
     // draw the vehicle
-    myCarriageLength = getVType().getLength();
+    bool drawCarriages = false;
     switch (s.vehicleQuality) {
         case 0:
             drawAction_drawVehicleAsTrianglePlus();
@@ -899,7 +902,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             drawAction_drawVehicleAsBoxPlus();
             break;
         case 2:
-            drawAction_drawVehicleAsPoly(s);
+            drawCarriages = drawAction_drawVehicleAsPoly(s);
             // draw flashing blue light for emergency vehicles
             if (getVType().getGuiShape() == SVS_EMERGENCY) {
                 glTranslated(0, 0, .1);
@@ -913,7 +916,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             glPushMatrix(); // drawAction_drawRailCarriages assumes matrix stack depth of 2
             if (!drawAction_drawCarriageClass(s, getVType().getGuiShape(), true)) {
                 if (!drawAction_drawVehicleAsImage(s)) {
-                    drawAction_drawVehicleAsPoly(s);
+                    drawCarriages = drawAction_drawVehicleAsPoly(s);
                 };
             }
             glPopMatrix();
@@ -944,16 +947,19 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             case SVS_SHIP:
             case SVS_RAIL:
             case SVS_RAIL_CARGO:
-                // only SVS_RAIL_CAR has blinkers and brake lights
+            case SVS_RAIL_CAR:
                 break;
             case SVS_MOTORCYCLE:
             case SVS_MOPED:
-                drawAction_drawVehicleBlinker(myCarriageLength);
-                drawAction_drawVehicleBrakeLight(myCarriageLength, true);
+                drawAction_drawVehicleBlinker(getVType().getLength());
+                drawAction_drawVehicleBrakeLight(getVType().getLength(), true);
                 break;
             default:
-                drawAction_drawVehicleBlinker(myCarriageLength);
-                drawAction_drawVehicleBrakeLight(myCarriageLength);
+                // only SVS_RAIL_CAR has blinkers and brake lights but they are drawn along with the carriages
+                if (!drawCarriages) {
+                    drawAction_drawVehicleBlinker(getVType().getLength());
+                    drawAction_drawVehicleBrakeLight(getVType().getLength());
+                }
                 break;
         }
     }

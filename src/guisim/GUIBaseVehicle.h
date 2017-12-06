@@ -324,7 +324,7 @@ protected:
 
     void drawAction_drawVehicleAsBoxPlus() const;
     void drawAction_drawVehicleAsTrianglePlus() const;
-    void drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) const;
+    bool drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) const;
 
     /* @brief try to draw vehicle as raster image and return true if sucessful
      * @param[in] length The custom length of the vehicle
@@ -347,9 +347,6 @@ protected:
 protected:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable MFXMutex myLock;
-
-    /// Variable to set with the length of the last drawn carriage or the vehicle length
-    mutable double myCarriageLength;
 
     /// @brief positions of seats in the vehicle (updated at every drawing step)
     mutable PositionVector mySeatPositions;
