@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed Dec  6 23:01:23 2017" north="284.53" south="0.00" east="1103.40" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed Dec  6 23:04:14 2017" north="284.53" south="0.00" east="1103.40" west="0.00"/>
     <road name="延安高架" length="344.90488876" id="30" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -187,6 +187,7 @@
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="27.78"/>
                     </lane>
                     <lane id="-2" type="driving" level="true">
                         <link>
@@ -195,6 +196,7 @@
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="27.78"/>
                     </lane>
                     <lane id="-3" type="driving" level="true">
                         <link>
@@ -203,6 +205,7 @@
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="27.78"/>
                     </lane>
                  </right>
             </laneSection>

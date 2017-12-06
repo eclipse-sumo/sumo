@@ -405,7 +405,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, const NBEdge* inEdge
             }
         }
         device << "                        <roadMark sOffset=\"0\" type=\"" << markType << "\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
-        // XXX device << "                        <speed sOffset=\"0\" max=\"" << c.vmax << "\"/>\n";
+        device << "                        <speed sOffset=\"0\" max=\"" << c.vmax << "\"/>\n";
         device << "                    </lane>\n";
     }
     device << "                 </right>\n";
