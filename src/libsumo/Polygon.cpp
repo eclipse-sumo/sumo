@@ -26,7 +26,7 @@
 #include <utils/shapes/ShapeContainer.h>
 
 #include "Polygon.h"
-#include "Simulation.h"
+#include "Helper.h"
 
 
 // ===========================================================================
@@ -48,7 +48,7 @@ namespace libsumo {
 
     TraCIPositionVector Polygon::getShape(const std::string& polygonID) {
         SUMOPolygon* p = getPolygon(polygonID);
-        return Simulation::makeTraCIPositionVector(p->getShape());
+        return Helper::makeTraCIPositionVector(p->getShape());
     }
 
 
@@ -59,7 +59,7 @@ namespace libsumo {
 
     TraCIColor Polygon::getColor(const std::string& polygonID) {
         SUMOPolygon* p = getPolygon(polygonID);
-        return Simulation::makeTraCIColor(p->getColor());
+        return Helper::makeTraCIColor(p->getColor());
     }
 
 
@@ -75,7 +75,7 @@ namespace libsumo {
 
 
     void Polygon::setShape(const std::string& polygonID, const TraCIPositionVector& shape) {
-        PositionVector positionVector = Simulation::makePositionVector(shape);
+        PositionVector positionVector = Helper::makePositionVector(shape);
         getPolygon(polygonID); // just to check whether it exists
         ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
         shapeCont.reshapePolygon(polygonID, positionVector);
@@ -83,15 +83,15 @@ namespace libsumo {
 
 
     void Polygon::setColor(const std::string& polygonID, const TraCIColor& c) {
-        getPolygon(polygonID)->setColor(Simulation::makeRGBColor(c));
+        getPolygon(polygonID)->setColor(Helper::makeRGBColor(c));
     }
 
 
     void
         Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& c, bool fill, const std::string& type, int layer) {
         ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-        PositionVector pShape = Simulation::makePositionVector(shape);
-        RGBColor col = Simulation::makeRGBColor(c);
+        PositionVector pShape = Helper::makePositionVector(shape);
+        RGBColor col = Helper::makeRGBColor(c);
         if (!shapeCont.addPolygon(polygonID, type, col, (double)layer, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, pShape, false, fill)) {
             throw TraCIException("Could not add polygon '" + polygonID + "'");
         }

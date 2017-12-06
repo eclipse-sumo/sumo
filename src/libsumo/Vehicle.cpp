@@ -43,9 +43,9 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
-#include <traci-server/TraCIDefs.h>
+#include <libsumo/TraCIDefs.h>
 #include <traci-server/TraCIConstants.h>
-#include "Simulation.h"
+#include "Helper.h"
 #include "Vehicle.h"
 
 
@@ -114,7 +114,7 @@ namespace libsumo {
         Vehicle::getPosition(const std::string& vehicleID) {
         MSVehicle* veh = getVehicle(vehicleID);
         if (isVisible(veh)) {
-            return Simulation::makeTraCIPosition(veh->getPosition());
+            return Helper::makeTraCIPosition(veh->getPosition());
         } else {
             TraCIPosition result;
             result.x = INVALID_DOUBLE_VALUE;
@@ -177,7 +177,7 @@ namespace libsumo {
 
     TraCIColor
         Vehicle::getColor(const std::string& vehicleID) {
-        return Simulation::makeTraCIColor(getVehicle(vehicleID)->getParameter().color);
+        return Helper::makeTraCIColor(getVehicle(vehicleID)->getParameter().color);
     }
 
     double
@@ -275,7 +275,7 @@ namespace libsumo {
     double
         Vehicle::getAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID, int time) {
         MSVehicle* veh = getVehicle(vehicleID);
-        MSEdge* edge = Simulation::getEdge(edgeID);
+        MSEdge* edge = Helper::getEdge(edgeID);
         double value = INVALID_DOUBLE_VALUE;;
         veh->getWeightsStorage().retrieveExistingTravelTime(edge, time, value);
         return value;
@@ -285,7 +285,7 @@ namespace libsumo {
     double
         Vehicle::getEffort(const std::string& vehicleID, const std::string& edgeID, int time) {
         MSVehicle* veh = getVehicle(vehicleID);
-        MSEdge* edge = Simulation::getEdge(edgeID);
+        MSEdge* edge = Helper::getEdge(edgeID);
         double value = INVALID_DOUBLE_VALUE;;
         veh->getWeightsStorage().retrieveExistingEffort(edge, time, value);
         return value;
@@ -422,7 +422,7 @@ namespace libsumo {
         MSVehicle* veh = getVehicle(vehicleID);
         if (veh->isOnRoad()) {
             double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), position,
-                &veh->getLane()->getEdge(), Simulation::getEdge(edgeID));
+                &veh->getLane()->getEdge(), Helper::getEdge(edgeID));
             if (distance == std::numeric_limits<double>::max()) {
                 return INVALID_DOUBLE_VALUE;
             }
@@ -437,7 +437,7 @@ namespace libsumo {
         Vehicle::getDrivingDistance2D(const std::string& vehicleID, double x, double y) {
         MSVehicle* veh = getVehicle(vehicleID);
         if (veh->isOnRoad()) {
-            std::pair<MSLane*, double> roadPos = Simulation::convertCartesianToRoadMap(Position(x, y));
+            std::pair<MSLane*, double> roadPos = Helper::convertCartesianToRoadMap(Position(x, y));
             double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), roadPos.second,
                 veh->getEdge(), &roadPos.first->getEdge());
             if (distance == std::numeric_limits<double>::max()) {

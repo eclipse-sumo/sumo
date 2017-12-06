@@ -2,6 +2,8 @@ noinst_LIBRARIES = libsumostatic.a
 
 libsumostatic_a_SOURCES = Edge.cpp \
 Edge.h \
+Helper.cpp \
+Helper.h \
 InductionLoop.cpp \
 InductionLoop.h \
 Junction.cpp \
@@ -22,6 +24,7 @@ Route.h \
 Route.cpp \
 Simulation.h \
 Simulation.cpp \
+TraCIDefs.h \
 TrafficLight.h \
 TrafficLight.cpp \
 Vehicle.h \

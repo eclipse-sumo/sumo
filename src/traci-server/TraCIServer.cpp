@@ -585,7 +585,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
 
     } catch (std::invalid_argument& e) {
         throw ProcessError(e.what());
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         throw ProcessError(e.what());
     } catch (tcpip::SocketException& e) {
         throw ProcessError(e.what());
@@ -773,7 +773,7 @@ TraCIServer::dispatchCommand() {
                     // Multiclient-load functionality is still to be implemented. Refs #3146.
                     myCurrentSocket->second->socket->sendExact(myOutputStorage);
                     myOutputStorage.reset();
-                } catch (TraCIException& e) {
+                } catch (libsumo::TraCIException& e) {
                     return writeErrorStatusCmd(CMD_LOAD, e.what(), myOutputStorage);
                 }
                 break;
@@ -1395,7 +1395,7 @@ TraCIServer::readTypeCheckingStringList(tcpip::Storage& inputStorage, std::vecto
 
 
 bool
-TraCIServer::readTypeCheckingColor(tcpip::Storage& inputStorage, TraCIColor& into) {
+TraCIServer::readTypeCheckingColor(tcpip::Storage& inputStorage, libsumo::TraCIColor& into) {
     if (inputStorage.readUnsignedByte() != TYPE_COLOR) {
         return false;
     }
@@ -1408,7 +1408,7 @@ TraCIServer::readTypeCheckingColor(tcpip::Storage& inputStorage, TraCIColor& int
 
 
 bool
-TraCIServer::readTypeCheckingPosition2D(tcpip::Storage& inputStorage, TraCIPosition& into) {
+TraCIServer::readTypeCheckingPosition2D(tcpip::Storage& inputStorage, libsumo::TraCIPosition& into) {
     if (inputStorage.readUnsignedByte() != POSITION_2D) {
         return false;
     }

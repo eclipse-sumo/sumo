@@ -32,7 +32,7 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
 #include "VehicleType.h"
-#include "Simulation.h"
+#include "Helper.h"
 
 
 // ===========================================================================
@@ -150,7 +150,7 @@ namespace libsumo {
 
     TraCIColor VehicleType::getColor(const std::string& typeID) {
         MSVehicleType* v = getVType(typeID);
-        return Simulation::makeTraCIColor(v->getColor());
+        return Helper::makeTraCIColor(v->getColor());
     }
 
 
@@ -283,7 +283,7 @@ namespace libsumo {
 
     void VehicleType::setColor(const std::string& typeID, const TraCIColor& c)  {
         MSVehicleType* v = getVType(typeID);
-        v->setColor(Simulation::makeRGBColor(c));
+        v->setColor(Helper::makeRGBColor(c));
 
     }
 

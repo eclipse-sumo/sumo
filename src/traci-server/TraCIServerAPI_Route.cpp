@@ -85,7 +85,7 @@ TraCIServerAPI_Route::processGet(TraCIServer& server, tcpip::Storage& inputStora
             default:
                 break;
         }
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_ROUTE_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_ROUTE_VARIABLE, RTYPE_OK, "", outputStorage);
@@ -137,7 +137,7 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
             default:
                 break;
         }
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_SET_ROUTE_VARIABLE, RTYPE_OK, warning, outputStorage);

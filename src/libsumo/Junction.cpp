@@ -35,8 +35,8 @@
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSJunctionControl.h>
+#include "Helper.h"
 #include "Junction.h"
-#include "Simulation.h"
 
 
 // ===========================================================================
@@ -57,12 +57,12 @@ namespace libsumo {
 
     TraCIPosition
         Junction::getPosition(const std::string& junctionID) {
-        return Simulation::makeTraCIPosition(getJunction(junctionID)->getPosition());
+        return Helper::makeTraCIPosition(getJunction(junctionID)->getPosition());
     }
 
     TraCIPositionVector
         Junction::getShape(const std::string& junctionID) {
-        return Simulation::makeTraCIPositionVector(getJunction(junctionID)->getShape());
+        return Helper::makeTraCIPositionVector(getJunction(junctionID)->getShape());
     }
 
     MSJunction*

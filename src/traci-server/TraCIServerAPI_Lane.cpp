@@ -102,13 +102,13 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     break;
                 case LANE_LINKS: {
                     tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-                    const std::vector<TraCIConnection> links = libsumo::Lane::getLinks(id);
+                    const std::vector<libsumo::TraCIConnection> links = libsumo::Lane::getLinks(id);
                     tcpip::Storage tempContent;
                     int cnt = 0;
                     tempContent.writeUnsignedByte(TYPE_INTEGER);
                     tempContent.writeInt((int) links.size());
                     ++cnt;
-                    for (std::vector<TraCIConnection>::const_iterator i = links.begin(); i != links.end(); ++i) {
+                    for (std::vector<libsumo::TraCIConnection>::const_iterator i = links.begin(); i != links.end(); ++i) {
                         // approached non-internal lane (if any)
                         tempContent.writeUnsignedByte(TYPE_STRING);
                         tempContent.writeString(i->approachedLane);
@@ -171,7 +171,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     break;
                 case VAR_SHAPE: {
                     tempMsg.writeUnsignedByte(TYPE_POLYGON);
-                    TraCIPositionVector shp = libsumo::Lane::getShape(id);
+                    libsumo::TraCIPositionVector shp = libsumo::Lane::getShape(id);
                     tempMsg.writeUnsignedByte(MIN2(255, (int) shp.size()));
                     for (int iPoint = 0; iPoint < MIN2(255, (int) shp.size()); ++iPoint) {
                         tempMsg.writeDouble(shp[iPoint].x);
@@ -264,7 +264,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 default:
                     break;
             }
-        } catch (TraCIException& e) {
+        } catch (libsumo::TraCIException& e) {
             return server.writeErrorStatusCmd(CMD_GET_LANE_VARIABLE, e.what(), outputStorage);
         }
     }

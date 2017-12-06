@@ -212,7 +212,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             }
         }
     }
-    catch (TraCIException& e) {
+    catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_OK, "", outputStorage);
@@ -383,7 +383,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
         default:break;
         }
     }
-    catch (TraCIException& e) {
+    catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_OK, warning, outputStorage);
@@ -395,7 +395,7 @@ TraCIServerAPI_Edge::getShape(const std::string& id, PositionVector& shape) {
     try {
         libsumo::Edge::getShape(id, shape);
     }
-    catch (TraCIException& e) {
+    catch (libsumo::TraCIException& e) {
         WRITE_WARNING(e.what());
         return false;
     }

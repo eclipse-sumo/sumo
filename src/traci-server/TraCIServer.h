@@ -55,7 +55,7 @@
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
-#include "TraCIDefs.h"
+#include <libsumo/TraCIDefs.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Lane.h"
 
@@ -219,7 +219,7 @@ public:
      * @param[out] into Holder of the read value
      * @return Whether a color was given (by data type)
      */
-    bool readTypeCheckingColor(tcpip::Storage& inputStorage, TraCIColor& into);
+    bool readTypeCheckingColor(tcpip::Storage& inputStorage, libsumo::TraCIColor& into);
 
 
     /** @brief Reads the value type and a 2D position, verifying the type
@@ -228,7 +228,7 @@ public:
      * @param[out] into Holder of the read value
      * @return Whether a 2D position was given (by data type)
      */
-    bool readTypeCheckingPosition2D(tcpip::Storage& inputStorage, TraCIPosition& into);
+    bool readTypeCheckingPosition2D(tcpip::Storage& inputStorage, libsumo::TraCIPosition& into);
 
 
     /** @brief Reads the value type and a 2D bounding box, verifying the type

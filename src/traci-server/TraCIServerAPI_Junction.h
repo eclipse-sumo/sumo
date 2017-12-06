@@ -33,7 +33,6 @@
 #ifndef NO_TRACI
 
 #include <foreign/tcpip/storage.h>
-#include "TraCIDefs.h"
 
 
 // ===========================================================================

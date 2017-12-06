@@ -23,6 +23,8 @@ if(SWIG_FOUND)
 endif()
 
 set(libsumostatic_STAT_SRCS
+        Helper.cpp
+        Helper.h
         InductionLoop.cpp
         InductionLoop.h
         Junction.cpp
@@ -43,6 +45,7 @@ set(libsumostatic_STAT_SRCS
         Route.cpp
         Simulation.cpp
         Simulation.h
+		TraCIDefs.h
         TrafficLight.cpp
         TrafficLight.h
         Vehicle.h

@@ -111,7 +111,7 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
             default:
                 break;
         }
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, e.what(), outputStorage);
     }
 
@@ -150,7 +150,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             }
             break;
             case VAR_COLOR: {
-                TraCIColor col;
+                libsumo::TraCIColor col;
                 if (!server.readTypeCheckingColor(inputStorage, col)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The color must be given using an according type.", outputStorage);
                 }
@@ -158,7 +158,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             }
             break;
             case VAR_POSITION: {
-                TraCIPosition pos;
+                libsumo::TraCIPosition pos;
                 if (!server.readTypeCheckingPosition2D(inputStorage, pos)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The position must be given using an accoring type.", outputStorage);
                 }
@@ -175,7 +175,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingString(inputStorage, type)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The first PoI parameter must be the type encoded as a string.", outputStorage);
                 }
-                TraCIColor col;
+                libsumo::TraCIColor col;
                 if (!server.readTypeCheckingColor(inputStorage, col)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The second PoI parameter must be the color.", outputStorage);
                 }
@@ -183,7 +183,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingInt(inputStorage, layer)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The third PoI parameter must be the layer encoded as int.", outputStorage);
                 }
-                TraCIPosition pos;
+                libsumo::TraCIPosition pos;
                 if (!server.readTypeCheckingPosition2D(inputStorage, pos)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The fourth PoI parameter must be the position.", outputStorage);
                 }
@@ -223,7 +223,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             default:
                 break;
         }
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_OK, warning, outputStorage);

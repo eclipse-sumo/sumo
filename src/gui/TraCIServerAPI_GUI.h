@@ -33,7 +33,7 @@
 #ifndef NO_TRACI
 
 #include <string>
-#include <traci-server/TraCIDefs.h>
+#include <libsumo/TraCIDefs.h>
 #include <traci-server/TraCIServer.h>
 #include <foreign/tcpip/storage.h>
 

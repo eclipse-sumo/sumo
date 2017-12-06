@@ -32,6 +32,8 @@
 
 #include "TraCIAPI.h"
 
+using namespace libsumo;
+
 
 // ===========================================================================
 // member definitions

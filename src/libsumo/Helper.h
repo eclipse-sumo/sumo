@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Helper of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2012-2017 German Aerospace Center (DLR) and others.
 /****************************************************************************/
 //
@@ -9,15 +9,15 @@
 //   http://www.eclipse.org/legal/epl-v20.html
 //
 /****************************************************************************/
-/// @file    Simulation.h
+/// @file    Helper.h
 /// @author  Robert Hilbrich
 /// @date    15.09.2017
 /// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-#ifndef Simulation_h
-#define Simulation_h
+#ifndef Helper_h
+#define Helper_h
 
 
 // ===========================================================================
@@ -34,14 +34,24 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class Position;
+class PositionVector;
+class RGBColor;
+class MSEdge;
+class MSLane;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class Simulation
+ * @class Helper
  * @brief C++ TraCI client API implementation
  */
 namespace libsumo {
-    class Simulation {
+    class Helper {
     public:
         /** @brief Connects to the specified SUMO server
         * @param[in] host The name of the host to connect to
@@ -51,15 +61,15 @@ namespace libsumo {
         //void connect(const std::string& host, int port);
 
 
-        /// @brief ends the simulation and closes the connection
+        /// @brief ends the Helper and closes the connection
         void close();
         /// @}
 
-        /// @brief load a simulation with the given arguments
+        /// @brief load a Helper with the given arguments
         static void load(const std::vector<std::string>& args);
 
         /// @brief Advances by one step (or up to the given time)
-        static void simulationStep(const SUMOTime time = 0);
+        static void HelperStep(const SUMOTime time = 0);
 
         /// @brief {object->{variable->value}}
         typedef std::map<int, TraCIValue> TraCIValues;
@@ -74,6 +84,19 @@ namespace libsumo {
 
         const SubscribedContextValues& getContextSubscriptionResults() const;
         const SubscribedValues& getContextSubscriptionResults(const std::string& objID) const;
+
+        /// @brief helper functions
+        static TraCIPositionVector makeTraCIPositionVector(const PositionVector& positionVector);
+        static TraCIPosition makeTraCIPosition(const Position& position);
+        static Position makePosition(const TraCIPosition& position);
+
+        static PositionVector makePositionVector(const TraCIPositionVector& vector);
+        static TraCIColor makeTraCIColor(const RGBColor& color);
+        static RGBColor makeRGBColor(const TraCIColor& color);
+
+        static MSEdge* getEdge(const std::string& edgeID);
+        static const MSLane* getLaneChecking(const std::string& edgeID, int laneIndex, double pos);
+        static std::pair<MSLane*, double> convertCartesianToRoadMap(Position pos);
 
         static SUMOTime getCurrentTime();
 
@@ -97,13 +120,13 @@ namespace libsumo {
         SubscribedContextValues mySubscribedContextValues;
 
         /// @brief invalidated standard constructor
-        Simulation();
+        Helper();
 
         /// @brief invalidated copy constructor
-        Simulation(const Simulation& src);
+        Helper(const Helper& src);
 
         /// @brief invalidated assignment operator
-        Simulation& operator=(const Simulation& src);
+        Helper& operator=(const Helper& src);
     };
 }
 

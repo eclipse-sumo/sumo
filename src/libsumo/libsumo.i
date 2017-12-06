@@ -5,24 +5,15 @@
 #ifdef _MSC_VER
 #pragma warning(disable:4127)
 #endif
-%}
 
-// Add necessary symbols to generated header
-%{
-#include <libsumo/Simulation.h>
-#include <utils/common/RGBColor.h>
-#include <utils/geom/PositionVector.h>
+#include <libsumo/TraCIDefs.h>
 %}
 
 // replacing vector instances of standard types, see https://stackoverflow.com/questions/8469138
 %include "std_vector.i"
 %include "std_string.i"
 %template(StringVector) std::vector<std::string>;
-
-// Process symbols in header
-%include "../traci-server/TraCIDefs.h"
-%include "Simulation.h"
-
+%template(TraCIStageVector) std::vector<libsumo::TraCIStage>;
 
 // exception handling
 %include "exception.i"
@@ -31,7 +22,7 @@
 %exception { 
     try {
         $action
-    } catch (TraCIException &e) {
+    } catch (libsumo::TraCIException &e) {
         std::string s("TraCI error: "), s2(e.what());
         s = s + s2;
         SWIG_exception(SWIG_RuntimeError, s.c_str());
@@ -43,3 +34,14 @@
         SWIG_exception(SWIG_RuntimeError, "unknown exception");
     }
 }
+
+// Add necessary symbols to generated header
+%{
+#include <libsumo/Simulation.h>
+#include <utils/common/RGBColor.h>
+#include <utils/geom/PositionVector.h>
+%}
+
+// Process symbols in header
+%include "TraCIDefs.h"
+%include "Simulation.h"

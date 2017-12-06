@@ -145,14 +145,14 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 break;
             case VAR_POSITION: {
                 tempMsg.writeUnsignedByte(POSITION_2D);
-                TraCIPosition pos = libsumo::Vehicle::getPosition(id);
+                libsumo::TraCIPosition pos = libsumo::Vehicle::getPosition(id);
                 tempMsg.writeDouble(pos.x);
                 tempMsg.writeDouble(pos.y);
                 break;
             }
             case VAR_POSITION3D: {
                 tempMsg.writeUnsignedByte(POSITION_3D);
-                TraCIPosition pos = libsumo::Vehicle::getPosition(id);
+                libsumo::TraCIPosition pos = libsumo::Vehicle::getPosition(id);
                 tempMsg.writeDouble(pos.x);
                 tempMsg.writeDouble(pos.y);
                 tempMsg.writeDouble(pos.z);
@@ -191,7 +191,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeInt(libsumo::Vehicle::getRouteIndex(id));
                 break;
             case VAR_COLOR: {
-                TraCIColor color = libsumo::Vehicle::getColor(id);
+                libsumo::TraCIColor color = libsumo::Vehicle::getColor(id);
                 tempMsg.writeUnsignedByte(TYPE_COLOR);
                 tempMsg.writeUnsignedByte(color.r);
                 tempMsg.writeUnsignedByte(color.g);
@@ -327,11 +327,11 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tcpip::Storage tempContent;
                 int cnt = 0;
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
-                std::vector<TraCIBestLanesData> bestLanes = libsumo::Vehicle::getBestLanes(id);
+                std::vector<libsumo::TraCIBestLanesData> bestLanes = libsumo::Vehicle::getBestLanes(id);
                 tempContent.writeInt((int) bestLanes.size());
                 ++cnt;
-                for (std::vector<TraCIBestLanesData>::const_iterator i = bestLanes.begin(); i != bestLanes.end(); ++i) {
-                    const TraCIBestLanesData& bld = *i;
+                for (std::vector<libsumo::TraCIBestLanesData>::const_iterator i = bestLanes.begin(); i != bestLanes.end(); ++i) {
+                    const libsumo::TraCIBestLanesData& bld = *i;
                     tempContent.writeUnsignedByte(TYPE_STRING);
                     tempContent.writeString(bld.laneID);
                     ++cnt;
@@ -356,13 +356,13 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
             case VAR_NEXT_TLS: {
-                std::vector<TraCINextTLSData> nextTLS = libsumo::Vehicle::getNextTLS(id);
+                std::vector<libsumo::TraCINextTLSData> nextTLS = libsumo::Vehicle::getNextTLS(id);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 const int cnt = 1 + (int)nextTLS.size() * 4;
                 tempMsg.writeInt(cnt);
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
                 tempMsg.writeInt((int)nextTLS.size());
-                for (std::vector<TraCINextTLSData>::iterator it = nextTLS.begin(); it != nextTLS.end(); ++it) {
+                for (std::vector<libsumo::TraCINextTLSData>::iterator it = nextTLS.begin(); it != nextTLS.end(); ++it) {
                     tempMsg.writeUnsignedByte(TYPE_STRING);
                     tempMsg.writeString(it->id);
                     tempMsg.writeUnsignedByte(TYPE_INTEGER);
@@ -404,7 +404,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                             tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                             tempMsg.writeDouble(libsumo::Vehicle::getDrivingDistance(id, roadID, edgePos, laneIndex));
                             break;
-                        } catch (TraCIException& e) {
+                        } catch (libsumo::TraCIException& e) {
                             return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, e.what(), outputStorage);
                         }
                     case POSITION_2D:
@@ -488,7 +488,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 TraCIServerAPI_VehicleType::getVariable(variable, libsumo::Vehicle::getVehicleType(id).getID(), tempMsg);
                 break;
         }
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_OK, "", outputStorage);
@@ -877,7 +877,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
             case VAR_COLOR: {
-                TraCIColor col;
+                libsumo::TraCIColor col;
                 if (!server.readTypeCheckingColor(inputStorage, col)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The color must be given using the according type.", outputStorage);
                 }
@@ -1319,7 +1319,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 try {
                     /// XXX but a big try/catch around all retrieval cases
                     libsumo::Vehicle::setParameter(id, name, value);
-                } catch (TraCIException& e) {
+                } catch (libsumo::TraCIException& e) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
                 }
             }
@@ -1344,12 +1344,12 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     }
                 } catch (ProcessError& e) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
-                } catch (TraCIException& e) {
+                } catch (libsumo::TraCIException& e) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
                 }
                 break;
         }
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_OK, warning, outputStorage);

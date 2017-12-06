@@ -36,7 +36,6 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <libsumo/InductionLoop.h>
 #include "TraCIConstants.h"
-#include "TraCIDefs.h"
 #include "TraCIServerAPI_InductionLoop.h"
 
 
@@ -107,7 +106,7 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
                 tempMsg.writeDouble(libsumo::InductionLoop::getTimeSinceDetection(id));
                 break;
             case LAST_STEP_VEHICLE_DATA: {
-                std::vector<TraCIVehicleData> vd = libsumo::InductionLoop::getVehicleData(id);
+                std::vector<libsumo::TraCIVehicleData> vd = libsumo::InductionLoop::getVehicleData(id);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tcpip::Storage tempContent;
                 int cnt = 0;
@@ -115,7 +114,7 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
                 tempContent.writeInt((int) vd.size());
                 ++cnt;
                 for (int i = 0; i < (int)vd.size(); ++i) {
-                    TraCIVehicleData& svd = vd[i];
+                    libsumo::TraCIVehicleData& svd = vd[i];
                     tempContent.writeUnsignedByte(TYPE_STRING);
                     tempContent.writeString(svd.id);
                     ++cnt;
@@ -140,7 +139,7 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
             default:
                 break;
         }
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_OK, "", outputStorage);

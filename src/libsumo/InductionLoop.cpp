@@ -33,7 +33,7 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/MSNet.h>
-#include <traci-server/TraCIDefs.h>
+#include <libsumo/TraCIDefs.h>
 #include "InductionLoop.h"
 
 
@@ -104,12 +104,12 @@ namespace libsumo {
     }
 
 
-    std::vector<TraCIVehicleData>
+    std::vector<libsumo::TraCIVehicleData>
         InductionLoop::getVehicleData(const std::string& detID) {
         std::vector<MSInductLoop::VehicleData> vd = getDetector(detID)->collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T, true);
-        std::vector<TraCIVehicleData> tvd;
+        std::vector<libsumo::TraCIVehicleData> tvd;
         for (std::vector<MSInductLoop::VehicleData>::const_iterator vdi = vd.begin(); vdi != vd.end(); ++vdi) {
-            tvd.push_back(TraCIVehicleData());
+            tvd.push_back(libsumo::TraCIVehicleData());
             tvd.back().id = vdi->idM;
             tvd.back().length = vdi->lengthM;
             tvd.back().entryTime = vdi->entryTimeM;

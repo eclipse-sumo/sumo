@@ -86,7 +86,7 @@ int main(int argc, char* argv[]) {
     } catch (tcpip::SocketException& e) {
         std::cerr << "Socket error running the test client: " << e.what();
         return 1;
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         std::cerr << "TraCI error running the test client: " << e.what();
         return 1;
     }

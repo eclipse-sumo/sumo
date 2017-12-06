@@ -71,14 +71,14 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
                 break;
             case VAR_POSITION: {
                 tempMsg.writeUnsignedByte(POSITION_2D);
-                TraCIPosition p = libsumo::Junction::getPosition(id);
+                libsumo::TraCIPosition p = libsumo::Junction::getPosition(id);
                 tempMsg.writeDouble(p.x);
                 tempMsg.writeDouble(p.y);
                 break;
             }
             case VAR_SHAPE: {
                 tempMsg.writeUnsignedByte(TYPE_POLYGON);
-                const TraCIPositionVector shp = libsumo::Junction::getShape(id);
+                const libsumo::TraCIPositionVector shp = libsumo::Junction::getShape(id);
                 tempMsg.writeUnsignedByte(MIN2(255, (int) shp.size()));
                 for (int iPoint = 0; iPoint < MIN2(255, (int) shp.size()); ++iPoint) {
                     tempMsg.writeDouble(shp[iPoint].x);
@@ -90,7 +90,7 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
                 break;
 
         }
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_JUNCTION_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_OK, "", outputStorage);

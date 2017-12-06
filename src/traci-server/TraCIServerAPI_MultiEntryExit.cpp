@@ -86,7 +86,7 @@ TraCIServerAPI_MultiEntryExit::processGet(TraCIServer& server, tcpip::Storage& i
             default:
                 break;
         }
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_MULTIENTRYEXIT_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_MULTIENTRYEXIT_VARIABLE, RTYPE_OK, "", outputStorage);

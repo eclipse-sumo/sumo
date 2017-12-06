@@ -100,7 +100,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
                     getVariable(variable, id, tempMsg);
                     break;
             }
-        } catch (TraCIException& e) {
+        } catch (libsumo::TraCIException& e) {
             return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
         }
     }
@@ -199,7 +199,7 @@ TraCIServerAPI_VehicleType::getVariable(const int variable, const std::string& i
         break;
         case VAR_COLOR: {
             tempMsg.writeUnsignedByte(TYPE_COLOR);
-            const TraCIColor& col = libsumo::VehicleType::getColor(id);
+            const libsumo::TraCIColor& col = libsumo::VehicleType::getColor(id);
             tempMsg.writeUnsignedByte(col.r);
             tempMsg.writeUnsignedByte(col.g);
             tempMsg.writeUnsignedByte(col.b);
@@ -265,7 +265,7 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
         }
     } catch (ProcessError& e) {
         return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
     }
     return false;
@@ -504,7 +504,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         }
         break;
         case VAR_COLOR: {
-            TraCIColor col;
+            libsumo::TraCIColor col;
             if (!server.readTypeCheckingColor(inputStorage, col)) {
                 return server.writeErrorStatusCmd(cmd, "The color must be given using the according type.", outputStorage);
             }

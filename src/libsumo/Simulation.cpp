@@ -44,7 +44,7 @@
 #include <microsim/MSStoppingPlace.h>
 #include <netload/NLBuilder.h>
 #include "Simulation.h"
-#include <traci-server/TraCIDefs.h>
+#include <libsumo/TraCIDefs.h>
 
 
 // ===========================================================================
@@ -122,111 +122,6 @@ Simulation::connect(const std::string& host, int port) {
     }
 
 
-    TraCIPositionVector
-        Simulation::makeTraCIPositionVector(const PositionVector& positionVector) {
-        TraCIPositionVector tp;
-        for (int i = 0; i < (int)positionVector.size(); ++i) {
-            tp.push_back(makeTraCIPosition(positionVector[i]));
-        }
-        return tp;
-    }
-
-
-    PositionVector
-        Simulation::makePositionVector(const TraCIPositionVector& vector) {
-        PositionVector pv;
-        for (int i = 0; i < (int)vector.size(); i++) {
-            pv.push_back(Position(vector[i].x, vector[i].y));
-        }
-        return pv;
-    }
-
-
-    TraCIColor
-        Simulation::makeTraCIColor(const RGBColor& color) {
-        TraCIColor tc;
-        tc.a = color.alpha();
-        tc.b = color.blue();
-        tc.g = color.green();
-        tc.r = color.red();
-        return tc;
-    }
-
-
-    RGBColor
-        Simulation::makeRGBColor(const TraCIColor& c) {
-        return RGBColor((unsigned char)c.r, (unsigned char)c.g, (unsigned char)c.b, (unsigned char)c.a);
-    }
-
-
-    TraCIPosition
-        Simulation::makeTraCIPosition(const Position& position) {
-        TraCIPosition p;
-        p.x = position.x();
-        p.y = position.y();
-        p.z = position.z();
-        return p;
-    }
-
-
-    Position
-        Simulation::makePosition(const TraCIPosition& tpos) {
-        Position p;
-        p.set(tpos.x, tpos.y, tpos.z);
-        return p;
-    }
-
-
-    MSEdge*
-        Simulation::getEdge(const std::string& edgeID) {
-        MSEdge* edge = MSEdge::dictionary(edgeID);
-        if (edge == 0) {
-            throw TraCIException("Referenced edge '" + edgeID + "' is not known.");
-        }
-        return edge;
-    }
-
-    const MSLane*
-        Simulation::getLaneChecking(const std::string& edgeID, int laneIndex, double pos) {
-        const MSEdge* edge = MSEdge::dictionary(edgeID);
-        if (edge == 0) {
-            throw TraCIException("Unknown edge " + edgeID);
-        }
-        if (laneIndex < 0 || laneIndex >= (int)edge->getLanes().size()) {
-            throw TraCIException("Invalid lane index for " + edgeID);
-        }
-        const MSLane* lane = edge->getLanes()[laneIndex];
-        if (pos < 0 || pos > lane->getLength()) {
-            throw TraCIException("Position on lane invalid");
-        }
-        return lane;
-    }
-
-
-    std::pair<MSLane*, double>
-        Simulation::convertCartesianToRoadMap(Position pos) {
-        /// XXX use rtree instead
-        std::pair<MSLane*, double> result;
-        std::vector<std::string> allEdgeIds;
-        double minDistance = std::numeric_limits<double>::max();
-
-        allEdgeIds = MSNet::getInstance()->getEdgeControl().getEdgeNames();
-        for (std::vector<std::string>::iterator itId = allEdgeIds.begin(); itId != allEdgeIds.end(); itId++) {
-            const std::vector<MSLane*>& allLanes = MSEdge::dictionary((*itId))->getLanes();
-            for (std::vector<MSLane*>::const_iterator itLane = allLanes.begin(); itLane != allLanes.end(); itLane++) {
-                const double newDistance = (*itLane)->getShape().distance2D(pos);
-                if (newDistance < minDistance) {
-                    minDistance = newDistance;
-                    result.first = (*itLane);
-                }
-            }
-        }
-        // @todo this may be a place where 3D is required but 2D is delivered
-        result.second = result.first->getShape().nearest_offset_to_point2D(pos, false);
-        return result;
-    }
-
-
     SUMOTime
         Simulation::getCurrentTime(){
         return MSNet::getInstance()->getCurrentTimeStep();
@@ -296,10 +191,10 @@ Simulation::connect(const std::string& host, int port) {
 
 
     std::vector<TraCIStage>
-        Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
-        const std::string modes, const SUMOTime depart, const int routingMode, const double speed, const double walkFactor,
-        const double departPos, const double arrivalPos, const double departPosLat,
-        const std::string& pType, const std::string& vehType) {
+    Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
+    const std::string& modes, const SUMOTime depart, const int routingMode, const double speed, const double walkFactor,
+    const double departPos, const double arrivalPos, const double departPosLat,
+    const std::string& pType, const std::string& vehType) {
         UNUSED_PARAMETER(routingMode);
         UNUSED_PARAMETER(departPosLat);
         std::vector<TraCIStage> result;
@@ -309,7 +204,7 @@ Simulation::connect(const std::string& host, int port) {
         }
         const MSEdge* const toEdge = MSEdge::dictionary(to);
         if (toEdge == 0) {
-            throw TraCIException("Unknown to edge '" + from + "'.");
+            throw TraCIException("Unknown to edge '" + to + "'.");
         }
         MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
         SVCPermissions modeSet = 0;

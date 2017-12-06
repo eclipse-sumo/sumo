@@ -23,7 +23,7 @@
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSTransportable.h>
 #include <microsim/MSVehicle.h>
-#include <traci-server/TraCIDefs.h>
+#include <libsumo/TraCIDefs.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include "Edge.h"
 

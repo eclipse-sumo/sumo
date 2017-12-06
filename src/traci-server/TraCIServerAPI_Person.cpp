@@ -85,14 +85,14 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
         } else {
             switch (variable) {
                 case VAR_POSITION: {
-                    TraCIPosition pos = libsumo::Person::getPosition(id);
+                    libsumo::TraCIPosition pos = libsumo::Person::getPosition(id);
                     tempMsg.writeUnsignedByte(POSITION_2D);
                     tempMsg.writeDouble(pos.x);
                     tempMsg.writeDouble(pos.y);
                 }
                 break;
                 case VAR_POSITION3D: {
-                    TraCIPosition pos = libsumo::Person::getPosition(id);
+                    libsumo::TraCIPosition pos = libsumo::Person::getPosition(id);
                     tempMsg.writeUnsignedByte(POSITION_3D);
                     tempMsg.writeDouble(pos.x);
                     tempMsg.writeDouble(pos.y);
@@ -116,7 +116,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                     tempMsg.writeDouble(libsumo::Person::getLanePosition(id));
                     break;
                 case VAR_COLOR: {
-                    TraCIColor col = libsumo::Person::getColor(id);
+                    libsumo::TraCIColor col = libsumo::Person::getColor(id);
                     tempMsg.writeUnsignedByte(TYPE_COLOR);
                     tempMsg.writeUnsignedByte(col.r);
                     tempMsg.writeUnsignedByte(col.g);
@@ -177,7 +177,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                     break;
             }
         }
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_PERSON_VARIABLE, RTYPE_OK, "", outputStorage);
@@ -387,7 +387,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             }
             break;
     }
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_SET_PERSON_VARIABLE, RTYPE_OK, warning, outputStorage);

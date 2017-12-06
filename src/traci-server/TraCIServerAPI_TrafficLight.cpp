@@ -79,14 +79,14 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
             tempMsg.writeString(libsumo::TrafficLight::getRedYellowGreenState(id));
             break;
         case TL_COMPLETE_DEFINITION_RYG: {
-            std::vector<TraCILogic> logics = libsumo::TrafficLight::getCompleteRedYellowGreenDefinition(id);
+            std::vector<libsumo::TraCILogic> logics = libsumo::TrafficLight::getCompleteRedYellowGreenDefinition(id);
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
             tcpip::Storage tempContent;
             int cnt = 0;
             tempContent.writeUnsignedByte(TYPE_INTEGER);
             tempContent.writeInt((int)logics.size());
             ++cnt;
-            for (const TraCILogic& logic : logics) {
+            for (const libsumo::TraCILogic& logic : logics) {
                 tempContent.writeUnsignedByte(TYPE_STRING);
                 tempContent.writeString(logic.subID);
                 ++cnt;
@@ -106,7 +106,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
                 tempContent.writeInt((int)logic.phases.size());
                 ++cnt;
-                for (const TraCIPhase& phase : logic.phases) {
+                for (const libsumo::TraCIPhase& phase : logic.phases) {
                     tempContent.writeUnsignedByte(TYPE_INTEGER);
                     tempContent.writeInt((int)phase.duration);
                     ++cnt;
@@ -130,17 +130,17 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
             tempMsg.writeStringList(libsumo::TrafficLight::getControlledLanes(id));
             break;
         case TL_CONTROLLED_LINKS: {
-            const std::vector<std::vector<TraCILink> > links = libsumo::TrafficLight::getControlledLinks(id);
+            const std::vector<std::vector<libsumo::TraCILink> > links = libsumo::TrafficLight::getControlledLinks(id);
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
             tcpip::Storage tempContent;
             int cnt = 0;
             tempContent.writeUnsignedByte(TYPE_INTEGER);
             tempContent.writeInt((int)links.size());
-            for (const std::vector<TraCILink>& sublinks : links) {
+            for (const std::vector<libsumo::TraCILink>& sublinks : links) {
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
                 tempContent.writeInt((int)sublinks.size());
                 ++cnt;
-                for (const TraCILink& link : sublinks) {
+                for (const libsumo::TraCILink& link : sublinks) {
                     tempContent.writeUnsignedByte(TYPE_STRINGLIST);
                     tempContent.writeStringList(std::vector<std::string>({ link.from, link.to, link.via }));
                     ++cnt;
@@ -182,7 +182,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
         }
         case TL_EXTERNAL_STATE: {
             if (!MSNet::getInstance()->getTLSControl().knows(id)) {
-                throw TraCIException("Traffic light '" + id + "' is not known");
+                throw libsumo::TraCIException("Traffic light '" + id + "' is not known");
             }
             MSTrafficLightLogic* tls = MSNet::getInstance()->getTLSControl().get(id).getActive();
             const std::string& state = tls->getCurrentPhaseDef().getState();
@@ -243,7 +243,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
         default:
             break;
         }
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_OK, "", outputStorage);
@@ -304,7 +304,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 }
                 //read itemNo
                 inputStorage.readInt();
-                TraCILogic logic;
+                libsumo::TraCILogic logic;
                 int numPhases = 0;
                 if (!server.readTypeCheckingString(inputStorage, logic.subID)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 1. parameter (subid) must be a string.", outputStorage);
@@ -337,7 +337,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                     if (!server.readTypeCheckingString(inputStorage, state)) {
                         return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.4. parameter (phase) must be a string.", outputStorage);
                     }
-                    logic.phases.emplace_back(TraCIPhase(duration, minDuration, maxDuration, state));
+                    logic.phases.emplace_back(libsumo::TraCIPhase(duration, minDuration, maxDuration, state));
                 }
                 libsumo::TrafficLight::setCompleteRedYellowGreenDefinition(id, logic);
             }
@@ -362,7 +362,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
             default:
                 break;
         }
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_OK, warning, outputStorage);

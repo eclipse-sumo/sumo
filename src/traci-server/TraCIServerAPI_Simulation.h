@@ -35,7 +35,6 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "TraCIDefs.h"
 #include "TraCIServer.h"
 #include <foreign/tcpip/storage.h>
 
@@ -92,7 +91,7 @@ public:
 private:
     static void writeVehicleStateNumber(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state);
     static void writeVehicleStateIDs(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state);
-    static void writeStage(tcpip::Storage& outputStorage, const TraCIStage& stage);
+    static void writeStage(tcpip::Storage& outputStorage, const libsumo::TraCIStage& stage);
 
 
 private:

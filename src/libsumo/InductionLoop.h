@@ -36,7 +36,9 @@
 // class declarations
 // ===========================================================================
 class MSInductLoop;
-struct TraCIVehicleData;
+namespace libsumo {
+    struct TraCIVehicleData;
+}
 
 
 // ===========================================================================
@@ -59,7 +61,7 @@ namespace libsumo {
         static double getLastStepOccupancy(const std::string& detID);
         static double getLastStepMeanLength(const std::string& detID);
         static double getTimeSinceDetection(const std::string& detID);
-        static std::vector<TraCIVehicleData> getVehicleData(const std::string& detID);
+        static std::vector<libsumo::TraCIVehicleData> getVehicleData(const std::string& detID);
 
     private:
         static MSInductLoop* getDetector(const std::string& detID);

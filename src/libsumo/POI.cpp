@@ -35,7 +35,7 @@
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
 #include "POI.h"
-#include "Simulation.h"
+#include "Helper.h"
 
 
 
@@ -66,7 +66,7 @@ namespace libsumo {
         POI::getColor(const std::string& poiID) {
         PointOfInterest* sumoPoi = getPoI(poiID);
         RGBColor col = sumoPoi->getColor();
-        return Simulation::makeTraCIColor(col);
+        return Helper::makeTraCIColor(col);
     }
 
     TraCIPosition
@@ -94,19 +94,19 @@ namespace libsumo {
     void
         POI::setPosition(const std::string& poiID, const TraCIPosition& pos) {
         PointOfInterest* p = getPoI(poiID);
-        p->set(Simulation::makePosition(pos));
+        p->set(Helper::makePosition(pos));
     }
 
     void
         POI::setColor(const std::string& poiID, const TraCIColor& c) {
         PointOfInterest* p = getPoI(poiID);
-        p->setColor(Simulation::makeRGBColor(c));
+        p->setColor(Helper::makeRGBColor(c));
     }
 
     bool
         POI::add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c, const std::string& type, int layer) {
         ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-        return shapeCont.addPOI(poiID, type, Simulation::makeRGBColor(c), Simulation::makePosition(pos), false, "", 0, 0, (double)layer,
+        return shapeCont.addPOI(poiID, type, Helper::makeRGBColor(c), Helper::makePosition(pos), false, "", 0, 0, (double)layer,
             Shape::DEFAULT_ANGLE,
             Shape::DEFAULT_IMG_FILE,
             Shape::DEFAULT_IMG_WIDTH,

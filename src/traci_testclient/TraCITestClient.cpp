@@ -43,10 +43,12 @@
 #include <foreign/tcpip/socket.h>
 
 #include <traci-server/TraCIConstants.h>
-#include <traci-server/TraCIDefs.h>
+#include <libsumo/TraCIDefs.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
 #include "TraCITestClient.h"
+
+using namespace libsumo;
 
 
 // ===========================================================================

@@ -31,7 +31,7 @@
 #endif
 
 #include <vector>
-#include <traci-server/TraCIDefs.h>
+#include <libsumo/TraCIDefs.h>
 #include <traci-server/TraCIConstants.h>
 
 
