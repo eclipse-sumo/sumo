@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed Dec  6 22:51:45 2017" north="284.53" south="0.00" east="1103.40" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed Dec  6 23:01:23 2017" north="284.53" south="0.00" east="1103.40" west="0.00"/>
     <road name="延安高架" length="344.90488876" id="30" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -156,7 +156,7 @@
         <signals/>
     </road>
 
-    <road name=":-117529_0_2" length="0.65513792" id="32" junction="1">
+    <road name=":-117529_0" length="0.65513792" id="32" junction="1">
         <link>
             <predecessor elementType="road" elementId="31" contactPoint="end"/>
             <successor elementType="road" elementId="30" contactPoint="start"/>
