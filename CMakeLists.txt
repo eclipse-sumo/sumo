@@ -196,15 +196,6 @@ endif ()
 # Now simply link your own targets against gtest, gmock,
 # etc. as appropriate
 
-#find_package(PythonLibs REQUIRED)
-#if (PYTHONLIBS_FOUND)
-#    message(STATUS "Python: " ${PYTHONLIBS_VERSION_STRING})
-#    message(STATUS "Python include dirs:" ${PYTHON_INCLUDE_DIRS})
-#    message(STATUS "Python libs:" ${PYTHON_LIBRARIES})
-#    include_directories(${PYTHON_INCLUDE_DIRS})
-#link_directories(${PYTHON_LIBRARIES})
-#endif ()
-
 if (APPLE)
     include_directories("/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7/")
     set(PYTHON_LIBRARIES "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib")
@@ -244,9 +235,8 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 set(commonlibs
         utils_distribution utils_shapes utils_options
         utils_xml utils_geom utils_common utils_importio utils_iodevices foreign_tcpip ${XercesC_LIBRARY} ${PROJ_LIBRARY})
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    set(commonlibs
-            ${commonlibs} ws2_32)
+if (MSVC)
+    set(commonlibs ${commonlibs} ws2_32)
 endif ()
 set(commonvehiclelibs
         utils_emissions foreign_phemlight utils_vehicle ${commonlibs} ${FOX_LIBRARY})
@@ -255,4 +245,3 @@ add_subdirectory(src)
 if (GTEST_FOUND)
     add_subdirectory(unittest)
 endif ()
-
