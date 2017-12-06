@@ -62,6 +62,12 @@ public:
     static void writeNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 protected:
+    /// @brief write normal edge to device
+    static void writeNormalEdge(OutputDevice& device, const NBEdge* e,
+            int edgeID, int fromNodeID, int toNodeID,
+            const bool origNames,
+            const double straightThresh);
+
     /// @brief write geometry as sequence of lines (sumo style)
     static double writeGeomLines(const PositionVector& shape, OutputDevice& device, OutputDevice& elevationDevice, double offset = 0);
 

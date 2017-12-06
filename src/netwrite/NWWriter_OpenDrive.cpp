@@ -45,6 +45,8 @@
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>
 
+#define INVALID_ID -1
+
 //#define DEBUG_SMOOTH_GEOM
 #define DEBUGCOND true
 
@@ -96,103 +98,17 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     device.writeAttr("maxPrg", 0);
     */
     device.closeTag();
-
-    // write normal edges (road)
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         const NBEdge* e = (*i).second;
-
-        // buffer output because some fields are computed out of order
-        OutputDevice_String elevationOSS(false, 3);
-        elevationOSS.setPrecision(8);
-        OutputDevice_String planViewOSS(false, 2);
-        planViewOSS.setPrecision(8);
-        double length = 0;
-
-        planViewOSS.openTag("planView");
-        // for the shape we need to use the leftmost border of the leftmost lane
-        const std::vector<NBEdge::Lane>& lanes = e->getLanes();
-        PositionVector ls = getLeftLaneBorder(e);
-#ifdef DEBUG_SMOOTH_GEOM
-        if (DEBUGCOND) {
-            std::cout << "write planview for edge " << e->getID() << "\n";
-        }
-#endif
-
-        if (ls.size() == 2 || e->getPermissions() == SVC_PEDESTRIAN) {
-            // foot paths may contain sharp angles
-            length = writeGeomLines(ls, planViewOSS, elevationOSS);
-        } else {
-            bool ok = writeGeomSmooth(ls, e->getSpeed(), planViewOSS, elevationOSS, straightThresh, length);
-            if (!ok) {
-                WRITE_WARNING("Could not compute smooth shape for edge '" + e->getID() + "'.");
-            }
-        }
-        planViewOSS.closeTag();
-
-        device.openTag("road");
-        device.writeAttr("name", StringUtils::escapeXML(e->getStreetName()));
-        device.setPrecision(8); // length requires higher precision
-        device.writeAttr("length", MAX2(POSITION_EPS, length));
-        device.setPrecision(gPrecision);
-        device.writeAttr("id", getID(e->getID(), edgeMap, edgeID));
-        device.writeAttr("junction", -1);
-        const bool hasSucc = e->getConnections().size() > 0;
-        const bool hasPred = e->getIncomingEdges().size() > 0;
-        if (hasPred || hasSucc) {
-            device.openTag("link");
-            if (hasPred) {
-                device.openTag("predecessor");
-                device.writeAttr("elementType", "junction");
-                device.writeAttr("elementId", getID(e->getFromNode()->getID(), nodeMap, nodeID));
-                device.closeTag();
-            }
-            if (hasSucc) {
-                device.openTag("successor");
-                device.writeAttr("elementType", "junction");
-                device.writeAttr("elementId", getID(e->getToNode()->getID(), nodeMap, nodeID));
-                device.closeTag();
-            }
-            device.closeTag();
-        }
-        device.openTag("type").writeAttr("s", 0).writeAttr("type", "town").closeTag();
-        device << planViewOSS.getString();
-        writeElevationProfile(ls, device, elevationOSS);
-        device << "        <lateralProfile/>\n";
-        device << "        <lanes>\n";
-        device << "            <laneSection s=\"0\">\n";
-        writeEmptyCenterLane(device, "solid", 0.13);
-        device << "                <right>\n";
-        for (int j = e->getNumLanes(); --j >= 0;) {
-            device << "                    <lane id=\"-" << e->getNumLanes() - j << "\" type=\"" << getLaneType(e->getPermissions(j)) << "\" level=\"true\">\n";
-            device << "                        <link/>\n";
-            // this could be used for geometry-link junctions without u-turn,
-            // predecessor and sucessors would be lane indices,
-            // road predecessor / succesfors would be of type 'road' rather than
-            // 'junction'
-            //device << "                            <predecessor id=\"-1\"/>\n";
-            //device << "                            <successor id=\"-1\"/>\n";
-            //device << "                        </link>\n";
-            device << "                        <width sOffset=\"0\" a=\"" << e->getLaneWidth(j) << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
-            std::string markType = "broken";
-            if (j == 0) {
-                markType = "solid";
-            }
-            device << "                        <roadMark sOffset=\"0\" type=\"" << markType << "\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
-            device << "                        <speed sOffset=\"0\" max=\"" << lanes[j].speed << "\"/>\n";
-            device << "                    </lane>\n";
-        }
-        device << "                 </right>\n";
-        device << "            </laneSection>\n";
-        device << "        </lanes>\n";
-        device << "        <objects/>\n";
-        device << "        <signals/>\n";
-        if (origNames) {
-            device << "        <userData code=\"sumoId\" value=\"" << e->getID() << "\"/>\n";
-        }
-        device.closeTag();
-        checkLaneGeometries(e);
+        const int fromNodeID = e->getIncomingEdges().size() > 0 ? getID(e->getFromNode()->getID(), nodeMap, nodeID) : INVALID_ID;
+        const int toNodeID = e->getConnections().size() > 0 ? getID(e->getToNode()->getID(), nodeMap, nodeID) : INVALID_ID;
+        writeNormalEdge(device, e, 
+                getID(e->getID(), edgeMap, edgeID),
+                fromNodeID, toNodeID,
+                origNames, straightThresh);
     }
     device.lf();
+
 
     // write junction-internal edges (road). In OpenDRIVE these are called 'paths' or 'connecting roads'
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
@@ -346,6 +262,103 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
     device.closeTag();
     device.close();
+}
+
+
+void 
+NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
+        int edgeID, int fromNodeID, int toNodeID,
+        const bool origNames,
+        const double straightThresh) 
+{
+    // buffer output because some fields are computed out of order
+    OutputDevice_String elevationOSS(false, 3);
+    elevationOSS.setPrecision(8);
+    OutputDevice_String planViewOSS(false, 2);
+    planViewOSS.setPrecision(8);
+    double length = 0;
+
+    planViewOSS.openTag("planView");
+    // for the shape we need to use the leftmost border of the leftmost lane
+    const std::vector<NBEdge::Lane>& lanes = e->getLanes();
+    PositionVector ls = getLeftLaneBorder(e);
+#ifdef DEBUG_SMOOTH_GEOM
+    if (DEBUGCOND) {
+        std::cout << "write planview for edge " << e->getID() << "\n";
+    }
+#endif
+
+    if (ls.size() == 2 || e->getPermissions() == SVC_PEDESTRIAN) {
+        // foot paths may contain sharp angles
+        length = writeGeomLines(ls, planViewOSS, elevationOSS);
+    } else {
+        bool ok = writeGeomSmooth(ls, e->getSpeed(), planViewOSS, elevationOSS, straightThresh, length);
+        if (!ok) {
+            WRITE_WARNING("Could not compute smooth shape for edge '" + e->getID() + "'.");
+        }
+    }
+    planViewOSS.closeTag();
+
+    device.openTag("road");
+    device.writeAttr("name", StringUtils::escapeXML(e->getStreetName()));
+    device.setPrecision(8); // length requires higher precision
+    device.writeAttr("length", MAX2(POSITION_EPS, length));
+    device.setPrecision(gPrecision);
+    device.writeAttr("id", edgeID);
+    device.writeAttr("junction", -1);
+    if (fromNodeID != INVALID_ID || toNodeID != INVALID_ID) {
+        device.openTag("link");
+        if (fromNodeID != INVALID_ID) {
+            device.openTag("predecessor");
+            device.writeAttr("elementType", "junction");
+            device.writeAttr("elementId", fromNodeID);
+            device.closeTag();
+        }
+        if (toNodeID != INVALID_ID) {
+            device.openTag("successor");
+            device.writeAttr("elementType", "junction");
+            device.writeAttr("elementId", toNodeID);
+            device.closeTag();
+        }
+        device.closeTag();
+    }
+    device.openTag("type").writeAttr("s", 0).writeAttr("type", "town").closeTag();
+    device << planViewOSS.getString();
+    writeElevationProfile(ls, device, elevationOSS);
+    device << "        <lateralProfile/>\n";
+    device << "        <lanes>\n";
+    device << "            <laneSection s=\"0\">\n";
+    writeEmptyCenterLane(device, "solid", 0.13);
+    device << "                <right>\n";
+    for (int j = e->getNumLanes(); --j >= 0;) {
+        device << "                    <lane id=\"-" << e->getNumLanes() - j << "\" type=\"" << getLaneType(e->getPermissions(j)) << "\" level=\"true\">\n";
+        device << "                        <link/>\n";
+        // this could be used for geometry-link junctions without u-turn,
+        // predecessor and sucessors would be lane indices,
+        // road predecessor / succesfors would be of type 'road' rather than
+        // 'junction'
+        //device << "                            <predecessor id=\"-1\"/>\n";
+        //device << "                            <successor id=\"-1\"/>\n";
+        //device << "                        </link>\n";
+        device << "                        <width sOffset=\"0\" a=\"" << e->getLaneWidth(j) << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
+        std::string markType = "broken";
+        if (j == 0) {
+            markType = "solid";
+        }
+        device << "                        <roadMark sOffset=\"0\" type=\"" << markType << "\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
+        device << "                        <speed sOffset=\"0\" max=\"" << lanes[j].speed << "\"/>\n";
+        device << "                    </lane>\n";
+    }
+    device << "                 </right>\n";
+    device << "            </laneSection>\n";
+    device << "        </lanes>\n";
+    device << "        <objects/>\n";
+    device << "        <signals/>\n";
+    if (origNames) {
+        device << "        <userData code=\"sumoId\" value=\"" << e->getID() << "\"/>\n";
+    }
+    device.closeTag();
+    checkLaneGeometries(e);
 }
 
 
