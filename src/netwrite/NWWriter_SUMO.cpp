@@ -265,7 +265,6 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         if (elv.size() > 0) {
             bool haveVia = false;
             std::string edgeID = "";
-            std::string internalEdgeID = "";
             // first pass: compute average lengths of non-via edges
             std::map<std::string, double> lengthSum;
             std::map<std::string, int> numLanes;
@@ -280,14 +279,13 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     continue;
                 }
                 if (edgeID != (*k).id) {
-                    internalEdgeID = (*k).id;
                     if (edgeID != "") {
                         // close the previous edge
                         into.closeTag();
                     }
                     edgeID = (*k).id;
                     into.openTag(SUMO_TAG_EDGE);
-                    into.writeAttr(SUMO_ATTR_ID, internalEdgeID);
+                    into.writeAttr(SUMO_ATTR_ID, edgeID);
                     into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
                     // open a new edge
                 }
