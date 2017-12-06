@@ -120,7 +120,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             const int inEdgeID = getID(inEdge->getID(), edgeMap, edgeID);
             // group parallel edges
             const NBEdge* outEdge = 0;
-            bool isOuterEdge = false; // determine where a solid outer border should be drawn
+            bool isOuterEdge = true; // determine where a solid outer border should be drawn
             int lastFromLane = -1;
             std::vector<NBEdge::Connection> parallel;
             for (const NBEdge::Connection& c : inEdge->getConnections()) {
@@ -133,6 +133,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                                 getID(outEdge->getID(), edgeMap, edgeID), 
                                 parallel, isOuterEdge, straightThresh);
                         parallel.clear();
+                        isOuterEdge = false;
                     }
                     outEdge = c.toEdge;
                     lastFromLane = c.fromLane;
