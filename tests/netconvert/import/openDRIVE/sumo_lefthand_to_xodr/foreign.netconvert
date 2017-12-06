@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Sat Dec  2 21:35:03 2017" north="200.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed Dec  6 22:51:45 2017" north="200.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="91.95000000" id="50" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -384,45 +384,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":C_1_0" length="16.10000000" id="59" junction="1">
-        <link>
-            <predecessor elementType="road" elementId="56" contactPoint="end"/>
-            <successor elementType="road" elementId="51" contactPoint="start"/>
-        </link>
-        <type s="0" type="town"/>
-        <planView>
-            <geometry s="0.00000000" x="93.45000000" y="91.95000000" hdg="1.57079633" length="16.10000000">
-                <line/>
-            </geometry>
-        </planView>
-        <elevationProfile>
-            <elevation s="0" a="0.00" b="0" c="0" d="0"/>
-        </elevationProfile>
-        <lateralProfile/>
-        <lanes>
-            <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
-                    <lane id="-1" type="driving" level="true">
-                        <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
-                        </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
-                    </lane>
-                 </right>
-            </laneSection>
-        </lanes>
-        <objects/>
-        <signals/>
-    </road>
-    <road name=":C_1_1" length="16.10000000" id="60" junction="1">
+    <road name=":C_1_1" length="16.10000000" id="59" junction="1">
         <link>
             <predecessor elementType="road" elementId="56" contactPoint="end"/>
             <successor elementType="road" elementId="51" contactPoint="start"/>
@@ -452,7 +414,15 @@
                             <successor id="-1"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
+                        <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
+                    </lane>
+                    <lane id="-2" type="driving" level="true">
+                        <link>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
+                        </link>
+                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                     </lane>
                  </right>
             </laneSection>
@@ -460,7 +430,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":C_3_0" length="18.48905392" id="61" junction="1">
+    <road name=":C_3_0" length="18.48905392" id="60" junction="1">
         <link>
             <predecessor elementType="road" elementId="56" contactPoint="end"/>
             <successor elementType="road" elementId="50" contactPoint="start"/>
@@ -498,7 +468,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":C_4_0" length="9.89240086" id="62" junction="1">
+    <road name=":C_4_0" length="9.89240086" id="61" junction="1">
         <link>
             <predecessor elementType="road" elementId="56" contactPoint="end"/>
             <successor elementType="road" elementId="52" contactPoint="start"/>
@@ -536,7 +506,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":C_5_0" length="2.43277025" id="63" junction="1">
+    <road name=":C_5_0" length="2.43277025" id="62" junction="1">
         <link>
             <predecessor elementType="road" elementId="54" contactPoint="end"/>
             <successor elementType="road" elementId="52" contactPoint="start"/>
@@ -574,45 +544,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":C_6_0" length="16.10000000" id="64" junction="1">
-        <link>
-            <predecessor elementType="road" elementId="54" contactPoint="end"/>
-            <successor elementType="road" elementId="53" contactPoint="start"/>
-        </link>
-        <type s="0" type="town"/>
-        <planView>
-            <geometry s="0.00000000" x="108.05000000" y="93.45000000" hdg="3.14159265" length="16.10000000">
-                <line/>
-            </geometry>
-        </planView>
-        <elevationProfile>
-            <elevation s="0" a="0.00" b="0" c="0" d="0"/>
-        </elevationProfile>
-        <lateralProfile/>
-        <lanes>
-            <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
-                    <lane id="-1" type="driving" level="true">
-                        <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
-                        </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
-                    </lane>
-                 </right>
-            </laneSection>
-        </lanes>
-        <objects/>
-        <signals/>
-    </road>
-    <road name=":C_6_1" length="16.10000000" id="65" junction="1">
+    <road name=":C_6_1" length="16.10000000" id="63" junction="1">
         <link>
             <predecessor elementType="road" elementId="54" contactPoint="end"/>
             <successor elementType="road" elementId="53" contactPoint="start"/>
@@ -642,7 +574,15 @@
                             <successor id="-1"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
+                        <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
+                    </lane>
+                    <lane id="-2" type="driving" level="true">
+                        <link>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
+                        </link>
+                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                     </lane>
                  </right>
             </laneSection>
@@ -650,7 +590,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":C_8_0" length="18.48905392" id="66" junction="1">
+    <road name=":C_8_0" length="18.48905392" id="64" junction="1">
         <link>
             <predecessor elementType="road" elementId="54" contactPoint="end"/>
             <successor elementType="road" elementId="51" contactPoint="start"/>
@@ -688,7 +628,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":C_9_0" length="9.89240086" id="67" junction="1">
+    <road name=":C_9_0" length="9.89240086" id="65" junction="1">
         <link>
             <predecessor elementType="road" elementId="54" contactPoint="end"/>
             <successor elementType="road" elementId="50" contactPoint="start"/>
@@ -726,7 +666,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":C_10_0" length="2.43277025" id="68" junction="1">
+    <road name=":C_10_0" length="2.43277025" id="66" junction="1">
         <link>
             <predecessor elementType="road" elementId="55" contactPoint="end"/>
             <successor elementType="road" elementId="50" contactPoint="start"/>
@@ -764,45 +704,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":C_11_0" length="16.10000000" id="69" junction="1">
-        <link>
-            <predecessor elementType="road" elementId="55" contactPoint="end"/>
-            <successor elementType="road" elementId="52" contactPoint="start"/>
-        </link>
-        <type s="0" type="town"/>
-        <planView>
-            <geometry s="0.00000000" x="106.55000000" y="108.05000000" hdg="-1.57079633" length="16.10000000">
-                <line/>
-            </geometry>
-        </planView>
-        <elevationProfile>
-            <elevation s="0" a="0.00" b="0" c="0" d="0"/>
-        </elevationProfile>
-        <lateralProfile/>
-        <lanes>
-            <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
-                    <lane id="-1" type="driving" level="true">
-                        <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
-                        </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
-                    </lane>
-                 </right>
-            </laneSection>
-        </lanes>
-        <objects/>
-        <signals/>
-    </road>
-    <road name=":C_11_1" length="16.10000000" id="70" junction="1">
+    <road name=":C_11_1" length="16.10000000" id="67" junction="1">
         <link>
             <predecessor elementType="road" elementId="55" contactPoint="end"/>
             <successor elementType="road" elementId="52" contactPoint="start"/>
@@ -832,7 +734,15 @@
                             <successor id="-1"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
+                        <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
+                    </lane>
+                    <lane id="-2" type="driving" level="true">
+                        <link>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
+                        </link>
+                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                     </lane>
                  </right>
             </laneSection>
@@ -840,7 +750,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":C_13_0" length="18.48905392" id="71" junction="1">
+    <road name=":C_13_0" length="18.48905392" id="68" junction="1">
         <link>
             <predecessor elementType="road" elementId="55" contactPoint="end"/>
             <successor elementType="road" elementId="53" contactPoint="start"/>
@@ -878,7 +788,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":C_14_0" length="9.89240086" id="72" junction="1">
+    <road name=":C_14_0" length="9.89240086" id="69" junction="1">
         <link>
             <predecessor elementType="road" elementId="55" contactPoint="end"/>
             <successor elementType="road" elementId="51" contactPoint="start"/>
@@ -916,7 +826,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":C_15_0" length="2.43277025" id="73" junction="1">
+    <road name=":C_15_0" length="2.43277025" id="70" junction="1">
         <link>
             <predecessor elementType="road" elementId="57" contactPoint="end"/>
             <successor elementType="road" elementId="51" contactPoint="start"/>
@@ -954,45 +864,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":C_16_0" length="16.10000000" id="74" junction="1">
-        <link>
-            <predecessor elementType="road" elementId="57" contactPoint="end"/>
-            <successor elementType="road" elementId="50" contactPoint="start"/>
-        </link>
-        <type s="0" type="town"/>
-        <planView>
-            <geometry s="0.00000000" x="91.95000000" y="106.55000000" hdg="0.00000000" length="16.10000000">
-                <line/>
-            </geometry>
-        </planView>
-        <elevationProfile>
-            <elevation s="0" a="0.00" b="0" c="0" d="0"/>
-        </elevationProfile>
-        <lateralProfile/>
-        <lanes>
-            <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
-                    <lane id="-1" type="driving" level="true">
-                        <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
-                        </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
-                    </lane>
-                 </right>
-            </laneSection>
-        </lanes>
-        <objects/>
-        <signals/>
-    </road>
-    <road name=":C_16_1" length="16.10000000" id="75" junction="1">
+    <road name=":C_16_1" length="16.10000000" id="71" junction="1">
         <link>
             <predecessor elementType="road" elementId="57" contactPoint="end"/>
             <successor elementType="road" elementId="50" contactPoint="start"/>
@@ -1022,7 +894,15 @@
                             <successor id="-1"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
+                        <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
+                    </lane>
+                    <lane id="-2" type="driving" level="true">
+                        <link>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
+                        </link>
+                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                     </lane>
                  </right>
             </laneSection>
@@ -1030,7 +910,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":C_18_0" length="18.48905392" id="76" junction="1">
+    <road name=":C_18_0" length="18.48905392" id="72" junction="1">
         <link>
             <predecessor elementType="road" elementId="57" contactPoint="end"/>
             <successor elementType="road" elementId="52" contactPoint="start"/>
@@ -1068,7 +948,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":C_19_0" length="9.89240086" id="77" junction="1">
+    <road name=":C_19_0" length="9.89240086" id="73" junction="1">
         <link>
             <predecessor elementType="road" elementId="57" contactPoint="end"/>
             <successor elementType="road" elementId="53" contactPoint="start"/>
@@ -1106,7 +986,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":E_0_0" length="9.89240086" id="78" junction="2">
+    <road name=":E_0_0" length="9.89240086" id="74" junction="2">
         <link>
             <predecessor elementType="road" elementId="50" contactPoint="end"/>
             <successor elementType="road" elementId="54" contactPoint="start"/>
@@ -1144,7 +1024,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":N_0_0" length="9.89240086" id="79" junction="3">
+    <road name=":N_0_0" length="9.89240086" id="75" junction="3">
         <link>
             <predecessor elementType="road" elementId="51" contactPoint="end"/>
             <successor elementType="road" elementId="55" contactPoint="start"/>
@@ -1182,7 +1062,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":S_0_0" length="9.89240086" id="80" junction="4">
+    <road name=":S_0_0" length="9.89240086" id="76" junction="4">
         <link>
             <predecessor elementType="road" elementId="52" contactPoint="end"/>
             <successor elementType="road" elementId="56" contactPoint="start"/>
@@ -1220,7 +1100,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":W_0_0" length="9.89240086" id="81" junction="5">
+    <road name=":W_0_0" length="9.89240086" id="77" junction="5">
         <link>
             <predecessor elementType="road" elementId="53" contactPoint="end"/>
             <successor elementType="road" elementId="57" contactPoint="start"/>
@@ -1265,78 +1145,78 @@
     <connection id="1" incomingRoad="56" connectingRoad="59" contactPoint="start">
         <laneLink from="-2" to="-1"/>
     </connection>
-    <connection id="2" incomingRoad="56" connectingRoad="60" contactPoint="start">
+    <connection id="2" incomingRoad="56" connectingRoad="59" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
-    <connection id="3" incomingRoad="56" connectingRoad="61" contactPoint="start">
+    <connection id="3" incomingRoad="56" connectingRoad="60" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
-    <connection id="4" incomingRoad="56" connectingRoad="62" contactPoint="start">
+    <connection id="4" incomingRoad="56" connectingRoad="61" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
-    <connection id="5" incomingRoad="54" connectingRoad="63" contactPoint="start">
+    <connection id="5" incomingRoad="54" connectingRoad="62" contactPoint="start">
         <laneLink from="-2" to="-1"/>
     </connection>
-    <connection id="6" incomingRoad="54" connectingRoad="64" contactPoint="start">
+    <connection id="6" incomingRoad="54" connectingRoad="63" contactPoint="start">
         <laneLink from="-2" to="-1"/>
     </connection>
-    <connection id="7" incomingRoad="54" connectingRoad="65" contactPoint="start">
+    <connection id="7" incomingRoad="54" connectingRoad="63" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
-    <connection id="8" incomingRoad="54" connectingRoad="66" contactPoint="start">
+    <connection id="8" incomingRoad="54" connectingRoad="64" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
-    <connection id="9" incomingRoad="54" connectingRoad="67" contactPoint="start">
+    <connection id="9" incomingRoad="54" connectingRoad="65" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
-    <connection id="10" incomingRoad="55" connectingRoad="68" contactPoint="start">
+    <connection id="10" incomingRoad="55" connectingRoad="66" contactPoint="start">
         <laneLink from="-2" to="-1"/>
     </connection>
-    <connection id="11" incomingRoad="55" connectingRoad="69" contactPoint="start">
+    <connection id="11" incomingRoad="55" connectingRoad="67" contactPoint="start">
         <laneLink from="-2" to="-1"/>
     </connection>
-    <connection id="12" incomingRoad="55" connectingRoad="70" contactPoint="start">
+    <connection id="12" incomingRoad="55" connectingRoad="67" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
-    <connection id="13" incomingRoad="55" connectingRoad="71" contactPoint="start">
+    <connection id="13" incomingRoad="55" connectingRoad="68" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
-    <connection id="14" incomingRoad="55" connectingRoad="72" contactPoint="start">
+    <connection id="14" incomingRoad="55" connectingRoad="69" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
-    <connection id="15" incomingRoad="57" connectingRoad="73" contactPoint="start">
+    <connection id="15" incomingRoad="57" connectingRoad="70" contactPoint="start">
         <laneLink from="-2" to="-1"/>
     </connection>
-    <connection id="16" incomingRoad="57" connectingRoad="74" contactPoint="start">
+    <connection id="16" incomingRoad="57" connectingRoad="71" contactPoint="start">
         <laneLink from="-2" to="-1"/>
     </connection>
-    <connection id="17" incomingRoad="57" connectingRoad="75" contactPoint="start">
+    <connection id="17" incomingRoad="57" connectingRoad="71" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
-    <connection id="18" incomingRoad="57" connectingRoad="76" contactPoint="start">
+    <connection id="18" incomingRoad="57" connectingRoad="72" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
-    <connection id="19" incomingRoad="57" connectingRoad="77" contactPoint="start">
+    <connection id="19" incomingRoad="57" connectingRoad="73" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
     <junction name="E" id="2">
-    <connection id="0" incomingRoad="50" connectingRoad="78" contactPoint="start">
+    <connection id="0" incomingRoad="50" connectingRoad="74" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
     <junction name="N" id="3">
-    <connection id="0" incomingRoad="51" connectingRoad="79" contactPoint="start">
+    <connection id="0" incomingRoad="51" connectingRoad="75" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
     <junction name="S" id="4">
-    <connection id="0" incomingRoad="52" connectingRoad="80" contactPoint="start">
+    <connection id="0" incomingRoad="52" connectingRoad="76" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
     <junction name="W" id="5">
-    <connection id="0" incomingRoad="53" connectingRoad="81" contactPoint="start">
+    <connection id="0" incomingRoad="53" connectingRoad="77" contactPoint="start">
         <laneLink from="-1" to="-1"/>
     </connection>
     </junction>
