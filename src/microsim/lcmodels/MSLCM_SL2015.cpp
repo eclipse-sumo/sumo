@@ -93,6 +93,19 @@
 // Debug flags
 // ===========================================================================
 #define DEBUG_ACTIONSTEPS
+#define DEBUG_STATE
+#define DEBUG_SURROUNDING
+#define DEBUG_MANEUVER
+#define DEBUG_PATCHSPEED
+#define DEBUG_INFORM
+#define DEBUG_ROUNDABOUTS
+#define DEBUG_WANTSCHANGE
+#define DEBUG_SLOWDOWN
+#define DEBUG_SAVE_BLOCKER_LENGTH
+#define DEBUG_BLOCKING
+#define DEBUG_TRACI
+#define DEBUG_STRATEGIC_CHANGE
+#define DEBUG_KEEP_LATGAP
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
 //#define DEBUG_COND (myVehicle.getID() == "Togliatti_71_0")
 #define DEBUG_COND (myVehicle.isSelected())
@@ -177,7 +190,7 @@ MSLCM_SL2015::wantsChangeSublane(
     gDebugFlag2 = DEBUG_COND;
     const std::string changeType = laneOffset == -1 ? "right" : (laneOffset == 1 ? "left" : "current");
 
-
+#ifdef DEBUG_MANEUVER
     if (gDebugFlag2) {
         std::cout << "\n" << SIMTIME
                   << std::setprecision(gPrecision)
@@ -189,6 +202,7 @@ MSLCM_SL2015::wantsChangeSublane(
                   << " considerChangeTo=" << changeType
                   << "\n";
     }
+#endif
 
     int result = _wantsChangeSublane(laneOffset,
                                      alternatives,
@@ -209,6 +223,7 @@ MSLCM_SL2015::wantsChangeSublane(
         std::cout << SIMTIME << " veh=" << myVehicle.getID() << " maneuverDist=" << maneuverDist << " latDist=" << latDistTmp << " mySpeedPrev=" << mySpeedLat << " speedLat=" << DIST2SPEED(latDist) << " latDist2=" << latDist << "\n";
     }
 
+#if defined(DEBUG_MANEUVER) || defined(DEBUG_STATE)
     if (gDebugFlag2) {
         if (result & LCA_WANTS_LANECHANGE) {
             std::cout << SIMTIME
@@ -228,6 +243,7 @@ MSLCM_SL2015::wantsChangeSublane(
                       << "\n\n";
         }
     }
+#endif
     gDebugFlag2 = false;
     return result;
 }
@@ -242,6 +258,7 @@ MSLCM_SL2015::setOwnState(const int state) {
             // impatience decays only to the driver-specific level
             myImpatience = MAX2(myMinImpatience, myImpatience - myVehicle.getActionStepLengthSecs() / myTimeToImpatience);
         }
+#ifdef DEBUG_STATE
         if (DEBUG_COND) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID()
                           << " setOwnState=" << toString((LaneChangeAction)state)
@@ -249,6 +266,7 @@ MSLCM_SL2015::setOwnState(const int state) {
                           << " myImpatience=" << myImpatience
                           << "\n";
         }
+#endif
         if ((state & LCA_STAY) != 0) {
             myManeuverDist = 0;
             myCanChangeFully = true;
@@ -263,12 +281,14 @@ MSLCM_SL2015::setOwnState(const int state) {
 void
 MSLCM_SL2015::setManeuverDist(const double dist) {
     myManeuverDist = dist;
+#ifdef DEBUG_MANEUVER
     if DEBUG_COND {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
                   << " myManeuverDist=" << myManeuverDist
                   << std::endl;
     }
+#endif
 }
 
 
@@ -297,6 +317,7 @@ MSLCM_SL2015::patchSpeed(const double min, const double wanted, const double max
     gDebugFlag2 = DEBUG_COND;
     // negative min speed may be passed when using ballistic updated
     const double newSpeed = _patchSpeed(MAX2(min, 0.0), wanted, max, cfModel);
+#ifdef DEBUG_PATCHSPEED
     if (gDebugFlag2) {
         const std::string patched = (wanted != newSpeed ? " patched=" + toString(newSpeed) : "");
         std::cout << SIMTIME
@@ -310,6 +331,7 @@ MSLCM_SL2015::patchSpeed(const double min, const double wanted, const double max
                   << patched
                   << "\n\n";
     }
+#endif
     gDebugFlag2 = false;
     return newSpeed;
 }
@@ -327,17 +349,21 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
     //   if we want to change and have a blocking leader and there is enough room for him in front of us
     if (myLeadingBlockerLength != 0) {
         double space = myLeftSpace - myLeadingBlockerLength - MAGIC_OFFSET - myVehicle.getVehicleType().getMinGap();
+#ifdef DEBUG_PATCHSPEED
         if (gDebugFlag2) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
         }
+#endif
         if (space > 0) { // XXX space > -MAGIC_OFFSET
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
             double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space);
             // if we are approaching this place
             if (safe < wanted) {
+#ifdef DEBUG_PATCHSPEED
                 if (gDebugFlag2) {
                     std::cout << SIMTIME << " veh=" << myVehicle.getID() << " slowing down for leading blocker, safe=" << safe << (safe + NUMERICAL_EPS < min ? " (not enough)" : "") << "\n";
                 }
+#endif
                 return MAX2(min, safe);
             }
         }
@@ -349,10 +375,13 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
         if (v >= min && v <= max) {
             nVSafe = MIN2(v, nVSafe);
             gotOne = true;
+#ifdef DEBUG_PATCHSPEED
             if (gDebugFlag2) {
                 std::cout << SIMTIME << " veh=" << myVehicle.getID() << " got nVSafe=" << nVSafe << "\n";
             }
+#endif
         } else {
+#ifdef DEBUG_PATCHSPEED
             if (v < min) {
                 if (gDebugFlag2) {
                     std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ignoring low nVSafe=" << v << " min=" << min << "\n";
@@ -362,13 +391,16 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
                     std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ignoring high nVSafe=" << v << " max=" << max << "\n";
                 }
             }
+#endif
         }
     }
 
     if (gotOne && !myDontBrake) {
+#ifdef DEBUG_PATCHSPEED
         if (gDebugFlag2) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " got vSafe\n";
         }
+#endif
         return nVSafe;
     }
 
@@ -377,22 +409,28 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
         if ((state & LCA_STRATEGIC) != 0) {
             // necessary decelerations are controlled via vSafe. If there are
             // none it means we should speed up
+#if defined(DEBUG_PATCHSPEED) || defined(DEBUG_STATE)
             if (gDebugFlag2) {
                 std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_WANTS_LANECHANGE (strat, no vSafe)\n";
             }
+#endif
             return (max + wanted) / (double) 2.0;
         } else if ((state & LCA_COOPERATIVE) != 0) {
             // only minor adjustments in speed should be done
             if ((state & LCA_BLOCKED_BY_LEADER) != 0) {
+#if defined(DEBUG_PATCHSPEED) || defined(DEBUG_STATE)
                 if (gDebugFlag2) {
                     std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_BLOCKED_BY_LEADER (coop)\n";
                 }
+#endif
                 return (min + wanted) / (double) 2.0;
             }
             if ((state & LCA_BLOCKED_BY_FOLLOWER) != 0) {
+#if defined(DEBUG_PATCHSPEED) || defined(DEBUG_STATE)
                 if (gDebugFlag2) {
                     std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_BLOCKED_BY_FOLLOWER (coop)\n";
                 }
+#endif
                 return (max + wanted) / (double) 2.0;
             }
             //} else { // VARIANT_16
@@ -434,16 +472,20 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
     // accelerate if being a blocking leader or blocking follower not able to brake
     //  (and does not have to change lanes)
     if ((state & LCA_AMBLOCKINGLEADER) != 0) {
-        if (gDebugFlag2) {
+#if defined(DEBUG_PATCHSPEED) || defined(DEBUG_STATE)
+       if (gDebugFlag2) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_AMBLOCKINGLEADER\n";
         }
+#endif
         return (max + wanted) / (double) 2.0;
     }
 
     if ((state & LCA_AMBLOCKINGFOLLOWER_DONTBRAKE) != 0) {
+#if defined(DEBUG_PATCHSPEED) || defined(DEBUG_STATE)
         if (gDebugFlag2) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_AMBLOCKINGFOLLOWER_DONTBRAKE\n";
         }
+#endif
         /*
         // VARIANT_4 (dontbrake)
         if (max <= myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle) && min == 0) { // !!! was standing
@@ -464,6 +506,7 @@ MSLCM_SL2015::inform(void* info, MSVehicle* sender) {
     }
     //myOwnState &= 0xffffffff; // reset all bits of MyLCAEnum but only those
     myOwnState |= pinfo->second;
+#ifdef DEBUG_INFORM
     if (gDebugFlag2 || DEBUG_COND || sender->getLaneChangeModel().debugVehicle()) {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
@@ -472,6 +515,7 @@ MSLCM_SL2015::inform(void* info, MSVehicle* sender) {
                   << " vSafe=" << pinfo->first
                   << "\n";
     }
+#endif
     delete pinfo;
     return (void*) true;
 }
@@ -497,15 +541,19 @@ MSLCM_SL2015::informLeader(int blocked,
             plannedSpeed = MIN2(plannedSpeed, v);
         }
     }
+#ifdef DEBUG_INFORM
     if (gDebugFlag2) {
         std::cout << " informLeader speed=" <<  myVehicle.getSpeed() << " planned=" << plannedSpeed << "\n";
     }
+#endif
 
     if ((blocked & LCA_BLOCKED_BY_LEADER) != 0) {
         assert(neighLead.first != 0);
         const MSVehicle* nv = neighLead.first;
+#ifdef DEBUG_INFORM
         if (gDebugFlag2) std::cout << " blocked by leader nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
                                        << myVehicle.getCarFollowModel().getSecureGap(myVehicle.getSpeed(), nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()) << "\n";
+#endif
         // decide whether we want to overtake the leader or follow it
         const double dv = plannedSpeed - nv->getSpeed();
         const double overtakeDist = (neighLead.second // drive to back of follower
@@ -532,6 +580,7 @@ MSLCM_SL2015::informLeader(int blocked,
                                                       MAX2(MIN_FALLBEHIND, (myVehicle.getSpeed() - targetSpeed) / remainingSeconds)));
                 //const double nextSpeed = MAX2(0., MIN2(plannedSpeed, myVehicle.getSpeed() - decel));
                 const double nextSpeed = MIN2(plannedSpeed, myVehicle.getSpeed() - decel);
+#ifdef DEBUG_INFORM
                 if (gDebugFlag2) {
                     std::cout << SIMTIME
                               << " cannot overtake leader nv=" << nv->getID()
@@ -541,10 +590,12 @@ MSLCM_SL2015::informLeader(int blocked,
                               << " nextSpeed=" << nextSpeed
                               << "\n";
                 }
+#endif
                 addLCSpeedAdvice(nextSpeed);
                 return nextSpeed;
             } else {
                 // leader is fast enough anyway
+#ifdef DEBUG_INFORM
                 if (gDebugFlag2) {
                     std::cout << SIMTIME
                               << " cannot overtake fast leader nv=" << nv->getID()
@@ -553,10 +604,12 @@ MSLCM_SL2015::informLeader(int blocked,
                               << " targetSpeed=" << targetSpeed
                               << "\n";
                 }
+#endif
                 addLCSpeedAdvice(targetSpeed);
                 return plannedSpeed;
             }
         } else {
+#ifdef DEBUG_INFORM
             if (gDebugFlag2) {
                 std::cout << SIMTIME
                           << " wants to overtake leader nv=" << nv->getID()
@@ -569,6 +622,7 @@ MSLCM_SL2015::informLeader(int blocked,
                           << " blockerLength=" << myLeadingBlockerLength
                           << "\n";
             }
+#endif
             // overtaking, leader should not accelerate
             msg(neighLead, nv->getSpeed(), dir | LCA_AMBLOCKINGLEADER);
             return -1;
@@ -594,6 +648,7 @@ MSLCM_SL2015::informLeader(int blocked,
         const double targetSpeed = myCarFollowModel.followSpeed(
                                        &myVehicle, myVehicle.getSpeed(), neighLead.second - dv, nextNVSpeed, nv->getCarFollowModel().getMaxDecel());
         addLCSpeedAdvice(targetSpeed);
+#ifdef DEBUG_INFORM
         if (gDebugFlag2) {
             std::cout << " not blocked by leader nv=" <<  nv->getID()
                       << " nvSpeed=" << nv->getSpeed()
@@ -603,6 +658,7 @@ MSLCM_SL2015::informLeader(int blocked,
                       << " targetSpeed=" << targetSpeed
                       << "\n";
         }
+#endif
         return MIN2(targetSpeed, plannedSpeed);
     } else {
         // not overtaking
@@ -620,16 +676,20 @@ MSLCM_SL2015::informFollower(int blocked,
     if ((blocked & LCA_BLOCKED_BY_FOLLOWER) != 0) {
         assert(neighFollow.first != 0);
         const MSVehicle* nv = neighFollow.first;
+#ifdef DEBUG_INFORM
         if (gDebugFlag2) std::cout << " blocked by follower nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
                                        << nv->getCarFollowModel().getSecureGap(nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()) << "\n";
+#endif
 
         // are we fast enough to cut in without any help?
         if (plannedSpeed - nv->getSpeed() >= HELP_OVERTAKE) {
             const double neededGap = nv->getCarFollowModel().getSecureGap(nv->getSpeed(), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
             if ((neededGap - neighFollow.second) / remainingSeconds < (plannedSpeed - nv->getSpeed())) {
+#ifdef DEBUG_INFORM
                 if (gDebugFlag2) {
                     std::cout << " wants to cut in before  nv=" << nv->getID() << " without any help neededGap=" << neededGap << "\n";
                 }
+#endif
                 // follower might even accelerate but not to much
                 msg(neighFollow, plannedSpeed - HELP_OVERTAKE, dir | LCA_AMBLOCKINGFOLLOWER);
                 return;
@@ -651,6 +711,7 @@ MSLCM_SL2015::informFollower(int blocked,
         // new gap between follower and self in case the follower does brake for 1s
         const double decelGap = neighFollow.second + dv;
         const double secureGap = nv->getCarFollowModel().getSecureGap(neighNewSpeed1s, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
+#ifdef DEBUG_INFORM
         if (gDebugFlag2) {
             std::cout << SIMTIME
                       << " egoV=" << myVehicle.getSpeed()
@@ -661,6 +722,7 @@ MSLCM_SL2015::informFollower(int blocked,
                       << " decelGap=" << decelGap
                       << " secGap=" << secureGap
                       << "\n";
+#endif
         }
         if (decelGap > 0 && decelGap >= secureGap) {
             // if the blocking neighbor brakes it could actually help
@@ -675,6 +737,7 @@ MSLCM_SL2015::informFollower(int blocked,
             // the following assertion cannot be guaranteed because the CFModel handles small gaps differently, see MSCFModel::maximumSafeStopSpeed
             // assert(vsafe <= vsafe1);
             msg(neighFollow, vsafe, dir | LCA_AMBLOCKINGFOLLOWER);
+#ifdef DEBUG_INFORM
             if (gDebugFlag2) {
                 std::cout << " wants to cut in before nv=" << nv->getID()
                           << " vsafe1=" << vsafe1
@@ -682,18 +745,23 @@ MSLCM_SL2015::informFollower(int blocked,
                           << " newSecGap=" << nv->getCarFollowModel().getSecureGap(vsafe, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel())
                           << "\n";
             }
+#endif
         } else if (dv > 0 && dv * remainingSeconds > (secureGap - decelGap + POSITION_EPS)) {
             // decelerating once is sufficient to open up a large enough gap in time
             msg(neighFollow, neighNewSpeed, dir | LCA_AMBLOCKINGFOLLOWER);
+#ifdef DEBUG_INFORM
             if (gDebugFlag2) {
                 std::cout << " wants to cut in before nv=" << nv->getID() << " (eventually)\n";
             }
+#endif
         } else if (dir == LCA_MRIGHT && !myAllowOvertakingRight && !nv->congested()) {
             const double vhelp = MAX2(neighNewSpeed, HELP_OVERTAKE);
             msg(neighFollow, vhelp, dir | LCA_AMBLOCKINGFOLLOWER);
+#ifdef DEBUG_INFORM
             if (gDebugFlag2) {
                 std::cout << " wants to cut in before nv=" << nv->getID() << " (nv cannot overtake right)\n";
             }
+#endif
         } else {
             double vhelp = MAX2(nv->getSpeed(), myVehicle.getSpeed() + HELP_OVERTAKE);
             if (nv->getSpeed() > myVehicle.getSpeed() &&
@@ -705,13 +773,17 @@ MSLCM_SL2015::informFollower(int blocked,
                 // let the follower slow down to increase the likelyhood that later vehicles will be slow enough to help
                 // follower should still be fast enough to open a gap
                 vhelp = MAX2(neighNewSpeed, myVehicle.getSpeed() + HELP_OVERTAKE);
+#ifdef DEBUG_INFORM
                 if (gDebugFlag2) {
                     std::cout << " wants right follower to slow down a bit\n";
                 }
+#endif
                 if ((nv->getSpeed() - myVehicle.getSpeed()) / helpDecel < remainingSeconds) {
+#ifdef DEBUG_INFORM
                     if (gDebugFlag2) {
                         std::cout << " wants to cut in before right follower nv=" << nv->getID() << " (eventually)\n";
                     }
+#endif
                     msg(neighFollow, vhelp, dir | LCA_AMBLOCKINGFOLLOWER);
                     return;
                 }
@@ -728,6 +800,7 @@ MSLCM_SL2015::informFollower(int blocked,
             // make sure the deceleration is not to strong
             addLCSpeedAdvice(MAX2(vhelp - needDV, myVehicle.getSpeed() - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())));
 
+#ifdef DEBUG_INFORM
             if (gDebugFlag2) {
                 std::cout << SIMTIME
                           << " veh=" << myVehicle.getID()
@@ -739,6 +812,7 @@ MSLCM_SL2015::informFollower(int blocked,
                           << " vsafe=" << myVehicle.getSpeed() + ACCEL2SPEED(myLCAccelerationAdvices.back())
                           << "\n";
             }
+#endif
         }
     } else if (neighFollow.first != 0) {
         // we are not blocked no, make sure it remains that way
@@ -748,9 +822,11 @@ MSLCM_SL2015::informFollower(int blocked,
         const double vsafe = nv->getCarFollowModel().followSpeed(
                                  nv, nv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed - vsafe1), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
         msg(neighFollow, vsafe, dir | LCA_AMBLOCKINGFOLLOWER);
+#ifdef DEBUG_INFORM
         if (gDebugFlag2) {
             std::cout << " wants to cut in before non-blocking follower nv=" << nv->getID() << "\n";
         }
+#endif
     }
 }
 
@@ -793,6 +869,7 @@ MSLCM_SL2015::prepareStep() {
     if (myCanChangeFully) {
         myManeuverDist = 0;
     }
+#ifdef DEBUG_INFORM
     if (debugVehicle()) {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
@@ -800,6 +877,7 @@ MSLCM_SL2015::prepareStep() {
                   << " myCanChangeFully=" << myCanChangeFully
                   << "\n";
     }
+#endif
     myLeadingBlockerLength = 0;
     myLeftSpace = 0;
     myLCAccelerationAdvices.clear();
@@ -817,9 +895,11 @@ MSLCM_SL2015::prepareStep() {
     // updated myExpectedSublaneSpeeds
     // XXX only do this when (sub)lane changing is possible
     std::vector<double> newExpectedSpeeds;
+#ifdef DEBUG_INFORM
     if DEBUG_COND {
         std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myExpectedSublaneSpeeds=" << toString(myExpectedSublaneSpeeds) << "\n";
     }
+#endif
     if (myExpectedSublaneSpeeds.size() != myVehicle.getLane()->getEdge().getSubLaneSides().size()) {
         // initialize
         const MSEdge* currEdge = &myVehicle.getLane()->getEdge();
@@ -886,9 +966,11 @@ void
 MSLCM_SL2015::changed() {
     if (!myCanChangeFully) {
         // do not reset state yet
+#ifdef DEBUG_STATE
         if (DEBUG_COND) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " state not reset\n";
         }
+#endif
         return;
     }
     myOwnState = 0;
@@ -906,9 +988,11 @@ MSLCM_SL2015::changed() {
     myLookAheadSpeed = LOOK_AHEAD_MIN_SPEED;
     myLCAccelerationAdvices.clear();
     myDontBrake = false;
+#if defined(DEBUG_MANEUVER) || defined(DEBUG_STATE)
     if (DEBUG_COND) {
         std::cout << SIMTIME << " veh=" << myVehicle.getID() << " changed()\n";
     }
+#endif
 }
 
 
@@ -950,6 +1034,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             bestLaneOffset = curr.bestLaneOffset;
             // VARIANT_13 (equalBest)
             if (bestLaneOffset == 0 && preb[p + laneOffset].bestLaneOffset == 0) {
+#ifdef DEBUG_WANTSCHANGE
                 if (gDebugFlag2) {
                     std::cout << STEPS2TIME(currentTime)
                               << " veh=" << myVehicle.getID()
@@ -957,6 +1042,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                               << " bestLaneOffsetNew=" << laneOffset
                               << "\n";
                 }
+#endif
                 bestLaneOffset = laneOffset;
             }
             currIdx = p;
@@ -996,6 +1082,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     }
     */
 
+#ifdef DEBUG_WANTSCHANGE
     if (gDebugFlag2) {
         std::cout << STEPS2TIME(currentTime)
                   << " veh=" << myVehicle.getID()
@@ -1013,6 +1100,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                   << "\n   expectedSpeeds=" << toString(myExpectedSublaneSpeeds)
                   << std::endl;
     }
+#endif
 
     ret = slowDownForBlocked(lastBlocked, ret);
     // VARIANT_14 (furtherBlock)
@@ -1099,9 +1187,11 @@ MSLCM_SL2015::_wantsChangeSublane(
         neighDist += roundaboutEdgesAheadNeigh * ROUNDABOUT_DIST_BONUS * myCooperativeParam;
     }
     if (roundaboutEdgesAhead > 0) {
+#ifdef DEBUG_ROUNDABOUTS
         if (gDebugFlag2) {
             std::cout << " roundaboutEdgesAhead=" << roundaboutEdgesAhead << " roundaboutEdgesAheadNeigh=" << roundaboutEdgesAheadNeigh << "\n";
         }
+#endif
     }
 
     if (laneOffset != 0) {
@@ -1136,9 +1226,11 @@ MSLCM_SL2015::_wantsChangeSublane(
            ) {
             // there might be a vehicle which needs to counter-lane-change one lane further and we cannot see it yet
             myLeadingBlockerLength = MAX2((double)(right ? 20.0 : 40.0), myLeadingBlockerLength);
+#ifdef DEBUG_WANTSCHANGE
             if (gDebugFlag2) {
                 std::cout << "  reserving space for unseen blockers myLeadingBlockerLength=" << myLeadingBlockerLength << "\n";
             }
+#endif
         }
 
         // letting vehicles merge in at the end of the lane in case of counter-lane change, step#1
@@ -1171,6 +1263,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         if (plannedSpeed > 0) {
             commitManoeuvre(blocked, blockedFully, leaders, neighLeaders, neighLane, maneuverDist);
         }
+#if defined(DEBUG_WANTSCHANGE) || defined(DEBUG_STATE)
         if (gDebugFlag2) {
             std::cout << STEPS2TIME(currentTime)
                       << " veh=" << myVehicle.getID()
@@ -1183,6 +1276,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                       << " mySafeLatDistLeft=" << mySafeLatDistLeft
                       << "\n";
         }
+#endif
         return ret;
     }
 
@@ -1230,6 +1324,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             && (changeToBest || currentDistAllows(neighDist, abs(bestLaneOffset) + 1, laDist))) {
 
         // VARIANT_2 (nbWhenChangingToHelp)
+#ifdef DEBUG_WANTSCHANGE
         if (gDebugFlag2) {
             std::cout << STEPS2TIME(currentTime)
                       << " veh=" << myVehicle.getID()
@@ -1241,6 +1336,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                       << (((myOwnState & myLcaCounter) != 0) ? " (counter)" : "")
                       << "\n";
         }
+#endif
 
         ret |= LCA_COOPERATIVE | LCA_URGENT ;//| LCA_CHANGE_TO_HELP;
         if (!cancelRequest(ret)) {
@@ -1284,21 +1380,21 @@ MSLCM_SL2015::_wantsChangeSublane(
     int rightmostOnEdge = leftmostOnEdge;
     while (rightmostOnEdge > 0 && sublaneSides[rightmostOnEdge] > rightVehSide + NUMERICAL_EPS) {
         defaultNextSpeed = MIN2(defaultNextSpeed, myExpectedSublaneSpeeds[rightmostOnEdge]);
+#ifdef DEBUG_WANTSCHANGE
         if (gDebugFlag2) {
             std::cout << "   adapted to current sublane=" << rightmostOnEdge << " defaultNextSpeed=" << defaultNextSpeed << "\n";
-        }
-        if (gDebugFlag2) {
             std::cout << "   sublaneSides[rightmostOnEdge]=" << sublaneSides[rightmostOnEdge] << " rightVehSide=" << rightVehSide << "\n";
         }
+#endif
         rightmostOnEdge--;
     }
     defaultNextSpeed = MIN2(defaultNextSpeed, myExpectedSublaneSpeeds[rightmostOnEdge]);
+#ifdef DEBUG_WANTSCHANGE
     if (gDebugFlag2) {
         std::cout << "   adapted to current sublane=" << rightmostOnEdge << " defaultNextSpeed=" << defaultNextSpeed << "\n";
-    }
-    if (gDebugFlag2) {
         std::cout << "   sublaneSides[rightmostOnEdge]=" << sublaneSides[rightmostOnEdge] << " rightVehSide=" << rightVehSide << "\n";
     }
+#endif
     double maxGain = -std::numeric_limits<double>::max();
     double maxGainRight = -std::numeric_limits<double>::max();
     double maxGainLeft = -std::numeric_limits<double>::max();
@@ -1311,6 +1407,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     assert(leftMax <= edge.getWidth());
     int sublaneCompact = MAX2(iMin, rightmostOnEdge - 1); // try to compactify to the right by default
 
+#ifdef DEBUG_WANTSCHANGE
     if (gDebugFlag2) std::cout
                 << "  checking sublanes rightmostOnEdge=" << rightmostOnEdge
                 << " leftmostOnEdge=" << leftmostOnEdge
@@ -1318,6 +1415,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                 << " leftMax=" << leftMax
                 << " sublaneCompact=" << sublaneCompact
                 << "\n";
+#endif
     for (int i = iMin; i < (int)sublaneSides.size(); ++i) {
         if (sublaneSides[i] + vehWidth < leftMax) {
             // i is the rightmost sublane and the left side of vehicles still fits on the edge,
@@ -1338,9 +1436,11 @@ MSLCM_SL2015::_wantsChangeSublane(
                 if (maxGain > GAIN_PERCEPTION_THRESHOLD) {
                     sublaneCompact = i;
                     latDist = currentLatDist;
+#ifdef DEBUG_WANTSCHANGE
                     if (gDebugFlag2) {
                         std::cout << "      i=" << i << " newLatDist=" << latDist << " relGain=" << relativeGain << "\n";
                     }
+#endif
                 }
             } else {
                 // if anticipated gains to the left are higher, prefer this
@@ -1363,6 +1463,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             const double subAlignDist = sublaneSides[i] - rightVehSide;
             if (fabs(subAlignDist) < fabs(latDistNice)) {
                 latDistNice = subAlignDist;
+#ifdef DEBUG_WANTSCHANGE
                 if (gDebugFlag2) std::cout
                             << "    nicest sublane=" << i
                             << " side=" << sublaneSides[i]
@@ -1372,26 +1473,35 @@ MSLCM_SL2015::_wantsChangeSublane(
                             << " maxGainL=" << maxGainLeft
                             << "\n";
             }
+#endif
         }
     }
     // updated change probabilities
     if (maxGainRight != -std::numeric_limits<double>::max()) {
+#ifdef DEBUG_WANTSCHANGE
         if (gDebugFlag2) {
             std::cout << "  speedGainR_old=" << mySpeedGainProbabilityRight;
         }
+#endif
         mySpeedGainProbabilityRight += myVehicle.getActionStepLengthSecs() * maxGainRight;
+#ifdef DEBUG_WANTSCHANGE
         if (gDebugFlag2) {
             std::cout << "  speedGainR_new=" << mySpeedGainProbabilityRight << "\n";
         }
+#endif
     }
     if (maxGainLeft != -std::numeric_limits<double>::max()) {
+#ifdef DEBUG_WANTSCHANGE
         if (gDebugFlag2) {
             std::cout << "  speedGainL_old=" << mySpeedGainProbabilityLeft;
         }
+#endif
         mySpeedGainProbabilityLeft += myVehicle.getActionStepLengthSecs() * maxGainLeft;
+#ifdef DEBUG_WANTSCHANGE
         if (gDebugFlag2) {
             std::cout << "  speedGainL_new=" << mySpeedGainProbabilityLeft << "\n";
         }
+#endif
     }
     // decay if there is no reason for or against changing (only if we have enough information)
     if ((fabs(maxGainRight) < NUMERICAL_EPS || maxGainRight == -std::numeric_limits<double>::max())
@@ -1404,6 +1514,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     }
 
 
+#ifdef DEBUG_WANTSCHANGE
     if (gDebugFlag2) std::cout << SIMTIME
                                    << " veh=" << myVehicle.getID()
                                    << " defaultNextSpeed=" << defaultNextSpeed
@@ -1414,6 +1525,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                                    << " latDistNice=" << latDistNice
                                    << " sublaneCompact=" << sublaneCompact
                                    << "\n";
+#endif
 
     if (!left) {
         // ONLY FOR CHANGING TO THE RIGHT
@@ -1435,6 +1547,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             const double deltaProb = (myChangeProbThresholdRight * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
             myKeepRightProbability += myVehicle.getActionStepLengthSecs() * deltaProb;
 
+#ifdef DEBUG_WANTSCHANGE
             if (gDebugFlag2) {
                 std::cout << STEPS2TIME(currentTime)
                           << " considering keepRight:"
@@ -1452,6 +1565,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                           << " speedGainL=" << mySpeedGainProbabilityLeft
                           << "\n";
             }
+#endif
             if (myKeepRightProbability * myKeepRightParam > MAX2(myChangeProbThresholdRight, mySpeedGainProbabilityLeft)
                     /*&& latLaneDist <= -NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()*/) {
                 ret |= LCA_KEEPRIGHT;
@@ -1466,6 +1580,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             }
         }
 
+#ifdef DEBUG_WANTSCHANGE
         if (gDebugFlag2) {
             std::cout << STEPS2TIME(currentTime)
                       << " speedGainR=" << mySpeedGainProbabilityRight
@@ -1476,6 +1591,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                       << " latDist=" << latDist
                       << "\n";
         }
+#endif
 
         if (latDist < 0 && mySpeedGainProbabilityRight >= MAX2(myChangeProbThresholdRight, mySpeedGainProbabilityLeft)
                 && neighDist / MAX2(.1, myVehicle.getSpeed()) > 20.) {
@@ -1494,6 +1610,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     if (!right) {
 
         const bool stayInLane = myVehicle.getLateralPositionOnLane() + latDist < 0.5 * myVehicle.getLane()->getWidth();
+#ifdef DEBUG_WANTSCHANGE
         if (gDebugFlag2) {
             std::cout << STEPS2TIME(currentTime)
                       << " speedGainL=" << mySpeedGainProbabilityLeft
@@ -1505,6 +1622,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                       << " stayInLane=" << stayInLane
                       << "\n";
         }
+#endif
 
         if (latDist > 0 && mySpeedGainProbabilityLeft > myChangeProbThresholdLeft &&
                 // if we leave our lane, we should be able to stay in the new
@@ -1550,9 +1668,11 @@ MSLCM_SL2015::_wantsChangeSublane(
                 default:
                     assert(false);
             }
+#ifdef DEBUG_WANTSCHANGE
             if (gDebugFlag2) std::cout << SIMTIME
                                            << " arrivalPosLatProcedure=" << myVehicle.getParameter().arrivalPosLatProcedure
                                            << " arrivalPosLat=" << myVehicle.getParameter().arrivalPosLat << "\n";
+#endif
 
         } else {
             switch (myVehicle.getVehicleType().getPreferredLateralAlignment()) {
@@ -1576,6 +1696,8 @@ MSLCM_SL2015::_wantsChangeSublane(
                     break;
             }
         }
+
+#if defined(DEBUG_WANTSCHANGE) || defined(DEBUG_STATE) || defined(DEBUG_MANEUVER)
         if (gDebugFlag2) std::cout << SIMTIME
                                        << " alignment=" << toString(myVehicle.getVehicleType().getPreferredLateralAlignment())
                                        << " mySpeedGainR=" << mySpeedGainProbabilityRight
@@ -1587,6 +1709,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                                        << " myCanChangeFully=" << myCanChangeFully
                                        << " prevState=" << toString((LaneChangeAction)myPreviousState)
                                        << "\n";
+#endif
 
         if ((latDistSublane < 0 && mySpeedGainProbabilityRight < mySpeedLossProbThreshold)
                 || (latDistSublane > 0 && mySpeedGainProbabilityLeft < mySpeedLossProbThreshold)
@@ -1605,10 +1728,12 @@ MSLCM_SL2015::_wantsChangeSublane(
         // (this way adaptation is still done if changing for speedgain is
         // blocked)
         if (fabs(latDist) >= NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) {
+#ifdef DEBUG_WANTSCHANGE
             if (gDebugFlag2) std::cout << SIMTIME
                                            << " adapting to preferred alignment=" << toString(myVehicle.getVehicleType().getPreferredLateralAlignment())
                                            << " latDist=" << latDist
                                            << "\n";
+#endif
             ret |= LCA_SUBLANE;
             if (!cancelRequest(ret)) {
                 blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
@@ -1640,6 +1765,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         }
     }
     */
+#ifdef DEBUG_WANTSCHANGE
     if (gDebugFlag2) {
         std::cout << STEPS2TIME(currentTime)
                   << " veh=" << myVehicle.getID()
@@ -1648,6 +1774,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                   << " myKeepRight=" << myKeepRightProbability
                   << "\n";
     }
+#endif
     return ret;
 }
 
@@ -1657,6 +1784,7 @@ MSLCM_SL2015::slowDownForBlocked(MSVehicle** blocked, int state) {
     //  if this vehicle is blocking someone in front, we maybe decelerate to let him in
     if ((*blocked) != 0) {
         double gap = (*blocked)->getPositionOnLane() - (*blocked)->getVehicleType().getLength() - myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getMinGap();
+#ifdef DEBUG_SLOWDOWN
         if (gDebugFlag2) {
             std::cout << SIMTIME
                       << " veh=" << myVehicle.getID()
@@ -1664,6 +1792,7 @@ MSLCM_SL2015::slowDownForBlocked(MSVehicle** blocked, int state) {
                       << " gap=" << gap
                       << "\n";
         }
+#endif
         if (gap > POSITION_EPS) {
             //const bool blockedWantsUrgentRight = (((*blocked)->getLaneChangeModel().getOwnState() & LCA_RIGHT != 0)
             //    && ((*blocked)->getLaneChangeModel().getOwnState() & LCA_URGENT != 0));
@@ -1690,6 +1819,7 @@ MSLCM_SL2015::slowDownForBlocked(MSVehicle** blocked, int state) {
 
 void
 MSLCM_SL2015::saveBlockerLength(const MSVehicle* blocker, int lcaCounter) {
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
     if (gDebugFlag2) {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
@@ -1697,6 +1827,7 @@ MSLCM_SL2015::saveBlockerLength(const MSVehicle* blocker, int lcaCounter) {
                   << " bState=" << (blocker == 0 ? "None" : toString(blocker->getLaneChangeModel().getOwnState()))
                   << "\n";
     }
+#endif
     if (blocker != 0 && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
         // is there enough space in front of us for the blocker?
         const double potential = myLeftSpace - myVehicle.getCarFollowModel().brakeGap(
@@ -1704,6 +1835,7 @@ MSLCM_SL2015::saveBlockerLength(const MSVehicle* blocker, int lcaCounter) {
         if (blocker->getVehicleType().getLengthWithGap() <= potential) {
             // save at least his length in myLeadingBlockerLength
             myLeadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), myLeadingBlockerLength);
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
             if (gDebugFlag2) {
                 std::cout << SIMTIME
                           << " veh=" << myVehicle.getID()
@@ -1711,9 +1843,11 @@ MSLCM_SL2015::saveBlockerLength(const MSVehicle* blocker, int lcaCounter) {
                           << " saving myLeadingBlockerLength=" << myLeadingBlockerLength
                           << "\n";
             }
+#endif
         } else {
             // we cannot save enough space for the blocker. It needs to save
             // space for ego instead
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
             if (gDebugFlag2) {
                 std::cout << SIMTIME
                           << " veh=" << myVehicle.getID()
@@ -1722,6 +1856,7 @@ MSLCM_SL2015::saveBlockerLength(const MSVehicle* blocker, int lcaCounter) {
                           << " potential=" << potential
                           << "\n";
             }
+#endif
             ((MSVehicle*)blocker)->getLaneChangeModel().saveBlockerLength(myVehicle.getVehicleType().getLengthWithGap());
         }
     }
@@ -1731,10 +1866,12 @@ MSLCM_SL2015::saveBlockerLength(const MSVehicle* blocker, int lcaCounter) {
 void MSLCM_SL2015::addLCSpeedAdvice(const double vSafe) {
     const double accel = SPEED2ACCEL(vSafe-myVehicle.getSpeed());
     myLCAccelerationAdvices.push_back(accel);
+#ifdef DEBUG_INFORM
     if (DEBUG_COND) {
         std::cout << SIMTIME << " veh=" << myVehicle.getID() << " accepted LC speed advice "
                 << "vSafe="<< vSafe << " -> accel="<< accel <<  "\n";
     }
+#endif
 }
 
 
@@ -1889,9 +2026,11 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& ma
         updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectLeadBlockers);
         updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectFollowBlockers);
     }
+#ifdef DEBUG_BLOCKING
     if (gDebugFlag2) {
         std::cout << "    checkBlocking latDist=" << latDist << " mySafeLatDistRight=" << mySafeLatDistRight << " mySafeLatDistLeft=" << mySafeLatDistLeft << "\n";
     }
+#endif
     // if we can move at least a little bit in the desired direction, do so (rather than block)
     if (latDist < 0) {
         if (mySafeLatDistRight <= NUMERICAL_EPS) {
@@ -1908,9 +2047,11 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& ma
     }
 
     myCanChangeFully = (myManeuverDist == 0 || latDist == myManeuverDist);
+#ifdef DEBUG_BLOCKING
     if (gDebugFlag2) {
         std::cout << "    checkBlocking fully=" << myCanChangeFully << " latDist=" << latDist << " myManeuverDist=" << myManeuverDist << "\n";
     }
+#endif
     // destination sublanes must be safe
     // intermediate sublanes must not be blocked by overlapping vehicles
 
@@ -1962,9 +2103,11 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& ma
         for (std::vector<CLeaderDist>::const_iterator it2 = collectLeadBlockers->begin(); it2 != collectLeadBlockers->end(); ++it2) {
             for (std::vector<CLeaderDist>::iterator it = collectFollowBlockers->begin(); it != collectFollowBlockers->end();) {
                 if ((*it2).first == (*it).first) {
+#ifdef DEBUG_BLOCKING
                     if (gDebugFlag2) {
                         std::cout << "    removed follower " << (*it).first->getID() << " because it is already a leader\n";
                     }
+#endif
                     it = collectFollowBlockers->erase(it);
                 } else {
                     ++it;
@@ -1990,6 +2133,7 @@ MSLCM_SL2015::checkBlockingVehicles(
     const double leftVehSideDest = leftVehSide + latDist;
     const double rightNoOverlap = MIN2(rightVehSideDest, rightVehSide);
     const double leftNoOverlap = MAX2(leftVehSideDest, leftVehSide);
+#ifdef DEBUG_BLOCKING
     if (gDebugFlag2) {
         std::cout << "  checkBlockingVehicles"
                   << " latDist=" << latDist
@@ -2004,6 +2148,7 @@ MSLCM_SL2015::checkBlockingVehicles(
                   << " blockType=" << toString((LaneChangeAction) blockType)
                   << "\n";
     }
+#endif
     int result = 0;
     for (int i = 0; i < vehicles.numSublanes(); ++i) {
         CLeaderDist vehDist = vehicles[i];
@@ -2019,6 +2164,7 @@ MSLCM_SL2015::checkBlockingVehicles(
             const bool overlapBefore = overlap(rightVehSide, leftVehSide, foeRight, foeLeft);
             const bool overlapDest = overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft);
             const bool overlapAny = overlap(rightNoOverlap, leftNoOverlap, foeRight, foeLeft);
+#ifdef DEBUG_BLOCKING
             if (gDebugFlag2) {
                 std::cout << "   foe=" << vehDist.first->getID()
                           << " gap=" << vehDist.second
@@ -2030,16 +2176,21 @@ MSLCM_SL2015::checkBlockingVehicles(
                           << " overlapDest=" << overlapDest
                           << "\n";
             }
+#endif
             if (overlapAny) {
                 if (vehDist.second < 0) {
                     if (overlapBefore && !overlapDest) {
+#ifdef DEBUG_BLOCKING
                         if (gDebugFlag2) {
                             std::cout << "    ignoring current overlap to come clear\n";
                         }
+#endif
                     } else {
+#ifdef DEBUG_BLOCKING
                         if (gDebugFlag2) {
                             std::cout << "    overlap (" << toString((LaneChangeAction)blockType) << ")\n";
                         }
+#endif
                         result |= (blockType | LCA_OVERLAPPING);
                         if (collectBlockers == 0) {
                             return result;
@@ -2067,7 +2218,7 @@ MSLCM_SL2015::checkBlockingVehicles(
                     const double leaderExpectedSpeed = MAX2(0., leader->getSpeed() + timeTillAction*leaderAccel);
                     const double expectedSecureGap = follower->getCarFollowModel().getSecureGap(followerExpectedSpeed, leaderExpectedSpeed, leader->getCarFollowModel().getMaxDecel());
 
-#ifdef DEBUG_ACTIONSTEPS
+#if defined(DEBUG_ACTIONSTEPS) && defined(DEBUG_BLOCKING)
                     if (gDebugFlag2) {
                         std::cout << "    timeTillAction=" << timeTillAction
                                 << " followerAccel=" << followerAccel
@@ -2094,19 +2245,23 @@ MSLCM_SL2015::checkBlockingVehicles(
                             safeLatGapRight = MIN2(safeLatGapRight, rightVehSide-foeLeft);
                         }
 
+#ifdef DEBUG_BLOCKING
                         if (gDebugFlag2) {
                             std::cout << "    blocked by " << vehDist.first->getID() << " gap=" << vehDist.second << " expectedGap=" << expectedGap
                                       << " expectedSecureGap=" << expectedSecureGap << " secGap2=" << secureGap2 << " decelFactor=" << decelFactor << "\n";
                         }
+#endif
                         result |= blockType;
                         if (collectBlockers == 0) {
                             return result;
                         } else {
                             collectBlockers->push_back(vehDist);
                         }
+#ifdef DEBUG_BLOCKING
                     } else if (gDebugFlag2 && expectedGap < expectedSecureGap) {
                         std::cout << "    ignore blocker " << vehDist.first->getID() << " gap=" << vehDist.second << " expectedGap=" << expectedGap
                                   << " expectedSecureGap=" << expectedSecureGap << " secGap2=" << secureGap2 << " decelFactor=" << decelFactor << "\n";
+#endif
                     }
                 }
             }
@@ -2124,15 +2279,18 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
     const double vehWidth = myVehicle.getVehicleType().getWidth() - NUMERICAL_EPS;
     const double rightVehSide = myVehicle.getCenterOnEdge() - 0.5 * vehWidth;
     const double leftVehSide = rightVehSide + vehWidth;
+#ifdef DEBUG_BLOCKING
     if (gDebugFlag2) {
         std::cout << " updateCFRelated foeOffset=" << foeOffset << " vehicles=" << vehicles.toString() << "\n";
     }
+#endif
     for (int i = 0; i < vehicles.numSublanes(); ++i) {
         CLeaderDist vehDist = vehicles[i];
         if (vehDist.first != 0 && myCFRelated.count(vehDist.first) == 0) {
             double foeRight, foeLeft;
             vehicles.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
             if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0)) {
+#ifdef DEBUG_BLOCKING
                 if (gDebugFlag2) {
                     std::cout << " ignoring cfrelated foe=" << vehDist.first->getID() << " gap=" << vehDist.second
                               << " sublane=" << i
@@ -2141,6 +2299,7 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
                               << " iR=" << foeRight << " iL=" << foeLeft
                               << "\n";
                 }
+#endif
                 myCFRelated.insert(vehDist.first);
             }
         }
@@ -2169,6 +2328,7 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
     const bool want2 = ((sd2.state & LCA_WANTS_LANECHANGE) != 0) || ((sd2.state & LCA_SUBLANE) != 0 && (sd2.state & LCA_STAY) != 0);
     const bool can1 = ((sd1.state & LCA_BLOCKED) == 0);
     const bool can2 = ((sd2.state & LCA_BLOCKED) == 0);
+#ifdef DEBUG_WANTSCHANGE
     if (DEBUG_COND) std::cout << SIMTIME
                                   << " veh=" << myVehicle.getID()
                                   << " state1=" << toString((LaneChangeAction)sd1.state)
@@ -2180,6 +2340,7 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
                                   << " dist2=" << sd2.latDist
                                   << " dir2=" << sd2.dir
                                   << "\n";
+#endif
     if (want1) {
         if (want2) {
             // decide whether right or left has higher priority (lower value in enum LaneChangeAction)
@@ -2263,6 +2424,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     const double neighLeftPlace = MAX2(0., neighDist - myVehicle.getPositionOnLane() - maxJam);
     // save the left space
 
+#ifdef DEBUG_STRATEGIC_CHANGE
     if (gDebugFlag2) {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
@@ -2276,6 +2438,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                   << " neighLeftPlace=" << neighLeftPlace
                   << "\n";
     }
+#endif
 
     if (laneOffset != 0 && changeToBest && bestLaneOffset == curr.bestLaneOffset
             && currentDistDisallows(usableDist, bestLaneOffset, laDist)) {
@@ -2297,6 +2460,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                 if (vSafe < myVehicle.getSpeed()) {
                     mySpeedGainProbabilityRight += myVehicle.getActionStepLengthSecs() * myChangeProbThresholdLeft / 3;
                 }
+#ifdef DEBUG_STRATEGIC_CHANGE
                 if (gDebugFlag2) {
                     std::cout << SIMTIME
                               << " avoid overtaking on the right nv=" << nv->getID()
@@ -2305,6 +2469,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                               << " plannedSpeed=" << myVehicle.getSpeed() + ACCEL2SPEED(myLCAccelerationAdvices.back())
                               << "\n";
                 }
+#endif
             }
         }
 
@@ -2315,18 +2480,22 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             // this rule prevents the vehicle from moving in opposite direction of the best lane
             //  unless the way till the end where the vehicle has to be on the best lane
             //  is long enough
+#ifdef DEBUG_STRATEGIC_CHANGE
             if (gDebugFlag2) {
                 std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (1) neighLeftPlace=" << neighLeftPlace << "\n";
             }
+#endif
             ret |= LCA_STAY | LCA_STRATEGIC;
         } else if (laneOffset != 0 && bestLaneOffset == 0 && (neighLeftPlace * 2. < laDist)) {
             // the current lane is the best and a lane-changing would cause a situation
             //  of which we assume we will not be able to return to the lane we have to be on.
             // this rule prevents the vehicle from leaving the current, best lane when it is
             //  close to this lane's end
+#ifdef DEBUG_STRATEGIC_CHANGE
             if (gDebugFlag2) {
                 std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (2) neighLeftPlace=" << neighLeftPlace << "\n";
             }
+#endif
             ret |= LCA_STAY | LCA_STRATEGIC;
         } else if (
             laneOffset != 0
@@ -2338,9 +2507,11 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             // VARIANT_21 (stayOnBest)
             // we do not want to leave the best lane for a lane which leads elsewhere
             // unless our leader is stopped or we are approaching a roundabout
+#ifdef DEBUG_STRATEGIC_CHANGE
             if (gDebugFlag2) {
                 std::cout << " veh=" << myVehicle.getID() << " does not want to leave the bestLane (neighDist=" << neighDist << ")\n";
             }
+#endif
             ret |= LCA_STAY | LCA_STRATEGIC;
         } else if (right
                    && bestLaneOffset == 0
@@ -2349,9 +2520,11 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                   ) {
             // let's also regard the case where the vehicle is driving on a highway...
             //  in this case, we do not want to get to the dead-end of an on-ramp
+#ifdef DEBUG_STRATEGIC_CHANGE
             if (gDebugFlag2) {
                 std::cout << " veh=" << myVehicle.getID() << " does not want to get stranded on the on-ramp of a highway\n";
             }
+#endif
             ret |= LCA_STAY | LCA_STRATEGIC;
         }
     }
@@ -2373,23 +2546,29 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             }
             currentShadowDist += shadow->getLength();
         }
+#ifdef DEBUG_STRATEGIC_CHANGE
         if (gDebugFlag2) {
             std::cout << " veh=" << myVehicle.getID() << " currentShadowDist=" << currentShadowDist << " requiredDist=" << requiredDist << " overlap=" << myVehicle.getLateralOverlap() << "\n";
         }
+#endif
         if (currentShadowDist < requiredDist && currentShadowDist < usableDist) {
             myLeftSpace = currentShadowDist;
             latDist = myVehicle.getLateralPositionOnLane() < 0 ? myVehicle.getLateralOverlap() : - myVehicle.getLateralOverlap();
+#ifdef DEBUG_STRATEGIC_CHANGE
             if (gDebugFlag2) {
                 std::cout << "    must change for shadowLane end latDist=" << latDist << " myLeftSpace=" << myLeftSpace << "\n";
             }
+#endif
             ret |= LCA_STRATEGIC | LCA_URGENT | LCA_STAY ;
         }
     }
 
     // check for overriding TraCI requests
+#if defined(DEBUG_STRATEGIC_CHANGE) || defined(DEBUG_TRACI)
     if (gDebugFlag2) {
         std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ret=" << ret;
     }
+#endif
     int retTraCI = myVehicle.influenceChangeDecision(ret);
     if ((retTraCI & LCA_TRACI) != 0) {
         if ((retTraCI & LCA_STAY) != 0) {
@@ -2401,9 +2580,11 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             latDist = latLaneDist;
         }
     }
+#if defined(DEBUG_STRATEGIC_CHANGE) || defined(DEBUG_TRACI)
     if (gDebugFlag2) {
         std::cout << " reqAfterInfluence=" << ret << " ret=" << ret << "\n";
     }
+#endif
     return ret;
 }
 
@@ -2473,6 +2654,7 @@ MSLCM_SL2015::keepLatGap(int state,
     // stay within the current edge
     double surplusGapRight = oldCenter - halfWidth;
     double surplusGapLeft = myVehicle.getLane()->getEdge().getWidth() - oldCenter - halfWidth;
+#ifdef DEBUG_KEEP_LATGAP
     if (gDebugFlag2) {
         std::cout << "\n  " << SIMTIME << " keepLatGap() laneOffset=" << laneOffset
                   << " latDist=" << latDist
@@ -2482,6 +2664,7 @@ MSLCM_SL2015::keepLatGap(int state,
                   << " stayInLane=" << stayInLane << "\n"
                   << "       stayInEdge: surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n";
     }
+#endif
     // staying within the edge overrides all minGap considerations
     if (surplusGapLeft < 0 || surplusGapRight < 0) {
         gapFactor = 0;
@@ -2498,10 +2681,12 @@ MSLCM_SL2015::keepLatGap(int state,
         updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
         updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true, netOverlap);
     }
+#ifdef DEBUG_KEEP_LATGAP
     if (gDebugFlag2) {
         std::cout << "       minGapLat: surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n"
                   << "       lastGaps: right=" << myLastLateralGapRight << " left=" << myLastLateralGapLeft << "\n";
     }
+#endif
     // we also need to track the physical gap, in addition to the psychological gap
     double physicalGapLeft = myLastLateralGapLeft == NO_NEIGHBOR ? surplusGapLeft : myLastLateralGapLeft;
     double physicalGapRight = myLastLateralGapRight == NO_NEIGHBOR ? surplusGapRight : myLastLateralGapRight;
@@ -2519,9 +2704,11 @@ MSLCM_SL2015::keepLatGap(int state,
         surplusGapLeft  = MIN2(surplusGapLeft,  MAX2(0.0, halfLaneWidth - myVehicle.getLateralPositionOnLane() - halfWidth));
         physicalGapLeft = MIN2(physicalGapLeft, MAX2(0.0, halfLaneWidth - myVehicle.getLateralPositionOnLane() - halfWidth));
     }
+#ifdef DEBUG_KEEP_LATGAP
     if (gDebugFlag2) {
         std::cout << "       stayInLane: surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n";
     }
+#endif
 
     if (surplusGapRight + surplusGapLeft < 0) {
         // insufficient lateral space to fulfill all requirements. apportion space proportionally
@@ -2534,25 +2721,31 @@ MSLCM_SL2015::keepLatGap(int state,
             const double delta = MIN2(equalDeficit - surplusGapRight, physicalGapLeft);
             latDist = delta;
             maneuverDist = delta;
+#ifdef DEBUG_KEEP_LATGAP
             if (gDebugFlag2) {
                 std::cout << "    insufficient latSpace, move left: delta=" << delta << "\n";
             }
+#endif
         } else {
             // shift further to the right but no further than there is physical space
             const double delta = MIN2(equalDeficit - surplusGapLeft, physicalGapRight);
             latDist = -delta;
             maneuverDist = -delta;
+#ifdef DEBUG_KEEP_LATGAP
             if (gDebugFlag2) {
                 std::cout << "    insufficient latSpace, move right: delta=" << delta << "\n";
             }
+#endif
         }
     } else {
         // sufficient space. move as far as the gaps permit
         latDist = MAX2(MIN2(latDist, surplusGapLeft), -surplusGapRight);
         maneuverDist = MAX2(MIN2(maneuverDist, surplusGapLeft), -surplusGapRight);
+#ifdef DEBUG_KEEP_LATGAP
         if (gDebugFlag2) {
             std::cout << "     adapted latDist=" << latDist << " maneuverDist="<< maneuverDist<<" (old=" << oldLatDist << ")\n";
         }
+#endif
     }
     // take into account overriding traci sublane-request
     if (myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0) {
@@ -2560,21 +2753,27 @@ MSLCM_SL2015::keepLatGap(int state,
         latDist = myVehicle.getInfluencer().getLatDist();
         maneuverDist = myVehicle.getInfluencer().getLatDist();
         state |= LCA_TRACI;
+#ifdef DEBUG_KEEP_LATGAP
         if (gDebugFlag2) std::cout << "     traci influenced latDist=" << latDist << "\n";
+#endif
     }
     // if we cannot move in the desired direction, consider the maneuver blocked anyway
     bool nonSublaneChange = (state & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT)) != 0;
     if (nonSublaneChange) {
         if ((latDist < NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) && (oldLatDist > 0)) {
+#ifdef DEBUG_KEEP_LATGAP
             if (gDebugFlag2) {
                 std::cout << "     wanted changeToLeft oldLatDist=" << oldLatDist << ", blocked latGap changeToRight\n";
             }
+#endif
             latDist = oldLatDist; // restore old request for usage in decideDirection()
             blocked = LCA_OVERLAPPING | LCA_BLOCKED_LEFT;
         } else if ((latDist > -NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) && (oldLatDist < 0)) {
+#ifdef DEBUG_KEEP_LATGAP
             if (gDebugFlag2) {
                 std::cout << "     wanted changeToRight oldLatDist=" << oldLatDist << ", blocked latGap changeToLeft\n";
             }
+#endif
             latDist = oldLatDist; // restore old request for usage in decideDirection()
             blocked = LCA_OVERLAPPING | LCA_BLOCKED_RIGHT;
         }
@@ -2585,9 +2784,11 @@ MSLCM_SL2015::keepLatGap(int state,
     }
     // update blocked status
     if (fabs(latDist - oldLatDist) > NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) {
+#ifdef DEBUG_KEEP_LATGAP
         if (gDebugFlag2) {
             std::cout << "     latDistUpdated=" << latDist << " oldLatDist=" << oldLatDist << "\n";
         }
+#endif
         blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, nonSublaneChange);
     }
     if (fabs(latDist) > NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) {
@@ -2602,6 +2803,7 @@ MSLCM_SL2015::keepLatGap(int state,
         // avoid setting blinker due to numerical issues
         latDist = 0;
     }
+#if defined(DEBUG_KEEP_LATGAP) || defined(DEBUG_STATE)
     if (gDebugFlag2) {
         std::cout << "       latDist2=" << latDist
                   << " state2=" << toString((LaneChangeAction)state)
@@ -2610,6 +2812,7 @@ MSLCM_SL2015::keepLatGap(int state,
                   << " blockedAfter=" << toString((LaneChangeAction)blocked)
                   << "\n";
     }
+#endif
     return state;
 }
 
@@ -2647,6 +2850,7 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                     currentMinGap *= currOverlap * relOverlap;
                 }
                 */
+#if defined(DEBUG_BLOCKING) || defined(DEBUG_KEEP_LATGAP)
                 if (gDebugFlag2) std::cout << "  updateGaps"
                                                << " i=" << i
                                                << " foe=" << foe->getID()
@@ -2659,6 +2863,7 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                                                << " surplusGapRight=" << surplusGapRight
                                                << " surplusGapLeft=" << surplusGapLeft
                                                << "\n";
+#endif
                 if (foeCenter < oldCenter) {
                     // If foe is maneuvering towards ego, reserve some additional distance.
                     // But don't expect the foe to come closer than currentMinGap if it isn't already there.
@@ -2674,14 +2879,18 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                 }
                 if (saveMinGap) {
                     if (foeCenter < oldCenter) {
+#if defined(DEBUG_BLOCKING) || defined(DEBUG_KEEP_LATGAP)
                         if (gDebugFlag2 && gap < myLastLateralGapRight) {
                             std::cout << "    new minimum rightGap=" << gap << "\n";
                         }
+#endif
                         myLastLateralGapRight = MIN2(myLastLateralGapRight, gap);
                     } else {
+#if defined(DEBUG_BLOCKING) || defined(DEBUG_KEEP_LATGAP)
                         if (gDebugFlag2 && gap < myLastLateralGapLeft) {
                             std::cout << "    new minimum leftGap=" << gap << "\n";
                         }
+#endif
                         myLastLateralGapLeft = MIN2(myLastLateralGapLeft, gap);
                     }
                 }
@@ -2710,6 +2919,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) {
     int directionWish = latDist >= 0 ? 1 : -1;
     const double maxSpeedLat = myVehicle.getVehicleType().getMaxSpeedLat();
 
+#ifdef DEBUG_MANEUVER
     if (debugVehicle()) {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
@@ -2718,6 +2928,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) {
                   << " directionWish=" << directionWish
                   << std::endl;
     }
+#endif
     // reduced lateral speed (in the desired direction). Don't change direction against desired.
     double speedDecel;
     if (directionWish == 1) {
@@ -2743,6 +2954,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) {
         maneuverDist = fullLatDist;
     }
 
+#ifdef DEBUG_MANEUVER
     if (debugVehicle()) {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
@@ -2757,47 +2969,60 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) {
                   << " speedBound=" << speedBound
                   << std::endl;
     }
+#endif
     if (speedDecel * speedAccel <= 0 && (
                 // speedAccel and speedDecel bracket speed 0. This means we can end the maneuver
                 (latDist >= 0 && speedAccel >= speedBound && speedBound >= speedDecel)
                 || (latDist <= 0 && speedAccel <= speedBound && speedBound <= speedDecel))) {
         // we can reach the desired value in this step
+#ifdef DEBUG_MANEUVER
         if (gDebugFlag2) {
             std::cout << "   computeSpeedLat a)\n";
         }
+#endif
         return speedBound;
     }
     // are we currently moving in the wrong direction?
     if (latDist * mySpeedLat < 0) {
+#ifdef DEBUG_MANEUVER
         if (gDebugFlag2) {
             std::cout << "   computeSpeedLat b)\n";
         }
+#endif
         return speedAccelSafe;
     }
     // check if the remaining distance allows to accelerate laterally
     double minDistAccel = SPEED2DIST(speedAccel) + currentDirection * MSCFModel::brakeGapEuler(fabs(speedAccel), myAccelLat, 0); // most we can move in the target direction
     if ((fabs(minDistAccel) < fabs(fullLatDist)) || (fabs(minDistAccel - fullLatDist) < NUMERICAL_EPS)) {
+#ifdef DEBUG_MANEUVER
         if (gDebugFlag2) {
             std::cout << "   computeSpeedLat c)\n";
         }
+#endif
         return speedAccel;
     } else {
+#ifdef DEBUG_MANEUVER
         if (gDebugFlag2) {
             std::cout << "      minDistAccel=" << minDistAccel << "\n";
         }
+#endif
         // check if the remaining distance allows to maintain current lateral speed
         double minDistCurrent = SPEED2DIST(mySpeedLat) + currentDirection * MSCFModel::brakeGapEuler(fabs(mySpeedLat), myAccelLat, 0);
         if ((fabs(minDistCurrent) < fabs(fullLatDist)) || (fabs(minDistCurrent - fullLatDist) < NUMERICAL_EPS)) {
+#ifdef DEBUG_MANEUVER
             if (gDebugFlag2) {
                 std::cout << "   computeSpeedLat d)\n";
             }
+#endif
             return mySpeedLat;
         }
     }
     // reduce lateral speed
+#ifdef DEBUG_MANEUVER
     if (gDebugFlag2) {
         std::cout << "   computeSpeedLat e)\n";
     }
+#endif
     return speedDecelSafe;
 }
 
@@ -2846,6 +3071,7 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
                                     myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle),
                                     myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
 
+#ifdef DEBUG_MANEUVER
             if (gDebugFlag2) {
                 std::cout << SIMTIME
                           << " veh=" << myVehicle.getID()
@@ -2857,12 +3083,14 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
                           << " nextActionStepRemainingSeconds=" << secondsToLeaveLane-timeTillActionStep
                           << "\n";
             }
+#endif
         }
         myCommittedSpeed = commitFollowSpeed(myCommittedSpeed, maneuverDist, secondsToLeaveLane, leaders, myVehicle.getLane()->getRightSideOnEdge());
         myCommittedSpeed = commitFollowSpeed(myCommittedSpeed, maneuverDist, secondsToLeaveLane, neighLeaders, neighLane.getRightSideOnEdge());
         if (myCommittedSpeed < myVehicle.getCarFollowModel().minNextSpeed(myVehicle.getSpeed(), &myVehicle)) {
             myCommittedSpeed = 0;
         }
+#ifdef DEBUG_MANEUVER
         if (gDebugFlag2) {
             std::cout << SIMTIME
                       << " veh=" << myVehicle.getID()
@@ -2871,6 +3099,7 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
                       << " committed=" << myCommittedSpeed
                       << "\n";
         }
+#endif
     }
 }
 
@@ -2893,6 +3122,7 @@ MSLCM_SL2015::commitFollowSpeed(double speed, double latDist, double secondsToLe
         const double leftVehSide = rightVehSide + vehWidth;
         const double rightVehSideDest = rightVehSide + latDist;
         const double leftVehSideDest = leftVehSide + latDist;
+#ifdef DEBUG_MANEUVER
         if (gDebugFlag2) {
             std::cout << "  commitFollowSpeed"
                       << " latDist=" << latDist
@@ -2903,6 +3133,7 @@ MSLCM_SL2015::commitFollowSpeed(double speed, double latDist, double secondsToLe
                       << " destLeft=" << leftVehSideDest
                       << "\n";
         }
+#endif
         for (int i = 0; i < leaders.numSublanes(); ++i) {
             CLeaderDist vehDist = leaders[i];
             if (vehDist.first != 0) {
@@ -2910,6 +3141,7 @@ MSLCM_SL2015::commitFollowSpeed(double speed, double latDist, double secondsToLe
                 // only check the current stripe occuped by foe (transform into edge-coordinates)
                 double foeRight, foeLeft;
                 leaders.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
+#ifdef DEBUG_MANEUVER
                 if (gDebugFlag2) {
                     std::cout << "   foe=" << vehDist.first->getID()
                               << " gap=" << vehDist.second
@@ -2920,24 +3152,29 @@ MSLCM_SL2015::commitFollowSpeed(double speed, double latDist, double secondsToLe
                               << " overlapDest=" << overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)
                               << "\n";
                 }
+#endif
                 if (overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)) {
                     // case 1
                     assert(vehDist.second >= 0);
                     const double vSafe = myVehicle.getCarFollowModel().followSpeed(
                                              &myVehicle, speed, vehDist.second, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                     speed = MIN2(speed, vSafe);
+#ifdef DEBUG_MANEUVER
                     if (gDebugFlag2) {
                         std::cout << "     case1 vsafe=" << vSafe << " speed=" << speed << "\n";
                     }
+#endif
                 } else if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft)) {
                     // case 2
                     const double vSafe = myVehicle.getCarFollowModel().followSpeedTransient(
                                              secondsToLeaveLane,
                                              &myVehicle, speed, vehDist.second, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                     speed = MIN2(speed, vSafe);
+#ifdef DEBUG_MANEUVER
                     if (gDebugFlag2) {
                         std::cout << "     case2 vsafe=" << vSafe << " speed=" << speed << "\n";
                     }
+#endif
                 }
             }
         }
@@ -3034,6 +3271,7 @@ MSLCM_SL2015::wantsChange(
 
     const LaneChangeAction alternatives = LCA_NONE; // @todo pas this data
 
+#ifdef DEBUG_WANTSCHANGE
     if (DEBUG_COND) {
         std::cout << "\nWANTS_CHANGE\n" << SIMTIME
                   //<< std::setprecision(10)
@@ -3045,6 +3283,7 @@ MSLCM_SL2015::wantsChange(
                   << " considerChangeTo=" << (laneOffset == -1  ? "right" : "left")
                   << "\n";
     }
+#endif
 
     double latDist = 0;
     const MSLane* dummy = myVehicle.getLane();
@@ -3069,6 +3308,7 @@ MSLCM_SL2015::wantsChange(
     result &= ~LCA_SUBLANE;
     result |= getLCA(result, latDist);
 
+#if defined(DEBUG_WANTSCHANGE) || defined(DEBUG_STATE)
     if (DEBUG_COND) {
         if (result & LCA_WANTS_LANECHANGE) {
             std::cout << SIMTIME
@@ -3086,6 +3326,7 @@ MSLCM_SL2015::wantsChange(
                       << "\n\n\n";
         }
     }
+#endif
 
     return result;
 }
