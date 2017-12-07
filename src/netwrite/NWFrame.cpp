@@ -149,6 +149,9 @@ NWFrame::checkOptions() {
         WRITE_ERROR("OpenDRIVE export needs internal links computation.");
         ok = false;
     }
+    if (oc.isSet("opendrive-output") && oc.isDefault("no-internal-links")) {
+        oc.set("no-internal-links", "false");
+    }
     if (oc.isSet("opendrive-output") && oc.isDefault("rectangular-lane-cut")) {
         oc.set("rectangular-lane-cut", "true");
     }
