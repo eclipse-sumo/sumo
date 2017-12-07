@@ -117,6 +117,9 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SET_ENDPOINT,               GNEViewNet::onCmdSetEdgeEndpoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_ENDPOINT,             GNEViewNet::onCmdResetEdgeEndpoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN,                 GNEViewNet::onCmdStraightenEdges),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH,                     GNEViewNet::onCmdSmoothEdges),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN_ELEVATION,       GNEViewNet::onCmdStraightenEdgesElevation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH_ELEVATION,           GNEViewNet::onCmdSmoothEdgesElevation),
     // Lanes
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_DUPLICATE,                  GNEViewNet::onCmdDuplicateLane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_SIDEWALK,         GNEViewNet::onCmdRestrictLaneSidewalk),
@@ -1614,6 +1617,69 @@ GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
         } else {
             myUndoList->p_begin("straighten " + toString(SUMO_TAG_EDGE));
             edge->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
+            myUndoList->p_end();
+        }
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdSmoothEdges(FXObject*, FXSelector, void*) {
+    GNEEdge* edge = getEdgeAtPopupPosition();
+    if (edge != 0) {
+        if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
+            myUndoList->p_begin("straighten elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
+            std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
+            for (auto it : edges) {
+                it->smooth(myUndoList);
+            }
+            myUndoList->p_end();
+        } else {
+            myUndoList->p_begin("straighten edge elevation");
+            edge->smooth(myUndoList);
+            myUndoList->p_end();
+        }
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdStraightenEdgesElevation(FXObject*, FXSelector, void*) {
+    GNEEdge* edge = getEdgeAtPopupPosition();
+    if (edge != 0) {
+        if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
+            myUndoList->p_begin("straighten elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
+            std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
+            for (auto it : edges) {
+                it->straightenElevation(myUndoList);
+            }
+            myUndoList->p_end();
+        } else {
+            myUndoList->p_begin("straighten edge elevation");
+            edge->straightenElevation(myUndoList);
+            myUndoList->p_end();
+        }
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdSmoothEdgesElevation(FXObject*, FXSelector, void*) {
+    GNEEdge* edge = getEdgeAtPopupPosition();
+    if (edge != 0) {
+        if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
+            myUndoList->p_begin("smooth elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
+            std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
+            for (auto it : edges) {
+                it->smoothElevation(myUndoList);
+            }
+            myUndoList->p_end();
+        } else {
+            myUndoList->p_begin("smooth edge elevation");
+            edge->smoothElevation(myUndoList);
             myUndoList->p_end();
         }
     }

@@ -1357,6 +1357,46 @@ PositionVector::smoothedZFront(double dist) const {
 }
 
 
+PositionVector 
+PositionVector::interpolateZ(double zStart, double zEnd) const {
+    PositionVector result = *this;
+    if (size() == 0) {
+        return result;
+    }
+    result[0].setz(zStart);
+    result[-1].setz(zEnd);
+    const double dz = zEnd - zStart;
+    const double length = length2D();
+    double seen = 0;
+    for (int i = 1; i < size() - 1; ++i) {
+        seen += result[i].distanceTo2D(result[i - 1]);
+        result[i].setz(zStart + dz * seen / length);
+    }
+    return result;
+}
+
+PositionVector 
+PositionVector::withMaxLength(double maxLength) const {
+    PositionVector result = *this;
+    if (maxLength > 0 && size() > 1) {
+        int inserted = 0;
+        for (int i = 0; i < (int)size() - 1; i++) {
+            Position start = result[i + inserted];
+            Position end = result[i + inserted + 1];
+            double length = (*this)[i].distanceTo((*this)[i + 1]);
+            const Position step = (end - start) * (maxLength / length);
+            int steps = 0;
+            while (length > maxLength) {
+                length -= maxLength;
+                steps++;
+                result.insert(result.begin() + i + inserted + 1, start + (step * steps));
+                inserted++;
+            }
+        }
+    }
+    return result;
+}
+
 double
 PositionVector::offsetAtIndex2D(int index) const {
     if (index < 0 || index >= (int)size()) {

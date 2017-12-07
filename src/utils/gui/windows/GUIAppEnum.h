@@ -689,6 +689,12 @@ enum {
     MID_GNE_EDGE_RESET_ENDPOINT,
     /// @brief remove inner geometry
     MID_GNE_EDGE_STRAIGHTEN,
+    /// @brief smooth geometry
+    MID_GNE_EDGE_SMOOTH,
+    /// @brief interpolate z values linear between junctions
+    MID_GNE_EDGE_STRAIGHTEN_ELEVATION,
+    /// @brief smooth elevation with regard to adjoining edges
+    MID_GNE_EDGE_SMOOTH_ELEVATION,
     /// @brief split an edge
     MID_GNE_EDGE_SPLIT,
     /// @brief split an edge

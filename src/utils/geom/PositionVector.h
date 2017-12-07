@@ -379,6 +379,12 @@ public:
     /// @brief returned vector that is smoothed at the front (within dist)
     PositionVector smoothedZFront(double dist = std::numeric_limits<double>::max()) const;
 
+    /// @brief returned vector that varies z smoothly over its length
+    PositionVector interpolateZ(double zStart, double zEnd) const;
+
+    /// @brief insert points to ensure maximum segment length
+    PositionVector withMaxLength(double maxLength) const;
+
     /// @brief return the offset at the given index
     double offsetAtIndex2D(int index) const;
 

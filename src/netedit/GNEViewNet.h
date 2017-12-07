@@ -204,6 +204,15 @@ public:
     /// @brief makes selected edges straight
     long onCmdStraightenEdges(FXObject*, FXSelector, void*);
 
+    /// @brief smooth geometry
+    long onCmdSmoothEdges(FXObject*, FXSelector, void*);
+
+    /// @brief interpolate z values linear between junctions
+    long onCmdStraightenEdgesElevation(FXObject*, FXSelector, void*);
+
+    /// @brief smooth elevation with regard to adjoining edges
+    long onCmdSmoothEdgesElevation(FXObject*, FXSelector, void*);
+
     /// @brief simply shape of current polygon
     long onCmdSimplifyShape(FXObject*, FXSelector, void*);
 

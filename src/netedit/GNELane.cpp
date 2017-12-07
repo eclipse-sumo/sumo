@@ -474,6 +474,9 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         new FXMenuCommand(ret, "Set geometry endpoint here", 0, &parent, MID_GNE_EDGE_SET_ENDPOINT);
         new FXMenuCommand(ret, "Restore geometry endpoint", 0, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
         new FXMenuCommand(ret, ("Straighten " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_STRAIGHTEN);
+        new FXMenuCommand(ret, ("Smooth " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_SMOOTH);
+        new FXMenuCommand(ret, ("Straighten elevation of " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_STRAIGHTEN_ELEVATION);
+        new FXMenuCommand(ret, ("Smooth elevation of " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_SMOOTH_ELEVATION);
         if (gSelected.isSelected(GLO_LANE, getGlID())) {
             std::string pluralLanes = myNet->retrieveLanes(true).size() > 1? "s" : "";
             new FXMenuCommand(ret, ("Duplicate selected " + toString(SUMO_TAG_LANE) + pluralLanes).c_str(), 0, &parent, MID_GNE_LANE_DUPLICATE);

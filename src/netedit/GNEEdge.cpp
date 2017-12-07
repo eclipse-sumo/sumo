@@ -36,6 +36,7 @@
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/GeomConvHelper.h>
+#include <utils/geom/bezier.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/common/MsgHandler.h>
@@ -1249,6 +1250,97 @@ GNEEdge::removeEdgeFromCrossings(GNEJunction* junction, GNEUndoList* undoList) {
         if (i->checkEdgeBelong(this)) {
             myNet->deleteCrossing(i, undoList);
         }
+    }
+}
+
+void
+GNEEdge::straightenElevation(GNEUndoList* undoList) {
+    PositionVector modifiedShape = myNBEdge.getGeometry().interpolateZ(
+            myNBEdge.getFromNode()->getPosition().z(),
+            myNBEdge.getToNode()->getPosition().z());
+    PositionVector innerShape(modifiedShape.begin() + 1, modifiedShape.end() - 1);
+    setAttribute(SUMO_ATTR_SHAPE, toString(innerShape), myNet->getViewNet()->getUndoList());
+}
+
+PositionVector
+GNEEdge::smooth(GNEUndoList* undoList, bool forElevation) {
+    // distinguish 3 cases:
+    // a) if the edge has exactly 3 or 4 points, use these as control points
+    // b) if the edge has more than 4 points, use the first 2 and the last 2 as control points
+    // c) if the edge is straight and both nodes are geometry-like nodes, use geometry of the continuation edges as control points
+    const PositionVector& old = myNBEdge.getGeometry();
+    bool ok = true;
+    PositionVector init;
+    if (old.size() == 3 || old.size() == 4) {
+        init = old;
+    } else if (old.size() > 4 && !forElevation) {
+        // for elevation, the initial segments are not useful
+        init.push_back(old[0]);
+        init.push_back(old[1]);
+        init.push_back(old[-2]);
+        init.push_back(old[-1]);
+    } else if (myNBEdge.getFromNode()->geometryLike() && myNBEdge.getToNode()->geometryLike()) {
+        const double dist = MIN2(old.length2D(), MAX2(10.0, fabs(old[0].z() - old[-1].z()) * OptionsCont::getOptions().getFloat("geometry.max-grade") / 3));
+        init.push_back(old[0]);
+        init.push_back(old.positionAtOffset2D(dist));
+        init.push_back(old.positionAtOffset2D(old.length2D() - dist));
+        init.push_back(old[-1]);
+        // initialize control point elevation for smooth continuation
+        PositionVector begShape;
+        PositionVector endShape;
+        const EdgeVector& incoming = myNBEdge.getFromNode()->getIncomingEdges();
+        const EdgeVector& outgoing = myNBEdge.getToNode()->getOutgoingEdges();
+        if (incoming.size() == 1) {
+            begShape = incoming[0]->getGeometry();
+        } else {
+            assert(incoming.size() == 2);
+            begShape = myNBEdge.isTurningDirectionAt(incoming[0]) ? incoming[1]->getGeometry() : incoming[0]->getGeometry();
+        }
+        if (outgoing.size() == 1) {
+            endShape = outgoing[0]->getGeometry();
+        } else {
+            assert(outgoing.size() == 2);
+            endShape = myNBEdge.isTurningDirectionAt(outgoing[0]) ? outgoing[1]->getGeometry() : outgoing[0]->getGeometry();
+        }
+        double begZ = begShape.positionAtOffset2D(MAX2(0.0, begShape.length2D() - dist)).z();
+        double endZ = endShape.positionAtOffset2D(MIN2(begShape.length2D(), dist)).z();
+        // continue incline
+        init[1].setz(2 * init[0].z() - begZ);
+        init[2].setz(2 * init[-1].z() - endZ);
+    }
+    if (init.size() == 0) {
+        if (undoList == 0) {
+            return PositionVector::EMPTY;
+        } else {
+            WRITE_WARNING("Could not compute smooth shape for edge '" + getID() + "'");
+            return old;
+        }
+    } else {
+        //std::cout << getID() << " smooth: init=" << init << "\n";
+        PositionVector tmp = old.withMaxLength(OptionsCont::getOptions().getFloat("opendrive.curve-resolution"));
+        PositionVector modifiedShape = bezier(init, tmp.size());
+        if (undoList != 0 && modifiedShape.size() > 2) {
+            PositionVector innerShape(modifiedShape.begin() + 1, modifiedShape.end() - 1);
+            setAttribute(SUMO_ATTR_SHAPE, toString(innerShape), undoList);
+        }
+        return modifiedShape;
+    }
+}
+
+
+void
+GNEEdge::smoothElevation(GNEUndoList* undoList) {
+    const PositionVector old = myNBEdge.getGeometry();
+    PositionVector modifiedShape = old.withMaxLength(OptionsCont::getOptions().getFloat("opendrive.curve-resolution"));
+    PositionVector elevation = smooth(0, true);
+    if (modifiedShape.size() > 2 && elevation.size() == modifiedShape.size()) {
+        for (int i = 0; i < (int)elevation.size(); ++i) {
+            modifiedShape[i].setz(elevation[i].z());
+        }
+        PositionVector innerShape(modifiedShape.begin() + 1, modifiedShape.end() - 1);
+        setAttribute(SUMO_ATTR_SHAPE, toString(innerShape), myNet->getViewNet()->getUndoList());
+    } else {
+        WRITE_WARNING("Could not compute smooth elevation for edge '" + getID() + "'");
     }
 }
 
