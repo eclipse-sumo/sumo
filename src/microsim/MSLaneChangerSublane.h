@@ -80,12 +80,12 @@ protected:
         double& latDist,
         double& maneuverDist) const;
 
-    ///  @brief change by the specified amount and return whether a new lane was entered
-    bool startChangeSublane(MSVehicle* vehicle, ChangerIt& from, double latDist);
-
     ///  @brief Continue a sublane-lane change maneuver and return whether the midpoint was passed in this step
     //          (used to continue sublane changing in non-action steps).
     bool continueChangeSublane(MSVehicle* vehicle, ChangerIt& from);
+
+    ///  @brief change by the specified amount and return whether a new lane was entered
+    bool startChangeSublane(MSVehicle* vehicle, ChangerIt& from, double latDist);
 
     /// @brief check whether the given vehicle has entered the new lane 'to->lane' during a sublane LC-step
     bool checkChangeToNewLane(MSVehicle* vehicle, const int direction, ChangerIt from, ChangerIt to);

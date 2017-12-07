@@ -162,7 +162,7 @@ protected:
     int checkTraCICommands(MSVehicle* vehicle);
 
     /// @brief Execute TraCI LC-commands.
-    /// @note This is currently only used within non-actionsteps.
+    /// @note This is currently only used within non-actionsteps for the non-sublane model.
     /// @return whether lane was changed
     bool applyTraCICommands(MSVehicle* vehicle);
 
