@@ -22,13 +22,13 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import sumolib  # noqa
 
 
-def generateTrace(route, step):
+def generateTrace(route, step, x=0., y=0.):
     trace = []
     for edge in route:
         numSteps = int(edge.getLength() / step)
         for p in range(numSteps):
-            trace.append(
-                sumolib.geomhelper.positionAtShapeOffset(edge.getShape(), p * step))
+            pos = sumolib.geomhelper.positionAtShapeOffset(edge.getShape(), p * step)
+            trace.append((pos[0] + x, pos[1] + y))
     return trace
 
 
@@ -46,6 +46,10 @@ if __name__ == "__main__":
                          type="float", help="distance between successive trace points")
     optParser.add_option("-d", "--delta", default="1",
                          type="float", help="maximum distance between edge and trace points when matching to the second net")
+    optParser.add_option("-x", "--x-offset", default=0.,
+                         type="float", help="offset to add to traces")
+    optParser.add_option("-y", "--y-offset", default=0.,
+                         type="float", help="offset to add to traces")
     optParser.add_option("-o", "--output",
                          help="trace or route output (mandatory)", metavar="FILE")
     (options, args) = optParser.parse_args()
@@ -66,9 +70,9 @@ if __name__ == "__main__":
         print("Reading routes ...")
 
     f = open(options.output, "w")
-    for route in sumolib.output.parse_fast(options.routes, "vehicle", ["id", "edges"]):
+    for route in sumolib.output.parse_fast(options.routes, "route", ["id", "edges"]):
         edges = [net.getEdge(e) for e in route.edges.split()]
-        trace = generateTrace(edges, options.step)
+        trace = generateTrace(edges, options.step, options.x_offset, options.y_offset)
         if net2:
             path = sumolib.route.mapTrace(trace, net2, options.delta)
             if not path or path == ["*"]:
