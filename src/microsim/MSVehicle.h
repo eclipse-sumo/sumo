@@ -1452,6 +1452,10 @@ public:
             return myLatDist;
         }
 
+        void resetLatDist() {
+            myLatDist = 0.;
+        }
+
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT() const;
 
     private:
