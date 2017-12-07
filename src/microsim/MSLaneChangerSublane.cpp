@@ -127,8 +127,16 @@ MSLaneChangerSublane::change() {
             std::cout<< SIMTIME << " veh '" << vehicle->getID() << "' skips regular change checks." << std::endl;
         }
 #endif
+
+        bool changed;
+#ifndef NO_TRACI
+        // let TraCI influence the wish to change lanes during non-actionsteps
+        const int oldstate = vehicle->getLaneChangeModel().getOwnState();
+        const int newstate = checkTraCICommands(vehicle);
+#endif
+
         // Resume change
-        bool changed = continueChangeSublane(vehicle, myCandi);
+        changed = continueChangeSublane(vehicle, myCandi);
 #ifdef DEBUG_ACTIONSTEPS
         if DEBUG_COND {
             std::cout<< SIMTIME << " veh '" << vehicle->getID() << "' lcm->maneuverDist="<<vehicle->getLaneChangeModel().getManeuverDist()
@@ -230,25 +238,10 @@ MSLaneChangerSublane::checkChangeHelper(MSVehicle* vehicle, int laneOffset, Lane
 }
 
 
-
 ///  @brief Continue a sublane-lane change maneuver and return whether the midpoint was passed in this step
 //          (used to continue sublane changing in non-action steps).
 bool
 MSLaneChangerSublane::continueChangeSublane(MSVehicle* vehicle, ChangerIt& from) {
-#ifndef NO_TRACI
-    // let TraCI influence the wish to change lanes and the security to take
-    const int oldstate = vehicle->getLaneChangeModel().getOwnState();
-    vehicle->getLaneChangeModel().setOwnState(vehicle->influenceChangeDecision(oldstate));
-    if (DEBUG_COND && vehicle->getLaneChangeModel().getOwnState() != oldstate) {
-        std::cout << SIMTIME << " veh=" << vehicle->getID() << " stateAfterTraCI=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getOwnState()) << " original=" << toString((LaneChangeAction)oldstate) << "\n";
-    }
-    // Adjust maneuver dist according to overriding traci sublane-request
-    if (/* (vehicle->getLaneChangeModel().getOwnState() & LCA_TRACI)!=0 && */ vehicle->hasInfluencer() && vehicle->getInfluencer().getLatDist() != 0) {
-        vehicle->getLaneChangeModel().setManeuverDist(vehicle->getInfluencer().getLatDist());
-        if (gDebugFlag2) std::cout << "     traci influenced latDist=" << vehicle->getInfluencer().getLatDist() << "\n";
-    }
-#endif
-
     // lateral distance to complete maneuver
     double remLatDist = vehicle->getLaneChangeModel().getManeuverDist();
     if (remLatDist == 0) {
@@ -262,7 +255,7 @@ MSLaneChangerSublane::continueChangeSublane(MSVehicle* vehicle, ChangerIt& from)
                 << std::endl;
     }
 
-    bool changed = startChangeSublane(vehicle, from, nextLatDist);
+    const bool changed = startChangeSublane(vehicle, from, nextLatDist);
     return changed;
 }
 
