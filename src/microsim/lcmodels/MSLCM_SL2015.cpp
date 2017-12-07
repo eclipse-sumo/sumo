@@ -235,24 +235,26 @@ MSLCM_SL2015::wantsChangeSublane(
 void
 MSLCM_SL2015::setOwnState(const int state) {
     MSAbstractLaneChangeModel::setOwnState(state);
-    if ((state & (LCA_STRATEGIC | LCA_SPEEDGAIN)) != 0 && (state & LCA_BLOCKED) != 0) {
-        myImpatience = MIN2(1.0 , myImpatience + myVehicle.getActionStepLengthSecs() / myTimeToImpatience);
-    } else {
-        // impatience decays only to the driver-specific level
-        myImpatience = MAX2(myMinImpatience, myImpatience - myVehicle.getActionStepLengthSecs() / myTimeToImpatience);
-    }
-    if (DEBUG_COND) {
-        std::cout << SIMTIME << " veh=" << myVehicle.getID()
-                  << " setOwnState=" << toString((LaneChangeAction)state)
-                  << " myMinImpatience=" << myMinImpatience
-                  << " myImpatience=" << myImpatience
-                  << "\n";
-    }
-    if ((state & LCA_STAY) != 0) {
-        myManeuverDist = 0;
-        myCanChangeFully = true;
+    if (myVehicle.isActive()) {
+        if ((state & (LCA_STRATEGIC | LCA_SPEEDGAIN)) != 0 && (state & LCA_BLOCKED) != 0) {
+            myImpatience = MIN2(1.0 , myImpatience + myVehicle.getActionStepLengthSecs() / myTimeToImpatience);
+        } else {
+            // impatience decays only to the driver-specific level
+            myImpatience = MAX2(myMinImpatience, myImpatience - myVehicle.getActionStepLengthSecs() / myTimeToImpatience);
+        }
         if (DEBUG_COND) {
-            std::cout << "    myCanChangeFully=true\n";
+            std::cout << SIMTIME << " veh=" << myVehicle.getID()
+                          << " setOwnState=" << toString((LaneChangeAction)state)
+                          << " myMinImpatience=" << myMinImpatience
+                          << " myImpatience=" << myImpatience
+                          << "\n";
+        }
+        if ((state & LCA_STAY) != 0) {
+            myManeuverDist = 0;
+            myCanChangeFully = true;
+            if (DEBUG_COND) {
+                std::cout << "    myCanChangeFully=true\n";
+            }
         }
     }
 }
