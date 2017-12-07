@@ -406,19 +406,39 @@ MSAbstractLaneChangeModel::removeShadowApproachingInformation() const {
 }
 
 
+
 int
 MSAbstractLaneChangeModel::checkTraCICommands() {
-    const int newstate = myVehicle.influenceChangeDecision(myOwnState);
+    int newstate = myVehicle.influenceChangeDecision(myOwnState);
     if (myOwnState != newstate) {
         if (DEBUG_COND) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " stateAfterTraCI=" << toString((LaneChangeAction)newstate) << " original=" << toString((LaneChangeAction)myOwnState) << "\n";
         }
         setOwnState(newstate);
-    }
 
-    if (/* (vehicle->getLaneChangeModel().getOwnState() & LCA_TRACI)!=0 && */ myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0) {
-        myVehicle.getLaneChangeModel().setManeuverDist(myVehicle.getInfluencer().getLatDist());
-        if (gDebugFlag2) std::cout << "     traci influenced latDist=" << myVehicle.getInfluencer().getLatDist() << "\n";
+        if (MSGlobals::gLateralResolution > 0.) {
+            // Calculate and set the lateral maneuver distance corresponding to the change request
+            // to induce a corresponding sublane change.
+            const int dir = (newstate & LCA_RIGHT) != 0 ? -1 : ((newstate & LCA_LEFT) != 0 ? 1 : 0);
+            // minimum distance to move the vehicle fully onto the lane at offset dir
+            const double latLaneDist = myVehicle.lateralDistanceToLane(dir);
+            if ((newstate & LCA_TRACI) != 0) {
+                if ((newstate & LCA_STAY) != 0) {
+                    setManeuverDist(0.);
+                } else if (((newstate & LCA_RIGHT) != 0 && dir < 0)
+                        || ((newstate & LCA_LEFT) != 0 && dir > 0)) {
+                    setManeuverDist(latLaneDist);
+                }
+            }
+        }
+
+    } else {
+        if (myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0) {
+            const int maneuverDist = myVehicle.getInfluencer().getLatDist();
+            myVehicle.getLaneChangeModel().setManeuverDist(maneuverDist);
+            newstate |= LCA_TRACI;
+            if (gDebugFlag2) std::cout << "     traci influenced maneuverDist=" << maneuverDist << "\n";
+        }
     }
 
     return newstate;
