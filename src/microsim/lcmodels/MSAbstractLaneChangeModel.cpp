@@ -434,7 +434,7 @@ MSAbstractLaneChangeModel::checkTraCICommands() {
 
     } else {
         if (myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0) {
-            const int maneuverDist = myVehicle.getInfluencer().getLatDist();
+            const double maneuverDist = myVehicle.getInfluencer().getLatDist();
             myVehicle.getLaneChangeModel().setManeuverDist(maneuverDist);
             newstate |= LCA_TRACI;
             if (gDebugFlag2) std::cout << "     traci influenced maneuverDist=" << maneuverDist << "\n";
