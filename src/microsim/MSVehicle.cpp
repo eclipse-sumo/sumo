@@ -4381,6 +4381,47 @@ MSVehicle::getLatOffset(const MSLane* lane) const {
 
 
 double
+MSVehicle::lateralDistanceToLane(const int offset) const {
+    // compute the distance when changing to the neighboring lane
+    // (ensure we do not lap into the line behind neighLane since there might be unseen blockers)
+    assert(offset == 0 || offset == 1 || offset == -1);
+    assert(myLane != 0);
+    MSLane* neighLane = myLane->getParallelLane(offset);
+    assert(neighLane!=0);
+    const double halfCurrentLaneWidth = 0.5 * myLane->getWidth();
+    const double halfVehWidth = 0.5*getWidth();
+    const double latPos = getLateralPositionOnLane();
+    double leftLimit = halfCurrentLaneWidth - halfVehWidth - latPos;
+    double rightLimit = -halfCurrentLaneWidth + halfVehWidth - latPos;
+    double latLaneDist = 0;  // minimum distance to move the vehicle fully onto the new lane
+    if (offset == 0){
+        if (latPos + halfVehWidth > halfCurrentLaneWidth) {
+            // correct overlapping left
+            latLaneDist = halfCurrentLaneWidth - latPos - halfVehWidth;
+        } else if (latPos - halfVehWidth < - halfCurrentLaneWidth) {
+            // correct overlapping left
+            latLaneDist = halfCurrentLaneWidth - latPos + halfVehWidth;
+        }
+    } else if (offset == -1) {
+        latLaneDist = rightLimit - myLane->getWidth();
+        rightLimit -= neighLane->getWidth();
+    } else if (offset == 1) {
+        latLaneDist = leftLimit + myLane->getWidth();
+        leftLimit += neighLane->getWidth();
+    }
+    if (gDebugFlag2) {
+        std::cout << SIMTIME
+                  << " veh=" << getID()
+                  << " latLaneDist=" << latLaneDist
+                  << " leftLimit=" << leftLimit
+                  << " rightLimit=" << rightLimit
+                  << "\n";
+    }
+    return latLaneDist;
+}
+
+
+double
 MSVehicle::getLateralOverlap(double posLat) const {
     return (fabs(posLat) + 0.5 * getVehicleType().getWidth()
             - 0.5 * myLane->getWidth());
