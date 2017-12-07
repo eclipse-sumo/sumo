@@ -4389,7 +4389,7 @@ MSVehicle::lateralDistanceToLane(const int offset) const {
     MSLane* neighLane = myLane->getParallelLane(offset);
     assert(neighLane!=0);
     const double halfCurrentLaneWidth = 0.5 * myLane->getWidth();
-    const double halfVehWidth = 0.5*getWidth();
+    const double halfVehWidth = 0.5*(getWidth() + NUMERICAL_EPS);
     const double latPos = getLateralPositionOnLane();
     double leftLimit = halfCurrentLaneWidth - halfVehWidth - latPos;
     double rightLimit = -halfCurrentLaneWidth + halfVehWidth - latPos;
@@ -4403,20 +4403,23 @@ MSVehicle::lateralDistanceToLane(const int offset) const {
             latLaneDist = halfCurrentLaneWidth - latPos + halfVehWidth;
         }
     } else if (offset == -1) {
-        latLaneDist = rightLimit - myLane->getWidth();
-        rightLimit -= neighLane->getWidth();
+        latLaneDist = rightLimit - (getWidth() + NUMERICAL_EPS);
     } else if (offset == 1) {
-        latLaneDist = leftLimit + myLane->getWidth();
-        leftLimit += neighLane->getWidth();
+        latLaneDist = leftLimit + (getWidth() + NUMERICAL_EPS);
     }
-    if (gDebugFlag2) {
+#ifdef DEBUG_ACTIONSTEPS
+    if DEBUG_COND {
         std::cout << SIMTIME
                   << " veh=" << getID()
+                  << " halfCurrentLaneWidth=" << halfCurrentLaneWidth
+                  << " halfVehWidth=" << halfVehWidth
+                  << " latPos=" << latPos
                   << " latLaneDist=" << latLaneDist
                   << " leftLimit=" << leftLimit
                   << " rightLimit=" << rightLimit
                   << "\n";
     }
+#endif
     return latLaneDist;
 }
 
