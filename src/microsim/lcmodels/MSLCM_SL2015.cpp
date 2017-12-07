@@ -94,8 +94,8 @@
 // ===========================================================================
 #define DEBUG_ACTIONSTEPS
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
-//#define DEBUG_COND (myVehicle.getID() == "E1")
-#define DEBUG_COND (myVehicle.isSelected())
+#define DEBUG_COND (myVehicle.getID() == "Togliatti_71_0")
+//#define DEBUG_COND (myVehicle.isSelected())
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "disabled") // test stops_overtaking
@@ -974,23 +974,9 @@ MSLCM_SL2015::_wantsChangeSublane(
 
     // compute the distance when changing to the neighboring lane
     // (ensure we do not lap into the line behind neighLane since there might be unseen blockers)
-//    const double halfCurrentLaneWidth = 0.5 * myVehicle.getLane()->getWidth();
     const double halfVehWidth = 0.5 * getWidth();
-//    const double latPos = myVehicle.getLateralPositionOnLane();
-//    double leftLimit = halfCurrentLaneWidth - halfVehWidth - latPos;
-//    double rightLimit = -halfCurrentLaneWidth + halfVehWidth - latPos;
-//    double latLaneDist = 0;  // minimum distance to move the vehicle fully onto the new lane
-//    if (laneOffset == -1) {
-//        latLaneDist = rightLimit - getWidth();
-//        rightLimit -= neighLane.getWidth();
-//    } else if (laneOffset == 1) {
-//        latLaneDist = leftLimit + getWidth();
-//        leftLimit += neighLane.getWidth();
-//    }
-
     // minimum distance to move the vehicle fully onto the new lane
     double latLaneDist = laneOffset == 0 ? 0. : myVehicle.lateralDistanceToLane(laneOffset);
-
 
     // VARIANT_5 (disableAMBACKBLOCKER1)
     /*
@@ -1023,8 +1009,9 @@ MSLCM_SL2015::_wantsChangeSublane(
                   << "\n   changeToBest=" << changeToBest
                   << " latLaneDist=" << latLaneDist
                   << "\n   expectedSpeeds=" << toString(myExpectedSublaneSpeeds)
-                  << "\n";
+                  << std::endl;
     }
+
     ret = slowDownForBlocked(lastBlocked, ret);
     // VARIANT_14 (furtherBlock)
     if (lastBlocked != firstBlocked) {
