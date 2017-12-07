@@ -373,7 +373,6 @@ MSLaneChanger::registerUnchanged(MSVehicle* vehicle) {
 
 int
 MSLaneChanger::checkTraCICommands(MSVehicle* vehicle) {
-    /// TODO: adapt for SL case. Don't execute LC for that case.
     const int oldstate = vehicle->getLaneChangeModel().getOwnState();
     const int newstate = vehicle->getLaneChangeModel().checkTraCICommands();
 #ifdef DEBUG_ACTIONSTEPS
@@ -398,7 +397,6 @@ MSLaneChanger::applyTraCICommands(MSVehicle* vehicle) {
     const int state = vehicle->getLaneChangeModel().getOwnState();
     const int dir = (state & LCA_RIGHT) != 0 ? -1 : ((state & LCA_LEFT) != 0 ? 1 : 0);
     const bool execute = dir != 0 && ((state & LCA_BLOCKED) == 0);
-    /// XXX: check LCA_OVERLAP for sublane case?!
     if (execute) {
         ChangerIt to = myCandi + dir;
         bool continuous = vehicle->getLaneChangeModel().startLaneChangeManeuver(myCandi->lane, to->lane, dir);
