@@ -210,6 +210,8 @@ GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& s) const {
                 case NODETYPE_RAIL_CROSSING:
                     return 12;
             }
+        case 3:
+            return myJunction.getPosition().z();
         default:
             assert(false);
             return 0;

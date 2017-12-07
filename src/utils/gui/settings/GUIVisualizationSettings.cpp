@@ -229,15 +229,17 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::GREEN, (double)20);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by height at start", RGBColor::RED);
+    scheme = GUIColorScheme("by height at start", RGBColor::GREY);
     scheme.addColor(RGBColor::BLUE, (double) - 10);
+    scheme.addColor(RGBColor::RED, (double)10);
     scheme.addColor(RGBColor::YELLOW, (double)50);
     scheme.addColor(RGBColor::GREEN, (double)100);
     scheme.addColor(RGBColor::MAGENTA, (double)200);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by height at geometry-segment start", RGBColor::RED);
+    scheme = GUIColorScheme("by height at geometry-segment start", RGBColor::GREY);
     scheme.addColor(RGBColor::BLUE, (double) - 10);
+    scheme.addColor(RGBColor::RED, (double)10);
     scheme.addColor(RGBColor::YELLOW, (double)50);
     scheme.addColor(RGBColor::GREEN, (double)100);
     scheme.addColor(RGBColor::MAGENTA, (double)200);
@@ -477,6 +479,14 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor(192, 128, 64), 10, "zipper"); // light brown
     scheme.addColor(RGBColor(192, 255, 192), 11, "traffic_light_right_on_red"); // light green
     scheme.addColor(RGBColor(128, 0, 128), 12, "rail_crossing"); // dark purple
+    junctionColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by height", RGBColor::GREY);
+    scheme.addColor(RGBColor::BLUE, (double) - 10);
+    scheme.addColor(RGBColor::RED, (double)10);
+    scheme.addColor(RGBColor::YELLOW, (double)50);
+    scheme.addColor(RGBColor::GREEN, (double)100);
+    scheme.addColor(RGBColor::MAGENTA, (double)200);
+    scheme.setAllowsNegativeValues(true);
     junctionColorer.addScheme(scheme);
 
 
@@ -776,6 +786,14 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor(192, 128, 64), 10, "zipper");
     scheme.addColor(RGBColor(192, 255, 192), 11, "traffic_light_right_on_red");
     scheme.addColor(RGBColor(128, 0, 128), 12, "rail_crossing"); // dark purple
+    junctionColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by height", RGBColor::GREY);
+    scheme.addColor(RGBColor::BLUE, (double) - 10);
+    scheme.addColor(RGBColor::RED, (double)10);
+    scheme.addColor(RGBColor::YELLOW, (double)50);
+    scheme.addColor(RGBColor::GREEN, (double)100);
+    scheme.addColor(RGBColor::MAGENTA, (double)200);
+    scheme.setAllowsNegativeValues(true);
     junctionColorer.addScheme(scheme);
 
     /// add edge scaling schemes

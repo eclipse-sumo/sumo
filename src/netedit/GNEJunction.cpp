@@ -917,6 +917,8 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const
                 case NODETYPE_RAIL_CROSSING:
                     return 12;
             }
+        case 3:
+            return myNBNode.getPosition().z();
         default:
             assert(false);
             return 0;
