@@ -11,19 +11,20 @@
 # @date    2013-10-23
 # @version $Id$
 
-
+from __future__ import print_function
 import os
 import sys
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 from sumolib.miscutils import euclidean
+from sumolib.geomhelper import polygonOffsetWithMinimumDistanceToPoint
 
 
 def _getMinPath(paths):
     minDist = 1e400
     minPath = None
-    for path, dist in paths.iteritems():
+    for path, (dist, _) in paths.items():
         if dist < minDist:
             minPath = path
             minDist = dist
@@ -42,32 +43,37 @@ def mapTrace(trace, net, delta, verbose=False):
         newPaths = {}
         candidates = net.getNeighboringEdges(pos[0], pos[1], delta)
         if len(candidates) == 0 and verbose:
-            print("Found no candidate edges for %s,%s" % pos)
+            print("Found no candidate edges for %s" % pos)
         for edge, d in candidates:
+            base = polygonOffsetWithMinimumDistanceToPoint(pos, edge.getShape())
             if paths:
+                advance = euclidean(lastPos, pos)
                 minDist = 1e400
                 minPath = None
-                for path, dist in paths.iteritems():
+                for path, (dist, lastBase) in paths.items():
                     if dist < minDist:
                         if edge == path[-1]:
                             minPath = path
-                            minDist = dist
+                            baseDiff = lastBase + advance - base
                         elif edge in path[-1].getOutgoing():
                             minPath = path + (edge,)
-                            minDist = dist
+                            baseDiff = lastBase + advance - path[-1].getLength() - base
                         else:
                             minPath = path + (edge,)
-                            minDist = dist + euclidean(
+                            airLineDist = euclidean(
                                 path[-1].getToNode().getCoord(),
                                 edge.getFromNode().getCoord())
+                            baseDiff = lastBase + advance - path[-1].getLength() - base - airLineDist
+                        minDist = dist + baseDiff * baseDiff
                 if minPath:
-                    newPaths[minPath] = minDist + d * d
+                    newPaths[minPath] = (minDist, base)
             else:
-                newPaths[(edge,)] = d * d
+                newPaths[(edge,)] = (d * d, base)
         if not newPaths:
             if paths:
                 result += [e.getID() for e in _getMinPath(paths)]
         paths = newPaths
+        lastPos = pos
     if paths:
         return result + [e.getID() for e in _getMinPath(paths)]
     return result
