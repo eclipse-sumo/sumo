@@ -60,6 +60,7 @@
 //#define DEBUG_SURROUNDING_VEHICLES // debug getRealFollower() and getRealLeader()
 //#define DEBUG_CHANGE_OPPOSITE
 //#define DEBUG_ACTIONSTEPS
+//#define DEBUG_STATE
 //#define DEBUG_COND (vehicle->getLaneChangeModel().debugVehicle())
 #define DEBUG_COND (vehicle->isSelected())
 
@@ -280,8 +281,8 @@ MSLaneChanger::change() {
 #ifndef NO_TRACI
         const int oldstate = vehicle->getLaneChangeModel().getOwnState();
         // let TraCI influence the wish to change lanes during non-actionsteps
-        const int newstate = checkTraCICommands(vehicle);
-        if (oldstate != newstate) {
+        checkTraCICommands(vehicle);
+        if (oldstate != vehicle->getLaneChangeModel().getOwnState()) {
             changed = applyTraCICommands(vehicle);
         }
 #endif
@@ -371,11 +372,12 @@ MSLaneChanger::registerUnchanged(MSVehicle* vehicle) {
 
 
 
-int
+void
 MSLaneChanger::checkTraCICommands(MSVehicle* vehicle) {
     const int oldstate = vehicle->getLaneChangeModel().getOwnState();
-    const int newstate = vehicle->getLaneChangeModel().checkTraCICommands();
-#ifdef DEBUG_ACTIONSTEPS
+    vehicle->getLaneChangeModel().checkTraCICommands();
+    const int newstate = vehicle->getLaneChangeModel().getOwnState();
+#ifdef DEBUG_STATE
     if (DEBUG_COND) {
         std::cout << SIMTIME
                 << " veh=" << vehicle->getID()
@@ -386,7 +388,6 @@ MSLaneChanger::checkTraCICommands(MSVehicle* vehicle) {
                 << "\n";
     }
 #endif
-    return newstate;
 }
 
 

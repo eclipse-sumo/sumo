@@ -158,8 +158,7 @@ protected:
 
     /// @brief Take into account traci LC-commands.
     /// @note This is currently only used within non-actionsteps.
-    /// @return new state after taking into account the commands.
-    int checkTraCICommands(MSVehicle* vehicle);
+    void checkTraCICommands(MSVehicle* vehicle);
 
     /// @brief Execute TraCI LC-commands.
     /// @note This is currently only used within non-actionsteps for the non-sublane model.
