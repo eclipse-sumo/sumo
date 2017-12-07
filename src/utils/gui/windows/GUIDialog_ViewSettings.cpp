@@ -370,6 +370,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myJunctionColorInterpolation = new FXCheckButton(m41, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
 
         myJunctionColorSettingFrame = new FXVerticalFrame(frame4, GUIDesignViewSettingsVerticalFrame4);
+        myJunctionColorRainbow = new FXButton(frame4, "Recalibrate Rainbow", NULL, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                          (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
 
         new FXHorizontalSeparator(frame4, GUIDesignHorizontalSeparator);
         FXMatrix* m42 = new FXMatrix(frame4, 2, GUIDesignMatrixViewSettings);
@@ -817,6 +819,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     // lanes (colors)
     if (sender == myLaneColorRainbow) {
         myParent->buildColorRainbow(tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE);
+        doRebuildColorMatrices = true;
+    }
+    if (sender == myJunctionColorRainbow) {
+        myParent->buildColorRainbow(tmpSettings.junctionColorer.getScheme(), tmpSettings.junctionColorer.getActive(), GLO_JUNCTION);
         doRebuildColorMatrices = true;
     }
     if (tmpSettings.getLaneEdgeMode() == prevLaneMode) {
@@ -1362,6 +1368,11 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         myLaneColorRainbow->disable();
     } else {
         myLaneColorRainbow->enable();
+    }
+    if (mySettings->junctionColorer.getScheme().isFixed()) {
+        myJunctionColorRainbow->disable();
+    } else {
+        myJunctionColorRainbow->enable();
     }
     myLaneColorSettingFrame->getParent()->recalc();
 

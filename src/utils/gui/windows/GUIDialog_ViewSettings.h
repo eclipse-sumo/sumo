@@ -267,6 +267,7 @@ private:
     std::vector<FXButton*> myLaneButtons;
     FXCheckButton* myLaneColorInterpolation;
     FXButton* myLaneColorRainbow;
+    FXButton* myJunctionColorRainbow;
 
     /// ... lane scaler
     FXComboBox* myLaneEdgeScaleMode;

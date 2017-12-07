@@ -276,21 +276,31 @@ GNEViewNet::setColorScheme(const std::string& name) {
 
 void
 GNEViewNet::buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjectType objectType) {
+    assert(!scheme.isFixed());
+    double minValue = std::numeric_limits<double>::infinity();
+    double maxValue = -std::numeric_limits<double>::infinity();
+    // retrieve range
     if (objectType == GLO_LANE) {
-        assert(!scheme.isFixed());
-        // retrieve range
-        double minValue = std::numeric_limits<double>::infinity();
-        double maxValue = -std::numeric_limits<double>::infinity();
         // XXX (see #3409) multi-colors are not currently handled. this is a quick hack
         if (active == 9) {
             active = 8; // segment height, fall back to start height
+        } else if (active == 11) {
+            active = 10; // segment incline, fall back to total incline
         }
-        const std::vector<GNELane*> lanes = myNet->retrieveLanes();
-        for (auto it : lanes) {
-            const double val = it->getColorValue(active);
+        for (GNELane* lane : myNet->retrieveLanes()) {
+            const double val = lane->getColorValue(active);
             minValue = MIN2(minValue, val);
             maxValue = MAX2(maxValue, val);
         }
+    } else if (objectType == GLO_JUNCTION) {
+        if (active == 3) {
+            for (GNEJunction* junction : myNet->retrieveJunctions()) {
+                minValue = MIN2(minValue, junction->getPositionInView().z());
+                maxValue = MAX2(maxValue, junction->getPositionInView().z());
+            }
+        }
+    }
+    if (minValue != std::numeric_limits<double>::infinity()) {
         scheme.clear();
         // add new thresholds
         double range = maxValue - minValue;

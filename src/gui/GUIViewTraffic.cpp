@@ -181,14 +181,16 @@ GUIViewTraffic::setColorScheme(const std::string& name) {
 
 void
 GUIViewTraffic::buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjectType objectType) {
+    assert(!scheme.isFixed());
+    double minValue = std::numeric_limits<double>::infinity();
+    double maxValue = -std::numeric_limits<double>::infinity();
+    // retrieve range
     if (objectType == GLO_LANE) {
-        assert(!scheme.isFixed());
-        // retrieve range
-        double minValue = std::numeric_limits<double>::infinity();
-        double maxValue = -std::numeric_limits<double>::infinity();
         // XXX (see #3409) multi-colors are not currently handled. this is a quick hack
         if (active == 22) {
             active = 21; // segment height, fall back to start height
+        } else if (active == 24) {
+            active = 23; // segment incline, fall back to total incline
         }
         const MSEdgeVector& edges = MSEdge::getAllEdges();
         for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
@@ -205,6 +207,20 @@ GUIViewTraffic::buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjec
                 }
             }
         }
+    } else if (objectType == GLO_JUNCTION) {
+        if (active == 3) {
+            std::set<const MSJunction*> junctions;
+            for (MSEdge* edge : MSEdge::getAllEdges()) {
+                junctions.insert(edge->getFromJunction());
+                junctions.insert(edge->getToJunction());
+            }
+            for (const MSJunction* junction : junctions) {
+                minValue = MIN2(minValue, junction->getPosition().z());
+                maxValue = MAX2(maxValue, junction->getPosition().z());
+            }
+        }
+    }
+    if (minValue != std::numeric_limits<double>::infinity()) {
         scheme.clear();
         // add new thresholds
         double range = maxValue - minValue;
