@@ -94,8 +94,8 @@
 // ===========================================================================
 #define DEBUG_ACTIONSTEPS
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
-#define DEBUG_COND (myVehicle.getID() == "Togliatti_71_0")
-//#define DEBUG_COND (myVehicle.isSelected())
+//#define DEBUG_COND (myVehicle.getID() == "Togliatti_71_0")
+#define DEBUG_COND (myVehicle.isSelected())
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "disabled") // test stops_overtaking
