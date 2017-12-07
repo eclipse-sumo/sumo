@@ -406,6 +406,24 @@ MSAbstractLaneChangeModel::removeShadowApproachingInformation() const {
 }
 
 
+int
+MSAbstractLaneChangeModel::checkTraCICommands() {
+    const int newstate = myVehicle.influenceChangeDecision(myOwnState);
+    if (myOwnState != newstate) {
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " stateAfterTraCI=" << toString((LaneChangeAction)newstate) << " original=" << toString((LaneChangeAction)myOwnState) << "\n";
+        }
+        setOwnState(newstate);
+    }
+
+    if (/* (vehicle->getLaneChangeModel().getOwnState() & LCA_TRACI)!=0 && */ myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0) {
+        myVehicle.getLaneChangeModel().setManeuverDist(myVehicle.getInfluencer().getLatDist());
+        if (gDebugFlag2) std::cout << "     traci influenced latDist=" << myVehicle.getInfluencer().getLatDist() << "\n";
+    }
+
+    return newstate;
+}
+
 void
 MSAbstractLaneChangeModel::changedToOpposite() {
     myAmOpposite = !myAmOpposite;

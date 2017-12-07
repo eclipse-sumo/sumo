@@ -476,6 +476,11 @@ public:
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }
 
+
+    /// @brief Check for commands issued for the vehicle via TraCI and apply the appropriate state changes
+    /// @return The new state after taking into account the traci influence
+    int checkTraCICommands();
+
     static const double NO_NEIGHBOR;
 
 protected:

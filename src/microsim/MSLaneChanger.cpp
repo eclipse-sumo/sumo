@@ -78,6 +78,14 @@ MSLaneChanger::ChangeElem::ChangeElem(MSLane* _lane) :
     aheadNext(lane, 0, 0)
 { }
 
+void
+MSLaneChanger::ChangeElem::registerHop(MSVehicle* vehicle) {
+    lane->myTmpVehicles.insert(lane->myTmpVehicles.begin(), vehicle);
+    dens += vehicle->getVehicleType().getLengthWithGap();
+    hoppedVeh = vehicle;
+}
+
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -239,7 +247,7 @@ MSLaneChanger::change() {
     // priority.
 
 #ifdef DEBUG_ACTIONSTEPS
-        std::cout<< "\nCHANGE" << std::endl;
+//        std::cout<< "\nCHANGE" << std::endl;
 #endif
 
 
@@ -268,8 +276,19 @@ MSLaneChanger::change() {
             std::cout<< SIMTIME << " veh '" << vehicle->getID() << "' skips regular change checks." << std::endl;
         }
 #endif
-        registerUnchanged(vehicle);
-        return false;
+        bool changed = false;
+#ifndef NO_TRACI
+        const int oldstate = vehicle->getLaneChangeModel().getOwnState();
+        // let TraCI influence the wish to change lanes during non-actionsteps
+        const int newstate = checkTraCICommands(vehicle);
+        if (oldstate != newstate) {
+            changed = applyTraCICommands(vehicle);
+        }
+#endif
+        if (!changed) {
+            registerUnchanged(vehicle);
+        }
+        return changed;
     }
 
     // Check for changes to the opposite lane if vehicle is active
@@ -351,6 +370,50 @@ MSLaneChanger::registerUnchanged(MSVehicle* vehicle) {
 }
 
 
+
+int
+MSLaneChanger::checkTraCICommands(MSVehicle* vehicle) {
+    /// TODO: adapt for SL case. Don't execute LC for that case.
+    const int oldstate = vehicle->getLaneChangeModel().getOwnState();
+    const int newstate = vehicle->getLaneChangeModel().checkTraCICommands();
+#ifdef DEBUG_ACTIONSTEPS
+    if (DEBUG_COND) {
+        std::cout << SIMTIME
+                << " veh=" << vehicle->getID()
+                << " oldState=" << toString((LaneChangeAction) oldstate)
+                << " newState=" << toString((LaneChangeAction) vehicle->getLaneChangeModel().getOwnState())
+                << ((vehicle->getLaneChangeModel().getOwnState() & LCA_BLOCKED) ? " (blocked)" : "")
+                << ((vehicle->getLaneChangeModel().getOwnState() & LCA_OVERLAPPING) ? " (overlap)" : "")
+                << "\n";
+    }
+#endif
+    return newstate;
+}
+
+
+bool
+MSLaneChanger::applyTraCICommands(MSVehicle* vehicle) {
+    // Execute request if not blocked
+    bool changed = false;
+    const int state = vehicle->getLaneChangeModel().getOwnState();
+    const int dir = (state & LCA_RIGHT) != 0 ? -1 : ((state & LCA_LEFT) != 0 ? 1 : 0);
+    const bool execute = dir != 0 && ((state & LCA_BLOCKED) == 0);
+    /// XXX: check LCA_OVERLAP for sublane case?!
+    if (execute) {
+        ChangerIt to = myCandi + dir;
+        bool continuous = vehicle->getLaneChangeModel().startLaneChangeManeuver(myCandi->lane, to->lane, dir);
+        if (continuous) {
+            changed = continueChange(vehicle, myCandi);
+        } else {
+            // insert vehicle into target lane
+            to->registerHop(vehicle);
+            changed = true;
+        }
+    }
+    return changed;
+}
+
+
 void
 MSLaneChanger::startChange(MSVehicle* vehicle, ChangerIt& from, int direction) {
     ChangerIt to = from + direction;
@@ -361,12 +424,9 @@ MSLaneChanger::startChange(MSVehicle* vehicle, ChangerIt& from, int direction) {
     if (continuous) {
         continueChange(vehicle, myCandi);
     } else {
-        to->lane->myTmpVehicles.insert(to->lane->myTmpVehicles.begin(), vehicle);
-        to->dens += vehicle->getVehicleType().getLengthWithGap();
-        to->hoppedVeh = vehicle;
+        to->registerHop(vehicle);
     }
 }
-
 
 bool
 MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
@@ -381,13 +441,9 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
         MSLane* target = to->lane;
         vehicle->myState.myPosLat -= direction * 0.5 * (source->getWidth() + target->getWidth());
         lcm.primaryLaneChanged(source, target, direction);
-        to->lane->myTmpVehicles.insert(to->lane->myTmpVehicles.begin(), vehicle);
-        to->dens += vehicle->getVehicleType().getLengthWithGap();
-        to->hoppedVeh = vehicle;
+        to->registerHop(vehicle);
     } else {
-        from->lane->myTmpVehicles.insert(from->lane->myTmpVehicles.begin(), vehicle);
-        from->dens += vehicle->getVehicleType().getLengthWithGap();
-        from->hoppedVeh = vehicle;
+        from->registerHop(vehicle);
     }
     if (!lcm.isChangingLanes()) {
         vehicle->myState.myPosLat = 0;
