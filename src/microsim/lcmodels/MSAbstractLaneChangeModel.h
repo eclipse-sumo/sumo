@@ -479,8 +479,7 @@ public:
 
     /// @brief Check for commands issued for the vehicle via TraCI and apply the appropriate state changes
     ///        For the sublane case, this includes setting a new maneuver distance if appropriate.
-    /// @return The new state after taking into account the traci influence
-    int checkTraCICommands();
+    void checkTraCICommands();
 
     static const double NO_NEIGHBOR;
 

@@ -407,15 +407,10 @@ MSAbstractLaneChangeModel::removeShadowApproachingInformation() const {
 
 
 
-int
+void
 MSAbstractLaneChangeModel::checkTraCICommands() {
     int newstate = myVehicle.influenceChangeDecision(myOwnState);
     if (myOwnState != newstate) {
-        if (DEBUG_COND) {
-            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " stateAfterTraCI=" << toString((LaneChangeAction)newstate) << " original=" << toString((LaneChangeAction)myOwnState) << "\n";
-        }
-        setOwnState(newstate);
-
         if (MSGlobals::gLateralResolution > 0.) {
             // Calculate and set the lateral maneuver distance corresponding to the change request
             // to induce a corresponding sublane change.
@@ -430,18 +425,29 @@ MSAbstractLaneChangeModel::checkTraCICommands() {
                     setManeuverDist(latLaneDist);
                 }
             }
-        }
+            if (myVehicle.hasInfluencer()) {
+                // lane change requests override sublane change requests
+                myVehicle.getInfluencer().resetLatDist();
+            }
 
+        }
+        setOwnState(newstate);
     } else {
+        // Check for sublane change requests
         if (myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0) {
             const double maneuverDist = myVehicle.getInfluencer().getLatDist();
             myVehicle.getLaneChangeModel().setManeuverDist(maneuverDist);
+            myVehicle.getInfluencer().resetLatDist();
             newstate |= LCA_TRACI;
+            if (myOwnState != newstate) {
+                setOwnState(newstate);
+            }
             if (gDebugFlag2) std::cout << "     traci influenced maneuverDist=" << maneuverDist << "\n";
         }
     }
-
-    return newstate;
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << myVehicle.getID() << " stateAfterTraCI=" << toString((LaneChangeAction)newstate) << " original=" << toString((LaneChangeAction)myOwnState) << "\n";
+    }
 }
 
 void
