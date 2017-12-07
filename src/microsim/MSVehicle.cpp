@@ -92,7 +92,7 @@
 //#define DEBUG_STOPS
 //#define DEBUG_BESTLANES
 //#define DEBUG_IGNORE_RED
-//#define DEBUG_ACTIONSTEPLENGTH
+//#define DEBUG_ACTIONSTEPS
 //#define DEBUG_COND (getID() == "blocker")
 //#define DEBUG_COND (true)
 #define DEBUG_COND (isSelected())
@@ -702,7 +702,7 @@ MSVehicle::~MSVehicle() {
 
 void
 MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
     if DEBUG_COND {
         std::cout << SIMTIME << " Removing vehicle '" << getID() << "'" << std::endl;
     }
@@ -1644,7 +1644,7 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
     }
 #endif
     if (!checkActionStep(t)) {
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
     if DEBUG_COND {
         std::cout << STEPS2TIME(t) << " vehicle '" << getID() << "' skips action." << std::endl;
     }
@@ -1653,7 +1653,7 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
         removePassedDriveItems();
         return;
     } else {
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
         if DEBUG_COND {
             std::cout << STEPS2TIME(t) << " vehicle = '" << getID() << "' takes action." << std::endl;
         }
@@ -2455,7 +2455,7 @@ MSVehicle::processTraCISpeedControl(double vSafe, double& vNext) {
 
 void
 MSVehicle::removePassedDriveItems() {
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
     if DEBUG_COND {
         std::cout << SIMTIME << " veh=" << getID() << " removePassedDriveItems()\n"
                 << "    Current items: ";
@@ -2484,7 +2484,7 @@ MSVehicle::removePassedDriveItems() {
     }
 #endif
     for (auto j = myLFLinkLanes.begin(); j != myNextDriveItem; ++j){
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
         if DEBUG_COND {
             std::cout << "    Removing item: ";
             if (j->myLink == 0) {
@@ -2509,7 +2509,7 @@ MSVehicle::removePassedDriveItems() {
 
 void
 MSVehicle::updateDriveItems() {
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
         if (DEBUG_COND) {
             std::cout << SIMTIME << " updateDriveItems(), veh='" << getID() << "' (lane: '"<< getLane()->getID() <<"')\nCurrent drive items:" << std::endl;
             DriveItemVector::iterator i;
@@ -2538,7 +2538,7 @@ MSVehicle::updateDriveItems() {
 
     if (nextPlannedLink==0) {
         // No link for upcoming item -> no need for an update
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
         if (DEBUG_COND) {
             std::cout << "Found no link-related drive item." << std::endl;
         }
@@ -2548,7 +2548,7 @@ MSVehicle::updateDriveItems() {
 
     if (getLane() == nextPlannedLink->getLaneBefore()) {
         // Current lane approaches the stored next link, i.e. no LC happend and no update is required.
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
         if (DEBUG_COND) {
             std::cout << "Continuing on planned lane sequence, no update required." << std::endl;
         }
@@ -2572,7 +2572,7 @@ MSVehicle::updateDriveItems() {
             return;
         }
     }
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
         if (DEBUG_COND) {
             std::cout << "Changed lane. Drive items will be updated along the current lane continuation." << std::endl;
         }
@@ -2603,7 +2603,7 @@ MSVehicle::updateDriveItems() {
         // Continuation links for current best lanes are less than for the former drive items (myLFLinkLanes)
         // We just remove the leftover link-items, as they cannot be mapped to new links.
         if (bestLaneIt == getBestLanesContinuation().end()) {
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
         if (DEBUG_COND) {
             std::cout << "Reached end of the new continuation sequence. Erasing leftover link-items." << std::endl;
         }
@@ -2624,7 +2624,7 @@ MSVehicle::updateDriveItems() {
 
         if (newLink == driveItemIt->myLink) {
             // new continuation merged into previous - stop update
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
             if (DEBUG_COND) {
                 std::cout << "Old and new continuation sequences merge at link\n"
                         << "'" << newLink->getLaneBefore()->getID() << "'->'" << newLink->getViaLaneOrLane()->getID() << "'"
@@ -2634,7 +2634,7 @@ MSVehicle::updateDriveItems() {
             break;
         }
 
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
         if (DEBUG_COND) {
             std::cout << "Updating link\n'" << driveItemIt->myLink->getLaneBefore()->getID() << "'->'" << driveItemIt->myLink->getViaLaneOrLane()->getID() << "'"
                     << std::endl;
@@ -2650,7 +2650,7 @@ MSVehicle::updateDriveItems() {
             ++bestLaneIt;
         }
     }
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
         if (DEBUG_COND) {
             std::cout << "Updated drive items:" << std::endl;
             DriveItemVector::iterator i;
@@ -2783,7 +2783,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
             }
             // NOTE: Passed drive items will be erased in the next simstep's planMove()
 
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
         if (DEBUG_COND && myNextDriveItem != myLFLinkLanes.begin()) {
             std::cout << "Updated drive items:" << std::endl;
             for (DriveItemVector::iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
@@ -2828,7 +2828,7 @@ MSVehicle::executeMove() {
     if (myActionStep) {
         // Actuate control (i.e. choose bounds for safe speed in current simstep (euler), resp. after current sim step (ballistic))
         processLinkAproaches(vSafe, vSafeMin, vSafeMinDist);
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
         if DEBUG_COND {
             std::cout << SIMTIME << " vehicle '" << getID() << "'\n"
             "   vsafe from processLinkApproaches(): vsafe " << vSafe << std::endl;
@@ -2837,7 +2837,7 @@ MSVehicle::executeMove() {
     } else {
         // Continue with current acceleration
         vSafe = getSpeed() + ACCEL2SPEED(myAcceleration);
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
         if DEBUG_COND {
             std::cout << SIMTIME << " vehicle '" << getID() << "' skips processLinkApproaches()\n"
             "   continues with constant accel " <<  myAcceleration << "...\n"
@@ -2928,7 +2928,7 @@ MSVehicle::executeMove() {
         if (getLaneChangeModel().isOpposite()) {
             passedLanes.clear(); // ignore back occupation
         }
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
         if DEBUG_COND {
             std::cout<< SIMTIME << " veh '" << getID() << "' updates further lanes." << std::endl;
         }
@@ -2952,7 +2952,7 @@ MSVehicle::executeMove() {
             // check (#2681): Can this be skipped?
             getLaneChangeModel().prepareStep();
         } else {
-#ifdef DEBUG_ACTIONSTEPLENGTH
+#ifdef DEBUG_ACTIONSTEPS
             if DEBUG_COND {
                 std::cout<< SIMTIME << " veh '" << getID() << "' skips LCM->prepareStep()." << std::endl;
             }
