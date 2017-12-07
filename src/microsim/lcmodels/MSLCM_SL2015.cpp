@@ -974,19 +974,24 @@ MSLCM_SL2015::_wantsChangeSublane(
 
     // compute the distance when changing to the neighboring lane
     // (ensure we do not lap into the line behind neighLane since there might be unseen blockers)
-    const double halfCurrentLaneWidth = 0.5 * myVehicle.getLane()->getWidth();
+//    const double halfCurrentLaneWidth = 0.5 * myVehicle.getLane()->getWidth();
     const double halfVehWidth = 0.5 * getWidth();
-    const double latPos = myVehicle.getLateralPositionOnLane();
-    double leftLimit = halfCurrentLaneWidth - halfVehWidth - latPos;
-    double rightLimit = -halfCurrentLaneWidth + halfVehWidth - latPos;
-    double latLaneDist = 0;  // minimum distance to move the vehicle fully onto the new lane
-    if (laneOffset == -1) {
-        latLaneDist = rightLimit - getWidth();
-        rightLimit -= neighLane.getWidth();
-    } else if (laneOffset == 1) {
-        latLaneDist = leftLimit + getWidth();
-        leftLimit += neighLane.getWidth();
-    }
+//    const double latPos = myVehicle.getLateralPositionOnLane();
+//    double leftLimit = halfCurrentLaneWidth - halfVehWidth - latPos;
+//    double rightLimit = -halfCurrentLaneWidth + halfVehWidth - latPos;
+//    double latLaneDist = 0;  // minimum distance to move the vehicle fully onto the new lane
+//    if (laneOffset == -1) {
+//        latLaneDist = rightLimit - getWidth();
+//        rightLimit -= neighLane.getWidth();
+//    } else if (laneOffset == 1) {
+//        latLaneDist = leftLimit + getWidth();
+//        leftLimit += neighLane.getWidth();
+//    }
+
+    // minimum distance to move the vehicle fully onto the new lane
+    double latLaneDist = laneOffset == 0 ? 0. : myVehicle.lateralDistanceToLane(laneOffset);
+
+
     // VARIANT_5 (disableAMBACKBLOCKER1)
     /*
     if (leader.first != 0
@@ -1017,8 +1022,6 @@ MSLCM_SL2015::_wantsChangeSublane(
                   << "\n   neighBlockers=" << neighBlockers.toString()
                   << "\n   changeToBest=" << changeToBest
                   << " latLaneDist=" << latLaneDist
-                  << " leftLimit=" << leftLimit
-                  << " rightLimit=" << rightLimit
                   << "\n   expectedSpeeds=" << toString(myExpectedSublaneSpeeds)
                   << "\n";
     }
