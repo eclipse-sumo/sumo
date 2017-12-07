@@ -92,20 +92,20 @@
 // ===========================================================================
 // Debug flags
 // ===========================================================================
-#define DEBUG_ACTIONSTEPS
-#define DEBUG_STATE
-#define DEBUG_SURROUNDING
-#define DEBUG_MANEUVER
-#define DEBUG_PATCHSPEED
-#define DEBUG_INFORM
-#define DEBUG_ROUNDABOUTS
-#define DEBUG_WANTSCHANGE
-#define DEBUG_SLOWDOWN
-#define DEBUG_SAVE_BLOCKER_LENGTH
-#define DEBUG_BLOCKING
-#define DEBUG_TRACI
-#define DEBUG_STRATEGIC_CHANGE
-#define DEBUG_KEEP_LATGAP
+//#define DEBUG_ACTIONSTEPS
+//#define DEBUG_STATE
+//#define DEBUG_SURROUNDING
+//#define DEBUG_MANEUVER
+//#define DEBUG_PATCHSPEED
+//#define DEBUG_INFORM
+//#define DEBUG_ROUNDABOUTS
+//#define DEBUG_WANTSCHANGE
+//#define DEBUG_SLOWDOWN
+//#define DEBUG_SAVE_BLOCKER_LENGTH
+//#define DEBUG_BLOCKING
+//#define DEBUG_TRACI
+//#define DEBUG_STRATEGIC_CHANGE
+//#define DEBUG_KEEP_LATGAP
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
 //#define DEBUG_COND (myVehicle.getID() == "Togliatti_71_0")
 #define DEBUG_COND (myVehicle.isSelected())
@@ -722,8 +722,8 @@ MSLCM_SL2015::informFollower(int blocked,
                       << " decelGap=" << decelGap
                       << " secGap=" << secureGap
                       << "\n";
-#endif
         }
+#endif
         if (decelGap > 0 && decelGap >= secureGap) {
             // if the blocking neighbor brakes it could actually help
             // how hard does it actually need to be?
@@ -1472,8 +1472,8 @@ MSLCM_SL2015::_wantsChangeSublane(
                             << " maxGainR=" << maxGainRight
                             << " maxGainL=" << maxGainLeft
                             << "\n";
-            }
 #endif
+            }
         }
     }
     // updated change probabilities
