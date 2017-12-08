@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Oct 19 14:48:01 2017 by SUMO Version svn
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <lateral-resolution value="0.4"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="blocker1" type="t1" time="2.00" from="beg_1" to="beg_2" dir="1" speed="23.28" pos="53.31" reason="cooperative|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="merge" type="t0" time="4.00" from="beg_0" to="beg_1" dir="1" speed="27.78" pos="116.12" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+</lanechanges>

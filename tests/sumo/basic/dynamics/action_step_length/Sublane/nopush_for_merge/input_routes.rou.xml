@@ -1,0 +1,10 @@
+<routes>
+    <vType id="t0" vClass="passenger" latAlignment="center" sigma="0" minGapLat="1.0" lcPushy="0.0" lcStrategic="2.0" lcSpeedGain="3.0"/>
+    <vType id="t1" vClass="passenger" latAlignment="center" sigma="0" minGapLat="1.0"/>
+
+    <route id="r0" edges="beg end"/>
+
+    <vehicle id="A"   type="t0"   route="r0" departSpeed="max" departPos="0"  departLane="0" departPosLat="center" depart="0"/>
+    <vehicle id="B"  type="t1"  route="r0" departSpeed="max" departPos="0"  departLane="1" departPosLat="center" depart="0"/>
+
+</routes>

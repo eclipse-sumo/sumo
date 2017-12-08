@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Aug 31 17:15:53 2017 by SUMO Version dev-SVN-r25773
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.4"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="B1" depart="0.00" departLane="beg_1" departPos="120.00" departPosLat="0.00" departSpeed="33.33" departDelay="0.00" arrival="57.00" arrivalLane="beg_0" arrivalPos="2000.00" arrivalPosLat="0.00" arrivalSpeed="33.33" duration="57.00" routeLength="1880.00" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_B1" vType="tBlocker" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="ego" depart="0.00" departLane="beg_0" departPos="80.00" departPosLat="0.00" departSpeed="33.33" departDelay="0.00" arrival="59.00" arrivalLane="beg_0" arrivalPos="2000.00" arrivalPosLat="0.00" arrivalSpeed="33.33" duration="59.00" routeLength="1920.00" waitSteps="0" timeLoss="0.50" rerouteNo="0" devices="tripinfo_ego" vType="tEgo" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="B2" depart="0.00" departLane="beg_1" departPos="30.00" departPosLat="0.00" departSpeed="33.33" departDelay="0.00" arrival="60.00" arrivalLane="beg_0" arrivalPos="2000.00" arrivalPosLat="0.00" arrivalSpeed="33.33" duration="60.00" routeLength="1970.00" waitSteps="0" timeLoss="0.32" rerouteNo="0" devices="tripinfo_B2" vType="tBlocker" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="L" depart="0.00" departLane="beg_0" departPos="200.00" departPosLat="0.00" departSpeed="20.00" departDelay="0.00" arrival="90.00" arrivalLane="beg_0" arrivalPos="2000.00" arrivalPosLat="0.00" arrivalSpeed="20.00" duration="90.00" routeLength="1800.00" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_L" vType="tLeader" speedFactor="1.00" vaporized=""/>
+</tripinfos>

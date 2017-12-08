@@ -1,0 +1,8 @@
+<routes>
+    <vType id="car" sigma="0" maxSpeed="5"/>
+
+    <route id="r0" edges="SC CW"/>
+    <vehicle id="v0" depart="0" route="r0" type="car" departLane="1" departPos="-30" departPosLat="-0.7"/>
+    <vehicle id="v1" depart="0" route="r0" type="car" departLane="1" departPos="-30" departPosLat="1.59"/>
+    <vehicle id="v2" depart="0" route="r0" type="car" departLane="2" departPos="-25" departPosLat="0.7" arrivalLane="0"/>
+</routes>

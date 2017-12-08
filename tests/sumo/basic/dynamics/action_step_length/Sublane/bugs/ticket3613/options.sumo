@@ -1,0 +1,2 @@
+-n net.net.xml --no-step-log -r input_routes.rou.xml
+--lateral-resolution 0.4

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Nov 14 16:31:13 2017 by SUMO Version b'v0_31_0-1122-g3ab9178'
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <lateral-resolution value="0.64"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="cars.1" type="car" time="4.00" from="beg_1" to="beg_0" dir="-1" speed="3.52" pos="8.50" reason="sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="cars.2" type="car" time="7.00" from="beg_1" to="beg_0" dir="-1" speed="6.79" pos="14.74" reason="sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="cars.4" type="car" time="13.00" from="beg_1" to="beg_0" dir="-1" speed="10.28" pos="30.49" reason="sublane" leaderGap="48.24" leaderSecureGap="0.30" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="cars.2" type="car" time="15.00" from="beg_0" to="beg_1" dir="1" speed="14.07" pos="111.70" reason="sublane" leaderGap="None" leaderSecureGap="None" followerGap="51.47" followerSecureGap="14.90" origLeaderGap="1.52" origLeaderSecureGap="19.78" latGap="None"/>
+    <change id="cars.6" type="car" time="15.00" from="beg_1" to="beg_0" dir="-1" speed="5.58" pos="12.50" reason="sublane" leaderGap="37.74" leaderSecureGap="0.00" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="cars.6" type="car" time="20.00" from="beg_0" to="beg_1" dir="1" speed="14.28" pos="63.71" reason="sublane" leaderGap="110.37" leaderSecureGap="18.14" followerGap="48.91" followerSecureGap="0.00" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="cars.8" type="car" time="20.00" from="beg_1" to="beg_0" dir="-1" speed="4.57" pos="9.80" reason="sublane" leaderGap="48.91" leaderSecureGap="0.00" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="cars.6" type="car" time="23.00" from="beg_1" to="beg_0" dir="-1" speed="14.14" pos="106.16" reason="sublane" leaderGap="55.82" leaderSecureGap="12.90" followerGap="8.54" followerSecureGap="0.00" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="cars.3" type="car" time="26.00" from="beg_0" to="beg_1" dir="1" speed="14.72" pos="234.61" reason="speedGain" leaderGap="21.13" leaderSecureGap="16.94" followerGap="163.48" followerSecureGap="0.00" origLeaderGap="6.23" origLeaderSecureGap="22.62" latGap="None"/>
+    <change id="cars.10" type="car" time="28.00" from="beg_0" to="beg_1" dir="1" speed="14.41" pos="55.45" reason="speedGain" leaderGap="28.90" leaderSecureGap="21.76" followerGap="4.50" followerSecureGap="0.00" origLeaderGap="36.81" origLeaderSecureGap="27.41" latGap="None"/>
+    <change id="cars.8" type="car" time="29.00" from="beg_0" to="beg_1" dir="1" speed="11.32" pos="100.96" reason="sublane" leaderGap="188.29" leaderSecureGap="21.92" followerGap="25.95" followerSecureGap="24.51" origLeaderGap="1.23" origLeaderSecureGap="13.73" latGap="None"/>
+    <change id="cars.9" type="car" time="30.00" from="beg_1" to="beg_0" dir="-1" speed="8.95" pos="64.03" reason="keepRight" leaderGap="43.64" leaderSecureGap="1.59" followerGap="25.15" followerSecureGap="16.13" origLeaderGap="14.95" origLeaderSecureGap="0.00" latGap="None"/>
+    <change id="cars.13" type="car" time="32.00" from="beg_1" to="beg_0" dir="-1" speed="8.68" pos="21.95" reason="sublane" leaderGap="30.78" leaderSecureGap="0.00" followerGap="None" followerSecureGap="None" origLeaderGap="85.52" origLeaderSecureGap="0.00" latGap="None"/>
+    <change id="cars.13" type="car" time="34.00" from="beg_0" to="beg_1" dir="1" speed="12.90" pos="43.35" reason="speedGain" leaderGap="38.65" leaderSecureGap="9.83" followerGap="29.57" followerSecureGap="0.00" origLeaderGap="32.68" origLeaderSecureGap="18.49" latGap="None"/>
+    <change id="cars.15" type="car" time="34.00" from="beg_1" to="beg_0" dir="-1" speed="4.13" pos="8.78" reason="sublane" leaderGap="29.57" leaderSecureGap="0.00" followerGap="None" followerSecureGap="None" origLeaderGap="129.19" origLeaderSecureGap="0.00" latGap="None"/>
+    <change id="cars.4" type="car" time="35.00" from="beg_0" to="beg_1" dir="1" speed="0.00" pos="291.50" reason="sublane" leaderGap="2.50" leaderSecureGap="0.00" followerGap="11.44" followerSecureGap="14.42" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="cars.8" type="car" time="37.00" from="beg_1" to="beg_0" dir="-1" speed="12.00" pos="192.13" reason="sublane" leaderGap="86.13" leaderSecureGap="27.88" followerGap="57.06" followerSecureGap="23.88" origLeaderGap="101.87" origLeaderSecureGap="27.99" latGap="None"/>
+    <change id="cars.8" type="car" time="40.00" from="beg_0" to="beg_1" dir="1" speed="11.25" pos="226.86" reason="speedGain" leaderGap="4.83" leaderSecureGap="0.00" followerGap="48.49" followerSecureGap="22.26" origLeaderGap="6.96" origLeaderSecureGap="17.96" latGap="None"/>
+    <change id="cars.12" type="car" time="40.00" from="beg_1" to="beg_0" dir="-1" speed="14.13" pos="173.37" reason="sublane" leaderGap="37.22" leaderSecureGap="26.31" followerGap="8.92" followerSecureGap="0.00" origLeaderGap="48.49" origLeaderSecureGap="22.26" latGap="None"/>
+    <change id="cars.14" type="car" time="42.00" from="beg_0" to="beg_1" dir="1" speed="12.04" pos="138.49" reason="speedGain" leaderGap="16.31" leaderSecureGap="19.49" followerGap="92.89" followerSecureGap="10.56" origLeaderGap="34.12" origLeaderSecureGap="19.32" latGap="None"/>
+    <change id="cars.11" type="car" time="46.00" from="beg_0" to="beg_1" dir="1" speed="13.50" pos="208.04" reason="speedGain" leaderGap="25.89" leaderSecureGap="3.89" followerGap="17.60" followerSecureGap="9.30" origLeaderGap="2.46" origLeaderSecureGap="22.90" latGap="None"/>
+    <change id="cars.14" type="car" time="47.00" from="beg_1" to="beg_0" dir="-1" speed="13.16" pos="198.22" reason="sublane" leaderGap="80.77" leaderSecureGap="32.40" followerGap="96.73" followerSecureGap="7.91" origLeaderGap="18.44" origLeaderSecureGap="11.39" latGap="None"/>
+    <change id="cars.9" type="car" time="212.00" from="end_0" to="end_1" dir="1" speed="9.72" pos="17.78" reason="sublane" leaderGap="24.16" leaderSecureGap="2.07" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="cars.3" type="car" time="215.00" from="end_1" to="end_0" dir="-1" speed="15.71" pos="192.09" reason="sublane" leaderGap="None" leaderSecureGap="None" followerGap="16.91" followerSecureGap="3.89" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="cars.6" type="car" time="216.00" from="end_0" to="end_1" dir="1" speed="13.35" pos="135.52" reason="sublane" leaderGap="20.23" leaderSecureGap="14.25" followerGap="32.21" followerSecureGap="10.10" origLeaderGap="1.30" origLeaderSecureGap="18.01" latGap="None"/>
+    <change id="cars.4" type="car" time="218.00" from="end_1" to="end_0" dir="-1" speed="13.63" pos="187.44" reason="sublane" leaderGap="None" leaderSecureGap="None" followerGap="17.27" followerSecureGap="3.87" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="cars.19" type="car" time="223.00" from="end_0" to="end_1" dir="1" speed="7.79" pos="77.45" reason="speedGain" leaderGap="11.32" leaderSecureGap="4.49" followerGap="None" followerSecureGap="None" origLeaderGap="16.36" origLeaderSecureGap="9.01" latGap="None"/>
+    <change id="cars.9" type="car" time="224.00" from="end_1" to="end_0" dir="-1" speed="9.65" pos="128.90" reason="sublane" leaderGap="None" leaderSecureGap="None" followerGap="20.17" followerSecureGap="12.10" origLeaderGap="0.48" origLeaderSecureGap="6.00" latGap="None"/>
+    <change id="cars.16" type="car" time="224.00" from="end_0" to="end_1" dir="1" speed="10.41" pos="103.73" reason="sublane" leaderGap="20.17" leaderSecureGap="12.10" followerGap="12.68" followerSecureGap="7.19" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="cars.11" type="car" time="226.00" from="end_1" to="end_0" dir="-1" speed="13.51" pos="194.12" reason="sublane" leaderGap="None" leaderSecureGap="None" followerGap="41.31" followerSecureGap="0.00" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="cars.18" type="car" time="229.00" from="end_1" to="end_0" dir="-1" speed="11.43" pos="191.37" reason="sublane" leaderGap="None" leaderSecureGap="None" followerGap="12.49" followerSecureGap="3.49" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+</lanechanges>
