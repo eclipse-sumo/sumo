@@ -1076,6 +1076,9 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
             offsetMovement = snapToActiveGrid(getPositionInformation()) - myMovingOriginalPosition;
         } else {
             offsetMovement = getPositionInformation() - myMovingReference;
+            if (myMenuCheckMoveElevation->getCheck()) {
+                offsetMovement = Position(0, 0, (offsetMovement.y() + offsetMovement.x()) / 10);
+            }
         }
         // @note  #3521: Add checkBox to allow moving elements... has to behere implemented 
         // check what type of additional is moved
@@ -2403,30 +2406,33 @@ GNEViewNet::buildEditModeControls() {
     // @ToDo add here new FXToolBarGrip(myNavigationToolBar, NULL, 0, GUIDesignToolbarGrip);
 
     // initialize mode specific controls
-    myChainCreateEdge = new FXMenuCheck(myToolbar, ("chain\t\tCreate consecutive " + toString(SUMO_TAG_EDGE) + "s with a single click (hit ESC to cancel chain).").c_str(), this, 0);
+    myChainCreateEdge = new FXMenuCheck(myToolbar, ("Chain\t\tCreate consecutive " + toString(SUMO_TAG_EDGE) + "s with a single click (hit ESC to cancel chain).").c_str(), this, 0);
     myChainCreateEdge->setCheck(false);
 
-    myAutoCreateOppositeEdge = new FXMenuCheck(myToolbar, ("two-way\t\tAutomatically create an " + toString(SUMO_TAG_EDGE) + " in the opposite direction").c_str(), this, 0);
+    myAutoCreateOppositeEdge = new FXMenuCheck(myToolbar, ("Two-way\t\tAutomatically create an " + toString(SUMO_TAG_EDGE) + " in the opposite direction").c_str(), this, 0);
     myAutoCreateOppositeEdge->setCheck(false);
 
-    myMenuCheckSelectEdges = new FXMenuCheck(myToolbar, ("select edges\t\tToggle whether clicking should select " + toString(SUMO_TAG_EDGE) + "s or " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_VIEWNET_SELECT_EDGES);
+    myMenuCheckSelectEdges = new FXMenuCheck(myToolbar, ("Select edges\t\tToggle whether clicking should select " + toString(SUMO_TAG_EDGE) + "s or " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_VIEWNET_SELECT_EDGES);
     myMenuCheckSelectEdges->setCheck(true);
 
-    myMenuCheckShowConnections = new FXMenuCheck(myToolbar, ("show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, MID_GNE_VIEWNET_SHOW_CONNECTIONS);
+    myMenuCheckShowConnections = new FXMenuCheck(myToolbar, ("Show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, MID_GNE_VIEWNET_SHOW_CONNECTIONS);
     myMenuCheckShowConnections->setCheck(myVisualizationSettings->showLane2Lane);
 
-    myMenuCheckExtendToEdgeNodes = new FXMenuCheck(myToolbar, ("auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, 0);
+    myMenuCheckExtendToEdgeNodes = new FXMenuCheck(myToolbar, ("Auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, 0);
 
-    myMenuCheckWarnAboutMerge = new FXMenuCheck(myToolbar, ("ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(), this, 0);
+    myMenuCheckWarnAboutMerge = new FXMenuCheck(myToolbar, ("Ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(), this, 0);
     myMenuCheckWarnAboutMerge->setCheck(true);
 
-    myMenuCheckShowBubbleOverJunction = new FXMenuCheck(myToolbar, ("Show bubbles over " + toString(SUMO_TAG_JUNCTION) + "s \t\tShow bubbles over " + toString(SUMO_TAG_JUNCTION) + "'s shapes.").c_str(), this, MID_GNE_VIEWNET_SHOW_BUBBLES);
+    myMenuCheckShowBubbleOverJunction = new FXMenuCheck(myToolbar, ("Bubbles\t\tShow bubbles over " + toString(SUMO_TAG_JUNCTION) + "'s shapes.").c_str(), this, MID_GNE_VIEWNET_SHOW_BUBBLES);
     myMenuCheckShowBubbleOverJunction->setCheck(false);
 
-    myMenuCheckChangeAllPhases = new FXMenuCheck(myToolbar, ("apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " plan").c_str(), this, 0);
+    myMenuCheckMoveElevation = new FXMenuCheck(myToolbar, "Elevation\t\tApply mouse movement to elevation instead of x,y position", this, MID_GNE_VIEWNET_MOVE_ELEVATION);
+    myMenuCheckMoveElevation->setCheck(false);
+
+    myMenuCheckChangeAllPhases = new FXMenuCheck(myToolbar, ("Apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " plan").c_str(), this, 0);
     myMenuCheckChangeAllPhases->setCheck(false);
 
-    myMenuCheckShowGrid = new FXMenuCheck(myToolbar, "show grid\t\tshow grid with size defined in visualization options", this, MID_GNE_VIEWNET_SHOW_GRID);
+    myMenuCheckShowGrid = new FXMenuCheck(myToolbar, "Grid\t\tshow grid and restrict movement to the grid (size defined in visualization options)", this, MID_GNE_VIEWNET_SHOW_GRID);
     myMenuCheckShowGrid->setCheck(false);
 }
 
@@ -2444,6 +2450,7 @@ GNEViewNet::updateModeSpecificControls() {
     myMenuCheckChangeAllPhases->hide();
     myMenuCheckWarnAboutMerge->hide();
     myMenuCheckShowBubbleOverJunction->hide();
+    myMenuCheckMoveElevation->hide();
     myMenuCheckShowGrid->hide();
     // unckeck all edit modes
     myEditModeCreateEdge->setChecked(false);
@@ -2468,6 +2475,7 @@ GNEViewNet::updateModeSpecificControls() {
         case GNE_MODE_MOVE:
             myMenuCheckWarnAboutMerge->show();
             myMenuCheckShowBubbleOverJunction->show();
+            myMenuCheckMoveElevation->show();
             myEditModeMove->setChecked(true);
             myMenuCheckShowGrid->show();
             break;

@@ -426,6 +426,9 @@ private:
 
     /// @brief show connection as buuble in "Move" mode.
     FXMenuCheck* myMenuCheckShowBubbleOverJunction;
+
+    /// @brief apply movement to elevation
+    FXMenuCheck* myMenuCheckMoveElevation;
     // @}
 
     /// @name Variables for move elements
