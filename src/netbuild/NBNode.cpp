@@ -2664,7 +2664,16 @@ NBNode::setCrossingTLIndices(const std::string& tlID, int startIndex) {
 
 int
 NBNode::numNormalConnections() const {
-    return myRequest->getSizes().second;
+    if (myRequest == 0) {
+        // could be an uncontrolled type
+        int result = 0;
+        for (NBEdge* edge : myIncomingEdges) {
+            result += edge->getConnections().size();
+        }
+        return result;
+    } else {
+        return myRequest->getSizes().second;
+    }
 }
 
 

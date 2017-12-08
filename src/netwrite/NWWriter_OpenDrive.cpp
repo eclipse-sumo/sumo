@@ -111,9 +111,14 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     device.lf();
 
     // write junction-internal edges (road). In OpenDRIVE these are called 'paths' or 'connecting roads'
+    OutputDevice_String junctionOSS(false, 3);
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
+        int connectionID = 0; // unique within a junction
         const int nID = getID(n->getID(), nodeMap, nodeID);
+        if (n->numNormalConnections() > 0) {
+            junctionOSS << "    <junction name=\"" << n->getID() << "\" id=\"" << nID << "\">\n";
+        }
         const std::vector<NBEdge*>& incoming = (*i).second->getIncomingEdges();
         for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
             const NBEdge* inEdge = *j;
@@ -127,10 +132,11 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 assert(c.toEdge != 0);
                 if (outEdge != c.toEdge || c.fromLane == lastFromLane) {
                     if (outEdge != 0) {
-                        writeInternalEdge(device, inEdge, nID, 
-                                getID(parallel.back().id, edgeMap, edgeID), 
+                        connectionID = writeInternalEdge(device, junctionOSS, inEdge, nID, 
+                                getID(parallel.back().getInternalLaneID(), edgeMap, edgeID), 
                                 inEdgeID, 
                                 getID(outEdge->getID(), edgeMap, edgeID), 
+                                connectionID,
                                 parallel, isOuterEdge, straightThresh);
                         parallel.clear();
                         isOuterEdge = false;
@@ -141,17 +147,23 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 parallel.push_back(c);
             }
             if (!parallel.empty()) {
-                writeInternalEdge(device, inEdge, nID, 
-                        getID(parallel.back().id, edgeMap, edgeID), 
+                connectionID = writeInternalEdge(device, junctionOSS, inEdge, nID, 
+                        getID(parallel.back().getInternalLaneID(), edgeMap, edgeID), 
                         inEdgeID, 
                         getID(outEdge->getID(), edgeMap, edgeID), 
+                        connectionID,
                         parallel, isOuterEdge, straightThresh);
                 parallel.clear();
             }
         }
+        if (n->numNormalConnections() > 0) {
+            junctionOSS << "    </junction>\n";
+        }
     }
-
+    device.lf();
     // write junctions (junction)
+    device << junctionOSS.getString();
+
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         const std::vector<NBEdge*>& incoming = n->getIncomingEdges();
@@ -163,8 +175,6 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         if (numConnections == 0) {
             continue;
         }
-        device << "    <junction name=\"" << n->getID() << "\" id=\"" << getID(n->getID(), nodeMap, nodeID) << "\">\n";
-        int index = 0;
         for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
             const NBEdge* inEdge = *j;
             const std::vector<NBEdge::Connection>& elv = inEdge->getConnections();
@@ -174,19 +184,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 if (outEdge == 0) {
                     continue;
                 }
-                device << "    <connection id=\""
-                       << index << "\" incomingRoad=\"" << getID(inEdge->getID(), edgeMap, edgeID)
-                       << "\" connectingRoad=\""
-                       << getID(c.id, edgeMap, edgeID)
-                       << "\" contactPoint=\"start\">\n";
-                device << "        <laneLink from=\"-" << inEdge->getNumLanes() - c.fromLane
-                       << "\" to=\"-1"  // every connection has its own edge
-                       << "\"/>\n";
-                device << "    </connection>\n";
-                ++index;
             }
         }
-        device << "    </junction>\n";
     }
 
     device.closeTag();
@@ -291,9 +290,10 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
 }
 
 
-void
-NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, const NBEdge* inEdge, int nodeID,
+int
+NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& junctionDevice, const NBEdge* inEdge, int nodeID,
         int edgeID, int inEdgeID, int outEdgeID,
+        int connectionID,
         const std::vector<NBEdge::Connection>& parallel,
         const bool isOuterEdge,
         const double straightThresh) 
@@ -383,10 +383,12 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, const NBEdge* inEdge
     device << "                <right>\n";
     for (int j = parallel.size(); --j >= 0;) {
         const NBEdge::Connection& c = parallel[j];
+        const int fromIndex = c.fromLane - inEdge->getNumLanes();
+        const int toIndex = c.toLane - outEdge->getNumLanes();
         device << "                    <lane id=\"-" << parallel.size() - j << "\" type=\"" << getLaneType(outEdge->getPermissions(c.toLane)) << "\" level=\"true\">\n";
         device << "                        <link>\n";
-        device << "                            <predecessor id=\"-" << inEdge->getNumLanes() - c.fromLane << "\"/>\n";
-        device << "                            <successor id=\"-" << outEdge->getNumLanes() - c.toLane << "\"/>\n";
+        device << "                            <predecessor id=\"" << fromIndex << "\"/>\n";
+        device << "                            <successor id=\"" << toIndex << "\"/>\n";
         device << "                        </link>\n";
         device << "                        <width sOffset=\"0\" a=\"" << outEdge->getLaneWidth(c.toLane) << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
         std::string markType = "broken";
@@ -408,6 +410,11 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, const NBEdge* inEdge
         device << "                        <roadMark sOffset=\"0\" type=\"" << markType << "\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
         device << "                        <speed sOffset=\"0\" max=\"" << c.vmax << "\"/>\n";
         device << "                    </lane>\n";
+
+        junctionDevice << "        <connection id=\"" << connectionID << "\" incomingRoad=\"" << inEdgeID << "\" connectingRoad=\"" << edgeID << "\" contactPoint=\"start\">\n";
+        junctionDevice << "            <laneLink from=\"" << fromIndex << "\" to=\"" << toIndex << "\"/>\n";
+        junctionDevice << "        </connection>\n";
+        connectionID++;
     }
     device << "                 </right>\n";
     device << "            </laneSection>\n";
@@ -415,6 +422,8 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, const NBEdge* inEdge
     device << "        <objects/>\n";
     device << "        <signals/>\n";
     device.closeTag();
+
+    return connectionID;
 }
 
 
