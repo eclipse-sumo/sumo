@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Aug 31 17:15:53 2017 by SUMO Version dev-SVN-r25773
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.4"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="B1" x="120.00" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="120.00" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="30.00" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="30.00" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="200.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="200.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="80.00" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="80.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="B1" x="153.33" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="153.33" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="63.33" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="63.33" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="220.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="220.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="113.33" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="113.33" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="B1" x="186.66" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="186.66" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="96.66" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="96.66" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="240.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="240.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="145.59" y="-4.95" angle="90.00" type="tEgo" speed="32.26" pos="145.59" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="B1" x="219.99" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="219.99" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="129.99" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="129.99" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="260.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="260.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="176.20" y="-3.95" angle="88.39" type="tEgo" speed="30.62" pos="176.20" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="B1" x="253.32" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="253.32" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="163.32" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="163.32" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="280.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="280.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="205.30" y="-2.85" angle="88.32" type="tEgo" speed="29.10" pos="205.30" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="B1" x="286.65" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="286.65" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="193.19" y="-1.65" angle="90.00" type="tBlocker" speed="29.87" pos="193.19" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="300.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="300.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="233.10" y="-1.85" angle="88.25" type="tEgo" speed="27.80" pos="233.10" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="B1" x="319.98" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="319.98" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="221.65" y="-1.65" angle="90.00" type="tBlocker" speed="28.46" pos="221.65" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="320.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="320.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="263.50" y="-1.65" angle="89.68" type="tEgo" speed="30.40" pos="263.50" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="B1" x="353.31" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="353.31" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="252.61" y="-1.65" angle="90.00" type="tBlocker" speed="30.96" pos="252.61" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="340.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="340.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="296.50" y="-1.65" angle="90.00" type="tEgo" speed="33.00" pos="296.50" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="B1" x="386.64" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="386.64" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="285.94" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="285.94" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="360.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="360.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="329.83" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="329.83" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="B1" x="419.97" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="419.97" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="319.27" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="319.27" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="380.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="380.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="363.16" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="363.16" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="B1" x="453.30" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="453.30" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="352.60" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="352.60" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="400.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="400.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="396.49" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="396.49" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="B1" x="486.63" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="486.63" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="385.93" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="385.93" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="420.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="420.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="429.82" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="429.82" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="B1" x="519.96" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="519.96" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="419.26" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="419.26" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="440.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="440.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="463.15" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="463.15" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="B1" x="553.29" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="553.29" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="452.59" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="452.59" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="460.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="460.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="496.48" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="496.48" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="B1" x="586.62" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="586.62" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="485.92" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="485.92" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="480.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="480.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="529.81" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="529.81" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="B1" x="619.95" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="619.95" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="519.25" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="519.25" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="500.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="500.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="563.14" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="563.14" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="B1" x="653.28" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="653.28" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="552.58" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="552.58" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="520.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="520.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="596.47" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="596.47" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="B1" x="686.61" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="686.61" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="585.91" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="585.91" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="540.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="540.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="629.80" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="629.80" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="B1" x="719.94" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="719.94" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="619.24" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="619.24" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="560.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="560.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="663.13" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="663.13" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="B1" x="753.27" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="753.27" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="652.57" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="652.57" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="580.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="580.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="696.46" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="696.46" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="B1" x="786.60" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="786.60" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="685.90" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="685.90" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="600.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="600.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="729.79" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="729.79" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="B1" x="819.93" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="819.93" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="719.23" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="719.23" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="620.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="620.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="763.12" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="763.12" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="B1" x="853.26" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="853.26" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="752.56" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="752.56" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="640.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="640.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="796.45" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="796.45" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="B1" x="886.59" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="886.59" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="785.89" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="785.89" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="660.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="660.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="829.78" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="829.78" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="B1" x="919.92" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="919.92" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="819.22" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="819.22" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="680.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="680.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="863.11" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="863.11" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="B1" x="953.25" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="953.25" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="852.55" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="852.55" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="700.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="700.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="896.44" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="896.44" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="B1" x="986.58" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="986.58" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="885.88" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="885.88" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="720.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="720.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="929.77" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="929.77" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="B1" x="1019.91" y="-2.65" angle="91.49" type="tBlocker" speed="33.33" pos="1019.91" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="919.21" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="919.21" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="740.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="740.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="963.10" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="963.10" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="B1" x="1053.24" y="-3.75" angle="91.49" type="tBlocker" speed="33.33" pos="1053.24" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="952.54" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="952.54" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="760.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="760.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="996.43" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="996.43" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="B1" x="1086.57" y="-4.75" angle="91.49" type="tBlocker" speed="33.33" pos="1086.57" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="985.87" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="985.87" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="780.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="780.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1029.76" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="1029.76" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="B1" x="1119.90" y="-4.95" angle="90.30" type="tBlocker" speed="33.33" pos="1119.90" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1019.20" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="1019.20" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="800.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="800.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1063.09" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="1063.09" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="31.00">
+        <vehicle id="B1" x="1153.23" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1153.23" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1052.53" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="1052.53" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="820.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="820.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1096.42" y="-2.65" angle="91.49" type="tEgo" speed="33.33" pos="1096.42" lane="beg_1" slope="0.00"/>
+    </timestep>
+    <timestep time="32.00">
+        <vehicle id="B1" x="1186.56" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1186.56" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1085.86" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="1085.86" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="840.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="840.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1129.75" y="-3.75" angle="91.49" type="tEgo" speed="33.33" pos="1129.75" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="B1" x="1219.89" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1219.89" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1119.19" y="-2.65" angle="91.49" type="tBlocker" speed="33.33" pos="1119.19" lane="beg_1" slope="0.00"/>
+        <vehicle id="L" x="860.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="860.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1163.08" y="-4.75" angle="91.49" type="tEgo" speed="33.33" pos="1163.08" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="B1" x="1253.22" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1253.22" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1152.52" y="-3.75" angle="91.49" type="tBlocker" speed="33.33" pos="1152.52" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="880.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="880.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1196.41" y="-4.95" angle="90.30" type="tEgo" speed="33.33" pos="1196.41" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="B1" x="1286.55" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1286.55" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1185.85" y="-4.75" angle="91.49" type="tBlocker" speed="33.33" pos="1185.85" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="900.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="900.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1229.74" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1229.74" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="B1" x="1319.88" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1319.88" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1219.18" y="-4.95" angle="90.30" type="tBlocker" speed="33.33" pos="1219.18" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="920.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="920.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1263.07" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1263.07" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="B1" x="1353.21" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1353.21" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1252.51" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1252.51" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="940.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="940.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1296.40" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1296.40" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="38.00">
+        <vehicle id="B1" x="1386.54" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1386.54" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1285.84" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1285.84" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="960.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="960.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1329.73" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1329.73" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="39.00">
+        <vehicle id="B1" x="1419.87" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1419.87" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1319.17" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1319.17" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="980.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="980.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1363.06" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1363.06" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="40.00">
+        <vehicle id="B1" x="1453.20" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1453.20" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1352.50" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1352.50" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1000.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1000.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1396.39" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1396.39" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="41.00">
+        <vehicle id="B1" x="1486.53" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1486.53" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1385.83" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1385.83" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1020.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1020.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1429.72" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1429.72" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="42.00">
+        <vehicle id="B1" x="1519.86" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1519.86" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1419.16" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1419.16" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1040.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1040.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1463.05" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1463.05" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="43.00">
+        <vehicle id="B1" x="1553.19" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1553.19" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1452.49" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1452.49" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1060.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1060.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1496.38" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1496.38" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="44.00">
+        <vehicle id="B1" x="1586.52" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1586.52" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1485.82" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1485.82" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1080.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1080.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1529.71" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1529.71" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="45.00">
+        <vehicle id="B1" x="1619.85" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1619.85" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1519.15" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1519.15" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1100.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1100.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1563.04" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1563.04" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="46.00">
+        <vehicle id="B1" x="1653.18" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1653.18" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1552.48" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1552.48" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1120.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1120.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1596.37" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1596.37" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="47.00">
+        <vehicle id="B1" x="1686.51" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1686.51" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1585.81" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1585.81" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1140.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1140.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1629.70" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1629.70" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="48.00">
+        <vehicle id="B1" x="1719.84" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1719.84" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1619.14" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1619.14" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1160.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1160.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1663.03" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1663.03" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="49.00">
+        <vehicle id="B1" x="1753.17" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1753.17" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1652.47" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1652.47" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1180.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1180.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1696.36" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1696.36" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="50.00">
+        <vehicle id="B1" x="1786.50" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1786.50" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1685.80" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1685.80" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1200.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1200.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1729.69" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1729.69" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="51.00">
+        <vehicle id="B1" x="1819.83" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1819.83" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1719.13" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1719.13" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1220.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1220.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1763.02" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1763.02" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="B1" x="1853.16" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1853.16" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1752.46" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1752.46" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1240.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1240.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1796.35" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1796.35" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="B1" x="1886.49" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1886.49" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1785.79" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1785.79" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1260.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1260.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1829.68" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1829.68" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="54.00">
+        <vehicle id="B1" x="1919.82" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1919.82" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1819.12" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1819.12" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1280.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1280.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1863.01" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1863.01" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="55.00">
+        <vehicle id="B1" x="1953.15" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1953.15" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1852.45" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1852.45" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1300.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1300.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1896.34" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1896.34" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="56.00">
+        <vehicle id="B1" x="1986.48" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1986.48" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1885.78" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1885.78" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1320.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1320.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1929.67" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1929.67" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="57.00">
+        <vehicle id="B2" x="1919.11" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1919.11" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1340.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1340.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1963.00" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1963.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="58.00">
+        <vehicle id="B2" x="1952.44" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1952.44" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1360.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1360.00" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1996.33" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1996.33" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="59.00">
+        <vehicle id="B2" x="1985.77" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1985.77" lane="beg_0" slope="0.00"/>
+        <vehicle id="L" x="1380.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1380.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="60.00">
+        <vehicle id="L" x="1400.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1400.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="61.00">
+        <vehicle id="L" x="1420.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1420.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="62.00">
+        <vehicle id="L" x="1440.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1440.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="63.00">
+        <vehicle id="L" x="1460.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1460.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="64.00">
+        <vehicle id="L" x="1480.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1480.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="65.00">
+        <vehicle id="L" x="1500.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1500.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="66.00">
+        <vehicle id="L" x="1520.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1520.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="67.00">
+        <vehicle id="L" x="1540.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1540.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="68.00">
+        <vehicle id="L" x="1560.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1560.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="69.00">
+        <vehicle id="L" x="1580.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1580.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="70.00">
+        <vehicle id="L" x="1600.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1600.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="71.00">
+        <vehicle id="L" x="1620.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1620.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="72.00">
+        <vehicle id="L" x="1640.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1640.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="73.00">
+        <vehicle id="L" x="1660.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1660.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="74.00">
+        <vehicle id="L" x="1680.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1680.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="75.00">
+        <vehicle id="L" x="1700.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1700.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="76.00">
+        <vehicle id="L" x="1720.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1720.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="77.00">
+        <vehicle id="L" x="1740.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1740.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="78.00">
+        <vehicle id="L" x="1760.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1760.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="79.00">
+        <vehicle id="L" x="1780.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1780.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="80.00">
+        <vehicle id="L" x="1800.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1800.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="81.00">
+        <vehicle id="L" x="1820.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1820.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="82.00">
+        <vehicle id="L" x="1840.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1840.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="83.00">
+        <vehicle id="L" x="1860.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1860.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="84.00">
+        <vehicle id="L" x="1880.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1880.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="85.00">
+        <vehicle id="L" x="1900.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1900.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="86.00">
+        <vehicle id="L" x="1920.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1920.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="87.00">
+        <vehicle id="L" x="1940.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1940.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="88.00">
+        <vehicle id="L" x="1960.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1960.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="89.00">
+        <vehicle id="L" x="1980.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="1980.00" lane="beg_0" slope="0.00"/>
+    </timestep>
+    <timestep time="90.00"/>
+</fcd-export>

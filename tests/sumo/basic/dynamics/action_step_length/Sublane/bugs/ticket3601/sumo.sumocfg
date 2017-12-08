@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml" />
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml" />
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.64"/>
+        <step-method.ballistic value="true" />
+    </processing>
+
+    <report>
+        <log value="sumo_log.txt"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>

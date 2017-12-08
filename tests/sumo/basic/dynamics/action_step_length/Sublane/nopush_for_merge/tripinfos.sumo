@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jan 26 09:25:49 2017 by SUMO Version dev-SVN-r22703
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.4"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="B" depart="0.00" departLane="beg_1" departPos="0.00" departPosLat="0.00" departSpeed="13.89" departDelay="0.00" arrival="22.00" arrivalLane="end_0" arrivalPos="100.00" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="22.00" routeLength="300.00" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_B" vType="t1" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="A" depart="0.00" departLane="beg_0" departPos="0.00" departPosLat="0.00" departSpeed="13.89" departDelay="0.00" arrival="24.00" arrivalLane="end_0" arrivalPos="100.00" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="24.00" routeLength="300.00" waitSteps="0" timeLoss="1.53" rerouteNo="0" devices="tripinfo_A" vType="t0" speedFactor="1.00" vaporized=""/>
+</tripinfos>

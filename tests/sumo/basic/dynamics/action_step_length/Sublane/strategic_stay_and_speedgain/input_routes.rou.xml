@@ -1,0 +1,10 @@
+<routes>
+    <vType id="t0" sigma="0" vClass="motorcycle" latAlignment="nice"/>
+    <vType id="t1" sigma="0" vClass="motorcycle" latAlignment="nice" maxSpeed="20"/>
+
+    <route id="r0" edges="beg2 merge offRamp"/>
+
+    <vehicle id="slow" type="t1" route="r0"  departPos="-180" departLane="0" departPosLat="center"  depart="0" arrivalLane="0"/>
+    <vehicle id="ego"  type="t0" route="r0" departPos="-200" departLane="0" departPosLat="center"  depart="0" arrivalLane="0"/>
+
+</routes>
