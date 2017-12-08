@@ -1368,7 +1368,7 @@ PositionVector::interpolateZ(double zStart, double zEnd) const {
     const double dz = zEnd - zStart;
     const double length = length2D();
     double seen = 0;
-    for (int i = 1; i < size() - 1; ++i) {
+    for (int i = 1; i < (int)size() - 1; ++i) {
         seen += result[i].distanceTo2D(result[i - 1]);
         result[i].setz(zStart + dz * seen / length);
     }

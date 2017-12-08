@@ -1243,15 +1243,14 @@ GNEEdge::hasRestrictedLane(SUMOVehicleClass vclass) const {
 
 void
 GNEEdge::removeEdgeFromCrossings(GNEJunction* junction, GNEUndoList* undoList) {
-    // obtain a copy of Crossings
-    auto crossings = junction->getGNECrossings();
     // Remove all crossings that contain this edge in parameter "edges"
-    for (auto i : crossings) {
+    for (GNECrossing* const i : junction->getGNECrossings()) {
         if (i->checkEdgeBelong(this)) {
             myNet->deleteCrossing(i, undoList);
         }
     }
 }
+
 
 void
 GNEEdge::straightenElevation(GNEUndoList* undoList) {
@@ -1259,8 +1258,9 @@ GNEEdge::straightenElevation(GNEUndoList* undoList) {
             myNBEdge.getFromNode()->getPosition().z(),
             myNBEdge.getToNode()->getPosition().z());
     PositionVector innerShape(modifiedShape.begin() + 1, modifiedShape.end() - 1);
-    setAttribute(SUMO_ATTR_SHAPE, toString(innerShape), myNet->getViewNet()->getUndoList());
+    setAttribute(SUMO_ATTR_SHAPE, toString(innerShape), undoList);
 }
+
 
 PositionVector
 GNEEdge::smooth(GNEUndoList* undoList, bool forElevation) {
@@ -1269,7 +1269,6 @@ GNEEdge::smooth(GNEUndoList* undoList, bool forElevation) {
     // b) if the edge has more than 4 points, use the first 2 and the last 2 as control points
     // c) if the edge is straight and both nodes are geometry-like nodes, use geometry of the continuation edges as control points
     const PositionVector& old = myNBEdge.getGeometry();
-    bool ok = true;
     PositionVector init;
     if (old.size() == 3 || old.size() == 4) {
         init = old;
@@ -1338,10 +1337,11 @@ GNEEdge::smoothElevation(GNEUndoList* undoList) {
             modifiedShape[i].setz(elevation[i].z());
         }
         PositionVector innerShape(modifiedShape.begin() + 1, modifiedShape.end() - 1);
-        setAttribute(SUMO_ATTR_SHAPE, toString(innerShape), myNet->getViewNet()->getUndoList());
+        setAttribute(SUMO_ATTR_SHAPE, toString(innerShape), undoList);
     } else {
         WRITE_WARNING("Could not compute smooth elevation for edge '" + getID() + "'");
     }
 }
+
 
 /****************************************************************************/

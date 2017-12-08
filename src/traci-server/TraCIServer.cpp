@@ -654,7 +654,7 @@ TraCIServer::execute(std::string cmd) {
         return std::string(myInstance->myOutputStorage.begin(), myInstance->myOutputStorage.end());
     } catch (std::invalid_argument& e) {
         throw ProcessError(e.what());
-    } catch (TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         throw ProcessError(e.what());
     } catch (tcpip::SocketException& e) {
         throw ProcessError(e.what());
