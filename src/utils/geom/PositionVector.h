@@ -382,8 +382,8 @@ public:
     /// @brief returned vector that varies z smoothly over its length
     PositionVector interpolateZ(double zStart, double zEnd) const;
 
-    /// @brief insert points to ensure maximum segment length
-    PositionVector withMaxLength(double maxLength) const;
+    /// @brief resample shape with the given number of points (equal spacing)
+    PositionVector resample(double maxLength) const;
 
     /// @brief return the offset at the given index
     double offsetAtIndex2D(int index) const;
