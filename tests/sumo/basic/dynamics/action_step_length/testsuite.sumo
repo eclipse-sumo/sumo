@@ -1,3 +1,6 @@
+# Merging on highway with sublane model / actionstep / ballistic combination.
+ticket3696
+
 # Tests for lane changing
 # behaviour with action step > simstep
 LC_dynamics

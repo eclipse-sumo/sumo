@@ -1,7 +1,7 @@
 <routes>
-    <vType id="bike" vClass="bicycle" latAlignment="right"/>
-    <vType id="car" vClass="passenger" latAlignment="arbitrary"/>
-    <vType id="car2" vClass="passenger" latAlignment="right"/>
+    <vType id="bike" vClass="bicycle" latAlignment="right" actionStepLength="0.2"/>
+    <vType id="car" vClass="passenger" latAlignment="arbitrary" actionStepLength="0.2"/>
+    <vType id="car2" vClass="passenger" latAlignment="right" actionStepLength="0.2"/>
 
     <route id="r0" edges="beg"/>
 

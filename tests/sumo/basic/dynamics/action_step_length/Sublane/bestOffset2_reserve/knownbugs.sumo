@@ -14,3 +14,10 @@ ignore_other_errors:1
 bug_id:TODO
 full_description:TODO
 brief_description:TODO
+
+[Reported by leo at 08Dez14:22:25]
+search_string:.*
+search_file:tripinfos
+bug_id:#3699
+full_description:#3699
+brief_description:#3699

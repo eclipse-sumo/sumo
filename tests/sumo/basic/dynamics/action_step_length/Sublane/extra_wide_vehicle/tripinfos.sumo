@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov  2 10:46:16 2017 by SUMO Version v0_31_0-860-g677ac9f
+<!-- generated on Fr 08 Dez 2017 13:42:57 CET by SUMO gui Version UNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -14,19 +14,31 @@
         <tripinfo-output value="tripinfos.xml"/>
     </output>
 
+    <time>
+        <step-length value="0.1"/>
+    </time>
+
     <processing>
+        <step-method.ballistic value="true"/>
         <lateral-resolution value="0.8"/>
+        <default.action-step-length value="1"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
+        <message-log value="stdout"/>
+        <error-log value="stderr"/>
         <no-step-log value="true"/>
     </report>
+
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
 
 </configuration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="car" depart="0.00" departLane="beg_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="51.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalPosLat="0.00" arrivalSpeed="13.25" duration="51.00" routeLength="500.00" waitSteps="0" timeLoss="8.97" rerouteNo="0" devices="tripinfo_car" vType="car" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="wide" depart="3.00" departLane="beg_1" departPos="0.00" departPosLat="-0.40" departSpeed="0.00" departDelay="1.00" arrival="53.00" arrivalLane="beg_1" arrivalPos="500.00" arrivalPosLat="-0.40" arrivalSpeed="16.46" duration="50.00" routeLength="500.00" waitSteps="3" timeLoss="25.64" rerouteNo="0" devices="tripinfo_wide" vType="wide_car" speedFactor="1.50" vaporized=""/>
+    <tripinfo id="car" depart="0.00" departLane="beg_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="52.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalPosLat="0.00" arrivalSpeed="13.25" duration="52.00" routeLength="500.00" waitSteps="8" timeLoss="9.91" rerouteNo="0" devices="tripinfo_car" vType="car" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="wide" depart="2.60" departLane="beg_1" departPos="0.00" departPosLat="-0.40" departSpeed="0.00" departDelay="0.60" arrival="53.70" arrivalLane="beg_1" arrivalPos="500.00" arrivalPosLat="-0.40" arrivalSpeed="15.42" duration="51.10" routeLength="500.00" waitSteps="42" timeLoss="27.03" rerouteNo="0" devices="tripinfo_wide" vType="wide_car" speedFactor="1.50" vaporized=""/>
 </tripinfos>
