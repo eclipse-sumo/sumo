@@ -410,6 +410,7 @@ MSAbstractLaneChangeModel::removeShadowApproachingInformation() const {
 void
 MSAbstractLaneChangeModel::checkTraCICommands() {
     int newstate = myVehicle.influenceChangeDecision(myOwnState);
+    int oldstate = myVehicle.getLaneChangeModel().getOwnState();
     if (myOwnState != newstate) {
         if (MSGlobals::gLateralResolution > 0.) {
             // Calculate and set the lateral maneuver distance corresponding to the change request
@@ -446,7 +447,7 @@ MSAbstractLaneChangeModel::checkTraCICommands() {
         }
     }
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " veh=" << myVehicle.getID() << " stateAfterTraCI=" << toString((LaneChangeAction)newstate) << " original=" << toString((LaneChangeAction)myOwnState) << "\n";
+        std::cout << SIMTIME << " veh=" << myVehicle.getID() << " stateAfterTraCI=" << toString((LaneChangeAction)newstate) << " original=" << toString((LaneChangeAction)oldstate) << "\n";
     }
 }
 
