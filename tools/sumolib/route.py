@@ -43,7 +43,7 @@ def mapTrace(trace, net, delta, verbose=False):
         newPaths = {}
         candidates = net.getNeighboringEdges(pos[0], pos[1], delta)
         if len(candidates) == 0 and verbose:
-            print("Found no candidate edges for %s" % pos)
+            print("Found no candidate edges for %s,%s" % pos)
         for edge, d in candidates:
             base = polygonOffsetWithMinimumDistanceToPoint(pos, edge.getShape())
             if paths:
