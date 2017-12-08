@@ -1322,7 +1322,7 @@ GNEEdge::smooth(GNEUndoList* undoList, bool forElevation) {
             return old;
         }
     } else {
-        const int numPoints = MAX2(oc.getInt("junctions.internal-link-detail"), 
+        const int numPoints = MAX2(oc.getInt("junctions.internal-link-detail"),
                 int(old.length2D() / oc.getFloat("opendrive.curve-resolution")));
         PositionVector modifiedShape = bezier(init, numPoints);
         if (undoList != 0 && modifiedShape.size() > 2) {
