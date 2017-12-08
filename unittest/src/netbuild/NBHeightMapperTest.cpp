@@ -54,11 +54,11 @@ protected :
 /* Test the method 'getZ'*/
 TEST_F(NBHeightMapperTest, test_method_getZ) {
     const NBHeightMapper &hm = NBHeightMapper::get();
-	EXPECT_TRUE(hm.ready());
-	EXPECT_FLOAT_EQ(0, hm.getZ(Position(0.25,0.25)));
-	EXPECT_FLOAT_EQ(1, hm.getZ(Position(0.75,0.75)));
-	EXPECT_FLOAT_EQ(2, hm.getZ(Position(1.5,0.5)));
-	//EXPECT_FLOAT_EQ(0.5, hm.getZ(Position(0.5,0.5, 100)));
+    EXPECT_TRUE(hm.ready());
+    EXPECT_DOUBLE_EQ(0., hm.getZ(Position(0.25, 0.25)));
+    EXPECT_DOUBLE_EQ(1., hm.getZ(Position(0.75, 0.75)));
+    EXPECT_DOUBLE_EQ(2., hm.getZ(Position(1.5, 0.5)));
+    //EXPECT_DOUBLE_EQ(0.5, hm.getZ(Position(0.5, 0.5, 100)));
 }
 
 
