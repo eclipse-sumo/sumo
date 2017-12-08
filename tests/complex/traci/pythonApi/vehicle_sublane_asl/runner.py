@@ -73,7 +73,7 @@ traci.vehicle.setSpeed(vehID, -1)
 for i in range(10):
     step = traci.simulation.getCurrentTime()
     traci.simulationStep(step + 1000)
-traci.vehicle.sublaneChange(vehID, 1.6)
+traci.vehicle.changeSublane(vehID, 1.6)
 for i in range(10):
     step = traci.simulation.getCurrentTime()
     traci.simulationStep(step + 1000)
