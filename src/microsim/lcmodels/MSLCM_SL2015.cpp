@@ -280,15 +280,15 @@ MSLCM_SL2015::setOwnState(const int state) {
 
 void
 MSLCM_SL2015::setManeuverDist(const double dist) {
-    myManeuverDist = dist;
 #ifdef DEBUG_MANEUVER
     if DEBUG_COND {
         std::cout << SIMTIME
                   << " veh=" << myVehicle.getID()
-                  << " myManeuverDist=" << myManeuverDist
+                  << " setManeuverDist() old=" << myManeuverDist << " new=" << dist
                   << std::endl;
     }
 #endif
+    myManeuverDist = dist;
 }
 
 
