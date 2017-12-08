@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed Dec  6 23:10:38 2017" north="200.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Dec  8 10:55:07 2017" north="200.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="91.95000000" id="50" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -1162,86 +1162,87 @@
         <objects/>
         <signals/>
     </road>
+
     <junction name="C" id="1">
-    <connection id="0" incomingRoad="56" connectingRoad="58" contactPoint="start">
-        <laneLink from="-2" to="-1"/>
-    </connection>
-    <connection id="1" incomingRoad="56" connectingRoad="59" contactPoint="start">
-        <laneLink from="-2" to="-1"/>
-    </connection>
-    <connection id="2" incomingRoad="56" connectingRoad="59" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
-    <connection id="3" incomingRoad="56" connectingRoad="60" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
-    <connection id="4" incomingRoad="56" connectingRoad="61" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
-    <connection id="5" incomingRoad="54" connectingRoad="62" contactPoint="start">
-        <laneLink from="-2" to="-1"/>
-    </connection>
-    <connection id="6" incomingRoad="54" connectingRoad="63" contactPoint="start">
-        <laneLink from="-2" to="-1"/>
-    </connection>
-    <connection id="7" incomingRoad="54" connectingRoad="63" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
-    <connection id="8" incomingRoad="54" connectingRoad="64" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
-    <connection id="9" incomingRoad="54" connectingRoad="65" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
-    <connection id="10" incomingRoad="55" connectingRoad="66" contactPoint="start">
-        <laneLink from="-2" to="-1"/>
-    </connection>
-    <connection id="11" incomingRoad="55" connectingRoad="67" contactPoint="start">
-        <laneLink from="-2" to="-1"/>
-    </connection>
-    <connection id="12" incomingRoad="55" connectingRoad="67" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
-    <connection id="13" incomingRoad="55" connectingRoad="68" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
-    <connection id="14" incomingRoad="55" connectingRoad="69" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
-    <connection id="15" incomingRoad="57" connectingRoad="70" contactPoint="start">
-        <laneLink from="-2" to="-1"/>
-    </connection>
-    <connection id="16" incomingRoad="57" connectingRoad="71" contactPoint="start">
-        <laneLink from="-2" to="-1"/>
-    </connection>
-    <connection id="17" incomingRoad="57" connectingRoad="71" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
-    <connection id="18" incomingRoad="57" connectingRoad="72" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
-    <connection id="19" incomingRoad="57" connectingRoad="73" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
+        <connection id="0" incomingRoad="56" connectingRoad="58" contactPoint="start">
+            <laneLink from="-2" to="-2"/>
+        </connection>
+        <connection id="1" incomingRoad="56" connectingRoad="59" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
+        <connection id="2" incomingRoad="56" connectingRoad="59" contactPoint="start">
+            <laneLink from="-2" to="-2"/>
+        </connection>
+        <connection id="3" incomingRoad="56" connectingRoad="60" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
+        <connection id="4" incomingRoad="56" connectingRoad="61" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
+        <connection id="5" incomingRoad="54" connectingRoad="62" contactPoint="start">
+            <laneLink from="-2" to="-2"/>
+        </connection>
+        <connection id="6" incomingRoad="54" connectingRoad="63" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
+        <connection id="7" incomingRoad="54" connectingRoad="63" contactPoint="start">
+            <laneLink from="-2" to="-2"/>
+        </connection>
+        <connection id="8" incomingRoad="54" connectingRoad="64" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
+        <connection id="9" incomingRoad="54" connectingRoad="65" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
+        <connection id="10" incomingRoad="55" connectingRoad="66" contactPoint="start">
+            <laneLink from="-2" to="-2"/>
+        </connection>
+        <connection id="11" incomingRoad="55" connectingRoad="67" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
+        <connection id="12" incomingRoad="55" connectingRoad="67" contactPoint="start">
+            <laneLink from="-2" to="-2"/>
+        </connection>
+        <connection id="13" incomingRoad="55" connectingRoad="68" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
+        <connection id="14" incomingRoad="55" connectingRoad="69" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
+        <connection id="15" incomingRoad="57" connectingRoad="70" contactPoint="start">
+            <laneLink from="-2" to="-2"/>
+        </connection>
+        <connection id="16" incomingRoad="57" connectingRoad="71" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
+        <connection id="17" incomingRoad="57" connectingRoad="71" contactPoint="start">
+            <laneLink from="-2" to="-2"/>
+        </connection>
+        <connection id="18" incomingRoad="57" connectingRoad="72" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
+        <connection id="19" incomingRoad="57" connectingRoad="73" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
     </junction>
     <junction name="E" id="2">
-    <connection id="0" incomingRoad="50" connectingRoad="74" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
+        <connection id="0" incomingRoad="50" connectingRoad="74" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
     </junction>
     <junction name="N" id="3">
-    <connection id="0" incomingRoad="51" connectingRoad="75" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
+        <connection id="0" incomingRoad="51" connectingRoad="75" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
     </junction>
     <junction name="S" id="4">
-    <connection id="0" incomingRoad="52" connectingRoad="76" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
+        <connection id="0" incomingRoad="52" connectingRoad="76" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
     </junction>
     <junction name="W" id="5">
-    <connection id="0" incomingRoad="53" connectingRoad="77" contactPoint="start">
-        <laneLink from="-1" to="-1"/>
-    </connection>
+        <connection id="0" incomingRoad="53" connectingRoad="77" contactPoint="start">
+            <laneLink from="-1" to="-1"/>
+        </connection>
     </junction>
 </OpenDRIVE>
