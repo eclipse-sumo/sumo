@@ -1309,6 +1309,7 @@ GNEEdge::smooth(GNEUndoList* undoList, bool forElevation) {
             init[1].setz(2 * init[0].z() - begZ);
             init[2].setz(2 * init[-1].z() - endZ);
         } else {
+            bool ok = true;
             const double straightThresh = DEG2RAD(oc.getFloat("opendrive-output.straight-threshold"));
             init = NBNode::bezierControlPoints(begShape, endShape, false, dist, dist, ok, 0, straightThresh);
             //std::cout << getID() << " smooth: dist=" << dist << " init=" << init << "\n";
