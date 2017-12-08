@@ -69,10 +69,11 @@ protected:
             const bool origNames,
             const double straightThresh);
 
-    /// @brief write internal edge to device
-    static void writeInternalEdge(OutputDevice& device, 
+    /// @brief write internal edge to device, return next connectionID
+    static int writeInternalEdge(OutputDevice& device, OutputDevice& junctionDevice, 
             const NBEdge* inEdge, int nodeID,
             int edgeID, int inEdgeID, int outEdgeID,
+            int connectionID,
             const std::vector<NBEdge::Connection>& parallel,
             const bool isOuterEdge,
             const double straightThresh);

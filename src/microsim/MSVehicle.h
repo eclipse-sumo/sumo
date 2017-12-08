@@ -440,6 +440,11 @@ public:
      */
     double getRightSideOnLane() const;
 
+    /** @brief Get the minimal lateral distance required to move fully onto the lane at given offset
+     * @return The lateral distance to be covered to move the vehicle fully onto the lane (in m)
+     */
+    double lateralDistanceToLane(const int offset) const;
+
     /// @brief return the amount by which the vehicle extends laterally outside it's primary lane
     double getLateralOverlap() const;
     double getLateralOverlap(double posLat) const;
@@ -1445,6 +1450,10 @@ public:
 
         double getLatDist() const {
             return myLatDist;
+        }
+
+        void resetLatDist() {
+            myLatDist = 0.;
         }
 
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT() const;

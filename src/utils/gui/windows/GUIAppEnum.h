@@ -505,6 +505,8 @@ enum {
     MID_GNE_VIEWNET_SELECT_EDGES,
     /// @brief show junctions as bubbles
     MID_GNE_VIEWNET_SHOW_BUBBLES,
+    /// @brief move elevation instead of x,y
+    MID_GNE_VIEWNET_MOVE_ELEVATION,
     /// @brief show grid
     MID_GNE_VIEWNET_SHOW_GRID,
     /// @}

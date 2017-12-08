@@ -71,6 +71,9 @@ public:
 
         ChangeElem(MSLane* _lane);
 
+        /// @brief Register that vehicle belongs to Changer Item to after LC decisions
+        void registerHop(MSVehicle* vehicle);
+
         /// the vehicle in front of the current vehicle
         MSVehicle*                lead;
         /// the lane the vehicle is on
@@ -152,6 +155,15 @@ protected:
 
     /** Update changer for vehicles that did not change */
     void registerUnchanged(MSVehicle* vehicle);
+
+    /// @brief Take into account traci LC-commands.
+    /// @note This is currently only used within non-actionsteps.
+    void checkTraCICommands(MSVehicle* vehicle);
+
+    /// @brief Execute TraCI LC-commands.
+    /// @note This is currently only used within non-actionsteps for the non-sublane model.
+    /// @return whether lane was changed
+    bool applyTraCICommands(MSVehicle* vehicle);
 
     /** After the possible change, update the changer. */
     virtual void updateChanger(bool vehHasChanged);

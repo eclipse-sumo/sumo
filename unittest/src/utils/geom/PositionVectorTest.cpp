@@ -119,7 +119,7 @@ TEST_F(PositionVectorTest, test_method_scaleRelative) {
     expected.push_back(Position(-1,-1));
 
     EXPECT_EQ(expected.getCentroid(), square.getCentroid());
-    for (size_t i = 0; i < square.size(); i++) {
+    for (int i = 0; i < (int)square.size(); i++) {
         EXPECT_DOUBLE_EQ(expected[i].x(), square[i].x());
         EXPECT_DOUBLE_EQ(expected[i].y(), square[i].y());
     }
@@ -167,64 +167,64 @@ TEST_F(PositionVectorTest, test_method_splitAt) {
     std::pair<PositionVector, PositionVector> result;
     // split in first segment
     result = vec.splitAt(1);
-	EXPECT_DOUBLE_EQ(2, result.first.size());
-	EXPECT_DOUBLE_EQ(0, result.first[0].x());
-	EXPECT_DOUBLE_EQ(1, result.first[1].x());
-	EXPECT_DOUBLE_EQ(3, result.second.size());
-	EXPECT_DOUBLE_EQ(1, result.second[0].x());
-	EXPECT_DOUBLE_EQ(2, result.second[1].x());
-	EXPECT_DOUBLE_EQ(5, result.second[2].x());
+	EXPECT_EQ(2, result.first.size());
+	EXPECT_DOUBLE_EQ(0., result.first[0].x());
+	EXPECT_DOUBLE_EQ(1., result.first[1].x());
+	EXPECT_EQ(3, result.second.size());
+	EXPECT_DOUBLE_EQ(1., result.second[0].x());
+	EXPECT_DOUBLE_EQ(2., result.second[1].x());
+	EXPECT_DOUBLE_EQ(5., result.second[2].x());
     // split in second segment
     result = vec.splitAt(4);
-	EXPECT_DOUBLE_EQ(3, result.first.size());
-	EXPECT_DOUBLE_EQ(0, result.first[0].x());
-	EXPECT_DOUBLE_EQ(2, result.first[1].x());
-	EXPECT_DOUBLE_EQ(4, result.first[2].x());
-	EXPECT_DOUBLE_EQ(2, result.second.size());
-	EXPECT_DOUBLE_EQ(4, result.second[0].x());
-	EXPECT_DOUBLE_EQ(5, result.second[1].x());
+	EXPECT_EQ(3, result.first.size());
+	EXPECT_DOUBLE_EQ(0., result.first[0].x());
+	EXPECT_DOUBLE_EQ(2., result.first[1].x());
+	EXPECT_DOUBLE_EQ(4., result.first[2].x());
+	EXPECT_EQ(2, result.second.size());
+	EXPECT_DOUBLE_EQ(4., result.second[0].x());
+	EXPECT_DOUBLE_EQ(5., result.second[1].x());
     // split close before inner point
     result = vec.splitAt(2 - smallDiff);
-	EXPECT_DOUBLE_EQ(2, result.first.size());
-	EXPECT_DOUBLE_EQ(0, result.first[0].x());
-	EXPECT_DOUBLE_EQ(2, result.first[1].x());
-	EXPECT_DOUBLE_EQ(2, result.second.size());
-	EXPECT_DOUBLE_EQ(2, result.second[0].x());
-	EXPECT_DOUBLE_EQ(5 ,result.second[1].x());
+	EXPECT_EQ(2, result.first.size());
+	EXPECT_DOUBLE_EQ(0., result.first[0].x());
+	EXPECT_DOUBLE_EQ(2., result.first[1].x());
+	EXPECT_EQ(2, result.second.size());
+	EXPECT_DOUBLE_EQ(2., result.second[0].x());
+	EXPECT_DOUBLE_EQ(5., result.second[1].x());
     // split close after inner point
     result = vec.splitAt(2 + smallDiff);
-	EXPECT_DOUBLE_EQ(2, result.first.size());
-	EXPECT_DOUBLE_EQ(0, result.first[0].x());
-	EXPECT_DOUBLE_EQ(2, result.first[1].x());
-	EXPECT_DOUBLE_EQ(2, result.second.size());
-	EXPECT_DOUBLE_EQ(2, result.second[0].x());
-	EXPECT_DOUBLE_EQ(5 ,result.second[1].x());
+	EXPECT_EQ(2, result.first.size());
+	EXPECT_DOUBLE_EQ(0., result.first[0].x());
+	EXPECT_DOUBLE_EQ(2., result.first[1].x());
+	EXPECT_EQ(2, result.second.size());
+	EXPECT_DOUBLE_EQ(2., result.second[0].x());
+	EXPECT_DOUBLE_EQ(5., result.second[1].x());
 
     // catch a bug
     vec.push_back(Position(6,0));
     vec.push_back(Position(8,0));
     // split at inner point
     result = vec.splitAt(5);
-	EXPECT_DOUBLE_EQ(3, result.first.size());
-	EXPECT_DOUBLE_EQ(0, result.first[0].x());
-	EXPECT_DOUBLE_EQ(2, result.first[1].x());
-	EXPECT_DOUBLE_EQ(5, result.first[2].x());
-	EXPECT_DOUBLE_EQ(3, result.second.size());
-	EXPECT_DOUBLE_EQ(5, result.second[0].x());
-	EXPECT_DOUBLE_EQ(6 ,result.second[1].x());
-	EXPECT_DOUBLE_EQ(8 ,result.second[2].x());
+	EXPECT_EQ(3, result.first.size());
+	EXPECT_DOUBLE_EQ(0., result.first[0].x());
+	EXPECT_DOUBLE_EQ(2., result.first[1].x());
+	EXPECT_DOUBLE_EQ(5., result.first[2].x());
+	EXPECT_EQ(3, result.second.size());
+	EXPECT_DOUBLE_EQ(5., result.second[0].x());
+	EXPECT_DOUBLE_EQ(6., result.second[1].x());
+	EXPECT_DOUBLE_EQ(8., result.second[2].x());
 
     // split short vector
     PositionVector vec2;
     vec2.push_back(Position(0,0));
     vec2.push_back(Position(2,0));
     result = vec2.splitAt(1);
-	EXPECT_DOUBLE_EQ(2, result.first.size());
-	EXPECT_DOUBLE_EQ(0, result.first[0].x());
-	EXPECT_DOUBLE_EQ(1, result.first[1].x());
-	EXPECT_DOUBLE_EQ(2, result.second.size());
-	EXPECT_DOUBLE_EQ(1, result.second[0].x());
-	EXPECT_DOUBLE_EQ(2 ,result.second[1].x());
+	EXPECT_EQ(2, result.first.size());
+	EXPECT_DOUBLE_EQ(0., result.first[0].x());
+	EXPECT_DOUBLE_EQ(1., result.first[1].x());
+	EXPECT_EQ(2, result.second.size());
+	EXPECT_DOUBLE_EQ(1., result.second[0].x());
+	EXPECT_DOUBLE_EQ(2. ,result.second[1].x());
 
     // split very short vector
     PositionVector vec3;
@@ -235,12 +235,12 @@ TEST_F(PositionVectorTest, test_method_splitAt) {
     result = vec3.splitAt(smallDiff);
     MsgHandler::getWarningInstance()->addRetriever(&OutputDevice::getDevice("stderr"));
 
-	EXPECT_DOUBLE_EQ(2, result.first.size());
-	EXPECT_DOUBLE_EQ(0, result.first[0].x());
+	EXPECT_EQ(2, result.first.size());
+	EXPECT_DOUBLE_EQ(0., result.first[0].x());
 	EXPECT_DOUBLE_EQ(smallDiff, result.first[1].x());
-	EXPECT_DOUBLE_EQ(2, result.second.size());
+	EXPECT_EQ(2, result.second.size());
 	EXPECT_DOUBLE_EQ(smallDiff, result.second[0].x());
-	EXPECT_DOUBLE_EQ(POSITION_EPS ,result.second[1].x());
+	EXPECT_DOUBLE_EQ(POSITION_EPS, result.second[1].x());
 }
 
 

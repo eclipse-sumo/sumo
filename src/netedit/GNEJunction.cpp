@@ -457,10 +457,8 @@ GNEJunction::moveGeometry(const Position & oldPos, const Position & offset) {
         }
     }
     if(!abort) {
-        // calculate new position maintaining Z
         Position newPosition = oldPos;
         newPosition.add(offset);
-        newPosition.setz(myNBNode.getPosition().z());
         moveJunctionGeometry(newPosition);
     }
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Dec  8 10:33:45 2017 by SUMO Version UNKNOWN
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <lanechange-output value="lanechanges.xml"/>
+        <lanechange-output.started value="true"/>
+        <lanechange-output.ended value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <lateral-resolution value="3.2"/>
+        <default.action-step-length value="1"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="53923"/>
+    </traci_server>
+
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<lanechanges>
+    <changeStarted id="v0" type="t0" time="0.10" from="beg_0" to="beg_0" dir="0" speed="0.26" pos="5.11" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="0.20" from="beg_0" to="beg_0" dir="0" speed="0.52" pos="5.15" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="0.30" from="beg_0" to="beg_0" dir="0" speed="0.78" pos="5.22" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="0.40" from="beg_0" to="beg_0" dir="0" speed="1.04" pos="5.31" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="0.50" from="beg_0" to="beg_0" dir="0" speed="1.30" pos="5.42" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="0.60" from="beg_0" to="beg_0" dir="0" speed="1.56" pos="5.57" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="0.70" from="beg_0" to="beg_0" dir="0" speed="1.82" pos="5.74" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="0.80" from="beg_0" to="beg_0" dir="0" speed="2.08" pos="5.93" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="0.90" from="beg_0" to="beg_0" dir="0" speed="2.34" pos="6.15" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="1.00" from="beg_0" to="beg_0" dir="0" speed="2.60" pos="6.40" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="v0" type="t0" time="2.10" from="beg_0" to="beg_1" dir="1" speed="5.46" pos="10.83" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeEnded id="v0" type="t0" time="3.60" from="beg_1" to="beg_1" dir="0" speed="9.36" pos="21.95" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="v0" type="t0" time="31.90" from="beg_1" to="beg_0" dir="-1" speed="13.89" pos="255.94" reason="traci" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeEnded id="v0" type="t0" time="33.40" from="beg_0" to="beg_0" dir="0" speed="13.89" pos="276.78" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="60.60" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="492.78" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="60.70" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="494.17" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="60.80" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="495.56" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="60.90" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="496.95" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="61.00" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="498.34" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="v0" type="t0" time="61.90" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="510.84" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="63.10" from="beg_1" to="beg_1" dir="0" speed="13.89" pos="527.51" reason="traci" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="63.20" from="beg_1" to="beg_1" dir="0" speed="13.89" pos="528.90" reason="traci" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="63.30" from="beg_1" to="beg_1" dir="0" speed="13.89" pos="530.29" reason="traci" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="63.40" from="beg_1" to="beg_1" dir="0" speed="13.89" pos="531.68" reason="traci" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="63.50" from="beg_1" to="beg_1" dir="0" speed="13.89" pos="533.06" reason="traci" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="63.60" from="beg_1" to="beg_1" dir="0" speed="13.89" pos="534.45" reason="traci" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="63.70" from="beg_1" to="beg_0" dir="-1" speed="13.89" pos="535.84" reason="traci" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeEnded id="v0" type="t0" time="63.70" from="beg_1" to="beg_0" dir="-1" speed="13.89" pos="535.84" reason="traci" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+</lanechanges>

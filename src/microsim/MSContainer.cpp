@@ -95,15 +95,13 @@ MSContainer::MSContainerStage_Driving::getStageDescription() const {
 
 void
 MSContainer::MSContainerStage_Driving::tripInfoOutput(OutputDevice& os, MSTransportable*) const {
-    const SUMOTime waitingTime = myDeparted - myWaitingSince;
-    const SUMOTime duration = myArrived - myDeparted;
     os.openTag("transport");
     os.writeAttr("waitingTime", time2string(myDeparted - myWaitingSince));
     os.writeAttr("vehicle", myVehicleID);
     os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", time2string(myArrived));
     os.writeAttr("arrivalPos", toString(myArrivalPos));
-    os.writeAttr("duration", time2string(duration));
+    os.writeAttr("duration", time2string(myArrived - myDeparted));
     os.writeAttr("routeLength", myVehicleDistance);
     os.closeTag();
 }

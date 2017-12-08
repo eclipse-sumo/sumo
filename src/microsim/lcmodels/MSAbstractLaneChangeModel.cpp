@@ -406,6 +406,51 @@ MSAbstractLaneChangeModel::removeShadowApproachingInformation() const {
 }
 
 
+
+void
+MSAbstractLaneChangeModel::checkTraCICommands() {
+    int newstate = myVehicle.influenceChangeDecision(myOwnState);
+    int oldstate = myVehicle.getLaneChangeModel().getOwnState();
+    if (myOwnState != newstate) {
+        if (MSGlobals::gLateralResolution > 0.) {
+            // Calculate and set the lateral maneuver distance corresponding to the change request
+            // to induce a corresponding sublane change.
+            const int dir = (newstate & LCA_RIGHT) != 0 ? -1 : ((newstate & LCA_LEFT) != 0 ? 1 : 0);
+            // minimum distance to move the vehicle fully onto the lane at offset dir
+            const double latLaneDist = myVehicle.lateralDistanceToLane(dir);
+            if ((newstate & LCA_TRACI) != 0) {
+                if ((newstate & LCA_STAY) != 0) {
+                    setManeuverDist(0.);
+                } else if (((newstate & LCA_RIGHT) != 0 && dir < 0)
+                        || ((newstate & LCA_LEFT) != 0 && dir > 0)) {
+                    setManeuverDist(latLaneDist);
+                }
+            }
+            if (myVehicle.hasInfluencer()) {
+                // lane change requests override sublane change requests
+                myVehicle.getInfluencer().resetLatDist();
+            }
+
+        }
+        setOwnState(newstate);
+    } else {
+        // Check for sublane change requests
+        if (myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0) {
+            const double maneuverDist = myVehicle.getInfluencer().getLatDist();
+            myVehicle.getLaneChangeModel().setManeuverDist(maneuverDist);
+            myVehicle.getInfluencer().resetLatDist();
+            newstate |= LCA_TRACI;
+            if (myOwnState != newstate) {
+                setOwnState(newstate);
+            }
+            if (gDebugFlag2) std::cout << "     traci influenced maneuverDist=" << maneuverDist << "\n";
+        }
+    }
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << myVehicle.getID() << " stateAfterTraCI=" << toString((LaneChangeAction)newstate) << " original=" << toString((LaneChangeAction)oldstate) << "\n";
+    }
+}
+
 void
 MSAbstractLaneChangeModel::changedToOpposite() {
     myAmOpposite = !myAmOpposite;
