@@ -1074,6 +1074,10 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
         Position offsetMovement;
         if(myVisualizationSettings->showGrid) {
             offsetMovement = snapToActiveGrid(getPositionInformation()) - myMovingOriginalPosition;
+            if (myMenuCheckMoveElevation->getCheck()) {
+                const double dist = int((offsetMovement.y() + offsetMovement.x()) / myVisualizationSettings->gridXSize) * myVisualizationSettings->gridXSize;
+                offsetMovement = Position(0, 0, dist / 10);
+            }
         } else {
             offsetMovement = getPositionInformation() - myMovingReference;
             if (myMenuCheckMoveElevation->getCheck()) {
