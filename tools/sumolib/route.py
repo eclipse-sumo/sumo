@@ -53,18 +53,19 @@ def mapTrace(trace, net, delta, verbose=False):
                 for path, (dist, lastBase) in paths.items():
                     if dist < minDist:
                         if edge == path[-1]:
-                            minPath = path
                             baseDiff = lastBase + advance - base
                         elif edge in path[-1].getOutgoing():
-                            minPath = path + (edge,)
                             baseDiff = lastBase + advance - path[-1].getLength() - base
+                            path += (edge,)
                         else:
-                            minPath = path + (edge,)
                             airLineDist = euclidean(
                                 path[-1].getToNode().getCoord(),
                                 edge.getFromNode().getCoord())
                             baseDiff = lastBase + advance - path[-1].getLength() - base - airLineDist
-                        minDist = dist + baseDiff * baseDiff
+                            path += (edge,)
+                        if dist + baseDiff * baseDiff < minDist:
+                            minDist = dist + baseDiff * baseDiff
+                            minPath = path
                 if minPath:
                     newPaths[minPath] = (minDist, base)
             else:
