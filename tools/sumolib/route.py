@@ -35,7 +35,7 @@ def mapTrace(trace, net, delta, verbose=False):
     """
     matching a list of 2D positions to consecutive edges in a network
     """
-    result = []
+    result = ()
     paths = {}
     if verbose:
         print("mapping trace with %s points" % len(trace))
@@ -56,25 +56,23 @@ def mapTrace(trace, net, delta, verbose=False):
                             baseDiff = lastBase + advance - base
                         elif edge in path[-1].getOutgoing():
                             baseDiff = lastBase + advance - path[-1].getLength() - base
-                            path += (edge,)
                         else:
                             airLineDist = euclidean(
                                 path[-1].getToNode().getCoord(),
                                 edge.getFromNode().getCoord())
                             baseDiff = lastBase + advance - path[-1].getLength() - base - airLineDist
-                            path += (edge,)
                         if dist + baseDiff * baseDiff < minDist:
                             minDist = dist + baseDiff * baseDiff
-                            minPath = path
+                            minPath = path if edge == path[-1] else path + (edge,)
                 if minPath:
                     newPaths[minPath] = (minDist, base)
             else:
                 newPaths[(edge,)] = (d * d, base)
         if not newPaths:
             if paths:
-                result += [e.getID() for e in _getMinPath(paths)]
+                result += _getMinPath(paths)
         paths = newPaths
         lastPos = pos
     if paths:
-        return result + [e.getID() for e in _getMinPath(paths)]
+        return result + _getMinPath(paths)
     return result

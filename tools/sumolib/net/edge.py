@@ -131,7 +131,7 @@ class Edge:
             xmax = max(xmax, p[0])
             ymin = min(ymin, p[1])
             ymax = max(ymax, p[1])
-        assert(xmin != xmax or ymin != ymax)
+        assert(xmin != xmax or ymin != ymax or self._function == "internal")
         return (xmin, ymin, xmax, ymax)
 
     def getClosestLanePosDist(self, point, perpendicular=False):

@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
     if options.verbose:
         print("Reading net ...")
-    net = sumolib.net.readNet(options.net)
+    net = sumolib.net.readNet(options.net, withInternal=True)
 
     if options.verbose:
         print("Reading traces ...")
@@ -64,7 +64,7 @@ if __name__ == "__main__":
                 if options.poi_output is not None:
                     for idx, pos in enumerate(trace):
                         poiOut.write('<poi id="%s:%s" x="%s" y="%s"/>\n' % (id, idx, pos[0], pos[1]))
-                edges = sumolib.route.mapTrace(trace, net, options.delta, options.verbose)
+                edges = [e.getID() for e in sumolib.route.mapTrace(trace, net, options.delta, options.verbose) if e.getFunction() != "internal"]
                 outf.write('    <route id="%s" edges="%s"/>\n' % (id, " ".join(edges)))
         outf.write('</routes>\n')
         if options.poi_output is not None:
