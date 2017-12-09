@@ -175,10 +175,9 @@ namespace libsumo {
 
         static void postProcessVTD();
 
+        static void cleanup(); 
 
     private:
-
-        static void cleanup(); 
 
         SubscribedValues mySubscribedValues;
         SubscribedContextValues mySubscribedContextValues;

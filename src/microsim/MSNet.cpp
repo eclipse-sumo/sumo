@@ -634,6 +634,7 @@ MSNet::clearAll() {
     if (t != 0) {
         t->cleanup();
     }
+    libsumo::Helper::cleanup();
 #endif
 }
 
