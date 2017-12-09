@@ -139,6 +139,10 @@ public:
         /// @brief move forward and return whether the person arrived
         bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal = 0);
 
+        std::string moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos, double lanePosLat, double angle, int routeOffset, 
+                const ConstMSEdgeVector& edges, SUMOTime t) {
+            return "not implemented\n";
+        }
 
         /// @brief accessors to be used by MSPModel
         //@{
