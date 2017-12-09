@@ -177,6 +177,39 @@ namespace libsumo {
 
         static void cleanup(); 
 
+        /// @name functions for moveToXY
+        /// @{
+        static bool vtdMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,
+                double speed, const ConstMSEdgeVector& currentRoute, int routePosition, MSLane* currentLane, double currentLanePos, bool onRoad,
+                double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges);
+
+        static bool vtdMap_matchingRoutePosition(const Position& pos, const std::string& origID,
+                const ConstMSEdgeVector& currentRoute, const ConstMSEdgeVector::const_iterator& routeIt,
+                double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset);
+
+        static bool findCloserLane(const MSEdge* edge, const Position& pos, double& bestDistance, MSLane** lane);
+
+        class LaneUtility {
+        public:
+            LaneUtility(double dist_, double perpendicularDist_, double lanePos_, double angleDiff_, bool ID_,
+                        bool onRoute_, bool sameEdge_, const MSEdge* prevEdge_, const MSEdge* nextEdge_) :
+                dist(dist_), perpendicularDist(perpendicularDist_), lanePos(lanePos_), angleDiff(angleDiff_), ID(ID_),
+                onRoute(onRoute_), sameEdge(sameEdge_), prevEdge(prevEdge_), nextEdge(nextEdge_) {}
+            LaneUtility() {}
+            ~LaneUtility() {}
+
+            double dist;
+            double perpendicularDist;
+            double lanePos;
+            double angleDiff;
+            bool ID;
+            bool onRoute;
+            bool sameEdge;
+            const MSEdge* prevEdge;
+            const MSEdge* nextEdge;
+        };
+        /// @}
+
     private:
 
         SubscribedValues mySubscribedValues;

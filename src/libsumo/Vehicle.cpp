@@ -48,18 +48,8 @@
 #include "Helper.h"
 #include "Vehicle.h"
 
-#define FAR_AWAY 1000.0
-
-//#define DEBUG_MOVEXY
-//#define DEBUG_MOVEXY_ANGLE
-
 
 namespace libsumo {
-    // ===========================================================================
-    // member definitions
-    // ===========================================================================
-    std::map<std::string, std::vector<MSLane*> > Vehicle::gVTDMap;
-
     // ===========================================================================
     // member definitions
     // ===========================================================================
@@ -832,14 +822,21 @@ namespace libsumo {
         bool found;
         double maxRouteDistance = 100;
         /* EGO vehicle is known to have a fixed route. @todo make this into a parameter of the TraCI call */
+        const ConstMSEdgeVector& ev = veh->getRoute().getEdges();
         if (keepRoute) {
             // case a): vehicle is on its earlier route
             //  we additionally assume it is moving forward (SUMO-limit);
             //  note that the route ("edges") is not changed in this case
-            found = vtdMap_matchingRoutePosition(pos, origID, *veh, bestDistance, &lane, lanePos, routeOffset, edges);
+
+            found = Helper::vtdMap_matchingRoutePosition(pos, origID, 
+                    ev, veh->getCurrentRouteEdge(),
+                    bestDistance, &lane, lanePos, routeOffset);
             // @note silenty ignoring mapping failure
         } else {
-            found = vtdMap(pos, maxRouteDistance, mayLeaveNetwork, origID, angle, *veh, bestDistance, &lane, lanePos, routeOffset, edges);
+            double speed = pos.distanceTo2D(veh->getPosition()); // !!!veh->getSpeed();
+            found = Helper::vtdMap(pos, maxRouteDistance, mayLeaveNetwork, origID, angle, 
+                    speed, veh->getRoute().getEdges(), veh->getRoutePosition(), veh->getLane(), veh->getPositionOnLane(), veh->isOnRoad(),
+                    bestDistance, &lane, lanePos, routeOffset, edges);
         }
         if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
             // optionally compute lateral offset
@@ -1172,291 +1169,6 @@ namespace libsumo {
         }
     }
 
-
-    bool
-        Vehicle::vtdMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,  MSVehicle& veh,
-                double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
-        // collect edges around the vehicle
-        double speed = pos.distanceTo2D(veh.getPosition()); // !!!veh.getSpeed();
-        std::set<std::string> into;
-        PositionVector shape;
-        shape.push_back(pos);
-        Helper::collectObjectsInRange(CMD_GET_EDGE_VARIABLE, shape, maxRouteDistance, into);
-        double maxDist = 0;
-        std::map<MSLane*, LaneUtility> lane2utility;
-        // compute utility for all candidate edges
-        for (std::set<std::string>::const_iterator j = into.begin(); j != into.end(); ++j) {
-            const MSEdge* const e = MSEdge::dictionary(*j);
-            const MSEdge* prevEdge = 0;
-            const MSEdge* nextEdge = 0;
-            bool onRoute = false;
-            // the next if/the clause sets "onRoute", "prevEdge", and "nextEdge", depending on
-            //  whether the currently seen edge is an internal one or a normal one
-            if (!e->isInternal()) {
-#ifdef DEBUG_MOVEXY_ANGLE
-                std::cout << "Ego on normal" << std::endl;
-#endif
-                // a normal edge
-                //
-                // check whether the currently seen edge is in the vehicle's route
-                //  - either the one it's on or one of the next edges
-                const ConstMSEdgeVector& ev = veh.getRoute().getEdges();
-                int routePosition = veh.getRoutePosition();
-                if (veh.isOnRoad() && veh.getLane()->getEdge().isInternal()) {
-                    ++routePosition;
-                }
-                ConstMSEdgeVector::const_iterator edgePos = std::find(ev.begin() + routePosition, ev.end(), e);
-                onRoute = edgePos != ev.end(); // no? -> onRoute is false
-                if (edgePos == ev.end() - 1 && veh.getEdge() == e) {
-                    // onRoute is false as well if the vehicle is beyond the edge
-                    onRoute &= veh.getEdge()->getLanes()[0]->getLength() > veh.getPositionOnLane() + SPEED2DIST(speed);
-                }
-                // save prior and next edges
-                prevEdge = e;
-                nextEdge = !onRoute || edgePos == ev.end() - 1 ? 0 : *(edgePos + 1);
-#ifdef DEBUG_MOVEXY_ANGLE
-                std::cout << "normal:" << e->getID() << " prev:" << prevEdge->getID() << " next:";
-                if (nextEdge != 0) {
-                    std::cout << nextEdge->getID();
-                }
-                std::cout << std::endl;
-#endif
-            } else {
-#ifdef DEBUG_MOVEXY_ANGLE
-                std::cout << "Ego on internal" << std::endl;
-#endif
-                // an internal edge
-                // get the previous edge
-                prevEdge = e;
-                while (prevEdge != 0 && prevEdge->isInternal()) {
-                    MSLane* l = prevEdge->getLanes()[0];
-                    l = l->getLogicalPredecessorLane();
-                    prevEdge = l == 0 ? 0 : &l->getEdge();
-                }
-                // check whether the previous edge is on the route (was on the route)
-                const ConstMSEdgeVector& ev = veh.getRoute().getEdges();
-                ConstMSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin() + veh.getRoutePosition(), ev.end(), prevEdge);
-                nextEdge = e;
-                while (nextEdge != 0 && nextEdge->isInternal()) {
-                    nextEdge = nextEdge->getSuccessors()[0]; // should be only one for an internal edge
-                }
-                if (prevEdgePos != ev.end() && (prevEdgePos + 1) != ev.end()) {
-                    onRoute = *(prevEdgePos + 1) == nextEdge;
-                }
-#ifdef DEBUG_MOVEXY_ANGLE
-                std::cout << "internal:" << e->getID() << " prev:" << prevEdge->getID() << " next:" << nextEdge->getID() << std::endl;
-#endif
-            }
-
-
-            // weight the lanes...
-            const std::vector<MSLane*>& lanes = e->getLanes();
-            const bool perpendicular = false;
-            for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end(); ++k) {
-                MSLane* lane = *k;
-                double langle = 180.;
-                double dist = FAR_AWAY;
-                double perpendicularDist = FAR_AWAY;
-                double off = lane->getShape().nearest_offset_to_point2D(pos, true);
-                if (off != GeomHelper::INVALID_OFFSET) {
-                    perpendicularDist = lane->getShape().distance2D(pos, true);
-                }
-                off = lane->getShape().nearest_offset_to_point2D(pos, perpendicular);
-                if (off != GeomHelper::INVALID_OFFSET) {
-                    dist = lane->getShape().distance2D(pos, perpendicular);
-                    langle = GeomHelper::naviDegree(lane->getShape().rotationAtOffset(off));
-                }
-                bool sameEdge = veh.isOnRoad() && &lane->getEdge() == &veh.getLane()->getEdge() && veh.getEdge()->getLanes()[0]->getLength() > veh.getPositionOnLane() + SPEED2DIST(speed);
-                /*
-                const MSEdge* rNextEdge = nextEdge;
-                while(rNextEdge==0&&lane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
-                    MSLane* next = lane->getLinkCont()[0]->getLane();
-                    rNextEdge = next == 0 ? 0 : &next->getEdge();
-                }
-                */
-                double dist2 = dist;
-                if (mayLeaveNetwork && dist != perpendicularDist) {
-                    // ambiguous mapping. Don't trust this
-                    dist2 = FAR_AWAY;
-                }
-                const double angleDiff = (angle == INVALID_DOUBLE_VALUE ? 0 : GeomHelper::getMinAngleDiff(angle, langle));
-#ifdef DEBUG_MOVEXY_ANGLE
-                std::cout << lane->getID() << " lAngle:" << langle << " lLength=" << lane->getLength()
-                          << " angleDiff:" << angleDiff
-                          << " off:" << off
-                          << " pDist=" << perpendicularDist
-                          << " dist=" << dist
-                          << " dist2=" << dist2
-                          << "\n";
-                std::cout << lane->getID() << " param=" << lane->getParameter(SUMO_PARAM_ORIGID, lane->getID()) << " origID='" << origID << "\n";
-#endif
-                lane2utility[lane] = LaneUtility(
-                                         dist2, perpendicularDist, off, angleDiff,
-                                         lane->getParameter(SUMO_PARAM_ORIGID, lane->getID()) == origID,
-                                         onRoute, sameEdge, prevEdge, nextEdge);
-                // update scaling value
-                maxDist = MAX2(maxDist, MIN2(dist, SUMO_const_laneWidth));
-
-            }
-        }
-
-        // get the best lane given the previously computed values
-        double bestValue = 0;
-        MSLane* bestLane = 0;
-        for (std::map<MSLane*, LaneUtility>::iterator i = lane2utility.begin(); i != lane2utility.end(); ++i) {
-            MSLane* l = (*i).first;
-            const LaneUtility& u = (*i).second;
-            double distN = u.dist > 999 ? -10 : 1. - (u.dist / maxDist);
-            double angleDiffN = 1. - (u.angleDiff / 180.);
-            double idN = u.ID ? 1 : 0;
-            double onRouteN = u.onRoute ? 1 : 0;
-            double sameEdgeN = u.sameEdge ? MIN2(veh.getEdge()->getLength() / speed, (double)1.) : 0;
-            double value = (distN * .5 // distance is more important than angle because the vehicle might be driving in the opposite direction
-                            + angleDiffN * 0.35 /*.5 */
-                            + idN * 1
-                            + onRouteN * 0.1
-                            + sameEdgeN * 0.1);
-#ifdef DEBUG_MOVEXY
-            std::cout << " x; l:" << l->getID() << " d:" << u.dist << " dN:" << distN << " aD:" << angleDiffN <<
-                      " ID:" << idN << " oRN:" << onRouteN << " sEN:" << sameEdgeN << " value:" << value << std::endl;
-#endif
-            if (value > bestValue || bestLane == 0) {
-                bestValue = value;
-                if (u.dist == FAR_AWAY) {
-                    bestLane = 0;
-                } else {
-                    bestLane = l;
-                }
-            }
-        }
-        // no best lane found, return
-        if (bestLane == 0) {
-            return false;
-        }
-        const LaneUtility& u = lane2utility.find(bestLane)->second;
-        bestDistance = u.dist;
-        *lane = bestLane;
-        lanePos = bestLane->getShape().nearest_offset_to_point2D(pos, false);
-        const MSEdge* prevEdge = u.prevEdge;
-        if (u.onRoute) {
-            const ConstMSEdgeVector& ev = veh.getRoute().getEdges();
-            ConstMSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin(), ev.end(), prevEdge);
-            routeOffset = (int)std::distance(ev.begin(), prevEdgePos);
-            //std::cout << SIMTIME << "vtdMap vehicle=" << veh.getID() << " currLane=" << veh.getLane()->getID() << " routeOffset=" << routeOffset << " edges=" << toString(ev) << " bestLane=" << bestLane->getID() << " prevEdge=" << prevEdge->getID() << "\n";
-        } else {
-            edges.push_back(u.prevEdge);
-            /*
-               if(bestLane->getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
-               edges.push_back(&bestLane->getEdge());
-               }
-            */
-            if (u.nextEdge != 0) {
-                edges.push_back(u.nextEdge);
-            }
-            routeOffset = 0;
-#ifdef DEBUG_MOVEXY_ANGLE
-            std::cout << "internal2: lane=" << bestLane->getID() << " prev=" << Named::getIDSecure(u.prevEdge) << " next=" << Named::getIDSecure(u.nextEdge) << "\n";;
-#endif
-        }
-        return true;
-    }
-
-
-    bool
-        Vehicle::findCloserLane(const MSEdge* edge, const Position& pos, double& bestDistance, MSLane** lane) {
-        if (edge == 0) {
-            return false;
-        }
-        const std::vector<MSLane*>& lanes = edge->getLanes();
-        bool newBest = false;
-        for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end() && bestDistance > POSITION_EPS; ++k) {
-            MSLane* candidateLane = *k;
-            const double dist = candidateLane->getShape().distance2D(pos); // get distance
-#ifdef DEBUG_MOVEXY
-            std::cout << "   b at lane " << candidateLane->getID() << " dist:" << dist << " best:" << bestDistance << std::endl;
-#endif
-            if (dist < bestDistance) {
-                // is the new distance the best one? keep then...
-                bestDistance = dist;
-                *lane = candidateLane;
-                newBest = true;
-            }
-        }
-        return newBest;
-    }
-
-    bool
-        Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const std::string& origID, MSVehicle& veh,
-            double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& /*edges*/) {
-
-        const ConstMSEdgeVector& edges = veh.getRoute().getEdges();
-        routeOffset = 0;
-        // routes may be looped which makes routeOffset ambiguous. We first try to
-        // find the closest upcoming edge on the route and then look for closer passed edges
-
-        // look forward along the route
-        const MSEdge* prev = 0;
-        UNUSED_PARAMETER(prev); // silence 'unused variable' warning when built without INTERNAL_LANES
-        for (ConstMSEdgeVector::const_iterator i = veh.getCurrentRouteEdge(); i != edges.end(); ++i) {
-            while (prev != 0) {
-                // check internal edge(s)
-                const MSEdge* internalCand = prev->getInternalFollowingEdge(*i);
-                findCloserLane(internalCand, pos, bestDistance, lane);
-                prev = internalCand;
-            }
-            if (findCloserLane(*i, pos, bestDistance, lane)) {
-                routeOffset = (int)std::distance(edges.begin(), i);
-            }
-            prev = *i;
-        }
-        // look backward along the route
-        const MSEdge* next = *veh.getCurrentRouteEdge();
-        UNUSED_PARAMETER(next); // silence 'unused variable' warning when built without INTERNAL_LANES
-        for (ConstMSEdgeVector::const_iterator i = veh.getCurrentRouteEdge(); i != edges.begin(); --i) {
-            prev = *i;
-            while (prev != 0) {
-                // check internal edge(s)
-                const MSEdge* internalCand = prev->getInternalFollowingEdge(next);
-                findCloserLane(internalCand, pos, bestDistance, lane);
-                prev = internalCand;
-            }
-            if (findCloserLane(*i, pos, bestDistance, lane)) {
-                routeOffset = (int)std::distance(edges.begin(), i);
-            }
-            next = *i;
-        }
-
-        assert(lane != 0);
-        // quit if no solution was found, reporting a failure
-        if (lane == 0) {
-#ifdef DEBUG_MOVEXY
-            std::cout << "  b failed - no best route lane" << std::endl;
-#endif
-            return false;
-        }
-
-
-        // position may be inaccurate; let's checkt the given index, too
-        // @note: this is enabled for non-internal lanes only, as otherwise the position information may ambiguous
-        if (!(*lane)->getEdge().isInternal()) {
-            const std::vector<MSLane*>& lanes = (*lane)->getEdge().getLanes();
-            for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                if ((*i)->getParameter(SUMO_PARAM_ORIGID, (*i)->getID()) == origID) {
-                    *lane = *i;
-                    break;
-                }
-            }
-        }
-        // check position, stuff, we should have the best lane along the route
-        lanePos = MAX2(0., MIN2(double((*lane)->getLength() - POSITION_EPS),
-                    (*lane)->interpolateGeometryPosToLanePos(
-                        (*lane)->getShape().nearest_offset_to_point2D(pos, false))));
-        //std::cout << SIMTIME << " vtdMap_matchingRoutePosition vehicle=" << veh.getID() << " currLane=" << veh.getLane()->getID() << " routeOffset=" << routeOffset << " edges=" << toString(edges) << " lane=" << (*lane)->getID() << "\n";
-#ifdef DEBUG_MOVEXY
-        std::cout << "  b ok lane " << (*lane)->getID() << " lanePos:" << lanePos << std::endl;
-#endif
-        return true;
-    }
 
 
 }

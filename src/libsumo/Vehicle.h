@@ -186,41 +186,6 @@ namespace libsumo {
         /// @}
 
     private:
-        /// @name functions for moveToXY
-        /// @{
-        static bool vtdMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle, MSVehicle& veh,
-                double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges);
-
-        static bool vtdMap_matchingRoutePosition(const Position& pos, const std::string& origID, MSVehicle& veh,
-                double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges);
-
-        static bool findCloserLane(const MSEdge* edge, const Position& pos, double& bestDistance, MSLane** lane);
-
-        static std::map<std::string, std::vector<MSLane*> > gVTDMap;
-
-
-        class LaneUtility {
-        public:
-            LaneUtility(double dist_, double perpendicularDist_, double lanePos_, double angleDiff_, bool ID_,
-                        bool onRoute_, bool sameEdge_, const MSEdge* prevEdge_, const MSEdge* nextEdge_) :
-                dist(dist_), perpendicularDist(perpendicularDist_), lanePos(lanePos_), angleDiff(angleDiff_), ID(ID_),
-                onRoute(onRoute_), sameEdge(sameEdge_), prevEdge(prevEdge_), nextEdge(nextEdge_) {}
-            LaneUtility() {}
-            ~LaneUtility() {}
-
-            double dist;
-            double perpendicularDist;
-            double lanePos;
-            double angleDiff;
-            bool ID;
-            bool onRoute;
-            bool sameEdge;
-            const MSEdge* prevEdge;
-            const MSEdge* nextEdge;
-        };
-        /// @}
-
-    private:
         static MSVehicle* getVehicle(const std::string& id);
 
         static bool isVisible(const MSVehicle* veh);
