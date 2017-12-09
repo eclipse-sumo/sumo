@@ -159,19 +159,6 @@ TraCIServerAPI_InductionLoop::getPosition(const std::string& id, Position& p) {
 }
 
 
-NamedRTree*
-TraCIServerAPI_InductionLoop::getTree() {
-    NamedRTree* t = new NamedRTree();
-    for (const auto& i : MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP)) {
-        MSInductLoop* il = static_cast<MSInductLoop*>(i.second);
-        Position p = il->getLane()->getShape().positionAtOffset(il->getPosition());
-        const float cmin[2] = {(float) p.x(), (float) p.y()};
-        const float cmax[2] = {(float) p.x(), (float) p.y()};
-        t->Insert(cmin, cmax, il);
-    }
-    return t;
-}
-
 #endif
 
 

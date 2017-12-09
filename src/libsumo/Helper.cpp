@@ -28,18 +28,75 @@
 #endif
 
 #include <microsim/MSNet.h>
+#include <microsim/MSVehicleControl.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSVehicle.h>
+#include <microsim/MSTransportable.h>
 #include <libsumo/TraCIDefs.h>
+#include <libsumo/InductionLoop.h>
+#include <libsumo/Junction.h>
+#include <libsumo/POI.h>
+#include <libsumo/Polygon.h>
+#include <traci-server/TraCIConstants.h>
 #include "Helper.h"
 
+void
+LaneStoringVisitor::add(const MSLane* const l) const {
+    switch (myDomain) {
+        case CMD_GET_VEHICLE_VARIABLE: {
+            const MSLane::VehCont& vehs = l->getVehiclesSecure();
+            for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
+                if (myShape.distance2D((*j)->getPosition()) <= myRange) {
+                    myIDs.insert((*j)->getID());
+                }
+            }
+            l->releaseVehicles();
+        }
+        break;
+        case CMD_GET_PERSON_VARIABLE: {
+            l->getVehiclesSecure();
+            std::vector<MSTransportable*> persons = l->getEdge().getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
+            for (auto p : persons) {
+                if (myShape.distance2D(p->getPosition()) <= myRange) {
+                    myIDs.insert(p->getID());
+                }
+            }
+            l->releaseVehicles();
+        }
+        break;
+        case CMD_GET_EDGE_VARIABLE: {
+            if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
+                myIDs.insert(l->getEdge().getID());
+            }
+        }
+        break;
+        case CMD_GET_LANE_VARIABLE: {
+            if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
+                myIDs.insert(l->getID());
+            }
+        }
+        break;
+        default:
+            break;
 
-// ===========================================================================
-// member definitions
-// ===========================================================================
+    }
+}
+
 namespace libsumo {
+    // ===========================================================================
+    // static member definitions
+    // ===========================================================================
+    std::map<int, NamedRTree*> Helper::myObjects;
+    LANE_RTREE_QUAL* Helper::myLaneTree;
+    std::map<std::string, MSVehicle*> Helper::myVTDControlledVehicles;
+
+
+    // ===========================================================================
+    // member definitions
+    // ===========================================================================
     TraCIPositionVector
     Helper::makeTraCIPositionVector(const PositionVector& positionVector) {
         TraCIPositionVector tp;
@@ -144,6 +201,95 @@ namespace libsumo {
         result.second = result.first->getShape().nearest_offset_to_point2D(pos, false);
         return result;
     }
+
+    void
+    Helper::cleanup() {
+        for (std::map<int, NamedRTree*>::const_iterator i = myObjects.begin(); i != myObjects.end(); ++i) {
+            delete(*i).second;
+        }
+        myObjects.clear();
+        delete myLaneTree;
+        myLaneTree = 0;
+    }
+
+
+    void
+    Helper::collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into) {
+        // build the look-up tree if not yet existing
+        if (myObjects.find(domain) == myObjects.end()) {
+            switch (domain) {
+                case CMD_GET_INDUCTIONLOOP_VARIABLE:
+                    myObjects[CMD_GET_INDUCTIONLOOP_VARIABLE] = InductionLoop::getTree();
+                    break;
+                case CMD_GET_EDGE_VARIABLE:
+                case CMD_GET_LANE_VARIABLE:
+                case CMD_GET_PERSON_VARIABLE:
+                case CMD_GET_VEHICLE_VARIABLE:
+                    myObjects[CMD_GET_EDGE_VARIABLE] = 0;
+                    myObjects[CMD_GET_LANE_VARIABLE] = 0;
+                    myObjects[CMD_GET_PERSON_VARIABLE] = 0;
+                    myObjects[CMD_GET_VEHICLE_VARIABLE] = 0;
+                    myLaneTree = new LANE_RTREE_QUAL(&MSLane::visit);
+                    MSLane::fill(*myLaneTree);
+                    break;
+                case CMD_GET_POI_VARIABLE:
+                    myObjects[CMD_GET_POI_VARIABLE] = POI::getTree();
+                    break;
+                case CMD_GET_POLYGON_VARIABLE:
+                    myObjects[CMD_GET_POLYGON_VARIABLE] = Polygon::getTree();
+                    break;
+                case CMD_GET_JUNCTION_VARIABLE:
+                    myObjects[CMD_GET_JUNCTION_VARIABLE] = Junction::getTree();
+                    break;
+                default:
+                    break;
+            }
+        }
+        const Boundary b = shape.getBoxBoundary().grow(range);
+        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+        switch (domain) {
+            case CMD_GET_INDUCTIONLOOP_VARIABLE:
+            case CMD_GET_POI_VARIABLE:
+            case CMD_GET_POLYGON_VARIABLE:
+            case CMD_GET_JUNCTION_VARIABLE: {
+                Named::StoringVisitor sv(into);
+                myObjects[domain]->Search(cmin, cmax, sv);
+            }
+            break;
+            case CMD_GET_EDGE_VARIABLE:
+            case CMD_GET_LANE_VARIABLE:
+            case CMD_GET_PERSON_VARIABLE:
+            case CMD_GET_VEHICLE_VARIABLE: {
+                LaneStoringVisitor sv(into, shape, range, domain);
+                myLaneTree->Search(cmin, cmax, sv);
+            }
+            break;
+            default:
+                break;
+        }
+    }
+
+    void
+        Helper::setVTDControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
+                                  int edgeOffset, ConstMSEdgeVector route, SUMOTime t) {
+        myVTDControlledVehicles[v->getID()] = v;
+        v->getInfluencer().setVTDControlled(xyPos, l, pos, posLat, angle, edgeOffset, route, t);
+    }
+
+
+    void
+        Helper::postProcessVTD() {
+        for (std::map<std::string, MSVehicle*>::const_iterator i = myVTDControlledVehicles.begin(); i != myVTDControlledVehicles.end(); ++i) {
+            if (MSNet::getInstance()->getVehicleControl().getVehicle((*i).first) != 0) {
+                (*i).second->getInfluencer().postProcessVTD((*i).second);
+            } else {
+                WRITE_WARNING("Vehicle '" + (*i).first + "' was removed though being controlled by VTD");
+            }
+        }
+        myVTDControlledVehicles.clear();
+    }
+
 }
 
 

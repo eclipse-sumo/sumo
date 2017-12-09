@@ -173,7 +173,7 @@ namespace libsumo {
         static void rerouteEffort(const std::string& vehicleID);
         static void setSignals(const std::string& vehicleID, int signals);
         static void moveTo(const std::string& vehicleID, const std::string& laneID, double position);
-        static void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute);
+        static void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle, const int keepRouteFlag);
         static void setMaxSpeed(const std::string& vehicleID, double speed);
         static void setActionStepLength(const std::string& vehicleID, double actionStepLength, bool resetActionOffset = true);
         static void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED);
@@ -185,6 +185,40 @@ namespace libsumo {
         static void setParameter(const std::string& vehicleID, const std::string& key, const std::string& value);
         /// @}
 
+    private:
+        /// @name functions for moveToXY
+        /// @{
+        static bool vtdMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle, MSVehicle& veh,
+                double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges);
+
+        static bool vtdMap_matchingRoutePosition(const Position& pos, const std::string& origID, MSVehicle& veh,
+                double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges);
+
+        static bool findCloserLane(const MSEdge* edge, const Position& pos, double& bestDistance, MSLane** lane);
+
+        static std::map<std::string, std::vector<MSLane*> > gVTDMap;
+
+
+        class LaneUtility {
+        public:
+            LaneUtility(double dist_, double perpendicularDist_, double lanePos_, double angleDiff_, bool ID_,
+                        bool onRoute_, bool sameEdge_, const MSEdge* prevEdge_, const MSEdge* nextEdge_) :
+                dist(dist_), perpendicularDist(perpendicularDist_), lanePos(lanePos_), angleDiff(angleDiff_), ID(ID_),
+                onRoute(onRoute_), sameEdge(sameEdge_), prevEdge(prevEdge_), nextEdge(nextEdge_) {}
+            LaneUtility() {}
+            ~LaneUtility() {}
+
+            double dist;
+            double perpendicularDist;
+            double lanePos;
+            double angleDiff;
+            bool ID;
+            bool onRoute;
+            bool sameEdge;
+            const MSEdge* prevEdge;
+            const MSEdge* nextEdge;
+        };
+        /// @}
 
     private:
         static MSVehicle* getVehicle(const std::string& id);

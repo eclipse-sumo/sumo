@@ -73,12 +73,6 @@ public:
     static bool getPosition(const std::string& id, Position& p);
 
 
-    /** @brief Returns a tree filled with PoI instances
-     * @return The rtree of PoIs
-     */
-    static NamedRTree* getTree();
-
-
 private:
     /** @brief Returns the named PoI
      * @param[in] id The id of the searched PoI

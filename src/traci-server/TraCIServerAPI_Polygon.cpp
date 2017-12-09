@@ -258,19 +258,6 @@ TraCIServerAPI_Polygon::getPolygon(const std::string& id) {
     return MSNet::getInstance()->getShapeContainer().getPolygons().get(id);
 }
 
-NamedRTree*
-TraCIServerAPI_Polygon::getTree() {
-    NamedRTree* t = new NamedRTree();
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    for (const auto& i : shapeCont.getPolygons()) {
-        Boundary b = i.second->getShape().getBoxBoundary();
-        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
-        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-        t->Insert(cmin, cmax, i.second);
-    }
-    return t;
-}
-
 #endif
 
 

@@ -110,18 +110,6 @@ TraCIServerAPI_Junction::getPosition(const std::string& id, Position& p) {
 }
 
 
-NamedRTree*
-TraCIServerAPI_Junction::getTree() {
-    NamedRTree* t = new NamedRTree();
-    for (const auto& i : MSNet::getInstance()->getJunctionControl()) {
-        Boundary b = i.second->getShape().getBoxBoundary();
-        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
-        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-        t->Insert(cmin, cmax, i.second);
-    }
-    return t;
-}
-
 #endif
 
 

@@ -70,12 +70,6 @@ public:
     static bool getPosition(const std::string& id, Position& p);
 
 
-    /** @brief Returns a tree filled with junction instances
-     * @return The rtree of junctions
-     */
-    static NamedRTree* getTree();
-
-
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_Junction(const TraCIServerAPI_Junction& s);

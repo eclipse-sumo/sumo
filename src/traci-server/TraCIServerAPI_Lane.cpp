@@ -360,47 +360,6 @@ TraCIServerAPI_Lane::getShape(const std::string& id, PositionVector& shape) {
 }
 
 
-void
-TraCIServerAPI_Lane::StoringVisitor::add(const MSLane* const l) const {
-    switch (myDomain) {
-        case CMD_GET_VEHICLE_VARIABLE: {
-            const MSLane::VehCont& vehs = l->getVehiclesSecure();
-            for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-                if (myShape.distance2D((*j)->getPosition()) <= myRange) {
-                    myIDs.insert((*j)->getID());
-                }
-            }
-            l->releaseVehicles();
-        }
-        break;
-        case CMD_GET_PERSON_VARIABLE: {
-            l->getVehiclesSecure();
-            std::vector<MSTransportable*> persons = l->getEdge().getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
-            for (auto p : persons) {
-                if (myShape.distance2D(p->getPosition()) <= myRange) {
-                    myIDs.insert(p->getID());
-                }
-            }
-            l->releaseVehicles();
-        }
-        break;
-        case CMD_GET_EDGE_VARIABLE: {
-            if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
-                myIDs.insert(l->getEdge().getID());
-            }
-        }
-        break;
-        case CMD_GET_LANE_VARIABLE: {
-            if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
-                myIDs.insert(l->getID());
-            }
-        }
-        break;
-        default:
-            break;
-
-    }
-}
 
 
 #endif
