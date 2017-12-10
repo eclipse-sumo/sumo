@@ -352,7 +352,7 @@ namespace libsumo {
 
     void
         Person::rerouteTraveltime(const std::string& personID) {
-        MSTransportable* p = getPerson(personID);
+        MSPerson* p = getPerson(personID);
         if (p->getNumRemainingStages() == 0 || p->getCurrentStageType() != MSTransportable::MOVING_WITHOUT_VEHICLE) {
             throw TraCIException("Person '" + personID + "' is not currenlty walking.");
         }
@@ -378,18 +378,7 @@ namespace libsumo {
             // @note: maybe this should be done automatically by the router
             newEdges.insert(newEdges.begin(), from);
         }
-        //std::cout << " from=" << from->getID() << " to=" << to->getID() << " newEdges=" << toString(newEdges) << "\n";
-        MSPerson::MSPersonStage_Walking* newStage = new MSPerson::MSPersonStage_Walking(p->getID(), newEdges, 0, -1, speed, departPos, arrivalPos, 0);
-        if (p->getNumRemainingStages() == 1) {
-            // Do not remove the last stage (a waiting stage would be added otherwise)
-            p->appendStage(newStage);
-            //std::cout << "case a: remaining=" << p->getNumRemainingStages() << "\n";
-            p->removeStage(0);
-        } else {
-            p->removeStage(0);
-            p->appendStage(newStage);
-            //std::cout << "case b: remaining=" << p->getNumRemainingStages() << "\n";
-        }
+        p->reroute(newEdges);
     }
 
 
@@ -496,12 +485,7 @@ namespace libsumo {
             }
             switch (p->getStageType(0)) {
                 case MSTransportable::MOVING_WITHOUT_VEHICLE: {
-                    MSPerson::MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
-                    assert(s != 0);
-                    const std::string error = s->moveToXY(p, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
-                    if (error != "") {
-                        throw TraCIException("Command moveToXY failed for person '" + personID + "' (" + error + ").");
-                    }
+                    Helper::setVTDControlled(p, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
                     break;
                 }
                 default:

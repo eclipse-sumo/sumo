@@ -30,12 +30,14 @@
 #include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSTransportableControl.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSTransportable.h>
+#include <microsim/pedestrians/MSPerson.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/InductionLoop.h>
 #include <libsumo/Junction.h>
@@ -99,6 +101,7 @@ namespace libsumo {
     std::map<int, NamedRTree*> Helper::myObjects;
     LANE_RTREE_QUAL* Helper::myLaneTree;
     std::map<std::string, MSVehicle*> Helper::myVTDControlledVehicles;
+    std::map<std::string, MSPerson*> Helper::myVTDControlledPersons;
 
     // ===========================================================================
     // member definitions
@@ -283,17 +286,32 @@ namespace libsumo {
         v->getInfluencer().setVTDControlled(xyPos, l, pos, posLat, angle, edgeOffset, route, t);
     }
 
+    void
+        Helper::setVTDControlled(MSPerson* p, Position xyPos, MSLane* l, double pos, double posLat, double angle,
+                                  int edgeOffset, ConstMSEdgeVector route, SUMOTime t) {
+        myVTDControlledPersons[p->getID()] = p;
+        p->getInfluencer().setVTDControlled(xyPos, l, pos, posLat, angle, edgeOffset, route, t);
+    }
+
 
     void
         Helper::postProcessVTD() {
-        for (std::map<std::string, MSVehicle*>::const_iterator i = myVTDControlledVehicles.begin(); i != myVTDControlledVehicles.end(); ++i) {
-            if (MSNet::getInstance()->getVehicleControl().getVehicle((*i).first) != 0) {
-                (*i).second->getInfluencer().postProcessVTD((*i).second);
+        for (auto& controlled : myVTDControlledVehicles) {
+            if (MSNet::getInstance()->getVehicleControl().getVehicle(controlled.first) != 0) {
+                controlled.second->getInfluencer().postProcessVTD(controlled.second);
             } else {
-                WRITE_WARNING("Vehicle '" + (*i).first + "' was removed though being controlled by VTD");
+                WRITE_WARNING("Vehicle '" + controlled.first + "' was removed though being controlled by TraCI");
             }
         }
         myVTDControlledVehicles.clear();
+        for (auto& controlled : myVTDControlledPersons) {
+            if (MSNet::getInstance()->getPersonControl().get(controlled.first) != 0) {
+                controlled.second->getInfluencer().postProcessVTD(controlled.second);
+            } else {
+                WRITE_WARNING("Person '" + controlled.first + "' was removed though being controlled by TraCI");
+            }
+        }
+        myVTDControlledPersons.clear();
     }
 
 

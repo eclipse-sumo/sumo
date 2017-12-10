@@ -41,6 +41,7 @@ class PositionVector;
 class RGBColor;
 class MSEdge;
 class MSLane;
+class MSPerson;
 
 
 // ===========================================================================
@@ -173,6 +174,9 @@ namespace libsumo {
         static void setVTDControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
                 int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
 
+        static void setVTDControlled(MSPerson* p, Position xyPos, MSLane* l, double pos, double posLat, double angle,
+                int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
+
         static void postProcessVTD();
 
         static void cleanup(); 
@@ -222,6 +226,7 @@ namespace libsumo {
         static LANE_RTREE_QUAL* myLaneTree;
 
         static std::map<std::string, MSVehicle*> myVTDControlledVehicles;
+        static std::map<std::string, MSPerson*> myVTDControlledPersons;
 
         /// @brief invalidated standard constructor
         Helper();

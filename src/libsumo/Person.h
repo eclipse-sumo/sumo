@@ -101,6 +101,7 @@ namespace libsumo {
 
         // This does not only return the person's vType, but makes it singular.
         static std::string getSingularVType(const std::string& personID);
+
     };
 }
 
