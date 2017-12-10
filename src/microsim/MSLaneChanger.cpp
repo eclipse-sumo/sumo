@@ -61,6 +61,7 @@
 //#define DEBUG_CHANGE_OPPOSITE
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_STATE
+//#define DEBUG_CANDIDATE
 //#define DEBUG_COND (vehicle->getLaneChangeModel().debugVehicle())
 #define DEBUG_COND (vehicle->isSelected())
 
@@ -197,19 +198,31 @@ MSLaneChanger::findCandidate() {
     // Find the vehicle in myChanger with the largest position. If there
     // is no vehicle in myChanger (shouldn't happen) , return myChanger.end().
     ChangerIt max = myChanger.end();
+#ifdef DEBUG_CANDIDATE
+    std::cout << SIMTIME << " findCandidate() on edge " << myChanger.begin()->lane->getEdge().getID() << std::endl;
+#endif
+
     for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
         if (veh(ce) == 0) {
             continue;
         }
+#ifdef DEBUG_CANDIDATE
+        std::cout << "     lane = " << ce->lane->getID() << "\n";
+        std::cout << "     check vehicle=" << veh(ce)->getID() << " pos=" << veh(ce)->getPositionOnLane() << " lane=" << ce->lane->getID() << " isFrontOnLane=" << veh(ce)->isFrontOnLane(ce->lane)  << "\n";
+#endif
         if (max == myChanger.end()) {
-            //std::cout << SIMTIME << " new max vehicle=" << veh(ce)->getID() << " pos=" << veh(ce)->getPositionOnLane() << " lane=" << ce->lane->getID() << " isFrontOnLane=" << veh(ce)->isFrontOnLane(ce->lane)  << "\n";
+#ifdef DEBUG_CANDIDATE
+            std::cout << "     new max vehicle=" << veh(ce)->getID() << " pos=" << veh(ce)->getPositionOnLane() << " lane=" << ce->lane->getID() << " isFrontOnLane=" << veh(ce)->isFrontOnLane(ce->lane)  << "\n";
+#endif
             max = ce;
             continue;
         }
         assert(veh(ce)  != 0);
         assert(veh(max) != 0);
         if (veh(max)->getPositionOnLane() < veh(ce)->getPositionOnLane()) {
-            //std::cout << SIMTIME << " new max vehicle=" << veh(ce)->getID() << " pos=" << veh(ce)->getPositionOnLane() << " lane=" << ce->lane->getID() << " isFrontOnLane=" << veh(ce)->isFrontOnLane(ce->lane)  << " oldMaxPos=" << veh(max)->getPositionOnLane() << "\n";
+#ifdef DEBUG_CANDIDATE
+            std::cout << "     new max vehicle=" << veh(ce)->getID() << " pos=" << veh(ce)->getPositionOnLane() << " lane=" << ce->lane->getID() << " isFrontOnLane=" << veh(ce)->isFrontOnLane(ce->lane)  << " oldMaxPos=" << veh(max)->getPositionOnLane() << "\n";
+#endif
             max = ce;
         }
     }
