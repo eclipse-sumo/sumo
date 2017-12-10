@@ -71,6 +71,7 @@
 
 //#define DEBUG_INSERTION
 //#define DEBUG_PLAN_MOVE
+//#define DEBUG_EXEC_MOVE
 //#define DEBUG_CONTEXT
 //#define DEBUG_OPPOSITE
 //#define DEBUG_VEHICLE_CONTAINER
@@ -1442,6 +1443,11 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIn
         MSLane* const target = veh->getLane();
         if (veh->hasArrived()) {
             // vehicle has reached its arrival position
+#ifdef DEBUG_EXEC_MOVE
+            if DEBUG_COND2(veh) {
+                std::cout << SIMTIME << " veh " << veh->getID() << " has arrived." << std::endl;
+            }
+#endif
             veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_ARRIVED);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         } else if (target != 0 && moved) {
