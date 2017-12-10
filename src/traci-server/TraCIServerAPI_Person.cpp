@@ -197,6 +197,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             && variable != APPEND_STAGE
             && variable != REMOVE_STAGE
             && variable != CMD_REROUTE_TRAVELTIME
+            && variable != MOVE_TO_XY
             && variable != VAR_SPEED
             && variable != VAR_TYPE
             && variable != VAR_LENGTH
@@ -358,6 +359,44 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Rerouting should obtain an empty compound object.", outputStorage);
             }
             libsumo::Person::rerouteTraveltime(id);
+        }
+        break;
+        case MOVE_TO_XY: {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "MoveToXY person requires a compound object.", outputStorage);
+            }
+            const int numArgs = inputStorage.readInt();
+            if (numArgs != 5) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "MoveToXY person should obtain: edgeID, x, y, angle and keepRouteFlag.", outputStorage);
+            }
+            // edge ID
+            std::string edgeID;
+            if (!server.readTypeCheckingString(inputStorage, edgeID)) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The first parameter for moveToXY must be the edge ID given as a string.", outputStorage);
+            }
+            // x
+            double x = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, x)) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The third parameter for moveToXY must be the x-position given as a double.", outputStorage);
+            }
+            // y
+            double y = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, y)) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The fourth parameter for moveToXY must be the y-position given as a double.", outputStorage);
+            }
+            // angle
+            double angle = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, angle)) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The fifth parameter for moveToXY must be the angle given as a double.", outputStorage);
+            }
+
+            int keepRouteFlag = 1;
+            if (numArgs == 6) {
+                if (!server.readTypeCheckingByte(inputStorage, keepRouteFlag)) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The sixth parameter for moveToXY must be the keepRouteFlag given as a byte.", outputStorage);
+                }
+            }
+            libsumo::Person::moveToXY(id, edgeID, x, y, angle, keepRouteFlag);
         }
         break;
         case VAR_PARAMETER: {
