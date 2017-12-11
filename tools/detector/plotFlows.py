@@ -36,8 +36,6 @@ def get_options(args=None):
     optParser = OptionParser()
     optParser.add_option("-d", "--detector-file", dest="detfile",
                          help="read detectors from FILE (mandatory)", metavar="FILE")
-    optParser.add_option("-f", "--detector-flow-files", dest="flowfiles",
-                         help="read detector flows to compare to from FILE (mandatory)", metavar="FILE")
     optParser.add_option("-c", "--flow-column", dest="flowcol", default="qPKW",
                          help="which column contains flows", metavar="STRING")
     optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectzero",
@@ -49,7 +47,7 @@ def get_options(args=None):
                          default=False, help="include detector group edge name in output")
     optParser.add_option("-b", "--begin", type="float", default=0, help="begin time in minutes")
     optParser.add_option("-e", "--end", type="float", default=None, help="end time in minutes")
-    optParser.add_option("-o", "--csv-output", dest="output", help="write plot data to fil", metavar="FILE")
+    optParser.add_option("-o", "--csv-output", dest="csv_output", help="write plot data with prefix", metavar="FILE")
     optParser.add_option("--extension", help="extension for saving plots", default="png")
     optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
     optParser.add_option("-g", "--group-by", dest="groupby", help="group detectors (all, none, type) ", default="all")
@@ -58,38 +56,19 @@ def get_options(args=None):
     optParser.add_option("--single-plot", action="store_true", dest="singleplot", default=False, help="put averything in a single plot")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     options, args = optParser.parse_args(args=args)
+    options.flowfiles = args
+    print(args)
     if not options.detfile or not options.flowfiles:
         optParser.print_help()
         sys.exit()
-    options.flowfiles = options.flowfiles.split(',')
     return options
 
 
-
-def printFlows(options, edgeFlow, detReader):
-    edgeIDCol = "edge " if options.edgenames else ""
-    print('# detNames %sRouteFlow DetFlow ratio' % edgeIDCol, file=options.outfile)
-    output = []
-    for edge, detData in detReader._edge2DetData.iteritems():
-        detString = []
-        dFlow = []
-        for group in detData:
-            if group.isValid:
-                groupName = os.path.commonprefix(group.ids)
-                if groupName == "" or options.longnames:
-                    groupName = ';'.join(sorted(group.ids))
-                detString.append(groupName)
-                dFlow.append(group.totalFlow)
-        rFlow = len(detString) * [edgeFlow.get(edge, 0)]
-        edges = len(detString) * [edge]
-        output.extend(zip(detString, edges, rFlow, dFlow))
-    for group, edge, rflow, dflow in sorted(output):
-        if dflow > 0 or options.respectzero:
-            if options.edgenames:
-                print(group, edge, rflow, dflow, relError(rflow, dflow), file=options.outfile)
-            else:
-                print(group, rflow, dflow, relError(rflow, dflow), file=options.outfile)
-
+def write_csv(keys, data, fname):
+    with open(fname, 'w') as f:
+        f.write("#key;value\n")
+        for key, v in zip(keys, data):
+            f.write("%s;%s\n" % (key, v))
 
 def initDataList(begin, end, interval):
     return [None] * int(math.ceil((end - begin) / interval))
@@ -101,20 +80,24 @@ def addToDataList(data, i, val):
         else:
             data[i] += val
 
-
-
 def plot(options, allData, prefix="", linestyle="-"):
     if not options.singleplot:
         fig = plt.figure()
         labelsuffix = ""
     else:
-        labelsuffix = " %s" % prefix
+        labelsuffix = "_%s" % prefix
 
     plt.ylabel("Avg. Simulation Flow %s" % prefix)
+
     plt.xlabel("Minutes")
     x = range(int(options.begin), int(options.end), options.interval)
     for f, data in zip(options.flowfiles, allData):
-        plt.plot(x, data, label=f[-12:-4] + labelsuffix, linestyle=linestyle)
+        label = f[-12:-4] + labelsuffix
+        plt.plot(x, data, label=label, linestyle=linestyle)
+        label = label.replace(";","_")
+        if options.csv_output is not None:
+            write_csv(x, data, options.csv_output + label + ".csv")
+        plt.savefig(label + "." + options.extension)
     plt.legend(loc='best')
 
 
@@ -178,7 +161,7 @@ def main(options):
                 for i, (flow, speed) in enumerate(group.timeline):
                     addToDataList(data, i, flow)
                 allData.append(data)
-            plot(options, allData, "%s (%s)" % (groupName, group.type))
+            plot(options, allData, "%s_%s" % (groupName, group.type))
         if options.show:
             plt.show()
 
