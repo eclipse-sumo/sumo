@@ -74,6 +74,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("default.sidewalk-width", new Option_Float((double) 2.0));
     oc.addDescription("default.sidewalk-width", "Building Defaults", "The default width of added sidewalks");
 
+    oc.doRegister("default.crossing-width", new Option_Float((double) 4.0));
+    oc.addDescription("default.crossing-width", "Building Defaults", "The default width of a pedestrian crossing");
+
     oc.doRegister("default.disallow", new Option_String());
     oc.addDescription("default.disallow", "Building Defaults", "The default for disallowed vehicle classes");
 

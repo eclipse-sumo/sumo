@@ -135,9 +135,11 @@ public:
         const NBNode* node;
         /// @brief The edges being crossed
         EdgeVector edges;
-        /// @brief The lane's shape
+        /// @brief The crossing's shape
         PositionVector shape;
-        /// @brief This lane's width
+        /// @brief This crossing's width
+        double customWidth;
+        /// @brief This crossing's width
         double width;
         /// @brief the (edge)-id of this crossing
         std::string id;
@@ -202,8 +204,6 @@ public:
     /// @brief edge directions (for pedestrian related stuff)
     static const int FORWARD;
     static const int BACKWARD;
-    /// @brief default width of pedetrian crossings
-    static const double DEFAULT_CROSSING_WIDTH;
 
     /// @brief unspecified lane width
     static const double UNSPECIFIED_RADIUS;
