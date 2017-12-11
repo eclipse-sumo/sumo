@@ -880,105 +880,37 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
             case ADD: {
-                if (v != 0) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The vehicle " + id + " to add already exists.", outputStorage);
-                }
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Adding a vehicle requires a compound object.", outputStorage);
                 }
                 if (inputStorage.readInt() != 6) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Adding a vehicle needs six parameters.", outputStorage);
                 }
-                SUMOVehicleParameter vehicleParams;
-                vehicleParams.id = id;
-
                 std::string vTypeID;
                 if (!server.readTypeCheckingString(inputStorage, vTypeID)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "First parameter (type) requires a string.", outputStorage);
                 }
-                MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vTypeID);
-                if (!vehicleType) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid type '" + vTypeID + "' for vehicle '" + id + "'", outputStorage);
-                }
-
                 std::string routeID;
                 if (!server.readTypeCheckingString(inputStorage, routeID)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Second parameter (route) requires a string.", outputStorage);
-                }
-                const MSRoute* route = MSRoute::dictionary(routeID);
-                if (!route) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid route '" + routeID + "' for vehicle: '" + id + "'", outputStorage);
                 }
                 int depart;
                 if (!server.readTypeCheckingInt(inputStorage, depart)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Third parameter (depart) requires an integer.", outputStorage);
                 }
-                if (depart < 0) {
-                    const int proc = -depart;
-                    if (proc >= static_cast<int>(DEPART_DEF_MAX)) {
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid departure time.", outputStorage);
-                    }
-                    vehicleParams.departProcedure = (DepartDefinition)proc;
-                    vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
-                } else if (depart < MSNet::getInstance()->getCurrentTimeStep()) {
-                    vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
-                    WRITE_WARNING("Departure time for vehicle '" + id + "' is in the past; using current time instead.");
-                } else {
-                    vehicleParams.depart = depart;
-                }
-
-                double pos;
-                if (!server.readTypeCheckingDouble(inputStorage, pos)) {
+                double departPos;
+                if (!server.readTypeCheckingDouble(inputStorage, departPos)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Fourth parameter (position) requires a double.", outputStorage);
                 }
-                vehicleParams.departPos = pos;
-                if (vehicleParams.departPos < 0) {
-                    const int proc = static_cast<int>(-vehicleParams.departPos);
-                    if (fabs(proc + vehicleParams.departPos) > NUMERICAL_EPS || proc >= static_cast<int>(DEPART_POS_DEF_MAX) || proc == static_cast<int>(DEPART_POS_GIVEN)) {
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid departure position.", outputStorage);
-                    }
-                    vehicleParams.departPosProcedure = (DepartPosDefinition)proc;
-                } else {
-                    vehicleParams.departPosProcedure = DEPART_POS_GIVEN;
-                }
-
-                double speed;
-                if (!server.readTypeCheckingDouble(inputStorage, speed)) {
+                double departSpeed;
+                if (!server.readTypeCheckingDouble(inputStorage, departSpeed)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Fifth parameter (speed) requires a double.", outputStorage);
                 }
-                vehicleParams.departSpeed = speed;
-                if (vehicleParams.departSpeed < 0) {
-                    const int proc = static_cast<int>(-vehicleParams.departSpeed);
-                    if (proc >= static_cast<int>(DEPART_SPEED_DEF_MAX)) {
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid departure speed.", outputStorage);
-                    }
-                    vehicleParams.departSpeedProcedure = (DepartSpeedDefinition)proc;
-                } else {
-                    vehicleParams.departSpeedProcedure = DEPART_SPEED_GIVEN;
-                }
-
-                if (!server.readTypeCheckingByte(inputStorage, vehicleParams.departLane)) {
+                int departLane;
+                if (!server.readTypeCheckingByte(inputStorage, departLane)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Sixth parameter (lane) requires a byte.", outputStorage);
                 }
-
-                if (vehicleParams.departLane < 0) {
-                    const int proc = static_cast<int>(-vehicleParams.departLane);
-                    if (proc >= static_cast<int>(DEPART_LANE_DEF_MAX)) {
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid departure lane.", outputStorage);
-                    }
-                    vehicleParams.departLaneProcedure = (DepartLaneDefinition)proc;
-                } else {
-                    vehicleParams.departLaneProcedure = DEPART_LANE_GIVEN;
-                }
-
-                SUMOVehicleParameter* params = new SUMOVehicleParameter(vehicleParams);
-                try {
-                    SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, true, false);
-                    MSNet::getInstance()->getVehicleControl().addVehicle(vehicleParams.id, vehicle);
-                    MSNet::getInstance()->getInsertionControl().add(vehicle);
-                } catch (ProcessError& e) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
-                }
+                libsumo::Vehicle::add(id, routeID, vTypeID, depart, departLane, departPos, departSpeed);
             }
             break;
             case ADD_FULL: {

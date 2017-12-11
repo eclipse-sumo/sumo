@@ -430,6 +430,18 @@
 #define DEPARTFLAG_LANE_BEST_FREE -0x05
 #define DEPARTFLAG_LANE_FIRST_ALLOWED -0x06
 
+#define DEPARTFLAG_POS_RANDOM -0x02
+#define DEPARTFLAG_POS_FREE -0x03
+#define DEPARTFLAG_POS_BASE -0x04
+#define DEPARTFLAG_POS_LAST -0x05
+#define DEPARTFLAG_POS_RANDOM_FREE -0x06
+
+#define ARRIVALFLAG_LANE_CURRENT -0x02
+#define ARRIVALFLAG_SPEED_CURRENT -0x02
+
+#define ARRIVALFLAG_POS_RANDOM -0x02
+#define ARRIVALFLAG_POS_MAX -0x03
+
 // ****************************************
 // Routing modes
 // ****************************************
