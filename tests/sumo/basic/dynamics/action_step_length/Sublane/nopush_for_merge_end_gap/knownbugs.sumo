@@ -1,0 +1,15 @@
+
+[Reported by leo at 08Dez14:01:22]
+search_string:.*
+search_file:output
+ignore_other_errors:1
+bug_id:#3696
+full_description:#3696
+brief_description:#3696
+
+[Reported by leo at 08Dez14:05:42]
+search_string:.*
+search_file:output
+bug_id:no unsafe accel before lane end
+full_description:Could result from ballistic case and improved check before committing the maneuver
+brief_description:no unsafe accel before lane end

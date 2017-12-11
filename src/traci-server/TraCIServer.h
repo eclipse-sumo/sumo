@@ -107,12 +107,6 @@ public:
     ///        (except the case that a load or close command is received)s
     void processCommandsUntilSimStep(SUMOTime step);
 
-
-    void setVTDControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
-                          int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
-
-    void postProcessVTD();
-
     /// @brief clean up subscriptions
     void cleanup();
 
@@ -392,8 +386,6 @@ private:
     /// @brief Map of variable ids to the size of the parameter in bytes
     std::map<int, int> myParameterSizes;
 
-    std::map<std::string, MSVehicle*> myVTDControlledVehicles;
-
     std::vector<std::string> myLoadArgs;
 
     /** @class Subscription
@@ -449,13 +441,6 @@ private:
     /// with a proper vehicleStateChanges container mySockets[...].second->vehicleStateChanges
     /// Performance could be improved if for a single client, myVehicleStateChanges is used only.
     std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
-
-    /// @brief A storage of objects
-    std::map<int, NamedRTree*> myObjects;
-
-    /// @brief A storage of lanes
-    LANE_RTREE_QUAL* myLaneTree;
-
 
 private:
     bool addObjectVariableSubscription(const int commandId, const bool hasContext);

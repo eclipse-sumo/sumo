@@ -315,6 +315,12 @@ MSPerson::MSPersonStage_Walking::getMaxSpeed(const MSPerson* person) const {
 }
 
 
+std::string
+MSPerson::MSPersonStage_Walking::moveToXY(MSPerson* p, Position pos,
+        MSLane* lane, double lanePos, double lanePosLat, double angle, int routeOffset,
+        const ConstMSEdgeVector& edges, SUMOTime t) {
+}
+
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Driving - methods
  * ----------------------------------------------------------------------- */
@@ -463,6 +469,7 @@ MSPerson::getNextEdgePtr() const {
 }
 
 
+
 void
 MSPerson::tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const {
     os.openTag("personinfo").writeAttr("id", getID()).writeAttr("depart", time2string(getDesiredDepart()));
@@ -487,6 +494,116 @@ MSPerson::routeOutput(OutputDevice& os) const {
     os.lf();
 }
 
+
+void
+MSPerson::reroute(ConstMSEdgeVector& newEdges) {
+    double departPos = getEdgePos();
+    double arrivalPos = getArrivalPos();
+    double speed = getVehicleType().getMaxSpeed();
+    //std::cout << " from=" << from->getID() << " to=" << to->getID() << " newEdges=" << toString(newEdges) << "\n";
+    MSPerson::MSPersonStage_Walking* newStage = new MSPerson::MSPersonStage_Walking(getID(), newEdges, 0, -1, speed, departPos, arrivalPos, 0);
+    if (getNumRemainingStages() == 1) {
+        // Do not remove the last stage (a waiting stage would be added otherwise)
+        appendStage(newStage);
+        //std::cout << "case a: remaining=" << p->getNumRemainingStages() << "\n";
+        removeStage(0);
+    } else {
+        removeStage(0);
+        appendStage(newStage);
+        //std::cout << "case b: remaining=" << p->getNumRemainingStages() << "\n";
+    }
+}
+
+MSPerson::Influencer&
+MSPerson::getInfluencer() {
+    if (myInfluencer == 0) {
+        myInfluencer = new Influencer();
+    }
+    return *myInfluencer;
+}
+
+
+const MSPerson::Influencer*
+MSPerson::getInfluencer() const {
+    return myInfluencer;
+}
+
+
+
+/* -------------------------------------------------------------------------
+ * methods of MSPerson::Influencer
+ * ----------------------------------------------------------------------- */
+#ifndef NO_TRACI
+MSPerson::Influencer::Influencer() {}
+
+
+MSPerson::Influencer::~Influencer() {}
+
+
+void
+MSPerson::Influencer::setVTDControlled(Position xyPos, MSLane* l, double pos, double posLat, double angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t) {
+    myVTDXYPos = xyPos;
+    myVTDLane = l;
+    myVTDPos = pos;
+    myVTDPosLat = posLat;
+    myVTDAngle = angle;
+    myVTDEdgeOffset = edgeOffset;
+    myVTDRoute = route;
+    myLastVTDAccess = t;
+}
+
+
+bool
+MSPerson::Influencer::isVTDControlled() const {
+    return myLastVTDAccess == MSNet::getInstance()->getCurrentTimeStep();
+}
+
+
+bool
+MSPerson::Influencer::isVTDAffected(SUMOTime t) const {
+    return myLastVTDAccess >= t - TIME2STEPS(10);
+}
+
+void
+MSPerson::Influencer::postProcessVTD(MSPerson* p) {
+    /*
+    const bool wasOnRoad = v->isOnRoad();
+    if (v->isOnRoad()) {
+        v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
+        v->getLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
+    }
+    if (myVTDRoute.size() != 0) {
+        v->replaceRouteEdges(myVTDRoute, true);
+    }
+    v->myCurrEdge = v->getRoute().begin() + myVTDEdgeOffset;
+    if (myVTDLane != 0 && myVTDPos > myVTDLane->getLength()) {
+        myVTDPos = myVTDLane->getLength();
+    }
+    if (myVTDLane != 0 && fabs(myVTDPosLat) < 0.5 * (myVTDLane->getWidth() + v->getVehicleType().getWidth())) {
+        myVTDLane->forceVehicleInsertion(v, myVTDPos, MSMoveReminder::NOTIFICATION_TELEPORT, myVTDPosLat);
+        v->updateBestLanes();
+        if (!wasOnRoad) {
+            v->drawOutsideNetwork(false);
+        }
+        //std::cout << "on road network p=" << myVTDXYPos << " a=" << myVTDAngle << " l=" << Named::getIDSecure(myVTDLane) << " pos=" << myVTDPos << " posLat=" << myVTDPosLat << "\n";
+    } else {
+        if (v->getDeparture() == NOT_YET_DEPARTED) {
+            v->onDepart();
+        }
+        v->drawOutsideNetwork(true);
+        //std::cout << "outside network p=" << myVTDXYPos << " a=" << myVTDAngle << " l=" << Named::getIDSecure(myVTDLane) << "\n";
+    }
+    // ensure that the position is correct (i.e. when the lanePosition is ambiguous at corners)
+    v->setVTDState(myVTDXYPos);
+    // inverse of GeomHelper::naviDegree
+    v->setAngle(M_PI / 2. - DEG2RAD(myVTDAngle));
+    */
+}
+
+
+
+
+#endif
 
 /****************************************************************************/
 

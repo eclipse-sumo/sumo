@@ -64,6 +64,13 @@ namespace libsumo {
 
         static void setFilled(std::string polygonID, bool filled);
         static void setParameter(std::string& name, std::string& value, std::string& string);
+
+        /** @brief Returns a tree filled with polygon instances
+         * @return The rtree of polygons
+         */
+        static NamedRTree* getTree();
+
+
     private:
 
         static SUMOPolygon* getPolygon(const std::string& id);

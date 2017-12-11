@@ -1,8 +1,0 @@
-
-[Reported by leo at 15Nov15:11:33]
-search_string:.*
-search_file:output
-ignore_other_errors:1
-bug_id:#3611
-full_description:#3611
-brief_description:#3611

@@ -3,6 +3,6 @@
 search_string:.*
 search_file:output
 ignore_other_errors:1
-bug_id:[zeitlupe] LC-Actionstep probs
-full_description:[zeitlupe] LC-Actionstep probs
-brief_description:[zeitlupe] LC-Actionstep probs
+bug_id:#3969
+full_description:#3969
+brief_description:#3969

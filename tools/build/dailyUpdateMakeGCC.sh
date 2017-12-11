@@ -52,7 +52,6 @@ else
   echo "make failed" | tee -a $STATUSLOG; tail -20 $MAKELOG
 fi
 echo `grep -c '[Ww]arn[iu]ng:' $MAKELOG` warnings >> $STATUSLOG
-scp -q $MAKELOG $REMOTEDIR
 
 echo "--" >> $STATUSLOG
 if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; then
@@ -72,14 +71,12 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; th
   fi
   tests/runTests.sh -b $FILEPREFIX -name `date +%d%b%y`r$GITREV -coll >> $TESTLOG 2>&1
   echo "batchreport" >> $STATUSLOG
-  rsync -rL $SUMO_REPORT $REMOTEDIR
 fi
 
 if test -e $PREFIX/sumo/src/sumo_main.gcda; then
   tests/runInternalTests.py --gui "b $FILEPREFIX" >> $TESTLOG 2>&1
   $SIP_HOME/tests/runTests.sh -b $FILEPREFIX >> $TESTLOG 2>&1
   make lcov >> $TESTLOG 2>&1 || (echo "make lcov failed"; tail -10 $TESTLOG)
-  rsync -rcz $PREFIX/sumo/docs/lcov $REMOTEDIR
 fi
 
 echo "--" >> $STATUSLOG
@@ -93,6 +90,4 @@ else
   echo "make with all options failed" | tee -a $STATUSLOG; tail -20 $MAKEALLLOG
 fi
 echo `grep -c '[Ww]arn[iu]ng:' $MAKEALLLOG` warnings >> $STATUSLOG
-scp -q $MAKEALLLOG $REMOTEDIR
 echo "--" >> $STATUSLOG
-scp -q $STATUSLOG $REMOTEDIR

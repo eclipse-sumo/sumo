@@ -139,6 +139,9 @@ public:
         /// @brief move forward and return whether the person arrived
         bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal = 0);
 
+        /// @brief move person to a specific position either within the current route, within a new route or outside the pedestrian network.
+        std::string moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos, double lanePosLat, double angle, int routeOffset, 
+                const ConstMSEdgeVector& edges, SUMOTime t); 
 
         /// @brief accessors to be used by MSPModel
         //@{
@@ -299,6 +302,70 @@ public:
     inline double getSpeedFactor() const {
         return myChosenSpeedFactor;
     }
+
+    /// @brief set new walk
+    void reroute(ConstMSEdgeVector& newEdges);
+
+#ifndef NO_TRACI
+
+    /** @class Influencer
+     * @brief Changes the wished person speed and position
+     *
+     * The class is used for passing velocities or positions obtained via TraCI to the person.
+     */
+    class Influencer {
+    public:
+        /// @brief Constructor
+        Influencer();
+
+
+        /// @brief Destructor
+        ~Influencer();
+
+
+        void setVTDControlled(Position xyPos, MSLane* l, double pos, double posLat, double angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t);
+
+        SUMOTime getLastAccessTimeStep() const {
+            return myLastVTDAccess;
+        }
+
+        void postProcessVTD(MSPerson* p);
+
+        bool isVTDControlled() const;
+
+        bool isVTDAffected(SUMOTime t) const;
+
+    private:
+        Position myVTDXYPos;
+        MSLane* myVTDLane;
+        double myVTDPos;
+        double myVTDPosLat;
+        double myVTDAngle;
+        int myVTDEdgeOffset;
+        ConstMSEdgeVector myVTDRoute;
+        SUMOTime myLastVTDAccess;
+    };
+
+
+    /** @brief Returns the velocity/lane influencer
+     *
+     * If no influencer was existing before, one is built, first
+     * @return Reference to this vehicle's speed influencer
+     */
+    Influencer& getInfluencer();
+
+    const Influencer* getInfluencer() const;
+
+    bool hasInfluencer() const {
+        return myInfluencer != 0;
+    }
+
+    /// @brief sets position outside the road network
+    void setVTDState(Position xyPos);
+
+    /// @brief An instance of a speed/position influencing instance; built in "getInfluencer"
+    Influencer* myInfluencer;
+#endif
 
 private:
     const double myChosenSpeedFactor;

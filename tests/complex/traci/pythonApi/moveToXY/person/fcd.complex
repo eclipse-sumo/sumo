@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sun Dec 10 23:49:34 2017 by SUMO Version v0_31_0+1567-02f31f7
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="36783"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <person id="p0" x="106.23" y="81.95" angle="0.00" speed="0.00" pos="81.95" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <person id="p0" x="106.23" y="83.09" angle="0.00" speed="1.14" pos="83.09" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <person id="p0" x="106.23" y="84.28" angle="0.00" speed="1.19" pos="84.28" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <person id="p0" x="106.23" y="85.66" angle="0.00" speed="1.38" pos="85.66" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <person id="p0" x="106.23" y="86.91" angle="0.00" speed="1.25" pos="86.91" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <person id="p0" x="106.23" y="88.14" angle="0.00" speed="1.23" pos="88.14" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <person id="p0" x="106.23" y="89.51" angle="0.00" speed="1.38" pos="89.51" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="7.00">
+        <person id="p0" x="106.23" y="90.70" angle="0.00" speed="1.18" pos="90.70" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <person id="p0" x="106.23" y="92.02" angle="0.00" speed="1.32" pos="0.07" edge=":C_11" slope="0.00"/>
+    </timestep>
+    <timestep time="9.00">
+        <person id="p0" x="106.23" y="93.25" angle="0.00" speed="1.24" pos="1.30" edge=":C_11" slope="0.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <person id="p0" x="106.23" y="94.43" angle="0.00" speed="1.18" pos="2.48" edge=":C_11" slope="0.00"/>
+    </timestep>
+    <timestep time="11.00">
+        <person id="p0" x="106.23" y="95.82" angle="0.00" speed="1.39" pos="3.87" edge=":C_11" slope="0.00"/>
+    </timestep>
+    <timestep time="12.00">
+        <person id="p0" x="106.23" y="97.02" angle="0.00" speed="1.20" pos="5.07" edge=":C_11" slope="0.00"/>
+    </timestep>
+    <timestep time="13.00">
+        <person id="p0" x="106.23" y="98.28" angle="0.00" speed="1.26" pos="6.33" edge=":C_11" slope="0.00"/>
+    </timestep>
+    <timestep time="14.00">
+        <person id="p0" x="106.23" y="99.55" angle="0.00" speed="1.26" pos="7.60" edge=":C_11" slope="0.00"/>
+    </timestep>
+    <timestep time="15.00">
+        <person id="p0" x="106.23" y="100.78" angle="0.00" speed="1.23" pos="8.83" edge=":C_11" slope="0.00"/>
+    </timestep>
+    <timestep time="16.00">
+        <person id="p0" x="106.23" y="102.09" angle="0.00" speed="1.32" pos="10.14" edge=":C_11" slope="0.00"/>
+    </timestep>
+    <timestep time="17.00">
+        <person id="p0" x="106.23" y="103.47" angle="0.00" speed="1.37" pos="11.52" edge=":C_11" slope="0.00"/>
+    </timestep>
+    <timestep time="18.00">
+        <person id="p0" x="106.23" y="104.61" angle="0.00" speed="1.15" pos="12.66" edge=":C_11" slope="0.00"/>
+    </timestep>
+    <timestep time="19.00">
+        <person id="p0" x="106.23" y="105.91" angle="0.00" speed="1.30" pos="13.96" edge=":C_11" slope="0.00"/>
+    </timestep>
+    <timestep time="20.00">
+        <person id="p0" x="106.23" y="107.11" angle="0.00" speed="1.20" pos="15.16" edge=":C_11" slope="0.00"/>
+    </timestep>
+    <timestep time="21.00">
+        <person id="p0" x="106.23" y="108.49" angle="0.00" speed="1.38" pos="0.44" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="22.00">
+        <person id="p0" x="106.23" y="109.73" angle="0.00" speed="1.25" pos="1.68" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="23.00">
+        <person id="p0" x="106.23" y="111.04" angle="0.00" speed="1.30" pos="2.99" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="24.00">
+        <person id="p0" x="106.23" y="112.25" angle="0.00" speed="1.21" pos="4.20" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="25.00">
+        <person id="p0" x="106.23" y="113.38" angle="0.00" speed="1.13" pos="5.33" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="26.00">
+        <person id="p0" x="106.23" y="114.54" angle="0.00" speed="1.16" pos="6.49" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="27.00">
+        <person id="p0" x="106.23" y="115.68" angle="0.00" speed="1.14" pos="7.63" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="28.00">
+        <person id="p0" x="106.23" y="116.96" angle="0.00" speed="1.28" pos="8.91" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="29.00"/>
+    <timestep time="30.00"/>
+</fcd-export>

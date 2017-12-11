@@ -63,12 +63,6 @@ public:
     static bool getPosition(const std::string& id, Position& p);
 
 
-    /** @brief Returns a tree filled with inductive loop instances
-     * @return The rtree of inductive loops
-     */
-    static NamedRTree* getTree();
-
-
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_InductionLoop(const TraCIServerAPI_InductionLoop& s);

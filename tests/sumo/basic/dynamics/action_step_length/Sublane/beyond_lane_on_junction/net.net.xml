@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 14 Jun 2017 08:31:55 AM CEST by Netedit Version dev-SVN-r24648
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoID/sumo/tests/sumo/sublane_model/beyond_lane_on_junction/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoID/sumo/tests/sumo/sublane_model/beyond_lane_on_junction/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-683542.41,-4928877.56" convBoundary="583.69,761.57,798.63,854.50" origBoundary="-346.830000,0.000000,1817.580000,2148.550000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id=":53_0" function="internal">
+        <lane id=":53_0_0" index="0" speed="13.89" length="7.70" shape="762.89,811.10 764.95,812.79 766.76,813.87 768.31,814.33 769.60,814.17"/>
+    </edge>
+    <edge id=":53_1" function="internal">
+        <lane id=":53_1_0" index="0" speed="13.89" length="7.69" shape="763.28,818.40 765.27,817.36 766.45,816.31 767.62,815.24 769.60,814.17"/>
+        <lane id=":53_1_1" index="1" speed="13.89" length="7.69" shape="764.46,821.48 766.47,820.44 767.66,819.38 768.84,818.30 770.84,817.23"/>
+    </edge>
+
+    <edge id="beg" from="9" to="53" priority="-1" spreadType="center" shape="593.19,849.13 648.44,845.94 696.50,840.07 718.06,835.82 768.63,816.34">
+        <lane id="beg_0" index="0" speed="13.89" length="183.98" shape="583.22,846.40 648.14,842.65 695.98,836.81 717.14,832.64 762.09,815.32"/>
+        <lane id="beg_1" index="1" speed="13.89" length="183.98" shape="583.41,849.69 648.44,845.94 696.50,840.07 718.06,835.82 763.28,818.40"/>
+        <lane id="beg_2" index="2" speed="13.89" length="183.98" shape="583.60,852.99 648.74,849.23 697.02,843.33 718.98,839.00 764.46,821.48"/>
+    </edge>
+    <edge id="beg2" from="gneJ0" to="53" priority="-1" spreadType="center" shape="701.63,761.57 747.25,774.75 755.94,782.13 758.94,793.88 758.56,804.07 760.25,808.69 768.63,816.34">
+        <lane id="beg2_0" index="0" speed="13.89" length="89.70" shape="701.63,761.57 747.25,774.75 755.94,782.13 758.94,793.88 758.56,804.07 760.25,808.69 762.89,811.10"/>
+    </edge>
+    <edge id="end" from="53" to="15" priority="-1" spreadType="center" shape="768.63,816.34 787.00,808.94">
+        <lane id="end_0" index="0" speed="13.89" length="40.18" shape="769.60,814.17 806.87,799.16"/>
+        <lane id="end_1" index="1" speed="13.89" length="40.18" shape="770.84,817.23 808.11,802.22"/>
+    </edge>
+
+    <tlLogic id="53" type="static" programID="0" offset="0">
+        <phase duration="18" state="rGG"/>
+        <phase duration="4" state="gyy"/>
+        <phase duration="21" state="Grr"/>
+        <phase duration="4" state="yrr"/>
+    </tlLogic>
+
+    <junction id="15" type="dead_end" x="798.63" y="778.69" incLanes="end_0 end_1" intLanes="" shape="806.28,797.67 808.70,803.70"/>
+    <junction id="53" type="traffic_light" x="768.63" y="816.34" incLanes="beg2_0 beg_0 beg_1 beg_2" intLanes=":53_0_0 :53_1_0 :53_1_1" shape="771.43,818.71 769.00,812.69 763.97,809.92 761.81,812.28 761.52,813.83 765.04,822.97">
+        <request index="0" response="110" foes="110" cont="0"/>
+        <request index="1" response="000" foes="001" cont="0"/>
+        <request index="2" response="000" foes="001" cont="0"/>
+    </junction>
+    <junction id="9" type="dead_end" x="583.69" y="854.50" incLanes="" intLanes="" shape="583.69,854.59 583.13,844.80"/>
+    <junction id="gneJ0" type="dead_end" x="701.63" y="761.57" incLanes="" intLanes="" shape="701.19,763.11 702.07,760.03"/>
+
+    <connection from="beg" to="end" fromLane="1" toLane="0" via=":53_1_0" tl="53" linkIndex="1" dir="s" state="o"/>
+    <connection from="beg" to="end" fromLane="2" toLane="1" via=":53_1_1" tl="53" linkIndex="2" dir="s" state="o"/>
+    <connection from="beg2" to="end" fromLane="0" toLane="0" via=":53_0_0" tl="53" linkIndex="0" dir="r" state="o"/>
+
+    <connection from=":53_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":53_1" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":53_1" to="end" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>

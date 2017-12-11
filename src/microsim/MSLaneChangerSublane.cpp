@@ -79,7 +79,9 @@ MSLaneChangerSublane::initChanger() {
     // Prepare myChanger with a safe state.
     for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
         ce->ahead = ce->lane->getPartialBeyond();
-        //std::cout << SIMTIME << " initChanger lane=" << ce->lane->getID() << " vehicles=" << toString(ce->lane->myVehicles) << "\n";
+//        std::cout << SIMTIME << " initChanger lane=" << ce->lane->getID() << " vehicles=" << toString(ce->lane->myVehicles) << "\n";
+//        std::cout << SIMTIME << " initChanger lane=" << ce->lane->getID() << " partial vehicles=" << toString(ce->lane->myPartialVehicles) << "\n";
+//        std::cout << SIMTIME << " initChanger lane=" << ce->lane->getID() << " partial vehicles beyond=" << toString(ce->ahead.toString()) << "\n";
     }
 }
 
@@ -305,6 +307,13 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
                         << " increments lateral position by latDist=" << latDist << std::endl;
     }
 #endif
+#ifdef DEBUG_SURROUNDING
+    if DEBUG_COND {
+        std::cout << SIMTIME << " vehicle '" << vehicle->getID() << "'\n    to->ahead=" << to->ahead.toString()
+                << "'\n    to->aheadNext=" << to->aheadNext.toString()
+                << std::endl;
+    }
+#endif
     const bool completedManeuver = vehicle->getLaneChangeModel().getManeuverDist() - latDist == 0.;
     vehicle->getLaneChangeModel().setManeuverDist(vehicle->getLaneChangeModel().getManeuverDist() - latDist);
     vehicle->getLaneChangeModel().updateSafeLatDist(latDist);
@@ -367,6 +376,12 @@ MSLaneChangerSublane::checkChangeToNewLane(MSVehicle* vehicle, const int directi
         to->lane->myTmpVehicles.insert(to->lane->myTmpVehicles.begin(), vehicle);
         to->dens += vehicle->getVehicleType().getLengthWithGap();
         if (MSAbstractLaneChangeModel::haveLCOutput()) {
+            if (!vehicle->isActive()){
+                // update leaders beyond the current edge for all lanes
+                // @note to->aheadNext and from->aheadNext are only needed for output in non-action steps.
+                to->aheadNext = getLeaders(to, vehicle);
+                from->aheadNext = getLeaders(from, vehicle);
+            }
             vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);
             vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
             vehicle->getLaneChangeModel().setOrigLeaderGaps(from->aheadNext);

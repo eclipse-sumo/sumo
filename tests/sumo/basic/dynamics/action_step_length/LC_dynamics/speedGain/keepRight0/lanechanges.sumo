@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fr 08 Dez 2017 11:13:59 CET by SUMO gui Version UNKNOWN
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <time>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <default.action-step-length value="1"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <message-log value="stdout"/>
+        <error-log value="stderr"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="ego" type="ego" time="29.10" from="beg_0" to="beg_1" dir="1" speed="12.06" pos="408.28" reason="speedGain" leaderGap="219.52" leaderSecureGap="21.13" followerGap="None" followerSecureGap="None" origLeaderGap="19.52" origLeaderSecureGap="21.13"/>
+    <change id="ego" type="ego" time="69.10" from="beg_1" to="beg_0" dir="-1" speed="8.34" pos="936.68" reason="speedGain" leaderGap="211.12" leaderSecureGap="8.97" followerGap="178.88" followerSecureGap="7.63" origLeaderGap="11.12" origLeaderSecureGap="8.97"/>
+    <change id="ego" type="ego" time="104.10" from="beg_0" to="beg_1" dir="1" speed="11.59" pos="1409.52" reason="speedGain" leaderGap="218.28" leaderSecureGap="19.42" followerGap="171.72" followerSecureGap="2.94" origLeaderGap="18.28" origLeaderSecureGap="19.42"/>
+    <change id="ego" type="ego" time="144.10" from="beg_1" to="beg_0" dir="-1" speed="8.33" pos="1936.70" reason="speedGain" leaderGap="None" leaderSecureGap="None" followerGap="178.90" followerSecureGap="7.64" origLeaderGap="11.10" origLeaderSecureGap="8.94"/>
+</lanechanges>

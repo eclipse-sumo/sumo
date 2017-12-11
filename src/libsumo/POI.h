@@ -69,6 +69,12 @@ namespace libsumo {
         static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
         static void setParameter(const std::string& poiID, const std::string& param, const std::string& value);
 
+        /** @brief Returns a tree filled with PoI instances
+         * @return The rtree of PoIs
+         */
+        static NamedRTree* getTree();
+
+
     private:
         static PointOfInterest* getPoI(const std::string& id);
 

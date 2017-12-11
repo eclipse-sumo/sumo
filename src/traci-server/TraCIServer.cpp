@@ -62,7 +62,6 @@
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/xml/XMLSubSys.h>
 #include <microsim/MSNet.h>
-#include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunctionControl.h>
@@ -111,8 +110,8 @@ bool TraCIServer::myDoCloseConnection = false;
 TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClients)
     : myServerSocket(0),
       myTargetTime(begin),
-      myAmEmbedded(port == 0),
-      myLaneTree(0) {
+      myAmEmbedded(port == 0)
+{
 #ifdef DEBUG_MULTI_CLIENTS
     std::cout << "Creating new TraCIServer for " << numClients << " clients on port " << port << "." << std::endl;
 #endif
@@ -240,27 +239,6 @@ TraCIServer::close() {
 bool
 TraCIServer::wasClosed() {
     return myDoCloseConnection;
-}
-
-
-void
-TraCIServer::setVTDControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
-                              int edgeOffset, ConstMSEdgeVector route, SUMOTime t) {
-    myVTDControlledVehicles[v->getID()] = v;
-    v->getInfluencer().setVTDControlled(xyPos, l, pos, posLat, angle, edgeOffset, route, t);
-}
-
-
-void
-TraCIServer::postProcessVTD() {
-    for (std::map<std::string, MSVehicle*>::const_iterator i = myVTDControlledVehicles.begin(); i != myVTDControlledVehicles.end(); ++i) {
-        if (MSNet::getInstance()->getVehicleControl().getVehicle((*i).first) != 0) {
-            (*i).second->getInfluencer().postProcessVTD((*i).second);
-        } else {
-            WRITE_WARNING("Vehicle '" + (*i).first + "' was removed though being controlled by VTD");
-        }
-    }
-    myVTDControlledVehicles.clear();
 }
 
 
@@ -596,12 +574,6 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
 void
 TraCIServer::cleanup() {
     mySubscriptions.clear();
-    for (std::map<int, NamedRTree*>::const_iterator i = myObjects.begin(); i != myObjects.end(); ++i) {
-        delete(*i).second;
-    }
-    myObjects.clear();
-    delete myLaneTree;
-    myLaneTree = 0;
     myTargetTime = string2time(OptionsCont::getOptions().getString("begin"));
     for (myCurrentSocket = mySockets.begin(); myCurrentSocket != mySockets.end(); ++myCurrentSocket) {
         myCurrentSocket->second->targetTime = myTargetTime;
@@ -1158,64 +1130,6 @@ TraCIServer::findObjectShape(int domain, const std::string& id, PositionVector& 
     return false;
 }
 
-void
-TraCIServer::collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into) {
-    // build the look-up tree if not yet existing
-    if (myObjects.find(domain) == myObjects.end()) {
-        switch (domain) {
-            case CMD_GET_INDUCTIONLOOP_VARIABLE:
-                myObjects[CMD_GET_INDUCTIONLOOP_VARIABLE] = TraCIServerAPI_InductionLoop::getTree();
-                break;
-            case CMD_GET_EDGE_VARIABLE:
-            case CMD_GET_LANE_VARIABLE:
-            case CMD_GET_PERSON_VARIABLE:
-            case CMD_GET_VEHICLE_VARIABLE:
-                myObjects[CMD_GET_EDGE_VARIABLE] = 0;
-                myObjects[CMD_GET_LANE_VARIABLE] = 0;
-                myObjects[CMD_GET_PERSON_VARIABLE] = 0;
-                myObjects[CMD_GET_VEHICLE_VARIABLE] = 0;
-                myLaneTree = new LANE_RTREE_QUAL(&MSLane::visit);
-                MSLane::fill(*myLaneTree);
-                break;
-            case CMD_GET_POI_VARIABLE:
-                myObjects[CMD_GET_POI_VARIABLE] = TraCIServerAPI_POI::getTree();
-                break;
-            case CMD_GET_POLYGON_VARIABLE:
-                myObjects[CMD_GET_POLYGON_VARIABLE] = TraCIServerAPI_Polygon::getTree();
-                break;
-            case CMD_GET_JUNCTION_VARIABLE:
-                myObjects[CMD_GET_JUNCTION_VARIABLE] = TraCIServerAPI_Junction::getTree();
-                break;
-            default:
-                break;
-        }
-    }
-    const Boundary b = shape.getBoxBoundary().grow(range);
-    const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
-    const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-    switch (domain) {
-        case CMD_GET_INDUCTIONLOOP_VARIABLE:
-        case CMD_GET_POI_VARIABLE:
-        case CMD_GET_POLYGON_VARIABLE:
-        case CMD_GET_JUNCTION_VARIABLE: {
-            Named::StoringVisitor sv(into);
-            myObjects[domain]->Search(cmin, cmax, sv);
-        }
-        break;
-        case CMD_GET_EDGE_VARIABLE:
-        case CMD_GET_LANE_VARIABLE:
-        case CMD_GET_PERSON_VARIABLE:
-        case CMD_GET_VEHICLE_VARIABLE: {
-            TraCIServerAPI_Lane::StoringVisitor sv(into, shape, range, domain);
-            myLaneTree->Search(cmin, cmax, sv);
-        }
-        break;
-        default:
-            break;
-    }
-}
-
-
 bool
 TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& writeInto,
                                        std::string& errors) {
@@ -1228,7 +1142,7 @@ TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& wr
         if (!findObjectShape(s.commandId, s.id, shape)) {
             return false;
         }
-        collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
+        libsumo::Helper::collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
     } else {
         objIDs.insert(s.id);
     }

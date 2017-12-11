@@ -116,6 +116,8 @@ def distancePointToPolygon(point, polygon, perpendicular=False):
 
 
 def positionAtOffset(p1, p2, offset):
+    if offset == 0.:  # for pathological cases with dist == 0 and offset == 0
+        return p1
     dist = distance(p1, p2)
     if dist < offset:
         return None

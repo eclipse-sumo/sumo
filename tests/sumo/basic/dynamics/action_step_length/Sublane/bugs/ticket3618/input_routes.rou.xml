@@ -1,0 +1,9 @@
+<routes>
+    <vType id="t0" vClass="passenger" sigma="0" lcStrategic="0" maxSpeed="5" minGapLat="2" accelLat="2" maxSpeedLat="2" length="12"/>
+
+    <route id="r0" edges="beg middle end"/>
+
+    <vehicle id="left"  type="t0"  route="r0" departSpeed="5" departPos="-1" departLane="1" departPosLat="left"  depart="0" arrivalLane="2"/>
+    <vehicle id="right" type="t0"  route="r0" departSpeed="5" departPos="-4" departLane="1" departPosLat="-1.80" depart="0" arrivalLane="2"/>
+
+</routes>

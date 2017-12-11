@@ -3,7 +3,3 @@ unmarked_lane
 
 # lane attribute acceleration is set
 marked_lane
-
-# sublane lcmodel triggers assertion:
-# MSLCM_SL2015.cpp:1231: int MSLCM_SL2015::_wantsChangeSublane(int, LaneChangeAction, const MSLeaderDistanceInfo&, const MSLeaderDistanceInfo&, const MSLeaderDistanceInfo&, const MSLeaderDistanceInfo&, const MSLeaderDistanceInfo&, const MSLeaderDistanceInfo&, const MSLane&, const std::vector<MSVehicle::LaneQ>&, MSVehicle**, MSVehicle**, double&, int&): Assertion `sublaneSides.size() == myExpectedSublaneSpeeds.size()' failed.
-ticket3611

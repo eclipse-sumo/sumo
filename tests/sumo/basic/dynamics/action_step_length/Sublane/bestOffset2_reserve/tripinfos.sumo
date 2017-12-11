@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 11/30/17 10:27:40 by SUMO Version v0_31_0+1143-87c09f1032
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.4"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="M" depart="0.00" departLane="beg_1" departPos="104.87" departPosLat="0.00" departSpeed="13.89" departDelay="0.00" arrival="15.00" arrivalLane="end_0" arrivalPos="95.13" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="15.00" routeLength="195.13" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_M" vType="tBlock" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="R" depart="0.00" departLane="beg_2" departPos="104.87" departPosLat="0.00" departSpeed="13.89" departDelay="0.00" arrival="33.00" arrivalLane="endRight_0" arrivalPos="138.97" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="33.00" routeLength="238.97" waitSteps="0" timeLoss="14.83" rerouteNo="0" devices="tripinfo_R" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="L" depart="0.00" departLane="beg_0" departPos="104.87" departPosLat="0.00" departSpeed="13.89" departDelay="0.00" arrival="34.00" arrivalLane="endLeft_0" arrivalPos="139.18" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="34.00" routeLength="239.18" waitSteps="4" timeLoss="16.13" rerouteNo="0" devices="tripinfo_L" vType="t0" speedFactor="1.00" vaporized=""/>
+</tripinfos>

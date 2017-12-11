@@ -63,6 +63,11 @@ namespace libsumo {
         static double getTimeSinceDetection(const std::string& detID);
         static std::vector<libsumo::TraCIVehicleData> getVehicleData(const std::string& detID);
 
+        /** @brief Returns a tree filled with inductive loop instances
+         * @return The rtree of inductive loops
+         */
+        static NamedRTree* getTree();
+
     private:
         static MSInductLoop* getDetector(const std::string& detID);
 

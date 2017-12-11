@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 15 Jun 2017 01:51:50 PM CEST by Netedit Version dev-SVN-r24506
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,300.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":B_0" function="internal">
+        <lane id=":B_0_0" index="0" speed="27.78" length="20.07" shape="190.00,-11.55 195.98,-12.07 200.00,-13.20 204.02,-14.33 210.00,-14.85"/>
+        <lane id=":B_0_1" index="1" speed="27.78" length="20.07" shape="190.00,-11.55 210.00,-11.55"/>
+        <lane id=":B_0_2" index="2" speed="27.78" length="20.07" shape="190.00,-8.25 210.00,-8.25"/>
+        <lane id=":B_0_3" index="3" speed="27.78" length="20.07" shape="190.00,-4.95 210.00,-4.95"/>
+        <lane id=":B_0_4" index="4" speed="27.78" length="20.07" shape="190.00,-1.65 210.00,-1.65"/>
+    </edge>
+
+    <edge id="beg" from="gneJ0" to="B" priority="1">
+        <lane id="beg_0" index="0" speed="27.78" length="190.00" shape="0.00,-11.55 190.00,-11.55"/>
+        <lane id="beg_1" index="1" speed="27.78" length="190.00" shape="0.00,-8.25 190.00,-8.25"/>
+        <lane id="beg_2" index="2" speed="27.78" length="190.00" shape="0.00,-4.95 190.00,-4.95"/>
+        <lane id="beg_3" index="3" speed="27.78" length="190.00" shape="0.00,-1.65 190.00,-1.65"/>
+    </edge>
+    <edge id="end" from="B" to="gneJ2" priority="1">
+        <lane id="end_0" index="0" speed="27.78" length="90.00" shape="210.00,-14.85 300.00,-14.85"/>
+        <lane id="end_1" index="1" speed="27.78" length="90.00" shape="210.00,-11.55 300.00,-11.55"/>
+        <lane id="end_2" index="2" speed="27.78" length="90.00" shape="210.00,-8.25 300.00,-8.25"/>
+        <lane id="end_3" index="3" speed="27.78" length="90.00" shape="210.00,-4.95 300.00,-4.95"/>
+        <lane id="end_4" index="4" speed="27.78" length="90.00" shape="210.00,-1.65 300.00,-1.65"/>
+    </edge>
+
+    <junction id="B" type="unregulated" x="200.00" y="0.00" incLanes="beg_0 beg_1 beg_2 beg_3" intLanes=":B_0_0 :B_0_1 :B_0_2 :B_0_3 :B_0_4" shape="210.00,-0.05 210.00,-16.45 190.00,-13.15 190.00,-0.05" radius="10.00"/>
+    <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-13.15"/>
+    <junction id="gneJ2" type="dead_end" x="300.00" y="0.00" incLanes="end_0 end_1 end_2 end_3 end_4" intLanes="" shape="300.00,-16.45 300.00,-0.05"/>
+
+    <connection from="beg" to="end" fromLane="0" toLane="0" via=":B_0_0" dir="s" state="M"/>
+    <connection from="beg" to="end" fromLane="0" toLane="1" via=":B_0_1" dir="s" state="M"/>
+    <connection from="beg" to="end" fromLane="1" toLane="2" via=":B_0_2" dir="s" state="M"/>
+    <connection from="beg" to="end" fromLane="2" toLane="3" via=":B_0_3" dir="s" state="M"/>
+    <connection from="beg" to="end" fromLane="3" toLane="4" via=":B_0_4" dir="s" state="M"/>
+
+    <connection from=":B_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":B_0" to="end" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":B_0" to="end" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":B_0" to="end" fromLane="3" toLane="3" dir="s" state="M"/>
+    <connection from=":B_0" to="end" fromLane="4" toLane="4" dir="s" state="M"/>
+
+</net>

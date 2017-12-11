@@ -2589,8 +2589,14 @@ NBNode::geometryLike() const {
     if (myIncomingEdges.size() == 2 && myOutgoingEdges.size() == 2) {
         // check whether the incoming and outgoing edges are pairwise (near) parallel and
         // thus the only cross-connections could be turn-arounds
+        NBEdge* in0 = myIncomingEdges[0];
+        NBEdge* in1 = myIncomingEdges[1];
         NBEdge* out0 = myOutgoingEdges[0];
         NBEdge* out1 = myOutgoingEdges[1];
+        if ((in0->isTurningDirectionAt(out0) || in0->isTurningDirectionAt(out1))
+            && (in1->isTurningDirectionAt(out0) || in1->isTurningDirectionAt(out1))) {
+            return true;
+        }
         for (EdgeVector::const_iterator it = myIncomingEdges.begin(); it != myIncomingEdges.end(); ++it) {
             NBEdge* inEdge = *it;
             double angle0 = fabs(NBHelpers::relAngle(inEdge->getAngleAtNode(this), out0->getAngleAtNode(this)));

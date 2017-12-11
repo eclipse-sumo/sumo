@@ -1,0 +1,15 @@
+<routes>
+    <vTypeDistribution id="dist">
+        <vType probability="40" id="passenger"       vClass="passenger"  latAlignment="center" sigma="0.0" minGapLat="1.0" lcPushy="0.0" speedDev="0.1"/>
+        <vType probability="30" id="passenger_pushy" vClass="passenger"  latAlignment="center" sigma="0.0" minGapLat="1.0" lcPushy="1.0" speedDev="0.1"/>
+        <vType probability="10" id="truck"           vClass="delivery"   latAlignment="center" sigma="0.0" minGapLat="1.0" lcPushy="0.0" speedDev="0.1"/>
+        <vType probability="20" id="motorcycle"      vClass="motorcycle" latAlignment="center" sigma="0.0" minGapLat="1.0" lcPushy="0.0" speedDev="0.1"/>
+    </vTypeDistribution>
+
+    <route id="main" edges="beg merge end"/>
+    <route id="ramp" edges="ramp merge end"/>
+
+    <flow id="main" type="dist" route="main" departSpeed="max" departPos="last"  departLane="random" departPosLat="random" begin="0" end="300" period="0.9"/>
+    <flow id="ramp" type="dist" route="ramp" departSpeed="max" departPos="last"  departLane="random" departPosLat="random" begin="0" end="300" period="1.3"/>
+
+</routes>

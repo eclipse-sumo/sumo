@@ -76,6 +76,8 @@ namespace libsumo {
         static void appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID = "");
         static void removeStage(const std::string& personID, int nextStageIndex);
         static void rerouteTraveltime(const std::string& personID);
+        static void moveTo(const std::string& personID, const std::string& edgeID, double position);
+        static void moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRouteFlag);
         static void setParameter(const std::string& personID, const std::string& key, const std::string& value);
         static void setSpeed(const std::string& personID, double speed);
         static void setType(const std::string& personID, const std::string& typeID);
@@ -95,10 +97,11 @@ namespace libsumo {
         /// @brief invalidated assignment operator
         Person& operator=(const Person& src);
 
-        static MSTransportable* getPerson(const std::string& id);
+        static MSPerson* getPerson(const std::string& id);
 
         // This does not only return the person's vType, but makes it singular.
         static std::string getSingularVType(const std::string& personID);
+
     };
 }
 

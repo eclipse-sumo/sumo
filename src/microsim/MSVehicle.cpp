@@ -704,7 +704,7 @@ void
 MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
 #ifdef DEBUG_ACTIONSTEPS
     if DEBUG_COND {
-        std::cout << SIMTIME << " Removing vehicle '" << getID() << "'" << std::endl;
+        std::cout << SIMTIME << " Removing vehicle '" << getID() << "' (reason: " << toString(reason) << ")" << std::endl;
     }
 #endif
     MSVehicleTransfer::getInstance()->remove(this);

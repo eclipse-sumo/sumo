@@ -41,16 +41,70 @@ class PositionVector;
 class RGBColor;
 class MSEdge;
 class MSLane;
+class MSPerson;
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
+class LaneStoringVisitor {
+public:
+    /// @brief Constructor
+    LaneStoringVisitor(std::set<std::string>& ids, const PositionVector& shape,
+                   const double range, const int domain)
+        : myIDs(ids), myShape(shape), myRange(range), myDomain(domain) {}
+
+    /// @brief Destructor
+    ~LaneStoringVisitor() {}
+
+    /// @brief Adds the given object to the container
+    void add(const MSLane* const l) const;
+
+    /// @brief The container
+    std::set<std::string>& myIDs;
+    const PositionVector& myShape;
+    const double myRange;
+    const int myDomain;
+
+private:
+    /// @brief invalidated copy constructor
+    LaneStoringVisitor(const LaneStoringVisitor& src);
+
+    /// @brief invalidated assignment operator
+    LaneStoringVisitor& operator=(const LaneStoringVisitor& src);
+};
+
+#define LANE_RTREE_QUAL RTree<MSLane*, MSLane, float, 2, LaneStoringVisitor>
+    template<>
+    inline float LANE_RTREE_QUAL::RectSphericalVolume(Rect* a_rect) {
+        ASSERT(a_rect);
+        const float extent0 = a_rect->m_max[0] - a_rect->m_min[0];
+        const float extent1 = a_rect->m_max[1] - a_rect->m_min[1];
+        return .78539816f * (extent0 * extent0 + extent1 * extent1);
+    }
+
+    template<>
+    inline LANE_RTREE_QUAL::Rect LANE_RTREE_QUAL::CombineRect(Rect* a_rectA, Rect* a_rectB) {
+        ASSERT(a_rectA && a_rectB);
+        Rect newRect;
+        newRect.m_min[0] = rtree_min(a_rectA->m_min[0], a_rectB->m_min[0]);
+        newRect.m_max[0] = rtree_max(a_rectA->m_max[0], a_rectB->m_max[0]);
+        newRect.m_min[1] = rtree_min(a_rectA->m_min[1], a_rectB->m_min[1]);
+        newRect.m_max[1] = rtree_max(a_rectA->m_max[1], a_rectB->m_max[1]);
+        return newRect;
+    }
+
 /**
  * @class Helper
  * @brief C++ TraCI client API implementation
  */
 namespace libsumo {
+
+    /** @class StoringVisitor
+     * @brief Allows to store the object; used as context while traveling the rtree in TraCI
+     */
+
     class Helper {
     public:
         /** @brief Connects to the specified SUMO server
@@ -115,9 +169,64 @@ namespace libsumo {
 
         static std::string getParameter(const std::string& objectID, const std::string& key);
 
+        static void collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into); 
+
+        static void setVTDControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
+                int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
+
+        static void setVTDControlled(MSPerson* p, Position xyPos, MSLane* l, double pos, double posLat, double angle,
+                int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
+
+        static void postProcessVTD();
+
+        static void cleanup(); 
+
+        /// @name functions for moveToXY
+        /// @{
+        static bool vtdMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,
+                double speed, const ConstMSEdgeVector& currentRoute, int routePosition, MSLane* currentLane, double currentLanePos, bool onRoad,
+                double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges);
+
+        static bool vtdMap_matchingRoutePosition(const Position& pos, const std::string& origID,
+                const ConstMSEdgeVector& currentRoute, const ConstMSEdgeVector::const_iterator& routeIt,
+                double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset);
+
+        static bool findCloserLane(const MSEdge* edge, const Position& pos, double& bestDistance, MSLane** lane);
+
+        class LaneUtility {
+        public:
+            LaneUtility(double dist_, double perpendicularDist_, double lanePos_, double angleDiff_, bool ID_,
+                        bool onRoute_, bool sameEdge_, const MSEdge* prevEdge_, const MSEdge* nextEdge_) :
+                dist(dist_), perpendicularDist(perpendicularDist_), lanePos(lanePos_), angleDiff(angleDiff_), ID(ID_),
+                onRoute(onRoute_), sameEdge(sameEdge_), prevEdge(prevEdge_), nextEdge(nextEdge_) {}
+            LaneUtility() {}
+            ~LaneUtility() {}
+
+            double dist;
+            double perpendicularDist;
+            double lanePos;
+            double angleDiff;
+            bool ID;
+            bool onRoute;
+            bool sameEdge;
+            const MSEdge* prevEdge;
+            const MSEdge* nextEdge;
+        };
+        /// @}
+
     private:
+
         SubscribedValues mySubscribedValues;
         SubscribedContextValues mySubscribedContextValues;
+
+        /// @brief A storage of objects
+        static std::map<int, NamedRTree*> myObjects;
+
+        /// @brief A storage of lanes
+        static LANE_RTREE_QUAL* myLaneTree;
+
+        static std::map<std::string, MSVehicle*> myVTDControlledVehicles;
+        static std::map<std::string, MSPerson*> myVTDControlledPersons;
 
         /// @brief invalidated standard constructor
         Helper();
@@ -128,6 +237,7 @@ namespace libsumo {
         /// @brief invalidated assignment operator
         Helper& operator=(const Helper& src);
     };
+
 }
 
 

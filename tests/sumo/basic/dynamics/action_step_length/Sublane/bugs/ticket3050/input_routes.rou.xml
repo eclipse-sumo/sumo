@@ -1,0 +1,11 @@
+<routes>
+    <vType id="t0" vClass="passenger" latAlignment="arbitrary" sigma="0" minGapLat="1.0" speedFactor="0.7" maxSpeedLat="0.2"/>
+    <vType id="t1" vClass="passenger" latAlignment="arbitrary" sigma="0" minGapLat="1.0" width="2.55" decel="1.0"/>
+
+    <route id="r0" edges="beg end"/>
+
+    <vehicle id="follower"  type="t1"  route="r0" departSpeed="max" departPos="150"  departLane="3" departPosLat="left"  depart="0"/>
+    <vehicle id="ego"       type="t0"  route="r0" departSpeed="max" departPos="171"  departLane="2" departPosLat="1.30" depart="0" arrivalLane="4"/>
+    <vehicle id="leader"    type="t0"  route="r0" departSpeed="max" departPos="175"  departLane="2" departPosLat="-0.55" depart="0"/>
+
+</routes>

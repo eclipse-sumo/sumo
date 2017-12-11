@@ -47,9 +47,7 @@
 #include "MSLinkCont.h"
 #include "MSLeaderInfo.h"
 #include "MSMoveReminder.h"
-#ifndef NO_TRACI
-#include <traci-server/TraCIServerAPI_Lane.h>
-#endif
+#include <libsumo/Helper.h>
 
 
 // ===========================================================================
@@ -809,7 +807,7 @@ public:
      * if no such vehicle exists */
     MSVehicle* getPartialBehind(const MSVehicle* ego) const;
 
-    /// @brief get all vehicles that are inlaping from consecutve edges
+    /// @brief get all vehicles that are inlapping from consecutive edges
     MSLeaderInfo getPartialBeyond() const;
 
     /** @brief get the most likely precedecessor lane (sorted using by_connections_to_sorter).
@@ -1022,18 +1020,16 @@ public:
     /// @}
 
 
-#ifndef NO_TRACI
     /** @brief Callback for visiting the lane when traversing an RTree
      *
      * This is used in the TraCIServerAPI_Lane for context subscriptions.
      *
      * @param[in] cont The context doing all the work
-     * @see TraCIServerAPI_Lane::StoringVisitor::add
+     * @see libsumo::Helper::LaneStoringVisitor::add
      */
-    void visit(const TraCIServerAPI_Lane::StoringVisitor& cont) const {
+    void visit(const LaneStoringVisitor& cont) const {
         cont.add(this);
     }
-#endif
 
     static void initCollisionOptions(const OptionsCont& oc);
 

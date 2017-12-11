@@ -134,6 +134,21 @@ namespace libsumo {
         }
         return sumoPoi;
     }
+
+
+    NamedRTree*
+        POI::getTree() {
+        NamedRTree* t = new NamedRTree();
+        ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+        for (const auto& i : shapeCont.getPOIs()) {
+            const float cmin[2] = {(float)i.second->x(), (float)i.second->y()};
+            const float cmax[2] = {(float)i.second->x(), (float)i.second->y()};
+            t->Insert(cmin, cmax, i.second);
+        }
+        return t;
+    }
+
+
 }
 
 

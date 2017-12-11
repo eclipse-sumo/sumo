@@ -67,6 +67,11 @@ namespace libsumo {
         static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
         static MSJunction* getJunction(const std::string& id);
 
+        /** @brief Returns a tree filled with junction instances
+         * @return The rtree of junctions
+         */
+        static NamedRTree* getTree();
+
     private:
         /// @brief invalidated standard constructor
         Junction();

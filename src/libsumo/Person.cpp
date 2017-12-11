@@ -37,6 +37,10 @@
 #include "VehicleType.h"
 #include "Person.h"
 
+#define FAR_AWAY 1000.0
+
+//#define DEBUG_MOVEXY
+//#define DEBUG_MOVEXY_ANGLE
 
 // ===========================================================================
 // member definitions
@@ -122,7 +126,7 @@ namespace libsumo {
 
     std::string
         Person::getNextEdge(const std::string& personID) {
-        return dynamic_cast<MSPerson*>(getPerson(personID))->getNextEdge();
+        return getPerson(personID)->getNextEdge();
     }
 
 
@@ -348,7 +352,7 @@ namespace libsumo {
 
     void
         Person::rerouteTraveltime(const std::string& personID) {
-        MSTransportable* p = getPerson(personID);
+        MSPerson* p = getPerson(personID);
         if (p->getNumRemainingStages() == 0 || p->getCurrentStageType() != MSTransportable::MOVING_WITHOUT_VEHICLE) {
             throw TraCIException("Person '" + personID + "' is not currenlty walking.");
         }
@@ -374,17 +378,125 @@ namespace libsumo {
             // @note: maybe this should be done automatically by the router
             newEdges.insert(newEdges.begin(), from);
         }
-        //std::cout << " from=" << from->getID() << " to=" << to->getID() << " newEdges=" << toString(newEdges) << "\n";
-        MSPerson::MSPersonStage_Walking* newStage = new MSPerson::MSPersonStage_Walking(p->getID(), newEdges, 0, -1, speed, departPos, arrivalPos, 0);
-        if (p->getNumRemainingStages() == 1) {
-            // Do not remove the last stage (a waiting stage would be added otherwise)
-            p->appendStage(newStage);
-            //std::cout << "case a: remaining=" << p->getNumRemainingStages() << "\n";
-            p->removeStage(0);
+        p->reroute(newEdges);
+    }
+
+
+    void
+        Person::moveTo(const std::string& personID, const std::string& edgeID, double position) {
+        MSPerson* p = getPerson(personID);
+        MSEdge* e = MSEdge::dictionary(edgeID);
+        if (e == 0) {
+            throw TraCIException("Unknown edge '" + edgeID + "'.");
+        }
+        switch (p->getStageType(0)) {
+            /*
+           case MSTransportable::MOVING_WITHOUT_VEHICLE: {
+               MSPerson::MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
+                assert(s != 0);
+                const std::string error = s->moveTo(p, Simulation::getCurrentTime());
+                if (error != "") {
+                    throw TraCIException("Command moveTo failed for person '" + personID + "' (" + error + ").");
+                }
+                break;
+            }
+            */
+            default:
+                throw TraCIException("Command moveTo is not supported for person '" + personID + "' while " + p->getCurrentStageDescription() + ".");
+        }
+    }
+
+
+    void
+        Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRouteFlag) {
+        MSPerson* p = getPerson(personID);
+        MSEdge* e = MSEdge::dictionary(edgeID);
+        bool keepRoute = (keepRouteFlag == 1);
+        bool mayLeaveNetwork = (keepRouteFlag == 2);
+        Position pos(x, y);
+        double origAnge = angle;
+        // angle must be in [0,360] because it will be compared against those returned by naviDegree()
+        // angle set to INVALID_DOUBLE_VALUE is ignored in the evaluated and later set to the angle of the matched lane
+        if (angle != INVALID_DOUBLE_VALUE) {
+            while (angle >= 360.) {
+                angle -= 360.;
+            }
+            while (angle < 0.) {
+                angle += 360.;
+            }
+        }
+        Position currentPos = p->getPosition();
+#ifdef DEBUG_MOVEXY
+        std::cout << std::endl << "begin person " << p->getID() << " lanePos:" << p->getEdgePos() << " edge:" << Named::getIDSecure(p->getEdge()) << "\n";
+        std::cout << " want pos:" << pos << " edgeID:" << edgeID <<  " origAngle:" << origAngle << " angle:" << angle << " keepRoute:" << keepRoute << std::endl;
+#endif
+
+        ConstMSEdgeVector edges;
+        MSLane* lane = 0;
+        double lanePos;
+        double lanePosLat = 0;
+        double bestDistance = std::numeric_limits<double>::max();
+        int routeOffset = 0;
+        bool found = false;
+        double maxRouteDistance = 100;
+        if (keepRoute) {
+            // case a): vehicle is on its earlier route
+            //  we additionally assume it is moving forward (SUMO-limit);
+            //  note that the route ("edges") is not changed in this case
+            // XXX found = vtdMap_matchingRoutePosition(pos, edgeID, *veh, bestDistance, &lane, lanePos, routeOffset, edges);
+            // @note silenty ignoring mapping failure
         } else {
-            p->removeStage(0);
-            p->appendStage(newStage);
-            //std::cout << "case b: remaining=" << p->getNumRemainingStages() << "\n";
+            // XXX found = vtdMap(pos, maxRouteDistance, mayLeaveNetwork, edgeID, angle, *veh, bestDistance, &lane, lanePos, routeOffset, edges);
+        }
+        if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
+            // compute lateral offset
+            if (found) {
+                const double perpDist = lane->getShape().distance2D(pos, false);
+                if (perpDist != GeomHelper::INVALID_OFFSET) {
+                    lanePosLat = perpDist;
+                    if (!mayLeaveNetwork) {
+                        lanePosLat = MIN2(lanePosLat, 0.5 * (lane->getWidth() + p->getVehicleType().getWidth()));
+                    }
+                    // figure out whether the offset is to the left or to the right
+                    PositionVector tmp = lane->getShape();
+                    try {
+                        tmp.move2side(-lanePosLat); // moved to left
+                    } catch (ProcessError&) {
+                        WRITE_WARNING("Could not determine position on lane '" + lane->getID() + " at lateral position " + toString(-lanePosLat) + ".");
+                    }
+                    //std::cout << " lane=" << lane->getID() << " posLat=" << lanePosLat << " shape=" << lane->getShape() << " tmp=" << tmp << " tmpDist=" << tmp.distance2D(pos) << "\n";
+                    if (tmp.distance2D(pos) > perpDist) {
+                        lanePosLat = -lanePosLat;
+                    }
+                }
+            }
+            if (found && !mayLeaveNetwork && MSGlobals::gLateralResolution < 0) {
+                // mapped position may differ from pos
+                pos = lane->geometryPositionAtOffset(lanePos, -lanePosLat);
+            }
+            assert((found && lane != 0) || (!found && lane == 0));
+            if (angle == INVALID_DOUBLE_VALUE) {
+                if (lane != 0) {
+                    angle = GeomHelper::naviDegree(lane->getShape().rotationAtOffset(lanePos));
+                } else {
+                    // compute angle outside road network from old and new position
+                    angle = GeomHelper::naviDegree(p->getPosition().angleTo2D(pos));
+                }
+            }
+            switch (p->getStageType(0)) {
+                case MSTransportable::MOVING_WITHOUT_VEHICLE: {
+                    Helper::setVTDControlled(p, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
+                    break;
+                }
+                default:
+                    throw TraCIException("Command moveToXY is not supported for person '" + personID + "' while " + p->getCurrentStageDescription() + ".");
+            }
+        } else {
+            if (lane == 0) {
+                throw TraCIException("Could not map person '" + personID + "' no road found within " + toString(maxRouteDistance) + "m.");
+            } else {
+                throw TraCIException("Could not map person '" + personID + "' distance to road is " + toString(bestDistance) + ".");
+            }
         }
     }
 
@@ -426,10 +538,10 @@ namespace libsumo {
 
     /******** private functions *************/
 
-    MSTransportable*
+    MSPerson*
         Person::getPerson(const std::string& personID) {
         MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
-        MSTransportable* p = c.get(personID);
+        MSPerson* p = dynamic_cast<MSPerson*>(c.get(personID));
         if (p == 0) {
             throw TraCIException("Person '" + personID + "' is not known");
         }

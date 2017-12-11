@@ -89,7 +89,7 @@ def main():
     options = get_options()
     with open(options.output, 'w') as f:
         sumolib.writeXMLHeader(
-            fouttrips, "$Id$", "routes")
+            f, "$Id$", "routes")
         index = options.index
         for depart in range(options.begin, options.end):
             if random.random() < options.prob:

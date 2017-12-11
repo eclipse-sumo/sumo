@@ -49,10 +49,10 @@
 #include "Vehicle.h"
 
 
-// ===========================================================================
-// member definitions
-// ===========================================================================
 namespace libsumo {
+    // ===========================================================================
+    // member definitions
+    // ===========================================================================
     MSVehicle*
         Vehicle::getVehicle(const std::string& id) {
         SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
@@ -787,14 +787,105 @@ namespace libsumo {
 
 
     void
-        Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute) {
-        getVehicle(vehicleID);
-        UNUSED_PARAMETER(edgeID);
-        UNUSED_PARAMETER(lane);
-        UNUSED_PARAMETER(x);
-        UNUSED_PARAMETER(y);
-        UNUSED_PARAMETER(angle);
-        UNUSED_PARAMETER(keepRoute);
+        Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle, const int keepRouteFlag) {
+        MSVehicle* veh = getVehicle(vehicleID);
+        bool keepRoute = (keepRouteFlag == 1) && veh->getID() != "VTD_EGO";
+        bool mayLeaveNetwork = (keepRouteFlag == 2);
+        // process
+        const std::string origID = edgeID + "_" + toString(laneIndex);
+        // @todo add an interpretation layer for OSM derived origID values (without lane index)
+        Position pos(x, y);
+        double origAnge = angle;
+        // angle must be in [0,360] because it will be compared against those returned by naviDegree()
+        // angle set to INVALID_DOUBLE_VALUE is ignored in the evaluated and later set to the angle of the matched lane
+        if (angle != INVALID_DOUBLE_VALUE) {
+            while (angle >= 360.) {
+                angle -= 360.;
+            }
+            while (angle < 0.) {
+                angle += 360.;
+            }
+        }
+
+        Position vehPos = veh->getPosition();
+#ifdef DEBUG_MOVEXY
+        std::cout << std::endl << "begin vehicle " << veh->getID() << " vehPos:" << vehPos << " lane:" << Named::getIDSecure(veh->getLane()) << std::endl;
+        std::cout << " want pos:" << pos << " origID:" << origID << " laneIndex:" << laneIndex << " origAngle:" << origAngle << " angle:" << angle << " keepRoute:" << keepRoute << std::endl;
+#endif
+
+        ConstMSEdgeVector edges;
+        MSLane* lane = 0;
+        double lanePos;
+        double lanePosLat = 0;
+        double bestDistance = std::numeric_limits<double>::max();
+        int routeOffset = 0;
+        bool found;
+        double maxRouteDistance = 100;
+        /* EGO vehicle is known to have a fixed route. @todo make this into a parameter of the TraCI call */
+        const ConstMSEdgeVector& ev = veh->getRoute().getEdges();
+        if (keepRoute) {
+            // case a): vehicle is on its earlier route
+            //  we additionally assume it is moving forward (SUMO-limit);
+            //  note that the route ("edges") is not changed in this case
+
+            found = Helper::vtdMap_matchingRoutePosition(pos, origID, 
+                    ev, veh->getCurrentRouteEdge(),
+                    bestDistance, &lane, lanePos, routeOffset);
+            // @note silenty ignoring mapping failure
+        } else {
+            double speed = pos.distanceTo2D(veh->getPosition()); // !!!veh->getSpeed();
+            found = Helper::vtdMap(pos, maxRouteDistance, mayLeaveNetwork, origID, angle, 
+                    speed, veh->getRoute().getEdges(), veh->getRoutePosition(), veh->getLane(), veh->getPositionOnLane(), veh->isOnRoad(),
+                    bestDistance, &lane, lanePos, routeOffset, edges);
+        }
+        if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
+            // optionally compute lateral offset
+            if (found && (MSGlobals::gLateralResolution > 0 || mayLeaveNetwork)) {
+                const double perpDist = lane->getShape().distance2D(pos, false);
+                if (perpDist != GeomHelper::INVALID_OFFSET) {
+                    lanePosLat = perpDist;
+                    if (!mayLeaveNetwork) {
+                        lanePosLat = MIN2(lanePosLat, 0.5 * (lane->getWidth() + veh->getVehicleType().getWidth() - MSGlobals::gLateralResolution));
+                    }
+                    // figure out whether the offset is to the left or to the right
+                    PositionVector tmp = lane->getShape();
+                    try {
+                        tmp.move2side(-lanePosLat); // moved to left
+                    } catch (ProcessError&) {
+                        WRITE_WARNING("Could not determine position on lane '" + lane->getID() + " at lateral position " + toString(-lanePosLat) + ".");
+                    }
+                    //std::cout << " lane=" << lane->getID() << " posLat=" << lanePosLat << " shape=" << lane->getShape() << " tmp=" << tmp << " tmpDist=" << tmp.distance2D(pos) << "\n";
+                    if (tmp.distance2D(pos) > perpDist) {
+                        lanePosLat = -lanePosLat;
+                    }
+                }
+            }
+            if (found && !mayLeaveNetwork && MSGlobals::gLateralResolution < 0) {
+                // mapped position may differ from pos
+                pos = lane->geometryPositionAtOffset(lanePos, -lanePosLat);
+            }
+            assert((found && lane != 0) || (!found && lane == 0));
+            if (angle == INVALID_DOUBLE_VALUE) {
+                if (lane != 0) {
+                    angle = GeomHelper::naviDegree(lane->getShape().rotationAtOffset(lanePos));
+                } else {
+                    // compute angle outside road network from old and new position
+                    angle = GeomHelper::naviDegree(veh->getPosition().angleTo2D(pos));
+                }
+            }
+            // use the best we have
+            Helper::setVTDControlled(veh, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
+            if (!veh->isOnRoad()) {
+                MSNet::getInstance()->getInsertionControl().alreadyDeparted(veh);
+
+            }
+        } else {
+            if (lane == 0) {
+                throw TraCIException("Could not map vehicle '" + vehicleID + "' no road found within " + toString(maxRouteDistance) + "m.");
+            } else {
+                throw TraCIException("Could not map vehicle '" + vehicleID + "' distance to road is " + toString(bestDistance) + ".");
+            }
+        }
     }
 
     void
@@ -1077,7 +1168,9 @@ namespace libsumo {
             ((SUMOVehicleParameter&)veh->getParameter()).setParameter(key, value);
         }
     }
-}
 
+
+
+}
 
 /****************************************************************************/

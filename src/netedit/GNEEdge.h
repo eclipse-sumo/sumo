@@ -251,14 +251,17 @@ public:
     /// @brief remove Edge of Additional Parent
     void removeEdgeOfAdditionalParents(GNEUndoList *undoList, bool allowEmpty);
 
-    /// @brief make geometry smooth (if undolist is 0 only compute and return new geometry)
-    PositionVector smooth(GNEUndoList *undoList, bool forElevation = false);
+    /// @brief make geometry smooth
+    void smooth(GNEUndoList *undoList);
 
     /// @brief interpolate z values linear between junctions
     void straightenElevation(GNEUndoList *undoList);
 
     /// @brief smooth elevation with regard to adjoining edges
     void smoothElevation(GNEUndoList *undoList);
+
+    /// @brief return smoothed shape
+    PositionVector smoothShape(const PositionVector& shape, bool forElevation);
 
 protected:
     /// @brief the underlying NBEdge
