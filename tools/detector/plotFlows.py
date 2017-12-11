@@ -97,7 +97,8 @@ def plot(options, allData, prefix="", linestyle="-"):
         label = label.replace(";","_")
         if options.csv_output is not None:
             write_csv(x, data, options.csv_output + label + ".csv")
-        plt.savefig(label + "." + options.extension)
+        if not options.singleplot:
+            plt.savefig(label + "." + options.extension)
     plt.legend(loc='best')
 
 
@@ -127,8 +128,6 @@ def main(options):
                     addToDataList(data, i, flow)
             allData.append(data)
         plot(options, allData)
-        if options.show:
-            plt.show()
 
     elif options.groupby == "type":
         for detType, linestyle in [("source", "-"), ("sink", ":"), ("between", "--")]:
@@ -144,8 +143,6 @@ def main(options):
                             addToDataList(data, i, flow)
                 allData.append(data)
             plot(options, allData, detType, linestyle)
-        if options.show:
-            plt.show()
 
     elif options.groupby == "none":
         for det, groupName in [(g.ids[0], g.getName(options.longnames)) for e, g in detReaders[0].getGroups()]:
@@ -162,12 +159,14 @@ def main(options):
                     addToDataList(data, i, flow)
                 allData.append(data)
             plot(options, allData, "%s_%s" % (groupName, group.type))
-        if options.show:
-            plt.show()
 
     else:
         raise RuntimeError("group-by '%s' not supported" % options.groupby)
 
+    if options.singleplot:
+        plt.savefig("singlePlot." + options.extension)
+    if options.show:
+        plt.show()
 
 if __name__ == "__main__":
     main(get_options())
