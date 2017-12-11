@@ -57,7 +57,7 @@
 #include "GNEChange_Additional.h"
 
 //#define DEBUG_SMOOTH_GEOM
-//#define DEBUG_COND(obj) ((obj != 0 && (obj)->isSelected()))
+//#define DEBUGCOND(obj) (true)
 
 // ===========================================================================
 // static
@@ -1271,7 +1271,13 @@ GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
     // b) if the edge has more than 4 points, use the first 2 and the last 2 as control points
     // c) if the edge is straight and both nodes are geometry-like nodes, use geometry of the continuation edges as control points
     PositionVector init;
-    //std::cout << getID() << " smoothShape old=" << old << "\n";
+#ifdef DEBUG_SMOOTH_GEOM
+        if (DEBUGCOND(this)) std::cout << getID() 
+            << " forElevation=" << forElevation
+            << " fromGeometryLike=" << myNBEdge.getFromNode()->geometryLike()
+            << " toGeometryLike=" << myNBEdge.getToNode()->geometryLike()
+            << " smoothShape old=" << old << "\n";
+#endif
     if (old.size() == 3 || old.size() == 4) {
         init = old;
     } else if (old.size() > 4 && !forElevation) {
@@ -1316,7 +1322,7 @@ GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
             init = NBNode::bezierControlPoints(begShape, endShape, false, dist, dist, ok, 0, straightThresh);
         }
 #ifdef DEBUG_SMOOTH_GEOM
-        if (DEBUGCOND) std::cout << "   begShape=" << begShape << " endShape=" << endShape << " forElevation=" << forElevation << " dist=" << dist << " ok=" << ok << " init=" << init << "\n";
+        if (DEBUGCOND(this)) std::cout << "   begShape=" << begShape << " endShape=" << endShape << " forElevation=" << forElevation << " dist=" << dist << " ok=" << ok << " init=" << init << "\n";
 #endif
     }
     if (init.size() == 0) {
