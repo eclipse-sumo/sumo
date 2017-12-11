@@ -882,7 +882,7 @@ namespace libsumo {
             //  note that the route ("edges") is not changed in this case
 
             found = Helper::vtdMap_matchingRoutePosition(pos, origID, 
-                    ev, veh->getCurrentRouteEdge(),
+                    ev, veh->getCurrentRouteEdge() - veh->getRoute().begin(),
                     bestDistance, &lane, lanePos, routeOffset);
             // @note silenty ignoring mapping failure
         } else {

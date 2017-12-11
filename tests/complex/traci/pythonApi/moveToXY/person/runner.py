@@ -44,6 +44,7 @@ x, y = traci.person.getPosition(p)
 print("s=%s x=%s y=%s" % (s, x, y))
 traci.person.moveToXY(p, "", x, y-10)
 s = step()
+x, y = traci.person.getPosition(p)
 print("s=%s x=%s y=%s" % (s, x, y))
 
 traci.close()

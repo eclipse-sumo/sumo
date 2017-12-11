@@ -439,14 +439,36 @@ namespace libsumo {
         int routeOffset = 0;
         bool found = false;
         double maxRouteDistance = 100;
+
+        ConstMSEdgeVector ev;
+        ev.push_back(p->getEdge());
+        int routeIndex = 0;
+        MSRouteIterator routeStep = ev.begin();
+        MSLane* currentLane = const_cast<MSLane*>(getSidewalk<MSEdge, MSLane>(p->getEdge()));
+        switch (p->getStageType(0)) {
+            case MSTransportable::MOVING_WITHOUT_VEHICLE: {
+                MSPerson::MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
+                assert(s != 0);
+                ev = s->getEdges();
+                routeIndex = s->getRouteStep() - s->getRoute().begin();
+            }
+            break;
+            default:
+            break;
+        }
         if (keepRoute) {
             // case a): vehicle is on its earlier route
             //  we additionally assume it is moving forward (SUMO-limit);
             //  note that the route ("edges") is not changed in this case
-            // XXX found = vtdMap_matchingRoutePosition(pos, edgeID, *veh, bestDistance, &lane, lanePos, routeOffset, edges);
+            found = Helper::vtdMap_matchingRoutePosition(pos, edgeID, 
+                    ev, routeIndex,
+                    bestDistance, &lane, lanePos, routeOffset);
             // @note silenty ignoring mapping failure
         } else {
-            // XXX found = vtdMap(pos, maxRouteDistance, mayLeaveNetwork, edgeID, angle, *veh, bestDistance, &lane, lanePos, routeOffset, edges);
+            double speed = pos.distanceTo2D(p->getPosition()); // !!!veh->getSpeed();
+            found = Helper::vtdMap(pos, maxRouteDistance, mayLeaveNetwork, edgeID, angle, 
+                    speed, ev, routeIndex, currentLane, p->getEdgePos(), true,
+                    bestDistance, &lane, lanePos, routeOffset, edges);
         }
         if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
             // compute lateral offset

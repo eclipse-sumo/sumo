@@ -377,24 +377,21 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             // x
             double x = 0;
             if (!server.readTypeCheckingDouble(inputStorage, x)) {
-                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The third parameter for moveToXY must be the x-position given as a double.", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The second parameter for moveToXY must be the x-position given as a double.", outputStorage);
             }
             // y
             double y = 0;
             if (!server.readTypeCheckingDouble(inputStorage, y)) {
-                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The fourth parameter for moveToXY must be the y-position given as a double.", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The third parameter for moveToXY must be the y-position given as a double.", outputStorage);
             }
             // angle
             double angle = 0;
             if (!server.readTypeCheckingDouble(inputStorage, angle)) {
-                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The fifth parameter for moveToXY must be the angle given as a double.", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The fourth parameter for moveToXY must be the angle given as a double.", outputStorage);
             }
-
             int keepRouteFlag = 1;
-            if (numArgs == 6) {
-                if (!server.readTypeCheckingByte(inputStorage, keepRouteFlag)) {
-                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The sixth parameter for moveToXY must be the keepRouteFlag given as a byte.", outputStorage);
-                }
+            if (!server.readTypeCheckingByte(inputStorage, keepRouteFlag)) {
+                return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The fifth parameter for moveToXY must be the keepRouteFlag given as a byte.", outputStorage);
             }
             libsumo::Person::moveToXY(id, edgeID, x, y, angle, keepRouteFlag);
         }

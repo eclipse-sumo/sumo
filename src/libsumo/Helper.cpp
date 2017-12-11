@@ -527,7 +527,7 @@ namespace libsumo {
 
     bool
         Helper::vtdMap_matchingRoutePosition(const Position& pos, const std::string& origID, 
-                const ConstMSEdgeVector& currentRoute, const MSRouteIterator& routeIt,
+                const ConstMSEdgeVector& currentRoute, int routeIndex,
                 double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset) {
         routeOffset = 0;
         // routes may be looped which makes routeOffset ambiguous. We first try to
@@ -536,33 +536,34 @@ namespace libsumo {
         // look forward along the route
         const MSEdge* prev = 0;
         UNUSED_PARAMETER(prev); // silence 'unused variable' warning when built without INTERNAL_LANES
-        for (ConstMSEdgeVector::const_iterator i = routeIt; i != currentRoute.end(); ++i) {
+        for (int i = routeIndex; i < currentRoute.size(); ++i) {
+            const MSEdge* cand = currentRoute[i];
             while (prev != 0) {
                 // check internal edge(s)
-                const MSEdge* internalCand = prev->getInternalFollowingEdge(*i);
+                const MSEdge* internalCand = prev->getInternalFollowingEdge(cand);
                 findCloserLane(internalCand, pos, bestDistance, lane);
                 prev = internalCand;
             }
-            if (findCloserLane(*i, pos, bestDistance, lane)) {
-                routeOffset = (int)std::distance(currentRoute.begin(), i);
+            if (findCloserLane(cand, pos, bestDistance, lane)) {
+                routeOffset = i;
             }
-            prev = *i;
+            prev = cand;
         }
         // look backward along the route
-        const MSEdge* next = *routeIt;
-        UNUSED_PARAMETER(next); // silence 'unused variable' warning when built without INTERNAL_LANES
-        for (MSRouteIterator i = routeIt; i != currentRoute.begin(); --i) {
-            prev = *i;
+        const MSEdge* next = currentRoute[routeIndex];
+        for (int i = routeIndex; i > 0; --i) {
+            const MSEdge* cand = currentRoute[i];
+            prev = cand;
             while (prev != 0) {
                 // check internal edge(s)
                 const MSEdge* internalCand = prev->getInternalFollowingEdge(next);
                 findCloserLane(internalCand, pos, bestDistance, lane);
                 prev = internalCand;
             }
-            if (findCloserLane(*i, pos, bestDistance, lane)) {
-                routeOffset = (int)std::distance(currentRoute.begin(), i);
+            if (findCloserLane(cand, pos, bestDistance, lane)) {
+                routeOffset = i;
             }
-            next = *i;
+            next = cand;
         }
 
         assert(lane != 0);
