@@ -2,7 +2,6 @@
 PREFIX=$1
 export FILEPREFIX=$2
 export SMTP_SERVER=$3
-REMOTEDIR=$4
 MAKELOG=$PREFIX/${FILEPREFIX}make.log
 MAKEALLLOG=$PREFIX/${FILEPREFIX}makealloptions.log
 STATUSLOG=$PREFIX/${FILEPREFIX}status.log
@@ -10,9 +9,8 @@ TESTLOG=$PREFIX/${FILEPREFIX}test.log
 export SUMO_BATCH_RESULT=$PREFIX/${FILEPREFIX}batch_result
 export SUMO_REPORT=$PREFIX/${FILEPREFIX}report
 export SUMO_BINDIR=$PREFIX/sumo/bin
-CONFIGURE_OPT=$5
-if test $# -ge 6; then
-  NIGHTDIR=$6
+if test $# -ge 4; then
+  CONFIGURE_OPT=$4
 fi
 
 rm -f $STATUSLOG
@@ -32,18 +30,9 @@ if make >> $MAKELOG 2>&1; then
     $PREFIX/sumo/unittest/src/sumo-unittest >> $MAKELOG 2>&1 || (echo "unit tests failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
   fi
   if make install >> $MAKELOG 2>&1; then
-    if test -d "$NIGHTDIR"; then
+    if test -z "$CONFIGURE_OPT"; then
       make distcheck >> $MAKELOG 2>&1 || (echo "make distcheck failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-      if make dist-complete >> $MAKELOG 2>&1; then
-        for f in $PREFIX/sumo/sumo-*.tar.* $PREFIX/sumo/sumo-*.zip; do
-          if test $f -nt $PREFIX/sumo/configure; then
-            cp $f $NIGHTDIR
-          fi
-        done
-        rsync -rcz $PREFIX/sumo/docs/pydoc $PREFIX/sumo/docs/doxygen $PREFIX/sumo/docs/userdoc $PREFIX/sumo/docs/javadoc $REMOTEDIR
-      else
-        echo "make dist-complete failed" | tee -a $STATUSLOG; tail -10 $MAKELOG
-      fi
+      make dist-complete >> $MAKELOG 2>&1 || (echo "make dist-complete failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
     fi
   else
     echo "make install failed" | tee -a $STATUSLOG; tail -10 $MAKELOG
@@ -58,7 +47,6 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; th
   # run tests
   export PATH=$PREFIX/texttest/bin:$PATH
   export TEXTTEST_TMP=$PREFIX/texttesttmp
-#  find $SUMO_BATCH_RESULT -mtime +20 -type f | xargs -r rm
   rm -rf $TEXTTEST_TMP/*
   if test ${FILEPREFIX::6} == "extra_"; then
     tests/runInternalTests.py --gui "b $FILEPREFIX" &> $TESTLOG
