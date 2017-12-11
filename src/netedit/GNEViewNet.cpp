@@ -443,7 +443,10 @@ GNEViewNet::begingMoveSelection(GNEAttributeCarrier *originAC, const Position &o
             // saved old position of Edges which both junction isn't noJunctionsSelected
             for(auto i : noJunctionsSelected) {
                 myOriginShapesMovedPartialShapes[i].originalShape = i->getNBEdge()->getInnerGeometry();
-                myOriginShapesMovedPartialShapes[i].inverted = (i->isInverted() != clickedEdge->isInverted());
+                // XXX this doesn't make sense. See #3708
+                // a better solution would be to not move edge geometry when a suitable origin point could not be found
+                //myOriginShapesMovedPartialShapes[i].inverted = (i->isInverted() != clickedEdge->isInverted());
+                myOriginShapesMovedPartialShapes[i].inverted = true;
             }
             // obtain index shape of clicked edge and move it
             myOriginShapesMovedPartialShapes[clickedEdge].originalPosition = originPosition;
