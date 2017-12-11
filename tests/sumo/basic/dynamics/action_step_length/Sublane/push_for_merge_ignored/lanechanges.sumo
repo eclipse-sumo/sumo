@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fr 08 Dez 2017 13:50:20 CET by SUMO gui Version UNKNOWN
+<!-- generated on Mon Dec 11 16:11:34 2017 by SUMO Version UNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -28,8 +28,6 @@
 
     <report>
         <xml-validation value="never"/>
-        <message-log value="stdout"/>
-        <error-log value="stderr"/>
         <no-step-log value="true"/>
     </report>
 
@@ -41,5 +39,5 @@
 -->
 
 <lanechanges>
-    <change id="A" type="t0" time="3.40" from="beg_0" to="beg_1" dir="1" speed="3.86" pos="34.42" reason="strategic|urgent" leaderGap="7.91" leaderSecureGap="0.00" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="A" type="t0" time="3.40" from="beg_0" to="beg_1" dir="1" speed="3.86" pos="34.42" reason="strategic|urgent" leaderGap="10.81" leaderSecureGap="0.00" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
 </lanechanges>
