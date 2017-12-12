@@ -4570,6 +4570,7 @@ MSVehicle::addTraciStop(MSLane* const lane, const double startPos, const double 
         if (iter->lane == lane && fabs(iter->pars.endPos - endPos) < POSITION_EPS) {
             if (duration == 0 && !iter->reached) {
                 myStops.erase(iter);
+                // XXX also erase from myParameter->stops ?
                 updateBestLanes(true);
             } else {
                 iter->duration = duration;
@@ -4599,6 +4600,10 @@ MSVehicle::addTraciStop(MSLane* const lane, const double startPos, const double 
         newStop.parametersSet |= STOP_PARKING_SET;
     }
     const bool result = addStop(newStop, errorMsg);
+    if (result) {
+        /// XXX handle stops added out of order
+        myParameter->stops.push_back(newStop);
+    }
     if (myLane != 0) {
         updateBestLanes(true);
     }
