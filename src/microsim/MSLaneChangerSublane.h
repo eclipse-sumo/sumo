@@ -11,6 +11,7 @@
 /****************************************************************************/
 /// @file    MSLaneChangerSublane.h
 /// @author  Jakob Erdmann
+/// @author  Leonhard Luecken
 /// @date    Oct 2015
 /// @version $Id$
 ///

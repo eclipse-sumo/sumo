@@ -11,6 +11,7 @@
 /****************************************************************************/
 /// @file    MSLaneChangerSublane.cpp
 /// @author  Jakob Erdmann
+/// @author  Leonhard Luecken
 /// @date    Oct 2015
 /// @version $Id$
 ///
@@ -113,6 +114,9 @@ MSLaneChangerSublane::change() {
     // variant of change() for the sublane case
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
+if DEBUG_COND {
+    std::cout<< "\nCHANGE" << std::endl;
+}
     assert(vehicle->getLane() == (*myCandi).lane);
     assert(!vehicle->getLaneChangeModel().isChangingLanes());
     if (/*!myAllowsChanging || vehicle->getLaneChangeModel().alreadyChanged() ||*/ vehicle->isStoppedOnLane()) {
@@ -333,6 +337,9 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         outputLCEnded(vehicle, from, to, direction);
     }
 
+    // Update maneuver reservations on target lanes
+    vehicle->getLaneChangeModel().updateTargetLane();
+
     // compute new angle of the vehicle from the x- and y-distances travelled within last time step
     // (should happen last because primaryLaneChanged() also triggers angle computation)
     // this part of the angle comes from the orientation of our current lane
@@ -346,7 +353,10 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     }
 #ifdef DEBUG_MANEUVER
     if (vehicle->getLaneChangeModel().debugVehicle()) {
-        std::cout << SIMTIME << " startChangeSublane shadowLane"
+        MSLane* targetLane = vehicle->getLaneChangeModel().getTargetLane();
+        std::cout << SIMTIME << " startChangeSublane()"
+                << " shadowLane=" << (shadowLane!=nullptr? shadowLane->getID():"NULL")
+                << " targetLane=" << (targetLane!=nullptr? targetLane->getID():"NULL")
                 << " maneuverDist=" << vehicle->getLaneChangeModel().getManeuverDist()
                 << " latDist=" << latDist
                 << " old=" << Named::getIDSecure(oldShadowLane)
