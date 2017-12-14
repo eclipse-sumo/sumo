@@ -128,7 +128,6 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myLookAheadSpeed(LOOK_AHEAD_MIN_SPEED),
     myLastEdge(0),
     myCanChangeFully(true),
-    myManeuverDist(0),
     mySafeLatDistRight(0),
     mySafeLatDistLeft(0),
     myStrategicParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_STRATEGIC_PARAM, 1)),
@@ -275,26 +274,6 @@ MSLCM_SL2015::setOwnState(const int state) {
             }
         }
     }
-}
-
-
-void
-MSLCM_SL2015::setManeuverDist(const double dist) {
-#ifdef DEBUG_MANEUVER
-    if DEBUG_COND {
-        std::cout << SIMTIME
-                  << " veh=" << myVehicle.getID()
-                  << " setManeuverDist() old=" << myManeuverDist << " new=" << dist
-                  << std::endl;
-    }
-#endif
-    myManeuverDist = dist;
-}
-
-
-double
-MSLCM_SL2015::getManeuverDist () const {
-    return myManeuverDist;
 }
 
 

@@ -11,6 +11,7 @@
 /****************************************************************************/
 /// @file    MSLCM_SL2015.h
 /// @author  Jakob Erdmann
+/// @author  Leonhard Luecken
 /// @date    Tue, 06.10.2015
 /// @version $Id$
 ///
@@ -133,12 +134,6 @@ public:
     bool debugVehicle() const;
 
     void setOwnState(const int state);
-
-    /// @brief Updates the remaining distance for the current maneuver while it is continued within non-action steps
-    void setManeuverDist(const double dist);
-
-    /// @brief Returns the remaining unblocked distance for the current maneuver.
-    double getManeuverDist() const;
 
     /// @brief Updates the value of safe lateral distances (mySafeLatDistLeft and mySafeLatDistRight)
     ///        during maneuver continuation in non-action steps.
@@ -389,11 +384,8 @@ protected:
     /// @brief flag to prevent speed adaptation by slowing down
     bool myDontBrake;
 
-    /// @brief whether the current lane changing meneuver can be finished in a single step
+    /// @brief whether the current lane changing maneuver can be finished in a single step
     bool myCanChangeFully;
-
-    /// @brief the complete lateral distance the vehicle wants to travel to finish its maneuver
-    double myManeuverDist;
 
     /// @brief the lateral distance the vehicle can safely move in the currently considered direction
     double mySafeLatDistRight;

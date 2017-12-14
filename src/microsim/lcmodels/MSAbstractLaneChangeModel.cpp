@@ -130,18 +130,28 @@ MSAbstractLaneChangeModel::setOwnState(const int state) {
 }
 
 void
-MSAbstractLaneChangeModel::setManeuverDist(const double dist) {
-    UNUSED_PARAMETER(dist);
-}
-
-void
 MSAbstractLaneChangeModel::updateSafeLatDist(const double travelledLatDist) {
     UNUSED_PARAMETER(travelledLatDist);
 }
 
+
+void
+MSAbstractLaneChangeModel::setManeuverDist(const double dist) {
+#ifdef DEBUG_MANEUVER
+    if DEBUG_COND {
+        std::cout << SIMTIME
+                  << " veh=" << myVehicle.getID()
+                  << " setManeuverDist() old=" << myManeuverDist << " new=" << dist
+                  << std::endl;
+    }
+#endif
+    myManeuverDist = dist;
+}
+
+
 double
 MSAbstractLaneChangeModel::getManeuverDist () const {
-    return 0.;
+    return myManeuverDist;
 }
 
 

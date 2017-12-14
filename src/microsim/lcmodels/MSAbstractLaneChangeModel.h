@@ -177,9 +177,10 @@ public:
 
     virtual void setOwnState(const int state);
 
-    /// @brief Sets the value of myManeuverDist
-    virtual void setManeuverDist (const double maneuverDist);
-    virtual double getManeuverDist () const;
+    /// @brief Updates the remaining distance for the current maneuver while it is continued within non-action steps (only used by sublane model)
+    void setManeuverDist(const double dist);
+    /// @brief Returns the remaining unblocked distance for the current maneuver. (only used by sublane model)
+    double getManeuverDist() const;
 
     /// @brief Updates the value of safe lateral distances (in SL2015) during maneuver continuation in non-action steps
     virtual void updateSafeLatDist (const double travelledLatDist);
@@ -327,7 +328,7 @@ public:
         }
     }
 
-    /** @brief Returns the lane the vehicles shadow is on during continuous/sublane lane change
+    /** @brief Returns the lane the vehicle's shadow is on during continuous/sublane lane change
      * @return The vehicle's shadow lane
      */
     MSLane* getShadowLane() const {
@@ -516,6 +517,10 @@ protected:
 
     /// @brief direction of the lane change maneuver -1 means right, 1 means left
     int myLaneChangeDirection;
+
+    /// @brief The complete lateral distance the vehicle wants to travel to finish its maneuver
+    ///        Only used by sublane model, currently.
+    double myManeuverDist;
 
     /// @brief whether the vehicle has already moved this step
     bool myAlreadyChanged;
