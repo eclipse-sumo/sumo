@@ -142,8 +142,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         isOuterEdge = false;
                     }
                     outEdge = c.toEdge;
-                    lastFromLane = c.fromLane;
                 }
+                lastFromLane = c.fromLane;
                 parallel.push_back(c);
             }
             if (!parallel.empty()) {
