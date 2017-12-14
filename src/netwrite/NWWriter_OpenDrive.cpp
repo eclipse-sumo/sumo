@@ -272,6 +272,10 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
         std::string markType = "broken";
         if (j == 0) {
             markType = "solid";
+        } else if (j > 0
+                && (e->getPermissions(j - 1) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
+            // solid road mark to the left of sidewalk or bicycle lane
+            markType = "solid";
         }
         device << "                        <roadMark sOffset=\"0\" type=\"" << markType << "\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
         device << "                        <speed sOffset=\"0\" max=\"" << lanes[j].speed << "\"/>\n";
@@ -395,6 +399,11 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         if (inEdge->isTurningDirectionAt(outEdge)) {
             markType = "none";
         } else if (c.fromLane == 0 && c.toLane == 0 && isOuterEdge) {
+            // solid road mark at the outer border
+            markType = "solid";
+        } else if (isOuterEdge && j > 0
+                && (outEdge->getPermissions(parallel[j - 1].toLane) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
+            // solid road mark to the left of sidewalk or bicycle lane
             markType = "solid";
         } else if (!inEdge->getToNode()->geometryLike()) {
             // draw shorter road marks to indicate turning paths
