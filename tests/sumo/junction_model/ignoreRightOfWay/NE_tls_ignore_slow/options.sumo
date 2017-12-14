@@ -2,3 +2,4 @@
 --fcd-output fcd.xml
 -b 80
 --collision.check-junctions
+--collision.action warn
