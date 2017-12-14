@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-r26352
+SUMO netgenerate Version v0_31_0+1588-722b73c
  Copyright (C) 2001-2017 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -252,6 +252,8 @@ Building Defaults Options:
   -S, --default.speed FLOAT            The default speed on an edge (in m/s)
   -P, --default.priority INT           The default priority of an edge
   --default.sidewalk-width FLOAT       The default width of added sidewalks
+  --default.crossing-width FLOAT       The default width of a pedestrian
+                                         crossing
   --default.disallow STR               The default for disallowed vehicle
                                          classes
   --default.junctions.keep-clear       Whether junctions should be kept clear
