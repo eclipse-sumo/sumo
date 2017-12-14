@@ -114,7 +114,7 @@ def from_connections(input_connections):
     return turn_definitions
 
 
-def to_xml(turn_definitions):
+def to_xml(turn_definitions, begin, end):
     """ Transforms the given TurnDefinitions object into a string
         containing a valid SUMO turn-definitions file. """
 
@@ -123,10 +123,15 @@ def to_xml(turn_definitions):
                  (len(turn_definitions.get_sources())))
 
     turn_definitions_xml = sumolib.xml.create_document("turns")
+
+    interval_element = turn_definitions_xml.addChild("interval")
+    interval_element.setAttribute("begin", begin)
+    interval_element.setAttribute("end", end)
+
     for source in turn_definitions.get_sources():
         LOGGER.debug("Converting turn definition with source %s" % (source))
 
-        from_edge_element = turn_definitions_xml.addChild("fromEdge", {"id": source})
+        from_edge_element = interval_element.addChild("fromEdge", {"id": source})
 
         for destination in turn_definitions.get_destinations(source):
             probability = turn_definitions.get_turning_probability(source,
