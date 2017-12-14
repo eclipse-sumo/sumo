@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Dec 14 21:57:55 2017" north="4810.48" south="0.00" east="2390.45" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Dec 14 22:23:55 2017" north="4810.48" south="0.00" east="2390.45" west="0.00"/>
     <road name="" length="96.92619965" id="700" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -5301,7 +5301,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -5742,7 +5742,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -5925,7 +5925,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -6021,7 +6021,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -6117,7 +6117,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -6165,7 +6165,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -6252,7 +6252,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -6357,7 +6357,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -6396,7 +6396,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -6513,7 +6513,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -6552,7 +6552,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -6618,7 +6618,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -6684,7 +6684,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -6723,7 +6723,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -6858,7 +6858,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -6897,7 +6897,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -6963,7 +6963,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -7425,7 +7425,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -7551,7 +7551,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -7590,7 +7590,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -7869,7 +7869,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -7908,7 +7908,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -8169,7 +8169,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -8673,7 +8673,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -8760,7 +8760,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -8799,7 +8799,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -9012,7 +9012,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -9288,7 +9288,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -9423,7 +9423,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -9558,7 +9558,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -9939,7 +9939,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
@@ -10005,7 +10005,7 @@
                 <center>
                     <lane id="0" type="none" level="true">
                         <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
                     </lane>
                 </center>
                 <right>
