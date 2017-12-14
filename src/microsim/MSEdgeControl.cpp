@@ -136,6 +136,7 @@ MSEdgeControl::executeMovements(SUMOTime t) {
         // not be sorted otherwise
         for (LaneUsageVector::iterator it = myLanes.begin(); it != myLanes.end(); ++it) {
             (*it).lane->sortPartialVehicles();
+            (*it).lane->sortManeuverReservations();
         }
     }
 }

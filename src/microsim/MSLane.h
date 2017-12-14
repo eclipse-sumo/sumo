@@ -542,10 +542,11 @@ public:
      *         All leader-vehicles on the same edge, which are relevant for the vehicle
      *         (i.e. with position > vehicle's position) and not already integrated into
      *         the LeaderInfo, are integrated.
-     *         The given iterator vehPart give access to these vehicles which are
-     *         partial occupators for the lane.
+     *         The given iterators vehPart and vehRes give access to these vehicles which are
+     *         either partial occupators or have issued a maneuver reservation for the lane
+     *         (the latter occurs only for the sublane model).
      */
-    void updateLeaderInfo(const MSVehicle* veh, VehCont::reverse_iterator& vehPart, MSLeaderInfo& ahead) const;
+    void updateLeaderInfo(const MSVehicle* veh, VehCont::reverse_iterator& vehPart, VehCont::reverse_iterator& vehRes, MSLeaderInfo& ahead) const;
 
     /** @brief Executes planned vehicle movements with regards to right-of-way
      *
@@ -970,6 +971,9 @@ public:
 
     /// @brief sorts myPartialVehicles
     void sortPartialVehicles();
+
+    /// @brief sorts myManeuverReservations
+    void sortManeuverReservations();
 
     /// @brief return the opposite direction lane for lane changing or 0
     MSLane* getOpposite() const;
