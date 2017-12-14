@@ -140,6 +140,9 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 assert(c.toEdge != 0);
                 if (outEdge != c.toEdge || c.fromLane == lastFromLane) {
                     if (outEdge != 0) {
+                        if (isOuterEdge) {
+                            addPedestrianConnection(inEdge, outEdge, parallel);
+                        }
                         connectionID = writeInternalEdge(device, junctionOSS, inEdge, nID, 
                                 getID(parallel.back().getInternalLaneID(), edgeMap, edgeID), 
                                 inEdgeID, 
@@ -153,6 +156,9 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 }
                 lastFromLane = c.fromLane;
                 parallel.push_back(c);
+            }
+            if (isOuterEdge) {
+                addPedestrianConnection(inEdge, outEdge, parallel);
             }
             if (!parallel.empty()) {
                 if (!lefthand && (n->geometryLike() || inEdge->isTurningDirectionAt(outEdge))) {
@@ -302,6 +308,20 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     }
     device.closeTag();
     checkLaneGeometries(e);
+}
+
+void
+NWWriter_OpenDrive::addPedestrianConnection(const NBEdge* inEdge, const NBEdge* outEdge, std::vector<NBEdge::Connection>& parallel) {
+    // by defaul there are no iternal lanes for pedestrians. Determine if
+    // one is feasible and does not exist yet.
+    if (outEdge != 0 
+            && inEdge->getPermissions(0) == SVC_PEDESTRIAN 
+            && outEdge->getPermissions(0) == SVC_PEDESTRIAN
+            && (parallel.empty() 
+                || parallel.front().fromLane != 0 
+                || parallel.front().toLane != 0)) {
+        parallel.insert(parallel.begin(), NBEdge::Connection(0, const_cast<NBEdge*>(outEdge), 0, false));
+    }
 }
 
 
