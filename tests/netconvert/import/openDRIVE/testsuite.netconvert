@@ -63,6 +63,9 @@ sumo_to_xodr
 sumo_to_xodr_scurve_stretch
 
 # convert sumo network to xodr
+sumo_to_xodr_split
+
+# convert sumo network to xodr
 sumo_lefthand_to_xodr
 
 # roadMark with type information
