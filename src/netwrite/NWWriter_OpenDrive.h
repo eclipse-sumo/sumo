@@ -76,7 +76,8 @@ protected:
             int connectionID,
             const std::vector<NBEdge::Connection>& parallel,
             const bool isOuterEdge,
-            const double straightThresh);
+            const double straightThresh,
+            const std::string& centerMark);
 
     /// @brief write geometry as sequence of lines (sumo style)
     static double writeGeomLines(const PositionVector& shape, OutputDevice& device, OutputDevice& elevationDevice, double offset = 0);

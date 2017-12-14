@@ -121,6 +121,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         }
         const std::vector<NBEdge*>& incoming = (*i).second->getIncomingEdges();
         for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
+            std::string centerMark = "none";
             const NBEdge* inEdge = *j;
             const int inEdgeID = getID(inEdge->getID(), edgeMap, edgeID);
             // group parallel edges
@@ -137,7 +138,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                                 inEdgeID, 
                                 getID(outEdge->getID(), edgeMap, edgeID), 
                                 connectionID,
-                                parallel, isOuterEdge, straightThresh);
+                                parallel, isOuterEdge, straightThresh, centerMark);
                         parallel.clear();
                         isOuterEdge = false;
                     }
@@ -147,12 +148,15 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 parallel.push_back(c);
             }
             if (!parallel.empty()) {
+                if (n->geometryLike() || inEdge->isTurningDirectionAt(outEdge)) {
+                    centerMark = "solid";
+                }
                 connectionID = writeInternalEdge(device, junctionOSS, inEdge, nID, 
                         getID(parallel.back().getInternalLaneID(), edgeMap, edgeID), 
                         inEdgeID, 
                         getID(outEdge->getID(), edgeMap, edgeID), 
                         connectionID,
-                        parallel, isOuterEdge, straightThresh);
+                        parallel, isOuterEdge, straightThresh, centerMark);
                 parallel.clear();
             }
         }
@@ -300,7 +304,8 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         int connectionID,
         const std::vector<NBEdge::Connection>& parallel,
         const bool isOuterEdge,
-        const double straightThresh) 
+        const double straightThresh,
+        const std::string& centerMark)
 {
     assert(parallel.size() != 0);
     const NBEdge::Connection& cLeft = parallel.back();
@@ -383,7 +388,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         device << "            <laneOffset s=\"0\" a=\"" << laneOffset << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
     }
     device << "            <laneSection s=\"0\">\n";
-    writeEmptyCenterLane(device, "none", 0);
+    writeEmptyCenterLane(device, centerMark, 0);
     device << "                <right>\n";
     for (int j = (int)parallel.size(); --j >= 0;) {
         const NBEdge::Connection& c = parallel[j];
