@@ -67,6 +67,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const NBNodeCont& nc = nb.getNodeCont();
     const NBEdgeCont& ec = nb.getEdgeCont();
     const bool origNames = oc.getBool("output.original-names");
+    const bool lefthand = oc.getBool("lefthand");
     const double straightThresh = DEG2RAD(oc.getFloat("opendrive-output.straight-threshold"));
     // some internal mapping containers
     int nodeID = 1;
@@ -119,17 +120,23 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         if (n->numNormalConnections() > 0) {
             junctionOSS << "    <junction name=\"" << n->getID() << "\" id=\"" << nID << "\">\n";
         }
-        const std::vector<NBEdge*>& incoming = (*i).second->getIncomingEdges();
-        for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
+        std::vector<NBEdge*> incoming = (*i).second->getIncomingEdges();
+        if (lefthand) {
+            std::reverse(incoming.begin(), incoming.end());
+        }
+        for (NBEdge* inEdge : incoming) {
             std::string centerMark = "none";
-            const NBEdge* inEdge = *j;
             const int inEdgeID = getID(inEdge->getID(), edgeMap, edgeID);
             // group parallel edges
             const NBEdge* outEdge = 0;
             bool isOuterEdge = true; // determine where a solid outer border should be drawn
             int lastFromLane = -1;
             std::vector<NBEdge::Connection> parallel;
-            for (const NBEdge::Connection& c : inEdge->getConnections()) {
+            std::vector<NBEdge::Connection> connections = inEdge->getConnections();
+            if (lefthand) {
+                std::reverse(connections.begin(), connections.end());
+            }
+            for (const NBEdge::Connection& c : connections) {
                 assert(c.toEdge != 0);
                 if (outEdge != c.toEdge || c.fromLane == lastFromLane) {
                     if (outEdge != 0) {
@@ -148,7 +155,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 parallel.push_back(c);
             }
             if (!parallel.empty()) {
-                if (n->geometryLike() || inEdge->isTurningDirectionAt(outEdge)) {
+                if (!lefthand && (n->geometryLike() || inEdge->isTurningDirectionAt(outEdge))) {
                     centerMark = "solid";
                 }
                 connectionID = writeInternalEdge(device, junctionOSS, inEdge, nID, 
