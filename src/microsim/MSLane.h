@@ -312,7 +312,8 @@ public:
 
 
 
-    /// @name Handling vehicles lapping into lanes
+    /// @name Handling vehicles lapping into several lanes (-> partial occupation)
+    ///       or which committed a maneuver that will lead them into another (sublane case -> maneuver reservations)
     /// @{
     /** @brief Sets the information about a vehicle lapping into this lane
      *
@@ -327,6 +328,15 @@ public:
      * @param[in] v The vehicle which laps into this lane
      */
     virtual void resetPartialOccupation(MSVehicle* v);
+
+    /** @brief Registers the lane change intentions (towards this lane) for the given vehicle
+     */
+    virtual void setManeuverReservation(MSVehicle* v);
+
+    /** @brief Unregisters a vehicle, which previously registered for maneuvering into this lane
+     * @param[in] v The vehicle
+     */
+    virtual void resetManeuverReservation(MSVehicle* v);
 
     /** @brief Returns the last vehicles on the lane
      *
@@ -1161,6 +1171,13 @@ protected:
      * Integrated after all vehicles executed their moves*/
     VehCont myVehBuffer;
 
+    /** @brief The vehicles which registered maneuvering into the lane within their current action step.
+     *         This is currently only relevant for sublane simulation, since continuous lanechanging
+     *         uses the partial vehicle mechanism.
+     *
+     *   The entering vehicles are inserted at the front
+     *   of this container and the leaving ones leave from the back. */
+    VehCont myManeuverReservations;
 
     /* @brief list of vehicles that are parking near this lane
      * (not necessarily on the road but having reached their stop on this lane)

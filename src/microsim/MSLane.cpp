@@ -18,6 +18,7 @@
 /// @author  Michael Behrisch
 /// @author  Christoph Sommer
 /// @author  Mario Krumnow
+/// @author  Leonhard Luecken
 /// @date    Mon, 05 Mar 2001
 /// @version $Id$
 ///
@@ -82,7 +83,7 @@
 
 #define DEBUG_COND (true)
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
-//#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
+#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 
 // ===========================================================================
 // static member definitions
@@ -249,6 +250,34 @@ MSLane::resetPartialOccupation(MSVehicle* v) {
             myPartialVehicles.erase(i);
             // XXX update occupancy here?
             //std::cout << "    removed from myPartialVehicles\n";
+            return;
+        }
+    }
+    assert(false);
+}
+
+
+void
+MSLane::setManeuverReservation(MSVehicle* v) {
+#ifdef DEBUG_CONTEXT
+    if (DEBUG_COND2(v)) {
+        std::cout << SIMTIME << " setManeuverReservation. lane=" << getID() << " veh=" << v->getID() << "\n";
+    }
+#endif
+    myManeuverReservations.push_back(v);
+}
+
+
+void
+MSLane::resetManeuverReservation(MSVehicle* v) {
+#ifdef DEBUG_CONTEXT
+    if (DEBUG_COND2(v)) {
+        std::cout << SIMTIME << " resetManeuverReservation(): lane=" << getID() << " veh=" << v->getID() << "\n";
+    }
+#endif
+    for (VehCont::iterator i = myManeuverReservations.begin(); i != myManeuverReservations.end(); ++i) {
+        if (v == *i) {
+            myManeuverReservations.erase(i);
             return;
         }
     }
@@ -690,7 +719,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                                                              << " nspeed=" << nspeed
                                                              << " nextLane=" << nextLane->getID()
                                                              << " lead=" << leaders.toString()
-                                                             << " gap=" << gap
+//                                                             << " gap=" << gap
                                                              << " failed (@641)!\n";
 #endif
                     return false;
@@ -897,10 +926,11 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                                              << " patchSpeed=" << patchSpeed
                                              << " speed=" << speed
                                              << " nspeed=" << nspeed
-                                             //<< " myVehicles=" << toString(myVehicles)
-                                             //<< " myPartial=" << toString(myPartialVehicles)
-                                             //<< " leaders=" << leaders.toString()
-                                             << " success!\n";
+                                             << "\n myVehicles=" << toString(myVehicles)
+                                             << " myPartial=" << toString(myPartialVehicles)
+                                             << " myManeuverReservations=" << toString(myManeuverReservations)
+                                             << "\n leaders=" << leaders.toString()
+                                             << "\n success!\n";
 #endif
     return true;
 }

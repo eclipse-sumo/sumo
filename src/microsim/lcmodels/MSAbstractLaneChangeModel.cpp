@@ -15,6 +15,7 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
+/// @author  Leonhard Luecken
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
@@ -24,6 +25,7 @@
 // ===========================================================================
 // DEBUG
 // ===========================================================================
+//#define DEBUG_TARGET_LANE
 #define DEBUG_COND (myVehicle.isSelected())
 
 
@@ -103,6 +105,7 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myLaneChangeDirection(0),
     myAlreadyChanged(false),
     myShadowLane(nullptr),
+    myTargetLane(nullptr),
     myManeuverDist(0.),
     myLastLateralGapLeft(0.),
     myLastLateralGapRight(0.),
@@ -261,6 +264,7 @@ MSAbstractLaneChangeModel::endLaneChangeManeuver(const MSMoveReminder::Notificat
     UNUSED_PARAMETER(reason);
     myLaneChangeCompletion = 1;
     cleanupShadowLane();
+    cleanupTargetLane();
     myNoPartiallyOccupatedByShadow.clear();
     myVehicle.switchOffSignal(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
     myVehicle.fixPosition();
@@ -317,6 +321,27 @@ MSAbstractLaneChangeModel::cleanupShadowLane() {
     myNoPartiallyOccupatedByShadow.clear();
 }
 
+void
+MSAbstractLaneChangeModel::cleanupTargetLane() {
+    if (myTargetLane != 0) {
+        if (debugVehicle()) {
+            std::cout << SIMTIME << " cleanupTargetLane\n";
+        }
+        myTargetLane->resetManeuverReservation(&myVehicle);
+        myTargetLane = 0;
+    }
+    for (std::vector<MSLane*>::const_iterator it = myFurtherTargetLanes.begin(); it != myFurtherTargetLanes.end(); ++it) {
+        if (debugVehicle()) {
+            std::cout << SIMTIME << " cleanupTargetLane\n";
+        }
+        if (*it != nullptr) {
+            (*it)->resetManeuverReservation(&myVehicle);
+        }
+    }
+    myFurtherTargetLanes.clear();
+//    myNoPartiallyOccupatedByShadow.clear();
+}
+
 
 bool
 MSAbstractLaneChangeModel::cancelRequest(int state) {
@@ -338,7 +363,7 @@ void
 MSAbstractLaneChangeModel::updateShadowLane() {
     if (myShadowLane != 0) {
         if (debugVehicle()) {
-            std::cout << SIMTIME << " updateShadowLane\n";
+            std::cout << SIMTIME << " updateShadowLane()\n";
         }
         myShadowLane->resetPartialOccupation(&myVehicle);
     }
@@ -368,7 +393,7 @@ MSAbstractLaneChangeModel::updateShadowLane() {
         }
     }
     if (debugVehicle()) {
-        std::cout << SIMTIME << " updateShadowLane veh=" << myVehicle.getID()
+        std::cout << SIMTIME << " updateShadowLane() veh=" << myVehicle.getID()
                                       << " newShadowLane=" << Named::getIDSecure(myShadowLane)
                                       << "\n   before:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << " further=" << toString(myVehicle.getFurtherLanes()) << " passed=" << toString(passed);
         std::cout << std::endl;
@@ -394,6 +419,85 @@ MSAbstractLaneChangeModel::getShadowDirection() const {
         return myShadowLane->getIndex() - myVehicle.getLane()->getIndex();
     }
 }
+
+
+void
+MSAbstractLaneChangeModel::updateTargetLane() {
+#ifdef DEBUG_TARGET_LANE
+    MSLane* oldTarget = myTargetLane;
+    std::vector<MSLane*> oldFurtherTargets = myFurtherTargetLanes;
+    if (debugVehicle()) {
+        std::cout << SIMTIME << " veh '" << myVehicle.getID() << "' (lane=" << myVehicle.getLane()->getID() << ") updateTargetLane()"
+                << "\n   oldTarget: " << (oldTarget==nullptr?"NULL":oldTarget->getID())
+                << " oldFurtherTargets: " << toString(oldFurtherTargets);
+    }
+#endif
+    if (myTargetLane != nullptr) {
+        myTargetLane->resetManeuverReservation(&myVehicle);
+    }
+    // Clear old further target lanes
+    for (MSLane* oldTargetLane : myFurtherTargetLanes) {
+        if (oldTargetLane!=nullptr) {
+            oldTargetLane->resetManeuverReservation(&myVehicle);
+        }
+    }
+    myFurtherTargetLanes.clear();
+
+    // Get new target lanes and issue a maneuver reservation.
+    int targetDir;
+    myTargetLane = determineTargetLane(targetDir);
+    if (myTargetLane != nullptr) {
+        myTargetLane->setManeuverReservation(&myVehicle);
+        // further targets are just the target lanes corresponding to the vehicle's further lanes
+        // @note In a neglectable amount of situations we might add a reservation for a shadow further lane.
+        for (MSLane* furtherLane : myVehicle.getFurtherLanes()) {
+            MSLane* furtherTargetLane = furtherLane->getParallelLane(targetDir);
+            myFurtherTargetLanes.push_back(furtherTargetLane);
+            if (furtherTargetLane != nullptr) {
+                furtherTargetLane->setManeuverReservation(&myVehicle);
+            }
+        }
+    }
+#ifdef DEBUG_TARGET_LANE
+    if (debugVehicle()) {
+        std::cout << "\n   newTarget (offset=" << targetDir << "): " <<  (myTargetLane==nullptr?"NULL":myTargetLane->getID())
+                << " newFurtherTargets: " << toString(myFurtherTargetLanes)
+                << std::endl;
+    }
+#endif
+}
+
+
+MSLane*
+MSAbstractLaneChangeModel::determineTargetLane(int& targetDir) const {
+    targetDir = 0;
+    if (myManeuverDist == 0) {
+        return nullptr;
+    }
+    // Current lateral boundaries of the vehicle
+    const double vehRight = myVehicle.getLateralPositionOnLane() - 0.5*myVehicle.getWidth();
+    const double vehLeft = myVehicle.getLateralPositionOnLane() + 0.5*myVehicle.getWidth();
+    const double halfLaneWidth = 0.5*myVehicle.getLane()->getWidth();
+
+    if (vehRight + myManeuverDist < -halfLaneWidth) {
+        // Vehicle intends to traverse the right lane boundary
+        targetDir = -1;
+    } else if (vehLeft + myManeuverDist > halfLaneWidth) {
+        // Vehicle intends to traverse the left lane boundary
+        targetDir = 1;
+    }
+    if (targetDir == 0) {
+        // Presently, no maneuvering into another lane is begun.
+        return nullptr;
+    }
+    MSLane* target = myVehicle.getLane()->getParallelLane(targetDir);
+    if (target == nullptr || target == myShadowLane) {
+        return nullptr;
+    } else {
+        return target;
+    }
+}
+
 
 
 double
