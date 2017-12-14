@@ -151,6 +151,11 @@ public:
     int getRightSublaneOnEdge() const;
     int getLeftSublaneOnEdge() const;
 
+
+    /// @brief return the lane-change maneuver distance
+    double getManeuverDist() const;
+
+
 protected:
     /// @brief register vehicle for drawing while outside the network
     void drawOutsideNetwork(bool add);

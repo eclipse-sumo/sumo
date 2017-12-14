@@ -107,6 +107,10 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
         const MSLane* shadowLane = getLaneChangeModel().getShadowLane();
         ret->mkItem("shadow lane [id]", false, shadowLane == 0 ? "" : shadowLane->getID());
     }
+    if (MSGlobals::gLateralResolution > 0) {
+        const MSLane* targetLane = getLaneChangeModel().getTargetLane();
+        ret->mkItem("target lane [id]", false, targetLane == 0 ? "" : targetLane->getID());
+    }
     ret->mkItem("position [m]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getPositionOnLane));
     ret->mkItem("lateral offset [m]", true,
@@ -181,6 +185,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
         ret->mkItem("left side on edge [m]", true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getLeftSideOnEdge));
         ret->mkItem("rightmost edge sublane [#]", true, new FunctionBinding<GUIVehicle, int>(this, &GUIVehicle::getRightSublaneOnEdge));
         ret->mkItem("leftmost edge sublane [#]", true, new FunctionBinding<GUIVehicle, int>(this, &GUIVehicle::getLeftSublaneOnEdge));
+        ret->mkItem("lane change maneuver distance [m]", true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getManeuverDist));
     }
     ret->closeBuilding(&getParameter());
     return ret;
@@ -825,6 +830,11 @@ GUIVehicle::getLeftSublaneOnEdge() const {
         }
     }
     return -1;
+}
+
+double
+GUIVehicle::getManeuverDist() const {
+    return getLaneChangeModel().getManeuverDist();
 }
 
 /****************************************************************************/
