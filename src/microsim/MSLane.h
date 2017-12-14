@@ -17,6 +17,7 @@
 /// @author  Tino Morenz
 /// @author  Michael Behrisch
 /// @author  Mario Krumnow
+/// @author  Leonhard Luecken
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
@@ -94,6 +95,11 @@ public:
         bool operator()(const MSVehicle* cmp, double pos) const;
     };
 
+    // TODO: Better documentation
+    /// @brief AnyVehicleIterator is a structure, which manages the iteration through all vehicles on the lane,
+    ///        that may be of importance for the car-following dynamics along that lane. The relevant types of vehicles are:
+    ///        1) vehicles with their front on the lane (myVehicles),
+    ///        2) vehicles intersecting the lane but with front on another lane (myPartialVehicles)
     class AnyVehicleIterator {
     public:
         AnyVehicleIterator(
@@ -521,6 +527,15 @@ public:
      * @see MSVehicle::planMove
      */
     virtual void planMovements(const SUMOTime t);
+
+    /** @brief This updates the MSLeaderInfo argument with respect to the given MSVehicle.
+     *         All leader-vehicles on the same edge, which are relevant for the vehicle
+     *         (i.e. with position > vehicle's position) and not already integrated into
+     *         the LeaderInfo, are integrated.
+     *         The given iterator vehPart give access to these vehicles which are
+     *         partial occupators for the lane.
+     */
+    void updateLeaderInfo(const MSVehicle* veh, VehCont::reverse_iterator& vehPart, MSLeaderInfo& ahead) const;
 
     /** @brief Executes planned vehicle movements with regards to right-of-way
      *
@@ -1129,7 +1144,7 @@ protected:
     /** @brief The lane's partial vehicles.
         This container holds all vehicles that are partially on this lane but which are
         in myVehicles of another lane.
-        Reasons for partial occupancie include the following
+        Reasons for partial occupancies include the following
         - the back is still on this lane during regular movement
         - the vehicle is performing a continuous lane-change maneuver
         - sub-lane simulation where vehicles can freely move laterally among the lanes of an edge

@@ -1043,7 +1043,7 @@ void
 MSLane::planMovements(SUMOTime t) {
     assert(myVehicles.size() != 0);
     double cumulatedVehLength = 0.;
-    MSLeaderInfo ahead(this);
+    MSLeaderInfo leaders(this);
     // iterate over myVehicles and myPartialVehicles merge-sort style
     VehCont::reverse_iterator veh = myVehicles.rbegin();
     VehCont::reverse_iterator vehPart = myPartialVehicles.rbegin();
@@ -1057,26 +1057,42 @@ MSLane::planMovements(SUMOTime t) {
                 << "    partials=" << toString(myPartialVehicles)
                 << "\n";
 #endif
-    for (; veh != myVehicles.rend(); ++veh) {
-        while (vehPart != myPartialVehicles.rend()
-                && ((*vehPart)->getPositionOnLane(this) > (*veh)->getPositionOnLane())) {
-            const double latOffset = (*vehPart)->getLatOffset(this);
-#ifdef DEBUG_PLAN_MOVE
-            if (DEBUG_COND) {
-                std::cout << "    partial ahead: " << (*vehPart)->getID() << " latOffset=" << latOffset << "\n";
-            }
-#endif
-            ahead.addLeader(*vehPart, false, latOffset);
-            ++vehPart;
-        }
+    for(;veh!=myVehicles.rend(); ++veh) {
+        updateLeaderInfo(*veh, vehPart, leaders);
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {
-            std::cout << "   plan move for: " << (*veh)->getID() << " ahead=" << ahead.toString() << "\n";
+            std::cout << "   plan move for: " << (*veh)->getID() << " leaders=" << leaders.toString() << "\n";
         }
 #endif
-        (*veh)->planMove(t, ahead, cumulatedVehLength);
+        (*veh)->planMove(t, leaders, cumulatedVehLength);
         cumulatedVehLength += (*veh)->getVehicleType().getLengthWithGap();
-        ahead.addLeader(*veh, false, 0);
+        leaders.addLeader(*veh, false, 0);
+    }
+}
+
+
+void
+MSLane::updateLeaderInfo(const MSVehicle* veh, VehCont::reverse_iterator& vehPart, MSLeaderInfo& ahead) const {
+    bool morePartialVehsAhead = vehPart != myPartialVehicles.rend();
+    bool nextToConsiderIsPartial;
+
+    // Determine relevant leaders for veh
+    while (morePartialVehsAhead) {
+        if((*vehPart)->getPositionOnLane(this) <= veh->getPositionOnLane()) {
+            // All relevant downstream vehicles have been collected.
+            break;
+        }
+
+        // Add appropriate leader information
+        const double latOffset = (*vehPart)->getLatOffset(this);
+#ifdef DEBUG_PLAN_MOVE
+        if (DEBUG_COND) {
+            std::cout << "        partial ahead: " << (*vehPart)->getID() << " latOffset=" << latOffset << "\n";
+        }
+#endif
+        ahead.addLeader(*vehPart, false, latOffset);
+        ++vehPart;
+        morePartialVehsAhead = vehPart != myPartialVehicles.rend();
     }
 }
 
