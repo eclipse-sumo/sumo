@@ -315,12 +315,6 @@ MSPerson::MSPersonStage_Walking::getMaxSpeed(const MSPerson* person) const {
 }
 
 
-std::string
-MSPerson::MSPersonStage_Walking::moveToXY(MSPerson* p, Position pos,
-        MSLane* lane, double lanePos, double lanePosLat, double angle, int routeOffset,
-        const ConstMSEdgeVector& edges, SUMOTime t) {
-}
-
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Driving - methods
  * ----------------------------------------------------------------------- */
@@ -400,8 +394,9 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
 /* -------------------------------------------------------------------------
  * MSPerson - methods
  * ----------------------------------------------------------------------- */
-MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor)
-    : MSTransportable(pars, vtype, plan), myChosenSpeedFactor(speedFactor) {
+MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor) : 
+    MSTransportable(pars, vtype, plan), myChosenSpeedFactor(speedFactor),
+    myInfluencer(0) { 
 }
 
 
@@ -564,40 +559,20 @@ MSPerson::Influencer::isVTDAffected(SUMOTime t) const {
     return myLastVTDAccess >= t - TIME2STEPS(10);
 }
 
+
 void
 MSPerson::Influencer::postProcessVTD(MSPerson* p) {
-    /*
-    const bool wasOnRoad = v->isOnRoad();
-    if (v->isOnRoad()) {
-        v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
-        v->getLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
-    }
-    if (myVTDRoute.size() != 0) {
-        v->replaceRouteEdges(myVTDRoute, true);
-    }
-    v->myCurrEdge = v->getRoute().begin() + myVTDEdgeOffset;
-    if (myVTDLane != 0 && myVTDPos > myVTDLane->getLength()) {
-        myVTDPos = myVTDLane->getLength();
-    }
-    if (myVTDLane != 0 && fabs(myVTDPosLat) < 0.5 * (myVTDLane->getWidth() + v->getVehicleType().getWidth())) {
-        myVTDLane->forceVehicleInsertion(v, myVTDPos, MSMoveReminder::NOTIFICATION_TELEPORT, myVTDPosLat);
-        v->updateBestLanes();
-        if (!wasOnRoad) {
-            v->drawOutsideNetwork(false);
+    switch (p->getStageType(0)) {
+        case MOVING_WITHOUT_VEHICLE: {
+            MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
+            assert(s != 0);
+            s->getPedestrianState()->moveToXY(p, myVTDXYPos, myVTDLane, myVTDPos, myVTDPosLat, myVTDAngle, myVTDEdgeOffset, myVTDRoute,
+                    MSNet::getInstance()->getCurrentTimeStep());
         }
-        //std::cout << "on road network p=" << myVTDXYPos << " a=" << myVTDAngle << " l=" << Named::getIDSecure(myVTDLane) << " pos=" << myVTDPos << " posLat=" << myVTDPosLat << "\n";
-    } else {
-        if (v->getDeparture() == NOT_YET_DEPARTED) {
-            v->onDepart();
-        }
-        v->drawOutsideNetwork(true);
-        //std::cout << "outside network p=" << myVTDXYPos << " a=" << myVTDAngle << " l=" << Named::getIDSecure(myVTDLane) << "\n";
+        break;
+        default:
+        break;
     }
-    // ensure that the position is correct (i.e. when the lanePosition is ambiguous at corners)
-    v->setVTDState(myVTDXYPos);
-    // inverse of GeomHelper::naviDegree
-    v->setAngle(M_PI / 2. - DEG2RAD(myVTDAngle));
-    */
 }
 
 

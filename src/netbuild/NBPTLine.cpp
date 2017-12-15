@@ -56,7 +56,7 @@ void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myName));
     }
 
-    device.writeAttr(SUMO_ATTR_LINE, myRef);
+    device.writeAttr(SUMO_ATTR_LINE, StringUtils::escapeXML(myRef));
     device.writeAttr(SUMO_ATTR_TYPE, myType);
     device.writeAttr("completeness", toString((double)myPTStops.size()/(double)myNumOfStops));
 
@@ -77,7 +77,7 @@ void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
     for (auto& myPTStop : myPTStops) {
         device.openTag(SUMO_TAG_BUS_STOP);
         device.writeAttr(SUMO_ATTR_ID, myPTStop->getID());
-        device.writeAttr(SUMO_ATTR_NAME, myPTStop->getName());
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myPTStop->getName()));
         device.closeTag();
     }
 //    device.writeAttr(SUMO_ATTR_LANE, myLaneId);

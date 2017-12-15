@@ -319,7 +319,7 @@ class PersonDomain(Domain):
         any edge in the network but it's route then only consists of that edge.
         If keepRoute is set to 2 the person has all the freedom of keepRoute=0
         but in addition to that may even move outside the road network.
-        edgeID is an optional placement hint to resovle ambiguities'''
+        edgeID is an optional placement hint to resolve ambiguities'''
         self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.MOVE_TO_XY,
                                        personID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 1)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)

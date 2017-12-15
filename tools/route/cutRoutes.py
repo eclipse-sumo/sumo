@@ -38,7 +38,7 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
-def get_options(argv=sys.argv):
+def get_options(args=sys.argv[1:]):
     USAGE = """Usage %prog [options] <new_net.xml> <routes> [<routes2> ...]
 If the given routes contain exit times these will be used to compute new
 departure times. If the option --orig-net is given departure times will be
@@ -63,7 +63,7 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
                          choices=['discard', 'keep'],  # XXX 'split', 'longest'
                          help="How to deal with routes that are disconnected in the subnetwork. If 'keep' is chosen a disconnected route generates several routes in the subnetwork corresponding to its parts.")
     # optParser.add_option("--orig-weights", help="weight file for the original network for extrapolating new departure times")
-    options, args = optParser.parse_args(argv)
+    options, args = optParser.parse_args(args=args)
     try:
         options.network = args[0]
         options.routeFiles = args[1:]

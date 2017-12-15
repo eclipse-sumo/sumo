@@ -16,6 +16,9 @@
 
 # 4 arm junction with crossings on all sides
 4_arm_complete
+
+# 4 arm junction with crossings on all sides
+4_arm_complete_default_width
 4_arm_complete_priority
 
 # use option crossings.guess.speed-threshold to disable crossings

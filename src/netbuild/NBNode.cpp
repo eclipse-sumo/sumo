@@ -83,7 +83,6 @@
 // ===========================================================================
 const int NBNode::FORWARD(1);
 const int NBNode::BACKWARD(-1);
-const double NBNode::DEFAULT_CROSSING_WIDTH(4);
 const double NBNode::UNSPECIFIED_RADIUS = -1;
 
 // ===========================================================================
@@ -222,6 +221,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
 NBNode::Crossing::Crossing(const NBNode* _node, const EdgeVector& _edges, double _width, bool _priority, int _customTLIndex,  const PositionVector& _customShape) :
             node(_node),
             edges(_edges),
+            customWidth(_width),
             width(_width),
             priority(_priority),
             customShape(_customShape),
@@ -1915,7 +1915,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
             prevAngle = angle;
         }
         if (candidates.size() == 1) {
-            addCrossing(candidates, DEFAULT_CROSSING_WIDTH, isTLControlled());
+            addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled());
             if (gDebugFlag1) {
                 std::cout << "adding crossing: " << toString(candidates) << "\n";
             }
@@ -1964,7 +1964,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
                 }
                 prevAngle = angle;
             }
-            addCrossing(candidates, DEFAULT_CROSSING_WIDTH, isTLControlled());
+            addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled());
             if (gDebugFlag1) {
                 std::cout << "adding crossing: " << toString(candidates) << "\n";
             }
@@ -2090,10 +2090,12 @@ NBNode::buildCrossings() {
         myCrossings.clear();
     }
     int index = 0;
+    const double defaultWidth = OptionsCont::getOptions().getFloat("default.crossing-width");
     for (auto c : myCrossings) {
         c->valid = true;
         c->tlID = ""; // reset for Netedit, set via setCrossingTLIndices()
         c->id = ":" + getID() + "_c" + toString(index++);
+        c->width = (c->customWidth == NBEdge::UNSPECIFIED_WIDTH) ? defaultWidth : c->customWidth;
         // reset fields, so repeated computation (Netedit) will sucessfully perform the checks
         // in buildWalkingAreas (split crossings) and buildInnerEdges (sanity check)
         c->nextWalkingArea = "";
@@ -2673,8 +2675,8 @@ NBNode::numNormalConnections() const {
     if (myRequest == 0) {
         // could be an uncontrolled type
         int result = 0;
-        for (NBEdge* edge : myIncomingEdges) {
-            result += edge->getConnections().size();
+        for (const NBEdge* const edge : myIncomingEdges) {
+            result += (int)edge->getConnections().size();
         }
         return result;
     } else {

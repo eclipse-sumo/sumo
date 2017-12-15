@@ -1,8 +1,16 @@
 <routes>
     <vType id="t1" sigma="0" length="8"/>
-    <vType id="tB" length="3" vClass="pedestrian"/>
+    <vType id="tB" vClass="pedestrian"/>
 
     <person id="p0" depart="10" type="tB" departPos="-1">
+        <walk edges="WC CE" arrivalPos="-0.01"/>
+    </person>
+
+    <person id="p1" depart="10" type="tB" departPos="-3">
+        <walk edges="WC CE" arrivalPos="-0.01"/>
+    </person>
+
+    <person id="p2" depart="10" type="tB" departPos="-5">
         <walk edges="WC CE" arrivalPos="-0.01"/>
     </person>
 

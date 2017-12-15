@@ -76,7 +76,10 @@ protected:
             int connectionID,
             const std::vector<NBEdge::Connection>& parallel,
             const bool isOuterEdge,
-            const double straightThresh);
+            const double straightThresh,
+            const std::string& centerMark);
+
+    static void addPedestrianConnection(const NBEdge* inEdge, const NBEdge* outEdge, std::vector<NBEdge::Connection>& parallel);
 
     /// @brief write geometry as sequence of lines (sumo style)
     static double writeGeomLines(const PositionVector& shape, OutputDevice& device, OutputDevice& elevationDevice, double offset = 0);

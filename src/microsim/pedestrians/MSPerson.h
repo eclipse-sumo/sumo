@@ -139,10 +139,6 @@ public:
         /// @brief move forward and return whether the person arrived
         bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal = 0);
 
-        /// @brief move person to a specific position either within the current route, within a new route or outside the pedestrian network.
-        std::string moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos, double lanePosLat, double angle, int routeOffset, 
-                const ConstMSEdgeVector& edges, SUMOTime t); 
-
         /// @brief accessors to be used by MSPModel
         //@{
         double getMaxSpeed(const MSPerson* person) const;
@@ -157,6 +153,10 @@ public:
 
         inline double getArrivalPos() const {
             return myArrivalPos;
+        }
+
+        inline const std::vector<const MSEdge*>::iterator getRouteStep() const {
+            return myRouteStep;
         }
 
         inline const MSEdge* getRouteEdge() const {

@@ -188,7 +188,7 @@ namespace libsumo {
                 double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges);
 
         static bool vtdMap_matchingRoutePosition(const Position& pos, const std::string& origID,
-                const ConstMSEdgeVector& currentRoute, const ConstMSEdgeVector::const_iterator& routeIt,
+                const ConstMSEdgeVector& currentRoute, int routeIndex,
                 double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset);
 
         static bool findCloserLane(const MSEdge* edge, const Position& pos, double& bestDistance, MSLane** lane);

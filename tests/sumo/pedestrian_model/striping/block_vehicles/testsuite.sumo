@@ -28,3 +28,6 @@ blockage
 
 # when an unprioritized crossing is blocked by pedestrians, vehicles must yield their request
 blockage2
+
+# when an unprioritized crossing is blocked by pedestrians, vehicles must yield their request
+blockage3

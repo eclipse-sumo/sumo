@@ -1633,6 +1633,33 @@ MSPModel_Striping::PState::getNextEdge(const MSPerson::MSPersonStage_Walking&) c
     return myNLI.lane == 0 ? 0 : &myNLI.lane->getEdge();
 }
 
+void 
+MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos, 
+        double lanePosLat, double angle, int routeOffset, 
+        const ConstMSEdgeVector& edges, SUMOTime t) {
+    /*
+    std::cout << " MSPModel_Striping::PState::moveToXY"
+        << " pos=" << pos
+        << " lane=" << lane->getID() 
+        << " lanePos=" << lanePos
+        << " lanePosLat=" << lanePosLat 
+        << " angle=" << angle
+        << " routeOffset=" << routeOffset
+        << " myRelX=" << myRelX << " myRelY=" << myRelY;
+        */
+    myRelX = lanePos,
+    myRelY = (myLane->getWidth() - stripeWidth) * 0.5 - lanePosLat;
+    //std::cout << " newX=" << myRelX << " newY=" << myRelY << "\n";
+    UNUSED_PARAMETER(p);
+    UNUSED_PARAMETER(pos);
+    UNUSED_PARAMETER(lane);
+    UNUSED_PARAMETER(angle);
+    UNUSED_PARAMETER(routeOffset);
+    UNUSED_PARAMETER(edges);
+    UNUSED_PARAMETER(t);
+}
+
+
 
 double
 MSPModel_Striping::PState::distanceTo(const Obstacle& obs, const bool includeMinGap) const {

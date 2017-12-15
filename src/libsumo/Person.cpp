@@ -383,14 +383,14 @@ namespace libsumo {
 
 
     void
-        Person::moveTo(const std::string& personID, const std::string& edgeID, double position) {
+    Person::moveTo(const std::string& personID, const std::string& edgeID, double /* position */) {
         MSPerson* p = getPerson(personID);
         MSEdge* e = MSEdge::dictionary(edgeID);
         if (e == 0) {
             throw TraCIException("Unknown edge '" + edgeID + "'.");
         }
+        /*
         switch (p->getStageType(0)) {
-            /*
            case MSTransportable::MOVING_WITHOUT_VEHICLE: {
                MSPerson::MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
                 assert(s != 0);
@@ -400,21 +400,22 @@ namespace libsumo {
                 }
                 break;
             }
-            */
             default:
-                throw TraCIException("Command moveTo is not supported for person '" + personID + "' while " + p->getCurrentStageDescription() + ".");
-        }
+            */
+        throw TraCIException("Command moveTo is not supported for person '" + personID + "' while " + p->getCurrentStageDescription() + ".");
+        //}
     }
 
 
     void
-        Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRouteFlag) {
+    Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRouteFlag) {
         MSPerson* p = getPerson(personID);
-        MSEdge* e = MSEdge::dictionary(edgeID);
         bool keepRoute = (keepRouteFlag == 1);
         bool mayLeaveNetwork = (keepRouteFlag == 2);
         Position pos(x, y);
-        double origAnge = angle;
+#ifdef DEBUG_MOVEXY
+        const double origAngle = angle;
+#endif
         // angle must be in [0,360] because it will be compared against those returned by naviDegree()
         // angle set to INVALID_DOUBLE_VALUE is ignored in the evaluated and later set to the angle of the matched lane
         if (angle != INVALID_DOUBLE_VALUE) {
@@ -439,14 +440,36 @@ namespace libsumo {
         int routeOffset = 0;
         bool found = false;
         double maxRouteDistance = 100;
+
+        ConstMSEdgeVector ev;
+        ev.push_back(p->getEdge());
+        int routeIndex = 0;
+        MSRouteIterator routeStep = ev.begin();
+        MSLane* currentLane = const_cast<MSLane*>(getSidewalk<MSEdge, MSLane>(p->getEdge()));
+        switch (p->getStageType(0)) {
+            case MSTransportable::MOVING_WITHOUT_VEHICLE: {
+                MSPerson::MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
+                assert(s != 0);
+                ev = s->getEdges();
+                routeIndex = (int)(s->getRouteStep() - s->getRoute().begin());
+            }
+            break;
+            default:
+            break;
+        }
         if (keepRoute) {
             // case a): vehicle is on its earlier route
             //  we additionally assume it is moving forward (SUMO-limit);
             //  note that the route ("edges") is not changed in this case
-            // XXX found = vtdMap_matchingRoutePosition(pos, edgeID, *veh, bestDistance, &lane, lanePos, routeOffset, edges);
+            found = Helper::vtdMap_matchingRoutePosition(pos, edgeID, 
+                    ev, routeIndex,
+                    bestDistance, &lane, lanePos, routeOffset);
             // @note silenty ignoring mapping failure
         } else {
-            // XXX found = vtdMap(pos, maxRouteDistance, mayLeaveNetwork, edgeID, angle, *veh, bestDistance, &lane, lanePos, routeOffset, edges);
+            double speed = pos.distanceTo2D(p->getPosition()); // !!!veh->getSpeed();
+            found = Helper::vtdMap(pos, maxRouteDistance, mayLeaveNetwork, edgeID, angle, 
+                    speed, ev, routeIndex, currentLane, p->getEdgePos(), true,
+                    bestDistance, &lane, lanePos, routeOffset, edges);
         }
         if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
             // compute lateral offset

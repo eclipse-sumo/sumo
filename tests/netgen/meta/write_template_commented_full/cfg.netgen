@@ -375,6 +375,9 @@
         <!-- The default width of added sidewalks -->
         <default.sidewalk-width value="2" type="FLOAT"/>
 
+        <!-- The default width of a pedestrian crossing -->
+        <default.crossing-width value="4" type="FLOAT"/>
+
         <!-- The default for disallowed vehicle classes -->
         <default.disallow value="" type="STR"/>
 

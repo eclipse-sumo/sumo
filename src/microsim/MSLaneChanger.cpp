@@ -387,17 +387,19 @@ MSLaneChanger::registerUnchanged(MSVehicle* vehicle) {
 
 void
 MSLaneChanger::checkTraCICommands(MSVehicle* vehicle) {
+#ifdef DEBUG_STATE
     const int oldstate = vehicle->getLaneChangeModel().getOwnState();
+#endif
     vehicle->getLaneChangeModel().checkTraCICommands();
-    const int newstate = vehicle->getLaneChangeModel().getOwnState();
 #ifdef DEBUG_STATE
     if (DEBUG_COND) {
+        const int newstate = vehicle->getLaneChangeModel().getOwnState();
         std::cout << SIMTIME
                 << " veh=" << vehicle->getID()
                 << " oldState=" << toString((LaneChangeAction) oldstate)
-                << " newState=" << toString((LaneChangeAction) vehicle->getLaneChangeModel().getOwnState())
-                << ((vehicle->getLaneChangeModel().getOwnState() & LCA_BLOCKED) ? " (blocked)" : "")
-                << ((vehicle->getLaneChangeModel().getOwnState() & LCA_OVERLAPPING) ? " (overlap)" : "")
+                << " newState=" << toString((LaneChangeAction) newstate)
+                << ((newstate & LCA_BLOCKED) != 0 ? " (blocked)" : "")
+                << ((newstate & LCA_OVERLAPPING) != 0 ? " (overlap)" : "")
                 << "\n";
     }
 #endif

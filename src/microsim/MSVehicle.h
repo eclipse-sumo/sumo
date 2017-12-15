@@ -19,6 +19,7 @@
 /// @author  Clemens Honomichl
 /// @author  Michael Behrisch
 /// @author  Axel Wegener
+/// @author  Leonhard Luecken
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
@@ -416,6 +417,11 @@ public:
 
     /** @brief Get the vehicle's position relative to the given lane
      * @return The back position of the vehicle (in m from the given lane's begin)
+     * @note It is assumed that this function is only called for a vehicle that has
+     *       a relation to the lane which makes it 'directly' relevant for
+     *       car-following behavior on that lane, i.e., either it occupies part of the
+     *       lanes surface (regular or partial vehicle for the lane), or (for the sublane
+     *       model) it issued a maneuver reservation for a lane change.
      */
     double getBackPositionOnLane(const MSLane* lane) const;
 
@@ -465,6 +471,8 @@ public:
 
     /** @brief Get the offset that that must be added to interpret
      * myState.myPosLat for the given lane
+     *  @note This means that latOffset + myPosLat should give the relative shift of the vehicle's center
+     *        wrt the centerline of the given lane.
      */
     double getLatOffset(const MSLane* lane) const;
 

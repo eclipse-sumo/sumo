@@ -149,6 +149,22 @@ public:
 
     /// @brief return the list of internal edges if the pedestrian is on an intersection
     virtual const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const = 0;
+
+    /// @brief try to move person to the given position
+    virtual void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos, 
+                double lanePosLat, double angle, int routeOffset, 
+                const ConstMSEdgeVector& edges, SUMOTime t) {
+            UNUSED_PARAMETER(p);
+            UNUSED_PARAMETER(pos);
+            UNUSED_PARAMETER(lane);
+            UNUSED_PARAMETER(lanePos);
+            UNUSED_PARAMETER(lanePosLat);
+            UNUSED_PARAMETER(angle);
+            UNUSED_PARAMETER(routeOffset);
+            UNUSED_PARAMETER(edges);
+            UNUSED_PARAMETER(t);
+    }
+
 };
 
 

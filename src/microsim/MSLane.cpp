@@ -18,6 +18,7 @@
 /// @author  Michael Behrisch
 /// @author  Christoph Sommer
 /// @author  Mario Krumnow
+/// @author  Leonhard Luecken
 /// @date    Mon, 05 Mar 2001
 /// @version $Id$
 ///
@@ -82,7 +83,7 @@
 
 #define DEBUG_COND (true)
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
-//#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
+#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 
 // ===========================================================================
 // static member definitions
@@ -249,6 +250,34 @@ MSLane::resetPartialOccupation(MSVehicle* v) {
             myPartialVehicles.erase(i);
             // XXX update occupancy here?
             //std::cout << "    removed from myPartialVehicles\n";
+            return;
+        }
+    }
+    assert(false);
+}
+
+
+void
+MSLane::setManeuverReservation(MSVehicle* v) {
+#ifdef DEBUG_CONTEXT
+    if (DEBUG_COND2(v)) {
+        std::cout << SIMTIME << " setManeuverReservation. lane=" << getID() << " veh=" << v->getID() << "\n";
+    }
+#endif
+    myManeuverReservations.push_back(v);
+}
+
+
+void
+MSLane::resetManeuverReservation(MSVehicle* v) {
+#ifdef DEBUG_CONTEXT
+    if (DEBUG_COND2(v)) {
+        std::cout << SIMTIME << " resetManeuverReservation(): lane=" << getID() << " veh=" << v->getID() << "\n";
+    }
+#endif
+    for (VehCont::iterator i = myManeuverReservations.begin(); i != myManeuverReservations.end(); ++i) {
+        if (v == *i) {
+            myManeuverReservations.erase(i);
             return;
         }
     }
@@ -690,7 +719,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                                                              << " nspeed=" << nspeed
                                                              << " nextLane=" << nextLane->getID()
                                                              << " lead=" << leaders.toString()
-                                                             << " gap=" << gap
+//                                                             << " gap=" << gap
                                                              << " failed (@641)!\n";
 #endif
                     return false;
@@ -897,10 +926,11 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                                              << " patchSpeed=" << patchSpeed
                                              << " speed=" << speed
                                              << " nspeed=" << nspeed
-                                             //<< " myVehicles=" << toString(myVehicles)
-                                             //<< " myPartial=" << toString(myPartialVehicles)
-                                             //<< " leaders=" << leaders.toString()
-                                             << " success!\n";
+                                             << "\n myVehicles=" << toString(myVehicles)
+                                             << " myPartial=" << toString(myPartialVehicles)
+                                             << " myManeuverReservations=" << toString(myManeuverReservations)
+                                             << "\n leaders=" << leaders.toString()
+                                             << "\n success!\n";
 #endif
     return true;
 }
@@ -1043,40 +1073,83 @@ void
 MSLane::planMovements(SUMOTime t) {
     assert(myVehicles.size() != 0);
     double cumulatedVehLength = 0.;
-    MSLeaderInfo ahead(this);
-    // iterate over myVehicles and myPartialVehicles merge-sort style
+    MSLeaderInfo leaders(this);
+
+    // iterate over myVehicles, myPartialVehicles, and myManeuverReservations merge-sort style
     VehCont::reverse_iterator veh = myVehicles.rbegin();
     VehCont::reverse_iterator vehPart = myPartialVehicles.rbegin();
+    VehCont::reverse_iterator vehRes = myManeuverReservations.rbegin();
 #ifdef DEBUG_PLAN_MOVE
     if (DEBUG_COND) std::cout
-                << "\n"
-                << SIMTIME
-                << " planMovements lane=" << getID()
-                << "\n"
-                << "    vehicles=" << toString(myVehicles)
-                << "    partials=" << toString(myPartialVehicles)
-                << "\n";
+            << "\n"
+            << SIMTIME
+            << " planMovements() lane=" << getID()
+            << "\n    vehicles=" << toString(myVehicles)
+            << "\n    partials=" << toString(myPartialVehicles)
+            << "\n    reservations=" << toString(myManeuverReservations)
+            << "\n";
 #endif
-    for (; veh != myVehicles.rend(); ++veh) {
-        while (vehPart != myPartialVehicles.rend()
-                && ((*vehPart)->getPositionOnLane(this) > (*veh)->getPositionOnLane())) {
+    for(;veh!=myVehicles.rend(); ++veh) {
+        updateLeaderInfo(*veh, vehPart, vehRes, leaders);
+#ifdef DEBUG_PLAN_MOVE
+        if (DEBUG_COND) {
+            std::cout << "   plan move for: " << (*veh)->getID() << " leaders=" << leaders.toString() << "\n";
+        }
+#endif
+        (*veh)->planMove(t, leaders, cumulatedVehLength);
+        cumulatedVehLength += (*veh)->getVehicleType().getLengthWithGap();
+        leaders.addLeader(*veh, false, 0);
+    }
+}
+
+
+void
+MSLane::updateLeaderInfo(const MSVehicle* veh, VehCont::reverse_iterator& vehPart, VehCont::reverse_iterator& vehRes, MSLeaderInfo& ahead) const {
+    bool morePartialVehsAhead = vehPart != myPartialVehicles.rend();
+    bool moreReservationsAhead = vehRes != myManeuverReservations.rend();
+    bool nextToConsiderIsPartial;
+
+    // Determine relevant leaders for veh
+    while (moreReservationsAhead || morePartialVehsAhead) {
+        if((!moreReservationsAhead || (*vehRes)->getPositionOnLane(this) <= veh->getPositionOnLane())
+                && (!morePartialVehsAhead || (*vehPart)->getPositionOnLane(this) <= veh->getPositionOnLane())) {
+            // All relevant downstream vehicles have been collected.
+            break;
+        }
+
+        // Check whether next farthest relevant vehicle downstream is a partial vehicle or a maneuver reservation
+        if (moreReservationsAhead && !morePartialVehsAhead) {
+            nextToConsiderIsPartial = false;
+        } else if (morePartialVehsAhead && !moreReservationsAhead) {
+            nextToConsiderIsPartial = true;
+        } else {
+            assert(morePartialVehsAhead && moreReservationsAhead);
+            // Add farthest downstream vehicle first
+            nextToConsiderIsPartial = (*vehPart)->getPositionOnLane(this) > (*vehRes)->getPositionOnLane();
+        }
+
+        // Add appropriate leader information
+        if (nextToConsiderIsPartial) {
             const double latOffset = (*vehPart)->getLatOffset(this);
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
-                std::cout << "    partial ahead: " << (*vehPart)->getID() << " latOffset=" << latOffset << "\n";
+                std::cout << "        partial ahead: " << (*vehPart)->getID() << " latOffset=" << latOffset << "\n";
             }
 #endif
             ahead.addLeader(*vehPart, false, latOffset);
             ++vehPart;
-        }
+            morePartialVehsAhead = vehPart != myPartialVehicles.rend();
+        } else {
+            const double latOffset = (*vehRes)->getLatOffset(this);
 #ifdef DEBUG_PLAN_MOVE
-        if (DEBUG_COND) {
-            std::cout << "   plan move for: " << (*veh)->getID() << " ahead=" << ahead.toString() << "\n";
-        }
+            if (DEBUG_COND) {
+                std::cout << "    reservation ahead: " << (*vehRes)->getID() << " latOffset=" << latOffset << "\n";
+            }
 #endif
-        (*veh)->planMove(t, ahead, cumulatedVehLength);
-        cumulatedVehLength += (*veh)->getVehicleType().getLengthWithGap();
-        ahead.addLeader(*veh, false, 0);
+            ahead.addLeader(*vehRes, false, latOffset);
+            ++vehRes;
+            moreReservationsAhead = vehRes != myManeuverReservations.rend();
+        }
     }
 }
 
@@ -1672,6 +1745,15 @@ MSLane::sortPartialVehicles() {
         sort(myPartialVehicles.begin(), myPartialVehicles.end(), vehicle_natural_position_sorter(this));
     }
 }
+
+
+void
+MSLane::sortManeuverReservations() {
+    if (myManeuverReservations.size() > 1) {
+        sort(myManeuverReservations.begin(), myManeuverReservations.end(), vehicle_natural_position_sorter(this));
+    }
+}
+
 
 bool
 MSLane::isLinkEnd(MSLinkCont::const_iterator& i) const {

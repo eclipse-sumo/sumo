@@ -750,44 +750,97 @@ namespace libsumo {
 
 
     void
-        Vehicle::add(const std::string& vehicleID,
+    Vehicle::add(const std::string& vehicleID,
         const std::string& routeID,
         const std::string& typeID,
-        std::string depart,
-        const std::string& departLane,
-        const std::string& departPos,
-        const std::string& departSpeed,
-        const std::string& arrivalLane,
-        const std::string& arrivalPos,
-        const std::string& arrivalSpeed,
-        const std::string& fromTaz,
-        const std::string& toTaz,
-        const std::string& line,
-        int personCapacity,
-        int personNumber) {
-        MSVehicle* veh = getVehicle(vehicleID);
+        int depart,
+        int departLane,
+        double departPos,
+        double departSpeed,
+        int /* arrivalLane */,
+        double /*arrivalPos */,
+        double /* arrivalSpeed */,
+        const std::string& /* fromTaz */,
+        const std::string& /* toTaz */,
+        const std::string& /* line */,
+        int /* personCapacity */,
+        int /* personNumber */) {
+        SUMOVehicle* veh = MSNet::getInstance()->getVehicleControl().getVehicle(vehicleID);
         if (veh != 0) {
             throw TraCIException("The vehicle " + vehicleID + " to add already exists.");
         }
-        UNUSED_PARAMETER(routeID);
-        UNUSED_PARAMETER(typeID);
-        UNUSED_PARAMETER(depart);
-        UNUSED_PARAMETER(departLane);
-        UNUSED_PARAMETER(departPos);
-        UNUSED_PARAMETER(departSpeed);
-        UNUSED_PARAMETER(arrivalLane);
-        UNUSED_PARAMETER(arrivalPos);
-        UNUSED_PARAMETER(arrivalSpeed);
-        UNUSED_PARAMETER(fromTaz);
-        UNUSED_PARAMETER(toTaz);
-        UNUSED_PARAMETER(line);
-        UNUSED_PARAMETER(personCapacity);
-        UNUSED_PARAMETER(personNumber);
+
+        SUMOVehicleParameter vehicleParams;
+        vehicleParams.id = vehicleID;
+        MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(typeID);
+        if (!vehicleType) {
+            throw TraCIException("Invalid type '" + typeID + "' for vehicle '" + vehicleID + "'");
+        }
+        const MSRoute* route = MSRoute::dictionary(routeID);
+        if (!route) {
+            throw TraCIException("Invalid route '" + routeID + "' for vehicle: '" + vehicleID + "'");
+        }
+
+        if (depart < 0) {
+            const int proc = -depart;
+            if (proc >= static_cast<int>(DEPART_DEF_MAX)) {
+                throw TraCIException("Invalid departure time.");
+            }
+            vehicleParams.departProcedure = (DepartDefinition)proc;
+            vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
+        } else if (depart < MSNet::getInstance()->getCurrentTimeStep()) {
+            vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
+            WRITE_WARNING("Departure time for vehicle '" + vehicleID + "' is in the past; using current time instead.");
+        } else {
+            vehicleParams.depart = depart;
+        }
+
+        vehicleParams.departPos = departPos;
+        if (vehicleParams.departPos < 0) {
+            const int proc = static_cast<int>(-vehicleParams.departPos);
+            if (fabs(proc + vehicleParams.departPos) > NUMERICAL_EPS || proc >= static_cast<int>(DEPART_POS_DEF_MAX) || proc == static_cast<int>(DEPART_POS_GIVEN)) {
+                throw TraCIException("Invalid departure position.");
+            }
+            vehicleParams.departPosProcedure = (DepartPosDefinition)proc;
+        } else {
+            vehicleParams.departPosProcedure = DEPART_POS_GIVEN;
+        }
+
+        vehicleParams.departSpeed = departSpeed;
+        if (vehicleParams.departSpeed < 0) {
+            const int proc = static_cast<int>(-vehicleParams.departSpeed);
+            if (proc >= static_cast<int>(DEPART_SPEED_DEF_MAX)) {
+                throw TraCIException("Invalid departure speed.");
+            }
+            vehicleParams.departSpeedProcedure = (DepartSpeedDefinition)proc;
+        } else {
+            vehicleParams.departSpeedProcedure = DEPART_SPEED_GIVEN;
+        }
+
+        vehicleParams.departLane = departLane;
+        if (vehicleParams.departLane < 0) {
+            const int proc = static_cast<int>(-vehicleParams.departLane);
+            if (proc >= static_cast<int>(DEPART_LANE_DEF_MAX)) {
+                throw TraCIException("Invalid departure lane.");
+            }
+            vehicleParams.departLaneProcedure = (DepartLaneDefinition)proc;
+        } else {
+            vehicleParams.departLaneProcedure = DEPART_LANE_GIVEN;
+        }
+
+        SUMOVehicleParameter* params = new SUMOVehicleParameter(vehicleParams);
+        try {
+            SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, true, false);
+            MSNet::getInstance()->getVehicleControl().addVehicle(vehicleParams.id, vehicle);
+            MSNet::getInstance()->getInsertionControl().add(vehicle);
+        } catch (ProcessError& e) {
+            throw TraCIException(e.what());
+        }
     }
 
 
     void
-        Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle, const int keepRouteFlag) {
+    Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle, const int keepRouteFlag) {
         MSVehicle* veh = getVehicle(vehicleID);
         bool keepRoute = (keepRouteFlag == 1) && veh->getID() != "VTD_EGO";
         bool mayLeaveNetwork = (keepRouteFlag == 2);
@@ -795,7 +848,9 @@ namespace libsumo {
         const std::string origID = edgeID + "_" + toString(laneIndex);
         // @todo add an interpretation layer for OSM derived origID values (without lane index)
         Position pos(x, y);
-        double origAnge = angle;
+#ifdef DEBUG_MOVEXY
+        const double origAngle = angle;
+#endif
         // angle must be in [0,360] because it will be compared against those returned by naviDegree()
         // angle set to INVALID_DOUBLE_VALUE is ignored in the evaluated and later set to the angle of the matched lane
         if (angle != INVALID_DOUBLE_VALUE) {
@@ -829,7 +884,7 @@ namespace libsumo {
             //  note that the route ("edges") is not changed in this case
 
             found = Helper::vtdMap_matchingRoutePosition(pos, origID, 
-                    ev, veh->getCurrentRouteEdge(),
+                    ev, (int)(veh->getCurrentRouteEdge() - veh->getRoute().begin()),
                     bestDistance, &lane, lanePos, routeOffset);
             // @note silenty ignoring mapping failure
         } else {

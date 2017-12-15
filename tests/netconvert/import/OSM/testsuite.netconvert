@@ -95,3 +95,6 @@ max_segment_length
 
 # see #3412
 difficult_geometry
+
+# see #3715
+complex_intermodal_intersection

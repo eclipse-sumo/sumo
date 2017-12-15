@@ -67,6 +67,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const NBNodeCont& nc = nb.getNodeCont();
     const NBEdgeCont& ec = nb.getEdgeCont();
     const bool origNames = oc.getBool("output.original-names");
+    const bool lefthand = oc.getBool("lefthand");
     const double straightThresh = DEG2RAD(oc.getFloat("opendrive-output.straight-threshold"));
     // some internal mapping containers
     int nodeID = 1;
@@ -119,40 +120,56 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         if (n->numNormalConnections() > 0) {
             junctionOSS << "    <junction name=\"" << n->getID() << "\" id=\"" << nID << "\">\n";
         }
-        const std::vector<NBEdge*>& incoming = (*i).second->getIncomingEdges();
-        for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
-            const NBEdge* inEdge = *j;
+        std::vector<NBEdge*> incoming = (*i).second->getIncomingEdges();
+        if (lefthand) {
+            std::reverse(incoming.begin(), incoming.end());
+        }
+        for (NBEdge* inEdge : incoming) {
+            std::string centerMark = "none";
             const int inEdgeID = getID(inEdge->getID(), edgeMap, edgeID);
             // group parallel edges
             const NBEdge* outEdge = 0;
             bool isOuterEdge = true; // determine where a solid outer border should be drawn
             int lastFromLane = -1;
             std::vector<NBEdge::Connection> parallel;
-            for (const NBEdge::Connection& c : inEdge->getConnections()) {
+            std::vector<NBEdge::Connection> connections = inEdge->getConnections();
+            if (lefthand) {
+                std::reverse(connections.begin(), connections.end());
+            }
+            for (const NBEdge::Connection& c : connections) {
                 assert(c.toEdge != 0);
                 if (outEdge != c.toEdge || c.fromLane == lastFromLane) {
                     if (outEdge != 0) {
+                        if (isOuterEdge) {
+                            addPedestrianConnection(inEdge, outEdge, parallel);
+                        }
                         connectionID = writeInternalEdge(device, junctionOSS, inEdge, nID, 
                                 getID(parallel.back().getInternalLaneID(), edgeMap, edgeID), 
                                 inEdgeID, 
                                 getID(outEdge->getID(), edgeMap, edgeID), 
                                 connectionID,
-                                parallel, isOuterEdge, straightThresh);
+                                parallel, isOuterEdge, straightThresh, centerMark);
                         parallel.clear();
                         isOuterEdge = false;
                     }
                     outEdge = c.toEdge;
-                    lastFromLane = c.fromLane;
                 }
+                lastFromLane = c.fromLane;
                 parallel.push_back(c);
             }
+            if (isOuterEdge) {
+                addPedestrianConnection(inEdge, outEdge, parallel);
+            }
             if (!parallel.empty()) {
+                if (!lefthand && (n->geometryLike() || inEdge->isTurningDirectionAt(outEdge))) {
+                    centerMark = "solid";
+                }
                 connectionID = writeInternalEdge(device, junctionOSS, inEdge, nID, 
                         getID(parallel.back().getInternalLaneID(), edgeMap, edgeID), 
                         inEdgeID, 
                         getID(outEdge->getID(), edgeMap, edgeID), 
                         connectionID,
-                        parallel, isOuterEdge, straightThresh);
+                        parallel, isOuterEdge, straightThresh, centerMark);
                 parallel.clear();
             }
         }
@@ -256,7 +273,8 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     device << "        <lateralProfile/>\n";
     device << "        <lanes>\n";
     device << "            <laneSection s=\"0\">\n";
-    writeEmptyCenterLane(device, "solid", 0.13);
+    const std::string centerMark = e->getPermissions(e->getNumLanes() - 1) == 0 ? "none" : "solid";
+    writeEmptyCenterLane(device, centerMark, 0.13);
     device << "                <right>\n";
     for (int j = e->getNumLanes(); --j >= 0;) {
         device << "                    <lane id=\"-" << e->getNumLanes() - j << "\" type=\"" << getLaneType(e->getPermissions(j)) << "\" level=\"true\">\n";
@@ -271,6 +289,13 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
         device << "                        <width sOffset=\"0\" a=\"" << e->getLaneWidth(j) << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
         std::string markType = "broken";
         if (j == 0) {
+            markType = "solid";
+        } else if (j > 0
+                && (e->getPermissions(j - 1) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
+            // solid road mark to the left of sidewalk or bicycle lane
+            markType = "solid";
+        } else if (e->getPermissions(j) == 0) {
+            // solid road mark to the right of a forbidden lane
             markType = "solid";
         }
         device << "                        <roadMark sOffset=\"0\" type=\"" << markType << "\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
@@ -289,6 +314,20 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     checkLaneGeometries(e);
 }
 
+void
+NWWriter_OpenDrive::addPedestrianConnection(const NBEdge* inEdge, const NBEdge* outEdge, std::vector<NBEdge::Connection>& parallel) {
+    // by defaul there are no iternal lanes for pedestrians. Determine if
+    // one is feasible and does not exist yet.
+    if (outEdge != 0 
+            && inEdge->getPermissions(0) == SVC_PEDESTRIAN 
+            && outEdge->getPermissions(0) == SVC_PEDESTRIAN
+            && (parallel.empty() 
+                || parallel.front().fromLane != 0 
+                || parallel.front().toLane != 0)) {
+        parallel.insert(parallel.begin(), NBEdge::Connection(0, const_cast<NBEdge*>(outEdge), 0, false));
+    }
+}
+
 
 int
 NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& junctionDevice, const NBEdge* inEdge, int nodeID,
@@ -296,7 +335,8 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         int connectionID,
         const std::vector<NBEdge::Connection>& parallel,
         const bool isOuterEdge,
-        const double straightThresh) 
+        const double straightThresh,
+        const std::string& centerMark)
 {
     assert(parallel.size() != 0);
     const NBEdge::Connection& cLeft = parallel.back();
@@ -379,7 +419,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         device << "            <laneOffset s=\"0\" a=\"" << laneOffset << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
     }
     device << "            <laneSection s=\"0\">\n";
-    writeEmptyCenterLane(device, "none", 0);
+    writeEmptyCenterLane(device, centerMark, 0);
     device << "                <right>\n";
     for (int j = (int)parallel.size(); --j >= 0;) {
         const NBEdge::Connection& c = parallel[j];
@@ -395,6 +435,11 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         if (inEdge->isTurningDirectionAt(outEdge)) {
             markType = "none";
         } else if (c.fromLane == 0 && c.toLane == 0 && isOuterEdge) {
+            // solid road mark at the outer border
+            markType = "solid";
+        } else if (isOuterEdge && j > 0
+                && (outEdge->getPermissions(parallel[j - 1].toLane) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
+            // solid road mark to the left of sidewalk or bicycle lane
             markType = "solid";
         } else if (!inEdge->getToNode()->geometryLike()) {
             // draw shorter road marks to indicate turning paths

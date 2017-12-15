@@ -254,5 +254,8 @@ ticket3258
 # The long vehicle on the short lane should not imply density values larger than the inverse of its length. (The bug resolution uses the inverse of the minimal observed length for passing vehicles to bound the output value.)
 ticket3265
 
-# vehice collideds with itself
+# vehice collides with itself
 ticket3584
+
+# vehicle collides on opposite direction overtaking
+ticket3718

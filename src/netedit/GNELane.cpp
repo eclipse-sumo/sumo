@@ -462,7 +462,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         // Create basic commands
         const std::string edgeDesc = toString(SUMO_TAG_EDGE);
         std::string edgeDescPossibleMulti = edgeDesc;
-        const int edgeSelSize = myNet->retrieveEdges(true).size();
+        const int edgeSelSize = (int)myNet->retrieveEdges(true).size();
         if (edgeSelSize && edgeSelSize > 1) {
             edgeDescPossibleMulti = toString(edgeSelSize) + " " + edgeDesc + "s"; 
         }

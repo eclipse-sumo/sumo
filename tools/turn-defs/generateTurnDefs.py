@@ -38,8 +38,16 @@ if __name__ == "__main__":
     option_parser.add_option("-t", "--turn-definitions-file",
                              dest="turn_definitions_file",
                              help="Write the resulting turn definitions to TURN_DEFINITIONS_FILE. "
-                             "Mandatory.",
+                                  "Mandatory.",
                              metavar="TURN_DEFINITIONS_FILE")
+    option_parser.add_option("-b", "--begin",
+                             help="Generate turn definitions for interval starting at BEGIN seconds. "
+                                  "Defaults to 0.",
+                             default="0")
+    option_parser.add_option("-e", "--end",
+                             help="Generate turn definitions for interval ending at END seconds. "
+                                  "Defaults to 3600.",
+                             default="3600")
 
     (options, args) = option_parser.parse_args()
 
@@ -58,7 +66,9 @@ if __name__ == "__main__":
 
     connections = connections.from_stream(connections_file)
     turn_definitions = turndefinitions.from_connections(connections)
-    turn_definitions_xml = turndefinitions.to_xml(turn_definitions)
+    turn_definitions_xml = turndefinitions.to_xml(turn_definitions,
+                                                  options.begin,
+                                                  options.end)
     turn_definitions_file.write(turn_definitions_xml)
 
     connections_file.close()

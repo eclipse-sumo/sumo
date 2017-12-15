@@ -203,7 +203,7 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_WIDTH:
-            return toString(myCrossing->width);
+            return toString(myCrossing->customWidth);
         case SUMO_ATTR_PRIORITY:
             return myCrossing->priority ? "true" : "false";
         case SUMO_ATTR_EDGES:
@@ -309,7 +309,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_WIDTH:
             // Change width an refresh element
-            myCrossing->width = parse<double>(value);
+            myCrossing->customWidth = parse<double>(value);
             myNet->refreshElement(this);
             break;
         case SUMO_ATTR_PRIORITY:

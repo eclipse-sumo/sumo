@@ -17,6 +17,7 @@
 /// @author  Tino Morenz
 /// @author  Michael Behrisch
 /// @author  Mario Krumnow
+/// @author  Leonhard Luecken
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
@@ -94,6 +95,11 @@ public:
         bool operator()(const MSVehicle* cmp, double pos) const;
     };
 
+    // TODO: Better documentation
+    /// @brief AnyVehicleIterator is a structure, which manages the iteration through all vehicles on the lane,
+    ///        that may be of importance for the car-following dynamics along that lane. The relevant types of vehicles are:
+    ///        1) vehicles with their front on the lane (myVehicles),
+    ///        2) vehicles intersecting the lane but with front on another lane (myPartialVehicles)
     class AnyVehicleIterator {
     public:
         AnyVehicleIterator(
@@ -306,7 +312,8 @@ public:
 
 
 
-    /// @name Handling vehicles lapping into lanes
+    /// @name Handling vehicles lapping into several lanes (-> partial occupation)
+    ///       or which committed a maneuver that will lead them into another (sublane case -> maneuver reservations)
     /// @{
     /** @brief Sets the information about a vehicle lapping into this lane
      *
@@ -321,6 +328,15 @@ public:
      * @param[in] v The vehicle which laps into this lane
      */
     virtual void resetPartialOccupation(MSVehicle* v);
+
+    /** @brief Registers the lane change intentions (towards this lane) for the given vehicle
+     */
+    virtual void setManeuverReservation(MSVehicle* v);
+
+    /** @brief Unregisters a vehicle, which previously registered for maneuvering into this lane
+     * @param[in] v The vehicle
+     */
+    virtual void resetManeuverReservation(MSVehicle* v);
 
     /** @brief Returns the last vehicles on the lane
      *
@@ -521,6 +537,16 @@ public:
      * @see MSVehicle::planMove
      */
     virtual void planMovements(const SUMOTime t);
+
+    /** @brief This updates the MSLeaderInfo argument with respect to the given MSVehicle.
+     *         All leader-vehicles on the same edge, which are relevant for the vehicle
+     *         (i.e. with position > vehicle's position) and not already integrated into
+     *         the LeaderInfo, are integrated.
+     *         The given iterators vehPart and vehRes give access to these vehicles which are
+     *         either partial occupators or have issued a maneuver reservation for the lane
+     *         (the latter occurs only for the sublane model).
+     */
+    void updateLeaderInfo(const MSVehicle* veh, VehCont::reverse_iterator& vehPart, VehCont::reverse_iterator& vehRes, MSLeaderInfo& ahead) const;
 
     /** @brief Executes planned vehicle movements with regards to right-of-way
      *
@@ -946,6 +972,9 @@ public:
     /// @brief sorts myPartialVehicles
     void sortPartialVehicles();
 
+    /// @brief sorts myManeuverReservations
+    void sortManeuverReservations();
+
     /// @brief return the opposite direction lane for lane changing or 0
     MSLane* getOpposite() const;
 
@@ -1129,7 +1158,7 @@ protected:
     /** @brief The lane's partial vehicles.
         This container holds all vehicles that are partially on this lane but which are
         in myVehicles of another lane.
-        Reasons for partial occupancie include the following
+        Reasons for partial occupancies include the following
         - the back is still on this lane during regular movement
         - the vehicle is performing a continuous lane-change maneuver
         - sub-lane simulation where vehicles can freely move laterally among the lanes of an edge
@@ -1146,6 +1175,13 @@ protected:
      * Integrated after all vehicles executed their moves*/
     VehCont myVehBuffer;
 
+    /** @brief The vehicles which registered maneuvering into the lane within their current action step.
+     *         This is currently only relevant for sublane simulation, since continuous lanechanging
+     *         uses the partial vehicle mechanism.
+     *
+     *   The entering vehicles are inserted at the front
+     *   of this container and the leaving ones leave from the back. */
+    VehCont myManeuverReservations;
 
     /* @brief list of vehicles that are parking near this lane
      * (not necessarily on the road but having reached their stop on this lane)

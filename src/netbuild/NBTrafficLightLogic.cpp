@@ -133,7 +133,7 @@ NBTrafficLightLogic::setStateLength(int numLinks, LinkState fill) {
             p.state = p.state.substr(0, numLinks);
         }
     } else {
-        std::string add((char)fill, numLinks - myNumLinks);
+        std::string add(numLinks - myNumLinks, (char)fill);
         for (PhaseDefinition& p : myPhases) {
             p.state = p.state + add;
         }

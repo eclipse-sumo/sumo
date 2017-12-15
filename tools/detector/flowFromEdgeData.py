@@ -81,11 +81,13 @@ def readEdgeData(edgeDataFile, begin, end, detReader, flowout):
             if flowout:
                 f = open(flowout, 'a')
             for edge in interval.edge:
-                edgeFlow[edge.id] += (int(edge.departed) + int(edge.entered)) * scale
+                flow = (int(edge.departed) + int(edge.entered)) * scale
+                edgeFlow[edge.id] += flow
+                #print(interval.begin, interval.end, edge.id, edge.departed, edge.entered, scale, edgeFlow[edge.id])
                 if flowout:
                     for group in detReader.getEdgeDetGroups(edge.id):
                         f.write(";".join(map(str, [group.ids[0], interval.begin / 60,
-                            edgeFlow[edge.id], edge.speed])) + "\n")
+                            flow, edge.speed])) + "\n")
             if flowout:
                 f.close()
             if DEBUG:

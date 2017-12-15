@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 13 11:30:47 2017 by SUMO Version v0_31_0-1095-g472623c
+<!-- generated on Thu Dec 14 08:31:02 2017 by SUMO Version v0_31_0+1588-722b73c
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -3677,7 +3677,6 @@
     <vehicle id="veh500" type="default" depart="1839.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="1942.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="500.00" probability="0" edges="gneE0 gneE3"/>
-            <route replacedOnEdge="" replacedAtTime="503.00" probability="0" edges="gneE0 gneE1 gneE2 gneE3"/>
             <route replacedOnEdge="" replacedAtTime="552.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
             <route replacedOnEdge="" replacedAtTime="555.00" probability="0" edges="gneE0 gneE1 gneE2 gneE3"/>
             <route replacedOnEdge="" replacedAtTime="728.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
@@ -3690,7 +3689,6 @@
     <vehicle id="veh501" type="default" depart="1842.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="1946.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="501.00" probability="0" edges="gneE0 gneE3"/>
-            <route replacedOnEdge="" replacedAtTime="503.00" probability="0" edges="gneE0 gneE1 gneE2 gneE3"/>
             <route replacedOnEdge="" replacedAtTime="552.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
             <route replacedOnEdge="" replacedAtTime="555.00" probability="0" edges="gneE0 gneE1 gneE2 gneE3"/>
             <route replacedOnEdge="" replacedAtTime="728.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
@@ -3703,7 +3701,6 @@
     <vehicle id="veh502" type="default" depart="1845.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" arrival="1950.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="502.00" probability="0" edges="gneE0 gneE3"/>
-            <route replacedOnEdge="" replacedAtTime="503.00" probability="0" edges="gneE0 gneE1 gneE2 gneE3"/>
             <route replacedOnEdge="" replacedAtTime="552.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>
             <route replacedOnEdge="" replacedAtTime="555.00" probability="0" edges="gneE0 gneE1 gneE2 gneE3"/>
             <route replacedOnEdge="" replacedAtTime="728.00" probability="0" edges="gneE0 gneE4 gneE5 gneE3"/>

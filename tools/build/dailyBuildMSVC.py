@@ -108,8 +108,7 @@ optParser.add_option("-b", "--bin-dir", dest="binDir", default=r"git\bin",
                      help="directory containg the binaries, relative to the root dir")
 optParser.add_option("-t", "--tests-dir", dest="testsDir", default=r"git\tests",
                      help="directory containg the tests, relative to the root dir")
-optParser.add_option("-m", "--remote-dir", dest="remoteDir",
-                     default=r"O:\Daten\Sumo\daily",
+optParser.add_option("-m", "--remote-dir", dest="remoteDir", default="I:\\",
                      help="directory to move the results to")
 optParser.add_option("-l", "--add-solution", dest="addSln",
                      default=r"git\build\msvc10\tools.sln",

@@ -15,6 +15,7 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
+/// @author  Leonhard Luecken
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
@@ -177,9 +178,10 @@ public:
 
     virtual void setOwnState(const int state);
 
-    /// @brief Sets the value of myManeuverDist
-    virtual void setManeuverDist (const double maneuverDist);
-    virtual double getManeuverDist () const;
+    /// @brief Updates the remaining distance for the current maneuver while it is continued within non-action steps (only used by sublane model)
+    void setManeuverDist(const double dist);
+    /// @brief Returns the remaining unblocked distance for the current maneuver. (only used by sublane model)
+    double getManeuverDist() const;
 
     /// @brief Updates the value of safe lateral distances (in SL2015) during maneuver continuation in non-action steps
     virtual void updateSafeLatDist (const double travelledLatDist);
@@ -327,7 +329,7 @@ public:
         }
     }
 
-    /** @brief Returns the lane the vehicles shadow is on during continuous/sublane lane change
+    /** @brief Returns the lane the vehicle's shadow is on during continuous/sublane lane change
      * @return The vehicle's shadow lane
      */
     MSLane* getShadowLane() const {
@@ -351,6 +353,17 @@ public:
 
     const std::vector<double>& getShadowFurtherLanesPosLat() const {
         return myShadowFurtherLanesPosLat;
+    }
+
+    /** @brief Returns the lane the vehicle has committed to enter during a sublane lane change
+     *  @return The vehicle's target lane.
+     */
+    MSLane* getTargetLane() const {
+        return myTargetLane;
+    }
+
+    const std::vector<MSLane*>& getFurtherTargetLanes() const {
+        return myFurtherTargetLanes;
     }
 
     inline SUMOTime getLastLaneChangeOffset() const {
@@ -403,6 +416,14 @@ public:
     /* @brief update lane change shadow after the vehicle moved to a new lane */
     void updateShadowLane();
 
+    /* @brief update lane change reservations after the vehicle moved to a new lane
+     * @note  The shadow lane should always be updated before updating the target lane. */
+    void updateTargetLane();
+
+    /* @brief Determines the lane which the vehicle intends to enter during its current action step.
+     *        targetDir is set to the offset of the returned lane with respect to the vehicle'a current lane. */
+    MSLane* determineTargetLane(int& targetDir) const;
+
     /* @brief finish the lane change maneuver
      */
     void endLaneChangeManeuver(const MSMoveReminder::Notification reason = MSMoveReminder::NOTIFICATION_LANE_CHANGE);
@@ -410,6 +431,10 @@ public:
     /* @brief clean up all references to the shadow vehicle
      */
     void cleanupShadowLane();
+
+    /* @brief clean up all references to the vehicle on its target lanes
+     */
+    void cleanupTargetLane();
 
     /// @brief reserve space at the end of the lane to avoid dead locks
     virtual void saveBlockerLength(double length) {
@@ -517,16 +542,37 @@ protected:
     /// @brief direction of the lane change maneuver -1 means right, 1 means left
     int myLaneChangeDirection;
 
+    /// @brief The complete lateral distance the vehicle wants to travel to finish its maneuver
+    ///        Only used by sublane model, currently.
+    double myManeuverDist;
+
     /// @brief whether the vehicle has already moved this step
     bool myAlreadyChanged;
 
     /// @brief A lane that is partially occupied by the front of the vehicle but that is not the primary lane
     MSLane* myShadowLane;
-
-    /* @brief Lanes that are parially (laterally) occupied by the back of the
+    /* @brief Lanes that are partially (laterally) occupied by the back of the
      * vehicle (analogue to MSVehicle::myFurtherLanes) */
     std::vector<MSLane*> myShadowFurtherLanes;
     std::vector<double> myShadowFurtherLanesPosLat;
+
+
+    /// @brief The target lane for the vehicle's current maneuver
+    /// @note  This is used by the sublane model to register the vehicle at lanes,
+    ///        it will reach within the current action step, so vehicles on that lane
+    ///        may react to the started lc-maneuver during the car-following process.
+    ///        If the shadow lane is the same as the lc maneuver target, myTargetLane is
+    ///        set to nullptr.
+    ///        The current shadow lanes and further lanes should always be updated before updating the target lane.
+    MSLane* myTargetLane;
+
+    /* @brief Further upstream lanes that are affected by the vehicle's maneuver (analogue to MSVehicle::myFurtherLanes)
+     * @note  If myTargetLane==nullptr, we may assume myFurtherTargetLanes.size()==0, otherwise we have
+     *        myFurtherTargetLanes.size() == myVehicle.getFurtherLanes.size()
+     *        Here it may occur that an element myFurtherTargetLanes[i]==nullptr if myFurtherLanes[i] has
+     *        no parallel lane in the change direction.
+     *  */
+    std::vector<MSLane*> myFurtherTargetLanes;
 
     /// @brief The vehicle's car following model
     const MSCFModel& myCarFollowModel;
