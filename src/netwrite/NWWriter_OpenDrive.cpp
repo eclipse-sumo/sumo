@@ -273,7 +273,8 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     device << "        <lateralProfile/>\n";
     device << "        <lanes>\n";
     device << "            <laneSection s=\"0\">\n";
-    writeEmptyCenterLane(device, "solid", 0.13);
+    const std::string centerMark = e->getPermissions(e->getNumLanes() - 1) == 0 ? "none" : "solid";
+    writeEmptyCenterLane(device, centerMark, 0.13);
     device << "                <right>\n";
     for (int j = e->getNumLanes(); --j >= 0;) {
         device << "                    <lane id=\"-" << e->getNumLanes() - j << "\" type=\"" << getLaneType(e->getPermissions(j)) << "\" level=\"true\">\n";
@@ -292,6 +293,9 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
         } else if (j > 0
                 && (e->getPermissions(j - 1) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
             // solid road mark to the left of sidewalk or bicycle lane
+            markType = "solid";
+        } else if (e->getPermissions(j) == 0) {
+            // solid road mark to the right of a forbidden lane
             markType = "solid";
         }
         device << "                        <roadMark sOffset=\"0\" type=\"" << markType << "\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
