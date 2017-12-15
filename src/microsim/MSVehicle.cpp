@@ -363,8 +363,9 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
     if ((state & LCA_WANTS_LANECHANGE_OR_STAY) != 0) {
         // flags for the current reason
         LaneChangeMode mode = LC_NEVER;
-        if ((state & LCA_TRACI) != 0) {
-            mode = LC_ALWAYS;
+        if ((state & LCA_TRACI) != 0 && myLatDist != 0) {
+            // continue sublane change manoeuvre
+            return state;
         } else if ((state & LCA_STRATEGIC) != 0) {
             mode = myStrategicLC;
         } else if ((state & LCA_COOPERATIVE) != 0) {
@@ -375,6 +376,8 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
             mode = myRightDriveLC;
         } else if ((state & LCA_SUBLANE) != 0) {
             mode = mySublaneLC;
+        } else if ((state & LCA_TRACI) != 0) {
+            mode = LC_NEVER;
         } else {
             WRITE_WARNING("Lane change model did not provide a reason for changing (state=" + toString(state) + ", time=" + time2string(currentTime) + "\n");
         }
