@@ -1263,6 +1263,7 @@ GNEEdge::straightenElevation(GNEUndoList* undoList) {
     setAttribute(SUMO_ATTR_SHAPE, toString(innerShape), undoList);
 }
 
+
 PositionVector 
 GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
     const OptionsCont& oc = OptionsCont::getOptions();
@@ -1304,7 +1305,6 @@ GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
             endShape = myNBEdge.isTurningDirectionAt(outgoing[0]) ? outgoing[1]->getGeometry() : outgoing[0]->getGeometry();
         }
         const double dist = MIN2(old.length2D(), MAX2(old.length2D() / 8, fabs(old[0].z() - old[-1].z()) * OptionsCont::getOptions().getFloat("geometry.max-grade") / 3));
-        bool ok = true;
         if (forElevation) {
             // initialize control point elevation for smooth continuation
             init.push_back(old[0]);
@@ -1333,6 +1333,7 @@ GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
         return bezier(init, numPoints);
     }
 }
+
 
 void
 GNEEdge::smooth(GNEUndoList* undoList) {

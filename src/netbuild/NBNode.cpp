@@ -2675,8 +2675,8 @@ NBNode::numNormalConnections() const {
     if (myRequest == 0) {
         // could be an uncontrolled type
         int result = 0;
-        for (NBEdge* edge : myIncomingEdges) {
-            result += edge->getConnections().size();
+        for (const NBEdge* const edge : myIncomingEdges) {
+            result += (int)edge->getConnections().size();
         }
         return result;
     } else {
