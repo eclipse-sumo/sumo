@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Dec 14 22:23:55 2017" north="284.53" south="0.00" east="1103.40" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Dec 15 13:16:46 2017" north="284.53" south="0.00" east="1103.40" west="0.00"/>
     <road name="延安高架" length="344.90488876" id="30" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -217,11 +217,7 @@
     <junction name="-117529" id="1">
         <connection id="0" incomingRoad="31" connectingRoad="32" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="31" connectingRoad="32" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="2" incomingRoad="31" connectingRoad="32" contactPoint="start">
             <laneLink from="-3" to="-3"/>
         </connection>
     </junction>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Dec 14 23:20:39 2017" north="200.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Dec 15 13:16:47 2017" north="200.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="91.95000000" id="50" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -1172,8 +1172,6 @@
         </connection>
         <connection id="2" incomingRoad="57" connectingRoad="60" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="3" incomingRoad="57" connectingRoad="60" contactPoint="start">
             <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="4" incomingRoad="57" connectingRoad="61" contactPoint="start">
@@ -1187,8 +1185,6 @@
         </connection>
         <connection id="7" incomingRoad="55" connectingRoad="64" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="8" incomingRoad="55" connectingRoad="64" contactPoint="start">
             <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="9" incomingRoad="55" connectingRoad="65" contactPoint="start">
@@ -1202,8 +1198,6 @@
         </connection>
         <connection id="12" incomingRoad="54" connectingRoad="68" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="13" incomingRoad="54" connectingRoad="68" contactPoint="start">
             <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="14" incomingRoad="54" connectingRoad="69" contactPoint="start">
@@ -1217,8 +1211,6 @@
         </connection>
         <connection id="17" incomingRoad="56" connectingRoad="72" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="18" incomingRoad="56" connectingRoad="72" contactPoint="start">
             <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="19" incomingRoad="56" connectingRoad="73" contactPoint="start">

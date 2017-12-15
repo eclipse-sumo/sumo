@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Dec 14 22:23:55 2017" north="4810.48" south="0.00" east="2390.45" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Dec 15 13:16:47 2017" north="4810.48" south="0.00" east="2390.45" west="0.00"/>
     <road name="" length="96.92619965" id="700" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -291,7 +291,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="288.93404633" id="705" junction="-1">
+    <road name="南北高架路" length="288.93404633" id="705" junction="-1">
         <link>
             <successor elementType="junction" elementId="9"/>
         </link>
@@ -376,7 +376,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="0.20000000" id="706" junction="-1">
+    <road name="南北高架路" length="0.20000000" id="706" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="9"/>
             <successor elementType="junction" elementId="10"/>
@@ -442,7 +442,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="209.67334583" id="707" junction="-1">
+    <road name="南北高架路" length="209.67334583" id="707" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="10"/>
             <successor elementType="junction" elementId="3"/>
@@ -1053,7 +1053,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="265.18395285" id="714" junction="-1">
+    <road name="延安高架路" length="265.18395285" id="714" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="14"/>
             <successor elementType="junction" elementId="16"/>
@@ -1113,7 +1113,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="0.20000000" id="715" junction="-1">
+    <road name="延安高架路" length="0.20000000" id="715" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="17"/>
             <successor elementType="junction" elementId="18"/>
@@ -1155,7 +1155,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="19.15741037" id="716" junction="-1">
+    <road name="延安高架路" length="19.15741037" id="716" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="18"/>
             <successor elementType="junction" elementId="19"/>
@@ -1209,7 +1209,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="47.00000000" id="717" junction="-1">
+    <road name="延安高架路" length="47.00000000" id="717" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="16"/>
             <successor elementType="junction" elementId="17"/>
@@ -1275,7 +1275,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="212.65257551" id="718" junction="-1">
+    <road name="延安高架路" length="212.65257551" id="718" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="19"/>
         </link>
@@ -2398,7 +2398,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="207.99685067" id="731" junction="-1">
+    <road name="延安高架路" length="207.99685067" id="731" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="30"/>
             <successor elementType="junction" elementId="31"/>
@@ -2581,7 +2581,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="385.21595189" id="734" junction="-1">
+    <road name="延安高架路" length="385.21595189" id="734" junction="-1">
         <link>
             <successor elementType="junction" elementId="32"/>
         </link>
@@ -2976,7 +2976,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="358.38072172" id="740" junction="-1">
+    <road name="延安高架路" length="358.38072172" id="740" junction="-1">
         <link>
             <successor elementType="junction" elementId="32"/>
         </link>
@@ -3065,7 +3065,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="14.60810758" id="741" junction="-1">
+    <road name="延安高架路" length="14.60810758" id="741" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="36"/>
             <successor elementType="junction" elementId="37"/>
@@ -3119,7 +3119,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="34.09750905" id="742" junction="-1">
+    <road name="延安高架路" length="34.09750905" id="742" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="32"/>
             <successor elementType="junction" elementId="36"/>
@@ -4682,7 +4682,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="201.48821687" id="769" junction="-1">
+    <road name="南北高架路" length="201.48821687" id="769" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="7"/>
             <successor elementType="junction" elementId="39"/>
@@ -4772,7 +4772,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="2334.58072155" id="770" junction="-1">
+    <road name="南北高架路" length="2334.58072155" id="770" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="54"/>
         </link>
@@ -4949,7 +4949,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="?" length="23.35306363" id="771" junction="-1">
+    <road name="南北高架路" length="23.35306363" id="771" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="39"/>
             <successor elementType="junction" elementId="54"/>
@@ -10046,11 +10046,7 @@
         </connection>
         <connection id="3" incomingRoad="708" connectingRoad="778" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="4" incomingRoad="708" connectingRoad="778" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="5" incomingRoad="708" connectingRoad="778" contactPoint="start">
             <laneLink from="-3" to="-3"/>
         </connection>
         <connection id="6" incomingRoad="708" connectingRoad="779" contactPoint="start">
@@ -10060,40 +10056,24 @@
     <junction name="103896122" id="12">
         <connection id="0" incomingRoad="710" connectingRoad="780" contactPoint="start">
             <laneLink from="-4" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="710" connectingRoad="780" contactPoint="start">
             <laneLink from="-5" to="-2"/>
-        </connection>
-        <connection id="2" incomingRoad="710" connectingRoad="780" contactPoint="start">
             <laneLink from="-6" to="-3"/>
         </connection>
         <connection id="3" incomingRoad="710" connectingRoad="781" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="4" incomingRoad="710" connectingRoad="781" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="5" incomingRoad="710" connectingRoad="781" contactPoint="start">
             <laneLink from="-3" to="-3"/>
         </connection>
     </junction>
     <junction name="103896524" id="16">
         <connection id="0" incomingRoad="714" connectingRoad="782" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="714" connectingRoad="782" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="2" incomingRoad="714" connectingRoad="782" contactPoint="start">
             <laneLink from="-3" to="-3"/>
         </connection>
         <connection id="3" incomingRoad="743" connectingRoad="783" contactPoint="start">
             <laneLink from="-1" to="-4"/>
-        </connection>
-        <connection id="4" incomingRoad="743" connectingRoad="783" contactPoint="start">
             <laneLink from="-2" to="-5"/>
-        </connection>
-        <connection id="5" incomingRoad="743" connectingRoad="783" contactPoint="start">
             <laneLink from="-3" to="-6"/>
         </connection>
     </junction>
@@ -10106,14 +10086,8 @@
         </connection>
         <connection id="2" incomingRoad="705" connectingRoad="786" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="3" incomingRoad="705" connectingRoad="786" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="4" incomingRoad="705" connectingRoad="786" contactPoint="start">
             <laneLink from="-3" to="-3"/>
-        </connection>
-        <connection id="5" incomingRoad="705" connectingRoad="786" contactPoint="start">
             <laneLink from="-4" to="-4"/>
         </connection>
     </junction>
@@ -10129,11 +10103,7 @@
         </connection>
         <connection id="3" incomingRoad="709" connectingRoad="790" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="4" incomingRoad="709" connectingRoad="790" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="5" incomingRoad="709" connectingRoad="790" contactPoint="start">
             <laneLink from="-3" to="-3"/>
         </connection>
     </junction>
@@ -10143,11 +10113,7 @@
         </connection>
         <connection id="1" incomingRoad="711" connectingRoad="792" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="711" connectingRoad="792" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="3" incomingRoad="711" connectingRoad="792" contactPoint="start">
             <laneLink from="-3" to="-3"/>
         </connection>
     </junction>
@@ -10157,16 +10123,12 @@
         </connection>
         <connection id="1" incomingRoad="715" connectingRoad="794" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="715" connectingRoad="794" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
     </junction>
     <junction name="11635162#0-AddedOnRampNode" id="17">
         <connection id="0" incomingRoad="717" connectingRoad="795" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="717" connectingRoad="795" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
     </junction>
@@ -10176,14 +10138,8 @@
         </connection>
         <connection id="1" incomingRoad="719" connectingRoad="797" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="719" connectingRoad="797" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="3" incomingRoad="719" connectingRoad="797" contactPoint="start">
             <laneLink from="-3" to="-3"/>
-        </connection>
-        <connection id="4" incomingRoad="719" connectingRoad="797" contactPoint="start">
             <laneLink from="-4" to="-4"/>
         </connection>
     </junction>
@@ -10214,28 +10170,16 @@
     <junction name="160077492#0-AddedOnRampNode" id="25">
         <connection id="0" incomingRoad="726" connectingRoad="804" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="726" connectingRoad="804" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="2" incomingRoad="726" connectingRoad="804" contactPoint="start">
             <laneLink from="-3" to="-3"/>
-        </connection>
-        <connection id="3" incomingRoad="726" connectingRoad="804" contactPoint="start">
             <laneLink from="-4" to="-4"/>
         </connection>
     </junction>
     <junction name="160077492#1-AddedOnRampNode" id="26">
         <connection id="0" incomingRoad="728" connectingRoad="805" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="728" connectingRoad="805" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="2" incomingRoad="728" connectingRoad="805" contactPoint="start">
             <laneLink from="-3" to="-3"/>
-        </connection>
-        <connection id="3" incomingRoad="728" connectingRoad="805" contactPoint="start">
             <laneLink from="-4" to="-4"/>
         </connection>
     </junction>
@@ -10255,11 +10199,7 @@
         </connection>
         <connection id="1" incomingRoad="731" connectingRoad="809" contactPoint="start">
             <laneLink from="-1" to="-2"/>
-        </connection>
-        <connection id="2" incomingRoad="731" connectingRoad="809" contactPoint="start">
             <laneLink from="-2" to="-3"/>
-        </connection>
-        <connection id="3" incomingRoad="731" connectingRoad="809" contactPoint="start">
             <laneLink from="-3" to="-4"/>
         </connection>
     </junction>
@@ -10271,28 +10211,16 @@
     <junction name="178702252-AddedOnRampNode" id="34">
         <connection id="0" incomingRoad="738" connectingRoad="811" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="738" connectingRoad="811" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="2" incomingRoad="738" connectingRoad="811" contactPoint="start">
             <laneLink from="-3" to="-3"/>
-        </connection>
-        <connection id="3" incomingRoad="738" connectingRoad="811" contactPoint="start">
             <laneLink from="-4" to="-4"/>
         </connection>
     </junction>
     <junction name="178702256#1-AddedOnRampNode" id="36">
         <connection id="0" incomingRoad="742" connectingRoad="812" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="742" connectingRoad="812" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="2" incomingRoad="742" connectingRoad="812" contactPoint="start">
             <laneLink from="-3" to="-3"/>
-        </connection>
-        <connection id="3" incomingRoad="742" connectingRoad="812" contactPoint="start">
             <laneLink from="-4" to="-4"/>
         </connection>
     </junction>
@@ -10310,11 +10238,7 @@
         </connection>
         <connection id="1" incomingRoad="737" connectingRoad="816" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="737" connectingRoad="816" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="3" incomingRoad="737" connectingRoad="816" contactPoint="start">
             <laneLink from="-3" to="-3"/>
         </connection>
     </junction>
@@ -10324,8 +10248,6 @@
         </connection>
         <connection id="1" incomingRoad="716" connectingRoad="818" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="716" connectingRoad="818" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
     </junction>
@@ -10335,11 +10257,7 @@
         </connection>
         <connection id="1" incomingRoad="712" connectingRoad="820" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="712" connectingRoad="820" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="3" incomingRoad="712" connectingRoad="820" contactPoint="start">
             <laneLink from="-3" to="-3"/>
         </connection>
     </junction>
@@ -10349,8 +10267,6 @@
         </connection>
         <connection id="1" incomingRoad="756" connectingRoad="822" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="756" connectingRoad="822" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
     </junction>
@@ -10373,20 +10289,12 @@
     <junction name="477601189" id="10">
         <connection id="0" incomingRoad="706" connectingRoad="827" contactPoint="start">
             <laneLink from="-5" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="706" connectingRoad="827" contactPoint="start">
             <laneLink from="-6" to="-2"/>
         </connection>
         <connection id="2" incomingRoad="706" connectingRoad="828" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="3" incomingRoad="706" connectingRoad="828" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="4" incomingRoad="706" connectingRoad="828" contactPoint="start">
             <laneLink from="-3" to="-3"/>
-        </connection>
-        <connection id="5" incomingRoad="706" connectingRoad="828" contactPoint="start">
             <laneLink from="-4" to="-4"/>
         </connection>
     </junction>
@@ -10396,8 +10304,6 @@
         </connection>
         <connection id="1" incomingRoad="757" connectingRoad="830" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="757" connectingRoad="830" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
     </junction>
@@ -10420,11 +10326,7 @@
         </connection>
         <connection id="1" incomingRoad="741" connectingRoad="835" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="741" connectingRoad="835" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="3" incomingRoad="741" connectingRoad="835" contactPoint="start">
             <laneLink from="-3" to="-3"/>
         </connection>
     </junction>
@@ -10434,8 +10336,6 @@
         </connection>
         <connection id="1" incomingRoad="760" connectingRoad="837" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="760" connectingRoad="837" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
     </junction>
@@ -10453,16 +10353,12 @@
         </connection>
         <connection id="1" incomingRoad="723" connectingRoad="841" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="723" connectingRoad="841" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
     </junction>
     <junction name="477604923" id="30">
         <connection id="0" incomingRoad="762" connectingRoad="842" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="762" connectingRoad="842" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="2" incomingRoad="752" connectingRoad="843" contactPoint="start">
@@ -10483,8 +10379,6 @@
         </connection>
         <connection id="1" incomingRoad="713" connectingRoad="847" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="713" connectingRoad="847" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
     </junction>
@@ -10497,16 +10391,12 @@
         </connection>
         <connection id="2" incomingRoad="763" connectingRoad="850" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="3" incomingRoad="763" connectingRoad="850" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
     </junction>
     <junction name="600144559" id="3">
         <connection id="0" incomingRoad="707" connectingRoad="851" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="707" connectingRoad="851" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
     </junction>
@@ -10529,16 +10419,12 @@
         </connection>
         <connection id="1" incomingRoad="764" connectingRoad="856" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="764" connectingRoad="856" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
     </junction>
     <junction name="64841426" id="4">
         <connection id="0" incomingRoad="701" connectingRoad="857" contactPoint="start">
             <laneLink from="-1" to="-3"/>
-        </connection>
-        <connection id="1" incomingRoad="701" connectingRoad="857" contactPoint="start">
             <laneLink from="-2" to="-4"/>
         </connection>
         <connection id="2" incomingRoad="701" connectingRoad="858" contactPoint="start">
@@ -10551,26 +10437,14 @@
     <junction name="64841428" id="5">
         <connection id="0" incomingRoad="702" connectingRoad="860" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="702" connectingRoad="860" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="2" incomingRoad="702" connectingRoad="860" contactPoint="start">
             <laneLink from="-3" to="-3"/>
-        </connection>
-        <connection id="3" incomingRoad="702" connectingRoad="860" contactPoint="start">
             <laneLink from="-4" to="-4"/>
         </connection>
         <connection id="4" incomingRoad="729" connectingRoad="861" contactPoint="start">
             <laneLink from="-1" to="-5"/>
-        </connection>
-        <connection id="5" incomingRoad="729" connectingRoad="861" contactPoint="start">
             <laneLink from="-2" to="-6"/>
-        </connection>
-        <connection id="6" incomingRoad="729" connectingRoad="861" contactPoint="start">
             <laneLink from="-3" to="-7"/>
-        </connection>
-        <connection id="7" incomingRoad="729" connectingRoad="861" contactPoint="start">
             <laneLink from="-4" to="-8"/>
         </connection>
     </junction>
@@ -10580,30 +10454,20 @@
         </connection>
         <connection id="1" incomingRoad="720" connectingRoad="863" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="720" connectingRoad="863" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="3" incomingRoad="720" connectingRoad="863" contactPoint="start">
             <laneLink from="-3" to="-3"/>
-        </connection>
-        <connection id="4" incomingRoad="720" connectingRoad="863" contactPoint="start">
             <laneLink from="-4" to="-4"/>
         </connection>
     </junction>
     <junction name="71121976" id="6">
         <connection id="0" incomingRoad="721" connectingRoad="864" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="721" connectingRoad="864" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
     </junction>
     <junction name="71121979" id="7">
         <connection id="0" incomingRoad="703" connectingRoad="865" contactPoint="start">
             <laneLink from="-1" to="-3"/>
-        </connection>
-        <connection id="1" incomingRoad="703" connectingRoad="865" contactPoint="start">
             <laneLink from="-2" to="-4"/>
         </connection>
         <connection id="2" incomingRoad="703" connectingRoad="866" contactPoint="start">
@@ -10616,101 +10480,65 @@
     <junction name="78011918" id="45">
         <connection id="0" incomingRoad="772" connectingRoad="868" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="772" connectingRoad="868" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="2" incomingRoad="750" connectingRoad="869" contactPoint="start">
             <laneLink from="-1" to="-3"/>
-        </connection>
-        <connection id="3" incomingRoad="750" connectingRoad="869" contactPoint="start">
             <laneLink from="-2" to="-4"/>
         </connection>
     </junction>
     <junction name="78603290" id="53">
         <connection id="0" incomingRoad="768" connectingRoad="870" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="768" connectingRoad="870" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
     </junction>
     <junction name="78604047" id="32">
         <connection id="0" incomingRoad="740" connectingRoad="871" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="740" connectingRoad="871" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="2" incomingRoad="734" connectingRoad="872" contactPoint="start">
             <laneLink from="-1" to="-3"/>
-        </connection>
-        <connection id="3" incomingRoad="734" connectingRoad="872" contactPoint="start">
             <laneLink from="-2" to="-4"/>
         </connection>
     </junction>
     <junction name="83316739" id="39">
         <connection id="0" incomingRoad="744" connectingRoad="873" contactPoint="start">
             <laneLink from="-1" to="-5"/>
-        </connection>
-        <connection id="1" incomingRoad="744" connectingRoad="873" contactPoint="start">
             <laneLink from="-2" to="-6"/>
-        </connection>
-        <connection id="2" incomingRoad="744" connectingRoad="873" contactPoint="start">
             <laneLink from="-3" to="-7"/>
         </connection>
         <connection id="3" incomingRoad="769" connectingRoad="874" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="4" incomingRoad="769" connectingRoad="874" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="5" incomingRoad="769" connectingRoad="874" contactPoint="start">
             <laneLink from="-3" to="-3"/>
-        </connection>
-        <connection id="6" incomingRoad="769" connectingRoad="874" contactPoint="start">
             <laneLink from="-4" to="-4"/>
         </connection>
     </junction>
     <junction name="850287499" id="8">
         <connection id="0" incomingRoad="725" connectingRoad="875" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="725" connectingRoad="875" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="2" incomingRoad="725" connectingRoad="875" contactPoint="start">
             <laneLink from="-3" to="-3"/>
-        </connection>
-        <connection id="3" incomingRoad="725" connectingRoad="875" contactPoint="start">
             <laneLink from="-4" to="-4"/>
         </connection>
         <connection id="4" incomingRoad="704" connectingRoad="876" contactPoint="start">
             <laneLink from="-1" to="-5"/>
-        </connection>
-        <connection id="5" incomingRoad="704" connectingRoad="876" contactPoint="start">
             <laneLink from="-2" to="-6"/>
         </connection>
     </junction>
     <junction name="8756689#1-AddedOnRampNode" id="54">
         <connection id="0" incomingRoad="771" connectingRoad="877" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="771" connectingRoad="877" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="2" incomingRoad="771" connectingRoad="877" contactPoint="start">
             <laneLink from="-3" to="-3"/>
-        </connection>
-        <connection id="3" incomingRoad="771" connectingRoad="877" contactPoint="start">
             <laneLink from="-4" to="-4"/>
         </connection>
     </junction>
     <junction name="9792174#1-AddedOnRampNode" id="55">
         <connection id="0" incomingRoad="774" connectingRoad="878" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="774" connectingRoad="878" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
     </junction>
