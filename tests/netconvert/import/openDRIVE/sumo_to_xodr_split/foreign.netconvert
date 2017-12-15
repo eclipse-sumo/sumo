@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Dec 14 22:23:55 2017" north="0.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Dec 15 07:30:12 2017" north="0.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="94.00000000" id="30" junction="-1">
         <link>
             <successor elementType="junction" elementId="1"/>
@@ -159,7 +159,7 @@
                         </link>
                         <width sOffset="0" a="2.00" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
-                        <speed sOffset="0" max="13.89"/>
+                        <speed sOffset="0" max="0.00"/>
                     </lane>
                  </right>
             </laneSection>
