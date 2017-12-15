@@ -1004,7 +1004,7 @@ namespace libsumo {
 
     void
         Vehicle::setAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID,
-        double time, SUMOTime begTime, SUMOTime endTime) {
+        double time, double begSeconds, double endSeconds) {
         MSVehicle* veh = getVehicle(vehicleID);
         MSEdge* edge = MSEdge::dictionary(edgeID);
         if (edge == 0) {
@@ -1012,13 +1012,13 @@ namespace libsumo {
         }
         if (time != INVALID_DOUBLE_VALUE) {
             // add time
-            if (begTime == 0 && endTime == SUMOTime_MAX) {
+            if (begSeconds == 0 && endSeconds == std::numeric_limits<double>::max()) {
                 // clean up old values before setting whole range
                 while (veh->getWeightsStorage().knowsTravelTime(edge)) {
                     veh->getWeightsStorage().removeTravelTime(edge);
                 }
             }
-            veh->getWeightsStorage().addTravelTime(edge, STEPS2TIME(begTime), STEPS2TIME(endTime), time);
+            veh->getWeightsStorage().addTravelTime(edge, begSeconds, endSeconds, time);
         } else {
             // remove time
             while (veh->getWeightsStorage().knowsTravelTime(edge)) {
@@ -1030,7 +1030,7 @@ namespace libsumo {
 
     void
         Vehicle::setEffort(const std::string& vehicleID, const std::string& edgeID,
-        double effort, SUMOTime begTime, SUMOTime endTime) {
+        double effort, double begSeconds, double endSeconds) {
         MSVehicle* veh = getVehicle(vehicleID);
         MSEdge* edge = MSEdge::dictionary(edgeID);
         if (edge == 0) {
@@ -1038,13 +1038,13 @@ namespace libsumo {
         }
         if (effort != INVALID_DOUBLE_VALUE) {
             // add effort
-            if (begTime == 0 && endTime == SUMOTime_MAX) {
+            if (begSeconds == 0 && endSeconds == std::numeric_limits<double>::max()) {
                 // clean up old values before setting whole range
                 while (veh->getWeightsStorage().knowsEffort(edge)) {
                     veh->getWeightsStorage().removeEffort(edge);
                 }
             }
-            veh->getWeightsStorage().addEffort(edge, STEPS2TIME(begTime), STEPS2TIME(endTime), effort);
+            veh->getWeightsStorage().addEffort(edge, begSeconds, endSeconds, effort);
         } else {
             // remove effort
             while (veh->getWeightsStorage().knowsEffort(edge)) {

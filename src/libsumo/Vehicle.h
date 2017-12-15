@@ -166,9 +166,9 @@ namespace libsumo {
         static void setRouteID(const std::string& vehicleID, const std::string& routeID);
         static void setRoute(const std::string& vehicleID, const std::vector<std::string>& edgeIDs);
         static void setAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID,
-            double time = INVALID_DOUBLE_VALUE, SUMOTime begTime = 0, SUMOTime endTime = SUMOTime_MAX);
+            double time = INVALID_DOUBLE_VALUE, double begSeconds = 0, double endSeconds = std::numeric_limits<double>::max());
         static void setEffort(const std::string& vehicleID, const std::string& edgeID,
-            double effort = INVALID_DOUBLE_VALUE, SUMOTime begTime = 0, SUMOTime endTime = SUMOTime_MAX);
+            double effort = INVALID_DOUBLE_VALUE, double begSeconds = 0, double endSeconds = std::numeric_limits<double>::max());
         static void rerouteTraveltime(const std::string& vehicleID);
         static void rerouteEffort(const std::string& vehicleID);
         static void setSignals(const std::string& vehicleID, int signals);
