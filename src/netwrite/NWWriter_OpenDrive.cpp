@@ -374,6 +374,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         length = bezier(init, 12).length2D();
     }
 
+    junctionDevice << "        <connection id=\"" << connectionID << "\" incomingRoad=\"" << inEdgeID << "\" connectingRoad=\"" << edgeID << "\" contactPoint=\"start\">\n";
     device.openTag("road");
     device.writeAttr("name", cLeft.id);
     device.setPrecision(8); // length requires higher precision
@@ -456,9 +457,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         device << "                        <speed sOffset=\"0\" max=\"" << c.vmax << "\"/>\n";
         device << "                    </lane>\n";
 
-        junctionDevice << "        <connection id=\"" << connectionID << "\" incomingRoad=\"" << inEdgeID << "\" connectingRoad=\"" << edgeID << "\" contactPoint=\"start\">\n";
         junctionDevice << "            <laneLink from=\"" << fromIndex << "\" to=\"" << toIndex << "\"/>\n";
-        junctionDevice << "        </connection>\n";
         connectionID++;
     }
     device << "                 </right>\n";
@@ -467,6 +466,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
     device << "        <objects/>\n";
     device << "        <signals/>\n";
     device.closeTag();
+    junctionDevice << "        </connection>\n";
 
     return connectionID;
 }
