@@ -694,6 +694,19 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
     return false;
 }
 
+void 
+NBNode::removeJoinedTrafficLights() {
+    std::set<NBTrafficLightDefinition*> trafficLights = myTrafficLights; // make a copy because we will modify the original
+    for (std::set<NBTrafficLightDefinition*>::const_iterator i = trafficLights.begin(); i != trafficLights.end(); ++i) {
+        // if this is the only controlled node we keep the tlDef as it is to generate a warning later
+        if ((*i)->getNodes().size() > 1) {
+            myTrafficLights.erase(*i);
+            (*i)->removeNode(this);
+            (*i)->setParticipantsInformation();
+            (*i)->setTLControllingInformation();
+        }
+    }
+}
 
 void
 NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
@@ -702,16 +715,7 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
     if (myIncomingEdges.size() == 0 || myOutgoingEdges.size() == 0) {
         // no logic if nothing happens here
         myType = NODETYPE_DEAD_END;
-        std::set<NBTrafficLightDefinition*> trafficLights = myTrafficLights; // make a copy because we will modify the original
-        for (std::set<NBTrafficLightDefinition*>::const_iterator i = trafficLights.begin(); i != trafficLights.end(); ++i) {
-            // if this is the only controlled node we keep the tlDef as it is to generate a warning later
-            if ((*i)->getNodes().size() > 1) {
-                myTrafficLights.erase(*i);
-                (*i)->removeNode(this);
-                (*i)->setParticipantsInformation();
-                (*i)->setTLControllingInformation();
-            }
-        }
+        removeJoinedTrafficLights();
         return;
     }
     // check whether the node was set to be unregulated by the user
@@ -741,6 +745,7 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
             delete myRequest;
             myRequest = 0;
             myType = NODETYPE_DEAD_END;
+            removeJoinedTrafficLights();
         } else {
             myRequest->buildBitfieldLogic();
         }

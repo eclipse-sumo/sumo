@@ -717,6 +717,9 @@ private:
     /// @brief check if is long enough
     static bool isLongEnough(NBEdge* out, double minLength);
 
+    /// @brief remove all traffic light definitions that are part of a joined tls
+    void removeJoinedTrafficLights();
+
 private:
     /// @brief The position the node lies at
     Position myPosition;
