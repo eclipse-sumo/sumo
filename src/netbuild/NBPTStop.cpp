@@ -28,6 +28,7 @@
 #endif
 
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/common/StringUtils.h>
 #include "NBPTStop.h"
 #include "NBEdge.h"
 #include "NBEdgeCont.h"
@@ -81,7 +82,7 @@ void NBPTStop::write(OutputDevice& device) {
     device.openTag(SUMO_TAG_BUS_STOP);
     device.writeAttr(SUMO_ATTR_ID, myPTStopId);
     if (!myName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, myName);
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myName));
     }
     device.writeAttr(SUMO_ATTR_LANE, myLaneId);
     device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
