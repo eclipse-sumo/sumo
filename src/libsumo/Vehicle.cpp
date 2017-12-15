@@ -750,21 +750,21 @@ namespace libsumo {
 
 
     void
-        Vehicle::add(const std::string& vehicleID,
+    Vehicle::add(const std::string& vehicleID,
         const std::string& routeID,
         const std::string& typeID,
         int depart,
         int departLane,
         double departPos,
         double departSpeed,
-        int arrivalLane,
-        double arrivalPos,
-        double arrivalSpeed,
-        const std::string& fromTaz,
-        const std::string& toTaz,
-        const std::string& line,
-        int personCapacity,
-        int personNumber) {
+        int /* arrivalLane */,
+        double /*arrivalPos */,
+        double /* arrivalSpeed */,
+        const std::string& /* fromTaz */,
+        const std::string& /* toTaz */,
+        const std::string& /* line */,
+        int /* personCapacity */,
+        int /* personNumber */) {
         SUMOVehicle* veh = MSNet::getInstance()->getVehicleControl().getVehicle(vehicleID);
         if (veh != 0) {
             throw TraCIException("The vehicle " + vehicleID + " to add already exists.");
@@ -840,7 +840,7 @@ namespace libsumo {
 
 
     void
-        Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle, const int keepRouteFlag) {
+    Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle, const int keepRouteFlag) {
         MSVehicle* veh = getVehicle(vehicleID);
         bool keepRoute = (keepRouteFlag == 1) && veh->getID() != "VTD_EGO";
         bool mayLeaveNetwork = (keepRouteFlag == 2);
@@ -848,7 +848,9 @@ namespace libsumo {
         const std::string origID = edgeID + "_" + toString(laneIndex);
         // @todo add an interpretation layer for OSM derived origID values (without lane index)
         Position pos(x, y);
-        double origAnge = angle;
+#ifdef DEBUG_MOVEXY
+        const double origAngle = angle;
+#endif
         // angle must be in [0,360] because it will be compared against those returned by naviDegree()
         // angle set to INVALID_DOUBLE_VALUE is ignored in the evaluated and later set to the angle of the matched lane
         if (angle != INVALID_DOUBLE_VALUE) {
@@ -882,7 +884,7 @@ namespace libsumo {
             //  note that the route ("edges") is not changed in this case
 
             found = Helper::vtdMap_matchingRoutePosition(pos, origID, 
-                    ev, veh->getCurrentRouteEdge() - veh->getRoute().begin(),
+                    ev, (int)(veh->getCurrentRouteEdge() - veh->getRoute().begin()),
                     bestDistance, &lane, lanePos, routeOffset);
             // @note silenty ignoring mapping failure
         } else {

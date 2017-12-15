@@ -494,6 +494,8 @@ MSLCM_SL2015::inform(void* info, MSVehicle* sender) {
                   << " vSafe=" << pinfo->first
                   << "\n";
     }
+#else
+    UNUSED_PARAMETER(sender);
 #endif
     delete pinfo;
     return (void*) true;
@@ -1033,7 +1035,6 @@ MSLCM_SL2015::_wantsChangeSublane(
     const bool left = (laneOffset == 1);
     const int myLca = (right ? LCA_MRIGHT : (left ? LCA_MLEFT : 0));
     const int lcaCounter = (right ? LCA_LEFT : (left ? LCA_RIGHT : LCA_NONE));
-    const int myLcaCounter = (right ? LCA_MLEFT : LCA_MRIGHT);
     const bool changeToBest = (right && bestLaneOffset < 0) || (left && bestLaneOffset > 0) || (laneOffset == 0 && bestLaneOffset == 0);
     // keep information about being a leader/follower but remove information
     // about previous lane change request or urgency
@@ -1041,7 +1042,6 @@ MSLCM_SL2015::_wantsChangeSublane(
 
     // compute the distance when changing to the neighboring lane
     // (ensure we do not lap into the line behind neighLane since there might be unseen blockers)
-    const double halfVehWidth = 0.5 * getWidth();
     // minimum distance to move the vehicle fully onto the new lane
     double latLaneDist = laneOffset == 0 ? 0. : myVehicle.lateralDistanceToLane(laneOffset);
 

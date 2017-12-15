@@ -383,14 +383,14 @@ namespace libsumo {
 
 
     void
-        Person::moveTo(const std::string& personID, const std::string& edgeID, double position) {
+    Person::moveTo(const std::string& personID, const std::string& edgeID, double /* position */) {
         MSPerson* p = getPerson(personID);
         MSEdge* e = MSEdge::dictionary(edgeID);
         if (e == 0) {
             throw TraCIException("Unknown edge '" + edgeID + "'.");
         }
+        /*
         switch (p->getStageType(0)) {
-            /*
            case MSTransportable::MOVING_WITHOUT_VEHICLE: {
                MSPerson::MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
                 assert(s != 0);
@@ -400,21 +400,22 @@ namespace libsumo {
                 }
                 break;
             }
-            */
             default:
-                throw TraCIException("Command moveTo is not supported for person '" + personID + "' while " + p->getCurrentStageDescription() + ".");
-        }
+            */
+        throw TraCIException("Command moveTo is not supported for person '" + personID + "' while " + p->getCurrentStageDescription() + ".");
+        //}
     }
 
 
     void
-        Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRouteFlag) {
+    Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRouteFlag) {
         MSPerson* p = getPerson(personID);
-        MSEdge* e = MSEdge::dictionary(edgeID);
         bool keepRoute = (keepRouteFlag == 1);
         bool mayLeaveNetwork = (keepRouteFlag == 2);
         Position pos(x, y);
-        double origAnge = angle;
+#ifdef DEBUG_MOVEXY
+        const double origAngle = angle;
+#endif
         // angle must be in [0,360] because it will be compared against those returned by naviDegree()
         // angle set to INVALID_DOUBLE_VALUE is ignored in the evaluated and later set to the angle of the matched lane
         if (angle != INVALID_DOUBLE_VALUE) {
@@ -450,7 +451,7 @@ namespace libsumo {
                 MSPerson::MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
                 assert(s != 0);
                 ev = s->getEdges();
-                routeIndex = s->getRouteStep() - s->getRoute().begin();
+                routeIndex = (int)(s->getRouteStep() - s->getRoute().begin());
             }
             break;
             default:

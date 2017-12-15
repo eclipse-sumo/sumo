@@ -139,7 +139,6 @@ if DEBUG_COND {
         bool changed;
 #ifndef NO_TRACI
         // let TraCI influence the wish to change lanes during non-actionsteps
-        const int oldstate = vehicle->getLaneChangeModel().getOwnState();
         checkTraCICommands(vehicle);
 #endif
 
