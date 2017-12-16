@@ -461,13 +461,13 @@ namespace libsumo {
             // case a): vehicle is on its earlier route
             //  we additionally assume it is moving forward (SUMO-limit);
             //  note that the route ("edges") is not changed in this case
-            found = Helper::vtdMap_matchingRoutePosition(pos, edgeID, 
+            found = Helper::moveToXYMap_matchingRoutePosition(pos, edgeID,
                     ev, routeIndex,
                     bestDistance, &lane, lanePos, routeOffset);
             // @note silenty ignoring mapping failure
         } else {
             double speed = pos.distanceTo2D(p->getPosition()); // !!!veh->getSpeed();
-            found = Helper::vtdMap(pos, maxRouteDistance, mayLeaveNetwork, edgeID, angle, 
+            found = Helper::moveToXYMap(pos, maxRouteDistance, mayLeaveNetwork, edgeID, angle,
                     speed, ev, routeIndex, currentLane, p->getEdgePos(), true,
                     bestDistance, &lane, lanePos, routeOffset, edges);
         }
@@ -508,7 +508,7 @@ namespace libsumo {
             }
             switch (p->getStageType(0)) {
                 case MSTransportable::MOVING_WITHOUT_VEHICLE: {
-                    Helper::setVTDControlled(p, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
+                    Helper::setRemoteControlled(p, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
                     break;
                 }
                 default:

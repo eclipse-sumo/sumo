@@ -1430,23 +1430,23 @@ public:
          */
         double getOriginalSpeed() const;
 
-        void setVTDControlled(Position xyPos, MSLane* l, double pos, double posLat, double angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t);
+        void setRemoteControlled(Position xyPos, MSLane* l, double pos, double posLat, double angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t);
 
         SUMOTime getLastAccessTimeStep() const {
-            return myLastVTDAccess;
+            return myLastRemoteAccess;
         }
 
-        void postProcessVTD(MSVehicle* v);
+        void postProcessRemoteControl(MSVehicle* v);
 
-        /// @brief return the speed that is implicit in the new VTD position
-        double implicitSpeedVTD(const MSVehicle* veh, double oldSpeed);
+        /// @brief return the speed that is implicit in the new remote position
+        double implicitSpeedRemote(const MSVehicle* veh, double oldSpeed);
 
-        /// @brief return the change in longitudinal position that is implicit in the new VTD position
-        double implicitDeltaPosVTD(const MSVehicle* veh);
+        /// @brief return the change in longitudinal position that is implicit in the new remote position
+        double implicitDeltaPosRemote(const MSVehicle* veh);
 
-        bool isVTDControlled() const;
+        bool isRemoteControlled() const;
 
-        bool isVTDAffected(SUMOTime t) const;
+        bool isRemoteAffected(SUMOTime t) const;
 
         void setSignals(int signals) {
             myTraCISignals = signals;
@@ -1497,14 +1497,14 @@ public:
         /// @brief Whether red lights are a reason to brake
         bool myEmergencyBrakeRedLight;
 
-        Position myVTDXYPos;
-        MSLane* myVTDLane;
-        double myVTDPos;
-        double myVTDPosLat;
-        double myVTDAngle;
-        int myVTDEdgeOffset;
-        ConstMSEdgeVector myVTDRoute;
-        SUMOTime myLastVTDAccess;
+        Position myRemoteXYPos;
+        MSLane* myRemoteLane;
+        double myRemotePos;
+        double myRemotePosLat;
+        double myRemoteAngle;
+        int myRemoteEdgeOffset;
+        ConstMSEdgeVector myRemoteRoute;
+        SUMOTime myLastRemoteAccess;
 
         /// @name Flags for managing conflicts between the laneChangeModel and TraCI laneTimeLine
         //@{
@@ -1548,7 +1548,7 @@ public:
     int influenceChangeDecision(int state);
 
     /// @brief sets position outside the road network
-    void setVTDState(Position xyPos);
+    void setRemoteState(Position xyPos);
 
 #endif
 

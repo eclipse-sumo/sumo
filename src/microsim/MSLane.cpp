@@ -1357,8 +1357,8 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                                std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove,
                                std::set<const MSVehicle*>& toTeleport) const {
 #ifndef NO_TRACI
-    if (myCollisionAction == COLLISION_ACTION_TELEPORT && ((victim->hasInfluencer() && victim->getInfluencer().isVTDAffected(timestep)) ||
-            (collider->hasInfluencer() && collider->getInfluencer().isVTDAffected(timestep)))) {
+    if (myCollisionAction == COLLISION_ACTION_TELEPORT && ((victim->hasInfluencer() && victim->getInfluencer().isRemoteAffected(timestep)) ||
+            (collider->hasInfluencer() && collider->getInfluencer().isRemoteAffected(timestep)))) {
         return false;
     }
 #endif
@@ -1467,8 +1467,8 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                 bool removeCollider = true;
                 bool removeVictim = true;
 #ifndef NO_TRACI
-                removeVictim = !(victim->hasInfluencer() && victim->getInfluencer().isVTDAffected(timestep));
-                removeCollider = !(collider->hasInfluencer() && collider->getInfluencer().isVTDAffected(timestep));
+                removeVictim = !(victim->hasInfluencer() && victim->getInfluencer().isRemoteAffected(timestep));
+                removeCollider = !(collider->hasInfluencer() && collider->getInfluencer().isRemoteAffected(timestep));
                 if (removeVictim) {
                     toRemove.insert(victim);
                 }

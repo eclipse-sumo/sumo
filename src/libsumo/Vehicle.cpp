@@ -877,19 +877,18 @@ namespace libsumo {
         bool found;
         double maxRouteDistance = 100;
         /* EGO vehicle is known to have a fixed route. @todo make this into a parameter of the TraCI call */
-        const ConstMSEdgeVector& ev = veh->getRoute().getEdges();
         if (keepRoute) {
             // case a): vehicle is on its earlier route
             //  we additionally assume it is moving forward (SUMO-limit);
             //  note that the route ("edges") is not changed in this case
 
-            found = Helper::vtdMap_matchingRoutePosition(pos, origID, 
-                    ev, (int)(veh->getCurrentRouteEdge() - veh->getRoute().begin()),
+            found = Helper::moveToXYMap_matchingRoutePosition(pos, origID,
+                    veh->getRoute().getEdges(), (int)(veh->getCurrentRouteEdge() - veh->getRoute().begin()),
                     bestDistance, &lane, lanePos, routeOffset);
             // @note silenty ignoring mapping failure
         } else {
             double speed = pos.distanceTo2D(veh->getPosition()); // !!!veh->getSpeed();
-            found = Helper::vtdMap(pos, maxRouteDistance, mayLeaveNetwork, origID, angle, 
+            found = Helper::moveToXYMap(pos, maxRouteDistance, mayLeaveNetwork, origID, angle,
                     speed, veh->getRoute().getEdges(), veh->getRoutePosition(), veh->getLane(), veh->getPositionOnLane(), veh->isOnRoad(),
                     bestDistance, &lane, lanePos, routeOffset, edges);
         }
@@ -929,7 +928,7 @@ namespace libsumo {
                 }
             }
             // use the best we have
-            Helper::setVTDControlled(veh, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
+            Helper::setRemoteControlled(veh, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
             if (!veh->isOnRoad()) {
                 MSNet::getInstance()->getInsertionControl().alreadyDeparted(veh);
 

@@ -247,7 +247,7 @@ MSVehicle::Influencer::Influencer() :
     myConsiderMaxDeceleration(true),
     myRespectJunctionPriority(true),
     myEmergencyBrakeRedLight(true),
-    myLastVTDAccess(-TIME2STEPS(20)),
+    myLastRemoteAccess(-TIME2STEPS(20)),
     myStrategicLC(LC_NOCONFLICT),
     myCooperativeLC(LC_NOCONFLICT),
     mySpeedGainLC(LC_NOCONFLICT),
@@ -456,71 +456,71 @@ MSVehicle::Influencer::setLaneChangeMode(int value) {
 
 
 void
-MSVehicle::Influencer::setVTDControlled(Position xyPos, MSLane* l, double pos, double posLat, double angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t) {
-    myVTDXYPos = xyPos;
-    myVTDLane = l;
-    myVTDPos = pos;
-    myVTDPosLat = posLat;
-    myVTDAngle = angle;
-    myVTDEdgeOffset = edgeOffset;
-    myVTDRoute = route;
-    myLastVTDAccess = t;
+MSVehicle::Influencer::setRemoteControlled(Position xyPos, MSLane* l, double pos, double posLat, double angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t) {
+    myRemoteXYPos = xyPos;
+    myRemoteLane = l;
+    myRemotePos = pos;
+    myRemotePosLat = posLat;
+    myRemoteAngle = angle;
+    myRemoteEdgeOffset = edgeOffset;
+    myRemoteRoute = route;
+    myLastRemoteAccess = t;
 }
 
 
 bool
-MSVehicle::Influencer::isVTDControlled() const {
-    return myLastVTDAccess == MSNet::getInstance()->getCurrentTimeStep();
+MSVehicle::Influencer::isRemoteControlled() const {
+    return myLastRemoteAccess == MSNet::getInstance()->getCurrentTimeStep();
 }
 
 
 bool
-MSVehicle::Influencer::isVTDAffected(SUMOTime t) const {
-    return myLastVTDAccess >= t - TIME2STEPS(10);
+MSVehicle::Influencer::isRemoteAffected(SUMOTime t) const {
+    return myLastRemoteAccess >= t - TIME2STEPS(10);
 }
 
 void
-MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
+MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
     const bool wasOnRoad = v->isOnRoad();
     if (v->isOnRoad()) {
         v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
         v->getLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
     }
-    if (myVTDRoute.size() != 0) {
-        v->replaceRouteEdges(myVTDRoute, true);
+    if (myRemoteRoute.size() != 0) {
+        v->replaceRouteEdges(myRemoteRoute, true);
     }
-    v->myCurrEdge = v->getRoute().begin() + myVTDEdgeOffset;
-    if (myVTDLane != 0 && myVTDPos > myVTDLane->getLength()) {
-        myVTDPos = myVTDLane->getLength();
+    v->myCurrEdge = v->getRoute().begin() + myRemoteEdgeOffset;
+    if (myRemoteLane != 0 && myRemotePos > myRemoteLane->getLength()) {
+        myRemotePos = myRemoteLane->getLength();
     }
-    if (myVTDLane != 0 && fabs(myVTDPosLat) < 0.5 * (myVTDLane->getWidth() + v->getVehicleType().getWidth())) {
-        myVTDLane->forceVehicleInsertion(v, myVTDPos, MSMoveReminder::NOTIFICATION_TELEPORT, myVTDPosLat);
+    if (myRemoteLane != 0 && fabs(myRemotePosLat) < 0.5 * (myRemoteLane->getWidth() + v->getVehicleType().getWidth())) {
+        myRemoteLane->forceVehicleInsertion(v, myRemotePos, MSMoveReminder::NOTIFICATION_TELEPORT, myRemotePosLat);
         v->updateBestLanes();
         if (!wasOnRoad) {
             v->drawOutsideNetwork(false);
         }
-        //std::cout << "on road network p=" << myVTDXYPos << " a=" << myVTDAngle << " l=" << Named::getIDSecure(myVTDLane) << " pos=" << myVTDPos << " posLat=" << myVTDPosLat << "\n";
+        //std::cout << "on road network p=" << myRemoteXYPos << " a=" << myRemoteAngle << " l=" << Named::getIDSecure(myRemoteLane) << " pos=" << myRemotePos << " posLat=" << myRemotePosLat << "\n";
     } else {
         if (v->getDeparture() == NOT_YET_DEPARTED) {
             v->onDepart();
         }
         v->drawOutsideNetwork(true);
-        //std::cout << "outside network p=" << myVTDXYPos << " a=" << myVTDAngle << " l=" << Named::getIDSecure(myVTDLane) << "\n";
+        //std::cout << "outside network p=" << myRemoteXYPos << " a=" << myRemoteAngle << " l=" << Named::getIDSecure(myRemoteLane) << "\n";
     }
     // ensure that the position is correct (i.e. when the lanePosition is ambiguous at corners)
-    v->setVTDState(myVTDXYPos);
+    v->setRemoteState(myRemoteXYPos);
     // inverse of GeomHelper::naviDegree
-    v->setAngle(M_PI / 2. - DEG2RAD(myVTDAngle));
+    v->setAngle(M_PI / 2. - DEG2RAD(myRemoteAngle));
 }
 
 
 double
-MSVehicle::Influencer::implicitSpeedVTD(const MSVehicle* veh, double oldSpeed) {
+MSVehicle::Influencer::implicitSpeedRemote(const MSVehicle* veh, double oldSpeed) {
     double dist = 0;
-    if (myVTDLane == 0) {
-        dist = veh->getPosition().distanceTo2D(myVTDXYPos);
+    if (myRemoteLane == 0) {
+        dist = veh->getPosition().distanceTo2D(myRemoteXYPos);
     } else {
-        dist = veh->getDistanceToPosition(myVTDPos, &myVTDLane->getEdge());
+        dist = veh->getDistanceToPosition(myRemotePos, &myRemoteLane->getEdge());
     }
     if (DIST2SPEED(dist) > veh->getMaxSpeed()) {
         return oldSpeed;
@@ -530,12 +530,12 @@ MSVehicle::Influencer::implicitSpeedVTD(const MSVehicle* veh, double oldSpeed) {
 }
 
 double
-MSVehicle::Influencer::implicitDeltaPosVTD(const MSVehicle* veh) {
+MSVehicle::Influencer::implicitDeltaPosRemote(const MSVehicle* veh) {
     double dist = 0;
-    if (myVTDLane == 0) {
-        dist = veh->getPosition().distanceTo2D(myVTDXYPos);
+    if (myRemoteLane == 0) {
+        dist = veh->getPosition().distanceTo2D(myRemoteXYPos);
     } else {
-        dist = veh->getDistanceToPosition(myVTDPos, &myVTDLane->getEdge());
+        dist = veh->getDistanceToPosition(myRemotePos, &myRemoteLane->getEdge());
     }
     if (DIST2SPEED(dist) > veh->getMaxSpeed()) {
         return 0;
@@ -901,7 +901,7 @@ Position
 MSVehicle::getPosition(const double offset) const {
     if (myLane == 0) {
         // when called in the context of GUI-Drawing, the simulation step is already incremented
-        if (myInfluencer != 0 && myInfluencer->isVTDAffected(MSNet::getInstance()->getCurrentTimeStep())) {
+        if (myInfluencer != 0 && myInfluencer->isRemoteAffected(MSNet::getInstance()->getCurrentTimeStep())) {
             return myCachedPosition;
         } else {
             return Position::INVALID;
@@ -2448,8 +2448,8 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
 void
 MSVehicle::processTraCISpeedControl(double vSafe, double& vNext) {
     if (myInfluencer != 0) {
-        if (myInfluencer->isVTDControlled()) {
-            vNext = myInfluencer->implicitSpeedVTD(this, myState.mySpeed);
+        if (myInfluencer->isRemoteControlled()) {
+            vNext = myInfluencer->implicitSpeedRemote(this, myState.mySpeed);
         }
         const double vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed, this);
         const double vMin = MAX2(0., getVehicleType().getCarFollowModel().minNextSpeed(myState.mySpeed, this));
@@ -3019,8 +3019,8 @@ MSVehicle::updateState(double vNext) {
     myState.mySpeed = MAX2(vNext, 0.);
 
 #ifndef NO_TRACI
-    if (myInfluencer != 0 && myInfluencer->isVTDControlled()) {
-        deltaPos = myInfluencer->implicitDeltaPosVTD(this);
+    if (myInfluencer != 0 && myInfluencer->isRemoteControlled()) {
+        deltaPos = myInfluencer->implicitDeltaPosRemote(this);
     }
 #endif
 
@@ -4841,7 +4841,7 @@ MSVehicle::influenceChangeDecision(int state) {
 
 
 void
-MSVehicle::setVTDState(Position xyPos) {
+MSVehicle::setRemoteState(Position xyPos) {
     myCachedPosition = xyPos;
 }
 
@@ -4849,7 +4849,7 @@ MSVehicle::setVTDState(Position xyPos) {
 
 bool
 MSVehicle::isRemoteControlled() const {
-    return myInfluencer != 0 && myInfluencer->isVTDControlled();
+    return myInfluencer != 0 && myInfluencer->isRemoteControlled();
 }
 
 

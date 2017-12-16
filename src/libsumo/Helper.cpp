@@ -100,8 +100,8 @@ namespace libsumo {
     // ===========================================================================
     std::map<int, NamedRTree*> Helper::myObjects;
     LANE_RTREE_QUAL* Helper::myLaneTree;
-    std::map<std::string, MSVehicle*> Helper::myVTDControlledVehicles;
-    std::map<std::string, MSPerson*> Helper::myVTDControlledPersons;
+    std::map<std::string, MSVehicle*> Helper::myRemoteControlledVehicles;
+    std::map<std::string, MSPerson*> Helper::myRemoteControlledPersons;
 
     // ===========================================================================
     // member definitions
@@ -280,45 +280,45 @@ namespace libsumo {
     }
 
     void
-        Helper::setVTDControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
-                                  int edgeOffset, ConstMSEdgeVector route, SUMOTime t) {
-        myVTDControlledVehicles[v->getID()] = v;
-        v->getInfluencer().setVTDControlled(xyPos, l, pos, posLat, angle, edgeOffset, route, t);
+    Helper::setRemoteControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
+                                int edgeOffset, ConstMSEdgeVector route, SUMOTime t) {
+        myRemoteControlledVehicles[v->getID()] = v;
+        v->getInfluencer().setRemoteControlled(xyPos, l, pos, posLat, angle, edgeOffset, route, t);
     }
 
     void
-        Helper::setVTDControlled(MSPerson* p, Position xyPos, MSLane* l, double pos, double posLat, double angle,
-                                  int edgeOffset, ConstMSEdgeVector route, SUMOTime t) {
-        myVTDControlledPersons[p->getID()] = p;
-        p->getInfluencer().setVTDControlled(xyPos, l, pos, posLat, angle, edgeOffset, route, t);
+    Helper::setRemoteControlled(MSPerson* p, Position xyPos, MSLane* l, double pos, double posLat, double angle,
+                                int edgeOffset, ConstMSEdgeVector route, SUMOTime t) {
+        myRemoteControlledPersons[p->getID()] = p;
+        p->getInfluencer().setRemoteControlled(xyPos, l, pos, posLat, angle, edgeOffset, route, t);
     }
 
 
     void
-        Helper::postProcessVTD() {
-        for (auto& controlled : myVTDControlledVehicles) {
+        Helper::postProcessRemoteControl() {
+        for (auto& controlled : myRemoteControlledVehicles) {
             if (MSNet::getInstance()->getVehicleControl().getVehicle(controlled.first) != 0) {
-                controlled.second->getInfluencer().postProcessVTD(controlled.second);
+                controlled.second->getInfluencer().postProcessRemoteControl(controlled.second);
             } else {
                 WRITE_WARNING("Vehicle '" + controlled.first + "' was removed though being controlled by TraCI");
             }
         }
-        myVTDControlledVehicles.clear();
-        for (auto& controlled : myVTDControlledPersons) {
+        myRemoteControlledVehicles.clear();
+        for (auto& controlled : myRemoteControlledPersons) {
             if (MSNet::getInstance()->getPersonControl().get(controlled.first) != 0) {
-                controlled.second->getInfluencer().postProcessVTD(controlled.second);
+                controlled.second->getInfluencer().postProcessRemoteControl(controlled.second);
             } else {
                 WRITE_WARNING("Person '" + controlled.first + "' was removed though being controlled by TraCI");
             }
         }
-        myVTDControlledPersons.clear();
+        myRemoteControlledPersons.clear();
     }
 
 
     bool
-        Helper::vtdMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,
-                double speed, const ConstMSEdgeVector& currentRoute, int routePosition, MSLane* currentLane, double currentLanePos, bool onRoad,
-                double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
+    Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,
+                        double speed, const ConstMSEdgeVector& currentRoute, int routePosition, MSLane* currentLane, double currentLanePos, bool onRoad,
+                        double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
         // collect edges around the vehicle/person
         const MSEdge* currentRouteEdge = currentRoute[routePosition];
         std::set<std::string> into;
@@ -327,7 +327,6 @@ namespace libsumo {
         collectObjectsInRange(CMD_GET_EDGE_VARIABLE, shape, maxRouteDistance, into);
         double maxDist = 0;
         std::map<MSLane*, LaneUtility> lane2utility;
-        const ConstMSEdgeVector& ev = currentRoute;
         // compute utility for all candidate edges
         for (std::set<std::string>::const_iterator j = into.begin(); j != into.end(); ++j) {
             const MSEdge* const e = MSEdge::dictionary(*j);
@@ -347,15 +346,15 @@ namespace libsumo {
                 if (onRoad && currentLane->getEdge().isInternal()) {
                     ++routePosition;
                 }
-                ConstMSEdgeVector::const_iterator edgePos = std::find(ev.begin() + routePosition, ev.end(), e);
-                onRoute = edgePos != ev.end(); // no? -> onRoute is false
-                if (edgePos == ev.end() - 1 && currentRouteEdge == e) {
+                ConstMSEdgeVector::const_iterator edgePos = std::find(currentRoute.begin() + routePosition, currentRoute.end(), e);
+                onRoute = edgePos != currentRoute.end(); // no? -> onRoute is false
+                if (edgePos == currentRoute.end() - 1 && currentRouteEdge == e) {
                     // onRoute is false as well if the vehicle is beyond the edge
                     onRoute &= currentRouteEdge->getLength() > currentLanePos + SPEED2DIST(speed);
                 }
                 // save prior and next edges
                 prevEdge = e;
-                nextEdge = !onRoute || edgePos == ev.end() - 1 ? 0 : *(edgePos + 1);
+                nextEdge = !onRoute || edgePos == currentRoute.end() - 1 ? 0 : *(edgePos + 1);
 #ifdef DEBUG_MOVEXY_ANGLE
                 std::cout << "normal:" << e->getID() << " prev:" << prevEdge->getID() << " next:";
                 if (nextEdge != 0) {
@@ -376,12 +375,12 @@ namespace libsumo {
                     prevEdge = l == 0 ? 0 : &l->getEdge();
                 }
                 // check whether the previous edge is on the route (was on the route)
-                ConstMSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin() + routePosition, ev.end(), prevEdge);
+                ConstMSEdgeVector::const_iterator prevEdgePos = std::find(currentRoute.begin() + routePosition, currentRoute.end(), prevEdge);
                 nextEdge = e;
                 while (nextEdge != 0 && nextEdge->isInternal()) {
                     nextEdge = nextEdge->getSuccessors()[0]; // should be only one for an internal edge
                 }
-                if (prevEdgePos != ev.end() && (prevEdgePos + 1) != ev.end()) {
+                if (prevEdgePos != currentRoute.end() && (prevEdgePos + 1) != currentRoute.end()) {
                     onRoute = *(prevEdgePos + 1) == nextEdge;
                 }
 #ifdef DEBUG_MOVEXY_ANGLE
@@ -480,9 +479,9 @@ namespace libsumo {
         lanePos = bestLane->getShape().nearest_offset_to_point2D(pos, false);
         const MSEdge* prevEdge = u.prevEdge;
         if (u.onRoute) {
-            ConstMSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin(), ev.end(), prevEdge);
-            routeOffset = (int)std::distance(ev.begin(), prevEdgePos);
-            //std::cout << SIMTIME << "vtdMap vehicle=" << veh.getID() << " currLane=" << veh.getLane()->getID() << " routeOffset=" << routeOffset << " edges=" << toString(ev) << " bestLane=" << bestLane->getID() << " prevEdge=" << prevEdge->getID() << "\n";
+            ConstMSEdgeVector::const_iterator prevEdgePos = std::find(currentRoute.begin(), currentRoute.end(), prevEdge);
+            routeOffset = (int)std::distance(currentRoute.begin(), prevEdgePos);
+            //std::cout << SIMTIME << "moveToXYMap vehicle=" << veh.getID() << " currLane=" << veh.getLane()->getID() << " routeOffset=" << routeOffset << " edges=" << toString(ev) << " bestLane=" << bestLane->getID() << " prevEdge=" << prevEdge->getID() << "\n";
         } else {
             edges.push_back(u.prevEdge);
             /*
@@ -526,9 +525,9 @@ namespace libsumo {
     }
 
     bool
-        Helper::vtdMap_matchingRoutePosition(const Position& pos, const std::string& origID, 
-                const ConstMSEdgeVector& currentRoute, int routeIndex,
-                double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset) {
+    Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string& origID,
+                                              const ConstMSEdgeVector& currentRoute, int routeIndex,
+                                              double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset) {
         routeOffset = 0;
         // routes may be looped which makes routeOffset ambiguous. We first try to
         // find the closest upcoming edge on the route and then look for closer passed edges
@@ -591,7 +590,7 @@ namespace libsumo {
         lanePos = MAX2(0., MIN2(double((*lane)->getLength() - POSITION_EPS),
                     (*lane)->interpolateGeometryPosToLanePos(
                         (*lane)->getShape().nearest_offset_to_point2D(pos, false))));
-        //std::cout << SIMTIME << " vtdMap_matchingRoutePosition vehicle=" << veh.getID() << " currLane=" << veh.getLane()->getID() << " routeOffset=" << routeOffset << " edges=" << toString(edges) << " lane=" << (*lane)->getID() << "\n";
+        //std::cout << SIMTIME << " moveToXYMap_matchingRoutePosition vehicle=" << veh.getID() << " currLane=" << veh.getLane()->getID() << " routeOffset=" << routeOffset << " edges=" << toString(edges) << " lane=" << (*lane)->getID() << "\n";
 #ifdef DEBUG_MOVEXY
         std::cout << "  b ok lane " << (*lane)->getID() << " lanePos:" << lanePos << std::endl;
 #endif

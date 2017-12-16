@@ -171,23 +171,23 @@ namespace libsumo {
 
         static void collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into); 
 
-        static void setVTDControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
+        static void setRemoteControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
                 int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
 
-        static void setVTDControlled(MSPerson* p, Position xyPos, MSLane* l, double pos, double posLat, double angle,
+        static void setRemoteControlled(MSPerson* p, Position xyPos, MSLane* l, double pos, double posLat, double angle,
                 int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
 
-        static void postProcessVTD();
+        static void postProcessRemoteControl();
 
         static void cleanup(); 
 
         /// @name functions for moveToXY
         /// @{
-        static bool vtdMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,
+        static bool moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,
                 double speed, const ConstMSEdgeVector& currentRoute, int routePosition, MSLane* currentLane, double currentLanePos, bool onRoad,
                 double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges);
 
-        static bool vtdMap_matchingRoutePosition(const Position& pos, const std::string& origID,
+        static bool moveToXYMap_matchingRoutePosition(const Position& pos, const std::string& origID,
                 const ConstMSEdgeVector& currentRoute, int routeIndex,
                 double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset);
 
@@ -225,8 +225,8 @@ namespace libsumo {
         /// @brief A storage of lanes
         static LANE_RTREE_QUAL* myLaneTree;
 
-        static std::map<std::string, MSVehicle*> myVTDControlledVehicles;
-        static std::map<std::string, MSPerson*> myVTDControlledPersons;
+        static std::map<std::string, MSVehicle*> myRemoteControlledVehicles;
+        static std::map<std::string, MSPerson*> myRemoteControlledPersons;
 
         /// @brief invalidated standard constructor
         Helper();
