@@ -146,7 +146,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Align pt stop id signs with corresponding edge id signs");
-        myPTStopCont.alginIdSigns();
+        myPTStopCont.alignIdSigns();
         PROGRESS_TIME_MESSAGE(before);
     }
 
@@ -655,5 +655,6 @@ NBNetBuilder::transformCoordinates(PositionVector& from, bool includeInBoundary,
     }
     return ok;
 }
+
 
 /****************************************************************************/
