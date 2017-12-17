@@ -317,10 +317,10 @@ namespace libsumo {
 
     bool
     Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,
-                        double speed, const ConstMSEdgeVector& currentRoute, int routePosition, MSLane* currentLane, double currentLanePos, bool onRoad,
+                        double speed, const ConstMSEdgeVector& currentRoute, const int routePosition, MSLane* currentLane, double currentLanePos, bool onRoad,
                         double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
         // collect edges around the vehicle/person
-        const MSEdge* currentRouteEdge = currentRoute[routePosition];
+        const MSEdge* const currentRouteEdge = currentRoute[routePosition];
         std::set<std::string> into;
         PositionVector shape;
         shape.push_back(pos);
@@ -343,10 +343,11 @@ namespace libsumo {
                 //
                 // check whether the currently seen edge is in the vehicle's route
                 //  - either the one it's on or one of the next edges
+                ConstMSEdgeVector::const_iterator searchStart = currentRoute.begin() + routePosition;
                 if (onRoad && currentLane->getEdge().isInternal()) {
-                    ++routePosition;
+                    ++searchStart;
                 }
-                ConstMSEdgeVector::const_iterator edgePos = std::find(currentRoute.begin() + routePosition, currentRoute.end(), e);
+                ConstMSEdgeVector::const_iterator edgePos = std::find(searchStart, currentRoute.end(), e);
                 onRoute = edgePos != currentRoute.end(); // no? -> onRoute is false
                 if (edgePos == currentRoute.end() - 1 && currentRouteEdge == e) {
                     // onRoute is false as well if the vehicle is beyond the edge
