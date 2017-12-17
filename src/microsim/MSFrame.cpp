@@ -573,6 +573,13 @@ MSFrame::checkOptions() {
     if (oc.getBool("ignore-accidents")) {
         WRITE_WARNING("The option 'ignore-accidents' is deprecated. Use 'collision.action none' instead.");
     }
+#ifndef NO_TRACI
+#ifdef HAVE_PYTHON
+    if (oc.isSet("python-script")) {
+        WRITE_WARNING("The option 'python-script' is deprecated. Use libsumo or TraCI instead.");
+    }
+#endif
+#endif
     if (oc.getBool("duration-log.statistics") && oc.isDefault("verbose")) {
         oc.set("verbose", "true");
     }
