@@ -1002,8 +1002,8 @@ namespace libsumo {
     }
 
     void
-        Vehicle::setAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID,
-        double time, double begSeconds, double endSeconds) {
+    Vehicle::setAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID,
+                                  double time, double begSeconds, double endSeconds) {
         MSVehicle* veh = getVehicle(vehicleID);
         MSEdge* edge = MSEdge::dictionary(edgeID);
         if (edge == 0) {

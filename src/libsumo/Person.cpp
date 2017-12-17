@@ -444,7 +444,6 @@ namespace libsumo {
         ConstMSEdgeVector ev;
         ev.push_back(p->getEdge());
         int routeIndex = 0;
-        MSRouteIterator routeStep = ev.begin();
         MSLane* currentLane = const_cast<MSLane*>(getSidewalk<MSEdge, MSLane>(p->getEdge()));
         switch (p->getStageType(0)) {
             case MSTransportable::MOVING_WITHOUT_VEHICLE: {

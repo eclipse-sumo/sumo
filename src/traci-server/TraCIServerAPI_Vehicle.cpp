@@ -735,7 +735,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 } else {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time requires 1, 2, or 4 parameters.", outputStorage);
                 }
-                libsumo::Vehicle::setAdaptedTraveltime(id, edgeID, value, begTime, endTime == -1 ? SUMOTime_MAX : endTime);
+                libsumo::Vehicle::setAdaptedTraveltime(id, edgeID, value, (double)begTime, endTime == -1 ? std::numeric_limits<double>::max() : (double)endTime);
             }
             break;
             case VAR_EDGE_EFFORT: {
@@ -781,7 +781,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort requires 1, 2, or 4 parameters.", outputStorage);
                 }
                 // retrieve
-                libsumo::Vehicle::setEffort(id, edgeID, value, begTime, endTime == -1 ? SUMOTime_MAX : endTime);
+                libsumo::Vehicle::setEffort(id, edgeID, value, (double)begTime, endTime == -1 ? std::numeric_limits<double>::max() : (double)endTime);
             }
             break;
             case CMD_REROUTE_TRAVELTIME: {

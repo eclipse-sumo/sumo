@@ -363,6 +363,7 @@ public:
     /// @brief sets position outside the road network
     void setRemoteState(Position xyPos);
 
+private:
     /// @brief An instance of a speed/position influencing instance; built in "getInfluencer"
     Influencer* myInfluencer;
 #endif

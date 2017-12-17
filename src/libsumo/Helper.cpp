@@ -535,8 +535,7 @@ namespace libsumo {
 
         // look forward along the route
         const MSEdge* prev = 0;
-        UNUSED_PARAMETER(prev); // silence 'unused variable' warning when built without INTERNAL_LANES
-        for (int i = routeIndex; i < currentRoute.size(); ++i) {
+        for (int i = routeIndex; i < (int)currentRoute.size(); ++i) {
             const MSEdge* cand = currentRoute[i];
             while (prev != 0) {
                 // check internal edge(s)

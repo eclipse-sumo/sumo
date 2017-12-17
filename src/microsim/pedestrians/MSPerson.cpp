@@ -395,8 +395,8 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
  * MSPerson - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor) : 
-    MSTransportable(pars, vtype, plan), myChosenSpeedFactor(speedFactor),
-    myInfluencer(0) { 
+    MSTransportable(pars, vtype, plan),
+    myInfluencer(0), myChosenSpeedFactor(speedFactor) {
 }
 
 
