@@ -48,32 +48,32 @@ class MSRoute;
  * @brief C++ TraCI client API implementation
  */
 namespace libsumo {
-    class Route {
-    public:
+class Route {
+public:
 
-        static std::vector<std::string> getIDList();
-        static int getIDCount();
-        static std::vector<std::string> getEdges(const std::string& routeID);
-        static std::string getParameter(const std::string& routeID, const std::string& param);
+    static std::vector<std::string> getIDList();
+    static int getIDCount();
+    static std::vector<std::string> getEdges(const std::string& routeID);
+    static std::string getParameter(const std::string& routeID, const std::string& param);
 
-        static void add(const std::string& routeID, const std::vector<std::string>& edgeIDs);
-        static void setParameter(const std::string& routeID, const std::string& key, const std::string& value); // not needed so far
+    static void add(const std::string& routeID, const std::vector<std::string>& edgeIDs);
+    static void setParameter(const std::string& routeID, const std::string& key, const std::string& value); // not needed so far
 
-        static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-        static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
+    static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
+    static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
 
-        static const MSRoute* getRoute(const std::string& id);
+    static const MSRoute* getRoute(const std::string& id);
 
-    private:
-        /// @brief invalidated standard constructor
-        Route();
+private:
+    /// @brief invalidated standard constructor
+    Route();
 
-        /// @brief invalidated copy constructor
-        Route(const Route& src);
+    /// @brief invalidated copy constructor
+    Route(const Route& src);
 
-        /// @brief invalidated assignment operator
-        Route& operator=(const Route& src);
-    };
+    /// @brief invalidated assignment operator
+    Route& operator=(const Route& src);
+};
 }
 
 

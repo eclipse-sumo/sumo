@@ -698,7 +698,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 int parameterCount = inputStorage.readInt();
                 std::string edgeID;
-                int begTime = 0; 
+                int begTime = 0;
                 int endTime = -1;
                 double value = INVALID_DOUBLE_VALUE;
                 if (parameterCount == 4) {
@@ -744,7 +744,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 int parameterCount = inputStorage.readInt();
                 std::string edgeID;
-                int begTime = 0; 
+                int begTime = 0;
                 int endTime = -1;
                 double value = INVALID_DOUBLE_VALUE;
                 if (parameterCount == 4) {

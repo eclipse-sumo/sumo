@@ -77,7 +77,7 @@ FXIMPLEMENT(GNESelectorFrame, FXVerticalFrame, GNESelectorFrameMap, ARRAYNUMBER(
 // method definitions
 // ===========================================================================
 
-GNESelectorFrame::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2) { 
+GNESelectorFrame::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2) {
     count = new FXLabel(parent, "0", 0, GUIDesignLabelLeft);
     typeName = new FXLabel(parent, label.c_str(), 0, GUIDesignLabelLeft);
     locked = new FXMenuCheck(parent, ("lock\t\tLock " + label2 + " selection").c_str(), 0, 0, LAYOUT_FILL_X | LAYOUT_RIGHT);
@@ -693,7 +693,7 @@ GNESelectorFrame::getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, 
         // retrieve Attribute Carrier related to GLID
         ac = myViewNet->getNet()->retrieveAttributeCarrier(it);
         // not all objects need to be attribute carriers
-        if (ac->getTag() == ACTag) { 
+        if (ac->getTag() == ACTag) {
             if (expr == "") {
                 result.push_back(it);
             } else if (numerical) {

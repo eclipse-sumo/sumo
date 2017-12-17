@@ -53,7 +53,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] additionalParent additional parent of this detector
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double pos, double freq, const std::string& filename, bool friendlyPos, GNEAdditional *additionalParent);
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double pos, double freq, const std::string& filename, bool friendlyPos, GNEAdditional* additionalParent);
 
     /// @brief Destructor
     ~GNEDetector();
@@ -67,7 +67,7 @@ public:
     virtual bool isDetectorPositionFixed() const = 0;
 
     /// @brief get lane
-    GNELane *getLane() const;
+    GNELane* getLane() const;
 
     /// @brief get absolute position over Lane
     double getAbsolutePositionOverLane() const;
@@ -78,7 +78,7 @@ public:
      * @param[in] newPosition new position of geometry
      * @note should't be called in drawGL(...) functions to avoid smoothness issues
      */
-    void moveGeometry(const Position& oldPos, const Position &offset);
+    void moveGeometry(const Position& oldPos, const Position& offset);
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
      * @param[in] oldPos the old position of additional

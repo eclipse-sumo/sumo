@@ -126,7 +126,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     myMouseHotspotX(app.getDefaultCursor()->getHotX()),
     myMouseHotspotY(app.getDefaultCursor()->getHotY()),
     myPopup(0),
-    myPopupPosition(Position(0,0)),
+    myPopupPosition(Position(0, 0)),
     myUseToolTips(false),
     myAmInitialised(false),
     myViewportChooser(0),
@@ -639,9 +639,9 @@ GUISUMOAbstractView::getPopupPosition() const {
 
 void
 GUISUMOAbstractView::destroyPopup() {
-    if(myPopup != NULL) {
+    if (myPopup != NULL) {
         delete myPopup;
-        myPopupPosition.set(0,0);
+        myPopupPosition.set(0, 0);
         myPopup = NULL;
     }
 }
@@ -742,10 +742,10 @@ GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector , void* data) {
 long
 GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector , void* data) {
     // if popup exist but isn't shown, destroy it first
-    if(myPopup && (myPopup->shown() == false)) {
+    if (myPopup && (myPopup->shown() == false)) {
         destroyPopup();
     }
-    if(myPopup == NULL) {
+    if (myPopup == NULL) {
         if (myViewportChooser == 0 || !myViewportChooser->haveGrabbed()) {
             myChanger->onMouseMove(data);
         }
@@ -800,7 +800,7 @@ GUISUMOAbstractView::openObjectDialog() {
 
 long
 GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* data) {
-    if(myPopup != NULL) {
+    if (myPopup != NULL) {
         return myPopup->onKeyPress(o, sel, data);
     } else {
         FXGLCanvas::onKeyPress(o, sel, data);
@@ -811,7 +811,7 @@ GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* data) {
 
 long
 GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
-    if(myPopup != NULL) {
+    if (myPopup != NULL) {
         return myPopup->onKeyRelease(o, sel, data);
     } else {
         FXGLCanvas::onKeyRelease(o, sel, data);

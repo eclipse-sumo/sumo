@@ -67,8 +67,8 @@ GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position po
     myFilename(filename),
     myProbability(probability),
     myOff(off),
-    myTimeThreshold(timeThreshold)
-{ }
+    myTimeThreshold(timeThreshold) {
+}
 
 
 GNERerouter::~GNERerouter() {
@@ -114,7 +114,7 @@ GNERerouter::openAdditionalDialog() {
 
 
 void
-GNERerouter::moveGeometry(const Position& oldPos, const Position &offset) {
+GNERerouter::moveGeometry(const Position& oldPos, const Position& offset) {
     // restore old position, apply offset and update Geometry
     myPosition = oldPos;
     myPosition.add(offset);
@@ -157,10 +157,10 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
 }
 
 
-void 
+void
 GNERerouter::addRerouterInterval(GNERerouterInterval* rerouterInterval) {
     auto it = std::find(myRerouterIntervals.begin(), myRerouterIntervals.end(), rerouterInterval);
-    if(it == myRerouterIntervals.end()) {
+    if (it == myRerouterIntervals.end()) {
         myRerouterIntervals.push_back(rerouterInterval);
         // sort intervals always after a adding/restoring
         sortIntervals();
@@ -170,10 +170,10 @@ GNERerouter::addRerouterInterval(GNERerouterInterval* rerouterInterval) {
 }
 
 
-void 
+void
 GNERerouter::removeRerouterInterval(GNERerouterInterval* rerouterInterval) {
     auto it = std::find(myRerouterIntervals.begin(), myRerouterIntervals.end(), rerouterInterval);
-    if(it != myRerouterIntervals.end()) {
+    if (it != myRerouterIntervals.end()) {
         myRerouterIntervals.erase(it);
         // sort intervals always after a adding/restoring
         sortIntervals();
@@ -194,9 +194,9 @@ GNERerouter::getNumberOfOverlappedIntervals() const {
     int numOverlappings = 0;
     // iterate over intervals to save the number of overlappings
     for (int i = 0; i < (int)(myRerouterIntervals.size() - 1); i++) {
-        if(myRerouterIntervals.at(i)->getEnd() > myRerouterIntervals.at(i+1)->getBegin()) {
+        if (myRerouterIntervals.at(i)->getEnd() > myRerouterIntervals.at(i + 1)->getBegin()) {
             numOverlappings++;
-        } else if(myRerouterIntervals.at(i)->getEnd() > myRerouterIntervals.at(i+1)->getEnd()) {
+        } else if (myRerouterIntervals.at(i)->getEnd() > myRerouterIntervals.at(i + 1)->getEnd()) {
             numOverlappings++;
         }
     }
@@ -205,7 +205,7 @@ GNERerouter::getNumberOfOverlappedIntervals() const {
 }
 
 
-void 
+void
 GNERerouter::sortIntervals() {
     // declare a vector to keep sorted intervals
     std::vector<GNERerouterInterval*> sortedIntervals;
@@ -213,8 +213,8 @@ GNERerouter::sortIntervals() {
     while (myRerouterIntervals.size() > 0) {
         int begin_small = 0;
         // find the interval with the small begin
-        for(int i = 0; i < (int)myRerouterIntervals.size(); i++) {
-            if(myRerouterIntervals.at(i)->getBegin() < myRerouterIntervals.at(begin_small)->getBegin()) {
+        for (int i = 0; i < (int)myRerouterIntervals.size(); i++) {
+            if (myRerouterIntervals.at(i)->getBegin() < myRerouterIntervals.at(begin_small)->getBegin()) {
                 begin_small = i;
             }
         }
@@ -262,10 +262,10 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
 
     if (s.scale * exaggeration >= 3) {
         // draw rerouter symbol over all lanes
-        for(auto i : mySymbolsPositionAndRotation) {
+        for (auto i : mySymbolsPositionAndRotation) {
             glPushMatrix();
             glTranslated(i.first.x(), i.first.y(), getType());
-            glRotated(-1*i.second, 0, 0, 1);
+            glRotated(-1 * i.second, 0, 0, 1);
             glScaled(exaggeration, exaggeration, 1);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -355,7 +355,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGES:
-            if(value.empty()) {
+            if (value.empty()) {
                 return false;
             } else {
                 return checkGNEEdgesValid(myViewNet->getNet(), value, false);

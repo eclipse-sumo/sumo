@@ -139,7 +139,7 @@ GNEEdge::updateGeometry() {
 }
 
 
-int 
+int
 GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
     PositionVector innerGeometry = myNBEdge.getInnerGeometry();
     // first check if vertex already exists in the inner geometry
@@ -150,7 +150,7 @@ GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
     }
     // if vertex doesn't exist, insert it
     if (createIfNoExist) {
-        if(innerGeometry.size() == 0) {
+        if (innerGeometry.size() == 0) {
             innerGeometry.push_back(pos);
             setGeometry(innerGeometry, true);
             return 0;
@@ -166,9 +166,9 @@ GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
 }
 
 
-int 
+int
 GNEEdge::getVertexIndex(const double offset, bool createIfNoExist) {
-    if(offset < myNBEdge.getGeometry().length()) {
+    if (offset < myNBEdge.getGeometry().length()) {
         return getVertexIndex(myNBEdge.getGeometry().positionAtOffset2D(offset), createIfNoExist);
     } else {
         return -1;
@@ -177,7 +177,7 @@ GNEEdge::getVertexIndex(const double offset, bool createIfNoExist) {
 
 
 int
-GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position &offset) {
+GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position& offset) {
     // obtain inner geometry of edge
     PositionVector edgeGeometry = myNBEdge.getInnerGeometry();
     // Make sure that index is valid AND ins't the first and last index
@@ -204,7 +204,7 @@ GNEEdge::moveEntireShape(const PositionVector& oldShape, const Position& offset)
     // make a copy of the old shape to change it
     PositionVector modifiedShape = oldShape;
     // change all points of the inner geometry using offset
-    for (auto &i : modifiedShape) {
+    for (auto& i : modifiedShape) {
         i.add(offset);
     }
     // restore modified shape
@@ -220,11 +220,11 @@ GNEEdge::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
     PositionVector innerShapeToCommit = myNBEdge.getInnerGeometry();
     // first check if second and penultimate ins't in Junction's buubles
     double buubleRadius = GNEJunction::BUBBLE_RADIUS * myNet->getViewNet()->getVisualisationSettings()->junctionSize.exaggeration;
-    if(myNBEdge.getGeometry().size() > 2 && myNBEdge.getGeometry()[0].distanceTo(myNBEdge.getGeometry()[1]) < buubleRadius) {
+    if (myNBEdge.getGeometry().size() > 2 && myNBEdge.getGeometry()[0].distanceTo(myNBEdge.getGeometry()[1]) < buubleRadius) {
         innerShapeToCommit.removeClosest(innerShapeToCommit[0]);
     }
-    if(myNBEdge.getGeometry().size() > 2 && myNBEdge.getGeometry()[(int)myNBEdge.getGeometry().size()-2].distanceTo(myNBEdge.getGeometry()[(int)myNBEdge.getGeometry().size()-1]) < buubleRadius) {
-        innerShapeToCommit.removeClosest(innerShapeToCommit[(int)innerShapeToCommit.size()-1]);
+    if (myNBEdge.getGeometry().size() > 2 && myNBEdge.getGeometry()[(int)myNBEdge.getGeometry().size() - 2].distanceTo(myNBEdge.getGeometry()[(int)myNBEdge.getGeometry().size() - 1]) < buubleRadius) {
+        innerShapeToCommit.removeClosest(innerShapeToCommit[(int)innerShapeToCommit.size() - 1]);
     }
     // second check if double points has to be removed
     innerShapeToCommit.removeDoublePoints(SNAP_RADIUS);
@@ -283,7 +283,7 @@ GNEEdge::getBoundary() const {
     return ret;
 }
 
-bool 
+bool
 GNEEdge::isInverted() const {
     double angleBetweenOriginAndDestiny = myNBEdge.getGeometry().beginEndAngle();
     return (angleBetweenOriginAndDestiny < -1.5707) || (angleBetweenOriginAndDestiny > 1.5707);
@@ -325,7 +325,7 @@ GNEEdge::getGNEJunctionDestiny() const {
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNEEdge::getOppositeEdge() const {
     return myNet->retrieveEdge(myGNEJunctionDestiny, myGNEJunctionSource, false);
 }
@@ -446,7 +446,7 @@ GNEEdge::setEndpoint(Position pos, GNEUndoList* undoList) {
         myGNEJunctionSource->invalidateShape();
     }
     // possibly existing inner point is no longer needed
-    if(myNBEdge.getInnerGeometry().size() > 0 && getVertexIndex(pos, false) != -1) {
+    if (myNBEdge.getInnerGeometry().size() > 0 && getVertexIndex(pos, false) != -1) {
         deleteGeometryPoint(pos, false);
     }
     undoList->p_end();
@@ -587,25 +587,25 @@ GNEEdge::getGNECrossings() {
 }
 
 
-void 
+void
 GNEEdge::removeEdgeOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty) {
     // iterate over all additional parents of edge
-    for(auto i : myAdditionalParents) {
+    for (auto i : myAdditionalParents) {
         // Obtain attribute EDGES of additional
         std::vector<std::string>  edgeIDs = parse<std::vector<std::string> >(i->getAttribute(SUMO_ATTR_EDGES));
         // check that at least there is an Edge
-        if(edgeIDs.empty()) {
+        if (edgeIDs.empty()) {
             throw ProcessError("Additional edge childs is empty");
-        } else if((edgeIDs.size() == 1) && (allowEmpty == false)) {
+        } else if ((edgeIDs.size() == 1) && (allowEmpty == false)) {
             // remove entire Additional if SUMO_ATTR_EDGES cannot be empty
-            if(edgeIDs.front() == getID()) {
+            if (edgeIDs.front() == getID()) {
                 undoList->add(new GNEChange_Additional(i, false), true);
             } else {
                 throw ProcessError("Edge ID wasnt' found in Additional");
             }
         } else {
             auto it = std::find(edgeIDs.begin(), edgeIDs.end(), getID());
-            if(it != edgeIDs.end()) {
+            if (it != edgeIDs.end()) {
                 // set new attribute in Additional
                 edgeIDs.erase(it);
                 i->setAttribute(SUMO_ATTR_EDGES, toString(edgeIDs), undoList);
@@ -1257,14 +1257,14 @@ GNEEdge::removeEdgeFromCrossings(GNEJunction* junction, GNEUndoList* undoList) {
 void
 GNEEdge::straightenElevation(GNEUndoList* undoList) {
     PositionVector modifiedShape = myNBEdge.getGeometry().interpolateZ(
-            myNBEdge.getFromNode()->getPosition().z(),
-            myNBEdge.getToNode()->getPosition().z());
+                                       myNBEdge.getFromNode()->getPosition().z(),
+                                       myNBEdge.getToNode()->getPosition().z());
     PositionVector innerShape(modifiedShape.begin() + 1, modifiedShape.end() - 1);
     setAttribute(SUMO_ATTR_SHAPE, toString(innerShape), undoList);
 }
 
 
-PositionVector 
+PositionVector
 GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
     const OptionsCont& oc = OptionsCont::getOptions();
     // distinguish 3 cases:
@@ -1273,11 +1273,11 @@ GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
     // c) if the edge is straight and both nodes are geometry-like nodes, use geometry of the continuation edges as control points
     PositionVector init;
 #ifdef DEBUG_SMOOTH_GEOM
-        if (DEBUGCOND(this)) std::cout << getID() 
-            << " forElevation=" << forElevation
-            << " fromGeometryLike=" << myNBEdge.getFromNode()->geometryLike()
-            << " toGeometryLike=" << myNBEdge.getToNode()->geometryLike()
-            << " smoothShape old=" << old << "\n";
+    if (DEBUGCOND(this)) std::cout << getID()
+                                       << " forElevation=" << forElevation
+                                       << " fromGeometryLike=" << myNBEdge.getFromNode()->geometryLike()
+                                       << " toGeometryLike=" << myNBEdge.getToNode()->geometryLike()
+                                       << " smoothShape old=" << old << "\n";
 #endif
     if (old.size() == 3 || old.size() == 4) {
         init = old;
@@ -1322,14 +1322,16 @@ GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
             init = NBNode::bezierControlPoints(begShape, endShape, false, dist, dist, ok, 0, straightThresh);
         }
 #ifdef DEBUG_SMOOTH_GEOM
-        if (DEBUGCOND(this)) std::cout << "   begShape=" << begShape << " endShape=" << endShape << " forElevation=" << forElevation << " dist=" << dist << " ok=" << ok << " init=" << init << "\n";
+        if (DEBUGCOND(this)) {
+            std::cout << "   begShape=" << begShape << " endShape=" << endShape << " forElevation=" << forElevation << " dist=" << dist << " ok=" << ok << " init=" << init << "\n";
+        }
 #endif
     }
     if (init.size() == 0) {
         return PositionVector::EMPTY;
     } else {
         const int numPoints = MAX2(oc.getInt("junctions.internal-link-detail"),
-                int(old.length2D() / oc.getFloat("opendrive.curve-resolution")));
+                                   int(old.length2D() / oc.getFloat("opendrive.curve-resolution")));
         return bezier(init, numPoints);
     }
 }

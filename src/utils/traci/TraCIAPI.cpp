@@ -1151,7 +1151,7 @@ TraCIAPI::LaneScope::getLastStepVehicleIDs(const std::string& laneID) const {
 }
 
 
-std::vector<std::string> 
+std::vector<std::string>
 TraCIAPI::LaneScope::getFoes(const std::string& laneID, const std::string& toLaneID) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_STRING);

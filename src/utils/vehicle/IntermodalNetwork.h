@@ -66,7 +66,7 @@ public:
         const bool pedestrianOnly = numericalID == 0;
         // build the pedestrian edges and the depart / arrival connectors with lookup tables
         bool haveSeenWalkingArea = false;
-        for (const E* const edge: edges) {
+        for (const E* const edge : edges) {
             if (edge->isInternal() || edge->isTazConnector()) {
                 continue;
             }
@@ -89,7 +89,7 @@ public:
             if (!edge->isWalkingArea()) {
                 // depart and arrival edges (the router can decide the initial direction to take and the direction to arrive from)
                 _IntermodalEdge* const departConn = new _IntermodalEdge(edge->getID() + "_depart_connector", numericalID++, edge, "!connector");
-                _IntermodalEdge* const arrivalConn = new _IntermodalEdge(edge->getID() + "_arrival_connector", numericalID++, edge, "!connector"); 
+                _IntermodalEdge* const arrivalConn = new _IntermodalEdge(edge->getID() + "_arrival_connector", numericalID++, edge, "!connector");
                 addConnectors(departConn, arrivalConn, 0);
             }
         }
@@ -108,7 +108,9 @@ public:
                     }
                 }
             } else {
-                for (const N* const node : { edge->getFromJunction(), edge->getToJunction() }) {
+                for (const N* const node : {
+                edge->getFromJunction(), edge->getToJunction()
+                }) {
                     if (myWalkingConnectorLookup.count(node) == 0) {
                         addEdge(new _IntermodalEdge(node->getID() + "_walking_connector", numericalID++, nullptr, "!connector"));
                         myWalkingConnectorLookup[node] = myEdges.back();
@@ -242,7 +244,7 @@ public:
     }
 
     /// @brief Returns the departing intermodal connector at the given split offset
-    _IntermodalEdge* getDepartConnector(const E* e, const int splitIndex=0) const {
+    _IntermodalEdge* getDepartConnector(const E* e, const int splitIndex = 0) const {
         return myDepartLookup.find(e)->second[splitIndex];
     }
 
@@ -263,7 +265,7 @@ public:
     }
 
     /// @brief Returns the arriving intermodal connector at the given split offset
-    _IntermodalEdge* getArrivalConnector(const E* e, const int splitIndex=0) const {
+    _IntermodalEdge* getArrivalConnector(const E* e, const int splitIndex = 0) const {
         return myArrivalLookup.find(e)->second[splitIndex];
     }
 

@@ -180,7 +180,7 @@ private:
     SumoXMLAttr myCurrentAttribute;
 
     struct ObjectTypeEntry {
-        ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2); 
+        ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2);
         ObjectTypeEntry() : count(0), typeName(0), locked(0) {}
         FXLabel* count;
         FXLabel* typeName;

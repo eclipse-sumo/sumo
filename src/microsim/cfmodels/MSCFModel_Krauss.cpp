@@ -68,25 +68,25 @@ MSCFModel_Krauss::moveHelper(MSVehicle* const veh, double vPos) const {
 
     // aMax: Maximal admissible acceleration until the next action step, such that the vehicle's maximal
     // desired speed on the current lane will not be exceeded.
-    double aMax = (veh->getLane()->getVehicleMaxSpeed(veh) - oldV)/veh->getActionStepLengthSecs();
+    double aMax = (veh->getLane()->getVehicleMaxSpeed(veh) - oldV) / veh->getActionStepLengthSecs();
 
     // do not exceed max decel even if it is unsafe
-    double vMax = MAX2(vMin,MIN3(oldV + ACCEL2SPEED(aMax), maxNextSpeed(oldV, veh), vSafe));
+    double vMax = MAX2(vMin, MIN3(oldV + ACCEL2SPEED(aMax), maxNextSpeed(oldV, veh), vSafe));
 #ifdef _DEBUG
     //if (vMin > vMax) {
     //    WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
     //}
 #endif
 
-    const double sigma = (veh->passingMinor() 
-            ? veh->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_SIGMA_MINOR, myDawdle) 
-            : myDawdle);
+    const double sigma = (veh->passingMinor()
+                          ? veh->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_SIGMA_MINOR, myDawdle)
+                          : myDawdle);
     const double vDawdle = MAX2(vMin, dawdle2(vMax, sigma));
 
     double vNext = veh->getLaneChangeModel().patchSpeed(vMin, vDawdle, vMax, *this);
 
-    assert(vNext>=vMin);
-    assert(vNext<=vMax);
+    assert(vNext >= vMin);
+    assert(vNext <= vMax);
 
 #ifdef DEBUG_MOVE_HELPER
     if DEBUG_COND {

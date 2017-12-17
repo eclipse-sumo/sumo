@@ -101,7 +101,7 @@ void NBPTStopCont::assignLanes(NBEdgeCont& cont) {
 
         if (!stop->findLaneAndComputeBusStopExtend(cont)) {
             WRITE_WARNING("Could not find corresponding edge or compatible lane for pt stop: " + i->second->getName()
-                                  + ". Thus, it will be removed!");
+                          + ". Thus, it will be removed!");
             EdgeVector edgeVector = cont.getGeneratedFrom((*i).second->getOrigEdgeId());
             //std::cout << edgeVector.size() << std::endl;
             myPTStops.erase(i++);
@@ -229,8 +229,8 @@ NBPTStopCont::getClosestPlatformToPTStopPosition(NBPTStop* pStop) {
     double minSqrDist = std::numeric_limits<double>::max();
 
     for (auto it = pStop->getPlatformCands().begin();
-         it != pStop->getPlatformCands().end();
-         it++) {
+            it != pStop->getPlatformCands().end();
+            it++) {
         NBPTPlatform platform = *it;
         double sqrDist = stopPosition.distanceSquaredTo2D(*platform.getMyPos());
         if (sqrDist < minSqrDist) {
@@ -247,8 +247,8 @@ NBEdge*
 NBPTStopCont::getReverseEdge(NBEdge* edge) {
     if (edge != nullptr) {
         for (auto it = edge->getToNode()->getOutgoingEdges().begin();
-             it != edge->getToNode()->getOutgoingEdges().end();
-             it++) {
+                it != edge->getToNode()->getOutgoingEdges().end();
+                it++) {
             if ((*it)->getToNode() == edge->getFromNode()) {
                 return (*it);
             }
@@ -337,24 +337,24 @@ NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, in
                 NBEdge* e = cont.getByID(id);
                 edgCants.push_back(e);
             }
-            std::sort(edgCants.begin(), edgCants.end(), [pos](NBEdge* a, NBEdge* b) {
-              return a->getGeometry().distance2D(pos, false) < b->getGeometry().distance2D(pos, false);
+            std::sort(edgCants.begin(), edgCants.end(), [pos](NBEdge * a, NBEdge * b) {
+                return a->getGeometry().distance2D(pos, false) < b->getGeometry().distance2D(pos, false);
             });
             int cnt = 0;
             for (auto edge : edgCants) {
                 int laneIdx = 0;
-                for (auto lane : edge->getLanes()){
-                    if ((lane.permissions & SVC_PEDESTRIAN) != 0){
-                        double offset = lane.shape.nearest_offset_to_point2D(pos,false);
+                for (auto lane : edge->getLanes()) {
+                    if ((lane.permissions & SVC_PEDESTRIAN) != 0) {
+                        double offset = lane.shape.nearest_offset_to_point2D(pos, false);
                         double finalLength = edge->getFinalLength();
                         double laneLength = lane.shape.length();
-                        ptStop.second->addAccess(edge->getLaneID(laneIdx),offset*finalLength/laneLength);
+                        ptStop.second->addAccess(edge->getLaneID(laneIdx), offset * finalLength / laneLength);
                         cnt++;
                         break;
                     }
                     laneIdx++;
                 }
-                if (cnt == maxCount){
+                if (cnt == maxCount) {
                     break;
                 }
             }

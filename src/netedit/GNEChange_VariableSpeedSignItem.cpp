@@ -46,7 +46,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_VariableSpeedSignItem, GNEChange, NULL, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_VariableSpeedSignItem::GNEChange_VariableSpeedSignItem(GNEVariableSpeedSignStep *variableSpeedSignStep, bool forward) :
+GNEChange_VariableSpeedSignItem::GNEChange_VariableSpeedSignItem(GNEVariableSpeedSignStep* variableSpeedSignStep, bool forward) :
     GNEChange(variableSpeedSignStep->getVariableSpeedSignParent()->getViewNet()->getNet(), forward),
     myVariableSpeedSignStep(variableSpeedSignStep) {
     myVariableSpeedSignStep->incRef("GNEChange_VariableSpeedSignItem");

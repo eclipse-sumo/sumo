@@ -102,10 +102,10 @@ private:
     std::string myNewValue;
 
     /// @brief used if Ac is an additional element
-    GNEAdditional *myAdditional;
+    GNEAdditional* myAdditional;
 
     /// @brief used if Ac is a shape element
-    GNEShape *myShape;
+    GNEShape* myShape;
 };
 
 #endif

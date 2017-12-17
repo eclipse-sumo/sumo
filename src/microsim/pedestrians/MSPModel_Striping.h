@@ -274,9 +274,9 @@ protected:
         SUMOTime getWaitingTime(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
         double getSpeed(const MSPerson::MSPersonStage_Walking& stage) const;
         const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const;
-        void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos, 
-                double lanePosLat, double angle, int routeOffset, 
-                const ConstMSEdgeVector& edges, SUMOTime t); 
+        void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
+                      double lanePosLat, double angle, int routeOffset,
+                      const ConstMSEdgeVector& edges, SUMOTime t);
 
         /// @}
 

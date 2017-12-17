@@ -72,11 +72,11 @@ GNEChange_Attribute::~GNEChange_Attribute() {
             WRITE_WARNING("Deleting unreferenced " + toString(myAC->getTag()) + " '" + myAC->getID() + "' in GNEChange_Attribute");
         }
         // Check if attribute carrier is a shape
-        if(myShape) {
+        if (myShape) {
             // remove shape using pecify functions
-            if(myShape->getTag() == SUMO_TAG_POLY) {
+            if (myShape->getTag() == SUMO_TAG_POLY) {
                 myShape->getNet()->removePolygon(myShape->getID());
-            } else if((myShape->getTag() == SUMO_TAG_POI) || (myShape->getTag() == SUMO_TAG_POILANE)) {
+            } else if ((myShape->getTag() == SUMO_TAG_POI) || (myShape->getTag() == SUMO_TAG_POILANE)) {
                 myShape->getNet()->removePOI(myShape->getID());
             }
         } else {
@@ -95,9 +95,9 @@ GNEChange_Attribute::undo() {
     // set original value
     myAC->setAttribute(myKey, myOrigValue);
     // check if additional or shapes has to be saved
-    if(myAdditional) {
+    if (myAdditional) {
         myAdditional->getViewNet()->getNet()->requiereSaveAdditionals();
-    } else if(myShape) {
+    } else if (myShape) {
         myShape->getNet()->requiereSaveShapes();
     }
 }
@@ -112,9 +112,9 @@ GNEChange_Attribute::redo() {
     // set new value
     myAC->setAttribute(myKey, myNewValue);
     // check if additional or shapes has to be saved
-    if(myAdditional) {
+    if (myAdditional) {
         myAdditional->getViewNet()->getNet()->requiereSaveAdditionals();
-    } else if(myShape) {
+    } else if (myShape) {
         myShape->getNet()->requiereSaveShapes();
     }
 }

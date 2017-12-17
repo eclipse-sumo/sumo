@@ -151,7 +151,7 @@ GUIContainer::getParameterWindow(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUIContainer::getTypeParameterWindow(GUIMainWindow& app,
-                                  GUISUMOAbstractView&) {
+                                     GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 8 + (int)myVType->getParameter().getMap().size());
     // add items

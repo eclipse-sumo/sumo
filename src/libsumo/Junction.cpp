@@ -43,47 +43,47 @@
 // member definitions
 // ===========================================================================
 namespace libsumo {
-    std::vector<std::string>
-        Junction::getIDList() {
-        std::vector<std::string> ids;
-        MSNet::getInstance()->getJunctionControl().insertIDs(ids);
-        return ids;
-    }
+std::vector<std::string>
+Junction::getIDList() {
+    std::vector<std::string> ids;
+    MSNet::getInstance()->getJunctionControl().insertIDs(ids);
+    return ids;
+}
 
-    int
-        Junction::getIDCount() {
-        return (int)getIDList().size();
-    }
+int
+Junction::getIDCount() {
+    return (int)getIDList().size();
+}
 
-    TraCIPosition
-        Junction::getPosition(const std::string& junctionID) {
-        return Helper::makeTraCIPosition(getJunction(junctionID)->getPosition());
-    }
+TraCIPosition
+Junction::getPosition(const std::string& junctionID) {
+    return Helper::makeTraCIPosition(getJunction(junctionID)->getPosition());
+}
 
-    TraCIPositionVector
-        Junction::getShape(const std::string& junctionID) {
-        return Helper::makeTraCIPositionVector(getJunction(junctionID)->getShape());
-    }
+TraCIPositionVector
+Junction::getShape(const std::string& junctionID) {
+    return Helper::makeTraCIPositionVector(getJunction(junctionID)->getShape());
+}
 
-    MSJunction*
-        Junction::getJunction(const std::string& id) {
-        MSJunction* j = MSNet::getInstance()->getJunctionControl().get(id);
-        if (j == 0) {
-            throw TraCIException("Junction '" + id + "' is not known");
-        }
-        return j;
+MSJunction*
+Junction::getJunction(const std::string& id) {
+    MSJunction* j = MSNet::getInstance()->getJunctionControl().get(id);
+    if (j == 0) {
+        throw TraCIException("Junction '" + id + "' is not known");
     }
+    return j;
+}
 
-    NamedRTree*
-        Junction::getTree() {
-        NamedRTree* t = new NamedRTree();
-        for (const auto& i : MSNet::getInstance()->getJunctionControl()) {
-            Boundary b = i.second->getShape().getBoxBoundary();
-            const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
-            const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-            t->Insert(cmin, cmax, i.second);
-        }
-        return t;
+NamedRTree*
+Junction::getTree() {
+    NamedRTree* t = new NamedRTree();
+    for (const auto& i : MSNet::getInstance()->getJunctionControl()) {
+        Boundary b = i.second->getShape().getBoxBoundary();
+        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+        t->Insert(cmin, cmax, i.second);
+    }
+    return t;
 }
 
 }

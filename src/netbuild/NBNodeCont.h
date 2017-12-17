@@ -198,10 +198,10 @@ public:
      * @param[in] removeGeometryNodes Whether geometry nodes shall also be removed
      * @return The number of removed nodes
      */
-    int removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, 
-            NBPTStopCont& sc, NBPTLineCont& lc, 
-            NBParkingCont& pc,
-            bool removeGeometryNodes);
+    int removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc,
+                            NBPTStopCont& sc, NBPTLineCont& lc,
+                            NBParkingCont& pc,
+                            bool removeGeometryNodes);
     /// @}
 
     /// @name Methods for guessing/computing traffic lights

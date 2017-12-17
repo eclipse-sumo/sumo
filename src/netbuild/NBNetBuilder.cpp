@@ -122,7 +122,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Processing public transport stops");
-        if (!(oc.exists("ptline-output") && oc.isSet("ptline-output"))){
+        if (!(oc.exists("ptline-output") && oc.isSet("ptline-output"))) {
             myPTStopCont.localizePTStops(myEdgeCont);
         }
         myPTStopCont.assignLanes(myEdgeCont);
@@ -136,7 +136,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_TIME_MESSAGE(before);
     }
 
-    if (oc.exists("ptline-output") && oc.isSet("ptline-output") && oc.exists("ptline-clean-up") && oc.getBool("ptline-clean-up")){
+    if (oc.exists("ptline-output") && oc.isSet("ptline-output") && oc.exists("ptline-clean-up") && oc.getBool("ptline-clean-up")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Cleaning up public transport stops that are not served by any line");
         myPTStopCont.postprocess(myPTLineCont.getServedPTStops());

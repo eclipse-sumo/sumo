@@ -79,7 +79,7 @@ GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* parent, int width, int h
 GNEAdditionalDialog::~GNEAdditionalDialog() {}
 
 
-FXint 
+FXint
 GNEAdditionalDialog::openAsModalDialog(FXuint placement) {
     // create Dialog
     create();
@@ -92,15 +92,15 @@ GNEAdditionalDialog::openAsModalDialog(FXuint placement) {
 }
 
 
-long 
-GNEAdditionalDialog::onKeyPress(FXObject*sender, FXSelector sel,void* ptr) {
-    return FXTopWindow::onKeyPress(sender,sel,ptr);
+long
+GNEAdditionalDialog::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
+    return FXTopWindow::onKeyPress(sender, sel, ptr);
 }
 
 
-long 
-GNEAdditionalDialog::onKeyRelease(FXObject*sender, FXSelector sel,void* ptr){
-    return FXTopWindow::onKeyRelease(sender,sel,ptr);
+long
+GNEAdditionalDialog::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr) {
+    return FXTopWindow::onKeyRelease(sender, sel, ptr);
 }
 
 
@@ -111,7 +111,7 @@ GNEAdditionalDialog::changeAdditionalDialogHeader(const std::string& newHeader) 
 }
 
 
-void 
+void
 GNEAdditionalDialog::initChanges() {
     // init commandGroup
     myUndoList->p_begin(myChangesDescription);
@@ -120,10 +120,10 @@ GNEAdditionalDialog::initChanges() {
 }
 
 
-void 
+void
 GNEAdditionalDialog::acceptChanges() {
     // commit changes or abort last command group depending of number of changes did
-    if(myNumberOfChanges < myUndoList->currentCommandGroupSize()) {
+    if (myNumberOfChanges < myUndoList->currentCommandGroupSize()) {
         myUndoList->p_end();
     } else {
         myUndoList->p_abortLastCommandGroup();
@@ -131,13 +131,13 @@ GNEAdditionalDialog::acceptChanges() {
 }
 
 
-void 
+void
 GNEAdditionalDialog::cancelChanges() {
     myUndoList->p_abortLastCommandGroup();
 }
 
 
-void 
+void
 GNEAdditionalDialog::resetChanges() {
     // abort last command group an start editing again
     myUndoList->p_abortLastCommandGroup();

@@ -734,7 +734,7 @@ enum {
     /// @{
 
     /// @brief edit junction shape
-        MID_GNE_CROSSING_EDIT_SHAPE,
+    MID_GNE_CROSSING_EDIT_SHAPE,
     /// @}
 
 
@@ -838,7 +838,7 @@ enum {
     /// @name Calibrator Dialog messages
     /// @{
 
-    /// @brief change table route 
+    /// @brief change table route
     MID_GNE_CALIBRATORDIALOG_TABLE_ROUTE,
     /// @brief add new route
     MID_GNE_CALIBRATORDIALOG_ADD_ROUTE,

@@ -111,9 +111,9 @@ GNEUndoList::p_abort() {
 }
 
 
-void 
+void
 GNEUndoList::p_abortLastCommandGroup() {
-    if(myCommandGroups.size() > 0) {
+    if (myCommandGroups.size() > 0) {
         myCommandGroups.top()->undo();
         myCommandGroups.pop();
         abort();
@@ -156,7 +156,7 @@ GNEUndoList::p_add(GNEChange_Attribute* cmd) {
 
 int
 GNEUndoList::currentCommandGroupSize() const {
-    if(myCommandGroups.size() > 0) {
+    if (myCommandGroups.size() > 0) {
         return myCommandGroups.top()->size();
     } else {
         return 0;

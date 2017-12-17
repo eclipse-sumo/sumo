@@ -75,7 +75,7 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
     mySimplifiedShape(false),
     myCurrentMovingVertexIndex(-1) {
     // check if imgFile is valid
-    if(!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
+    if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
         setImgFile("");
     }
     // set GEO shape
@@ -90,7 +90,7 @@ GNEPoly::~GNEPoly() {}
 
 
 int
-GNEPoly::moveVertexShape(const int index, const Position& oldPos, const Position &offset) {
+GNEPoly::moveVertexShape(const int index, const Position& oldPos, const Position& offset) {
     // only move shape if block movement block shape are disabled
     if (!myBlockMovement && !myBlockShape && (index != -1)) {
         // check that index is correct before change position
@@ -126,7 +126,7 @@ GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset)
         // restore original shape
         myShape = oldShape;
         // change all points of the shape shape using offset
-        for (auto &i : myShape) {
+        for (auto& i : myShape) {
             i.add(offset);
         }
         //  update Geometry after moving
@@ -166,13 +166,13 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
 }
 
 
-void 
+void
 GNEPoly::updateGeometry() {
     // simply refresh element in net
     myNet->refreshElement(this);
 }
 
-void 
+void
 GNEPoly::writeShape(OutputDevice& device) {
     writeXML(device, myGEO);
 }
@@ -184,7 +184,7 @@ GNEPoly::getPositionInView() const {
 }
 
 
-GUIGlID 
+GUIGlID
 GNEPoly::getGlID() const {
     return GUIPolygon::getGlID();
 }
@@ -265,7 +265,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         bool modeMove = myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE;
         Position mousePosition = myNet->getViewNet()->getPositionInformation();
         double distanceToShape = myShape.distance2D(mousePosition);
-        Position PostionOverShapeLine = myShape.size() > 1?myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition)) : myShape[0];
+        Position PostionOverShapeLine = myShape.size() > 1 ? myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition)) : myShape[0];
         // set colors
         RGBColor invertedColor, darkerColor;
         if (selected) {
@@ -329,7 +329,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-int 
+int
 GNEPoly::getVertexIndex(const Position& pos, bool createIfNoExist) {
     // first check if vertex already exists
     for (auto i : myShape) {
@@ -387,8 +387,8 @@ GNEPoly::isPolygonClosed() const {
 }
 
 
-void 
-GNEPoly::setShapeEditedElement(GNENetElement *element) {
+void
+GNEPoly::setShapeEditedElement(GNENetElement* element) {
     if (element) {
         myNetElementShapeEdited = element;
     } else {
@@ -397,7 +397,7 @@ GNEPoly::setShapeEditedElement(GNENetElement *element) {
 }
 
 
-GNENetElement* 
+GNENetElement*
 GNEPoly::getShapeEditedElement() const {
     return myNetElementShapeEdited;
 }
@@ -588,7 +588,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidID(value) && (myNet->retrievePolygon(value, false) == 0);
-        case SUMO_ATTR_SHAPE: 
+        case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_GEOSHAPE: {
             bool ok = true;
             // check if shape can be parsed
@@ -667,11 +667,11 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             // disable simplified shape flag
             mySimplifiedShape = false;
             // update geometry of shape edited element
-            if(myNetElementShapeEdited) {
+            if (myNetElementShapeEdited) {
                 myNetElementShapeEdited->updateGeometry();
             }
             break;
-        }  
+        }
         case SUMO_ATTR_GEOSHAPE: {
             bool ok = true;
             // set new GEO shape
@@ -686,7 +686,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             // disable simplified shape flag
             mySimplifiedShape = false;
             // update geometry of shape edited element
-            if(myNetElementShapeEdited) {
+            if (myNetElementShapeEdited) {
                 myNetElementShapeEdited->updateGeometry();
             }
             break;

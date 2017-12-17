@@ -39,6 +39,7 @@
 /bin/testmicrosim*
 /bin/testnetbuild*
 /bin/*.dll
+/bin/*.so
 /bin/osgPlugins*
 # src dir, mostly configure / make stuff
 /src/config.h

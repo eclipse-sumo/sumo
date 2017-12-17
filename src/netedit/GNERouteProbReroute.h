@@ -57,7 +57,7 @@ public:
     GNERouteProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog);
 
     /// @brief constructor
-    GNERouteProbReroute(GNERerouterInterval* rerouterIntervalParent, const std::string &newRouteId, double probability);
+    GNERouteProbReroute(GNERerouterInterval* rerouterIntervalParent, const std::string& newRouteId, double probability);
 
     /// @brief destructor
     ~GNERouteProbReroute();

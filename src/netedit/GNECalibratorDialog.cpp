@@ -125,7 +125,7 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
 GNECalibratorDialog::~GNECalibratorDialog() {}
 
 
-GNECalibrator* 
+GNECalibrator*
 GNECalibratorDialog::getEditedCalibrator() const {
     return myEditedCalibrator;
 }
@@ -211,7 +211,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
                         WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                     }
                     // remove affected flows of calibrator flows
-                    for(auto j : calibratorFlowsToErase) {
+                    for (auto j : calibratorFlowsToErase) {
                         myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(j, false), true);
                     }
                     // remove route of calibrator routes
@@ -244,7 +244,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
     // only add flow if there is CalibratorRoutes and Calibrator vehicle types
-    if((myEditedCalibrator->getCalibratorRoutes().size() > 0) && (myEditedCalibrator->getCalibratorVehicleTypes().size() > 0)) {
+    if ((myEditedCalibrator->getCalibratorRoutes().size() > 0) && (myEditedCalibrator->getCalibratorVehicleTypes().size() > 0)) {
         // create new calibrator and configure it with GNECalibratorFlowDialog
         GNECalibratorFlowDialog(new GNECalibratorFlow(this), false);
         // update flows table
@@ -322,7 +322,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                         WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                     }
                     // remove affected flows of calibrator flows
-                    for(auto j : calibratorFlowsToErase) {
+                    for (auto j : calibratorFlowsToErase) {
                         myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(j, false), true);
                     }
                     // remove vehicle type of calibrator vehicle types

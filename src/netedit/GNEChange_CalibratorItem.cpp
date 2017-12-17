@@ -76,7 +76,7 @@ GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorVehicleType* cal
 
 
 GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
-    if(myCalibratorFlow) {
+    if (myCalibratorFlow) {
         myCalibratorFlow->decRef("GNEChange_CalibratorItem");
         if (myCalibratorFlow->unreferenced()) {
             // show extra information for tests
@@ -84,12 +84,12 @@ GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
                 WRITE_WARNING("Deleting calibrator flow of calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
             }
             // make sure that calibrator flow isn't in net before removing
-            if(myNet->retrieveCalibratorFlow(myCalibratorFlow->getID(), false)) {
+            if (myNet->retrieveCalibratorFlow(myCalibratorFlow->getID(), false)) {
                 myNet->deleteCalibratorFlow(myCalibratorFlow);
             }
             delete myCalibratorFlow;
         }
-    } else if(myCalibratorRoute) {
+    } else if (myCalibratorRoute) {
         myCalibratorRoute->decRef("GNEChange_CalibratorItem");
         if (myCalibratorRoute->unreferenced()) {
             // show extra information for tests
@@ -97,12 +97,12 @@ GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
                 WRITE_WARNING("Deleting calibrator route of calibrator '" + myCalibratorRoute->getCalibratorParent()->getID() + "'");
             }
             // make sure that calibrator route isn't in net before removing
-            if(myNet->retrieveCalibratorRoute(myCalibratorRoute->getID(), false)) {
+            if (myNet->retrieveCalibratorRoute(myCalibratorRoute->getID(), false)) {
                 myNet->deleteCalibratorRoute(myCalibratorRoute);
             }
             delete myCalibratorRoute;
         }
-    } else if(myCalibratorVehicleType) {
+    } else if (myCalibratorVehicleType) {
         myCalibratorVehicleType->decRef("GNEChange_CalibratorItem");
         if (myCalibratorVehicleType->unreferenced()) {
             // show extra information for tests
@@ -110,7 +110,7 @@ GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
                 WRITE_WARNING("Deleting calibrator vehicle type of calibrator '" + myCalibratorVehicleType->getCalibratorParent()->getID() + "'");
             }
             // make sure that calibrator Vehicle Type isn't in net before removing
-            if(myNet->retrieveCalibratorVehicleType(myCalibratorVehicleType->getID(), false)) {
+            if (myNet->retrieveCalibratorVehicleType(myCalibratorVehicleType->getID(), false)) {
                 myNet->deleteCalibratorVehicleType(myCalibratorVehicleType);
             }
             delete myCalibratorVehicleType;
@@ -122,7 +122,7 @@ GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
 void
 GNEChange_CalibratorItem::undo() {
     if (myForward) {
-        if(myCalibratorFlow) {
+        if (myCalibratorFlow) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing calibrator flow of calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
@@ -150,7 +150,7 @@ GNEChange_CalibratorItem::undo() {
             throw ProcessError("There isn't a defined Calibrator item");
         }
     } else {
-        if(myCalibratorFlow) {
+        if (myCalibratorFlow) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Adding calibrator flow into calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
@@ -186,7 +186,7 @@ GNEChange_CalibratorItem::undo() {
 void
 GNEChange_CalibratorItem::redo() {
     if (myForward) {
-        if(myCalibratorFlow) {
+        if (myCalibratorFlow) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Adding calibrator flow into calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
@@ -214,7 +214,7 @@ GNEChange_CalibratorItem::redo() {
             throw ProcessError("There isn't a defined Calibrator item");
         }
     } else {
-        if(myCalibratorFlow) {
+        if (myCalibratorFlow) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing calibrator flow of calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
@@ -249,7 +249,7 @@ GNEChange_CalibratorItem::redo() {
 
 FXString
 GNEChange_CalibratorItem::undoName() const {
-    if(myCalibratorFlow) {
+    if (myCalibratorFlow) {
         return ("Undo change " + toString(myCalibratorFlow->getTag()) + " values").c_str();
     } else if (myCalibratorRoute) {
         return ("Undo change " + toString(myCalibratorRoute->getTag()) + " values").c_str();
@@ -263,7 +263,7 @@ GNEChange_CalibratorItem::undoName() const {
 
 FXString
 GNEChange_CalibratorItem::redoName() const {
-    if(myCalibratorFlow) {
+    if (myCalibratorFlow) {
         return ("Redo change " + toString(myCalibratorFlow->getTag()) + " values").c_str();
     } else if (myCalibratorRoute) {
         return ("Redo change " + toString(myCalibratorRoute->getTag()) + " values").c_str();

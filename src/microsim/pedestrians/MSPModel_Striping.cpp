@@ -207,7 +207,7 @@ MSPModel_Striping::hasPedestrians(const MSLane* lane) {
 }
 
 
-bool 
+bool
 MSPModel_Striping::usingInternalLanes() {
     return MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
 }
@@ -1293,7 +1293,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                         std::cout << "  mWAPath shape=" << myWalkingAreaPath->shape << " length=" << myWalkingAreaPath->length << "\n";
                     }
                 } else {
-                    // disconnnected route. move to the next edge 
+                    // disconnnected route. move to the next edge
                     if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
                         // try to determine direction from topology, otherwise maintain current direction
                         const MSEdge* currRouteEdge = myStage->getRouteEdge();
@@ -1302,7 +1302,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                                 || nextRouteEdge->getToJunction() == currRouteEdge->getToJunction()) {
                             myDir = BACKWARD;
                         } else if ((nextRouteEdge->getFromJunction() == currRouteEdge->getFromJunction())
-                                || nextRouteEdge->getFromJunction() == currRouteEdge->getToJunction()) {
+                                   || nextRouteEdge->getFromJunction() == currRouteEdge->getToJunction()) {
                             myDir = FORWARD;
                         }
                         myStage->moveToNextEdge(myPerson, currentTime, 0);
@@ -1633,16 +1633,16 @@ MSPModel_Striping::PState::getNextEdge(const MSPerson::MSPersonStage_Walking&) c
     return myNLI.lane == 0 ? 0 : &myNLI.lane->getEdge();
 }
 
-void 
-MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos, 
-        double lanePosLat, double angle, int routeOffset, 
-        const ConstMSEdgeVector& edges, SUMOTime t) {
+void
+MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
+                                    double lanePosLat, double angle, int routeOffset,
+                                    const ConstMSEdgeVector& edges, SUMOTime t) {
     /*
     std::cout << " MSPModel_Striping::PState::moveToXY"
         << " pos=" << pos
-        << " lane=" << lane->getID() 
+        << " lane=" << lane->getID()
         << " lanePos=" << lanePos
-        << " lanePosLat=" << lanePosLat 
+        << " lanePosLat=" << lanePosLat
         << " angle=" << angle
         << " routeOffset=" << routeOffset
         << " myRelX=" << myRelX << " myRelY=" << myRelY;

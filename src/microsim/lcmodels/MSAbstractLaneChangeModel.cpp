@@ -142,10 +142,10 @@ void
 MSAbstractLaneChangeModel::setManeuverDist(const double dist) {
 #ifdef DEBUG_MANEUVER
     if DEBUG_COND {
-        std::cout << SIMTIME
-                  << " veh=" << myVehicle.getID()
-                  << " setManeuverDist() old=" << myManeuverDist << " new=" << dist
-                  << std::endl;
+    std::cout << SIMTIME
+    << " veh=" << myVehicle.getID()
+        << " setManeuverDist() old=" << myManeuverDist << " new=" << dist
+        << std::endl;
     }
 #endif
     myManeuverDist = dist;
@@ -153,7 +153,7 @@ MSAbstractLaneChangeModel::setManeuverDist(const double dist) {
 
 
 double
-MSAbstractLaneChangeModel::getManeuverDist () const {
+MSAbstractLaneChangeModel::getManeuverDist() const {
     return myManeuverDist;
 }
 
@@ -394,8 +394,8 @@ MSAbstractLaneChangeModel::updateShadowLane() {
     }
     if (debugVehicle()) {
         std::cout << SIMTIME << " updateShadowLane() veh=" << myVehicle.getID()
-                                      << " newShadowLane=" << Named::getIDSecure(myShadowLane)
-                                      << "\n   before:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << " further=" << toString(myVehicle.getFurtherLanes()) << " passed=" << toString(passed);
+                  << " newShadowLane=" << Named::getIDSecure(myShadowLane)
+                  << "\n   before:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << " further=" << toString(myVehicle.getFurtherLanes()) << " passed=" << toString(passed);
         std::cout << std::endl;
     }
     myVehicle.updateFurtherLanes(myShadowFurtherLanes, myShadowFurtherLanesPosLat, passed);
@@ -428,8 +428,8 @@ MSAbstractLaneChangeModel::updateTargetLane() {
     std::vector<MSLane*> oldFurtherTargets = myFurtherTargetLanes;
     if (debugVehicle()) {
         std::cout << SIMTIME << " veh '" << myVehicle.getID() << "' (lane=" << myVehicle.getLane()->getID() << ") updateTargetLane()"
-                << "\n   oldTarget: " << (oldTarget==nullptr?"NULL":oldTarget->getID())
-                << " oldFurtherTargets: " << toString(oldFurtherTargets);
+                  << "\n   oldTarget: " << (oldTarget == nullptr ? "NULL" : oldTarget->getID())
+                  << " oldFurtherTargets: " << toString(oldFurtherTargets);
     }
 #endif
     if (myTargetLane != nullptr) {
@@ -437,7 +437,7 @@ MSAbstractLaneChangeModel::updateTargetLane() {
     }
     // Clear old further target lanes
     for (MSLane* oldTargetLane : myFurtherTargetLanes) {
-        if (oldTargetLane!=nullptr) {
+        if (oldTargetLane != nullptr) {
             oldTargetLane->resetManeuverReservation(&myVehicle);
         }
     }
@@ -460,9 +460,9 @@ MSAbstractLaneChangeModel::updateTargetLane() {
     }
 #ifdef DEBUG_TARGET_LANE
     if (debugVehicle()) {
-        std::cout << "\n   newTarget (offset=" << targetDir << "): " <<  (myTargetLane==nullptr?"NULL":myTargetLane->getID())
-                << " newFurtherTargets: " << toString(myFurtherTargetLanes)
-                << std::endl;
+        std::cout << "\n   newTarget (offset=" << targetDir << "): " << (myTargetLane == nullptr ? "NULL" : myTargetLane->getID())
+                  << " newFurtherTargets: " << toString(myFurtherTargetLanes)
+                  << std::endl;
     }
 #endif
 }
@@ -475,9 +475,9 @@ MSAbstractLaneChangeModel::determineTargetLane(int& targetDir) const {
         return nullptr;
     }
     // Current lateral boundaries of the vehicle
-    const double vehRight = myVehicle.getLateralPositionOnLane() - 0.5*myVehicle.getWidth();
-    const double vehLeft = myVehicle.getLateralPositionOnLane() + 0.5*myVehicle.getWidth();
-    const double halfLaneWidth = 0.5*myVehicle.getLane()->getWidth();
+    const double vehRight = myVehicle.getLateralPositionOnLane() - 0.5 * myVehicle.getWidth();
+    const double vehLeft = myVehicle.getLateralPositionOnLane() + 0.5 * myVehicle.getWidth();
+    const double halfLaneWidth = 0.5 * myVehicle.getLane()->getWidth();
 
     if (vehRight + myManeuverDist < -halfLaneWidth) {
         // Vehicle intends to traverse the right lane boundary
@@ -545,7 +545,7 @@ MSAbstractLaneChangeModel::checkTraCICommands() {
                 if ((newstate & LCA_STAY) != 0) {
                     setManeuverDist(0.);
                 } else if (((newstate & LCA_RIGHT) != 0 && dir < 0)
-                        || ((newstate & LCA_LEFT) != 0 && dir > 0)) {
+                           || ((newstate & LCA_LEFT) != 0 && dir > 0)) {
                     setManeuverDist(latLaneDist);
                 }
             }
@@ -566,7 +566,9 @@ MSAbstractLaneChangeModel::checkTraCICommands() {
             if (myOwnState != newstate) {
                 setOwnState(newstate);
             }
-            if (gDebugFlag2) std::cout << "     traci influenced maneuverDist=" << maneuverDist << "\n";
+            if (gDebugFlag2) {
+                std::cout << "     traci influenced maneuverDist=" << maneuverDist << "\n";
+            }
         }
     }
     if (DEBUG_COND) {
@@ -599,7 +601,7 @@ MSAbstractLaneChangeModel::setLeaderGaps(CLeaderDist leader, double secGap) {
 void
 MSAbstractLaneChangeModel::setOrigLeaderGaps(CLeaderDist leader, double secGap) {
     if (leader.first != 0) {
-        myLastOrigLeaderGap= leader.second + myVehicle.getVehicleType().getMinGap();
+        myLastOrigLeaderGap = leader.second + myVehicle.getVehicleType().getMinGap();
         myLastOrigLeaderSecureGap = secGap;
     }
 }

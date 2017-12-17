@@ -65,19 +65,19 @@ public:
 protected:
     /// @brief write normal edge to device
     static void writeNormalEdge(OutputDevice& device, const NBEdge* e,
-            int edgeID, int fromNodeID, int toNodeID,
-            const bool origNames,
-            const double straightThresh);
+                                int edgeID, int fromNodeID, int toNodeID,
+                                const bool origNames,
+                                const double straightThresh);
 
     /// @brief write internal edge to device, return next connectionID
-    static int writeInternalEdge(OutputDevice& device, OutputDevice& junctionDevice, 
-            const NBEdge* inEdge, int nodeID,
-            int edgeID, int inEdgeID, int outEdgeID,
-            int connectionID,
-            const std::vector<NBEdge::Connection>& parallel,
-            const bool isOuterEdge,
-            const double straightThresh,
-            const std::string& centerMark);
+    static int writeInternalEdge(OutputDevice& device, OutputDevice& junctionDevice,
+                                 const NBEdge* inEdge, int nodeID,
+                                 int edgeID, int inEdgeID, int outEdgeID,
+                                 int connectionID,
+                                 const std::vector<NBEdge::Connection>& parallel,
+                                 const bool isOuterEdge,
+                                 const double straightThresh,
+                                 const std::string& centerMark);
 
     static void addPedestrianConnection(const NBEdge* inEdge, const NBEdge* outEdge, std::vector<NBEdge::Connection>& parallel);
 

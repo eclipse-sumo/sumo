@@ -63,8 +63,8 @@ NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont& nc,
     myNodeCont(nc),
     myTLLogicCont(tlc),
     myLocation(0),
-    myLastParameterised(0)
-{ }
+    myLastParameterised(0) {
+}
 
 
 NIXMLNodesHandler::~NIXMLNodesHandler() {

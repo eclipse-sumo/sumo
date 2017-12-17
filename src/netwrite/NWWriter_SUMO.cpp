@@ -429,7 +429,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     if (accelRamp) {
         into.writeAttr<bool>(SUMO_ATTR_ACCELERATION, accelRamp);
     }
-     if (customShape) {
+    if (customShape) {
         into.writeAttr(SUMO_ATTR_CUSTOMSHAPE, true);
     }
     into.writeAttr(SUMO_ATTR_SHAPE, endOffset > 0 ?
@@ -651,7 +651,7 @@ NWWriter_SUMO::writeInternalConnections(OutputDevice& into, const NBNode& n) {
 void
 NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
                                        const std::string& from, const std::string& to,
-                                       int fromLane, int toLane, const std::string& via, 
+                                       int fromLane, int toLane, const std::string& via,
                                        LinkDirection dir) {
     into.openTag(SUMO_TAG_CONNECTION);
     into.writeAttr(SUMO_ATTR_FROM, from);

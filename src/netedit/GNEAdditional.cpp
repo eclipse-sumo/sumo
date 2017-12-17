@@ -70,7 +70,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
 }
 
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, GNEAdditional *additionalParent) :
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, GNEAdditional* additionalParent) :
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
@@ -170,7 +170,7 @@ GNEAdditional::removeAdditionalChild(GNEAdditional* additional) {
 }
 
 
-const std::vector<GNEAdditional*>& 
+const std::vector<GNEAdditional*>&
 GNEAdditional::getAdditionalChilds() const {
     return myAdditionalChilds;
 }
@@ -262,7 +262,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildSelectionPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
     // show option to open additional dialog
-    if(canOpenDialog(getTag())) {
+    if (canOpenDialog(getTag())) {
         new FXMenuCommand(ret, ("Open " + toString(getTag()) + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
@@ -270,7 +270,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     std::vector<SumoXMLAttr> attributes = getAttrs();
     // Show position parameters
     if (hasAttribute(getTag(), SUMO_ATTR_LANE)) {
-        GNELane *lane = myViewNet->getNet()->retrieveLane(getAttribute(SUMO_ATTR_LANE));
+        GNELane* lane = myViewNet->getNet()->retrieveLane(getAttribute(SUMO_ATTR_LANE));
         // Show menu command inner position
         const double innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
         new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), 0, 0, 0);
@@ -280,7 +280,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             new FXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), 0, 0, 0);
         }
     } else if (hasAttribute(getTag(), SUMO_ATTR_EDGE)) {
-        GNEEdge *edge = myViewNet->getNet()->retrieveEdge(getAttribute(SUMO_ATTR_EDGE));
+        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(getAttribute(SUMO_ATTR_EDGE));
         // Show menu command inner position
         const double innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
         new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), 0, 0, 0);
@@ -320,40 +320,40 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 Boundary
 GNEAdditional::getCenteringBoundary() const {
     // Return Boundary depenpding of myShape
-    if(myShape.size() > 0) {
+    if (myShape.size() > 0) {
         Boundary b = myShape.getBoxBoundary();
         b.grow(20);
         return b;
     } else {
-        return Boundary(-0.1, 0.1, 0,1, 0,1);
+        return Boundary(-0.1, 0.1, 0, 1, 0, 1);
     }
 }
 
 
-bool 
-GNEAdditional::isRouteValid(const std::vector<GNEEdge*> &edges, bool report) {
-    if(edges.size() == 0) {
+bool
+GNEAdditional::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) {
+    if (edges.size() == 0) {
         // routes cannot be empty
         return false;
-    } else if(edges.size() == 1) {
+    } else if (edges.size() == 1) {
         // routes with a single edge are valid
         return true;
     } else {
         // iterate over edges to check that compounds a chain
         auto it = edges.begin();
         while (it != edges.end() - 1) {
-            GNEEdge *currentEdge = *it;
-            GNEEdge *nextEdge = *(it+1);
+            GNEEdge* currentEdge = *it;
+            GNEEdge* nextEdge = *(it + 1);
             // consecutive edges aren't allowed
-            if(currentEdge->getID() == nextEdge->getID()) {
+            if (currentEdge->getID() == nextEdge->getID()) {
                 return false;
             }
             // make sure that edges are consecutives
-            if(std::find(currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().begin(),
-                currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end(),
-                nextEdge) == currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end()) {
-                if(report) {
-                    WRITE_WARNING("Parameter 'Route' invalid. " + toString(currentEdge->getTag()) + " '" + currentEdge->getID() + 
+            if (std::find(currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().begin(),
+                          currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end(),
+                          nextEdge) == currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end()) {
+                if (report) {
+                    WRITE_WARNING("Parameter 'Route' invalid. " + toString(currentEdge->getTag()) + " '" + currentEdge->getID() +
                                   "' ins't consecutive to " + toString(nextEdge->getTag()) + " '" + nextEdge->getID() + "'");
                 }
                 return false;
@@ -366,7 +366,7 @@ GNEAdditional::isRouteValid(const std::vector<GNEEdge*> &edges, bool report) {
 
 
 void
-GNEAdditional::setBlockIconRotation(GNELane *additionalLane) {
+GNEAdditional::setBlockIconRotation(GNELane* additionalLane) {
     if (myShape.size() > 0 && myShape.length() != 0) {
         // If length of the shape is distint to 0, Obtain rotation of center of shape
         myBlockIconRotation = myShape.rotationDegreeAtOffset((myShape.length() / 2.)) - 90;
@@ -434,17 +434,17 @@ GNEAdditional::updateChildConnections() {
 
     // calculate position and rotation of every simbol for every edge
     for (auto i : myEdgeChilds) {
-        for(auto j : i->getLanes()) {
+        for (auto j : i->getLanes()) {
             std::pair<Position, double> posRot;
             // set position and lenght depending of shape's lengt
-            if(j->getShape().length() - 6 > 0) {
+            if (j->getShape().length() - 6 > 0) {
                 posRot.first = j->getShape().positionAtOffset(j->getShape().length() - 6);
                 posRot.second = j->getShape().rotationDegreeAtOffset(j->getShape().length() - 6);
             } else {
                 posRot.first = j->getShape().positionAtOffset(j->getShape().length());
                 posRot.second = j->getShape().rotationDegreeAtOffset(j->getShape().length());
             }
-            mySymbolsPositionAndRotation.push_back(posRot); 
+            mySymbolsPositionAndRotation.push_back(posRot);
         }
     }
 
@@ -452,14 +452,14 @@ GNEAdditional::updateChildConnections() {
     for (auto i : myLaneChilds) {
         std::pair<Position, double> posRot;
         // set position and lenght depending of shape's lengt
-        if(i->getShape().length() - 6 > 0) {
+        if (i->getShape().length() - 6 > 0) {
             posRot.first = i->getShape().positionAtOffset(i->getShape().length() - 6);
             posRot.second = i->getShape().rotationDegreeAtOffset(i->getShape().length() - 6);
         } else {
             posRot.first = i->getShape().positionAtOffset(i->getShape().length());
             posRot.second = i->getShape().rotationDegreeAtOffset(i->getShape().length());
         }
-        mySymbolsPositionAndRotation.push_back(posRot); 
+        mySymbolsPositionAndRotation.push_back(posRot);
     }
 
     // calculate position for every additional child
@@ -548,9 +548,9 @@ GNEAdditional::isValidAdditionalID(const std::string& newID) const {
 }
 
 
-void 
-GNEAdditional::changeAdditionalID(const std::string & newID) {
-    if(myViewNet->getNet()->getAdditional(getTag(), newID) != NULL) {
+void
+GNEAdditional::changeAdditionalID(const std::string& newID) {
+    if (myViewNet->getNet()->getAdditional(getTag(), newID) != NULL) {
         throw InvalidArgument("An Additional with tag " + toString(getTag()) + " and ID = " + newID + " already exists");
     } else if (isValidID(newID) == false) {
         throw InvalidArgument("Additional ID " + newID + " contains invalid characters");
@@ -566,7 +566,7 @@ GNEAdditional::changeAdditionalID(const std::string & newID) {
 
 
 GNEEdge*
-GNEAdditional::changeEdge(GNEEdge *oldEdge, const std::string& newEdgeID) {
+GNEAdditional::changeEdge(GNEEdge* oldEdge, const std::string& newEdgeID) {
     if (oldEdge == NULL) {
         throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't belong to an " + toString(SUMO_TAG_EDGE));
     } else {
@@ -580,7 +580,7 @@ GNEAdditional::changeEdge(GNEEdge *oldEdge, const std::string& newEdgeID) {
 
 
 GNELane*
-GNEAdditional::changeLane(GNELane *oldLane, const std::string& newLaneID) {
+GNEAdditional::changeLane(GNELane* oldLane, const std::string& newLaneID) {
     if (oldLane == NULL) {
         throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't belong to a " + toString(SUMO_TAG_LANE));
     } else {
@@ -593,9 +593,9 @@ GNEAdditional::changeLane(GNELane *oldLane, const std::string& newLaneID) {
 }
 
 
-void 
+void
 GNEAdditional::changeAdditionalParent(const std::string& newAdditionalParentID) {
-    if(myAdditionalParent == NULL) {
+    if (myAdditionalParent == NULL) {
         throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't have an additional parent");
     } else {
         // remove this additional of the childs of parent additional

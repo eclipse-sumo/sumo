@@ -56,8 +56,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, 
-    double pos, double freq, const std::string& filename, bool friendlyPos, GNEAdditional *additionalParent) :
+GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane,
+                         double pos, double freq, const std::string& filename, bool friendlyPos, GNEAdditional* additionalParent) :
     GNEAdditional(id, viewNet, tag, icon, true, additionalParent),
     myLane(lane),
     myPositionOverLane(pos / lane->getLaneParametricLength()),
@@ -76,14 +76,14 @@ GNEDetector::getLane() const {
 }
 
 
-double 
+double
 GNEDetector::getAbsolutePositionOverLane() const {
     return myPositionOverLane * myLane->getLaneParametricLength();
 }
 
 
 void
-GNEDetector::moveGeometry(const Position& oldPos, const Position &offset) {
+GNEDetector::moveGeometry(const Position& oldPos, const Position& offset) {
     // Calculate new position using old position
     Position newPosition = oldPos;
     newPosition.add(offset);
@@ -105,7 +105,7 @@ GNEDetector::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList)
 }
 
 
-Position 
+Position
 GNEDetector::getPositionInView() const {
     return myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length());
 }

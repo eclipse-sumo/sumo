@@ -41,22 +41,22 @@
 NBParking::NBParking(const std::string& id, const std::string& edgeID, const std::string& name) :
     Named(id),
     myEdgeID(edgeID),
-    myName(name)
-{}
+    myName(name) {
+}
 
-void 
+void
 NBParking::write(OutputDevice& device, NBEdgeCont& ec) const {
     const NBEdge* e = ec.retrieve(myEdgeID);
     if (e != nullptr) {
         if ((e->getPermissions() & SVC_PASSENGER) == 0) {
-            WRITE_WARNING("Ignoring parking area on edge '" + e->getID() + "' due to invalid permissions."); 
+            WRITE_WARNING("Ignoring parking area on edge '" + e->getID() + "' due to invalid permissions.");
             return;
         }
         // keep minimum distance of 5m to junction corners
         const int cornerDistance = 5;
         int capacity = (int)((e->getFinalLength() - 2 * cornerDistance) / 7.5);
         if (capacity <= 0) {
-            WRITE_WARNING("Ignoring parking area on edge '" + e->getID() + "' due to insufficient space."); 
+            WRITE_WARNING("Ignoring parking area on edge '" + e->getID() + "' due to insufficient space.");
             return;
         }
         int lane = 0;
@@ -82,7 +82,7 @@ NBParking::write(OutputDevice& device, NBEdgeCont& ec) const {
 }
 
 
-void 
+void
 NBParkingCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) {
     if (oc.isSet("parking-output")) {
         for (NBParking& p : *this) {

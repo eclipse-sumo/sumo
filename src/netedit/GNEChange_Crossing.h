@@ -63,8 +63,8 @@ public:
      * @param[in] check if in the moment of change connection was selected
      * @param[in] forward Whether to create/delete (true/false)
      */
-    GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges, double width, 
-            bool priority, int customTLIndex, const PositionVector& customShape, bool selected, bool forward);
+    GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges, double width,
+                       bool priority, int customTLIndex, const PositionVector& customShape, bool selected, bool forward);
 
     /// @brief Destructor
     ~GNEChange_Crossing();

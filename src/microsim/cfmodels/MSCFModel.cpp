@@ -141,12 +141,12 @@ MSCFModel::freeSpeed(const double currentSpeed, const double decel, const double
         // If implied accel a leads to v0 + a*asl < vT, choose acceleration s.th. v0 + a*asl = vT
         if (0.5 * (v0 + vT)*dt >= d) {
             // Attain vT after time asl
-            return v0 + TS*(vT-v0)/actionStepLength;
+            return v0 + TS * (vT - v0) / actionStepLength;
         } else {
             const double q = ((dt * v0 - 2 * d) * b - vT * vT); // (q < 0 is fulfilled because of (#))
             const double p = 0.5 * b * dt;
             const double vN = -p + sqrt(p * p - q); // target speed at time t0+asl
-            return v0 + TS*(vN-v0)/actionStepLength;
+            return v0 + TS * (vN - v0) / actionStepLength;
         }
     }
 }
@@ -162,7 +162,7 @@ MSCFModel::moveHelper(MSVehicle* const veh, double vPos) const {
     double vMin, vNext;
     // aMax: Maximal admissible acceleration until the next action step, such that the vehicle's maximal
     // desired speed on the current lane will not be exceeded.
-    double aMax = (veh->getMaxSpeedOnLane()-oldV)/veh->getActionStepLengthSecs();
+    double aMax = (veh->getMaxSpeedOnLane() - oldV) / veh->getActionStepLengthSecs();
     const double vMax = MIN3(oldV + ACCEL2SPEED(aMax), maxNextSpeed(oldV, veh), vSafe);
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         // we cannot rely on never braking harder than maxDecel because TraCI or strange cf models may decide to do so
@@ -305,7 +305,7 @@ MSCFModel::followSpeedTransient(double duration, const MSVehicle* const /*veh*/,
 double
 MSCFModel::distAfterTime(double t, double speed, const double accel) {
     if (accel >= 0.) {
-        return (speed + 0.5*accel*t)*t;
+        return (speed + 0.5 * accel * t) * t;
     }
     const double decel = -accel;
     if (speed <= decel * t) {
@@ -383,26 +383,28 @@ double
 MSCFModel::estimateArrivalTime(double dist, double initialSpeed, double arrivalSpeed, double maxSpeed, double accel, double decel) {
     UNUSED_PARAMETER(arrivalSpeed); // only in assertion
     UNUSED_PARAMETER(decel); // only in assertion
-    if(dist<=0) return 0.;
+    if (dist <= 0) {
+        return 0.;
+    }
 
     // stub-assumptions
-    assert(accel==decel);
-    assert(accel>0);
-    assert(initialSpeed==0);
-    assert(arrivalSpeed==0);
-    assert(maxSpeed>0);
+    assert(accel == decel);
+    assert(accel > 0);
+    assert(initialSpeed == 0);
+    assert(arrivalSpeed == 0);
+    assert(maxSpeed > 0);
 
 
-    double accelTime = (maxSpeed-initialSpeed)/accel;
+    double accelTime = (maxSpeed - initialSpeed) / accel;
     // "ballistic" estimate for the distance covered during acceleration phase
-    double accelDist = accelTime*(initialSpeed + 0.5*(maxSpeed-initialSpeed));
+    double accelDist = accelTime * (initialSpeed + 0.5 * (maxSpeed - initialSpeed));
     double arrivalTime;
-    if (accelDist >= dist*0.5){
+    if (accelDist >= dist * 0.5) {
         // maximal speed will not be attained during maneuver
-        arrivalTime = 4*sqrt(accelDist)/accel;
+        arrivalTime = 4 * sqrt(accelDist) / accel;
     } else {
         // Calculate time to move with constant, maximal lateral speed
-        const double constSpeedTime = (dist-accelDist*2)/maxSpeed;
+        const double constSpeedTime = (dist - accelDist * 2) / maxSpeed;
         arrivalTime = accelTime + constSpeedTime;
     }
     return arrivalTime;
@@ -411,17 +413,17 @@ MSCFModel::estimateArrivalTime(double dist, double initialSpeed, double arrivalS
 
 double
 MSCFModel::avoidArrivalAccel(double dist, double time, double speed) {
-    assert(time>0 || dist==0);
-    if (dist<=0) {
+    assert(time > 0 || dist == 0);
+    if (dist <= 0) {
         return -std::numeric_limits<double>::max();
-    } else if (time*speed > 2*dist) {
+    } else if (time * speed > 2 * dist) {
         // stop before dist is necessary. We need
         //            d = v*v/(2*a)
-        return - 0.5*speed*speed/dist;
+        return - 0.5 * speed * speed / dist;
     } else {
         // we seek the solution a of
         //            d = v*t + a*t*t/2
-        return 2*(dist/time - speed)/time;
+        return 2 * (dist / time - speed) / time;
     }
 }
 

@@ -334,12 +334,12 @@ MSTransportable::Stage_Driving::getEdges() const {
 
 void
 MSTransportable::Stage_Driving::setArrived(SUMOTime now) {
-    MSTransportable::Stage::setArrived(now); 
+    MSTransportable::Stage::setArrived(now);
     if (myVehicle != 0) {
         // distance was previously set to driven distance upon embarking
         myVehicleDistance = myVehicle->getRoute().getDistanceBetween(
-                myVehicle->getDepartPos(), myVehicle->getPositionOnLane(), 
-                myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge()) - myVehicleDistance;
+                                myVehicle->getDepartPos(), myVehicle->getPositionOnLane(),
+                                myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge()) - myVehicleDistance;
     } else {
         myVehicleDistance = -1;
     }
@@ -349,11 +349,11 @@ void
 MSTransportable::Stage_Driving::setVehicle(SUMOVehicle* v) {
     myVehicle = v;
     myVehicleID = v->getID();
-    myVehicleLine = v->getParameter().line; 
+    myVehicleLine = v->getParameter().line;
     myVehicleVClass = v->getVClass();
     myVehicleDistance = myVehicle->getRoute().getDistanceBetween(
-            myVehicle->getDepartPos(), myVehicle->getPositionOnLane(), 
-            myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge());
+                            myVehicle->getDepartPos(), myVehicle->getPositionOnLane(),
+                            myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge());
 }
 
 
@@ -368,11 +368,11 @@ MSTransportable::Stage_Driving::abort(MSTransportable* t) {
 
 std::string
 MSTransportable::Stage_Driving::getWaitingDescription() const {
-    return isWaiting4Vehicle() ? ("waiting for " + joinToString(myLines, ",") 
-            + " at " + (myDestinationStop == 0 
-                ? ("edge '" + myWaitingEdge->getID() + "'")
-                : ("busStop '" + myDestinationStop->getID() + "'"))
-            ) : "";
+    return isWaiting4Vehicle() ? ("waiting for " + joinToString(myLines, ",")
+                                  + " at " + (myDestinationStop == 0
+                                          ? ("edge '" + myWaitingEdge->getID() + "'")
+                                          : ("busStop '" + myDestinationStop->getID() + "'"))
+                                 ) : "";
 }
 
 

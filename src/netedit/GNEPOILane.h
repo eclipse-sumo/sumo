@@ -69,8 +69,8 @@ public:
     * @param[in] height The height of the POI image
     * @param[in] movementBlocked if movement of POI is blocked
     */
-    GNEPOILane(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, 
-               double layer, double angle, const std::string& imgFile, GNELane *lane, double posOverLane, 
+    GNEPOILane(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
+               double layer, double angle, const std::string& imgFile, GNELane* lane, double posOverLane,
                double posLat, double width, double height, bool movementBlocked);
 
     /// @brief Destructor
@@ -80,7 +80,7 @@ public:
     * @param[in] newPosition new position of geometry
     * @note should't be called in drawGL(...) functions to avoid smoothness issues
     */
-    void moveGeometry(const Position& oldPos, const Position &offset);
+    void moveGeometry(const Position& oldPos, const Position& offset);
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
     * @param[in] oldPos the old position of additional
@@ -89,7 +89,7 @@ public:
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /// @brief get GNELane
-    GNELane *getLane() const;
+    GNELane* getLane() const;
 
     /// @name inherited from GNEShape
     /// @{

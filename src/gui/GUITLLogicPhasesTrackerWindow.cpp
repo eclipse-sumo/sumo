@@ -320,7 +320,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         // draw the name
         if (i < (int)myTLLogic->getLinks().size()) {
             glTranslated(0, h - h20, 0);
-            GLHelper::drawText(myLinkNames[i], Position(0,0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_BOTTOM, fontWidth);
+            GLHelper::drawText(myLinkNames[i], Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_BOTTOM, fontWidth);
             glTranslated(0, -h + h20, 0);
             h2 += 20;
         }
@@ -427,7 +427,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             const std::string timeStr = time2string(currTime);
             const double w = 50 / width;
             glTranslated(glpos - w / 2., glh - h20, 0);
-            GLHelper::drawText(timeStr, Position(0,0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+            GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
             glTranslated(-glpos + w / 2., -glh + h20, 0);
 
             glBegin(GL_LINES);

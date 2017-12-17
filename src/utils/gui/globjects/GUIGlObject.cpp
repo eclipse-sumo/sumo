@@ -273,8 +273,8 @@ GUIGlObject::setPrefix(const std::string& prefix) {
 }
 
 
-void 
-GUIGlObject::buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string &type) {
+void
+GUIGlObject::buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string& type) {
     assert(ret);
     // build header (<tag>:<ID>
     buildPopupHeader(ret, app, false);
@@ -289,15 +289,15 @@ GUIGlObject::buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* re
     // build copy cursor position to clipboard
     buildPositionCopyEntry(ret, false);
     // only show type if isn't empty
-    if(type != "") {
+    if (type != "") {
         new FXMenuCommand(ret, ("type: " + type + "").c_str(), 0, 0, 0);
         new FXMenuSeparator(ret);
     }
 }
 
 
-void 
-GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string &type) {
+void
+GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string& type) {
     assert(ret);
     // build header (<tag>:<ID>
     buildPopupHeader(ret, app, false);
@@ -312,7 +312,7 @@ GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMe
     // build copy cursor position to clipboard
     buildPositionCopyEntry(ret, false);
     // only show type if isn't empty
-    if(type != "") {
+    if (type != "") {
         new FXMenuCommand(ret, ("type: " + type + "").c_str(), 0, 0, 0);
         new FXMenuSeparator(ret);
     }

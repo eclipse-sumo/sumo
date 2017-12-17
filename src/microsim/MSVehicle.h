@@ -335,7 +335,7 @@ public:
      *  @param[in] timeUntilNextAction time interval from now for the next action, defaults to 0, which
      *             implies an immediate action point in the current step.
      */
-    void resetActionOffset(const SUMOTime timeUntilNextAction=0);
+    void resetActionOffset(const SUMOTime timeUntilNextAction = 0);
 
 
     /** @brief Process an updated action step length value (only affects the vehicle's *action offset*,
@@ -599,7 +599,7 @@ public:
      * @return Whether the vehicle has scheduled an action point for the next step.
      */
     inline bool isActionStep(SUMOTime t) const {
-        return (t - myLastActionTime)%getActionStepLength() == 0;
+        return (t - myLastActionTime) % getActionStepLength() == 0;
 //        return t%getActionStepLength() == 0; // synchronized actions for all vehicles with identical actionsteplengths
     }
 
@@ -698,7 +698,7 @@ public:
     double computeAngle() const;
 
     /// @brief Set a custom vehicle angle in rad, optionally updates furtherLanePosLat
-    void setAngle(double angle, bool straightenFurther=false);
+    void setAngle(double angle, bool straightenFurther = false);
 
     /** Returns true if the two vehicles overlap. */
     static bool overlap(const MSVehicle* veh1, const MSVehicle* veh2) {

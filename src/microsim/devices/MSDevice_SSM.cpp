@@ -179,7 +179,7 @@ MSDevice_SSM::cleanup() {
         }
         instances->clear();
     }
-    for (auto& fn : createdOutputFiles){
+    for (auto& fn : createdOutputFiles) {
         OutputDevice* file = &OutputDevice::getDevice(fn);
         file->closeTag();
     }
@@ -2137,7 +2137,7 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
     myOutputFile = &OutputDevice::getDevice(outputFilename);
 //    TODO: make xsd, include header
 //    myOutputFile.writeXMLHeader("SSMLog", "SSMLog.xsd");
-    if (createdOutputFiles.count(outputFilename) == 0){
+    if (createdOutputFiles.count(outputFilename) == 0) {
         myOutputFile->openTag("SSMLog");
         createdOutputFiles.insert(outputFilename);
     }

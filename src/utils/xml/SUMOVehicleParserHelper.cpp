@@ -138,9 +138,9 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     }
     if (attrs.hasAttribute(SUMO_ATTR_END)) {
         ret->repetitionEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok);
-    } else if (!attrs.hasAttribute(SUMO_ATTR_NUMBER) && 
-            // see SUMOTIME_MAXSTRING (which differs slightly from SUMOTime_MAX)
-            (endDefault >= TIME2STEPS(9223372036854773) || endDefault < 0)) {
+    } else if (!attrs.hasAttribute(SUMO_ATTR_NUMBER) &&
+               // see SUMOTIME_MAXSTRING (which differs slightly from SUMOTime_MAX)
+               (endDefault >= TIME2STEPS(9223372036854773) || endDefault < 0)) {
         WRITE_WARNING("Undefined end for flow '" + id + "', defaulting to 24hour duration.");
         ret->repetitionEnd = ret->depart + TIME2STEPS(24 * 3600);
     }
@@ -380,7 +380,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
     }
     if (attrs.hasAttribute(SUMO_ATTR_ACTIONSTEPLENGTH)) {
         double actionStepLengthSecs = attrs.get<double>(SUMO_ATTR_ACTIONSTEPLENGTH, vtype->id.c_str(), ok);
-        vtype->actionStepLength= processActionStepLength(actionStepLengthSecs);
+        vtype->actionStepLength = processActionStepLength(actionStepLengthSecs);
         vtype->parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_EMISSIONCLASS)) {
@@ -782,18 +782,18 @@ SUMOVehicleParserHelper::processActionStepLength(double given) {
         if (result < 0) {
             std::stringstream ss;
             ss << "The parameter action-step-length must be a non-negative multiple of the simulation step-length. Ignoring given value (="
-                    <<  STEPS2TIME(result) << " s.)";
+               <<  STEPS2TIME(result) << " s.)";
             WRITE_WARNING(ss.str());
         }
         result = DELTA_T;
     } else if (result % DELTA_T != 0) {
         std::stringstream ss;
-        result = (SUMOTime)(DELTA_T*floor(double(result)/double(DELTA_T)));
+        result = (SUMOTime)(DELTA_T * floor(double(result) / double(DELTA_T)));
         result = MAX2(DELTA_T, result);
-        if (fabs(given*1000. - double(result)) > NUMERICAL_EPS) {
+        if (fabs(given * 1000. - double(result)) > NUMERICAL_EPS) {
             ss << "The parameter action-step-length must be a non-negative multiple of the simulation step-length. Parsing given value ("
-                    << given << " s.) to the adjusted value "
-                    <<  STEPS2TIME(result) << " s.";
+               << given << " s.) to the adjusted value "
+               <<  STEPS2TIME(result) << " s.";
             WRITE_WARNING(ss.str());
         }
     }

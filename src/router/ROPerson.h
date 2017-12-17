@@ -193,10 +193,10 @@ public:
              double departPos = std::numeric_limits<double>::infinity(),
              double arrivalPos = std::numeric_limits<double>::infinity(),
              const std::string& _destStop = "")
-             : TripItem(_cost), edges(_edges), dur(-1), v(-1), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
+            : TripItem(_cost), edges(_edges), dur(-1), v(-1), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
         Walk(const ConstROEdgeVector& edges, const double _cost, const double duration, const double speed,
              const double departPos, const double arrivalPos, const std::string& _destStop)
-             : TripItem(_cost), edges(edges), dur(duration), v(speed), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
+            : TripItem(_cost), edges(edges), dur(duration), v(speed), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
         const ROEdge* getOrigin() const {
             return edges.front();
         }

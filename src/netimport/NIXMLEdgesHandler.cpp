@@ -63,7 +63,7 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont& nc,
                                      NBTypeCont& tc,
                                      NBDistrictCont& dc,
                                      NBTrafficLightLogicCont& tlc,
-                                     OptionsCont& options) : 
+                                     OptionsCont& options) :
     SUMOSAXHandler("xml-edges - file"),
     myOptions(options),
     myNodeCont(nc),

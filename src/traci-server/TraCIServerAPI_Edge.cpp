@@ -72,7 +72,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             && variable != LAST_STEP_VEHICLE_ID_LIST && variable != ID_COUNT && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
                                           "Get Edge Variable: unsupported variable " + toHex(variable, 2)
-                                                  + " specified", outputStorage);
+                                          + " specified", outputStorage);
     }
     // begin response building
     tcpip::Storage tempMsg;
@@ -86,133 +86,135 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
         if (variable == ID_LIST) {
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             tempMsg.writeStringList(libsumo::Edge::getIDList());
-        } else if (variable == ID_COUNT) { ;
+        } else if (variable == ID_COUNT) {
+            ;
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt(libsumo::Edge::getIDCount());
         } else {
             switch (variable) {
-            case VAR_EDGE_TRAVELTIME: {
-                // time
-                int time = 0;
-                if (!server.readTypeCheckingInt(inputStorage, time)) {
-                    return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
-                                                      "The message must contain the time definition.", outputStorage);
+                case VAR_EDGE_TRAVELTIME: {
+                    // time
+                    int time = 0;
+                    if (!server.readTypeCheckingInt(inputStorage, time)) {
+                        return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
+                                                          "The message must contain the time definition.", outputStorage);
+                    }
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(libsumo::Edge::retrieveExistingTravelTime(id, time));
                 }
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::Edge::retrieveExistingTravelTime(id, time));
-            }
                 break;
-            case VAR_EDGE_EFFORT: {
-                // time
-                int time = 0;
-                if (!server.readTypeCheckingInt(inputStorage, time)) {
-                    return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
-                                                      "The message must contain the time definition.", outputStorage);
+                case VAR_EDGE_EFFORT: {
+                    // time
+                    int time = 0;
+                    if (!server.readTypeCheckingInt(inputStorage, time)) {
+                        return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
+                                                          "The message must contain the time definition.", outputStorage);
+                    }
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(libsumo::Edge::retrieveExistingEffort(id, time));
                 }
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::Edge::retrieveExistingEffort(id, time));
-            }
                 break;
-            case VAR_CURRENT_TRAVELTIME:tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::Edge::getCurrentTravelTime(id));
+                case VAR_CURRENT_TRAVELTIME:
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(libsumo::Edge::getCurrentTravelTime(id));
+                    break;
+                case VAR_WAITING_TIME: {
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(libsumo::Edge::getWaitingSeconds(id));
+                }
                 break;
-            case VAR_WAITING_TIME: {
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::Edge::getWaitingSeconds(id));
-            }
+                case LAST_STEP_PERSON_ID_LIST: {
+                    tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                    tempMsg.writeStringList(libsumo::Edge::getPersonIDs(id));
+                }
                 break;
-            case LAST_STEP_PERSON_ID_LIST: {
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(libsumo::Edge::getPersonIDs(id));
-            }
+                case LAST_STEP_VEHICLE_ID_LIST: {
+                    tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                    tempMsg.writeStringList(libsumo::Edge::getVehicleIDs(id));
+                }
                 break;
-            case LAST_STEP_VEHICLE_ID_LIST: {
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(libsumo::Edge::getVehicleIDs(id));
-            }
+                case VAR_CO2EMISSION: {
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(libsumo::Edge::getCO2Emissions(id));
+                }
                 break;
-            case VAR_CO2EMISSION: {
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::Edge::getCO2Emissions(id));
-            }
+                case VAR_COEMISSION: {
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(libsumo::Edge::getCOEmissions(id));
+                }
                 break;
-            case VAR_COEMISSION: {
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::Edge::getCOEmissions(id));
-            }
+                case VAR_HCEMISSION: {
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(libsumo::Edge::getHCEmissions(id));
+                }
                 break;
-            case VAR_HCEMISSION: {
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::Edge::getHCEmissions(id));
-            }
+                case VAR_PMXEMISSION: {
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(libsumo::Edge::getPMxEmissions(id));
+                }
                 break;
-            case VAR_PMXEMISSION: {
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::Edge::getPMxEmissions(id));
-            }
+                case VAR_NOXEMISSION: {
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(libsumo::Edge::getNOxEmissions(id));
+                }
                 break;
-            case VAR_NOXEMISSION: {
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::Edge::getNOxEmissions(id));
-            }
+                case VAR_FUELCONSUMPTION: {
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(libsumo::Edge::getFuelConsumption(id));
+                }
                 break;
-            case VAR_FUELCONSUMPTION: {
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::Edge::getFuelConsumption(id));
-            }
+                case VAR_NOISEEMISSION: {
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(libsumo::Edge::getNoiseEmissions(id));
+                }
                 break;
-            case VAR_NOISEEMISSION: {
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::Edge::getNoiseEmissions(id));
-            }
+                case VAR_ELECTRICITYCONSUMPTION: {
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(libsumo::Edge::getElectricityConsumption(id));
+                }
                 break;
-            case VAR_ELECTRICITYCONSUMPTION: {
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::Edge::getElectricityConsumption(id));
-            }
+                case LAST_STEP_VEHICLE_NUMBER: {
+                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                    tempMsg.writeInt(libsumo::Edge::getVehicleNumber(id));
+                }
                 break;
-            case LAST_STEP_VEHICLE_NUMBER: {
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(libsumo::Edge::getVehicleNumber(id));
-            }
+                case LAST_STEP_MEAN_SPEED: {
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(libsumo::Edge::getMeanSpeed(id));
+                }
                 break;
-            case LAST_STEP_MEAN_SPEED: {
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::Edge::getMeanSpeed(id));
-            }
-                break;
-            case LAST_STEP_OCCUPANCY: {
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::Edge::getOccupancy(id));
+                case LAST_STEP_OCCUPANCY: {
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(libsumo::Edge::getOccupancy(id));
 
-            }
-                break;
-            case LAST_STEP_VEHICLE_HALTING_NUMBER: {
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(libsumo::Edge::getVehicleHaltingNumber(id));
-            }
-                break;
-            case LAST_STEP_LENGTH: {
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::Edge::getVehicleAverageLength(id));
-            }
-                break;
-            case VAR_PARAMETER: {
-                std::string paramName;
-                if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                    return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
-                                                      "Retrieval of a parameter requires its name.",
-                                                      outputStorage);
                 }
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(libsumo::Edge::getParameter(id, paramName));
-            }
                 break;
-            default:break;
+                case LAST_STEP_VEHICLE_HALTING_NUMBER: {
+                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                    tempMsg.writeInt(libsumo::Edge::getVehicleHaltingNumber(id));
+                }
+                break;
+                case LAST_STEP_LENGTH: {
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(libsumo::Edge::getVehicleAverageLength(id));
+                }
+                break;
+                case VAR_PARAMETER: {
+                    std::string paramName;
+                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                        return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
+                                                          "Retrieval of a parameter requires its name.",
+                                                          outputStorage);
+                    }
+                    tempMsg.writeUnsignedByte(TYPE_STRING);
+                    tempMsg.writeString(libsumo::Edge::getParameter(id, paramName));
+                }
+                break;
+                default:
+                    break;
             }
         }
-    }
-    catch (libsumo::TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_OK, "", outputStorage);
@@ -231,7 +233,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
                                           "Change Edge State: unsupported variable " + toHex(variable, 2)
-                                                  + " specified", outputStorage);
+                                          + " specified", outputStorage);
     }
     // id
     std::string id = inputStorage.readString();
@@ -239,151 +241,151 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
         // process
         switch (variable) {
 
-        case LANE_ALLOWED: {
-            // read and set allowed vehicle classes
-            std::vector<std::string> classes;
-            if (!server.readTypeCheckingStringList(inputStorage, classes)) {
-                return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
-                                                  "Allowed vehicle classes must be given as a list of strings.",
-                                                  outputStorage);
-            }
-            libsumo::Edge::setAllowedVehicleClasses(id, classes);
-        }
-            break;
-        case LANE_DISALLOWED: {
-            // read and set disallowed vehicle classes
-            std::vector<std::string> classes;
-            if (!server.readTypeCheckingStringList(inputStorage, classes)) {
-                return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
-                                                  "Not allowed vehicle classes must be given as a list of strings.",
-                                                  outputStorage);
-            }
-            libsumo::Edge::setDisallowedVehicleClasses(id, classes);
-        }
-            break;
-        case VAR_EDGE_TRAVELTIME: {
-            // read and set travel time
-            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE,
-                                                  "Setting travel time requires a compound object.", outputStorage);
-            }
-            int parameterCount = inputStorage.readInt();
-            if (parameterCount == 3) {
-                // bound by time
-                int begTime = 0, endTime = 0;
-                double value = 0;
-                if (!server.readTypeCheckingInt(inputStorage, begTime)) {
-                    return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
-                                                      "The first variable must be the begin time given as int.",
-                                                      outputStorage);
-                }
-                if (!server.readTypeCheckingInt(inputStorage, endTime)) {
-                    return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
-                                                      "The second variable must be the end time given as int.",
-                                                      outputStorage);
-                }
-                if (!server.readTypeCheckingDouble(inputStorage, value)) {
+            case LANE_ALLOWED: {
+                // read and set allowed vehicle classes
+                std::vector<std::string> classes;
+                if (!server.readTypeCheckingStringList(inputStorage, classes)) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
-                                                      "The third variable must be the value given as double",
+                                                      "Allowed vehicle classes must be given as a list of strings.",
                                                       outputStorage);
                 }
-                libsumo::Edge::addTravelTime(id, begTime, endTime, value);
-            } else if (parameterCount == 1) {
-                // unbound
+                libsumo::Edge::setAllowedVehicleClasses(id, classes);
+            }
+            break;
+            case LANE_DISALLOWED: {
+                // read and set disallowed vehicle classes
+                std::vector<std::string> classes;
+                if (!server.readTypeCheckingStringList(inputStorage, classes)) {
+                    return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
+                                                      "Not allowed vehicle classes must be given as a list of strings.",
+                                                      outputStorage);
+                }
+                libsumo::Edge::setDisallowedVehicleClasses(id, classes);
+            }
+            break;
+            case VAR_EDGE_TRAVELTIME: {
+                // read and set travel time
+                if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE,
+                                                      "Setting travel time requires a compound object.", outputStorage);
+                }
+                int parameterCount = inputStorage.readInt();
+                if (parameterCount == 3) {
+                    // bound by time
+                    int begTime = 0, endTime = 0;
+                    double value = 0;
+                    if (!server.readTypeCheckingInt(inputStorage, begTime)) {
+                        return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
+                                                          "The first variable must be the begin time given as int.",
+                                                          outputStorage);
+                    }
+                    if (!server.readTypeCheckingInt(inputStorage, endTime)) {
+                        return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
+                                                          "The second variable must be the end time given as int.",
+                                                          outputStorage);
+                    }
+                    if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                        return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
+                                                          "The third variable must be the value given as double",
+                                                          outputStorage);
+                    }
+                    libsumo::Edge::addTravelTime(id, begTime, endTime, value);
+                } else if (parameterCount == 1) {
+                    // unbound
+                    double value = 0;
+                    if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                        return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
+                                                          "The variable must be the value given as double", outputStorage);
+                    }
+                    libsumo::Edge::addTravelTime(id, 0, double(SUMOTime_MAX), value);
+                } else {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE,
+                                                      "Setting travel time requires either begin time, end time, and value, or only value as parameter.",
+                                                      outputStorage);
+                }
+            }
+            break;
+            case VAR_EDGE_EFFORT: {
+                // read and set effort
+                if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE,
+                                                      "Setting effort requires a compound object.",
+                                                      outputStorage);
+                }
+                int parameterCount = inputStorage.readInt();
+                if (parameterCount == 3) {
+                    // bound by time
+                    int begTime = 0, endTime = 0;
+                    double value = 0;
+                    if (!server.readTypeCheckingInt(inputStorage, begTime)) {
+                        return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
+                                                          "The first variable must be the begin time given as int.",
+                                                          outputStorage);
+                    }
+                    if (!server.readTypeCheckingInt(inputStorage, endTime)) {
+                        return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
+                                                          "The second variable must be the end time given as int.",
+                                                          outputStorage);
+                    }
+                    if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                        return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
+                                                          "The third variable must be the value given as double",
+                                                          outputStorage);
+                    }
+                    libsumo::Edge::addEffort(id, begTime, endTime, value);
+                } else if (parameterCount == 1) {
+                    // unbound
+                    double value = 0;
+                    if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                        return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
+                                                          "The variable must be the value given as double", outputStorage);
+                    }
+                    libsumo::Edge::addEffort(id, 0., double(SUMOTime_MAX), value);
+                } else {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE,
+                                                      "Setting effort requires either begin time, end time, and value, or only value as parameter.",
+                                                      outputStorage);
+                }
+            }
+            break;
+            case VAR_MAXSPEED: {
+                // read and set max. speed
                 double value = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
-                                                      "The variable must be the value given as double", outputStorage);
-                }
-                libsumo::Edge::addTravelTime(id, 0, double(SUMOTime_MAX), value);
-            } else {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE,
-                                                  "Setting travel time requires either begin time, end time, and value, or only value as parameter.",
-                                                  outputStorage);
-            }
-        }
-            break;
-        case VAR_EDGE_EFFORT: {
-            // read and set effort
-            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE,
-                                                  "Setting effort requires a compound object.",
-                                                  outputStorage);
-            }
-            int parameterCount = inputStorage.readInt();
-            if (parameterCount == 3) {
-                // bound by time
-                int begTime = 0, endTime = 0;
-                double value = 0;
-                if (!server.readTypeCheckingInt(inputStorage, begTime)) {
-                    return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
-                                                      "The first variable must be the begin time given as int.",
+                    return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The speed must be given as a double.",
                                                       outputStorage);
                 }
-                if (!server.readTypeCheckingInt(inputStorage, endTime)) {
-                    return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
-                                                      "The second variable must be the end time given as int.",
+                libsumo::Edge::setMaxSpeed(id, value);
+            }
+            break;
+            case VAR_PARAMETER: {
+                if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
+                                                      "A compound object is needed for setting a parameter.",
                                                       outputStorage);
                 }
-                if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                //readt itemNo
+                inputStorage.readInt();
+                std::string name;
+                if (!server.readTypeCheckingString(inputStorage, name)) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
-                                                      "The third variable must be the value given as double",
+                                                      "The name of the parameter must be given as a string.",
                                                       outputStorage);
                 }
-                libsumo::Edge::addEffort(id, begTime, endTime, value);
-            } else if (parameterCount == 1) {
-                // unbound
-                double value = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                std::string value;
+                if (!server.readTypeCheckingString(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
-                                                      "The variable must be the value given as double", outputStorage);
+                                                      "The value of the parameter must be given as a string.",
+                                                      outputStorage);
                 }
-                libsumo::Edge::addEffort(id, 0., double(SUMOTime_MAX), value);
-            } else {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE,
-                                                  "Setting effort requires either begin time, end time, and value, or only value as parameter.",
-                                                  outputStorage);
-            }
-        }
-            break;
-        case VAR_MAXSPEED: {
-            // read and set max. speed
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The speed must be given as a double.",
-                                                  outputStorage);
-            }
-            libsumo::Edge::setMaxSpeed(id, value);
-        }
-            break;
-        case VAR_PARAMETER: {
-            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
-                return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
-                                                  "A compound object is needed for setting a parameter.",
-                                                  outputStorage);
-            }
-            //readt itemNo
-            inputStorage.readInt();
-            std::string name;
-            if (!server.readTypeCheckingString(inputStorage, name)) {
-                return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
-                                                  "The name of the parameter must be given as a string.",
-                                                  outputStorage);
-            }
-            std::string value;
-            if (!server.readTypeCheckingString(inputStorage, value)) {
-                return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
-                                                  "The value of the parameter must be given as a string.",
-                                                  outputStorage);
-            }
-            libsumo::Edge::setParameter(id, name, value);
+                libsumo::Edge::setParameter(id, name, value);
 
-        }
+            }
             break;
-        default:break;
+            default:
+                break;
         }
-    }
-    catch (libsumo::TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_OK, warning, outputStorage);
@@ -394,8 +396,7 @@ bool
 TraCIServerAPI_Edge::getShape(const std::string& id, PositionVector& shape) {
     try {
         libsumo::Edge::getShape(id, shape);
-    }
-    catch (libsumo::TraCIException& e) {
+    } catch (libsumo::TraCIException& e) {
         WRITE_WARNING(e.what());
         return false;
     }

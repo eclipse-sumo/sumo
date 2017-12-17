@@ -104,10 +104,10 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         const NBEdge* e = (*i).second;
         const int fromNodeID = e->getIncomingEdges().size() > 0 ? getID(e->getFromNode()->getID(), nodeMap, nodeID) : INVALID_ID;
         const int toNodeID = e->getConnections().size() > 0 ? getID(e->getToNode()->getID(), nodeMap, nodeID) : INVALID_ID;
-        writeNormalEdge(device, e, 
-                getID(e->getID(), edgeMap, edgeID),
-                fromNodeID, toNodeID,
-                origNames, straightThresh);
+        writeNormalEdge(device, e,
+                        getID(e->getID(), edgeMap, edgeID),
+                        fromNodeID, toNodeID,
+                        origNames, straightThresh);
     }
     device.lf();
 
@@ -143,12 +143,12 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         if (isOuterEdge) {
                             addPedestrianConnection(inEdge, outEdge, parallel);
                         }
-                        connectionID = writeInternalEdge(device, junctionOSS, inEdge, nID, 
-                                getID(parallel.back().getInternalLaneID(), edgeMap, edgeID), 
-                                inEdgeID, 
-                                getID(outEdge->getID(), edgeMap, edgeID), 
-                                connectionID,
-                                parallel, isOuterEdge, straightThresh, centerMark);
+                        connectionID = writeInternalEdge(device, junctionOSS, inEdge, nID,
+                                                         getID(parallel.back().getInternalLaneID(), edgeMap, edgeID),
+                                                         inEdgeID,
+                                                         getID(outEdge->getID(), edgeMap, edgeID),
+                                                         connectionID,
+                                                         parallel, isOuterEdge, straightThresh, centerMark);
                         parallel.clear();
                         isOuterEdge = false;
                     }
@@ -164,12 +164,12 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 if (!lefthand && (n->geometryLike() || inEdge->isTurningDirectionAt(outEdge))) {
                     centerMark = "solid";
                 }
-                connectionID = writeInternalEdge(device, junctionOSS, inEdge, nID, 
-                        getID(parallel.back().getInternalLaneID(), edgeMap, edgeID), 
-                        inEdgeID, 
-                        getID(outEdge->getID(), edgeMap, edgeID), 
-                        connectionID,
-                        parallel, isOuterEdge, straightThresh, centerMark);
+                connectionID = writeInternalEdge(device, junctionOSS, inEdge, nID,
+                                                 getID(parallel.back().getInternalLaneID(), edgeMap, edgeID),
+                                                 inEdgeID,
+                                                 getID(outEdge->getID(), edgeMap, edgeID),
+                                                 connectionID,
+                                                 parallel, isOuterEdge, straightThresh, centerMark);
                 parallel.clear();
             }
         }
@@ -210,12 +210,11 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 }
 
 
-void 
+void
 NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
-        int edgeID, int fromNodeID, int toNodeID,
-        const bool origNames,
-        const double straightThresh) 
-{
+                                    int edgeID, int fromNodeID, int toNodeID,
+                                    const bool origNames,
+                                    const double straightThresh) {
     // buffer output because some fields are computed out of order
     OutputDevice_String elevationOSS(false, 3);
     elevationOSS.setPrecision(8);
@@ -291,7 +290,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
         if (j == 0) {
             markType = "solid";
         } else if (j > 0
-                && (e->getPermissions(j - 1) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
+                   && (e->getPermissions(j - 1) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
             // solid road mark to the left of sidewalk or bicycle lane
             markType = "solid";
         } else if (e->getPermissions(j) == 0) {
@@ -318,11 +317,11 @@ void
 NWWriter_OpenDrive::addPedestrianConnection(const NBEdge* inEdge, const NBEdge* outEdge, std::vector<NBEdge::Connection>& parallel) {
     // by defaul there are no iternal lanes for pedestrians. Determine if
     // one is feasible and does not exist yet.
-    if (outEdge != 0 
-            && inEdge->getPermissions(0) == SVC_PEDESTRIAN 
+    if (outEdge != 0
+            && inEdge->getPermissions(0) == SVC_PEDESTRIAN
             && outEdge->getPermissions(0) == SVC_PEDESTRIAN
-            && (parallel.empty() 
-                || parallel.front().fromLane != 0 
+            && (parallel.empty()
+                || parallel.front().fromLane != 0
                 || parallel.front().toLane != 0)) {
         parallel.insert(parallel.begin(), NBEdge::Connection(0, const_cast<NBEdge*>(outEdge), 0, false));
     }
@@ -331,13 +330,12 @@ NWWriter_OpenDrive::addPedestrianConnection(const NBEdge* inEdge, const NBEdge* 
 
 int
 NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& junctionDevice, const NBEdge* inEdge, int nodeID,
-        int edgeID, int inEdgeID, int outEdgeID,
-        int connectionID,
-        const std::vector<NBEdge::Connection>& parallel,
-        const bool isOuterEdge,
-        const double straightThresh,
-        const std::string& centerMark)
-{
+                                      int edgeID, int inEdgeID, int outEdgeID,
+                                      int connectionID,
+                                      const std::vector<NBEdge::Connection>& parallel,
+                                      const bool isOuterEdge,
+                                      const double straightThresh,
+                                      const std::string& centerMark) {
     assert(parallel.size() != 0);
     const NBEdge::Connection& cLeft = parallel.back();
     const NBEdge* outEdge = cLeft.toEdge;
@@ -366,7 +364,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
             init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok, 0, straightThresh);
             if (init.size() != 0) {
                 length = bezier(init, 12).length2D();
-                laneOffset = outEdge->getLaneWidth(cLeft.toLane); 
+                laneOffset = outEdge->getLaneWidth(cLeft.toLane);
                 //std::cout << " internalLane=" << cLeft.getInternalLaneID() << " length=" << length << "\n";
             }
         }
@@ -401,9 +399,9 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
     elevationOSS.setPrecision(8);
 #ifdef DEBUG_SMOOTH_GEOM
     if (DEBUGCOND) {
-        std::cout << "write planview for internal edge " << cLeft.id << " init=" << init << " fallback=" << fallBackShape 
-            << " begShape=" << begShape << " endShape=" << endShape
-            << "\n";
+        std::cout << "write planview for internal edge " << cLeft.id << " init=" << init << " fallback=" << fallBackShape
+                  << " begShape=" << begShape << " endShape=" << endShape
+                  << "\n";
     }
 #endif
     if (init.size() == 0) {
@@ -439,7 +437,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
             // solid road mark at the outer border
             markType = "solid";
         } else if (isOuterEdge && j > 0
-                && (outEdge->getPermissions(parallel[j - 1].toLane) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
+                   && (outEdge->getPermissions(parallel[j - 1].toLane) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
             // solid road mark to the left of sidewalk or bicycle lane
             markType = "solid";
         } else if (!inEdge->getToNode()->geometryLike()) {

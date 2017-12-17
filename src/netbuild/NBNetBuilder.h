@@ -188,7 +188,7 @@ public:
         return myPTLineCont;
     }
     /// @}
-    
+
     NBParkingCont& getParkingCont() {
         return myParkingCont;
     }

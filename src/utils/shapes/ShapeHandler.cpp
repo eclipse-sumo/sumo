@@ -199,7 +199,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
         imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
     }
     // check that shape's size is valid
-    if(shape.size() == 0) {
+    if (shape.size() == 0) {
         WRITE_ERROR("Polygon's shape cannot be empty.");
         return;
     }

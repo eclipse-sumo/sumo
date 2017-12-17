@@ -65,11 +65,11 @@
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, double frequency, const std::string& output) :
     GNEAdditional(id, viewNet, SUMO_TAG_CALIBRATOR, ICON_CALIBRATOR, true),
     myEdge(edge),
-    myLane(NULL), 
+    myLane(NULL),
     myPositionOverLane(pos / edge->getLanes().at(0)->getLaneParametricLength()),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(NULL) /** change this in the future **/ {
+    myRouteProbe(NULL) { /** change this in the future **/
 }
 
 
@@ -80,7 +80,7 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane
     myPositionOverLane(pos / lane->getLaneParametricLength()),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(NULL) /** change this in the future **/ {
+    myRouteProbe(NULL) { /** change this in the future **/
 }
 
 
@@ -92,7 +92,7 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(SUMO_TAG_CALIBRATOR);
     device.writeAttr(SUMO_ATTR_ID, getID());
-    if(myLane) {
+    if (myLane) {
         device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
         device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * myLane->getLaneParametricLength());
     } else if (myEdge) {
@@ -140,7 +140,7 @@ GNECalibrator::updateGeometry() {
     // clear Shape
     myShape.clear();
     // get shape depending of we have a edge or a lane
-    if(myLane) {
+    if (myLane) {
         // Get shape of lane parent
         myShape.push_back(myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length()));
         // Save rotation (angle) of the vector constructed by points f and s
@@ -163,9 +163,9 @@ GNECalibrator::updateGeometry() {
 Position
 GNECalibrator::getPositionInView() const {
     // get position depending of we have a edge or a lane
-    if(myLane) {
+    if (myLane) {
         return myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length());
-    } else if(myEdge) {
+    } else if (myEdge) {
         return myEdge->getLanes().at(0)->getShape().positionAtOffset(myPositionOverLane * myEdge->getLanes().at(0)->getShape().length());
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
@@ -176,9 +176,9 @@ GNECalibrator::getPositionInView() const {
 const std::string&
 GNECalibrator::getParentName() const {
     // get parent name depending of we have a edge or a lane
-    if(myLane) {
+    if (myLane) {
         return myLane->getMicrosimID();
-    } else if(myEdge) {
+    } else if (myEdge) {
         return myEdge->getLanes().at(0)->getMicrosimID();
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
@@ -222,13 +222,13 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         // draw text
         if (s.scale * exaggeration >= 1.) {
             // set color depending of selection status
-            RGBColor textColor = isAdditionalSelected()? myViewNet->getNet()->selectionColor : RGBColor::BLACK;
+            RGBColor textColor = isAdditionalSelected() ? myViewNet->getNet()->selectionColor : RGBColor::BLACK;
             // draw "C"
             GLHelper::drawText("C", Position(0, 1.5), 0.1, 3, textColor, 180);
             // draw "edge" or "lane "
-            if(myLane) {
+            if (myLane) {
                 GLHelper::drawText("lane", Position(0, 3), .1, 1, textColor, 180);
-            } else if(myEdge) {
+            } else if (myEdge) {
                 GLHelper::drawText("edge", Position(0, 3), .1, 1, textColor, 180);
             } else {
                 throw ProcessError("Both myEdge and myLane aren't defined");
@@ -252,13 +252,13 @@ GNECalibrator::openAdditionalDialog() {
 
 
 void
-GNECalibrator::addCalibratorRoute(GNECalibratorRoute *route) {
+GNECalibrator::addCalibratorRoute(GNECalibratorRoute* route) {
     myCalibratorRoutes.push_back(route);
 }
 
 
 void
-GNECalibrator::removeCalibratorRoute(GNECalibratorRoute *route) {
+GNECalibrator::removeCalibratorRoute(GNECalibratorRoute* route) {
     myCalibratorRoutes.erase(std::find(myCalibratorRoutes.begin(), myCalibratorRoutes.end(), route));
 }
 
@@ -276,7 +276,7 @@ GNECalibrator::addCalibratorFlow(GNECalibratorFlow* flow) {
 }
 
 
-void 
+void
 GNECalibrator::removeCalibratorFlow(GNECalibratorFlow* flow) {
     myCalibratorFlows.erase(std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), flow));
 }
@@ -309,32 +309,32 @@ GNECalibrator::getCalibratorVehicleTypes() const {
 std::string
 GNECalibrator::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-    case SUMO_ATTR_ID:
-        return getAdditionalID();
-    case SUMO_ATTR_EDGE:
-        return myEdge->getID();
-    case SUMO_ATTR_LANE:
-        return myLane->getID();
-    case SUMO_ATTR_POSITION:
-        if(myEdge) {
-            return toString(myPositionOverLane * myEdge->getLanes().at(0)->getLaneParametricLength());
-        } else if (myLane) {
-            return toString(myPositionOverLane * myLane->getLaneParametricLength());
-        } else {
-            throw ProcessError("Both myEdge and myLane aren't defined");
-        }
-    case SUMO_ATTR_FREQUENCY:
-        return toString(myFrequency);
-    case SUMO_ATTR_OUTPUT:
-        return myOutput;
-    case SUMO_ATTR_ROUTEPROBE:
-        if (myRouteProbe) {
-            return myRouteProbe->getID();
-        } else {
-            return "";
-        }
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID:
+            return getAdditionalID();
+        case SUMO_ATTR_EDGE:
+            return myEdge->getID();
+        case SUMO_ATTR_LANE:
+            return myLane->getID();
+        case SUMO_ATTR_POSITION:
+            if (myEdge) {
+                return toString(myPositionOverLane * myEdge->getLanes().at(0)->getLaneParametricLength());
+            } else if (myLane) {
+                return toString(myPositionOverLane * myLane->getLaneParametricLength());
+            } else {
+                throw ProcessError("Both myEdge and myLane aren't defined");
+            }
+        case SUMO_ATTR_FREQUENCY:
+            return toString(myFrequency);
+        case SUMO_ATTR_OUTPUT:
+            return myOutput;
+        case SUMO_ATTR_ROUTEPROBE:
+            if (myRouteProbe) {
+                return myRouteProbe->getID();
+            } else {
+                return "";
+            }
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -345,17 +345,17 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-    case SUMO_ATTR_ID:
-    case SUMO_ATTR_EDGE:
-    case SUMO_ATTR_LANE:
-    case SUMO_ATTR_POSITION:
-    case SUMO_ATTR_FREQUENCY:
-    case SUMO_ATTR_OUTPUT:
-    case SUMO_ATTR_ROUTEPROBE:
-        undoList->p_add(new GNEChange_Attribute(this, key, value));
-        break;
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID:
+        case SUMO_ATTR_EDGE:
+        case SUMO_ATTR_LANE:
+        case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_FREQUENCY:
+        case SUMO_ATTR_OUTPUT:
+        case SUMO_ATTR_ROUTEPROBE:
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            break;
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 
 }
@@ -364,51 +364,51 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
 bool
 GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_ID:
-        return isValidAdditionalID(value);
-    case SUMO_ATTR_EDGE:
-        if (myViewNet->getNet()->retrieveEdge(value, false) != NULL) {
-            return true;
-        } else {
-            return false;
-        }
-    case SUMO_ATTR_LANE:
-        if (myViewNet->getNet()->retrieveLane(value, false) != NULL) {
-            return true;
-        } else {
-            return false;
-        }
-    case SUMO_ATTR_POSITION:
-        if (canParse<double>(value)) {
-            // obtain relative new start position
-            double newPosition;
-            if(myEdge) {
-                newPosition = parse<double>(value) / myEdge->getLanes().at(0)->getLaneParametricLength();
-            } else if (myLane) {
-                newPosition = parse<double>(value) / myLane->getLaneParametricLength();
-            } else {
-                throw ProcessError("Both myEdge and myLane aren't defined");
-            }
-            if ((newPosition < 0) || (newPosition > 1)) {
-                return false;
-            } else {
+        case SUMO_ATTR_ID:
+            return isValidAdditionalID(value);
+        case SUMO_ATTR_EDGE:
+            if (myViewNet->getNet()->retrieveEdge(value, false) != NULL) {
                 return true;
+            } else {
+                return false;
             }
-        } else {
-            return false;
-        }
-    case SUMO_ATTR_FREQUENCY:
-        return (canParse<double>(value) && parse<double>(value) >= 0);
-    case SUMO_ATTR_OUTPUT:
-        return isValidFilename(value);
-    case SUMO_ATTR_ROUTEPROBE:
-        if (isValidID(value) && (myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value) != NULL)) {
-            return true;
-        } else {
-            return false;
-        }
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_LANE:
+            if (myViewNet->getNet()->retrieveLane(value, false) != NULL) {
+                return true;
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_POSITION:
+            if (canParse<double>(value)) {
+                // obtain relative new start position
+                double newPosition;
+                if (myEdge) {
+                    newPosition = parse<double>(value) / myEdge->getLanes().at(0)->getLaneParametricLength();
+                } else if (myLane) {
+                    newPosition = parse<double>(value) / myLane->getLaneParametricLength();
+                } else {
+                    throw ProcessError("Both myEdge and myLane aren't defined");
+                }
+                if ((newPosition < 0) || (newPosition > 1)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_FREQUENCY:
+            return (canParse<double>(value) && parse<double>(value) >= 0);
+        case SUMO_ATTR_OUTPUT:
+            return isValidFilename(value);
+        case SUMO_ATTR_ROUTEPROBE:
+            if (isValidID(value) && (myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value) != NULL)) {
+                return true;
+            } else {
+                return false;
+            }
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -419,35 +419,35 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
 void
 GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_ID:
-        changeAdditionalID(value);
-        break;
-    case SUMO_ATTR_EDGE:
-        myEdge = changeEdge(myEdge, value);
-        break;
-    case SUMO_ATTR_LANE:
-        myLane = changeLane(myLane, value);
-        break;
-    case SUMO_ATTR_POSITION:
-        if(myEdge) {
-            myPositionOverLane = parse<double>(value) / myEdge->getLanes().at(0)->getLaneParametricLength();
-        } else if (myLane) {
-            myPositionOverLane = parse<double>(value) / myLane->getLaneParametricLength();
-        } else {
-            throw ProcessError("Both myEdge and myLane aren't defined");
-        }
-        break;
-    case SUMO_ATTR_FREQUENCY:
-        myFrequency = parse<double>(value);
-        break;
-    case SUMO_ATTR_OUTPUT:
-        myOutput = value;
-        break;
-    case SUMO_ATTR_ROUTEPROBE:
-        myRouteProbe = dynamic_cast<GNERouteProbe*>(myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value));
-        break;
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID:
+            changeAdditionalID(value);
+            break;
+        case SUMO_ATTR_EDGE:
+            myEdge = changeEdge(myEdge, value);
+            break;
+        case SUMO_ATTR_LANE:
+            myLane = changeLane(myLane, value);
+            break;
+        case SUMO_ATTR_POSITION:
+            if (myEdge) {
+                myPositionOverLane = parse<double>(value) / myEdge->getLanes().at(0)->getLaneParametricLength();
+            } else if (myLane) {
+                myPositionOverLane = parse<double>(value) / myLane->getLaneParametricLength();
+            } else {
+                throw ProcessError("Both myEdge and myLane aren't defined");
+            }
+            break;
+        case SUMO_ATTR_FREQUENCY:
+            myFrequency = parse<double>(value);
+            break;
+        case SUMO_ATTR_OUTPUT:
+            myOutput = value;
+            break;
+        case SUMO_ATTR_ROUTEPROBE:
+            myRouteProbe = dynamic_cast<GNERouteProbe*>(myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value));
+            break;
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // After setting attribute always update Geometry
     updateGeometry();

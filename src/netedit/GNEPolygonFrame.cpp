@@ -127,7 +127,7 @@ GNEPolygonFrame::~GNEPolygonFrame() {
 
 
 GNEPolygonFrame::AddShapeResult
-GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane *lane) {
+GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane* lane) {
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement = myShapeAttributes->getAttributesAndValues();
     // check if current selected shape is valid
@@ -156,7 +156,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane *lane) {
             return ADDSHAPE_INVALID;
         }
         // abort if lane is NULL
-        if(lane == NULL) {
+        if (lane == NULL) {
             WRITE_WARNING(toString(SUMO_TAG_POILANE) + " can be only placed over lanes");
             return ADDSHAPE_INVALID;
         }
@@ -366,7 +366,7 @@ GNEPolygonFrame::addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues)
     double layer = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_LAYER));
     double angle = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_ANGLE));
     std::string imgFile = POIValues.at(SUMO_ATTR_IMGFILE);
-    GNELane *lane = myViewNet->getNet()->retrieveLane(POIValues.at(SUMO_ATTR_LANE));
+    GNELane* lane = myViewNet->getNet()->retrieveLane(POIValues.at(SUMO_ATTR_LANE));
     double posLane = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_POSITION));
     double posLat = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_POSITION_LAT));
     double widthPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_WIDTH));
@@ -584,9 +584,9 @@ GNEPolygonFrame::ShapeAttributeSingle::onCmdSetAttribute(FXObject*, FXSelector, 
         if (GNEAttributeCarrier::isValidFilename(file) == false) {
             myInvalidValue = "input contains invalid characters for a filename";
         } else if (myShapeAttr == SUMO_ATTR_IMGFILE) {
-            if(!file.empty()) {
+            if (!file.empty()) {
                 // only load value if file isn't empty
-                if(GUITexturesHelper::getTextureID(file) == -1) {
+                if (GUITexturesHelper::getTextureID(file) == -1) {
                     myInvalidValue = "doesn't exist image '" + file + "'";
                 }
             }

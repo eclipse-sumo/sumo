@@ -64,7 +64,7 @@ public:
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] icon GUIIcon associated to the additional
-     * @param[in] movable Flag to indicate if this additional is movable 
+     * @param[in] movable Flag to indicate if this additional is movable
      */
     GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable);
 
@@ -73,17 +73,17 @@ public:
     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
     * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
     * @param[in] icon GUIIcon associated to the additional
-    * @param[in] movable Flag to indicate if this additional is movable 
+    * @param[in] movable Flag to indicate if this additional is movable
     * @param[in] additionalParent pointer to additional parent
     */
-    GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, GNEAdditional *additionalParent);
+    GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, GNEAdditional* additionalParent);
 
     /**@brief Constructor used by Additionals that have Edge childs
     * @param[in] id Gl-id of the additional element (Must be unique)
     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
     * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
     * @param[in] icon GUIIcon associated to the additional
-    * @param[in] movable Flag to indicate if this additional is movable 
+    * @param[in] movable Flag to indicate if this additional is movable
     * @param[in] edgeChilds vector of edge childs
     */
     GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, std::vector<GNEEdge*> edgeChilds);
@@ -93,7 +93,7 @@ public:
     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
     * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
     * @param[in] icon GUIIcon associated to the additional
-    * @param[in] movable Flag to indicate if this additional is movable 
+    * @param[in] movable Flag to indicate if this additional is movable
     * @param[in] laneChilds vector of lane childs
     */
     GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, std::vector<GNELane*> laneChilds);
@@ -118,7 +118,7 @@ public:
     * @param[in] oldPos position before start movement
     * @param[in] offset movement offset regardings to oldPos
     */
-    virtual void moveGeometry(const Position& oldPos, const Position &offset) = 0;
+    virtual void moveGeometry(const Position& oldPos, const Position& offset) = 0;
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
     * @param[in] oldPos the old position of additional
@@ -144,9 +144,9 @@ public:
 
     // @brief Check if additional item is selected
     bool isAdditionalSelected() const;
-    
+
     // @brief get additional parent
-    GNEAdditional *getAdditionalParent() const;
+    GNEAdditional* getAdditionalParent() const;
 
     /// @name members and functions relative to  childs of this additional
     /// @{
@@ -176,7 +176,7 @@ public:
     void removeLaneChild(GNELane* lane);
 
     /// @brief get lanes of VSS
-    const std::vector<GNELane*> &getLaneChilds() const;
+    const std::vector<GNELane*>& getLaneChilds() const;
 
     /// @}
 
@@ -243,7 +243,7 @@ public:
      * @param[in] edges vector with the route's edges
      * @param[in] report enable or disable writting warnings if route isn't valid
      */
-    static bool isRouteValid(const std::vector<GNEEdge*> &edges, bool report);
+    static bool isRouteValid(const std::vector<GNEEdge*>& edges, bool report);
 
 protected:
     /// @brief The GNEViewNet this additional element belongs
@@ -281,7 +281,7 @@ protected:
     /// @name members and functions relative to block icon
     /// @{
     /// @brief set Rotation of block Icon (must be called in updateGeometry() function)
-    void setBlockIconRotation(GNELane *additionalLane = NULL);
+    void setBlockIconRotation(GNELane* additionalLane = NULL);
 
     /// @brief draw lock icon
     void drawLockIcon(double size = 0.5) const;
@@ -315,13 +315,13 @@ protected:
     * @throw exception if oldEdge doesn't belong to an edge
     * @throw exception if edge with ID newEdgeID doesn't exist
     */
-    GNEEdge* changeEdge(GNEEdge *oldEdge, const std::string& newEdgeID);
+    GNEEdge* changeEdge(GNEEdge* oldEdge, const std::string& newEdgeID);
 
     /**@brief change lane of additional
     * @throw exception if oldLane doesn't belong to an edge
     * @throw exception if lane with ID newLaneID doesn't exist
     */
-    GNELane* changeLane(GNELane *oldLane, const std::string& newLaneID);
+    GNELane* changeLane(GNELane* oldLane, const std::string& newLaneID);
 
     /**@brief change additional parent of additional
     * @throw exception if this additional doesn't have previously a defined Additional parent

@@ -255,7 +255,7 @@ GNEDetectorExit::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
-            return  (myViewNet->getNet()->retrieveLane(value, false) != NULL);
+            return (myViewNet->getNet()->retrieveLane(value, false) != NULL);
         case SUMO_ATTR_POSITION:
             return canParse<double>(value);
         case SUMO_ATTR_FRIENDLY_POS:

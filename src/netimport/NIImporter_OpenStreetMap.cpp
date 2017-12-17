@@ -740,8 +740,8 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             } else if (key == "train") {
                 myToFill[myLastNodeID]->permissions = SVC_RAIL;
                 myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length.train");
-            } else if (key == "subway" || key == "light_rail" 
-                    || (key == "station" && (value == "subway" || value == "light_rail"))) {
+            } else if (key == "subway" || key == "light_rail"
+                       || (key == "station" && (value == "subway" || value == "light_rail"))) {
                 myToFill[myLastNodeID]->permissions = SVC_RAIL_URBAN;
                 myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length.train");
             } else if (key == "bus") {
@@ -1335,7 +1335,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                         + "' does not exist. Probably OSM file is incomplete.");
 //                    resetValues();
 //                    return;
-                    if (!ptLine->getStops().empty()){
+                    if (!ptLine->getStops().empty()) {
                         WRITE_WARNING("Done reading first coherent junk of pt stops. Further stops in relation " + toString(myCurrentRelation) + " are ignored");
                         break;
                     }
@@ -1350,7 +1350,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                                   + "'. Probably OSM file is incomplete.");
 //                    resetValues();
 //                    return;
-                    if (!ptLine->getStops().empty()){
+                    if (!ptLine->getStops().empty()) {
                         WRITE_WARNING("Done reading first coherent junk of pt stops. Further stops in relation " + toString(myCurrentRelation) + " are ignored");
                         break;
                     }
@@ -1371,7 +1371,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                     }
                 }
             }
-            if (ptLine->getStops().empty()){
+            if (ptLine->getStops().empty()) {
                 WRITE_WARNING("PT line in relation " + toString(myCurrentRelation) + " with no stops ignored. Probably OSM file is incomplete.");
                 resetValues();
                 return;

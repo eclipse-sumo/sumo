@@ -260,7 +260,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
 
         // show netedit parameters
         myNeteditParameters->show();
-        
+
         // Show myGEOAttributes if we're inspecting elements with GEO Attributes
         myGEOAttributes->showGEOAttributes(myACs);
 
@@ -301,7 +301,7 @@ GNEInspectorFrame::inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* pr
 }
 
 
-void 
+void
 GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked) {
     myPreviousElementDelete = previousElement;
     myPreviousElementDeleteWasMarked = previousElementWasMarked;
@@ -316,7 +316,7 @@ GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeC
 }
 
 
-void 
+void
 GNEInspectorFrame::refreshValues() {
     for (auto i : myVectorOfAttributeInputs) {
         if (i->getAttr() != SUMO_ATTR_NOTHING) {
@@ -423,7 +423,7 @@ GNEInspectorFrame::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
 
 long
 GNEInspectorFrame::onCmdCenterItem(FXObject*, FXSelector, void*) {
-    if(myRightClickedAC != NULL) {
+    if (myRightClickedAC != NULL) {
         myViewNet->centerTo(myRightClickedAC->getGUIGLObject()->getGlID(), false);
         myViewNet->update();
     }
@@ -433,7 +433,7 @@ GNEInspectorFrame::onCmdCenterItem(FXObject*, FXSelector, void*) {
 
 long
 GNEInspectorFrame::onCmdInspectItem(FXObject*, FXSelector, void*) {
-    if((myACs.size() > 0) && (myRightClickedAC != NULL)) {
+    if ((myACs.size() > 0) && (myRightClickedAC != NULL)) {
         inspectChild(myRightClickedAC, myACs.front());
     }
     return 1;
@@ -649,7 +649,7 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
         }
         case GLO_POI: {
             // check type of POI
-            if(myACs.front()->getTag() == SUMO_TAG_POI) {
+            if (myACs.front()->getTag() == SUMO_TAG_POI) {
                 // insert POI root
                 GNEPOI* POI = dynamic_cast<GNEPOI*>(myACs.front());
                 FXTreeItem* POIItem = myTreelist->insertItem(0, 0, toString(POI->getTag()).c_str(), POI->getIcon(), POI->getIcon());
@@ -1048,17 +1048,17 @@ GNEInspectorFrame::NeteditParameters::NeteditParameters(GNEInspectorFrame* inspe
     myHorizontalFrameAdditionalParent = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myLabelAdditionalParent = new FXLabel(myHorizontalFrameAdditionalParent, "Block move", 0, GUIDesignLabelAttribute);
     myTextFieldAdditionalParent = new FXTextField(myHorizontalFrameAdditionalParent, GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_CHANGEPARENT, GUIDesignTextField);
-    
+
     // Create elements for block movement
     myHorizontalFrameBlockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myLabelBlockMovement = new FXLabel(myHorizontalFrameBlockMovement, "Block move", 0, GUIDesignLabelAttribute);
     myCheckBoxBlockMovement = new FXCheckButton(myHorizontalFrameBlockMovement, "", this, MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT, GUIDesignCheckButtonAttribute);
-    
+
     // Create elements for block shape
     myHorizontalFrameBlockShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myLabelBlockShape = new FXLabel(myHorizontalFrameBlockShape, "Block shape", 0, GUIDesignLabelAttribute);
     myCheckBoxBlockShape = new FXCheckButton(myHorizontalFrameBlockShape, "", this, MID_GNE_SET_BLOCKING_SHAPE, GUIDesignCheckButtonAttribute);
-    
+
     // Create elements for close shape
     myHorizontalFrameCloseShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myLabelCloseShape = new FXLabel(myHorizontalFrameCloseShape, "Close shape", 0, GUIDesignLabelAttribute);
@@ -1126,8 +1126,8 @@ GNEInspectorFrame::NeteditParameters::show() {
     // If item is an additional and has another additional as parent
     if (myInspectorFrameParent->getInspectedACs().size() == 1) {
         // check if is an additional AND has an additional parent
-        GNEAdditional *additional = dynamic_cast<GNEAdditional*>(myInspectorFrameParent->getInspectedACs().front());
-        if(additional && additional->getAdditionalParent()) {
+        GNEAdditional* additional = dynamic_cast<GNEAdditional*>(myInspectorFrameParent->getInspectedACs().front());
+        if (additional && additional->getAdditionalParent()) {
             // show groupBox
             FXGroupBox::show();
             // show block movement
@@ -1150,9 +1150,9 @@ GNEInspectorFrame::NeteditParameters::hide() {
 }
 
 
-long 
+long
 GNEInspectorFrame::NeteditParameters::onCmdChangeAdditionalParent(FXObject*, FXSelector, void*) {
-    if(myInspectorFrameParent->getInspectedACs().front()->isValid(GNE_ATTR_PARENT, myTextFieldAdditionalParent->getText().text())) {
+    if (myInspectorFrameParent->getInspectedACs().front()->isValid(GNE_ATTR_PARENT, myTextFieldAdditionalParent->getText().text())) {
         myInspectorFrameParent->getInspectedACs().front()->setAttribute(GNE_ATTR_PARENT, myTextFieldAdditionalParent->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
         myTextFieldAdditionalParent->setTextColor(FXRGB(0, 0, 0));
     } else {

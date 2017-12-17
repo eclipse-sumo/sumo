@@ -103,7 +103,7 @@ private:
     double myStartPos;
     double myEndPos;
 
-    std::vector<std::tuple<std::string,double>> myAccesses;
+    std::vector<std::tuple<std::string, double>> myAccesses;
 
 
 private:

@@ -219,16 +219,16 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
 }
 
 NBNode::Crossing::Crossing(const NBNode* _node, const EdgeVector& _edges, double _width, bool _priority, int _customTLIndex,  const PositionVector& _customShape) :
-            node(_node),
-            edges(_edges),
-            customWidth(_width),
-            width(_width),
-            priority(_priority),
-            customShape(_customShape),
-            tlLinkNo(_customTLIndex),
-            customTLIndex(_customTLIndex),
-            valid(true) 
-{ }
+    node(_node),
+    edges(_edges),
+    customWidth(_width),
+    width(_width),
+    priority(_priority),
+    customShape(_customShape),
+    tlLinkNo(_customTLIndex),
+    customTLIndex(_customTLIndex),
+    valid(true) {
+}
 
 /* -------------------------------------------------------------------------
  * NBNode-methods
@@ -694,7 +694,7 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
     return false;
 }
 
-void 
+void
 NBNode::removeJoinedTrafficLights() {
     std::set<NBTrafficLightDefinition*> trafficLights = myTrafficLights; // make a copy because we will modify the original
     for (std::set<NBTrafficLightDefinition*>::const_iterator i = trafficLights.begin(); i != trafficLights.end(); ++i) {
@@ -2579,7 +2579,7 @@ NBNode::edgesBetween(const NBEdge* e1, const NBEdge* e2) const {
 }
 
 
-void 
+void
 NBNode::addWalkingAreaShape(EdgeVector edges, const PositionVector& shape) {
     WalkingAreaCustomShape wacs;
     wacs.edges.insert(edges.begin(), edges.end());
@@ -2601,7 +2601,7 @@ NBNode::geometryLike() const {
         NBEdge* out0 = myOutgoingEdges[0];
         NBEdge* out1 = myOutgoingEdges[1];
         if ((in0->isTurningDirectionAt(out0) || in0->isTurningDirectionAt(out1))
-            && (in1->isTurningDirectionAt(out0) || in1->isTurningDirectionAt(out1))) {
+                && (in1->isTurningDirectionAt(out0) || in1->isTurningDirectionAt(out1))) {
             return true;
         }
         for (EdgeVector::const_iterator it = myIncomingEdges.begin(); it != myIncomingEdges.end(); ++it) {
@@ -2629,7 +2629,7 @@ NBNode::setRoundabout() {
 
 void
 NBNode::addCrossing(EdgeVector edges, double width, bool priority, int tlIndex,
-        const PositionVector& customShape, bool fromSumoNet) {
+                    const PositionVector& customShape, bool fromSumoNet) {
     myCrossings.push_back(new Crossing(this, edges, width, priority, tlIndex, customShape));
     if (fromSumoNet) {
         myCrossingsLoadedFromSumoNet += 1;

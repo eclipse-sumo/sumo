@@ -190,7 +190,7 @@ public:
     double getColorValue(int activeScheme) const;
 
     /// @brief remove lane of Additional Parent
-    void removeLaneOfAdditionalParents(GNEUndoList *undoList, bool allowEmpty);
+    void removeLaneOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty);
 
 protected:
     /// @brief FOX needs this

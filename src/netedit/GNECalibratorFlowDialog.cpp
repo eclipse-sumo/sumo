@@ -71,7 +71,7 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibr
     myUpdatingElement(updatingElement),
     myCalibratorFlowValid(true) {
     // change default header
-    std::string typeOfOperation = myUpdatingElement? "Edit " + toString(myEditedCalibratorFlow->getTag()) + " of " : "Create " + toString(myEditedCalibratorFlow->getTag()) + " for ";
+    std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedCalibratorFlow->getTag()) + " of " : "Create " + toString(myEditedCalibratorFlow->getTag()) + " for ";
     changeAdditionalDialogHeader(typeOfOperation + toString(myEditedCalibratorFlow->getCalibratorParent()->getTag()) + " '" + myEditedCalibratorFlow->getCalibratorParent()->getID() + "'");
 
     // Create auxiliar frames for tables
@@ -167,7 +167,7 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibr
     initChanges();
 
     // add element if we aren't updating an existent element
-    if(myUpdatingElement == false) {
+    if (myUpdatingElement == false) {
         myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibratorFlow, true), true);
     }
 
@@ -193,7 +193,7 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // open warning dialog box
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error " + operation1 + " " + parentTagString + "'s " + tagString).c_str(), "%s",
-                              (parentTagString + "'s " + tagString + " cannot be " + operation2 + 
+                              (parentTagString + "'s " + tagString + " cannot be " + operation2 +
                                " because parameter " + toString(myInvalidAttr) +
                                " is invalid.").c_str());
         // write warning if netedit is running in testing mode
@@ -237,12 +237,12 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     myCalibratorFlowValid = true;
     myInvalidAttr = SUMO_ATTR_NOTHING;
     // get pointer to undo list (Only for code legilibity)
-    GNEUndoList *undoList = myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList();
+    GNEUndoList* undoList = myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList();
     // set color of myTextFieldFlowID, depending if current value is valid or not
     if (myEditedCalibratorFlow->getID() == myTextFieldFlowID->getText().text()) {
         myTextFieldFlowID->setTextColor(FXRGB(0, 0, 0));
         myEditedCalibratorFlow->setAttribute(SUMO_ATTR_ID, myTextFieldFlowID->getText().text(), undoList);
-    } else if(myEditedCalibratorFlow->isValid(SUMO_ATTR_ID, myTextFieldFlowID->getText().text())) {
+    } else if (myEditedCalibratorFlow->isValid(SUMO_ATTR_ID, myTextFieldFlowID->getText().text())) {
         myTextFieldFlowID->setTextColor(FXRGB(0, 0, 0));
         myEditedCalibratorFlow->setAttribute(SUMO_ATTR_ID, myTextFieldFlowID->getText().text(), undoList);
     } else {

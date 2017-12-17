@@ -388,7 +388,7 @@ public:
     /**
     DOCUMENTAR
     */
-    static bool buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, const std::string &routeID, const std::vector<GNEEdge*> &edges, const RGBColor& color);
+    static bool buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
 
     /**
     DOCUMENTAR
@@ -403,11 +403,11 @@ public:
     /**
     DOCUMENTAR
     */
-    static bool buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, const std::string &flowID, GNECalibratorRoute *route, 
-                                    GNECalibratorVehicleType *vtype, const RGBColor&color, const std::string &departLane, const std::string &departPos, 
-                                    const std::string &departSpeed, const std::string &arrivalLane, const std::string &arrivalPos, const std::string &arrivalSpeed, 
-                                    const std::string &line, int personNumber, int containerNumber, bool reroute, const std::string &departPosLat, 
-                                    const std::string &arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability, int number, int flowType);
+    static bool buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, const std::string& flowID, GNECalibratorRoute* route,
+                                    GNECalibratorVehicleType* vtype, const RGBColor& color, const std::string& departLane, const std::string& departPos,
+                                    const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed,
+                                    const std::string& line, int personNumber, int containerNumber, bool reroute, const std::string& departPosLat,
+                                    const std::string& arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability, int number, int flowType);
 
     /**@brief builds a rerouter
      * @param[in] viewNet viewNet in which element will be inserted
@@ -420,7 +420,7 @@ public:
      * @return true if was sucesfully created, false in other case
      */
     static bool buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& file, bool off, double timeThreshold);
-    
+
     /**@brief builds a rerouter interval
     * @param[in] viewNet viewNet in which element will be inserted
     * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
@@ -449,7 +449,7 @@ public:
     /**
     DOCUMENTAR
     */
-    static bool buildRouteProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, const std::string &newRouteId, double probability);
+    static bool buildRouteProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, const std::string& newRouteId, double probability);
 
     /**@brief builds a Route probe
      * @param[in] viewNet viewNet in which element will be inserted
@@ -484,7 +484,7 @@ public:
     * @return true if was sucesfully created, false in other case
     * @exception InvalidArgument If the Variable Speed Sign Step can not be added to the net (is duplicate)
     */
-    static bool buildVariableSpeedSignStep(GNEViewNet* viewNet, bool allowUndoRedo, GNEVariableSpeedSign *VSSParent, double time, double speed);
+    static bool buildVariableSpeedSignStep(GNEViewNet* viewNet, bool allowUndoRedo, GNEVariableSpeedSign* VSSParent, double time, double speed);
 
     /**@brief Builds a vaporizer (lane speed trigger)
      * @param[in] viewNet viewNet in which element will be inserted

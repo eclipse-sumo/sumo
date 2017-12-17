@@ -46,7 +46,7 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* v
     myTime(0),
     mySpeed(getDefaultValue<double>(SUMO_TAG_STEP, SUMO_ATTR_SPEED)) {
     // set Time
-    if(variableSpeedSignDialog->getEditedVariableSpeedSign()->getVariableSpeedSignSteps().size() > 0) {
+    if (variableSpeedSignDialog->getEditedVariableSpeedSign()->getVariableSpeedSignSteps().size() > 0) {
         myTime = variableSpeedSignDialog->getEditedVariableSpeedSign()->getVariableSpeedSignSteps().back()->getTime() + 1;
     }
 }
@@ -69,7 +69,7 @@ GNEVariableSpeedSignStep::getVariableSpeedSignParent() const {
 }
 
 
-void 
+void
 GNEVariableSpeedSignStep::writeStep(OutputDevice& device) {
     // Open VSS tag
     device.openTag(SUMO_TAG_STEP);
@@ -82,50 +82,50 @@ GNEVariableSpeedSignStep::writeStep(OutputDevice& device) {
 }
 
 
-double 
+double
 GNEVariableSpeedSignStep::getTime() const {
     return myTime;
 }
 
 
-std::string 
+std::string
 GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-    case SUMO_ATTR_TIME:
-        return toString(myTime);
-    case SUMO_ATTR_SPEED:
-        return toString(mySpeed);
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_TIME:
+            return toString(myTime);
+        case SUMO_ATTR_SPEED:
+            return toString(mySpeed);
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-void 
+void
 GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-    case SUMO_ATTR_TIME:
-    case SUMO_ATTR_SPEED:
-        undoList->p_add(new GNEChange_Attribute(this, key, value));
-        break;
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_TIME:
+        case SUMO_ATTR_SPEED:
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            break;
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-bool 
+bool
 GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_TIME:
-        return canParse<double>(value) && (parse<double>(value) >= 0);
-    case SUMO_ATTR_SPEED:
-        return canParse<double>(value)&& (parse<double>(value) >= 0);
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_TIME:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_SPEED:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -133,19 +133,19 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
 // private
 // ===========================================================================
 
-void 
+void
 GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_TIME: {
-        myTime = parse<double>(value);
-        break;
-    }
-    case SUMO_ATTR_SPEED: {
-        mySpeed = parse<double>(value);
-        break;
-    }
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_TIME: {
+            myTime = parse<double>(value);
+            break;
+        }
+        case SUMO_ATTR_SPEED: {
+            mySpeed = parse<double>(value);
+            break;
+        }
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

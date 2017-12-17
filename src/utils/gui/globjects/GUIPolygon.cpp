@@ -45,7 +45,7 @@
 // method definitions
 // ===========================================================================
 GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
-                       const RGBColor& color, const PositionVector& shape, bool geo, 
+                       const RGBColor& color, const PositionVector& shape, bool geo,
                        bool fill, double layer, double angle, const std::string& imgFile):
     SUMOPolygon(id, type, color, shape, geo, fill, layer, angle, imgFile),
     GUIGlObject_AbstractAdd("poly", GLO_POLYGON, id),

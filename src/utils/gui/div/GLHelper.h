@@ -313,7 +313,7 @@ private:
     /// @brief whether the road makes a right turn (or goes straight)
     static bool rightTurn(double angle1, double angle2);
 
-    /// @brief init myFont 
+    /// @brief init myFont
     static bool initFont();
 
 private:

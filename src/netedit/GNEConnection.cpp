@@ -106,14 +106,14 @@ GNEConnection::updateGeometry() {
         if (nbCon.shape.size() != 0) {
             myShape = nbCon.shape;
             myShape.append(nbCon.viaShape);
-        } else { 
+        } else {
             // Calculate shape so something can be drawn immidiately
             myShape = getEdgeFrom()->getNBEdge()->getToNode()->computeSmoothShape(
-                    laneShapeFrom,
-                    laneShapeTo,
-                    NUM_POINTS, getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
-                    (double) 5. * (double) getEdgeFrom()->getNBEdge()->getNumLanes(),
-                    (double) 5. * (double) nbCon.toEdge->getNumLanes());
+                          laneShapeFrom,
+                          laneShapeTo,
+                          NUM_POINTS, getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
+                          (double) 5. * (double) getEdgeFrom()->getNBEdge()->getNumLanes(),
+                          (double) 5. * (double) nbCon.toEdge->getNumLanes());
         }
     } else {
         myShape.clear();
@@ -212,9 +212,9 @@ GNEConnection::getLinkState() const {
 }
 
 
-PositionVector 
+PositionVector
 GNEConnection::getShape() const {
-    if(myShape.size() > 0) {
+    if (myShape.size() > 0) {
         return myShape;
     } else {
         return getNBEdgeConnection().customShape;
@@ -329,7 +329,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return toString(nbCon.uncontrolled);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return toString(nbCon.visibility);
-        case SUMO_ATTR_TLLINKINDEX: 
+        case SUMO_ATTR_TLLINKINDEX:
             return toString(nbCon.tlLinkNo);
         case SUMO_ATTR_SPEED:
             return toString(nbCon.speed);
@@ -367,8 +367,8 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                 for (NBTrafficLightDefinition* tlDef : defs) {
                     NBTrafficLightLogic* tllogic = tlDef->compute(OptionsCont::getOptions());
                     NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(tlDef, tllogic);
-                    newDef->addConnection(getEdgeFrom()->getNBEdge(), getEdgeTo()->getNBEdge(), 
-                            getLaneFrom()->getIndex(), getLaneTo()->getIndex(), parse<int>(value), false);
+                    newDef->addConnection(getEdgeFrom()->getNBEdge(), getEdgeTo()->getNBEdge(),
+                                          getLaneFrom()->getIndex(), getLaneTo()->getIndex(), parse<int>(value), false);
                     std::vector<NBNode*> nodes = tlDef->getNodes();
                     for (NBNode* node : nodes) {
                         GNEJunction* junction = getNet()->retrieveJunction(node->getID());
@@ -404,7 +404,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return canParse<double>(value) && isPositive<double>(value);
-        case SUMO_ATTR_TLLINKINDEX:  
+        case SUMO_ATTR_TLLINKINDEX:
             if (getNBEdgeConnection().tlID != "" && canParse<int>(value) && parse<int>(value) >= 0
                     && getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0) {
                 NBTrafficLightDefinition* def = *getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().begin();

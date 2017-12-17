@@ -64,7 +64,7 @@ public:
      * @param[in] fill Whether the polygon shall be filled
      */
     SUMOPolygon(const std::string& id, const std::string& type,
-                const RGBColor& color, const PositionVector& shape, 
+                const RGBColor& color, const PositionVector& shape,
                 bool geo, bool fill,
                 double layer = DEFAULT_LAYER,
                 double angle = DEFAULT_ANGLE,

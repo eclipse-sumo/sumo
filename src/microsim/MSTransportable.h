@@ -326,7 +326,7 @@ public:
         bool isWaiting4Vehicle() const;
 
         /// @brief Return where the person waits and for what
-        std::string getWaitingDescription() const; 
+        std::string getWaitingDescription() const;
 
         SUMOVehicle* getVehicle() const {
             return myVehicle;

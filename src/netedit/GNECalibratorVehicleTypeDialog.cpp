@@ -65,7 +65,7 @@ GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorVehi
     myCalibratorVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
     // change default header
-    std::string typeOfOperation = myUpdatingElement? "Edit " + toString(myEditedCalibratorVehicleType->getTag()) + " of " : "Create " + toString(myEditedCalibratorVehicleType->getTag()) + " for ";
+    std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedCalibratorVehicleType->getTag()) + " of " : "Create " + toString(myEditedCalibratorVehicleType->getTag()) + " for ";
     changeAdditionalDialogHeader(typeOfOperation + toString(myEditedCalibratorVehicleType->getCalibratorParent()->getTag()) + " '" + myEditedCalibratorVehicleType->getCalibratorParent()->getID() + "'");
 
     // Create auxiliar frames for values
@@ -208,7 +208,7 @@ GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorVehi
     initChanges();
 
     // add element if we aren't updating an existent element
-    if(myUpdatingElement == false) {
+    if (myUpdatingElement == false) {
         myEditedCalibratorVehicleType->getCalibratorParent()->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibratorVehicleType, true), true);
     }
 
@@ -234,9 +234,9 @@ GNECalibratorVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // open warning dialogBox
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error " + operation1 + " " + parentTagString + "'s " + tagString).c_str(), "%s",
-                              (parentTagString + "'s " + tagString + " cannot be " + operation2 + 
-                              " because parameter " + toString(myInvalidAttr) +
-                              " is invalid.").c_str());
+                              (parentTagString + "'s " + tagString + " cannot be " + operation2 +
+                               " because parameter " + toString(myInvalidAttr) +
+                               " is invalid.").c_str());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
@@ -278,7 +278,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     myCalibratorVehicleTypeValid = true;
     myInvalidAttr = SUMO_ATTR_NOTHING;
     // get pointer to undo list (Only for code legilibity)
-    GNEUndoList *undoList = myEditedCalibratorVehicleType->getCalibratorParent()->getViewNet()->getUndoList();
+    GNEUndoList* undoList = myEditedCalibratorVehicleType->getCalibratorParent()->getViewNet()->getUndoList();
     // set color of myComboBoxShape, depending if current value is valid or not
     if (myEditedCalibratorVehicleType->isValid(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text())) {
         myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
@@ -302,7 +302,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     if (myEditedCalibratorVehicleType->isValid(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text())) {
         myTextFieldVehicleTypeID->setTextColor(FXRGB(0, 0, 0));
         myEditedCalibratorVehicleType->setAttribute(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text(), undoList);
-    } else if(myEditedCalibratorVehicleType->isValid(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text())) {
+    } else if (myEditedCalibratorVehicleType->isValid(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text())) {
         myTextFieldVehicleTypeID->setTextColor(FXRGB(0, 0, 0));
         myEditedCalibratorVehicleType->setAttribute(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text(), undoList);
     } else {

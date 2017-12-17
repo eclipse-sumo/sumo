@@ -106,7 +106,7 @@ GNEDetectorE3::getPositionInView() const {
 
 
 void
-GNEDetectorE3::moveGeometry(const Position& oldPos, const Position &offset) {
+GNEDetectorE3::moveGeometry(const Position& oldPos, const Position& offset) {
     // restore old position, apply offset and update Geometry
     myPosition = oldPos;
     myPosition.add(offset);
@@ -246,9 +246,9 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_ID: {
             // change ID of Entry
             undoList->p_add(new GNEChange_Attribute(this, key, value));
-            // Change Ids of all Entry/Exits childs 
+            // Change Ids of all Entry/Exits childs
             for (auto i : myAdditionalChilds) {
-                if(i->getTag() == SUMO_TAG_ENTRY) {
+                if (i->getTag() == SUMO_TAG_ENTRY) {
                     i->setAttribute(SUMO_ATTR_ID, generateEntryID(), undoList);
                 } else {
                     i->setAttribute(SUMO_ATTR_ID, generateExitID(), undoList);

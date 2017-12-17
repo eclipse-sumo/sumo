@@ -51,7 +51,7 @@ class GNERerouterIntervalDialog;
  * @class GNEClosingReroute
  * the rerouter to close the street (edge)
  */
-class GNEClosingReroute : public GNEAttributeCarrier{
+class GNEClosingReroute : public GNEAttributeCarrier {
 
 public:
     /// @brief constructor (Used in GNERerouterIntervalDialog)

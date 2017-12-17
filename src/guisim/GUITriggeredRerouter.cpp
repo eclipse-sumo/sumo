@@ -420,7 +420,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
 
                 // draw "U"
                 GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
-                
+
                 // draw Probability
                 GLHelper::drawText((toString((int)(prob * 100)) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
 

@@ -114,8 +114,8 @@ public:
      * @todo Consider using a reference to the table
      * @todo Check whether the name should be stored in GUIParameterTableItemInterface
      */
-    GUIParameterTableItem(FXTable* table, unsigned pos, const std::string& name, 
-        bool dynamic, ValueSource<T>* src) : 
+    GUIParameterTableItem(FXTable* table, unsigned pos, const std::string& name,
+                          bool dynamic, ValueSource<T>* src) :
         myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(src),
         myValue(src->getValue()), myTable(table) {
         init(dynamic, toString<T>(src->getValue()));
@@ -132,8 +132,8 @@ public:
      * @todo Check whether the name should be stored in GUIParameterTableItemInterface
      * @todo Should never be dynamic!?
      */
-    GUIParameterTableItem(FXTable* table, unsigned pos, const std::string& name, 
-        bool dynamic, T value) : 
+    GUIParameterTableItem(FXTable* table, unsigned pos, const std::string& name,
+                          bool dynamic, T value) :
         myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
         myValue(value), myTable(table) {
         init(dynamic, toString<T>(value));
@@ -150,9 +150,9 @@ public:
      * @todo Check whether the name should be stored in GUIParameterTableItemInterface
      * @todo Should never be dynamic!?
      */
-    GUIParameterTableItem(FXTable* table, unsigned pos, const std::string& name, 
-        bool dynamic, std::string value) : 
-        myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), 
+    GUIParameterTableItem(FXTable* table, unsigned pos, const std::string& name,
+                          bool dynamic, std::string value) :
+        myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos),
         mySource(0), myValue(0), myTable(table) {
         init(dynamic, value);
     }

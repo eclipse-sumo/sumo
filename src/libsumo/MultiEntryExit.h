@@ -46,28 +46,28 @@ class MSE2Collector;
  * @brief C++ TraCI client API implementation
  */
 namespace libsumo {
-    class MultiEntryExit {
-    public:
-        static std::vector<std::string> getIDList();
-        static int getIDCount();
-        static int getLastStepVehicleNumber(const std::string& detID);
-        static double getLastStepMeanSpeed(const std::string& detID);
-        static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
-        static int getLastStepHaltingNumber(const std::string& detID);
+class MultiEntryExit {
+public:
+    static std::vector<std::string> getIDList();
+    static int getIDCount();
+    static int getLastStepVehicleNumber(const std::string& detID);
+    static double getLastStepMeanSpeed(const std::string& detID);
+    static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
+    static int getLastStepHaltingNumber(const std::string& detID);
 
-    private:
-        static MSE3Collector* getDetector(const std::string& detID);
+private:
+    static MSE3Collector* getDetector(const std::string& detID);
 
-        /// @brief invalidated standard constructor
-        MultiEntryExit();
+    /// @brief invalidated standard constructor
+    MultiEntryExit();
 
-        /// @brief invalidated copy constructor
-        MultiEntryExit(const MultiEntryExit& src);
+    /// @brief invalidated copy constructor
+    MultiEntryExit(const MultiEntryExit& src);
 
-        /// @brief invalidated assignment operator
-        MultiEntryExit& operator=(const MultiEntryExit& src);
+    /// @brief invalidated assignment operator
+    MultiEntryExit& operator=(const MultiEntryExit& src);
 
-    };
+};
 }
 
 

@@ -683,7 +683,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
             }
         }
     }
-    // determine walking area reference edges 
+    // determine walking area reference edges
     if (myWACustomShapes.size() > 0) {
         EdgeAttrs* to = myEdges[conn.toEdgeID];
         if (from->func == EDGEFUNC_WALKINGAREA) {

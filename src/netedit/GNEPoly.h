@@ -80,7 +80,7 @@ public:
     * @param[in] newPos The new position of vertex
     * @return index of vertex (in some cases index can change
     */
-    int moveVertexShape(const int index, const Position& oldPos, const Position &offset);
+    int moveVertexShape(const int index, const Position& oldPos, const Position& offset);
 
     /**@brief move entire shape without commiting change
     * @param[in] oldShape the old shape of polygon before moving
@@ -183,7 +183,7 @@ public:
     bool isPolygonClosed() const;
 
     /// @brief retrieve the netElement of which the shape is being edited
-    void setShapeEditedElement(GNENetElement *element);
+    void setShapeEditedElement(GNENetElement* element);
 
     /// @brief retrieve the junction of which the shape is being edited
     GNENetElement* getShapeEditedElement() const;

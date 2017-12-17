@@ -67,7 +67,7 @@ public:
     void remove(PedestrianState* state);
 
     /// @brief whether movements on intersections are modelled
-    bool usingInternalLanes() { 
+    bool usingInternalLanes() {
         return false;
     }
 

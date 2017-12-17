@@ -81,7 +81,7 @@ void GNEPOI::writeShape(OutputDevice& device) {
 
 
 void
-GNEPOI::moveGeometry(const Position& oldPos, const Position &offset) {
+GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
     if (!myBlockMovement) {
         // restore old position, apply offset and refresh element
         set(oldPos);
@@ -101,7 +101,7 @@ GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
 }
 
 
-void 
+void
 GNEPOI::updateGeometry() {
     // simply refresh element in net
     myNet->refreshElement(this);
@@ -114,7 +114,7 @@ GNEPOI::getPositionInView() const {
 }
 
 
-GUIGlID 
+GUIGlID
 GNEPOI::getGlID() const {
     return GUIPointOfInterest::getGlID();
 }

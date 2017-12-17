@@ -77,8 +77,8 @@ public:
     /** @brief parses node attributes (not related to positioning)
      */
     static NBNode* processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position,
-                                bool updateEdgeGeometries,
-                                NBNodeCont& nc, NBTrafficLightLogicCont& tlc);
+                                   bool updateEdgeGeometries,
+                                   NBNodeCont& nc, NBTrafficLightLogicCont& tlc);
 
 protected:
     /// @name inherited from GenericSAXHandler

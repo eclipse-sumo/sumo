@@ -275,7 +275,7 @@ public:
 
     /// @brief reset junction connections
     long onCmdResetConnections(FXObject*, FXSelector, void*);
-    
+
     /// @brief edit connection shape
     long onCmdEditConnectionShape(FXObject*, FXSelector, void*);
 
@@ -351,16 +351,16 @@ public:
     bool showJunctionAsBubbles() const;
 
     /// @brief start edit custom shape
-    void startEditCustomShape(GNENetElement *element, const PositionVector &shape, bool fill);
+    void startEditCustomShape(GNENetElement* element, const PositionVector& shape, bool fill);
 
     /// @brief edit edit shape
     void stopEditCustomShape();
 
     /// @brief begin move selection
-    void begingMoveSelection(GNEAttributeCarrier *originAC, const Position &originPosition);
+    void begingMoveSelection(GNEAttributeCarrier* originAC, const Position& originPosition);
 
     /// @brief move selection
-    void moveSelection(const Position &offset);
+    void moveSelection(const Position& offset);
 
     /// @brief finish moving selection
     void finishMoveSelection();
@@ -467,10 +467,10 @@ private:
     /// @brief current index of shape that are being moved
     int myMovingIndexShape;
 
-    /// @brief 
+    /// @brief
     Position myMovingOriginalPositionOppositeEdge;
 
-    /// @brief 
+    /// @brief
     PositionVector myMovingOriginalShapenOppositeEdge;
 
     /// @brief whether a selection is being moved
@@ -607,7 +607,7 @@ private:
     void deleteSelectedShapes(SumoXMLTag shapeTag = SUMO_TAG_NOTHING);
 
     /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
-    bool mergeJunctions(GNEJunction* moved, const Position &oldPos);
+    bool mergeJunctions(GNEJunction* moved, const Position& oldPos);
 
     /// @brief try to retrieve an edge at popup position
     GNEEdge* getEdgeAtPopupPosition();
@@ -617,7 +617,7 @@ private:
 
     /// @brief try to retrieve a junction at popup position
     GNEJunction* getJunctionAtPopupPosition();
-    
+
     /// @brief try to retrieve a connection at popup position
     GNEConnection* getConnectionAtPopupPosition();
 
