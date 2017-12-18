@@ -1125,9 +1125,8 @@ MSLane::updateLeaderInfo(const MSVehicle* veh, VehCont::reverse_iterator& vehPar
         } else {
             assert(morePartialVehsAhead && moreReservationsAhead);
             // Add farthest downstream vehicle first
-            nextToConsiderIsPartial = (*vehPart)->getPositionOnLane(this) > (*vehRes)->getPositionOnLane();
+            nextToConsiderIsPartial = (*vehPart)->getPositionOnLane(this) > (*vehRes)->getPositionOnLane(this);
         }
-
         // Add appropriate leader information
         if (nextToConsiderIsPartial) {
             const double latOffset = (*vehPart)->getLatOffset(this);
