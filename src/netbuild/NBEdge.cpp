@@ -1416,7 +1416,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             toEdge = (*i).toEdge;
             internalLaneIndex = 0;
         }
-        PositionVector shape = con.customShape.size() == 0 ? n.computeInternalLaneShape(this, con, numPoints, myTo) : con.customShape;
+        PositionVector shape = n.computeInternalLaneShape(this, con, numPoints, myTo);
         std::vector<int> foeInternalLinks;
 
         if (dir != LINKDIR_STRAIGHT && shape.length() < POSITION_EPS) {

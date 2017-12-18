@@ -631,10 +631,14 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
         throw ProcessError("Connection '" + con.getDescription(fromE) + "' targets a non-existant lane.");
     }
     PositionVector ret;
-    ret = computeSmoothShape(fromE->getLaneShape(con.fromLane), con.toEdge->getLaneShape(con.toLane),
-                             numPoints, fromE->getTurnDestination() == con.toEdge,
-                             (double) 5. * (double) fromE->getNumLanes(),
-                             (double) 5. * (double) con.toEdge->getNumLanes(), recordError);
+    if (con.customShape.size() == 0) {
+        ret = computeSmoothShape(fromE->getLaneShape(con.fromLane), con.toEdge->getLaneShape(con.toLane),
+                numPoints, fromE->getTurnDestination() == con.toEdge,
+                (double) 5. * (double) fromE->getNumLanes(),
+                (double) 5. * (double) con.toEdge->getNumLanes(), recordError);
+    } else {
+        ret = con.customShape;
+    }
     const NBEdge::Lane& lane = fromE->getLaneStruct(con.fromLane);
     if (lane.endOffset > 0) {
         PositionVector beg = lane.shape.getSubpart(lane.shape.length() - lane.endOffset, lane.shape.length());;
