@@ -123,6 +123,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\libsumo\Edge.cpp" />
+    <ClCompile Include="..\..\..\src\libsumo\Helper.cpp" />
     <ClCompile Include="..\..\..\src\libsumo\InductionLoop.cpp" />
     <ClCompile Include="..\..\..\src\libsumo\Junction.cpp" />
     <ClCompile Include="..\..\..\src\libsumo\Lane.cpp" />
@@ -154,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\libsumo\Edge.h" />
+    <ClInclude Include="..\..\..\src\libsumo\Helper.h" />
     <ClInclude Include="..\..\..\src\libsumo\InductionLoop.h" />
     <ClInclude Include="..\..\..\src\libsumo\Junction.h" />
     <ClInclude Include="..\..\..\src\libsumo\Lane.h" />
