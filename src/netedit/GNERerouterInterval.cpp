@@ -66,7 +66,7 @@ GNERerouterInterval::GNERerouterInterval(GNERerouter* rerouterParent, double beg
 GNERerouterInterval::~GNERerouterInterval() {}
 
 
-void 
+void
 GNERerouterInterval::writeRerouterInterval(OutputDevice& device) const {
     // openTag
     device.openTag(getTag());
@@ -87,7 +87,7 @@ GNERerouterInterval::writeRerouterInterval(OutputDevice& device) const {
         i->writeDestProbReroute(device);
     }
     // write route prob reroutes
-    for (auto i: myRouteProbReroutes) {
+    for (auto i : myRouteProbReroutes) {
         i->writeRouteProbReroute(device);
     }
     // Close tag
@@ -101,58 +101,58 @@ GNERerouterInterval::getRerouterParent() const {
 }
 
 
-double 
+double
 GNERerouterInterval::getBegin() const {
     return myBegin;
 }
 
 
-double 
+double
 GNERerouterInterval::getEnd() const {
     return myEnd;
 }
 
 
-std::string 
+std::string
 GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-    case SUMO_ATTR_ID:
-        return myRerouterParent->getID() + "_" + toString(myBegin) + "_" + toString(myEnd);
-    case SUMO_ATTR_BEGIN:
-        return toString(myBegin);
-    case SUMO_ATTR_END:
-        return toString(myEnd);
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID:
+            return myRerouterParent->getID() + "_" + toString(myBegin) + "_" + toString(myEnd);
+        case SUMO_ATTR_BEGIN:
+            return toString(myBegin);
+        case SUMO_ATTR_END:
+            return toString(myEnd);
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-void 
+void
 GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-    case SUMO_ATTR_BEGIN:
-    case SUMO_ATTR_END:
-        undoList->p_add(new GNEChange_Attribute(this, key, value));
-        break;
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_BEGIN:
+        case SUMO_ATTR_END:
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            break;
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-bool 
+bool
 GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_BEGIN:
-        return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) < myEnd);
-    case SUMO_ATTR_END:
-        return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) > myBegin);
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_BEGIN:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) < myEnd);
+        case SUMO_ATTR_END:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) > myBegin);
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -181,10 +181,10 @@ GNERerouterInterval::getRouteProbReroutes() const {
 }
 
 
-void 
+void
 GNERerouterInterval::addClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute) {
     auto it = std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), closingLaneReroute);
-    if(it == myClosingLaneReroutes.end()) {
+    if (it == myClosingLaneReroutes.end()) {
         myClosingLaneReroutes.push_back(closingLaneReroute);
     } else {
         throw ProcessError("Closing lane Reroute already exist");
@@ -192,10 +192,10 @@ GNERerouterInterval::addClosingLaneReroute(GNEClosingLaneReroute* closingLaneRer
 }
 
 
-void 
+void
 GNERerouterInterval::removeClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute) {
     auto it = std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), closingLaneReroute);
-    if(it != myClosingLaneReroutes.end()) {
+    if (it != myClosingLaneReroutes.end()) {
         myClosingLaneReroutes.erase(it);
     } else {
         throw ProcessError("Closing lane Reroute doesn't exist");
@@ -203,10 +203,10 @@ GNERerouterInterval::removeClosingLaneReroute(GNEClosingLaneReroute* closingLane
 }
 
 
-void 
+void
 GNERerouterInterval::addClosingReroute(GNEClosingReroute* closingReroute) {
     auto it = std::find(myClosingReroutes.begin(), myClosingReroutes.end(), closingReroute);
-    if(it == myClosingReroutes.end()) {
+    if (it == myClosingReroutes.end()) {
         myClosingReroutes.push_back(closingReroute);
     } else {
         throw ProcessError("Closing Reroute already exist");
@@ -214,10 +214,10 @@ GNERerouterInterval::addClosingReroute(GNEClosingReroute* closingReroute) {
 }
 
 
-void 
+void
 GNERerouterInterval::removeClosingReroute(GNEClosingReroute* closingReroute) {
     auto it = std::find(myClosingReroutes.begin(), myClosingReroutes.end(), closingReroute);
-    if(it != myClosingReroutes.end()) {
+    if (it != myClosingReroutes.end()) {
         myClosingReroutes.erase(it);
     } else {
         throw ProcessError("Closing Reroute doesn't exist");
@@ -225,10 +225,10 @@ GNERerouterInterval::removeClosingReroute(GNEClosingReroute* closingReroute) {
 }
 
 
-void 
+void
 GNERerouterInterval::addDestProbReroute(GNEDestProbReroute* destProbReroute) {
     auto it = std::find(myDestProbReroutes.begin(), myDestProbReroutes.end(), destProbReroute);
-    if(it == myDestProbReroutes.end()) {
+    if (it == myDestProbReroutes.end()) {
         myDestProbReroutes.push_back(destProbReroute);
     } else {
         throw ProcessError("Destiny Probability Reroute already exist");
@@ -236,10 +236,10 @@ GNERerouterInterval::addDestProbReroute(GNEDestProbReroute* destProbReroute) {
 }
 
 
-void 
+void
 GNERerouterInterval::removeDestProbReroute(GNEDestProbReroute* destProbReroute) {
     auto it = std::find(myDestProbReroutes.begin(), myDestProbReroutes.end(), destProbReroute);
-    if(it != myDestProbReroutes.end()) {
+    if (it != myDestProbReroutes.end()) {
         myDestProbReroutes.erase(it);
     } else {
         throw ProcessError("Destiny Probability Reroute doesn't exist");
@@ -247,10 +247,10 @@ GNERerouterInterval::removeDestProbReroute(GNEDestProbReroute* destProbReroute) 
 }
 
 
-void 
+void
 GNERerouterInterval::addRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute) {
     auto it = std::find(myRouteProbReroutes.begin(), myRouteProbReroutes.end(), routeProbabilityReroute);
-    if(it == myRouteProbReroutes.end()) {
+    if (it == myRouteProbReroutes.end()) {
         myRouteProbReroutes.push_back(routeProbabilityReroute);
     } else {
         throw ProcessError("Route Probability Reroute already exist");
@@ -258,10 +258,10 @@ GNERerouterInterval::addRouteProbReroute(GNERouteProbReroute* routeProbabilityRe
 }
 
 
-void 
+void
 GNERerouterInterval::removeRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute) {
     auto it = std::find(myRouteProbReroutes.begin(), myRouteProbReroutes.end(), routeProbabilityReroute);
-    if(it != myRouteProbReroutes.end()) {
+    if (it != myRouteProbReroutes.end()) {
         myRouteProbReroutes.erase(it);
     } else {
         throw ProcessError("Route Probability Reroute doesn't exist");
@@ -272,19 +272,19 @@ GNERerouterInterval::removeRouteProbReroute(GNERouteProbReroute* routeProbabilit
 // private
 // ===========================================================================
 
-void 
+void
 GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_BEGIN: {
-        myBegin = parse<double>(value);
-        break;
-    }
-    case SUMO_ATTR_END: {
-        myEnd = parse<double>(value);
-        break;
-    }
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_BEGIN: {
+            myBegin = parse<double>(value);
+            break;
+        }
+        case SUMO_ATTR_END: {
+            myEnd = parse<double>(value);
+            break;
+        }
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

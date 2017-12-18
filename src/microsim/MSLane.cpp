@@ -592,8 +592,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 #ifdef DEBUG_INSERTION
     if (DEBUG_COND2(aVehicle)) {
         std::cout << "\nIS_INSERTION_SUCCESS\n"
-                << SIMTIME  << " lane=" << getID()
-                << " veh '" << aVehicle->getID() << "'\n";
+                  << SIMTIME  << " lane=" << getID()
+                  << " veh '" << aVehicle->getID() << "'\n";
     }
 #endif
 
@@ -1081,15 +1081,15 @@ MSLane::planMovements(SUMOTime t) {
     VehCont::reverse_iterator vehRes = myManeuverReservations.rbegin();
 #ifdef DEBUG_PLAN_MOVE
     if (DEBUG_COND) std::cout
-            << "\n"
-            << SIMTIME
-            << " planMovements() lane=" << getID()
-            << "\n    vehicles=" << toString(myVehicles)
-            << "\n    partials=" << toString(myPartialVehicles)
-            << "\n    reservations=" << toString(myManeuverReservations)
-            << "\n";
+                << "\n"
+                << SIMTIME
+                << " planMovements() lane=" << getID()
+                << "\n    vehicles=" << toString(myVehicles)
+                << "\n    partials=" << toString(myPartialVehicles)
+                << "\n    reservations=" << toString(myManeuverReservations)
+                << "\n";
 #endif
-    for(;veh!=myVehicles.rend(); ++veh) {
+    for (; veh != myVehicles.rend(); ++veh) {
         updateLeaderInfo(*veh, vehPart, vehRes, leaders);
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {
@@ -1111,7 +1111,7 @@ MSLane::updateLeaderInfo(const MSVehicle* veh, VehCont::reverse_iterator& vehPar
 
     // Determine relevant leaders for veh
     while (moreReservationsAhead || morePartialVehsAhead) {
-        if((!moreReservationsAhead || (*vehRes)->getPositionOnLane(this) <= veh->getPositionOnLane())
+        if ((!moreReservationsAhead || (*vehRes)->getPositionOnLane(this) <= veh->getPositionOnLane())
                 && (!morePartialVehsAhead || (*vehPart)->getPositionOnLane(this) <= veh->getPositionOnLane())) {
             // All relevant downstream vehicles have been collected.
             break;
@@ -1357,8 +1357,8 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                                std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove,
                                std::set<const MSVehicle*>& toTeleport) const {
 #ifndef NO_TRACI
-    if (myCollisionAction == COLLISION_ACTION_TELEPORT && ((victim->hasInfluencer() && victim->getInfluencer().isVTDAffected(timestep)) ||
-            (collider->hasInfluencer() && collider->getInfluencer().isVTDAffected(timestep)))) {
+    if (myCollisionAction == COLLISION_ACTION_TELEPORT && ((victim->hasInfluencer() && victim->getInfluencer().isRemoteAffected(timestep)) ||
+            (collider->hasInfluencer() && collider->getInfluencer().isRemoteAffected(timestep)))) {
         return false;
     }
 #endif
@@ -1379,17 +1379,17 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
 #ifdef DEBUG_COLLISIONS
     if (DEBUG_COND && (DEBUG_COND2(collider) || DEBUG_COND2(victim))) {
         std::cout << SIMTIME
-                                  << " thisLane=" << getID()
-                                  << " collider=" << collider->getID()
-                                  << " victim=" << victim->getID()
-                                  << " colliderLane=" << collider->getLane()->getID()
-                                  << " victimLane=" << victim->getLane()->getID()
-                                  << " colliderPos=" << colliderPos
-                                  << " victimBackPos=" << victim->getBackPositionOnLane(this)
-                                  << " colliderLat=" << collider->getCenterOnEdge(this)
-                                  << " victimLat=" << victim->getCenterOnEdge(this)
-                                  << " gap=" << gap
-                                  << "\n";
+                  << " thisLane=" << getID()
+                  << " collider=" << collider->getID()
+                  << " victim=" << victim->getID()
+                  << " colliderLane=" << collider->getLane()->getID()
+                  << " victimLane=" << victim->getLane()->getID()
+                  << " colliderPos=" << colliderPos
+                  << " victimBackPos=" << victim->getBackPositionOnLane(this)
+                  << " colliderLat=" << collider->getCenterOnEdge(this)
+                  << " victimLat=" << victim->getCenterOnEdge(this)
+                  << " gap=" << gap
+                  << "\n";
     }
 #endif
     if (gap < -NUMERICAL_EPS) {
@@ -1467,8 +1467,8 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                 bool removeCollider = true;
                 bool removeVictim = true;
 #ifndef NO_TRACI
-                removeVictim = !(victim->hasInfluencer() && victim->getInfluencer().isVTDAffected(timestep));
-                removeCollider = !(collider->hasInfluencer() && collider->getInfluencer().isVTDAffected(timestep));
+                removeVictim = !(victim->hasInfluencer() && victim->getInfluencer().isRemoteAffected(timestep));
+                removeCollider = !(collider->hasInfluencer() && collider->getInfluencer().isRemoteAffected(timestep));
                 if (removeVictim) {
                     toRemove.insert(victim);
                 }
@@ -3152,7 +3152,7 @@ MSLane::checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& di
         }
 #endif
         PersonDist leader = MSPModel::getModel()->nextBlocking(this, pos - aVehicle->getVehicleType().getLength(),
-                aVehicle->getRightSideOnLane(), aVehicle->getRightSideOnLane() + aVehicle->getVehicleType().getWidth(), ceil(speed / aVehicle->getCarFollowModel().getMaxDecel()));
+                            aVehicle->getRightSideOnLane(), aVehicle->getRightSideOnLane() + aVehicle->getVehicleType().getWidth(), ceil(speed / aVehicle->getCarFollowModel().getMaxDecel()));
         if (leader.first != 0) {
             const double gap = leader.second - aVehicle->getVehicleType().getLengthWithGap();
             const double stopSpeed = aVehicle->getCarFollowModel().stopSpeed(aVehicle, speed, gap);
@@ -3160,15 +3160,15 @@ MSLane::checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& di
                 // we may not drive with the given velocity - we crash into the pedestrian
 #ifdef DEBUG_INSERTION
                 if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                    << " isInsertionSuccess lane=" << getID()
-                        << " veh=" << aVehicle->getID()
-                        << " pos=" << pos
-                        << " posLat=" << aVehicle->getLateralPositionOnLane()
-                        << " patchSpeed=" << patchSpeed
-                        << " speed=" << speed
-                        << " stopSpeed=" << stopSpeed
-                        << " pedestrianLeader=" << leader.first->getID()
-                        << " failed (@796)!\n";
+                                                         << " isInsertionSuccess lane=" << getID()
+                                                         << " veh=" << aVehicle->getID()
+                                                         << " pos=" << pos
+                                                         << " posLat=" << aVehicle->getLateralPositionOnLane()
+                                                         << " patchSpeed=" << patchSpeed
+                                                         << " speed=" << speed
+                                                         << " stopSpeed=" << stopSpeed
+                                                         << " pedestrianLeader=" << leader.first->getID()
+                                                         << " failed (@796)!\n";
 #endif
                 return false;
             }

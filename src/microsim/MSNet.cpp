@@ -539,7 +539,7 @@ MSNet::simulationStep() {
         if (myLogExecutionTime) {
             myTraCIStepDuration -= SysUtils::getCurrentMillis();
         }
-        libsumo::Helper::postProcessVTD();
+        libsumo::Helper::postProcessRemoteControl();
         if (myLogExecutionTime) {
             myTraCIStepDuration += SysUtils::getCurrentMillis();
         }

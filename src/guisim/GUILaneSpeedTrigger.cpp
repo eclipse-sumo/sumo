@@ -373,7 +373,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
             // draw last value string
-            GLHelper::drawText(myLastValueString.c_str(), Position(0, 0), .1, 1.2, RGBColor(255,255,0), 180);
+            GLHelper::drawText(myLastValueString.c_str(), Position(0, 0), .1, 1.2, RGBColor(255, 255, 0), 180);
         }
         glPopMatrix();
     }

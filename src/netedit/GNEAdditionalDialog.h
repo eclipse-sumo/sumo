@@ -71,10 +71,10 @@ public:
     virtual long onCmdReset(FXObject*, FXSelector, void*) = 0;
 
     /// @brief event after press a key
-    long onKeyPress(FXObject*sender, FXSelector sel,void* ptr);
+    long onKeyPress(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @brief event after release a key
-    long onKeyRelease(FXObject*sender, FXSelector sel,void* ptr);
+    long onKeyRelease(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @}
 
@@ -86,7 +86,7 @@ protected:
     FXVerticalFrame* myContentFrame;
 
     /// @brief execute dialog as modal
-    FXint openAsModalDialog(FXuint placement=PLACEMENT_CURSOR);
+    FXint openAsModalDialog(FXuint placement = PLACEMENT_CURSOR);
 
     /// @brief change additional dialog header
     void changeAdditionalDialogHeader(const std::string& newHeader);
@@ -120,7 +120,7 @@ private:
     int myNumberOfChanges;
 
     /// @brief pointer to UndoList
-    GNEUndoList *myUndoList;
+    GNEUndoList* myUndoList;
 
     /// @brief Invalidated copy constructor
     GNEAdditionalDialog(const GNEAdditionalDialog&) = delete;

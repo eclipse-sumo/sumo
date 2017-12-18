@@ -315,7 +315,7 @@ MSDevice_Tripinfo::addPedestrianData(double walkLength, SUMOTime walkDuration, S
     myTotalWalkTimeLoss += walkTimeLoss;
 }
 
-void 
+void
 MSDevice_Tripinfo::addRideData(double rideLength, SUMOTime rideDuration, SUMOVehicleClass vClass, const std::string& line, SUMOTime waitingTime) {
     myRideCount++;
     if (rideDuration > 0) {

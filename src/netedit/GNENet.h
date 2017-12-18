@@ -198,7 +198,7 @@ public:
     * @return whether the poi could be added
     */
     bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                const std::string &lane, double posOverLane, double posLat, double layer, double angle, 
+                const std::string& lane, double posOverLane, double posLat, double layer, double angle,
                 const std::string& imgFile, double width, double height, bool ignorePruning = false);
     /// @}
 
@@ -379,7 +379,7 @@ public:
     * @throws UnknownElement
     */
     GNEPOILane* retrievePOILane(const std::string& id, bool failHard = true) const;
-    
+
     /**@brief get a single attribute carrier based on a GLID
     * @param[in] ids the GL IDs for which to retrive the AC
     * @param[in] failHard Whether attempts to retrieve a nonexisting AttributeCarrier should result in an exception
@@ -389,7 +389,7 @@ public:
 
     /**@brief get the attribute carriers based on GlIDs
      * @param[in] ids The set of ids for which to retrive the ACs
-     * @param[in] type The GUI-type of the objects with the given ids. 
+     * @param[in] type The GUI-type of the objects with the given ids.
      * @throws InvalidArgument if any given id does not match the declared type
      */
     std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(const std::set<GUIGlID>& ids, GUIGlObjectType type);
@@ -559,7 +559,7 @@ public:
      * @param rerouterIntervalID ID of rerouter interval
      * @param rerouter interval if was found, or NULL in other case
      */
-    GNERerouterInterval *getRerouterInterval(const std::string &rerouterIntervalID) const;
+    GNERerouterInterval* getRerouterInterval(const std::string& rerouterIntervalID) const;
 
     /**@brief Returns the number of additionals of the net
      * @param[in] type type of additional to count. SUMO_TAG_NOTHING will count all additionals
@@ -614,13 +614,13 @@ public:
     std::string generateCalibratorFlowID() const;
 
     /// @brief change Calibrator Route ID
-    void changeCalibratorRouteID(GNECalibratorRoute *route, const std::string &oldID);
+    void changeCalibratorRouteID(GNECalibratorRoute* route, const std::string& oldID);
 
     /// @brief change Calibrator Vehicle Type ID
-    void changeCalibratorVehicleTypeID(GNECalibratorVehicleType *vehicleType, const std::string &oldID);
+    void changeCalibratorVehicleTypeID(GNECalibratorVehicleType* vehicleType, const std::string& oldID);
 
     /// @brief change Calibrator Flow ID
-    void changeCalibratorFlowID(GNECalibratorFlow *flow, const std::string &oldID);
+    void changeCalibratorFlowID(GNECalibratorFlow* flow, const std::string& oldID);
 
     /// @}
 
@@ -634,7 +634,7 @@ public:
      * @throw processError if shape is empty
      * @return created GNEPoly
      */
-    GNEPoly* addPolygonForEditShapes(GNENetElement* netElement, const PositionVector &shape,bool fill);
+    GNEPoly* addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill);
 
     /// @brief remove Polygon for edit shapes
     void removePolygonForEditShapes(GNEPoly* polygon);
@@ -706,7 +706,7 @@ protected:
     /// @name Insertion and erasing of GNEAdditionals items
     /// @{
 
-    /**@brief Insert a additional element int GNENet container. 
+    /**@brief Insert a additional element int GNENet container.
      * @throw processError if route was already inserted
      */
     void insertAdditional(GNEAdditional* additional);
@@ -776,10 +776,10 @@ private:
     void deleteSingleEdge(GNEEdge* edge);
 
     /// @brief insert shape
-    void insertShape(GNEShape *shape);
+    void insertShape(GNEShape* shape);
 
     /// @brief remove created shape (but NOT delete)
-    void removeShape(GNEShape *shape);
+    void removeShape(GNEShape* shape);
 
     /// @brief notify myViewNet
     void update();
@@ -806,7 +806,7 @@ private:
     /// @brief marker for whether the z-boundary is initialized
     static const double Z_INITIALIZED;
 
-    /// @brief map with the Edges and their number of lanes 
+    /// @brief map with the Edges and their number of lanes
     std::map<std::string, int> myEdgesAndNumberOfLanes;
 
     /// @brief class for GNEChange_ReplaceEdgeInTLS

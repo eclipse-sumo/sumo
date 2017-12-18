@@ -259,7 +259,7 @@ GNEViewParent::getApp() const {
 }
 
 
-GNEApplicationWindow* 
+GNEApplicationWindow*
 GNEViewParent::getGNEAppWindows() const {
     return myGNEAppWindows;
 }

@@ -112,7 +112,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEJOINED,                 GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVESHAPES,                 GNEApplicationWindow::onCmdSaveShapes),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVESHAPES_AS,              GNEApplicationWindow::onCmdSaveShapesAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVESHAPES_AS,              GNEApplicationWindow::onUpdNeedsNetwork), 
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVESHAPES_AS,              GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALS,            GNEApplicationWindow::onCmdSaveAdditionals),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,         GNEApplicationWindow::onCmdSaveAdditionalsAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,         GNEApplicationWindow::onUpdNeedsNetwork),
@@ -394,15 +394,15 @@ GNEApplicationWindow::fillMenuBar() {
                       "Save &joined junctions...\tCtrl+J\tSave log of joined junctions (allows reproduction of joins).",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEJOINED);
     mySaveShapesMenuCommand = new FXMenuCommand(myFileMenu,
-                      "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES);
+            "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
+            GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES);
     mySaveShapesMenuCommand->disable();
     new FXMenuCommand(myFileMenu,
                       "Save Shapes As...\t\tSave shapes elements in another files.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES_AS);
     mySaveAdditionalsMenuCommand = new FXMenuCommand(myFileMenu,
-                      "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS);
+            "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
+            GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS);
     mySaveAdditionalsMenuCommand->disable();
     new FXMenuCommand(myFileMenu,
                       "Save Additionals As...\t\tSave additional elements in another file.",
@@ -1538,7 +1538,7 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSaveShapes(FXObject*, FXSelector, void*) {
     // check if save shapes menu is enabled
-    if(mySaveShapesMenuCommand->isEnabled()) {
+    if (mySaveShapesMenuCommand->isEnabled()) {
         // Check if shapes file was already set at start of netedit or with a previous save
         if (myShapesFile == "") {
             FXString file = MFXUtils::getFilename2Write(this,
@@ -1644,7 +1644,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
     // check if save additional menu is enabled
-    if(mySaveAdditionalsMenuCommand->isEnabled()) {
+    if (mySaveAdditionalsMenuCommand->isEnabled()) {
         // Check if additionals file was already set at start of netedit or with a previous save
         if (myAdditionalsFile == "") {
             FXString file = MFXUtils::getFilename2Write(this,
@@ -1740,15 +1740,15 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
                                         "You have unsaved changes in the network. Do you wish to quit and discard all changes?");
         // restore focus to view net
         getView()->setFocus();
-        // if user close dialog box, check additionasl and shapes 
+        // if user close dialog box, check additionasl and shapes
         if (answer == MBOX_CLICKED_QUIT) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Closed FXMessageBox 'Confirm closing network' with 'Quit'");
             }
-            if(continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges()) {
+            if (continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges()) {
                 // clear undo list and return true to continue with closing/reload
-                myUndoList->p_clear(); 
+                myUndoList->p_clear();
                 return true;
             } else {
                 return false;
@@ -1760,7 +1760,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
                 // saving failed
                 return false;
             }
-            if(continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges()) {
+            if (continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges()) {
                 // clear undo list and return true to continue with closing/reload
                 myUndoList->p_clear();
                 return true;
@@ -1778,7 +1778,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
             return false;
         }
     } else {
-        if(continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges()) {
+        if (continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges()) {
             // clear undo list and return true to continue with closing/reload
             myUndoList->p_clear(); //only ask once
             return true;
@@ -1848,8 +1848,8 @@ GNEApplicationWindow::continueWithUnsavedShapeChanges() {
         }
         // open question box
         FXuint answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
-            "Save shapes before exit", "%s",
-            "You have unsaved shapes. Do you wish to quit and discard all changes?");
+                                               "Save shapes before exit", "%s",
+                                               "You have unsaved shapes. Do you wish to quit and discard all changes?");
         // restore focus to view net
         getView()->setFocus();
         // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading

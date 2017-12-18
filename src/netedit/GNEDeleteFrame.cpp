@@ -348,19 +348,19 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
         // Hide inspector frame and show delete frame
         myViewNet->getViewParent()->getInspectorFrame()->hide();
         show();
-    } else if(myDeleteOnlyGeometryPoints->getCheck()) {
+    } else if (myDeleteOnlyGeometryPoints->getCheck()) {
         // check type of of GL object
         switch (ac->getGUIGLObject()->getType()) {
             case GLO_EDGE: {
                 GNEEdge* edge = dynamic_cast<GNEEdge*>(ac);
-                if(edge->getVertexIndex(clickedPosition, false) != -1) {
+                if (edge->getVertexIndex(clickedPosition, false) != -1) {
                     edge->deleteGeometryPoint(clickedPosition);
                 }
                 break;
             }
             case GLO_POLYGON: {
                 GNEPoly* polygon = dynamic_cast<GNEPoly*>(ac);
-                if(polygon->getVertexIndex(clickedPosition, false) != -1) {
+                if (polygon->getVertexIndex(clickedPosition, false) != -1) {
                     polygon->deleteGeometryPoint(clickedPosition);
                 }
                 break;
@@ -369,7 +369,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                 break;
             }
         }
-    } else{
+    } else {
         // check type of of GL object
         switch (ac->getGUIGLObject()->getType()) {
             case GLO_JUNCTION: {
@@ -410,7 +410,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
             case GLO_EDGE: {
                 GNEEdge* edge = dynamic_cast<GNEEdge*>(ac);
                 // check if click was over a geometry point or over a shape's edge
-                if(edge->getVertexIndex(clickedPosition, false) != -1) {
+                if (edge->getVertexIndex(clickedPosition, false) != -1) {
                     edge->deleteGeometryPoint(clickedPosition);
                 } else {
                     int numberOfAdditionalChilds = (int)edge->getAdditionalChilds().size();

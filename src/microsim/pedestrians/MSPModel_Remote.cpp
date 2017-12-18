@@ -420,7 +420,7 @@ MSPerson* MSPModel_Remote::PState::getPerson() {
     return myPerson;
 }
 
-bool 
+bool
 MSPModel_Remote::usingInternalLanes() {
     return MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
 }

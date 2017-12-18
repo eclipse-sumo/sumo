@@ -273,7 +273,7 @@ public:
 
     /// @brief Parse attribute from XML and show warnings if there are problems parsing it
     template <typename T>
-    static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string &objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort, bool report = true) {
+    static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort, bool report = true) {
         bool parsedOk = true;
         std::string defaultValue, parsedAttribute;
         // set additionalOfWarningMessage
@@ -284,7 +284,7 @@ public:
             additionalOfWarningMessage = toString(tag);
         }
         // first check what kind of default value has to be give if parsing isn't valid (needed to avoid exceptions)
-        if(isInt(tag, attribute) || isFloat(tag, attribute) || isTime(tag, attribute)) {
+        if (isInt(tag, attribute) || isFloat(tag, attribute) || isTime(tag, attribute)) {
             defaultValue = "0";
         } else if (isColor(tag, attribute)) {
             defaultValue = "BLACK";
@@ -301,11 +301,11 @@ public:
             // declare a string for details about error formats
             std::string errorFormat;
             // set extra check for ID Values
-            if(attribute == SUMO_ATTR_ID) {
-                if(parsedAttribute.empty()) {
+            if (attribute == SUMO_ATTR_ID) {
+                if (parsedAttribute.empty()) {
                     errorFormat = "ID cannot be empty; ";
                     parsedOk = false;
-                } else if(isValidID(parsedAttribute) == false) {
+                } else if (isValidID(parsedAttribute) == false) {
                     errorFormat = "'" + parsedAttribute + "' contains invalid characters; ";
                     parsedOk = false;
                 }
@@ -389,11 +389,11 @@ public:
                     // report warning of default value
                     if (report) {
                         WRITE_WARNING("Format of optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                        additionalOfWarningMessage + " is invalid; " + errorFormat + "Default value '" + toString(parsedAttribute) + "' will be used.");
+                                      additionalOfWarningMessage + " is invalid; " + errorFormat + "Default value '" + toString(parsedAttribute) + "' will be used.");
                     }
                 } else {
                     WRITE_WARNING("Format of essential " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                    additionalOfWarningMessage +  " is invalid; " + errorFormat + toString(tag) + " cannot be created");
+                                  additionalOfWarningMessage +  " is invalid; " + errorFormat + toString(tag) + " cannot be created");
                     // abort parsing of element
                     abort = true;
                     // set default value
@@ -407,11 +407,11 @@ public:
                 // report warning of default value
                 if (report) {
                     WRITE_WARNING("Optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                    additionalOfWarningMessage + " is missing; Default value '" + toString(parsedAttribute) + "' will be used.");
+                                  additionalOfWarningMessage + " is missing; Default value '" + toString(parsedAttribute) + "' will be used.");
                 }
             } else {
                 WRITE_WARNING("Essential " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
+                              additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
                 // abort parsing of element
                 abort = true;
                 // set default value
@@ -429,33 +429,33 @@ public:
      * @brief value string with a list of edges
      * @brief report enable or disable show warning if edges aren't valid
      */
-    static bool checkGNEEdgesValid(GNENet *net, const std::string &value, bool report);
+    static bool checkGNEEdgesValid(GNENet* net, const std::string& value, bool report);
 
     /**@brief check if a list of Lane IDs is valid
      * @brief value string with a list of lanes
      * @brief report enable or disable show warning if lanes aren't valid
      */
-    static bool checkGNELanesValid(GNENet *net, const std::string &value, bool report);
+    static bool checkGNELanesValid(GNENet* net, const std::string& value, bool report);
 
     /**@brief parse string into vector of GNEEdges
     * @throw exception one of GNEEdges doesn't exist
     */
-    static std::vector<GNEEdge*> parseGNEEdges(GNENet *net, const std::string &value);
+    static std::vector<GNEEdge*> parseGNEEdges(GNENet* net, const std::string& value);
 
     /**@brief parse string into vector of GNELanes
     * @throw exception one of GNELanes doesn't exist
     */
-    static std::vector<GNELane*> parseGNELanes(GNENet *net, const std::string &value);
+    static std::vector<GNELane*> parseGNELanes(GNENet* net, const std::string& value);
 
     /**@brief parse vector of GNEEdges into string
     * @throw exception one of GNEEdges doesn't exist
     */
-    static std::string parseGNEEdges(const std::vector<GNEEdge*> &edges);
+    static std::string parseGNEEdges(const std::vector<GNEEdge*>& edges);
 
     /**@brief parse vector of GNELanes into string
     * @throw exception one of GNELanes doesn't exist
     */
-    static std::string parseGNELanes(const std::vector<GNELane*> &lanes);
+    static std::string parseGNELanes(const std::vector<GNELane*>& lanes);
 
     /// @}
 

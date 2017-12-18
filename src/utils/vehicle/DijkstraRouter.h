@@ -261,7 +261,7 @@ public:
     double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
         double costs = 0;
         double t = STEPS2TIME(msTime);
-        for (const E* const e: edges) {
+        for (const E* const e : edges) {
             if (PF::operator()(e, v)) {
                 return -1;
             }

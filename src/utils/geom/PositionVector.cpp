@@ -1357,7 +1357,7 @@ PositionVector::smoothedZFront(double dist) const {
 }
 
 
-PositionVector 
+PositionVector
 PositionVector::interpolateZ(double zStart, double zEnd) const {
     PositionVector result = *this;
     if (size() == 0) {
@@ -1375,7 +1375,7 @@ PositionVector::interpolateZ(double zStart, double zEnd) const {
     return result;
 }
 
-PositionVector 
+PositionVector
 PositionVector::resample(double maxLength) const {
     PositionVector result;
     const double length = length2D();

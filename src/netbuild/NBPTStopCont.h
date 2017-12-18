@@ -98,7 +98,7 @@ public:
     static NBEdge* getReverseEdge(NBEdge* edge);
 
 
-    void alginIdSigns();
+    void alignIdSigns();
 };
 
 #endif //SUMO_NBPTSTOPCONT_H

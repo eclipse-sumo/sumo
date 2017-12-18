@@ -464,7 +464,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         std::string edgeDescPossibleMulti = edgeDesc;
         const int edgeSelSize = (int)myNet->retrieveEdges(true).size();
         if (edgeSelSize && edgeSelSize > 1) {
-            edgeDescPossibleMulti = toString(edgeSelSize) + " " + edgeDesc + "s"; 
+            edgeDescPossibleMulti = toString(edgeSelSize) + " " + edgeDesc + "s";
         }
         new FXMenuCommand(ret, ("Split " + toString(SUMO_TAG_EDGE) + " here").c_str(), 0, &parent, MID_GNE_EDGE_SPLIT);
         new FXMenuCommand(ret, ("Split " + toString(SUMO_TAG_EDGE) + "s in both direction here").c_str(), 0, &parent, MID_GNE_EDGE_SPLIT_BIDI);
@@ -477,7 +477,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         new FXMenuCommand(ret, ("Straighten elevation of " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_STRAIGHTEN_ELEVATION);
         new FXMenuCommand(ret, ("Smooth elevation of " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_SMOOTH_ELEVATION);
         if (gSelected.isSelected(GLO_LANE, getGlID())) {
-            std::string pluralLanes = myNet->retrieveLanes(true).size() > 1? "s" : "";
+            std::string pluralLanes = myNet->retrieveLanes(true).size() > 1 ? "s" : "";
             new FXMenuCommand(ret, ("Duplicate selected " + toString(SUMO_TAG_LANE) + pluralLanes).c_str(), 0, &parent, MID_GNE_LANE_DUPLICATE);
             // Create panel for lane operations
             FXMenuPane* addSpecialLanes = new FXMenuPane(ret);
@@ -714,7 +714,7 @@ GNELane::getLaneShapeLength() const {
 }
 
 
-void 
+void
 GNELane::addShapeChild(GNEShape* shape) {
     // Check if Shape exist before remove
     if (std::find(myShapes.begin(), myShapes.end(), shape) == myShapes.end()) {
@@ -727,7 +727,7 @@ GNELane::addShapeChild(GNEShape* shape) {
 }
 
 
-void 
+void
 GNELane::removeShapeChild(GNEShape* shape) {
     auto it = std::find(myShapes.begin(), myShapes.end(), shape);
     // Check if Shape exist before remove
@@ -901,7 +901,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     const bool selectedEdge = gSelected.isSelected(myParentEdge.getType(), myParentEdge.getGlID());
     const bool selected = gSelected.isSelected(getType(), getGlID());
@@ -1011,25 +1011,25 @@ GNELane::getColorValue(int activeScheme) const {
 }
 
 
-void 
-GNELane::removeLaneOfAdditionalParents(GNEUndoList *undoList, bool allowEmpty) {
+void
+GNELane::removeLaneOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty) {
     // iterate over all additional parents of lane
-    for(auto i : myAdditionalParents) {
+    for (auto i : myAdditionalParents) {
         // Obtain attribute LANES of additional
         std::vector<std::string>  laneIDs = parse<std::vector<std::string> >(i->getAttribute(SUMO_ATTR_LANES));
         // check that at least there is an lane
-        if(laneIDs.empty()) {
+        if (laneIDs.empty()) {
             throw ProcessError("Additional lane childs is empty");
-        } else if((laneIDs.size() == 1) && (allowEmpty == false)) {
+        } else if ((laneIDs.size() == 1) && (allowEmpty == false)) {
             // remove entire Additional if SUMO_ATTR_LANES cannot be empty
-            if(laneIDs.front() == getID()) {
+            if (laneIDs.front() == getID()) {
                 undoList->add(new GNEChange_Additional(i, false), true);
             } else {
                 throw ProcessError("lane ID wasnt' found in Additional");
             }
         } else {
             auto it = std::find(laneIDs.begin(), laneIDs.end(), getID());
-            if(it != laneIDs.end()) {
+            if (it != laneIDs.end()) {
                 // set new attribute in Additional
                 laneIDs.erase(it);
                 i->setAttribute(SUMO_ATTR_LANES, toString(laneIDs), undoList);

@@ -237,7 +237,7 @@ public:
     /// @brief inspect called from DeleteFrame
     void inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked);
 
-    /// @brief Refresh inspected values (used when values can be changed externally by other modul) 
+    /// @brief Refresh inspected values (used when values can be changed externally by other modul)
     void refreshValues();
 
     /// @brief get current list of ACs

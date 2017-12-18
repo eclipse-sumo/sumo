@@ -172,8 +172,8 @@ public:
             width(_width),
             hasCustomShape(false),
             minNextCrossingEdges(std::numeric_limits<int>::max()),
-            minPrevCrossingEdges(std::numeric_limits<int>::max())
-        { }
+            minPrevCrossingEdges(std::numeric_limits<int>::max()) {
+        }
         /// @brief the (edge)-id of this walkingArea
         std::string id;
         /// @brief This lane's width
@@ -600,8 +600,8 @@ public:
     void setRoundabout();
 
     /// @brief add a pedestrian crossing to this node
-    void addCrossing(EdgeVector edges, double width, bool priority, int tlIndex = -1, 
-            const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false);
+    void addCrossing(EdgeVector edges, double width, bool priority, int tlIndex = -1,
+                     const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false);
 
     /// @brief add custom shape for walkingArea
     void addWalkingAreaShape(EdgeVector edges, const PositionVector& shape);
@@ -716,6 +716,9 @@ private:
 
     /// @brief check if is long enough
     static bool isLongEnough(NBEdge* out, double minLength);
+
+    /// @brief remove all traffic light definitions that are part of a joined tls
+    void removeJoinedTrafficLights();
 
 private:
     /// @brief The position the node lies at

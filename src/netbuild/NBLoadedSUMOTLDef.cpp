@@ -515,7 +515,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
 #endif
 }
 
-bool 
+bool
 NBLoadedSUMOTLDef::cleanupStates() {
     int maxIndex = -1;
     for (NBConnection& c : myControlledLinks) {

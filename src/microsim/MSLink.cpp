@@ -212,14 +212,14 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 // assume that siblings have a similar shape for their whole length
                 const double minLength = MIN2(lane->getLength(), sibling->getLength());
                 myLengthsBehindCrossing.push_back(std::make_pair(
-                            lane->getLength() - minLength,
-                            sibling->getLength() - minLength));
+                                                      lane->getLength() - minLength,
+                                                      sibling->getLength() - minLength));
                 myFoeLanes.push_back(sibling);
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                 std::cout << " adding same-origin foe" << sibling->getID()
-                    << " dist1=" << myLengthsBehindCrossing.back().first
-                    << " dist2=" << myLengthsBehindCrossing.back().second
-                    << "\n";
+                          << " dist1=" << myLengthsBehindCrossing.back().first
+                          << " dist2=" << myLengthsBehindCrossing.back().second
+                          << "\n";
 #endif
             }
         }
@@ -260,8 +260,8 @@ MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTim
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, approaching->getVehicleType().getLength());
 #ifdef DEBUG_APPROACHING
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " Link ''" << (myLaneBefore==0?"NULL":myLaneBefore->getID()) << "'->'" << (myLane==0?"NULL":myLane->getID()) << "' Adding approaching vehicle '" << approaching->getID() << "'\nCurrently registered vehicles:" << std::endl;
-        for (auto i = myApproachingVehicles.begin(); i!= myApproachingVehicles.end(); ++i){
+        std::cout << SIMTIME << " Link ''" << (myLaneBefore == 0 ? "NULL" : myLaneBefore->getID()) << "'->'" << (myLane == 0 ? "NULL" : myLane->getID()) << "' Adding approaching vehicle '" << approaching->getID() << "'\nCurrently registered vehicles:" << std::endl;
+        for (auto i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
             std::cout << "'" << i->first->getID() << "'" << std::endl;
         }
     }
@@ -277,8 +277,8 @@ MSLink::setApproaching(const SUMOVehicle* approaching, ApproachingVehicleInforma
 
 #ifdef DEBUG_APPROACHING
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " Link ''" << (myLaneBefore==0?"NULL":myLaneBefore->getID()) << "'->'" << (myLane==0?"NULL":myLane->getID()) << "' Adding approaching vehicle '" << approaching->getID() << "'\nCurrently registered vehicles:" << std::endl;
-        for (auto i = myApproachingVehicles.begin(); i!= myApproachingVehicles.end(); ++i){
+        std::cout << SIMTIME << " Link ''" << (myLaneBefore == 0 ? "NULL" : myLaneBefore->getID()) << "'->'" << (myLane == 0 ? "NULL" : myLane->getID()) << "' Adding approaching vehicle '" << approaching->getID() << "'\nCurrently registered vehicles:" << std::endl;
+        for (auto i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
             std::cout << "'" << i->first->getID() << "'" << std::endl;
         }
     }
@@ -310,9 +310,9 @@ MSLink::removeApproaching(const SUMOVehicle* veh) {
 
 #ifdef DEBUG_APPROACHING
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " Link ''" << (myLaneBefore==0?"NULL":myLaneBefore->getID()) << "'->'" << (myLane==0?"NULL":myLane->getID()) << std::endl;
+        std::cout << SIMTIME << " Link ''" << (myLaneBefore == 0 ? "NULL" : myLaneBefore->getID()) << "'->'" << (myLane == 0 ? "NULL" : myLane->getID()) << std::endl;
         std::cout << "' Removing approaching vehicle '" << veh->getID() << "'\nCurrently registered vehicles:" << std::endl;
-        for (auto i = myApproachingVehicles.begin(); i!= myApproachingVehicles.end(); ++i){
+        for (auto i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
             std::cout << "'" << i->first->getID() << "'" << std::endl;
         }
     }
@@ -429,23 +429,23 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
     for (std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
 #ifdef MSLink_DEBUG_OPENED
         if (gDebugFlag1) {
-            if (ego != 0 
+            if (ego != 0
                     && ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) >= i->first->getSpeed()
                     && ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) > 0) {
                 std::cout << "    foe link=" << getViaLaneOrLane()->getID()
-                    << " foeVeh=" << i->first->getID() << " (below ignore speed)"
-                    << " ignoreFoeProb=" << ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0)
-                    << "\n";
+                          << " foeVeh=" << i->first->getID() << " (below ignore speed)"
+                          << " ignoreFoeProb=" << ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0)
+                          << "\n";
             }
         }
 #endif
-        if (i->first != ego 
-                && (ego == 0 
+        if (i->first != ego
+                && (ego == 0
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) == 0
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) < i->first->getSpeed()
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) < RandHelper::rand())
                 && blockedByFoe(i->first, i->second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, sameTargetLane,
-                                            impatience, decel, waitingTime, ego)) {
+                                impatience, decel, waitingTime, ego)) {
             if (collectFoes == 0) {
                 return true;
             } else {
@@ -458,10 +458,10 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
 
 
 bool
-MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation& avi, 
-        SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
-        bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
-        const SUMOVehicle* ego) const {
+MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation& avi,
+                     SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
+                     bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
+                     const SUMOVehicle* ego) const {
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag1) {
         std::cout << "    foe link=" << getViaLaneOrLane()->getID()
@@ -485,11 +485,11 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
         }
     }
     const SUMOTime foeArrivalTime = (SUMOTime)((1.0 - impatience) * avi.arrivalTime + impatience * avi.arrivalTimeBraking);
-    const SUMOTime lookAhead = (myState == LINKSTATE_ZIPPER 
-        ? myLookaheadTimeZipper 
-        : (ego == 0 
-            ? myLookaheadTime
-            : TIME2STEPS(ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, STEPS2TIME(myLookaheadTime)))));
+    const SUMOTime lookAhead = (myState == LINKSTATE_ZIPPER
+                                ? myLookaheadTimeZipper
+                                : (ego == 0
+                                   ? myLookaheadTime
+                                   : TIME2STEPS(ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, STEPS2TIME(myLookaheadTime)))));
     //if (ego != 0) std::cout << SIMTIME << " ego=" << ego->getID() << " jmTimegapMinor=" << ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, -1) << " lookAhead=" << lookAhead << "\n";
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag1) {
@@ -511,7 +511,7 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
     } else if (foeArrivalTime > leaveTime + lookAhead) {
         // ego wants to be leader.
         if (sameTargetLane && unsafeMergeSpeeds(leaveSpeed, avi.arrivalSpeedBraking,
-                    decel, veh->getVehicleType().getCarFollowModel().getMaxDecel())) {
+                                                decel, veh->getVehicleType().getCarFollowModel().getMaxDecel())) {
 #ifdef MSLink_DEBUG_OPENED
             if (gDebugFlag1) {
                 std::cout << "      blocked (cannot lead)\n";

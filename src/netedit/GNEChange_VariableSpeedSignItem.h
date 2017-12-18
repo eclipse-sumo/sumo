@@ -56,7 +56,7 @@ public:
     * @param[in] variableSpeedSignStep Variable Speed Sign interval to be added
     * @param[in] forward Whether to create/delete (true/false)
     */
-    GNEChange_VariableSpeedSignItem(GNEVariableSpeedSignStep *variableSpeedSignStep, bool forward);
+    GNEChange_VariableSpeedSignItem(GNEVariableSpeedSignStep* variableSpeedSignStep, bool forward);
 
     /// @brief Destructor
     ~GNEChange_VariableSpeedSignItem();
@@ -77,8 +77,8 @@ public:
     /// @}
 
 private:
-    /// @brief modified Variable Speed Sign interval 
-    GNEVariableSpeedSignStep *myVariableSpeedSignStep;
+    /// @brief modified Variable Speed Sign interval
+    GNEVariableSpeedSignStep* myVariableSpeedSignStep;
 };
 
 #endif

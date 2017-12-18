@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Dec 14 22:23:56 2017" north="767.39" south="0.00" east="1737.68" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Dec 15 13:16:47 2017" north="767.39" south="0.00" east="1737.68" west="0.00"/>
     <road name="Teltowkanalbrücke" length="56.01306154" id="870" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -24118,8 +24118,6 @@
     <junction name="261599791" id="3">
         <connection id="0" incomingRoad="944" connectingRoad="1061" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="944" connectingRoad="1061" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="2" incomingRoad="944" connectingRoad="1062" contactPoint="start">
@@ -24127,8 +24125,6 @@
         </connection>
         <connection id="3" incomingRoad="872" connectingRoad="1063" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="4" incomingRoad="872" connectingRoad="1063" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="5" incomingRoad="872" connectingRoad="1064" contactPoint="start">
@@ -24158,8 +24154,6 @@
         </connection>
         <connection id="2" incomingRoad="1050" connectingRoad="1071" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="3" incomingRoad="1050" connectingRoad="1071" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="4" incomingRoad="1050" connectingRoad="1072" contactPoint="start">
@@ -24167,8 +24161,6 @@
         </connection>
         <connection id="5" incomingRoad="933" connectingRoad="1073" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="6" incomingRoad="933" connectingRoad="1073" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="7" incomingRoad="933" connectingRoad="1074" contactPoint="start">
@@ -24698,8 +24690,6 @@
         </connection>
         <connection id="5" incomingRoad="1052" connectingRoad="1231" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="6" incomingRoad="1052" connectingRoad="1231" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="7" incomingRoad="1052" connectingRoad="1232" contactPoint="start">
@@ -24725,8 +24715,6 @@
         </connection>
         <connection id="14" incomingRoad="871" connectingRoad="1239" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="15" incomingRoad="871" connectingRoad="1239" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="16" incomingRoad="871" connectingRoad="1240" contactPoint="start">
@@ -24785,8 +24773,6 @@
         </connection>
         <connection id="4" incomingRoad="1051" connectingRoad="1256" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="5" incomingRoad="1051" connectingRoad="1256" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="6" incomingRoad="1051" connectingRoad="1257" contactPoint="start">
@@ -24794,8 +24780,6 @@
         </connection>
         <connection id="7" incomingRoad="934" connectingRoad="1258" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="8" incomingRoad="934" connectingRoad="1258" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="9" incomingRoad="934" connectingRoad="1259" contactPoint="start">
@@ -25171,8 +25155,6 @@
         </connection>
         <connection id="1" incomingRoad="1049" connectingRoad="1372" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="1049" connectingRoad="1372" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="3" incomingRoad="1049" connectingRoad="1373" contactPoint="start">
@@ -25180,8 +25162,6 @@
         </connection>
         <connection id="4" incomingRoad="932" connectingRoad="1374" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="5" incomingRoad="932" connectingRoad="1374" contactPoint="start">
             <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="6" incomingRoad="932" connectingRoad="1375" contactPoint="start">

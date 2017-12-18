@@ -168,7 +168,7 @@ NWFrame::checkOptions() {
         WRITE_ERROR("public transport lines output requires 'ptstop-output' to be set");
         ok = false;
     }
-    if (oc.exists("ptline-clean-up") && oc.getBool("ptline-clean-up") && !oc.isSet("ptline-output")){
+    if (oc.exists("ptline-clean-up") && oc.getBool("ptline-clean-up") && !oc.isSet("ptline-output")) {
         WRITE_WARNING("'ptline-clean-up' only works in conjunction with 'ptline-output'. Ignoring invalid option.");
     }
 

@@ -46,34 +46,34 @@ class MSE2Collector;
  * @brief C++ TraCI client API implementation
  */
 namespace libsumo {
-    class LaneArea {
-    public:
-        static std::vector<std::string> getIDList();
-        static int getIDCount();
-        static int getJamLengthVehicle(const std::string& detID);
-        static double getJamLengthMeters(const std::string& detID);
-        static double getLastStepMeanSpeed(const std::string& detID);
-        static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
-        static double getLastStepOccupancy(const std::string& detID);
-        static double getPosition(const std::string& detID);
-        static std::string getLaneID(const std::string& detID);
-        static double getLength(const std::string& detID);
-        static int getLastStepVehicleNumber(const std::string& detID);
-        static int getLastStepHaltingNumber(const std::string& detID);
+class LaneArea {
+public:
+    static std::vector<std::string> getIDList();
+    static int getIDCount();
+    static int getJamLengthVehicle(const std::string& detID);
+    static double getJamLengthMeters(const std::string& detID);
+    static double getLastStepMeanSpeed(const std::string& detID);
+    static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
+    static double getLastStepOccupancy(const std::string& detID);
+    static double getPosition(const std::string& detID);
+    static std::string getLaneID(const std::string& detID);
+    static double getLength(const std::string& detID);
+    static int getLastStepVehicleNumber(const std::string& detID);
+    static int getLastStepHaltingNumber(const std::string& detID);
 
-    private:
-        static MSE2Collector* getDetector(const std::string& detID);
+private:
+    static MSE2Collector* getDetector(const std::string& detID);
 
-        /// @brief invalidated standard constructor
-        LaneArea();
+    /// @brief invalidated standard constructor
+    LaneArea();
 
-        /// @brief invalidated copy constructor
-        LaneArea(const LaneArea& src);
+    /// @brief invalidated copy constructor
+    LaneArea(const LaneArea& src);
 
-        /// @brief invalidated assignment operator
-        LaneArea& operator=(const LaneArea& src);
+    /// @brief invalidated assignment operator
+    LaneArea& operator=(const LaneArea& src);
 
-    };
+};
 }
 
 

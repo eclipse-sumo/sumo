@@ -61,7 +61,7 @@ GNEDestProbReroute::GNEDestProbReroute(GNERerouterInterval* rerouterIntervalPare
 GNEDestProbReroute::~GNEDestProbReroute() {}
 
 
-void 
+void
 GNEDestProbReroute::writeDestProbReroute(OutputDevice& device) const {
     // open tag
     device.openTag(getTag());
@@ -80,44 +80,44 @@ GNEDestProbReroute::getRerouterIntervalParent() const {
 }
 
 
-std::string 
+std::string
 GNEDestProbReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-    case SUMO_ATTR_ID:
-        return myNewEdgeDestination->getID();
-    case SUMO_ATTR_PROB:
-        return toString(myProbability);
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID:
+            return myNewEdgeDestination->getID();
+        case SUMO_ATTR_PROB:
+            return toString(myProbability);
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-void 
+void
 GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-    case SUMO_ATTR_ID:
-    case SUMO_ATTR_PROB:
-        undoList->p_add(new GNEChange_Attribute(this, key, value));
-        break;
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID:
+        case SUMO_ATTR_PROB:
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            break;
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-bool 
+bool
 GNEDestProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_ID:
-        return (myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveEdge(value, false) != NULL);
-    case SUMO_ATTR_PROB:
-        return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= 1;
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID:
+            return (myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveEdge(value, false) != NULL);
+        case SUMO_ATTR_PROB:
+            return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= 1;
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -125,19 +125,19 @@ GNEDestProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
 // private
 // ===========================================================================
 
-void 
+void
 GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_ID: {
-        myNewEdgeDestination = myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveEdge(value);
-        break;
-    }
-    case SUMO_ATTR_PROB: {
-        myProbability = parse<double>(value);
-        break;
-    }
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID: {
+            myNewEdgeDestination = myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveEdge(value);
+            break;
+        }
+        case SUMO_ATTR_PROB: {
+            myProbability = parse<double>(value);
+            break;
+        }
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

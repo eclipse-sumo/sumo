@@ -150,7 +150,7 @@ public:
     /**@brief change the position of the element geometry without saving in undoList
     * @param[in] oldPos old position before start moving
     */
-    void moveGeometry(const Position& oldPos, const Position &offset);
+    void moveGeometry(const Position& oldPos, const Position& offset);
 
     /// @brief registers completed movement with the undoList
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
@@ -263,7 +263,7 @@ private:
     * @param[in] pos The new position
     * @note: those operations are not added to the undoList.
     */
-    void moveJunctionGeometry(const Position &pos);
+    void moveJunctionGeometry(const Position& pos);
 
     /// @brief sets junction color depending on circumstances
     void setColor(const GUIVisualizationSettings& s, bool bubble) const;

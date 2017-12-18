@@ -290,11 +290,11 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, NBEdgeCont& cont) {
 }
 
 
-void 
+void
 NBPTLineCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) {
     if (oc.isSet("ptline-output")) {
         for (auto line : myPTLines) {
-            for (auto edge : line->getRoute()){
+            for (auto edge : line->getRoute()) {
                 into.insert(edge->getID());
             }
         }

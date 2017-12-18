@@ -67,10 +67,10 @@ public:
     GNECalibratorFlow(GNECalibratorDialog* calibratorDialog);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNECalibrator* calibratorParent, const std::string &flowID, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route, 
-                      const RGBColor&color, const std::string &departLane, const std::string &departPos, const std::string &departSpeed, const std::string &arrivalLane, 
-                      const std::string &arrivalPos, const std::string &arrivalSpeed, const std::string &line, int personNumber, int containerNumber, bool reroute, 
-                      const std::string &departPosLat, const std::string &arrivalPosLat, double begin, double end, double vehsPerHour, double period, 
+    GNECalibratorFlow(GNECalibrator* calibratorParent, const std::string& flowID, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route,
+                      const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
+                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
+                      const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end, double vehsPerHour, double period,
                       double probability, int number, GNECalibratorFlow::TypeOfFlow flowType);
 
     /// @brief destructor

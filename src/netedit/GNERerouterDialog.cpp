@@ -99,13 +99,13 @@ GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // get number of Rerouter intervals overlapped
     int numberOfOverlappings = myEditedRerouter->getNumberOfOverlappedIntervals();
     // overlapped intervals aren't allowed
-    if(numberOfOverlappings > 0) {
+    if (numberOfOverlappings > 0) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
         // open warning Box
-        std::string errorMessage = numberOfOverlappings > 1? ("There are " + toString(numberOfOverlappings) + " intervals overlapped.") : ("There is " + toString(numberOfOverlappings) + " interval overlapped.");
+        std::string errorMessage = numberOfOverlappings > 1 ? ("There are " + toString(numberOfOverlappings) + " intervals overlapped.") : ("There is " + toString(numberOfOverlappings) + " interval overlapped.");
         FXMessageBox::warning(getApp(), MBOX_OK, "Overlapping detected", "%s", ("Values of '" + myEditedRerouter->getID() + "' cannot be saved. " + errorMessage).c_str());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -158,7 +158,7 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)myEditedRerouter->getRerouterIntervals().size(); i++) {
         if (myIntervalTable->getItem(i, 2)->hasFocus()) {
             // get rerouter interval to remove
-            GNERerouterInterval *rerouterInterval = myEditedRerouter->getRerouterIntervals().at(i);
+            GNERerouterInterval* rerouterInterval = myEditedRerouter->getRerouterIntervals().at(i);
             // drop all closing reroutes of interval
             while (rerouterInterval->getClosingReroutes().size() > 0) {
                 myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval->getClosingReroutes().front(), false), true);

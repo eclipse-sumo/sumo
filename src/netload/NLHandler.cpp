@@ -488,7 +488,7 @@ NLHandler::openJunction(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
     } else {
         try {
-            myJunctionControlBuilder.openJunction(id, key, type, Position(x,y,z), shape, incomingLanes, internalLanes);
+            myJunctionControlBuilder.openJunction(id, key, type, Position(x, y, z), shape, incomingLanes, internalLanes);
         } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what() + std::string("\n Can not build according junction."));
             myCurrentIsBroken = true;

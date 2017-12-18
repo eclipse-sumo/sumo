@@ -186,7 +186,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         mcResetConnections->disable();
     }
     // disable mcClearConnections if juction hasn't connections
-    if(getGNEConnections().empty()) {
+    if (getGNEConnections().empty()) {
         mcClearConnections->disable();
     }
     // checkIsRemovable requiers turnarounds to be computed. This is ugly
@@ -416,12 +416,12 @@ GNEJunction::getGNECrossings() const {
 }
 
 
-std::vector<GNEConnection*> 
+std::vector<GNEConnection*>
 GNEJunction::getGNEConnections() const {
     std::vector<GNEConnection*> connections;
-    for(auto i : myGNEIncomingEdges) {
-        for(auto j : i->getGNEConnections()) {
-        connections.push_back(j);
+    for (auto i : myGNEIncomingEdges) {
+        for (auto j : i->getGNEConnections()) {
+            connections.push_back(j);
         }
     }
     return connections;
@@ -446,8 +446,8 @@ GNEJunction::selectTLS(bool selected) {
 }
 
 
-void 
-GNEJunction::moveGeometry(const Position & oldPos, const Position & offset) {
+void
+GNEJunction::moveGeometry(const Position& oldPos, const Position& offset) {
     // Abort moving if there is another junction in the exactly target position
     bool abort = false;
     std::vector<GNEJunction*> junctionNeighbours = getJunctionNeighbours();
@@ -456,7 +456,7 @@ GNEJunction::moveGeometry(const Position & oldPos, const Position & offset) {
             abort = true;
         }
     }
-    if(!abort) {
+    if (!abort) {
         Position newPosition = oldPos;
         newPosition.add(offset);
         moveJunctionGeometry(newPosition);
@@ -925,11 +925,11 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const
 
 
 void
-GNEJunction::moveJunctionGeometry(const Position &pos) {
+GNEJunction::moveJunctionGeometry(const Position& pos) {
     const Position orig = myNBNode.getPosition();
     myNBNode.reinit(pos, myNBNode.getType());
     // set new position of adjacent edges
-    for (auto i :getNBNode()->getEdges()) {
+    for (auto i : getNBNode()->getEdges()) {
         myNet->retrieveEdge(i->getID())->updateJunctionPosition(this, orig);
     }
     // Update shapes without include connections, because the aren't showed in Move mode

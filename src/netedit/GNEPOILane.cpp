@@ -62,8 +62,8 @@
 // ===========================================================================
 
 GNEPOILane::GNEPOILane(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
-    double layer, double angle, const std::string& imgFile, GNELane *lane, double posOverLane, double posLat,
-    double width, double height, bool movementBlocked) :
+                       double layer, double angle, const std::string& imgFile, GNELane* lane, double posOverLane, double posLat,
+                       double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane / lane->getLaneParametricLength(), posLat, layer, angle, imgFile, width, height),
     GNEShape(net, SUMO_TAG_POILANE, ICON_LOCATEPOI, movementBlocked, false),
     myGNELane(lane) {
@@ -73,7 +73,7 @@ GNEPOILane::GNEPOILane(GNENet* net, const std::string& id, const std::string& ty
 GNEPOILane::~GNEPOILane() {}
 
 
-void 
+void
 GNEPOILane::writeShape(OutputDevice& device) {
     // obtain fixed position over lane
     double fixedPositionOverLane = myPosOverLane > 1 ? 1 : myPosOverLane < 0 ? 0 : myPosOverLane;
@@ -83,7 +83,7 @@ GNEPOILane::writeShape(OutputDevice& device) {
 
 
 void
-GNEPOILane::moveGeometry(const Position& oldPos, const Position &offset) {
+GNEPOILane::moveGeometry(const Position& oldPos, const Position& offset) {
     // Calculate new position using old position
     Position newPosition = oldPos;
     newPosition.add(offset);
@@ -111,7 +111,7 @@ GNEPOILane::getLane() const {
 }
 
 
-void 
+void
 GNEPOILane::updateGeometry() {
     // obtain fixed position over lane
     double fixedPositionOverLane = myPosOverLane > 1 ? 1 : myPosOverLane < 0 ? 0 : myPosOverLane;
@@ -128,7 +128,7 @@ GNEPOILane::getPositionInView() const {
 }
 
 
-GUIGlID 
+GUIGlID
 GNEPOILane::getGlID() const {
     return GUIPointOfInterest::getGlID();
 }
@@ -176,32 +176,32 @@ GNEPOILane::drawGL(const GUIVisualizationSettings& s) const {
 std::string
 GNEPOILane::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-    case SUMO_ATTR_ID:
-        return myID;
-    case SUMO_ATTR_COLOR:
-        return toString(myColor);
-    case SUMO_ATTR_LANE:
-        return myLane;
-    case SUMO_ATTR_POSITION:
-        return toString(myPosOverLane * myGNELane->getLaneParametricLength());
-    case SUMO_ATTR_POSITION_LAT:
-        return toString(myPosLat);
-    case SUMO_ATTR_TYPE:
-        return myType;
-    case SUMO_ATTR_LAYER:
-        return toString(myLayer);
-    case SUMO_ATTR_IMGFILE:
-        return myImgFile;
-    case SUMO_ATTR_WIDTH:
-        return toString(getWidth());
-    case SUMO_ATTR_HEIGHT:
-        return toString(getHeight());
-    case SUMO_ATTR_ANGLE:
-        return toString(getNaviDegree());
-    case GNE_ATTR_BLOCK_MOVEMENT:
-        return toString(myBlockMovement);
-    default:
-        throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
+        case SUMO_ATTR_ID:
+            return myID;
+        case SUMO_ATTR_COLOR:
+            return toString(myColor);
+        case SUMO_ATTR_LANE:
+            return myLane;
+        case SUMO_ATTR_POSITION:
+            return toString(myPosOverLane * myGNELane->getLaneParametricLength());
+        case SUMO_ATTR_POSITION_LAT:
+            return toString(myPosLat);
+        case SUMO_ATTR_TYPE:
+            return myType;
+        case SUMO_ATTR_LAYER:
+            return toString(myLayer);
+        case SUMO_ATTR_IMGFILE:
+            return myImgFile;
+        case SUMO_ATTR_WIDTH:
+            return toString(getWidth());
+        case SUMO_ATTR_HEIGHT:
+            return toString(getHeight());
+        case SUMO_ATTR_ANGLE:
+            return toString(getNaviDegree());
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return toString(myBlockMovement);
+        default:
+            throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
     }
 }
 
@@ -212,22 +212,22 @@ GNEPOILane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-    case SUMO_ATTR_ID:
-    case SUMO_ATTR_COLOR:
-    case SUMO_ATTR_LANE:
-    case SUMO_ATTR_POSITION:
-    case SUMO_ATTR_POSITION_LAT:
-    case SUMO_ATTR_TYPE:
-    case SUMO_ATTR_LAYER:
-    case SUMO_ATTR_IMGFILE:
-    case SUMO_ATTR_WIDTH:
-    case SUMO_ATTR_HEIGHT:
-    case SUMO_ATTR_ANGLE:
-    case GNE_ATTR_BLOCK_MOVEMENT:
-        undoList->p_add(new GNEChange_Attribute(this, key, value));
-        break;
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID:
+        case SUMO_ATTR_COLOR:
+        case SUMO_ATTR_LANE:
+        case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_POSITION_LAT:
+        case SUMO_ATTR_TYPE:
+        case SUMO_ATTR_LAYER:
+        case SUMO_ATTR_IMGFILE:
+        case SUMO_ATTR_WIDTH:
+        case SUMO_ATTR_HEIGHT:
+        case SUMO_ATTR_ANGLE:
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            break;
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -235,39 +235,39 @@ GNEPOILane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
 bool
 GNEPOILane::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_ID:
-        return isValidID(value) && (myNet->retrievePOI(value, false) == 0);
-    case SUMO_ATTR_COLOR:
-        return canParse<RGBColor>(value);
-    case SUMO_ATTR_LANE:
-        return (myNet->retrieveLane(value, false) != NULL);
-    case SUMO_ATTR_POSITION:
-        return canParse<double>(value);
-    case SUMO_ATTR_POSITION_LAT:
-        return canParse<double>(value);
-    case SUMO_ATTR_TYPE:
-        return true;
-    case SUMO_ATTR_LAYER:
-        return canParse<double>(value);
-    case SUMO_ATTR_IMGFILE:
-        if (value == "") {
+        case SUMO_ATTR_ID:
+            return isValidID(value) && (myNet->retrievePOI(value, false) == 0);
+        case SUMO_ATTR_COLOR:
+            return canParse<RGBColor>(value);
+        case SUMO_ATTR_LANE:
+            return (myNet->retrieveLane(value, false) != NULL);
+        case SUMO_ATTR_POSITION:
+            return canParse<double>(value);
+        case SUMO_ATTR_POSITION_LAT:
+            return canParse<double>(value);
+        case SUMO_ATTR_TYPE:
             return true;
-        } else if (isValidFilename(value)) {
-            // check that image can be loaded
-            return GUITexturesHelper::getTextureID(value) != -1;
-        } else {
-            return false;
-        }
-    case SUMO_ATTR_WIDTH:
-        return canParse<double>(value);
-    case SUMO_ATTR_HEIGHT:
-        return canParse<double>(value);
-    case SUMO_ATTR_ANGLE:
-        return canParse<double>(value);
-    case GNE_ATTR_BLOCK_MOVEMENT:
-        return canParse<bool>(value);
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_LAYER:
+            return canParse<double>(value);
+        case SUMO_ATTR_IMGFILE:
+            if (value == "") {
+                return true;
+            } else if (isValidFilename(value)) {
+                // check that image can be loaded
+                return GUITexturesHelper::getTextureID(value) != -1;
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_WIDTH:
+            return canParse<double>(value);
+        case SUMO_ATTR_HEIGHT:
+            return canParse<double>(value);
+        case SUMO_ATTR_ANGLE:
+            return canParse<double>(value);
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            return canParse<bool>(value);
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -278,51 +278,51 @@ GNEPOILane::isValid(SumoXMLAttr key, const std::string& value) {
 void
 GNEPOILane::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_ID: {
-        std::string oldID = myID;
-        myID = value;
-        myNet->changeShapeID(this, oldID);
-        break;
-    }
-    case SUMO_ATTR_COLOR:
-        myColor = parse<RGBColor>(value);
-        break;
-    case SUMO_ATTR_LANE:
-        myLane = value;
-        myGNELane->removeShapeChild(this);
-        myGNELane = myNet->retrieveLane(value);
-        myGNELane->addShapeChild(this);
-        updateGeometry();
-        break;
-    case SUMO_ATTR_POSITION:
-        myPosOverLane = parse<double>(value) / myGNELane->getLaneParametricLength();
-        break;
-    case SUMO_ATTR_POSITION_LAT:
-        myPosLat = parse<double>(value);
-        break;
-    case SUMO_ATTR_TYPE:
-        myType = value;
-        break;
-    case SUMO_ATTR_LAYER:
-        myLayer = parse<double>(value);
-        break;
-    case SUMO_ATTR_IMGFILE:
-        myImgFile = value;
-        break;
-    case SUMO_ATTR_WIDTH:
-        setWidth(parse<double>(value));
-        break;
-    case SUMO_ATTR_HEIGHT:
-        setHeight(parse<double>(value));
-        break;
-    case SUMO_ATTR_ANGLE:
-        setNaviDegree(parse<double>(value));
-        break;
-    case GNE_ATTR_BLOCK_MOVEMENT:
-        myBlockMovement = parse<bool>(value);
-        break;
-    default:
-        throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
+        case SUMO_ATTR_ID: {
+            std::string oldID = myID;
+            myID = value;
+            myNet->changeShapeID(this, oldID);
+            break;
+        }
+        case SUMO_ATTR_COLOR:
+            myColor = parse<RGBColor>(value);
+            break;
+        case SUMO_ATTR_LANE:
+            myLane = value;
+            myGNELane->removeShapeChild(this);
+            myGNELane = myNet->retrieveLane(value);
+            myGNELane->addShapeChild(this);
+            updateGeometry();
+            break;
+        case SUMO_ATTR_POSITION:
+            myPosOverLane = parse<double>(value) / myGNELane->getLaneParametricLength();
+            break;
+        case SUMO_ATTR_POSITION_LAT:
+            myPosLat = parse<double>(value);
+            break;
+        case SUMO_ATTR_TYPE:
+            myType = value;
+            break;
+        case SUMO_ATTR_LAYER:
+            myLayer = parse<double>(value);
+            break;
+        case SUMO_ATTR_IMGFILE:
+            myImgFile = value;
+            break;
+        case SUMO_ATTR_WIDTH:
+            setWidth(parse<double>(value));
+            break;
+        case SUMO_ATTR_HEIGHT:
+            setHeight(parse<double>(value));
+            break;
+        case SUMO_ATTR_ANGLE:
+            setNaviDegree(parse<double>(value));
+            break;
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            myBlockMovement = parse<bool>(value);
+            break;
+        default:
+            throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
     }
     // update Geometry after every change
     updateGeometry();

@@ -39,15 +39,15 @@
 // ===========================================================================
 NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length,
                    std::string name, SVCPermissions svcPermissions)
-        :
-        myPTStopId(ptStopId),
-        myPosition(position),
-        myEdgeId(edgeId),
-        myOrigEdgeId(origEdgeId),
-        myPTStopLength(length),
-        myName(name),
-        myPermissions(svcPermissions),
-        myIsMultipleStopPositions(false) {
+    :
+    myPTStopId(ptStopId),
+    myPosition(position),
+    myEdgeId(edgeId),
+    myOrigEdgeId(origEdgeId),
+    myPTStopLength(length),
+    myName(name),
+    myPermissions(svcPermissions),
+    myIsMultipleStopPositions(false) {
 }
 
 std::string
@@ -90,10 +90,10 @@ void NBPTStop::write(OutputDevice& device) {
     device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
     if (!myAccesses.empty()) {
 
-        for (auto tuple :myAccesses) {
+        for (auto tuple : myAccesses) {
             device.openTag(SUMO_TAG_ACCESS);
-            device.writeAttr(SUMO_ATTR_LANE,std::get<0>(tuple));
-            device.writeAttr(SUMO_ATTR_POSITION,std::get<1>(tuple));
+            device.writeAttr(SUMO_ATTR_LANE, std::get<0>(tuple));
+            device.writeAttr(SUMO_ATTR_POSITION, std::get<1>(tuple));
             device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
             device.closeTag();
         }
@@ -177,7 +177,7 @@ void NBPTStop::setMyPTStopId(std::string id) {
     myPTStopId = id;
 }
 void NBPTStop::addAccess(std::string laneID, double offset) {
-    myAccesses.push_back(std::make_tuple(laneID,offset));
+    myAccesses.push_back(std::make_tuple(laneID, offset));
 }
 
 

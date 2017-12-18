@@ -108,10 +108,9 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     myCooperativeParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_PARAM, 1)),
     mySpeedGainParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 1)),
     myKeepRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 1)),
-    myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)), 
-    mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)), 
-    myExperimentalParam1(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)) 
-{
+    myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)),
+    mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)),
+    myExperimentalParam1(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)) {
     initDerivedParameters();
 #ifdef DEBUG_CONSTRUCTOR
     if (DEBUG_COND) {
@@ -588,7 +587,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             // @note The possible breaking can be underestimated by the formula, so this is a potential
             //       source of collisions if actionsteplength>simsteplength.
             const double nvMaxDecel = HELP_OVERTAKE;
-            nextNVSpeed = nv->getSpeed() - nvMaxDecel*myVehicle.getActionStepLengthSecs(); // conservative
+            nextNVSpeed = nv->getSpeed() - nvMaxDecel * myVehicle.getActionStepLengthSecs(); // conservative
             // Estimated gap reduction until next action step if own speed stays constant
             dv = SPEED2DIST(myVehicle.getSpeed() - nextNVSpeed);
         }
@@ -780,12 +779,12 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                 // in contrast to the euler case, where nv's follow speed doesn't depend on the actual speed,
                 // we need to assure, that nv doesn't accelerate
                 vsafe = MIN2(nv->getSpeed(), MAX2(neighNewSpeed,
-                                  nv->getCarFollowModel().followSpeed(nv,
-                                          nv->getSpeed(), nextGap,
-                                          MAX2(0., plannedSpeed),
-                                          myCarFollowModel.getMaxDecel())));
+                                                  nv->getCarFollowModel().followSpeed(nv,
+                                                          nv->getSpeed(), nextGap,
+                                                          MAX2(0., plannedSpeed),
+                                                          myCarFollowModel.getMaxDecel())));
 
-                assert(vsafe >= vsafe1-NUMERICAL_EPS);
+                assert(vsafe >= vsafe1 - NUMERICAL_EPS);
 
 #ifdef DEBUG_INFORMER
                 if (DEBUG_COND) {
@@ -1947,9 +1946,9 @@ MSLCM_LC2013::slowDownForBlocked(MSVehicle** blocked, int state) {
                     state |= LCA_AMBACKBLOCKER;
                 }
                 addLCSpeedAdvice(myCarFollowModel.followSpeed(
-                        &myVehicle, myVehicle.getSpeed(),
-                        (double)(gap - POSITION_EPS), (*blocked)->getSpeed(),
-                        (*blocked)->getCarFollowModel().getMaxDecel()));
+                                     &myVehicle, myVehicle.getSpeed(),
+                                     (double)(gap - POSITION_EPS), (*blocked)->getSpeed(),
+                                     (*blocked)->getCarFollowModel().getMaxDecel()));
 
                 //(*blocked) = 0; // VARIANT_14 (furtherBlock)
 #ifdef DEBUG_SLOW_DOWN
@@ -2047,7 +2046,7 @@ MSLCM_LC2013::adaptSpeedToPedestrians(const MSLane* lane, double& v) {
 
 
 void MSLCM_LC2013::addLCSpeedAdvice(const double vSafe) {
-    const double accel = SPEED2ACCEL(vSafe-myVehicle.getSpeed());
+    const double accel = SPEED2ACCEL(vSafe - myVehicle.getSpeed());
     myLCAccelerationAdvices.push_back(accel);
 }
 

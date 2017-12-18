@@ -517,10 +517,10 @@ private:
 
     MSLink* computeParallelLink(int direction);
 
-    bool blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation& avi, 
-            SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
-            bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
-            const SUMOVehicle* ego) const;
+    bool blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation& avi,
+                      SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
+                      bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
+                      const SUMOVehicle* ego) const;
 
 private:
     /// @brief The lane behind the junction approached by this link

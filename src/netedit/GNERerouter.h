@@ -57,8 +57,8 @@ public:
      * @param[in] probability The probability for vehicle rerouting
      * @param[in] off Whether the router should be inactive initially
      */
-    GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, 
-            double probability, bool off, double timeThreshold);
+    GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename,
+                double probability, bool off, double timeThreshold);
 
     /// @brief Destructor
     ~GNERerouter();
@@ -97,7 +97,7 @@ public:
      * @param[in] newPosition new position of geometry
      * @note should't be called in drawGL(...) functions to avoid smoothness issues
      */
-    void moveGeometry(const Position& oldPos, const Position &offset);
+    void moveGeometry(const Position& oldPos, const Position& offset);
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
      * @param[in] oldPos the old position of additional
@@ -166,7 +166,7 @@ protected:
 
     /// @brief set with the GNERerouterInterval
     std::vector<GNERerouterInterval*> myRerouterIntervals;
-    
+
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

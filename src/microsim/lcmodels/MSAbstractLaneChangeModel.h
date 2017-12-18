@@ -184,7 +184,7 @@ public:
     double getManeuverDist() const;
 
     /// @brief Updates the value of safe lateral distances (in SL2015) during maneuver continuation in non-action steps
-    virtual void updateSafeLatDist (const double travelledLatDist);
+    virtual void updateSafeLatDist(const double travelledLatDist);
 
     const std::pair<int, int>& getSavedState(const int dir) const {
         return mySavedStates.find(dir)->second;

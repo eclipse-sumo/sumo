@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Dec 14 22:23:55 2017" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Dec 15 13:16:46 2017" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
     <road name="" length="70.65625000" id="100" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -884,11 +884,7 @@
     <junction name="1" id="1">
         <connection id="0" incomingRoad="108" connectingRoad="109" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="108" connectingRoad="109" contactPoint="start">
             <laneLink from="-2" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="108" connectingRoad="109" contactPoint="start">
             <laneLink from="-3" to="-2"/>
         </connection>
     </junction>
@@ -898,22 +894,14 @@
         </connection>
         <connection id="1" incomingRoad="107" connectingRoad="111" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="107" connectingRoad="111" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="3" incomingRoad="107" connectingRoad="111" contactPoint="start">
             <laneLink from="-3" to="-3"/>
         </connection>
     </junction>
     <junction name="3" id="5">
         <connection id="0" incomingRoad="104" connectingRoad="112" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="104" connectingRoad="112" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="2" incomingRoad="104" connectingRoad="112" contactPoint="start">
             <laneLink from="-3" to="-3"/>
         </connection>
     </junction>
@@ -923,22 +911,14 @@
         </connection>
         <connection id="1" incomingRoad="103" connectingRoad="114" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="103" connectingRoad="114" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="3" incomingRoad="103" connectingRoad="114" contactPoint="start">
             <laneLink from="-3" to="-3"/>
         </connection>
     </junction>
     <junction name="s2-AddedOnRampNode" id="4">
         <connection id="0" incomingRoad="105" connectingRoad="115" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="1" incomingRoad="105" connectingRoad="115" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="2" incomingRoad="105" connectingRoad="115" contactPoint="start">
             <laneLink from="-3" to="-3"/>
         </connection>
     </junction>
@@ -948,11 +928,7 @@
         </connection>
         <connection id="1" incomingRoad="106" connectingRoad="117" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-        </connection>
-        <connection id="2" incomingRoad="106" connectingRoad="117" contactPoint="start">
             <laneLink from="-2" to="-2"/>
-        </connection>
-        <connection id="3" incomingRoad="106" connectingRoad="117" contactPoint="start">
             <laneLink from="-3" to="-3"/>
         </connection>
     </junction>

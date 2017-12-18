@@ -73,7 +73,7 @@ public:
      * @return whether the polygon could be added
      */
     virtual bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-                            double angle, const std::string& imgFile, const PositionVector& shape, bool geo, 
+                            double angle, const std::string& imgFile, const PositionVector& shape, bool geo,
                             bool fill, bool ignorePruning = false);
 
 
@@ -94,7 +94,7 @@ public:
      * @return whether the poi could be added
      */
     virtual bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                        const std::string &lane, double posOverLane, double posLat, double layer, double angle, 
+                        const std::string& lane, double posOverLane, double posLat, double layer, double angle,
                         const std::string& imgFile, double width, double height, bool ignorePruning = false);
 
 

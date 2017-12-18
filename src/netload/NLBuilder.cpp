@@ -195,7 +195,7 @@ NLBuilder::build() {
         XMLSubSys::runParser(h, f);
         if (myOptions.isDefault("begin")) {
             myOptions.set("begin", time2string(h.getTime()));
-            if (TraCIServer::getInstance()!=0) {
+            if (TraCIServer::getInstance() != 0) {
                 TraCIServer::getInstance()->setTargetTime(h.getTime());
             }
         }
@@ -318,10 +318,10 @@ NLBuilder::buildNet() {
     }
     // if anthing goes wrong after this point, the net is responsible for cleaning up
     myNet.closeBuilding(myOptions, edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles,
-            myXMLHandler.haveSeenInternalEdge(),
-            myXMLHandler.haveSeenNeighs(),
-            myXMLHandler.lefthand(),
-            myXMLHandler.networkVersion());
+                        myXMLHandler.haveSeenInternalEdge(),
+                        myXMLHandler.haveSeenNeighs(),
+                        myXMLHandler.lefthand(),
+                        myXMLHandler.networkVersion());
 }
 
 

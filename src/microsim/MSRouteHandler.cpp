@@ -134,7 +134,7 @@ MSRouteHandler::parseFromViaTo(std::string element,
     }
     MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true),
                            myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
-    myVehicleParameter->via = StringTokenizer(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true)).getVector(); 
+    myVehicleParameter->via = StringTokenizer(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true)).getVector();
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_TO)) && myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
         const MSEdge* toTaz = MSEdge::dictionary(myVehicleParameter->toTaz + "-sink");
         if (toTaz == 0) {
@@ -1087,7 +1087,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         if (type == 0) {
             throw InvalidArgument("The vehicle type '" + pars.back()->vtypeid + "' in a trip for person '" + myVehicleParameter->id + "' is not known.");
         }
-        pars.back()->id = myVehicleParameter->id + "_" + toString(pars.size()-1);
+        pars.back()->id = myVehicleParameter->id + "_" + toString(pars.size() - 1);
         modeSet |= SVC_PASSENGER;
     }
     if (pars.empty()) {
@@ -1120,7 +1120,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             }
             myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));
         } else {
-            for (SUMOVehicleParameter* vehPar: pars) {
+            for (SUMOVehicleParameter* vehPar : pars) {
                 SUMOVehicle* vehicle = 0;
                 if (vehPar != 0) {
                     MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vehPar->vtypeid);
@@ -1134,12 +1134,12 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                 bool carUsed = false;
                 std::vector<MSNet::MSIntermodalRouter::TripItem> result;
                 if (MSNet::getInstance()->getIntermodalRouter().compute(from, to, departPos, arrivalPos,
-                    pedType->getMaxSpeed() * walkFactor, vehicle, modeSet, myVehicleParameter->depart, result)) {
+                        pedType->getMaxSpeed() * walkFactor, vehicle, modeSet, myVehicleParameter->depart, result)) {
                     for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                         if (!it->edges.empty()) {
                             bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
                             if (it->line == "") {
-                                const double depPos = myActivePlan->back()->getDestinationStop() != 0 ? myActivePlan->back()->getDestinationStop()->getAccessPos(it->edges.front()): departPos;
+                                const double depPos = myActivePlan->back()->getDestinationStop() != 0 ? myActivePlan->back()->getDestinationStop()->getAccessPos(it->edges.front()) : departPos;
                                 myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, it->edges, bs, duration, speed, depPos, bs != 0 ? bs->getAccessPos(it->edges.back()) : arrivalPos, departPosLat));
                             } else if (vehicle != 0 && it->line == vehicle->getID()) {
                                 double vehicleArrivalPos = bs != 0 ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength();
@@ -1212,8 +1212,8 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             throw ProcessError("No edges to walk for person '" + myVehicleParameter->id + "'.");
         }
         if (&myActivePlan->back()->getDestination() != myActiveRoute.front() &&
-            myActivePlan->back()->getDestination().getToJunction() != myActiveRoute.front()->getFromJunction() &&
-            myActivePlan->back()->getDestination().getToJunction() != myActiveRoute.front()->getToJunction()) {
+                myActivePlan->back()->getDestination().getToJunction() != myActiveRoute.front()->getFromJunction() &&
+                myActivePlan->back()->getDestination().getToJunction() != myActiveRoute.front()->getToJunction()) {
             if (myActivePlan->back()->getDestinationStop() == 0 || !myActivePlan->back()->getDestinationStop()->hasAccess(myActiveRoute.front())) {
                 throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + myActiveRoute.front()->getID() + " not connected to " + myActivePlan->back()->getDestination().getID() + ").");
             }

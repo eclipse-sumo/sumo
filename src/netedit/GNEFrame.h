@@ -146,7 +146,7 @@ public:
         ~GEOAttributes();
 
         /// @brief show GEOAttribute for the current AttributeCarriers
-        void showGEOAttributes(const std::vector<GNEAttributeCarrier*> &ACs);
+        void showGEOAttributes(const std::vector<GNEAttributeCarrier*>& ACs);
 
         /// @brief hide GEOAttributes
         void hideGEOAttributes();

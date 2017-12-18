@@ -108,13 +108,13 @@ GNENetElement::removeAdditionalChild(GNEAdditional* additional) {
 }
 
 
-const std::vector<GNEAdditional*>& 
+const std::vector<GNEAdditional*>&
 GNENetElement::getAdditionalParents() const {
     return myAdditionalParents;
 }
 
 
-const std::vector<GNEAdditional*>& 
+const std::vector<GNEAdditional*>&
 GNENetElement::getAdditionalChilds() const {
     return myAdditionalChilds;
 }
@@ -126,7 +126,7 @@ GNENetElement::getParentName() const {
 }
 
 
-GUIParameterTableWindow* 
+GUIParameterTableWindow*
 GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // get attributes
     std::vector<SumoXMLAttr> attributes = getAttrs();

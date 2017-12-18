@@ -323,27 +323,27 @@ public:
         ~Influencer();
 
 
-        void setVTDControlled(Position xyPos, MSLane* l, double pos, double posLat, double angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t);
+        void setRemoteControlled(Position xyPos, MSLane* l, double pos, double posLat, double angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t);
 
         SUMOTime getLastAccessTimeStep() const {
-            return myLastVTDAccess;
+            return myLastRemoteAccess;
         }
 
-        void postProcessVTD(MSPerson* p);
+        void postProcessRemoteControl(MSPerson* p);
 
-        bool isVTDControlled() const;
+        bool isRemoteControlled() const;
 
-        bool isVTDAffected(SUMOTime t) const;
+        bool isRemoteAffected(SUMOTime t) const;
 
     private:
-        Position myVTDXYPos;
-        MSLane* myVTDLane;
-        double myVTDPos;
-        double myVTDPosLat;
-        double myVTDAngle;
-        int myVTDEdgeOffset;
-        ConstMSEdgeVector myVTDRoute;
-        SUMOTime myLastVTDAccess;
+        Position myRemoteXYPos;
+        MSLane* myRemoteLane;
+        double myRemotePos;
+        double myRemotePosLat;
+        double myRemoteAngle;
+        int myRemoteEdgeOffset;
+        ConstMSEdgeVector myRemoteRoute;
+        SUMOTime myLastRemoteAccess;
     };
 
 
@@ -361,8 +361,9 @@ public:
     }
 
     /// @brief sets position outside the road network
-    void setVTDState(Position xyPos);
+    void setRemoteState(Position xyPos);
 
+private:
     /// @brief An instance of a speed/position influencing instance; built in "getInfluencer"
     Influencer* myInfluencer;
 #endif

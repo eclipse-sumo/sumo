@@ -892,12 +892,12 @@ GUILane::setColor(const GUIVisualizationSettings& s) const {
 bool
 GUILane::setFunctionalColor(int activeScheme) const {
     switch (activeScheme) {
-        case 0: 
+        case 0:
             if (myEdge->isCrossing()) {
                 // determine priority to decide color
                 MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
                 if (link->havePriority() || link->getTLLogic() != 0) {
-                    GLHelper::setColor(RGBColor(230,230,230));
+                    GLHelper::setColor(RGBColor(230, 230, 230));
                 } else {
                     GLHelper::setColor(RGBColor(26, 26, 26));
                 }
@@ -1182,7 +1182,7 @@ GUILane::isSelected() const {
     return gSelected.isSelected(GLO_LANE, getGlID());
 }
 
-bool 
+bool
 GUILane::isLaneOrEdgeSelected() const {
     return isSelected() || gSelected.isSelected(GLO_EDGE, dynamic_cast<GUIEdge*>(myEdge)->getGlID());
 }

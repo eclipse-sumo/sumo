@@ -100,7 +100,7 @@ public:
     * @param[in] newPos The new position of vertex
     * @return index of vertex (in some cases index can change
     */
-    int moveVertexShape(const int index, const Position& oldPos, const Position &offset);
+    int moveVertexShape(const int index, const Position& oldPos, const Position& offset);
 
     /**@brief move entire shape without commiting change
     * @param[in] oldShape the old shape of polygon before moving
@@ -249,16 +249,16 @@ public:
     std::vector<GNECrossing*> getGNECrossings();
 
     /// @brief remove Edge of Additional Parent
-    void removeEdgeOfAdditionalParents(GNEUndoList *undoList, bool allowEmpty);
+    void removeEdgeOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty);
 
     /// @brief make geometry smooth
-    void smooth(GNEUndoList *undoList);
+    void smooth(GNEUndoList* undoList);
 
     /// @brief interpolate z values linear between junctions
-    void straightenElevation(GNEUndoList *undoList);
+    void straightenElevation(GNEUndoList* undoList);
 
     /// @brief smooth elevation with regard to adjoining edges
-    void smoothElevation(GNEUndoList *undoList);
+    void smoothElevation(GNEUndoList* undoList);
 
     /// @brief return smoothed shape
     PositionVector smoothShape(const PositionVector& shape, bool forElevation);

@@ -137,7 +137,7 @@ public:
 
     /// @brief Updates the value of safe lateral distances (mySafeLatDistLeft and mySafeLatDistRight)
     ///        during maneuver continuation in non-action steps.
-    virtual void updateSafeLatDist (const double travelledLatDist);
+    virtual void updateSafeLatDist(const double travelledLatDist);
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const;

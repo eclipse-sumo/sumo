@@ -26,12 +26,12 @@
 #include "NBPTLine.h"
 #include "NBPTStop.h"
 
-NBPTLine::NBPTLine(const std::string& name, const std::string& type) : 
-    myName(name), 
+NBPTLine::NBPTLine(const std::string& name, const std::string& type) :
+    myName(name),
     myType(type),
-    myPTLineId(-1), 
-    myRef(name) 
-{ }
+    myPTLineId(-1),
+    myRef(name) {
+}
 
 void NBPTLine::addPTStop(NBPTStop* pStop) {
     myPTStops.push_back(pStop);
@@ -41,7 +41,7 @@ const std::string& NBPTLine::getName() const {
     return myName;
 }
 
-long long int 
+long long int
 NBPTLine::getLineID() const {
     return myPTLineId;
 }
@@ -58,10 +58,10 @@ void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
 
     device.writeAttr(SUMO_ATTR_LINE, StringUtils::escapeXML(myRef));
     device.writeAttr(SUMO_ATTR_TYPE, myType);
-    device.writeAttr("completeness", toString((double)myPTStops.size()/(double)myNumOfStops));
+    device.writeAttr("completeness", toString((double)myPTStops.size() / (double)myNumOfStops));
 
     std::vector<std::string> validEdgeIDs;
-    // filter out edges that have been removed due to joining junctions 
+    // filter out edges that have been removed due to joining junctions
     // (therest of the route is valid)
     for (NBEdge* e : myRoute) {
         if (ec.retrieve(e->getID())) {

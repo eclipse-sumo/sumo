@@ -66,7 +66,7 @@ public:
      */
     PointOfInterest(const std::string& id, const std::string& type,
                     const RGBColor& color, const Position& pos, bool geo,
-                    const std::string &lane, double posOverLane, double posLat,
+                    const std::string& lane, double posOverLane, double posLat,
                     double layer = DEFAULT_LAYER,
                     double angle = DEFAULT_ANGLE,
                     const std::string& imgFile = DEFAULT_IMG_FILE,
@@ -171,7 +171,7 @@ protected:
 
     /// @brief position over lane in which this POI is placed (main used by netedit)
     double myPosOverLane;
-        
+
     /// @brief latereal position over lane in which this POI is placed (main used by netedit)
     double myPosLat;
 

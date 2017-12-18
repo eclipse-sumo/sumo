@@ -41,90 +41,90 @@
 // member definitions
 // ===========================================================================
 namespace libsumo {
-    std::vector<std::string>
-        LaneArea::getIDList() {
-        std::vector<std::string> ids;
-        MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).insertIDs(ids);
-        return ids;
+std::vector<std::string>
+LaneArea::getIDList() {
+    std::vector<std::string> ids;
+    MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).insertIDs(ids);
+    return ids;
+}
+
+
+int
+LaneArea::getIDCount() {
+    std::vector<std::string> ids;
+    return (int)MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).size();
+}
+
+
+int
+LaneArea::getJamLengthVehicle(const std::string& detID) {
+    return getDetector(detID)->getCurrentJamLengthInVehicles();
+}
+
+
+double
+LaneArea::getJamLengthMeters(const std::string& detID) {
+    return getDetector(detID)->getCurrentJamLengthInMeters();
+}
+
+
+double
+LaneArea::getLastStepMeanSpeed(const std::string& detID) {
+    return getDetector(detID)->getCurrentMeanSpeed();
+}
+
+
+std::vector<std::string>
+LaneArea::getLastStepVehicleIDs(const std::string& detID) {
+    return getDetector(detID)->getCurrentVehicleIDs();
+}
+
+
+double
+LaneArea::getLastStepOccupancy(const std::string& detID) {
+    return getDetector(detID)->getCurrentOccupancy();
+}
+
+
+double
+LaneArea::getPosition(const std::string& detID) {
+    return getDetector(detID)->getStartPos();
+}
+
+
+std::string
+LaneArea::getLaneID(const std::string& detID) {
+    return getDetector(detID)->getLane()->getID();
+}
+
+
+double
+LaneArea::getLength(const std::string& detID) {
+    const MSE2Collector* const e2 = getDetector(detID);
+    return e2->getEndPos() - e2->getStartPos();
+}
+
+
+int
+LaneArea::getLastStepVehicleNumber(const std::string& detID) {
+    return getDetector(detID)->getCurrentVehicleNumber();
+}
+
+
+int
+LaneArea::getLastStepHaltingNumber(const std::string& detID) {
+    return getDetector(detID)->getCurrentHaltingNumber();
+}
+
+
+MSE2Collector*
+LaneArea::getDetector(const std::string& id) {
+    MSE2Collector* e2 = dynamic_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(id));
+    if (e2 == 0) {
+        throw TraCIException("Lane area detector '" + id + "' is not known");
     }
-
-
-    int
-        LaneArea::getIDCount() {
-        std::vector<std::string> ids;
-        return (int)MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).size();
-    }
-
-
-    int
-        LaneArea::getJamLengthVehicle(const std::string& detID) {
-        return getDetector(detID)->getCurrentJamLengthInVehicles();
-    }
-
-
-    double
-        LaneArea::getJamLengthMeters(const std::string& detID) {
-        return getDetector(detID)->getCurrentJamLengthInMeters();
-    }
-
-
-    double
-        LaneArea::getLastStepMeanSpeed(const std::string& detID) {
-        return getDetector(detID)->getCurrentMeanSpeed();
-    }
-
-
-    std::vector<std::string>
-        LaneArea::getLastStepVehicleIDs(const std::string& detID) {
-        return getDetector(detID)->getCurrentVehicleIDs();
-    }
-
-
-    double
-        LaneArea::getLastStepOccupancy(const std::string& detID) {
-        return getDetector(detID)->getCurrentOccupancy();
-    }
-
-
-    double
-        LaneArea::getPosition(const std::string& detID) {
-        return getDetector(detID)->getStartPos();
-    }
-
-
-    std::string
-        LaneArea::getLaneID(const std::string& detID) {
-        return getDetector(detID)->getLane()->getID();
-    }
-
-
-    double
-        LaneArea::getLength(const std::string& detID) {
-        const MSE2Collector* const e2 = getDetector(detID);
-        return e2->getEndPos() - e2->getStartPos();
-    }
-
-
-    int
-        LaneArea::getLastStepVehicleNumber(const std::string& detID) {
-        return getDetector(detID)->getCurrentVehicleNumber();
-    }
-
-
-    int
-        LaneArea::getLastStepHaltingNumber(const std::string& detID) {
-        return getDetector(detID)->getCurrentHaltingNumber();
-    }
-
-
-    MSE2Collector*
-        LaneArea::getDetector(const std::string& id) {
-        MSE2Collector* e2 = dynamic_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(id));
-        if (e2 == 0) {
-            throw TraCIException("Lane area detector '" + id + "' is not known");
-        }
-        return e2;
-    }
+    return e2;
+}
 }
 
 

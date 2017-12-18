@@ -77,8 +77,8 @@ MSLaneChanger::ChangeElem::ChangeElem(MSLane* _lane) :
     lastBlocked(0),
     firstBlocked(0),
     ahead(lane),
-    aheadNext(lane, 0, 0)
-{ }
+    aheadNext(lane, 0, 0) {
+}
 
 void
 MSLaneChanger::ChangeElem::registerHop(MSVehicle* vehicle) {
@@ -284,10 +284,10 @@ MSLaneChanger::change() {
     }
 #endif
 
-    if (!vehicle->isActive()){
+    if (!vehicle->isActive()) {
 #ifdef DEBUG_ACTIONSTEPS
         if DEBUG_COND {
-            std::cout<< SIMTIME << " veh '" << vehicle->getID() << "' skips regular change checks." << std::endl;
+        std::cout << SIMTIME << " veh '" << vehicle->getID() << "' skips regular change checks." << std::endl;
         }
 #endif
         bool changed = false;
@@ -395,12 +395,12 @@ MSLaneChanger::checkTraCICommands(MSVehicle* vehicle) {
     if (DEBUG_COND) {
         const int newstate = vehicle->getLaneChangeModel().getOwnState();
         std::cout << SIMTIME
-                << " veh=" << vehicle->getID()
-                << " oldState=" << toString((LaneChangeAction) oldstate)
-                << " newState=" << toString((LaneChangeAction) newstate)
-                << ((newstate & LCA_BLOCKED) != 0 ? " (blocked)" : "")
-                << ((newstate & LCA_OVERLAPPING) != 0 ? " (overlap)" : "")
-                << "\n";
+                  << " veh=" << vehicle->getID()
+                  << " oldState=" << toString((LaneChangeAction) oldstate)
+                  << " newState=" << toString((LaneChangeAction) newstate)
+                  << ((newstate & LCA_BLOCKED) != 0 ? " (blocked)" : "")
+                  << ((newstate & LCA_OVERLAPPING) != 0 ? " (overlap)" : "")
+                  << "\n";
     }
 #endif
 }
@@ -540,7 +540,7 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
         double leaderBack = targetLane->getLength();
         for (MSVehicle* pl : targetLane->myPartialVehicles) {
             double plBack = pl->getBackPositionOnLane(targetLane);
-            if (plBack < leaderBack && 
+            if (plBack < leaderBack &&
                     pl->getPositionOnLane(targetLane) + pl->getVehicleType().getMinGap() >= egoBack) {
                 neighLead = pl;
                 leaderBack = plBack;
@@ -548,7 +548,9 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
         }
         if (neighLead != 0) {
 #ifdef DEBUG_SURROUNDING_VEHICLES
-            if (DEBUG_COND)  std::cout << "  found leader=" << neighLead->getID() << " (partial)\n";
+            if (DEBUG_COND) {
+                std::cout << "  found leader=" << neighLead->getID() << " (partial)\n";
+            }
 #endif
             return std::pair<MSVehicle*, double>(neighLead, leaderBack - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap());
         }
@@ -557,7 +559,9 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
         double dist = veh(myCandi)->getCarFollowModel().brakeGap(speed) + veh(myCandi)->getVehicleType().getMinGap();
         if (seen > dist) {
 #ifdef DEBUG_SURROUNDING_VEHICLES
-            if (DEBUG_COND)  std::cout << "  found no leader within dist=" << dist << "\n";
+            if (DEBUG_COND) {
+                std::cout << "  found no leader within dist=" << dist << "\n";
+            }
 #endif
             return std::pair<MSVehicle* const, double>(static_cast<MSVehicle*>(0), -1);
         }
@@ -565,13 +569,17 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
 
         std::pair<MSVehicle* const, double> result = target->lane->getLeaderOnConsecutive(dist, seen, speed, *veh(myCandi), bestLaneConts);
 #ifdef DEBUG_SURROUNDING_VEHICLES
-        if (DEBUG_COND)  std::cout << "  found consecutiveLeader=" << Named::getIDSecure(result.first) << "\n";
+        if (DEBUG_COND) {
+            std::cout << "  found consecutiveLeader=" << Named::getIDSecure(result.first) << "\n";
+        }
 #endif
         return result;
     } else {
         MSVehicle* candi = veh(myCandi);
 #ifdef DEBUG_SURROUNDING_VEHICLES
-        if (DEBUG_COND)  std::cout << "  found leader=" << neighLead->getID() << "\n";
+        if (DEBUG_COND) {
+            std::cout << "  found leader=" << neighLead->getID() << "\n";
+        }
 #endif
         return std::pair<MSVehicle* const, double>(neighLead, neighLead->getBackPositionOnLane(target->lane) - candi->getPositionOnLane() - candi->getVehicleType().getMinGap());
     }
@@ -749,12 +757,12 @@ MSLaneChanger::checkChange(
         // Expected reaction time (tau) for the follower-vehicle.
         // (substracted TS since at this point the vehicles' states are already updated)
         // XXX: How does the ego vehicle know the value of tau for the neighboring vehicle?
-        const double followerTauRemainder = MAX2(neighFollow.first->getCarFollowModel().getHeadwayTime()-TS, 0.);
-        const double vNextFollower = neighFollow.first->getSpeed() + MAX2(0., followerTauRemainder*neighFollow.first->getAcceleration());
-        const double vNextLeader = vehicle->getSpeed() + MIN2(0., followerTauRemainder*vehicle->getAcceleration());
+        const double followerTauRemainder = MAX2(neighFollow.first->getCarFollowModel().getHeadwayTime() - TS, 0.);
+        const double vNextFollower = neighFollow.first->getSpeed() + MAX2(0., followerTauRemainder * neighFollow.first->getAcceleration());
+        const double vNextLeader = vehicle->getSpeed() + MIN2(0., followerTauRemainder * vehicle->getAcceleration());
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
         secureBackGap = neighFollow.first->getCarFollowModel().getSecureGap(vNextFollower,
-                vNextLeader, vehicle->getCarFollowModel().getMaxDecel());
+                        vNextLeader, vehicle->getCarFollowModel().getMaxDecel());
         if (neighFollow.second < secureBackGap) {
             blocked |= blockedByFollower;
 
@@ -784,12 +792,12 @@ MSLaneChanger::checkChange(
         // Expected reaction time (tau) for the follower-vehicle.
         // (substracted TS since at this point the vehicles' states are already updated)
         // XXX: How does the ego vehicle know the value of tau for the neighboring vehicle?
-        const double followerTauRemainder = MAX2(vehicle->getCarFollowModel().getHeadwayTime()-TS, 0.);
-        const double vNextFollower = vehicle->getSpeed() + MAX2(0., followerTauRemainder*vehicle->getAcceleration());
-        const double vNextLeader = neighLead.first->getSpeed() + MIN2(0., followerTauRemainder*neighLead.first->getAcceleration());
+        const double followerTauRemainder = MAX2(vehicle->getCarFollowModel().getHeadwayTime() - TS, 0.);
+        const double vNextFollower = vehicle->getSpeed() + MAX2(0., followerTauRemainder * vehicle->getAcceleration());
+        const double vNextLeader = neighLead.first->getSpeed() + MIN2(0., followerTauRemainder * neighLead.first->getAcceleration());
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
         secureFrontGap = vehicle->getCarFollowModel().getSecureGap(vNextFollower,
-                vNextLeader, neighLead.first->getCarFollowModel().getMaxDecel());
+                         vNextLeader, neighLead.first->getCarFollowModel().getMaxDecel());
         if (neighLead.second < secureFrontGap) {
             blocked |= blockedByLeader;
 

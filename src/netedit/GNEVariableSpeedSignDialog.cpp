@@ -88,7 +88,7 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* edi
 GNEVariableSpeedSignDialog::~GNEVariableSpeedSignDialog() {}
 
 
-GNEVariableSpeedSign* 
+GNEVariableSpeedSign*
 GNEVariableSpeedSignDialog::getEditedVariableSpeedSign() const {
     return myEditedVariableSpeedSign;
 }
@@ -97,7 +97,7 @@ GNEVariableSpeedSignDialog::getEditedVariableSpeedSign() const {
 long
 GNEVariableSpeedSignDialog::onCmdAddStep(FXObject*, FXSelector, void*) {
     // Declare variables for time and speed
-    GNEVariableSpeedSignStep *step = new GNEVariableSpeedSignStep(this);
+    GNEVariableSpeedSignStep* step = new GNEVariableSpeedSignStep(this);
     myEditedVariableSpeedSign->getViewNet()->getUndoList()->add(new GNEChange_VariableSpeedSignItem(step, true), true);
     // Update table
     updateTableSteps();
@@ -105,12 +105,12 @@ GNEVariableSpeedSignDialog::onCmdAddStep(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
     myStepsValids = true;
     // iterate over table and check that all parameters are correct
     for (int i = 0; i < myStepsTable->getNumRows(); i++) {
-        GNEVariableSpeedSignStep *step = myEditedVariableSpeedSign->getVariableSpeedSignSteps().at(i);
+        GNEVariableSpeedSignStep* step = myEditedVariableSpeedSign->getVariableSpeedSignSteps().at(i);
         if (step->isValid(SUMO_ATTR_TIME, myStepsTable->getItem(i, 0)->getText().text()) == false) {
             myStepsValids = false;
             myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
@@ -149,15 +149,15 @@ GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
 
 long
 GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    if(myStepsValids == false) {
+    if (myStepsValids == false) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
         //
         // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, ("Error updating " + toString(SUMO_TAG_VSS) + " " + toString(SUMO_TAG_STEP)).c_str(), "%s", 
-                             (toString(SUMO_TAG_VSS) + " " + toString(SUMO_TAG_STEP) + "cannot be updated because there are invalid values").c_str());
+        FXMessageBox::warning(getApp(), MBOX_OK, ("Error updating " + toString(SUMO_TAG_VSS) + " " + toString(SUMO_TAG_STEP)).c_str(), "%s",
+                              (toString(SUMO_TAG_VSS) + " " + toString(SUMO_TAG_STEP) + "cannot be updated because there are invalid values").c_str());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");

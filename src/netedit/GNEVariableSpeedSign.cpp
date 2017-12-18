@@ -114,7 +114,7 @@ GNEVariableSpeedSign::openAdditionalDialog() {
 
 
 void
-GNEVariableSpeedSign::moveGeometry(const Position& oldPos, const Position &offset) {
+GNEVariableSpeedSign::moveGeometry(const Position& oldPos, const Position& offset) {
     // restore old position, apply offset and update Geometry
     myPosition = oldPos;
     myPosition.add(offset);
@@ -161,10 +161,10 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
 }
 
 
-void 
+void
 GNEVariableSpeedSign::addVariableSpeedSignStep(GNEVariableSpeedSignStep* step) {
     auto it = std::find(mySteps.begin(), mySteps.end(), step);
-    if(it == mySteps.end()) {
+    if (it == mySteps.end()) {
         mySteps.push_back(step);
         // sort steps always after a adding/restoring
         sortVariableSpeedSignSteps();
@@ -174,10 +174,10 @@ GNEVariableSpeedSign::addVariableSpeedSignStep(GNEVariableSpeedSignStep* step) {
 }
 
 
-void 
+void
 GNEVariableSpeedSign::removeVariableSpeedSignStep(GNEVariableSpeedSignStep* step) {
     auto it = std::find(mySteps.begin(), mySteps.end(), step);
-    if(it != mySteps.end()) {
+    if (it != mySteps.end()) {
         mySteps.erase(it);
         // sort steps always after a adding/restoring
         sortVariableSpeedSignSteps();
@@ -193,7 +193,7 @@ GNEVariableSpeedSign::getVariableSpeedSignSteps() const {
 }
 
 
-void 
+void
 GNEVariableSpeedSign::sortVariableSpeedSignSteps() {
     // declare a vector to keep sorted steps
     std::vector<GNEVariableSpeedSignStep*> sortedSteps;
@@ -201,8 +201,8 @@ GNEVariableSpeedSign::sortVariableSpeedSignSteps() {
     while (mySteps.size() > 0) {
         int time_small = 0;
         // find the interval with the small begin
-        for(int i = 0; i < (int)mySteps.size(); i++) {
-            if(mySteps.at(i)->getTime() < mySteps.at(time_small)->getTime()) {
+        for (int i = 0; i < (int)mySteps.size(); i++) {
+            if (mySteps.at(i)->getTime() < mySteps.at(time_small)->getTime()) {
                 time_small = i;
             }
         }
@@ -253,7 +253,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         glScaled(exaggeration, exaggeration, 1);
         glTranslated(i.first.x(), i.first.y(), getType());
-        glRotated(-1*i.second, 0, 0, 1);
+        glRotated(-1 * i.second, 0, 0, 1);
         glTranslated(0, -1.5, 0);
 
         int noPoints = 9;
@@ -276,7 +276,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
             // draw last value string
-            GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor(255,255,0), 180);
+            GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor(255, 255, 0), 180);
         }
         glPopMatrix();
     }
@@ -343,7 +343,7 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
             return (GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1);
         }
         case SUMO_ATTR_LANES:
-            if(value.empty()) {
+            if (value.empty()) {
                 return false;
             } else {
                 return checkGNELanesValid(myViewNet->getNet(), value, false);

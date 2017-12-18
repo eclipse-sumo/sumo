@@ -65,7 +65,7 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval* rerouterInterv
 GNEClosingLaneReroute::~GNEClosingLaneReroute() {}
 
 
-void 
+void
 GNEClosingLaneReroute::writeClosingLaneReroute(OutputDevice& device) const {
     // open closing reroute tag
     device.openTag(getTag());
@@ -86,49 +86,49 @@ GNEClosingLaneReroute::getRerouterIntervalParent() const {
 }
 
 
-std::string 
+std::string
 GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-    case SUMO_ATTR_ID:
-        return myClosedLane->getID();
-    case SUMO_ATTR_ALLOW:
-        return getVehicleClassNames(myAllowedVehicles);
-    case SUMO_ATTR_DISALLOW:
-        return getVehicleClassNames(myDisallowedVehicles);
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID:
+            return myClosedLane->getID();
+        case SUMO_ATTR_ALLOW:
+            return getVehicleClassNames(myAllowedVehicles);
+        case SUMO_ATTR_DISALLOW:
+            return getVehicleClassNames(myDisallowedVehicles);
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-void 
+void
 GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-    case SUMO_ATTR_ID:
-    case SUMO_ATTR_ALLOW:
-    case SUMO_ATTR_DISALLOW:
-        undoList->p_add(new GNEChange_Attribute(this, key, value));
-        break;
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID:
+        case SUMO_ATTR_ALLOW:
+        case SUMO_ATTR_DISALLOW:
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            break;
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-bool 
+bool
 GNEClosingLaneReroute::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_ID:
-        return (myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveLane(value, false) != NULL);
-    case SUMO_ATTR_ALLOW:
-        return canParseVehicleClasses(value);
-    case SUMO_ATTR_DISALLOW:
-        return canParseVehicleClasses(value);
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID:
+            return (myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveLane(value, false) != NULL);
+        case SUMO_ATTR_ALLOW:
+            return canParseVehicleClasses(value);
+        case SUMO_ATTR_DISALLOW:
+            return canParseVehicleClasses(value);
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -136,23 +136,23 @@ GNEClosingLaneReroute::isValid(SumoXMLAttr key, const std::string& value) {
 // private
 // ===========================================================================
 
-void 
+void
 GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_ID: {
-        myClosedLane = myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveLane(value);
-        break;
-    }
-    case SUMO_ATTR_ALLOW: {
-        myAllowedVehicles = parseVehicleClasses(value);
-        break;
-    }
-    case SUMO_ATTR_DISALLOW: {
-        myAllowedVehicles = parseVehicleClasses(value);
-        break;
-    }
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID: {
+            myClosedLane = myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveLane(value);
+            break;
+        }
+        case SUMO_ATTR_ALLOW: {
+            myAllowedVehicles = parseVehicleClasses(value);
+            break;
+        }
+        case SUMO_ATTR_DISALLOW: {
+            myAllowedVehicles = parseVehicleClasses(value);
+            break;
+        }
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

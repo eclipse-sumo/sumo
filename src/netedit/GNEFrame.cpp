@@ -186,12 +186,12 @@ GNEFrame::GEOAttributes::GEOAttributes(GNEFrame* frameParent) :
     myGEOAttributeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myGEOAttributeLabel = new FXLabel(myGEOAttributeFrame, "Undefined GEO Attribute", 0, GUIDesignLabelAttribute);
     myGEOAttributeTextField = new FXTextField(myGEOAttributeFrame, GUIDesignTextFieldNCol, this, MID_GNEFRAME_GEOATTRIBUTE, GUIDesignTextField);
-    
+
     // Create Frame for use GEO
     myUseGEOFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myUseGEOLabel = new FXLabel(myUseGEOFrame, "Use GEO", 0, GUIDesignLabelAttribute);
     myUseGEOCheckButton = new FXCheckButton(myUseGEOFrame, "false", this, MID_GNEFRAME_USEGEO, GUIDesignCheckButtonAttribute);
-    
+
     // Create help button
     myHelpButton = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
@@ -200,13 +200,13 @@ GNEFrame::GEOAttributes::GEOAttributes(GNEFrame* frameParent) :
 GNEFrame::GEOAttributes::~GEOAttributes() {}
 
 
-void 
-GNEFrame::GEOAttributes::showGEOAttributes(const std::vector<GNEAttributeCarrier*> &ACs) {
+void
+GNEFrame::GEOAttributes::showGEOAttributes(const std::vector<GNEAttributeCarrier*>& ACs) {
     // make sure that ACs has elements
-    if(ACs.size() > 0) {
+    if (ACs.size() > 0) {
         // set myACs with the inspected elements
         myACs = ACs;
-        if(ACs.front()->getTag() == SUMO_TAG_POLY) {
+        if (ACs.front()->getTag() == SUMO_TAG_POLY) {
             myGEOAttribute = SUMO_ATTR_GEOSHAPE;
             // set label name
             myGEOAttributeLabel->setText(toString(myGEOAttribute).c_str());
@@ -214,7 +214,7 @@ GNEFrame::GEOAttributes::showGEOAttributes(const std::vector<GNEAttributeCarrier
             refreshGEOAttributes();
             // show FXGroupBox
             FXGroupBox::show();
-        } else if(ACs.front()->getTag() == SUMO_TAG_POI) {
+        } else if (ACs.front()->getTag() == SUMO_TAG_POI) {
             myGEOAttribute = SUMO_ATTR_GEOPOSITION;
             // set label name
             myGEOAttributeLabel->setText(toString(myGEOAttribute).c_str());
@@ -233,7 +233,7 @@ GNEFrame::GEOAttributes::showGEOAttributes(const std::vector<GNEAttributeCarrier
 }
 
 
-void 
+void
 GNEFrame::GEOAttributes::hideGEOAttributes() {
     myACs.clear();
     myGEOAttribute = SUMO_ATTR_NOTHING;
@@ -242,14 +242,14 @@ GNEFrame::GEOAttributes::hideGEOAttributes() {
 }
 
 
-void 
+void
 GNEFrame::GEOAttributes::refreshGEOAttributes() {
     // only refresh element if myACs has elements
-    if(myACs.size() > 0) {
+    if (myACs.size() > 0) {
         // hide GEOAttribute Frame
         myGEOAttributeFrame->hide();
         // check if we're handling a single or multiple selection
-        if(myACs.size() > 1) {
+        if (myACs.size() > 1) {
             // only useGEO can be changed in multiple selections
             bool useGEO = true;
             for (auto i : myACs) {
@@ -273,21 +273,21 @@ GNEFrame::GEOAttributes::refreshGEOAttributes() {
 }
 
 
-std::map<SumoXMLAttr, std::string> 
+std::map<SumoXMLAttr, std::string>
 GNEFrame::GEOAttributes::getGEOAttributes() const {
     std::map<SumoXMLAttr, std::string> attributes;
     // fill map with the GEO Attributes
     attributes[myGEOAttribute] = myGEOAttributeTextField->getText().text();
-    attributes[SUMO_ATTR_GEO] = myUseGEOCheckButton->getCheck()? "true" : "false";
+    attributes[SUMO_ATTR_GEO] = myUseGEOCheckButton->getCheck() ? "true" : "false";
     return attributes;
 }
 
 
-long 
+long
 GNEFrame::GEOAttributes::onCmdSetGEOAttribute(FXObject*, FXSelector, void*) {
-    if(myGEOAttributeTextField->getText().empty()) {
+    if (myGEOAttributeTextField->getText().empty()) {
         WRITE_WARNING("GEO Shapes cannot be empty.");
-    } else if(myACs.front()->isValid(myGEOAttribute, myGEOAttributeTextField->getText().text())) {
+    } else if (myACs.front()->isValid(myGEOAttribute, myGEOAttributeTextField->getText().text())) {
         myACs.front()->setAttribute(myGEOAttribute, myGEOAttributeTextField->getText().text(), myFrameParent->getViewNet()->getUndoList());
         myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
     } else {
@@ -300,7 +300,7 @@ GNEFrame::GEOAttributes::onCmdSetGEOAttribute(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEFrame::GEOAttributes::onCmdUseGEOParameters(FXObject*, FXSelector, void*) {
     // change label of Check button depending of check
     if (myUseGEOCheckButton->getCheck()) {
@@ -316,17 +316,17 @@ GNEFrame::GEOAttributes::onCmdUseGEOParameters(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEFrame::GEOAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     FXDialogBox* helpDialog = new FXDialogBox(this, "GEO attributes Help", GUIDesignDialogBox);
     std::ostringstream help;
     help
-        << " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n" 
-        << " For a GEO-referenced network, geo coordinates are represented as pairs of Longitude and Latitude\n"
-        << " in decimal degrees without extra symbols. (N,W..)\n"
-        << " - Longitude: East-west position of a point on the Earth's surface.\n"
-        << " - Latitude: North-south position of a point on the Earth's surface.\n"
-        << " - CheckBox 'use GEO' enables or disables saving position in GEO coordinates\n";
+            << " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n"
+            << " For a GEO-referenced network, geo coordinates are represented as pairs of Longitude and Latitude\n"
+            << " in decimal degrees without extra symbols. (N,W..)\n"
+            << " - Longitude: East-west position of a point on the Earth's surface.\n"
+            << " - Latitude: North-south position of a point on the Earth's surface.\n"
+            << " - CheckBox 'use GEO' enables or disables saving position in GEO coordinates\n";
     new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // "OK"
     new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
@@ -350,12 +350,12 @@ GNEFrame::DrawingMode::DrawingMode(GNEFrame* frameParent) :
     // create information label
     std::ostringstream information;
     information
-        << "- 'Start drawing' or ENTER\n"
-        << "  draws polygon boundary.\n"
-        << "- 'Stop drawing' or ENTER\n"
-        << "  creates polygon.\n"
-        << "- 'Abort drawing' or ESC\n"
-        << "  removes drawed polygon.";
+            << "- 'Start drawing' or ENTER\n"
+            << "  draws polygon boundary.\n"
+            << "- 'Stop drawing' or ENTER\n"
+            << "  creates polygon.\n"
+            << "- 'Abort drawing' or ESC\n"
+            << "  removes drawed polygon.";
     myInformationLabel = new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // disable stop and abort functions as init
     myStopDrawingButton->disable();
@@ -385,7 +385,7 @@ void GNEFrame::DrawingMode::hideDrawingMode() {
 void
 GNEFrame::DrawingMode::startDrawing() {
     // Only start drawing if DrawingMode modul is shown
-    if(shown()) {
+    if (shown()) {
         // change buttons
         myStartDrawingButton->disable();
         myStopDrawingButton->enable();
@@ -401,7 +401,7 @@ GNEFrame::DrawingMode::stopDrawing() {
         myTemporalShapeShape.closePolygon();
     }
     // try to build polygon
-    /**  
+    /**
     NOTE: This solution using dynamic_cast is provisional, and has to be changed
           for task #1112.
     **/
@@ -587,7 +587,7 @@ GNEFrame::getFrameHeaderFont() const {
 
 GNEFrame::NeteditAttributes*
 GNEFrame::getNeteditAttributes() const {
-    if(myNeteditAttributes) {
+    if (myNeteditAttributes) {
         return myNeteditAttributes;
     } else {
         throw ProcessError("Netedit Attributes editor wasn't created");
@@ -595,9 +595,9 @@ GNEFrame::getNeteditAttributes() const {
 }
 
 
-GNEFrame::GEOAttributes* 
+GNEFrame::GEOAttributes*
 GNEFrame::getGEOAttributes() const {
-    if(myGEOAttributes) {
+    if (myGEOAttributes) {
         return myGEOAttributes;
     } else {
         throw ProcessError("GEO Attributes editor wasn't created");
@@ -607,7 +607,7 @@ GNEFrame::getGEOAttributes() const {
 
 GNEFrame::DrawingMode*
 GNEFrame::getDrawingMode() const {
-    if(myDrawingMode) {
+    if (myDrawingMode) {
         return myDrawingMode;
     } else {
         throw ProcessError("Drawing Mode editor wasn't created");

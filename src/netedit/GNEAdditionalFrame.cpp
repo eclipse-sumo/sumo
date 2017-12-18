@@ -268,7 +268,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
     }
 
     // Obtain position attribute if wasn't previously setted
-    if(valuesOfElement.find(SUMO_ATTR_POSITION) == valuesOfElement.end()) {
+    if (valuesOfElement.find(SUMO_ATTR_POSITION) == valuesOfElement.end()) {
         if (pointed_edge) {
             // Obtain position of the mouse over edge
             double positionOfTheMouseOverEdge = pointed_edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(currentPosition);
@@ -340,7 +340,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
     }
 
     // Save block value if additional can be blocked
-    if(GNEAttributeCarrier::canBlockMovement(myActualAdditionalType)) {
+    if (GNEAttributeCarrier::canBlockMovement(myActualAdditionalType)) {
         valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockEnabled());
     }
 
@@ -418,7 +418,7 @@ GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
         myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), deselected, true), true);
     }
     // first remove all additional childs of this additional calling this function recursively
-    while(additional->getAdditionalChilds().size() > 0) {
+    while (additional->getAdditionalChilds().size() > 0) {
         removeAdditional(additional->getAdditionalChilds().front());
     }
     // remove additional
@@ -436,7 +436,7 @@ GNEAdditionalFrame::onCmdSelectAdditional(FXObject*, FXSelector, void*) {
         if (toString(i) == myAdditionalMatchBox->getText().text()) {
             myAdditionalMatchBox->setTextColor(FXRGB(0, 0, 0));
             myadditionalParameters->show();
-            if(GNEAttributeCarrier::canBlockMovement(i)) {
+            if (GNEAttributeCarrier::canBlockMovement(i)) {
                 myEditorParameters->show();
             } else {
                 myEditorParameters->hide();
@@ -738,7 +738,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
         }
     } else if (GNEAttributeCarrier::isVClass(myAdditionalTag, myAdditionalAttr)) {
         // check if lists of Vclass are valid
-        if(canParseVehicleClasses(myTextFieldStrings->getText().text()) == false) {
+        if (canParseVehicleClasses(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "list of VClass isn't valid";
         }
     } else if (myAdditionalAttr == SUMO_ATTR_ROUTEPROBE) {

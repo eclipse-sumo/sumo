@@ -232,7 +232,7 @@ GNENet::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 bool
 GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle,
-    const std::string& imgFile, const PositionVector& shape, bool geo, bool fill, bool /*ignorePruning*/) {
+                   const std::string& imgFile, const PositionVector& shape, bool geo, bool fill, bool /*ignorePruning*/) {
     // check if ID is duplicated
     if (myPolygons.get(id) == NULL) {
         // create poly
@@ -249,12 +249,12 @@ GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColo
 
 bool
 GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-               const std::string &lane, double posOverLane, double posLat, double layer, double angle, 
+               const std::string& lane, double posOverLane, double posLat, double layer, double angle,
                const std::string& imgFile, double width, double height, bool /*ignorePruning*/) {
     // check if ID is duplicated
     if (myPOIs.get(id) == NULL) {
         // create POI or POILane depending of parameter lane
-        if(lane == "") {
+        if (lane == "") {
             // create POI
             GNEPOI* poi = new GNEPOI(this, id, type, color, pos, geo, layer, angle, imgFile, width, height, false);
             if (myPOIs.add(poi->getID(), poi)) {
@@ -267,7 +267,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
             }
         } else {
             // create POILane
-            GNELane *retrievedLane = retrieveLane(lane);
+            GNELane* retrievedLane = retrieveLane(lane);
             GNEPOILane* poiLane = new GNEPOILane(this, id, type, color, layer, angle, imgFile, retrievedLane, posOverLane, posLat, width, height, false);
             if (myPOIs.add(poiLane->getID(), poiLane)) {
                 myViewNet->getUndoList()->p_begin("add " + toString(poiLane->getTag()));
@@ -595,7 +595,7 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
         gSelected.deselect(crossing->getGlID());
     }
     undoList->add(new GNEChange_Crossing(crossing->getParentJunction(), crossing->getNBCrossing()->edges,
-                                         crossing->getNBCrossing()->width, crossing->getNBCrossing()->priority, 
+                                         crossing->getNBCrossing()->width, crossing->getNBCrossing()->priority,
                                          crossing->getNBCrossing()->customTLIndex,
                                          crossing->getNBCrossing()->customShape, selected, false), true);
     // remove crossing requieres always a recompute (due geometry and connections)
@@ -1001,7 +1001,7 @@ GNENet::retrieveLane(const std::string& id, bool failHard, bool checkVolatileCha
     const std::string edge_id = SUMOXMLDefinitions::getEdgeIDFromLane(id);
     GNEEdge* edge = retrieveEdge(edge_id, failHard);
     if (edge != 0) {
-        GNELane *lane = NULL;
+        GNELane* lane = NULL;
         // search  lane in lane's edges
         for (auto it : edge->getLanes()) {
             if (it->getID() == id) {
@@ -1010,13 +1010,13 @@ GNENet::retrieveLane(const std::string& id, bool failHard, bool checkVolatileCha
         }
         // throw exception or return NULL if lane wasn't found
         if (lane == NULL) {
-            if(failHard) {
+            if (failHard) {
                 // Throw exception if failHard is enabled
                 throw UnknownElement(toString(SUMO_TAG_LANE) + " " + id);
             }
         } else {
             // check if the recomputing with volatile option has changed the number of lanes (needed for additionals)
-            if(checkVolatileChange && (myEdgesAndNumberOfLanes.count(edge_id) == 1) && myEdgesAndNumberOfLanes[edge_id] != (int)edge->getLanes().size()) {
+            if (checkVolatileChange && (myEdgesAndNumberOfLanes.count(edge_id) == 1) && myEdgesAndNumberOfLanes[edge_id] != (int)edge->getLanes().size()) {
                 return edge->getLanes().at(lane->getIndex() + 1);
             }
             return lane;
@@ -1041,11 +1041,11 @@ GNENet::retrieveJunctions(bool onlySelected) {
 }
 
 
-std::vector<GNEShape*> 
+std::vector<GNEShape*>
 GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
     std::vector<GNEShape*> result;
     // fill polygons
-    if((shapeTag == SUMO_TAG_NOTHING) || (shapeTag == SUMO_TAG_POLY)) {
+    if ((shapeTag == SUMO_TAG_NOTHING) || (shapeTag == SUMO_TAG_POLY)) {
         for (const auto& it : getPolygons()) {
             GNEPoly* poly = dynamic_cast<GNEPoly*>(it.second);
             // only add visible polygons
@@ -1055,7 +1055,7 @@ GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
         }
     }
     // fill POIs
-    if((shapeTag == SUMO_TAG_NOTHING) || (shapeTag == SUMO_TAG_POI)) {
+    if ((shapeTag == SUMO_TAG_NOTHING) || (shapeTag == SUMO_TAG_POI)) {
         for (const auto& it : getPOIs()) {
             GNEPOI* POI = dynamic_cast<GNEPOI*>(it.second);
             // only add visible POIs
@@ -1065,7 +1065,7 @@ GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
         }
     }
     // fill POILanes
-    if((shapeTag == SUMO_TAG_NOTHING) || (shapeTag == SUMO_TAG_POILANE)) {
+    if ((shapeTag == SUMO_TAG_NOTHING) || (shapeTag == SUMO_TAG_POILANE)) {
         for (auto it : getPOIs()) {
             GNEPOILane* POILane = dynamic_cast<GNEPOILane*>(it.second);
             // only add visible POILanes
@@ -1096,7 +1096,7 @@ GNENet::generateVaporizerID() const {
 }
 
 
-GNEAttributeCarrier* 
+GNEAttributeCarrier*
 GNENet::retrieveAttributeCarrier(GUIGlID id, bool failHard) {
     // obtain blocked GUIGlObject
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
@@ -1251,7 +1251,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
         }
     }
     // save current number of lanes for every edge if recomputing is with volatile options
-    if(volatileOptions) {
+    if (volatileOptions) {
         for (auto it : myEdges) {
             myEdgesAndNumberOfLanes[it.second->getID()] = (int)it.second->getLanes().size();
         }
@@ -1557,22 +1557,22 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
 }
 
 
-void 
+void
 GNENet::clearJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
     undoList->p_begin("clear junction connections");
     std::vector<GNEConnection*> connections = junction->getGNEConnections();
     // Iterate over all connections and clear it
-    for(auto i : connections) {
+    for (auto i : connections) {
         deleteConnection(i, undoList);
     }
     undoList->p_end();
 }
 
 
-void 
+void
 GNENet::resetJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
     undoList->p_begin("reset junction connections");
-    // first clear connections 
+    // first clear connections
     clearJunctionConnections(junction, undoList);
     // invalidate logic to create new connections in the next recomputing
     junction->setLogicValid(false, undoList);
@@ -1687,12 +1687,12 @@ GNENet::getAdditionals(SumoXMLTag type) const {
 }
 
 
-GNERerouterInterval *
-GNENet::getRerouterInterval(const std::string &rerouterIntervalID) const {
+GNERerouterInterval*
+GNENet::getRerouterInterval(const std::string& rerouterIntervalID) const {
     // iterate over additionals and obtain Rerouters
     for (auto i : myAdditionals) {
         if (i.second->getTag() == SUMO_TAG_REROUTER) {
-            GNERerouter *rerouter = dynamic_cast<GNERerouter*>(i.second);
+            GNERerouter* rerouter = dynamic_cast<GNERerouter*>(i.second);
             // iterate over intervals of rerouter.
             for (auto j : rerouter->getRerouterIntervals()) {
                 if (j->getID() == rerouterIntervalID) {
@@ -1732,9 +1732,9 @@ GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) 
 }
 
 
-void 
+void
 GNENet::requiereSaveAdditionals() {
-    if((myAdditionalsSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+    if ((myAdditionalsSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Additionals has to be saved");
     }
     myAdditionalsSaved = false;
@@ -1781,7 +1781,7 @@ GNENet::saveAdditionals(const std::string& filename) {
         device.openTag("additionals");
         for (auto i : myAdditionals) {
             // only save additionals that doesn't have Additional parents
-            if(i.second->getAdditionalParent() == NULL) {
+            if (i.second->getAdditionalParent() == NULL) {
                 i.second->writeAdditional(device);
             }
         }
@@ -1790,13 +1790,13 @@ GNENet::saveAdditionals(const std::string& filename) {
     // change value of flag
     myAdditionalsSaved = true;
     // show debug information
-    if(OptionsCont::getOptions().getBool("gui-testing-debug")) {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Additionals saved");
     }
 }
 
 
-GNECalibratorRoute* 
+GNECalibratorRoute*
 GNENet::retrieveCalibratorRoute(const std::string& id, bool hardFail) const {
     // iterate over calibrator routes
     for (auto i : myCalibratorRoutes) {
@@ -1812,7 +1812,7 @@ GNENet::retrieveCalibratorRoute(const std::string& id, bool hardFail) const {
 }
 
 
-GNECalibratorVehicleType* 
+GNECalibratorVehicleType*
 GNENet::retrieveCalibratorVehicleType(const std::string& id, bool hardFail) const {
     // iterate over vehicle types
     for (auto i : myCalibratorVehicleTypes) {
@@ -1828,8 +1828,8 @@ GNENet::retrieveCalibratorVehicleType(const std::string& id, bool hardFail) cons
 }
 
 
-GNECalibratorFlow* 
-GNENet::retrieveCalibratorFlow(const std::string& id, bool hardFail ) const {
+GNECalibratorFlow*
+GNENet::retrieveCalibratorFlow(const std::string& id, bool hardFail) const {
     // iterate over flows
     for (auto i : myCalibratorFlows) {
         if (i.second->getID() == id) {
@@ -1844,30 +1844,30 @@ GNENet::retrieveCalibratorFlow(const std::string& id, bool hardFail ) const {
 }
 
 
-std::string 
+std::string
 GNENet::generateCalibratorRouteID() const {
     int counter = 0;
-    while(myCalibratorRoutes.count(toString(SUMO_TAG_ROUTE) + toString(counter)) != 0) {
+    while (myCalibratorRoutes.count(toString(SUMO_TAG_ROUTE) + toString(counter)) != 0) {
         counter++;
     }
     return toString(SUMO_TAG_ROUTE) + toString(counter);
 }
 
 
-std::string 
+std::string
 GNENet::generateCalibratorVehicleTypeID() const {
     int counter = 0;
-    while(myCalibratorVehicleTypes.count(toString(SUMO_TAG_VTYPE) + toString(counter)) != 0) {
+    while (myCalibratorVehicleTypes.count(toString(SUMO_TAG_VTYPE) + toString(counter)) != 0) {
         counter++;
     }
     return toString(SUMO_TAG_VTYPE) + toString(counter);
 }
 
 
-std::string 
+std::string
 GNENet::generateCalibratorFlowID() const {
     int counter = 0;
-    while(myCalibratorFlows.count(toString(SUMO_TAG_FLOW) + toString(counter)) != 0) {
+    while (myCalibratorFlows.count(toString(SUMO_TAG_FLOW) + toString(counter)) != 0) {
         counter++;
     }
     return toString(SUMO_TAG_FLOW) + toString(counter);
@@ -1875,8 +1875,8 @@ GNENet::generateCalibratorFlowID() const {
 
 
 void
-GNENet::changeCalibratorRouteID(GNECalibratorRoute *route, const std::string &oldID) {
-    if(myCalibratorRoutes.count(oldID) > 0) {
+GNENet::changeCalibratorRouteID(GNECalibratorRoute* route, const std::string& oldID) {
+    if (myCalibratorRoutes.count(oldID) > 0) {
         myCalibratorRoutes.erase(oldID);
         myCalibratorRoutes[route->getID()] = route;
     } else {
@@ -1886,8 +1886,8 @@ GNENet::changeCalibratorRouteID(GNECalibratorRoute *route, const std::string &ol
 
 
 void
-GNENet::changeCalibratorVehicleTypeID(GNECalibratorVehicleType *vehicleType, const std::string &oldID) {
-    if(myCalibratorVehicleTypes.count(oldID) > 0) {
+GNENet::changeCalibratorVehicleTypeID(GNECalibratorVehicleType* vehicleType, const std::string& oldID) {
+    if (myCalibratorVehicleTypes.count(oldID) > 0) {
         myCalibratorVehicleTypes.erase(oldID);
         myCalibratorVehicleTypes[vehicleType->getID()] = vehicleType;
     } else {
@@ -1897,8 +1897,8 @@ GNENet::changeCalibratorVehicleTypeID(GNECalibratorVehicleType *vehicleType, con
 
 
 void
-GNENet::changeCalibratorFlowID(GNECalibratorFlow *flow, const std::string &oldID) {
-    if(myCalibratorFlows.count(oldID) > 0) {
+GNENet::changeCalibratorFlowID(GNECalibratorFlow* flow, const std::string& oldID) {
+    if (myCalibratorFlows.count(oldID) > 0) {
         myCalibratorFlows.erase(oldID);
         myCalibratorFlows[flow->getID()] = flow;
     } else {
@@ -1908,8 +1908,8 @@ GNENet::changeCalibratorFlowID(GNECalibratorFlow *flow, const std::string &oldID
 
 
 GNEPoly*
-GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector &shape, bool fill) {
-    if(shape.size() > 0) {
+GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill) {
+    if (shape.size() > 0) {
         // create poly for edit shapes
         GNEPoly* shapePoly = new GNEPoly(this, "edit_shape", "edit_shape", shape, false, true, RGBColor::GREEN, GLO_POLYGON, 0, "", false , false);
         shapePoly->setShapeEditedElement(netElement);
@@ -1917,16 +1917,16 @@ GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector 
         shapePoly->setLineWidth(0.3);
         myGrid.addAdditionalGLObject(shapePoly);
         myViewNet->update();
-        return shapePoly;  
+        return shapePoly;
     } else {
         throw ProcessError("shape cannot be empty");
     }
 }
 
 
-void 
+void
 GNENet::removePolygonForEditShapes(GNEPoly* polygon) {
-    if(polygon) {
+    if (polygon) {
         myGrid.removeAdditionalGLObject(polygon->getGUIGLObject());
         myViewNet->update();
     } else {
@@ -1938,7 +1938,7 @@ GNENet::removePolygonForEditShapes(GNEPoly* polygon) {
 std::string
 GNENet::generateShapeID(SumoXMLTag shapeTag) const {
     // generate tag depending of type of shape
-    if(shapeTag == SUMO_TAG_POLY) {
+    if (shapeTag == SUMO_TAG_POLY) {
         int counter = 0;
         std::string newID = "poly_" + toString(counter);
         // generate new IDs to find a non-assigned ID
@@ -1962,7 +1962,7 @@ GNENet::generateShapeID(SumoXMLTag shapeTag) const {
 
 void
 GNENet::changeShapeID(GNEShape* s, const std::string& OldID) {
-    if(s->getTag() == SUMO_TAG_POLY) {
+    if (s->getTag() == SUMO_TAG_POLY) {
         if (myPolygons.get(OldID) == 0) {
             throw UnknownElement("Polygon " + OldID);
         } else {
@@ -1978,9 +1978,9 @@ GNENet::changeShapeID(GNEShape* s, const std::string& OldID) {
 }
 
 
-void 
+void
 GNENet::requiereSaveShapes() {
-    if((myShapesSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+    if ((myShapesSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Shapes has to be saved");
     }
     myShapesSaved = false;
@@ -2004,7 +2004,7 @@ void GNENet::saveShapes(const std::string& filename) {
     // change flag to true
     myShapesSaved = true;
     // show debug information
-    if(OptionsCont::getOptions().getBool("gui-testing-debug")) {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Shapes saved");
     }
 }
@@ -2049,7 +2049,7 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
 }
 
 
-void 
+void
 GNENet::insertCalibratorRoute(GNECalibratorRoute* route) {
     if (myCalibratorRoutes.find(route->getID()) == myCalibratorRoutes.end()) {
         myCalibratorRoutes[route->getID()] = route;
@@ -2059,7 +2059,7 @@ GNENet::insertCalibratorRoute(GNECalibratorRoute* route) {
 }
 
 
-void 
+void
 GNENet::deleteCalibratorRoute(GNECalibratorRoute* route) {
     auto it = myCalibratorRoutes.find(route->getID());
     if (it != myCalibratorRoutes.end()) {
@@ -2070,7 +2070,7 @@ GNENet::deleteCalibratorRoute(GNECalibratorRoute* route) {
 }
 
 
-void 
+void
 GNENet::insertCalibratorFlow(GNECalibratorFlow* flow) {
     if (myCalibratorFlows.find(flow->getID()) == myCalibratorFlows.end()) {
         myCalibratorFlows[flow->getID()] = flow;
@@ -2080,7 +2080,7 @@ GNENet::insertCalibratorFlow(GNECalibratorFlow* flow) {
 }
 
 
-void 
+void
 GNENet::deleteCalibratorFlow(GNECalibratorFlow* flow) {
     auto it = myCalibratorFlows.find(flow->getID());
     if (it != myCalibratorFlows.end()) {
@@ -2091,7 +2091,7 @@ GNENet::deleteCalibratorFlow(GNECalibratorFlow* flow) {
 }
 
 
-void 
+void
 GNENet::insertCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
     if (myCalibratorVehicleTypes.find(vehicleType->getID()) == myCalibratorVehicleTypes.end()) {
         myCalibratorVehicleTypes[vehicleType->getID()] = vehicleType;
@@ -2101,7 +2101,7 @@ GNENet::insertCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
 }
 
 
-void 
+void
 GNENet::deleteCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
     auto it = myCalibratorVehicleTypes.find(vehicleType->getID());
     if (it != myCalibratorVehicleTypes.end()) {
@@ -2229,18 +2229,18 @@ GNENet::deleteSingleEdge(GNEEdge* edge) {
 }
 
 
-void 
-GNENet::insertShape(GNEShape *shape) {
+void
+GNENet::insertShape(GNEShape* shape) {
     // add shape to grid
     myGrid.addAdditionalGLObject(shape->getGUIGLObject());
     // add shape depending of their types
-    if(shape->getTag() == SUMO_TAG_POLY) {
+    if (shape->getTag() == SUMO_TAG_POLY) {
         myPolygons.add(shape->getID(), dynamic_cast<GUIPolygon*>(shape));
     } else {
         myPOIs.add(shape->getID(), dynamic_cast<GUIPointOfInterest*>(shape));
     }
     // POILanes has to be added from lane
-    if(shape->getTag() == SUMO_TAG_POILANE) {
+    if (shape->getTag() == SUMO_TAG_POILANE) {
         retrieveLane(shape->getAttribute(SUMO_ATTR_LANE))->addShapeChild(shape);
     }
     // insert shape requieres always save shapes
@@ -2248,18 +2248,18 @@ GNENet::insertShape(GNEShape *shape) {
 }
 
 
-void 
-GNENet::removeShape(GNEShape *shape) {
+void
+GNENet::removeShape(GNEShape* shape) {
     // remove shape from grid
     myGrid.removeAdditionalGLObject(shape->getGUIGLObject());
     // remove shape depending of their types
-    if(shape->getTag() == SUMO_TAG_POLY) {
+    if (shape->getTag() == SUMO_TAG_POLY) {
         myPolygons.remove(shape->getID(), false);
     } else {
         myPOIs.remove(shape->getID(), false);
     }
     // POILanes has to be removed from lane
-    if(shape->getTag() == SUMO_TAG_POILANE) {
+    if (shape->getTag() == SUMO_TAG_POILANE) {
         retrieveLane(shape->getAttribute(SUMO_ATTR_LANE))->removeShapeChild(shape);
     }
     // remove shape requires always save shapes

@@ -244,10 +244,10 @@ protected:
     void setPrefix(const std::string& prefix);
 
     /// @brief build basic shape popup options. Used to unify pop-ups menu in netedit and SUMO-GUI
-    void buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string &type);
+    void buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string& type);
 
     /// @brief build basic additional popup options. Used to unify pop-ups menu in netedit and SUMO-GUI
-    void buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string &type);
+    void buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string& type);
 
 private:
     /// @brief The numerical id of the object

@@ -93,10 +93,10 @@ protected:
 
     /// @brief get leaders for ego on the given lane
     MSLeaderDistanceInfo getLeaders(const ChangerIt& target, const MSVehicle* ego) const;
-    
+
     /// @brief immediately stop lane-changing and register vehicle as unchanged
     void abortLCManeuver(MSVehicle* vehicle);
-    
+
     typedef MSAbstractLaneChangeModel::StateAndDist StateAndDist;
     /// @brief helper function that calls checkChangeSublane and sets blocker information
     StateAndDist checkChangeHelper(MSVehicle* vehicle, int laneOffset, LaneChangeAction alternatives);

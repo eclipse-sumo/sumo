@@ -462,7 +462,7 @@ GLHelper::getColor() {
 }
 
 
-void 
+void
 GLHelper::resetFont() {
     glfonsDelete(myFont);
     myFont = 0;
@@ -485,9 +485,9 @@ GLHelper::initFont() {
 
 void
 GLHelper::drawText(const std::string& text, const Position& pos,
-                     const double layer, const double size,
-                     const RGBColor& col, const double angle, const int align,
-                     double width) {
+                   const double layer, const double size,
+                   const RGBColor& col, const double angle, const int align,
+                   double width) {
     if (width <= 0) {
         width = size;
     }
@@ -500,7 +500,7 @@ GLHelper::drawText(const std::string& text, const Position& pos,
     glTranslated(pos.x(), pos.y(), layer);
     glScaled(width / myFontSize, size / myFontSize, 1.);
     glRotated(-angle, 0, 0, 1);
-    fonsSetAlign(myFont, align == 0 ? FONS_ALIGN_CENTER | FONS_ALIGN_MIDDLE: align);
+    fonsSetAlign(myFont, align == 0 ? FONS_ALIGN_CENTER | FONS_ALIGN_MIDDLE : align);
     fonsSetColor(myFont, glfonsRGBA(col.red(), col.green(), col.blue(), col.alpha()));
     fonsDrawText(myFont, 0., 0., text.c_str(), NULL);
     glPopMatrix();
@@ -519,7 +519,7 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
     if (boxAngle > 360) {
         boxAngle -= 360;
     }
-    const double stringWidth = size / myFontSize * fonsTextBounds(myFont, 0,0, text.c_str(), NULL, NULL);
+    const double stringWidth = size / myFontSize * fonsTextBounds(myFont, 0, 0, text.c_str(), NULL, NULL);
     const double borderWidth = size / 20;
     const double boxHeight = size * 0.8;
     const double boxWidth = stringWidth + size / 2;
@@ -535,7 +535,7 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
     glTranslated(0, 0, 0.01);
     drawBoxLine(left, boxAngle, boxWidth - 3 * borderWidth, boxHeight - 2 * borderWidth);
     glPopMatrix();
-    drawText(text, pos, layer+0.02, size, txtColor, angle);
+    drawText(text, pos, layer + 0.02, size, txtColor, angle);
 }
 
 

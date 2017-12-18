@@ -391,10 +391,10 @@ protected:
 
 private:
     /// @brief FXMenuCommand for enable or disable save additionals
-    FXMenuCommand *mySaveAdditionalsMenuCommand;
+    FXMenuCommand* mySaveAdditionalsMenuCommand;
 
     /// @brief FXMenuCommand for enable or disable save shapes
-    FXMenuCommand *mySaveShapesMenuCommand;
+    FXMenuCommand* mySaveShapesMenuCommand;
 
     /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);

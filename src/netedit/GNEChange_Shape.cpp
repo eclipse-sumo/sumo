@@ -62,7 +62,7 @@ GNEChange_Shape::~GNEChange_Shape() {
             WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net");
         }
         // make sure that shape are removed of ShapeContainer
-        if(myShape->getTag() == SUMO_TAG_POLY) {
+        if (myShape->getTag() == SUMO_TAG_POLY) {
             myNet->myPolygons.remove(myShape->getID());
         } else {
             myNet->myPOIs.remove(myShape->getID());

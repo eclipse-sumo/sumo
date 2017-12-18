@@ -203,11 +203,11 @@ GNEAttributeCarrier::getGUIIcon() const {
 }
 
 
-const GUIGlObject* 
+const GUIGlObject*
 GNEAttributeCarrier::getGUIGLObject() const {
     const GUIGlObject* GLObject = dynamic_cast<const GUIGlObject*>(this);
     // Make sure that casting was sucesfully
-    if(GLObject) {
+    if (GLObject) {
         return GLObject;
     } else {
         throw ProcessError("Current Attribute Carrier doesn't have a associated const GUIGlObject");
@@ -215,11 +215,11 @@ GNEAttributeCarrier::getGUIGLObject() const {
 }
 
 
-GUIGlObject* 
+GUIGlObject*
 GNEAttributeCarrier::getGUIGLObject() {
     GUIGlObject* GLObject = dynamic_cast<GUIGlObject*>(this);
     // Make sure that casting was sucesfully
-    if(GLObject) {
+    if (GLObject) {
         return GLObject;
     } else {
         throw ProcessError("Current Attribute Carrier doesn't have a associated GUIGlObject");
@@ -345,7 +345,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
             case SUMO_TAG_POILANE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE)); 
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION_LAT, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "red"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
@@ -1168,7 +1168,7 @@ GNEAttributeCarrier::isFilename(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
-bool 
+bool
 GNEAttributeCarrier::isVClass(SumoXMLTag tag, SumoXMLAttr attr) {
     // define on first access
     if (myVClassAttrs.empty()) {
@@ -1708,14 +1708,14 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
-bool 
-GNEAttributeCarrier::checkGNEEdgesValid(GNENet *net, const std::string &value, bool report) {
-    // Declare string vector 
+bool
+GNEAttributeCarrier::checkGNEEdgesValid(GNENet* net, const std::string& value, bool report) {
+    // Declare string vector
     std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
     // Iterate over edges IDs and check if edge exist
     for (auto i : edgeIds) {
-        if(net->retrieveEdge(i, false) == NULL) {
-            if(report) {
+        if (net->retrieveEdge(i, false) == NULL) {
+            if (report) {
                 WRITE_WARNING("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " + toString(SUMO_TAG_EDGE) + " '" + i + "'  doesn't exist.");
             }
             return false;
@@ -1726,14 +1726,14 @@ GNEAttributeCarrier::checkGNEEdgesValid(GNENet *net, const std::string &value, b
 }
 
 
-bool 
-GNEAttributeCarrier::checkGNELanesValid(GNENet *net, const std::string &value, bool report) {
-    // Declare string vector 
+bool
+GNEAttributeCarrier::checkGNELanesValid(GNENet* net, const std::string& value, bool report) {
+    // Declare string vector
     std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
     // Iterate over lanes IDs and check if lane exist
     for (auto i : laneIds) {
-        if(net->retrieveLane(i, false) == NULL) {
-            if(report) {
+        if (net->retrieveLane(i, false) == NULL) {
+            if (report) {
                 WRITE_WARNING("Error parsing parameter " + toString(SUMO_ATTR_LANES) + ". " + toString(SUMO_TAG_LANE) + " '" + i + "'  doesn't exist.");
             }
             return false;
@@ -1744,9 +1744,9 @@ GNEAttributeCarrier::checkGNELanesValid(GNENet *net, const std::string &value, b
 }
 
 
-std::vector<GNEEdge*> 
-GNEAttributeCarrier::parseGNEEdges(GNENet *net, const std::string &value) {
-    // Declare string vector 
+std::vector<GNEEdge*>
+GNEAttributeCarrier::parseGNEEdges(GNENet* net, const std::string& value) {
+    // Declare string vector
     std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
     std::vector<GNEEdge*> parsedEdges;
     // Iterate over edges IDs, retrieve Edges and add it into parsedEdges
@@ -1757,9 +1757,9 @@ GNEAttributeCarrier::parseGNEEdges(GNENet *net, const std::string &value) {
 }
 
 
-std::vector<GNELane*> 
-GNEAttributeCarrier::parseGNELanes(GNENet *net, const std::string &value) {
-    // Declare string vector 
+std::vector<GNELane*>
+GNEAttributeCarrier::parseGNELanes(GNENet* net, const std::string& value) {
+    // Declare string vector
     std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
     std::vector<GNELane*> parsedLanes;
     // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
@@ -1770,8 +1770,8 @@ GNEAttributeCarrier::parseGNELanes(GNENet *net, const std::string &value) {
 }
 
 
-std::string 
-GNEAttributeCarrier::parseGNEEdges(const std::vector<GNEEdge*> &edges) {
+std::string
+GNEAttributeCarrier::parseGNEEdges(const std::vector<GNEEdge*>& edges) {
     // obtain ID's of edges and return their join
     std::vector<std::string> edgeIDs;
     for (auto i : edges) {
@@ -1781,8 +1781,8 @@ GNEAttributeCarrier::parseGNEEdges(const std::vector<GNEEdge*> &edges) {
 }
 
 
-std::string 
-GNEAttributeCarrier::parseGNELanes(const std::vector<GNELane*> &lanes) {
+std::string
+GNEAttributeCarrier::parseGNELanes(const std::vector<GNELane*>& lanes) {
     // obtain ID's of lanes and return their join
     std::vector<std::string> laneIDs;
     for (auto i : lanes) {

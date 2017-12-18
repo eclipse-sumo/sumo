@@ -110,8 +110,7 @@ bool TraCIServer::myDoCloseConnection = false;
 TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClients)
     : myServerSocket(0),
       myTargetTime(begin),
-      myAmEmbedded(port == 0)
-{
+      myAmEmbedded(port == 0) {
 #ifdef DEBUG_MULTI_CLIENTS
     std::cout << "Creating new TraCIServer for " << numClients << " clients on port " << port << "." << std::endl;
 #endif
@@ -796,8 +795,8 @@ TraCIServer::dispatchCommand() {
             case CMD_SETORDER: {
                 const int order = myInputStorage.readInt();
 #ifdef DEBUG_MULTI_CLIENTS
-                    std::cout << "       commandId == CMD_SETORDER"
-                              << ", order index is " << order << std::endl;
+                std::cout << "       commandId == CMD_SETORDER"
+                          << ", order index is " << order << std::endl;
 #endif
                 if (order > MAX_ORDER) {
                     return writeErrorStatusCmd(CMD_SETORDER, "A set order command needs an int argument below " + toString(MAX_ORDER) + ".", myOutputStorage);
@@ -1385,8 +1384,8 @@ TraCIServer::readTypeCheckingPolygon(tcpip::Storage& inputStorage, PositionVecto
 
 void
 TraCIServer::setTargetTime(SUMOTime targetTime) {
-    myTargetTime=targetTime;
-    for(auto& s : mySockets) {
+    myTargetTime = targetTime;
+    for (auto& s : mySockets) {
         s.second->targetTime = targetTime;
     }
 }

@@ -145,17 +145,17 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     tempMsg.writeInt(cnt);
                     tempMsg.writeStorage(tempContent);
                 }
-                    break;
+                break;
                 case LANE_ALLOWED: {
                     tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
                     tempMsg.writeStringList(libsumo::Lane::getAllowed(id));
                 }
-                    break;
+                break;
                 case LANE_DISALLOWED: {
                     tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
                     tempMsg.writeStringList(libsumo::Lane::getDisallowed(id));
                 }
-                    break;
+                break;
                 case VAR_FOES: {
                     std::string toLane;
                     if (!server.readTypeCheckingString(inputStorage, toLane)) {
@@ -168,7 +168,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                         tempMsg.writeStringList(libsumo::Lane::getFoes(id, toLane));
                     }
                 }
-                    break;
+                break;
                 case VAR_SHAPE: {
                     tempMsg.writeUnsignedByte(TYPE_POLYGON);
                     libsumo::TraCIPositionVector shp = libsumo::Lane::getShape(id);
@@ -178,7 +178,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                         tempMsg.writeDouble(shp[iPoint].y);
                     }
                 }
-                    break;
+                break;
                 case VAR_CO2EMISSION:
                     tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                     tempMsg.writeDouble(libsumo::Lane::getCO2Emission(id));
@@ -223,7 +223,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
                     tempMsg.writeStringList(libsumo::Lane::getLastStepVehicleIDs(id));
                 }
-                    break;
+                break;
                 case LAST_STEP_OCCUPANCY:
                     tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                     tempMsg.writeDouble(libsumo::Lane::getLastStepOccupancy(id));
@@ -232,22 +232,22 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     tempMsg.writeUnsignedByte(TYPE_INTEGER);
                     tempMsg.writeInt(libsumo::Lane::getLastStepHaltingNumber(id));
                 }
-                    break;
+                break;
                 case LAST_STEP_LENGTH: {
                     tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                     tempMsg.writeDouble(libsumo::Lane::getLastStepLength(id));
                 }
-                    break;
+                break;
                 case VAR_WAITING_TIME: {
                     tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                     tempMsg.writeDouble(libsumo::Lane::getWaitingTime(id));
                 }
-                    break;
+                break;
                 case VAR_CURRENT_TRAVELTIME: {
                     tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                     tempMsg.writeDouble(libsumo::Lane::getTraveltime(id));
                 }
-                    break;
+                break;
                 case VAR_WIDTH:
                     tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                     tempMsg.writeDouble(libsumo::Lane::getWidth(id));
@@ -260,7 +260,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     tempMsg.writeUnsignedByte(TYPE_STRING);
                     tempMsg.writeString(libsumo::Lane::getParameter(id, paramName));
                 }
-                    break;
+                break;
                 default:
                     break;
             }

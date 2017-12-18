@@ -68,7 +68,7 @@ MSVehicleType::MSVehicleType(const SUMOVTypeParameter& parameter)
 
     // Check if actionStepLength was set by user, if not init to global default
     if (!myParameter.wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
-        myParameter.actionStepLength=MSGlobals::gActionStepLength;
+        myParameter.actionStepLength = MSGlobals::gActionStepLength;
     }
     myCachedActionStepLengthSecs = STEPS2TIME(myParameter.actionStepLength);
 }
@@ -200,10 +200,10 @@ MSVehicleType::setSpeedDeviation(const double& dev) {
 
 void
 MSVehicleType::setActionStepLength(const SUMOTime actionStepLength, bool resetActionOffset) {
-    assert(actionStepLength>=0.);
+    assert(actionStepLength >= 0.);
     myParameter.parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
 
-    if(myParameter.actionStepLength == actionStepLength) {
+    if (myParameter.actionStepLength == actionStepLength) {
         return;
     }
 
@@ -222,9 +222,9 @@ MSVehicleType::setActionStepLength(const SUMOTime actionStepLength, bool resetAc
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     for (auto vehIt = vc.loadedVehBegin(); vehIt != vc.loadedVehEnd(); ++vehIt) {
         MSVehicle* veh = static_cast<MSVehicle*>(vehIt->second);
-        if(&veh->getVehicleType() == this) {
+        if (&veh->getVehicleType() == this) {
             // Found vehicle of this type. Perform requested actionOffsetReset
-            if(resetActionOffset) {
+            if (resetActionOffset) {
                 veh->resetActionOffset();
             } else {
                 veh->updateActionOffset(previousActionStepLength, actionStepLength);
@@ -389,14 +389,14 @@ MSVehicleType::duplicateType(const std::string& id, bool persistent) const {
 
 void
 MSVehicleType::check() {
-    if( !myWarnedActionStepLengthTauOnce
+    if (!myWarnedActionStepLengthTauOnce
             && myParameter.wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)
             && STEPS2TIME(myParameter.actionStepLength) > getCarFollowModel().getHeadwayTime()) {
-        myWarnedActionStepLengthTauOnce=true;
+        myWarnedActionStepLengthTauOnce = true;
         std::stringstream s;
         s << "Given action step length " << STEPS2TIME(myParameter.actionStepLength) << " for vehicle type '" << getID()
-                << "' is larger than its parameter tau (=" << getCarFollowModel().getHeadwayTime() <<")!"
-                << " This may lead to collisions. (This warning is only issued once per vehicle type).";
+          << "' is larger than its parameter tau (=" << getCarFollowModel().getHeadwayTime() << ")!"
+          << " This may lead to collisions. (This warning is only issued once per vehicle type).";
         WRITE_WARNING(s.str());
     }
 }

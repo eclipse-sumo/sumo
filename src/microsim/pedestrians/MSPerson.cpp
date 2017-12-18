@@ -62,7 +62,7 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
         double departPos, double arrivalPos, double departPosLat) :
     MSTransportable::Stage(*route.back(), toStop,
                            SUMOVehicleParameter::interpretEdgePos(arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS,
-                                                                  "person '" + personID + "' walking to " + route.back()->getID()),
+                                   "person '" + personID + "' walking to " + route.back()->getID()),
                            MOVING_WITHOUT_VEHICLE),
     myWalkingTime(walkingTime),
     myRoute(route),
@@ -72,7 +72,7 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
     mySpeed(speed),
     myPedestrianState(0) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(departPos, route.front()->getLength(), SUMO_ATTR_DEPARTPOS,
-                                                         "person '" + personID + "' walking from " + route.front()->getID());
+                  "person '" + personID + "' walking from " + route.front()->getID());
     if (walkingTime > 0) {
         mySpeed = computeAverageSpeed();
     }
@@ -224,7 +224,7 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
             departFwd = false;
         }
         if ((myRoute.back()->getToJunction() == myRoute[myRoute.size() - 2]->getFromJunction())
-               || (myRoute.back()->getToJunction() == myRoute[myRoute.size() - 2]->getToJunction())) {
+                || (myRoute.back()->getToJunction() == myRoute[myRoute.size() - 2]->getToJunction())) {
             arriveFwd = false;
         }
     }
@@ -394,9 +394,9 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
 /* -------------------------------------------------------------------------
  * MSPerson - methods
  * ----------------------------------------------------------------------- */
-MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor) : 
-    MSTransportable(pars, vtype, plan), myChosenSpeedFactor(speedFactor),
-    myInfluencer(0) { 
+MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor) :
+    MSTransportable(pars, vtype, plan),
+    myInfluencer(0), myChosenSpeedFactor(speedFactor) {
 }
 
 
@@ -536,42 +536,42 @@ MSPerson::Influencer::~Influencer() {}
 
 
 void
-MSPerson::Influencer::setVTDControlled(Position xyPos, MSLane* l, double pos, double posLat, double angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t) {
-    myVTDXYPos = xyPos;
-    myVTDLane = l;
-    myVTDPos = pos;
-    myVTDPosLat = posLat;
-    myVTDAngle = angle;
-    myVTDEdgeOffset = edgeOffset;
-    myVTDRoute = route;
-    myLastVTDAccess = t;
+MSPerson::Influencer::setRemoteControlled(Position xyPos, MSLane* l, double pos, double posLat, double angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t) {
+    myRemoteXYPos = xyPos;
+    myRemoteLane = l;
+    myRemotePos = pos;
+    myRemotePosLat = posLat;
+    myRemoteAngle = angle;
+    myRemoteEdgeOffset = edgeOffset;
+    myRemoteRoute = route;
+    myLastRemoteAccess = t;
 }
 
 
 bool
-MSPerson::Influencer::isVTDControlled() const {
-    return myLastVTDAccess == MSNet::getInstance()->getCurrentTimeStep();
+MSPerson::Influencer::isRemoteControlled() const {
+    return myLastRemoteAccess == MSNet::getInstance()->getCurrentTimeStep();
 }
 
 
 bool
-MSPerson::Influencer::isVTDAffected(SUMOTime t) const {
-    return myLastVTDAccess >= t - TIME2STEPS(10);
+MSPerson::Influencer::isRemoteAffected(SUMOTime t) const {
+    return myLastRemoteAccess >= t - TIME2STEPS(10);
 }
 
 
 void
-MSPerson::Influencer::postProcessVTD(MSPerson* p) {
+MSPerson::Influencer::postProcessRemoteControl(MSPerson* p) {
     switch (p->getStageType(0)) {
         case MOVING_WITHOUT_VEHICLE: {
             MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
             assert(s != 0);
-            s->getPedestrianState()->moveToXY(p, myVTDXYPos, myVTDLane, myVTDPos, myVTDPosLat, myVTDAngle, myVTDEdgeOffset, myVTDRoute,
-                    MSNet::getInstance()->getCurrentTimeStep());
+            s->getPedestrianState()->moveToXY(p, myRemoteXYPos, myRemoteLane, myRemotePos, myRemotePosLat, myRemoteAngle, myRemoteEdgeOffset, myRemoteRoute,
+                                              MSNet::getInstance()->getCurrentTimeStep());
         }
         break;
         default:
-        break;
+            break;
     }
 }
 

@@ -57,7 +57,7 @@ public:
     GNECalibratorRoute(GNECalibratorDialog* calibratorDialog);
 
     /// @brief parameter constructor
-    GNECalibratorRoute(GNECalibrator* calibratorParent, const std::string &routeID, const std::vector<GNEEdge*> &edges, const RGBColor &color);
+    GNECalibratorRoute(GNECalibrator* calibratorParent, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
 
     /// @brief destructor
     ~GNECalibratorRoute();
@@ -69,7 +69,7 @@ public:
     GNECalibrator* getCalibratorParent() const;
 
     /// @brief get GNEEdges of Calibrator ROute
-    const std::vector<GNEEdge*> &getGNEEdges() const;
+    const std::vector<GNEEdge*>& getGNEEdges() const;
 
     /// @brief inherited from GNEAttributeCarrier
     /// @{

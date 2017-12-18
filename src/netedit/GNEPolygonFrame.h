@@ -239,7 +239,7 @@ public:
     * @param[in] lane clicked lane
     * @return AddShapeStatus with the result of operation
     */
-    AddShapeResult processClick(const Position& clickedPosition, GNELane *lane);
+    AddShapeResult processClick(const Position& clickedPosition, GNELane* lane);
 
     /**@brief build Polygon using values of Fields and drawed shape
      * return true if was sucesfully created

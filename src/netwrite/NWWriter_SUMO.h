@@ -175,8 +175,8 @@ private:
      */
     static void writeInternalConnection(OutputDevice& into,
                                         const std::string& from, const std::string& to,
-                                        int fromLane, int toLane, const std::string& via, 
-                                        LinkDirection dir=LINKDIR_STRAIGHT);
+                                        int fromLane, int toLane, const std::string& via,
+                                        LinkDirection dir = LINKDIR_STRAIGHT);
 
     /// @brief writes a SUMOTime as int if possible, otherwise as a float
     static std::string writeSUMOTime(SUMOTime time);

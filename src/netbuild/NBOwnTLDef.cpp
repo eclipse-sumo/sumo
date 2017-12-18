@@ -499,7 +499,7 @@ NBOwnTLDef::patchStateForCrossings(const std::string& state, const std::vector<N
                     const NBEdge* edge = *it;
                     const LinkDirection i2dir = cross.node->getDirection(fromEdges[i2], toEdges[i2]);
                     if (state[i2] != 'r' && state[i2] != 's' && (edge == fromEdges[i2] ||
-                                             (edge == toEdges[i2] && (i2dir == LINKDIR_STRAIGHT || i2dir == LINKDIR_PARTLEFT || i2dir == LINKDIR_PARTRIGHT)))) {
+                            (edge == toEdges[i2] && (i2dir == LINKDIR_STRAIGHT || i2dir == LINKDIR_PARTLEFT || i2dir == LINKDIR_PARTRIGHT)))) {
                         isForbidden = true;
                         break;
                     }
@@ -652,8 +652,8 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
                 // do not allow right-on-red when in conflict with exclusive left-turn phase
                 for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
                     if (state[i2] == 'G' && !isTurnaround[i2] &&
-                            (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) || 
-                             forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) { 
+                            (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) ||
+                             forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) {
                         const LinkDirection foeDir = fromEdges[i2]->getToNode()->getDirection(fromEdges[i2], toEdges[i2]);
                         if (foeDir == LINKDIR_LEFT || foeDir == LINKDIR_PARTLEFT) {
                             state[i1] = 'r';
@@ -665,7 +665,7 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
                     // handle right-on-red conflicts
                     for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
                         if (state[i2] == 'G' && !isTurnaround[i2] &&
-                                (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) || 
+                                (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) ||
                                  forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) {
                             myRightOnRedConflicts.insert(std::make_pair(i1, i2));
                         }

@@ -77,10 +77,10 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNECalibratorFlowDialog() {} 
+    GNECalibratorFlowDialog() {}
 
     /// @brief interator to edited calibrator flow
-    GNECalibratorFlow *myEditedCalibratorFlow;
+    GNECalibratorFlow* myEditedCalibratorFlow;
 
     /// @brief flag to indicate if flow are being created or modified
     bool myUpdatingElement;

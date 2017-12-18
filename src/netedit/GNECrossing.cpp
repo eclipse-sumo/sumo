@@ -75,7 +75,7 @@ GNECrossing::updateGeometry() {
     // only rebuild shape if junction's shape isn't in Buuble mode
     if (myParentJunction->getNBNode()->getShape().size() > 0) {
         // Obtain segments of size and calculate it
-        PositionVector shape = myForceDrawCustomShape?  myCrossing->customShape : myCrossing->shape;
+        PositionVector shape = myForceDrawCustomShape ?  myCrossing->customShape : myCrossing->shape;
         int segments = (int)shape.size() - 1;
         if (segments >= 0) {
             myShapeRotations.reserve(segments);
@@ -108,7 +108,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
     // only draw if option drawCrossingsAndWalkingareas is enabled and size of shape is greather than 0
     if (s.drawCrossingsAndWalkingareas && myShapeRotations.size() > 0 && myShapeLengths.size() > 0) {
         // first declare what shape will be drawed
-        PositionVector shape = myForceDrawCustomShape?  myCrossing->customShape : myCrossing->shape;
+        PositionVector shape = myForceDrawCustomShape ?  myCrossing->customShape : myCrossing->shape;
         // push first draw matrix
         glPushMatrix();
         // push name
@@ -251,7 +251,7 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PRIORITY:
             return canParse<bool>(value);
         case SUMO_ATTR_TLLINKINDEX:
-            return (myCrossing->tlID != "" && canParse<int>(value) && isPositive<int>(value) 
+            return (myCrossing->tlID != "" && canParse<int>(value) && isPositive<int>(value)
                     && myParentJunction->getNBNode()->getControllingTLS().size() > 0
                     && (*myParentJunction->getNBNode()->getControllingTLS().begin())->compute(OptionsCont::getOptions())->getNumLinks() > parse<int>(value));
         case SUMO_ATTR_CUSTOMSHAPE: {

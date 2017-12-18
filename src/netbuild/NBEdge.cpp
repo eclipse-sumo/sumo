@@ -104,8 +104,8 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
 }
 
 
-NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, double contPos_, 
-        double visibility_, double speed_, bool haveVia_, bool uncontrolled_, const PositionVector& customShape_) :
+NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, double contPos_,
+                               double visibility_, double speed_, bool haveVia_, bool uncontrolled_, const PositionVector& customShape_) :
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
@@ -128,8 +128,7 @@ NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :
     preferred(0),
     endOffset(e->getEndOffset()), width(e->getLaneWidth()),
     accelRamp(false),
-    connectionsDone(false) 
-{
+    connectionsDone(false) {
     if (origID_ != "") {
         setParameter(SUMO_PARAM_ORIGID, origID_);
     }
@@ -1341,8 +1340,8 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
         if (toUse == -1) {
             toUse = 0;
         }
-        setConnection(toUse, (*i).toEdge, (*i).toLane, L2L_COMPUTED, false, (*i).mayDefinitelyPass, (*i).keepClear, 
-                (*i).contPos, (*i).visibility, (*i).speed, (*i).customShape);
+        setConnection(toUse, (*i).toEdge, (*i).toLane, L2L_COMPUTED, false, (*i).mayDefinitelyPass, (*i).keepClear,
+                      (*i).contPos, (*i).visibility, (*i).speed, (*i).customShape);
     }
 }
 
@@ -3133,7 +3132,7 @@ NBEdge::getFirstNonPedestrianLane(int direction) const {
     return myLanes[index];
 }
 
-std::string 
+std::string
 NBEdge::getSidewalkID() {
     // see IntermodalEdge::getSidewalk()
     for (int i = 0; i < (int)myLanes.size(); i++) {
@@ -3279,7 +3278,7 @@ NBEdge::getFinalLength() const {
     return MAX2(result, POSITION_EPS);
 }
 
-void 
+void
 NBEdge::setOrigID(const std::string origID) {
     if (origID != "") {
         for (int i = 0; i < (int)myLanes.size(); i++) {

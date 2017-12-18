@@ -753,7 +753,7 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
     }
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
         arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, objId, myActiveRoute.back()->getLength(),
-            attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, objId, ok));
+                     attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, objId, ok));
     }
     const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, objId, ok, "");
     if (ok) {

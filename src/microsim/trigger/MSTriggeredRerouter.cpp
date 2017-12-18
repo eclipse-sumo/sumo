@@ -78,11 +78,10 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
     MSTrigger(id),
     MSMoveReminder(id),
     SUMOSAXHandler(file),
-    myProbability(prob), 
-    myUserProbability(prob), 
+    myProbability(prob),
+    myUserProbability(prob),
     myAmInUserMode(false),
-    myTimeThreshold(timeThreshold)
-{
+    myTimeThreshold(timeThreshold) {
     // build actors
     for (MSEdgeVector::const_iterator j = edges.begin(); j != edges.end(); ++j) {
         if (MSGlobals::gUseMesoSim) {
@@ -545,8 +544,8 @@ MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const 
 
 
 MSParkingArea*
-MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef, 
-        SUMOVehicle& veh, bool& newDestination) const {
+MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
+                                        SUMOVehicle& veh, bool& newDestination) const {
 
     MSParkingArea* nearParkArea = 0;
 
@@ -562,15 +561,15 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         // if the current route ends at the parking area, the new route will
         // also and at the new area
         newDestination = (&destParkArea->getLane().getEdge() == route.getLastEdge()
-                && veh.getArrivalPos() >= destParkArea->getBeginLanePosition()
-                && veh.getArrivalPos() <= destParkArea->getEndLanePosition());
+                          && veh.getArrivalPos() >= destParkArea->getBeginLanePosition()
+                          && veh.getArrivalPos() <= destParkArea->getEndLanePosition());
 
 #ifdef DEBUG_PARKING
         if (DEBUGCOND) {
-            std::cout << SIMTIME << " veh=" << veh.getID() 
-                << " rerouteParkingArea dest=" << destParkArea->getID()
-                << " newDest=" << newDestination
-                << "\n";
+            std::cout << SIMTIME << " veh=" << veh.getID()
+                      << " rerouteParkingArea dest=" << destParkArea->getID()
+                      << " newDest=" << newDestination
+                      << "\n";
         }
 #endif
 
@@ -693,11 +692,11 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                             parkValues["distancefrom"] = 0;
                             parkValues["timefrom"] = 0;
                         } else {
-                            MSRoute routeFromPark(route.getID() + "!frompark#1", edgesFromPark, false, 
-                                    &c == &RGBColor::DEFAULT_COLOR ? 0 : new RGBColor(c), route.getStops());
+                            MSRoute routeFromPark(route.getID() + "!frompark#1", edgesFromPark, false,
+                                                  &c == &RGBColor::DEFAULT_COLOR ? 0 : new RGBColor(c), route.getStops());
                             // The distance from the new parking area to the end of the route
                             parkValues["distancefrom"] = routeFromPark.getDistanceBetween(pa->getBeginLanePosition(), routeFromPark.getLastEdge()->getLength(),
-                                    routeFromPark.begin(), routeFromPark.end(), includeInternalLengths);
+                                                         routeFromPark.begin(), routeFromPark.end(), includeInternalLengths);
                             // The time to reach this area
                             parkValues["timefrom"] = router.recomputeCosts(edgesFromPark, &veh, MSNet::getInstance()->getCurrentTimeStep());
                         }
@@ -714,9 +713,9 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 #ifdef DEBUG_PARKING
                         if (DEBUGCOND) {
-                            std::cout << "    altPA=" << pa->getID() 
-                                << " vals=" << joinToString(parkValues, " ", ":")
-                                << "\n";
+                            std::cout << "    altPA=" << pa->getID()
+                                      << " vals=" << joinToString(parkValues, " ", ":")
+                                      << "\n";
                         }
 #endif
                     }

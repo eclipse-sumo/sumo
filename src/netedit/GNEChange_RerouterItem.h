@@ -61,31 +61,31 @@ public:
     * @param[in] rerouterInterval rerouter interval to be added
     * @param[in] forward Whether to create/delete (true/false)
     */
-    GNEChange_RerouterItem(GNERerouterInterval *rerouterInterval, bool forward);
+    GNEChange_RerouterItem(GNERerouterInterval* rerouterInterval, bool forward);
 
     /**@brief Constructor
     * @param[in] closingReroute Closing Reroute to be added
     * @param[in] forward Whether to create/delete (true/false)
     */
-    GNEChange_RerouterItem(GNEClosingReroute *closingReroute, bool forward);
+    GNEChange_RerouterItem(GNEClosingReroute* closingReroute, bool forward);
 
     /**@brief Constructor
     * @param[in] closingLaneReroute Closing Lane Reroute to be added
     * @param[in] forward Whether to create/delete (true/false)
     */
-    GNEChange_RerouterItem(GNEClosingLaneReroute *closingLaneReroute, bool forward);
+    GNEChange_RerouterItem(GNEClosingLaneReroute* closingLaneReroute, bool forward);
 
     /**@brief Constructor
     * @param[in] destProbReroute Destiny Probability Reroute to be added
     * @param[in] forward Whether to create/delete (true/false)
     */
-    GNEChange_RerouterItem(GNEDestProbReroute *destProbReroute, bool forward);
+    GNEChange_RerouterItem(GNEDestProbReroute* destProbReroute, bool forward);
 
     /**@brief Constructor
     * @param[in] routeProbReroute Route Probability Reroute to be added
     * @param[in] forward Whether to create/delete (true/false)
     */
-    GNEChange_RerouterItem(GNERouteProbReroute *routeProbReroute, bool forward);
+    GNEChange_RerouterItem(GNERouteProbReroute* routeProbReroute, bool forward);
 
     /// @brief Destructor
     ~GNEChange_RerouterItem();
@@ -106,20 +106,20 @@ public:
     /// @}
 
 private:
-    /// @brief modified rerouter interval 
-    GNERerouterInterval *myRerouterInterval;
+    /// @brief modified rerouter interval
+    GNERerouterInterval* myRerouterInterval;
 
-    /// @brief modified Closing Reroute 
-    GNEClosingReroute *myClosingReroute;
+    /// @brief modified Closing Reroute
+    GNEClosingReroute* myClosingReroute;
 
     /// @brief modified Closing lane Reroute
-    GNEClosingLaneReroute *myClosingLaneReroute;
+    GNEClosingLaneReroute* myClosingLaneReroute;
 
     /// @brief modified Closing Interval
-    GNEDestProbReroute *myDestProbReroute;
+    GNEDestProbReroute* myDestProbReroute;
 
     /// @brief modified Route Probability Reroute
-    GNERouteProbReroute *myRouteProbReroute;
+    GNERouteProbReroute* myRouteProbReroute;
 };
 
 #endif

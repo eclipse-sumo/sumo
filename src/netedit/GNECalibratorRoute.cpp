@@ -63,23 +63,23 @@
 
 GNECalibratorRoute::GNECalibratorRoute(GNECalibratorDialog* calibratorDialog) :
     GNEAttributeCarrier(SUMO_TAG_ROUTE, ICON_EMPTY),
-    myCalibratorParent(calibratorDialog->getEditedCalibrator()), 
-    myRouteID(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->generateCalibratorRouteID()), 
+    myCalibratorParent(calibratorDialog->getEditedCalibrator()),
+    myRouteID(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->generateCalibratorRouteID()),
     myColor(RGBColor::BLACK) {
     // add the Edge in which Calibrator is placed as default Edge
-    if(GNEAttributeCarrier::hasAttribute(myCalibratorParent->getTag(), SUMO_ATTR_EDGE)) {
+    if (GNEAttributeCarrier::hasAttribute(myCalibratorParent->getTag(), SUMO_ATTR_EDGE)) {
         myEdges.push_back(myCalibratorParent->getViewNet()->getNet()->retrieveEdge(myCalibratorParent->getAttribute(SUMO_ATTR_EDGE)));
     } else {
-        GNELane *lane = myCalibratorParent->getViewNet()->getNet()->retrieveLane(myCalibratorParent->getAttribute(SUMO_ATTR_LANE));
+        GNELane* lane = myCalibratorParent->getViewNet()->getNet()->retrieveLane(myCalibratorParent->getAttribute(SUMO_ATTR_LANE));
         myEdges.push_back(myCalibratorParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID()));
     }
 }
 
 
-GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, const std::string &routeID, const std::vector<GNEEdge*> &edges, const RGBColor& color) :
+GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) :
     GNEAttributeCarrier(SUMO_TAG_ROUTE, ICON_EMPTY),
-    myCalibratorParent(calibratorParent), 
-    myRouteID(routeID), 
+    myCalibratorParent(calibratorParent),
+    myRouteID(routeID),
     myEdges(edges),
     myColor(color) {
 }
@@ -88,7 +88,7 @@ GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, const st
 GNECalibratorRoute::~GNECalibratorRoute() {}
 
 
-void 
+void
 GNECalibratorRoute::writeRoute(OutputDevice& device) {
     // Open route tag
     device.openTag(getTag());
@@ -115,54 +115,54 @@ GNECalibratorRoute::getGNEEdges() const {
 }
 
 
-std::string 
+std::string
 GNECalibratorRoute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-    case SUMO_ATTR_ID:
-        return myRouteID;
-    case SUMO_ATTR_EDGES:
-        return parseGNEEdges(myEdges);
-    case SUMO_ATTR_COLOR:
-        return toString(myColor);
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID:
+            return myRouteID;
+        case SUMO_ATTR_EDGES:
+            return parseGNEEdges(myEdges);
+        case SUMO_ATTR_COLOR:
+            return toString(myColor);
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-void 
+void
 GNECalibratorRoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-    case SUMO_ATTR_ID:
-    case SUMO_ATTR_EDGES:
-    case SUMO_ATTR_COLOR:
-        undoList->p_add(new GNEChange_Attribute(this, key, value));
-        break;
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID:
+        case SUMO_ATTR_EDGES:
+        case SUMO_ATTR_COLOR:
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            break;
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-bool 
+bool
 GNECalibratorRoute::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_ID:
-        return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value, false) == NULL);
-    case SUMO_ATTR_EDGES:
-        if(checkGNEEdgesValid(myCalibratorParent->getViewNet()->getNet(), value, false)) {
-            // all edges exist, then check if compounds a valid route
-            return GNEAdditional::isRouteValid(parseGNEEdges(myCalibratorParent->getViewNet()->getNet(), value), false);
-        } else {
-            return false;
-        }
-    case SUMO_ATTR_COLOR:
-        return canParse<RGBColor>(value);
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID:
+            return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value, false) == NULL);
+        case SUMO_ATTR_EDGES:
+            if (checkGNEEdgesValid(myCalibratorParent->getViewNet()->getNet(), value, false)) {
+                // all edges exist, then check if compounds a valid route
+                return GNEAdditional::isRouteValid(parseGNEEdges(myCalibratorParent->getViewNet()->getNet(), value), false);
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_COLOR:
+            return canParse<RGBColor>(value);
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -170,23 +170,23 @@ GNECalibratorRoute::isValid(SumoXMLAttr key, const std::string& value) {
 // private
 // ===========================================================================
 
-void 
+void
 GNECalibratorRoute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_ID: {
-        std::string oldID = myRouteID;
-        myRouteID = value;
-        myCalibratorParent->getViewNet()->getNet()->changeCalibratorRouteID(this, oldID);
-        break;
-    }
-    case SUMO_ATTR_EDGES:
-        myEdges = parseGNEEdges(myCalibratorParent->getViewNet()->getNet(), value);
-        break;
-    case SUMO_ATTR_COLOR:
-        myColor = parse<RGBColor>(value);
-        break;
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        case SUMO_ATTR_ID: {
+            std::string oldID = myRouteID;
+            myRouteID = value;
+            myCalibratorParent->getViewNet()->getNet()->changeCalibratorRouteID(this, oldID);
+            break;
+        }
+        case SUMO_ATTR_EDGES:
+            myEdges = parseGNEEdges(myCalibratorParent->getViewNet()->getNet(), value);
+            break;
+        case SUMO_ATTR_COLOR:
+            myColor = parse<RGBColor>(value);
+            break;
+        default:
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

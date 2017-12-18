@@ -48,7 +48,7 @@
 
 GUIPointOfInterest::GUIPointOfInterest(const std::string& id, const std::string& type,
                                        const RGBColor& color, const Position& pos, bool geo,
-                                       const std::string &lane, double posOverLane, double posLat,
+                                       const std::string& lane, double posOverLane, double posLat,
                                        double layer, double angle, const std::string& imgFile,
                                        double width, double height) :
     PointOfInterest(id, type, color, pos, geo, lane, posOverLane, posLat, layer, angle, imgFile, width, height),

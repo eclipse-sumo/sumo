@@ -685,7 +685,7 @@
 // how speed is set (set: vehicle)
 #define VAR_SPEEDSETMODE 0xb3
 
-// move vehicle, VTD version (set: vehicle)
+// move vehicle to explicit (remote controlled) position (set: vehicle)
 #define MOVE_TO_XY 0xb4
 
 // is the vehicle stopped, and if so parked and/or triggered?

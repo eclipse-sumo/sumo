@@ -48,41 +48,41 @@ class MSRoute;
 * @brief C++ TraCI client API implementation
 */
 namespace libsumo {
-    class TrafficLight {
-    public:
+class TrafficLight {
+public:
 
-        static std::vector<std::string> getIDList();
-        static int getIDCount();
-        static std::string getRedYellowGreenState(const std::string& tlsID);
-        static std::vector<TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID);
-        static std::vector<std::string> getControlledJunctions(const std::string& tlsID);
-        static std::vector<std::string> getControlledLanes(const std::string& tlsID);
-        static std::vector<std::vector<TraCILink> > getControlledLinks(const std::string& tlsID);
-        static std::string getProgram(const std::string& tlsID);
-        static int getPhase(const std::string& tlsID);
-        static SUMOTime getPhaseDuration(const std::string& tlsID);
-        static SUMOTime getNextSwitch(const std::string& tlsID);
-        static std::string getParameter(const std::string& tlsID, const std::string& paramName);
+    static std::vector<std::string> getIDList();
+    static int getIDCount();
+    static std::string getRedYellowGreenState(const std::string& tlsID);
+    static std::vector<TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID);
+    static std::vector<std::string> getControlledJunctions(const std::string& tlsID);
+    static std::vector<std::string> getControlledLanes(const std::string& tlsID);
+    static std::vector<std::vector<TraCILink> > getControlledLinks(const std::string& tlsID);
+    static std::string getProgram(const std::string& tlsID);
+    static int getPhase(const std::string& tlsID);
+    static SUMOTime getPhaseDuration(const std::string& tlsID);
+    static SUMOTime getNextSwitch(const std::string& tlsID);
+    static std::string getParameter(const std::string& tlsID, const std::string& paramName);
 
-        static void setRedYellowGreenState(const std::string& tlsID, const std::string& state);
-        static void setPhase(const std::string& tlsID, const int index);
-        static void setProgram(const std::string& tlsID, const std::string& programID);
-        static void setPhaseDuration(const std::string& tlsID, const SUMOTime phaseDuration);
-        static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic);
-        static void setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value);
+    static void setRedYellowGreenState(const std::string& tlsID, const std::string& state);
+    static void setPhase(const std::string& tlsID, const int index);
+    static void setProgram(const std::string& tlsID, const std::string& programID);
+    static void setPhaseDuration(const std::string& tlsID, const SUMOTime phaseDuration);
+    static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic);
+    static void setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value);
 
-    private:
-        static MSTLLogicControl::TLSLogicVariants& getTLS(const std::string& id);
+private:
+    static MSTLLogicControl::TLSLogicVariants& getTLS(const std::string& id);
 
-        /// @brief invalidated standard constructor
-        TrafficLight();
+    /// @brief invalidated standard constructor
+    TrafficLight();
 
-        /// @brief invalidated copy constructor
-        TrafficLight(const TrafficLight& src);
+    /// @brief invalidated copy constructor
+    TrafficLight(const TrafficLight& src);
 
-        /// @brief invalidated assignment operator
-        TrafficLight& operator=(const TrafficLight& src);
-    };
+    /// @brief invalidated assignment operator
+    TrafficLight& operator=(const TrafficLight& src);
+};
 }
 
 
