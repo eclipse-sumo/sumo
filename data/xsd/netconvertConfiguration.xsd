@@ -61,6 +61,10 @@
             <xsd:element name="street-sign-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="ptstop-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="ptline-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="ptline-clean-up" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="parking-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="osm.stop-output.footway-access-distance" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="osm.stop-output.footway-max-accesses" type="intOptionType" minOccurs="0"/>
             <xsd:element name="opendrive-output.straight-threshold" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -184,6 +188,10 @@
             <xsd:element name="osm.layer-elevation.max-grade" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.oneway-spread-right" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="osm.stop-output.length.bus" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="osm.stop-output.length.tram" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="osm.stop-output.length.train" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="osm.all-attributes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.import-all-lanes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.ignore-widths" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.curve-resolution" type="floatOptionType" minOccurs="0"/>
