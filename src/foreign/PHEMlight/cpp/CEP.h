@@ -154,7 +154,7 @@ namespace PHEMlightdll {
         double Interpolate(double px, double p1, double p2, double e1, double e2);
 
     public:
-        double GetMaxAccel(double speed, double acc, double gradient);
+        double GetMaxAccel(double speed, double gradient);
 
     private:
         double GetPMaxNorm(double speed);

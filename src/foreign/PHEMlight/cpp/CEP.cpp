@@ -416,9 +416,8 @@ namespace PHEMlightdll {
         return e1 + (px - p1) / (p2 - p1) * (e2 - e1);
     }
 
-    double CEP::GetMaxAccel(double speed, double acc, double gradient) {
+    double CEP::GetMaxAccel(double speed, double gradient) {
         double rotFactor = GetRotationalCoeffecient(speed);
-        double pMaxNorm = GetPMaxNorm(speed);
         double pMaxForAcc = GetPMaxNorm(speed) * _ratedPower - CalcPower(speed, 0, gradient);
 
         return (pMaxForAcc * 1000) / ((_massVehicle * rotFactor + _vehicleMassRot + _vehicleLoading) * speed);

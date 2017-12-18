@@ -452,7 +452,7 @@ namespace PHEMlightdll
             if (speed == 0)
                 acc = 0;
             else
-                acc = Math.Min(inputAcc, currCep.GetMaxAccel(speed, inputAcc, Gradient));
+                acc = Math.Min(inputAcc, currCep.GetMaxAccel(speed, Gradient));
 
             //Calculate the power
             double power = currCep.CalcPower(speed, acc, Gradient);
