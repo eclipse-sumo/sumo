@@ -333,7 +333,7 @@ protected:
     double getWidth() const;
 
     /// @brief find leaders/followers that are already in a car-following relationship with ego
-    void updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOffset);
+    void updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOffset, bool leaders);
 
     /// @brief return the current sublane width (and return a sensible value when running without sublanes)
     double getSublaneWidth() {

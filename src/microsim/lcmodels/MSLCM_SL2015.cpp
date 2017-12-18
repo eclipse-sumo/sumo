@@ -1311,7 +1311,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                       << " origLatDist=" << myManeuverDist
                       << " wantsChangeToHelp=" << (right ? "right" : "left")
                       << " state=" << myOwnState
-                      << (((myOwnState & myLcaCounter) != 0) ? " (counter)" : "")
+                      //<< (((myOwnState & myLcaCounter) != 0) ? " (counter)" : "")
                       << "\n";
         }
 #endif
@@ -1989,11 +1989,11 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& ma
     latDist = MAX2(MIN2(latDist, maxDist), -maxDist);
 
     if (!myCFRelatedReady) {
-        updateCFRelated(leaders, myVehicle.getLane()->getRightSideOnEdge());
-        updateCFRelated(followers, myVehicle.getLane()->getRightSideOnEdge());
+        updateCFRelated(leaders, myVehicle.getLane()->getRightSideOnEdge(), true);
+        updateCFRelated(followers, myVehicle.getLane()->getRightSideOnEdge(), false);
         if (laneOffset != 0) {
-            updateCFRelated(neighLeaders, neighLane.getRightSideOnEdge());
-            updateCFRelated(neighFollowers, neighLane.getRightSideOnEdge());
+            updateCFRelated(neighLeaders, neighLane.getRightSideOnEdge(), true);
+            updateCFRelated(neighFollowers, neighLane.getRightSideOnEdge(), false);
         }
         myCFRelatedReady = true;
     }
@@ -2257,7 +2257,7 @@ MSLCM_SL2015::checkBlockingVehicles(
 
 
 void
-MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOffset) {
+MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOffset, bool leaders) {
     // to ensure that we do not ignore the wrong vehicles due to numerical
     // instability we slightly reduce the width
     const double vehWidth = myVehicle.getVehicleType().getWidth() - NUMERICAL_EPS;
@@ -2273,7 +2273,15 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
         if (vehDist.first != 0 && myCFRelated.count(vehDist.first) == 0) {
             double foeRight, foeLeft;
             vehicles.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
-            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0)) {
+            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0
+                        // avoid deadlock due to #3729
+                        || (!leaders
+                            && myVehicle.getPositionOnLane() >= myVehicle.getVehicleType().getLength()
+                            && myVehicle.getSpeed() < SUMO_const_haltingSpeed
+                            && vehDist.first->getSpeed() < SUMO_const_haltingSpeed
+                            && -vehDist.second < vehDist.first->getVehicleType().getMinGap()
+                            && &(myVehicle.getLane()->getEdge()) != &(vehDist.first->getLane()->getEdge()))
+                        )) {
 #ifdef DEBUG_BLOCKING
                 if (gDebugFlag2) {
                     std::cout << " ignoring cfrelated foe=" << vehDist.first->getID() << " gap=" << vehDist.second
@@ -2281,6 +2289,8 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
                               << " foeOffset=" << foeOffset
                               << " egoR=" << rightVehSide << " egoL=" << leftVehSide
                               << " iR=" << foeRight << " iL=" << foeLeft
+                              << " egoV=" << myVehicle.getSpeed() << " foeV=" << vehDist.first->getSpeed()
+                              << " egoE=" << myVehicle.getLane()->getEdge().getID() << " egoE=" << vehDist.first->getLane()->getEdge().getID()
                               << "\n";
                 }
 #endif
