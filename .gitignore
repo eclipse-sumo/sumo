@@ -17,6 +17,8 @@
 /diff.*
 /compile
 /cmake-build
+/latex
+/mirror
 # bin dir
 /bin/TraCITestClient*
 /bin/activitygen*
@@ -41,6 +43,12 @@
 /bin/*.dll
 /bin/*.so
 /bin/osgPlugins*
+/bin/TraaS.jar
+# docs dir, make artifacts
+/docs/doxygen
+/docs/javadoc
+/docs/pydoc
+/docs/userdoc
 # src dir, mostly configure / make stuff
 /src/config.h
 /src/config.h.in
@@ -69,6 +77,9 @@
 # tool dir 
 /tools/game/*.netstate.xml
 /tools/game/*.tlsstate.xml
+/tools/contributed/traas/dist
+/tools/contributed/traas/javadoc
+/tools/contributed/traas/release
 # global patterns
 Makefile
 Makefile.in
