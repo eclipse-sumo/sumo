@@ -39,10 +39,13 @@ def gitid(fname):
     habit of using numerical tags. Use the short hash if no tag available.
     """
     try:
-        args = ['git', 'describe', '--tags', '--always']
-        r = subprocess.check_output(args,
-                                    stderr=open(os.devnull, 'w'),
-                                    universal_newlines=True)[:-1]
+        r = subprocess.check_output(["git", "describe", "--long", "--always"]).strip()
+        if "-" in r:
+            r = r.replace("-g", "-")
+            m1 = r.find("-") + 1
+            m2 = r.find("-", m1)
+            diff = max(0, 4 - (m2 - m1))
+            r = r[:m1].replace("-", "+") + (diff * "0") + r[m1:]
         args = ['git', 'log', '-1', '--date=iso', '--', fname]
         for l in subprocess.check_output(args, universal_newlines=True).splitlines():
             if l.startswith('Date'):
