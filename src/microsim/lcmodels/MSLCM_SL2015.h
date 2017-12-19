@@ -417,6 +417,10 @@ protected:
     double myLookaheadLeft;
     // @brief the factor by which the speedGain-threshold for the leftdiffers from the threshold for the right
     double mySpeedGainRight;
+    // @brief the maximum lateral speed when standing
+    double myMaxSpeedLatStanding;
+    // @brief the factor of maximum lateral speed to longitudinal speed
+    double myMaxSpeedLatFactor;
     //@}
 
     /// @name derived parameters

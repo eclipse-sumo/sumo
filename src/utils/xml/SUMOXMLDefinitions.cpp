@@ -341,6 +341,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcAccelLat",             SUMO_ATTR_LCA_ACCEL_LAT },
     { "lcLookaheadLeft",        SUMO_ATTR_LCA_LOOKAHEADLEFT },
     { "lcSpeedGainRight",       SUMO_ATTR_LCA_SPEEDGAINRIGHT },
+    { "lcMaxSpeedLatStanding",  SUMO_ATTR_LCA_MAXSPEEDLATSTANDING },
+    { "lcMaxSpeedLatFactor",    SUMO_ATTR_LCA_MAXSPEEDLATFACTOR },
     { "lcExperimental1",        SUMO_ATTR_LCA_EXPERIMENTAL1 },
 
     { "jmCrossingGap",          SUMO_ATTR_JM_CROSSING_GAP },

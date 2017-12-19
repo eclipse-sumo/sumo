@@ -146,7 +146,10 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myTimeToImpatience(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, std::numeric_limits<double>::max())),
     myAccelLat(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ACCEL_LAT, 1.0)),
     myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)),
-    mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)) {
+    mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)),
+    myMaxSpeedLatStanding(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, v.getVehicleType().getMaxSpeedLat())),
+    myMaxSpeedLatFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1))
+{
     initDerivedParameters();
 }
 
@@ -2913,7 +2916,8 @@ double
 MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) {
     int currentDirection = mySpeedLat >= 0 ? 1 : -1;
     int directionWish = latDist >= 0 ? 1 : -1;
-    const double maxSpeedLat = myVehicle.getVehicleType().getMaxSpeedLat();
+    const double maxSpeedLat = MIN2(myVehicle.getVehicleType().getMaxSpeedLat(),
+            myMaxSpeedLatStanding + myMaxSpeedLatFactor * myVehicle.getSpeed());
 
 #ifdef DEBUG_MANEUVER
     if (debugVehicle()) {
