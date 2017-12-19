@@ -162,6 +162,9 @@ public:
 
     static void slowDown(const std::string& vehicleID, double speed, SUMOTime duration);
     static void setSpeed(const std::string& vehicleID, double speed);
+    static void setSpeedMode(const std::string& vehicleID, int speedMode);
+    static void setLaneChangeMode(const std::string& vehicleID, int laneChangeMode);
+    static void setRoutingMode(const std::string& vehicleID, int routingMode);
     static void setType(const std::string& vehicleID, const std::string& typeID);
     static void setRouteID(const std::string& vehicleID, const std::string& routeID);
     static void setRoute(const std::string& vehicleID, const std::vector<std::string>& edgeIDs);
@@ -178,6 +181,7 @@ public:
     static void setActionStepLength(const std::string& vehicleID, double actionStepLength, bool resetActionOffset = true);
     static void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED);
     static void setColor(const std::string& vehicleID, const TraCIColor& col);
+    static void setSpeedFactor(const std::string& vehicleID, double factor);
     static void setLine(const std::string& vehicleID, const std::string& line);
     static void setVia(const std::string& vehicleID, const std::vector<std::string>& via);
     static void setShapeClass(const std::string& vehicleID, const std::string& clazz);

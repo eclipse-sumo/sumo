@@ -838,12 +838,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingDouble(inputStorage, speed)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting speed requires a double.", outputStorage);
                 }
-                std::vector<std::pair<SUMOTime, double> > speedTimeLine;
-                if (speed >= 0) {
-                    speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), speed));
-                    speedTimeLine.push_back(std::make_pair(SUMOTime_MAX - DELTA_T, speed));
-                }
-                v->getInfluencer().setSpeedTimeLine(speedTimeLine);
+                libsumo::Vehicle::setSpeed(id, speed);
             }
             break;
             case VAR_SPEEDSETMODE: {
@@ -851,7 +846,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingInt(inputStorage, speedMode)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting speed mode requires an integer.", outputStorage);
                 }
-                v->getInfluencer().setSpeedMode(speedMode);
+                libsumo::Vehicle::setSpeedMode(id, speedMode);
             }
             break;
             case VAR_LANECHANGE_MODE: {
@@ -859,7 +854,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingInt(inputStorage, laneChangeMode)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting lane change mode requires an integer.", outputStorage);
                 }
-                v->getInfluencer().setLaneChangeMode(laneChangeMode);
+                libsumo::Vehicle::setLaneChangeMode(id, laneChangeMode);
             }
             break;
             case VAR_ROUTING_MODE: {
@@ -867,7 +862,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingInt(inputStorage, routingMode)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting routing mode requires an integer.", outputStorage);
                 }
-                v->getInfluencer().setRoutingMode(routingMode);
+                libsumo::Vehicle::setRoutingMode(id, routingMode);
             }
             break;
             case VAR_COLOR: {
@@ -875,8 +870,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingColor(inputStorage, col)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The color must be given using the according type.", outputStorage);
                 }
-                v->getParameter().color.set(col.r, col.g, col.b, col.a);
-                v->getParameter().parametersSet |= VEHPARS_COLOR_SET;
+                libsumo::Vehicle::setColor(id, col);
             }
             break;
             case ADD: {
@@ -1028,40 +1022,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingByte(inputStorage, why)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Removing a vehicle requires a byte.", outputStorage);
                 }
-                MSMoveReminder::Notification n = MSMoveReminder::NOTIFICATION_ARRIVED;
-                switch (why) {
-                    case REMOVE_TELEPORT:
-                        // XXX semantics unclear
-                        // n = MSMoveReminder::NOTIFICATION_TELEPORT;
-                        n = MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED;
-                        break;
-                    case REMOVE_PARKING:
-                        // XXX semantics unclear
-                        // n = MSMoveReminder::NOTIFICATION_PARKING;
-                        n = MSMoveReminder::NOTIFICATION_ARRIVED;
-                        break;
-                    case REMOVE_ARRIVED:
-                        n = MSMoveReminder::NOTIFICATION_ARRIVED;
-                        break;
-                    case REMOVE_VAPORIZED:
-                        n = MSMoveReminder::NOTIFICATION_VAPORIZED;
-                        break;
-                    case REMOVE_TELEPORT_ARRIVED:
-                        n = MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED;
-                        break;
-                    default:
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Unknown removal status.", outputStorage);
-                }
-                if (v->hasDeparted()) {
-                    v->onRemovalFromNet(n);
-                    if (v->getLane() != 0) {
-                        v->getLane()->removeVehicle(v, n);
-                    }
-                    MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
-                } else {
-                    MSNet::getInstance()->getInsertionControl().alreadyDeparted(v);
-                    MSNet::getInstance()->getVehicleControl().deleteVehicle(v, true);
-                }
+                libsumo::Vehicle::remove(id, why);
             }
             break;
             case MOVE_TO_XY: {
@@ -1112,7 +1073,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingDouble(inputStorage, factor)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting speed factor requires a double.", outputStorage);
                 }
-                v->setChosenSpeedFactor(factor);
+                libsumo::Vehicle::setSpeedFactor(id, factor);
             }
             break;
             case VAR_LINE: {
@@ -1120,7 +1081,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingString(inputStorage, line)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The line must be given as a string.", outputStorage);
                 }
-                v->getParameter().line = line;
+                libsumo::Vehicle::setLine(id, line);
             }
             break;
             case VAR_VIA: {
@@ -1128,14 +1089,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingStringList(inputStorage, edgeIDs)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Vias must be defined as a list of edge ids.", outputStorage);
                 }
-                try {
-                    // ensure edges exist
-                    ConstMSEdgeVector edges;
-                    MSEdge::parseEdgesList(edgeIDs, edges, "<via-edges>");
-                } catch (ProcessError& e) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
-                }
-                v->getParameter().via = edgeIDs;
+                libsumo::Vehicle::setVia(id, edgeIDs);
             }
             break;
             case VAR_PARAMETER: {

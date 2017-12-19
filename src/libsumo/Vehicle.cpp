@@ -939,8 +939,28 @@ Vehicle::slowDown(const std::string& vehicleID, double speed, SUMOTime duration)
 
 void
 Vehicle::setSpeed(const std::string& vehicleID, double speed) {
-    getVehicle(vehicleID);
-    UNUSED_PARAMETER(speed);
+    MSVehicle* veh = getVehicle(vehicleID);
+    std::vector<std::pair<SUMOTime, double> > speedTimeLine;
+    if (speed >= 0) {
+        speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), speed));
+        speedTimeLine.push_back(std::make_pair(SUMOTime_MAX - DELTA_T, speed));
+    }
+    veh->getInfluencer().setSpeedTimeLine(speedTimeLine);
+}
+
+void
+Vehicle::setSpeedMode(const std::string& vehicleID, int speedMode) {
+    getVehicle(vehicleID)->getInfluencer().setSpeedMode(speedMode);
+}
+
+void
+Vehicle::setLaneChangeMode(const std::string& vehicleID, int laneChangeMode) {
+    getVehicle(vehicleID)->getInfluencer().setLaneChangeMode(laneChangeMode);
+}
+
+void
+Vehicle::setRoutingMode(const std::string& vehicleID, int routingMode) {
+    getVehicle(vehicleID)->getInfluencer().setRoutingMode(routingMode);
 }
 
 void
@@ -1128,8 +1148,41 @@ Vehicle::setActionStepLength(const std::string& vehicleID, double actionStepLeng
 
 void
 Vehicle::remove(const std::string& vehicleID, char reason) {
-    getVehicle(vehicleID);
-    UNUSED_PARAMETER(reason);
+    MSVehicle* veh = getVehicle(vehicleID);
+    MSMoveReminder::Notification n = MSMoveReminder::NOTIFICATION_ARRIVED;
+    switch (reason) {
+        case REMOVE_TELEPORT:
+            // XXX semantics unclear
+            // n = MSMoveReminder::NOTIFICATION_TELEPORT;
+            n = MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED;
+            break;
+        case REMOVE_PARKING:
+            // XXX semantics unclear
+            // n = MSMoveReminder::NOTIFICATION_PARKING;
+            n = MSMoveReminder::NOTIFICATION_ARRIVED;
+            break;
+        case REMOVE_ARRIVED:
+            n = MSMoveReminder::NOTIFICATION_ARRIVED;
+            break;
+        case REMOVE_VAPORIZED:
+            n = MSMoveReminder::NOTIFICATION_VAPORIZED;
+            break;
+        case REMOVE_TELEPORT_ARRIVED:
+            n = MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED;
+            break;
+        default:
+            throw TraCIException("Unknown removal status.");
+    }
+    if (veh->hasDeparted()) {
+        veh->onRemovalFromNet(n);
+        if (veh->getLane() != 0) {
+            veh->getLane()->removeVehicle(veh, n);
+        }
+        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
+    } else {
+        MSNet::getInstance()->getInsertionControl().alreadyDeparted(veh);
+        MSNet::getInstance()->getVehicleControl().deleteVehicle(veh, true);
+    }
 }
 
 
@@ -1140,6 +1193,10 @@ Vehicle::setColor(const std::string& vehicleID, const TraCIColor& col) {
     p.parametersSet |= VEHPARS_COLOR_SET;
 }
 
+void
+Vehicle::setSpeedFactor(const std::string& vehicleID, double factor) {
+    getVehicle(vehicleID)->setChosenSpeedFactor(factor);
+}
 
 void
 Vehicle::setLine(const std::string& vehicleID, const std::string& line) {
@@ -1148,8 +1205,15 @@ Vehicle::setLine(const std::string& vehicleID, const std::string& line) {
 
 void
 Vehicle::setVia(const std::string& vehicleID, const std::vector<std::string>& via) {
-    getVehicle(vehicleID);
-    UNUSED_PARAMETER(via);
+    MSVehicle* veh = getVehicle(vehicleID);
+    try {
+        // ensure edges exist
+        ConstMSEdgeVector edges;
+        MSEdge::parseEdgesList(via, edges, "<via-edges>");
+    } catch (ProcessError& e) {
+        throw TraCIException(e.what());
+    }
+    veh->getParameter().via = via;
 }
 
 void
@@ -1159,8 +1223,7 @@ Vehicle::setShapeClass(const std::string& vehicleID, const std::string& clazz) {
 
 void
 Vehicle::setEmissionClass(const std::string& vehicleID, const std::string& clazz) {
-    getVehicle(vehicleID);
-    UNUSED_PARAMETER(clazz);
+    getVehicle(vehicleID)->getSingularType().setEmissionClass(PollutantsInterface::getClassByName(clazz));
 }
 
 
