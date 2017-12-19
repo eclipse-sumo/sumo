@@ -352,6 +352,7 @@ SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& ele
     } else if (val == "containerTriggered") {
         dd = DEPART_CONTAINER_TRIGGERED;
     } else if (val == "now") {
+        // only used via TraCI. depart must be set by the calling code
         dd = DEPART_NOW;
     } else {
         try {

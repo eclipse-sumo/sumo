@@ -894,133 +894,133 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingString(inputStorage, routeID)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Second parameter (route) requires a string.", outputStorage);
                 }
-                int depart;
-                if (!server.readTypeCheckingInt(inputStorage, depart)) {
+                int departCode;
+                if (!server.readTypeCheckingInt(inputStorage, departCode)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Third parameter (depart) requires an integer.", outputStorage);
                 }
-                double departPos;
-                if (!server.readTypeCheckingDouble(inputStorage, departPos)) {
+                std::string depart = toString(STEPS2TIME(departCode));
+                if (-departCode == DEPART_TRIGGERED) {
+                    depart = "triggered";
+                } else if (-departCode == DEPART_CONTAINER_TRIGGERED) {
+                    depart = "containerTriggered";
+                } else if (-departCode == DEPART_NOW) {
+                    depart = "now";
+                }
+
+                double departPosCode;
+                if (!server.readTypeCheckingDouble(inputStorage, departPosCode)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Fourth parameter (position) requires a double.", outputStorage);
                 }
-                double departSpeed;
-                if (!server.readTypeCheckingDouble(inputStorage, departSpeed)) {
+                std::string departPos = toString(departPosCode);
+                if (-departPosCode == DEPART_POS_RANDOM) {
+                    departPos = "random";
+                } else if (-departPosCode == DEPART_POS_RANDOM_FREE) {
+                    departPos = "random_free";
+                } else if (-departPosCode == DEPART_POS_FREE) {
+                    departPos = "free";
+                } else if (-departPosCode == DEPART_POS_BASE) {
+                    departPos = "base";
+                } else if (-departPosCode == DEPART_POS_LAST) {
+                    departPos = "last";
+                } else if (-departPosCode == DEPART_POS_GIVEN) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid departure position.", outputStorage);
+                }
+
+                double departSpeedCode;
+                if (!server.readTypeCheckingDouble(inputStorage, departSpeedCode)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Fifth parameter (speed) requires a double.", outputStorage);
                 }
-                int departLane;
-                if (!server.readTypeCheckingByte(inputStorage, departLane)) {
+                std::string departSpeed = toString(departSpeedCode);
+                if (-departSpeedCode == DEPART_SPEED_RANDOM) {
+                    departSpeed = "random";
+                } else if (-departSpeedCode == DEPART_SPEED_MAX) {
+                    departSpeed = "max";
+                }
+
+                int departLaneCode;
+                if (!server.readTypeCheckingByte(inputStorage, departLaneCode)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Sixth parameter (lane) requires a byte.", outputStorage);
+                }
+                std::string departLane = toString(departLaneCode);
+                if (-departLaneCode == DEPART_LANE_RANDOM) {
+                    departLane = "random";
+                } else if (-departLaneCode == DEPART_LANE_FREE) {
+                    departLane = "free";
+                } else if (-departLaneCode == DEPART_LANE_ALLOWED_FREE) {
+                    departLane = "allowed";
+                } else if (-departLaneCode == DEPART_LANE_BEST_FREE) {
+                    departLane = "best";
+                } else if (-departLaneCode == DEPART_LANE_FIRST_ALLOWED) {
+                    departLane = "first";
                 }
                 libsumo::Vehicle::add(id, routeID, vTypeID, depart, departLane, departPos, departSpeed);
             }
             break;
             case ADD_FULL: {
-                if (v != 0) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The vehicle " + id + " to add already exists.", outputStorage);
-                }
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Adding a vehicle requires a compound object.", outputStorage);
                 }
                 if (inputStorage.readInt() != 14) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Adding a fully specified vehicle needs fourteen parameters.", outputStorage);
                 }
-                SUMOVehicleParameter vehicleParams;
-                vehicleParams.id = id;
-
                 std::string routeID;
                 if (!server.readTypeCheckingString(inputStorage, routeID)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Second parameter (route) requires a string.", outputStorage);
                 }
-                const MSRoute* route = MSRoute::dictionary(routeID);
-                if (!route) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid route '" + routeID + "' for vehicle: '" + id + "'", outputStorage);
-                }
-
                 std::string vTypeID;
                 if (!server.readTypeCheckingString(inputStorage, vTypeID)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "First parameter (type) requires a string.", outputStorage);
                 }
-                MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vTypeID);
-                if (!vehicleType) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid type '" + vTypeID + "' for vehicle '" + id + "'", outputStorage);
-                }
-
-                std::string helper;
-                std::string error;
-                if (!server.readTypeCheckingString(inputStorage, helper)) {
+                std::string depart;
+                if (!server.readTypeCheckingString(inputStorage, depart)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Third parameter (depart) requires an string.", outputStorage);
                 }
-                if (!SUMOVehicleParameter::parseDepart(helper, "vehicle", id, vehicleParams.depart, vehicleParams.departProcedure, error)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, error, outputStorage);
-                }
-                if (vehicleParams.departProcedure == DEPART_GIVEN && vehicleParams.depart < MSNet::getInstance()->getCurrentTimeStep()) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Departure time in the past.", outputStorage);
-                }
-
-                if (!server.readTypeCheckingString(inputStorage, helper)) {
+                std::string departLane;
+                if (!server.readTypeCheckingString(inputStorage, departLane)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Fourth parameter (depart lane) requires a string.", outputStorage);
                 }
-                if (!SUMOVehicleParameter::parseDepartLane(helper, "vehicle", id, vehicleParams.departLane, vehicleParams.departLaneProcedure, error)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, error, outputStorage);
-                }
-                if (!server.readTypeCheckingString(inputStorage, helper)) {
+                std::string departPos;
+                if (!server.readTypeCheckingString(inputStorage, departPos)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Fifth parameter (depart position) requires a string.", outputStorage);
                 }
-                if (!SUMOVehicleParameter::parseDepartPos(helper, "vehicle", id, vehicleParams.departPos, vehicleParams.departPosProcedure, error)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, error, outputStorage);
-                }
-                if (!server.readTypeCheckingString(inputStorage, helper)) {
+                std::string departSpeed;
+                if (!server.readTypeCheckingString(inputStorage, departSpeed)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Sixth parameter (depart speed) requires a string.", outputStorage);
                 }
-                if (!SUMOVehicleParameter::parseDepartSpeed(helper, "vehicle", id, vehicleParams.departSpeed, vehicleParams.departSpeedProcedure, error)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, error, outputStorage);
-                }
-
-                if (!server.readTypeCheckingString(inputStorage, helper)) {
+                std::string arrivalLane;
+                if (!server.readTypeCheckingString(inputStorage, arrivalLane)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Seventh parameter (arrival lane) requires a string.", outputStorage);
                 }
-                if (!SUMOVehicleParameter::parseArrivalLane(helper, "vehicle", id, vehicleParams.arrivalLane, vehicleParams.arrivalLaneProcedure, error)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, error, outputStorage);
-                }
-                if (!server.readTypeCheckingString(inputStorage, helper)) {
+                std::string arrivalPos;
+                if (!server.readTypeCheckingString(inputStorage, arrivalPos)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Eighth parameter (arrival position) requires a string.", outputStorage);
                 }
-                if (!SUMOVehicleParameter::parseArrivalPos(helper, "vehicle", id, vehicleParams.arrivalPos, vehicleParams.arrivalPosProcedure, error)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, error, outputStorage);
-                }
-                if (!server.readTypeCheckingString(inputStorage, helper)) {
+                std::string arrivalSpeed;
+                if (!server.readTypeCheckingString(inputStorage, arrivalSpeed)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Ninth parameter (arrival speed) requires a string.", outputStorage);
                 }
-                if (!SUMOVehicleParameter::parseArrivalSpeed(helper, "vehicle", id, vehicleParams.arrivalSpeed, vehicleParams.arrivalSpeedProcedure, error)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, error, outputStorage);
-                }
-
-                if (!server.readTypeCheckingString(inputStorage, vehicleParams.fromTaz)) {
+                std::string fromTaz;
+                if (!server.readTypeCheckingString(inputStorage, fromTaz)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Tenth parameter (from taz) requires a string.", outputStorage);
                 }
-                if (!server.readTypeCheckingString(inputStorage, vehicleParams.toTaz)) {
+                std::string toTaz;
+                if (!server.readTypeCheckingString(inputStorage, toTaz)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Eleventh parameter (to taz) requires a string.", outputStorage);
                 }
-                if (!server.readTypeCheckingString(inputStorage, vehicleParams.line)) {
+                std::string line;
+                if (!server.readTypeCheckingString(inputStorage, line)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Twelth parameter (line) requires a string.", outputStorage);
                 }
-
-                int num;
-                if (!server.readTypeCheckingInt(inputStorage, num)) {
+                int personCapacity;
+                if (!server.readTypeCheckingInt(inputStorage, personCapacity)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "13th parameter (person capacity) requires an int.", outputStorage);
                 }
-                if (!server.readTypeCheckingInt(inputStorage, num)) {
+                int personNumber;
+                if (!server.readTypeCheckingInt(inputStorage, personNumber)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "14th parameter (person number) requires an int.", outputStorage);
                 }
-                vehicleParams.personNumber = num;
-
-                SUMOVehicleParameter* params = new SUMOVehicleParameter(vehicleParams);
-                try {
-                    SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, true, false);
-                    MSNet::getInstance()->getVehicleControl().addVehicle(vehicleParams.id, vehicle);
-                    MSNet::getInstance()->getInsertionControl().add(vehicle);
-                } catch (ProcessError& e) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
-                }
+                libsumo::Vehicle::add(id, routeID, vTypeID, depart, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed, 
+                        fromTaz, toTaz, line, personCapacity, personNumber);
             }
             break;
             case REMOVE: {

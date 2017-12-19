@@ -751,20 +751,20 @@ Vehicle::changeSublane(const std::string& vehicleID, double latDist) {
 
 void
 Vehicle::add(const std::string& vehicleID,
-             const std::string& routeID,
-             const std::string& typeID,
-             int depart,
-             int departLane,
-             double departPos,
-             double departSpeed,
-             int /* arrivalLane */,
-             double /*arrivalPos */,
-             double /* arrivalSpeed */,
-             const std::string& /* fromTaz */,
-             const std::string& /* toTaz */,
-             const std::string& /* line */,
-             int /* personCapacity */,
-             int /* personNumber */) {
+        const std::string& routeID,
+        const std::string& typeID,
+        const std::string& depart,
+        const std::string& departLane,
+        const std::string& departPos,
+        const std::string& departSpeed,
+        const std::string& arrivalLane,
+        const std::string& arrivalPos,
+        const std::string& arrivalSpeed,
+        const std::string& fromTaz,
+        const std::string& toTaz,
+        const std::string& line,
+        int /*personCapacity*/,
+        int personNumber) {
     SUMOVehicle* veh = MSNet::getInstance()->getVehicleControl().getVehicle(vehicleID);
     if (veh != 0) {
         throw TraCIException("The vehicle " + vehicleID + " to add already exists.");
@@ -780,53 +780,39 @@ Vehicle::add(const std::string& vehicleID,
     if (!route) {
         throw TraCIException("Invalid route '" + routeID + "' for vehicle: '" + vehicleID + "'");
     }
-
-    if (depart < 0) {
-        const int proc = -depart;
-        if (proc >= static_cast<int>(DEPART_DEF_MAX)) {
-            throw TraCIException("Invalid departure time.");
-        }
-        vehicleParams.departProcedure = (DepartDefinition)proc;
-        vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
-    } else if (depart < MSNet::getInstance()->getCurrentTimeStep()) {
+    std::string error;
+    if (!SUMOVehicleParameter::parseDepart(depart, "vehicle", vehicleID, vehicleParams.depart, vehicleParams.departProcedure, error)) {
+        throw TraCIException(error);
+    }
+    if (vehicleParams.departProcedure == DEPART_GIVEN && vehicleParams.depart < MSNet::getInstance()->getCurrentTimeStep()) {
         vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
         WRITE_WARNING("Departure time for vehicle '" + vehicleID + "' is in the past; using current time instead.");
-    } else {
-        vehicleParams.depart = depart;
+    } else if (vehicleParams.departProcedure == DEPART_NOW) {
+        vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
     }
-
-    vehicleParams.departPos = departPos;
-    if (vehicleParams.departPos < 0) {
-        const int proc = static_cast<int>(-vehicleParams.departPos);
-        if (fabs(proc + vehicleParams.departPos) > NUMERICAL_EPS || proc >= static_cast<int>(DEPART_POS_DEF_MAX) || proc == static_cast<int>(DEPART_POS_GIVEN)) {
-            throw TraCIException("Invalid departure position.");
-        }
-        vehicleParams.departPosProcedure = (DepartPosDefinition)proc;
-    } else {
-        vehicleParams.departPosProcedure = DEPART_POS_GIVEN;
+    if (!SUMOVehicleParameter::parseDepartLane(departLane, "vehicle", vehicleID, vehicleParams.departLane, vehicleParams.departLaneProcedure, error)) {
+        throw TraCIException(error);
     }
-
-    vehicleParams.departSpeed = departSpeed;
-    if (vehicleParams.departSpeed < 0) {
-        const int proc = static_cast<int>(-vehicleParams.departSpeed);
-        if (proc >= static_cast<int>(DEPART_SPEED_DEF_MAX)) {
-            throw TraCIException("Invalid departure speed.");
-        }
-        vehicleParams.departSpeedProcedure = (DepartSpeedDefinition)proc;
-    } else {
-        vehicleParams.departSpeedProcedure = DEPART_SPEED_GIVEN;
+    if (!SUMOVehicleParameter::parseDepartPos(departPos, "vehicle", vehicleID, vehicleParams.departPos, vehicleParams.departPosProcedure, error)) {
+        throw TraCIException(error);
     }
-
-    vehicleParams.departLane = departLane;
-    if (vehicleParams.departLane < 0) {
-        const int proc = static_cast<int>(-vehicleParams.departLane);
-        if (proc >= static_cast<int>(DEPART_LANE_DEF_MAX)) {
-            throw TraCIException("Invalid departure lane.");
-        }
-        vehicleParams.departLaneProcedure = (DepartLaneDefinition)proc;
-    } else {
-        vehicleParams.departLaneProcedure = DEPART_LANE_GIVEN;
+    if (!SUMOVehicleParameter::parseDepartSpeed(departSpeed, "vehicle", vehicleID, vehicleParams.departSpeed, vehicleParams.departSpeedProcedure, error)) {
+        throw TraCIException(error);
     }
+    if (!SUMOVehicleParameter::parseArrivalLane(arrivalLane, "vehicle", vehicleID, vehicleParams.arrivalLane, vehicleParams.arrivalLaneProcedure, error)) {
+        throw TraCIException(error);
+    }
+    if (!SUMOVehicleParameter::parseArrivalPos(arrivalPos, "vehicle", vehicleID, vehicleParams.arrivalPos, vehicleParams.arrivalPosProcedure, error)) {
+        throw TraCIException(error);
+    }
+    if (!SUMOVehicleParameter::parseArrivalSpeed(arrivalSpeed, "vehicle", vehicleID, vehicleParams.arrivalSpeed, vehicleParams.arrivalSpeedProcedure, error)) {
+        throw TraCIException(error);
+    }
+    vehicleParams.fromTaz = fromTaz;
+    vehicleParams.toTaz = toTaz;
+    vehicleParams.line = line;
+    //vehicleParams.personCapacity = personCapacity;
+    vehicleParams.personNumber = personNumber;
 
     SUMOVehicleParameter* params = new SUMOVehicleParameter(vehicleParams);
     try {
