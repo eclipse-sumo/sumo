@@ -99,8 +99,7 @@ if (XercesC_FOUND)
     include_directories(${XercesC_INCLUDE_DIR})
     #set(libs "${libs}${XercesC_LIBRARY}")
 endif (XercesC_FOUND)
-#target_link_libraries ( ${PROJECT_NAME} ${XercesC_LIBRARY} )
-#
+
 find_package(Proj REQUIRED)
 if (PROJ_FOUND)
     message(STATUS "including: " ${PROJ_INCLUDE_DIR})
@@ -183,14 +182,6 @@ if (BUILD_GTEST_FROM_GIT)
     # and gmock_main
     add_subdirectory("${CMAKE_BINARY_DIR}/googletest-src"
             "${CMAKE_BINARY_DIR}/googletest-build")
-
-    # The gtest/gmock targets carry header search path
-    # dependencies automatically when using CMake 2.8.11 or
-    # later. Otherwise we have to add them here ourselves.
-    if (CMAKE_VERSION VERSION_LESS 2.8.11)
-        include_directories("${gtest_SOURCE_DIR}/include"
-                "${gmock_SOURCE_DIR}/include")
-    endif ()
 
     if (APPLE)
         include_directories("${CMAKE_BINARY_DIR}/googletest-src/googletest/include")
