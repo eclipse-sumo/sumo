@@ -148,6 +148,13 @@ if (OPENSCENEGRAPH_FOUND)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} OSG")
 endif ()
 
+find_package(GL2PS)
+if (GL2PS_FOUND)
+    include_directories(${GL2PS_INCLUDE_DIR})
+    set(HAVE_GL2PS 1)
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
+endif ()
+
 find_package(SWIG)
 if (SWIG_FOUND)
     if (NOT MSVC)

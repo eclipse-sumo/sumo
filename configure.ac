@@ -450,7 +450,6 @@ src/activitygen/city/Makefile
 src/foreign/Makefile
 src/foreign/eulerspiral/Makefile
 src/foreign/fontstash/Makefile
-src/foreign/gl2ps/Makefile
 src/foreign/PHEMlight/Makefile
 src/foreign/PHEMlight/cpp/Makefile
 src/foreign/rtree/Makefile

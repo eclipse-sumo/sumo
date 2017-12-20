@@ -37,7 +37,9 @@
 #include <cassert>
 #include <limits>
 #include <fxkeys.h>
-#include <foreign/gl2ps/gl2ps.h>
+#ifdef HAVE_GL2PS
+#include <gl2ps.h>
+#endif
 #include <utils/foxtools/FXSingleEventThread.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXImageHelper.h>
@@ -867,6 +869,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
     applyGLTransform();
 
     if (useGL2PS) {
+#ifdef HAVE_GL2PS
         GLint format = GL2PS_PS;
         if (ext == "ps") {
             format = GL2PS_PS;
@@ -901,7 +904,6 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
             glDisable(GL_ALPHA_TEST);
             glDisable(GL_BLEND);
             glEnable(GL_DEPTH_TEST);
-            // compute lane width
             // draw decals (if not in grabbing mode)
             if (!myUseToolTips) {
                 drawDecals();
@@ -926,6 +928,9 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
             glFinish();
         }
         fclose(fp);
+#else		
+		return "Could not save '" + destFile + "', gl2ps was not enabled at compile time.";
+#endif
     } else {
         doPaintGL(GL_RENDER, myChanger->getViewport());
         if (myVisualizationSettings->showSizeLegend) {
