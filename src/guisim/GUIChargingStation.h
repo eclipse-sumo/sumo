@@ -45,7 +45,6 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/geom/Position.h>
 #include <gui/GUIManipulator.h>
-#include <utils/foxtools/FXRealSpinDial.h>
 
 
 // ===========================================================================

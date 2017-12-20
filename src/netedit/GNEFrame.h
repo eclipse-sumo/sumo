@@ -31,7 +31,6 @@
 #include <fx.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBTrafficLightLogic.h>
-#include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/gui/div/GUISelectedStorage.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>

@@ -32,7 +32,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/Position.h>
 #include <utils/foxtools/MFXUtils.h>
-#include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/gui/images/GUIIconSubSys.h>
@@ -78,31 +77,31 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     // create zoom elements
     FXHorizontalFrame* zoomFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(zoomFrame, "Zoom:", 0, GUIDesignLabelLeftThick);
-    myZoom = new FXRealSpinDial(zoomFrame, 16, this, MID_CHANGED, GUIDesignSpinDial);
+    myZoom = new FXRealSpinner(zoomFrame, 16, this, MID_CHANGED, GUIDesignSpinDial);
     myZoom->setRange(0.0001, 100000);
-    myZoom->setNumberFormat(4);
+    //myZoom->setNumberFormat(4);
     // create X elements
     FXHorizontalFrame* XFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(XFrame, "X:", 0, GUIDesignLabelLeftThick);
-    myXOff = new FXRealSpinDial(XFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    myXOff = new FXRealSpinner(XFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
     // create Y elements
     FXHorizontalFrame* YFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(YFrame, "Y:", 0, GUIDesignLabelLeftThick);
-    myYOff = new FXRealSpinDial(YFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    myYOff = new FXRealSpinner(YFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
     // create Z elements
     FXHorizontalFrame* ZFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(ZFrame, "Z:", 0, GUIDesignLabelLeftThick);
-    myZOff = new FXRealSpinDial(ZFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    myZOff = new FXRealSpinner(ZFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
 #ifdef HAVE_OSG
     FXHorizontalFrame* lookAtXFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(lookAtXFrame, "LookAtX:", 0, GUIDesignLabelLeftThick);
-    myLookAtX = new FXRealSpinDial(lookAtXFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    myLookAtX = new FXRealSpinner(lookAtXFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
     FXHorizontalFrame* lookAtYFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(lookAtYFrame, "LookAtY:", 0, GUIDesignLabelLeftThick);
-    myLookAtY = new FXRealSpinDial(lookAtYFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    myLookAtY = new FXRealSpinner(lookAtYFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
     FXHorizontalFrame* lookAtZFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(lookAtZFrame, "LookAtZ:", 0, GUIDesignLabelLeftThick);
-    myLookAtZ = new FXRealSpinDial(lookAtZFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    myLookAtZ = new FXRealSpinner(lookAtZFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
     // update width of dialog for the new elements
     setHeight(257);
 #endif
@@ -265,7 +264,8 @@ GUIDialog_EditViewport::setOldValues(const Position& lookFrom, const Position& l
 
 bool
 GUIDialog_EditViewport::haveGrabbed() const {
-    return myZoom->getDial().grabbed() || myXOff->getDial().grabbed() || myYOff->getDial().grabbed();
+    return false;
+    //return myZoom->getDial().grabbed() || myXOff->getDial().grabbed() || myYOff->getDial().grabbed();
 }
 
 

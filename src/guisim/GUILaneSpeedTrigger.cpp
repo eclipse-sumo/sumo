@@ -150,10 +150,11 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
                           ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y,
                           0, 0, 0, 0,   2, 2, 0, 0);
         myUserDefinedSpeed =
-            new FXRealSpinDial(gf12, 10, this, MID_USER_DEF,
+            new FXRealSpinner(gf12, 10, this, MID_USER_DEF,
                                LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-        myUserDefinedSpeed->setFormatString("%.0f km/h");
-        myUserDefinedSpeed->setIncrements(1, 10, 10);
+        //myUserDefinedSpeed->setFormatString("%.0f km/h");
+        //myUserDefinedSpeed->setIncrements(1, 10, 10);
+        myUserDefinedSpeed->setIncrement(10);
         myUserDefinedSpeed->setRange(0, 300);
         myUserDefinedSpeed->setValue(
             static_cast<GUILaneSpeedTrigger*>(myObject)->getDefaultSpeed() * 3.6);

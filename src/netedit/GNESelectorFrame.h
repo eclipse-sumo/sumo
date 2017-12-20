@@ -171,7 +171,7 @@ private:
     FXTextField* myMatchString;
 
     /// @brief selection scaling
-    FXRealSpinDial* mySelectionScaling;
+    FXRealSpinner* mySelectionScaling;
 
     /// @brief current SumoXMLTag tag
     SumoXMLTag myCurrentTag;

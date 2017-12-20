@@ -50,7 +50,6 @@
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/foxtools/FXRealSpinDial.h>
 
 
 // ===========================================================================
@@ -243,7 +242,7 @@ private:
     FXToolBar* myToolBar;
 
     /// @brief The offset changer (tracking mode)
-    FXRealSpinDial* myBeginOffset;
+    FXRealSpinner* myBeginOffset;
 
 
 protected:

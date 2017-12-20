@@ -39,7 +39,6 @@
 #include <utils/foxtools/MFXEventQue.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>
-#include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/FXLCDLabel.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/common/ValueRetriever.h>
@@ -344,7 +343,7 @@ protected:
                     *myToolBarDrag4, *myToolBarDrag5, *myMenuBarDrag;
 
     ///
-    FXRealSpinDial* mySimDelayTarget;
+    FXRealSpinner* mySimDelayTarget;
 
     /// The alternate simulation delay for toggling
     SUMOTime myAlternateSimDelay;

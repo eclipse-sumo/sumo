@@ -229,9 +229,9 @@ MFXAddEditTypedTable::getControlForItem(FXint r, FXint c) {
         case CT_REAL:
 //        return myNumberEditor;
         case CT_INT: {
-            FXRealSpinDial* field;
+            FXRealSpinner* field;
             //FXuint justify=0;
-            field = new FXRealSpinDial(this, 1, NULL, 0, TEXTFIELD_ENTER_ONLY, 0, 0, 0, 0, getMarginLeft(), getMarginRight(), getMarginTop(), getMarginBottom());
+            field = new FXRealSpinner(this, 1, NULL, 0, TEXTFIELD_ENTER_ONLY, 0, 0, 0, 0, getMarginLeft(), getMarginRight(), getMarginTop(), getMarginBottom());
             // !!! if(state&LEFT) justify|=JUSTIFY_LEFT;
             // !!! if(state&RIGHT) justify|=JUSTIFY_RIGHT;
             // !!! if(state&TOP) justify|=JUSTIFY_TOP;
@@ -245,8 +245,9 @@ MFXAddEditTypedTable::getControlForItem(FXint r, FXint c) {
             field->setSelTextColor(getSelTextColor());
             NumberCellParams p = getNumberCellParams(c);
             if (p.format != "undefined") {
-                field->setFormatString((char*) p.format.c_str());
-                field->setIncrements(p.steps1, p.steps2, p.steps3);
+                //field->setFormatString((char*) p.format.c_str());
+                //field->setIncrements(p.steps1, p.steps2, p.steps3);
+                field->setIncrement(p.steps2);
                 field->setRange(p.min, p.max);
             }
             try {
@@ -258,7 +259,7 @@ MFXAddEditTypedTable::getControlForItem(FXint r, FXint c) {
             } catch (NumberFormatException&) {
                 field->setValue(0);
             }
-            field->selectAll();
+            //field->selectAll();
             return field;
         }
         case CT_BOOL:
@@ -290,9 +291,8 @@ MFXAddEditTypedTable::acceptInput(FXbool notify) {
     bool set = false;
     FXTableRange tablerange = input;
     if (editor) {
-        //
-        //
-        FXRealSpinDial* dial = dynamic_cast<FXRealSpinDial*>(editor);
+        /*
+        FXRealSpinner* dial = dynamic_cast<FXRealSpinner*>(editor);
         if (dial != 0) {
             if (!dial->getDial().grabbed()) {
                 set = true;
@@ -300,6 +300,7 @@ MFXAddEditTypedTable::acceptInput(FXbool notify) {
                 setItemFromControl_NoRelease(input.fm.row, input.fm.col, editor);
             }
         }
+        */
         if (dynamic_cast<FXTextField*>(editor) != 0) {
             set = true;
         }
@@ -331,10 +332,10 @@ MFXAddEditTypedTable::setItemFromControl(FXint r, FXint c, FXWindow* control) {
             item->setFromControl(control);
             break;
         case CT_REAL:
-            item->setText(toString(static_cast<FXRealSpinDial*>(control)->getValue()).c_str());
+            item->setText(toString(static_cast<FXRealSpinner*>(control)->getValue()).c_str());
             break;
         case CT_INT:
-            item->setText(toString((int) static_cast<FXRealSpinDial*>(control)->getValue()).c_str());
+            item->setText(toString((int) static_cast<FXRealSpinner*>(control)->getValue()).c_str());
             break;
         case CT_BOOL:
 //        return myBoolEditor;
@@ -383,10 +384,10 @@ MFXAddEditTypedTable::setItemFromControl_NoRelease(FXint r, FXint c, FXWindow* c
             item->setFromControl(control);
             break;
         case CT_REAL:
-            item->setText(toString(static_cast<FXRealSpinDial*>(control)->getValue()).c_str());
+            item->setText(toString(static_cast<FXRealSpinner*>(control)->getValue()).c_str());
             break;
         case CT_INT:
-            item->setText(toString((int) static_cast<FXRealSpinDial*>(control)->getValue()).c_str());
+            item->setText(toString((int) static_cast<FXRealSpinner*>(control)->getValue()).c_str());
             break;
         case CT_BOOL:
 //        return myBoolEditor;

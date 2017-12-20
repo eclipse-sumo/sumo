@@ -35,7 +35,6 @@
 #include <string>
 #include <foreign/rtree/SUMORTree.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
-#include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <gui/GUIManipulator.h>
@@ -257,7 +256,7 @@ public:
 
         double myUsageProbability;
 
-        FXRealSpinDial* myUsageProbabilityDial;
+        FXRealSpinner* myUsageProbabilityDial;
 
         FXDataTarget myUsageProbabilityTarget;
 

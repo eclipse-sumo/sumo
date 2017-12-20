@@ -36,7 +36,6 @@
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/foxtools/FXRealSpinDial.h>
 #include <gui/GUIManipulator.h>
 
 
@@ -169,7 +168,7 @@ public:
 
         FXDataTarget mySpeedTarget;
 
-        FXRealSpinDial* myUserDefinedSpeed;
+        FXRealSpinner* myUserDefinedSpeed;
 
         FXComboBox* myPredefinedValues;
 

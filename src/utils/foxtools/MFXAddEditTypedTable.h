@@ -31,7 +31,6 @@
 
 #include "MFXEditableTable.h"
 #include <vector>
-#include <utils/foxtools/FXRealSpinDial.h>
 
 enum CellType {
     CT_UNDEFINED = -1,

@@ -62,7 +62,6 @@
 #include <utils/common/RandHelper.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/FXLCDLabel.h>
-#include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/FXLinkLabel.h>
 
@@ -594,9 +593,10 @@ GUIApplicationWindow::buildToolBars() {
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXButton(myToolBar4, "Delay (ms):\t\tToggle between alternative delay values", 0, this, MID_DELAY_TOOGLE, GUIDesignButtonToolbarText);
 
-        mySimDelayTarget = new FXRealSpinDial(myToolBar4, 7, 0, MID_SIMDELAY, GUIDesignSpinDial);
-        mySimDelayTarget->setNumberFormat(0);
-        mySimDelayTarget->setIncrements(1, 10, 10);
+        mySimDelayTarget = new FXRealSpinner(myToolBar4, 7, 0, MID_SIMDELAY, GUIDesignSpinDial);
+        //mySimDelayTarget->setNumberFormat(0);
+        //mySimDelayTarget->setIncrements(1, 10, 10);
+        mySimDelayTarget->setIncrement(10);
         mySimDelayTarget->setRange(0, 1000);
         mySimDelayTarget->setValue(0);
     }

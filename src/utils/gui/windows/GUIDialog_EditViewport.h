@@ -31,7 +31,6 @@
 #endif
 
 #include <fx.h>
-#include <utils/foxtools/FXRealSpinDial.h>
 
 // ===========================================================================
 // class declarations
@@ -130,14 +129,14 @@ protected:
     Position myOldLookFrom, myOldLookAt;
 
     /// @brief The spin dialers used to change the view
-    FXRealSpinDial* myZoom, *myXOff, *myYOff, *myZOff;
+    FXRealSpinner* myZoom, *myXOff, *myYOff, *myZOff;
 
     /// @brief OK button
     FXButton* buttonOk;
 
 #ifdef HAVE_OSG
     /// @brief The spin dialers used to change the view at (osg only)
-    FXRealSpinDial* myLookAtX, *myLookAtY, *myLookAtZ;
+    FXRealSpinner* myLookAtX, *myLookAtY, *myLookAtZ;
 #endif
 
 
