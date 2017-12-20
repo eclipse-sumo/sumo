@@ -261,13 +261,13 @@ public:
      * @return delay in milliseconds
      */
     virtual double getDelay() const {
-        return mySimDelayTarget->getValue();
+        return mySimDelay;
     }
 
     /** @brief Sets the delay of the parent application
      */
     virtual void setDelay(double delay) {
-        mySimDelayTarget->setValue(delay);
+        mySimDelay = delay;
     }
 
     /** @brief Sends an event from the application thread to the GUI and waits until it is handled
@@ -343,7 +343,10 @@ protected:
                     *myToolBarDrag4, *myToolBarDrag5, *myMenuBarDrag;
 
     ///
-    FXRealSpinner* mySimDelayTarget;
+    int mySimDelay;
+    FXDataTarget* mySimDelayTarget;
+    FXRealSpinner* mySimDelaySpinner;
+    FXSlider* mySimDelaySlider;
 
     /// The alternate simulation delay for toggling
     SUMOTime myAlternateSimDelay;

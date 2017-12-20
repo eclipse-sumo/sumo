@@ -262,7 +262,7 @@ GUIApplicationWindow::dependentBuild() {
     myToolBar7->hide();
     // build additional threads
     myLoadThread = new GUILoadThread(getApp(), this, myEvents, myLoadThreadEvent);
-    myRunThread = new GUIRunThread(getApp(), this, *mySimDelayTarget, myEvents, myRunThreadEvent);
+    myRunThread = new GUIRunThread(getApp(), this, mySimDelay, myEvents, myRunThreadEvent);
     // set the status bar
     myStatusbar->getStatusLine()->setText("Ready.");
     // set the caption
@@ -593,12 +593,20 @@ GUIApplicationWindow::buildToolBars() {
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXButton(myToolBar4, "Delay (ms):\t\tToggle between alternative delay values", 0, this, MID_DELAY_TOOGLE, GUIDesignButtonToolbarText);
 
-        mySimDelayTarget = new FXRealSpinner(myToolBar4, 7, 0, MID_SIMDELAY, GUIDesignSpinDial);
+        mySimDelay = 0;
+        mySimDelayTarget = new FXDataTarget(mySimDelay);
+        mySimDelaySpinner = new FXRealSpinner(myToolBar4, 7, mySimDelayTarget, FXDataTarget::ID_VALUE, GUIDesignSpinDial);
+        mySimDelaySlider = new FXSlider(myToolBar4, mySimDelayTarget, FXDataTarget::ID_VALUE, LAYOUT_FIX_WIDTH | SLIDER_ARROW_UP | SLIDER_TICKS_TOP, 0, 0, 300, 10, 0, 0, 5, 0);
+        mySimDelaySlider->setRange(0, 1000);
+        mySimDelaySlider->setHeadSize(10);
+        mySimDelaySlider->setIncrement(50);
+        mySimDelaySlider->setTickDelta(100);
+        mySimDelaySlider->setValue(mySimDelay);
         //mySimDelayTarget->setNumberFormat(0);
         //mySimDelayTarget->setIncrements(1, 10, 10);
-        mySimDelayTarget->setIncrement(10);
-        mySimDelayTarget->setRange(0, 1000);
-        mySimDelayTarget->setValue(0);
+        mySimDelaySpinner->setIncrement(10);
+        mySimDelaySpinner->setRange(0, 1000);
+        mySimDelaySpinner->setValue(mySimDelay);
     }
     {
         // Views
@@ -939,8 +947,8 @@ GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdDelayToggle(FXObject*, FXSelector, void*) {
     const SUMOTime tmp = myAlternateSimDelay;
-    myAlternateSimDelay = (SUMOTime)mySimDelayTarget->getValue();
-    mySimDelayTarget->setValue((FXdouble)tmp);
+    myAlternateSimDelay = mySimDelay;
+    mySimDelay = tmp;
     return 1;
 }
 
@@ -1264,7 +1272,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                     settings.applyViewport(view);
                     settings.setSnapshots(view);
                     if (settings.getDelay() > 0) {
-                        mySimDelayTarget->setValue(settings.getDelay());
+                        mySimDelay = settings.getDelay();
                     }
                     if (settings.getBreakpoints().size() > 0) {
                         myRunThread->getBreakpointLock().lock();

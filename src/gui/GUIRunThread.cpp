@@ -60,7 +60,7 @@
 // member method definitions
 // ===========================================================================
 GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent,
-                           FXRealSpinner& simDelay, MFXEventQue<GUIEvent*>& eq,
+                           int& simDelay, MFXEventQue<GUIEvent*>& eq,
                            FXEX::FXThreadEvent& ev)
     : FXSingleEventThread(app, parent),
       myNet(0), myHalting(true), myQuit(false), mySimulationInProgress(false), myOk(true), myHaveSignaledEnd(false),
@@ -148,7 +148,7 @@ GUIRunThread::run() {
                 stop();
             }
             // wait if wanted
-            long wait = (long) mySimDelay.getValue();
+            long wait = mySimDelay;
             if (getNet().logSimulationDuration()) {
                 end = SysUtils::getCurrentMillis();
                 getNet().setSimDuration((int)(end - beg));
