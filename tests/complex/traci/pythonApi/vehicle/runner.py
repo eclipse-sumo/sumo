@@ -436,6 +436,12 @@ traci.vehicle.add("triptest2", "trip2", typeID="reroutingType")
 print("triptest route:", traci.vehicle.getRoute("triptest2"))
 step()
 print("triptest route:", traci.vehicle.getRoute("triptest2"))
+# test for adding a vehicle without specifying the route
+traci.vehicle.add("noRouteGiven", "")
+step()
+print("noRouteGiven routeID: %s edges: %s" % (
+    traci.vehicle.getRouteID("noRouteGiven"),
+    traci.vehicle.getRoute("noRouteGiven")))
 # done
 traci.close()
 sumoProcess.wait()

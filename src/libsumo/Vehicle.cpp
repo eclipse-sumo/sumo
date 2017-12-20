@@ -46,6 +46,7 @@
 #include <libsumo/TraCIDefs.h>
 #include <traci-server/TraCIConstants.h>
 #include "Helper.h"
+#include "Route.h"
 #include "Vehicle.h"
 
 
@@ -778,7 +779,29 @@ Vehicle::add(const std::string& vehicleID,
     }
     const MSRoute* route = MSRoute::dictionary(routeID);
     if (!route) {
-        throw TraCIException("Invalid route '" + routeID + "' for vehicle: '" + vehicleID + "'");
+        if (routeID == "") {
+            // assume, route was intentionally left blank because the caller
+            // intends to control the vehicle remotely
+            SUMOVehicleClass vclass = vehicleType->getVehicleClass();
+            const std::string dummyRouteID = "DUMMY_ROUTE_" + SumoVehicleClassStrings.getString(vclass);
+            route = MSRoute::dictionary(dummyRouteID);
+            if (route == 0) {
+                for (MSEdge* e : MSEdge::getAllEdges()) {
+                    if (e->getFunction() == EDGEFUNC_NORMAL && (e->getPermissions() & vclass) == vclass) {
+                        std::vector<std::string>  edges;
+                        edges.push_back(e->getID());
+                        libsumo::Route::add(dummyRouteID, edges);
+                        break;
+                    }
+                }
+            }
+            route = MSRoute::dictionary(dummyRouteID);
+            if (!route) {
+                throw TraCIException("Could not build dummy route for vehicle class: '" + SumoVehicleClassStrings.getString(vehicleType->getVehicleClass()) + "'");
+            }
+        } else {
+            throw TraCIException("Invalid route '" + routeID + "' for vehicle: '" + vehicleID + "'");
+        }
     }
     std::string error;
     if (!SUMOVehicleParameter::parseDepart(depart, "vehicle", vehicleID, vehicleParams.depart, vehicleParams.departProcedure, error)) {
