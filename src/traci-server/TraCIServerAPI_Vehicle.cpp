@@ -1022,7 +1022,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingByte(inputStorage, why)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Removing a vehicle requires a byte.", outputStorage);
                 }
-                libsumo::Vehicle::remove(id, why);
+                libsumo::Vehicle::remove(id, (char)why);
             }
             break;
             case MOVE_TO_XY: {
