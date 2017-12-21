@@ -1,5 +1,8 @@
 basic
 
+# use configured lateral speed
+maxSpeedLat
+
 # verify that both lanes are blocked during a lane change maneuver
 block_both_lanes
 

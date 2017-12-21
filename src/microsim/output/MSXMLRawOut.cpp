@@ -149,7 +149,7 @@ MSXMLRawOut::writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) {
         if (!MSGlobals::gUseMesoSim) {
             const MSVehicle& microVeh = static_cast<const MSVehicle&>(veh);
             // microsim-specific stuff
-            if (MSGlobals::gLateralResolution > 0) {
+            if (MSGlobals::gLateralResolution > 0 || MSGlobals::gLaneChangeDuration > 0) {
                 const double posLat = microVeh.getLateralPositionOnLane();
                 of.writeAttr(SUMO_ATTR_POSITION_LAT, posLat);
             }
