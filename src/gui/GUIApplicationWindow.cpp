@@ -946,7 +946,7 @@ GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdDelayToggle(FXObject*, FXSelector, void*) {
-    const SUMOTime tmp = myAlternateSimDelay;
+    const double tmp = myAlternateSimDelay;
     myAlternateSimDelay = mySimDelay;
     mySimDelay = tmp;
     return 1;
@@ -1271,7 +1271,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                     view->addDecals(settings.getDecals());
                     settings.applyViewport(view);
                     settings.setSnapshots(view);
-                    if (settings.getDelay() > 0) {
+                    if (settings.getDelay() > 0.) {
                         mySimDelay = settings.getDelay();
                     }
                     if (settings.getBreakpoints().size() > 0) {

@@ -60,7 +60,7 @@
 // member method definitions
 // ===========================================================================
 GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent,
-                           int& simDelay, MFXEventQue<GUIEvent*>& eq,
+                           double& simDelay, MFXEventQue<GUIEvent*>& eq,
                            FXEX::FXThreadEvent& ev)
     : FXSingleEventThread(app, parent),
       myNet(0), myHalting(true), myQuit(false), mySimulationInProgress(false), myOk(true), myHaveSignaledEnd(false),

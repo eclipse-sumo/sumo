@@ -108,7 +108,7 @@ public:
      * @return parsed delay in milliseconds
      */
     virtual double getDelay() const {
-        return 0;
+        return 0.;
     }
 
     /** @brief Sets the delay of the parent application

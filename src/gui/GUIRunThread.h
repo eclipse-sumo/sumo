@@ -62,7 +62,7 @@ class GUIRunThread : public FXSingleEventThread {
 public:
     /// constructor
     GUIRunThread(FXApp* app, MFXInterThreadEventClient* mw,
-                 int& simDelay, MFXEventQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev);
+                 double& simDelay, MFXEventQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev);
 
     /// destructor
     virtual ~GUIRunThread();
@@ -162,7 +162,7 @@ protected:
         Needed to be deleted from the handler later on */
     OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
 
-    int& mySimDelay;
+    double& mySimDelay;
 
     MFXEventQue<GUIEvent*>& myEventQue;
 

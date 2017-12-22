@@ -265,6 +265,7 @@ public:
     }
 
     /** @brief Sets the delay of the parent application
+     * @param delay the new delay in milliseconds
      */
     virtual void setDelay(double delay) {
         mySimDelay = delay;
@@ -342,14 +343,14 @@ protected:
     FXToolBarShell* myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,
                     *myToolBarDrag4, *myToolBarDrag5, *myMenuBarDrag;
 
-    ///
-    int mySimDelay;
+    /// the simulation delay in milliseconds
+    double mySimDelay;
     FXDataTarget* mySimDelayTarget;
     FXRealSpinner* mySimDelaySpinner;
     FXSlider* mySimDelaySlider;
 
-    /// The alternate simulation delay for toggling
-    SUMOTime myAlternateSimDelay;
+    /// The alternate simulation delay in milliseconds for toggling
+    double myAlternateSimDelay;
 
     /// List of got requests
     MFXEventQue<GUIEvent*> myEvents;
