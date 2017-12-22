@@ -400,7 +400,7 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("keep-edges.by-type", "Edge Removal", "Only keep edges where type is in STR");
 
         oc.doRegister("keep-edges.components", new Option_Integer(0));
-        oc.addDescription("keep-edges.components", "Edge Removal", "Only keep the INT largest weakly connected compoonents");
+        oc.addDescription("keep-edges.components", "Edge Removal", "Only keep the INT largest weakly connected components");
 
         oc.doRegister("remove-edges.by-type", new Option_String());
         oc.addDescription("remove-edges.by-type", "Edge Removal", "Remove edges where type is in STR");

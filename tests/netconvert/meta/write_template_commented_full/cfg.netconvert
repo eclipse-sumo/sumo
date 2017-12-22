@@ -303,7 +303,7 @@
         <!-- Only keep edges where type is in STR -->
         <keep-edges.by-type value="" type="STR"/>
 
-        <!-- Only keep the INT largest weakly connected compoonents -->
+        <!-- Only keep the INT largest weakly connected components -->
         <keep-edges.components value="0" type="INT"/>
 
         <!-- Remove edges where type is in STR -->
