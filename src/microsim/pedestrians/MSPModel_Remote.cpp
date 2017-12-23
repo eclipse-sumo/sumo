@@ -187,7 +187,6 @@ SUMOTime MSPModel_Remote::execute(SUMOTime time) {
             PState* pState = remoteIdPStateMapping[agent.id()];
             while (!pState->getStage()->moveToNextEdge(pState->getPerson(), time)) {
                 remoteIdPStateMapping.erase(agent.id());
-                delete pState;
             }
         }
     }

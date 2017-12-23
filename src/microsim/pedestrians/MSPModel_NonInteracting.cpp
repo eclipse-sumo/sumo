@@ -99,8 +99,7 @@ MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
     const MSEdge* old = myParent.getEdge();
     const bool arrived = myParent.moveToNextEdge(myPerson, currentTime);
     if (arrived) {
-        // walk finished. clean up state
-        delete state;
+        // walk finished
         //if DEBUGCOND(myPerson->getID()) std::cout << SIMTIME << " " << myPerson->getID() << " arrived on " << old->getID() << "\n";
         return 0;
     } else {

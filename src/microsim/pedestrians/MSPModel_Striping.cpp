@@ -156,7 +156,6 @@ MSPModel_Striping::remove(PedestrianState* state) {
     Pedestrians& pedestrians = myActiveLanes[lane];
     for (Pedestrians::iterator it = pedestrians.begin(); it != pedestrians.end(); ++it) {
         if (*it == state) {
-            delete state;
             pedestrians.erase(it);
             return;
         }
@@ -263,11 +262,6 @@ MSPModel_Striping::getPedestrians(const MSLane* lane) {
 
 void
 MSPModel_Striping::cleanupHelper() {
-    for (ActiveLanes::iterator it_lane = myActiveLanes.begin(); it_lane != myActiveLanes.end(); ++it_lane) {
-        for (Pedestrians::iterator it_p = it_lane->second.begin(); it_p != it_lane->second.end(); ++it_p) {
-            delete *it_p;
-        }
-    }
     myActiveLanes.clear();
     myNumActivePedestrians = 0;
     myWalkingAreaPaths.clear(); // need to recompute when lane pointers change
@@ -827,7 +821,6 @@ MSPModel_Striping::arriveAndAdvance(Pedestrians& pedestrians, SUMOTime currentTi
                 changedLane.insert(p->myPerson);
                 myActiveLanes[p->myLane].push_back(p);
             } else {
-                delete p;
                 myNumActivePedestrians--;
             }
         }

@@ -80,6 +80,7 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
 
 
 MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {
+    delete myPedestrianState;
 }
 
 
@@ -161,7 +162,6 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
 void
 MSPerson::MSPersonStage_Walking::abort(MSTransportable*) {
     MSPModel::getModel()->remove(myPedestrianState);
-    myPedestrianState = 0;
 }
 
 void
