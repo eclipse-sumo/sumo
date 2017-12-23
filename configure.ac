@@ -140,6 +140,7 @@ dnl   ... for libs
 LIB_XERCES="xerces-c"
 AC_ARG_WITH([xerces-libraries], [AS_HELP_STRING([--with-xerces-libraries=DIR],[where the Xerces-C library is installed.])])
 if test x"$with_xerces_libraries" = x; then
+   LDFLAGS="$LDFLAGS -L/usr/local/lib"
    AC_CHECK_LIB([$LIB_XERCES], [main], [true],
                 [AC_MSG_ERROR([xerces-lib not found. Specify path with option --with-xerces-libraries=DIR.])])
 else
