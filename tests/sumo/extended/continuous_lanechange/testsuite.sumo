@@ -3,6 +3,9 @@ basic
 # use configured lateral speed
 maxSpeedLat
 
+# use configured maximum lateral speed when standing
+maxSpeedLatStanding
+
 # verify that both lanes are blocked during a lane change maneuver
 block_both_lanes
 
