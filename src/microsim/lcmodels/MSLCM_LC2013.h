@@ -126,6 +126,9 @@ public:
     /// @brief try to set the given parameter for this laneChangeModel. Throw exception for unsupported key
     void setParameter(const std::string& key, const std::string& value);
 
+    /// @brief decides the next lateral speed (for continuous lane changing)
+    double computeSpeedLat(double latDist, double& maneuverDist);
+
 protected:
 
     /// @brief helper function for doing the actual work
@@ -277,6 +280,10 @@ protected:
     double myLookaheadLeft;
     // @brief the factor by which the speedGain-threshold for the leftdiffers from the threshold for the right
     double mySpeedGainRight;
+    // @brief the maximum lateral speed when standing
+    double myMaxSpeedLatStanding;
+    // @brief the factor of maximum lateral speed to longitudinal speed
+    double myMaxSpeedLatFactor;
 
     const double myExperimentalParam1; // for feature testing
     //@}

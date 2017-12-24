@@ -200,12 +200,6 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
         myLaneChangeCompletion = 0;
         myLaneChangeDirection = direction;
         setManeuverDist(target->getCenterOnEdge() - source->getCenterOnEdge());
-        if (myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
-            int stepsToChange = (int)ceil(getManeuverDist() / SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat()));
-            mySpeedLat = DIST2SPEED(getManeuverDist() / stepsToChange);
-        } else {
-            mySpeedLat = getManeuverDist() / STEPS2TIME(MSGlobals::gLaneChangeDuration);
-        }
         myVehicle.switchOffSignal(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
         myVehicle.switchOnSignal(direction == 1 ? MSVehicle::VEH_SIGNAL_BLINKER_LEFT : MSVehicle::VEH_SIGNAL_BLINKER_RIGHT);
         return true;
@@ -257,9 +251,24 @@ MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* sour
     myVehicle.updateDriveItems();
 }
 
+
+double 
+MSAbstractLaneChangeModel::computeSpeedLat(double /*latDist*/, double& maneuverDist) {
+    if (myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
+        int stepsToChange = (int)ceil(maneuverDist / SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat()));
+        return DIST2SPEED(maneuverDist / stepsToChange);
+    } else {
+        return maneuverDist / STEPS2TIME(MSGlobals::gLaneChangeDuration);
+    }
+}
+
+
 bool
 MSAbstractLaneChangeModel::updateCompletion() {
     const bool pastBefore = pastMidpoint();
+    // not updated in the context of continous lane changing
+    double maneuverDist = getManeuverDist();
+    mySpeedLat = computeSpeedLat(0, maneuverDist);
     /*
     std::cout << SIMTIME << " veh=" << myVehicle.getID() 
         << " md=" << myManeuverDist

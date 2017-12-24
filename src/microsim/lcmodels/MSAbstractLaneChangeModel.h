@@ -484,11 +484,7 @@ public:
 
     /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
     ///        and updates maneuverDist according to lateral safety constraints.
-    virtual double computeSpeedLat(double latDist, double& maneuverDist) {
-        UNUSED_PARAMETER(latDist);
-        UNUSED_PARAMETER(maneuverDist);
-        throw ProcessError("Method not implemented by model " + toString(myModel));
-    }
+    virtual double computeSpeedLat(double latDist, double& maneuverDist); 
 
     /// @brief try to retrieve the given parameter from this laneChangeModel. Throw exception for unsupported key
     virtual std::string getParameter(const std::string& key) const {
