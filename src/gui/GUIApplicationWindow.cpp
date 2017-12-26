@@ -601,7 +601,7 @@ GUIApplicationWindow::buildToolBars() {
         mySimDelaySlider->setHeadSize(10);
         mySimDelaySlider->setIncrement(50);
         mySimDelaySlider->setTickDelta(100);
-        mySimDelaySlider->setValue(mySimDelay);
+        mySimDelaySlider->setValue((int)mySimDelay);
         //mySimDelayTarget->setNumberFormat(0);
         //mySimDelayTarget->setIncrements(1, 10, 10);
         mySimDelaySpinner->setIncrement(10);

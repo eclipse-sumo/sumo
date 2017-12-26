@@ -148,7 +148,7 @@ GUIRunThread::run() {
                 stop();
             }
             // wait if wanted
-            long wait = mySimDelay;
+            long wait = (long)mySimDelay;
             if (getNet().logSimulationDuration()) {
                 end = SysUtils::getCurrentMillis();
                 getNet().setSimDuration((int)(end - beg));
