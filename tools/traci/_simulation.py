@@ -55,6 +55,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP: Storage.readInt,
                       tc.VAR_TELEPORT_STARTING_VEHICLES_IDS: Storage.readStringList,
                       tc.VAR_TELEPORT_ENDING_VEHICLES_NUMBER: Storage.readInt,
                       tc.VAR_TELEPORT_ENDING_VEHICLES_IDS: Storage.readStringList,
+                      tc.VAR_COLLISIONS_NUMBER: Storage.readInt,
                       tc.VAR_DELTA_T: Storage.readInt,
                       tc.VAR_NET_BOUNDING_BOX: lambda result: (result.read("!dd"), result.read("!dd"))}
 
@@ -217,6 +218,13 @@ class SimulationDomain(Domain):
         Returns a list of ids of vehicles which ended to be teleported in this time step.
         """
         return self._getUniversal(tc.VAR_TELEPORT_ENDING_VEHICLES_IDS)
+
+    def getCollisionsNumber(self):
+        """getCollisionsNumber() -> integer
+
+        A positive value indicates that collision(s) has occurred, doesn't necessarily mean the actual number of collisions.  
+        """
+        return self._getUniversal(tc.VAR_COLLISIONS_NUMBER)
 
     def getDeltaT(self):
         """getDeltaT() -> integer

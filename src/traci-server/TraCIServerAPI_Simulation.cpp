@@ -74,6 +74,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             && variable != VAR_PARKING_ENDING_VEHICLES_NUMBER && variable != VAR_PARKING_ENDING_VEHICLES_IDS
             && variable != VAR_STOP_STARTING_VEHICLES_NUMBER && variable != VAR_STOP_STARTING_VEHICLES_IDS
             && variable != VAR_STOP_ENDING_VEHICLES_NUMBER && variable != VAR_STOP_ENDING_VEHICLES_IDS
+            && variable != VAR_COLLISIONS_NUMBER
             && variable != VAR_PARAMETER
        ) {
         return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Get Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
@@ -145,6 +146,11 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             case VAR_STOP_ENDING_VEHICLES_IDS:
                 writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_ENDING_STOP);
                 break;
+            case VAR_COLLISIONS_NUMBER: {
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(MSNet::getInstance()->getVehicleControl().getCollisionCount());
+                break;
+            }
             case VAR_DELTA_T:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
                 tempMsg.writeInt((int)libsumo::Simulation::getDeltaT());

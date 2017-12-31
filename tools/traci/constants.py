@@ -818,6 +818,9 @@ VAR_PARKING_ENDING_VEHICLES_NUMBER = 0x6e
 #  ids of vehicles ending to park (get: simulation)
 VAR_PARKING_ENDING_VEHICLES_IDS = 0x6f
 
+# number of collisions occurred (get: simulation)
+VAR_COLLISIONS_NUMBER = 0x7f
+
 #  clears the simulation of all not inserted vehicles (set: simulation)
 CMD_CLEAR_PENDING_VEHICLES = 0x94
 
