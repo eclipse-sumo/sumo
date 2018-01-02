@@ -28,6 +28,30 @@ sys.path.append(os.path.join(
 import traci
 import sumolib  # noqa
 
+def checkVehicleStates():
+    print("time", traci.simulation.getCurrentTime())
+    print("#loaded", traci.simulation.getLoadedNumber())
+    print("loaded", traci.simulation.getLoadedIDList())
+    print("#departed", traci.simulation.getDepartedNumber())
+    print("departed", traci.simulation.getDepartedIDList())
+    print("#arrived", traci.simulation.getArrivedNumber())
+    print("arrived", traci.simulation.getArrivedIDList())
+    print("#parkstart", traci.simulation.getParkingStartingVehiclesNumber())
+    print("parkstart", traci.simulation.getParkingStartingVehiclesIDList())
+    print("#parkend", traci.simulation.getParkingEndingVehiclesNumber())
+    print("parkend", traci.simulation.getParkingEndingVehiclesIDList())
+    print("#stopstart", traci.simulation.getStopStartingVehiclesNumber())
+    print("stopstart", traci.simulation.getStopStartingVehiclesIDList())
+    print("#stopend", traci.simulation.getStopEndingVehiclesNumber())
+    print("stopend", traci.simulation.getStopEndingVehiclesIDList())
+    print("#colliding", traci.simulation.getCollidingVehiclesNumber())
+    print("colliding", traci.simulation.getCollidingVehiclesIDList())
+    print("min#expected", traci.simulation.getMinExpectedNumber())
+    print("#teleportStart", traci.simulation.getStartingTeleportNumber())
+    print("teleportStart", traci.simulation.getStartingTeleportIDList())
+    print("#teleportEnd", traci.simulation.getEndingTeleportNumber())
+    print("teleportEnd", traci.simulation.getEndingTeleportIDList())
+
 sumoBinary = sumolib.checkBinary('sumo')
 
 PORT = sumolib.miscutils.getFreeSocketPort()
@@ -41,26 +65,7 @@ for step in range(6):
     print("step", step)
     traci.simulationStep()
     print(traci.simulation.getSubscriptionResults())
-print("time", traci.simulation.getCurrentTime())
-print("#loaded", traci.simulation.getLoadedNumber())
-print("loaded", traci.simulation.getLoadedIDList())
-print("#departed", traci.simulation.getDepartedNumber())
-print("departed", traci.simulation.getDepartedIDList())
-print("#arrived", traci.simulation.getArrivedNumber())
-print("arrived", traci.simulation.getArrivedIDList())
-print("#parkstart", traci.simulation.getParkingStartingVehiclesNumber())
-print("parkstart", traci.simulation.getParkingStartingVehiclesIDList())
-print("#parkend", traci.simulation.getParkingEndingVehiclesNumber())
-print("parkend", traci.simulation.getParkingEndingVehiclesIDList())
-print("#stopstart", traci.simulation.getStopStartingVehiclesNumber())
-print("stopstart", traci.simulation.getStopStartingVehiclesIDList())
-print("#stopend", traci.simulation.getStopEndingVehiclesNumber())
-print("stopend", traci.simulation.getStopEndingVehiclesIDList())
-print("min#expected", traci.simulation.getMinExpectedNumber())
-print("#teleportStart", traci.simulation.getStartingTeleportNumber())
-print("teleportStart", traci.simulation.getStartingTeleportIDList())
-print("#teleportEnd", traci.simulation.getEndingTeleportNumber())
-print("teleportEnd", traci.simulation.getEndingTeleportIDList())
+checkVehicleStates()
 print("deltaT", traci.simulation.getDeltaT())
 print("boundary", traci.simulation.getNetBoundary())
 print("convertRoad2D", traci.simulation.convert2D("o", 0.))
@@ -113,9 +118,11 @@ except traci.TraCIException:
     pass
 print("findIntermodalRoute", traci.simulation.findIntermodalRoute("o", "2o"))
 
-for step in range(6):
+for step in range(10):
     print("step", step)
     traci.simulationStep()
+    if traci.simulation.getCollidingVehiclesNumber() > 0:
+        checkVehicleStates()
     print(traci.simulation.getSubscriptionResults())
 traci.close()
 sumoProcess.wait()

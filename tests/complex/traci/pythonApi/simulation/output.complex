@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:38768 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:43178 [Errno 111] Connection refused
  Retrying in 1 seconds
 {114: ['horiz', 'horiz1'], 116: []}
 step 0
@@ -13,10 +13,10 @@ step 3
 step 4
 {114: [], 116: []}
 step 5
-{114: ['horiz2'], 116: ['horiz1']}
+{114: ['horiz2', 'suddenStop', 'collider'], 116: ['horiz1']}
 time 6000
-#loaded 1
-loaded ['horiz2']
+#loaded 3
+loaded ['horiz2', 'suddenStop', 'collider']
 #departed 1
 departed ['horiz1']
 #arrived 0
@@ -29,7 +29,9 @@ parkend []
 stopstart []
 #stopend 0
 stopend []
-min#expected 3
+#colliding 0
+colliding []
+min#expected 5
 #teleportStart 0
 teleportStart []
 #teleportEnd 0
@@ -61,10 +63,40 @@ step 0
 step 1
 {114: [], 116: []}
 step 2
-{114: [], 116: []}
+{114: [], 116: ['suddenStop']}
 step 3
 {114: [], 116: []}
 step 4
 {114: [], 116: []}
 step 5
+{114: [], 116: ['collider']}
+step 6
+{114: [], 116: []}
+step 7
+time 14000
+#loaded 0
+loaded []
+#departed 0
+departed []
+#arrived 1
+arrived ['collider']
+#parkstart 0
+parkstart []
+#parkend 0
+parkend []
+#stopstart 0
+stopstart []
+#stopend 0
+stopend []
+#colliding 2
+colliding ['suddenStop', 'collider']
+min#expected 3
+#teleportStart 1
+teleportStart ['collider']
+#teleportEnd 0
+teleportEnd []
+{114: [], 116: []}
+step 8
+{114: [], 116: []}
+step 9
 {114: [], 116: []}
