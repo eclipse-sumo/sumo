@@ -626,6 +626,16 @@ NBEdge::resetNodeBorder(const NBNode* node) {
 }
 
 
+bool 
+NBEdge::isBidiRail() {
+    return (isRailway(getPermissions()) 
+            && myLaneSpreadFunction == LANESPREAD_CENTER 
+            && myPossibleTurnDestination != 0 
+            && myPossibleTurnDestination->getLaneSpreadFunction() == LANESPREAD_CENTER
+            && myPossibleTurnDestination->getGeometry().reverse() == getGeometry());
+}
+
+
 PositionVector
 NBEdge::cutAtIntersection(const PositionVector& old) const {
     PositionVector shape = old;

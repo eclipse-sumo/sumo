@@ -729,6 +729,8 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myNBEdge.getGeometry()[-1]);
             }
+        case GNE_ATTR_BIDIR:
+            return toString(myNBEdge.isBidiRail());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -834,6 +836,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             myNBEdge.setGeometry(myOrigShape, true);
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
+        case GNE_ATTR_BIDIR:
+            throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -929,6 +933,8 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             }
         }
+        case GNE_ATTR_BIDIR:
+            return false;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1041,6 +1047,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGeometry(geom, false);
             break;
         }
+        case GNE_ATTR_BIDIR:
+            throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

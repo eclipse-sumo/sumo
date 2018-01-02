@@ -1217,6 +1217,9 @@ public:
     void setNodeBorder(const NBNode* node, const Position& p, const Position& p2, bool rectangularCut);
     void resetNodeBorder(const NBNode* node);
 
+    /// @brief whether this edge is part of a bidirectional railway
+    bool isBidiRail();
+
 private:
     /** @class ToEdgeConnectionsAdder
      * @brief A class that being a bresenham-callback assigns the incoming lanes to the edges

@@ -834,6 +834,8 @@ enum SumoXMLAttr {
     GNE_ATTR_SHAPE_START,
     /// @brief last coordinate of edge shape
     GNE_ATTR_SHAPE_END,
+    /// @brief whether an edge is part of a bidirectional railway 
+    GNE_ATTR_BIDIR,
     /// @brief block movement of a graphic element
     GNE_ATTR_BLOCK_MOVEMENT,
     /// @brief block shape of a graphic element (Used mainly in GNEShapes)
