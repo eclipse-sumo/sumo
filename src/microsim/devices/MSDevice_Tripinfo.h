@@ -209,6 +209,12 @@ private:
     /// @brief The overall waiting time
     SUMOTime myWaitingTime;
 
+    /// @brief The overall intential stopping time
+    SUMOTime myStoppingTime;
+
+    /// @brief The time when parking started
+    SUMOTime myParkingStarted;
+
     /// @brief The vehicle's arrival time
     SUMOTime myArrivalTime;
 

@@ -93,6 +93,8 @@ MSDevice_Tripinfo::MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id)
     myDepartSpeed(-1),
     myDepartPosLat(0),
     myWaitingTime(0),
+    myStoppingTime(0),
+    myParkingStarted(0),
     myArrivalTime(NOT_ARRIVED),
     myArrivalLane(""),
     myArrivalPos(-1),
@@ -135,9 +137,8 @@ bool
 MSDevice_Tripinfo::notifyMove(SUMOVehicle& veh, double /*oldPos*/,
                               double /*newPos*/, double newSpeed) {
     if (veh.isStopped()) {
-        return true;
-    }
-    if (newSpeed <= SUMO_const_haltingSpeed) {
+        myStoppingTime += DELTA_T;
+    } else if (newSpeed <= SUMO_const_haltingSpeed) {
         myWaitingTime += DELTA_T;
     }
     return true;
@@ -169,6 +170,10 @@ MSDevice_Tripinfo::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification re
             myDepartPosLat = static_cast<MSVehicle&>(veh).getLateralPositionOnLane();
         }
         myDepartSpeed = veh.getSpeed();
+    } else if (reason == MSMoveReminder::NOTIFICATION_PARKING) {
+        // notifyMove is not called while parking
+        // @note insertion delay when resuming after parking is included
+        myStoppingTime += (MSNet::getInstance()->getCurrentTimeStep() - myParkingStarted);
     }
     return true;
 }
@@ -192,6 +197,8 @@ MSDevice_Tripinfo::notifyLeave(SUMOVehicle& veh, double /*lastPos*/,
             myArrivalPos = myHolder.getArrivalPos();
         }
         myArrivalSpeed = veh.getSpeed();
+    } else if (reason == MSMoveReminder::NOTIFICATION_PARKING) {
+        myParkingStarted = MSNet::getInstance()->getCurrentTimeStep();
     }
     return true;
 }
@@ -256,6 +263,7 @@ MSDevice_Tripinfo::generateOutput() const {
     os.writeAttr("duration", time2string(duration));
     os.writeAttr("routeLength", routeLength);
     os.writeAttr("waitSteps", myWaitingTime / DELTA_T);
+    os.writeAttr("stopTime", time2string(myStoppingTime));
     os.writeAttr("timeLoss", time2string(timeLoss));
     os.writeAttr("rerouteNo", myHolder.getNumberReroutes());
     const std::vector<MSDevice*>& devices = myHolder.getDevices();
