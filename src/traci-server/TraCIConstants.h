@@ -830,6 +830,9 @@
 // ids of vehicles ending to park (get: simulation)
 #define VAR_PARKING_ENDING_VEHICLES_IDS 0x6f
 
+// number of collisions occurred (get: simulation)
+#define VAR_COLLISIONS_NUMBER 0x7f
+
 // clears the simulation of all not inserted vehicles (set: simulation)
 #define CMD_CLEAR_PENDING_VEHICLES 0x94
 
@@ -838,7 +841,6 @@
 
 // sets/retrieves abstract parameter
 #define VAR_PARAMETER 0x7e
-
 
 // add an instance (poi, polygon, vehicle, person, route)
 #define ADD 0x80
