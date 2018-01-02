@@ -222,9 +222,6 @@ public:
     /// @brief bike lane markings on top of an intersection
     void drawBikeMarkings() const;
 
-    /// @brief draw crossties for railroads or pedestrian crossings
-    void drawCrossties(double length, double spacing, double halfWidth) const;
-
     /// @brief direction indicators for lanes
     void drawDirectionIndicators() const;
 

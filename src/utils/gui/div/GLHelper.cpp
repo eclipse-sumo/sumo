@@ -553,6 +553,33 @@ GLHelper::drawTextAtEnd(const std::string& text, const PositionVector& shape, do
 
 
 void
+GLHelper::drawCrossTies(const PositionVector& geom,
+                       const std::vector<double>& rots,
+                       const std::vector<double>& lengths,
+                       double length, double spacing, double halfWidth) {
+    glPushMatrix();
+    // draw on top of of the white area between the rails
+    glTranslated(0, 0, 0.1);
+    int e = (int) geom.size() - 1;
+    for (int i = 0; i < e; ++i) {
+        glPushMatrix();
+        glTranslated(geom[i].x(), geom[i].y(), 0.0);
+        glRotated(rots[i], 0, 0, 1);
+        for (double t = 0; t < lengths[i]; t += spacing) {
+            glBegin(GL_QUADS);
+            glVertex2d(-halfWidth, -t);
+            glVertex2d(-halfWidth, -t - length);
+            glVertex2d(halfWidth, -t - length);
+            glVertex2d(halfWidth, -t);
+            glEnd();
+        }
+        glPopMatrix();
+    }
+    glPopMatrix();
+}
+
+
+void
 GLHelper::debugVertices(const PositionVector& shape, double size, double layer) {
     RGBColor color = RGBColor::fromHSV(RandHelper::rand(360), 1, 1);
     for (int i = 0; i < (int)shape.size(); ++i) {

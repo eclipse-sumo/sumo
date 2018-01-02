@@ -300,6 +300,12 @@ public:
     /// @brief draw text and the end of shape
     static void drawTextAtEnd(const std::string& text, const PositionVector& shape, double x, double size, RGBColor color);
 
+    /// @brief draw crossties for railroads or pedestrian crossings
+    static void drawCrossTies(const PositionVector& geom,
+                       const std::vector<double>& rots,
+                       const std::vector<double>& lengths,
+                       double length, double spacing, double halfWidth); 
+
     /// @brief draw vertex numbers for the given shape (in a random color)
     static void debugVertices(const PositionVector& shape, double size, double layer = 256);
 

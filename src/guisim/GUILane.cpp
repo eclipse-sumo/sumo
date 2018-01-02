@@ -496,11 +496,11 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 glTranslated(0, 0, .1);
                 GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth - 0.2);
                 setColor(s);
-                drawCrossties(0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
+                GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
             } else if (isCrossing) {
                 if (s.drawCrossingsAndWalkingareas) {
                     glTranslated(0, 0, .2);
-                    drawCrossties(0.5, 1.0, getWidth() * 0.5);
+                    GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.5, 1.0, getWidth() * 0.5);
                     glTranslated(0, 0, -.2);
                 }
             } else if (isWalkingArea) {
@@ -670,30 +670,6 @@ GUILane::drawBikeMarkings() const {
         glPopMatrix();
     }
 }
-
-void
-GUILane::drawCrossties(double length, double spacing, double halfWidth) const {
-    glPushMatrix();
-    // draw on top of of the white area between the rails
-    glTranslated(0, 0, 0.1);
-    int e = (int) getShape().size() - 1;
-    for (int i = 0; i < e; ++i) {
-        glPushMatrix();
-        glTranslated(getShape()[i].x(), getShape()[i].y(), 0.0);
-        glRotated(myShapeRotations[i], 0, 0, 1);
-        for (double t = 0; t < myShapeLengths[i]; t += spacing) {
-            glBegin(GL_QUADS);
-            glVertex2d(-halfWidth, -t);
-            glVertex2d(-halfWidth, -t - length);
-            glVertex2d(halfWidth, -t - length);
-            glVertex2d(halfWidth, -t);
-            glEnd();
-        }
-        glPopMatrix();
-    }
-    glPopMatrix();
-}
-
 
 void
 GUILane::drawDirectionIndicators() const {
