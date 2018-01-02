@@ -130,6 +130,7 @@ GUISettingsHandler::myStartElement(int element,
             int laneEdgeMode = TplConvert::_2int(attrs.getStringSecure("laneEdgeMode", "0").c_str());
             int laneEdgeScaleMode = TplConvert::_2int(attrs.getStringSecure("scaleMode", "0").c_str());
             mySettings.laneShowBorders = TplConvert::_2bool(attrs.getStringSecure("laneShowBorders", toString(mySettings.laneShowBorders)).c_str());
+            mySettings.showBikeMarkings = TplConvert::_2bool(attrs.getStringSecure("showBikeMarkings", toString(mySettings.showBikeMarkings)).c_str());
             mySettings.showLinkDecals = TplConvert::_2bool(attrs.getStringSecure("showLinkDecals", toString(mySettings.showLinkDecals)).c_str());
             mySettings.showLinkRules = TplConvert::_2bool(attrs.getStringSecure("showLinkRules", toString(mySettings.showLinkRules)).c_str());
             mySettings.showRails = TplConvert::_2bool(attrs.getStringSecure("showRails", toString(mySettings.showRails)).c_str());

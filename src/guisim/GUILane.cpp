@@ -591,7 +591,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         if (mustDrawMarkings && drawDetails && s.laneShowBorders) { // needs matrix reset
             drawMarkings(s, exaggeration);
         }
-        if (drawDetails && isInternal && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders) {
+        if (drawDetails && isInternal && s.showBikeMarkings && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders) {
             drawBikeMarkings();
         }
     } else {

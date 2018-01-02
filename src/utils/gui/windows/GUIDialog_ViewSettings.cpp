@@ -193,7 +193,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         FXMatrix* m22 = new FXMatrix(frame2, 2, GUIDesignViewSettingsMatrix1);
         myShowLaneBorders = new FXCheckButton(m22, "Show lane borders", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLaneBorders->setCheck(mySettings->laneShowBorders);
-        new FXLabel(m22, " ", 0, GUIDesignViewSettingsLabel1);
+        myShowBikeMarkings = new FXCheckButton(m22, "Show bike markings", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowBikeMarkings->setCheck(mySettings->showBikeMarkings);
         myShowLaneDecals = new FXCheckButton(m22, "Show turning arrows", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLaneDecals->setCheck(mySettings->showLinkDecals);
         new FXLabel(m22, " ", 0, GUIDesignViewSettingsLabel1);
@@ -562,6 +563,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myLaneEdgeColorMode->setCurrentItem((FXint) mySettings->getLaneEdgeMode());
     myLaneEdgeScaleMode->setCurrentItem((FXint) mySettings->getLaneEdgeScaleMode());
     myShowLaneBorders->setCheck(mySettings->laneShowBorders);
+    myShowBikeMarkings->setCheck(mySettings->showBikeMarkings);
     myShowLaneDecals->setCheck(mySettings->showLinkDecals);
     myShowLinkRules->setCheck(mySettings->showLinkRules);
     myShowRails->setCheck(mySettings->showRails);
@@ -759,6 +761,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         tmpSettings.laneScaler.setActive(myLaneEdgeScaleMode->getCurrentItem());
     }
     tmpSettings.laneShowBorders = (myShowLaneBorders->getCheck() != FALSE);
+    tmpSettings.showBikeMarkings = (myShowBikeMarkings->getCheck() != FALSE);
     tmpSettings.showLinkDecals = (myShowLaneDecals->getCheck() != FALSE);
     tmpSettings.showLinkRules = (myShowLinkRules->getCheck() != FALSE);
     tmpSettings.showRails = (myShowRails->getCheck() != FALSE);

@@ -156,6 +156,8 @@ public:
     GUIScaler laneScaler;
     /// @brief Information whether lane borders shall be drawn
     bool laneShowBorders;
+    /// @brief Information whether bicycle lane marking shall be drawn
+    bool showBikeMarkings;
     /// @brief Information whether link textures (arrows) shall be drawn
     bool showLinkDecals;
     /// @brief Information whether link rules (colored bars) shall be drawn

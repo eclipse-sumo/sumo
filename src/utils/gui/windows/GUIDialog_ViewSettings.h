@@ -276,7 +276,7 @@ private:
     std::vector<FXButton*> myLaneScaleButtons;
     FXCheckButton* myLaneScaleInterpolation;
 
-    FXCheckButton* myShowLaneBorders, *myShowLaneDecals, *myShowLinkRules, *myShowRails,
+    FXCheckButton* myShowLaneBorders, *myShowBikeMarkings, *myShowLaneDecals, *myShowLinkRules, *myShowRails,
                    *myHideMacroConnectors, *myShowLaneDirection, *myShowSublanes, *mySpreadSuperposed;
     FXRealSpinner* myLaneWidthUpscaleDialer;
     FXRealSpinner* myLaneMinWidthDialer;

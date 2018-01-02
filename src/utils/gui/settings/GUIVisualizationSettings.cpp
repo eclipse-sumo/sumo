@@ -73,7 +73,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     dither(false),
     backgroundColor(RGBColor::WHITE),
     showGrid(false), gridXSize(100), gridYSize(100),
-    laneShowBorders(false), showLinkDecals(true),
+    laneShowBorders(false), showBikeMarkings(true), showLinkDecals(true),
     showLinkRules(true), showRails(true),
     edgeName(false, 50, RGBColor(255, 128, 0, 255)),
     internalEdgeName(false, 40, RGBColor(128, 64, 0, 255)),
@@ -863,6 +863,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("laneEdgeMode", getLaneEdgeMode());
     dev.writeAttr("scaleMode", getLaneEdgeScaleMode());
     dev.writeAttr("laneShowBorders", laneShowBorders);
+    dev.writeAttr("showBikeMarkings", showBikeMarkings);
     dev.writeAttr("showLinkDecals", showLinkDecals);
     dev.writeAttr("showLinkRules", showLinkRules);
     dev.writeAttr("showRails", showRails);
@@ -1002,6 +1003,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (laneShowBorders != v2.laneShowBorders) {
+        return false;
+    }
+    if (showBikeMarkings != v2.showBikeMarkings) {
         return false;
     }
     if (showLinkDecals != v2.showLinkDecals) {
