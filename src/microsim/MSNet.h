@@ -499,7 +499,9 @@ public:
         /// @brief The vehicles starts to stop
         VEHICLE_STATE_STARTING_STOP,
         /// @brief The vehicle ends to stop
-        VEHICLE_STATE_ENDING_STOP
+        VEHICLE_STATE_ENDING_STOP,
+        /// @brief The vehicle is involved in a collision
+        VEHICLE_STATE_COLLISION
     };
 
 

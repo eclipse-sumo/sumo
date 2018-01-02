@@ -32,7 +32,7 @@
 // ****************************************
 // VERSION
 // ****************************************
-#define TRACI_VERSION 17
+#define TRACI_VERSION 18
 
 // ****************************************
 // COMMANDS
@@ -829,6 +829,12 @@
 
 // ids of vehicles ending to park (get: simulation)
 #define VAR_PARKING_ENDING_VEHICLES_IDS 0x6f
+
+// number of vehicles involved in a collision (get: simulation)
+#define VAR_COLLIDING_VEHICLES_NUMBER 0x80
+
+// ids of vehicles involved in a collision (get: simulation)
+#define VAR_COLLIDING_VEHICLES_IDS 0x81
 
 // clears the simulation of all not inserted vehicles (set: simulation)
 #define CMD_CLEAR_PENDING_VEHICLES 0x94

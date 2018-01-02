@@ -49,6 +49,8 @@ _RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP: Storage.readInt,
                       tc.VAR_STOP_STARTING_VEHICLES_IDS: Storage.readStringList,
                       tc.VAR_STOP_ENDING_VEHICLES_NUMBER: Storage.readInt,
                       tc.VAR_STOP_ENDING_VEHICLES_IDS: Storage.readStringList,
+                      tc.VAR_COLLIDING_VEHICLES_NUMBER: Storage.readInt,
+                      tc.VAR_COLLIDING_VEHICLES_IDS: Storage.readStringList,
                       tc.VAR_MIN_EXPECTED_VEHICLES: Storage.readInt,
                       tc.VAR_BUS_STOP_WAITING: Storage.readInt,
                       tc.VAR_TELEPORT_STARTING_VEHICLES_NUMBER: Storage.readInt,
@@ -171,6 +173,20 @@ class SimulationDomain(Domain):
         .
         """
         return self._getUniversal(tc.VAR_STOP_ENDING_VEHICLES_IDS)
+
+    def getCollidingVehiclesNumber(self):
+        """getCollidingVehiclesNumber() -> integer
+        Return number of vehicles involved in a collision (typically 2 per
+        collision).
+        """
+        return self._getUniversal(tc.VAR_COLLIDING_VEHICLES_NUMBER)
+
+    def getCollidingVehiclesIDList(self):
+        """getCollidingVehiclesIDList() -> list(string)
+        Return Ids of vehicles involved in a collision (typically 2 per
+        collision).
+        """
+        return self._getUniversal(tc.VAR_COLLIDING_VEHICLES_IDS)
 
     def getMinExpectedNumber(self):
         """getMinExpectedNumber() -> integer
