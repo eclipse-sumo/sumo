@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:52655 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:33815 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -95,6 +95,7 @@ links [[['4si_0', '1o_0', '']], [['4si_1', '3o_0', '']], [['4si_2', '2o_0', '']]
 program custom
 phase 4
 switch 26000
+numDefs=2 numPhases=[8, 6]
 {0: ['0']}
 step 3
 {0: ['0']}

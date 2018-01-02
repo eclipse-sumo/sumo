@@ -40,6 +40,19 @@ class Logic:
         self._currentPhaseIndex = currentPhaseIndex
         self._phases = phases
 
+    def getPhases(self):
+        return self._phases
+
+    def getSubID(self):
+        return self._subID
+
+    def getType(self):
+        return self._type
+
+    def getParameters(self):
+        return self._subParameter
+
+
     def __repr__(self):
         result = ("Logic:\nsubID: %s\ntype: %s\nsubParameter: %s\ncurrentPhaseIndex: %s\n" %
                   (self._subID, self._type, self._subParameter, self._currentPhaseIndex))
