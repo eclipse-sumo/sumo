@@ -213,7 +213,6 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myShowSublanes->setCheck(mySettings->showSublanes);
         mySpreadSuperposed = new FXCheckButton(m22, "Spread superposed", this, MID_SIMPLE_VIEW_COLORCHANGE);
         mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
-        new FXLabel(m22, " ", 0, GUIDesignViewSettingsLabel1);
         new FXLabel(m22, "Exaggerate width by", 0, GUIDesignViewSettingsLabel1);
         myLaneWidthUpscaleDialer = new FXRealSpinner(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
         myLaneWidthUpscaleDialer->setRange(0, 10000);

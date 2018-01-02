@@ -485,18 +485,25 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GUINet* net = (GUINet*) MSNet::getInstance();
             if (drawAsRailway(s)) {
-                // draw as railway
-                const double halfRailWidth = 0.725 * exaggeration;
+                // draw as railway: assume standard gauge of 1435mm when lane width is not set
+                // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
+                // assume crosstie length of 181% gauge (2600mm for standard gauge)
+                const double width = myWidth;
+                const double halfGauge = 0.5 * (width == SUMO_const_laneWidth ?  1.4350 : width) * exaggeration;
+                const double halfInnerFeetWidth = halfGauge - 0.039 * exaggeration;
+                const double halfRailWidth = halfInnerFeetWidth + 0.15 * exaggeration;
+                const double halfCrossTieWidth = halfGauge * 1.81;
                 if (myShapeColors.size() > 0) {
                     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myShapeColors, halfRailWidth);
                 } else {
                     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth);
                 }
+                // Draw white on top with reduced width (the area between the two tracks)
                 glColor3d(1, 1, 1);
                 glTranslated(0, 0, .1);
-                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth - 0.2);
+                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfInnerFeetWidth);
                 setColor(s);
-                GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
+                GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth);
             } else if (isCrossing) {
                 if (s.drawCrossingsAndWalkingareas) {
                     glTranslated(0, 0, .2);

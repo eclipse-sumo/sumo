@@ -303,13 +303,19 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         const double halfWidth = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - (selectedEdge ? .3 : 0));
         if (drawAsRailway(s)) {
             PositionVector shape = getShape();
+            const double width = myParentEdge.getNBEdge()->getLaneWidth(myIndex);
+            // draw as railway: assume standard gauge of 1435mm when lane width is not set
+            // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
+            // assume crosstie length of 181% gauge (2600mm for standard gauge)
+            double halfGauge = 0.5 * (width == SUMO_const_laneWidth ?  1.4350 : width) * exaggeration;
             if (s.spreadSuperposed && myParentEdge.getNBEdge()->isBidiRail()) {
-                shape.move2side(halfWidth * 0.6);
-                std::cout << "spreadSuperposed " << getID() << " old=" << getShape() << " new=" << shape << "\n";
+                shape.move2side(halfGauge * 0.6);
+                halfGauge *= 0.5;
+                //std::cout << "spreadSuperposed " << getID() << " old=" << getShape() << " new=" << shape << "\n";
             }
-            // draw as railway
-            const double halfRailWidth = 0.725 * exaggeration;
-            //const double halfRailWidth = 0.725 * halfWidth;
+            const double halfInnerFeetWidth = halfGauge - 0.039 * exaggeration;
+            const double halfRailWidth = halfInnerFeetWidth + 0.15 * exaggeration;
+            const double halfCrossTieWidth = halfGauge * 1.81;
             // Draw box depending of myShapeColors
             if (myShapeColors.size() > 0) {
                 GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, myShapeColors, halfRailWidth);
@@ -321,11 +327,11 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             // Draw white on top with reduced width (the area between the two tracks)
             glColor3d(1, 1, 1);
             glTranslated(0, 0, .1);
-            GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, halfRailWidth - 0.2);
+            GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, halfInnerFeetWidth);
             // Set current color back
             GLHelper::setColor(current);
             // Draw crossties
-            GLHelper::drawCrossTies(shape, myShapeRotations, myShapeLengths, 0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
+            GLHelper::drawCrossTies(shape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth);
         } else {
             if (myShapeColors.size() > 0) {
                 GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, myShapeColors, halfWidth);
