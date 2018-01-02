@@ -922,6 +922,13 @@ TraCITestClient::testAPI() {
             answerLog << "      index=" << i << " link=" << j << " from=" << links[i][j].from << " via=" << links[i][j].via << " to=" << links[i][j].to << "\n";
         }
     }
+    TraCILogic newLogic("custom", 0, 3);
+    newLogic.phases.push_back(TraCIPhase(5, 5, 5,   "rrrrrrr"));
+    newLogic.phases.push_back(TraCIPhase(10, 5, 15, "ggggggg"));
+    newLogic.phases.push_back(TraCIPhase(3, 3, 3,   "GGGGGGG"));
+    newLogic.phases.push_back(TraCIPhase(3, 3, 3,   "yyyyyyy"));
+    trafficlights.setCompleteRedYellowGreenDefinition("n_m4", newLogic);
+
     std::vector<TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");
     answerLog << "    completeDefinition:\n";
     for (int i = 0; i < (int)logics.size(); ++i) {

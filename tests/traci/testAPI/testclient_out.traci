@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Nov 20 22:41:14 2017
+TraCITestClient output file. Date: Tue Jan  2 11:45:33 2018
 
 
 -> Command sent: <SimulationStep>:
@@ -120,6 +120,12 @@ testAPI:
          phase=yyrrrrr dur=20000 minDur=20000 maxDur=20000
          phase=rrrrGGG dur=12000 minDur=12000 maxDur=12000
          phase=rrrryyy dur=20000 minDur=20000 maxDur=20000
+      subID=custom type=0 phase=3
+      params=
+         phase=rrrrrrr dur=5 minDur=5 maxDur=5
+         phase=ggggggg dur=10 minDur=5 maxDur=15
+         phase=GGGGGGG dur=3 minDur=3 maxDur=3
+         phase=yyyyyyy dur=3 minDur=3 maxDur=3
   load:
     getCurrentTime: 1000
   gui:
