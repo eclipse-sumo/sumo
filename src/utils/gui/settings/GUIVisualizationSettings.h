@@ -174,6 +174,8 @@ public:
     bool showLaneDirection;
     /// @brief Whether to show sublane boundaries
     bool showSublanes;
+    /// @brief Whether to improve visualisation of superposed (rail) edges
+    bool spreadSuperposed;
     //@}
 
 

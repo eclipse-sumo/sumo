@@ -299,30 +299,34 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop draw matrix 1
         glPopMatrix();
     } else {
+        // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
+        const double halfWidth = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - (selectedEdge ? .3 : 0));
         if (drawAsRailway(s)) {
+            PositionVector shape = getShape();
+            if (s.spreadSuperposed && myParentEdge.getNBEdge()->isBidiRail()) {
+                shape.move2side(halfWidth * 0.6);
+                std::cout << "spreadSuperposed " << getID() << " old=" << getShape() << " new=" << shape << "\n";
+            }
             // draw as railway
             const double halfRailWidth = 0.725 * exaggeration;
+            //const double halfRailWidth = 0.725 * halfWidth;
             // Draw box depending of myShapeColors
             if (myShapeColors.size() > 0) {
-                GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, myShapeColors, halfRailWidth);
+                GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, myShapeColors, halfRailWidth);
             } else {
-                GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, halfRailWidth);
+                GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, halfRailWidth);
             }
             // Save current color
             RGBColor current = GLHelper::getColor();
-            // Set white color
+            // Draw white on top with reduced width (the area between the two tracks)
             glColor3d(1, 1, 1);
-            // Traslate matrix 1
             glTranslated(0, 0, .1);
-            // Draw Box
-            GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, halfRailWidth - 0.2);
+            GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, halfRailWidth - 0.2);
             // Set current color back
             GLHelper::setColor(current);
             // Draw crossties
-            drawCrossties(0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
+            GLHelper::drawCrossTies(shape, myShapeRotations, myShapeLengths, 0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
         } else {
-            // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
-            const double halfWidth = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - (selectedEdge ? .3 : 0));
             if (myShapeColors.size() > 0) {
                 GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, myShapeColors, halfWidth);
             } else {
@@ -1050,30 +1054,6 @@ GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {
 bool
 GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
     return isWaterway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails; // reusing the showRails setting
-}
-
-
-void
-GNELane::drawCrossties(double length, double spacing, double halfWidth) const {
-    glPushMatrix();
-    // draw on top of of the white area between the rails
-    glTranslated(0, 0, 0.1);
-    int e = (int) getShape().size() - 1;
-    for (int i = 0; i < e; ++i) {
-        glPushMatrix();
-        glTranslated(getShape()[i].x(), getShape()[i].y(), 0.0);
-        glRotated(myShapeRotations[i], 0, 0, 1);
-        for (double t = 0; t < myShapeLengths[i]; t += spacing) {
-            glBegin(GL_QUADS);
-            glVertex2d(-halfWidth, -t);
-            glVertex2d(-halfWidth, -t - length);
-            glVertex2d(halfWidth, -t - length);
-            glVertex2d(halfWidth, -t);
-            glEnd();
-        }
-        glPopMatrix();
-    }
-    glPopMatrix();
 }
 
 

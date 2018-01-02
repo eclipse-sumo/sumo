@@ -142,6 +142,7 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.laneMinSize = TplConvert::_2double(attrs.getStringSecure("minSize", toString(mySettings.laneWidthExaggeration)).c_str());
             mySettings.showLaneDirection = TplConvert::_2bool(attrs.getStringSecure("showDirection", toString(mySettings.showLaneDirection)).c_str());
             mySettings.showSublanes = TplConvert::_2bool(attrs.getStringSecure("showSublanes", toString(mySettings.showSublanes)).c_str());
+            mySettings.spreadSuperposed = TplConvert::_2bool(attrs.getStringSecure("spreadSuperposed", toString(mySettings.spreadSuperposed)).c_str());
             myCurrentColorer = element;
             mySettings.edgeColorer.setActive(laneEdgeMode);
             mySettings.edgeScaler.setActive(laneEdgeScaleMode);

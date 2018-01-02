@@ -263,10 +263,6 @@ private:
     /// @brief whether to draw this lane as a waterways
     bool drawAsWaterway(const GUIVisualizationSettings& s) const;
 
-    /// @brief draw crossties for railroads
-    /// @todo: XXX This duplicates the code of GUILane::drawCrossties and needs to be
-    void drawCrossties(double length, double spacing, double halfWidth) const;
-
     /// @brief direction indicators for lanes
     void drawDirectionIndicators() const;
 

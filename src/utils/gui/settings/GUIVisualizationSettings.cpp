@@ -84,6 +84,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     laneMinSize(0),
     showLaneDirection(false),
     showSublanes(true),
+    spreadSuperposed(false),
     vehicleQuality(0), showBlinker(true),
     drawLaneChangePreference(false), drawMinGap(false),
     showBTRange(false), vehicleSize(1),
@@ -870,6 +871,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("minSize", laneMinSize);
     dev.writeAttr("showDirection", showLaneDirection);
     dev.writeAttr("showSublanes", showSublanes);
+    dev.writeAttr("spreadSuperposed", spreadSuperposed);
     dev.lf();
     dev << "               ";
     edgeName.print(dev, "edgeName");
@@ -1036,6 +1038,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (showSublanes != v2.showSublanes) {
+        return false;
+    }
+    if (spreadSuperposed != v2.spreadSuperposed) {
         return false;
     }
     if (!(vehicleColorer == v2.vehicleColorer)) {

@@ -211,6 +211,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXLabel(m22, " ", 0, GUIDesignViewSettingsLabel1);
         myShowSublanes = new FXCheckButton(m22, "Show sublanes", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowSublanes->setCheck(mySettings->showSublanes);
+        mySpreadSuperposed = new FXCheckButton(m22, "Spread superposed", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
         new FXLabel(m22, " ", 0, GUIDesignViewSettingsLabel1);
         new FXLabel(m22, "Exaggerate width by", 0, GUIDesignViewSettingsLabel1);
         myLaneWidthUpscaleDialer = new FXRealSpinner(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
@@ -571,6 +573,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myHideMacroConnectors->setCheck(mySettings->hideConnectors);
     myShowLaneDirection->setCheck(mySettings->showLaneDirection);
     myShowSublanes->setCheck(mySettings->showSublanes);
+    mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
     myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
     myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
 
@@ -767,6 +770,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.hideConnectors = (myHideMacroConnectors->getCheck() != FALSE);
     tmpSettings.showLaneDirection = (myShowLaneDirection->getCheck() != FALSE);
     tmpSettings.showSublanes = (myShowSublanes->getCheck() != FALSE);
+    tmpSettings.spreadSuperposed = (mySpreadSuperposed->getCheck() != FALSE);
     tmpSettings.laneWidthExaggeration = (double) myLaneWidthUpscaleDialer->getValue();
     tmpSettings.laneMinSize = (double) myLaneMinWidthDialer->getValue();
 
