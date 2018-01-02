@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  5 13:18:45 2017 by SUMO Version v0_31_0+1460-a4547fc
+<!-- generated on Tue Jan  2 16:17:22 2018 by SUMO Version v0_32_0+0039-4e0c948
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -39,5 +39,5 @@
     <personinfo id="p2" depart="20.00">
         <ride waitingTime="65.00" vehicle="bus.0" depart="85.00" arrival="135.00" arrivalPos="503.09" duration="50.00" routeLength="753.80"/>
     </personinfo>
-    <tripinfo id="bus.0" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="135.00" arrivalLane="beg2left_0" arrivalPos="503.09" arrivalSpeed="13.90" duration="135.00" routeLength="1003.09" waitSteps="0" timeLoss="18.39" rerouteNo="0" devices="tripinfo_bus.0 person_bus.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="bus.0" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="135.00" arrivalLane="beg2left_0" arrivalPos="503.09" arrivalSpeed="13.90" duration="135.00" routeLength="1003.09" waitSteps="0" stopTime="62.00" timeLoss="18.39" rerouteNo="0" devices="tripinfo_bus.0 person_bus.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>
