@@ -199,6 +199,11 @@ public:
      * @note: this should always be called with an active command group */
     void setLogicValid(bool valid, GNEUndoList* undoList, const std::string& status = GUESSED);
 
+    /// @brief remove all connections from the given edge
+    void removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList);
+    /// @brief remove all connections to the given edge
+    void removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList);
+
     /// @brief prevent re-guessing connections at this junction
     void markAsModified(GNEUndoList* undoList);
 

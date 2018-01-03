@@ -533,21 +533,8 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
         NBTurningDirectionsComputer::computeTurnDirectionsForNode(&myNBNode, false);
         EdgeVector incoming = myNBNode.getIncomingEdges();
         for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
-            NBEdge* srcNBE = *it;
-            NBEdge* turnEdge = srcNBE->getTurnDestination();
-            GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
-            // Make a copy of connections
-            std::vector<NBEdge::Connection> connections = srcNBE->getConnections();
-            // delete in reverse so that undoing will add connections in the original order
-            for (std::vector<NBEdge::Connection>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
-                bool hasTurn = con_it->toEdge == turnEdge;
-                undoList->add(new GNEChange_Connection(srcEdge, *con_it, false, false), true);
-                // needs to come after GNEChange_Connection
-                // XXX bug: this code path will not be used on a redo!
-                if (hasTurn) {
-                    myNet->addExplicitTurnaround(srcNBE->getID());
-                }
-            }
+            GNEEdge* srcEdge = myNet->retrieveEdge((*it)->getID());
+            removeConnectionsFrom(srcEdge, undoList);
             undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, status), true);
         }
         undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, status), true);
@@ -559,6 +546,30 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
     }
 }
 
+
+void 
+GNEJunction::removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList) {
+    NBEdge* srcNBE = edge->getNBEdge();
+    NBEdge* turnEdge = srcNBE->getTurnDestination();
+    // Make a copy of connections
+    std::vector<NBEdge::Connection> connections = srcNBE->getConnections();
+    // delete in reverse so that undoing will add connections in the original order
+    for (std::vector<NBEdge::Connection>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
+        bool hasTurn = con_it->toEdge == turnEdge;
+        undoList->add(new GNEChange_Connection(edge, *con_it, false, false), true);
+        // needs to come after GNEChange_Connection
+        // XXX bug: this code path will not be used on a redo!
+        if (hasTurn) {
+            myNet->addExplicitTurnaround(srcNBE->getID());
+        }
+    }
+}
+
+void
+GNEJunction::removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList) {
+    UNUSED_PARAMETER(edge);
+    UNUSED_PARAMETER(undoList);
+}
 
 void
 GNEJunction::markAsModified(GNEUndoList* undoList) {
