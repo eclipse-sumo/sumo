@@ -6,3 +6,9 @@ deleteIncoming
 
 # delete an outgoing edge
 deleteOutgoing
+
+# delete an incoming lane
+deleteIncomingLane
+
+# delete an outgoing lane
+deleteOutgoingLane
