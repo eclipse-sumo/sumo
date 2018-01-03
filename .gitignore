@@ -108,3 +108,4 @@ lib*.a
 *.lib
 *.res
 *.ipch
+/build/autobuild
