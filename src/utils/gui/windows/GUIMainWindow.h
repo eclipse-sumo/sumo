@@ -126,6 +126,9 @@ public:
     GUISUMOAbstractView* getActiveView() const;
 
 protected:
+    /// @brief whether to show the window in full screen mode
+    bool myAmFullScreen;
+
     std::vector<FXMDIChild*> mySubWindows;
     std::vector<FXMainWindow*> myTrackerWindows;
     /// A lock to make the removal and addition of trackers secure
@@ -170,6 +173,8 @@ protected:
     /// @brief perform initial window positioning and sizing according to user options / previous call
     void setWindowSizeAndPos();
 
+    /// @brief record window position and size in registry
+    void storeWindowSizeAndPos();
 
 };
 

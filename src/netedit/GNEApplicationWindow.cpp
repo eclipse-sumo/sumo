@@ -605,10 +605,7 @@ GNEApplicationWindow::fillMenuBar() {
 long
 GNEApplicationWindow::onCmdQuit(FXObject*, FXSelector, void*) {
     if (continueWithUnsavedChanges()) {
-        getApp()->reg().writeIntEntry("SETTINGS", "x", getX());
-        getApp()->reg().writeIntEntry("SETTINGS", "y", getY());
-        getApp()->reg().writeIntEntry("SETTINGS", "width", getWidth());
-        getApp()->reg().writeIntEntry("SETTINGS", "height", getHeight());
+        storeWindowSizeAndPos();
         getApp()->reg().writeStringEntry("SETTINGS", "basedir", gCurrentFolder.text());
         if (isMaximized()) {
             getApp()->reg().writeIntEntry("SETTINGS", "maximized", 1);
@@ -986,6 +983,7 @@ GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool i
     if (!continueWithUnsavedChanges()) {
         return;
     }
+    storeWindowSizeAndPos();
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();

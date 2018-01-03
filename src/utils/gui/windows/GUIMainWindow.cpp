@@ -62,6 +62,7 @@ GUIMainWindow* GUIMainWindow::myInstance = 0;
 // ===========================================================================
 GUIMainWindow::GUIMainWindow(FXApp* a) :
     FXMainWindow(a, "SUMO-gui main window", NULL, NULL, DECOR_ALL, 20, 20, 600, 400),
+    myAmFullScreen(false),
     myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER)),
     myAmGaming(false),
     myListInternal(false),
@@ -237,6 +238,16 @@ GUIMainWindow::setWindowSizeAndPos() {
         }
         move(x, y);
         resize(windowWidth, windowHeight);
+    }
+}
+
+void 
+GUIMainWindow::storeWindowSizeAndPos() {
+    if (!myAmFullScreen) {
+        getApp()->reg().writeIntEntry("SETTINGS", "x", getX());
+        getApp()->reg().writeIntEntry("SETTINGS", "y", getY());
+        getApp()->reg().writeIntEntry("SETTINGS", "width", getWidth());
+        getApp()->reg().writeIntEntry("SETTINGS", "height", getHeight());
     }
 }
 

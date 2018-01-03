@@ -200,7 +200,6 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myConfigPattern(configPattern),
     hadDependentBuild(false),
     myShowTimeAsHMS(false),
-    myAmFullScreen(false),
     myHaveNotifiedAboutSimEnd(false),
     // game specific
     myJamSoundTime(60),
@@ -652,12 +651,7 @@ GUIApplicationWindow::buildToolBars() {
 
 long
 GUIApplicationWindow::onCmdQuit(FXObject*, FXSelector, void*) {
-    if (!myAmFullScreen) {
-        getApp()->reg().writeIntEntry("SETTINGS", "x", getX());
-        getApp()->reg().writeIntEntry("SETTINGS", "y", getY());
-        getApp()->reg().writeIntEntry("SETTINGS", "width", getWidth());
-        getApp()->reg().writeIntEntry("SETTINGS", "height", getHeight());
-    }
+    storeWindowSizeAndPos();
     getApp()->reg().writeStringEntry("SETTINGS", "basedir", gCurrentFolder.text());
     getApp()->reg().writeIntEntry("SETTINGS", "maximized", isMaximized() ? 1 : 0);
     getApp()->reg().writeIntEntry("gui", "timeasHMS", myShowTimeAsHMS ? 1 : 0);
@@ -824,6 +818,7 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
+    storeWindowSizeAndPos();
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();
@@ -1451,6 +1446,7 @@ GUIApplicationWindow::checkGamingEvents() {
 
 void
 GUIApplicationWindow::loadConfigOrNet(const std::string& file, bool isNet) {
+    storeWindowSizeAndPos();
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();
