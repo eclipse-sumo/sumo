@@ -194,9 +194,18 @@ endif ()
 # Now simply link your own targets against gtest, gmock,
 # etc. as appropriate
 
+# Python libs can be linked using find_package or specifying the folders (In the case of Apple systems or autobuild)
+set(PYTHON_LIBRARIES $ENV{PYTHON_LIB})
+set(PYTHON_INCLUDE_DIRS $ENV{PYTHON_INCLUDE})
+
 if (APPLE)
     include_directories("/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7/")
     set(PYTHON_LIBRARIES "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib")
+elseif (PYTHON_LIBRARIES AND PYTHON_INCLUDE_DIRS)
+    # Needed to avoid problems with pythons in 64 bits Windows
+    message(STATUS "Python include dirs:" ${PYTHON_INCLUDE_DIRS})
+    message(STATUS "Python libs:" ${PYTHON_LIBRARIES})
+    include_directories(${PYTHON_INCLUDE_DIRS})
 else ()
     find_package(PythonLibs REQUIRED)
     if (PYTHONLIBS_FOUND)
