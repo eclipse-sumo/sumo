@@ -434,7 +434,7 @@ void
 NBLoadedSUMOTLDef::reconstructLogic() {
 #ifdef DEBUG_RECONSTRUCTION
     bool debugPrintModified = myReconstructAddedConnections || myReconstructRemovedConnections;
-    std::cout << " reconstructLogic added=" << myReconstructAddedConnections << " removed=" << myReconstructRemovedConnections << " oldLInks\n";
+    std::cout << " reconstructLogic added=" << myReconstructAddedConnections << " removed=" << myReconstructRemovedConnections << " oldLinks:\n";
     for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); ++it) {
         std::cout << "    " << *it << "\n";
     }
@@ -470,7 +470,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
         myReconstructRemovedConnections = false;
         // for each connection, check whether it is still valid
         for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end();) {
-            const NBConnection& con = (*it);
+            const NBConnection con = (*it);
             if (// edge still exists
                 find(myIncomingEdges.begin(), myIncomingEdges.end(), con.getFrom()) != myIncomingEdges.end()
                 // connection still exists
@@ -483,23 +483,32 @@ NBLoadedSUMOTLDef::reconstructLogic() {
                 const int removed = con.getTLIndex();
                 it = myControlledLinks.erase(it);
                 if (!myPhasesLoaded) {
-                    // shift index off successive connections and remove entry from all phases
-                    for (NBConnectionVector::iterator j = myControlledLinks.begin(); j != myControlledLinks.end(); j++) {
-                        NBConnection& other = *j;
-                        if (other.getTLIndex() > removed) {
-                            other.setTLIndex(other.getTLIndex() - 1);
+                    // shift index off successive connections and remove entry from all phases if the tlIndex was only used by this connection
+                    bool exclusive = true;
+                    for (NBConnection& other : myControlledLinks) {
+                        if (other != con && other.getTLIndex() == removed) {
+                            exclusive = false;
+                            break;
                         }
                     }
-                    // rebuild the logic
-                    const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
-                    NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
-                    for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
-                        std::string newState = it->state;
-                        newState.erase(newState.begin() + removed);
-                        newLogic->addStep(it->duration, newState);
+                    if (exclusive) {
+                        for (NBConnectionVector::iterator j = myControlledLinks.begin(); j != myControlledLinks.end(); j++) {
+                            NBConnection& other = *j;
+                            if (other.getTLIndex() > removed) {
+                                other.setTLIndex(other.getTLIndex() - 1);
+                            }
+                        }
+                        // rebuild the logic
+                        const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
+                        NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
+                        for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
+                            std::string newState = it->state;
+                            newState.erase(newState.begin() + removed);
+                            newLogic->addStep(it->duration, newState);
+                        }
+                        delete myTLLogic;
+                        myTLLogic = newLogic;
                     }
-                    delete myTLLogic;
-                    myTLLogic = newLogic;
                 }
             }
         }
