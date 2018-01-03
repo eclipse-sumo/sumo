@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jan  3 13:42:34 2018 by SUMO Version v0_32_0+0054-8b1154c
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <netstate-dump value="rawdump.xml"/>
+    </output>
+
+    <time>
+        <step-length value="1.0"/>
+    </time>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <tracker-interval value="1"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<instantE1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/instant_e1_file.xsd">
+    <instantOut id="beg_end" time="23.65" state="enter" vehID="leader" speed="19.78" length="5.00" type="leader"/>
+    <instantOut id="beg_end" time="23.91" state="leave" vehID="leader" speed="19.78" length="5.00" type="leader" occupancy="0.25"/>
+    <instantOut id="beg_end" time="24.53" state="enter" vehID="follower" speed="20.00" length="5.00" type="follower" gap="0.62"/>
+    <instantOut id="beg_end" time="24.78" state="leave" vehID="follower" speed="20.00" length="5.00" type="follower" occupancy="0.25"/>
+</instantE1>
