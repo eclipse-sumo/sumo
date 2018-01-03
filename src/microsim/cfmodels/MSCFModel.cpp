@@ -751,7 +751,7 @@ MSCFModel::maximumSafeStopSpeedBallistic(double g /*gap*/, double v /*currentSpe
         if (g == 0.) {
             if (v0 > 0.) {
                 // indicate to brake as hard as possible
-                return -INVALID_SPEED;
+                return -std::numeric_limits<double>::max();
             } else {
                 // stay stopped
                 return 0.;
