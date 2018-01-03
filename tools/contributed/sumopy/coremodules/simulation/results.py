@@ -70,7 +70,7 @@ class Tripresults(am.ArrayObjman):
                               'default': 0.0, 'info': 'arrival position', 'groupnames': ['tripdata']}),
             ('routeLength',   {'name': 'Length', 'xmltag': 'routeLength',    'unit': 'm',
                                'default': 0.0, 'info': 'Route length', 'groupnames': ['tripdata']}),
-            ('waitSteps',   {'name': 'wait steps', 'xmltag': 'waitSteps',   'unit': None,    'default': 0,
+            ('waitingTime',   {'name': 'wait time', 'xmltag': 'waitingTime',   'unit': None,    'default': 0,
                              'info': 'Time steps, the vehicle has been waiting during its trip', 'groupnames': ['tripdata']}),
             ('rerouteNo',   {'name': 'reroute No', 'xmltag': 'rerouteNo',   'unit': None,
                              'default': 0, 'info': 'Number of re-routes', 'groupnames': ['tripdata']}),
