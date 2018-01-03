@@ -54,8 +54,8 @@ MSCFModel_PWag2009::~MSCFModel_PWag2009() {}
 
 
 double
-MSCFModel_PWag2009::moveHelper(MSVehicle* const veh, double vPos) const {
-    const double vNext = MSCFModel::moveHelper(veh, vPos);
+MSCFModel_PWag2009::finalizeSpeed(MSVehicle* const veh, double vPos) const {
+    const double vNext = MSCFModel::finalizeSpeed(veh, vPos);
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     double apref = SPEED2ACCEL(vNext - veh->getSpeed());
     vars->aOld = apref;

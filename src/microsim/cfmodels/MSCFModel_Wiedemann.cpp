@@ -67,8 +67,8 @@ MSCFModel_Wiedemann::~MSCFModel_Wiedemann() {}
 
 
 double
-MSCFModel_Wiedemann::moveHelper(MSVehicle* const veh, double vPos) const {
-    const double vNext = MSCFModel::moveHelper(veh, vPos);
+MSCFModel_Wiedemann::finalizeSpeed(MSVehicle* const veh, double vPos) const {
+    const double vNext = MSCFModel::finalizeSpeed(veh, vPos);
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     vars->accelSign = vNext > veh->getSpeed() ? 1. : -1.;
     return vNext;

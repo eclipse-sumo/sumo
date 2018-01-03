@@ -136,7 +136,7 @@ MSCFModel::freeSpeed(const double currentSpeed, const double decel, const double
         // (In case vT<v0, this implies that on the interpolated trajectory there are points beyond d where
         //  the interpolated velocity is larger than vT, but at least on the temporal discretization grid, vT is not exceeded)
         // 2) We ignore the (possible) constraint vN >= v0 - b*dt, which could lead to a problem if v0 - t*b > vT.
-        //    (moveHelper() is responsible for assuring that the next velocity is chosen in accordance with maximal decelerations)
+        //    (finalizeSpeed() is responsible for assuring that the next velocity is chosen in accordance with maximal decelerations)
 
         // If implied accel a leads to v0 + a*asl < vT, choose acceleration s.th. v0 + a*asl = vT
         if (0.5 * (v0 + vT)*dt >= d) {
@@ -152,7 +152,7 @@ MSCFModel::freeSpeed(const double currentSpeed, const double decel, const double
 }
 
 double
-MSCFModel::moveHelper(MSVehicle* const veh, double vPos) const {
+MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
     const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     // we need the acceleration for emission computation;
@@ -174,7 +174,7 @@ MSCFModel::moveHelper(MSVehicle* const veh, double vPos) const {
         // indicate a stop within the coming timestep (i.e., to attain negative values)
         vMin =  MIN2(minNextSpeed(oldV, veh), vMax);
         vNext = veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
-        // (Leo) moveHelper() is responsible for assuring that the next
+        // (Leo) finalizeSpeed() is responsible for assuring that the next
         // velocity is chosen in accordance with maximal decelerations.
         // At this point vNext may also be negative indicating a stop within next step.
         // Moreover, because maximumSafeStopSpeed() does not consider deceleration bounds

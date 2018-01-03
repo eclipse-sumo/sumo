@@ -62,7 +62,7 @@ MSCFModel_KraussX::duplicate(const MSVehicleType* vtype) const {
 
 
 double
-MSCFModel_KraussX::moveHelper(MSVehicle* const veh, double vPos) const {
+MSCFModel_KraussX::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
     const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     // we need the acceleration for emission computation;
@@ -86,7 +86,7 @@ MSCFModel_KraussX::moveHelper(MSVehicle* const veh, double vPos) const {
         vMin =  MIN2(minNextSpeed(oldV, veh), vMax);
         const double vDawdle = dawdleX(oldV, vMin, vMax);
         vNext = veh->getLaneChangeModel().patchSpeed(vMin, vDawdle, vMax, *this);
-        // (Leo) moveHelper() is responsible for assuring that the next
+        // (Leo) finalizeSpeed() is responsible for assuring that the next
         // velocity is chosen in accordance with maximal decelerations.
         // At this point vNext may also be negative indicating a stop within next step.
         // Moreover, because maximumSafeStopSpeed() does not consider deceleration bounds

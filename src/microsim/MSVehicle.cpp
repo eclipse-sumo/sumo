@@ -2864,8 +2864,8 @@ MSVehicle::executeMove() {
 //#endif
 
     // Determine vNext = speed after current sim step (ballistic), resp. in current simstep (euler)
-    // Call to moveHelper applies speed reduction due to dawdling / lane changing but ensures minimum safe speed
-    double vNext = myActionStep ? MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin) : vSafe;
+    // Call to finalizeSpeed applies speed reduction due to dawdling / lane changing but ensures minimum safe speed
+    double vNext = myActionStep ? MAX2(getCarFollowModel().finalizeSpeed(this, vSafe), vSafeMin) : vSafe;
     // (Leo) to avoid tiny oscillations (< 1e-10) of vNext in a standing vehicle column (observed for ballistic update), we cap off vNext
     //       (We assure to do this only for vNext<<NUMERICAL_EPS since otherwise this would nullify the workaround for #2995
     if (fabs(vNext) < 0.1 * NUMERICAL_EPS * TS) {
@@ -2873,7 +2873,7 @@ MSVehicle::executeMove() {
     }
 #ifdef DEBUG_EXEC_MOVE
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " moveHelper vSafe=" << vSafe << " vSafeMin=" << (vSafeMin == -std::numeric_limits<double>::max() ? "-Inf" : toString(vSafeMin))
+        std::cout << SIMTIME << " finalizeSpeed vSafe=" << vSafe << " vSafeMin=" << (vSafeMin == -std::numeric_limits<double>::max() ? "-Inf" : toString(vSafeMin))
                   << " vNext=" << vNext << " (i.e. accel=" << SPEED2ACCEL(vNext - getSpeed()) << "\n";
     }
 #endif

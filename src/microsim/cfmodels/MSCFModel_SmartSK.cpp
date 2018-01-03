@@ -78,7 +78,7 @@ MSCFModel_SmartSK::~MSCFModel_SmartSK() {}
 
 
 double
-MSCFModel_SmartSK::moveHelper(MSVehicle* const veh, double vPos) const {
+MSCFModel_SmartSK::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
     const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     // we need the acceleration for emission computation;
@@ -115,7 +115,7 @@ MSCFModel_SmartSK::followSpeed(const MSVehicle* const veh, double speed, double 
 // if (((gap - vars->gOld) < maxDeltaGap) && (speed>=5.0) && gap>=5.0) {
     if ((gap - vars->gOld) < maxDeltaGap) {
         double tTauTest = gap / speed;
-// allow  headway only to decrease only, never to increase. Increase is handled automatically by the headway dynamics in moveHelper()!!!
+// allow  headway only to decrease only, never to increase. Increase is handled automatically by the headway dynamics in finalizeSpeed()!!!
         if ((tTauTest < vars->myHeadway) && (tTauTest > TS)) {
             vars->myHeadway = tTauTest;
         }
@@ -140,7 +140,7 @@ MSCFModel_SmartSK::stopSpeed(const MSVehicle* const veh, const double speed, dou
 // if (((gap - vars->gOld) < maxDeltaGap) && (speed>=5.0) && gap>=5.0) {
     if ((gap - vars->gOld) < maxDeltaGap) {
         double tTauTest = gap / speed;
-// allow  headway only to decrease only, never to increase. Increase is handled automatically by the headway dynamics in moveHelper()!!!
+// allow  headway only to decrease only, never to increase. Increase is handled automatically by the headway dynamics in finalizeSpeed()!!!
         if ((tTauTest < vars->myHeadway) && (tTauTest > TS)) {
             vars->myHeadway = tTauTest;
         }

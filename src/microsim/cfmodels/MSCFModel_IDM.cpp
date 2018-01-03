@@ -66,8 +66,8 @@ MSCFModel_IDM::~MSCFModel_IDM() {}
 
 
 double
-MSCFModel_IDM::moveHelper(MSVehicle* const veh, double vPos) const {
-    const double vNext = MSCFModel::moveHelper(veh, vPos);
+MSCFModel_IDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
+    const double vNext = MSCFModel::finalizeSpeed(veh, vPos);
     if (myAdaptationFactor != 1.) {
         VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
         vars->levelOfService += (vNext / veh->getLane()->getVehicleMaxSpeed(veh) - vars->levelOfService) / myAdaptationTime * TS;

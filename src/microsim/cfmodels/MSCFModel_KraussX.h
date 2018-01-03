@@ -67,9 +67,9 @@ public:
      * @param[in] vPos The possible velocity
      * @return The velocity after applying interactions with stops and lane change model influences
      *
-     * @note: this is the exact duplicate of MSCFModel_KraussOrig1::moveHelper (also used by Krauss) except that dawdle is called with a second paramter
+     * @note: this is the exact duplicate of MSCFModel_KraussOrig1::finalizeSpeed (also used by Krauss) except that dawdle is called with a second parameter
      */
-    double moveHelper(MSVehicle* const veh, double vPos) const;
+    double finalizeSpeed(MSVehicle* const veh, double vPos) const;
 
 
     /** @brief Returns the model's name

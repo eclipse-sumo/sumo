@@ -51,8 +51,8 @@ MSCFModel_Kerner::~MSCFModel_Kerner() {}
 
 
 double
-MSCFModel_Kerner::moveHelper(MSVehicle* const veh, double vPos) const {
-    const double vNext = MSCFModel::moveHelper(veh, vPos);
+MSCFModel_Kerner::finalizeSpeed(MSVehicle* const veh, double vPos) const {
+    const double vNext = MSCFModel::finalizeSpeed(veh, vPos);
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     vars->rand = RandHelper::rand();
     return vNext;

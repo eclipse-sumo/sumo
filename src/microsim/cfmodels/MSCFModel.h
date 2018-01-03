@@ -78,12 +78,13 @@ public:
     /// @name Methods to override by model implementation
     /// @{
 
-    /** @brief Applies interaction with stops and lane changing model influences
+    /** @brief Applies interaction with stops and lane changing model
+     * influences. Called at most once per simulation step (exactcly once per action step)
      * @param[in] veh The ego vehicle
      * @param[in] vPos The possible velocity
      * @return The velocity after applying interactions with stops and lane change model influences
      */
-    virtual double moveHelper(MSVehicle* const veh, double vPos) const;
+    virtual double finalizeSpeed(MSVehicle* const veh, double vPos) const;
 
 
     /** @brief Computes the vehicle's safe speed without a leader

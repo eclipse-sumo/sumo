@@ -68,7 +68,7 @@ public:
      * @param[in] vPos The possible velocity
      * @return The velocity after applying interactions with stops and lane change model influences
      */
-    virtual double moveHelper(MSVehicle* const veh, double vPos) const;
+    virtual double finalizeSpeed(MSVehicle* const veh, double vPos) const;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)

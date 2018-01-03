@@ -61,7 +61,7 @@ MSCFModel_Krauss::~MSCFModel_Krauss() {}
 
 
 double
-MSCFModel_Krauss::moveHelper(MSVehicle* const veh, double vPos) const {
+MSCFModel_Krauss::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
     const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     const double vMin = minNextSpeed(oldV, veh);

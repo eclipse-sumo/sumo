@@ -51,7 +51,7 @@ public:
 
     MSCFModel::VehicleVariables* createVehicleVariables() const;
 
-    double moveHelper(MSVehicle* const veh, double vPos) const;
+    double finalizeSpeed(MSVehicle* const veh, double vPos) const;
 
     double freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed,
                      const bool onInsertion) const;

@@ -53,7 +53,7 @@ MSCFModel_Daniel1::~MSCFModel_Daniel1() {}
 
 
 double
-MSCFModel_Daniel1::moveHelper(MSVehicle* const veh, double vPos) const {
+MSCFModel_Daniel1::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
     const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     // we need the acceleration for emission computation;
