@@ -262,7 +262,7 @@ MSDevice_Tripinfo::generateOutput() const {
     os.writeAttr("arrivalSpeed", myArrivalSpeed);
     os.writeAttr("duration", time2string(duration));
     os.writeAttr("routeLength", routeLength);
-    os.writeAttr("waitSteps", myWaitingTime / DELTA_T);
+    os.writeAttr("waitingTime", time2string(myWaitingTime));
     os.writeAttr("stopTime", time2string(myStoppingTime));
     os.writeAttr("timeLoss", time2string(timeLoss));
     os.writeAttr("rerouteNo", myHolder.getNumberReroutes());
