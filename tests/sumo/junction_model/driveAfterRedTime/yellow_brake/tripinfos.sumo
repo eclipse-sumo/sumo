@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan  2 16:17:58 2018 by SUMO Version v0_32_0+0039-4e0c948
+<!-- generated on Wed Jan  3 09:21:35 2018 by SUMO Version v0_32_0+0043-24523c2
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -28,5 +28,5 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="ego" depart="25.00" departLane="SC_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="93.00" arrivalLane="CN_0" arrivalPos="4.00" arrivalSpeed="10.40" duration="68.00" routeLength="106.95" waitSteps="56" stopTime="0.00" timeLoss="59.95" rerouteNo="0" devices="tripinfo_ego" vType="egoType" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="ego" depart="25.00" departLane="SC_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="93.00" arrivalLane="CN_0" arrivalPos="4.00" arrivalSpeed="10.40" duration="68.00" routeLength="106.95" waitingTime="56.00" stopTime="0.00" timeLoss="59.95" rerouteNo="0" devices="tripinfo_ego" vType="egoType" speedFactor="1.00" vaporized=""/>
 </tripinfos>

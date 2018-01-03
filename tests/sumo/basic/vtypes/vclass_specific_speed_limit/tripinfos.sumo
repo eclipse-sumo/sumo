@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan  2 16:17:14 2018 by SUMO Version v0_32_0+0039-4e0c948
+<!-- generated on Wed Jan  3 09:20:53 2018 by SUMO Version v0_32_0+0043-24523c2
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -24,6 +24,6 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="0" depart="0.00" departLane="2fi_0" departPos="5.10" departSpeed="20.00" departDelay="0.00" arrival="25.00" arrivalLane="2fi_0" arrivalPos="491.95" arrivalSpeed="20.00" duration="25.00" routeLength="486.85" waitSteps="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_0" vType="t1" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="1" depart="0.00" departLane="2fi_1" departPos="7.20" departSpeed="10.00" departDelay="0.00" arrival="49.00" arrivalLane="2fi_0" arrivalPos="491.95" arrivalSpeed="10.00" duration="49.00" routeLength="484.75" waitSteps="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_1" vType="t2" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="0" depart="0.00" departLane="2fi_0" departPos="5.10" departSpeed="20.00" departDelay="0.00" arrival="25.00" arrivalLane="2fi_0" arrivalPos="491.95" arrivalSpeed="20.00" duration="25.00" routeLength="486.85" waitingTime="0.00" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_0" vType="t1" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="1" depart="0.00" departLane="2fi_1" departPos="7.20" departSpeed="10.00" departDelay="0.00" arrival="49.00" arrivalLane="2fi_0" arrivalPos="491.95" arrivalSpeed="10.00" duration="49.00" routeLength="484.75" waitingTime="0.00" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_1" vType="t2" speedFactor="1.00" vaporized=""/>
 </tripinfos>
