@@ -6,9 +6,9 @@
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v20.html
 
-# @file    buildMSVS15Project64Bits.py
+# @file    buildMSVS17Project.py
 # @author  Pablo Alvarez Lopez
-# @date    2015
+# @date    2017
 # @version $Id$
 
 from __future__ import absolute_import
@@ -102,21 +102,21 @@ else:
         # set temporal environment variables for Python
         os.environ["PYTHON_INCLUDE"] = pythonInc
         os.environ["PYTHON_LIB"] = pythonLib
-        # Create directory for VS15, or clear it if already exists
-        if not os.path.exists(os.environ["SUMO_HOME"] + "/build/autobuild/msvc15"):
-            print ("Creating directory for Visual Studio 2015")
-            os.makedirs(os.environ["SUMO_HOME"] + "/build/autobuild/msvc15")
+        # Create directory for VS17, or clear it if already exists
+        if not os.path.exists(os.environ["SUMO_HOME"] + "/build/autobuild/msvc17"):
+            print ("Creating directory for Visual Studio 2017")
+            os.makedirs(os.environ["SUMO_HOME"] + "/build/autobuild/msvc17")
         else:
-            print ("cleaning directory of Visual Studio 2015")
-            shutil.rmtree(os.environ["SUMO_HOME"] + "/build/autobuild/msvc15")
-            os.makedirs(os.environ["SUMO_HOME"] + "/build/autobuild/msvc15")
-        # Create solution for visual studio 2015
-        print ("Creating solution for Visual Studio 2015")
-        VS15Generation = subprocess.Popen(
-            "cmake ../../../ -G \"Visual Studio 14 2015\"", cwd=os.environ["SUMO_HOME"] + "/build/autobuild/msvc15")
+            print ("cleaning directory of Visual Studio 2017")
+            shutil.rmtree(os.environ["SUMO_HOME"] + "/build/autobuild/msvc17")
+            os.makedirs(os.environ["SUMO_HOME"] + "/build/autobuild/msvc17")
+        # Create solution for visual studio 2017
+        print ("Creating solution for Visual Studio 2017")
+        VS17Generation = subprocess.Popen(
+            "cmake ../../../ -G \"Visual Studio 15 2017 Win64\"", cwd=os.environ["SUMO_HOME"] + "/build/autobuild/msvc17")
         # Wait to the end of generation
-        VS15Generation.wait()
+        VS17Generation.wait()
         
-	# Press enter key to finish
+    # Press enter key to finish
     key = input('Press ENTER key to finish')
     quit()

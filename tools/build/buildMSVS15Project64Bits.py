@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
+# Copyright (C) 2017-2017 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 
 # @file    buildMSVS15Project64Bits.py
 # @author  Pablo Alvarez Lopez
-# @date    2015
+# @date    2017
 # @version $Id$
 
 from __future__ import absolute_import
@@ -113,10 +113,10 @@ else:
         # Create solution for visual studio 2015
         print ("Creating solution for Visual Studio 2015")
         VS15Generation = subprocess.Popen(
-            "cmake ../../../ -G \"Visual Studio 14 2015\"", cwd=os.environ["SUMO_HOME"] + "/build/autobuild/msvc15")
+            "cmake ../../../ -G \"Visual Studio 14 2015 Win64\"", cwd=os.environ["SUMO_HOME"] + "/build/autobuild/msvc15")
         # Wait to the end of generation
         VS15Generation.wait()
         
-	# Press enter key to finish
+    # Press enter key to finish
     key = input('Press ENTER key to finish')
     quit()
