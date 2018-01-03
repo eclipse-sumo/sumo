@@ -36,9 +36,17 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSCFModel.h"
+
+// ===========================================================================
+// DEBUG constants
+// ===========================================================================
+//#define DEBUG_FINALIZE_SPEED
+//#define DEBUG_COND (true)
+
 
 
 // ===========================================================================
@@ -153,34 +161,44 @@ MSCFModel::freeSpeed(const double currentSpeed, const double decel, const double
 
 double
 MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
-    const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
-    const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
-    // we need the acceleration for emission computation;
-    //  in this case, we neglect dawdling, nonetheless, using
-    //  vSafe does not incorporate speed reduction due to interaction
-    //  on lane changing
-    double vMin, vNext;
+    // save old v for optional acceleration computation
+    const double oldV = veh->getSpeed(); 
+    // process stops (includes update of stopping state)
+    const double vStop = MIN2(vPos, veh->processNextStop(vPos)); 
+    // apply deceleration bounds
+    const double vMin = minNextSpeed(oldV, veh);
     // aMax: Maximal admissible acceleration until the next action step, such that the vehicle's maximal
-    // desired speed on the current lane will not be exceeded.
-    double aMax = (veh->getMaxSpeedOnLane() - oldV) / veh->getActionStepLengthSecs();
-    const double vMax = MIN3(oldV + ACCEL2SPEED(aMax), maxNextSpeed(oldV, veh), vSafe);
-    if (MSGlobals::gSemiImplicitEulerUpdate) {
-        // we cannot rely on never braking harder than maxDecel because TraCI or strange cf models may decide to do so
-        // vMin = MIN2(getSpeedAfterMaxDecel(oldV), vMax);
-        vMin =  MIN2(minNextSpeed(oldV, veh), vMax);
-        vNext = veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
-    } else {
-        // for ballistic update, negative vnext must be allowed to
-        // indicate a stop within the coming timestep (i.e., to attain negative values)
-        vMin =  MIN2(minNextSpeed(oldV, veh), vMax);
-        vNext = veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
-        // (Leo) finalizeSpeed() is responsible for assuring that the next
-        // velocity is chosen in accordance with maximal decelerations.
-        // At this point vNext may also be negative indicating a stop within next step.
-        // Moreover, because maximumSafeStopSpeed() does not consider deceleration bounds
-        // vNext can be a large negative value at this point. We cap vNext here.
-        vNext = MAX2(vNext, vMin);
+    // desired speed on the current lane will not be exceeded when the
+    // acceleration is maintained until the next action step.
+    double aMax = (veh->getLane()->getVehicleMaxSpeed(veh) - oldV) / veh->getActionStepLengthSecs();
+    // apply planned speed constraints and acceleration constraints 
+    double vMax = MIN3(oldV + ACCEL2SPEED(aMax), maxNextSpeed(oldV, veh), vStop);
+    // do not exceed max decel even if it is unsafe
+#ifdef _DEBUG
+    //if (vMin > vMax) {
+    //    WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
+    //}
+#endif
+    vMax = MAX2(vMin, vMax);
+    // apply further speed adaptations
+    double vNext = patchSpeedBeforeLC(veh, vMin, vMax);
+    // apply lane-changing related speed adaptations
+    vNext = veh->getLaneChangeModel().patchSpeed(vMin, vNext, vMax, *this);
+    assert(vNext >= vMin);
+    assert(vNext <= vMax);
+
+#ifdef DEBUG_FINALIZE_SPEED
+    if DEBUG_COND {
+        std::cout << "\n" << SIMTIME << " FINALIZE_SPEED\n"
+            << "veh '" << veh->getID() << "' oldV=" << oldV
+            << " vMin=" << vMin 
+            << " vMax=" << vMax 
+            << " vPos" << vStop 
+            << " vStop" << vStop 
+            << " vNext=" << vNext 
+            << "\n";
     }
+#endif
     return vNext;
 }
 

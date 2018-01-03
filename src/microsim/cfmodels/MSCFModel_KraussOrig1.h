@@ -62,14 +62,8 @@ public:
 
     /// @name Implementations of the MSCFModel interface
     /// @{
-
-    /** @brief Applies interaction with stops and lane changing model influences
-     * @param[in] veh The ego vehicle
-     * @param[in] vPos The possible velocity
-     * @return The velocity after applying interactions with stops and lane change model influences
-     */
-    virtual double finalizeSpeed(MSVehicle* const veh, double vPos) const;
-
+    /// @brief apply dawdling
+    double patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const;
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
      * @param[in] veh The vehicle (EGO)

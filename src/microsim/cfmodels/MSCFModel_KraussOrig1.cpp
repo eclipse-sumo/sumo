@@ -38,8 +38,10 @@
 #include <utils/common/RandHelper.h>
 #include <microsim/MSGlobals.h>
 
-//#define DEBUG_MOVE_HELPER
-#define DEBUG_COND (veh->getID()=="disabled")
+// ===========================================================================
+// DEBUG constants
+// ===========================================================================
+//#define DEBUG_COND (veh->getID()=="disabled")
 
 // ===========================================================================
 // method definitions
@@ -53,44 +55,11 @@ MSCFModel_KraussOrig1::MSCFModel_KraussOrig1(const MSVehicleType* vtype,  double
 
 MSCFModel_KraussOrig1::~MSCFModel_KraussOrig1() {}
 
-
-double
-MSCFModel_KraussOrig1::finalizeSpeed(MSVehicle* const veh, double vPos) const {
-    const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
-    const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
-    const double vMin = minNextSpeed(oldV, veh);
-    // do not exceed max decel even if it is unsafe
-    double vMax = MAX2(vMin,
-                       MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe));
-#ifdef _DEBUG
-    //if (vMin > vMax) {
-    //    WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
-    //}
-#endif
-
+double 
+MSCFModel_KraussOrig1::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
+    UNUSED_PARAMETER(veh);
     const double vDawdle = MAX2(vMin, dawdle(vMax));
-
-    double vNext = veh->getLaneChangeModel().patchSpeed(vMin, vDawdle, vMax, *this);
-
-#ifdef DEBUG_MOVE_HELPER
-    if DEBUG_COND {
-    std::cout << "\nMOVE_HELPER\n"
-    << "veh '" << veh->getID() << "' vMin=" << vMin
-        << " vMax=" << vMax << " vDawdle=" << vDawdle
-        << " vSafe" << vSafe << " vNext=" << vNext << " vPos=" << vPos << " veh->getSpeed()=" << oldV
-        << "\n";
-    }
-#endif
-
-    // (Leo) At this point vNext may also be negative indicating a stop within next step.
-    // This would have resulted from a call to maximumSafeStopSpeed(), which does not
-    // consider deceleration bounds. Therefore, we cap vNext here.
-    if (!MSGlobals::gSemiImplicitEulerUpdate) {
-//        vNext = MAX2(vNext, veh->getSpeed() - ACCEL2SPEED(getMaxDecel()));
-        vNext = MAX2(vNext, minNextSpeed(veh->getSpeed(), veh));
-    }
-
-    return vNext;
+    return vDawdle;
 }
 
 
