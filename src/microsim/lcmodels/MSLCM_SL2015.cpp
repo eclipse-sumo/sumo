@@ -836,6 +836,7 @@ MSLCM_SL2015::informFollowers(int blocked, int dir,
                               const std::vector<CLeaderDist>& blockers,
                               double remainingSeconds,
                               double plannedSpeed) {
+    // #3727
     for (std::vector<CLeaderDist>::const_iterator it = blockers.begin(); it != blockers.end(); ++it) {
         informFollower(blocked, dir, *it, remainingSeconds, plannedSpeed);
     }

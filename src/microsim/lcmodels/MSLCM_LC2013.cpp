@@ -1055,7 +1055,7 @@ MSLCM_LC2013::_wantsChange(
     const std::pair<MSVehicle*, double>& neighLead,
     const std::pair<MSVehicle*, double>& neighFollow,
     const MSLane& neighLane,
-    const std::vector<MSVehicle::LaneQ>& preb, // XXX: What does "preb" stand for? Please comment. (Leo) Refs. #2578, #2604
+    const std::vector<MSVehicle::LaneQ>& preb,
     MSVehicle** lastBlocked,
     MSVehicle** firstBlocked) {
     assert(laneOffset == 1 || laneOffset == -1);
@@ -1067,7 +1067,6 @@ MSLCM_LC2013::_wantsChange(
     // currentDist is the distance that the vehicle can go on its route without having to
     // change lanes from the current lane. neighDist as currentDist for the considered target lane (i.e., neigh)
     // If this is true I suggest to put this into the docu of wantsChange()
-    // Another thing: "preb" probably means "previous best (lanes)"?!
     double currentDist = 0;
     double neighDist = 0;
     int currIdx = 0;
