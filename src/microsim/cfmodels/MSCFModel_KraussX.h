@@ -62,14 +62,8 @@ public:
 
     /// @name Implementations of the MSCFModel interface
     /// @{
-    /** @brief Applies interaction with stops and lane changing model influences
-     * @param[in] veh The ego vehicle
-     * @param[in] vPos The possible velocity
-     * @return The velocity after applying interactions with stops and lane change model influences
-     *
-     * @note: this is the exact duplicate of MSCFModel_KraussOrig1::finalizeSpeed (also used by Krauss) except that dawdle is called with a second parameter
-     */
-    double finalizeSpeed(MSVehicle* const veh, double vPos) const;
+    /// @brief apply dawdling
+    double patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const;
 
 
     /** @brief Returns the model's name

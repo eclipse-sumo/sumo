@@ -79,19 +79,7 @@ MSCFModel_SmartSK::~MSCFModel_SmartSK() {}
 
 double
 MSCFModel_SmartSK::finalizeSpeed(MSVehicle* const veh, double vPos) const {
-    const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
-    const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
-    // we need the acceleration for emission computation;
-    //  in this case, we neglect dawdling, nonetheless, using
-    //  vSafe does not incorporate speed reduction due to interaction
-    //  on lane changing
-    const double vMin = getSpeedAfterMaxDecel(oldV);
-    const double vMax = MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe);
-#ifdef SmartSK_DEBUG
-    if (vMin > vMax) {
-        WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
-    }
-#endif
+    const double vNext = MSCFModel::finalizeSpeed(veh, vPos);
     updateMyHeadway(veh);
     SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
 #ifdef SmartSK_DEBUG
@@ -102,10 +90,9 @@ MSCFModel_SmartSK::finalizeSpeed(MSVehicle* const veh, double vPos) const {
         }
     }
 #endif
-
     vars->gOld = vars->ggOld[(int) vPos];
     vars->ggOld.clear();
-    return veh->getLaneChangeModel().patchSpeed(vMin, MAX2(vMin, dawdle(vMax)), vMax, *this);
+    return vNext;
 }
 
 double

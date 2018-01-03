@@ -186,12 +186,7 @@ MSCFModel::VehicleVariables* MSCFModel_Rail::createVehicleVariables() const {
 
 
 double MSCFModel_Rail::finalizeSpeed(MSVehicle* const veh, double vPos) const {
-    const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
-    const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
-    const double vMin = minNextSpeed(oldV, veh);
-    const double vMax = MAX2(vMin, MIN3(veh->getMaxSpeedOnLane(), maxNextSpeed(oldV, veh), vSafe));
-    const double vNext = veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
-    return vNext;
+    return MSCFModel::finalizeSpeed(veh, vPos);
 }
 
 double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* speed */, double dist, double targetSpeed,
