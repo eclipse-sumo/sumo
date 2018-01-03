@@ -2445,8 +2445,8 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
 }
 
 
-void
-MSVehicle::processTraCISpeedControl(double vSafe, double& vNext) {
+double
+MSVehicle::processTraCISpeedControl(double vSafe, double vNext) {
     if (myInfluencer != 0) {
         if (myInfluencer->isRemoteControlled()) {
             vNext = myInfluencer->implicitSpeedRemote(this, myState.mySpeed);
@@ -2455,6 +2455,7 @@ MSVehicle::processTraCISpeedControl(double vSafe, double& vNext) {
         const double vMin = MAX2(0., getVehicleType().getCarFollowModel().minNextSpeed(myState.mySpeed, this));
         vNext = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext, vSafe, vMin, vMax);
     }
+    return vNext;
 }
 
 
@@ -2897,7 +2898,7 @@ MSVehicle::executeMove() {
 
 #ifndef NO_TRACI
     // Check for speed advices from the traci client
-    processTraCISpeedControl(vSafe, vNext);
+    vNext = processTraCISpeedControl(vSafe, vNext);
 #endif
 
     setBrakingSignals(vNext);

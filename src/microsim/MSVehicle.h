@@ -1621,9 +1621,10 @@ protected:
      *         the current (euler) / after the current (ballistic) simstep accordingly.
      *
      *  @param[in] vSafe The maximal safe (or admissible) velocity as determined from stops, junction approaches, car following, lane changing, etc.
-     *  @param[in/out] vNext The next speed (possibly subject to traci influence)
+     *  @param[in] vNext The next speed (possibly subject to traci influence)
+     *  @return updated vNext
      */
-    void processTraCISpeedControl(double vSafe, double& vNext);
+    double processTraCISpeedControl(double vSafe, double vNext);
 
 
     /** @brief Erase passed drive items from myLFLinkLanes (and unregister approaching information for
