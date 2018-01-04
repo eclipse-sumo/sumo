@@ -2810,7 +2810,7 @@ NBEdge::isNearEnough2BeJoined2(NBEdge* e, double threshold) const {
 
 
 void
-NBEdge::addLane(int index, bool recomputeShape, bool recomputeConnections) {
+NBEdge::addLane(int index, bool recomputeShape, bool recomputeConnections, bool shiftIndices) {
     assert(index <= (int)myLanes.size());
     myLanes.insert(myLanes.begin() + index, Lane(this, ""));
     // copy attributes
@@ -2832,6 +2832,23 @@ NBEdge::addLane(int index, bool recomputeShape, bool recomputeConnections) {
             (*i)->invalidateConnections(true);
         }
         invalidateConnections(true);
+    } else if (shiftIndices) {
+        // shift outgoing connections above the added lane to the left
+        for (Connection& c : myConnections) {
+            if (c.fromLane >= index) {
+                c.fromLane += 1;
+            }
+        }
+        // shift incoming connections above the added lane to the left
+        for (NBEdge* inc : myFrom->getIncomingEdges()) {
+            for (Connection& c : inc->myConnections) {
+                if (c.toLane >= index) {
+                    c.toLane += 1;
+                }
+            }
+        }
+        myFrom->shiftTLConnectionLaneIndex(this, +1, index-1);
+        myTo->shiftTLConnectionLaneIndex(this, +1, index-1);
     }
 }
 
@@ -2841,13 +2858,13 @@ NBEdge::incLaneNo(int by) {
     while ((int)myLanes.size() < newLaneNo) {
         // recompute shapes on last addition
         const bool recompute = ((int)myLanes.size() == newLaneNo - 1) && myStep < LANES2LANES_USER;
-        addLane((int)myLanes.size(), recompute, recompute);
+        addLane((int)myLanes.size(), recompute, recompute, false);
     }
 }
 
 
 void
-NBEdge::deleteLane(int index, bool recompute) {
+NBEdge::deleteLane(int index, bool recompute, bool shiftIndices) {
     assert(index < (int)myLanes.size());
     myLanes.erase(myLanes.begin() + index);
     if (recompute) {
@@ -2857,6 +2874,23 @@ NBEdge::deleteLane(int index, bool recompute) {
             (*i)->invalidateConnections(true);
         }
         invalidateConnections(true);
+    } else if (shiftIndices) {
+        // shift outgoing connections above the delete lane to the right
+        for (Connection& c : myConnections) {
+            if (c.fromLane > index) {
+                c.fromLane -= 1;
+            }
+        }
+        // shift incoming connections above the delete lane to the right
+        for (NBEdge* inc : myFrom->getIncomingEdges()) {
+            for (Connection& c : inc->myConnections) {
+                if (c.toLane > index) {
+                    c.toLane -= 1;
+                }
+            }
+        }
+        myFrom->shiftTLConnectionLaneIndex(this, -1, index);
+        myTo->shiftTLConnectionLaneIndex(this, -1, index);
     }
 }
 
@@ -2868,7 +2902,7 @@ NBEdge::decLaneNo(int by) {
     while ((int)myLanes.size() > newLaneNo) {
         // recompute shapes on last removal
         const bool recompute = (int)myLanes.size() == newLaneNo + 1 && myStep < LANES2LANES_USER;
-        deleteLane((int)myLanes.size() - 1, recompute);
+        deleteLane((int)myLanes.size() - 1, recompute, false);
     }
 }
 

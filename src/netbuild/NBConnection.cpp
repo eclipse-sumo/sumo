@@ -245,10 +245,10 @@ NBConnection::getToLane() const {
 
 
 void
-NBConnection::shiftLaneIndex(NBEdge* edge, int offset) {
-    if (myFrom == edge) {
+NBConnection::shiftLaneIndex(NBEdge* edge, int offset, int threshold) {
+    if (myFrom == edge && myFromLane > threshold) {
         myFromLane += offset;
-    } else if (myTo == edge) {
+    } else if (myTo == edge && myToLane > threshold) {
         myToLane += offset;
     }
 }

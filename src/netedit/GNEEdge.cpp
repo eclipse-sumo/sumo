@@ -1079,7 +1079,8 @@ void
 GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeConnections) {
     const int index = lane ? lane->getIndex() : myNBEdge.getNumLanes();
     // the laneStruct must be created first to ensure we have some geometry
-    myNBEdge.addLane(index, true, recomputeConnections);
+    // unless the connections are fully recomputed, existing indices must be shifted
+    myNBEdge.addLane(index, true, recomputeConnections, !recomputeConnections);
     if (lane) {
         // restore a previously deleted lane
         myLanes.insert(myLanes.begin() + index, lane);
@@ -1120,7 +1121,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
 
 
 void
-GNEEdge::removeLane(GNELane* lane) {
+GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     if (myLanes.size() == 0) {
         throw ProcessError("Should not remove the last " + toString(SUMO_TAG_LANE) + " from an " + toString(getTag()));
     }
@@ -1128,7 +1129,8 @@ GNEEdge::removeLane(GNELane* lane) {
         lane = myLanes.back();
     }
     // Delete lane of edge's container
-    myNBEdge.deleteLane(lane->getIndex(), false);
+    // unless the connections are fully recomputed, existing indices must be shifted
+    myNBEdge.deleteLane(lane->getIndex(), recomputeConnections, !recomputeConnections);
     lane->decRef("GNEEdge::removeLane");
     myLanes.erase(myLanes.begin() + lane->getIndex());
     // Delete lane if is unreferenced

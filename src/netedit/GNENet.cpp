@@ -407,7 +407,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector incident = junction->getNBNode()->getEdges();
     for (EdgeVector::const_iterator it = incident.begin(); it != incident.end(); it++) {
-        deleteEdge(myEdges[(*it)->getID()], undoList);
+        deleteEdge(myEdges[(*it)->getID()], undoList, true);
     }
 
     // remove any traffic lights from the traffic light container (avoids lots of warnings)
@@ -427,7 +427,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
 
 
 void
-GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
+GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnections) {
     undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
     // remove edge of additional parents (For example, Rerouters)
     edge->removeEdgeOfAdditionalParents(undoList, false);
@@ -453,9 +453,14 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     // remove edge from crossings related with this edge
     edge->getGNEJunctionSource()->removeEdgeFromCrossings(edge, undoList);
     edge->getGNEJunctionDestiny()->removeEdgeFromCrossings(edge, undoList);
-    // remove affected connections and update TLS
-    edge->getGNEJunctionSource()->removeConnectionsTo(edge, undoList, true);
-    edge->getGNEJunctionDestiny()->removeConnectionsFrom(edge, undoList, true);
+    // update affected connections
+    if (recomputeConnections) {
+        edge->getGNEJunctionSource()->setLogicValid(false, undoList);
+        edge->getGNEJunctionDestiny()->setLogicValid(false, undoList);
+    } else {
+        edge->getGNEJunctionSource()->removeConnectionsTo(edge, undoList, true);
+        edge->getGNEJunctionSource()->removeConnectionsFrom(edge, undoList, true);
+    }
     // save selection status
     if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
         std::set<GUIGlID> deselected;
@@ -525,11 +530,11 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
 
 
 void
-GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
+GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnections) {
     GNEEdge* edge = &lane->getParentEdge();
     if (edge->getNBEdge()->getNumLanes() == 1) {
         // remove the whole edge instead
-        deleteEdge(edge, undoList);
+        deleteEdge(edge, undoList, recomputeConnections);
     } else {
         undoList->p_begin("delete " + toString(SUMO_TAG_LANE));
         // remove lane of additional parents (For example, VSS)
@@ -542,9 +547,14 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
         while (lane->getShapeChilds().size() > 0) {
             undoList->add(new GNEChange_Shape(lane->getShapeChilds().front(), false), true);
         }
-        // remove affected connections
-        edge->getGNEJunctionSource()->removeConnectionsTo(edge, undoList, true, lane->getIndex());
-        edge->getGNEJunctionSource()->removeConnectionsFrom(edge, undoList, true, lane->getIndex());
+        // update affected connections
+        if (recomputeConnections) {
+            edge->getGNEJunctionSource()->setLogicValid(false, undoList);
+            edge->getGNEJunctionDestiny()->setLogicValid(false, undoList);
+        } else {
+            edge->getGNEJunctionSource()->removeConnectionsTo(edge, undoList, true, lane->getIndex());
+            edge->getGNEJunctionSource()->removeConnectionsFrom(edge, undoList, true, lane->getIndex());
+        }
         // save selection status
         if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
             std::set<GUIGlID> deselected;
@@ -553,7 +563,7 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
         }
         // delete lane
         const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
-        undoList->add(new GNEChange_Lane(edge, lane, laneAttrs, false), true);
+        undoList->add(new GNEChange_Lane(edge, lane, laneAttrs, false, recomputeConnections), true);
         if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
             std::set<GUIGlID> deselected;
             deselected.insert(lane->getGlID());
@@ -620,12 +630,12 @@ GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
 
 
 void
-GNENet::duplicateLane(GNELane* lane, GNEUndoList* undoList) {
+GNENet::duplicateLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnections) {
     undoList->p_begin("duplicate " + toString(SUMO_TAG_LANE));
     GNEEdge* edge = &lane->getParentEdge();
     const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
     GNELane* newLane = new GNELane(*edge, lane->getIndex());
-    undoList->add(new GNEChange_Lane(edge, newLane, laneAttrs, true), true);
+    undoList->add(new GNEChange_Lane(edge, newLane, laneAttrs, true, recomputeConnections), true);
     requireRecompute();
     undoList->p_end();
 }
@@ -667,7 +677,7 @@ GNENet::addSRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList* 
         }
     }
     // duplicate last lane
-    duplicateLane(edge.getLanes().at(0), undoList);
+    duplicateLane(edge.getLanes().at(0), undoList, true);
     // transform the created (last) lane to a sidewalk
     return restrictLane(vclass, edge.getLanes()[0], undoList);
 }
@@ -679,7 +689,7 @@ GNENet::removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList
     for (auto i : edge.getLanes()) {
         if (i->isRestricted(vclass)) {
             // Delete lane
-            deleteLane(i, undoList);
+            deleteLane(i, undoList, true);
             return true;
         }
     }
@@ -690,7 +700,7 @@ GNENet::removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList
 GNEJunction*
 GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction) {
     undoList->p_begin("split " + toString(SUMO_TAG_EDGE));
-    deleteEdge(edge, undoList); // still exists. we delete it so we can reuse the name in case of resplit
+    deleteEdge(edge, undoList, false); // still exists. we delete it so we can reuse the name in case of resplit
     // compute geometry
     const PositionVector& oldGeom = edge->getNBEdge()->getGeometry();
     const double linePos = oldGeom.nearest_offset_to_point2D(pos, false);
@@ -753,7 +763,7 @@ GNENet::splitEdgesBidi(const std::set<GNEEdge*>& edges, const Position& pos, GNE
 void
 GNENet::reverseEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->p_begin("reverse " + toString(SUMO_TAG_EDGE));
-    deleteEdge(edge, undoList); // still exists. we delete it so we can reuse the name in case of resplit
+    deleteEdge(edge, undoList, false); // still exists. we delete it so we can reuse the name in case of resplit
     GNEEdge* reversed = createEdge(edge->getGNEJunctionDestiny(), edge->getGNEJunctionSource(), edge, undoList, edge->getID(), false, true);
     assert(reversed != 0);
     reversed->setAttribute(SUMO_ATTR_SHAPE, toString(edge->getNBEdge()->getInnerGeometry().reverse()), undoList);
@@ -826,7 +836,7 @@ GNENet::remapEdge(GNEEdge* oldEdge, GNEJunction* from, GNEJunction* to, GNEUndoL
         deleteCrossing(i, undoList);
     }
     // delete first so we can reuse the name, reference stays valid
-    deleteEdge(oldEdge, undoList);
+    deleteEdge(oldEdge, undoList, false);
     if (from != to) {
         GNEEdge* newEdge = createEdge(from, to, oldEdge, undoList, oldEdge->getMicrosimID(), false, true);
         newEdge->setAttribute(SUMO_ATTR_SHAPE, oldEdge->getAttribute(SUMO_ATTR_SHAPE), undoList);

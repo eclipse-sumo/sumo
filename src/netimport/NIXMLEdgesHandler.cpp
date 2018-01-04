@@ -515,7 +515,7 @@ NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes& attrs) {
         for (EdgeVector::const_iterator e = incoming.begin(); e != incoming.end(); ++e) {
             (*e)->removeFromConnections(edge, -1, lane, false, true);
         }
-        edge->deleteLane(lane, false);
+        edge->deleteLane(lane, false, true);
     }
 }
 

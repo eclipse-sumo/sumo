@@ -47,11 +47,13 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Lane, GNEChange, NULL, 0)
 
 
 /// @brief constructor for creating an edge
-GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward):
+GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward, bool recomputeConnections):
     GNEChange(edge->getNet(), forward),
     myEdge(edge),
     myLane(lane),
-    myLaneAttrs(laneAttrs) {
+    myLaneAttrs(laneAttrs),
+    myRecomputeConnections(recomputeConnections)
+{
     assert(myNet);
     myEdge->incRef("GNEChange_Lane");
     if (myLane) {
@@ -102,7 +104,7 @@ GNEChange_Lane::undo() {
             }
         }
         // remove lane from edge
-        myEdge->removeLane(myLane);
+        myEdge->removeLane(myLane, false);
         // Remove additionals vinculated with this lane
         for (auto i : myAdditionalChilds) {
             myNet->deleteAdditional(i);
@@ -147,8 +149,7 @@ GNEChange_Lane::redo() {
             }
         }
         // add lane and their attributes to edge
-        // new lane, true: connections should be recomputed (XXX toogle with a new option)
-        myEdge->addLane(myLane, myLaneAttrs, true);
+        myEdge->addLane(myLane, myLaneAttrs, myRecomputeConnections);
         // add additional vinculated with this lane of net
         for (auto i : myAdditionalChilds) {
             myNet->insertAdditional(i);
@@ -167,7 +168,7 @@ GNEChange_Lane::redo() {
             }
         }
         // remove lane from edge
-        myEdge->removeLane(myLane);
+        myEdge->removeLane(myLane, myRecomputeConnections);
         // Remove additional vinculated with this lane of net
         for (auto i : myAdditionalChilds) {
             myNet->deleteAdditional(i);

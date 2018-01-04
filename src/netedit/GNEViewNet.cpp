@@ -1848,16 +1848,18 @@ long
 GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
     GNELane* lane = getLaneAtPopupPosition();
     if (lane != 0) {
+        // when duplicating an unselected lane, keep all connections as they
+        // are, otherwise recompute them
         if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
             myUndoList->p_begin("duplicate selected " + toString(SUMO_TAG_LANE) + "s");
             std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
             for (auto it : lanes) {
-                myNet->duplicateLane(it, myUndoList);
+                myNet->duplicateLane(it, myUndoList, true);
             }
             myUndoList->p_end();
         } else {
             myUndoList->p_begin("duplicate " + toString(SUMO_TAG_LANE));
-            myNet->duplicateLane(lane, myUndoList);
+            myNet->duplicateLane(lane, myUndoList, false);
             myUndoList->p_end();
         }
     }
@@ -2587,7 +2589,8 @@ GNEViewNet::deleteSelectedLanes() {
         std::string plural = lanes.size() == 1 ? ("") : ("s");
         myUndoList->p_begin("delete selected " + toString(SUMO_TAG_LANE) + plural);
         for (auto i : lanes) {
-            myNet->deleteLane(i, myUndoList);
+            // when deleting multiple lanes, recompute connections
+            myNet->deleteLane(i, myUndoList, true);
         }
         myUndoList->p_end();
     }
@@ -2601,7 +2604,8 @@ GNEViewNet::deleteSelectedEdges() {
         std::string plural = edges.size() == 1 ? ("") : ("s");
         myUndoList->p_begin("delete selected " + toString(SUMO_TAG_EDGE) + plural);
         for (auto i : edges) {
-            myNet->deleteEdge(i, myUndoList);
+            // when deleting multiple edges, recompute connections
+            myNet->deleteEdge(i, myUndoList, true);
         }
         myUndoList->p_end();
     }

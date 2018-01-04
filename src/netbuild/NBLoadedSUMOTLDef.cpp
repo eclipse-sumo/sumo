@@ -282,13 +282,13 @@ NBLoadedSUMOTLDef::collectLinks() {
 
 /// @brief patches signal plans by modifying lane indices
 void
-NBLoadedSUMOTLDef::shiftTLConnectionLaneIndex(NBEdge* edge, int offset) {
+NBLoadedSUMOTLDef::shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold) {
     // avoid shifting twice if the edge is incoming and outgoing to a joined TLS
     if (myShifted.count(edge) == 0) {
         /// XXX what if an edge should really be shifted twice?
         myShifted.insert(edge);
         for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
-            (*it).shiftLaneIndex(edge, offset);
+            (*it).shiftLaneIndex(edge, offset, threshold);
         }
     }
 }

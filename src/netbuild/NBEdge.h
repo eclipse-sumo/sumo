@@ -1114,10 +1114,10 @@ public:
     void decLaneNo(int by);
 
     /// @brief delete lane
-    void deleteLane(int index, bool recompute = true);
+    void deleteLane(int index, bool recompute, bool shiftIndices);
 
     /// @brief add lane
-    void addLane(int index, bool recomputeShape, bool recomputeConnections);
+    void addLane(int index, bool recomputeShape, bool recomputeConnections, bool shiftIndices);
 
     /// @brief mark edge as in lane to state lane
     void markAsInLane2LaneState();

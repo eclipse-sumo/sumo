@@ -246,7 +246,7 @@ public:
      * @param[in] edge The edge to be removed
      * @param[in] undoList The undolist in which to mark changes
      */
-    void deleteEdge(GNEEdge* edge, GNEUndoList* undoList);
+    void deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnections);
 
     /**@brief replaces edge
      * @param[in] which The edge to be replaced
@@ -259,7 +259,7 @@ public:
      * @param[in] lane The lane to be removed
      * @param[in] undoList The undolist in which to mark changes
      */
-    void deleteLane(GNELane* lane, GNEUndoList* undoList);
+    void deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnections);
 
     /**@brief remove connection
      * @param[in] connection The connection to be removed
@@ -283,7 +283,7 @@ public:
      * @param[in] lane The lane to be duplicated
      * @param[in] undoList The undolist in which to mark changes
      */
-    void duplicateLane(GNELane* lane, GNEUndoList* undoList);
+    void duplicateLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnections);
 
     /**@brief transform lane to restricted lane
      * @param[in] vclass vehicle class to restrict

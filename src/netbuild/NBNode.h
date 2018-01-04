@@ -306,8 +306,8 @@ public:
     /// @brief causes the traffic light to be computed anew
     void invalidateTLS(NBTrafficLightLogicCont& tlCont, bool removedConnections, bool addedConnections);
 
-    /// @brief patches loaded signal plans by modifying lane indices
-    void shiftTLConnectionLaneIndex(NBEdge* edge, int offset);
+    /// @brief patches loaded signal plans by modifying lane indices above threshold by the given offset
+    void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold=-1);
     /// @}
 
 

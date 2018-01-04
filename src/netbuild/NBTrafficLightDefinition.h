@@ -285,9 +285,10 @@ public:
                                 NBEdge* by, int byLane) = 0;
 
     /// @brief patches (loaded) signal plans by modifying lane indices
-    virtual void shiftTLConnectionLaneIndex(NBEdge* edge, int offset) {
+    virtual void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold=-1) {
         UNUSED_PARAMETER(edge);
         UNUSED_PARAMETER(offset);
+        UNUSED_PARAMETER(threshold);
     }
 
     /** @brief Returns the list of incoming edges (must be build first)

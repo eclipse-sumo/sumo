@@ -307,7 +307,7 @@ private:
     void addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeConnections);
 
     /// @briefdecrease the number of lanes by one. argument is only used to increase robustness (assertions)
-    void removeLane(GNELane* lane);
+    void removeLane(GNELane* lane, bool recomputeConnections);
 
     /// @brief adds a connection
     void addConnection(NBEdge::Connection nbCon, bool selectAfterCreation = false);

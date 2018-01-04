@@ -367,9 +367,9 @@ NBNode::invalidateTLS(NBTrafficLightLogicCont& tlCont, bool removedConnections, 
 
 
 void
-NBNode::shiftTLConnectionLaneIndex(NBEdge* edge, int offset) {
+NBNode::shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold) {
     for (std::set<NBTrafficLightDefinition*>::iterator it = myTrafficLights.begin(); it != myTrafficLights.end(); ++it) {
-        (*it)->shiftTLConnectionLaneIndex(edge, offset);
+        (*it)->shiftTLConnectionLaneIndex(edge, offset, threshold);
     }
 }
 
