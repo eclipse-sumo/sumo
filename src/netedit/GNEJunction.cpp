@@ -636,6 +636,41 @@ GNEJunction::removeTLSConnections(std::vector<NBConnection>& connections, GNEUnd
 
 
 void
+GNEJunction::replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) {
+    // remap connections of the edge
+    assert(which->getLanes().size() == by->getLanes().size());
+    std::vector<NBEdge::Connection> connections = which->getNBEdge()->getConnections();
+    for (NBEdge::Connection& c : connections) {
+        undoList->add(new GNEChange_Connection(which, c, false, false), true);
+        undoList->add(new GNEChange_Connection(by, c, false, true), true);
+    }
+    // also remap tls connections
+    const std::set<NBTrafficLightDefinition*> coypOfTls = myNBNode.getControllingTLS(); // make a copy!
+    for (auto it : coypOfTls) {
+        NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it);
+        // guessed TLS (NBOwnTLDef) do not need to be updated
+        if (tlDef != 0) {
+            std::string newID = tlDef->getID();
+            // create replacement before deleting the original because deletion will mess up saving original nodes
+            NBLoadedSUMOTLDef* replacementDef = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
+            for (int i = 0; i < (int)which->getLanes().size(); ++i) {
+                replacementDef->replaceRemoved(which->getNBEdge(), i, by->getNBEdge(), i);
+            }
+            undoList->add(new GNEChange_TLS(this, tlDef, false), true);
+            undoList->add(new GNEChange_TLS(this, replacementDef, true, false, newID), true);
+            // the removed traffic light may have controlled more than one junction. These too have become invalid now
+            const std::vector<NBNode*> copyOfNodes = tlDef->getNodes(); // make a copy!
+            for (auto it_node : copyOfNodes) {
+                GNEJunction* sharing = myNet->retrieveJunction(it_node->getID());
+                undoList->add(new GNEChange_TLS(sharing, tlDef, false), true);
+                undoList->add(new GNEChange_TLS(sharing, replacementDef, true, false, newID), true);
+            }
+        }
+    }
+}
+
+
+void
 GNEJunction::markAsModified(GNEUndoList* undoList) {
     EdgeVector incoming = myNBNode.getIncomingEdges();
     for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {

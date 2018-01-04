@@ -324,7 +324,8 @@ GNENet::createEdge(
     GNEJunction* src, GNEJunction* dest, GNEEdge* tpl, GNEUndoList* undoList,
     const std::string& suggestedName,
     bool wasSplit,
-    bool allowDuplicateGeom) {
+    bool allowDuplicateGeom,
+    bool recomputeConnections) {
     // prevent duplicate edge (same geometry)
     const EdgeVector& outgoing = src->getNBNode()->getOutgoingEdges();
     for (EdgeVector::const_iterator it = outgoing.begin(); it != outgoing.end(); it++) {
@@ -365,8 +366,10 @@ GNENet::createEdge(
     }
     undoList->p_begin("create " + toString(SUMO_TAG_EDGE));
     undoList->add(new GNEChange_Edge(edge, true), true);
-    src->setLogicValid(false, undoList);
-    dest->setLogicValid(false, undoList);
+    if (recomputeConnections) {
+        src->setLogicValid(false, undoList);
+        dest->setLogicValid(false, undoList);
+    }
     requireRecompute();
     undoList->p_end();
     assert(myEdges[id]);
@@ -700,7 +703,9 @@ GNENet::removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList
 GNEJunction*
 GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction) {
     undoList->p_begin("split " + toString(SUMO_TAG_EDGE));
-    deleteEdge(edge, undoList, false); // still exists. we delete it so we can reuse the name in case of resplit
+    if (newJunction == 0) {
+        newJunction = createJunction(pos, undoList);
+    }
     // compute geometry
     const PositionVector& oldGeom = edge->getNBEdge()->getGeometry();
     const double linePos = oldGeom.nearest_offset_to_point2D(pos, false);
@@ -720,29 +725,27 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
         }
     }
     baseName += '.';
-    // create edges
-    if (newJunction == 0) {
-        newJunction = createJunction(pos, undoList);
-    }
-    GNEEdge* firstPart = createEdge(edge->getGNEJunctionSource(), newJunction, edge,
-                                    undoList, baseName + toString(posBase), true);
+    // create a new edge from the new junction to the previous destination
     GNEEdge* secondPart = createEdge(newJunction, edge->getGNEJunctionDestiny(), edge,
-                                     undoList, baseName + toString(posBase + (int)linePos), true);
+                                     undoList, baseName + toString(posBase + (int)linePos), true, false, false);
+    // fix connections from the split edge (must happen before changing SUMO_ATTR_TO)
+    edge->getGNEJunctionDestiny()->replaceIncomingConnections(edge, secondPart, undoList);
+    // modify the edge so that it ends at the new junction (and all incoming connections are preserved
+    undoList->p_add(new GNEChange_Attribute(edge, SUMO_ATTR_TO, newJunction->getID()));
     // fix first part of geometry
-    firstPart->setAttribute(GNE_ATTR_SHAPE_START, toString(newGeoms.first[0]), undoList);
-    firstPart->setAttribute(GNE_ATTR_SHAPE_END, toString(newGeoms.first[-1]), undoList);
+    edge->setAttribute(GNE_ATTR_SHAPE_END, toString(newGeoms.first[-1]), undoList);
     newGeoms.first.pop_back();
     newGeoms.first.erase(newGeoms.first.begin());
-    firstPart->setAttribute(SUMO_ATTR_SHAPE, toString(newGeoms.first), undoList);
+    edge->setAttribute(SUMO_ATTR_SHAPE, toString(newGeoms.first), undoList);
     // fix second part of geometry
     secondPart->setAttribute(GNE_ATTR_SHAPE_START, toString(newGeoms.second[0]), undoList);
     secondPart->setAttribute(GNE_ATTR_SHAPE_END, toString(newGeoms.second[-1]), undoList);
     newGeoms.second.pop_back();
     newGeoms.second.erase(newGeoms.second.begin());
     secondPart->setAttribute(SUMO_ATTR_SHAPE, toString(newGeoms.second), undoList);
-    // fix connections
-    for (auto con_it : edge->getNBEdge()->getConnections()) {
-        undoList->add(new GNEChange_Connection(secondPart, con_it, false, true), true);
+    // reconnect across the split
+    for (int i = 0; i < (int)edge->getLanes().size(); ++i) {
+        undoList->add(new GNEChange_Connection(edge, NBEdge::Connection(i, secondPart->getNBEdge(), i), false, true), true);
     }
     undoList->p_end();
     return newJunction;

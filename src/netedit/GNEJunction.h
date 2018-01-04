@@ -213,6 +213,9 @@ public:
      * @note: this should always be called with an active command group */
     void invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedConnection = NBConnection::InvalidConnection);
 
+    /// @brief replace one edge by another in all tls connections
+    void replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList); 
+
     /// @brief removes the given edge from all pedestrian crossings
     void removeEdgeFromCrossings(GNEEdge* edge, GNEUndoList* undoList);
 
