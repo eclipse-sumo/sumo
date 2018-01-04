@@ -453,9 +453,9 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     // remove edge from crossings related with this edge
     edge->getGNEJunctionSource()->removeEdgeFromCrossings(edge, undoList);
     edge->getGNEJunctionDestiny()->removeEdgeFromCrossings(edge, undoList);
-    // invalidate junctions
-    edge->getGNEJunctionSource()->setLogicValid(false, undoList);
-    edge->getGNEJunctionDestiny()->setLogicValid(false, undoList);
+    // remove affected connections and update TLS
+    edge->getGNEJunctionSource()->removeConnectionsTo(edge, undoList, true);
+    edge->getGNEJunctionDestiny()->removeConnectionsFrom(edge, undoList, true);
     // save selection status
     if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
         std::set<GUIGlID> deselected;

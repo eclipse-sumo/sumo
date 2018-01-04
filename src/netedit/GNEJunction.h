@@ -200,9 +200,9 @@ public:
     void setLogicValid(bool valid, GNEUndoList* undoList, const std::string& status = GUESSED);
 
     /// @brief remove all connections from the given edge
-    void removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList);
+    void removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS=true);
     /// @brief remove all connections to the given edge
-    void removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList);
+    void removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS=true);
 
     /// @brief prevent re-guessing connections at this junction
     void markAsModified(GNEUndoList* undoList);
@@ -284,6 +284,9 @@ private:
 
     /// @brief rebuilds crossing objects for this junction
     void rebuildGNECrossings(bool rebuildNBNodeCrossings = true);
+
+    /// @brief remove the given connections from all traffic light definitions of this junction
+    void removeTLSConnections(std::vector<NBConnection>& connections, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEJunction(const GNEJunction&) = delete;
