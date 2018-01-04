@@ -925,7 +925,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // set network name on the caption
         setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->myFile.c_str()));
         getView()->setEditModeFromHotkey(MID_GNE_SETMODE_INSPECT);
-        gSchemeStorage.setViewport(getView()); // refit the network to accomodate mode specific panel
         if (ec->myViewportFromRegistry) {
             Position off, p;
             off.set(getApp()->reg().readRealEntry("viewport", "x"), getApp()->reg().readRealEntry("viewport", "y"), getApp()->reg().readRealEntry("viewport", "z"));
