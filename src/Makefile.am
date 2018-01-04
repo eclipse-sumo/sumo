@@ -5,10 +5,6 @@ GUI_APPS = sumo-gui
 GUI_DIRS = gui guinetload guisim netedit mesogui osgview
 endif
 
-if TRACI
-TRACI_LIBS = ./traci-server/libtraciserver.a ./libsumo/libsumostatic.a ./utils/traci/libtraciclient.a  
-TRACI_DIRS = libsumo traci-server traci_testclient
-endif
 
 bin_PROGRAMS = od2trips sumo netconvert $(GUI_APPS)
 
@@ -49,7 +45,9 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./utils/vehicle/libvehicle.a \
 ./utils/shapes/libshapes.a \
 ./utils/emissions/libemissions.a \
-$(TRACI_LIBS) \
+./traci-server/libtraciserver.a \
+./libsumo/libsumostatic.a \
+./utils/traci/libtraciclient.a \
 $(COMMON_LIBS) \
 $(PYTHON_LIBS) \
 $(FOX_LDFLAGS) $(XERCES_LDFLAGS) $(PROJ_LDFLAGS)
@@ -95,7 +93,7 @@ endif
 SUBDIRS = foreign utils microsim router od marouter mesosim \
 netbuild netwrite netgen netimport netload \
 polyconvert dfrouter duarouter jtrrouter activitygen tools \
-$(TRACI_DIRS) $(GUI_DIRS)
+libsumo traci-server traci_testclient $(GUI_DIRS)
 
 if WITH_VERSION_H
 VERSION_H = version.h

@@ -6,10 +6,6 @@ if WITH_GUI
 GUI_APPS = netedit
 endif
 
-if TRACI
-TRACI_LIBS = ../traci-server/libtraciserver.a
-endif
-
 bin_PROGRAMS = $(GUI_APPS)
 
 if WITH_GUI
