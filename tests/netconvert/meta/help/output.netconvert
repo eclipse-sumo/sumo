@@ -1,5 +1,5 @@
 SUMO netconvert Version v0_31_0+1576-15a7f08
- Copyright (C) 2001-2017 German Aerospace Center (DLR) and others; http://sumo.dlr.de
+ Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
 Usage: netconvert [OPTION]*
