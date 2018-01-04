@@ -37,8 +37,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <map>
 #include <string>
 #include <set>
@@ -459,7 +457,5 @@ private:
 
 };
 
-
-#endif
 
 #endif

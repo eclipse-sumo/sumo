@@ -32,8 +32,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSLane.h>
@@ -358,11 +356,6 @@ TraCIServerAPI_Lane::getShape(const std::string& id, PositionVector& shape) {
     shape = l->getShape();
     return true;
 }
-
-
-
-
-#endif
 
 
 /****************************************************************************/

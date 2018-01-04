@@ -27,8 +27,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <utils/common/StringTokenizer.h>
 #include <microsim/MSTransportableControl.h>
 #include <microsim/MSVehicleControl.h>
@@ -442,8 +440,4 @@ TraCIServerAPI_Person::getPosition(const std::string& id, Position& p) {
 }
 
 
-#endif
-
-
 /****************************************************************************/
-

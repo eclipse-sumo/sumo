@@ -73,15 +73,6 @@ AM_PROG_LIBTOOL
 AC_DEFINE([POSITION_EPS], [0.1], [defines the epsilon to use on position comparison])
 AC_DEFINE([NUMERICAL_EPS], [0.001], [defines the epsilon to use on general floating point comparison])
 
-AC_ARG_ENABLE([traci],[AS_HELP_STRING([--disable-traci],[disable Traffic Control Interface (TraCI) Server [default=no].])])
-AM_CONDITIONAL(TRACI, test x$enable_traci != xno)
-if test x$enable_traci != xno; then
-    ac_enabled="$ac_enabled TRACI"
-else
-    AC_DEFINE(NO_TRACI, 1, [Define to 1 in order to disable TraCI Server.])
-    ac_disabled="$ac_disabled TRACI"
-fi
-
 AM_CONDITIONAL([WITH_VERSION_H], test -d .git)
 if test -d .git || test x$PACKAGE_VERSION == xgit -a -f src/version.h; then
    AC_DEFINE([HAVE_VERSION_H], [1], [Define if auto-generated version.h should be used.])

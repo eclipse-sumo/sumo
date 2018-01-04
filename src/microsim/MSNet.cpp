@@ -65,6 +65,8 @@
 #include <utils/vehicle/PedestrianRouter.h>
 #include <utils/xml/SUMORouteLoaderControl.h>
 #include <utils/xml/XMLSubSys.h>
+#include <traci-server/TraCIServer.h>
+#include <libsumo/Simulation.h>
 #include <mesosim/MELoop.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSCModel_NonInteracting.h>
@@ -106,11 +108,6 @@
 #include "MSParkingArea.h"
 #include "MSStoppingPlace.h"
 #include "MSNet.h"
-
-#ifndef NO_TRACI
-#include <traci-server/TraCIServer.h>
-#include <libsumo/Simulation.h>
-#endif
 
 
 // ===========================================================================
@@ -317,7 +314,6 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     SimulationState state = SIMSTATE_RUNNING;
     // state loading may have changed the start time so we need to reinit it
     myStep = start;
-#ifndef NO_TRACI
 #ifdef HAVE_PYTHON
     if (OptionsCont::getOptions().isSet("python-script")) {
         TraCIServer::runEmbedded(OptionsCont::getOptions().getString("python-script"));
@@ -326,7 +322,6 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         WRITE_MESSAGE("Reason: Script ended");
         return state;
     }
-#endif
 #endif
     while (state == SIMSTATE_RUNNING) {
         if (myLogStepNumber) {
@@ -342,7 +337,6 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
                   << "\n simulation state: " << getStateMessage(state)
                   << std::endl;
 #endif
-#ifndef NO_TRACI
         if (state == SIMSTATE_LOADING) {
             OptionsIO::setArgs(TraCIServer::getInstance()->getLoadArgs());
             TraCIServer::getInstance()->getLoadArgs().clear();
@@ -352,7 +346,6 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
                 state = SIMSTATE_RUNNING;
             }
         }
-#endif
     }
     // report the end when wished
     WRITE_MESSAGE("Simulation ended at time: " + time2string(getCurrentTimeStep()));
@@ -442,7 +435,6 @@ MSNet::simulationStep() {
               << ", myStep = " << myStep
               << std::endl;
 #endif
-#ifndef NO_TRACI
     if (myLogExecutionTime) {
         myTraCIStepDuration = SysUtils::getCurrentMillis();
     }
@@ -460,7 +452,6 @@ MSNet::simulationStep() {
     }
 #ifdef DEBUG_SIMSTEP
     std::cout << SIMTIME << ": TraCI target time: " << t->getTargetTime() << std::endl;
-#endif
 #endif
     // execute beginOfTimestepEvents
     if (myLogExecutionTime) {
@@ -534,7 +525,6 @@ MSNet::simulationStep() {
     // execute endOfTimestepEvents
     myEndOfTimestepEvents->execute(myStep);
 
-#ifndef NO_TRACI
     if (TraCIServer::getInstance() != 0) {
         if (myLogExecutionTime) {
             myTraCIStepDuration -= SysUtils::getCurrentMillis();
@@ -544,7 +534,6 @@ MSNet::simulationStep() {
             myTraCIStepDuration += SysUtils::getCurrentMillis();
         }
     }
-#endif
     // update and write (if needed) detector values
     writeOutput();
 
@@ -558,7 +547,6 @@ MSNet::simulationStep() {
 
 MSNet::SimulationState
 MSNet::simulationState(SUMOTime stopTime) const {
-#ifndef NO_TRACI
     if (TraCIServer::wasClosed()) {
         return SIMSTATE_CONNECTION_CLOSED;
     }
@@ -566,9 +554,6 @@ MSNet::simulationState(SUMOTime stopTime) const {
         return SIMSTATE_LOADING;
     }
     if ((stopTime < 0 || myStep > stopTime) && TraCIServer::getInstance() == 0) {
-#else
-    if (stopTime < 0 || myStep > stopTime) {
-#endif
         if (myInsertionEvents->isEmpty()
                 && (myVehicleControl->getActiveVehicleCount() == 0)
                 && (myInserter->getPendingFlowCount() == 0)
@@ -631,13 +616,11 @@ MSNet::clearAll() {
     MSCModel_NonInteracting::cleanup();
     MSDevice_BTsender::cleanup();
     MSDevice_SSM::cleanup();
-#ifndef NO_TRACI
     TraCIServer* t = TraCIServer::getInstance();
     if (t != 0) {
         t->cleanup();
     }
     libsumo::Helper::cleanup();
-#endif
 }
 
 
@@ -812,11 +795,9 @@ MSNet::postSimStepOutput() const {
             oss << " (0ms ?*RT. ?";
         }
         oss << "UPS, ";
-#ifndef NO_TRACI
         if (TraCIServer::getInstance() != 0) {
             oss << "TraCI: " << myTraCIStepDuration << "ms, ";
         }
-#endif
         oss << "vehicles TOT " << myVehicleControl->getDepartedVehicleNo()
             << " ACT " << myVehicleControl->getRunningVehicleNo()
             << " BUF " << myInserter->getWaitingVehicleNo()

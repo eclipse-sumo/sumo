@@ -32,8 +32,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <limits>
 #include <utils/emissions/PollutantsInterface.h>
 #include <microsim/MSNet.h>
@@ -545,8 +543,6 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
     }
     return true;
 }
-
-#endif
 
 
 /****************************************************************************/

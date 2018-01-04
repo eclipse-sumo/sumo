@@ -28,8 +28,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <microsim/output/MSDetectorControl.h>
 #include "TraCIConstants.h"
 #include <libsumo/MultiEntryExit.h>
@@ -94,8 +92,5 @@ TraCIServerAPI_MultiEntryExit::processGet(TraCIServer& server, tcpip::Storage& i
     return true;
 }
 
-#endif
-
 
 /****************************************************************************/
-

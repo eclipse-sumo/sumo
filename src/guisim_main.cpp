@@ -50,10 +50,7 @@
 #include <gui/GUIApplicationWindow.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
-
-#ifndef NO_TRACI
 #include <traci-server/TraCIServer.h>
-#endif
 
 
 // ===========================================================================
@@ -121,9 +118,7 @@ main(int argc, char** argv) {
         ret = 1;
 #endif
     }
-#ifndef NO_TRACI
     TraCIServer::close();
-#endif
     SystemFrame::close();
     return ret;
 }

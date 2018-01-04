@@ -30,8 +30,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <string>
 #include <libsumo/TraCIDefs.h>
 #include <traci-server/TraCIServer.h>
@@ -85,8 +83,6 @@ private:
 
 };
 
-
-#endif
 
 #endif
 

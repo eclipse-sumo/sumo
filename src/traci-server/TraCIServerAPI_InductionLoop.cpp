@@ -30,8 +30,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <microsim/MSNet.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <libsumo/InductionLoop.h>
@@ -157,9 +155,6 @@ TraCIServerAPI_InductionLoop::getPosition(const std::string& id, Position& p) {
     p = il->getLane()->getShape().positionAtOffset(il->getPosition());
     return true;
 }
-
-
-#endif
 
 
 /****************************************************************************/

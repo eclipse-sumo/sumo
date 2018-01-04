@@ -40,8 +40,6 @@
 #include <version.h>
 #endif
 
-#ifndef NO_TRACI
-
 #ifdef HAVE_PYTHON
 #include <Python.h>
 #endif
@@ -1384,6 +1382,7 @@ TraCIServer::readTypeCheckingPolygon(tcpip::Storage& inputStorage, PositionVecto
     return true;
 }
 
+
 void
 TraCIServer::setTargetTime(SUMOTime targetTime) {
     myTargetTime = targetTime;
@@ -1392,4 +1391,5 @@ TraCIServer::setTargetTime(SUMOTime targetTime) {
     }
 }
 
-#endif
+
+/****************************************************************************/

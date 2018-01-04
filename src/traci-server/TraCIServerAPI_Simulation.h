@@ -30,8 +30,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <string>
 #include <map>
 #include <vector>
@@ -104,8 +102,6 @@ private:
 
 };
 
-
-#endif
 
 #endif
 

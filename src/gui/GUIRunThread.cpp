@@ -49,11 +49,8 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/iodevices/OutputDevice.h>
-
-#ifndef NO_TRACI
 #include <traci-server/TraCIServer.h>
 #include <libsumo/Simulation.h>
-#endif
 
 
 // ===========================================================================
@@ -187,7 +184,6 @@ GUIRunThread::makeStep() {
 
         e = 0;
         MSNet::SimulationState state = myNet->simulationState(mySimEndTime);
-#ifndef NO_TRACI
         if (state == MSNet::SIMSTATE_LOADING) {
             OptionsIO::setArgs(TraCIServer::getInstance()->getLoadArgs());
             TraCIServer::getInstance()->getLoadArgs().clear();
@@ -196,7 +192,6 @@ GUIRunThread::makeStep() {
                 state = MSNet::SIMSTATE_RUNNING;
             }
         }
-#endif
         switch (state) {
             case MSNet::SIMSTATE_LOADING:
             case MSNet::SIMSTATE_END_STEP_REACHED:

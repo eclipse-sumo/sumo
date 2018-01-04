@@ -238,7 +238,6 @@ MSVehicle::WaitingTimeCollector::passTime(SUMOTime dt, bool waiting) {
 /* -------------------------------------------------------------------------
  * methods of MSVehicle::Influencer
  * ----------------------------------------------------------------------- */
-#ifndef NO_TRACI
 MSVehicle::Influencer::Influencer() :
     myLatDist(0),
     mySpeedAdaptationStarted(true),
@@ -554,7 +553,7 @@ MSVehicle::Influencer::getRouterTT() const {
     }
 }
 
-#endif
+
 /* -------------------------------------------------------------------------
  * Stop-methods
  * ----------------------------------------------------------------------- */
@@ -656,10 +655,8 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myStopDist(std::numeric_limits<double>::max()),
     myCollisionImmunity(-1),
     myCachedPosition(Position::INVALID),
-    myEdgeWeights(0)
-#ifndef NO_TRACI
-    , myInfluencer(0)
-#endif
+    myEdgeWeights(0),
+    myInfluencer(0)
 {
     if (!(*myCurrEdge)->isTazConnector()) {
         if (pars->departLaneProcedure == DEPART_LANE_GIVEN) {
@@ -699,9 +696,7 @@ MSVehicle::~MSVehicle() {
     if (myType->isVehicleSpecific()) {
         MSNet::getInstance()->getVehicleControl().removeVType(myType);
     }
-#ifndef NO_TRACI
     delete myInfluencer;
-#endif
 }
 
 
@@ -1716,13 +1711,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     double laneMaxV = myLane->getVehicleMaxSpeed(this);
     // v is the initial maximum velocity of this vehicle in this step
     double v = MIN2(maxV, laneMaxV);
-#ifndef NO_TRACI
     if (myInfluencer != 0) {
         //const double vMin = MAX2(0., cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
         const double vMin = MAX2(0., cfModel.minNextSpeed(myState.mySpeed, this));
         v = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), v, v, vMin, maxV);
     }
-#endif
     // all links within dist are taken into account (potentially)
     // the distance already "seen"; in the following always up to the end of the current "lane"
     const double dist = SPEED2DIST(maxV) + cfModel.brakeGap(maxV);
@@ -2309,12 +2302,7 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
                 link->removeApproaching(this);
                 break;
             }
-            //
-#ifdef NO_TRACI
-            const bool influencerPrio = false;
-#else
             const bool influencerPrio = (myInfluencer != 0 && !myInfluencer->getRespectJunctionPriority());
-#endif
             std::vector<const SUMOVehicle*> collectFoes;
             bool opened = (yellow || influencerPrio
                            || link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
@@ -2738,17 +2726,13 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                 // proceed to the next lane
                 if (link != 0) {
                     approachedLane = link->getViaLaneOrLane();
-#ifndef NO_TRACI
                     if (myInfluencer == 0 || myInfluencer->getEmergencyBrakeRedLight()) {
-#endif
                         if (link->haveRed() && !ignoreRed(link, false)) {
                             emergencyReason = " because of a red traffic light";
                             ++myNextDriveItem;
                             break;
                         }
-#ifndef NO_TRACI
                     }
-#endif
                 } else if (myState.myPos < myLane->getLength() + NUMERICAL_EPS) {
                     // avoid warning due to numerical instability
                     approachedLane = myLane;
@@ -2896,10 +2880,8 @@ MSVehicle::executeMove() {
         // (Leo) Ballistic: negative vNext can be used to indicate a stop within next step.
     }
 
-#ifndef NO_TRACI
     // Check for speed advices from the traci client
     vNext = processTraCISpeedControl(vSafe, vNext);
-#endif
 
     setBrakingSignals(vNext);
     updateWaitingTime(vNext);
@@ -3023,11 +3005,9 @@ MSVehicle::updateState(double vNext) {
     myState.myPreviousSpeed = myState.mySpeed;
     myState.mySpeed = MAX2(vNext, 0.);
 
-#ifndef NO_TRACI
     if (myInfluencer != 0 && myInfluencer->isRemoteControlled()) {
         deltaPos = myInfluencer->implicitDeltaPosRemote(this);
     }
-#endif
 
     if (getLaneChangeModel().isOpposite()) {
         // transform to the forward-direction lane, move and then transform back
@@ -3346,9 +3326,7 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
             DriveProcessItem& item = lfLinks[i - 1];
             const bool canLeaveJunction = item.myLink->getViaLane() == 0 || lfLinks[i].mySetRequest;
             const bool opened = item.myLink != 0 && canLeaveJunction && (item.myLink->havePriority() ||
-#ifndef NO_TRACI
                                 (myInfluencer != 0 && !myInfluencer->getRespectJunctionPriority()) ||
-#endif
                                 item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed,
                                                     item.getLeaveSpeed(), getVehicleType().getLength(),
                                                     getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane()));
@@ -4622,7 +4600,6 @@ MSVehicle::onFurtherEdge(const MSEdge* edge) const {
 }
 
 
-#ifndef NO_TRACI
 bool
 MSVehicle::addTraciStop(MSLane* const lane, const double startPos, const double endPos, const SUMOTime duration, const SUMOTime until,
                         const bool parking, const bool triggered, const bool containerTriggered, std::string& errorMsg) {
@@ -4851,7 +4828,6 @@ MSVehicle::setRemoteState(Position xyPos) {
     myCachedPosition = xyPos;
 }
 
-#endif
 
 bool
 MSVehicle::isRemoteControlled() const {

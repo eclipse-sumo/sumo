@@ -31,8 +31,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <microsim/MSJunctionControl.h>
 #include "TraCIServer.h"
 #include <libsumo/Junction.h>
@@ -99,6 +97,7 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
     return true;
 }
 
+
 bool
 TraCIServerAPI_Junction::getPosition(const std::string& id, Position& p) {
     MSJunction* j = libsumo::Junction::getJunction(id);
@@ -108,9 +107,6 @@ TraCIServerAPI_Junction::getPosition(const std::string& id, Position& p) {
     p = j->getPosition();
     return true;
 }
-
-
-#endif
 
 
 /****************************************************************************/

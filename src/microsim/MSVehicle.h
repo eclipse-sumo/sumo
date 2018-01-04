@@ -1251,7 +1251,6 @@ public:
 
 
 
-#ifndef NO_TRACI
     /** @brief Returns the uninfluenced velocity
      *
      * If no influencer exists (myInfluencer==0) the vehicle's current speed is
@@ -1550,7 +1549,6 @@ public:
     /// @brief sets position outside the road network
     void setRemoteState(Position xyPos);
 
-#endif
 
     /// @brief compute safe speed for following the given leader
     double getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderInfo,
@@ -1906,10 +1904,8 @@ private:
     /// @brief The per vehicle variables of the car following model
     MSCFModel::VehicleVariables* myCFVariables;
 
-#ifndef NO_TRACI
     /// @brief An instance of a velocity/lane influencing instance; built in "getInfluencer"
     Influencer* myInfluencer;
-#endif
 
 private:
     /// @brief invalidated default constructor

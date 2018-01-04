@@ -277,12 +277,10 @@ MSLaneChanger::change() {
     }
 
 
-#ifndef NO_TRACI
     if (vehicle->isRemoteControlled()) {
         registerUnchanged(vehicle);
         return false;
     }
-#endif
 
     if (!vehicle->isActive()) {
 #ifdef DEBUG_ACTIONSTEPS
@@ -291,14 +289,12 @@ MSLaneChanger::change() {
         }
 #endif
         bool changed = false;
-#ifndef NO_TRACI
         const int oldstate = vehicle->getLaneChangeModel().getOwnState();
         // let TraCI influence the wish to change lanes during non-actionsteps
         checkTraCICommands(vehicle);
         if (oldstate != vehicle->getLaneChangeModel().getOwnState()) {
             changed = applyTraCICommands(vehicle);
         }
-#endif
         if (!changed) {
             registerUnchanged(vehicle);
         }
@@ -920,10 +916,8 @@ MSLaneChanger::checkChange(
         }
     }
     const int oldstate = state;
-#ifndef NO_TRACI
     // let TraCI influence the wish to change lanes and the security to take
     state = vehicle->influenceChangeDecision(state);
-#endif
 #ifdef DEBUG_CHECK_CHANGE
     if (DEBUG_COND) {
         std::cout << SIMTIME

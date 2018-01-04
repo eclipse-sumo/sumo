@@ -1355,12 +1355,10 @@ bool
 MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove,
                                std::set<const MSVehicle*>& toTeleport) const {
-#ifndef NO_TRACI
     if (myCollisionAction == COLLISION_ACTION_TELEPORT && ((victim->hasInfluencer() && victim->getInfluencer().isRemoteAffected(timestep)) ||
             (collider->hasInfluencer() && collider->getInfluencer().isRemoteAffected(timestep)))) {
         return false;
     }
-#endif
 
     // No self-collisions! (This is assumed to be ensured at caller side)
     assert(collider != victim);
@@ -1465,7 +1463,6 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                 prefix = "Removing collision participants: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
                 bool removeCollider = true;
                 bool removeVictim = true;
-#ifndef NO_TRACI
                 removeVictim = !(victim->hasInfluencer() && victim->getInfluencer().isRemoteAffected(timestep));
                 removeCollider = !(collider->hasInfluencer() && collider->getInfluencer().isRemoteAffected(timestep));
                 if (removeVictim) {
@@ -1483,10 +1480,6 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                 } else if (!removeCollider) {
                     prefix = "Keeping remote-controlled collision participant: vehicle '" + collider->getID() + "', removing vehicle '" + victim->getID();
                 }
-#else
-                toRemove.insert(victim);
-                toRemove.insert(collider);
-#endif
                 break;
             }
             default:
@@ -1690,9 +1683,7 @@ MSLane::fill(RTREE& into) {
 }
 
 template void MSLane::fill<NamedRTree>(NamedRTree& into);
-#ifndef NO_TRACI
 template void MSLane::fill<LANE_RTREE_QUAL>(LANE_RTREE_QUAL& into);
-#endif
 
 // ------   ------
 bool

@@ -528,7 +528,6 @@ MSPerson::getInfluencer() const {
 /* -------------------------------------------------------------------------
  * methods of MSPerson::Influencer
  * ----------------------------------------------------------------------- */
-#ifndef NO_TRACI
 MSPerson::Influencer::Influencer() {}
 
 
@@ -576,9 +575,4 @@ MSPerson::Influencer::postProcessRemoteControl(MSPerson* p) {
 }
 
 
-
-
-#endif
-
 /****************************************************************************/
-

@@ -33,8 +33,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <utils/common/StdDefs.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeControl.h>
@@ -392,6 +390,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     return true;
 }
 
+
 bool
 TraCIServerAPI_Edge::getShape(const std::string& id, PositionVector& shape) {
     try {
@@ -403,8 +402,6 @@ TraCIServerAPI_Edge::getShape(const std::string& id, PositionVector& shape) {
     return true;
 
 }
-
-#endif
 
 
 /****************************************************************************/

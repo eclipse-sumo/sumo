@@ -30,8 +30,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
@@ -369,8 +367,5 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
     return true;
 }
 
-#endif
-
 
 /****************************************************************************/
-

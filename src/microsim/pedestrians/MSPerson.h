@@ -306,7 +306,6 @@ public:
     /// @brief set new walk
     void reroute(ConstMSEdgeVector& newEdges);
 
-#ifndef NO_TRACI
 
     /** @class Influencer
      * @brief Changes the wished person speed and position
@@ -366,9 +365,7 @@ public:
 private:
     /// @brief An instance of a speed/position influencing instance; built in "getInfluencer"
     Influencer* myInfluencer;
-#endif
 
-private:
     const double myChosenSpeedFactor;
 
 private:

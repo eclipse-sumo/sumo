@@ -46,10 +46,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
-
-#ifndef NO_TRACI
 #include <traci-server/TraCIServer.h>
-#endif
 
 
 // ===========================================================================
@@ -98,9 +95,7 @@ main(int argc, char** argv) {
         ret = 1;
 #endif
     }
-#ifndef NO_TRACI
     TraCIServer::close();
-#endif
     SystemFrame::close();
     return ret;
 }

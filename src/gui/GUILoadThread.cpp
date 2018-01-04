@@ -58,17 +58,13 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/MSFrame.h>
 #include <microsim/MSRouteHandler.h>
+#include <mesogui/GUIMEVehicleControl.h>
+#include <traci-server/TraCIServer.h>
+#include "TraCIServerAPI_GUI.h"
 #include "GUIApplicationWindow.h"
 #include "GUILoadThread.h"
 #include "GUIGlobals.h"
 #include "GUIEvent_SimulationLoaded.h"
-
-#include <mesogui/GUIMEVehicleControl.h>
-
-#ifndef NO_TRACI
-#include <traci-server/TraCIServer.h>
-#include "TraCIServerAPI_GUI.h"
-#endif
 
 
 // ===========================================================================
@@ -184,13 +180,11 @@ GUILoadThread::run() {
             new GUIEventControl(),
             new GUIEventControl(),
             new GUIEventControl());
-#ifndef NO_TRACI
         // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
         std::map<int, TraCIServer::CmdExecutor> execs;
         execs[CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
         execs[CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
         TraCIServer::openSocket(execs);
-#endif
 
         eb = new GUIEdgeControlBuilder();
         GUIDetectorBuilder db(*net);

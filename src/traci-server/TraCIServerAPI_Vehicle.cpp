@@ -34,8 +34,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <microsim/MSNet.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicle.h>
@@ -1160,8 +1158,4 @@ TraCIServerAPI_Vehicle::getPosition(const std::string& id, Position& p) {
 }
 
 
-#endif
-
-
 /****************************************************************************/
-

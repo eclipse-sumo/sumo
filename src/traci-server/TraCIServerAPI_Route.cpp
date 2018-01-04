@@ -29,8 +29,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <microsim/MSNet.h>
 #include <microsim/MSRoute.h>
 #include <microsim/MSEdge.h>
@@ -144,8 +142,5 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
     return true;
 }
 
-#endif
-
 
 /****************************************************************************/
-

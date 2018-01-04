@@ -32,8 +32,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <utils/common/StdDefs.h>
 #include <microsim/MSNet.h>
 #include <utils/shapes/ShapeContainer.h>
@@ -243,6 +241,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
     return true;
 }
 
+
 bool
 TraCIServerAPI_Polygon::getShape(const std::string& id, PositionVector& shape) {
     SUMOPolygon* poly = getPolygon(id);
@@ -253,13 +252,11 @@ TraCIServerAPI_Polygon::getShape(const std::string& id, PositionVector& shape) {
     return true;
 }
 
+
 SUMOPolygon*
 TraCIServerAPI_Polygon::getPolygon(const std::string& id) {
     return MSNet::getInstance()->getShapeContainer().getPolygons().get(id);
 }
 
-#endif
-
 
 /****************************************************************************/
-

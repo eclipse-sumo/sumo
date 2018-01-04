@@ -30,8 +30,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <microsim/output/MSDetectorControl.h>
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
@@ -132,8 +130,5 @@ TraCIServerAPI_LaneArea::processGet(TraCIServer& server, tcpip::Storage& inputSt
     return true;
 }
 
-#endif
-
 
 /****************************************************************************/
-

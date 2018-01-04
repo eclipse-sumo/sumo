@@ -30,8 +30,6 @@
 #include <config.h>
 #endif
 
-#ifndef NO_TRACI
-
 #include <microsim/MSEdgeWeightsStorage.h>
 #include "TraCIServer.h"
 #include <foreign/tcpip/storage.h>
@@ -84,8 +82,6 @@ private:
 
 };
 
-
-#endif
 
 #endif
 

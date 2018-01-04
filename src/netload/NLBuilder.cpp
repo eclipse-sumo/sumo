@@ -68,9 +68,6 @@
 #include "NLTriggerBuilder.h"
 #include "NLBuilder.h"
 
-#ifndef NO_TRACI
-#include <traci-server/TraCIServer.h>
-#endif
 
 // ===========================================================================
 // method definitions
@@ -248,10 +245,8 @@ NLBuilder::init() {
         vc = new MSVehicleControl();
     }
     MSNet* net = new MSNet(vc, new MSEventControl(), new MSEventControl(), new MSEventControl());
-#ifndef NO_TRACI
     // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
     TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
-#endif
 
     NLEdgeControlBuilder eb;
     NLDetectorBuilder db(*net);
