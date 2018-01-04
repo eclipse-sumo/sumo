@@ -1076,10 +1076,10 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
 
 
 void
-GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs) {
+GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeConnections) {
     const int index = lane ? lane->getIndex() : myNBEdge.getNumLanes();
     // the laneStruct must be created first to ensure we have some geometry
-    myNBEdge.addLane(index);
+    myNBEdge.addLane(index, true, recomputeConnections);
     if (lane) {
         // restore a previously deleted lane
         myLanes.insert(myLanes.begin() + index, lane);
@@ -1128,7 +1128,7 @@ GNEEdge::removeLane(GNELane* lane) {
         lane = myLanes.back();
     }
     // Delete lane of edge's container
-    myNBEdge.deleteLane(lane->getIndex());
+    myNBEdge.deleteLane(lane->getIndex(), false);
     lane->decRef("GNEEdge::removeLane");
     myLanes.erase(myLanes.begin() + lane->getIndex());
     // Delete lane if is unreferenced

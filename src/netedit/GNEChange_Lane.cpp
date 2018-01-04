@@ -121,7 +121,8 @@ GNEChange_Lane::undo() {
             }
         }
         // add lane and their attributes to edge
-        myEdge->addLane(myLane, myLaneAttrs);
+        // (lane removal is reverted, no need to recompute connections)
+        myEdge->addLane(myLane, myLaneAttrs, false);
         // add additional sets vinculated with this lane of net
         for (auto i : myAdditionalChilds) {
             myNet->insertAdditional(i);
@@ -146,7 +147,8 @@ GNEChange_Lane::redo() {
             }
         }
         // add lane and their attributes to edge
-        myEdge->addLane(myLane, myLaneAttrs);
+        // new lane, true: connections should be recomputed (XXX toogle with a new option)
+        myEdge->addLane(myLane, myLaneAttrs, true);
         // add additional vinculated with this lane of net
         for (auto i : myAdditionalChilds) {
             myNet->insertAdditional(i);

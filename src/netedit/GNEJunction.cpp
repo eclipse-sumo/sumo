@@ -548,13 +548,16 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
 
 
 void 
-GNEJunction::removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS) {
+GNEJunction::removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS, int lane) {
     NBEdge* srcNBE = edge->getNBEdge();
     NBEdge* turnEdge = srcNBE->getTurnDestination();
     // Make a copy of connections
     std::vector<NBEdge::Connection> connections = srcNBE->getConnections();
     // delete in reverse so that undoing will add connections in the original order
     for (std::vector<NBEdge::Connection>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
+        if (lane >= 0 && (*con_it).fromLane != lane) {
+            continue;
+        }
         bool hasTurn = con_it->toEdge == turnEdge;
         undoList->add(new GNEChange_Connection(edge, *con_it, false, false), true);
         // needs to come after GNEChange_Connection
@@ -574,7 +577,7 @@ GNEJunction::removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList, bool up
 
 
 void
-GNEJunction::removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS) {
+GNEJunction::removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS, int lane) {
     NBEdge* destNBE = edge->getNBEdge();
     std::vector<NBConnection> removeConnections;
     for (NBEdge* srcNBE : myNBNode.getIncomingEdges()) {
@@ -582,6 +585,9 @@ GNEJunction::removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList, bool upda
         std::vector<NBEdge::Connection> connections = srcNBE->getConnections();
         for (std::vector<NBEdge::Connection>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
             if ((*con_it).toEdge == destNBE) {
+                if (lane >= 0 && (*con_it).toLane != lane) {
+                    continue;
+                }
                 bool hasTurn = srcNBE->getTurnDestination() == destNBE;
                 undoList->add(new GNEChange_Connection(srcEdge, *con_it, false, false), true);
                 // needs to come after GNEChange_Connection

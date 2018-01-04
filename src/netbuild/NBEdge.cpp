@@ -2810,7 +2810,7 @@ NBEdge::isNearEnough2BeJoined2(NBEdge* e, double threshold) const {
 
 
 void
-NBEdge::addLane(int index, bool recompute) {
+NBEdge::addLane(int index, bool recomputeShape, bool recomputeConnections) {
     assert(index <= (int)myLanes.size());
     myLanes.insert(myLanes.begin() + index, Lane(this, ""));
     // copy attributes
@@ -2824,8 +2824,10 @@ NBEdge::addLane(int index, bool recompute) {
         myLanes[index].updateParameter(myLanes[templateIndex].getMap());
     }
     const EdgeVector& incs = myFrom->getIncomingEdges();
-    if (recompute) {
+    if (recomputeShape) {
         computeLaneShapes();
+    }
+    if (recomputeConnections) {
         for (EdgeVector::const_iterator i = incs.begin(); i != incs.end(); ++i) {
             (*i)->invalidateConnections(true);
         }
@@ -2839,7 +2841,7 @@ NBEdge::incLaneNo(int by) {
     while ((int)myLanes.size() < newLaneNo) {
         // recompute shapes on last addition
         const bool recompute = ((int)myLanes.size() == newLaneNo - 1) && myStep < LANES2LANES_USER;
-        addLane((int)myLanes.size(), recompute);
+        addLane((int)myLanes.size(), recompute, recompute);
     }
 }
 

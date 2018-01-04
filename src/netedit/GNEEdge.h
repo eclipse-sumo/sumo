@@ -304,7 +304,7 @@ private:
     void setNumLanes(int numLanes, GNEUndoList* undoList);
 
     /// @brief@brief increase number of lanes by one use the given attributes and restore the GNELane
-    void addLane(GNELane* lane, const NBEdge::Lane& laneAttrs);
+    void addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeConnections);
 
     /// @briefdecrease the number of lanes by one. argument is only used to increase robustness (assertions)
     void removeLane(GNELane* lane);

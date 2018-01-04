@@ -542,9 +542,9 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
         while (lane->getShapeChilds().size() > 0) {
             undoList->add(new GNEChange_Shape(lane->getShapeChilds().front(), false), true);
         }
-        // invalidate junctions (saving connections)
-        edge->getGNEJunctionSource()->setLogicValid(false, undoList);
-        edge->getGNEJunctionDestiny()->setLogicValid(false, undoList);
+        // remove affected connections
+        edge->getGNEJunctionSource()->removeConnectionsTo(edge, undoList, true, lane->getIndex());
+        edge->getGNEJunctionSource()->removeConnectionsFrom(edge, undoList, true, lane->getIndex());
         // save selection status
         if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
             std::set<GUIGlID> deselected;
