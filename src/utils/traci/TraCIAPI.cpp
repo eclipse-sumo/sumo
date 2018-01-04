@@ -1587,7 +1587,7 @@ TraCIAPI::SimulationScope::getSubscriptionResults(const std::string& objID) cons
     if (myParent.mySubscribedValues.find(objID) != myParent.mySubscribedValues.end()) {
         return myParent.mySubscribedValues[objID];
     } else {
-        throw; // Something?
+        throw tcpip::SocketException("No subscription to object '" + objID + "' exists");
     }
 }
 
@@ -1603,7 +1603,7 @@ TraCIAPI::SimulationScope::getContextSubscriptionResults(const std::string& objI
     if (myParent.mySubscribedContextValues.find(objID) != myParent.mySubscribedContextValues.end()) {
         return myParent.mySubscribedContextValues[objID];
     } else {
-        throw; // Something?
+        throw tcpip::SocketException("No context subscription to object '" + objID + "' exists");
     }
 }
 

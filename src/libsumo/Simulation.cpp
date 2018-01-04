@@ -101,7 +101,7 @@ Simulation::getSubscriptionResults(const std::string& objID) const {
     if (mySubscribedValues.find(objID) != mySubscribedValues.end()) {
         return mySubscribedValues.find(objID)->second;
     } else {
-        throw; // Something?
+        throw TraCIException("No subscription to object '" + objID + "' exists");
     }
 }
 
@@ -117,7 +117,7 @@ Simulation::getContextSubscriptionResults(const std::string& objID) const {
     if (mySubscribedContextValues.find(objID) != mySubscribedContextValues.end()) {
         return mySubscribedContextValues.find(objID)->second;
     } else {
-        throw; // Something?
+        throw TraCIException("No context subscription to object '" + objID + "' exists");
     }
 }
 
