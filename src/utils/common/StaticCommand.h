@@ -1,19 +1,16 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    StaticCommand.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Wed, 13.02.2008
-/// @version $Id:StaticCommand.h 4699 2007-11-09 14:05:13Z dkrajzew $
+/// @version $Id$
 ///
 // A wrapper for a Command function
 /****************************************************************************/

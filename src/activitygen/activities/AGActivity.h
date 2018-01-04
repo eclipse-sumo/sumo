@@ -3,13 +3,10 @@
 // Copyright (C) 2010-2017 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    AGActivity.h
 /// @author  Piotr Woznica
