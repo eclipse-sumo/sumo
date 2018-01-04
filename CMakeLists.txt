@@ -152,6 +152,21 @@ if (GL2PS_FOUND)
     include_directories(${GL2PS_INCLUDE_DIR})
     set(HAVE_GL2PS 1)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
+else ()
+    include(ExternalProject)
+    ExternalProject_Add(gl2ps
+        GIT_REPOSITORY    http://gitlab.onelab.info/gl2ps/gl2ps.git
+        GIT_TAG           gl2ps_1_4_0
+		PREFIX            "${CMAKE_BINARY_DIR}/gl2ps"
+        INSTALL_COMMAND   cp "${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps-build/Release/gl2ps.dll" "${CMAKE_SOURCE_DIR}/bin"
+    )
+    FIND_LIBRARY(GL2PS_LIBRARY NAMES gl2ps PATHS "${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps-build/Release")
+	if (GL2PS_LIBRARY)
+        include_directories("${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps")
+        set(GL2PS_LIBRARIES ${GL2PS_LIBRARY})
+		set(HAVE_GL2PS 1)
+		set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
+	endif ()
 endif ()
 
 find_package(SWIG)
@@ -164,10 +179,10 @@ endif ()
 
 
 if (BUILD_GTEST_FROM_GIT)
-    message("GTest not found building from scratch")
+    message("Download and unpack googletest")
 
     # Download and unpack googletest at configure time
-    configure_file(build/googletest/CMakeLists.txt.in googletest-download/CMakeLists.txt)
+    configure_file(build/CMakeLists.txt.gtest googletest-download/CMakeLists.txt)
     execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
             WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download")
     execute_process(COMMAND "${CMAKE_COMMAND}" --build .
@@ -183,9 +198,7 @@ if (BUILD_GTEST_FROM_GIT)
     add_subdirectory("${CMAKE_BINARY_DIR}/googletest-src"
             "${CMAKE_BINARY_DIR}/googletest-build")
 
-    if (APPLE)
-        include_directories("${CMAKE_BINARY_DIR}/googletest-src/googletest/include")
-    endif ()
+    include_directories("${CMAKE_BINARY_DIR}/googletest-src/googletest/include")
     set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
     set(GTEST_FOUND "true")
 else ()
