@@ -628,7 +628,7 @@
 // lane id (get: vehicles, inductionloop, arealdetector)
 #define VAR_LANE_ID 0x51
 
-// lane index (get: vehicles)
+// lane index (get: vehicle, edge)
 #define VAR_LANE_INDEX 0x52
 
 // route id (get & set: vehicles)

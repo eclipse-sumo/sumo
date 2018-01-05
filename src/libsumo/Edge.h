@@ -46,6 +46,7 @@ public:
     static double getOccupancy(const std::string& id);
     static int getVehicleHaltingNumber(const std::string& id);
     static double getVehicleAverageLength(const std::string& id);
+    static int getLaneNumber(const std::string& id);
     static std::string getParameter(const std::string& id, const std::string& paramName);
     static void setAllowedVehicleClasses(const std::string& id, std::vector<std::string> vector);
     static void setDisallowedVehicleClasses(const std::string& id, std::vector<std::string> classes);

@@ -64,7 +64,10 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             && variable != LAST_STEP_OCCUPANCY
             && variable != LAST_STEP_VEHICLE_HALTING_NUMBER && variable != LAST_STEP_LENGTH
             && variable != LAST_STEP_PERSON_ID_LIST
-            && variable != LAST_STEP_VEHICLE_ID_LIST && variable != ID_COUNT && variable != VAR_PARAMETER) {
+            && variable != LAST_STEP_VEHICLE_ID_LIST 
+            && variable != VAR_LANE_INDEX
+            && variable != ID_COUNT 
+            && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
                                           "Get Edge Variable: unsupported variable " + toHex(variable, 2)
                                           + " specified", outputStorage);
@@ -192,6 +195,11 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 case LAST_STEP_LENGTH: {
                     tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                     tempMsg.writeDouble(libsumo::Edge::getVehicleAverageLength(id));
+                }
+                break;
+                case VAR_LANE_INDEX: {
+                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                    tempMsg.writeInt(libsumo::Edge::getLaneNumber(id));
                 }
                 break;
                 case VAR_PARAMETER: {

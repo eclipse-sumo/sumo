@@ -250,6 +250,13 @@ Edge::getVehicleAverageLength(const std::string& id) {
     return lengthSum / (double)noVehicles;
 }
 
+
+int 
+Edge::getLaneNumber(const std::string& id) {
+    return (int)getEdge(id)->getLanes().size();
+}
+
+
 std::string
 Edge::getParameter(const std::string& id, const std::string& paramName) {
     return getEdge(id)->getParameter(paramName, "");

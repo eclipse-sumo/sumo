@@ -39,6 +39,7 @@ print("edges", traci.edge.getIDList())
 print("edge count", traci.edge.getIDCount())
 edgeID = "2fi"
 print("examining", edgeID)
+print("laneNumber", traci.edge.getLaneNumber(edgeID))
 print("adaptedTraveltime", traci.edge.getAdaptedTraveltime(edgeID, 0))
 print("effort", traci.edge.getEffort(edgeID, 0))
 print("CO2", traci.edge.getCO2Emission(edgeID))

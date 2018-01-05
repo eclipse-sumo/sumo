@@ -721,6 +721,11 @@ TraCIAPI::EdgeScope::getLastStepVehicleIDs(const std::string& edgeID) const {
 }
 
 
+int
+TraCIAPI::EdgeScope::getLaneNumber(const std::string& edgeID) const {
+    return myParent.getInt(CMD_GET_EDGE_VARIABLE, VAR_LANE_INDEX, edgeID);
+}
+
 
 void
 TraCIAPI::EdgeScope::adaptTraveltime(const std::string& edgeID, double time, int beginSeconds, int endSeconds) const {

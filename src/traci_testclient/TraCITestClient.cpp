@@ -701,6 +701,7 @@ TraCITestClient::testAPI() {
     answerLog << "    currentTraveltime: " << edge.getTraveltime(edgeID) << "\n";
     answerLog << "    adaptedTravelTime: " << edge.getAdaptedTraveltime(edgeID, 0) << "\n";
     answerLog << "    effort: " << edge.getEffort(edgeID, 0) << "\n";
+    answerLog << "    laneNumber: " << edge.getLaneNumber(edgeID) << "\n";
 
     // lane
     answerLog << "  lane:\n";
