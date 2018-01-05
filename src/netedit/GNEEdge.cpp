@@ -338,13 +338,6 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     for (auto i : myLanes) {
         i->drawGL(s);
     }
-    // draw the connections
-    if (s.scale >= 2) {
-        for (auto i : myGNEConnections) {
-            i->drawGL(s);
-        }
-    }
-
     // draw geometry hints
     if (s.scale * SNAP_RADIUS > 1.) { // check whether it is not too small
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
@@ -1216,7 +1209,7 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
         }
     }
     if (createIfNoExist) {
-        // create new connection
+        // create new connection. Will be added to the rTree on first geometry computation
         GNEConnection* createdConnection = new GNEConnection(myLanes[fromLane], myNet->retrieveEdge(to->getID())->getLanes()[toLane]);
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {

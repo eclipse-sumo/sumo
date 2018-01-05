@@ -73,11 +73,16 @@ GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
 }
 
 
-GNEConnection::~GNEConnection() {}
+GNEConnection::~GNEConnection() {
+    if (myShape.size() > 0) {
+        myNet->getVisualisationSpeedUp().removeAdditionalGLObject(this);
+    }
+}
 
 
 void
 GNEConnection::updateGeometry() {
+    const bool init = myShape.size() == 0;
     // Clear containers
     myShapeRotations.clear();
     myShapeLengths.clear();
@@ -138,6 +143,10 @@ GNEConnection::updateGeometry() {
             myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
     }
+    if (!init) {
+        myNet->getVisualisationSpeedUp().removeAdditionalGLObject(this);
+    }
+    myNet->getVisualisationSpeedUp().addAdditionalGLObject(this);
 }
 
 
