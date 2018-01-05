@@ -65,13 +65,10 @@ GPL_HEADER = """/***************************************************************
 EPL_HEADER = """/****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 """
 
@@ -138,7 +135,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 year = lines[idx + 2][17:21]
                 if haveEPL:
                     license = EPL_HEADER
-                    end = idx + 11
+                    end = idx + 8
                 else:
                     license = GPL_HEADER
                     end = idx + 12
@@ -275,11 +272,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                         subprocess.call(
                             ["svn", "ps", "svn:keywords", _KEYWORDS, self._file])
                 if name == 'target':
-                    try:
-                        codecs.open(self._file, 'r', 'utf8').read()
-                    except UnicodeDecodeError as e:
-                        print(self._file, e)
-                    self.checkFileHeader(ext)
+                    self.checkFile()
             if ext in _VS_EXT:
                 if ((name == 'property' and self._property == "svn:eol-style" and self._value != "CRLF") or
                         (name == "target" and not self._hadEOL)):
@@ -287,11 +280,6 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     if self._fix:
                         subprocess.call(
                             ["svn", "ps", "svn:eol-style", "CRLF", self._file])
-            if self._pep and name == 'target' and ext == ".py" and "/contributed/" not in self._file:
-                if HAVE_FLAKE and os.path.getsize(self._file) < 1000000:  # flake hangs on very large files
-                    subprocess.call(["flake8", "--max-line-length", "120", self._file])
-                if HAVE_AUTOPEP and self._fix:
-                    subprocess.call(["autopep8", "--max-line-length", "120", "--in-place", self._file])
         if name == 'property':
             self._value = ""
             self._property = None
@@ -299,6 +287,20 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             self._hadEOL = False
             self._hadKeywords = False
 
+    def checkFile(self, fileName=None):
+        if fileName is not None:
+            self._file = fileName
+        ext = os.path.splitext(self._file)[1]
+        try:
+            codecs.open(self._file, 'r', 'utf8').read()
+        except UnicodeDecodeError as e:
+            print(self._file, e)
+        self.checkFileHeader(ext)
+        if self._pep and ext == ".py" and "/contributed/" not in self._file:
+            if HAVE_FLAKE and os.path.getsize(self._file) < 1000000:  # flake hangs on very large files
+                subprocess.call(["flake8", "--max-line-length", "120", self._file])
+            if HAVE_AUTOPEP and self._fix:
+                subprocess.call(["autopep8", "--max-line-length", "120", "--in-place", self._file])
 
 sumoRoot = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -319,16 +321,25 @@ if len(args) > 0:
 for svnRoot in svnRoots:
     if options.verbose:
         print("checking", svnRoot)
-    output = subprocess.check_output(["svn", "pl", "-v", "-R", "--xml", svnRoot])
-    xml.sax.parseString(output, PropertyReader(options.fix, not options.skip_pep, options.rewrite_license))
+    propRead = PropertyReader(options.fix, not options.skip_pep, options.rewrite_license)
+    try:
+        output = subprocess.check_output(["svn", "pl", "-v", "-R", "--xml", svnRoot])
+        xml.sax.parseString(output, propRead)
+        haveSvn = True
+    except subprocess.CalledProcessError as e:
+        print("This seems to be no valid svn repository", svnRoot, e)
+        haveSvn = False
     if options.verbose:
         print("re-checking tree at", svnRoot)
     for root, dirs, files in os.walk(svnRoot):
         for name in files:
             ext = os.path.splitext(name)[1]
             if name not in _IGNORE:
+                fullName = os.path.join(root, name)
+                if ext in _SOURCE_EXT and not haveSvn:
+                    propRead.checkFile(fullName)
+                    continue
                 if ext in _SOURCE_EXT or ext in _TESTDATA_EXT or ext in _VS_EXT:
-                    fullName = os.path.join(root, name)
                     if fullName in seen or subprocess.call(["svn", "ls", fullName],
                                                            stdout=open(os.devnull, 'w'), stderr=subprocess.STDOUT):
                         continue
