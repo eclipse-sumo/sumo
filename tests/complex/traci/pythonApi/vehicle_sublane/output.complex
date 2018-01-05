@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:54427 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:53789 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -78,6 +78,7 @@ step 4
 {80: '2fi', 86: 22.93090530233458}
 step 5
 {80: '2fi', 86: 32.38140935478732}
+new decel=5.1, automatically increased emergencyDecel=5.1
 vehicles ['horiz']
 vehicle count 1
 examining horiz

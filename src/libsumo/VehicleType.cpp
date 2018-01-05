@@ -251,6 +251,14 @@ void VehicleType::setAccel(const std::string& typeID, double accel)  {
 void VehicleType::setDecel(const std::string& typeID, double decel)  {
     MSVehicleType* v = getVType(typeID);
     v->getCarFollowModel().setMaxDecel(decel);
+    // automatically raise emergencyDecel to ensure it is at least as high as decel
+    if (decel > v->getCarFollowModel().getEmergencyDecel()) {
+        if (v->getParameter().cfParameter.count(SUMO_ATTR_EMERGENCYDECEL) > 0) {
+            // notify user only if emergencyDecel was previously specified
+            WRITE_WARNING("Automatically setting emergencyDecel to " + toString(decel) + " for vType '" + typeID + "' to match decel.");
+        }
+        v->getCarFollowModel().setEmergencyDecel(decel);
+    }
 }
 
 
