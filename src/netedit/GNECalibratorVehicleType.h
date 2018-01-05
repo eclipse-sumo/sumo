@@ -6,7 +6,7 @@
 // which accompanies this distribution, and is available at
 // http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
-/// @file    GNEcalibratorVehicleType->h
+/// @file    GNECalibratorVehicleType.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 /// @version $Id$

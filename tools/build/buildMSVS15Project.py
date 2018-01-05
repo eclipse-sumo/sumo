@@ -6,7 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v20.html
 
-# @file    buildMSVS15Project64Bits.py
+# @file    buildMSVS15Project.py
 # @author  Pablo Alvarez Lopez
 # @date    2015
 # @version $Id$

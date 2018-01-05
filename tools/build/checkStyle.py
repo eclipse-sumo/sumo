@@ -19,6 +19,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
+import sys
 import subprocess
 import xml.sax
 import codecs
@@ -93,7 +94,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         s = lines[idx].split()
         if s != fileRef.split():
             print(self._file, "broken @file reference", lines[idx].rstrip())
-            if self._fix and lines[idx].startswith("/// @file"):
+            if self._fix and lines[idx].startswith("%s @file" % comment):
                 lines[idx] = fileRef
                 self._haveFixed = True
         idx += 1
@@ -325,10 +326,18 @@ for svnRoot in svnRoots:
     try:
         output = subprocess.check_output(["svn", "pl", "-v", "-R", "--xml", svnRoot])
         xml.sax.parseString(output, propRead)
-        haveSvn = True
     except subprocess.CalledProcessError as e:
         print("This seems to be no valid svn repository", svnRoot, e)
-        haveSvn = False
+        if options.verbose:
+            print("trying git at", svnRoot)
+        oldDir = os.getcwd()
+        os.chdir(svnRoot)
+        for name in subprocess.check_output(["git", "ls-files"]).splitlines():
+            ext = os.path.splitext(name)[1]
+            if ext in _SOURCE_EXT and "foreign" not in name and "contributed" not in name:
+                propRead.checkFile(name)
+        os.chdir(oldDir)
+        sys.exit()
     if options.verbose:
         print("re-checking tree at", svnRoot)
     for root, dirs, files in os.walk(svnRoot):
@@ -336,9 +345,6 @@ for svnRoot in svnRoots:
             ext = os.path.splitext(name)[1]
             if name not in _IGNORE:
                 fullName = os.path.join(root, name)
-                if ext in _SOURCE_EXT and not haveSvn:
-                    propRead.checkFile(fullName)
-                    continue
                 if ext in _SOURCE_EXT or ext in _TESTDATA_EXT or ext in _VS_EXT:
                     if fullName in seen or subprocess.call(["svn", "ls", fullName],
                                                            stdout=open(os.devnull, 'w'), stderr=subprocess.STDOUT):

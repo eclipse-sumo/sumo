@@ -6,7 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v20.html
 
-# @file    flowFromRoutes.py
+# @file    flowFromEdgeData.py
 # @author  Jakob Erdmann
 # @date    2017-11-27
 # @version $Id$

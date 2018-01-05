@@ -648,15 +648,12 @@ GNELane::updateGeometry() {
             myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
     }
-    // Update geometry of additionals chiolds vinculated with this lane
     for (auto i : myAdditionalChilds) {
         i->updateGeometry();
     }
-    // Update geometry of additionals àremtvinculated with this lane
     for (auto i : myAdditionalParents) {
         i->updateGeometry();
     }
-    // Update geometry of Shapes vinculated with this lane
     for (auto i : myShapes) {
         i->updateGeometry();
     }

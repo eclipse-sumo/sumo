@@ -6,7 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v20.html
 
-# @file    builEclipseProject.py
+# @file    buildEclipseProject.py
 # @author  Pablo Alvarez Lopez
 # @date    2017
 # @version $Id$

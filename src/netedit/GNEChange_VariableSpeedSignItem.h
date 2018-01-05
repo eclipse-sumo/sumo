@@ -6,7 +6,7 @@
 // which accompanies this distribution, and is available at
 // http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
-/// @file    GNEChange_VariableSpeedSignItem.cpp
+/// @file    GNEChange_VariableSpeedSignItem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2017
 /// @version $Id$
