@@ -193,7 +193,10 @@ GUIParameterTableWindow*
 GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
                                    GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 25 + (int)myType->getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 25 
+                + (int)myType->getParameter().getMap().size()
+                + (int)myType->getParameter().lcParameter.size()
+                + (int)myType->getParameter().jmParameter.size());
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myType->getID());
@@ -222,6 +225,12 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
         ret->mkItem("latAlignment", false, toString(myType->getPreferredLateralAlignment()));
     } else if (MSGlobals::gLaneChangeDuration > 0) {
         ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
+    }
+    for (auto item : myType->getParameter().lcParameter) {
+        ret->mkItem(toString(item.first).c_str(), false, toString(item.second));
+    }
+    for (auto item : myType->getParameter().jmParameter) {
+        ret->mkItem(toString(item.first).c_str(), false, toString(item.second));
     }
 
     // close building
