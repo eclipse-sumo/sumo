@@ -616,7 +616,7 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
 
 void
 GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
-    myViewNet->getUndoList()->p_begin("delete " + toString(shape->getTag()));
+    undoList->p_begin("delete " + toString(shape->getTag()));
     // save selection status
     if (gSelected.isSelected(GLO_POLYGON, shape->getGlID())) {
         std::set<GUIGlID> deselected;
@@ -624,8 +624,8 @@ GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
         undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
     }
     // delete shape
-    myViewNet->getUndoList()->add(new GNEChange_Shape(shape, false), true);
-    myViewNet->getUndoList()->p_end();
+    undoList->add(new GNEChange_Shape(shape, false), true);
+    undoList->p_end();
 }
 
 
