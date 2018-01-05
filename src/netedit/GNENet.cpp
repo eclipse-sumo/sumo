@@ -589,7 +589,7 @@ GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
         gSelected.deselect(connection->getGlID());
     }
     undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), selected, false), true);
-    junctionDestiny->invalidateTLS(myViewNet->getUndoList(), deleted);
+    junctionDestiny->invalidateTLS(undoList, deleted);
     // remove connection requieres always a recompute (due geometry and connections)
     requireRecompute();
     undoList->p_end();
