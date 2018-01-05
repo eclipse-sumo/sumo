@@ -143,6 +143,7 @@ traci.vehicle.setLength(vehID, 1.0)
 traci.vehicle.setMaxSpeed(vehID, 9.0)
 traci.vehicle.setSpeedFactor(vehID, 1.1)
 traci.vehicle.setAccel(vehID, 1.1)
+traci.vehicle.setEmergencyDecel(vehID, 3.0)
 traci.vehicle.setDecel(vehID, 5.1)
 print("new decel=%s, automatically increased emergencyDecel=%s" % (
     traci.vehicle.getDecel(vehID), traci.vehicle.getEmergencyDecel(vehID)))

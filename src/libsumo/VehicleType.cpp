@@ -265,6 +265,9 @@ void VehicleType::setDecel(const std::string& typeID, double decel)  {
 void VehicleType::setEmergencyDecel(const std::string& typeID, double decel)  {
     MSVehicleType* v = getVType(typeID);
     v->getCarFollowModel().setEmergencyDecel(decel);
+    if (decel < v->getCarFollowModel().getMaxDecel()) {
+        WRITE_WARNING("New value of emergencyDecel (" + toString(decel) + ") is lower than decel (" + toString(v->getCarFollowModel().getMaxDecel()) + ")");
+    }
 }
 
 
