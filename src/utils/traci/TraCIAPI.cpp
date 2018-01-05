@@ -1573,34 +1573,34 @@ TraCIAPI::SimulationScope::subscribeContext(int domID, const std::string& objID,
     myParent.readContextSubscription(inMsg);
 }
 
-const TraCIAPI::SubscribedValues&
+const TraCIAPI::SubscribedValues
 TraCIAPI::SimulationScope::getSubscriptionResults() const {
     return myParent.mySubscribedValues;
 }
 
 
-const TraCIAPI::TraCIValues&
+const TraCIAPI::TraCIValues
 TraCIAPI::SimulationScope::getSubscriptionResults(const std::string& objID) const {
     if (myParent.mySubscribedValues.find(objID) != myParent.mySubscribedValues.end()) {
         return myParent.mySubscribedValues[objID];
     } else {
-        throw tcpip::SocketException("No subscription to object '" + objID + "' exists");
+        return TraCIValues();
     }
 }
 
 
-const TraCIAPI::SubscribedContextValues&
+const TraCIAPI::SubscribedContextValues
 TraCIAPI::SimulationScope::getContextSubscriptionResults() const {
     return myParent.mySubscribedContextValues;
 }
 
 
-const TraCIAPI::SubscribedValues&
+const TraCIAPI::SubscribedValues
 TraCIAPI::SimulationScope::getContextSubscriptionResults(const std::string& objID) const {
     if (myParent.mySubscribedContextValues.find(objID) != myParent.mySubscribedContextValues.end()) {
         return myParent.mySubscribedContextValues[objID];
     } else {
-        throw tcpip::SocketException("No context subscription to object '" + objID + "' exists");
+        return SubscribedValues();
     }
 }
 

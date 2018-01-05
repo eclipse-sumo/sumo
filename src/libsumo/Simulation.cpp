@@ -87,34 +87,34 @@ int>& vars) const {
 } */
 
 
-const Simulation::SubscribedValues&
+const Simulation::SubscribedValues
 Simulation::getSubscriptionResults() const {
     return mySubscribedValues;
 }
 
 
-const Simulation::TraCIValues&
+const Simulation::TraCIValues
 Simulation::getSubscriptionResults(const std::string& objID) const {
     if (mySubscribedValues.find(objID) != mySubscribedValues.end()) {
         return mySubscribedValues.find(objID)->second;
     } else {
-        throw TraCIException("No subscription to object '" + objID + "' exists");
+        return TraCIValues();
     }
 }
 
 
-const Simulation::SubscribedContextValues&
+const Simulation::SubscribedContextValues
 Simulation::getContextSubscriptionResults() const {
     return mySubscribedContextValues;
 }
 
 
-const Simulation::SubscribedValues&
+const Simulation::SubscribedValues
 Simulation::getContextSubscriptionResults(const std::string& objID) const {
     if (mySubscribedContextValues.find(objID) != mySubscribedContextValues.end()) {
         return mySubscribedContextValues.find(objID)->second;
     } else {
-        throw TraCIException("No context subscription to object '" + objID + "' exists");
+        return SubscribedValues();
     }
 }
 
