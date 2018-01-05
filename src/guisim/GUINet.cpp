@@ -424,7 +424,9 @@ GUINet::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("running vehicles [#]", true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getRunningVehicleNo));
     ret->mkItem("arrived vehicles [#]", true,
-                new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getEndedVehicleNo));
+                new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getArrivedVehicleNo));
+    ret->mkItem("discarded vehicles [#]", true,
+                new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getDiscardedVehicleNo));
     ret->mkItem("collisions [#]", true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getCollisionCount));
     ret->mkItem("teleports [#]", true,

@@ -208,6 +208,20 @@ public:
         return myEndedVehNo;
     }
 
+    /** @brief Returns the number of arrived vehicles
+     * @return The number of vehicles that have arrived at their destination
+     */
+    int getArrivedVehicleNo() const {
+        return myEndedVehNo - myDiscarded;
+    }
+
+    /** @brief Returns the number of discarded vehicles
+     * @return The number of vehicles that could not be inserted and were permantently discarded
+     */
+    int getDiscardedVehicleNo() const {
+        return myDiscarded;
+    }
+
 
     /** @brief Returns the number of build and inserted, but not yet deleted vehicles
      * @return The number simulated vehicles (including those in teleporter)
