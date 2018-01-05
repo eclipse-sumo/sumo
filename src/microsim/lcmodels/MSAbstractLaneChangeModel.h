@@ -140,6 +140,11 @@ public:
      */
     static MSAbstractLaneChangeModel* build(LaneChangeModel lcm, MSVehicle& vehicle);
 
+    /** @brief Returns the model's ID;
+     * @return The model's ID
+     */
+    virtual LaneChangeModel getModelID() const = 0;
+
     /// @brief whether lanechange-output is active
     static bool haveLCOutput() {
         return myLCOutput;

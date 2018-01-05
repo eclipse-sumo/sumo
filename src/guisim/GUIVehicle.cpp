@@ -193,7 +193,7 @@ GUIParameterTableWindow*
 GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
                                    GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 24 + (int)myType->getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 25 + (int)myType->getParameter().getMap().size());
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myType->getID());
@@ -203,7 +203,8 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     ret->mkItem("minGap", false, myType->getMinGap());
     ret->mkItem("vehicle class", false, SumoVehicleClassStrings.getString(myType->getVehicleClass()));
     ret->mkItem("emission class", false, PollutantsInterface::getName(myType->getEmissionClass()));
-    ret->mkItem("car follow model", false, SUMOXMLDefinitions::CarFollowModels.getString((SumoXMLTag)getCarFollowModel().getModelID()));
+    ret->mkItem("carFollowModel", false, SUMOXMLDefinitions::CarFollowModels.getString((SumoXMLTag)getCarFollowModel().getModelID()));
+    ret->mkItem("LaneChangeModel", false, SUMOXMLDefinitions::LaneChangeModels.getString(getLaneChangeModel().getModelID()));
     ret->mkItem("maximum speed [m/s]", false, getMaxSpeed());
     ret->mkItem("maximum acceleration [m/s^2]", false, getCarFollowModel().getMaxAccel());
     ret->mkItem("maximum deceleration [m/s^2]", false, getCarFollowModel().getMaxDecel());
@@ -219,6 +220,8 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
         ret->mkItem("minGapLat", false, myType->getMinGapLat());
         ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
         ret->mkItem("latAlignment", false, toString(myType->getPreferredLateralAlignment()));
+    } else if (MSGlobals::gLaneChangeDuration > 0) {
+        ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
     }
 
     // close building

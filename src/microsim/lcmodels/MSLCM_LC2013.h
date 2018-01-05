@@ -71,6 +71,11 @@ public:
 
     virtual ~MSLCM_LC2013();
 
+    /// @brief Returns the model's id
+    LaneChangeModel getModelID() const {
+        return LCM_LC2013;
+    }
+
     /// @brief init cached parameters derived directly from model parameters
     void initDerivedParameters();
 

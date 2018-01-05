@@ -62,6 +62,11 @@ public:
 
     virtual ~MSLCM_DK2008();
 
+    /// @brief Returns the model's id
+    LaneChangeModel getModelID() const {
+        return LCM_DK2008;
+    }
+
     /** @brief Called to examine whether the vehicle wants to change
      * using the given laneOffset.
      * This method gets the information about the surrounding vehicles
