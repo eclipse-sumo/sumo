@@ -41,7 +41,7 @@ def initOptions():
                            help="adapt to the flow on the given edges", metavar="FILE")
     argParser.add_argument("-c", "--classpath", dest="classpath",
                            default=os.path.join(os.path.dirname(
-                               sys.argv[0]), "..", "contributed", "calibration", "cadytsSumoController.jar"),
+                               sys.argv[0]), "..", "contributed", "calibration", "cadyts", "target", "cadyts-1.3.0-SNAPSHOT.jar"),
                            help="classpath for the calibrator [default: %default]")
     argParser.add_argument("-l", "--last-calibration-step", dest="calibStep",
                            type=int, default=100, help="last step of the calibration [default: %default]")
@@ -90,7 +90,7 @@ def main():
     else:
         sumoBinary = sumolib.checkBinary("sumo", options.path)
     calibrator = ["java", "-cp", options.classpath, "-Xmx1G",
-                  "cadyts.interfaces.sumo.SumoController"]
+                  "floetteroed.cadyts.interfaces.sumo.SumoController"]
     log = open("cadySumo-log.txt", "w+")
 
     # calibration init
