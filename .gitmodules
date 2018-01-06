@@ -4,3 +4,6 @@
 [submodule "tools/contributed/sumolib4matlab"]
 	path = tools/contributed/sumolib4matlab
 	url = https://github.com/pipeacosta/sumolib4matlab
+[submodule "tools/contributed/calibration"]
+	path = tools/contributed/calibration
+	url = https://github.com/gunnarfloetteroed/java
