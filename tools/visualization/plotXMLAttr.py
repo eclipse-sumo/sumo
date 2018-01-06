@@ -11,6 +11,7 @@
 # @author  Jakob Erdmann
 # @date    2017-12-04
 # @version $Id$
+
 """generate boxplot for an aribitrary xml attribute"""
 
 from __future__ import absolute_import

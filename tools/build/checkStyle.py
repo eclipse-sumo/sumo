@@ -334,7 +334,7 @@ for svnRoot in svnRoots:
         os.chdir(svnRoot)
         for name in subprocess.check_output(["git", "ls-files"]).splitlines():
             ext = os.path.splitext(name)[1]
-            if ext in _SOURCE_EXT and "foreign" not in name and "contributed" not in name:
+            if ext in _SOURCE_EXT:
                 propRead.checkFile(name)
         os.chdir(oldDir)
         sys.exit()

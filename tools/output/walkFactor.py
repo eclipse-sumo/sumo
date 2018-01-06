@@ -11,6 +11,7 @@
 # @author  Jakob Erdmann
 # @date    2017-12-04
 # @version $Id$
+
 """compute person.walkfactor from walks in tripinfo-output"""
 
 from __future__ import absolute_import
