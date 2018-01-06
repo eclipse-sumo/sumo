@@ -92,7 +92,7 @@ dist-tests:
 	tar -czf $(PACKAGE)-tests-$(VERSION).tar.gz $(distdir)
 	$(am__remove_distdir)
 
-dist-complete: dist dist-doc dist-tests traas
+dist-complete: dist dist-doc dist-tests traas cadyts
 	mv $(PACKAGE)-$(VERSION).tar.gz $(PACKAGE)-src-$(VERSION).tar.gz
 	mv $(PACKAGE)-$(VERSION).zip $(PACKAGE)-src-$(VERSION).zip
 	tar -xzf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)
@@ -113,6 +113,10 @@ examples:
 traas:
 	ant -f tools/contributed/traas/build.xml clean release || true
 	cp tools/contributed/traas/dist/TraaS.jar bin || true
+
+cadyts:
+	mvn --batch-mode -f tools/contributed/calibration/pom.xml clean install || true
+	cp tools/contributed/calibration/*/target/*.jar bin || true
 
 sumo$(EXEEXT) netconvert$(EXEEXT) \
         netgenerate$(EXEEXT) duarouter$(EXEEXT) \
