@@ -3,13 +3,10 @@
 // Copyright (C) 2017-2018 German Aerospace Center (DLR) and others.
 // TraCI4J module
 // Copyright (C) 2011 ApPeAL Group, Politecnico di Torino
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    SumoTraciConnection.java
 /// @author  Enrico Gueli
