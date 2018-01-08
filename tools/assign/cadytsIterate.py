@@ -23,25 +23,25 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
+import glob
 from datetime import datetime
 from argparse import ArgumentParser
 from duaIterate import call, writeSUMOConf, addGenericOptions
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+TOOLS_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(TOOLS_DIR)
 import sumolib  # noqa
 
 
 def initOptions():
+    jars = glob.glob(os.path.join(TOOLS_DIR, "contributed", "calibration", "*", "target", "*.jar")) + glob.glob(os.path.join(TOOLS_DIR, "..", "bin", "*.jar"))
     argParser = ArgumentParser()
     addGenericOptions(argParser)
-
     argParser.add_argument("-r", "--route-alternatives", dest="routes",
                            help="route alternatives from sumo (comma separated list, mandatory)", metavar="FILE")
     argParser.add_argument("-d", "--detector-values", dest="detvals",
                            help="adapt to the flow on the given edges", metavar="FILE")
-    argParser.add_argument("-c", "--classpath", dest="classpath",
-                           default=os.path.join(os.path.dirname(
-                               sys.argv[0]), "..", "contributed", "calibration", "cadyts", "target", "cadyts-1.3.0-SNAPSHOT.jar"),
+    argParser.add_argument("-c", "--classpath", dest="classpath", default=os.pathsep.join(jars),
                            help="classpath for the calibrator [default: %default]")
     argParser.add_argument("-l", "--last-calibration-step", dest="calibStep",
                            type=int, default=100, help="last step of the calibration [default: %default]")
