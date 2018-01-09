@@ -79,7 +79,7 @@ public:
      * @param[in] chargeDelay delay in the charge
      */
     GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos,
-                       double chargingPower, double efficiency, bool chargeInTransit, int chargeDelay);
+                       double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay);
 
     /// @brief Destructor
     ~GUIChargingStation();

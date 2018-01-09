@@ -125,9 +125,6 @@ private:
     /// @brief Information whether polygons should be filled
     bool myDefaultFill;
 
-    /// @brief flag to check if problems hast to be handled as errors instead warnings
-    bool myReportFile;
-
     /// @brief element to receive parameters
     Parameterised* myLastParameterised;
 

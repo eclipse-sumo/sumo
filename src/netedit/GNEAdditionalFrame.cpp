@@ -925,21 +925,21 @@ GNEAdditionalFrame::AdditionalAttributes::AdditionalAttributes(GNEViewNet* viewN
     myViewNet(viewNet),
     myIndexParameter(0),
     myIndexParameterList(0),
-    maxNumberOfParameters(GNEAttributeCarrier::getHigherNumberOfAttributes()),
-    maxNumberOfListParameters(2) {
+    myMaxNumberOfParameters(GNEAttributeCarrier::getHigherNumberOfAttributes()),
+    myMaxNumberOfListParameters(2) {
 
     // Create single parameters
-    for (int i = 0; i < maxNumberOfParameters; i++) {
+    for (int i = 0; i < myMaxNumberOfParameters; i++) {
         myVectorOfsingleAdditionalParameter.push_back(new AdditionalAttributeSingle(this));
     }
 
     // Create single list parameters
-    for (int i = 0; i < maxNumberOfListParameters; i++) {
+    for (int i = 0; i < myMaxNumberOfListParameters; i++) {
         myVectorOfsingleAdditionalParameterList.push_back(new AdditionalAttributeList(this));
     }
 
     // Create help button
-    helpAdditional = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -949,12 +949,12 @@ GNEAdditionalFrame::AdditionalAttributes::~AdditionalAttributes() {}
 void
 GNEAdditionalFrame::AdditionalAttributes::clearAttributes() {
     // Hidde al fields
-    for (int i = 0; i < maxNumberOfParameters; i++) {
+    for (int i = 0; i < myMaxNumberOfParameters; i++) {
         myVectorOfsingleAdditionalParameter.at(i)->hideParameter();
     }
 
     // Hidde al list fields
-    for (int i = 0; i < maxNumberOfListParameters; i++) {
+    for (int i = 0; i < myMaxNumberOfListParameters; i++) {
         myVectorOfsingleAdditionalParameterList.at(i)->hideParameter();
     }
 
@@ -971,7 +971,7 @@ GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLTag additionalTag,
     // If  parameter is of type list
     if (GNEAttributeCarrier::isList(myAdditionalTag, AdditionalAttributeSingle)) {
         // If parameter can be show
-        if (myIndexParameterList < maxNumberOfListParameters) {
+        if (myIndexParameterList < myMaxNumberOfListParameters) {
             // Check type of attribute list
             if (GNEAttributeCarrier::isInt(myAdditionalTag, AdditionalAttributeSingle)) {
                 myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue< std::vector<int> >(myAdditionalTag, AdditionalAttributeSingle));
@@ -987,10 +987,10 @@ GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLTag additionalTag,
             // Update index
             myIndexParameterList++;
         } else {
-            WRITE_ERROR("Max number of list attributes reached (" + toString(maxNumberOfListParameters) + ").");
+            WRITE_ERROR("Max number of list attributes reached (" + toString(myMaxNumberOfListParameters) + ").");
         }
     } else {
-        if (myIndexParameter < maxNumberOfParameters) {
+        if (myIndexParameter < myMaxNumberOfParameters) {
             // Check type of attribute list
             if (GNEAttributeCarrier::isInt(myAdditionalTag, AdditionalAttributeSingle)) {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<int>(myAdditionalTag, AdditionalAttributeSingle));
@@ -1006,7 +1006,7 @@ GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLTag additionalTag,
             // Update index parameter
             myIndexParameter++;
         } else {
-            WRITE_ERROR("Max number of attributes reached (" + toString(maxNumberOfParameters) + ").");
+            WRITE_ERROR("Max number of attributes reached (" + toString(myMaxNumberOfParameters) + ").");
         }
     }
 }

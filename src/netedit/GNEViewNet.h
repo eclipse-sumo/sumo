@@ -436,9 +436,6 @@ private:
     /// @brief the edge of which geometry is being moved
     GNEEdge* myEdgeToMove;
 
-    /// @brief the edge of which geometry is being moved
-    GNEEdge* myOppositeEdgeToMove;
-
     /// @brief the poly of which geometry is being moved
     GNEPoly* myPolyToMove;
 

@@ -270,20 +270,20 @@ protected:
     virtual void buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
                                     double frompos, double topos, const SumoXMLTag element, std::string string);
 
-    /** @brief Builds a charging Station
+    /** @brief Builds a charging station
      *
-     * Simply calls the MSBusStop constructor.
+     * Simply calls the MSChargingStation constructor and adds the result to the network.
      *
-     * @param[in] net The net the charging Station belongs to
-     * @param[in] id The id of the charging Station
-     * @param[in] lane The lane the charging Station is placed on
-     * @param[in] frompos Begin position of the charging Station on the lane
-     * @param[in] topos End position of the charging Station on the lane
-     * @param[in] chargingPower
-     * @param[in] efficiency
-     * @param[in] chargeInTransit
-     * @param[in] chargeDelay
-     * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
+     * @param[in] net The net the charging station belongs to
+     * @param[in] id The id of the charging station
+     * @param[in] lane The lane the charging station is placed on
+     * @param[in] frompos Begin position of the charging station on the lane
+     * @param[in] topos End position of the charging station on the lane
+     * @param[in] chargingPower energy charged in every timeStep
+     * @param[in] efficiency efficiency of the charge
+     * @param[in] chargeInTransit enable or disable charge in transit
+     * @param[in] chargeDelay delay in the charge
+     * @exception InvalidArgument If the charging station can not be added to the net (is duplicate)
      */
     virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
                                       double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay);

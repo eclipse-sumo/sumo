@@ -641,16 +641,15 @@ GNEPolygonFrame::ShapeAttributes::ShapeAttributes(GNEViewNet* viewNet, FXComposi
     myViewNet(viewNet),
     myIndexParameter(0),
     myIndexParameterList(0),
-    maxNumberOfParameters(GNEAttributeCarrier::getHigherNumberOfAttributes()),
-    maxNumberOfListParameters(2) {
+    myMaxNumberOfParameters(GNEAttributeCarrier::getHigherNumberOfAttributes()) {
 
     // Create single parameters
-    for (int i = 0; i < maxNumberOfParameters; i++) {
+    for (int i = 0; i < myMaxNumberOfParameters; i++) {
         myVectorOfsingleShapeParameter.push_back(new ShapeAttributeSingle(this));
     }
 
     // Create help button
-    helpShape = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -661,7 +660,7 @@ GNEPolygonFrame::ShapeAttributes::~ShapeAttributes() {
 void
 GNEPolygonFrame::ShapeAttributes::clearAttributes() {
     // Hidde al fields
-    for (int i = 0; i < maxNumberOfParameters; i++) {
+    for (int i = 0; i < myMaxNumberOfParameters; i++) {
         myVectorOfsingleShapeParameter.at(i)->hideParameter();
     }
 
@@ -676,7 +675,7 @@ GNEPolygonFrame::ShapeAttributes::addAttribute(SumoXMLTag shapeTag, SumoXMLAttr 
     // Set current shape
     myShapeTag = shapeTag;
 
-    if (myIndexParameter < maxNumberOfParameters) {
+    if (myIndexParameter < myMaxNumberOfParameters) {
         // Check type of attribute list
         if (GNEAttributeCarrier::isInt(myShapeTag, ShapeAttributeSingle)) {
             myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(myShapeTag, ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<int>(myShapeTag, ShapeAttributeSingle));
@@ -694,7 +693,7 @@ GNEPolygonFrame::ShapeAttributes::addAttribute(SumoXMLTag shapeTag, SumoXMLAttr 
         // Update index parameter
         myIndexParameter++;
     } else {
-        WRITE_ERROR("Max number of attributes reached (" + toString(maxNumberOfParameters) + ").");
+        WRITE_ERROR("Max number of attributes reached (" + toString(myMaxNumberOfParameters) + ").");
     }
 }
 

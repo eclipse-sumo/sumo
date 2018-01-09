@@ -90,9 +90,6 @@ public:
         /// @brief the list of Definitions for the current junction
         std::vector<NBTrafficLightDefinition*> myTLSDefinitions;
 
-        /// @brief matrix for attributes
-        FXMatrix* myAttributeMatrix;
-
         /// @brief name label
         FXLabel* myNameLabel;
 

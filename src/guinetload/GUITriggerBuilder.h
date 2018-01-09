@@ -141,7 +141,7 @@ protected:
 
     /** @brief Builds a charging station
      *
-     * Simply calls the ChrgSTN constructor.
+     * Simply calls the GUIChargingStation constructor.
      *
      * @param[in] net The net the charging station belongs to
      * @param[in] id The id of the charging station
@@ -156,7 +156,7 @@ protected:
      */
     virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane,
                                       double frompos, double topos, double chargingPower, double efficiency,
-                                      bool chargeInTransit, int chargeDelay);
+                                      bool chargeInTransit, double chargeDelay);
 
     /** @brief builds a microscopic calibrator
      *

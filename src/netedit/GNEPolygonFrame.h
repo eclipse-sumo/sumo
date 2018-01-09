@@ -213,13 +213,7 @@ public:
         int myIndexParameterList;
 
         /// @brief max number of parameters (Defined in constructor)
-        int maxNumberOfParameters;
-
-        /// @brief max number of parameters (Defined in constructor)
-        int maxNumberOfListParameters;
-
-        /// @brief button for help
-        FXButton* helpShape;
+        int myMaxNumberOfParameters;
     };
 
     /**@brief Constructor

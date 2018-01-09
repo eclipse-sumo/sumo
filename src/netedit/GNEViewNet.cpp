@@ -162,7 +162,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myCreateEdgeSource(0),
     myJunctionToMove(0),
     myEdgeToMove(0),
-    myOppositeEdgeToMove(0),
     myPolyToMove(0),
     myPoiToMove(0),
     myPoiLaneToMove(0),

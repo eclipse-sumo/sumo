@@ -79,8 +79,7 @@ FXIMPLEMENT(GNEFrame::DrawingMode,          FXGroupBox,     GNEFrameDrawingModeM
 // ---------------------------------------------------------------------------
 
 GNEFrame::NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
-    FXGroupBox(frameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent) {
+    FXGroupBox(frameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame) {
     // Create Frame for block movement label and checkBox (By default disabled)
     FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myBlockMovementLabel = new FXLabel(blockMovement, "block move", 0, GUIDesignLabelAttribute);

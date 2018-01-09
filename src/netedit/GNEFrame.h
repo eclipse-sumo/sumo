@@ -98,9 +98,6 @@ public:
         NeteditAttributes() {}
 
     private:
-        /// @brief GNEFrame parent
-        GNEFrame* myFrameParent;
-
         /// @brief Label for block movement
         FXLabel* myBlockMovementLabel;
 

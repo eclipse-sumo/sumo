@@ -153,29 +153,23 @@ NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttribut
 
     // get the id, throw if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-
     if (!ok) {
         throw ProcessError();
     }
 
-    // get the lane
-    MSLane* lane = getLane(attrs, "chargingStation", id);
-
-    // get the positions
+    MSLane* const lane = getLane(attrs, "chargingStation", id);
     double frompos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
     double topos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
-    double chargingPower = attrs.getOpt<double>(SUMO_ATTR_CHARGINGPOWER, id.c_str(), ok, 0);
-    double efficiency = attrs.getOpt<double>(SUMO_ATTR_EFFICIENCY, id.c_str(), ok, 0);
-    bool chargeInTransit = attrs.getOpt<bool>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), ok, 0);
-    double chargeDelay = attrs.getOpt<double>(SUMO_ATTR_CHARGEDELAY, id.c_str(), ok, 0);
-
+    const double chargingPower = attrs.getOpt<double>(SUMO_ATTR_CHARGINGPOWER, id.c_str(), ok, 0);
+    const double efficiency = attrs.getOpt<double>(SUMO_ATTR_EFFICIENCY, id.c_str(), ok, 0);
+    const bool chargeInTransit = attrs.getOpt<bool>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), ok, 0);
+    const double chargeDelay = attrs.getOpt<double>(SUMO_ATTR_CHARGEDELAY, id.c_str(), ok, 0);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
 
     if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos)) {
-        throw InvalidArgument("Invalid position for Charging Station '" + id + "'.");
+        throw InvalidArgument("Invalid position for charging station '" + id + "'.");
     }
 
-    // build the Charging Station
     buildChargingStation(net, id, lane, frompos, topos, chargingPower, efficiency, chargeInTransit, chargeDelay);
 }
 

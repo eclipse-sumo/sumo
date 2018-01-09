@@ -105,9 +105,10 @@ GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
     }
 }
 
+
 void
 GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
-                                        double chargingPower, double efficiency, bool chargeInTransit, int chargeDelay) {
+                                        double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay) {
     GUIChargingStation* chargingStation = new GUIChargingStation(id, *lane, frompos, topos, chargingPower, efficiency, chargeInTransit, chargeDelay);
     if (!net.addStoppingPlace(SUMO_TAG_CHARGING_STATION, chargingStation)) {
         delete chargingStation;
@@ -115,6 +116,7 @@ GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLan
     }
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(chargingStation);
 }
+
 
 MSCalibrator*
 GUITriggerBuilder::buildCalibrator(MSNet& net, const std::string& id,
