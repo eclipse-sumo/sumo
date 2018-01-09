@@ -1,8 +1,8 @@
 #
 # spec file for package sumo
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
-# Copyright (c) 2001-2017 DLR (http://www.dlr.de/) and contributors
+# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2001-2018 DLR (http://www.dlr.de/) and contributors
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -23,7 +23,7 @@ Release:        0
 Summary:        Simulation of Urban Mobility - A Microscopic Traffic Simulation
 License:        EPL-2.0
 Group:          Productivity/Scientific/Other
-Url:            http://sumo.dlr.de/
+URL:            http://sumo.dlr.de/
 Source0:        sumo-src-%{version}.tar.gz
 Source1:        sumo-doc-%{version}.zip
 Source2:        %{name}.desktop
@@ -36,7 +36,6 @@ BuildRequires:  unzip
 BuildRequires:  pkgconfig(fox)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xerces-c)
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?fedora_version} || 0%{?suse_version}
 BuildRequires:  fdupes
 BuildRequires:  pkgconfig(gdal)
@@ -65,10 +64,8 @@ designed to handle large road networks.
 %setup -q
 unzip -o %{SOURCE1} -d ..
 mv docs/tutorial docs/examples
-%if 0%{?sles_version}
-find . -name "*.jar" | xargs rm
-%endif
-find . -name "*.py" | xargs sed -i 's,^#!/usr/bin/env python$,#!/usr/bin/python,'
+# Use real shebang
+find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$,#!%{_bindir}/python,'
 
 %build
 %configure
