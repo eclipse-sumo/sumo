@@ -240,6 +240,7 @@ MSTransportable::Stage_Driving::Stage_Driving(const MSEdge& destination,
     myLines(lines.begin(), lines.end()),
     myVehicle(0),
     myVehicleID("NULL"),
+    myVehicleDistance(-1.),
     myStopWaitPos(Position::INVALID) {}
 
 
@@ -338,7 +339,7 @@ MSTransportable::Stage_Driving::setArrived(SUMOTime now) {
                                 myVehicle->getDepartPos(), myVehicle->getPositionOnLane(),
                                 myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge()) - myVehicleDistance;
     } else {
-        myVehicleDistance = -1;
+        myVehicleDistance = -1.;
     }
 }
 
