@@ -34,6 +34,7 @@ import sys
 # need to split this to avoid substitution
 UNMANGLED = '$' + 'Id$'
 
+
 def gitid(fname):
     """Get the latest tag and use it as the revision number. This presumes the
     habit of using numerical tags. Use the short hash if no tag available.
