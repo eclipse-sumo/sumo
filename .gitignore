@@ -101,6 +101,7 @@ lib*.a
 *.tlog
 *.lastbuildstate
 *.exe
+*.jar
 *.ilk
 *.pdb
 *.props
