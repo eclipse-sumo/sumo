@@ -134,7 +134,7 @@ public:
         virtual void endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
 
         /// @brief move forward and return whether the person arrived
-        bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal = 0);
+        bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal = nullptr);
 
         /// @brief accessors to be used by MSPModel
         //@{
