@@ -52,6 +52,8 @@ traci.polygon.setType(polygonID, "blub")
 print("type modified", traci.polygon.getType(polygonID))
 traci.polygon.setColor(polygonID, (5,6,7,8))
 print("color modified", traci.polygon.getColor(polygonID))
+traci.polygon.setColor(polygonID, (5,6,7))
+print("color modified2", traci.polygon.getColor(polygonID))
 traci.polygon.setFilled(polygonID, False)
 print("filled modified", traci.polygon.getFilled(polygonID))
 

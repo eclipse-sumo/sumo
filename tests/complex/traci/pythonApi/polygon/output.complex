@@ -13,6 +13,7 @@ filled True
 shape modified [(11.0, 11.0), (11.0, 101.0), (101.0, 101.0)]
 type modified blub
 color modified (5, 6, 7, 8)
+color modified2 (5, 6, 7, 255)
 filled modified False
 {0: ['0']}
 step 3
