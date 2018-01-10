@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GLHelper.h
 /// @author  Daniel Krajzewicz
@@ -299,6 +296,12 @@ public:
 
     /// @brief draw text and the end of shape
     static void drawTextAtEnd(const std::string& text, const PositionVector& shape, double x, double size, RGBColor color);
+
+    /// @brief draw crossties for railroads or pedestrian crossings
+    static void drawCrossTies(const PositionVector& geom,
+                       const std::vector<double>& rots,
+                       const std::vector<double>& lengths,
+                       double length, double spacing, double halfWidth); 
 
     /// @brief draw vertex numbers for the given shape (in a random color)
     static void debugVertices(const PositionVector& shape, double size, double layer = 256);

@@ -6,10 +6,6 @@ if WITH_GUI
 GUI_APPS = netedit
 endif
 
-if TRACI
-TRACI_LIBS = ../traci-server/libtraciserver.a
-endif
-
 bin_PROGRAMS = $(GUI_APPS)
 
 if WITH_GUI
@@ -112,7 +108,6 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../utils/gui/tracker/libguiutilstracker.a \
 ../utils/foxtools/libfoxtools.a \
 ../utils/distribution/libdistribution.a \
-../foreign/gl2ps/libgl2ps.a \
 ../foreign/eulerspiral/libeulerspiral.a \
 ../utils/geom/libgeom.a \
 ../utils/shapes/libshapes.a \

@@ -167,7 +167,6 @@
     <ClCompile Include="..\..\..\src\utils\foxtools\FXBaseObject.cpp" />
     <ClCompile Include="..\..\..\src\utils\foxtools\FXLCDLabel.cpp" />
     <ClCompile Include="..\..\..\src\utils\foxtools\FXLinkLabel.cpp" />
-    <ClCompile Include="..\..\..\src\utils\foxtools\FXRealSpinDial.cpp" />
     <ClCompile Include="..\..\..\src\utils\foxtools\FXSevenSegment.cpp" />
     <ClCompile Include="..\..\..\src\utils\foxtools\FXSingleEventThread.cpp" />
     <ClCompile Include="..\..\..\src\utils\foxtools\FXThreadEvent.cpp" />
@@ -185,7 +184,6 @@
     <ClInclude Include="..\..\..\src\utils\foxtools\fxexdefs.h" />
     <ClInclude Include="..\..\..\src\utils\foxtools\FXLCDLabel.h" />
     <ClInclude Include="..\..\..\src\utils\foxtools\FXLinkLabel.h" />
-    <ClInclude Include="..\..\..\src\utils\foxtools\FXRealSpinDial.h" />
     <ClInclude Include="..\..\..\src\utils\foxtools\FXSevenSegment.h" />
     <ClInclude Include="..\..\..\src\utils\foxtools\FXSingleEventThread.h" />
     <ClInclude Include="..\..\..\src\utils\foxtools\FXThreadEvent.h" />

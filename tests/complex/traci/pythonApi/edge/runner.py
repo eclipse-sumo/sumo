@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2017 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2018 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -39,6 +39,7 @@ print("edges", traci.edge.getIDList())
 print("edge count", traci.edge.getIDCount())
 edgeID = "2fi"
 print("examining", edgeID)
+print("laneNumber", traci.edge.getLaneNumber(edgeID))
 print("adaptedTraveltime", traci.edge.getAdaptedTraveltime(edgeID, 0))
 print("effort", traci.edge.getEffort(edgeID, 0))
 print("CO2", traci.edge.getCO2Emission(edgeID))

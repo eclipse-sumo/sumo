@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2017-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    VehicleType.cpp
 /// @author  Gregor Laemmel
@@ -254,12 +251,23 @@ void VehicleType::setAccel(const std::string& typeID, double accel)  {
 void VehicleType::setDecel(const std::string& typeID, double decel)  {
     MSVehicleType* v = getVType(typeID);
     v->getCarFollowModel().setMaxDecel(decel);
+    // automatically raise emergencyDecel to ensure it is at least as high as decel
+    if (decel > v->getCarFollowModel().getEmergencyDecel()) {
+        if (v->getParameter().cfParameter.count(SUMO_ATTR_EMERGENCYDECEL) > 0) {
+            // notify user only if emergencyDecel was previously specified
+            WRITE_WARNING("Automatically setting emergencyDecel to " + toString(decel) + " for vType '" + typeID + "' to match decel.");
+        }
+        v->getCarFollowModel().setEmergencyDecel(decel);
+    }
 }
 
 
 void VehicleType::setEmergencyDecel(const std::string& typeID, double decel)  {
     MSVehicleType* v = getVType(typeID);
     v->getCarFollowModel().setEmergencyDecel(decel);
+    if (decel < v->getCarFollowModel().getMaxDecel()) {
+        WRITE_WARNING("New value of emergencyDecel (" + toString(decel) + ") is lower than decel (" + toString(v->getCarFollowModel().getMaxDecel()) + ")");
+    }
 }
 
 

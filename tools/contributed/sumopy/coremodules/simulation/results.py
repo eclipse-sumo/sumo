@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2016-2017 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2017 University of Bologna - DICAM
 # This program and the accompanying materials
@@ -70,7 +70,7 @@ class Tripresults(am.ArrayObjman):
                               'default': 0.0, 'info': 'arrival position', 'groupnames': ['tripdata']}),
             ('routeLength',   {'name': 'Length', 'xmltag': 'routeLength',    'unit': 'm',
                                'default': 0.0, 'info': 'Route length', 'groupnames': ['tripdata']}),
-            ('waitSteps',   {'name': 'wait steps', 'xmltag': 'waitSteps',   'unit': None,    'default': 0,
+            ('waitingTime',   {'name': 'wait time', 'xmltag': 'waitingTime',   'unit': None,    'default': 0,
                              'info': 'Time steps, the vehicle has been waiting during its trip', 'groupnames': ['tripdata']}),
             ('rerouteNo',   {'name': 'reroute No', 'xmltag': 'rerouteNo',   'unit': None,
                              'default': 0, 'info': 'Number of re-routes', 'groupnames': ['tripdata']}),

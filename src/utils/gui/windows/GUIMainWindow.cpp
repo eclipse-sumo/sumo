@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GUIMainWindow.cpp
 /// @author  Daniel Krajzewicz
@@ -62,6 +59,7 @@ GUIMainWindow* GUIMainWindow::myInstance = 0;
 // ===========================================================================
 GUIMainWindow::GUIMainWindow(FXApp* a) :
     FXMainWindow(a, "SUMO-gui main window", NULL, NULL, DECOR_ALL, 20, 20, 600, 400),
+    myAmFullScreen(false),
     myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER)),
     myAmGaming(false),
     myListInternal(false),
@@ -237,6 +235,16 @@ GUIMainWindow::setWindowSizeAndPos() {
         }
         move(x, y);
         resize(windowWidth, windowHeight);
+    }
+}
+
+void 
+GUIMainWindow::storeWindowSizeAndPos() {
+    if (!myAmFullScreen) {
+        getApp()->reg().writeIntEntry("SETTINGS", "x", getX());
+        getApp()->reg().writeIntEntry("SETTINGS", "y", getY());
+        getApp()->reg().writeIntEntry("SETTINGS", "width", getWidth());
+        getApp()->reg().writeIntEntry("SETTINGS", "height", getHeight());
     }
 }
 

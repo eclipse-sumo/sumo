@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GUITriggeredRerouter.cpp
 /// @author  Daniel Krajzewicz
@@ -118,10 +115,11 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
                           ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y,
                           0, 0, 0, 0,   2, 2, 0, 0);
         myUsageProbabilityDial =
-            new FXRealSpinDial(gf12, 10, this, MID_USER_DEF,
+            new FXRealSpinner(gf12, 10, this, MID_USER_DEF,
                                LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-        myUsageProbabilityDial->setFormatString("%.2f");
-        myUsageProbabilityDial->setIncrements(.1, .1, .1);
+        //myUsageProbabilityDial->setFormatString("%.2f");
+        //myUsageProbabilityDial->setIncrements(.1, .1, .1);
+        myUsageProbabilityDial->setIncrement(.1);
         myUsageProbabilityDial->setRange(0, 1);
         myUsageProbabilityDial->setValue(myObject->getUserProbability());
     }

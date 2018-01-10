@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2017 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2018 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -74,7 +74,7 @@ class VehInformationReader(handler.ContentHandler):
             self._Vehicle.travellength = float(attrs['routeLength'])
             self._Vehicle.departdelay = float(attrs['departDelay'])
             self._Vehicle.waittime = float(
-                attrs['departDelay']) + float(attrs['waitSteps'])
+                attrs['departDelay']) + float(attrs['waitingTime'])
             self._Vehicle.depart = float(attrs['depart'])
             self._vehList.append(self._Vehicle)
         if name == 'emissions':

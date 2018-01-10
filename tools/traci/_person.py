@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2017 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2018 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -380,14 +380,14 @@ class PersonDomain(Domain):
 
     def setColor(self, personID, color):
         """setColor(string, (integer, integer, integer, integer))
-        sets color for person with the given ID.
-        i.e. (255,0,0,0) for the color red.
-        The fourth integer (alpha) is only used when drawing persons with raster images
+
+        Sets the color for the vehicle with the given ID, i.e. (255,0,0) for the color red.
+        The fourth component (alpha) is optional.
         """
         self._connection._beginMessage(
             tc.CMD_SET_PERSON_VARIABLE, tc.VAR_COLOR, personID, 1 + 1 + 1 + 1 + 1)
-        self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(
-            color[0]), int(color[1]), int(color[2]), int(color[3]))
+        self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
+                                                int(color[3]) if len(color) > 3 else 255)
         self._connection._sendExact()
 
 

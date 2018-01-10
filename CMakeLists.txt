@@ -99,8 +99,7 @@ if (XercesC_FOUND)
     include_directories(${XercesC_INCLUDE_DIR})
     #set(libs "${libs}${XercesC_LIBRARY}")
 endif (XercesC_FOUND)
-#target_link_libraries ( ${PROJECT_NAME} ${XercesC_LIBRARY} )
-#
+
 find_package(Proj REQUIRED)
 if (PROJ_FOUND)
     message(STATUS "including: " ${PROJ_INCLUDE_DIR})
@@ -148,6 +147,28 @@ if (OPENSCENEGRAPH_FOUND)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} OSG")
 endif ()
 
+find_package(GL2PS)
+if (GL2PS_FOUND)
+    include_directories(${GL2PS_INCLUDE_DIR})
+    set(HAVE_GL2PS 1)
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
+else ()
+    include(ExternalProject)
+    ExternalProject_Add(gl2ps
+        GIT_REPOSITORY    http://gitlab.onelab.info/gl2ps/gl2ps.git
+        GIT_TAG           gl2ps_1_4_0
+		PREFIX            "${CMAKE_BINARY_DIR}/gl2ps"
+        INSTALL_COMMAND   cp "${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps-build/Release/gl2ps.dll" "${CMAKE_SOURCE_DIR}/bin"
+    )
+    FIND_LIBRARY(GL2PS_LIBRARY NAMES gl2ps PATHS "${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps-build/Release")
+	if (GL2PS_LIBRARY)
+        include_directories("${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps")
+        set(GL2PS_LIBRARIES ${GL2PS_LIBRARY})
+		set(HAVE_GL2PS 1)
+		set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
+	endif ()
+endif ()
+
 find_package(SWIG)
 if (SWIG_FOUND)
     if (NOT MSVC)
@@ -158,10 +179,10 @@ endif ()
 
 
 if (BUILD_GTEST_FROM_GIT)
-    message("GTest not found building from scratch")
+    message("Download and unpack googletest")
 
     # Download and unpack googletest at configure time
-    configure_file(build/googletest/CMakeLists.txt.in googletest-download/CMakeLists.txt)
+    configure_file(build/CMakeLists.txt.gtest googletest-download/CMakeLists.txt)
     execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
             WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download")
     execute_process(COMMAND "${CMAKE_COMMAND}" --build .
@@ -177,17 +198,7 @@ if (BUILD_GTEST_FROM_GIT)
     add_subdirectory("${CMAKE_BINARY_DIR}/googletest-src"
             "${CMAKE_BINARY_DIR}/googletest-build")
 
-    # The gtest/gmock targets carry header search path
-    # dependencies automatically when using CMake 2.8.11 or
-    # later. Otherwise we have to add them here ourselves.
-    if (CMAKE_VERSION VERSION_LESS 2.8.11)
-        include_directories("${gtest_SOURCE_DIR}/include"
-                "${gmock_SOURCE_DIR}/include")
-    endif ()
-
-    if (APPLE)
-        include_directories("${CMAKE_BINARY_DIR}/googletest-src/googletest/include")
-    endif ()
+    include_directories("${CMAKE_BINARY_DIR}/googletest-src/googletest/include")
     set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
     set(GTEST_FOUND "true")
 else ()
@@ -196,9 +207,18 @@ endif ()
 # Now simply link your own targets against gtest, gmock,
 # etc. as appropriate
 
+# Python libs can be linked using find_package or specifying the folders (In the case of Apple systems or autobuild)
+set(PYTHON_LIBRARIES $ENV{PYTHON_LIB})
+set(PYTHON_INCLUDE_DIRS $ENV{PYTHON_INCLUDE})
+
 if (APPLE)
     include_directories("/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7/")
     set(PYTHON_LIBRARIES "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib")
+elseif (PYTHON_LIBRARIES AND PYTHON_INCLUDE_DIRS)
+    # Needed to avoid problems with pythons in 64 bits Windows
+    message(STATUS "Python include dirs:" ${PYTHON_INCLUDE_DIRS})
+    message(STATUS "Python libs:" ${PYTHON_LIBRARIES})
+    include_directories(${PYTHON_INCLUDE_DIRS})
 else ()
     find_package(PythonLibs REQUIRED)
     if (PYTHONLIBS_FOUND)

@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    SUMOVehicleParameter.cpp
 /// @author  Daniel Krajzewicz
@@ -352,6 +349,7 @@ SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& ele
     } else if (val == "containerTriggered") {
         dd = DEPART_CONTAINER_TRIGGERED;
     } else if (val == "now") {
+        // only used via TraCI. depart must be set by the calling code
         dd = DEPART_NOW;
     } else {
         try {

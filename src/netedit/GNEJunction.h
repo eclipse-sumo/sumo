@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GNEJunction.h
 /// @author  Jakob Erdmann
@@ -199,6 +196,11 @@ public:
      * @note: this should always be called with an active command group */
     void setLogicValid(bool valid, GNEUndoList* undoList, const std::string& status = GUESSED);
 
+    /// @brief remove all connections from the given edge
+    void removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS, int lane=-1);
+    /// @brief remove all connections to the given edge
+    void removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS, int lane=-1);
+
     /// @brief prevent re-guessing connections at this junction
     void markAsModified(GNEUndoList* undoList);
 
@@ -207,6 +209,9 @@ public:
      *   but all other information intact will be computed instead of guessing a new tlDef
      * @note: this should always be called with an active command group */
     void invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedConnection = NBConnection::InvalidConnection);
+
+    /// @brief replace one edge by another in all tls connections
+    void replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList); 
 
     /// @brief removes the given edge from all pedestrian crossings
     void removeEdgeFromCrossings(GNEEdge* edge, GNEUndoList* undoList);
@@ -279,6 +284,9 @@ private:
 
     /// @brief rebuilds crossing objects for this junction
     void rebuildGNECrossings(bool rebuildNBNodeCrossings = true);
+
+    /// @brief remove the given connections from all traffic light definitions of this junction
+    void removeTLSConnections(std::vector<NBConnection>& connections, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEJunction(const GNEJunction&) = delete;

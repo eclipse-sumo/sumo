@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    NBFrame.cpp
 /// @author  Daniel Krajzewicz
@@ -400,7 +397,7 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("keep-edges.by-type", "Edge Removal", "Only keep edges where type is in STR");
 
         oc.doRegister("keep-edges.components", new Option_Integer(0));
-        oc.addDescription("keep-edges.components", "Edge Removal", "Only keep the INT largest weakly connected compoonents");
+        oc.addDescription("keep-edges.components", "Edge Removal", "Only keep the INT largest weakly connected components");
 
         oc.doRegister("remove-edges.by-type", new Option_String());
         oc.addDescription("remove-edges.by-type", "Edge Removal", "Remove edges where type is in STR");

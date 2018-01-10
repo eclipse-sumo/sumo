@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2017 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2018 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -161,5 +161,27 @@ try:
     print(traci.person.getStage(personID, -2))
 except traci.TraCIException:
     print("recovering from exception after asking for invalid stage index")
+
+# changing walk edges in the middle of a walk
+personTT2 = "tripTest2"
+traci.person.add(personTT2, "2fi", 10)
+traci.person.appendWalkingStage(personTT2, ["2fi"], -20)
+for i in range(5):
+    print("%s person=%s edge=%s pos=%s" % (
+        traci.simulation.getCurrentTime() / 1000,
+        personTT2,
+        traci.person.getRoadID(personTT2),
+        traci.person.getLanePosition(personTT2)))
+    step()
+traci.person.appendWalkingStage(personTT2, ["2fi", "1fi"], 10)
+traci.person.removeStage(personTT2, 0)  
+print("  %s new edges edges=%s" % (personTT2, traci.person.getEdges(personTT2)))
+for i in range(5):
+    print("%s person=%s edge=%s pos=%s" % (
+        traci.simulation.getCurrentTime() / 1000,
+        personTT2,
+        traci.person.getRoadID(personTT2),
+        traci.person.getLanePosition(personTT2)))
+    step()
 traci.close()
 sumoProcess.wait()

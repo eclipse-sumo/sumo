@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GUIDialog_EditViewport.h
 /// @author  Daniel Krajzewicz
@@ -31,7 +28,6 @@
 #endif
 
 #include <fx.h>
-#include <utils/foxtools/FXRealSpinDial.h>
 
 // ===========================================================================
 // class declarations
@@ -130,14 +126,14 @@ protected:
     Position myOldLookFrom, myOldLookAt;
 
     /// @brief The spin dialers used to change the view
-    FXRealSpinDial* myZoom, *myXOff, *myYOff, *myZOff;
+    FXRealSpinner* myZoom, *myXOff, *myYOff, *myZOff;
 
     /// @brief OK button
     FXButton* buttonOk;
 
 #ifdef HAVE_OSG
     /// @brief The spin dialers used to change the view at (osg only)
-    FXRealSpinDial* myLookAtX, *myLookAtY, *myLookAtZ;
+    FXRealSpinner* myLookAtX, *myLookAtY, *myLookAtZ;
 #endif
 
 

@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2012-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    TraCIAPI.h
 /// @author  Daniel Krajzewicz
@@ -169,6 +166,7 @@ public:
         int getLastStepVehicleNumber(const std::string& edgeID) const;
         double getLastStepHaltingNumber(const std::string& edgeID) const;
         std::vector<std::string> getLastStepVehicleIDs(const std::string& edgeID) const;
+        int getLaneNumber(const std::string& edgeID) const;
 
         void adaptTraveltime(const std::string& edgeID, double time, int beginSeconds = 0, int endSeconds = std::numeric_limits<int>::max()) const;
         void setEffort(const std::string& edgeID, double effort, int beginSeconds = 0, int endSeconds = std::numeric_limits<int>::max()) const;
@@ -495,11 +493,11 @@ public:
         void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const;
         void subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars) const;
 
-        const SubscribedValues& getSubscriptionResults() const;
-        const TraCIValues& getSubscriptionResults(const std::string& objID) const;
+        const SubscribedValues getSubscriptionResults() const;
+        const TraCIValues getSubscriptionResults(const std::string& objID) const;
 
-        const SubscribedContextValues& getContextSubscriptionResults() const;
-        const SubscribedValues& getContextSubscriptionResults(const std::string& objID) const;
+        const SubscribedContextValues getContextSubscriptionResults() const;
+        const SubscribedValues getContextSubscriptionResults(const std::string& objID) const;
 
     private:
         /// @brief invalidated copy constructor

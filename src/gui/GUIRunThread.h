@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GUIRunThread.h
 /// @author  Daniel Krajzewicz
@@ -35,7 +32,6 @@
 #include <iostream>
 #include <fx.h>
 #include <utils/foxtools/FXSingleEventThread.h>
-#include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/MFXEventQue.h>
 #include <utils/common/SUMOTime.h>
@@ -63,7 +59,7 @@ class GUIRunThread : public FXSingleEventThread {
 public:
     /// constructor
     GUIRunThread(FXApp* app, MFXInterThreadEventClient* mw,
-                 FXRealSpinDial& simDelay, MFXEventQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev);
+                 double& simDelay, MFXEventQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev);
 
     /// destructor
     virtual ~GUIRunThread();
@@ -163,7 +159,7 @@ protected:
         Needed to be deleted from the handler later on */
     OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
 
-    FXRealSpinDial& mySimDelay;
+    double& mySimDelay;
 
     MFXEventQue<GUIEvent*>& myEventQue;
 

@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    TraCIServerAPI_Polygon.cpp
 /// @author  Daniel Krajzewicz
@@ -31,8 +28,6 @@
 #else
 #include <config.h>
 #endif
-
-#ifndef NO_TRACI
 
 #include <utils/common/StdDefs.h>
 #include <microsim/MSNet.h>
@@ -243,6 +238,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
     return true;
 }
 
+
 bool
 TraCIServerAPI_Polygon::getShape(const std::string& id, PositionVector& shape) {
     SUMOPolygon* poly = getPolygon(id);
@@ -253,13 +249,11 @@ TraCIServerAPI_Polygon::getShape(const std::string& id, PositionVector& shape) {
     return true;
 }
 
+
 SUMOPolygon*
 TraCIServerAPI_Polygon::getPolygon(const std::string& id) {
     return MSNet::getInstance()->getShapeContainer().getPolygons().get(id);
 }
 
-#endif
-
 
 /****************************************************************************/
-

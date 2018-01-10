@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    NBEdge.cpp
 /// @author  Daniel Krajzewicz
@@ -92,6 +89,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
+    tlLinkNo(-1),
     mayDefinitelyPass(false),
     keepClear(true),
     contPos(UNSPECIFIED_CONTPOS),
@@ -109,6 +107,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
+    tlLinkNo(-1),
     mayDefinitelyPass(mayDefinitelyPass_),
     keepClear(keepClear_),
     contPos(contPos_),
@@ -623,6 +622,16 @@ NBEdge::resetNodeBorder(const NBNode* node) {
         assert(node == myTo);
         myToBorder.clear();
     }
+}
+
+
+bool 
+NBEdge::isBidiRail() {
+    return (isRailway(getPermissions()) 
+            && myLaneSpreadFunction == LANESPREAD_CENTER 
+            && myPossibleTurnDestination != 0 
+            && myPossibleTurnDestination->getLaneSpreadFunction() == LANESPREAD_CENTER
+            && myPossibleTurnDestination->getGeometry().reverse() == getGeometry());
 }
 
 
@@ -1416,7 +1425,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             toEdge = (*i).toEdge;
             internalLaneIndex = 0;
         }
-        PositionVector shape = con.customShape.size() == 0 ? n.computeInternalLaneShape(this, con, numPoints, myTo) : con.customShape;
+        PositionVector shape = n.computeInternalLaneShape(this, con, numPoints, myTo);
         std::vector<int> foeInternalLinks;
 
         if (dir != LINKDIR_STRAIGHT && shape.length() < POSITION_EPS) {
@@ -2800,7 +2809,7 @@ NBEdge::isNearEnough2BeJoined2(NBEdge* e, double threshold) const {
 
 
 void
-NBEdge::addLane(int index, bool recompute) {
+NBEdge::addLane(int index, bool recomputeShape, bool recomputeConnections, bool shiftIndices) {
     assert(index <= (int)myLanes.size());
     myLanes.insert(myLanes.begin() + index, Lane(this, ""));
     // copy attributes
@@ -2814,12 +2823,31 @@ NBEdge::addLane(int index, bool recompute) {
         myLanes[index].updateParameter(myLanes[templateIndex].getMap());
     }
     const EdgeVector& incs = myFrom->getIncomingEdges();
-    if (recompute) {
+    if (recomputeShape) {
         computeLaneShapes();
+    }
+    if (recomputeConnections) {
         for (EdgeVector::const_iterator i = incs.begin(); i != incs.end(); ++i) {
             (*i)->invalidateConnections(true);
         }
         invalidateConnections(true);
+    } else if (shiftIndices) {
+        // shift outgoing connections above the added lane to the left
+        for (Connection& c : myConnections) {
+            if (c.fromLane >= index) {
+                c.fromLane += 1;
+            }
+        }
+        // shift incoming connections above the added lane to the left
+        for (NBEdge* inc : myFrom->getIncomingEdges()) {
+            for (Connection& c : inc->myConnections) {
+                if (c.toLane >= index) {
+                    c.toLane += 1;
+                }
+            }
+        }
+        myFrom->shiftTLConnectionLaneIndex(this, +1, index-1);
+        myTo->shiftTLConnectionLaneIndex(this, +1, index-1);
     }
 }
 
@@ -2829,13 +2857,13 @@ NBEdge::incLaneNo(int by) {
     while ((int)myLanes.size() < newLaneNo) {
         // recompute shapes on last addition
         const bool recompute = ((int)myLanes.size() == newLaneNo - 1) && myStep < LANES2LANES_USER;
-        addLane((int)myLanes.size(), recompute);
+        addLane((int)myLanes.size(), recompute, recompute, false);
     }
 }
 
 
 void
-NBEdge::deleteLane(int index, bool recompute) {
+NBEdge::deleteLane(int index, bool recompute, bool shiftIndices) {
     assert(index < (int)myLanes.size());
     myLanes.erase(myLanes.begin() + index);
     if (recompute) {
@@ -2845,6 +2873,23 @@ NBEdge::deleteLane(int index, bool recompute) {
             (*i)->invalidateConnections(true);
         }
         invalidateConnections(true);
+    } else if (shiftIndices) {
+        // shift outgoing connections above the delete lane to the right
+        for (Connection& c : myConnections) {
+            if (c.fromLane > index) {
+                c.fromLane -= 1;
+            }
+        }
+        // shift incoming connections above the delete lane to the right
+        for (NBEdge* inc : myFrom->getIncomingEdges()) {
+            for (Connection& c : inc->myConnections) {
+                if (c.toLane > index) {
+                    c.toLane -= 1;
+                }
+            }
+        }
+        myFrom->shiftTLConnectionLaneIndex(this, -1, index);
+        myTo->shiftTLConnectionLaneIndex(this, -1, index);
     }
 }
 
@@ -2856,7 +2901,7 @@ NBEdge::decLaneNo(int by) {
     while ((int)myLanes.size() > newLaneNo) {
         // recompute shapes on last removal
         const bool recompute = (int)myLanes.size() == newLaneNo + 1 && myStep < LANES2LANES_USER;
-        deleteLane((int)myLanes.size() - 1, recompute);
+        deleteLane((int)myLanes.size() - 1, recompute, false);
     }
 }
 

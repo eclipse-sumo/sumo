@@ -8,8 +8,6 @@ set(utils_foxtools_STAT_SRCS
    FXLCDLabel.h
    FXLinkLabel.cpp
    FXLinkLabel.h
-   FXRealSpinDial.cpp
-   FXRealSpinDial.h
    FXSevenSegment.cpp
    FXSevenSegment.h
    FXSingleEventThread.cpp

@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GNEEdge.h
 /// @author  Jakob Erdmann
@@ -304,10 +301,10 @@ private:
     void setNumLanes(int numLanes, GNEUndoList* undoList);
 
     /// @brief@brief increase number of lanes by one use the given attributes and restore the GNELane
-    void addLane(GNELane* lane, const NBEdge::Lane& laneAttrs);
+    void addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeConnections);
 
     /// @briefdecrease the number of lanes by one. argument is only used to increase robustness (assertions)
-    void removeLane(GNELane* lane);
+    void removeLane(GNELane* lane, bool recomputeConnections);
 
     /// @brief adds a connection
     void addConnection(NBEdge::Connection nbCon, bool selectAfterCreation = false);

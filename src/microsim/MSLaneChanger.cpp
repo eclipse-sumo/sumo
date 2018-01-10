@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSLaneChanger.cpp
 /// @author  Christian Roessel
@@ -277,12 +274,10 @@ MSLaneChanger::change() {
     }
 
 
-#ifndef NO_TRACI
     if (vehicle->isRemoteControlled()) {
         registerUnchanged(vehicle);
         return false;
     }
-#endif
 
     if (!vehicle->isActive()) {
 #ifdef DEBUG_ACTIONSTEPS
@@ -291,14 +286,12 @@ MSLaneChanger::change() {
         }
 #endif
         bool changed = false;
-#ifndef NO_TRACI
         const int oldstate = vehicle->getLaneChangeModel().getOwnState();
         // let TraCI influence the wish to change lanes during non-actionsteps
         checkTraCICommands(vehicle);
         if (oldstate != vehicle->getLaneChangeModel().getOwnState()) {
             changed = applyTraCICommands(vehicle);
         }
-#endif
         if (!changed) {
             registerUnchanged(vehicle);
         }
@@ -447,7 +440,7 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
     MSAbstractLaneChangeModel& lcm = vehicle->getLaneChangeModel();
     const int direction = lcm.getLaneChangeDirection();
     const bool pastMidpoint = lcm.updateCompletion();
-    vehicle->myState.myPosLat += lcm.getSpeedLat();
+    vehicle->myState.myPosLat += SPEED2DIST(lcm.getSpeedLat());
     vehicle->myCachedPosition = Position::INVALID;
     if (pastMidpoint) {
         ChangerIt to = from + direction;
@@ -920,10 +913,8 @@ MSLaneChanger::checkChange(
         }
     }
     const int oldstate = state;
-#ifndef NO_TRACI
     // let TraCI influence the wish to change lanes and the security to take
     state = vehicle->influenceChangeDecision(state);
-#endif
 #ifdef DEBUG_CHECK_CHANGE
     if (DEBUG_COND) {
         std::cout << SIMTIME

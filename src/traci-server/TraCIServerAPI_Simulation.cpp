@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    TraCIServerAPI_Simulation.cpp
 /// @author  Daniel Krajzewicz
@@ -29,8 +26,6 @@
 #else
 #include <config.h>
 #endif
-
-#ifndef NO_TRACI
 
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -74,6 +69,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             && variable != VAR_PARKING_ENDING_VEHICLES_NUMBER && variable != VAR_PARKING_ENDING_VEHICLES_IDS
             && variable != VAR_STOP_STARTING_VEHICLES_NUMBER && variable != VAR_STOP_STARTING_VEHICLES_IDS
             && variable != VAR_STOP_ENDING_VEHICLES_NUMBER && variable != VAR_STOP_ENDING_VEHICLES_IDS
+            && variable != VAR_COLLIDING_VEHICLES_NUMBER && variable != VAR_COLLIDING_VEHICLES_IDS
             && variable != VAR_PARAMETER
        ) {
         return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Get Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
@@ -144,6 +140,12 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 break;
             case VAR_STOP_ENDING_VEHICLES_IDS:
                 writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_ENDING_STOP);
+                break;
+            case VAR_COLLIDING_VEHICLES_NUMBER:
+                writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_COLLISION);
+                break;
+            case VAR_COLLIDING_VEHICLES_IDS:
+                writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_COLLISION);
                 break;
             case VAR_DELTA_T:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
@@ -589,7 +591,5 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
     return true;
 }
 
-
-#endif
 
 /****************************************************************************/

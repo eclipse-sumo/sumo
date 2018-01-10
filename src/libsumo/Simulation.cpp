@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2017-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    Simulation.cpp
 /// @author  Laura Bieker-Walz
@@ -90,34 +87,34 @@ int>& vars) const {
 } */
 
 
-const Simulation::SubscribedValues&
+const Simulation::SubscribedValues
 Simulation::getSubscriptionResults() const {
     return mySubscribedValues;
 }
 
 
-const Simulation::TraCIValues&
+const Simulation::TraCIValues
 Simulation::getSubscriptionResults(const std::string& objID) const {
     if (mySubscribedValues.find(objID) != mySubscribedValues.end()) {
         return mySubscribedValues.find(objID)->second;
     } else {
-        throw; // Something?
+        return TraCIValues();
     }
 }
 
 
-const Simulation::SubscribedContextValues&
+const Simulation::SubscribedContextValues
 Simulation::getContextSubscriptionResults() const {
     return mySubscribedContextValues;
 }
 
 
-const Simulation::SubscribedValues&
+const Simulation::SubscribedValues
 Simulation::getContextSubscriptionResults(const std::string& objID) const {
     if (mySubscribedContextValues.find(objID) != mySubscribedContextValues.end()) {
         return mySubscribedContextValues.find(objID)->second;
     } else {
-        throw; // Something?
+        return SubscribedValues();
     }
 }
 

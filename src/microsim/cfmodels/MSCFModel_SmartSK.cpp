@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2012-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSCFModel_SmartSK.cpp
 /// @author  Daniel Krajzewicz
@@ -78,20 +75,8 @@ MSCFModel_SmartSK::~MSCFModel_SmartSK() {}
 
 
 double
-MSCFModel_SmartSK::moveHelper(MSVehicle* const veh, double vPos) const {
-    const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
-    const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
-    // we need the acceleration for emission computation;
-    //  in this case, we neglect dawdling, nonetheless, using
-    //  vSafe does not incorporate speed reduction due to interaction
-    //  on lane changing
-    const double vMin = getSpeedAfterMaxDecel(oldV);
-    const double vMax = MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe);
-#ifdef SmartSK_DEBUG
-    if (vMin > vMax) {
-        WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
-    }
-#endif
+MSCFModel_SmartSK::finalizeSpeed(MSVehicle* const veh, double vPos) const {
+    const double vNext = MSCFModel::finalizeSpeed(veh, vPos);
     updateMyHeadway(veh);
     SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
 #ifdef SmartSK_DEBUG
@@ -102,10 +87,9 @@ MSCFModel_SmartSK::moveHelper(MSVehicle* const veh, double vPos) const {
         }
     }
 #endif
-
     vars->gOld = vars->ggOld[(int) vPos];
     vars->ggOld.clear();
-    return veh->getLaneChangeModel().patchSpeed(vMin, MAX2(vMin, dawdle(vMax)), vMax, *this);
+    return vNext;
 }
 
 double
@@ -115,7 +99,7 @@ MSCFModel_SmartSK::followSpeed(const MSVehicle* const veh, double speed, double 
 // if (((gap - vars->gOld) < maxDeltaGap) && (speed>=5.0) && gap>=5.0) {
     if ((gap - vars->gOld) < maxDeltaGap) {
         double tTauTest = gap / speed;
-// allow  headway only to decrease only, never to increase. Increase is handled automatically by the headway dynamics in moveHelper()!!!
+// allow  headway only to decrease only, never to increase. Increase is handled automatically by the headway dynamics in finalizeSpeed()!!!
         if ((tTauTest < vars->myHeadway) && (tTauTest > TS)) {
             vars->myHeadway = tTauTest;
         }
@@ -140,7 +124,7 @@ MSCFModel_SmartSK::stopSpeed(const MSVehicle* const veh, const double speed, dou
 // if (((gap - vars->gOld) < maxDeltaGap) && (speed>=5.0) && gap>=5.0) {
     if ((gap - vars->gOld) < maxDeltaGap) {
         double tTauTest = gap / speed;
-// allow  headway only to decrease only, never to increase. Increase is handled automatically by the headway dynamics in moveHelper()!!!
+// allow  headway only to decrease only, never to increase. Increase is handled automatically by the headway dynamics in finalizeSpeed()!!!
         if ((tTauTest < vars->myHeadway) && (tTauTest > TS)) {
             vars->myHeadway = tTauTest;
         }

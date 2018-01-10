@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSPerson.cpp
 /// @author  Daniel Krajzewicz
@@ -80,6 +77,7 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
 
 
 MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {
+    delete myPedestrianState;
 }
 
 
@@ -161,7 +159,6 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
 void
 MSPerson::MSPersonStage_Walking::abort(MSTransportable*) {
     MSPModel::getModel()->remove(myPedestrianState);
-    myPedestrianState = 0;
 }
 
 void
@@ -528,7 +525,6 @@ MSPerson::getInfluencer() const {
 /* -------------------------------------------------------------------------
  * methods of MSPerson::Influencer
  * ----------------------------------------------------------------------- */
-#ifndef NO_TRACI
 MSPerson::Influencer::Influencer() {}
 
 
@@ -576,9 +572,4 @@ MSPerson::Influencer::postProcessRemoteControl(MSPerson* p) {
 }
 
 
-
-
-#endif
-
 /****************************************************************************/
-

@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    NBEdge.h
 /// @author  Daniel Krajzewicz
@@ -1114,10 +1111,10 @@ public:
     void decLaneNo(int by);
 
     /// @brief delete lane
-    void deleteLane(int index, bool recompute = true);
+    void deleteLane(int index, bool recompute, bool shiftIndices);
 
     /// @brief add lane
-    void addLane(int index, bool recompute = true);
+    void addLane(int index, bool recomputeShape, bool recomputeConnections, bool shiftIndices);
 
     /// @brief mark edge as in lane to state lane
     void markAsInLane2LaneState();
@@ -1216,6 +1213,9 @@ public:
     /// @brief Set Node border
     void setNodeBorder(const NBNode* node, const Position& p, const Position& p2, bool rectangularCut);
     void resetNodeBorder(const NBNode* node);
+
+    /// @brief whether this edge is part of a bidirectional railway
+    bool isBidiRail();
 
 private:
     /** @class ToEdgeConnectionsAdder

@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GNEJunction.cpp
 /// @author  Jakob Erdmann
@@ -533,21 +530,8 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
         NBTurningDirectionsComputer::computeTurnDirectionsForNode(&myNBNode, false);
         EdgeVector incoming = myNBNode.getIncomingEdges();
         for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
-            NBEdge* srcNBE = *it;
-            NBEdge* turnEdge = srcNBE->getTurnDestination();
-            GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
-            // Make a copy of connections
-            std::vector<NBEdge::Connection> connections = srcNBE->getConnections();
-            // delete in reverse so that undoing will add connections in the original order
-            for (std::vector<NBEdge::Connection>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
-                bool hasTurn = con_it->toEdge == turnEdge;
-                undoList->add(new GNEChange_Connection(srcEdge, *con_it, false, false), true);
-                // needs to come after GNEChange_Connection
-                // XXX bug: this code path will not be used on a redo!
-                if (hasTurn) {
-                    myNet->addExplicitTurnaround(srcNBE->getID());
-                }
-            }
+            GNEEdge* srcEdge = myNet->retrieveEdge((*it)->getID());
+            removeConnectionsFrom(srcEdge, undoList, false); // false, because the whole tls will be invalidated at the end
             undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, status), true);
         }
         undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, status), true);
@@ -556,6 +540,129 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
         // logic valed, then rebuild GNECrossings to adapt it to the new logic
         // (but don't rebuild the crossings in NBNode because they are already finished)
         rebuildGNECrossings(false);
+    }
+}
+
+
+void 
+GNEJunction::removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS, int lane) {
+    NBEdge* srcNBE = edge->getNBEdge();
+    NBEdge* turnEdge = srcNBE->getTurnDestination();
+    // Make a copy of connections
+    std::vector<NBEdge::Connection> connections = srcNBE->getConnections();
+    // delete in reverse so that undoing will add connections in the original order
+    for (std::vector<NBEdge::Connection>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
+        if (lane >= 0 && (*con_it).fromLane != lane) {
+            continue;
+        }
+        bool hasTurn = con_it->toEdge == turnEdge;
+        undoList->add(new GNEChange_Connection(edge, *con_it, false, false), true);
+        // needs to come after GNEChange_Connection
+        // XXX bug: this code path will not be used on a redo!
+        if (hasTurn) {
+            myNet->addExplicitTurnaround(srcNBE->getID());
+        }
+    }
+    if (updateTLS) {
+        std::vector<NBConnection> removeConnections;
+        for (NBEdge::Connection con : connections) {
+            removeConnections.push_back(NBConnection(srcNBE, con.fromLane, con.toEdge, con.toLane));
+        }
+        removeTLSConnections(removeConnections, undoList);
+    }
+}
+
+
+void
+GNEJunction::removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS, int lane) {
+    NBEdge* destNBE = edge->getNBEdge();
+    std::vector<NBConnection> removeConnections;
+    for (NBEdge* srcNBE : myNBNode.getIncomingEdges()) {
+        GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
+        std::vector<NBEdge::Connection> connections = srcNBE->getConnections();
+        for (std::vector<NBEdge::Connection>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
+            if ((*con_it).toEdge == destNBE) {
+                if (lane >= 0 && (*con_it).toLane != lane) {
+                    continue;
+                }
+                bool hasTurn = srcNBE->getTurnDestination() == destNBE;
+                undoList->add(new GNEChange_Connection(srcEdge, *con_it, false, false), true);
+                // needs to come after GNEChange_Connection
+                // XXX bug: this code path will not be used on a redo!
+                if (hasTurn) {
+                    myNet->addExplicitTurnaround(srcNBE->getID());
+                }
+                removeConnections.push_back(NBConnection(srcNBE, (*con_it).fromLane, destNBE, (*con_it).toLane));
+            }
+        }
+    }
+    if (updateTLS) {
+        removeTLSConnections(removeConnections, undoList);
+    }
+}
+
+
+void 
+GNEJunction::removeTLSConnections(std::vector<NBConnection>& connections, GNEUndoList* undoList) {
+    if (connections.size() == 0) {
+        return;
+    }
+    const std::set<NBTrafficLightDefinition*> coypOfTls = myNBNode.getControllingTLS(); // make a copy!
+    for (auto it : coypOfTls) {
+        NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it);
+        // guessed TLS (NBOwnTLDef) do not need to be updated
+        if (tlDef != 0) {
+            std::string newID = tlDef->getID();
+            // create replacement before deleting the original because deletion will mess up saving original nodes
+            NBLoadedSUMOTLDef* replacementDef = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
+            for (NBConnection& con : connections) {
+                replacementDef->removeConnection(con);
+            }
+            undoList->add(new GNEChange_TLS(this, tlDef, false), true);
+            undoList->add(new GNEChange_TLS(this, replacementDef, true, false, newID), true);
+            // the removed traffic light may have controlled more than one junction. These too have become invalid now
+            const std::vector<NBNode*> copyOfNodes = tlDef->getNodes(); // make a copy!
+            for (auto it_node : copyOfNodes) {
+                GNEJunction* sharing = myNet->retrieveJunction(it_node->getID());
+                undoList->add(new GNEChange_TLS(sharing, tlDef, false), true);
+                undoList->add(new GNEChange_TLS(sharing, replacementDef, true, false, newID), true);
+            }
+        }
+    }
+}
+
+
+void
+GNEJunction::replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) {
+    // remap connections of the edge
+    assert(which->getLanes().size() == by->getLanes().size());
+    std::vector<NBEdge::Connection> connections = which->getNBEdge()->getConnections();
+    for (NBEdge::Connection& c : connections) {
+        undoList->add(new GNEChange_Connection(which, c, false, false), true);
+        undoList->add(new GNEChange_Connection(by, c, false, true), true);
+    }
+    // also remap tls connections
+    const std::set<NBTrafficLightDefinition*> coypOfTls = myNBNode.getControllingTLS(); // make a copy!
+    for (auto it : coypOfTls) {
+        NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it);
+        // guessed TLS (NBOwnTLDef) do not need to be updated
+        if (tlDef != 0) {
+            std::string newID = tlDef->getID();
+            // create replacement before deleting the original because deletion will mess up saving original nodes
+            NBLoadedSUMOTLDef* replacementDef = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
+            for (int i = 0; i < (int)which->getLanes().size(); ++i) {
+                replacementDef->replaceRemoved(which->getNBEdge(), i, by->getNBEdge(), i);
+            }
+            undoList->add(new GNEChange_TLS(this, tlDef, false), true);
+            undoList->add(new GNEChange_TLS(this, replacementDef, true, false, newID), true);
+            // the removed traffic light may have controlled more than one junction. These too have become invalid now
+            const std::vector<NBNode*> copyOfNodes = tlDef->getNodes(); // make a copy!
+            for (auto it_node : copyOfNodes) {
+                GNEJunction* sharing = myNet->retrieveJunction(it_node->getID());
+                undoList->add(new GNEChange_TLS(sharing, tlDef, false), true);
+                undoList->add(new GNEChange_TLS(sharing, replacementDef, true, false, newID), true);
+            }
+        }
     }
 }
 

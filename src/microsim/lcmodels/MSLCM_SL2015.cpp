@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2013-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSLCM_SL2015.cpp
 /// @author  Jakob Erdmann
@@ -146,7 +143,10 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myTimeToImpatience(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, std::numeric_limits<double>::max())),
     myAccelLat(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ACCEL_LAT, 1.0)),
     myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)),
-    mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)) {
+    mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)),
+    myMaxSpeedLatStanding(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, v.getVehicleType().getMaxSpeedLat())),
+    myMaxSpeedLatFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1))
+{
     initDerivedParameters();
 }
 
@@ -1311,7 +1311,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                       << " origLatDist=" << myManeuverDist
                       << " wantsChangeToHelp=" << (right ? "right" : "left")
                       << " state=" << myOwnState
-                      << (((myOwnState & myLcaCounter) != 0) ? " (counter)" : "")
+                      //<< (((myOwnState & myLcaCounter) != 0) ? " (counter)" : "")
                       << "\n";
         }
 #endif
@@ -1989,11 +1989,11 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& ma
     latDist = MAX2(MIN2(latDist, maxDist), -maxDist);
 
     if (!myCFRelatedReady) {
-        updateCFRelated(leaders, myVehicle.getLane()->getRightSideOnEdge());
-        updateCFRelated(followers, myVehicle.getLane()->getRightSideOnEdge());
+        updateCFRelated(leaders, myVehicle.getLane()->getRightSideOnEdge(), true);
+        updateCFRelated(followers, myVehicle.getLane()->getRightSideOnEdge(), false);
         if (laneOffset != 0) {
-            updateCFRelated(neighLeaders, neighLane.getRightSideOnEdge());
-            updateCFRelated(neighFollowers, neighLane.getRightSideOnEdge());
+            updateCFRelated(neighLeaders, neighLane.getRightSideOnEdge(), true);
+            updateCFRelated(neighFollowers, neighLane.getRightSideOnEdge(), false);
         }
         myCFRelatedReady = true;
     }
@@ -2257,7 +2257,7 @@ MSLCM_SL2015::checkBlockingVehicles(
 
 
 void
-MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOffset) {
+MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOffset, bool leaders) {
     // to ensure that we do not ignore the wrong vehicles due to numerical
     // instability we slightly reduce the width
     const double vehWidth = myVehicle.getVehicleType().getWidth() - NUMERICAL_EPS;
@@ -2273,7 +2273,15 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
         if (vehDist.first != 0 && myCFRelated.count(vehDist.first) == 0) {
             double foeRight, foeLeft;
             vehicles.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
-            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0)) {
+            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0
+                        // avoid deadlock due to #3729
+                        || (!leaders
+                            && myVehicle.getPositionOnLane() >= myVehicle.getVehicleType().getLength()
+                            && myVehicle.getSpeed() < SUMO_const_haltingSpeed
+                            && vehDist.first->getSpeed() < SUMO_const_haltingSpeed
+                            && -vehDist.second < vehDist.first->getVehicleType().getMinGap()
+                            && &(myVehicle.getLane()->getEdge()) != &(vehDist.first->getLane()->getEdge()))
+                        )) {
 #ifdef DEBUG_BLOCKING
                 if (gDebugFlag2) {
                     std::cout << " ignoring cfrelated foe=" << vehDist.first->getID() << " gap=" << vehDist.second
@@ -2281,6 +2289,8 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
                               << " foeOffset=" << foeOffset
                               << " egoR=" << rightVehSide << " egoL=" << leftVehSide
                               << " iR=" << foeRight << " iL=" << foeLeft
+                              << " egoV=" << myVehicle.getSpeed() << " foeV=" << vehDist.first->getSpeed()
+                              << " egoE=" << myVehicle.getLane()->getEdge().getID() << " egoE=" << vehDist.first->getLane()->getEdge().getID()
                               << "\n";
                 }
 #endif
@@ -2903,7 +2913,8 @@ double
 MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) {
     int currentDirection = mySpeedLat >= 0 ? 1 : -1;
     int directionWish = latDist >= 0 ? 1 : -1;
-    const double maxSpeedLat = myVehicle.getVehicleType().getMaxSpeedLat();
+    const double maxSpeedLat = MIN2(myVehicle.getVehicleType().getMaxSpeedLat(),
+            myMaxSpeedLatStanding + myMaxSpeedLatFactor * myVehicle.getSpeed());
 
 #ifdef DEBUG_MANEUVER
     if (debugVehicle()) {

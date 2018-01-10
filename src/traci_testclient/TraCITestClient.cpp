@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2008-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2008-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    TraCITestClient.cpp
 /// @author  Friedemann Wesner
@@ -704,6 +701,7 @@ TraCITestClient::testAPI() {
     answerLog << "    currentTraveltime: " << edge.getTraveltime(edgeID) << "\n";
     answerLog << "    adaptedTravelTime: " << edge.getAdaptedTraveltime(edgeID, 0) << "\n";
     answerLog << "    effort: " << edge.getEffort(edgeID, 0) << "\n";
+    answerLog << "    laneNumber: " << edge.getLaneNumber(edgeID) << "\n";
 
     // lane
     answerLog << "  lane:\n";
@@ -922,6 +920,13 @@ TraCITestClient::testAPI() {
             answerLog << "      index=" << i << " link=" << j << " from=" << links[i][j].from << " via=" << links[i][j].via << " to=" << links[i][j].to << "\n";
         }
     }
+    TraCILogic newLogic("custom", 0, 3);
+    newLogic.phases.push_back(TraCIPhase(5, 5, 5,   "rrrrrrr"));
+    newLogic.phases.push_back(TraCIPhase(10, 5, 15, "ggggggg"));
+    newLogic.phases.push_back(TraCIPhase(3, 3, 3,   "GGGGGGG"));
+    newLogic.phases.push_back(TraCIPhase(3, 3, 3,   "yyyyyyy"));
+    trafficlights.setCompleteRedYellowGreenDefinition("n_m4", newLogic);
+
     std::vector<TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");
     answerLog << "    completeDefinition:\n";
     for (int i = 0; i < (int)logics.size(); ++i) {

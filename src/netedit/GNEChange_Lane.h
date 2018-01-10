@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GNEChange_Lane.h
 /// @author  Jakob Erdmann
@@ -58,8 +55,9 @@ public:
      * @param[in] lane The lane to be deleted or 0 if a lane should be created
      * @param[in] laneAttrs The attributes of the lane to be created/deleted
      * @param[in] forward Whether to create/delete (true/false)
+     * @param[in] recomputeConnections Whether to recompute all connections for the affected edge
      */
-    GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward);
+    GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward, bool recomputeConnections=true);
 
     /// @brief Destructor
     ~GNEChange_Lane();
@@ -98,6 +96,9 @@ private:
 
     /// @brief we need to preserve the list of additional sets in which this lane is a child
     std::vector<GNEAdditional*> myAdditionalParents;
+
+    /// @bried whether to recompute connection when adding a new lane
+    bool myRecomputeConnections;
 };
 
 #endif

@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GUIDialog_ViewSettings.cpp
 /// @author  Daniel Krajzewicz
@@ -144,12 +141,12 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXLabel(m12, "");
         FXMatrix* m121 = new FXMatrix(m12, 2, GUIDesignViewSettingsMatrix2);
         new FXLabel(m121, "x-spacing", 0, GUIDesignViewSettingsLabel1);
-        myGridXSizeDialer = new FXRealSpinDial(m121, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+        myGridXSizeDialer = new FXRealSpinner(m121, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
         myGridXSizeDialer->setRange(1, 10000);
         myGridXSizeDialer->setValue(mySettings->gridXSize);
         FXMatrix* m122 = new FXMatrix(m12, 2, GUIDesignViewSettingsMatrix2);
         new FXLabel(m122, "y-spacing", 0, GUIDesignViewSettingsLabel1);
-        myGridYSizeDialer = new FXRealSpinDial(m122, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+        myGridYSizeDialer = new FXRealSpinner(m122, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
         myGridYSizeDialer->setRange(1, 10000);
         myGridYSizeDialer->setValue(mySettings->gridXSize);
     }
@@ -193,7 +190,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         FXMatrix* m22 = new FXMatrix(frame2, 2, GUIDesignViewSettingsMatrix1);
         myShowLaneBorders = new FXCheckButton(m22, "Show lane borders", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLaneBorders->setCheck(mySettings->laneShowBorders);
-        new FXLabel(m22, " ", 0, GUIDesignViewSettingsLabel1);
+        myShowBikeMarkings = new FXCheckButton(m22, "Show bike markings", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowBikeMarkings->setCheck(mySettings->showBikeMarkings);
         myShowLaneDecals = new FXCheckButton(m22, "Show turning arrows", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLaneDecals->setCheck(mySettings->showLinkDecals);
         new FXLabel(m22, " ", 0, GUIDesignViewSettingsLabel1);
@@ -211,14 +209,15 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXLabel(m22, " ", 0, GUIDesignViewSettingsLabel1);
         myShowSublanes = new FXCheckButton(m22, "Show sublanes", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowSublanes->setCheck(mySettings->showSublanes);
-        new FXLabel(m22, " ", 0, GUIDesignViewSettingsLabel1);
+        mySpreadSuperposed = new FXCheckButton(m22, "Spread superposed", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
         new FXLabel(m22, "Exaggerate width by", 0, GUIDesignViewSettingsLabel1);
-        myLaneWidthUpscaleDialer = new FXRealSpinDial(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+        myLaneWidthUpscaleDialer = new FXRealSpinner(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
         myLaneWidthUpscaleDialer->setRange(0, 10000);
         myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
 
         new FXLabel(m22, "Minimum size", 0, GUIDesignViewSettingsLabel1);
-        myLaneMinWidthDialer = new FXRealSpinDial(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+        myLaneMinWidthDialer = new FXRealSpinner(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
         myLaneMinWidthDialer->setRange(0, 10000);
         myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
 
@@ -561,6 +560,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myLaneEdgeColorMode->setCurrentItem((FXint) mySettings->getLaneEdgeMode());
     myLaneEdgeScaleMode->setCurrentItem((FXint) mySettings->getLaneEdgeScaleMode());
     myShowLaneBorders->setCheck(mySettings->laneShowBorders);
+    myShowBikeMarkings->setCheck(mySettings->showBikeMarkings);
     myShowLaneDecals->setCheck(mySettings->showLinkDecals);
     myShowLinkRules->setCheck(mySettings->showLinkRules);
     myShowRails->setCheck(mySettings->showRails);
@@ -571,6 +571,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myHideMacroConnectors->setCheck(mySettings->hideConnectors);
     myShowLaneDirection->setCheck(mySettings->showLaneDirection);
     myShowSublanes->setCheck(mySettings->showSublanes);
+    mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
     myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
     myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
 
@@ -630,8 +631,8 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
 bool
 GUIDialog_ViewSettings::updateColorRanges(FXObject* sender, std::vector<FXColorWell*>::const_iterator colIt,
         std::vector<FXColorWell*>::const_iterator colEnd,
-        std::vector<FXRealSpinDial*>::const_iterator threshIt,
-        std::vector<FXRealSpinDial*>::const_iterator threshEnd,
+        std::vector<FXRealSpinner*>::const_iterator threshIt,
+        std::vector<FXRealSpinner*>::const_iterator threshEnd,
         std::vector<FXButton*>::const_iterator buttonIt,
         GUIColorScheme& scheme) {
     int pos = 0;
@@ -681,10 +682,10 @@ GUIDialog_ViewSettings::updateColorRanges(FXObject* sender, std::vector<FXColorW
 
 
 bool
-GUIDialog_ViewSettings::updateScaleRanges(FXObject* sender, std::vector<FXRealSpinDial*>::const_iterator scaleIt,
-        std::vector<FXRealSpinDial*>::const_iterator scaleEnd,
-        std::vector<FXRealSpinDial*>::const_iterator threshIt,
-        std::vector<FXRealSpinDial*>::const_iterator threshEnd,
+GUIDialog_ViewSettings::updateScaleRanges(FXObject* sender, std::vector<FXRealSpinner*>::const_iterator scaleIt,
+        std::vector<FXRealSpinner*>::const_iterator scaleEnd,
+        std::vector<FXRealSpinner*>::const_iterator threshIt,
+        std::vector<FXRealSpinner*>::const_iterator threshEnd,
         std::vector<FXButton*>::const_iterator buttonIt,
         GUIScaleScheme& scheme) {
     int pos = 0;
@@ -757,6 +758,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         tmpSettings.laneScaler.setActive(myLaneEdgeScaleMode->getCurrentItem());
     }
     tmpSettings.laneShowBorders = (myShowLaneBorders->getCheck() != FALSE);
+    tmpSettings.showBikeMarkings = (myShowBikeMarkings->getCheck() != FALSE);
     tmpSettings.showLinkDecals = (myShowLaneDecals->getCheck() != FALSE);
     tmpSettings.showLinkRules = (myShowLinkRules->getCheck() != FALSE);
     tmpSettings.showRails = (myShowRails->getCheck() != FALSE);
@@ -767,6 +769,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.hideConnectors = (myHideMacroConnectors->getCheck() != FALSE);
     tmpSettings.showLaneDirection = (myShowLaneDirection->getCheck() != FALSE);
     tmpSettings.showSublanes = (myShowSublanes->getCheck() != FALSE);
+    tmpSettings.spreadSuperposed = (mySpreadSuperposed->getCheck() != FALSE);
     tmpSettings.laneWidthExaggeration = (double) myLaneWidthUpscaleDialer->getValue();
     tmpSettings.laneMinSize = (double) myLaneMinWidthDialer->getValue();
 
@@ -1235,7 +1238,7 @@ GUIDialog_ViewSettings::rebuildList() {
 FXMatrix*
 GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
         std::vector<FXColorWell*>& colors,
-        std::vector<FXRealSpinDial*>& thresholds,
+        std::vector<FXRealSpinner*>& thresholds,
         std::vector<FXButton*>& buttons,
         FXCheckButton* interpolation,
         GUIColorScheme& scheme) {
@@ -1255,8 +1258,8 @@ GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
             new FXLabel(m, "");
             new FXLabel(m, "");
         } else {
-            const int dialerOptions = scheme.allowsNegativeValues() ? SPINDIAL_NOMIN : 0;
-            FXRealSpinDial* threshDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPINDIAL_NOMAX | dialerOptions);
+            const int dialerOptions = scheme.allowsNegativeValues() ? SPIN_NOMIN : 0;
+            FXRealSpinner* threshDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPIN_NOMAX | dialerOptions);
             threshDialer->setValue(*threshIt);
             thresholds.push_back(threshDialer);
             buttons.push_back(new FXButton(m, "Add", NULL, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
@@ -1288,8 +1291,8 @@ GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
 
 FXMatrix*
 GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
-        std::vector<FXRealSpinDial*>& scales,
-        std::vector<FXRealSpinDial*>& thresholds,
+        std::vector<FXRealSpinner*>& scales,
+        std::vector<FXRealSpinner*>& thresholds,
         std::vector<FXButton*>& buttons,
         FXCheckButton* interpolation,
         GUIScaleScheme& scheme) {
@@ -1303,7 +1306,7 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
     std::vector<double>::const_iterator threshIt = scheme.getThresholds().begin();
     std::vector<std::string>::const_iterator nameIt = scheme.getNames().begin();
     while (scaleIt != scheme.getColors().end()) {
-        FXRealSpinDial* scaleDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPINDIAL_NOMAX);
+        FXRealSpinner* scaleDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPIN_NOMAX);
         scaleDialer->setValue(*scaleIt);
         scales.push_back(scaleDialer);
         if (fixed) {
@@ -1311,8 +1314,8 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
             new FXLabel(m, "");
             new FXLabel(m, "");
         } else {
-            const int dialerOptions = scheme.allowsNegativeValues() ? SPINDIAL_NOMIN : 0;
-            FXRealSpinDial* threshDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPINDIAL_NOMAX | dialerOptions);
+            const int dialerOptions = scheme.allowsNegativeValues() ? SPIN_NOMIN : 0;
+            FXRealSpinner* threshDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPIN_NOMAX | dialerOptions);
             threshDialer->setValue(*threshIt);
             thresholds.push_back(threshDialer);
             buttons.push_back(new FXButton(m, "Add", NULL, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
@@ -1545,7 +1548,7 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
     new FXLabel(parent, "");
     FXMatrix* m1 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
     new FXLabel(m1, "Size", 0, GUIDesignViewSettingsLabel1);
-    mySizeDial = new FXRealSpinDial(m1, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    mySizeDial = new FXRealSpinner(m1, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
     mySizeDial->setRange(10, 1000);
     mySizeDial->setValue(settings.size);
     FXMatrix* m2 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
@@ -1577,11 +1580,11 @@ GUIDialog_ViewSettings::SizePanel::SizePanel(
     new FXLabel(parent, "");
     FXMatrix* m1 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
     new FXLabel(m1, "Minimum Size", 0, GUIDesignViewSettingsLabel1);
-    myMinSizeDial = new FXRealSpinDial(m1, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    myMinSizeDial = new FXRealSpinner(m1, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
     myMinSizeDial->setValue(settings.minSize);
     FXMatrix* m2 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
     new FXLabel(m2, "Exaggerate by", 0, GUIDesignViewSettingsLabel1);
-    myExaggerateDial = new FXRealSpinDial(m2, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+    myExaggerateDial = new FXRealSpinner(m2, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
     myExaggerateDial->setRange(0, 10000);
     myExaggerateDial->setValue(settings.exaggeration);
 }

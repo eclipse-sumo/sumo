@@ -10,6 +10,9 @@
 /* defined if GDAL is available */
 #cmakedefine HAVE_GDAL
 
+/* defined if GL2PS is available */
+#cmakedefine HAVE_GL2PS
+
 /* defined if osg is available */
 #cmakedefine HAVE_OSG
 

@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GLHelper.cpp
 /// @author  Daniel Krajzewicz
@@ -548,6 +545,33 @@ GLHelper::drawTextAtEnd(const std::string& text, const PositionVector& shape, do
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
     GLHelper::drawText(text, Position(x, 0.26), 0, .6 * size / 50, color, 180);
+    glPopMatrix();
+}
+
+
+void
+GLHelper::drawCrossTies(const PositionVector& geom,
+                       const std::vector<double>& rots,
+                       const std::vector<double>& lengths,
+                       double length, double spacing, double halfWidth) {
+    glPushMatrix();
+    // draw on top of of the white area between the rails
+    glTranslated(0, 0, 0.1);
+    int e = (int) geom.size() - 1;
+    for (int i = 0; i < e; ++i) {
+        glPushMatrix();
+        glTranslated(geom[i].x(), geom[i].y(), 0.0);
+        glRotated(rots[i], 0, 0, 1);
+        for (double t = 0; t < lengths[i]; t += spacing) {
+            glBegin(GL_QUADS);
+            glVertex2d(-halfWidth, -t);
+            glVertex2d(-halfWidth, -t - length);
+            glVertex2d(halfWidth, -t - length);
+            glVertex2d(halfWidth, -t);
+            glEnd();
+        }
+        glPopMatrix();
+    }
     glPopMatrix();
 }
 

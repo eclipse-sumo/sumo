@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2017 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2018 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -38,7 +38,6 @@ polygonID = "0"
 print("adding", polygonID)
 traci.polygon.add(
     polygonID, ((1, 1), (1, 10), (10, 10)), (1, 2, 3, 4), True, "test")
-traci.polygon.setFilled(polygonID, False)
 
 print("polygons", traci.polygon.getIDList())
 print("polygon count", traci.polygon.getIDCount())
@@ -47,6 +46,16 @@ print("shape", traci.polygon.getShape(polygonID))
 print("type", traci.polygon.getType(polygonID))
 print("color", traci.polygon.getColor(polygonID))
 print("filled", traci.polygon.getFilled(polygonID))
+traci.polygon.setShape(polygonID, ((11, 11), (11, 101), (101, 101)))
+print("shape modified", traci.polygon.getShape(polygonID))
+traci.polygon.setType(polygonID, "blub")
+print("type modified", traci.polygon.getType(polygonID))
+traci.polygon.setColor(polygonID, (5,6,7,8))
+print("color modified", traci.polygon.getColor(polygonID))
+traci.polygon.setColor(polygonID, (5,6,7))
+print("color modified2", traci.polygon.getColor(polygonID))
+traci.polygon.setFilled(polygonID, False)
+print("filled modified", traci.polygon.getFilled(polygonID))
 
 traci.polygon.subscribe(polygonID)
 print(traci.polygon.getSubscriptionResults(polygonID))

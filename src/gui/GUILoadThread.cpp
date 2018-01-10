@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GUILoadThread.cpp
 /// @author  Daniel Krajzewicz
@@ -58,17 +55,13 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/MSFrame.h>
 #include <microsim/MSRouteHandler.h>
+#include <mesogui/GUIMEVehicleControl.h>
+#include <traci-server/TraCIServer.h>
+#include "TraCIServerAPI_GUI.h"
 #include "GUIApplicationWindow.h"
 #include "GUILoadThread.h"
 #include "GUIGlobals.h"
 #include "GUIEvent_SimulationLoaded.h"
-
-#include <mesogui/GUIMEVehicleControl.h>
-
-#ifndef NO_TRACI
-#include <traci-server/TraCIServer.h>
-#include "TraCIServerAPI_GUI.h"
-#endif
 
 
 // ===========================================================================
@@ -184,13 +177,11 @@ GUILoadThread::run() {
             new GUIEventControl(),
             new GUIEventControl(),
             new GUIEventControl());
-#ifndef NO_TRACI
         // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
         std::map<int, TraCIServer::CmdExecutor> execs;
         execs[CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
         execs[CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
         TraCIServer::openSocket(execs);
-#endif
 
         eb = new GUIEdgeControlBuilder();
         GUIDetectorBuilder db(*net);

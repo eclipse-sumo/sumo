@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSLane.cpp
 /// @author  Christian Roessel
@@ -1125,9 +1122,8 @@ MSLane::updateLeaderInfo(const MSVehicle* veh, VehCont::reverse_iterator& vehPar
         } else {
             assert(morePartialVehsAhead && moreReservationsAhead);
             // Add farthest downstream vehicle first
-            nextToConsiderIsPartial = (*vehPart)->getPositionOnLane(this) > (*vehRes)->getPositionOnLane();
+            nextToConsiderIsPartial = (*vehPart)->getPositionOnLane(this) > (*vehRes)->getPositionOnLane(this);
         }
-
         // Add appropriate leader information
         if (nextToConsiderIsPartial) {
             const double latOffset = (*vehPart)->getLatOffset(this);
@@ -1356,12 +1352,10 @@ bool
 MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove,
                                std::set<const MSVehicle*>& toTeleport) const {
-#ifndef NO_TRACI
     if (myCollisionAction == COLLISION_ACTION_TELEPORT && ((victim->hasInfluencer() && victim->getInfluencer().isRemoteAffected(timestep)) ||
             (collider->hasInfluencer() && collider->getInfluencer().isRemoteAffected(timestep)))) {
         return false;
     }
-#endif
 
     // No self-collisions! (This is assumed to be ensured at caller side)
     assert(collider != victim);
@@ -1466,7 +1460,6 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                 prefix = "Removing collision participants: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
                 bool removeCollider = true;
                 bool removeVictim = true;
-#ifndef NO_TRACI
                 removeVictim = !(victim->hasInfluencer() && victim->getInfluencer().isRemoteAffected(timestep));
                 removeCollider = !(collider->hasInfluencer() && collider->getInfluencer().isRemoteAffected(timestep));
                 if (removeVictim) {
@@ -1484,10 +1477,6 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                 } else if (!removeCollider) {
                     prefix = "Keeping remote-controlled collision participant: vehicle '" + collider->getID() + "', removing vehicle '" + victim->getID();
                 }
-#else
-                toRemove.insert(victim);
-                toRemove.insert(collider);
-#endif
                 break;
             }
             default:
@@ -1500,6 +1489,8 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                   + (latGap == 0 ? "" : "', latGap=" + toString(latGap))
                   + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
                   + " stage=" + stage + ".");
+    MSNet::getInstance()->informVehicleStateListener(victim, MSNet::VEHICLE_STATE_COLLISION);
+    MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VEHICLE_STATE_COLLISION);
     MSNet::getInstance()->getVehicleControl().registerCollision();
 }
 
@@ -1689,9 +1680,7 @@ MSLane::fill(RTREE& into) {
 }
 
 template void MSLane::fill<NamedRTree>(NamedRTree& into);
-#ifndef NO_TRACI
 template void MSLane::fill<LANE_RTREE_QUAL>(LANE_RTREE_QUAL& into);
-#endif
 
 // ------   ------
 bool

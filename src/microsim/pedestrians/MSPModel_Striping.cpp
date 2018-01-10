@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2014-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSPModel_Striping.cpp
 /// @author  Jakob Erdmann
@@ -156,7 +153,6 @@ MSPModel_Striping::remove(PedestrianState* state) {
     Pedestrians& pedestrians = myActiveLanes[lane];
     for (Pedestrians::iterator it = pedestrians.begin(); it != pedestrians.end(); ++it) {
         if (*it == state) {
-            delete state;
             pedestrians.erase(it);
             return;
         }
@@ -263,11 +259,6 @@ MSPModel_Striping::getPedestrians(const MSLane* lane) {
 
 void
 MSPModel_Striping::cleanupHelper() {
-    for (ActiveLanes::iterator it_lane = myActiveLanes.begin(); it_lane != myActiveLanes.end(); ++it_lane) {
-        for (Pedestrians::iterator it_p = it_lane->second.begin(); it_p != it_lane->second.end(); ++it_p) {
-            delete *it_p;
-        }
-    }
     myActiveLanes.clear();
     myNumActivePedestrians = 0;
     myWalkingAreaPaths.clear(); // need to recompute when lane pointers change
@@ -827,7 +818,6 @@ MSPModel_Striping::arriveAndAdvance(Pedestrians& pedestrians, SUMOTime currentTi
                 changedLane.insert(p->myPerson);
                 myActiveLanes[p->myLane].push_back(p);
             } else {
-                delete p;
                 myNumActivePedestrians--;
             }
         }
@@ -1272,11 +1262,13 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                       << " dist=" << dist
                       << "\n";
         }
-        if (myLane == 0) {
+        if (myLane == nullptr) {
             myRelX = myStage->getArrivalPos();
         }
-        myStage->moveToNextEdge(myPerson, currentTime, normalLane ? 0 : &myLane->getEdge());
-        if (myLane != 0) {
+        if (myStage->moveToNextEdge(myPerson, currentTime, normalLane ? nullptr : &myLane->getEdge())) {
+            myLane = nullptr;
+        }
+        if (myLane != nullptr) {
             assert(myDir != UNDEFINED_DIRECTION);
             myNLI = getNextLane(*this, myLane, oldLane);
             assert(myNLI.lane != oldLane); // do not turn around

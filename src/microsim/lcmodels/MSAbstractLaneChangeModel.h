@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSAbstractLaneChangeModel.h
 /// @author  Daniel Krajzewicz
@@ -142,6 +139,11 @@ public:
      * @param[in] vehicle The vehicle for which this model shall be built
      */
     static MSAbstractLaneChangeModel* build(LaneChangeModel lcm, MSVehicle& vehicle);
+
+    /** @brief Returns the model's ID;
+     * @return The model's ID
+     */
+    virtual LaneChangeModel getModelID() const = 0;
 
     /// @brief whether lanechange-output is active
     static bool haveLCOutput() {
@@ -484,11 +486,7 @@ public:
 
     /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
     ///        and updates maneuverDist according to lateral safety constraints.
-    virtual double computeSpeedLat(double latDist, double& maneuverDist) {
-        UNUSED_PARAMETER(latDist);
-        UNUSED_PARAMETER(maneuverDist);
-        throw ProcessError("Method not implemented by model " + toString(myModel));
-    }
+    virtual double computeSpeedLat(double latDist, double& maneuverDist); 
 
     /// @brief try to retrieve the given parameter from this laneChangeModel. Throw exception for unsupported key
     virtual std::string getParameter(const std::string& key) const {

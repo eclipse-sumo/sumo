@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2012-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSCFModel_Rail.cpp
 /// @author  Gregor L\"ammel
@@ -185,13 +182,8 @@ MSCFModel::VehicleVariables* MSCFModel_Rail::createVehicleVariables() const {
 }
 
 
-double MSCFModel_Rail::moveHelper(MSVehicle* const veh, double vPos) const {
-    const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
-    const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
-    const double vMin = minNextSpeed(oldV, veh);
-    const double vMax = MAX2(vMin, MIN3(veh->getMaxSpeedOnLane(), maxNextSpeed(oldV, veh), vSafe));
-    const double vNext = veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
-    return vNext;
+double MSCFModel_Rail::finalizeSpeed(MSVehicle* const veh, double vPos) const {
+    return MSCFModel::finalizeSpeed(veh, vPos);
 }
 
 double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* speed */, double dist, double targetSpeed,

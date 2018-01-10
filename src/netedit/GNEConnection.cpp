@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GNEConnection.cpp
 /// @author  Pablo Alvarez Lopez
@@ -76,11 +73,16 @@ GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
 }
 
 
-GNEConnection::~GNEConnection() {}
+GNEConnection::~GNEConnection() {
+    if (myShape.size() > 0) {
+        myNet->getVisualisationSpeedUp().removeAdditionalGLObject(this);
+    }
+}
 
 
 void
 GNEConnection::updateGeometry() {
+    const bool init = myShape.size() == 0;
     // Clear containers
     myShapeRotations.clear();
     myShapeLengths.clear();
@@ -141,6 +143,10 @@ GNEConnection::updateGeometry() {
             myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
     }
+    if (!init) {
+        myNet->getVisualisationSpeedUp().removeAdditionalGLObject(this);
+    }
+    myNet->getVisualisationSpeedUp().addAdditionalGLObject(this);
 }
 
 

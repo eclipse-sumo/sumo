@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    NBTrafficLightDefinition.h
 /// @author  Daniel Krajzewicz
@@ -285,9 +282,10 @@ public:
                                 NBEdge* by, int byLane) = 0;
 
     /// @brief patches (loaded) signal plans by modifying lane indices
-    virtual void shiftTLConnectionLaneIndex(NBEdge* edge, int offset) {
+    virtual void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold=-1) {
         UNUSED_PARAMETER(edge);
         UNUSED_PARAMETER(offset);
+        UNUSED_PARAMETER(threshold);
     }
 
     /** @brief Returns the list of incoming edges (must be build first)

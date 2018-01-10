@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    TraCIServerAPI_Edge.cpp
 /// @author  Daniel Krajzewicz
@@ -32,8 +29,6 @@
 #else
 #include <config.h>
 #endif
-
-#ifndef NO_TRACI
 
 #include <utils/common/StdDefs.h>
 #include <microsim/MSNet.h>
@@ -69,7 +64,10 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             && variable != LAST_STEP_OCCUPANCY
             && variable != LAST_STEP_VEHICLE_HALTING_NUMBER && variable != LAST_STEP_LENGTH
             && variable != LAST_STEP_PERSON_ID_LIST
-            && variable != LAST_STEP_VEHICLE_ID_LIST && variable != ID_COUNT && variable != VAR_PARAMETER) {
+            && variable != LAST_STEP_VEHICLE_ID_LIST 
+            && variable != VAR_LANE_INDEX
+            && variable != ID_COUNT 
+            && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
                                           "Get Edge Variable: unsupported variable " + toHex(variable, 2)
                                           + " specified", outputStorage);
@@ -197,6 +195,11 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 case LAST_STEP_LENGTH: {
                     tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                     tempMsg.writeDouble(libsumo::Edge::getVehicleAverageLength(id));
+                }
+                break;
+                case VAR_LANE_INDEX: {
+                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                    tempMsg.writeInt(libsumo::Edge::getLaneNumber(id));
                 }
                 break;
                 case VAR_PARAMETER: {
@@ -392,6 +395,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     return true;
 }
 
+
 bool
 TraCIServerAPI_Edge::getShape(const std::string& id, PositionVector& shape) {
     try {
@@ -403,8 +407,6 @@ TraCIServerAPI_Edge::getShape(const std::string& id, PositionVector& shape) {
     return true;
 
 }
-
-#endif
 
 
 /****************************************************************************/

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2017 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2018 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -24,10 +24,17 @@ net = sumolib.net.readNet(sys.argv[1], withInternal=True)
 lane = net.getLane("SC_0")
 
 
-print(list(map(str, lane.getOutgoing())))
+print("connections from %s:\n%s" % (
+    lane.getID(), 
+    '\n'.join(list(map(str, lane.getOutgoing())))))
+print("outgoing internal lanes of %s: %s" % (
+    lane.getID(), [net.getLane(c.getViaLaneID()).getID() for c in lane.getOutgoing()]))
 
 internal_edge = net.getEdge(":C_0")
 internal_lane = net.getLane(":C_0_0")
+internal_lane_cons = internal_lane.getOutgoing()
+print("connections from %s:\n%s" % (internal_lane.getID(),
+    '\n'.join(map(str, internal_lane_cons))))
 assert(internal_edge.getFunction() == 'internal')
 assert(internal_edge.isSpecial())
 assert(internal_lane.getEdge().isSpecial())

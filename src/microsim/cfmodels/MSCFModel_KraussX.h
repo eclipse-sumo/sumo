@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSCFModel_KraussX.h
 /// @author  Jakob Erdmann
@@ -62,14 +59,8 @@ public:
 
     /// @name Implementations of the MSCFModel interface
     /// @{
-    /** @brief Applies interaction with stops and lane changing model influences
-     * @param[in] veh The ego vehicle
-     * @param[in] vPos The possible velocity
-     * @return The velocity after applying interactions with stops and lane change model influences
-     *
-     * @note: this is the exact duplicate of MSCFModel_KraussOrig1::moveHelper (also used by Krauss) except that dawdle is called with a second paramter
-     */
-    double moveHelper(MSVehicle* const veh, double vPos) const;
+    /// @brief apply dawdling
+    double patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const;
 
 
     /** @brief Returns the model's name

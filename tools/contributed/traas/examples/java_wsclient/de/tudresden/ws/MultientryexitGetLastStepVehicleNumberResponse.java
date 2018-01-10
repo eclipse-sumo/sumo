@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java-Klasse für Multientryexit_getLastStepVehicleNumberResponse complex type.
+ * <p>Java class for Multientryexit_getLastStepVehicleNumberResponse complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 

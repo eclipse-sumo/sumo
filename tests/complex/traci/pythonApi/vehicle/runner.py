@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2017 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2018 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -143,7 +143,10 @@ traci.vehicle.setLength(vehID, 1.0)
 traci.vehicle.setMaxSpeed(vehID, 9.0)
 traci.vehicle.setSpeedFactor(vehID, 1.1)
 traci.vehicle.setAccel(vehID, 1.1)
+traci.vehicle.setEmergencyDecel(vehID, 3.0)
 traci.vehicle.setDecel(vehID, 5.1)
+print("new decel=%s, automatically increased emergencyDecel=%s" % (
+    traci.vehicle.getDecel(vehID), traci.vehicle.getEmergencyDecel(vehID)))
 traci.vehicle.setEmergencyDecel(vehID, 5.2)
 traci.vehicle.setApparentDecel(vehID, 5.3)
 traci.vehicle.setActionStepLength(vehID, 1.0, False)
@@ -436,6 +439,12 @@ traci.vehicle.add("triptest2", "trip2", typeID="reroutingType")
 print("triptest route:", traci.vehicle.getRoute("triptest2"))
 step()
 print("triptest route:", traci.vehicle.getRoute("triptest2"))
+# test for adding a vehicle without specifying the route
+traci.vehicle.add("noRouteGiven", "")
+step()
+print("noRouteGiven routeID: %s edges: %s" % (
+    traci.vehicle.getRouteID("noRouteGiven"),
+    traci.vehicle.getRoute("noRouteGiven")))
 # done
 traci.close()
 sumoProcess.wait()

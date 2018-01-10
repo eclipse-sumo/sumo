@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GUIVisualizationSettings.cpp
 /// @author  Daniel Krajzewicz
@@ -73,7 +70,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     dither(false),
     backgroundColor(RGBColor::WHITE),
     showGrid(false), gridXSize(100), gridYSize(100),
-    laneShowBorders(false), showLinkDecals(true),
+    laneShowBorders(false), showBikeMarkings(true), showLinkDecals(true),
     showLinkRules(true), showRails(true),
     edgeName(false, 50, RGBColor(255, 128, 0, 255)),
     internalEdgeName(false, 40, RGBColor(128, 64, 0, 255)),
@@ -84,6 +81,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     laneMinSize(0),
     showLaneDirection(false),
     showSublanes(true),
+    spreadSuperposed(false),
     vehicleQuality(0), showBlinker(true),
     drawLaneChangePreference(false), drawMinGap(false),
     showBTRange(false), vehicleSize(1),
@@ -862,6 +860,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("laneEdgeMode", getLaneEdgeMode());
     dev.writeAttr("scaleMode", getLaneEdgeScaleMode());
     dev.writeAttr("laneShowBorders", laneShowBorders);
+    dev.writeAttr("showBikeMarkings", showBikeMarkings);
     dev.writeAttr("showLinkDecals", showLinkDecals);
     dev.writeAttr("showLinkRules", showLinkRules);
     dev.writeAttr("showRails", showRails);
@@ -870,6 +869,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("minSize", laneMinSize);
     dev.writeAttr("showDirection", showLaneDirection);
     dev.writeAttr("showSublanes", showSublanes);
+    dev.writeAttr("spreadSuperposed", spreadSuperposed);
     dev.lf();
     dev << "               ";
     edgeName.print(dev, "edgeName");
@@ -1002,6 +1002,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (laneShowBorders != v2.laneShowBorders) {
         return false;
     }
+    if (showBikeMarkings != v2.showBikeMarkings) {
+        return false;
+    }
     if (showLinkDecals != v2.showLinkDecals) {
         return false;
     }
@@ -1036,6 +1039,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (showSublanes != v2.showSublanes) {
+        return false;
+    }
+    if (spreadSuperposed != v2.spreadSuperposed) {
         return false;
     }
     if (!(vehicleColorer == v2.vehicleColorer)) {

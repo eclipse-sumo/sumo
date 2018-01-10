@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2012-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    TraCIAPI.cpp
 /// @author  Daniel Krajzewicz
@@ -723,6 +720,11 @@ TraCIAPI::EdgeScope::getLastStepVehicleIDs(const std::string& edgeID) const {
     return myParent.getStringVector(CMD_GET_EDGE_VARIABLE, LAST_STEP_VEHICLE_ID_LIST, edgeID);
 }
 
+
+int
+TraCIAPI::EdgeScope::getLaneNumber(const std::string& edgeID) const {
+    return myParent.getInt(CMD_GET_EDGE_VARIABLE, VAR_LANE_INDEX, edgeID);
+}
 
 
 void
@@ -1576,34 +1578,34 @@ TraCIAPI::SimulationScope::subscribeContext(int domID, const std::string& objID,
     myParent.readContextSubscription(inMsg);
 }
 
-const TraCIAPI::SubscribedValues&
+const TraCIAPI::SubscribedValues
 TraCIAPI::SimulationScope::getSubscriptionResults() const {
     return myParent.mySubscribedValues;
 }
 
 
-const TraCIAPI::TraCIValues&
+const TraCIAPI::TraCIValues
 TraCIAPI::SimulationScope::getSubscriptionResults(const std::string& objID) const {
     if (myParent.mySubscribedValues.find(objID) != myParent.mySubscribedValues.end()) {
         return myParent.mySubscribedValues[objID];
     } else {
-        throw; // Something?
+        return TraCIValues();
     }
 }
 
 
-const TraCIAPI::SubscribedContextValues&
+const TraCIAPI::SubscribedContextValues
 TraCIAPI::SimulationScope::getContextSubscriptionResults() const {
     return myParent.mySubscribedContextValues;
 }
 
 
-const TraCIAPI::SubscribedValues&
+const TraCIAPI::SubscribedValues
 TraCIAPI::SimulationScope::getContextSubscriptionResults(const std::string& objID) const {
     if (myParent.mySubscribedContextValues.find(objID) != myParent.mySubscribedContextValues.end()) {
         return myParent.mySubscribedContextValues[objID];
     } else {
-        throw; // Something?
+        return SubscribedValues();
     }
 }
 

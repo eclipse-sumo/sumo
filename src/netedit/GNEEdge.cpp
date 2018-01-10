@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GNEEdge.cpp
 /// @author  Jakob Erdmann
@@ -341,13 +338,6 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     for (auto i : myLanes) {
         i->drawGL(s);
     }
-    // draw the connections
-    if (s.scale >= 2) {
-        for (auto i : myGNEConnections) {
-            i->drawGL(s);
-        }
-    }
-
     // draw geometry hints
     if (s.scale * SNAP_RADIUS > 1.) { // check whether it is not too small
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
@@ -729,6 +719,8 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myNBEdge.getGeometry()[-1]);
             }
+        case GNE_ATTR_BIDIR:
+            return toString(myNBEdge.isBidiRail());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -834,6 +826,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             myNBEdge.setGeometry(myOrigShape, true);
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
+        case GNE_ATTR_BIDIR:
+            throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -929,6 +923,8 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             }
         }
+        case GNE_ATTR_BIDIR:
+            return false;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1041,6 +1037,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGeometry(geom, false);
             break;
         }
+        case GNE_ATTR_BIDIR:
+            throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1068,10 +1066,11 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
 
 
 void
-GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs) {
+GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeConnections) {
     const int index = lane ? lane->getIndex() : myNBEdge.getNumLanes();
     // the laneStruct must be created first to ensure we have some geometry
-    myNBEdge.addLane(index);
+    // unless the connections are fully recomputed, existing indices must be shifted
+    myNBEdge.addLane(index, true, recomputeConnections, !recomputeConnections);
     if (lane) {
         // restore a previously deleted lane
         myLanes.insert(myLanes.begin() + index, lane);
@@ -1112,7 +1111,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs) {
 
 
 void
-GNEEdge::removeLane(GNELane* lane) {
+GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     if (myLanes.size() == 0) {
         throw ProcessError("Should not remove the last " + toString(SUMO_TAG_LANE) + " from an " + toString(getTag()));
     }
@@ -1120,7 +1119,8 @@ GNEEdge::removeLane(GNELane* lane) {
         lane = myLanes.back();
     }
     // Delete lane of edge's container
-    myNBEdge.deleteLane(lane->getIndex());
+    // unless the connections are fully recomputed, existing indices must be shifted
+    myNBEdge.deleteLane(lane->getIndex(), recomputeConnections, !recomputeConnections);
     lane->decRef("GNEEdge::removeLane");
     myLanes.erase(myLanes.begin() + lane->getIndex());
     // Delete lane if is unreferenced
@@ -1209,7 +1209,7 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
         }
     }
     if (createIfNoExist) {
-        // create new connection
+        // create new connection. Will be added to the rTree on first geometry computation
         GNEConnection* createdConnection = new GNEConnection(myLanes[fromLane], myNet->retrieveEdge(to->getID())->getLanes()[toLane]);
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {

@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GUIMainWindow.h
 /// @author  Daniel Krajzewicz
@@ -108,7 +105,7 @@ public:
      * @return parsed delay in milliseconds
      */
     virtual double getDelay() const {
-        return 0;
+        return 0.;
     }
 
     /** @brief Sets the delay of the parent application
@@ -126,6 +123,9 @@ public:
     GUISUMOAbstractView* getActiveView() const;
 
 protected:
+    /// @brief whether to show the window in full screen mode
+    bool myAmFullScreen;
+
     std::vector<FXMDIChild*> mySubWindows;
     std::vector<FXMainWindow*> myTrackerWindows;
     /// A lock to make the removal and addition of trackers secure
@@ -170,6 +170,8 @@ protected:
     /// @brief perform initial window positioning and sizing according to user options / previous call
     void setWindowSizeAndPos();
 
+    /// @brief record window position and size in registry
+    void storeWindowSizeAndPos();
 
 };
 

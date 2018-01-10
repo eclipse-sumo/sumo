@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSFrame.cpp
 /// @author  Daniel Krajzewicz
@@ -384,8 +381,6 @@ MSFrame::fillOptions() {
     oc.doRegister("no-step-log", new Option_Bool(false));
     oc.addDescription("no-step-log", "Report", "Disable console output of current simulation step");
 
-
-#ifndef NO_TRACI
     //remote port 0 if not used
     oc.addOptionSubTopic("TraCI Server");
     oc.doRegister("remote-port", new Option_Integer(0));
@@ -395,7 +390,6 @@ MSFrame::fillOptions() {
 #ifdef HAVE_PYTHON
     oc.doRegister("python-script", new Option_String());
     oc.addDescription("python-script", "TraCI Server", "Runs TraCI script with embedded python");
-#endif
 #endif
     //
     oc.addOptionSubTopic("Mesoscopic");
@@ -573,12 +567,10 @@ MSFrame::checkOptions() {
     if (oc.getBool("ignore-accidents")) {
         WRITE_WARNING("The option 'ignore-accidents' is deprecated. Use 'collision.action none' instead.");
     }
-#ifndef NO_TRACI
 #ifdef HAVE_PYTHON
     if (oc.isSet("python-script")) {
         WRITE_WARNING("The option 'python-script' is deprecated. Use libsumo or TraCI instead.");
     }
-#endif
 #endif
     if (oc.getBool("duration-log.statistics") && oc.isDefault("verbose")) {
         oc.set("verbose", "true");

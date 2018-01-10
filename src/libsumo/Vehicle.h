@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2012-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    Vehicle.h
 /// @author  Michael Behrisch
@@ -143,13 +140,13 @@ public:
     static void add(const std::string& vehicleID,
                     const std::string& routeID,
                     const std::string& typeID = "DEFAULT_VEHTYPE",
-                    int depart = DEPARTFLAG_NOW,
-                    int departLane = DEPARTFLAG_LANE_FIRST_ALLOWED,
-                    double departPos = DEPARTFLAG_POS_BASE,
-                    double departSpeed = 0,
-                    int arrivalLane = ARRIVALFLAG_LANE_CURRENT,
-                    double arrivalPos = ARRIVALFLAG_POS_MAX,
-                    double arrivalSpeed = ARRIVALFLAG_SPEED_CURRENT,
+                    const std::string& depart = "now",
+                    const std::string& departLane = "first",
+                    const std::string& departPos = "base",
+                    const std::string& departSpeed = "0",
+                    const std::string& arrivalLane = "current",
+                    const std::string& arrivalPos = "max",
+                    const std::string& arrivalSpeed = "current",
                     const std::string& fromTaz = "",
                     const std::string& toTaz = "",
                     const std::string& line = "",
@@ -162,6 +159,9 @@ public:
 
     static void slowDown(const std::string& vehicleID, double speed, SUMOTime duration);
     static void setSpeed(const std::string& vehicleID, double speed);
+    static void setSpeedMode(const std::string& vehicleID, int speedMode);
+    static void setLaneChangeMode(const std::string& vehicleID, int laneChangeMode);
+    static void setRoutingMode(const std::string& vehicleID, int routingMode);
     static void setType(const std::string& vehicleID, const std::string& typeID);
     static void setRouteID(const std::string& vehicleID, const std::string& routeID);
     static void setRoute(const std::string& vehicleID, const std::vector<std::string>& edgeIDs);
@@ -178,6 +178,7 @@ public:
     static void setActionStepLength(const std::string& vehicleID, double actionStepLength, bool resetActionOffset = true);
     static void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED);
     static void setColor(const std::string& vehicleID, const TraCIColor& col);
+    static void setSpeedFactor(const std::string& vehicleID, double factor);
     static void setLine(const std::string& vehicleID, const std::string& line);
     static void setVia(const std::string& vehicleID, const std::vector<std::string>& via);
     static void setShapeClass(const std::string& vehicleID, const std::string& clazz);

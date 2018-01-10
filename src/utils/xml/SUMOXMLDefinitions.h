@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    SUMOXMLDefinitions.h
 /// @author  Daniel Krajzewicz
@@ -522,6 +519,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_LCA_ACCEL_LAT,
     SUMO_ATTR_LCA_LOOKAHEADLEFT,
     SUMO_ATTR_LCA_SPEEDGAINRIGHT,
+    SUMO_ATTR_LCA_MAXSPEEDLATSTANDING,
+    SUMO_ATTR_LCA_MAXSPEEDLATFACTOR,
     SUMO_ATTR_LCA_EXPERIMENTAL1,
     /// @}
 
@@ -832,6 +831,8 @@ enum SumoXMLAttr {
     GNE_ATTR_SHAPE_START,
     /// @brief last coordinate of edge shape
     GNE_ATTR_SHAPE_END,
+    /// @brief whether an edge is part of a bidirectional railway 
+    GNE_ATTR_BIDIR,
     /// @brief block movement of a graphic element
     GNE_ATTR_BLOCK_MOVEMENT,
     /// @brief block shape of a graphic element (Used mainly in GNEShapes)

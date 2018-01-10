@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GNEDeleteFrame.cpp
 /// @author  Pablo Alvarez Lopex
@@ -421,7 +418,8 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                     }
                     // Check if edge can be deleted
                     if (myAutomaticallyDeleteAdditionalsCheckButton->getCheck()) {
-                        myViewNet->getNet()->deleteEdge(edge, myViewNet->getUndoList());
+                        // when deleting a single edge, keep all unaffected connections as they were
+                        myViewNet->getNet()->deleteEdge(edge, myViewNet->getUndoList(), false);
                     } else {
                         if (numberOfAdditionalChilds > 0) {
                             // write warning if netedit is running in testing mode
@@ -452,7 +450,8 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                                 WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");
                             }
                         } else {
-                            myViewNet->getNet()->deleteEdge(edge, myViewNet->getUndoList());
+                            // when deleting a single edge, keep all unaffected connections as they were
+                            myViewNet->getNet()->deleteEdge(edge, myViewNet->getUndoList(), false);
                         }
                     }
                 }
@@ -462,10 +461,12 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                 GNELane* lane = dynamic_cast<GNELane*>(ac);
                 // Check if lane can be deleted
                 if (myAutomaticallyDeleteAdditionalsCheckButton->getCheck()) {
-                    myViewNet->getNet()->deleteLane(lane, myViewNet->getUndoList());
+                    // when deleting a single lane, keep all unaffected connections as they were
+                    myViewNet->getNet()->deleteLane(lane, myViewNet->getUndoList(), false);
                 } else {
                     if (lane->getAdditionalChilds().size() == 0) {
-                        myViewNet->getNet()->deleteLane(lane, myViewNet->getUndoList());
+                        // when deleting a single lane, keep all unaffected connections as they were
+                        myViewNet->getNet()->deleteLane(lane, myViewNet->getUndoList(), false);
                     } else {
                         // write warning if netedit is running in testing mode
                         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {

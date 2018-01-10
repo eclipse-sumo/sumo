@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    NBNode.cpp
 /// @author  Daniel Krajzewicz
@@ -367,9 +364,9 @@ NBNode::invalidateTLS(NBTrafficLightLogicCont& tlCont, bool removedConnections, 
 
 
 void
-NBNode::shiftTLConnectionLaneIndex(NBEdge* edge, int offset) {
+NBNode::shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold) {
     for (std::set<NBTrafficLightDefinition*>::iterator it = myTrafficLights.begin(); it != myTrafficLights.end(); ++it) {
-        (*it)->shiftTLConnectionLaneIndex(edge, offset);
+        (*it)->shiftTLConnectionLaneIndex(edge, offset, threshold);
     }
 }
 
@@ -631,10 +628,14 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
         throw ProcessError("Connection '" + con.getDescription(fromE) + "' targets a non-existant lane.");
     }
     PositionVector ret;
-    ret = computeSmoothShape(fromE->getLaneShape(con.fromLane), con.toEdge->getLaneShape(con.toLane),
-                             numPoints, fromE->getTurnDestination() == con.toEdge,
-                             (double) 5. * (double) fromE->getNumLanes(),
-                             (double) 5. * (double) con.toEdge->getNumLanes(), recordError);
+    if (con.customShape.size() == 0) {
+        ret = computeSmoothShape(fromE->getLaneShape(con.fromLane), con.toEdge->getLaneShape(con.toLane),
+                numPoints, fromE->getTurnDestination() == con.toEdge,
+                (double) 5. * (double) fromE->getNumLanes(),
+                (double) 5. * (double) con.toEdge->getNumLanes(), recordError);
+    } else {
+        ret = con.customShape;
+    }
     const NBEdge::Lane& lane = fromE->getLaneStruct(con.fromLane);
     if (lane.endOffset > 0) {
         PositionVector beg = lane.shape.getSubpart(lane.shape.length() - lane.endOffset, lane.shape.length());;

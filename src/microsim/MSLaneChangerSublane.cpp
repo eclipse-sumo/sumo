@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSLaneChangerSublane.cpp
 /// @author  Jakob Erdmann
@@ -122,12 +119,10 @@ assert(vehicle->getLane() == (*myCandi).lane);
         registerUnchanged(vehicle);
         return false;
     }
-#ifndef NO_TRACI
     if (vehicle->isRemoteControlled()) {
         registerUnchanged(vehicle);
         return false;
     }
-#endif
     if (!vehicle->isActive()) {
 #ifdef DEBUG_ACTIONSTEPS
         if DEBUG_COND {
@@ -136,10 +131,8 @@ assert(vehicle->getLane() == (*myCandi).lane);
 #endif
 
         bool changed;
-#ifndef NO_TRACI
         // let TraCI influence the wish to change lanes during non-actionsteps
         checkTraCICommands(vehicle);
-#endif
 
         // Resume change
         changed = continueChangeSublane(vehicle, myCandi);
@@ -561,7 +554,6 @@ MSLaneChangerSublane::checkChangeSublane(
     // ensure that a continuous lane change manoeuvre can be completed
     // before the next turning movement
 
-#ifndef NO_TRACI
     // let TraCI influence the wish to change lanes and the security to take
     const int oldstate = state;
     state = vehicle->influenceChangeDecision(state);
@@ -569,7 +561,6 @@ MSLaneChangerSublane::checkChangeSublane(
     if (DEBUG_COND && state != oldstate) {
         std::cout << SIMTIME << " veh=" << vehicle->getID() << " stateAfterTraCI=" << toString((LaneChangeAction)state) << " original=" << toString((LaneChangeAction)oldstate) << "\n";
     }
-#endif
 #endif
     vehicle->getLaneChangeModel().saveState(laneOffset, oldstate, state);
     return state;

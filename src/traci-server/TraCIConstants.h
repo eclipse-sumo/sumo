@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2007-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    TraCIConstants.h
 /// @author  Axel Wegener
@@ -32,7 +29,7 @@
 // ****************************************
 // VERSION
 // ****************************************
-#define TRACI_VERSION 17
+#define TRACI_VERSION 18
 
 // ****************************************
 // COMMANDS
@@ -631,7 +628,7 @@
 // lane id (get: vehicles, inductionloop, arealdetector)
 #define VAR_LANE_ID 0x51
 
-// lane index (get: vehicles)
+// lane index (get: vehicle, edge)
 #define VAR_LANE_INDEX 0x52
 
 // route id (get & set: vehicles)
@@ -829,6 +826,12 @@
 
 // ids of vehicles ending to park (get: simulation)
 #define VAR_PARKING_ENDING_VEHICLES_IDS 0x6f
+
+// number of vehicles involved in a collision (get: simulation)
+#define VAR_COLLIDING_VEHICLES_NUMBER 0x80
+
+// ids of vehicles involved in a collision (get: simulation)
+#define VAR_COLLIDING_VEHICLES_IDS 0x81
 
 // clears the simulation of all not inserted vehicles (set: simulation)
 #define CMD_CLEAR_PENDING_VEHICLES 0x94

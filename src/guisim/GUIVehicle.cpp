@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GUIVehicle.cpp
 /// @author  Daniel Krajzewicz
@@ -196,7 +193,10 @@ GUIParameterTableWindow*
 GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
                                    GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 24 + (int)myType->getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 25 
+                + (int)myType->getParameter().getMap().size()
+                + (int)myType->getParameter().lcParameter.size()
+                + (int)myType->getParameter().jmParameter.size());
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myType->getID());
@@ -206,7 +206,8 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     ret->mkItem("minGap", false, myType->getMinGap());
     ret->mkItem("vehicle class", false, SumoVehicleClassStrings.getString(myType->getVehicleClass()));
     ret->mkItem("emission class", false, PollutantsInterface::getName(myType->getEmissionClass()));
-    ret->mkItem("car follow model", false, SUMOXMLDefinitions::CarFollowModels.getString((SumoXMLTag)getCarFollowModel().getModelID()));
+    ret->mkItem("carFollowModel", false, SUMOXMLDefinitions::CarFollowModels.getString((SumoXMLTag)getCarFollowModel().getModelID()));
+    ret->mkItem("LaneChangeModel", false, SUMOXMLDefinitions::LaneChangeModels.getString(getLaneChangeModel().getModelID()));
     ret->mkItem("maximum speed [m/s]", false, getMaxSpeed());
     ret->mkItem("maximum acceleration [m/s^2]", false, getCarFollowModel().getMaxAccel());
     ret->mkItem("maximum deceleration [m/s^2]", false, getCarFollowModel().getMaxDecel());
@@ -222,6 +223,14 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
         ret->mkItem("minGapLat", false, myType->getMinGapLat());
         ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
         ret->mkItem("latAlignment", false, toString(myType->getPreferredLateralAlignment()));
+    } else if (MSGlobals::gLaneChangeDuration > 0) {
+        ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
+    }
+    for (auto item : myType->getParameter().lcParameter) {
+        ret->mkItem(toString(item.first).c_str(), false, toString(item.second));
+    }
+    for (auto item : myType->getParameter().jmParameter) {
+        ret->mkItem(toString(item.first).c_str(), false, toString(item.second));
     }
 
     // close building

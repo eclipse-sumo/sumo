@@ -73,15 +73,6 @@ AM_PROG_LIBTOOL
 AC_DEFINE([POSITION_EPS], [0.1], [defines the epsilon to use on position comparison])
 AC_DEFINE([NUMERICAL_EPS], [0.001], [defines the epsilon to use on general floating point comparison])
 
-AC_ARG_ENABLE([traci],[AS_HELP_STRING([--disable-traci],[disable Traffic Control Interface (TraCI) Server [default=no].])])
-AM_CONDITIONAL(TRACI, test x$enable_traci != xno)
-if test x$enable_traci != xno; then
-    ac_enabled="$ac_enabled TRACI"
-else
-    AC_DEFINE(NO_TRACI, 1, [Define to 1 in order to disable TraCI Server.])
-    ac_disabled="$ac_disabled TRACI"
-fi
-
 AM_CONDITIONAL([WITH_VERSION_H], test -d .git)
 if test -d .git || test x$PACKAGE_VERSION == xgit -a -f src/version.h; then
    AC_DEFINE([HAVE_VERSION_H], [1], [Define if auto-generated version.h should be used.])
@@ -140,6 +131,7 @@ dnl   ... for libs
 LIB_XERCES="xerces-c"
 AC_ARG_WITH([xerces-libraries], [AS_HELP_STRING([--with-xerces-libraries=DIR],[where the Xerces-C library is installed.])])
 if test x"$with_xerces_libraries" = x; then
+   LDFLAGS="$LDFLAGS -L/usr/local/lib"
    AC_CHECK_LIB([$LIB_XERCES], [main], [true],
                 [AC_MSG_ERROR([xerces-lib not found. Specify path with option --with-xerces-libraries=DIR.])])
 else
@@ -450,7 +442,6 @@ src/activitygen/city/Makefile
 src/foreign/Makefile
 src/foreign/eulerspiral/Makefile
 src/foreign/fontstash/Makefile
-src/foreign/gl2ps/Makefile
 src/foreign/PHEMlight/Makefile
 src/foreign/PHEMlight/cpp/Makefile
 src/foreign/rtree/Makefile

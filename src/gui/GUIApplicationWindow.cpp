@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GUIApplicationWindow.cpp
 /// @author  Daniel Krajzewicz
@@ -62,7 +59,6 @@
 #include <utils/common/RandHelper.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/FXLCDLabel.h>
-#include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/FXLinkLabel.h>
 
@@ -201,7 +197,6 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myConfigPattern(configPattern),
     hadDependentBuild(false),
     myShowTimeAsHMS(false),
-    myAmFullScreen(false),
     myHaveNotifiedAboutSimEnd(false),
     // game specific
     myJamSoundTime(60),
@@ -263,7 +258,7 @@ GUIApplicationWindow::dependentBuild() {
     myToolBar7->hide();
     // build additional threads
     myLoadThread = new GUILoadThread(getApp(), this, myEvents, myLoadThreadEvent);
-    myRunThread = new GUIRunThread(getApp(), this, *mySimDelayTarget, myEvents, myRunThreadEvent);
+    myRunThread = new GUIRunThread(getApp(), this, mySimDelay, myEvents, myRunThreadEvent);
     // set the status bar
     myStatusbar->getStatusLine()->setText("Ready.");
     // set the caption
@@ -594,11 +589,20 @@ GUIApplicationWindow::buildToolBars() {
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXButton(myToolBar4, "Delay (ms):\t\tToggle between alternative delay values", 0, this, MID_DELAY_TOOGLE, GUIDesignButtonToolbarText);
 
-        mySimDelayTarget = new FXRealSpinDial(myToolBar4, 7, 0, MID_SIMDELAY, GUIDesignSpinDial);
-        mySimDelayTarget->setNumberFormat(0);
-        mySimDelayTarget->setIncrements(1, 10, 10);
-        mySimDelayTarget->setRange(0, 1000);
-        mySimDelayTarget->setValue(0);
+        mySimDelay = 0;
+        mySimDelayTarget = new FXDataTarget(mySimDelay);
+        mySimDelaySpinner = new FXRealSpinner(myToolBar4, 7, mySimDelayTarget, FXDataTarget::ID_VALUE, GUIDesignSpinDial);
+        mySimDelaySlider = new FXSlider(myToolBar4, mySimDelayTarget, FXDataTarget::ID_VALUE, LAYOUT_FIX_WIDTH | SLIDER_ARROW_UP | SLIDER_TICKS_TOP, 0, 0, 300, 10, 0, 0, 5, 0);
+        mySimDelaySlider->setRange(0, 1000);
+        mySimDelaySlider->setHeadSize(10);
+        mySimDelaySlider->setIncrement(50);
+        mySimDelaySlider->setTickDelta(100);
+        mySimDelaySlider->setValue((int)mySimDelay);
+        //mySimDelayTarget->setNumberFormat(0);
+        //mySimDelayTarget->setIncrements(1, 10, 10);
+        mySimDelaySpinner->setIncrement(10);
+        mySimDelaySpinner->setRange(0, 1000);
+        mySimDelaySpinner->setValue(mySimDelay);
     }
     {
         // Views
@@ -644,12 +648,7 @@ GUIApplicationWindow::buildToolBars() {
 
 long
 GUIApplicationWindow::onCmdQuit(FXObject*, FXSelector, void*) {
-    if (!myAmFullScreen) {
-        getApp()->reg().writeIntEntry("SETTINGS", "x", getX());
-        getApp()->reg().writeIntEntry("SETTINGS", "y", getY());
-        getApp()->reg().writeIntEntry("SETTINGS", "width", getWidth());
-        getApp()->reg().writeIntEntry("SETTINGS", "height", getHeight());
-    }
+    storeWindowSizeAndPos();
     getApp()->reg().writeStringEntry("SETTINGS", "basedir", gCurrentFolder.text());
     getApp()->reg().writeIntEntry("SETTINGS", "maximized", isMaximized() ? 1 : 0);
     getApp()->reg().writeIntEntry("gui", "timeasHMS", myShowTimeAsHMS ? 1 : 0);
@@ -816,6 +815,7 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
+    storeWindowSizeAndPos();
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();
@@ -938,9 +938,9 @@ GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdDelayToggle(FXObject*, FXSelector, void*) {
-    const SUMOTime tmp = myAlternateSimDelay;
-    myAlternateSimDelay = (SUMOTime)mySimDelayTarget->getValue();
-    mySimDelayTarget->setValue((FXdouble)tmp);
+    const double tmp = myAlternateSimDelay;
+    myAlternateSimDelay = mySimDelay;
+    mySimDelay = tmp;
     return 1;
 }
 
@@ -1263,8 +1263,8 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                     view->addDecals(settings.getDecals());
                     settings.applyViewport(view);
                     settings.setSnapshots(view);
-                    if (settings.getDelay() > 0) {
-                        mySimDelayTarget->setValue(settings.getDelay());
+                    if (settings.getDelay() > 0.) {
+                        mySimDelay = settings.getDelay();
                     }
                     if (settings.getBreakpoints().size() > 0) {
                         myRunThread->getBreakpointLock().lock();
@@ -1443,6 +1443,7 @@ GUIApplicationWindow::checkGamingEvents() {
 
 void
 GUIApplicationWindow::loadConfigOrNet(const std::string& file, bool isNet) {
+    storeWindowSizeAndPos();
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();

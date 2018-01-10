@@ -3,10 +3,6 @@ GUI_APP = sumo-gui
 NETEDIT_APP = netedit
 endif
 
-if TRACI
-TRACI_TESTCLIENT_APP = TraCITestClient
-endif
-
 CLEANFILES = sumo sumoD sumo-gui sumo-guiD \
 dfrouter dfrouterD duarouter duarouterD \
 jtrrouter jtrrouterD marouter marouterD \
@@ -17,7 +13,7 @@ TraCITestClient TraCITestClientD sumo-unittest sumo-unittestD \
 emissionsDrivingCycle emissionsDrivingCycleD emissionsMap emissionsMapD
 
 install: all
-all: sumo dfrouter duarouter jtrrouter netconvert netgenerate od2trips polyconvert activitygen emissionsDrivingCycle emissionsMap marouter $(GUI_APP) $(NETEDIT_APP) $(MAROUTER_APP) $(TRACI_TESTCLIENT_APP)
+all: sumo dfrouter duarouter jtrrouter netconvert netgenerate od2trips polyconvert activitygen emissionsDrivingCycle emissionsMap marouter TraCITestClient $(GUI_APP) $(NETEDIT_APP)
 sumo: ../src/sumo
 	cp ../src/sumo ./`echo sumo | sed '$(transform)'`
 	if [ ! -e sumo -a -e sumoD ]; then ln -s sumoD sumo; fi
@@ -60,6 +56,6 @@ $(GUI_APP): ../src/$(GUI_APP)
 $(NETEDIT_APP):	../src/netedit/$(NETEDIT_APP)
 	cp ../src/netedit/$(NETEDIT_APP) ./`echo $(NETEDIT_APP) | sed '$(transform)'`
 	if [ ! -e $(NETEDIT_APP) -a -e $(NETEDIT_APP)D ]; then ln -s $(NETEDIT_APP)D $(NETEDIT_APP); fi
-$(TRACI_TESTCLIENT_APP): ../src/traci_testclient/$(TRACI_TESTCLIENT_APP)
-	cp ../src/traci_testclient/$(TRACI_TESTCLIENT_APP) ./`echo $(TRACI_TESTCLIENT_APP) | sed '$(transform)'`
-	if [ ! -e $(TRACI_TESTCLIENT_APP) -a -e $(TRACI_TESTCLIENT_APP)D ]; then ln -s $(TRACI_TESTCLIENT_APP)D $(TRACI_TESTCLIENT_APP); fi
+TraCITestClient: ../src/traci_testclient/TraCITestClient
+	cp ../src/traci_testclient/TraCITestClient ./`echo TraCITestClient | sed '$(transform)'`
+	if [ ! -e TraCITestClient -a -e TraCITestClientD ]; then ln -s TraCITestClientD TraCITestClient; fi

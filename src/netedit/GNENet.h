@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GNENet.h
 /// @author  Jakob Erdmann
@@ -231,10 +228,12 @@ public:
      * @param[in] suggestedName
      * @param[in] wasSplit Whether the edge was created from a split
      * @param[in] allowDuplicateGeom Whether to create the edge even though another edge with the same geometry exists
+     * @param[in] recomputeConnections Whether connections on the affected junctions must be recomputed
      * @return The newly created edge or 0 if no edge was created
      */
     GNEEdge* createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* tpl, GNEUndoList* undoList,
-                        const std::string& suggestedName = "", bool wasSplit = false, bool allowDuplicateGeom = false);
+                        const std::string& suggestedName = "", bool wasSplit = false, bool allowDuplicateGeom = false,
+                        bool recomputeConnections = true);
 
     /**@brief removes junction and all incident edges
      * @param[in] junction The junction to be removed
@@ -246,7 +245,7 @@ public:
      * @param[in] edge The edge to be removed
      * @param[in] undoList The undolist in which to mark changes
      */
-    void deleteEdge(GNEEdge* edge, GNEUndoList* undoList);
+    void deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnections);
 
     /**@brief replaces edge
      * @param[in] which The edge to be replaced
@@ -259,7 +258,7 @@ public:
      * @param[in] lane The lane to be removed
      * @param[in] undoList The undolist in which to mark changes
      */
-    void deleteLane(GNELane* lane, GNEUndoList* undoList);
+    void deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnections);
 
     /**@brief remove connection
      * @param[in] connection The connection to be removed
@@ -283,7 +282,7 @@ public:
      * @param[in] lane The lane to be duplicated
      * @param[in] undoList The undolist in which to mark changes
      */
-    void duplicateLane(GNELane* lane, GNEUndoList* undoList);
+    void duplicateLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnections);
 
     /**@brief transform lane to restricted lane
      * @param[in] vclass vehicle class to restrict

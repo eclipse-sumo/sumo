@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GUIVisualizationSettings.h
 /// @author  Daniel Krajzewicz
@@ -156,6 +153,8 @@ public:
     GUIScaler laneScaler;
     /// @brief Information whether lane borders shall be drawn
     bool laneShowBorders;
+    /// @brief Information whether bicycle lane marking shall be drawn
+    bool showBikeMarkings;
     /// @brief Information whether link textures (arrows) shall be drawn
     bool showLinkDecals;
     /// @brief Information whether link rules (colored bars) shall be drawn
@@ -174,6 +173,8 @@ public:
     bool showLaneDirection;
     /// @brief Whether to show sublane boundaries
     bool showSublanes;
+    /// @brief Whether to improve visualisation of superposed (rail) edges
+    bool spreadSuperposed;
     //@}
 
 

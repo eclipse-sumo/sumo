@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSVehicle.h
 /// @author  Christian Roessel
@@ -1251,7 +1248,6 @@ public:
 
 
 
-#ifndef NO_TRACI
     /** @brief Returns the uninfluenced velocity
      *
      * If no influencer exists (myInfluencer==0) the vehicle's current speed is
@@ -1550,7 +1546,6 @@ public:
     /// @brief sets position outside the road network
     void setRemoteState(Position xyPos);
 
-#endif
 
     /// @brief compute safe speed for following the given leader
     double getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderInfo,
@@ -1621,9 +1616,10 @@ protected:
      *         the current (euler) / after the current (ballistic) simstep accordingly.
      *
      *  @param[in] vSafe The maximal safe (or admissible) velocity as determined from stops, junction approaches, car following, lane changing, etc.
-     *  @param[in/out] vNext The next speed (possibly subject to traci influence)
+     *  @param[in] vNext The next speed (possibly subject to traci influence)
+     *  @return updated vNext
      */
-    void processTraCISpeedControl(double vSafe, double& vNext);
+    double processTraCISpeedControl(double vSafe, double vNext);
 
 
     /** @brief Erase passed drive items from myLFLinkLanes (and unregister approaching information for
@@ -1905,10 +1901,8 @@ private:
     /// @brief The per vehicle variables of the car following model
     MSCFModel::VehicleVariables* myCFVariables;
 
-#ifndef NO_TRACI
     /// @brief An instance of a velocity/lane influencing instance; built in "getInfluencer"
     Influencer* myInfluencer;
-#endif
 
 private:
     /// @brief invalidated default constructor

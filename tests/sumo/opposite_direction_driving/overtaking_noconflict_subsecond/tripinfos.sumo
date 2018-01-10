@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov  2 10:46:15 2017 by SUMO Version v0_31_0-860-g677ac9f
+<!-- generated on Wed Jan  3 09:21:39 2018 by SUMO Version v0_32_0+0043-24523c2
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -32,6 +32,6 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="overtaking" depart="0.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="18.60" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.86" duration="18.60" routeLength="200.00" waitSteps="0" timeLoss="4.12" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="stopped" depart="0.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="119.60" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.75" duration="119.60" routeLength="160.00" waitSteps="0" timeLoss="7.82" rerouteNo="0" devices="tripinfo_stopped" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking" depart="0.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="18.60" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.86" duration="18.60" routeLength="200.00" waitingTime="0.00" stopTime="0.00" timeLoss="4.12" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="stopped" depart="0.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="119.60" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.75" duration="119.60" routeLength="160.00" waitingTime="0.00" stopTime="100.20" timeLoss="7.82" rerouteNo="0" devices="tripinfo_stopped" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

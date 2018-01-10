@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSCFModel_IDM.cpp
 /// @author  Tobias Mayer
@@ -66,8 +63,8 @@ MSCFModel_IDM::~MSCFModel_IDM() {}
 
 
 double
-MSCFModel_IDM::moveHelper(MSVehicle* const veh, double vPos) const {
-    const double vNext = MSCFModel::moveHelper(veh, vPos);
+MSCFModel_IDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
+    const double vNext = MSCFModel::finalizeSpeed(veh, vPos);
     if (myAdaptationFactor != 1.) {
         VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
         vars->levelOfService += (vNext / veh->getLane()->getVehicleMaxSpeed(veh) - vars->levelOfService) / myAdaptationTime * TS;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov  2 10:45:45 2017 by SUMO Version v0_31_0-860-g677ac9f
+<!-- generated on Wed Jan  3 09:20:58 2018 by SUMO Version v0_32_0+0043-24523c2
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -24,6 +24,6 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="right" depart="0.00" departLane="beg_0" departPos="388.50" departSpeed="2.00" departDelay="0.00" arrival="86.00" arrivalLane="end_0" arrivalPos="1098.50" arrivalSpeed="13.46" duration="86.00" routeLength="1112.23" waitSteps="0" timeLoss="5.94" rerouteNo="0" devices="tripinfo_right" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="left" depart="0.00" departLane="beg_1" departPos="388.50" departSpeed="2.00" departDelay="0.00" arrival="89.00" arrivalLane="end_0" arrivalPos="1098.50" arrivalSpeed="13.47" duration="89.00" routeLength="1112.23" waitSteps="2" timeLoss="8.80" rerouteNo="0" devices="tripinfo_left" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="right" depart="0.00" departLane="beg_0" departPos="388.50" departSpeed="2.00" departDelay="0.00" arrival="86.00" arrivalLane="end_0" arrivalPos="1098.50" arrivalSpeed="13.46" duration="86.00" routeLength="1112.23" waitingTime="0.00" stopTime="0.00" timeLoss="5.93" rerouteNo="0" devices="tripinfo_right" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="left" depart="0.00" departLane="beg_1" departPos="388.50" departSpeed="2.00" departDelay="0.00" arrival="89.00" arrivalLane="end_0" arrivalPos="1098.50" arrivalSpeed="13.47" duration="89.00" routeLength="1112.23" waitingTime="2.00" stopTime="0.00" timeLoss="8.80" rerouteNo="0" devices="tripinfo_left" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

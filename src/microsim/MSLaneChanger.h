@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSLaneChanger.h
 /// @author  Christian Roessel
@@ -74,15 +71,15 @@ public:
         /// @brief Register that vehicle belongs to Changer Item to after LC decisions
         void registerHop(MSVehicle* vehicle);
 
-        /// the vehicle in front of the current vehicle
+        ///@brief the leader vehicle for the current change candidate
         MSVehicle*                lead;
-        /// the lane the vehicle is on
+        ///@brief the lane corresponding to this ChangeElem (the current change candidate is on this lane)
         MSLane*                   lane;
-        /// last vehicle that changed into this lane
+        ///@brief last vehicle that changed into this lane
         MSVehicle*                hoppedVeh;
-        /// the vehicle that really wants to change to this lane
+        /// @brief the next vehicle downstream of the ego vehicle that is blocked from changing to this lane
         MSVehicle*                lastBlocked;
-        /// the first vehicle on this edge that wants to change to this lane
+        /// @brief the farthest downstream vehicle on this edge that is blocked from changing to this lane
         MSVehicle*                firstBlocked;
 
         double dens;

@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GNELane.cpp
 /// @author  Jakob Erdmann
@@ -299,30 +296,40 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop draw matrix 1
         glPopMatrix();
     } else {
+        // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
+        const double halfWidth = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - (selectedEdge ? .3 : 0));
         if (drawAsRailway(s)) {
-            // draw as railway
-            const double halfRailWidth = 0.725 * exaggeration;
+            PositionVector shape = getShape();
+            const double width = myParentEdge.getNBEdge()->getLaneWidth(myIndex);
+            // draw as railway: assume standard gauge of 1435mm when lane width is not set
+            // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
+            // assume crosstie length of 181% gauge (2600mm for standard gauge)
+            double halfGauge = 0.5 * (width == SUMO_const_laneWidth ?  1.4350 : width) * exaggeration;
+            if (s.spreadSuperposed && myParentEdge.getNBEdge()->isBidiRail()) {
+                shape.move2side(halfGauge * 0.6);
+                halfGauge *= 0.5;
+                //std::cout << "spreadSuperposed " << getID() << " old=" << getShape() << " new=" << shape << "\n";
+            }
+            const double halfInnerFeetWidth = halfGauge - 0.039 * exaggeration;
+            const double halfRailWidth = halfInnerFeetWidth + 0.15 * exaggeration;
+            const double halfCrossTieWidth = halfGauge * 1.81;
             // Draw box depending of myShapeColors
             if (myShapeColors.size() > 0) {
-                GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, myShapeColors, halfRailWidth);
+                GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, myShapeColors, halfRailWidth);
             } else {
-                GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, halfRailWidth);
+                GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, halfRailWidth);
             }
             // Save current color
             RGBColor current = GLHelper::getColor();
-            // Set white color
+            // Draw white on top with reduced width (the area between the two tracks)
             glColor3d(1, 1, 1);
-            // Traslate matrix 1
             glTranslated(0, 0, .1);
-            // Draw Box
-            GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, halfRailWidth - 0.2);
+            GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, halfInnerFeetWidth);
             // Set current color back
             GLHelper::setColor(current);
             // Draw crossties
-            drawCrossties(0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
+            GLHelper::drawCrossTies(shape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth);
         } else {
-            // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
-            const double halfWidth = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - (selectedEdge ? .3 : 0));
             if (myShapeColors.size() > 0) {
                 GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, myShapeColors, halfWidth);
             } else {
@@ -641,15 +648,12 @@ GNELane::updateGeometry() {
             myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
     }
-    // Update geometry of additionals chiolds vinculated with this lane
     for (auto i : myAdditionalChilds) {
         i->updateGeometry();
     }
-    // Update geometry of additionals àremtvinculated with this lane
     for (auto i : myAdditionalParents) {
         i->updateGeometry();
     }
-    // Update geometry of Shapes vinculated with this lane
     for (auto i : myShapes) {
         i->updateGeometry();
     }
@@ -1050,30 +1054,6 @@ GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {
 bool
 GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
     return isWaterway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails; // reusing the showRails setting
-}
-
-
-void
-GNELane::drawCrossties(double length, double spacing, double halfWidth) const {
-    glPushMatrix();
-    // draw on top of of the white area between the rails
-    glTranslated(0, 0, 0.1);
-    int e = (int) getShape().size() - 1;
-    for (int i = 0; i < e; ++i) {
-        glPushMatrix();
-        glTranslated(getShape()[i].x(), getShape()[i].y(), 0.0);
-        glRotated(myShapeRotations[i], 0, 0, 1);
-        for (double t = 0; t < myShapeLengths[i]; t += spacing) {
-            glBegin(GL_QUADS);
-            glVertex2d(-halfWidth, -t);
-            glVertex2d(-halfWidth, -t - length);
-            glVertex2d(halfWidth, -t - length);
-            glVertex2d(halfWidth, -t);
-            glEnd();
-        }
-        glPopMatrix();
-    }
-    glPopMatrix();
 }
 
 

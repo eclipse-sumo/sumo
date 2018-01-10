@@ -61,7 +61,7 @@ set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME_DEBUG sumo-guiD)
 target_link_libraries(sumo-gui gui guinetload guisim gui_dialogs
         utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
         utils_gui_images utils_gui_tracker utils_foxtools osgview ${sumolibs} mesogui
-        ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} foreign_gl2ps)
+        ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
 if (MSVC)
     set_target_properties(sumo-gui PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
     target_link_libraries(sumo-gui opengl32 glu32)

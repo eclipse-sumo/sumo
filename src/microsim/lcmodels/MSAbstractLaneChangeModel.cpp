@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSAbstractLaneChangeModel.cpp
 /// @author  Daniel Krajzewicz
@@ -199,7 +196,7 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
     if (MSGlobals::gLaneChangeDuration > DELTA_T) {
         myLaneChangeCompletion = 0;
         myLaneChangeDirection = direction;
-        mySpeedLat = (target->getCenterOnEdge() - source->getCenterOnEdge()) * (double)DELTA_T / (double)MSGlobals::gLaneChangeDuration;
+        setManeuverDist(target->getCenterOnEdge() - source->getCenterOnEdge());
         myVehicle.switchOffSignal(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
         myVehicle.switchOnSignal(direction == 1 ? MSVehicle::VEH_SIGNAL_BLINKER_LEFT : MSVehicle::VEH_SIGNAL_BLINKER_RIGHT);
         return true;
@@ -251,10 +248,34 @@ MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* sour
     myVehicle.updateDriveItems();
 }
 
+
+double 
+MSAbstractLaneChangeModel::computeSpeedLat(double /*latDist*/, double& maneuverDist) {
+    if (myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
+        int stepsToChange = (int)ceil(maneuverDist / SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat()));
+        return DIST2SPEED(maneuverDist / stepsToChange);
+    } else {
+        return maneuverDist / STEPS2TIME(MSGlobals::gLaneChangeDuration);
+    }
+}
+
+
 bool
 MSAbstractLaneChangeModel::updateCompletion() {
     const bool pastBefore = pastMidpoint();
+    // not updated in the context of continous lane changing
+    double maneuverDist = getManeuverDist();
+    mySpeedLat = computeSpeedLat(0, maneuverDist);
+    /*
+    std::cout << SIMTIME << " veh=" << myVehicle.getID() 
+        << " md=" << myManeuverDist
+        << " mySpeedLat=" << mySpeedLat
+        << " update1=" << (double)DELTA_T / (double)MSGlobals::gLaneChangeDuration
+        << " update2=" << (SPEED2DIST(mySpeedLat) / myManeuverDist)
+        << "\n";
     myLaneChangeCompletion += (double)DELTA_T / (double)MSGlobals::gLaneChangeDuration;
+    */
+    myLaneChangeCompletion += (SPEED2DIST(mySpeedLat) / myManeuverDist);
     return !pastBefore && pastMidpoint();
 }
 

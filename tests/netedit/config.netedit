@@ -39,3 +39,4 @@ log:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 [floating_point_tolerance]
 net:0.0101
 output:0.0101
+additionals:0.0101

@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2013-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSLCM_SL2015.h
 /// @author  Jakob Erdmann
@@ -64,6 +61,11 @@ public:
     MSLCM_SL2015(MSVehicle& v);
 
     virtual ~MSLCM_SL2015();
+
+    /// @brief Returns the model's id
+    LaneChangeModel getModelID() const {
+        return LCM_SL2015;
+    }
 
     /// @brief init cached parameters derived directly from model parameters
     void initDerivedParameters();
@@ -333,7 +335,7 @@ protected:
     double getWidth() const;
 
     /// @brief find leaders/followers that are already in a car-following relationship with ego
-    void updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOffset);
+    void updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOffset, bool leaders);
 
     /// @brief return the current sublane width (and return a sensible value when running without sublanes)
     double getSublaneWidth() {
@@ -417,6 +419,10 @@ protected:
     double myLookaheadLeft;
     // @brief the factor by which the speedGain-threshold for the leftdiffers from the threshold for the right
     double mySpeedGainRight;
+    // @brief the maximum lateral speed when standing
+    double myMaxSpeedLatStanding;
+    // @brief the factor of maximum lateral speed to longitudinal speed
+    double myMaxSpeedLatFactor;
     //@}
 
     /// @name derived parameters

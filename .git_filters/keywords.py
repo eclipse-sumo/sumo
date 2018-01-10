@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2017 German Aerospace Center (DLR) and others.
+# Copyright (C) 2017-2018 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -34,15 +34,19 @@ import sys
 # need to split this to avoid substitution
 UNMANGLED = '$' + 'Id$'
 
+
 def gitid(fname):
     """Get the latest tag and use it as the revision number. This presumes the
     habit of using numerical tags. Use the short hash if no tag available.
     """
     try:
-        args = ['git', 'describe', '--tags', '--always']
-        r = subprocess.check_output(args,
-                                    stderr=open(os.devnull, 'w'),
-                                    universal_newlines=True)[:-1]
+        r = subprocess.check_output(["git", "describe", "--long", "--always"]).strip()
+        if "-" in r:
+            r = r.replace("-g", "-")
+            m1 = r.find("-") + 1
+            m2 = r.find("-", m1)
+            diff = max(0, 4 - (m2 - m1))
+            r = r[:m1].replace("-", "+") + (diff * "0") + r[m1:]
         args = ['git', 'log', '-1', '--date=iso', '--', fname]
         for l in subprocess.check_output(args, universal_newlines=True).splitlines():
             if l.startswith('Date'):

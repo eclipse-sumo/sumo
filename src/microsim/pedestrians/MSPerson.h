@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    MSPerson.h
 /// @author  Daniel Krajzewicz
@@ -137,7 +134,7 @@ public:
         virtual void endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
 
         /// @brief move forward and return whether the person arrived
-        bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal = 0);
+        bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal = nullptr);
 
         /// @brief accessors to be used by MSPModel
         //@{
@@ -306,7 +303,6 @@ public:
     /// @brief set new walk
     void reroute(ConstMSEdgeVector& newEdges);
 
-#ifndef NO_TRACI
 
     /** @class Influencer
      * @brief Changes the wished person speed and position
@@ -366,9 +362,7 @@ public:
 private:
     /// @brief An instance of a speed/position influencing instance; built in "getInfluencer"
     Influencer* myInfluencer;
-#endif
 
-private:
     const double myChosenSpeedFactor;
 
 private:

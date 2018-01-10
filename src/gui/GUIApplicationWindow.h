@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GUIApplicationWindow.h
 /// @author  Daniel Krajzewicz
@@ -39,7 +36,6 @@
 #include <utils/foxtools/MFXEventQue.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>
-#include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/FXLCDLabel.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/common/ValueRetriever.h>
@@ -262,13 +258,14 @@ public:
      * @return delay in milliseconds
      */
     virtual double getDelay() const {
-        return mySimDelayTarget->getValue();
+        return mySimDelay;
     }
 
     /** @brief Sets the delay of the parent application
+     * @param delay the new delay in milliseconds
      */
     virtual void setDelay(double delay) {
-        mySimDelayTarget->setValue(delay);
+        mySimDelay = delay;
     }
 
     /** @brief Sends an event from the application thread to the GUI and waits until it is handled
@@ -343,11 +340,14 @@ protected:
     FXToolBarShell* myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,
                     *myToolBarDrag4, *myToolBarDrag5, *myMenuBarDrag;
 
-    ///
-    FXRealSpinDial* mySimDelayTarget;
+    /// the simulation delay in milliseconds
+    double mySimDelay;
+    FXDataTarget* mySimDelayTarget;
+    FXRealSpinner* mySimDelaySpinner;
+    FXSlider* mySimDelaySlider;
 
-    /// The alternate simulation delay for toggling
-    SUMOTime myAlternateSimDelay;
+    /// The alternate simulation delay in milliseconds for toggling
+    double myAlternateSimDelay;
 
     /// List of got requests
     MFXEventQue<GUIEvent*> myEvents;
@@ -383,9 +383,6 @@ protected:
 
     /// @brief whether to show time as hour:minute:second
     bool myShowTimeAsHMS;
-
-    /// @brief whether to show the window in full screen mode
-    bool myAmFullScreen;
 
     /// @brief whether the simulation end was already announced
     bool myHaveNotifiedAboutSimEnd;

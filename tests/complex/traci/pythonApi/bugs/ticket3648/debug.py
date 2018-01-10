@@ -1,5 +1,18 @@
+#!/usr/bin/env python
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2017-2018 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
+
+# @file    debug.py
+# @author  Jakob Erdmann
+# @date    2017
+# @version $Id$
+
 import os,sys
-sys.path.append('/home/kobo/dlr/sumo/tools')
+sys.path.append(os.path.join(os.environ["SUMO_HOME"], '/home/kobo/dlr/sumo/tools'))
 import traci
 
 traci.start(['sumo', '-c', 'test.sumocfg', '--no-step-log'])
@@ -12,3 +25,4 @@ while traci.simulation.getMinExpectedNumber() > 0:
     except traci.TraCIException:
         pass
 traci.close()
+

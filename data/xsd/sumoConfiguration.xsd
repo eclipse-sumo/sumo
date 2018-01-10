@@ -70,14 +70,17 @@
             <xsd:element name="vehroute-output.intended-depart" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.route-length" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.write-unfinished" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="vehroute-output.skip-ptlines" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="link-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="bt-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="lanechange-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="lanechange-output.started" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="lanechange-output.ended" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="stop-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="save-state.times" type="intArrayOptionType" minOccurs="0"/>
             <xsd:element name="save-state.period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="save-state.prefix" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="save-state.suffix" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="save-state.suffix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="save-state.files" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -93,7 +96,6 @@
     <xsd:complexType name="processingType">
         <xsd:all>
             <xsd:element name="step-method.ballistic" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="default.action-step-length" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="lateral-resolution" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="carfollow.model" type="strOptionType" minOccurs="0"/>
             <xsd:element name="route-steps" type="timeOptionType" minOccurs="0"/>
@@ -104,6 +106,7 @@
             <xsd:element name="collision.action" type="strOptionType" minOccurs="0"/>
             <xsd:element name="collision.stoptime" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="collision.check-junctions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="collision.mingap-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="max-num-vehicles" type="intOptionType" minOccurs="0"/>
             <xsd:element name="max-num-teleports" type="intOptionType" minOccurs="0"/>
             <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
@@ -118,12 +121,12 @@
             <xsd:element name="lanechange.overtake-right" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.all-off" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="time-to-impatience" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="default.action-step-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.model" type="strOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.stripe-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.dawdling" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.jamtime" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.remote.address" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="astar.landmark-distances" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -132,6 +135,9 @@
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
             <xsd:element name="weights.random-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="astar.all-distances" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="astar.landmark-distances" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.walkfactor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.transfer.car-walk" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.explicit" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.deterministic" type="boolOptionType" minOccurs="0"/>
@@ -232,7 +238,6 @@
         <xsd:all>
             <xsd:element name="remote-port" type="intOptionType" minOccurs="0"/>
             <xsd:element name="num-clients" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="python-script" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

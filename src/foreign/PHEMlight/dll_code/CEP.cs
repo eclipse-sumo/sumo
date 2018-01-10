@@ -733,10 +733,9 @@ namespace PHEMlightdll
         #endregion
 
         #region GetMaxAccel
-        public double GetMaxAccel(double speed, double acc, double gradient)
+        public double GetMaxAccel(double speed, double gradient)
         {
             double rotFactor = GetRotationalCoeffecient(speed);
-            double pMaxNorm = GetPMaxNorm(speed);
             double pMaxForAcc = GetPMaxNorm(speed) * _ratedPower - CalcPower(speed, 0, gradient);
 
             return (pMaxForAcc * 1000) / ((_massVehicle * rotFactor + _vehicleMassRot + _vehicleLoading) * speed);

@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GUIBaseVehicle.cpp
 /// @author  Daniel Krajzewicz
@@ -32,6 +29,7 @@
 #include <cmath>
 #include <vector>
 #include <string>
+#include <functional>
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
@@ -1152,9 +1150,10 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh) {
             GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
         }
-        case 29: { // color randomly (by pointer)
-            const double hue = (long)veh % 360; // [0-360]
-            const double sat = (((long)veh / 360) % 67) / 100.0 + 0.33; // [0.33-1]
+        case 29: { // color randomly (by pointer hash)
+            std::hash<const MSBaseVehicle*> ptr_hash;
+            const double hue = (double)(ptr_hash(veh) % 360); // [0-360]
+            const double sat = ((ptr_hash(veh) / 360) % 67) / 100.0 + 0.33; // [0.33-1]
             GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
         }

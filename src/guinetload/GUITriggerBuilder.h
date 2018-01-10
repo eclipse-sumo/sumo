@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2004-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GUITriggerBuilder.h
 /// @author  Daniel Krajzewicz
@@ -144,7 +141,7 @@ protected:
 
     /** @brief Builds a charging station
      *
-     * Simply calls the ChrgSTN constructor.
+     * Simply calls the GUIChargingStation constructor.
      *
      * @param[in] net The net the charging station belongs to
      * @param[in] id The id of the charging station
@@ -159,7 +156,7 @@ protected:
      */
     virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane,
                                       double frompos, double topos, double chargingPower, double efficiency,
-                                      bool chargeInTransit, int chargeDelay);
+                                      bool chargeInTransit, double chargeDelay);
 
     /** @brief builds a microscopic calibrator
      *

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2017 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2018 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -65,6 +65,8 @@ traci.trafficlight.setCompleteRedYellowGreenDefinition(tlsID, logic)
 traci.trafficlight.setPhase(tlsID, 4)
 traci.trafficlight.setPhaseDuration(tlsID, 23)
 check()
+defs = traci.trafficlight.getCompleteRedYellowGreenDefinition(tlsID)
+print("numDefs=%s numPhases=%s" % (len(defs), map(lambda d : len(d.getPhases()), defs)))
 traci.trafficlight.subscribe(tlsID)
 print(traci.trafficlight.getSubscriptionResults(tlsID))
 for step in range(3, 6):

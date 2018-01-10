@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2017 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2018 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -39,6 +39,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_EDGE_TRAVELTIME: Storage.readDouble,
                       tc.LAST_STEP_MEAN_SPEED: Storage.readDouble,
                       tc.LAST_STEP_OCCUPANCY: Storage.readDouble,
                       tc.LAST_STEP_LENGTH: Storage.readDouble,
+                      tc.VAR_LANE_INDEX: Storage.readInt,
                       tc.VAR_CURRENT_TRAVELTIME: Storage.readDouble,
                       tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,
                       tc.LAST_STEP_VEHICLE_HALTING_NUMBER: Storage.readInt,
@@ -164,6 +165,13 @@ class EdgeDomain(Domain):
         Returns the mean vehicle length in m for the last time step on the given edge.
         """
         return self._getUniversal(tc.LAST_STEP_LENGTH, edgeID)
+
+    def getLaneNumber(self, edgeID):
+        """getLaneNumber(string) -> int
+
+        Returns the number of lanes of this edge
+        """
+        return self._getUniversal(tc.VAR_LANE_INDEX, edgeID)
 
     def getTraveltime(self, edgeID):
         """getTraveltime(string) -> double

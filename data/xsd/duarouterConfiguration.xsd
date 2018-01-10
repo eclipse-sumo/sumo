@@ -37,6 +37,9 @@
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="vtype-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="keep-vtype-distributions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="alternatives-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="intermodal-network-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="intermodal-weight-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="exit-times" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -66,12 +69,14 @@
             <xsd:element name="gawron.a" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="keep-all-routes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="skip-new-routes" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="ptline-routing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="logit" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="route-choice-method" type="strOptionType" minOccurs="0"/>
             <xsd:element name="logit.beta" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="logit.gamma" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="logit.theta" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.walkfactor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.transfer.car-walk" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

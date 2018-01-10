@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2017 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2018 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
 # @date    2007-04-03
 # @version $Id$
 
+from __future__ import print_function
 import os
 import sys
 import subprocess
@@ -29,16 +30,20 @@ for root, dirs, files in os.walk(mRoot):
             exe = binPrefix + "generate"
             if file.endswith(".netccfg"):
                 exe = binPrefix + "convert"
-            print "----------------------------------"
-            print "Rebuilding config: " + os.path.join(root, file)
+            print("----------------------------------")
+            print("Rebuilding config: " + os.path.join(root, file))
+            sys.stdout.flush()
             curDir = os.getcwd()
             os.chdir(root)
             subprocess.call([exe, "--save-configuration", file +
                              ".tmp", "-c", file], stdout=sys.stdout, stderr=sys.stderr)
+            sys.stdout.flush()
             os.remove(file)
             os.rename(file + ".tmp", file)
             os.chdir(curDir)
-            print "Running: " + file
+            print("Running: " + file)
+            sys.stdout.flush()
             subprocess.call(
                 [exe, "-v", "-c", os.path.join(root, file)], stdout=sys.stdout, stderr=sys.stderr)
-            print "----------------------------------\n"
+            sys.stdout.flush()
+            print("----------------------------------\n")

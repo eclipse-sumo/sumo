@@ -1,13 +1,10 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
 /****************************************************************************/
 /// @file    GUILaneSpeedTrigger.cpp
 /// @author  Daniel Krajzewicz
@@ -150,10 +147,11 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
                           ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y,
                           0, 0, 0, 0,   2, 2, 0, 0);
         myUserDefinedSpeed =
-            new FXRealSpinDial(gf12, 10, this, MID_USER_DEF,
+            new FXRealSpinner(gf12, 10, this, MID_USER_DEF,
                                LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-        myUserDefinedSpeed->setFormatString("%.0f km/h");
-        myUserDefinedSpeed->setIncrements(1, 10, 10);
+        //myUserDefinedSpeed->setFormatString("%.0f km/h");
+        //myUserDefinedSpeed->setIncrements(1, 10, 10);
+        myUserDefinedSpeed->setIncrement(10);
         myUserDefinedSpeed->setRange(0, 300);
         myUserDefinedSpeed->setValue(
             static_cast<GUILaneSpeedTrigger*>(myObject)->getDefaultSpeed() * 3.6);
