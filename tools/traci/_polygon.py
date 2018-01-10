@@ -78,7 +78,7 @@ class PolygonDomain(Domain):
         self._connection._string += struct.pack("!BB",
                                                 tc.TYPE_POLYGON, len(shape))
         for p in shape:
-            self._connection._string += struct.pack("!dd", p)
+            self._connection._string += struct.pack("!dd", *p)
         self._connection._sendExact()
 
     def setColor(self, polygonID, color):
