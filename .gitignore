@@ -16,7 +16,7 @@
 /sumo-*.zip
 /diff.*
 /compile
-/cmake-build
+/cmake-build*
 /latex
 /mirror
 # bin dir

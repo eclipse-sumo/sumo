@@ -6,7 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v20.html
 
-# @file    buildMSVS17Project.py
+# @file    buildCMakeProject.py
 # @author  Pablo Alvarez Lopez
 # @date    2017
 # @version $Id$
@@ -15,8 +15,11 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
+import sys
 import subprocess
 import shutil
+
+SUMO_HOME = os.environ.get("SUMO_HOME", os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 # First check that CMake was correctly installed
 if (os.environ["PATH"].lower().find("cmake") == -1):
@@ -24,9 +27,6 @@ if (os.environ["PATH"].lower().find("cmake") == -1):
     Please install the last version of Cmake from https://cmake.org/download/,
     or add the folder of cmake executable to PATH""")
 else:
-    # print debug
-    print ("CMake found")
-
     # start to find libraries
     print ("Searching libraries...")
 
@@ -74,7 +74,7 @@ else:
         abort = True
     else:
         print ("Gdal library found")
-        
+
     if (pythonLib == ""):
         print ("Python library wasn't found. Check that python directory was added to PATH")
         abort = True
@@ -102,21 +102,12 @@ else:
         # set temporal environment variables for Python
         os.environ["PYTHON_INCLUDE"] = pythonInc
         os.environ["PYTHON_LIB"] = pythonLib
-        # Create directory for VS17, or clear it if already exists
-        if not os.path.exists(os.environ["SUMO_HOME"] + "/build/autobuild/msvc17"):
-            print ("Creating directory for Visual Studio 2017")
-            os.makedirs(os.environ["SUMO_HOME"] + "/build/autobuild/msvc17")
-        else:
-            print ("cleaning directory of Visual Studio 2017")
-            shutil.rmtree(os.environ["SUMO_HOME"] + "/build/autobuild/msvc17")
-            os.makedirs(os.environ["SUMO_HOME"] + "/build/autobuild/msvc17")
-        # Create solution for visual studio 2017
-        print ("Creating solution for Visual Studio 2017")
-        VS17Generation = subprocess.Popen(
-            "cmake ../../../ -G \"Visual Studio 15 2017\"", cwd=os.environ["SUMO_HOME"] + "/build/autobuild/msvc17")
-        # Wait to the end of generation
-        VS17Generation.wait()
-        
-    # Press enter key to finish
-    key = input('Press ENTER key to finish')
-    quit()
+        generator = sys.argv[1] if len(sys.argv) > 1 else "Visual Studio 14 2015 Win64"
+        buildDir = os.path.join(SUMO_HOME, "cmake-build-" + generator.replace(" ", "-"))
+        # Create directory or clear it if already exists
+        if os.path.exists(buildDir):
+            print ("Cleaning directory of", generator)
+            shutil.rmtree(buildDir)
+        os.makedirs(buildDir)
+        print ("Creating solution for", generator)
+        subprocess.call(["cmake", "..", "-G", generator, cwd=buildDir)
