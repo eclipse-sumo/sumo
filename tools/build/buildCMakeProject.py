@@ -22,92 +22,46 @@ import shutil
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 # First check that CMake was correctly installed
-if (os.environ["PATH"].lower().find("cmake") == -1):
+if "cmake" in os.environ["PATH"].lower():
     print("""CMake executable wasn't found.
     Please install the last version of Cmake from https://cmake.org/download/,
     or add the folder of cmake executable to PATH""")
 else:
     # start to find libraries
-    print ("Searching libraries...")
+    print("Searching libraries...")
 
     # obtain all path of folder
-    pathFolders = os.environ["PATH"].split(';')
+    pathFolders = os.environ["PATH"].split(os.pathsep)
+    if os.path.exists(os.path.join(SUMO_HOME, "lib"))
+        pathFolders += os.listdir(os.path.join(SUMO_HOME, "lib"))
 
     # iterate over folder of path
     for folder in pathFolders:
-        if (folder.lower().find("fox-1.6") != -1):
-            foxLib = folder
-            foxFolder = folder[:-3]
-            foxInc = folder[:-3] + "include"
-        elif (folder.lower().find("xerces-c-3") != -1):
-            xercesBin = folder
-            xercesLib = folder[:-3] + "lib"
-            xercesInc = folder[:-3] + "include"
-        elif (folder.lower().find("proj_gdal") != -1):
-            gdalBin = folder
-            gdalLib = folder[:-3] + "lib"
-            gdalInc = folder[:-3] + "include"
-        elif (folder.lower().find("python27") != -1 and folder.lower().find("scripts") == -1):
-            pythonLib = folder + "libs\python27.lib"
-            pythonInc = folder + "include"
-        elif (folder.lower().find("python36") != -1 and folder.lower().find("scripts") == -1):
-            pythonLib = folder + "libs\python36.lib"
-            pythonInc = folder + "include"
+        if "fox-1.6" in folder.lower():
+            os.environ["FOX_DIR"] = folder[:-3]
+            os.environ["FOX_LIBRARY"] = folder
+            os.environ["FOX_INCLUDE_DIR"] = folder[:-3] + "include"
+        elif "xerces-c-3" in folder.lower():
+            os.environ["XERCES_BIN"] = folder
+            os.environ["XERCES_INCLUDE"] = folder[:-3] + "include"
+            os.environ["XERCES_LIB"] = folder[:-3] + "lib"
+        elif "proj_gdal" in folder.lower():
+            os.environ["GDAL_BIN"] = folder
+            os.environ["GDAL_INCLUDE"] = folder[:-3] + "include"
+            os.environ["GDAL_LIB"] = folder[:-3] + "lib"
+        elif "python27" in folder.lower() and "scripts" not in folder.lower():
+            os.environ["PYTHON_LIB"] = folder + "libs\python27.lib"
+            os.environ["PYTHON_INCLUDE"] = folder + "include"
+        elif "python36" in folder.lower() and "scripts" not in folder.lower():
+            os.environ["PYTHON_LIB"] = folder + "libs\python36.lib"
+            os.environ["PYTHON_INCLUDE"] = folder + "include"
 
-    # Check if library was found
-    abort = False
-
-    if (foxLib == ""):
-        print ("Fox library wasn't found. Check that Fox lib directory was added to PATH")
-        abort = True
-    else:
-        print ("Fox library found")
-
-    if (xercesBin == ""):
-        print ("Xerces library wasn't found. Check that Xerces bin directory was added to PATH")
-        abort = True
-    else:
-        print ("Xerces library found")
-
-    if (gdalBin == ""):
-        print ("Gdal library wasn't found. Check that Gdal bin directory was added to PATH")
-        abort = True
-    else:
-        print ("Gdal library found")
-
-    if (pythonLib == ""):
-        print ("Python library wasn't found. Check that python directory was added to PATH")
-        abort = True
-    else:
-        print ("Python library found")
-
-    # If all libraries were found, continue. In other case, abort
-    if (abort):
-        print ("Could not build Projects, needed libraries weren't found")
-    else:
-        # print debug
-        print ("Setting temporal environment variables.")
-        # set temporal environment variables for FOX
-        os.environ["FOX_DIR"] = foxFolder
-        os.environ["FOX_LIBRARY"] = foxLib
-        os.environ["FOX_INCLUDE_DIR"] = foxInc
-        # set temporal environment variables for Xerces
-        os.environ["XERCES_BIN"] = xercesBin
-        os.environ["XERCES_INCLUDE"] = xercesInc
-        os.environ["XERCES_LIB"] = xercesLib
-        # set temporal environment variables for GDal
-        os.environ["GDAL_BIN"] = gdalBin
-        os.environ["GDAL_INCLUDE"] = gdalInc
-        os.environ["GDAL_LIB"] = gdalLib
-        # set temporal environment variables for Python
-        os.environ["PYTHON_INCLUDE"] = pythonInc
-        os.environ["PYTHON_LIB"] = pythonLib
-        generator = sys.argv[1] if len(sys.argv) > 1 else "Visual Studio 14 2015 Win64"
-        buildDir = os.path.join(SUMO_HOME, "cmake-build-" + generator.replace(" ", "-"))
-        # Create directory or clear it if already exists
-        if os.path.exists(buildDir):
-            print ("Cleaning directory of", generator)
-            shutil.rmtree(buildDir)
-        os.makedirs(buildDir)
-        print ("Creating solution for", generator)
-        subprocess.call(["cmake", "..", "-G", generator, cwd=buildDir)
+    generator = sys.argv[1] if len(sys.argv) > 1 else "Visual Studio 14 2015 Win64"
+    buildDir = os.path.join(SUMO_HOME, "cmake-build-" + generator.replace(" ", "-"))
+    # Create directory or clear it if already exists
+    if os.path.exists(buildDir):
+        print ("Cleaning directory of", generator)
+        shutil.rmtree(buildDir)
+    os.makedirs(buildDir)
+    print ("Creating solution for", generator)
+    subprocess.call(["cmake", "..", "-G", generator], cwd=buildDir)
