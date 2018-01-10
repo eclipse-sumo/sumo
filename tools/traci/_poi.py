@@ -77,12 +77,13 @@ class PoiDomain(Domain):
     def setColor(self, poiID, color):
         """setColor(string, (integer, integer, integer, integer)) -> None
 
-        Sets the rgba color of the poi.
+        Sets the rgba color of the poi, i.e. (255,0,0) for the color red.
+        The fourth component (alpha) is optional.
         """
         self._connection._beginMessage(
             tc.CMD_SET_POI_VARIABLE, tc.VAR_COLOR, poiID, 1 + 1 + 1 + 1 + 1)
-        self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(
-            color[0]), int(color[1]), int(color[2]), int(color[3]))
+        self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
+                                                int(color[3]) if len(color) > 3 else 255)
         self._connection._sendExact()
 
     def add(self, poiID, x, y, color, poiType="", layer=0):
@@ -90,8 +91,8 @@ class PoiDomain(Domain):
                                        4 + 1 + 4 + len(poiType) + 1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 8 + 8)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
         self._connection._packString(poiType)
-        self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(
-            color[0]), int(color[1]), int(color[2]), int(color[3]))
+        self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
+                                                int(color[3]) if len(color) > 3 else 255)
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, layer)
         self._connection._string += struct.pack("!Bdd", tc.POSITION_2D, x, y)
         self._connection._sendExact()

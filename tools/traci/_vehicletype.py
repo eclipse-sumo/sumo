@@ -373,8 +373,8 @@ class VehicleTypeDomain(Domain):
         """
         self._connection._beginMessage(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_COLOR, typeID, 1 + 1 + 1 + 1 + 1)
-        self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(
-            color[0]), int(color[1]), int(color[2]), int(color[3]))
+        self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
+                                                int(color[3]) if len(color) > 3 else 255)
         self._connection._sendExact()
 
     def copy(self, origTypeID, newTypeID):

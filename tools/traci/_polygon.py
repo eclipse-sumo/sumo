@@ -84,12 +84,13 @@ class PolygonDomain(Domain):
     def setColor(self, polygonID, color):
         """setColor(string, (integer, integer, integer, integer)) -> None
 
-        Sets the rgba color of this polygon.
+        Sets the rgba color of this polygon, i.e. (255,0,0) for the color red.
+        The fourth component (alpha) is optional.
         """
         self._connection._beginMessage(
             tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_COLOR, polygonID, 1 + 1 + 1 + 1 + 1)
-        self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(
-            color[0]), int(color[1]), int(color[2]), int(color[3]))
+        self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
+                                                int(color[3]) if len(color) > 3 else 255)
         self._connection._sendExact()
 
     def setFilled(self, polygonID, filled):
@@ -104,8 +105,8 @@ class PolygonDomain(Domain):
                                        len(polygonType) + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 1 + len(shape) * (8 + 8))
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
         self._connection._packString(polygonType)
-        self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(
-            color[0]), int(color[1]), int(color[2]), int(color[3]))
+        self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
+                                                int(color[3]) if len(color) > 3 else 255)
         self._connection._string += struct.pack("!BB",
                                                 tc.TYPE_UBYTE, int(fill))
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, layer)
