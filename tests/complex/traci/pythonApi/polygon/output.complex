@@ -1,6 +1,4 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:58682 [Errno 111] Connection refused
- Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -11,7 +9,11 @@ examining 0
 shape [(1.0, 1.0), (1.0, 10.0), (10.0, 10.0)]
 type test
 color (1, 2, 3, 4)
-filled False
+filled True
+shape modified [(11.0, 11.0), (11.0, 101.0), (101.0, 101.0)]
+type modified blub
+color modified (5, 6, 7, 8)
+filled modified False
 {0: ['0']}
 step 3
 {0: ['0']}
