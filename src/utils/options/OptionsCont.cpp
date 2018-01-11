@@ -592,16 +592,10 @@ OptionsCont::processMetaOptions(bool missingOptions) {
             std::cout << " " << *it << std::endl;
         }
         std::cout << "\n" << myFullName << " is part of SUMO.\n";
-        std::cout << "SUMO is free software: you can redistribute it and/or modify\n";
-        std::cout << "it under the terms of the GNU General Public License as published by\n";
-        std::cout << "the Free Software Foundation, either version 3 of the License, or\n";
-        std::cout << "(at your option) any later version.\n\n";
-        std::cout << "This program is distributed in the hope that it will be useful,\n";
-        std::cout << "but WITHOUT ANY WARRANTY; without even the implied warranty of\n";
-        std::cout << "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n";
-        std::cout << "GNU General Public License for more details.\n\n";
-        std::cout << "You should have received a copy of the GNU General Public License\n";
-        std::cout << "along with this program. If not, see http://www.gnu.org/licenses/gpl.html" << std::endl;
+        std::cout << "This program and the accompanying materials\n";
+        std::cout << "are made available under the terms of the Eclipse Public License v2.0\n";
+        std::cout << "which accompanies this distribution, and is available at\n";
+        std::cout << "http://www.eclipse.org/legal/epl-v20.html" << std::endl;
         return true;
     }
     // check whether the settings shall be printed
