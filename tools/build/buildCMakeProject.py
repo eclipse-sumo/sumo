@@ -40,20 +40,17 @@ else:
 
     # append custom lib dir to search path
     if os.path.exists(os.path.join(SUMO_HOME, "lib")):
-        pathFolders += os.listdir(os.path.join(SUMO_HOME, "lib"))
+        pathFolders += [os.path.join(SUMO_HOME, "lib", f, "bin") for f in os.listdir(os.path.join(SUMO_HOME, "lib"))]
     for folder in pathFolders:
         if "fox-1.6" in folder.lower():
-            os.environ["FOX_DIR"] = folder[:-3]
-            os.environ["FOX_LIBRARY"] = folder
+            os.environ["FOX_LIBRARY"] = folder[:-3] + "lib"
             os.environ["FOX_INCLUDE_DIR"] = folder[:-3] + "include"
         elif "xerces-c-3" in folder.lower():
             os.environ["XERCES_BIN"] = folder
             os.environ["XERCES_INCLUDE"] = folder[:-3] + "include"
             os.environ["XERCES_LIB"] = folder[:-3] + "lib"
-        elif "proj_gdal" in folder.lower():
-            os.environ["GDAL_BIN"] = folder
-            os.environ["GDAL_INCLUDE"] = folder[:-3] + "include"
-            os.environ["GDAL_LIB"] = folder[:-3] + "lib"
+        elif "gdal" in folder.lower():
+            os.environ["GDAL_DIR"] = os.path.dirname(folder)
         elif "python27" in folder.lower() and "scripts" not in folder.lower():
             os.environ["PYTHON_LIB"] = folder + "libs\python27.lib"
             os.environ["PYTHON_INCLUDE"] = folder + "include"

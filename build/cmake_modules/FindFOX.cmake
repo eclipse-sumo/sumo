@@ -23,7 +23,7 @@ else()
 			  NAMES fx.h
 			  HINTS $ENV{FOX_INCLUDE_DIR}
 			  )
-	# In Windows system, find the fox dll using as hint the enviroment variable "FOX_INCLUDE_DIR"
+	# In Windows system, find the fox dll using as hint the enviroment variable "FOX_LIBRARY"
     FIND_LIBRARY(FOX_LIBRARY NAMES 
 				NAMES FOXDLL-1.6
 				HINTS $ENV{FOX_LIBRARY}
