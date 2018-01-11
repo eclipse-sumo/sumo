@@ -8,6 +8,7 @@
 
 # @file    buildCMakeProject.py
 # @author  Pablo Alvarez Lopez
+# @author  Michael Behrisch
 # @date    2017
 # @version $Id$
 
@@ -18,24 +19,27 @@ import os
 import sys
 import subprocess
 import shutil
+import glob
 
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-
+pathFolders = os.environ["PATH"].split(os.pathsep)
+CMAKE = []
+for folder in pathFolders:
+    cmakeExe = os.path.join(folder, "cmake.exe")
+    if os.path.exists(cmakeExe):
+        CMAKE.append(cmakeExe)
+CMAKE += glob.glob("C:/Program*/CMake/bin/cmake.exe")
 # First check that CMake was correctly installed
-if "cmake" in os.environ["PATH"].lower():
+if len(CMAKE) == 0:
     print("""CMake executable wasn't found.
     Please install the last version of Cmake from https://cmake.org/download/,
     or add the folder of cmake executable to PATH""")
 else:
-    # start to find libraries
     print("Searching libraries...")
 
-    # obtain all path of folder
-    pathFolders = os.environ["PATH"].split(os.pathsep)
-    if os.path.exists(os.path.join(SUMO_HOME, "lib"))
+    # append custom lib dir to search path
+    if os.path.exists(os.path.join(SUMO_HOME, "lib")):
         pathFolders += os.listdir(os.path.join(SUMO_HOME, "lib"))
-
-    # iterate over folder of path
     for folder in pathFolders:
         if "fox-1.6" in folder.lower():
             os.environ["FOX_DIR"] = folder[:-3]
@@ -56,7 +60,7 @@ else:
             os.environ["PYTHON_LIB"] = folder + "libs\python36.lib"
             os.environ["PYTHON_INCLUDE"] = folder + "include"
 
-    generator = sys.argv[1] if len(sys.argv) > 1 else "Visual Studio 14 2015 Win64"
+    generator = sys.argv[1] if len(sys.argv) > 1 else "Visual Studio 12 2013 Win64"
     buildDir = os.path.join(SUMO_HOME, "cmake-build-" + generator.replace(" ", "-"))
     # Create directory or clear it if already exists
     if os.path.exists(buildDir):
@@ -64,4 +68,4 @@ else:
         shutil.rmtree(buildDir)
     os.makedirs(buildDir)
     print ("Creating solution for", generator)
-    subprocess.call(["cmake", "..", "-G", generator], cwd=buildDir)
+    subprocess.call([CMAKE[0], "..", "-G", generator], cwd=buildDir)
