@@ -144,8 +144,7 @@ namespace tcpip
 	// ----------------------------------------------------------------------
 	void 
 		Socket::
-		BailOnSocketError( std::string context) 
-		const throw( SocketException )
+		BailOnSocketError( std::string context) const
 	{
 #ifdef WIN32
 		int e = WSAGetLastError();
@@ -229,7 +228,6 @@ namespace tcpip
 	Socket*
 		Socket::
 		accept(const bool create)
-		throw( SocketException )
 	{
 		if( socket_ >= 0 )
 			return 0;
@@ -301,7 +299,6 @@ namespace tcpip
 	void 
 		Socket::
 		set_blocking(bool blocking) 
-		throw(SocketException )
 	{
 		blocking_ = blocking;
 
@@ -329,7 +326,6 @@ namespace tcpip
 	void 
 		Socket::
 		connect()
-		throw( SocketException )
 	{
 		sockaddr_in address;
 
@@ -372,7 +368,6 @@ namespace tcpip
 	void 
 		Socket::
 		send( const std::vector<unsigned char> &buffer)
-		throw( SocketException )
 	{
 		if( socket_ < 0 )
 			return;
@@ -403,7 +398,6 @@ namespace tcpip
 	void
 		Socket::
 		sendExact( const Storage &b)
-		throw( SocketException )
 	{
 		int length = static_cast<int>(b.size());
 		Storage length_storage;
@@ -476,7 +470,6 @@ namespace tcpip
 	std::vector<unsigned char> 
 		Socket::
 		receive(int bufSize)
-		throw( SocketException )
 	{
 		std::vector<unsigned char> buffer;
 
@@ -502,7 +495,6 @@ namespace tcpip
 	bool
 		Socket::
 		receiveExact( Storage &msg )
-		throw( SocketException )
 	{
 		// buffer for received bytes
 		// According to the C++ standard elements of a std::vector are stored
@@ -544,7 +536,6 @@ namespace tcpip
 	bool 
 		Socket::
 		is_blocking() 
-		throw()
 	{
 		return blocking_;
 	}
