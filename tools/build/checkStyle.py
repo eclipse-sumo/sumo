@@ -71,6 +71,7 @@ EPL_HEADER = """/***************************************************************
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
 // http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
 """
 
@@ -137,7 +138,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 year = lines[idx + 2][17:21]
                 if haveEPL:
                     license = EPL_HEADER
-                    end = idx + 8
+                    end = idx + 9
                 else:
                     license = GPL_HEADER
                     end = idx + 12
