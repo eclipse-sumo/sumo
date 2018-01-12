@@ -93,13 +93,11 @@ endif (APPLE)
 
 find_package(XercesC REQUIRED HINTS $ENV{XERCES} $ENV{XERCES_64})
 if (XercesC_FOUND)
-    link_directories(${XercesC_LIBRARY})
-    include_directories(${XercesC_INCLUDE_DIR})
+    include_directories(${XercesC_INCLUDE_DIRS})
 endif (XercesC_FOUND)
 
 find_package(Proj REQUIRED)
 if (PROJ_FOUND)
-    link_directories(${PROJ_LIBRARY})
     include_directories(${PROJ_INCLUDE_DIR})
     set(HAVE_PROJ 1)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} Proj")
@@ -107,7 +105,6 @@ endif (PROJ_FOUND)
 
 find_package(GDAL REQUIRED)
 if (GDAL_FOUND)
-    link_directories(${GDAL_LIBRARIES})
     include_directories(${GDAL_INCLUDE_DIR})
     set(HAVE_GDAL 1)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} GDAL")
@@ -248,7 +245,7 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 
 set(commonlibs
         utils_distribution utils_shapes utils_options
-        utils_xml utils_geom utils_common utils_importio utils_iodevices foreign_tcpip ${XercesC_LIBRARY} ${PROJ_LIBRARY})
+        utils_xml utils_geom utils_common utils_importio utils_iodevices foreign_tcpip ${XercesC_LIBRARIES} ${PROJ_LIBRARY})
 if (MSVC)
     set(commonlibs ${commonlibs} ws2_32)
 endif ()
