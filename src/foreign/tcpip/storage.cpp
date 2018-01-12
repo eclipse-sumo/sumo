@@ -120,7 +120,7 @@ namespace tcpip
 	* Reads a byte form the array
 	* @return The read byte (between -128 and 127)
 	*/
-	int Storage::readByte()	throw(std::invalid_argument)
+	int Storage::readByte()
 	{
 		int i = static_cast<int>(readChar());
 		if (i < 128) return i;
@@ -147,7 +147,7 @@ namespace tcpip
 	* Reads an unsigned byte form the array
 	* @return The read byte (between 0 and 255)
 	*/
-	int Storage::readUnsignedByte()	throw(std::invalid_argument)
+	int Storage::readUnsignedByte()
 	{
 		return static_cast<int>(readChar());
 	}
@@ -313,7 +313,7 @@ namespace tcpip
 
 
 	// ----------------------------------------------------------------------
-	void Storage::writeDouble( double value ) throw ()
+	void Storage::writeDouble( double value )
 	{
 		unsigned char *p_value = reinterpret_cast<unsigned char*>(&value);
 		writeByEndianess(p_value, 8);
@@ -321,7 +321,7 @@ namespace tcpip
 
 
 	// ----------------------------------------------------------------------
-	double Storage::readDouble( ) throw (std::invalid_argument)
+	double Storage::readDouble( )
 	{
 		double value = 0;
 		unsigned char *p_value = reinterpret_cast<unsigned char*>(&value);
