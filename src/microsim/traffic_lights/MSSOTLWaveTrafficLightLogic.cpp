@@ -22,7 +22,7 @@ MSSOTLWaveTrafficLightLogic::MSSOTLWaveTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id,
     const std::string& subid, const Phases& phases, int step,
     SUMOTime delay,
-    const std::map<std::string, std::string>& parameters) throw() :
+    const std::map<std::string, std::string>& parameters) :
     MSSOTLTrafficLightLogic(tlcontrol, id, subid, phases, step, delay,
                             parameters) {
     MsgHandler::getMessageInstance()->inform(
@@ -38,7 +38,7 @@ MSSOTLWaveTrafficLightLogic::MSSOTLWaveTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id,
     const std::string& subid, const Phases& phases, int step,
     SUMOTime delay, const std::map<std::string, std::string>& parameters,
-    MSSOTLSensors* sensors) throw() :
+    MSSOTLSensors* sensors) :
     MSSOTLTrafficLightLogic(tlcontrol, id, subid, phases, step, delay,
                             parameters, sensors) {
     //sets the lastDuration of every phase to the same value as the default duration of that phase
@@ -47,7 +47,7 @@ MSSOTLWaveTrafficLightLogic::MSSOTLWaveTrafficLightLogic(
     }
 }
 
-bool MSSOTLWaveTrafficLightLogic::canRelease() throw() {
+bool MSSOTLWaveTrafficLightLogic::canRelease() {
 
     //10% of lastDuration
     SUMOTime delta = 10 * getCurrentPhaseDef().lastDuration / 100;

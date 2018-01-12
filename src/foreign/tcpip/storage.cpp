@@ -94,7 +94,7 @@ namespace tcpip
 	* Reads a char form the array
 	* @return The read char (between 0 and 255)
 	*/
-	unsigned char Storage::readChar() throw(std::invalid_argument)
+	unsigned char Storage::readChar()
 	{
 		if ( !valid_pos() )
 		{
@@ -108,7 +108,7 @@ namespace tcpip
 	/**
 	*
 	*/
-	void Storage::writeChar(unsigned char value) throw()
+	void Storage::writeChar(unsigned char value)
 	{
 		store.push_back(value);
 		iter_ = store.begin();
@@ -132,7 +132,7 @@ namespace tcpip
 	/**
 	*
 	*/
-	void Storage::writeByte(int value) throw(std::invalid_argument)
+	void Storage::writeByte(int value)
 	{
 		if (value < -128 || value > 127)
 		{
@@ -157,7 +157,7 @@ namespace tcpip
 	/**
 	*
 	*/
-	void Storage::writeUnsignedByte(int value) throw(std::invalid_argument)
+	void Storage::writeUnsignedByte(int value)
 	{
 		if (value < 0 || value > 255)
 		{
@@ -172,7 +172,7 @@ namespace tcpip
 	* Reads a string form the array
 	* @return The read string
 	*/
-	std::string Storage::readString() throw(std::invalid_argument)
+	std::string Storage::readString()
 	{
 		int len = readInt();
 		checkReadSafe(len);
@@ -189,7 +189,7 @@ namespace tcpip
 	* Writes a string into the array;
 	* @param s		The string to be written
 	*/
-	void Storage::writeString(const std::string &s) throw()
+	void Storage::writeString(const std::string &s)
 	{
 		writeInt(static_cast<int>(s.length()));
 
@@ -203,7 +203,7 @@ namespace tcpip
 	* Reads a string list form the array
 	* @return The read string
 	*/
-	std::vector<std::string> Storage::readStringList() throw(std::invalid_argument)
+	std::vector<std::string> Storage::readStringList()
 	{
 		std::vector<std::string> tmp;
 		const int len = readInt();
@@ -221,7 +221,7 @@ namespace tcpip
 	* Writes a string into the array;
 	* @param s		The string to be written
 	*/
-	void Storage::writeStringList(const std::vector<std::string> &s) throw()
+	void Storage::writeStringList(const std::vector<std::string> &s)
 	{
 		writeInt(static_cast<int>(s.size()));
         for (std::vector<std::string>::const_iterator it = s.begin(); it!=s.end() ; it++)
@@ -239,7 +239,7 @@ namespace tcpip
 	*
 	* @return the unspoiled integer value (between -32768 and 32767)
 	*/
-	int Storage::readShort() throw(std::invalid_argument)
+	int Storage::readShort()
 	{
 		short value = 0;
 		unsigned char *p_value = reinterpret_cast<unsigned char*>(&value);
@@ -249,7 +249,7 @@ namespace tcpip
 
 
 	// ----------------------------------------------------------------------
-	void Storage::writeShort( int value ) throw(std::invalid_argument)
+	void Storage::writeShort( int value )
 	{
 		if (value < -32768 || value > 32767)
 		{
@@ -270,7 +270,7 @@ namespace tcpip
 	*
 	* @return the unspoiled integer value (between -2.147.483.648 and 2.147.483.647)
 	*/
-	int Storage::readInt() throw(std::invalid_argument)
+	int Storage::readInt()
 	{
 		int value = 0;
 		unsigned char *p_value = reinterpret_cast<unsigned char*>(&value);
@@ -280,7 +280,7 @@ namespace tcpip
 
 
 	// ----------------------------------------------------------------------
-	void Storage::writeInt( int value ) throw()
+	void Storage::writeInt( int value )
 	{
 		unsigned char *p_value = reinterpret_cast<unsigned char*>(&value);
 		writeByEndianess(p_value, 4);
@@ -295,7 +295,7 @@ namespace tcpip
 	*
 	* @return the unspoiled float value
 	*/
-	float Storage::readFloat() throw(std::invalid_argument)
+	float Storage::readFloat()
 	{
 		float value = 0;
 		unsigned char *p_value = reinterpret_cast<unsigned char*>(&value);
@@ -305,7 +305,7 @@ namespace tcpip
 
 
 	// ----------------------------------------------------------------------
-	void Storage::writeFloat( float value ) throw()
+	void Storage::writeFloat( float value )
 	{
 		unsigned char *p_value = reinterpret_cast<unsigned char*>(&value);
 		writeByEndianess(p_value, 4);
@@ -356,7 +356,7 @@ namespace tcpip
 
 
 	// ----------------------------------------------------------------------
-	void Storage::checkReadSafe(unsigned int num) const  throw(std::invalid_argument)
+	void Storage::checkReadSafe(unsigned int num) const 
 	{
 		if (std::distance(iter_, store.end()) < static_cast<int>(num))
 		{

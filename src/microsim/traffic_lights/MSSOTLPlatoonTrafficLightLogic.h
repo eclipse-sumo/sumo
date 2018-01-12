@@ -41,7 +41,7 @@ public:
     MSSOTLPlatoonTrafficLightLogic(MSTLLogicControl& tlcontrol,
                                    const std::string& id, const std::string& subid,
                                    const Phases& phases, int step, SUMOTime delay,
-                                   const std::map<std::string, std::string>& parameters) throw();
+                                   const std::map<std::string, std::string>& parameters);
 
     /**
      * @brief Constructor with sensors passed
@@ -56,14 +56,14 @@ public:
                                    const std::string& id, const std::string& subid,
                                    const Phases& phases, int step, SUMOTime delay,
                                    const std::map<std::string, std::string>& parameters,
-                                   MSSOTLSensors* sensors) throw();
+                                   MSSOTLSensors* sensors);
 
 protected:
 
     /*
      * @brief Contains the logic to decide whether to release the green light
      */
-    bool canRelease() throw();
+    bool canRelease();
 };
 
 #endif

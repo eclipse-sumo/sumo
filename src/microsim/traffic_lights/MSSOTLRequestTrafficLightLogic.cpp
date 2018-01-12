@@ -21,7 +21,7 @@
 MSSOTLRequestTrafficLightLogic::MSSOTLRequestTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id, const std::string& subid,
     const Phases& phases, int step, SUMOTime delay,
-    const std::map<std::string, std::string>& parameters) throw() :
+    const std::map<std::string, std::string>& parameters) :
     MSSOTLTrafficLightLogic(tlcontrol, id, subid, phases, step, delay,
                             parameters) {
     MsgHandler::getMessageInstance()->inform(
@@ -33,7 +33,7 @@ MSSOTLRequestTrafficLightLogic::MSSOTLRequestTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id, const std::string& subid,
     const Phases& phases, int step, SUMOTime delay,
     const std::map<std::string, std::string>& parameters,
-    MSSOTLSensors* sensors) throw() :
+    MSSOTLSensors* sensors) :
     MSSOTLTrafficLightLogic(tlcontrol, id, subid, phases, step, delay,
                             parameters, sensors) {
     MsgHandler::getMessageInstance()->inform(
@@ -41,7 +41,7 @@ MSSOTLRequestTrafficLightLogic::MSSOTLRequestTrafficLightLogic(
         + " will run using MSSOTLRequestTrafficLightLogic ***");
 }
 
-bool MSSOTLRequestTrafficLightLogic::canRelease() throw() {
+bool MSSOTLRequestTrafficLightLogic::canRelease() {
     if (getCurrentPhaseElapsed() >= getMinDecisionalPhaseDuration()) {
         return isThresholdPassed();
     }

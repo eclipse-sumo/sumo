@@ -43,7 +43,7 @@ public:
     MSSOTLRequestTrafficLightLogic(MSTLLogicControl& tlcontrol,
                                    const std::string& id, const std::string& subid, const Phases& phases,
                                    int step, SUMOTime delay,
-                                   const std::map<std::string, std::string>& parameters) throw();
+                                   const std::map<std::string, std::string>& parameters);
 
     /**
      * @brief Constructor with sensors passed
@@ -58,7 +58,7 @@ public:
                                    const std::string& id, const std::string& subid, const Phases& phases,
                                    int step, SUMOTime delay,
                                    const std::map<std::string, std::string>& parameters,
-                                   MSSOTLSensors* sensors) throw();
+                                   MSSOTLSensors* sensors);
 
     int getMinDecisionalPhaseDuration() {
         return TplConvert::_2int(getParameter("MIN_DECISIONAL_PHASE_DUR", "5000").c_str());
@@ -68,7 +68,7 @@ protected:
     /*
      * @brief Contains the logic to decide the phase change
      */
-    bool canRelease() throw();
+    bool canRelease();
 };
 
 #endif

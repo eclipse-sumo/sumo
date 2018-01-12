@@ -61,18 +61,18 @@ namespace tcpip
 	private:
 		std::string what_;
 	public:
-		SocketException( std::string what ) throw() 
+		SocketException( std::string what ) 
 		{
 			what_ = what;
 			//std::cerr << "tcpip::SocketException: " << what << std::endl << std::flush;
 		}
 
-		virtual const char* what() const throw()
+		virtual const char* what() const
 		{
 			return what_.c_str();
 		}
 
-		~SocketException() throw() {}
+		~SocketException() {}
 	};
 
 	class Socket
@@ -103,7 +103,7 @@ namespace tcpip
 		void close();
 		int port();
 		void set_blocking(bool) throw( SocketException );
-		bool is_blocking() throw();
+		bool is_blocking();
 		bool has_client_connection() const;
 
 		// If verbose, each send and received data is written to stderr
@@ -128,7 +128,7 @@ namespace tcpip
 		std::string GetWinsockErrorString(int err) const;
 #endif
 		bool atoaddr(std::string, struct sockaddr_in& addr);
-		bool datawaiting(int sock) const throw();
+		bool datawaiting(int sock) const;
 
 		std::string host_;
 		int port_;

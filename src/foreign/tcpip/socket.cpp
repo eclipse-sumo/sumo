@@ -169,7 +169,7 @@ namespace tcpip
 	bool 
 		Socket::
 		datawaiting(int sock) 
-		const throw()
+		const
 	{
 		fd_set fds;
 		FD_ZERO( &fds );

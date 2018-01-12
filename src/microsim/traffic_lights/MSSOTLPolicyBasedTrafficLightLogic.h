@@ -58,7 +58,7 @@ public:
                                        const std::string& id, const std::string& subid,
                                        const Phases& phases, int step, SUMOTime delay,
                                        const std::map<std::string, std::string>& parameters,
-                                       MSSOTLPolicy* policy) throw();
+                                       MSSOTLPolicy* policy);
 
     /**
      * @brief Constructor with sensors passed
@@ -75,7 +75,7 @@ public:
                                        const std::string& id, const std::string& subid,
                                        const Phases& phases, int step, SUMOTime delay,
                                        const std::map<std::string, std::string>& parameters,
-                                       MSSOTLPolicy* policy, MSSOTLSensors* sensors) throw();
+                                       MSSOTLPolicy* policy, MSSOTLSensors* sensors);
 
     ~MSSOTLPolicyBasedTrafficLightLogic();
 
@@ -98,7 +98,7 @@ protected:
     /*
      * @brief Contains the logic to decide the phase change
      */
-    bool canRelease() throw();
+    bool canRelease();
 
     /*
      * This member has to contain the switching logic for SOTL policies

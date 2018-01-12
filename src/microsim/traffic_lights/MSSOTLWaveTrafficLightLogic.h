@@ -42,7 +42,7 @@ public:
     MSSOTLWaveTrafficLightLogic(MSTLLogicControl& tlcontrol,
                                 const std::string& id, const std::string& subid,
                                 const Phases& phases, int step, SUMOTime delay,
-                                const std::map<std::string, std::string>& parameters) throw();
+                                const std::map<std::string, std::string>& parameters);
 
     /**
      * @brief Constructor with sensors passed
@@ -57,7 +57,7 @@ public:
                                 const std::string& id, const std::string& subid,
                                 const Phases& phases, int step, SUMOTime delay,
                                 const std::map<std::string, std::string>& parameters,
-                                MSSOTLSensors* sensors) throw();
+                                MSSOTLSensors* sensors);
 
     /** @brief Returns the type of the logic as a string
      * @return The type of the logic
@@ -72,7 +72,7 @@ protected:
     /*
      * @brief Contains the logic to decide whether to release the green light
      */
-    bool canRelease() throw();
+    bool canRelease();
 
 private:
 

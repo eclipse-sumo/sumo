@@ -22,7 +22,7 @@ MSSOTLPolicyBasedTrafficLightLogic::MSSOTLPolicyBasedTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id,
     const std::string& subid, const Phases& phases, int step,
     SUMOTime delay, const std::map<std::string, std::string>& parameters,
-    MSSOTLPolicy* policy) throw() :
+    MSSOTLPolicy* policy) :
     MSSOTLTrafficLightLogic(tlcontrol, id, subid, phases, step, delay,
                             parameters), myPolicy(policy) {
 
@@ -36,7 +36,7 @@ MSSOTLPolicyBasedTrafficLightLogic::MSSOTLPolicyBasedTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id,
     const std::string& subid, const Phases& phases, int step,
     SUMOTime delay, const std::map<std::string, std::string>& parameters,
-    MSSOTLPolicy* policy, MSSOTLSensors* sensors) throw() :
+    MSSOTLPolicy* policy, MSSOTLSensors* sensors) :
     MSSOTLTrafficLightLogic(tlcontrol, id, subid, phases, step, delay,
                             parameters, sensors), myPolicy(policy) {
 }
@@ -56,7 +56,7 @@ int MSSOTLPolicyBasedTrafficLightLogic::decideNextPhase() {
                                      countVehicles(getCurrentPhaseDef()));
 }
 
-bool MSSOTLPolicyBasedTrafficLightLogic::canRelease() throw() {
+bool MSSOTLPolicyBasedTrafficLightLogic::canRelease() {
 
     DBG(
         std::ostringstream str; str << "\n" << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << getID() << "invoked MSSOTLPolicyBasedTrafficLightLogic::canRelease()"; WRITE_MESSAGE(str.str());)

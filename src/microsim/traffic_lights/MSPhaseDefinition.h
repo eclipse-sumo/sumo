@@ -149,7 +149,7 @@ public:
      * @param[in] maxDurationArg The maximum duration of the phase
      * @param[in] stateArg The state in the phase
      */
-    MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg) throw() {
+    MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg) {
         //PhaseType phaseType;
         phaseType = PhaseType();
         phaseType[UNDEFINED_BIT] = 1;
@@ -167,7 +167,7 @@ public:
      * @param[in] targetLaneSet identifies the lane-set to be considered when deciding the target phase to jump to
      * @see MSPhaseDefinition::PhaseType
      */
-    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, bool transient_notdecisional, bool commit, LaneIdVector& targetLaneSetArg) throw() {
+    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, bool transient_notdecisional, bool commit, LaneIdVector& targetLaneSetArg) {
         if (targetLaneSetArg.size() == 0) {
             MsgHandler::getErrorInstance()->inform("MSPhaseDefinition::MSPhaseDefinition -> targetLaneSetArg cannot be empty for a target phase");
         }
@@ -185,7 +185,7 @@ public:
      * In this phase the duration is fixed, because min and max duration are unspecified
      * @param[in] phaseType Indicates the type of the step
      */
-    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, bool transient_notdecisional, bool commit) throw() {
+    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, bool transient_notdecisional, bool commit) {
         //PhaseType phaseType;
         phaseType = PhaseType();
         phaseType[UNDEFINED_BIT] = 0;
@@ -203,7 +203,7 @@ public:
      * @param[in] targetLaneSet If not null, specifies this MSPhaseDefinition is a target step
      * @see MSPhaseDefinition::PhaseType
      */
-    MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg, bool transient_notdecisional, bool commit, LaneIdVector& targetLaneSetArg) throw() {
+    MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg, bool transient_notdecisional, bool commit, LaneIdVector& targetLaneSetArg) {
         if (targetLaneSetArg.size() == 0) {
             MsgHandler::getErrorInstance()->inform("MSPhaseDefinition::MSPhaseDefinition -> targetLaneSetArg cannot be empty for a target phase");
         }
@@ -223,7 +223,7 @@ public:
      * @param[in] phaseType Indicates the type of the step
      * @see MSPhaseDefinition::PhaseType
      */
-    MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg, bool transient_notdecisional, bool commit) throw() {
+    MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg, bool transient_notdecisional, bool commit) {
         //PhaseType phaseType;
         phaseType = PhaseType();
         phaseType[UNDEFINED_BIT] = 0;
@@ -246,7 +246,7 @@ public:
         return state;
     }
 
-    const LaneIdVector& getTargetLaneSet() const throw() {
+    const LaneIdVector& getTargetLaneSet() const {
         return targetLaneSet;
     }
 
@@ -291,35 +291,35 @@ public:
     /*
     * @return true if the phase type is undefined
     */
-    bool isUndefined() const throw() {
+    bool isUndefined() const {
         return phaseType[UNDEFINED_BIT];
     }
 
     /*
     * @return true if this is a target phase
     */
-    bool isTarget() const throw() {
+    bool isTarget() const {
         return phaseType[TARGET_BIT];
     }
 
     /*
     * @return true if this is a transient phase
     */
-    bool isTransient() const throw() {
+    bool isTransient() const {
         return phaseType[TRANSIENT_NOTDECISIONAL_BIT];
     }
 
     /*
     * @return true if this is a decisional phase
     */
-    bool isDecisional() const throw() {
+    bool isDecisional() const {
         return !phaseType[TRANSIENT_NOTDECISIONAL_BIT];
     }
 
     /*
     * @return true if this is a commit phase
     */
-    bool isCommit() const throw() {
+    bool isCommit() const {
         return phaseType[COMMIT_BIT];
     }
 
