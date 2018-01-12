@@ -64,9 +64,10 @@ def runTests(options, env, gitrev, debugSuffix=""):
     shutil.rmtree(env["TEXTTEST_TMP"], True)
     if not os.path.exists(env["SUMO_REPORT"]):
         os.makedirs(env["SUMO_REPORT"])
-    for name in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert", "netgenerate",
-                 "od2trips", "sumo", "polyconvert", "sumo-gui", "activitygen",
-                 "emissionsDrivingCycle", "emissionsMap"]:
+    for name in ["activitygen", "emissionsDrivingCycle", "emissionsMap",
+                 "dfrouter", "duarouter", "jtrrouter", "marouter",
+                 "netconvert", "netedit", "netgenerate",
+                 "od2trips", "polyconvert", "sumo", "sumo-gui"]:
         image = name + debugSuffix + ".exe"
         subprocess.call(["taskkill", "/f", "/im", image])
         binary = os.path.join(options.rootDir, options.binDir, image)
