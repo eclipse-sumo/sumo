@@ -51,10 +51,10 @@ struct sockaddr_in;
 namespace tcpip
 {
 
-	class SocketException: public std::exception
+	class SocketException: public std::runtime_error
 	{
 	public:
-        SocketException(std::string what) : std::exception(what.c_str()) {}
+        SocketException(std::string what) : std::runtime_error(what.c_str()) {}
 	};
 
 	class Socket
