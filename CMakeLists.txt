@@ -91,7 +91,7 @@ if (APPLE)
     endif ()
 endif (APPLE)
 
-find_package(XercesC REQUIRED HINTS $ENV{XERCES} $ENV{XERCES_64})
+find_package(XercesC REQUIRED)
 if (XercesC_FOUND)
     include_directories(${XercesC_INCLUDE_DIRS})
 endif (XercesC_FOUND)
