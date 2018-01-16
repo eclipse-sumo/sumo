@@ -1088,10 +1088,15 @@ MSLane::planMovements(SUMOTime t) {
                 << "\n";
 #endif
     for (; veh != myVehicles.rend(); ++veh) {
+#ifdef DEBUG_PLAN_MOVE
+        if (DEBUG_COND2((*veh))) {
+            std::cout << "   plan move for: " << (*veh)->getID();
+        }
+#endif
         updateLeaderInfo(*veh, vehPart, vehRes, leaders);
 #ifdef DEBUG_PLAN_MOVE
-        if (DEBUG_COND) {
-            std::cout << "   plan move for: " << (*veh)->getID() << " leaders=" << leaders.toString() << "\n";
+        if (DEBUG_COND2((*veh))) {
+            std::cout << " leaders=" << leaders.toString() << "\n";
         }
 #endif
         (*veh)->planMove(t, leaders, cumulatedVehLength);
@@ -1740,7 +1745,18 @@ MSLane::sortPartialVehicles() {
 void
 MSLane::sortManeuverReservations() {
     if (myManeuverReservations.size() > 1) {
+#ifdef DEBUG_CONTEXT
+        if DEBUG_COND {
+            std::cout << "sortManeuverReservations on lane " << getID()
+                << "\nBefore sort: " << toString(myManeuverReservations) << std::endl;
+        }
+#endif
         sort(myManeuverReservations.begin(), myManeuverReservations.end(), vehicle_natural_position_sorter(this));
+#ifdef DEBUG_CONTEXT
+        if DEBUG_COND {
+            std::cout << "After sort: " << toString(myManeuverReservations) << std::endl;
+        }
+#endif
     }
 }
 

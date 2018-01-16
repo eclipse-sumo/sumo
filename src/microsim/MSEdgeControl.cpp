@@ -134,7 +134,6 @@ MSEdgeControl::executeMovements(SUMOTime t) {
         // not be sorted otherwise
         for (LaneUsageVector::iterator it = myLanes.begin(); it != myLanes.end(); ++it) {
             (*it).lane->sortPartialVehicles();
-            (*it).lane->sortManeuverReservations();
         }
     }
 }
@@ -170,6 +169,12 @@ MSEdgeControl::changeLanes(SUMOTime t) {
     }
     for (std::vector<MSLane*>::iterator i = toAdd.begin(); i != toAdd.end(); ++i) {
         myActiveLanes.push_front(*i);
+    }
+    if (MSGlobals::gLateralResolution > 0) {
+        // sort maneuver reservations
+        for (LaneUsageVector::iterator it = myLanes.begin(); it != myLanes.end(); ++it) {
+            (*it).lane->sortManeuverReservations();
+        }
     }
 }
 
