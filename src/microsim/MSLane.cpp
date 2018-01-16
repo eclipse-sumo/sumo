@@ -1087,6 +1087,7 @@ MSLane::planMovements(SUMOTime t) {
                 << "\n    reservations=" << toString(myManeuverReservations)
                 << "\n";
 #endif
+    assert(MSGlobals::gLateralResolution || myManeuverReservations.size()==0);
     for (; veh != myVehicles.rend(); ++veh) {
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND2((*veh))) {

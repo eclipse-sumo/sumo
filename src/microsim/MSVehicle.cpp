@@ -2801,11 +2801,13 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
 bool
 MSVehicle::executeMove() {
 #ifdef DEBUG_EXEC_MOVE
-    if (DEBUG_COND) std::cout << "\nEXECUTE_MOVE\n"
+    if (DEBUG_COND) {
+        std::cout << "\nEXECUTE_MOVE\n"
                                   << SIMTIME
                                   << " veh=" << getID()
                                   << " speed=" << getSpeed() // toString(getSpeed(), 24)
                                   << std::endl;
+    }
 #endif
 
 
@@ -2932,8 +2934,10 @@ MSVehicle::executeMove() {
                 // either if we already have a shadowLane or if there is lateral overlap
                 getLaneChangeModel().updateShadowLane();
             }
-            // The vehicles target lane must be also be updated if the front or back lane changed
-            getLaneChangeModel().updateTargetLane();
+            if (MSGlobals::gLateralResolution > 0) {
+                // The vehicles target lane must be also be updated if the front or back lane changed
+                getLaneChangeModel().updateTargetLane();
+            }
         }
         setBlinkerInformation(); // needs updated bestLanes
         //change the blue light only for emergency vehicles SUMOVehicleClass
@@ -3586,9 +3590,11 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
         myFurtherLanes.clear();
         myFurtherLanesPosLat.clear();
     }
-    if (MSGlobals::gLateralResolution > 0 || MSGlobals::gLaneChangeDuration > 0) {
+    if (MSGlobals::gLateralResolution > 0) {
         getLaneChangeModel().updateShadowLane();
         getLaneChangeModel().updateTargetLane();
+    } else if (MSGlobals::gLaneChangeDuration > 0) {
+        getLaneChangeModel().updateShadowLane();
     }
     myAngle = computeAngle();
     if (getLaneChangeModel().isOpposite()) {
