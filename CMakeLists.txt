@@ -138,27 +138,37 @@ if (OPENSCENEGRAPH_FOUND)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} OSG")
 endif ()
 
-find_package(GL2PS)
-if (GL2PS_FOUND)
-    include_directories(${GL2PS_INCLUDE_DIR})
-    set(HAVE_GL2PS 1)
-    set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
+# In Linux, GL2PS has to be installed through the Package manager, but in Windows is downloaded and installed during configuration
+if(WINDOWS)
+    find_package(GL2PS)
+    if (GL2PS_FOUND)
+        include_directories(${GL2PS_INCLUDE_DIR})
+        set(HAVE_GL2PS 1)
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
+    else ()
+        include(ExternalProject)
+        ExternalProject_Add(gl2ps
+            GIT_REPOSITORY    http://gitlab.onelab.info/gl2ps/gl2ps.git
+            GIT_TAG           gl2ps_1_4_0
+            PREFIX            "${CMAKE_BINARY_DIR}/gl2ps"
+            INSTALL_COMMAND   cp "${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps-build/Release/gl2ps.dll" "${CMAKE_SOURCE_DIR}/bin"
+        )
+        FIND_LIBRARY(GL2PS_LIBRARY NAMES gl2ps PATHS "${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps-build/Release")
+        if (GL2PS_LIBRARY)
+            include_directories("${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps")
+            set(GL2PS_LIBRARIES ${GL2PS_LIBRARY})
+            set(HAVE_GL2PS 1)
+            set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
+        endif ()
+    endif ()
 else ()
-    include(ExternalProject)
-    ExternalProject_Add(gl2ps
-        GIT_REPOSITORY    http://gitlab.onelab.info/gl2ps/gl2ps.git
-        GIT_TAG           gl2ps_1_4_0
-		PREFIX            "${CMAKE_BINARY_DIR}/gl2ps"
-        INSTALL_COMMAND   cp "${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps-build/Release/gl2ps.dll" "${CMAKE_SOURCE_DIR}/bin"
-    )
-    FIND_LIBRARY(GL2PS_LIBRARY NAMES gl2ps PATHS "${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps-build/Release")
-	if (GL2PS_LIBRARY)
-        include_directories("${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps")
-        set(GL2PS_LIBRARIES ${GL2PS_LIBRARY})
-		set(HAVE_GL2PS 1)
-		set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
-	endif ()
-endif ()
+    find_package(GL2PS REQUIRED)
+    if (GL2PS_FOUND)
+        include_directories(${GL2PS_INCLUDE_DIR})
+        set(HAVE_GL2PS 1)
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
+    else(GL2PS_FOUND)
+endif (WINDOWS)
 
 find_package(SWIG)
 if (SWIG_FOUND)
@@ -167,7 +177,6 @@ if (SWIG_FOUND)
     endif ()
     set(ENABLED_FEATURES "${ENABLED_FEATURES} SWIG")
 endif ()
-
 
 if (BUILD_GTEST_FROM_GIT)
     message("Download and unpack googletest")
