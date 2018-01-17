@@ -304,11 +304,12 @@ MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane, double posLat) cons
         if (debugVehicle()) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " posLat=" << posLat << " overlap=" << overlap << "\n";
         }
-        if (overlap > NUMERICAL_EPS ||
-                // "reserve" target lane even when there is no overlap yet
-                (isChangingLanes() && myLaneChangeCompletion < 0.5)) {
+        if (overlap > NUMERICAL_EPS) {
             const int shadowDirection = posLat < 0 ? -1 : 1;
             return lane->getParallelLane(shadowDirection);
+        } else if (isChangingLanes() && myLaneChangeCompletion < 0.5) {
+            // "reserve" target lane even when there is no overlap yet
+            return lane->getParallelLane(myLaneChangeDirection);
         } else {
             return 0;
         }
