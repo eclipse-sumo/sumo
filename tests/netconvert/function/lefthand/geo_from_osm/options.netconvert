@@ -1,5 +1,0 @@
---osm-files osm.xml -o net.net.xml --lefthand
---keep-edges.by-vclass passenger -R
---no-internal-links
-
-
