@@ -65,9 +65,9 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_GUESSPROGRAM,    GNETLSEditorFrame::onCmdGuess),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PHASE_CREATE,    GNETLSEditorFrame::onCmdPhaseCreate),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PHASE_CREATE,    GNETLSEditorFrame::onUpdNeedsDef),
-	FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PHASE_DELETE,    GNETLSEditorFrame::onCmdPhaseDelete),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PHASE_DELETE,    GNETLSEditorFrame::onCmdPhaseDelete),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::onCmdCleanup),
-	FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_CLEANUP,			GNETLSEditorFrame::onUpdNeedsDef),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::onUpdNeedsDef),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PHASE_DELETE,    GNETLSEditorFrame::onUpdNeedsDefAndPhase),
     FXMAPFUNC(SEL_SELECTED,   MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
     FXMAPFUNC(SEL_DESELECTED, MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
@@ -261,7 +261,6 @@ GNETLSEditorFrame::onCmdDefSwitch(FXObject*, FXSelector, void*) {
         // create working copy from original def
         delete myEditedDef;
         myEditedDef = new NBLoadedSUMOTLDef(tlDef, tllogic);
-
         myTLSAttributes->setOffset(myEditedDef->getLogic()->getOffset());
         initPhaseTable();
         updateCycleDuration();
@@ -580,7 +579,6 @@ GNETLSEditorFrame::initPhaseTable(int index) {
         myPhaseTable->selectRow(index, true);
         myPhaseTable->show();
         myPhaseTable->setFocus();
-
         myTableScroll->setHeight(myPhaseTable->getHeight() + 10);
     }
     update();
