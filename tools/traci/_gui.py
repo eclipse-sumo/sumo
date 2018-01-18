@@ -99,16 +99,21 @@ class GuiDomain(Domain):
                                                 tc.TYPE_BOUNDINGBOX, xmin, ymin, xmax, ymax)
         self._connection._sendExact()
 
-    def screenshot(self, viewID, filename):
-        """screenshot(string, string) -> None
+    def screenshot(self, viewID, filename, width=-1, height=-1):
+        """screenshot(string, string, int, int) -> None
 
         Save a screenshot for the given view to the given filename.
         The fileformat is guessed from the extension, the available
         formats differ from platform to platform but should at least
         include ps, svg and pdf, on linux probably gif, png and jpg as well.
+        Width and height of the image can be given as optional parameters.
         """
-        self._connection._sendStringCmd(
-            tc.CMD_SET_GUI_VARIABLE, tc.VAR_SCREENSHOT, viewID, filename)
+        self._connection._beginMessage(
+            tc.CMD_SET_GUI_VARIABLE, tc.VAR_SCREENSHOT, viewID, 1 + 4 + 1 + 4 + len(filename) + 1 + 4 + 1 + 4)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 3)
+        self._connection._packString(filename)
+        self._connection._string += struct.pack("!BiBi", tc.TYPE_INTEGER, width, tc.TYPE_INTEGER, height)
+        self._connection._sendExact()
 
     def trackVehicle(self, viewID, vehID):
         """trackVehicle(string, string) -> None
