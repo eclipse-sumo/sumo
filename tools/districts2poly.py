@@ -24,9 +24,9 @@ import os
 import random
 from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from sumolib.output import parse
-from sumolib.net import readNet
-from sumolib.miscutils import Colorgen
+from sumolib.output import parse  # noqa
+from sumolib.net import readNet  # noqa
+from sumolib.miscutils import Colorgen  # noqa
 
 
 def parse_args():

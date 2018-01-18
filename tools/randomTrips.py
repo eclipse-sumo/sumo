@@ -30,8 +30,8 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
-import route2trips
-from sumolib.miscutils import euclidean
+import route2trips  # noqa
+from sumolib.miscutils import euclidean  # noqa
 
 DUAROUTER = sumolib.checkBinary('duarouter')
 
