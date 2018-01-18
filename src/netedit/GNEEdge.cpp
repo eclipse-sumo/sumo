@@ -182,9 +182,13 @@ GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position
     if (index != -1) {
         // check that index is correct before change position
         if (index < (int)edgeGeometry.size()) {
-            // change position of vertex
+            // save Z value
+            double zValue = edgeGeometry[index].z();
+            // change position of vertex (only X-Y)
             edgeGeometry[index] = oldPos;
             edgeGeometry[index].add(offset);
+            // restore Z value
+            edgeGeometry[index].setz(zValue);
             // update edge's geometry
             setGeometry(edgeGeometry, true);
             return index;
