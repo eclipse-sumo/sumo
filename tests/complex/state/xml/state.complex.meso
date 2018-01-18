@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/16/17 10:37:11 by SUMO Version dev-SVN-r24706
+<!-- generated on 01/15/18 12:39:42 by SUMO Version v0_31_0+1647-6d8dc768ae
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -28,11 +28,11 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="dev-SVN-r24706" time="50.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v0_31_0+1647-6d8dc768ae" time="50.00">
     <route id="r1" state="1" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     <delay number="2" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
-    <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" accel="0.8" decel="4.5" sigma="0"/>
+    <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" actionStepLength="1.00" accel="0.8" decel="4.5" sigma="0"/>
     <vehicle id="0" type="DEFAULT_VEHTYPE" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" state="0 1 0 0 50000 40000 9223372036854775807">
         <device id="vehroute_0" state="10.00 0.00 0"/>
     </vehicle>
