@@ -17,6 +17,7 @@
 
 
 import sumolib.geomhelper
+from functools import reduce
 
 # taken from sumo/src/utils/common/SUMOVehicleClass.cpp
 SUMO_VEHICLE_CLASSES = (
@@ -196,6 +197,13 @@ class Lane:
 
     def getOutgoing(self):
         return self._outgoing
+    
+    def getIncoming(self):
+        """
+        Returns all incoming lanes for this lane, i.e. lanes, which have a connection to this lane.
+        """
+        candidates = set(reduce(lambda x,y: x+y, [e.getLanes() for e in self._edge.getIncoming()],[]))
+        return [l for l in candidates if self in [c.getToLane() for c in l.getOutgoing()]]
 
     def setParam(self, key, value):
         self._params[key] = value
