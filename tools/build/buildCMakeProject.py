@@ -59,11 +59,11 @@ else:
             os.environ["PYTHON_INCLUDE"] = folder + "include"
 
     generator = sys.argv[1] if len(sys.argv) > 1 else "Visual Studio 12 2013 Win64"
-    buildDir = os.path.join(SUMO_HOME, "cmake-build-" + generator.replace(" ", "-"))
+    buildDir = os.path.join(SUMO_HOME, "build/cmake-build-" + generator.replace(" ", "-"))
     # Create directory or clear it if already exists
     if os.path.exists(buildDir):
         print ("Cleaning directory of", generator)
         shutil.rmtree(buildDir)
     os.makedirs(buildDir)
     print ("Creating solution for", generator)
-    subprocess.call([CMAKE[0], "..", "-G", generator], cwd=buildDir)
+    subprocess.call([CMAKE[0], "../..", "-G", generator], cwd=buildDir)

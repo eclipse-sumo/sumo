@@ -16,9 +16,10 @@
 /sumo-*.zip
 /diff.*
 /compile
-/cmake-build*
 /latex
 /mirror
+# build dir 
+/build/cmake-build*
 # bin dir
 /bin/TraCITestClient*
 /bin/activitygen*
@@ -109,4 +110,3 @@ lib*.a
 *.lib
 *.res
 *.ipch
-/build/autobuild
