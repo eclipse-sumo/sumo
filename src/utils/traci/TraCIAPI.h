@@ -203,7 +203,7 @@ public:
         void setOffset(const std::string& viewID, double x, double y) const;
         void setSchema(const std::string& viewID, const std::string& schemeName) const;
         void setBoundary(const std::string& viewID, double xmin, double ymin, double xmax, double ymax) const;
-        void screenshot(const std::string& viewID, const std::string& filename) const;
+        void screenshot(const std::string& viewID, const std::string& filename, const int width=-1, const int height=-1) const;
         void trackVehicle(const std::string& viewID, const std::string& vehID) const;
 
     private:

@@ -165,7 +165,7 @@ public:
     /** @brief Sets the snapshot time to file map
      * @param[in] snaps The snapshots to take at certain times
      */
-    void addSnapshot(SUMOTime time, const std::string& file);
+    void addSnapshot(SUMOTime time, const std::string& file, const int width = -1, const int height = -1);
 
     /** @brief Takes a snapshots and writes it into the given file
      *
@@ -174,7 +174,7 @@ public:
      * @param[in] destFile The name of the file to write the snapshot into
      * @return The error message, if an error occcured; "" otherwise
      */
-    std::string makeSnapshot(const std::string& destFile);
+    std::string makeSnapshot(const std::string& destFile, const int width=-1, const int height=-1);
 
     ///@brief Adds a frame to a video snapshot which will be initialized if neccessary
     virtual void saveFrame(const std::string& destFile, FXColor* buf);
@@ -431,15 +431,15 @@ protected:
     ///@brief The list of decals to show
     std::vector<Decal> myDecals;
 
-    ///@brief The mutex to use before accessing the decals list in order to avoid thread conficts
+    ///@brief The mutex to use before accessing the decals list in order to avoid thread conflicts
     MFXMutex myDecalsLock;
     ///@}
 
     ///@brief Snapshots
-    std::map<SUMOTime, std::vector<std::string> > mySnapshots;
+    std::map<SUMOTime, std::vector<std::tuple<std::string, int, int> > > mySnapshots;
     std::set<SUMOTime>* myApplicationSnapshots;
 
-    ///@brief The mutex to use before accessing the decals list in order to avoid thread conficts
+    ///@brief The mutex to use before accessing the decals list in order to avoid thread conflicts
     MFXMutex mySnapshotsLock;
     FXMutex* myApplicationSnapshotsLock;
 

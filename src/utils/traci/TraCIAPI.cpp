@@ -853,10 +853,16 @@ TraCIAPI::GUIScope::setBoundary(const std::string& viewID, double xmin, double y
 }
 
 void
-TraCIAPI::GUIScope::screenshot(const std::string& viewID, const std::string& filename) const {
+TraCIAPI::GUIScope::screenshot(const std::string& viewID, const std::string& filename, const int width, const int height) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(TYPE_STRING);
+    content.writeByte(TYPE_COMPOUND);
+    content.writeInt(3);
+    content.writeByte(TYPE_STRING);
     content.writeString(filename);
+    content.writeByte(TYPE_INTEGER);
+    content.writeInt(width);
+    content.writeByte(TYPE_INTEGER);
+    content.writeInt(height);
     myParent.send_commandSetValue(CMD_SET_GUI_VARIABLE, VAR_SCREENSHOT, viewID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_GUI_VARIABLE);

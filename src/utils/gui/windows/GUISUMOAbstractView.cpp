@@ -822,12 +822,12 @@ GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
 
 // ------------ Dealing with snapshots
 void
-GUISUMOAbstractView::addSnapshot(SUMOTime time, const std::string& file) {
+GUISUMOAbstractView::addSnapshot(SUMOTime time, const std::string& file, const int width, const int height) {
 #ifdef DEBUG_SNAPSHOT
     std::cout << "add snappshot time=" << time << " file=" << file << "\n";
 #endif
     mySnapshotsLock.lock();
-    mySnapshots[time].push_back(file);
+    mySnapshots[time].push_back(std::make_tuple(file, width, height));
     mySnapshotsLock.unlock();
     if (myApplicationSnapshots != 0) {
         myApplicationSnapshotsLock->lock();
@@ -837,7 +837,13 @@ GUISUMOAbstractView::addSnapshot(SUMOTime time, const std::string& file) {
 }
 
 std::string
-GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
+GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int width, const int height) {
+    const int appWidth = myApp->getWidth();
+    const int appHeight = myApp->getHeight();
+    if (width >= 0) {
+        resize(width, height);
+        repaint();
+    }
     std::string errorMessage;
     FXString ext = FXPath::extension(destFile.c_str());
     const bool useGL2PS = ext == "ps" || ext == "eps" || ext == "pdf" || ext == "svg" || ext == "tex" || ext == "pgf";
@@ -997,19 +1003,19 @@ GUISUMOAbstractView::checkSnapshots() {
     std::cout << "check snappshots time=" << time << " registeredTimes=" << mySnapshots.size() << "\n";
 #endif
     mySnapshotsLock.lock();
-    std::map<SUMOTime, std::vector<std::string> >::iterator snapIt = mySnapshots.find(time);
-    std::vector<std::string> files;
+    auto snapIt = mySnapshots.find(time);
+    std::vector<std::tuple<std::string, int, int> > files;
     if (snapIt != mySnapshots.end()) {
         files = snapIt->second;
         mySnapshots.erase(snapIt);
     }
     mySnapshotsLock.unlock();
     // decouple map access and painting to avoid deadlock
-    for (auto file : files) {
+    for (const auto& entry : files) {
 #ifdef DEBUG_SNAPSHOT
         std::cout << "make snappshot time=" << time << " file=" << file << "\n";
 #endif
-        std::string error = makeSnapshot(file);
+        std::string error = makeSnapshot(std::get<0>(entry), std::get<1>(entry), std::get<2>(entry));
         if (error != "") {
             WRITE_WARNING(error);
         }

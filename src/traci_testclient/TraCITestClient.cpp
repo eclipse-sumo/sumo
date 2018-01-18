@@ -960,7 +960,7 @@ TraCITestClient::testAPI() {
         gui.setSchema("View #0", "real world");
         answerLog << "    getScheme: " << gui.getSchema("View #0") << "\n";
         answerLog << "    take screenshot: \n";
-        gui.screenshot("View #0", "image.png");
+        gui.screenshot("View #0", "image.png", 500, 500);
     } catch (tcpip::SocketException&) {
         answerLog << "    no support for gui commands\n";
     }

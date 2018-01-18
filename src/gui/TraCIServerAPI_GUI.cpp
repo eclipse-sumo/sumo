@@ -166,12 +166,26 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             break;
         }
         case VAR_SCREENSHOT: {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Screenshot requires a compound object.", outputStorage);
+            }
+            int parameterCount = inputStorage.readInt();
+            if (parameterCount != 3) {
+                return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Screenshot requires three values as parameter.", outputStorage);
+            }
             std::string filename;
             if (!server.readTypeCheckingString(inputStorage, filename)) {
-                return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Making a snapshot requires a file name.", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The first variable must be a file name.", outputStorage);
+            }
+            int width = 0, height = 0;
+            if (!server.readTypeCheckingInt(inputStorage, width)) {
+                return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The second variable must be the width given as int.", outputStorage);
+            }
+            if (!server.readTypeCheckingInt(inputStorage, height)) {
+                return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The third variable must be the height given as int.", outputStorage);
             }
             // take screenshot after the current step is finished (showing the same state as sumo-gui and netstate-output)
-            v->addSnapshot(MSNet::getInstance()->getCurrentTimeStep(), filename);
+            v->addSnapshot(MSNet::getInstance()->getCurrentTimeStep(), filename, width, height);
         }
         break;
         case VAR_TRACK_VEHICLE: {
