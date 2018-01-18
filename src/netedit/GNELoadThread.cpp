@@ -189,7 +189,8 @@ GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& guiSettingsFi
 void
 GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.clear();
-    oc.addCallExample("", "start plain GUI with empty net");
+    oc.addCallExample("--new", "start plain GUI with empty net");
+    oc.addCallExample("-s <SUMO_NET>", "edit SUMO network");
     oc.addCallExample("-c <CONFIGURATION>", "edit net with options read from file");
 
     SystemFrame::addConfigurationOptions(oc); // this subtopic is filled here, too
@@ -238,7 +239,7 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.addDescription("window-pos", "Visualisation", "Create initial window at the given x,y position");
 
     oc.doRegister("gui-testing", new Option_Bool(false));
-    oc.addDescription("gui-testing", "Visualisation", "Enable ovelay for screen recognition");
+    oc.addDescription("gui-testing", "Visualisation", "Enable overlay for screen recognition");
 
     oc.doRegister("gui-testing-debug", new Option_Bool(false));
     oc.addDescription("gui-testing-debug", "Visualisation", "Enable output messages during GUI-Testing");
