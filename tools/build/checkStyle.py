@@ -51,19 +51,6 @@ _IGNORE = set(["binstate.sumo", "binstate.sumo.meso", "image.tools"])
 _KEYWORDS = "HeadURL Id LastChangedBy LastChangedDate LastChangedRevision"
 
 SEPARATOR = "/****************************************************************************/\n"
-GPL_HEADER = """/****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors
-/****************************************************************************/
-//
-//   This file is part of SUMO.
-//   SUMO is free software: you can redistribute it and/or modify
-//   it under the terms of the GNU General Public License as published by
-//   the Free Software Foundation, either version 3 of the License, or
-//   (at your option) any later version.
-//
-/****************************************************************************/
-"""
 EPL_HEADER = """/****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
@@ -80,10 +67,9 @@ class PropertyReader(xml.sax.handler.ContentHandler):
 
     """Reads the svn properties of files as written by svn pl -v --xml"""
 
-    def __init__(self, doFix, doPep, doEPL):
+    def __init__(self, doFix, doPep):
         self._fix = doFix
         self._pep = doPep
-        self._epl = doEPL
         self._file = ""
         self._property = None
         self._value = ""
@@ -130,19 +116,11 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         idx = 0
         if ext in (".cpp", ".h"):
             if lines[idx] == SEPARATOR:
-                haveEPL = "Eclipse" in lines[1]
-                if not haveEPL:
-                    idx = self.checkDoxyLines(lines, 1)
                 if lines[idx] != SEPARATOR:
                     print(self._file, "missing license start", idx, lines[idx].rstrip())
                 year = lines[idx + 2][17:21]
-                if haveEPL:
-                    license = EPL_HEADER
-                    end = idx + 9
-                else:
-                    license = GPL_HEADER
-                    end = idx + 12
-                license = license.replace("2001", year)
+                end = idx + 9
+                license = EPL_HEADER.replace("2001", year)
                 if "module" in lines[idx + 3]:
                     end += 2
                     fileLicense = "".join(lines[idx:idx + 3]) + "".join(lines[idx + 5:end])
@@ -153,16 +131,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     if options.verbose:
                         print(fileLicense)
                         print(license)
-                elif self._epl:
-                    newLicense = EPL_HEADER.replace("2001", year).splitlines(True)
-                    if "module" in lines[idx + 3]:
-                        newLicense[3:3] = lines[idx+3:idx+5]
-                    lines[idx:end] = newLicense
-                    lines[end-2:end-2] = lines[:idx]
-                    lines[:idx] = []
-                    self._haveFixed = True
-                if haveEPL:
-                    self.checkDoxyLines(lines, end)
+                self.checkDoxyLines(lines, end)
             else:
                 print(self._file, "header does not start")
         if ext in (".py", ".pyw"):
@@ -175,24 +144,8 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                         self._haveFixed = True
             if lines[idx][:5] == '# -*-':
                 idx += 1
-            haveEPL = "Eclipse" in lines[idx]
-            if haveEPL:
-                license = EPL_HEADER.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "")
-                end = idx + 6
-            else:
-                if lines[idx] != '"""\n':
-                    print(self._file, "header does not start")
-                else:
-                    pre = idx
-                    idx = self.checkDoxyLines(lines, 1, "")
-                    atlines = idx
-                    idx += 1
-                    while idx < len(lines) and lines[idx][:4] != "SUMO":
-                        idx += 1
-                if idx == len(lines):
-                    print(self._file, "license not found")
-                license = GPL_HEADER.replace("//   ", "").replace("// ", "").replace("\n//", "\n")[:-1]
-                end = idx + 8
+            license = EPL_HEADER.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "")
+            end = idx + 6
             year = lines[idx + 1][16:20]
             license = license.replace("2001", year).replace(SEPARATOR, "")
             if "module" in lines[idx + 2]:
@@ -206,22 +159,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     print("!!%s!!" % os.path.commonprefix([fileLicense, license]))
                     print(fileLicense)
                     print(license)
-            elif self._epl:
-                newLicense = EPL_HEADER.replace("2001", year).replace(SEPARATOR, "")
-                newLicense = newLicense.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "").splitlines(True)
-                end = idx + 8
-                if "module" in lines[idx + 2]:
-                    newLicense[2:2] = ["# " + l for l in lines[idx+2:idx+4]]
-                    end += 2
-                newLines = lines[:pre-1] + newLicense + ["\n"] + ["# " + l for l in lines[pre:atlines]]
-                if atlines < idx - 3:
-                    newLines += ["\n", '"""\n'] + lines[atlines+1:idx-1] + lines[end:]
-                else:
-                    newLines += ["\n"] + lines[end+1:]
-                lines = newLines
-                self._haveFixed = True
-            if haveEPL:
-                self.checkDoxyLines(lines, end+1, "#")
+            self.checkDoxyLines(lines, end+1, "#")
         if self._haveFixed:
             open(self._file, "w").write("".join(lines))
 
@@ -315,8 +253,6 @@ optParser.add_option("-f", "--fix", action="store_true",
                      default=False, help="fix invalid svn properties")
 optParser.add_option("-s", "--skip-pep", action="store_true",
                      default=False, help="skip autopep8 and flake8 tests")
-optParser.add_option("-r", "--rewrite-license", action="store_true",
-                     default=False, help="change GPL to EPL license")
 (options, args) = optParser.parse_args()
 seen = set()
 if len(args) > 0:
@@ -324,7 +260,7 @@ if len(args) > 0:
 for svnRoot in svnRoots:
     if options.verbose:
         print("checking", svnRoot)
-    propRead = PropertyReader(options.fix, not options.skip_pep, options.rewrite_license)
+    propRead = PropertyReader(options.fix, not options.skip_pep)
     try:
         output = subprocess.check_output(["svn", "pl", "-v", "-R", "--xml", svnRoot])
         xml.sax.parseString(output, propRead)
