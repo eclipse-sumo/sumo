@@ -7,7 +7,7 @@
 # http://www.eclipse.org/legal/epl-v20.html
 # SPDX-License-Identifier: EPL-2.0
 
-# @file    addParking2Route.py
+# @file    addStops2Routes.py
 # @author  Evamarie Wiessner
 # @date    2017-01-09
 # @version $Id$

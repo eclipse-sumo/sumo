@@ -145,7 +145,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             if lines[idx][:5] == '# -*-':
                 idx += 1
             license = EPL_HEADER.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "")
-            end = idx + 6
+            end = idx + 7
             year = lines[idx + 1][16:20]
             license = license.replace("2001", year).replace(SEPARATOR, "")
             if "module" in lines[idx + 2]:
