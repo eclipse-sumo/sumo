@@ -379,8 +379,20 @@ public:
         return myLaneChangeCompletion >= 0.5;
     }
 
-    /// @brief return whether the vehicle passed the midpoint of a continuous lane change maneuver
+    /// @brief Compute the remaining time until LC completion
     SUMOTime remainingTime() const;
+
+    /// @brief Calculates the maximal time needed to complete a lane change maneuver
+    ///        if lcMaxSpeedLatFactor and lcMaxSpeedStanding are set and the vehicle breaks not harder than decel.
+    ///        LC when the vehicle starts breaking now. If lcMaxSpeedStanding==0 the completion may be impossible,
+    /// @param[in] speed Current longitudinal speed of the changing vehicle.
+    /// @param[in] remainingManeuverDist dist which is still to be covered until LC is completed
+    /// @param[in] decel Maximal assumed deceleration rate applied during the LC.
+    /// @param[in] maxSpeedLat Maximal lateral speed that can be attained during LC.
+    /// @return maximal LC duration (or -1) if it is possible that it can't be completed.
+    /// @note For the calculation it is assumed that the vehicle starts breaking with decel (>=0) immediately.
+    ///       If lcMaxSpeedStanding==0 the completion may be impossible, and -1 is returned.
+    static double estimateLCDuration(const double speed, const double remainingManeuverDist, const double decel, const double maxSpeedLat);
 
     /// @brief return true if the vehicle currently performs a lane change maneuver
     inline bool isChangingLanes() const {
@@ -599,6 +611,11 @@ protected:
     /// @brief acutal and secure distance to closest leader vehicle on the original when performing lane change
     double myLastOrigLeaderGap;
     double myLastOrigLeaderSecureGap;
+
+    // @brief the maximum lateral speed when standing
+    double myMaxSpeedLatStanding;
+    // @brief the factor of maximum lateral speed to longitudinal speed
+    double myMaxSpeedLatFactor;
 
     /* @brief to be called by derived classes in their changed() method.
      * If dir=0 is given, the current value remains unchanged */

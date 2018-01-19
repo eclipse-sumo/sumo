@@ -264,18 +264,9 @@ MSAbstractLaneChangeModel::computeSpeedLat(double /*latDist*/, double& maneuverD
 bool
 MSAbstractLaneChangeModel::updateCompletion() {
     const bool pastBefore = pastMidpoint();
-    // not updated in the context of continous lane changing
+    // maneuverDist is not updated in the context of continous lane changing but represents the full LC distance
     double maneuverDist = getManeuverDist();
     mySpeedLat = computeSpeedLat(0, maneuverDist);
-    /*
-    std::cout << SIMTIME << " veh=" << myVehicle.getID() 
-        << " md=" << myManeuverDist
-        << " mySpeedLat=" << mySpeedLat
-        << " update1=" << (double)DELTA_T / (double)MSGlobals::gLaneChangeDuration
-        << " update2=" << (SPEED2DIST(mySpeedLat) / myManeuverDist)
-        << "\n";
-    myLaneChangeCompletion += (double)DELTA_T / (double)MSGlobals::gLaneChangeDuration;
-    */
     myLaneChangeCompletion += (SPEED2DIST(mySpeedLat) / myManeuverDist);
     return !pastBefore && pastMidpoint();
 }
@@ -529,6 +520,89 @@ MSAbstractLaneChangeModel::getAngleOffset() const {
     return myLaneChangeDirection * angleOffset;
 }
 
+
+double
+MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double remainingManeuverDist, const double decel, const double maxSpeedLat) {
+    // Check argument assumptions
+    assert(speed>=0);
+    assert(remainingManeuverDist>0);
+    assert(decel>0);
+    assert(maxSpeedLat>0);
+    assert(myMaxSpeedLatStanding <= maxSpeedLat);
+    assert(myMaxSpeedLatStanding >= 0);
+
+    // for brevity
+    const double v0=speed;
+    const double D=remainingManeuverDist;
+    const double b=decel;
+    const double wmin=myMaxSpeedLatStanding;
+    const double f=myMaxSpeedLatFactor;
+    const double wmax=maxSpeedLat;
+
+    /* Here's the approach for the calculation of the required time for the LC:
+     * To obtain the maximal LC-duration, for v(t) we assume that v(t)=max(0, v0-b*t),
+     * Where v(t)=0 <=> t >= ts:=v0/b
+     * For the lateral speed w(t) this gives:
+     * w(t) = min(wmax, wmin + f*v(t))
+     * The lateral distance covered until t is
+     * d(t) = int_0^t w(s) ds
+     * We distinguish three possibilities for the solution d(T)=D, where T is the time of the LC completion.
+     * 1) w(T) = wmax, i.e. v(T)>(wmax-wmin)/f
+     * 2) wmin < w(T) < wmax, i.e. (wmax-wmin)/f > v(T) > 0
+     * 3) w(T) = wmin, i.e., v(T)=0
+     */
+    const double vm = (wmax-wmin)/f;
+    double distSoFar=0.;
+    double timeSoFar=0.;
+    double v=v0;
+    if (v > vm) {
+        const double wmaxTime=(v0-vm)/b;
+        const double d1 = wmax*wmaxTime;
+        if (d1 >= D){
+            return D/wmax;
+        } else {
+            distSoFar+=d1;
+            timeSoFar+=wmaxTime;
+            v = vm;
+        }
+    }
+    if (v > 0) {
+        /* Here, w(t1+t) = wmin + f*v(t1+t) = wmin + f*(v - b*t)
+         * Thus, the additional lateral distance covered after time t is:
+         * d2 = (wmin + f*v)*t - 0.5*f*b*t^2
+         * and the additional lateral distance covered until v=0 at t=v/b is:
+         * d2 = (wmin + 0.5*f*v)*t
+         */
+        const double t = v/b; // stop time
+        const double d2 = (wmin + 0.5*f*v)*t; // lateral distance covered until stop
+        assert(d2>0);
+        if (distSoFar + d2 >= D){
+            // LC is completed during this phase
+            const double x = 0.5*f*b;
+            const double y = wmin + f*v;
+            /* Solve D - distSoFar = y*t - x*t^2.
+             * 0 = x*t^2 - y*t/x + (D - distSoFar)/x
+             */
+            const double p = 0.5*y/x;
+            const double q = (D-distSoFar)/x;
+            assert(p*p-q>0);
+            const double t2 = p + sqrt(p*p-q);
+            return timeSoFar+t2;
+        } else {
+            distSoFar+=d2;
+            timeSoFar+=t;
+            //v = 0;
+        }
+    }
+    // If we didn't return yet this means the LC was not completed until the vehicle stops (if braking with rate b)
+    if (wmin == 0) {
+        // LC won't be completed if vehicle stands
+        return -1;
+    } else {
+        // complete LC with lateral speed wmin
+        return timeSoFar + (D-distSoFar)/wmin;
+    }
+}
 
 SUMOTime
 MSAbstractLaneChangeModel::remainingTime() const {
