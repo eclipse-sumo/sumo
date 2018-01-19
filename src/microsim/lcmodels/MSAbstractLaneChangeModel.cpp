@@ -115,6 +115,8 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myLastFollowerSecureGap(0.),
     myLastOrigLeaderGap(0.),
     myLastOrigLeaderSecureGap(0.),
+    myMaxSpeedLatStanding(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, v.getVehicleType().getMaxSpeedLat())),
+    myMaxSpeedLatFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1)),
     myLastLaneChangeOffset(0),
     myAmOpposite(false) {
 }
@@ -522,13 +524,13 @@ MSAbstractLaneChangeModel::getAngleOffset() const {
 
 
 double
-MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double remainingManeuverDist, const double decel, const double maxSpeedLat) {
+MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double remainingManeuverDist, const double decel) const {
     // Check argument assumptions
     assert(speed>=0);
     assert(remainingManeuverDist>0);
     assert(decel>0);
-    assert(maxSpeedLat>0);
-    assert(myMaxSpeedLatStanding <= maxSpeedLat);
+    assert(myVehicle.getVehicleType().getMaxSpeedLat()>0);
+    assert(myMaxSpeedLatStanding <= myVehicle.getVehicleType().getMaxSpeedLat());
     assert(myMaxSpeedLatStanding >= 0);
 
     // for brevity
@@ -537,7 +539,7 @@ MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double r
     const double b=decel;
     const double wmin=myMaxSpeedLatStanding;
     const double f=myMaxSpeedLatFactor;
-    const double wmax=maxSpeedLat;
+    const double wmax=myVehicle.getVehicleType().getMaxSpeedLat();
 
     /* Here's the approach for the calculation of the required time for the LC:
      * To obtain the maximal LC-duration, for v(t) we assume that v(t)=max(0, v0-b*t),

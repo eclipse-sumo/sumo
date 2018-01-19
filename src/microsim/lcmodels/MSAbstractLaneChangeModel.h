@@ -388,11 +388,10 @@ public:
     /// @param[in] speed Current longitudinal speed of the changing vehicle.
     /// @param[in] remainingManeuverDist dist which is still to be covered until LC is completed
     /// @param[in] decel Maximal assumed deceleration rate applied during the LC.
-    /// @param[in] maxSpeedLat Maximal lateral speed that can be attained during LC.
     /// @return maximal LC duration (or -1) if it is possible that it can't be completed.
     /// @note For the calculation it is assumed that the vehicle starts breaking with decel (>=0) immediately.
     ///       If lcMaxSpeedStanding==0 the completion may be impossible, and -1 is returned.
-    static double estimateLCDuration(const double speed, const double remainingManeuverDist, const double decel, const double maxSpeedLat);
+    virtual double estimateLCDuration(const double speed, const double remainingManeuverDist, const double decel) const;
 
     /// @brief return true if the vehicle currently performs a lane change maneuver
     inline bool isChangingLanes() const {
