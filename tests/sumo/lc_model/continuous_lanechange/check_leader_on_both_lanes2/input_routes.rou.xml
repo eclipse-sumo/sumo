@@ -1,0 +1,11 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vType sigma="0" id="thin" width="1"/>
+    <vehicle id="v0" depart="0" departLane="1" departPos="100" arrivalLane="1">
+        <route edges="1si"/>
+        <stop lane="1si_1" endPos="150" until="25"/>
+    </vehicle>
+    <vehicle id="v1" depart="1" type="thin" departPos="80" departLane="0" arrivalLane="1">
+        <route edges="1si"/>
+    </vehicle>
+</routes>

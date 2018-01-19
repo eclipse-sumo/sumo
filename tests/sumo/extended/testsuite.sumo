@@ -35,9 +35,6 @@ busses
 # (relevant for cmd-line sumo since they can be access via TraCI)
 shapes
 
-# test continuous lane change maneuvers
-continuous_lanechange
-
 # tests functions of the example device
 device_example
 

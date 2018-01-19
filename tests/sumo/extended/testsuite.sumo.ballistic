@@ -16,9 +16,6 @@ hbefa
 # Tests for bus stops
 busses
 
-# test continuous lane change maneuvers
-continuous_lanechange
-
 # tests for bt devices
 device_bt
 
