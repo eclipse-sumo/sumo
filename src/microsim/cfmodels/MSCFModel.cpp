@@ -44,6 +44,7 @@
 // ===========================================================================
 //#define DEBUG_FINALIZE_SPEED
 //#define DEBUG_COND (true)
+#define DEBUG_COND (veh->isSelected())
 
 
 
@@ -177,6 +178,13 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     //    WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
     //}
 #endif
+
+#ifdef DEBUG_FINALIZE_SPEED
+    if DEBUG_COND {
+        std::cout << "\n" << SIMTIME << " FINALIZE_SPEED\n";
+    }
+#endif
+
     vMax = MAX2(vMin, vMax);
     // apply further speed adaptations
     double vNext = patchSpeedBeforeLC(veh, vMin, vMax);
@@ -187,8 +195,7 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 #ifdef DEBUG_FINALIZE_SPEED
     if DEBUG_COND {
-        std::cout << "\n" << SIMTIME << " FINALIZE_SPEED\n"
-            << "veh '" << veh->getID() << "' oldV=" << oldV
+        std::cout << "veh '" << veh->getID() << "' oldV=" << oldV
             << " vMin=" << vMin 
             << " vMax=" << vMax 
             << " vPos" << vStop 
