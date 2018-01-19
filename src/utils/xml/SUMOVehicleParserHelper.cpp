@@ -674,7 +674,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
         std::set<SumoXMLAttr> noParams;
         allowedLCModelAttrs[LCM_DK2008] = noParams;
 
-        // default model may be either LC2013 or SL2013
+        // default model may be either LC2013 or SL2015
         // we allow both sets (sl2015 is a superset of lc2013Params)
         allowedLCModelAttrs[LCM_DEFAULT] = sl2015Params;
     }
