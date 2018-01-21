@@ -1,4 +1,4 @@
-SUMO marouter Version dev-SVN-r26352
+SUMO marouter Version v0_31_0+1647-6d8dc768ae
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment
 
@@ -31,6 +31,7 @@ Input Options:
                                       taz
 
 Output Options:
+  --write-license                   Include license info into every output file
   --output-prefix STR               Prefix which is applied to all output
                                       files. The special string 'TIME' is
                                       replaced by the current time.
@@ -149,5 +150,5 @@ Examples:
   marouter -c <CONFIGURATION>
     run routing with options from file
 
-Report bugs at <http://sumo.dlr.de/trac/>.
+Report bugs at <https://github.com/DLR-TS/sumo/issues>.
 Get in contact via <sumo@dlr.de>.

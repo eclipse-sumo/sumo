@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- generated on 01/21/18 20:24:35 by SUMO netgenerate Version v0_31_0+1647-6d8dc768ae
+-->
+
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
     <configuration>
@@ -114,6 +117,9 @@
     </random_network>
 
     <output>
+        <!-- Include license info into every output file -->
+        <write-license value="false" type="BOOL"/>
+
         <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
         <output-prefix value="" type="STR"/>
 
@@ -157,7 +163,7 @@
         <street-sign-output value="" type="FILE"/>
 
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
-        <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
+        <opendrive-output.straight-threshold value="1e-008" type="FLOAT"/>
 
     </output>
 

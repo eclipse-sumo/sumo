@@ -1,4 +1,4 @@
-SUMO netconvert Version v0_31_0+1576-15a7f08
+SUMO netconvert Version v0_31_0+1647-6d8dc768ae
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -35,6 +35,8 @@ Input Options:
   --heightmap.geotiff FILE             Read heightmap from GeoTIFF
 
 Output Options:
+  --write-license                      Include license info into every output
+                                         file
   --output-prefix STR                  Prefix which is applied to all output
                                          files. The special string 'TIME' is
                                          replaced by the current time.
@@ -427,5 +429,5 @@ Examples:
   netconvert -n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml
     generate net with given nodes, edges, and edge types doing verbose output
 
-Report bugs at <http://sumo.dlr.de/trac/>.
+Report bugs at <https://github.com/DLR-TS/sumo/issues>.
 Get in contact via <sumo@dlr.de>.

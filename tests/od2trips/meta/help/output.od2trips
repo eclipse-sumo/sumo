@@ -1,4 +1,4 @@
-SUMO od2trips Version dev-SVN-r26352
+SUMO od2trips Version v0_31_0+1647-6d8dc768ae
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Importer of O/D-matrices for the road traffic simulation SUMO.
 
@@ -20,6 +20,7 @@ Input Options:
                                      FILE(s)
 
 Output Options:
+  --write-license                  Include license info into every output file
   --output-prefix STR              Prefix which is applied to all output files.
                                      The special string 'TIME' is replaced by
                                      the current time.
@@ -91,5 +92,5 @@ Examples:
   od2trips -c <CONFIGURATION>
     run with configuration file
 
-Report bugs at <http://sumo.dlr.de/trac/>.
+Report bugs at <https://github.com/DLR-TS/sumo/issues>.
 Get in contact via <sumo@dlr.de>.

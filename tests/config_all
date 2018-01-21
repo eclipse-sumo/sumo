@@ -23,6 +23,7 @@ log:[0-9\.]+ms{REPLACE (TIME)}
 errors:std::_Ios_Fmtflags
 shapes:imgFile=\"(.*?)berlin_icon.ico\"{REPLACE imgFile="berlin_icon.ico"}
 shapes:imgFile=\"(.*?)paris.ico\"{REPLACE imgFile="paris.ico"}
+cfg:<!-- generated on{[->]}-->
 
 [bug_system_location]
 trac:http://sumo.dlr.de/trac.wsgi/
