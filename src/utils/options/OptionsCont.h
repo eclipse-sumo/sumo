@@ -180,11 +180,11 @@ public:
      * @param[in] filled Whether only set (and not default) options shall be written
      * @param[in] complete Whether all options shall be written
      * @param[in] addComments Whether comments (option descriptions) shall be written
-     * @param[in] maskDoubleHyphen Whether -- in input shall be converted to &#45;&#45; (semantically equivalent but allowed in XML comments)
+     * @param[in] inComment Whether -- in input shall be converted to &#45;&#45; (semantically equivalent but allowed in XML comments)
      */
     void writeConfiguration(std::ostream& os, const bool filled,
                             const bool complete, const bool addComments,
-                            const bool maskDoubleHyphen = false) const;
+                            const bool inComment = false) const;
 
 
     /** @brief Writes the xml schema for the configuration
@@ -193,9 +193,8 @@ public:
      *  allowing to validate the configuration against.
      *
      * @param[in] os The stream to write the schema into
-     * @param[in] addComments Whether comments (option descriptions) shall be written
      */
-    void writeSchema(std::ostream& os, bool addComments);
+    void writeSchema(std::ostream& os);
 
 
     /** @brief Writes a standard XML header, including the configuration
@@ -206,7 +205,7 @@ public:
      *
      * @param[in] os The stream to write the header into
      */
-    void writeXMLHeader(std::ostream& os);
+    void writeXMLHeader(std::ostream& os, const bool includeConfig=true) const;
     /// @}
 
 
@@ -738,6 +737,9 @@ private:
 
     /// Information whether a warning a deprecated divider
     mutable bool myHaveInformedAboutDeprecatedDivider;
+
+    /// Information whether we should always include license information in file headers
+    bool myWriteLicense;
 
 
 private:

@@ -101,6 +101,9 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("error-log", new Option_FileName());
     oc.addDescription("error-log", "Report", "Writes all warnings and errors to FILE");
 
+    oc.doRegister("write-license", new Option_Bool(false));
+    oc.addDescription("write-license", "Output", "Include license info into every output file");
+
     oc.doRegister("output-prefix", new Option_String());
     oc.addDescription("output-prefix", "Output", "Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time.");
 

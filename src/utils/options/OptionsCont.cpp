@@ -569,11 +569,12 @@ OptionsCont::processMetaOptions(bool missingOptions) {
                     myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
             std::cout << " " << *it << std::endl;
         }
-        std::cout << " License EPLv2: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>\n";
+        std::cout << " License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>\n";
         std::cout << " Use --help to get the list of options." << std::endl;
         return true;
     }
 
+    myWriteLicense = getBool("write-license");
     // check whether the help shall be printed
     if (getBool("help")) {
         std::cout << myFullName << std::endl;
@@ -596,7 +597,8 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         std::cout << "This program and the accompanying materials\n";
         std::cout << "are made available under the terms of the Eclipse Public License v2.0\n";
         std::cout << "which accompanies this distribution, and is available at\n";
-        std::cout << "http://www.eclipse.org/legal/epl-v20.html" << std::endl;
+        std::cout << "http://www.eclipse.org/legal/epl-v20.html\n";
+        std::cout << "SPDX-License-Identifier: EPL-2.0" << std::endl;
         return true;
     }
     // check whether the settings shall be printed
@@ -640,14 +642,14 @@ OptionsCont::processMetaOptions(bool missingOptions) {
     }
     if (isSet("save-schema", false)) { // sumo-gui does not register these
         if (getString("save-schema") == "-" || getString("save-schema") == "stdout") {
-            writeSchema(std::cout, getBool("save-commented"));
+            writeSchema(std::cout);
             return true;
         }
         std::ofstream out(getString("save-schema").c_str());
         if (!out.good()) {
             throw ProcessError("Could not save schema to '" + getString("save-schema") + "'");
         } else {
-            writeSchema(out, getBool("save-commented"));
+            writeSchema(out);
             if (getBool("verbose")) {
                 WRITE_MESSAGE("Written schema to '" + getString("save-schema") + "'");
             }
@@ -748,7 +750,7 @@ OptionsCont::printHelp(std::ostream& os) {
         }
     }
     os << std::endl;
-    os << "Report bugs at <http://sumo.dlr.de/trac/>." << std::endl;
+    os << "Report bugs at <https://github.com/DLR-TS/sumo/issues>." << std::endl;
     os << "Get in contact via <sumo@dlr.de>." << std::endl;
 }
 
@@ -756,8 +758,10 @@ OptionsCont::printHelp(std::ostream& os) {
 void
 OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                                 const bool complete, const bool addComments,
-                                const bool maskDoubleHyphen) const {
-    os << "<?xml version=\"1.0\"" << SUMOSAXAttributes::ENCODING << "?>\n\n";
+                                const bool inComment) const {
+    if (!inComment) {
+        writeXMLHeader(os, false);
+    }
     os << "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/";
     if (myAppName == "sumo-gui") {
         os << "sumo";
@@ -787,12 +791,12 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
             }
             // add the comment if wished
             if (addComments) {
-                os << "        <!-- " << StringUtils::escapeXML(o->getDescription(), maskDoubleHyphen) << " -->" << std::endl;
+                os << "        <!-- " << StringUtils::escapeXML(o->getDescription(), inComment) << " -->" << std::endl;
             }
             // write the option and the value (if given)
             os << "        <" << *j << " value=\"";
             if (o->isSet() && (filled || o->isDefault())) {
-                os << StringUtils::escapeXML(o->getValueString(), maskDoubleHyphen);
+                os << StringUtils::escapeXML(o->getValueString(), inComment);
             }
             if (complete) {
                 std::vector<std::string> synonymes = getSynonymes(*j);
@@ -826,8 +830,8 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
 
 
 void
-OptionsCont::writeSchema(std::ostream& os, bool /* addComments */) {
-    os << "<?xml version=\"1.0\"" << SUMOSAXAttributes::ENCODING << "?>\n\n";
+OptionsCont::writeSchema(std::ostream& os) {
+    writeXMLHeader(os, false);
     os << "<xsd:schema elementFormDefault=\"qualified\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n\n";
     os << "    <xsd:include schemaLocation=\"baseTypes.xsd\"/>\n";
     os << "    <xsd:element name=\"configuration\" type=\"configurationType\"/>\n\n";
@@ -871,7 +875,7 @@ OptionsCont::writeSchema(std::ostream& os, bool /* addComments */) {
 
 
 void
-OptionsCont::writeXMLHeader(std::ostream& os) {
+OptionsCont::writeXMLHeader(std::ostream& os, const bool includeConfig) const {
     time_t rawtime;
     char buffer [80];
 
@@ -879,7 +883,16 @@ OptionsCont::writeXMLHeader(std::ostream& os) {
     time(&rawtime);
     strftime(buffer, 80, "<!-- generated on %c by ", localtime(&rawtime));
     os << buffer << myFullName << "\n";
-    writeConfiguration(os, true, false, false, true);
+    if (myWriteLicense) {
+        os << "This data file and the accompanying materials\n";
+        os << "are made available under the terms of the Eclipse Public License v2.0\n";
+        os << "which accompanies this distribution, and is available at\n";
+        os << "http://www.eclipse.org/legal/epl-v20.html\n";
+        os << "SPDX-License-Identifier: EPL-2.0\n";
+    }
+    if (includeConfig) {
+        writeConfiguration(os, true, false, false, true);
+    }
     os << "-->\n\n";
 }
 
