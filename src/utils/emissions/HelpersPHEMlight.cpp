@@ -51,7 +51,7 @@ HelpersPHEMlight::HelpersPHEMlight() : PollutantsInterface::Helper("PHEMlight"),
 SUMOEmissionClass
 HelpersPHEMlight::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     if (eClass == "unknown" && !myEmissionClassStrings.hasString("unknown")) {
-        myEmissionClassStrings.addAlias("unknown", getClassByName("PKW_G_EU4", vc));
+        myEmissionClassStrings.addAlias("unknown", getClassByName("PC_G_EU4", vc));
     }
     if (myEmissionClassStrings.hasString(eClass)) {
         return myEmissionClassStrings.get(eClass);
