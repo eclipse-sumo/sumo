@@ -1896,7 +1896,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                  (*link)->getViaLaneOrLane()->getParallelLane(getLaneChangeModel().getShadowDirection()) == 0)) {
                 // XXX maybe this is too harsh. Vehicles could cut some corners here
                 const double timeRemaining = STEPS2TIME(getLaneChangeModel().remainingTime());
-                assert(timeRemaining != 0); // we seem to suppose that isChangingLanes() implies this (Leo)
+                assert(timeRemaining != 0);
                 // XXX: Euler-logic (#860), but I couldn't identify problems from this yet (Leo). Refs. #2575
                 const double va = MAX2(0., (seen - POSITION_EPS) / timeRemaining);
 #ifdef DEBUG_PLAN_MOVE
