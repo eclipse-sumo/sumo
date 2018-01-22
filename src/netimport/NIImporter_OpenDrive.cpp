@@ -333,7 +333,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // -------------------------
     // edge building
     // -------------------------
-    double defaultSpeed = tc.getSpeed("");
+    const double defaultSpeed = tc.getSpeed("");
     const bool saveOrigIDs = OptionsCont::getOptions().getBool("output.original-names");
     // build edges
     for (std::map<std::string, OpenDriveEdge*>::iterator i = outerEdges.begin(); i != outerEdges.end(); ++i) {

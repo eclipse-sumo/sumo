@@ -313,7 +313,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
 
 void
 NWWriter_OpenDrive::addPedestrianConnection(const NBEdge* inEdge, const NBEdge* outEdge, std::vector<NBEdge::Connection>& parallel) {
-    // by defaul there are no iternal lanes for pedestrians. Determine if
+    // by default there are no internal lanes for pedestrians. Determine if
     // one is feasible and does not exist yet.
     if (outEdge != 0
             && inEdge->getPermissions(0) == SVC_PEDESTRIAN
@@ -322,6 +322,7 @@ NWWriter_OpenDrive::addPedestrianConnection(const NBEdge* inEdge, const NBEdge* 
                 || parallel.front().fromLane != 0
                 || parallel.front().toLane != 0)) {
         parallel.insert(parallel.begin(), NBEdge::Connection(0, const_cast<NBEdge*>(outEdge), 0, false));
+        parallel.front().vmax = (inEdge->getLanes()[0].speed + outEdge->getLanes()[0].speed) / (double) 2.0;
     }
 }
 

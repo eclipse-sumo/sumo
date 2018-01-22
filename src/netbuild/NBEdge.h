@@ -216,7 +216,7 @@ public:
         /// @brief shape of Connection
         PositionVector shape;
 
-        /// @brief maximun velocity
+        /// @brief maximum velocity
         double vmax;
 
         /// @brief check if Connection have a Via

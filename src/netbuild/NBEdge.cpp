@@ -116,6 +116,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     speed(speed_),
     customShape(customShape_),
     id(toEdge_ == 0 ? "" : toEdge->getFromNode()->getID()),
+    vmax(UNSPECIFIED_SPEED),
     haveVia(haveVia_),
     internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX),
     uncontrolled(uncontrolled_) {
