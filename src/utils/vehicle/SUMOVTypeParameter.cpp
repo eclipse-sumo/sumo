@@ -333,6 +333,11 @@ SUMOVTypeParameter::getLCParam(const SumoXMLAttr attr, const double defaultValue
     }
 }
 
+const SUMOVTypeParameter::SubParams&
+SUMOVTypeParameter::getLCParams() const {
+    return lcParameter;
+}
+
 
 double
 SUMOVTypeParameter::getJMParam(const SumoXMLAttr attr, const double defaultValue) const {

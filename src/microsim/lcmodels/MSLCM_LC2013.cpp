@@ -77,6 +77,9 @@
 #define MAX_ONRAMP_LENGTH (double)200.
 #define TURN_LANE_DIST (double)200.0 // the distance at which a lane leading elsewhere is considered to be a turn-lane that must be avoided
 
+#define LC_RESOLUTION_SPEED_LAT (double)0.5 // the lateral speed (in m/s) for a standing vehicle which was unable to finish a continuous LC in time (in case mySpeedLatStanding==0), see #3771
+#define LC_ASSUMED_DECEL (double)1.0 // the minimal constant deceleration assumed to estimate the duration of a continuous lane-change at its initiation.
+
 // ===========================================================================
 // debug defines
 // ===========================================================================
@@ -2050,11 +2053,19 @@ void MSLCM_LC2013::addLCSpeedAdvice(const double vSafe) {
 
 double
 MSLCM_LC2013::computeSpeedLat(double latDist, double& maneuverDist) {
-    const double speedBound = myMaxSpeedLatStanding + myMaxSpeedLatFactor * myVehicle.getSpeed();
+    double speedBound = myMaxSpeedLatStanding + myMaxSpeedLatFactor * myVehicle.getSpeed();
+    if (isChangingLanes()) {
+        // Don't stay caught in the middle of a lane change while vehicle is standing, workaround for #3771
+        speedBound = MAX2(LC_RESOLUTION_SPEED_LAT, speedBound);
+    }
     return MAX2(-speedBound, MIN2(speedBound, 
                 MSAbstractLaneChangeModel::computeSpeedLat(latDist, maneuverDist)));
 }
 
+double
+MSLCM_LC2013::getAssumedDecelForLaneChangeDuration() const {
+    return MAX2(LC_ASSUMED_DECEL, -myVehicle.getAcceleration());
+}
 
 std::string
 MSLCM_LC2013::getParameter(const std::string& key) const {

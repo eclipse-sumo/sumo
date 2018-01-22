@@ -389,13 +389,20 @@ public:
     /// @param[in] remainingManeuverDist dist which is still to be covered until LC is completed
     /// @param[in] decel Maximal assumed deceleration rate applied during the LC.
     /// @return maximal LC duration (or -1) if it is possible that it can't be completed.
-    /// @note For the calculation it is assumed that the vehicle starts breaking with decel (>=0) immediately.
+    /// @note 1) For the calculation it is assumed that the vehicle starts breaking with decel (>=0) immediately.
     ///       If lcMaxSpeedStanding==0 the completion may be impossible, and -1 is returned.
+    ///       2) In case that no maxSpeedLat is used to control lane changing, this is only called prior to a lane change,
+    ///          and the duration is MSGlobals::gLaneChangeDuration.
     virtual double estimateLCDuration(const double speed, const double remainingManeuverDist, const double decel) const;
 
     /// @brief return true if the vehicle currently performs a lane change maneuver
     inline bool isChangingLanes() const {
         return myLaneChangeCompletion < (1 - NUMERICAL_EPS);
+    }
+
+    /// @brief Get the current lane change completion ratio
+    inline double getLaneChangeCompletion() const {
+        return myLaneChangeCompletion;
     }
 
     /// @brief return the direction of the current lane change maneuver
@@ -499,6 +506,10 @@ public:
     /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
     ///        and updates maneuverDist according to lateral safety constraints.
     virtual double computeSpeedLat(double latDist, double& maneuverDist); 
+
+    /// @brief Returns a deceleration value which is used for the estimation of the duration of a lane change.
+    /// @note  Effective only for continuous lane-changing when using attributes myMaxSpeedLatFactor and myMaxSpeedLatStanding. See #3771
+    virtual double getAssumedDecelForLaneChangeDuration() const;
 
     /// @brief try to retrieve the given parameter from this laneChangeModel. Throw exception for unsupported key
     virtual std::string getParameter(const std::string& key) const {

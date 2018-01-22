@@ -133,6 +133,12 @@ public:
      */
     double getLCParam(const SumoXMLAttr attr, const double defaultValue) const;
 
+    /// @brief sub-model parameters
+    typedef std::map<SumoXMLAttr, std::string> SubParams;
+
+    /// @brief Returns the LC parameter
+    const SubParams& getLCParams() const;
+
     /** @brief Returns the named value from the map, or the default if it is not contained there
      * @param[in] attr The corresponding xml attribute
      * @param[in] defaultValue The value to return if the given map does not contain the named variable
@@ -197,8 +203,6 @@ public:
     /// @brief The enum-representation of the car-following model to use
     SumoXMLTag cfModel;
 
-    /// @brief sub-model parameters
-    typedef std::map<SumoXMLAttr, std::string> SubParams;
     /// @brief Car-following parameter
     SubParams cfParameter;
     /// @brief Lane-changing parameter

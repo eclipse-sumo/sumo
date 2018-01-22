@@ -263,10 +263,16 @@ MSAbstractLaneChangeModel::computeSpeedLat(double /*latDist*/, double& maneuverD
 }
 
 
+double
+MSAbstractLaneChangeModel::getAssumedDecelForLaneChangeDuration() const {
+    throw ProcessError("Method getAssumedDecelForLaneChangeDuration() not implemented by model " + toString(myModel));
+}
+
+
 bool
 MSAbstractLaneChangeModel::updateCompletion() {
     const bool pastBefore = pastMidpoint();
-    // maneuverDist is not updated in the context of continous lane changing but represents the full LC distance
+    // maneuverDist is not updated in the context of continuous lane changing but represents the full LC distance
     double maneuverDist = getManeuverDist();
     mySpeedLat = computeSpeedLat(0, maneuverDist);
     myLaneChangeCompletion += (SPEED2DIST(mySpeedLat) / myManeuverDist);
@@ -525,9 +531,24 @@ MSAbstractLaneChangeModel::getAngleOffset() const {
 
 double
 MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double remainingManeuverDist, const double decel) const {
+
+    const SUMOVTypeParameter::SubParams& lcParams=myVehicle.getVehicleType().getParameter().getLCParams();
+    if (lcParams.find(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING) == lcParams.end() && lcParams.find(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR) == lcParams.end()) {
+        if (!myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)){
+            // no dependency of lateral speed on longitudinal speed. (Only called prior to LC initialization to determine whether it could be completed)
+            return STEPS2TIME(MSGlobals::gLaneChangeDuration);
+        } else {
+            return remainingManeuverDist/myVehicle.getVehicleType().getMaxSpeedLat();
+        }
+    }
+
+    if(remainingManeuverDist==0){
+        return 0;
+    }
+
     // Check argument assumptions
     assert(speed>=0);
-    assert(remainingManeuverDist>0);
+    assert(remainingManeuverDist>=0);
     assert(decel>0);
     assert(myVehicle.getVehicleType().getMaxSpeedLat()>0);
     assert(myMaxSpeedLatStanding <= myVehicle.getVehicleType().getMaxSpeedLat());
@@ -539,7 +560,7 @@ MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double r
     const double b=decel;
     const double wmin=myMaxSpeedLatStanding;
     const double f=myMaxSpeedLatFactor;
-    const double wmax=myVehicle.getVehicleType().getMaxSpeedLat();
+    const double wmax= myVehicle.getVehicleType().getMaxSpeedLat();
 
     /* Here's the approach for the calculation of the required time for the LC:
      * To obtain the maximal LC-duration, for v(t) we assume that v(t)=max(0, v0-b*t),
@@ -608,7 +629,17 @@ MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double r
 
 SUMOTime
 MSAbstractLaneChangeModel::remainingTime() const {
-    return (SUMOTime)((1. - myLaneChangeCompletion) * MSGlobals::gLaneChangeDuration);
+    assert(isChangingLanes()); // Only to be called during ongoing lane change
+    const SUMOVTypeParameter::SubParams& lcParams=myVehicle.getVehicleType().getParameter().getLCParams();
+    if (lcParams.find(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING) == lcParams.end() && lcParams.find(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR) == lcParams.end()) {
+        if (myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
+            return TIME2STEPS((1. - myLaneChangeCompletion) * myManeuverDist/myVehicle.getVehicleType().getMaxSpeedLat());
+        } else {
+            return (SUMOTime)((1. - myLaneChangeCompletion) * MSGlobals::gLaneChangeDuration);
+        }
+    }
+    // Using maxSpeedLat(Factor/Standing)
+    return TIME2STEPS(estimateLCDuration(myVehicle.getSpeed(), fabs(myManeuverDist*(1-myLaneChangeCompletion)), myVehicle.getCarFollowModel().getMaxDecel()));
 }
 
 

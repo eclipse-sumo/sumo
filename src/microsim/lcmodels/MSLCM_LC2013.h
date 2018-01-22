@@ -132,6 +132,10 @@ public:
     /// @brief decides the next lateral speed (for continuous lane changing)
     double computeSpeedLat(double latDist, double& maneuverDist);
 
+    /// @brief Returns a deceleration value which is used for the estimation of the duration of a lane change.
+    /// @note  Effective only for continuous lane-changing when using attributes myMaxSpeedLatFactor and myMaxSpeedLatStanding. See #3771
+    double getAssumedDecelForLaneChangeDuration() const;
+
 protected:
 
     /// @brief helper function for doing the actual work

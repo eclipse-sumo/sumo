@@ -1051,6 +1051,8 @@ enum LaneChangeAction {
     LCA_INSUFFICIENT_SPACE = 1 << 14,
     /// @brief used by the sublane model
     LCA_SUBLANE = 1 << 15,
+    /// @brief Vehicle is too slow to guarantee success of lane change (used for continuous lane changing in case that maxSpeedLatStanding==0)
+    LCA_INSUFFICIENT_SPEED = 1 << 16,
     /// @brief lane can change
     LCA_WANTS_LANECHANGE = LCA_LEFT | LCA_RIGHT,
     /// @brief lane can change or stay
@@ -1064,7 +1066,7 @@ enum LaneChangeAction {
     /// @brief blocker by follower
     LCA_BLOCKED_BY_FOLLOWER = LCA_BLOCKED_BY_LEFT_FOLLOWER | LCA_BLOCKED_BY_RIGHT_FOLLOWER,
     /// @brief blocked in all directions
-    LCA_BLOCKED = LCA_BLOCKED_LEFT | LCA_BLOCKED_RIGHT | LCA_INSUFFICIENT_SPACE,
+    LCA_BLOCKED = LCA_BLOCKED_LEFT | LCA_BLOCKED_RIGHT | LCA_INSUFFICIENT_SPACE | LCA_INSUFFICIENT_SPEED,
     /// @brief reasons of lane change
     LCA_CHANGE_REASONS = (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT | LCA_SUBLANE | LCA_TRACI)
                          // LCA_BLOCKED_BY_CURRENT_LEADER = 1 << 28
