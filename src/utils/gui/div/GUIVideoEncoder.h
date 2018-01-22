@@ -160,7 +160,7 @@ public:
         int got_frame;
         AVPacket enc_pkt;
         if (!(fmt_ctx->streams[0]->codec->codec->capabilities &
-                CODEC_CAP_DELAY)) {
+                AV_CODEC_CAP_DELAY)) {
             ret = 0;
         }
         while (ret > 0) {
