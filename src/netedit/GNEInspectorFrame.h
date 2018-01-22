@@ -36,6 +36,7 @@ class GNEAttributeCarrier;
 class GNEAdditional;
 class GNEEdge;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -48,18 +49,20 @@ class GNEInspectorFrame : public GNEFrame {
     FXDECLARE(GNEInspectorFrame)
 
 public:
-
+    
     // ===========================================================================
     // class AttributeInput
     // ===========================================================================
-
-    class AttributeInput : public FXHorizontalFrame  {
+    
+    class AttributeEditor;
+    
+    class AttributeInput : public FXHorizontalFrame {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::AttributeInput)
 
     public:
         /// @brief constructor
-        AttributeInput(FXComposite* parent, GNEInspectorFrame* inspectorFrameParent);
+        AttributeInput(GNEInspectorFrame::AttributeEditor* attributeEditorParent);
 
         /// @brief show attribute of ac
         void showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value);
@@ -93,8 +96,8 @@ public:
         std::string stripWhitespaceAfterComma(const std::string& stringValue);
 
     private:
-        /// @brief pointer to GNEInspectorFrame parent
-        GNEInspectorFrame* myInspectorFrameParent;
+        /// @brief pointer to AttributeEditor parent
+        GNEInspectorFrame::AttributeEditor * myAttributeEditorParent;
 
         /// @brief current tag
         SumoXMLTag myTag;
@@ -128,6 +131,39 @@ public:
 
         /// @brief set hide as private function
         void hide();
+    };
+
+    // ===========================================================================
+    // class AttributeEditor
+    // ===========================================================================
+
+    class AttributeEditor : public FXGroupBox {
+
+    public:
+        /// @brief constructor
+        AttributeEditor(GNEInspectorFrame* inspectorFrameParent);
+
+        /// @brief show attribute of ac
+        void showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value);
+
+        /// @brief show attribute
+        void hideAttributes();
+
+        /// @brief refresh attribute
+        void refreshAttributes(bool onlyAllowdisallow = false);
+
+        /// @brief get InspectorFrame Parent
+        GNEInspectorFrame* getInspectorFrameParent() const;
+
+    private:
+        /// @brief pointer to GNEInspectorFrame parent
+        GNEInspectorFrame * myInspectorFrameParent;
+
+        /// @brief list of Attribute inputs
+        std::vector<GNEInspectorFrame::AttributeInput*> myVectorOfAttributeInputs;
+
+        /// @brief current parameter index
+        int myCurrentIndex = 0;
     };
 
     // ===========================================================================
@@ -288,11 +324,8 @@ protected:
     const std::vector<GNEAttributeCarrier*>& getInspectedACs() const;
 
 private:
-    /// @brief groupBox for attributes
-    FXGroupBox* myGroupBoxForAttributes;
-
-    /// @brief list of Attribute inputs
-    std::vector<GNEInspectorFrame::AttributeInput*> myVectorOfAttributeInputs;
+    /// @brief Attribute editor
+    AttributeEditor* myAttributeEditor;
 
     /// @brief Netedit Parameters
     NeteditParameters* myNeteditParameters;

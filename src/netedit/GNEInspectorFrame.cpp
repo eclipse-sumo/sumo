@@ -113,14 +113,8 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myHeaderLeftFrame->hide();
     myBackButton->hide();
 
-    // Create groupBox for attributes
-    myGroupBoxForAttributes = new FXGroupBox(myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame);
-    myGroupBoxForAttributes->hide();
-
-    // Create sufficient AttributeInput for all types of AttributeCarriers
-    for (int i = 0; i < (int)GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
-        myVectorOfAttributeInputs.push_back(new AttributeInput(myGroupBoxForAttributes, this));
-    }
+    // Create attribute Editor
+    myAttributeEditor = new AttributeEditor(this);
 
     // Create GEO Parameters
     myGEOAttributes = new GNEFrame::GEOAttributes(this);
@@ -183,7 +177,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     // Assing ACs to myACs
     myACs = ACs;
     // Hide all elements
-    myGroupBoxForAttributes->hide();
+    myAttributeEditor->hideAttributes();
     myGroupBoxForTemplates->hide();
     myCopyTemplateButton->hide();
     mySetTemplateButton->hide();
@@ -211,20 +205,9 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         // Set headerString into header label
         getFrameHeaderLabel()->setText(headerString.c_str());
 
-        //Show myGroupBoxForAttributes
-        myGroupBoxForAttributes->show();
-
-        // Hide all AttributeInput
-        for (auto i : myVectorOfAttributeInputs) {
-            i->hideAttribute();
-        }
-
         // Gets tag and attributes of element
         SumoXMLTag ACFrontTag = myACs.front()->getTag();
         const std::vector<SumoXMLAttr>& ACFrontAttrs = myACs.front()->getAttrs();
-
-        // Declare iterator over AttrInput
-        std::vector<GNEInspectorFrame::AttributeInput*>::iterator itAttrs = myVectorOfAttributeInputs.begin();
 
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myACs.front()) && (dynamic_cast<GNEJunction*>(myACs.front())->getNBNode()->getControllingTLS().empty()));
@@ -250,10 +233,8 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
             }
             // Show attribute
             if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it == SUMO_ATTR_TLTYPE) || (it == SUMO_ATTR_TLID))) == false) {
-                (*itAttrs)->showAttribute(myACs.front()->getTag(), it, oss.str());
+                myAttributeEditor->showAttribute(myACs.front()->getTag(), it, oss.str());
             }
-            // update attribute iterator
-            itAttrs++;
         }
 
         // show netedit parameters
@@ -316,11 +297,7 @@ GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeC
 
 void
 GNEInspectorFrame::refreshValues() {
-    for (auto i : myVectorOfAttributeInputs) {
-        if (i->getAttr() != SUMO_ATTR_NOTHING) {
-            i->refreshAttribute();
-        }
-    }
+    myAttributeEditor->refreshAttributes();
 }
 
 
@@ -712,9 +689,9 @@ GNEInspectorFrame::getInspectedACs() const {
 // AttributeInput method definitions
 // ===========================================================================
 
-GNEInspectorFrame::AttributeInput::AttributeInput(FXComposite* parent, GNEInspectorFrame* inspectorFrameParent) :
-    FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame),
-    myInspectorFrameParent(inspectorFrameParent),
+GNEInspectorFrame::AttributeInput::AttributeInput(GNEInspectorFrame::AttributeEditor* attributeEditorParent) :
+    FXHorizontalFrame(attributeEditorParent, GUIDesignAuxiliarHorizontalFrame),
+    myAttributeEditorParent(attributeEditorParent),
     myTag(SUMO_TAG_NOTHING),
     myAttr(SUMO_ATTR_NOTHING) {
     // Create and hide ButtonCombinableChoices
@@ -839,7 +816,7 @@ void
 GNEInspectorFrame::AttributeInput::refreshAttribute() {
     // Declare a set of occuring values and insert attribute's values of item
     std::set<std::string> occuringValues;
-    for (auto it_ac : myInspectorFrameParent->getACs()) {
+    for (auto it_ac : myAttributeEditorParent->getInspectorFrameParent()->getACs()) {
         occuringValues.insert(it_ac->getAttribute(myAttr));
     }
     // get current value
@@ -948,30 +925,25 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
     }
 
     // Check if attribute must be changed
-    if (myInspectorFrameParent->getACs().front()->isValid(myAttr, newVal)) {
+    if (myAttributeEditorParent->getInspectorFrameParent()->getACs().front()->isValid(myAttr, newVal)) {
         // if its valid for the first AC than its valid for all (of the same type)
-        if (myInspectorFrameParent->getACs().size() > 1) {
-            myInspectorFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
+        if (myAttributeEditorParent->getInspectorFrameParent()->getACs().size() > 1) {
+            myAttributeEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
         }
         // Set new value of attribute in all selected ACs
-        for (auto it_ac : myInspectorFrameParent->getACs()) {
-            it_ac->setAttribute(myAttr, newVal, myInspectorFrameParent->getViewNet()->getUndoList());
+        for (auto it_ac : myAttributeEditorParent->getInspectorFrameParent()->getACs()) {
+            it_ac->setAttribute(myAttr, newVal, myAttributeEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList());
         }
         // finish change multiple attributes
-        if (myInspectorFrameParent->getACs().size() > 1) {
-            myInspectorFrameParent->getViewNet()->getUndoList()->p_end();
+        if (myAttributeEditorParent->getInspectorFrameParent()->getACs().size() > 1) {
+            myAttributeEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
         }
         // If previously value was incorrect, change font color to black
         if (GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->killFocus();
-            // in this case, we need to refresh the other opposited value
-            for (auto i : myInspectorFrameParent->myVectorOfAttributeInputs) {
-                if (((myAttr == SUMO_ATTR_ALLOW) && (i->getAttr() == SUMO_ATTR_DISALLOW)) ||
-                        ((myAttr == SUMO_ATTR_DISALLOW) && (i->getAttr() == SUMO_ATTR_ALLOW))) {
-                    i->refreshAttribute();
-                }
-            }
+            // in this case, we need to refresh the other values (For example, allow/Disallow objects)
+            myAttributeEditorParent->refreshAttributes(true);
         } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
             myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
             myChoicesCombo->killFocus();
@@ -1006,9 +978,9 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
         }
     }
     // refresh GEO Attributes
-    myInspectorFrameParent->myGEOAttributes->refreshGEOAttributes();
+    myAttributeEditorParent->getInspectorFrameParent()->myGEOAttributes->refreshGEOAttributes();
     // Update view net
-    myInspectorFrameParent->getViewNet()->update();
+    myAttributeEditorParent->getInspectorFrameParent()->getViewNet()->update();
     return 1;
 }
 
@@ -1032,6 +1004,69 @@ GNEInspectorFrame::AttributeInput::stripWhitespaceAfterComma(const std::string& 
         result = StringUtils::replace(result, ", ", ",");
     }
     return result;
+}
+
+// ===========================================================================
+// AttributeEditor method definitions
+// ===========================================================================
+
+GNEInspectorFrame::AttributeEditor::AttributeEditor(GNEInspectorFrame* inspectorFrameParent) :
+    FXGroupBox(inspectorFrameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
+    myInspectorFrameParent(inspectorFrameParent),
+    myCurrentIndex(0) {
+    // Create sufficient AttributeInput for all types of AttributeCarriers
+    for (int i = 0; i < (int)GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
+        myVectorOfAttributeInputs.push_back(new AttributeInput(this));
+    }
+}
+
+
+void 
+GNEInspectorFrame::AttributeEditor::showAttribute(SumoXMLTag tag, SumoXMLAttr attribute, const std::string& value) {
+    if ((int)myCurrentIndex < myVectorOfAttributeInputs.size()) {
+        // show AttributeEditor if isn't show
+        if (!shown()) {
+            show();
+        }
+        // show attribute
+        myVectorOfAttributeInputs[myCurrentIndex]->showAttribute(tag, attribute, value);
+        myCurrentIndex++;
+    } else {
+        throw ProcessError("myCurrentIndex greather than myVectorOfAttributeInputs");
+    }
+}
+
+
+void
+GNEInspectorFrame::AttributeEditor::hideAttributes() {
+    // hide al attributes
+    for (auto i : myVectorOfAttributeInputs) {
+        i->hideAttribute();
+    }
+    // reset myCurrentIndex;
+    myCurrentIndex = 0;
+}
+
+
+void
+GNEInspectorFrame::AttributeEditor::refreshAttributes(bool onlyAllowdisallow) {
+    for (auto i : myVectorOfAttributeInputs) {
+        if (onlyAllowdisallow) {
+            // refresh only Allow/Disallow attributes
+            if ((i->getAttr() == SUMO_ATTR_ALLOW) || (i->getAttr() == SUMO_ATTR_DISALLOW)) {
+                i->refreshAttribute();
+            }
+        } else {
+            // refresh all attributes
+            i->refreshAttribute();
+        }
+    }
+}
+
+
+GNEInspectorFrame*
+GNEInspectorFrame::AttributeEditor::getInspectorFrameParent() const {
+    return myInspectorFrameParent;
 }
 
 // ===========================================================================
