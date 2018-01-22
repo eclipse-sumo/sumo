@@ -72,18 +72,18 @@ log:done \(.*\)\.{REPLACE done.}
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed
-elmar_links:# Generated
-elmar_nodes:# Generated
-elmar_names:# Generated
-elmar_traffic_signals:# Generated
-elmar_prohibited_manoeuvres:# Generated
-elmar_connected_lanes:# Generated
 elmar_links:<proj.scale value="1e-005"/>{REPLACE <proj.scale value="1e-05"/>}
 elmar_nodes:<proj.scale value="1e-005"/>{REPLACE <proj.scale value="1e-05"/>}
 elmar_names:<proj.scale value="1e-005"/>{REPLACE <proj.scale value="1e-05"/>}
 elmar_traffic_signals:<proj.scale value="1e-005"/>{REPLACE <proj.scale value="1e-05"/>}
 elmar_prohibited_manoeuvres:<proj.scale value="1e-005"/>{REPLACE <proj.scale value="1e-05"/>}
 elmar_connected_lanes:<proj.scale value="1e-005"/>{REPLACE <proj.scale value="1e-05"/>}
+elmar_links:# <!--{[->]}-->
+elmar_nodes:# <!--{[->]}-->
+elmar_names:# <!--{[->]}-->
+elmar_traffic_signals:# <!--{[->]}-->
+elmar_prohibited_manoeuvres:# <!--{[->]}-->
+elmar_connected_lanes:# <!--{[->]}-->
 
 [floating_point_tolerance]
 net:0.0101
