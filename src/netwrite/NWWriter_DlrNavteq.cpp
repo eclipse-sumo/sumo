@@ -44,8 +44,6 @@
 #include "NWFrame.h"
 #include "NWWriter_DlrNavteq.h"
 
-#define OUTPUT_VERSION "6.5"
-
 
 // ---------------------------------------------------------------------------
 // static members
@@ -71,12 +69,7 @@ NWWriter_DlrNavteq::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
 
 void NWWriter_DlrNavteq::writeHeader(OutputDevice& device, const OptionsCont& oc) {
-    time_t rawtime;
-    time(&rawtime);
-    char buffer [80];
-    strftime(buffer, 80, "on %c", localtime(&rawtime));
-    device << "# Generated " << buffer << " by " << oc.getFullName() << "\n";
-    device << "# Format matches Extraction version: V" << OUTPUT_VERSION << " \n";
+    device << "# Format matches Extraction version: V6.5 \n";
     std::stringstream tmp;
     oc.writeConfiguration(tmp, true, false, false);
     tmp.seekg(std::ios_base::beg);

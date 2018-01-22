@@ -138,13 +138,7 @@ PCPolyContainer::save(const std::string& file, bool useGeo) {
 
 void PCPolyContainer::writeDlrTDPHeader(OutputDevice& device, const OptionsCont& oc) {
     // XXX duplicate of NWWriter_DlrNavteq::writeHeader()
-    const std::string OUTPUT_VERSION = "6.5"; // XXX duplicate of NWWriter_DlrNavteq OUTPUT_VERSION
-    time_t rawtime;
-    time(&rawtime);
-    char buffer [80];
-    strftime(buffer, 80, "on %c", localtime(&rawtime));
-    device << "# Generated " << buffer << " by " << oc.getFullName() << "\n";
-    device << "# Format matches Extraction version: V" << OUTPUT_VERSION << " \n";
+    device << "# Format matches Extraction version: V6.5 \n";
     std::stringstream tmp;
     oc.writeConfiguration(tmp, true, false, false);
     tmp.seekg(std::ios_base::beg);
