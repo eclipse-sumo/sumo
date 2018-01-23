@@ -512,20 +512,19 @@ enum {
 
     /// @name GNEFrame messages
     /// @{
-
-    /// @brief set GEO Attribute
-    MID_GNEFRAME_GEOATTRIBUTE,
-    /// @brief enable or disable use GEO
-    MID_GNEFRAME_USEGEO,
-
-
     // MID_GNE_WIZARD,
     /// @brief attribute edited
     MID_GNE_SET_ATTRIBUTE,
+    /// @brief attribute edited trought dialog
+    MID_GNE_SET_ATTRIBUTE_DIALOG,
     /// @brief attribute block shape
     MID_GNE_SET_BLOCKING_SHAPE,
     /// @brief attribute close shape
     MID_GNE_SET_CLOSING_SHAPE,
+    /// @brief set GEO Attribute
+    MID_GNEFRAME_GEOATTRIBUTE,
+    /// @brief enable or disable use GEO
+    MID_GNEFRAME_USEGEO,
 
     /// @}
 
@@ -573,8 +572,6 @@ enum {
     MID_GNE_INSPECTORFRAME_COPYTEMPLATE,
     /// @brief go back to the previous element
     MID_GNE_INSPECTORFRAME_GOBACK,
-    /// @brief open edit attribute dialog
-    MID_GNE_INSPECTORFRAME_ATTRIBUTEEDITOR,
     /// @}
 
 

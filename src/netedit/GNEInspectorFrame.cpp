@@ -81,8 +81,8 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
 
 
 FXDEFMAP(GNEInspectorFrame::AttributeInput) AttributeInputMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                      GNEInspectorFrame::AttributeInput::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_ATTRIBUTEEDITOR,     GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEInspectorFrame::AttributeInput::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor)
 };
 
 
@@ -693,7 +693,7 @@ GNEInspectorFrame::AttributeInput::AttributeInput(GNEInspectorFrame::AttributeEd
     myTag(SUMO_TAG_NOTHING),
     myAttr(SUMO_ATTR_NOTHING) {
     // Create and hide ButtonCombinableChoices
-    myButtonCombinableChoices = new FXButton(this, "AttributeButton", 0, this, MID_GNE_INSPECTORFRAME_ATTRIBUTEEDITOR, GUIDesignButtonAttribute);
+    myButtonCombinableChoices = new FXButton(this, "AttributeButton", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myButtonCombinableChoices->hide();
     // Create and hide label
     myLabel = new FXLabel(this, "attributeLabel", 0, GUIDesignLabelAttribute);
