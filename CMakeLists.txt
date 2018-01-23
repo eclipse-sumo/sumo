@@ -266,3 +266,5 @@ add_subdirectory(src)
 if (GTEST_FOUND)
     add_subdirectory(unittest)
 endif ()
+
+message(STATUS "Enabled features: ${ENABLED_FEATURES}")

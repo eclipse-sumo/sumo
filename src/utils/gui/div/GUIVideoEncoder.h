@@ -61,7 +61,16 @@ extern "C"
 #pragma GCC diagnostic pop
 #endif
 
+#include <utils/common/ToString.h>
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+* @class GUIVideoEncoder
+* @brief A simple video encoder from RGBA pics to anything ffmpeg can handle.
+*/
 class GUIVideoEncoder {
 public:
     GUIVideoEncoder(const char* const out_file, const int width, const int height, double frameDelay) {
@@ -97,8 +106,8 @@ public:
         pCodecCtx->codec_id = pFormatCtx->oformat->video_codec;
         pCodecCtx->codec_type = AVMEDIA_TYPE_VIDEO;
         pCodecCtx->pix_fmt = AV_PIX_FMT_YUV420P;
-        pCodecCtx->width = width;
-        // @todo maybe warn about one missing line for odd height
+        // @todo maybe warn about one missing line for odd width or height
+        pCodecCtx->width = (width / 2) * 2;
         pCodecCtx->height = (height / 2) * 2;
         pCodecCtx->time_base.num = 1;
         pCodecCtx->time_base.den = framerate;
@@ -135,8 +144,9 @@ public:
         if (!pCodec) {
             throw std::runtime_error("Can not find encoder!");
         }
-        if (avcodec_open2(pCodecCtx, pCodec, &param) < 0) {
-            throw std::runtime_error("Failed to open encoder!");
+        const int ret = avcodec_open2(pCodecCtx, pCodec, &param);
+        if (ret < 0) {
+            throw std::runtime_error("Failed to open encoder ("+ toString(ret) +")!");
         }
 
         myFrame = av_frame_alloc();
