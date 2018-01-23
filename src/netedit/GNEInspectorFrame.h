@@ -253,9 +253,6 @@ public:
         /// @brief refresh TextFields with the new GEO Attributes
         void refreshGEOAttributesEditor();
 
-        /// @brief get GEO Attributes
-        std::map<SumoXMLAttr, std::string> getGEOAttributesEditor() const;
-
         /// @name FOX-callbacks
         /// @{
 
@@ -279,9 +276,6 @@ public:
 
         /// @brief type of GEO Attribute
         SumoXMLAttr myGEOAttribute;
-
-        /// @brief current edited ACs
-        std::vector<GNEAttributeCarrier*> myACs;
 
         /// @brief horizontal frame for GEOAttribute
         FXHorizontalFrame* myGEOAttributeFrame;
