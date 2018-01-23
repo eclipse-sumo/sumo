@@ -1,0 +1,10 @@
+running SikuliX: -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine
+-jar /home/user070065n-su/Sikulix/sikulix.jar -run test.sikuli
+[info] runcmd: lsb_release -i -r -s 
+TestFunctions: Netedit opened sucesfully
+TestFunctions: 'reference.png' found
+[log] ( Ctrl+Mayús )  TYPE "d"
+[log] ( Ctrl )  TYPE "s"
+[log] ( Ctrl )  TYPE "q"
+TestFunctions: Netedit closed successfully
+[log] TestFunctions: Netedit already closed
