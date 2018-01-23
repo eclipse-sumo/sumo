@@ -1022,14 +1022,14 @@ GNEInspectorFrame::AttributeEditor::AttributeEditor(GNEInspectorFrame* inspector
 
 
 void 
-GNEInspectorFrame::AttributeEditor::showAttribute(SumoXMLTag tag, SumoXMLAttr attribute, const std::string& value) {
+GNEInspectorFrame::AttributeEditor::showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value) {
     if ((int)myCurrentIndex < myVectorOfAttributeInputs.size()) {
         // show AttributeEditor if isn't show
         if (!shown()) {
             show();
         }
         // show attribute
-        myVectorOfAttributeInputs[myCurrentIndex]->showAttribute(tag, attribute, value);
+        myVectorOfAttributeInputs[myCurrentIndex]->showAttribute(ACTag, ACAttribute, value);
         myCurrentIndex++;
     } else {
         throw ProcessError("myCurrentIndex greather than myVectorOfAttributeInputs");
@@ -1045,6 +1045,8 @@ GNEInspectorFrame::AttributeEditor::hideAttributes() {
     }
     // reset myCurrentIndex;
     myCurrentIndex = 0;
+    // hide also AttributeEditor
+    hide();
 }
 
 

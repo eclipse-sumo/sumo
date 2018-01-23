@@ -56,7 +56,7 @@ public:
     
     class AttributeEditor;
     
-    class AttributeInput : public FXHorizontalFrame {
+    class AttributeInput : protected FXHorizontalFrame {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::AttributeInput)
 
