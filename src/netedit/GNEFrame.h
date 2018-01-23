@@ -124,82 +124,7 @@ public:
         FXCheckButton* myClosePolygonCheckButton;
     };
 
-    // ===========================================================================
-    // class GEOAttributes
-    // ===========================================================================
-
-    class GEOAttributes : private FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEFrame::GEOAttributes)
-
-    public:
-        /// @brief constructor
-        GEOAttributes(GNEFrame* frameParent);
-
-        /// @brief destructor
-        ~GEOAttributes();
-
-        /// @brief show GEOAttribute for the current AttributeCarriers
-        void showGEOAttributes(const std::vector<GNEAttributeCarrier*>& ACs);
-
-        /// @brief hide GEOAttributes
-        void hideGEOAttributes();
-
-        /// @brief refresh TextFields with the new GEO Attributes
-        void refreshGEOAttributes();
-
-        /// @brief get GEO Attributes
-        std::map<SumoXMLAttr, std::string> getGEOAttributes() const;
-
-        /// @name FOX-callbacks
-        /// @{
-
-        /// @brief Called when user change the current GEO Attribute
-        long onCmdSetGEOAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user enters a new length
-        long onCmdUseGEOParameters(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user press the help button
-        long onCmdHelp(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        GEOAttributes() {}
-
-    private:
-        /// @brief current GNEFrame parent
-        GNEFrame* myFrameParent;
-
-        /// @brief type of GEO Attribute
-        SumoXMLAttr myGEOAttribute;
-
-        /// @brief current edited ACs
-        std::vector<GNEAttributeCarrier*> myACs;
-
-        /// @brief horizontal frame for GEOAttribute
-        FXHorizontalFrame* myGEOAttributeFrame;
-
-        /// @brief Label for GEOAttribute
-        FXLabel* myGEOAttributeLabel;
-
-        /// @brief textField for GEOAttribute
-        FXTextField* myGEOAttributeTextField;
-
-        /// @brief horizontal frame for use GEO
-        FXHorizontalFrame* myUseGEOFrame;
-
-        /// @brief Label for use GEO
-        FXLabel* myUseGEOLabel;
-
-        /// @brief checkBox for use GEO
-        FXCheckButton* myUseGEOCheckButton;
-
-        /// @brief button for help
-        FXButton* myHelpButton;
-    };
-
+    
     // ===========================================================================
     // class DrawingMode
     // ===========================================================================
@@ -317,9 +242,6 @@ public:
     /// @brief get netedit attributes editor
     GNEFrame::NeteditAttributes* getNeteditAttributes() const;
 
-    /// @brief get GEO Parameters editor
-    GNEFrame::GEOAttributes* getGEOAttributes() const;
-
     /// @brief get drawing mode editor
     GNEFrame::DrawingMode* getDrawingMode() const;
 
@@ -344,9 +266,6 @@ protected:
 
     /// @brief Netedit parameter
     GNEFrame::NeteditAttributes* myNeteditAttributes;
-
-    /// @brief GEO Parameters
-    GNEFrame::GEOAttributes* myGEOAttributes;
 
     /// @brief drawing mode
     GNEFrame::DrawingMode* myDrawingMode;

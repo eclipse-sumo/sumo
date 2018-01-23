@@ -54,7 +54,7 @@ public:
     // class AttributeInput
     // ===========================================================================
     
-    class AttributeEditor;
+    class AttributesEditor;
     
     class AttributeInput : protected FXHorizontalFrame {
         /// @brief FOX-declaration
@@ -62,7 +62,7 @@ public:
 
     public:
         /// @brief constructor
-        AttributeInput(GNEInspectorFrame::AttributeEditor* attributeEditorParent);
+        AttributeInput(GNEInspectorFrame::AttributesEditor* attributeEditorParent);
 
         /// @brief show attribute of ac
         void showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value);
@@ -93,8 +93,8 @@ public:
         std::string stripWhitespaceAfterComma(const std::string& stringValue);
 
     private:
-        /// @brief pointer to AttributeEditor parent
-        GNEInspectorFrame::AttributeEditor * myAttributeEditorParent;
+        /// @brief pointer to AttributesEditor parent
+        GNEInspectorFrame::AttributesEditor * myAttributesEditorParent;
 
         /// @brief current tag
         SumoXMLTag myTag;
@@ -125,20 +125,20 @@ public:
     };
 
     // ===========================================================================
-    // class AttributeEditor
+    // class AttributesEditor
     // ===========================================================================
 
-    class AttributeEditor : public FXGroupBox {
+    class AttributesEditor : public FXGroupBox {
 
     public:
         /// @brief constructor
-        AttributeEditor(GNEInspectorFrame* inspectorFrameParent);
+        AttributesEditor(GNEInspectorFrame* inspectorFrameParent);
 
         /// @brief show attribute of ac
         void showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value);
 
         /// @brief show attribute
-        void hideAttributeEditor();
+        void hideAttributesEditor();
 
         /// @brief refresh attribute
         void refreshAttributes(bool onlyAllowdisallow = false);
@@ -158,25 +158,25 @@ public:
     };
 
     // ===========================================================================
-    // class NeteditAttributeEditor
+    // class NeteditAttributesEditor
     // ===========================================================================
 
-    class NeteditAttributeEditor : public FXGroupBox {
+    class NeteditAttributesEditor : public FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEInspectorFrame::NeteditAttributeEditor)
+        FXDECLARE(GNEInspectorFrame::NeteditAttributesEditor)
 
     public:
         /// @brief constructor
-        NeteditAttributeEditor(GNEInspectorFrame* inspectorFrameParent);
+        NeteditAttributesEditor(GNEInspectorFrame* inspectorFrameParent);
 
         /// @brief destructor
-        ~NeteditAttributeEditor();
+        ~NeteditAttributesEditor();
 
         /// @brief show attribute of ac
         void showNeteditAttributes(const std::vector<GNEAttributeCarrier*>& ACs);
 
         /// @brief show attribute
-        void hideNeteditAttributeEditor();
+        void hideNeteditAttributesEditor();
 
         /// @name FOX-callbacks
         /// @{
@@ -186,7 +186,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        NeteditAttributeEditor() {}
+        NeteditAttributesEditor() {}
 
     private:
         /// @brief pointer to inspector frame parent
@@ -227,6 +227,82 @@ public:
 
         /// @brief pointer to check box "Block movement"
         FXCheckButton* myCheckBoxCloseShape;
+    };
+
+    // ===========================================================================
+    // class GEOAttributesEditor
+    // ===========================================================================
+
+    class GEOAttributesEditor : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEInspectorFrame::GEOAttributesEditor)
+
+    public:
+        /// @brief constructor
+        GEOAttributesEditor(GNEInspectorFrame* inspectorFrameParent);
+
+        /// @brief destructor
+        ~GEOAttributesEditor();
+
+        /// @brief show GEOAttribute for the current AttributeCarriers
+        void showGEOAttributesEditor(const std::vector<GNEAttributeCarrier*>& ACs);
+
+        /// @brief hide GEOAttributesEditor
+        void hideGEOAttributesEditor();
+
+        /// @brief refresh TextFields with the new GEO Attributes
+        void refreshGEOAttributesEditor();
+
+        /// @brief get GEO Attributes
+        std::map<SumoXMLAttr, std::string> getGEOAttributesEditor() const;
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when user change the current GEO Attribute
+        long onCmdSetGEOAttribute(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user enters a new length
+        long onCmdUseGEOParameters(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press the help button
+        long onCmdHelp(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        GEOAttributesEditor() {}
+
+    private:
+        /// @brief current GNEInspectorFrame parent
+        GNEInspectorFrame* myInspectorFrameParent;
+
+        /// @brief type of GEO Attribute
+        SumoXMLAttr myGEOAttribute;
+
+        /// @brief current edited ACs
+        std::vector<GNEAttributeCarrier*> myACs;
+
+        /// @brief horizontal frame for GEOAttribute
+        FXHorizontalFrame* myGEOAttributeFrame;
+
+        /// @brief Label for GEOAttribute
+        FXLabel* myGEOAttributeLabel;
+
+        /// @brief textField for GEOAttribute
+        FXTextField* myGEOAttributeTextField;
+
+        /// @brief horizontal frame for use GEO
+        FXHorizontalFrame* myUseGEOFrame;
+
+        /// @brief Label for use GEO
+        FXLabel* myUseGEOLabel;
+
+        /// @brief checkBox for use GEO
+        FXCheckButton* myUseGEOCheckButton;
+
+        /// @brief button for help
+        FXButton* myHelpButton;
     };
 
     /**@brief Constructor
@@ -307,10 +383,13 @@ protected:
 
 private:
     /// @brief Attribute editor
-    AttributeEditor* myAttributeEditor;
+    AttributesEditor* myAttributesEditor;
 
-    /// @brief Netedit Attributes Parameters
-    NeteditAttributeEditor* myNeteditAttributeEditor;
+    /// @brief Netedit Attributes editor
+    NeteditAttributesEditor* myNeteditAttributesEditor;
+
+    /// @brief GEO Attributes editor
+    GEOAttributesEditor* myGEOAttributesEditor;
 
     /// @brief back Button
     FXButton* myBackButton;

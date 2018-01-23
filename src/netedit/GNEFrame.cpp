@@ -53,12 +53,6 @@ FXDEFMAP(GNEFrame::NeteditAttributes) GNEFrameNeteditAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_CLOSE,             GNEFrame::NeteditAttributes::onCmdsetClosingShape),
 };
 
-FXDEFMAP(GNEFrame::GEOAttributes) GNEFrameGEOAttributes[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNEFRAME_GEOATTRIBUTE,              GNEFrame::GEOAttributes::onCmdSetGEOAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNEFRAME_USEGEO,                    GNEFrame::GEOAttributes::onCmdUseGEOParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNEFrame::GEOAttributes::onCmdHelp),
-};
-
 FXDEFMAP(GNEFrame::DrawingMode) GNEFrameDrawingModeMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_STARTDRAWING,      GNEFrame::DrawingMode::onCmdStartDrawing),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_STOPDRAWING,       GNEFrame::DrawingMode::onCmdStopDrawing),
@@ -67,7 +61,6 @@ FXDEFMAP(GNEFrame::DrawingMode) GNEFrameDrawingModeMap[] = {
 
 // Object implementation
 FXIMPLEMENT(GNEFrame::NeteditAttributes,    FXGroupBox,     GNEFrameNeteditAttributesMap,   ARRAYNUMBER(GNEFrameNeteditAttributesMap))
-FXIMPLEMENT(GNEFrame::GEOAttributes,        FXGroupBox,     GNEFrameGEOAttributes,          ARRAYNUMBER(GNEFrameGEOAttributes))
 FXIMPLEMENT(GNEFrame::DrawingMode,          FXGroupBox,     GNEFrameDrawingModeMap,         ARRAYNUMBER(GNEFrameDrawingModeMap))
 
 
@@ -171,166 +164,6 @@ GNEFrame::NeteditAttributes::onCmdsetClosingShape(FXObject*, FXSelector, void*) 
     return 1;
 }
 
-// ---------------------------------------------------------------------------
-// GNEFrame::GEOAttributes - methods
-// ---------------------------------------------------------------------------
-
-GNEFrame::GEOAttributes::GEOAttributes(GNEFrame* frameParent) :
-    FXGroupBox(frameParent->myContentFrame, "GEO Attributes", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent) {
-
-    // Create Frame for GEOAttribute
-    myGEOAttributeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myGEOAttributeLabel = new FXLabel(myGEOAttributeFrame, "Undefined GEO Attribute", 0, GUIDesignLabelAttribute);
-    myGEOAttributeTextField = new FXTextField(myGEOAttributeFrame, GUIDesignTextFieldNCol, this, MID_GNEFRAME_GEOATTRIBUTE, GUIDesignTextField);
-
-    // Create Frame for use GEO
-    myUseGEOFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myUseGEOLabel = new FXLabel(myUseGEOFrame, "Use GEO", 0, GUIDesignLabelAttribute);
-    myUseGEOCheckButton = new FXCheckButton(myUseGEOFrame, "false", this, MID_GNEFRAME_USEGEO, GUIDesignCheckButtonAttribute);
-
-    // Create help button
-    myHelpButton = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
-}
-
-
-GNEFrame::GEOAttributes::~GEOAttributes() {}
-
-
-void
-GNEFrame::GEOAttributes::showGEOAttributes(const std::vector<GNEAttributeCarrier*>& ACs) {
-    // make sure that ACs has elements
-    if (ACs.size() > 0) {
-        // set myACs with the inspected elements
-        myACs = ACs;
-        if (ACs.front()->getTag() == SUMO_TAG_POLY) {
-            myGEOAttribute = SUMO_ATTR_GEOSHAPE;
-            // set label name
-            myGEOAttributeLabel->setText(toString(myGEOAttribute).c_str());
-            // fill attributes using refresh attributes
-            refreshGEOAttributes();
-            // show FXGroupBox
-            FXGroupBox::show();
-        } else if (ACs.front()->getTag() == SUMO_TAG_POI) {
-            myGEOAttribute = SUMO_ATTR_GEOPOSITION;
-            // set label name
-            myGEOAttributeLabel->setText(toString(myGEOAttribute).c_str());
-            // fill attributes using refresh attributes
-            refreshGEOAttributes();
-            // show FXGroupBox
-            FXGroupBox::show();
-        } else {
-            // hide GEO Attributes
-            hideGEOAttributes();
-        }
-    } else {
-        // hide GEO Attributes
-        hideGEOAttributes();
-    }
-}
-
-
-void
-GNEFrame::GEOAttributes::hideGEOAttributes() {
-    myACs.clear();
-    myGEOAttribute = SUMO_ATTR_NOTHING;
-    // hide FXGroupBox
-    FXGroupBox::hide();
-}
-
-
-void
-GNEFrame::GEOAttributes::refreshGEOAttributes() {
-    // only refresh element if myACs has elements
-    if (myACs.size() > 0) {
-        // hide GEOAttribute Frame
-        myGEOAttributeFrame->hide();
-        // check if we're handling a single or multiple selection
-        if (myACs.size() > 1) {
-            // only useGEO can be changed in multiple selections
-            bool useGEO = true;
-            for (auto i : myACs) {
-                useGEO &= GNEAttributeCarrier::parse<bool>(i->getAttribute(SUMO_ATTR_GEO));
-            }
-            myUseGEOCheckButton->setCheck(useGEO);
-        } else {
-            myUseGEOCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(myACs.front()->getAttribute(SUMO_ATTR_GEO)));
-            // show GEO Attribute (GNEShape or GNEPosition)
-            myGEOAttributeFrame->show();
-            myGEOAttributeTextField->setText(myACs.front()->getAttribute(myGEOAttribute).c_str());
-            myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
-        }
-        // set text orf GEO button
-        if (myUseGEOCheckButton->getCheck()) {
-            myUseGEOCheckButton->setText("true");
-        } else {
-            myUseGEOCheckButton->setText("false");
-        }
-    }
-}
-
-
-std::map<SumoXMLAttr, std::string>
-GNEFrame::GEOAttributes::getGEOAttributes() const {
-    std::map<SumoXMLAttr, std::string> attributes;
-    // fill map with the GEO Attributes
-    attributes[myGEOAttribute] = myGEOAttributeTextField->getText().text();
-    attributes[SUMO_ATTR_GEO] = myUseGEOCheckButton->getCheck() ? "true" : "false";
-    return attributes;
-}
-
-
-long
-GNEFrame::GEOAttributes::onCmdSetGEOAttribute(FXObject*, FXSelector, void*) {
-    if (myGEOAttributeTextField->getText().empty()) {
-        WRITE_WARNING("GEO Shapes cannot be empty.");
-    } else if (myACs.front()->isValid(myGEOAttribute, myGEOAttributeTextField->getText().text())) {
-        myACs.front()->setAttribute(myGEOAttribute, myGEOAttributeTextField->getText().text(), myFrameParent->getViewNet()->getUndoList());
-        myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
-    } else {
-        myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
-        myGEOAttributeTextField->killFocus();
-    }
-    // refresh values of current inspected item (because attribute shape changes)
-    myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->refreshValues();
-    return 0;
-}
-
-
-long
-GNEFrame::GEOAttributes::onCmdUseGEOParameters(FXObject*, FXSelector, void*) {
-    // change label of Check button depending of check
-    if (myUseGEOCheckButton->getCheck()) {
-        myUseGEOCheckButton->setText("true");
-    } else {
-        myUseGEOCheckButton->setText("false");
-    }
-    // update GEO Attribute of entire selection
-    for (auto i : myACs) {
-        i->setAttribute(SUMO_ATTR_GEO, myUseGEOCheckButton->getText().text(), myFrameParent->getViewNet()->getUndoList());
-    }
-    return 1;
-}
-
-
-long
-GNEFrame::GEOAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
-    FXDialogBox* helpDialog = new FXDialogBox(this, "GEO attributes Help", GUIDesignDialogBox);
-    std::ostringstream help;
-    help
-            << " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n"
-            << " For a GEO-referenced network, geo coordinates are represented as pairs of Longitude and Latitude\n"
-            << " in decimal degrees without extra symbols. (N,W..)\n"
-            << " - Longitude: East-west position of a point on the Earth's surface.\n"
-            << " - Latitude: North-south position of a point on the Earth's surface.\n"
-            << " - CheckBox 'use GEO' enables or disables saving position in GEO coordinates\n";
-    new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
-    // "OK"
-    new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-    helpDialog->create();
-    helpDialog->show();
-    return 1;
-}
 
 // ---------------------------------------------------------------------------
 // GNEFrame::DrawingMode - methods
@@ -491,7 +324,6 @@ GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet
     FXVerticalFrame(horizontalFrameParent, GUIDesignAuxiliarFrame),
     myViewNet(viewNet),
     myNeteditAttributes(NULL),
-    myGEOAttributes(NULL),
     myDrawingMode(NULL) {
 
     // Create font
@@ -588,16 +420,6 @@ GNEFrame::getNeteditAttributes() const {
         return myNeteditAttributes;
     } else {
         throw ProcessError("Netedit Attributes editor wasn't created");
-    }
-}
-
-
-GNEFrame::GEOAttributes*
-GNEFrame::getGEOAttributes() const {
-    if (myGEOAttributes) {
-        return myGEOAttributes;
-    } else {
-        throw ProcessError("GEO Attributes editor wasn't created");
     }
 }
 
