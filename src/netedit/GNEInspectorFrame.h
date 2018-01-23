@@ -167,25 +167,25 @@ public:
     };
 
     // ===========================================================================
-    // class editorParameters
+    // class NeteditAttributeEditor
     // ===========================================================================
 
-    class NeteditParameters : public FXGroupBox {
+    class NeteditAttributeEditor : public FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEInspectorFrame::NeteditParameters)
+        FXDECLARE(GNEInspectorFrame::NeteditAttributeEditor)
 
     public:
         /// @brief constructor
-        NeteditParameters(GNEInspectorFrame* inspectorFrameParent);
+        NeteditAttributeEditor(GNEInspectorFrame* inspectorFrameParent);
 
         /// @brief destructor
-        ~NeteditParameters();
+        ~NeteditAttributeEditor();
 
         /// @brief show NeteditParameters
-        void show();
+        void showNeteditAttributeEditor();
 
         /// @brief hide all NeteditParameters
-        void hide();
+        void hideNeteditAttributeEditor();
 
         /// @name FOX-callbacks
         /// @{
@@ -204,7 +204,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        NeteditParameters() {}
+        NeteditAttributeEditor() {}
 
     private:
         /// @brief pointer to inspector frame parent
@@ -327,8 +327,8 @@ private:
     /// @brief Attribute editor
     AttributeEditor* myAttributeEditor;
 
-    /// @brief Netedit Parameters
-    NeteditParameters* myNeteditParameters;
+    /// @brief Netedit Attributes Parameters
+    NeteditAttributeEditor* myNeteditAttributeEditor;
 
     /// @brief back Button
     FXButton* myBackButton;

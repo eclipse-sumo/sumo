@@ -86,17 +86,17 @@ FXDEFMAP(GNEInspectorFrame::AttributeInput) AttributeInputMap[] = {
 };
 
 
-FXDEFMAP(GNEInspectorFrame::NeteditParameters) NeteditParameterstMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CHANGEPARENT,               GNEInspectorFrame::NeteditParameters::onCmdChangeAdditionalParent),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT,              GNEInspectorFrame::NeteditParameters::onCmdSetBlockingMovement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_SHAPE,                         GNEInspectorFrame::NeteditParameters::onCmdSetBlockingShape),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_CLOSING_SHAPE,                          GNEInspectorFrame::NeteditParameters::onCmdSetClosingShape),
+FXDEFMAP(GNEInspectorFrame::NeteditAttributeEditor) NeteditAttributeEditortMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CHANGEPARENT,               GNEInspectorFrame::NeteditAttributeEditor::onCmdChangeAdditionalParent),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT,              GNEInspectorFrame::NeteditAttributeEditor::onCmdSetBlockingMovement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_SHAPE,                         GNEInspectorFrame::NeteditAttributeEditor::onCmdSetBlockingShape),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_CLOSING_SHAPE,                          GNEInspectorFrame::NeteditAttributeEditor::onCmdSetClosingShape),
 };
 
 // Object implementation
 FXIMPLEMENT(GNEInspectorFrame,                      FXVerticalFrame,    GNEInspectorFrameMap, ARRAYNUMBER(GNEInspectorFrameMap))
 FXIMPLEMENT(GNEInspectorFrame::AttributeInput,      FXHorizontalFrame,  AttributeInputMap, ARRAYNUMBER(AttributeInputMap))
-FXIMPLEMENT(GNEInspectorFrame::NeteditParameters,   FXGroupBox,         NeteditParameterstMap, ARRAYNUMBER(NeteditParameterstMap))
+FXIMPLEMENT(GNEInspectorFrame::NeteditAttributeEditor,   FXGroupBox,         NeteditAttributeEditortMap, ARRAYNUMBER(NeteditAttributeEditortMap))
 
 // ===========================================================================
 // method definitions
@@ -120,7 +120,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myGEOAttributes = new GNEFrame::GEOAttributes(this);
 
     // Create netedit parameters
-    myNeteditParameters = new NeteditParameters(this);
+    myNeteditAttributeEditor = new NeteditAttributeEditor(this);
 
     // Create groupbox and tree list
     myGroupBoxForTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
@@ -181,7 +181,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myGroupBoxForTemplates->hide();
     myCopyTemplateButton->hide();
     mySetTemplateButton->hide();
-    myNeteditParameters->hide();
+    myNeteditAttributeEditor->hideNeteditAttributeEditor();
     myGEOAttributes->hideGEOAttributes();
     myGroupBoxForTreeList->hide();
     // If vector of attribute Carriers contain data
@@ -238,7 +238,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         }
 
         // show netedit parameters
-        myNeteditParameters->show();
+        myNeteditAttributeEditor->showNeteditAttributeEditor();
 
         // Show myGEOAttributes if we're inspecting elements with GEO Attributes
         myGEOAttributes->showGEOAttributes(myACs);
@@ -1072,10 +1072,10 @@ GNEInspectorFrame::AttributeEditor::getInspectorFrameParent() const {
 }
 
 // ===========================================================================
-// NeteditParameters method definitions
+// NeteditAttributeEditor method definitions
 // ===========================================================================
 
-GNEInspectorFrame::NeteditParameters::NeteditParameters(GNEInspectorFrame* inspectorFrameParent) :
+GNEInspectorFrame::NeteditAttributeEditor::NeteditAttributeEditor(GNEInspectorFrame* inspectorFrameParent) :
     FXGroupBox(inspectorFrameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
     myInspectorFrameParent(inspectorFrameParent) {
 
@@ -1101,11 +1101,11 @@ GNEInspectorFrame::NeteditParameters::NeteditParameters(GNEInspectorFrame* inspe
 }
 
 
-GNEInspectorFrame::NeteditParameters::~NeteditParameters() {}
+GNEInspectorFrame::NeteditAttributeEditor::~NeteditAttributeEditor() {}
 
 
 void
-GNEInspectorFrame::NeteditParameters::show() {
+GNEInspectorFrame::NeteditAttributeEditor::showNeteditAttributeEditor() {
     // If item can be moved
     if (GNEAttributeCarrier::canBlockMovement(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
         // show groupBox
@@ -1175,18 +1175,19 @@ GNEInspectorFrame::NeteditParameters::show() {
 
 
 void
-GNEInspectorFrame::NeteditParameters::hide() {
+GNEInspectorFrame::NeteditAttributeEditor::hideNeteditAttributeEditor() {
     // hide all elements of GroupBox
     myHorizontalFrameAdditionalParent->hide();
     myHorizontalFrameBlockMovement->hide();
     myHorizontalFrameBlockShape->hide();
     myHorizontalFrameCloseShape->hide();
-    FXGroupBox::hide();
+    // hide groupbox
+    hide();
 }
 
 
 long
-GNEInspectorFrame::NeteditParameters::onCmdChangeAdditionalParent(FXObject*, FXSelector, void*) {
+GNEInspectorFrame::NeteditAttributeEditor::onCmdChangeAdditionalParent(FXObject*, FXSelector, void*) {
     if (myInspectorFrameParent->getInspectedACs().front()->isValid(GNE_ATTR_PARENT, myTextFieldAdditionalParent->getText().text())) {
         myInspectorFrameParent->getInspectedACs().front()->setAttribute(GNE_ATTR_PARENT, myTextFieldAdditionalParent->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
         myTextFieldAdditionalParent->setTextColor(FXRGB(0, 0, 0));
@@ -1199,7 +1200,7 @@ GNEInspectorFrame::NeteditParameters::onCmdChangeAdditionalParent(FXObject*, FXS
 
 
 long
-GNEInspectorFrame::NeteditParameters::onCmdSetBlockingMovement(FXObject*, FXSelector, void*) {
+GNEInspectorFrame::NeteditAttributeEditor::onCmdSetBlockingMovement(FXObject*, FXSelector, void*) {
     // set new values in all inspected Attribute Carriers
     for (auto i : myInspectorFrameParent->getInspectedACs()) {
         if (myCheckBoxBlockMovement->getCheck() == 1) {
@@ -1219,7 +1220,7 @@ GNEInspectorFrame::NeteditParameters::onCmdSetBlockingMovement(FXObject*, FXSele
 
 
 long
-GNEInspectorFrame::NeteditParameters::onCmdSetBlockingShape(FXObject*, FXSelector, void*) {
+GNEInspectorFrame::NeteditAttributeEditor::onCmdSetBlockingShape(FXObject*, FXSelector, void*) {
     // set new values in all inspected Attribute Carriers
     for (auto i : myInspectorFrameParent->getInspectedACs()) {
         if (myCheckBoxBlockShape->getCheck() == 1) {
@@ -1239,7 +1240,7 @@ GNEInspectorFrame::NeteditParameters::onCmdSetBlockingShape(FXObject*, FXSelecto
 
 
 long
-GNEInspectorFrame::NeteditParameters::onCmdSetClosingShape(FXObject*, FXSelector, void*) {
+GNEInspectorFrame::NeteditAttributeEditor::onCmdSetClosingShape(FXObject*, FXSelector, void*) {
     // set new values in all inspected Attribute Carriers
     for (auto i : myInspectorFrameParent->getInspectedACs()) {
         if (myCheckBoxCloseShape->getCheck() == 1) {
