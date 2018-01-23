@@ -219,7 +219,8 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         if (GNEAttributeCarrier::canCloseShape(ACFrontTag)) {
             ACFrontAttrs.push_back(GNE_ATTR_CLOSE_SHAPE);
         }
-        if (GNEAttributeCarrier::hasParent(ACFrontTag)) {
+        if (GNEAttributeCarrier::hasParent(ACFrontTag) && myACs.size() == 1) {
+            // Change parameter Parent in selections isn't allowed
             ACFrontAttrs.push_back(GNE_ATTR_PARENT);
         }
 
@@ -1156,8 +1157,8 @@ GNEInspectorFrame::NeteditAttributeEditor::showNeteditAttribute(SumoXMLTag ACTag
         GNEAdditional* additional = myInspectorFrameParent->getViewNet()->getNet()->retrieveAdditional(value);
         // show block movement
         myHorizontalFrameAdditionalParent->show();
-        myLabelAdditionalParent->setText((toString(additional->getAdditionalParent()->getTag()) + " parent").c_str());
-        myTextFieldAdditionalParent->setText(additional->getAdditionalParent()->getID().c_str());
+        myLabelAdditionalParent->setText((toString(additional->getTag()) + " parent").c_str());
+        myTextFieldAdditionalParent->setText(additional->getID().c_str());
     }
 }
 
