@@ -152,6 +152,12 @@ public:
     /// @brief return true if element tag can block their shape
     static bool canBlockShape(SumoXMLTag tag);
 
+    /// @brief return true if element tag can block their shape
+    static bool canCloseShape(SumoXMLTag tag);
+
+    /// @brief return true if element tag can block their shape
+    static bool hasParent(SumoXMLTag tag);
+
     /// @brief return true if element tag can open a values editor
     static bool canOpenDialog(SumoXMLTag tag);
 
@@ -247,6 +253,9 @@ public:
     static bool isPositive(const std::string& string) {
         return canParse<T>(string) && parse<T>(string) > 0;
     }
+
+    /// @brief parse a string of booleans (1 0 1 1....) using AND operation
+    static bool parseStringToANDBool(const std::string& string);
 
     /// @brief true if value is a valid sumo ID
     static bool isValidID(const std::string& value);
@@ -484,6 +493,12 @@ private:
 
     /// @brief vector with the allowed tags that can block their shapes
     static std::vector<SumoXMLTag> myBlockShapeTags;
+
+    /// @brief vector with the allowed tags that can block their shapes
+    static std::vector<SumoXMLTag> myCloseShapeTags;
+
+    /// @brief vector with the allowed tags that can block their shapes
+    static std::vector<SumoXMLTag> myHasParentTags;
 
     /// @brief vector with the allowed tags that has a editor values
     static std::vector<SumoXMLTag> myDialogTags;

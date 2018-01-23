@@ -147,7 +147,7 @@ public:
         void showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value);
 
         /// @brief show attribute
-        void hideAttributes();
+        void hideAttributeEditor();
 
         /// @brief refresh attribute
         void refreshAttributes(bool onlyAllowdisallow = false);
@@ -181,10 +181,10 @@ public:
         /// @brief destructor
         ~NeteditAttributeEditor();
 
-        /// @brief show NeteditParameters
-        void showNeteditAttributeEditor();
+        /// @brief show attribute of ac
+        void showNeteditAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value);
 
-        /// @brief hide all NeteditParameters
+        /// @brief show attribute
         void hideNeteditAttributeEditor();
 
         /// @name FOX-callbacks

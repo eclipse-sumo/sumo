@@ -47,6 +47,8 @@ std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockMovementTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockShapeTags;
+std::vector<SumoXMLTag> GNEAttributeCarrier::myCloseShapeTags;
+std::vector<SumoXMLTag> GNEAttributeCarrier::myHasParentTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myDialogTags;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalIntAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalFloatAttrs;
@@ -174,6 +176,28 @@ GNEAttributeCarrier::parse(const std::string& string) {
         parsedBoolValues.push_back(parse<bool>(i));
     }
     return parsedBoolValues;
+}
+
+
+bool 
+GNEAttributeCarrier::parseStringToANDBool(const std::string& string) {
+    // obtain boolean vector (throw exception if string is empty)
+    std::vector<bool> boolValues = GNEAttributeCarrier::parse<std::vector<bool> >(string);
+    // set value of checkbox
+    if (boolValues.size() == 1) {
+        return boolValues.front();
+    } else {
+        int sum = 0;
+        for (auto i : boolValues) {
+            sum += (int)(i);
+        }
+        // only return true if all values are true
+        if ((sum == 0) || (sum != (int)boolValues.size())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 
 
@@ -680,6 +704,27 @@ GNEAttributeCarrier::canBlockShape(SumoXMLTag tag) {
         myBlockShapeTags.push_back(SUMO_TAG_POLY);
     }
     return std::find(myBlockShapeTags.begin(), myBlockShapeTags.end(), tag) != myBlockShapeTags.end();
+}
+
+
+bool 
+GNEAttributeCarrier::canCloseShape(SumoXMLTag tag) {
+    // define on first access
+    if (myCloseShapeTags.empty()) {
+        myCloseShapeTags.push_back(SUMO_TAG_POLY);
+    }
+    return std::find(myCloseShapeTags.begin(), myCloseShapeTags.end(), tag) != myCloseShapeTags.end();
+}
+
+
+bool 
+GNEAttributeCarrier::hasParent(SumoXMLTag tag) {
+    // define on first access
+    if (myHasParentTags.empty()) {
+        myHasParentTags.push_back(SUMO_TAG_DET_ENTRY);
+        myHasParentTags.push_back(SUMO_TAG_DET_EXIT);
+    }
+    return std::find(myHasParentTags.begin(), myHasParentTags.end(), tag) != myHasParentTags.end();
 }
 
 

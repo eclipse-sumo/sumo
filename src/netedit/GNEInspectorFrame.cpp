@@ -177,12 +177,12 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     // Assing ACs to myACs
     myACs = ACs;
     // Hide all elements
-    myAttributeEditor->hideAttributes();
+    myAttributeEditor->hideAttributeEditor();
+    myNeteditAttributeEditor->hideNeteditAttributeEditor();
+    myGEOAttributes->hideGEOAttributes();
     myGroupBoxForTemplates->hide();
     myCopyTemplateButton->hide();
     mySetTemplateButton->hide();
-    myNeteditAttributeEditor->hideNeteditAttributeEditor();
-    myGEOAttributes->hideGEOAttributes();
     myGroupBoxForTreeList->hide();
     // If vector of attribute Carriers contain data
     if (myACs.size() > 0) {
@@ -207,7 +207,21 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
 
         // Gets tag and attributes of element
         SumoXMLTag ACFrontTag = myACs.front()->getTag();
-        const std::vector<SumoXMLAttr>& ACFrontAttrs = myACs.front()->getAttrs();
+        std::vector<SumoXMLAttr> ACFrontAttrs = myACs.front()->getAttrs();
+
+        // Fill ACFrontAttrs with GNEAttributes
+        if (GNEAttributeCarrier::canBlockMovement(ACFrontTag)) {
+            ACFrontAttrs.push_back(GNE_ATTR_BLOCK_MOVEMENT);
+        }
+        if (GNEAttributeCarrier::canBlockShape(ACFrontTag)) {
+            ACFrontAttrs.push_back(GNE_ATTR_BLOCK_SHAPE);
+        }
+        if (GNEAttributeCarrier::canCloseShape(ACFrontTag)) {
+            ACFrontAttrs.push_back(GNE_ATTR_CLOSE_SHAPE);
+        }
+        if (GNEAttributeCarrier::hasParent(ACFrontTag)) {
+            ACFrontAttrs.push_back(GNE_ATTR_PARENT);
+        }
 
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myACs.front()) && (dynamic_cast<GNEJunction*>(myACs.front())->getNBNode()->getControllingTLS().empty()));
@@ -233,12 +247,10 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
             }
             // Show attribute
             if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it == SUMO_ATTR_TLTYPE) || (it == SUMO_ATTR_TLID))) == false) {
-                myAttributeEditor->showAttribute(myACs.front()->getTag(), it, oss.str());
+                myAttributeEditor->showAttribute(ACFrontTag, it, oss.str());
+                myNeteditAttributeEditor->showNeteditAttribute(ACFrontTag, it, oss.str());
             }
         }
-
-        // show netedit parameters
-        myNeteditAttributeEditor->showNeteditAttributeEditor();
 
         // Show myGEOAttributes if we're inspecting elements with GEO Attributes
         myGEOAttributes->showGEOAttributes(myACs);
@@ -728,29 +740,15 @@ GNEInspectorFrame::AttributeInput::showAttribute(SumoXMLTag ACTag, SumoXMLAttr A
     myLabel->show();
     // Set field depending of the type of value
     if (GNEAttributeCarrier::isBool(myTag, myAttr)) {
-        // this is an special case for inspection of multiple attribute carriers with bools
-        std::vector<bool> boolValues = GNEAttributeCarrier::parse<std::vector<bool> >(value);
-        // set value of checkbox
-        if (boolValues.size() == 1) {
-            myBoolCheckButton->setCheck(boolValues.front());
-        } else {
-            int sum = 0;
-            for (auto i : boolValues) {
-                sum += (int)(i);
-            }
-            // only set true if all checkbox are true
-            if ((sum == 0) || (sum != (int)boolValues.size())) {
-                myBoolCheckButton->setCheck(false);
-            } else {
-                myBoolCheckButton->setCheck(true);
-            }
-        }
-        // set text
-        if (myBoolCheckButton->getCheck()) {
+        // set check button
+        if (GNEAttributeCarrier::parseStringToANDBool(value)) {
+            myBoolCheckButton->setCheck(true);
             myBoolCheckButton->setText("true");
         } else {
+            myBoolCheckButton->setCheck(false);
             myBoolCheckButton->setText("false");
         }
+        // show check button
         myBoolCheckButton->show();
     } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
         // Obtain choices
@@ -1024,12 +1022,11 @@ GNEInspectorFrame::AttributeEditor::AttributeEditor(GNEInspectorFrame* inspector
 void 
 GNEInspectorFrame::AttributeEditor::showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value) {
     if ((int)myCurrentIndex < myVectorOfAttributeInputs.size()) {
-        // show AttributeEditor if isn't show
-        if (!shown()) {
-            show();
-        }
+        // first show AttributeEditor
+        show();
         // show attribute
         myVectorOfAttributeInputs[myCurrentIndex]->showAttribute(ACTag, ACAttribute, value);
+        // update current index
         myCurrentIndex++;
     } else {
         throw ProcessError("myCurrentIndex greather than myVectorOfAttributeInputs");
@@ -1038,7 +1035,7 @@ GNEInspectorFrame::AttributeEditor::showAttribute(SumoXMLTag ACTag, SumoXMLAttr 
 
 
 void
-GNEInspectorFrame::AttributeEditor::hideAttributes() {
+GNEInspectorFrame::AttributeEditor::hideAttributeEditor() {
     // hide al attributes
     for (auto i : myVectorOfAttributeInputs) {
         i->hideAttribute();
@@ -1105,71 +1102,62 @@ GNEInspectorFrame::NeteditAttributeEditor::~NeteditAttributeEditor() {}
 
 
 void
-GNEInspectorFrame::NeteditAttributeEditor::showNeteditAttributeEditor() {
-    // If item can be moved
-    if (GNEAttributeCarrier::canBlockMovement(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
-        // show groupBox
-        FXGroupBox::show();
-        // Check if all elements have movement blocked
-        bool movementBlocked = true;
-        for (auto i : myInspectorFrameParent->getInspectedACs()) {
-            movementBlocked &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_MOVEMENT));
-        }
-        // show block movement
+GNEInspectorFrame::NeteditAttributeEditor::showNeteditAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value) {
+    // Check if item can be moved
+    if (ACAttribute == GNE_ATTR_BLOCK_MOVEMENT) {
+        // show NeteditAttributeEditor
+        show();
+        // show block movement frame
         myHorizontalFrameBlockMovement->show();
-        myCheckBoxBlockMovement->setCheck(movementBlocked);
-        // update label
-        if (movementBlocked) {
+        // set check box value and update label
+        if (GNEAttributeCarrier::parseStringToANDBool(value)) {
+            myCheckBoxBlockMovement->setCheck(true);
             myCheckBoxBlockMovement->setText("true");
         } else {
+            myCheckBoxBlockMovement->setCheck(false);
             myCheckBoxBlockMovement->setText("false");
         }
     }
     // check if item can block their shape
-    if (GNEAttributeCarrier::canBlockShape(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
-        // show groupBox
-        FXGroupBox::show();
-        // Check if all elements have shape blocked
-        bool shapeBlocked = true;
-        for (auto i : myInspectorFrameParent->getInspectedACs()) {
-            shapeBlocked &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_SHAPE));
-        }
-        // show block shape
+    if (ACAttribute == GNE_ATTR_BLOCK_SHAPE) {
+        // show NeteditAttributeEditor
+        show();
+        // show block shape frame
         myHorizontalFrameBlockShape->show();
-        myCheckBoxBlockShape->setCheck(shapeBlocked);
         // update label
-        if (shapeBlocked) {
+        if (GNEAttributeCarrier::parseStringToANDBool(value)) {
+            myCheckBoxBlockShape->setCheck(true);
             myCheckBoxBlockShape->setText("true");
         } else {
+            myCheckBoxBlockShape->setCheck(false);
             myCheckBoxBlockShape->setText("false");
         }
-        // Check if all elements have shape closed
-        bool shapeClosed = true;
-        for (auto i : myInspectorFrameParent->getInspectedACs()) {
-            shapeClosed &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_CLOSE_SHAPE));
-        }
-        // show close shape
+    }
+    // check if item can block their shape
+    if (ACAttribute == GNE_ATTR_CLOSE_SHAPE) {
+        // show NeteditAttributeEditor
+        show();
+        // show block shape frame
         myHorizontalFrameCloseShape->show();
-        myCheckBoxCloseShape->setCheck(shapeClosed);
         // update label
-        if (shapeClosed) {
+        if (GNEAttributeCarrier::parseStringToANDBool(value)) {
+            myCheckBoxCloseShape->setCheck(true);
             myCheckBoxCloseShape->setText("true");
         } else {
+            myCheckBoxCloseShape->setCheck(false);
             myCheckBoxCloseShape->setText("false");
         }
     }
     // If item is an additional and has another additional as parent
-    if (myInspectorFrameParent->getInspectedACs().size() == 1) {
-        // check if is an additional AND has an additional parent
-        GNEAdditional* additional = dynamic_cast<GNEAdditional*>(myInspectorFrameParent->getInspectedACs().front());
-        if (additional && additional->getAdditionalParent()) {
-            // show groupBox
-            FXGroupBox::show();
-            // show block movement
-            myHorizontalFrameAdditionalParent->show();
-            myLabelAdditionalParent->setText((toString(additional->getAdditionalParent()->getTag()) + " parent").c_str());
-            myTextFieldAdditionalParent->setText(additional->getAdditionalParent()->getID().c_str());
-        }
+    if (ACAttribute == GNE_ATTR_PARENT) {
+        // show NeteditAttributeEditor
+        show();
+        // obtain additional Parent
+        GNEAdditional* additional = myInspectorFrameParent->getViewNet()->getNet()->retrieveAdditional(value);
+        // show block movement
+        myHorizontalFrameAdditionalParent->show();
+        myLabelAdditionalParent->setText((toString(additional->getAdditionalParent()->getTag()) + " parent").c_str());
+        myTextFieldAdditionalParent->setText(additional->getAdditionalParent()->getID().c_str());
     }
 }
 
