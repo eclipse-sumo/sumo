@@ -73,11 +73,8 @@ public:
         /// @brief refresh attribute
         void refreshAttribute();
 
-        /// @brief get current tag
-        SumoXMLTag getTag() const;
-
         /// @brief get current Attr
-        SumoXMLAttr getAttr() const;
+        SumoXMLAttr getEditedAttr() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -125,12 +122,6 @@ public:
 
         /// @brief pointer to buttonCombinableChoices
         FXButton* myButtonCombinableChoices;
-
-        /// @brief set show as private function
-        void show();
-
-        /// @brief set hide as private function
-        void hide();
     };
 
     // ===========================================================================
@@ -182,24 +173,15 @@ public:
         ~NeteditAttributeEditor();
 
         /// @brief show attribute of ac
-        void showNeteditAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value);
+        void showNeteditAttributes(const std::vector<GNEAttributeCarrier*>& ACs);
 
         /// @brief show attribute
         void hideNeteditAttributeEditor();
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief called when user change the parent of an additional
-        long onCmdChangeAdditionalParent(FXObject*, FXSelector, void*);
-
-        /// @brief called when user toogle the blocking movement CheckBox
-        long onCmdSetBlockingMovement(FXObject*, FXSelector, void*);
-
-        /// @brief called when user toogle the blocking shape CheckBox
-        long onCmdSetBlockingShape(FXObject*, FXSelector, void*);
-
-        /// @brief called when user toogle the closiong shape CheckBox
-        long onCmdSetClosingShape(FXObject*, FXSelector, void*);
+        /// @brief try to set new attribute value
+        long onCmdSetAttribute(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
