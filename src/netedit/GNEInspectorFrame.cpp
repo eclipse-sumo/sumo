@@ -1179,45 +1179,33 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetAttribute(FXObject* obj, FXS
             for (auto i : myInspectorFrameParent->getInspectedACs()) {
                 if (myCheckBoxBlockMovement->getCheck() == 1) {
                     i->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "true", myInspectorFrameParent->getViewNet()->getUndoList());
+                    myCheckBoxBlockMovement->setText("true");
                 } else {
                     i->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, "false", myInspectorFrameParent->getViewNet()->getUndoList());
+                    myCheckBoxBlockMovement->setText("false");
                 }
-            }
-            // change text of check box movement
-            if (myCheckBoxBlockMovement->getCheck() == 1) {
-                myCheckBoxBlockMovement->setText("true");
-            } else {
-                myCheckBoxBlockMovement->setText("false");
             }
         } else if(obj == myCheckBoxBlockShape) {
             // set new values in all inspected Attribute Carriers
             for (auto i : myInspectorFrameParent->getInspectedACs()) {
                 if (myCheckBoxBlockShape->getCheck() == 1) {
                     i->setAttribute(GNE_ATTR_BLOCK_SHAPE, "true", myInspectorFrameParent->getViewNet()->getUndoList());
+                    myCheckBoxBlockShape->setText("true");
                 } else {
                     i->setAttribute(GNE_ATTR_BLOCK_SHAPE, "false", myInspectorFrameParent->getViewNet()->getUndoList());
+                    myCheckBoxBlockShape->setText("false");
                 }
-            }
-            // change text of check box shape
-            if (myCheckBoxBlockShape->getCheck() == 1) {
-                myCheckBoxBlockShape->setText("true");
-            } else {
-                myCheckBoxBlockShape->setText("false");
             }
         } else if (obj == myCheckBoxCloseShape) {
             // set new values in all inspected Attribute Carriers
             for (auto i : myInspectorFrameParent->getInspectedACs()) {
                 if (myCheckBoxCloseShape->getCheck() == 1) {
                     i->setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myInspectorFrameParent->getViewNet()->getUndoList());
+                    myCheckBoxCloseShape->setText("true");
                 } else {
                     i->setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", myInspectorFrameParent->getViewNet()->getUndoList());
+                    myCheckBoxCloseShape->setText("false");
                 }
-            }
-            // change text of check box shape
-            if (myCheckBoxCloseShape->getCheck() == 1) {
-                myCheckBoxCloseShape->setText("true");
-            } else {
-                myCheckBoxCloseShape->setText("false");
             }
         } else if(obj == myTextFieldAdditionalParent) {
             if (myInspectorFrameParent->getInspectedACs().front()->isValid(GNE_ATTR_PARENT, myTextFieldAdditionalParent->getText().text())) {
@@ -1340,17 +1328,12 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetAttribute(FXObject* obj, FXSelec
             for (auto i : myInspectorFrameParent->getACs()) {
                 if (myUseGEOCheckButton->getCheck() == 1) {
                     i->setAttribute(SUMO_ATTR_GEO, "true", myInspectorFrameParent->getViewNet()->getUndoList());
+                    myUseGEOCheckButton->setText("true");
                 }
                 else {
                     i->setAttribute(SUMO_ATTR_GEO, "false", myInspectorFrameParent->getViewNet()->getUndoList());
+                    myUseGEOCheckButton->setText("false");
                 }
-            }
-            // change text of check box use geo
-            if (myUseGEOCheckButton->getCheck() == 1) {
-                myUseGEOCheckButton->setText("true");
-            }
-            else {
-                myUseGEOCheckButton->setText("false");
             }
         }
         // refresh values of inspector frame
