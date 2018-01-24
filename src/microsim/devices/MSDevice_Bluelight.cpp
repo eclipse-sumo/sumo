@@ -122,8 +122,10 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
     if (otherDevice != 0) {
         std::cout << "  veh '" << veh.getID() << " has device '" << otherDevice->getID() << "'\n";
     }*/
-    //todo violate red lights
-
+    //todo violate red lights    
+	//MSVehicle& veh2 = static_cast<MSVehicle&>(veh);
+	MSVehicle::Influencer& redLight = static_cast<MSVehicle&>(veh).getInfluencer();
+	redLight.setSpeedMode(7);
     // build a rescue lane for all vehicles on the route of the emergency vehicle within the range of the siren
     MSVehicleType* vt = MSNet::getInstance()->getVehicleControl().getVType(veh.getVehicleType().getID());
     vt->setPreferredLateralAlignment(LATALIGN_ARBITRARY);
