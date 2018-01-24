@@ -173,7 +173,7 @@ public:
         ~NeteditAttributesEditor();
 
         /// @brief show attribute of ac
-        void showNeteditAttributes(const std::vector<GNEAttributeCarrier*>& ACs);
+        void showNeteditAttributesEditor();
 
         /// @brief show attribute
         void hideNeteditAttributesEditor();
@@ -245,13 +245,10 @@ public:
         ~GEOAttributesEditor();
 
         /// @brief show GEOAttribute for the current AttributeCarriers
-        void showGEOAttributesEditor(const std::vector<GNEAttributeCarrier*>& ACs);
+        void showGEOAttributesEditor();
 
         /// @brief hide GEOAttributesEditor
         void hideGEOAttributesEditor();
-
-        /// @brief refresh TextFields with the new GEO Attributes
-        void refreshGEOAttributesEditor();
 
         /// @name FOX-callbacks
         /// @{
