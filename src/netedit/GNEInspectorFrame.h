@@ -70,12 +70,6 @@ public:
         /// @brief show attribute
         void hideAttribute();
 
-        /// @brief refresh attribute
-        void refreshAttribute();
-
-        /// @brief get current Attr
-        SumoXMLAttr getEditedAttr() const;
-
         /// @name FOX-callbacks
         /// @{
         /// @brief try to set new attribute value
@@ -134,15 +128,12 @@ public:
         /// @brief constructor
         AttributesEditor(GNEInspectorFrame* inspectorFrameParent);
 
-        /// @brief show attribute of ac
-        void showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value);
+        /// @brief show attributes of ac
+        void showAttributeEditor();
 
-        /// @brief show attribute
+        /// @brief hide attribute editor
         void hideAttributesEditor();
-
-        /// @brief refresh attribute
-        void refreshAttributes(bool onlyAllowdisallow = false);
-
+        
         /// @brief get InspectorFrame Parent
         GNEInspectorFrame* getInspectorFrameParent() const;
 
@@ -154,7 +145,7 @@ public:
         std::vector<GNEInspectorFrame::AttributeInput*> myVectorOfAttributeInputs;
 
         /// @brief current parameter index
-        int myCurrentIndex = 0;
+        int myCurrentIndex;
     };
 
     // ===========================================================================
@@ -172,10 +163,10 @@ public:
         /// @brief destructor
         ~NeteditAttributesEditor();
 
-        /// @brief show attribute of ac
+        /// @brief show netedit attributes editor
         void showNeteditAttributesEditor();
 
-        /// @brief show attribute
+        /// @brief hide netedit attributes editor
         void hideNeteditAttributesEditor();
 
         /// @name FOX-callbacks
@@ -244,10 +235,10 @@ public:
         /// @brief destructor
         ~GEOAttributesEditor();
 
-        /// @brief show GEOAttribute for the current AttributeCarriers
+        /// @brief show GEO attributes editor
         void showGEOAttributesEditor();
 
-        /// @brief hide GEOAttributesEditor
+        /// @brief hide GEO attributes editor
         void hideGEOAttributesEditor();
 
         /// @name FOX-callbacks
@@ -315,10 +306,7 @@ public:
     void inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked);
 
     /// @brief Refresh inspected values (used when values can be changed externally by other modul)
-    void refreshValues();
-
-    /// @brief get current list of ACs
-    const std::vector<GNEAttributeCarrier*>& getACs() const;
+    void refreshInspectedValues();
 
     /// @brief get the template edge (to copy attributes from)
     GNEEdge* getEdgeTemplate() const;
@@ -357,14 +345,14 @@ protected:
     /// @brief FOX needs this
     GNEInspectorFrame() {}
 
+    /// @brief get current list of inspected ACs
+    const std::vector<GNEAttributeCarrier*>& getInspectedACs() const;
+
     // @brief create pop-up menu in the positions X-Y for the attribute carrier ac
     void createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac);
 
     /// @brief show child of current attributeCarrier
     void showAttributeCarrierChilds();
-
-    /// @brief get reference to current inspected Attribute carriers
-    const std::vector<GNEAttributeCarrier*>& getInspectedACs() const;
 
 private:
     /// @brief Attribute editor

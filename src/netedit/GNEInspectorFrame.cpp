@@ -207,39 +207,9 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         }
         // Set headerString into header label
         getFrameHeaderLabel()->setText(headerString.c_str());
-
-        // Gets tag and attributes of element
-        SumoXMLTag ACFrontTag = myACs.front()->getTag();
-        const std::vector<SumoXMLAttr> &ACFrontAttrs = myACs.front()->getAttrs();
-        std::vector<SumoXMLAttr> ACFrontNeteditAttrs;
-
-        //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
-        bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myACs.front()) && (dynamic_cast<GNEJunction*>(myACs.front())->getNBNode()->getControllingTLS().empty()));
-
-        // Iterate over attributes
-        for (auto it : ACFrontAttrs) {
-            // disable editing for unique attributes in case of multi-selection
-            if (myACs.size() > 1 && GNEAttributeCarrier::isUnique(ACFrontTag, it)) {
-                continue;
-            }
-            // Declare a set of occuring values and insert attribute's values of item
-            std::set<std::string> occuringValues;
-            for (auto it_ac : myACs) {
-                occuringValues.insert(it_ac->getAttribute(it));
-            }
-            // get current value
-            std::ostringstream oss;
-            for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
-                if (it_val != occuringValues.begin()) {
-                    oss << " ";
-                }
-                oss << *it_val;
-            }
-            // Show attribute
-            if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it == SUMO_ATTR_TLTYPE) || (it == SUMO_ATTR_TLID))) == false) {
-                myAttributesEditor->showAttribute(ACFrontTag, it, oss.str());
-            }
-        }
+        
+        // Show attributes editor
+        myAttributesEditor->showAttributeEditor();
 
         // show netedit attributes editor if  we're inspecting elements with Netedit Attributes
         myNeteditAttributesEditor->showNeteditAttributesEditor();
@@ -300,10 +270,13 @@ GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeC
 
 
 void
-GNEInspectorFrame::refreshValues() {
-    myAttributesEditor->refreshAttributes();
+GNEInspectorFrame::refreshInspectedValues() {
+    // For refresh values simply show all editors again
+    myAttributesEditor->showAttributeEditor();
     myNeteditAttributesEditor->showNeteditAttributesEditor();
     myGEOAttributesEditor->showGEOAttributesEditor();
+    // Update view net
+    myViewNet->update();
 }
 
 
@@ -383,12 +356,6 @@ GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
 }
 
 
-const std::vector<GNEAttributeCarrier*>&
-GNEInspectorFrame::getACs() const {
-    return myACs;
-}
-
-
 long
 GNEInspectorFrame::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
     // Obtain event
@@ -430,6 +397,12 @@ GNEInspectorFrame::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     // show again childs of attribute carrier
     showAttributeCarrierChilds();
     return 1;
+}
+
+
+const std::vector<GNEAttributeCarrier*>&
+GNEInspectorFrame::getInspectedACs() const {
+    return myACs;
 }
 
 
@@ -685,12 +658,6 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
     }
 }
 
-
-const std::vector<GNEAttributeCarrier*>&
-GNEInspectorFrame::getInspectedACs() const {
-    return myACs;
-}
-
 // ===========================================================================
 // AttributeInput method definitions
 // ===========================================================================
@@ -804,32 +771,6 @@ GNEInspectorFrame::AttributeInput::hideAttribute() {
 }
 
 
-void
-GNEInspectorFrame::AttributeInput::refreshAttribute() {
-    // Declare a set of occuring values and insert attribute's values of item
-    std::set<std::string> occuringValues;
-    for (auto it_ac : myAttributesEditorParent->getInspectorFrameParent()->getACs()) {
-        occuringValues.insert(it_ac->getAttribute(myAttr));
-    }
-    // get current value
-    std::ostringstream oss;
-    for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
-        if (it_val != occuringValues.begin()) {
-            oss << " ";
-        }
-        oss << *it_val;
-    }
-    // show attribute again
-    showAttribute(myTag, myAttr, oss.str());
-}
-
-
-SumoXMLAttr
-GNEInspectorFrame::AttributeInput::getEditedAttr() const {
-    return myAttr;
-}
-
-
 long
 GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor(FXObject*, FXSelector, void*) {
     // obtain vehicles of text field and check if are valid
@@ -911,17 +852,17 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
     }
 
     // Check if attribute must be changed
-    if (myAttributesEditorParent->getInspectorFrameParent()->getACs().front()->isValid(myAttr, newVal)) {
+    if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().front()->isValid(myAttr, newVal)) {
         // if its valid for the first AC than its valid for all (of the same type)
-        if (myAttributesEditorParent->getInspectorFrameParent()->getACs().size() > 1) {
+        if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().size() > 1) {
             myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
         }
         // Set new value of attribute in all selected ACs
-        for (auto it_ac : myAttributesEditorParent->getInspectorFrameParent()->getACs()) {
+        for (auto it_ac : myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs()) {
             it_ac->setAttribute(myAttr, newVal, myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList());
         }
         // finish change multiple attributes
-        if (myAttributesEditorParent->getInspectorFrameParent()->getACs().size() > 1) {
+        if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().size() > 1) {
             myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
         }
         // If previously value was incorrect, change font color to black
@@ -929,7 +870,7 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->killFocus();
             // in this case, we need to refresh the other values (For example, allow/Disallow objects)
-            myAttributesEditorParent->refreshAttributes(true);
+            myAttributesEditorParent->getInspectorFrameParent()->refreshInspectedValues();
         } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
             myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
             myChoicesCombo->killFocus();
@@ -964,9 +905,7 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
         }
     }
     // refresh values of inspector frame
-    myAttributesEditorParent->getInspectorFrameParent()->refreshValues();
-    // Update view net
-    myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->update();
+    myAttributesEditorParent->getInspectorFrameParent()->refreshInspectedValues();
     return 1;
 }
 
@@ -996,16 +935,51 @@ GNEInspectorFrame::AttributesEditor::AttributesEditor(GNEInspectorFrame* inspect
 
 
 void 
-GNEInspectorFrame::AttributesEditor::showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value) {
-    if ((int)myCurrentIndex < myVectorOfAttributeInputs.size()) {
-        // first show AttributesEditor
-        show();
-        // show attribute
-        myVectorOfAttributeInputs[myCurrentIndex]->showAttribute(ACTag, ACAttribute, value);
-        // update current index
-        myCurrentIndex++;
-    } else {
-        throw ProcessError("myCurrentIndex greather than myVectorOfAttributeInputs");
+GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
+    if(myInspectorFrameParent->getInspectedACs().size() > 0) {
+        // reset myCurrentIndex;
+        myCurrentIndex = 0;
+        // Gets tag and attributes of element
+        SumoXMLTag ACFrontTag = myInspectorFrameParent->getInspectedACs().front()->getTag();
+        const std::vector<SumoXMLAttr> &ACFrontAttrs = myInspectorFrameParent->getInspectedACs().front()->getAttrs();
+
+        //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
+        bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front()) && (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front())->getNBNode()->getControllingTLS().empty()));
+
+        // Iterate over attributes
+        for (auto it : ACFrontAttrs) {
+            // disable editing for unique attributes in case of multi-selection
+            if (myInspectorFrameParent->getInspectedACs().size() > 1 && GNEAttributeCarrier::isUnique(ACFrontTag, it)) {
+                continue;
+            }
+            // Declare a set of occuring values and insert attribute's values of item
+            std::set<std::string> occuringValues;
+            for (auto it_ac : myInspectorFrameParent->getInspectedACs()) {
+                occuringValues.insert(it_ac->getAttribute(it));
+            }
+            // get current value
+            std::ostringstream oss;
+            for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
+                if (it_val != occuringValues.begin()) {
+                    oss << " ";
+                }
+                oss << *it_val;
+            }
+            // Show attribute
+            if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it == SUMO_ATTR_TLTYPE) || (it == SUMO_ATTR_TLID))) == false) {
+                if ((int)myCurrentIndex < myVectorOfAttributeInputs.size()) {
+                    // first show AttributesEditor
+                    show();
+                    // show attribute
+                    myVectorOfAttributeInputs[myCurrentIndex]->showAttribute(ACFrontTag, it, oss.str());
+                    // update current index
+                    myCurrentIndex++;
+                }
+                else {
+                    throw ProcessError("myCurrentIndex greather than myVectorOfAttributeInputs");
+                }
+            }
+        }
     }
 }
 
@@ -1016,26 +990,8 @@ GNEInspectorFrame::AttributesEditor::hideAttributesEditor() {
     for (auto i : myVectorOfAttributeInputs) {
         i->hideAttribute();
     }
-    // reset myCurrentIndex;
-    myCurrentIndex = 0;
     // hide also AttributesEditor
     hide();
-}
-
-
-void
-GNEInspectorFrame::AttributesEditor::refreshAttributes(bool onlyAllowdisallow) {
-    for (int i = 0; i < myCurrentIndex; i++) {
-        if (onlyAllowdisallow) {
-            // refresh only Allow/Disallow attributes
-            if ((myVectorOfAttributeInputs[i]->getEditedAttr() == SUMO_ATTR_ALLOW) || (myVectorOfAttributeInputs[i]->getEditedAttr() == SUMO_ATTR_DISALLOW)) {
-                myVectorOfAttributeInputs[i]->refreshAttribute();
-            }
-        } else {
-            // refresh all attributes
-            myVectorOfAttributeInputs[i]->refreshAttribute();
-        }
-    }
 }
 
 
@@ -1079,14 +1035,14 @@ GNEInspectorFrame::NeteditAttributesEditor::~NeteditAttributesEditor() {}
 
 void
 GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
-    if(myInspectorFrameParent->getACs().size() > 0) {
+    if(myInspectorFrameParent->getInspectedACs().size() > 0) {
         // Check if item can be moved
-        if (GNEAttributeCarrier::canBlockMovement(myInspectorFrameParent->getACs().front()->getTag())) {
+        if (GNEAttributeCarrier::canBlockMovement(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
             // show NeteditAttributesEditor
             show();
             // Iterate over AC to obtain values
             bool value = true;
-            for (auto i : myInspectorFrameParent->getACs()) {
+            for (auto i : myInspectorFrameParent->getInspectedACs()) {
                 value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_MOVEMENT));
             }
             // show block movement frame
@@ -1101,12 +1057,12 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             }
         }
         // check if item can block their shape
-        if (GNEAttributeCarrier::canBlockShape(myInspectorFrameParent->getACs().front()->getTag())) {
+        if (GNEAttributeCarrier::canBlockShape(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
             // show NeteditAttributesEditor
             show();
             // Iterate over AC to obtain values
             bool value = true;
-            for (auto i : myInspectorFrameParent->getACs()) {
+            for (auto i : myInspectorFrameParent->getInspectedACs()) {
                 value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_SHAPE));
             }
             // show block shape frame
@@ -1122,12 +1078,12 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             }
         }
         // check if item can block their shape
-        if (GNEAttributeCarrier::canCloseShape(myInspectorFrameParent->getACs().front()->getTag())) {
+        if (GNEAttributeCarrier::canCloseShape(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
             // show NeteditAttributesEditor
             show();
             // Iterate over AC to obtain values
             bool value = true;
-            for (auto i : myInspectorFrameParent->getACs()) {
+            for (auto i : myInspectorFrameParent->getInspectedACs()) {
                 value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_CLOSE_SHAPE));
             }
             // show close shape frame
@@ -1143,11 +1099,11 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             }
         }
         // Check if item has another item as parent (Currently only for single Additionals)
-        if (GNEAttributeCarrier::canHaveParent(myInspectorFrameParent->getACs().front()->getTag()) && (myInspectorFrameParent->getACs().size() ==1)) {
+        if (GNEAttributeCarrier::canHaveParent(myInspectorFrameParent->getInspectedACs().front()->getTag()) && (myInspectorFrameParent->getInspectedACs().size() ==1)) {
             // show NeteditAttributesEditor
             show();
             // obtain additional Parent
-            GNEAdditional* additional = myInspectorFrameParent->getViewNet()->getNet()->retrieveAdditional(myInspectorFrameParent->getACs().front()->getAttribute(GNE_ATTR_PARENT));
+            GNEAdditional* additional = myInspectorFrameParent->getViewNet()->getNet()->retrieveAdditional(myInspectorFrameParent->getInspectedACs().front()->getAttribute(GNE_ATTR_PARENT));
             // show additional parent frame
             myHorizontalFrameAdditionalParent->show();
             // set Label and TextField with the Tag and ID of parent
@@ -1173,7 +1129,7 @@ GNEInspectorFrame::NeteditAttributesEditor::hideNeteditAttributesEditor() {
 long
 GNEInspectorFrame::NeteditAttributesEditor::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     // make sure that ACs has elements
-    if (myInspectorFrameParent->getACs().size() > 0) {
+    if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         if(obj == myCheckBoxBlockMovement) {
             // set new values in all inspected Attribute Carriers
             for (auto i : myInspectorFrameParent->getInspectedACs()) {
@@ -1217,7 +1173,7 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetAttribute(FXObject* obj, FXS
             }
         }
         // refresh values of inspector frame
-        myInspectorFrameParent->refreshValues();
+        myInspectorFrameParent->refreshInspectedValues();
     }
     return 1;
 }
@@ -1251,14 +1207,14 @@ GNEInspectorFrame::GEOAttributesEditor::~GEOAttributesEditor() {}
 void
 GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
     // make sure that ACs has elements
-    if (myInspectorFrameParent->getACs().size() > 0) {
+    if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         // check if item can use a geo position
-        if (GNEAttributeCarrier::canUseGeoPosition(myInspectorFrameParent->getACs().front()->getTag()) || GNEAttributeCarrier::canUseGeoShape(myInspectorFrameParent->getACs().front()->getTag())) {
+        if (GNEAttributeCarrier::canUseGeoPosition(myInspectorFrameParent->getInspectedACs().front()->getTag()) || GNEAttributeCarrier::canUseGeoShape(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
             // show GEOAttributesEditor
             show();
             // Iterate over AC to obtain values
             bool value = true;
-            for (auto i : myInspectorFrameParent->getACs()) {
+            for (auto i : myInspectorFrameParent->getInspectedACs()) {
                 value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(SUMO_ATTR_GEO));
             }
             // show use geo frame
@@ -1272,15 +1228,15 @@ GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
                 myUseGEOCheckButton->setText("false");
             }
             // now specify if a single position or an entire shape must be shown (note: cannot be shown both at the same time, and GEO Shape/Position only works for single selections)
-            if(GNEAttributeCarrier::canUseGeoPosition(myInspectorFrameParent->getACs().front()->getTag()) && myInspectorFrameParent->getACs().size() == 1) {
+            if(GNEAttributeCarrier::canUseGeoPosition(myInspectorFrameParent->getInspectedACs().front()->getTag()) && myInspectorFrameParent->getInspectedACs().size() == 1) {
                 myGEOAttributeFrame->show();
                 myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOPOSITION).c_str());
-                myGEOAttributeTextField->setText(myInspectorFrameParent->getACs().front()->getAttribute(SUMO_ATTR_GEOPOSITION).c_str());
+                myGEOAttributeTextField->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(SUMO_ATTR_GEOPOSITION).c_str());
                 myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
-            } else if (GNEAttributeCarrier::canUseGeoShape(myInspectorFrameParent->getACs().front()->getTag()) && myInspectorFrameParent->getACs().size() == 1) {
+            } else if (GNEAttributeCarrier::canUseGeoShape(myInspectorFrameParent->getInspectedACs().front()->getTag()) && myInspectorFrameParent->getInspectedACs().size() == 1) {
                 myGEOAttributeFrame->show();
                 myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOSHAPE).c_str());
-                myGEOAttributeTextField->setText(myInspectorFrameParent->getACs().front()->getAttribute(SUMO_ATTR_GEOSHAPE).c_str());
+                myGEOAttributeTextField->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(SUMO_ATTR_GEOSHAPE).c_str());
                 myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
             }
         }
@@ -1301,20 +1257,20 @@ GNEInspectorFrame::GEOAttributesEditor::hideGEOAttributesEditor() {
 long
 GNEInspectorFrame::GEOAttributesEditor::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     // make sure that ACs has elements
-    if (myInspectorFrameParent->getACs().size() > 0) {
+    if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         if (obj == myGEOAttributeTextField) {
             // Change GEO Attribute depending of type (Position or shape)
-            if (GNEAttributeCarrier::canUseGeoPosition(myInspectorFrameParent->getACs().front()->getTag())) {
-                if (myInspectorFrameParent->getACs().front()->isValid(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text())) {
-                    myInspectorFrameParent->getACs().front()->setAttribute(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
+            if (GNEAttributeCarrier::canUseGeoPosition(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
+                if (myInspectorFrameParent->getInspectedACs().front()->isValid(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text())) {
+                    myInspectorFrameParent->getInspectedACs().front()->setAttribute(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
                     myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
                 } else {
                     myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
                     myGEOAttributeTextField->killFocus();
                 }
-            } else if (GNEAttributeCarrier::canUseGeoShape(myInspectorFrameParent->getACs().front()->getTag())) {
-                if (myInspectorFrameParent->getACs().front()->isValid(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text())) {
-                    myInspectorFrameParent->getACs().front()->setAttribute(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
+            } else if (GNEAttributeCarrier::canUseGeoShape(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
+                if (myInspectorFrameParent->getInspectedACs().front()->isValid(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text())) {
+                    myInspectorFrameParent->getInspectedACs().front()->setAttribute(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
                     myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
                 } else {
                     myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
@@ -1325,7 +1281,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetAttribute(FXObject* obj, FXSelec
             }
         } else if (obj == myUseGEOCheckButton) {
             // update GEO Attribute of entire selection
-            for (auto i : myInspectorFrameParent->getACs()) {
+            for (auto i : myInspectorFrameParent->getInspectedACs()) {
                 if (myUseGEOCheckButton->getCheck() == 1) {
                     i->setAttribute(SUMO_ATTR_GEO, "true", myInspectorFrameParent->getViewNet()->getUndoList());
                     myUseGEOCheckButton->setText("true");
@@ -1337,7 +1293,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetAttribute(FXObject* obj, FXSelec
             }
         }
         // refresh values of inspector frame
-        myInspectorFrameParent->refreshValues();
+        myInspectorFrameParent->refreshInspectedValues();
     }
     return 1;
 }
