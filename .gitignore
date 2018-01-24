@@ -43,8 +43,10 @@
 /bin/testnetbuild*
 /bin/*.dll
 /bin/*.so
+/bin/*.pyd
 /bin/osgPlugins*
 /bin/TraaS.jar
+/bin/RelWithDebInfo
 # docs dir, make artifacts
 /docs/doxygen
 /docs/javadoc
@@ -75,12 +77,14 @@
 /src/tools/emissionsMap
 /src/traci_testclient/TraCITestClient
 /unittest/src/sumo-unittest
-# tool dir 
+# tools dir
 /tools/game/*.netstate.xml
 /tools/game/*.tlsstate.xml
 /tools/contributed/traas/dist
 /tools/contributed/traas/javadoc
 /tools/contributed/traas/release
+# extracted tests
+/tests/_*
 # global patterns
 Makefile
 Makefile.in
