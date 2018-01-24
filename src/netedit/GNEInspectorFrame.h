@@ -257,10 +257,7 @@ public:
         /// @{
 
         /// @brief Called when user change the current GEO Attribute
-        long onCmdSetGEOAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user enters a new length
-        long onCmdUseGEOParameters(FXObject*, FXSelector, void*);
+        long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press the help button
         long onCmdHelp(FXObject*, FXSelector, void*);
@@ -273,9 +270,6 @@ public:
     private:
         /// @brief current GNEInspectorFrame parent
         GNEInspectorFrame* myInspectorFrameParent;
-
-        /// @brief type of GEO Attribute
-        SumoXMLAttr myGEOAttribute;
 
         /// @brief horizontal frame for GEOAttribute
         FXHorizontalFrame* myGEOAttributeFrame;

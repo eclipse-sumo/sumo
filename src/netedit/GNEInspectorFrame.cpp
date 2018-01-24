@@ -90,9 +90,8 @@ FXDEFMAP(GNEInspectorFrame::NeteditAttributesEditor) NeteditAttributesEditorMap[
 };
 
 FXDEFMAP(GNEInspectorFrame::GEOAttributesEditor) GEOAttributesEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNEFRAME_GEOATTRIBUTE,              GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNEFRAME_USEGEO,                    GNEInspectorFrame::GEOAttributesEditor::onCmdUseGEOParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNEInspectorFrame::GEOAttributesEditor::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEInspectorFrame::GEOAttributesEditor::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEInspectorFrame::GEOAttributesEditor::onCmdHelp),
 };
 
 // Object implementation
@@ -1141,8 +1140,8 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributes(const std::vec
                 myCheckBoxCloseShape->setText("false");
             }
         }
-        // Check if item has another item as parent (Currently only for Additionals)
-        if (GNEAttributeCarrier::hasParent(ACs.front()->getTag()) && (ACs.size() == 0)) {
+        // Check if item has another item as parent (Currently only for single Additionals)
+        if (GNEAttributeCarrier::canHaveParent(ACs.front()->getTag()) && (ACs.size() ==1)) {
             // show NeteditAttributesEditor
             show();
             // obtain additional Parent
@@ -1239,12 +1238,12 @@ GNEInspectorFrame::GEOAttributesEditor::GEOAttributesEditor(GNEInspectorFrame* i
     // Create Frame for GEOAttribute
     myGEOAttributeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myGEOAttributeLabel = new FXLabel(myGEOAttributeFrame, "Undefined GEO Attribute", 0, GUIDesignLabelAttribute);
-    myGEOAttributeTextField = new FXTextField(myGEOAttributeFrame, GUIDesignTextFieldNCol, this, MID_GNEFRAME_GEOATTRIBUTE, GUIDesignTextField);
+    myGEOAttributeTextField = new FXTextField(myGEOAttributeFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
 
     // Create Frame for use GEO
     myUseGEOFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myUseGEOLabel = new FXLabel(myUseGEOFrame, "Use GEO", 0, GUIDesignLabelAttribute);
-    myUseGEOCheckButton = new FXCheckButton(myUseGEOFrame, "false", this, MID_GNEFRAME_USEGEO, GUIDesignCheckButtonAttribute);
+    myUseGEOCheckButton = new FXCheckButton(myUseGEOFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
 
     // Create help button
     myHelpButton = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
@@ -1258,31 +1257,39 @@ void
 GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor(const std::vector<GNEAttributeCarrier*>& ACs) {
     // make sure that ACs has elements
     if (ACs.size() > 0) {
-        if (ACs.front()->getTag() == SUMO_TAG_POLY) {
-            // set label name
-            myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOSHAPE).c_str());
-            // fill attributes using refresh attributes
-            refreshGEOAttributesEditor();
-            // show FXGroupBox
-            FXGroupBox::show();
+        // check if item can use a geo position
+        if (GNEAttributeCarrier::canUseGeoPosition(ACs.front()->getTag()) || GNEAttributeCarrier::canUseGeoShape(ACs.front()->getTag())) {
+            // show GEOAttributesEditor
+            show();
+            // Iterate over AC to obtain values
+            bool value = true;
+            for (auto i : ACs) {
+                value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(SUMO_ATTR_GEO));
+            }
+            // show use geo frame
+            myUseGEOFrame->show();
+            // set UseGEOCheckButton value of and update label
+            if (value) {
+                myUseGEOCheckButton->setCheck(true);
+                myUseGEOCheckButton->setText("true");
+            }
+            else {
+                myUseGEOCheckButton->setCheck(false);
+                myUseGEOCheckButton->setText("false");
+            }
+            // now specify if a single position or an entire shape must be shown (note: cannot be shown both at the same time, and GEO Shape/Position only works for single selections)
+            if(GNEAttributeCarrier::canUseGeoPosition(ACs.front()->getTag()) && ACs.size() == 1) {
+                myGEOAttributeFrame->show();
+                myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOPOSITION).c_str());
+                myGEOAttributeTextField->setText(ACs.front()->getAttribute(SUMO_ATTR_GEOPOSITION).c_str());
+                myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
+            } else if (GNEAttributeCarrier::canUseGeoShape(ACs.front()->getTag()) && ACs.size() == 1) {
+                myGEOAttributeFrame->show();
+                myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOSHAPE).c_str());
+                myGEOAttributeTextField->setText(ACs.front()->getAttribute(SUMO_ATTR_GEOSHAPE).c_str());
+                myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
+            }
         }
-        else if (ACs.front()->getTag() == SUMO_TAG_POI) {
-            myGEOAttribute = SUMO_ATTR_GEOPOSITION;
-            // set label name
-            myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOPOSITION).c_str());
-            // fill attributes using refresh attributes
-            refreshGEOAttributesEditor();
-            // show FXGroupBox
-            FXGroupBox::show();
-        }
-        else {
-            // hide GEO Attributes
-            hideGEOAttributesEditor();
-        }
-    }
-    else {
-        // hide GEO Attributes
-        hideGEOAttributesEditor();
     }
 }
 
@@ -1301,25 +1308,41 @@ void
 GNEInspectorFrame::GEOAttributesEditor::refreshGEOAttributesEditor() {
     // only refresh element if myACs has elements
     if (myInspectorFrameParent->getACs().size() > 0) {
-        // hide GEOAttribute Frame
-        myGEOAttributeFrame->hide();
-        // check if we're handling a single or multiple selection
-        if (myInspectorFrameParent->getACs().size() > 1) {
-            // only useGEO can be changed in multiple selections
-            bool useGEO = true;
-            for (auto i : myInspectorFrameParent->getACs()) {
-                useGEO &= GNEAttributeCarrier::parse<bool>(i->getAttribute(SUMO_ATTR_GEO));
+        // Simply call again showGEOAttributesEditor
+        showGEOAttributesEditor(myInspectorFrameParent->getACs());
+    }
+}
+
+
+long
+GNEInspectorFrame::GEOAttributesEditor::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+    if (obj == myGEOAttributeTextField) {
+        // Change GEO Attribute depending of type (Position or shape)
+        if (GNEAttributeCarrier::canUseGeoPosition(myInspectorFrameParent->getACs().front()->getTag())) {
+            if (myInspectorFrameParent->getACs().front()->isValid(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text())) {
+                myInspectorFrameParent->getACs().front()->setAttribute(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
+                myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
+            } else {
+                myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
+                myGEOAttributeTextField->killFocus();
             }
-            myUseGEOCheckButton->setCheck(useGEO);
+        } else if (GNEAttributeCarrier::canUseGeoPosition(myInspectorFrameParent->getACs().front()->getTag())) {
+            if (myInspectorFrameParent->getACs().front()->isValid(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text())) {
+                myInspectorFrameParent->getACs().front()->setAttribute(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
+                myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
+            } else {
+                myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
+                myGEOAttributeTextField->killFocus();
+            }
+        } else {
+            throw ProcessError("myGEOAttributeTextField must be hidden becaurse there isn't GEO Attribute to edit");
         }
-        else {
-            myUseGEOCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(myInspectorFrameParent->getACs().front()->getAttribute(SUMO_ATTR_GEO)));
-            // show GEO Attribute (GNEShape or GNEPosition)
-            myGEOAttributeFrame->show();
-            myGEOAttributeTextField->setText(myInspectorFrameParent->getACs().front()->getAttribute(myGEOAttribute).c_str());
-            myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
+    } else if (obj == myUseGEOCheckButton) {
+        // update GEO Attribute of entire selection
+        for (auto i : myInspectorFrameParent->getACs()) {
+            i->setAttribute(SUMO_ATTR_GEO, myUseGEOCheckButton->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
         }
-        // set text orf GEO button
+        // change label of Check button depending of check
         if (myUseGEOCheckButton->getCheck()) {
             myUseGEOCheckButton->setText("true");
         }
@@ -1327,41 +1350,12 @@ GNEInspectorFrame::GEOAttributesEditor::refreshGEOAttributesEditor() {
             myUseGEOCheckButton->setText("false");
         }
     }
-}
-
-
-long
-GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject*, FXSelector, void*) {
-    if (myGEOAttributeTextField->getText().empty()) {
-        WRITE_WARNING("GEO Shapes cannot be empty.");
-    }
-    else if (myInspectorFrameParent->getACs().front()->isValid(myGEOAttribute, myGEOAttributeTextField->getText().text())) {
-        myInspectorFrameParent->getACs().front()->setAttribute(myGEOAttribute, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
-        myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
-    }
-    else {
-        myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
-        myGEOAttributeTextField->killFocus();
-    }
     // refresh values of current inspected item (because attribute shape changes)
-    myInspectorFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->refreshValues();
-    return 0;
-}
 
+////////////////////////////////////////////////////////////////
+    // myInspectorFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->refreshValues();
+////////////////////////////////////////////////////////////////
 
-long
-GNEInspectorFrame::GEOAttributesEditor::onCmdUseGEOParameters(FXObject*, FXSelector, void*) {
-    // change label of Check button depending of check
-    if (myUseGEOCheckButton->getCheck()) {
-        myUseGEOCheckButton->setText("true");
-    }
-    else {
-        myUseGEOCheckButton->setText("false");
-    }
-    // update GEO Attribute of entire selection
-    for (auto i : myInspectorFrameParent->getACs()) {
-        i->setAttribute(SUMO_ATTR_GEO, myUseGEOCheckButton->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
-    }
     return 1;
 }
 
