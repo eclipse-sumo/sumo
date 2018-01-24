@@ -85,20 +85,26 @@ FXDEFMAP(GNEInspectorFrame::AttributeInput) AttributeInputMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor)
 };
 
+FXDEFMAP(GNEInspectorFrame::AttributesEditor) AttributesEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEInspectorFrame::AttributesEditor::onCmdAttributeHelp),
+};
+
 FXDEFMAP(GNEInspectorFrame::NeteditAttributesEditor) NeteditAttributesEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEInspectorFrame::NeteditAttributesEditor::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEInspectorFrame::NeteditAttributesEditor::onCmdNeteditAttributeHelp),
 };
 
 FXDEFMAP(GNEInspectorFrame::GEOAttributesEditor) GEOAttributesEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEInspectorFrame::GEOAttributesEditor::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEInspectorFrame::GEOAttributesEditor::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEInspectorFrame::GEOAttributesEditor::onCmdGEOAttributeHelp),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEInspectorFrame,                          FXVerticalFrame,    GNEInspectorFrameMap,           ARRAYNUMBER(GNEInspectorFrameMap))
-FXIMPLEMENT(GNEInspectorFrame::AttributeInput,          FXHorizontalFrame,  AttributeInputMap,              ARRAYNUMBER(AttributeInputMap))
-FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor, FXGroupBox,         NeteditAttributesEditorMap,     ARRAYNUMBER(NeteditAttributesEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,     FXGroupBox,         GEOAttributesEditorMap,         ARRAYNUMBER(GEOAttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame,                          FXVerticalFrame,    GNEInspectorFrameMap,       ARRAYNUMBER(GNEInspectorFrameMap))
+FXIMPLEMENT(GNEInspectorFrame::AttributeInput,          FXHorizontalFrame,  AttributesEditorMap,        ARRAYNUMBER(AttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::AttributesEditor,        FXGroupBox,         AttributeInputMap,          ARRAYNUMBER(AttributeInputMap))
+FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor, FXGroupBox,         NeteditAttributesEditorMap, ARRAYNUMBER(NeteditAttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,     FXGroupBox,         GEOAttributesEditorMap,     ARRAYNUMBER(GEOAttributesEditorMap))
 
 
 // ===========================================================================
@@ -931,6 +937,8 @@ GNEInspectorFrame::AttributesEditor::AttributesEditor(GNEInspectorFrame* inspect
     for (int i = 0; i < (int)GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
         myVectorOfAttributeInputs.push_back(new AttributeInput(this));
     }
+    // Create help button
+    myHelpButton = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -1000,6 +1008,12 @@ GNEInspectorFrame::AttributesEditor::getInspectorFrameParent() const {
     return myInspectorFrameParent;
 }
 
+
+long 
+GNEInspectorFrame::AttributesEditor::onCmdAttributeHelp(FXObject*, FXSelector, void*) {
+    return 0;
+}
+
 // ===========================================================================
 // NeteditAttributesEditor method definitions
 // ===========================================================================
@@ -1027,6 +1041,9 @@ GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspector
     myHorizontalFrameCloseShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myLabelCloseShape = new FXLabel(myHorizontalFrameCloseShape, "Close shape", 0, GUIDesignLabelAttribute);
     myCheckBoxCloseShape = new FXCheckButton(myHorizontalFrameCloseShape, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+
+    // Create help button
+    myHelpButton = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -1127,7 +1144,7 @@ GNEInspectorFrame::NeteditAttributesEditor::hideNeteditAttributesEditor() {
 
 
 long
-GNEInspectorFrame::NeteditAttributesEditor::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
     // make sure that ACs has elements
     if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         if(obj == myCheckBoxBlockMovement) {
@@ -1176,6 +1193,12 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetAttribute(FXObject* obj, FXS
         myInspectorFrameParent->refreshInspectedValues();
     }
     return 1;
+}
+
+
+long 
+GNEInspectorFrame::NeteditAttributesEditor::onCmdNeteditAttributeHelp(FXObject*, FXSelector, void*) {
+    return 0;
 }
 
 // ---------------------------------------------------------------------------
@@ -1255,7 +1278,7 @@ GNEInspectorFrame::GEOAttributesEditor::hideGEOAttributesEditor() {
 
 
 long
-GNEInspectorFrame::GEOAttributesEditor::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSelector, void*) {
     // make sure that ACs has elements
     if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         if (obj == myGEOAttributeTextField) {
@@ -1300,7 +1323,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetAttribute(FXObject* obj, FXSelec
 
 
 long
-GNEInspectorFrame::GEOAttributesEditor::onCmdHelp(FXObject*, FXSelector, void*) {
+GNEInspectorFrame::GEOAttributesEditor::onCmdGEOAttributeHelp(FXObject*, FXSelector, void*) {
     FXDialogBox* helpDialog = new FXDialogBox(this, "GEO attributes Help", GUIDesignDialogBox);
     std::ostringstream help;
     help

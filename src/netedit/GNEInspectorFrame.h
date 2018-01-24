@@ -72,6 +72,7 @@ public:
 
         /// @name FOX-callbacks
         /// @{
+
         /// @brief try to set new attribute value
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
@@ -123,6 +124,8 @@ public:
     // ===========================================================================
 
     class AttributesEditor : public FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEInspectorFrame::AttributesEditor)
 
     public:
         /// @brief constructor
@@ -137,6 +140,17 @@ public:
         /// @brief get InspectorFrame Parent
         GNEInspectorFrame* getInspectorFrameParent() const;
 
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when user press the help button
+        long onCmdAttributeHelp(FXObject*, FXSelector, void*);
+        /// @}
+        
+    protected:
+        /// @brief FOX needs this
+        AttributesEditor() {}
+
     private:
         /// @brief pointer to GNEInspectorFrame parent
         GNEInspectorFrame * myInspectorFrameParent;
@@ -146,6 +160,9 @@ public:
 
         /// @brief current parameter index
         int myCurrentIndex;
+
+        /// @brief button for help
+        FXButton* myHelpButton;
     };
 
     // ===========================================================================
@@ -171,8 +188,12 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief try to set new attribute value
-        long onCmdSetAttribute(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user change the current GEO Attribute
+        long onCmdSetNeteditAttribute(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press the help button
+        long onCmdNeteditAttributeHelp(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -218,6 +239,9 @@ public:
 
         /// @brief pointer to check box "Block movement"
         FXCheckButton* myCheckBoxCloseShape;
+
+        /// @brief button for help
+        FXButton* myHelpButton;
     };
 
     // ===========================================================================
@@ -245,10 +269,10 @@ public:
         /// @{
 
         /// @brief Called when user change the current GEO Attribute
-        long onCmdSetAttribute(FXObject*, FXSelector, void*);
+        long onCmdSetGEOAttribute(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press the help button
-        long onCmdHelp(FXObject*, FXSelector, void*);
+        long onCmdGEOAttributeHelp(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
