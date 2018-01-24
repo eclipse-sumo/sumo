@@ -736,8 +736,10 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             myClosedShape = parse<bool>(value);
             if (myClosedShape) {
                 myShape.closePolygon();
+                myGeoShape.closePolygon();
             } else {
                 myShape.pop_back();
+                myGeoShape.pop_back();
             }
             // disable simplified shape flag
             mySimplifiedShape = false;
