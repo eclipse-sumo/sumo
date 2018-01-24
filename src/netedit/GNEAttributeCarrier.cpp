@@ -49,6 +49,8 @@ std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockMovementTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myCloseShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myHasParentTags;
+std::vector<SumoXMLTag> GNEAttributeCarrier::myGeoPositionTags;
+std::vector<SumoXMLTag> GNEAttributeCarrier::myGeoShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myDialogTags;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalIntAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalFloatAttrs;
@@ -718,13 +720,34 @@ GNEAttributeCarrier::canCloseShape(SumoXMLTag tag) {
 
 
 bool 
-GNEAttributeCarrier::hasParent(SumoXMLTag tag) {
+GNEAttributeCarrier::canHaveParent(SumoXMLTag tag) {
     // define on first access
     if (myHasParentTags.empty()) {
         myHasParentTags.push_back(SUMO_TAG_DET_ENTRY);
         myHasParentTags.push_back(SUMO_TAG_DET_EXIT);
     }
     return std::find(myHasParentTags.begin(), myHasParentTags.end(), tag) != myHasParentTags.end();
+}
+
+
+bool 
+GNEAttributeCarrier::canUseGeoPosition(SumoXMLTag tag) {
+    // define on first access
+    if (myGeoPositionTags.empty()) {
+        myGeoPositionTags.push_back(SUMO_TAG_POI);
+        myGeoPositionTags.push_back(SUMO_TAG_POILANE);
+    }
+    return std::find(myGeoPositionTags.begin(), myGeoPositionTags.end(), tag) != myGeoPositionTags.end();
+}
+
+
+bool 
+GNEAttributeCarrier::canUseGeoShape(SumoXMLTag tag) {
+    // define on first access
+    if (myGeoShapeTags.empty()) {
+        myGeoShapeTags.push_back(SUMO_TAG_POLY);
+    }
+    return std::find(myGeoShapeTags.begin(), myGeoShapeTags.end(), tag) != myGeoShapeTags.end();
 }
 
 

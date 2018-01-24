@@ -156,7 +156,13 @@ public:
     static bool canCloseShape(SumoXMLTag tag);
 
     /// @brief return true if element tag can block their shape
-    static bool hasParent(SumoXMLTag tag);
+    static bool canHaveParent(SumoXMLTag tag);
+
+    /// @brief return true if element tag can use a GEO position (For example, POIs)
+    static bool canUseGeoPosition(SumoXMLTag tag);
+
+    /// @brief return true if element tag can use a GEO Shape (For example, Polygons)
+    static bool canUseGeoShape(SumoXMLTag tag);
 
     /// @brief return true if element tag can open a values editor
     static bool canOpenDialog(SumoXMLTag tag);
@@ -499,6 +505,12 @@ private:
 
     /// @brief vector with the allowed tags that can block their shapes
     static std::vector<SumoXMLTag> myHasParentTags;
+
+    /// @brief vector with the allowed tags that can block their shapes
+    static std::vector<SumoXMLTag> myGeoPositionTags;
+
+    /// @brief vector with the allowed tags that can block their shapes
+    static std::vector<SumoXMLTag> myGeoShapeTags;
 
     /// @brief vector with the allowed tags that has a editor values
     static std::vector<SumoXMLTag> myDialogTags;

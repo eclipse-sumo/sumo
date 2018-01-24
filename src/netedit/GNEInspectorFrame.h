@@ -70,14 +70,9 @@ public:
         /// @brief show attribute
         void hideAttribute();
 
-        /// @brief refresh attribute
-        void refreshAttribute();
-
-        /// @brief get current Attr
-        SumoXMLAttr getEditedAttr() const;
-
         /// @name FOX-callbacks
         /// @{
+
         /// @brief try to set new attribute value
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
@@ -129,22 +124,32 @@ public:
     // ===========================================================================
 
     class AttributesEditor : public FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEInspectorFrame::AttributesEditor)
 
     public:
         /// @brief constructor
         AttributesEditor(GNEInspectorFrame* inspectorFrameParent);
 
-        /// @brief show attribute of ac
-        void showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value);
+        /// @brief show attributes of ac
+        void showAttributeEditor();
 
-        /// @brief show attribute
+        /// @brief hide attribute editor
         void hideAttributesEditor();
-
-        /// @brief refresh attribute
-        void refreshAttributes(bool onlyAllowdisallow = false);
-
+        
         /// @brief get InspectorFrame Parent
         GNEInspectorFrame* getInspectorFrameParent() const;
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when user press the help button
+        long onCmdAttributeHelp(FXObject*, FXSelector, void*);
+        /// @}
+        
+    protected:
+        /// @brief FOX needs this
+        AttributesEditor() {}
 
     private:
         /// @brief pointer to GNEInspectorFrame parent
@@ -154,7 +159,10 @@ public:
         std::vector<GNEInspectorFrame::AttributeInput*> myVectorOfAttributeInputs;
 
         /// @brief current parameter index
-        int myCurrentIndex = 0;
+        int myCurrentIndex;
+
+        /// @brief button for help
+        FXButton* myHelpButton;
     };
 
     // ===========================================================================
@@ -172,16 +180,20 @@ public:
         /// @brief destructor
         ~NeteditAttributesEditor();
 
-        /// @brief show attribute of ac
-        void showNeteditAttributes(const std::vector<GNEAttributeCarrier*>& ACs);
+        /// @brief show netedit attributes editor
+        void showNeteditAttributesEditor();
 
-        /// @brief show attribute
+        /// @brief hide netedit attributes editor
         void hideNeteditAttributesEditor();
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief try to set new attribute value
-        long onCmdSetAttribute(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user change the current GEO Attribute
+        long onCmdSetNeteditAttribute(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press the help button
+        long onCmdNeteditAttributeHelp(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -227,6 +239,9 @@ public:
 
         /// @brief pointer to check box "Block movement"
         FXCheckButton* myCheckBoxCloseShape;
+
+        /// @brief button for help
+        FXButton* myHelpButton;
     };
 
     // ===========================================================================
@@ -244,14 +259,11 @@ public:
         /// @brief destructor
         ~GEOAttributesEditor();
 
-        /// @brief show GEOAttribute for the current AttributeCarriers
-        void showGEOAttributesEditor(const std::vector<GNEAttributeCarrier*>& ACs);
+        /// @brief show GEO attributes editor
+        void showGEOAttributesEditor();
 
-        /// @brief hide GEOAttributesEditor
+        /// @brief hide GEO attributes editor
         void hideGEOAttributesEditor();
-
-        /// @brief refresh TextFields with the new GEO Attributes
-        void refreshGEOAttributesEditor();
 
         /// @name FOX-callbacks
         /// @{
@@ -259,11 +271,8 @@ public:
         /// @brief Called when user change the current GEO Attribute
         long onCmdSetGEOAttribute(FXObject*, FXSelector, void*);
 
-        /// @brief Called when user enters a new length
-        long onCmdUseGEOParameters(FXObject*, FXSelector, void*);
-
         /// @brief Called when user press the help button
-        long onCmdHelp(FXObject*, FXSelector, void*);
+        long onCmdGEOAttributeHelp(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -273,9 +282,6 @@ public:
     private:
         /// @brief current GNEInspectorFrame parent
         GNEInspectorFrame* myInspectorFrameParent;
-
-        /// @brief type of GEO Attribute
-        SumoXMLAttr myGEOAttribute;
 
         /// @brief horizontal frame for GEOAttribute
         FXHorizontalFrame* myGEOAttributeFrame;
@@ -297,6 +303,64 @@ public:
 
         /// @brief button for help
         FXButton* myHelpButton;
+    };
+
+    // ===========================================================================
+    // class GEOAttributesEditor
+    // ===========================================================================
+
+    class TemplateEditor : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEInspectorFrame::TemplateEditor)
+
+    public:
+        /// @brief constructor
+        TemplateEditor(GNEInspectorFrame* inspectorFrameParent);
+
+        /// @brief destructor
+        ~TemplateEditor();
+
+        /// @brief show template editor
+        void showTemplateEditor();
+
+        /// @brief hide template editor
+        void hideTemplateEditor();
+
+        /// @brief get the template edge (to copy attributes from)
+        GNEEdge* getEdgeTemplate() const;
+
+        /// @brief seh the template edge (we assume shared responsibility via reference counting)
+        void setEdgeTemplate(GNEEdge* tpl);
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief copy edge attributes from edge template
+        long onCmdCopyTemplate(FXObject*, FXSelector, void*);
+
+        /// @brief set current edge as new template
+        long onCmdSetTemplate(FXObject*, FXSelector, void*);
+
+        /// @brief update the copy button with the name of the template
+        long onUpdCopyTemplate(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        TemplateEditor() {}
+
+    private:
+        /// @brief current GNEInspectorFrame parent
+        GNEInspectorFrame * myInspectorFrameParent;
+
+        /// @brief copy template button
+        FXButton* myCopyTemplateButton;
+
+        /// @brief set template button
+        FXButton* mySetTemplateButton;
+
+        /// @brief the edge template
+        GNEEdge* myEdgeTemplate;
     };
 
     /**@brief Constructor
@@ -324,27 +388,13 @@ public:
     void inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked);
 
     /// @brief Refresh inspected values (used when values can be changed externally by other modul)
-    void refreshValues();
+    void refreshInspectedValues();
 
-    /// @brief get current list of ACs
-    const std::vector<GNEAttributeCarrier*>& getACs() const;
-
-    /// @brief get the template edge (to copy attributes from)
-    GNEEdge* getEdgeTemplate() const;
-
-    /// @brief seh the template edge (we assume shared responsibility via reference counting)
-    void setEdgeTemplate(GNEEdge* tpl);
+    /// @brief get Template editor
+    TemplateEditor *getTemplateEditor() const;
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief copy edge attributes from edge template
-    long onCmdCopyTemplate(FXObject*, FXSelector, void*);
-
-    /// @brief set current edge as new template
-    long onCmdSetTemplate(FXObject*, FXSelector, void*);
-
-    /// @brief update the copy button with the name of the template
-    long onUpdCopyTemplate(FXObject*, FXSelector, void*);
 
     /// @brief called when user toogle the go back button
     long onCmdGoBack(FXObject*, FXSelector, void*);
@@ -366,14 +416,14 @@ protected:
     /// @brief FOX needs this
     GNEInspectorFrame() {}
 
+    /// @brief get current list of inspected ACs
+    const std::vector<GNEAttributeCarrier*>& getInspectedACs() const;
+
     // @brief create pop-up menu in the positions X-Y for the attribute carrier ac
     void createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac);
 
     /// @brief show child of current attributeCarrier
     void showAttributeCarrierChilds();
-
-    /// @brief get reference to current inspected Attribute carriers
-    const std::vector<GNEAttributeCarrier*>& getInspectedACs() const;
 
 private:
     /// @brief Attribute editor
@@ -385,20 +435,11 @@ private:
     /// @brief GEO Attributes editor
     GEOAttributesEditor* myGEOAttributesEditor;
 
+    /// @brief Template editor
+    TemplateEditor* myTemplateEditor;
+
     /// @brief back Button
     FXButton* myBackButton;
-
-    /// @brief groupBox for templates
-    FXGroupBox* myGroupBoxForTemplates;
-
-    /// @brief copy template button
-    FXButton* myCopyTemplateButton;
-
-    /// @brief set template button
-    FXButton* mySetTemplateButton;
-
-    /// @brief the edge template
-    GNEEdge* myEdgeTemplate;
 
     /// @brief pointer to previous element called by Inspector Frame
     GNEAttributeCarrier* myPreviousElementInspect;

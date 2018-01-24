@@ -519,12 +519,6 @@ enum {
     MID_GNE_SET_ATTRIBUTE_DIALOG,
     /// @brief attribute block shape
     MID_GNE_SET_BLOCKING_SHAPE,
-    /// @brief attribute close shape
-    MID_GNE_SET_CLOSING_SHAPE,
-    /// @brief set GEO Attribute
-    MID_GNEFRAME_GEOATTRIBUTE,
-    /// @brief enable or disable use GEO
-    MID_GNEFRAME_USEGEO,
 
     /// @}
 
