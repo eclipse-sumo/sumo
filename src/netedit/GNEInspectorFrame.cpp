@@ -69,9 +69,6 @@
 // ===========================================================================
 
 FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_COPYTEMPLATE,    GNEInspectorFrame::onCmdCopyTemplate),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_SETTEMPLATE,     GNEInspectorFrame::onCmdSetTemplate),
-    FXMAPFUNC(SEL_UPDATE,               MID_GNE_INSPECTORFRAME_COPYTEMPLATE,    GNEInspectorFrame::onUpdCopyTemplate),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_GOBACK,          GNEInspectorFrame::onCmdGoBack),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_CENTER,          GNEInspectorFrame::onCmdCenterItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_INSPECT,         GNEInspectorFrame::onCmdInspectItem),
@@ -86,7 +83,7 @@ FXDEFMAP(GNEInspectorFrame::AttributeInput) AttributeInputMap[] = {
 };
 
 FXDEFMAP(GNEInspectorFrame::AttributesEditor) AttributesEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEInspectorFrame::AttributesEditor::onCmdAttributeHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEInspectorFrame::AttributesEditor::onCmdAttributeHelp),
 };
 
 FXDEFMAP(GNEInspectorFrame::NeteditAttributesEditor) NeteditAttributesEditorMap[] = {
@@ -99,12 +96,19 @@ FXDEFMAP(GNEInspectorFrame::GEOAttributesEditor) GEOAttributesEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEInspectorFrame::GEOAttributesEditor::onCmdGEOAttributeHelp),
 };
 
+FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_COPYTEMPLATE,    GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_SETTEMPLATE,     GNEInspectorFrame::TemplateEditor::onCmdSetTemplate),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_INSPECTORFRAME_COPYTEMPLATE,    GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate),
+};
+
 // Object implementation
 FXIMPLEMENT(GNEInspectorFrame,                          FXVerticalFrame,    GNEInspectorFrameMap,       ARRAYNUMBER(GNEInspectorFrameMap))
-FXIMPLEMENT(GNEInspectorFrame::AttributeInput,          FXHorizontalFrame,  AttributesEditorMap,        ARRAYNUMBER(AttributesEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::AttributesEditor,        FXGroupBox,         AttributeInputMap,          ARRAYNUMBER(AttributeInputMap))
+FXIMPLEMENT(GNEInspectorFrame::AttributeInput,          FXHorizontalFrame,  AttributeInputMap,          ARRAYNUMBER(AttributeInputMap))
+FXIMPLEMENT(GNEInspectorFrame::AttributesEditor,        FXGroupBox,         AttributesEditorMap,        ARRAYNUMBER(AttributesEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor, FXGroupBox,         NeteditAttributesEditorMap, ARRAYNUMBER(NeteditAttributesEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,     FXGroupBox,         GEOAttributesEditorMap,     ARRAYNUMBER(GEOAttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,          FXGroupBox,         TemplateEditorMap,          ARRAYNUMBER(TemplateEditorMap))
 
 
 // ===========================================================================
@@ -113,7 +117,6 @@ FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,     FXGroupBox,         GEOA
 
 GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
     GNEFrame(horizontalFrameParent, viewNet, "Inspector"),
-    myEdgeTemplate(NULL),
     myPreviousElementInspect(NULL),
     myPreviousElementDelete(NULL) {
 
@@ -131,33 +134,17 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // Create Netedit Attributes Editor
     myNeteditAttributesEditor = new NeteditAttributesEditor(this);
 
+    // Create Template editor
+    myTemplateEditor = new TemplateEditor(this);
+
     // Create groupbox and tree list
     myGroupBoxForTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
     myTreelist = new FXTreeList(myGroupBoxForTreeList, this, MID_GNE_DELETEFRAME_CHILDS, GUIDesignTreeListFrame);
     myGroupBoxForTreeList->hide();
-
-    // Create groupBox for templates
-    myGroupBoxForTemplates = new FXGroupBox(myContentFrame, "Templates", GUIDesignGroupBoxFrame);
-    myGroupBoxForTemplates->hide();
-
-    // Create copy template button
-    myCopyTemplateButton = new FXButton(myGroupBoxForTemplates, "", 0, this, MID_GNE_INSPECTORFRAME_COPYTEMPLATE, GUIDesignButton);
-    myCopyTemplateButton->hide();
-
-    // Create set template button
-    mySetTemplateButton = new FXButton(myGroupBoxForTemplates, "Set as Template\t\t", 0, this, MID_GNE_INSPECTORFRAME_SETTEMPLATE, GUIDesignButton);
-    mySetTemplateButton->hide();
 }
 
 
-GNEInspectorFrame::~GNEInspectorFrame() {
-    if (myEdgeTemplate) {
-        myEdgeTemplate->decRef("GNEInspectorFrame::~GNEInspectorFrame");
-        if (myEdgeTemplate->unreferenced()) {
-            delete myEdgeTemplate;
-        }
-    }
-}
+GNEInspectorFrame::~GNEInspectorFrame() {}
 
 
 void
@@ -189,10 +176,8 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myAttributesEditor->hideAttributesEditor();
     myNeteditAttributesEditor->hideNeteditAttributesEditor();
     myGEOAttributesEditor->hideGEOAttributesEditor();
-    myGroupBoxForTemplates->hide();
-    myCopyTemplateButton->hide();
-    mySetTemplateButton->hide();
-    myGroupBoxForTreeList->hide();
+    myTemplateEditor->hideTemplateEditor();
+    myGroupBoxForTreeList->hide();    
     // If vector of attribute Carriers contain data
     if (myACs.size() > 0) {
         // Set header
@@ -223,21 +208,12 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         // Show GEO Attributes Editor if we're inspecting elements with GEO Attributes
         myGEOAttributesEditor->showGEOAttributesEditor();
 
+        // If attributes correspond to an Edge, show template editor
+        myTemplateEditor->showTemplateEditor();
+
         // if we inspect a single Attribute carrier vector, show their childs
         if (myACs.size() == 1) {
             showAttributeCarrierChilds();
-        }
-
-        // If attributes correspond to an Edge
-        if (dynamic_cast<GNEEdge*>(myACs.front())) {
-            // show groupBox for templates
-            myGroupBoxForTemplates->show();
-            // show "Copy Template" (caption supplied via onUpdate)
-            myCopyTemplateButton->show();
-            // show "Set As Template"
-            if (myACs.size() == 1) {
-                mySetTemplateButton->show();
-            }
         }
     } else {
         getFrameHeaderLabel()->setText("Inspect");
@@ -286,59 +262,9 @@ GNEInspectorFrame::refreshInspectedValues() {
 }
 
 
-GNEEdge*
-GNEInspectorFrame::getEdgeTemplate() const {
-    return myEdgeTemplate;
-}
-
-
-void
-GNEInspectorFrame::setEdgeTemplate(GNEEdge* tpl) {
-    if (myEdgeTemplate) {
-        myEdgeTemplate->decRef("GNEInspectorFrame::setEdgeTemplate");
-        if (myEdgeTemplate->unreferenced()) {
-            delete myEdgeTemplate;
-        }
-    }
-    myEdgeTemplate = tpl;
-    myEdgeTemplate->incRef("GNEInspectorFrame::setEdgeTemplate");
-}
-
-
-long
-GNEInspectorFrame::onCmdCopyTemplate(FXObject*, FXSelector, void*) {
-    for (auto it : myACs) {
-        GNEEdge* edge = dynamic_cast<GNEEdge*>(it);
-        assert(edge);
-        edge->copyTemplate(myEdgeTemplate, myViewNet->getUndoList());
-        inspectMultisection(myACs);
-    }
-    return 1;
-}
-
-
-long
-GNEInspectorFrame::onCmdSetTemplate(FXObject*, FXSelector, void*) {
-    assert(myACs.size() == 1);
-    GNEEdge* edge = dynamic_cast<GNEEdge*>(myACs.front());
-    assert(edge);
-    setEdgeTemplate(edge);
-    return 1;
-}
-
-
-long
-GNEInspectorFrame::onUpdCopyTemplate(FXObject* sender, FXSelector, void*) {
-    FXString caption;
-    if (myEdgeTemplate) {
-        caption = ("Copy '" + myEdgeTemplate->getMicrosimID() + "'").c_str();
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), NULL);
-    } else {
-        caption = "No Template Set";
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), NULL);
-    }
-    sender->handle(this, FXSEL(SEL_COMMAND, FXLabel::ID_SETSTRINGVALUE), (void*)&caption);
-    return 1;
+GNEInspectorFrame::TemplateEditor*
+GNEInspectorFrame::getTemplateEditor() const {
+    return myTemplateEditor;
 }
 
 
@@ -1338,6 +1264,123 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdGEOAttributeHelp(FXObject*, FXSelec
     new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     helpDialog->create();
     helpDialog->show();
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEInspectorFrame::TemplateEditor - methods
+// ---------------------------------------------------------------------------
+
+GNEInspectorFrame::TemplateEditor::TemplateEditor(GNEInspectorFrame* inspectorFrameParent) :
+    FXGroupBox(inspectorFrameParent->myContentFrame, "Templates", GUIDesignGroupBoxFrame),
+    myInspectorFrameParent(inspectorFrameParent), 
+    myEdgeTemplate(NULL) {
+
+    // Create copy template button
+    myCopyTemplateButton = new FXButton(this, "", 0, this, MID_GNE_INSPECTORFRAME_COPYTEMPLATE, GUIDesignButton);
+    myCopyTemplateButton->hide();
+
+    // Create set template button
+    mySetTemplateButton = new FXButton(this, "Set as Template\t\t", 0, this, MID_GNE_INSPECTORFRAME_SETTEMPLATE, GUIDesignButton);
+    mySetTemplateButton->hide();
+}
+
+
+GNEInspectorFrame::TemplateEditor::~TemplateEditor() {
+    if (myEdgeTemplate) {
+        // delete template
+        myEdgeTemplate->decRef("GNEInspectorFrame::~GNEInspectorFrame");
+        if (myEdgeTemplate->unreferenced()) {
+            delete myEdgeTemplate;
+        }
+    }
+}
+
+
+void 
+GNEInspectorFrame::TemplateEditor::showTemplateEditor() {
+    if (myInspectorFrameParent->getInspectedACs().front()->getTag() == SUMO_TAG_EDGE) {
+        // show template editor
+        show();
+        // show "Copy Template" (caption supplied via onUpdate)
+        myCopyTemplateButton->show();
+        // show "Set As Template"
+        if (myInspectorFrameParent->getInspectedACs().size() == 1) {
+            mySetTemplateButton->show();
+            mySetTemplateButton->setText(("Set edge '" + myInspectorFrameParent->getInspectedACs().front()->getID() + "' as Template").c_str());
+        }
+    }
+}
+
+
+void 
+GNEInspectorFrame::TemplateEditor::hideTemplateEditor() {
+    // hide buttons
+    myCopyTemplateButton->hide();
+    mySetTemplateButton->hide();
+    // hide template editor
+    hide();
+}
+
+
+GNEEdge*
+GNEInspectorFrame::TemplateEditor::getEdgeTemplate() const {
+    return myEdgeTemplate;
+}
+
+
+void
+GNEInspectorFrame::TemplateEditor::setEdgeTemplate(GNEEdge* tpl) {
+    if (myEdgeTemplate) {
+        myEdgeTemplate->decRef("GNEInspectorFrame::setEdgeTemplate");
+        if (myEdgeTemplate->unreferenced()) {
+            delete myEdgeTemplate;
+        }
+    }
+    myEdgeTemplate = tpl;
+    myEdgeTemplate->incRef("GNEInspectorFrame::setEdgeTemplate");
+}
+
+
+long
+GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate(FXObject*, FXSelector, void*) {
+    for (auto it : myInspectorFrameParent->getInspectedACs()) {
+        GNEEdge* edge = dynamic_cast<GNEEdge*>(it);
+        assert(edge);
+        edge->copyTemplate(myEdgeTemplate, myInspectorFrameParent->getViewNet()->getUndoList());
+        myInspectorFrameParent->inspectMultisection(myInspectorFrameParent->getInspectedACs());
+    }
+    return 1;
+}
+
+
+long
+GNEInspectorFrame::TemplateEditor::onCmdSetTemplate(FXObject*, FXSelector, void*) {
+    assert(myInspectorFrameParent->getInspectedACs().size() == 1);
+    GNEEdge* edge = dynamic_cast<GNEEdge*>(myInspectorFrameParent->getInspectedACs().front());
+    assert(edge);
+    setEdgeTemplate(edge);
+    return 1;
+}
+
+
+long
+GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate(FXObject* sender, FXSelector, void*) {
+    // declare caption for button
+    FXString caption;
+    if (myEdgeTemplate) {
+        if(myInspectorFrameParent->getInspectedACs().size() == 1) {
+            caption = ("Copy '" + myEdgeTemplate->getMicrosimID() + "' into edge '" + myInspectorFrameParent->getInspectedACs().front()->getID() + "'").c_str();
+        } else {
+            caption = ("Copy '" + myEdgeTemplate->getMicrosimID() + "' into " + toString(myInspectorFrameParent->getInspectedACs().size()) + " selected edges").c_str();
+        }
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), NULL);
+    }
+    else {
+        caption = "No edge Template Set";
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), NULL);
+    }
+    sender->handle(this, FXSEL(SEL_COMMAND, FXLabel::ID_SETSTRINGVALUE), (void*)&caption);
     return 1;
 }
 

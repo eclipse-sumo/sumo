@@ -305,6 +305,64 @@ public:
         FXButton* myHelpButton;
     };
 
+    // ===========================================================================
+    // class GEOAttributesEditor
+    // ===========================================================================
+
+    class TemplateEditor : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEInspectorFrame::TemplateEditor)
+
+    public:
+        /// @brief constructor
+        TemplateEditor(GNEInspectorFrame* inspectorFrameParent);
+
+        /// @brief destructor
+        ~TemplateEditor();
+
+        /// @brief show template editor
+        void showTemplateEditor();
+
+        /// @brief hide template editor
+        void hideTemplateEditor();
+
+        /// @brief get the template edge (to copy attributes from)
+        GNEEdge* getEdgeTemplate() const;
+
+        /// @brief seh the template edge (we assume shared responsibility via reference counting)
+        void setEdgeTemplate(GNEEdge* tpl);
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief copy edge attributes from edge template
+        long onCmdCopyTemplate(FXObject*, FXSelector, void*);
+
+        /// @brief set current edge as new template
+        long onCmdSetTemplate(FXObject*, FXSelector, void*);
+
+        /// @brief update the copy button with the name of the template
+        long onUpdCopyTemplate(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        TemplateEditor() {}
+
+    private:
+        /// @brief current GNEInspectorFrame parent
+        GNEInspectorFrame * myInspectorFrameParent;
+
+        /// @brief copy template button
+        FXButton* myCopyTemplateButton;
+
+        /// @brief set template button
+        FXButton* mySetTemplateButton;
+
+        /// @brief the edge template
+        GNEEdge* myEdgeTemplate;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -332,22 +390,11 @@ public:
     /// @brief Refresh inspected values (used when values can be changed externally by other modul)
     void refreshInspectedValues();
 
-    /// @brief get the template edge (to copy attributes from)
-    GNEEdge* getEdgeTemplate() const;
-
-    /// @brief seh the template edge (we assume shared responsibility via reference counting)
-    void setEdgeTemplate(GNEEdge* tpl);
+    /// @brief get Template editor
+    TemplateEditor *getTemplateEditor() const;
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief copy edge attributes from edge template
-    long onCmdCopyTemplate(FXObject*, FXSelector, void*);
-
-    /// @brief set current edge as new template
-    long onCmdSetTemplate(FXObject*, FXSelector, void*);
-
-    /// @brief update the copy button with the name of the template
-    long onUpdCopyTemplate(FXObject*, FXSelector, void*);
 
     /// @brief called when user toogle the go back button
     long onCmdGoBack(FXObject*, FXSelector, void*);
@@ -388,20 +435,11 @@ private:
     /// @brief GEO Attributes editor
     GEOAttributesEditor* myGEOAttributesEditor;
 
+    /// @brief Template editor
+    TemplateEditor* myTemplateEditor;
+
     /// @brief back Button
     FXButton* myBackButton;
-
-    /// @brief groupBox for templates
-    FXGroupBox* myGroupBoxForTemplates;
-
-    /// @brief copy template button
-    FXButton* myCopyTemplateButton;
-
-    /// @brief set template button
-    FXButton* mySetTemplateButton;
-
-    /// @brief the edge template
-    GNEEdge* myEdgeTemplate;
 
     /// @brief pointer to previous element called by Inspector Frame
     GNEAttributeCarrier* myPreviousElementInspect;
