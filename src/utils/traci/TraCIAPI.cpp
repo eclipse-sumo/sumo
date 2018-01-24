@@ -2657,6 +2657,16 @@ TraCIAPI::VehicleScope::setSpeed(const std::string& vehicleID, double speed) con
 }
 
 void
+TraCIAPI::VehicleScope::setSpeedMode(const std::string& vehicleID, int mode) const {
+    tcpip::Storage content;
+    content.writeByte(TYPE_INTEGER);
+    content.writeInt(mode);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_SPEEDSETMODE, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
+
+void
 TraCIAPI::VehicleScope::setType(const std::string& vehicleID, const std::string& typeID) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_STRING);
