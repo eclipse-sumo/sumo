@@ -16,7 +16,7 @@
 /// @author  Michael Behrisch
 /// @author  Sascha Krieg
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: NBNodeCont.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // Container for nodes during the netbuilding process
 /****************************************************************************/
@@ -310,7 +310,7 @@ void
 NBNodeCont::removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKeep) {
     std::vector<std::set<NBEdge*> > components;
     // need to use ids here to have the same ordering on all platforms
-    std::set<const std::string> edgesLeft;
+    std::set<std::string> edgesLeft;
     for (std::map<std::string, NBEdge*>::const_iterator edgeIt = ec.begin(); edgeIt != ec.end(); ++edgeIt) {
         edgesLeft.insert(edgeIt->first);
     }
@@ -330,7 +330,7 @@ NBNodeCont::removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKe
             edgeLists.push_back(e->getToNode()->getIncomingEdges());
             for (std::vector<EdgeVector>::const_iterator listIt = edgeLists.begin(); listIt != edgeLists.end(); ++listIt) {
                 for (EdgeVector::const_iterator edgeIt = listIt->begin(); edgeIt != listIt->end(); ++edgeIt) {
-                    std::set<const std::string>::iterator leftIt = edgesLeft.find((*edgeIt)->getID());
+                    std::set<std::string>::iterator leftIt = edgesLeft.find((*edgeIt)->getID());
                     if (leftIt != edgesLeft.end()) {
                         queue.push_back(*edgeIt);
                         edgesLeft.erase(leftIt);
