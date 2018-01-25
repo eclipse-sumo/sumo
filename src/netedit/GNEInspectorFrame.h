@@ -70,6 +70,12 @@ public:
         /// @brief show attribute
         void hideAttribute();
 
+        /// @brief refresh current attribute input
+        void refreshAttributeInput(const std::string &value, bool onlyValid);
+
+        /// @brief check if current attribute of TextField/ComboBox is valid
+        bool isCurrentAttributeValid() const;
+
         /// @name FOX-callbacks
         /// @{
 
@@ -136,6 +142,9 @@ public:
 
         /// @brief hide attribute editor
         void hideAttributesEditor();
+
+        /// @brief refresh attribute editor (only the valid values will be refresh)
+        void refresAttributeEditor();
         
         /// @brief get InspectorFrame Parent
         GNEInspectorFrame* getInspectorFrameParent() const;

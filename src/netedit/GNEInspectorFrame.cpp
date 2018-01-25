@@ -253,8 +253,8 @@ GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeC
 
 void
 GNEInspectorFrame::refreshInspectedValues() {
-    // For refresh values simply show all editors again
-    myAttributesEditor->showAttributeEditor();
+    // Refresh values of all editors
+    myAttributesEditor->refresAttributeEditor();
     myNeteditAttributesEditor->showNeteditAttributesEditor();
     myGEOAttributesEditor->showGEOAttributesEditor();
     // Update view net
@@ -663,8 +663,10 @@ GNEInspectorFrame::AttributeInput::showAttribute(SumoXMLTag ACTag, SumoXMLAttr A
             for (auto it : choices) {
                 myChoicesCombo->appendItem(it.c_str());
             }
+            // show combo box with values
             myChoicesCombo->setNumVisible((int)choices.size());
             myChoicesCombo->setCurrentItem(myChoicesCombo->findItem(value.c_str()));
+            myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
             myChoicesCombo->show();
         }
     } else if (GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr)) {
@@ -700,6 +702,45 @@ GNEInspectorFrame::AttributeInput::hideAttribute() {
     myButtonCombinableChoices->hide();
     // hide AttributeInput
     hide();
+}
+
+ 
+void
+GNEInspectorFrame::AttributeInput::refreshAttributeInput(const std::string &value, bool onlyValid) {
+    if(myTextFieldInt->shown()) {
+        // set last valid value and restore color if onlyValid is disabled
+        if(myTextFieldInt->getTextColor() == FXRGB(0, 0, 0) || !onlyValid) {
+            myTextFieldInt->setText(value.c_str());
+            myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
+        }
+    } else if (myTextFieldReal->shown()) {
+        // set last valid value and restore color if onlyValid is disabled
+        if (myTextFieldReal->getTextColor() == FXRGB(0, 0, 0) || !onlyValid) {
+            myTextFieldReal->setText(value.c_str());
+            myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
+        }
+    } else if (myTextFieldStrings->shown()) {
+        // set last valid value and restore color if onlyValid is disabled
+        if (myTextFieldStrings->getTextColor() == FXRGB(0, 0, 0) || !onlyValid) {
+            myTextFieldStrings->setText(value.c_str());
+            myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+        }
+    } else if (myChoicesCombo->shown()) {
+        // set last valid value and restore color if onlyValid is disabled
+        if (myChoicesCombo->getTextColor() == FXRGB(0, 0, 0) || !onlyValid) {
+            myChoicesCombo->setText(value.c_str());
+            myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
+        }
+    } else if (myBoolCheckButton->shown()) {
+        myBoolCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(value));
+    }
+}
+
+
+bool 
+GNEInspectorFrame::AttributeInput::isCurrentAttributeValid() const {
+    return ((myTextFieldInt->getTextColor() == FXRGB(0, 0, 0)) && (myTextFieldReal->getTextColor() == FXRGB(0, 0, 0)) &&
+            (myTextFieldStrings->getTextColor() == FXRGB(0, 0, 0)) && (myChoicesCombo->getTextColor() == FXRGB(0, 0, 0)));
 }
 
 
@@ -926,6 +967,78 @@ GNEInspectorFrame::AttributesEditor::hideAttributesEditor() {
     }
     // hide also AttributesEditor
     hide();
+}
+
+
+void 
+GNEInspectorFrame::AttributesEditor::refresAttributeEditor() {
+    if (myInspectorFrameParent->getInspectedACs().size() > 0) {
+        // reset myCurrentIndex;
+        myCurrentIndex = 0;
+        // Declare pointer for allow/Disallow vehicles
+        std::pair<GNEInspectorFrame::AttributeInput*, std::string> myAllowAttribute(NULL, "");
+        std::pair<GNEInspectorFrame::AttributeInput*, std::string> myDisallowAttribute(NULL,"");
+        // Gets tag and attributes of element
+        SumoXMLTag ACFrontTag = myInspectorFrameParent->getInspectedACs().front()->getTag();
+        const std::vector<SumoXMLAttr> &ACFrontAttrs = myInspectorFrameParent->getInspectedACs().front()->getAttrs();
+
+        //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
+        bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front()) && (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front())->getNBNode()->getControllingTLS().empty()));
+
+        // Iterate over attributes
+        for (auto it : ACFrontAttrs) {
+            // disable editing for unique attributes in case of multi-selection
+            if (myInspectorFrameParent->getInspectedACs().size() > 1 && GNEAttributeCarrier::isUnique(ACFrontTag, it)) {
+                continue;
+            }
+            // Declare a set of occuring values and insert attribute's values of item
+            std::set<std::string> occuringValues;
+            for (auto it_ac : myInspectorFrameParent->getInspectedACs()) {
+                occuringValues.insert(it_ac->getAttribute(it));
+            }
+            // get current value
+            std::ostringstream oss;
+            for (auto it_val = occuringValues.begin(); it_val != occuringValues.end(); it_val++) {
+                if (it_val != occuringValues.begin()) {
+                    oss << " ";
+                }
+                oss << *it_val;
+            }
+            // Show attribute
+            if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it == SUMO_ATTR_TLTYPE) || (it == SUMO_ATTR_TLID))) == false) {
+                if ((int)myCurrentIndex < myVectorOfAttributeInputs.size()) {
+                    // refresh attribute, with a special case for allow/disallow vehicles
+                    if(it == SUMO_ATTR_ALLOW) {
+                        myAllowAttribute.first = myVectorOfAttributeInputs[myCurrentIndex];
+                        myAllowAttribute.second = oss.str();
+                    } else if (it == SUMO_ATTR_DISALLOW) {
+                        myDisallowAttribute.first = myVectorOfAttributeInputs[myCurrentIndex];
+                        myDisallowAttribute.second = oss.str();
+                    }
+                    // Refresh attributes maintain invalid values
+                    myVectorOfAttributeInputs[myCurrentIndex]->refreshAttributeInput(oss.str(), true);
+                    // update current index
+                    myCurrentIndex++;
+                }
+                else {
+                    throw ProcessError("myCurrentIndex greather than myVectorOfAttributeInputs");
+                }
+            }
+        }
+        // Check special case for Allow/Disallow attributes
+        if(myAllowAttribute.first && myDisallowAttribute.first) {
+            // if allow attribute is valid but disallow attribute is invalid
+            if(myAllowAttribute.first->isCurrentAttributeValid() && !myDisallowAttribute.first->isCurrentAttributeValid()) {
+                // force refresh of disallow attribute
+                myDisallowAttribute.first->refreshAttributeInput(myDisallowAttribute.second, false);
+            }
+            // if disallow attribute is valid but allow attribute is invalid
+            if (myDisallowAttribute.first->isCurrentAttributeValid() && !myAllowAttribute.first->isCurrentAttributeValid()) {
+                // force refresh of disallow attribute
+                myAllowAttribute.first->refreshAttributeInput(myAllowAttribute.second, false);
+            }
+        }
+    }
 }
 
 
