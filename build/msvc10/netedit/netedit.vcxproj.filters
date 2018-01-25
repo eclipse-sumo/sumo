@@ -336,6 +336,9 @@
     <ClCompile Include="..\..\..\src\netedit\GNEChange_CalibratorItem.cpp">
       <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_RerouterItem.cpp">
+      <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSign.cpp">
       <Filter>Quellcodedateien\Items\Additionals\VariableSpeedSigns</Filter>
     </ClCompile>
@@ -366,14 +369,8 @@
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Shape.cpp">
       <Filter>Quellcodedateien\Items\Changes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_RerouterItem.cpp">
-      <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEChange_VariableSpeedSignItem.cpp">
       <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Inspection.cpp">
-      <Filter>Quellcodedateien\Items\Changes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -574,6 +571,9 @@
     <ClInclude Include="..\..\..\src\netedit\GNEChange_CalibratorItem.h">
       <Filter>Header-Dateien\Items\Changes\Additionals</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_RerouterItem.h">
+      <Filter>Header-Dateien\Items\Changes\Additionals</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEChange_TLS.h">
       <Filter>Header-Dateien\Items\Changes\NetElements</Filter>
     </ClInclude>
@@ -622,14 +622,8 @@
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Shape.h">
       <Filter>Header-Dateien\Items\Changes</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_RerouterItem.h">
-      <Filter>Header-Dateien\Items\Changes\Additionals</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEChange_VariableSpeedSignItem.h">
       <Filter>Header-Dateien\Items\Changes\Additionals</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Inspection.h">
-      <Filter>Header-Dateien\Items\Changes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

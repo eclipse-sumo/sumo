@@ -372,9 +372,6 @@
     <ClCompile Include="..\..\..\src\netedit\GNEChange_VariableSpeedSignItem.cpp">
       <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Inspection.cpp">
-      <Filter>Quellcodedateien\Items\Changes</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -627,9 +624,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEChange_VariableSpeedSignItem.h">
       <Filter>Header-Dateien\Items\Changes\Additionals</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Inspection.h">
-      <Filter>Header-Dateien\Items\Changes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
