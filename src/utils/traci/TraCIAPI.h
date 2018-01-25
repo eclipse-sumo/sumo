@@ -716,6 +716,7 @@ public:
         void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute) const;
         void slowDown(const std::string& vehicleID, double speed, SUMOTime duration) const;
         void setSpeed(const std::string& vehicleID, double speed) const;
+        void setSpeedMode(const std::string& vehicleID, int mode) const;
         void setType(const std::string& vehicleID, const std::string& typeID) const;
         void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED) const;
         void setColor(const std::string& vehicleID, const libsumo::TraCIColor& c) const;
