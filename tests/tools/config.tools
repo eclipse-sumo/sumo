@@ -146,11 +146,11 @@ output:instance at 0x[0-9A-Fa-f]+{REPLACE instance at <ADDRESS>}
 output:Written configuration to .*{REPLACE Written configuration to <PATH>}
 output:Warning: Module 'rtree' not available. Using brute-force fallback
 output:2147483647{REPLACE 9223372036854775807}
-trips:<!-- generated on
-osmtrips:<!-- generated on
-districts:<!-- generated on
+trips:<!-- generated on{[->]}-->
+osmtrips:<!-- generated on{[->]}-->
+districts:<!-- generated on{[->]}-->
 pois:<!--
-routes:<!-- generated on
+routes:<!-- generated on{[->]}-->
 errors:Execution of .*duarouter.*'{REPLACE Execution of <path-to>duarouter'}
 errors:Leaked object at 
 errors:*** 9 leaks found
@@ -164,9 +164,9 @@ errors:.*RuntimeWarning: divide{REPLACE RuntimeWarning: divide}
 errors:Ran [0-9]+ tests in [0-9]+\.[0-9]+s{REPLACE Ran <COUNT> tests in <TIME>}
 errors:No imaging
 errors:Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 27{REPLACE Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 26}
-omnet:<!-- generated on
-shawn:<!-- generated on
-flows:<!-- generated on
+omnet:<!-- generated on{[->]}-->
+shawn:<!-- generated on{[->]}-->
+flows:<!-- generated on{[->]}-->
 net:<!--{[->]}-->
 osmimport:<!--{[->]}-->
 osmstops:<!--{[->]}-->
