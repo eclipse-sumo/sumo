@@ -251,26 +251,27 @@ GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeC
 }
 
 
-void
-GNEInspectorFrame::refreshInspectedValues() {
-    // Refresh values of all editors
-    myAttributesEditor->refreshAttributeEditor(false, false);
-    myNeteditAttributesEditor->showNeteditAttributesEditor();
-    myGEOAttributesEditor->refreshGEOAttributesEditor(false);
-    // Update view net
-    myViewNet->update();
+GNEInspectorFrame::AttributesEditor*
+GNEInspectorFrame::getAttributesEditor() const {
+    return myAttributesEditor;
 }
 
 
-GNEInspectorFrame::TemplateEditor*
-GNEInspectorFrame::getTemplateEditor() const {
-    return myTemplateEditor;
+GNEInspectorFrame::NeteditAttributesEditor*
+GNEInspectorFrame::getNeteditAttributesEditor() const {
+    return myNeteditAttributesEditor;
 }
 
 
 GNEInspectorFrame::GEOAttributesEditor*
 GNEInspectorFrame::getGEOAttributesEditor() const {
     return myGEOAttributesEditor;
+}
+
+
+GNEInspectorFrame::TemplateEditor*
+GNEInspectorFrame::getTemplateEditor() const {
+    return myTemplateEditor;
 }
 
 
@@ -775,7 +776,7 @@ long
 GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // Declare changed value
     std::string newVal;
-    bool refreshGEO = false;
+    bool refreshGEOAndNeteditEditors = false;
     // First, obtain the string value of the new attribute depending of their type
     if (GNEAttributeCarrier::isBool(myTag, myAttr)) {
         // Set true o false depending of the checBox
@@ -829,8 +830,8 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
     // we need a extra check for Position and Shape Values, due #2658
     if ((myAttr == SUMO_ATTR_POSITION) || (myAttr == SUMO_ATTR_SHAPE)) {
         newVal = stripWhitespaceAfterComma(newVal);
-        // due we're changing a Position and Shape attribute, GEO Values must be refresh
-        refreshGEO = true;
+        // due we're changing a Position and Shape attribute, GEO and Netedit Editors must be refresh
+        refreshGEOAndNeteditEditors = true;
     }
 
     // Check if attribute must be changed
@@ -852,7 +853,7 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->killFocus();
             // in this case, we need to refresh the other values (For example, allow/Disallow objects)
-            myAttributesEditorParent->getInspectorFrameParent()->refreshInspectedValues();
+            myAttributesEditorParent->refreshAttributeEditor(false, false);
         } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
             myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
             myChoicesCombo->killFocus();
@@ -866,8 +867,9 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->killFocus();
         }
-        // Check if GEO Attribute editor must be refresh
-        if(refreshGEO) {
+        // Check if GEO and Netedit editors must be refresh
+        if(refreshGEOAndNeteditEditors) {
+            myAttributesEditorParent->getInspectorFrameParent()->getNeteditAttributesEditor()->refreshNeteditAttributesEditor(true);
             myAttributesEditorParent->getInspectorFrameParent()->getGEOAttributesEditor()->refreshGEOAttributesEditor(true);
         }
     } else {
@@ -890,8 +892,6 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
             WRITE_WARNING("Value '" + newVal + "' for attribute " + toString(myAttr) + " of " + toString(myTag) + " isn't valid");
         }
     }
-    // refresh values of inspector frame
-    myAttributesEditorParent->getInspectorFrameParent()->refreshInspectedValues();
     return 1;
 }
 
@@ -1031,7 +1031,7 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
                         // Check if refresh of Position or Shape has to be forced
                         if((it == SUMO_ATTR_SHAPE) && forceRefreshShape) {
                             myVectorOfAttributeInputs[myCurrentIndex]->refreshAttributeInput(oss.str(), true);
-                        } else if ((it == SUMO_ATTR_POSITION) && forceRefreshShape) {
+                        } else if ((it == SUMO_ATTR_POSITION) && forceRefreshPosition) {
                             // Refresh attributes maintain invalid values
                             myVectorOfAttributeInputs[myCurrentIndex]->refreshAttributeInput(oss.str(), true);
                         } else {
@@ -1204,6 +1204,72 @@ GNEInspectorFrame::NeteditAttributesEditor::hideNeteditAttributesEditor() {
 }
 
 
+void 
+GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool forceRefresh) {
+    if (myInspectorFrameParent->getInspectedACs().size() > 0) {
+        // refresh block movement
+        if (myHorizontalFrameBlockMovement->shown()) {
+            // Iterate over AC to obtain values
+            bool value = true;
+            for (auto i : myInspectorFrameParent->getInspectedACs()) {
+                value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_MOVEMENT));
+            }
+            // set check box value and update label
+            if (value) {
+                myCheckBoxBlockMovement->setCheck(true);
+                myCheckBoxBlockMovement->setText("true");
+            }
+            else {
+                myCheckBoxBlockMovement->setCheck(false);
+                myCheckBoxBlockMovement->setText("false");
+            }
+        }
+        // refresh block shape
+        if (myHorizontalFrameBlockShape->shown()) {
+            // Iterate over AC to obtain values
+            bool value = true;
+            for (auto i : myInspectorFrameParent->getInspectedACs()) {
+                value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_SHAPE));
+            }
+            // set check box value and update label
+            if (value) {
+                myCheckBoxBlockShape->setCheck(true);
+                myCheckBoxBlockShape->setText("true");
+            }
+            else {
+                myCheckBoxBlockShape->setCheck(false);
+                myCheckBoxBlockShape->setText("false");
+            }
+        }
+        // refresh close shape
+        if (myHorizontalFrameCloseShape->shown()) {
+            // Iterate over AC to obtain values
+            bool value = true;
+            for (auto i : myInspectorFrameParent->getInspectedACs()) {
+                value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_CLOSE_SHAPE));
+            }
+            // set check box value and update label
+            if (value) {
+                myCheckBoxCloseShape->setCheck(true);
+                myCheckBoxCloseShape->setText("true");
+            }
+            else {
+                myCheckBoxCloseShape->setCheck(false);
+                myCheckBoxCloseShape->setText("false");
+            }
+        }
+        // Check if item has another item as parent (Currently only for single Additionals)
+        if (myHorizontalFrameAdditionalParent->shown() && ((myTextFieldAdditionalParent->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
+            // obtain additional Parent
+            GNEAdditional* additional = myInspectorFrameParent->getViewNet()->getNet()->retrieveAdditional(myInspectorFrameParent->getInspectedACs().front()->getAttribute(GNE_ATTR_PARENT));
+            // set Label and TextField with the Tag and ID of parent
+            myLabelAdditionalParent->setText((toString(additional->getTag()) + " parent").c_str());
+            myTextFieldAdditionalParent->setText(additional->getID().c_str());
+        }
+    }
+}
+
+
 long
 GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
     // make sure that ACs has elements
@@ -1250,8 +1316,9 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
                 myTextFieldAdditionalParent->killFocus();
             }
         }
-        // refresh values of inspector frame
-        myInspectorFrameParent->refreshInspectedValues();
+        // force refresh values of AttributesEditor and GEOAttributesEditor
+        myInspectorFrameParent->getAttributesEditor()->refreshAttributeEditor(true, true);
+        myInspectorFrameParent->getGEOAttributesEditor()->refreshGEOAttributesEditor(true);
     }
     return 1;
 }
@@ -1390,8 +1457,9 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
                 }
             }
         }
-        // refresh values of inspector frame
-        myInspectorFrameParent->refreshInspectedValues();
+        // force refresh values of Attributes editor and NeteditAttributesEditor
+        myInspectorFrameParent->getAttributesEditor()->refreshAttributeEditor(true, true);
+        myInspectorFrameParent->getNeteditAttributesEditor()->refreshNeteditAttributesEditor(true);
     }
     return 1;
 }

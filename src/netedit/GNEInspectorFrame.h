@@ -145,7 +145,7 @@ public:
 
         /// @brief refresh attribute editor (only the valid values will be refresh)
         void refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition);
-        
+
         /// @brief get InspectorFrame Parent
         GNEInspectorFrame* getInspectorFrameParent() const;
 
@@ -194,6 +194,9 @@ public:
 
         /// @brief hide netedit attributes editor
         void hideNeteditAttributesEditor();
+
+        /// @brief refresh netedit attributes
+        void refreshNeteditAttributesEditor(bool forceRefresh);
 
         /// @name FOX-callbacks
         /// @{
@@ -399,14 +402,17 @@ public:
     /// @brief inspect called from DeleteFrame
     void inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked);
 
-    /// @brief Refresh inspected values (used when values can be changed externally by other modul)
-    void refreshInspectedValues();
+    /// @brief get Attributes editor
+    AttributesEditor *getAttributesEditor() const;
 
-    /// @brief get Template editor
-    TemplateEditor *getTemplateEditor() const;
+    /// @brief get Netedit Attributes editor
+    NeteditAttributesEditor *getNeteditAttributesEditor() const;
 
     /// @brief get GEO Attributes editor
     GEOAttributesEditor *getGEOAttributesEditor() const;
+
+    /// @brief get Template editor
+    TemplateEditor *getTemplateEditor() const;
 
     /// @name FOX-callbacks
     /// @{
