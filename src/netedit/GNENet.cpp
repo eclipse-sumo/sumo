@@ -90,6 +90,7 @@
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
+#include "GNEInspectorFrame.h"
 
 
 // ===========================================================================
@@ -1938,6 +1939,9 @@ GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector&
 void
 GNENet::removePolygonForEditShapes(GNEPoly* polygon) {
     if (polygon) {
+        // remove it from Inspector Frame
+        myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(polygon);
+        // Remove from grid
         myGrid.removeAdditionalGLObject(polygon->getGUIGLObject());
         myViewNet->update();
     } else {
@@ -2051,7 +2055,11 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
     if (additionalToRemove == myAdditionals.end()) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist");
     } else {
+        // remove it from Inspector Frame
+        myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(additional);
+        // Remove from container
         myAdditionals.erase(additionalToRemove);
+        // Remove from grid
         myGrid.removeAdditionalGLObject(additional);
         update();
         // additionals has to be saved
@@ -2210,6 +2218,9 @@ GNENet::registerEdge(GNEEdge* edge) {
 
 void
 GNENet::deleteSingleJunction(GNEJunction* junction) {
+    // remove it from Inspector Frame
+    myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(junction);
+    // Remove from grid and container
     myGrid.removeAdditionalGLObject(junction);
     myJunctions.erase(junction->getMicrosimID());
     myNetBuilder->getNodeCont().extract(junction->getNBNode());
@@ -2223,6 +2234,8 @@ GNENet::deleteSingleJunction(GNEJunction* junction) {
 
 void
 GNENet::deleteSingleEdge(GNEEdge* edge) {
+    // remove it from Inspector Frame
+    myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(edge);
     // remove edge from visual grid and container
     myGrid.removeAdditionalGLObject(edge);
     myEdges.erase(edge->getMicrosimID());
@@ -2261,6 +2274,8 @@ GNENet::insertShape(GNEShape* shape) {
 
 void
 GNENet::removeShape(GNEShape* shape) {
+    // remove it from Inspector Frame
+    myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(shape);
     // remove shape from grid
     myGrid.removeAdditionalGLObject(shape->getGUIGLObject());
     // remove shape depending of their types
@@ -2342,6 +2357,9 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             refreshElement(it.second);
         }
     }
+    // Clear current inspected ACs in inspectorFrame
+    myViewNet->getViewParent()->getInspectorFrame()->clearInspectedAC();
+    // Remove from container
     myGrid.reset();
     myGrid.add(GeoConvHelper::getFinal().getConvBoundary());
     // if volatile options are true

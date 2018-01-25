@@ -250,6 +250,38 @@ GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeC
     }
 }
 
+void 
+GNEInspectorFrame::removeInspectedAC(GNEAttributeCarrier *ac) {
+    // Only remove if there is inspected ACs
+    if(myACs.size() > 0) {
+        // Try to find AC in myACs 
+        auto i = std::find(myACs.begin(), myACs.end(), ac);
+        // if was found
+        if(i != myACs.end()){
+            // erase AC from my AC
+            myACs.erase(i);
+            // Write Warning in console if we're in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Removed '" + (*i)->getID() + "' from Inspected ACs. " + toString(myACs.size()) + " ACs remains.");
+            }
+            // Inspect multi selection again
+            inspectMultisection(myACs);
+        }
+    }
+}
+
+
+void 
+GNEInspectorFrame::clearInspectedAC() {
+    // Only remove if there is inspected ACs
+    if (myACs.size() > 0) {
+        // clear ACs
+        myACs.clear();
+        // Inspect multi selection again (to hide all Editors)
+        inspectMultisection(myACs);
+    }
+}
+
 
 GNEInspectorFrame::AttributesEditor*
 GNEInspectorFrame::getAttributesEditor() const {

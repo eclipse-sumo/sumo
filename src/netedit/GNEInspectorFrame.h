@@ -402,6 +402,12 @@ public:
     /// @brief inspect called from DeleteFrame
     void inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked);
 
+    /// @brief remove AC from current inspected ACs
+    void removeInspectedAC(GNEAttributeCarrier *ac);
+
+    /// @brief Clear all current inspected ACs
+    void clearInspectedAC();
+
     /// @brief get Attributes editor
     AttributesEditor *getAttributesEditor() const;
 
