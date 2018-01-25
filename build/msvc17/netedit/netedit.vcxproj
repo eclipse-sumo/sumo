@@ -146,6 +146,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Connection.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Crossing.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Edge.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Inspection.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Junction.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Lane.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_RerouterItem.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Connection.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Crossing.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Edge.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Inspection.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Junction.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Lane.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_RerouterItem.h" />

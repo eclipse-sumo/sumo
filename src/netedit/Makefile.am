@@ -40,6 +40,7 @@ GNEChange_Connection.h GNEChange_Connection.cpp \
 GNEChange_Attribute.h GNEChange_Attribute.cpp \
 GNEChange_TLS.h GNEChange_TLS.cpp \
 GNEChange_Selection.h GNEChange_Selection.cpp \
+GNEChange_Inspection.h GNEChange_Inspection.cpp \
 GNEChange_Additional.h GNEChange_Additional.cpp \
 GNEChange_RerouterItem.h GNEChange_RerouterItem.cpp \
 GNEChange_CalibratorItem.h GNEChange_CalibratorItem.cpp \

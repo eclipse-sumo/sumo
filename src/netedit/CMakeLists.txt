@@ -60,6 +60,8 @@ set(netedit_SRCS
    GNEChange_TLS.cpp
    GNEChange_Selection.h
    GNEChange_Selection.cpp
+   GNEChange_Inspection.h
+   GNEChange_Inspection.cpp
    GNEChange_Additional.h
    GNEChange_Additional.cpp
    GNEChange_RerouterItem.h
