@@ -254,9 +254,9 @@ GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeC
 void
 GNEInspectorFrame::refreshInspectedValues() {
     // Refresh values of all editors
-    myAttributesEditor->refresAttributeEditor();
+    myAttributesEditor->refreshAttributeEditor(false, false);
     myNeteditAttributesEditor->showNeteditAttributesEditor();
-    myGEOAttributesEditor->showGEOAttributesEditor();
+    myGEOAttributesEditor->refreshGEOAttributesEditor(false);
     // Update view net
     myViewNet->update();
 }
@@ -265,6 +265,12 @@ GNEInspectorFrame::refreshInspectedValues() {
 GNEInspectorFrame::TemplateEditor*
 GNEInspectorFrame::getTemplateEditor() const {
     return myTemplateEditor;
+}
+
+
+GNEInspectorFrame::GEOAttributesEditor*
+GNEInspectorFrame::getGEOAttributesEditor() const {
+    return myGEOAttributesEditor;
 }
 
 
@@ -706,28 +712,28 @@ GNEInspectorFrame::AttributeInput::hideAttribute() {
 
  
 void
-GNEInspectorFrame::AttributeInput::refreshAttributeInput(const std::string &value, bool onlyValid) {
+GNEInspectorFrame::AttributeInput::refreshAttributeInput(const std::string &value, bool forceRefresh) {
     if(myTextFieldInt->shown()) {
         // set last valid value and restore color if onlyValid is disabled
-        if(myTextFieldInt->getTextColor() == FXRGB(0, 0, 0) || !onlyValid) {
+        if(myTextFieldInt->getTextColor() == FXRGB(0, 0, 0) || forceRefresh) {
             myTextFieldInt->setText(value.c_str());
             myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
         }
     } else if (myTextFieldReal->shown()) {
         // set last valid value and restore color if onlyValid is disabled
-        if (myTextFieldReal->getTextColor() == FXRGB(0, 0, 0) || !onlyValid) {
+        if (myTextFieldReal->getTextColor() == FXRGB(0, 0, 0) || forceRefresh) {
             myTextFieldReal->setText(value.c_str());
             myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
         }
     } else if (myTextFieldStrings->shown()) {
         // set last valid value and restore color if onlyValid is disabled
-        if (myTextFieldStrings->getTextColor() == FXRGB(0, 0, 0) || !onlyValid) {
+        if (myTextFieldStrings->getTextColor() == FXRGB(0, 0, 0) || forceRefresh) {
             myTextFieldStrings->setText(value.c_str());
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
         }
     } else if (myChoicesCombo->shown()) {
         // set last valid value and restore color if onlyValid is disabled
-        if (myChoicesCombo->getTextColor() == FXRGB(0, 0, 0) || !onlyValid) {
+        if (myChoicesCombo->getTextColor() == FXRGB(0, 0, 0) || forceRefresh) {
             myChoicesCombo->setText(value.c_str());
             myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
         }
@@ -769,6 +775,7 @@ long
 GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // Declare changed value
     std::string newVal;
+    bool refreshGEO = false;
     // First, obtain the string value of the new attribute depending of their type
     if (GNEAttributeCarrier::isBool(myTag, myAttr)) {
         // Set true o false depending of the checBox
@@ -822,6 +829,8 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
     // we need a extra check for Position and Shape Values, due #2658
     if ((myAttr == SUMO_ATTR_POSITION) || (myAttr == SUMO_ATTR_SHAPE)) {
         newVal = stripWhitespaceAfterComma(newVal);
+        // due we're changing a Position and Shape attribute, GEO Values must be refresh
+        refreshGEO = true;
     }
 
     // Check if attribute must be changed
@@ -856,6 +865,10 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
         } else if (myTextFieldStrings != 0) {
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->killFocus();
+        }
+        // Check if GEO Attribute editor must be refresh
+        if(refreshGEO) {
+            myAttributesEditorParent->getInspectorFrameParent()->getGEOAttributesEditor()->refreshGEOAttributesEditor(true);
         }
     } else {
         // If value of TextField isn't valid, change color to Red depending of type
@@ -971,7 +984,7 @@ GNEInspectorFrame::AttributesEditor::hideAttributesEditor() {
 
 
 void 
-GNEInspectorFrame::AttributesEditor::refresAttributeEditor() {
+GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition) {
     if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         // reset myCurrentIndex;
         myCurrentIndex = 0;
@@ -1014,9 +1027,18 @@ GNEInspectorFrame::AttributesEditor::refresAttributeEditor() {
                     } else if (it == SUMO_ATTR_DISALLOW) {
                         myDisallowAttribute.first = myVectorOfAttributeInputs[myCurrentIndex];
                         myDisallowAttribute.second = oss.str();
+                    } else {
+                        // Check if refresh of Position or Shape has to be forced
+                        if((it == SUMO_ATTR_SHAPE) && forceRefreshShape) {
+                            myVectorOfAttributeInputs[myCurrentIndex]->refreshAttributeInput(oss.str(), true);
+                        } else if ((it == SUMO_ATTR_POSITION) && forceRefreshShape) {
+                            // Refresh attributes maintain invalid values
+                            myVectorOfAttributeInputs[myCurrentIndex]->refreshAttributeInput(oss.str(), true);
+                        } else {
+                            // Refresh attributes maintain invalid values
+                            myVectorOfAttributeInputs[myCurrentIndex]->refreshAttributeInput(oss.str(), false);
+                        }
                     }
-                    // Refresh attributes maintain invalid values
-                    myVectorOfAttributeInputs[myCurrentIndex]->refreshAttributeInput(oss.str(), true);
                     // update current index
                     myCurrentIndex++;
                 }
@@ -1030,12 +1052,12 @@ GNEInspectorFrame::AttributesEditor::refresAttributeEditor() {
             // if allow attribute is valid but disallow attribute is invalid
             if(myAllowAttribute.first->isCurrentAttributeValid() && !myDisallowAttribute.first->isCurrentAttributeValid()) {
                 // force refresh of disallow attribute
-                myDisallowAttribute.first->refreshAttributeInput(myDisallowAttribute.second, false);
+                myDisallowAttribute.first->refreshAttributeInput(myDisallowAttribute.second, true);
             }
             // if disallow attribute is valid but allow attribute is invalid
             if (myDisallowAttribute.first->isCurrentAttributeValid() && !myAllowAttribute.first->isCurrentAttributeValid()) {
                 // force refresh of disallow attribute
-                myAllowAttribute.first->refreshAttributeInput(myAllowAttribute.second, false);
+                myAllowAttribute.first->refreshAttributeInput(myAllowAttribute.second, true);
             }
         }
     }
@@ -1313,6 +1335,20 @@ GNEInspectorFrame::GEOAttributesEditor::hideGEOAttributesEditor() {
     myUseGEOFrame->hide();
     // hide groupbox
     hide();
+}
+
+
+void 
+GNEInspectorFrame::GEOAttributesEditor::refreshGEOAttributesEditor(bool forceRefresh) {
+    // Check that myGEOAttributeFrame is shown
+    if(myGEOAttributeFrame->shown() && ((myGEOAttributeTextField->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
+        if (GNEAttributeCarrier::canUseGeoPosition(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
+            myGEOAttributeTextField->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(SUMO_ATTR_GEOPOSITION).c_str());
+        } else if (GNEAttributeCarrier::canUseGeoShape(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
+            myGEOAttributeTextField->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(SUMO_ATTR_GEOSHAPE).c_str());
+        }
+        myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
+    }
 }
 
 

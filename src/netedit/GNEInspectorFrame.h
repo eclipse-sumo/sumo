@@ -71,7 +71,7 @@ public:
         void hideAttribute();
 
         /// @brief refresh current attribute input
-        void refreshAttributeInput(const std::string &value, bool onlyValid);
+        void refreshAttributeInput(const std::string &value, bool forceRefresh);
 
         /// @brief check if current attribute of TextField/ComboBox is valid
         bool isCurrentAttributeValid() const;
@@ -144,7 +144,7 @@ public:
         void hideAttributesEditor();
 
         /// @brief refresh attribute editor (only the valid values will be refresh)
-        void refresAttributeEditor();
+        void refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition);
         
         /// @brief get InspectorFrame Parent
         GNEInspectorFrame* getInspectorFrameParent() const;
@@ -274,6 +274,9 @@ public:
         /// @brief hide GEO attributes editor
         void hideGEOAttributesEditor();
 
+        /// @brief refresh GEO attributes editor
+        void refreshGEOAttributesEditor(bool forceRefresh);
+
         /// @name FOX-callbacks
         /// @{
 
@@ -315,7 +318,7 @@ public:
     };
 
     // ===========================================================================
-    // class GEOAttributesEditor
+    // class TemplateEditor
     // ===========================================================================
 
     class TemplateEditor : private FXGroupBox {
@@ -401,6 +404,9 @@ public:
 
     /// @brief get Template editor
     TemplateEditor *getTemplateEditor() const;
+
+    /// @brief get GEO Attributes editor
+    GEOAttributesEditor *getGEOAttributesEditor() const;
 
     /// @name FOX-callbacks
     /// @{
