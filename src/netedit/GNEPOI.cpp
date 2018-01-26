@@ -174,7 +174,6 @@ GUIGLObjectPopupMenu*
 GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     if(myGNELane) {
-        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
         // build shape header
         buildShapePopupOptions(app, ret, myType);
         // add option for convert to GNEPOI
