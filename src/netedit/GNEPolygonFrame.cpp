@@ -373,8 +373,8 @@ GNEPolygonFrame::addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues)
     myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POILANE));
     if (myViewNet->getNet()->addPOI(id, type, color, Position(), false, lane->getID(), posLane, posLat, layer, angle, imgFile, widthPOI, heightPOI)) {
         // Set manually the attribute block movement
-        GNEPOILane* POILane = myViewNet->getNet()->retrievePOILane(id);
-        POILane->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, POIValues.at(GNE_ATTR_BLOCK_MOVEMENT), myViewNet->getUndoList());
+        GNEPOI* POI = myViewNet->getNet()->retrievePOI(id);
+        POI->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, POIValues.at(GNE_ATTR_BLOCK_MOVEMENT), myViewNet->getUndoList());
         myViewNet->getUndoList()->p_end();
         return true;
     } else {

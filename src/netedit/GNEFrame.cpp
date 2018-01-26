@@ -488,10 +488,10 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                 // POIs don't have lane parents
                 return NULL;
             } else {
-                // Obtain POILane
-                GNEPOILane* POILane = myFrameParent->getViewNet()->getNet()->retrievePOILane(myAC->getID());
+                // Obtain GNEPOI
+                GNEPOI* GNEPOI = myFrameParent->getViewNet()->getNet()->retrievePOI(myAC->getID());
                 // obtain lane parent
-                GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(POILane->getLane()->getID());
+                GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(GNEPOI->getLane()->getID());
                 // obtain edge parent
                 GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
                 //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)

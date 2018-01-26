@@ -63,14 +63,15 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const Position& pos, bool geo, double layer, double angle, const std::string& imgFile,
                double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, width, height),
-    GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI, movementBlocked, false) {
+    GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI, movementBlocked, false),
+    myGNELane(NULL) {
     // set GEO Position
     myGEOPosition = pos;
     GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
 }
 
 
-GNEPOILane::GNEPOILane(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
+GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
     double layer, double angle, const std::string& imgFile, GNELane* lane, double posOverLane, double posLat,
     double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane / lane->getLaneParametricLength(), posLat, layer, angle, imgFile, width, height),
@@ -82,86 +83,70 @@ GNEPOILane::GNEPOILane(GNENet* net, const std::string& id, const std::string& ty
 GNEPOI::~GNEPOI() {}
 
 
-GNEPOILane::~GNEPOILane() {}
-
-
 void GNEPOI::writeShape(OutputDevice& device) {
-    writeXML(device, myGeo);
-}
-
-
-void
-GNEPOILane::writeShape(OutputDevice& device) {
-    // obtain fixed position over lane
-    double fixedPositionOverLane = myPosOverLane > 1 ? 1 : myPosOverLane < 0 ? 0 : myPosOverLane;
-    // write POILane using POI::writeXML
-    writeXML(device, false, 0, myGNELane->getID(), fixedPositionOverLane * myGNELane->getShape().length(), myPosLat);
+    if(myGNELane) {
+        // obtain fixed position over lane
+        double fixedPositionOverLane = myPosOverLane > 1 ? 1 : myPosOverLane < 0 ? 0 : myPosOverLane;
+        // write POILane using POI::writeXML
+        writeXML(device, false, 0, myGNELane->getID(), fixedPositionOverLane * myGNELane->getShape().length(), myPosLat);
+    } else {
+        writeXML(device, myGeo);
+    }
 }
 
 
 void
 GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
     if (!myBlockMovement) {
-        // restore old position, apply offset and refresh element
-        set(oldPos);
-        add(offset);
-        myNet->refreshElement(this);
+        if (myGNELane) {
+            // Calculate new position using old position
+            Position newPosition = oldPos;
+            newPosition.add(offset);
+            myPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(newPosition, false) / myGNELane->getLaneShapeLength();
+            // Update geometry
+            updateGeometry();
+        } else {
+            // restore old position, apply offset and refresh element
+            set(oldPos);
+            add(offset);
+            myNet->refreshElement(this);
+        }
     }
-}
-
-
-void
-GNEPOILane::moveGeometry(const Position& oldPos, const Position& offset) {
-    // Calculate new position using old position
-    Position newPosition = oldPos;
-    newPosition.add(offset);
-    myPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(newPosition, false) / myGNELane->getLaneShapeLength();
-    // Update geometry
-    updateGeometry();
 }
 
 
 void
 GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     if (!myBlockMovement) {
-        undoList->p_begin("position of " + toString(getTag()));
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(getPositionInView()), true, toString(oldPos)));
-        undoList->p_end();
-    }
-}
-
-
-void
-GNEPOILane::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-    if (!myBlockMovement) {
-        // restore old position before commit new position
-        double originalPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(oldPos, false);
-        undoList->p_begin("position of " + toString(getTag()));
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosOverLane * myGNELane->getLaneParametricLength()), true, toString(originalPosOverLane)));
-        undoList->p_end();
+        if (myGNELane) {
+            // restore old position before commit new position
+            double originalPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(oldPos, false);
+            undoList->p_begin("position of " + toString(getTag()));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosOverLane * myGNELane->getLaneParametricLength()), true, toString(originalPosOverLane)));
+            undoList->p_end();
+        } else {
+            undoList->p_begin("position of " + toString(getTag()));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(getPositionInView()), true, toString(oldPos)));
+            undoList->p_end();
+        }
     }
 }
 
 
 GNELane*
-GNEPOILane::getLane() const {
+GNEPOI::getLane() const {
     return myGNELane;
 }
 
 
 void
 GNEPOI::updateGeometry() {
-    // simply refresh element in net
-    myNet->refreshElement(this);
-}
-
-
-void
-GNEPOILane::updateGeometry() {
-    // obtain fixed position over lane
-    double fixedPositionOverLane = myPosOverLane > 1 ? 1 : myPosOverLane < 0 ? 0 : myPosOverLane;
-    // set new position regarding to lane
-    set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane * myGNELane->getLaneShapeLength(), myPosLat));
+    if (myGNELane) {
+        // obtain fixed position over lane
+        double fixedPositionOverLane = myPosOverLane > 1 ? 1 : myPosOverLane < 0 ? 0 : myPosOverLane;
+        // set new position regarding to lane
+        set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane * myGNELane->getLaneShapeLength(), myPosLat));
+    }
     // refresh element to avoid grabbings problem
     myNet->refreshElement(this);
 }
@@ -169,12 +154,6 @@ GNEPOILane::updateGeometry() {
 
 Position
 GNEPOI::getPositionInView() const {
-    return (*this);
-}
-
-
-Position
-GNEPOILane::getPositionInView() const {
     return Position(x(), y());
 }
 
@@ -185,20 +164,8 @@ GNEPOI::getGlID() const {
 }
 
 
-GUIGlID
-GNEPOILane::getGlID() const {
-    return GUIPointOfInterest::getGlID();
-}
-
-
 const std::string&
 GNEPOI::getParentName() const {
-    return myNet->getMicrosimID();
-}
-
-
-const std::string&
-GNEPOILane::getParentName() const {
     return myNet->getMicrosimID();
 }
 
@@ -206,31 +173,25 @@ GNEPOILane::getParentName() const {
 GUIGLObjectPopupMenu*
 GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    // build shape header
-    buildShapePopupOptions(app, ret, myType);
-    // add option for convert to GNEPOI
-    new FXMenuCommand(ret, ("Attach to nearest " + toString(SUMO_TAG_LANE)).c_str(), GUIIconSubSys::getIcon(ICON_LANE), &parent, MID_GNE_POI_TRANSFORM);
-    return ret;
-}
-
-GUIGLObjectPopupMenu*
-GNEPOILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    // build shape header
-    buildShapePopupOptions(app, ret, myType);
-    // add option for convert to GNEPOI
-    new FXMenuCommand(ret, ("Release from " + toString(SUMO_TAG_LANE)).c_str(), GUIIconSubSys::getIcon(ICON_LANE), &parent, MID_GNE_POI_TRANSFORM);
+    if(myGNELane) {
+        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+        // build shape header
+        buildShapePopupOptions(app, ret, myType);
+        // add option for convert to GNEPOI
+        new FXMenuCommand(ret, ("Release from " + toString(SUMO_TAG_LANE)).c_str(), GUIIconSubSys::getIcon(ICON_LANE), &parent, MID_GNE_POI_TRANSFORM);
+        return ret;
+    } else {
+        // build shape header
+        buildShapePopupOptions(app, ret, myType);
+        // add option for convert to GNEPOI
+        new FXMenuCommand(ret, ("Attach to nearest " + toString(SUMO_TAG_LANE)).c_str(), GUIIconSubSys::getIcon(ICON_LANE), &parent, MID_GNE_POI_TRANSFORM);
+    }
     return ret;
 }
 
 
 GUIParameterTableWindow*
 GNEPOI::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    return GUIPointOfInterest::getParameterWindow(app, parent);
-}
-
-GUIParameterTableWindow*
-GNEPOILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return GUIPointOfInterest::getParameterWindow(app, parent);
 }
 
@@ -241,27 +202,15 @@ GNEPOI::getCenteringBoundary() const {
 }
 
 
-Boundary
-GNEPOILane::getCenteringBoundary() const {
-    return GUIPointOfInterest::getCenteringBoundary();
-}
-
-
 void
 GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     GUIPointOfInterest::drawGL(s);
     // draw a label with the type of POI
-    GLHelper::drawText("POI", *this, myLayer + .1, 0.6, myColor.invertedColor());
-    // draw lock icon
-    drawLockIcon(*this + Position(0, -0.5), GLO_POI, 0.2);
-}
-
-
-void
-GNEPOILane::drawGL(const GUIVisualizationSettings& s) const {
-    GUIPointOfInterest::drawGL(s);
-    // draw a label with the type of POI
-    GLHelper::drawText("POI Lane", *this, myLayer + .1, 0.6, myColor.invertedColor());
+    if(myGNELane) {
+        GLHelper::drawText("POI Lane", *this, myLayer + .1, 0.6, myColor.invertedColor());
+    } else {
+        GLHelper::drawText("POI", *this, myLayer + .1, 0.6, myColor.invertedColor());
+    }
     // draw lock icon
     drawLockIcon(*this + Position(0, -0.5), GLO_POI, 0.2);
 }
@@ -274,8 +223,16 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             return myID;
         case SUMO_ATTR_COLOR:
             return toString(myColor);
+        case SUMO_ATTR_LANE:
+            return myLane;
         case SUMO_ATTR_POSITION:
-            return toString(*this);
+            if(myGNELane) {
+                return toString(myPosOverLane * myGNELane->getLaneParametricLength());
+            } else {
+                return toString(*this);
+            }
+        case SUMO_ATTR_POSITION_LAT:
+            return toString(myPosLat);
         case SUMO_ATTR_GEOPOSITION:
             return toString(myGEOPosition);
         case SUMO_ATTR_GEO:
@@ -300,39 +257,6 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
 }
 
 
-std::string
-GNEPOILane::getAttribute(SumoXMLAttr key) const {
-    switch (key) {
-    case SUMO_ATTR_ID:
-        return myID;
-    case SUMO_ATTR_COLOR:
-        return toString(myColor);
-    case SUMO_ATTR_LANE:
-        return myLane;
-    case SUMO_ATTR_POSITION:
-        return toString(myPosOverLane * myGNELane->getLaneParametricLength());
-    case SUMO_ATTR_POSITION_LAT:
-        return toString(myPosLat);
-    case SUMO_ATTR_TYPE:
-        return myType;
-    case SUMO_ATTR_LAYER:
-        return toString(myLayer);
-    case SUMO_ATTR_IMGFILE:
-        return myImgFile;
-    case SUMO_ATTR_WIDTH:
-        return toString(getWidth());
-    case SUMO_ATTR_HEIGHT:
-        return toString(getHeight());
-    case SUMO_ATTR_ANGLE:
-        return toString(getNaviDegree());
-    case GNE_ATTR_BLOCK_MOVEMENT:
-        return toString(myBlockMovement);
-    default:
-        throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
-    }
-}
-
-
 void
 GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -341,7 +265,9 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_COLOR:
+        case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_POSITION_LAT:
         case SUMO_ATTR_GEOPOSITION:
         case SUMO_ATTR_GEO:
         case SUMO_ATTR_TYPE:
@@ -359,32 +285,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
 }
 
 
-void
-GNEPOILane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
-    switch (key) {
-    case SUMO_ATTR_ID:
-    case SUMO_ATTR_COLOR:
-    case SUMO_ATTR_LANE:
-    case SUMO_ATTR_POSITION:
-    case SUMO_ATTR_POSITION_LAT:
-    case SUMO_ATTR_TYPE:
-    case SUMO_ATTR_LAYER:
-    case SUMO_ATTR_IMGFILE:
-    case SUMO_ATTR_WIDTH:
-    case SUMO_ATTR_HEIGHT:
-    case SUMO_ATTR_ANGLE:
-    case GNE_ATTR_BLOCK_MOVEMENT:
-        undoList->p_add(new GNEChange_Attribute(this, key, value));
-        break;
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-}
-
-
 bool
 GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
@@ -392,10 +292,14 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidID(value) && (myNet->retrievePOI(value, false) == 0);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
+        case SUMO_ATTR_LANE:
+            return (myNet->retrieveLane(value, false) != NULL);
         case SUMO_ATTR_POSITION: {
             bool ok;
             return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
         }
+        case SUMO_ATTR_POSITION_LAT:
+            return canParse<double>(value);
         case SUMO_ATTR_GEOPOSITION: {
             bool ok;
             return GeomConvHelper::parseShapeReporting(value, "user-supplied GEO position", 0, ok, false).size() == 1;
@@ -428,48 +332,6 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-
-bool
-GNEPOILane::isValid(SumoXMLAttr key, const std::string& value) {
-    switch (key) {
-    case SUMO_ATTR_ID:
-        return isValidID(value) && (myNet->retrievePOI(value, false) == 0);
-    case SUMO_ATTR_COLOR:
-        return canParse<RGBColor>(value);
-    case SUMO_ATTR_LANE:
-        return (myNet->retrieveLane(value, false) != NULL);
-    case SUMO_ATTR_POSITION:
-        return canParse<double>(value);
-    case SUMO_ATTR_POSITION_LAT:
-        return canParse<double>(value);
-    case SUMO_ATTR_TYPE:
-        return true;
-    case SUMO_ATTR_LAYER:
-        return canParse<double>(value);
-    case SUMO_ATTR_IMGFILE:
-        if (value == "") {
-            return true;
-        }
-        else if (isValidFilename(value)) {
-            // check that image can be loaded
-            return GUITexturesHelper::getTextureID(value) != -1;
-        }
-        else {
-            return false;
-        }
-    case SUMO_ATTR_WIDTH:
-        return canParse<double>(value);
-    case SUMO_ATTR_HEIGHT:
-        return canParse<double>(value);
-    case SUMO_ATTR_ANGLE:
-        return canParse<double>(value);
-    case GNE_ATTR_BLOCK_MOVEMENT:
-        return canParse<bool>(value);
-    default:
-        throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-}
-
 // ===========================================================================
 // private
 // ===========================================================================
@@ -486,14 +348,28 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
             break;
+        case SUMO_ATTR_LANE:
+            myLane = value;
+            myGNELane->removeShapeChild(this);
+            myGNELane = myNet->retrieveLane(value);
+            myGNELane->addShapeChild(this);
+            updateGeometry();
+            break;
         case SUMO_ATTR_POSITION: {
-            bool ok = true;
-            set(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
-            // set GEO Position
-            myGEOPosition = *this;
-            GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
+            if(myGNELane) {
+                myPosOverLane = parse<double>(value) / myGNELane->getLaneParametricLength();
+            } else {
+                bool ok = true;
+                set(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
+                // set GEO Position
+                myGEOPosition = *this;
+                GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
+            }
             break;
         }
+        case SUMO_ATTR_POSITION_LAT:
+            myPosLat = parse<double>(value);
+            break;
         case SUMO_ATTR_GEOPOSITION: {
             bool ok = true;
             myGEOPosition = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
@@ -532,60 +408,5 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
     // Update geometry after every change
     updateGeometry();
 }
-
-
-void
-GNEPOILane::setAttribute(SumoXMLAttr key, const std::string& value) {
-    switch (key) {
-    case SUMO_ATTR_ID: {
-        std::string oldID = myID;
-        myID = value;
-        myNet->changeShapeID(this, oldID);
-        break;
-    }
-    case SUMO_ATTR_COLOR:
-        myColor = parse<RGBColor>(value);
-        break;
-    case SUMO_ATTR_LANE:
-        myLane = value;
-        myGNELane->removeShapeChild(this);
-        myGNELane = myNet->retrieveLane(value);
-        myGNELane->addShapeChild(this);
-        updateGeometry();
-        break;
-    case SUMO_ATTR_POSITION:
-        myPosOverLane = parse<double>(value) / myGNELane->getLaneParametricLength();
-        break;
-    case SUMO_ATTR_POSITION_LAT:
-        myPosLat = parse<double>(value);
-        break;
-    case SUMO_ATTR_TYPE:
-        myType = value;
-        break;
-    case SUMO_ATTR_LAYER:
-        myLayer = parse<double>(value);
-        break;
-    case SUMO_ATTR_IMGFILE:
-        myImgFile = value;
-        break;
-    case SUMO_ATTR_WIDTH:
-        setWidth(parse<double>(value));
-        break;
-    case SUMO_ATTR_HEIGHT:
-        setHeight(parse<double>(value));
-        break;
-    case SUMO_ATTR_ANGLE:
-        setNaviDegree(parse<double>(value));
-        break;
-    case GNE_ATTR_BLOCK_MOVEMENT:
-        myBlockMovement = parse<bool>(value);
-        break;
-    default:
-        throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
-    }
-    // update Geometry after every change
-    updateGeometry();
-}
-
 
 /****************************************************************************/

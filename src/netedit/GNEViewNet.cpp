@@ -650,7 +650,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
         GNELane* pointed_lane = 0;
         GNEEdge* pointed_edge = 0;
         GNEPOI* pointed_poi = 0;
-        GNEPOILane* pointed_poiLane = 0;
         GNEPoly* pointed_poly = 0;
         GNECrossing* pointed_crossing = 0;
         GNEAdditional* pointed_additional = 0;
@@ -674,11 +673,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         pointed_edge = &(pointed_lane->getParentEdge());
                         break;
                     case GLO_POI:
-                        if (dynamic_cast<GNEPOI*>(pointed)) {
-                            pointed_poi = (GNEPOI*)pointed;
-                        } else {
-                            pointed_poiLane = (GNEPOILane*)pointed;
-                        }
+                        pointed_poi = (GNEPOI*)pointed;
                         break;
                     case GLO_POLYGON:
                         pointed_poly = (GNEPoly*)pointed;
@@ -773,10 +768,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     myPoiToMove = pointed_poi;
                     // Save original Position of Element
                     myMovingOriginalPosition = myPoiToMove->getPositionInView();
-                } else if (pointed_poiLane) {
-                    myPoiLaneToMove = pointed_poiLane;
-                    // Save original Position of Element
-                    myMovingOriginalPosition = myPoiLaneToMove->getPositionInView();
                 } else if (pointed_junction) {
                     if (gSelected.isSelected(GLO_JUNCTION, pointed_junction->getGlID())) {
                         begingMoveSelection(pointed_junction, getPositionInformation());
@@ -868,9 +859,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 } else if (pointed_poi) {
                     pointedAC = pointed_poi;
                     pointedO = pointed_poi;
-                } else if (pointed_poiLane) {
-                    pointedAC = pointed_poiLane;
-                    pointedO = pointed_poiLane;
                 }
                 // obtain selected ACs
                 std::vector<GNEAttributeCarrier*> selectedElements;
@@ -1001,9 +989,6 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     } else if (myPoiToMove) {
         myPoiToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
         myPoiToMove = 0;
-    } else if (myPoiLaneToMove) {
-        myPoiLaneToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
-        myPoiLaneToMove = 0;
     } else if (myJunctionToMove) {
         // position is already up to date but we must register with myUndoList
         if (!mergeJunctions(myJunctionToMove, myMovingOriginalPosition)) {
@@ -1097,9 +1082,6 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
         } else if (myPoiToMove) {
             // Move POI's geometry without commiting changes
             myPoiToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
-        } else if (myPoiLaneToMove) {
-            // Move POILane's geometry without commiting changes
-            myPoiLaneToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
         } else if (myJunctionToMove) {
             // Move Junction's geometry without commiting changes
             myJunctionToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
@@ -1465,20 +1447,6 @@ GNEViewNet::getPOIAtPopupPosition() {
 }
 
 
-GNEPOILane*
-GNEViewNet::getPOILaneAtPopupPosition() {
-    if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            return dynamic_cast<GNEPOILane*>(pointed);
-        }
-    }
-    return 0;
-}
-
-
 long
 GNEViewNet::onCmdSetModeCreateEdge(FXObject*, FXSelector, void*) {
     setEditMode(GNE_MODE_CREATE_EDGE);
@@ -1770,36 +1738,55 @@ GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
-    // check what type of POI will be transformed
-    GNEPOILane* POILane = getPOILaneAtPopupPosition();
+    // obtain POI at popup position
     GNEPOI* POI = getPOIAtPopupPosition();
     if (POI) {
-        // obtain lanes around POI boundary
-        std::vector<GUIGlID> GLIDs = getObjectsInBoundary(POI->getCenteringBoundary());
-        std::vector<GNELane*> lanes;
-        for (auto i : GLIDs) {
-            GNELane* lane = dynamic_cast<GNELane*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(i));
-            if (lane) {
-                lanes.push_back(lane);
-            }
-        }
-        if (lanes.empty()) {
-            WRITE_WARNING("No lanes around " + toString(SUMO_TAG_POILANE) + " to attach it");
-        } else {
-            // obtain nearest lane to POI
-            GNELane* nearestLane = lanes.front();
-            double minorPosOverLane = nearestLane->getShape().nearest_offset_to_point2D(POI->getPositionInView());
-            double minorLateralOffset = nearestLane->getShape().positionAtOffset(minorPosOverLane).distanceTo(POI->getPositionInView());
-            for (auto i : lanes) {
-                double posOverLane = i->getShape().nearest_offset_to_point2D(POI->getPositionInView());
-                double lateralOffset = i->getShape().positionAtOffset(posOverLane).distanceTo(POI->getPositionInView());
-                if (lateralOffset < minorLateralOffset) {
-                    minorPosOverLane = posOverLane;
-                    minorLateralOffset = lateralOffset;
-                    nearestLane = i;
+        // check what type of POI will be transformed
+        if(POI->getTag() == SUMO_TAG_POI) {
+            // obtain lanes around POI boundary
+            std::vector<GUIGlID> GLIDs = getObjectsInBoundary(POI->getCenteringBoundary());
+            std::vector<GNELane*> lanes;
+            for (auto i : GLIDs) {
+                GNELane* lane = dynamic_cast<GNELane*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(i));
+                if (lane) {
+                    lanes.push_back(lane);
                 }
             }
-            // obtain values of POI
+            if (lanes.empty()) {
+                WRITE_WARNING("No lanes around " + toString(SUMO_TAG_POI) + " to attach it");
+            } else {
+                // obtain nearest lane to POI
+                GNELane* nearestLane = lanes.front();
+                double minorPosOverLane = nearestLane->getShape().nearest_offset_to_point2D(POI->getPositionInView());
+                double minorLateralOffset = nearestLane->getShape().positionAtOffset(minorPosOverLane).distanceTo(POI->getPositionInView());
+                for (auto i : lanes) {
+                    double posOverLane = i->getShape().nearest_offset_to_point2D(POI->getPositionInView());
+                    double lateralOffset = i->getShape().positionAtOffset(posOverLane).distanceTo(POI->getPositionInView());
+                    if (lateralOffset < minorLateralOffset) {
+                        minorPosOverLane = posOverLane;
+                        minorLateralOffset = lateralOffset;
+                        nearestLane = i;
+                    }
+                }
+                // obtain values of POI
+                std::string id = POI->getID();
+                std::string type = POI->getType();
+                RGBColor color = POI->getColor();
+                Position pos = (*POI);
+                double layer = POI->getLayer();
+                double angle = POI->getNaviDegree();
+                std::string imgFile = POI->getImgFile();
+                double POIWidth = POI->getWidth();      // double width -> C4458
+                double POIHeight = POI->getHeight();    // double height -> C4458
+                // remove POI
+                myUndoList->p_begin("attach POI into " + toString(SUMO_TAG_LANE));
+                myNet->deleteShape(POI, myUndoList);
+                // add POILane
+                myNet->addPOI(id, type, color, pos, false, nearestLane->getID(), minorPosOverLane, 0, layer, angle, imgFile, POIWidth, POIHeight);
+                myUndoList->p_end();
+            }
+        } else {
+            // obtain values of POILane
             std::string id = POI->getID();
             std::string type = POI->getType();
             RGBColor color = POI->getColor();
@@ -1808,34 +1795,17 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
             double angle = POI->getNaviDegree();
             std::string imgFile = POI->getImgFile();
             double POIWidth = POI->getWidth();      // double width -> C4458
-            double POIHeight = POI->getHeight();    // double height -> C4458
+            double POIWeight = POI->getHeight();    // double height -> C4458
             // remove POI
-            myUndoList->p_begin("attach POI into " + toString(SUMO_TAG_LANE));
+            myUndoList->p_begin("release POI from " + toString(SUMO_TAG_LANE));
             myNet->deleteShape(POI, myUndoList);
-            // add POILane
-            myNet->addPOI(id, type, color, pos, false, nearestLane->getID(), minorPosOverLane, 0, layer, angle, imgFile, POIWidth, POIHeight);
+            // add POI
+            myNet->addPOI(id, type, color, pos, false, "", 0, 0, layer, angle, imgFile, POIWidth, POIWeight);
             myUndoList->p_end();
         }
-    } else if (POILane) {
-        // obtain values of POILane
-        std::string id = POILane->getID();
-        std::string type = POILane->getType();
-        RGBColor color = POILane->getColor();
-        Position pos = (*POILane);
-        double layer = POILane->getLayer();
-        double angle = POILane->getNaviDegree();
-        std::string imgFile = POILane->getImgFile();
-        double POIWidth = POILane->getWidth();      // double width -> C4458
-        double POIWeight = POILane->getHeight();    // double height -> C4458
-        // remove POILane
-        myUndoList->p_begin("release POI from " + toString(SUMO_TAG_LANE));
-        myNet->deleteShape(POILane, myUndoList);
-        // add POI
-        myNet->addPOI(id, type, color, pos, false, "", 0, 0, layer, angle, imgFile, POIWidth, POIWeight);
-        myUndoList->p_end();
+        // update view after transform
+        update();
     }
-    // update view after transform
-    update();
     return 1;
 }
 

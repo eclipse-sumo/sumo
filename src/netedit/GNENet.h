@@ -373,13 +373,6 @@ public:
     */
     GNEPOI* retrievePOI(const std::string& id, bool failHard = true) const;
 
-    /**@brief get POILane by id
-    * @param[in] id The id of the desired POILane
-    * @param[in] failHard Whether attempts to retrieve a nonexisting POILane should result in an exception
-    * @throws UnknownElement
-    */
-    GNEPOILane* retrievePOILane(const std::string& id, bool failHard = true) const;
-
     /**@brief get Connection by id
     * @param[in] id The id of the desired Connection
     * @param[in] failHard Whether attempts to retrieve a nonexisting Connection should result in an exception

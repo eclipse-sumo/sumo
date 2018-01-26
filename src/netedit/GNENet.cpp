@@ -264,16 +264,16 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
                 throw ProcessError("Error adding GNEPOI into shapeContainer");
             }
         } else {
-            // create POILane
+            // create POI over lane
             GNELane* retrievedLane = retrieveLane(lane);
-            GNEPOILane* poiLane = new GNEPOILane(this, id, type, color, layer, angle, imgFile, retrievedLane, posOverLane, posLat, width, height, false);
-            if (myPOIs.add(poiLane->getID(), poiLane)) {
-                myViewNet->getUndoList()->p_begin("add " + toString(poiLane->getTag()));
-                myViewNet->getUndoList()->add(new GNEChange_Shape(poiLane, true), true);
+            GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, retrievedLane, posOverLane, posLat, width, height, false);
+            if (myPOIs.add(poi->getID(), poi)) {
+                myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
+                myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
                 myViewNet->getUndoList()->p_end();
                 return true;
             } else {
-                throw ProcessError("Error adding GNEPOILane into shapeContainer");
+                throw ProcessError("Error adding GNEPOI over lane into shapeContainer");
             }
         }
     } else {
@@ -968,19 +968,6 @@ GNENet::retrievePOI(const std::string& id, bool failHard) const {
 }
 
 
-GNEPOILane*
-GNENet::retrievePOILane(const std::string& id, bool failHard) const {
-    if (myPOIs.get(id) != 0) {
-        return reinterpret_cast<GNEPOILane*>(myPOIs.get(id));
-    } else if (failHard) {
-        // If POI wasn't found, throw exception
-        throw UnknownElement("POILane " + id);
-    } else {
-        return NULL;
-    }
-}
-
-
 GNEConnection* 
 GNENet::retrieveConnection(const std::string& id, bool failHard) const {
     // iterate over junctions
@@ -1112,16 +1099,6 @@ GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
             // only add visible POIs
             if (POI && (!onlySelected || gSelected.isSelected(GLO_POI, POI->getGlID()))) {
                 result.push_back(POI);
-            }
-        }
-    }
-    // fill POILanes
-    if ((shapeTag == SUMO_TAG_NOTHING) || (shapeTag == SUMO_TAG_POILANE)) {
-        for (auto it : getPOIs()) {
-            GNEPOILane* POILane = dynamic_cast<GNEPOILane*>(it.second);
-            // only add visible POILanes
-            if (POILane && (!onlySelected || gSelected.isSelected(GLO_POI, POILane->getGlID()))) {
-                result.push_back(POILane);
             }
         }
     }
