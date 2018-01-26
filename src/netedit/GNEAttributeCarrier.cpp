@@ -734,7 +734,6 @@ GNEAttributeCarrier::canUseGeoPosition(SumoXMLTag tag) {
     // define on first access
     if (myGeoPositionTags.empty()) {
         myGeoPositionTags.push_back(SUMO_TAG_POI);
-        myGeoPositionTags.push_back(SUMO_TAG_POILANE);
     }
     return std::find(myGeoPositionTags.begin(), myGeoPositionTags.end(), tag) != myGeoPositionTags.end();
 }
