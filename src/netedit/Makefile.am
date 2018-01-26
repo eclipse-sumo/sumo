@@ -21,7 +21,6 @@ GNEConnection.h GNEConnection.cpp \
 GNECrossing.h GNECrossing.cpp \
 GNEJunction.h GNEJunction.cpp \
 GNEPOI.h GNEPOI.cpp \
-GNEPOILane.h GNEPOILane.cpp \
 GNEPoly.h GNEPoly.cpp \
 GNEProhibition.h GNEProhibition.cpp \
 GNEViewNet.h GNEViewNet.cpp \

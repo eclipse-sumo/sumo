@@ -57,7 +57,6 @@
 #include "GNECrossing.h"
 #include "GNEPOI.h"
 #include "GNEPoly.h"
-#include "GNEPOILane.h"
 
 // ===========================================================================
 // FOX callback mapping

@@ -360,9 +360,6 @@
     <ClCompile Include="..\..\..\src\netedit\GNEPolygonFrame.cpp">
       <Filter>Quellcodedateien\Frames</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEPOILane.cpp">
-      <Filter>Quellcodedateien\Items\Shapes</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Shape.cpp">
       <Filter>Quellcodedateien\Items\Changes</Filter>
     </ClCompile>
@@ -612,9 +609,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEPolygonFrame.h">
       <Filter>Header-Dateien\Frames</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEPOILane.h">
-      <Filter>Header-Dateien\Items\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Shape.h">
       <Filter>Header-Dateien\Items\Changes</Filter>

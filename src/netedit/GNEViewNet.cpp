@@ -57,7 +57,6 @@
 #include "GNELane.h"
 #include "GNEJunction.h"
 #include "GNEPOI.h"
-#include "GNEPOILane.h"
 #include "GNEApplicationWindow.h"
 #include "GNEViewParent.h"
 #include "GNENet.h"

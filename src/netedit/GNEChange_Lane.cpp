@@ -32,7 +32,6 @@
 #include "GNELane.h"
 #include "GNENet.h"
 #include "GNEViewNet.h"
-#include "GNEPOILane.h"
 
 // ===========================================================================
 // FOX-declarations

@@ -47,7 +47,6 @@
 #include "GNEAttributeCarrier.h"
 #include "GNEPoly.h"
 #include "GNEPOI.h"
-#include "GNEPOILane.h"
 #include "GNELane.h"
 
 // ===========================================================================

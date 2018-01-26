@@ -82,7 +82,6 @@
 #include "GNELane.h"
 #include "GNENet.h"
 #include "GNEPOI.h"
-#include "GNEPOILane.h"
 #include "GNEPoly.h"
 #include "GNERerouter.h"
 #include "GNERerouterInterval.h"
