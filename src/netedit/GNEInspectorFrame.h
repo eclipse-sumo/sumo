@@ -9,6 +9,7 @@
 /****************************************************************************/
 /// @file    GNEInspectorFrame.h
 /// @author  Jakob Erdmann
+/// @author  Pablo Alvarez Lopez
 /// @date    Mar 2011
 /// @version $Id$
 ///
@@ -164,7 +165,7 @@ public:
         GNEInspectorFrame * myInspectorFrameParent;
 
         /// @brief list of Attribute inputs
-        std::vector<GNEInspectorFrame::AttributeInput*> myVectorOfAttributeInputs;
+        std::vector<GNEInspectorFrame::AttributesEditor::AttributeInput*> myVectorOfAttributeInputs;
 
         /// @brief current parameter index
         int myCurrentIndex;
