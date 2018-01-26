@@ -203,6 +203,71 @@ public:
         PositionVector myTemporalShapeShape;
     };
 
+    // ===========================================================================
+    // class ACHierarchy
+    // ===========================================================================
+
+    class ACHierarchy : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrame::ACHierarchy)
+
+    public:
+        /// @brief constructor
+        ACHierarchy(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~ACHierarchy();
+
+        /// @brief show NeteditAttributes
+        void showACHierarchy(GNEAttributeCarrier* AC);
+
+        /// @brief hide NeteditAttributes
+        void hideACHierarchy();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief called when user press right click over an item of list of childs
+        long onCmdShowChildMenu(FXObject*, FXSelector, void* data);
+
+        /// @brief called when user select option "center item" of child Menu
+        long onCmdCenterItem(FXObject*, FXSelector, void*);
+
+        /// @brief called when user select option "inspect item" of child menu
+        long onCmdInspectItem(FXObject*, FXSelector, void*);
+
+        /// @brief called when user select option "delte item" of child menu
+        long onCmdDeleteItem(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        ACHierarchy() {}
+
+        // @brief create pop-up menu in the positions X-Y for the attribute carrier ac
+        void createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac);
+
+        /// @brief show child of current attributeCarrier
+        void showAttributeCarrierChilds();
+
+    private:
+        /// @brief Frame Parent
+        GNEFrame* myFrameParent;
+
+        /// @brief Attribute carrier
+        GNEAttributeCarrier* myAC;
+
+        /// @brief tree list to show the childs of the element to erase
+        FXTreeList* myTreelist;
+
+        /// @brief map used to save the Tree items with their AC
+        std::map<FXTreeItem*, GNEAttributeCarrier*> myTreeItemToACMap;
+
+        /// @brief set used to save tree items without AC assigned (for example, Incoming/Outcoming connections)
+        std::set<FXTreeItem*> myTreeItemsWithoutAC;
+
+        /// @brief pointer to current right clicked Attribute Carrier
+        GNEAttributeCarrier* myRightClickedAC;
+    };
 
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
