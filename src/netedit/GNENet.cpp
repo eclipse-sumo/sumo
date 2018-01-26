@@ -982,6 +982,46 @@ GNENet::retrievePOILane(const std::string& id, bool failHard) const {
 }
 
 
+GNEConnection* 
+GNENet::retrieveConnection(const std::string& id, bool failHard) const {
+    // iterate over junctions
+    for (auto i : myJunctions) {
+        // iterate over connections
+        for (auto j : i.second->getGNEConnections()) {
+            if(j->getID() == id) {
+                return j;
+            }
+        }
+    }
+    if (failHard) {
+        // If POI wasn't found, throw exception
+        throw UnknownElement("Connection " + id);
+    } else {
+        return NULL;
+    }
+}
+
+
+GNECrossing* 
+GNENet::retrieveCrossing(const std::string& id, bool failHard) const {
+    // iterate over junctions
+    for (auto i : myJunctions) {
+        // iterate over crossings
+        for (auto j : i.second->getGNECrossings()) {
+            if (j->getID() == id) {
+                return j;
+            }
+        }
+    }
+    if (failHard) {
+        // If POI wasn't found, throw exception
+        throw UnknownElement("Crossing " + id);
+    } else {
+        return NULL;
+    }
+}
+
+
 std::vector<GNEEdge*>
 GNENet::retrieveEdges(bool onlySelected) {
     std::vector<GNEEdge*> result;

@@ -380,6 +380,20 @@ public:
     */
     GNEPOILane* retrievePOILane(const std::string& id, bool failHard = true) const;
 
+    /**@brief get Connection by id
+    * @param[in] id The id of the desired Connection
+    * @param[in] failHard Whether attempts to retrieve a nonexisting Connection should result in an exception
+    * @throws UnknownElement
+    */
+    GNEConnection* retrieveConnection(const std::string& id, bool failHard = true) const;
+
+    /**@brief get Crossing by id
+    * @param[in] id The id of the desired Crossing
+    * @param[in] failHard Whether attempts to retrieve a nonexisting Crossing should result in an exception
+    * @throws UnknownElement
+    */
+    GNECrossing* retrieveCrossing(const std::string& id, bool failHard = true) const;
+
     /**@brief get a single attribute carrier based on a GLID
     * @param[in] ids the GL IDs for which to retrive the AC
     * @param[in] failHard Whether attempts to retrieve a nonexisting AttributeCarrier should result in an exception

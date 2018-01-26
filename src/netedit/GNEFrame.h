@@ -250,7 +250,10 @@ public:
         FXTreeItem* showAttributeCarrierParents();
 
         /// @brief show child of current attributeCarrier
-        void showAttributeCarrierChilds(FXTreeItem* itemParent);
+        void showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTreeItem* itemParent, int index);
+
+        /// @brief add item into list
+        FXTreeItem* addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemParent, int index);
 
     private:
         /// @brief Frame Parent
