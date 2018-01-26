@@ -8,9 +8,8 @@
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
 /// @file    MSDevice_Bluelight.h
-/// @author  Daniel Krajzewicz
-/// @author  Jakob Erdmann
-/// @date    11.06.2013
+/// @author  Laura Bieker-Walz
+/// @date    01.06.2017
 /// @version $Id$
 ///
 // A device which stands as an implementation example and which outputs movereminder calls
@@ -150,7 +149,8 @@ private:
 
 
 private:
-    // private state members of the Example device
+    // @brief collects all vehicle which had to react to the emergency vehicle 
+    std::vector<MSVehicle*>* influencedVehicles;
 
     /// @brief a value which is initialised based on a commandline/configuration option
     double myCustomValue1;

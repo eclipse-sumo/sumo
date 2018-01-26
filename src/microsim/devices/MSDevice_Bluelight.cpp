@@ -41,6 +41,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleType.h>
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -100,7 +101,7 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& 
 // MSDevice_Bluelight-methods
 // ---------------------------------------------------------------------------
 MSDevice_Bluelight::MSDevice_Bluelight(SUMOVehicle& holder, const std::string& id,
-                                       double customValue1, double customValue2, double customValue3) :
+    double customValue1, double customValue2, double customValue3) :
     MSDevice(holder, id),
     myCustomValue1(customValue1),
     myCustomValue2(customValue2),
@@ -115,17 +116,16 @@ MSDevice_Bluelight::~MSDevice_Bluelight() {
 
 bool
 MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
-                               double /* newPos */, double /* newSpeed */) {
+                               double /* newPos */, double newSpeed ) {
     //std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
     // check whether another device is present on the vehicle:
     /*MSDevice_Tripinfo* otherDevice = static_cast<MSDevice_Tripinfo*>(veh.getDevice(typeid(MSDevice_Tripinfo)));
     if (otherDevice != 0) {
         std::cout << "  veh '" << veh.getID() << " has device '" << otherDevice->getID() << "'\n";
     }*/
-    //todo violate red lights    
-	//MSVehicle& veh2 = static_cast<MSVehicle&>(veh);
-	MSVehicle::Influencer& redLight = static_cast<MSVehicle&>(veh).getInfluencer();
-	redLight.setSpeedMode(7);
+    //violate red lights    
+    MSVehicle::Influencer& redLight = static_cast<MSVehicle&>(veh).getInfluencer();
+    redLight.setSpeedMode(7);
     // build a rescue lane for all vehicles on the route of the emergency vehicle within the range of the siren
     MSVehicleType* vt = MSNet::getInstance()->getVehicleControl().getVType(veh.getVehicleType().getID());
     vt->setPreferredLateralAlignment(LATALIGN_ARBITRARY);
@@ -138,6 +138,12 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
         if (distanceDelta <= 100 && veh.getID() != veh2->getID()) {
             //std::cout << "In Range Vehicle '" << veh2->getID() << "\n";
             MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
+            MSVehicle::Influencer& lanechange = static_cast<MSVehicle*>(veh2)->getInfluencer();
+
+            //other vehicle should not use the rescue lane so they should not make any lane changes 
+            lanechange.setLaneChangeMode(1605);
+
+            //Setting the lateral alignment to build a rescue lane
             if (veh2->getLane()->getIndex() == 0) {
                 t.setPreferredLateralAlignment(LATALIGN_RIGHT);
                 //std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
@@ -145,7 +151,8 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
                 t.setPreferredLateralAlignment(LATALIGN_LEFT);
                 //std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
             }
-
+            //influencedVehicles->push_back(static_cast<MSVehicle*>(veh2));
+            //std::cout << "Vehcile in influencedVehicleList: " << veh2->getID() << "\n";
         }
     }
     return true; // keep the device
