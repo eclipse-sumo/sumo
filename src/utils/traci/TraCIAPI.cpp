@@ -1718,6 +1718,11 @@ TraCIAPI::TrafficLightScope::getPhase(const std::string& tlsID) const {
 }
 
 int
+TraCIAPI::TrafficLightScope::getPhaseDuration(const std::string& tlsID) const {
+    return myParent.getInt(CMD_GET_TL_VARIABLE, TL_PHASE_DURATION, tlsID);
+}
+
+int
 TraCIAPI::TrafficLightScope::getNextSwitch(const std::string& tlsID) const {
     return myParent.getInt(CMD_GET_TL_VARIABLE, TL_NEXT_SWITCH, tlsID);
 }
