@@ -48,93 +48,91 @@ class GNEInspectorFrame : public GNEFrame {
     /// @brief FOX-declaration
     FXDECLARE(GNEInspectorFrame)
 
-    /// @brief class declaration
-    class AttributesEditor;
-
 public:
-    
-    // ===========================================================================
-    // class AttributeInput
-    // ===========================================================================
-        
-    class AttributeInput : private FXHorizontalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEInspectorFrame::AttributeInput)
-
-    public:
-        /// @brief constructor
-        AttributeInput(GNEInspectorFrame::AttributesEditor* attributeEditorParent);
-
-        /// @brief show attribute of ac
-        void showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value);
-
-        /// @brief show attribute
-        void hideAttribute();
-
-        /// @brief refresh current attribute input
-        void refreshAttributeInput(const std::string &value, bool forceRefresh);
-
-        /// @brief check if current attribute of TextField/ComboBox is valid
-        bool isCurrentAttributeValid() const;
-
-        /// @name FOX-callbacks
-        /// @{
-
-        /// @brief try to set new attribute value
-        long onCmdSetAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief open model dialog for more comfortable attribute editing
-        long onCmdOpenAllowDisallowEditor(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        AttributeInput() {}
-
-        /// @brief removed invalid spaces of Positions and shapes
-        std::string stripWhitespaceAfterComma(const std::string& stringValue);
-
-    private:
-        /// @brief pointer to AttributesEditor parent
-        GNEInspectorFrame::AttributesEditor * myAttributesEditorParent;
-
-        /// @brief current tag
-        SumoXMLTag myTag;
-
-        /// @brief current Attr
-        SumoXMLAttr myAttr;
-
-        /// @brief pointer to label
-        FXLabel* myLabel;
-
-        /// @brief textField to modify the value of int attributes
-        FXTextField* myTextFieldInt;
-
-        /// @brief textField to modify the value of real/Time attributes
-        FXTextField* myTextFieldReal;
-
-        /// @brief textField to modify the value of string attributes
-        FXTextField* myTextFieldStrings;
-
-        /// @brief pointer to combo box choices
-        FXComboBox* myChoicesCombo;
-
-        /// @brief pointer to menu check
-        FXCheckButton* myBoolCheckButton;
-
-        /// @brief pointer to buttonCombinableChoices
-        FXButton* myButtonCombinableChoices;
-    };
 
     // ===========================================================================
     // class AttributesEditor
     // ===========================================================================
 
-    class AttributesEditor : public FXGroupBox {
+    class AttributesEditor : private FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::AttributesEditor)
 
     public:
+
+        // ===========================================================================
+        // class AttributeInput
+        // ===========================================================================
+
+        class AttributeInput : private FXHorizontalFrame {
+            /// @brief FOX-declaration
+            FXDECLARE(GNEInspectorFrame::AttributesEditor::AttributeInput)
+
+        public:
+            /// @brief constructor
+            AttributeInput(GNEInspectorFrame::AttributesEditor* attributeEditorParent);
+
+            /// @brief show attribute of ac
+            void showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value);
+
+            /// @brief show attribute
+            void hideAttribute();
+
+            /// @brief refresh current attribute input
+            void refreshAttributeInput(const std::string &value, bool forceRefresh);
+
+            /// @brief check if current attribute of TextField/ComboBox is valid
+            bool isCurrentAttributeValid() const;
+
+            /// @name FOX-callbacks
+            /// @{
+
+            /// @brief try to set new attribute value
+            long onCmdSetAttribute(FXObject*, FXSelector, void*);
+
+            /// @brief open model dialog for more comfortable attribute editing
+            long onCmdOpenAllowDisallowEditor(FXObject*, FXSelector, void*);
+            /// @}
+
+        protected:
+            /// @brief FOX needs this
+            AttributeInput() {}
+
+            /// @brief removed invalid spaces of Positions and shapes
+            std::string stripWhitespaceAfterComma(const std::string& stringValue);
+
+        private:
+            /// @brief pointer to AttributesEditor parent
+            GNEInspectorFrame::AttributesEditor * myAttributesEditorParent;
+
+            /// @brief current tag
+            SumoXMLTag myTag;
+
+            /// @brief current Attr
+            SumoXMLAttr myAttr;
+
+            /// @brief pointer to label
+            FXLabel* myLabel;
+
+            /// @brief textField to modify the value of int attributes
+            FXTextField* myTextFieldInt;
+
+            /// @brief textField to modify the value of real/Time attributes
+            FXTextField* myTextFieldReal;
+
+            /// @brief textField to modify the value of string attributes
+            FXTextField* myTextFieldStrings;
+
+            /// @brief pointer to combo box choices
+            FXComboBox* myChoicesCombo;
+
+            /// @brief pointer to menu check
+            FXCheckButton* myBoolCheckButton;
+
+            /// @brief pointer to buttonCombinableChoices
+            FXButton* myButtonCombinableChoices;
+        };
+
         /// @brief constructor
         AttributesEditor(GNEInspectorFrame* inspectorFrameParent);
 

@@ -72,9 +72,9 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
 
 };
 
-FXDEFMAP(GNEInspectorFrame::AttributeInput) AttributeInputMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEInspectorFrame::AttributeInput::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor)
+FXDEFMAP(GNEInspectorFrame::AttributesEditor::AttributeInput) AttributeInputMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdOpenAllowDisallowEditor)
 };
 
 FXDEFMAP(GNEInspectorFrame::AttributesEditor) AttributesEditorMap[] = {
@@ -98,12 +98,12 @@ FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEInspectorFrame,                          FXVerticalFrame,    GNEInspectorFrameMap,       ARRAYNUMBER(GNEInspectorFrameMap))
-FXIMPLEMENT(GNEInspectorFrame::AttributeInput,          FXHorizontalFrame,  AttributeInputMap,          ARRAYNUMBER(AttributeInputMap))
-FXIMPLEMENT(GNEInspectorFrame::AttributesEditor,        FXGroupBox,         AttributesEditorMap,        ARRAYNUMBER(AttributesEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor, FXGroupBox,         NeteditAttributesEditorMap, ARRAYNUMBER(NeteditAttributesEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,     FXGroupBox,         GEOAttributesEditorMap,     ARRAYNUMBER(GEOAttributesEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,          FXGroupBox,         TemplateEditorMap,          ARRAYNUMBER(TemplateEditorMap))
+FXIMPLEMENT(GNEInspectorFrame,                                      FXVerticalFrame,    GNEInspectorFrameMap,       ARRAYNUMBER(GNEInspectorFrameMap))
+FXIMPLEMENT(GNEInspectorFrame::AttributesEditor::AttributeInput,    FXHorizontalFrame,  AttributeInputMap,          ARRAYNUMBER(AttributeInputMap))
+FXIMPLEMENT(GNEInspectorFrame::AttributesEditor,                    FXGroupBox,         AttributesEditorMap,        ARRAYNUMBER(AttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor,             FXGroupBox,         NeteditAttributesEditorMap, ARRAYNUMBER(NeteditAttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,                 FXGroupBox,         GEOAttributesEditorMap,     ARRAYNUMBER(GEOAttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,                      FXGroupBox,         TemplateEditorMap,          ARRAYNUMBER(TemplateEditorMap))
 
 
 // ===========================================================================
@@ -325,10 +325,10 @@ GNEInspectorFrame::getInspectedACs() const {
 }
 
 // ===========================================================================
-// AttributeInput method definitions
+// GNEInspectorFrame::AttributesEditor::AttributeInput method definitions
 // ===========================================================================
 
-GNEInspectorFrame::AttributeInput::AttributeInput(GNEInspectorFrame::AttributesEditor* attributeEditorParent) :
+GNEInspectorFrame::AttributesEditor::AttributeInput::AttributeInput(GNEInspectorFrame::AttributesEditor* attributeEditorParent) :
     FXHorizontalFrame(attributeEditorParent, GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
     myTag(SUMO_TAG_NOTHING),
@@ -358,7 +358,7 @@ GNEInspectorFrame::AttributeInput::AttributeInput(GNEInspectorFrame::AttributesE
 
 
 void
-GNEInspectorFrame::AttributeInput::showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttr, const std::string& value) {
+GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttr, const std::string& value) {
     // Set actual Tag and attribute
     myTag = ACTag;
     myAttr = ACAttr;
@@ -425,7 +425,7 @@ GNEInspectorFrame::AttributeInput::showAttribute(SumoXMLTag ACTag, SumoXMLAttr A
 
 
 void
-GNEInspectorFrame::AttributeInput::hideAttribute() {
+GNEInspectorFrame::AttributesEditor::AttributeInput::hideAttribute() {
     // Hide all elements
     myLabel->hide();
     myTextFieldInt->hide();
@@ -440,7 +440,7 @@ GNEInspectorFrame::AttributeInput::hideAttribute() {
 
  
 void
-GNEInspectorFrame::AttributeInput::refreshAttributeInput(const std::string &value, bool forceRefresh) {
+GNEInspectorFrame::AttributesEditor::AttributeInput::refreshAttributeInput(const std::string &value, bool forceRefresh) {
     if(myTextFieldInt->shown()) {
         // set last valid value and restore color if onlyValid is disabled
         if(myTextFieldInt->getTextColor() == FXRGB(0, 0, 0) || forceRefresh) {
@@ -472,14 +472,14 @@ GNEInspectorFrame::AttributeInput::refreshAttributeInput(const std::string &valu
 
 
 bool 
-GNEInspectorFrame::AttributeInput::isCurrentAttributeValid() const {
+GNEInspectorFrame::AttributesEditor::AttributeInput::isCurrentAttributeValid() const {
     return ((myTextFieldInt->getTextColor() == FXRGB(0, 0, 0)) && (myTextFieldReal->getTextColor() == FXRGB(0, 0, 0)) &&
             (myTextFieldStrings->getTextColor() == FXRGB(0, 0, 0)) && (myChoicesCombo->getTextColor() == FXRGB(0, 0, 0)));
 }
 
 
 long
-GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor(FXObject*, FXSelector, void*) {
+GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdOpenAllowDisallowEditor(FXObject*, FXSelector, void*) {
     // obtain vehicles of text field and check if are valid
     std::string vehicles = myTextFieldStrings->getText().text();
     // check if values can parse
@@ -500,7 +500,7 @@ GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor(FXObject*, FXSel
 
 
 long
-GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // Declare changed value
     std::string newVal;
     bool refreshGEOAndNeteditEditors = false;
@@ -624,7 +624,7 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
 
 
 std::string
-GNEInspectorFrame::AttributeInput::stripWhitespaceAfterComma(const std::string& stringValue) {
+GNEInspectorFrame::AttributesEditor::AttributeInput::stripWhitespaceAfterComma(const std::string& stringValue) {
     std::string result(stringValue);
     while (result.find(", ") != std::string::npos) {
         result = StringUtils::replace(result, ", ", ",");
@@ -633,7 +633,7 @@ GNEInspectorFrame::AttributeInput::stripWhitespaceAfterComma(const std::string& 
 }
 
 // ===========================================================================
-// AttributesEditor method definitions
+// GNEInspectorFrame::AttributesEditor method definitions
 // ===========================================================================
 
 GNEInspectorFrame::AttributesEditor::AttributesEditor(GNEInspectorFrame* inspectorFrameParent) :
@@ -716,8 +716,8 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
         // reset myCurrentIndex;
         myCurrentIndex = 0;
         // Declare pointer for allow/Disallow vehicles
-        std::pair<GNEInspectorFrame::AttributeInput*, std::string> myAllowAttribute(NULL, "");
-        std::pair<GNEInspectorFrame::AttributeInput*, std::string> myDisallowAttribute(NULL,"");
+        std::pair<GNEInspectorFrame::AttributesEditor::AttributeInput*, std::string> myAllowAttribute(NULL, "");
+        std::pair<GNEInspectorFrame::AttributesEditor::AttributeInput*, std::string> myDisallowAttribute(NULL,"");
         // Gets tag and attributes of element
         SumoXMLTag ACFrontTag = myInspectorFrameParent->getInspectedACs().front()->getTag();
         const std::vector<SumoXMLAttr> &ACFrontAttrs = myInspectorFrameParent->getInspectedACs().front()->getAttrs();
@@ -803,7 +803,7 @@ GNEInspectorFrame::AttributesEditor::onCmdAttributeHelp(FXObject*, FXSelector, v
 }
 
 // ===========================================================================
-// NeteditAttributesEditor method definitions
+// GNEInspectorFrame::NeteditAttributesEditor method definitions
 // ===========================================================================
 
 GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspectorFrame* inspectorFrameParent) :
