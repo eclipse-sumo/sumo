@@ -46,6 +46,7 @@
 #include "GNEInspectorFrame.h"
 #include "GNEPolygonFrame.h"
 #include "GNEDeleteFrame.h"
+#include "GNENet.h"
 
 
 #include "GNEEdge.h"
@@ -344,8 +345,9 @@ GNEFrame::DrawingMode::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNEFrame::ACHierarchy::ACHierarchy(GNEFrame* frameParent) :
-    FXGroupBox(frameParent->myContentFrame, "Childs", GUIDesignGroupBoxFrame),
+    FXGroupBox(frameParent->myContentFrame, "Hierarchy", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent) {
+    // Create three list
     myTreelist = new FXTreeList(this, this, MID_GNE_DELETEFRAME_CHILDS, GUIDesignTreeListFrame);
     hide();
 }
@@ -357,7 +359,16 @@ GNEFrame::ACHierarchy::~ACHierarchy() {}
 void 
 GNEFrame::ACHierarchy::showACHierarchy(GNEAttributeCarrier* AC) {
     myAC = AC;
+    // clear items
+    myTreelist->clearItems();
+    myTreeItemToACMap.clear();
+    myTreeItemsWithoutAC.clear();
     show();
+
+    // show ACChilds
+    showAttributeCarrierChilds(showAttributeCarrierParents());
+
+
 }
 
 
@@ -406,7 +417,7 @@ GNEFrame::ACHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     myFrameParent->getViewNet()->getViewParent()->getDeleteFrame()->removeAttributeCarrier(myRightClickedAC);
     myFrameParent->getViewNet()->getViewParent()->getDeleteFrame()->hide();
     // show again childs of attribute carrier
-    showAttributeCarrierChilds();
+    showAttributeCarrierChilds(NULL);
     return 1;
 }
 
@@ -432,22 +443,184 @@ GNEFrame::ACHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
 }
 
 
+FXTreeItem* 
+GNEFrame::ACHierarchy::showAttributeCarrierParents() {
+    // Switch gl type of ac
+    switch (myAC->getGUIGLObject()->getType()) {
+        case GLO_JUNCTION: {
+            // Junctions don't have parents
+            return NULL;
+        }
+        case GLO_EDGE: {
+            // obtain Edge
+            GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(myAC->getID());
+            // insert Junctions of edge in tree (Pararell because a edge has always two Junctions)
+            FXTreeItem* junctionSourceItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+            FXTreeItem* junctionDestinyItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+            junctionDestinyItem->setExpanded(true);
+            // Save items in myTreeItemToACMap
+            myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
+            myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
+            // return junction destiny Item
+            return junctionDestinyItem;
+        }
+        case GLO_LANE: {
+            // obtain lane
+            GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(myAC->getID());
+            // obtain edge parent
+            GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
+            //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
+            FXTreeItem* junctionSourceItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+            FXTreeItem* junctionDestinyItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+            junctionDestinyItem->setExpanded(true);
+            // Create edge item
+            FXTreeItem* edgeItem = myTreelist->insertItem(NULL, junctionDestinyItem, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
+            edgeItem->setExpanded(true);
+            // Save items in myTreeItemToACMap
+            myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
+            myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
+            myTreeItemToACMap[edgeItem] = edge;
+            // return edge item
+            return edgeItem;
+        }
+        case GLO_POI: {
+            // check type of POI
+            if (myAC->getTag() == SUMO_TAG_POI) {
+                // POIs don't have lane parents
+                return NULL;
+            } else {
+                // Obtain POILane
+                GNEPOILane* POILane = myFrameParent->getViewNet()->getNet()->retrievePOILane(myAC->getID());
+                // obtain lane parent
+                GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(POILane->getLane()->getID());
+                // obtain edge parent
+                GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
+                //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
+                FXTreeItem* junctionSourceItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                FXTreeItem* junctionDestinyItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                junctionDestinyItem->setExpanded(true);
+                // Create edge item
+                FXTreeItem* edgeItem = myTreelist->insertItem(NULL, junctionDestinyItem, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
+                edgeItem->setExpanded(true);
+                // Create lane item
+                FXTreeItem* laneItem = myTreelist->insertItem(0, edgeItem, toString(lane->getTag()).c_str(), lane->getIcon(), lane->getIcon());
+                laneItem->setExpanded(true);
+                // Save items in myTreeItemToACMap
+                myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
+                myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
+                myTreeItemToACMap[edgeItem] = edge;
+                myTreeItemToACMap[laneItem] = lane;
+                // return Lane item
+                return laneItem;
+            }
+        }
+        case GLO_POLYGON: {
+            // Polygons doesn't have parents
+            return NULL;
+        }
+        case GLO_CROSSING: {
+            // obtain Crossing (note:Implement in GNENet retrieveCrossing);
+            GNECrossing* crossing = dynamic_cast<GNECrossing*>(myAC);
+            // obtain junction
+            GNEJunction* junction = crossing->getParentJunction();
+            // create junction item
+            FXTreeItem* junctionItem = myTreelist->insertItem(NULL, NULL, toString(junction->getTag()).c_str(), junction->getIcon(), junction->getIcon());
+            junctionItem->setExpanded(true);
+            // Save items in myTreeItemToACMap
+            myTreeItemToACMap[junctionItem] = junction;
+            // return junction Item
+            return junctionItem;
+        }
+        case GLO_ADDITIONAL: {
+            // Obtain Additional
+            GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getID());
+            // first check if additional has another additional as parent (to add it into root)
+             if (GNEAttributeCarrier::canHaveParent(additional->getTag())) {
+                 GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(additional->getAttribute(GNE_ATTR_PARENT));
+                 // create additional parent item
+                 FXTreeItem* additionalParentItem = myTreelist->insertItem(0, 0, toString(additionalParent->getTag()).c_str(), additionalParent->getIcon(), additionalParent->getIcon());
+                 additionalParentItem->setExpanded(true);
+                 // Save it in myTreeItemToACMap
+                 myTreeItemToACMap[additionalParentItem] = additionalParent;
+             }
+            
+            if(additional->hasAttribute(additional->getTag(), SUMO_ATTR_EDGE)) {
+                // obtain edge parent
+                GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(additional->getAttribute(SUMO_ATTR_EDGE));
+                //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
+                FXTreeItem* junctionSourceItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                FXTreeItem* junctionDestinyItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                junctionDestinyItem->setExpanded(true);
+                // Create edge item
+                FXTreeItem* edgeItem = myTreelist->insertItem(NULL, junctionDestinyItem, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
+                edgeItem->setExpanded(true);
+                // Save items in myTreeItemToACMap
+                myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
+                myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
+                myTreeItemToACMap[edgeItem] = edge;
+                // return edge item
+                return edgeItem;
+            } else if (additional->hasAttribute(additional->getTag(), SUMO_ATTR_LANE)) {
+                // obtain lane parent
+                GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(additional->getAttribute(SUMO_ATTR_LANE));
+                // obtain edge parent
+                GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
+                //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
+                FXTreeItem* junctionSourceItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                FXTreeItem* junctionDestinyItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                junctionDestinyItem->setExpanded(true);
+                // Create edge item
+                FXTreeItem* edgeItem = myTreelist->insertItem(NULL, junctionDestinyItem, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
+                edgeItem->setExpanded(true);
+                // Create lane item
+                FXTreeItem* laneItem = myTreelist->insertItem(0, edgeItem, toString(lane->getTag()).c_str(), lane->getIcon(), lane->getIcon());
+                laneItem->setExpanded(true);
+                // Save items in myTreeItemToACMap
+                myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
+                myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
+                myTreeItemToACMap[edgeItem] = edge;
+                myTreeItemToACMap[laneItem] = lane;
+                // return lane item
+                return laneItem;
+            } else {
+                // Certain additionals don't have parents
+                return NULL;
+            }
+        }
+        case GLO_CONNECTION: {
+            /*
+            // obtain Connection (note:Implement in GNENet retrieveConnection);
+            GNEConnection* connection = dynamic_cast<GNEConnection*>(myAC);
+            // obtain junction
+            GNEJunction* junction = connection->getE();
+            // create junction item
+            FXTreeItem* junctionItem = myTreelist->insertItem(NULL, NULL, toString(junction->getTag()).c_str(), junction->getIcon(), junction->getIcon());
+            junctionItem->setExpanded(true);
+            // create connection item
+            FXTreeItem* connectionItem = myTreelist->insertItem(0, junctionItem, toString(connection->getTag()).c_str(), connection->getIcon(), connection->getIcon());
+            connectionItem->setExpanded(true);
+            // Save items in myTreeItemToACMap
+            myTreeItemToACMap[junctionItem] = junction;
+            myTreeItemToACMap[connectionItem] = connection;
+            return connectionItem;
+            */
+            return NULL;
+        }
+        default: {
+            throw ProcessError("Invalid GUIGLObject type");
+        }
+    }
+}
+
+
 void
-GNEFrame::ACHierarchy::showAttributeCarrierChilds() {
-
-    /** NOTE: This function has to be simplified **/
-
-    // clear items
-    myTreelist->clearItems();
-    myTreeItemToACMap.clear();
-    myTreeItemsWithoutAC.clear();
-    show();
+GNEFrame::ACHierarchy::showAttributeCarrierChilds(FXTreeItem* itemParent) {
     // Switch gl type of ac
     switch (myAC->getGUIGLObject()->getType()) {
         case GLO_JUNCTION: {
             // insert junction root
             GNEJunction* junction = dynamic_cast<GNEJunction*>(myAC);
-            FXTreeItem* junctionItem = myTreelist->insertItem(0, 0, toString(junction->getTag()).c_str(), junction->getIcon(), junction->getIcon());
+            FXTreeItem* junctionItem = myTreelist->insertItem(0, itemParent, toString(junction->getTag()).c_str(), junction->getIcon(), junction->getIcon());
             myTreeItemToACMap[junctionItem] = junction;
             junctionItem->setExpanded(true);
             // insert edges
@@ -515,7 +688,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds() {
         case GLO_EDGE: {
             // insert edge root
             GNEEdge* edge = dynamic_cast<GNEEdge*>(myAC);
-            FXTreeItem* edgeItem = myTreelist->insertItem(0, 0, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
+            FXTreeItem* edgeItem = myTreelist->insertItem(0, itemParent, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
             myTreeItemToACMap[edgeItem] = edge;
             edgeItem->setExpanded(true);
             // insert lanes
@@ -568,7 +741,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds() {
         case GLO_LANE: {
             // insert lane root
             GNELane* lane = dynamic_cast<GNELane*>(myAC);
-            FXTreeItem* laneItem = myTreelist->insertItem(0, 0, toString(lane->getTag()).c_str(), lane->getIcon(), lane->getIcon());
+            FXTreeItem* laneItem = myTreelist->insertItem(0, itemParent, toString(lane->getTag()).c_str(), lane->getIcon(), lane->getIcon());
             myTreeItemToACMap[laneItem] = lane;
             laneItem->setExpanded(true);
             // insert additionals of lanes
@@ -609,7 +782,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds() {
             if (myAC->getTag() == SUMO_TAG_POI) {
                 // insert POI root
                 GNEPOI* POI = dynamic_cast<GNEPOI*>(myAC);
-                FXTreeItem* POIItem = myTreelist->insertItem(0, 0, toString(POI->getTag()).c_str(), POI->getIcon(), POI->getIcon());
+                FXTreeItem* POIItem = myTreelist->insertItem(0, itemParent, toString(POI->getTag()).c_str(), POI->getIcon(), POI->getIcon());
                 myTreeItemToACMap[POIItem] = POI;
                 POIItem->setExpanded(true);
                 break;
@@ -617,7 +790,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds() {
             else {
                 // insert POILane root
                 GNEPOILane* POILane = dynamic_cast<GNEPOILane*>(myAC);
-                FXTreeItem* POILaneItem = myTreelist->insertItem(0, 0, toString(POILane->getTag()).c_str(), POILane->getIcon(), POILane->getIcon());
+                FXTreeItem* POILaneItem = myTreelist->insertItem(0, itemParent, toString(POILane->getTag()).c_str(), POILane->getIcon(), POILane->getIcon());
                 myTreeItemToACMap[POILaneItem] = POILane;
                 POILaneItem->setExpanded(true);
                 break;
@@ -626,7 +799,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds() {
         case GLO_POLYGON: {
             // insert polygon root
             GNEPoly* polygon = dynamic_cast<GNEPoly*>(myAC);
-            FXTreeItem* polygonItem = myTreelist->insertItem(0, 0, toString(polygon->getTag()).c_str(), polygon->getIcon(), polygon->getIcon());
+            FXTreeItem* polygonItem = myTreelist->insertItem(0, itemParent, toString(polygon->getTag()).c_str(), polygon->getIcon(), polygon->getIcon());
             myTreeItemToACMap[polygonItem] = polygon;
             polygonItem->setExpanded(true);
             break;
@@ -634,7 +807,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds() {
         case GLO_CROSSING: {
             // insert crossing root
             GNECrossing* crossing = dynamic_cast<GNECrossing*>(myAC);
-            FXTreeItem* crossingItem = myTreelist->insertItem(0, 0, toString(crossing->getTag()).c_str(), crossing->getIcon(), crossing->getIcon());
+            FXTreeItem* crossingItem = myTreelist->insertItem(0, itemParent, toString(crossing->getTag()).c_str(), crossing->getIcon(), crossing->getIcon());
             myTreeItemToACMap[crossingItem] = crossing;
             crossingItem->setExpanded(true);
             break;
@@ -642,7 +815,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds() {
         case GLO_ADDITIONAL: {
             // insert additional root
             GNEAdditional* additional = dynamic_cast<GNEAdditional*>(myAC);
-            FXTreeItem* additionalItem = myTreelist->insertItem(0, 0, toString(additional->getTag()).c_str(), additional->getIcon(), additional->getIcon());
+            FXTreeItem* additionalItem = myTreelist->insertItem(0, itemParent, toString(additional->getTag()).c_str(), additional->getIcon(), additional->getIcon());
             myTreeItemToACMap[additionalItem] = additional;
             additionalItem->setExpanded(true);
             break;
@@ -650,7 +823,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds() {
         case GLO_CONNECTION: {
             // insert connection root
             GNEConnection* connection = dynamic_cast<GNEConnection*>(myAC);
-            FXTreeItem* connectionItem = myTreelist->insertItem(0, 0, toString(connection->getTag()).c_str(), connection->getIcon(), connection->getIcon());
+            FXTreeItem* connectionItem = myTreelist->insertItem(0, itemParent, toString(connection->getTag()).c_str(), connection->getIcon(), connection->getIcon());
             myTreeItemToACMap[connectionItem] = connection;
             connectionItem->setExpanded(true);
             break;

@@ -247,7 +247,10 @@ public:
         void createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac);
 
         /// @brief show child of current attributeCarrier
-        void showAttributeCarrierChilds();
+        FXTreeItem* showAttributeCarrierParents();
+
+        /// @brief show child of current attributeCarrier
+        void showAttributeCarrierChilds(FXTreeItem* itemParent);
 
     private:
         /// @brief Frame Parent
