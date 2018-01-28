@@ -909,9 +909,11 @@ TraCITestClient::testAPI() {
     // trafficlights
     answerLog << "  trafficlights:\n";
     answerLog << "    getIDList: " << joinToString(trafficlights.getIDList(), " ") << "\n";
+    answerLog << "    getIDCount: " << trafficlights.getIDCount() << "\n";
     answerLog << "    state: " << trafficlights.getRedYellowGreenState("n_m4") << "\n";
     answerLog << "    program: " << trafficlights.getProgram("n_m4") << "\n";
     answerLog << "    phase: " << trafficlights.getPhase("n_m4") << "\n";
+    answerLog << "    phaseDuration: " << trafficlights.getPhaseDuration("n_m4") << "\n";
     answerLog << "    nextSwitch: " << trafficlights.getNextSwitch("n_m4") << "\n";
     answerLog << "    controlledLanes: " << joinToString(trafficlights.getControlledLanes("n_m4"), " ") << "\n";
     std::vector<std::vector<TraCILink> > links = trafficlights.getControlledLinks("n_m4");
