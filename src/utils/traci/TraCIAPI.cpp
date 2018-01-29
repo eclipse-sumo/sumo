@@ -1625,6 +1625,11 @@ TraCIAPI::TrafficLightScope::getIDList() const {
     return myParent.getStringVector(CMD_GET_TL_VARIABLE, ID_LIST, "");
 }
 
+int
+TraCIAPI::TrafficLightScope::getIDCount() const {
+    return myParent.getInt(CMD_GET_TL_VARIABLE, ID_COUNT, "");
+}
+
 std::string
 TraCIAPI::TrafficLightScope::getRedYellowGreenState(const std::string& tlsID) const {
     return myParent.getString(CMD_GET_TL_VARIABLE, TL_RED_YELLOW_GREEN_STATE, tlsID);
@@ -1710,6 +1715,11 @@ TraCIAPI::TrafficLightScope::getProgram(const std::string& tlsID) const {
 int
 TraCIAPI::TrafficLightScope::getPhase(const std::string& tlsID) const {
     return myParent.getInt(CMD_GET_TL_VARIABLE, TL_CURRENT_PHASE, tlsID);
+}
+
+int
+TraCIAPI::TrafficLightScope::getPhaseDuration(const std::string& tlsID) const {
+    return myParent.getInt(CMD_GET_TL_VARIABLE, TL_PHASE_DURATION, tlsID);
 }
 
 int

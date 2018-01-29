@@ -522,12 +522,14 @@ public:
         virtual ~TrafficLightScope() {}
 
         std::vector<std::string> getIDList() const;
+        int getIDCount() const;
         std::string getRedYellowGreenState(const std::string& tlsID) const;
         std::vector<libsumo::TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) const;
         std::vector<std::string> getControlledLanes(const std::string& tlsID) const;
         std::vector<std::vector<libsumo::TraCILink> > getControlledLinks(const std::string& tlsID) const;
         std::string getProgram(const std::string& tlsID) const;
         int getPhase(const std::string& tlsID) const;
+        int getPhaseDuration(const std::string& tlsID) const;
         int getNextSwitch(const std::string& tlsID) const;
 
         void setRedYellowGreenState(const std::string& tlsID, const std::string& state) const;
