@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/03/2017 13:11:20 by Netedit Version dev-SVN-r22880
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<!-- generated on 29.01.2018 12:32:20 by Netedit Version v0_32_0+0239-f19c50d12d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <new value="true"/>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar131101.7152/netedit.server/basic/new_net_1edge\additionals.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar131101.7152/netedit.server/basic/new_net_1edge\net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan123149.7380/netedit.gui/basic/new_net_1edge\additionals.xml"/>
+        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan123149.7380/netedit.gui/basic/new_net_1edge\shapes.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan123149.7380/netedit.gui/basic/new_net_1edge\net.net.xml"/>
     </output>
 
     <processing>
@@ -23,14 +19,16 @@ SPDX-License-Identifier: EPL-2.0
     </processing>
 
     <visualisation>
+        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan123149.7380/netedit.gui/basic/new_net_1edge\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar131101.7152/netedit.server/basic/new_net_1edge\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan123149.7380/netedit.gui/basic/new_net_1edge\log.txt"/>
     </report>
 
 </configuration>
@@ -38,13 +36,13 @@ SPDX-License-Identifier: EPL-2.0
 
 <net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="27.20,35.00,107.20,35.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="37.00,49.00,69.00,49.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="gneE0_0" index="0" speed="13.89" length="80.00" shape="27.20,33.35 107.20,33.35"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="32.00" shape="37.00,47.35 69.00,47.35"/>
     </edge>
 
-    <junction id="gneJ0" type="dead_end" x="27.20" y="35.00" incLanes="" intLanes="" shape="27.20,34.95 27.20,31.75"/>
-    <junction id="gneJ1" type="dead_end" x="107.20" y="35.00" incLanes="gneE0_0" intLanes="" shape="107.20,31.75 107.20,34.95"/>
+    <junction id="gneJ0" type="dead_end" x="37.00" y="49.00" incLanes="" intLanes="" shape="37.00,48.95 37.00,45.75"/>
+    <junction id="gneJ1" type="dead_end" x="69.00" y="49.00" incLanes="gneE0_0" intLanes="" shape="69.00,45.75 69.00,48.95"/>
 
 </net>
