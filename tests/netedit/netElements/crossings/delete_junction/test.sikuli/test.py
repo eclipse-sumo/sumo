@@ -28,17 +28,15 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 # Rebuild network
 netedit.rebuildNetwork()
 
-# zoom in central node
-netedit.setZoom("50", "50", "50")
-
 # go to delete mode
 netedit.deleteMode()
 
 # delete junction
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(match, 400, 250)
 
 # check undo
 netedit.undo(match, 1)
+netedit.redo(match, 1)
 
 # save newtork
 netedit.saveNetwork()

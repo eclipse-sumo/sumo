@@ -31,14 +31,11 @@ netedit.rebuildNetwork()
 # go to delete mode
 netedit.deleteMode()
 
-# delete first crossing
-netedit.leftClick(match, 320, 225)
+# delete junction
+netedit.leftClick(match, 400, 250)
 
-# delete second crossing
-netedit.leftClick(match, 480, 225)
-
-# check undo redo
-netedit.undo(match, 2)
+# check undo
+netedit.undo(match, 1)
 
 # save newtork
 netedit.saveNetwork()

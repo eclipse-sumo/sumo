@@ -28,14 +28,11 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 # Rebuild network
 netedit.rebuildNetwork()
 
-# zoom in central node
-netedit.setZoom("50", "50", "50")
-
 # go to delete mode
 netedit.deleteMode()
 
 # delete junction with TLS
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(match, 400, 250)
 
 # Rebuild network
 netedit.rebuildNetwork()

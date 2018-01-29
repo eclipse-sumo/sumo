@@ -7,11 +7,14 @@ create_sidewalks
 # delete crossing
 delete
 
-# delete crossing, undo, but not redo (net must be the same as original)
+# delete crossing, undo, but not redo
 delete_noredo
 
-# delete junction, undo, but not redo (net must be the same as original)
+# delete junction, undo and redo (net must be the same as original)
 delete_junction
+
+# delete junction, undo, but not redo
+delete_junction_noredo
 
 # delete junction with TLS
 delete_TLS
