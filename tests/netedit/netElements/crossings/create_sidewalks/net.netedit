@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/11/2017 17:58:08 by Netedit Version v0_31_0-935-g778fa9a3d0
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 29.01.2018 12:53:06 by Netedit Version v0_32_0+0239-f19c50d12d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.07Nov172945.5792/netedit.gui/netElements/crossings/create_sidewalks\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan125209.3228/netedit.gui/netElements/crossings/create_sidewalks\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.07Nov172945.5792/netedit.gui/netElements/crossings/create_sidewalks\additionals.xml"/>
-        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.07Nov172945.5792/netedit.gui/netElements/crossings/create_sidewalks\shapes.xml"/>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.07Nov172945.5792/netedit.gui/netElements/crossings/create_sidewalks\net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan125209.3228/netedit.gui/netElements/crossings/create_sidewalks\additionals.xml"/>
+        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan125209.3228/netedit.gui/netElements/crossings/create_sidewalks\shapes.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan125209.3228/netedit.gui/netElements/crossings/create_sidewalks\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,6 +24,7 @@ SPDX-License-Identifier: EPL-2.0
     </processing>
 
     <visualisation>
+        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan125209.3228/netedit.gui/netElements/crossings/create_sidewalks\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -37,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.07Nov172945.5792/netedit.gui/netElements/crossings/create_sidewalks\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan125209.3228/netedit.gui/netElements/crossings/create_sidewalks\log.txt"/>
     </report>
 
 </configuration>
@@ -57,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="16.50" width="3.20" shape="0.00,43.35 0.00,40.15 0.00,59.85 0.00,56.65"/>
     </edge>
     <edge id=":Center_0" function="internal">
-        <lane id=":Center_0_0" index="0" disallow="pedestrian" speed="13.90" length="7.26" shape="45.05,61.35 44.65,58.55 43.45,56.55 41.65,55.47"/>
+        <lane id=":Center_0_0" index="0" disallow="pedestrian" speed="13.90" length="6.09" shape="45.05,61.35 44.65,58.55 43.45,56.55 42.65,56.07"/>
     </edge>
     <edge id=":Center_1" function="internal">
         <lane id=":Center_1_0" index="0" disallow="pedestrian" speed="13.90" length="22.70" shape="45.05,61.35 45.05,38.65"/>
@@ -67,7 +63,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":Center_3_0" index="0" disallow="pedestrian" speed="13.90" length="7.47" shape="48.35,61.35 49.16,55.66 50.05,54.18"/>
     </edge>
     <edge id=":Center_16" function="internal">
-        <lane id=":Center_16_0" index="0" speed="13.90" length="3.06" shape="41.65,55.47 41.45,55.35 38.65,54.95"/>
+        <lane id=":Center_16_0" index="0" speed="13.90" length="4.23" shape="42.65,56.07 41.45,55.35 38.65,54.95"/>
     </edge>
     <edge id=":Center_17" function="internal">
         <lane id=":Center_17_0" index="0" speed="13.90" length="13.50" shape="50.05,54.18 51.60,51.60 55.66,49.16 61.35,48.35"/>
@@ -83,7 +79,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":Center_7_0" index="0" disallow="pedestrian" speed="13.90" length="20.97" shape="61.35,51.65 55.66,50.84 51.60,48.40 49.16,44.34 48.35,38.65"/>
     </edge>
     <edge id=":Center_8" function="internal">
-        <lane id=":Center_8_0" index="0" disallow="pedestrian" speed="13.90" length="7.26" shape="54.95,38.65 55.35,41.45 56.55,43.45 58.35,44.53"/>
+        <lane id=":Center_8_0" index="0" disallow="pedestrian" speed="13.90" length="6.09" shape="54.95,38.65 55.35,41.45 56.55,43.45 57.35,43.93"/>
     </edge>
     <edge id=":Center_9" function="internal">
         <lane id=":Center_9_0" index="0" disallow="pedestrian" speed="13.90" length="22.70" shape="54.95,38.65 54.95,61.35"/>
@@ -93,7 +89,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":Center_11_0" index="0" disallow="pedestrian" speed="13.90" length="7.47" shape="51.65,38.65 50.84,44.34 49.95,45.82"/>
     </edge>
     <edge id=":Center_18" function="internal">
-        <lane id=":Center_18_0" index="0" speed="13.90" length="3.06" shape="58.35,44.53 58.55,44.65 61.35,45.05"/>
+        <lane id=":Center_18_0" index="0" speed="13.90" length="4.23" shape="57.35,43.93 58.55,44.65 61.35,45.05"/>
     </edge>
     <edge id=":Center_19" function="internal">
         <lane id=":Center_19_0" index="0" speed="13.90" length="13.50" shape="49.95,45.82 48.40,48.40 44.34,50.84 38.65,51.65"/>
@@ -112,31 +108,31 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":Center_c0_0" index="0" allow="pedestrian" speed="1.00" length="13.10" width="5.00" shape="56.55,58.85 43.45,58.85"/>
     </edge>
     <edge id=":Center_c1" function="crossing" crossingEdges="8">
-        <lane id=":Center_c1_0" index="0" allow="pedestrian" speed="1.00" length="6.50" width="3.00" shape="59.85,50.05 59.85,56.55"/>
+        <lane id=":Center_c1_0" index="0" allow="pedestrian" speed="1.00" length="6.50" width="4.00" shape="59.35,50.05 59.35,56.55"/>
     </edge>
     <edge id=":Center_c2" function="crossing" crossingEdges="4">
-        <lane id=":Center_c2_0" index="0" allow="pedestrian" speed="1.00" length="6.50" width="3.00" shape="59.85,43.45 59.85,49.95"/>
+        <lane id=":Center_c2_0" index="0" allow="pedestrian" speed="1.00" length="6.50" width="4.00" shape="59.35,43.45 59.35,49.95"/>
     </edge>
     <edge id=":Center_c3" function="crossing" crossingEdges="1 5">
-        <lane id=":Center_c3_0" index="0" allow="pedestrian" speed="1.00" length="13.10" width="3.00" shape="43.45,40.15 56.55,40.15"/>
+        <lane id=":Center_c3_0" index="0" allow="pedestrian" speed="1.00" length="13.10" width="4.00" shape="43.45,40.65 56.55,40.65"/>
     </edge>
     <edge id=":Center_c4" function="crossing" crossingEdges="3 7">
-        <lane id=":Center_c4_0" index="0" allow="pedestrian" speed="1.00" length="13.10" width="3.00" shape="40.15,56.55 40.15,43.45"/>
+        <lane id=":Center_c4_0" index="0" allow="pedestrian" speed="1.00" length="13.10" width="4.00" shape="40.65,56.55 40.65,43.45"/>
     </edge>
     <edge id=":Center_w0" function="walkingarea">
-        <lane id=":Center_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.93" width="5.00" shape="41.65,56.55 38.65,56.65 38.65,59.85 40.15,61.35 43.35,61.35 43.45,56.35"/>
+        <lane id=":Center_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.90" width="5.00" shape="42.65,56.55 38.65,56.65 38.65,59.85 40.15,61.35 43.35,61.35 43.45,56.35"/>
     </edge>
     <edge id=":Center_w1" function="walkingarea">
-        <lane id=":Center_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.93" width="5.00" shape="56.55,56.35 56.65,61.35 59.85,61.35 61.35,59.85 61.35,56.65 58.35,56.55"/>
+        <lane id=":Center_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.90" width="5.00" shape="56.55,56.35 56.65,61.35 59.85,61.35 61.35,59.85 61.35,56.65 57.35,56.55"/>
     </edge>
     <edge id=":Center_w2" function="walkingarea">
-        <lane id=":Center_w2_0" index="0" allow="pedestrian" speed="1.00" length="3.95" width="3.20" shape="58.35,43.45 61.35,43.35 61.35,40.15 59.85,38.65 56.65,38.65 56.55,41.65"/>
+        <lane id=":Center_w2_0" index="0" allow="pedestrian" speed="1.00" length="3.91" width="4.00" shape="57.35,43.45 61.35,43.35 61.35,40.15 59.85,38.65 56.65,38.65 56.55,42.65"/>
     </edge>
     <edge id=":Center_w3" function="walkingarea">
-        <lane id=":Center_w3_0" index="0" allow="pedestrian" speed="1.00" length="3.95" width="3.20" shape="43.45,41.65 43.35,38.65 40.15,38.65 38.65,40.15 38.65,43.35 41.65,43.45"/>
+        <lane id=":Center_w3_0" index="0" allow="pedestrian" speed="1.00" length="3.91" width="4.00" shape="43.45,42.65 43.35,38.65 40.15,38.65 38.65,40.15 38.65,43.35 42.65,43.45"/>
     </edge>
     <edge id=":Center_w4" function="walkingarea">
-        <lane id=":Center_w4_0" index="0" allow="pedestrian" speed="1.00" length="0.10" width="3.00" shape="58.35,49.95 61.35,49.95 61.35,50.05 58.35,50.05"/>
+        <lane id=":Center_w4_0" index="0" allow="pedestrian" speed="1.00" length="0.10" width="4.00" shape="57.35,49.95 61.35,49.95 61.35,50.05 57.35,50.05"/>
     </edge>
     <edge id=":D_w0" function="walkingarea">
         <lane id=":D_w0_0" index="0" allow="pedestrian" speed="1.00" length="16.50" width="3.20" shape="100.00,56.65 100.00,59.85 100.00,40.15 100.00,43.35"/>
@@ -211,9 +207,9 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="D" type="dead_end" x="100.00" y="50.00" incLanes="4_0 4_1 4_2" intLanes="" shape="100.00,50.05 100.00,40.15 100.00,49.95"/>
 
-    <junction id=":Center_16_0" type="internal" x="41.65" y="55.47" incLanes=":Center_0_0" intLanes=":Center_5_0 :Center_5_1 :Center_11_0 :Center_c0_0 :Center_c4_0"/>
+    <junction id=":Center_16_0" type="internal" x="42.65" y="56.07" incLanes=":Center_0_0" intLanes=":Center_5_0 :Center_5_1 :Center_11_0 :Center_c0_0 :Center_c4_0"/>
     <junction id=":Center_17_0" type="internal" x="50.05" y="54.18" incLanes=":Center_3_0 5_1 5_2" intLanes=":Center_5_0 :Center_5_1 :Center_7_0 :Center_8_0 :Center_9_0 :Center_9_1 :Center_13_0 :Center_13_1 :Center_15_0 :Center_c0_0 :Center_c2_0"/>
-    <junction id=":Center_18_0" type="internal" x="58.35" y="44.53" incLanes=":Center_8_0" intLanes=":Center_3_0 :Center_13_0 :Center_13_1 :Center_c2_0 :Center_c3_0"/>
+    <junction id=":Center_18_0" type="internal" x="57.35" y="43.93" incLanes=":Center_8_0" intLanes=":Center_3_0 :Center_13_0 :Center_13_1 :Center_c2_0 :Center_c3_0"/>
     <junction id=":Center_19_0" type="internal" x="49.95" y="45.82" incLanes=":Center_11_0 6_1 6_2" intLanes=":Center_0_0 :Center_1_0 :Center_1_1 :Center_5_0 :Center_5_1 :Center_7_0 :Center_13_0 :Center_13_1 :Center_15_0 :Center_c3_0 :Center_c4_0"/>
 
     <connection from="5" to="4" fromLane="1" toLane="1" via=":Center_8_0" dir="r" state="m"/>
