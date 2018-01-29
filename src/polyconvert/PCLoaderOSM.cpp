@@ -14,7 +14,7 @@
 /// @author  Michael Behrisch
 /// @author  Melanie Knocke
 /// @date    Wed, 19.11.2008
-/// @version $Id$
+/// @version $Id: PCLoaderOSM.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // A reader of pois and polygons stored in OSM-format
 /****************************************************************************/
@@ -365,15 +365,16 @@ PCLoaderOSM::RelationsHandler::myStartElement(int element, const SUMOSAXAttribut
     myParentElements.push_back(element);
     // parse "relation" elements
     if (element == SUMO_TAG_RELATION) {
-        bool ok = true;
         myCurrentWays.clear();
-        std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
-        if (action == "delete" || !ok) {
+        const std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
+        if (action == "delete") {
             myCurrentRelation = 0;
+        } else {
+            myCurrentRelation = new PCOSMRelation();
+            bool ok = true;
+            myCurrentRelation->id = attrs.get<long long int>(SUMO_ATTR_ID, 0, ok);
+            myRelations.push_back(myCurrentRelation);
         }
-        myCurrentRelation = new PCOSMRelation();
-        myCurrentRelation->id = attrs.get<long long int>(SUMO_ATTR_ID, 0, ok);
-        myRelations.push_back(myCurrentRelation);
         return;
     } else if (myCurrentRelation == 0) {
         return;
@@ -452,8 +453,10 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     // parse "way" elements
     if (element == SUMO_TAG_WAY) {
         bool ok = true;
-        long long int id = attrs.get<long long int>(SUMO_ATTR_ID, 0, ok);
-        if (!ok) {
+        const long long int id = attrs.get<long long int>(SUMO_ATTR_ID, 0, ok);
+        const std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
+        if (action == "delete" || !ok) {
+            myCurrentEdge = nullptr;
             return;
         }
         myCurrentEdge = new PCOSMEdge();
@@ -462,9 +465,9 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         myKeep = (myAdditionalWays.find(id) != myAdditionalWays.end());
     }
     // parse "nd" (node) elements
-    if (element == SUMO_TAG_ND) {
+    if (element == SUMO_TAG_ND && myCurrentEdge != nullptr) {
         bool ok = true;
-        long long int ref = attrs.get<long long int>(SUMO_ATTR_REF, 0, ok);
+        const long long int ref = attrs.get<long long int>(SUMO_ATTR_REF, 0, ok);
         if (ok) {
             if (myOSMNodes.find(ref) == myOSMNodes.end()) {
                 WRITE_WARNING("The referenced geometry information (ref='" + toString(ref) + "') is not known");
@@ -499,7 +502,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
 void
 PCLoaderOSM::EdgesHandler::myEndElement(int element) {
     myParentElements.pop_back();
-    if (element == SUMO_TAG_WAY) {
+    if (element == SUMO_TAG_WAY && myCurrentEdge != nullptr) {
         if (myKeep) {
             RelationsMap::const_iterator it = myAdditionalWays.find(myCurrentEdge->id);
             if (it != myAdditionalWays.end()) {
@@ -509,7 +512,7 @@ PCLoaderOSM::EdgesHandler::myEndElement(int element) {
         } else {
             delete myCurrentEdge;
         }
-        myCurrentEdge = 0;
+        myCurrentEdge = nullptr;
     }
 }
 

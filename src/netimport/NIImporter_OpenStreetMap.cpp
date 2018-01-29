@@ -14,7 +14,7 @@
 /// @author  Walter Bamberger
 /// @author  Gregor Laemmel
 /// @date    Mon, 14.04.2008
-/// @version $Id$
+/// @version $Id: NIImporter_OpenStreetMap.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // Importer for networks stored in OpenStreetMap format
 /****************************************************************************/
@@ -661,14 +661,9 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                         + "', level='" + toString(myHierarchyLevel) + "').");
             return;
         }
-        auto id = attrs.get<long
-                  long
-                  int>(SUMO_ATTR_ID, nullptr, ok);
-        std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
-        if (action == "delete") {
-            return;
-        }
-        if (!ok) {
+        const long long int id = attrs.get<long long int>(SUMO_ATTR_ID, nullptr, ok);
+        const std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
+        if (action == "delete" || !ok) {
             return;
         }
         myLastNodeID = -1;
@@ -799,26 +794,18 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
     // parse "way" elements
     if (element == SUMO_TAG_WAY) {
         bool ok = true;
-        auto id = attrs.get<long
-                  long
-                  int>(SUMO_ATTR_ID, 0, ok);
+        const long long int id = attrs.get<long long int>(SUMO_ATTR_ID, nullptr, ok);
         std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
-        if (action == "delete") {
-            myCurrentEdge = 0;
-            return;
-        }
-        if (!ok) {
+        if (action == "delete" || !ok) {
             myCurrentEdge = 0;
             return;
         }
         myCurrentEdge = new Edge(id);
     }
     // parse "nd" (node) elements
-    if (element == SUMO_TAG_ND) {
+    if (element == SUMO_TAG_ND && myCurrentEdge != 0) {
         bool ok = true;
-        auto ref = attrs.get<long
-                   long
-                   int>(SUMO_ATTR_REF, 0, ok);
+        long long int ref = attrs.get<long long int>(SUMO_ATTR_REF, 0, ok);
         if (ok) {
             auto node = myOSMNodes.find(ref);
             if (node == myOSMNodes.end()) {
@@ -1032,19 +1019,15 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
 void
 NIImporter_OpenStreetMap::EdgesHandler::myEndElement(int element) {
     myParentElements.pop_back();
-    if (element == SUMO_TAG_WAY) {
-        if (myCurrentEdge != nullptr) {
-            if (myCurrentEdge->myCurrentIsRoad) {
-                myEdgeMap[myCurrentEdge->id] = myCurrentEdge;
-            } else if (myCurrentEdge->myCurrentIsPlatform) {
-                myPlatformShapesMap[myCurrentEdge->id] = myCurrentEdge;
-            } else {
-                delete myCurrentEdge;
-            }
+    if (element == SUMO_TAG_WAY && myCurrentEdge != nullptr) {
+        if (myCurrentEdge->myCurrentIsRoad) {
+            myEdgeMap[myCurrentEdge->id] = myCurrentEdge;
+        } else if (myCurrentEdge->myCurrentIsPlatform) {
+            myPlatformShapesMap[myCurrentEdge->id] = myCurrentEdge;
         } else {
             delete myCurrentEdge;
         }
-        myCurrentEdge = 0;
+        myCurrentEdge = nullptr;
     }
 }
 
@@ -1094,10 +1077,8 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
     // parse "way" elements
     if (element == SUMO_TAG_RELATION) {
         bool ok = true;
-        myCurrentRelation = attrs.get<long
-                            long
-                            int>(SUMO_ATTR_ID, 0, ok);
-        std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
+        myCurrentRelation = attrs.get<long long int>(SUMO_ATTR_ID, nullptr, ok);
+        const std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
         if (action == "delete" || !ok) {
             myCurrentRelation = INVALID_ID;
         }
