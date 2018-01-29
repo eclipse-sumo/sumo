@@ -454,6 +454,8 @@ class NetReader(handler.ContentHandler):
                 attrs.get('allow'),
                 attrs.get('disallow'))
             self._currentLane.setShape(convertShape(attrs.get('shape', '')))
+        if name == 'neigh' and self._currentLane is not None:
+            self._currentLane.setNeigh(attrs['lane'])
         if name == 'junction':
             if attrs['id'][0] != ':':
                 intLanes = None

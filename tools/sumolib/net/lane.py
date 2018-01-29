@@ -95,6 +95,7 @@ class Lane:
         self._outgoing = []
         self._params = {}
         self._allowed = get_allowed(allow, disallow)
+        self._neigh = None
         edge.addLane(self)
 
     def getSpeed(self):
@@ -197,13 +198,19 @@ class Lane:
 
     def getOutgoing(self):
         return self._outgoing
-    
+
     def getIncoming(self):
         """
         Returns all incoming lanes for this lane, i.e. lanes, which have a connection to this lane.
         """
         candidates = set(reduce(lambda x,y: x+y, [e.getLanes() for e in self._edge.getIncoming()],[]))
         return [l for l in candidates if self in [c.getToLane() for c in l.getOutgoing()]]
+
+    def setNeigh(self, neigh):
+        self._neigh = neigh
+
+    def getNeigh(self):
+        return self._neigh
 
     def setParam(self, key, value):
         self._params[key] = value
