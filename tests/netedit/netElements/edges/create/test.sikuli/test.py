@@ -25,9 +25,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--new'])
 
-# zoom
-netedit.setZoom("50", "50", "50")
-
 # rebuild network
 netedit.rebuildNetwork()
 

@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed 18 Oct 2017 03:24:31 PM CEST by Netedit Version dev-SVN-r26576
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 29.01.2018 13:28:19 by Netedit Version v0_32_0+0239-f19c50d12d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -13,9 +8,9 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
-        <additionals-output value="/home/erdm_ja/.texttest/tmp/netedit.gui.18Oct152413.19356/netedit.gui/netElements/edges/create/additionals.xml"/>
-        <shapes-output value="/home/erdm_ja/.texttest/tmp/netedit.gui.18Oct152413.19356/netedit.gui/netElements/edges/create/shapes.xml"/>
-        <output-file value="/home/erdm_ja/.texttest/tmp/netedit.gui.18Oct152413.19356/netedit.gui/netElements/edges/create/net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan132757.12744/netedit.gui/netElements/edges/create\additionals.xml"/>
+        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan132757.12744/netedit.gui/netElements/edges/create\shapes.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan132757.12744/netedit.gui/netElements/edges/create\net.net.xml"/>
     </output>
 
     <processing>
@@ -24,6 +19,7 @@ SPDX-License-Identifier: EPL-2.0
     </processing>
 
     <visualisation>
+        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan132757.12744/netedit.gui/netElements/edges/create\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -32,7 +28,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/erdm_ja/.texttest/tmp/netedit.gui.18Oct152413.19356/netedit.gui/netElements/edges/create/log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan132757.12744/netedit.gui/netElements/edges/create\log.txt"/>
     </report>
 
 </configuration>
@@ -40,50 +36,50 @@ SPDX-License-Identifier: EPL-2.0
 
 <net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="38.60,32.50,78.60,52.50" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="36.00,41.00,68.00,57.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" speed="13.89" length="5.00" shape="40.25,47.75 40.44,49.11 41.02,50.07 41.99,50.66 43.35,50.85"/>
+        <lane id=":gneJ0_0_0" index="0" speed="13.89" length="5.00" shape="37.65,52.25 37.84,53.61 38.42,54.57 39.39,55.16 40.75,55.35"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" speed="13.89" length="5.00" shape="73.85,50.85 75.21,50.66 76.17,50.08 76.76,49.11 76.95,47.75"/>
+        <lane id=":gneJ1_0_0" index="0" speed="13.89" length="5.00" shape="63.25,55.35 64.61,55.16 65.57,54.58 66.16,53.61 66.35,52.25"/>
     </edge>
     <edge id=":gneJ2_0" function="internal">
-        <lane id=":gneJ2_0_0" index="0" speed="13.89" length="7.85" shape="36.95,33.95 37.35,32.59 38.55,31.63 40.55,31.04 43.35,30.85"/>
+        <lane id=":gneJ2_0_0" index="0" speed="13.89" length="7.85" shape="34.35,42.45 34.75,41.09 35.95,40.13 37.95,39.54 40.75,39.35"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
-        <lane id=":gneJ3_0_0" index="0" speed="13.89" length="7.85" shape="73.85,30.85 76.65,31.04 78.65,31.63 79.85,32.59 80.25,33.95"/>
+        <lane id=":gneJ3_0_0" index="0" speed="13.89" length="7.85" shape="63.25,39.35 66.05,39.54 68.05,40.13 69.25,41.09 69.65,42.45"/>
     </edge>
 
     <edge id="-gneE2" from="gneJ0" to="gneJ2" priority="1">
-        <lane id="-gneE2_0" index="0" speed="13.89" length="13.80" shape="36.95,47.75 36.95,33.95"/>
+        <lane id="-gneE2_0" index="0" speed="13.89" length="9.80" shape="34.35,52.25 34.35,42.45"/>
     </edge>
     <edge id="-gneE3" from="gneJ3" to="gneJ1" priority="1">
-        <lane id="-gneE3_0" index="0" speed="13.89" length="13.80" shape="80.25,33.95 80.25,47.75"/>
+        <lane id="-gneE3_0" index="0" speed="13.89" length="9.80" shape="69.65,42.45 69.65,52.25"/>
     </edge>
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="gneE0_0" index="0" speed="13.89" length="30.50" shape="43.35,50.85 73.85,50.85"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="22.50" shape="40.75,55.35 63.25,55.35"/>
     </edge>
     <edge id="gneE1" from="gneJ2" to="gneJ3" priority="1">
-        <lane id="gneE1_0" index="0" speed="13.89" length="30.50" shape="43.35,30.85 73.85,30.85"/>
+        <lane id="gneE1_0" index="0" speed="13.89" length="22.50" shape="40.75,39.35 63.25,39.35"/>
     </edge>
     <edge id="gneE2" from="gneJ2" to="gneJ0" priority="1">
-        <lane id="gneE2_0" index="0" speed="13.89" length="13.80" shape="40.25,33.95 40.25,47.75"/>
+        <lane id="gneE2_0" index="0" speed="13.89" length="9.80" shape="37.65,42.45 37.65,52.25"/>
     </edge>
     <edge id="gneE3" from="gneJ1" to="gneJ3" priority="1">
-        <lane id="gneE3_0" index="0" speed="13.89" length="13.80" shape="76.95,47.75 76.95,33.95"/>
+        <lane id="gneE3_0" index="0" speed="13.89" length="9.80" shape="66.35,52.25 66.35,42.45"/>
     </edge>
 
-    <junction id="gneJ0" type="priority" x="38.60" y="52.50" incLanes="gneE2_0" intLanes=":gneJ0_0_0" shape="43.35,52.45 43.35,49.25 41.85,47.75 35.35,47.75">
+    <junction id="gneJ0" type="priority" x="36.00" y="57.00" incLanes="gneE2_0" intLanes=":gneJ0_0_0" shape="40.75,56.95 40.75,53.75 39.25,52.25 32.75,52.25">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ1" type="priority" x="78.60" y="52.50" incLanes="-gneE3_0 gneE0_0" intLanes=":gneJ1_0_0" shape="81.85,47.75 75.35,47.75 73.85,49.25 73.85,52.45">
+    <junction id="gneJ1" type="priority" x="68.00" y="57.00" incLanes="-gneE3_0 gneE0_0" intLanes=":gneJ1_0_0" shape="71.25,52.25 64.75,52.25 63.25,53.75 63.25,56.95">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ2" type="priority" x="38.60" y="32.50" incLanes="-gneE2_0" intLanes=":gneJ2_0_0" shape="35.35,33.95 41.85,33.95 43.35,32.45 43.35,29.25">
+    <junction id="gneJ2" type="priority" x="36.00" y="41.00" incLanes="-gneE2_0" intLanes=":gneJ2_0_0" shape="32.75,42.45 39.25,42.45 40.75,40.95 40.75,37.75">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ3" type="priority" x="78.60" y="32.50" incLanes="gneE3_0 gneE1_0" intLanes=":gneJ3_0_0" shape="75.35,33.95 81.85,33.95 73.85,29.25 73.85,32.45">
+    <junction id="gneJ3" type="priority" x="68.00" y="41.00" incLanes="gneE3_0 gneE1_0" intLanes=":gneJ3_0_0" shape="64.75,42.45 71.25,42.45 63.25,37.75 63.25,40.95">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 

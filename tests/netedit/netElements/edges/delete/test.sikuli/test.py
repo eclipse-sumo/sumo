@@ -25,9 +25,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
-# zoom in central node
-netedit.setZoom("50", "50", "100")
-
 # rebuild network
 netedit.rebuildNetwork()
 
@@ -35,10 +32,10 @@ netedit.rebuildNetwork()
 netedit.deleteMode()
 
 # delete edge
-netedit.leftClick(match, 200, 200)
+netedit.leftClick(match, 200, 250)
 
 # delete node
-netedit.leftClick(match, 575, 225)
+netedit.leftClick(match, 660, 280)
 
 # rebuild network
 netedit.rebuildNetwork()
