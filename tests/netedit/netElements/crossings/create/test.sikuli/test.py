@@ -28,9 +28,6 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 # Rebuild network
 netedit.rebuildNetwork()
 
-# zoom in central node
-netedit.setZoom("50", "50", "50")
-
 # set crossing mode
 netedit.crossingMode()
 
@@ -38,8 +35,8 @@ netedit.crossingMode()
 netedit.leftClick(match, 325, 225)
 
 # select two left edges and create crossing in edges 3 and 7
-netedit.leftClick(match, 150, 200)
 netedit.leftClick(match, 150, 250)
+netedit.leftClick(match, 150, 350)
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
@@ -74,8 +71,8 @@ netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # Check buttons
-netedit.leftClick(match, 150, 200)
 netedit.leftClick(match, 150, 250)
+netedit.leftClick(match, 150, 350)
 netedit.crossingInvertEdges()
 netedit.crossingClearEdges()
 

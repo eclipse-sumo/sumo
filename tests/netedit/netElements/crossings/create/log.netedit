@@ -15,7 +15,6 @@ Warning: Created connection 'from8_0to2_0' in retrieveGNEConnection()
 Warning: Created connection 'from8_0to3_0' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to1_1' in retrieveGNEConnection()
-Warning: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '100.00'
 Warning: Adding crossing into junction 'Center'
 Warning: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
 Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
