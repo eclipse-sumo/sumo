@@ -29,7 +29,7 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(match, 250, 170)
+netedit.leftClick(match, 250, 180)
 
 # Change parameter 0 with a non valid value (empty ID)
 netedit.modifyAttribute(0, "")

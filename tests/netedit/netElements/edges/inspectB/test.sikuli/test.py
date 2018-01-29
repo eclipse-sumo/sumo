@@ -32,7 +32,7 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(match, 250, 170)
+netedit.leftClick(match, 250, 180)
 
 # Change parameter 8 with an non valid value (dummy)
 netedit.modifyAttribute(8, "DummyAllowed")
