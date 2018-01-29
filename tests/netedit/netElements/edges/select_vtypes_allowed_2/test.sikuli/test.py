@@ -28,47 +28,6 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 # go to select mode
 netedit.selectMode()
 
-# select all edges with allow = "all" and remove it
-# (we cannot use "=all" since "all" is expanded to include all vClassess)
-netedit.selectItems("Net Element", "edge", "allow", "all")
-netedit.deleteSelectedItems()
-
-# select all edges with allow = "passenger" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=passenger")
-netedit.deleteSelectedItems()
-
-# select all edges with allow = "taxi" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=taxi")
-netedit.deleteSelectedItems()
-
-# select all edges with allow = "bus" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=bus")
-netedit.deleteSelectedItems()
-
-# select all edges with allow = "coach" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=coach")
-netedit.deleteSelectedItems()
-
-# select all edges with allow = "delivery" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=delivery")
-netedit.deleteSelectedItems()
-
-# select all edges with allow = "truck" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=truck")
-netedit.deleteSelectedItems()
-
-# select all edges with allow = "trailer" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=trailer")
-netedit.deleteSelectedItems()
-
-# select all edges with allow = "emergency" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=emergency")
-netedit.deleteSelectedItems()
-
-# select all edges with allow = "motorcycle" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=motorcycle")
-netedit.deleteSelectedItems()
-
 # select all edges with allow = "moped" and remove it
 netedit.selectItems("Net Element", "edge", "allow", "=moped")
 netedit.deleteSelectedItems()
@@ -107,30 +66,6 @@ netedit.deleteSelectedItems()
 
 # select all edges with allow = "private" and remove it
 netedit.selectItems("Net Element", "edge", "allow", "=private")
-netedit.deleteSelectedItems()
-
-# select all edges with allow = "army" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=army")
-netedit.deleteSelectedItems()
-
-# select all edges with allow = "authority" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=authority")
-netedit.deleteSelectedItems()
-
-# select all edges with allow = "vip" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=vip")
-netedit.deleteSelectedItems()
-
-# select all edges with allow = "hov" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=hov")
-netedit.deleteSelectedItems()
-
-# select all edges with allow = "custom1" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=custom1")
-netedit.deleteSelectedItems()
-
-# select all edges with allow = "custom2" and remove it
-netedit.selectItems("Net Element", "edge", "allow", "=custom2")
 netedit.deleteSelectedItems()
 
 # save newtork

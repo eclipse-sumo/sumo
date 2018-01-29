@@ -1,0 +1,355 @@
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Removing connection 'gneE13_0->gneE12_0' from edge 'gneE13'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
+Warning: Removing connection 'gneE12_0->gneE13_0' from edge 'gneE12'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE12'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge 'gneE12' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge 'gneE13' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge 'gneE14' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge '-gneE14' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE15'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge '-gneE15' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge 'gneE15' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE22'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ22'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE22'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ21'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge '-gneE22' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ21'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE22'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ22'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge 'gneE22' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE18'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ10'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge '-gneE18' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE18'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ10'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge 'gneE18' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE17'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge 'gneE17' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge '-gneE17' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE16'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ20'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge '-gneE16' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE16'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ20'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge 'gneE16' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE23'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ24'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE23'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ23'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge '-gneE23' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ23'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE23'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ24'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge 'gneE23' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge '-gneE19' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge 'gneE19' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE20'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE20'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge 'gneE20' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE20'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge '-gneE20' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE21'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE21'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge '-gneE21' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE21'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge 'gneE21' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE24'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ26'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE24'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ25'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge '-gneE24' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ25'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE24'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ26'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge 'gneE24' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE25'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ28'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE25'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ27'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge '-gneE25' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ27'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE25'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ28'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing edge 'gneE25' from net
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Deleting unreferenced edge '-gneE25' in GNEChange_Attribute
+Warning: Deleting unreferenced lane '-gneE25_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE25' in GNEChange_Attribute
+Warning: Deleting unreferenced lane 'gneE25_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE24' in GNEChange_Attribute
+Warning: Deleting unreferenced lane '-gneE24_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE24' in GNEChange_Attribute
+Warning: Deleting unreferenced lane 'gneE24_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE21' in GNEChange_Attribute
+Warning: Deleting unreferenced lane '-gneE21_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE21' in GNEChange_Attribute
+Warning: Deleting unreferenced lane 'gneE21_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE20' in GNEChange_Attribute
+Warning: Deleting unreferenced lane 'gneE20_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE20' in GNEChange_Attribute
+Warning: Deleting unreferenced lane '-gneE20_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE19' in GNEChange_Attribute
+Warning: Deleting unreferenced lane '-gneE19_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE19' in GNEChange_Attribute
+Warning: Deleting unreferenced lane 'gneE19_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE23' in GNEChange_Attribute
+Warning: Deleting unreferenced lane '-gneE23_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE23' in GNEChange_Attribute
+Warning: Deleting unreferenced lane 'gneE23_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE16' in GNEChange_Attribute
+Warning: Deleting unreferenced lane '-gneE16_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE16' in GNEChange_Attribute
+Warning: Deleting unreferenced lane 'gneE16_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE17' in GNEChange_Attribute
+Warning: Deleting unreferenced lane 'gneE17_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE17' in GNEChange_Attribute
+Warning: Deleting unreferenced lane '-gneE17_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE18' in GNEChange_Attribute
+Warning: Deleting unreferenced lane '-gneE18_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE18' in GNEChange_Attribute
+Warning: Deleting unreferenced lane 'gneE18_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE22' in GNEChange_Attribute
+Warning: Deleting unreferenced lane '-gneE22_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE22' in GNEChange_Attribute
+Warning: Deleting unreferenced lane 'gneE22_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE15' in GNEChange_Attribute
+Warning: Deleting unreferenced lane '-gneE15_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE15' in GNEChange_Attribute
+Warning: Deleting unreferenced lane 'gneE15_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE14' in GNEChange_Attribute
+Warning: Deleting unreferenced lane 'gneE14_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE14' in GNEChange_Attribute
+Warning: Deleting unreferenced lane '-gneE14_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE12' in GNEChange_Attribute
+Warning: Deleting unreferenced lane 'gneE12_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE13' in GNEChange_Attribute
+Warning: Deleting unreferenced lane 'gneE13_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ10' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ11' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ12' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ13' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ14' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ15' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ16' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ17' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ18' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ19' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ20' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ21' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ22' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ23' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ24' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ25' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ26' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ27' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ28' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ4' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ5' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ7' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ8' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ9' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor
