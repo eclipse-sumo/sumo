@@ -7,7 +7,7 @@
 # http://www.eclipse.org/legal/epl-v20.html
 # SPDX-License-Identifier: EPL-2.0
 
-# @file    neteditTestFunctions.py
+# @file    NeteditTestFunctions.py
 # @author  Pablo Alvarez Lopez
 # @date    2016-11-25
 # @version $Id$
@@ -30,7 +30,7 @@ Settings.MoveMouseDelay = 0.2
 Settings.DelayBeforeDrop = 0.2
 Settings.DelayAfterDrag = 0.2
 
-neteditApp = os.environ.get("NETEDIT_BINARY", "netedit")
+NeteditApp = os.environ.get("NETEDIT_BINARY", "Netedit")
 textTestSandBox = os.environ.get("TEXTTEST_SANDBOX", ".")
 referenceImage = os.path.join("imageResources", "reference.png")
 
@@ -166,79 +166,79 @@ def dragDrop(match, x1, y1, x2, y2):
 #################################################
 
 """
-@brief setup netedit
+@brief setup Netedit
 """
 
 
-def setup(neteditTests):
-    # Open current environment file to obtain path to the netedit app,
+def setup(NeteditTests):
+    # Open current environment file to obtain path to the Netedit app,
     # textTestSandBox
-    envFile = os.path.join(neteditTests, "currentEnvironment.tmp")
+    envFile = os.path.join(NeteditTests, "currentEnvironment.tmp")
     if os.path.exists(envFile):
-        global neteditApp, textTestSandBox, currentOS
+        global NeteditApp, textTestSandBox, currentOS
         with open(envFile) as env:
-            neteditApp, sandBox = [l.strip() for l in env.readlines()]
+            NeteditApp, sandBox = [l.strip() for l in env.readlines()]
         if os.path.exists(sandBox):
             textTestSandBox = sandBox
         os.remove(envFile)
     # get reference for match
     global referenceImage
     referenceImage = os.path.join(
-        neteditTests, "imageResources", "reference.png")
+        NeteditTests, "imageResources", "reference.png")
 
 
 """
-@brief open netedit
+@brief open Netedit
 """
 
 
 def Popen(extraParameters, debugInformation):
-    # set the default parameters of netedit
-    neteditCall = [neteditApp, '--gui-testing', '--window-pos', '50,50',
+    # set the default parameters of Netedit
+    NeteditCall = [NeteditApp, '--gui-testing', '--window-pos', '50,50',
                    '--window-size', '700,500', '--no-warnings',
                    '--error-log', os.path.join(textTestSandBox, 'log.txt')]
 
     # check if debug output information has to be enabled
     if debugInformation:
-        neteditCall += ['--gui-testing-debug']
+        NeteditCall += ['--gui-testing-debug']
 
     # check if an existent net must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_net.net.xml")):
-        neteditCall += ['--sumo-net-file',
+        NeteditCall += ['--sumo-net-file',
                         os.path.join(textTestSandBox, "input_net.net.xml")]
 
     # Check if additionals must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_additionals.add.xml")):
-        neteditCall += ['--sumo-additionals-file',
+        NeteditCall += ['--sumo-additionals-file',
                         os.path.join(textTestSandBox, "input_additionals.add.xml")]
 
     # Check if shapes must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_shapes.add.xml")):
-        neteditCall += ['--sumo-shapes-file',
+        NeteditCall += ['--sumo-shapes-file',
                         os.path.join(textTestSandBox, "input_shapes.add.xml")]
 
     # check if a gui settings file has to be load
     if os.path.exists(os.path.join(textTestSandBox, "gui-settings.xml")):
-        neteditCall += ['--gui-settings-file',
+        NeteditCall += ['--gui-settings-file',
                         os.path.join(textTestSandBox, "gui-settings.xml")]
 
     # set output for net
-    neteditCall += ['--output-file',
+    NeteditCall += ['--output-file',
                     os.path.join(textTestSandBox, 'net.net.xml')]
 
     # set output for additionals
-    neteditCall += ['--additionals-output',
+    NeteditCall += ['--additionals-output',
                     os.path.join(textTestSandBox, "additionals.xml")]
 
     # set output for shapes
-    neteditCall += ['--shapes-output',
+    NeteditCall += ['--shapes-output',
                     os.path.join(textTestSandBox, "shapes.xml")]
 
     # add extra parameters
-    neteditCall += extraParameters
+    NeteditCall += extraParameters
 
-    # return a subprocess with netedit
-    return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
+    # return a subprocess with Netedit
+    return subprocess.Popen(NeteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
 
 """
@@ -256,31 +256,31 @@ def getReferenceMatch(neProcess, waitTime):
     except:
         neProcess.kill()
         # print debug information
-        sys.exit("TestFunctions: Killed netedit process. 'reference.png' not found")
+        sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
 
 
 """
-@brief setup and start netedit
+@brief setup and start Netedit
 """
 
 
 def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchReference=True, waitTime=DELAY_REFERENCE):
     setup(testRoot)
-    # Open netedit
-    neteditProcess = Popen(extraParameters, debugInformation)
-    # atexit.register(quit, neteditProcess, False, False)
+    # Open Netedit
+    NeteditProcess = Popen(extraParameters, debugInformation)
+    # atexit.register(quit, NeteditProcess, False, False)
     # print debug information
     print("TestFunctions: Netedit opened sucesfully")
     # Check if reference must be searched
     if(searchReference):
-        # Wait for netedit reference
-        return neteditProcess, getReferenceMatch(neteditProcess, waitTime)
+        # Wait for Netedit reference
+        return NeteditProcess, getReferenceMatch(NeteditProcess, waitTime)
     else:
         # print debug information
         print("TestFunctions: 'searchReference' option disabled. Reference isn't searched")
-        # Wait 1 second for netedit process
+        # Wait 1 second for Netedit process
         wait(1)
-        return neteditProcess
+        return NeteditProcess
 
 """
 @brief rebuild network
@@ -368,22 +368,25 @@ def redo(match, number):
 def setZoom(positionX, positionY, zoomLevel):
     # open edit viewport dialog
     typeKey("v")
-    # Paste Zoom Z
-    pasteIntoTextField(zoomLevel)
-    # go to Y
-    typeInvertTab()
-    # Paste Position Y
-    pasteIntoTextField(positionY)
-    # go to X
-    typeInvertTab()
+    # by default is in "load" button, then go to position X
+    for x in range(0, 3):
+        typeTab()
     # Paste position X
     pasteIntoTextField(positionX)
+    # go to Y
+    typeTab()
+    # Paste Position Y
+    pasteIntoTextField(positionY)
+    # go to Z
+    typeTab()
+    # Paste Zoom Z
+    pasteIntoTextField(zoomLevel)
     # press OK Button using shortcut
     typeTwoKeys('o', Key.ALT)
 
 
 """
-@brief wait question of netedit and select a yes/no answer
+@brief wait question of Netedit and select a yes/no answer
 """
 
 
@@ -395,15 +398,15 @@ def waitQuestion(answer):
 
 
 """
-@brief quit netedit quit
+@brief quit Netedit quit
 """
 
 
-def quit(neteditProcess, openNetNonSavedDialog=False, saveNet=False, 
+def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False, 
                          openAdditionalsNonSavedDialog=False, saveAdditionals=False, 
                          openShapesNonSavedDialog=False, saveShapes=False):
-    # check if netedit is already closed
-    if neteditProcess.poll() is not None:
+    # check if Netedit is already closed
+    if NeteditProcess.poll() is not None:
         # print debug information
         print("[log] TestFunctions: Netedit already closed")
     else:
@@ -439,11 +442,11 @@ def quit(neteditProcess, openNetNonSavedDialog=False, saveNet=False,
 
         # wait some seconds
         wait(DELAY_QUIT)
-        if neteditProcess.poll() is not None:
+        if NeteditProcess.poll() is not None:
             # print debug information
             print("TestFunctions: Netedit closed successfully")
         else:
-            neteditProcess.kill()
+            NeteditProcess.kill()
             # print debug information
             print("TestFunctions: Error closing Netedit")
 

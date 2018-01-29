@@ -126,17 +126,25 @@ protected:
     /// @brief The old viewport
     Position myOldLookFrom, myOldLookAt;
 
+    /// @brief load button
+    FXButton *myLoadButton;
+
+    /// @brief save button
+    FXButton *mySaveButton;
+
     /// @brief The spin dialers used to change the view
     FXRealSpinner* myZoom, *myXOff, *myYOff, *myZOff;
-
-    /// @brief OK button
-    FXButton* buttonOk;
 
 #ifdef HAVE_OSG
     /// @brief The spin dialers used to change the view at (osg only)
     FXRealSpinner* myLookAtX, *myLookAtY, *myLookAtZ;
 #endif
 
+    /// @brief OK button
+    FXButton* myOKButton;
+
+    /// @brief Cancel button
+    FXButton* myCancelButton;
 
 protected:
     /// @brief FOX needs this

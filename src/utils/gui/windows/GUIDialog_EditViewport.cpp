@@ -53,14 +53,13 @@ FXDEFMAP(GUIDialog_EditViewport) GUIDialog_EditViewportMap[] = {
     FXMAPFUNC(SEL_COMMAND, GUIDialog_EditViewport::MID_SAVE,    GUIDialog_EditViewport::onCmdSave),
 };
 
-
 // Object implementation
 FXIMPLEMENT(GUIDialog_EditViewport, FXDialogBox, GUIDialog_EditViewportMap, ARRAYNUMBER(GUIDialog_EditViewportMap))
-
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, const char* name, int x, int y) :
     FXDialogBox(parent, name, GUIDesignDialogBox, x, y, 0, 0, 0, 0, 0, 0),
     myParent(parent) {
@@ -68,47 +67,52 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     FXVerticalFrame* contentsFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
     // create frame for file icons
     FXHorizontalFrame* frameFiles = new FXHorizontalFrame(contentsFrame, GUIDesignHorizontalFrameIcons);
-    new FXButton(frameFiles, "Load\t\tLoad viewport from file",
-                 GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, GUIDialog_EditViewport::MID_LOAD, GUIDesignButtonToolbarWithText);
-    new FXButton(frameFiles, "Save\t\tSave viewport to file",
-                 GUIIconSubSys::getIcon(ICON_SAVE), this, GUIDialog_EditViewport::MID_SAVE, GUIDesignButtonToolbarWithText);
+    myLoadButton = new FXButton(frameFiles, "Load\t\tLoad viewport from file",
+                                GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, GUIDialog_EditViewport::MID_LOAD, GUIDesignButtonToolbarWithText);
+    mySaveButton = new FXButton(frameFiles, "Save\t\tSave viewport to file",
+                                GUIIconSubSys::getIcon(ICON_SAVE), this, GUIDialog_EditViewport::MID_SAVE, GUIDesignButtonToolbarWithText);
+    // create horizontalframe for zoom elements and OSG
+    FXHorizontalFrame* editElementsFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
+    // create vertical frame for XYZ values
+    FXVerticalFrame* XYZFrame = new FXVerticalFrame(editElementsFrame, GUIDesignAuxiliarVerticalFrame);
     // create zoom elements
-    FXHorizontalFrame* zoomFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* zoomFrame = new FXHorizontalFrame(XYZFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(zoomFrame, "Zoom:", 0, GUIDesignLabelLeftThick);
     myZoom = new FXRealSpinner(zoomFrame, 16, this, MID_CHANGED, GUIDesignSpinDial);
     myZoom->setRange(0.0001, 100000);
     //myZoom->setNumberFormat(4);
     // create X elements
-    FXHorizontalFrame* XFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* XFrame = new FXHorizontalFrame(XYZFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(XFrame, "X:", 0, GUIDesignLabelLeftThick);
     myXOff = new FXRealSpinner(XFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
     // create Y elements
-    FXHorizontalFrame* YFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* YFrame = new FXHorizontalFrame(XYZFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(YFrame, "Y:", 0, GUIDesignLabelLeftThick);
     myYOff = new FXRealSpinner(YFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
     // create Z elements
-    FXHorizontalFrame* ZFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* ZFrame = new FXHorizontalFrame(XYZFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(ZFrame, "Z:", 0, GUIDesignLabelLeftThick);
     myZOff = new FXRealSpinner(ZFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
 #ifdef HAVE_OSG
-    FXHorizontalFrame* lookAtXFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
+    // create vertical frame for OSG
+    FXVerticalFrame* OSGFrame = new FXVerticalFrame(editElementsFrame, GUIDesignAuxiliarVerticalFrame);
+    new FXLabel(OSGFrame, "OSG", 0, GUIDesignLabelCenterThick);
+    FXHorizontalFrame* lookAtXFrame = new FXHorizontalFrame(OSGFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(lookAtXFrame, "LookAtX:", 0, GUIDesignLabelLeftThick);
     myLookAtX = new FXRealSpinner(lookAtXFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
-    FXHorizontalFrame* lookAtYFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* lookAtYFrame = new FXHorizontalFrame(OSGFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(lookAtYFrame, "LookAtY:", 0, GUIDesignLabelLeftThick);
     myLookAtY = new FXRealSpinner(lookAtYFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
-    FXHorizontalFrame* lookAtZFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* lookAtZFrame = new FXHorizontalFrame(OSGFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(lookAtZFrame, "LookAtZ:", 0, GUIDesignLabelLeftThick);
     myLookAtZ = new FXRealSpinner(lookAtZFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
-    // update width of dialog for the new elements
-    setHeight(257);
 #endif
     // create buttons ok/cancel
     new FXHorizontalSeparator(contentsFrame, GUIDesignHorizontalSeparator);
     FXHorizontalFrame* frameButtons = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXHorizontalFrame(frameButtons, GUIDesignAuxiliarHorizontalFrame);
-    buttonOk = new FXButton(frameButtons, "&OK\t\taccept", GUIIconSubSys::getIcon(ICON_ACCEPT), this, GUIDialog_EditViewport::MID_OK, GUIDesignButtonOK);
-    new FXButton(frameButtons, "&Cancel\t\tclose", GUIIconSubSys::getIcon(ICON_CANCEL), this, GUIDialog_EditViewport::MID_CANCEL, GUIDesignButtonCancel);
+    myOKButton = new FXButton(frameButtons, "&OK\t\taccept", GUIIconSubSys::getIcon(ICON_ACCEPT), this, GUIDialog_EditViewport::MID_OK, GUIDesignButtonOK);
+    myCancelButton = new FXButton(frameButtons, "&Cancel\t\tclose", GUIIconSubSys::getIcon(ICON_CANCEL), this, GUIDialog_EditViewport::MID_CANCEL, GUIDesignButtonCancel);
     new FXHorizontalFrame(frameButtons, GUIDesignAuxiliarHorizontalFrame);
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(ICON_EDITVIEWPORT));
@@ -122,9 +126,9 @@ void
 GUIDialog_EditViewport::show() {
     // If testing mode is enabled, we need to place focus in the Z dial
     if (OptionsCont::getOptions().getBool("gui-testing")) {
-        myZOff->setFocus();
+        myLoadButton->setFocus();
     } else {
-        buttonOk->setFocus();
+        myOKButton->setFocus();
     }
     FXDialogBox::show();
 }
@@ -226,6 +230,7 @@ GUIDialog_EditViewport::writeXML(OutputDevice& dev) {
 #endif
     dev.closeTag();
 }
+
 
 void
 GUIDialog_EditViewport::setValues(double zoom, double xoff, double yoff) {
