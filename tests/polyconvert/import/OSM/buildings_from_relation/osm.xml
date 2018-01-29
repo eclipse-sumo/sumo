@@ -1400,6 +1400,9 @@
     <nd ref="1560592311"/>
     <tag k="landuse" v="grass"/>
   </way>
+  <way id='112439415' action='delete' timestamp='2011-05-09T05:09:49Z' uid='69619' user='thegrids' version='1' changeset='8089527'>
+    <tag k='building' v='yes' />
+  </way>
   <relation id="56951">
     <member type="way" ref="118132057" role="outer"/>
     <member type="way" ref="149670384" role="outer"/>
