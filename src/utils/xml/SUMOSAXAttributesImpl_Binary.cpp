@@ -12,7 +12,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id: SUMOSAXAttributesImpl_Binary.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // Encapsulated xml-attributes that are retrieved from the sumo-binary-xml format (already typed)
 /****************************************************************************/
@@ -187,8 +187,8 @@ SUMOSAXAttributesImpl_Binary::getInt(int id) const {
 
 
 long long int
-SUMOSAXAttributesImpl_Binary::getLong(int /* id */) const {
-    throw NumberFormatException();
+SUMOSAXAttributesImpl_Binary::getLong(int id) const {
+    return TplConvert::_2long(getString(id).c_str());
 }
 
 
