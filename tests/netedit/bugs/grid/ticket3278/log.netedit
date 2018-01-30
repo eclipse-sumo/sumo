@@ -25,7 +25,7 @@ Warning: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to4_1' in retrieveGNEConnection()
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
-Warning: Current Viewport values: 50.00, 50.00, 100.00. Zoom = '100.00'
+Warning: Current Viewport values: 50.00, 50.00, 100.00. Zoom = '120.00'
 Warning: Setting new attribute pos '20.00,20.00' into junction 'C'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '0.00,50.00' into junction 'C'
