@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sa 21 Okt 2017 11:06:41 CEST by Netedit Version UNKNOWN
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 30.01.2018 15:41:03 by Netedit Version v0_32_0+0239-f19c50d12d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/netElements/junctions/move/input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.5_from_30Jan130411.644/netedit.gui/netElements/junctions/move\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/netElements/junctions/move/additionals.xml"/>
-        <shapes-output value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/netElements/junctions/move/shapes.xml"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/netElements/junctions/move/net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.5_from_30Jan130411.644/netedit.gui/netElements/junctions/move\additionals.xml"/>
+        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.5_from_30Jan130411.644/netedit.gui/netElements/junctions/move\shapes.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.5_from_30Jan130411.644/netedit.gui/netElements/junctions/move\net.net.xml"/>
     </output>
 
     <processing>
@@ -28,7 +23,7 @@ SPDX-License-Identifier: EPL-2.0
     </processing>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/netElements/junctions/move/gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.5_from_30Jan130411.644/netedit.gui/netElements/junctions/move\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -37,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/netElements/junctions/move/log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.5_from_30Jan130411.644/netedit.gui/netElements/junctions/move\log.txt"/>
     </report>
 
 </configuration>
@@ -120,13 +115,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ15_5_0" index="0" speed="13.89" length="17.68" shape="56.23,5.36 59.91,3.29 64.05,0.99 68.30,-0.88 72.30,-1.65"/>
     </edge>
     <edge id=":gneJ16_0" function="internal">
-        <lane id=":gneJ16_0_0" index="0" speed="13.89" length="7.90" shape="48.35,3.25 48.66,1.11 49.58,-0.42 51.11,-1.34 53.25,-1.65"/>
+        <lane id=":gneJ16_0_0" index="0" speed="13.89" length="7.90" shape="48.35,3.25 48.66,1.11 49.58,-0.43 51.11,-1.34 53.25,-1.65"/>
     </edge>
     <edge id=":gneJ16_1" function="internal">
         <lane id=":gneJ16_1_0" index="0" speed="13.89" length="2.58" shape="53.25,1.65 52.55,1.75 52.05,2.05 51.75,2.55 51.65,3.25"/>
     </edge>
     <edge id=":gneJ17_0" function="internal">
-        <lane id=":gneJ17_0_0" index="0" speed="13.89" length="4.75" shape="48.35,24.92 48.19,23.53,0.43 47.72,22.56,0.76 46.94,22.00,1.06 45.84,21.86,1.40"/>
+        <lane id=":gneJ17_0_0" index="0" speed="13.89" length="4.54" shape="48.35,24.92 48.19,23.53 47.72,22.56 46.94,22.00 45.84,21.86"/>
     </edge>
     <edge id=":gneJ17_1" function="internal">
         <lane id=":gneJ17_1_0" index="0" speed="13.89" length="9.51" shape="48.35,24.92 48.35,15.41"/>
@@ -135,10 +130,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ17_2_0" index="0" speed="13.89" length="9.51" shape="51.65,15.41 51.65,24.92"/>
     </edge>
     <edge id=":gneJ17_3" function="internal">
-        <lane id=":gneJ17_3_0" index="0" speed="13.89" length="5.30" shape="51.65,15.41 51.29,18.12,0.39 50.20,20.10,0.71 49.99,20.24,0.75"/>
+        <lane id=":gneJ17_3_0" index="0" speed="13.89" length="5.30" shape="51.65,15.41 51.29,18.12 50.20,20.10 49.95,20.27"/>
     </edge>
     <edge id=":gneJ17_6" function="internal">
-        <lane id=":gneJ17_6_0" index="0" speed="13.89" length="4.59" shape="49.99,20.24,0.75 48.38,21.35,1.03 45.84,21.86,1.40"/>
+        <lane id=":gneJ17_6_0" index="0" speed="13.89" length="4.49" shape="49.95,20.27 48.38,21.35 45.84,21.86"/>
     </edge>
     <edge id=":gneJ17_4" function="internal">
         <lane id=":gneJ17_4_0" index="0" speed="13.89" length="4.66" shape="45.68,18.56 46.85,18.32 47.68,17.71 48.18,16.74 48.35,15.41"/>
@@ -153,46 +148,46 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ18_1_0" index="0" speed="13.89" length="2.58" shape="51.65,36.75 51.75,37.45 52.05,37.95 52.55,38.25 53.25,38.35"/>
     </edge>
     <edge id=":gneJ19_0" function="internal">
-        <lane id=":gneJ19_0_0" index="0" speed="13.89" length="25.14" shape="43.40,29.19,1.40 37.01,25.07,1.40 34.91,20.83,1.40 37.12,16.47,1.40 43.63,11.98,1.40"/>
+        <lane id=":gneJ19_0_0" index="0" speed="13.89" length="25.14" shape="43.40,29.19 37.01,25.07 34.91,20.83 37.12,16.47 43.63,11.98"/>
     </edge>
     <edge id=":gneJ19_1" function="internal">
-        <lane id=":gneJ19_1_0" index="0" speed="13.89" length="17.26" shape="43.40,29.19,1.40 36.02,24.96,0.92 33.91,21.78,0.70 37.06,19.65,0.48 38.15,19.51,0.42"/>
+        <lane id=":gneJ19_1_0" index="0" speed="13.89" length="17.26" shape="43.40,29.19 36.02,24.96 33.91,21.78 37.06,19.65 38.18,19.51"/>
     </edge>
     <edge id=":gneJ19_2" function="internal">
-        <lane id=":gneJ19_2_0" index="0" speed="13.89" length="17.08" shape="43.40,29.19,1.40 35.86,24.90,1.40 33.81,21.81,1.40 37.25,19.91,1.40 38.00,19.85,1.40"/>
+        <lane id=":gneJ19_2_0" index="0" speed="13.89" length="17.08" shape="43.40,29.19 35.86,24.90 33.81,21.81 37.25,19.91 38.00,19.85"/>
     </edge>
     <edge id=":gneJ19_12" function="internal">
-        <lane id=":gneJ19_12_0" index="0" speed="13.89" length="7.40" shape="38.15,19.51,0.42 45.48,18.57"/>
+        <lane id=":gneJ19_12_0" index="0" speed="13.89" length="7.36" shape="38.18,19.51 45.48,18.57"/>
     </edge>
     <edge id=":gneJ19_13" function="internal">
-        <lane id=":gneJ19_13_0" index="0" speed="13.89" length="8.21" shape="38.00,19.85,1.40 46.19,19.21,1.40"/>
+        <lane id=":gneJ19_13_0" index="0" speed="13.89" length="8.21" shape="38.00,19.85 46.19,19.21"/>
     </edge>
     <edge id=":gneJ19_3" function="internal">
-        <lane id=":gneJ19_3_0" index="0" speed="13.89" length="9.66" shape="46.34,22.50,1.40 42.81,22.77,1.40 41.38,23.47,1.40 42.05,24.62,1.40 44.82,26.21,1.40"/>
+        <lane id=":gneJ19_3_0" index="0" speed="13.89" length="9.66" shape="46.34,22.50 42.81,22.77 41.38,23.47 42.05,24.62 44.82,26.21"/>
     </edge>
     <edge id=":gneJ19_4" function="internal">
-        <lane id=":gneJ19_4_0" index="0" speed="13.89" length="25.52" shape="46.34,22.50,1.40 37.49,21.92,1.40 34.09,19.98,1.40 36.13,16.66,1.40 43.63,11.98,1.40"/>
+        <lane id=":gneJ19_4_0" index="0" speed="13.89" length="25.52" shape="46.34,22.50 37.49,21.92 34.09,19.98 36.13,16.66 43.63,11.98"/>
     </edge>
     <edge id=":gneJ19_5" function="internal">
-        <lane id=":gneJ19_5_0" index="0" speed="13.89" length="96.39" shape="46.34,22.50,1.40 10.04,22.58,0.87 -2.20,21.95,0.69 9.61,20.62,0.52 45.48,18.57"/>
+        <lane id=":gneJ19_5_0" index="0" speed="13.89" length="96.38" shape="46.34,22.50 10.04,22.58 -2.20,21.95 9.61,20.62 45.48,18.57"/>
     </edge>
     <edge id=":gneJ19_6" function="internal">
-        <lane id=":gneJ19_6_0" index="0" speed="13.89" length="10.06" shape="45.64,21.87,1.40 42.21,22.31,1.40 40.93,23.18,1.40 41.80,24.48,1.40 44.82,26.21,1.40"/>
+        <lane id=":gneJ19_6_0" index="0" speed="13.89" length="10.06" shape="45.64,21.87 42.21,22.31 40.93,23.18 41.80,24.48 44.82,26.21"/>
     </edge>
     <edge id=":gneJ19_7" function="internal">
-        <lane id=":gneJ19_7_0" index="0" speed="13.89" length="25.49" shape="45.64,21.87,1.40 36.87,21.68,1.40 33.62,19.97,1.40 35.87,16.74,1.40 43.63,11.98,1.40"/>
+        <lane id=":gneJ19_7_0" index="0" speed="13.89" length="25.49" shape="45.64,21.87 36.87,21.68 33.62,19.97 35.87,16.74 43.63,11.98"/>
     </edge>
     <edge id=":gneJ19_8" function="internal">
-        <lane id=":gneJ19_8_0" index="0" speed="13.89" length="2.72" shape="45.64,21.87,1.40 46.19,19.21,1.40"/>
+        <lane id=":gneJ19_8_0" index="0" speed="13.89" length="2.72" shape="45.64,21.87 46.19,19.21"/>
     </edge>
     <edge id=":gneJ19_9" function="internal">
-        <lane id=":gneJ19_9_0" index="0" speed="13.89" length="9.29" shape="45.16,14.90,1.40 42.27,16.66,0.88 41.36,17.86,0.65 42.43,18.50,0.47 45.48,18.57"/>
+        <lane id=":gneJ19_9_0" index="0" speed="13.89" length="9.18" shape="45.16,14.90 42.27,16.66 41.36,17.86 42.43,18.50 45.48,18.57"/>
     </edge>
     <edge id=":gneJ19_10" function="internal">
-        <lane id=":gneJ19_10_0" index="0" speed="13.89" length="10.39" shape="45.16,14.90,1.40 42.09,16.82,1.40 41.24,18.17,1.40 42.60,18.97,1.40 46.19,19.21,1.40"/>
+        <lane id=":gneJ19_10_0" index="0" speed="13.89" length="10.39" shape="45.16,14.90 42.09,16.82 41.24,18.17 42.60,18.97 46.19,19.21"/>
     </edge>
     <edge id=":gneJ19_11" function="internal">
-        <lane id=":gneJ19_11_0" index="0" speed="13.89" length="16.51" shape="45.16,14.90,1.40 40.84,17.87,1.40 39.34,20.74,1.40 40.67,23.52,1.40 44.82,26.21,1.40"/>
+        <lane id=":gneJ19_11_0" index="0" speed="13.89" length="16.51" shape="45.16,14.90 40.84,17.87 39.34,20.74 40.67,23.52 44.82,26.21"/>
     </edge>
     <edge id=":gneJ2_0" function="internal">
         <lane id=":gneJ2_0_0" index="0" speed="13.89" length="4.82" shape="40.00,61.65 38.76,60.83 38.35,60.00 38.76,59.17 40.00,58.35"/>
@@ -250,16 +245,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-gneE15_0" index="0" speed="13.89" length="0.83" shape="54.08,41.65 53.25,41.65"/>
     </edge>
     <edge id="-gneE16" from="gneJ11" to="gneJ19" priority="1">
-        <lane id="-gneE16_0" index="0" speed="13.89" length="12.82" shape="54.91,34.66 43.40,29.19,1.40"/>
+        <lane id="-gneE16_0" index="0" speed="13.89" length="12.74" shape="54.91,34.66 43.40,29.19"/>
     </edge>
     <edge id="-gneE17" from="gneJ13" to="gneJ19" priority="1">
-        <lane id="-gneE17_0" index="0" speed="13.89" length="61.19" shape="107.51,21.96 46.34,22.50,1.40"/>
+        <lane id="-gneE17_0" index="0" speed="13.89" length="61.17" shape="107.51,21.96 46.34,22.50"/>
     </edge>
     <edge id="-gneE18" from="gneJ15" to="gneJ19" priority="1">
-        <lane id="-gneE18_0" index="0" speed="13.89" length="14.30" shape="57.77,8.29 45.16,14.90,1.40"/>
+        <lane id="-gneE18_0" index="0" speed="13.89" length="14.24" shape="57.77,8.29 45.16,14.90"/>
     </edge>
     <edge id="-gneE19" from="gneJ17" to="gneJ19" priority="1">
-        <lane id="-gneE19_0" index="0" speed="13.89" length="0.20" shape="45.84,21.86,1.40 45.64,21.87,1.40"/>
+        <lane id="-gneE19_0" index="0" speed="13.89" length="0.20" shape="45.84,21.86 45.64,21.87"/>
     </edge>
     <edge id="-gneE3" from="gneJ5" to="gneJ4" priority="1">
         <lane id="-gneE3_0" index="0" speed="13.89" length="20.00" shape="100.00,61.65 80.00,61.65"/>
@@ -307,13 +302,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="gneE15_0" index="0" speed="13.89" length="0.83" shape="53.25,38.35 54.08,38.35"/>
     </edge>
     <edge id="gneE16" from="gneJ19" to="gneJ11" priority="1">
-        <lane id="gneE16_0" index="0" speed="13.89" length="12.82" shape="44.82,26.21,1.40 56.33,31.68"/>
+        <lane id="gneE16_0" index="0" speed="13.89" length="12.74" shape="44.82,26.21 56.33,31.68"/>
     </edge>
     <edge id="gneE17" from="gneJ19" to="gneJ13" priority="1">
-        <lane id="gneE17_0" index="0" speed="13.89" length="61.32" shape="46.19,19.21,1.40 107.48,18.66"/>
+        <lane id="gneE17_0" index="0" speed="13.89" length="61.30" shape="46.19,19.21 107.48,18.66"/>
     </edge>
     <edge id="gneE18" from="gneJ19" to="gneJ15" priority="1">
-        <lane id="gneE18_0" index="0" speed="13.89" length="14.30" shape="43.63,11.98,1.40 56.23,5.36"/>
+        <lane id="gneE18_0" index="0" speed="13.89" length="14.24" shape="43.63,11.98 56.23,5.36"/>
     </edge>
     <edge id="gneE19" from="gneJ19" to="gneJ17" priority="1">
         <lane id="gneE19_0" index="0" speed="13.89" length="0.20" shape="45.48,18.57 45.68,18.56"/>
@@ -393,7 +388,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ19" type="priority" x="30.00" y="21.00" z="1.40" incLanes="-gneE16_0 -gneE17_0 -gneE19_0 -gneE18_0" intLanes=":gneJ19_0_0 :gneJ19_12_0 :gneJ19_13_0 :gneJ19_3_0 :gneJ19_4_0 :gneJ19_5_0 :gneJ19_6_0 :gneJ19_7_0 :gneJ19_8_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0" shape="42.72,30.64,1.40 45.51,24.77,1.40 46.42,24.10,1.40 46.08,16.94,1.40 45.91,16.32,1.40 42.89,10.56,1.40">
+    <junction id="gneJ19" type="priority" x="30.00" y="21.00" incLanes="-gneE16_0 -gneE17_0 -gneE19_0 -gneE18_0" intLanes=":gneJ19_0_0 :gneJ19_12_0 :gneJ19_13_0 :gneJ19_3_0 :gneJ19_4_0 :gneJ19_5_0 :gneJ19_6_0 :gneJ19_7_0 :gneJ19_8_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0" shape="42.72,30.64 45.51,24.77 46.42,24.10 46.08,16.94 45.91,16.32 42.89,10.56">
         <request index="0" response="000000000000" foes="000010010000" cont="0"/>
         <request index="1" response="111000000000" foes="111010110000" cont="1"/>
         <request index="2" response="110000000000" foes="110101110000" cont="1"/>
@@ -438,9 +433,9 @@ SPDX-License-Identifier: EPL-2.0
 
     <junction id=":gneJ13_6_0" type="internal" x="114.25" y="21.30" incLanes=":gneJ13_1_0 gneE9_0" intLanes=":gneJ13_3_0 :gneJ13_4_0 :gneJ13_5_0"/>
     <junction id=":gneJ15_6_0" type="internal" x="65.30" y="0.05" incLanes=":gneJ15_3_0 gneE11_0" intLanes=":gneJ15_0_0 :gneJ15_1_0 :gneJ15_5_0"/>
-    <junction id=":gneJ17_6_0" type="internal" x="49.99" y="20.24" z="0.75" incLanes=":gneJ17_3_0 -gneE14_0" intLanes=":gneJ17_0_0 :gneJ17_1_0 :gneJ17_5_0"/>
-    <junction id=":gneJ19_12_0" type="internal" x="38.15" y="19.51" z="0.42" incLanes=":gneJ19_1_0 -gneE18_0" intLanes=":gneJ19_4_0 :gneJ19_5_0 :gneJ19_7_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0"/>
-    <junction id=":gneJ19_13_0" type="internal" x="38.00" y="19.85" z="1.40" incLanes=":gneJ19_2_0 -gneE18_0" intLanes=":gneJ19_4_0 :gneJ19_5_0 :gneJ19_6_0 :gneJ19_8_0 :gneJ19_10_0 :gneJ19_11_0"/>
+    <junction id=":gneJ17_6_0" type="internal" x="49.95" y="20.27" incLanes=":gneJ17_3_0 -gneE14_0" intLanes=":gneJ17_0_0 :gneJ17_1_0 :gneJ17_5_0"/>
+    <junction id=":gneJ19_12_0" type="internal" x="38.18" y="19.51" incLanes=":gneJ19_1_0 -gneE18_0" intLanes=":gneJ19_4_0 :gneJ19_5_0 :gneJ19_7_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0"/>
+    <junction id=":gneJ19_13_0" type="internal" x="38.00" y="19.85" incLanes=":gneJ19_2_0 -gneE18_0" intLanes=":gneJ19_4_0 :gneJ19_5_0 :gneJ19_6_0 :gneJ19_8_0 :gneJ19_10_0 :gneJ19_11_0"/>
 
     <connection from="-gneE10" to="-gneE9" fromLane="0" toLane="0" via=":gneJ13_0_0" dir="L" state="M"/>
     <connection from="-gneE10" to="-gneE17" fromLane="0" toLane="0" via=":gneJ13_1_0" dir="l" state="m"/>
