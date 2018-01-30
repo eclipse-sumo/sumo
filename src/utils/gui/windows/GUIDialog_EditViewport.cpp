@@ -73,40 +73,59 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
                                 GUIIconSubSys::getIcon(ICON_SAVE), this, GUIDialog_EditViewport::MID_SAVE, GUIDesignButtonToolbarWithText);
     // create horizontalframe for zoom elements and OSG
     FXHorizontalFrame* editElementsFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
+    
     // create vertical frame for XYZ values
-    FXVerticalFrame* XYZFrame = new FXVerticalFrame(editElementsFrame, GUIDesignAuxiliarVerticalFrame);
+    FXVerticalFrame* lookFromFrame = new FXVerticalFrame(editElementsFrame, GUIDesignAuxiliarVerticalFrame);
+    
     // create zoom elements
-    FXHorizontalFrame* zoomFrame = new FXHorizontalFrame(XYZFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* zoomFrame = new FXHorizontalFrame(lookFromFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(zoomFrame, "Zoom:", 0, GUIDesignLabelLeftThick);
     myZoom = new FXRealSpinner(zoomFrame, 16, this, MID_CHANGED, GUIDesignSpinDial);
     myZoom->setRange(0.0001, 100000);
     //myZoom->setNumberFormat(4);
-    // create X elements
-    FXHorizontalFrame* XFrame = new FXHorizontalFrame(XYZFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(XFrame, "X:", 0, GUIDesignLabelLeftThick);
-    myXOff = new FXRealSpinner(XFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
-    // create Y elements
-    FXHorizontalFrame* YFrame = new FXHorizontalFrame(XYZFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(YFrame, "Y:", 0, GUIDesignLabelLeftThick);
-    myYOff = new FXRealSpinner(YFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
-    // create Z elements
-    FXHorizontalFrame* ZFrame = new FXHorizontalFrame(XYZFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(ZFrame, "Z:", 0, GUIDesignLabelLeftThick);
-    myZOff = new FXRealSpinner(ZFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
-#ifdef HAVE_OSG
+
+    // create lookFromX elements
+    FXHorizontalFrame* lookFromXFrame = new FXHorizontalFrame(lookFromFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(lookFromXFrame, "X:", 0, GUIDesignLabelLeftThick);
+    myXOff = new FXRealSpinner(lookFromXFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
+    
+    // create lookFromY elements
+    FXHorizontalFrame* lookFromYFrame = new FXHorizontalFrame(lookFromFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(lookFromYFrame, "Y:", 0, GUIDesignLabelLeftThick);
+    myYOff = new FXRealSpinner(lookFromYFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
+
+    // create lookFromZ elements
+    FXHorizontalFrame* lookFromZFrame = new FXHorizontalFrame(lookFromFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(lookFromZFrame, "Z:", 0, GUIDesignLabelLeftThick);
+    myZOff = new FXRealSpinner(lookFromZFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
+    myZOff->setRange(0.12, 100000000);
+    
     // create vertical frame for OSG
-    FXVerticalFrame* OSGFrame = new FXVerticalFrame(editElementsFrame, GUIDesignAuxiliarVerticalFrame);
-    new FXLabel(OSGFrame, "OSG", 0, GUIDesignLabelCenterThick);
-    FXHorizontalFrame* lookAtXFrame = new FXHorizontalFrame(OSGFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXVerticalFrame* lookAtFrame = new FXVerticalFrame(editElementsFrame, GUIDesignAuxiliarVerticalFrame);
+    new FXLabel(lookAtFrame, "OSG", 0, GUIDesignLabelCenterThick);
+    
+    // create lookAtX elements
+    FXHorizontalFrame* lookAtXFrame = new FXHorizontalFrame(lookAtFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(lookAtXFrame, "LookAtX:", 0, GUIDesignLabelLeftThick);
     myLookAtX = new FXRealSpinner(lookAtXFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
-    FXHorizontalFrame* lookAtYFrame = new FXHorizontalFrame(OSGFrame, GUIDesignAuxiliarHorizontalFrame);
+    
+    // create lookAtY elements
+    FXHorizontalFrame* lookAtYFrame = new FXHorizontalFrame(lookAtFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(lookAtYFrame, "LookAtY:", 0, GUIDesignLabelLeftThick);
     myLookAtY = new FXRealSpinner(lookAtYFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
-    FXHorizontalFrame* lookAtZFrame = new FXHorizontalFrame(OSGFrame, GUIDesignAuxiliarHorizontalFrame);
+    
+    // create lookAtZ elements
+    FXHorizontalFrame* lookAtZFrame = new FXHorizontalFrame(lookAtFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(lookAtZFrame, "LookAtZ:", 0, GUIDesignLabelLeftThick);
     myLookAtZ = new FXRealSpinner(lookAtZFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
+
+    // only show LookAt elements if OSG is enabled
+#ifdef HAVE_OSG
+    lookAtFrame->show();
+#else
+    lookAtFrame->hide();
 #endif
+
     // create buttons ok/cancel
     new FXHorizontalSeparator(contentsFrame, GUIDesignHorizontalSeparator);
     FXHorizontalFrame* frameButtons = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -270,7 +289,6 @@ GUIDialog_EditViewport::haveGrabbed() const {
     return false;
     //return myZoom->getDial().grabbed() || myXOff->getDial().grabbed() || myYOff->getDial().grabbed();
 }
-
 
 /****************************************************************************/
 

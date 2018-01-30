@@ -114,12 +114,15 @@ public:
     void setOldValues(const Position& lookFrom, const Position& lookAt);
 
     /** @brief Returns the information whether one of the spin dialers is grabbed
-     * @return Whether the spin dialers are currently used
-     */
+    * @return Whether the spin dialers are currently used
+    */
     bool haveGrabbed() const;
 
-
 protected:
+    /// @brief FOX needs this
+    GUIDialog_EditViewport() { }
+
+private:
     /// @brief The calling view
     GUISUMOAbstractView* myParent;
 
@@ -135,21 +138,14 @@ protected:
     /// @brief The spin dialers used to change the view
     FXRealSpinner* myZoom, *myXOff, *myYOff, *myZOff;
 
-#ifdef HAVE_OSG
     /// @brief The spin dialers used to change the view at (osg only)
     FXRealSpinner* myLookAtX, *myLookAtY, *myLookAtZ;
-#endif
 
     /// @brief OK button
     FXButton* myOKButton;
 
     /// @brief Cancel button
     FXButton* myCancelButton;
-
-protected:
-    /// @brief FOX needs this
-    GUIDialog_EditViewport() { }
-
 };
 
 

@@ -733,6 +733,10 @@ long
 GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector , void* data) {
     if (!myApp->isGaming()) {
         myChanger->onMouseWheel(data);
+        // upddate viewport
+        if (myViewportChooser != 0) {
+            myViewportChooser->setValues(myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
+        }
         updatePositionInformation();
     }
     return 1;
