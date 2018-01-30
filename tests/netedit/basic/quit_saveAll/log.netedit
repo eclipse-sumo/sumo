@@ -1,4 +1,4 @@
-Warning: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
+Warning: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
@@ -14,7 +14,7 @@ Warning: Opening FXMessageBox 'Save shapes before exit'
 Warning: Closed FXMessageBox 'Save shapes before exit' with 'Yes'
 Warning: Shapes saved
 Warning: Removing poly 'poly_0' from net
-Warning: Deleting unreferenced busStop 'busStop_gneE1_0_0'
+Warning: Deleting unreferenced busStop 'busStop_gneE0_0_0'
 Warning: Additionals has to be saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

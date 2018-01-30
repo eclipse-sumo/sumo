@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 29.01.2018 12:32:20 by Netedit Version v0_32_0+0239-f19c50d12d
+<!-- generated on 30.01.2018 13:04:46 by Netedit Version v0_32_0+0239-f19c50d12d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -8,9 +8,9 @@
     </input>
 
     <output>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan123149.7380/netedit.gui/basic/new_net_1edge\additionals.xml"/>
-        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan123149.7380/netedit.gui/basic/new_net_1edge\shapes.xml"/>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan123149.7380/netedit.gui/basic/new_net_1edge\net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.30Jan130411.1500/netedit.gui/basic/new_net_1edge\additionals.xml"/>
+        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.30Jan130411.1500/netedit.gui/basic/new_net_1edge\shapes.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.30Jan130411.1500/netedit.gui/basic/new_net_1edge\net.net.xml"/>
     </output>
 
     <processing>
@@ -19,7 +19,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan123149.7380/netedit.gui/basic/new_net_1edge\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.30Jan130411.1500/netedit.gui/basic/new_net_1edge\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -28,7 +28,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan123149.7380/netedit.gui/basic/new_net_1edge\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.30Jan130411.1500/netedit.gui/basic/new_net_1edge\log.txt"/>
     </report>
 
 </configuration>
@@ -36,13 +36,13 @@
 
 <net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="37.00,49.00,69.00,49.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="39.00,43.00,79.00,43.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="gneE0_0" index="0" speed="13.89" length="32.00" shape="37.00,47.35 69.00,47.35"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="40.00" shape="39.00,41.35 79.00,41.35"/>
     </edge>
 
-    <junction id="gneJ0" type="dead_end" x="37.00" y="49.00" incLanes="" intLanes="" shape="37.00,48.95 37.00,45.75"/>
-    <junction id="gneJ1" type="dead_end" x="69.00" y="49.00" incLanes="gneE0_0" intLanes="" shape="69.00,45.75 69.00,48.95"/>
+    <junction id="gneJ0" type="dead_end" x="39.00" y="43.00" incLanes="" intLanes="" shape="39.00,42.95 39.00,39.75"/>
+    <junction id="gneJ1" type="dead_end" x="79.00" y="43.00" incLanes="gneE0_0" intLanes="" shape="79.00,39.75 79.00,42.95"/>
 
 </net>
