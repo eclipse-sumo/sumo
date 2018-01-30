@@ -45,11 +45,11 @@ Warning: Setting previous attribute name '' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '3000.00' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '22.40' into chargingStation 'correctID'
+Warning: Setting previous attribute endPos '22.00' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute startPos '-5.00' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute startPos '12.40' into chargingStation 'correctID'
+Warning: Setting previous attribute startPos '12.00' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE2_1' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -62,6 +62,7 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing chargingStation 'chargingStation_gneE2_1_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
+Warning: Removed 'chargingStation_gneE2_1_0' from Inspected ACs. 0 ACs remains.
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed

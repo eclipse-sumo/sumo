@@ -35,7 +35,7 @@ Warning: Adding busStop 'busStop_gneE1_0_5' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding busStop 'busStop_gneE1_0_6' in GNEChange_Additional
 Warning: Setting new attribute endPos '50.00' into busStop 'busStop_gneE1_0_5'
-Warning: Setting new attribute startPos '7.50' into busStop 'busStop_gneE1_0_6'
+Warning: Setting new attribute startPos '7.90' into busStop 'busStop_gneE1_0_6'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

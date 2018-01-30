@@ -31,11 +31,11 @@ Warning: Setting previous attribute name '' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '3000.00' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '22.40' into busStop 'correctID'
+Warning: Setting previous attribute endPos '22.00' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute startPos '-5.00' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute startPos '12.40' into busStop 'correctID'
+Warning: Setting previous attribute startPos '12.00' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE2_1' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -48,6 +48,7 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing busStop 'busStop_gneE2_1_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing busStop 'busStop_gneE2_1_0' in GNEChange_Additional
+Warning: Removed 'busStop_gneE2_1_0' from Inspected ACs. 0 ACs remains.
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed

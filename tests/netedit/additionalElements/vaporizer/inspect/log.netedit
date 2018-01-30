@@ -22,6 +22,7 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute edge 'gneE3' into vaporizer 'vaporizer_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing vaporizer 'vaporizer_0' in GNEChange_Additional
+Warning: Removed 'vaporizer_0' from Inspected ACs. 0 ACs remains.
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional

@@ -1,10 +1,19 @@
-running SikuliX: -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine
--jar /home/user070065n-su/Sikulix/sikulix.jar -run test.sikuli
-[info] runcmd: lsb_release -i -r -s 
-TestFunctions: Netedit opened sucesfully
-TestFunctions: 'reference.png' found
++++ running this Java
++++ trying to run SikuliX
++++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\Sikulix\sikulix.jar -run test.sikuli
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 140
 [log]  TYPE "s"
-[log]  TYPE "f"
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
@@ -21,26 +30,24 @@ TestFunctions: 'reference.png' found
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE " "
-[log] ( Mayús )  TYPE "#TAB."
-[log] ( Mayús )  TYPE "#TAB."
-[log] ( Mayús )  TYPE "#TAB."
-[log] ( Mayús )  TYPE "#TAB."
-[log] ( Mayús )  TYPE "#TAB."
-[log] ( Mayús )  TYPE "#TAB."
-[log] ( Mayús )  TYPE "#TAB."
-[log] ( Mayús )  TYPE "#TAB."
-[log] ( Mayús )  TYPE "#TAB."
-[log] ( Mayús )  TYPE "#TAB."
-[log] ( Mayús )  TYPE "#TAB."
-[log] ( Mayús )  TYPE "#TAB."
 [log]  TYPE "i"
-[log] CLICK on L(454,390)@S(0)[0,0 1600x900] (223 msec)
-[log]  TYPE "f"
+[log] CLICK on L(454,390)@S(0)[0,0 1280x720] (234 msec)
+TestFunctions: Clicked over position 454 - 390
+[log]  TYPE "#F12."
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ESC."
-[log] ( Ctrl+Mayús )  TYPE "d"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE " "
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log] ( Ctrl+Shift )  TYPE "d"
 [log] ( Ctrl )  TYPE "s"
 [log] ( Ctrl )  TYPE "q"
 TestFunctions: Netedit closed successfully
-[log] TestFunctions: Netedit already closed

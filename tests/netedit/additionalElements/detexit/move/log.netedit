@@ -1,8 +1,8 @@
-Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '100.00'
+Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '280.00'
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
-Warning: Current Viewport values: 25.00, 0.00, 70.00. Zoom = '280.00'
+Warning: Current Viewport values: 25.00, 0.00, 70.00. Zoom = '100.00'
 Warning: Setting new attribute pos '37.00' into detExit 'e3Detector_0detExit0'
 Warning: Setting new attribute pos '32.00' into detExit 'e3Detector_0detExit0'
 Warning: Setting new attribute pos '22.00' into detExit 'e3Detector_0detExit0'
