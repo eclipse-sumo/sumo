@@ -145,8 +145,11 @@ def pasteIntoTextField(value, removePreviousContents=True):
 def leftClick(match, positionx, positiony):
     # wait before every operation
     wait(DELAY)
+    # obtain clicked position
+    clickedPosition = match.getTarget().offset(positionx, positiony)
     # click respect to offset
-    click(match.getTarget().offset(positionx, positiony))
+    click(clickedPosition)
+    print "TestFunctions: Clicked over position", clickedPosition.x, '-', clickedPosition.y
 
 
 """
@@ -171,7 +174,7 @@ def dragDrop(match, x1, y1, x2, y2):
 
 
 def setup(NeteditTests):
-    # Open current environment file to obtain path to the Netedit app,
+    # Open current environment file to obtain path to the Netedit App,
     # textTestSandBox
     envFile = os.path.join(NeteditTests, "currentEnvironment.tmp")
     if os.path.exists(envFile):
@@ -460,7 +463,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
 
 
 def saveNetwork():
-    # save newtork using hotkey
+    # save network using hotkey
     typeTwoKeys("s", Key.CTRL)
 
 
@@ -754,12 +757,12 @@ def changeAdditional(additional):
 def modifyAdditionalDefaultValue(numTabs, length):
     # focus current frame
     focusOnFrame()
-    # go to length textfield
+    # go to length TextField
     for x in range(0, numTabs + 1):
         typeTab()
-    # paste new lenght
+    # paste new length
     pasteIntoTextField(length)
-    # type enter to save new lenght
+    # type enter to save new length
     typeEnter()
 
 
@@ -955,7 +958,7 @@ def saveSelection():
     for x in range(0, 24):
         typeTab()
     typeSpace()
-    # jump to filename textfield
+    # jump to filename TextField
     typeTwoKeys("f", Key.ALT)
     filename = os.path.join(textTestSandBox, "selection.txt")
     pasteIntoTextField(filename)
@@ -1105,12 +1108,12 @@ def selectionInvert():
     focusOnFrame()
     for x in range(0, 23):
         typeTab()
-    # type space to select invert opetion
+    # type space to select invert operation
     typeSpace()
 
 
 """
-@brief Toogle select edges and lanes
+@brief Toggle select edges and lanes
 """
 
 
@@ -1142,7 +1145,7 @@ def selectTLSMode():
 def createTLS():
     # focus current frame
     focusOnFrame()
-    # type tab to jump to create tls button
+    # type tab to jump to create TLS button
     typeTab()
     # create TLS
     typeSpace()
@@ -1197,7 +1200,7 @@ def createSquaredPoly(match, positionx, positiony, size, close):
 
 
 """
-@brief Create rectangled Polygon in position with a certain size
+@brief Create rectangle Polygon in position with a certain size
 """
 
 def createRectangledPoly(match, positionx, positiony, sizex, sizey, close):
@@ -1243,7 +1246,7 @@ def createLinePoly(match, positionx, positiony, sizex, sizey, close):
 def modifyShapeDefaultValue(numTabs, value):
     # focus current frame
     focusOnFrame()
-    # go to length textfield
+    # go to length TextField
     for x in range(0, numTabs + 1):
         typeTab()
     # paste new value
@@ -1260,11 +1263,11 @@ def modifyShapeDefaultValue(numTabs, value):
 def changeColorUsingDialog(numTabs, color):
     # focus current frame
     focusOnFrame()
-    # go to length textfield
+    # go to length TextField
     for x in range(0, numTabs + 1):
         typeTab()
     typeSpace()
-    # go to list of colors textfield
+    # go to list of colors TextField
     for x in range(2):
         typeInvertTab()
     # select color
