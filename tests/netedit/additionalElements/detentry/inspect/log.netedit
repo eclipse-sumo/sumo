@@ -1,4 +1,4 @@
-Warning: Current Viewport values: 25.00, 25.00, 25.00. Zoom = '100.00'
+Warning: Current Viewport values: 25.00, 25.00, 25.00. Zoom = '280.00'
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
@@ -19,11 +19,12 @@ Warning: Setting previous attribute parentOfAdditional 'e3Detector_0' into detEn
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '29.50' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting previous attribute pos '29.00' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE3_0' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Warning: Removed 'e3Detector_0detEntry0' from Inspected ACs. 0 ACs remains.
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed

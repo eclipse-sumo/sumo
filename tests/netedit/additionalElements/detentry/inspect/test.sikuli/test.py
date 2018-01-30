@@ -74,14 +74,14 @@ netedit.modifyAttribute(1, "25")
 # Change boolean parameter 2
 netedit.modifyBoolAttribute(2)
 
-# Change parameter 1 with a non valid value (Invalid E3 ID)
-netedit.modifyAttribute(3, "invalidE3")
+# Change Netedit parameter 1 with a non valid value (Invalid E3 ID)
+netedit.modifyAttribute(4, "invalidE3")
 
-# Change parameter 1 with a non valid value (Invalid E3 ID)
-netedit.modifyAttribute(3, "e3Detector_1")
+# Change Netedit parameter 2 with a non valid value (Invalid E3 ID)
+netedit.modifyAttribute(4, "e3Detector_1")
 
-# Change boolean parameter 4 (block)
-netedit.modifyBoolAttribute(4)
+# Change Netedit boolean parameter 3 (block)
+netedit.modifyBoolAttribute(5)
 
 # Check undos and redos
 netedit.undo(match, 8)

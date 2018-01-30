@@ -1,23 +1,26 @@
-running SikuliX: -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine
--jar /home/user070065n-su/Sikulix/sikulix.jar -run test.sikuli
-[info] runcmd: lsb_release -i -r -s 
-TestFunctions: Netedit opened sucesfully
-TestFunctions: 'reference.png' found
++++ running this Java
++++ trying to run SikuliX
++++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\Sikulix\sikulix.jar -run test.sikuli
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 140
 [log]  TYPE "v"
-[log] ( Mayús )  TYPE "#TAB."
-[log] ( Mayús )  TYPE "#TAB."
-[log] ( Mayús )  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
-[log]  TYPE " "
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log] ( Alt )  TYPE "o"
 [log]  TYPE "a"
-[log]  TYPE "f"
+[log]  TYPE "#F12."
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log]  TYPE "#ESC."
-[log]  TYPE "f"
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
@@ -29,14 +32,18 @@ TestFunctions: 'reference.png' found
 [log]  TYPE "#TAB."
 [log]  TYPE " "
 [log]  TYPE "#TAB."
-[log]  TYPE "#ESC."
-[log] CLICK on L(504,240)@S(0)[0,0 1600x900] (222 msec)
+[log] CLICK on L(504,240)@S(0)[0,0 1280x720] (234 msec)
+TestFunctions: Clicked over position 504 - 240
 [log]  TYPE "d"
-[log] CLICK on L(504,240)@S(0)[0,0 1600x900] (223 msec)
-[log] CLICK on L(604,240)@S(0)[0,0 1600x900] (221 msec)
-[log] CLICK on L(604,340)@S(0)[0,0 1600x900] (223 msec)
+[log] CLICK on L(504,240)@S(0)[0,0 1280x720] (234 msec)
+TestFunctions: Clicked over position 504 - 240
+[log] CLICK on L(604,240)@S(0)[0,0 1280x720] (235 msec)
+TestFunctions: Clicked over position 604 - 240
+[log] CLICK on L(604,340)@S(0)[0,0 1280x720] (234 msec)
+TestFunctions: Clicked over position 604 - 340
 [log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (223 msec)
+[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (234 msec)
+TestFunctions: Clicked over position 304 - 140
 [log] ( Ctrl )  TYPE "z"
 [log] ( Ctrl )  TYPE "z"
 [log] ( Ctrl )  TYPE "z"
@@ -44,15 +51,16 @@ TestFunctions: 'reference.png' found
 [log]  TYPE "d"
 [log]  TYPE "#TAB."
 [log]  TYPE " "
-[log] CLICK on L(604,340)@S(0)[0,0 1600x900] (223 msec)
+[log] CLICK on L(604,340)@S(0)[0,0 1280x720] (234 msec)
+TestFunctions: Clicked over position 604 - 340
 [log]  TYPE "#ENTER."
 [log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (223 msec)
+[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (235 msec)
+TestFunctions: Clicked over position 304 - 140
 [log] ( Ctrl )  TYPE "y"
 [log] ( Ctrl )  TYPE "y"
 [log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl+Mayús )  TYPE "d"
+[log] ( Ctrl+Shift )  TYPE "d"
 [log] ( Ctrl )  TYPE "s"
 [log] ( Ctrl )  TYPE "q"
 TestFunctions: Netedit closed successfully
-[log] TestFunctions: Netedit already closed
