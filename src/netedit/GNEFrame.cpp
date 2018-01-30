@@ -699,9 +699,9 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
         }
         case GLO_ADDITIONAL: {
             // insert additional item
-            FXTreeItem* additionalItem = addACIntoList(AC, itemParent, index);
+            addACIntoList(AC, itemParent, index);
             // retrieve additional
-            GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getID());
+            myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getID());
             break;
         }
         case GLO_CONNECTION: {
@@ -717,7 +717,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
 
 
 FXTreeItem*
-GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemParent, int index) {
+GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemParent, int /* index */) {
     FXTreeItem* item = myTreelist->insertItem(0, itemParent, toString(AC->getTag()).c_str(), AC->getIcon(), AC->getIcon());
     myTreeItemToACMap[itemParent] = AC;
     item->setExpanded(true);

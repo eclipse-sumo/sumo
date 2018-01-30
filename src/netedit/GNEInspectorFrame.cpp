@@ -681,7 +681,7 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
             }
             // Show attribute
             if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it == SUMO_ATTR_TLTYPE) || (it == SUMO_ATTR_TLID))) == false) {
-                if ((int)myCurrentIndex < myVectorOfAttributeInputs.size()) {
+                if (myCurrentIndex < (int)myVectorOfAttributeInputs.size()) {
                     // first show AttributesEditor
                     show();
                     // show attribute
@@ -745,7 +745,7 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
             }
             // Show attribute
             if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it == SUMO_ATTR_TLTYPE) || (it == SUMO_ATTR_TLID))) == false) {
-                if ((int)myCurrentIndex < myVectorOfAttributeInputs.size()) {
+                if (myCurrentIndex < (int)myVectorOfAttributeInputs.size()) {
                     // refresh attribute, with a special case for allow/disallow vehicles
                     if(it == SUMO_ATTR_ALLOW) {
                         myAllowAttribute.first = myVectorOfAttributeInputs[myCurrentIndex];
