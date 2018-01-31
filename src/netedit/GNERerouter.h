@@ -55,8 +55,8 @@ public:
      * @param[in] probability The probability for vehicle rerouting
      * @param[in] off Whether the router should be inactive initially
      */
-    GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename,
-                double probability, bool off, double timeThreshold);
+    GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNEEdge*> &edges, 
+                const std::string& filename, double probability, bool off, double timeThreshold);
 
     /// @brief Destructor
     ~GNERerouter();

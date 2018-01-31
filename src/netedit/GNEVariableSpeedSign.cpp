@@ -57,7 +57,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename) :
+GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNELane*> &lanes, const std::string& filename) :
     GNEAdditional(id, viewNet, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGN, true, lanes),
     myPosition(pos),
     myFilename(filename),
@@ -134,8 +134,7 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_LANES, parseGNELanes(myLaneChilds));
-    device.writeAttr(SUMO_ATTR_X, myPosition.x());
-    device.writeAttr(SUMO_ATTR_Y, myPosition.y());
+    device.writeAttr(SUMO_ATTR_POSITION, myPosition);
     // If filenam isn't empty and save in filename is enabled, save in a different file. In other case, save in the same additional XML
     if (!myFilename.empty() && mySaveInFilename) {
         // Write filename attribute

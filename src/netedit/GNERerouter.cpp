@@ -59,7 +59,7 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, double probability, bool off, double timeThreshold) :
+GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNEEdge*> &edges, const std::string& filename, double probability, bool off, double timeThreshold) :
     GNEAdditional(id, viewNet, SUMO_TAG_REROUTER, ICON_REROUTER, true, edges),
     myPosition(pos),
     myFilename(filename),
@@ -142,8 +142,7 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, myTimeThreshold);
     }
     device.writeAttr(SUMO_ATTR_OFF, myOff);
-    device.writeAttr(SUMO_ATTR_X, myPosition.x());
-    device.writeAttr(SUMO_ATTR_Y, myPosition.y());
+    device.writeAttr(SUMO_ATTR_POSITION, myPosition);
 
     // write intervals and their values
     for (auto i : myRerouterIntervals) {

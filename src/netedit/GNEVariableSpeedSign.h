@@ -53,7 +53,7 @@ public:
      * @param[in] lanes vector with the lanes of variable speed signal
      * @param[in] filename The path to the definition file
      */
-    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename);
+    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNELane*> &lanes, const std::string& filename);
 
     /// @brief Destructor
     ~GNEVariableSpeedSign();
